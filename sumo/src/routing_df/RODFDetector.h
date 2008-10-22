@@ -112,6 +112,10 @@ public:
     ~RODFDetector() throw();
 
 
+    
+    /// @name Atomar getter methods
+    /// @{
+
     /** @brief Returns the ID of this detector
      * @return The id of this detector
      */
@@ -151,26 +155,13 @@ public:
     RODFDetectorType getType() const throw() {
         return myType;
     };
+    /// @}
 
 
     void setType(RODFDetectorType type);
-    bool writeEmitterDefinition(const std::string &file,
-                                const RODFDetectorCon &detectors, const RODFDetectorFlows &flows,
-                                SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                                const RODFNet &net,
-                                bool includeUnusedRoutes, SUMOReal scale, int maxFollower,
-                                bool emissionsOnly, SUMOReal defaultSpeed) const;
-
     void addRoute(RODFRouteDesc &nrd);
     void addRoutes(RODFRouteCont *routes);
     bool hasRoutes() const;
-    bool writeRoutes(std::vector<std::string> &saved,
-                     OutputDevice& out);
-    void writeSingleSpeedTrigger(const std::string &file,
-                                 const RODFDetectorFlows &flows,
-                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                                 SUMOReal defaultSpeed);
-    void writeEndRerouterDetectors(const std::string &file);
     const std::vector<RODFRouteDesc> &getRouteVector() const;
     void addPriorDetector(RODFDetector *det);
     void addFollowingDetector(RODFDetector *det);
@@ -179,21 +170,34 @@ public:
     SUMOReal getUsage(const RODFDetectorCon &detectors,const RODFRouteDesc &route, RODFRouteCont::RoutesMap *curr,
                       SUMOTime time, const RODFDetectorFlows &flows) const;
 
-protected:
+
+    /// @name Writing methods
+    /// @{
+
+    bool writeEmitterDefinition(const std::string &file,
+                                const std::map<size_t, RandomDistributor<size_t>* > &dists,
+                                const RODFDetectorFlows &flows,
+                                SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
+                                bool includeUnusedRoutes, SUMOReal scale, 
+                                bool emissionsOnly, SUMOReal defaultSpeed) const;
+    bool writeRoutes(std::vector<std::string> &saved,
+                     OutputDevice& out);
+    void writeSingleSpeedTrigger(const std::string &file,
+                                 const RODFDetectorFlows &flows,
+                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
+                                 SUMOReal defaultSpeed);
+    void writeEndRerouterDetectors(const std::string &file);
+    /// @}
+
     void buildDestinationDistribution(const RODFDetectorCon &detectors,
                                       const RODFDetectorFlows &flows,
                                       SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                       const RODFNet &net,
                                       std::map<size_t, RandomDistributor<size_t>* > &into,
                                       int maxFollower) const;
+protected:
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
     SUMOReal computeDistanceFactor(const RODFRouteDesc &rd) const;
-
-
-    /** @brief Clears the given distributions map, deleting the timed distributions
-     * @param[in] dists The distribution map to clear
-     */
-    void clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw();
 
 
 protected:
@@ -264,6 +268,13 @@ public:
     void guessEmptyFlows(RODFDetectorFlows &flows);
 
     void mesoJoin(const std::string &nid, const std::vector<std::string> &oldids);
+
+
+protected:
+    /** @brief Clears the given distributions map, deleting the timed distributions
+     * @param[in] dists The distribution map to clear
+     */
+    void clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw();
 
 
 protected:

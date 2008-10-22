@@ -144,7 +144,6 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
         return;
     }
     RODFRouteCont::RoutesMap *routeMap = myRoutes->getRouteMap(net);
-
     std::vector<RODFRouteDesc>::iterator ri;
     std::vector<RODFRouteDesc> &descs = myRoutes->get();
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
@@ -160,7 +159,6 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
             (*ri).overallProb = prob;
         }
     }
-
     delete routeMap;
 }
 
@@ -202,24 +200,38 @@ RODFDetector::getFollowerDetectors() const
 
 
 void
-RODFDetector::clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw()
+RODFDetector::addRoutes(RODFRouteCont *routes)
 {
-    for (map<size_t, RandomDistributor<size_t>* >::iterator i=dists.begin(); i!=dists.end(); ++i) {
-        delete(*i).second;
+    delete myRoutes;
+    myRoutes = routes;
+}
+
+
+void
+RODFDetector::addRoute(RODFRouteDesc &nrd)
+{
+    if (myRoutes==0) {
+        myRoutes = new RODFRouteCont();
     }
+    myRoutes->addRouteDesc(nrd);
+}
+
+
+bool
+RODFDetector::hasRoutes() const
+{
+    return myRoutes!=0&&myRoutes->get().size()!=0;
 }
 
 
 bool
 RODFDetector::writeEmitterDefinition(const std::string &file,
-                                     const RODFDetectorCon &detectors,
+                                     const std::map<size_t, RandomDistributor<size_t>* > &dists,
                                      const RODFDetectorFlows &flows,
                                      SUMOTime startTime, SUMOTime endTime,
                                      SUMOTime stepOffset,
-                                     const RODFNet &net,
                                      bool includeUnusedRoutes,
                                      SUMOReal scale,
-                                     int maxFollower,
                                      bool emissionsOnly, 
                                      SUMOReal defaultSpeed) const
 {
@@ -228,10 +240,6 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
         out.writeXMLHeader("triggeredsource");
     } else {
         out.writeXMLHeader("calibrator");
-    }
-    std::map<size_t, RandomDistributor<size_t>* > dists;
-    if (!emissionsOnly&&flows.knows(myID)) {
-        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, net, dists, maxFollower); // !!!
     }
     // routes
     if (!emissionsOnly) {
@@ -264,7 +272,6 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             }
         } else {
             MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
-            clearDists(dists);
             return false;
         }
     }
@@ -282,7 +289,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             }
             const FlowDef &srcFD = mflows[(int)(time/stepOffset) - startTime];  // !!! check stepOffset
             // get flows at end
-            RandomDistributor<size_t> *destDist = dists.size()>time ? dists[time] : 0;
+            RandomDistributor<size_t> *destDist = dists.size()>time ? dists.find(time)->second : 0;
             // go through the cars
             size_t carNo = (size_t)((srcFD.qPKW + srcFD.qLKW) * scale);
             for (size_t car=0; car<carNo; ++car) {
@@ -327,33 +334,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
     }
 //    cout << "a5" << endl;
     out.close();
-    clearDists(dists);
     return true;
-}
-
-
-void
-RODFDetector::addRoutes(RODFRouteCont *routes)
-{
-    delete myRoutes;
-    myRoutes = routes;
-}
-
-
-void
-RODFDetector::addRoute(RODFRouteDesc &nrd)
-{
-    if (myRoutes==0) {
-        myRoutes = new RODFRouteCont();
-    }
-    myRoutes->addRouteDesc(nrd);
-}
-
-
-bool
-RODFDetector::hasRoutes() const
-{
-    return myRoutes!=0&&myRoutes->get().size()!=0;
 }
 
 
@@ -568,9 +549,8 @@ RODFDetectorCon::writeEmitters(const std::string &file,
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         RODFDetector *det = *i;
+        // get file name for values (emitter/calibrator definition)
         string defFileName;
-
-        // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
             defFileName = FileHelpers::getFilePath(file) + "emitter_" + det->getID() + ".def.xml";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
@@ -579,13 +559,20 @@ RODFDetectorCon::writeEmitters(const std::string &file,
             defFileName = FileHelpers::getFilePath(file) + "other_" + det->getID() + ".def.xml";
             continue;
         }
-//        cout << det->getID() << endl;
         // try to write the definition
         SUMOReal defaultSpeed = net.getEdge(det->getEdgeID())->getSpeed();
-        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes, scale, maxFollower, emissionsOnly, defaultSpeed)) {
+        //  ... compute routes' distribution over time
+        std::map<size_t, RandomDistributor<size_t>* > dists;
+        if (!emissionsOnly&&flows.knows(det->getID())) {
+            det->buildDestinationDistribution(*this, flows, startTime, endTime, stepOffset, net, dists, maxFollower);
+        }
+        //  ... write the definition
+        if (!det->writeEmitterDefinition(defFileName, dists, flows, startTime, endTime, stepOffset, includeUnusedRoutes, scale, emissionsOnly, defaultSpeed)) {
             // skip if something failed... (!!!)
             continue;
         }
+        //  ... clear temporary values
+        clearDists(dists);
         // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
             out << "   <trigger id=\"source_" << det->getID()
@@ -869,6 +856,15 @@ RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows &flows)
             }
 
         }
+    }
+}
+
+
+void
+RODFDetectorCon::clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw()
+{
+    for (map<size_t, RandomDistributor<size_t>* >::iterator i=dists.begin(); i!=dists.end(); ++i) {
+        delete(*i).second;
     }
 }
 
