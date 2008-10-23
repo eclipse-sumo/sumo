@@ -120,7 +120,7 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
             throw ProcessError("The detector-flow-file '" + *fileIt + "' can not be opened.");
         }
         // parse
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'... ");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'...");
         RODFDetFlowLoader dfl(dc, flows, oc.getInt("begin"), oc.getInt("end"), oc.getInt("time-offset"));
         dfl.read(*fileIt);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");

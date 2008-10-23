@@ -1,6 +1,6 @@
 Loading net... done.
 Loading detector definitions from 'input_detectors.det.xml'...  done.
-Loading flows from 'input_flows.txt'...  done.
+Loading flows from 'input_flows.txt'... done.
 Computing detector types... done.
 Computed detector types:
  2 source detectors

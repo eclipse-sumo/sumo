@@ -1,6 +1,6 @@
 Loading net... done.
 Loading detector definitions from 'input_tri.det.xml'...  done.
-Loading flows from 'input_tri_flows.txt'...  done.
+Loading flows from 'input_tri_flows.txt'... done.
 Removing empty detectors... 
 Removed detector 'MQ_1toL' because no flows for him exist.
 done.
