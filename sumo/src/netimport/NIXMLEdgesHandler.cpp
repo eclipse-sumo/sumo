@@ -172,7 +172,8 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                                        myFromNode, myToNode,
                                        myCurrentType, myCurrentSpeed,
                                        myCurrentLaneNo, myCurrentPriority,
-                                       myShape, myLanesSpread);
+                                       myShape, !myOptions.getBool("add-node-positions"),
+                                       myLanesSpread);
             myCurrentEdge->setLoadedLength(myLength);
         }
     }
@@ -223,7 +224,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                     Expansion e;
                     e.pos = (SUMOReal) forcedLength;
                     e.nameid = nameid;
-                    for (size_t j=0; j<myCurrentEdge->getNoLanes(); j++) {
+                    for (unsigned int j=0; j<myCurrentEdge->getNoLanes(); j++) {
                         e.lanes.push_back(j);
                     }
                     myExpansions.push_back(e);
@@ -541,7 +542,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
                 }
             }
             // split the edge
-            size_t lastRightLane = 0;
+            int lastRightLane = 0;
             for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 const Expansion &exp = *i;
                 assert(exp.lanes.size()!=0);

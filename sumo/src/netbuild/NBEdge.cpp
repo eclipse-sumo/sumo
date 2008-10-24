@@ -177,14 +177,15 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
-    init(nolanes);
+    init(nolanes, false);
 }
 
 
 NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
                string type, SUMOReal speed, unsigned int nolanes,
                int priority,
-               Position2DVector geom, LaneSpreadFunction spread) throw(ProcessError) :
+               Position2DVector geom, bool tryIgnoreNodePositions,
+               LaneSpreadFunction spread) throw(ProcessError) :
         myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myFrom(from), myTo(to), myAngle(0),
@@ -195,12 +196,12 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
-    init(nolanes);
+    init(nolanes, tryIgnoreNodePositions);
 }
 
 
 void
-NBEdge::init(unsigned int noLanes) throw(ProcessError)
+NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessError)
 {
     if (noLanes==0) {
         throw ProcessError("Edge '" + myID + "' needs at least one lane.");
@@ -211,8 +212,10 @@ NBEdge::init(unsigned int noLanes) throw(ProcessError)
     if (myFrom->getPosition().almostSame(myTo->getPosition())) {
         throw ProcessError("Edge '" + myID + "' starts at the same position it ends on.");
     }
-    myGeom.push_back_noDoublePos(myTo->getPosition());
-    myGeom.push_front_noDoublePos(myFrom->getPosition());
+    if(!tryIgnoreNodePositions||myGeom.size()<2) {
+        myGeom.push_back_noDoublePos(myTo->getPosition());
+        myGeom.push_front_noDoublePos(myFrom->getPosition());
+    }
     myAngle = NBHelpers::angle(
                   myFrom->getPosition().x(), myFrom->getPosition().y(),
                   myTo->getPosition().x(), myTo->getPosition().y()

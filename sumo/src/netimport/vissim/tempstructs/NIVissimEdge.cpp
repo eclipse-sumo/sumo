@@ -266,13 +266,15 @@ NIVissimEdge::buildConnectionClusters()
 
 void
 NIVissimEdge::dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-                                NBEdgeCont &ec, SUMOReal offset)
+                                NBEdgeCont &ec, SUMOReal offset, 
+                                bool tryIgnoreNodePositions)
 {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimEdge *edge = (*i).second;
-        edge->buildNBEdge(dc, nc, ec, offset);
+        edge->buildNBEdge(dc, nc, ec, offset, tryIgnoreNodePositions);
     }
 }
+
 
 void
 NIVissimEdge::dict_propagateSpeeds(/* NBDistribution &dc */)
@@ -451,7 +453,7 @@ NIVissimEdge::getOutgoingConnected(int lane) const
 
 void
 NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
-                          SUMOReal offset)
+                          SUMOReal offset, bool tryIgnoreNodePositions)
 {
     // build the edge
     std::pair<NIVissimConnectionCluster*, NBNode *> fromInf, toInf;
@@ -462,17 +464,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     sort(myDistrictConnections.begin(), myDistrictConnections.end());
     ConnectionClusters tmpClusters = myConnectionClusters;
     if (tmpClusters.size()!=0) {
-        /*        NBNode *from = new NBNode(
-                    toString<int>(myID) + "-Begin",
-                    myGeom.getBegin().x(), myGeom.getBegin().y());
-                NBNode *to = new NBNode(
-                    toString<int>(myID) + "-End",
-                    myGeom.getEnd().x(), myGeom.getEnd().y());
-            }
-            // otherwise, build a connected edge
-            else {*/
-        sort(tmpClusters.begin(), tmpClusters.end(),
-             connection_cluster_position_sorter(myID));
+        sort(tmpClusters.begin(), tmpClusters.end(), connection_cluster_position_sorter(myID));
         // get or build the from-node
         //  A node may have to be build when the edge starts or ends at
         //  a parking place or something like this
@@ -481,15 +473,6 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         // get or build the to-node
         toInf = getToNode(nc, tmpClusters);
         toNode = toInf.second;
-        // check whether one of the nodes should be a district node
-        /*        NIVissimDistrictConnection *d =
-                    NIVissimDistrictConnection::dict_findForEdge(myID);
-                if(d!=0&&fromNode!=toNode) {
-                    std::pair<NBNode*, NBNode*> tmp = remapOneOfNodes(d, fromNode, toNode);
-                    fromNode = tmp.first;
-                    toNode = tmp.second;
-                }*/
-
         // if both nodes are the same, resolve the problem otherwise
         if (fromNode==toNode) {
             std::pair<NBNode*, NBNode*> tmp =
@@ -513,9 +496,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         if (!nc.insert(fromNode)) {
             throw 1;
         }
-    } /* !_! else if(fromNode->getPosition()!=myGeom.at(0)) {
-                        myGeom.push_front(fromNode->getPosition());
-                    }*/
+    }
     if (toNode==0) {
         toInf.first = 0;
         Position2D pos = myGeom[-1];
@@ -524,132 +505,8 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         if (!nc.insert(toNode)) {
             throw 1;
         }
-    } /* !_! else if(toNode->getPosition()!=myGeom.getEnd()) {
-                        myGeom.push_back(toNode->getPosition());
-                    }*/
-
-    // extend the edge's shape
-    /*    if(toInf.first!=0) {
-            NIVissimConnection *c1 = toInf.first->getIncomingContinuation(this);
-            if(c1!=0) {
-                const Position2DVector &g1 = c1->getGeometry();
-                myGeom.eraseAt(myGeom.size()-1);
-                if(myGeom.at(myGeom.size()-1)!=g1.at(g1.size()-1)) {
-                    myGeom.push_back(g1.at(0));
-                }
-                if(myGeom.at(myGeom.size()-1)!=g1.at(g1.size()-1)) {
-                    myGeom.push_back(g1.at(g1.size()-1));
-                }
-       if(myID==6) {
-           cout << setprecision(10) << "To1:" << g1 << endl;
-       }*/
-    /*        if(g1.size()>=2) {
-                Position2D cp = g1.intersectsAtPoint(myGeom);
-    */
-    /*            if(cp.x()!=-1||cp.y()!=-1) {
-                    SUMOReal pos = g1.nearest_position_on_line_to_point(cp);
-                    Position2DVector gs1 = g1.getSubpart(pos, g1.length());*/
-    /*   if(myID==6) {
-           cout << "To2:" << gs1 << endl;
-       }
-                    gs1.eraseAt(0);
-       if(myID==6) {
-           cout << "To3:" << gs1 << endl;
-       }
-                    if(myGeom.at(myGeom.size()-1)==gs1.at(0)) {
-                        gs1.eraseAt(0);
-                    }
-                    for(size_t o=0; o<gs1.size(); o++) {
-                        const Position2D &p = gs1.at(o);
-                        if(p!=myGeom.at(myGeom.size()-1)) {
-                            myGeom.push_back(p);
-                        }
-                    }
-    //                myGeom.push_back(gs1);
-                } else {
-                    Position2DVector g2(g1);
-                    if(myGeom.at(myGeom.size()-1)==g1.at(0)) {
-                        g2.eraseAt(0);
-                    }
-                    for(size_t o=0; o<g2.size(); o++) {
-                        const Position2D &p = g2.at(o);
-                        if(p!=myGeom.at(myGeom.size()-1)) {
-                            myGeom.push_back(p);
-                        }
-                    }
-                }
-            } */
-    /*        }
-        }
-       if(myID==6) {
-           cout << "Own2:" << myGeom << endl;
-       }
-        if(fromInf.first!=0) {
-            NIVissimConnection *c1 = fromInf.first->getOutgoingContinuation(this);
-            if(c1!=0) {
-            const Position2DVector &g1 = c1->getGeometry();
-            myGeom.eraseAt(0);
-            if(g1.at(g1.size()-1)!=myGeom.at(0)) {
-                myGeom.push_front(g1.at(g1.size()-1));
-            }
-            if(g1.at(0)!=myGeom.at(0)) {
-                myGeom.push_front(g1.at(0));
-            }
-       if(myID==6) {
-           cout << "From1:" << g1 << endl;
-       }*/
-    /*        if(g1.size()>=2) {
-                Position2D cp = g1.intersectsAtPoint(myGeom);
-                if(cp.x()!=-1||cp.y()!=-1) {
-                    SUMOReal pos = g1.nearest_position_on_line_to_point(cp);
-                    Position2DVector gs1 = g1.getSubpart(0, pos);
-       if(myID==6) {
-           cout << "From2:" << gs1 << endl;
-       }*/
-    /*
-            Position2DVector g =
-                fromInf.first->getOutgoingContinuationGeometry(this);
-            if(g.size()>0) {
-                g.eraseAt(g.size()-1);
-            }*/
-    /*               gs1.eraseAt(gs1.size()-1);
-       if(myID==6) {
-           cout << "From3:" << gs1 << endl;
-       }
-                    if(myGeom.at(myGeom.size()-1)==gs1.at(gs1.size()-1)) {
-                        gs1.eraseAt(gs1.size()-1);
-                    }
-                    for(int o=gs1.size()-1; o>=0; o--) {
-                        const Position2D &p = gs1.at(o);
-                        if(p!=myGeom.at(0)) {
-                            myGeom.push_front(p);
-                        }
-                    }
-    //                gs1.push_back(myGeom);
-    //                myGeom = gs1;
-                } else {
-                    Position2DVector g2(g1);
-                    if(g2.at(g2.size()-1)==myGeom.at(0)) {
-                        myGeom.eraseAt(0);
-                    }
-                    for(int o=g2.size()-1; o>=0; o--) {
-                        const Position2D &p = g2.at(o);
-                        if(p!=myGeom.at(0)) {
-                            myGeom.push_front(p);
-                        }
-                    }
-    //                g2.push_back(myGeom);
-    //                myGeom = g2;
-                }
-            }*/
-    /*        }
-       if(myID==6) {
-           cout << "Own3:" << myGeom << endl;
-       }
-        }*/
-    //
+    }
     // build the edge
-//    assert(mySpeed!=-1);
     SUMOReal avgSpeed = 0;
     int i;
     for (i=0; i<(int) myNoLanes; i++) {
@@ -671,7 +528,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), fromNode, toNode, myType,
         avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, myGeom,
-        NBEdge::LANESPREAD_CENTER);
+        tryIgnoreNodePositions, NBEdge::LANESPREAD_CENTER);
     for (i=0; i<(int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
             buildEdge->setLaneSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed")/(SUMOReal) 3.6);
@@ -683,18 +540,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     // check whether the edge contains any other clusters
     if (tmpClusters.size()>0) {
         bool cont = true;
-        ConnectionClusters::iterator j = tmpClusters.begin();
-        // check whether the first node was already build
-        /*        if(!fromInf.first) {
-                    j++;
-                }*/
-        ConnectionClusters::iterator end = tmpClusters.end();
-        // check whether the last node was already build
-        /*        if(!toInf.first) {
-                    end--;
-                }*/
-
-        for (; cont && j!=end; j++) {
+        for (ConnectionClusters::iterator j = tmpClusters.begin(); cont && j!=tmpClusters.end(); ++j) {
             // split the edge at the previously build node
             string nextID = buildEdge->getID() + "[1]";
             cont = ec.splitAt(dc, buildEdge, (*j)->getNBNode());

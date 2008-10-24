@@ -59,9 +59,10 @@ using namespace std;
 NIElmar2EdgesHandler::NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
-        Position2DVector> &geoms) throw()
+        Position2DVector> &geoms, bool tryIgnoreNodePositions) throw()
         : FileErrorReporter("elmar-edges", file),
-        myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms)
+        myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms),
+        myTryIgnoreNodePositions(tryIgnoreNodePositions)
 {}
 
 
@@ -148,11 +149,11 @@ NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError)
             geoms = geoms.reverse();
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, NBEdge::LANESPREAD_CENTER);
+            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, myTryIgnoreNodePositions, NBEdge::LANESPREAD_CENTER);
         } else {
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, NBEdge::LANESPREAD_CENTER);
+            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, myTryIgnoreNodePositions, NBEdge::LANESPREAD_CENTER);
         }
     }
     // add vehicle type information to the edge

@@ -106,7 +106,9 @@ protected:
 private:
     static NBNode *insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) ;
     static void insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
-                           const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc);
+                           const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes, 
+                           NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
+                           bool tryIgnoreNodePositions);
     static void addTypeSecure(NBTypeCont &tc, const std::string &mClass, const std::string &sClass,
                               int noLanes, SUMOReal maxSpeed, int prio, SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false);
 

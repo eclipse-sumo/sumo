@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r6185
+SUMO netconvert Version dev-SVN-r6190
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -134,6 +134,7 @@ Usage: netconvert.exe [OPTION]*
   --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   
   -R, --remove-geometry                Removes geometry information from edges
+  --add-node-positions                 Adds node positions to edge geometries
   --no-turnarounds                     Disables building turnarounds
   -I, --add-internal-links             Adds internal links
   --split-geometry                     Splits edges across geometry nodes

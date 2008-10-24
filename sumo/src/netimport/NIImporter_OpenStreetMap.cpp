@@ -177,7 +177,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
             passed.push_back(*j);
             if (nodeUsage[*j]>1&&j!=e->myCurrentNodes.end()-1&&j!=e->myCurrentNodes.begin()) {
                 NBNode *currentTo = insertNodeChecking(*j, nodes, nc, tlsc);
-                insertEdge(e, running, currentFrom, currentTo, passed, nodes, nc, ec, tc);
+                insertEdge(e, running, currentFrom, currentTo, passed, nodes, nc, ec, tc, !oc.getBool("add-node-positions"));
                 currentFrom = currentTo;
                 running++;
                 passed.clear();
@@ -186,7 +186,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
         if (running==0) {
             running = -1;
         }
-        insertEdge(e, running, currentFrom, last, passed, nodes, nc, ec, tc);
+        insertEdge(e, running, currentFrom, last, passed, nodes, nc, ec, tc, !oc.getBool("add-node-positions"));
     }
     // delete nodes
     for (std::map<int, NIOSMNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
@@ -232,7 +232,8 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
 void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
                                      const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc)
+                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
+                                     bool tryIgnoreNodePositions)
 {
     // patch the id
     string id = e->id;
@@ -263,7 +264,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     }
     // if we had been able to extract the maximum speed, override the highway type default
     if (e->myMaxSpeed >= 0) {
-        speed = e->myMaxSpeed / 3.6;
+        speed = (SUMOReal) (e->myMaxSpeed / 3.6);
     }
 
 
@@ -283,14 +284,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
         }
         NBEdge::LaneSpreadFunction lsf = addSecond ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
-        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, -1, shape, lsf);
+        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, -1, shape, tryIgnoreNodePositions, lsf);
         nbe->setVehicleClasses(allowedClasses, disallowedClasses);
         if (!ec.insert(nbe)) {
             delete nbe;
             throw ProcessError("Could not add edge '" + id + "'.");
         }
         if (addSecond) {
-            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, -1, shape.reverse(), lsf);
+            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, -1, shape.reverse(), tryIgnoreNodePositions, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;

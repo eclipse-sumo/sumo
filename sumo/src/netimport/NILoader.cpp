@@ -320,7 +320,8 @@ NILoader::loadElmar(OptionsCont &oc)
         std::string file = oc.getString(opt) + "_links_unsplitted.txt";
         // parse the file
         NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
-                                      myNetBuilder.getEdgeCont(), file, myGeoms);
+                                      myNetBuilder.getEdgeCont(), file, myGeoms,
+                                      !oc.getBool("add-node-positions"));
         if (!useLineReader(lr, file, handler2)) {
             throw ProcessError();
         }
@@ -337,7 +338,7 @@ NILoader::loadTiger(OptionsCont &oc)
         return;
     }
     NITigerLoader l(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont(),
-                    oc.getString("tiger"));
+                    oc.getString("tiger"), !oc.getBool("add-node-positions"));
     l.load(oc);
 }
 

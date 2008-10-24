@@ -250,6 +250,9 @@
       <!-- Removes geometry information from edges -->
       <remove-geometry>false</remove-geometry>
 
+      <!-- Adds node positions to edge geometries -->
+      <add-node-positions>false</add-node-positions>
+
       <!-- Disables building turnarounds -->
       <no-turnarounds>false</no-turnarounds>
 

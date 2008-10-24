@@ -56,7 +56,8 @@ class NITigerLoader :
 public:
     /// constructor
     NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
-                  const std::string &file);
+                  const std::string &file,
+                  bool tryIgnoreNodePositions);
 
     /// destructor
     ~NITigerLoader();
@@ -80,6 +81,7 @@ protected:
     SUMOReal myInitX, myInitY;
     NBEdgeCont &myEdgeCont;
     NBNodeCont &myNodeCont;
+    bool myTryIgnoreNodePositions;
 
 private:
     /// @brief Invalidated copy constructor.

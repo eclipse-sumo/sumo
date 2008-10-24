@@ -60,9 +60,11 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
-                             const std::string &file)
+                             const std::string &file,
+                             bool tryIgnoreNodePositions)
         : FileErrorReporter("tiger-network", file),
-        myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc)
+        myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc),
+        myTryIgnoreNodePositions(tryIgnoreNodePositions)
 {}
 
 
@@ -128,16 +130,15 @@ NITigerLoader::load(OptionsCont &)
             int priority = -1;
             NBEdge *e =
                 new NBEdge(eid, from, to, type, speed, nolanes,
-                           priority, cposes);
+                           priority, cposes, myTryIgnoreNodePositions);
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");
-
             }
             eid = "-" + eid;
             e =
                 new NBEdge(eid, to, from, type, speed, nolanes,
-                           priority, cposes.reverse());
+                           priority, cposes.reverse(), myTryIgnoreNodePositions);
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");

@@ -59,7 +59,7 @@ public:
     /// constructor
     NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                          const std::string &file, std::map<std::string,
-                         Position2DVector> &geoms) throw();
+                         Position2DVector> &geoms, bool tryIgnoreNodePositions) throw();
 
     /// destructor
     ~NIElmar2EdgesHandler() throw();
@@ -73,6 +73,7 @@ protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
     std::map<std::string, Position2DVector> &myGeoms;
+    bool myTryIgnoreNodePositions;
 
 private:
     /// @brief Invalidated copy constructor.

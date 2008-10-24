@@ -124,7 +124,8 @@ public:
 
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-                                  NBEdgeCont &ec, SUMOReal offset);
+                                  NBEdgeCont &ec, SUMOReal offset, 
+                                  bool tryIgnoreNodePositions);
 
     static void dict_propagateSpeeds(/* NBDistribution &dc */);
 
@@ -149,7 +150,7 @@ private:
 private:
     /// Builds the NBEdge from this VissimEdge
     void buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc,
-                     NBEdgeCont &ec, SUMOReal offset);
+                     NBEdgeCont &ec, SUMOReal offset, bool tryIgnoreNodePositions);
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>

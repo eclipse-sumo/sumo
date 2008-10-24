@@ -379,6 +379,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
     oc.addDescription("remove-geometry", "Processing", "Removes geometry information from edges");
 
+    oc.doRegister("add-node-positions", new Option_Bool(false));
+    oc.addDescription("add-node-positions", "Processing", "Adds node positions to edge geometries");
+
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
 

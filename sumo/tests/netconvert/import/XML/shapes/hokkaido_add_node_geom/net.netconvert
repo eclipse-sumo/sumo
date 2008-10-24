@@ -1,12 +1,17 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/24/08 16:49:00 by SUMO netconvert Version dev-SVN-r6190
+<!-- generated on 08/11/08 12:11:42 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
       <xml-node-files>input_nodes.nod.xml</xml-node-files>
       <xml-edge-files>input_edges.edg.xml</xml-edge-files>
    </input>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+      <plain-output>plain</plain-output>
+   </output>
 
 </configuration>
 -->
@@ -23,25 +28,25 @@
 
    <edge id="1" from="dl" to="dr" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" vclasses="" maxspeed="13.90" length="1221.91">84.54,0.00 1306.45,0.00</lane>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="13.90" length="1199.86">95.56,0.00 1295.42,0.00</lane>
       </lanes>
    </edge>
 
    <edge id="2" from="dr" to="tr" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" vclasses="" maxspeed="13.90" length="277.13">1306.86,0.05 1328.15,5.76 1343.24,12.79 1356.87,22.34 1368.64,34.11 1378.19,47.75 1385.23,62.83 1389.54,78.91 1390.99,95.49 1389.54,112.07 1385.23,128.15 1378.19,143.24 1368.64,156.87 1356.87,168.64 1343.24,178.19 1328.15,185.23 1306.85,190.94</lane>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="13.90" length="299.48">1295.56,0.01 1312.07,1.45 1328.15,5.76 1343.24,12.79 1356.87,22.34 1368.64,34.11 1378.19,47.75 1385.23,62.83 1389.54,78.91 1390.99,95.49 1389.54,112.08 1385.23,128.15 1378.19,143.24 1368.64,156.87 1356.87,168.64 1343.24,178.19 1328.15,185.23 1312.08,189.54 1295.56,190.98</lane>
       </lanes>
    </edge>
 
    <edge id="3" from="tr" to="tl" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" vclasses="" maxspeed="13.90" length="1221.88">1306.44,190.99 84.55,190.99</lane>
+         <lane id="3_0" depart="1" vclasses="" maxspeed="13.90" length="1199.86">1295.42,190.99 95.56,190.99</lane>
       </lanes>
    </edge>
 
    <edge id="4" from="tl" to="dl" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" vclasses="" maxspeed="13.90" length="277.13">84.14,190.94 62.83,185.23 47.75,178.19 34.11,168.64 22.34,156.87 12.79,143.24 5.76,128.15 1.45,112.08 0.00,95.49 1.45,78.91 5.76,62.83 12.79,47.75 22.34,34.11 34.11,22.34 47.75,12.79 62.83,5.76 84.12,0.05</lane>
+         <lane id="4_0" depart="1" vclasses="" maxspeed="13.90" length="299.48">95.42,190.98 78.91,189.54 62.83,185.23 47.75,178.19 34.11,168.64 22.34,156.87 12.79,143.24 5.76,128.15 1.45,112.08 0.00,95.49 1.45,78.91 5.76,62.83 12.79,47.75 22.34,34.11 34.11,22.34 47.75,12.79 62.83,5.76 78.91,1.45 95.42,0.01</lane>
       </lanes>
    </edge>
 
@@ -86,22 +91,22 @@
 
    <junction id="dl" type="priority" x="95.49" y="0.00">
       <inclanes>4_0</inclanes>
-      <shape>84.54,1.60 84.54,-1.60 83.71,-1.49 84.54,1.60</shape>
+      <shape>95.56,1.60 95.56,-1.60 95.28,-1.59 95.56,1.60</shape>
    </junction>
 
    <junction id="dr" type="priority" x="1295.49" y="0.00">
       <inclanes>1_0</inclanes>
-      <shape>1306.45,1.60 1307.28,-1.49 1306.45,-1.60 1306.45,1.60</shape>
+      <shape>1295.42,1.60 1295.70,-1.59 1295.42,-1.60 1295.42,1.60</shape>
    </junction>
 
    <junction id="tl" type="priority" x="95.49" y="190.99">
       <inclanes>3_0</inclanes>
-      <shape>84.55,192.59 84.55,189.39 83.72,192.48</shape>
+      <shape>95.56,192.59 95.56,189.39 95.28,192.58</shape>
    </junction>
 
    <junction id="tr" type="priority" x="1295.49" y="190.99">
       <inclanes>2_0</inclanes>
-      <shape>1307.26,192.48 1306.44,189.39 1306.44,192.59</shape>
+      <shape>1295.70,192.58 1295.42,189.39 1295.42,192.59</shape>
    </junction>
 
 

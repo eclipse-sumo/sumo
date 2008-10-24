@@ -101,7 +101,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
             continue;
         }
         // build and insert the edge
-        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, ed->lanes.size(), ed->priority);
+        NBEdge *e = new NBEdge(ed->id, from, to, ed->type, ed->maxSpeed, (unsigned int) ed->lanes.size(), ed->priority);
         if (!edgesCont.insert(e)) {
             MsgHandler::getErrorInstance()->inform("Could not insert edge '" + ed->id + "'.");
             delete e;

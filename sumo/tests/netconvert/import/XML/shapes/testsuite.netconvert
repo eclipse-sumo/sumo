@@ -1,5 +1,5 @@
-# Ordered list of tests in test suite. Add as appropriate
-
 # using shapes to model hokkaido (recheck whether the plain output is almost the same as the input edges)
 hokkaido
 
+# same as hokkaido, but with node geometries regarded
+hokkaido_add_node_geom

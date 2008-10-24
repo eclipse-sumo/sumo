@@ -99,6 +99,7 @@
       <flip-y>false</flip-y>
       <dismiss-vclasses>false</dismiss-vclasses>
       <remove-geometry>false</remove-geometry>
+      <add-node-positions>false</add-node-positions>
       <no-turnarounds>false</no-turnarounds>
       <add-internal-links>false</add-internal-links>
       <split-geometry>false</split-geometry>

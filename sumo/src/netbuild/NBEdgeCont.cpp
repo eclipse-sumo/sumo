@@ -348,13 +348,13 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName,
                              edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
-                             edge->getPriority(), geoms.first, edge->myLaneSpreadFunction);
+                             edge->getPriority(), geoms.first, true, edge->myLaneSpreadFunction);
     for (unsigned int i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
     NBEdge *two = new NBEdge(secondEdgeName,
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
-                             edge->getPriority(), geoms.second,
+                             edge->getPriority(), geoms.second, true, 
                              edge->myLaneSpreadFunction);
     for (unsigned int i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));

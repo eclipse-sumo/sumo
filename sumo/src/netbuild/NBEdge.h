@@ -172,6 +172,7 @@ public:
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @see init
      * @see LaneSpreadFunction
      */
     NBEdge(const std::string &id,
@@ -192,13 +193,16 @@ public:
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] geom The edge's geomatry
+     * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @see init
      * @see LaneSpreadFunction
      */
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+           Position2DVector geom, bool tryIgnoreNodePositions,
+           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
     /** @brief Destructor
@@ -669,8 +673,23 @@ protected:
 
 
 private:
-    /** initialization routines common to all constructors */
-    void init(unsigned int noLanes) throw(ProcessError);
+    /** @brief Initialization routines common to all constructors 
+     *
+     * Checks whether the number of lanes>0, whether the junction's from-
+     *  and to-nodes are given (!=0) and whether they are distict. Throws
+     *  a ProcessError if any of these checks fails.
+     *
+     * Adds the nodes positions to geometry if it shall not be ignored or
+     *  if the geometry is empty.
+     *
+     * Computes the angle and length, and adds this edge to its node as
+     *  outgoing/incoming. Builds lane informations.
+     *
+     * @param[in] noLanes The number of lanes this edge has
+     * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
+     */
+    void init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessError);
+
 
     /** divides the lanes on the outgoing edges */
     void divideOnEdges(const std::vector<NBEdge*> *outgoing);
