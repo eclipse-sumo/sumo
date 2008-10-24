@@ -19,8 +19,10 @@ from traciControl import initTraCI, simStep, stopObject, changeTarget, close
 class Manager:
     def personArrived(self, vehicleID, edge, target):
         raise NotImplementedError
-    def cyberCarArrived(self, vehicleID, edge, step):
+    def cyberCarArrived(self, vehicleID, edge):
         raise NotImplementedError
+    def setNewTargets(self):
+        pass
 
 class Status:
 
@@ -58,9 +60,9 @@ def init(manager):
     sumoExe = SUMO
     if options.gui:
         sumoExe = SUMOGUI
-    sumoConfig = PREFIX + ".sumo.cfg"
+    sumoConfig = "%s%02i.sumo.cfg" % (PREFIX, options.demand)
     if options.cyber:
-        sumoConfig = PREFIX + "_cyber.sumo.cfg"
+        sumoConfig = "%s%02i_cyber.sumo.cfg" % (PREFIX, options.demand)
     sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True)
     initTraCI(PORT)
     setting.manager = manager
@@ -69,21 +71,27 @@ def init(manager):
     try:
         while setting.step < 100 or statistics.personsRunning > 0:
             doStep()
+        statistics.evaluate()
     finally:
         close()
-    statistics.evaluate()
 
 def getCapacity():
     if setting.cyber:
         return CYBER_CAPACITY
     return BUS_CAPACITY
 
+def getStep():
+    return setting.step
+
+def getPosition(vehicleID):
+    return vehicleStatus[vehicleID].edge
+
 def stopAt(vehicleID, edge, pos=None):
     if setting.verbose:
         print "stopAt", vehicleID, edge
     if pos == None:
         pos = ROW_DIST-15.
-        if edge.endswith("out"):
+        if edge.endswith("out") or edge.endswith("in"):
             pos = 90.
     changeTarget(edge, vehicleID)
     stopObject(edge, vehicleID, pos)
@@ -163,4 +171,5 @@ def doStep():
                 setting.manager.personArrived(vehicleID, edge, target)
             if edge.startswith("cyber"):
                 vehicleStatus[vehicleID].parking = True
-                setting.manager.cyberCarArrived(vehicleID, edge, setting.step)
+                setting.manager.cyberCarArrived(vehicleID, edge)
+    setting.manager.setNewTargets()

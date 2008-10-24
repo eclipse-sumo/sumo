@@ -24,7 +24,8 @@ class SimpleManager(vehicleControl.Manager):
             self.personsWaitingAt[edge] = []
         self.personsWaitingAt[edge].append((personID, target))
 
-    def cyberCarArrived(self, vehicleID, edge, step):
+    def cyberCarArrived(self, vehicleID, edge):
+        step = vehicleControl.getStep()
         footEdge = edge.replace("cyber", "footmain")
         wait = 0
         load = []

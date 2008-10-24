@@ -52,6 +52,7 @@ class CyberAgent:
         self.costMatrix = {}
         self.totalEstimatedCost = 0
         self.position = None
+        self.nextStop = None
         
     def request(self, person, source, target):
         if (source, target) in self.costMatrix:
@@ -65,12 +66,6 @@ class CyberAgent:
         task = self.pending[person]
         self.tasks.append(task)
         self.totalEstimatedCost += task.estCost
-        if not self.running and len(self.tasks) == 1:
-            if self.position == task.source:
-                self.checkBoarding(task.source, 0)
-            elif self.position:
-                vehicleControl.leaveStop(self.id)
-                vehicleControl.stopAt(self.id, task.source)
         del self.pending[person]
 
     def reject(self, person):
@@ -81,30 +76,39 @@ class CyberAgent:
         minDownstreamTarget = "z"
         minSource = "z"
         minDownstreamSource = "z"
+        edge = vehicleControl.getPosition(self.id)
+        if edge == "cyberin":
+            edge = "cyber"
         for task in self.running:
             if task.target < minTarget:
                 minTarget = task.target
-            if task.target < minDownstreamTarget and task.target > self.position:
+            if task.target < minDownstreamTarget and task.target > edge:
                 minDownstreamTarget = task.target
+        for task in self.tasks[:vehicleControl.getCapacity() - self.load]:
             if task.source < minSource:
                 minSource = task.source
-            if task.source < minDownstreamSource and task.source > self.position:
+            if task.source < minDownstreamSource and task.source > edge:
                 minDownstreamSource = task.source
         if minDownstreamTarget != "z":
             minTarget = minDownstreamTarget 
-        if self.load < vehicleControl.getCapacity():
-            if minDownstreamSource < minTarget:
-                return minDownstreamSource
-            if minTarget < self.position and minSource < minTarget:
-                return minSource
-        return minTarget
+        if minDownstreamSource < minTarget:
+            return minDownstreamSource
+        if minTarget < edge and minSource < minTarget:
+            return minSource
+        if minTarget != "z":
+            return minTarget
+        return "cyberin"
 
-    def checkBoarding(self, edge, step):
+    def setPosition(self, edge):
         self.position = edge
+        self.nextStop = None
+
+    def checkBoarding(self):
+        step = vehicleControl.getStep()
         wait = 0
         running = []
         for task in self.running:
-            if task.target == edge:
+            if task.target == self.position:
                 statistics.personUnloaded(task.person.id, step)
                 self.load -= 1
                 wait += WAIT_PER_PERSON
@@ -116,7 +120,7 @@ class CyberAgent:
         if self.load < vehicleControl.getCapacity(): 
             tasks = []
             for task in self.tasks:
-                if task.source == edge and self.load < vehicleControl.getCapacity():
+                if task.source == self.position and self.load < vehicleControl.getCapacity():
                     vehicleControl.leaveStop(task.person.id)
                     statistics.personLoaded(task.person.id, step)
                     self.load += 1
@@ -126,14 +130,9 @@ class CyberAgent:
                 else:
                     tasks.append(task)
             self.tasks = tasks
-        nextStop = None
-        if self.running:
-            nextStop = self._findNextTarget()
-        elif self.tasks:
-            nextStop = self.tasks[0].source
-        if nextStop:
-            vehicleControl.leaveStop(self.id, delay=wait)
-            vehicleControl.stopAt(self.id, nextStop)
+        self.nextStop = self._findNextTarget()
+        vehicleControl.leaveStop(self.id, delay=wait)
+        vehicleControl.stopAt(self.id, self.nextStop)
 
 class AgentManager(vehicleControl.Manager):
 
@@ -148,14 +147,19 @@ class AgentManager(vehicleControl.Manager):
             person.startRequest(edge.replace("footmain", "cyber"),
                                 target.replace("footmain", "cyber"), self.cyberCars)
 
-    def cyberCarArrived(self, vehicleID, edge, step):
+    def cyberCarArrived(self, vehicleID, edge):
         if vehicleID in self.agents:
             cyberCar = self.agents[vehicleID] 
         else:
             cyberCar = CyberAgent(vehicleID)
             self.agents[vehicleID] = cyberCar
             self.cyberCars.append(cyberCar)
-        cyberCar.checkBoarding(edge, step)
+        cyberCar.setPosition(edge)
+
+    def setNewTargets(self):
+        for car in self.cyberCars:
+            car.checkBoarding()
+
 
 if __name__ == "__main__":
     vehicleControl.init(AgentManager())

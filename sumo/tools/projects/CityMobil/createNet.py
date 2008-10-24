@@ -19,6 +19,8 @@ nodes = open("%s.nod.xml" % PREFIX, "w")
 print >> nodes, "<nodes>"
 edges = open("%s.edg.xml" % PREFIX, "w")
 print >> edges, "<edges>"
+connections = open("%s.con.xml" % PREFIX, "w")
+print >> connections, "<connections>"
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
     <vtype id="car" length="6" maxspeed="50" color="0.7,0.7,0.7"/>
@@ -131,6 +133,12 @@ for row in range(DOUBLE_ROWS+1):
         edgeID = "cyber%sto%s" % (row-1, row)
         print >> edges, '<edge id="%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row-1, row)
         print >> edges, '<edge id="-%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row, row-1)
+        if row < DOUBLE_ROWS:
+            print >> connections, '<connection from="%s" to="cyber%sto%s"/>' % (edgeID, row, row+1)
+            print >> connections, '<connection from="-cyber%sto%s" to="-%s"/>' % (row, row+1, edgeID)
+        else:
+            print >> connections, '<connection from="%s" to="cyberout"/>' % edgeID
+            print >> connections, '<connection from="-cyberout" to="-%s"/>' % edgeID
 print >> nodes, '<node id="cyberend" x="%s" y="%s"/>' % (x+100, y) 
 print >> edges, '<edge id="cyberout" fromnode="cyber%s" tonode="cyberend" nolanes="2" spread_type="center"/>' % row 
 print >> edges, '<edge id="-cyberout" fromnode="cyberend" tonode="cyber%s" nolanes="2" spread_type="center"/>' % row 
@@ -140,8 +148,10 @@ print >> nodes, "</nodes>"
 nodes.close()
 print >> edges, "</edges>"
 edges.close()
+print >> connections, "</connections>"
+connections.close()
 
-os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))
+os.system("netconvert -n %s.nod.xml -e %s.edg.xml -x %s.con.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX, PREFIX))
 
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
 print >> routes, """    <vehicle id="b" type="cybercar" depart="0" period="100" repno="%s" arrivalpos="10000">
