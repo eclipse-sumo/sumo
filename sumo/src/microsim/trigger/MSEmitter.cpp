@@ -397,7 +397,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         }
     } else {
 #endif
-        if (myDestLane->isEmissionSuccess(veh, speed, pos, false)) {
+        if (myDestLane->isEmissionSuccess(veh, speed, pos, true)) {
             veh->onDepart();
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
