@@ -313,7 +313,7 @@ MSVehicle::ends() const throw()
 bool
 MSVehicle::addStop(const Stop &stop) throw()
 {
-    MSRouteIterator stopEdge = myRoute->find(stop.lane->getEdge());
+    MSRouteIterator stopEdge = myRoute->find(stop.lane->getEdge(), myCurrEdge);
     if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos)) {
         // do not add the stop if the vehicle is already behind it
         return false;
@@ -2181,7 +2181,11 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane == lane && fabs(iter->pos - pos) < POSITION_EPS) {
-            iter->duration = duration;
+            if (duration == 0 && !iter->reached) {
+                myStops.erase(iter);
+            } else {
+                iter->duration = duration;
+            }
             return true;
         }
     }
