@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 09:25:35 by SUMO dfrouter Version 0.9.6
+<!-- generated on 10/23/08 15:07:54 by SUMO dfrouter Version dev-SVN-r6184
 <configuration>
 
    <input>
@@ -23,6 +23,5 @@
    <route id="1to2_to_4to5" multi_ref="x">1to2 2to3 3to4 4to5</route>
 
    <route id="6to7_to_9to10" multi_ref="x">6to7 7to8 8to9 9to10</route>
-
 
 </routes>

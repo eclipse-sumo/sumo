@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/07 15:00:37 by SUMO dfrouter Version 0.9.7
+<!-- generated on 10/23/08 15:07:40 by SUMO dfrouter Version dev-SVN-r6184
 <configuration>
 
    <input>
@@ -42,6 +42,5 @@
    <route id="a5_a4_to_20_10" multi_ref="x">a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_20 20_10</route>
    <route id="a5_a4_to_51_61" multi_ref="x">a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_31 31_41 41_51 51_61</route>
    <route id="a5_a4_to_a4_a5" multi_ref="x">a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_a0 a0_a2 a2_a3 a3_a4 a4_a5</route>
-
 
 </routes>

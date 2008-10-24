@@ -45,6 +45,7 @@
 class RODFRouteCont;
 class RODFDetectorFlows;
 class ROEdge;
+class RODFEdge;
 class RODFDetectorCon;
 class RODFNet;
 struct RODFRouteDesc;
@@ -195,6 +196,15 @@ public:
                                       const RODFNet &net,
                                       std::map<size_t, RandomDistributor<size_t>* > &into,
                                       int maxFollower) const;
+
+    void computeSplitProbabilities(const RODFNet *net, const RODFDetectorCon &detectors, 
+        const RODFDetectorFlows &flows,
+        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+
+    const std::vector<std::map<RODFEdge*, SUMOReal> > &getSplitProbabilities() const {
+        return mySplitProbabilities;
+    }
+
 protected:
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
     SUMOReal computeDistanceFactor(const RODFRouteDesc &rd) const;
@@ -207,6 +217,8 @@ protected:
     RODFDetectorType myType;
     RODFRouteCont *myRoutes;
     std::vector<RODFDetector*> myPriorDetectors, myFollowingDetectors;
+    std::vector<std::map<RODFEdge*, SUMOReal> > mySplitProbabilities;
+    std::map<std::string, RODFEdge*> myRoute2Edge;
 
 
 private:
@@ -238,6 +250,8 @@ public:
     void saveRoutes(const std::string &file) const;
 
     const RODFDetector &getDetector(const std::string &id) const;
+    const RODFDetector &getAnyDetectorForEdge(const RODFEdge * const edge) const;
+
     bool knows(const std::string &id) const;
     void writeEmitters(const std::string &file,
                        const RODFDetectorFlows &flows,

@@ -430,7 +430,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
     for (std::vector< RODFDetector*>::const_iterator i=dets.begin(); i!=dets.end(); ++i) {
         if ((*i)->getType()!=SOURCE_DETECTOR) {
             // do not build routes for other than sources
-            continue;
+            //continue;
         }
         ROEdge *e = getDetectorEdge(**i);
         if (doneEdges.find(e)!=doneEdges.end()) {

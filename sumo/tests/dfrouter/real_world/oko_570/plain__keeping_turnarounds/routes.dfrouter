@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/11/07 08:14:37 by SUMO dfrouter Version 0.9.7
+<!-- generated on 10/23/08 15:07:41 by SUMO dfrouter Version dev-SVN-r6184
 <configuration>
 
    <input>
@@ -37,6 +37,5 @@
 
    <route id="60_50_to_51_61" multi_ref="x">60_50 50_51 51_61</route>
    <route id="60_50_to_20_10" multi_ref="x">60_50 50_40 40_30 30_20 20_10</route>
-
 
 </routes>

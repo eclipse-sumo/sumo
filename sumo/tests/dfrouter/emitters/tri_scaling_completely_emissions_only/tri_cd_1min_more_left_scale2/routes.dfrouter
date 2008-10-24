@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep 10 00:02:22 2007 by SUMO dfrouter Version dev-SVN-r4433
+<!-- generated on 10/23/08 15:07:38 by SUMO dfrouter Version dev-SVN-r6184
 <configuration>
 
    <input>
@@ -33,6 +33,5 @@
    <route id="beg_to_end" multi_ref="x">beg middle end</route>
    <route id="beg_to_end_1" multi_ref="x">beg 1toL L Lto2 end</route>
    <route id="beg_to_end_2" multi_ref="x">beg 1toR R Rto2 end</route>
-
 
 </routes>
