@@ -35,6 +35,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class NBEdge;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -43,13 +49,30 @@
 class NIVissimExtendedEdgePoint
 {
 public:
-    NIVissimExtendedEdgePoint(int edgeid, IntVector &lanes,
-                              SUMOReal position, IntVector &assignedVehicles);
+    /** @brief Constructor
+     * @param[in] edgeid The id of the Vissim-edge
+     * @param[in] lanes Lanes on which this point lies
+     * @param[in] position The position of this point at the edge
+     * @param[in] assignedVehicles Vehicle (type) indices which should be regarded by this point
+     */
+    NIVissimExtendedEdgePoint(int edgeid, const IntVector &lanes,
+                              SUMOReal position, const IntVector &assignedVehicles) throw();
     ~NIVissimExtendedEdgePoint();
     int getEdgeID() const;
     SUMOReal getPosition() const;
     Position2D getGeomPosition() const;
     const IntVector &getLanes() const;
+
+
+    /** @brief Resets lane numbers if all lanes shall be used
+     *
+     * If myLanes contains a -1, the content of myLanes is replaced
+     *  by indices of all lanes of the given edge.
+     *
+     * @param[in] The built edge
+     */
+    void recheckLanes(const NBEdge * const edge) throw();
+
 private:
     int myEdgeID;
     IntVector myLanes;

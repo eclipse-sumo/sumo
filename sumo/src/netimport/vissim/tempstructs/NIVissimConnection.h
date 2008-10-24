@@ -77,7 +77,23 @@ public:
 
     void buildGeom();
 
+
+    /** @brief Resets lane numbers if all lanes shall be used
+     *
+     * Calls "NIVissimExtendedEdgePoint::recheckLanes" for both used
+     *  edges.
+     *
+     * @param[in] The built from-edge
+     * @param[in] The built to-edge
+     */
+    void recheckLanes(const NBEdge * const fromEdge, const NBEdge * const toEdge) throw();
+
 public:
+    const IntVector &getFromLanes() const;
+    const IntVector &getToLanes() const;
+
+
+
     static bool dictionary(int id, const std::string &name,
                            const NIVissimExtendedEdgePoint &from_def,
                            const NIVissimExtendedEdgePoint &to_def,
@@ -94,12 +110,6 @@ public:
     static void dict_buildNBEdgeConnections(NBEdgeCont &ec);
     static void dict_assignToEdges();
     static int getMaxID();
-    const IntVector &getFromLanes() const;
-    const IntVector &getToLanes() const;
-    /*    static void assignNodes();
-        static void buildFurtherNodes();
-        static IntVector getOutgoingForEdge(int edgeid);
-        static IntVector getIncomingForEdge(int edgeid);*/
 
 private:
     std::string myName;

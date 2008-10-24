@@ -107,8 +107,8 @@ Warning: TL traffic lights are not supported (lsa=452)
 Warning: TL traffic lights are not supported (lsa=452)
 Warning: Could not build connection between '3' and '26'.
 Warning: Could not build connection between '6' and '20000'.
-Warning: Could not set connection between '38_0 and 26_1.
-Warning: Could not set connection between '26_1 and 37_0.
+Warning: Could not set connection between '38_0' and '26_1'.
+Warning: Could not set connection between '26_1' and '37_0'.
 Warning: Could not build connection between '65' and '66'.
 Warning: Could not build connection between '65' and '67'.
 Warning: Could not build connection between '3' and '69'.
@@ -120,11 +120,11 @@ Warning: Could not build connection between '71' and '6'.
 Warning: Could not build connection between '82' and '85'.
 Warning: Could not build connection between '85' and '83'.
 Warning: Could not build connection between '86' and '87'.
-Warning: Could not set connection between '88_0 and 90_0.
+Warning: Could not set connection between '88_0' and '90_0'.
 Warning: Could not build connection between '85' and '91'.
-Warning: Could not set connection between '93[1]_0 and 85[1][1][0]_0.
-Warning: Could not set connection between '93[1]_0 and 84[1][1][1][1][1]_0.
-Warning: Could not set connection between '94_0 and 87_0.
+Warning: Could not set connection between '93[1]_0' and '85[1][1][0]_0'.
+Warning: Could not set connection between '93[1]_0' and '84[1][1][1][1][1]_0'.
+Warning: Could not set connection between '94_0' and '87_0'.
 Warning: Could not build connection between '101' and '30004'.
 Warning: Could not build connection between '30003' and '30007'.
 Warning: Could not build connection between '30012' and '30007'.
