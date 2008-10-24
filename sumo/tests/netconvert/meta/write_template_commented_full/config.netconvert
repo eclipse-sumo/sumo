@@ -121,8 +121,8 @@
       <!--  -->
       <all-logics>false</all-logics>
 
-      <!-- Given yellow times are kept even if being too short -->
-      <keep-small-tyellow>false</keep-small-tyellow>
+      <!-- Given yellow times are patched even if being too short -->
+      <patch-small-tyellow>false</patch-small-tyellow>
 
       <!-- Use INT as green phase duration -->
       <traffic-light-green></traffic-light-green>

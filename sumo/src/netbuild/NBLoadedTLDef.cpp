@@ -382,7 +382,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
         // needed later
         group->sortPhases();
         // patch the yellow time for this group
-        if (!OptionsCont::getOptions().getBool("keep-small-tyellow")) {
+        if (OptionsCont::getOptions().getBool("patch-small-tyellow")) {
             group->patchTYellow(breakingTime);
         }
         // check for too short green lights to be patched

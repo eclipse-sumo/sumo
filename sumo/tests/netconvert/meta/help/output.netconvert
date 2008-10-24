@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r6134
+SUMO netconvert Version dev-SVN-r6185
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -73,7 +73,7 @@ Usage: netconvert.exe [OPTION]*
   --tls-guess.district-nodes           
   -D, --min-decel FLOAT                Defines smallest vehicle deceleration
   --all-logics                         
-  --keep-small-tyellow                 Given yellow times are kept even if
+  --patch-small-tyellow                Given yellow times are patched even if
                                          being too short
   --traffic-light-green INT            Use INT as green phase duration
   --traffic-light-yellow INT           Set INT as fixed time for yellow phase

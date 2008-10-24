@@ -447,8 +447,8 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("all-logics", new Option_Bool(false));
     oc.addDescription("all-logics", "TLS Building", "");
 
-    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
-    oc.addDescription("keep-small-tyellow", "TLS Building", "Given yellow times are kept even if being too short");
+    oc.doRegister("patch-small-tyellow", new Option_Bool(false));
+    oc.addDescription("patch-small-tyellow", "TLS Building", "Given yellow times are patched even if being too short");
 
     oc.doRegister("traffic-light-green", new Option_Integer());
     oc.addDescription("traffic-light-green", "TLS Building", "Use INT as green phase duration");

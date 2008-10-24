@@ -1,15 +1,15 @@
-SUMO netgen Version dev-SVN-r5664
+SUMO netgen Version dev-SVN-r6185
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
 
-Usage: sumo-netgen [OPTION]*
+Usage: netgen.exe [OPTION]*
  
  Examples:
-  sumo-netgen -c <CONFIGURATION>
-  sumo-netgen --grid-net [grid-network options] -o <OUTPUTFILE>
-  sumo-netgen --spider-net [spider-network opts] -o <OUTPUTFILE>
-  sumo-netgen --random-net [random-network opts] -o <OUTPUTFILE>
+  netgen.exe -c <CONFIGURATION>
+  netgen.exe --grid-net [grid-network options] -o <OUTPUTFILE>
+  netgen.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
+  netgen.exe --random-net [random-network opts] -o <OUTPUTFILE>
  
  Either "--grid-net", "--spider-net" or "--random-net" must be 
   supplied. In dependance to these switches other options are used.
@@ -101,7 +101,7 @@ Usage: sumo-netgen [OPTION]*
   --tls-guess.district-nodes           
   -D, --min-decel FLOAT                Defines smallest vehicle deceleration
   --all-logics                         
-  --keep-small-tyellow                 Given yellow times are kept even if
+  --patch-small-tyellow                Given yellow times are patched even if
                                          being too short
   --traffic-light-green INT            Use INT as green phase duration
   --traffic-light-yellow INT           Set INT as fixed time for yellow phase

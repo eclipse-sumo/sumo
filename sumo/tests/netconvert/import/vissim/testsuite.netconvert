@@ -11,3 +11,5 @@ orinoko_kp577
 # as orinoko_kp573 but unset speeds are reported
 orinoko_kp573_report_unset_v
 
+# as bayernstrasse, but the yellow times are "patched"
+bayernstrasse_patch_small_tyellow

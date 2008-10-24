@@ -1,0 +1,2 @@
+-v --vissim vissim.inp --output-file=net.net.xml --patch-small-tyellow
+
