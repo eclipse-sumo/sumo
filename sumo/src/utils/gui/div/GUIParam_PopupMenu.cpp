@@ -37,7 +37,6 @@
 #include <utils/gui/tracker/TrackerValueDesc.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <microsim/MSNet.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
