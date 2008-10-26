@@ -60,22 +60,47 @@ if __name__ == "__main__":
     agentWaitMean = []
     simpleWaitDev = []
     agentWaitDev = []
+    simpleRouteMean = []
+    agentRouteMean = []
+    simpleRouteDev = []
+    agentRouteDev = []
     for line in stats:
         if "simple" in line:
             mean = simpleWaitMean
             dev = simpleWaitDev
+            rmean = simpleRouteMean
+            rdev = simpleRouteDev
             demand.append(int(line.split()[-1]))
         if "agent" in line:
             mean = agentWaitMean
             dev = agentWaitDev
+            rmean = agentRouteMean
+            rdev = agentRouteDev
         if "waiting" in line:
             mean.append(float(line.split()[-2]))
             dev.append(float(line.split()[-1]))
+        if line.startswith("('footmain0to1'"):
+            rmean.append(float(line.split()[-2]))
+            rdev.append(float(line.split()[-1]))
     stats.close()
     figure()
-    demand = demand[:len(simpleWaitMean)]
-    errorbar(demand, simpleWaitMean, simpleWaitDev, fmt='o')
-    demand = demand[:len(agentWaitMean)]
-    errorbar(demand, agentWaitMean, agentWaitDev, fmt='o')
+    errorbar(demand, simpleWaitMean, simpleWaitDev, lw=2, ms=10, fmt='o', label='standard bus scenario')
+    errorbar(demand, agentWaitMean, agentWaitDev, lw=2, ms=10, color="red", fmt='o', label='agent controlled cyber cars')
     xlim(0, 50)
+    ylim(0, 1300)
+    xlabel('Repeater interval (s)')
+    ylabel('Waiting time (s)')
+    title('Mean and standard deviation of waiting time')
+    legend(numpoints=1)
+    savefig("waitingtime.png")
+    figure()
+    errorbar(demand, simpleRouteMean, simpleRouteDev, lw=2, ms=10, fmt='o', label='standard bus scenario')
+    errorbar(demand, agentRouteMean, agentRouteDev, lw=2, ms=10, color="red", fmt='o', label='agent controlled cyber cars')
+    xlim(0, 50)
+    ylim(0, 270)
+    xlabel('Repeater interval (s)')
+    ylabel('Travel time (s)')
+    title('Mean and standard deviation of travel time on the longest route')
+    legend(numpoints=1)
+    savefig("traveltime.png")
     show()
