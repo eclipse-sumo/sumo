@@ -246,13 +246,13 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
 void
 GUIApplicationWindow::create()
 {
-    if (getApp()->reg().readIntEntry("SETTINGS","maximized", 0)==0) {
-        setX(getApp()->reg().readIntEntry("SETTINGS","x",150));
-        setY(getApp()->reg().readIntEntry("SETTINGS","y",150));
-        setWidth(getApp()->reg().readIntEntry("SETTINGS","width",600));
-        setHeight(getApp()->reg().readIntEntry("SETTINGS","height",400));
+    if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0)==0) {
+        setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
+        setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
+        setWidth(getApp()->reg().readIntEntry("SETTINGS", "width", 600));
+        setHeight(getApp()->reg().readIntEntry("SETTINGS", "height", 400));
     }
-    gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS","basedir", "");
+    gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
     myMenuBarDrag->create();
     myToolBarDrag1->create();
@@ -268,7 +268,7 @@ GUIApplicationWindow::create()
     myGeoFrame->setWidth(width);
 
     show(PLACEMENT_SCREEN);
-    if (getApp()->reg().readIntEntry("SETTINGS","maximized", 0)==1) {
+    if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0)==1) {
         maximize();
     }
 }
@@ -561,15 +561,15 @@ GUIApplicationWindow::buildToolBars()
 long
 GUIApplicationWindow::onCmdQuit(FXObject*,FXSelector,void*)
 {
-    getApp()->reg().writeIntEntry("SETTINGS","x",getX());
-    getApp()->reg().writeIntEntry("SETTINGS","y",getY());
-    getApp()->reg().writeIntEntry("SETTINGS","width",getWidth());
-    getApp()->reg().writeIntEntry("SETTINGS","height",getHeight());
-    getApp()->reg().writeStringEntry("SETTINGS","basedir", gCurrentFolder.text());
+    getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
+    getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
+    getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
+    getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
+    getApp()->reg().writeStringEntry("SETTINGS", "basedir", gCurrentFolder.text());
     if (isMaximized()) {
-        getApp()->reg().writeIntEntry("SETTINGS","maximized", 1);
+        getApp()->reg().writeIntEntry("SETTINGS", "maximized", 1);
     } else {
-        getApp()->reg().writeIntEntry("SETTINGS","maximized", 0);
+        getApp()->reg().writeIntEntry("SETTINGS", "maximized", 0);
     }
     getApp()->exit(0);
     return 1;
