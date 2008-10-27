@@ -283,6 +283,14 @@ public:
 
 
 
+    /// @name Interaction with move reminders
+    //@{
+    SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const;
+    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+
+    //@}
+
+
     /** moves a vehicle if it is not meant to be running out of the lane
         If there is no neigh, pass 0 to neigh.
         If neigh is on curr lane, pass 0 to gap2neigh,
@@ -315,7 +323,6 @@ public:
     //@}
 
 
-    SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const;
 
     SUMOReal getLength() const {
         return myType->getLength();
@@ -571,7 +578,6 @@ public:
 
     const MSVehicleType &getVehicleType() const;
 
-    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
 
     void onDepart();
 
@@ -751,6 +757,8 @@ protected:
      */
     SUMOReal processNextStop(SUMOReal currentVelocity) throw();
 
+    void activateRemindersByEmitOrLaneChange();
+
     void rebuildContinuationsFor(LaneQ &q, MSLane *l, MSRouteIterator ce, int seen) const;
     virtual void setBlinkerInformation() { }
 
@@ -853,14 +861,27 @@ private:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
-    typedef std::vector< MSMoveReminder* > MoveReminderCont;
-    typedef MoveReminderCont::iterator MoveReminderContIt;
-    MoveReminderCont myMoveReminders;
-    MoveReminderCont myOldLaneMoveReminders;
-    typedef std::vector<SUMOReal> OffsetVector;
-    OffsetVector myOldLaneMoveReminderOffsets;
 
-    void activateRemindersByEmitOrLaneChange(void);
+    /// @name Move reminder structures
+    /// @{
+
+    /// @brief Definition of a move reminder container
+    typedef std::vector< MSMoveReminder* > MoveReminderCont;
+
+    /// @brief Current lane's move reminder
+    MoveReminderCont myMoveReminders;
+
+    /// @brief Prior lanes' move reminder
+    MoveReminderCont myOldLaneMoveReminders;
+
+    /// @brief Definition of a vector of offset to prior move reminder
+    typedef std::vector<SUMOReal> OffsetVector;
+
+    /// @brief Offsets for prior move reminder
+    OffsetVector myOldLaneMoveReminderOffsets;
+    /// @}
+
+
 
     typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
     QuitRemindedVector myQuitReminded;

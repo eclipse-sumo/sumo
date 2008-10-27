@@ -289,6 +289,65 @@ MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const throw()
 
 
 
+// ------------ Interaction with move reminders
+SUMOReal
+MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const
+{
+    if (searchedLane==myLane) {
+        return myState.myPos;
+    }
+    vector< MSMoveReminder* >::const_iterator rem = myOldLaneMoveReminders.begin();
+    std::vector<SUMOReal>::const_iterator off = myOldLaneMoveReminderOffsets.begin();
+    for (; rem!=myOldLaneMoveReminders.end()&&off!=myOldLaneMoveReminderOffsets.end(); ++rem, ++off) {
+        if ((*rem)->getLane()==searchedLane) {
+            return (*off) + myState.myPos;
+        }
+    }
+    return -1;
+}
+
+
+void
+MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed)
+{
+    // This erasure-idiom works for all stl-sequence-containers
+    // See Meyers: Effective STL, Item 9
+    for (vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
+        if (!(*rem)->isStillActive(*this, oldPos, newPos, newSpeed)) {
+            rem = myMoveReminders.erase(rem);
+        } else {
+            ++rem;
+        }
+    }
+    OffsetVector::iterator off=myOldLaneMoveReminderOffsets.begin();
+    for (vector< MSMoveReminder* >::iterator rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end();) {
+        SUMOReal oldLaneLength = *off;
+        if (!(*rem)->isStillActive(*this, oldLaneLength+oldPos, oldLaneLength+newPos, newSpeed)) {
+            rem = myOldLaneMoveReminders.erase(rem);
+            off = myOldLaneMoveReminderOffsets.erase(off);
+        } else {
+            ++rem;
+            ++off;
+        }
+    }
+}
+
+
+void
+MSVehicle::activateRemindersByEmitOrLaneChange()
+{
+    // This erasure-idiom works for all stl-sequence-containers
+    // See Meyers: Effective STL, Item 9
+    for (vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
+        if (!(*rem)->isActivatedByEmitOrLaneChange(*this)) {
+            rem = myMoveReminders.erase(rem);
+        } else {
+            ++rem;
+        }
+    }
+}
+
+
 // ------------ 
 const MSEdge*
 MSVehicle::succEdge(unsigned int nSuccs) const throw()
@@ -501,8 +560,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     vNext = MIN2(vNext, getMaxSpeed());
 
     // call reminders after vNext is set
-    workOnMoveReminders(myState.myPos,
-                        myState.myPos + SPEED2DIST(vNext), vNext);
+    workOnMoveReminders(myState.myPos, myState.myPos + SPEED2DIST(vNext), vNext);
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
         if (running()) {
@@ -1184,7 +1242,6 @@ MSVehicle::getNextPeriodical() const
     // in the case the vehicle was rerouted, give the next one the original route
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)!=myPointerCORNMap.end()) {
         route = (MSRoute*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)->second;
-//!!!        myPointerCORNMap.erase(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE);
     }
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
     SUMOVehicleParameter* p = new SUMOVehicleParameter(*myParameter);
@@ -1199,47 +1256,6 @@ MSVehicle::getNextPeriodical() const
         ret->myStops.push_back(*i);
     }
     return ret;
-}
-
-
-void
-MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed)
-{
-    // This erasure-idiom works for all stl-sequence-containers
-    // See Meyers: Effective STL, Item 9
-    for (MoveReminderContIt rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!(*rem)->isStillActive(*this, oldPos, newPos, newSpeed)) {
-            rem = myMoveReminders.erase(rem);
-        } else {
-            ++rem;
-        }
-    }
-    OffsetVector::iterator off=myOldLaneMoveReminderOffsets.begin();
-    for (MoveReminderContIt rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end();) {
-        SUMOReal oldLaneLength = *off;
-        if (!(*rem)->isStillActive(*this, oldLaneLength+oldPos, oldLaneLength+newPos, newSpeed)) {
-            rem = myOldLaneMoveReminders.erase(rem);
-            off = myOldLaneMoveReminderOffsets.erase(off);
-        } else {
-            ++rem;
-            ++off;
-        }
-    }
-}
-
-
-void
-MSVehicle::activateRemindersByEmitOrLaneChange()
-{
-    // This erasure-idiom works for all stl-sequence-containers
-    // See Meyers: Effective STL, Item 9
-    for (MoveReminderContIt rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!(*rem)->isActivatedByEmitOrLaneChange(*this)) {
-            rem = myMoveReminders.erase(rem);
-        } else {
-            ++rem;
-        }
-    }
 }
 
 
@@ -1317,18 +1333,14 @@ MSVehicle::onTripEnd()
     vector< MSMoveReminder* >::iterator rem;
     for (rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ++rem) {
         // the vehicle may only be at the entry occupancy correction
-        if ((*rem)->isStillActive(*this, oldPos, pos, pspeed)) {
-            assert(false);
-        }
+        (*rem)->isStillActive(*this, oldPos, pos, pspeed);
     }
     // old
     rem = myOldLaneMoveReminders.begin();
     OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
     for (;rem!=myOldLaneMoveReminders.end(); ++rem, ++off) {
         SUMOReal oldLaneLength = *off;
-        if ((*rem)->isStillActive(*this, oldPos+oldLaneLength, pos+oldLaneLength, pspeed)) {
-            assert(false); // !!!
-        }
+        (*rem)->isStillActive(*this, oldPos+oldLaneLength, pos+oldLaneLength, pspeed);
     }
     // remove from structures to be informed about it
     for (QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
@@ -1905,22 +1917,6 @@ MSVehicle::getBestLanesContinuation(const MSLane * const l) const throw()
     return myEmptyLaneVector;
 }
 
-
-SUMOReal
-MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const
-{
-    if (searchedLane==myLane) {
-        return myState.myPos;
-    }
-    vector< MSMoveReminder* >::const_iterator rem = myOldLaneMoveReminders.begin();
-    std::vector<SUMOReal>::const_iterator off = myOldLaneMoveReminderOffsets.begin();
-    for (; rem!=myOldLaneMoveReminders.end()&&off!=myOldLaneMoveReminderOffsets.end(); ++rem, ++off) {
-        if ((*rem)->getLane()==searchedLane) {
-            return (*off) + myState.myPos;
-        }
-    }
-    return -1;
-}
 
 
 SUMOReal
