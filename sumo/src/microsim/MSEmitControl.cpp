@@ -103,7 +103,8 @@ MSEmitControl::emitVehicles(SUMOTime time) throw()
     // Insert vehicles from myTrips into the net until the next vehicle's
     //  departure time is greater than the current time.
     // Retrieve the list of vehicles to emit within this time step
-    if (myAllVeh.anyWaitingFor(time)) {
+
+    while (myAllVeh.anyWaitingFor(time)) {
         const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
         // go through the list and try to emit
         for (veh=next.begin(); veh!=next.end(); veh++) {
@@ -111,6 +112,17 @@ MSEmitControl::emitVehicles(SUMOTime time) throw()
         }
         // let the MSVehicleContainer clear the vehicles
         myAllVeh.pop();
+
+		// Put all vehicles that should depart in this timestep into the queue
+		for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); ) {
+			if ((*i)->getDesiredDepart() <= time) {
+				add(*i);
+				i = myNewPeriodicalAdds.erase(i);
+			} else {
+				++i;
+			}
+		}
+
     }
     // During "tryEmit" done in previous steps, vehicles may have been added
     //  to "myNewPeriodicalAdds"; Schedule them within the normal emission container
