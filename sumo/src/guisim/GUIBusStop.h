@@ -33,6 +33,8 @@
 #include <vector>
 #include <string>
 #include <utils/common/Command.h>
+#include <utils/common/VectorHelper.h>
+#include <utils/geom/Position2DVector.h>
 #include <microsim/trigger/MSBusStop.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
