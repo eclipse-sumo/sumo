@@ -314,8 +314,8 @@ bool
 MSVehicle::addStop(const Stop &stop) throw()
 {
     MSRouteIterator stopEdge = myRoute->find(stop.lane->getEdge(), myCurrEdge);
-    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos)) {
-        // do not add the stop if the vehicle is already behind it
+    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos - myType->brakeGap(myState.mySpeed))) {
+        // do not add the stop if the vehicle is already behind it or cannot break
         return false;
     }
     // check whether the stop lies at the end of a route

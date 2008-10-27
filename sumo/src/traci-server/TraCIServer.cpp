@@ -623,7 +623,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
 
     // Forward command to vehicle
     if (!veh->addTraciStop(actLane, roadPos.pos, radius, waitTime)) {
-        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Stop on " + actLane->getID() + " is not downstream on the current route");
+        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Vehicle is too close or behind the stop on " + actLane->getID());
         return;
     }
 

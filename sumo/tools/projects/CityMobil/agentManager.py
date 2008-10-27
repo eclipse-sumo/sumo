@@ -52,7 +52,6 @@ class CyberAgent:
         self.costMatrix = {}
         self.totalEstimatedCost = 0
         self.position = None
-        self.nextStop = None
         
     def request(self, person, source, target):
         if (source, target) in self.costMatrix:
@@ -71,7 +70,7 @@ class CyberAgent:
     def reject(self, person):
         del self.pending[person]
 
-    def _findNextTarget(self):
+    def _findNextTarget(self, wait):
         minTarget = "z"
         minDownstreamTarget = "z"
         minSource = "z"
@@ -91,17 +90,18 @@ class CyberAgent:
                 minDownstreamSource = task.source
         if minDownstreamTarget != "z":
             minTarget = minDownstreamTarget 
-        if minDownstreamSource < minTarget:
-            return minDownstreamSource
-        if minTarget < edge and minSource < minTarget:
-            return minSource
-        if minTarget != "z":
-            return minTarget
-        return "cyberin"
+        elif minDownstreamSource < minTarget:
+            minTarget = minDownstreamSource
+        elif minTarget < edge and minSource < minTarget:
+            minTarget = minSource
+        if minTarget == "z":
+            minTarget = "cyberin"
+        if minTarget != vehicleControl.getPosition(self.id):
+            vehicleControl.leaveStop(self.id, delay=wait)
+            vehicleControl.stopAt(self.id, minTarget)
 
     def setPosition(self, edge):
         self.position = edge
-        self.nextStop = None
 
     def checkBoarding(self):
         step = vehicleControl.getStep()
@@ -130,9 +130,7 @@ class CyberAgent:
                 else:
                     tasks.append(task)
             self.tasks = tasks
-        self.nextStop = self._findNextTarget()
-        vehicleControl.leaveStop(self.id, delay=wait)
-        vehicleControl.stopAt(self.id, self.nextStop)
+        self._findNextTarget(wait)
 
 class AgentManager(vehicleControl.Manager):
 

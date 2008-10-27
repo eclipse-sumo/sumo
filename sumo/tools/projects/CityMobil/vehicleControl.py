@@ -170,6 +170,8 @@ def doStep():
                 statistics.personArrived(vehicleID, edge, target, setting.step)
                 setting.manager.personArrived(vehicleID, edge, target)
             if edge.startswith("cyber"):
+                if setting.verbose:
+                    print "arrived", vehicleID, edge
                 vehicleStatus[vehicleID].parking = True
                 setting.manager.cyberCarArrived(vehicleID, edge)
     setting.manager.setNewTargets()

@@ -1,0 +1,8 @@
+<routes>
+   <route id="1">1fi 1si 1o 1fi 1si 1o</route>
+  <vehicle depart="1" id="veh0" route="1" arrivalpos="1000">
+      <stop lane="1fi_0" pos="4" duration="10"/>
+      <stop lane="1si_0" pos="4" duration="10"/>
+      <stop lane="1fi_0" pos="3" duration="10"/>
+  </vehicle>
+</routes>
