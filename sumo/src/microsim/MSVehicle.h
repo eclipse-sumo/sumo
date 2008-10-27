@@ -249,18 +249,38 @@ public:
     /// @name Retrieval of CORN values
     //@{
 
-    /// Gets the named CORN double value
-    int getCORNIntValue(MSCORN::Function f) const;
+    /** @brief Returns the named CORN integer value
+     * 
+     * The behaviour is undefined for not stored values. 
+     *
+     * @return The named CORN integer value
+     * @todo Recheck whether throwing an exception for unset values is more appropriate
+     */
+    int getCORNIntValue(MSCORN::Function f) const throw();
 
-    /// Gets the named CORN pointer value
-    void *getCORNPointerValue(MSCORN::Pointer p) const;
 
-    /// Returns whether this vehicle has the named value stored
-    bool hasCORNIntValue(MSCORN::Function f) const;
+    /** @brief Returns the named CORN pointer value
+     * 
+     * The behaviour is undefined for not stored values. 
+     *
+     * @return The named CORN pointer value
+     * @todo Recheck whether throwing an exception for unset values is more appropriate
+     */
+    void *getCORNPointerValue(MSCORN::Pointer p) const throw();
 
-    /// Returns whether this vehicle has the named value stored
-    bool hasCORNPointerValue(MSCORN::Pointer p) const;
+
+    /** Returns whether this vehicle has the named integer value stored
+     * @return Whether the named integer value is stored in CORN
+     */
+    bool hasCORNIntValue(MSCORN::Function f) const throw();
+
+
+    /** Returns whether this vehicle has the named pointer value stored
+     * @return Whether the named pointer value is stored in CORN
+     */
+    bool hasCORNPointerValue(MSCORN::Pointer p) const throw();
     //@}
+
 
 
     /** moves a vehicle if it is not meant to be running out of the lane

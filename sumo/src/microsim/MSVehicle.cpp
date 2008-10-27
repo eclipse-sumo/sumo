@@ -260,28 +260,28 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 
 // ------------ Retrieval of CORN values
 int
-MSVehicle::getCORNIntValue(MSCORN::Function f) const
+MSVehicle::getCORNIntValue(MSCORN::Function f) const throw()
 {
     return myIntCORNMap.find(f)->second;
 }
 
 
 void *
-MSVehicle::getCORNPointerValue(MSCORN::Pointer p) const
+MSVehicle::getCORNPointerValue(MSCORN::Pointer p) const throw()
 {
     return myPointerCORNMap.find(p)->second;
 }
 
 
 bool
-MSVehicle::hasCORNIntValue(MSCORN::Function f) const
+MSVehicle::hasCORNIntValue(MSCORN::Function f) const throw()
 {
     return myIntCORNMap.find(f)!=myIntCORNMap.end();
 }
 
 
 bool
-MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const
+MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const throw()
 {
     return myPointerCORNMap.find(p)!=myPointerCORNMap.end();
 }
