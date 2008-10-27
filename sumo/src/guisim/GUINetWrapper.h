@@ -109,6 +109,7 @@ public:
     Boundary getBoundary() const;
 
     GUINet &getNet() const;
+    void drawGL(const GUIVisualizationSettings &s) const throw();
 
 protected:
     GUINet &myNet;

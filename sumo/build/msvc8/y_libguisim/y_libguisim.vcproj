@@ -610,10 +610,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUIGridBuilder.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUIInductLoop.cpp"
 				>
 			</File>
@@ -728,10 +724,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIEventControl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIGridBuilder.h"
 				>
 			</File>
 			<File

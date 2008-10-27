@@ -45,10 +45,11 @@
 // class declarations
 // ===========================================================================
 class GUIGlObjectStorage;
-class GUISUMOAbstractView;
 class GUIParameterTableWindow;
 class GUIMainWindow;
 class GUIGLObjectPopupMenu;
+class GUISUMOAbstractView;
+struct GUIVisualizationSettings;
 
 
 // ===========================================================================
@@ -128,6 +129,9 @@ public:
     virtual bool active() const throw() {
         return true;
     }
+
+
+    virtual void drawGL(const GUIVisualizationSettings &s) const throw() = 0;
 
 
 protected:

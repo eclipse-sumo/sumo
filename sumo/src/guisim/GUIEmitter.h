@@ -126,11 +126,10 @@ public:
 
     /** @brief Draws the object
      *
-     * @param[in] scale The current scale (meters to pixel) of the view
-     * @param[in] upscale The factor by which the object's size shall be multiplied
-     * @see GUIGlObject_AbstractAdd::drawGL
+     * @param[in] s Current visualization settings
+     * @see GUIGlObject::drawGL
      */
-    void drawGL(SUMOReal scale, SUMOReal upscale) throw();
+    void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
 

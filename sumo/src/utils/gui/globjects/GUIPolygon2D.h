@@ -32,7 +32,7 @@
 
 #include <string>
 #include <utils/shapes/Polygon2D.h>
-#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
 
 // ===========================================================================
@@ -42,7 +42,7 @@
  * @class GUIPolygon2D
  * @brief The GUI-version of a polygon
  */
-class GUIPolygon2D : public Polygon2D, public GUIGlObject
+class GUIPolygon2D : public Polygon2D, public GUIGlObject_AbstractAdd
 {
 public:
     /// Constructor
@@ -87,9 +87,6 @@ public:
      */
     const std::string &microsimID() const throw();
 
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const throw();
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -98,6 +95,7 @@ public:
     Boundary getCenteringBoundary() const throw();
     //@}
 
+    void drawGL(const GUIVisualizationSettings &s) const throw();
 
     /// Returns the layer the object is located in
     int getLayer() const;

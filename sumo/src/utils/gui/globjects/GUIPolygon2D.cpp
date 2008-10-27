@@ -32,10 +32,22 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIVisualizationSettings.h>
+#include <utils/gui/div/GLHelper.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+#ifdef WIN32
+#include <windows.h>
+#else
+#define APIENTRY
+#endif
+
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 
 // ===========================================================================
@@ -54,7 +66,7 @@ GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
                            const Position2DVector &Pos,
                            bool fill) throw()
         : Polygon2D(name, type, color, Pos, fill),
-        GUIGlObject(idStorage, "poly:"+name), myLayer(layer)
+        GUIGlObject_AbstractAdd(idStorage, "poly:"+name, GLO_SHAPE), myLayer(layer)
 {}
 
 
@@ -84,13 +96,6 @@ GUIPolygon2D::getParameterWindow(GUIMainWindow &,
 }
 
 
-GUIGlObjectType
-GUIPolygon2D::getType() const throw()
-{
-    return GLO_SHAPE;
-}
-
-
 const std::string &
 GUIPolygon2D::microsimID() const throw()
 {
@@ -106,6 +111,114 @@ GUIPolygon2D::getCenteringBoundary() const throw()
     b.grow(10);
     return b;
 }
+
+
+void APIENTRY beginCallback(GLenum which)
+{
+    glBegin(which);
+}
+
+void APIENTRY errorCallback(GLenum errorCode)
+{
+    const GLubyte *estring;
+
+    estring = gluErrorString(errorCode);
+    fprintf(stderr, "Tessellation Error: %s\n", estring);
+    exit(0);
+}
+
+void APIENTRY endCallback(void)
+{
+    glEnd();
+}
+
+void APIENTRY vertexCallback(GLvoid *vertex)
+{
+    const GLdouble *pointer;
+
+    pointer = (GLdouble *) vertex;
+    glVertex3dv((GLdouble *) vertex);
+}
+
+void APIENTRY combineCallback(GLdouble coords[3],
+                              GLdouble *vertex_data[4],
+                              GLfloat weight[4], GLdouble **dataOut)
+{
+    GLdouble *vertex;
+
+    vertex = (GLdouble *) malloc(7 * sizeof(GLdouble));
+
+    vertex[0] = coords[0];
+    vertex[1] = coords[1];
+    vertex[2] = coords[2];
+    *dataOut = vertex;
+}
+
+double glvert[6];
+void 
+GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw()
+{
+    if (fill()) {
+        if (getPosition2DVector().size()<3) {
+            return;
+        }
+    } else {
+        if (getPosition2DVector().size()<2) {
+            return;
+        }
+    }
+    if(getLayer()==0) {
+        glPolygonOffset( 0, -2 );
+    } else if(getLayer()>0) {
+        glPolygonOffset( 0, -3-getLayer() );
+    } else {
+        glPolygonOffset( 0, -getLayer()+1 );
+    }
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    RGBColor color = getColor();
+    glColor3d(color.red(), color.green(), color.blue());
+    if (fill()) {
+        double *points = new double[getPosition2DVector().size()*3];
+        GLUtesselator *tobj = gluNewTess();
+        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
+        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
+        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &endCallback);
+        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (APIENTRY*) ()) &errorCallback);
+        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combineCallback);
+        gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+        gluTessBeginPolygon(tobj, NULL);
+        gluTessBeginContour(tobj);
+        for (size_t i=0; i!=getPosition2DVector().size(); ++i) {
+            points[3*i]  = getPosition2DVector()[(int) i].x();
+            points[3*i+1]  = getPosition2DVector()[(int) i].y();
+            points[3*i+2]  = 0;
+            glvert[0] = getPosition2DVector()[(int) i].x();
+            glvert[1] = getPosition2DVector()[(int) i].y();
+            glvert[2] = 0;
+            glvert[3] = 1;
+            glvert[4] = 1;
+            glvert[5] = 1;
+            gluTessVertex(tobj, points+3*i, points+3*i) ;
+        }
+        gluTessEndContour(tobj);
+
+        gluTessEndPolygon(tobj);
+        gluDeleteTess(tobj);
+        delete[] points;
+    } else {
+        GLHelper::drawLine(getPosition2DVector());
+        GLHelper::drawBoxLines(getPosition2DVector(), 1.);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
+    }
+}
+
 
 
 int

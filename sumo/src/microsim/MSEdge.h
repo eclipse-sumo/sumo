@@ -95,11 +95,6 @@ public:
 
 
 public:
-    /// for access to the dictionary
-    /// @todo rework
-    friend class GUIGrid;
-
-
     /** @brief Constructor.
      *
      * After calling this constructor, the edge is not yet initialised

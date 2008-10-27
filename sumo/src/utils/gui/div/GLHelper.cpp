@@ -86,10 +86,6 @@ GLHelper::drawBoxLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength,
     glVertex2d(width, -visLength);
     glVertex2d(width, 0);
     glEnd();
-    glBegin(GL_LINES);
-    glVertex2d(0, 0);
-    glVertex2d(0, -visLength);
-    glEnd();
     glPopMatrix();
 }
 
@@ -107,10 +103,6 @@ GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
     glVertex2d(-width, -visLength);
     glVertex2d(width, -visLength);
     glVertex2d(width, 0);
-    glEnd();
-    glBegin(GL_LINES);
-    glVertex2d(0, 0);
-    glVertex2d(0, -visLength);
     glEnd();
     glPopMatrix();
 }

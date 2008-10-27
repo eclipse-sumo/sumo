@@ -45,6 +45,8 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <utils/gui/div/GLHelper.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MESegment.h>
@@ -238,6 +240,64 @@ GUIEdge::getCenteringBoundary() const throw()
     return b;
 }
 
+
+void 
+GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
+{
+    // check whether lane boundaries shall be drawn
+    if (s.laneShowBorders&&s.scale>1.&&myFunction!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        glPolygonOffset( 0, 2 );
+        glColor3d(1,1,1);
+        // (optional) set invalid id
+        if (s.needsGlID) {
+            glPushName(0);
+        }
+        // draw white boundings
+        size_t k;
+        for (k=0; k<myLanes->size(); k++) {
+            GUILaneWrapper *lane = myLaneGeoms[k];
+            GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), SUMO_const_halfLaneAndOffset);
+        }
+        glPolygonOffset( 0, 1 );
+        for(LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
+            (*i)->drawBordersGL(s);
+        }
+        // (optional) clear id
+        if (s.needsGlID) {
+            glPopName();
+        }
+    }
+    // draw the lanes
+    for(LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
+        (*i)->drawGL(s);
+    }
+    // (optionally) draw the name
+    if(s.drawEdgeName) {
+        glColor3f(s.edgeNameColor.red(), s.edgeNameColor.green(), s.edgeNameColor.blue());
+        glPolygonOffset( 0, -1 );
+        GUILaneWrapper *lane1 = myLaneGeoms[0];
+        GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
+        glPushMatrix();
+        Position2D p = lane1->getShape().positionAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
+        p.add(lane2->getShape().positionAtLengthPosition(lane2->getShape().length()/(SUMOReal) 2.));
+        p.mul(.5);
+        glTranslated(p.x(), p.y(), 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(s.edgeNameSize / s.scale);
+        SUMOReal w = pfdkGetStringWidth(microsimID().c_str());
+        glRotated(180, 1, 0, 0);
+        SUMOReal angle = lane1->getShape().rotationDegreeAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
+        angle += 90;
+        if (angle>90&&angle<270) {
+            angle -= 180;
+        }
+        glRotated(angle, 0, 0, 1);
+        glTranslated(-w/2., .2*s.edgeNameSize / s.scale, 0);
+        pfDrawString(microsimID().c_str());
+        glPopMatrix();
+    }
+}
 
 #ifdef HAVE_MESOSIM
 unsigned int

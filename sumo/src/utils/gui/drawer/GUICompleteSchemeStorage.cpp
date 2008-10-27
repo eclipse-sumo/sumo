@@ -64,7 +64,7 @@ GUICompleteSchemeStorage::~GUICompleteSchemeStorage()
 
 
 void
-GUICompleteSchemeStorage::add(GUISUMOAbstractView::VisualizationSettings &scheme)
+GUICompleteSchemeStorage::add(GUIVisualizationSettings &scheme)
 {
     std::string name = scheme.name;
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
@@ -74,7 +74,7 @@ GUICompleteSchemeStorage::add(GUISUMOAbstractView::VisualizationSettings &scheme
 }
 
 
-GUISUMOAbstractView::VisualizationSettings &
+GUIVisualizationSettings &
 GUICompleteSchemeStorage::get(const std::string &name)
 {
     return mySettings.find(name)->second;
@@ -106,7 +106,7 @@ GUICompleteSchemeStorage::getNames() const
 }
 
 
-const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &
+const std::map<std::string, GUIVisualizationSettings> &
 GUICompleteSchemeStorage::getItems() const
 {
     return mySettings;
@@ -130,7 +130,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
                                const map<int, vector<RGBColor> > &edgeColMap)
 {
     {
-        GUISUMOAbstractView::VisualizationSettings vs;
+        GUIVisualizationSettings vs;
         vs.name = "standard";
 
         vs.antialiase = false;
@@ -194,7 +194,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
         gSchemeStorage.add(vs);
     }
     {
-        GUISUMOAbstractView::VisualizationSettings vs;
+        GUIVisualizationSettings vs;
         vs.name = "faster standard";
 
         vs.antialiase = false;
@@ -258,7 +258,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
         gSchemeStorage.add(vs);
     }
     {
-        GUISUMOAbstractView::VisualizationSettings vs;
+        GUIVisualizationSettings vs;
         vs.name = "real world";
 
         vs.antialiase = true;
@@ -327,15 +327,15 @@ GUICompleteSchemeStorage::init(FXApp *app,
         gSchemeStorage.add(vs);
     }
     // add saved settings
-    int noSaved = app->reg().readIntEntry("VisualizationSettings","settingNo", 0);
-    string setting1 = app->reg().readStringEntry("VisualizationSettings","visset#0", "");
+    int noSaved = app->reg().readIntEntry("VisualizationSettings", "settingNo", 0);
+    string setting1 = app->reg().readStringEntry("VisualizationSettings", "visset#0", "");
 
     for (int i=0; i<noSaved; ++i) {
         string name = "visset#" + toString(i);
         string setting = app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
         if (setting!="") {
             size_t j, k;
-            GUISUMOAbstractView::VisualizationSettings vs;
+            GUIVisualizationSettings vs;
 
             vs.name = setting;
             app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");

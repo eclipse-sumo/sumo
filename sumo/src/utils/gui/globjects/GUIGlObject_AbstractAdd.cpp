@@ -31,6 +31,8 @@
 #include "GUIGlObject_AbstractAdd.h"
 #include <cassert>
 #include <iostream>
+#include <utils/gui/div/GLHelper.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -129,6 +131,22 @@ GUIGlObject_AbstractAdd::getIDList()
     return ret;
 }
 
+
+void
+GUIGlObject_AbstractAdd::drawGLName(const Position2D &p, const std::string &id, SUMOReal nameScale) const
+{
+    glPolygonOffset( 0, -3 );
+    glPushMatrix();
+    glTranslated(p.x(), p.y(), 0);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    pfSetPosition(0, 0);
+    pfSetScale(nameScale);
+    SUMOReal w = pfdkGetStringWidth(id.c_str());
+    glRotated(180, 1, 0, 0);
+    glTranslated(-w/2., 0.4, 0);
+    pfDrawString(id.c_str());
+    glPopMatrix();
+}
 
 
 /****************************************************************************/

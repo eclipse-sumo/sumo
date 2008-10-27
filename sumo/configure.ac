@@ -360,7 +360,6 @@ src/foreign/polyfonts/Makefile
 src/foreign/tcpip/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
-src/gui/drawerimpl/Makefile
 src/guinetload/Makefile
 src/guisim/Makefile
 src/icons/Makefile

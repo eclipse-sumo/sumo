@@ -39,11 +39,6 @@
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <utils/gui/drawer/GUILaneDrawer.h>
-#include "drawerimpl/GUIVehicleDrawer.h"
-#include "drawerimpl/GUIDetectorDrawer.h"
-#include "drawerimpl/GUIROWDrawer.h"
-#include "drawerimpl/GUIJunctionDrawer.h"
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
 #ifdef _WIN32
@@ -138,7 +133,7 @@ public:
 
 
 protected:
-    void doPaintGL(int mode, SUMOReal scale);
+    int doPaintGL(int mode, SUMOReal scale);
 
     void doInit();
 
@@ -155,42 +150,10 @@ protected:
     void setSecondPoint(PointOfInterest *p);
 
 protected:
-    /** @brief Instances of the vehicle drawers
-        A drawer is chosen in dependence to whether the full or the simple
-        geometry shall be used and whether to show tooltips or not */
-    GUIVehicleDrawer myVehicleDrawer;
-
-    /** @brief Instances of the lane drawers
-        A drawer is chosen in dependence to whether the full or the simple
-        geometry shall be used and whether to show tooltips or not */
-    GUILaneDrawer<GUIEdge, GUIEdge, GUILaneWrapper> myLaneDrawer;
-
-    /** @brief Instances of the junction drawers
-        A drawer is chosen in dependence to whether the full or the simple
-        geometry shall be used and whether to show tooltips or not */
-    GUIJunctionDrawer myJunctionDrawer;
-
-    /** @brief Instances of the detectors drawers
-        A drawer is chosen in dependence to whether the full or the simple
-        geometry shall be used and whether to show tooltips or not */
-    GUIDetectorDrawer myDetectorDrawer;
-
-    /** @brief Instances of the right of way drawers
-        A drawer is chosen in dependence to whether the full or the simple
-        geometry shall be used and whether to show tooltips or not */
-    GUIROWDrawer myROWDrawer;
-
     /// The coloring scheme of junctions to use
     JunctionColoringScheme myJunctionColScheme;
 
     int myTrackedID;
-
-    /** @brief Pointers to tables holding the information which of the items are visible
-        All vehicles on visible edges will be drawn */
-    size_t *myEdges2Show, *myJunctions2Show, *myAdditional2Show;
-
-    /// The absolut numbers of the array sizes
-    size_t myEdges2ShowSize, myJunctions2ShowSize, myAdditional2ShowSize;
 
     PointOfInterest *myPointToMove;
     PointOfInterest *mySecondPoint; // first's Line Point
@@ -207,14 +170,7 @@ protected:
     static GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
 
 protected:
-    std::vector<GUIEdge*> myEmptyEdges;
-    std::vector<GUIJunctionWrapper*> myEmptyJunctions;
-
-    GUIViewTraffic()
-            : myVehicleDrawer(myEmptyEdges), myLaneDrawer(myEmptyEdges),
-            myJunctionDrawer(myEmptyJunctions),
-            myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
-            myROWDrawer(myEmptyEdges) { }
+    GUIViewTraffic() { }
 
 };
 

@@ -121,6 +121,9 @@ public:
 
     MSJunction &getJunction() const;
 
+    void drawGL(const GUIVisualizationSettings &s) const throw();
+
+
 protected:
 
     /// A reference to the real junction

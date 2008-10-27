@@ -59,12 +59,15 @@
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <foreign/rtree/SUMORTree.h>
+#include <utils/gui/div/GLHelper.h>
 
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 #include <GL/gl.h>
+#include <GL/glu.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -91,13 +94,9 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUIMainWindow &app,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
-        : GUISUMOAbstractView(p, app, parent, net.myGrid, glVis),
-        myVehicleDrawer(net.myEdgeWrapper), myLaneDrawer(net.myEdgeWrapper),
-        myJunctionDrawer(net.myJunctionWrapper),
-        myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
-        myROWDrawer(net.myEdgeWrapper),
+        : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis),
         myTrackedID(-1),
-        myEdges2Show(0), myJunctions2Show(0), myAdditional2Show(0), myPointToMove(0),myIdToMove(0),
+        myPointToMove(0),myIdToMove(0),
         myLeftButtonPressed(false), myNet(&net)
 {
     init(net);
@@ -109,13 +108,9 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
-        : GUISUMOAbstractView(p, app, parent, net.myGrid, glVis, share),
-        myVehicleDrawer(net.myEdgeWrapper), myLaneDrawer(net.myEdgeWrapper),
-        myJunctionDrawer(net.myJunctionWrapper),
-        myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
-        myROWDrawer(net.myEdgeWrapper),
+        : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis, share),
         myTrackedID(-1),
-        myEdges2Show(0), myJunctions2Show(0), myAdditional2Show(0), myPointToMove(0),
+        myPointToMove(0),myIdToMove(0),
         myNet(&net)
 {
     init(net);
@@ -125,16 +120,6 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
 void
 GUIViewTraffic::init(GUINet &)
 {
-    // build the artifact-instances-to-draw - tables
-    myEdges2ShowSize = (MSEdge::dictSize()>>5) + 1;
-    myEdges2Show = new size_t[myEdges2ShowSize];
-    clearUsetable(myEdges2Show, myEdges2ShowSize);
-    myJunctions2ShowSize = (myNet->getJunctionControl().size()>>5) + 1;
-    myJunctions2Show = new size_t[myJunctions2ShowSize];
-    clearUsetable(myJunctions2Show, myJunctions2ShowSize);
-    myAdditional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;
-    myAdditional2Show = new size_t[myAdditional2ShowSize];
-    clearUsetable(myAdditional2Show, myAdditional2ShowSize);
     // initialise default scheme
     myVisualizationSettings = &gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
@@ -142,9 +127,6 @@ GUIViewTraffic::init(GUINet &)
 
 GUIViewTraffic::~GUIViewTraffic()
 {
-    delete[] myEdges2Show;
-    delete[] myJunctions2Show;
-    delete[] myAdditional2Show;
 }
 
 
@@ -247,7 +229,7 @@ GUIViewTraffic::setColorScheme(char* data)
 }
 
 
-void
+int
 GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 {
     // init view settings
@@ -257,74 +239,24 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
-    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     // get the viewport settings
     const Boundary &nb = myNet->getBoundary();
-    {
         SUMOReal width = nb.getWidth();
         SUMOReal height = nb.getHeight();
         SUMOReal mzoom = myChanger->getZoom();
-        SUMOReal cy = myChanger->getYPos();//cursorY;
-        SUMOReal cx = myChanger->getXPos();//cursorY;
+        SUMOReal cy = myChanger->getYPos();
+        SUMOReal cx = myChanger->getXPos();
 
-        // compute the visible area in horizontal direction
-        SUMOReal mratioX = 1;
-        SUMOReal mratioY = 1;
-        SUMOReal xs = ((SUMOReal) myWidthInPixels / (SUMOReal) myApp->getMaxGLWidth())
-                      / (myGrid->getBoundary().getWidth() / myNetScale) * myRatio;
-        SUMOReal ys = ((SUMOReal) myHeightInPixels / (SUMOReal) myApp->getMaxGLHeight())
-                      / (myGrid->getBoundary().getHeight() / myNetScale);
-        if (xs<ys) {
-            mratioX = 1;
-            mratioY = ys/xs;
-        } else {
-            mratioY = 1;
-            mratioX = xs/ys;
-        }
-        SUMOReal sxmin = nb.getCenter().x()
-                         - mratioX * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
-        sxmin -= cx;
-        SUMOReal sxmax = nb.getCenter().x()
-                         + mratioX * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
-        sxmax -= cx;
 
-        // compute the visible area in vertical direction
-        SUMOReal symin = nb.getCenter().y()
-                         - mratioY * height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-        symin -= cy;
-        SUMOReal symax = nb.getCenter().y()
-                         + mratioY * height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-        symax -= cy;
-
-        // reset the tables of things to show if the viewport has changed
-        if (myViewportSettings.differ(sxmin, symin, sxmax, symax)) {
-            clearUsetable(myEdges2Show,myEdges2ShowSize);
-            clearUsetable(myJunctions2Show, myJunctions2ShowSize);
-            myNet->myGrid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR,
-                              sxmin, symin, sxmax, symax,
-                              myEdges2Show, myJunctions2Show,myAdditional2Show);
-            myViewportSettings.set(sxmin, symin, sxmax, symax);
-        }
-    }
+        GLdouble sxmin = myCX - myX1;
+        GLdouble sxmax = myCX + myX1;
+        GLdouble symin = myCY - myY1;
+        GLdouble symax = myCY + myY1;
 
     // compute lane width
-    SUMOReal width = m2p(3.0) * scale;
-    // compute which drawer shall be used
-    if (myUseToolTips) {
-        myVehicleDrawer.setGLID(true);
-        myLaneDrawer.setGLID(true);
-        myDetectorDrawer.setGLID(true);
-        myROWDrawer.setGLID(true);
-        myJunctionDrawer.setGLID(true);
-    } else {
-        myVehicleDrawer.setGLID(false);
-        myLaneDrawer.setGLID(false);
-        myDetectorDrawer.setGLID(true);
-        myROWDrawer.setGLID(true);
-        myJunctionDrawer.setGLID(true);
-    }
+    SUMOReal lw = m2p(3.0) * scale;
     // draw
-    {
         myDecalsLock.lock();
         for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
             GUISUMOAbstractView::Decal &d = *l;
@@ -343,26 +275,19 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
             glPopMatrix();
         }
         myDecalsLock.unlock();
-    }
-    drawShapes(myNet->getShapeContainer(), 0, width);
-
-    myJunctionDrawer.drawGLJunctions(myJunctions2Show, myJunctions2ShowSize,
-                                     myJunctionColScheme, *myVisualizationSettings);
-    myLaneDrawer.drawGLLanes(myEdges2Show, myEdges2ShowSize, width,
-                             *myLaneColoringSchemes.getColorer(myVisualizationSettings->laneEdgeMode),
-                             *myVisualizationSettings);
-    myDetectorDrawer.drawGLDetectors(myAdditional2Show, myAdditional2ShowSize,
-                                     width, *myVisualizationSettings);
-    myROWDrawer.drawGLROWs(*myNet, myEdges2Show, myEdges2ShowSize, width,
-                           *myVisualizationSettings);
-    if (myVisualizationSettings->drawEdgeName) {
-        myLaneDrawer.drawGLLaneNames(myEdges2Show, myEdges2ShowSize, width,
-                                     *myVisualizationSettings);
-    }
-    if (myVisualizationSettings->drawJunctionName) {
-        myJunctionDrawer.drawGLJunctionNames(myJunctions2Show, myJunctions2ShowSize,
-                                             width, myJunctionColScheme, *myVisualizationSettings);
-    }
+    glLineWidth(1);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    float minB[2];
+    float maxB[2];
+    minB[0] = sxmin;
+    minB[1] = symin;
+    maxB[0] = sxmax;
+    maxB[1] = symax;
+    myVisualizationSettings->needsGlID = myUseToolTips;
+    myVisualizationSettings->scale = lw;
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    glEnable(GL_POLYGON_OFFSET_LINE);
+    int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
     //
     for (std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
         const VehicleOps &vo = *i;
@@ -395,14 +320,8 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
             break;
         }
     }
-    // draw the Polygons
-    drawShapes(myNet->getShapeContainer(), 10, width);
-    // draw vehicles only when they're visible
-    if (scale*m2p(3)>myVisualizationSettings->minVehicleSize) {
-        myVehicleDrawer.drawGLVehicles(myEdges2Show, myEdges2ShowSize, width,
-                                       myVehicleColoringSchemes, *myVisualizationSettings);
-    }
     glPopMatrix();
+    return hits2;
 }
 
 

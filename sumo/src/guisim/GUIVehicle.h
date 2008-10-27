@@ -125,6 +125,8 @@ public:
     /// Returns the information whether this object is still active
     bool active() const throw();
 
+    void drawGL(const GUIVisualizationSettings &s) const throw();
+
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within

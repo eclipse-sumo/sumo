@@ -52,9 +52,7 @@
 #include <gui/GUIGlobals.h>
 #include <gui/GUIThreadFactory.h>
 #include <guisim/GUIEdge.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <gui/drawerimpl/GUIVehicleDrawer.h>
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>

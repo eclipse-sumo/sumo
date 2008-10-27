@@ -155,7 +155,6 @@ sumo_guisim_LDFLAGS = $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(X_LDFLAGS)
 sumo_guisim_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \
 ./guisim/libguisim.a \
-./gui/drawerimpl/libguidrawerimpl.a \
 ./gui/dialogs/libguidialogs.a \
 ./utils/gui/windows/libguiutilsWindows.a \
 ./utils/gui/globjects/libguiutilsglobjects.a \

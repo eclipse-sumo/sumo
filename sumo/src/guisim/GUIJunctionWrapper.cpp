@@ -41,6 +41,8 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GLHelper.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -138,6 +140,36 @@ GUIJunctionWrapper::getJunction() const
     return myJunction;
 }
 
+void 
+GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
+{
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glColor3f(0, 0, 0);
+    glPolygonOffset( 0, 1 );
+    GLHelper::drawFilledPoly(getShape(), true);
+    // (optional) draw name
+    if(s.drawJunctionName) {
+        glPolygonOffset( 0, -1 );
+        Position2D p = myJunction.getPosition();
+        glTranslated(p.x(), p.y(), 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(s.junctionNameSize / s.scale);
+        glColor3f(s.junctionNameColor.red(), s.junctionNameColor.green(), s.junctionNameColor.blue());
+        SUMOReal w = pfdkGetStringWidth(microsimID().c_str());
+        glRotated(180, 1, 0, 0);
+        glTranslated(-w/2., 0.4, 0);
+        pfDrawString(microsimID().c_str());
+        glPopMatrix();
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
+    }
+}
 
 
 /****************************************************************************/

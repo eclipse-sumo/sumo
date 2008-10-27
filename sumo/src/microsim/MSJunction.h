@@ -80,8 +80,6 @@ public:
         GUIGlObjectStorage &idStorage);
 
 
-    friend class GUIGridBuilder;
-
 protected:
     /// unique ID
     std::string myID;

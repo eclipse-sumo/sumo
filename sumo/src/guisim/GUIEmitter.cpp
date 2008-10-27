@@ -456,11 +456,16 @@ GUIEmitter::getEdgeProbs() const
 
 
 void
-GUIEmitter::drawGL(SUMOReal , SUMOReal upscale) throw()
+GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw()
 {
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glPolygonOffset( 0, -2 );
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
-    glScaled(upscale, upscale, upscale);
+    glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
     glRotated(myFGRotation, 0, 0, 1);
 
     glBegin(GL_TRIANGLES);
@@ -490,17 +495,24 @@ GUIEmitter::drawGL(SUMOReal , SUMOReal upscale) throw()
     glEnd();
     glPopMatrix();
 
-    if (!myDrawRoutes) {
-        return;
+    if (myDrawRoutes) {
+        std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
+        for (std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
+            double c = (*k).second;
+            glColor3d(1.-c, 1.-c, 0);
+            const MSEdge *e = (*k).first;
+            const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+            const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+            GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 0.5);
+        }
     }
-    std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
-    for (std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
-        double c = (*k).second;
-        glColor3d(1.-c, 1.-c, 0);
-        const MSEdge *e = (*k).first;
-        const GUIEdge *ge = static_cast<const GUIEdge*>(e);
-        const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
-        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 0.5);
+    // (optional) draw name
+    if(s.drawAddName) {
+        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
     }
 }
 

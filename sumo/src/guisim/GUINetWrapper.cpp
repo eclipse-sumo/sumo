@@ -156,6 +156,10 @@ GUINetWrapper::getBoundary() const
     return myNet.getBoundary();
 }
 
+void 
+GUINetWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
+{
+}
 
 GUINet &
 GUINetWrapper::getNet() const

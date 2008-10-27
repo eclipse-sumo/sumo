@@ -35,7 +35,7 @@
 #include <microsim/MSNet.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
-#include <utils/gui/windows/GUIGrid.h>
+#include <foreign/rtree/SUMORTree.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -90,7 +90,7 @@ public:
            MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
 
     /// destructor
-    ~GUINet();
+    ~GUINet() throw();
 
     /// returns the bounder of the network
     const Boundary &getBoundary() const;
@@ -177,9 +177,9 @@ public:
 
 
     friend class GUIViewTraffic; // !!!
+    friend class GUIOSGBuilder; // !!!
     friend class GUISUMOAbstractView; // !!!
     friend class GUIViewMesoEdges; // !!!
-    friend class GUIGridBuilder;
 
 
 private:
@@ -190,8 +190,8 @@ private:
     void initTLMap();
 
 protected:
-    /** A grid laid over the network to allow the drawing of visible items only */
-    GUIGrid myGrid;
+    /// @brief The visualization speed-up
+    SUMORTree *myGrid;
 
     /// the networks boundary
     Boundary myBoundary;

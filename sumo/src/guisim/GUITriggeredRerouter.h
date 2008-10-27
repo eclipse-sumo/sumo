@@ -124,7 +124,7 @@ public:
      * @param[in] upscale The factor by which the object's size shall be multiplied
      * @see GUIGlObject_AbstractAdd::drawGL
      */
-    void drawGL(SUMOReal scale, SUMOReal upscale) throw();
+    void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
 

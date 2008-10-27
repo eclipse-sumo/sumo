@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
-	Name="z_libutils_gui_windows"
-	ProjectGUID="{25AF2C06-8B08-4B33-8775-657E27C304D9}"
-	RootNamespace="z_libutils_gui_windows"
+	Version="8,00"
+	Name="zz_foreign_rtree"
+	ProjectGUID="{25FDF327-EB7A-484A-96BC-AF2DB089D6F4}"
+	RootNamespace="zz_foreign_rtree"
 	>
 	<Platforms>
 		<Platform
@@ -39,57 +39,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug|x64"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\x64.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
+				PreprocessorDefinitions="WIN32"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -141,57 +91,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|x64"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
+				PreprocessorDefinitions="WIN32"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -245,6 +145,111 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				PreprocessorDefinitions="WIN32"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\x64.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				PreprocessorDefinitions="WIN32"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				PreprocessorDefinitions="WIN32"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -299,6 +304,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				PreprocessorDefinitions="WIN32"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -337,54 +343,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractLoadThread.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractRunThread.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractThreadFactory.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIGlChildWindow.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIMainWindow.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIPerspectiveChanger.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIVisualizationSettings.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -392,59 +350,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractLoadThread.h"
+				RelativePath="..\..\..\src\foreign\rtree\rtree.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractRunThread.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractThreadFactory.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAppEnum.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIGlChildWindow.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIInterface_GridSpeedUp.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIMainWindow.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIPerspectiveChanger.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUISUMOAbstractView.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIVisualizationSettings.h"
+				RelativePath="..\..\..\src\foreign\rtree\SUMORTree.h"
 				>
 			</File>
 		</Filter>

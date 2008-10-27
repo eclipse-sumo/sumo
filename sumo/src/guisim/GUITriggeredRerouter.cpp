@@ -318,13 +318,18 @@ GUITriggeredRerouter::microsimID() const throw()
 
 
 void
-GUITriggeredRerouter::drawGL(SUMOReal scale, SUMOReal upscale) throw()
+GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
 {
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glPolygonOffset( 0, -2 );
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
-        glScaled(upscale, upscale, upscale);
+        glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -381,8 +386,8 @@ GUITriggeredRerouter::drawGL(SUMOReal scale, SUMOReal upscale) throw()
                 glTranslated(0, -1.5, 0);
 
                 int noPoints = 9;
-                if (scale>25) {
-                    noPoints = (int)(9.0 + scale / 10.0);
+                if (s.scale>25) {
+                    noPoints = (int)(9.0 + s.scale / 10.0);
                     if (noPoints>36) {
                         noPoints = 36;
                     }
@@ -404,6 +409,10 @@ GUITriggeredRerouter::drawGL(SUMOReal scale, SUMOReal upscale) throw()
                 glPopMatrix();
             }
         }
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
     }
 }
 

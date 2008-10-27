@@ -12,7 +12,7 @@ GUISUMOViewParent.cpp GUISUMOViewParent.h \
 GUIThreadFactory.cpp GUIThreadFactory.h \
 GUIViewTraffic.cpp GUIViewTraffic.h
 
-SUBDIRS = dialogs drawerimpl
+SUBDIRS = dialogs
 
 
 

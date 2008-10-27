@@ -4,7 +4,7 @@
 /// @date    Okt 2003
 /// @version $Id$
 ///
-// The gui-version of the MS_E2_ZS_Collector, together with the according
+// The gui-version of the MS_E2_ZS_Collector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,7 +53,8 @@ class GUI_E2_ZS_CollectorOverLanes;
 // ===========================================================================
 /**
  * @class GUI_E2_ZS_Collector
- * The gui-version of the MS_E2_ZS_Collector.
+ * @brief The gui-version of the MS_E2_ZS_Collector
+ *
  * Allows the building of a wrapper (also declared herein) which draws the
  * detector on the gl-canvas. Beside this, the method "amVisible" is
  * overridden to signalise that this detector is not used for simulation-
@@ -120,11 +121,10 @@ class MyWrapper : public GUIDetectorWrapper
 
         /** @brief Draws the object
          *
-         * @param[in] scale The current scale (meters to pixel) of the view
-         * @param[in] upscale The factor by which the object's size shall be multiplied
-         * @see GUIGlObject_AbstractAdd::drawGL
+         * @param[in] s Current visualization settings
+         * @see GUIGlObject::drawGL
          */
-        void drawGL(SUMOReal scale, SUMOReal upscale) throw();
+        void drawGL(const GUIVisualizationSettings &s) const throw();
 
 
         /** @brief Returns the id of the object as known to microsim

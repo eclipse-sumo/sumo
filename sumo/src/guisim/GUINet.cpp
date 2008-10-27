@@ -69,7 +69,6 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
-#include "GUIGridBuilder.h"
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 
@@ -90,35 +89,34 @@ using namespace std;
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
                MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
         : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents),
-        myGrid(10, 10),
+        myGrid(new SUMORTree(&GUIGlObject::drawGL)),
         myWrapper(new GUINetWrapper(gIDStorage, *this)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
         myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0)
-{}
+{
+}
 
 
-GUINet::~GUINet()
+GUINet::~GUINet() throw()
 {
     gIDStorage.clear();
     // delete allocated wrappers
-    // of junctions
+    //  of junctions
     for (std::vector<GUIJunctionWrapper*>::iterator i1=myJunctionWrapper.begin(); i1!=myJunctionWrapper.end(); i1++) {
         delete(*i1);
     }
-    // of addition structures
+    //  of addition structures
     GUIGlObject_AbstractAdd::clearDictionary();
-    // of tl-logics
-    {
-        for (Logics2WrapperMap::iterator i3=myLogics2Wrapper.begin(); i3!=myLogics2Wrapper.end(); i3++) {
-            delete(*i3).second;
-        }
+    //  of tl-logics
+    for (Logics2WrapperMap::iterator i3=myLogics2Wrapper.begin(); i3!=myLogics2Wrapper.end(); i3++) {
+        delete(*i3).second;
     }
-    {
-        std::map<std::string, GUIDetectorWrapper*>::iterator i;
-        for (i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
-            delete(*i).second;
-        }
+    //  of detectors
+    for (map<string, GUIDetectorWrapper*>::iterator i=myDetectorDict.begin(); i!=myDetectorDict.end(); ++i) {
+        delete(*i).second;
     }
+    // the visualization tree
+    delete myGrid;
     // of the network itself
     delete myWrapper;
 }
@@ -148,9 +146,9 @@ GUINet::initDetectors()
                 continue;
             }
             */
-        GUIDetectorWrapper *wrapper =
+        GUIDetectorWrapper *wrapper = 
             static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(
-                gIDStorage, edge->getLaneGeometry(lane));
+                    gIDStorage, edge->getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->microsimID()] = wrapper;
     }
@@ -358,11 +356,49 @@ GUINet::initGUIStructures()
             myJunctionWrapper.push_back(wrapper);
         }
     }
-    // build the grid
-    GUIGridBuilder b(*this, myGrid);
-    b.build();
-    // get the boundary
-    myBoundary = myGrid.getBoundary();
+    // build the visualization tree
+    float *cmin = new float[2];
+    float *cmax = new float[2];
+    for (vector<GUIEdge*>::iterator i=myEdgeWrapper.begin(); i!=myEdgeWrapper.end(); ++i) {
+        GUIEdge *edge = *i;
+        Boundary b;
+        for (size_t j=0; j<edge->nLanes(); ++j) {
+            GUILaneWrapper &lane = edge->getLaneGeometry(j);
+            b.add(lane.getShape().getBoxBoundary());
+        }
+        b.grow(2.);
+        cmin[0] = b.xmin();
+        cmin[1] = b.ymin();
+        cmax[0] = b.xmax();
+        cmax[1] = b.ymax();
+        myGrid->Insert(cmin, cmax, edge);
+        myBoundary.add(b);
+    }
+    for (vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
+        GUIJunctionWrapper *junction = *i;
+        Boundary b = junction->getShape().getBoxBoundary();
+        b.grow(2.);
+        cmin[0] = b.xmin();
+        cmin[1] = b.ymin();
+        cmax[0] = b.xmax();
+        cmax[1] = b.ymax();
+        myGrid->Insert(cmin, cmax, junction);
+        myBoundary.add(b);
+    }
+    const vector<GUIGlObject_AbstractAdd*> &a = GUIGlObject_AbstractAdd::getObjectList();
+    for(vector<GUIGlObject_AbstractAdd*>::const_iterator i=a.begin(); i!=a.end(); ++i) {
+        GUIGlObject_AbstractAdd *o = *i;
+        Boundary b = o->getCenteringBoundary();
+        cmin[0] = b.xmin();
+        cmin[1] = b.ymin();
+        cmax[0] = b.xmax();
+        cmax[1] = b.ymax();
+        myGrid->Insert(cmin, cmax, o);
+        //myBoundary.add(b);
+    }
+    delete[] cmin;
+    delete[] cmax;
+    myGrid->add(myBoundary);
 }
 
 

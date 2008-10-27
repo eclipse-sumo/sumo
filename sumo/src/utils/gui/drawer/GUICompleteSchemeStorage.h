@@ -54,10 +54,10 @@ public:
     ~GUICompleteSchemeStorage();
 
     /// Adds a visualization setting
-    void add(GUISUMOAbstractView::VisualizationSettings &scheme);
+    void add(GUIVisualizationSettings &scheme);
 
     /// Returns the named setting
-    GUISUMOAbstractView::VisualizationSettings &get(const std::string &name);
+    GUIVisualizationSettings &get(const std::string &name);
 
     /// Returns the information whether a setting with the given name is stored
     bool contains(const std::string &name) const;
@@ -75,11 +75,11 @@ public:
               const std::map<int, std::vector<RGBColor> > &edgeColMap);
 
     /// Returns all settings
-    const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &getItems() const;
+    const std::map<std::string, GUIVisualizationSettings> &getItems() const;
 
 protected:
     /// A map of settings referenced by their names
-    std::map<std::string, GUISUMOAbstractView::VisualizationSettings> mySettings;
+    std::map<std::string, GUIVisualizationSettings> mySettings;
 
     /// List of known setting names
     std::vector<std::string> mySortedSchemeNames;

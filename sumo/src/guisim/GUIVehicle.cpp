@@ -49,6 +49,8 @@
 #include <guisim/GUIRoute.h>
 #include <utils/common/RandHelper.h>
 #include <microsim/MSAbstractLaneChangeModel.h>
+#include <utils/gui/div/GLHelper.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -304,6 +306,200 @@ GUIVehicle::getCenteringBoundary() const throw()
     return b;
 }
 
+
+
+
+
+
+
+
+
+
+inline void
+drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale)
+{
+    SUMOReal length = veh.getLength();
+    glPushMatrix();
+    glScaled(upscale, upscale, upscale);
+    if (length<8) {
+        glScaled(1, length, 1);
+        glBegin(GL_TRIANGLES);
+        glVertex2d(0, 0);
+        glVertex2d(0-1.25, 1);
+        glVertex2d(0+1.25, 1);
+        glEnd();
+    } else {
+        glBegin(GL_TRIANGLES);
+        glVertex2d(0, 0);
+        glVertex2d(0-1.25, 0+2);
+        glVertex2d(0+1.25, 0+2);
+        glVertex2d(0-1.25, 2);
+        glVertex2d(0-1.25, length);
+        glVertex2d(0+1.25, length);
+        glVertex2d(0+1.25, 2);
+        glVertex2d(0-1.25, 2);
+        glVertex2d(0+1.25, length);
+        glEnd();
+    }
+    glPopMatrix();
+}
+
+#define BLINKER_POS_FRONT 1.
+#define BLINKER_POS_BACK 1.
+
+inline void
+drawAction_drawVehicleBlinker(const GUIVehicle &veh)
+{
+    int dir = veh.getCORNIntValue(MSCORN::CORN_VEH_BLINKER);
+    if (dir==0) {
+        return;
+    }
+    glColor3f(1.f, .8f, 0);
+    glTranslated(dir, BLINKER_POS_FRONT, 0);
+    GLHelper::drawFilledCircle(.5, 6);
+    glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
+    GLHelper::drawFilledCircle(.5, 6);
+    glTranslated(-dir, +BLINKER_POS_BACK-veh.getLength(), 0);
+}
+
+
+inline void
+drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
+{
+    glPushMatrix();
+    glTranslated(0, veh.getLength() / 2., 0);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    pfSetPosition(0, 0);
+    pfSetScale(size);
+    SUMOReal w = pfdkGetStringWidth(veh.microsimID().c_str());
+    glRotated(180, 0, 1, 0);
+    glTranslated(-w/2., 0.4, 0);
+    pfDrawString(veh.microsimID().c_str());
+    glPopMatrix();
+}
+
+
+#ifdef HAVE_BOYOM_C2C
+inline void
+drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
+{
+    if (veh.isEquipped()) {
+        int cluster = veh.getClusterId();
+        if (veh.getConnections().size()==0) {
+            cluster = -1;
+        }
+        if (colorBla.find(cluster)==colorBla.end()) {
+            int r = RandHelper::rand(256);
+            int g = RandHelper::rand(256);
+            int b = RandHelper::rand(256);
+            colorBla[cluster] = FXRGB(r, g, b);
+        }
+        FXColor c = colorBla[cluster];
+        glColor3f(
+            (float)((float) FXREDVAL(c) /255.),
+            (float)((float) FXGREENVAL(c) /255.),
+            (float)((float) FXBLUEVAL(c) /255.));
+        GLHelper::drawOutlineCircle(MSGlobals::gLANRange, MSGlobals::gLANRange-2, 24);
+    }
+}
+#endif
+
+
+#include <gui/GUIViewTraffic.h>
+
+void 
+GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
+{
+    glPolygonOffset( 0, -3 );
+    // set lane color
+    GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap(); //!!!
+    sm.getColorer(s.vehicleMode)->setGlColor(*this);
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+        /*
+            MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+            if((m2.getState()&LCA_URGENT)!=0) {
+                glColor3f(1, .4, .4);
+            } else if((m2.getState()&LCA_SPEEDGAIN)!=0) {
+                glColor3f(.4, .4, 1);
+            } else {
+                glColor3f(.4, 1, .4);
+            }
+            */
+    // draw the vehicle
+    SUMOReal upscale = s.vehicleExaggeration;
+    drawAction_drawVehicleAsTrianglePlus(*this, upscale);
+    // draw the blinker if wished
+    if (s.showBlinker) {
+        glPolygonOffset( 0, -4 );
+        drawAction_drawVehicleBlinker(*this);
+    }
+    // draw the c2c-circle
+#ifdef HAVE_BOYOM_C2C
+    if (s.drawcC2CRadius) {
+        drawAction_C2CdrawVehicleRadius(*veh);
+    }
+#endif
+        // draw the wish to change the lane
+        if (s.drawLaneChangePreference) {
+    /*
+            if(gSelected.isSelected(GLO_VEHICLE, veh->getGlID())) {
+            MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+            glColor3f(.5, .5, 1);
+            glBegin(GL_LINES);
+            glVertex2f(0, 0);
+            glVertex2f(m.getChangeProbability(), .5);
+            glEnd();
+
+            glColor3f(1, 0, 0);
+            glBegin(GL_LINES);
+            glVertex2f(0.1, 0);
+            glVertex2f(0.1, m.myMaxJam1);
+            glEnd();
+
+            glColor3f(0, 1, 0);
+            glBegin(GL_LINES);
+            glVertex2f(-0.1, 0);
+            glVertex2f(-0.1, m.myTDist);
+            glEnd();
+            }
+            */
+        }
+        // draw best lanes
+        if (true) {
+            /*
+            const MSLane &l = veh->getLane();
+            SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
+            SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
+            SUMOReal r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
+            SUMOReal mmax = MAX3(r1, r2, r3);
+            glBegin(GL_LINES);
+            glVertex2f(0, 0);
+            glVertex2f(0, r1/mmax/2.);
+            glEnd();
+            glBegin(GL_LINES);
+            glVertex2f(.4, 0);
+            glVertex2f(.4, r2/mmax/2.);
+            glEnd();
+            glBegin(GL_LINES);
+            glVertex2f(-.4, 0);
+            glVertex2f(-.4, r3/mmax/2.);
+            glEnd();
+            */
+        }
+    if (s.drawVehicleName) {
+        glPolygonOffset( 0, -5 );
+        // compute name colors
+        glColor3f(s.vehicleNameColor.red(), s.vehicleNameColor.green(), s.vehicleNameColor.blue());
+        drawAction_drawVehicleName(*this, s.vehicleNameSize / s.scale);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
+    }
+}
 
 const std::vector<MSVehicle::LaneQ> &
 GUIVehicle::getBestLanes() const throw()

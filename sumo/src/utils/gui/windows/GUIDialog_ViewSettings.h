@@ -66,7 +66,7 @@ public:
      * @param[in] decalsLock A lock to set if the decals are changed
      */
     GUIDialog_ViewSettings(GUISUMOAbstractView *parent,
-                           GUISUMOAbstractView::VisualizationSettings *settings,
+                           GUIVisualizationSettings *settings,
                            BaseSchemeInfoSource *laneEdgeModeSource,
                            BaseSchemeInfoSource *vehicleModeSource,
                            std::vector<GUISUMOAbstractView::Decal> *decals,
@@ -79,7 +79,7 @@ public:
     /** @brief Sets current settings (called if reopened)
      * @param[in, out] settings The current settings that can be changed
      */
-    void setCurrent(GUISUMOAbstractView::VisualizationSettings *settings) throw();
+    void setCurrent(GUIVisualizationSettings *settings) throw();
 
 
     /// @name FOX-callbacks
@@ -182,10 +182,10 @@ private:
     GUISUMOAbstractView *myParent;
 
     /// @brief The current settings
-    GUISUMOAbstractView::VisualizationSettings *mySettings;
+    GUIVisualizationSettings *mySettings;
 
     /// @brief A backup of the settings (used if the "Cancel" button is pressed)
-    GUISUMOAbstractView::VisualizationSettings myBackup;
+    GUIVisualizationSettings myBackup;
 
     /// @brief Class storing known lane coloring schemes
     BaseSchemeInfoSource *myLaneColoringInfoSource;
@@ -221,7 +221,7 @@ private:
     FXVerticalFrame *myVehicleColorSettingFrame;
     FXColorWell *mySingleVehicleColor, *myMinVehicleColor, *myMaxVehicleColor;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
-    FXCheckButton *myShowBlinker, *myShowC2CRadius, *myShowLaneChangePreference, *myShowVehicleName;
+    FXCheckButton *myShowBlinker, /* *myShowC2CRadius, *myShowLaneChangePreference,*/ *myShowVehicleName;
     FXRealSpinDial *myVehicleNameSizeDialer;
     FXColorWell *myVehicleNameColor;
 

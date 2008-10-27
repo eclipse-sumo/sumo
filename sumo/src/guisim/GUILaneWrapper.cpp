@@ -48,6 +48,12 @@
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/common/RandHelper.h>
+#include <utils/gui/div/GLHelper.h>
+#include <gui/GUIViewTraffic.h>
+#include <utils/gui/images/GUITexturesHelper.h>
+#include <guisim/GUIVehicle.h>
+#include <foreign/polyfonts/polyfonts.h>
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -141,6 +147,397 @@ bool
 GUILaneWrapper::forLane(const MSLane &lane) const
 {
     return (&myLane)==(&lane);
+}
+
+
+
+void
+ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
+{
+    size_t noLinks = lane.getLinkNumber();
+    if (noLinks==0) {
+        return;
+    }
+
+    // draw all links
+    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
+    SUMOReal x1 = SUMO_const_laneWidth / (SUMOReal) 2.;
+    glPushMatrix();
+    glColor3d(.5, .5, 1);
+    const Position2DVector &g = lane.getShape();
+    const Position2D &end = g.getEnd();
+    const Position2D &f = g[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    glTranslated(end.x(), end.y(), 0);
+    glRotated(rot, 0, 0, 1);
+    for (size_t i=0; i<noLinks; ++i) {
+        SUMOReal x2 = x1 - (SUMOReal)(w/2.);
+        int linkNo = lane.getLinkRespondIndex(i);
+        glPushMatrix();
+        //glTranslated(0, veh.getLength() / 2., 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(1);
+        SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
+        glRotated(180, 0, 1, 0);
+        glTranslated(x2-tw/2., 0.5, 0);
+        pfDrawString(toString(linkNo).c_str());
+        glPopMatrix();
+        x1 -= w;
+    }
+    glPopMatrix();
+}
+
+
+void
+ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
+{
+    size_t noLinks = lane.getLinkNumber();
+    if (noLinks==0) {
+        return;
+    }
+
+    // draw all links
+    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
+    SUMOReal x1 = (SUMOReal)(SUMO_const_laneWidth / 2.);
+    glPushMatrix();
+    glColor3d(.5, .5, 1);
+    const Position2DVector &g = lane.getShape();
+    const Position2D &end = g.getEnd();
+    const Position2D &f = g[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    glTranslated(end.x(), end.y(), 0);
+    glRotated(rot, 0, 0, 1);
+    for (size_t i=0; i<noLinks; ++i) {
+        SUMOReal x2 = x1 - (SUMOReal)(w/2.);
+        int linkNo = lane.getLinkTLIndex(net, i);
+        if (linkNo<0) {
+            continue;
+        }
+        glPushMatrix();
+        //glTranslated(0, veh.getLength() / 2., 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(1);
+        SUMOReal tw = pfdkGetStringWidth(toString(linkNo).c_str());
+        glRotated(180, 0, 1, 0);
+        glTranslated(x2-tw/2., 0.5, 0);
+        pfDrawString(toString(linkNo).c_str());
+        glPopMatrix();
+        x1 -= w;
+    }
+    glPopMatrix();
+}
+
+
+void
+ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
+                            bool showToolTips)
+{
+    size_t noLinks = lane.getLinkNumber();
+    const Position2DVector &g = lane.getShape();
+    const Position2D &end = g.getEnd();
+    const Position2D &f = g[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    if (noLinks==0) {
+        if (showToolTips) {
+            glPushName(lane.getGlID());
+        }
+        // draw a grey bar if no links are on the street
+        glColor3f(0.5, 0.5, 0.5);
+        glPushMatrix();
+        glTranslated(end.x(), end.y(), 0);
+        glRotated(rot, 0, 0, 1);
+        glBegin(GL_QUADS);
+        glVertex2d(-SUMO_const_halfLaneWidth, 0.0);
+        glVertex2d(-SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(SUMO_const_halfLaneWidth, 0.0);
+        glEnd();
+        glPopMatrix();
+        if (showToolTips) {
+            glPopName();
+        }
+        return;
+    }
+    // draw all links
+    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
+    SUMOReal x1 = 0;
+    glPushMatrix();
+    glTranslated(end.x(), end.y(), 0);
+    glRotated(rot, 0, 0, 1);
+    for (size_t i=0; i<noLinks; ++i) {
+        SUMOReal x2 = x1 + w;
+        MSLink::LinkState state = lane.getLinkState(i);
+        if (showToolTips) {
+            switch (state) {
+            case MSLink::LINKSTATE_TL_GREEN:
+            case MSLink::LINKSTATE_TL_RED:
+            case MSLink::LINKSTATE_TL_YELLOW:
+            case MSLink::LINKSTATE_TL_OFF_BLINKING:
+                glPushName(lane.getLinkTLID(net, i));
+                break;
+            case MSLink::LINKSTATE_MAJOR:
+            case MSLink::LINKSTATE_MINOR:
+            case MSLink::LINKSTATE_EQUAL:
+            case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+            default:
+                glPushName(lane.getGlID());
+                break;
+            }
+        }
+        switch(state) {
+        case MSLink::LINKSTATE_TL_GREEN:
+            glColor3d(0, 1, 0);
+            break;
+        case MSLink::LINKSTATE_TL_RED:
+            glColor3d(1, 0, 0);
+            break;
+        case MSLink::LINKSTATE_TL_YELLOW:
+            glColor3d(1, 1, 0);
+            break;
+        case MSLink::LINKSTATE_TL_OFF_BLINKING:
+            glColor3d(1, 1, 0);
+            break;
+        case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+            glColor3d(0, 1, 1);
+            break;
+        case MSLink::LINKSTATE_MAJOR:
+            glColor3d(1, 1, 1);
+            break;
+        case MSLink::LINKSTATE_MINOR:
+            glColor3d(.2, .2, .2);
+            break;
+        case MSLink::LINKSTATE_EQUAL:
+            glColor3d(.5, .5, .5);
+            break;
+        case MSLink::LINKSTATE_DEADEND:
+            glColor3d(0, 0, 0);
+            break;
+        }
+        glBegin(GL_QUADS);
+        glVertex2d(x1-SUMO_const_halfLaneWidth, 0.0);
+        glVertex2d(x1-SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(x2-SUMO_const_halfLaneWidth, 0.5);
+        glVertex2d(x2-SUMO_const_halfLaneWidth,0.0);
+        glEnd();
+        if (showToolTips) {
+            glPopName();
+        }
+        x1 = x2;
+        x2 += w;
+    }
+    glPopMatrix();
+}
+
+
+void
+ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips)
+{
+    size_t noLinks = lane.getLinkNumber();
+    if (noLinks==0) {
+        return;
+    }
+    // draw all links
+    const Position2D &end = lane.getShape().getEnd();
+    const Position2D &f = lane.getShape()[-2];
+    const Position2D &s = end;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    glPushMatrix();
+    if (showToolTips) {
+        glPushName(0);
+    }
+    glColor3f(1, 1, 1);
+    glEnable(GL_TEXTURE_2D);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glDisable(GL_CULL_FACE);
+    //glDisable(GL_DEPTH_TEST);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_COLOR_MATERIAL);
+    glDisable(GL_TEXTURE_GEN_S);
+    glDisable(GL_TEXTURE_GEN_T);
+    glDisable(GL_ALPHA_TEST);
+    glEnable(GL_BLEND);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    glTranslated(end.x(), end.y(), 0);
+    glRotated(rot, 0, 0, 1);
+    for (size_t i=0; i<noLinks; ++i) {
+        MSLink::LinkDirection dir = lane.getLinkDirection(i);
+        MSLink::LinkState state = lane.getLinkState(i);
+        if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
+            continue;
+        }
+        GUITexturesHelper::drawDirectionArrow((GUITexture) dir,
+                                              1.5, 4.0, -1.5, 1);
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
+    if (showToolTips) {
+        glPopName();
+    }
+    glPopMatrix();
+}
+
+
+void
+ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
+{
+    size_t noLinks = lane.getLinkNumber();
+    for (size_t i=0; i<noLinks; ++i) {
+        MSLink::LinkState state = lane.getLinkState(i);
+        switch(state) {
+        case MSLink::LINKSTATE_TL_GREEN:
+            glColor3d(0, 1, 0);
+            break;
+        case MSLink::LINKSTATE_TL_RED:
+            glColor3d(1, 0, 0);
+            break;
+        case MSLink::LINKSTATE_TL_YELLOW:
+            glColor3d(1, 1, 0);
+            break;
+        case MSLink::LINKSTATE_TL_OFF_BLINKING:
+            glColor3d(1, 1, 0);
+            break;
+        case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+            glColor3d(0, 1, 1);
+            break;
+        case MSLink::LINKSTATE_MAJOR:
+            glColor3d(1, 1, 1);
+            break;
+        case MSLink::LINKSTATE_MINOR:
+            glColor3d(.2, .2, .2);
+            break;
+        case MSLink::LINKSTATE_EQUAL:
+            glColor3d(.5, .5, .5);
+            break;
+        case MSLink::LINKSTATE_DEADEND:
+            glColor3d(0, 0, 0);
+            break;
+        }
+        const MSLane *connected = lane.getLinkLane(i);
+        if (connected!=0) {
+            glBegin(GL_LINES);
+            const Position2D &p1 = lane.getShape()[-1];
+            const Position2D &p2 = connected->getShape()[0];
+            glVertex2f(p1.x(), p1.y());
+            glVertex2f(p2.x(), p2.y());
+            glEnd();
+            GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
+        }
+    }
+}
+
+
+void 
+GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
+{
+    // set lane color
+    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
+    sm.getColorer(s.laneEdgeMode)->setGlColor(*this);
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    // draw lane
+    glPolygonOffset( 0, 0 );
+    if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth*1.);
+    } else {
+        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth*1.);
+    }
+    glBegin(GL_LINES);
+    int e = (int) myShape.size() - 1;
+    for (int i=0; i<e; ++i) {
+        glVertex2d(myShape[i].x(), myShape[i].y());
+        glVertex2d(myShape[i+1].x(), myShape[i+1].y());
+    }
+    glEnd();
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
+    }
+    // draw ROWs (not for inner lanes)
+    if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
+        glPolygonOffset( 0, -1 );
+        GUINet *net = (GUINet*) MSNet::getInstance();
+        ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
+        if (s.showLinkDecals) {
+            ROWdrawAction_drawArrows(*this, s.needsGlID);
+        }
+        if (s.showLane2Lane) {
+            // this should be independent to the geometry:
+            //  draw from end of first to the begin of second
+            ROWdrawAction_drawLane2LaneConnections(*this);
+        }
+        if (s.drawLinkJunctionIndex) {
+            glPolygonOffset( 0, -2 );
+            ROWdrawAction_drawLinkNo(*this);
+        }
+        if (s.drawLinkTLIndex) {
+            glPolygonOffset( 0, -2 );
+            ROWdrawAction_drawTLSLinkNo(*net, *this);
+        }
+    }
+    // draw vehicles
+    if (s.scale>s.minVehicleSize) {
+        // retrieve vehicles from lane; disallow simulation
+        const MSLane::VehCont &vehicles = myLane.getVehiclesSecure();
+        const Position2D &laneBeg = myShape[0];
+
+        MSLane::VehCont::const_iterator v;
+        glPushMatrix();
+        glTranslated(laneBeg.x(), laneBeg.y(), 0);
+        glRotated(myShapeRotations[0], 0, 0, 1);
+        // go through the vehicles
+        int shapePos = 0;
+        SUMOReal positionOffset = 0;
+        for (v=vehicles.begin(); v!=vehicles.end(); v++) {
+            const GUIVehicle * const veh = static_cast<const GUIVehicle*const>(*v);
+            SUMOReal vehiclePosition = veh->getPositionOnLane();
+            while (shapePos<(int)myShapeRotations.size()-1 && vehiclePosition>positionOffset+myShapeLengths[shapePos]) {
+                glPopMatrix();
+                positionOffset += myShapeLengths[shapePos];
+                shapePos++;
+                glPushMatrix();
+                glTranslated(myShape[shapePos].x(), myShape[shapePos].y(), 0);
+                glRotated(myShapeRotations[shapePos], 0, 0, 1);
+            }
+            glPushMatrix();
+            glTranslated(0, -(vehiclePosition-positionOffset), 0);
+            veh->drawGL(s);
+            glPopMatrix();
+        }
+        // allow lane simulation
+        myLane.releaseVehicles();
+    }
+    glPopMatrix();
+}
+
+
+void 
+GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw()
+{
+    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
+    sm.getColorer(s.laneEdgeMode)->setGlColor(*this);
+    // check whether lane boundaries shall be drawn
+    int e = (int) myShape.size() - 1;
+    for (int i=0; i<e; i++) {
+        glPushMatrix();
+        glTranslated(myShape[i].x(), myShape[i].y(), 0);
+        glRotated(myShapeRotations[i], 0, 0, 1);
+        for (SUMOReal t=0; t<myShapeLengths[i]; t+=6) {
+            glBegin(GL_QUADS);
+            glVertex2d(-1.8, -t);
+            glVertex2d(-1.8, -t-3.);
+            glVertex2d(1.0, -t-3.);
+            glVertex2d(1.0, -t);
+            glEnd();
+        }
+        glPopMatrix();
+    }
 }
 
 
@@ -369,6 +766,17 @@ GUILaneWrapper::getDensity() const
     return myLane.getDensity();
 }
 
+#include <microsim/MSEmitControl.h>
+SUMOReal 
+GUILaneWrapper::getWaitingVehicles() const
+{
+    const MSEdge * const e = myLane.getEdge();
+    const std::map<const MSEdge*, int> &m = MSNet::getInstance()->getEmitControl().myWaiting;
+    if(m.find(e)==m.end()) {
+        return 0;
+    }
+    return m.find(e)->second;
+}
 
 SUMOReal
 GUILaneWrapper::getEdgeLaneNumber() const

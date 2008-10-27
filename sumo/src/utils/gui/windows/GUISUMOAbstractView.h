@@ -39,9 +39,9 @@
 #include <utils/common/RGBColor.h>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include "GUIGrid.h"
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/foxtools/MFXMutex.h>
+#include <foreign/rtree/SUMORTree.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -69,6 +69,8 @@ class PointOfInterest;
 class ShapeContainer;
 class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
+struct GUIVisualizationSettings;
+
 
 
 // ===========================================================================
@@ -86,12 +88,12 @@ class GUISUMOAbstractView : public FXGLCanvas
 public:
     /// constructor
     GUISUMOAbstractView(FXComposite *p, GUIMainWindow &app,
-                        GUIGlChildWindow *parent, const GUIGrid &grid,
+                        GUIGlChildWindow *parent, const SUMORTree &grid,
                         FXGLVisual *glVis);
 
     /// constructor
     GUISUMOAbstractView(FXComposite *p, GUIMainWindow &app,
-                        GUIGlChildWindow *parent, const GUIGrid &grid,
+                        GUIGlChildWindow *parent, const SUMORTree &grid,
                         FXGLVisual *glVis, FXGLCanvas *share);
 
     /// destructor
@@ -180,8 +182,6 @@ public:
     void showToolTips(bool val);
     virtual void setColorScheme(char*) { }
 
-    void drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width);
-
     void remove(GUIDialog_EditViewport *) {
         myViewportChooser = 0;
     }
@@ -241,179 +241,6 @@ public:
     };
 
 public:
-    /**
-     * @class ViewSettings
-     * This class stores the viewport information for an easier checking whether
-     *  it has changed.
-     */
-    class ViewportSettings
-    {
-    public:
-        /// Constructor
-        ViewportSettings();
-
-        /// Parametrised Constructor
-        ViewportSettings(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
-
-        /// Destructor
-        ~ViewportSettings();
-
-        /// Returns the information whether the stored setting differs from the given
-        bool differ(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
-
-        /// Sets the setting information to the given values
-        void set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
-
-    private:
-        /// Position and size information to describe the viewport
-        SUMOReal myXMin, myYMin, myXMax, myYMax;
-
-    };
-
-    /**
-     * @struct VisualizationSettings
-     * @brief This class stores the information about how to visualize the structures
-     */
-    struct VisualizationSettings {
-        /// The name of this setting
-        std::string name;
-
-        /// Information whether antialiase shall be enabled
-        bool antialiase;
-        /// Information whether dithering shall be enabled
-        bool dither;
-
-        /// @name background visualization settings
-        //@{
-
-        /// The background color to use
-        RGBColor backgroundColor;
-        /// Information whether background decals (textures) shall be used
-        bool showBackgroundDecals;
-        /// information whether a grid shall be shown
-        bool showGrid;
-        /// Information about the grid spacings
-        SUMOReal gridXSize, gridYSize;
-        //@}
-
-
-        /// @name lane visualization settings
-        //@{
-
-        /// The lane visualization scheme
-        int laneEdgeMode;
-        /// The map if used colors (scheme->used colors)
-        std::map<int, std::vector<RGBColor> > laneColorings;
-#ifdef HAVE_MESOSIM
-        /// The map if used colors (scheme->used colors)
-        std::map<int, std::vector<RGBColor> > edgeColorings;
-#endif
-        /// Information whether lane borders shall be drawn
-        bool laneShowBorders;
-        /// Information whether link textures (arrows) shall be drawn
-        bool showLinkDecals;
-        int laneEdgeExaggMode; // !!! unused
-        SUMOReal minExagg; // !!! unused
-        SUMOReal maxExagg; // !!! unused
-        /// Information whether rails shall be drawn
-        bool showRails;
-        /// Information whether the edge's name shall be drawn
-        bool drawEdgeName;
-        /// The size of the edge name
-        float edgeNameSize;
-        /// The color of edge names
-        RGBColor edgeNameColor;
-        //@}
-
-
-        /// @name vehicle visualization settings
-        //@{
-
-        /// The vehicle visualization scheme
-        int vehicleMode;
-        /// The minimum size of vehicles to let them be drawn
-        float minVehicleSize;
-        /// The vehicle exaggeration (upscale)
-        float vehicleExaggeration;
-        /// The map if used colors (scheme->used colors)
-        std::map<int, std::vector<RGBColor> > vehicleColorings;
-        /// Information whether vehicle blinkers shall be drawn
-        bool showBlinker;
-        /// Information whether the c2c radius shall be drawn
-        bool drawcC2CRadius;
-        /// Information whether the lane change preference shall be drawn
-        bool drawLaneChangePreference;
-        /// Information whether the vehicle's name shall be drawn
-        bool drawVehicleName;
-        /// The size of the vehicle name
-        float vehicleNameSize;
-        /// The color of vehicle names
-        RGBColor vehicleNameColor;
-        //@}
-
-
-        /// @name junction visualization settings
-        //@{
-
-        /// The junction visualization scheme
-        int junctionMode;
-        /// Information whether a link's tls index shall be drawn
-        bool drawLinkTLIndex;
-        /// Information whether a link's junction index shall be drawn
-        bool drawLinkJunctionIndex;
-        /// Information whether the junction's name shall be drawn
-        bool drawJunctionName;
-        /// The size of the junction name
-        float junctionNameSize;
-        /// The color of junction names
-        RGBColor junctionNameColor;
-        //@}
-
-
-        /// Information whether lane-to-lane arrows shall be drawn
-        bool showLane2Lane;
-
-
-        /// @name additional structures visualization settings
-        //@{
-
-        /// The additional structures visualization scheme
-        int addMode;
-        /// The minimum size of additional structures to let them be drawn
-        float minAddSize;
-        /// The additional structures exaggeration (upscale)
-        float addExaggeration;
-        /// Information whether the additional's name shall be drawn
-        bool drawAddName;
-        /// The size of the additionals' name
-        float addNameSize;
-        // The color of additionals' names
-        //RGBColor addNameColor;
-        //@}
-
-
-        /// @name shapes visualization settings
-        //@{
-
-        /// The minimum size of shapes to let them be drawn
-        float minPOISize;
-        /// The additional shapes (upscale)
-        float poiExaggeration;
-        /// Information whether the poi's name shall be drawn
-        bool drawPOIName;
-        /// The size of the poi name
-        float poiNameSize;
-        /// The color of poi names
-        RGBColor poiNameColor;
-        //@}
-
-        /// Information whether the size legend shall be drawn
-        bool showSizeLegend;
-
-        bool operator==(const VisualizationSettings &vs2);
-
-    };
-
     FXComboBox &getColoringSchemesCombo();
 
     Position2D getPositionInformation() const;
@@ -424,19 +251,11 @@ protected:
     /// performs the painting of the simulation
     void paintGL();
 
-    /// Draws the given polygon
-    void drawPolygon2D(const Polygon2D &polygon) const;
-
-    /// Draws the given poi
-    void drawPOI2D(const PointOfInterest &p, SUMOReal width) const;
-
     void updatePositionInformation() const;
 
     Position2D getPositionInformation(int x, int y) const;
 
-    void drawShapesLayer(const ShapeContainer &sc, int layer, SUMOReal width);
-
-    virtual void doPaintGL(int /*mode*/, SUMOReal /*scale*/) { }
+    virtual int doPaintGL(int /*mode*/, SUMOReal /*scale*/) { return 0; }
 
     virtual void doInit() { }
 
@@ -458,18 +277,19 @@ protected:
     /// invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);
 
-    /// Clears the usetable, filling it with false
-    void clearUsetable(size_t *myEdges2Show, size_t myEdges2ShowSize);
-
 protected:
+    double myX1, myY1;
+    double myCX, myCY;
+
+
     /// The application
     GUIMainWindow *myApp;
 
     /// the parent window
     GUIGlChildWindow *myParent;
 
-    /// the network used (stored here for a faster access)
-    GUIGrid *myGrid;
+    /// @brief The visualization speed-up
+    SUMORTree *myGrid;
 
     /// the sizes of the window
     int myWidthInPixels, myHeightInPixels;
@@ -504,10 +324,7 @@ protected:
     /// The current popup-menu
     GUIGLObjectPopupMenu *myPopup;
 
-    /// the description of the viewport
-    ViewportSettings myViewportSettings;
-
-    VisualizationSettings *myVisualizationSettings;
+    GUIVisualizationSettings *myVisualizationSettings;
 
     bool myUseToolTips;
 

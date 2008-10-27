@@ -201,10 +201,10 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::microsimID() const throw()
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale) throw()
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     for (std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
-        (*i)->drawGL(scale, upscale);
+        (*i)->drawGL(s);
     }
 }
 

@@ -4,7 +4,7 @@
 /// @date    Okt 2003
 /// @version $Id$
 ///
-// The gui-version of the MS_E2_ZS_Collector, together with the according
+// The gui-version of the MS_E2_ZS_Collector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -198,24 +198,37 @@ GUI_E2_ZS_Collector::MyWrapper::microsimID() const throw()
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL(SUMOReal, SUMOReal upscale) throw()
+GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
-    SUMOReal myWidth = 1;
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glPolygonOffset( 0, -2 );
+    SUMOReal dwidth = 1;
     if (myDetector.getUsageType()==DU_TL_CONTROL) {
-        myWidth = (SUMOReal) 0.3;
+        dwidth = (SUMOReal) 0.3;
         glColor3d(0, (SUMOReal) .6, (SUMOReal) .8);
     } else {
         glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
     }
     SUMOReal width=2; // !!!
-    if (width*upscale>1.0) {
-        glScaled(upscale, upscale, upscale);
-        GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, myWidth);
+    if (width*s.addExaggeration>1.0) {
+        glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
+        GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, dwidth);
     } else {
         int e = (int) myFullGeometry.size() - 1;
         for (int i=0; i<e; ++i) {
             GLHelper::drawLine(myFullGeometry[i], myShapeRotations[i], myShapeLengths[i]);
         }
+    }
+    // (optional) draw name
+    if(s.drawAddName) {
+        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
     }
 }
 

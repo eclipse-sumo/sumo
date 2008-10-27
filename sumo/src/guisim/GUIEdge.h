@@ -159,6 +159,8 @@ public:
     Boundary getCenteringBoundary() const throw();
     //@}
 
+    void drawGL(const GUIVisualizationSettings &s) const throw();
+
 #ifdef HAVE_MESOSIM
     unsigned int getVehicleNo() const;
     SUMOReal getDensity() const;

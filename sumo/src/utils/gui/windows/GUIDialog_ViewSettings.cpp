@@ -90,7 +90,7 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     GUISUMOAbstractView *parent,
-    GUISUMOAbstractView::VisualizationSettings *settings,
+    GUIVisualizationSettings *settings,
     BaseSchemeInfoSource *laneEdgeModeSource,
     BaseSchemeInfoSource *vehicleModeSource,
     std::vector<GUISUMOAbstractView::Decal> *decals,
@@ -278,12 +278,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
             myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowBlinker->setCheck(mySettings->showBlinker);
             new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+            /*
             myShowC2CRadius = new FXCheckButton(m33, "Show C2C radius", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
             new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
             myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
             myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
             new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+            */
             myShowVehicleName = new FXCheckButton(m33, "Show vehicle name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
             myShowVehicleName->setCheck(mySettings->drawVehicleName);
             new FXLabel(m33, "");
@@ -528,7 +530,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() throw()
 
 
 void
-GUIDialog_ViewSettings::setCurrent(GUISUMOAbstractView::VisualizationSettings *settings) throw()
+GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings *settings) throw()
 {
     mySettings = settings;
     myBackup = (*settings);
@@ -592,8 +594,10 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
     myShowBlinker->setCheck(mySettings->showBlinker);
+    /*
     myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
+    */
     myShowVehicleName->setCheck(mySettings->drawVehicleName);
     myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
     myVehicleNameColor->setRGBA(convert(mySettings->vehicleNameColor));
@@ -664,7 +668,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 long
 GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
 {
-    GUISUMOAbstractView::VisualizationSettings tmpSettings = *mySettings;
+    GUIVisualizationSettings tmpSettings = *mySettings;
     int prevLaneMode = mySettings->laneEdgeMode;
     int prevVehicleMode = mySettings->vehicleMode;
 
@@ -687,8 +691,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         tmpSettings.vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
         tmpSettings.minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
         tmpSettings.showBlinker = myShowBlinker->getCheck()!=0;
+        /*
         tmpSettings.drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
         tmpSettings.drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
+        */
         tmpSettings.drawVehicleName = myShowVehicleName->getCheck()!=0;
         tmpSettings.vehicleNameSize = (SUMOReal) myVehicleNameSizeDialer->getValue();
         tmpSettings.vehicleNameColor = convert(myVehicleNameColor->getRGBA());
@@ -803,7 +809,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
 void
 GUIDialog_ViewSettings::writeSettings() throw()
 {
-    const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &items = gSchemeStorage.getItems();
+    const std::map<std::string, GUIVisualizationSettings> &items = gSchemeStorage.getItems();
     const std::vector<std::string> &names = gSchemeStorage.getNames();
     getApp()->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-3);//!!!
     size_t gidx = 0;
@@ -812,7 +818,7 @@ GUIDialog_ViewSettings::writeSettings() throw()
         std::map<int, std::vector<RGBColor> >::const_iterator j;
 
         const string &name = (*i);
-        const GUISUMOAbstractView::VisualizationSettings &item = items.find(name)->second;
+        const GUIVisualizationSettings &item = items.find(name)->second;
 
         string sname = "visset#" + toString(gidx);
 
@@ -848,8 +854,10 @@ GUIDialog_ViewSettings::writeSettings() throw()
         getApp()->reg().writeRealEntry(sname.c_str(), "minVehicleSize", item.minVehicleSize);
         getApp()->reg().writeRealEntry(sname.c_str(), "vehicleExaggeration", item.vehicleExaggeration);
         getApp()->reg().writeIntEntry(sname.c_str(), "showBlinker", item.showBlinker ? 1 : 0);
+        /*
         getApp()->reg().writeIntEntry(sname.c_str(), "drawcC2CRadius", item.drawcC2CRadius ? 1 : 0);
         getApp()->reg().writeIntEntry(sname.c_str(), "drawLaneChangePreference", item.drawLaneChangePreference ? 1 : 0);
+        */
         getApp()->reg().writeIntEntry(sname.c_str(), "drawVehicleName", item.drawVehicleName ? 1 : 0);
         getApp()->reg().writeRealEntry(sname.c_str(), "vehicleNameSize", item.vehicleNameSize);
         getApp()->reg().writeIntEntry(sname.c_str(), "vehicleNameColor", convert(item.vehicleNameColor));
@@ -924,8 +932,10 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
         dev << "minVehicleSize " << mySettings->minVehicleSize << '\n';
         dev << "vehicleExaggeration " << mySettings->vehicleExaggeration << '\n';
         dev << "showBlinker " << mySettings->showBlinker << '\n';
+        /*
         dev << "drawcC2CRadius " << mySettings->drawcC2CRadius << '\n';
         dev << "drawLaneChangePreference " << mySettings->drawLaneChangePreference << '\n';
+        */
         dev << "drawVehicleName " << mySettings->drawVehicleName << '\n';
         dev << "vehicleNameSize " << mySettings->vehicleNameSize << '\n';
         dev << "vehicleNameColor " << mySettings->vehicleNameColor << '\n';
@@ -968,7 +978,7 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
 void
 GUIDialog_ViewSettings::loadSettings(const std::string &file) throw()
 {
-    GUISUMOAbstractView::VisualizationSettings setting = gSchemeStorage.getItems().begin()->second;
+    GUIVisualizationSettings setting = gSchemeStorage.getItems().begin()->second;
     LineReader lr(file);
     while (lr.hasMore()) {
         string line = lr.readLine();
@@ -1007,8 +1017,10 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file) throw()
         if (name=="minVehicleSize") setting.minVehicleSize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="vehicleExaggeration") setting.vehicleExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="showBlinker") setting.showBlinker = TplConvert<char>::_2bool(val.c_str());
+        /*
         if (name=="drawcC2CRadius") setting.drawcC2CRadius = TplConvert<char>::_2bool(val.c_str());
         if (name=="drawLaneChangePreference") setting.drawLaneChangePreference = TplConvert<char>::_2bool(val.c_str());
+        */
         if (name=="drawVehicleName") setting.drawVehicleName = TplConvert<char>::_2bool(val.c_str());
         if (name=="vehicleNameSize") setting.vehicleNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="vehicleNameColor") setting.vehicleNameColor = RGBColor::parseColor(val);
@@ -1086,7 +1098,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data)
             }
             isAlphaNum = isAlphaNum & (name.length()>0);
             if (isAlphaNum) {
-                GUISUMOAbstractView::VisualizationSettings tmpSettings = *mySettings;
+                GUIVisualizationSettings tmpSettings = *mySettings;
                 gSchemeStorage.remove(mySettings->name);
                 tmpSettings.name = name;
                 gSchemeStorage.add(tmpSettings);
@@ -1398,7 +1410,7 @@ long
 GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
 {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
-    string value = i->item->getText().trim().text();
+    string value = i->item->getText().text();
     // check whether the inserted value is empty
     if (value.find_first_not_of(" ")==string::npos) {
         return 1;

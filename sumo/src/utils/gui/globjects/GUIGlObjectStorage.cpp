@@ -49,7 +49,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 GUIGlObjectStorage::GUIGlObjectStorage()
-        : myAktID(0)
+        : myAktID(1)
 {}
 
 

@@ -148,16 +148,21 @@ GUIInductLoop::MyWrapper::microsimID() const throw()
 
 
 void
-GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale) throw()
+GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
-    SUMOReal width = (SUMOReal) 2.0 * scale;
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glPolygonOffset( 0, -2 );
+    SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     // shape
     glColor3f(1, 1, 0);
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
-    glScaled(upscale, upscale, upscale);
+    glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
     glBegin(GL_QUADS);
     glVertex2d(0-1.0, 2);
     glVertex2d(-1.0, -2);
@@ -172,7 +177,7 @@ GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale) throw()
     glEnd();
 
     // outline
-    if (width*upscale>1) {
+    if (width*s.addExaggeration>1) {
         glColor3f(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
@@ -185,7 +190,7 @@ GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale) throw()
     }
 
     // position indicator
-    if (width*upscale>1) {
+    if (width*s.addExaggeration>1) {
         glRotated(90, 0, 0, -1);
         glColor3f(1, 1, 1);
         glBegin(GL_LINES);
@@ -194,6 +199,14 @@ GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale) throw()
         glEnd();
     }
     glPopMatrix();
+    // (optional) draw name
+    if(s.drawAddName) {
+        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
+    }
 }
 
 

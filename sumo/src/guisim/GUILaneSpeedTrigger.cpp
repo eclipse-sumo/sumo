@@ -371,68 +371,77 @@ GUILaneSpeedTrigger::microsimID() const throw()
 
 
 void
-GUILaneSpeedTrigger::drawGL(SUMOReal scale, SUMOReal upscale) throw()
+GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
 {
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glPolygonOffset( 0, -2 );
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
-        glScaled(upscale, upscale, upscale);
+        glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
         glTranslated(0, -1.5, 0);
 
         int noPoints = 9;
-        if (scale>25) {
-            noPoints = (int)(9.0 + scale / 10.0);
+        if (s.scale>25) {
+            noPoints = (int)(9.0 + s.scale / 10.0);
             if (noPoints>36) {
                 noPoints = 36;
             }
         }
         glColor3f(1, 0, 0);
         GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
-        if (scale<10) {
-            glPopMatrix();
-            continue;
-        }
-        glColor3f(0, 0, 0);
-        GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
-        // draw the speed string
-        // not if scale to low
-        if (scale<4.5) {
-            glPopMatrix();
-            continue;
-        }
-        // compute
-        SUMOReal value = (SUMOReal) getCurrentSpeed();
-        if (myShowAsKMH) {
-            value *= 3.6f;
-            if (((int) value+1)%10==0) {
-                value = (SUMOReal)(((int) value+1) / 10 * 10);
-            }
-        }
-        if (value!=myLastValue) {
-            myLastValue = value;
-            myLastValueString = toString<SUMOReal>(myLastValue);
-            size_t idx = myLastValueString.find('.');
-            if (idx!=string::npos) {
-                if (idx>myLastValueString.length()) {
-                    idx = myLastValueString.length();
+        if (s.scale>=10) {
+            glColor3f(0, 0, 0);
+            GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
+            // draw the speed string
+            // not if scale to low
+            if (s.scale>=4.5) {
+                // compute
+                SUMOReal value = (SUMOReal) getCurrentSpeed();
+                if (myShowAsKMH) {
+                    value *= 3.6f;
+                    if (((int) value+1)%10==0) {
+                        value = (SUMOReal)(((int) value+1) / 10 * 10);
+                    }
                 }
-                myLastValueString = myLastValueString.substr(0, idx);
+                if (value!=myLastValue) {
+                    myLastValue = value;
+                    myLastValueString = toString<SUMOReal>(myLastValue);
+                    size_t idx = myLastValueString.find('.');
+                    if (idx!=string::npos) {
+                        if (idx>myLastValueString.length()) {
+                            idx = myLastValueString.length();
+                        }
+                        myLastValueString = myLastValueString.substr(0, idx);
+                    }
+                }
+                //draw
+                glColor3f(1, 1, 0);
+
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                pfSetPosition(0, 0);
+                pfSetScale(1.2f);
+                SUMOReal w = pfdkGetStringWidth(myLastValueString.c_str());
+                glRotated(180, 0, 1, 0);
+                glTranslated(-w/2., 0.3, 0);
+                pfDrawString(myLastValueString.c_str());
             }
         }
-        //draw
-        glColor3f(1, 1, 0);
-
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        pfSetPosition(0, 0);
-        pfSetScale(1.2f);
-        SUMOReal w = pfdkGetStringWidth(myLastValueString.c_str());
-        glRotated(180, 0, 1, 0);
-        glTranslated(-w/2., 0.3, 0);
-        pfDrawString(myLastValueString.c_str());
         glPopMatrix();
+    }
+    // (optional) draw name
+    if(s.drawAddName) {
+        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
     }
 }
 

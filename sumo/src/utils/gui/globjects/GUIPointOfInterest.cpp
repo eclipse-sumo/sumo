@@ -35,6 +35,9 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIVisualizationSettings.h>
+#include <utils/gui/div/GLHelper.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -57,7 +60,7 @@ GUIPointOfInterest::GUIPointOfInterest(GUIGlObjectStorage &idStorage,
                                        const Position2D &p,
                                        const RGBColor &c) throw()
         : PointOfInterest(id, type, p, c),
-        GUIGlObject(idStorage, "poi:"+id), myLayer(layer)
+        GUIGlObject_AbstractAdd(idStorage, "poi:"+id, GLO_SHAPE), myLayer(layer)
 {}
 
 
@@ -95,13 +98,6 @@ GUIPointOfInterest::getParameterWindow(GUIMainWindow &,
 }
 
 
-GUIGlObjectType
-GUIPointOfInterest::getType() const throw()
-{
-    return GLO_SHAPE;
-}
-
-
 const std::string &
 GUIPointOfInterest::microsimID() const throw()
 {
@@ -116,6 +112,45 @@ GUIPointOfInterest::getCenteringBoundary() const throw()
     b.add(x(), y());
     b.grow(10);
     return b;
+}
+
+
+void 
+GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw()
+{
+    if (s.scale*(1.3/3.0)<s.minPOISize) {
+        return;
+    }
+    if(getLayer()==0) {
+        glPolygonOffset( 0, -2 );
+    } else if(getLayer()>0) {
+        glPolygonOffset( 0, -3-getLayer() );
+    } else {
+        glPolygonOffset( 0, -getLayer()+1 );
+    }
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glColor3d(red(),green(),blue());
+    glTranslated(x(), y(), 0);
+    GLHelper::drawFilledCircle((SUMOReal) 1.3*s.poiExaggeration, 16);
+    if (s.drawPOIName) {
+        glColor3f(s.poiNameColor.red(), s.poiNameColor.green(), s.poiNameColor.blue());
+        glPushMatrix();
+        glTranslated((SUMOReal) 1.32*s.poiExaggeration, (SUMOReal) 1.32*s.poiExaggeration, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(s.poiNameSize / s.scale);
+        glRotated(180, 1, 0, 0);
+        pfDrawString(getID().c_str());
+        glPopMatrix();
+    }
+    glTranslated(-x(), -y(), 0);
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
+    }
 }
 
 

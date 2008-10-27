@@ -138,6 +138,7 @@ public:
 
     SUMOReal firstWaitingTime() const;
     SUMOReal getDensity() const;
+    SUMOReal getWaitingVehicles() const;
 
     /// Returns the fastest known lane speed
     static SUMOReal getOverallMaxSpeed();
@@ -146,6 +147,8 @@ public:
     bool forLane(const MSLane &lane) const;
 
 
+    void drawGL(const GUIVisualizationSettings &s) const throw();
+    void drawBordersGL(const GUIVisualizationSettings &s) const throw();
 
     const MSLane::VehCont &getVehiclesSecure();
     void releaseVehicles();
@@ -186,7 +189,6 @@ public:
     const MSLane &getLane() const {
         return myLane;
     }
-
 
 protected:
     /** the visualisation length; As sources and sinks may be shorter/longer

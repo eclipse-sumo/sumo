@@ -117,6 +117,8 @@ public:
     /// Returns the index of the given link within the according tls
     int getLinkIndex(MSLink *link) const;
 
+    void drawGL(const GUIVisualizationSettings &s) const throw();
+
 public:
     /**
      * @class GUITrafficLightLogicWrapperPopupMenu

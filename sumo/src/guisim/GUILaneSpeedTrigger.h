@@ -132,7 +132,7 @@ public:
      * @param[in] upscale The factor by which the object's size shall be multiplied
      * @see GUIGlObject_AbstractAdd::drawGL
      */
-    void drawGL(SUMOReal scale, SUMOReal upscale) throw();
+    void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
@@ -227,10 +227,10 @@ private:
     bool myShowAsKMH;
 
     /// Storage for last value to avoid string recomputation
-    SUMOReal myLastValue;
+    mutable SUMOReal myLastValue;
 
     /// Storage for speed string to avoid recomputation
-    std::string myLastValueString;
+    mutable std::string myLastValueString;
 
 };
 

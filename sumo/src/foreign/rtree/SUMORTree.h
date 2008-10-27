@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    GUIDetectorDrawer.h
+/// @file    SUMORTree.h
 /// @author  Daniel Krajzewicz
-/// @date    Wed, 14.Jan 2004
-/// @version $Id$
+/// @date    27.10.2008
+/// @version $Id: SUMORTree.h 6047 2008-09-11 13:08:48Z dkrajzew $
 ///
-// Base class for detector drawing
+// An rtree for networks
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef GUIDetectorDrawer_h
-#define GUIDetectorDrawer_h
+#ifndef SUMORTree_h
+#define SUMORTree_h
 
 
 // ===========================================================================
@@ -30,47 +30,31 @@
 #include <config.h>
 #endif
 
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/div/GLHelper.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
+#include <GL/gl.h>
 
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/windows/GUIVisualizationSettings.h>
+#include <utils/geom/Boundary.h>
 
-class GUIGlObject_AbstractAdd;
+#include "RTree.h"
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/*
- * @class GUIDetectorDrawer
-*/
-class GUIDetectorDrawer
+class SUMORTree : public RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>, public Boundary
 {
 public:
-    /// Constructor
-    GUIDetectorDrawer(const std::vector<GUIGlObject_AbstractAdd*> &additionals);
+    SUMORTree(Operation operation) 
+        : RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings, float>(operation){
+    }
 
-    /// Destructor
-    virtual ~GUIDetectorDrawer();
-
-    /// Draws all detectors
-    void drawGLDetectors(size_t *which, size_t maxDetectors,
-                         SUMOReal scale, GUISUMOAbstractView::VisualizationSettings &settings);
-
-    void setGLID(bool val);
-
-protected:
-    /** @brief Inititialises the drawing process
-        The textures have to be initialised */
-    void initStep();
-
-protected:
-    /// The list of detectors to consider at drawing
-    const std::vector<GUIGlObject_AbstractAdd*> &myAdditionals;
-
-    /// Information whether the gl-id shall be set
-    bool myShowToolTips;
-
+    ~SUMORTree() {
+    }
 
 };
 

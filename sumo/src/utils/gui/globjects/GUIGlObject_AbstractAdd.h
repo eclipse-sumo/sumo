@@ -45,7 +45,7 @@
  * @class GUIGlObject_AbstractAdd
  */
 class GUIGlObject_AbstractAdd :
-            public GUIGlObject
+            public GUIGlObject 
 {
 public:
     GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
@@ -60,8 +60,8 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const throw();
 
-    /// Draws the detector in full-geometry mode
-    virtual void drawGL(SUMOReal scale, SUMOReal upscale) throw() = 0;
+    void drawGLName(const Position2D &p, const std::string &id, SUMOReal nameScale) const;
+
 
     /// Clears the dictionary (the objects will not be deleted)
     static void clearDictionary();

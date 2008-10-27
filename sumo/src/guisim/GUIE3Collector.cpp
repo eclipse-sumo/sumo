@@ -127,17 +127,30 @@ GUIE3Collector::MyWrapper::microsimID() const throw()
 
 
 void
-GUIE3Collector::MyWrapper::drawGL(SUMOReal, SUMOReal upscale) throw()
+GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glPolygonOffset( 0, -2 );
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
     for (i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); ++i) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, upscale);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
     }
     glColor3d(.8, 0, 0);
     for (i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); ++i) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, upscale);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
+    }
+    // (optional) draw name
+    if(s.drawAddName) {
+        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
     }
 }
 

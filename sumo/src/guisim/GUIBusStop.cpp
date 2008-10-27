@@ -132,18 +132,23 @@ GUIBusStop::microsimID() const throw()
 
 
 void
-GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale) throw()
+GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw()
 {
+    // (optional) set id
+    if (s.needsGlID) {
+        glPushName(getGlID());
+    }
+    glPolygonOffset( 0, -2 );
     // draw the area
     glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
     size_t i;
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw the lines
-    if (scale>=35) {
+    if (s.scale>=35) {
         glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
         for (i=0; i!=myLines.size(); ++i) {
             glPushMatrix();
-            glScaled(upscale, upscale, upscale);
+            glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
             glTranslated(myFGSignPos.x()+1.2, myFGSignPos.y()+0.8, 0);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
@@ -157,38 +162,42 @@ GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale) throw()
 
     // draw the sign
     glPushMatrix();
-    glScaled(upscale, upscale, upscale);
+    glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
     glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
     int noPoints = 9;
-    if (scale>25) {
-        noPoints = (int)(9.0 + scale / 10.0);
+    if (s.scale>25) {
+        noPoints = (int)(9.0 + s.scale / 10.0);
         if (noPoints>36) {
             noPoints = 36;
         }
     }
     glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
     GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
-    if (scale<10) {
-        glPopMatrix();
-        return;
+    if (s.scale>=10) {
+        glColor3f((SUMOReal)(255./255.), (SUMOReal)(235./255.), (SUMOReal)(0./255.));
+        GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
+        // draw the H
+        // not if scale to low
+        if (s.scale>=4.5) {
+            glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            pfSetPosition(0, 0);
+            pfSetScale(1.6f);
+            SUMOReal w = pfdkGetStringWidth("H");
+            glRotated(180, 0, 1, 0);
+            glTranslated(-w/2., 0.4, 0);
+            pfDrawString("H");
+        }
     }
-    glColor3f((SUMOReal)(255./255.), (SUMOReal)(235./255.), (SUMOReal)(0./255.));
-    GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
-    // draw the H
-    // not if scale to low
-    if (scale<4.5) {
-        glPopMatrix();
-        return;
-    }
-    glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    pfSetPosition(0, 0);
-    pfSetScale(1.6f);
-    SUMOReal w = pfdkGetStringWidth("H");
-    glRotated(180, 0, 1, 0);
-    glTranslated(-w/2., 0.4, 0);
-    pfDrawString("H");
     glPopMatrix();
+    // (optional) draw name
+    if(s.drawAddName) {
+        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+    }
+    // (optional) clear id
+    if (s.needsGlID) {
+        glPopName();
+    }
 }
 
 
