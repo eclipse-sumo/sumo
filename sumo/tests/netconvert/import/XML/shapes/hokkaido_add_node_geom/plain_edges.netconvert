@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:18:38 by SUMO netconvert Version dev-SVN-r5892
+<!-- generated on 10/27/08 10:11:07 by SUMO netconvert Version dev-SVN-r6198
 <configuration>
 
    <input>
@@ -12,6 +12,10 @@
       <output-file>net.net.xml</output-file>
       <plain-output>plain</plain-output>
    </output>
+
+   <processing>
+      <add-node-positions>true</add-node-positions>
+   </processing>
 
 </configuration>
 -->
