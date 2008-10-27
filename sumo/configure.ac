@@ -357,6 +357,7 @@ src/foreign/Makefile
 src/foreign/nvwa/Makefile
 src/foreign/mersenne/Makefile
 src/foreign/polyfonts/Makefile
+src/foreign/rtree/Makefile
 src/foreign/tcpip/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
