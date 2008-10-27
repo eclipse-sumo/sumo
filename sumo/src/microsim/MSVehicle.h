@@ -551,12 +551,7 @@ public:
 
     const MSVehicleType &getVehicleType() const;
 
-    enum MoveOnReminderMode {
-        BOTH, CURRENT
-    };
-
-    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed,
-                             MoveOnReminderMode = BOTH);
+    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
 
     void onDepart();
 

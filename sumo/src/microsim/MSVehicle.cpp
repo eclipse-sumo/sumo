@@ -1170,8 +1170,7 @@ MSVehicle::getNextPeriodical() const
 
 
 void
-MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed,
-                               MoveOnReminderMode mode)
+MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed)
 {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
@@ -1182,17 +1181,15 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
             ++rem;
         }
     }
-    if (mode!=CURRENT) {
-        OffsetVector::iterator off=myOldLaneMoveReminderOffsets.begin();
-        for (MoveReminderContIt rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end();) {
-            SUMOReal oldLaneLength = *off;
-            if (!(*rem)->isStillActive(*this, oldLaneLength+oldPos, oldLaneLength+newPos, newSpeed)) {
-                rem = myOldLaneMoveReminders.erase(rem);
-                off = myOldLaneMoveReminderOffsets.erase(off);
-            } else {
-                ++rem;
-                ++off;
-            }
+    OffsetVector::iterator off=myOldLaneMoveReminderOffsets.begin();
+    for (MoveReminderContIt rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end();) {
+        SUMOReal oldLaneLength = *off;
+        if (!(*rem)->isStillActive(*this, oldLaneLength+oldPos, oldLaneLength+newPos, newSpeed)) {
+            rem = myOldLaneMoveReminders.erase(rem);
+            off = myOldLaneMoveReminderOffsets.erase(off);
+        } else {
+            ++rem;
+            ++off;
         }
     }
 }
