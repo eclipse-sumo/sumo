@@ -257,6 +257,39 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 }
 
 
+
+// ------------ Retrieval of CORN values
+int
+MSVehicle::getCORNIntValue(MSCORN::Function f) const
+{
+    return myIntCORNMap.find(f)->second;
+}
+
+
+void *
+MSVehicle::getCORNPointerValue(MSCORN::Pointer p) const
+{
+    return myPointerCORNMap.find(p)->second;
+}
+
+
+bool
+MSVehicle::hasCORNIntValue(MSCORN::Function f) const
+{
+    return myIntCORNMap.find(f)!=myIntCORNMap.end();
+}
+
+
+bool
+MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const
+{
+    return myPointerCORNMap.find(p)!=myPointerCORNMap.end();
+}
+
+
+
+
+// ------------ 
 const MSEdge*
 MSVehicle::succEdge(unsigned int nSuccs) const throw()
 {
@@ -1344,35 +1377,6 @@ MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
         myQuitReminded.erase(i);
     }
 }
-
-
-int
-MSVehicle::getCORNIntValue(MSCORN::Function f) const
-{
-    return myIntCORNMap.find(f)->second;
-}
-
-
-void *
-MSVehicle::getCORNPointerValue(MSCORN::Pointer p) const
-{
-    return myPointerCORNMap.find(p)->second;
-}
-
-
-bool
-MSVehicle::hasCORNIntValue(MSCORN::Function f) const
-{
-    return myIntCORNMap.find(f)!=myIntCORNMap.end();
-}
-
-
-bool
-MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const
-{
-    return myPointerCORNMap.find(p)!=myPointerCORNMap.end();
-}
-
 
 
 const MSRoute &

@@ -246,7 +246,7 @@ public:
     }
 
 
-    /// @name retrieval and setting of CORN values
+    /// @name Retrieval of CORN values
     //@{
 
     /// Gets the named CORN double value
