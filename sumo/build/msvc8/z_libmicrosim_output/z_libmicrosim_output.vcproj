@@ -580,6 +580,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\output\MSLaneMeanDataValues.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\output\MSMeanData_Net.cpp"
 				>
 			</File>

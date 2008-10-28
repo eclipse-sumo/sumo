@@ -652,6 +652,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSMoveReminder.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSNet.cpp"
 				>
 			</File>
