@@ -54,6 +54,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/devices/libmicrosimdevs.a \
 ./microsim/output/libmicrosimoutput.a \
+./microsim/MSMoveReminder.o \
 ./microsim/trigger/libmicrosimtrigger.a \
 ./microsim/actions/libmsactions.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
