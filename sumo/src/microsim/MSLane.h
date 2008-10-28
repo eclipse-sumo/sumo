@@ -83,7 +83,6 @@ public:
     friend class GUILaneWrapper;
 
     friend class MSMeanData_Net;
-    friend class SSMeanData_Net;
 
     friend class MSXMLRawOut;
 
@@ -146,7 +145,7 @@ public:
 
     /** @brief Add a move-reminder to move-reminder container
      *
-     * The move reminder will not be deleted by the lane
+     * The move reminder will not be deleted by the lane.
      *
      * @param[in] rem The move reminder to add
      */
