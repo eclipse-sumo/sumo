@@ -282,13 +282,38 @@ public:
     //@}
 
 
-
     /// @name Interaction with move reminders
     //@{
-    SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const;
-    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
 
+    /** @brief Processes active move reminder
+     *
+     * This method goes through all active move reminder, both those for the current
+     *  lane, stored in "myMoveReminders" and those of prior lanes stored in 
+     *  "myOldLaneMoveReminders" calling "MSMoveReminder::isStillActive". 
+     *
+     * When processing move reminder from "myOldLaneMoveReminders",
+     *  the offsets (prior lane lengths) are used, which are stored in 
+     *  "myOldLaneMoveReminderOffsets".
+     *
+     * Each move reminder which is no longer active is removed from the container.
+     *
+     * @param[in] oldPos The position the vehicle had before it has moved
+     * @param[in] newPos The position the vehicle has after it has moved
+     * @param[in] newSpeed The vehicle's speed within this move
+     * @see MSMoveReminder
+     */
+    void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+
+
+    /** @brief Returns the vehicle's position in relation to a passed move reminder lane
+     *
+     * @param[in] searchedLane The lane to search for within move reminder
+     * @return The distance to this lane (vehicle position + lane offset); -1 if n move reminder is placed on this lane
+     * @todo Maybe this should be rechecked - the name says it: much to complicated and the parameter should be a move reminder? 
+     */
+    SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw();
     //@}
+
 
 
     /** moves a vehicle if it is not meant to be running out of the lane
@@ -306,18 +331,27 @@ public:
     /// @name state setter/getter
     //@{
 
-    /// Returns the vehicle state
-    const State &getState() const {
+    /** @brief Returns the vehicle state
+     * @return The state of the vehicle
+     * @see State
+     */
+    const State &getState() const throw() {
         return myState;
     }
 
-    /// Get the vehicle's position.
-    SUMOReal getPositionOnLane() const {
+
+    /** @brief Get the vehicle's position along the lane
+     * @return The position of the vehicle (in m from the lane's begin)
+     */
+    SUMOReal getPositionOnLane() const throw() {
         return myState.myPos;
     }
 
-    /// Returns current speed
-    SUMOReal getSpeed() const {
+
+    /** @brief Returns the vehicle's current speed
+     * @return The vehicle's speed
+     */
+    SUMOReal getSpeed() const throw() {
         return myState.mySpeed;
     }
     //@}
@@ -582,7 +616,7 @@ public:
     void onDepart();
 
     /** @brief Called when the vehicle leaves the lane */
-    void onTripEnd();
+    void onTripEnd(const MSLane * const lane=0);
     void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
 
@@ -757,7 +791,42 @@ protected:
      */
     SUMOReal processNextStop(SUMOReal currentVelocity) throw();
 
-    void activateRemindersByEmitOrLaneChange();
+
+
+    /// @name Interaction with move reminders
+    ///@{
+
+    /** @brief "Activates" all current move reminder
+     *
+     * For all move reminder stored in "myMoveReminders", their method 
+     *  "MSMoveReminder::isActivatedByEmitOrLaneChange" is called. The reminder
+     *  removed if the call returns false.
+     *
+     * @see MSMoveReminder
+     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+     */
+    void activateRemindersByEmitOrLaneChange() throw();
+
+
+    /** @brief Adapts the vehicle's entering of a new lane
+     *
+     * All offsets already stored in "myOldLaneMoveReminderOffsets" are increased by the
+     *  length that has been left. All still active move reminders from "myMoveReminders"
+     *  are put into "myOldLaneMoveReminders" and the offset to the last lane is added to
+     *  "myOldLaneMoveReminderOffsets" for each of these.
+     * 
+     * Move reminder from the given lane are set into "myMoveReminders".
+     *
+     * "myLane" must still be the left lane!
+     * 
+     * @param[in] enteredLane 
+     * @see MSMoveReminder
+     * @see MSLane::getMoveReminder
+     */
+    void adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw();
+    ///@}
+
+
 
     void rebuildContinuationsFor(LaneQ &q, MSLane *l, MSRouteIterator ce, int seen) const;
     virtual void setBlinkerInformation() { }

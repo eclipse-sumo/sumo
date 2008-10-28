@@ -165,9 +165,6 @@ public:
 
     void writeOutput();
 
-    size_t getMeanDataSize() const;
-    void addMeanData(MSMeanData_Net *newMeanData);
-
     virtual void closeBuilding(MSEdgeControl *edges,
                                MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
                                MSTLLogicControl *tlc,

@@ -30,15 +30,12 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <cassert>
-#include "MSLane.h"
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSVehicle;
+class MSLane;
 
 
 // ===========================================================================
@@ -58,6 +55,9 @@ class MSVehicle;
  * The reminder knows whom to tell about move, emit and lanechange. The
  * vehicles will remove the reminder that is not isStillActive() from
  * their reminder container.
+ *
+ * @see MSLane::addMoveReminder
+ * @see MSLane::getMoveReminder
  */
 class MSMoveReminder
 {
@@ -67,11 +67,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @todo Why is the lane not given as a reference?
      */
-    MSMoveReminder(MSLane* lane) throw()
-            : laneM(lane) {
-        // add reminder to lane
-        laneM->addMoveReminder(this);
-    }
+    MSMoveReminder(MSLane* lane) throw();
 
 
     /** @brief Destructor

@@ -136,12 +136,6 @@ GUIInternalLane::push(MSVehicle* veh)
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
-    // Add to mean data (edge/lane state dump)
-    if (myMeanData.size()!=0) {
-        for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].nVehEnteredLane++;
-        }
-    }
     myLock.lock();
     try {
         // check whether the vehicle has ended his route

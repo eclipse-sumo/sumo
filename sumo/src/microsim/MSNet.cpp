@@ -186,10 +186,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     }
     //
 
-    // we may add it before the network is loaded
-    if (myEdges!=0) {
-        myEdges->insertMeanData((unsigned int) myMeanData.size());
-    }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->insertMeanData(myMeanData.size());
@@ -550,22 +546,6 @@ MSNet::writeOutput() {
         saveState(strm);
     }
 #endif
-}
-
-
-void
-MSNet::addMeanData(MSMeanData_Net *newMeanData) {
-    myMeanData.push_back(newMeanData);
-    // we may add it before the network is loaded
-    if (myEdges!=0) {
-        myEdges->insertMeanData(1);
-    }
-}
-
-
-size_t
-MSNet::getMeanDataSize() const {
-    return myMeanData.size();
 }
 
 

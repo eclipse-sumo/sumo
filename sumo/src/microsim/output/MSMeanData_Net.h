@@ -141,7 +141,7 @@ protected:
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeEdge(OutputDevice &dev, const MSEdge &edge,
+    virtual void writeEdge(OutputDevice &dev, const std::vector<MSLaneMeanDataValues*> &edgeValues,
                            SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
@@ -154,7 +154,7 @@ protected:
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     virtual void writeLane(OutputDevice &dev,
-                           const MSLane &lane,
+                           MSLaneMeanDataValues &laneValues,
                            SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
@@ -164,14 +164,6 @@ protected:
      * @param [in] edge The last time step that is reported
      */
     void resetOnly(SUMOTime stopTime) throw();
-
-
-    /** @brief Resets edge value in order to allow processing of the next interval
-     *
-     * @param [in] edge The edge to reset the value of
-     * @param [in] edge The last time step that is reported
-     */
-    void resetOnly(const MSEdge &edge, SUMOTime stopTime) throw();
 
 
     /** @brief Inline function for value conversion
@@ -235,6 +227,8 @@ protected:
 
     /// @brief Whether empty lanes/edges shall be written
     bool myDumpEmptyEdges, myDumpEmptyLanes;
+
+    std::vector<std::vector<MSLaneMeanDataValues*> > myMeasures;
 
 private:
     /// @brief Invalidated copy constructor.

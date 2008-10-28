@@ -30,7 +30,6 @@
 #include <config.h>
 #endif
 
-#include "MSLogicJunction.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
 #include "MSEdgeControl.h"
@@ -42,7 +41,6 @@
 #include <string>
 #include <iostream>
 #include "MSNet.h"
-#include "output/MSLaneMeanDataValues.h"
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -69,7 +67,7 @@ class SSLaneMeanData;
  * @brief Representation of a lane in the micro simulation
  *
  * Class which represents a single lane. Somekind of the main class of the
- * simulation. Allows moving vehicles.
+ *  simulation. Allows moving vehicles.
  */
 class MSLane
 {
@@ -235,29 +233,6 @@ public:
 
 
 
-    /// @name Mean data collection
-    /// @{
-
-    /** @brief Adds the given number of data collectors (used to collect mean data)
-     * @param[in] number The number of collectors to add
-     */
-    void insertMeanData(unsigned int number) throw();
-
-
-    /** @brief Adds information about a moving vehicle to the mean data container
-     *
-     * @param[in] veh The vehicles which data shall be saved
-     * @param[in] newV The vehicle's new velocity
-     * @param[in] oldV The vehicle's old velocity (the one in the prior step)
-     * @param[in] gap The vehicle's gap to the leader
-     * @param[in] oldPos The vehicle's old position
-     * @todo This method is rather a subject to change; something like calling instances of abstract data logger should be called
-     */
-    void addMeanData(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos) throw();
-
-    ///@}
-
-
     /// Check if vehicles are too close.
     virtual void detectCollisions(SUMOTime timestep);
 
@@ -374,11 +349,6 @@ public:
 
     /// The shape of the lane
     Position2DVector myShape;
-
-    inline MSLaneMeanDataValues &getMeanData(int index) const {
-        assert((int) myMeanData.size()>index);
-        return myMeanData[index];
-    }
 
     const Position2DVector &getShape() const {
         return myShape;
@@ -515,9 +485,6 @@ protected:
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
-
-    /** Container of MeanDataValues, one element for each intervall. */
-    mutable std::vector< MSLaneMeanDataValues > myMeanData;
 
     /// definition of the tatic dictionary type
     typedef std::map< std::string, MSLane* > DictType;

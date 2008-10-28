@@ -226,15 +226,6 @@ MSEdgeControl::detectCollisions(SUMOTime timestep) throw()
 }
 
 
-void
-MSEdgeControl::insertMeanData(unsigned int number) throw()
-{
-    for (LaneUsageVector::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
-        (*i).lane->insertMeanData(number);
-    }
-}
-
-
 const MSEdgeControl::EdgeCont &
 MSEdgeControl::getSingleLaneEdges() const throw()
 {

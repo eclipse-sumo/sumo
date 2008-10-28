@@ -172,15 +172,6 @@ public:
     void detectCollisions(SUMOTime timestep) throw();
 
 
-    /** @brief Inserts new mean data container to all lanes
-     *
-     * Calls "insertMeanData" of each lane.
-     *
-     * @param[in] number The number of container to add
-     */
-    void insertMeanData(unsigned int number) throw();
-
-
     /** @brief Returns edges with only one lane
      *
      * @return the container storing one-lane edges

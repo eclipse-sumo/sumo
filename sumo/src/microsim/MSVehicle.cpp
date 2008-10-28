@@ -291,7 +291,7 @@ MSVehicle::hasCORNPointerValue(MSCORN::Pointer p) const throw()
 
 // ------------ Interaction with move reminders
 SUMOReal
-MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const
+MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw()
 {
     if (searchedLane==myLane) {
         return myState.myPos;
@@ -308,7 +308,7 @@ MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane
 
 
 void
-MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed)
+MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw()
 {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
@@ -333,8 +333,28 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
 }
 
 
+void 
+MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw()
+{
+    // save the old work reminders, patching the position information
+    //  add the information about the new offset to the old lane reminders
+    SUMOReal oldLaneLength = myLane->length();
+    OffsetVector::iterator i;
+    for (i=myOldLaneMoveReminderOffsets.begin(); i!=myOldLaneMoveReminderOffsets.end(); ++i) {
+        (*i) += oldLaneLength;
+    }
+    for (size_t j=0; j<myMoveReminders.size(); j++) {
+        myOldLaneMoveReminderOffsets.push_back(oldLaneLength);
+    }
+    copy(myMoveReminders.begin(), myMoveReminders.end(), back_inserter(myOldLaneMoveReminders));
+    assert(myOldLaneMoveReminders.size()==myOldLaneMoveReminderOffsets.size());
+    // get new move reminder
+    myMoveReminders = enteredLane.getMoveReminders();
+}
+
+
 void
-MSVehicle::activateRemindersByEmitOrLaneChange()
+MSVehicle::activateRemindersByEmitOrLaneChange() throw()
 {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
@@ -576,7 +596,6 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     }
 #endif
     // update position and speed
-    myLane->addMeanData(*this, vNext, oldV, gap, myState.myPos);
     myState.myPos += SPEED2DIST(vNext);
     assert(myState.myPos < lane->length());
     myState.mySpeed = vNext;
@@ -727,7 +746,6 @@ MSVehicle::moveFirstChecked()
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
-    approachedLane->addMeanData(*this, vNext, oldV, -1, oldPos);
 
     // move the vehicle forward
     size_t no = 0;
@@ -769,7 +787,6 @@ MSVehicle::moveFirstChecked()
 #endif
         }
         // set information about approaching
-        approachedLane->addMeanData(*this, vNext, oldV, -1, oldPos);
         no++;
     }
 
@@ -1082,23 +1099,11 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
         myStops.pop_front();
     }
 #endif
-    // save the old work reminders, patching the position information
-    // add the information about the new offset to the old lane reminders
-    SUMOReal oldLaneLength = myLane->length();
-    OffsetVector::iterator i;
-    for (i=myOldLaneMoveReminderOffsets.begin(); i!=myOldLaneMoveReminderOffsets.end(); ++i) {
-        (*i) += oldLaneLength;
-    }
-    for (size_t j=0; j<myMoveReminders.size(); j++) {
-        myOldLaneMoveReminderOffsets.push_back(oldLaneLength);
-    }
-    copy(myMoveReminders.begin(), myMoveReminders.end(), back_inserter(myOldLaneMoveReminders));
-    assert(myOldLaneMoveReminders.size()==myOldLaneMoveReminderOffsets.size());
+    // move mover reminder one lane further
+    adaptLaneEntering2MoveReminder(*enteredLane);
     // set the entered lane as the current lane
     myLane = enteredLane;
     myTarget = enteredLane;
-    // get new move reminder
-    myMoveReminders = enteredLane->getMoveReminders();
     // proceed in route
     const MSEdge * const enteredEdge = enteredLane->getEdge();
     if (enteredEdge->getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -1307,8 +1312,11 @@ MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 
 
 void
-MSVehicle::onTripEnd()
+MSVehicle::onTripEnd(const MSLane * const lane)
 {
+    if(lane!=0) {
+        adaptLaneEntering2MoveReminder(*lane);
+    }
     // check whether the vehicle's verbose arrival information shall be saved
     if (MSCORN::wished(MSCORN::CORN_VEH_ARRIVAL_INFO)) {
         DepartArrivalInformation *i = new DepartArrivalInformation();
@@ -1321,21 +1329,14 @@ MSVehicle::onTripEnd()
     SUMOReal pspeed = myState.mySpeed;
     SUMOReal pos = myState.myPos;
     SUMOReal oldPos = pos - SPEED2DIST(pspeed);
-    if (pos - myType->getLength() < 0) {
-        SUMOReal pdist = (SUMOReal)(myType->getLength() + 0.01) - oldPos;
-        pspeed = DIST2SPEED(pdist);
-        pos = (SUMOReal)(myType->getLength() + 0.1);
-    }
-    pos += myLane->length();
-    oldPos += myLane->length();
     // process reminder
-    // current
+    //   current
     vector< MSMoveReminder* >::iterator rem;
     for (rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ++rem) {
         // the vehicle may only be at the entry occupancy correction
         (*rem)->isStillActive(*this, oldPos, pos, pspeed);
     }
-    // old
+    //   old
     rem = myOldLaneMoveReminders.begin();
     OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
     for (;rem!=myOldLaneMoveReminders.end(); ++rem, ++off) {

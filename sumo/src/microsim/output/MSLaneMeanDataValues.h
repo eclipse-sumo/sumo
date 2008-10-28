@@ -30,6 +30,8 @@
 #include <config.h>
 #endif
 
+#include <microsim/MSMoveReminder.h>
+
 #ifdef HAVE_MESOSIM
 #include <map>
 #endif
@@ -39,6 +41,8 @@
 // class declarations
 // ===========================================================================
 class MEVehicle;
+class MSLane;
+class MSVehicle;
 
 
 // ===========================================================================
@@ -54,25 +58,21 @@ class MEVehicle;
  *
  * @todo Check whether the haltings-information is used and how
  */
-struct MSLaneMeanDataValues {
+class MSLaneMeanDataValues : public MSMoveReminder {
+public:
     /** @brief Constructor */
-    MSLaneMeanDataValues() throw()
-            : sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
-            speedSum(0), haltSum(0), vehLengthSum(0),
-            emitted(0) {}
+    MSLaneMeanDataValues(MSLane* lane) throw();
 
 
     /** @brief Resets values so they may be used for the next interval
      */
-    void reset() throw() {
-        sampleSeconds = 0.;
-        nVehLeftLane = 0;
-        nVehEnteredLane = 0;
-        speedSum = 0;
-        haltSum = 0;
-        vehLengthSum = 0;
-        emitted = 0;
-    }
+    void reset() throw();
+
+    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+
+    virtual void dismissByLaneChange(MSVehicle& veh) throw();
+
+    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
 
 
     /// @brief The number of sampled vehicle movements (in s)
@@ -95,6 +95,7 @@ struct MSLaneMeanDataValues {
 
     /// @brief The number of vehicles that were emitted on the lane
     unsigned emitted;
+
 
 #ifdef HAVE_MESOSIM
     std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;

@@ -409,13 +409,6 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
-    // update mean data information
-    addMeanData(*aVehicle, speed, speed, 0, pos-SPEED2DIST(speed)); // !!! revisit gap if its needed
-    if (myMeanData.size()!=0) {
-        for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].emitted++;
-        }
-    }
     return true;
 }
 
@@ -649,53 +642,6 @@ MSLane::setCritical(std::vector<MSLane*> &into)
 }
 
 
-// ---------- Mean data collection
-void
-MSLane::insertMeanData(unsigned int number) throw()
-{
-    myMeanData.reserve(myMeanData.size() + number);
-    myMeanData.insert(myMeanData.end(), number, MSLaneMeanDataValues());
-}
-
-
-void
-MSLane::addMeanData(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos) throw()
-{
-    // Add to mean data (edge/lane state dump)
-    if (myMeanData.size()!=0) {
-        SUMOReal l = veh.getLength();
-        SUMOReal fraction = 1.;
-        if (oldPos<0&&newV!=0) {
-            fraction = (oldPos+SPEED2DIST(newV)) / newV;
-        }
-        if (oldPos+SPEED2DIST(newV)>length()&&newV!=0) {
-            fraction -= (oldPos+SPEED2DIST(newV) - length()) / newV;
-        }
-        for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].sampleSeconds += fraction;
-            myMeanData[i].speedSum += newV * fraction;
-            myMeanData[i].vehLengthSum += l * fraction;
-            if (newV<0.1) { // !!! swell
-                myMeanData[i].haltSum++;
-            }
-        }
-    }
-    /*
-    // Add to phys state
-    if (OptionsCont::getOptions().isSet("physical-states-output")) {
-        OutputDevice::getDeviceByOption("physical-states-output") << "   <vphys id=\"" << veh.getID()
-        << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()
-        << "\" v=\"" << newV
-        << "\" a=\"" << (newV-oldV)
-        << "\" g=\"" << gap
-        << "\"/>" << "\n";
-    }
-    */
-}
-
-
-
-
 bool
 MSLane::dictionary(string id, MSLane* ptr)
 {
@@ -738,11 +684,6 @@ MSLane::push(MSVehicle* veh)
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
     // Add to mean data (edge/lane state dump)
-    if (myMeanData.size()!=0) {
-        for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].nVehEnteredLane++;
-        }
-    }
     if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
         myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
@@ -751,7 +692,7 @@ MSLane::push(MSVehicle* veh)
         veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
         return false;
     } else {
-        veh->onTripEnd();
+        veh->onTripEnd(this);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
@@ -768,11 +709,6 @@ MSLane::pop()
     myVehicleLengthSum -= first->getLength();
     if (myVehicles.size()==0) {
         myLastState = MSVehicle::State(10000, 10000);
-    }
-    if (myMeanData.size()!=0) {
-        for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].nVehLeftLane++;
-        }
     }
     return first;
 }
