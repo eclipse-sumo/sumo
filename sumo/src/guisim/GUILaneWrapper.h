@@ -138,7 +138,7 @@ public:
 
     SUMOReal firstWaitingTime() const;
     SUMOReal getDensity() const;
-    SUMOReal getWaitingVehicles() const;
+
 
     /// Returns the fastest known lane speed
     static SUMOReal getOverallMaxSpeed();

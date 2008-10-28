@@ -832,6 +832,7 @@ GUISUMOAbstractView::onKeyPress(FXObject *o,FXSelector sel,void *data)
         setDefaultCursor(getApp()->getDefaultCursor(DEF_CROSSHAIR_CURSOR));
         grabKeyboard();
     }
+    /*
     switch(e->code) {
     case KEY_Left:
         myChanger->move((SUMOReal) -p2m((SUMOReal) getWidth()/10), 0);
@@ -848,6 +849,7 @@ GUISUMOAbstractView::onKeyPress(FXObject *o,FXSelector sel,void *data)
     default:
         break;
     }
+    */
     return FXGLCanvas::onKeyPress(o, sel, data);
 }
 

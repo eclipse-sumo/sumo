@@ -766,17 +766,6 @@ GUILaneWrapper::getDensity() const
     return myLane.getDensity();
 }
 
-#include <microsim/MSEmitControl.h>
-SUMOReal 
-GUILaneWrapper::getWaitingVehicles() const
-{
-    const MSEdge * const e = myLane.getEdge();
-    const std::map<const MSEdge*, int> &m = MSNet::getInstance()->getEmitControl().myWaiting;
-    if(m.find(e)==m.end()) {
-        return 0;
-    }
-    return m.find(e)->second;
-}
 
 SUMOReal
 GUILaneWrapper::getEdgeLaneNumber() const
