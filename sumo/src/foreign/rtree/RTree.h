@@ -17,6 +17,11 @@
   #define Max __max 
 #endif //Max
 
+#define rtree_min(a,b) (a<b?a:b)
+#define rtree_max(a,b) (a>b?a:b)
+
+
+
 //
 // RTree.h
 //
@@ -83,15 +88,6 @@ public:
   /// \param a_max Max of bounding rect
   /// \param a_dataId Positive Id of data.  Maybe zero, but negative numbers not allowed.
   void Remove(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], const DATATYPE& a_dataId);
-  
-  /// Find all within search rectangle
-  /// \param a_min Min of search bounding rect
-  /// \param a_max Max of search bounding rect
-  /// \param a_searchResult Search result array.  Caller should set grow size. Function will reset, not append to array.
-  /// \param a_resultCallback Callback function to return result.  Callback should return 'true' to continue searching
-  /// \param a_context User context to pass as parameter to a_resultCallback
-  /// \return Returns the number of entries found
-  int Search(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], bool __cdecl a_resultCallback(DATATYPE a_data, void* a_context), void* a_context);
   
 
   /// DK 15.10.2008 - begin
@@ -237,7 +233,7 @@ public:
     StackElement m_stack[MAX_STACK];              ///< Stack as we are doing iteration instead of recursion
     int m_tos;                                    ///< Top Of Stack index
   
-    friend RTree; // Allow hiding of non-public functions while allowing manipulation by logical owner
+    friend class RTree<DATATYPE, DATATYPENP, ELEMTYPE, NUMDIMS, CONTEXT, ELEMTYPEREAL, TMAXNODES, TMINNODES>; // Allow hiding of non-public functions while allowing manipulation by logical owner
   };
 
   /// Get 'first' for iteration
@@ -344,7 +340,6 @@ protected:
   void FreeListNode(ListNode* a_listNode);
   bool Overlap(Rect* a_rectA, Rect* a_rectB);
   void ReInsert(Node* a_node, ListNode** a_listNode);
-  bool Search(Node* a_node, Rect* a_rect, int& a_foundCount, bool __cdecl a_resultCallback(DATATYPE a_data, void* a_context), void* a_context);
   bool Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CONTEXT &c);
   void RemoveAllRec(Node* a_node);
   void Reset();
@@ -514,33 +509,6 @@ void RTREE_QUAL::Remove(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMD
   }
 
   RemoveRect(&rect, a_dataId, &m_root);
-}
-
-
-RTREE_TEMPLATE
-int RTREE_QUAL::Search(const ELEMTYPE a_min[NUMDIMS], const ELEMTYPE a_max[NUMDIMS], bool __cdecl a_resultCallback(DATATYPE a_data, void* a_context), void* a_context)
-{
-#ifdef _DEBUG
-  for(int index=0; index<NUMDIMS; ++index)
-  {
-    ASSERT(a_min[index] <= a_max[index]);
-  }
-#endif //_DEBUG
-
-  Rect rect;
-  
-  for(int axis=0; axis<NUMDIMS; ++axis)
-  {
-    rect.m_min[axis] = a_min[axis];
-    rect.m_max[axis] = a_max[axis];
-  }
-
-  // NOTE: May want to return search result another way, perhaps returning the number of found elements here.
-
-  int foundCount = 0;
-  Search(m_root, &rect, foundCount, a_resultCallback, a_context);
-
-  return foundCount;
 }
 
 
@@ -1111,8 +1079,8 @@ typename RTREE_QUAL::Rect RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_rectB)
 
   for(int index = 0; index < NUMDIMS; ++index)
   {
-    newRect.m_min[index] = Min(a_rectA->m_min[index], a_rectB->m_min[index]);
-    newRect.m_max[index] = Max(a_rectA->m_max[index], a_rectB->m_max[index]);
+    newRect.m_min[index] = rtree_min(a_rectA->m_min[index], a_rectB->m_min[index]);
+    newRect.m_max[index] = rtree_max(a_rectA->m_max[index], a_rectB->m_max[index]);
   }
 
   return newRect;
@@ -1567,51 +1535,6 @@ void RTREE_QUAL::ReInsert(Node* a_node, ListNode** a_listNode)
 }
 
 
-// Search in an index tree or subtree for all data retangles that overlap the argument rectangle.
-RTREE_TEMPLATE
-bool RTREE_QUAL::Search(Node* a_node, Rect* a_rect, int& a_foundCount, bool __cdecl a_resultCallback(DATATYPE a_data, void* a_context), void* a_context)
-{
-  ASSERT(a_node);
-  ASSERT(a_node->m_level >= 0);
-  ASSERT(a_rect);
-
-  if(a_node->IsInternalNode()) // This is an internal node in the tree
-  {
-    for(int index=0; index < a_node->m_count; ++index)
-    {
-      if(Overlap(a_rect, &a_node->m_branch[index].m_rect))
-      {
-        if(!Search(a_node->m_branch[index].m_child, a_rect, a_foundCount, a_resultCallback, a_context))
-        {
-          return false; // Don't continue searching
-        }
-      }
-    }
-  }
-  else // This is a leaf node
-  {
-    for(int index=0; index < a_node->m_count; ++index)
-    {
-      if(Overlap(a_rect, &a_node->m_branch[index].m_rect))
-      {
-        DATATYPE& id = a_node->m_branch[index].m_data;
-        
-        // NOTE: There are different ways to return results.  Here's where to modify
-        if(&a_resultCallback)
-        {
-          ++a_foundCount;
-          if(!a_resultCallback(id, a_context))
-          {
-            return false; // Don't continue searching
-          }
-        }
-      }
-    }
-  }
-
-  return true; // Continue searching
-}
-
 
 // Search in an index tree or subtree for all data retangles that overlap the argument rectangle.
 RTREE_TEMPLATE
@@ -1668,3 +1591,6 @@ bool RTREE_QUAL::Search(Node* a_node, Rect* a_rect, int& a_foundCount, const CON
 #undef RTREE_QUAL
 
 #endif //RTREE_H
+
+
+
