@@ -242,39 +242,39 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     glEnable(GL_DEPTH_TEST);
     // get the viewport settings
     const Boundary &nb = myNet->getBoundary();
-        SUMOReal width = nb.getWidth();
-        SUMOReal height = nb.getHeight();
-        SUMOReal mzoom = myChanger->getZoom();
-        SUMOReal cy = myChanger->getYPos();
-        SUMOReal cx = myChanger->getXPos();
+    SUMOReal width = nb.getWidth();
+    SUMOReal height = nb.getHeight();
+    SUMOReal mzoom = myChanger->getZoom();
+    SUMOReal cy = myChanger->getYPos();
+    SUMOReal cx = myChanger->getXPos();
 
 
-        GLdouble sxmin = myCX - myX1;
-        GLdouble sxmax = myCX + myX1;
-        GLdouble symin = myCY - myY1;
-        GLdouble symax = myCY + myY1;
+    GLdouble sxmin = myCX - myX1;
+    GLdouble sxmax = myCX + myX1;
+    GLdouble symin = myCY - myY1;
+    GLdouble symax = myCY + myY1;
 
     // compute lane width
     SUMOReal lw = m2p(3.0) * scale;
     // draw
-        myDecalsLock.lock();
-        for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
-            GUISUMOAbstractView::Decal &d = *l;
-            if (!d.initialised) {
-                FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
-                if (i!=0) {
-                    d.glID = GUITexturesHelper::add(i);
-                    d.initialised = true;
-                }
+    myDecalsLock.lock();
+    for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
+        GUISUMOAbstractView::Decal &d = *l;
+        if (!d.initialised) {
+            FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
+            if (i!=0) {
+                d.glID = GUITexturesHelper::add(i);
+                d.initialised = true;
             }
-            glPushMatrix();
-            glTranslated(d.left, d.top, 0);
-            glRotated(d.rot, 0, 0, 1);
-            glColor3d(1,1,1);
-            GUITexturesHelper::drawTexturedBox(d.glID, 0, 0, d.right-d.left, d.bottom-d.top);
-            glPopMatrix();
         }
-        myDecalsLock.unlock();
+        glPushMatrix();
+        glTranslated(d.left, d.top, 0);
+        glRotated(d.rot, 0, 0, 1);
+        glColor3d(1,1,1);
+        GUITexturesHelper::drawTexturedBox(d.glID, 0, 0, d.right-d.left, d.bottom-d.top);
+        glPopMatrix();
+    }
+    myDecalsLock.unlock();
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     float minB[2];
