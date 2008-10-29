@@ -127,7 +127,7 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw()
         assert(approachedLanes->size()>i);
         assert(approachingLanes.size()>i);
         incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing,
-            approached, NBEdge::L2L_COMPUTED);
+                                    approached, NBEdge::L2L_COMPUTED);
     }
     delete approachedLanes;
 }
@@ -1326,9 +1326,9 @@ NBNode::computeLanes2Lanes()
     // special case:
     //  one in, one out, the outgoing has one lane more
     if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1
-        &&(*myIncomingEdges)[0]->getNoLanes()==(*myOutgoingEdges)[0]->getNoLanes()-1
-        &&(*myIncomingEdges)[0]!=(*myOutgoingEdges)[0]
-        &&(*myIncomingEdges)[0]->isConnectedTo((*myOutgoingEdges)[0]) ) {
+            &&(*myIncomingEdges)[0]->getNoLanes()==(*myOutgoingEdges)[0]->getNoLanes()-1
+            &&(*myIncomingEdges)[0]!=(*myOutgoingEdges)[0]
+            &&(*myIncomingEdges)[0]->isConnectedTo((*myOutgoingEdges)[0])) {
 
         NBEdge *incoming = (*myIncomingEdges)[0];
         NBEdge *outgoing = (*myOutgoingEdges)[0];

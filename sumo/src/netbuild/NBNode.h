@@ -214,7 +214,7 @@ public:
     NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
 
     unsigned int eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec,
-                        NBTrafficLightLogicCont &tc);
+                              NBTrafficLightLogicCont &tc);
 
     void removeOutgoing(NBEdge *edge);
     void removeIncoming(NBEdge *edge);

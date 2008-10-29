@@ -561,11 +561,11 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     assert((size_t) idx<myIncoming->size()*myOutgoing->size());
                     assert(connected[k].toEdge==0 || (size_t) getIndex(*i, connected[k].toEdge)<myIncoming->size()*myOutgoing->size());
                     // check whether the connection is prohibited by another one
-                    if (/*connected[k].definitelyUndisturbed 
+                    if (/*connected[k].definitelyUndisturbed
                         || */
                         (connected[k].toEdge!=0 && myForbids[getIndex(*i, connected[k].toEdge)][idx])
-                            &&
-                            toLane == connected[k].toLane) {
+                        &&
+                        toLane == connected[k].toLane) {
 
                         os << '1';
                         continue;

@@ -141,11 +141,10 @@ public:
          * @param[in] toLane_ The lane the connections yields in
          */
         Connection(int fromLane_, NBEdge *toEdge_, int toLane_) throw()
-            : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_) 
-        { }
+                : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_) { }
 
 
-        /// @brief The lane the connections starts at 
+        /// @brief The lane the connections starts at
         int fromLane;
         /// @brief The edge the connections yields in
         NBEdge *toEdge;
@@ -163,7 +162,7 @@ public:
     /** @brief Constructor
      *
      * Use this if no edge geometry is given.
-     * 
+     *
      * @param[in] id The id of the edge
      * @param[in] from The node the edge starts at
      * @param[in] to The node the edge ends at
@@ -184,7 +183,7 @@ public:
     /** @brief Constructor
      *
      * Use this if the edge's geometry is given.
-     * 
+     *
      * @param[in] id The id of the edge
      * @param[in] from The node the edge starts at
      * @param[in] to The node the edge ends at
@@ -318,7 +317,7 @@ public:
 
 
     /** @brief Adds a further geometry point
-     * 
+     *
      * Some importer do not know an edge's geometry when it is initialised.
      *  This method allows to insert further geometry points after the edge
      *  has been built.
@@ -455,7 +454,7 @@ public:
 
     /// adds a connection to a certain lane of a certain edge
     void setConnection(size_t lane, NBEdge *destEdge,
-                       size_t destLane, 
+                       size_t destLane,
                        Lane2LaneInfoType type,
                        bool mayUseSameDestination=false);
 
@@ -673,7 +672,7 @@ protected:
 
 
 private:
-    /** @brief Initialization routines common to all constructors 
+    /** @brief Initialization routines common to all constructors
      *
      * Checks whether the number of lanes>0, whether the junction's from-
      *  and to-nodes are given (!=0) and whether they are distict. Throws

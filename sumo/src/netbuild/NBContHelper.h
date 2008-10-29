@@ -112,7 +112,7 @@ public:
     public:
         /// comparing operation
         int operator()(NBEdge *e1, NBEdge *e2) const {
-            if(e1==0||e2==0) {
+            if (e1==0||e2==0) {
                 return -1;
             }
             SUMOReal relAngle1 = NBHelpers::normRelAngle(

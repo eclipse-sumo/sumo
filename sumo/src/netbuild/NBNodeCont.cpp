@@ -421,10 +421,10 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
             remove = true;
         }
         // check for nodes which are only geometry nodes
-        if(removeGeometryNodes) {
+        if (removeGeometryNodes) {
             if ((current->getOutgoingEdges().size()==1 && current->getIncomingEdges().size()==1)
-                ||
-                (current->getOutgoingEdges().size()==2 && current->getIncomingEdges().size()==2)) {
+                    ||
+                    (current->getOutgoingEdges().size()==2 && current->getIncomingEdges().size()==2)) {
                 // ok, one in, one out or two in, two out
                 //  -> ask the node whether to join
                 remove = current->checkIsRemovable();

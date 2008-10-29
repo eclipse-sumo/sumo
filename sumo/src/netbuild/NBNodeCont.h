@@ -144,7 +144,7 @@ public:
      *
      * Removes nodes if a) no incoming/outgoing edges exist or
      *  b) if the node is a "geometry" node. In the second case,
-     *  edges that participate at the node will be joined. 
+     *  edges that participate at the node will be joined.
      * Whether the node is a geometry node or not, is determined
      *  by a call to NBNode::checkIsRemovable.
      * The node is removed from the list of tls-controlled nodes.

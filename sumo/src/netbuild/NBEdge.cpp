@@ -212,7 +212,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
     if (myFrom->getPosition().almostSame(myTo->getPosition())) {
         throw ProcessError("Edge '" + myID + "' starts at the same position it ends on.");
     }
-    if(!tryIgnoreNodePositions||myGeom.size()<2) {
+    if (!tryIgnoreNodePositions||myGeom.size()<2) {
         myGeom.push_back_noDoublePos(myTo->getPosition());
         myGeom.push_front_noDoublePos(myFrom->getPosition());
     }
@@ -381,7 +381,7 @@ NBEdge::getConnectionsFromLane(unsigned int lane) const throw()
 
 
 
-// ----------- 
+// -----------
 
 
 int
@@ -413,7 +413,7 @@ NBEdge::computeTurningDirections()
     EdgeVector outgoing = myTo->getOutgoingEdges();
     for (EdgeVector::iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
-        if(myConnections.size()!=0&&!isConnectedTo(outedge)) {
+        if (myConnections.size()!=0&&!isConnectedTo(outedge)) {
             continue;
         }
         SUMOReal relAngle =
@@ -913,7 +913,7 @@ NBEdge::computeLanes2Edges()
     // get list of possible outgoing edges sorted by direction clockwise
     //  the edge in the backward direction (turnaround) is not in the list
     const vector<NBEdge*> *edges = getConnectedSorted();
-    if(myConnections.size()!=0&&edges->size()==0) {
+    if (myConnections.size()!=0&&edges->size()==0) {
         // dead end per definition!?
         myConnections.clear();
     } else {
@@ -1244,7 +1244,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
         }
     }
     myConnections.push_back(Connection(src_lane, dest_edge, dest_lane));
-    if(type==L2L_USER) {
+    if (type==L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {
         // check whether we have to take another look at it later
@@ -1362,7 +1362,7 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff)
 bool
 NBEdge::isConnectedTo(NBEdge *e)
 {
-    if(e==myTurnDestination) {
+    if (e==myTurnDestination) {
         return true;
     }
     return
