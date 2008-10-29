@@ -9370,7 +9370,7 @@ myDet1;0;10;2;100;80
           <para>You can place an emitter onto a lane by adding the following
           declaration to one of your additional-files:</para>
 
-          <programlisting><sgmltag>&lt;trigger id="<replaceable>&lt;ID&gt;</replaceable>" objecttype="emitter" pos="<replaceable>&lt;POS&gt;</replaceable>" objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
+          <programlisting><sgmltag>&lt;emitter id="<replaceable>&lt;ID&gt;</replaceable>" pos="<replaceable>&lt;POS&gt;</replaceable>" objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
    [friendly_pos="x"] file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
 
           <para>The fields have the following meanings:</para>
@@ -9379,12 +9379,6 @@ myDet1;0;10;2;100;80
             <listitem>
               <para><sgmltag>id</sgmltag>: A string holding the id of the
               emitter.</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>objecttype</sgmltag>: Always
-              "<sgmltag>emitter</sgmltag>"; indicates this trigger is an
-              emitter</para>
             </listitem>
 
             <listitem>
@@ -9488,6 +9482,17 @@ myDet1;0;10;2;100;80
           begin, the vehicle will be discarded. The following sections
           describe how one can omit explicite attributes for vehicle type and
           route.</para>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>The definition has been renamed from
+              "<sgmltag>trigger</sgmltag>" to "<sgmltag>emitter</sgmltag>"
+              after version 0.9.10. In conjunction, the definition's attribute
+              "<sgmltag>objecttype</sgmltag>" is not longer used.</para>
+            </listitem>
+          </itemizedlist>
         </sect3>
 
         <sect3 id="user_chp06-vehicle_handling-emitter-routedist">
@@ -9870,9 +9875,8 @@ myDet1;0;10;2;100;80
         version 0.9.3. By now you may define positions of bus stops and let
         vehicles ("busses") stop at these positions for a pre-given time.
         Definitions of bus stop locations in SUMO have the following format:
-        <sgmltag>&lt;trigger
+        <sgmltag>&lt;busStop
         id="<replaceable>&lt;BUS_STOP_ID&gt;</replaceable>"
-        objecttype="bus_stop"
         objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>"
         from="<replaceable>&lt;STARTING_POSITION&gt;</replaceable>"
         to="<replaceable>&lt;ENDING_POSITION&gt;</replaceable>"
@@ -9884,11 +9888,6 @@ myDet1;0;10;2;100;80
           <listitem>
             <para><sgmltag>id</sgmltag>: id of the bus stop; must be
             unique</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>objecttype</sgmltag>: always "bus_stop"
-            herein</para>
           </listitem>
 
           <listitem>
@@ -10044,6 +10043,17 @@ myDet1;0;10;2;100;80
             leave/enter</para>
           </listitem>
         </itemizedlist>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>The definition has been renamed from
+            "<sgmltag>trigger</sgmltag>" to "<sgmltag>busStop</sgmltag>" after
+            version 0.9.10. In conjunction, the definition's attribute
+            "<sgmltag>objecttype</sgmltag>" is not longer used.</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp06-management-vss">
@@ -10051,9 +10061,9 @@ myDet1;0;10;2;100;80
 
         <para>One of the trigger objects that may be specified within an
         additional file allows the simulation of variable speed signs. The
-        syntax for such an object is: <sgmltag>&lt;trigger
-        id="<replaceable>&lt;VSS_ID&gt;</replaceable>" objecttype="lane"
-        objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" attr="speed"
+        syntax for such an object is: <sgmltag>&lt;variableSpeedSign
+        id="<replaceable>&lt;VSS_ID&gt;</replaceable>"
+        objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>"
         file="<replaceable>&lt;DEF_FILE&gt;</replaceable>"/&gt;</sgmltag>.
         This trigger is typed to be a vss by the combination of the values of
         the attributes <sgmltag>objecttype="lane"</sgmltag> and
@@ -10084,6 +10094,19 @@ myDet1;0;10;2;100;80
 
         <para>A small example for usage of vss' within SUMO may be found in
         <filename>"data/examples/extended/variable_speed_signs"</filename>.</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>The definition has been renamed from
+            "<sgmltag>trigger</sgmltag>" to
+            "<sgmltag>variableSpeedSign</sgmltag>" after version 0.9.10. In
+            conjunction, the definition's attributes
+            "<sgmltag>objecttype</sgmltag>" and "<sgmltag>attr</sgmltag>" are
+            not longer used.</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp06-management-rerouter" revision="0.9.8">
@@ -10094,9 +10117,8 @@ myDet1;0;10;2;100;80
 
         <para>A rerouter is set into the simulated network by adding the
         following declaration line to an "additional file":
-        <sgmltag>&lt;trigger
+        <sgmltag>&lt;rerouter
         id="<replaceable>&lt;REROUTER_ID&gt;</replaceable>"
-        objecttype="rerouter"
         objectid="<replaceable>&lt;EDGE_ID&gt;</replaceable>[;<replaceable>&lt;EDGE_ID&gt;</replaceable>]"
         file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"
         [probability="<replaceable>&lt;PROBABILITY&gt;</replaceable>"]/&gt;</sgmltag>.
@@ -10108,11 +10130,6 @@ myDet1;0;10;2;100;80
         <itemizedlist>
           <listitem>
             <para><sgmltag>id</sgmltag>: the id of of the rerouter</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>objecttype</sgmltag>: always
-            "<sgmltag>rerouter</sgmltag>"</para>
           </listitem>
 
           <listitem>
@@ -10162,6 +10179,13 @@ myDet1;0;10;2;100;80
 
           <listitem>
             <para>The description was reworked for version 0.9.8</para>
+          </listitem>
+
+          <listitem>
+            <para>The definition has been renamed from
+            "<sgmltag>trigger</sgmltag>" to "<sgmltag>rerouter</sgmltag>"
+            after version 0.9.10. In conjunction, the definition's attribute
+            "<sgmltag>objecttype</sgmltag>" is not longer used.</para>
           </listitem>
         </itemizedlist>
 
