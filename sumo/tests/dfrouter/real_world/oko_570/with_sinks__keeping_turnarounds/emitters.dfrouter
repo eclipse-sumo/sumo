@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/11/07 10:41:27 by SUMO dfrouter Version 0.9.7
+<!-- generated on 10/29/08 15:14:05 by SUMO dfrouter Version dev-SVN-r6225
 <configuration>
 
    <input>
@@ -32,5 +32,5 @@
 -->
 
 <additional>
-   <trigger id="source_BO" objecttype="emitter" pos="50.00" objectid="a4_a5_0" friendly_pos="x" file="emitter_BO.def.xml"/>
+   <emitter id="source_BO" pos="50.00" objectid="a4_a5_0" friendly_pos="x" file="emitter_BO.def.xml"/>
 </additional>

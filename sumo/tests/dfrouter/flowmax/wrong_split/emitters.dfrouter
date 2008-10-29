@@ -1,4 +1,4 @@
 <additional>
-   <trigger id="source_MQ_1to2" objecttype="emitter" pos="5" objectid="1to2_0" friendly_pos="x" file="emitter_MQ_1to2.def.xml"/>
-   <trigger id="source_MQ_6to7" objecttype="emitter" pos="5" objectid="6to7_0" friendly_pos="x" file="emitter_MQ_6to7.def.xml"/>
+   <emitter id="source_MQ_1to2"  pos="5" objectid="1to2_0" friendly_pos="x" file="emitter_MQ_1to2.def.xml"/>
+   <emitter id="source_MQ_6to7"  pos="5" objectid="6to7_0" friendly_pos="x" file="emitter_MQ_6to7.def.xml"/>
 </additional>

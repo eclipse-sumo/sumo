@@ -1,3 +1,3 @@
 <additional>
-   <trigger id="source_in1" objecttype="emitter" pos="5" objectid="in1_0" friendly_pos="x" file="emitter_in1.def.xml"/>
+   <emitter id="source_in1"  pos="5" objectid="in1_0" friendly_pos="x" file="emitter_in1.def.xml"/>
 </additional>

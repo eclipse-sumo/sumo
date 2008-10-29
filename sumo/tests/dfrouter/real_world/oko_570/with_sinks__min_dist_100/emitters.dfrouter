@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/11/07 10:41:29 by SUMO dfrouter Version 0.9.7
+<!-- generated on 10/29/08 15:14:06 by SUMO dfrouter Version dev-SVN-r6225
 <configuration>
 
    <input>
@@ -32,7 +32,7 @@
 -->
 
 <additional>
-   <trigger id="source_LI" objecttype="emitter" pos="100.00" objectid="11_21_0" friendly_pos="x" file="emitter_LI.def.xml"/>
-   <trigger id="source_RI" objecttype="emitter" pos="100.00" objectid="60_50_0" friendly_pos="x" file="emitter_RI.def.xml"/>
-   <trigger id="source_BI" objecttype="emitter" pos="50.00" objectid="a5_a4_0" friendly_pos="x" file="emitter_BI.def.xml"/>
+   <emitter id="source_LI" pos="100.00" objectid="11_21_0" friendly_pos="x" file="emitter_LI.def.xml"/>
+   <emitter id="source_RI" pos="100.00" objectid="60_50_0" friendly_pos="x" file="emitter_RI.def.xml"/>
+   <emitter id="source_BI" pos="50.00" objectid="a5_a4_0" friendly_pos="x" file="emitter_BI.def.xml"/>
 </additional>

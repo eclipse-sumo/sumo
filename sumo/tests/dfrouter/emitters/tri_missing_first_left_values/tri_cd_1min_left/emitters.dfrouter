@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep 10 00:02:15 2007 by SUMO dfrouter Version dev-SVN-r4433
+<!-- generated on 10/29/08 15:13:45 by SUMO dfrouter Version dev-SVN-r6225
 <configuration>
 
    <input>
@@ -32,5 +32,5 @@
 -->
 
 <additional>
-   <trigger id="source_MQ_beg" objecttype="emitter" pos="5.00" objectid="beg_0" friendly_pos="x" file="emitter_MQ_beg.def.xml"/>
+   <emitter id="source_MQ_beg" pos="5.00" objectid="beg_0" friendly_pos="x" file="emitter_MQ_beg.def.xml"/>
 </additional>
