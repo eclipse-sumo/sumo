@@ -661,16 +661,14 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         clearDists(dists);
         // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
-            out << "   <trigger id=\"source_" << det->getID()
-            << "\" objecttype=\"emitter\" "
-            << "pos=\"" << det->getPos() << "\" "
+            out << "   <emitter id=\"source_" << det->getID()
+            << "\" pos=\"" << det->getPos() << "\" "
             << "objectid=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
             << "file=\"" << defFileName << "\"/>\n";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
-            out << "   <trigger id=\"calibrator_" << det->getID()
-            << "\" objecttype=\"calibrator\" "
-            << "pos=\"" << det->getPos() << "\" "
+            out << "   <calirator id=\"calibrator_" << det->getID()
+            << "\" pos=\"" << det->getPos() << "\" "
             << "objectid=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
             << "file=\"" << defFileName << "\"/>\n";
@@ -808,10 +806,8 @@ RODFDetectorCon::writeSpeedTrigger(const RODFNet * const net,
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR&&flows.knows(det->getID())) {
             string filename = FileHelpers::getFilePath(file) + "vss_" + det->getID() + ".def.xml";
-            out << "   <trigger id=\"vss_" << det->getID() << '\"'
-            << " objecttype=\"lane\""
+            out << "   <variableSpeedSign id=\"vss_" << det->getID() << '\"'
             << " objectid=\"" << det->getLaneID() << '\"'
-            << " attr=\"speed\" "
             << " file=\"" << filename << "\"/>\n";
             SUMOReal defaultSpeed = net!=0 ? net->getEdge(det->getEdgeID())->getSpeed() : (SUMOReal) 200.;
             det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset, defaultSpeed);
@@ -830,8 +826,8 @@ RODFDetectorCon::writeEndRerouterDetectors(const std::string &file)
         RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR) {
-            out << "   <trigger id=\"endrerouter_" << det->getID()
-            << "\" objecttype=\"rerouter\" objectid=\"" <<
+            out << "   <rerouter id=\"endrerouter_" << det->getID()
+            << "\" objectid=\"" <<
             det->getLaneID() << "\" attr=\"reroute\" pos=\"0\" file=\"endrerouter_"
             << det->getID() << ".def.xml\"/>\n";
         }
