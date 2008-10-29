@@ -473,10 +473,10 @@ NIVissimLoader::postLoadBuild(SUMOReal offset)
         myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont());
     NIVissimEdge::dict_propagateSpeeds();
     NIVissimEdge::dict_buildNBEdges(myNetBuilder.getDistrictCont(),
-                                    myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), 
-                                    offset, 
+                                    myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+                                    offset,
                                     !OptionsCont::getOptions().getBool("add-node-positions"));
-    if(OptionsCont::getOptions().getBool("vissim.report-unset-speeds")) {
+    if (OptionsCont::getOptions().getBool("vissim.report-unset-speeds")) {
         NIVissimEdge::reportUnsetSpeeds();
     }
     NIVissimDistrictConnection::dict_BuildDistricts(myNetBuilder.getDistrictCont(),

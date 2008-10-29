@@ -146,8 +146,8 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
 
 
 NBConnection
-NIXMLConnectionsHandler::parseConnection(const std::string &defRole, 
-                                         const string &def) throw()
+NIXMLConnectionsHandler::parseConnection(const std::string &defRole,
+        const string &def) throw()
 {
     // split from/to
     size_t div = def.find("->");

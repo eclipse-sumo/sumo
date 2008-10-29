@@ -264,7 +264,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     }
     // if we had been able to extract the maximum speed, override the highway type default
     if (e->myMaxSpeed >= 0) {
-        speed = (SUMOReal) (e->myMaxSpeed / 3.6);
+        speed = (SUMOReal)(e->myMaxSpeed / 3.6);
     }
 
 

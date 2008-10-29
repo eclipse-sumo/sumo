@@ -124,7 +124,7 @@ public:
 
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-                                  NBEdgeCont &ec, SUMOReal offset, 
+                                  NBEdgeCont &ec, SUMOReal offset,
                                   bool tryIgnoreNodePositions);
 
     static void dict_propagateSpeeds(/* NBDistribution &dc */);
@@ -136,7 +136,7 @@ public:
      *
      * Vissim has no direct speed definition of edges; still, we try to propagate
      *  speed changes along the streets. If a lane is not covered by such, its id
-     *  is put into the static container "myLanesWithMissingSpeeds". 
+     *  is put into the static container "myLanesWithMissingSpeeds".
      * If the option "vissim.report-unset-speeds" is set, all lane ids stored within
      *  this container are written.
      */

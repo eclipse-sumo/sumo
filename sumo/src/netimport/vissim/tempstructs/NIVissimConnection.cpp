@@ -285,16 +285,16 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
             ref++;
             continue;
         }
-        if(fromEdge->getID()=="69") {
+        if (fromEdge->getID()=="69") {
             int bla = 0;
         }
         c->recheckLanes(fromEdge, toEdge);
         const IntVector &fromLanes = c->getFromLanes();
         const IntVector &toLanes = c->getToLanes();
-        if(fromLanes.size()!=toLanes.size()) {
+        if (fromLanes.size()!=toLanes.size()) {
             MsgHandler::getWarningInstance()->inform("Lane sizes differ for connection '" + toString(c->getID()) + "'.");
         } else {
-            for(unsigned int index=0; index<fromLanes.size(); ++index) {
+            for (unsigned int index=0; index<fromLanes.size(); ++index) {
                 if (!fromEdge->addLane2LaneConnection(fromLanes[index], toEdge, toLanes[index], NBEdge::L2L_VALIDATED)) {
                     MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
                 }
@@ -321,7 +321,7 @@ NIVissimConnection::getToLanes() const
 }
 
 
-void 
+void
 NIVissimConnection::recheckLanes(const NBEdge * const fromEdge, const NBEdge * const toEdge) throw()
 {
     myFromDef.recheckLanes(fromEdge);

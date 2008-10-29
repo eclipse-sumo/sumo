@@ -48,7 +48,7 @@ class NBEdgeCont;
  * @class NIArcView_Loader
  * @brief Importer for edge connections stored in XML
  *
- * This importer parses connections, and prohibitions, and is able 
+ * This importer parses connections, and prohibitions, and is able
  *  to reset connections between edges.
  */
 class NIXMLConnectionsHandler : public SUMOSAXHandler

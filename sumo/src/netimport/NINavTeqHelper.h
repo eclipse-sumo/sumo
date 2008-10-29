@@ -56,7 +56,7 @@ class NINavTeqHelper
 {
 public:
     /** @brief Returns the speed evaluating the given Navteq-description
-     * 
+     *
      * This method tries to parse the speed category into its int-representation
      *  and to determine the speed that is assigned to the category.
      * If either of both steps can not be perfored, a ProcessError is
@@ -80,7 +80,7 @@ public:
      * @exception ProcessError If the given lane number definition is not a number or if it is not known
      */
     static unsigned int getLaneNumber(const std::string &id,
-        const std::string &laneNoS, SUMOReal speed) throw(ProcessError);
+                                      const std::string &laneNoS, SUMOReal speed) throw(ProcessError);
 
 
     /** @brief Adds vehicle classes parsing the given list of allowed vehicles

@@ -172,7 +172,7 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file)
         } while (entrySize!=0);
         NBNode *fromNode = myNodeCont.retrieve(toString(begNode));
         NBNode *toNode = myNodeCont.retrieve(toString(endNode));
-        SUMOReal speed = (SUMOReal) (50. / 3.6);
+        SUMOReal speed = (SUMOReal)(50. / 3.6);
         int priority = -1;
         int noLanes = 2;
         NBEdge *edge = new NBEdge(toString(id), fromNode, toNode, "",

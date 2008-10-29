@@ -266,7 +266,7 @@ NIVissimEdge::buildConnectionClusters()
 
 void
 NIVissimEdge::dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-                                NBEdgeCont &ec, SUMOReal offset, 
+                                NBEdgeCont &ec, SUMOReal offset,
                                 bool tryIgnoreNodePositions)
 {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -1027,16 +1027,16 @@ NIVissimEdge::getToTreatAsSame() const
 }
 
 
-void 
+void
 NIVissimEdge::reportUnsetSpeeds() throw()
 {
-    if(myLanesWithMissingSpeeds.size()==0) {
+    if (myLanesWithMissingSpeeds.size()==0) {
         return;
     }
     ostringstream str;
     str << "The following lanes have no explicite speed information:\n  ";
-    for(vector<string>::iterator i=myLanesWithMissingSpeeds.begin(); i!=myLanesWithMissingSpeeds.end(); ++i) {
-        if(i!=myLanesWithMissingSpeeds.begin()) {
+    for (vector<string>::iterator i=myLanesWithMissingSpeeds.begin(); i!=myLanesWithMissingSpeeds.end(); ++i) {
+        if (i!=myLanesWithMissingSpeeds.begin()) {
             str << ", ";
         }
         str << *i;
