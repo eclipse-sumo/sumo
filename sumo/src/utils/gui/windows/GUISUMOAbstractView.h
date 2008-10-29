@@ -255,7 +255,9 @@ protected:
 
     Position2D getPositionInformation(int x, int y) const;
 
-    virtual int doPaintGL(int /*mode*/, SUMOReal /*scale*/) { return 0; }
+    virtual int doPaintGL(int /*mode*/, SUMOReal /*scale*/) {
+        return 0;
+    }
 
     virtual void doInit() { }
 

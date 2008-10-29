@@ -130,7 +130,7 @@ XMLSubSys::getSAXReader() throw()
         MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
         return 0;
     }
-    if(!myEnableValidation) {
+    if (!myEnableValidation) {
         reader->setProperty(XMLUni::fgXercesScannerName, (void *)XMLUni::fgWFXMLScanner);
     }
     setFeature(*reader, "http://xml.org/sax/features/namespaces", false);

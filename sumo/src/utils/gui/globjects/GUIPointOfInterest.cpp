@@ -115,18 +115,18 @@ GUIPointOfInterest::getCenteringBoundary() const throw()
 }
 
 
-void 
+void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     if (s.scale*(1.3/3.0)<s.minPOISize) {
         return;
     }
-    if(getLayer()==0) {
-        glPolygonOffset( 0, -2 );
-    } else if(getLayer()>0) {
-        glPolygonOffset( 0, -3-getLayer() );
+    if (getLayer()==0) {
+        glPolygonOffset(0, -2);
+    } else if (getLayer()>0) {
+        glPolygonOffset(0, -3-getLayer());
     } else {
-        glPolygonOffset( 0, -getLayer()+1 );
+        glPolygonOffset(0, -getLayer()+1);
     }
     // (optional) set id
     if (s.needsGlID) {

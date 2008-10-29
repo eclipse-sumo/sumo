@@ -155,7 +155,7 @@ void APIENTRY combineCallback(GLdouble coords[3],
 }
 
 double glvert[6];
-void 
+void
 GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     if (fill()) {
@@ -167,12 +167,12 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw()
             return;
         }
     }
-    if(getLayer()==0) {
-        glPolygonOffset( 0, -2 );
-    } else if(getLayer()>0) {
-        glPolygonOffset( 0, -3-getLayer() );
+    if (getLayer()==0) {
+        glPolygonOffset(0, -2);
+    } else if (getLayer()>0) {
+        glPolygonOffset(0, -3-getLayer());
     } else {
-        glPolygonOffset( 0, -getLayer()+1 );
+        glPolygonOffset(0, -getLayer()+1);
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // (optional) set id

@@ -357,7 +357,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
         if (o==0) {
             continue;
         }
-        if(o->getGlID()==0) {
+        if (o->getGlID()==0) {
             continue;
         }
         GUIGlObjectType type = o->getType();
@@ -587,9 +587,9 @@ GUISUMOAbstractView::displayLegend(bool /*flip !!!*/)
 SUMOReal
 GUISUMOAbstractView::m2p(SUMOReal meter)
 {
-    return (SUMOReal) (meter / myNetScale
-            *(myWidthInPixels/myRatio)
-            * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
+    return (SUMOReal)(meter / myNetScale
+                      *(myWidthInPixels/myRatio)
+                      * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
 }
 
 

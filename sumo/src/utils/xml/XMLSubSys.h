@@ -99,7 +99,7 @@ public:
      * @brief Builds a reader and assigns the handler to it
      *
      * Tries to build a SAX2XMLReader using "getSAXReader()". If this
-     *  fails, 0 is returned. Otherwise, the given handler is assigned 
+     *  fails, 0 is returned. Otherwise, the given handler is assigned
      *  to the reader as the current DefaultHandler and ErrorHandler.
      *
      * @param[in] handler The handler to assign to the built reader
