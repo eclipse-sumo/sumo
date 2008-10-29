@@ -184,14 +184,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
         getEndOfTimestepEvents().addEvent(
             writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
     }
-    //
-
-#ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->insertMeanData(myMeanData.size());
-    }
-#endif
-
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
     myStateDumpFiles = stateDumpFiles;

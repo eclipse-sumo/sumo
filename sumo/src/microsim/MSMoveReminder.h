@@ -72,7 +72,7 @@ public:
 
     /** @brief Destructor
      */
-    virtual ~MSMoveReminder(void) throw() {}
+    virtual ~MSMoveReminder() throw() {}
 
 
     /** @brief Checks whether the reminder still has to be notified aboutthe vehicle moves
@@ -119,14 +119,14 @@ public:
      *
      * @return The lane the reminder works on.
      */
-    const MSLane* getLane(void) const {
-        return laneM;
+    const MSLane* const getLane() const throw() {
+        return myLane;
     }
 
 
 protected:
     /// @brief Lane on which the reminder works
-    MSLane* laneM;
+    MSLane* myLane;
 
 };
 

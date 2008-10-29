@@ -136,19 +136,20 @@ protected:
      *  is used to write each lane's state.
      *
      * @param[in] dev The output device to write the data into
+     * @param[in] edgeValues List of this edge's value collectors
      * @param[in] edge The edge to write the dump of
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     virtual void writeEdge(OutputDevice &dev, const std::vector<MSLaneMeanDataValues*> &edgeValues,
-                           SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+                           MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Writes lane values into the given stream
      *
      * @param[in] dev The output device to write the data into
-     * @param[in] lane The lane to write the dump of
+     * @param[in] laneValues This lane's value collectors
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occures (!!! not yet implemented)
@@ -216,9 +217,6 @@ protected:
     /// @brief The mean data index of this output
     unsigned int myIndex;
 
-    /// @brief The edgecontrol to use
-    MSEdgeControl &myEdges;
-
     /// @brief Information whether the output shall be edge-based (not lane-based)
     bool myAmEdgeBased;
 
@@ -228,7 +226,11 @@ protected:
     /// @brief Whether empty lanes/edges shall be written
     bool myDumpEmptyEdges, myDumpEmptyLanes;
 
+    /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MSLaneMeanDataValues*> > myMeasures;
+
+    /// @brief The corresponding first edges
+    std::vector<MSEdge*> myEdges;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -79,7 +79,7 @@ bool
 MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
         SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw()
 {
-    myParent->reroute(veh, laneM->getEdge());
+    myParent->reroute(veh, myLane->getEdge());
     return false;
 }
 
@@ -92,7 +92,7 @@ MSTriggeredRerouter::Setter::dismissByLaneChange(MSVehicle&) throw()
 bool
 MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
 {
-    myParent->reroute(veh, laneM->getEdge());
+    myParent->reroute(veh, myLane->getEdge());
     return false;
 }
 

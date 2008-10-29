@@ -64,34 +64,59 @@ MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
                                bool useLanes,
                                bool withEmptyEdges, bool withEmptyLanes) throw()
         : myInterval(t), myIndex(index),
-        myEdges(edges), myAmEdgeBased(!useLanes),
-        myDumpBegins(dumpBegins), myDumpEnds(dumpEnds),
+        myAmEdgeBased(!useLanes), myDumpBegins(dumpBegins), myDumpEnds(dumpEnds),
         myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes)
 {
     // interval begin
     // edges
     MSEdgeControl::EdgeCont::const_iterator edg;
     // single lane edges
-    const MSEdgeControl::EdgeCont &ec1 = myEdges.getSingleLaneEdges();
+    const MSEdgeControl::EdgeCont &ec1 = edges.getSingleLaneEdges();
     for (edg = ec1.begin(); edg != ec1.end(); ++edg) {
         std::vector<MSLaneMeanDataValues*> v;
-        const MSEdge::LaneCont * const lanes = (*edg)->getLanes();
-        MSEdge::LaneCont::const_iterator lane;
-        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
-            v.push_back(new MSLaneMeanDataValues(*lane));
-        }
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edg);
+            while(s!=0) {
+                v.push_back(s->addDetector(this));
+                s = s->getNextSegment();
+            }
+        } else {
+#endif
+            const MSEdge::LaneCont * const lanes = (*edg)->getLanes();
+            MSEdge::LaneCont::const_iterator lane;
+            for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
+                v.push_back(new MSLaneMeanDataValues(*lane));
+            }
+#ifdef HAVE_MESOSIM
+        } 
+#endif
         myMeasures.push_back(v);
+        myEdges.push_back(*edg);
     }
     // multi lane edges
-    const MSEdgeControl::EdgeCont &ec2 = myEdges.getMultiLaneEdges();
+    const MSEdgeControl::EdgeCont &ec2 = edges.getMultiLaneEdges();
     for (edg = ec2.begin(); edg != ec2.end(); ++edg) {
         std::vector<MSLaneMeanDataValues*> v;
-        const MSEdge::LaneCont * const lanes = (*edg)->getLanes();
-        MSEdge::LaneCont::const_iterator lane;
-        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
-            v.push_back(new MSLaneMeanDataValues(*lane));
-        }
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edg);
+            while(s!=0) {
+                v.push_back(s->addDetector(this));
+                s = s->getNextSegment();
+            }
+        } else {
+#endif
+            const MSEdge::LaneCont * const lanes = (*edg)->getLanes();
+            MSEdge::LaneCont::const_iterator lane;
+            for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
+                v.push_back(new MSLaneMeanDataValues(*lane));
+            }
+#ifdef HAVE_MESOSIM
+        } 
+#endif
         myMeasures.push_back(v);
+        myEdges.push_back(*edg);
     }
 }
 
@@ -103,11 +128,27 @@ MSMeanData_Net::~MSMeanData_Net() throw()
 void
 MSMeanData_Net::resetOnly(SUMOTime stopTime) throw()
 {
-    for(vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-        for(vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
-            (*j)->reset();
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        vector<MSEdge*>::iterator edge = myEdges.begin();
+        for(vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+            for(vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+                s->prepareMeanDataForWriting(*(*j), (SUMOReal) stopTime);
+                (*j)->reset();
+                s = s->getNextSegment();
+            }
         }
+    } else {
+#endif
+        for(vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+            for(vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+                (*j)->reset();
+            }
+        }
+#ifdef HAVE_MESOSIM
     }
+#endif
 }
 
 
@@ -128,8 +169,9 @@ MSMeanData_Net::write(OutputDevice &dev,
         return;
     }
     // yes -> write
-    for(vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-        writeEdge(dev, (*i), startTime, stopTime);
+    vector<MSEdge*>::iterator edge = myEdges.begin();
+    for(vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
+        writeEdge(dev, (*i), *edge, startTime, stopTime);
     }
 }
 
@@ -137,12 +179,11 @@ MSMeanData_Net::write(OutputDevice &dev,
 void
 MSMeanData_Net::writeEdge(OutputDevice &dev,
                           const vector<MSLaneMeanDataValues*> &edgeValues,
-                          SUMOTime startTime, SUMOTime stopTime) throw(IOError)
+                          MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
-
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(edge);
         SUMOReal flowOut = 0;
         SUMOReal flowMean = 0;
         SUMOReal meanDensityS = 0;
@@ -162,7 +203,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             SUMOReal meanSpeed = -43;
             SUMOReal meanDensity = -45;
             SUMOReal meanOccupancy = -46;
-            MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
+            MSLaneMeanDataValues& meanData = s->getDetectorData(this);
             s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime);
             conv(meanData, (stopTime-startTime+1),
                  s->getLength(), s->getMaxSpeed(),
@@ -191,10 +232,10 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         }
         if (myDumpEmptyEdges||nVehS>0) {
             meanDensityS = meanDensityS / (SUMOReal) noSegments;
-            meanOccupancyS = meanOccupancyS / (SUMOReal) noSegments / (SUMOReal) edge.nLanes();
+            meanOccupancyS = meanOccupancyS / (SUMOReal) noSegments / (SUMOReal) edge->nLanes();
             meanSpeedS = noNotEmpty!=0 ? meanSpeedS / (SUMOReal) noNotEmpty : 0;
             if (nVehS==0) {
-                meanSpeedS = MSGlobals::gMesoNet->getSegmentForEdge(&edge)->getMaxSpeed();
+                meanSpeedS = MSGlobals::gMesoNet->getSegmentForEdge(edge)->getMaxSpeed();
             } else {
                 if (meanSpeedS>0) {
                     traveltimeS = absLen / meanSpeedS;
@@ -203,7 +244,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                 }
             }
             flowMean /= (SUMOReal) noSegments;
-            dev<<"      <edge id=\""<<edge.getID()<<
+            dev<<"      <edge id=\""<<edge->getID()<<
             "\" traveltime=\""<<traveltimeS<<
             "\" sampledSeconds=\""<< nVehS <<
             "\" density=\""<<meanDensityS<<
@@ -231,7 +272,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                 }
             }
             if (writeCheck) {
-                dev<<"      <edge id=\""<<(*edgeValues.begin())->getLane()->getEdge()->getID()<<"\">\n";
+                dev<<"      <edge id=\""<<edge->getID()<<"\">\n";
                 for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
                     writeLane(dev, *(*lane), startTime, stopTime);
                 }
