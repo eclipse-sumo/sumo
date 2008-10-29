@@ -70,6 +70,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder() throw()
+        : myHaveInformedAboutDeprecatedTriggerDefinition(false)
 {}
 
 
@@ -77,7 +78,7 @@ NLTriggerBuilder::~NLTriggerBuilder() throw()
 {}
 
 
-MSTrigger *
+void
 NLTriggerBuilder::buildTrigger(MSNet &net,
                                const SUMOSAXAttributes &attrs,
                                const std::string &base) throw(InvalidArgument)
@@ -136,9 +137,12 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
     }
 #endif
     if (t!=0) {
+        if (!myHaveInformedAboutDeprecatedTriggerDefinition) {
+            MsgHandler::getWarningInstance()->inform("Defining '" + type + "' using a trigger definition is deprecated.");
+            myHaveInformedAboutDeprecatedTriggerDefinition = true;
+        }
         net.getTriggerControl().addTrigger(t);
     }
-    return t;
 }
 
 

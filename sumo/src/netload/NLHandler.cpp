@@ -102,6 +102,7 @@ void
 NLHandler::myStartElement(SumoXMLTag element,
                           const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
+    try {
     switch (element) {
     case SUMO_TAG_EDGE:
         beginEdgeParsing(attrs);
@@ -173,6 +174,24 @@ NLHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_DET_EXIT:
         addE3Exit(attrs);
         break;
+    case SUMO_TAG_VSS:
+        myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
+        break;
+    case SUMO_TAG_EMITTER:
+        myTriggerBuilder.parseAndBuildLaneEmitTrigger(myNet, attrs, getFileName());
+        break;
+    case SUMO_TAG_CALIBRATOR:
+        myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
+        break;
+    case SUMO_TAG_REROUTER:
+        myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
+        break;
+    case SUMO_TAG_BUS_STOP:
+        myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
+        break;
+    case SUMO_TAG_VEHICLE_ACTOR:
+        myTriggerBuilder.parseAndBuildVehicleActor(myNet, attrs);
+        break;
     case SUMO_TAG_VTYPEPROBE:
         addVTypeProbeDetector(attrs);
         break;
@@ -186,15 +205,14 @@ NLHandler::myStartElement(SumoXMLTag element,
         myActionBuilder.addAction(attrs, getFileName());
         break;
     case SUMO_TAG_VAPORIZER:
-        try {
-            myTriggerBuilder.buildVaporizer(attrs);
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
+        myTriggerBuilder.buildVaporizer(attrs);
         break;
     default:
         break;
     }
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
     MSRouteHandler::myStartElement(element, attrs);
     if (element==SUMO_TAG_PARAM) {
         addParam(attrs);

@@ -95,13 +95,13 @@ public:
      * @param[in] net The network the trigger shall belong to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @return The built trigger
      * @exception InvalidArgument If a parameter is not valid
      * @todo Recheck behaviour if the "objecttype" attribute is not supported or one of the asked parameter is meaningless
      * @todo Recheck usage of the helper class
+     * @deprecated Since after 0.9.10, this method is deprecated; use direct building instead
      */
-    MSTrigger *buildTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
-                            const std::string &base) throw(InvalidArgument);
+    void buildTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
+                      const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Builds a vaporization
@@ -116,7 +116,6 @@ public:
     void buildVaporizer(const SUMOSAXAttributes &attrs) throw();
 
 
-protected:
     /// @name parsing methods
     ///
     /// These methods parse the attributes for each of the described trigger
@@ -239,6 +238,7 @@ protected:
     /// In most cases, these methods only call the constructor and
     ///  return the so build trigger.
     //@{
+
     /** @brief Builds a lane speed trigger
      *
      * Simply calls the MSLaneSpeedTrigger constructor.
@@ -381,6 +381,7 @@ protected:
 protected:
     /// @name helper method for obtaining and checking values
     /// @{
+
     /** @brief Helper method to obtain the filename
      *
      * Retrieves "file" from attributes, checks whether it is absolute
@@ -428,6 +429,10 @@ protected:
                          MSLane *lane, const std::string &tt, const std::string &tid) throw(InvalidArgument);
     /// @}
 
+
+protected:
+    /// @brief Information whether a deprecated trigger definition has occured and was reported
+    bool myHaveInformedAboutDeprecatedTriggerDefinition;
 
 };
 

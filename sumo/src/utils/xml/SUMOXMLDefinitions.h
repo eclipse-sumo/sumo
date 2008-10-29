@@ -75,6 +75,18 @@ enum SumoXMLTag {
     SUMO_TAG_DET_ENTRY,
     /** an e3-exit point */
     SUMO_TAG_DET_EXIT,
+    /// @brief A variable speed sign
+    SUMO_TAG_VSS,
+    /// @brief An emitter (deprecated!!!)
+    SUMO_TAG_EMITTER,
+    /// @brief A calibrator
+    SUMO_TAG_CALIBRATOR,
+    /// @brief A rerouter
+    SUMO_TAG_REROUTER,
+    /// @brief A bus stop
+    SUMO_TAG_BUS_STOP,
+    /// @brief An vehicle actor (deprectaed)
+    SUMO_TAG_VEHICLE_ACTOR,
     /** a vtypeprobe detector */
     SUMO_TAG_VTYPEPROBE,
     /** description of a vehicle */
