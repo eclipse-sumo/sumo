@@ -113,15 +113,15 @@ MSEmitControl::emitVehicles(SUMOTime time) throw()
         // let the MSVehicleContainer clear the vehicles
         myAllVeh.pop();
 
-		// Put all vehicles that should depart in this timestep into the queue
-		for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); ) {
-			if ((*i)->getDesiredDepart() <= time) {
-				add(*i);
-				i = myNewPeriodicalAdds.erase(i);
-			} else {
-				++i;
-			}
-		}
+        // Put all vehicles that should depart in this timestep into the queue
+        for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end();) {
+            if ((*i)->getDesiredDepart() <= time) {
+                add(*i);
+                i = myNewPeriodicalAdds.erase(i);
+            } else {
+                ++i;
+            }
+        }
 
     }
     // During "tryEmit" done in previous steps, vehicles may have been added

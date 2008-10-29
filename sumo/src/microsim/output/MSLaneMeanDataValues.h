@@ -58,7 +58,8 @@ class MSVehicle;
  *
  * @todo Check whether the haltings-information is used and how
  */
-class MSLaneMeanDataValues : public MSMoveReminder {
+class MSLaneMeanDataValues : public MSMoveReminder
+{
 public:
     /** @brief Constructor */
     MSLaneMeanDataValues(MSLane* lane) throw();

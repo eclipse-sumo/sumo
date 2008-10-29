@@ -41,13 +41,14 @@
 // method definitions
 // ===========================================================================
 MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* lane) throw()
-            : MSMoveReminder(lane), sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
-            speedSum(0), haltSum(0), vehLengthSum(0),
-            emitted(0) {}
+        : MSMoveReminder(lane), sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
+        speedSum(0), haltSum(0), vehLengthSum(0),
+        emitted(0) {}
 
 
-void 
-MSLaneMeanDataValues::reset() throw() {
+void
+MSLaneMeanDataValues::reset() throw()
+{
     sampleSeconds = 0.;
     nVehLeftLane = 0;
     nVehEnteredLane = 0;
@@ -58,8 +59,8 @@ MSLaneMeanDataValues::reset() throw() {
 }
 
 
-bool 
-MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() 
+bool
+MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw()
 {
     bool ret = true;
     SUMOReal l = veh.getLength();
@@ -83,13 +84,15 @@ MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal ne
 }
 
 
-void 
-MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
+void
+MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw()
+{
 }
 
-    
-bool 
-MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw() {
+
+bool
+MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
+{
     ++emitted;
     bool ret = true;
     SUMOReal l = veh.getLength();

@@ -250,8 +250,8 @@ public:
     //@{
 
     /** @brief Returns the named CORN integer value
-     * 
-     * The behaviour is undefined for not stored values. 
+     *
+     * The behaviour is undefined for not stored values.
      *
      * @return The named CORN integer value
      * @todo Recheck whether throwing an exception for unset values is more appropriate
@@ -260,8 +260,8 @@ public:
 
 
     /** @brief Returns the named CORN pointer value
-     * 
-     * The behaviour is undefined for not stored values. 
+     *
+     * The behaviour is undefined for not stored values.
      *
      * @return The named CORN pointer value
      * @todo Recheck whether throwing an exception for unset values is more appropriate
@@ -288,11 +288,11 @@ public:
     /** @brief Processes active move reminder
      *
      * This method goes through all active move reminder, both those for the current
-     *  lane, stored in "myMoveReminders" and those of prior lanes stored in 
-     *  "myOldLaneMoveReminders" calling "MSMoveReminder::isStillActive". 
+     *  lane, stored in "myMoveReminders" and those of prior lanes stored in
+     *  "myOldLaneMoveReminders" calling "MSMoveReminder::isStillActive".
      *
      * When processing move reminder from "myOldLaneMoveReminders",
-     *  the offsets (prior lane lengths) are used, which are stored in 
+     *  the offsets (prior lane lengths) are used, which are stored in
      *  "myOldLaneMoveReminderOffsets".
      *
      * Each move reminder which is no longer active is removed from the container.
@@ -309,7 +309,7 @@ public:
      *
      * @param[in] searchedLane The lane to search for within move reminder
      * @return The distance to this lane (vehicle position + lane offset); -1 if n move reminder is placed on this lane
-     * @todo Maybe this should be rechecked - the name says it: much to complicated and the parameter should be a move reminder? 
+     * @todo Maybe this should be rechecked - the name says it: much to complicated and the parameter should be a move reminder?
      */
     SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const throw();
     //@}
@@ -798,7 +798,7 @@ protected:
 
     /** @brief "Activates" all current move reminder
      *
-     * For all move reminder stored in "myMoveReminders", their method 
+     * For all move reminder stored in "myMoveReminders", their method
      *  "MSMoveReminder::isActivatedByEmitOrLaneChange" is called. The reminder
      *  removed if the call returns false.
      *
@@ -814,12 +814,12 @@ protected:
      *  length that has been left. All still active move reminders from "myMoveReminders"
      *  are put into "myOldLaneMoveReminders" and the offset to the last lane is added to
      *  "myOldLaneMoveReminderOffsets" for each of these.
-     * 
+     *
      * Move reminder from the given lane are set into "myMoveReminders".
      *
      * "myLane" must still be the left lane!
-     * 
-     * @param[in] enteredLane 
+     *
+     * @param[in] enteredLane
      * @see MSMoveReminder
      * @see MSLane::getMoveReminder
      */
