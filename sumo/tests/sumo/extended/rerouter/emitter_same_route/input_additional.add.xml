@@ -1,5 +1,5 @@
 <additional>
-	<trigger id="rerouter" objecttype="rerouter" objectid="beg" attr="reroute" pos="20" file="input_definition.def.xml"/>
+	<rerouter id="rerouter" objectid="beg" attr="reroute" pos="20" file="input_definition.def.xml"/>
 
-	<trigger id="emitter" objecttype="emitter" pos="100" objectid="beg_0" file="input_emitter.def.xml"/>
+	<emitter id="emitter"  pos="100" objectid="beg_0" file="input_emitter.def.xml"/>
 </additional>

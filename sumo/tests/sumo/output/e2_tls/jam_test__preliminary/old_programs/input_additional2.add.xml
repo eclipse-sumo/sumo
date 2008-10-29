@@ -1,5 +1,5 @@
 <additional>
 
-	<trigger id="emitter" objecttype="emitter" pos="100" objectid="4/1to3/1_0" file="input_definition.def.xml"/>
+	<emitter id="emitter"  pos="100" objectid="4/1to3/1_0" file="input_definition.def.xml"/>
 
 </additional>

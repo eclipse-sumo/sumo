@@ -1,4 +1,4 @@
 <additional>
       <route id="0">beg middle end xxx</route>
-	<trigger id="emitter" objecttype="emitter" pos="0" objectid="beg_0" file="input_definition.def.xml"/>
+	<emitter id="emitter"  pos="0" objectid="beg_0" file="input_definition.def.xml"/>
 </additional>

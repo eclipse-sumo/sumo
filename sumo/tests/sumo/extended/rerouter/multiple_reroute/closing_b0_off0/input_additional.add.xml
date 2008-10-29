@@ -1,4 +1,4 @@
 <additional>
-	<trigger id="rerouter" objecttype="rerouter" objectid="beg" attr="reroute" pos="20" file="input_definition.def.xml"/>
-	<trigger id="rerouter" objecttype="rerouter" objectid="beg" attr="reroute" pos="50" file="input_definition2.def.xml"/>
+	<rerouter id="rerouter" objectid="beg" attr="reroute" pos="20" file="input_definition.def.xml"/>
+	<rerouter id="rerouter" objectid="beg" attr="reroute" pos="50" file="input_definition2.def.xml"/>
 </additional>

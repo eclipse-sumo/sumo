@@ -2,7 +2,7 @@
     <route id="via_left2end" multi_ref="x">beg beg2left left left2end end</route>
     <route id="via_right2end" multi_ref="x">beg beg2right right right2end end</route>
 
-    <trigger id="rerouter" objecttype="rerouter" objectid="beg" attr="reroute" pos="20" file="input_definition.def.xml"/>
+    <rerouter id="rerouter" objectid="beg" attr="reroute" pos="20" file="input_definition.def.xml"/>
 
-	<trigger id="emitter" objecttype="emitter" pos="100" objectid="beg_0" file="input_emitter.def.xml"/>
+	<emitter id="emitter"  pos="100" objectid="beg_0" file="input_emitter.def.xml"/>
 </additional>
