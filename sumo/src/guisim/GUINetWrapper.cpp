@@ -156,7 +156,7 @@ GUINetWrapper::getBoundary() const
     return myNet.getBoundary();
 }
 
-void 
+void
 GUINetWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
 }

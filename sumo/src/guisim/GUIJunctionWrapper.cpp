@@ -140,7 +140,7 @@ GUIJunctionWrapper::getJunction() const
     return myJunction;
 }
 
-void 
+void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     // (optional) set id
@@ -148,11 +148,11 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
         glPushName(getGlID());
     }
     glColor3f(0, 0, 0);
-    glPolygonOffset( 0, 1 );
+    glPolygonOffset(0, 1);
     GLHelper::drawFilledPoly(getShape(), true);
     // (optional) draw name
-    if(s.drawJunctionName) {
-        glPolygonOffset( 0, -1 );
+    if (s.drawJunctionName) {
+        glPolygonOffset(0, -1);
         Position2D p = myJunction.getPosition();
         glTranslated(p.x(), p.y(), 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

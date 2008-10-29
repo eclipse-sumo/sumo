@@ -289,7 +289,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
                 break;
             }
         }
-        switch(state) {
+        switch (state) {
         case MSLink::LINKSTATE_TL_GREEN:
             glColor3d(0, 1, 0);
             break;
@@ -388,7 +388,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
     size_t noLinks = lane.getLinkNumber();
     for (size_t i=0; i<noLinks; ++i) {
         MSLink::LinkState state = lane.getLinkState(i);
-        switch(state) {
+        switch (state) {
         case MSLink::LINKSTATE_TL_GREEN:
             glColor3d(0, 1, 0);
             break;
@@ -431,7 +431,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
 }
 
 
-void 
+void
 GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     // set lane color
@@ -442,7 +442,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
         glPushName(getGlID());
     }
     // draw lane
-    glPolygonOffset( 0, 0 );
+    glPolygonOffset(0, 0);
     if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
         GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth*1.);
     } else {
@@ -461,7 +461,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
     }
     // draw ROWs (not for inner lanes)
     if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
-        glPolygonOffset( 0, -1 );
+        glPolygonOffset(0, -1);
         GUINet *net = (GUINet*) MSNet::getInstance();
         ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
         if (s.showLinkDecals) {
@@ -473,11 +473,11 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
             ROWdrawAction_drawLane2LaneConnections(*this);
         }
         if (s.drawLinkJunctionIndex) {
-            glPolygonOffset( 0, -2 );
+            glPolygonOffset(0, -2);
             ROWdrawAction_drawLinkNo(*this);
         }
         if (s.drawLinkTLIndex) {
-            glPolygonOffset( 0, -2 );
+            glPolygonOffset(0, -2);
             ROWdrawAction_drawTLSLinkNo(*net, *this);
         }
     }
@@ -517,7 +517,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 }
 
 
-void 
+void
 GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw()
 {
     GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!

@@ -324,7 +324,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset( 0, -2 );
+    glPolygonOffset(0, -2);
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];

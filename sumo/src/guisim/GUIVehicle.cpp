@@ -407,10 +407,10 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
 
 #include <gui/GUIViewTraffic.h>
 
-void 
+void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
 {
-    glPolygonOffset( 0, -3 );
+    glPolygonOffset(0, -3);
     // set lane color
     GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap(); //!!!
     sm.getColorer(s.vehicleMode)->setGlColor(*this);
@@ -418,22 +418,22 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-        /*
-            MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
-            if((m2.getState()&LCA_URGENT)!=0) {
-                glColor3f(1, .4, .4);
-            } else if((m2.getState()&LCA_SPEEDGAIN)!=0) {
-                glColor3f(.4, .4, 1);
-            } else {
-                glColor3f(.4, 1, .4);
-            }
-            */
+    /*
+        MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+        if((m2.getState()&LCA_URGENT)!=0) {
+            glColor3f(1, .4, .4);
+        } else if((m2.getState()&LCA_SPEEDGAIN)!=0) {
+            glColor3f(.4, .4, 1);
+        } else {
+            glColor3f(.4, 1, .4);
+        }
+        */
     // draw the vehicle
     SUMOReal upscale = s.vehicleExaggeration;
     drawAction_drawVehicleAsTrianglePlus(*this, upscale);
     // draw the blinker if wished
     if (s.showBlinker) {
-        glPolygonOffset( 0, -4 );
+        glPolygonOffset(0, -4);
         drawAction_drawVehicleBlinker(*this);
     }
     // draw the c2c-circle
@@ -442,55 +442,55 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
         drawAction_C2CdrawVehicleRadius(*veh);
     }
 #endif
-        // draw the wish to change the lane
-        if (s.drawLaneChangePreference) {
-    /*
-            if(gSelected.isSelected(GLO_VEHICLE, veh->getGlID())) {
-            MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
-            glColor3f(.5, .5, 1);
-            glBegin(GL_LINES);
-            glVertex2f(0, 0);
-            glVertex2f(m.getChangeProbability(), .5);
-            glEnd();
+    // draw the wish to change the lane
+    if (s.drawLaneChangePreference) {
+        /*
+                if(gSelected.isSelected(GLO_VEHICLE, veh->getGlID())) {
+                MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+                glColor3f(.5, .5, 1);
+                glBegin(GL_LINES);
+                glVertex2f(0, 0);
+                glVertex2f(m.getChangeProbability(), .5);
+                glEnd();
 
-            glColor3f(1, 0, 0);
-            glBegin(GL_LINES);
-            glVertex2f(0.1, 0);
-            glVertex2f(0.1, m.myMaxJam1);
-            glEnd();
+                glColor3f(1, 0, 0);
+                glBegin(GL_LINES);
+                glVertex2f(0.1, 0);
+                glVertex2f(0.1, m.myMaxJam1);
+                glEnd();
 
-            glColor3f(0, 1, 0);
-            glBegin(GL_LINES);
-            glVertex2f(-0.1, 0);
-            glVertex2f(-0.1, m.myTDist);
-            glEnd();
-            }
-            */
-        }
-        // draw best lanes
-        if (true) {
-            /*
-            const MSLane &l = veh->getLane();
-            SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
-            SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
-            SUMOReal r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
-            SUMOReal mmax = MAX3(r1, r2, r3);
-            glBegin(GL_LINES);
-            glVertex2f(0, 0);
-            glVertex2f(0, r1/mmax/2.);
-            glEnd();
-            glBegin(GL_LINES);
-            glVertex2f(.4, 0);
-            glVertex2f(.4, r2/mmax/2.);
-            glEnd();
-            glBegin(GL_LINES);
-            glVertex2f(-.4, 0);
-            glVertex2f(-.4, r3/mmax/2.);
-            glEnd();
-            */
-        }
+                glColor3f(0, 1, 0);
+                glBegin(GL_LINES);
+                glVertex2f(-0.1, 0);
+                glVertex2f(-0.1, m.myTDist);
+                glEnd();
+                }
+                */
+    }
+    // draw best lanes
+    if (true) {
+        /*
+        const MSLane &l = veh->getLane();
+        SUMOReal r1 = veh->allowedContinuationsLength(&l, 0);
+        SUMOReal r2 = l.getLeftLane()!=0 ? veh->allowedContinuationsLength(l.getLeftLane(), 0) : 0;
+        SUMOReal r3 = l.getRightLane()!=0 ? veh->allowedContinuationsLength(l.getRightLane(), 0) : 0;
+        SUMOReal mmax = MAX3(r1, r2, r3);
+        glBegin(GL_LINES);
+        glVertex2f(0, 0);
+        glVertex2f(0, r1/mmax/2.);
+        glEnd();
+        glBegin(GL_LINES);
+        glVertex2f(.4, 0);
+        glVertex2f(.4, r2/mmax/2.);
+        glEnd();
+        glBegin(GL_LINES);
+        glVertex2f(-.4, 0);
+        glVertex2f(-.4, r3/mmax/2.);
+        glEnd();
+        */
+    }
     if (s.drawVehicleName) {
-        glPolygonOffset( 0, -5 );
+        glPolygonOffset(0, -5);
         // compute name colors
         glColor3f(s.vehicleNameColor.red(), s.vehicleNameColor.green(), s.vehicleNameColor.blue());
         drawAction_drawVehicleName(*this, s.vehicleNameSize / s.scale);

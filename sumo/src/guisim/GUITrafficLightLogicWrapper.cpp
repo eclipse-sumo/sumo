@@ -261,7 +261,7 @@ GUITrafficLightLogicWrapper::getLinkIndex(MSLink *link) const
 }
 
 
-void 
+void
 GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
 }

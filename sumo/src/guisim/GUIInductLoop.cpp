@@ -154,7 +154,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset( 0, -2 );
+    glPolygonOffset(0, -2);
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     // shape
@@ -200,7 +200,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     }
     glPopMatrix();
     // (optional) draw name
-    if(s.drawAddName) {
+    if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id

@@ -241,12 +241,12 @@ GUIEdge::getCenteringBoundary() const throw()
 }
 
 
-void 
+void
 GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     // check whether lane boundaries shall be drawn
     if (s.laneShowBorders&&s.scale>1.&&myFunction!=MSEdge::EDGEFUNCTION_INTERNAL) {
-        glPolygonOffset( 0, 2 );
+        glPolygonOffset(0, 2);
         glColor3d(1,1,1);
         // (optional) set invalid id
         if (s.needsGlID) {
@@ -258,8 +258,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
             GUILaneWrapper *lane = myLaneGeoms[k];
             GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), SUMO_const_halfLaneAndOffset);
         }
-        glPolygonOffset( 0, 1 );
-        for(LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
+        glPolygonOffset(0, 1);
+        for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
             (*i)->drawBordersGL(s);
         }
         // (optional) clear id
@@ -268,13 +268,13 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
         }
     }
     // draw the lanes
-    for(LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
+    for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
         (*i)->drawGL(s);
     }
     // (optionally) draw the name
-    if(s.drawEdgeName) {
+    if (s.drawEdgeName) {
         glColor3f(s.edgeNameColor.red(), s.edgeNameColor.green(), s.edgeNameColor.blue());
-        glPolygonOffset( 0, -1 );
+        glPolygonOffset(0, -1);
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
         glPushMatrix();

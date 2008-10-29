@@ -133,7 +133,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset( 0, -2 );
+    glPolygonOffset(0, -2);
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
@@ -145,7 +145,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, s.addExaggeration);
     }
     // (optional) draw name
-    if(s.drawAddName) {
+    if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id

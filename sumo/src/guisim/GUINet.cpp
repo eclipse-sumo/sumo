@@ -146,9 +146,9 @@ GUINet::initDetectors()
                 continue;
             }
             */
-        GUIDetectorWrapper *wrapper = 
+        GUIDetectorWrapper *wrapper =
             static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(
-                    gIDStorage, edge->getLaneGeometry(lane));
+                gIDStorage, edge->getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->microsimID()] = wrapper;
     }
@@ -386,7 +386,7 @@ GUINet::initGUIStructures()
         myBoundary.add(b);
     }
     const vector<GUIGlObject_AbstractAdd*> &a = GUIGlObject_AbstractAdd::getObjectList();
-    for(vector<GUIGlObject_AbstractAdd*>::const_iterator i=a.begin(); i!=a.end(); ++i) {
+    for (vector<GUIGlObject_AbstractAdd*>::const_iterator i=a.begin(); i!=a.end(); ++i) {
         GUIGlObject_AbstractAdd *o = *i;
         Boundary b = o->getCenteringBoundary();
         cmin[0] = b.xmin();
