@@ -63,9 +63,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon &dets,
-                                 RODFDetectorFlows &into,
-                                 SUMOTime startTime, SUMOTime endTime,
-                                 int timeOffset) throw()
+                                     RODFDetectorFlows &into,
+                                     SUMOTime startTime, SUMOTime endTime,
+                                     int timeOffset) throw()
         : myStorage(into), myTimeOffset(timeOffset),
         myStartTime(startTime), myEndTime(endTime), myDetectorContainer(dets)
 {}
@@ -83,12 +83,12 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError)
     // parse first line
     myLineHandler.reinit(lr.readLine(), ";", ";", true, true);
     // parse values
-    while(lr.hasMore()) {
+    while (lr.hasMore()) {
         string line = lr.readLine();
         myLineHandler.parseLine(line);
         try {
             string detName = myLineHandler.get("detector");
-            if(!myDetectorContainer.knows(detName)) {
+            if (!myDetectorContainer.knows(detName)) {
                 continue;
             }
             int time = TplConvert<char>::_2int((myLineHandler.get("time").c_str()));

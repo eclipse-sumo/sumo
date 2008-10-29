@@ -52,9 +52,9 @@ class OutputDevice;
  *
  * The route id is (re)set as soon as the route is added.
  *
- * As sometimes several routes can be used between two edges and have to be 
+ * As sometimes several routes can be used between two edges and have to be
  *  identified, the number of routes connecting them is stored for each
- *  edge pair "myConnectionOccurences" and the route is named using this 
+ *  edge pair "myConnectionOccurences" and the route is named using this
  *  information, @see addRouteDesc.
  *
  * @see RODFRouteDesc
@@ -68,7 +68,7 @@ public:
     /// @brief Destructor
     ~RODFRouteCont() throw();
 
-    
+
     /** @brief Adds a route to the container
      *
      * If the same route is already known, its "overallProb" is increased
@@ -77,7 +77,7 @@ public:
      * An id for the route is generated if it is unset, yet. The id is
      *  <FIRST_EDGE>_to_<LAST_EDGE>_<RUNNING> where <RUNNING> is the number
      *  of routes which connect <FIRST_EDGE> and <LAST_EDGE>.
-     * 
+     *
      * @param[in] desc The route description to add
      */
     void addRouteDesc(RODFRouteDesc &desc) throw();
@@ -169,7 +169,7 @@ protected:
     class route_finder
     {
     public:
-        /** @brief onstructor 
+        /** @brief onstructor
          * @param[in] desc The route description to which a same shall be found
          */
         explicit route_finder(const RODFRouteDesc &desc) : myDesc(desc) { }

@@ -100,7 +100,7 @@ public:
 
 
     /** @brief Constructor
-     * 
+     *
      * This constructor is used when detectors shall be joined
      *
      * @param[in] id The id of the detector
@@ -113,7 +113,7 @@ public:
     ~RODFDetector() throw();
 
 
-    
+
     /// @name Atomar getter methods
     /// @{
 
@@ -151,7 +151,7 @@ public:
 
     /** @brief Returns the type of the detector
      * @return This detector's type
-     * @see RODFDetectorType 
+     * @see RODFDetectorType
      */
     RODFDetectorType getType() const throw() {
         return myType;
@@ -179,7 +179,7 @@ public:
                                 const std::map<size_t, RandomDistributor<size_t>* > &dists,
                                 const RODFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                                bool includeUnusedRoutes, SUMOReal scale, 
+                                bool includeUnusedRoutes, SUMOReal scale,
                                 bool emissionsOnly, SUMOReal defaultSpeed) const;
     bool writeRoutes(std::vector<std::string> &saved,
                      OutputDevice& out);
@@ -197,9 +197,9 @@ public:
                                       std::map<size_t, RandomDistributor<size_t>* > &into,
                                       int maxFollower) const;
 
-    void computeSplitProbabilities(const RODFNet *net, const RODFDetectorCon &detectors, 
-        const RODFDetectorFlows &flows,
-        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+    void computeSplitProbabilities(const RODFNet *net, const RODFDetectorCon &detectors,
+                                   const RODFDetectorFlows &flows,
+                                   SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
     const std::vector<std::map<RODFEdge*, SUMOReal> > &getSplitProbabilities() const {
         return mySplitProbabilities;

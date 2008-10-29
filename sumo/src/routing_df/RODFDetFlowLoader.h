@@ -57,8 +57,8 @@ public:
      * @param[in] timeOffset The offset which shall be applied to the read times
      */
     RODFDetFlowLoader(const RODFDetectorCon &dets, RODFDetectorFlows &into,
-                    SUMOTime startTime, SUMOTime endTime,
-                    int timeOffset) throw();
+                      SUMOTime startTime, SUMOTime endTime,
+                      int timeOffset) throw();
 
 
     /// @brief Destructor
@@ -66,10 +66,10 @@ public:
 
 
     /** @brief Reads the given file assuming it contains detector values
-     * 
+     *
      * Reads the first line, first, and parses it assuming it contains
      *  the names of the columns that follow within the next lines.
-     *  
+     *
      * Then, the rest of the file is read and the read values for vehicle/heavy vehicle
      *  amounts and speeds are stored into "myStorage". Values that lie
      *  before "myStartTime" and behind "myEndTime" as well as values

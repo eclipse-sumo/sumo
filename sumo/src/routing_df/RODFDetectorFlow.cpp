@@ -88,7 +88,7 @@ RODFDetectorFlows::addFlow(const std::string &id, int t, const FlowDef &fd)
     }
     if (ofd.qLKW!=0 && ofd.qPKW!=0) {
         ofd.fLKW = ofd.qLKW / ofd.qPKW ;
-    } else if(ofd.qPKW!=0) {
+    } else if (ofd.qPKW!=0) {
         ofd.fLKW = 0;
     } else {
         ofd.fLKW = 1;
