@@ -259,7 +259,7 @@ void
 RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     string id = attrs.getString(SUMO_ATTR_EDGE);
-    if(id[0]==':') {
+    if (id[0]==':') {
         myCurrentEdge = 0;
         return;
     }
@@ -273,7 +273,7 @@ RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessE
 void
 RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs)
 {
-    if(myCurrentEdge==0) {
+    if (myCurrentEdge==0) {
         // earlier error or internal link
         return;
     }
