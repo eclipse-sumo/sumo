@@ -48,14 +48,28 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
 
 
+// ===========================================================================
+// static members
+// ===========================================================================
+NIVissimConnectionCluster::ContType NIVissimConnectionCluster::myClusters;
+int NIVissimConnectionCluster::myFirstFreeID = 100000;
+int NIVissimConnectionCluster::myStaticBlaID = 0;
 
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+// ---------------------------------------------------------------------------
+// NIVissimConnectionCluster::NodeSubCluster - methods
+// ---------------------------------------------------------------------------
 NIVissimConnectionCluster::NodeSubCluster::NodeSubCluster(NIVissimConnection *c)
 {
     add(c);
@@ -125,15 +139,9 @@ NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
 
 
 
-
-
-
-
-NIVissimConnectionCluster::ContType NIVissimConnectionCluster::myClusters;
-
-int NIVissimConnectionCluster::myFirstFreeID = 100000;
-int NIVissimConnectionCluster::myStaticBlaID = 0;
-
+// ---------------------------------------------------------------------------
+// NIVissimConnectionCluster - methods
+// ---------------------------------------------------------------------------
 NIVissimConnectionCluster::NIVissimConnectionCluster(
     const IntVector &connections, int nodeCluster, int edgeid)
         : myConnections(connections), myNodeCluster(nodeCluster),
@@ -345,39 +353,8 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
             MsgHandler::getMessageInstance()->progressMsg("Checked(3): " + toString(pos) + "/" + toString(myClusters.size()) + "         ");
         }
     }
-    /* !_!   // check for connection clusters lying beyond the edge
-        i = myClusters.begin();
-        while(i!=myClusters.end()) {
-            bool restart = false;
-            ContType::iterator j = i + 1;
-            // check whether every combination has been processed
-            while(j!=myClusters.end()) {
-                // check whether the current clusters overlap
-    			if((*i)->liesOnSameEdgesEnd(*j)) {
-                    joinAble.push_back(*j);
-                }
-                j++;
-            }
-            for(std::vector<NIVissimConnectionCluster*>::iterator k=joinAble.begin();
-                    k!=joinAble.end(); k++) {
-                // add the overlaping cluster
-                (*i)->add(*k);
-                // erase the overlaping cluster
-                delete *k;
-                myClusters.erase(find(myClusters.begin(), myClusters.end(), *k));
-            }
-            //
-            if(joinAble.size()>0) {
-                i = myClusters.begin();
-    			// clear temporary storages
-                joinAble.clear();
-            } else {
-                i++;
-                pos++;
-                cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
-            }
-        }*/
 }
+
 
 bool
 NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offset)
@@ -452,9 +429,6 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
         return c2->isWeakDistrictConnRealisation(this);
     }
     // connections must cross
-    /*    if(!overlapsWith(c2, 9)) {
-            return false;
-        }*/
     bool crosses = false;
     for (IntVector::const_iterator j1=myConnections.begin(); j1!=myConnections.end()&&!crosses; j1++) {
         NIVissimConnection *c1 = NIVissimConnection::dictionary(*j1);
@@ -586,9 +560,6 @@ NIVissimConnectionCluster::buildNodeClusters()
                      disturbances, (*i)->myIncomingEdges.size()<2);
         assert((*i)->myNodeCluster==id||(*i)->myNodeCluster<0);
         (*i)->myNodeCluster = id;
-        /*        for(IntVector::iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
-                    NIVissimDisturbance::dictionary(*j)->
-                }*/
     }
 }
 

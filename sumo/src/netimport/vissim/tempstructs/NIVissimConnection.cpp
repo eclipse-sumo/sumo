@@ -51,15 +51,24 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
 
+
+// ===========================================================================
+// static members
+// ===========================================================================
 NIVissimConnection::DictType NIVissimConnection::myDict;
 int NIVissimConnection::myMaxID;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimConnection::NIVissimConnection(int id,
                                        const std::string &name, const NIVissimExtendedEdgePoint &from_def,
                                        const NIVissimExtendedEdgePoint &to_def,
@@ -355,6 +364,6 @@ NIVissimConnection::getMaxID()
 }
 
 
-
 /****************************************************************************/
+
 

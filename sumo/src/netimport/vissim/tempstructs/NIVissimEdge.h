@@ -120,7 +120,15 @@ public:
     /// Returns the named edge from the dictionary
     static NIVissimEdge *dictionary(int id);
 
-    static void buildConnectionClusters();
+    /** @brief Clusters connections of each edge
+     *
+     * For every edge stored in this container, its connections are collected and
+     *  joined into "clusters" if they have the same "direction" (incoming/outgoing)
+     *  and are not further than 10m away from each other.
+     *
+     * @todo Probably the distance (MAX_CLUSTER_DISTANCE=10m) should be made variable
+     */
+    static void buildConnectionClusters() throw();
 
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
@@ -253,14 +261,9 @@ private:
     /// List of connections outgoing from this edge
     IntVector myOutgoingConnections;
 
-    /// List of districts referencing this edge
-//    IntVector myDistricts;
-
     DoubleVector myDistrictConnections;
 
     IntVector myPatchedSpeeds;
-
-//    SUMOReal mySpeed;
 
     std::vector<SUMOReal> myLaneSpeeds;
 

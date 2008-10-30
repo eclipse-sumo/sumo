@@ -449,8 +449,7 @@ NIVissimLoader::postLoadBuild(SUMOReal offset)
     //   buildConnectionClusters & join
 //30.4. brauchen wir noch!    NIVissimNodeDef::dict_assignConnectionsToNodes();
 
-    // build clusters of connections with the same direction and a similar
-    //  position along the streets
+    // build clusters of connections with the same direction and a similar position along the streets
     NIVissimEdge::buildConnectionClusters();
     // check whether further nodes (connection clusters by now) must be added
     NIVissimDistrictConnection::dict_CheckEdgeEnds();
