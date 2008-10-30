@@ -67,7 +67,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
         myLAId(laid), myAreaId(cellid), myActorType(type),
         myPassedVehicleNo(0), myPassedCPhonesNo(0), myPassedConnectedCPhonesNo(0)
 {
-    assert(posM >= 0 && posM <= laneM->length());
+    assert(posM >= 0 && posM <= myLane->length());
     //eintragen in MSPhoneNet
 
     OptionsCont &oc = OptionsCont::getOptions();

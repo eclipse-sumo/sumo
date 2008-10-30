@@ -55,9 +55,9 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
         myCurrentJamLengthInMeters(0), myCurrentJamLengthInVehicles(0), myCurrentStartedHalts(0)
 
 {
-    assert(laneM != 0);
-    assert(myStartPos >= 0 && myStartPos < laneM->length());
-    assert(myEndPos - myStartPos > 0 && myEndPos <= laneM->length());
+    assert(myLane != 0);
+    assert(myStartPos >= 0 && myStartPos < myLane->length());
+    assert(myEndPos - myStartPos > 0 && myEndPos <= myLane->length());
     reset();
 }
 
