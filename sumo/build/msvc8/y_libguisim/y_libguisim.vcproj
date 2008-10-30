@@ -677,10 +677,6 @@
 				RelativePath="..\..\..\src\guisim\GUIVehicleControl.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIVehicleType.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -792,10 +788,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIVehicleControl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIVehicleType.h"
 				>
 			</File>
 		</Filter>

@@ -47,12 +47,6 @@ using namespace std;
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-SUMOReal MSVehicleType::myMinDecel  = 0;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSVehicleType::~MSVehicleType()
@@ -62,19 +56,19 @@ MSVehicleType::~MSVehicleType()
 MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
                              SUMOReal maxSpeed, SUMOReal accel,
                              SUMOReal decel, SUMOReal dawdle,
-                             SUMOReal tau,
-                             SUMOVehicleClass vclass)
+                             SUMOReal tau, SUMOReal prob,
+                             SUMOReal speedFactor, SUMOReal speedDev,
+                             SUMOVehicleClass vclass, const RGBColor &c)
         : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
-        myDecel(decel), myDawdle(dawdle), myTau(tau), myVehicleClass(vclass)
+        myDecel(decel), myDawdle(dawdle), myTau(tau),
+        myDefaultProbability(prob), mySpeedFactor(speedFactor),
+        mySpeedDev(speedDev), myVehicleClass(vclass), myColor(c)
 {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
     assert(myAccel > 0);
     assert(myDecel > 0);
     assert(myDawdle >= 0 && myDawdle <= 1);
-    if (myMinDecel==0 || myDecel<myMinDecel) {
-        myMinDecel = myDecel;
-    }
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * myDecel);
     myTauDecel = myDecel * myTau;
 }
@@ -98,6 +92,12 @@ MSVehicleType::saveState(std::ostream &os)
     FileHelpers::writeFloat(os, myDawdle);
     FileHelpers::writeFloat(os, myTau);
     FileHelpers::writeInt(os, (int) myVehicleClass);
+}
+
+const RGBColor &
+MSVehicleType::getColor() const
+{
+    return myColor;
 }
 
 

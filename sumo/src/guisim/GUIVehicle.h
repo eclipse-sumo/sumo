@@ -80,7 +80,8 @@ public:
     }
 
     inline void setOwnTypeColor() const {
-        static_cast<const GUIVehicleType&>(getVehicleType()).setColor();
+        const RGBColor &col = myType->getColor();
+        glColor3d(col.red(), col.green(), col.blue());
     }
     inline void setOwnRouteColor() const {
         static_cast<const GUIRoute&>(getRoute()).setColor();

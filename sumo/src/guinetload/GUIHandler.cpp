@@ -121,62 +121,6 @@ GUIHandler::addJunctionShape(const std::string &chars)
 
 
 void
-GUIHandler::addVehicleType(const SUMOSAXAttributes &attrs)
-{
-    RGBColor col =
-        RGBColor::parseColor(
-            attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
-    // !!! unsecure
-    // get the id, report an error if not given or empty...
-    string id;
-    if (attrs.setIDFromAttributes("vtype", id)) {
-        try {
-            addParsedVehicleType(id,
-                                 attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
-                                 attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
-                                 attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
-                                 attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
-                                 attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                 attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                 SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
-                                 col,
-                                 attrs.getFloatSecure(SUMO_ATTR_PROB, 1.));
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
-        }
-    }
-}
-
-
-void
-GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
-                                 const SUMOReal maxspeed, const SUMOReal bmax,
-                                 const SUMOReal dmax, const SUMOReal sigma,
-                                 SUMOReal tau,
-                                 SUMOVehicleClass vclass,
-                                 const RGBColor &c, SUMOReal prob)
-{
-    myCurrentVehicleType =
-        new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma, tau, vclass);
-    if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType, prob)) {
-        delete myCurrentVehicleType;
-        myCurrentVehicleType = 0;
-#ifdef HAVE_MESOSIM
-        if (!MSGlobals::gStateLoaded) {
-#endif
-            MsgHandler::getErrorInstance()->inform("Another vehicle type with the id '" + id + "' exists.");
-#ifdef HAVE_MESOSIM
-        }
-#endif
-    }
-}
-
-
-void
 GUIHandler::closeRoute() throw(ProcessError)
 {
     int size = (int) myActiveRoute.size();

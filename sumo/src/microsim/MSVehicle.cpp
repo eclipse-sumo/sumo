@@ -2180,8 +2180,10 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane == lane && fabs(iter->pos - pos) < POSITION_EPS) {
             if (duration == 0 && !iter->reached) {
+                (*MsgHandler::getWarningInstance()) << getID() << " deleting stop " << lane->getID() << " " << pos << "\n";
                 myStops.erase(iter);
             } else {
+                (*MsgHandler::getWarningInstance()) << getID() << " resetting stop " << lane->getID() << " " << pos << "\n";
                 iter->duration = duration;
             }
             return true;

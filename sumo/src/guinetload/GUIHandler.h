@@ -81,16 +81,6 @@ protected:
                       const std::string &chars) throw(ProcessError);
     //@}
 
-    /** parses an occured vehicle type definition */
-    virtual void addVehicleType(const SUMOSAXAttributes &attrs);
-
-    /** adds the parsed vehicle type */
-    virtual void addParsedVehicleType(const std::string &id,
-                                      const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
-                                      const SUMOReal dmax, const SUMOReal sigma,
-                                      SUMOReal tau, SUMOVehicleClass vclass,
-                                      const RGBColor &c, SUMOReal prob);
-
     /// Ends route processing
     void closeRoute() throw(ProcessError);
 

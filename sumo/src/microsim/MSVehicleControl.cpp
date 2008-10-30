@@ -34,6 +34,7 @@
 #include "MSGlobals.h"
 #include "MSLane.h"
 #include <utils/common/FileHelpers.h>
+#include <utils/common/RGBColor.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -62,7 +63,7 @@ MSVehicleControl::MSVehicleControl() throw()
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0), myHaveDefaultVTypeOnly(true)
 {
     // add a default vehicle type (probability to choose=1)
-    addVType(new MSVehicleType("DEFAULT_VEHTYPE", DEFAULT_VEH_LENGTH, DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A, DEFAULT_VEH_B, DEFAULT_VEH_SIGMA, DEFAULT_VEH_TAU, SVC_UNKNOWN), 1.);
+    addVType(new MSVehicleType("DEFAULT_VEHTYPE", DEFAULT_VEH_LENGTH, DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A, DEFAULT_VEH_B, DEFAULT_VEH_SIGMA, DEFAULT_VEH_TAU, DEFAULT_VEH_PROB, DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV, SVC_UNKNOWN, RGBColor::DEFAULT_COLOR));
     // mark that we have a default only
     myHaveDefaultVTypeOnly = true;
 }
@@ -307,8 +308,8 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bis >> dawdle;
         bis >> tau;
         bis >> vclass;
-        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, (SUMOVehicleClass) vclass);
-        addVType(t, 1.); // !!!
+        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, DEFAULT_VEH_PROB, DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV, (SUMOVehicleClass) vclass, RGBColor::DEFAULT_COLOR);
+        addVType(t);
     }
     MSRoute::dict_loadState(bis);
     // load vehicles
@@ -449,7 +450,7 @@ MSVehicleControl::getRandomVType() const throw()
 
 
 bool
-MSVehicleControl::addVType(MSVehicleType* vehType, SUMOReal prob) throw()
+MSVehicleControl::addVType(MSVehicleType* vehType) throw()
 {
     const string &id = vehType->getID();
     VehTypeDictType::iterator it = myVTypeDict.find(id);
@@ -469,7 +470,7 @@ MSVehicleControl::addVType(MSVehicleType* vehType, SUMOReal prob) throw()
     myHaveDefaultVTypeOnly = false;
     // id not in myDict.
     myVTypeDict[id] = vehType;
-    myVehicleTypeDistribution.add(prob, vehType);
+    myVehicleTypeDistribution.add(vehType->getDefaultProbability(), vehType);
     return true;
 }
 

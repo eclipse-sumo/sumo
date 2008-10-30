@@ -21,7 +21,6 @@ GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
 GUIEmitter.cpp GUIEmitter.h \
 GUITriggeredRerouter.cpp GUITriggeredRerouter.h \
 GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h \
-GUIVehicleType.cpp GUIVehicleType.h \
 GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
 GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h
 

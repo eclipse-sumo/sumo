@@ -126,6 +126,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "state-interval",   SUMO_TAG_STATE_INTERVAL },
     { "route-dist",       SUMO_TAG_ROUTE_DIST },
     { "vtype-dist",       SUMO_TAG_VTYPE_DIST },
+    { "vtypeDistribution", SUMO_TAG_VTYPE_DISTRIBUTION },
     { "vaporizer",        SUMO_TAG_VAPORIZER },
 
     { "way",              SUMO_TAG_WAY },
@@ -138,7 +139,7 @@ GenericSAXHandler::Tag sumotags[] = {
 
 GenericSAXHandler::Attr sumoattrs[] = {
     { "id",             SUMO_ATTR_ID },
-    { "id",             SUMO_ATTR_REFID },
+    { "refid",          SUMO_ATTR_REFID },
     { "name",           SUMO_ATTR_NAME },
     { "type",           SUMO_ATTR_TYPE },
     { "priority",       SUMO_ATTR_PRIORITY },
@@ -179,6 +180,8 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "tau",            SUMO_ATTR_TAU },
     { "vclass",         SUMO_ATTR_VCLASS },
     { "repno",          SUMO_ATTR_REPNUMBER },
+    { "speedFactor",    SUMO_ATTR_SPEEDFACTOR },
+    { "speedDev",       SUMO_ATTR_SPEEDDEV },
 
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },

@@ -64,19 +64,6 @@ public:
     /// standard destructor
     virtual ~MSRouteHandler() throw();
 
-    /// opens a route for the addition of edges
-    void openRoute(const std::string &id, bool multiReferenced);
-
-    /// adds an edge to the route
-    void addEdge(MSEdge *edge);
-
-    /** closes (ends) the building of a route.
-        Afterwards no edges may be added to it;
-        this method may throw exceptions when
-        a) the route is empty or
-        b) another route with the same id already exists */
-    virtual void closeRoute() throw(ProcessError);
-
     /// Returns the last loaded depart time
     SUMOTime getLastDepart() const;
 
@@ -122,16 +109,15 @@ protected:
     /** parses an occured vehicle type definition */
     virtual void addVehicleType(const SUMOSAXAttributes &attrs);
 
-    /** adds the parsed vehicle type */
-    virtual void addParsedVehicleType(const std::string &id,
-                                      const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
-                                      const SUMOReal dmax, const SUMOReal sigma,
-                                      SUMOReal tau,
-                                      SUMOVehicleClass vclass, SUMOReal prob);
-
-
     /** opens a route for reading */
     virtual void openRoute(const SUMOSAXAttributes &attrs);
+
+    /** closes (ends) the building of a route.
+        Afterwards no edges may be added to it;
+        this method may throw exceptions when
+        a) the route is empty or
+        b) another route with the same id already exists */
+    virtual void closeRoute() throw(ProcessError);
 
     /** reads the route elements */
     void addRouteElements(const std::string &chars);

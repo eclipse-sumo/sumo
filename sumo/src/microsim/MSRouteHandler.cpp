@@ -215,42 +215,35 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
     string id;
     if (attrs.setIDFromAttributes("vtype", id)) {
         try {
-            addParsedVehicleType(id,
+            myCurrentVehicleType = new MSVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
                                  attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
                                  attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
                                  attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
                                  attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
                                  attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                 attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB),
+                                 attrs.getFloatSecure(SUMO_ATTR_SPEEDFACTOR, DEFAULT_VEH_SPEEDFACTOR),
+                                 attrs.getFloatSecure(SUMO_ATTR_SPEEDDEV, DEFAULT_VEH_SPEEDDEV),
                                  SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
-                                 attrs.getFloatSecure(SUMO_ATTR_PROB, (SUMOReal) 1.));
+                                 RGBColor::parseColor(
+            attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING)));
+            if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType)) {
+                delete myCurrentVehicleType;
+                myCurrentVehicleType = 0;
+#ifdef HAVE_MESOSIM
+                if (!MSGlobals::gStateLoaded) {
+#endif
+                    throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
+#ifdef HAVE_MESOSIM
+                }
+#endif
+            }
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
         }
-    }
-}
-
-
-void
-MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
-                                     const SUMOReal maxspeed, const SUMOReal bmax,
-                                     const SUMOReal dmax, const SUMOReal sigma,
-                                     SUMOReal tau,
-                                     SUMOVehicleClass vclass, SUMOReal prob)
-{
-    myCurrentVehicleType = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma, tau, vclass);
-    if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType, prob)) {
-        delete myCurrentVehicleType;
-        myCurrentVehicleType = 0;
-#ifdef HAVE_MESOSIM
-        if (!MSGlobals::gStateLoaded) {
-#endif
-            throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
-#ifdef HAVE_MESOSIM
-        }
-#endif
     }
 }
 

@@ -37,6 +37,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -78,8 +79,8 @@ public:
      */
     MSVehicleType(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
                   SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
-                  SUMOReal tau,
-                  SUMOVehicleClass vclass);
+                  SUMOReal tau, SUMOReal prob, SUMOReal speedFactor,
+                  SUMOReal speedDev, SUMOVehicleClass vclass, const RGBColor &c);
 
     /// Destructor.
     virtual ~MSVehicleType();
@@ -211,15 +212,13 @@ public:
         return myTau;
     }
 
+    SUMOReal getDefaultProbability() const {
+        return myDefaultProbability;
+    }
+
 
     /// returns the name of the vehicle type
     const std::string &getID() const;
-
-
-    /// Returns the minimum deceleration-ability of all vehicle-types.
-    static SUMOReal getMinVehicleDecel() {
-        return myMinDecel;
-    }
 
 
     /// Saves the states of a vehicle
@@ -228,6 +227,9 @@ public:
     SUMOVehicleClass getVehicleClass() const {
         return myVehicleClass;
     }
+
+    /// Returns the color
+    const RGBColor &getColor() const;
 
 
 protected:
@@ -274,6 +276,18 @@ private:
     /// The vehicle's class
     SUMOVehicleClass myVehicleClass;
 
+    /// The probability when being added to a distribution without an explicit probability
+    SUMOReal myDefaultProbability;
+
+    /// The factor by which the maximum speed may deviate from the allowed max speed on the street
+    SUMOReal mySpeedFactor;
+
+    /// The standard deviation for speed variations
+    SUMOReal mySpeedDev;
+
+    /// The color
+    RGBColor myColor;
+
 
     /// @name some precomputed values for faster computation
     /// @{
@@ -283,14 +297,6 @@ private:
 
     /// The precomputed value for myDecel*myTau
     SUMOReal myTauDecel;
-    /// @}
-
-
-    /// @name some static values (needed?)
-    /// @{
-
-    /// Minimum deceleration-ability of all vehicle-types.
-    static SUMOReal myMinDecel;
     /// @}
 
 

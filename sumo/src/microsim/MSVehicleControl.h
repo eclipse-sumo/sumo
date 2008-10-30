@@ -301,7 +301,7 @@ public:
      * @param[in] prob The probability to use the vehicle type
      * @return Whether the vehicle type could be added
      */
-    bool addVType(MSVehicleType* vehType, SUMOReal prob) throw();
+    bool addVType(MSVehicleType* vehType) throw();
 
 
     /** @brief Returns the named vehicle type
