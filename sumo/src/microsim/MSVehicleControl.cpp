@@ -60,12 +60,17 @@ using namespace std;
 // ===========================================================================
 MSVehicleControl::MSVehicleControl() throw()
         : myLoadedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
-        myAbsVehWaitingTime(0), myAbsVehTravelTime(0), myHaveDefaultVTypeOnly(true)
+        myAbsVehWaitingTime(0), myAbsVehTravelTime(0),
+        myDefaultVTypeMayBeDeleted(true)
 {
-    // add a default vehicle type (probability to choose=1)
-    addVType(new MSVehicleType("DEFAULT_VEHTYPE", DEFAULT_VEH_LENGTH, DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A, DEFAULT_VEH_B, DEFAULT_VEH_SIGMA, DEFAULT_VEH_TAU, DEFAULT_VEH_PROB, DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV, SVC_UNKNOWN, RGBColor::DEFAULT_COLOR));
-    // mark that we have a default only
-    myHaveDefaultVTypeOnly = true;
+    myVTypeDict[DEFAULT_VTYPE_ID] = new MSVehicleType(DEFAULT_VTYPE_ID, DEFAULT_VEH_LENGTH,
+                               DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A,
+                               DEFAULT_VEH_B, DEFAULT_VEH_SIGMA,
+                               DEFAULT_VEH_TAU, DEFAULT_VEH_PROB,
+                               DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV,
+                               SVC_UNKNOWN, DEFAULT_VEH_FOLLOW_MODEL,
+                               DEFAULT_VEH_LANE_CHANGE_MODEL,
+                               RGBColor::DEFAULT_COLOR);
 }
 
 
@@ -75,16 +80,17 @@ MSVehicleControl::~MSVehicleControl() throw()
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         delete(*i).second;
     }
-    // delete vehicle types
-    for (vector<MSVehicleType*>::const_iterator i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
-        delete *i;
-    }
-    const vector<MSVehicleType*> &vehs1 = myVehicleTypeDistribution.getVals();
-    for (vector<MSVehicleType*>::const_iterator i=vehs1.begin(); i!=vehs1.end(); ++i) {
-        delete *i;
-    }
-    // delete current types
     myVehicleDict.clear();
+    // delete vehicle type distributions
+    for (VTypeDistDictType::iterator i=myVTypeDistDict.begin(); i!=myVTypeDistDict.end(); ++i) {
+        delete(*i).second;
+    }
+    myVTypeDistDict.clear();
+    // delete vehicle types
+    for (VTypeDictType::iterator i=myVTypeDict.begin(); i!=myVTypeDict.end(); ++i) {
+        delete(*i).second;
+    }
+    myVTypeDict.clear();
 }
 
 
@@ -272,7 +278,7 @@ MSVehicleControl::saveState(std::ostream &os) throw()
     FileHelpers::writeInt(os, myAbsVehTravelTime);
     // save vehicle types
     FileHelpers::writeUInt(os, (unsigned) myVTypeDict.size());
-    for (VehTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
+    for (VTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
         (*it).second->saveState(os);
     }
     MSRoute::dict_saveState(os);
@@ -442,46 +448,59 @@ MSVehicleControl::loadedVehEnd() const throw()
 }
 
 
-MSVehicleType *
-MSVehicleControl::getRandomVType() const throw()
+bool
+MSVehicleControl::checkVType(const std::string &id) throw()
 {
-    return myVehicleTypeDistribution.get();
+    if (id == DEFAULT_VTYPE_ID) {
+        if (myDefaultVTypeMayBeDeleted) {
+            delete myVTypeDict[id];
+            myDefaultVTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else {
+        if (myVTypeDict.find(id) != myVTypeDict.end() || myVTypeDistDict.find(id) != myVTypeDistDict.end()) {
+            return false;
+        }
+    }
+    return true;
 }
-
 
 bool
 MSVehicleControl::addVType(MSVehicleType* vehType) throw()
 {
-    const string &id = vehType->getID();
-    VehTypeDictType::iterator it = myVTypeDict.find(id);
-    if (it != myVTypeDict.end()) {
-        return false;
+    if (checkVType(vehType->getID())) {
+        myVTypeDict[vehType->getID()] = vehType;
+        return true;
     }
-    // if still the default type is used
-    if (myHaveDefaultVTypeOnly) {
-        // mark it as to be deleted
-        if (myVehicleTypeDistribution.getOverallProb()>0) {
-            myObsoleteVehicleTypes.push_back(myVehicleTypeDistribution.get());
-        }
-        // clear the distribution
-        myVehicleTypeDistribution.clear();
+    return false;
+}
+
+
+bool
+MSVehicleControl::addVTypeDistribution(const std::string &id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) throw()
+{
+    if (checkVType(id)) {
+        myVTypeDistDict[id] = vehTypeDistribution;
+        return true;
     }
-    // all next vehicle types are non-default
-    myHaveDefaultVTypeOnly = false;
-    // id not in myDict.
-    myVTypeDict[id] = vehType;
-    myVehicleTypeDistribution.add(vehType->getDefaultProbability(), vehType);
-    return true;
+    return false;
 }
 
 
 MSVehicleType*
 MSVehicleControl::getVType(const string &id) throw()
 {
-    VehTypeDictType::iterator it = myVTypeDict.find(id);
+    VTypeDictType::iterator it = myVTypeDict.find(id);
     if (it == myVTypeDict.end()) {
-        // id not in myDict.
-        return 0;
+        VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);
+        if (it2 == myVTypeDistDict.end()) {
+            return 0;
+        }
+        return it2->second->get();
+    }
+    if (id == DEFAULT_VTYPE_ID) {
+        myDefaultVTypeMayBeDeleted = false;
     }
     return it->second;
 }

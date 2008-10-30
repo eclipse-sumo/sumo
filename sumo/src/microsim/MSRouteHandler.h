@@ -107,7 +107,13 @@ protected:
 
 
     /** parses an occured vehicle type definition */
-    virtual void addVehicleType(const SUMOSAXAttributes &attrs);
+    void addVehicleType(const SUMOSAXAttributes &attrs);
+
+    /** opens a route for reading */
+    void openVehicleTypeDistribution(const SUMOSAXAttributes &attrs);
+
+    /** closes (ends) the building of a distribution */
+    void closeVehicleTypeDistribution();
 
     /** opens a route for reading */
     virtual void openRoute(const SUMOSAXAttributes &attrs);
@@ -151,8 +157,11 @@ protected:
     /// List of the stops the vehicle will make
     std::vector<MSVehicle::Stop> myVehicleStops;
 
-    /// The currently parsed vehicle type
-    MSVehicleType *myCurrentVehicleType;
+    /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
+    RandomDistributor<MSVehicleType*> *myCurrentVTypeDistribution;
+
+    /// @brief The id of the currently parsed vehicle type distribution
+    std::string myCurrentVTypeDistributionID;
 
     /// Information whether not all vehicle shall be emitted due to inc-dua
     bool myAmUsingIncrementalDUA;

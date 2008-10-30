@@ -274,42 +274,45 @@ public:
 
 
 
-    /// @name Insertion and retrieal of vehcile types
+    /// @name Insertion and retrieval of vehicle types
     /// @{
 
-    /** @brief Returns one of the active vehicle types
-     * @return A random vehicle type (from active)
-     */
-    MSVehicleType *getRandomVType() const throw();
-
-
-    /** @brief Adds a vehicle type with his probability to be chosen
+    /** @brief Adds a vehicle type
      *
-     * If another vehicle ype with the same id exists, false is returned.
+     * If another vehicle type (or distribution) with the same id exists, false is returned.
      *  Otherwise, the vehicle type is added to the internal vehicle type
-     *  container "myVTypeDict" and to the vehicle type distribution
-     *  "myVehicleTypeDistribution".
-     *
-     * If no other type was loaded before, the default vehicle type is
-     *  descheduled (but not deleted as there may be already vehicles
-     *  in the simulation that use it).
+     *  container "myVTypeDict".
      *
      * This control get responsible for deletion of the added vehicle
      *  type.
      *
      * @param[in] vehType The vehicle type to add
-     * @param[in] prob The probability to use the vehicle type
      * @return Whether the vehicle type could be added
      */
     bool addVType(MSVehicleType* vehType) throw();
 
 
-    /** @brief Returns the named vehicle type
-     * @param[in] id The id of the vehicle type to return
-     * @return The named vehicle type, or 0 if no such type exists
-     * @todo Recheck whether a descheduled default vehicle type may be returned, too
+    /** @brief Adds a vehicle type distribution
+     *
+     * If another vehicle type (or distribution) with the same id exists, false is returned.
+     *  Otherwise, the vehicle type distribution is added to the internal vehicle type distribution
+     *  container "myVTypeDistDict".
+     *
+     * This control get responsible for deletion of the added vehicle
+     *  type distribution.
+     *
+     * @param[in] id The id of the distribution to add
+     * @param[in] vehTypeDistribution The vehicle type distribution to add
+     * @return Whether the vehicle type could be added
      */
-    MSVehicleType *getVType(const std::string &id) throw();
+    bool addVTypeDistribution(const std::string &id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) throw();
+
+
+    /** @brief Returns the named vehicle type or a sample from the named distribution
+     * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
+     * @return The named vehicle type, or 0 if no such type exists
+     */
+    MSVehicleType *getVType(const std::string &id=DEFAULT_VTYPE_ID) throw();
     /// @}
 
 
@@ -338,6 +341,14 @@ private:
      * @param[in] id The id of the vehicle to delete
      */
     void deleteVehicle(const std::string &id) throw();
+
+    /** @brief Checks whether the vehicle type (distribution) may be added
+     *
+     * Removed the vehicle from the internal dictionary
+     * @param[in] id The id of the vehicle type (distribution) to add
+     * @return Whether the type (distribution) may be added
+     */
+    bool checkVType(const std::string &id) throw();
 
 
 protected:
@@ -380,18 +391,17 @@ protected:
     /// @{
 
     /// @brief Vehicle type dictionary type
-    typedef std::map< std::string, MSVehicleType* > VehTypeDictType;
+    typedef std::map< std::string, MSVehicleType* > VTypeDictType;
     /// @brief Dictionary of vehicle types
-    VehTypeDictType myVTypeDict;
+    VTypeDictType myVTypeDict;
 
+    /// @brief Vehicle type distribution dictionary type
+    typedef std::map< std::string, RandomDistributor<MSVehicleType*>* > VTypeDistDictType;
     /// @brief A distribution of vehicle types (probability->vehicle type)
-    RandomDistributor<MSVehicleType*> myVehicleTypeDistribution;
+    VTypeDistDictType myVTypeDistDict;
 
     /// @brief Whether no vehicle type was loaded
-    bool myHaveDefaultVTypeOnly;
-
-    /// @brief Vehicle types that may no longer be assigned by a probability
-    std::vector<MSVehicleType*> myObsoleteVehicleTypes;
+    bool myDefaultVTypeMayBeDeleted;
 
 
 private:

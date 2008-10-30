@@ -182,6 +182,8 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "repno",          SUMO_ATTR_REPNUMBER },
     { "speedFactor",    SUMO_ATTR_SPEEDFACTOR },
     { "speedDev",       SUMO_ATTR_SPEEDDEV },
+    { "carFollowModel", SUMO_ATTR_CAR_FOLLOW_MODEL },
+    { "laneChangeModel", SUMO_ATTR_LANE_CHANGE_MODEL },
 
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },

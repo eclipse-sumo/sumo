@@ -119,6 +119,7 @@ extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
 // ===========================================================================
 // default vehicle type parameter
 // ===========================================================================
+const std::string DEFAULT_VTYPE_ID = "DEFAULT_VEHTYPE";
 const SUMOReal DEFAULT_VEH_MAXSPEED = (SUMOReal) 70.;
 const SUMOReal DEFAULT_VEH_A = (SUMOReal) 2.6;
 const SUMOReal DEFAULT_VEH_B = (SUMOReal) 4.5;
@@ -129,6 +130,8 @@ const SUMOVehicleClass DEFAULT_VEH_CLASS = SVC_UNKNOWN;
 const SUMOReal DEFAULT_VEH_PROB = (SUMOReal) 1.;
 const SUMOReal DEFAULT_VEH_SPEEDFACTOR = (SUMOReal) 1.;
 const SUMOReal DEFAULT_VEH_SPEEDDEV = (SUMOReal) 0.;
+const std::string DEFAULT_VEH_FOLLOW_MODEL = "Krauss";
+const std::string DEFAULT_VEH_LANE_CHANGE_MODEL = "dkrajzew2008";
 
 
 #endif

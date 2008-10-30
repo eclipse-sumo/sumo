@@ -247,6 +247,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_REPNUMBER,
     SUMO_ATTR_SPEEDFACTOR,
     SUMO_ATTR_SPEEDDEV,
+    SUMO_ATTR_CAR_FOLLOW_MODEL,
+    SUMO_ATTR_LANE_CHANGE_MODEL,
     /* route alternatives attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,

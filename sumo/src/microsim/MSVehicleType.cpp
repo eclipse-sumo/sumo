@@ -58,11 +58,14 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
                              SUMOReal decel, SUMOReal dawdle,
                              SUMOReal tau, SUMOReal prob,
                              SUMOReal speedFactor, SUMOReal speedDev,
-                             SUMOVehicleClass vclass, const RGBColor &c)
+                             SUMOVehicleClass vclass, const string &cfModel,
+                             const string &lcModel, const RGBColor &c)
         : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
         myDecel(decel), myDawdle(dawdle), myTau(tau),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
-        mySpeedDev(speedDev), myVehicleClass(vclass), myColor(c)
+        mySpeedDev(speedDev), myVehicleClass(vclass),
+        myCarFollowModel(cfModel), myLaneChangeModel(lcModel),
+        myColor(c)
 {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);

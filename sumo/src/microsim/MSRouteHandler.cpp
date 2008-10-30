@@ -79,7 +79,8 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
         myAmUsingIncrementalDUA(incDUAStage>0),
         myRunningVehicleNumber(0),
         myIncrementalBase(incDUABase),
-        myIncrementalStage(incDUAStage)
+        myIncrementalStage(incDUAStage),
+        myCurrentVTypeDistribution(0)
 {
     myActiveRoute.reserve(100);
 }
@@ -119,6 +120,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_VTYPE:
         addVehicleType(attrs);
+        break;
+    case SUMO_TAG_VTYPE_DISTRIBUTION:
+        openVehicleTypeDistribution(attrs);
         break;
     case SUMO_TAG_ROUTE:
         openRoute(attrs);
@@ -215,7 +219,7 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
     string id;
     if (attrs.setIDFromAttributes("vtype", id)) {
         try {
-            myCurrentVehicleType = new MSVehicleType(id,
+            MSVehicleType *vehType = new MSVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
                                  attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
                                  attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
@@ -226,11 +230,11 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
                                  attrs.getFloatSecure(SUMO_ATTR_SPEEDFACTOR, DEFAULT_VEH_SPEEDFACTOR),
                                  attrs.getFloatSecure(SUMO_ATTR_SPEEDDEV, DEFAULT_VEH_SPEEDDEV),
                                  SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
-                                 RGBColor::parseColor(
-            attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING)));
-            if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType)) {
-                delete myCurrentVehicleType;
-                myCurrentVehicleType = 0;
+                                 attrs.getStringSecure(SUMO_ATTR_CAR_FOLLOW_MODEL, DEFAULT_VEH_FOLLOW_MODEL),
+                                 attrs.getStringSecure(SUMO_ATTR_LANE_CHANGE_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL),
+                                 RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING)));
+            if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
+                delete vehType;
 #ifdef HAVE_MESOSIM
                 if (!MSGlobals::gStateLoaded) {
 #endif
@@ -239,11 +243,40 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
                 }
 #endif
             }
+            if (myCurrentVTypeDistribution != 0) {
+                myCurrentVTypeDistribution->add(vehType->getDefaultProbability(), vehType);
+            }
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
         }
+    }
+}
+
+
+void
+MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs)
+{
+    if (attrs.setIDFromAttributes("vtypeDistribution", myCurrentVTypeDistributionID)) {
+        myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
+    }
+}
+
+
+void
+MSRouteHandler::closeVehicleTypeDistribution()
+{
+    if (myCurrentVTypeDistribution != 0) {
+        if (myCurrentVTypeDistribution->getOverallProb() == 0) {
+            delete myCurrentVTypeDistribution;
+            MsgHandler::getErrorInstance()->inform("Vehicle type distribution '" + myCurrentVTypeDistributionID + "' is empty.");
+        }
+        else if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
+            delete myCurrentVTypeDistribution;
+            MsgHandler::getErrorInstance()->inform("Another vehicle type distribution with the id '" + myCurrentVTypeDistributionID + "' exists.");
+        }
+        myCurrentVTypeDistribution = 0;
     }
 }
 
@@ -317,6 +350,8 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         closeVehicle();
         delete myVehicleParameter;
         myVehicleParameter = 0;
+    } else if (element == SUMO_TAG_VTYPE_DISTRIBUTION) {
+        closeVehicleTypeDistribution();
     }
 }
 
@@ -379,11 +414,10 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
         vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
         if (vtype==0) {
             throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
-
         }
     } else {
         // there should be one (at least the default one)
-        vtype = MSNet::getInstance()->getVehicleControl().getRandomVType();
+        vtype = MSNet::getInstance()->getVehicleControl().getVType();
     }
     // get the vehicle's route
     //  maybe it was explicitely assigned to the vehicle

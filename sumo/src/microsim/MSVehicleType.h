@@ -80,7 +80,9 @@ public:
     MSVehicleType(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
                   SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
                   SUMOReal tau, SUMOReal prob, SUMOReal speedFactor,
-                  SUMOReal speedDev, SUMOVehicleClass vclass, const RGBColor &c);
+                  SUMOReal speedDev, SUMOVehicleClass vclass,
+                  const std::string &cfModel, const std::string &lcModel,
+                  const RGBColor &c);
 
     /// Destructor.
     virtual ~MSVehicleType();
@@ -284,6 +286,12 @@ private:
 
     /// The standard deviation for speed variations
     SUMOReal mySpeedDev;
+
+    /// ID of the car following model.
+    std::string myCarFollowModel;
+
+    /// ID of the lane change model.
+    std::string myLaneChangeModel;
 
     /// The color
     RGBColor myColor;

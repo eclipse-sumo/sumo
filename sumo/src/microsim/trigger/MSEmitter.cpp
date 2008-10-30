@@ -107,7 +107,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
     pars->repetitionOffset = -1;
     MSVehicleType* aVehType = myVTypeDist.getOverallProb()>0
                               ? myVTypeDist.get()
-                              : MSNet::getInstance()->getVehicleControl().getRandomVType();
+                              : MSNet::getInstance()->getVehicleControl().getVType();
     if (aVehType==0) {
         WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
         WRITE_WARNING("Continuing with next element.");
@@ -255,7 +255,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
                 aVehType = myVTypeDist.get();
             }
             if (aVehType==0) {
-                aVehType = MSNet::getInstance()->getVehicleControl().getRandomVType();
+                aVehType = MSNet::getInstance()->getVehicleControl().getVType();
                 if (aVehType==0) {
                     WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.\n Continuing with next element.");
                     delete pars;

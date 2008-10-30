@@ -1,8 +1,14 @@
 # The vehicles are defined with no type given
 no_type
 
-# There is still no type given, but a new definition is used
+# There is still no type given, but a new type is defined but not used
 no_type_with_new
+
+# There is still no type given, but a new default type is defined
+no_type_with_new_default
+
+# There is still no type given, but the default is redefined too late
+no_type_with_new_late
 
 # There is a type given and referenced, but not defined (only defaults are used)
 using_defaults
@@ -18,5 +24,3 @@ two_types_first_off
 
 # Two types are given; the second has a prob of zero
 two_types_second_off
-
-

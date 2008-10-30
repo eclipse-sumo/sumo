@@ -166,7 +166,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentT
                                ? myVTypeDist.get()
                                : mySource.hasVTypes()
                                ? mySource.getRndVType()
-                               : MSNet::getInstance()->getVehicleControl().getRandomVType();
+                               : MSNet::getInstance()->getVehicleControl().getVType();
         if (aType==0) {
             MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid vehicle type.");
             return 0;
