@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<project name="sumoplayer">
+	<!-- PROPERTIES -->
+	<property environment="env"/>
+
+	<!-- RUN DEFAULTS -->
+	<property name="net"                value="sumo.net.xml"/>
+	<property name="ndump"              value="sumo.ndump.xml"/>
+        <property name="equipped"           value="0.1"/>
+        <property name="jitter"             value="50" />
+        <property name="listener"           value="de.psi.telco.sumoplayer.SUMOPipedLocationListener" />
+
+	<!-- PATHS -->
+	<property name="src.java"           value="./src/java"/>
+	<property name="lib"                value="./lib"/>
+	<property name="build"              value="./build"/>
+	<property name="dist"               value="${build}/dist"/>
+	<property name="build.classes"      value="${build}/classes"/>
+	<property name="build.javadoc"      value="${build}/javadoc"/>
+        <property name="javadoc.packages"   value="de.psi.telco.*"/>
+
+        <!-- CLASSPATH -->
+        <path id="classpath_jars">
+                <fileset dir="${lib}">
+                        <include name="*.jar"/>
+                </fileset>
+        </path>
+	<path id="classpath_compiled">
+                <path refid="classpath_jars"/>
+                <pathelement path="${build.classes}"/>
+        </path>
+
+        <!-- PREPERATIONS -->
+        <target name="prepare" depends="clean" >
+                <mkdir dir="${build}"/>
+                <mkdir dir="${dist}"/>
+                <mkdir dir="${build.classes}"/>
+                <mkdir dir="${build.javadoc}"/>
+        </target>
+
+        <target name="clean" description="cleans the project">
+                <delete dir="${build}"/>
+                <delete dir="${dist}"/>
+        </target>
+
+	<!-- BUILDING -->
+	<target name="compile" depends="clean,prepare" description="compile the java code">
+                <javac destdir="${build.classes}" debug="on" target="1.5" source="1.5">
+                        <src path="${src.java}"/>
+
+                        <classpath refid="classpath_jars"/>
+                </javac>
+        </target>
+
+	<!-- RUN TARGETS -->
+        <target name="sumoplayer.run" depends="compile" description="runs a simulation">
+                <java classname="de.psi.telco.sumoplayer.SUMOPlayer" 
+                                classpathref="classpath_compiled" 
+                                dir="${resources}">
+                        <arg line="-n ${net}"/>
+                        <arg line="-d ${ndump}"/>
+                        <arg line="-e ${equipped}"/>
+                        <arg line="-j ${jitter}" />
+			<arg line="-l ${listener}" />
+                </java>
+        </target>
+
+	<target name="sumoplayer.jar" depends="compile,javadoc" description="builds the sumoplayer jar-file to build/dist including javadocs">
+		<jar destfile="${dist}/sumoplayer.jar" basedir="${build.classes}">		
+			<!-- include javadoc -->
+			<fileset dir="${build.javadoc}"/>
+
+			<!-- main class attribute for manifest -->
+			<manifest>
+                                <attribute name="Main-class"   value="de.psi.telco.sumoplayer/SUMOPlayer"/>
+                        </manifest>
+			
+			<!-- some external jars -->
+                        <zipfileset src="${lib}/javaproj-1.0.4.jar" />
+			<zipfileset src="${lib}/xerces_2_5_0.jar" />
+		</jar>
+	</target>
+
+        <!-- MISC TARGETS -->
+        <target name="javadoc"
+                        description="Generate javadoc for all sources.">
+                <javadoc packagenames="${javadoc.packages}"
+                                 destdir="${build.javadoc}"
+                                 author="true"
+                                 version="true">
+                        <packageset dir="${src.java}" defaultexcludes="yes"/>
+                        <classpath refid="classpath_jars"/>
+                </javadoc>
+        </target>
+</project>
