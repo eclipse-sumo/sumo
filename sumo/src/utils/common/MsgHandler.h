@@ -129,6 +129,21 @@ public:
         The lock will not be deleted */
     static void assignLock(AbstractMutex *lock);
 
+    /** @brief Abstract output operator
+     * @return The MsgHandler for further processing
+     */
+    template <class T>
+    MsgHandler &operator<<(const T &t) {
+        inform(toString<T>(t));
+        return *this;
+    }
+
+    template <>
+    MsgHandler &operator<<(const std::string &t) {
+        inform(t);
+        return *this;
+    }
+
 
 protected:
     /// Builds the string which includes the mml-message type
