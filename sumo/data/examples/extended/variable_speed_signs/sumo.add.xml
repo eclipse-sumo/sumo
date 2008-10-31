@@ -1,3 +1,3 @@
 <additional>
-    <trigger id="vss" objecttype="lane" objectid="middle_0" attr="speed" file="vss1.def.xml"/>
+    <variableSpeedSign id="vss" objectid="middle_0" file="vss1.def.xml"/>
 </additional>
