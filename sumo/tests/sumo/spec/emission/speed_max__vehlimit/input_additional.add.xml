@@ -1,6 +1,6 @@
 <routes>
 
 	<vtype id="t1" maxspeed="1"/>
-	<vehicle id="1" depart="0" route="1" departspeed="max"/>
+	<vehicle id="1" type="t1" depart="0" route="1" departspeed="max"/>
 
 </routes>

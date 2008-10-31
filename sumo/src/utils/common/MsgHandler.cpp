@@ -363,7 +363,6 @@ MsgHandler::cleanupOnEnd()
     if (myLock!=0) {
         myLock->lock();
     }
-    delete myLogFile;
     myLogFile = 0;
     delete myMessageInstance;
     myMessageInstance = 0;
