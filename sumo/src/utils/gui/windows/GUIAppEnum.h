@@ -98,6 +98,7 @@ enum {
 
     /// Open a new microscopic view
     MID_NEW_MICROVIEW,
+    MID_NEW_OSGVIEW,
 #ifdef HAVE_MESOSIM
     /// Open a new mesoscopic view
     MID_NEW_MESOVIEW,
@@ -126,8 +127,6 @@ enum {
     MID_EDIT_ADD_WEIGHTS,
     /// Edit simulation breakpoints
     MID_EDIT_BREAKPOINTS,
-
-    MID_CONNECTIONS,
     //@}
 
 
@@ -143,62 +142,8 @@ enum {
     //@}
 
 
-    /// @name Image Menu Item - IDs
-    //@{
-
-    /// Street extraction - menu entry
-    MID_EXTRACT_STREETS,
-    /// Dilation - menu entry
-    MID_DILATION,
-    /// Erosion - menu entry
-    MID_EROSION,
-    /// Opening - menu entry
-    MID_OPENING,
-    /// Closing - menu entry
-    MID_CLOSING,
-    /// Close Gaps - menu entry
-    MID_CLOSE_GAPS,
-    /// Skeletonize - menu entry
-    MID_SKELETONIZE,
-    /// Rarify - menu entry
-    MID_RARIFY,
-    /// Rarify - menu entry
-    MID_ERASE_STAINS,
-    /// Create Graph - menu entry
-    MID_CREATE_GRAPH,
-    /// Opens a dialog window for image-filter configuration
-    MID_OPEN_BMP_DIALOG,
-    //@}
     // Clear simulation settings
     MID_CLEARMESSAGEWINDOW,
-
-
-    // Create drawing canvas for an image
-    ID_CANVAS,
-    // Clear the drawing canvas
-    ID_CLEAR,
-
-
-    /// @name Graph menu item - IDs
-    //@{
-
-    ///Show graph on empty bitmap - menu entry
-    MID_SHOW_GRAPH_ON_EMPTY_BITMAP,
-    ///Show graph on actual bitmap - menu entry
-    MID_SHOW_GRAPH_ON_ACTUAL_BITMAP,
-    ///Reduce vertexes - menu entry
-    MID_REDUCE_VERTEXES,
-    ///Reduce vertexes plus - menu entry
-    MID_REDUCE_VERTEXES_PLUS,
-    ///Reduce edges - menu entry
-    MID_REDUCE_EDGES,
-    ///Merge vertexes - menu entry
-    MID_MERGE_VERTEXES,
-    ///Export vertex XML -menu entry
-    MID_EXPORT_VERTEXES_XML,
-    ///Export edges XML - menu entry
-    MID_EXPORT_EDGES_XML,
-    //@}
 
 
     /// @name Common View Settings - IDs
@@ -224,12 +169,8 @@ enum {
     MID_EDITVIEWPORT,
     /// Open view editor - button
     MID_EDITVIEWSCHEME,
-    /// Show grid - button
-    MID_SHOWGRID,
     /// Show tool tips - button
     MID_SHOWTOOLTIPS,
-    /// Graph edit button
-    MID_EDIT_GRAPH,
     /// Make snapshot - button
     MID_MAKESNAPSHOT,
     //@}
@@ -248,10 +189,6 @@ enum {
 
     /// Change coloring scheme - combo
     MID_COLOURSCHEMECHANGE,
-    /// Change the aggregation time value - combo
-    MID_LANEAGGTIME,
-    /// The aggregation memory - dial
-    MID_LANEAGGRMEM,
     //@}
 
 
@@ -371,32 +308,6 @@ enum {
     //@}
 
 
-    MID_CLEARPREVIOUS,
-    MID_SUBMIT,
-    MID_PROBABILITY,
-    MID_LEVEL,
-    MID_PERIOD,
-    MID_TIME_SLIDER,
-
-
-    /// @name IDs for netedit
-    //@{
-
-    /// Import a network - menu entry
-    MID_IMPORT_NET,
-    /// Open a bitmap file - menu entry
-    MID_LOAD_IMAGE,
-    /// Write a loaded bitmap file - menu entry
-    MID_SAVE_IMAGE,
-    /// ID for the imageviewer
-    MID_MAP_IMAGEVIEWER,
-    /// Save generated edges and nodes - menu entry
-    MID_SAVE_EDGES_NODES,
-    /// Save generated SUMO-network - menu entry
-    MID_SAVE_NET,
-    //@}
-
-
     /// @name IDs for visualization settings - Dialog
     //@{
 
@@ -412,6 +323,10 @@ enum {
     MID_SIMPLE_VIEW_EXPORT,
     /// For the import-from-file - button
     MID_SIMPLE_VIEW_IMPORT,
+    /// For the load-decals - button
+    MID_SIMPLE_VIEW_LOAD_DECALS,
+    /// For the save-decals - button
+    MID_SIMPLE_VIEW_SAVE_DECALS,
     //@}
 
 
