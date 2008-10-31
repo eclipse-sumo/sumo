@@ -3,7 +3,7 @@ The subfolders contain additional libraries used by SUMO:
 - nvwa
  Memory checks library
  Used Version: 0.7
- Modifications: none, but see inclusion in src/utils/dev/
+ Modifications: none
  Original Page: http://sourceforge.net/projects/nvwa
 
 - Mersenne Twister Random Number Generator
@@ -14,6 +14,7 @@ The subfolders contain additional libraries used by SUMO:
 
 - tcpip
  Simple TCP/IP Socket Class to communicate with other programs
+ Used Version: always the most recent one (included via svn:externals)
  Modifications: none
  Original Page: http://shawn.sf.net
  
@@ -23,3 +24,8 @@ The subfolders contain additional libraries used by SUMO:
  Modifications: configs included; renamed float to SUMOReal; including our config
  Original Page: http://www.gameprogrammer.com/polyfonts/polyfonts.html
 
+- RTree
+ Improved tiling for the drawing area
+ Used version: unknown
+ Modifications: syntactic sugar for gcc compilation
+ Original Page: http://www.superliminal.com/sources/RTreeTemplate.zip
