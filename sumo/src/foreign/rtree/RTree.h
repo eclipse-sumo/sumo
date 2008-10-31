@@ -67,7 +67,7 @@ public:
   enum
   {
     MAXNODES = TMAXNODES,                         ///< Max elements in node
-    MINNODES = TMINNODES,                         ///< Min elements in node
+    MINNODES = TMINNODES                         ///< Min elements in node
   };
 
 
