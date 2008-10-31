@@ -588,7 +588,7 @@ bool RTREE_QUAL::Load(const char* a_fileName)
   stream.Close();
 
   return result;
-};
+}
 
 
 
