@@ -27,5 +27,5 @@ The subfolders contain additional libraries used by SUMO:
 - RTree
  Improved tiling for the drawing area
  Used version: unknown
- Modifications: syntactic sugar for gcc compilation
+ Modifications: syntactic sugar for gcc compilation; different footprint for "Search" due to a different callback
  Original Page: http://www.superliminal.com/sources/RTreeTemplate.zip
