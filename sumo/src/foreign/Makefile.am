@@ -3,7 +3,7 @@ MEMDIRS = nvwa
 endif
 
 if WITH_GUI
-GUIDIRS = polyfonts
+GUIDIRS = polyfonts rtree
 endif
 
 
