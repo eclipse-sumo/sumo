@@ -35,6 +35,7 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/foxtools/MFXMutex.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
 
 // ===========================================================================
@@ -122,6 +123,11 @@ public:
     long onCmdImportSetting(FXObject*,FXSelector,void*data);
     /// @brief Called when updating the button that allows to read settings from a file
     long onUpdImportSetting(FXObject*,FXSelector,void*data);
+
+    /// @brief Called if the decals shall be loaded from a file
+    long onCmdLoadDecals(FXObject*,FXSelector,void*data);
+    /// @brief Called if the decals shall be saved to a file
+    long onCmdSaveDecals(FXObject*,FXSelector,void*data);
     /// @}
 
 
@@ -165,6 +171,7 @@ protected:
     /** @brief Writes the current scheme into the registry */
     void writeSettings() throw();
 
+
     /** @brief Writes the current scheme into a file
      * @param[in] file The name of the file to write the settings into
      */
@@ -176,6 +183,36 @@ protected:
      */
     void loadSettings(const std::string &file) throw();
 
+
+    /** @brief Writes the currently used decals into a file
+     * @param[in] file The name of the file to write the decals into
+     */
+    void saveDecals(const std::string &file) throw();
+
+
+    /** @brief Loads decals from a file
+     * @param[in] file The name of the file to read the decals from
+     */
+    void loadDecals(const std::string &file) throw();
+
+
+    class SchemeLoader : public SUMOSAXHandler {
+    public:
+        SchemeLoader(GUIVisualizationSettings &s);
+        ~SchemeLoader();
+        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+    protected:
+        GUIVisualizationSettings &mySettings;
+    };
+
+    class DecalsLoader : public SUMOSAXHandler {
+    public:
+        DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals);
+        ~DecalsLoader();
+        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+    protected:
+        std::vector<GUISUMOAbstractView::Decal> &myDecals;
+    };
 
 private:
     /// @brief The parent view (which settings are changed)

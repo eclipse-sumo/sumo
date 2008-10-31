@@ -133,6 +133,19 @@ GenericSAXHandler::Tag sumotags[] = {
     { "nd",               SUMO_TAG_ND },
     { "tag",              SUMO_TAG_TAG },
 
+    { "decal", SUMO_TAG_VIEWSETTINGS_DECAL },
+    { "scheme", SUMO_TAG_VIEWSETTINGS_SCHEME },
+    { "opengl", SUMO_TAG_VIEWSETTINGS_OPENGL },
+    { "background", SUMO_TAG_VIEWSETTINGS_BACKGROUND },
+    { "edges", SUMO_TAG_VIEWSETTINGS_EDGES },
+    { "nlcC", SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM },
+    { "vehicles", SUMO_TAG_VIEWSETTINGS_VEHICLES },
+    { "nvcC", SUMO_TAG_VIEWSETTINGS_VEHICLE_COLOR_ITEM },
+    { "junctions", SUMO_TAG_VIEWSETTINGS_JUNCTIONS },
+    { "additionals", SUMO_TAG_VIEWSETTINGS_ADDITIONALS },
+    { "pois", SUMO_TAG_VIEWSETTINGS_POIS },
+    { "legend", SUMO_TAG_VIEWSETTINGS_LEGEND },
+
     { "",                 SUMO_TAG_NOTHING }
 };
 
