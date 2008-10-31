@@ -1,6 +1,6 @@
 <additional>
-    <trigger id="vss" objecttype="lane" objectid="1fi_0" attr="speed" file="input_definition.def.xml"/>
-    <trigger id="vss" objecttype="lane" objectid="2fi_0" attr="speed" file="input_definition.def.xml"/>
-    <trigger id="vss" objecttype="lane" objectid="3fi_0" attr="speed" file="input_definition.def.xml"/>
-    <trigger id="vss" objecttype="lane" objectid="4fi_0" attr="speed" file="input_definition.def.xml"/>
+    <variableSpeedSign id="vss" objectid="1fi_0" file="input_definition.def.xml"/>
+    <variableSpeedSign id="vss" objectid="2fi_0" file="input_definition.def.xml"/>
+    <variableSpeedSign id="vss" objectid="3fi_0" file="input_definition.def.xml"/>
+    <variableSpeedSign id="vss" objectid="4fi_0" file="input_definition.def.xml"/>
 </additional>
