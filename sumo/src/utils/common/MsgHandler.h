@@ -40,7 +40,7 @@
 // ===========================================================================
 class MsgRetriever;
 class AbstractMutex;
-class LogFile;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -189,7 +189,7 @@ private:
 
     /** Static storage for the logging file used
         A separate storage is needed to delete the log file at application closing */
-    static LogFile *myLogFile;
+    static OutputDevice *myLogFile;
 
     /** @brief The lock if any has to be used
         The lock will not be deleted */

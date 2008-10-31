@@ -33,6 +33,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <utils/common/MsgRetriever.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -63,7 +64,7 @@
  *
  * The Boolean markers are used rarely and might get removed in future versions.
  */
-class OutputDevice
+class OutputDevice : public MsgRetriever
 {
 public:
     /// @name static access methods to OutputDevices
@@ -219,6 +220,15 @@ public:
      */
     void setBoolMarker(const std::string &name, bool value) throw();
     //@}
+
+
+    /** @brief Retrieves a message to this device.
+     *
+     * Implementation of the MessageRetriever interface. Writes the given message to the output device.
+     *
+     * @param[in] msg The msg to write to the device
+     */
+    void inform(const std::string &msg);
 
 
     /** @brief Abstract output operator

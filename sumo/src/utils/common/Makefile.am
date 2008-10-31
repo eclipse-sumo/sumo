@@ -16,7 +16,6 @@ MsgHandler.h MsgHandler.cpp MsgRetriever.h \
 RGBColor.cpp RGBColor.h RandHelper.h RandHelper.cpp \
 SUMOTime.cpp SUMOTime.h \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
-LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
 ToString.h TplConvert.h TplConvertSec.h  \

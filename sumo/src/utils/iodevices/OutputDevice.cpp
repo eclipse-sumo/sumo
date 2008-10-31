@@ -230,6 +230,13 @@ OutputDevice::setBoolMarker(const std::string &name, bool value) throw()
 }
 
 
+void
+OutputDevice::inform(const std::string &msg)
+{
+    getOStream() << msg << '\n';
+    postWriteHook();
+}
+
 
 /****************************************************************************/
 

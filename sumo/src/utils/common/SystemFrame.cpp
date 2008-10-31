@@ -33,7 +33,6 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/LogFile.h>
 #include "RandHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS

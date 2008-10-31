@@ -36,7 +36,7 @@
 #include "MsgHandler.h"
 #include "MsgRetriever.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/common/LogFile.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include "AbstractMutex.h"
 
@@ -65,7 +65,7 @@ MsgHandler *MsgHandler::myErrorInstance = 0;
 MsgHandler *MsgHandler::myWarningInstance = 0;
 MsgHandler *MsgHandler::myMessageInstance = 0;
 bool MsgHandler::myAmProcessingProcess = false;
-LogFile *MsgHandler::myLogFile = 0;
+OutputDevice *MsgHandler::myLogFile = 0;
 AbstractMutex *MsgHandler::myLock = 0;
 
 
@@ -339,19 +339,19 @@ MsgHandler::report2cerr(bool value)
 void
 MsgHandler::initOutputOptions(bool gui)
 {
-    getMessageInstance()->report2cout(!gui && OptionsCont::getOptions().getBool("verbose"));
-    getWarningInstance()->report2cerr(!gui && !OptionsCont::getOptions().getBool("suppress-warnings"));
+    OptionsCont& oc = OptionsCont::getOptions();
+    getMessageInstance()->report2cout(!gui && oc.getBool("verbose"));
+    getWarningInstance()->report2cerr(!gui && !oc.getBool("suppress-warnings"));
     // build the logger if possible
-    if (OptionsCont::getOptions().isSet("log-file")) {
+    if (oc.isSet("log-file")) {
         try {
-            myLogFile =
-                new LogFile(OptionsCont::getOptions().getString("log-file"));
+            myLogFile = &OutputDevice::getDevice(oc.getString("log-file"));
             getErrorInstance()->addRetriever(myLogFile);
             getWarningInstance()->addRetriever(myLogFile);
             getMessageInstance()->addRetriever(myLogFile);
         } catch (IOError &) {
             myLogFile = 0;
-            throw ProcessError("Could not build logging file '" + OptionsCont::getOptions().getString("log-file") + "'");
+            throw ProcessError("Could not build logging file '" + oc.getString("log-file") + "'");
         }
     }
 }

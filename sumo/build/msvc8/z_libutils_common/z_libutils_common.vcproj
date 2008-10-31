@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="z_libutils_common"
 	ProjectGUID="{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}"
 	RootNamespace="z_libutils_common"
@@ -349,10 +349,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\LogFile.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\MsgHandler.cpp"
 				>
 			</File>
@@ -419,10 +415,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\InstancePool.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\LogFile.h"
 				>
 			</File>
 			<File
