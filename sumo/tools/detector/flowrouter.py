@@ -381,8 +381,8 @@ class Net:
             assert len(srcEdge.target.outEdges) == 1
             for edge in srcEdge.target.outEdges: pass
             srcFile = "src_" + edge.label + ".def.xml"
-            print >> emitOut, '    <trigger id="src_' + edge.label + '"',
-            print >> emitOut, 'objecttype="emitter" pos="0"',
+            print >> emitOut, '    <emitter id="src_' + edge.label + '"',
+            print >> emitOut, 'pos="0"',
             print >> emitOut, 'friendly_pos="x" objectid="' + edge.label + '_0"',
             print >> emitOut, 'file="' + srcFile + '"/>'
             srcOut = open(srcFile, 'w')

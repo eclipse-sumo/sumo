@@ -30,7 +30,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'route':
             self._routeID = attrs['id']
-        if name == 'trigger':
+        if name == 'trigger' or name == 'emitter':
             self._parser.parse(attrs['file'])
         if name == 'routedistelem':
             if not options.dfrstyle:
