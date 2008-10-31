@@ -314,7 +314,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bis >> dawdle;
         bis >> tau;
         bis >> vclass;
-        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, DEFAULT_VEH_PROB, DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV, (SUMOVehicleClass) vclass, RGBColor::DEFAULT_COLOR);
+        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, DEFAULT_VEH_PROB, DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV, (SUMOVehicleClass) vclass, DEFAULT_VEH_FOLLOW_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL, RGBColor::DEFAULT_COLOR);
         addVType(t);
     }
     MSRoute::dict_loadState(bis);
