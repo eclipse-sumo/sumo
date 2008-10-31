@@ -257,6 +257,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     // compute lane width
     SUMOReal lw = m2p(3.0) * scale;
     // draw
+    glPolygonOffset( 0, 3 );
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
         GUISUMOAbstractView::Decal &d = *l;
