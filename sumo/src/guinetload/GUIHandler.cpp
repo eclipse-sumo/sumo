@@ -51,7 +51,6 @@
 #include "GUIDetectorBuilder.h"
 #include "GUIHandler.h"
 #include <guisim/GUIVehicle.h>
-#include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 #include <microsim/MSGlobals.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>

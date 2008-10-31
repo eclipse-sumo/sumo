@@ -42,7 +42,6 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
 #include <microsim/MSVehicle.h>
-#include "GUIVehicleType.h"
 #include "GUIRoute.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>

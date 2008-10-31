@@ -45,7 +45,6 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 #include <utils/common/RandHelper.h>
 #include <microsim/MSAbstractLaneChangeModel.h>

@@ -34,7 +34,6 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
-#include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
