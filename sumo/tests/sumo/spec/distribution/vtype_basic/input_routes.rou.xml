@@ -1,0 +1,9 @@
+<routes>
+   <vtypeDistribution id="vt1">
+       <vtype id="v1"/>
+       <vtype id="v2"/>
+   </vtypeDistribution>
+   <vehicle id="1" depart="0" type="vt1">
+       <route edges="beg end"/>
+   </vehicle>
+</routes>

@@ -3,3 +3,6 @@ emission
 
 # tests for the arrival part of the specification
 arrival
+
+# Testing route and vehicle distributions
+distribution
