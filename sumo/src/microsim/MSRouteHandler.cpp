@@ -80,7 +80,8 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
         myRunningVehicleNumber(0),
         myIncrementalBase(incDUABase),
         myIncrementalStage(incDUAStage),
-        myCurrentVTypeDistribution(0)
+        myCurrentVTypeDistribution(0),
+        myCurrentRouteDistribution(0)
 {
     myActiveRoute.reserve(100);
 }
@@ -126,6 +127,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_ROUTE:
         openRoute(attrs);
+        break;
+    case SUMO_TAG_ROUTE_DISTRIBUTION:
+        openRouteDistribution(attrs);
         break;
     default:
         break;
@@ -238,13 +242,14 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 #ifdef HAVE_MESOSIM
                 if (!MSGlobals::gStateLoaded) {
 #endif
-                    throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
+                    throw ProcessError("Another vehicle type (or distribution) with the id '" + id + "' exists.");
 #ifdef HAVE_MESOSIM
                 }
 #endif
-            }
-            if (myCurrentVTypeDistribution != 0) {
-                myCurrentVTypeDistribution->add(vehType->getDefaultProbability(), vehType);
+            } else {
+                if (myCurrentVTypeDistribution != 0) {
+                    myCurrentVTypeDistribution->add(vehType->getDefaultProbability(), vehType);
+                }
             }
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
@@ -274,7 +279,7 @@ MSRouteHandler::closeVehicleTypeDistribution()
         }
         else if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
             delete myCurrentVTypeDistribution;
-            MsgHandler::getErrorInstance()->inform("Another vehicle type distribution with the id '" + myCurrentVTypeDistributionID + "' exists.");
+            MsgHandler::getErrorInstance()->inform("Another vehicle type (or distribution) with the id '" + myCurrentVTypeDistributionID + "' exists.");
         }
         myCurrentVTypeDistribution = 0;
     }
@@ -301,6 +306,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         addRouteElements(attrs.getString(SUMO_ATTR_EDGES));
     }
+    myActiveRouteProbability = attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB);
 }
 
 
@@ -352,6 +358,8 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         myVehicleParameter = 0;
     } else if (element == SUMO_TAG_VTYPE_DISTRIBUTION) {
         closeVehicleTypeDistribution();
+    } else if (element == SUMO_TAG_ROUTE_DISTRIBUTION) {
+        closeRouteDistribution();
     }
 }
 
@@ -381,11 +389,41 @@ MSRouteHandler::closeRoute() throw(ProcessError)
                     throw ProcessError("A vehicle with id '" + myVehicleParameter->id + "' already exists.");
                 }
             } else {
-                throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
+                throw ProcessError("Another route (or distribution) with the id '" + myActiveRouteID + "' exists.");
             }
 #ifdef HAVE_MESOSIM
         }
 #endif
+    } else {
+        if (myCurrentRouteDistribution != 0) {
+            myCurrentRouteDistribution->add(myActiveRouteProbability, route);
+        }
+    }
+}
+
+
+void
+MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs)
+{
+    if (attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
+        myCurrentRouteDistribution = new RandomDistributor<MSRoute*>();
+    }
+}
+
+
+void
+MSRouteHandler::closeRouteDistribution()
+{
+    if (myCurrentRouteDistribution != 0) {
+        if (myCurrentRouteDistribution->getOverallProb() == 0) {
+            delete myCurrentRouteDistribution;
+            MsgHandler::getErrorInstance()->inform("Route distribution '" + myCurrentRouteDistributionID + "' is empty.");
+        }
+        else if (!MSRoute::dictionary(myCurrentRouteDistributionID, myCurrentRouteDistribution)) {
+            delete myCurrentRouteDistribution;
+            MsgHandler::getErrorInstance()->inform("Another route (or distribution) with the id '" + myCurrentRouteDistributionID + "' exists.");
+        }
+        myCurrentRouteDistribution = 0;
     }
 }
 

@@ -53,6 +53,7 @@ using namespace std;
 // static member variables
 // ===========================================================================
 MSRoute::RouteDict MSRoute::myDict;
+MSRoute::RouteDistDict MSRoute::myDistDict;
 
 
 // ===========================================================================
@@ -98,10 +99,19 @@ MSRoute::getLastEdge() const
 bool
 MSRoute::dictionary(const string &id, MSRoute* route)
 {
-    RouteDict::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(RouteDict::value_type(id, route));
+    if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
+        myDict[id] = route;
+        return true;
+    }
+    return false;
+}
+
+
+bool
+MSRoute::dictionary(const string &id, RandomDistributor<MSRoute*>* routeDist)
+{
+    if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
+        myDistDict[id] = routeDist;
         return true;
     }
     return false;
@@ -113,8 +123,11 @@ MSRoute::dictionary(const string &id)
 {
     RouteDict::iterator it = myDict.find(id);
     if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
+        RouteDistDict::iterator it2 = myDistDict.find(id);
+        if (it2 == myDistDict.end()) {
+            return 0;
+        }
+        return it2->second->get();
     }
     return it->second;
 }

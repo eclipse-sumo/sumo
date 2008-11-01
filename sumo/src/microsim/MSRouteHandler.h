@@ -109,7 +109,7 @@ protected:
     /** parses an occured vehicle type definition */
     void addVehicleType(const SUMOSAXAttributes &attrs);
 
-    /** opens a route for reading */
+    /** opens a type distribution for reading */
     void openVehicleTypeDistribution(const SUMOSAXAttributes &attrs);
 
     /** closes (ends) the building of a distribution */
@@ -127,6 +127,12 @@ protected:
 
     /** reads the route elements */
     void addRouteElements(const std::string &chars);
+
+    /** opens a route distribution for reading */
+    void openRouteDistribution(const SUMOSAXAttributes &attrs);
+
+    /** closes (ends) the building of a distribution */
+    void closeRouteDistribution();
 
     /// Ends the processing of a vehicle
     virtual bool closeVehicle() throw(ProcessError);
@@ -150,6 +156,9 @@ protected:
     /// the id of the current route
     std::string myActiveRouteID;
 
+    /// the id of the current route
+    SUMOReal myActiveRouteProbability;
+
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */
     bool myAddVehiclesDirectly;
@@ -162,6 +171,12 @@ protected:
 
     /// @brief The id of the currently parsed vehicle type distribution
     std::string myCurrentVTypeDistributionID;
+
+    /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
+    RandomDistributor<MSRoute*> *myCurrentRouteDistribution;
+
+    /// @brief The id of the currently parsed vehicle type distribution
+    std::string myCurrentRouteDistributionID;
 
     /// Information whether not all vehicle shall be emitted due to inc-dua
     bool myAmUsingIncrementalDUA;

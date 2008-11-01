@@ -126,6 +126,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "state-interval",   SUMO_TAG_STATE_INTERVAL },
     { "route-dist",       SUMO_TAG_ROUTE_DIST },
     { "vtype-dist",       SUMO_TAG_VTYPE_DIST },
+    { "routeDistribution", SUMO_TAG_ROUTE_DISTRIBUTION },
     { "vtypeDistribution", SUMO_TAG_VTYPE_DISTRIBUTION },
     { "vaporizer",        SUMO_TAG_VAPORIZER },
 

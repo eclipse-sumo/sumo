@@ -34,6 +34,7 @@
 #include <map>
 #include <vector>
 #include <utils/common/Named.h>
+#include <utils/common/RandomDistributor.h>
 
 
 // ===========================================================================
@@ -135,8 +136,12 @@ public:
         Returns true if the route could be added, fals if a route with the same name already exists */
     static bool dictionary(const std::string &id, MSRoute *route);
 
-    /** @brief Returns the named route
-        Returns 0 if no route with the given name exitsts */
+    /** @brief Adds a route distribution to the dictionary
+        Returns true if the route could be added, fals if a route with the same name already exists */
+    static bool dictionary(const std::string &id, RandomDistributor<MSRoute*> *routeDist);
+
+    /** @brief Returns the named route or a sample from the named distribution
+        Returns 0 if no route (distribution) with the given name exitsts */
     static MSRoute *dictionary(const std::string &id);
 
     /// Clears the dictionary (delete all known routes, too)
@@ -162,6 +167,12 @@ private:
 
     /// The dictionary container
     static RouteDict myDict;
+
+    /// Definition of the dictionary container
+    typedef std::map<std::string, RandomDistributor<MSRoute*>*> RouteDistDict;
+
+    /// The dictionary container
+    static RouteDistDict myDistDict;
 
 };
 
