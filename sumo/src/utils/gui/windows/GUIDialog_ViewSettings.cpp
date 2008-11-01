@@ -98,7 +98,7 @@ GUIDialog_ViewSettings::DecalsLoader::DecalsLoader(std::vector<GUISUMOAbstractVi
 }
 
 
-GUIDialog_ViewSettings::DecalsLoader::~DecalsLoader()
+GUIDialog_ViewSettings::DecalsLoader::~DecalsLoader() throw ()
 {
 }
 
@@ -131,7 +131,7 @@ GUIDialog_ViewSettings::SchemeLoader::SchemeLoader(GUIVisualizationSettings &s)
 }
 
 
-GUIDialog_ViewSettings::SchemeLoader::~SchemeLoader()
+GUIDialog_ViewSettings::SchemeLoader::~SchemeLoader() throw ()
 {
 }
 

@@ -199,7 +199,7 @@ protected:
     class SchemeLoader : public SUMOSAXHandler {
     public:
         SchemeLoader(GUIVisualizationSettings &s);
-        ~SchemeLoader();
+        ~SchemeLoader() throw ();
         void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
     protected:
         GUIVisualizationSettings &mySettings;
@@ -208,7 +208,7 @@ protected:
     class DecalsLoader : public SUMOSAXHandler {
     public:
         DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals);
-        ~DecalsLoader();
+        ~DecalsLoader() throw ();
         void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
     protected:
         std::vector<GUISUMOAbstractView::Decal> &myDecals;
