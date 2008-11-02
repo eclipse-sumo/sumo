@@ -170,6 +170,7 @@ routes.close()
 
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 bat = open("%s.bat" % PREFIX, "w")
+breakbat = open("%s_break.bat" % PREFIX, "w")
 for period in range(5, 50, 5):
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
     print >> routes, "<routes>"
@@ -195,6 +196,7 @@ for period in range(5, 50, 5):
     </c>""" % (PREFIX, PREFIX, PREFIX, period, PORT)
     config.close()
     print >> bat, "simpleManager.py -d %s" % period
+    print >> breakbat, "simpleManager.py -b 120 -d %s" % period
     
     config = open("%s%02i_cyber.sumo.cfg" % (PREFIX, period), "w")
     print >> config, """<c>
@@ -207,4 +209,6 @@ for period in range(5, 50, 5):
     </c>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PORT)
     config.close()
     print >> bat, "agentManager.py -c -d %s" % period
+    print >> breakbat, "agentManager.py -c -b 120 -d %s" % period
 bat.close()
+breakbat.close()

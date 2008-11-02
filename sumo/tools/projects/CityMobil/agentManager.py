@@ -52,9 +52,12 @@ class CyberAgent:
         self.costMatrix = {}
         self.totalEstimatedCost = 0
         self.position = None
+        self.broken = False
         
     def request(self, person, source, target):
-        if (source, target) in self.costMatrix:
+        if self.broken:
+            estCost = INFINITY
+        elif (source, target) in self.costMatrix:
             estCost = self.costMatrix[(source, target)]
         else:
             estCost = 2 * DOUBLE_ROWS * ROW_DIST / CYBER_SPEED
@@ -69,6 +72,7 @@ class CyberAgent:
 
     def reject(self, person):
         del self.pending[person]
+                    
 
     def _findNextTarget(self, wait):
         minTarget = "z"
@@ -102,6 +106,7 @@ class CyberAgent:
 
     def setPosition(self, edge):
         self.position = edge
+        self.broken = False
 
     def checkBoarding(self):
         step = vehicleControl.getStep()
@@ -132,6 +137,13 @@ class CyberAgent:
             self.tasks = tasks
         self._findNextTarget(wait)
 
+    def reallocateTasks(self, cybers):
+        self.broken = True
+        tasks = self.tasks
+        self.tasks = []
+        for task in tasks:
+            task.person.startRequest(task.source, task.target, cybers)
+
 class AgentManager(vehicleControl.Manager):
 
     def __init__(self):
@@ -154,9 +166,13 @@ class AgentManager(vehicleControl.Manager):
             self.cyberCars.append(cyberCar)
         cyberCar.setPosition(edge)
 
+    def cyberCarBroken(self, vehicleID, edge):
+        self.agents[vehicleID].reallocateTasks(self.cyberCars)
+
     def setNewTargets(self):
         for car in self.cyberCars:
-            car.checkBoarding()
+            if not car.broken:
+                car.checkBoarding()
 
 
 if __name__ == "__main__":

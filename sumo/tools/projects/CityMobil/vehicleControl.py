@@ -9,7 +9,7 @@ Control the CityMobil parking lot via TraCI.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import subprocess, random
+import subprocess, random, sys
 from optparse import OptionParser
 
 import statistics
@@ -21,6 +21,8 @@ class Manager:
         raise NotImplementedError
     def cyberCarArrived(self, vehicleID, edge):
         raise NotImplementedError
+    def cyberCarBroken(self, vehicleID, edge):
+        pass
     def setNewTargets(self):
         pass
 
@@ -33,6 +35,7 @@ class Status:
         self.target = None
         self.targetPos = None
         self.slot = None
+        self.delay = None
 
 class Setting:
     step = 0
@@ -56,6 +59,8 @@ def init(manager):
                          default=False, help="use small cybercars instead of big busses")
     optParser.add_option("-d", "--demand", type="int", dest="demand",
                          default=15, help="period with which the persons are emitted")
+    optParser.add_option("-b", "--break", type="int", dest="breakstep", metavar="TIMESTEP",
+                         help="let a vehicle break for %s seconds at TIMESTEP" % BREAK_DELAY)
     (options, args) = optParser.parse_args()
     sumoExe = SUMO
     if options.gui:
@@ -63,11 +68,12 @@ def init(manager):
     sumoConfig = "%s%02i.sumo.cfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumo.cfg" % (PREFIX, options.demand)
-    sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True)
+    sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
     initTraCI(PORT)
     setting.manager = manager
     setting.verbose = options.verbose
     setting.cyber = options.cyber
+    setting.breakstep = options.breakstep
     try:
         while setting.step < 100 or statistics.personsRunning > 0:
             doStep()
@@ -138,7 +144,7 @@ def _checkInitialPositions(vehicleID, edge, pos):
         if edge == "mainin":
             _rerouteCar(vehicleID)
         elif edge == "cyberin":
-            stopAt(vehicleID, "cyber0to1")
+            stopAt(vehicleID, "cyberin")
         elif edge == "footfairin":
             stopAt(vehicleID, "footmainout")
         elif "foot" in edge:
@@ -160,9 +166,10 @@ def doStep():
     moveNodes = simStep(setting.step)
     for vehicleID, edge, pos in moveNodes:
         _checkInitialPositions(vehicleID, edge, pos)
-        if edge == vehicleStatus[vehicleID].target and not vehicleStatus[vehicleID].parking:
+        vehicle = vehicleStatus[vehicleID]
+        if edge == vehicle.target and not vehicle.parking:
             if edge.startswith("footmain"):
-                vehicleStatus[vehicleID].parking = True
+                vehicle.parking = True
                 target = "footmainout"
                 if edge == "footmainout":
                     row = random.randrange(0, DOUBLE_ROWS)
@@ -170,8 +177,17 @@ def doStep():
                 statistics.personArrived(vehicleID, edge, target, setting.step)
                 setting.manager.personArrived(vehicleID, edge, target)
             if edge.startswith("cyber"):
-                if setting.verbose:
-                    print "arrived", vehicleID, edge
-                vehicleStatus[vehicleID].parking = True
-                setting.manager.cyberCarArrived(vehicleID, edge)
+                if vehicle.delay:
+                    vehicle.delay -= 1
+                elif setting.breakstep and setting.step >= setting.breakstep and edge != "cyberin":
+                    if setting.verbose:
+                        print "broken", vehicleID, edge
+                    setting.breakstep = None
+                    setting.manager.cyberCarBroken(vehicleID, edge)
+                    vehicle.delay = BREAK_DELAY
+                else:
+                    if setting.verbose:
+                        print "arrived", vehicleID, edge
+                    vehicle.parking = True
+                    setting.manager.cyberCarArrived(vehicleID, edge)
     setting.manager.setNewTargets()
