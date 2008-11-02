@@ -9,7 +9,6 @@ GUIManipulator.h GUIManipulator.cpp \
 GUILoadThread.cpp GUILoadThread.h \
 GUIRunThread.cpp GUIRunThread.h \
 GUISUMOViewParent.cpp GUISUMOViewParent.h \
-GUIThreadFactory.cpp GUIThreadFactory.h \
 GUIViewTraffic.cpp GUIViewTraffic.h
 
 SUBDIRS = dialogs
