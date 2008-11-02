@@ -72,11 +72,11 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
         mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
-            &GUIRunThread::retrieveError);
+            &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
-            &GUIRunThread::retrieveMessage);
+            &GUIRunThread::retrieveMessage, MsgHandler::MT_MESSAGE);
     myWarningRetreiver = new MsgRetrievingFunction<GUIRunThread>(this,
-            &GUIRunThread::retrieveWarning);
+            &GUIRunThread::retrieveMessage, MsgHandler::MT_WARNING);
 }
 
 
@@ -336,36 +336,12 @@ GUIRunThread::prepareDestruction()
 
 
 void
-GUIRunThread::retrieveMessage(const std::string &msg)
+GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg)
 {
     if (!mySimulationInProgress) {
         return;
     }
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_MESSAGE, msg);
-    myEventQue.add(e);
-    myEventThrow.signal();
-}
-
-
-void
-GUIRunThread::retrieveWarning(const std::string &msg)
-{
-    if (!mySimulationInProgress) {
-        return;
-    }
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_WARNING, msg);
-    myEventQue.add(e);
-    myEventThrow.signal();
-}
-
-
-void
-GUIRunThread::retrieveError(const std::string &msg)
-{
-    if (!mySimulationInProgress) {
-        return;
-    }
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_ERROR, msg);
+    GUIEvent *e = new GUIEvent_Message(type, msg);
     myEventQue.add(e);
     myEventThrow.signal();
 }

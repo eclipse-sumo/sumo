@@ -38,7 +38,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MsgRetriever;
 class AbstractMutex;
 class OutputDevice;
 
@@ -112,10 +111,10 @@ public:
     void clear();
 
     /// Adds a further retriever to the instance responsible for a certain msg type
-    void addRetriever(MsgRetriever *retriever);
+    void addRetriever(OutputDevice *retriever);
 
     /// Removes the retriever from the
-    void removeRetriever(MsgRetriever *retriever);
+    void removeRetriever(OutputDevice *retriever);
 
     /// Sets the information whether stdout shall be used as output device
     void report2cout(bool value);
@@ -130,21 +129,24 @@ public:
         The lock will not be deleted */
     static void assignLock(AbstractMutex *lock);
 
-    /** @brief Abstract output operator
+    /** @brief Generic output operator
      * @return The MsgHandler for further processing
      */
     template <class T>
     MsgHandler &operator<<(const T &t) {
-        inform(toString<T>(t));
+        if (myReport2COUT) {
+            cout << t;
+        }
+        // report to cerr if wished
+        if (myReport2CERR) {
+            cerr << t;
+        }
+        // inform all other receivers
+        for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
+            (*(*i)) << t;
+        }
         return *this;
     }
-/*
-    template <>
-    MsgHandler &operator<<(const std::string &t) {
-        inform(t);
-        return *this;
-    }
-*/
 
 protected:
     /// Builds the string which includes the mml-message type
@@ -209,7 +211,7 @@ private:
     bool myReport2CERR;
 
     /// Definition of the list of retrievers to inform
-    typedef std::vector<MsgRetriever*> RetrieverVector;
+    typedef std::vector<OutputDevice*> RetrieverVector;
 
     /// The list of retrievers that shall be informed about new messages or errors
     RetrieverVector myRetrievers;
@@ -230,7 +232,7 @@ private:
 #define WRITE_WARNING(command) if(!gSuppressWarnings) { MsgHandler::getWarningInstance()->inform(command); }
 #define WRITE_MESSAGE(command) if(!gSuppressMessages) { MsgHandler::getMessageInstance()->inform(command); }
 #define WRITE_ERROR(command)   MsgHandler::getErrorInstance()->inform(command);
-
+#define MSG_OUT (*MsgHandler::getMessageInstance())
 
 #endif
 

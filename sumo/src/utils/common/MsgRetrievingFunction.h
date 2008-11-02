@@ -31,7 +31,8 @@
 #endif
 
 #include <string>
-#include "MsgRetriever.h"
+#include <utils/iodevices/OutputDevice.h>
+#include "MsgHandler.h"
 
 
 // ===========================================================================
@@ -44,11 +45,11 @@
  * You may find an example for this class' usage in GUIRunThread.
  */
 template< class T >
-class MsgRetrievingFunction : public MsgRetriever
+class MsgRetrievingFunction : public OutputDevice
 {
 public:
     /// @brief Type of the function to execute.
-    typedef void(T::* Operation)(const std::string &);
+    typedef void(T::* Operation)(const MsgHandler::MsgType, const std::string &);
 
 
     /** @brief Constructor
@@ -56,24 +57,40 @@ public:
      * @param[in] object The object to call the method of
      * @param[in] operation The method to call
      */
-    MsgRetrievingFunction(T* object, Operation operation) :
+    MsgRetrievingFunction(T* object, Operation operation, MsgHandler::MsgType type) :
             myObject(object),
-            myOperation(operation) {}
+            myOperation(operation),
+            myMsgType(type) {}
 
 
     /// @brief Destructor.
     ~MsgRetrievingFunction() {}
 
 
-    /** @brief Called to inform the object about a new message
+protected:
+    /// @name Methods that override/implement OutputDevice-methods
+    /// @{
+
+    /** @brief Returns the associated ostream
      *
-     * @param[in] msg The message to process
-     * @see MsgRetriever::inform
+     * The stream is an ostringstream, actually, into which the message
+     *  is written. It is sent when postWriteHook is called.
+     *
+     * @return The used stream
+     * @see postWriteHook
      */
-    void inform(const std::string &msg) {
-        (myObject->*myOperation)(msg);
+    std::ostream &getOStream() throw() {
+        return myMessage;
     }
 
+
+    /** @brief Sends the data which was written to the string stream via the retrieving function.
+     */
+    virtual void postWriteHook() throw() {
+        (myObject->*myOperation)(myMsgType, myMessage.str());
+        myMessage.str("");
+    }
+    /// @}
 
 private:
     /// @brief The object the action is directed to.
@@ -82,7 +99,11 @@ private:
     /// @brief The object's operation to perform.
     Operation myOperation;
 
+    /// @brief The type of message to retrieve.
+    MsgHandler::MsgType myMsgType;
 
+    /// @brief message buffer
+    std::ostringstream myMessage;
 };
 
 

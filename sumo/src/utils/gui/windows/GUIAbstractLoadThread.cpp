@@ -33,7 +33,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/common/MsgRetrievingFunction.h>
 #include "GUIAbstractLoadThread.h"
@@ -66,11 +65,11 @@ GUIAbstractLoadThread::GUIAbstractLoadThread(MFXInterThreadEventClient *mw,
         myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIAbstractLoadThread>(this,
-            &GUIAbstractLoadThread::retrieveError);
+            &GUIAbstractLoadThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIAbstractLoadThread>(this,
-            &GUIAbstractLoadThread::retrieveMessage);
+            &GUIAbstractLoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
     myWarningRetreiver = new MsgRetrievingFunction<GUIAbstractLoadThread>(this,
-            &GUIAbstractLoadThread::retrieveWarning);
+            &GUIAbstractLoadThread::retrieveMessage, MsgHandler::MT_WARNING);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
 }
 
@@ -94,27 +93,9 @@ GUIAbstractLoadThread::load(const std::string &file,
 
 
 void
-GUIAbstractLoadThread::retrieveMessage(const std::string &msg)
+GUIAbstractLoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg)
 {
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_MESSAGE, msg);
-    myEventQue.add(e);
-    myEventThrow.signal();
-}
-
-
-void
-GUIAbstractLoadThread::retrieveWarning(const std::string &msg)
-{
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_WARNING, msg);
-    myEventQue.add(e);
-    myEventThrow.signal();
-}
-
-
-void
-GUIAbstractLoadThread::retrieveError(const std::string &msg)
-{
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_ERROR, msg);
+    GUIEvent *e = new GUIEvent_Message(type, msg);
     myEventQue.add(e);
     myEventThrow.signal();
 }

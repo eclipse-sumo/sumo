@@ -33,7 +33,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/common/MsgRetriever.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -64,7 +63,7 @@
  *
  * The Boolean markers are used rarely and might get removed in future versions.
  */
-class OutputDevice : public MsgRetriever
+class OutputDevice
 {
 public:
     /// @name static access methods to OutputDevices

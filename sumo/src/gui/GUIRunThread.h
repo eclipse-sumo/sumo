@@ -47,7 +47,7 @@
 // ===========================================================================
 class GUINet;
 class GUIApplicationWindow;
-class MsgRetriever;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -110,13 +110,7 @@ public:
     void prepareDestruction();
 
     /// Retrieves messages from the loading module
-    void retrieveMessage(const std::string &msg);
-
-    /// Retrieves warnings from the loading module
-    void retrieveWarning(const std::string &msg);
-
-    /// Retrieves error from the loading module
-    void retrieveError(const std::string &msg);
+    void retrieveMessage(const MsgHandler::MsgType type, const std::string &msg);
 
 protected:
     void makeStep();
@@ -150,7 +144,7 @@ protected:
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
-    MsgRetriever *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
+    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
 
     FXRealSpinDial &mySimDelay;
 

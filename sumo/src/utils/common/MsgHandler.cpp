@@ -34,7 +34,6 @@
 #include <algorithm>
 #include <iostream>
 #include "MsgHandler.h"
-#include "MsgRetriever.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -245,7 +244,7 @@ MsgHandler::clear()
 
 
 void
-MsgHandler::addRetriever(MsgRetriever *retriever)
+MsgHandler::addRetriever(OutputDevice *retriever)
 {
     if (myLock!=0) {
         myLock->lock();
@@ -270,7 +269,7 @@ MsgHandler::addRetriever(MsgRetriever *retriever)
 
 
 void
-MsgHandler::removeRetriever(MsgRetriever *retriever)
+MsgHandler::removeRetriever(OutputDevice *retriever)
 {
     if (myLock!=0) {
         myLock->lock();

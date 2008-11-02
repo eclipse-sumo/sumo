@@ -36,13 +36,14 @@
 #include <FXThread.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/FXThreadEvent.h>
+#include <utils/common/MsgHandler.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUIMainWindow;
-class MsgRetriever;
+class OutputDevice;
 class MFXEventQue;
 class GUIEdgeControlBuilder;
 class NLEdgeControlBuilder;
@@ -74,13 +75,7 @@ public:
     virtual FXint run() = 0;
 
     /// Retrieves messages from the loading module
-    void retrieveMessage(const std::string &msg);
-
-    /// Retrieves warnings from the loading module
-    void retrieveWarning(const std::string &msg);
-
-    /// Retrieves error from the loading module
-    void retrieveError(const std::string &msg);
+    void retrieveMessage(const MsgHandler::MsgType type, const std::string &msg);
 
     const std::string &getFileName() const;
 
@@ -93,7 +88,7 @@ protected:
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
-    MsgRetriever *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
+    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
 
     MFXEventQue &myEventQue;
 

@@ -50,7 +50,6 @@
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
-#include <gui/GUIThreadFactory.h>
 #include <guisim/GUIEdge.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/gui/div/GUIFrame.h>
@@ -447,11 +446,10 @@ main(int argc, char **argv)
         bool runAfterLoad = !oc.getBool("no-start");
 
         // build the main window
-        GUIThreadFactory tf;
         GUIApplicationWindow * window =
             new GUIApplicationWindow(&application,
                                      oc.getInt("w"), oc.getInt("h"), "*.sumo.cfg");
-        window->dependentBuild(tf);
+        window->dependentBuild();
         gGradients = new GUIGradientStorage(window);
         initColoringSchemes(&application);
         // delete startup-options

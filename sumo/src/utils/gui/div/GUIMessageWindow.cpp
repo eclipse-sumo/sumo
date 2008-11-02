@@ -123,10 +123,8 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg) throw()
     default:
         assert(false);
     }
-    // continue message building
-    std::string mmsg = msg + "\n";
     // insert message to buffer
-    FXText::appendStyledText(mmsg.c_str(), (FXint) mmsg.length(), style+1, true);
+    FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), style+1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
     if (isEnabled()) {

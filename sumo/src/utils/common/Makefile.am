@@ -12,7 +12,7 @@ FloatValueTimeLine.h InstancePool.h \
 IDSupplier.h IDSupplier.cpp \
 Named.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.h \
-MsgHandler.h MsgHandler.cpp MsgRetriever.h \
+MsgHandler.h MsgHandler.cpp \
 RGBColor.cpp RGBColor.h RandHelper.h RandHelper.cpp \
 SUMOTime.cpp SUMOTime.h \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \

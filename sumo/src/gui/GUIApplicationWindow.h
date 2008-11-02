@@ -54,7 +54,6 @@ class GUIMessageWindow;
 class GUIEvent;
 class GUIParameterTracker;
 class GUIParameterTableWindow;
-class GUIThreadFactory;
 
 
 // ===========================================================================
@@ -99,7 +98,7 @@ public:
     void loadOnStartup(const std::string &config, bool run);
 
 
-    void dependentBuild(GUIThreadFactory &threadFactory);
+    void dependentBuild();
 
     void setStatusBarText(const std::string &);
 

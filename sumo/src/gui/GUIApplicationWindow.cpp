@@ -68,7 +68,6 @@
 #include "dialogs/GUIDialog_SimSettings.h"
 #include "dialogs/GUIDialog_EditAddWeights.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
-#include "GUIThreadFactory.h"
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
@@ -164,7 +163,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
 
 
 void
-GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
+GUIApplicationWindow::dependentBuild()
 {
     // do this not twice
     if (hadDependentBuild) {
@@ -222,8 +221,8 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
     // fill menu and tool bar
     fillMenuBar();
     // build additional threads
-    myLoadThread = threadFactory.buildLoadThread(this, myEvents, myLoadThreadEvent);
-    myRunThread = threadFactory.buildRunThread(this, *mySimDelayTarget, myEvents,
+    myLoadThread = new GUILoadThread(this, myEvents, myLoadThreadEvent);
+    myRunThread = new GUIRunThread(this, *mySimDelayTarget, myEvents,
                   myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
