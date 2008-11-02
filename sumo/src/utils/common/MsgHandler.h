@@ -32,7 +32,7 @@
 
 #include <string>
 #include <vector>
-#include "ToString.h"
+#include <iostream>
 
 
 // ===========================================================================
@@ -135,11 +135,11 @@ public:
     template <class T>
     MsgHandler &operator<<(const T &t) {
         if (myReport2COUT) {
-            cout << t;
+            std::cout << t;
         }
         // report to cerr if wished
         if (myReport2CERR) {
-            cerr << t;
+            std::cerr << t;
         }
         // inform all other receivers
         for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
