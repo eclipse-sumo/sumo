@@ -20,7 +20,7 @@ build-stamp:
 	dh_testdir
 
 	# Add here commands to compile the package.
-	./configure
+	./configure --prefix=/usr
 	make all
 	# --- end custom part for compiling
 
@@ -32,7 +32,7 @@ clean:
 	rm -f build-stamp
 
 	# Add here commands to clean up after the build process.
-	make clean
+#	make clean
 	# --- end custom part for cleaning up
 
 	dh_clean

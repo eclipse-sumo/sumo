@@ -11,8 +11,11 @@ Source0:        %{name}-%{version}.tar.bz2
 License:        GPL v2.1 or later
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires: gcc-c++ libproj-devel libgdal-devel Xerces-c-devel fox14-devel xorg-x11-devel xorg-x11-Mesa-devel fop
-Requires:      libproj libgdal Xerces-c fox14
+BuildRequires:  gcc-c++ libproj-devel libgdal-devel Xerces-c-devel fox14-devel xorg-x11-devel xorg-x11-Mesa-devel
+%if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version}
+BuildRequires:  libGLU-devel
+%endif
+Autoreqprov: on
 
 %description
 "Simulation of Urban MObility" (SUMO) is an open source,
