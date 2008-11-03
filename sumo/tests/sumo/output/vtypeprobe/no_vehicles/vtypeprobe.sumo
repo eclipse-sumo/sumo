@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/25/08 09:52:53 by SUMO sumo Version 0.9.7
+<!-- generated on 11/03/08 13:58:09 by SUMO sumo Version dev-SVN-r6273
 <configuration>
 
    <input>
@@ -23,24 +23,24 @@
 -->
 
 <vehicle-type-probes>
-    <timestep time="0" id="test1" vtype="t1">
+    <timestep time="0" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="10" id="test1" vtype="t1">
+    <timestep time="10" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="20" id="test1" vtype="t1">
+    <timestep time="20" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="30" id="test1" vtype="t1">
+    <timestep time="30" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="40" id="test1" vtype="t1">
+    <timestep time="40" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="50" id="test1" vtype="t1">
+    <timestep time="50" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="60" id="test1" vtype="t1">
+    <timestep time="60" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="70" id="test1" vtype="t1">
+    <timestep time="70" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="80" id="test1" vtype="t1">
+    <timestep time="80" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="90" id="test1" vtype="t1">
+    <timestep time="90" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
 </vehicle-type-probes>
