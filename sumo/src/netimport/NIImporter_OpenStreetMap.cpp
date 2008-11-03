@@ -79,9 +79,9 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
     addTypeSecure(tc, "highway", "motorway_link", 1, (SUMOReal) 80., 12, SVC_UNKNOWN, true);
     addTypeSecure(tc, "highway", "trunk", 2, (SUMOReal) 100., 11); // !!! 130km/h?
     addTypeSecure(tc, "highway", "trunk_link", 1, (SUMOReal) 80., 10);
-    addTypeSecure(tc, "highway", "primary ", 2, (SUMOReal) 100., 9);
+    addTypeSecure(tc, "highway", "primary", 2, (SUMOReal) 100., 9);
     addTypeSecure(tc, "highway", "primary_link", 1, (SUMOReal) 80., 8);
-    addTypeSecure(tc, "highway", "secondary ", 2, (SUMOReal) 100., 7);
+    addTypeSecure(tc, "highway", "secondary", 2, (SUMOReal) 100., 7);
     addTypeSecure(tc, "highway", "tertiary", 1, (SUMOReal) 80., 6);
     addTypeSecure(tc, "highway", "unclassified", 1, (SUMOReal) 80., 5);
     addTypeSecure(tc, "highway", "residential", 2, (SUMOReal) 50., 4);
