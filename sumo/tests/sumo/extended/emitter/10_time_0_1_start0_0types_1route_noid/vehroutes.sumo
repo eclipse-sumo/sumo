@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/18/08 08:44:34 by SUMO sumo Version 0.9.7
+<!-- generated on 11/03/08 14:41:45 by SUMO sumo Version dev-SVN-r6273
 <configuration>
 
    <input>
@@ -22,43 +22,43 @@
 -->
 
 <routes>
-   <vehicle id="emitter_0_0" depart="0" arrival="76">
+   <vehicle id="emitter_0_0" depart="0" arrival="74">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_1_1" depart="2" arrival="79">
+   <vehicle id="emitter_1_1" depart="2" arrival="76">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_2_2" depart="4" arrival="81">
+   <vehicle id="emitter_2_2" depart="4" arrival="78">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_3_3" depart="7" arrival="83">
+   <vehicle id="emitter_3_3" depart="6" arrival="80">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_4_4" depart="9" arrival="87">
+   <vehicle id="emitter_4_4" depart="8" arrival="82">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_5_5" depart="12" arrival="90">
+   <vehicle id="emitter_5_5" depart="10" arrival="84">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_6_6" depart="16" arrival="93">
+   <vehicle id="emitter_6_6" depart="12" arrival="86">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_7_7" depart="18" arrival="95">
+   <vehicle id="emitter_7_7" depart="14" arrival="88">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_8_8" depart="21" arrival="97">
+   <vehicle id="emitter_8_8" depart="16" arrival="90">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_9_9" depart="23" arrival="99">
+   <vehicle id="emitter_9_9" depart="18" arrival="92">
       <route>beg middle end rend</route>
    </vehicle>
 

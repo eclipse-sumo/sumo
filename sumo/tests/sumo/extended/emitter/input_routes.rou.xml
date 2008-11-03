@@ -1,4 +1,4 @@
 <routes>
    <route id="0" multi_ref="x">beg middle end rend</route>
-   <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
+   <vtype id="DEFAULT_VEHTYPE" sigma="0" maxspeed="70" color="1,1,0"/>
 </routes>

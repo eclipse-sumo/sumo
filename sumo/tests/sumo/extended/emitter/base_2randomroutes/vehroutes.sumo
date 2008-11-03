@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/18/08 08:44:35 by SUMO sumo Version 0.9.7
+<!-- generated on 11/03/08 14:45:45 by SUMO sumo Version dev-SVN-r6273
 <configuration>
 
    <input>
@@ -21,43 +21,43 @@
 -->
 
 <routes>
-   <vehicle id="emitter_0_0" depart="0" arrival="76">
+   <vehicle id="emitter_4_4" depart="8" arrival="83">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_5_5" depart="12" arrival="91">
+   <vehicle id="emitter_8_8" depart="16" arrival="91">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_8_8" depart="21" arrival="99">
+   <vehicle id="emitter_9_9" depart="18" arrival="93">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_9_9" depart="23" arrival="100">
-      <route>beg middle end rend</route>
-   </vehicle>
-
-   <vehicle id="emitter_1_1" depart="2" arrival="200">
+   <vehicle id="emitter_0_0" depart="0" arrival="184">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_2_2" depart="4" arrival="204">
+   <vehicle id="emitter_1_1" depart="2" arrival="188">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_3_3" depart="7" arrival="207">
+   <vehicle id="emitter_2_2" depart="4" arrival="191">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_4_4" depart="9" arrival="209">
+   <vehicle id="emitter_3_3" depart="6" arrival="193">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_6_6" depart="16" arrival="213">
+   <vehicle id="emitter_5_5" depart="10" arrival="197">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_7_7" depart="18" arrival="217">
+   <vehicle id="emitter_6_6" depart="12" arrival="199">
+      <route>beg beg2left left left2end end rend</route>
+   </vehicle>
+
+   <vehicle id="emitter_7_7" depart="14" arrival="201">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 

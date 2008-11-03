@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/01/08 12:55:15 by SUMO sumo Version dev-SVN-r5892
+<!-- generated on 11/03/08 14:32:14 by SUMO sumo Version dev-SVN-r6273
 <configuration>
 
    <input>
@@ -25,95 +25,95 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal02" depart="104" arrival="335">
+   <vehicle id="horizontal02" depart="104" arrival="333">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal03" depart="108" arrival="338">
+   <vehicle id="horizontal03" depart="108" arrival="336">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal04" depart="112" arrival="340">
+   <vehicle id="horizontal04" depart="112" arrival="337">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal05" depart="116" arrival="341">
+   <vehicle id="horizontal05" depart="117" arrival="339">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal06" depart="120" arrival="343">
+   <vehicle id="horizontal06" depart="121" arrival="341">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal07" depart="124" arrival="394">
+   <vehicle id="horizontal07" depart="125" arrival="394">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal08" depart="128" arrival="397">
+   <vehicle id="horizontal08" depart="129" arrival="396">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal11" depart="132" arrival="401">
+   <vehicle id="horizontal11" depart="134" arrival="398">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal12" depart="136" arrival="404">
+   <vehicle id="horizontal12" depart="138" arrival="400">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal13" depart="140" arrival="406">
+   <vehicle id="horizontal13" depart="142" arrival="402">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal14" depart="145" arrival="409">
+   <vehicle id="horizontal14" depart="146" arrival="403">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal15" depart="149" arrival="456">
+   <vehicle id="horizontal15" depart="150" arrival="405">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal16" depart="154" arrival="458">
+   <vehicle id="horizontal16" depart="155" arrival="406">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal17" depart="158" arrival="460">
+   <vehicle id="horizontal17" depart="160" arrival="456">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal18" depart="162" arrival="461">
+   <vehicle id="horizontal18" depart="165" arrival="459">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal21" depart="166" arrival="463">
+   <vehicle id="horizontal21" depart="169" arrival="460">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal22" depart="170" arrival="465">
+   <vehicle id="horizontal22" depart="173" arrival="463">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal23" depart="174" arrival="467">
+   <vehicle id="horizontal23" depart="178" arrival="465">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal24" depart="178" arrival="469">
+   <vehicle id="horizontal24" depart="182" arrival="466">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal25" depart="182" arrival="518">
+   <vehicle id="horizontal25" depart="186" arrival="468">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal26" depart="186" arrival="520">
+   <vehicle id="horizontal26" depart="191" arrival="470">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal27" depart="190" arrival="524">
+   <vehicle id="horizontal27" depart="195" arrival="518">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal28" depart="194" arrival="527">
+   <vehicle id="horizontal28" depart="199" arrival="520">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
