@@ -31,6 +31,7 @@
 #endif
 
 #include <string>
+#include <sstream>
 #include <utils/iodevices/OutputDevice.h>
 #include "MsgHandler.h"
 
@@ -64,7 +65,7 @@ public:
 
 
     /// @brief Destructor.
-    ~MsgRetrievingFunction() {}
+    ~MsgRetrievingFunction() throw() {}
 
 
 protected:
