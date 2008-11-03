@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="y_libgui"
 	ProjectGUID="{C9CC8A55-BCF5-44D8-9E22-55EA09757C60}"
 	>
@@ -604,10 +604,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\GUIThreadFactory.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.cpp"
 				>
 			</File>
@@ -658,10 +654,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUISUMOViewParent.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\GUIThreadFactory.h"
 				>
 			</File>
 			<File

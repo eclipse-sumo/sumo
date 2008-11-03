@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="z_libutils_gui_windows"
 	ProjectGUID="{25AF2C06-8B08-4B33-8775-657E27C304D9}"
 	RootNamespace="z_libutils_gui_windows"
@@ -342,14 +342,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractRunThread.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractThreadFactory.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp"
 				>
 			</File>
@@ -393,14 +385,6 @@
 			>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractLoadThread.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractRunThread.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractThreadFactory.h"
 				>
 			</File>
 			<File

@@ -422,10 +422,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\MsgRetriever.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\MsgRetrievingFunction.h"
 				>
 			</File>
