@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/01/08 16:11:27 by SUMO sumo Version 0.9.7
+<!-- generated on 11/03/08 15:34:43 by SUMO sumo Version dev-SVN-r6273
 <configuration>
 
    <input>
       <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
    </input>
 
    <time>
