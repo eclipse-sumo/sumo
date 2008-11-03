@@ -132,7 +132,7 @@ GUILoadThread::run()
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, gIDStorage);
     GUITriggerBuilder tb;
-    GUIHandler handler("", *net, db, tb, *eb, jb, sb, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
+    GUIHandler handler("", *net, db, tb, *eb, jb, sb);
     NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);
     try {
         MsgHandler::getErrorInstance()->clear();

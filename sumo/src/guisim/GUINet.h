@@ -173,7 +173,7 @@ public:
     void initGUIStructures();
 
     /// Builds an appropriate route loader for this type of a net
-    MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
+    MSRouteLoader *buildRouteLoader(const std::string &file);
 
 
     friend class GUIViewTraffic; // !!!

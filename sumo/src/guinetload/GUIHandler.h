@@ -61,7 +61,7 @@ public:
                NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
                NLEdgeControlBuilder &edgeBuilder,
                NLJunctionControlBuilder &junctionBuilder,
-               NLGeomShapeBuilder &shapeBuilder, int incDUABase, int incDUAStage) throw();
+               NLGeomShapeBuilder &shapeBuilder) throw();
 
     /// standard destructor
     ~GUIHandler() throw();

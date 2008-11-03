@@ -46,8 +46,8 @@ class GUIRouteHandler : public MSRouteHandler
 {
 public:
     /// standard constructor
-    GUIRouteHandler(const std::string &file, MSVehicleControl &vc,
-                    bool addVehiclesDirectly, int incDUABase, int incDUAStage);
+    GUIRouteHandler(const std::string &file,
+                    bool addVehiclesDirectly);
 
     /// standard destructor
     virtual ~GUIRouteHandler() throw();

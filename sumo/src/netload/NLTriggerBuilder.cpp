@@ -50,7 +50,6 @@
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/METriggeredCalibrator.h>
-#include <mesosim/METriggeredScaler.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #endif
@@ -122,20 +121,18 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
             if (tlane!=0)
                 t = parseAndBuildVehicleActor(net, attrs);
         }
-    }
-#ifndef HAVE_MESOSIM
-    else if (type=="calibrator") {
-        t = parseAndBuildCalibrator(net, attrs, base);
-    }
-#endif
-
+    } else if (type=="calibrator") {
 #ifdef HAVE_MESOSIM
-    else if (type=="calibrator"&&MSGlobals::gUseMesoSim) {
-        t = parseAndBuildCalibrator(net, attrs, base);
-    } else if (type=="scaler"&&MSGlobals::gUseMesoSim) {
-        t = parseAndBuildScaler(net, attrs);
-    }
+        if (MSGlobals::gUseMesoSim) {
+            t = parseAndBuildCalibrator(net, attrs, base);
+        } else {
 #endif
+            t = parseAndBuildLaneCalibrator(net, attrs, base);
+#ifdef HAVE_MESOSIM
+        }
+#endif
+    }
+
     if (t!=0) {
         if (!myHaveInformedAboutDeprecatedTriggerDefinition) {
             MsgHandler::getWarningInstance()->inform("Defining '" + type + "' using a trigger definition is deprecated.");
@@ -299,9 +296,8 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes 
 }
 
 
-#ifndef HAVE_MESOSIM
 MSCalibrator *
-NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
+NLTriggerBuilder::parseAndBuildLaneCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument)
 {
     // get the id, throw if not given or empty...
@@ -315,7 +311,6 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
     return buildLaneCalibrator(net, id, lane, pos, file);
 }
-#endif
 
 
 #ifdef HAVE_MESOSIM
@@ -346,36 +341,6 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     }
     SUMOReal rpos = pos-cpos-prev->getLength();
     return buildCalibrator(net, id, prev, rpos, rfile, file);
-}
-
-
-METriggeredScaler *
-NLTriggerBuilder::parseAndBuildScaler(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
-{
-    // get the id, throw if not given or empty...
-    string id;
-    if (!attrs.setIDFromAttributes("scaler", id, false)) {
-        throw InvalidArgument("A scaler does not contain an id");
-    }
-    MSLane *lane = getLane(attrs, "scaler", id);
-    SUMOReal pos = getPosition(attrs, lane, "scaler", id);
-    SUMOReal scale;
-    try {
-        scale = attrs.getFloatSecure(SUMO_ATTR_WEIGHT, (SUMOReal)1);
-    } catch (NumberFormatException &) {
-        throw InvalidArgument("Invalid scale in definition of METriggeredScaler '" + id + "'.");
-
-    }
-    MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
-    MESegment *prev = s;
-    SUMOReal cpos = 0;
-    while (cpos<pos&&s!=0) {
-        prev = s;
-        cpos += s->getLength();
-        s = s->getNextSegment();
-    }
-    SUMOReal rpos = pos-cpos-prev->getLength();
-    return buildScaler(net, id, prev, rpos, scale);
 }
 #endif
 
@@ -457,15 +422,6 @@ NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
                                   const std::string &rfile, const std::string &file) throw()
 {
     return new METriggeredCalibrator(id, net, edge, rfile, file);
-}
-
-
-METriggeredScaler *
-NLTriggerBuilder::buildScaler(MSNet &net, const std::string &id,
-                              MESegment *edge, SUMOReal pos,
-                              SUMOReal scale) throw()
-{
-    return new METriggeredScaler(id, edge, scale);
 }
 #endif
 

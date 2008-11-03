@@ -58,8 +58,8 @@ class MSRouteHandler : public SUMOSAXHandler
 {
 public:
     /// standard constructor
-    MSRouteHandler(const std::string &file, MSVehicleControl &vc,
-                   bool addVehiclesDirectly, int incDUABase, int incDUAStage);
+    MSRouteHandler(const std::string &file,
+                   bool addVehiclesDirectly);
 
     /// standard destructor
     virtual ~MSRouteHandler() throw();
@@ -138,9 +138,6 @@ protected:
     virtual bool closeVehicle() throw(ProcessError);
 
 protected:
-    /// The vehicle control to use for vehicle building
-    MSVehicleControl &myVehicleControl;
-
     SUMOVehicleParameter *myVehicleParameter;
 
     /// the emission time of the vehicle read last

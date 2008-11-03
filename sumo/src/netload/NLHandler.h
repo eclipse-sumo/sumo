@@ -90,16 +90,12 @@ public:
      * @param[in] edgeBuilder The builder of edges to use
      * @param[in] junctionBuilder The builder of junctions to use
      * @param[in] shapeBuilder The geometric shapes builder to use
-     * @param[in] incDUABase Base of incremented vehicle loading
-     * @param[in] incDUAStage Stage of incremented vehicle loading
-     * @todo Describe incDUA; check whether another API would be more appropriate (maybe this should be moved into VehicleControl)
      */
     NLHandler(const std::string &file, MSNet &net,
               NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
               NLEdgeControlBuilder &edgeBuilder,
               NLJunctionControlBuilder &junctionBuilder,
-              NLGeomShapeBuilder &shapeBuilder,
-              int incDUABase, int incDUAStage) throw();
+              NLGeomShapeBuilder &shapeBuilder) throw();
 
 
     /// @brief Destructor

@@ -82,9 +82,8 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
                      NLTriggerBuilder &triggerBuilder,
                      NLEdgeControlBuilder &edgeBuilder,
                      NLJunctionControlBuilder &junctionBuilder,
-                     NLGeomShapeBuilder &shapeBuilder,
-                     int incDUABase, int incDUAStage) throw()
-        : MSRouteHandler(file, net.getVehicleControl(), true, incDUABase, incDUAStage),
+                     NLGeomShapeBuilder &shapeBuilder) throw()
+        : MSRouteHandler(file, true),
         myNet(net), myActionBuilder(net),
         myCurrentIsInternalToSkip(false),
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
@@ -181,7 +180,7 @@ NLHandler::myStartElement(SumoXMLTag element,
         myTriggerBuilder.parseAndBuildLaneEmitTrigger(myNet, attrs, getFileName());
         break;
     case SUMO_TAG_CALIBRATOR:
-        myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
+        myTriggerBuilder.parseAndBuildLaneCalibrator(myNet, attrs, getFileName());
         break;
     case SUMO_TAG_REROUTER:
         myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());

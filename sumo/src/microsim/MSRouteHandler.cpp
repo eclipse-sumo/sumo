@@ -68,21 +68,17 @@ using namespace std;
 // method definitions
 // ===========================================================================
 MSRouteHandler::MSRouteHandler(const std::string &file,
-                               MSVehicleControl &vc,
-                               bool addVehiclesDirectly,
-                               int incDUABase,
-                               int incDUAStage)
-        : SUMOSAXHandler(file),
-        myVehicleControl(vc), myVehicleParameter(0),
+                               bool addVehiclesDirectly)
+        : SUMOSAXHandler(file), myVehicleParameter(0),
         myLastDepart(0), myLastReadVehicle(0),
         myAddVehiclesDirectly(addVehiclesDirectly),
-        myAmUsingIncrementalDUA(incDUAStage>0),
         myRunningVehicleNumber(0),
-        myIncrementalBase(incDUABase),
-        myIncrementalStage(incDUAStage),
         myCurrentVTypeDistribution(0),
         myCurrentRouteDistribution(0)
 {
+    myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
+    myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
+    myAmUsingIncrementalDUA = (myIncrementalStage>0),
     myActiveRoute.reserve(100);
 }
 
@@ -395,7 +391,7 @@ MSRouteHandler::closeRoute() throw(ProcessError)
         if (!MSGlobals::gStateLoaded) {
 #endif
             if (myVehicleParameter!=0) {
-                if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
+                if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
                     throw ProcessError("Another route for vehicle '" + myVehicleParameter->id + "' exists.");
                 } else {
                     throw ProcessError("A vehicle with id '" + myVehicleParameter->id + "' already exists.");
@@ -500,7 +496,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
 
     // try to build the vehicle
     MSVehicle *vehicle = 0;
-    if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
+    if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
         // ok there was no other vehicle with the same id, yet
         // maybe we do not want this vehicle to be emitted due to using incremental dua
         bool add = true;
@@ -514,7 +510,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
             vehicle =
                 MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
-            myVehicleControl.addVehicle(myVehicleParameter->id, vehicle);
+            MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);
             myVehicleParameter = 0;
         }
     } else {

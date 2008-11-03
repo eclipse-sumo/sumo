@@ -497,13 +497,13 @@ GUINet::setIdleDuration(int val)
 
 
 MSRouteLoader *
-GUINet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage)
+GUINet::buildRouteLoader(const std::string &file)
 {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly
     //  b) using colors
-    return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false, incDUABase, incDUAStage));
+    return new MSRouteLoader(*this, new GUIRouteHandler(file, false));
 }
 
 

@@ -65,11 +65,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 GUIRouteHandler::GUIRouteHandler(const std::string &file,
-                                 MSVehicleControl &vc,
-                                 bool addVehiclesDirectly,
-                                 int incDUABase,
-                                 int incDUAStage)
-        : MSRouteHandler(file, vc, addVehiclesDirectly, incDUABase, incDUAStage)
+                                 bool addVehiclesDirectly)
+        : MSRouteHandler(file, addVehiclesDirectly)
 {}
 
 
@@ -99,7 +96,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
             if (myActiveRouteID[0]!='!') {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
+                if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
                     throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
                     throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");

@@ -572,13 +572,13 @@ MSNet::loadState(BinaryInputDevice &bis) throw() {
 
 
 MSRouteLoader *
-MSNet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage) {
+MSNet::buildRouteLoader(const std::string &file) {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly
     //  b) not using colors
     // (overridden in GUINet)
-    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, incDUABase, incDUAStage));
+    return new MSRouteLoader(*this, new MSRouteHandler(file, false));
 }
 
 

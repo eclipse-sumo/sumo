@@ -52,7 +52,6 @@ class MSCalibrator;
 #ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
 class MESegment;
-class METriggeredScaler;
 #endif
 
 
@@ -187,7 +186,6 @@ public:
             const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 
 
-#ifndef HAVE_MESOSIM
     /** @brief Parses his values and builds a microscopic calibrator for online simulation
      *
      * @param[in] net The network the calibrator belongs to
@@ -196,9 +194,8 @@ public:
      * @return The built calibrator
      * @exception InvalidArgument If a parameter is not valid
      */
-    MSCalibrator *parseAndBuildCalibrator(MSNet &net,
+    MSCalibrator *parseAndBuildLaneCalibrator(MSNet &net,
                                           const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
-#endif
 
 
 #ifdef HAVE_MESOSIM
@@ -212,17 +209,6 @@ public:
      */
     METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
             const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
-
-
-    /** @brief Parses his values and builds a mesoscopic flow scaler
-     *
-     * @param[in] net The network the flow scaler belongs to
-     * @param[in] attrs SAX-attributes which define the trigger
-     * @return The built flow scaler
-     * @exception InvalidArgument If a parameter (edge/position) is not valid
-     */
-    METriggeredScaler *parseAndBuildScaler(MSNet &net,
-                                           const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 #endif
     //@}
 
@@ -324,23 +310,6 @@ protected:
     virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
             const std::string &id, MESegment *edge, SUMOReal pos,
             const std::string &rfile, const std::string &file) throw();
-
-    /** @brief builds a scaler
-     *
-     * Simply calls the METriggeredScaler constructor.
-     *
-     * @param[in] net The net the scaler belongs to
-     * @param[in] id The id of the scaler
-     * @param[in] edge The edge the scaler is placed at
-     * @param[in] pos The position on the edge the scaler lies at
-     * @param[in] scale The scaling amount
-     * @return The built mesoscopic scaler
-     * @todo Is the position correct/needed
-     * @todo Is the route file still necessary?
-     */
-    virtual METriggeredScaler *buildScaler(MSNet &net,
-                                           const std::string &id, MESegment *edge, SUMOReal pos,
-                                           SUMOReal scale) throw();
 #endif
 
 

@@ -273,7 +273,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
         }
         // open files for reading
         for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-            loaders.push_back(myNet.buildRouteLoader(*fileIt, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step")));
+            loaders.push_back(myNet.buildRouteLoader(*fileIt));
         }
     }
     // build the route control

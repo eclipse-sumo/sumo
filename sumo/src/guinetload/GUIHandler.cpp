@@ -76,11 +76,9 @@ GUIHandler::GUIHandler(const std::string &file,
                        NLTriggerBuilder &triggerBuilder,
                        NLEdgeControlBuilder &edgeBuilder,
                        NLJunctionControlBuilder &junctionBuilder,
-                       NLGeomShapeBuilder &shapeBuilder,
-                       int incDUABase,
-                       int incDUAStage) throw()
+                       NLGeomShapeBuilder &shapeBuilder) throw()
         : NLHandler(file, net, detBuilder, triggerBuilder,
-                    edgeBuilder, junctionBuilder, shapeBuilder, incDUABase, incDUAStage)
+                    edgeBuilder, junctionBuilder, shapeBuilder)
 {}
 
 
@@ -142,7 +140,7 @@ GUIHandler::closeRoute() throw(ProcessError)
             if (myActiveRouteID[0]!='!') {
                 MsgHandler::getErrorInstance()->inform("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
+                if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
                     MsgHandler::getErrorInstance()->inform("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
                     MsgHandler::getErrorInstance()->inform("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");

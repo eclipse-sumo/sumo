@@ -204,7 +204,7 @@ public:
     /// @}
 #endif
 
-    virtual MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
+    virtual MSRouteLoader *buildRouteLoader(const std::string &file);
 
     SUMOReal getTooSlowRTF() const;
 
