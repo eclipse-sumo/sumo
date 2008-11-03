@@ -265,6 +265,18 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs)
 {
     if (attrs.setIDFromAttributes("vtypeDistribution", myCurrentVTypeDistributionID)) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
+        if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
+            StringTokenizer st(attrs.getString(SUMO_ATTR_VTYPES));
+            while (st.hasNext()) {
+                string vtypeID = st.next();
+                MSVehicleType *type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
+                if (type==0) {
+                    throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID
+                                       + "'.");
+                }
+                myCurrentVTypeDistribution->add(type->getDefaultProbability(), type);
+            }
+        }
     }
 }
 
@@ -407,6 +419,18 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs)
 {
     if (attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
         myCurrentRouteDistribution = new RandomDistributor<MSRoute*>();
+        if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
+            StringTokenizer st(attrs.getString(SUMO_ATTR_ROUTES));
+            while (st.hasNext()) {
+                string routeID = st.next();
+                MSRoute *route = MSRoute::dictionary(routeID);
+                if (route==0) {
+                    throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID
+                                       + "'.");
+                }
+                myCurrentRouteDistribution->add(1., route);
+            }
+        }
     }
 }
 

@@ -202,6 +202,8 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
     { "probability",    SUMO_ATTR_PROB },
+    { "routes",         SUMO_ATTR_ROUTES },
+    { "vtypes",         SUMO_ATTR_VTYPES },
 
     { "lane",           SUMO_ATTR_LANE },
     { "from",           SUMO_ATTR_FROM },

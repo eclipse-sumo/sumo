@@ -263,10 +263,12 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPEEDDEV,
     SUMO_ATTR_CAR_FOLLOW_MODEL,
     SUMO_ATTR_LANE_CHANGE_MODEL,
-    /* route alternatives attributes */
+    /* route alternatives / distribution attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
     SUMO_ATTR_PROB,
+    SUMO_ATTR_ROUTES,
+    SUMO_ATTR_VTYPES,
     /* trip definition attributes */
     SUMO_ATTR_LANE,
     SUMO_ATTR_FROM,
