@@ -468,8 +468,14 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         fromInf = getFromNode(nc, tmpClusters);
         fromNode = fromInf.second;
         // get or build the to-node
-        toInf = getToNode(nc, tmpClusters);
-        toNode = toInf.second;
+        //if(tmpClusters.size()>0) {
+            toInf = getToNode(nc, tmpClusters);
+            toNode = toInf.second;
+            if(fromInf.first!=0&&toNode!=0&&fromInf.first->around(toNode->getPosition())) {
+                MsgHandler::getWarningInstance()->inform("Will not build edge '" + toString(myID) + "'.");
+                return;
+            }
+        //}
         // if both nodes are the same, resolve the problem otherwise
         if (fromNode==toNode) {
             std::pair<NBNode*, NBNode*> tmp = resolveSameNode(nc, offset, fromNode, toNode);
@@ -484,11 +490,11 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         }
     }
 
+    // 
     if (fromNode==0) {
         fromInf.first = 0;
         Position2D pos = myGeom[0];
-        fromNode =
-            new NBNode(toString<int>(myID) + "-SourceNode", pos, NBNode::NODETYPE_NOJUNCTION);
+        fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, NBNode::NODETYPE_NOJUNCTION);
         if (!nc.insert(fromNode)) {
             throw 1;
         }
@@ -496,12 +502,12 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     if (toNode==0) {
         toInf.first = 0;
         Position2D pos = myGeom[-1];
-        toNode =
-            new NBNode(toString<int>(myID) + "-DestinationNode", pos, NBNode::NODETYPE_NOJUNCTION);
+        toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, NBNode::NODETYPE_NOJUNCTION);
         if (!nc.insert(toNode)) {
             throw 1;
         }
     }
+
     // build the edge
     SUMOReal avgSpeed = 0;
     int i;
@@ -605,11 +611,12 @@ NIVissimEdge::recheckSpeedPatches()
 std::pair<NIVissimConnectionCluster*, NBNode*>
 NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters)
 {
+    const SUMOReal MAX_DISTANCE = 10.;
     assert(clusters.size()>=1);
     const Position2D &beg = myGeom.getBegin();
     NIVissimConnectionCluster *c = *(clusters.begin());
     // check whether the edge starts within a already build node
-    if (c->around(beg, 5.0)) {
+    if (c->around(beg, MAX_DISTANCE)) {
         clusters.erase(clusters.begin());
         return std::pair<NIVissimConnectionCluster*, NBNode*>
                (c, c->getNBNode());
@@ -618,8 +625,7 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters)
     if (myDistrictConnections.size()>0) {
         SUMOReal pos = *(myDistrictConnections.begin());
         if (pos<10) {
-            NBNode *node = new NBNode(toString<int>(myID) + "-begin",
-                                      beg, NBNode::NODETYPE_NOJUNCTION);
+            NBNode *node = new NBNode(toString<int>(myID) + "-begin", beg, NBNode::NODETYPE_NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
@@ -630,7 +636,7 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters)
         }
     }
     // build a new node for the edge's begin otherwise
-    NBNode *node = new NBNode(toString<int>(myID) + "-begin", Position2D(beg), NBNode::NODETYPE_NOJUNCTION);
+    NBNode *node = new NBNode(toString<int>(myID) + "-begin", beg, NBNode::NODETYPE_NOJUNCTION);
     if(!nc.insert(node)) {
         throw 1;
     }
@@ -641,23 +647,22 @@ NIVissimEdge::getFromNode(NBNodeCont &nc, ConnectionClusters &clusters)
 std::pair<NIVissimConnectionCluster*, NBNode *>
 NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters)
 {
-//    assert(clusters.size()>=1);
     const Position2D &end = myGeom.getEnd();
-    if (clusters.size()>0) {
-        NIVissimConnectionCluster *c = *(clusters.end()-1);
-        // check whether the edge ends within a already build node
-        if (c->around(end, 5.0)) {
-            clusters.erase(clusters.end()-1);
-            return std::pair<NIVissimConnectionCluster*, NBNode *>(c, c->getNBNode());
-        }
+    if(clusters.size()>0) {
+    const SUMOReal MAX_DISTANCE = 10.;
+    assert(clusters.size()>=1);
+    NIVissimConnectionCluster *c = *(clusters.end()-1);
+    // check whether the edge ends within a already build node
+    if (c->around(end, MAX_DISTANCE)) {
+        clusters.erase(clusters.end()-1);
+        return std::pair<NIVissimConnectionCluster*, NBNode *>(c, c->getNBNode());
     }
-
+    }
     // check for a parking place at the end
     if (myDistrictConnections.size()>0) {
         SUMOReal pos = *(myDistrictConnections.end()-1);
         if (pos>myGeom.length()-10) {
-            NBNode *node = new NBNode(toString<int>(myID) + "-end",
-                                      end, NBNode::NODETYPE_NOJUNCTION);
+            NBNode *node = new NBNode(toString<int>(myID) + "-end", end, NBNode::NODETYPE_NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
@@ -667,13 +672,14 @@ NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters)
             return std::pair<NIVissimConnectionCluster*, NBNode*>(0, node);
         }
     }
-    /*    // build a new node for the edge's end otherwise
-        NBNode *node = new NBNode(toString<int>(myID) + "-end",
-            end.x(), end.y(), NBNode::NODETYPE_NOJUNCTION);
-        if(!nc.insert(node)) {
-            throw 1;
-        }
-        return std::pair<bool, NBNode *>(true, node);*/
+
+    // build a new node for the edge's end otherwise
+    NBNode *node = new NBNode(toString<int>(myID) + "-end", end, NBNode::NODETYPE_NOJUNCTION);
+    if(!nc.insert(node)) {
+        throw 1;
+    }
+    return std::pair<NIVissimConnectionCluster*, NBNode *>(0, node);
+        /*
     if (clusters.size()>0) {
         NIVissimConnectionCluster *c = *(clusters.end()-1);
         clusters.erase(clusters.end()-1);
@@ -682,6 +688,7 @@ NIVissimEdge::getToNode(NBNodeCont &nc, ConnectionClusters &clusters)
         // !!! dummy edge?!
         return std::pair<NIVissimConnectionCluster*, NBNode*>(0, (*(myConnectionClusters.begin()))->getNBNode());
     }
+    */
 }
 
 
