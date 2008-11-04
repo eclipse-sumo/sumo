@@ -1,7 +1,5 @@
 <additional>
 
-	<emitter id="emitter"  pos="100" objectid="4/1to3/1_0" file="input_definition.def.xml"/>
-
    <tl-logic type="traffic_light">
       <key>0/1</key>
       <subkey>t1</subkey>
