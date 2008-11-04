@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/08 15:09:14 by SUMO sumo Version 0.9.7
+<!-- generated on 11/04/08 08:26:50 by SUMO sumo Version dev-SVN-r6273
 <configuration>
 
    <input>
@@ -147,7 +147,7 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_0_0" pos="100.00" speed="10.00"/>
+            <vehicle id="0" pos="100.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -283,7 +283,7 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_0_0" pos="110.00" speed="10.00"/>
+            <vehicle id="0" pos="110.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -419,7 +419,7 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_0_0" pos="120.00" speed="10.00"/>
+            <vehicle id="0" pos="120.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -555,7 +555,7 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_0_0" pos="130.00" speed="10.00"/>
+            <vehicle id="0" pos="130.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -691,7 +691,7 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_0_0" pos="140.00" speed="10.00"/>
+            <vehicle id="0" pos="140.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -827,8 +827,8 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_5_1" pos="100.00" speed="9.00"/>
-            <vehicle id="emitter_0_0" pos="150.00" speed="10.00"/>
+            <vehicle id="1" pos="100.00" speed="10.00"/>
+            <vehicle id="0" pos="150.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -964,8 +964,8 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_5_1" pos="109.00" speed="9.00"/>
-            <vehicle id="emitter_0_0" pos="160.00" speed="10.00"/>
+            <vehicle id="1" pos="109.00" speed="9.00"/>
+            <vehicle id="0" pos="160.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -1101,8 +1101,8 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_5_1" pos="118.00" speed="9.00"/>
-            <vehicle id="emitter_0_0" pos="170.00" speed="10.00"/>
+            <vehicle id="1" pos="118.00" speed="9.00"/>
+            <vehicle id="0" pos="170.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -1238,8 +1238,8 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_5_1" pos="127.00" speed="9.00"/>
-            <vehicle id="emitter_0_0" pos="180.00" speed="10.00"/>
+            <vehicle id="1" pos="127.00" speed="9.00"/>
+            <vehicle id="0" pos="180.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -1375,8 +1375,8 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_5_1" pos="136.00" speed="9.00"/>
-            <vehicle id="emitter_0_0" pos="190.00" speed="10.00"/>
+            <vehicle id="1" pos="136.00" speed="9.00"/>
+            <vehicle id="0" pos="190.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
@@ -1512,8 +1512,8 @@
       </edge>
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0">
-            <vehicle id="emitter_5_1" pos="145.00" speed="9.00"/>
-            <vehicle id="emitter_0_0" pos="200.00" speed="10.00"/>
+            <vehicle id="1" pos="145.00" speed="9.00"/>
+            <vehicle id="0" pos="200.00" speed="10.00"/>
          </lane>
       </edge>
       <edge id="4/1to4/0">
