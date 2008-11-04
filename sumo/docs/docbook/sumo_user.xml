@@ -9370,7 +9370,7 @@ myDet1;0;10;2;100;80
           <para>You can place an emitter onto a lane by adding the following
           declaration to one of your additional-files:</para>
 
-          <programlisting><sgmltag>&lt;emitter id="<replaceable>&lt;ID&gt;</replaceable>" pos="<replaceable>&lt;POS&gt;</replaceable>" objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
+          <programlisting><sgmltag>&lt;emitter id="<replaceable>&lt;ID&gt;</replaceable>" pos="<replaceable>&lt;POS&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
    [friendly_pos="x"] file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
 
           <para>The fields have the following meanings:</para>
@@ -9392,8 +9392,8 @@ myDet1;0;10;2;100;80
             </listitem>
 
             <listitem>
-              <para><sgmltag>objectid</sgmltag>: The id of the lane the
-              emitter shall be placed on</para>
+              <para><sgmltag>lane</sgmltag>: The id of the lane the emitter
+              shall be placed on</para>
             </listitem>
 
             <listitem>
@@ -9491,6 +9491,11 @@ myDet1;0;10;2;100;80
               "<sgmltag>trigger</sgmltag>" to "<sgmltag>emitter</sgmltag>"
               after version 0.9.10. In conjunction, the definition's attribute
               "<sgmltag>objecttype</sgmltag>" is not longer used.</para>
+            </listitem>
+
+            <listitem>
+              <para>The attribute "<sgmltag>objectid</sgmltag>" was renamed to
+              "<sgmltag>lane</sgmltag>" after version 0.9.10.</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -9877,7 +9882,7 @@ myDet1;0;10;2;100;80
         Definitions of bus stop locations in SUMO have the following format:
         <sgmltag>&lt;busStop
         id="<replaceable>&lt;BUS_STOP_ID&gt;</replaceable>"
-        objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>"
+        lane="<replaceable>&lt;LANE_ID&gt;</replaceable>"
         from="<replaceable>&lt;STARTING_POSITION&gt;</replaceable>"
         to="<replaceable>&lt;ENDING_POSITION&gt;</replaceable>"
         [line="<replaceable>&lt;LINE_ID&gt;</replaceable>[;<replaceable>&lt;LINE_ID&gt;</replaceable>]*"]/&gt;</sgmltag>.
@@ -9891,7 +9896,7 @@ myDet1;0;10;2;100;80
           </listitem>
 
           <listitem>
-            <para><sgmltag>objectid</sgmltag>: the id of the lane the busstop
+            <para><sgmltag>lane</sgmltag>: the id of the lane the busstop
             shall be located at</para>
           </listitem>
 
@@ -10053,6 +10058,11 @@ myDet1;0;10;2;100;80
             version 0.9.10. In conjunction, the definition's attribute
             "<sgmltag>objecttype</sgmltag>" is not longer used.</para>
           </listitem>
+
+          <listitem>
+            <para>The attribute "<sgmltag>objectid</sgmltag>" was renamed to
+            "<sgmltag>lane</sgmltag>" after version 0.9.10.</para>
+          </listitem>
         </itemizedlist>
       </sect2>
 
@@ -10063,15 +10073,8 @@ myDet1;0;10;2;100;80
         additional file allows the simulation of variable speed signs. The
         syntax for such an object is: <sgmltag>&lt;variableSpeedSign
         id="<replaceable>&lt;VSS_ID&gt;</replaceable>"
-        objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>"
-        file="<replaceable>&lt;DEF_FILE&gt;</replaceable>"/&gt;</sgmltag>.
-        This trigger is typed to be a vss by the combination of the values of
-        the attributes <sgmltag>objecttype="lane"</sgmltag> and
-        <sgmltag>attr="speed"</sgmltag>. Although no other combinations are
-        implemented so far, this combination forces the simulation to change
-        the attribute "speed" of a "lane"-object, exactly what vss do. Of
-        course, the vehicles themselves do not override this maximum velocity
-        what does not exactly represent the reality.</para>
+        lanes="<replaceable>&lt;LANE_ID&gt;[;&lt;LANE_ID&gt;]*</replaceable>"
+        file="<replaceable>&lt;DEF_FILE&gt;</replaceable>"/&gt;</sgmltag>.</para>
 
         <para>You may have noticed that a file name must be supplied, called
         <sgmltag><replaceable>&lt;DEF_FILE&gt;</replaceable></sgmltag> within
@@ -10106,6 +10109,11 @@ myDet1;0;10;2;100;80
             "<sgmltag>objecttype</sgmltag>" and "<sgmltag>attr</sgmltag>" are
             not longer used.</para>
           </listitem>
+
+          <listitem>
+            <para>The attribute "<sgmltag>objectid</sgmltag>" was renamed to
+            "<sgmltag>lanes</sgmltag>" after version 0.9.10.</para>
+          </listitem>
         </itemizedlist>
       </sect2>
 
@@ -10119,7 +10127,7 @@ myDet1;0;10;2;100;80
         following declaration line to an "additional file":
         <sgmltag>&lt;rerouter
         id="<replaceable>&lt;REROUTER_ID&gt;</replaceable>"
-        objectid="<replaceable>&lt;EDGE_ID&gt;</replaceable>[;<replaceable>&lt;EDGE_ID&gt;</replaceable>]"
+        edges="<replaceable>&lt;EDGE_ID&gt;</replaceable>[;<replaceable>&lt;EDGE_ID&gt;</replaceable>]*"
         file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"
         [probability="<replaceable>&lt;PROBABILITY&gt;</replaceable>"]/&gt;</sgmltag>.
         As you may see, rerouter may be placed on several edges, at least one
@@ -10133,8 +10141,8 @@ myDet1;0;10;2;100;80
           </listitem>
 
           <listitem>
-            <para><sgmltag>objectid</sgmltag>: an edge id or a list of edge
-            ids where vehicles shall be rerouted</para>
+            <para><sgmltag>edges</sgmltag>: an edge id or a list of edge ids
+            where vehicles shall be rerouted</para>
           </listitem>
 
           <listitem>
@@ -10187,6 +10195,11 @@ myDet1;0;10;2;100;80
             after version 0.9.10. In conjunction, the definition's attribute
             "<sgmltag>objecttype</sgmltag>" is not longer used.</para>
           </listitem>
+
+          <listitem>
+            <para>The attribute "<sgmltag>objectid</sgmltag>" was renamed to
+            "<sgmltag>edges</sgmltag>" after version 0.9.10.</para>
+          </listitem>
         </itemizedlist>
 
         <sect3 id="user_chp06-management-rerouter-closing">
@@ -10197,8 +10210,8 @@ myDet1;0;10;2;100;80
           <sgmltag><replaceable>&lt;EDGE_ID&gt;</replaceable></sgmltag>.
           Vehicles which normally would pass this edge will get a new route as
           soon as they reach one of the edges given in the
-          <sgmltag>objectid</sgmltag>-attribute of the rerouter's declaration.
-          a <literal>closing_reroute</literal> definition may look like
+          <sgmltag>edges</sgmltag>-attribute of the rerouter's declaration. a
+          <literal>closing_reroute</literal> definition may look like
           this:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
@@ -10226,7 +10239,7 @@ myDet1;0;10;2;100;80
 
           <para>A "<literal>dest_prob_reroute</literal>" forces the rerouter
           to assign a new route to vehicles that pass one of the edges defined
-          in the <sgmltag>objectid</sgmltag>-attribute of the rerouter's
+          in the <sgmltag>edges</sgmltag>-attribute of the rerouter's
           declaration. A new route destination is used, defined by the name of
           a new destination in the according element:</para>
 
@@ -10269,9 +10282,9 @@ myDet1;0;10;2;100;80
 
           <para>A "<literal>route_prob_reroute</literal>" forces the rerouter
           to assign a new route to vehicles which pass one of the edges
-          defined in the <sgmltag>objectid</sgmltag>-attribute of the
-          rerouter's declaration. In this case, the id of a complete route
-          must be supplied instead of a new destination:</para>
+          defined in the <sgmltag>edges</sgmltag>-attribute of the rerouter's
+          declaration. In this case, the id of a complete route must be
+          supplied instead of a new destination:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
