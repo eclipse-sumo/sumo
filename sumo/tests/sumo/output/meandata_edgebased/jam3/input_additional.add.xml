@@ -1,3 +1,3 @@
 <additional>
-    <variableSpeedSign id="vss" objectid="2/1to1/1_0" file="input_definition2.def.xml"/>
+    <variableSpeedSign id="vss" lanes="2/1to1/1_0" file="input_definition2.def.xml"/>
 </additional>
