@@ -271,6 +271,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VTYPES,
     /* trip definition attributes */
     SUMO_ATTR_LANE,
+    SUMO_ATTR_LANES,
     SUMO_ATTR_FROM,
     SUMO_ATTR_TO,
     SUMO_ATTR_PERIOD,

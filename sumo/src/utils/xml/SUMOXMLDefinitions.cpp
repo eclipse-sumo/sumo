@@ -206,6 +206,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "vtypes",         SUMO_ATTR_VTYPES },
 
     { "lane",           SUMO_ATTR_LANE },
+    { "lanes",          SUMO_ATTR_LANES },
     { "from",           SUMO_ATTR_FROM },
     { "to",             SUMO_ATTR_TO },
     { "period",         SUMO_ATTR_PERIOD },

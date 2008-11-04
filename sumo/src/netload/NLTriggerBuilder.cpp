@@ -69,7 +69,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder() throw()
-        : myHaveInformedAboutDeprecatedTriggerDefinition(false)
+        : myHaveInformedAboutDeprecatedTriggerDefinition(false),
+        myHaveInformedAboutDeprecatedEmitter(false)
 {}
 
 
@@ -98,7 +99,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         /*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
         if (attrs.getInt(SUMO_ATTR_TYPE) == 3) {
             unsigned int cell_id   = attrs.getInt(SUMO_ATTR_ID);
-            unsigned int interval  = attrs.getInt(SUMO_ATTR_OBJECTID);
+            unsigned int interval  = attrs.getInt(SUMO_ATTR_LANE);
             unsigned int statcount = attrs.getInt(SUMO_ATTR_POSITION);
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
             if (pPhone->getMSPhoneCell(cell_id) != 0)
@@ -106,7 +107,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         } else if (attrs.getInt(SUMO_ATTR_TYPE) == 4) {
             /*this is the trigger for the duration for an interval for an hour*/
             unsigned int cell_id   = attrs.getInt(SUMO_ATTR_ID);
-            unsigned int interval  = attrs.getInt(SUMO_ATTR_OBJECTID);
+            unsigned int interval  = attrs.getInt(SUMO_ATTR_LANE);
             unsigned int count = attrs.getInt(SUMO_ATTR_POSITION);
             float duration = attrs.getFloat(SUMO_ATTR_TO);
             float deviation  = attrs.getFloat(SUMO_ATTR_XTO);
@@ -117,7 +118,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
                 pPhone->getMSPhoneCell(cell_id)->setDynParams(interval, count, duration, deviation, entering);
         } else {
             /*check that the depending lane realy exist. if not just forget this VehicleActor. */
-            MSLane *tlane = MSLane::dictionary(attrs.getString(SUMO_ATTR_OBJECTID));
+            MSLane *tlane = MSLane::dictionary(attrs.getString(SUMO_ATTR_LANE));
             if (tlane!=0)
                 t = parseAndBuildVehicleActor(net, attrs);
         }
@@ -201,8 +202,15 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
     }
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
-    // lane speed trigger
-    string objectid = attrs.getString(SUMO_ATTR_OBJECTID);
+    string objectid;
+    if(attrs.hasAttribute(SUMO_ATTR_LANES)) {
+        objectid = attrs.getString(SUMO_ATTR_LANES);
+    } else {
+        if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
+            objectid = attrs.getString(SUMO_ATTR_OBJECTID);
+            MsgHandler::getWarningInstance()->inform("Defining the lanes using 'objectid' within a variable speed sign is depracted, use 'lanes' instead.");
+        }
+    }
     std::vector<MSLane*> lanes;
     StringTokenizer st(objectid, ";");
     while (st.hasNext()) {
@@ -227,6 +235,10 @@ MSEmitter *
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument)
 {
+    if(!myHaveInformedAboutDeprecatedEmitter) {
+        myHaveInformedAboutDeprecatedEmitter = true;
+        MsgHandler::getWarningInstance()->inform("Emitter are deprecated; use departpos/departspeed within routes instead.");
+    }
     // get the id, throw if not given or empty...
     string id;
     if (!attrs.setIDFromAttributes("emitter", id, false)) {
@@ -249,7 +261,6 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
         throw InvalidArgument("A bus stop does not contain an id");
     }
     // get the lane
-    string objectid = attrs.getString(SUMO_ATTR_OBJECTID);
     MSLane *lane = getLane(attrs, "bus_stop", id);
     // get the positions
     SUMOReal frompos, topos;
@@ -356,7 +367,15 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
     }
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
-    string objectid = attrs.getString(SUMO_ATTR_OBJECTID);
+    string objectid;
+    if(attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        objectid = attrs.getString(SUMO_ATTR_EDGES);
+    } else {
+        if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
+            objectid = attrs.getString(SUMO_ATTR_OBJECTID);
+            MsgHandler::getWarningInstance()->inform("Defining the edges using 'objectid' within a rerouter is depracted, use 'edges' instead.");
+        }
+    }
     std::vector<MSEdge*> edges;
     StringTokenizer st(objectid, ";");
     while (st.hasNext()) {
@@ -474,7 +493,15 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
                           const std::string &tt,
                           const std::string &tid) throw(InvalidArgument)
 {
-    string objectid = attrs.getString(SUMO_ATTR_OBJECTID);
+    string objectid;
+    if(attrs.hasAttribute(SUMO_ATTR_LANE)) {
+        objectid = attrs.getString(SUMO_ATTR_LANE);
+    } else {
+        if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
+            objectid = attrs.getString(SUMO_ATTR_OBJECTID);
+            MsgHandler::getWarningInstance()->inform("Defining the lane using 'objectid' within " + tt + " is depracted, use 'lane' instead.");
+        }
+    }
     MSLane *lane = MSLane::dictionary(objectid);
     if (lane==0) {
         throw InvalidArgument("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");

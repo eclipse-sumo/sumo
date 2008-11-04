@@ -366,7 +366,7 @@ protected:
                             const std::string &base) throw();
 
 
-    /** @brief Returns the lane defined by objectid
+    /** @brief Returns the lane defined by attribute "lane"
      *
      * Retrieves the lane id from the given attrs. Tries to retrieve the lane,
      *  throws an InvalidArgument if it does not exist.
@@ -402,6 +402,9 @@ protected:
 protected:
     /// @brief Information whether a deprecated trigger definition has occured and was reported
     bool myHaveInformedAboutDeprecatedTriggerDefinition;
+
+    /// @brief Information whether an emitter shall be built (is deprecated)
+    bool myHaveInformedAboutDeprecatedEmitter;
 
 };
 
