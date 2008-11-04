@@ -440,7 +440,7 @@ NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
                                   MESegment *edge, SUMOReal pos,
                                   const std::string &rfile, const std::string &file) throw()
 {
-    return new METriggeredCalibrator(id, net, edge, rfile, file);
+    return new METriggeredCalibrator(id, edge, rfile, file);
 }
 #endif
 

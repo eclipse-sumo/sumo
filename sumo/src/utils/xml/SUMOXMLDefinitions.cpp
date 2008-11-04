@@ -121,11 +121,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "node",             SUMO_TAG_NODE },
     { "type",             SUMO_TAG_TYPE },
     { "detector_definition", SUMO_TAG_DETECTOR_DEFINITION },
-    { "route-interval",   SUMO_TAG_ROUTE_INTERVAL },
-    { "vtype-interval",   SUMO_TAG_VTYPE_INTERVAL },
-    { "state-interval",   SUMO_TAG_STATE_INTERVAL },
-    { "route-dist",       SUMO_TAG_ROUTE_DIST },
-    { "vtype-dist",       SUMO_TAG_VTYPE_DIST },
     { "routeDistribution", SUMO_TAG_ROUTE_DISTRIBUTION },
     { "vtypeDistribution", SUMO_TAG_VTYPE_DISTRIBUTION },
     { "vaporizer",        SUMO_TAG_VAPORIZER },
@@ -289,8 +284,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "allow",          SUMO_ATTR_ALLOW },
     { "disallow",       SUMO_ATTR_DISALLOW },
     { "controlled_inner", SUMO_ATTR_CONTROLLED_INNER },
-    { "v",              SUMO_ATTR_V },
-    { "q",              SUMO_ATTR_Q },
+    { "vehsPerHour",    SUMO_ATTR_VEHSPERHOUR },
     { "rfile",          SUMO_ATTR_RFILE },
 
     { "entering",       SUMO_ATTR_ENTERING },
@@ -298,6 +292,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "lon",            SUMO_ATTR_LON },
     { "lat",            SUMO_ATTR_LAT },
     { "k",              SUMO_ATTR_K },
+    { "v",              SUMO_ATTR_V },
     { "ref",            SUMO_ATTR_REF },
 
 

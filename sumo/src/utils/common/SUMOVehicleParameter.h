@@ -122,7 +122,7 @@ class SUMOVehicleParameter
 {
 public:
     SUMOVehicleParameter()
-            : depart(-1), departLane(0),
+            : vtypeid(DEFAULT_VTYPE_ID), depart(-1), departLane(0),
             departLaneProcedure(DEPART_LANE_DEFAULT),
             departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
             arrivalPos(0), arrivalSpeed(-1),
