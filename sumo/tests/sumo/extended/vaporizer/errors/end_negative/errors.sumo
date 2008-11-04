@@ -1,2 +1,3 @@
+Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
 Error: A vaporization end is negative (edge id='middle').
 Quitting (on error).

@@ -1,2 +1,3 @@
+Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
 Error: Missing or empty id in a vaporizer-object.
 Quitting (on error).

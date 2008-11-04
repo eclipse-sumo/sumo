@@ -1,2 +1,3 @@
+Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
 Error: Unknown edge referenced in a vaporizer ('xxx').
 Quitting (on error).

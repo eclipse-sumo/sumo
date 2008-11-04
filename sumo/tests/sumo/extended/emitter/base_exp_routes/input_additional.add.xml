@@ -1,5 +1,5 @@
 <additional>
 
-	<emitter id="emitter"  pos="100" objectid="beg_0" file="input_definition.def.xml"/>
+	<emitter id="emitter" pos="100" lane="beg_0" file="input_definition.def.xml"/>
 
 </additional>

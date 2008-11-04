@@ -1,3 +1,4 @@
+Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
 Error: Expected end of tag 'vtypedistelem'
  In file 'input_definition.def.xml'
  At line/column 18/3.

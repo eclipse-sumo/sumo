@@ -1,2 +1,3 @@
+Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
 Error: Attribute 'end' is missing in definition of a(n) vaporizer.
 Quitting (on error).

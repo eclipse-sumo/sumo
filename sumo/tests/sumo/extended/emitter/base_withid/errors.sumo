@@ -1,3 +1,4 @@
+Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
 Warning: MSTriggeredSource emitter: Vehicle bar2 already exists.
  Generating a default id.
 Warning: MSTriggeredSource emitter: Vehicle bar2 already exists.
