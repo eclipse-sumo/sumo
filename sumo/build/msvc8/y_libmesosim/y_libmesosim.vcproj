@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="y_libmesosim"
 	ProjectGUID="{308BEB29-142B-4088-BD41-80E273E20D3A}"
 	>
@@ -362,10 +362,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\mesosim\METriggeredScaler.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\mesosim\MEVehicle.cpp"
 				>
 			</File>
@@ -388,10 +384,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\mesosim\METriggeredCalibrator.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\mesosim\METriggeredScaler.h"
 				>
 			</File>
 			<File

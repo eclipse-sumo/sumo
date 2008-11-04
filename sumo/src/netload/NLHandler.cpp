@@ -180,7 +180,15 @@ NLHandler::myStartElement(SumoXMLTag element,
         myTriggerBuilder.parseAndBuildLaneEmitTrigger(myNet, attrs, getFileName());
         break;
     case SUMO_TAG_CALIBRATOR:
-        myTriggerBuilder.parseAndBuildLaneCalibrator(myNet, attrs, getFileName());
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
+        } else {
+#endif
+            myTriggerBuilder.parseAndBuildLaneCalibrator(myNet, attrs, getFileName());
+#ifdef HAVE_MESOSIM
+        }
+#endif
         break;
     case SUMO_TAG_REROUTER:
         myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
