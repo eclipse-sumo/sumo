@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/29/08 15:13:22 by SUMO dfrouter Version dev-SVN-r6225
+<!-- generated on 11/04/08 12:12:52 by SUMO dfrouter Version dev-SVN-r6310
 <configuration>
 
    <input>
@@ -17,14 +17,14 @@
 -->
 
 <additional>
-   <emitter id="source_MQ11Fs1" pos="5.00" objectid="ErnstRuska2O_0" friendly_pos="x" file="emitter_MQ11Fs1.def.xml"/>
-   <emitter id="source_MQ11Fs2" pos="5.00" objectid="ErnstRuska2O_1" friendly_pos="x" file="emitter_MQ11Fs2.def.xml"/>
-   <emitter id="source_MQ28Fs1S" pos="-5.00" objectid="HavestadtS_0" friendly_pos="x" file="emitter_MQ28Fs1S.def.xml"/>
-   <emitter id="source_MQ28Fs2S" pos="-5.00" objectid="HavestadtS_1" friendly_pos="x" file="emitter_MQ28Fs2S.def.xml"/>
-   <emitter id="source_MQ35Fs1S" pos="-5.00" objectid="VolmerS_0" friendly_pos="x" file="emitter_MQ35Fs1S.def.xml"/>
-   <emitter id="source_MQ43Fs1" pos="-5.00" objectid="ErnstRuska5W_0" friendly_pos="x" file="emitter_MQ43Fs1.def.xml"/>
-   <emitter id="source_MQ43Fs2" pos="-5.00" objectid="ErnstRuska5W_1" friendly_pos="x" file="emitter_MQ43Fs2.def.xml"/>
-   <emitter id="source_MQ43Fs3" pos="-5.00" objectid="ErnstRuska5W_2" friendly_pos="x" file="emitter_MQ43Fs3.def.xml"/>
-   <emitter id="source_MQ45Fs1N" pos="-5.00" objectid="AltglienickerBreitN_0" friendly_pos="x" file="emitter_MQ45Fs1N.def.xml"/>
-   <emitter id="source_MQ45Fs2N" pos="-5.00" objectid="AltglienickerBreitN_1" friendly_pos="x" file="emitter_MQ45Fs2N.def.xml"/>
+   <emitter id="source_MQ11Fs1" pos="5.00" lane="ErnstRuska2O_0" friendly_pos="x" file="emitter_MQ11Fs1.def.xml"/>
+   <emitter id="source_MQ11Fs2" pos="5.00" lane="ErnstRuska2O_1" friendly_pos="x" file="emitter_MQ11Fs2.def.xml"/>
+   <emitter id="source_MQ28Fs1S" pos="-5.00" lane="HavestadtS_0" friendly_pos="x" file="emitter_MQ28Fs1S.def.xml"/>
+   <emitter id="source_MQ28Fs2S" pos="-5.00" lane="HavestadtS_1" friendly_pos="x" file="emitter_MQ28Fs2S.def.xml"/>
+   <emitter id="source_MQ35Fs1S" pos="-5.00" lane="VolmerS_0" friendly_pos="x" file="emitter_MQ35Fs1S.def.xml"/>
+   <emitter id="source_MQ43Fs1" pos="-5.00" lane="ErnstRuska5W_0" friendly_pos="x" file="emitter_MQ43Fs1.def.xml"/>
+   <emitter id="source_MQ43Fs2" pos="-5.00" lane="ErnstRuska5W_1" friendly_pos="x" file="emitter_MQ43Fs2.def.xml"/>
+   <emitter id="source_MQ43Fs3" pos="-5.00" lane="ErnstRuska5W_2" friendly_pos="x" file="emitter_MQ43Fs3.def.xml"/>
+   <emitter id="source_MQ45Fs1N" pos="-5.00" lane="AltglienickerBreitN_0" friendly_pos="x" file="emitter_MQ45Fs1N.def.xml"/>
+   <emitter id="source_MQ45Fs2N" pos="-5.00" lane="AltglienickerBreitN_1" friendly_pos="x" file="emitter_MQ45Fs2N.def.xml"/>
 </additional>

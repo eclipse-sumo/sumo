@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/29/08 15:14:04 by SUMO dfrouter Version dev-SVN-r6225
+<!-- generated on 11/04/08 12:15:52 by SUMO dfrouter Version dev-SVN-r6310
 <configuration>
 
    <input>
@@ -27,7 +27,7 @@
 -->
 
 <additional>
-   <emitter id="source_LI" pos="100.00" objectid="11_21_0" friendly_pos="x" file="emitter_LI.def.xml"/>
-   <emitter id="source_RI" pos="100.00" objectid="60_50_0" friendly_pos="x" file="emitter_RI.def.xml"/>
-   <emitter id="source_BI" pos="50.00" objectid="a5_a4_0" friendly_pos="x" file="emitter_BI.def.xml"/>
+   <emitter id="source_LI" pos="100.00" lane="11_21_0" friendly_pos="x" file="emitter_LI.def.xml"/>
+   <emitter id="source_RI" pos="100.00" lane="60_50_0" friendly_pos="x" file="emitter_RI.def.xml"/>
+   <emitter id="source_BI" pos="50.00" lane="a5_a4_0" friendly_pos="x" file="emitter_BI.def.xml"/>
 </additional>

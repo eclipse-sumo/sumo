@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/29/08 15:14:20 by SUMO dfrouter Version dev-SVN-r6225
+<!-- generated on 11/04/08 12:16:49 by SUMO dfrouter Version dev-SVN-r6310
 <configuration>
 
    <input>
@@ -18,6 +18,6 @@
 -->
 
 <additional>
-   <emitter id="source_MQ_1to2" pos="5.00" objectid="1to2_0" friendly_pos="x" file="emitter_MQ_1to2.def.xml"/>
-   <emitter id="source_MQ_6to7" pos="5.00" objectid="6to7_0" friendly_pos="x" file="emitter_MQ_6to7.def.xml"/>
+   <emitter id="source_MQ_1to2" pos="5.00" lane="1to2_0" friendly_pos="x" file="emitter_MQ_1to2.def.xml"/>
+   <emitter id="source_MQ_6to7" pos="5.00" lane="6to7_0" friendly_pos="x" file="emitter_MQ_6to7.def.xml"/>
 </additional>
