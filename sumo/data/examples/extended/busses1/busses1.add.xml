@@ -1,9 +1,9 @@
 <additional>
 
-	<busStop id="busstop1" objectid="2/1to1/1_0" from="20" to="40" lines="100;101;102"/>
-	<busStop id="busstop2" objectid="1/2to0/2_0" from="20" to="40" lines="100;101"/>
-	<busStop id="busstop3" objectid="0/1to0/0_0" from="20" to="40" lines="100;101;102"/>
-	<busStop id="busstop4" objectid="1/0to2/0_0" from="20" to="40" lines="100;101"/>
+	<busStop id="busstop1" lane="2/1to1/1_0" from="20" to="40" lines="100;101;102"/>
+	<busStop id="busstop2" lane="1/2to0/2_0" from="20" to="40" lines="100;101"/>
+	<busStop id="busstop3" lane="0/1to0/0_0" from="20" to="40" lines="100;101;102"/>
+	<busStop id="busstop4" lane="1/0to2/0_0" from="20" to="40" lines="100;101"/>
 
 	<vtype id="BUS" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70" color="1,1,0"/>
 
