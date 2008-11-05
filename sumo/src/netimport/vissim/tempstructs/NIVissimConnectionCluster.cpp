@@ -721,7 +721,7 @@ NIVissimConnectionCluster::recomputeBoundary()
         if (c!=0) {
             myBoundary.add(c->getFromGeomPosition());
             myBoundary.add(c->getToGeomPosition());
-            myBoundary.add(c->getGeometry().getBoxBoundary());
+            //myBoundary.add(c->getGeometry().getBoxBoundary());
         }
     }
     assert(myBoundary.xmax()>=myBoundary.xmin());

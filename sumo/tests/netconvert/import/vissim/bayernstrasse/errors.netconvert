@@ -109,24 +109,19 @@ Warning: Could not build connection between '3' and '26'.
 Warning: Could not build connection between '6' and '20000'.
 Warning: Could not set connection between '38_0' and '26_1'.
 Warning: Could not set connection between '26_1' and '37_0'.
-Warning: Could not build connection between '67' and '6'.
-Warning: Could not build connection between '67' and '6'.
-Warning: Could not build connection between '71' and '6'.
-Warning: Could not build connection between '71' and '6'.
+Warning: Could not build connection between '26' and '11'.
 Warning: Could not build connection between '82' and '85'.
 Warning: Could not build connection between '84' and '82'.
+Warning: Could not build connection between '85' and '82'.
 Warning: Could not build connection between '83' and '84'.
 Warning: Could not build connection between '84' and '83'.
-Warning: Could not build connection between '85' and '83'.
+Warning: Could not build connection between '84' and '91'.
 Warning: Could not build connection between '84' and '93'.
 Warning: Could not set connection between '93[1]_0' and '85[1][1][1][0]_0'.
 Warning: Could not build connection between '93' and '84'.
-Warning: Could not set connection between '94_0' and '87_0'.
-Warning: Could not build connection between '101' and '30004'.
-Warning: Could not build connection between '30003' and '30007'.
-Warning: Could not build connection between '30012' and '30007'.
-Warning: Could not build connection between '30016' and '30009'.
-Warning: 17 of 136 connections could not be assigned.
+Warning: Could not build connection between '30020' and '30001'.
+Warning: Could not set connection between '30010_0' and '30018_0'.
+Warning: 12 of 136 connections could not be assigned.
 Warning: Ugly split to prohibit '6' by '10'.
 Warning: Ugly split to prohibit '6' by '11'.
 Warning: Ugly split to prohibit '6' by '10'.
@@ -231,15 +226,14 @@ Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
-Warning: The signal '5321' could not be assigned to tl '532'.
 Warning: Could not set tls signal at edge '30009' - the edge was not built.
 Warning: The signal '5323' could not be assigned to tl '532'.
-Warning: The signal '53212' could not be assigned to tl '532'.
+Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set tls signal at edge '30009' - the edge was not built.
 Warning: The signal '53222' could not be assigned to tl '532'.
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
-Warning: Could not set 6 of 37 signals.
+Warning: Could not set 4 of 37 signals.
 Warning: The traffic light '451' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '451'
 Warning: The traffic light '452' has no incoming edges; it will not be build.

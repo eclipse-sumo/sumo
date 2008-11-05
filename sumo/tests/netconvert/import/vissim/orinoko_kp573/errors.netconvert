@@ -1,26 +1,22 @@
-Warning: Could not build 16 of 20 disturbances.
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000700
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000700
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000703
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000703
-Warning: could not prohibit 1000710->1000700 by 1000710->1000712
-Warning: could not prohibit 1000710->1000712 by 1000710->1000700
-Warning: could not prohibit 1000714+1000713->1000707 by 1000714+1000713->1000712
-Warning: could not prohibit 1000714+1000713->1000712 by 1000714+1000713->1000707
-Warning: could not prohibit 1000714+1000713->1000712 by 1000702[1]+1000701->1000712
-Warning: could not prohibit 1000714+1000713->1000712 by 1000702[1]+1000701->1000712
-Warning: could not prohibit 1000714+1000713->1000700 by 1000714+1000713->1000703
-Warning: could not prohibit 1000714+1000713->1000703 by 1000714+1000713->1000700
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000700
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000700
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000703
-Warning: could not prohibit 1000704->1000700 by 1000714+1000713->1000703
-Warning: could not prohibit 1000710->1000700 by 1000710->1000712
-Warning: could not prohibit 1000710->1000712 by 1000710->1000700
-Warning: could not prohibit 1000714+1000713->1000707 by 1000714+1000713->1000712
-Warning: could not prohibit 1000714+1000713->1000712 by 1000714+1000713->1000707
-Warning: could not prohibit 1000714+1000713->1000712 by 1000702[1]+1000701->1000712
-Warning: could not prohibit 1000714+1000713->1000712 by 1000702[1]+1000701->1000712
-Warning: could not prohibit 1000714+1000713->1000700 by 1000714+1000713->1000703
-Warning: could not prohibit 1000714+1000713->1000703 by 1000714+1000713->1000700
-Warning: 24 of 44 prohibitions were not build.
+Warning: Will not build edge '18'.
+Warning: Will not build edge '1000702'.
+Warning: Will not build edge '1000709'.
+Warning: Will not build edge '1000711'.
+Warning: Could not build connection between '17' and '18'.
+Warning: Could not build connection between '18' and '16'.
+Warning: Could not build connection between '18' and '17'.
+Warning: Could not build connection between '19' and '18'.
+Warning: Could not build connection between '1000702' and '1000701'.
+Warning: Could not build connection between '1000709' and '1000708'.
+Warning: Could not build connection between '1000711' and '1000710'.
+Warning: Could not build connection between '1000702' and '1000703'.
+Warning: Could not build connection between '1000702' and '1000707'.
+Warning: Could not build connection between '33' and '1000702'.
+Warning: Could not build connection between '32' and '1000709'.
+Warning: Could not build connection between '32' and '1000711'.
+Warning: 12 of 130 connections could not be assigned.
+Warning: Could not build 20 of 20 disturbances.
+Warning: The signal '201' could not be assigned to tl '1'.
+Warning: The signal '202' could not be assigned to tl '1'.
+Warning: The signal '203' could not be assigned to tl '1'.
+Warning: Could not set 3 of 16 signals.
