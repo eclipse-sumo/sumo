@@ -65,7 +65,6 @@
 #include <utils/common/SysUtils.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/options/OptionsCont.h>
-#include "trigger/MSTriggerControl.h"
 #include "MSGlobals.h"
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
@@ -136,7 +135,6 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myLogics = 0;
     myPersonControl = 0;
     myMSPhoneNet = 0;
-    myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
@@ -228,7 +226,6 @@ MSNet::~MSNet()
         delete MSGlobals::gMesoNet;
     }
 #endif
-    delete myTriggerControl;
     delete myBeginOfTimestepEvents;
     delete myEndOfTimestepEvents;
     delete myEmissionEvents;

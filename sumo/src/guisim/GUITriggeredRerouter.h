@@ -65,7 +65,7 @@ public:
     /** constructor */
     GUITriggeredRerouter(const std::string &id,
                          const std::vector<MSEdge*> &edges, SUMOReal prob,
-                         const std::string &aXMLFilename);
+                         const std::string &aXMLFilename, bool off);
 
 
     /** destructor */

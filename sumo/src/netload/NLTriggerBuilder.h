@@ -132,12 +132,11 @@ public:
      * @param[in] net The network the lane speed trigger belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @return The built lane speed trigger
      * @exception InvalidArgument If a parameter (lane/position) is not valid or the read definition is errornous
      * @see buildLaneSpeedTrigger
      */
-    MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
-            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
+    void parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
+                                       const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds an emitter
@@ -145,11 +144,10 @@ public:
      * @param[in] net The network the emitter belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @return The built emitter
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
-    MSEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
-                                            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
+    void parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
+                                      const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a rerouter
@@ -157,59 +155,39 @@ public:
      * @param[in] net The network the rerouter belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @return The built rerouter
      * @exception InvalidArgument If a parameter (edge) is not valid
      */
-    MSTriggeredRerouter *parseAndBuildRerouter(MSNet &net,
-            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
+    void parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &attrs,
+                               const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a bus stop
      *
      * @param[in] net The network the bus stop belongs to
      * @param[in] attrs SAX-attributes which define the trigger
-     * @return The built bus stop
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
-    MSBusStop *parseAndBuildBusStop(MSNet &net,
-                                    const SUMOSAXAttributes &attrs) throw(InvalidArgument);
+    void parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a vehicle actor
      *
      * @param[in] net The network the vehicle actor belongs to
      * @param[in] attrs SAX-attributes which define the trigger
-     * @return The built vehicle actor
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
-    MSE1VehicleActor *parseAndBuildVehicleActor(MSNet &net,
-            const SUMOSAXAttributes &attrs) throw(InvalidArgument);
+    void parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 
 
-    /** @brief Parses his values and builds a microscopic calibrator for online simulation
+    /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @return The built calibrator
-     * @exception InvalidArgument If a parameter is not valid
-     */
-    MSCalibrator *parseAndBuildLaneCalibrator(MSNet &net,
-                                          const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
-
-
-#ifdef HAVE_MESOSIM
-    /** @brief Parses his values and builds a mesoscopic calibrator
-     *
-     * @param[in] net The network the calibrator belongs to
-     * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] base The base path
-     * @return The built calibrator
      * @exception InvalidArgument If a parameter (edge/position) is not valid
      */
-    METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
-            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
-#endif
+    void parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
+                                 const std::string &base) throw(InvalidArgument);
     //@}
 
 
@@ -221,8 +199,7 @@ protected:
     /// These methods should be overriden for the gui loader in order
     ///  to build visualizable versions of the triggers.
     ///
-    /// In most cases, these methods only call the constructor and
-    ///  return the so build trigger.
+    /// In most cases, these methods only call the constructor.
     //@{
 
     /** @brief Builds a lane speed trigger
@@ -233,11 +210,10 @@ protected:
      * @param[in] id The id of the lane speed trigger
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
-     * @return The built lane speed trigger
      * @see MSLaneSpeedTrigger
      * @exception ProcessError If the XML definition file is errornous
      */
-    virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
+    virtual void buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,
             const std::string &file) throw(ProcessError);
 
@@ -251,9 +227,8 @@ protected:
      * @param[in] destLane The lane the emitter is placed on
      * @param[in] pos Position of the emitter on the given lane
      * @param[in] file Name of the file to read the emission definitions from
-     * @return The built emitter
      */
-    virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
+    virtual void buildLaneEmitTrigger(MSNet &net,
                                             const std::string &id, MSLane *destLane, SUMOReal pos,
                                             const std::string &file) throw();
 
@@ -268,9 +243,8 @@ protected:
      * @param[in] lane The lane the bus stop is placed on
      * @param[in] frompos Begin position of the bus stop on the lane
      * @param[in] topos End position of the bus stop on the lane
-     * @return The built bus stop
      */
-    virtual MSBusStop* buildBusStop(MSNet &net,
+    virtual void buildBusStop(MSNet &net,
                                     const std::string &id, const std::vector<std::string> &lines,
                                     MSLane *lane, SUMOReal frompos, SUMOReal topos) throw();
 
@@ -284,10 +258,9 @@ protected:
      * @param[in] destLane The lane the calibrator is placed on
      * @param[in] pos Position of the calibrator on the given lane
      * @param[in] file Name of the file to read the calibration definitions from
-     * @return The built calibrator
      * @todo Recheck and describe parameter
      */
-    virtual MSCalibrator *buildLaneCalibrator(MSNet &net,
+    virtual void buildLaneCalibrator(MSNet &net,
             const std::string &id, MSLane *destLane, SUMOReal pos,
             const std::string &file) throw();
 
@@ -301,15 +274,12 @@ protected:
      * @param[in] id The id of the calibrator
      * @param[in] edge The edge the calibrator is placed at
      * @param[in] pos The position on the edge the calibrator lies at
-     * @param[in] rfile The file to read routes from
      * @param[in] file The file to read the flows from
-     * @return The built mesoscopic calibrator
      * @todo Is the position correct/needed
-     * @todo Is the route file still necessary?
      */
-    virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
+    virtual void buildCalibrator(MSNet &net,
             const std::string &id, MESegment *edge, SUMOReal pos,
-            const std::string &rfile, const std::string &file) throw();
+            const std::string &file) throw();
 #endif
 
 
@@ -322,11 +292,10 @@ protected:
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
-     * @return The built rerouter
      */
-    virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
+    virtual void buildRerouter(MSNet &net,
             const std::string &id, std::vector<MSEdge*> &edges,
-            SUMOReal prob, const std::string &file) throw();
+            SUMOReal prob, const std::string &file, bool off) throw();
 
 
     /** @brief builds a vehicle actor
@@ -338,10 +307,9 @@ protected:
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
-     * @return The built vehicle actor
      * @todo Recheck usage of TOL-actors
      */
-    virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
+    virtual void buildVehicleActor(MSNet &net,
             const std::string &id, MSLane *lane, SUMOReal pos,
             unsigned int la, unsigned int cell, unsigned int type) throw();
     //@}

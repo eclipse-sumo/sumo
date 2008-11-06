@@ -48,7 +48,6 @@
 #include <utils/options/OptionsCont.h>
 #include "MSNet.h"
 
-#include <microsim/trigger/MSTriggerControl.h>
 #include <microsim/trigger/MSBusStop.h>
 #include <microsim/MSGlobals.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -139,8 +138,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         string bus_stop = attrs.getStringSecure(SUMO_ATTR_BUS_STOP, "");
         if (bus_stop!="") {
             // ok, we have obviously a bus stop
-            MSBusStop *bs =
-                (MSBusStop*) MSNet::getInstance()->getTriggerControl().getTrigger(bus_stop);
+            MSBusStop *bs = MSNet::getInstance()->getBusStop(bus_stop);
             if (bs!=0) {
                 const MSLane &l = bs->getLane();
                 stop.lane = &((MSLane &) l);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="z_libmicrosim_trigger"
 	ProjectGUID="{26F88652-2664-4CE7-8292-6BD37EE6C3AD}"
 	RootNamespace="z_libmicrosim_trigger"
@@ -562,10 +562,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp"
 				>
 			</File>
@@ -605,10 +601,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSTrigger.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.h"
 				>
 			</File>
 			<File

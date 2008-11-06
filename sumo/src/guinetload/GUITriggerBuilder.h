@@ -76,11 +76,10 @@ protected:
      * @param[in] id The id of the lane speed trigger
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
-     * @return The built lane speed trigger
      * @see MSLaneSpeedTrigger
      * @exception ProcessError If the XML definition file is errornous
      */
-    virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
+    virtual void buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,
             const std::string &file) throw(ProcessError);
 
@@ -94,9 +93,8 @@ protected:
      * @param[in] destLane The lane the emitter is placed on
      * @param[in] pos Position of the emitter on the given lane
      * @param[in] file Name of the file to read the emission definitions from
-     * @return The built emitter
      */
-    virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
+    virtual void buildLaneEmitTrigger(MSNet &net,
                                             const std::string &id, MSLane *destLane, SUMOReal pos,
                                             const std::string &file) throw();
 
@@ -110,11 +108,10 @@ protected:
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
-     * @return The built rerouter
      */
-    virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
+    virtual void buildRerouter(MSNet &net,
             const std::string &id, std::vector<MSEdge*> &edges,
-            SUMOReal prob, const std::string &file) throw();
+            SUMOReal prob, const std::string &file, bool off) throw();
 
 
     /** @brief builds a vehicle actor
@@ -126,10 +123,9 @@ protected:
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
      * @param[in] file The file to read the reroute definitions from
-     * @return The built vehicle actor
      * @todo Recheck usage of TOL-actors
      */
-    virtual MSE1VehicleActor *buildVehicleActor(MSNet &, const std::string &id,
+    virtual void buildVehicleActor(MSNet &, const std::string &id,
             MSLane *lane, SUMOReal pos, unsigned int la,
             unsigned int cell, unsigned int type) throw();
 
@@ -144,9 +140,8 @@ protected:
      * @param[in] lane The lane the bus stop is placed on
      * @param[in] frompos Begin position of the bus stop on the lane
      * @param[in] topos End position of the bus stop on the lane
-     * @return The built bus stop
      */
-    virtual MSBusStop* buildBusStop(MSNet &net, const std::string &id,
+    virtual void buildBusStop(MSNet &net, const std::string &id,
                                     const std::vector<std::string> &lines, MSLane *lane,
                                     SUMOReal frompos, SUMOReal topos) throw();
     /// @}

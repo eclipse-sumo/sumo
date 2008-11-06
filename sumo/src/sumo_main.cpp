@@ -39,7 +39,6 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/trigger/MSTriggerControl.h>
 #include <netload/NLBuilder.h>
 #include <netload/NLHandler.h>
 #include <netload/NLTriggerBuilder.h>

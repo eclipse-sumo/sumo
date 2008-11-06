@@ -73,7 +73,7 @@ public:
      */
     MSTriggeredRerouter(const std::string &id,
                         const std::vector<MSEdge*> &edges,
-                        SUMOReal prob, const std::string &file);
+                        SUMOReal prob, const std::string &file, bool off);
 
     /** destructor */
     virtual ~MSTriggeredRerouter() throw();

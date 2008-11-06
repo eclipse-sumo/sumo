@@ -46,6 +46,7 @@
 #include <utils/common/SUMOTime.h>
 #include "MSPhoneNet.h"
 #include <microsim/output/MSMeanData_Net.h>
+#include <microsim/trigger/MSBusStop.h>
 
 #ifdef _MESSAGES
 #include <utils/common/NamedObjectCont.h>
@@ -70,7 +71,6 @@ class OutputDevice;
 class NLBuilder;
 class MSTrigger;
 class MSDetectorControl;
-class MSTriggerControl;
 class ShapeContainer;
 class BinaryInputDevice;
 class MSRouteLoader;
@@ -263,16 +263,6 @@ public:
     }
 
 
-    /** @brief Returns the trigger control
-     * @return The trigger control
-     * @see MSTriggerControl
-     * @see myTriggerControl
-     */
-    MSTriggerControl &getTriggerControl() throw() {
-        return *myTriggerControl;
-    }
-
-
     /** @brief Returns the tls logics control
      * @return The tls logics control
      * @see MSTLLogicControl
@@ -343,6 +333,43 @@ public:
     }
     /// @}
 
+    /// @name Insertion and retrieval of bus stops
+    /// @{
+
+    /** @brief Adds a bus stop
+     *
+     * If another bus stop with the same id exists, false is returned.
+     *  Otherwise, the bus stop is added to the internal bus stop
+     *  container "myBusStopDict".
+     *
+     * This control get responsible for deletion of the added bus stop.
+     *
+     * @param[in] busStop The bus stop to add
+     * @return Whether the bus stop could be added
+     */
+    bool addBusStop(MSBusStop* busStop) throw() {
+        if (myBusStopDict.find(busStop->getID()) == myBusStopDict.end()) {
+            myBusStopDict[busStop->getID()] = busStop;
+            return true;
+        }
+        return false;
+    }
+
+
+    /** @brief Returns the named bus stop
+     * @param[in] id The id of the bus stop to return.
+     * @return The named bus stop, or 0 if no such stop exists
+     */
+    MSBusStop *getBusStop(const std::string &id) throw() {
+        BusStopDictType::iterator it = myBusStopDict.find(id);
+        if (it == myBusStopDict.end()) {
+            return 0;
+        }
+        return it->second;
+    }
+    /// @}
+
+
 protected:
     /** initialises the MeanData-container */
     static void initMeanData(std::vector<int> dumpMeanDataIntervals,
@@ -384,8 +411,6 @@ protected:
     MSEmitControl* myEmitter;
     /** @brief Controls detectors; @see MSDetectorControl */
     MSDetectorControl *myDetectorControl;
-    /** @brief Controls triggers; @see MSTriggerControl */
-    MSTriggerControl *myTriggerControl;
     /** @brief Controls events executed at the begin of a time step; @see MSEventControl */
     MSEventControl *myBeginOfTimestepEvents;
     /** @brief Controls events executed at the end of a time step; @see MSEventControl */
@@ -422,6 +447,11 @@ protected:
 
     SUMOReal myTooSlowRTF;
     int myTooManyVehicles;
+
+    /// @brief Bus stop dictionary type
+    typedef std::map< std::string, MSBusStop* > BusStopDictType;
+    /// @brief Dictionary of bus stops
+    BusStopDictType myBusStopDict;
 
 
 private:

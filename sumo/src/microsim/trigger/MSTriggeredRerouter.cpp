@@ -102,7 +102,7 @@ MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw
  * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         const std::vector<MSEdge*> &edges,
-        SUMOReal prob, const std::string &file)
+        SUMOReal prob, const std::string &file, bool off)
         : MSTrigger(id), SUMOSAXHandler(file),
         myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
 {
@@ -129,6 +129,10 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
 #ifdef HAVE_MESOSIM
     }
 #endif
+    if (off) {
+        setUserMode(true);
+        setUserUsageProbability(0);
+    }
 }
 
 

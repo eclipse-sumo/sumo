@@ -285,7 +285,6 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "disallow",       SUMO_ATTR_DISALLOW },
     { "controlled_inner", SUMO_ATTR_CONTROLLED_INNER },
     { "vehsPerHour",    SUMO_ATTR_VEHSPERHOUR },
-    { "rfile",          SUMO_ATTR_RFILE },
 
     { "entering",       SUMO_ATTR_ENTERING },
 
