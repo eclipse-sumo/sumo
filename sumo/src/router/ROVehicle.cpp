@@ -70,7 +70,7 @@ void
 ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
 {
     dev << "<vehicle id=\"" << myParameter.id << "\"";
-    if (myType!=0) {
+    if ((myParameter.setParameter&VEHPARS_VTYPE_SET)!=0) {
         dev << " type=\"" << myType->getID() << "\"";
     }
     dev << " depart=\"" << myParameter.depart << "\"";
