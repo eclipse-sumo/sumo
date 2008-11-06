@@ -56,7 +56,6 @@ public:
     SUMOReal crossesAtPoint(const Position2D &p1,
                             const Position2D &p2) const;
 
-    bool hasGeom() const;
     virtual void buildGeom() = 0;
     int getID() const;
     const Position2DVector &getGeometry() const;

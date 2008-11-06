@@ -1,34 +1,12 @@
-Warning: Will not build edge '44'.
-Warning: Will not build edge '99'.
-Warning: Will not build edge '1000705'.
 Warning: Will not build edge '1001200'.
-Warning: Will not build edge '1001201'.
 Warning: Will not build edge '1001202'.
-Warning: Could not build connection between '7' and '44'.
-Warning: Could not build connection between '36' and '99'.
-Warning: Could not build connection between '43' and '44'.
-Warning: Could not build connection between '44' and '43'.
-Warning: Could not build connection between '44' and '93'.
-Warning: Could not build connection between '45' and '44'.
-Warning: Could not build connection between '99' and '22'.
-Warning: Could not build connection between '99' and '100'.
-Warning: Could not build connection between '100' and '99'.
-Warning: Could not build connection between '1000705' and '1000704'.
-Warning: Could not build connection between '1000705' and '1000706'.
-Warning: Could not build connection between '1000705' and '1000709'.
-Warning: Could not build connection between '42' and '1000705'.
 Warning: Could not build connection between '1001201' and '1001200'.
 Warning: Could not build connection between '1001201' and '1001202'.
-Warning: Could not build connection between '1001201' and '1001204'.
 Warning: Could not build connection between '1001203' and '1001200'.
 Warning: Could not build connection between '1001203' and '1001202'.
 Warning: Could not build connection between '1001205' and '1001200'.
 Warning: Could not build connection between '1001205' and '1001202'.
 Warning: Could not build connection between '1001200' and '64'.
-Warning: Could not build connection between '63' and '1001201'.
 Warning: Could not build connection between '1001202' and '15'.
-Warning: 23 of 236 connections could not be assigned.
-Warning: Could not build 115 of 66 disturbances.
-Warning: The signal '202' could not be assigned to tl '1'.
-Warning: The signal '203' could not be assigned to tl '1'.
-Warning: Could not set 2 of 12 signals.
+Warning: 8 of 236 connections could not be assigned.
+Warning: Could not build 36 of 66 disturbances.

@@ -91,19 +91,19 @@ NIVissimAbstractEdge::dictionary(int id)
 Position2D
 NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
 {
-    if (myGeom.length()<pos) {
+    if (myGeom.length()>pos) {
+        return myGeom.positionAtLengthPosition(pos);
+    } else if(myGeom.length()==pos) {
+        return myGeom[-1];
+    } else {
+        Position2DVector g(myGeom);
         SUMOReal amount = pos - myGeom.length();
-        Line2D l(myGeom[-2], GeomHelper::extrapolate_second(myGeom[-2], myGeom[-1], amount*2));
-        return l.getPositionAtDistance(pos);
+        Position2D ne = GeomHelper::extrapolate_second(g[-2], g[-1], amount*2);
+        g.pop_back();
+        g.push_back(ne);
+        return g.positionAtLengthPosition(pos);
     }
-    return myGeom.positionAtLengthPosition(pos);
 }
-bool
-NIVissimAbstractEdge::hasGeom() const
-{
-    return myGeom.size()>0;
-}
-
 
 
 void
