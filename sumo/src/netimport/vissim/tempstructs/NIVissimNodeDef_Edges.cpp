@@ -45,12 +45,17 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NIVissimNodeDef_Edges::NIVissimNodeDef_Edges(int id,
         const std::string &name, const NIVissimNodeParticipatingEdgeVector &edges)
         : NIVissimNodeDef(id, name), myEdges(edges)
@@ -78,31 +83,6 @@ NIVissimNodeDef_Edges::dictionary(int id, const std::string &name,
     return true;
 }
 
-
-/*
-void
-NIVissimNodeDef_Edges::computeBounding()
-{
-    assert(myBoundary==0);
-    Boundary *boundary = new Boundary();
-    for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        NIVissimNodeParticipatingEdge *edge = *i;
-        NIVissimConnection *c = NIVissimConnection::dictionary(edge->getID());
-        NIVissimEdge *e = NIVissimEdge::dictionary(edge->getID());
-        if(c!=0) {
-            // both connected edges should be a part of the junction? !!!
-            boundary->add(c->getFromGeomPosition());
-            boundary->add(c->getToGeomPosition());
-        }
-        if(e!=0) {
-            boundary->add(e->getGeomPosition(edge->getFromPos()));
-            boundary->add(e->getGeomPosition(edge->getToPos()));
-        }
-    }
-    myBoundary = boundary;
-    assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
-}
-*/
 
 void
 NIVissimNodeDef_Edges::searchAndSetConnections()

@@ -4,7 +4,7 @@
 /// @date    End of 2002
 /// @version $Id$
 ///
-// An edge imported from Vissim together for a container for
+// A temporary storage for edges imported from Vissim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,6 +37,7 @@
 #include <netbuild/NBEdge.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/VectorHelper.h>
+#include <utils/common/UtilExceptions.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimClosedLanesVector.h"
 
@@ -53,6 +54,10 @@ class NBDistrictCont;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class NIVissimEdge
+ * @brief A temporary storage for edges imported from Vissim
+ */
 class NIVissimEdge
             : public NIVissimAbstractEdge
 {
@@ -101,6 +106,17 @@ public:
 
     NIVissimConnection* getConnectionTo(NIVissimEdge *e);
     const std::vector<NIVissimEdge*> &getToTreatAsSame() const;
+
+
+    /** @brief Returns whether this edge was found to be within a junction
+     * @return Whether this node is assumed to be within a junction
+     */
+    bool wasWithinAJunction() const throw() {
+        return myAmWithinJunction;
+    }
+
+    NIVissimEdge *getBestIncoming() const throw();
+    NIVissimEdge *getBestOutgoing() const throw();
 
     friend class NIVissimNodeDef_Edges;
     friend class NIVissimNodeDef_Poly;
@@ -156,9 +172,17 @@ private:
     typedef std::vector<NIVissimConnectionCluster*> ConnectionClusters;
 
 private:
-    /// Builds the NBEdge from this VissimEdge
+    /** @brief Builds the NBEdge from this VissimEdge
+     *
+     * @param[in] dc The district container used if this edge must be split
+     * @param[in] nc The node container used for (optionally) building this edge's nodes
+     * @param[in] ec The edge control to add this edge to
+     * @param[in] sameNodesOffset Offset used to discriminate nodes
+     * @param[in] tryIgnoreNodePositions Whether node positions shall not be added to the edge's geomatry
+     * @exception ProcessError If one of the built nodes or edges could not be added to the according container
+     */
     void buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc,
-                     NBEdgeCont &ec, SUMOReal offset, bool tryIgnoreNodePositions);
+                     NBEdgeCont &ec, SUMOReal sameNodesOffset, bool tryIgnoreNodePositions) throw(ProcessError);
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>
@@ -268,6 +292,9 @@ private:
     std::vector<SUMOReal> myLaneSpeeds;
 
     std::vector<NIVissimEdge*> myToTreatAsSame;
+
+    /// @brief Information whether this edge was not build due to being within a junction
+    bool myAmWithinJunction;
 
 private:
     /// @brief Definition of the dictionary type

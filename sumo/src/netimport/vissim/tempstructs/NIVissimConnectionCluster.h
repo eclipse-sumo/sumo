@@ -109,18 +109,11 @@ public:
 
     static size_t dictSize();
 
-    static void dict_recheckNodes(SUMOReal offset);
 
     static int getNextFreeNodeID();
 
     static void clearDict();
-    /*
-        static void addNodes(SUMOReal offset);
 
-        //static void dict_checkDoubleNodes();
-
-        static void addTLs(SUMOReal offset);
-    */
 private:
     class NodeSubCluster
     {
@@ -130,7 +123,6 @@ private:
         void add(NIVissimConnection *c);
         void add(const NodeSubCluster &c);
         size_t size() const;
-        void setConnectionsFree();
         bool overlapsWith(const NodeSubCluster &c, SUMOReal offset=0);
         IntVector getConnectionIDs() const;
         friend class NIVissimConnectionCluster;

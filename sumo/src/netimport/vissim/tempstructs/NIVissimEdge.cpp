@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// -------------------
+// A temporary storage for edges imported from Vissim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -132,7 +132,7 @@ NIVissimEdge::NIVissimEdge(int id, const std::string &name,
         : NIVissimAbstractEdge(id, geom),
         myName(name), myType(type), myNoLanes(noLanes),
         myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
-        myClosedLanes(clv)//, mySpeed(-1)
+        myClosedLanes(clv), myAmWithinJunction(false)//, mySpeed(-1)
 {
     assert(noLanes>=0);
     if (myMaxID<myID) {
@@ -451,7 +451,7 @@ NIVissimEdge::getOutgoingConnected(int lane) const
 
 void
 NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
-                          SUMOReal offset, bool tryIgnoreNodePositions)
+                          SUMOReal sameNodesOffset, bool tryIgnoreNodePositions) throw(ProcessError)
 {
     // build the edge
     std::pair<NIVissimConnectionCluster*, NBNode *> fromInf, toInf;
@@ -473,12 +473,13 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
             toNode = toInf.second;
             if(fromInf.first!=0&&toNode!=0&&fromInf.first->around(toNode->getPosition())) {
                 MsgHandler::getWarningInstance()->inform("Will not build edge '" + toString(myID) + "'.");
+                myAmWithinJunction = true;
                 return;
             }
         //}
         // if both nodes are the same, resolve the problem otherwise
         if (fromNode==toNode) {
-            std::pair<NBNode*, NBNode*> tmp = resolveSameNode(nc, offset, fromNode, toNode);
+            std::pair<NBNode*, NBNode*> tmp = resolveSameNode(nc, sameNodesOffset, fromNode, toNode);
             if (fromNode!=tmp.first) {
                 fromInf.first = 0;
             }
@@ -496,7 +497,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         Position2D pos = myGeom[0];
         fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, NBNode::NODETYPE_NOJUNCTION);
         if (!nc.insert(fromNode)) {
-            throw 1;
+            throw ProcessError("Could not insert node '" + fromNode->getID() + "' to nodes container.");
         }
     }
     if (toNode==0) {
@@ -504,7 +505,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         Position2D pos = myGeom[-1];
         toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, NBNode::NODETYPE_NOJUNCTION);
         if (!nc.insert(toNode)) {
-            throw 1;
+            throw ProcessError("Could not insert node '" + toNode->getID() + "' to nodes container.");
         }
     }
 
@@ -1042,6 +1043,29 @@ NIVissimEdge::reportUnsetSpeeds() throw()
     }
     MsgHandler::getWarningInstance()->inform(str.str());
 }
+
+
+NIVissimEdge *
+NIVissimEdge::getBestIncoming() const throw()
+{
+    for(IntVector::const_iterator i=myIncomingConnections.begin(); i!=myIncomingConnections.end(); ++i) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        return NIVissimEdge::dictionary(c->getFromEdgeID());
+    }
+    return 0;
+}
+
+
+NIVissimEdge *
+NIVissimEdge::getBestOutgoing() const throw()
+{
+    for(IntVector::const_iterator i=myOutgoingConnections.begin(); i!=myOutgoingConnections.end(); ++i) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        return NIVissimEdge::dictionary(c->getToEdgeID());
+    }
+    return 0;
+}
+
 
 
 /****************************************************************************/

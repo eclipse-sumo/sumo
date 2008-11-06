@@ -381,32 +381,6 @@ NIVissimTL::dictionary(int id)
     return (*i).second;
 }
 
-/*
-IntVector
-NIVissimTL::getWithin(const AbstractPoly &poly, SUMOReal offset)
-{
-    IntVector ret;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        if((*i).second->crosses(poly, offset)) {
-            ret.push_back((*i).second->myID);
-        }
-    }
-    return ret;
-}
-*/
-/*
-void
-NIVissimTL::computeBounding()
-{
-    Boundary *bound = new Boundary();
-    SSignalDictType signals = NIVissimTLSignal::getSignalsFor(myID);
-    for(SSignalDictType::const_iterator j=signals.begin(); j!=signals.end(); j++) {
-        bound->add((*j).second->getPosition());
-    }
-    myBoundary = bound;
-//    cout << "TL " << myID << ":" << *myBoundary << endl;
-}
-*/
 
 void
 NIVissimTL::clearDict()

@@ -1,12 +1,14 @@
 Warning: Will not build edge '1001200'.
 Warning: Will not build edge '1001202'.
-Warning: Could not build connection between '1001201' and '1001200'.
-Warning: Could not build connection between '1001201' and '1001202'.
-Warning: Could not build connection between '1001203' and '1001200'.
-Warning: Could not build connection between '1001203' and '1001202'.
-Warning: Could not build connection between '1001205' and '1001200'.
-Warning: Could not build connection between '1001205' and '1001202'.
-Warning: Could not build connection between '1001200' and '64'.
-Warning: Could not build connection between '1001202' and '15'.
-Warning: 8 of 236 connections could not be assigned.
+Warning: Could not set connection between '1001201_0' and '64_0'.
+Warning: Could not set connection between '1001201_0' and '15_0'.
+Warning: Could not set connection between '1001203_1' and '64_0'.
+Warning: Could not set connection between '1001203_1' and '15_1'.
+Warning: Could not set connection between '1001205_0' and '64_0'.
+Warning: Could not set connection between '1001205_1' and '15_1'.
+Warning: Could not set connection between '1001205_0' and '15_0'.
+Warning: Could not set connection between '1001201_0' and '64_0'.
+Warning: Could not set connection between '1001201_0' and '15_0'.
+Warning: Could not set connection between '1001201_1' and '15_1'.
+Warning: 10 of 236 connections could not be assigned.
 Warning: Could not build 36 of 66 disturbances.

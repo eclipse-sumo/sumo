@@ -104,16 +104,6 @@ NIVissimConnectionCluster::NodeSubCluster::size() const
 }
 
 
-void
-NIVissimConnectionCluster::NodeSubCluster::setConnectionsFree()
-{
-    for (ConnectionCont::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        NIVissimConnection *c = *i;
-        c->unsetCluster();
-    }
-}
-
-
 IntVector
 NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const
 {
@@ -609,91 +599,6 @@ size_t
 NIVissimConnectionCluster::dictSize()
 {
     return myClusters.size();
-}
-
-
-void
-NIVissimConnectionCluster::dict_recheckNodes(SUMOReal offset)
-{
-    // This method clusters connections into clusters which belong to
-    //  a single node
-    // The main assumption for doing this is, that connections are within nodes
-    //  only and that if some connections are near beside each other, they
-    //  should belong to the same node
-    size_t pos = 0;
-    for (ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i=myClusters.begin()+pos) {
-        NIVissimConnectionCluster *current = *i;
-        // get the connections from the cluster
-        const IntVector &connections = current->myConnections;
-        // recluster
-        std::vector<NodeSubCluster> nodeClusters;
-        std::vector<NodeSubCluster>::iterator k;
-        // go through the connections of the current cluster
-        for (IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
-            // check whether the current connection may be added to a node
-            NIVissimConnection *c1 = NIVissimConnection::dictionary(*j);
-            bool found = false;
-            for (k=nodeClusters.begin(); k!=nodeClusters.end()&&!found; k++) {
-                assert((*k).myBoundary.xmax()>=(*k).myBoundary.xmin());
-                if (c1->getBoundingBox().overlapsWith((*k).myBoundary, offset)) {
-                    (*k).add(c1);
-                    found = true;
-                }
-            }
-            // build a new "node cluster" if not
-            if (!found) {
-                nodeClusters.push_back(NodeSubCluster(c1));
-            }
-        }
-        // recluster cluster
-        //  Go throught the list of build node clusters and check whether
-        //  some of them may be joined
-        bool changed = true;
-        while (changed) {
-            changed = false;
-            for (k=nodeClusters.begin(); k!=nodeClusters.end()&&!changed; k++) {
-                for (std::vector<NodeSubCluster>::iterator l=k+1; l!=nodeClusters.end()&&!changed; l++) {
-                    if ((*k).overlapsWith(*l, offset)) {
-                        changed = true;
-                        (*k).add(*l);
-                        nodeClusters.erase(l);
-                    }
-                }
-            }
-        }
-
-        // do nothing, when all connections are near together
-        if (nodeClusters.size()<=1) {
-            pos++;
-            continue;
-        }
-        // Compute which cluster is the largest
-        size_t maxSize = 0;
-        int idx = -1;
-        int akt = 0;
-        for (k=nodeClusters.begin(); k!=nodeClusters.end(); k++) {
-            if ((*k).size()>maxSize) {
-                maxSize = (*k).size();
-                idx = akt;
-            }
-            akt++;
-        }
-        // Remove the largest cluster
-        nodeClusters.erase(nodeClusters.begin()+idx);
-        // Set all other connections free
-        for (k=nodeClusters.begin(); k!=nodeClusters.end(); k++) {
-            (*k).setConnectionsFree();
-            current->removeConnections(*k);
-            IntVector connections = (*k).getConnectionIDs();
-            NIVissimConnectionCluster *newCluster =
-                new NIVissimConnectionCluster(connections,
-                                              -1, -1);
-            newCluster->recheckEdges();
-        }
-        current->recomputeBoundary();
-        current->recheckEdges();
-        pos++;
-    }
 }
 
 

@@ -41,9 +41,15 @@
 #include "NIVissimBoundedClusterObject.h"
 
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBEdgeCont;
 
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class NIVissimConnection
             : public NIVissimBoundedClusterObject,
             public NIVissimAbstractEdge
@@ -72,8 +78,9 @@ public:
     Position2D getFromGeomPosition() const;
     Position2D getToGeomPosition() const;
     void setNodeCluster(int nodeid);
-    void unsetCluster();
     const Boundary &getBoundingBox() const;
+
+    unsigned int buildEdgeConnections(NBEdgeCont &ec);
 
     void buildGeom();
 

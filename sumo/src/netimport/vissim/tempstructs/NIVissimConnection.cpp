@@ -258,13 +258,6 @@ NIVissimConnection::setNodeCluster(int nodeid)
 
 
 void
-NIVissimConnection::unsetCluster()
-{
-    myNode = -1;
-}
-
-
-void
 NIVissimConnection::buildGeom()
 {
     if (myGeom.size()>0) {
@@ -275,38 +268,67 @@ NIVissimConnection::buildGeom()
 }
 
 
+unsigned int 
+NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec)
+{
+    unsigned int unsetConnections = 0;
+    // try to determine the connected edges
+    NBEdge *fromEdge = 0;
+    NBEdge *toEdge = 0;
+    NIVissimEdge *vissimFrom = NIVissimEdge::dictionary(getFromEdgeID());
+    if(vissimFrom->wasWithinAJunction()) {
+        // this edge was not built, try to get one that approaches it
+        vissimFrom = vissimFrom->getBestIncoming();
+        if(vissimFrom!=0) {
+            fromEdge = ec.retrievePossiblySplitted(toString(vissimFrom->getID()), toString(getFromEdgeID()), true);
+        }
+    } else {
+        // this edge was built, try to get the proper part
+        fromEdge = ec.retrievePossiblySplitted(toString(getFromEdgeID()), toString(getToEdgeID()), true);
+    }
+    NIVissimEdge *vissimTo = NIVissimEdge::dictionary(getToEdgeID());
+    if(vissimTo->wasWithinAJunction()) {
+        vissimTo = vissimTo->getBestOutgoing();
+        if(vissimTo!=0) {
+            toEdge = ec.retrievePossiblySplitted(toString(vissimTo->getID()), toString(getToEdgeID()), true);
+        }
+    } else {
+        toEdge = ec.retrievePossiblySplitted(toString(getToEdgeID()), toString(getFromEdgeID()), false);
+    }
+
+    // try to get the edges the current connection connects
+    /*
+    NBEdge *fromEdge = ec.retrievePossiblySplitted(toString(getFromEdgeID()), toString(getToEdgeID()), true);
+    NBEdge *toEdge = ec.retrievePossiblySplitted(toString(getToEdgeID()), toString(getFromEdgeID()), false);
+    */
+    if (fromEdge==0||toEdge==0) {
+        WRITE_WARNING("Could not build connection between '" + toString(getFromEdgeID())+ "' and '" + toString(getToEdgeID())+ "'.");
+        return 1; // !!! actually not 1
+    }
+    recheckLanes(fromEdge, toEdge);
+    const IntVector &fromLanes = getFromLanes();
+    const IntVector &toLanes = getToLanes();
+    if (fromLanes.size()!=toLanes.size()) {
+        MsgHandler::getWarningInstance()->inform("Lane sizes differ for connection '" + toString(getID()) + "'.");
+    } else {
+        for (unsigned int index=0; index<fromLanes.size(); ++index) {
+            if (!fromEdge->addLane2LaneConnection(fromLanes[index], toEdge, toLanes[index], NBEdge::L2L_VALIDATED)) {
+                MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
+                ++unsetConnections;
+            }
+        }
+    }
+    return unsetConnections;
+}
+
+
 void
 NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
 {
     unsigned int unsetConnections = 0;
+    // go through connections
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        NIVissimConnection *c = (*i).second;
-        NBEdge *fromEdge = ec.retrievePossiblySplitted(
-                               toString<int>(c->getFromEdgeID()),
-                               toString<int>(c->getToEdgeID()),
-                               true);
-        NBEdge *toEdge = ec.retrievePossiblySplitted(
-                             toString<int>(c->getToEdgeID()),
-                             toString<int>(c->getFromEdgeID()),
-                             false);
-        if (fromEdge==0||toEdge==0) {
-            WRITE_WARNING("Could not build connection between '" + toString<int>(c->getFromEdgeID())+ "' and '" + toString<int>(c->getToEdgeID())+ "'.");
-            ++unsetConnections;
-            continue;
-        }
-        c->recheckLanes(fromEdge, toEdge);
-        const IntVector &fromLanes = c->getFromLanes();
-        const IntVector &toLanes = c->getToLanes();
-        if (fromLanes.size()!=toLanes.size()) {
-            MsgHandler::getWarningInstance()->inform("Lane sizes differ for connection '" + toString(c->getID()) + "'.");
-        } else {
-            for (unsigned int index=0; index<fromLanes.size(); ++index) {
-                if (!fromEdge->addLane2LaneConnection(fromLanes[index], toEdge, toLanes[index], NBEdge::L2L_VALIDATED)) {
-                    MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
-                    ++unsetConnections;
-                }
-            }
-        }
+        unsetConnections += (*i).second->buildEdgeConnections(ec);
     }
     if (unsetConnections!=0) {
         WRITE_WARNING(toString<size_t>(unsetConnections) + " of " + toString<size_t>(myDict.size())+ " connections could not be assigned.");
