@@ -278,7 +278,7 @@ NIVissimConnection::buildGeom()
 void
 NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
 {
-    unsigned int ref = 0;
+    unsigned int unsetConnections = 0;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *c = (*i).second;
         NBEdge *fromEdge = ec.retrievePossiblySplitted(
@@ -291,11 +291,8 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
                              false);
         if (fromEdge==0||toEdge==0) {
             WRITE_WARNING("Could not build connection between '" + toString<int>(c->getFromEdgeID())+ "' and '" + toString<int>(c->getToEdgeID())+ "'.");
-            ref++;
+            ++unsetConnections;
             continue;
-        }
-        if (fromEdge->getID()=="69") {
-            int bla = 0;
         }
         c->recheckLanes(fromEdge, toEdge);
         const IntVector &fromLanes = c->getFromLanes();
@@ -306,12 +303,13 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
             for (unsigned int index=0; index<fromLanes.size(); ++index) {
                 if (!fromEdge->addLane2LaneConnection(fromLanes[index], toEdge, toLanes[index], NBEdge::L2L_VALIDATED)) {
                     MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
+                    ++unsetConnections;
                 }
             }
         }
     }
-    if (ref!=0) {
-        WRITE_WARNING(toString<size_t>(ref) + " of " + toString<size_t>(myDict.size())+ " connections could not be assigned.");
+    if (unsetConnections!=0) {
+        WRITE_WARNING(toString<size_t>(unsetConnections) + " of " + toString<size_t>(myDict.size())+ " connections could not be assigned.");
     }
 }
 

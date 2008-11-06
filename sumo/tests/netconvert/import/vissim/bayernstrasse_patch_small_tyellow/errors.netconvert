@@ -119,7 +119,7 @@ Warning: Could not build connection between '84' and '91'.
 Warning: Could not build connection between '84' and '93'.
 Warning: Could not set connection between '93[1]_0' and '85[1][1][1][0]_0'.
 Warning: Could not build connection between '93' and '84'.
-Warning: 11 of 136 connections could not be assigned.
+Warning: 14 of 136 connections could not be assigned.
 Warning: Ugly split to prohibit '6' by '20000'.
 Warning: Ugly split to prohibit '6' by '10'.
 Warning: Ugly split to prohibit '6' by '11'.
