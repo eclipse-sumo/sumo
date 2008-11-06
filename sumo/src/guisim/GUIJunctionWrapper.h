@@ -132,6 +132,8 @@ protected:
     /// The junction's shape
     Position2DVector myShape;
 
+    SUMOReal myMaxSize;
+
 private:
     /// @brief Invalidated copy constructor.
     GUIJunctionWrapper(const GUIJunctionWrapper&);

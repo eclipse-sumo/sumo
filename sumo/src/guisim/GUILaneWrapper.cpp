@@ -443,42 +443,44 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
     }
     // draw lane
     glPolygonOffset(0, 0);
-    if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth*1.);
+    // check whether it is not too small
+    if(s.scale<1.) {
+        GLHelper::drawLine(myShape);
+        // (optional) clear id
+        if (s.needsGlID) {
+            glPopName();
+        }
     } else {
-        GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth*1.);
-    }
-    glBegin(GL_LINES);
-    int e = (int) myShape.size() - 1;
-    for (int i=0; i<e; ++i) {
-        glVertex2d(myShape[i].x(), myShape[i].y());
-        glVertex2d(myShape[i+1].x(), myShape[i+1].y());
-    }
-    glEnd();
-    // (optional) clear id
-    if (s.needsGlID) {
-        glPopName();
-    }
-    // draw ROWs (not for inner lanes)
-    if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
-        glPolygonOffset(0, -1);
-        GUINet *net = (GUINet*) MSNet::getInstance();
-        ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
-        if (s.showLinkDecals) {
-            ROWdrawAction_drawArrows(*this, s.needsGlID);
+        if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth*1.);
+        } else {
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth*1.);
         }
-        if (s.showLane2Lane) {
-            // this should be independent to the geometry:
-            //  draw from end of first to the begin of second
-            ROWdrawAction_drawLane2LaneConnections(*this);
+        // (optional) clear id
+        if (s.needsGlID) {
+            glPopName();
         }
-        if (s.drawLinkJunctionIndex) {
-            glPolygonOffset(0, -2);
-            ROWdrawAction_drawLinkNo(*this);
-        }
-        if (s.drawLinkTLIndex) {
-            glPolygonOffset(0, -2);
-            ROWdrawAction_drawTLSLinkNo(*net, *this);
+        // draw ROWs (not for inner lanes)
+        if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
+            glPolygonOffset(0, -1);
+            GUINet *net = (GUINet*) MSNet::getInstance();
+            ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
+            if (s.showLinkDecals) {
+                ROWdrawAction_drawArrows(*this, s.needsGlID);
+            }
+            if (s.showLane2Lane) {
+                // this should be independent to the geometry:
+                //  draw from end of first to the begin of second
+                ROWdrawAction_drawLane2LaneConnections(*this);
+            }
+            if (s.drawLinkJunctionIndex) {
+                glPolygonOffset(0, -2);
+                ROWdrawAction_drawLinkNo(*this);
+            }
+            if (s.drawLinkTLIndex) {
+                glPolygonOffset(0, -2);
+                ROWdrawAction_drawTLSLinkNo(*net, *this);
+            }
         }
     }
     // draw vehicles

@@ -63,7 +63,10 @@ GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
                                        const Position2DVector &shape) throw()
         : GUIGlObject(idStorage, "junction:"+junction.getID()),
         myJunction(junction), myShape(shape)
-{}
+{
+    Boundary b = myShape.getBoxBoundary();
+    myMaxSize = MAX2(b.getWidth(), b.getHeight());
+}
 
 
 GUIJunctionWrapper::~GUIJunctionWrapper() throw()
@@ -144,7 +147,7 @@ void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     // check whether it is not too small
-    if(s.scale<1.) {
+    if(s.scale*myMaxSize<1.) {
         return;
     }
     // (optional) set id
