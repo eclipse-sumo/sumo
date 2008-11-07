@@ -121,7 +121,11 @@ enum DepartSpeedDefinition {
 class SUMOVehicleParameter
 {
 public:
-    SUMOVehicleParameter()
+    /** @brief Constructor
+     *
+     * Initialises the structure with default values
+     */
+    SUMOVehicleParameter() throw()
             : vtypeid(DEFAULT_VTYPE_ID), depart(-1), departLane(0),
             departLaneProcedure(DEPART_LANE_DEFAULT),
             departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
@@ -130,10 +134,17 @@ public:
     }
 
 
+    /** @brief Returns whether the given parameter was set
+     * @param[in] what The parameter which one asks for
+     * @return Whether the given parameter was set
+     */
+    bool wasSet(int what) const throw() {
+        return (setParameter&what)!=0;
+    }
+
+
     /// @brief The vehicle's id
     std::string id;
-
-    //std::string refid;
 
     /// @brief The vehicle's route id
     std::string routeid;

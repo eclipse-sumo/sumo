@@ -70,7 +70,7 @@ void
 ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
 {
     dev << "<vehicle id=\"" << myParameter.id << "\"";
-    if ((myParameter.setParameter&VEHPARS_VTYPE_SET)!=0) {
+    if (myParameter.wasSet(VEHPARS_VTYPE_SET)) {
         dev << " type=\"" << myType->getID() << "\"";
     }
     dev << " depart=\"" << myParameter.depart << "\"";
@@ -78,7 +78,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
     // optional parameter
     // depart-values
     // departlane
-    if ((myParameter.setParameter&VEHPARS_DEPARTLANE_SET)!=0) {
+    if (myParameter.wasSet(VEHPARS_DEPARTLANE_SET)) {
         string val;
         switch (myParameter.departLaneProcedure) {
         case DEPART_LANE_GIVEN:
@@ -101,7 +101,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
         dev << " departlane=\"" << val << "\"";
     }
     // departpos
-    if ((myParameter.setParameter&VEHPARS_DEPARTPOS_SET)!=0) {
+    if (myParameter.wasSet(VEHPARS_DEPARTPOS_SET)) {
         string val;
         switch (myParameter.departPosProcedure) {
         case DEPART_POS_GIVEN:
@@ -119,7 +119,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
         dev << " departpos=\"" << val << "\"";
     }
     // departspeed
-    if ((myParameter.setParameter&VEHPARS_DEPARTSPEED_SET)!=0) {
+    if (myParameter.wasSet(VEHPARS_DEPARTSPEED_SET)) {
         string val;
         switch (myParameter.departSpeedProcedure) {
         case DEPART_SPEED_GIVEN:
@@ -139,14 +139,14 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
         dev << " departspeed=\"" << val << "\"";
     }
     // color
-    if ((myParameter.setParameter&VEHPARS_COLOR_SET)!=0) {
+    if (myParameter.wasSet(VEHPARS_COLOR_SET)) {
         dev << " color=\"" << myParameter.color << "\"";
     }
     // repetition values
-    if ((myParameter.setParameter&VEHPARS_PERIODNUM_SET)!=0) {
+    if (myParameter.wasSet(VEHPARS_PERIODNUM_SET)) {
         dev << " repno=\"" << myParameter.repetitionNumber << "\"";
     }
-    if ((myParameter.setParameter&VEHPARS_PERIODFREQ_SET)!=0) {
+    if (myParameter.wasSet(VEHPARS_PERIODFREQ_SET)) {
         dev << " period=\"" << myParameter.repetitionOffset << "\"";
     }
     dev << ">\n";

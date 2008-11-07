@@ -245,7 +245,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
         if (myDepartureTime<myBegin||myDepartureTime>=myEnd) {
             return;
         }
-        RGBColor *col = (myParameter->setParameter&VEHPARS_COLOR_SET)!=0 ? new RGBColor(myParameter->color) : 0;
+        RGBColor *col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
         RORouteDef *route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);
         ROVehicleType *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
