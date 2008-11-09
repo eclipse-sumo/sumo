@@ -256,8 +256,8 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 
     // compute lane width
     SUMOReal lw = m2p(3.0) * scale;
-    // draw
-    glPolygonOffset( 0, 3 );
+    // draw decals
+    glPolygonOffset( 0, 10 );
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
         GUISUMOAbstractView::Decal &d = *l;
@@ -290,6 +290,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     glEnable(GL_POLYGON_OFFSET_LINE);
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
     //
+    glPolygonOffset(0, -1);
     for (std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
         const VehicleOps &vo = *i;
         switch (vo.type) {

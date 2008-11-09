@@ -133,7 +133,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -2);
+    glPolygonOffset(0, -3);
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);

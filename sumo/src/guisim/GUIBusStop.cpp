@@ -138,7 +138,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw()
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -2);
+    glPolygonOffset(0, -3);
     // draw the area
     glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
     size_t i;

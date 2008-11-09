@@ -204,7 +204,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -2);
+    glPolygonOffset(0, -3);
     SUMOReal dwidth = 1;
     if (myDetector.getUsageType()==DU_TL_CONTROL) {
         dwidth = (SUMOReal) 0.3;

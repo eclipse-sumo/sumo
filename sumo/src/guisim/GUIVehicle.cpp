@@ -409,7 +409,7 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
 void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
 {
-    glPolygonOffset(0, -3);
+    glPolygonOffset(0, -4);
     // set lane color
     GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap(); //!!!
     sm.getColorer(s.vehicleMode)->setGlColor(*this);
@@ -432,7 +432,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
     drawAction_drawVehicleAsTrianglePlus(*this, upscale);
     // draw the blinker if wished
     if (s.showBlinker) {
-        glPolygonOffset(0, -4);
+        glPolygonOffset(0, -5);
         drawAction_drawVehicleBlinker(*this);
     }
     // draw the c2c-circle
@@ -489,7 +489,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
         */
     }
     if (s.drawVehicleName) {
-        glPolygonOffset(0, -5);
+        glPolygonOffset(0, -6);
         // compute name colors
         glColor3f(s.vehicleNameColor.red(), s.vehicleNameColor.green(), s.vehicleNameColor.blue());
         drawAction_drawVehicleName(*this, s.vehicleNameSize / s.scale);

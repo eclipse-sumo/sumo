@@ -135,7 +135,7 @@ GUIGlObject_AbstractAdd::getIDList()
 void
 GUIGlObject_AbstractAdd::drawGLName(const Position2D &p, const std::string &id, SUMOReal nameScale) const
 {
-    glPolygonOffset(0, -3);
+    glPolygonOffset(0, -6);
     glPushMatrix();
     glTranslated(p.x(), p.y(), 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

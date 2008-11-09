@@ -159,7 +159,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
     GLHelper::drawFilledPoly(getShape(), true);
     // (optional) draw name
     if (s.drawJunctionName) {
-        glPolygonOffset(0, -1);
+        glPolygonOffset(0, -6);
         glPushMatrix();
         Position2D p = myJunction.getPosition();
         glTranslated(p.x(), p.y(), 0);

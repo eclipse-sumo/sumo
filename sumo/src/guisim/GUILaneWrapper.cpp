@@ -462,7 +462,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
         }
         // draw ROWs (not for inner lanes)
         if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
-            glPolygonOffset(0, -1);
+            glPolygonOffset(0, -2);
             GUINet *net = (GUINet*) MSNet::getInstance();
             ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
             if (s.showLinkDecals) {
@@ -474,11 +474,11 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
                 ROWdrawAction_drawLane2LaneConnections(*this);
             }
             if (s.drawLinkJunctionIndex) {
-                glPolygonOffset(0, -2);
+                glPolygonOffset(0, -3);
                 ROWdrawAction_drawLinkNo(*this);
             }
             if (s.drawLinkTLIndex) {
-                glPolygonOffset(0, -2);
+                glPolygonOffset(0, -3);
                 ROWdrawAction_drawTLSLinkNo(*net, *this);
             }
         }

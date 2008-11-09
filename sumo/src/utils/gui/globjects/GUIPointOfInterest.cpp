@@ -122,9 +122,9 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw()
         return;
     }
     if (getLayer()==0) {
-        glPolygonOffset(0, -2);
+        glPolygonOffset(0, -3);
     } else if (getLayer()>0) {
-        glPolygonOffset(0, -3-getLayer());
+        glPolygonOffset(0, -5-getLayer());
     } else {
         glPolygonOffset(0, -getLayer()+1);
     }

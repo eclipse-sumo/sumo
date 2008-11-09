@@ -274,7 +274,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
     // (optionally) draw the name
     if (s.drawEdgeName) {
         glColor3f(s.edgeNameColor.red(), s.edgeNameColor.green(), s.edgeNameColor.blue());
-        glPolygonOffset(0, -1);
+        glPolygonOffset(0, -6);
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
         glPushMatrix();

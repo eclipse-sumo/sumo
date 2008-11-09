@@ -144,7 +144,7 @@ GUIE1VehicleActor::drawGL(const GUIVisualizationSettings &s) const throw()
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -2);
+    glPolygonOffset(0, -3);
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     // shape

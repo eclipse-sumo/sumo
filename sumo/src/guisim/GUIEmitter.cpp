@@ -462,7 +462,7 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw()
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -2);
+    glPolygonOffset(0, -3);
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
