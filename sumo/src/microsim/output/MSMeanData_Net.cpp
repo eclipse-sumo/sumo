@@ -197,6 +197,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         SUMOReal absLen = 0;
         int noSegments = 0;
         int noNotEmpty = 0;
+        bool isFirst = true;
         while (s!=0) {
             SUMOReal traveltime = -42;
             SUMOReal meanSpeed = -43;
@@ -212,7 +213,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             traveltimeS += traveltime;
             noStopsS += meanData.haltSum;
             noEmissionsS += meanData.emitted;
-            noEnteredS += meanData.nVehEnteredLane;
+            if(isFirst) {
+                noEnteredS += meanData.nVehEnteredLane;
+            }
             nVehS += meanData.sampleSeconds;
             flowMean += meanData.nVehLeftLane;
             if (meanData.sampleSeconds>0) {
@@ -228,6 +231,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             }
             s = s->getNextSegment();
             meanData.reset();
+            isFirst = false;
         }
         if (myDumpEmptyEdges||nVehS>0) {
             meanDensityS = meanDensityS / (SUMOReal) noSegments;

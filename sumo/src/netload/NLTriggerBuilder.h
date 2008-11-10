@@ -279,7 +279,7 @@ protected:
      */
     virtual void buildCalibrator(MSNet &net,
             const std::string &id, MESegment *edge, SUMOReal pos,
-            const std::string &file) throw();
+            const std::string &file, const std::string &outfile) throw();
 #endif
 
 

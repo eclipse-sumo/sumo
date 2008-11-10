@@ -195,7 +195,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
     } else {
         if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
             objectid = attrs.getString(SUMO_ATTR_OBJECTID);
-            MsgHandler::getWarningInstance()->inform("Defining the lanes using 'objectid' within a variable speed sign is depracted, use 'lanes' instead.");
+            MsgHandler::getWarningInstance()->inform("Defining the lanes using 'objectid' within a variable speed sign is deprecated, use 'lanes' instead.");
         }
     }
     std::vector<MSLane*> lanes;
@@ -318,7 +318,8 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
             s = s->getNextSegment();
         }
         SUMOReal rpos = pos-cpos-prev->getLength();
-        buildCalibrator(net, id, prev, rpos, file);
+        string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
+        buildCalibrator(net, id, prev, rpos, file, outfile);
     } else {
 #endif
         buildLaneCalibrator(net, id, lane, pos, file);
@@ -345,7 +346,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
     } else {
         if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
             objectid = attrs.getString(SUMO_ATTR_OBJECTID);
-            MsgHandler::getWarningInstance()->inform("Defining the edges using 'objectid' within a rerouter is depracted, use 'edges' instead.");
+            MsgHandler::getWarningInstance()->inform("Defining the edges using 'objectid' within a rerouter is deprecated, use 'edges' instead.");
         }
     }
     std::vector<MSEdge*> edges;
@@ -405,9 +406,10 @@ NLTriggerBuilder::buildLaneCalibrator(MSNet &net, const std::string &id,
 void
 NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
                                   MESegment *edge, SUMOReal pos,
-                                  const std::string &file) throw()
+                                  const std::string &file,
+                                  const std::string &outfile) throw()
 {
-    new METriggeredCalibrator(id, edge, file);
+    new METriggeredCalibrator(id, edge, file, outfile);
 }
 #endif
 
@@ -466,7 +468,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
     } else {
         if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
             objectid = attrs.getString(SUMO_ATTR_OBJECTID);
-            MsgHandler::getWarningInstance()->inform("Defining the lane using 'objectid' within " + tt + " is depracted, use 'lane' instead.");
+            MsgHandler::getWarningInstance()->inform("Defining the lane using 'objectid' within " + tt + " is deprecated, use 'lane' instead.");
         }
     }
     MSLane *lane = MSLane::dictionary(objectid);
