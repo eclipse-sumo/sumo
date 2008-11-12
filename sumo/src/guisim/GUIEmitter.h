@@ -159,7 +159,6 @@ class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
         SUMOReal myUserFlow;
         MSVehicle *myVehicle;
         MSEmitter_FileTriggeredChild &mySource;
-        bool myDescheduleVehicle;
 
     };
 

@@ -120,24 +120,19 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
     MSEmitter &parent, MSVehicleControl &vc,
     SUMOReal flow) throw()
         : MSEmitter::MSEmitterChild(parent, vc), myUserFlow(flow),
-        myVehicle(0), mySource(s), myDescheduleVehicle(false)
+        myVehicle(0), mySource(s)
 {
     if (myUserFlow>0) {
         Command* c = new WrappingCommand< GUIEmitterChild_UserTriggeredChild >(this, &GUIEmitterChild_UserTriggeredChild::wrappedExecute);
         MSNet::getInstance()->getEmissionEvents().addEvent(
             c, (SUMOTime)(1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
-        MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();
-        myDescheduleVehicle = true;
     }
 }
 
 
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredChild() throw()
 {
-    if (myDescheduleVehicle) {
-        MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
-    }
 }
 
 
@@ -174,10 +169,6 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentT
         p->depart = currentTime;
         myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(p, aRoute, aType);
         myParent.schedule(this, myVehicle, -1);
-        if (myDescheduleVehicle) {
-            MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
-            myDescheduleVehicle = false;
-        }
     }
     if (myParent.childCheckEmit(this)) {
         myVehicle = 0;

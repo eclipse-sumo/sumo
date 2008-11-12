@@ -172,20 +172,6 @@ public:
     /// @name Setting vehicle statistics
     /// @{
 
-    /** @brief Informs this instance about the existance of a new, not yet build vehicle
-     */
-    inline void newUnbuildVehicleLoaded() throw() {
-        ++myLoadedVehNo;
-    }
-
-
-    /** @brief Informs this instance the new vehicle was build
-     */
-    inline void newUnbuildVehicleBuild() throw() {
-        --myLoadedVehNo;
-    }
-
-
     /** @brief Informs this control about a vehicle's emission
      *
      * If the mean waiting time shall be computed (f.e. for emissions-output),

@@ -273,7 +273,7 @@ int
 MSNet::simulate(SUMOTime start, SUMOTime stop)
 {
     // the simulation loop
-    int otherQuit = 0;
+    string quitMessage = "";
     myStep = start;
     do {
         if (myLogStepNumber) {
@@ -287,40 +287,32 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if (myLogExecutionTime && myTooSlowRTF>0) {
             SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);
             if (rtf<myTooSlowRTF) {
-                otherQuit = 1;
+                quitMessage = "Simulation End: The simulation got too slow.";
             }
         }
         if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
-            otherQuit = 2;
+            quitMessage = "Simulation End: Too many vehicles.";
         }
 #ifndef NO_TRACI
         if (traci::TraCIServer::wasClosed()) {
-            otherQuit = 3;
+            quitMessage = "Simulation End: TraCI requested termination.";
         }
         if (OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit()) {
 #else
         if (myVehicleControl->haveAllVehiclesQuit()) {
 #endif
-            otherQuit = 4;
+        	if (!myBeginOfTimestepEvents->hasEmitters() && !myEndOfTimestepEvents->hasEmitters()) {
+        		quitMessage = "Simulation End: All vehicles have left the simulation.";
+        	}
         }
-    }
-    while (myStep<=stop && otherQuit==0);
-    if (otherQuit!=0) {
-        if (otherQuit==1) {
-            WRITE_MESSAGE("Simulation End: The simulation got too slow.");
-        } else if (otherQuit==2) {
-            WRITE_MESSAGE("Simulation End: Too many vehicles.");
-        } else if (otherQuit==3) {
-            WRITE_MESSAGE("Simulation End: TraCI requested termination.");
-        } else {
-            WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
+        if (myStep > stop) {
+        	quitMessage = "Simulation End: The final simulation step has been reached.";
         }
-    } else {
-        WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
-    }
+    } while (quitMessage=="");
+    WRITE_MESSAGE(quitMessage);
     // exit simulation loop
     closeSimulation(start, stop);
-    return otherQuit;
+    return 0;
 }
 
 
