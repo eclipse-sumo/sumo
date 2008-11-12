@@ -160,6 +160,10 @@ private:
     /// @brief The position of the sign
     Position2D myFGSignPos;
 
+    /// @brief The rotation of the sign
+    SUMOReal myFGSignRot;
+
+
 };
 
 
