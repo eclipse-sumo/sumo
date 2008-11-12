@@ -49,7 +49,7 @@ using namespace std;
 // member definitions
 // ===========================================================================
 MSEventControl::MSEventControl() throw()
-        : myEvents(), myHaveEmitters(false)
+        : myEvents()
 {}
 
 
@@ -67,8 +67,7 @@ MSEventControl::~MSEventControl() throw()
 SUMOTime
 MSEventControl::addEvent(Command* operation,
                          SUMOTime execTimeStep,
-                         AdaptType type,
-                         bool isEmitter) throw()
+                         AdaptType type) throw()
 {
     SUMOTime currTimeStep = MSNet::getInstance()->getCurrentTimeStep();
     if (type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep) {
@@ -76,9 +75,6 @@ MSEventControl::addEvent(Command* operation,
     }
     Event newEvent = Event(operation, execTimeStep);
     myEvents.push(newEvent);
-    if (isEmitter) {
-    	myHaveEmitters = true;
-    }
     return execTimeStep;
 }
 
@@ -126,9 +122,9 @@ MSEventControl::execute(SUMOTime execTime) throw(ProcessError)
 
 
 bool
-MSEventControl::hasEmitters() throw()
+MSEventControl::isEmpty() throw()
 {
-	return myHaveEmitters;
+	return myEvents.empty();
 }
 /****************************************************************************/
 

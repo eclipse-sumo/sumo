@@ -94,7 +94,7 @@ public:
      * @see AdaptType
      */
     virtual SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
-                              AdaptType type, bool isEmitter=false) throw();
+                              AdaptType type) throw();
 
 
     /** @brief Executes time-dependant commands
@@ -117,14 +117,11 @@ public:
     virtual void execute(SUMOTime time) throw(ProcessError);
 
 
-    /** @brief Returns whether emitter events have been added.
+    /** @brief Returns whether events are in the que.
      *
-     * If at any time an emitter event has been added true is returned even if the
-     *  the event was descheduled already.
-     *
-     * @return  whether emitter events were added
+     * @return  whether events are in the que
      */
-    bool hasEmitters() throw();
+    bool isEmpty() throw();
 
 
 protected:
@@ -148,9 +145,6 @@ private:
 
     /// @brief Event-container, holds executable events.
     EventCont myEvents;
-
-    /// @brief whether emitter events were added.
-    bool myHaveEmitters;
 
 
 private:

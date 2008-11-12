@@ -301,7 +301,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
 #else
         if (myVehicleControl->haveAllVehiclesQuit()) {
 #endif
-        	if (!myBeginOfTimestepEvents->hasEmitters() && !myEndOfTimestepEvents->hasEmitters()) {
+            if (myEmissionEvents->isEmpty()) {
         		quitMessage = "Simulation End: All vehicles have left the simulation.";
         	}
         }
