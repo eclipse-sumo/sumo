@@ -131,7 +131,7 @@ XMLSubSys::getSAXReader() throw()
         return 0;
     }
     if (!myEnableValidation) {
-//        reader->setProperty(XMLUni::fgXercesScannerName, (void *)XMLUni::fgWFXMLScanner);
+        reader->setProperty(XMLUni::fgXercesScannerName, (void *)XMLUni::fgWFXMLScanner);
     }
     setFeature(*reader, "http://xml.org/sax/features/namespaces", false);
     setFeature(*reader, "http://apache.org/xml/features/validation/schema", myEnableValidation);
