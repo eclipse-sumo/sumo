@@ -74,9 +74,10 @@ def combineDemand(matrix, districtList, startVertices, endVertices):
         foutzone.write('district:%s\n' %district1.label)
         foutzone.write('combinedDistricts: ')
         for district2 in districtList:
-            if district1.sourcelink == district2.sourcelink:
-                district1.combinedDistrict.append(district2)
-                foutzone.write('%s, ' %district2.label)
+            if district1.label != district2.label and district1.sourcelink == district2.sourcelink:
+                if district2 not in district1.combinedDistrict or district1 not in district2.combinedDistrict:
+                    district1.combinedDistrict.append(district2)
+                    foutzone.write('%s, ' %district2.label)
         foutzone.write('\n')
 
     for start in startVertices:
