@@ -10,13 +10,16 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, sys, operator
+import os, random, string, sys, datetime, math, operator
 from optparse import OptionParser
+from xml.sax import saxutils, make_parser, handler
 
 OUTPUTDIR="./input/"    
 optParser = OptionParser()
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile", 
                      help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-z", "--districts-file", dest="districtsfile", 
+                     help="read connecting links from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-t", "--timeSeries-file", dest="timeseries",
                      help="read hourly traffic demand rate from FILE", metavar="FILE")
 optParser.add_option("-d","--dir", dest="OUTPUTDIR", default=OUTPUTDIR, help="Directory to store the output files. Default: "+OUTPUTDIR)
@@ -25,6 +28,76 @@ optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
 
 (options, args) = optParser.parse_args()
 
+class District:
+    def __init__(self, label):
+        self.label = label
+        self.sourcelink = None
+        self.sinklink = None
+        self.combinedDistrict = []
+
+        
+    def __repr__(self):
+
+        return "%s<%s|%s|%s>" % (self.label, self.sourcelink, self.sinklink, self.combinedDistrict)
+
+class DistrictsReader(handler.ContentHandler):
+    def __init__(self, districtList):
+        self._districtList = districtList
+        self._newDistrict = None
+        self._district = None
+        
+    def startElement(self, name, attrs):
+        if name == 'district':
+            self._newDistrict = District(attrs['id'])
+            self._district = attrs['id']
+            self._districtList.append(self._newDistrict)
+        elif name == 'dsource' and self._district != None:
+            self._newDistrict.sourcelink = attrs['id']
+        elif name == 'dsink' and self._district != None:
+            self._newDistrict.sinklink = attrs['id']
+
+    def endElement(self, name):
+        if name == 'district':
+            self._district = None
+       
+def combineDemand(matrix, districtList, startVertices, endVertices):
+    matrixMap = {}
+    counter = 0
+    foutzone = file('combinedZones.txt','w')
+        
+    for i, start in enumerate(startVertices):
+        matrixMap[start]={}
+        for j, end in enumerate(endVertices):
+            matrixMap[start][end]= matrix[i][j]
+    
+    for district1 in districtList:
+        foutzone.write('district:%s\n' %district1.label)
+        foutzone.write('combinedDistricts: ')
+        for district2 in districtList:
+            if district1.sourcelink == district2.sourcelink:
+                district1.combinedDistrict.append(district2)
+                foutzone.write('%s, ' %district2.label)
+        foutzone.write('\n')
+
+    for start in startVertices:
+        for district in districtList:
+            if start == district.label and district.combinedDistrict != []:
+                for end in endVertices:
+                    for zone in district.combinedDistrict:
+                        matrixMap[start][end] += matrixMap[zone.label][end]
+                        matrixMap[zone.label][end] = 0.
+                        counter += 1
+                    
+    for i, start in enumerate(startVertices):
+        for j, end in enumerate(endVertices):
+            matrix[i][j] = matrixMap[start][end]
+
+    foutzone.close()
+    matrixMap.clear()
+    print 'finish combining zones!'
+    print 'number of the combined zones', counter
+    
+    return matrix
 # read the analyzed matrix         
 def getMatrix(verbose, matrix):#, mtxplfile, mtxtfile):
     matrixPshort = []
@@ -97,18 +170,27 @@ def main():
     if not options.mtxpsfile:
         optParser.print_help()
         sys.exit()
+        
+    districtList = []
+    parser = make_parser()
+    parser.setContentHandler(DistrictsReader(districtList))
+    parser.parse(options.districtsfile)
+        
     MTX_STUB = "mtx%02i_%02i.fma"
     matrix = options.mtxpsfile
     if options.OUTPUTDIR:
         OUTPUTDIR = options.OUTPUTDIR
    
-    matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, zones = getMatrix(options.verbose, matrix)
+    matrix, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, zones = getMatrix(options.verbose, matrix)
     timeSeriesList = []
     hourlyMatrix = []
     subtotal = 0.
     
     if options.verbose:
         foutlog = file('log.txt', 'a')
+    
+    # combine matrices    
+    matrix = combineDemand(matrix, districtList, startVertices, endVertices)
     
     for i in range (0, len(startVertices)):
         hourlyMatrix.append([])
@@ -127,19 +209,12 @@ def main():
     for hour in range (0, 24):
         for i in range (0, len(startVertices)):
             for j in range (0, len(endVertices)):
-                hourlyMatrix[i][j] = matrixPshort[i][j] * timeSeriesList[0]
+                hourlyMatrix[i][j] = matrix[i][j] * timeSeriesList[0]
         
         filename = MTX_STUB % (hour, hour+1)
-#        if hour < 10:
-#            if hour+1 != 10:
-#                filename = "matrix0%s_0%s.fma" % (hour, hour+1)
-#            else:
-#                filename = "matrix0%s_%s.fma" % (hour, hour+1)
-#        else:
-#            filename = "matrix%s_%s.fma" % (hour, hour+1)
 
         foutmatrix=file(OUTPUTDIR+filename,'w')  # /input/filename
-#        foutmatrix.write('$V;Y5\n')
+
         foutmatrix.write('$VMR;D2\n')
         foutmatrix.write('* Verkehrsmittelkennung\n')
         foutmatrix.write('   1\n')
