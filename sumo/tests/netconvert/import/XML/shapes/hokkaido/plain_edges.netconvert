@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/24/08 16:06:27 by SUMO netconvert Version dev-SVN-r6190
+<!-- generated on 11/12/08 15:10:23 by SUMO netconvert Version dev-SVN-r6332
 <configuration>
 
    <input>
@@ -17,8 +17,8 @@
 -->
 
 <edges>
-   <edge id="1" fromnode="dl" tonode="dr" nolanes="1" speed="13.90" spread_type="center"/>
+   <edge id="1" fromnode="dl" tonode="dr" nolanes="1" speed="13.90" shape="95.49,0.00 1295.49,0.00" spread_type="center"/>
    <edge id="2" fromnode="dr" tonode="tr" nolanes="1" speed="13.90" shape="1312.08,1.45 1328.15,5.76 1343.24,12.79 1356.87,22.34 1368.64,34.11 1378.19,47.75 1385.23,62.83 1389.54,78.91 1390.99,95.49 1389.54,112.08 1385.23,128.15 1378.19,143.24 1368.64,156.87 1356.87,168.64 1343.24,178.19 1328.15,185.23 1312.08,189.54" spread_type="center"/>
-   <edge id="3" fromnode="tr" tonode="tl" nolanes="1" speed="13.90" spread_type="center"/>
+   <edge id="3" fromnode="tr" tonode="tl" nolanes="1" speed="13.90" shape="1295.49,190.99 95.49,190.99" spread_type="center"/>
    <edge id="4" fromnode="tl" tonode="dl" nolanes="1" speed="13.90" shape="78.91,189.54 62.83,185.23 47.75,178.19 34.11,168.64 22.34,156.87 12.79,143.24 5.76,128.15 1.45,112.08 0.00,95.49 1.45,78.91 5.76,62.83 12.79,47.75 22.34,34.11 34.11,22.34 47.75,12.79 62.83,5.76 78.91,1.45" spread_type="center"/>
 </edges>

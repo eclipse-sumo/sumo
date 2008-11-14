@@ -217,7 +217,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
     // save plain nodes/edges/connections
     if (oc.isSet("plain-output")) {
         myNodeCont.savePlain(oc.getString("plain-output") + ".nod.xml");
-        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml");
+        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml", oc.getString("plain-output") + ".con.xml");
     }
     //
     inform(step, "Computing node shapes");

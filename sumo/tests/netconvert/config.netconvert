@@ -14,6 +14,7 @@ copy_test_path:input_net.net.xml
 net:net.net.xml
 plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
+plain_connections:plain.con.xml
 config:config.cfg
 log:log.txt
 
@@ -21,4 +22,5 @@ log:log.txt
 output:netconvert.exe{REPLACE sumo-netconvert}
 plain_nodes:Version
 plain_edges:Version
+plain_connections:Version
 net:Version

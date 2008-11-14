@@ -998,7 +998,19 @@ NBNodeCont::savePlain(const std::string &file)
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *n = (*i).second;
         device << "   <node id=\"" << n->getID() << "\" ";
-        device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
+        device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\""; 
+        if(n->isTLControlled()) {
+            device << " type=\"traffic_light\" tl=\"";
+            const set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
+            for(set<NBTrafficLightDefinition*>::const_iterator t=tlss.begin(); t!=tlss.end(); ++t) {
+                if(t!=tlss.begin()) {
+                    device << ";";
+                }
+                device << (*t)->getID();
+            }
+            device << "\"";
+        }
+        device << "/>\n";
     }
     device.close();
     return true;
