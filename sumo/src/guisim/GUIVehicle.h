@@ -115,17 +115,21 @@ public:
     /** @brief Returns the id of the object as known to microsim
      *
      * @return The id of the vehicle
-     * @see GUIGlObject::microsimID
+     * @see GUIGlObject::getMicrosimID
      */
-    const std::string &microsimID() const throw();
+    const std::string &getMicrosimID() const throw();
 
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const throw();
 
-    /// Returns the information whether this object is still active
-    bool active() const throw();
+    /** @brief Returns the type of the object as coded in GUIGlObjectType
+     *
+     * @return GLO_EDGE (is an edge)
+     * @see GUIGlObject::getType
+     * @see GUIGlObjectType
+     */
+    GUIGlObjectType getType() const throw() {
+        return GLO_VEHICLE;
+    }
 
-    void drawGL(const GUIVisualizationSettings &s) const throw();
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -133,6 +137,21 @@ public:
      * @see GUIGlObject::getCenteringBoundary
      */
     Boundary getCenteringBoundary() const throw();
+
+
+    /** @brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings &s) const throw();
+
+
+    /** @brief Returns the information whether this object is still active
+     *
+     * @return Whether this vehicle is active (has not left the simulation)
+     * @see GUIGlObject::active
+     */
+    bool active() const throw();
     //@}
 
 

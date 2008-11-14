@@ -217,16 +217,8 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
 }
 
 
-
-GUIGlObjectType
-GUIEdge::getType() const throw()
-{
-    return GLO_EDGE;
-}
-
-
 const std::string &
-GUIEdge::microsimID() const throw()
+GUIEdge::getMicrosimID() const throw()
 {
     return getID();
 }
@@ -285,7 +277,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
         pfSetScale(s.edgeNameSize / s.scale);
-        SUMOReal w = pfdkGetStringWidth(microsimID().c_str());
+        SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
         glRotated(180, 1, 0, 0);
         SUMOReal angle = lane1->getShape().rotationDegreeAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
         angle += 90;
@@ -294,7 +286,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
         }
         glRotated(angle, 0, 0, 1);
         glTranslated(-w/2., .2*s.edgeNameSize / s.scale, 0);
-        pfDrawString(microsimID().c_str());
+        pfDrawString(getMicrosimID().c_str());
         glPopMatrix();
     }
 }

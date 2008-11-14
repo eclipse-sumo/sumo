@@ -364,7 +364,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUILaneSpeedTrigger::microsimID() const throw()
+GUILaneSpeedTrigger::getMicrosimID() const throw()
 {
     return getID();
 }
@@ -437,7 +437,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
     }
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id
     if (s.needsGlID) {

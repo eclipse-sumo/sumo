@@ -69,6 +69,8 @@ public:
     /** destructor */
     ~GUIE1VehicleActor() throw();
 
+
+
     /// @name inherited from GUIGlObject
     //@{
 
@@ -97,9 +99,9 @@ public:
     /** @brief Returns the id of the object as known to microsim
      *
      * @return The id of the actor
-     * @see GUIGlObject::microsimID
+     * @see GUIGlObject::getMicrosimID
      */
-    const std::string &microsimID() const throw();
+    const std::string &getMicrosimID() const throw();
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -108,21 +110,15 @@ public:
      * @see GUIGlObject::getCenteringBoundary
      */
     Boundary getCenteringBoundary() const throw();
-    //@}
 
-
-
-    /// @name inherited from GUIGlObject_AbstractAdd
-    //@{
 
     /** @brief Draws the object
-     *
-     * @param[in] scale The current scale (meters to pixel) of the view
-     * @param[in] upscale The factor by which the object's size shall be multiplied
-     * @see GUIGlObject_AbstractAdd::drawGL
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
+
 
 
 private:

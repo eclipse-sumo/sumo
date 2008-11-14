@@ -135,16 +135,8 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
 }
 
 
-
-GUIGlObjectType
-GUINetWrapper::getType() const throw()
-{
-    return GLO_NETWORK;
-}
-
-
 const std::string &
-GUINetWrapper::microsimID() const throw()
+GUINetWrapper::getMicrosimID() const throw()
 {
     return StringUtils::emptyString;
 }

@@ -211,15 +211,8 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
 }
 
 
-GUIGlObjectType
-GUITrafficLightLogicWrapper::getType() const throw()
-{
-    return GLO_TLLOGIC;
-}
-
-
 const std::string &
-GUITrafficLightLogicWrapper::microsimID() const throw()
+GUITrafficLightLogicWrapper::getMicrosimID() const throw()
 {
     return myTLLogic.getID();
 }

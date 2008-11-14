@@ -96,20 +96,12 @@ class MyWrapper : public GUIDetectorWrapper
             GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
 
 
-        /** @brief Draws the object
-         *
-         * @param[in] s Current visualization settings
-         * @see GUIGlObject::drawGL
-         */
-        void drawGL(const GUIVisualizationSettings &s) const throw();
-
-
         /** @brief Returns the id of the object as known to microsim
          *
          * @return The id of the induction loop
-         * @see GUIGlObject::microsimID
+         * @see GUIGlObject::getMicrosimID
          */
-        const std::string &microsimID() const throw();
+        const std::string &getMicrosimID() const throw();
 
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -118,6 +110,13 @@ class MyWrapper : public GUIDetectorWrapper
          * @see GUIGlObject::getCenteringBoundary
          */
         Boundary getCenteringBoundary() const throw();
+
+
+        /** @brief Draws the object
+         * @param[in] s The settings for the current view (may influence drawing)
+         * @see GUIGlObject::drawGL
+         */
+        void drawGL(const GUIVisualizationSettings &s) const throw();
         //@}
 
 

@@ -133,7 +133,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         if (o==0) {
             continue;
         }
-        const std::string &name = o->microsimID();
+        const std::string &name = o->getMicrosimID();
         bool selected = false;
         if (type==GLO_EDGE) {
             for (int j=static_cast<GUIEdge*>(o)->nLanes()-1; j>=0; j--) {

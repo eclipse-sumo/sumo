@@ -131,7 +131,7 @@ GUIE1VehicleActor::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIE1VehicleActor::microsimID() const throw()
+GUIE1VehicleActor::getMicrosimID() const throw()
 {
     return getID();
 }
@@ -205,7 +205,7 @@ GUIE1VehicleActor::drawGL(const GUIVisualizationSettings &s) const throw()
     glPopMatrix();
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id
     if (s.needsGlID) {

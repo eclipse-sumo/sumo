@@ -194,7 +194,7 @@ ret.mkItem(name.c_str(), true, binding);
 
 
 const std::string &
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::microsimID() const throw()
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::getMicrosimID() const throw()
 {
     return myDetector.getID();
 }

@@ -99,7 +99,7 @@ GUIPointOfInterest::getParameterWindow(GUIMainWindow &,
 
 
 const std::string &
-GUIPointOfInterest::microsimID() const throw()
+GUIPointOfInterest::getMicrosimID() const throw()
 {
     return getID();
 }

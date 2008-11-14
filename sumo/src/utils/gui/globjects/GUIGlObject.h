@@ -58,24 +58,55 @@ struct GUIVisualizationSettings;
 class GUIGlObject
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * This is the standard constructor that assures that the object is known
+     *  and its id is unique. Use it always :-)
+     *
+     * @param[in] idStorage The global storage of gl-ids, used to give a unique id
+     * @param[in] fullName The complete name, including a type-prefix
+     * @see GUIGlObjectStorage
+     */
     GUIGlObject(GUIGlObjectStorage &idStorage,
                 std::string fullName) throw();
 
-    /// Constructor for objects joining gl-objects
-    GUIGlObject(GUIGlObjectStorage &idStorage,
-                std::string fullName, GLuint glID) throw();
 
-    /// Destructor
+    /** @brief Constructor
+     *
+     * This constructor should be used only for compound objects, that share
+     *  visualization. Use it only if you know what you are doing.
+     *
+     * @param[in] fullName The complete name, including a type-prefix
+     * @param[in] glID The id of this object
+     * @see GUIGlObjectStorage
+     */
+    GUIGlObject(std::string fullName, GLuint glID) throw();
+
+
+    /// @brief Destructor
     virtual ~GUIGlObject() throw();
 
-    /// Returns the full name apperaing in the tool tip
-    const std::string &getFullName() const throw();
+    /// @name Atomar getter methods
+    /// @{
 
-    /// Returns the numerical id of the object
-    GLuint getGlID() const throw();
+    /** @brief Returns the full name appearing in the tool tip
+     * @return This object's typed id
+     */
+    const std::string &getFullName() const throw() {
+        return myFullName;
+    }
 
-    /// Needed to set the id
+
+    /** @brief Returns the numerical id of the object
+     * @return This object's gl-id
+     */
+    GLuint getGlID() const throw() {
+        return myGlID;
+    }
+    /// @}
+
+
+    /// @brief Needed to set the id
     friend class GUIGlObjectStorage;
 
 
@@ -106,10 +137,13 @@ public:
      *
      * @return The id of the object
      */
-    virtual const std::string &microsimID() const throw() = 0;
+    virtual const std::string &getMicrosimID() const throw() = 0;
 
 
-    /// Returns the type of the object as coded in GUIGlObjectType
+    /** @brief Returns the type of the object as coded in GUIGlObjectType
+     * @return The type of the object
+     * @see GUIGlObjectType
+     */
     virtual GUIGlObjectType getType() const throw() = 0;
 
 
@@ -118,20 +152,23 @@ public:
      * @return The boundary the object is within
      */
     virtual Boundary getCenteringBoundary() const throw() = 0;
+
+
+    /** @brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     */
+    virtual void drawGL(const GUIVisualizationSettings &s) const throw() = 0;
     //@}
+
 
 
     /** @brief Returns the information whether this object is still active
      *
      * @return Whether this object is active (always true in this case)
-     * @see GUIGlObject::active
      */
     virtual bool active() const throw() {
         return true;
     }
-
-
-    virtual void drawGL(const GUIVisualizationSettings &s) const throw() = 0;
 
 
 protected:

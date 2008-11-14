@@ -311,7 +311,7 @@ GUITriggeredRerouter::getParameterWindow(GUIMainWindow &,
 
 
 const std::string &
-GUITriggeredRerouter::microsimID() const throw()
+GUITriggeredRerouter::getMicrosimID() const throw()
 {
     return getID();
 }

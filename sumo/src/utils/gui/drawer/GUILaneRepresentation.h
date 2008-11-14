@@ -39,12 +39,12 @@ public:
     /// Constructor
     GUILaneRepresentation(GUIGlObjectStorage &idStorage, std::string fullName) throw()
             : GUIGlObject(idStorage, fullName) {}
-
+/*
     /// Constructor for objects joining gl-objects
     GUILaneRepresentation(GUIGlObjectStorage &idStorage,
                           std::string fullName, GLuint glID) throw()
             : GUIGlObject(idStorage, fullName, glID) {}
-
+*/
     virtual ~GUILaneRepresentation() throw() { }
 
     /** returns the "visualisation length"; this length may differ to the

@@ -120,7 +120,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIE3Collector::MyWrapper::microsimID() const throw()
+GUIE3Collector::MyWrapper::getMicrosimID() const throw()
 {
     return myDetector.getID();
 }
@@ -146,7 +146,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
     }
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id
     if (s.needsGlID) {

@@ -66,11 +66,10 @@ GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
 }
 
 
-GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-        std::string fullName,
+GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(std::string fullName,
         GLuint glID,
         GUIGlObjectType type) throw()
-        : GUIGlObject(idStorage, fullName, glID), myGlType(type)
+        : GUIGlObject(fullName, glID), myGlType(type)
 {
 //!!!    assert(myObjects.find(fullName)==myObjects.end());
     myObjects[fullName] = this;

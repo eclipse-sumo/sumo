@@ -51,10 +51,9 @@ GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
 {}
 
 
-GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
-                                       std::string id,
+GUIDetectorWrapper::GUIDetectorWrapper(std::string id,
                                        GLuint glID) throw()
-        : GUIGlObject_AbstractAdd(idStorage, id, glID, GLO_DETECTOR)
+        : GUIGlObject_AbstractAdd(id, glID, GLO_DETECTOR)
 {}
 
 
@@ -73,13 +72,6 @@ GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret, false);
     return ret;
-}
-
-
-GUIGlObjectType
-GUIDetectorWrapper::getType() const throw()
-{
-    return GLO_DETECTOR;
 }
 
 

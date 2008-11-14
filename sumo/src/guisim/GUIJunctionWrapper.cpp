@@ -94,16 +94,8 @@ GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
 }
 
 
-
-GUIGlObjectType
-GUIJunctionWrapper::getType() const throw()
-{
-    return GLO_JUNCTION;
-}
-
-
 const std::string &
-GUIJunctionWrapper::microsimID() const throw()
+GUIJunctionWrapper::getMicrosimID() const throw()
 {
     return myJunction.getID();
 }
@@ -167,10 +159,10 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
         pfSetPosition(0, 0);
         pfSetScale(s.junctionNameSize / s.scale);
         glColor3f(s.junctionNameColor.red(), s.junctionNameColor.green(), s.junctionNameColor.blue());
-        SUMOReal w = pfdkGetStringWidth(microsimID().c_str());
+        SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
         glRotated(180, 1, 0, 0);
         glTranslated(-w/2., 0.4, 0);
-        pfDrawString(microsimID().c_str());
+        pfDrawString(getMicrosimID().c_str());
         glPopMatrix();
     }
     // (optional) clear id

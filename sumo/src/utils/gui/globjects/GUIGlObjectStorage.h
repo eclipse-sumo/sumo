@@ -78,7 +78,7 @@ public:
         This done within the constructor of the GUIGlObject;
         this method may be used when several objects shall share the same id.
         The id must be previously retrieved using "getUniqueID" */
-    void registerObject(GUIGlObject *object, GLuint id);
+    //void registerObject(GUIGlObject *object, GLuint id);
 
     /// retrievs a unique id for an object to display
     GLuint getUniqueID();

@@ -66,7 +66,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object)
     myLock.unlock();
 }
 
-
+/*
 void
 GUIGlObjectStorage::registerObject(GUIGlObject *object, GLuint id)
 {
@@ -75,7 +75,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object, GLuint id)
     myMap[id] = object;
     myLock.unlock();
 }
-
+*/
 
 GLuint
 GUIGlObjectStorage::getUniqueID()

@@ -61,6 +61,8 @@ public:
     /// Destructor
     ~GUITrafficLightLogicWrapper() throw();
 
+
+
     /// @name inherited from GUIGlObject
     //@{
 
@@ -89,12 +91,21 @@ public:
     /** @brief Returns the id of the object as known to microsim
      *
      * @return The id of the tls logic
-     * @see GUIGlObject::microsimID
+     * @see GUIGlObject::getMicrosimID
      */
-    const std::string &microsimID() const throw();
+    const std::string &getMicrosimID() const throw();
 
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const throw();
+
+    /** @brief Returns the type of the object as coded in GUIGlObjectType
+     *
+     * @return GLO_TLLOGIC (is a tls logic)
+     * @see GUIGlObject::getType
+     * @see GUIGlObjectType
+     */
+    GUIGlObjectType getType() const throw() {
+        return GLO_TLLOGIC;
+    }
+
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -102,6 +113,13 @@ public:
      * @see GUIGlObject::getCenteringBoundary
      */
     Boundary getCenteringBoundary() const throw();
+
+
+    /** @brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
 
@@ -117,7 +135,6 @@ public:
     /// Returns the index of the given link within the according tls
     int getLinkIndex(MSLink *link) const;
 
-    void drawGL(const GUIVisualizationSettings &s) const throw();
 
 public:
     /**

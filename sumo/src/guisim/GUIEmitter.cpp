@@ -409,7 +409,7 @@ GUIEmitter::getParameterWindow(GUIMainWindow &,
 
 
 const std::string &
-GUIEmitter::microsimID() const throw()
+GUIEmitter::getMicrosimID() const throw()
 {
     return getID();
 }
@@ -499,7 +499,7 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw()
     }
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id
     if (s.needsGlID) {

@@ -57,30 +57,15 @@ GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
 }
 
 
-GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
-                         std::string fullName, GLuint glID) throw()
+GUIGlObject::GUIGlObject(std::string fullName, GLuint glID) throw()
         : myFullName(fullName)
 {
-    idStorage.registerObject(this, glID);
 }
+
 
 
 GUIGlObject::~GUIGlObject() throw()
 {}
-
-
-const std::string &
-GUIGlObject::getFullName() const throw()
-{
-    return myFullName;
-}
-
-
-GLuint
-GUIGlObject::getGlID() const throw()
-{
-    return myGlID;
-}
 
 
 void

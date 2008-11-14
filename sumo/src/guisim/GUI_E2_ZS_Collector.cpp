@@ -110,7 +110,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
     GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
     GLuint glID, GUI_E2_ZS_CollectorOverLanes &,
     GUILaneWrapper &wrapper) throw()
-        : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID(), glID),
+        : GUIDetectorWrapper("E2 detector:"+detector.getID(), glID),
         myDetector(detector)
 {
     myConstruct(detector, wrapper);
@@ -191,7 +191,7 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUI_E2_ZS_Collector::MyWrapper::microsimID() const throw()
+GUI_E2_ZS_Collector::MyWrapper::getMicrosimID() const throw()
 {
     return myDetector.getID();
 }
@@ -224,7 +224,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
     }
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id
     if (s.needsGlID) {

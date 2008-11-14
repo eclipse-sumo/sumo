@@ -150,7 +150,7 @@ GUINet::initDetectors()
             static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(
                 gIDStorage, edge->getLaneGeometry(lane));
         // add to dictionary
-        myDetectorDict[wrapper->microsimID()] = wrapper;
+        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
     // e2 over lanes -detectors
     const map<string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
@@ -161,7 +161,7 @@ GUINet::initDetectors()
             static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper(
                 gIDStorage);
         // add to dictionary
-        myDetectorDict[wrapper->microsimID()] = wrapper;
+        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
     // induction loops
     const map<string, MSInductLoop*> &e1 = myDetectorControl->getInductLoops().getMyMap();
@@ -174,7 +174,7 @@ GUINet::initDetectors()
             static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(
                 gIDStorage, edge->getLaneGeometry(lane));
         // add to dictionary
-        myDetectorDict[wrapper->microsimID()] = wrapper;
+        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
     // e3-detectors
     const map<string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
@@ -184,7 +184,7 @@ GUINet::initDetectors()
         GUIDetectorWrapper *wrapper =
             static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(gIDStorage);
         // add to dictionary
-        myDetectorDict[wrapper->microsimID()] = wrapper;
+        myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
 }
 
@@ -305,7 +305,7 @@ GUINet::getTLSIDs() const
     std::vector<string> ids;
     for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
         size_t nid = (*i).second->getGlID();
-        string sid = (*i).second->microsimID();
+        string sid = (*i).second->getMicrosimID();
         if (find(ids.begin(), ids.end(), sid)==ids.end()) {
             ret.push_back(nid);
             ids.push_back(sid);

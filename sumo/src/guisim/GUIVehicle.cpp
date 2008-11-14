@@ -261,15 +261,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
 }
 
 
-GUIGlObjectType
-GUIVehicle::getType() const throw()
-{
-    return GLO_VEHICLE;
-}
-
-
 const std::string &
-GUIVehicle::microsimID() const throw()
+GUIVehicle::getMicrosimID() const throw()
 {
     return getID();
 }
@@ -370,10 +363,10 @@ drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     pfSetPosition(0, 0);
     pfSetScale(size);
-    SUMOReal w = pfdkGetStringWidth(veh.microsimID().c_str());
+    SUMOReal w = pfdkGetStringWidth(veh.getMicrosimID().c_str());
     glRotated(180, 0, 1, 0);
     glTranslated(-w/2., 0.4, 0);
-    pfDrawString(veh.microsimID().c_str());
+    pfDrawString(veh.getMicrosimID().c_str());
     glPopMatrix();
 }
 

@@ -97,7 +97,7 @@ GUIPolygon2D::getParameterWindow(GUIMainWindow &,
 
 
 const std::string &
-GUIPolygon2D::microsimID() const throw()
+GUIPolygon2D::getMicrosimID() const throw()
 {
     return myName;
 }

@@ -52,13 +52,21 @@ public:
                             std::string fullName, GUIGlObjectType type) throw();
 
     /// Constructor for objects joining gl-objects
-    GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-                            std::string fullName, GLuint glID, GUIGlObjectType type) throw();
+    GUIGlObject_AbstractAdd(std::string fullName, GLuint glID, GUIGlObjectType type) throw();
 
     ~GUIGlObject_AbstractAdd() throw();
 
-    /// Returns the type of the object as coded in GUIGlObjectType
+
+    /// @name inherited from GUIGlObject
+    /// @{
+
+    /** @brief Returns the type of the object as coded in GUIGlObjectType
+     * @return The type of the object
+     * @see GUIGlObjectType
+     */
     GUIGlObjectType getType() const throw();
+    /// @}
+
 
     void drawGLName(const Position2D &p, const std::string &id, SUMOReal nameScale) const;
 

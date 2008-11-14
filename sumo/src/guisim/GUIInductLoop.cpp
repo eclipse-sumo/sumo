@@ -140,7 +140,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIInductLoop::MyWrapper::microsimID() const throw()
+GUIInductLoop::MyWrapper::getMicrosimID() const throw()
 {
     return myDetector.getID();
 }
@@ -201,7 +201,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     glPopMatrix();
     // (optional) draw name
     if (s.drawAddName) {
-        drawGLName(getCenteringBoundary().getCenter(), microsimID(), s.addNameSize / s.scale);
+        drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);
     }
     // (optional) clear id
     if (s.needsGlID) {

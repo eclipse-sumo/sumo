@@ -63,6 +63,8 @@ public:
     /// destructor
     virtual ~GUINetWrapper() throw();
 
+
+
     /// @name inherited from GUIGlObject
     //@{
 
@@ -91,12 +93,20 @@ public:
     /** @brief Returns the id of the object as known to microsim
      *
      * @return An empty string (net has no id)
-     * @see GUIGlObject::microsimID
+     * @see GUIGlObject::getMicrosimID
      */
-    const std::string &microsimID() const throw();
+    const std::string &getMicrosimID() const throw();
 
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const throw();
+
+    /** @brief Returns the type of the object as coded in GUIGlObjectType
+     *
+     * @return GLO_NETWORK (is the network)
+     * @see GUIGlObject::getType
+     * @see GUIGlObjectType
+     */
+    GUIGlObjectType getType() const throw() {
+        return GLO_NETWORK;
+    }
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -105,6 +115,7 @@ public:
      */
     Boundary getCenteringBoundary() const throw();
     //@}
+
 
     Boundary getBoundary() const;
 

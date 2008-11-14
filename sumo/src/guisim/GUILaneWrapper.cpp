@@ -578,15 +578,8 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
 }
 
 
-GUIGlObjectType
-GUILaneWrapper::getType() const throw()
-{
-    return GLO_LANE;
-}
-
-
 const std::string &
-GUILaneWrapper::microsimID() const throw()
+GUILaneWrapper::getMicrosimID() const throw()
 {
     return myLane.getID();
 }
