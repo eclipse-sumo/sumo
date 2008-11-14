@@ -173,7 +173,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
         }
     }
     // get the position (center)
-    Position2D pos = crossings.center();
+    Position2D pos = crossings.getPolygonCenter();
     // build the node
     /*    if(myTLID!=-1) {
      !!!        NIVissimTL *tl = NIVissimTL::dictionary(myTLID);

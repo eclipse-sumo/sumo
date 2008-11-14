@@ -54,28 +54,29 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Position2DVector::Position2DVector()
+Position2DVector::Position2DVector() throw()
 {}
 
 
-Position2DVector::Position2DVector(size_t fieldSize)
+Position2DVector::Position2DVector(unsigned int fieldSize) throw()
         : myCont(fieldSize)
 {}
 
 
-Position2DVector::~Position2DVector()
+Position2DVector::~Position2DVector() throw()
 {}
 
 
+// ------------ Adding items to the container
 void
-Position2DVector::push_back(const Position2D &p)
+Position2DVector::push_back(const Position2D &p) throw()
 {
     myCont.push_back(p);
 }
 
 
 void
-Position2DVector::push_back(const Position2DVector &p)
+Position2DVector::push_back(const Position2DVector &p) throw()
 {
     copy(p.myCont.begin(), p.myCont.end(), back_inserter(myCont));
 }
@@ -293,7 +294,7 @@ Position2DVector::getBoxBoundary() const
 
 
 Position2D
-Position2DVector::center() const
+Position2DVector::getPolygonCenter() const
 {
     SUMOReal x = 0;
     SUMOReal y = 0;
@@ -302,6 +303,16 @@ Position2DVector::center() const
         y += (*i).y();
     }
     return Position2D(x/(SUMOReal) myCont.size(), y/(SUMOReal) myCont.size());
+}
+
+
+Position2D
+Position2DVector::getLineCenter() const
+{
+    if(myCont.size()==1) {
+        return myCont[0];
+    }
+    return positionAtLengthPosition(length()/2.);
 }
 
 
@@ -444,7 +455,7 @@ Position2DVector::resetBy(const Position2D &by)
 void
 Position2DVector::sortAsPolyCWByAngle()
 {
-    Position2D c = center();
+    Position2D c = getPolygonCenter();
     std::sort(myCont.begin(), myCont.end(), as_poly_cw_sorter(c));
 }
 
@@ -989,22 +1000,6 @@ Position2DVector::closePolygon()
     }
     push_back(myCont[0]);
 }
-
-
-Position2DVector::Position2DVector(const Position2DVector &s)
-        : AbstractPoly(s)
-{
-    myCont.assign(s.myCont.begin(), s.myCont.end());
-}
-
-
-Position2DVector &
-Position2DVector::operator=(const Position2DVector &s)
-{
-    myCont.assign(s.myCont.begin(), s.myCont.end());
-    return *this;
-}
-
 
 DoubleVector
 Position2DVector::distances(const Position2DVector &s) const

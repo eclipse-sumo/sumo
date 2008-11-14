@@ -2587,8 +2587,8 @@ throw(TraCIException)
             throw TraCIException("Unable to retrieve polygon with given id");
         } else {
             response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat(poly->getPosition2DVector().center().x());
-            response.writeFloat(poly->getPosition2DVector().center().y());
+            response.writeFloat(poly->getPosition2DVector().getPolygonCenter().x());
+            response.writeFloat(poly->getPosition2DVector().getPolygonCenter().y());
             response.writeFloat(0);
         }
         // add a warning to the response if the requested data type was not correct

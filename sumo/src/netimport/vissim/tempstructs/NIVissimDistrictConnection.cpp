@@ -189,7 +189,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont &dc,
             NIVissimDistrictConnection *c = dictionary(*j);
             pos.push_back(c->geomPosition());
         }
-        Position2D distCenter = pos.center();
+        Position2D distCenter = pos.getPolygonCenter();
         if (connections.size()==1) { // !!! ok, ok, maybe not the best way just to add an offset
             distCenter.add(10, 10);
         }

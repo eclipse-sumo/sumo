@@ -43,6 +43,10 @@ class Line2D;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/** 
+ * @class Position2DVector
+ * @brief A list of 2D-positions
+ */
 class Position2DVector
             : public AbstractPoly
 {
@@ -51,24 +55,40 @@ public:
     typedef std::deque<Position2D> ContType;
 
 public:
-    /// Constructor
-    Position2DVector();
+    /** @brief Constructor
+     * 
+     * Creates an empty position vector
+     */
+    Position2DVector() throw();
 
-    /// Constructor
-    Position2DVector(size_t fieldSize);
 
-    /// Constructor
-    Position2DVector(const Position2DVector &s);
+    /** @brief Constructor
+     * 
+     * Creates an empty position vector, allocates storage of the given size
+     */
+    Position2DVector(unsigned int fieldSize) throw();
 
-    /// Assignment operator
-    Position2DVector &operator=(const Position2DVector &s);
 
-    /// Destructor
-    ~Position2DVector();
+    /// @brief Destructor
+    ~Position2DVector() throw();
 
-    /// Appends the given position to the list
-    void push_back(const Position2D &p);
-    void push_back(const Position2DVector &p);
+
+    /// @name Adding items to the container
+    /// @{
+
+    /** @brief Appends the given position to the list
+     * @param[in] p The position to append
+     */
+    void push_back(const Position2D &p) throw();
+
+
+    /** @brief Appends all positions from the given vector
+     * @param[in] p The vector from which values shall be appended
+     */
+    void push_back(const Position2DVector &p) throw();
+    /// @}
+
+
 
     /// Puts the given position at the begin of the list
     void push_front(const Position2D &p);
@@ -129,7 +149,8 @@ public:
 
     /** @brief Returns the center
         !! Only for closed??? */
-    Position2D center() const;
+    Position2D getPolygonCenter() const;
+    Position2D getLineCenter() const;
 
     Position2D pop_back();
     Position2D pop_front();
