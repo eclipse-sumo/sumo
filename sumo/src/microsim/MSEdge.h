@@ -480,12 +480,12 @@ protected:
     typedef std::map< std::string, MSEdge* > DictType;
 
     /** @brief Static dictionary to associate string-ids with objects.
-     * @depracted Move to MSEdgeControl, make non-static
+     * @deprecated Move to MSEdgeControl, make non-static
      */
     static DictType myDict;
 
     /** @brief Static list of edges
-     * @depracted Move to MSEdgeControl, make non-static
+     * @deprecated Move to MSEdgeControl, make non-static
      */
     static std::vector<MSEdge*> myEdges;
     /// @}
