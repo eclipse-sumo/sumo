@@ -139,7 +139,7 @@ void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 {
     // check whether it is not too small
-    if(s.scale*myMaxSize<1.) {
+    if (s.scale*myMaxSize<1.) {
         return;
     }
     // (optional) set id

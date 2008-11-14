@@ -93,7 +93,7 @@ NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
 {
     if (myGeom.length()>pos) {
         return myGeom.positionAtLengthPosition(pos);
-    } else if(myGeom.length()==pos) {
+    } else if (myGeom.length()==pos) {
         return myGeom[-1];
     } else {
         Position2DVector g(myGeom);

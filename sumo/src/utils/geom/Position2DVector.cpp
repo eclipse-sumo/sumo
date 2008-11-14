@@ -309,7 +309,7 @@ Position2DVector::getPolygonCenter() const
 Position2D
 Position2DVector::getLineCenter() const
 {
-    if(myCont.size()==1) {
+    if (myCont.size()==1) {
         return myCont[0];
     }
     return positionAtLengthPosition(length()/2.);

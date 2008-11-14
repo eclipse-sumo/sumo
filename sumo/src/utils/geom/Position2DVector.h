@@ -43,7 +43,7 @@ class Line2D;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/** 
+/**
  * @class Position2DVector
  * @brief A list of 2D-positions
  */
@@ -56,14 +56,14 @@ public:
 
 public:
     /** @brief Constructor
-     * 
+     *
      * Creates an empty position vector
      */
     Position2DVector() throw();
 
 
     /** @brief Constructor
-     * 
+     *
      * Creates an empty position vector, allocates storage of the given size
      */
     Position2DVector(unsigned int fieldSize) throw();

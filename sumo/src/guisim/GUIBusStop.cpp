@@ -97,7 +97,7 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
     tmp.move2side(1.5);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
-    if(tmp.length()!=0) {
+    if (tmp.length()!=0) {
         myFGSignRot = myFGShape.rotationDegreeAtLengthPosition(myFGShape.length() / 2.);
         myFGSignRot -= 90;
     }

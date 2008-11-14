@@ -626,7 +626,7 @@ NIVissimConnectionCluster::recomputeBoundary()
         if (c!=0) {
             myBoundary.add(c->getFromGeomPosition());
             myBoundary.add(c->getToGeomPosition());
-            if(c->getGeometry().size()!=0) {
+            if (c->getGeometry().size()!=0) {
                 myBoundary.add(c->getGeometry().getBoxBoundary());
             }
         }

@@ -213,7 +213,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             traveltimeS += traveltime;
             noStopsS += meanData.haltSum;
             noEmissionsS += meanData.emitted;
-            if(isFirst) {
+            if (isFirst) {
                 noEnteredS += meanData.nVehEnteredLane;
             }
             nVehS += meanData.sampleSeconds;

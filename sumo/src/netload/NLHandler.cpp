@@ -102,116 +102,116 @@ NLHandler::myStartElement(SumoXMLTag element,
                           const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     try {
-    switch (element) {
-    case SUMO_TAG_EDGE:
-        beginEdgeParsing(attrs);
-        break;
-    case SUMO_TAG_LANE:
-        addLane(attrs);
-        break;
-    case SUMO_TAG_POLY:
-        addPoly(attrs);
-        break;
-    case SUMO_TAG_POI:
-        addPOI(attrs);
-        break;
-    case SUMO_TAG_JUNCTION:
-        openJunction(attrs);
-        break;
-    case SUMO_TAG_PHASE:
-        addPhase(attrs);
-        break;
-    case SUMO_TAG_SUCC:
-        openSucc(attrs);
-        break;
-    case SUMO_TAG_SUCCLANE:
-        addSuccLane(attrs);
-        break;
-    case SUMO_TAG_ROWLOGIC:
-        myJunctionControlBuilder.initJunctionLogic();
-        break;
-    case SUMO_TAG_TLLOGIC:
-        initTrafficLightLogic(attrs);
-        break;
-    case SUMO_TAG_LOGICITEM:
-        addLogicItem(attrs);
-        break;
-    case SUMO_TAG_WAUT:
-        openWAUT(attrs);
-        break;
-    case SUMO_TAG_WAUT_SWITCH:
-        addWAUTSwitch(attrs);
-        break;
-    case SUMO_TAG_WAUT_JUNCTION:
-        addWAUTJunction(attrs);
-        break;
-        /// @deprecated begins
-    case SUMO_TAG_DETECTOR:
-        addDetector(attrs);
-        break;
-        /// @deprecated ends
+        switch (element) {
+        case SUMO_TAG_EDGE:
+            beginEdgeParsing(attrs);
+            break;
+        case SUMO_TAG_LANE:
+            addLane(attrs);
+            break;
+        case SUMO_TAG_POLY:
+            addPoly(attrs);
+            break;
+        case SUMO_TAG_POI:
+            addPOI(attrs);
+            break;
+        case SUMO_TAG_JUNCTION:
+            openJunction(attrs);
+            break;
+        case SUMO_TAG_PHASE:
+            addPhase(attrs);
+            break;
+        case SUMO_TAG_SUCC:
+            openSucc(attrs);
+            break;
+        case SUMO_TAG_SUCCLANE:
+            addSuccLane(attrs);
+            break;
+        case SUMO_TAG_ROWLOGIC:
+            myJunctionControlBuilder.initJunctionLogic();
+            break;
+        case SUMO_TAG_TLLOGIC:
+            initTrafficLightLogic(attrs);
+            break;
+        case SUMO_TAG_LOGICITEM:
+            addLogicItem(attrs);
+            break;
+        case SUMO_TAG_WAUT:
+            openWAUT(attrs);
+            break;
+        case SUMO_TAG_WAUT_SWITCH:
+            addWAUTSwitch(attrs);
+            break;
+        case SUMO_TAG_WAUT_JUNCTION:
+            addWAUTJunction(attrs);
+            break;
+            /// @deprecated begins
+        case SUMO_TAG_DETECTOR:
+            addDetector(attrs);
+            break;
+            /// @deprecated ends
 #ifdef _MESSAGES
-    case SUMO_TAG_MSG_EMITTER:
-        addMsgEmitter(attrs);
-        break;
-    case SUMO_TAG_MSG:
-        addMsgDetector(attrs);
-        break;
+        case SUMO_TAG_MSG_EMITTER:
+            addMsgEmitter(attrs);
+            break;
+        case SUMO_TAG_MSG:
+            addMsgDetector(attrs);
+            break;
 #endif
-    case SUMO_TAG_E1DETECTOR:
-        addE1Detector(attrs);
-        break;
-    case SUMO_TAG_E2DETECTOR:
-        addE2Detector(attrs);
-        break;
-    case SUMO_TAG_E3DETECTOR:
-        beginE3Detector(attrs);
-        break;
-    case SUMO_TAG_DET_ENTRY:
-        addE3Entry(attrs);
-        break;
-    case SUMO_TAG_DET_EXIT:
-        addE3Exit(attrs);
-        break;
-    case SUMO_TAG_VSS:
-        myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
-        break;
-    case SUMO_TAG_EMITTER:
-        myTriggerBuilder.parseAndBuildLaneEmitTrigger(myNet, attrs, getFileName());
-        break;
-    case SUMO_TAG_CALIBRATOR:
-        myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
-        break;
-    case SUMO_TAG_REROUTER:
-        myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
-        break;
-    case SUMO_TAG_BUS_STOP:
-        myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
-        break;
-    case SUMO_TAG_VEHICLE_ACTOR:
-        myTriggerBuilder.parseAndBuildVehicleActor(myNet, attrs);
-        break;
-    case SUMO_TAG_VTYPEPROBE:
-        addVTypeProbeDetector(attrs);
-        break;
-    case SUMO_TAG_SOURCE:
-        addSource(attrs);
-        break;
-    case SUMO_TAG_TRIGGER:
-        addTrigger(attrs);
-        break;
-    case SUMO_TAG_TIMEDEVENT:
-        myActionBuilder.addAction(attrs, getFileName());
-        break;
-    case SUMO_TAG_VAPORIZER:
-        myTriggerBuilder.buildVaporizer(attrs);
-        break;
-    default:
-        break;
-    }
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+        case SUMO_TAG_E1DETECTOR:
+            addE1Detector(attrs);
+            break;
+        case SUMO_TAG_E2DETECTOR:
+            addE2Detector(attrs);
+            break;
+        case SUMO_TAG_E3DETECTOR:
+            beginE3Detector(attrs);
+            break;
+        case SUMO_TAG_DET_ENTRY:
+            addE3Entry(attrs);
+            break;
+        case SUMO_TAG_DET_EXIT:
+            addE3Exit(attrs);
+            break;
+        case SUMO_TAG_VSS:
+            myTriggerBuilder.parseAndBuildLaneSpeedTrigger(myNet, attrs, getFileName());
+            break;
+        case SUMO_TAG_EMITTER:
+            myTriggerBuilder.parseAndBuildLaneEmitTrigger(myNet, attrs, getFileName());
+            break;
+        case SUMO_TAG_CALIBRATOR:
+            myTriggerBuilder.parseAndBuildCalibrator(myNet, attrs, getFileName());
+            break;
+        case SUMO_TAG_REROUTER:
+            myTriggerBuilder.parseAndBuildRerouter(myNet, attrs, getFileName());
+            break;
+        case SUMO_TAG_BUS_STOP:
+            myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
+            break;
+        case SUMO_TAG_VEHICLE_ACTOR:
+            myTriggerBuilder.parseAndBuildVehicleActor(myNet, attrs);
+            break;
+        case SUMO_TAG_VTYPEPROBE:
+            addVTypeProbeDetector(attrs);
+            break;
+        case SUMO_TAG_SOURCE:
+            addSource(attrs);
+            break;
+        case SUMO_TAG_TRIGGER:
+            addTrigger(attrs);
+            break;
+        case SUMO_TAG_TIMEDEVENT:
+            myActionBuilder.addAction(attrs, getFileName());
+            break;
+        case SUMO_TAG_VAPORIZER:
+            myTriggerBuilder.buildVaporizer(attrs);
+            break;
+        default:
+            break;
         }
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
     MSRouteHandler::myStartElement(element, attrs);
     if (element==SUMO_TAG_PARAM) {
         addParam(attrs);

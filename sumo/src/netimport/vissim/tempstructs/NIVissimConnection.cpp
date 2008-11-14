@@ -268,7 +268,7 @@ NIVissimConnection::buildGeom()
 }
 
 
-unsigned int 
+unsigned int
 NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec)
 {
     unsigned int unsetConnections = 0;
@@ -276,10 +276,10 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec)
     NBEdge *fromEdge = 0;
     NBEdge *toEdge = 0;
     NIVissimEdge *vissimFrom = NIVissimEdge::dictionary(getFromEdgeID());
-    if(vissimFrom->wasWithinAJunction()) {
+    if (vissimFrom->wasWithinAJunction()) {
         // this edge was not built, try to get one that approaches it
         vissimFrom = vissimFrom->getBestIncoming();
-        if(vissimFrom!=0) {
+        if (vissimFrom!=0) {
             fromEdge = ec.retrievePossiblySplitted(toString(vissimFrom->getID()), toString(getFromEdgeID()), true);
         }
     } else {
@@ -287,9 +287,9 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec)
         fromEdge = ec.retrievePossiblySplitted(toString(getFromEdgeID()), toString(getToEdgeID()), true);
     }
     NIVissimEdge *vissimTo = NIVissimEdge::dictionary(getToEdgeID());
-    if(vissimTo->wasWithinAJunction()) {
+    if (vissimTo->wasWithinAJunction()) {
         vissimTo = vissimTo->getBestOutgoing();
-        if(vissimTo!=0) {
+        if (vissimTo!=0) {
             toEdge = ec.retrievePossiblySplitted(toString(vissimTo->getID()), toString(getToEdgeID()), true);
         }
     } else {

@@ -444,7 +444,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
     // draw lane
     glPolygonOffset(0, 0);
     // check whether it is not too small
-    if(s.scale<1.) {
+    if (s.scale<1.) {
         GLHelper::drawLine(myShape);
         // (optional) clear id
         if (s.needsGlID) {

@@ -376,7 +376,7 @@ GUINet::initGUIStructures()
     }
     for (vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         GUIJunctionWrapper *junction = *i;
-        if(junction->getShape().size()>0) {
+        if (junction->getShape().size()>0) {
             Boundary b = junction->getShape().getBoxBoundary();
             b.grow(2.);
             cmin[0] = b.xmin();
