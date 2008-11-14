@@ -334,15 +334,6 @@ public:
         }
     };
 
-    class edge_to_lane_sorter
-    {
-    private:
-        bool flip;
-
-    public:
-        explicit edge_to_lane_sorter(NBNode *from, NBNode *to);
-        int operator()(NBEdge *e1, NBEdge *e2) const;
-    };
 
     friend std::ostream &operator<<(std::ostream &os, const EdgeVector &ev);
 

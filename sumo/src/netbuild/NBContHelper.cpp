@@ -208,26 +208,6 @@ operator<<(std::ostream &os, const EdgeVector &ev)
 }
 
 
-NBContHelper::edge_to_lane_sorter::edge_to_lane_sorter(NBNode *from, NBNode *to)
-{
-    flip = atan2(
-               from->getPosition().x()-to->getPosition().x(),
-               from->getPosition().y()-to->getPosition().y())<0;
-}
-
-
-int
-NBContHelper::edge_to_lane_sorter::operator()(NBEdge *e1, NBEdge *e2) const
-{
-    Position2D p = e1->getGeometry().center();
-    if (flip) {
-        return 0<GeomHelper::DistancePointLine(p,
-                                               e2->getGeometry().getBegin(), e2->getGeometry().getEnd());
-    } else {
-        return 0>GeomHelper::DistancePointLine(p,
-                                               e2->getGeometry().getBegin(), e2->getGeometry().getEnd());
-    }
-}
 
 
 SUMOReal
