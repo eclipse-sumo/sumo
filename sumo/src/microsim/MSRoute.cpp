@@ -240,15 +240,25 @@ MSRoute::dict_saveState(std::ostream &os) throw()
             FileHelpers::writeUInt(os, (*i)->getNumericalID());
         }
     }
+    FileHelpers::writeUInt(os, (unsigned int) myDistDict.size());
+    for (RouteDistDict::iterator it = myDistDict.begin(); it!=myDistDict.end(); ++it) {
+        FileHelpers::writeString(os, (*it).first);
+        const unsigned int size = (unsigned int)(*it).second->getVals().size();
+        FileHelpers::writeUInt(os, size);
+        for (unsigned int i = 0; i < size; ++i) {
+            FileHelpers::writeString(os, (*it).second->getVals()[i]->getID());
+            FileHelpers::writeFloat(os, (*it).second->getProbs()[i]);
+        }
+    }
 }
 
 
 void
 MSRoute::dict_loadState(BinaryInputDevice &bis) throw()
 {
-    unsigned int noRoutes;
-    bis >> noRoutes;
-    while (noRoutes>0) {
+    unsigned int numRoutes;
+    bis >> numRoutes;
+    for (;numRoutes>0;numRoutes--) {
         string id;
         bis >> id;
         unsigned int no;
@@ -273,7 +283,34 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw()
                 bis >> edgeID;
             }
         }
-        noRoutes--;
+    }
+    unsigned int numRouteDists;
+    bis >> numRouteDists;
+    for (;numRouteDists>0;numRouteDists--) {
+        string id;
+        bis >> id;
+        unsigned int no;
+        bis >> no;
+        if (dictionary(id)==0) {
+            RandomDistributor<MSRoute*> *dist = new RandomDistributor<MSRoute*>();
+            for (;no>0;no--) {
+                string routeID;
+                bis >> routeID;
+                MSRoute *r = dictionary(routeID);
+                assert(r!=0);
+                SUMOReal prob;
+                bis >> prob;
+                dist->add(prob, r);
+            }
+            dictionary(id, dist);
+        } else {
+            for (;no>0;no--) {
+                string routeID;
+                bis >> routeID;
+                SUMOReal prob;
+                bis >> prob;
+            }
+        }
     }
 }
 #endif

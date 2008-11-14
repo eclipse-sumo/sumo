@@ -281,6 +281,16 @@ MSVehicleControl::saveState(std::ostream &os) throw()
     for (VTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
         (*it).second->saveState(os);
     }
+    FileHelpers::writeUInt(os, (unsigned) myVTypeDistDict.size());
+    for (VTypeDistDictType::iterator it=myVTypeDistDict.begin(); it!=myVTypeDistDict.end(); ++it) {
+        FileHelpers::writeString(os, (*it).first);
+        const unsigned int size = (unsigned int)(*it).second->getVals().size();
+        FileHelpers::writeUInt(os, size);
+        for (unsigned int i = 0; i < size; ++i) {
+            FileHelpers::writeString(os, (*it).second->getVals()[i]->getID());
+            FileHelpers::writeFloat(os, (*it).second->getProbs()[i]);
+        }
+    }
     MSRoute::dict_saveState(os);
     // save vehicles
     FileHelpers::writeUInt(os, (unsigned) myVehicleDict.size());
@@ -316,6 +326,34 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bis >> vclass;
         MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, DEFAULT_VEH_PROB, DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV, (SUMOVehicleClass) vclass, DEFAULT_VEH_FOLLOW_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL, RGBColor::DEFAULT_COLOR);
         addVType(t);
+    }
+    unsigned int numVTypeDists;
+    bis >> numVTypeDists;
+    for (;numVTypeDists>0;numVTypeDists--) {
+        string id;
+        bis >> id;
+        unsigned int no;
+        bis >> no;
+        if (getVType(id)==0) {
+            RandomDistributor<MSVehicleType*> *dist = new RandomDistributor<MSVehicleType*>();
+            for (;no>0;no--) {
+                string vtypeID;
+                bis >> vtypeID;
+                MSVehicleType *t = getVType(vtypeID);
+                assert(t!=0);
+                SUMOReal prob;
+                bis >> prob;
+                dist->add(prob, t);
+            }
+            addVTypeDistribution(id, dist);
+        } else {
+            for (;no>0;no--) {
+                string vtypeID;
+                bis >> vtypeID;
+                SUMOReal prob;
+                bis >> prob;
+            }
+        }
     }
     MSRoute::dict_loadState(bis);
     // load vehicles
