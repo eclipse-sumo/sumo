@@ -68,8 +68,9 @@ MSVehicleControl::MSVehicleControl() throw()
                                DEFAULT_VEH_B, DEFAULT_VEH_SIGMA,
                                DEFAULT_VEH_TAU, DEFAULT_VEH_PROB,
                                DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV,
-                               SVC_UNKNOWN, DEFAULT_VEH_FOLLOW_MODEL,
-                               DEFAULT_VEH_LANE_CHANGE_MODEL,
+                               SVC_UNKNOWN, SVE_PASSENGER, SVS_UNKNOWN,
+                               DEFAULT_VEH_GUIWIDTH, DEFAULT_VEH_GUIOFFSET, 
+                               DEFAULT_VEH_FOLLOW_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL,
                                RGBColor::DEFAULT_COLOR);
 }
 
@@ -314,8 +315,10 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
     bis >> size;
     while (size-->0) {
         string id;
-        SUMOReal length, maxSpeed, accel, decel, dawdle, tau;
-        int vclass;
+        SUMOReal length, maxSpeed, accel, decel, dawdle, tau, guiWidth, guiOffset, 
+            prob, speedFactor, speedDev, r, g, b;
+        int vclass, emissionClass, shape;
+        string followModel, laneChangeModel;
         bis >> id;
         bis >> length;
         bis >> maxSpeed;
@@ -324,7 +327,23 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bis >> dawdle;
         bis >> tau;
         bis >> vclass;
-        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, DEFAULT_VEH_PROB, DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV, (SUMOVehicleClass) vclass, DEFAULT_VEH_FOLLOW_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL, RGBColor::DEFAULT_COLOR);
+        bis >> emissionClass;
+        bis >> shape;
+        bis >> guiWidth;
+        bis >> guiOffset;
+        bis >> prob;
+        bis >> speedFactor;
+        bis >> speedDev;
+        bis >> r;
+        bis >> g;
+        bis >> b;
+        bis >> followModel;
+        bis >> laneChangeModel;
+        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, 
+            prob, speedFactor, speedDev, 
+            (SUMOVehicleClass) vclass, (SUMOEmissionClass) emissionClass, (SUMOVehicleShape) shape,
+            guiWidth, guiOffset,
+            followModel, laneChangeModel, RGBColor(r,g,b));
         addVType(t);
     }
     unsigned int numVTypeDists;

@@ -37,6 +37,82 @@
 // enum definitions
 // ===========================================================================
 /**
+ * @enum SUMOVehicleShape
+ * @brief Definition of vehicle classes to differ between different appearences
+ */
+enum SUMOVehicleShape {
+    /// @brief not defined
+    SVS_UNKNOWN,
+    /// @brief render as a pedestrian
+    SVS_PEDESTRIAN,
+    /// @brief render as a bicycle
+    SVS_BICYCLE,
+    /// @brief render as a motorcycle
+    SVS_MOTORCYCLE,
+    /// @brief render as a passenger vehicle
+    SVS_PASSENGER,
+    /// @brief render as a sedan passenger vehicle ("Stufenheck")
+    SVS_PASSENGER_SEDAN,
+    /// @brief render as a hatchback passenger vehicle ("Fliessheck")
+    SVS_PASSENGER_HATCHBACK,
+    /// @brief render as a wagon passenger vehicle ("Combi")
+    SVS_PASSENGER_WAGON,
+    /// @brief render as a van
+    SVS_PASSENGER_VAN,
+    /// @brief render as a pick-up
+    SVS_PASSENGER_PICKUP,
+    /// @brief render as a delivery vehicle
+    SVS_DELIVERY,
+    /// @brief render as a light delivery vehicle
+    SVS_DELIVERY_LIGHT,
+    /// @brief render as a large delivery vehicle
+    SVS_DELIVERY_LARGE,
+    /// @brief render as a transport vehicle
+    SVS_TRANSPORT,
+    /// @brief render as a transport vehicle with no trailer, closed cargo area
+    SVS_TRANSPORT_CLOSED,
+    /// @brief render as a transport vehicle with no trailer, open cargo area
+    SVS_TRANSPORT_OPEN,
+    /// @brief render as a semi-trailer transport vehicle ("Sattelschlepper")
+    SVS_TRANSPORT_SEMITRAILER,
+    /// @brief render as a transport vehicle with one trailer, closed cargo area
+    SVS_TRANSPORT_1TRAILER_CLOSED,
+    /// @brief render as a transport vehicle with one trailer, open cargo area
+    SVS_TRANSPORT_1TRAILER_OPEN,
+    /// @brief render as a transport vehicle with two trailers, closed cargo area
+    SVS_TRANSPORT_2TRAILER_CLOSED,
+    /// @brief render as a transport vehicle with two trailers, open cargo area
+    SVS_TRANSPORT_2TRAILER_OPEN,
+    /// @brief render as a bus
+    SVS_BUS,
+    /// @brief render as a city bus
+    SVS_BUS_CITY,
+    /// @brief render as a flexible city bus
+    SVS_BUS_CITY_FLEXIBLE,
+    /// @brief render as a overland bus
+    SVS_BUS_OVERLAND,
+    /// @brief render as a rail
+    SVS_RAIL,
+    /// @brief render as a light rail
+    SVS_RAIL_LIGHT,
+    /// @brief render as a city rail
+    SVS_RAIL_CITY,
+    /// @brief render as a slow (passenger) train
+    SVS_RAIL_SLOW,
+    /// @brief render as a fast (passenger) train
+    SVS_RAIL_FAST,
+    /// @brief render as a cargo train
+    SVS_RAIL_CARGO,
+    /// @brief render as a (futuristic) e-vehicle
+    SVS_E_VEHICLE
+};
+
+
+
+/**
+ * @enum SUMOVehicleClass
+ * @brief Definition of vehicle classes to differ between different lane usage and authority types
+ *
  * Bits:
  * @arg 0-7:  vehicle ownership
  * @arg 8-23: vehicle size
@@ -59,17 +135,17 @@ enum SUMOVehicleClass {
     /// @name vehicle ownership
     //@{
 
-    /// private vehicles
+    /// @brief private vehicles
     SVC_PRIVATE = 1,
-    /// public transport vehicles
+    /// @brief public transport vehicles
     SVC_PUBLIC_TRANSPORT = 2,
-    /// public emergency vehicles
+    /// @brief public emergency vehicles
     SVC_PUBLIC_EMERGENCY = 4,
-    /// authorities vehicles
+    /// @brief authorities vehicles
     SVC_PUBLIC_AUTHORITY = 8,
-    /// army vehicles
+    /// @brief army vehicles
     SVC_PUBLIC_ARMY = 16,
-    /// army vehicles
+    /// @brief vip vehicles
     SVC_VIP = 32,
     //@}
 
@@ -77,43 +153,58 @@ enum SUMOVehicleClass {
     /// @name vehicle size
     //@{
 
-    /// vehicle is a passenger car
+    /// @brief vehicle is a passenger car
     SVC_PASSENGER = 256,
-    /// vehicle is a HOV
+    /// @brief vehicle is a HOV
     SVC_HOV = 512,
-    /// vehicle is a taxi
+    /// @brief vehicle is a taxi
     SVC_TAXI = 1024,
-    /// vehicle is a bus
+    /// @brief vehicle is a bus
     SVC_BUS = 2048,
-    /// vehicle is a small delivery vehicle
+    /// @brief vehicle is a small delivery vehicle
     SVC_DELIVERY = 4096,
-    /// vehicle is a large transport vehicle
+    /// @brief vehicle is a large transport vehicle
     SVC_TRANSPORT = 8192,
-    /// vehicle is a light rail
+    /// @brief vehicle is a light rail
     SVC_LIGHTRAIL = 16384,
-    /// vehicle is a city rail
+    /// @brief vehicle is a city rail
     SVC_CITYRAIL = 32768,
-    /// vehicle is a slow moving transport rail
+    /// @brief vehicle is a slow moving transport rail
     SVC_RAIL_SLOW = 65536,
-    /// vehicle is a fast moving rail
+    /// @brief vehicle is a fast moving rail
     SVC_RAIL_FAST = 131072,
 
-    /// vehicle is a motorcycle
+    /// @brief vehicle is a motorcycle
     SVC_MOTORCYCLE = 262144,
-    /// vehicle is a bicycle
+    /// @brief vehicle is a bicycle
     SVC_BICYCLE = 524288,
-    /// is a pedestrian
+    /// @brief is a pedestrian
     SVC_PEDESTRIAN = 1048576
     //@}
 
 };
 
 
+/**
+ * @enum SUMOEmissionClass
+ * @brief Definition of vehicle emission classes
+ */
+enum SUMOEmissionClass {
+    SVE_UNKNOWN,
+    SVE_PASSENGER
+};
+
+
 // ===========================================================================
 // method declarations
 // ===========================================================================
+extern void initGuiShapeNames() throw();
 extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
 extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
+extern std::string getVehicleShapeName(SUMOVehicleShape id) throw();
+extern SUMOVehicleShape getVehicleShapeID(const std::string &name) throw();
+extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
+extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw();
 
 
 // ===========================================================================
@@ -130,6 +221,8 @@ const SUMOVehicleClass DEFAULT_VEH_CLASS = SVC_UNKNOWN;
 const SUMOReal DEFAULT_VEH_PROB = (SUMOReal) 1.;
 const SUMOReal DEFAULT_VEH_SPEEDFACTOR = (SUMOReal) 1.;
 const SUMOReal DEFAULT_VEH_SPEEDDEV = (SUMOReal) 0.;
+const SUMOReal DEFAULT_VEH_GUIWIDTH = (SUMOReal) 2.;
+const SUMOReal DEFAULT_VEH_GUIOFFSET = (SUMOReal) 2.5;
 const std::string DEFAULT_VEH_FOLLOW_MODEL = "Krauss";
 const std::string DEFAULT_VEH_LANE_CHANGE_MODEL = "dkrajzew2008";
 

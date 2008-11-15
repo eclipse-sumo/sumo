@@ -286,6 +286,10 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "controlled_inner", SUMO_ATTR_CONTROLLED_INNER },
     { "vehsPerHour",    SUMO_ATTR_VEHSPERHOUR },
     { "output",         SUMO_ATTR_OUTPUT },
+    { "guiWidth",       SUMO_ATTR_GUIWIDTH },
+    { "guiOffset",      SUMO_ATTR_GUIOFFSET },
+    { "guiShape",       SUMO_ATTR_GUISHAPE },
+    { "emissionClass",  SUMO_ATTR_EMISSIONCLASS },
 
     { "entering",       SUMO_ATTR_ENTERING },
 

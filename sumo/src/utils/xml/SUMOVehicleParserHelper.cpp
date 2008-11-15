@@ -168,5 +168,43 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
 }
 
 
+SUMOEmissionClass
+SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs,
+        const std::string &type,
+        const std::string &id) throw()
+{
+    SUMOEmissionClass vclass = SVE_UNKNOWN;
+    try {
+        string vclassS = attrs.getStringSecure(SUMO_ATTR_EMISSIONCLASS, "");
+        if (vclassS=="") {
+            return vclass;
+        }
+        return getVehicleEmissionTypeID(vclassS);
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("The emission class for " + type + " '" + id + "' is not known.");
+    }
+    return vclass;
+}
+
+
+SUMOVehicleShape
+SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs,
+        const std::string &type,
+        const std::string &id) throw()
+{
+    SUMOVehicleShape vclass = SVS_UNKNOWN;
+    try {
+        string vclassS = attrs.getStringSecure(SUMO_ATTR_GUISHAPE, "");
+        if (vclassS=="") {
+            return vclass;
+        }
+        return getVehicleShapeID(vclassS);
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("The shape for " + type + " '" + id + "' is not known.");
+    }
+    return vclass;
+}
+
+
 /****************************************************************************/
 

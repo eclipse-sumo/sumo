@@ -452,6 +452,9 @@ main(int argc, char **argv)
         window->dependentBuild();
         gGradients = new GUIGradientStorage(window);
         initColoringSchemes(&application);
+        // init simulation and visualization structures
+        initGuiShapeNames();
+        GUIVehicle::initShapes();
         // delete startup-options
         OptionsCont::getOptions().clear();
         // Create app

@@ -29,6 +29,7 @@
 #endif
 
 #include <string>
+#include <map>
 #include "SUMOVehicleClass.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -39,10 +40,15 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
 
 
+// ===========================================================================
+// definitions of string representations
+// ===========================================================================
+// ---------------------------------------------------------------------------
+// string representations of SUMOVehicleClass
+// ---------------------------------------------------------------------------
 std::string sSVC_PRIVATE("private");
 std::string sSVC_PUBLIC_TRANSPORT("public_transport");
 std::string sSVC_PUBLIC_EMERGENCY("public_emergency");
@@ -66,8 +72,16 @@ std::string sSVC_PEDESTRIAN("pedestrian");
 
 
 // ===========================================================================
+// staic members
+// ===========================================================================
+map<SUMOVehicleShape, string> gVehicleShapeID2Name;
+map<string, SUMOVehicleShape> gVehicleShapeName2ID;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+// ------------ Conversion of SUMOVehicleClass
 std::string
 getVehicleClassName(SUMOVehicleClass id) throw()
 {
@@ -204,6 +218,93 @@ getVehicleClassID(const std::string &name) throw()
     }
 
     return ret;
+}
+
+
+
+// ------------ Conversion of SUMOVehicleShape
+void
+addToShapeNames(SUMOVehicleShape id, const string &name) throw()
+{
+    gVehicleShapeID2Name[id] = name;
+    gVehicleShapeName2ID[name] = id;
+}
+
+
+void
+initGuiShapeNames() throw()
+{
+    addToShapeNames(SVS_PEDESTRIAN, "pedestrian");
+    addToShapeNames(SVS_BICYCLE, "bicycle");
+    addToShapeNames(SVS_MOTORCYCLE, "motorcycle");
+    addToShapeNames(SVS_PASSENGER, "passenger");
+    addToShapeNames(SVS_PASSENGER_SEDAN, "passenger/sedan");
+    addToShapeNames(SVS_PASSENGER_HATCHBACK, "passenger/hatchback");
+    addToShapeNames(SVS_PASSENGER_WAGON, "passenger/wagon");
+    addToShapeNames(SVS_PASSENGER_VAN, "passenger/van");
+    addToShapeNames(SVS_PASSENGER_PICKUP, "passenger/pickup");
+    addToShapeNames(SVS_DELIVERY, "delivery");
+    addToShapeNames(SVS_DELIVERY_LIGHT, "delivery/light");
+    addToShapeNames(SVS_DELIVERY_LARGE, "delivery/large");
+    addToShapeNames(SVS_TRANSPORT, "transport");
+    addToShapeNames(SVS_TRANSPORT_CLOSED, "transport/closed");
+    addToShapeNames(SVS_TRANSPORT_OPEN, "transport/open");
+    addToShapeNames(SVS_TRANSPORT_SEMITRAILER, "transport/semitrailer");
+    addToShapeNames(SVS_TRANSPORT_1TRAILER_CLOSED, "transport/trailer/closed");
+    addToShapeNames(SVS_TRANSPORT_1TRAILER_OPEN, "transport/trailer/open");
+    addToShapeNames(SVS_TRANSPORT_2TRAILER_CLOSED, "transport/2trailer/closed");
+    addToShapeNames(SVS_TRANSPORT_2TRAILER_OPEN, "transport/2trailer/open");
+    addToShapeNames(SVS_BUS, "bus");
+    addToShapeNames(SVS_BUS_CITY, "bus/city");
+    addToShapeNames(SVS_BUS_CITY_FLEXIBLE, "bus/flexible");
+    addToShapeNames(SVS_BUS_OVERLAND, "bus/overland");
+    addToShapeNames(SVS_RAIL, "rail");
+    addToShapeNames(SVS_RAIL_LIGHT, "rail/light");
+    addToShapeNames(SVS_RAIL_CITY, "rail/city");
+    addToShapeNames(SVS_RAIL_SLOW, "rail/slow");
+    addToShapeNames(SVS_RAIL_FAST, "rail/fast");
+    addToShapeNames(SVS_RAIL_CARGO, "rail/cargo");
+    addToShapeNames(SVS_E_VEHICLE, "evehicle");
+}
+
+
+std::string
+getVehicleShapeName(SUMOVehicleShape id) throw()
+{
+    if(id==SVS_UNKNOWN) {
+        return "";
+    }
+    return gVehicleShapeID2Name[id];
+}
+
+
+SUMOVehicleShape
+getVehicleShapeID(const std::string &name) throw()
+{
+    if(name=="") {
+        return SVS_UNKNOWN;
+    }
+    if(gVehicleShapeName2ID.find(name)!=gVehicleShapeName2ID.end()) {
+        return gVehicleShapeName2ID[name];
+    }
+    return SVS_UNKNOWN;
+    //!!!throw InvalidArgument("Unknown vehicle shape '" + name + "' occured.");
+}
+
+
+
+// ------------ Conversion of SUMOEmissionClass
+SUMOEmissionClass
+getVehicleEmissionTypeID(const std::string &name) throw()
+{
+    return SVE_PASSENGER;
+}
+
+
+std::string
+getVehicleClassName(SUMOEmissionClass id) throw()
+{
+    return "";
 }
 
 

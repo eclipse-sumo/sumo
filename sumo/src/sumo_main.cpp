@@ -124,6 +124,8 @@ main(int argc, char **argv)
             SystemFrame::close();
             return 0;
         }
+        // init simulation structures
+        initGuiShapeNames();
         MsgHandler::initOutputOptions();
         if (!MSFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();

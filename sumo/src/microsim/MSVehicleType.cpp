@@ -49,17 +49,17 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::~MSVehicleType()
-{}
-
-
 MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
                              SUMOReal maxSpeed, SUMOReal accel,
                              SUMOReal decel, SUMOReal dawdle,
                              SUMOReal tau, SUMOReal prob,
                              SUMOReal speedFactor, SUMOReal speedDev,
-                             SUMOVehicleClass vclass, const string &cfModel,
-                             const string &lcModel, const RGBColor &c)
+                             SUMOVehicleClass vclass, 
+                             SUMOEmissionClass emissionClass, 
+                             SUMOVehicleShape shape,
+                             SUMOReal guiWidth, SUMOReal guiOffset,
+                             const string &cfModel, const string &lcModel, 
+                             const RGBColor &c) throw()
         : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
         myDecel(decel), myDawdle(dawdle), myTau(tau),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
@@ -77,11 +77,8 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
 }
 
 
-const std::string &
-MSVehicleType::getID() const
-{
-    return myID;
-}
+MSVehicleType::~MSVehicleType() throw()
+{}
 
 
 void
@@ -95,13 +92,20 @@ MSVehicleType::saveState(std::ostream &os)
     FileHelpers::writeFloat(os, myDawdle);
     FileHelpers::writeFloat(os, myTau);
     FileHelpers::writeInt(os, (int) myVehicleClass);
+    FileHelpers::writeInt(os, (int) myEmissionClass);
+    FileHelpers::writeInt(os, (int) myShape);
+    FileHelpers::writeFloat(os, myWidth);
+    FileHelpers::writeFloat(os, myOffset);
+    FileHelpers::writeFloat(os, myDefaultProbability);
+    FileHelpers::writeFloat(os, mySpeedFactor);
+    FileHelpers::writeFloat(os, mySpeedDev);
+    FileHelpers::writeFloat(os, myColor.red());
+    FileHelpers::writeFloat(os, myColor.green());
+    FileHelpers::writeFloat(os, myColor.blue());
+    FileHelpers::writeString(os, myCarFollowModel);
+    FileHelpers::writeString(os, myLaneChangeModel);
 }
 
-const RGBColor &
-MSVehicleType::getColor() const
-{
-    return myColor;
-}
 
 
 /****************************************************************************/

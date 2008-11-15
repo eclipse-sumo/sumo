@@ -76,33 +76,156 @@ public:
      * @param[in] dawdle The driver imperfection used by this vehicle type
      * @param[in] tau The driver's reaction time used by this vehicle type
      * @param[in] vclass The class vehicles of this type belong to
+     * @param[in] emissionClass The emission class vehicles of this type belong to
+     * @param[in] shape How vehicles of this class shall be drawn
+     * @param[in] guiWidth The width of the vehicles when being drawn
+     * @param[in] guiOffset The free space in front of the vehicles of this class
+     * @param[in] cfModel Name of the car-following model to use
+     * @param[in] lcModel Name of the lane-change model to use
+     * @param[in] c Color of this vehicle type
      */
     MSVehicleType(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
                   SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
                   SUMOReal tau, SUMOReal prob, SUMOReal speedFactor,
                   SUMOReal speedDev, SUMOVehicleClass vclass,
+                  SUMOEmissionClass emissionClass, SUMOVehicleShape shape,
+                  SUMOReal guiWidth, SUMOReal guiOffset,
                   const std::string &cfModel, const std::string &lcModel,
-                  const RGBColor &c);
-
-    /// Destructor.
-    virtual ~MSVehicleType();
+                  const RGBColor &c) throw();
 
 
-
+    /// @brief Destructor
+    virtual ~MSVehicleType() throw();
 
 
 
+    /// @name Atomar getter for simulation
+    /// @{
+
+    /** @brief Returns the name of the vehicle type
+     * @return This type's id
+     */
+    const std::string &getID() const throw() {
+        return myID;
+    }
+
+
+    /** @brief Get vehicle's length [m]
+     * @return The length vehicles of this type have in m
+     */
+    SUMOReal getLength() const throw() {
+        return myLength;
+    }
+
+
+    /** @brief Get vehicle's maximum speed [m/s].
+     * @return The maximum speed (in m/s) of vehicles of this class
+     */
+    SUMOReal getMaxSpeed() const throw() {
+        return myMaxSpeed;
+    }
+
+
+    /** @brief Get the vehicle's maximum deceleration [m/s^2]
+     * @return The maximum deceleration (in m/s^2) of vehicles of this class
+     */
+    SUMOReal getMaxDecel() const throw() {
+        return myDecel;
+    }
+
+
+    /** @brief Get the driver's reaction time [s]
+     * @return The reaction time of this class' drivers in s
+     */
+    SUMOReal getTau() const throw() {
+        return myTau;
+    }
+
+
+    /** @brief Get the default probability of this vehicle type
+     * @return The probability to use this type
+     */
+    SUMOReal getDefaultProbability() const throw() {
+        return myDefaultProbability;
+    }
+
+
+    /** @brief Get this vehicle type's vehicle class
+     * @return The class of this vehicle type
+     * @see SUMOVehicleClass
+     */
+    SUMOVehicleClass getVehicleClass() const throw() {
+        return myVehicleClass;
+    }
+
+
+    /** @brief Get this vehicle type's emission class
+     * @return The emission class of this vehicle type
+     * @see SUMOEmissionClass
+     */
+    SUMOEmissionClass getEmissionClass() const throw() {
+        return myEmissionClass;
+    }
+
+
+    /** @brief Returns this type's color
+     * @return The color of this type
+     */
+    const RGBColor &getColor() const throw() {
+        return myColor;
+    }
+    /// @}
 
 
 
-    /**  */
-    virtual SUMOReal brakeGap(SUMOReal speed) const {
+    /// @name Atomar getter for visualization
+    /// @{
+
+    /** @brief Get this vehicle type's shape 
+     * @return The shape of this vehicle type
+     * @see SUMOVehicleShape
+     */
+    SUMOVehicleShape getGuiShape() const throw() {
+        return myShape;
+    }
+
+
+    /** @brief Get the width which vehicles of this class shall have when being drawn
+     * @return The width of this type's vehicles
+     */
+    SUMOReal getGuiWidth() const throw() {
+        return myWidth;
+    }
+
+
+    /** @brief Get the free space (not drawn) in front of vehicles of this class
+     * @return The place before the vehicle
+     */
+    SUMOReal getGuiOffset() const throw() {
+        return myOffset;
+    }
+    /// @}
+
+
+
+    /** @brief Returns the brake gap of vehicles of this class, given a speed, assuming a reaction time
+     * @param[in] speed The current speed
+     * @return How far a vehicle drives when stopping from the given speed (including reaction time)
+     */
+    virtual SUMOReal brakeGap(SUMOReal speed) const throw() {
         return speed * speed * myInverseTwoDecel + speed * myTau;
     }
 
-    virtual SUMOReal approachingBrakeGap(SUMOReal speed) const {
+
+    /** @brief Returns the brake gap of vehicles of this class, given a speed, assuming no reaction time
+     * @param[in] speed The current speed
+     * @return How far a vehicle drives when stopping from the given speed (excluding reaction time)
+     */
+    virtual SUMOReal approachingBrakeGap(SUMOReal speed) const throw() {
         return speed * speed * myInverseTwoDecel;
     }
+
+
 
     /** */
     virtual SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
@@ -190,48 +313,13 @@ public:
 
 
 
-    /// Get vehicle's length [m].
-    SUMOReal getLength() const {
-        return myLength;
-    }
-
-    /// Get vehicle's maximum speed [m/s].
-    SUMOReal getMaxSpeed() const {
-        return myMaxSpeed;
-    }
-
     /// Get the vehicle's maximum acceleration [m/s^2]
     inline SUMOReal getMaxAccel(SUMOReal v) const {
         return (SUMOReal)(myAccel *(1.0 - (v/myMaxSpeed)));
     }
 
-    /// Get the vehicle's maximum deceleration [m/s^2]
-    SUMOReal getMaxDecel() const {
-        return myDecel;
-    }
-
-    SUMOReal getTau() const {
-        return myTau;
-    }
-
-    SUMOReal getDefaultProbability() const {
-        return myDefaultProbability;
-    }
-
-
-    /// returns the name of the vehicle type
-    const std::string &getID() const;
-
-
     /// Saves the states of a vehicle
     void saveState(std::ostream &os);
-
-    SUMOVehicleClass getVehicleClass() const {
-        return myVehicleClass;
-    }
-
-    /// Returns the color
-    const RGBColor &getColor() const;
 
 
 protected:
@@ -254,47 +342,65 @@ protected:
 
 
 private:
-    /// Unique ID.
+    /// @brief Unique ID.
     std::string myID;
 
-    /// Vehicle's length [m].
+    /// @brief Vehicle's length [m].
     SUMOReal myLength;
 
-    /// Vehicle's maximum speed [m/s].
+    /// @brief Vehicle's maximum speed [m/s].
     SUMOReal myMaxSpeed;
 
-    /// The vehicle's maximum acceleration [m/s^2]
+    /// @brief The vehicle's maximum acceleration [m/s^2]
     SUMOReal myAccel;
 
-    /// The vehicle's maximum deceleration [m/s^2]
+    /// @brief The vehicle's maximum deceleration [m/s^2]
     SUMOReal myDecel;
 
-    /// The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
+    /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;
 
-    /// The driver's reaction time [s]
+    /// @brief The driver's reaction time [s]
     SUMOReal myTau;
 
-    /// The vehicle's class
+    /// @brief The vehicle's class
     SUMOVehicleClass myVehicleClass;
 
-    /// The probability when being added to a distribution without an explicit probability
+    /// @brief The probability when being added to a distribution without an explicit probability
     SUMOReal myDefaultProbability;
 
-    /// The factor by which the maximum speed may deviate from the allowed max speed on the street
+    /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street
     SUMOReal mySpeedFactor;
 
-    /// The standard deviation for speed variations
+    /// @brief The standard deviation for speed variations
     SUMOReal mySpeedDev;
 
-    /// ID of the car following model.
+    /// @brief ID of the car following model.
     std::string myCarFollowModel;
 
-    /// ID of the lane change model.
+    /// @brief ID of the lane change model.
     std::string myLaneChangeModel;
 
-    /// The color
+    /// @brief The emission class of this vehicle
+    SUMOEmissionClass myEmissionClass;
+
+    /// @brief The color
     RGBColor myColor;
+
+
+    /// @name Values for drawing this class' vehicles
+    /// @{
+
+    /// @brief This class' width
+    SUMOReal myWidth;
+
+    /// @brief This class' free space in front of the vehicle itself
+    SUMOReal myOffset;
+
+    /// @brief This class' shape
+    SUMOVehicleShape myShape;
+    /// @}
+
 
 
     /// @name some precomputed values for faster computation

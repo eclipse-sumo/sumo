@@ -228,6 +228,10 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
                                  attrs.getFloatSecure(SUMO_ATTR_SPEEDFACTOR, DEFAULT_VEH_SPEEDFACTOR),
                                  attrs.getFloatSecure(SUMO_ATTR_SPEEDDEV, DEFAULT_VEH_SPEEDDEV),
                                  SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
+                                 SUMOVehicleParserHelper::parseEmissionClass(attrs, "vtype", id),
+                                 SUMOVehicleParserHelper::parseGuiShape(attrs, "vtype", id),
+                                 attrs.getFloatSecure(SUMO_ATTR_GUIWIDTH, DEFAULT_VEH_GUIWIDTH),
+                                 attrs.getFloatSecure(SUMO_ATTR_GUIOFFSET, DEFAULT_VEH_GUIOFFSET),
                                  attrs.getStringSecure(SUMO_ATTR_CAR_FOLLOW_MODEL, DEFAULT_VEH_FOLLOW_MODEL),
                                  attrs.getStringSecure(SUMO_ATTR_LANE_CHANGE_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL),
                                  RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING)));
