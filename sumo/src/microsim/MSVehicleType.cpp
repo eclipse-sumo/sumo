@@ -65,7 +65,8 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myVehicleClass(vclass),
         myCarFollowModel(cfModel), myLaneChangeModel(lcModel),
-        myColor(c)
+        myEmissionClass(emissionClass), myColor(c),
+        myWidth(guiWidth), myOffset(guiOffset), myShape(shape)
 {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
