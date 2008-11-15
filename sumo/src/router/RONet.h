@@ -138,7 +138,7 @@ public:
      *  is deleted.
      *
      * @param[in] def The vehicle type to add
-     * @return Whether the vehcile type could be added
+     * @return Whether the vehicle type could be added
      */
     virtual bool addVehicleType(ROVehicleType *type) throw();
 
