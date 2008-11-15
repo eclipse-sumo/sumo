@@ -187,6 +187,7 @@ GUITexturesHelper::drawTexturedBox(unsigned int which,
     glVertex2d(sizeX2, sizeY2);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
+    glEnable(GL_DEPTH_TEST);
 }
 
 
