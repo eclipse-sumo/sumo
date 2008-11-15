@@ -48,6 +48,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/geom/GeomConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -87,9 +88,10 @@ void
 PCXMLPoints::myStartElement(SumoXMLTag element,
                             const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
-    if (element!=SUMO_TAG_POI) {
+    if (element!=SUMO_TAG_POI && element!=SUMO_TAG_POLY) {
         return;
     }
+    if(element==SUMO_TAG_POI) {
     // get the id, report an error if not given or empty...
     string id;
     if (!attrs.setIDFromAttributes("poi", id)) {
@@ -123,6 +125,57 @@ PCXMLPoints::myStartElement(SumoXMLTag element,
         }
         PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
         myCont.insert(id, poi, layer, ignorePrunning);
+    }
+    }
+    if(element==SUMO_TAG_POLY) {
+        bool discard = false;
+        int layer = myOptions.getInt("layer");
+        string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        RGBColor color;
+        if (myTypeMap.has(type)) {
+            const PCTypeMap::TypeDef &def = myTypeMap.get(type);
+            id = def.prefix + id;
+            type = def.id;
+            color = RGBColor::parseColor(def.color);
+            discard = def.discard;
+            layer = def.layer;
+        } else {
+            id = myOptions.getString("prefix") + id;
+            type = myOptions.getString("type");
+            color = RGBColor::parseColor(myOptions.getString("color"));
+        }
+        if (!discard) {
+            bool ignorePrunning = false;
+            if (OptionsCont::getOptions().isInStringVector("prune.ignore", id)) {
+                ignorePrunning = true;
+            }
+            myCurrentID = id;
+            myCurrentType = type;
+            myCurrentColor = color;
+            myCurrentIgnorePrunning = ignorePrunning;
+            myCurrentLayer = layer;
+        }
+    }
+}
+
+ 
+void 
+PCXMLPoints::myCharacters(SumoXMLTag element,
+                        const std::string &chars) throw(ProcessError)
+{
+    if(element==SUMO_TAG_POLY) {
+        Position2DVector pshape = GeomConvHelper::parseShape(chars);
+        const Position2DVector::ContType &cont = pshape.getCont();
+        Position2DVector shape;
+        for(Position2DVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
+            Position2D pos((*i));
+            //pos.mul(1./100000.0);
+            GeoConvHelper::x2cartesian(pos);
+            shape.push_back(pos);
+        }
+        Polygon2D *poly = new Polygon2D(myCurrentID, myCurrentType, myCurrentColor, shape, false);
+        myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning);
     }
 }
 

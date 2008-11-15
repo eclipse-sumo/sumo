@@ -85,6 +85,9 @@ protected:
      */
     virtual void myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
+    /// SAX-callback for characters section
+    void myCharacters(SumoXMLTag element,
+                      const std::string &chars) throw(ProcessError);
     //@}
 
 
@@ -98,6 +101,12 @@ private:
     /// Settings to use
     OptionsCont &myOptions;
 
+
+    std::string myCurrentID;
+    std::string myCurrentType;
+    RGBColor myCurrentColor;
+    bool myCurrentIgnorePrunning;
+    int myCurrentLayer;
 };
 
 
