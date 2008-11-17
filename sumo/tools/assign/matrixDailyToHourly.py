@@ -5,6 +5,7 @@
 @version $Id: getHourlyMatrix.py 5792 2008-07-15 14:53:05Z yunpangwang $
 
 This script is to generate hourly matrices from a VISUM daily matrix. 
+The taffic demand of the traffic zones, which have the same connection links, will be integrated.
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -34,7 +35,7 @@ class District:
         self.sourcelink = None
         self.sinklink = None
         self.combinedDistrict = []
-
+        self.alreadyCombined = False
         
     def __repr__(self):
 
@@ -62,7 +63,8 @@ class DistrictsReader(handler.ContentHandler):
        
 def combineDemand(matrix, districtList, startVertices, endVertices):
     matrixMap = {}
-    counter = 0
+    combinedCounter = 0
+    existCounter= 0
     foutzone = file('combinedZones.txt','w')
         
     for i, start in enumerate(startVertices):
@@ -71,23 +73,29 @@ def combineDemand(matrix, districtList, startVertices, endVertices):
             matrixMap[start][end]= matrix[i][j]
     
     for district1 in districtList:
-        foutzone.write('district:%s\n' %district1.label)
-        foutzone.write('combinedDistricts: ')
-        for district2 in districtList:
-            if district1.label != district2.label and district1.sourcelink == district2.sourcelink:
-                if district2 not in district1.combinedDistrict or district1 not in district2.combinedDistrict:
-                    district1.combinedDistrict.append(district2)
-                    foutzone.write('%s, ' %district2.label)
-        foutzone.write('\n')
+        if not district1.alreadyCombined:
+            foutzone.write('district:%s\n' %district1.label)
+            foutzone.write('combinedDistricts: ')
+            for district2 in districtList:
+                if not district2.alreadyCombined:
+                    if district1.label != district2.label and district1.sourcelink == district2.sourcelink:
+                        district1.combinedDistrict.append(district2)
+                        district2.alreadyCombined = True
+                        foutzone.write('%s, ' %district2.label)
+            foutzone.write('\n')
 
     for start in startVertices:
         for district in districtList:
             if start == district.label and district.combinedDistrict != []:
+                existCounter += 1
+                combinedCounter += len(district.combinedDistrict)
                 for end in endVertices:
                     for zone in district.combinedDistrict:
                         matrixMap[start][end] += matrixMap[zone.label][end]
                         matrixMap[zone.label][end] = 0.
-                        counter += 1
+                        
+            elif start == district.label and district.combinedDistrict == [] and not district.alreadyCombined:
+                existCounter += 1
                     
     for i, start in enumerate(startVertices):
         for j, end in enumerate(endVertices):
@@ -96,7 +104,9 @@ def combineDemand(matrix, districtList, startVertices, endVertices):
     foutzone.close()
     matrixMap.clear()
     print 'finish combining zones!'
-    print 'number of the combined zones', counter
+    print 'number of zones (before):', len(startVertices)
+    print 'number of zones (after):', existCounter
+    print 'number of the combined zones:', combinedCounter    
     
     return matrix
 # read the analyzed matrix         
