@@ -59,30 +59,14 @@ enum SUMOVehicleShape {
     SVS_PASSENGER_WAGON,
     /// @brief render as a van
     SVS_PASSENGER_VAN,
-    /// @brief render as a pick-up
-    SVS_PASSENGER_PICKUP,
     /// @brief render as a delivery vehicle
     SVS_DELIVERY,
-    /// @brief render as a light delivery vehicle
-    SVS_DELIVERY_LIGHT,
-    /// @brief render as a large delivery vehicle
-    SVS_DELIVERY_LARGE,
     /// @brief render as a transport vehicle
     SVS_TRANSPORT,
-    /// @brief render as a transport vehicle with no trailer, closed cargo area
-    SVS_TRANSPORT_CLOSED,
-    /// @brief render as a transport vehicle with no trailer, open cargo area
-    SVS_TRANSPORT_OPEN,
     /// @brief render as a semi-trailer transport vehicle ("Sattelschlepper")
     SVS_TRANSPORT_SEMITRAILER,
-    /// @brief render as a transport vehicle with one trailer, closed cargo area
-    SVS_TRANSPORT_1TRAILER_CLOSED,
-    /// @brief render as a transport vehicle with one trailer, open cargo area
-    SVS_TRANSPORT_1TRAILER_OPEN,
-    /// @brief render as a transport vehicle with two trailers, closed cargo area
-    SVS_TRANSPORT_2TRAILER_CLOSED,
-    /// @brief render as a transport vehicle with two trailers, open cargo area
-    SVS_TRANSPORT_2TRAILER_OPEN,
+    /// @brief render as a transport vehicle with one trailer
+    SVS_TRANSPORT_1TRAILER,
     /// @brief render as a bus
     SVS_BUS,
     /// @brief render as a city bus

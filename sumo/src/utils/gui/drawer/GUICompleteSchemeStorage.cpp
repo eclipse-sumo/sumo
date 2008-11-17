@@ -135,6 +135,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
         vs.antialiase = false;
         vs.dither = false;
+        vs.vehicleQuality = 0;
 
         vs.backgroundColor = RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1);
         vs.showGrid = false;
@@ -199,6 +200,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
         vs.antialiase = false;
         vs.dither = false;
+        vs.vehicleQuality = 0;
 
         vs.backgroundColor = RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1);
         vs.showGrid = false;
@@ -261,8 +263,9 @@ GUICompleteSchemeStorage::init(FXApp *app,
         GUIVisualizationSettings vs;
         vs.name = "real world";
 
-        vs.antialiase = true;
-        vs.dither = true;
+        vs.antialiase = false;
+        vs.dither = false;
+        vs.vehicleQuality = 2;
 
         vs.backgroundColor = RGBColor((SUMOReal) .2, (SUMOReal) .5, (SUMOReal) .2);
         vs.showGrid = false;
@@ -370,6 +373,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
             vs.edgeNameColor = convert(app->reg().readIntEntry(name.c_str(), "edgeNameColor", FXRGB(255, 255, 255)));
 
             vs.vehicleMode = app->reg().readIntEntry(name.c_str(), "vehicleMode", 0);
+            vs.vehicleQuality = app->reg().readIntEntry(name.c_str(), "vehicleQuality", 0);
             size_t nvc = app->reg().readIntEntry(name.c_str(), "noVehCols", 0);
             for (j=0; j<nvc; ++j) {
                 size_t nvc1 = (size_t) app->reg().readIntEntry(name.c_str(), ("nvcN" + toString(j)).c_str(), 0);

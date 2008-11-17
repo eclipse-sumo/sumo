@@ -177,6 +177,7 @@ GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_VIEWSETTINGS_VEHICLES:
         mySettings.vehicleMode = TplConvert<char>::_2int(attrs.getStringSecure("vehicleMode", toString(mySettings.vehicleMode)).c_str());
+        mySettings.vehicleQuality = TplConvert<char>::_2int(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)).c_str());
         mySettings.minVehicleSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minVehicleSize", toString(mySettings.minVehicleSize)).c_str());
         mySettings.vehicleExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleExaggeration", toString(mySettings.vehicleExaggeration)).c_str());
         mySettings.showBlinker = TplConvert<char>::_2bool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)).c_str());
@@ -389,13 +390,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                              0,0,0,0, 10,10,10,2, 5,5);
             new FXLabel(m31, "Show As", 0, LAYOUT_CENTER_Y);
-            FXComboBox *c31 = new FXComboBox(m31, 20, 0, 0, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
-            c31->appendItem("triangles");
-            c31->appendItem("boxes");
-            c31->appendItem("simple shapes");
-            c31->appendItem("complex shapes");
-            c31->setNumVisible(4);
-            c31->disable();
+            myVehicleShapeDetail = new FXComboBox(m31, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
+            myVehicleShapeDetail->appendItem("'triangles'");
+            myVehicleShapeDetail->appendItem("'boxes'");
+            myVehicleShapeDetail->appendItem("'simple shapes'");
+            myVehicleShapeDetail->setNumVisible(3);
+            myVehicleShapeDetail->setCurrentItem(settings->vehicleQuality);
 
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
@@ -732,6 +732,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myEdgeNameColor->setRGBA(convert(mySettings->edgeNameColor));
 
     myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
+    myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
     myShowBlinker->setCheck(mySettings->showBlinker);
@@ -829,6 +830,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
 
     if (myVehicleColoringInfoSource!=0) {
         tmpSettings.vehicleMode = myVehicleColorMode->getCurrentItem();
+        tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
         tmpSettings.vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
         tmpSettings.minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
         tmpSettings.showBlinker = myShowBlinker->getCheck()!=0;
@@ -992,6 +994,7 @@ GUIDialog_ViewSettings::writeSettings() throw()
         }
 
         getApp()->reg().writeIntEntry(sname.c_str(), "vehicleMode", item.vehicleMode);
+        getApp()->reg().writeIntEntry(sname.c_str(), "vehicleQuality", item.vehicleQuality);
         getApp()->reg().writeRealEntry(sname.c_str(), "minVehicleSize", item.minVehicleSize);
         getApp()->reg().writeRealEntry(sname.c_str(), "vehicleExaggeration", item.vehicleExaggeration);
         getApp()->reg().writeIntEntry(sname.c_str(), "showBlinker", item.showBlinker ? 1 : 0);
@@ -1067,6 +1070,7 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
         dev << "        </edges>\n";
 
         dev << "        <vehicles vehicleMode=\"" << mySettings->vehicleMode 
+            << "\" vehicleQuality=\"" << mySettings->vehicleQuality 
             << "\" minVehicleSize=\"" << mySettings->minVehicleSize 
             << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
             << "\" showBlinker=\"" << mySettings->showBlinker

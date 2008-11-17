@@ -86,6 +86,8 @@ public:
         static_cast<const GUIRoute&>(getRoute()).setColor();
     }
 
+    static void initShapes() throw();
+
 
     /// @name inherited from GUIGlObject
     //@{

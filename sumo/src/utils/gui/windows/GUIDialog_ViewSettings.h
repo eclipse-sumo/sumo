@@ -254,7 +254,7 @@ private:
     FXRealSpinDial *myEdgeNameSizeDialer;
     FXColorWell *myEdgeNameColor;
 
-    FXComboBox *myVehicleColorMode;
+    FXComboBox *myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame *myVehicleColorSettingFrame;
     FXColorWell *mySingleVehicleColor, *myMinVehicleColor, *myMaxVehicleColor;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;

@@ -68,6 +68,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2)
     if (edgeNameColor!=v2.edgeNameColor) return false;
 
     if (vehicleMode!=v2.vehicleMode) return false;
+    if (vehicleQuality!=v2.vehicleQuality) return false;
     if (minVehicleSize!=v2.minVehicleSize) return false;
     if (vehicleExaggeration!=v2.vehicleExaggeration) return false;
     if (vehicleColorings!=v2.vehicleColorings) return false;

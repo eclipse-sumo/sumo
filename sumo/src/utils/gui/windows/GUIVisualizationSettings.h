@@ -44,24 +44,24 @@
  * @brief Stores the information about how to visualize structures
  */
 struct GUIVisualizationSettings {
-    /// The name of this setting
+    /// @brief The name of this setting
     std::string name;
 
-    /// Information whether antialiase shall be enabled
+    /// @brief Information whether antialiase shall be enabled
     bool antialiase;
-    /// Information whether dithering shall be enabled
+    /// @brief Information whether dithering shall be enabled
     bool dither;
 
-    /// @name background visualization settings
+    /// @name Background visualization settings
     //@{
 
-    /// The background color to use
+    /// @brief The background color to use
     RGBColor backgroundColor;
-    /// Information whether background decals (textures) shall be used
+    /// @brief Information whether background decals (textures) shall be used
     bool showBackgroundDecals;
-    /// information whether a grid shall be shown
+    /// @brief Information whether a grid shall be shown
     bool showGrid;
-    /// Information about the grid spacings
+    /// @brief Information about the grid spacings
     SUMOReal gridXSize, gridYSize;
     //@}
 
@@ -69,28 +69,28 @@ struct GUIVisualizationSettings {
     /// @name lane visualization settings
     //@{
 
-    /// The lane visualization scheme
+    /// @brief The lane visualization (color assignment) scheme
     int laneEdgeMode;
-    /// The map if used colors (scheme->used colors)
+    /// @brief The map if used colors (scheme->used colors)
     std::map<int, std::vector<RGBColor> > laneColorings;
 #ifdef HAVE_MESOSIM
-    /// The map if used colors (scheme->used colors)
+    /// @brief The map if used colors (scheme->used colors)
     std::map<int, std::vector<RGBColor> > edgeColorings;
 #endif
-    /// Information whether lane borders shall be drawn
+    /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
-    /// Information whether link textures (arrows) shall be drawn
+    /// @brief Information whether link textures (arrows) shall be drawn
     bool showLinkDecals;
     int laneEdgeExaggMode; // !!! unused
     SUMOReal minExagg; // !!! unused
     SUMOReal maxExagg; // !!! unused
-    /// Information whether rails shall be drawn
+    /// @brief Information whether rails shall be drawn
     bool showRails;
-    /// Information whether the edge's name shall be drawn
+    /// @brief Information whether the edge's name shall be drawn
     bool drawEdgeName;
-    /// The size of the edge name
+    /// @brief The size of the edge name
     float edgeNameSize;
-    /// The color of edge names
+    /// @brief The color of edge names
     RGBColor edgeNameColor;
     //@}
 
@@ -98,25 +98,27 @@ struct GUIVisualizationSettings {
     /// @name vehicle visualization settings
     //@{
 
-    /// The vehicle visualization scheme
+    /// @brief The vehicle visualization (color assignment) scheme
     int vehicleMode;
-    /// The minimum size of vehicles to let them be drawn
+    /// @brief The quality of vehicle drawing
+    int vehicleQuality;
+    /// @brief The minimum size of vehicles to let them be drawn
     float minVehicleSize;
-    /// The vehicle exaggeration (upscale)
+    /// @brief The vehicle exaggeration (upscale)
     float vehicleExaggeration;
-    /// The map if used colors (scheme->used colors)
+    /// @brief The map if used colors (scheme->used colors)
     std::map<int, std::vector<RGBColor> > vehicleColorings;
-    /// Information whether vehicle blinkers shall be drawn
+    /// @brief Information whether vehicle blinkers shall be drawn
     bool showBlinker;
-    /// Information whether the c2c radius shall be drawn
+    /// @brief Information whether the c2c radius shall be drawn
     bool drawcC2CRadius;
-    /// Information whether the lane change preference shall be drawn
+    /// @brief Information whether the lane change preference shall be drawn
     bool drawLaneChangePreference;
-    /// Information whether the vehicle's name shall be drawn
+    /// @brief Information whether the vehicle's name shall be drawn
     bool drawVehicleName;
-    /// The size of the vehicle name
+    /// @brief The size of the vehicle name
     float vehicleNameSize;
-    /// The color of vehicle names
+    /// @brief The color of vehicle names
     RGBColor vehicleNameColor;
     //@}
 
@@ -124,37 +126,37 @@ struct GUIVisualizationSettings {
     /// @name junction visualization settings
     //@{
 
-    /// The junction visualization scheme
+    /// @brief The junction visualization (color assignment) scheme
     int junctionMode;
-    /// Information whether a link's tls index shall be drawn
+    /// @brief Information whether a link's tls index shall be drawn
     bool drawLinkTLIndex;
-    /// Information whether a link's junction index shall be drawn
+    /// @brief Information whether a link's junction index shall be drawn
     bool drawLinkJunctionIndex;
-    /// Information whether the junction's name shall be drawn
+    /// @brief Information whether the junction's name shall be drawn
     bool drawJunctionName;
-    /// The size of the junction name
+    /// @brief The size of the junction name
     float junctionNameSize;
-    /// The color of junction names
+    /// @brief The color of junction names
     RGBColor junctionNameColor;
     //@}
 
 
-    /// Information whether lane-to-lane arrows shall be drawn
+    /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
 
 
-    /// @name additional structures visualization settings
+    /// @name Additional structures visualization settings
     //@{
 
-    /// The additional structures visualization scheme
+    /// @brief The additional structures visualization scheme
     int addMode;
-    /// The minimum size of additional structures to let them be drawn
+    /// @brief The minimum size of additional structures to let them be drawn
     float minAddSize;
-    /// The additional structures exaggeration (upscale)
+    /// @brief The additional structures exaggeration (upscale)
     float addExaggeration;
-    /// Information whether the additional's name shall be drawn
+    /// @brief Information whether the additional's name shall be drawn
     bool drawAddName;
-    /// The size of the additionals' name
+    /// @brief The size of the additionals' name
     float addNameSize;
     // The color of additionals' names
     //RGBColor addNameColor;
@@ -164,27 +166,29 @@ struct GUIVisualizationSettings {
     /// @name shapes visualization settings
     //@{
 
-    /// The minimum size of shapes to let them be drawn
+    /// @brief The minimum size of shapes to let them be drawn
     float minPOISize;
-    /// The additional shapes (upscale)
+    /// @brief The additional shapes (upscale)
     float poiExaggeration;
-    /// Information whether the poi's name shall be drawn
+    /// @brief Information whether the poi's name shall be drawn
     bool drawPOIName;
-    /// The size of the poi name
+    /// @brief The size of the poi name
     float poiNameSize;
-    /// The color of poi names
+    /// @brief The color of poi names
     RGBColor poiNameColor;
     //@}
 
-    /// Information whether the size legend shall be drawn
+    /// @brief Information whether the size legend shall be drawn
     bool showSizeLegend;
 
-    bool operator==(const GUIVisualizationSettings &vs2);
-
-
+    /// @brief A temporary (used for a single view) information about a lane's width
     SUMOReal scale;
+    /// @brief A temporary (used for a single view) information about a lane's width
     bool needsGlID;
-    mutable bool showNextLaneBorders;
+
+
+    /** @brief Assignment operator */
+    bool operator==(const GUIVisualizationSettings &vs2);
 
 };
 

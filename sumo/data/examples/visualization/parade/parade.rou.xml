@@ -1,0 +1,95 @@
+<routes>
+   <route id="always_right" multi_ref="x">1i 4o 4i 2o 2i 3o 3i 1o 1i</route>
+
+   <vtype id="pedestrian" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25"/>
+   <vehicle id="pedestrian" route="always_right" depart="0" type="pedestrian">
+        <stop lane="4o_0" pos="0" duration="1000"/>
+   </vehicle>
+
+   <vtype id="bicycle" length="2." guiOffset=".5" guiShape="bicycle" guiWidth=".25"/>
+   <vehicle id="bicycle" route="always_right" depart="0" type="bicycle">
+        <stop lane="4o_0" pos="0" duration="1000"/>
+   </vehicle>
+
+   <vtype id="motorcycle" length="2.5" guiOffset=".5" guiShape="motorcycle" guiWidth=".25"/>
+   <vehicle id="motorcycle" route="always_right" depart="0" type="motorcycle">
+        <stop lane="4o_0" pos="0" duration="1000"/>
+   </vehicle>
+
+
+
+   <vtype id="passenger" length="7.5" guiShape="passenger"/>
+   <vehicle id="passenger" route="always_right" depart="0" type="passenger"/>
+
+   <vtype id="passenger/sedan" length="7.5" guiShape="passenger/sedan"/>
+   <vehicle id="passenger/sedan" route="always_right" depart="0" type="passenger/sedan"/>
+
+   <vtype id="passenger/hatchback" length="7.5" guiShape="passenger/hatchback"/>
+   <vehicle id="passenger/hatchback" route="always_right" depart="0" type="passenger/hatchback"/>
+
+   <vtype id="passenger/wagon" length="7.5" guiShape="passenger/wagon"/>
+   <vehicle id="passenger/wagon" route="always_right" depart="0" type="passenger/wagon"/>
+
+   <vtype id="passenger/van" length="7.5" guiShape="passenger/van"/>
+   <vehicle id="passenger/van" route="always_right" depart="0" type="passenger/van"/>
+
+
+
+
+   <vtype id="delivery" length="7.5" guiShape="delivery"/>
+   <vehicle id="delivery" route="always_right" depart="0" type="delivery"/>
+
+
+
+
+   <vtype id="transport" length="10" guiShape="transport" guiWidth="2.5"/>
+   <vehicle id="transport" route="always_right" depart="0" type="transport"/>
+
+   <vtype id="transport/semitrailer" length="18.75" guiShape="transport/semitrailer" guiWidth="2.6"/>
+   <vehicle id="transport/semitrailer" route="always_right" depart="0" type="transport/semitrailer"/>
+
+   <vtype id="transport/trailer" length="18.75" guiShape="transport/trailer" guiWidth="2.6"/>
+   <vehicle id="transport/trailer" route="always_right" depart="0" type="transport/trailer"/>
+
+
+
+
+   <vtype id="bus" length="15" guiShape="bus" guiWidth="2.4"/>
+   <vehicle id="bus" route="always_right" depart="0" type="bus"/>
+
+   <vtype id="bus/city" length="15" guiShape="bus/city" guiWidth="2.4"/>
+   <vehicle id="bus/city" route="always_right" depart="0" type="bus/city"/>
+
+   <vtype id="bus/flexible" length="17" guiShape="bus/flexible" guiWidth="2.4"/>
+   <vehicle id="bus/flexible" route="always_right" depart="0" type="bus/flexible"/>
+
+   <vtype id="bus/overland" length="17" guiShape="bus/overland" guiWidth="2.6"/>
+   <vehicle id="bus/overland" route="always_right" depart="0" type="bus/overland"/>
+
+
+
+   <vtype id="rail" length="7.5" guiShape="rail"/>
+   <vehicle id="rail" route="always_right" depart="0" type="rail"/>
+
+   <vtype id="rail/light" length="7.5" guiShape="rail/light"/>
+   <vehicle id="rail/light" route="always_right" depart="0" type="rail/light"/>
+
+   <vtype id="rail/city" length="7.5" guiShape="rail/city"/>
+   <vehicle id="rail/city" route="always_right" depart="0" type="rail/city"/>
+
+   <vtype id="rail/slow" length="7.5" guiShape="rail/slow"/>
+   <vehicle id="rail/slow" route="always_right" depart="0" type="rail/slow"/>
+
+   <vtype id="rail/fast" length="7.5" guiShape="rail/fast"/>
+   <vehicle id="rail/fast" route="always_right" depart="0" type="rail/fast"/>
+
+   <vtype id="rail/cargo" length="7.5" guiShape="rail/cargo"/>
+   <vehicle id="rail/cargo" route="always_right" depart="0" type="rail/cargo"/>
+
+
+
+   <vtype id="evehicle" length="7.5" guiShape="evehicle"/>
+   <vehicle id="evehicle" route="always_right" depart="0" type="evehicle"/>
+
+
+</routes>
