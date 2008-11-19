@@ -22,7 +22,7 @@ from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
-from dijkstra import dijkstra 
+from dijkstra import dijkstra, dijkstraBoost
 from inputs import getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
@@ -61,13 +61,14 @@ def main():
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
         if edge.numberlane > 0.:
-
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
             edge.getConflictLink()
             edge.getActualTravelTime(options, False) 
             edge.helpacttime = edge.freeflowtime
     net.reduce()
+    if options.boost:
+        net.createBoostGraph()
     if options.verbose:
         print "after network reduction:", len(net._edges), "edges read"
     edgeNums = len(net._edges)
@@ -165,13 +166,17 @@ def main():
                         if matrixPshort[start][end] > 0.:
                             targets.add(endVertex)
                     if len(targets) > 0:
-                        D,P = dijkstra(startVertex, targets)                                                                      
+                        if options.boost:
+                            D,P = dijkstraBoost(net._boostGraph, startVertex.boost)
+                        else:                                                                      
+                            D,P = dijkstra(startVertex, targets)
                         vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
                                             endVertices, start, startVertex, matrixPshort,
                                             D, P, AssignedVeh, AssignedTrip, edgeNums, vehID)
-                for edgeID in net._edges:                                                   
-                    edge = net._edges[edgeID]
+                for edge in net._edges.itervalues():                                                   
                     edge.getActualTravelTime(options, False)
+                    if options.boost:
+                        edge.boost.weight = edge.helpacttime
         else:
             print 'begin the', options.type, " assignment!"   
             # initialization for the clogit and the lohse assignment model
@@ -306,6 +311,8 @@ optParser.add_option("-e", "--type", dest="type", type="choice",
                      default="clogit", help="type of assignment [default: %default]")
 optParser.add_option("-r", "--profile", action="store_true", dest="profile",                          
                      default=False, help="writing profiling info")
+optParser.add_option("-+", "--boost", action="store_true", dest="boost",                          
+                     default=False, help="use boost's dijkstra implementation")
                                       
 (options, args) = optParser.parse_args()
 

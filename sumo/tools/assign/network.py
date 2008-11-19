@@ -112,6 +112,17 @@ class Net:
                         link.target.inEdges.add(edge)
                         edge.target = link.target
 
+    def createBoostGraph(self):
+        from boost.graph import Digraph
+        self._boostGraph = Digraph()
+        for vertex in self._vertices:
+            vertex.boost = self._boostGraph.add_vertex()
+            vertex.boost.partner = vertex
+        for vertex in self._vertices:
+            for edge in vertex.outEdges:
+                edge.boost = self._boostGraph.add_edge(edge.source.boost, edge.target.boost)
+                edge.boost.weight = edge.actualtime
+
     def checkSmallDiff(self, ODPaths, helpPath, helpPathSet, pathcost):
         for path in ODPaths:
             if path.edges == helpPath:

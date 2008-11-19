@@ -129,3 +129,23 @@ def dijkstraPlain(start, targets):
                 Q[w] = vwLength
                 P[w] = edge
     return (D, P)
+
+
+def dijkstraBoost(boostGraph, start):
+    from boost.graph import dijkstra_shortest_paths
+    dijkstra_shortest_paths(boostGraph, start,
+                            distance_map = boostGraph.add_vertex_property('distance') , 
+                            predecessor_map = boostGraph.add_vertex_property('predecessor'), 
+                            weight_map = boostGraph.edge_properties['weight'])
+    
+    # dictionary of final distances
+    D = {}
+    # dictionary of predecessors
+    P = {}
+    for v in boostGraph.vertices:
+        D[v.partner] = v.distance
+        for edge in v.partner.inEdges:
+            if edge.source == v.predecessor.partner:
+                P[v.partner] = edge
+                break
+    return (D, P)
