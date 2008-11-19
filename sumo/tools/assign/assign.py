@@ -29,19 +29,6 @@ def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, m
             while vertex != startVertex:
                 if P[vertex].kind == "real":
                     helpPath.append(P[vertex])
-                    if len(helpPath) > edgeNums:
-                        print 'len(helpPath) > edgeNums!'
-                        print 'startVertex:', startVertex.label
-                        print 'endVertex:', endVertex.label
-                        foutroutecheck = file('routeCheck.txt','a')
-                        helpPath.reverse()
-                        for line, link in enumerate(helpPath):
-                            if link % 20 == 0:
-                                foutroutecheck.write('\n')
-                            foutroutecheck.write('%s ' %link)
-                        foutroutecheck.close()
-                        print 'check the file: routeCheck.txt!'
-                        sys.exit()
                     P[vertex].flow += (matrixPshort[start][end]/float(iteration))
                 vertex = P[vertex].source
             helpPath.reverse()
@@ -112,8 +99,8 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     notstable = 0
     stable = False
     # link travel timess and link flows will be updated according to the latest traffic assingment  
-    for edge in net._edges.itervalues():                                       
-        if edge.source.label != edge.target.label:
+    for edge in net._fullEdges.itervalues():                                       
+        if edge.kind == 'real':
             if (first and iter > 1) or (not first):
                 exflow = edge.flow
                 edge.flow = edge.flow + (1./iter)*(edge.helpflow - edge.flow)
@@ -131,10 +118,9 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
                 else:
                     if edge.flow < 0.:
                         edge.flow = 0.
-            
-            # reset the edge.helpflow for the next iteration
-            edge.helpflow = 0.0                                                
-            edge.getActualTravelTime(options, lohse)
+        # reset the edge.helpflow for the next iteration
+        edge.helpflow = 0.0
+        edge.getActualTravelTime(options, lohse)
  #           if edge.queuetime > 0.:
  #               notstable += 1
     if lohse and options.verbose:

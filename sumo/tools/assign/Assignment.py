@@ -58,15 +58,17 @@ def main():
     if options.curvefile:
         updateCurveTable(options.curvefile)
 
-    for edgeID in net._edges: 
-        edge = net._edges[edgeID]
+    for edge in net._edges.itervalues():
+#        if options.kPaths > 1:
+#            net.removeUTurnEdge(edge)
         if edge.numberlane > 0.:
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
             edge.getConflictLink()
             edge.getActualTravelTime(options, False) 
             edge.helpacttime = edge.freeflowtime
-    net.reduce()
+    net.linkReduce()
+#    net.reduce()
     if options.boost:
         net.createBoostGraph()
     if options.verbose:
@@ -133,8 +135,7 @@ def main():
         foutlog.write('number of current startVertices:%s\n' %len(startVertices))
         foutlog.write('number of current endVertices:%s\n' %len(endVertices))
         
-        for edgeID in net._edges:
-            edge = net._edges[edgeID]
+        for edge in net._fullEdges.itervalues():
             edge.flow = 0.
             edge.helpflow = 0.
             edge.actualtime = edge.freeflowtime
@@ -173,7 +174,7 @@ def main():
                         vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
                                             endVertices, start, startVertex, matrixPshort,
                                             D, P, AssignedVeh, AssignedTrip, edgeNums, vehID)
-                for edge in net._edges.itervalues():                                                   
+                for edge in net._fullEdges.itervalues():
                     edge.getActualTravelTime(options, False)
                     if options.boost:
                         edge.boost.weight = edge.helpacttime

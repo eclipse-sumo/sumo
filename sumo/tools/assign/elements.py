@@ -15,7 +15,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import sys, math
+import sys, math, os
 from tables import crCurveTable, laneTypeTable
 
 # This class is used for finding the k shortest paths.
@@ -107,7 +107,7 @@ class Edge:
         self.leftlink = []
         self.straightlink = []
         self.rightlink = []
-        self.conflictlink = []
+        self.conflictlink = {}
 #        self.againstlinkexist = None  
         self.flow = 0.0
         self.kind = kind
@@ -138,7 +138,6 @@ class Edge:
         self.detectorNum = 0.
         self.detecteddata = {}
         self.detectedlanes = 0.
-        self.penalty = 0.
         
     def init(self, speed, length, laneNumber):
         self.maxspeed = float(speed)
@@ -162,12 +161,28 @@ class Edge:
         """
         method to get the conflict links for each link, when the respective left-turn behavior exists.
         """
+        if not os.path.exists('conflictLink.txt'):
+            foutconflict = file('conflictLink.txt','w')
+        else:
+            foutconflict = file('conflictLink.txt','a')
         if self.kind == 'real' and len(self.leftlink) > 0:
+            affectedTurning = None
+            foutconflict.write('link:%s\n' %self.label)
             for leftEdge in self.leftlink:
+                foutconflict.write('left:%s\n' %leftEdge.label)
                 for edge in leftEdge.source.inEdges:
-                    for upsteamlink in edge.source.inEdges:
-                        if leftEdge in upsteamlink.rightlink and len(upsteamlink.straightlink) > 0:
-                            self.conflictlink.append(upsteamlink)
+                    if edge.source == self.target:
+                        affectedTurning = edge
+                for edge in leftEdge.source.inEdges:
+                    for upstreamlink in edge.source.inEdges:
+                        if leftEdge in upstreamlink.rightlink and len(upstreamlink.straightlink) > 0:
+                            if not upstreamlink in self.conflictlink:
+                                self.conflictlink[upstreamlink]= []
+                            self.conflictlink[upstreamlink].append(affectedTurning)
+                            foutconflict.write('upstreamlink:%s\n' %upstreamlink.label)
+                            for a in self.conflictlink[upstreamlink]:
+                                foutconflict.write('affectedTurning:%s\n' %affectedTurning.label)
+        foutconflict.close()
                             
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
@@ -235,14 +250,15 @@ class Edge:
         foutcheck = file('queue_info.txt', 'a')
         if self.CRcurve in crCurveTable:
             curve = crCurveTable[self.CRcurve]
-            if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or self.source.label == self.target.label:
+            if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or self.kind != 'real':
                 self.actualtime = self.freeflowtime
             else:
                 if self.estcapacity == 0.0:
                     foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
                 else:
                     self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
-            if self.flow > self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
+                    
+            if self.flow > self.estcapacity and self.connection == 0 and self.kind == 'real':
                 self.queuetime = self.queuetime + options.lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
                 foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
                 foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
@@ -252,30 +268,29 @@ class Edge:
 
             elif self.flow <= self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
                 self.queuetime = 0.
-                
-            self.penalty = 0.
-            if len(self.conflictlink) > 0:
-                weightFactor = 1.0
-                if self.numberlane == 2.:
-                    weightFactor = 0.8
-                elif self.numberlane > 2.:
-                    weightFactor = 0.4
-                flowCapRatio = 0.
-                conflictEdge = self.conflictlink[0]
-
-                for edge in self.conflictlink:
-                    if edge.estcapacity > 0. and edge.flow/edge.estcapacity >= flowCapRatio:
-                        conflictEdge = edge
-
-                if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.15:
-                    self.penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)/2.
+            
             if lohse:
                 self.getLohseParUpdate(options)
-                self.penalty *= self.helpacttime
             else:
                 self.helpacttime = self.actualtime + self.queuetime
-                self.penalty *= self.actualtime
-
+                            
+            if self.kind == 'real':
+                if len(self.conflictlink) > 0:
+                    weightFactor = 1.0
+                    if self.numberlane == 2.:
+                        weightFactor = 0.8
+                    elif self.numberlane > 2.:
+                        weightFactor = 0.4
+                    for edge in self.conflictlink:
+                        penalty = 0.
+                        if edge.estcapacity > 0. and edge.flow/edge.estcapacity > 0.15:
+                            penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(edge.flow/edge.estcapacity) - 1.)/2.
+                        for affectedTurning in self.conflictlink[edge]:
+                            if lohse:
+                                affectedTurning.helpacttime = penalty * self.helpacttime
+                            else:
+                                affectedTurning.actualtime = penalty * self.actualtime
+                                affectedTurning.helpacttime = affectedTurning.actualtime
         foutcheck.close()
     
     def cleanFlow(self):

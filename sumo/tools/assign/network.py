@@ -24,6 +24,7 @@ class Net:
     def __init__(self):
         self._vertices = []
         self._edges = {}
+        self._fullEdges = {}
         self._startVertices = []
         self._endVertices = []
         self._paths = {}
@@ -43,6 +44,7 @@ class Net:
         edgeObj.target.inEdges.add(edgeObj)
         if edgeObj.kind == "real":
             self._edges[edgeObj.label] = edgeObj
+        self._fullEdges[edgeObj.label] = edgeObj
 
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
@@ -65,6 +67,39 @@ class Net:
     def getJunction(self, junctionlabel):
         return self._junctions[junctionlabel]
         
+    def removeUTurnEdge(self, edge):
+        outEdge = edge
+        for link in self._edges.itervalues():
+            if str(link.source) == str(outEdge.target) and str(link.target) == str(outEdge.source):
+                uTurnEdge = None
+                for edge1 in outEdge.target.outEdges:
+                    for edge2 in link.source.inEdges:
+                        if edge1 == edge2:
+                            uTurnEdge = edge1
+                if uTurnEdge:
+                    outEdge.target.outEdges.discard(uTurnEdge)
+                    link.source.inEdges.discard(uTurnEdge)
+                    
+    def linkReduce(self):
+        toRemove = []
+        for node in self._vertices:
+            noReduce = False
+            if node not in self._startVertices and node not in self._endVertices and len(node.outEdges) == 1:
+                for edge in node.outEdges:
+                    target = edge.target
+                    if target in self._endVertices:
+                        noReduce = True
+                for link in node.inEdges:
+                    if link.source in self._startVertices:
+                        noReduce = True
+                if not noReduce and edge.kind != "real" and len(target.inEdges) == 1:
+                    for edge in target.outEdges:
+                        node.outEdges.add(edge)
+                        edge.source = node
+                    toRemove.append(target)
+        for node in toRemove:
+            self._vertices.remove(node)
+                      
     def reduce(self):
         visited = set()
         for link in self._edges.itervalues():
@@ -149,7 +184,7 @@ class Net:
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     endSet.add(endVertex)
-            D,P = dijkstra(startVertex, endSet)            
+            D,P = dijkstra(startVertex, endSet)
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []
