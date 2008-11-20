@@ -75,19 +75,28 @@ public:
     void resetTotalVehicleCount();
 
 protected:
-    /**
-     * @brief Called on the opening of a xml tag.
-     * @param element id of the opened element
-     * @param attributes attributes of the opened element
+    /// @name inherited from GenericSAXHandler
+    //@{
+
+    /** @brief Called on the opening of a tag;
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes& attributes) throw(ProcessError);
 
-    /**
-     * @brief Called on the closure of a xml tag.
-     * @param element id of the closed element
+    /** @brief Called when a closing tag occures
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
      */
     virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
+
+    //@}
 
 private:
     int totalVehicleCount;

@@ -200,7 +200,20 @@ protected:
     public:
         SchemeLoader(GUIVisualizationSettings &s);
         ~SchemeLoader() throw ();
+
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
         void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        //@}
+
     protected:
         GUIVisualizationSettings &mySettings;
     };
@@ -209,7 +222,20 @@ protected:
     public:
         DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals);
         ~DecalsLoader() throw ();
+
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag;
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
         void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
+        //@}
+
     protected:
         std::vector<GUISUMOAbstractView::Decal> &myDecals;
     };
