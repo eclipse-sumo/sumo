@@ -70,7 +70,8 @@ def outputStatistics(net, starttime, periods):
     return assigntime
 
 # output the releasing time and the route for each vehicle
-def sortedVehOutput(vehicles, departtime, foutroute):                                   
+def sortedVehOutput(vehicles, departtime, foutroute):
+    random.seed(42)
     for veh in vehicles:                                                       
         if veh.depart == 0:
             veh.depart = random.randint(departtime, departtime + 3600)
