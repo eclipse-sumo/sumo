@@ -14,7 +14,7 @@ All rights reserved
 import os, random, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase, DetectedFlows
-from dijkstra import dijkstra
+from dijkstra import dijkstraPlain, dijkstraBoost
 
 # Net class stores the network (vertex and edge collection). 
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times
@@ -67,19 +67,6 @@ class Net:
     def getJunction(self, junctionlabel):
         return self._junctions[junctionlabel]
         
-    def removeUTurnEdge(self, edge):
-        outEdge = edge
-        for link in self._edges.itervalues():
-            if str(link.source) == str(outEdge.target) and str(link.target) == str(outEdge.source):
-                uTurnEdge = None
-                for edge1 in outEdge.target.outEdges:
-                    for edge2 in link.source.inEdges:
-                        if edge1 == edge2:
-                            uTurnEdge = edge1
-                if uTurnEdge:
-                    outEdge.target.outEdges.discard(uTurnEdge)
-                    link.source.inEdges.discard(uTurnEdge)
-                    
     def linkReduce(self):
         toRemove = []
         for node in self._vertices:
@@ -184,7 +171,10 @@ class Net:
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     endSet.add(endVertex)
-            D,P = dijkstra(startVertex, endSet)
+            if options.boost:
+                D,P = dijkstraBoost(self._boostGraph, startVertex.boost)
+            else:          
+                D,P = dijkstraPlain(startVertex, endSet)
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []

@@ -22,7 +22,7 @@ from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
-from dijkstra import dijkstra, dijkstraBoost
+from dijkstra import dijkstraBoost, dijkstraPlain
 from inputs import getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
@@ -59,8 +59,6 @@ def main():
         updateCurveTable(options.curvefile)
 
     for edge in net._edges.itervalues():
-#        if options.kPaths > 1:
-#            net.removeUTurnEdge(edge)
         if edge.numberlane > 0.:
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
@@ -68,7 +66,7 @@ def main():
             edge.getActualTravelTime(options, False) 
             edge.helpacttime = edge.freeflowtime
     net.linkReduce()
-#    net.reduce()
+
     if options.boost:
         net.createBoostGraph()
     if options.verbose:
@@ -170,7 +168,7 @@ def main():
                         if options.boost:
                             D,P = dijkstraBoost(net._boostGraph, startVertex.boost)
                         else:                                                                      
-                            D,P = dijkstra(startVertex, targets)
+                            D,P = dijkstraPlain(startVertex, targets)
                         vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
                                             endVertices, start, startVertex, matrixPshort,
                                             D, P, AssignedVeh, AssignedTrip, edgeNums, vehID)
@@ -202,7 +200,7 @@ def main():
                 
                 elif not checkKPaths and iter_outside == 1 and counter == 0:
                     print 'search for the new path'
-                    newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse)
+                    newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse, options.boost)
                 
                 checkKPaths = False
                 
