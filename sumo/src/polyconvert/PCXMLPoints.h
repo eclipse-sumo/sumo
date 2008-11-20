@@ -37,14 +37,6 @@
 
 
 // ===========================================================================
-// xerces 2.2 compatibility
-// ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 class OptionsCont;
@@ -85,7 +77,15 @@ protected:
      */
     virtual void myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
-    /// SAX-callback for characters section
+
+
+    /** @brief Called when characters occure
+     *
+     * @param[in] element ID of the last opened element
+     * @param[in] chars The read characters (complete)
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myCharacters
+     */
     void myCharacters(SumoXMLTag element,
                       const std::string &chars) throw(ProcessError);
     //@}
