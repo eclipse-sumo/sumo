@@ -87,14 +87,16 @@ class Net:
                         node.outEdges.add(link)
                         link.source = node
                     node.outEdges.remove(edge)
+                    self._fullEdges.remove(edge)
                     toRemove.append(edge.target)   
                 else:
                     for link in edge.source.inEdges:
                         node.inEdges.add(link)
                         link.target = node
                     node.inEdges.remove(edge)
+                    self._fullEdges.remove(edge)
                     toRemove.append(edge.source)
-
+            
         for node in toRemove:
             self._vertices.remove(node)
 
