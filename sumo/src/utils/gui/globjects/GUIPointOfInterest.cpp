@@ -74,7 +74,10 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
 {
 
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
+    buildPopupHeader(ret, app, false);
+    FXString t(myType.c_str());
+    new FXMenuCommand(ret, "(" + t + ")", 0, 0, 0);
+    new FXMenuSeparator(ret);
     buildCenterPopupEntry(ret);
     // manipulation
     new FXMenuCommand(ret, "Rename ", GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_RENAME);

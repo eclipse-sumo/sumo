@@ -80,7 +80,10 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
                            GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
+    buildPopupHeader(ret, app, false);
+    FXString t(myType.c_str());
+    new FXMenuCommand(ret, "(" + t + ")", 0, 0, 0);
+    new FXMenuSeparator(ret);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret, false);
