@@ -153,10 +153,9 @@ class Net:
             vertex.boost.partner = vertex
         self._boostGraph.add_vertex_property('distance')
         self._boostGraph.add_vertex_property('predecessor')
-        for vertex in self._vertices:
-            for edge in vertex.outEdges:
-                edge.boost = self._boostGraph.add_edge(edge.source.boost, edge.target.boost)
-                edge.boost.weight = edge.actualtime
+        for edge in self._fullEdges.itervalues():
+            edge.boost = self._boostGraph.add_edge(edge.source.boost, edge.target.boost)
+            edge.boost.weight = edge.actualtime
 
     def checkSmallDiff(self, ODPaths, helpPath, helpPathSet, pathcost):
         for path in ODPaths:
