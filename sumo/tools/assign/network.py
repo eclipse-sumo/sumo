@@ -11,7 +11,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys, datetime, math, operator
+import os, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase, DetectedFlows
 from dijkstra import dijkstraPlain, dijkstraBoost
@@ -140,6 +140,8 @@ class Net:
         for vertex in self._vertices:
             vertex.boost = self._boostGraph.add_vertex()
             vertex.boost.partner = vertex
+        self._boostGraph.add_vertex_property('distance')
+        self._boostGraph.add_vertex_property('predecessor')
         for vertex in self._vertices:
             for edge in vertex.outEdges:
                 edge.boost = self._boostGraph.add_edge(edge.source.boost, edge.target.boost)

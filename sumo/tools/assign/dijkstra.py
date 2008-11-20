@@ -134,8 +134,8 @@ def dijkstraPlain(start, targets):
 def dijkstraBoost(boostGraph, start):
     from boost.graph import dijkstra_shortest_paths
     dijkstra_shortest_paths(boostGraph, start,
-                            distance_map = boostGraph.add_vertex_property('distance') , 
-                            predecessor_map = boostGraph.add_vertex_property('predecessor'), 
+                            distance_map = boostGraph.vertex_properties['distance'], 
+                            predecessor_map = boostGraph.vertex_properties['predecessor'], 
                             weight_map = boostGraph.edge_properties['weight'])
     
     # dictionary of final distances
