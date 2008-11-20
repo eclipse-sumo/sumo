@@ -42,8 +42,7 @@ def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, m
             if verbose:
                 print 'pathflow:', pathflow
             
-            AssignedTrip[startVertex][endVertex] += pathflow
-            
+            AssignedTrip[startVertex][endVertex] += pathflow    
             vehID = assignVeh(verbose, vehicles, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
 
     return vehID

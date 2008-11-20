@@ -14,7 +14,7 @@ All rights reserved
 import os, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase, DetectedFlows
-from dijkstra import dijkstraPlain, dijkstraBoost
+from dijkstra import dijkstraPlain, dijkstraBoost, dijkstra
 
 # Net class stores the network (vertex and edge collection). 
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times
@@ -174,7 +174,7 @@ class Net:
                     return False, True
         return True, False
                         
-    def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, gamma, lohse):
+    def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, gamma, lohse, dk):
         """
         This method finds the new paths for all OD pairs.
         The Dijkstra algorithm is applied for searching the shortest paths.
@@ -185,10 +185,12 @@ class Net:
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     endSet.add(endVertex)
-            if options.boost:
+            if dk == 'boost':
                 D,P = dijkstraBoost(self._boostGraph, startVertex.boost)
-            else:          
+            elif dk == 'plain':          
                 D,P = dijkstraPlain(startVertex, endSet)
+            elif dk == 'extend':
+                D,P = dijkstra(startVertex, endSet)
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []

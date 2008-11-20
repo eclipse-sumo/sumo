@@ -241,6 +241,7 @@ class Edge:
         method to calculate/update link travel time
         """  
         foutcheck = file('queue_info.txt', 'a')
+        
         if self.CRcurve in crCurveTable:
             curve = crCurveTable[self.CRcurve]
             if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or self.kind != 'real':
@@ -288,7 +289,7 @@ class Edge:
                                     affectedTurning.helpacttime = penalty * self.helpacttime
                                 else:
                                     affectedTurning.actualtime = penalty * self.actualtime
-                                    affectedTurning.helpacttime = affectedTurning.actualtime      
+                                    affectedTurning.helpacttime = affectedTurning.actualtime
                     else:            
                         for edge in self.conflictlink:
                             if edge.estcapacity > 0. and edge.flow/edge.estcapacity >= flowCapRatio:
@@ -302,7 +303,7 @@ class Edge:
                         else:
                             self.penalty *= self.actualtime
         foutcheck.close()
-    
+
     def cleanFlow(self):
         """ method to reset link flows """
         self.flow = 0.

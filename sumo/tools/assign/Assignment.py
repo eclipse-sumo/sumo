@@ -229,7 +229,7 @@ def main():
                     if options.verbose:
                         print 'stable:', stable
                     
-                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse)
+                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse, options.dijkstra)
 
                 first = False    
                 iter_outside += 1
