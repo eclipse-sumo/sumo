@@ -40,7 +40,6 @@
 #include <utils/geom/Position2D.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/drawer/GUILaneRepresentation.h>
 
 
 // ===========================================================================
@@ -61,12 +60,12 @@ class MSEdge;
  * @class GUILaneWrapper
  * @brief A MSLane extended for visualisation purposes.
  *
- * The extensions consist of information about the position
- * of the lane and it's direction. Further, a mechanism to avoid concurrent
- * visualisation and simulation what may cause problems when vehicles
- * disappear is implemented using a mutex
+ * The extensions consist of information about the position of the lane and 
+ *  it's direction. Further, a mechanism to avoid concurrent visualisation 
+ *  and simulation what may cause problems when vehicles disappear is 
+ *  implemented using a mutex.
  */
-class GUILaneWrapper : public GUILaneRepresentation
+class GUILaneWrapper : public GUIGlObject
 {
 public:
     /// constructor

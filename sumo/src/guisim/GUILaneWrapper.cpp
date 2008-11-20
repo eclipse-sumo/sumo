@@ -77,7 +77,7 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // ===========================================================================
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape) throw()
-        : GUILaneRepresentation(idStorage, "lane:"+lane.getID()),
+        : GUIGlObject(idStorage, "lane:"+lane.getID()),
         myLane(lane), myShape(shape)
 {
     SUMOReal x1 = shape[0].x();
@@ -552,9 +552,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
     buildCenterPopupEntry(ret);
     //
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret, false);
-    new FXMenuCommand(ret, "Add Successors To Selected", GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
-    new FXMenuSeparator(ret);
+    buildSelectionPopupEntry(ret);
     //
     buildShowParamsPopupEntry(ret, false);
     SUMOReal pos = myShape.nearest_position_on_line_to_point(parent.getPositionInformation());

@@ -211,8 +211,6 @@ enum {
     MID_TRACKPHASES,
     /// Add to selected items - menu entry
     MID_ADDSELECT,
-    /// Add successors to selected items - menu entry
-    MID_ADDSELECT_SUCC,
     /// Remove from selected items - Menu Etry
     MID_REMOVESELECT,
     /// Open the object's manipulator

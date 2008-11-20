@@ -8,5 +8,4 @@ GUIColorer_LaneBySelection.h GUIColorer_ShadeByFunctionValue.h \
 GUIColorer_SingleColor.h GUIColoringSchemesMap.h \
 GUICompleteSchemeStorage.cpp GUICompleteSchemeStorage.h \
 GUIGradientStorage.cpp GUIGradientStorage.h \
-GUIGradients.cpp GUIGradients.h \
-GUILaneRepresentation.h
+GUIGradients.cpp GUIGradients.h 

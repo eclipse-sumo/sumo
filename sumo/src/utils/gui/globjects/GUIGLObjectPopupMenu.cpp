@@ -36,7 +36,6 @@
 #include "GUIGLObjectPopupMenu.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/drawer/GUILaneRepresentation.h>
 #include <utils/gui/div/GUIUserIO.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -59,7 +58,6 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME, GUIGLObjectPopupMenu::onCmdCopyTypedName),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT_SUCC, GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_RENAME,         GUIGLObjectPopupMenu::onCmdRename),
     FXMAPFUNC(SEL_COMMAND,  MID_MOVETO,         GUIGLObjectPopupMenu::onCmdMoveTo),
@@ -123,16 +121,6 @@ long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*)
 {
     gSelected.select(myObject->getType(), myObject->getGlID());
-    myParent->update();
-    return 1;
-}
-
-
-long
-GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected(FXObject*,FXSelector,void*)
-{
-    GUILaneRepresentation *lane = static_cast<GUILaneRepresentation*>(myObject);
-    lane->selectSucessors();
     myParent->update();
     return 1;
 }

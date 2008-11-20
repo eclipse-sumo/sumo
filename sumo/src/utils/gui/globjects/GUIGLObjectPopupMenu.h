@@ -79,9 +79,6 @@ public:
     /// Called if the object shall be removed from the list of selected objects
     long onCmdRemoveSelected(FXObject*,FXSelector,void*);
 
-    // Called if the object's consecutives shall be added to the list of selected objects
-    long onCmdAddSuccessorsSelected(FXObject*,FXSelector,void*);
-
     /// Called if the assigned objects shall be centered
     long onCmdRename(FXObject*,FXSelector,void*);
 
