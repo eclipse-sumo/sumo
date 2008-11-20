@@ -98,8 +98,12 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     # Reset the convergence index for the C-Logit model
     notstable = 0
     stable = False
-    # link travel timess and link flows will be updated according to the latest traffic assingment  
-    for edge in net._fullEdges.itervalues():                                       
+    # link travel timess and link flows will be updated according to the latest traffic assingment
+    if options.dijkstra != 'extend':
+        linkMap = net._fullEdges
+    else:
+        linkMap = net._edges
+    for edge in linkMap.itervalues():                                       
         if edge.kind == 'real':
             if (first and iter > 1) or (not first):
                 exflow = edge.flow

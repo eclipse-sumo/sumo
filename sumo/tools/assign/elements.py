@@ -138,6 +138,7 @@ class Edge:
         self.detectorNum = 0.
         self.detecteddata = {}
         self.detectedlanes = 0.
+        self.penalty = 0.
         
     def init(self, speed, length, laneNumber):
         self.maxspeed = float(speed)
@@ -161,28 +162,20 @@ class Edge:
         """
         method to get the conflict links for each link, when the respective left-turn behavior exists.
         """
-        if not os.path.exists('conflictLink.txt'):
-            foutconflict = file('conflictLink.txt','w')
-        else:
-            foutconflict = file('conflictLink.txt','a')
         if self.kind == 'real' and len(self.leftlink) > 0:
-            affectedTurning = None
-            foutconflict.write('link:%s\n' %self.label)
             for leftEdge in self.leftlink:
-                foutconflict.write('left:%s\n' %leftEdge.label)
+                affectedTurning = None
                 for edge in leftEdge.source.inEdges:
                     if edge.source == self.target:
                         affectedTurning = edge
+                        
                 for edge in leftEdge.source.inEdges:
                     for upstreamlink in edge.source.inEdges:
                         if leftEdge in upstreamlink.rightlink and len(upstreamlink.straightlink) > 0:
                             if not upstreamlink in self.conflictlink:
                                 self.conflictlink[upstreamlink]= []
                             self.conflictlink[upstreamlink].append(affectedTurning)
-                            foutconflict.write('upstreamlink:%s\n' %upstreamlink.label)
-                            for a in self.conflictlink[upstreamlink]:
-                                foutconflict.write('affectedTurning:%s\n' %affectedTurning.label)
-        foutconflict.close()
+
                             
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
@@ -275,22 +268,39 @@ class Edge:
                 self.helpacttime = self.actualtime + self.queuetime
                             
             if self.kind == 'real':
+                self.penalty = 0.
+                for edge in self.conflictlink:
+                    conflictEdge = edge                
+                flowCapRatio = 0.
                 if len(self.conflictlink) > 0:
                     weightFactor = 1.0
                     if self.numberlane == 2.:
                         weightFactor = 0.8
                     elif self.numberlane > 2.:
                         weightFactor = 0.4
-                    for edge in self.conflictlink:
-                        penalty = 0.
-                        if edge.estcapacity > 0. and edge.flow/edge.estcapacity > 0.15:
-                            penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(edge.flow/edge.estcapacity) - 1.)/2.
-                        for affectedTurning in self.conflictlink[edge]:
-                            if lohse:
-                                affectedTurning.helpacttime = penalty * self.helpacttime
-                            else:
-                                affectedTurning.actualtime = penalty * self.actualtime
-                                affectedTurning.helpacttime = affectedTurning.actualtime
+                    if options.dijkstra != 'extend':
+                        for edge in self.conflictlink:
+                            penalty = 0.
+                            if edge.estcapacity > 0. and edge.flow/edge.estcapacity > 0.15:
+                                penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(edge.flow/edge.estcapacity) - 1.)/2.
+                            for affectedTurning in self.conflictlink[edge]:
+                                if lohse:
+                                    affectedTurning.helpacttime = penalty * self.helpacttime
+                                else:
+                                    affectedTurning.actualtime = penalty * self.actualtime
+                                    affectedTurning.helpacttime = affectedTurning.actualtime      
+                    else:            
+                        for edge in self.conflictlink:
+                            if edge.estcapacity > 0. and edge.flow/edge.estcapacity >= flowCapRatio:
+                                conflictEdge = edge
+                                flowCapRatio = edge.flow/edge.estcapacity
+        
+                        if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.15:
+                            self.penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)/2.
+                        if lohse:
+                            self.penalty *= self.helpacttime
+                        else:
+                            self.penalty *= self.actualtime
         foutcheck.close()
     
     def cleanFlow(self):

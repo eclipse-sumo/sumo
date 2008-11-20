@@ -70,23 +70,34 @@ class Net:
     def linkReduce(self):
         toRemove = []
         for node in self._vertices:
-            noReduce = False
-            if node not in self._startVertices and node not in self._endVertices and len(node.outEdges) == 1:
+            split = True
+            candidates = []
+            if len(node.inEdges) == 1:
                 for edge in node.outEdges:
-                    target = edge.target
-                    if target in self._endVertices:
-                        noReduce = True
-                for link in node.inEdges:
-                    if link.source in self._startVertices:
-                        noReduce = True
-                if not noReduce and edge.kind != "real" and len(target.inEdges) == 1:
-                    for edge in target.outEdges:
-                        node.outEdges.add(edge)
-                        edge.source = node
-                    toRemove.append(target)
+                    if edge.kind != "real" and len(edge.target.inEdges) == 1:
+                        candidates.append(edge)
+            else:
+                for edge in node.inEdges:
+                    if edge.kind != "real" and len(edge.source.outEdges) == 1:
+                        candidates.append(edge)
+                        split = False
+            for edge in candidates:
+                if split:
+                    for link in edge.target.outEdges:
+                        node.outEdges.add(link)
+                        link.source = node
+                    node.outEdges.remove(edge)
+                    toRemove.append(edge.target)   
+                else:
+                    for link in edge.source.inEdges:
+                        node.inEdges.add(link)
+                        link.target = node
+                    node.inEdges.remove(edge)
+                    toRemove.append(edge.source)
+
         for node in toRemove:
             self._vertices.remove(node)
-                      
+
     def reduce(self):
         visited = set()
         for link in self._edges.itervalues():

@@ -22,7 +22,7 @@ from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
-from dijkstra import dijkstraBoost, dijkstraPlain
+from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra
 from inputs import getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
@@ -67,7 +67,7 @@ def main():
             edge.helpacttime = edge.freeflowtime
     net.linkReduce()
 
-    if options.boost:
+    if options.dijkstra == 'boost':
         net.createBoostGraph()
     if options.verbose:
         print "after network reduction:", len(net._edges), "edges read"
@@ -165,16 +165,22 @@ def main():
                         if matrixPshort[start][end] > 0.:
                             targets.add(endVertex)
                     if len(targets) > 0:
-                        if options.boost:
+                        if options.dijkstra == 'boost':
                             D,P = dijkstraBoost(net._boostGraph, startVertex.boost)
-                        else:                                                                      
+                        elif options.dijkstra == 'plain':                                                                    
                             D,P = dijkstraPlain(startVertex, targets)
+                        elif options.dijkstra == 'extend':
+                            D,P = dijkstra(startVertex, targets)
                         vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
                                             endVertices, start, startVertex, matrixPshort,
                                             D, P, AssignedVeh, AssignedTrip, edgeNums, vehID)
-                for edge in net._fullEdges.itervalues():
+                if options.dijkstra != 'extend':
+                    linkMap = net._fullEdges
+                else:
+                    linkMap = net._edges
+                for edge in linkMap.itervalues():
                     edge.getActualTravelTime(options, False)
-                    if options.boost:
+                    if options.dijkstra == 'boost':
                         edge.boost.weight = edge.helpacttime
         else:
             print 'begin the', options.type, " assignment!"   
@@ -200,7 +206,7 @@ def main():
                 
                 elif not checkKPaths and iter_outside == 1 and counter == 0:
                     print 'search for the new path'
-                    newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse, options.boost)
+                    newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse, options.dijkstra)
                 
                 checkKPaths = False
                 
@@ -310,8 +316,9 @@ optParser.add_option("-e", "--type", dest="type", type="choice",
                      default="clogit", help="type of assignment [default: %default]")
 optParser.add_option("-r", "--profile", action="store_true", dest="profile",                          
                      default=False, help="writing profiling info")
-optParser.add_option("-+", "--boost", action="store_true", dest="boost",                          
-                     default=False, help="use boost's dijkstra implementation")
+optParser.add_option("-+", "--dijkstra", dest="dijkstra", type="choice",                          
+                     choices=('extend', 'plain', 'boost'),
+                     default="extend", help="use penalty, plain(original) or boost in dijkstra implementation [default: %default]")
                                       
 (options, args) = optParser.parse_args()
 
