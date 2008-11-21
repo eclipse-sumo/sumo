@@ -110,6 +110,7 @@ class Edge:
         self.conflictlink = {}
 #        self.againstlinkexist = None  
         self.flow = 0.0
+        self.helpflow = 0.0
         self.kind = kind
         self.maxspeed = 1.0
         self.length = 0.0
@@ -122,7 +123,6 @@ class Edge:
         self.weight = 0.0
         self.connection = 0
         self.edgetype = None
-        self.helpflow = 0.0
         # parameter in the Lohse traffic assignment
         self.helpacttime = 0.
         # parameter in the Lohse traffic assignment

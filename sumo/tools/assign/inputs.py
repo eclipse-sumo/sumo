@@ -27,6 +27,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     CurrentMatrixSum = 0.0
     skipCount = 0
     zones = 0
+    smallDemandNum = 0
     for line in open(matrix):
         if line[0] == '$':
             visumCode = line[1:3]
@@ -60,10 +61,13 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         ODpairs += 1
                         MatrixSum += float(item)
                         CurrentMatrixSum += float(item) 
-                        if float(item) > 0.0:
-                            Pshort_EffCells += 1                    
+                        if float(item) > 0.:
+                            Pshort_EffCells += 1
+                        if float(item) < 1. and float(item) > 0.:
+                            smallDemandNum += 1
     begintime = int(periodList[0])
-
+    smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
+    
     if verbose:
         print 'Number of zones:', zones
         print 'Number of origins:', origins
@@ -74,7 +78,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'len(net._startVertices):', len(net._startVertices)
         print 'len(net._endVertices):', len(net._endVertices)
     
-    return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
+    return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, smallDemandRatio #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
 
 # estimate the travel times on the district connectors
 # assumption: all vehilces can reach the access links within 10 min from the respective traffic zone
@@ -95,3 +99,8 @@ def getConnectionTravelTime(startVertices, endVertices):
             edge.freeflowtime = (1-float(edge.weight)/sum) * 10 
                                               
             edge.actualtime = edge.freeflowtime
+
+def resetSmallDemand(net, smallDemand):
+    for start, startVertex in enumerate(net._startVertices):
+        for end, endVertex in enumerate(net._endVertices):
+            smallDemand[start][end] = 0.

@@ -16,36 +16,37 @@ import elements
 from elements import Vertex, Edge, Path, Vehicle
 from network import Net
 
-def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, edgeNums, vehID): 
+def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, matrixPshort, smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand): 
     # matrixPlong and matrixTruck should be added if available.
     for end, endVertex in enumerate(endVertices): 
-        if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
+        if startVertex.label != endVertex.label and (matrixPshort[start][end] > 1. or assignSmallDemand):
         # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
             helpPath = []
-            pathtime = 0.
-            pathlength = 0.
         
             vertex = endVertex
             while vertex != startVertex:
                 if P[vertex].kind == "real":
                     helpPath.append(P[vertex])
-                    P[vertex].flow += (matrixPshort[start][end]/float(iteration))
+                    if matrixPshort[start][end] > 1.:
+                        P[vertex].flow += matrixPshort[start][end]/float(iteration)
+                    else:
+                        P[vertex].flow += smallDemand[start][end]     
                 vertex = P[vertex].source
             helpPath.reverse()
             
-            # for generating vehicle routes used in SUMO 
-            for edge in helpPath[1:-1]: 
-                pathlength += edge.length
-                pathtime += edge.actualtime
             # the amount of the pathflow, which will be released at this iteration
-            pathflow = float(matrixPshort[start][end]/float(iteration))
+            if matrixPshort[start][end] > 1.:
+                pathflow = matrixPshort[start][end]/float(iteration)
+            else:
+                pathflow = smallDemand[start][end]
+                smallDemand[start][end] = 0.
             if verbose:
                 print 'pathflow:', pathflow
             
             AssignedTrip[startVertex][endVertex] += pathflow    
             vehID = assignVeh(verbose, vehicles, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
 
-    return vehID
+    return vehID, smallDemand
   
 # execute the SUE model with the given path set
 def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lohse, first): 
@@ -61,9 +62,8 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     for start, startVertex in enumerate(startVertices): 
         for end, endVertex in enumerate(endVertices):
             cumulatedflow = 0.
-            pathcount = 0
-                        
-            if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
+            pathcount = 0          
+            if matrixPshort[start][end] > 0. and startVertex.label != endVertex.label:
                 ODPaths = net._paths[startVertex][endVertex]
                 
                 for path in ODPaths:
@@ -195,7 +195,7 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
         for end, endVertex in enumerate(endVertices):
             pathcount = 0
             cumulatedflow = 0.
-            if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
+            if matrixPshort[start][end] > 0. and startVertex.label != endVertex.label:
                 if options.verbose:
                     foutpath.write('destination=%s' %endVertex)
                 ODPaths = net._paths[startVertex][endVertex]

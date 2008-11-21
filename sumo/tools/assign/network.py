@@ -183,7 +183,7 @@ class Net:
         for start, startVertex in enumerate(startVertices):
             endSet = set()
             for end, endVertex in enumerate(endVertices):
-                if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
+                if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
                     endSet.add(endVertex)
             if dk == 'boost':
                 D,P = dijkstraBoost(self._boostGraph, startVertex.boost)
@@ -192,7 +192,7 @@ class Net:
             elif dk == 'extend':
                 D,P = dijkstra(startVertex, endSet)
             for end, endVertex in enumerate(endVertices):
-                if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
+                if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
                     helpPath = []
                     helpPathSet = set()
                     pathcost = D[endVertex]/3600.

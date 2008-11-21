@@ -23,7 +23,7 @@ from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
 from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra
-from inputs import getMatrix, getConnectionTravelTime                 
+from inputs import getMatrix, getConnectionTravelTime, resetSmallDemand                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
 from tables import updateCurveTable
@@ -53,7 +53,7 @@ def main():
     foutlog.write('number of total startVertices:%s\n' %len(net._startVertices))
     foutlog.write('number of total endVertices:%s\n' %len(net._endVertices))
     if options.verbose:
-        print len(net._edges), "edges read"
+        print len(net._fullEdges), "edges read"
 
     if options.curvefile:
         updateCurveTable(options.curvefile)
@@ -70,8 +70,7 @@ def main():
     if options.dijkstra == 'boost':
         net.createBoostGraph()
     if options.verbose:
-        print "after network reduction:", len(net._edges), "edges read"
-    edgeNums = len(net._edges)
+        print "after link reduction:", len(net._fullEdges), "edges read"
 
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)
@@ -86,14 +85,17 @@ def main():
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
     # initialize the map for recording the number of the assigned trips                                                  
-    AssignedTrip = {}                                                   
-    for startVertex in net._startVertices:
+    AssignedTrip = {}
+    smallDemand = []               
+    for start, startVertex in enumerate(net._startVertices):
         AssignedVeh[startVertex]={}                                                              
-        AssignedTrip[startVertex]={} 
-        for endVertex in net._endVertices:
+        AssignedTrip[startVertex]={}
+        smallDemand.append([])
+        for end, endVertex in enumerate(net._endVertices):
             AssignedVeh[startVertex][endVertex] = 0
             AssignedTrip[startVertex][endVertex] = 0.
-
+            smallDemand[-1].append(0.)
+            
     # initialization
     vehID = 0
     matrixSum = 0.0
@@ -116,9 +118,11 @@ def main():
     for counter, matrix in enumerate(matrices):  #for counter in range (0, len(matrices)):
         # delete all vehicle information related to the last matrix for saving the disk space
         vehicles = []
-    
-        matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime = getMatrix(net, options.verbose, matrix, matrixSum)
+        iterInterval = 0
+        matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime, smallDemandRatio = getMatrix(net, options.verbose, matrix, matrixSum)
+        iterInterval = math.ceil(float(options.maxiteration) / math.ceil(float(options.maxiteration)/2. * smallDemandRatio))
         departtime = begintime * 3600
+        smallDemand = resetSmalldemand(net, smallDemand)
         
         if options.verbose:
             print 'the analyzed matrices:', counter
@@ -156,14 +160,21 @@ def main():
             print 'begin the incremental assignment!'
             iter = 0
             options.lamda = 0.
+
             while iter < options.maxiteration:
                 foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
                 iter += 1
+                if operator.mod(iter,iterInterval) == 0:
+                    assignSmallDemand = True
+                else:
+                    assignSmallDemand = False
                 for start, startVertex in enumerate(startVertices):
                     targets = set()
                     for end, endVertex in enumerate(endVertices):
-                        if matrixPshort[start][end] > 0.:
+                        if matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.):
                             targets.add(endVertex)
+                        if matrixPshort[start][end] > 0. and matrixPshort[start][end] < 1.:
+                            smallDemand[start][end] += matrixPshort[start][end]/float(options.maxiteration)
                     if len(targets) > 0:
                         if options.dijkstra == 'boost':
                             D,P = dijkstraBoost(net._boostGraph, startVertex.boost)
@@ -171,9 +182,10 @@ def main():
                             D,P = dijkstraPlain(startVertex, targets)
                         elif options.dijkstra == 'extend':
                             D,P = dijkstra(startVertex, targets)
-                        vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
-                                            endVertices, start, startVertex, matrixPshort,
-                                            D, P, AssignedVeh, AssignedTrip, edgeNums, vehID)
+                        vehID, smallDemand = doIncAssign(vehicles, options.verbose, options.maxiteration,
+                                            endVertices, start, startVertex, matrixPshort, smallDemand,
+                                            D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand)
+
                 if options.dijkstra != 'extend':
                     linkMap = net._fullEdges
                 else:
