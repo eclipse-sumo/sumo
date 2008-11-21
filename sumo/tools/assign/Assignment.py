@@ -120,7 +120,9 @@ def main():
         vehicles = []
         iterInterval = 0
         matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime, smallDemandRatio = getMatrix(net, options.verbose, matrix, matrixSum)
-        iterInterval = math.ceil(float(options.maxiteration) / math.ceil(float(options.maxiteration)/2. * smallDemandRatio))
+        smallDemandPortion = math.ceil(float(options.maxiteration)/2. * smallDemandRatio)
+        iterInterval = math.ceil(float(options.maxiteration) / float(smallDemandPortion))
+        
         departtime = begintime * 3600
         smallDemand = resetSmalldemand(net, smallDemand)
         
@@ -171,10 +173,11 @@ def main():
                 for start, startVertex in enumerate(startVertices):
                     targets = set()
                     for end, endVertex in enumerate(endVertices):
+                        if assignSmallDemand and matrixPshort[start][end] > 0. and matrixPshort[start][end] < 1.:
+                            smallDemand[start][end] = matrixPshort[start][end]/float(smallDemandPortion)
+                            
                         if matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.):
                             targets.add(endVertex)
-                        if matrixPshort[start][end] > 0. and matrixPshort[start][end] < 1.:
-                            smallDemand[start][end] += matrixPshort[start][end]/float(options.maxiteration)
                     if len(targets) > 0:
                         if options.dijkstra == 'boost':
                             D,P = dijkstraBoost(net._boostGraph, startVertex.boost)
