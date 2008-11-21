@@ -17,7 +17,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys, datetime, math
+import os, random, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
