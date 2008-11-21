@@ -23,7 +23,7 @@ from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
 from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra
-from inputs import getMatrix, getConnectionTravelTime, resetSmallDemand                 
+from inputs import getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
 from tables import updateCurveTable
@@ -124,7 +124,6 @@ def main():
         iterInterval = math.ceil(float(options.maxiteration) / float(smallDemandPortion))
         
         departtime = begintime * 3600
-        smallDemand = resetSmalldemand(net, smallDemand)
         
         if options.verbose:
             print 'the analyzed matrices:', counter

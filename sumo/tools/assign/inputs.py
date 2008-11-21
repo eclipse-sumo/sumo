@@ -99,8 +99,3 @@ def getConnectionTravelTime(startVertices, endVertices):
             edge.freeflowtime = (1-float(edge.weight)/sum) * 10 
                                               
             edge.actualtime = edge.freeflowtime
-
-def resetSmallDemand(net, smallDemand):
-    for start, startVertex in enumerate(net._startVertices):
-        for end, endVertex in enumerate(net._endVertices):
-            smallDemand[start][end] = 0.
