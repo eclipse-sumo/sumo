@@ -318,7 +318,7 @@ optParser.add_option("-r", "--profile", action="store_true", dest="profile",
                      default=False, help="writing profiling info")
 optParser.add_option("-+", "--dijkstra", dest="dijkstra", type="choice",                          
                      choices=('extend', 'plain', 'boost'),
-                     default="extend", help="use penalty, plain(original) or boost in dijkstra implementation [default: %default]")
+                     default="boost", help="use penalty, plain(original) or boost in dijkstra implementation [default: %default]")
                                       
 (options, args) = optParser.parse_args()
 
