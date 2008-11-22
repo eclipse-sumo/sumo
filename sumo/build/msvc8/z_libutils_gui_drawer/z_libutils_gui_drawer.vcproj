@@ -615,10 +615,6 @@
 				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneDrawer.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUILaneRepresentation.h"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>
