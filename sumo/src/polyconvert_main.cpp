@@ -44,11 +44,10 @@
 #include <utils/importio/LineReader.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/Boundary.h>
-#include <polyconvert/PCVisum.h>
-#include <polyconvert/PCVisumPoints.h>
-#include <polyconvert/PCElmar.h>
-#include <polyconvert/PCElmarPoints.h>
-#include <polyconvert/PCXMLPoints.h>
+#include <polyconvert/PCLoaderVisum.h>
+#include <polyconvert/PCLoaderElmar.h>
+#include <polyconvert/PCLoaderXML.h>
+#include <polyconvert/PCLoaderOSM.h>
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <utils/xml/XMLSubSys.h>
@@ -70,7 +69,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-fillOptions()
+fillOptions() throw()
 {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
@@ -95,21 +94,25 @@ fillOptions()
     // elmar import
     oc.doRegister("elmar", new Option_FileName());
     oc.addDescription("elmar", "Input", "Reads polygons from FILE assuming they're coded in Elmar-format");
-
-    oc.doRegister("elmar-points", new Option_FileName());
-    oc.addDescription("elmar-points", "Input", "Reads pois from FILE assuming they're coded in Elmar-format");
+    oc.doRegister("elmar-poi-files", new Option_FileName());
+    oc.addDescription("elmar-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in Elmar-format");
 
     // visum import
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");
     oc.addDescription("visum-file", "Input", "Reads polygons from FILE assuming it's a Visum-net");
-
     oc.doRegister("visum-points", new Option_FileName());
     oc.addDescription("visum-points", "Input", "Reads pois from FILE assuming it's a Visum-net");
 
     // xml import
     oc.doRegister("xml-points", new Option_FileName());
     oc.addDescription("xml-points", "Input", "Reads pois from FILE assuming they're coded in XML");
+
+    // osm import
+    oc.doRegister("osm-files", new Option_FileName());
+    oc.addDescription("osm-files", "Input", "Reads pois from FILE+ assuming they're coded in OSM");
+    oc.doRegister("osm.keep-full-type", new Option_Bool(false));
+    oc.addDescription("osm.keep-full-type", "Input", "The type will be made of the key-value - pair.");
 
     // typemap reading
     oc.doRegister("typemap", new Option_FileName());
@@ -195,7 +198,7 @@ fillOptions()
 
 
 Boundary
-getNamedNetworkBoundary(const std::string &file, const std::string &name)
+getNamedNetworkBoundary(const std::string &file, const std::string &name) throw(ProcessError)
 {
     LineReader lr(file);
     if (!lr.good()) {
@@ -215,7 +218,7 @@ getNamedNetworkBoundary(const std::string &file, const std::string &name)
 
 
 Boundary
-getNetworkOrigBoundary(const std::string &file)
+getNetworkOrigBoundary(const std::string &file) throw(ProcessError)
 {
     try {
         return getNamedNetworkBoundary(file, "orig-boundary");
@@ -225,7 +228,7 @@ getNetworkOrigBoundary(const std::string &file)
 
 
 Boundary
-getNetworkConvBoundary(const std::string &file)
+getNetworkConvBoundary(const std::string &file) throw(ProcessError)
 {
     try {
         return getNamedNetworkBoundary(file, "conv-boundary");
@@ -235,7 +238,7 @@ getNetworkConvBoundary(const std::string &file)
 
 
 Position2D
-getNetworkOffset(const std::string &file)
+getNetworkOffset(const std::string &file) throw(ProcessError)
 {
     LineReader lr(file);
     if (!lr.good()) {
@@ -255,7 +258,7 @@ getNetworkOffset(const std::string &file)
 
 
 std::string
-getOrigProj(const std::string &file)
+getOrigProj(const std::string &file) throw(ProcessError)
 {
     LineReader lr(file);
     if (!lr.good()) {
@@ -351,36 +354,14 @@ main(int argc, char **argv)
         }
 
         // read in the data
-        // elmar's polygons
-        if (oc.isSet("elmar")) {
-            PCElmar pce(toFill, tm);
-            pce.load(oc);
-        }
-        // elmar's points
-        if (oc.isSet("elmar-points")) {
-            PCElmarPoints pce(toFill, tm);
-            pce.load(oc);
-        }
-        // visum
-        if (oc.isSet("visum-file")) {
-            PCVisum pcv(toFill, tm);
-            pcv.load(oc);
-        }
-        // visum-points
-        if (oc.isSet("visum-points")) {
-            PCVisumPoints pcv(toFill, tm);
-            pcv.load(oc);
-        }
-        // xml-points
-        if (oc.isSet("xml-points")) {
-            PCXMLPoints pcv(toFill, tm, oc);
-            pcv.load(oc);
-        }
-
+        PCLoaderXML::loadIfSet(oc, toFill, tm); // SUMO-XML
+        PCLoaderOSM::loadIfSet(oc, toFill, tm); // OSM-XML
+        PCLoaderElmar::loadIfSet(oc, toFill, tm); // Elmar-files
+        PCLoaderVisum::loadIfSet(oc, toFill, tm); // VISUM
         // check whether any errors occured
         if (!MsgHandler::getErrorInstance()->wasInformed()) {
             // no? ok, save
-            toFill.save(oc.getString("output"), oc.getInt("layer"));
+            toFill.save(oc.getString("output"));
         } else {
             throw ProcessError();
         }
