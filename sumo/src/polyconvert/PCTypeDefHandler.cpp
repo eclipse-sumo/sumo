@@ -53,7 +53,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCTypeDefHandler::PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con)
+PCTypeDefHandler::PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con) throw()
         : SUMOSAXHandler("Detector-Defintion"),
         myOptions(oc),  myContainer(con)
 {}

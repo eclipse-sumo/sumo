@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    PCVisumPoints.h
+/// @file    PCLoaderVisum.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id$
+/// @version $Id: PCLoaderVisum.h 4389 2007-08-28 10:21:00Z behrisch $
 ///
-// A reader of pois stored in visum-format
+// A reader of pois and polygons stored in VISUM-format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef PCVisumPoints_h
-#define PCVisumPoints_h
+#ifndef PCLoaderVisum_h
+#define PCLoaderVisum_h
 
 
 // ===========================================================================
@@ -45,29 +45,38 @@ class OptionsCont;
 // class declarations
 // ===========================================================================
 /**
- * @class PCVisumPoints
- * @brief A reader of pois stored in visum-format
+ * @class PCLoaderVisum
+ * @brief A reader of pois and polygons stored in VISUM-format
  */
-class PCVisumPoints
+class PCLoaderVisum
 {
 public:
-    /// Constructor
-    PCVisumPoints(PCPolyContainer &toFill,
-                  PCTypeMap &tm);
+    /** @brief Loads pois/polygons assumed to be stored using VISUM-format
+     *
+     * If the option "visum-files" is set within the given options container,
+     *  the files stored herein are parsed using "load", assuming this
+     *  option contains file paths to files containing pois and polygons stored 
+     *  in VISUM ".net"-format.
+     *
+     * @param[in] oc The options container to get further options from
+     * @param[in] toFill The poly/pois container to add loaded polys/pois to
+     * @param[in] tm The type map to use for setting values of loaded polys/pois
+     * @exception ProcessError if something fails
+     */
+    static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
+        PCTypeMap &tm) throw(ProcessError);
 
-    /// Destructor
-    ~PCVisumPoints();
 
-    /// loads Elmar's data parsed from GDF
-    void load(OptionsCont &oc);
+protected:
+    /** @brief Parses pois/polys stored within the given file
+     * @param[in] oc The options container to get further options from
+     * @param[in] toFill The poly/pois container to add loaded polys/pois to
+     * @param[in] tm The type map to use for setting values of loaded polys/pois
+     * @exception ProcessError if something fails
+     */
+    static void load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
+        PCTypeMap &tm) throw(ProcessError);
 
-
-private:
-    /// The container to store the converted polygons into
-    PCPolyContainer &myCont;
-
-    /// The type map to use
-    PCTypeMap &myTypeMap;
 
 };
 

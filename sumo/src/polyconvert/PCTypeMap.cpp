@@ -4,7 +4,7 @@
 /// @date    Mon, 05 Dec 2005
 /// @version $Id$
 ///
-// }
+// A storage for type mappings
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,18 +40,18 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCTypeMap::PCTypeMap()
+PCTypeMap::PCTypeMap() throw()
 {}
 
 
-PCTypeMap::~PCTypeMap()
+PCTypeMap::~PCTypeMap() throw()
 {}
 
 
 bool
 PCTypeMap::add(const std::string &id, const std::string &newid,
                const std::string &color, const std::string &prefix,
-               int layer, bool discard, bool allowFill)
+               int layer, bool discard, bool allowFill) throw()
 {
     if (has(id)) {
         return false;
@@ -69,14 +69,14 @@ PCTypeMap::add(const std::string &id, const std::string &newid,
 
 
 const PCTypeMap::TypeDef &
-PCTypeMap::get(const std::string &id)
+PCTypeMap::get(const std::string &id) throw()
 {
     return myTypes.find(id)->second;
 }
 
 
 bool
-PCTypeMap::has(const std::string &id)
+PCTypeMap::has(const std::string &id) throw()
 {
     return myTypes.find(id)!=myTypes.end();
 }

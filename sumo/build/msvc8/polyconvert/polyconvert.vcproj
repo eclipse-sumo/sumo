@@ -409,11 +409,19 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\polyconvert\PCElmar.cpp"
+				RelativePath="..\..\..\src\polyconvert\PCLoaderElmar.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\polyconvert\PCElmarPoints.cpp"
+				RelativePath="..\..\..\src\polyconvert\PCLoaderOSM.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\polyconvert\PCLoaderVisum.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\polyconvert\PCLoaderXML.cpp"
 				>
 			</File>
 			<File
@@ -429,18 +437,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\polyconvert\PCVisum.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\polyconvert\PCVisumPoints.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\polyconvert\PCXMLPoints.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\polyconvert_main.cpp"
 				>
 			</File>
@@ -450,11 +446,19 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\polyconvert\PCElmar.h"
+				RelativePath="..\..\..\src\polyconvert\PCLoaderElmar.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\polyconvert\PCElmarPoints.h"
+				RelativePath="..\..\..\src\polyconvert\PCLoaderOSM.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\polyconvert\PCLoaderVisum.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\polyconvert\PCLoaderXML.h"
 				>
 			</File>
 			<File
@@ -467,18 +471,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\polyconvert\PCTypeMap.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\polyconvert\PCVisum.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\polyconvert\PCVisumPoints.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\polyconvert\PCXMLPoints.h"
 				>
 			</File>
 		</Filter>

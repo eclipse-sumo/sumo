@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    PCXMLPoints.cpp
+/// @file    PCLoaderXML.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id$
+/// @version $Id: PCLoaderXML.cpp 6350 2008-11-15 12:59:02Z dkrajzew $
 ///
-// A reader of pois stored in XML-format
+// A reader for polygons and pois stored in XML-format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -31,17 +31,11 @@
 #include <string>
 #include <map>
 #include <fstream>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
-#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
-#include <utils/importio/LineReader.h>
 #include <utils/common/StdDefs.h>
 #include <polyconvert/PCPolyContainer.h>
-#include "PCXMLPoints.h"
+#include "PCLoaderXML.h"
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
@@ -49,6 +43,8 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/FileHelpers.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -64,28 +60,50 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCXMLPoints::PCXMLPoints(PCPolyContainer &toFill,
+// ---------------------------------------------------------------------------
+// static interface
+// ---------------------------------------------------------------------------
+void 
+PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
+                       PCTypeMap &tm) throw(ProcessError)
+{
+    if (!oc.isSet("xml-points")) {
+        return;
+    }
+    PCLoaderXML handler(toFill, tm, oc);
+    // parse file(s)
+    vector<string> files = oc.getStringVector("xml-points");
+    for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+        if (!FileHelpers::exists(*file)) {
+            throw ProcessError("Could not open osm-file '" + *file + "'.");
+        }
+        handler.setFileName(*file);
+        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing XML from '" + *file + "'...");
+        if(!XMLSubSys::runParser(handler, *file)) {
+            throw ProcessError();
+        }
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    }
+}
+
+
+
+// ---------------------------------------------------------------------------
+// handler methods
+// ---------------------------------------------------------------------------
+PCLoaderXML::PCLoaderXML(PCPolyContainer &toFill,
                          PCTypeMap &tm, OptionsCont &oc)
         : SUMOSAXHandler("xml-poi-definition"),
         myCont(toFill), myTypeMap(tm), myOptions(oc)
 {}
 
 
-PCXMLPoints::~PCXMLPoints() throw()
+PCLoaderXML::~PCLoaderXML() throw()
 {}
 
 
 void
-PCXMLPoints::load(OptionsCont &oc)
-{
-    if (!XMLSubSys::runParser(*this, oc.getString("xml-points"))) {
-        throw ProcessError();
-    }
-}
-
-
-void
-PCXMLPoints::myStartElement(SumoXMLTag element,
+PCLoaderXML::myStartElement(SumoXMLTag element,
                             const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element!=SUMO_TAG_POI && element!=SUMO_TAG_POLY) {
@@ -161,7 +179,7 @@ PCXMLPoints::myStartElement(SumoXMLTag element,
 
  
 void 
-PCXMLPoints::myCharacters(SumoXMLTag element,
+PCLoaderXML::myCharacters(SumoXMLTag element,
                         const std::string &chars) throw(ProcessError)
 {
     if(element==SUMO_TAG_POLY) {

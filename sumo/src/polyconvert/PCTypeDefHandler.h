@@ -52,8 +52,12 @@ class PCTypeToDef;
 class PCTypeDefHandler : public SUMOSAXHandler
 {
 public:
-    /// Constructor
-    PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con);
+    /** @brief Constructor
+     * @param[in] oc The options used while loading the type map
+     * @param[out] con The container to fill
+     */
+    PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con) throw();
+
 
     /// Destructor
     virtual ~PCTypeDefHandler() throw();
@@ -69,6 +73,7 @@ protected:
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
+     * @todo Completely unsecure currently (invalid values may force abortion with no error message)
      */
     void myStartElement(SumoXMLTag element,
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
@@ -76,18 +81,18 @@ protected:
 
 
 protected:
-    /// the options (program settings)
+    /// @brief The options (program settings)
     OptionsCont &myOptions;
 
-    /// The type map to fill
+    /// @brief The type map to fill
     PCTypeMap &myContainer;
 
 
 private:
-    /// invalidated copy constructor
+    /** @brief invalid copy constructor */
     PCTypeDefHandler(const PCTypeDefHandler &src);
 
-    /// invalidated assignment operator
+    /** @brief invalid assignment operator */
     PCTypeDefHandler &operator=(const PCTypeDefHandler &src);
 
 };

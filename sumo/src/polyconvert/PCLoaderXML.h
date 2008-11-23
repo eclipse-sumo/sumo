@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    PCXMLPoints.h
+/// @file    PCLoaderXML.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id$
+/// @version $Id: PCLoaderXML.h 6350 2008-11-15 12:59:02Z dkrajzew $
 ///
-// A reader of pois stored in XML-format
+// A reader for polygons and pois stored in XML-format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef PCXMLPoints_h
-#define PCXMLPoints_h
+#ifndef PCLoaderXML_h
+#define PCLoaderXML_h
 
 
 // ===========================================================================
@@ -34,6 +34,7 @@
 #include "PCPolyContainer.h"
 #include "PCTypeMap.h"
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -46,23 +47,43 @@ class OptionsCont;
 // class declarations
 // ===========================================================================
 /**
- * @class PCXMLPoints
- * @brief A reader of pois stored in XML-format
+ * @class PCLoaderXML
+ * @brief A reader for polygons and pois stored in XML-format
  *
- * Reads pois stored as XML definition.
+ * Reads pois stored as XML definition. The definitions must match
+ *  the format POLYCONVERT generates.
  */
-class PCXMLPoints : public SUMOSAXHandler
+class PCLoaderXML : public SUMOSAXHandler
 {
 public:
-    /// Constructor
-    PCXMLPoints(PCPolyContainer &toFill,
-                PCTypeMap &tm, OptionsCont &oc);
+    /** @brief Loads pois/polygons assumed to be stored as XML
+     *
+     * If the option "xml-points" is set within the given options container,
+     *  an instance of PCLoaderXML is built and used as a handler for the 
+     *  files given in this option.
+     *
+     * @param[in] oc The options container to get further options from
+     * @param[in] toFill The poly/pois container to add loaded polys/pois to
+     * @param[in] tm The type map to use for setting values of loaded polys/pois
+     * @exception ProcessError if something fails
+     */
+    static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
+                PCTypeMap &tm) throw(ProcessError);
 
-    /// Destructor
-    ~PCXMLPoints() throw();
 
-    /// loads Elmar's data parsed from GDF
-    void load(OptionsCont &oc);
+protected:
+    /** @brief Constructor
+     * @param[in] toFill The poly/pois container to add loaded polys/pois to
+     * @param[in] tm The type map to use for setting values of loaded polys/pois
+     * @param[in] oc The options container to get further options from
+     */
+    PCLoaderXML(PCPolyContainer &toFill,
+                PCTypeMap &tm, OptionsCont &oc) throw();
+
+
+    /// @brief Destructor
+    ~PCLoaderXML() throw();
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -92,21 +113,35 @@ protected:
 
 
 private:
-    /// The container to store the converted polygons into
+    /// @brief The container to store the converted polygons/pois into
     PCPolyContainer &myCont;
 
-    /// The type map to use
+    /// @brief The type map to use
     PCTypeMap &myTypeMap;
 
-    /// Settings to use
+    /// @brief Settings to use
     OptionsCont &myOptions;
 
+    /// @name Temporary storages used when parsing polygons
+    /// @{
 
+    /// @brief The id of the currently parsed polygon
     std::string myCurrentID;
+
+    /// @brief The type of the currently parsed polygon
     std::string myCurrentType;
+
+    /// @brief The color of the currently parsed polygon
     RGBColor myCurrentColor;
+
+    /// @brief Whether the current polygon must not be prunned
     bool myCurrentIgnorePrunning;
+
+    /// @brief The layer of the currently parsed polygon
     int myCurrentLayer;
+    /// @}
+
+
 };
 
 

@@ -1,8 +1,10 @@
 noinst_LIBRARIES = libpolyconvert.a
 
-libpolyconvert_a_SOURCES = PCElmar.cpp PCElmar.h \
-PCElmarPoints.cpp PCElmarPoints.h \
+libpolyconvert_a_SOURCES = PCLoaderElmar.cpp PCLoaderElmar.h \
+PCLoaderVisum.cpp PCLoaderVisum.h \
+PCLoaderOSM.cpp PCLoaderOSM.h \
+PCLoaderXML.cpp PCLoaderXML.h \
 PCPolyContainer.cpp PCPolyContainer.h \
 PCTypeDefHandler.cpp PCTypeDefHandler.h \
-PCTypeMap.cpp PCTypeMap.h PCVisum.cpp PCVisum.h \
-PCVisumPoints.cpp PCVisumPoints.h PCXMLPoints.cpp PCXMLPoints.h
+PCTypeMap.cpp PCTypeMap.h 
+
