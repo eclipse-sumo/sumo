@@ -165,7 +165,7 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours)
 {
     bool interpolating = !timelineDayInHours;
     Position2DVector points;
-    SUMOReal prob;
+    SUMOReal prob = 0;
     if (timelineDayInHours) {
         if (def.size()!=24) {
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
