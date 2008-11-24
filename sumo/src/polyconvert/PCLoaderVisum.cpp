@@ -95,7 +95,6 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
     // load the pois/polys
     LineReader lr(file);
     bool parsingCategories = false;
-    bool parsingEdgeAssignments = false;
     bool parsingPOIs = false;
     Position2DVector vec;
     string polyType, lastID;
