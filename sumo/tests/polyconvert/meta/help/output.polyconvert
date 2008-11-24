@@ -1,4 +1,4 @@
-SUMO polyconvert Version 0.9.7
+SUMO polyconvert Version dev-SVN-r6382
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
@@ -20,7 +20,7 @@ Usage: polyconvert.exe [OPTION]*
                                      offset and projection
   --elmar FILE                     Reads polygons from FILE assuming they're
                                      coded in Elmar-format
-  --elmar-points FILE              Reads pois from FILE assuming they're coded
+  --elmar-poi-files FILE           Reads pois from FILE+ assuming they're coded
                                      in Elmar-format
   --visum-file FILE                Reads polygons from FILE assuming it's a
                                      Visum-net
@@ -28,6 +28,10 @@ Usage: polyconvert.exe [OPTION]*
                                      Visum-net
   --xml-points FILE                Reads pois from FILE assuming they're coded
                                      in XML
+  --osm-files FILE                 Reads pois from FILE+ assuming they're coded
+                                     in OSM
+  --osm.keep-full-type             The type will be made of the key-value -
+                                     pair.
   --typemap FILE                   Reads types from FILE
 
  Output Options:
