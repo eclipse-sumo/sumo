@@ -177,8 +177,8 @@ protected:
     struct ODVehicle {
         /// @brief The id of the vehicle
         std::string id;
-        /// T@brief he departure time of the vehicle
-        unsigned int depart;
+        /// @brief The departure time of the vehicle
+        SUMOTime depart;
         /// @brief The type of the vehicle
         std::string type;
         /// @brief The edge the vehicles shall start at
