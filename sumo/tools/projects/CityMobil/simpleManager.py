@@ -42,7 +42,7 @@ class SimpleManager(vehicleControl.Manager):
             load.append((person, target))
             wait += WAIT_PER_PERSON
         vehicleControl.leaveStop(vehicleID, delay=wait)
-        if edge == "cyberout":
+        if edge == "cyberout" or edge == "cyberin":
             row = -1
         else:
             row = int(edge[5])

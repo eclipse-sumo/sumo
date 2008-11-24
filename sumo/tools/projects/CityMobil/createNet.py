@@ -23,9 +23,9 @@ connections = open("%s.con.xml" % PREFIX, "w")
 print >> connections, "<connections>"
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <vtype id="car" length="6" maxspeed="50" color="0.7,0.7,0.7"/>
-    <vtype id="person" length=".5" maxspeed="5" color="1,0.2,0.2"/>
-    <vtype id="cybercar" length="9" maxspeed="%s" color="0,1,0"/>""" % CYBER_SPEED
+    <vtype id="car" length="6" guiShape="passenger" maxspeed="50" color="0.7,0.7,0.7"/>
+    <vtype id="person" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25" maxspeed="5" color="1,0.2,0.2"/>
+    <vtype id="cybercar" length="9" guiShape="evehicle" maxspeed="%s" color="0,1,0"/>""" % CYBER_SPEED
 #streets
 nodeID = "main-0"
 print >> nodes, '<node id="in" x="-100" y="0"/>' 
