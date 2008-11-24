@@ -92,7 +92,7 @@ PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 // handler methods
 // ---------------------------------------------------------------------------
 PCLoaderXML::PCLoaderXML(PCPolyContainer &toFill,
-                         PCTypeMap &tm, OptionsCont &oc)
+                         PCTypeMap &tm, OptionsCont &oc) throw()
         : SUMOSAXHandler("xml-poi-definition"),
         myCont(toFill), myTypeMap(tm), myOptions(oc)
 {}

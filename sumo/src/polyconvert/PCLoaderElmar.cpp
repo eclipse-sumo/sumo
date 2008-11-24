@@ -150,7 +150,6 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
         // check the poi
         if (name=="") {
             throw ProcessError("The name of a poi is missing.");
-            continue;
         }
 
         // patch the values
@@ -237,7 +236,7 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
             continue;
         }
         if (id=="") {
-            MsgHandler::getErrorInstance()->inform("The name of a polygon is missing.");
+            MsgHandler::getWarningInstance()->inform("The name of a polygon is missing; it will be discarded.");
             continue;
         }
 
