@@ -181,7 +181,7 @@ def main():
     if not options.mtxpsfile:
         optParser.print_help()
         sys.exit()
-        
+    
     districtList = []
     parser = make_parser()
     parser.setContentHandler(DistrictsReader(districtList))
@@ -199,7 +199,8 @@ def main():
     
     if options.verbose:
         foutlog = file('log.txt', 'a')
-    
+    if options.timeseries:
+        print 'read the time-series profile'
     # combine matrices    
     matrix = combineDemand(matrix, districtList, startVertices, endVertices)
     

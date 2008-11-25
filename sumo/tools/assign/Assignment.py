@@ -28,7 +28,6 @@ from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics,
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
 from tables import updateCurveTable
 
-
 def main():   
     # for measuring the required time for reading input files
     inputreaderstart = datetime.datetime.now()
@@ -57,11 +56,17 @@ def main():
 
     if options.curvefile:
         updateCurveTable(options.curvefile)
-
+        
+    if options.hours == 24.:
+        assignHours = 16.
+    else:
+        assignHours = options.hours 
+    
     for edge in net._edges.itervalues():
         if edge.numberlane > 0.:
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
+            edge.estcapacity *= assignHours
             edge.getConflictLink()
             edge.getActualTravelTime(options, False) 
             edge.helpacttime = edge.freeflowtime
@@ -119,7 +124,8 @@ def main():
         # delete all vehicle information related to the last matrix for saving the disk space
         vehicles = []
         iterInterval = 0
-        matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime, smallDemandRatio = getMatrix(net, options.verbose, matrix, matrixSum)
+        matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime, smallDemandRatio, assignPeriod = getMatrix(net, options.verbose, matrix, matrixSum)
+        options.hours = float(assignPeriod)
         smallDemandPortion = math.ceil(float(options.maxiteration)/2. * smallDemandRatio)
         if float(smallDemandPortion) != 0.:
             iterInterval = math.ceil(float(options.maxiteration) / float(smallDemandPortion))
@@ -264,7 +270,7 @@ def main():
             vehID = doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
 
        # output the generated vehicular releasing times and routes, based on the current matrix
-        sortedVehOutput(vehicles, departtime, foutroute)
+        sortedVehOutput(vehicles, departtime, options, foutroute)
     
     foutroute.write('</routes>\n')
     foutroute.close()
@@ -329,7 +335,9 @@ optParser.add_option("-b", "--debug", action="store_true", dest="debug",
 optParser.add_option("-e", "--type", dest="type", type="choice",
                      choices=('clogit', 'lohse', 'incremental'),
                      default="clogit", help="type of assignment [default: %default]")
-optParser.add_option("-r", "--profile", action="store_true", dest="profile",                          
+optParser.add_option("-H", "--hours", dest="hours", type="float",                          
+                     default=1., help="the analysing period(hours)")
+optParser.add_option("-r", "--profile", action="store_true", dest="profile",   
                      default=False, help="writing profiling info")
 optParser.add_option("-+", "--dijkstra", dest="dijkstra", type="choice",                          
                      choices=('extend', 'plain', 'boost'),

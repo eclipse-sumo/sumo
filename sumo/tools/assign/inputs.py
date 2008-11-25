@@ -66,6 +66,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         if float(item) < 1. and float(item) > 0.:
                             smallDemandNum += 1
     begintime = int(periodList[0])
+    assignPeriod = int(periodList[1]) - begintime
     smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
     
     if verbose:
@@ -79,7 +80,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'len(net._endVertices):', len(net._endVertices)
         print 'smallDemandRatio):', smallDemandRatio
     
-    return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, smallDemandRatio #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
+    return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, smallDemandRatio, assignPeriod #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
 
 # estimate the travel times on the district connectors
 # assumption: all vehilces can reach the access links within 10 min from the respective traffic zone
