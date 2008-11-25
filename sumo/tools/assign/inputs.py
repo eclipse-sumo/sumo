@@ -77,6 +77,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'Effective O-D Cells:', Pshort_EffCells
         print 'len(net._startVertices):', len(net._startVertices)
         print 'len(net._endVertices):', len(net._endVertices)
+        print 'smallDemandRatio):', smallDemandRatio
     
     return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, smallDemandRatio #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
 

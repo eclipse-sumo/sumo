@@ -121,7 +121,8 @@ def main():
         iterInterval = 0
         matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime, smallDemandRatio = getMatrix(net, options.verbose, matrix, matrixSum)
         smallDemandPortion = math.ceil(float(options.maxiteration)/2. * smallDemandRatio)
-        iterInterval = math.ceil(float(options.maxiteration) / float(smallDemandPortion))
+        if float(smallDemandPortion) != 0.:
+            iterInterval = math.ceil(float(options.maxiteration) / float(smallDemandPortion))
         
         departtime = begintime * 3600
         
@@ -165,7 +166,7 @@ def main():
             while iter < options.maxiteration:
                 foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
                 iter += 1
-                if operator.mod(iter,iterInterval) == 0:
+                if iterInterval != 0 and operator.mod(iter,iterInterval) == 0:
                     assignSmallDemand = True
                 else:
                     assignSmallDemand = False
