@@ -528,8 +528,8 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw()
 }
 
 
-void
-MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
+bool
+MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) throw()
 {
     // reset move information
     myTarget = 0;
@@ -537,10 +537,15 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     SUMOReal oldV = myState.mySpeed;
     // compute gap to use
     SUMOReal gap = gap2pred(*pred);
+    if (gap<0) {
+        // collision occured!
+        return true;
+    }
+    // security check for too low gaps
     if (gap<0.1) {
-        assert(gap>-0.1);
         gap = 0;
     }
+    // 
     SUMOReal vSafe  = myType->ffeV(myState.mySpeed, gap, pred->getSpeed());
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getLength()-getPositionOnLane());
@@ -607,13 +612,14 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     //@ to be optimized (move to somewhere else)
     //
     setBlinkerInformation();
+    return false;
 }
 
 
-void
-MSVehicle::moveRegardingCritical(MSLane* lane,
-                                 const MSVehicle* pred,
-                                 const MSVehicle* /*neigh*/)
+bool
+MSVehicle::moveRegardingCritical(const MSLane* const lane, 
+                                 const MSVehicle * const pred, 
+                                 const MSVehicle * const neigh) throw()
 {
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
@@ -629,6 +635,11 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
         // decelerate to lane end when yes
         SUMOReal vWish = myType->ffeS(myState.mySpeed, myLane->length()-myState.myPos);
         if (pred!=0) {
+            SUMOReal gap = gap2pred(*pred);
+            if(gap<0) {
+                // collision occured!
+                return true;
+            }
             vWish = MIN2(vWish, myType->ffeV(myState.mySpeed, gap2pred(*pred), pred->getSpeed()));
         }
         // !!! check whether the vehicle wants to stop somewhere
@@ -638,13 +649,17 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
-        myLFLinkLanes.push_back(
-            DriveProcessItem(0, vWish, vWish));
+        myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish));
     } else {
         // compute other values as in move
         SUMOReal vBeg = MIN2(myType->maxNextSpeed(myState.mySpeed), lane->maxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
         if (pred!=0) {
-            SUMOReal vSafe = myType->ffeV(myState.mySpeed, gap2pred(*pred), pred->getSpeed());
+            SUMOReal gap = gap2pred(*pred);
+            if(gap<0) {
+                // collision occured!
+                return true;
+            }
+            SUMOReal vSafe = myType->ffeV(myState.mySpeed, gap, pred->getSpeed());
             //  the vehicle is bound by the lane speed and must not drive faster
             //  than vsafe to the next vehicle
             vBeg = MIN2(vBeg, vSafe);
@@ -656,10 +671,10 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
     }
     //@ to be optimized (move to somewhere else)
     if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
-        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
-            myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
+        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
     //@ to be optimized (move to somewhere else)
+    return false;
 }
 
 

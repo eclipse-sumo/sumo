@@ -226,22 +226,30 @@ public:
     void moveFirstChecked();
 
 
-    /** Returns the gap between pred and this vehicle. Assumes they
-     * are on parallel lanes. Requires a positive gap. */
-    SUMOReal gap2pred(const MSVehicle& pred) const {
+    /** @brief Returns the gap between pred and this vehicle.
+     *
+     * Assumes both vehicles are on the same or on are on parallel lanes.
+     *
+     * @param[in] pred The leader
+     * @return The gap between this vehicle and the leader (may be <0)
+     */
+    SUMOReal gap2pred(const MSVehicle& pred) const throw() {
         SUMOReal gap = pred.getPositionOnLane() - pred.getLength() - getPositionOnLane();
         if (gap<0&&gap>-1.0e-12) {
             gap = 0;
         }
-        if (gap<0) {
-            WRITE_WARNING("Vehicle " + getID() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
-            gap = 0;
-        }
-        assert(gap >= SUMOReal(0));
         return gap;
     }
 
-    static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos) {
+
+    /** @brief Uses the given values to compute the brutto-gap
+     *
+     * @param[in] predPos Position of the leader
+     * @param[in] predLength Length of the leader
+     * @param[in] pos Position of the follower
+     * @return The gap between the leader and the follower
+     */
+    static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos) throw() {
         return predPos - predLength - pos;
     }
 
@@ -316,16 +324,24 @@ public:
 
 
 
-    /** moves a vehicle if it is not meant to be running out of the lane
-        If there is no neigh, pass 0 to neigh.
-        If neigh is on curr lane, pass 0 to gap2neigh,
-        otherwise gap.
-        Updates drive parameters. */
-    void move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh);
+    /** @brief Moves a vehicle if it is not meant to be running out of the lane
+     *
+     * @param[in] lane The lane the vehicle is on
+     * @param[in] pred The leader (may be 0)
+     * @param[in] neigh The neighbor vehicle (may be 0)
+     * @return Whether a collision occured (gap2pred(leader)<=0)
+     */
+    bool move(const MSLane* const lane, const MSVehicle * const pred, const MSVehicle * const neigh) throw();
 
-    /** Moves vehicles which may run out of the lane
-        Same semantics as move */
-    void moveRegardingCritical(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh);
+
+    /** @brief Moves vehicles which may run out of the lane
+     *
+     * @param[in] lane The lane the vehicle is on
+     * @param[in] pred The leader (may be 0)
+     * @param[in] neigh The neighbor vehicle (may be 0)
+     * @return Whether a collision occured (gap2pred(leader)<=0)
+     */
+    bool moveRegardingCritical(const MSLane* const lane, const MSVehicle * const pred, const MSVehicle * const neigh) throw();
 
 
     /// @name state setter/getter

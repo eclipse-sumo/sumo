@@ -435,12 +435,14 @@ MSLane::moveNonCritical()
         }
     }
 
+    vector<MSVehicle*> collisions;
     for (veh = myVehicles.begin(); !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;) {
 
         // get the leader
         //  ... there must be one, because the first vehicle is moved
         //   using moveCritical ...
         VehCont::const_iterator pred(veh + 1);
+        bool hadCollision = false;
         // do we have to regard the neighbor?
         if (useNeigh) {
             // get the neighbor
@@ -449,19 +451,30 @@ MSLane::moveNonCritical()
             }
             if (neighIt!=neighEnd) {
                 // move vehicle regarding the neighbor
-                (*veh)->move(this, *pred, *neighIt);
+                hadCollision = (*veh)->move(this, *pred, *neighIt);
             } else {
                 // move vehicle without regarding the neighbor
-                (*veh)->move(this, *pred, 0);
+                hadCollision = (*veh)->move(this, *pred, 0);
                 // no further neighbors
                 useNeigh = false;
             }
         } else {
             // move vehicle without regarding the neighbor
-            (*veh)->move(this, *pred, 0);
+            hadCollision = (*veh)->move(this, *pred, 0);
+        }
+        if(hadCollision) {
+            collisions.push_back(*veh);
         }
         ++veh;
         ++myFirstUnsafe;
+    }
+    // deal with collisions
+    for(vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
+        (*i)->leaveLaneAtLaneChange();
+        (*i)->onTripEnd();
+        MSVehicleTransfer::getInstance()->addVeh((*i));
+        myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
+        --myFirstUnsafe;
     }
     return myVehicles.size()==0;
 }
@@ -471,24 +484,29 @@ bool
 MSLane::moveCritical()
 {
     assert(myVehicles.size()!=0);
+    vector<MSVehicle*> collisions;
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
     VehCont::iterator veh;
     // Move all next vehicles beside the first
     for (veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;) {
         VehCont::const_iterator pred(veh + 1);
-        (*veh)->moveRegardingCritical(this, *pred, 0);
-        // Check for timeheadway < deltaT
-        MSVehicle *vehicle = (*veh);
-        MSVehicle *predec = (*pred);
-        assert(&vehicle->getLane()==this);
-        assert(&predec->getLane()==this);
-        assert((*veh)->getPositionOnLane() < (*pred)->getPositionOnLane());
-        assert((*veh)->getPositionOnLane() <= myLength);
+        if((*veh)->moveRegardingCritical(this, *pred, 0)) {
+            collisions.push_back(*veh);
+        }
         ++veh;
     }
-    (*veh)->moveRegardingCritical(this, 0, 0);
+    if((*veh)->moveRegardingCritical(this, 0, 0)) {
+        collisions.push_back(*veh);
+    }
     assert((*veh)->getPositionOnLane() <= myLength);
     assert(&(*veh)->getLane()==this);
+    // deal with collisions
+    for(vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
+        (*i)->leaveLaneAtLaneChange();
+        (*i)->onTripEnd();
+        MSVehicleTransfer::getInstance()->addVeh((*i));
+        myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
+    }
     return myVehicles.size()==0;
 }
 
