@@ -19,7 +19,7 @@ from network import Net
 def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, matrixPshort, smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand): 
     # matrixPlong and matrixTruck should be added if available.
     for end, endVertex in enumerate(endVertices): 
-        if startVertex.label != endVertex.label and (matrixPshort[start][end] > 1. or assignSmallDemand):
+        if startVertex.label != endVertex.label and (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.)):
         # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
             helpPath = []
         
