@@ -301,7 +301,7 @@ optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
 optParser.add_option("-u", "--crCurve-file", dest="curvefile",
                      help="read parameters used in cost functions from FILE", metavar="FILE")  
 optParser.add_option("-k", "--k-shortest-paths", dest="kPaths", type="int",
-                     default=4, help="number of the paths should be found at the first iteration")
+                     default=8, help="number of the paths should be found at the first iteration")
 optParser.add_option("-i", "--max-sue-iteration", dest="maxiteration", type="int",
                      default=20, help="maximum number of the assignment iterations")
 optParser.add_option("-t", "--sue-tolerance", dest="sueTolerance", type="float",

@@ -276,9 +276,9 @@ class Edge:
                 if len(self.conflictlink) > 0:
                     weightFactor = 1.0
                     if self.numberlane == 2.:
-                        weightFactor = 0.8
+                        weightFactor = 0.9
                     elif self.numberlane > 2.:
-                        weightFactor = 0.4
+                        weightFactor = 0.6
                     if options.dijkstra != 'extend':
                         for edge in self.conflictlink:
                             penalty = 0.
