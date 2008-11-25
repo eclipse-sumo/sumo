@@ -254,11 +254,11 @@ class Edge:
                     
             if self.flow > self.estcapacity and self.connection == 0 and self.kind == 'real':
                 self.queuetime = self.queuetime + options.lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
-                foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
-                foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
-
                 if self.queuetime < 1.:
                     self.queuetime = 0.
+                else:
+                    foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
+                    foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
 
             elif self.flow <= self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
                 self.queuetime = 0.
