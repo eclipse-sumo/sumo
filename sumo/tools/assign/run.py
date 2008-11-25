@@ -110,9 +110,9 @@ if options.stats == 0:
         else:
             execute(shotCall)
         clogDir = makeAndChangeDir("../" + mesoAppendix + "clogit")
-        execute("Assignment.py -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
+        execute("Assignment.py -i 60 -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
         lohseDir = makeAndChangeDir("../" + mesoAppendix + "lohse")
-        execute("Assignment.py -e lohse -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
+        execute("Assignment.py -e lohse -i 60 -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
     if oneshotProcess:
         oneshotProcess.wait()
     duaProcess.wait()
