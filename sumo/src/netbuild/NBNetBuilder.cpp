@@ -447,9 +447,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("min-decel", 'D', new Option_Float(3.0));
     oc.addDescription("min-decel", "TLS Building", "Defines smallest vehicle deceleration");
 
-    oc.doRegister("all-logics", new Option_Bool(false));
-    oc.addDescription("all-logics", "TLS Building", "");
-
     oc.doRegister("patch-small-tyellow", new Option_Bool(false));
     oc.addDescription("patch-small-tyellow", "TLS Building", "Given yellow times are patched even if being too short");
 
