@@ -1799,42 +1799,16 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
 
 
 bool
-NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
+NBNode::isLeftMover(const NBEdge * const from, const NBEdge * const to) const throw()
 {
     // when the junction has only one incoming edge, there are no
     //  problems caused by left blockings
     if (myIncomingEdges->size()==1) {
         return false;
     }
-    // ok, per definition, a left-moving stream is a stream
-    //  that crosses the stream which moves to the other direction.
-    //  So, if that direction does not exist, there is not left-moving stream
-    //  !!!??
-    if (from->getTurnDestination()==0) {
-        return false;
-    }
-
-    // now again some heuristics...
-    //  how to compute whether an edge is going to the left in the meaning,
-    //  that it crosses the opposite straight direction?!
-    vector<NBEdge*> incoming(*myIncomingEdges);
-    sort(incoming.begin(), incoming.end(),
-         NBContHelper::edge_opposite_direction_sorter(from));
-    NBEdge *opposite = *(incoming.begin());
-    assert(opposite!=from);
-    EdgeVector::const_iterator i =
-        find(myAllEdges.begin(), myAllEdges.end(), from);
-    NBContHelper::nextCW(&myAllEdges, i);
-    while (true) {
-        if ((*i)==opposite) {
-            return false;
-        }
-        if ((*i)==to) {
-            return true;
-        }
-        NBContHelper::nextCW(&myAllEdges, i);
-    }
-    return false;
+    SUMOReal ccw = GeomHelper::getCCWAngleDiff(from->getAngle(*this), to->getAngle(*this));
+    SUMOReal cw = GeomHelper::getCWAngleDiff(from->getAngle(*this), to->getAngle(*this));
+    return cw<ccw;
 }
 
 

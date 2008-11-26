@@ -225,7 +225,16 @@ public:
     BasicNodeType getType() const;
 
 
-    bool isLeftMover(NBEdge *from, NBEdge *to) const;
+    /** @brief Computes whether the given connection is a left mover across the junction
+     *
+     * It is assumed, that it is a left-mover if the clockwise angle is lower
+     *  than the counter-clockwise angle.
+     *
+     * @param[in] from The incoming edge (the begin of the connection)
+     * @param[in] from The outgoing edge (the end of the connection)
+     * @return Whether the described connection is a left-mover
+     */
+    bool isLeftMover(const NBEdge * const from, const NBEdge * const to) const throw();
 
 
     bool mustBrake(NBEdge *from, NBEdge *to, int toLane) const;
