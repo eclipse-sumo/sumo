@@ -247,20 +247,16 @@ class Edge:
             if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or self.kind != 'real':
                 self.actualtime = self.freeflowtime
             else:
-                if self.estcapacity == 0.0:
-                    foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
-                else:
-                    self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
+                self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
                     
-            if self.flow > self.estcapacity and self.connection == 0 and self.kind == 'real':
+            if (self.flow > self.estcapacity or self.flow == self.estcapacity) and self.connection == 0 and self.kind == 'real':
                 self.queuetime = self.queuetime + options.lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
                 if self.queuetime < 1.:
                     self.queuetime = 0.
                 else:
                     foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
                     foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
-
-            elif self.flow <= self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
+            else:
                 self.queuetime = 0.
             
             if lohse:
@@ -277,26 +273,28 @@ class Edge:
                     weightFactor = 1.0
                     if self.numberlane == 2.:
                         weightFactor = 0.9
-                    elif self.numberlane > 2.:
-                        weightFactor = 0.6
+                    elif self.numberlane == 3.:
+                        weightFactor = 0.75
+                    elif self.numberlane > 3.:
+                        weightFactor = 0.5
                     if options.dijkstra != 'extend':
                         for edge in self.conflictlink:
                             penalty = 0.
-                            if edge.estcapacity > 0. and edge.flow/edge.estcapacity > 0.15:
+                            if edge.estcapacity > 0. and edge.flow/edge.estcapacity > 0.12:
                                 penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(edge.flow/edge.estcapacity) - 1.)/2.
-                            for affectedTurning in self.conflictlink[edge]:
-                                if lohse:
-                                    affectedTurning.helpacttime = penalty * self.helpacttime
-                                else:
-                                    affectedTurning.actualtime = penalty * self.actualtime
-                                    affectedTurning.helpacttime = affectedTurning.actualtime
+                                for affectedTurning in self.conflictlink[edge]:
+                                    if lohse:
+                                        affectedTurning.helpacttime = penalty * self.helpacttime
+                                    else:
+                                        affectedTurning.actualtime = penalty * self.actualtime
+                                        affectedTurning.helpacttime = affectedTurning.actualtime
                     else:            
                         for edge in self.conflictlink:
                             if edge.estcapacity > 0. and edge.flow/edge.estcapacity >= flowCapRatio:
                                 conflictEdge = edge
                                 flowCapRatio = edge.flow/edge.estcapacity
         
-                        if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.15:
+                        if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.12:
                             self.penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)/2.
                         if lohse:
                             self.penalty *= self.helpacttime

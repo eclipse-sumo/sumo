@@ -124,15 +124,15 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
         # reset the edge.helpflow for the next iteration
         edge.helpflow = 0.0
         edge.getActualTravelTime(options, lohse)
- #           if edge.queuetime > 0.:
- #               notstable += 1
+        if edge.queuetime > 1.:
+            notstable += 1
     if lohse and options.verbose:
         foutassign.close()
                                                                
     if not lohse and iter > 3:
         if notstable == 0:
             stable = True        
-        elif notstable < len(net._edges)*0.01:
+        elif notstable < math.ceil(len(net._edges)*0.005) or notstable < 2:
             stable = True
             
         if iter > options.maxiteration:
