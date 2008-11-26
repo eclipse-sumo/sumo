@@ -103,7 +103,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
         myType = TYPE_RIGHT_BEFORE_LEFT;
     } else if (type=="priority") {
         myType = TYPE_PRIORITY_JUNCTION;
-    } else if (type=="DEAD_END"||type=="district") {
+    } else if (type=="DEAD_END"||type=="district"||type=="none") {
         myType = TYPE_DEAD_END;
     } else if (type=="internal") {
         myType = TYPE_INTERNAL;
