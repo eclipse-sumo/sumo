@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//	»missingDescription«
+// A lodeded (complete) traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -43,6 +43,7 @@
 // ===========================================================================
 /**
  * @class NBLoadedTLDef
+ * @brief A lodeded (complete) traffic light logic
  */
 class NBLoadedTLDef : public NBTrafficLightDefinition
 {

@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The definition of a traffic light logic
+// The base class for traffic light logic definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,7 +57,15 @@ class NBTrafficLightLogicVector;
 // ===========================================================================
 /**
  * @class NBTrafficLightDefinition
- * @brief The definition of a traffic light logic
+ * @brief The base class for traffic light logic definitions
+ *
+ * A base class is necessary, as we have two cases: a) the logic is given by 
+ *  the imported network, or b) the logic is not given and we have to compute
+ *  it by ourselves. In the first case, NBLoadedTLDef should be used, in the
+ *  second NBOwnTLDef.
+ *
+ * @see NBLoadedTLDef
+ * @see NBOwnTLDef
  */
 class NBTrafficLightDefinition : public Named
 {
@@ -67,46 +75,71 @@ public:
      * @brief An enumeration of possible tl-signal states
      */
     enum TLColor {
-        /// Signal shows red
+        /// @brief Signal shows red
         TLCOLOR_RED,
-        /// Signal shows yellow
+        /// @brief Signal shows yellow
         TLCOLOR_YELLOW,
-        /// Signal shows red/yellow (!!! unused)
+        /// @brief Signal shows red/yellow (unused)
         TLCOLOR_REDYELLOW,
-        /// Signal shows green
+        /// @brief Signal shows green
         TLCOLOR_GREEN,
-        /// Signal is blinking yellow
+        /// @brief Signal is blinking yellow
         TLCOLOR_BLINK
     };
 
 
-    /// Constructor
+    /** @brief Constructor
+     * @param[in] id The id of the tls
+     * @param[in] junctions List of junctions controlled by this tls
+     */
     NBTrafficLightDefinition(const std::string &id,
                              const std::set<NBNode*> &junctions) throw();
 
-    /// Constructor
+
+    /** @brief Constructor
+     * @param[in] id The id of the tls
+     * @param[in] junction The (single) junction controlled by this tls
+     */
     NBTrafficLightDefinition(const std::string &id,
                              NBNode *junction) throw();
 
-    /// Constructor
+/*
     NBTrafficLightDefinition(const std::string &id, std::string type,
                              NBNode *junction) throw();
+*/
 
-    /// Constructor
+    /** @brief Constructor
+     * @param[in] id The id of the tls
+     */
     NBTrafficLightDefinition(const std::string &id) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~NBTrafficLightDefinition() throw();
 
+
     /** @brief Computes the traffic light logic
-        Does some initialisation at first, then calls myCompute to finally build the tl-logic */
+     *
+     * Does some initialisation at first, then calls myCompute to finally 
+     *  build the tl-logic 
+     *
+     * @param[in] ec The edge container in order to retrieve edge information
+     * @param[in] oc The options container holding options needed during the building
+     * @return The built logic (may be 0)
+     */
     NBTrafficLightLogicVector *compute(const NBEdgeCont &ec,
                                        OptionsCont &oc);
 
-    /// Adds a node to the traffic light logic
+
+    /** @brief Adds a node to the traffic light logic
+     * @param[in] node A further node that shall be controlled by the tls
+     */
     void addNode(NBNode *node);
 
-    /// @brief Removes the given node from the list of controlled nodes
+
+    /** @brief Removes the given node from the list of controlled nodes
+     * @param[in] node The node that shall not be controlled by the tls any more
+     */
     void removeNode(NBNode *node);
 
 
@@ -118,6 +151,7 @@ public:
      * "from" must be an incoming edge into one of the participating nodes!
      */
     bool mustBrake(NBEdge *from, NBEdge *to) const;
+
 
     /** @brief Returns the information whether the described flow must let any other flow pass
      *

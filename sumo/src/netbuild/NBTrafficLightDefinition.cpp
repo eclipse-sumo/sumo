@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The definition of a traffic light logic
+// The base class for traffic light logic definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -41,7 +41,6 @@
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightLogic.h"
 #include "NBContHelper.h"
-#include "NBRequestEdgeLinkIterator.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -203,7 +202,7 @@ NBTrafficLightDefinition::getSizes() const
         unsigned int noLanesEdge = (*i)->getNoLanes();
         for (unsigned int j=0; j<noLanesEdge; j++) {
             assert((*i)->getConnectionsFromLane(j).size()!=0);
-            noLinks += (*i)->getConnectionsFromLane(j).size();
+            noLinks += (unsigned int)(*i)->getConnectionsFromLane(j).size();
         }
         noLanes += noLanesEdge;
     }

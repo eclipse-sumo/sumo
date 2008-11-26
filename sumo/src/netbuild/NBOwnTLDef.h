@@ -4,7 +4,7 @@
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
-//	»missingDescription«
+// A traffic light logics which must be computed (only nodes/edges are given)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,6 +42,7 @@ class NBNode;
 // ===========================================================================
 /**
  * @class NBOwnTLDef
+ * @brief A traffic light logics which must be computed (only nodes/edges are given)
  */
 class NBOwnTLDef : public NBTrafficLightDefinition
 {
@@ -62,18 +63,6 @@ public:
 
     /// Destructor
     ~NBOwnTLDef() throw();
-
-    /** possible types of removeing a link from regardation during the
-        building of the traffic light logic */
-    enum LinkRemovalType {
-        /// all links will be regarded
-        LRT_NO_REMOVAL,
-        /** all left-movers which are together with other direction on the same
-            lane will be removed */
-        LRT_REMOVE_WHEN_NOT_OWN,
-        /// remove all left-movers
-        LRT_REMOVE_ALL_LEFT
-    };
 
     void setParticipantsInformation();
 
@@ -98,23 +87,26 @@ protected:
     void setTLControllingInformation(const NBEdgeCont &ec) const;
 
 
-private:
-    /** compute the traffic light logics for the current node and the
-        given settings */
-    NBTrafficLightLogicVector *computeTrafficLightLogics(
-        const std::string &key, std::string type,
-        bool joinLaneLinks, bool removeTurnArounds, LinkRemovalType removal,
-        bool appendSmallestOnly, bool skipLarger,
-        size_t breakingTime) const;
+protected:
+    int getToPrio(NBEdge *e);
+    SUMOReal computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2);
+    std::pair<NBEdge*, NBEdge*> getBestCombination(const std::vector<NBEdge*> &edges);
+    std::pair<NBEdge*, NBEdge*> getBestPair(std::vector<NBEdge*> &incoming);
 
-    /** compute the pases for the current node and the given settings */
-    /*    NBTrafficLightPhases * computePhases(bool joinLaneLinks,
-            bool removeTurnArounds, LinkRemovalType removal,
-            bool appendSmallestOnly, bool skipLarger) const;*/
-
-    /** build the matrix of links that may be used simultaneously */
-    NBLinkPossibilityMatrix *getPossibilityMatrix(bool joinLanes,
-            bool removeTurnArounds, LinkRemovalType removalType) const;
+    /**
+     * edge_by_incoming_priority_sorter
+     */
+    class edge_by_incoming_priority_sorter
+    {
+    public:
+        /// comparing operator
+        int operator()(NBEdge *e1, NBEdge *e2) const {
+            if (e1->getJunctionPriority(e1->getToNode())!=e2->getJunctionPriority(e2->getToNode())) {
+                return e1->getJunctionPriority(e1->getToNode())> e2->getJunctionPriority(e2->getToNode());
+            }
+            return e1->getID() > e2->getID();
+        }
+    };
 
 };
 

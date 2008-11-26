@@ -394,10 +394,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netbuild\NBLinkCliqueContainer.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netbuild\NBLoadedTLDef.cpp"
 				>
 			</File>
@@ -426,10 +422,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netbuild\NBRequestEdgeLinkIterator.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netbuild\NBTrafficLightDefinition.cpp"
 				>
 			</File>
@@ -443,10 +435,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBTrafficLightLogicVector.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netbuild\NBTrafficLightPhases.cpp"
 				>
 			</File>
 			<File
@@ -515,10 +503,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netbuild\NBLinkCliqueContainer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netbuild\NBLinkPossibilityMatrix.h"
 				>
 			</File>
@@ -555,10 +539,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netbuild\NBRequestEdgeLinkIterator.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netbuild\NBTrafficLightDefinition.h"
 				>
 			</File>
@@ -572,10 +552,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBTrafficLightLogicVector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netbuild\NBTrafficLightPhases.h"
 				>
 			</File>
 			<File
