@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:12:09 by SUMO netgen Version dev-SVN-r5964
+<!-- generated on 11/25/08 13:12:35 by SUMO netgen Version dev-SVN-r6388
 <configuration>
 
    <random_network>
@@ -126,7 +126,7 @@
    </row-logic>
 
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>10</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>
@@ -135,18 +135,18 @@
       <phase duration="4" phase="0" brake="1" yellow="1"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>12</key>
       <subkey>0</subkey>
       <phaseno>4</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="01" brake="10" yellow="00"/>
+      <phase duration="31" phase="11" brake="01" yellow="00"/>
+      <phase duration="4" phase="01" brake="11" yellow="10"/>
+      <phase duration="6" phase="01" brake="10" yellow="00"/>
       <phase duration="4" phase="00" brake="11" yellow="01"/>
-      <phase duration="31" phase="10" brake="01" yellow="00"/>
-      <phase duration="4" phase="00" brake="11" yellow="10"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>14</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>
@@ -155,7 +155,7 @@
       <phase duration="4" phase="0" brake="1" yellow="1"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>18</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>
@@ -164,7 +164,7 @@
       <phase duration="4" phase="0" brake="1" yellow="1"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>2</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>
@@ -173,7 +173,7 @@
       <phase duration="4" phase="00" brake="11" yellow="11"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>24</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>
@@ -182,7 +182,7 @@
       <phase duration="4" phase="0" brake="1" yellow="1"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>37</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>
@@ -191,7 +191,7 @@
       <phase duration="4" phase="0" brake="1" yellow="1"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>6</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>
@@ -200,7 +200,7 @@
       <phase duration="4" phase="0" brake="1" yellow="1"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
+   <tl-logic type="static">
       <key>8</key>
       <subkey>0</subkey>
       <phaseno>2</phaseno>

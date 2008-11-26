@@ -1,0 +1,8 @@
+<edges>
+   <edge id="e1" fromnode="n1" tonode="n8" speed="13.89" priority="-1" nolanes="1"/>
+   <edge id="e2" fromnode="n8" tonode="n1" speed="13.89" priority="-1" nolanes="1"/>
+   <edge id="e13" fromnode="n5" tonode="n1" speed="13.89" priority="-1" nolanes="1"/>
+   <edge id="e14" fromnode="n6" tonode="n1" speed="13.89" priority="-1" nolanes="1"/>
+   <edge id="e15" fromnode="n1" tonode="n6" speed="13.89" priority="-1" nolanes="1"/>
+   <edge id="e16" fromnode="n1" tonode="n5" speed="13.89" priority="-1" nolanes="1"/>
+</edges>

@@ -4,3 +4,5 @@ keep_edges
 # Tests for removing edges (--remove-edges)
 remove_edges
 
+# Tests for building tls programs
+tls_programs

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/25/08 13:26:29 by SUMO netconvert Version dev-SVN-r6388
+<configuration>
+
+   <input>
+      <xml-node-files>input_nodes.nod.xml</xml-node-files>
+      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
+   </input>
+
+   <tls_building>
+      <guess-tls>true</guess-tls>
+   </tls_building>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>-14540.75,-27867.00</net-offset>
+   <conv-boundary>0.00,0.00,226.38,266.00</conv-boundary>
+   <orig-boundary>14540.75,27867.00,14767.13,28133.00</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <node_count>4</node_count>
+
+
+   <edge id="e14" from="n6" to="n1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="e14_0" depart="1" vclasses="" maxspeed="13.89" length="141.70">125.63,200.44 0.78,267.45</lane>
+      </lanes>
+   </edge>
+
+   <edge id="e15" from="n1" to="n6" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="e15_0" depart="1" vclasses="" maxspeed="13.89" length="141.70">-0.78,264.55 124.07,197.54</lane>
+      </lanes>
+   </edge>
+
+   <edge id="e17" from="n11" to="n6" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="e17_0" depart="1" vclasses="" maxspeed="13.89" length="201.99">66.63,-0.51 128.60,191.74</lane>
+      </lanes>
+   </edge>
+
+   <edge id="e18" from="n12" to="n6" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="e18_0" depart="1" vclasses="" maxspeed="13.89" length="100.50">227.00,159.03 133.81,196.66</lane>
+      </lanes>
+   </edge>
+
+   <edge id="e19" from="n6" to="n11" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="e19_0" depart="1" vclasses="" maxspeed="13.89" length="201.99">125.46,192.75 63.49,0.51</lane>
+      </lanes>
+   </edge>
+
+   <edge id="e20" from="n6" to="n12" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="e20_0" depart="1" vclasses="" maxspeed="13.89" length="100.50">132.57,193.60 225.76,155.97</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>n1</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>n11</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>n12</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>n6</key>
+      <requestsize>9</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="000000000" foes="100010000"/>
+         <logicitem request="1" response="011000000" foes="011110000"/>
+         <logicitem request="2" response="010001000" foes="010001000"/>
+         <logicitem request="3" response="010000000" foes="010000100"/>
+         <logicitem request="4" response="010000011" foes="110000011"/>
+         <logicitem request="5" response="001000010" foes="001000010"/>
+         <logicitem request="6" response="000000000" foes="000100010"/>
+         <logicitem request="7" response="000000000" foes="000011110"/>
+         <logicitem request="8" response="000010001" foes="000010001"/>
+      </logic>
+   </row-logic>
+
+
+   <tl-logic type="static">
+      <key>n6</key>
+      <subkey>0</subkey>
+      <phaseno>6</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="111000111" brake="100111110" yellow="000000000"/>
+      <phase duration="4" phase="100000110" brake="111111111" yellow="011000001"/>
+      <phase duration="6" phase="100000110" brake="011111001" yellow="000000000"/>
+      <phase duration="4" phase="000000000" brake="111111111" yellow="100000110"/>
+      <phase duration="31" phase="001111000" brake="110100111" yellow="000000000"/>
+      <phase duration="4" phase="000000000" brake="111111111" yellow="001111000"/>
+   </tl-logic>
+
+
+   <junction id="n1" type="priority" x="0.00" y="266.00">
+      <inclanes>e14_0</inclanes>
+      <shape>-0.02,265.96 -1.54,263.14 1.54,268.86 0.02,266.04</shape>
+   </junction>
+
+   <junction id="n11" type="priority" x="65.06" y="0.00">
+      <inclanes>e19_0</inclanes>
+      <shape>65.11,-0.02 68.15,-1.00 61.97,1.00 65.01,0.02</shape>
+   </junction>
+
+   <junction id="n12" type="priority" x="226.38" y="157.50">
+      <inclanes>e20_0</inclanes>
+      <shape>226.40,157.55 227.60,160.51 225.16,154.49 226.36,157.45</shape>
+   </junction>
+
+   <junction id="n6" type="priority" x="128.56" y="197.00">
+      <inclanes>e18_0 e17_0 e15_0</inclanes>
+      <shape>134.41,198.14 131.97,192.12 130.12,191.25 123.93,193.25 123.31,196.13 126.39,201.85</shape>
+   </junction>
+
+
+   <succ edge="e14" lane="e14_0" junction="n1">
+      <succlane lane="e15_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="e15" lane="e15_0" junction="n6">
+      <succlane lane="e19_0" tl="n6" linkno="6" yield="1" dir="r" state="t"/>
+      <succlane lane="e20_0" tl="n6" linkno="7" yield="1" dir="s" state="t"/>
+      <succlane lane="e14_0" tl="n6" linkno="8" yield="1" dir="t" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="e17" lane="e17_0" junction="n6">
+      <succlane lane="e20_0" tl="n6" linkno="3" yield="1" dir="r" state="t"/>
+      <succlane lane="e14_0" tl="n6" linkno="4" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="e19_0" tl="n6" linkno="5" yield="1" dir="t" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="e18" lane="e18_0" junction="n6">
+      <succlane lane="e14_0" tl="n6" linkno="0" yield="1" dir="s" state="t"/>
+      <succlane lane="e19_0" tl="n6" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="e20_0" tl="n6" linkno="2" yield="1" dir="t" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="e19" lane="e19_0" junction="n11">
+      <succlane lane="e17_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="e20" lane="e20_0" junction="n12">
+      <succlane lane="e18_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+
+</net>

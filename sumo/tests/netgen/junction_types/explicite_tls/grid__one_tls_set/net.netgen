@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:12:10 by SUMO netgen Version dev-SVN-r5964
+<!-- generated on 11/25/08 13:25:57 by SUMO netgen Version dev-SVN-r6388
 <configuration>
 
    <grid_network>
@@ -323,12 +323,10 @@
    <tl-logic type="static">
       <key>0/0</key>
       <subkey>0</subkey>
-      <phaseno>4</phaseno>
+      <phaseno>2</phaseno>
       <offset>0</offset>
       <phase duration="31" phase="1111" brake="1010" yellow="0000"/>
-      <phase duration="4" phase="1010" brake="1111" yellow="0101"/>
-      <phase duration="6" phase="1010" brake="0101" yellow="0000"/>
-      <phase duration="4" phase="0000" brake="1111" yellow="1010"/>
+      <phase duration="4" phase="0000" brake="1111" yellow="1111"/>
    </tl-logic>
 
 
