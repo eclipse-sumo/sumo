@@ -66,7 +66,7 @@ using namespace std;
 // ===========================================================================
 void
 PCLoaderElmar::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                       PCTypeMap &tm) throw(ProcessError)
+                         PCTypeMap &tm) throw(ProcessError)
 {
     if (oc.isSet("elmar-poly-files")) {
         loadPolyFiles(oc, toFill, tm);
@@ -79,7 +79,7 @@ PCLoaderElmar::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 void
 PCLoaderElmar::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                                PCTypeMap &tm) throw(ProcessError)
+                            PCTypeMap &tm) throw(ProcessError)
 {
     vector<string> files = oc.getStringVector("elmar-poi-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
@@ -95,7 +95,7 @@ PCLoaderElmar::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
 
 void
 PCLoaderElmar::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                                PCTypeMap &tm) throw(ProcessError)
+                             PCTypeMap &tm) throw(ProcessError)
 {
     vector<string> files = oc.getStringVector("elmar-poly-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
@@ -110,9 +110,9 @@ PCLoaderElmar::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderElmar::loadPOIFile(const std::string &file, 
-                               OptionsCont &oc, PCPolyContainer &toFill,
-                               PCTypeMap &tm) throw(ProcessError)
+PCLoaderElmar::loadPOIFile(const std::string &file,
+                           OptionsCont &oc, PCPolyContainer &toFill,
+                           PCTypeMap &tm) throw(ProcessError)
 {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
@@ -122,10 +122,10 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
     // parse
     int l = 0;
     LineReader lr(file);
-    while(lr.hasMore()) {
+    while (lr.hasMore()) {
         string line = lr.readLine();
         // skip invalid/empty lines
-        if(line.length()==0||line.find("#") != string::npos) {
+        if (line.length()==0||line.find("#") != string::npos) {
             continue;
         }
         if (StringUtils::prune(line)=="") {
@@ -135,7 +135,7 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
         StringTokenizer st(line, "\t");
         ++l;
         vector<string> values = st.getVector();
-        if(values.size()<5) {
+        if (values.size()<5) {
             throw ProcessError("Invalid elmar-poi - line: '" + line + "'.");
         }
         name = values[0];
@@ -181,9 +181,9 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
 
 
 void
-PCLoaderElmar::loadPolyFile(const std::string &file, 
-                                OptionsCont &oc, PCPolyContainer &toFill,
-                                PCTypeMap &tm) throw(ProcessError)
+PCLoaderElmar::loadPolyFile(const std::string &file,
+                            OptionsCont &oc, PCPolyContainer &toFill,
+                            PCTypeMap &tm) throw(ProcessError)
 {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
@@ -191,10 +191,10 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
     // parse
     int l = 0;
     LineReader lr(file);
-    while(lr.hasMore()) {
+    while (lr.hasMore()) {
         string line = lr.readLine();
         // skip invalid/empty lines
-        if(line.length()==0||line.find("#") != string::npos) {
+        if (line.length()==0||line.find("#") != string::npos) {
             continue;
         }
         if (StringUtils::prune(line)=="") {
@@ -204,7 +204,7 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
         StringTokenizer st(line, "\t");
         ++l;
         vector<string> values = st.getVector();
-        if(values.size()<6||values.size()%2!=0) {
+        if (values.size()<6||values.size()%2!=0) {
             throw ProcessError("Invalid elmar-poi - line: '" + line + "'.");
         }
         string id = values[0];

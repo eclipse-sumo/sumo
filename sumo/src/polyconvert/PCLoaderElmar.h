@@ -49,8 +49,8 @@ class OptionsCont;
  * @class PCLoaderElmar
  * @brief A reader of pois and polygons stored in Elmar-format
  *
- * Reads pois stored in "pointcollection.txt" and polygons stored in 
- *  "...polygons.txt"/"...water_polygons.txt", applies the given projection 
+ * Reads pois stored in "pointcollection.txt" and polygons stored in
+ *  "...polygons.txt"/"...water_polygons.txt", applies the given projection
  *  and network offset and stores the so build pois/polys into the given map.
  */
 class PCLoaderElmar
@@ -74,7 +74,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-        PCTypeMap &tm) throw(ProcessError);
+                          PCTypeMap &tm) throw(ProcessError);
 
 protected:
     /** @brief Loads pois assumed to be stored as according Elmar-files
@@ -88,7 +88,7 @@ protected:
      * @exception ProcessError if something fails
      */
     static void loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
-        PCTypeMap &tm) throw(ProcessError);
+                             PCTypeMap &tm) throw(ProcessError);
 
 
     /** @brief Loads polygons assumed to be stored as according Elmar-files
@@ -102,7 +102,7 @@ protected:
      * @exception ProcessError if something fails
      */
     static void loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
-        PCTypeMap &tm) throw(ProcessError);
+                              PCTypeMap &tm) throw(ProcessError);
 
 
     /** @brief Loads Elmar-pois from the given file
@@ -112,9 +112,9 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded polys
      * @exception ProcessError if something fails
      */
-    static void loadPOIFile(const std::string &file, 
-        OptionsCont &oc, PCPolyContainer &toFill,
-        PCTypeMap &tm) throw(ProcessError);
+    static void loadPOIFile(const std::string &file,
+                            OptionsCont &oc, PCPolyContainer &toFill,
+                            PCTypeMap &tm) throw(ProcessError);
 
 
     /** @brief Loads Elmar-polygons from the given file
@@ -124,9 +124,9 @@ protected:
      * @param[in] tm The type map to use for setting values of loaded polys
      * @exception ProcessError if something fails
      */
-    static void loadPolyFile(const std::string &file, 
-        OptionsCont &oc, PCPolyContainer &toFill,
-        PCTypeMap &tm) throw(ProcessError);
+    static void loadPolyFile(const std::string &file,
+                             OptionsCont &oc, PCPolyContainer &toFill,
+                             PCTypeMap &tm) throw(ProcessError);
 
 
 };

@@ -196,10 +196,11 @@ protected:
     void loadDecals(const std::string &file) throw();
 
 
-    class SchemeLoader : public SUMOSAXHandler {
+class SchemeLoader : public SUMOSAXHandler
+    {
     public:
         SchemeLoader(GUIVisualizationSettings &s);
-        ~SchemeLoader() throw ();
+        ~SchemeLoader() throw();
 
         /// @name inherited from GenericSAXHandler
         //@{
@@ -218,10 +219,11 @@ protected:
         GUIVisualizationSettings &mySettings;
     };
 
-    class DecalsLoader : public SUMOSAXHandler {
+class DecalsLoader : public SUMOSAXHandler
+    {
     public:
         DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals);
-        ~DecalsLoader() throw ();
+        ~DecalsLoader() throw();
 
         /// @name inherited from GenericSAXHandler
         //@{

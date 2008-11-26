@@ -84,7 +84,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         }
         nodesHandler.setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing nodes from osm-file '" + *file + "'...");
-        if(!XMLSubSys::runParser(nodesHandler, *file)) {
+        if (!XMLSubSys::runParser(nodesHandler, *file)) {
             throw ProcessError();
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
@@ -108,15 +108,15 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             continue;
         }
         // compute shape
-            Position2DVector vec;
-            for(vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
-                PCOSMNode *n = nodes.find(*j)->second;
-                Position2D pos(n->lon, n->lat);
-                GeoConvHelper::x2cartesian(pos);
-                vec.push_back_noDoublePos(pos);
-            }
-            // set type etc.
-            string name = e->id;
+        Position2DVector vec;
+        for (vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
+            PCOSMNode *n = nodes.find(*j)->second;
+            Position2D pos(n->lon, n->lat);
+            GeoConvHelper::x2cartesian(pos);
+            vec.push_back_noDoublePos(pos);
+        }
+        // set type etc.
+        string name = e->id;
         string type;
         RGBColor color;
         bool fill = vec.getBegin()==vec.getEnd();
@@ -144,7 +144,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             color = c;
         }
         if (!discard) {
-            if(oc.getBool("osm.keep-full-type")) {
+            if (oc.getBool("osm.keep-full-type")) {
                 type = e->myType;
             }
             Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
@@ -152,9 +152,9 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         }
     }
     // instatiate pois
-    for(map<int, PCOSMNode*>::iterator i=nodes.begin(); i!=nodes.end(); ++i) {
+    for (map<int, PCOSMNode*>::iterator i=nodes.begin(); i!=nodes.end(); ++i) {
         PCOSMNode *n = (*i).second;
-        if(!n->myIsAdditional) {
+        if (!n->myIsAdditional) {
             continue;
         }
 
@@ -184,16 +184,16 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             color = c;
         }
         if (!discard) {
-            if(oc.getBool("osm.keep-full-type")) {
+            if (oc.getBool("osm.keep-full-type")) {
                 type = n->myType;
             }
             bool ignorePrunning = false;
             if (OptionsCont::getOptions().isInStringVector("prune.ignore", name)) {
                 ignorePrunning = true;
             }
-                Position2D pos(n->lon, n->lat);
-                GeoConvHelper::x2cartesian(pos);
-                PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
+            Position2D pos(n->lon, n->lat);
+            GeoConvHelper::x2cartesian(pos);
+            PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
             toFill.insert(name, poi, layer, ignorePrunning);
         }
     }
@@ -283,7 +283,7 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
             return;
         }
         if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"||key=="building"||key=="leisure"||key=="amenity"||key=="shop"
-            ||key=="tourism"||key=="historic"||key=="landuse"||key=="natural"||key=="military"||key=="boundary"||key=="sport") {
+                ||key=="tourism"||key=="historic"||key=="landuse"||key=="natural"||key=="military"||key=="boundary"||key=="sport") {
             if (myLastNodeID>=0) {
                 myToFill[myLastNodeID]->myType = key + "." + value;
                 myToFill[myLastNodeID]->myIsAdditional = true;
@@ -368,12 +368,12 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"||key=="building"||key=="leisure"||key=="amenity"||key=="shop"
-            ||key=="tourism"||key=="historic"||key=="landuse"||key=="natural"||key=="military"||key=="boundary"||key=="sport") {
+                ||key=="tourism"||key=="historic"||key=="landuse"||key=="natural"||key=="military"||key=="boundary"||key=="sport") {
             myCurrentEdge->myType = key + "." + value;
             myCurrentEdge->myIsAdditional = true;
         } else if (key=="area") {
             myCurrentEdge->myIsClosed = true;
-        } 
+        }
     }
 }
 

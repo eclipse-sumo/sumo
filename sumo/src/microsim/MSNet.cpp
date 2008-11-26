@@ -302,13 +302,14 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if (myVehicleControl->haveAllVehiclesQuit()) {
 #endif
             if (myEmissionEvents->isEmpty()) {
-        		quitMessage = "Simulation End: All vehicles have left the simulation.";
-        	}
+                quitMessage = "Simulation End: All vehicles have left the simulation.";
+            }
         }
         if (myStep > stop) {
-        	quitMessage = "Simulation End: The final simulation step has been reached.";
+            quitMessage = "Simulation End: The final simulation step has been reached.";
         }
-    } while (quitMessage=="");
+    }
+    while (quitMessage=="");
     WRITE_MESSAGE(quitMessage);
     // exit simulation loop
     closeSimulation(start, stop);

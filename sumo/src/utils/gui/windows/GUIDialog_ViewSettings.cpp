@@ -93,54 +93,53 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // method definitions
 // ===========================================================================
 GUIDialog_ViewSettings::DecalsLoader::DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals)
-: myDecals(decals)
+        : myDecals(decals)
 {
 }
 
 
-GUIDialog_ViewSettings::DecalsLoader::~DecalsLoader() throw ()
+GUIDialog_ViewSettings::DecalsLoader::~DecalsLoader() throw()
 {
 }
 
 
-void 
-GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element, 
-                                                     const SUMOSAXAttributes &attrs) throw(ProcessError)
+void
+GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element,
+        const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
-    switch(element) {
-    case SUMO_TAG_VIEWSETTINGS_DECAL:
-        {
-            GUISUMOAbstractView::Decal d;
-            d.filename = attrs.getStringSecure("filename", d.filename);
-            d.left = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("left", toString(d.left)).c_str());
-            d.top = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("top", toString(d.top)).c_str());
-            d.right = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("right", toString(d.right)).c_str());
-            d.bottom = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("bottom", toString(d.bottom)).c_str());
-            d.initialised = false;
-            d.rot = 0;
-            myDecals.push_back(d);
-        }
-        break;
+    switch (element) {
+    case SUMO_TAG_VIEWSETTINGS_DECAL: {
+        GUISUMOAbstractView::Decal d;
+        d.filename = attrs.getStringSecure("filename", d.filename);
+        d.left = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("left", toString(d.left)).c_str());
+        d.top = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("top", toString(d.top)).c_str());
+        d.right = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("right", toString(d.right)).c_str());
+        d.bottom = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("bottom", toString(d.bottom)).c_str());
+        d.initialised = false;
+        d.rot = 0;
+        myDecals.push_back(d);
+    }
+    break;
     }
 }
 
 
 GUIDialog_ViewSettings::SchemeLoader::SchemeLoader(GUIVisualizationSettings &s)
-: mySettings(s)
+        : mySettings(s)
 {
 }
 
 
-GUIDialog_ViewSettings::SchemeLoader::~SchemeLoader() throw ()
+GUIDialog_ViewSettings::SchemeLoader::~SchemeLoader() throw()
 {
 }
 
 
-void 
-GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element, 
-                                                     const SUMOSAXAttributes &attrs) throw(ProcessError)
+void
+GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
+        const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
-    switch(element) {
+    switch (element) {
     case SUMO_TAG_VIEWSETTINGS_SCHEME:
         mySettings.name = attrs.getStringSecure("name", mySettings.name);
         break;
@@ -165,16 +164,15 @@ GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
         mySettings.edgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("edgeNameSize", toString(mySettings.edgeNameSize)).c_str());
         mySettings.edgeNameColor = RGBColor::parseColor(attrs.getStringSecure("edgeNameColor", toString(mySettings.edgeNameColor)));
         break;
-    case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM:
-        {
-            int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
-            RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
-            if (mySettings.laneColorings.find(index)==mySettings.laneColorings.end()) {
-                mySettings.laneColorings[index] = vector<RGBColor>();
-            }
-            mySettings.laneColorings[index].push_back(value);
+    case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM: {
+        int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
+        RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
+        if (mySettings.laneColorings.find(index)==mySettings.laneColorings.end()) {
+            mySettings.laneColorings[index] = vector<RGBColor>();
         }
-        break;
+        mySettings.laneColorings[index].push_back(value);
+    }
+    break;
     case SUMO_TAG_VIEWSETTINGS_VEHICLES:
         mySettings.vehicleMode = TplConvert<char>::_2int(attrs.getStringSecure("vehicleMode", toString(mySettings.vehicleMode)).c_str());
         mySettings.vehicleQuality = TplConvert<char>::_2int(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)).c_str());
@@ -185,16 +183,15 @@ GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
         mySettings.vehicleNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleNameSize", toString(mySettings.vehicleNameSize)).c_str());
         mySettings.vehicleNameColor = RGBColor::parseColor(attrs.getStringSecure("vehicleNameColor", toString(mySettings.vehicleNameColor)));
         break;
-    case SUMO_TAG_VIEWSETTINGS_VEHICLE_COLOR_ITEM:
-        {
-            int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
-            RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
-            if (mySettings.vehicleColorings.find(index)==mySettings.vehicleColorings.end()) {
-                mySettings.vehicleColorings[index] = vector<RGBColor>();
-            }
-            mySettings.vehicleColorings[index].push_back(value);
+    case SUMO_TAG_VIEWSETTINGS_VEHICLE_COLOR_ITEM: {
+        int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
+        RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
+        if (mySettings.vehicleColorings.find(index)==mySettings.vehicleColorings.end()) {
+            mySettings.vehicleColorings[index] = vector<RGBColor>();
         }
-        break;
+        mySettings.vehicleColorings[index].push_back(value);
+    }
+    break;
     case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
         mySettings.junctionMode = TplConvert<char>::_2int(attrs.getStringSecure("junctionMode", toString(mySettings.junctionMode)).c_str());
         mySettings.drawLinkTLIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkTLIndex", toString(mySettings.drawLinkTLIndex)).c_str());
@@ -297,7 +294,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         FXHorizontalFrame *frame111 = new FXHorizontalFrame(frame11, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
         new FXButton(frame111,"&Load Decals",NULL,this,MID_SIMPLE_VIEW_LOAD_DECALS,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4);
         new FXButton(frame111,"&Save Decals",NULL,this,MID_SIMPLE_VIEW_SAVE_DECALS,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4);
-    
+
         new FXHorizontalSeparator(frame1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
         FXMatrix *m12 =
@@ -1050,18 +1047,18 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
         dev << "<viewsettings>\n";
         dev << "    <scheme name=\"" << mySettings->name << "\">\n";
         dev << "        <opengl antialiase=\"" << mySettings->antialiase << "\" dither=\"" << mySettings->dither << "\"/>\n";
-        dev << "        <background backgroundColor=\"" << mySettings->backgroundColor 
-            << "\" showGrid=\"" << mySettings->showGrid 
-            << "\" gridXSize=\"" << mySettings->gridXSize << "\" gridYSize=\"" << mySettings->gridYSize << "\"/>\n";
-        dev << "        <edges laneEdgeMode=\"" << mySettings->laneEdgeMode 
-            << "\" laneShowBorders=\"" << mySettings->laneShowBorders 
-            << "\" showLinkDecals=\"" << mySettings->showLinkDecals
-            << "\" laneEdgeExaggMode=\"" << mySettings->laneEdgeExaggMode
-            << "\" minExagg=\"" << mySettings->minExagg
-            << "\" maxExagg=\"" << mySettings->maxExagg
-            << "\" showRails=\"" << mySettings->showRails
-            << "\" edgeNameSize=\"" << mySettings->edgeNameSize
-            << "\" edgeNameColor=\"" << mySettings->edgeNameColor << "\">\n";
+        dev << "        <background backgroundColor=\"" << mySettings->backgroundColor
+        << "\" showGrid=\"" << mySettings->showGrid
+        << "\" gridXSize=\"" << mySettings->gridXSize << "\" gridYSize=\"" << mySettings->gridYSize << "\"/>\n";
+        dev << "        <edges laneEdgeMode=\"" << mySettings->laneEdgeMode
+        << "\" laneShowBorders=\"" << mySettings->laneShowBorders
+        << "\" showLinkDecals=\"" << mySettings->showLinkDecals
+        << "\" laneEdgeExaggMode=\"" << mySettings->laneEdgeExaggMode
+        << "\" minExagg=\"" << mySettings->minExagg
+        << "\" maxExagg=\"" << mySettings->maxExagg
+        << "\" showRails=\"" << mySettings->showRails
+        << "\" edgeNameSize=\"" << mySettings->edgeNameSize
+        << "\" edgeNameColor=\"" << mySettings->edgeNameColor << "\">\n";
         for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
             for (k=0; k<(*j).second.size(); ++k) {
                 dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
@@ -1069,14 +1066,14 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
         }
         dev << "        </edges>\n";
 
-        dev << "        <vehicles vehicleMode=\"" << mySettings->vehicleMode 
-            << "\" vehicleQuality=\"" << mySettings->vehicleQuality 
-            << "\" minVehicleSize=\"" << mySettings->minVehicleSize 
-            << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
-            << "\" showBlinker=\"" << mySettings->showBlinker
-            << "\" drawVehicleName=\"" << mySettings->drawVehicleName
-            << "\" vehicleNameSize=\"" << mySettings->vehicleNameSize
-            << "\" vehicleNameColor=\"" << mySettings->vehicleNameColor << "\">\n";
+        dev << "        <vehicles vehicleMode=\"" << mySettings->vehicleMode
+        << "\" vehicleQuality=\"" << mySettings->vehicleQuality
+        << "\" minVehicleSize=\"" << mySettings->minVehicleSize
+        << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
+        << "\" showBlinker=\"" << mySettings->showBlinker
+        << "\" drawVehicleName=\"" << mySettings->drawVehicleName
+        << "\" vehicleNameSize=\"" << mySettings->vehicleNameSize
+        << "\" vehicleNameColor=\"" << mySettings->vehicleNameColor << "\">\n";
         for (j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
             for (k=0; k<(*j).second.size(); ++k) {
                 dev << "            <nvcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
@@ -1084,25 +1081,25 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
         }
         dev << "        </vehicles>\n";
 
-        dev << "        <junctions junctionMode=\"" << mySettings->junctionMode 
-            << "\" drawLinkTLIndex=\"" << mySettings->drawLinkTLIndex 
-            << "\" drawLinkJunctionIndex=\"" << mySettings->drawLinkJunctionIndex
-            << "\" drawJunctionName=\"" << mySettings->drawJunctionName
-            << "\" junctionNameSize=\"" << mySettings->junctionNameSize
-            << "\" junctionNameColor=\"" << mySettings->junctionNameColor
-            << "\" showLane2Lane=\"" << mySettings->showLane2Lane << "\">\n";
+        dev << "        <junctions junctionMode=\"" << mySettings->junctionMode
+        << "\" drawLinkTLIndex=\"" << mySettings->drawLinkTLIndex
+        << "\" drawLinkJunctionIndex=\"" << mySettings->drawLinkJunctionIndex
+        << "\" drawJunctionName=\"" << mySettings->drawJunctionName
+        << "\" junctionNameSize=\"" << mySettings->junctionNameSize
+        << "\" junctionNameColor=\"" << mySettings->junctionNameColor
+        << "\" showLane2Lane=\"" << mySettings->showLane2Lane << "\">\n";
 
-        dev << "        <additionals addMode=\"" << mySettings->addMode 
-            << "\" minAddSize=\"" << mySettings->minAddSize 
-            << "\" addExaggeration=\"" << mySettings->addExaggeration
-            << "\" drawAddName=\"" << mySettings->drawAddName
-            << "\" addNameSize=\"" << mySettings->addNameSize << "\">\n";
+        dev << "        <additionals addMode=\"" << mySettings->addMode
+        << "\" minAddSize=\"" << mySettings->minAddSize
+        << "\" addExaggeration=\"" << mySettings->addExaggeration
+        << "\" drawAddName=\"" << mySettings->drawAddName
+        << "\" addNameSize=\"" << mySettings->addNameSize << "\">\n";
 
-        dev << "        <pois poiExaggeration=\"" << mySettings->poiExaggeration 
-            << "\" minPOISize=\"" << mySettings->minPOISize 
-            << "\" drawPOIName=\"" << mySettings->drawPOIName
-            << "\" poiNameSize=\"" << mySettings->poiNameSize
-            << "\" poiNameColor=\"" << mySettings->poiNameColor << "\">\n";
+        dev << "        <pois poiExaggeration=\"" << mySettings->poiExaggeration
+        << "\" minPOISize=\"" << mySettings->minPOISize
+        << "\" drawPOIName=\"" << mySettings->drawPOIName
+        << "\" poiNameSize=\"" << mySettings->poiNameSize
+        << "\" poiNameColor=\"" << mySettings->poiNameColor << "\">\n";
 
         dev << "        <legend showSizeLegend=\"" << mySettings->showSizeLegend << "\">\n";
         dev << "    </scheme>\n";
@@ -1140,12 +1137,12 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw()
         std::vector<GUISUMOAbstractView::Decal>::iterator j;
         for (j=myDecals->begin(); j!=myDecals->end(); ++j) {
             GUISUMOAbstractView::Decal &d = *j;
-            dev << "    <decal filename=\"" << d.filename 
-                << "\" left=\"" << d.left
-                << "\" top=\"" << d.top
-                << "\" right=\"" << d.right
-                << "\" bottom=\"" << d.bottom
-                << "\">\n";
+            dev << "    <decal filename=\"" << d.filename
+            << "\" left=\"" << d.left
+            << "\" top=\"" << d.top
+            << "\" right=\"" << d.right
+            << "\" bottom=\"" << d.bottom
+            << "\">\n";
         }
         dev << "<decals/>\n";
     } catch (IOError &e) {
@@ -1304,7 +1301,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data)
 }
 
 
-long 
+long
 GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*data)
 {
     FXFileDialog opendialog(this, "Load Decals");
@@ -1321,8 +1318,8 @@ GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*data)
     return 1;
 }
 
-    
-long 
+
+long
 GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*,FXSelector,void*data)
 {
     FXFileDialog opendialog(this, "Save Decals");

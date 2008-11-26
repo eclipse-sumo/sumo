@@ -263,7 +263,7 @@ initGuiShapeNames() throw()
 std::string
 getVehicleShapeName(SUMOVehicleShape id) throw()
 {
-    if(id==SVS_UNKNOWN) {
+    if (id==SVS_UNKNOWN) {
         return "";
     }
     return gVehicleShapeID2Name[id];
@@ -273,10 +273,10 @@ getVehicleShapeName(SUMOVehicleShape id) throw()
 SUMOVehicleShape
 getVehicleShapeID(const std::string &name) throw()
 {
-    if(name=="") {
+    if (name=="") {
         return SVS_UNKNOWN;
     }
-    if(gVehicleShapeName2ID.find(name)!=gVehicleShapeName2ID.end()) {
+    if (gVehicleShapeName2ID.find(name)!=gVehicleShapeName2ID.end()) {
         return gVehicleShapeName2ID[name];
     }
     return SVS_UNKNOWN;

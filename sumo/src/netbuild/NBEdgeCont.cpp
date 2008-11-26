@@ -691,19 +691,19 @@ NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(
         // write this edge's connections to the connections-files
         unsigned int noLanes = e->getNoLanes();
         unsigned int noWritten = 0;
-        for(unsigned int lane=0; lane<noLanes; ++lane) {
+        for (unsigned int lane=0; lane<noLanes; ++lane) {
             vector<NBEdge::Connection> connections = e->getConnectionsFromLane(lane);
-            for(vector<NBEdge::Connection>::iterator c=connections.begin(); c!=connections.end(); ++c) {
-                if((*c).toEdge!=0) {
-                    cdevice << "	<connection from=\"" << e->getID() 
-                        << "\" to=\"" << (*c).toEdge->getID() 
-                        << "\" lane=\"" << (*c).fromLane << ":" << (*c).toLane;
+            for (vector<NBEdge::Connection>::iterator c=connections.begin(); c!=connections.end(); ++c) {
+                if ((*c).toEdge!=0) {
+                    cdevice << "	<connection from=\"" << e->getID()
+                    << "\" to=\"" << (*c).toEdge->getID()
+                    << "\" lane=\"" << (*c).fromLane << ":" << (*c).toLane;
                     cdevice << "\"/>\n";
                     ++noWritten;
                 }
             }
         }
-        if(noWritten>0) {
+        if (noWritten>0) {
             cdevice << "\n";
         }
     }

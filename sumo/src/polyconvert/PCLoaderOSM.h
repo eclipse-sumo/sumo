@@ -57,7 +57,7 @@ public:
     /** @brief Loads pois/polygons assumed to be stored as OSM-XML
      *
      * If the option "osm-files" is set within the given options container,
-     *  an instance of PCLoaderOSM is built and used as a handler for the 
+     *  an instance of PCLoaderOSM is built and used as a handler for the
      *  files given in this option.
      *
      * @param[in] oc The options container to get further options from
@@ -66,7 +66,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                PCTypeMap &tm) throw(ProcessError);
+                          PCTypeMap &tm) throw(ProcessError);
 
 
 protected:

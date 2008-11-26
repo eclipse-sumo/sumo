@@ -189,8 +189,8 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs,
 
 SUMOVehicleShape
 SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs,
-        const std::string &type,
-        const std::string &id) throw()
+                                       const std::string &type,
+                                       const std::string &id) throw()
 {
     SUMOVehicleShape vclass = SVS_UNKNOWN;
     try {

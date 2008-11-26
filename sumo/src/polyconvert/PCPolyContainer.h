@@ -64,8 +64,8 @@ public:
 
     /** @brief Adds a polygon to the storage
      *
-     * If prunning if enabled, "ignorePrunning" is false and the polygon lies outside 
-     *  the prunning boundary, or if the polygon's name is within the names of 
+     * If prunning if enabled, "ignorePrunning" is false and the polygon lies outside
+     *  the prunning boundary, or if the polygon's name is within the names of
      *  objects to discard, the polygon is deleted and true is returned.
      *
      * Otherwise, it is tested whether a polygon with the same name is already stored.
@@ -83,8 +83,8 @@ public:
 
     /** @brief Adds a poi to the storage
      *
-     * If prunning if enabled, "ignorePrunning" is false and the poi lies outside 
-     *  the prunning boundary, or if the poi's name is within the names of 
+     * If prunning if enabled, "ignorePrunning" is false and the poi lies outside
+     *  the prunning boundary, or if the poi's name is within the names of
      *  objects to discard, the poi is deleted and true is returned.
      *
      * Otherwise, it is tested whether a poi with the same name is already stored.

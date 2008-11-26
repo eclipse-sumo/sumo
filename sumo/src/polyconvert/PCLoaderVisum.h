@@ -55,7 +55,7 @@ public:
      *
      * If the option "visum-files" is set within the given options container,
      *  the files stored herein are parsed using "load", assuming this
-     *  option contains file paths to files containing pois and polygons stored 
+     *  option contains file paths to files containing pois and polygons stored
      *  in VISUM ".net"-format.
      *
      * @param[in] oc The options container to get further options from
@@ -64,7 +64,7 @@ public:
      * @exception ProcessError if something fails
      */
     static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-        PCTypeMap &tm) throw(ProcessError);
+                          PCTypeMap &tm) throw(ProcessError);
 
 
 protected:
@@ -75,7 +75,7 @@ protected:
      * @exception ProcessError if something fails
      */
     static void load(const std::string &file, OptionsCont &oc, PCPolyContainer &toFill,
-        PCTypeMap &tm) throw(ProcessError);
+                     PCTypeMap &tm) throw(ProcessError);
 
 
 };

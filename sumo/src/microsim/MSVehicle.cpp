@@ -333,7 +333,7 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
 }
 
 
-void 
+void
 MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw()
 {
     // save the old work reminders, patching the position information
@@ -368,7 +368,7 @@ MSVehicle::activateRemindersByEmitOrLaneChange() throw()
 }
 
 
-// ------------ 
+// ------------
 const MSEdge*
 MSVehicle::succEdge(unsigned int nSuccs) const throw()
 {
@@ -545,7 +545,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     if (gap<0.1) {
         gap = 0;
     }
-    // 
+    //
     SUMOReal vSafe  = myType->ffeV(myState.mySpeed, gap, pred->getSpeed());
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getLength()-getPositionOnLane());
@@ -617,8 +617,8 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
 
 
 bool
-MSVehicle::moveRegardingCritical(const MSLane* const lane, 
-                                 const MSVehicle * const pred, 
+MSVehicle::moveRegardingCritical(const MSLane* const lane,
+                                 const MSVehicle * const pred,
                                  const MSVehicle * const neigh) throw()
 {
 #ifdef _MESSAGES
@@ -636,7 +636,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         SUMOReal vWish = myType->ffeS(myState.mySpeed, myLane->length()-myState.myPos);
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
-            if(gap<0) {
+            if (gap<0) {
                 // collision occured!
                 return true;
             }
@@ -655,7 +655,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         SUMOReal vBeg = MIN2(myType->maxNextSpeed(myState.mySpeed), lane->maxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
-            if(gap<0) {
+            if (gap<0) {
                 // collision occured!
                 return true;
             }
@@ -1329,7 +1329,7 @@ MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 void
 MSVehicle::onTripEnd(const MSLane * const lane)
 {
-    if(lane!=0) {
+    if (lane!=0) {
         adaptLaneEntering2MoveReminder(*lane);
     }
     // check whether the vehicle's verbose arrival information shall be saved

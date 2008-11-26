@@ -78,7 +78,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
     myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
     myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
     myAmUsingIncrementalDUA = (myIncrementalStage>0),
-    myActiveRoute.reserve(100);
+                              myActiveRoute.reserve(100);
 }
 
 
@@ -218,23 +218,23 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
     if (attrs.setIDFromAttributes("vtype", id)) {
         try {
             MSVehicleType *vehType = new MSVehicleType(id,
-                                 attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
-                                 attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
-                                 attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
-                                 attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
-                                 attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                 attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                 attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB),
-                                 attrs.getFloatSecure(SUMO_ATTR_SPEEDFACTOR, DEFAULT_VEH_SPEEDFACTOR),
-                                 attrs.getFloatSecure(SUMO_ATTR_SPEEDDEV, DEFAULT_VEH_SPEEDDEV),
-                                 SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
-                                 SUMOVehicleParserHelper::parseEmissionClass(attrs, "vtype", id),
-                                 SUMOVehicleParserHelper::parseGuiShape(attrs, "vtype", id),
-                                 attrs.getFloatSecure(SUMO_ATTR_GUIWIDTH, DEFAULT_VEH_GUIWIDTH),
-                                 attrs.getFloatSecure(SUMO_ATTR_GUIOFFSET, DEFAULT_VEH_GUIOFFSET),
-                                 attrs.getStringSecure(SUMO_ATTR_CAR_FOLLOW_MODEL, DEFAULT_VEH_FOLLOW_MODEL),
-                                 attrs.getStringSecure(SUMO_ATTR_LANE_CHANGE_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL),
-                                 RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING)));
+                    attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
+                    attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
+                    attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
+                    attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
+                    attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                    attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                    attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB),
+                    attrs.getFloatSecure(SUMO_ATTR_SPEEDFACTOR, DEFAULT_VEH_SPEEDFACTOR),
+                    attrs.getFloatSecure(SUMO_ATTR_SPEEDDEV, DEFAULT_VEH_SPEEDDEV),
+                    SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
+                    SUMOVehicleParserHelper::parseEmissionClass(attrs, "vtype", id),
+                    SUMOVehicleParserHelper::parseGuiShape(attrs, "vtype", id),
+                    attrs.getFloatSecure(SUMO_ATTR_GUIWIDTH, DEFAULT_VEH_GUIWIDTH),
+                    attrs.getFloatSecure(SUMO_ATTR_GUIOFFSET, DEFAULT_VEH_GUIOFFSET),
+                    attrs.getStringSecure(SUMO_ATTR_CAR_FOLLOW_MODEL, DEFAULT_VEH_FOLLOW_MODEL),
+                    attrs.getStringSecure(SUMO_ATTR_LANE_CHANGE_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL),
+                    RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING)));
             if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
                 delete vehType;
 #ifdef HAVE_MESOSIM
@@ -286,8 +286,7 @@ MSRouteHandler::closeVehicleTypeDistribution()
         if (myCurrentVTypeDistribution->getOverallProb() == 0) {
             delete myCurrentVTypeDistribution;
             MsgHandler::getErrorInstance()->inform("Vehicle type distribution '" + myCurrentVTypeDistributionID + "' is empty.");
-        }
-        else if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
+        } else if (!MSNet::getInstance()->getVehicleControl().addVTypeDistribution(myCurrentVTypeDistributionID, myCurrentVTypeDistribution)) {
             delete myCurrentVTypeDistribution;
             MsgHandler::getErrorInstance()->inform("Another vehicle type (or distribution) with the id '" + myCurrentVTypeDistributionID + "' exists.");
         }
@@ -440,8 +439,7 @@ MSRouteHandler::closeRouteDistribution()
         if (myCurrentRouteDistribution->getOverallProb() == 0) {
             delete myCurrentRouteDistribution;
             MsgHandler::getErrorInstance()->inform("Route distribution '" + myCurrentRouteDistributionID + "' is empty.");
-        }
-        else if (!MSRoute::dictionary(myCurrentRouteDistributionID, myCurrentRouteDistribution)) {
+        } else if (!MSRoute::dictionary(myCurrentRouteDistributionID, myCurrentRouteDistribution)) {
             delete myCurrentRouteDistribution;
             MsgHandler::getErrorInstance()->inform("Another route (or distribution) with the id '" + myCurrentRouteDistributionID + "' exists.");
         }

@@ -462,14 +462,14 @@ MSLane::moveNonCritical()
             // move vehicle without regarding the neighbor
             hadCollision = (*veh)->move(this, *pred, 0);
         }
-        if(hadCollision) {
+        if (hadCollision) {
             collisions.push_back(*veh);
         }
         ++veh;
         ++myFirstUnsafe;
     }
     // deal with collisions
-    for(vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
+    for (vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
         (*i)->leaveLaneAtLaneChange();
         (*i)->onTripEnd();
         MSVehicleTransfer::getInstance()->addVeh((*i));
@@ -490,18 +490,18 @@ MSLane::moveCritical()
     // Move all next vehicles beside the first
     for (veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;) {
         VehCont::const_iterator pred(veh + 1);
-        if((*veh)->moveRegardingCritical(this, *pred, 0)) {
+        if ((*veh)->moveRegardingCritical(this, *pred, 0)) {
             collisions.push_back(*veh);
         }
         ++veh;
     }
-    if((*veh)->moveRegardingCritical(this, 0, 0)) {
+    if ((*veh)->moveRegardingCritical(this, 0, 0)) {
         collisions.push_back(*veh);
     }
     assert((*veh)->getPositionOnLane() <= myLength);
     assert(&(*veh)->getLane()==this);
     // deal with collisions
-    for(vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
+    for (vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
         (*i)->leaveLaneAtLaneChange();
         (*i)->onTripEnd();
         MSVehicleTransfer::getInstance()->addVeh((*i));

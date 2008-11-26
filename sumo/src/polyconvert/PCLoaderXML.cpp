@@ -63,7 +63,7 @@ using namespace std;
 // ---------------------------------------------------------------------------
 // static interface
 // ---------------------------------------------------------------------------
-void 
+void
 PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                        PCTypeMap &tm) throw(ProcessError)
 {
@@ -79,7 +79,7 @@ PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         }
         handler.setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing XML from '" + *file + "'...");
-        if(!XMLSubSys::runParser(handler, *file)) {
+        if (!XMLSubSys::runParser(handler, *file)) {
             throw ProcessError();
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
@@ -109,43 +109,43 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
     if (element!=SUMO_TAG_POI && element!=SUMO_TAG_POLY) {
         return;
     }
-    if(element==SUMO_TAG_POI) {
-    // get the id, report an error if not given or empty...
-    string id;
-    if (!attrs.setIDFromAttributes("poi", id)) {
-        return;
-    }
-    string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-    SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
-    SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
-    Position2D pos(y, x); // !!! reverse!
-    GeoConvHelper::x2cartesian(pos);
-    // patch the values
-    bool discard = false;
-    int layer = myOptions.getInt("layer");
-    RGBColor color;
-    if (myTypeMap.has(type)) {
-        const PCTypeMap::TypeDef &def = myTypeMap.get(type);
-        id = def.prefix + id;
-        type = def.id;
-        color = RGBColor::parseColor(def.color);
-        discard = def.discard;
-        layer = def.layer;
-    } else {
-        id = myOptions.getString("prefix") + id;
-        type = myOptions.getString("type");
-        color = RGBColor::parseColor(myOptions.getString("color"));
-    }
-    if (!discard) {
-        bool ignorePrunning = false;
-        if (OptionsCont::getOptions().isInStringVector("prune.ignore", id)) {
-            ignorePrunning = true;
+    if (element==SUMO_TAG_POI) {
+        // get the id, report an error if not given or empty...
+        string id;
+        if (!attrs.setIDFromAttributes("poi", id)) {
+            return;
         }
-        PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
-        myCont.insert(id, poi, layer, ignorePrunning);
+        string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
+        SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
+        Position2D pos(y, x); // !!! reverse!
+        GeoConvHelper::x2cartesian(pos);
+        // patch the values
+        bool discard = false;
+        int layer = myOptions.getInt("layer");
+        RGBColor color;
+        if (myTypeMap.has(type)) {
+            const PCTypeMap::TypeDef &def = myTypeMap.get(type);
+            id = def.prefix + id;
+            type = def.id;
+            color = RGBColor::parseColor(def.color);
+            discard = def.discard;
+            layer = def.layer;
+        } else {
+            id = myOptions.getString("prefix") + id;
+            type = myOptions.getString("type");
+            color = RGBColor::parseColor(myOptions.getString("color"));
+        }
+        if (!discard) {
+            bool ignorePrunning = false;
+            if (OptionsCont::getOptions().isInStringVector("prune.ignore", id)) {
+                ignorePrunning = true;
+            }
+            PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
+            myCont.insert(id, poi, layer, ignorePrunning);
+        }
     }
-    }
-    if(element==SUMO_TAG_POLY) {
+    if (element==SUMO_TAG_POLY) {
         bool discard = false;
         int layer = myOptions.getInt("layer");
         string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
@@ -177,16 +177,16 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
     }
 }
 
- 
-void 
+
+void
 PCLoaderXML::myCharacters(SumoXMLTag element,
-                        const std::string &chars) throw(ProcessError)
+                          const std::string &chars) throw(ProcessError)
 {
-    if(element==SUMO_TAG_POLY) {
+    if (element==SUMO_TAG_POLY) {
         Position2DVector pshape = GeomConvHelper::parseShape(chars);
         const Position2DVector::ContType &cont = pshape.getCont();
         Position2DVector shape;
-        for(Position2DVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
+        for (Position2DVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
             Position2D pos((*i));
             //pos.mul(1./100000.0);
             GeoConvHelper::x2cartesian(pos);

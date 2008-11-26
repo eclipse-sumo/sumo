@@ -181,7 +181,7 @@ public:
     /// @name Atomar getter for visualization
     /// @{
 
-    /** @brief Get this vehicle type's shape 
+    /** @brief Get this vehicle type's shape
      * @return The shape of this vehicle type
      * @see SUMOVehicleShape
      */

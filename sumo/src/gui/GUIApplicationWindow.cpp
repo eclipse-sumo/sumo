@@ -223,7 +223,7 @@ GUIApplicationWindow::dependentBuild()
     // build additional threads
     myLoadThread = new GUILoadThread(this, myEvents, myLoadThreadEvent);
     myRunThread = new GUIRunThread(this, *mySimDelayTarget, myEvents,
-                  myRunThreadEvent);
+                                   myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
     /*

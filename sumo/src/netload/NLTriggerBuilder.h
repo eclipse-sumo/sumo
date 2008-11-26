@@ -214,8 +214,8 @@ protected:
      * @exception ProcessError If the XML definition file is errornous
      */
     virtual void buildLaneSpeedTrigger(MSNet &net,
-            const std::string &id, const std::vector<MSLane*> &destLanes,
-            const std::string &file) throw(ProcessError);
+                                       const std::string &id, const std::vector<MSLane*> &destLanes,
+                                       const std::string &file) throw(ProcessError);
 
 
     /** @brief Builds an emitter
@@ -229,8 +229,8 @@ protected:
      * @param[in] file Name of the file to read the emission definitions from
      */
     virtual void buildLaneEmitTrigger(MSNet &net,
-                                            const std::string &id, MSLane *destLane, SUMOReal pos,
-                                            const std::string &file) throw();
+                                      const std::string &id, MSLane *destLane, SUMOReal pos,
+                                      const std::string &file) throw();
 
 
     /** @brief Builds a bus stop
@@ -245,8 +245,8 @@ protected:
      * @param[in] topos End position of the bus stop on the lane
      */
     virtual void buildBusStop(MSNet &net,
-                                    const std::string &id, const std::vector<std::string> &lines,
-                                    MSLane *lane, SUMOReal frompos, SUMOReal topos) throw();
+                              const std::string &id, const std::vector<std::string> &lines,
+                              MSLane *lane, SUMOReal frompos, SUMOReal topos) throw();
 
 
     /** @brief builds a calibrator for online simulation
@@ -261,8 +261,8 @@ protected:
      * @todo Recheck and describe parameter
      */
     virtual void buildLaneCalibrator(MSNet &net,
-            const std::string &id, MSLane *destLane, SUMOReal pos,
-            const std::string &file) throw();
+                                     const std::string &id, MSLane *destLane, SUMOReal pos,
+                                     const std::string &file) throw();
 
 
 #ifdef HAVE_MESOSIM
@@ -278,8 +278,8 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual void buildCalibrator(MSNet &net,
-            const std::string &id, MESegment *edge, SUMOReal pos,
-            const std::string &file, const std::string &outfile) throw();
+                                 const std::string &id, MESegment *edge, SUMOReal pos,
+                                 const std::string &file, const std::string &outfile) throw();
 #endif
 
 
@@ -294,8 +294,8 @@ protected:
      * @param[in] file The file to read the reroute definitions from
      */
     virtual void buildRerouter(MSNet &net,
-            const std::string &id, std::vector<MSEdge*> &edges,
-            SUMOReal prob, const std::string &file, bool off) throw();
+                               const std::string &id, std::vector<MSEdge*> &edges,
+                               SUMOReal prob, const std::string &file, bool off) throw();
 
 
     /** @brief builds a vehicle actor
@@ -310,8 +310,8 @@ protected:
      * @todo Recheck usage of TOL-actors
      */
     virtual void buildVehicleActor(MSNet &net,
-            const std::string &id, MSLane *lane, SUMOReal pos,
-            unsigned int la, unsigned int cell, unsigned int type) throw();
+                                   const std::string &id, MSLane *lane, SUMOReal pos,
+                                   unsigned int la, unsigned int cell, unsigned int type) throw();
     //@}
 
 

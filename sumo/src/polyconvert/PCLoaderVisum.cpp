@@ -66,7 +66,7 @@ using namespace std;
 // ===========================================================================
 void
 PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                       PCTypeMap &tm) throw(ProcessError)
+                         PCTypeMap &tm) throw(ProcessError)
 {
     if (!oc.isSet("visum-files")) {
         return;
@@ -88,7 +88,7 @@ PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 void
 PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill,
-                       PCTypeMap &tm) throw(ProcessError)
+                    PCTypeMap &tm) throw(ProcessError)
 {
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     map<string, string> typemap;
@@ -164,7 +164,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
                 toFill.insert(name, poi, layer);
             }
         }
-        
+
         // poly
         if (polyType!="") {
             StringTokenizer st(line, ";");

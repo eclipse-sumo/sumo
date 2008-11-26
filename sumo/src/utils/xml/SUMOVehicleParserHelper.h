@@ -118,7 +118,7 @@ public:
      * @todo Recheck how errors are handled and what happens if they occure
      */
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &type,
-            const std::string &id) throw();
+                                          const std::string &id) throw();
 
 
 };

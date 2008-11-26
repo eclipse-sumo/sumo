@@ -124,7 +124,7 @@ MSEventControl::execute(SUMOTime execTime) throw(ProcessError)
 bool
 MSEventControl::isEmpty() throw()
 {
-	return myEvents.empty();
+    return myEvents.empty();
 }
 
 
