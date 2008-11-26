@@ -65,7 +65,6 @@
       <tls-guess.max-outgoing-speed>19.1667</tls-guess.max-outgoing-speed>
       <tls-guess.district-nodes>false</tls-guess.district-nodes>
       <min-decel>3</min-decel>
-      <all-logics>false</all-logics>
       <patch-small-tyellow>false</patch-small-tyellow>
       <traffic-light-green></traffic-light-green>
       <traffic-light-yellow></traffic-light-yellow>

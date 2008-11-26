@@ -163,9 +163,6 @@
       <!-- Defines smallest vehicle deceleration -->
       <min-decel>3</min-decel>
 
-      <!--  -->
-      <all-logics>false</all-logics>
-
       <!-- Given yellow times are patched even if being too short -->
       <patch-small-tyellow>false</patch-small-tyellow>
 
