@@ -107,7 +107,7 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError)
         nodeType = "static";
     }
     // this traffic light is visited the first time
-    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, nodeType, node);
+    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, node);
     if (!nb.getTLLogicCont().insert(tlDef)) {
         // actually, nothing should fail here
         delete tlDef;
