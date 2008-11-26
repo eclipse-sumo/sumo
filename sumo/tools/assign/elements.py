@@ -246,10 +246,10 @@ class Edge:
             curve = crCurveTable[self.CRcurve]
             if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or self.kind != 'real':
                 self.actualtime = self.freeflowtime
-            else:
+            elif self.estcapacity != 0. and self.connection == 0 and self.kind == 'real':
                 self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
                     
-            if (self.flow > self.estcapacity or self.flow == self.estcapacity) and self.connection == 0 and self.kind == 'real':
+            if (self.flow > self.estcapacity or self.flow == self.estcapacity) and self.flow > 0. and self.connection == 0 and self.kind == 'real':
                 self.queuetime = self.queuetime + options.lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
                 if self.queuetime < 1.:
                     self.queuetime = 0.
