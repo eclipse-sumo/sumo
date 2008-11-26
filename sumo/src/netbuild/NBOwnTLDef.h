@@ -55,10 +55,6 @@ public:
     NBOwnTLDef(const std::string &id, NBNode *junction) throw();
 
     /// Constructor
-    NBOwnTLDef(const std::string &id, std::string type,
-               NBNode *junction) throw();
-
-    /// Constructor
     NBOwnTLDef(const std::string &id) throw();
 
     /// Destructor

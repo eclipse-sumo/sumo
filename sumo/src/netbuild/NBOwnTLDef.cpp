@@ -66,13 +66,6 @@ NBOwnTLDef::NBOwnTLDef(const string &id, NBNode *junction) throw()
 {}
 
 
-NBOwnTLDef::NBOwnTLDef(const string &id,
-                       string type,
-                       NBNode *junction) throw()
-        : NBTrafficLightDefinition(id, type, junction)
-{}
-
-
 NBOwnTLDef::NBOwnTLDef(const string &id) throw()
         : NBTrafficLightDefinition(id)
 {}

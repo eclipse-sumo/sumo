@@ -103,10 +103,6 @@ public:
     NBTrafficLightDefinition(const std::string &id,
                              NBNode *junction) throw();
 
-/*
-    NBTrafficLightDefinition(const std::string &id, std::string type,
-                             NBNode *junction) throw();
-*/
 
     /** @brief Constructor
      * @param[in] id The id of the tls

@@ -75,15 +75,6 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 }
 
 
-NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
-        std::string type, NBNode *junction) throw()
-        : Named(id), myType(type)
-{
-    addNode(junction);
-    junction->addTrafficLight(this);
-}
-
-
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id) throw()
         : Named(id), myType("static")
 {}
