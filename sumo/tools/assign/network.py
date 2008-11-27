@@ -202,9 +202,8 @@ class Net:
                         
                     vertex = endVertex
                     while vertex != startVertex:
-                        if P[vertex].kind == "real":
-                            helpPath.append(P[vertex])
-                            helpPathSet.add(P[vertex])
+                        helpPath.append(P[vertex])
+                        helpPathSet.add(P[vertex])
                         vertex = P[vertex].source
                     helpPath.reverse()
     
@@ -258,16 +257,15 @@ class Net:
     
             for end, endVertex in enumerate(endVertices):
                 ODPaths = self._paths[startVertex][endVertex]
-                if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
+                if startVertex.label != endVertex.label and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
                         temppath = []
                         temppathcost = 0.
                         pred = startPred
                         vertex = endVertex
                         while vertex != startVertex:
-                            if pred.edge.kind == "real":
-                                temppath.append(pred.edge)
-                                temppathcost += pred.edge.freeflowtime
+                            temppath.append(pred.edge)
+                            temppathcost += pred.edge.freeflowtime
                             vertex = pred.edge.source
                             pred = pred.pred
                         

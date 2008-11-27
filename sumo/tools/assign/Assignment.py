@@ -68,8 +68,6 @@ def main():
             edge.getAdjustedCapacity(net)
             edge.estcapacity *= assignHours
             edge.getConflictLink()
-            edge.getActualTravelTime(options, False) 
-            edge.helpacttime = edge.freeflowtime
     net.linkReduce()
 
     if options.dijkstra == 'boost':

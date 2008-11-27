@@ -129,10 +129,10 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     if lohse and options.verbose:
         foutassign.close()
                                                                
-    if not lohse and iter > 3:
+    if not lohse and iter > 5:
         if notstable == 0:
             stable = True        
-        elif notstable < math.ceil(len(net._edges)*0.005) or notstable < 2:
+        elif notstable < math.ceil(len(net._edges)*0.005) or notstable < 3:
             stable = True
             
         if iter > options.maxiteration:
@@ -224,7 +224,10 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                             foutpath.write('%s, ' %(item.label))
                         
                     AssignedTrip[startVertex][endVertex] += path.pathflow
-                    edges = path.edges
+                    edges = []
+                    for link in path.edges:
+                        if link.kind == 'real':
+                            edges.append(link)
                     vehID = assignVeh(options.verbose, vehicles, startVertex, endVertex, edges, AssignedVeh, AssignedTrip, vehID)
                 if options.verbose:
                     foutpath.write('\n')
@@ -284,7 +287,7 @@ def doLohseStopCheck(net, options, stable, iter, maxIter, foutlog):
         if counts == len(net._edges):
             stable = True
             foutlog.write('The defined convergence is reached. The number of the required iterations:%s\n' %iter)
-        elif counts < int(len(net._edges)*0.05) and iter > 50:
+        elif counts < int(len(net._edges)*0.05) and float(iter) >  options.maxiteration*0.85:
             stable = True
             foutlog.write('The number of the links with convergence is 95% of the total links. The number of executed iterations:%s\n' %iter)
 

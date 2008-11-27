@@ -139,6 +139,9 @@ class Edge:
         self.detecteddata = {}
         self.detectedlanes = 0.
         self.penalty = 0.
+        self.capLeft = 0.
+        self.capRight = 0.
+        self.capThrough = 0.
         
     def init(self, speed, length, laneNumber):
         self.maxspeed = float(speed)
@@ -148,6 +151,7 @@ class Edge:
             self.freeflowtime = 0.0
         else:
             self.freeflowtime = self.length / self.maxspeed
+            self.actualtime = self.freeflowtime
             self.helpacttime = self.freeflowtime
         
     def __repr__(self):
@@ -168,6 +172,9 @@ class Edge:
                 for edge in leftEdge.source.inEdges:
                     if edge.source == self.target:
                         affectedTurning = edge
+                        affectedTurning.freeflowtime = 6.
+                        affectedTurning.actualtime = affectedTurning.freeflowtime
+                        affectedTurning.helpacttime = affectedTurning.freeflowtime
                         
                 for edge in leftEdge.source.inEdges:
                     for upstreamlink in edge.source.inEdges:
@@ -175,8 +182,7 @@ class Edge:
                             if not upstreamlink in self.conflictlink:
                                 self.conflictlink[upstreamlink]= []
                             self.conflictlink[upstreamlink].append(affectedTurning)
-
-                            
+    
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
                 
@@ -259,34 +265,37 @@ class Edge:
             else:
                 self.queuetime = 0.
             
+            self.actualtime += self.queuetime
+            
             if lohse:
                 self.getLohseParUpdate(options)
             else:
-                self.helpacttime = self.actualtime + self.queuetime
+                self.helpacttime = self.actualtime
                             
             if self.kind == 'real':
                 self.penalty = 0.
-                for edge in self.conflictlink:
-                    conflictEdge = edge                
-                flowCapRatio = 0.
                 if len(self.conflictlink) > 0:
+                    for edge in self.conflictlink:
+                        conflictEdge = edge
+                    flowCapRatio = conflictEdge.flow / conflictEdge.estcapacity
+
                     weightFactor = 1.0
                     if self.numberlane == 2.:
-                        weightFactor = 0.9
+                        weightFactor = 0.85
                     elif self.numberlane == 3.:
                         weightFactor = 0.75
                     elif self.numberlane > 3.:
-                        weightFactor = 0.5
+                        weightFactor = 0.6
                     if options.dijkstra != 'extend':
                         for edge in self.conflictlink:
                             penalty = 0.
                             if edge.estcapacity > 0. and edge.flow/edge.estcapacity > 0.12:
-                                penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(edge.flow/edge.estcapacity) - 1.)/2.
+                                penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(edge.flow/edge.estcapacity) - 1.)
                                 for affectedTurning in self.conflictlink[edge]:
+                                    affectedTurning.actualtime = self.actualtime * penalty
                                     if lohse:
-                                        affectedTurning.helpacttime = penalty * self.helpacttime
+                                        affectedTurning.helpacttime = self.helpacttime * penalty
                                     else:
-                                        affectedTurning.actualtime = penalty * self.actualtime
                                         affectedTurning.helpacttime = affectedTurning.actualtime
                     else:            
                         for edge in self.conflictlink:
@@ -295,7 +304,7 @@ class Edge:
                                 flowCapRatio = edge.flow/edge.estcapacity
         
                         if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.12:
-                            self.penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)/2.
+                            self.penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)
                         if lohse:
                             self.penalty *= self.helpacttime
                         else:
@@ -395,44 +404,16 @@ class Path:
         lengthTwo = newpath.length/1000.
         self.sumOverlap += math.pow(overlapLength/(math.pow(lengthOne,0.5) * math.pow(lengthTwo,0.5)), gamma)
     
-    def updatePathActTime(self):
-        self.actpathtime = 0.
-        preEdge = None
-        weightFactor = 1.0
-        for edge in self.edges:
-            if preEdge != None and edge.label == preEdge.leftlink:
-                weightFactor = 1.0     
-                if P[v].numberlane == 2.:
-                    weightFactor *= 0.8  
-                elif P[v].numberlane > 2.:
-                    weightFactor *= 0.4 
-                self.actpathtime += preEdge.actualtime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
-                self.pathhelpacttime += preEdge.pathhelpacttime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
-            self.actpathtime += edge.actualtime
-            self.actpathtime += edge.queuetime
-            preEdge = edge
-        self.actpathtime = self.actpathtime/3600.
-            
     def getPathTimeUpdate(self):
         """
         used to update the path travel time in the c-logit and the Lohse traffic assignments
         """
         self.actpathtime = 0.
         self.pathhelpacttime = 0.
-        preEdge = None
-        weightFactor = 1.0
         for edge in self.edges:
-            if preEdge != None and edge.label == preEdge.leftlink:
-                weightFactor = 1.0
-                if P[v].numberlane == 2.:
-                    weightFactor *= 0.8
-                elif P[v].numberlane > 2.:
-                    weightFactor *= 0.4
-                self.actpathtime += preEdge.actualtime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
-                self.pathhelpacttime += preEdge.pathhelpacttime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
             self.actpathtime += edge.actualtime
-            self.actpathtime += edge.queuetime
             self.pathhelpacttime += edge.helpacttime
+
         self.pathhelpacttime = self.pathhelpacttime/3600.
         self.actpathtime = self.actpathtime/3600.
 
