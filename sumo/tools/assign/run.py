@@ -86,7 +86,7 @@ if options.mesosim:
 if options.stats == 0:
     if not options.duaonly:
         succDir = makeAndChangeDir("../" + mesoAppendix + "successive")
-        execute("Assignment.py -e incremental -d ../input/districts.xml -m %s -n %s" % (mtxNamesList, netFile))
+        execute("Assignment.py -e incremental -i 10 -d ../input/districts.xml -m %s -n %s" % (mtxNamesList, netFile))
         if not options.od2trips:
             shutil.copy("%s/routes.rou.xml" % succDir, routes)
             execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
