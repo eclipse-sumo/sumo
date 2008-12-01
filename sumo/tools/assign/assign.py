@@ -124,6 +124,8 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
         # reset the edge.helpflow for the next iteration
         edge.helpflow = 0.0
         edge.getActualTravelTime(options, lohse)
+        if options.dijkstra == 'boost':
+            edge.boost.weight = edge.helpacttime
         if edge.queuetime > 1.:
             notstable += 1
     if lohse and options.verbose:
