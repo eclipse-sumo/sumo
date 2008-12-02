@@ -22,28 +22,28 @@ def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, m
         if startVertex.label != endVertex.label and (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.)):
         # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
             helpPath = []
-        
             vertex = endVertex
+            demand = 0.
+            if matrixPshort[start][end] > 1.:
+                demand = matrixPshort[start][end]/float(iteration)
+            if assignSmallDemand:
+                demand += smallDemand[start][end]
+            
             while vertex != startVertex:
                 if P[vertex].kind == "real":
                     helpPath.append(P[vertex])
-                    if matrixPshort[start][end] > 1.:
-                        P[vertex].flow += matrixPshort[start][end]/float(iteration)
-                    else:
-                        P[vertex].flow += smallDemand[start][end]     
+                    P[vertex].flow += demand
+      
                 vertex = P[vertex].source
             helpPath.reverse()
             
             # the amount of the pathflow, which will be released at this iteration
-            if matrixPshort[start][end] > 1.:
-                pathflow = matrixPshort[start][end]/float(iteration)
-            else:
-                pathflow = smallDemand[start][end]
+            if assignSmallDemand:
                 smallDemand[start][end] = 0.
             if verbose:
-                print 'pathflow:', pathflow
+                print 'pathflow:', demand
             
-            AssignedTrip[startVertex][endVertex] += pathflow    
+            AssignedTrip[startVertex][endVertex] += demand  
             vehID = assignVeh(verbose, vehicles, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
 
     return vehID, smallDemand
