@@ -738,18 +738,13 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs)
         try {
             cont = attrs.getBoolSecure(SUMO_ATTR_CONT, false);
         } catch (BoolFormatException &) {
-            MsgHandler::getErrorInstance()->inform("The definition whether a link is a cont-link is not a valid bool.");
-            return;
+            throw InvalidArgument("The definition whether a link is a cont-link is not a valid bool.");
         }
     }
 #endif
     // store received information
     if (request>=0 && response.length()>0) {
-        try {
-            myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
+        myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
     }
 }
 

@@ -98,17 +98,19 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     myActiveIncomingLanes.clear();
     myActiveID = id;
     myActiveKey = key;
-    myType = TYPE_NOJUNCTION;
+    myType = TYPE_UNKNOWN;
     if (type=="right_before_left") {
         myType = TYPE_RIGHT_BEFORE_LEFT;
     } else if (type=="priority") {
         myType = TYPE_PRIORITY_JUNCTION;
-    } else if (type=="DEAD_END"||type=="district"||type=="none") {
+    } else if (type=="DEAD_END"||type=="district") {
         myType = TYPE_DEAD_END;
     } else if (type=="internal") {
         myType = TYPE_INTERNAL;
+    } else if (type=="unregulated"||type=="none") {
+        myType = TYPE_NOJUNCTION;
     }
-    if (myType==TYPE_NOJUNCTION) {
+    if (myType==TYPE_UNKNOWN) {
         throw InvalidArgument("An unknown or invalid junction type occured: '" + type + "' on junction '" + id + "'.");
     }
     myPosition.set(x, y);
@@ -305,6 +307,7 @@ NLJunctionControlBuilder::initJunctionLogic() throw()
     myRequestSize = -1;
     myLaneNumber = -1;
     myRequestItemNumber = 0;
+    myCurrentHasError = false;
 }
 
 
@@ -314,6 +317,15 @@ NLJunctionControlBuilder::addLogicItem(int request,
                                        const std::string &foes,
                                        bool cont) throw(InvalidArgument)
 {
+    if(myCurrentHasError) {
+        // had an error
+        return;
+    }
+    if(request>63) {
+        // bad request
+        myCurrentHasError = true;
+        throw InvalidArgument("Junction logic '" + myActiveKey + "' is larger than allowed; recheck the network.");
+    }
     if (myRequestSize<=0) {
         throw InvalidArgument("The request size, the response size or the number of lanes is not given! Contact your net supplier");
     }
@@ -420,6 +432,10 @@ NLJunctionControlBuilder::setSubKey(const std::string &subkey) throw()
 void
 NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument)
 {
+    if(myCurrentHasError) {
+        // had an error before...
+        return;
+    }
     if (myRequestItemNumber!=myRequestSize) {
         throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }

@@ -395,15 +395,17 @@ protected:
      * @brief numerical representations of junction types
      */
     enum JunctionType {
-        /// @brief a junction with no purpose
-        TYPE_NOJUNCTION = 0,
-        /// @brief a junction where vehicles coming from the right side may drive as first
+        /// @brief A junction with an unkown type
+        TYPE_UNKNOWN = 0,
+        /// @brief A not controlled junction
+        TYPE_NOJUNCTION,
+        /// @brief A junction where vehicles coming from the right side may drive as first
         TYPE_RIGHT_BEFORE_LEFT,
-        /// @brief a junction where one street has a higher priority
+        /// @brief A junction where one street has a higher priority
         TYPE_PRIORITY_JUNCTION,
-        /// @brief a dead end (all roads end here)
+        /// @brief A dead end (all roads end here)
         TYPE_DEAD_END,
-        /// @brief an internal junction
+        /// @brief An internal junction
         TYPE_INTERNAL
     };
 
@@ -526,12 +528,15 @@ protected:
     /// @brief Map of loaded junction logics
     std::map<std::string, MSJunctionLogic*> myLogics;
 
+    /// @brief Information whether the current logic had an error
+    bool myCurrentHasError;
+
 
 private:
-    /** @brief invalid copy operator */
+    /** @brief invalidated copy operator */
     NLJunctionControlBuilder(const NLJunctionControlBuilder &s);
 
-    /** @brief invalid assignment operator */
+    /** @brief invalidated assignment operator */
     NLJunctionControlBuilder &operator=(const NLJunctionControlBuilder &s);
 
 };

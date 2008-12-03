@@ -190,10 +190,10 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
     string objectid;
-    if(attrs.hasAttribute(SUMO_ATTR_LANES)) {
+    if (attrs.hasAttribute(SUMO_ATTR_LANES)) {
         objectid = attrs.getString(SUMO_ATTR_LANES);
     } else {
-        if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
+        if (attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
             objectid = attrs.getString(SUMO_ATTR_OBJECTID);
             MsgHandler::getWarningInstance()->inform("Defining the lanes using 'objectid' within a variable speed sign is deprecated, use 'lanes' instead.");
         }
@@ -222,7 +222,7 @@ void
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument)
 {
-    if(!myHaveInformedAboutDeprecatedEmitter) {
+    if (!myHaveInformedAboutDeprecatedEmitter) {
         myHaveInformedAboutDeprecatedEmitter = true;
         MsgHandler::getWarningInstance()->inform("Emitter are deprecated; use departpos/departspeed within routes instead.");
     }
@@ -341,10 +341,10 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
     string objectid;
-    if(attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         objectid = attrs.getString(SUMO_ATTR_EDGES);
     } else {
-        if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
+        if (attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
             objectid = attrs.getString(SUMO_ATTR_OBJECTID);
             MsgHandler::getWarningInstance()->inform("Defining the edges using 'objectid' within a rerouter is deprecated, use 'edges' instead.");
         }
@@ -463,10 +463,10 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
                           const std::string &tid) throw(InvalidArgument)
 {
     string objectid;
-    if(attrs.hasAttribute(SUMO_ATTR_LANE)) {
+    if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
         objectid = attrs.getString(SUMO_ATTR_LANE);
     } else {
-        if(attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
+        if (attrs.hasAttribute(SUMO_ATTR_OBJECTID)) {
             objectid = attrs.getString(SUMO_ATTR_OBJECTID);
             MsgHandler::getWarningInstance()->inform("Defining the lane using 'objectid' within " + tt + " is deprecated, use 'lane' instead.");
         }
