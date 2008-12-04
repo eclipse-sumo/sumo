@@ -82,6 +82,7 @@ MSDetectorControl::~MSDetectorControl() throw()
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
     myVTypeProbeDetectors.clear();
+    myRouteProbeDetectors.clear();
 }
 
 
@@ -185,6 +186,17 @@ MSDetectorControl::add(MSVTypeProbe *vp, OutputDevice& device, int frequency) th
     // insert object into dictionary
     if (! myVTypeProbeDetectors.add(vp->getID(), vp)) {
         throw ProcessError("vtypeprobe '" + vp->getID() + "' could not be build;\n (declared twice?)");
+    }
+    addDetectorAndInterval(vp, &device, frequency);
+}
+
+
+void
+MSDetectorControl::add(MSRouteProbe *vp, OutputDevice& device, int frequency) throw(ProcessError)
+{
+    // insert object into dictionary
+    if (! myRouteProbeDetectors.add(vp->getID(), vp)) {
+        throw ProcessError("routeprobe '" + vp->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(vp, &device, frequency);
 }

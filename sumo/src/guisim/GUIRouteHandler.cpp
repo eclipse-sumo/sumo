@@ -84,7 +84,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
             throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
         }
     }
-    GUIRoute *route =
+    const MSRoute *route =
         new GUIRoute(myColor, myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
@@ -104,7 +104,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
             }
 #ifdef HAVE_MESOSIM
         } else {
-            route = static_cast<GUIRoute*>(MSRoute::dictionary(myActiveRouteID));
+            route = static_cast<const GUIRoute*>(MSRoute::dictionary(myActiveRouteID));
         }
 #endif
     }

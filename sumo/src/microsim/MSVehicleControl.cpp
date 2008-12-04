@@ -387,7 +387,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bis >> p->repetitionNumber;
         bis >> p->repetitionOffset;
         bis >> p->routeid;
-        MSRoute* route;
+        const MSRoute* route;
         unsigned int desiredDepart; // !!! SUMOTime
         bis >> desiredDepart;
         if (OptionsCont::getOptions().isSet("load-state.offset")) {

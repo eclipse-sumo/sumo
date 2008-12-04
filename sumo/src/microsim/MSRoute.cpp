@@ -97,7 +97,7 @@ MSRoute::getLastEdge() const
 }
 
 bool
-MSRoute::dictionary(const string &id, MSRoute* route)
+MSRoute::dictionary(const string &id, const MSRoute* route)
 {
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDict[id] = route;
@@ -108,7 +108,7 @@ MSRoute::dictionary(const string &id, MSRoute* route)
 
 
 bool
-MSRoute::dictionary(const string &id, RandomDistributor<MSRoute*>* routeDist)
+MSRoute::dictionary(const string &id, RandomDistributor<const MSRoute*>* routeDist)
 {
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDistDict[id] = routeDist;
@@ -118,7 +118,7 @@ MSRoute::dictionary(const string &id, RandomDistributor<MSRoute*>* routeDist)
 }
 
 
-MSRoute*
+const MSRoute*
 MSRoute::dictionary(const string &id)
 {
     RouteDict::iterator it = myDict.find(id);
@@ -292,11 +292,11 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw()
         unsigned int no;
         bis >> no;
         if (dictionary(id)==0) {
-            RandomDistributor<MSRoute*> *dist = new RandomDistributor<MSRoute*>();
+            RandomDistributor<const MSRoute*> *dist = new RandomDistributor<const MSRoute*>();
             for (;no>0;no--) {
                 string routeID;
                 bis >> routeID;
-                MSRoute *r = dictionary(routeID);
+                const MSRoute *r = dictionary(routeID);
                 assert(r!=0);
                 SUMOReal prob;
                 bis >> prob;

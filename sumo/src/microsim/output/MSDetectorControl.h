@@ -38,6 +38,7 @@
 #include <microsim/output/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSVTypeProbe.h>
+#include <microsim/output/MSRouteProbe.h>
 
 #ifdef _MESSAGES
 #include <microsim/output/MSMsgInductLoop.h>
@@ -80,6 +81,9 @@ public:
 
     /// @brief Map of MSVTypeProbe by ID
     typedef NamedObjectCont< MSVTypeProbe* > VTypeProbeDict;
+
+    /// @brief Map of MSRouteProbe by ID
+    typedef NamedObjectCont< MSRouteProbe* > RouteProbeDict;
 
 #ifdef HAVE_MESOSIM
     /// @brief Map of MEInductLoop by ID
@@ -215,18 +219,32 @@ public:
     void add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError);
 
 
-    /** @brief Adds a vytpeprobeinto the containers
+    /** @brief Adds a vytpeprobe into the containers
      *
      * The Detector2File-mechanism is instantiated for the detector.
      *
      * Please note, that the detector control gets responsible for the detector.
      *
-     * @param[in] vp The induction loop to add
-     * @param[in] device The device the loop uses
+     * @param[in] vp The vytpeprobe to add
+     * @param[in] device The device the vytpeprobe uses
      * @param[in] frequency The frequency of calling this vtypeprobe
      * @exception ProcessError If the detector is already known
      */
     void add(MSVTypeProbe *vp, OutputDevice& device, int frequency) throw(ProcessError);
+
+
+    /** @brief Adds a routeprobe into the containers
+     *
+     * The Detector2File-mechanism is instantiated for the detector.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] vp The routeprobe to add
+     * @param[in] device The device the routeprobe uses
+     * @param[in] frequency The frequency of calling this routeprobe
+     * @exception ProcessError If the detector is already known
+     */
+    void add(MSRouteProbe *vp, OutputDevice& device, int frequency) throw(ProcessError);
 
 
 #ifdef HAVE_MESOSIM
@@ -437,6 +455,9 @@ protected:
 
     /// @brief MSVTypeProbe dictionary
     VTypeProbeDict myVTypeProbeDetectors;
+
+    /// @brief MSRouteProbe dictionary
+    RouteProbeDict myRouteProbeDetectors;
 
 #ifdef HAVE_MESOSIM
     /// @brief MEInductLoop dictionary

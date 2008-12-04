@@ -169,8 +169,11 @@ protected:
     /// Builds of an e3-detector using collected values
     virtual void endE3Detector();
 
-    /// Builds an e1-detector using the given specification
+    /// Builds a vtype-detector using the given specification
     virtual void addVTypeProbeDetector(const SUMOSAXAttributes &attrs);
+
+    /// Builds a route-detector using the given specification
+    virtual void addRouteProbeDetector(const SUMOSAXAttributes &attrs);
 
 
     /** @brief Ends the detector building

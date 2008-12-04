@@ -53,7 +53,6 @@
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
-#include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -193,6 +192,9 @@ NLHandler::myStartElement(SumoXMLTag element,
             break;
         case SUMO_TAG_VTYPEPROBE:
             addVTypeProbeDetector(attrs);
+            break;
+        case SUMO_TAG_ROUTEPROBE:
+            addRouteProbeDetector(attrs);
             break;
         case SUMO_TAG_SOURCE:
             addSource(attrs);
@@ -1045,6 +1047,38 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform("The description of the vtypeprobe '" + id + "' contains a broken boolean.");
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The description of the vtypeprobe '" + id + "' contains a broken number.");
+    } catch (IOError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
+}
+
+
+void
+NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs)
+{
+    // get the id, report an error if not given or empty...
+    string id;
+    if (!attrs.setIDFromAttributes("routeprobe", id)) {
+        return;
+    }
+    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    if (file=="") {
+        MsgHandler::getErrorInstance()->inform("Missing output definition for routeprobe '" + id + "'.");
+        return;
+    }
+    try {
+        myDetectorBuilder.buildRouteProbe(id,
+                                          attrs.getString(SUMO_ATTR_EDGE),
+                                          attrs.getInt(SUMO_ATTR_FREQUENCY),
+                                          OutputDevice::getDevice(attrs.getString(SUMO_ATTR_FILE), getFileName()));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The description of the routeprobe '" + id + "' does not contain a needed value.");
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the routeprobe '" + id + "' contains a broken boolean.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the routeprobe '" + id + "' contains a broken number.");
     } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }

@@ -65,6 +65,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "busStop",          SUMO_TAG_BUS_STOP },
     { "vehicleActor",     SUMO_TAG_VEHICLE_ACTOR },
     { "vtypeprobe",       SUMO_TAG_VTYPEPROBE },
+    { "routeprobe",       SUMO_TAG_ROUTEPROBE },
     { "vehicle",          SUMO_TAG_VEHICLE },
     { "vtype",            SUMO_TAG_VTYPE },
     { "route",            SUMO_TAG_ROUTE },

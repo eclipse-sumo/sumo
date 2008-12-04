@@ -94,12 +94,12 @@ public:
         virtual ~MSCalibratorChild() { }
 
         /// Returns a random route
-        MSRoute *getRndRoute() const {
+        const MSRoute *getRndRoute() const {
             return myRouteDist.get();
         }
 
         /// Returns a list of all available routes
-        const std::vector<MSRoute*> &getAllRoutes() const {
+        const std::vector<const MSRoute*> &getAllRoutes() const {
             return myRouteDist.getVals();
         }
 
@@ -134,7 +134,7 @@ public:
         }
 
         /// Returns the routes probability
-        RandomDistributor<MSRoute*> &getRouteDist() {
+        RandomDistributor<const MSRoute*> &getRouteDist() {
             return myRouteDist;
         }
 
@@ -146,7 +146,7 @@ public:
         MSVehicleControl &myVehicleControl;
 
         /// The used route probability distribution
-        RandomDistributor<MSRoute*> myRouteDist;
+        RandomDistributor<const MSRoute*> myRouteDist;
 
         /// The used vehicle type probability distribution
         RandomDistributor<MSVehicleType*> myVTypeDist;

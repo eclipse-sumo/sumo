@@ -203,7 +203,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         if (routeStr=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
         }
-        MSRoute* route = MSRoute::dictionary(routeStr);
+        const MSRoute* route = MSRoute::dictionary(routeStr);
         if (route == 0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Route '" + routeStr + "' does not exist.");
         }
@@ -331,7 +331,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     const MSEdge *lastEdge = route.getLastEdge();
     // get rerouting params
     const MSTriggeredRerouter::RerouteInterval &rerouteDef = getCurrentReroute(time, veh);
-    MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
+    const MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute!=0) {
         veh.replaceRoute(newRoute->getEdges(), time);

@@ -415,12 +415,12 @@ void
 MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs)
 {
     if (attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
-        myCurrentRouteDistribution = new RandomDistributor<MSRoute*>();
+        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
         if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
             StringTokenizer st(attrs.getString(SUMO_ATTR_ROUTES));
             while (st.hasNext()) {
                 string routeID = st.next();
-                MSRoute *route = MSRoute::dictionary(routeID);
+                const MSRoute *route = MSRoute::dictionary(routeID);
                 if (route==0) {
                     throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID
                                        + "'.");
@@ -479,7 +479,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     }
     // get the vehicle's route
     //  maybe it was explicitely assigned to the vehicle
-    MSRoute *route = MSRoute::dictionary(myActiveRouteID);
+    const MSRoute *route = MSRoute::dictionary(myActiveRouteID);
     if (route==0) {
         // if not, try via the (hopefully) given route-id
         route = MSRoute::dictionary(myVehicleParameter->routeid);

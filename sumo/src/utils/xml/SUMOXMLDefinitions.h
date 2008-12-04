@@ -89,6 +89,8 @@ enum SumoXMLTag {
     SUMO_TAG_VEHICLE_ACTOR,
     /** a vtypeprobe detector */
     SUMO_TAG_VTYPEPROBE,
+    /** a routeprobe detector */
+    SUMO_TAG_ROUTEPROBE,
     /** description of a vehicle */
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */

@@ -218,7 +218,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::buildAndScheduleFlowVehicle(SUMOR
         return;// false;
     }
     // check and assign vehicle type
-    MSRoute *aEmitRoute = myRouteDist.get();
+    const MSRoute *aEmitRoute = myRouteDist.get();
     if (aEmitRoute==0) {
         WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid route exsists.");
         WRITE_WARNING("Continuing with next element.");
@@ -240,7 +240,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         // parse route distributino
         // check if route exists
         string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        MSRoute* route = MSRoute::dictionary(routeStr);
+        const MSRoute* route = MSRoute::dictionary(routeStr);
         if (route == 0) {
             throw ProcessError(
                 "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
@@ -360,7 +360,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         }
         // check and assign vehicle type
         pars->routeid = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
-        MSRoute *aEmitRoute = MSRoute::dictionary(pars->routeid);
+        const MSRoute *aEmitRoute = MSRoute::dictionary(pars->routeid);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {
                 aEmitRoute = myRouteDist.get();

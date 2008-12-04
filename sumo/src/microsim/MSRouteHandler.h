@@ -169,10 +169,10 @@ protected:
     /// @brief The id of the currently parsed vehicle type distribution
     std::string myCurrentVTypeDistributionID;
 
-    /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
-    RandomDistributor<MSRoute*> *myCurrentRouteDistribution;
+    /// @brief The currently parsed distribution of routes (probability->route)
+    RandomDistributor<const MSRoute*> *myCurrentRouteDistribution;
 
-    /// @brief The id of the currently parsed vehicle type distribution
+    /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
 
     /// Information whether not all vehicle shall be emitted due to inc-dua

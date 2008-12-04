@@ -148,7 +148,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentT
     if (myVehicle==0) {
         SUMOVehicleParameter* p = new SUMOVehicleParameter();
         p->id = myParent.getID() + "_user_" +  toString(currentTime);
-        MSRoute *aRoute = myRouteDist.getOverallProb()!=0
+        const MSRoute *aRoute = myRouteDist.getOverallProb()!=0
                           ? myRouteDist.get()
                           : mySource.hasRoutes()
                           ? mySource.getRndRoute()
@@ -426,13 +426,13 @@ std::map<const MSEdge*, SUMOReal>
 GUIEmitter::getEdgeProbs() const
 {
     std::map<const MSEdge*, SUMOReal> ret;
-    const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
+    const std::vector<const MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
     const std::vector<SUMOReal> &probs = myFileBasedEmitter->getRouteDist().getProbs();
     size_t j;
 
     for (j=0; j<routes.size(); ++j) {
         SUMOReal prob = probs[j];
-        MSRoute *r = routes[j];
+        const MSRoute *r = routes[j];
         MSRouteIterator i = r->begin();
         for (; i!=r->end(); ++i) {
             const MSEdge *e = *i;

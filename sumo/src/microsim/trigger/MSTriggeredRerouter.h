@@ -133,7 +133,7 @@ class Setter : public MSMoveReminder
         /// The distributions of new destinations to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
-        RandomDistributor<MSRoute*> routeProbs;
+        RandomDistributor<const MSRoute*> routeProbs;
     };
 
     /// Reroutes a vehicle
@@ -213,7 +213,7 @@ protected:
     /// new destinations with probabilities
     RandomDistributor<MSEdge*> myCurrentEdgeProb;
     /// new routes with probabilities
-    RandomDistributor<MSRoute*> myCurrentRouteProb;
+    RandomDistributor<const MSRoute*> myCurrentRouteProb;
     //@}
 
 private:

@@ -133,16 +133,16 @@ public:
 
 public:
     /** @brief Adds a route to the dictionary
-        Returns true if the route could be added, fals if a route with the same name already exists */
-    static bool dictionary(const std::string &id, MSRoute *route);
+        Returns true if the route could be added, false if a route with the same name already exists */
+    static bool dictionary(const std::string &id, const MSRoute *route);
 
     /** @brief Adds a route distribution to the dictionary
-        Returns true if the route could be added, fals if a route with the same name already exists */
-    static bool dictionary(const std::string &id, RandomDistributor<MSRoute*> *routeDist);
+        Returns true if the route could be added, false if a route with the same name already exists */
+    static bool dictionary(const std::string &id, RandomDistributor<const MSRoute*> *routeDist);
 
     /** @brief Returns the named route or a sample from the named distribution
         Returns 0 if no route (distribution) with the given name exitsts */
-    static MSRoute *dictionary(const std::string &id);
+    static const MSRoute *dictionary(const std::string &id);
 
     /// Clears the dictionary (delete all known routes, too)
     static void clear();
@@ -163,13 +163,13 @@ private:
 
 private:
     /// Definition of the dictionary container
-    typedef std::map<std::string, MSRoute*> RouteDict;
+    typedef std::map<std::string, const MSRoute*> RouteDict;
 
     /// The dictionary container
     static RouteDict myDict;
 
     /// Definition of the dictionary container
-    typedef std::map<std::string, RandomDistributor<MSRoute*>*> RouteDistDict;
+    typedef std::map<std::string, RandomDistributor<const MSRoute*>*> RouteDistDict;
 
     /// The dictionary container
     static RouteDistDict myDistDict;

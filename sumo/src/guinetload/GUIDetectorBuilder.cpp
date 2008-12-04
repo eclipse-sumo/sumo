@@ -38,8 +38,6 @@
 #include <guisim/GUIE3Collector.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
-#include <microsim/logging/LoggedValue_Single.h>
-#include <microsim/logging/LoggedValue_TimeFixed.h>
 #include "GUIDetectorBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS

@@ -35,6 +35,7 @@
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/MSVTypeProbe.h>
+#include <microsim/output/MSRouteProbe.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <microsim/actions/Command_SaveTLCoupledLaneDet.h>
@@ -436,6 +437,24 @@ NLDetectorBuilder::buildVTypeProbe(const std::string &id,
         throw InvalidArgument("Frequency must not be zero (in vtypeprobe '" + id + "').");
     }
     MSVTypeProbe *probe = new MSVTypeProbe(id, vtype);
+    // add the file output
+    myNet.getDetectorControl().add(probe, device, frequency);
+}
+
+
+void
+NLDetectorBuilder::buildRouteProbe(const std::string &id,
+                                   const std::string &edge, SUMOTime frequency,
+                                   OutputDevice& device) throw(InvalidArgument)
+{
+    if (frequency<=0) {
+        throw InvalidArgument("Frequency must be larger than zero (in routeprobe '" + id + "').");
+    }
+    MSEdge *e = MSEdge::dictionary(edge);
+    if (e==0) {
+        throw InvalidArgument("The edge with the id '" + edge + "' is not known (in routeprobe '" + id + "').");
+    }
+    MSRouteProbe *probe = new MSRouteProbe(id, e);
     // add the file output
     myNet.getDetectorControl().add(probe, device, frequency);
 }
