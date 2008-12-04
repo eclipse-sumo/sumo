@@ -337,10 +337,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\common\FileErrorReporter.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\FileHelpers.cpp"
 				>
 			</File>
@@ -395,10 +391,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\Command.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\FileErrorReporter.h"
 				>
 			</File>
 			<File

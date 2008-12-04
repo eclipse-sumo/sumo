@@ -7,7 +7,7 @@ SUMOVehicleParameter.h \
 WrappingCommand.h ValueRetriever.h ValueSource.h
 
 libcommon_a_SOURCES = AbstractMutex.h \
-FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
+FileHelpers.cpp FileHelpers.h \
 FloatValueTimeLine.h InstancePool.h \
 IDSupplier.h IDSupplier.cpp \
 Named.h StringTokenizer.cpp StringTokenizer.h \
