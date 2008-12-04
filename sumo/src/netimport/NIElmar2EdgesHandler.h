@@ -32,11 +32,10 @@
 
 #include <string>
 #include <utils/importio/LineHandler.h>
-#include <utils/common/FileErrorReporter.h>
 
 
 // ===========================================================================
-// class declarations
+// class definitions
 // ===========================================================================
 /**
  * @class NIElmar2EdgesHandler
@@ -44,36 +43,52 @@
  *
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain edge definitions
- * in Cell-format
+ * in Elmar's unsplit format.
  */
-// ===========================================================================
-// class definitions
-// ===========================================================================
-/**
- *
- */
-class NIElmar2EdgesHandler : public LineHandler,
-            public FileErrorReporter
+class NIElmar2EdgesHandler : public LineHandler
 {
 public:
-    /// constructor
+    /** @brief Constructor
+     * @param[in] nc The node control to retrieve nodes from
+     * @param[in, filled] ec The edge control to insert loaded edges into
+     * @param[in] file The name of the parsed file
+     * @param[in] geoms The previously read edge geometries
+     * @param[in] tryIgnoreNodePositions Whether node positions shall not be added to the geometry
+     */
     NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                          const std::string &file, std::map<std::string,
                          Position2DVector> &geoms, bool tryIgnoreNodePositions) throw();
 
-    /// destructor
+
+    /// @brief Destructor
     ~NIElmar2EdgesHandler() throw();
 
-    /** implementation of the LineHandler-interface called by a LineReader
-        interprets the retrieved information and stores it into the global
-        NBEdgeCont */
+
+    /** @brief Parsing method
+     *
+     * Implementation of the LineHandler-interface called by a LineReader;
+     * interprets the retrieved information and stores it into "myEdgeCont".
+     * @param[in] result The read line
+     * @return Whether the parsing shall continue
+     * @exception ProcessError if something fails
+     * @see LineHandler::report
+     */
     bool report(const std::string &result) throw(ProcessError);
 
+
 protected:
+    /// @brief The node container to get the referenced nodes from
     NBNodeCont &myNodeCont;
+
+    /// @brief The edge container to store loaded edges into
     NBEdgeCont &myEdgeCont;
+
+    /// @brief Previously read edge geometries
     std::map<std::string, Position2DVector> &myGeoms;
+
+    /// @brief Whether node positions shall not be added to the edge's geometry
     bool myTryIgnoreNodePositions;
+
 
 private:
     /// @brief Invalidated copy constructor.

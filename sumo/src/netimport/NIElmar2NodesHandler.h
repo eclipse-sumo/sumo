@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/importio/LineHandler.h>
-#include <utils/common/FileErrorReporter.h>
 
 
 // ===========================================================================
@@ -41,32 +40,48 @@
 /**
  * @class NIElmar2NodesHandler
  * @brief Importer of nodes stored in unsplit elmar format
+ *
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain node definitions
- * in Cell-format
+ * in Elmar's unsplit format.
  */
-class NIElmar2NodesHandler : public LineHandler,
-            public FileErrorReporter
+class NIElmar2NodesHandler : public LineHandler
 {
 public:
-    /// constructor
+    /** @brief Constructor
+     * @param[in, filled] nc The node control to insert loaded nodes into
+     * @param[in] file The name of the parsed file
+     * @param[in, geoms] geoms Storage for read edge geometries
+     */
     NIElmar2NodesHandler(NBNodeCont &nc, const std::string &file,
                          std::map<std::string, Position2DVector> &geoms) throw();
 
-    /// destructor
+
+    /// @brief Destructor
     ~NIElmar2NodesHandler() throw();
 
-    /** implementation of the LineHandler-interface called by a LineReader
-        interprets the retrieved information and stores it into the global
-        NBNodeCont */
+
+    /** @brief Parsing method
+     *
+     * Implementation of the LineHandler-interface called by a LineReader;
+     *  interprets the retrieved information and stores it into "myNodeCont".
+     * Additionally, edge geometries are parsed and stored into "myGeoms".
+     *
+     * @param[in] result The read line
+     * @return Whether the parsing shall continue
+     * @exception ProcessError if something fails
+     * @see LineHandler::report
+     */
     bool report(const std::string &result) throw(ProcessError);
 
-protected:
-    SUMOReal myInitX, myInitY;
 
+protected:
+    // @brief The node container to store parsed nodes into
     NBNodeCont &myNodeCont;
 
+    /// @brief A container for parsed geometries
     std::map<std::string, Position2DVector> &myGeoms;
+
 
 private:
     /// @brief Invalidated copy constructor.

@@ -4,7 +4,7 @@
 /// @date    Sun, 16 May 2004
 /// @version $Id:NIElmar2NodesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// Importer of edges stored in unsplit elmar format
+// Importer of nodes stored in unsplit elmar format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,15 +50,14 @@
 // ===========================================================================
 using namespace std;
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
 NIElmar2NodesHandler::NIElmar2NodesHandler(NBNodeCont &nc,
         const std::string &file,
         std::map<std::string, Position2DVector> &geoms) throw()
-        : FileErrorReporter("elmar-nodes", file),
-        myInitX(-1), myInitY(-1),
-        myNodeCont(nc), myGeoms(geoms)
+        : myNodeCont(nc), myGeoms(geoms)
 {}
 
 

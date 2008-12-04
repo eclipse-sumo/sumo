@@ -4,7 +4,7 @@
 /// @date    Sun, 16 May 2004
 /// @version $Id:NIElmar2EdgesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A LineHandler-derivate to load edges form a elmar-edges-file
+// Importer of edges stored in unsplit elmar format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -60,8 +60,7 @@ NIElmar2EdgesHandler::NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
         Position2DVector> &geoms, bool tryIgnoreNodePositions) throw()
-        : FileErrorReporter("elmar-edges", file),
-        myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms),
+        : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms),
         myTryIgnoreNodePositions(tryIgnoreNodePositions)
 {}
 
