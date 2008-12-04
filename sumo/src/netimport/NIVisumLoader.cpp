@@ -448,7 +448,7 @@ NIVisumLoader::parse_Connectors()
         NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
                                   100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT);
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
-            addError("A duplicate edge id occured (ID='" + id + "').");
+            MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
         } else {
             myNetBuilder.getDistrictCont().addSource(bez, edge, proz);
         }
@@ -464,7 +464,7 @@ NIVisumLoader::parse_Connectors()
         NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
                                   100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT);
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
-            addError("A duplicate edge id occured (ID='" + id + "').");
+            MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
         } else {
             myNetBuilder.getDistrictCont().addSink(bez, edge, proz);
         }
