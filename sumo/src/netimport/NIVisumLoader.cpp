@@ -58,8 +58,7 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
                              const std::string &file,
                              NBCapacity2Lanes capacity2Lanes,
                              bool useVisumPrio) throw()
-        : FileErrorReporter("visum-network", file),
-        myNetBuilder(nb),
+        : myNetBuilder(nb), myFileName(file),
         myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio)
 {
     // the order of process is important!
@@ -137,8 +136,8 @@ void
 NIVisumLoader::load() throw(ProcessError)
 {
     // open the file
-    if (!myLineReader.setFile(getFileName())) {
-        throw ProcessError("Can not open visum-file '" + getFileName() + "'.");
+    if (!myLineReader.setFile(myFileName)) {
+        throw ProcessError("Can not open visum-file '" + myFileName + "'.");
     }
     // scan the file for data positions
     while (myLineReader.hasMore()) {
@@ -230,7 +229,7 @@ NIVisumLoader::parse_Types()
     int nolanes = myCapacity2Lanes.get(cap);
     // insert the type
     if (!myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed/(SUMOReal) 3.6, priority)) {
-        addError(" Duplicate type occured ('" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Duplicate type occured ('" + myCurrentID + "').");
     }
 }
 
@@ -247,7 +246,7 @@ NIVisumLoader::parse_Nodes()
     GeoConvHelper::x2cartesian(pos);
     // add to the list
     if (!myNetBuilder.getNodeCont().insert(myCurrentID, pos)) {
-        addError(" Duplicate node occured ('" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Duplicate node occured ('" + myCurrentID + "').");
     }
 }
 
@@ -269,7 +268,7 @@ NIVisumLoader::parse_Districts()
     // build the district
     NBDistrict *district = new NBDistrict(myCurrentID, pos);
     if (!myNetBuilder.getDistrictCont().insert(district)) {
-        addError(" Duplicate district occured ('" + myCurrentID + "').");
+        MsgHandler::getErrorInstance()->inform("Duplicate district occured ('" + myCurrentID + "').");
         delete district;
     }
     if (myLineParser.know("FLAECHEID")) {
@@ -359,7 +358,7 @@ NIVisumLoader::parse_Edges()
         NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            addError(" Duplicate edge occured ('" + myCurrentID + "').");
+            MsgHandler::getErrorInstance()->inform("Duplicate edge occured ('" + myCurrentID + "').");
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -376,7 +375,7 @@ NIVisumLoader::parse_Edges()
         NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            addError(" Duplicate edge occured ('" + myCurrentID + "').");
+            MsgHandler::getErrorInstance()->inform("Duplicate edge occured ('" + myCurrentID + "').");
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -443,7 +442,7 @@ NIVisumLoader::parse_Connectors()
     if (dir.find('Q')!=string::npos) {
         NBNode *src = buildDistrictNode(bez, dest, true);
         if (src==0) {
-            addError("The district '" + bez + "' could not be built.");
+            MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
             return;
         }
         NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
@@ -458,7 +457,7 @@ NIVisumLoader::parse_Connectors()
     if (dir.find('Z')!=string::npos) {
         NBNode *src = buildDistrictNode(bez, dest, false);
         if (src==0) {
-            addError("The district '" + bez + "' could not be built.");
+            MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
             return;
         }
         id = "-" + id;
@@ -585,12 +584,12 @@ NIVisumLoader::parse_Lanes()
     try {
         lane = TplConvert<char>::_2int(laneS.c_str());
     } catch (NumberFormatException &) {
-        addError("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
+        MsgHandler::getErrorInstance()->inform("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
         return;
     }
     lane -= 1;
     if (lane<0) {
-        addError("A lane number for edge '" + edge->getID() + "' is not positive (" + laneS + ").");
+        MsgHandler::getErrorInstance()->inform("A lane number for edge '" + edge->getID() + "' is not positive (" + laneS + ").");
         return;
     }
     // get the direction
@@ -606,11 +605,11 @@ NIVisumLoader::parse_Lanes()
     try {
         length = TplConvert<char>::_2SUMOReal(lengthS.c_str());
     } catch (NumberFormatException &) {
-        addError("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
+        MsgHandler::getErrorInstance()->inform("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
         return;
     }
     if (length<0) {
-        addError("A lane length for edge '" + edge->getID() + "' is not positive (" + lengthS + ").");
+        MsgHandler::getErrorInstance()->inform("A lane length for edge '" + edge->getID() + "' is not positive (" + lengthS + ").");
         return;
     }
     //
@@ -800,7 +799,7 @@ NIVisumLoader::parse_AreaSubPartElement()
     long id = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
     long edgeid = TplConvert<char>::_2long(myLineParser.get("KANTEID").c_str());
     if (myEdges.find(edgeid)==myEdges.end()) {
-        addError("Unknown edge in TEILFLAECHENELEMENT");
+        MsgHandler::getErrorInstance()->inform("Unknown edge in TEILFLAECHENELEMENT");
         return;
     }
     string dir = myLineParser.get("RICHTUNG");
@@ -809,7 +808,7 @@ NIVisumLoader::parse_AreaSubPartElement()
     try {
         index = TplConvert<char>::_2int(indexS.c_str()) - 1;
     } catch (NumberFormatException &) {
-        addError("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
+        MsgHandler::getErrorInstance()->inform("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
         return;
     }
     Position2DVector shape;
@@ -819,7 +818,7 @@ NIVisumLoader::parse_AreaSubPartElement()
         shape = shape.reverse();
     }
     if (mySubPartsAreas.find(id)==mySubPartsAreas.end()) {
-        addError("Unkown are for area part '" + myCurrentID + "'.");
+        MsgHandler::getErrorInstance()->inform("Unkown are for area part '" + myCurrentID + "'.");
         return;
     }
 
@@ -835,17 +834,9 @@ NIVisumLoader::parse_AreaSubPartElement()
         if (dir.length()>0&&dir[0]=='1') {
             myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].second]);
             myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].first]);
-            /*
-            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].first]);
-            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].second]);
-            */
         } else {
             myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].first]);
             myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].second]);
-            /*
-            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].second]);
-            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].first]);
-            */
         }
     }
 }
@@ -921,12 +912,12 @@ void NIVisumLoader::parse_LanesConnections()
     try {
         fromLane = TplConvert<char>::_2int(fromLaneS.c_str());
     } catch (NumberFormatException &) {
-        addError("A from-lane number for edge '" + fromEdge->getID() + "' is not numeric (" + fromLaneS + ").");
+        MsgHandler::getErrorInstance()->inform("A from-lane number for edge '" + fromEdge->getID() + "' is not numeric (" + fromLaneS + ").");
         return;
     }
     fromLane -= 1;
     if (fromLane<0) {
-        addError("A from-lane number for edge '" + fromEdge->getID() + "' is not positive (" + fromLaneS + ").");
+        MsgHandler::getErrorInstance()->inform("A from-lane number for edge '" + fromEdge->getID() + "' is not positive (" + fromLaneS + ").");
         return;
     }
     // get the from-lane
@@ -935,12 +926,12 @@ void NIVisumLoader::parse_LanesConnections()
     try {
         toLane = TplConvert<char>::_2int(toLaneS.c_str());
     } catch (NumberFormatException &) {
-        addError("A to-lane number for edge '" + toEdge->getID() + "' is not numeric (" + toLaneS + ").");
+        MsgHandler::getErrorInstance()->inform("A to-lane number for edge '" + toEdge->getID() + "' is not numeric (" + toLaneS + ").");
         return;
     }
     toLane -= 1;
     if (toLane<0) {
-        addError("A to-lane number for edge '" + toEdge->getID() + "' is not positive (" + toLaneS + ").");
+        MsgHandler::getErrorInstance()->inform("A to-lane number for edge '" + toEdge->getID() + "' is not positive (" + toLaneS + ").");
         return;
     }
     // !!! the next is probably a hack
@@ -956,11 +947,11 @@ void NIVisumLoader::parse_LanesConnections()
     }
     //
     if ((int) fromEdge->getNoLanes()<=fromLane) {
-        addError("A from-lane number for edge '" + fromEdge->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
+        MsgHandler::getErrorInstance()->inform("A from-lane number for edge '" + fromEdge->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
         return;
     }
     if ((int) toEdge->getNoLanes()<=toLane) {
-        addError("A to-lane number for edge '" + toEdge->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
+        MsgHandler::getErrorInstance()->inform("A to-lane number for edge '" + toEdge->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
         return;
     }
     //
@@ -1011,7 +1002,7 @@ NIVisumLoader::getNamedNode(const std::string &fieldName) throw(OutOfBoundsExcep
     string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBNode *node = myNetBuilder.getNodeCont().retrieve(nodeS);
     if (node==0) {
-        addError("The node '" + nodeS + "' is not known.");
+        MsgHandler::getErrorInstance()->inform("The node '" + nodeS + "' is not known.");
     }
     return node;
 }
@@ -1034,7 +1025,7 @@ NIVisumLoader::getNamedEdge(const std::string &fieldName) throw(OutOfBoundsExcep
     string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
-        addError("The edge '" + edgeS + "' is not known.");
+        MsgHandler::getErrorInstance()->inform("The edge '" + edgeS + "' is not known.");
     }
     return edge;
 }
@@ -1133,7 +1124,7 @@ NIVisumLoader::getNamedEdgeContinuating(const std::string &fieldName, NBNode *no
     string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
-        addError("The edge '" + edgeS + "' is not known.");
+        MsgHandler::getErrorInstance()->inform("The edge '" + edgeS + "' is not known.");
     }
     return getNamedEdgeContinuating(edge, node);
 }
@@ -1248,7 +1239,7 @@ NIVisumLoader::buildDistrictNode(const std::string &id, NBNode *dest,
     }
     // insert the node
     if (!myNetBuilder.getNodeCont().insert(nid, dist->getPosition())) {
-        addError("Could not build connetor node '" + nid + "'.");
+        MsgHandler::getErrorInstance()->inform("Could not build connector node '" + nid + "'.");
     }
     // return the node
     return myNetBuilder.getNodeCont().retrieve(nid);
@@ -1259,13 +1250,13 @@ bool
 NIVisumLoader::checkNodes(NBNode *from, NBNode *to)  throw()
 {
     if (from==0) {
-        addError(" The from-node was not found within the net");
+        MsgHandler::getErrorInstance()->inform(" The from-node was not found within the net");
     }
     if (to==0) {
-        addError(" The to-node was not found within the net");
+        MsgHandler::getErrorInstance()->inform(" The to-node was not found within the net");
     }
     if (from==to) {
-        addError(" Both nodes are the same");
+        MsgHandler::getErrorInstance()->inform(" Both nodes are the same");
     }
     return from!=0&&to!=0&&from!=to;
 }

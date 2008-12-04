@@ -37,7 +37,6 @@
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/importio/NamedColumnsParser.h>
-#include <utils/common/FileErrorReporter.h>
 #include "NIVisumTL.h"
 
 
@@ -73,7 +72,7 @@ class NBEdge;
  *  each subsequently whether it was found and if so, the proper parse_XXX()
  *  method is called.
  */
-class NIVisumLoader : public FileErrorReporter
+class NIVisumLoader
 {
 public:
     /** @brief constructor
@@ -446,6 +445,9 @@ private:
 private:
     /** @brief the network builder to fill with loaded values */
     NBNetBuilder &myNetBuilder;
+
+    /// @brief The name of the parsed file, for error reporting
+    std::string myFileName;
 
     /// the line reader to use to read from the file
     LineReader myLineReader;
