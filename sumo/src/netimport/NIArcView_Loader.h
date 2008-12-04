@@ -31,7 +31,6 @@
 #endif
 
 #include <string>
-#include <utils/common/FileErrorReporter.h>
 
 
 // ===========================================================================
@@ -53,8 +52,7 @@ class OGRFeature;
  *
  * @todo reinsert import via shapelib
  */
-class NIArcView_Loader :
-            public FileErrorReporter
+class NIArcView_Loader
 {
 public:
     /// Contructor

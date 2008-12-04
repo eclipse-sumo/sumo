@@ -29,7 +29,6 @@
 #endif
 
 #include <string>
-#include <utils/common/FileErrorReporter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
@@ -71,8 +70,7 @@ NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
                                    const std::string &dbf_name,
                                    const std::string &shp_name,
                                    bool speedInKMH)
-        : FileErrorReporter("Navtech Edge description", dbf_name),
-        myOptions(oc), mySHPName(shp_name),
+        : myOptions(oc), mySHPName(shp_name),
         myNameAddition(0),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
         mySpeedInKMH(speedInKMH),
