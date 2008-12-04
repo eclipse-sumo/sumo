@@ -61,24 +61,24 @@ using namespace std;
 // ===========================================================================
 NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
                              const std::string &file,
-                             bool tryIgnoreNodePositions)
-        : FileErrorReporter("tiger-network", file),
-        myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc),
-        myTryIgnoreNodePositions(tryIgnoreNodePositions)
+                             bool tryIgnoreNodePositions) throw()
+        : myFileName(file),
+        myEdgeCont(ec), myNodeCont(nc),
+        myTryIgnoreNodePositions(tryIgnoreNodePositions), myRunningNodeIndex(0)
 {}
 
 
-NITigerLoader::~NITigerLoader()
+NITigerLoader::~NITigerLoader() throw()
 {}
 
 
 void
-NITigerLoader::load(OptionsCont &)
+NITigerLoader::load(OptionsCont &) throw(ProcessError)
 {
-    LineReader tgr1r((myFile + ".rt1").c_str());
-    LineReader tgr2r((myFile + ".rt2").c_str());
+    LineReader tgr1r((myFileName + ".rt1").c_str());
+    LineReader tgr2r((myFileName + ".rt2").c_str());
     if (!tgr1r.good()) {
-        throw ProcessError("Could not open '" + myFile + ".rt1" + "'.");
+        throw ProcessError("Could not open '" + myFileName + ".rt1" + "'.");
 
     }
     string line1, line2, tmp;
@@ -150,7 +150,7 @@ NITigerLoader::load(OptionsCont &)
 
 
 Position2DVector
-NITigerLoader::convertShape(const std::vector<std::string> &sv)
+NITigerLoader::convertShape(const std::vector<std::string> &sv) throw(ProcessError)
 {
     Position2DVector ret;
     std::vector<std::string>::const_iterator i;
@@ -177,23 +177,20 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             ret.push_back(pos);
         } catch (NumberFormatException &) {
             throw ProcessError("Could not convert position '" + p1 + "/" + p2 + "'.");
-
         }
     }
     return ret;
 }
 
-int bla = 0;
 
 NBNode *
-NITigerLoader::getNode(const Position2D &p)
+NITigerLoader::getNode(const Position2D &p) const throw(ProcessError)
 {
     NBNode *n = myNodeCont.retrieve(p);
     if (n==0) {
-        n = new NBNode(toString<int>(bla++), p);
+        n = new NBNode(toString<int>(myRunningNodeIndex++), p);
         if (!myNodeCont.insert(n)) {
             throw ProcessError("Could not insert node at position " + toString(p.x()) + "/" + toString(p.y()) + ".");
-
         }
     }
     return n;
@@ -201,7 +198,7 @@ NITigerLoader::getNode(const Position2D &p)
 
 
 std::string
-NITigerLoader::getType(const std::vector<std::string> &sv) const
+NITigerLoader::getType(const std::vector<std::string> &sv) const throw(ProcessError)
 {
     for (std::vector<std::string>::const_iterator i=sv.begin(); i!=sv.end(); ++i) {
         std::string tc = *i;
@@ -227,7 +224,7 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const
 
 
 SUMOReal
-NITigerLoader::getSpeed(const std::string &type) const
+NITigerLoader::getSpeed(const std::string &type) const throw(ProcessError)
 {
     switch (type[0]) {
     case 'A':
@@ -265,13 +262,13 @@ NITigerLoader::getSpeed(const std::string &type) const
     case 'X':
         return -1; // not yet classified
     default:
-        throw 1;
+        throw ProcessError("Unknown type '" + type + "' occured.");
     }
 }
 
 
 int
-NITigerLoader::getLaneNo(const std::string &type) const
+NITigerLoader::getLaneNo(const std::string &type) const throw(ProcessError)
 {
     switch (type[0]) {
     case 'A':
@@ -309,7 +306,7 @@ NITigerLoader::getLaneNo(const std::string &type) const
     case 'X':
         return -1; // not yet classified
     default:
-        throw 1;
+        throw ProcessError("Unknown type '" + type + "' occured.");
     }
 }
 
