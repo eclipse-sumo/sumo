@@ -32,7 +32,6 @@
 
 #include <string>
 #include <map>
-#include <utils/common/FileErrorReporter.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/Position2D.h>
@@ -40,16 +39,17 @@
 #include "NIVissimElements.h"
 
 
-class NBNetBuilder;
-
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class OptionsCont;
+class NBNetBuilder;
 
-class NIVissimLoader :
-            public FileErrorReporter
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+class NIVissimLoader
 {
 public:
     /// constructor
@@ -64,8 +64,7 @@ public:
     bool admitContinue(const std::string &tag);
 
 public:
-class VissimSingleTypeParser :
-                public FileErrorReporter::Child
+class VissimSingleTypeParser
     {
     public:
         /// Constructor

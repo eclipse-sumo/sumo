@@ -30,6 +30,7 @@
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
+#include <utils/common/MsgHandler.h>
 #include "../NIVissimLoader.h"
 #include "NIVissimSingleTypeParser_Simdauer.h"
 
@@ -65,7 +66,7 @@ NIVissimSingleTypeParser_Simdauer::parse(std::istream &from)
     try {
         TplConvert<char>::_2SUMOReal(duration.c_str());
     } catch (...) {
-        addError("Simulation duration could not be parsed");
+        MsgHandler::getErrorInstance()->inform("Simulation duration could not be parsed");
         return false;
     }
     return true;

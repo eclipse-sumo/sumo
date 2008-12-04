@@ -123,7 +123,7 @@ using namespace std;
  * NIVissimLoader::VissimSingleTypeParser-methods
  * ----------------------------------------------------------------------- */
 NIVissimLoader::VissimSingleTypeParser::VissimSingleTypeParser(NIVissimLoader &parent)
-        : FileErrorReporter::Child(parent), myVissimParent(parent)
+        : myVissimParent(parent)
 {}
 
 
@@ -312,7 +312,7 @@ NIVissimLoader::VissimSingleTypeParser::skipOverreading(std::istream &from,
  * NIVissimLoader-methods
  * ----------------------------------------------------------------------- */
 NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
-        : FileErrorReporter(file), myNetBuilder(nb)
+        : myNetBuilder(nb)
 {
     insertKnownElements();
     buildParsers();
