@@ -73,7 +73,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
         return;
     }
     // preset types
-    // for highways
+    //  for highways
     NBTypeCont &tc = nb.getTypeCont();
     addTypeSecure(tc, "highway", "motorway", 3, (SUMOReal) 160., 13, SVC_UNKNOWN, true);
     addTypeSecure(tc, "highway", "motorway_link", 1, (SUMOReal) 80., 12, SVC_UNKNOWN, true);
@@ -84,7 +84,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
     addTypeSecure(tc, "highway", "secondary", 2, (SUMOReal) 100., 7);
     addTypeSecure(tc, "highway", "tertiary", 1, (SUMOReal) 80., 6);
     addTypeSecure(tc, "highway", "unclassified", 1, (SUMOReal) 80., 5);
-    addTypeSecure(tc, "highway", "residential", 2, (SUMOReal) 50., 4);
+    addTypeSecure(tc, "highway", "residential", 1, (SUMOReal) 50., 4); // actually, maybe one lane for parking would be nice...
     addTypeSecure(tc, "highway", "living_street", 1, (SUMOReal) 10., 3);
     addTypeSecure(tc, "highway", "service", 1, (SUMOReal) 20., 2, SVC_DELIVERY);
     addTypeSecure(tc, "highway", "track", 1, (SUMOReal) 20., 1);
@@ -107,7 +107,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
     addTypeSecure(tc, "highway", "bus_guideway", 1, (SUMOReal) 30., 1, SVC_BUS);
     addTypeSecure(tc, "highway", "bus_guideway", 1, (SUMOReal) 30., 1, SVC_BUS);
 
-    // for railways
+    //  for railways
     addTypeSecure(tc, "railway", "rail", 1, (SUMOReal) 30., 1, SVC_RAIL_FAST);
     addTypeSecure(tc, "railway", "tram", 1, (SUMOReal) 30., 1, SVC_CITYRAIL);
     addTypeSecure(tc, "railway", "light_rail", 1, (SUMOReal) 30., 1, SVC_LIGHTRAIL);
@@ -258,9 +258,19 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     bool defaultsToOneWay = tc.getIsOneWay(e->myHighWayType);
     vector<SUMOVehicleClass> allowedClasses = tc.getAllowedClasses(e->myHighWayType);
     vector<SUMOVehicleClass> disallowedClasses = tc.getDisallowedClasses(e->myHighWayType);
+    // check directions
+    bool addSecond = true;
+    // TODO: e->myIsOneWay=="-1" for oneway streets in opposite direction?
+    if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||e->myIsOneWay=="1"||(defaultsToOneWay && e->myIsOneWay!="no" && e->myIsOneWay!="false" && e->myIsOneWay!="0")) {
+        addSecond = false;
+    }
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes >= 0) {
-        noLanes = e->myNoLanes;
+        if(!addSecond) {
+            noLanes = e->myNoLanes;
+        } else {
+            noLanes = e->myNoLanes / 2;
+        }
     }
     // if we had been able to extract the maximum speed, override the highway type default
     if (e->myMaxSpeed >= 0) {
@@ -275,23 +285,18 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         return;
     }
     if (noLanes!=0&&speed!=0) {
-        bool addSecond = true;
-        // TODO: e->myIsOneWay=="-1" for oneway streets in opposite direction?
-        if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||e->myIsOneWay=="1"||(defaultsToOneWay && e->myIsOneWay!="no" && e->myIsOneWay!="false" && e->myIsOneWay!="0")) {
-            addSecond = false;
-        }
         if (e->myIsOneWay!=""&&e->myIsOneWay!="false"&&e->myIsOneWay!="no"&&e->myIsOneWay!="true"&&e->myIsOneWay!="yes") {
             WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
         }
         NBEdge::LaneSpreadFunction lsf = addSecond ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
-        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, -1, shape, tryIgnoreNodePositions, lsf);
+        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, tryIgnoreNodePositions, lsf);
         nbe->setVehicleClasses(allowedClasses, disallowedClasses);
         if (!ec.insert(nbe)) {
             delete nbe;
             throw ProcessError("Could not add edge '" + id + "'.");
         }
         if (addSecond) {
-            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, -1, shape.reverse(), tryIgnoreNodePositions, lsf);
+            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape.reverse(), tryIgnoreNodePositions, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -320,7 +325,7 @@ NIImporter_OpenStreetMap::addTypeSecure(NBTypeCont &tc,
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm-nodes - file"), myToFill(toFill), myLastNodeID(-1)
+        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1)
 {}
 
 
@@ -412,7 +417,7 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(P
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<int, NIOSMNode*> &osmNodes,
     std::map<std::string, Edge*> &toFill) throw()
-        : SUMOSAXHandler("osm-edges - file"),
+        : SUMOSAXHandler("osm - file"),
         myOSMNodes(osmNodes), myEdgeMap(toFill)
 {
 }
