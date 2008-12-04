@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/importio/LineHandler.h>
-#include <utils/common/FileErrorReporter.h>
 
 
 // ===========================================================================
@@ -44,27 +43,38 @@
  *
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain node definitions
- * in Cell-format
+ * in Elmar's split format
  */
-class NIElmarNodesHandler : public LineHandler,
-            public FileErrorReporter
+class NIElmarNodesHandler : public LineHandler
 {
 public:
-    /// constructor
+    /** @brief Constructor
+     * @param[in, filled] nc The node control to insert loaded nodes into
+     * @param[in] file The name of the parsed file
+     */
     NIElmarNodesHandler(NBNodeCont &nc, const std::string &file) throw();
 
-    /// destructor
+
+    /// @brief Destructor
     ~NIElmarNodesHandler() throw();
 
-    /** implementation of the LineHandler-interface called by a LineReader
-        interprets the retrieved information and stores it into the global
-        NBNodeCont */
+
+    /** @brief Parsing method
+     *
+     * Implementation of the LineHandler-interface called by a LineReader;
+     * interprets the retrieved information and stores it into "myNodeCont".
+     * @param[in] result The read line
+     * @return Whether the parsing shall continue
+     * @exception ProcessError if something fails
+     * @see LineHandler::report
+     */
     bool report(const std::string &result) throw(ProcessError);
 
-protected:
-    SUMOReal myInitX, myInitY;
 
+protected:
+    /// @brief The node container to fill
     NBNodeCont &myNodeCont;
+
 
 };
 

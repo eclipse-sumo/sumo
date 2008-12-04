@@ -56,9 +56,7 @@ using namespace std;
 // ===========================================================================
 NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
         const std::string &file) throw()
-        : FileErrorReporter("elmar-nodes", file),
-        myInitX(-1), myInitY(-1),
-        myNodeCont(nc)
+        : myNodeCont(nc)
 {}
 
 

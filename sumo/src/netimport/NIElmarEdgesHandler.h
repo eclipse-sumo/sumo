@@ -32,11 +32,10 @@
 
 #include <string>
 #include <utils/importio/LineHandler.h>
-#include <utils/common/FileErrorReporter.h>
 
 
 // ===========================================================================
-// class declarations
+// class definitions
 // ===========================================================================
 /**
  * @class NIElmarEdgesHandler
@@ -44,33 +43,42 @@
  *
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain edge definitions
- * in Cell-format
+ * in Elmar's split format
  */
-// ===========================================================================
-// class definitions
-// ===========================================================================
-/**
- *
- */
-class NIElmarEdgesHandler : public LineHandler,
-            public FileErrorReporter
+class NIElmarEdgesHandler : public LineHandler
 {
 public:
-    /// constructor
+    /** @brief Constructor
+     * @param[in] nc The node control to retrieve nodes from
+     * @param[in, filled] ec The edge control to insert loaded edges into
+     * @param[in] file The name of the parsed file
+     */
     NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                         const std::string &file) throw();
 
-    /// destructor
+    /// @brief Destructor
     ~NIElmarEdgesHandler() throw();
 
-    /** implementation of the LineHandler-interface called by a LineReader
-        interprets the retrieved information and stores it into the global
-        NBEdgeCont */
+
+    /** @brief Parsing method
+     *
+     * Implementation of the LineHandler-interface called by a LineReader;
+     * interprets the retrieved information and stores it into "myEdgeCont".
+     * @param[in] result The read line
+     * @return Whether the parsing shall continue
+     * @exception ProcessError if something fails
+     * @see LineHandler::report
+     */
     bool report(const std::string &result) throw(ProcessError);
 
+
 protected:
+    /// @brief The node container to get the referenced nodes from
     NBNodeCont &myNodeCont;
+
+    /// @brief The edge container to store loaded edges into
     NBEdgeCont &myEdgeCont;
+
 
 private:
     /// @brief Invalidated copy constructor.

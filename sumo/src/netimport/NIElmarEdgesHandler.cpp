@@ -58,8 +58,7 @@ using namespace std;
 // ===========================================================================
 NIElmarEdgesHandler::NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file) throw()
-        : FileErrorReporter("elmar-edges", file),
-        myNodeCont(nc), myEdgeCont(ec)
+        : myNodeCont(nc), myEdgeCont(ec)
 {}
 
 NIElmarEdgesHandler::~NIElmarEdgesHandler() throw()
