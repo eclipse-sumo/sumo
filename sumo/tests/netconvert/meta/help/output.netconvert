@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r6388
+SUMO netconvert Version dev-SVN-r6410
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -109,8 +109,7 @@ Usage: netconvert.exe [OPTION]*
 
  Processing Options:
   --dismiss-loading-errors             Continue on broken input
-  -N, --capacity-norm FLOAT            The factor for flow to no. lanes conv.
-                                         (Cell)
+  --capacity-norm FLOAT                The factor for flow to no. lanes conv
   --speed-in-kmh                       vmax is parsed as given in km/h (some)
   --arcview.street-id STR              Read edge ids from column STR (ArcView)
   --arcview.from-id STR                Read from-node ids from column STR
@@ -130,6 +129,10 @@ Usage: netconvert.exe [OPTION]*
   --vissim.report-unset-speeds         Writes lanes without an explicite speed
                                          set.
   --visum.use-net-prio                 Uses priorities from types
+  --visum.connector-speeds FLOAT       Sets connector speed
+  --visum.connector-laneno INT         Sets connector lane number
+  --visum.no-connectors                Excludes connectors
+  --visum.recompute-laneno             Excludes connectors
   --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   
   -R, --remove-geometry                Removes geometry information from edges

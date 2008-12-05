@@ -293,6 +293,10 @@ NIVisumLoader::parse_Point()
 void
 NIVisumLoader::parse_Edges()
 {
+    if(myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
+        // no vehicle allowed; don't add
+        return;
+    }
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the from- & to-node and validate them
@@ -322,12 +326,19 @@ NIVisumLoader::parse_Edges()
                   : true;
     // get the number of lanes
     int nolanes = 0;
-    try {
-        nolanes = myLineParser.know("Fahrstreifen")
-                  ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
-                  : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
-    } catch (UnknownElement) {
-        nolanes = myNetBuilder.getTypeCont().getNoLanes(type);
+    if(!OptionsCont::getOptions().getBool("visum.recompute-laneno")) {
+        try {
+            nolanes = myLineParser.know("Fahrstreifen")
+                      ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
+                      : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
+        } catch (UnknownElement) {
+            nolanes = myNetBuilder.getTypeCont().getNoLanes(type);
+        }
+    } else {
+        SUMOReal cap = myLineParser.know("KAPIV")
+                ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAPIV").c_str(), -1)
+                : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAP-IV").c_str(), -1);
+        nolanes = myCapacity2Lanes.get(cap);
     }
     // check whether the id is already used
     //  (should be the opposite direction)
@@ -407,6 +418,10 @@ NIVisumLoader::parse_PartOfArea()
 void
 NIVisumLoader::parse_Connectors()
 {
+    if(OptionsCont::getOptions().getBool("visum.no-connectors")) {
+        // do nothing, if connectors shall not be imported
+        return;
+    }
     // get the source district
     string bez = NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
     // get the destination node
@@ -446,7 +461,9 @@ NIVisumLoader::parse_Connectors()
             return;
         }
         NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
-                                  100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT);
+            OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+            OptionsCont::getOptions().getInt("visum.connector-laneno"),
+            -1, NBEdge::LANESPREAD_RIGHT);
         edge->setAsMacroscopicConnector();
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
             MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
@@ -463,7 +480,9 @@ NIVisumLoader::parse_Connectors()
         }
         id = "-" + id;
         NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
-                                  100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT);
+            OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+            OptionsCont::getOptions().getInt("visum.connector-laneno"),
+            -1, NBEdge::LANESPREAD_RIGHT);
         edge->setAsMacroscopicConnector();
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
             MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
@@ -477,6 +496,10 @@ NIVisumLoader::parse_Connectors()
 void
 NIVisumLoader::parse_Turns()
 {
+    if(myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
+        // no vehicle allowed; don't add
+        return;
+    }
     // retrieve the nodes
     NBNode *from = getNamedNode("VonKnot", "VonKnotNr");
     NBNode *via = getNamedNode("UeberKnot", "UeberKnotNr");

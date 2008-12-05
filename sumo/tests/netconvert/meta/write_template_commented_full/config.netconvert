@@ -196,8 +196,8 @@
       <!-- Continue on broken input -->
       <dismiss-loading-errors>false</dismiss-loading-errors>
 
-      <!-- The factor for flow to no. lanes conv. (Cell) -->
-      <capacity-norm>20000</capacity-norm>
+      <!-- The factor for flow to no. lanes conv -->
+      <capacity-norm>1800</capacity-norm>
 
       <!-- vmax is parsed as given in km/h (some) -->
       <speed-in-kmh>false</speed-in-kmh>
@@ -240,6 +240,18 @@
 
       <!-- Uses priorities from types -->
       <visum.use-net-prio>false</visum.use-net-prio>
+
+      <!-- Sets connector speed -->
+      <visum.connector-speeds>100</visum.connector-speeds>
+
+      <!-- Sets connector lane number -->
+      <visum.connector-laneno>3</visum.connector-laneno>
+
+      <!-- Excludes connectors -->
+      <visum.no-connectors>false</visum.no-connectors>
+
+      <!-- Excludes connectors -->
+      <visum.recompute-laneno>false</visum.recompute-laneno>
 
       <!-- Flips the y-coordinate along zero -->
       <flip-y>false</flip-y>

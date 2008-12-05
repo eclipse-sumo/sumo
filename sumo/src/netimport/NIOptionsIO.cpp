@@ -131,8 +131,8 @@ NIOptionsIO::fillOptions()
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
     oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");
 
-    oc.doRegister("capacity-norm", 'N', new Option_Float((SUMOReal) 20000));
-    oc.addDescription("capacity-norm", "Processing", "The factor for flow to no. lanes conv. (Cell)");
+    oc.doRegister("capacity-norm", new Option_Float((SUMOReal) 1800));
+    oc.addDescription("capacity-norm", "Processing", "The factor for flow to no. lanes conv");
 
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
@@ -178,6 +178,18 @@ NIOptionsIO::fillOptions()
     // register further visum-options
     oc.doRegister("visum.use-net-prio", new Option_Bool(false));
     oc.addDescription("visum.use-net-prio", "Processing", "Uses priorities from types");
+
+    oc.doRegister("visum.connector-speeds", new Option_Float(100.));
+    oc.addDescription("visum.connector-speeds", "Processing", "Sets connector speed");
+
+    oc.doRegister("visum.connector-laneno", new Option_Integer(3));
+    oc.addDescription("visum.connector-laneno", "Processing", "Sets connector lane number");
+
+    oc.doRegister("visum.no-connectors", new Option_Bool(false));
+    oc.addDescription("visum.no-connectors", "Processing", "Excludes connectors");
+
+    oc.doRegister("visum.recompute-laneno", new Option_Bool(false));
+    oc.addDescription("visum.recompute-laneno", "Processing", "Excludes connectors");
 
 
     // add netbuilding options

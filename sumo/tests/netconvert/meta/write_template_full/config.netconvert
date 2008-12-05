@@ -80,7 +80,7 @@
 
    <processing>
       <dismiss-loading-errors>false</dismiss-loading-errors>
-      <capacity-norm>20000</capacity-norm>
+      <capacity-norm>1800</capacity-norm>
       <speed-in-kmh>false</speed-in-kmh>
       <arcview.street-id></arcview.street-id>
       <arcview.from-id></arcview.from-id>
@@ -95,6 +95,10 @@
       <vissim.speed-norm>1</vissim.speed-norm>
       <vissim.report-unset-speeds>false</vissim.report-unset-speeds>
       <visum.use-net-prio>false</visum.use-net-prio>
+      <visum.connector-speeds>100</visum.connector-speeds>
+      <visum.connector-laneno>3</visum.connector-laneno>
+      <visum.no-connectors>false</visum.no-connectors>
+      <visum.recompute-laneno>false</visum.recompute-laneno>
       <flip-y>false</flip-y>
       <dismiss-vclasses>false</dismiss-vclasses>
       <remove-geometry>false</remove-geometry>
