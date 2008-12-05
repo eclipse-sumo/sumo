@@ -353,22 +353,6 @@
 				RelativePath="..\..\..\src\microsim\logging\FunctionBinding.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue_Single.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue_TimeFixed.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\logging\LoggedValue_TimeFloating.h"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>
