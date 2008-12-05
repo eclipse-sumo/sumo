@@ -2,7 +2,7 @@
 /// @file    PCLoaderVisum.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id: PCLoaderVisum.h 4389 2007-08-28 10:21:00Z behrisch $
+/// @version $Id$
 ///
 // A reader of pois and polygons stored in VISUM-format
 /****************************************************************************/

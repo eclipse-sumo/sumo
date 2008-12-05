@@ -2,7 +2,7 @@
 /// @file    PCLoaderElmar.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id: PCLoaderElmar.cpp 5095 2008-02-21 09:01:33Z dkrajzew $
+/// @version $Id$
 ///
 // A reader of pois and polygons stored in Elmar-format
 /****************************************************************************/

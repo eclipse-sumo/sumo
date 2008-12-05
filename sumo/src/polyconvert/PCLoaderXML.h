@@ -2,7 +2,7 @@
 /// @file    PCLoaderXML.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id: PCLoaderXML.h 6350 2008-11-15 12:59:02Z dkrajzew $
+/// @version $Id$
 ///
 // A reader for polygons and pois stored in XML-format
 /****************************************************************************/

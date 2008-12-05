@@ -2,7 +2,7 @@
 /// @file    PCLoaderOSM.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 19.11.2008
-/// @version $Id: PCLoaderOSM.cpp 6350 2008-11-15 12:59:02Z dkrajzew $
+/// @version $Id$
 ///
 // A reader of pois and polygons stored in OSM-format
 /****************************************************************************/
