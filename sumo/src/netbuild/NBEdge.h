@@ -393,6 +393,15 @@ public:
     /// @}
 
 
+    void setAsMacroscopicConnector() throw() {
+        myAmMacroscopicConnector = true;
+    }
+
+    bool isMacroscopicConnector() throw() {
+        return myAmMacroscopicConnector;
+    }
+
+
     /// computes which edge shall be the turn-around one, if any
     void computeTurningDirections();
 
@@ -729,60 +738,75 @@ private:
 
 
 private:
-    /// the building step
+    /** @brief The building step
+     * @see EdgeBuildingStep
+     */
     EdgeBuildingStep myStep;
 
-    /// the id of the edge
+    /// @brief The id of the edge
     std::string myID;
 
-    /// the type of the edge
+    /// @brief The type of the edge
     std::string myType;
 
-    /// the source and the destination node
+    /// @brief The source and the destination node
     NBNode *myFrom, *myTo;
 
-    /// the length of the edge
+    /// @brief The length of the edge
     SUMOReal myLength;
 
-    /// the angle of the edge
+    /// @brief The angle of the edge
     SUMOReal myAngle;
 
-    /** the converted priority of the edge (needed while the ocmputation of
-        the node the edge is incoming in / outgoing of) */
+    /// @brief The priority of the edge
     int myPriority;
 
-    /// the maximal speed
+    /// @brief The maximal speed
     SUMOReal mySpeed;
 
-
-
-
+    /** @brief List of connections to following edges
+     * @see Connection
+     */
     std::vector<Connection> myConnections;
 
-
-    /// the edge to turn into
+    /// @brief The turn destination edge
     NBEdge *myTurnDestination;
 
-    /// the priority normalised for the node the edge is outgoing of
+    /// @brief The priority normalised for the node the edge is outgoing of
     int myFromJunctionPriority;
 
-    /// the priority normalised for the node the edge is incoming in
+    /// @brief The priority normalised for the node the edge is incoming in
     int myToJunctionPriority;
 
-    /// An optional geometry for the edge
+    /// @brief The geometry for the edge
     Position2DVector myGeom;
 
-    /// The information about how to spread the lanes
+    /// @brief The information about how to spread the lanes
     LaneSpreadFunction myLaneSpreadFunction;
 
-
+    /** @brief Lane information
+     * @see Lane
+     */
     std::vector<Lane> myLanes;
 
+    /// @brief An optional length to use (-1 if not valid)
     SUMOReal myLoadedLength;
 
+
+    /// @name Temporary variables for turning edge computation
+    /// @{
+
+    /// @brief Was assigned as a turn with this angle
     SUMOReal myAmTurningWithAngle;
+    /// @brief Was assigned as a turning edge of this one
     NBEdge *myAmTurningOf;
+    /// @}
+
+    /// @brief Information whether this is a junction-inner edge
     bool myAmInnerEdge;
+
+    /// @brief Information whether this edge is a (macroscopic) connector
+    bool myAmMacroscopicConnector;
 
     struct TLSDisabledConnection {
         int fromLane;

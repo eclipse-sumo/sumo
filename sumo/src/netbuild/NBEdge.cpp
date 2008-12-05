@@ -175,7 +175,7 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myLaneSpreadFunction(spread),
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
-        myAmInnerEdge(false)
+        myAmInnerEdge(false), myAmMacroscopicConnector(false)
 {
     init(nolanes, false);
 }
@@ -194,7 +194,7 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myGeom(geom), myLaneSpreadFunction(spread),
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
-        myAmInnerEdge(false)
+        myAmInnerEdge(false), myAmMacroscopicConnector(false)
 {
     init(nolanes, tryIgnoreNodePositions);
 }
