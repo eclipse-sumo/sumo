@@ -175,12 +175,22 @@ public:
         return myLogExecutionTime;
     }
 
-    //{
-    /// to be called before a simulation step is done, this prints the current step number
-    void preSimStepOutput() const;
 
-    /// to be called after a simulation step is done, this prints some further statistics
-    void postSimStepOutput() const;
+    /// @name Output during the simulation
+    //@{
+
+    /** @brief Prints the current step number
+     * 
+     * Called on the begin of a simulation step
+     */
+    void preSimStepOutput() const throw();
+
+
+    /** @brief Prints the statistics of the step at its end
+     * 
+     * Called on the end of a simulation step
+     */
+    void postSimStepOutput() const throw();
     //}
 
 
@@ -333,6 +343,8 @@ public:
     }
     /// @}
 
+
+
     /// @name Insertion and retrieval of bus stops
     /// @{
 
@@ -425,20 +437,22 @@ protected:
     MSPhoneNet * myMSPhoneNet;
     /// @}
 
-    //{@ data needed for computing performance values
-    /// Information whether the simulation duration shall be logged
+
+    /// @name data needed for computing performance values
+    //{
+    /// @brief Information whether the simulation duration shall be logged
     bool myLogExecutionTime;
 
-    /// Information whether the number of the simulation step shall be logged
+    /// @brief Information whether the number of the simulation step shall be logged
     bool myLogStepNumber;
 
-    /// The last simulation step begin, end and duration
+    /// @brief The last simulation step begin, end and duration
     long mySimStepBegin, mySimStepEnd, mySimStepDuration;
 
-    /// The overall simulation duration
-    long mySimDuration;
+    /// @brief The overall simulation duration
+    long mySimBeginMillis;
 
-    /// The overall number of vehicle movements
+    /// @brief The overall number of vehicle movements
     long myVehiclesMoved;
     //}
 

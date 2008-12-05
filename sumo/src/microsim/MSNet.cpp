@@ -345,6 +345,10 @@ MSNet::initialiseSimulation() {
     if (OptionsCont::getOptions().isSet("c2x.vehicle-in-range")) {
         MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
     }
+    // initialise performance computation
+    if(myLogExecutionTime) {
+        mySimBeginMillis = SysUtils::getCurrentMillis();
+    }
 }
 
 
@@ -353,13 +357,17 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop) {
     if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
         OutputDevice::getDeviceByOption("ss2-sql-output") << ";\n";
     }
-    if (myLogExecutionTime!=0&&mySimDuration!=0) {
+    if (myLogExecutionTime) {
+        long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         ostringstream msg;
-        msg << "Performance: " << "\n"
-        << " Duration: " << mySimDuration << "ms" << "\n"
-        << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << "\n"
-        << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << "\n"
-        << "Vehicles: " << "\n"
+        msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
+        if(duration!=0) {
+            msg << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)duration) << "\n";
+            msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+            msg.setf(std::ios::showpoint);    // print decimal point
+            msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
+        }
+        msg << "Vehicles: " << "\n"
         << " Emitted: " << myVehicleControl->getEmittedVehicleNo() << "\n"
         << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
         << " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
@@ -465,7 +473,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step) {
     if (myLogExecutionTime) {
         mySimStepEnd = SysUtils::getCurrentMillis();
         mySimStepDuration = mySimStepEnd - mySimStepBegin;
-        mySimDuration += mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
 }
@@ -588,32 +595,32 @@ MSNet::getPersonControl() throw() {
 
 
 void
-MSNet::preSimStepOutput() const {
+MSNet::preSimStepOutput() const throw() {
     cout << std::setprecision(OUTPUT_ACCURACY);
     cout << "Step #" << myStep;
 }
 
 
 void
-MSNet::postSimStepOutput() const {
+MSNet::postSimStepOutput() const throw() {
     if (myLogExecutionTime) {
         string msg;
-        if (mySimStepDuration!=0) {
             ostringstream oss;
             oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             oss.setf(std::ios::showpoint);    // print decimal point
             oss << std::setprecision(OUTPUT_ACCURACY);
-            oss << " (" << mySimStepDuration << "ms ~= "
-            << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
-            << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.)
-            << "UPS, vehicles"
+            if (mySimStepDuration!=0) {
+                oss << " (" << mySimStepDuration << "ms ~= "
+                << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
+                << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
+            } else {
+                oss << " (0ms ?*RT. ?";
+            }
+            oss << "UPS, vehicles"
             << " TOT " << myVehicleControl->getEmittedVehicleNo()
             << " ACT " << myVehicleControl->getRunningVehicleNo()
             << ")                                              ";
             msg = oss.str();
-        } else {
-            msg = " (0ms; no further information available)                                        ";
-        }
         string prev = "Step #" + toString(myStep);
         msg = msg.substr(0, 78 - prev.length());
         cout << msg;
