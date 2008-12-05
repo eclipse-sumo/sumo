@@ -138,13 +138,14 @@ $(COMMON_LIBS)
 
 sumo_polyconvert_SOURCES = polyconvert_main.cpp
 
-sumo_polyconvert_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
+sumo_polyconvert_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_polyconvert_LDADD   = ./polyconvert/libpolyconvert.a \
 ./utils/options/liboptions.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
 $(COMMON_LIBS) \
+$(GDAL_LIBS) \
 $(PROJ_LIBS)
 
 

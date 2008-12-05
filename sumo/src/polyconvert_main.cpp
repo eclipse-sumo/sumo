@@ -48,6 +48,7 @@
 #include <polyconvert/PCLoaderElmar.h>
 #include <polyconvert/PCLoaderXML.h>
 #include <polyconvert/PCLoaderOSM.h>
+#include <polyconvert/PCLoaderArcView.h>
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <utils/xml/XMLSubSys.h>
@@ -98,9 +99,9 @@ fillOptions() throw()
     oc.addDescription("elmar-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in Elmar-format");
 
     // visum import
-    oc.doRegister("visum-file", new Option_FileName());
-    oc.addSynonyme("visum-file", "visum");
-    oc.addDescription("visum-file", "Input", "Reads polygons from FILE assuming it's a Visum-net");
+    oc.doRegister("visum-files", new Option_FileName());
+    oc.addSynonyme("visum-files", "visum");
+    oc.addDescription("visum-files", "Input", "Reads polygons from FILE assuming it's a Visum-net");
     oc.doRegister("visum-points", new Option_FileName());
     oc.addDescription("visum-points", "Input", "Reads pois from FILE assuming it's a Visum-net");
 
@@ -113,6 +114,14 @@ fillOptions() throw()
     oc.addDescription("osm-files", "Input", "Reads pois from FILE+ assuming they're coded in OSM");
     oc.doRegister("osm.keep-full-type", new Option_Bool(false));
     oc.addDescription("osm.keep-full-type", "Input", "The type will be made of the key-value - pair.");
+
+    // arcview import
+    oc.doRegister("shape-files", new Option_FileName());
+    oc.addDescription("shape-files", "Input", "Reads shapes from shape-files FILE+");
+    oc.doRegister("arcview.guess-projection", new Option_Bool(false));
+    oc.addDescription("arcview.guess-projection", "Input", "Guesses the shapefile's projection");
+    oc.doRegister("shape-file.id-name", new Option_FileName());
+    oc.addDescription("shape-file.id-name", "Input", "Defines where to find the id");
 
     // typemap reading
     oc.doRegister("typemap", new Option_FileName());
@@ -358,6 +367,7 @@ main(int argc, char **argv)
         PCLoaderOSM::loadIfSet(oc, toFill, tm); // OSM-XML
         PCLoaderElmar::loadIfSet(oc, toFill, tm); // Elmar-files
         PCLoaderVisum::loadIfSet(oc, toFill, tm); // VISUM
+        PCLoaderArcView::loadIfSet(oc, toFill, tm); // shape-files
         // check whether any errors occured
         if (!MsgHandler::getErrorInstance()->wasInformed()) {
             // no? ok, save
