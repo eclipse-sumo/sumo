@@ -812,7 +812,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, size_t fromL, NBEdge *toE, size_t toL
                     if ((*k2).toEdge==0) {
                         continue;
                     }
-                    if (fromE!=(*i2)&&myRequest->forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
+                    if (fromE!=(*i2)&&forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
                         // compute the crossing point
                         ret.second.push_back(index);
                         Position2DVector otherShape = computeInternalLaneShape(*i2, j2, (*k2).toEdge, (*k2).toLane);
@@ -872,7 +872,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
                     NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).toEdge);
                     bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
                     left = false;
-                    if (!left&&fromE!=(*i2)&&myRequest->forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
+                    if (!left&&fromE!=(*i2)&&forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
                         if (ret.length()!=0) {
                             ret += " ";
                         }
@@ -920,7 +920,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
                     NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).toEdge);
                     bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
                     left = false;
-                    if (!left&&fromE!=(*i2)&&myRequest->forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
+                    if (!left&&fromE!=(*i2)&&forbids(*i2, (*k2).toEdge, fromE, toE, true)) {
                         string nid = (*i2)->getID() + "_" + toString(j2);
                         if (find(tmp.begin(), tmp.end(), nid)==tmp.end()) {
                             tmp.push_back(nid);
@@ -1154,15 +1154,14 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
     if (myIncomingEdges->size()==0||myOutgoingEdges->size()==0) {
         return;
     }
-    // build the request
-    myRequest = new NBRequest(ec, this,
-                              static_cast<const EdgeVector * const>(&myAllEdges),
-                              static_cast<const EdgeVector * const>(myIncomingEdges),
-                              static_cast<const EdgeVector * const>(myOutgoingEdges),
-                              myBlockedConnections);
-
     // compute the logic if necessary or split the junction
     if (myType!=NODETYPE_NOJUNCTION&&myType!=NODETYPE_DISTRICT) {
+        // build the request
+        myRequest = new NBRequest(ec, this,
+                                  static_cast<const EdgeVector * const>(&myAllEdges),
+                                  static_cast<const EdgeVector * const>(myIncomingEdges),
+                                  static_cast<const EdgeVector * const>(myOutgoingEdges),
+                                  myBlockedConnections);
         myRequest->buildBitfieldLogic(jc, myID);
     }
 }
@@ -1758,7 +1757,6 @@ NBNode::invalidateOutgoingConnections()
 bool
 NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
 {
-    assert(myRequest!=0);
     // check whether it is participant to a traffic light
     //  - controlled links are set by the traffic lights, not the normal
     //    right-of-way rules
@@ -1767,6 +1765,10 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
         // ok, we have a traffic light, return true by now, it will be later
         //  controlled by the tls
         return true;
+    }
+    // unregulated->does not need to brake
+    if(myRequest==0) {
+        return false;
     }
     // vehicles which do not have a following lane must always decelerate to the end
     if (to==0) {
@@ -1817,7 +1819,7 @@ NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
                 NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
                 bool regardNonSignalisedLowerPriority) const
 {
-    return myRequest->forbids(possProhibitorFrom, possProhibitorTo,
+    return myRequest!=0&&myRequest->forbids(possProhibitorFrom, possProhibitorTo,
                               possProhibitedFrom, possProhibitedTo,
                               regardNonSignalisedLowerPriority);
 }
@@ -1826,7 +1828,7 @@ NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
 bool
 NBNode::foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
 {
-    return myRequest->foes(from1, to1, from2, to2);
+    return myRequest!=0&&myRequest->foes(from1, to1, from2, to2);
 }
 
 
