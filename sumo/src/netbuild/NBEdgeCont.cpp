@@ -115,11 +115,15 @@ NBEdgeCont::clear() throw()
 
 // ----- edge access methods
 bool
-NBEdgeCont::insert(NBEdge *edge) throw()
+NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw()
 {
     EdgeCont::iterator i = myEdges.find(edge->getID());
     if (i!=myEdges.end()) {
         return false;
+    }
+    if(ignorePrunning) {
+        myEdges.insert(EdgeCont::value_type(edge->getID(), edge));
+        return true;
     }
     // remove edges which allow a speed below a set one (set using "edges-min-speed")
     if (edge->getSpeed()<myEdgesMinSpeed) {
@@ -386,8 +390,8 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     }
     // erase the splitted edge
     erase(dc, edge);
-    insert(one);
-    insert(two);
+    insert(one, true);
+    insert(two, true);
     myEdgesSplit++;
     return true;
 }
@@ -550,7 +554,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     // build the new edge
     NBEdge *newEdge = new NBEdge(id, from, to, "", speed,
                                  nolanes, priority, tpledge->myLaneSpreadFunction);
-    insert(newEdge);
+    insert(newEdge, true);
     // replace old edge by current within the nodes
     //  and delete the old
     from->replaceOutgoing(edges, newEdge);

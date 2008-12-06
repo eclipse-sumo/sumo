@@ -100,9 +100,10 @@ public:
      *  exists, false is returned.
      *
      * @param[in] edge The edge to add
+     * @param[in] ignorePrunning Whether this edge must not be prunned
      * @return Whether the edge was valid (no edge with the same id is already known)
      */
-    bool insert(NBEdge *edge) throw();
+    bool insert(NBEdge *edge, bool ignorePrunning=false) throw();
 
 
     /** @brief Returns the edge that has the given id

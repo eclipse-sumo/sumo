@@ -1829,7 +1829,6 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
             string nodename = myID + "_in_between#" + toString(i);
             if (!nc.insert(nodename, myGeom[i])) {
                 throw ProcessError("Error on adding in-between node '" + nodename + "'.");
-
             }
             newTo = nc.retrieve(nodename);
         } else {
@@ -1843,9 +1842,8 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
             string edgename = myID + "[" + toString(i-1) + "]";
             currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, myLanes.size(),
                                      myPriority, myLaneSpreadFunction);
-            if (!ec.insert(currentEdge)) {
+            if (!ec.insert(currentEdge, true)) {
                 throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
-
             }
         }
         newFrom = newTo;
