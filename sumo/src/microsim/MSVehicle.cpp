@@ -354,12 +354,12 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw()
 
 
 void
-MSVehicle::activateRemindersByEmitOrLaneChange() throw()
+MSVehicle::activateRemindersByEmitOrLaneChange(bool isEmit) throw()
 {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for (vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!(*rem)->isActivatedByEmitOrLaneChange(*this)) {
+        if (!(*rem)->isActivatedByEmitOrLaneChange(*this, isEmit)) {
             rem = myMoveReminders.erase(rem);
         } else {
             ++rem;
@@ -1154,7 +1154,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
     rebuildAllowedLanes();
-    activateRemindersByEmitOrLaneChange();
+    activateRemindersByEmitOrLaneChange(false);
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtLaneChange(enteredLane);
     }
@@ -1176,7 +1176,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed)
     myLane = enteredLane;
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
-    activateRemindersByEmitOrLaneChange();
+    activateRemindersByEmitOrLaneChange(true);
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtEmit(enteredLane, myState);
     }

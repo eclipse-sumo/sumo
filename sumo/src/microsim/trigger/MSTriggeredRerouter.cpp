@@ -90,7 +90,7 @@ MSTriggeredRerouter::Setter::dismissByLaneChange(MSVehicle&) throw()
 
 
 bool
-MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
+MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     myParent->reroute(veh, myLane->getEdge());
     return false;

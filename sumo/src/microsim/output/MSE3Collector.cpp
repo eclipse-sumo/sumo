@@ -78,7 +78,7 @@ MSE3Collector::MSE3EntryReminder::dismissByLaneChange(MSVehicle&) throw()
 
 
 bool
-MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
+MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     return veh.getPositionOnLane() <= myPosition;
 }
@@ -119,7 +119,7 @@ MSE3Collector::MSE3LeaveReminder::dismissByLaneChange(MSVehicle&) throw()
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
+MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     return veh.getPositionOnLane() - veh.getLength() <= myPosition;
 }

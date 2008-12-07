@@ -91,10 +91,9 @@ MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw()
 
 
 bool
-MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
+MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     ++emitted;
-    bool ret = true;
     SUMOReal l = veh.getLength();
     SUMOReal fraction = 1.;
     if (veh.getPositionOnLane()+l>getLane()->length()) {
@@ -106,7 +105,6 @@ MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
     if (veh.getSpeed()<0.1) { // !!! swell
         haltSum++;
     }
-    return ret;
     return true;
 }
 

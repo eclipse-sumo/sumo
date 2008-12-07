@@ -111,7 +111,7 @@ MSE2Collector::dismissByLaneChange(MSVehicle& veh) throw()
 
 
 bool
-MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
+MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
         // vehicle is on detector

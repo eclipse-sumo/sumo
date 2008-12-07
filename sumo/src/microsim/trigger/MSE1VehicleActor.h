@@ -130,11 +130,12 @@ public:
      * by emit or lanechange. Only vehicles that are completely in
      * front of the detector will return true.
      *
-     * @param veh The entering vehilcle.
+     * @param[in] veh The entering vehicle.
+     * @param[in] isEmit true means emit, false: lane change
      *
      * @return True if vehicle is on or in front of the detector.
      */
-    bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
+    bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
     /// @}
 
     /// Returns the number of vehicles that have passed this actor

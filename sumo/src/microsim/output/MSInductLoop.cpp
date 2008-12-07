@@ -133,7 +133,7 @@ MSInductLoop::dismissByLaneChange(MSVehicle& veh) throw()
 
 
 bool
-MSInductLoop::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
+MSInductLoop::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     if (veh.getPositionOnLane() - veh.getLength() > myPosition) {
         // vehicle-front is beyond detector. Ignore

@@ -73,7 +73,17 @@ public:
 
     virtual void dismissByLaneChange(MSVehicle& veh) throw();
 
-    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
+    /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change
+     *
+     * Lane change means in this case that the vehicle changes to the lane
+     *  the reminder is placed at.
+     *
+     * @param[in] veh The entering vehicle.
+     * @param[in] isEmit true means emit, false: lane change
+     *
+     * @return True if vehicle enters the reminder.
+     */
+    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
 
 
     /// @brief The number of sampled vehicle movements (in s)

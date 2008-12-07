@@ -102,7 +102,7 @@ class Setter : public MSMoveReminder
         void dismissByLaneChange(MSVehicle& veh) throw();
 
         /// Returns whether the vehicle shall be aware of this move reminder
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
         /// @}
 
     private:

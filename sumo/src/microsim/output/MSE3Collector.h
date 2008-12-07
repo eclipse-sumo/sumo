@@ -72,7 +72,7 @@ class MSE3EntryReminder : public MSMoveReminder
         /** @brief Constructor
          *
          * @param[in] crossSection The position at which the entry lies
-         * @param[in] collector The detectort he entry belongs to
+         * @param[in] collector The detector the entry belongs to
          */
         MSE3EntryReminder(const MSCrossSection &crossSection, MSE3Collector& collector) throw();
 
@@ -112,10 +112,11 @@ class MSE3EntryReminder : public MSMoveReminder
          *  may enter it in later steps.
          *
          * @param[in] veh The vehicle that enters the lane
+         * @param[in] isEmit true means emit, false: lane change
          * @see MSMoveReminder::isActivatedByEmitOrLaneChange
          * @return False, if vehicle passed the entry, else true.
          */
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
         /// @}
 
 
@@ -187,10 +188,11 @@ class MSE3LeaveReminder : public MSMoveReminder
          *  may enter it in later steps.
          *
          * @param[in] veh The vehicle that enters the lane
+         * @param[in] isEmit true means emit, false: lane change
          * @see MSMoveReminder::isActivatedByEmitOrLaneChange
          * @return False, if vehicle passed the exit completely, else true.
          */
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
         //@}
 
     private:

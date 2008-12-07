@@ -34,6 +34,9 @@ rawdump
 # Tests for vtypeprobe-output
 vtypeprobe
 
+# Tests for routeprobe-output
+route_probe
+
 # Tests for edge-based mean data output (aka "edgedump")
 meandata_edgebased
 

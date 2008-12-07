@@ -144,12 +144,13 @@ public:
      *  the vehicle's front has passed the detector, false, because
      *  the vehicle is no longer relevant for the detector.
      *
-     * @param veh The entering vehilcle.
+     * @param[in] veh The entering vehicle.
+     * @param[in] isEmit true means emit, false: lane change
      * @return True if vehicle is on or in front of the detector.
      * @see MSMoveReminder
      * @see MSMoveReminder::isActivatedByEmitOrLaneChange
      */
-    bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
+    bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
     //@}
 
 

@@ -818,10 +818,11 @@ protected:
      *  "MSMoveReminder::isActivatedByEmitOrLaneChange" is called. The reminder
      *  removed if the call returns false.
      *
+     * @param[in] isEmit true means emit, false: lane change
      * @see MSMoveReminder
      * @see MSMoveReminder::isActivatedByEmitOrLaneChange
      */
-    void activateRemindersByEmitOrLaneChange() throw();
+    void activateRemindersByEmitOrLaneChange(bool isEmit) throw();
 
 
     /** @brief Adapts the vehicle's entering of a new lane

@@ -46,22 +46,58 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteProbe::MSRouteProbe(const string &id,
-                           const MSEdge *edge) throw()
+MSRouteProbe::EntryReminder::EntryReminder(MSLane *lane, MSRouteProbe& collector) throw()
+        : MSMoveReminder(lane), myCollector(collector)
+{}
+
+
+bool
+MSRouteProbe::EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+        SUMOReal newPos, SUMOReal newSpeed) throw()
+{
+    myCollector.addRoute(veh.getRoute());
+    return false;
+}
+
+
+void
+MSRouteProbe::EntryReminder::dismissByLaneChange(MSVehicle&) throw()
+{
+}
+
+
+bool
+MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
+{
+    if (isEmit) {
+    	myCollector.addRoute(veh.getRoute());
+    }
+    return false;
+}
+
+
+
+MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge) throw()
         : Named(id)
 {
     myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
 #ifdef HAVE_MESOSIM
-    MSGlobals::gMesoNet->getSegmentForEdge(edge)->setRouteProbe(this);
+    if (MSGlobals::gUseMesoSim) {
+        MESegment *seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
+        while (seg!=0) {
+            seg->setRouteProbe(this);
+            seg = seg->getNextSegment();
+        }
+        return;
+    }
 #endif
+    MSEdge::LaneCont::const_iterator it = edge->getLanes()->begin();
+    myEntryReminder = new MSRouteProbe::EntryReminder(*it, *this);
+    for (++it; it!=edge->getLanes()->end(); ++it) {
+        (*it)->addMoveReminder(myEntryReminder);
+    }
 }
 
 

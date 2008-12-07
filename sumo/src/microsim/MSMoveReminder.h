@@ -108,11 +108,12 @@ public:
      * Lane change means in this case that the vehicle changes to the lane
      *  the reminder is placed at.
      *
-     * @param veh The entering vehilcle.
+     * @param[in] veh The entering vehicle.
+     * @param[in] isEmit true means emit, false: lane change
      *
      * @return True if vehicle enters the reminder.
      */
-    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw() = 0;
+    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() = 0;
 
 
     /** @brief Returns the lane the reminder works on.
