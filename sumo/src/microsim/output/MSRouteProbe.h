@@ -32,6 +32,7 @@
 
 #include <string>
 #include <microsim/output/MSDetectorFileOutput.h>
+#include <microsim/MSMoveReminder.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/Named.h>
 
@@ -41,6 +42,7 @@
 // ===========================================================================
 class MSEdge;
 class MSRoute;
+class MSVehicle;
 
 
 // ===========================================================================

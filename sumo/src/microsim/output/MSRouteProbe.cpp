@@ -30,8 +30,10 @@
 
 #include <string>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSRoute.h>
+#include <microsim/MSVehicle.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #ifdef HAVE_MESOSIM
