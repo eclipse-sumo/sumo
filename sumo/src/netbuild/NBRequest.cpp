@@ -522,24 +522,20 @@ void
 NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                          int fromLane, int toLane)
 {
-    // remember the case when the lane is a "dead end" in the meaning that
-    // vehicles must choose another lane to move over the following
-    // junction
     int idx = 0;
     if (to!=0) {
         idx = getIndex(from, to);
     }
     // !!! move to forbidden
-    for (EdgeVector::const_reverse_iterator i=myIncoming->rbegin();
-            i!=myIncoming->rend(); i++) {
-
-        NBEdge *bla = *i;
+    for (EdgeVector::const_reverse_iterator i=myIncoming->rbegin(); i!=myIncoming->rend(); i++) {
+        const vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
             vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             size_t size = connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {
+                    // should wait if no further connection!?
                     os << '1';
                 } else if ((*i)==from&&fromLane==j) {
                     // do not prohibit a connection by others from same lane
@@ -549,14 +545,14 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     assert((size_t) idx<myIncoming->size()*myOutgoing->size());
                     assert(connected[k].toEdge==0 || (size_t) getIndex(*i, connected[k].toEdge)<myIncoming->size()*myOutgoing->size());
                     // check whether the connection is prohibited by another one
-                    if (/*connected[k].definitelyUndisturbed
-                        || */
-                        (connected[k].toEdge!=0 && myForbids[getIndex(*i, connected[k].toEdge)][idx])
-                        &&
-                        toLane == connected[k].toLane) {
-
-                        os << '1';
-                        continue;
+                    if (connected[k].toEdge!=0 && myForbids[getIndex(*i, connected[k].toEdge)][idx]) {
+                        // ok, the edges are foes; 
+                        //  either we have an accelaration lane or not
+                        if(from->getSpeed()<70./3.6 || (*i)->getSpeed()<70./3.6 || 
+                            find_if(allConnections.begin(), allConnections.end(), NBEdge::connections_toedgelane_finder(to, toLane))!=allConnections.end()) {
+                            os << '1';
+                            continue;
+                        }
                     }
                     os << '0';
                 }

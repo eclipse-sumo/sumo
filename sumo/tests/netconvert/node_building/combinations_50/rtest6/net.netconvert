@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:11:39 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 12/10/08 10:45:07 by SUMO netconvert Version dev-SVN-r6410
 <configuration>
 
    <input>
@@ -71,16 +71,16 @@
       <requestsize>11</requestsize>
       <lanenumber>5</lanenumber>
       <logic>
-         <logicitem request="0" response="00000010000" foes="01001110000"/>
-         <logicitem request="1" response="00010010000" foes="11011110000"/>
+         <logicitem request="0" response="00001110000" foes="01001110000"/>
+         <logicitem request="1" response="00011110000" foes="11011110000"/>
          <logicitem request="2" response="00100001000" foes="00100001000"/>
          <logicitem request="3" response="00000000000" foes="00100000100"/>
          <logicitem request="4" response="00000000000" foes="01100000011"/>
          <logicitem request="5" response="00000000000" foes="01100000011"/>
          <logicitem request="6" response="00000000000" foes="01100000011"/>
          <logicitem request="7" response="00000000000" foes="11100000010"/>
-         <logicitem request="8" response="00010011000" foes="00011111100"/>
-         <logicitem request="9" response="00001000000" foes="00011110011"/>
+         <logicitem request="8" response="00011111000" foes="00011111100"/>
+         <logicitem request="9" response="00011110011" foes="00011110011"/>
          <logicitem request="10" response="00010000010" foes="00010000010"/>
       </logic>
    </row-logic>

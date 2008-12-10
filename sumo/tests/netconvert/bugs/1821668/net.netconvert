@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:11:59 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 12/10/08 10:46:08 by SUMO netconvert Version dev-SVN-r6410
 <configuration>
 
    <input>
@@ -58,8 +58,8 @@
       <logic>
          <logicitem request="0" response="0000" foes="1100"/>
          <logicitem request="1" response="0000" foes="1100"/>
-         <logicitem request="2" response="0001" foes="0011"/>
-         <logicitem request="3" response="0010" foes="0011"/>
+         <logicitem request="2" response="0011" foes="0011"/>
+         <logicitem request="3" response="0011" foes="0011"/>
       </logic>
    </row-logic>
 

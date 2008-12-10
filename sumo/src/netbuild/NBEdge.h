@@ -816,6 +816,7 @@ private:
 
     std::vector<TLSDisabledConnection> myTLSDisabledConnections;
 
+public:
     /**
      * @class tls_disable_finder
      */

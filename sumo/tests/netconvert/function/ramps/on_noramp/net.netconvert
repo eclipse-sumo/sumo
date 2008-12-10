@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/08 09:54:26 by SUMO netconvert Version dev-SVN-r6410
+<!-- generated on 12/10/08 10:46:01 by SUMO netconvert Version dev-SVN-r6410
 <configuration>
 
    <input>
@@ -91,7 +91,7 @@
       <requestsize>4</requestsize>
       <lanenumber>4</lanenumber>
       <logic>
-         <logicitem request="0" response="0010" foes="1110"/>
+         <logicitem request="0" response="1110" foes="1110"/>
          <logicitem request="1" response="0000" foes="0001"/>
          <logicitem request="2" response="0000" foes="0001"/>
          <logicitem request="3" response="0000" foes="0001"/>

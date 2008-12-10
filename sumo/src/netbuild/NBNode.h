@@ -61,40 +61,46 @@ class NBTrafficLightLogicCont;
 class NBDistrictCont;
 class OutputDevice;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class NBNode
- *  The class for a single node (junction)
+ * @brief Represents a single node (junction) during network building
  */
 class NBNode
 {
 public:
     /**
-     * ApproachingDivider
+     * @class ApproachingDivider
+     * @brief Computes lane-2-lane connections
+     *
      * Being a bresenham-callback, this class computes which lanes
-     * are approached by the current lane (first callback parameter)
+     *  are approached by the current lane (first callback parameter).
      * The second callback parameter is the destination lane that is the
-     * middle of the computed lanes.
+     *  middle of the computed lanes.
      * The lanes are spreaded from this middle position both to left and right
-     * but may also be transposed in full when there is not enough space.
+     *  but may also be transposed in full when there is not enough space.
      */
 class ApproachingDivider : public Bresenham::BresenhamCallBack
     {
     private:
-        /// the list of edges that approach the current edge
+        /// @brief The list of edges that approach the current edge
         std::vector<NBEdge*> *myApproaching;
 
-        /// the approached current edge
+        /// @brief The approached current edge
         NBEdge *myCurrentOutgoing;
 
     public:
-        /// constructor
+        /** @brief Constructor
+         * @param[in] approaching The list of the edges that approach the outgoing edge
+         * @param[in] currentOutgoing The outgoing edge
+         */
         ApproachingDivider(std::vector<NBEdge*> *approaching,
                            NBEdge *currentOutgoing) throw();
 
-        /// destructor
+        /// @brief Destructor
         ~ApproachingDivider() throw();
 
         /** the bresenham-callback */
@@ -107,20 +113,24 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
 
     };
 
+    
+    /** @enum BasicNodeType
+     * @brief Possible node types
+     */
     enum BasicNodeType {
-        /// Unknown yet
+        /// @brief Unknown yet
         NODETYPE_UNKNOWN,
-        /** internal type for a tls-controlled junction */
+        /// @brief The node is controlled by a traffic light
         NODETYPE_TRAFFIC_LIGHT,
-        /** internal type for a priority-junction */
+        /// @brief The node is a priority junction (one direction has a higher priority)
         NODETYPE_PRIORITY_JUNCTION,
-        /** internal type for a right-before-left junction */
+        /// @brief The node is a right-before-left junction
         NODETYPE_RIGHT_BEFORE_LEFT,
-        /** internal type for a district junction */
+        /// @brief The node is a district
         NODETYPE_DISTRICT,
-        /** internal type for no-junction */
+        /// @brief The node is uncontrolled
         NODETYPE_NOJUNCTION,
-        /** internal type for a dead-end junction */
+        /// @brief The node is a dead end (no outgoing edges)
         NODETYPE_DEAD_END
     };
 
