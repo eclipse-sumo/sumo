@@ -455,39 +455,63 @@ NIVisumLoader::parse_Connectors()
     }
     // build the source when needed
     if (dir.find('Q')!=string::npos) {
-        NBNode *src = buildDistrictNode(bez, dest, true);
-        if (src==0) {
-            MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
-            return;
+        const vector<NBEdge*> &edges = dest->getOutgoingEdges();
+        bool hasContinuation = false;
+        for(vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            if(!(*i)->isMacroscopicConnector()) {
+                hasContinuation = true;
+            }
         }
-        NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
-            OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-            OptionsCont::getOptions().getInt("visum.connector-laneno"),
-            -1, NBEdge::LANESPREAD_RIGHT);
-        edge->setAsMacroscopicConnector();
-        if (!myNetBuilder.getEdgeCont().insert(edge)) {
-            MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
+        if(!hasContinuation) {
+            // obviously, there is no continuation on the net
+            MsgHandler::getWarningInstance()->inform("Incoming connector '" + id + "' will not be build - would be not connected to network.");
         } else {
-            myNetBuilder.getDistrictCont().addSource(bez, edge, proz);
+            NBNode *src = buildDistrictNode(bez, dest, true);
+            if (src==0) {
+                MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
+                return;
+            }
+            NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
+                OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+                OptionsCont::getOptions().getInt("visum.connector-laneno"),
+                -1, NBEdge::LANESPREAD_RIGHT);
+            edge->setAsMacroscopicConnector();
+            if (!myNetBuilder.getEdgeCont().insert(edge)) {
+                MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
+            } else {
+                myNetBuilder.getDistrictCont().addSource(bez, edge, proz);
+            }
         }
     }
     // build the sink when needed
     if (dir.find('Z')!=string::npos) {
-        NBNode *src = buildDistrictNode(bez, dest, false);
-        if (src==0) {
-            MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
-            return;
+        const vector<NBEdge*> &edges = dest->getIncomingEdges();
+        bool hasPredeccessor = false;
+        for(vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            if(!(*i)->isMacroscopicConnector()) {
+                hasPredeccessor = true;
+            }
         }
-        id = "-" + id;
-        NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
-            OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-            OptionsCont::getOptions().getInt("visum.connector-laneno"),
-            -1, NBEdge::LANESPREAD_RIGHT);
-        edge->setAsMacroscopicConnector();
-        if (!myNetBuilder.getEdgeCont().insert(edge)) {
-            MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
+        if(!hasPredeccessor) {
+            // obviously, the network is not connected to this node
+            MsgHandler::getWarningInstance()->inform("Outgoing connector '" + id + "' will not be build - would be not connected to network.");
         } else {
-            myNetBuilder.getDistrictCont().addSink(bez, edge, proz);
+            NBNode *src = buildDistrictNode(bez, dest, false);
+            if (src==0) {
+                MsgHandler::getErrorInstance()->inform("The district '" + bez + "' could not be built.");
+                return;
+            }
+            id = "-" + id;
+            NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
+                OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+                OptionsCont::getOptions().getInt("visum.connector-laneno"),
+                -1, NBEdge::LANESPREAD_RIGHT);
+            edge->setAsMacroscopicConnector();
+            if (!myNetBuilder.getEdgeCont().insert(edge)) {
+                MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
+            } else {
+                myNetBuilder.getDistrictCont().addSink(bez, edge, proz);
+            }
         }
     }
 }
