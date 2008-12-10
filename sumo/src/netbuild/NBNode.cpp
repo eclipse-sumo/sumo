@@ -1152,6 +1152,18 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
                      OptionsCont &)
 {
     if (myIncomingEdges->size()==0||myOutgoingEdges->size()==0) {
+        // no logic if nothing happens here
+        myType = NODETYPE_NOJUNCTION;
+        return;
+    }
+    // check whether the node was set to be unregulated by the user
+    if (OptionsCont::getOptions().getBool("keep-unregulated")
+            ||
+            OptionsCont::getOptions().isInStringVector("keep-unregulated.nodes", getID())
+            ||
+            (OptionsCont::getOptions().getBool("keep-unregulated.district-nodes")&&(isNearDistrict()||isDistrict()))) {
+
+        myType = NODETYPE_NOJUNCTION;
         return;
     }
     // compute the logic if necessary or split the junction
@@ -1162,7 +1174,16 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
                                   static_cast<const EdgeVector * const>(myIncomingEdges),
                                   static_cast<const EdgeVector * const>(myOutgoingEdges),
                                   myBlockedConnections);
-        myRequest->buildBitfieldLogic(jc, myID);
+        // check whether it is not too large
+        if(myRequest->getSizes().second>=64) {
+            // yep -> make it untcontrolled, warn
+            MsgHandler::getWarningInstance()->inform("Junction '" + getID() + "' is too complicated (#links>64); will be set to unregulated.");
+            delete myRequest;
+            myRequest = 0;
+            myType = NODETYPE_NOJUNCTION;
+        } else {
+            myRequest->buildBitfieldLogic(jc, myID);
+        }
     }
 }
 

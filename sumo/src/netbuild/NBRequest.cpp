@@ -78,25 +78,13 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
         myAll(all), myIncoming(incoming), myOutgoing(outgoing)
 {
     size_t variations = myIncoming->size() * myOutgoing->size();
-    // we maybe want to keep the junction unregulated
-    //  this is mostly the case if Vissim-networks are imported and someone
-    //  did not concern prohibitions when inserting streams
-    bool keepUnregulated = false;
-    if (OptionsCont::getOptions().getBool("keep-unregulated")
-            ||
-            OptionsCont::getOptions().isInStringVector("keep-unregulated.nodes", junction->getID())
-            ||
-            (OptionsCont::getOptions().getBool("keep-unregulated.district-nodes")&&(junction->isNearDistrict()||junction->isDistrict()))) {
-
-        keepUnregulated = true;
-    }
     // build maps with information which forbidding connection were
     //  computed and what's in there
     myForbids.reserve(variations);
     myDone.reserve(variations);
     for (size_t i=0; i<variations; i++) {
         myForbids.push_back(LinkInfoCont(variations, false));
-        myDone.push_back(LinkInfoCont(variations, keepUnregulated));
+        myDone.push_back(LinkInfoCont(variations, false));
     }
     // insert loaded prohibits
     for (NBConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
