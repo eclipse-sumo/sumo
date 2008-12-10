@@ -1,0 +1,25 @@
+# network with an on-ramp, no guessing
+on_noramp
+
+# network with an on-ramp, guessing enabled
+on_ramp
+
+
+# network with an off-ramp, no guessing
+off_noramp
+
+# network with an off-ramp, guessing enabled
+off_ramp
+
+
+# network with an both ramps, no guessing
+both_noramp
+
+# network with an both ramps, guessing enabled
+both_ramp
+
+# network with an both ramps, guessing enabled, near nodes (joined into one ramp)
+both_near
+
+
+

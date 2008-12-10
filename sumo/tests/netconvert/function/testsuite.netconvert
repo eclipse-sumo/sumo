@@ -6,3 +6,6 @@ remove_edges
 
 # Tests for building tls programs
 tls_programs
+
+# Tests fpr guessing on/off-ramps
+ramps
