@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/08 09:54:27 by SUMO netconvert Version dev-SVN-r6410
+<!-- generated on 12/10/08 10:04:26 by SUMO netconvert Version dev-SVN-r6410
 <configuration>
 
    <input>
@@ -15,6 +15,10 @@
    <ramp_guessing>
       <guess-ramps>true</guess-ramps>
    </ramp_guessing>
+
+   <edge_removal>
+      <keep-edges>s1,s2,s3,s4,on,off</keep-edges>
+   </edge_removal>
 
 </configuration>
 -->
