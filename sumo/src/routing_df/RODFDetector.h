@@ -168,8 +168,6 @@ public:
     void addFollowingDetector(RODFDetector *det);
     const std::vector<RODFDetector*> &getPriorDetectors() const;
     const std::vector<RODFDetector*> &getFollowerDetectors() const;
-    SUMOReal getUsage(const RODFDetectorCon &detectors,const RODFRouteDesc &route, RODFRouteCont::RoutesMap *curr,
-                      SUMOTime time, const RODFDetectorFlows &flows) const;
 
 
     /// @name Writing methods

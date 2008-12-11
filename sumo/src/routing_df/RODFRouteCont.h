@@ -138,24 +138,6 @@ public:
     void addAllEndFollower() throw();
 
 
-    class RoutesMap
-    {
-    public:
-        RoutesMap();
-        ~RoutesMap();
-        friend std::ostream &operator<<(std::ostream &os, const RoutesMap &rm);
-        void write(std::ostream &os, size_t offset) const;
-
-        std::vector<ROEdge*> common;
-        std::map<ROEdge*, RoutesMap*> splitMap;
-        std::vector<std::string> lastDetectors;
-        ROEdge* lastDetectorEdge;
-    };
-
-    RoutesMap *getRouteMap(const RODFNet &net) const;
-
-    void determineEndDetector(const RODFNet &net, RODFRouteCont::RoutesMap *rmap) const;
-
 protected:
     /** @brief Computes and sets the id of a route
      *

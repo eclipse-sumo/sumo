@@ -149,34 +149,6 @@ RODFDetector::computeSplitProbabilities(const RODFNet *net, const RODFDetectorCo
 }
 
 
-SUMOReal
-RODFDetector::getUsage(const RODFDetectorCon &detectors,
-                       const RODFRouteDesc &route, RODFRouteCont::RoutesMap *curr,
-                       SUMOTime time, const RODFDetectorFlows &flows) const
-{
-    if (curr->splitMap.size()==0) {
-        // ok, reached end
-        return 1;
-    }
-    // patch probability
-    SUMOReal allProb = 0;
-    SUMOReal cProb = 0;
-    RODFRouteCont::RoutesMap *next = 0;
-    for (std::map<ROEdge*, RODFRouteCont::RoutesMap*>::const_iterator i=curr->splitMap.begin(); i!=curr->splitMap.end(); ++i) {
-        SUMOReal tprob = (SUMOReal) detectors.getAggFlowFor((*i).second->lastDetectorEdge, time, 30*60, flows);
-        if (find(route.edges2Pass.begin(), route.edges2Pass.end(), (*i).first)!=route.edges2Pass.end()) {
-            cProb += tprob;
-            next = (*i).second;
-        }
-        allProb += tprob;
-    }
-    if (cProb==0) {
-        return 0;
-    }
-    return cProb * getUsage(detectors, route, next, time, flows);
-}
-
-
 void
 RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
         const RODFDetectorFlows &flows,
@@ -193,7 +165,6 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
         }
         return;
     }
-    RODFRouteCont::RoutesMap *routeMap = myRoutes->getRouteMap(net);
     std::vector<RODFRouteDesc> &descs = myRoutes->get();
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     // iterate through time (in output interval steps)
@@ -220,23 +191,11 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
                         prob *= (*k).second;
                     }
                 }
-                /*
-                if(flowMap.find(*j)!=flowMap.end()) {
-                    continue;
-                }
-                flowMap[*j] = detectors.getAggFlowFor(*j, time, 60, flows);
-                */
             }
             into[time]->add(prob, index);
             (*ri).overallProb = prob;
-            /*
-            SUMOReal prob = getUsage(detectors, *ri, routeMap, time, flows);
-            into[time]->add(prob, index);
-            (*ri).overallProb = prob;
-            */
         }
     }
-    delete routeMap;
 }
 
 
