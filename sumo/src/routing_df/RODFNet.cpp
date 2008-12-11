@@ -213,7 +213,7 @@ RODFNet::hasSourceDetector(ROEdge *edge,
 
 void
 RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
-                          bool allEndFollower, bool keepUnfoundEnds,
+                          bool keepUnfoundEnds,
                           bool keepShortestOnly,
                           std::vector<ROEdge*> &/*visited*/,
                           const RODFDetector &det, RODFRouteCont &into,
@@ -323,7 +323,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
                 if (minDist<cdist) {
                     into.addRouteDesc(current);
                 }
-                continue; // !!!
+                continue;
             }
         }
         // ... else: loop over the next edges
@@ -342,7 +342,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
                 t.passedNo = t.passedNo + 1;
                 toSolve.push(t);
             } else {
-                if (!hadOne||allEndFollower) {
+                if (!hadOne) {
                     t.factor = (SUMOReal) 1. / (SUMOReal) appr.size();
                     SUMOReal cdist = GeomHelper::distance(
                                          current.edges2Pass[0]->getFromNode()->getPosition(),
@@ -454,8 +454,11 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
 
         std::vector<ROEdge*> visited;
         visited.push_back(e);
-        computeRoutesFor(e, rd, 0, allEndFollower, keepUnfoundEnds, keepShortestOnly,
+        computeRoutesFor(e, rd, 0, keepUnfoundEnds, keepShortestOnly,
                          visited, **i, *routes, detcont, maxFollowingLength, seen);
+        if(allEndFollower) {
+            routes->addAllEndFollower();
+        }
         //!!!routes->removeIllegal(illegals);
         (*i)->addRoutes(routes);
 

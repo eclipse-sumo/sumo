@@ -117,14 +117,7 @@ RODFRouteCont::addRouteDesc(RODFRouteDesc &desc) throw()
         // compute route id
         ROEdge *first = *(desc.edges2Pass.begin());
         ROEdge *last = *(desc.edges2Pass.end()-1);
-        pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
-        desc.routename = first->getID() + "_to_" + last->getID();
-        if (myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
-            myConnectionOccurences[c] = 0;
-        } else {
-            myConnectionOccurences[c] = myConnectionOccurences[c] + 1;
-            desc.routename = desc.routename + "_" + toString(myConnectionOccurences[c]);
-        }
+        setID(desc);
         myRoutes.push_back(desc);
     } else {
         RODFRouteDesc &prev = *find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
@@ -315,6 +308,42 @@ RODFRouteCont::getRouteMap(const RODFNet &net) const
     }
     determineEndDetector(net, ret);
     return ret;
+}
+
+
+void 
+RODFRouteCont::addAllEndFollower() throw()
+{
+    vector<RODFRouteDesc> newRoutes;
+    for (vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
+        RODFRouteDesc &desc = *i;
+        ROEdge *last = *(desc.edges2Pass.end()-1);
+        if(last->getNoFollowing()==0) {
+            newRoutes.push_back(desc);
+            continue;
+        }
+        for(int j=0; j<last->getNoFollowing(); ++j) {
+            RODFRouteDesc ndesc(desc);
+            ndesc.edges2Pass.push_back(last->getFollower(j));
+            setID(ndesc);
+            newRoutes.push_back(ndesc);
+        }
+    }
+    myRoutes = newRoutes;
+}
+
+
+void
+RODFRouteCont::setID(RODFRouteDesc &desc) const throw()
+{
+    pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
+    desc.routename = c.first->getID() + "_to_" + c.second->getID();
+    if (myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
+        myConnectionOccurences[c] = 0;
+    } else {
+        myConnectionOccurences[c] = myConnectionOccurences[c] + 1;
+        desc.routename = desc.routename + "_" + toString(myConnectionOccurences[c]);
+    }
 }
 
 

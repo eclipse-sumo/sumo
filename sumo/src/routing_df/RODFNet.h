@@ -49,8 +49,16 @@
 class RODFNet : public RONet
 {
 public:
+    /** @brief Constructor
+     * @param[in] amInHighwayMode Whether search for following edges shall stop at slow edges
+     */
     RODFNet(bool amInHighwayMode) throw();
+
+
+    /// @brief Destructor
     ~RODFNet() throw();
+
+
     void buildApproachList();
 
     void computeTypes(RODFDetectorCon &dets,
@@ -105,7 +113,7 @@ protected:
                        const RODFDetectorCon &detectors) const;
 
     void computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int no,
-                          bool allEndFollower, bool keepUnfoundEnds,
+                          bool keepUnfoundEnds,
                           bool keepShortestOnly,
                           std::vector<ROEdge*> &visited, const RODFDetector &det,
                           RODFRouteCont &into, const RODFDetectorCon &detectors,

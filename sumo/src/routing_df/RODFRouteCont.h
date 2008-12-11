@@ -75,10 +75,10 @@ public:
      *  by the value stored in the given route.
      *
      * An id for the route is generated if it is unset, yet. The id is
-     *  <FIRST_EDGE>_to_<LAST_EDGE>_<RUNNING> where <RUNNING> is the number
-     *  of routes which connect <FIRST_EDGE> and <LAST_EDGE>.
+     *  computed and set via "setID".
      *
      * @param[in] desc The route description to add
+     * @see setID
      */
     void addRouteDesc(RODFRouteDesc &desc) throw();
 
@@ -132,6 +132,12 @@ public:
      */
     void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) throw();
 
+
+    /** @brief All routes are replaced by their versions extended by follower edges
+    */
+    void addAllEndFollower() throw();
+
+
     class RoutesMap
     {
     public:
@@ -151,6 +157,16 @@ public:
     void determineEndDetector(const RODFNet &net, RODFRouteCont::RoutesMap *rmap) const;
 
 protected:
+    /** @brief Computes and sets the id of a route
+     *
+     * The id is <FIRST_EDGE>_to_<LAST_EDGE>_<RUNNING> where <RUNNING> 
+     *  is the number of routes which connect <FIRST_EDGE> and <LAST_EDGE>.
+     *
+     * @param[in] desc The route description to add
+     */
+    void setID(RODFRouteDesc &desc) const throw();
+
+
     /** @brief A class for sorting route descriptions by their length */
     class by_distance_sorter
     {
@@ -190,7 +206,7 @@ protected:
     std::vector<RODFRouteDesc> myRoutes;
 
     /// @brief Counts how many routes connecting the key-edges were already stored
-    std::map<std::pair<ROEdge*, ROEdge*>, int> myConnectionOccurences;
+    mutable std::map<std::pair<ROEdge*, ROEdge*>, int> myConnectionOccurences;
 
 
 };
