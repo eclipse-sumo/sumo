@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/11/08 13:39:53 by SUMO dfrouter Version dev-SVN-r6410
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <detector-files>input_detectors.det.xml</detector-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+   </output>
+
+</configuration>
+-->
+
+<routes>
+
+   <route id="beg_to_end" multi_ref="x">beg middle end</route>
+   <route id="beg_to_L" multi_ref="x">beg 1toL L</route>
+   <route id="beg_to_R" multi_ref="x">beg 1toR R</route>
+
+</routes>

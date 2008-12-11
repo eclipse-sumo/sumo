@@ -1,0 +1,1 @@
+--all-end-follower --net-file=input_net.net.xml --detector-files=input_detectors.det.xml --routes-output routes.rou.xml

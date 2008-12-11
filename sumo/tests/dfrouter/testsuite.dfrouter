@@ -10,6 +10,9 @@ routes
 # Tests whether building emitters works
 emitters
 
+# Tests some additional functions
+function
+
 # Some real world examples
 real_world
 

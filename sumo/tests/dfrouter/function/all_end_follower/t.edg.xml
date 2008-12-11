@@ -1,0 +1,22 @@
+<edges>
+
+   <edge id="beg" fromnode="beg" tonode="1" nolanes="1" speed="19.444" />
+
+   <edge id="middle" fromnode="1" tonode="2" nolanes="1" speed="19.444" />
+
+   <edge id="1toR" fromnode="1"  tonode="R1" nolanes="1" speed="19.444" />
+   <edge id="R"    fromnode="R1" tonode="R2" nolanes="1" speed="19.444" />
+   <edge id="RtoR2a" fromnode="R2" tonode="R2a" nolanes="1" speed="19.444" />
+   <edge id="RtoR2b" fromnode="R2" tonode="R2b" nolanes="1" speed="19.444" />
+   <edge id="RtoR2c" fromnode="R2" tonode="R2c" nolanes="1" speed="19.444" />
+
+   <edge id="1toL" fromnode="1"  tonode="L1" nolanes="1" speed="19.444" />
+   <edge id="L"    fromnode="L1" tonode="L2" nolanes="1" speed="19.444" />
+   <edge id="LtoL2a" fromnode="L2" tonode="L2a" nolanes="1" speed="19.444" />
+   <edge id="LtoL2b" fromnode="L2" tonode="L2b" nolanes="1" speed="19.444" />
+   <edge id="LtoL2c" fromnode="L2" tonode="L2c" nolanes="1" speed="19.444" />
+
+   <edge id="end"  fromnode="2"   tonode="end" nolanes="1" speed="19.444" />
+
+
+</edges>
