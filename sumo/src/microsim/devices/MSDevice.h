@@ -81,7 +81,7 @@ public:
     /** @brief Returns the id of this device
     * @return The device's ID
     */
-    const std::string &getID() {
+    const std::string &getID() throw() {
         return myID;
     }
 
