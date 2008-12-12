@@ -115,7 +115,6 @@ public:
         return (*myLogic)[linkIndex];
     }
 
-
 private:
     /// junctions logic based on std::bitset
     Logic* myLogic;
@@ -126,10 +125,10 @@ private:
     std::bitset<64> myConts;
 
 private:
-    /// Invalidated copy constructor.
+    /// @brief Invalidated copy constructor.
     MSBitSetLogic(const MSBitSetLogic&);
 
-    /// Invalidated assignment operator.
+    /// @brief Invalidated assignment operator.
     MSBitSetLogic& operator=(const MSBitSetLogic&);
 
 };
