@@ -1099,7 +1099,7 @@ NBNode::writeXML(OutputDevice &into)
         //into << " key=\"" << _key << '\"';
         switch (myType) {
         case NODETYPE_NOJUNCTION:
-            into << " type=\"" << "none\"";
+            into << " type=\"" << "unregulated\"";
             break;
         case NODETYPE_PRIORITY_JUNCTION:
         case NODETYPE_TRAFFIC_LIGHT:
@@ -1112,8 +1112,7 @@ NBNode::writeXML(OutputDevice &into)
             into << " type=\"" << "district\"";
             break;
         default:
-            throw exception();
-            break;
+            throw ProcessError("An unknown junction type occured (" + toString(myType) + ")");
         }
     } else {
         into << " type=\"DEAD_END\"";
