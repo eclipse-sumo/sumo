@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:12:07 by SUMO netgen Version dev-SVN-r5964
+<!-- generated on 12/12/08 15:43:27 by SUMO netgen Version dev-SVN-r6410
 <configuration>
 
    <spider_network>
@@ -153,7 +153,7 @@
 
 
 
-   <junction id="1" type="none" x="5.00" y="8.66">
+   <junction id="1" type="unregulated" x="5.00" y="8.66">
       <inclanes>1/1to1_0 3/1to1_0 2/1to1_0</inclanes>
       <shape>8.38,11.91 8.38,5.41 6.13,4.11 0.50,7.36 0.50,9.96 6.13,13.21</shape>
    </junction>
