@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Apr 26 19:34:45 2008
+TraCITestClient output file. Date: Fri Dec 12 16:04:55 2008
 
 
 -> Command sent: <SimulationStep>:
@@ -13,193 +13,193 @@ TraCITestClient output file. Date: Sat Apr 26 19:34:45 2008
   TargetTime=2 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=2 RoadMap-Position: roadId=e_m4 pos=1.98485 laneId=0
+  nodeId=0 targetTime=2 RoadMap-Position: roadId=e_m4 pos=10 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=2 RoadMap-Position: roadId=e_m5 pos=2.54307 laneId=0
+  nodeId=1 targetTime=2 RoadMap-Position: roadId=e_m5 pos=10 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=3 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=3 RoadMap-Position: roadId=e_m4 pos=6.44294 laneId=0
+  nodeId=0 targetTime=3 RoadMap-Position: roadId=e_m4 pos=20 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=3 RoadMap-Position: roadId=e_m5 pos=6.88006 laneId=0
+  nodeId=1 targetTime=3 RoadMap-Position: roadId=e_m5 pos=20 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=4 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=4 RoadMap-Position: roadId=e_m4 pos=13.0454 laneId=0
+  nodeId=0 targetTime=4 RoadMap-Position: roadId=e_m4 pos=30 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=4 RoadMap-Position: roadId=e_m5 pos=12.7833 laneId=0
+  nodeId=1 targetTime=4 RoadMap-Position: roadId=e_m5 pos=30 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=5 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=5 RoadMap-Position: roadId=e_m4 pos=21.1579 laneId=0
+  nodeId=0 targetTime=5 RoadMap-Position: roadId=e_m4 pos=40 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=5 RoadMap-Position: roadId=e_m5 pos=20.4422 laneId=0
+  nodeId=1 targetTime=5 RoadMap-Position: roadId=e_m5 pos=40 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=6 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=6 RoadMap-Position: roadId=e_m4 pos=30.8242 laneId=0
+  nodeId=0 targetTime=6 RoadMap-Position: roadId=e_m4 pos=50 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=6 RoadMap-Position: roadId=e_m5 pos=30.41 laneId=0
+  nodeId=1 targetTime=6 RoadMap-Position: roadId=e_m5 pos=50 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=7 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=7 RoadMap-Position: roadId=e_m4 pos=42.2438 laneId=0
+  nodeId=0 targetTime=7 RoadMap-Position: roadId=e_m4 pos=60 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=7 RoadMap-Position: roadId=e_m5 pos=42.1071 laneId=0
+  nodeId=1 targetTime=7 RoadMap-Position: roadId=e_m5 pos=60 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=8 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=8 RoadMap-Position: roadId=e_m4 pos=55.5622 laneId=0
+  nodeId=0 targetTime=8 RoadMap-Position: roadId=e_m4 pos=70 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=8 RoadMap-Position: roadId=e_m5 pos=55.3794 laneId=0
+  nodeId=1 targetTime=8 RoadMap-Position: roadId=e_m5 pos=70 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=9 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=9 RoadMap-Position: roadId=e_m4 pos=70.0984 laneId=0
+  nodeId=0 targetTime=9 RoadMap-Position: roadId=e_m4 pos=80 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=9 RoadMap-Position: roadId=e_m5 pos=70.6976 laneId=0
+  nodeId=1 targetTime=9 RoadMap-Position: roadId=e_m5 pos=80 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=10 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=10 RoadMap-Position: roadId=e_m4 pos=86.0167 laneId=0
+  nodeId=0 targetTime=10 RoadMap-Position: roadId=e_m4 pos=90 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=10 RoadMap-Position: roadId=e_m5 pos=87.732 laneId=0
+  nodeId=1 targetTime=10 RoadMap-Position: roadId=e_m5 pos=90 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=11 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=11 RoadMap-Position: roadId=e_m4 pos=103.448 laneId=0
+  nodeId=0 targetTime=11 RoadMap-Position: roadId=e_m4 pos=100 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=11 RoadMap-Position: roadId=e_m5 pos=106.69 laneId=0
+  nodeId=1 targetTime=11 RoadMap-Position: roadId=e_m5 pos=100 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=12 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=12 RoadMap-Position: roadId=e_m4 pos=122.236 laneId=0
+  nodeId=0 targetTime=12 RoadMap-Position: roadId=e_m4 pos=110 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=12 RoadMap-Position: roadId=e_m5 pos=127.263 laneId=0
+  nodeId=1 targetTime=12 RoadMap-Position: roadId=e_m5 pos=110 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=13 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=13 RoadMap-Position: roadId=e_m4 pos=142.171 laneId=0
+  nodeId=0 targetTime=13 RoadMap-Position: roadId=e_m4 pos=120 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=13 RoadMap-Position: roadId=e_m5 pos=148.843 laneId=0
+  nodeId=1 targetTime=13 RoadMap-Position: roadId=e_m5 pos=120 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=14 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=14 RoadMap-Position: roadId=e_m4 pos=163.611 laneId=0
+  nodeId=0 targetTime=14 RoadMap-Position: roadId=e_m4 pos=130 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=14 RoadMap-Position: roadId=e_m5 pos=171.452 laneId=0
+  nodeId=1 targetTime=14 RoadMap-Position: roadId=e_m5 pos=130 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=15 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=15 RoadMap-Position: roadId=e_m4 pos=186.649 laneId=0
+  nodeId=0 targetTime=15 RoadMap-Position: roadId=e_m4 pos=140 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=15 RoadMap-Position: roadId=e_m5 pos=195.361 laneId=0
+  nodeId=1 targetTime=15 RoadMap-Position: roadId=e_m5 pos=140 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=16 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=16 RoadMap-Position: roadId=e_m4 pos=211.178 laneId=0
+  nodeId=0 targetTime=16 RoadMap-Position: roadId=e_m4 pos=150 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=16 RoadMap-Position: roadId=e_m5 pos=220.954 laneId=0
+  nodeId=1 targetTime=16 RoadMap-Position: roadId=e_m5 pos=150 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=17 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=17 RoadMap-Position: roadId=e_m4 pos=237.266 laneId=0
+  nodeId=0 targetTime=17 RoadMap-Position: roadId=e_m4 pos=160 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=17 RoadMap-Position: roadId=e_m5 pos=247.59 laneId=0
+  nodeId=1 targetTime=17 RoadMap-Position: roadId=e_m5 pos=160 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=18 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=18 RoadMap-Position: roadId=e_m4 pos=264.962 laneId=0
+  nodeId=0 targetTime=18 RoadMap-Position: roadId=e_m4 pos=170 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=18 RoadMap-Position: roadId=e_m5 pos=275.095 laneId=0
+  nodeId=1 targetTime=18 RoadMap-Position: roadId=e_m5 pos=170 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=19 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=19 RoadMap-Position: roadId=e_m4 pos=293.979 laneId=0
+  nodeId=0 targetTime=19 RoadMap-Position: roadId=e_m4 pos=180 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=19 RoadMap-Position: roadId=e_m5 pos=303.657 laneId=0
+  nodeId=1 targetTime=19 RoadMap-Position: roadId=e_m5 pos=180 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=20 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=20 RoadMap-Position: roadId=e_m4 pos=324.426 laneId=0
+  nodeId=0 targetTime=20 RoadMap-Position: roadId=e_m4 pos=190 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=20 RoadMap-Position: roadId=e_m5 pos=333.663 laneId=0
+  nodeId=1 targetTime=20 RoadMap-Position: roadId=e_m5 pos=190 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=21 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=21 RoadMap-Position: roadId=e_m4 pos=355.66 laneId=0
+  nodeId=0 targetTime=21 RoadMap-Position: roadId=e_m4 pos=200 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=21 RoadMap-Position: roadId=e_m5 pos=364.861 laneId=0
+  nodeId=1 targetTime=21 RoadMap-Position: roadId=e_m5 pos=200 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=22 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=22 RoadMap-Position: roadId=e_m4 pos=388.179 laneId=0
+  nodeId=0 targetTime=22 RoadMap-Position: roadId=e_m4 pos=210 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=22 RoadMap-Position: roadId=e_m5 pos=397.316 laneId=0
+  nodeId=1 targetTime=22 RoadMap-Position: roadId=e_m5 pos=210 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=23 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=23 RoadMap-Position: roadId=e_m4 pos=421.707 laneId=0
+  nodeId=0 targetTime=23 RoadMap-Position: roadId=e_m4 pos=220 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=23 RoadMap-Position: roadId=e_m5 pos=431.053 laneId=0
+  nodeId=1 targetTime=23 RoadMap-Position: roadId=e_m5 pos=220 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=24 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=24 RoadMap-Position: roadId=e_m4 pos=456.061 laneId=0
+  nodeId=0 targetTime=24 RoadMap-Position: roadId=e_m4 pos=230 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=24 RoadMap-Position: roadId=e_m5 pos=465.98 laneId=1
+  nodeId=1 targetTime=24 RoadMap-Position: roadId=e_m5 pos=230 laneId=0
 
 -> Command sent: <SimulationStep>:
   TargetTime=25 PosFormat=4
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=25 RoadMap-Position: roadId=e_m5 pos=7.41245 laneId=0
+  nodeId=0 targetTime=25 RoadMap-Position: roadId=e_m4 pos=240 laneId=0
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=25 RoadMap-Position: roadId=e_m6 pos=18.2543 laneId=1
+  nodeId=1 targetTime=25 RoadMap-Position: roadId=e_m5 pos=240 laneId=0
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]
