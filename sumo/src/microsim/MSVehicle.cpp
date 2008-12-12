@@ -1121,7 +1121,10 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
     myTarget = enteredLane;
     // proceed in route
     const MSEdge * const enteredEdge = enteredLane->getEdge();
+    // internal edges are not a part of the route...
     if (enteredEdge->getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        // we may have to skip edges, as the vehicle may have past them in one step
+        //  (and, of course, at least one edge is passed)
         MSRouteIterator edgeIt = myCurrEdge;
         while (*edgeIt != enteredEdge) {
             ++edgeIt;
@@ -1130,6 +1133,8 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
         myCurrEdge = edgeIt;
     }
 
+    // may be optimized: compute only, if the current or the next have more than one lane...!!!
+    getBestLanes(true);
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtMove(enteredLane, driven);
     }
