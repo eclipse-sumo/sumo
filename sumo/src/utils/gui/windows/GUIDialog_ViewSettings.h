@@ -278,7 +278,7 @@ private:
     FXComboBox *myLaneEdgeColorMode;
     FXVerticalFrame *myLaneColorSettingFrame;
     FXColorWell *mySingleLaneColor, *myMinLaneColor, *myMaxLaneColor;
-    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName;
+    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName, *myHideMacroConnectors;
     FXRealSpinDial *myEdgeNameSizeDialer;
     FXColorWell *myEdgeNameColor;
 

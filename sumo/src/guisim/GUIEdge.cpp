@@ -236,6 +236,9 @@ GUIEdge::getCenteringBoundary() const throw()
 void
 GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
 {
+    if(s.hideConnectors&&myFunction==MSEdge::EDGEFUNCTION_CONNECTOR) {
+        return;
+    }
     // check whether lane boundaries shall be drawn
     if (s.scale>1.&&s.laneShowBorders&&myFunction!=MSEdge::EDGEFUNCTION_INTERNAL) {
         glPolygonOffset(0, 2);

@@ -64,23 +64,22 @@ class MSEdge
 public:
     /**
      * @enum EdgeBasicFunction
+     * @brief Defines possible edge types
+     *
      * For different purposes, it is necessary to know whether the edge
-     * is a normal street or just a sink or a source
-     * This information is represented by values from this enumeration
+     *  is a normal street or something special.
      */
     enum EdgeBasicFunction {
-        /// the purpose of the edge is not known
+        /// @brief The purpose of the edge is not known
         EDGEFUNCTION_UNKNOWN = -1,
-        /// the edge is a normal street
+        /// @brief The edge is a normal street
         EDGEFUNCTION_NORMAL = 0,
-        /// the edge is only used for vehicle emission (begin of trips)
-        EDGEFUNCTION_SOURCE = 1,
-        /// the edge is only used for vehicle deletion (end of trips)
-        EDGEFUNCTION_SINK = 2,
-        /// the edge is an internal edge
-        EDGEFUNCTION_INTERNAL = 3,
-        /// the edge is an within a junction
-        EDGEFUNCTION_INNERJUNCTION = 4
+        /// @brief The edge is a macroscopic connector (source/sink)
+        EDGEFUNCTION_CONNECTOR = 1,
+        /// @brief The edge is an internal edge
+        EDGEFUNCTION_INTERNAL = 2,
+        /// @brief The edge is an within a junction
+        EDGEFUNCTION_INNERJUNCTION = 3
     };
 
 

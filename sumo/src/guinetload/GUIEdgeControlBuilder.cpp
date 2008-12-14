@@ -93,9 +93,8 @@ GUIEdgeControlBuilder::addLane(const std::string &id,
         lane = new GUIInternalLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                             myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
-    case MSEdge::EDGEFUNCTION_SOURCE:
     case MSEdge::EDGEFUNCTION_NORMAL:
-    case MSEdge::EDGEFUNCTION_SINK:
+    case MSEdge::EDGEFUNCTION_CONNECTOR:
     case MSEdge::EDGEFUNCTION_INNERJUNCTION:
         lane = new GUILane(/*net, */id, maxSpeed, length, myActiveEdge,
                                     myCurrentNumericalLaneID++, shape, allowed, disallowed);

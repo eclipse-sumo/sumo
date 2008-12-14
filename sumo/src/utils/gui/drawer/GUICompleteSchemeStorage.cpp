@@ -156,6 +156,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
         vs.drawEdgeName = false;
         vs.edgeNameSize = 50;
         vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
+        vs.hideConnectors = false;
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -221,6 +222,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
         vs.drawEdgeName = false;
         vs.edgeNameSize = 50;
         vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
+        vs.hideConnectors = false;
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -286,6 +288,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
         vs.drawEdgeName = false;
         vs.edgeNameSize = 50;
         vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
+        vs.hideConnectors = true;
 
         vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
@@ -371,6 +374,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
             vs.drawEdgeName = app->reg().readIntEntry(name.c_str(), "drawEdgeName", 0)!=0 ? 1 : 0;
             vs.edgeNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "edgeNameSize", 50);
             vs.edgeNameColor = convert(app->reg().readIntEntry(name.c_str(), "edgeNameColor", FXRGB(255, 255, 255)));
+            vs.hideConnectors = app->reg().readIntEntry(name.c_str(), "hideConnectors", 0)!=0 ? 1 : 0;
 
             vs.vehicleMode = app->reg().readIntEntry(name.c_str(), "vehicleMode", 0);
             vs.vehicleQuality = app->reg().readIntEntry(name.c_str(), "vehicleQuality", 0);

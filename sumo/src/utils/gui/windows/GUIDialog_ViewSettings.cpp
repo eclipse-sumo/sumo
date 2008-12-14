@@ -163,6 +163,7 @@ GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
         mySettings.showRails = TplConvert<char>::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
         mySettings.edgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("edgeNameSize", toString(mySettings.edgeNameSize)).c_str());
         mySettings.edgeNameColor = RGBColor::parseColor(attrs.getStringSecure("edgeNameColor", toString(mySettings.edgeNameColor)));
+        mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         break;
     case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM: {
         int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
@@ -355,6 +356,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
         myShowRails = new FXCheckButton(m22, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowRails->setCheck(mySettings->showRails);
+        new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
+        myHideMacroConnectors = new FXCheckButton(m22, "Hide macro connectors", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myHideMacroConnectors->setCheck(mySettings->hideConnectors);
         new FXLabel(m22, " ", 0, LAYOUT_CENTER_Y);
         myShowEdgeName = new FXCheckButton(m22, "Show edge name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myShowEdgeName->setCheck(mySettings->drawEdgeName);
@@ -727,6 +731,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myShowEdgeName->setCheck(mySettings->drawEdgeName);
     myEdgeNameSizeDialer->setValue(mySettings->edgeNameSize);
     myEdgeNameColor->setRGBA(convert(mySettings->edgeNameColor));
+    myHideMacroConnectors->setCheck(mySettings->hideConnectors);
 
     myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
@@ -824,6 +829,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
     tmpSettings.drawEdgeName = myShowEdgeName->getCheck()!=0;
     tmpSettings.edgeNameSize = (SUMOReal) myEdgeNameSizeDialer->getValue();
     tmpSettings.edgeNameColor = convert(myEdgeNameColor->getRGBA());
+    tmpSettings.hideConnectors = myHideMacroConnectors->getCheck()!=0;
 
     if (myVehicleColoringInfoSource!=0) {
         tmpSettings.vehicleMode = myVehicleColorMode->getCurrentItem();
@@ -989,6 +995,7 @@ GUIDialog_ViewSettings::writeSettings() throw()
                 getApp()->reg().writeIntEntry(sname.c_str(), ("nlcC" + toString(index) + "_" + toString(k)).c_str(), convert((*j).second[k]));
             }
         }
+        getApp()->reg().writeIntEntry(sname.c_str(), "hideConnectors", item.hideConnectors ? 1 : 0);
 
         getApp()->reg().writeIntEntry(sname.c_str(), "vehicleMode", item.vehicleMode);
         getApp()->reg().writeIntEntry(sname.c_str(), "vehicleQuality", item.vehicleQuality);
@@ -1058,7 +1065,9 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
         << "\" maxExagg=\"" << mySettings->maxExagg
         << "\" showRails=\"" << mySettings->showRails
         << "\" edgeNameSize=\"" << mySettings->edgeNameSize
-        << "\" edgeNameColor=\"" << mySettings->edgeNameColor << "\">\n";
+        << "\" edgeNameColor=\"" << mySettings->edgeNameColor 
+        << "\" hideConnectors=\"" << mySettings->hideConnectors
+        << "\">\n";
         for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
             for (k=0; k<(*j).second.size(); ++k) {
                 dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";

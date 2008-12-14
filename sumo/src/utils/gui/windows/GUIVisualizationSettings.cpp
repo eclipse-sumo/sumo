@@ -66,6 +66,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2)
     if (drawEdgeName!=v2.drawEdgeName) return false;
     if (edgeNameSize!=v2.edgeNameSize) return false;
     if (edgeNameColor!=v2.edgeNameColor) return false;
+    if (hideConnectors!=v2.hideConnectors) return false;
 
     if (vehicleMode!=v2.vehicleMode) return false;
     if (vehicleQuality!=v2.vehicleQuality) return false;

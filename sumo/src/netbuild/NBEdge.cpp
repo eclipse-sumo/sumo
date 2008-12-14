@@ -486,8 +486,12 @@ NBEdge::writeXMLStep1(OutputDevice &into)
     "\" from=\"" << myFrom->getID() <<
     "\" to=\"" << myTo->getID() <<
     "\" priority=\"" << myPriority <<
-    "\" type=\"" << myType <<
-    "\" function=\"normal";
+    "\" type=\"" << myType;
+    if(isMacroscopicConnector()) {
+        into << "\" function=\"connector";
+    } else {
+        into << "\" function=\"normal";
+    }
     if (myAmInnerEdge) {
         into << "\" inner=\"x";
     }

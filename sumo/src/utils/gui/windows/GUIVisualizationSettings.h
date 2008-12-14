@@ -92,6 +92,8 @@ struct GUIVisualizationSettings {
     float edgeNameSize;
     /// @brief The color of edge names
     RGBColor edgeNameColor;
+    /// @brief Whether macroscopic connectors shall be hidden
+    bool hideConnectors;
     //@}
 
 
