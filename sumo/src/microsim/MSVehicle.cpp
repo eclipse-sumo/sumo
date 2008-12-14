@@ -1920,7 +1920,7 @@ MSVehicle::getEffort(const MSEdge * const e, SUMOReal t) const
 const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation() const throw()
 {
-    if (myBestLanes.empty()||myBestLanes[0].empty()) {
+    if (myBestLanes.empty()||myBestLanes[0].empty()||myLane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return myEmptyLaneVector;
     }
     return (*myCurrentLaneInBestLanes).joined;
