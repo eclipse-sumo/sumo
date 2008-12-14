@@ -349,7 +349,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs)
     MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
     if (func=="normal") {
         funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
-    } else if (func=="connector"||func="sink"||func="source") {
+    } else if (func=="connector"||func=="sink"||func=="source") {
         funcEnum = MSEdge::EDGEFUNCTION_CONNECTOR;
     } else if (func=="internal") {
         funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
