@@ -333,10 +333,6 @@ GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
     switch (edge->getPurpose()) {
     case GUIEdge::EDGEFUNCTION_NORMAL:
         return RGBColor((SUMOReal) 0, (SUMOReal) 0, (SUMOReal) 0);
-    case GUIEdge::EDGEFUNCTION_SOURCE:
-        return RGBColor((SUMOReal) 0, (SUMOReal) 0.2, (SUMOReal) 0);
-    case GUIEdge::EDGEFUNCTION_SINK:
-        return RGBColor((SUMOReal) 0.2, (SUMOReal) 0, (SUMOReal) 0);
     case GUIEdge::EDGEFUNCTION_INTERNAL:
         return RGBColor((SUMOReal) 0, (SUMOReal) 0, (SUMOReal) 0.2);
     default:
