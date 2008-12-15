@@ -137,9 +137,6 @@ protected:
 
     void doInit();
 
-    /// returns the color of the edge
-    RGBColor getEdgeColor(GUIEdge *edge) const;
-
     void drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken);
     void drawBestLanes(const VehicleOps &vo);
 

@@ -327,22 +327,6 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 }
 
 
-RGBColor
-GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
-{
-    switch (edge->getPurpose()) {
-    case GUIEdge::EDGEFUNCTION_NORMAL:
-        return RGBColor((SUMOReal) 0, (SUMOReal) 0, (SUMOReal) 0);
-    case GUIEdge::EDGEFUNCTION_INTERNAL:
-        return RGBColor((SUMOReal) 0, (SUMOReal) 0, (SUMOReal) 0.2);
-    default:
-        break;
-    }
-    // hmmmm - should not happen
-    return RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 0);
-}
-
-
 void
 GUIViewTraffic::startTrack(int id)
 {

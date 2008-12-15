@@ -60,6 +60,9 @@ public:
         case MSEdge::EDGEFUNCTION_NORMAL:
             glColor3f(0, 0, 0);
             return;
+        case MSEdge::EDGEFUNCTION_CONNECTOR:
+            glColor3f(.5, 0, .5);
+            return;
         case MSEdge::EDGEFUNCTION_INTERNAL:
             glColor3f(0, 0, 1);
             return;
