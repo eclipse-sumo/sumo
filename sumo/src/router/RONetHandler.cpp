@@ -120,7 +120,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
     try {
         string type = attrs.getString(SUMO_ATTR_FUNCTION);
         myProcess = true;
-        if (type=="normal") {
+        if (type=="normal"||type=="connector") {
             myCurrentEdge->setType(ROEdge::ET_NORMAL);
         } else if (type=="source") {
             myCurrentEdge->setType(ROEdge::ET_SOURCE);
