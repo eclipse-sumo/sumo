@@ -1,0 +1,8 @@
+<polytypes>
+	<polytype id="district" name="district" color="1,0,0" fill="f" layer="-1"/>
+	<polytype id="area" name="area" color="0,1,0" fill="f" layer="-2"/>
+
+	<polytype id="Det" name="detector" color="0,1,0" fill="f" layer="2"/>
+	<polytype id="Knot" name="node" color="0,0,1" fill="f" layer="1"/>
+
+</polytypes>
