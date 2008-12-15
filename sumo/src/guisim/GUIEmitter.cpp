@@ -453,22 +453,26 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw()
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -3);
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
     glRotated(myFGRotation, 0, 0, 1);
 
-    glBegin(GL_TRIANGLES);
     glColor3f(1, 0, 0);
     // base
+    glPolygonOffset(0, -3);
+    glBegin(GL_TRIANGLES);
     glVertex2d(0-1.5, 0);
     glVertex2d(0-1.5, 8);
     glVertex2d(0+1.5, 8);
     glVertex2d(0+1.5, 0);
     glVertex2d(0-1.5, 0);
     glVertex2d(0+1.5, 8);
+    glEnd();
 
+    // arrows
+    glPolygonOffset(0, -4);
+    glBegin(GL_TRIANGLES);
     glColor3f(1, 1, 0);
     glVertex2d(0, 1-.5);
     glVertex2d(0-1.25, 1+2-.5);
@@ -478,7 +482,6 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw()
     glVertex2d(0-1.25, 3+2-.5);
     glVertex2d(0+1.25, 3+2-.5);
 
-    glColor3f(1, 1, 0);
     glVertex2d(0, 5-.5);
     glVertex2d(0-1.25, 5+2-.5);
     glVertex2d(0+1.25, 5+2-.5);
