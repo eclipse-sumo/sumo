@@ -148,8 +148,6 @@ MSFrame::fillOptions()
     oc.doRegister("dump-ends", new Option_IntVector(IntVector()));
     oc.addDescription("dump-ends", "Output", "Use INT[] as times at which a dump must end in order to be written");
 
-    oc.doRegister("physical-states-output", new Option_FileName());
-    oc.addDescription("physical-states-output", "Output", "Write vehicle states");
 
     oc.doRegister("lanechange-output", new Option_FileName());
     oc.addSynonyme("lanechange-output", "lanechanges");
@@ -302,7 +300,6 @@ MSFrame::buildStreams()
     OutputDevice::createDeviceByOption("emissions-output", "emissions");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
     OutputDevice::createDeviceByOption("vehroute-output", "routes");
-    OutputDevice::createDeviceByOption("physical-states-output", "physical-states");
     // TrafficOnline-outputs
     OutputDevice::createDeviceByOption("ss2-output");
     OutputDevice::createDeviceByOption("ss2-cell-output");
