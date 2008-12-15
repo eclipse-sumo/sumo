@@ -153,8 +153,7 @@ MSRightOfWayJunction::setAllowed()
     deadlockKiller();
 
 #ifdef HAVE_INTERNAL_LANES
-    // lets reset the yield information on internal, split
-    //  left-moving links
+    // reset the yield information on internal, split left-moving links
     if (MSGlobals::gUsingInternalLanes) {
         for (LaneCont::iterator i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
             const MSLinkCont &lc = (*i)->getLinkCont();
