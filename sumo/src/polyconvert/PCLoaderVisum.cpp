@@ -331,7 +331,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             if (!discard) {
                 if(teilflaechen[flaechenelemente[id]].size()>0) {
                     Polygon2D *poly = new Polygon2D(name, type, color, teilflaechen[flaechenelemente[id]], false);
-                    toFill.insert(name, poly, 1);
+                    toFill.insert(name, poly, layer);
                 } else {
                     SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
                     SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
