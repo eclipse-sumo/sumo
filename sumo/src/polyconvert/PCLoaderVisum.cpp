@@ -100,9 +100,8 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
     while (lr.hasMore()) {
         string line = lr.readLine();
         // reset if current is over
-        if(line.length()==0||line[0]=='$'||line[0]=='*') {
+        if(line.length()==0||line[0]=='*'||line[0]=='$') {
             what = "";
-            continue;
         }
         // read items
         if(what=="$PUNKT") {
@@ -161,21 +160,25 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             int enklave = TplConvert<char>::_2int(lineParser.get("ENKLAVE").c_str()); // !!! unused
             enklave = 0;
             flaechenelemente[id] = tid;
+            continue;
         }
         // set if read
-        if(line.find("$PUNKT")==0) {
-            what = "$PUNKT";
-        } else if(line.find("$KANTE")==0) {
-            what = "$KANTE";  
-        } else if(line.find("$ZWISCHENPUNKT")==0) {
-            what = "$ZWISCHENPUNKT";  
-        } else if(line.find("$TEILFLAECHENELEMENT")==0) {
-            what = "$TEILFLAECHENELEMENT";  
-        } else if(line.find("$FLAECHENELEMENT")==0) {
-            what = "$FLAECHENELEMENT";  
-        }
-        if(what!="") {
-            lineParser.reinit(line.substr(what.length()));
+        if(line[0]=='$') {
+            what = "";
+            if(line.find("$PUNKT")==0) {
+                what = "$PUNKT";
+            } else if(line.find("$KANTE")==0) {
+                what = "$KANTE";  
+            } else if(line.find("$ZWISCHENPUNKT")==0) {
+                what = "$ZWISCHENPUNKT";  
+            } else if(line.find("$TEILFLAECHENELEMENT")==0) {
+                what = "$TEILFLAECHENELEMENT";  
+            } else if(line.find("$FLAECHENELEMENT")==0) {
+                what = "$FLAECHENELEMENT";  
+            }
+            if(what!="") {
+                lineParser.reinit(line.substr(what.length()+1));
+            }
         }
     }
 
@@ -303,12 +306,12 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             string num = st.next();
             string code = st.next();
             string name = st.next();
-            st.next();
-            st.next();
-            st.next();
+            st.next(); // typntr
+            string xpos = st.next();
+            string ypos = st.next();
             long id = TplConvert<char>::_2long(st.next().c_str());
             // patch the values
-            string type = "bezirk";
+            string type = "district";
             name = num;
             bool discard = false;
             int layer = oc.getInt("layer");
@@ -326,8 +329,17 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
                 color = c;
             }
             if (!discard) {
-                Polygon2D *poly = new Polygon2D(name, type, color, teilflaechen[flaechenelemente[id]], false);
-                toFill.insert(name, poly, 1);
+                if(teilflaechen[flaechenelemente[id]].size()>0) {
+                    Polygon2D *poly = new Polygon2D(name, type, color, teilflaechen[flaechenelemente[id]], false);
+                    toFill.insert(name, poly, 1);
+                } else {
+                    SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
+                    SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
+                    Position2D pos(x, y);
+                    GeoConvHelper::x2cartesian(pos);
+                    PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
+                    toFill.insert(name, poi, layer);
+                }
             }
         }
 

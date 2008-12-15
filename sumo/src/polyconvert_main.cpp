@@ -75,7 +75,7 @@ fillOptions() throw()
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
-    // insert options sub-topics
+    // insert options sub-topics 
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
@@ -102,8 +102,6 @@ fillOptions() throw()
     oc.doRegister("visum-files", new Option_FileName());
     oc.addSynonyme("visum-files", "visum");
     oc.addDescription("visum-files", "Input", "Reads polygons from FILE assuming it's a Visum-net");
-    oc.doRegister("visum-points", new Option_FileName());
-    oc.addDescription("visum-points", "Input", "Reads pois from FILE assuming it's a Visum-net");
 
     // xml import
     oc.doRegister("xml-points", new Option_FileName());
@@ -134,8 +132,6 @@ fillOptions() throw()
 
 
     // projection options
-    oc.addOptionSubTopic("Projection");
-
     oc.doRegister("use-projection", new Option_Bool(false));
     oc.addDescription("use-projection", "Projection", "Enables reprojection from geo to cartesian");
 
@@ -169,8 +165,6 @@ fillOptions() throw()
 
 
     // building defaults options
-    oc.addOptionSubTopic("Building Defaults");
-
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
     oc.addDescription("color", "Building Defaults", "Sets STR as default color");
 
