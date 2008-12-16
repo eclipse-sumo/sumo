@@ -114,19 +114,19 @@ NLBuilder::NLBuilder(const OptionsCont &oc,
                      NLDetectorBuilder &db,
                      NLTriggerBuilder &tb,
                      NLGeomShapeBuilder &sb,
-                     NLHandler &xmlHandler)
+                     NLHandler &xmlHandler) throw()
         : myOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
         myDetectorBuilder(db), myTriggerBuilder(tb), myShapeBuilder(sb),
         myNet(net), myXMLHandler(xmlHandler)
 {}
 
 
-NLBuilder::~NLBuilder()
+NLBuilder::~NLBuilder() throw()
 {}
 
 
 bool
-NLBuilder::build()
+NLBuilder::build() throw(ProcessError)
 {
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
     // try to build the net
@@ -202,7 +202,7 @@ NLBuilder::build()
 
 
 void
-NLBuilder::buildNet()
+NLBuilder::buildNet() throw(ProcessError)
 {
     MSEdgeControl *edges = 0;
     try {
@@ -251,7 +251,7 @@ NLBuilder::load(const std::string &mmlWhat, SAX2XMLReader &parser)
 
 
 MSRouteLoaderControl *
-NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
+NLBuilder::buildRouteLoaderControl(const OptionsCont &oc) throw(ProcessError)
 {
     // build the loaders
     MSRouteLoaderControl::LoaderVector loaders;

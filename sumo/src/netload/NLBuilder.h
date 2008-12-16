@@ -87,25 +87,36 @@ public:
     NLBuilder(const OptionsCont &oc, MSNet &net,
               NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
               NLDetectorBuilder &db, NLTriggerBuilder &tb,
-              NLGeomShapeBuilder &sb, NLHandler &xmlHandler);
+              NLGeomShapeBuilder &sb, NLHandler &xmlHandler) throw();
 
 
     /// @brief Destructor
-    virtual ~NLBuilder();
+    virtual ~NLBuilder() throw();
 
 
-    /// the net loading method
-    virtual bool build();
+    /** @brief Builds and initialises the simulation
+     *
+     * At first, the network is loaded and the built using "buildNet".
+     *  If this could be done, additional information is loaded (state dump, 
+     *  weight files, route files, and additional files).
+     * If everything could be done, true is returned, otherwise false. 
+     *
+     * @see buildNet
+     * @exception ProcessError If something fails on network building
+     * @todo Again, both returning a bool and throwing an exception; quite inconsistent
+     */
+    virtual bool build() throw(ProcessError);
+
 
 protected:
     /// loads a described subpart form the given list of files
     bool load(const std::string &mmlWhat, SAX2XMLReader &parser);
 
     /// Closes the net building process
-    void buildNet();
+    void buildNet() throw(ProcessError);
 
     /// Builds the route loader control
-    MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
+    MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc) throw(ProcessError);
 
 
     /**
