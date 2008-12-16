@@ -56,13 +56,13 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
-                               MSEdgeControl &edges,
+MSMeanData_Net::MSMeanData_Net(const std::string &id, 
+                               unsigned int t, MSEdgeControl &edges,
                                const std::vector<int> &dumpBegins,
                                const std::vector<int> &dumpEnds,
                                bool useLanes,
                                bool withEmptyEdges, bool withEmptyLanes) throw()
-        : myInterval(t), myIndex(index),
+        : myID(id), myInterval(t), 
         myAmEdgeBased(!useLanes), myDumpBegins(dumpBegins), myDumpEnds(dumpEnds),
         myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes)
 {
@@ -222,7 +222,6 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                 meanSpeedS += meanSpeed;
                 noNotEmpty++;
             }
-            //s->flushMeanData(myIndex, stopTime+1);
             noSegments++;
             absLen += s->getLength();
             if (s->getNextSegment()==0) {
@@ -368,7 +367,7 @@ MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-    stopTime<<"\" "<<"id=\"dump_"<<myInterval<<"\">\n";
+    stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
     write(dev, startTime, stopTime);
     dev<<"   </interval>\n";
 }

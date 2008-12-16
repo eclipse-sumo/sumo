@@ -324,6 +324,52 @@ public:
     void buildRouteProbe(const std::string &id,
                          const std::string &edge, SUMOTime frequency,
                          OutputDevice& device) throw(InvalidArgument);
+
+
+    /** @brief Builds edge based mean data collector using the given specification
+     *
+     * Checks the given values, first. If one of the values is invalid
+     *  an InvalidArgument is thrown.
+     *
+     * Otherwise the edge based mean data collector is built by calling "createEdgeMeanData".
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] frequency The aggregation interval the detector shall use
+     * @param[in] begins List of dump begins
+     * @param[in] ends List of dump ends
+     * @param[in] type The type of values to be generated
+     * @param[in] edges Edges to cover
+     * @param[in] excludeEmpty Whether empty edges shall not be written
+     * @param[in] device The output device the detector shall write into
+     * @exception InvalidArgument If one of the values is invalid
+     */
+    void buildEdgeMeanData(const std::string &id, SUMOTime frequency,
+        const std::string &begins, const std::string &ends,
+        const std::string &type, 
+        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
+
+
+    /** @brief Builds lane based mean data collector using the given specification
+     *
+     * Checks the given values, first. If one of the values is invalid
+     *  an InvalidArgument is thrown.
+     *
+     * Otherwise the edge based mean data collector is built by calling "createLaneMeanData".
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] frequency The aggregation interval the detector shall use
+     * @param[in] begins List of dump begins
+     * @param[in] ends List of dump ends
+     * @param[in] type The type of values to be generated
+     * @param[in] edges Edges to cover
+     * @param[in] excludeEmpty Whether empty edges shall not be written
+     * @param[in] device The output device the detector shall write into
+     * @exception InvalidArgument If one of the values is invalid
+     */
+    void buildLaneMeanData(const std::string &id, SUMOTime frequency,
+        const std::string &begins, const std::string &ends,
+        const std::string &type, 
+        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
     /// @}
 
 
@@ -420,6 +466,42 @@ public:
     virtual MSE3Collector *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries, const CrossSectionVector &exits,
                                             MetersPerSecond haltingSpeedThreshold, SUMOTime haltingTimeThreshold) throw();
+
+
+    /** @brief Creates edge based mean data collector using the given specification
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] frequency The aggregation interval the detector shall use
+     * @param[in] begins List of dump begins
+     * @param[in] ends List of dump ends
+     * @param[in] type The type of values to be generated
+     * @param[in] edges Edges to cover
+     * @param[in] excludeEmpty Whether empty edges shall not be written
+     * @param[in] device The output device the detector shall write into
+     * @exception InvalidArgument If one of the values is invalid
+     */
+    void createEdgeMeanData(const std::string &id, SUMOTime frequency,
+        const std::string &begins, const std::string &ends,
+        const std::string &type, 
+        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
+
+
+    /** @brief Creates edge based mean data collector using the given specification
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] frequency The aggregation interval the detector shall use
+     * @param[in] begins List of dump begins
+     * @param[in] ends List of dump ends
+     * @param[in] type The type of values to be generated
+     * @param[in] edges Edges to cover
+     * @param[in] excludeEmpty Whether empty edges shall not be written
+     * @param[in] device The output device the detector shall write into
+     * @exception InvalidArgument If one of the values is invalid
+     */
+    void createLaneMeanData(const std::string &id, SUMOTime frequency,
+        const std::string &begins, const std::string &ends,
+        const std::string &type, 
+        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
     /// @}
 
 
@@ -458,6 +540,8 @@ public:
             const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
             SUMOReal jamDistThreshold) throw();
+
+
 
 
 protected:
@@ -563,6 +647,29 @@ protected:
      */
     void convContE2PosLength(const std::string &id, MSLane *clane,
                              SUMOReal &pos, SUMOReal &length, bool frinedly_pos) throw(InvalidArgument);
+
+
+    /** @brief Converts the given string into a list of SUMOTime
+     *
+     * @param[in] l The string definition
+     * @return The converted list of SUMOTime-entries
+     * @exception EmptyData If one of the entries is empty
+     * @exception NumberFormatException If one of the entries is not numeric
+     */
+    std::vector<SUMOTime> parseTimeList(const std::string &l) throw(EmptyData, NumberFormatException);
+
+
+    /** @brief Converts the given string into a list of SUMOTime
+     *
+     * @param[in] begins The string definition of time begins
+     * @param[in] ends The string definition of time ends
+     * @param[in] id The id of the parsed detector for error output
+     * @param[in] type The type of the parsed detector for error output
+     * @return The converted lists of SUMOTime-begins and -ends
+     * @exception InvalidArgument If the given definitions are not correct
+     */
+    std::pair<std::vector<SUMOTime>, std::vector<SUMOTime> > getTimeBounds(const std::string &begins, 
+        const std::string &ends, const std::string &id, const std::string &type) throw(InvalidArgument);
 
 
 protected:

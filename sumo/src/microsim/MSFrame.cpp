@@ -131,24 +131,6 @@ MSFrame::fillOptions()
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", "Save single vehicle route inf. into FILE");
 
-    oc.doRegister("dump-intervals", new Option_IntVector(IntVector()));
-    oc.addDescription("dump-intervals", "Output", "Build edge-based network dumps for given intervals");
-    oc.doRegister("dump-basename", new Option_FileName());
-    oc.addDescription("dump-basename", "Output", "Save edge-based network dumps with FILE as prefix");
-    oc.doRegister("lanedump-intervals", new Option_IntVector(IntVector()));
-    oc.addDescription("lanedump-intervals", "Output", "Build lane-based network dumps for given intervals");
-    oc.doRegister("lanedump-basename", new Option_FileName());
-    oc.addDescription("lanedump-basename", "Output", "Save lane-based network dumps with FILE as prefix");
-    oc.doRegister("exclude-empty-edges", new Option_Bool(false));
-    oc.addDescription("exclude-empty-edges", "Output", "Do not write information about empty edges");
-    oc.doRegister("exclude-empty-lanes", new Option_Bool(false));
-    oc.addDescription("exclude-empty-lanes", "Output", "Do not write information about empty lanes");
-    oc.doRegister("dump-begins", new Option_IntVector(IntVector()));
-    oc.addDescription("dump-begins", "Output", "Use INT[] as times at which a dump must begin in order to be written");
-    oc.doRegister("dump-ends", new Option_IntVector(IntVector()));
-    oc.addDescription("dump-ends", "Output", "Use INT[] as times at which a dump must end in order to be written");
-
-
     oc.doRegister("lanechange-output", new Option_FileName());
     oc.addSynonyme("lanechange-output", "lanechanges");
     oc.addDescription("lanechange-output", "Output", "Write lane change information");

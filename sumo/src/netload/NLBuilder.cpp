@@ -45,7 +45,6 @@
 #include "NLTriggerBuilder.h"
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
-#include <microsim/output/MSMeanData_Net_Utils.h>
 #include <microsim/MSRouteLoaderControl.h>
 #include <microsim/MSRouteLoader.h>
 #include <utils/common/MsgHandler.h>
@@ -210,12 +209,6 @@ NLBuilder::buildNet()
         myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
         edges = myEdgeBuilder.build();
         MSFrame::buildStreams();
-        std::vector<MSMeanData_Net*> meanData =
-            MSMeanData_Net_Utils::buildList(myNet.getDetectorControl(), *edges,
-                                            myOptions.getIntVector("dump-intervals"), myOptions.getString("dump-basename"),
-                                            myOptions.getIntVector("lanedump-intervals"), myOptions.getString("lanedump-basename"),
-                                            myOptions.getIntVector("dump-begins"), myOptions.getIntVector("dump-ends"),
-                                            !myOptions.getBool("exclude-empty-edges"), !myOptions.getBool("exclude-empty-lanes"));
         vector<int> stateDumpTimes;
         string stateDumpFiles;
 #ifdef HAVE_MESOSIM
@@ -224,7 +217,7 @@ NLBuilder::buildNet()
 #endif
         myNet.closeBuilding(edges, myJunctionBuilder.build(),
                             buildRouteLoaderControl(myOptions), myJunctionBuilder.buildTLLogics(),
-                            meanData, stateDumpTimes, stateDumpFiles);
+                            stateDumpTimes, stateDumpFiles);
     } catch (ProcessError &) {
         delete edges;
         throw;

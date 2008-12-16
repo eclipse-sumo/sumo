@@ -66,15 +66,15 @@ class MSMeanData_Net : public MSDetectorFileOutput
 public:
     /** @brief Constructor
      *
+     * @param[in] id The id of the detector
      * @param[in] t The interval in [s]
-     * @param[in] index Network-wide running counter of this mean data
      * @param[in] edges Control containing the edges to use
      * @param[in] dumpBegins Begin times of dumps
      * @param[in] dumpEnds End times of dumps
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      */
-    MSMeanData_Net(unsigned int t, unsigned int index,
+    MSMeanData_Net(const std::string &id, unsigned int t, 
                    MSEdgeControl &edges, const std::vector<int> &dumpBegins,
                    const std::vector<int> &dumpEnds, bool useLanes,
                    bool withEmptyEdges, bool withEmptyLanes) throw();
@@ -211,11 +211,11 @@ protected:
     }
 
 protected:
+    /// @brief The id of the detector
+    std::string myID;
+
     /// @brief The time interval the data shall be aggregated over (in s)
     unsigned int myInterval;
-
-    /// @brief The mean data index of this output
-    unsigned int myIndex;
 
     /// @brief Information whether the output shall be edge-based (not lane-based)
     bool myAmEdgeBased;

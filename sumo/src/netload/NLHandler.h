@@ -149,32 +149,61 @@ protected:
          appropriate method */
     virtual void addDetector(const SUMOSAXAttributes &attrs);
 
-    /// Builds an e1-detector using the given specification
+
+    /** @brief Builds an e1-detector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
     virtual void addE1Detector(const SUMOSAXAttributes &attrs);
 
-    /// Builds an e2-detector using the given specification
+    /** @brief Builds an e2-detector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
     virtual void addE2Detector(const SUMOSAXAttributes &attrs);
 
 #ifdef _MESSAGES
-    /// Builds an e4-detector using the given specification
+    /** @brief Builds an e4-detector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
     virtual void addMsgDetector(const SUMOSAXAttributes &attrs);
 #endif
 
-    /// Starts building of an e3-detector using the given specification
+    /** @brief Starts building of an e3-detector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
     void beginE3Detector(const SUMOSAXAttributes &attrs);
 
+    /** @brief Adds an entry to the currently processed e3-detector
+     * @param[in] attrs The attributes that define the entry
+     */
     void addE3Entry(const SUMOSAXAttributes &attrs);
+
+    /** @brief Adds an exit to the currently processed e3-detector
+     * @param[in] attrs The attributes that define the exit
+     */
     void addE3Exit(const SUMOSAXAttributes &attrs);
 
     /// Builds of an e3-detector using collected values
     virtual void endE3Detector();
 
-    /// Builds a vtype-detector using the given specification
+    /** @brief Builds a vtype-detector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
     virtual void addVTypeProbeDetector(const SUMOSAXAttributes &attrs);
 
-    /// Builds a route-detector using the given specification
+    /** @brief Builds a routeprobe-detector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
     virtual void addRouteProbeDetector(const SUMOSAXAttributes &attrs);
 
+    /** @brief Builds edge base mean data collector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
+    virtual void addEdgeMeanData(const SUMOSAXAttributes &attrs);
+
+    /** @brief Builds lane base mean data collector using the given specification
+     * @param[in] attrs The attributes that define the detector
+     */
+    virtual void addLaneMeanData(const SUMOSAXAttributes &attrs);
 
     /** @brief Ends the detector building
      * @todo Remove this

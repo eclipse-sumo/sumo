@@ -52,6 +52,9 @@ GenericSAXHandler::Tag sumotags[] = {
     { "e1-detector",      SUMO_TAG_E1DETECTOR },
     { "e2-detector",      SUMO_TAG_E2DETECTOR },
     { "e3-detector",      SUMO_TAG_E3DETECTOR },
+    { "meandata-edge",    SUMO_TAG_MEANDATA_EDGE },
+    { "meandata-lane",    SUMO_TAG_MEANDATA_LANE },
+    
 #ifdef _MESSAGES
     { "msgemitter",		  SUMO_TAG_MSG_EMITTER },
     { "e4-detector",	  SUMO_TAG_MSG },
@@ -293,6 +296,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "emissionClass",  SUMO_ATTR_EMISSIONCLASS },
 
     { "entering",       SUMO_ATTR_ENTERING },
+    { "excludeEmpty",   SUMO_ATTR_EXCLUDE_EMPTY },
 
     { "lon",            SUMO_ATTR_LON },
     { "lat",            SUMO_ATTR_LAT },

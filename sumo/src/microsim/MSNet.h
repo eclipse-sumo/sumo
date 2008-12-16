@@ -150,11 +150,6 @@ public:
     static void clearAll();
 
 
-    /** @brief Returns the number of unique mean-data-dump-intervals.
-        In vehicles and lanes you will need one element more for the
-        GUI-dump. */
-    unsigned getNDumpIntervals(void);
-
     long getSimStepDurationInMillis() const;
 
     /// route handler may add routes and vehicles
@@ -168,7 +163,6 @@ public:
     virtual void closeBuilding(MSEdgeControl *edges,
                                MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
                                MSTLLogicControl *tlc,
-                               const std::vector<MSMeanData_Net*> &meanData,
                                std::vector<int> stateDumpTimes, std::string stateDumpFiles);
 
     bool logSimulationDuration() const {
@@ -400,11 +394,6 @@ protected:
     SUMOTime myStep;
 
 
-
-    /** @brief List of intervals and filehandles.
-        At the end of each intervall the mean data (flow, density, speed ...)
-        of each lane is calculated and written to file. */
-    std::vector<MSMeanData_Net*> myMeanData;
 
     /// @name Substructures
     /// @{

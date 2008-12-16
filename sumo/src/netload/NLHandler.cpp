@@ -196,6 +196,12 @@ NLHandler::myStartElement(SumoXMLTag element,
         case SUMO_TAG_ROUTEPROBE:
             addRouteProbeDetector(attrs);
             break;
+        case SUMO_TAG_MEANDATA_EDGE:
+            addEdgeMeanData(attrs);
+            break;
+        case SUMO_TAG_MEANDATA_LANE:
+            addLaneMeanData(attrs);
+            break;
         case SUMO_TAG_SOURCE:
             addSource(attrs);
             break;
@@ -1240,6 +1246,70 @@ NLHandler::addE3Exit(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of an exit of the detector '" + myDetectorBuilder.getCurrentE3ID() + "' does not contain a needed value.");
+    }
+}
+
+
+void
+NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs)
+{
+    // get the id, report an error if not given or empty...
+    string id;
+    if (!attrs.setIDFromAttributes("meandata_edge", id)) {
+        return;
+    }
+    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    if (file=="") {
+        MsgHandler::getErrorInstance()->inform("Missing output definition for meandata_edge '" + id + "'.");
+        return;
+    }
+    try {
+        myDetectorBuilder.buildEdgeMeanData(id, attrs.getInt(SUMO_ATTR_FREQUENCY),
+            attrs.getStringSecure(SUMO_ATTR_BEGIN, ""), attrs.getStringSecure(SUMO_ATTR_END, ""),
+            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
+            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
+            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
+            OutputDevice::getDevice(file, getFileName()));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The description of the meandata_edge '" + id + "' does not contain a needed value.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the meandata_edge '" + id + "' contains a broken number.");
+    } catch (IOError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
+}
+
+
+void
+NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs)
+{
+    // get the id, report an error if not given or empty...
+    string id;
+    if (!attrs.setIDFromAttributes("meandata_lane", id)) {
+        return;
+    }
+    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    if (file=="") {
+        MsgHandler::getErrorInstance()->inform("Missing output definition for meandata_lane '" + id + "'.");
+        return;
+    }
+    try {
+        myDetectorBuilder.buildLaneMeanData(id, attrs.getInt(SUMO_ATTR_FREQUENCY),
+            attrs.getStringSecure(SUMO_ATTR_BEGIN, ""), attrs.getStringSecure(SUMO_ATTR_END, ""),
+            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
+            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
+            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
+            OutputDevice::getDevice(file, getFileName()));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The description of the meandata_lane '" + id + "' does not contain a needed value.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the meandata_lane '" + id + "' contains a broken number.");
+    } catch (IOError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 

@@ -156,7 +156,6 @@ void
 MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc,
-                     const std::vector<MSMeanData_Net*> &meanData,
                      vector<int> stateDumpTimes,
                      std::string stateDumpFiles)
 {
@@ -166,7 +165,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myLogics = tlc;
     myMSPhoneNet = new MSPhoneNet();
     // intialise outputs
-    myMeanData = meanData;
     // tol
     if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
         // start old-data removal through MSEventControl
@@ -199,10 +197,6 @@ MSNet::~MSNet()
     delete myJunctions;
     delete myDetectorControl;
     // delete mean data
-    for (std::vector<MSMeanData_Net*>::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); ++i1) {
-        delete *i1;
-    }
-    myMeanData.clear();
     delete myEdges;
     delete myEmitter;
     delete myLogics;
@@ -485,12 +479,6 @@ MSNet::clearAll() {
     MSLane::clear();
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
-}
-
-
-unsigned
-MSNet::getNDumpIntervals(void) {
-    return (unsigned) myMeanData.size();
 }
 
 

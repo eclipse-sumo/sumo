@@ -71,6 +71,10 @@ enum SumoXMLTag {
     SUMO_TAG_E2DETECTOR,
     /** an e3-detector */
     SUMO_TAG_E3DETECTOR,
+    /** an edge based mean data detector */
+    SUMO_TAG_MEANDATA_EDGE,
+    /** a lane based mean data detector */
+    SUMO_TAG_MEANDATA_LANE,
     /** an e3-entry point*/
     SUMO_TAG_DET_ENTRY,
     /** an e3-exit point */
@@ -388,6 +392,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_EMISSIONCLASS,
 
     SUMO_ATTR_ENTERING,
+    SUMO_ATTR_EXCLUDE_EMPTY,
 
     SUMO_ATTR_LON,
     SUMO_ATTR_LAT,
