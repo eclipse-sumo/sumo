@@ -388,6 +388,10 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
     size_t noLinks = lane.getLinkNumber();
     for (size_t i=0; i<noLinks; ++i) {
         MSLink::LinkState state = lane.getLinkState(i);
+        const MSLane *connected = lane.getLinkLane(i);
+        if(connected==0) {
+            continue;
+        }
         switch (state) {
         case MSLink::LINKSTATE_TL_GREEN:
             glColor3d(0, 1, 0);
@@ -417,8 +421,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
             glColor3d(0, 0, 0);
             break;
         }
-        const MSLane *connected = lane.getLinkLane(i);
-        if (connected!=0) {
+
             glBegin(GL_LINES);
             const Position2D &p1 = lane.getShape()[-1];
             const Position2D &p2 = connected->getShape()[0];
@@ -426,7 +429,6 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
             glVertex2f(p2.x(), p2.y());
             glEnd();
             GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
-        }
     }
 }
 
