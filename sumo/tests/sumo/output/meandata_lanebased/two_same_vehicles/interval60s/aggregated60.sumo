@@ -1,18 +1,12 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/06/08 14:06:56 by SUMO sumo Version 0.9.7
+<!-- generated on 12/12/08 14:01:38 by SUMO sumo Version dev-SVN-r6410
 <configuration>
 
    <input>
       <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
    </input>
-
-   <output>
-      <lanedump-intervals>60</lanedump-intervals>
-      <lanedump-basename>aggregated</lanedump-basename>
-      <exclude-empty-edges>true</exclude-empty-edges>
-   </output>
 
    <time>
       <begin>0</begin>

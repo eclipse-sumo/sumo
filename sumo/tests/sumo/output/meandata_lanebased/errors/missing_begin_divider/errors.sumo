@@ -1,4 +1,2 @@
-Error: While processing option 'dump-begins':
- Empty element occured in 0,
-Error: Could not parse commandline options.
+Error: The description of the meandata_lane 'dump_15' does not contain a needed value.
 Quitting (on error).

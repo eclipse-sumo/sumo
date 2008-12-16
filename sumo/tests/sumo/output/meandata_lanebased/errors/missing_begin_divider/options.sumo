@@ -1,2 +1,3 @@
---no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --lanedump-basename=aggregated --lanedump-intervals="15,60,300,900" -b 0 -e 10000 --dump-begins "0," --dump-ends "119,1019"
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -a input_additional.add.xml
+
 

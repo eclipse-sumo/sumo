@@ -1,1 +1,1 @@
---dump-begins 600 --dump-ends 659 --time-to-teleport -1 --exclude-empty-edges --lanedump-basename=aggregated --lanedump-intervals=15,60 --no-step-log --no-duration-log --net-file=net.net.xml -a input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml  -b 0 -e 1000
+--time-to-teleport -1 --no-step-log --no-duration-log --net-file=net.net.xml -a input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml  -b 0 -e 1000
