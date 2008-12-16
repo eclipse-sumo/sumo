@@ -265,6 +265,26 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
     if (topos<0) {
         topos = lane->length() + topos;
     }
+    // check positions
+    if (topos<0 || topos>lane->length()) {
+        if (attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false)) {
+            throw InvalidArgument("Bus stop '" + id + "' ends after the lane's end.");
+        } else {
+            MsgHandler::getWarningInstance()->inform("Bus stop '" + id + "' ends after the lane's end (moving to the end).");
+            topos = lane->length() - .1;
+        }
+    }
+    if (frompos<0 || frompos>lane->length()) {
+        if (attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false)) {
+            throw InvalidArgument("Bus stop '" + id + "' begins after the lane's end.");
+        } else {
+            MsgHandler::getWarningInstance()->inform("Bus stop '" + id + "' begins after the lane's end (moving to the begin-10m).");
+            frompos = MAX2(SUMOReal(0), SUMOReal(topos-10));
+        }
+    }
+    if (topos<frompos) {
+        throw InvalidArgument("Bus stop's '" + id + "' end is in front of its begin.");
+    }
     // get the lines
     std::string lineStr = attrs.getStringSecure(SUMO_ATTR_LINES, "");
     std::vector<std::string> lines;
