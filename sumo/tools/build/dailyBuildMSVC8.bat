@@ -10,7 +10,7 @@ SET SMTP_SERVER=129.247.218.247
 
 cd ..\..
 del %MAKELOG% %MAKEALLLOG%
-svn.exe up > %MAKELOG%
+svn.exe up > %MAKELOG% 2>&1
 
 "D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild "Release|Win32" build\msvc8\prj.sln /out %MAKELOG%
 "D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild "Debug|Win32" build\msvc8\prj.sln /out %MAKEALLLOG%

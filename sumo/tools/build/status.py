@@ -14,12 +14,18 @@ print "--"
 print basename(makelog)
 warnings = 0
 errors = 0
+svnLocked = False
 for l in file(makelog):
-    if l.find("warning ") > -1:
-        warnings = warnings + 1
-    if l.find("error ") > -1:
-        errors = errors + 1
+    if "svn: Working copy" in l and "locked" in l:
+        svnLocked = True
         failed += l
+    if "warning " in l.lower():
+        warnings += 1
+    if "error " in l.lower():
+        errors += 1
+        failed += l
+if svnLocked:
+    failed += "svn up failed\n\n"
 print warnings, "warnings"
 if errors:
     print errors, "errors"
@@ -40,10 +46,10 @@ print basename(makealllog)
 warnings = 0
 errors = 0
 for l in file(makealllog):
-    if l.find("warning ") > -1:
-        warnings = warnings + 1
-    if l.find("error ") > -1:
-        errors = errors + 1
+    if "warning " in l.lower():
+        warnings += 1
+    if "error " in l.lower():
+        errors += 1
         failed += l
 print warnings, "warnings"
 if errors:
