@@ -13,15 +13,6 @@
       <emissions-output></emissions-output>
       <tripinfo-output></tripinfo-output>
       <vehroute-output></vehroute-output>
-      <dump-intervals></dump-intervals>
-      <dump-basename></dump-basename>
-      <lanedump-intervals></lanedump-intervals>
-      <lanedump-basename></lanedump-basename>
-      <exclude-empty-edges>false</exclude-empty-edges>
-      <exclude-empty-lanes>false</exclude-empty-lanes>
-      <dump-begins></dump-begins>
-      <dump-ends></dump-ends>
-      <physical-states-output></physical-states-output>
       <lanechange-output></lanechange-output>
    </output>
 

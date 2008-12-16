@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r5833
+SUMO sumo Version dev-SVN-r6410
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -31,23 +31,6 @@ Usage: sumo.exe [OPTION]*
                                         into FILE
   --tripinfo-output FILE              Save single vehicle trip inf. into FILE
   --vehroute-output FILE              Save single vehicle route inf. into FILE
-  --dump-intervals INT[]              Build edge-based network dumps for given
-                                        intervals
-  --dump-basename FILE                Save edge-based network dumps with FILE
-                                        as prefix
-  --lanedump-intervals INT[]          Build lane-based network dumps for given
-                                        intervals
-  --lanedump-basename FILE            Save lane-based network dumps with FILE
-                                        as prefix
-  --exclude-empty-edges               Do not write information about empty
-                                        edges
-  --exclude-empty-lanes               Do not write information about empty
-                                        lanes
-  --dump-begins INT[]                 Use INT[] as times at which a dump must
-                                        begin in order to be written
-  --dump-ends INT[]                   Use INT[] as times at which a dump must
-                                        end in order to be written
-  --physical-states-output FILE       Write vehicle states
   --lanechange-output FILE            Write lane change information
 
  Time Options:

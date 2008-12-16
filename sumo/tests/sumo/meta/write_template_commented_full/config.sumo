@@ -31,33 +31,6 @@
       <!-- Save single vehicle route inf. into FILE -->
       <vehroute-output></vehroute-output>
 
-      <!-- Build edge-based network dumps for given intervals -->
-      <dump-intervals></dump-intervals>
-
-      <!-- Save edge-based network dumps with FILE as prefix -->
-      <dump-basename></dump-basename>
-
-      <!-- Build lane-based network dumps for given intervals -->
-      <lanedump-intervals></lanedump-intervals>
-
-      <!-- Save lane-based network dumps with FILE as prefix -->
-      <lanedump-basename></lanedump-basename>
-
-      <!-- Do not write information about empty edges -->
-      <exclude-empty-edges>false</exclude-empty-edges>
-
-      <!-- Do not write information about empty lanes -->
-      <exclude-empty-lanes>false</exclude-empty-lanes>
-
-      <!-- Use INT[] as times at which a dump must begin in order to be written -->
-      <dump-begins></dump-begins>
-
-      <!-- Use INT[] as times at which a dump must end in order to be written -->
-      <dump-ends></dump-ends>
-
-      <!-- Write vehicle states -->
-      <physical-states-output></physical-states-output>
-
       <!-- Write lane change information -->
       <lanechange-output></lanechange-output>
 
