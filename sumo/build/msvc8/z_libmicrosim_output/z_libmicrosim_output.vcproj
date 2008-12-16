@@ -588,10 +588,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSMeanData_Net_Utils.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSRouteProbe.cpp"
 				>
 			</File>
@@ -642,10 +638,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSMeanData_Net.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSMeanData_Net_Utils.h"
 				>
 			</File>
 			<File

@@ -31,7 +31,6 @@
 #include <iostream>
 #include "MSDetectorControl.h"
 #include "MSMeanData_Net.h"
-#include "MSMeanData_Net_Utils.h"
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/MSE3Collector.h>
