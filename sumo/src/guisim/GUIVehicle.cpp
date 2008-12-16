@@ -617,7 +617,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
     }
 
     switch (shape) {
-    case SVS_BICYCLE: {
+    case SVS_BICYCLE:
         //glScaled(length-veh.getVehicleType().getGuiOffset(), 1, 1.);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(1/2., 0);
@@ -632,9 +632,8 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
         glVertex2d(0, .03);
         glVertex2d(0, 0);
         glEnd();
-    }
-    break;
-    case SVS_MOTORCYCLE: {
+        break;
+    case SVS_MOTORCYCLE:
         //glScaled(length-veh.getVehicleType().getGuiOffset(), 1, 1.);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(1/2., 0);
@@ -649,8 +648,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
         glVertex2d(0, .03);
         glVertex2d(0, 0);
         glEnd();
-    }
-    break;
+        break;
     case SVS_PASSENGER:
     case SVS_PASSENGER_SEDAN:
         drawPoly(vehiclePoly_PassengerSedanRightGlass, -4.5);
@@ -675,14 +673,20 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
         glColor3dv(current);
         GLHelper::drawBoxLine(Position2D(2.8, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.8, .5);
         break;
-    case SVS_TRANSPORT_1TRAILER: {
+    case SVS_TRANSPORT_1TRAILER:
+        {
         glColor3dv(current);
         SUMOReal l = length-veh.getVehicleType().getGuiOffset()-2.3;
         l = l/2.;
         GLHelper::drawBoxLine(Position2D(2.3, 0), 90., l, .5);
         GLHelper::drawBoxLine(Position2D(2.3+l+.5, 0), 90., l-.5, .5);
-    }
-    break;
+        break;
+        }
+    default: // same as passenger/sedan
+        drawPoly(vehiclePoly_PassengerSedanRightGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerSedanLeftGlass, -4.5);
+        drawPoly(vehiclePoly_PassengerSedanBackGlass, -4.5);
+        break;
     }
     /*
     glBegin(GL_TRIANGLE_FAN);
