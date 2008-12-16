@@ -24,8 +24,6 @@ Usage: polyconvert.exe [OPTION]*
                                      in Elmar-format
   --visum-files FILE               Reads polygons from FILE assuming it's a
                                      Visum-net
-  --visum-points FILE              Reads pois from FILE assuming it's a
-                                     Visum-net
   --xml-points FILE                Reads pois from FILE assuming they're coded
                                      in XML
   --osm-files FILE                 Reads pois from FILE+ assuming they're coded
@@ -68,12 +66,6 @@ Usage: polyconvert.exe [OPTION]*
   -?, --help                       Prints this screen
   -l, --log-file FILE              Writes all messages to FILE
 
- Projection Options:
-  --use-projection                 Enables reprojection from geo to cartesian
-  --proj.simple                    Uses a simple method for projection
-  --proj STR                       Uses STR as proj.4 definition for projection
-  --proj.inverse                   Inverses projection
-
  Prunning Options:
   --prune.on-net                   Enables prunning on net boundaries
   --prune.on-net.offsets STR       Uses STR as offset definition added to the
@@ -82,12 +74,6 @@ Usage: polyconvert.exe [OPTION]*
   --prune.ignore STR               Items in STR will be kept though out of
                                      boundary
   --remove STR                     Items with names in STR will be removed
-
- Building Defaults Options:
-  --color STR                      Sets STR as default color
-  --prefix STR                     Sets STR as default prefix
-  --type STR                       Sets STR as default type
-  --layer INT                      Sets INT as default layer
 
  Random Number Options:
   --srand INT                      Initialises the random number generator with
