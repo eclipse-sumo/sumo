@@ -31,6 +31,8 @@
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Net.h"
@@ -56,6 +58,82 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// MSMeanData_Net::MSLaneMeanDataValues - methods
+// ---------------------------------------------------------------------------
+MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* lane) throw()
+        : MSMoveReminder(lane), sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
+        speedSum(0), haltSum(0), vehLengthSum(0),
+        emitted(0) {}
+
+
+void
+MSMeanData_Net::MSLaneMeanDataValues::reset() throw()
+{
+    sampleSeconds = 0.;
+    nVehLeftLane = 0;
+    nVehEnteredLane = 0;
+    speedSum = 0;
+    haltSum = 0;
+    vehLengthSum = 0;
+    emitted = 0;
+}
+
+
+bool
+MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw()
+{
+    bool ret = true;
+    SUMOReal l = veh.getLength();
+    SUMOReal fraction = 1.;
+    if (oldPos<0&&newSpeed!=0) {
+        fraction = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+        ++nVehEnteredLane;
+    }
+    if (oldPos+SPEED2DIST(newSpeed)>getLane()->length()&&newSpeed!=0) {
+        fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
+        ++nVehLeftLane;
+        ret = false;
+    }
+    sampleSeconds += fraction;
+    speedSum += newSpeed * fraction;
+    vehLengthSum += l * fraction;
+    if (newSpeed<0.1) { // !!! swell
+        haltSum++;
+    }
+    return ret;
+}
+
+
+void
+MSMeanData_Net::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw()
+{
+}
+
+
+bool
+MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
+{
+    ++emitted;
+    SUMOReal l = veh.getLength();
+    SUMOReal fraction = 1.;
+    if (veh.getPositionOnLane()+l>getLane()->length()) {
+        fraction = l - (getLane()->length()-veh.getPositionOnLane());
+    }
+    sampleSeconds += fraction;
+    speedSum += veh.getSpeed() * fraction;
+    vehLengthSum += l * fraction;
+    if (veh.getSpeed()<0.1) { // !!! swell
+        haltSum++;
+    }
+    return true;
+}
+
+
+
+// ---------------------------------------------------------------------------
+// MSMeanData_Net - methods
+// ---------------------------------------------------------------------------
 MSMeanData_Net::MSMeanData_Net(const std::string &id, 
                                unsigned int t, MSEdgeControl &edges,
                                const std::vector<int> &dumpBegins,

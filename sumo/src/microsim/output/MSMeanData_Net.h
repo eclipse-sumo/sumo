@@ -33,7 +33,7 @@
 #include <vector>
 #include <cassert>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include "MSLaneMeanDataValues.h"
+#include <microsim/MSMoveReminder.h>
 #include <limits>
 
 
@@ -53,16 +53,84 @@ class MSLane;
  * @class MSMeanData_Net
  * @brief Redirector for mean data output (net->edgecontrol)
  *
- * This structure does not contain the data itself, it is stored within lanes
- *  (within edges in mesosim?). It is used to collected the data from each lane
- *  of the network's edges and for generating the output, optionally, in the case
- *  of edge-based dump aggregated over the edge's lanes.
+ * This structure does not contain the data itself, it is stored within 
+ *  MSLaneMeanDataValues-MoveReminder objects. 
+ * This class is used to build the output, optionally, in the case
+ *  of edge-based dump, aggregated over the edge's lanes.
  *
  * @todo check where mean data is stored in mesosim.
  * @todo consider error-handling on write (using IOError)
  */
 class MSMeanData_Net : public MSDetectorFileOutput
 {
+public:
+/**
+ * @class MSLaneMeanDataValues
+ * @brief Data structure for mean (aggregated) edge/lane values
+ *
+ * Structure holding values that describe the flow and other physical
+ *  properties aggregated over some seconds and normalised by the
+ *  aggregation period.
+ *
+ * @todo Check whether the haltings-information is used and how
+ */
+class MSLaneMeanDataValues : public MSMoveReminder
+{
+public:
+    /** @brief Constructor */
+    MSLaneMeanDataValues(MSLane* lane) throw();
+
+
+    /** @brief Resets values so they may be used for the next interval
+     */
+    void reset() throw();
+
+    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+
+    virtual void dismissByLaneChange(MSVehicle& veh) throw();
+
+    /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change
+     *
+     * Lane change means in this case that the vehicle changes to the lane
+     *  the reminder is placed at.
+     *
+     * @param[in] veh The entering vehicle.
+     * @param[in] isEmit true means emit, false: lane change
+     *
+     * @return True if vehicle enters the reminder.
+     */
+    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+
+
+    /// @brief The number of sampled vehicle movements (in s)
+    SUMOReal sampleSeconds;
+
+    /// @brief The number of vehicles that left this lane within the sample intervall
+    unsigned nVehLeftLane;
+
+    /// @brief The number of vehicles that entered this lane within the sample intervall
+    unsigned nVehEnteredLane;
+
+    /// @brief The sum of the speeds the vehicles had
+    SUMOReal speedSum;
+
+    /// @brief The number of vehicle probes with v<0.1
+    unsigned haltSum;
+
+    /// @brief The sum of the lengths the vehicles had
+    SUMOReal vehLengthSum;
+
+    /// @brief The number of vehicles that were emitted on the lane
+    unsigned emitted;
+
+
+#ifdef HAVE_MESOSIM
+    std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
+#endif
+
+};
+
+
 public:
     /** @brief Constructor
      *

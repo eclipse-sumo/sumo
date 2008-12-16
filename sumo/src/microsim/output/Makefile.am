@@ -7,7 +7,6 @@ MSE2Collector.cpp MSE2Collector.h \
 MS_E2_ZS_CollectorOverLanes.cpp MS_E2_ZS_CollectorOverLanes.h \
 MSE3Collector.cpp MSE3Collector.h \
 MSInductLoop.cpp MSInductLoop.h \
-MSLaneMeanDataValues.cpp MSLaneMeanDataValues.h \
 MSMeanData_Net.cpp MSMeanData_Net.h \
 MSMsgInductLoop.cpp MSMsgInductLoop.h \
 MSRouteProbe.cpp MSRouteProbe.h \

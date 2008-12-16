@@ -580,10 +580,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSLaneMeanDataValues.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSMeanData_Net.cpp"
 				>
 			</File>
@@ -630,10 +626,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSInductLoop.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSLaneMeanDataValues.h"
 				>
 			</File>
 			<File
