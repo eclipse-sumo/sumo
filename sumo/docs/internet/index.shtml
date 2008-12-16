@@ -73,21 +73,9 @@
 <p><b>"Simulation of Urban MObility"</b> (SUMO) is an open source, highly portable, microscopic road traffic simulation package designed to handle large road networks.</p>
 <p>It is developed by employees of the Centre for Applied Informatics (ZAIK) and the Institute of Transport Research at the German Aerospace Centre.</p>
 <p>You may find the application and some examples within the <a class="SUMOInLineLink" href="downloads/downloads.shtml">download</a>-section.</p>
-<p>We kindly ask you to participate in any way - ask questions, report bugs, tell your needs.</p>
+<p>We kindly ask you to participate in any way - ask questions, report bugs, tell your needs. Please use the mailing lists (see <a class="SUMOInLineLink" href="https://apps.sourceforge.net/mediawiki/sumo/index.php?title=Contact">Contact</a>) to exchange problems or ideas.</p>
+<p>Help and documentation can be found within our <a class="SUMOInLineLink" href="https://apps.sourceforge.net/mediawiki/sumo/index.php?title=Main_Page">wiki</a>. This will incrementally replace the current <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/documentation.shtml">documentation section</a>.</p>
 
-
-<hr class="thin"/>
-
-<p>
-<b>New to SUMO?</b><br/>
-<ul>
-<li>If You have problems installing it, You may find help at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Main_Page#Build_instructions">wiki/BuildInstructions</a><br/>
-<li>If You have problems using it, You may find a tutorial at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Tutorial">wiki/Tutorial</a>. 
-<li>Further documentation for users can be found within our <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/documentation.shtml">documentation section</a> and within the <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Main_Page#User_documentation">Wiki user section</a>.<br/>
-<li>Please use the mailing lists (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/contact.shtml">Contact</a>) to exchange problems or ideas.</br>
-<li>Please put your <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Projects">projects</a> and <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Publications">publications</a> into the appropriate Wiki-section (follow the links).<br/>
-</ul>
-</p>
 
 <hr class="thin"/>
 
