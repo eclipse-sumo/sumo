@@ -1,17 +1,13 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/06/08 14:06:42 by SUMO sumo Version 0.9.7
+<!-- generated on 12/12/08 13:31:08 by SUMO sumo Version dev-SVN-r6410
 <configuration>
 
    <input>
       <net-file>net.net.xml</net-file>
       <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml</additional-files>
    </input>
-
-   <output>
-      <dump-intervals>300,900</dump-intervals>
-      <dump-basename>aggregated</dump-basename>
-   </output>
 
    <time>
       <begin>0</begin>

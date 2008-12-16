@@ -1,1 +1,1 @@
---exclude-empty-edges --dump-basename=aggregated --dump-intervals=15,60 --no-step-log --no-duration-log --net-file=net.net.xml -a input_routes.rou.xml,input_additional2.add.xml  -b 0 -e 1000
+--no-step-log --no-duration-log --net-file=net.net.xml -a input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml  -b 0 -e 1000
