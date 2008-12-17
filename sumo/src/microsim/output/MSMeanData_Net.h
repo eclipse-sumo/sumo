@@ -44,6 +44,9 @@ class OutputDevice;
 class MSEdgeControl;
 class MSEdge;
 class MSLane;
+#ifdef HAVE_MESOSIM
+class MEVehicle;
+#endif
 
 
 // ===========================================================================
