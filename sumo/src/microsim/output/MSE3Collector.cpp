@@ -121,7 +121,7 @@ MSE3Collector::MSE3LeaveReminder::dismissByLaneChange(MSVehicle&) throw()
 bool
 MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
-    return veh.getPositionOnLane() - veh.getLength() <= myPosition;
+    return veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition;
 }
 
 

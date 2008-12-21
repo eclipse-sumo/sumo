@@ -234,7 +234,7 @@ public:
      * @return The gap between this vehicle and the leader (may be <0)
      */
     SUMOReal gap2pred(const MSVehicle& pred) const throw() {
-        SUMOReal gap = pred.getPositionOnLane() - pred.getLength() - getPositionOnLane();
+        SUMOReal gap = pred.getPositionOnLane() - pred.getVehicleType().getLength() - getPositionOnLane();
         if (gap<0&&gap>-1.0e-12) {
             gap = 0;
         }
@@ -374,10 +374,6 @@ public:
 
 
 
-    SUMOReal getLength() const {
-        return myType->getLength();
-    }
-
     SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
         return myType->interactionGap(vF, laneMaxSpeed, vL);
     }
@@ -457,9 +453,9 @@ public:
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
         if (veh1->myState.myPos < veh2->myState.myPos) {
-            return veh2->myState.myPos - veh2->getLength() < veh1->myState.myPos;
+            return veh2->myState.myPos - veh2->getVehicleType().getLength() < veh1->myState.myPos;
         }
-        return veh1->myState.myPos - veh1->getLength() < veh2->myState.myPos;
+        return veh1->myState.myPos - veh1->getVehicleType().getLength() < veh2->myState.myPos;
     }
 
 

@@ -248,7 +248,7 @@ MSE1VehicleActor::dismissByLaneChange(MSVehicle&) throw()
 bool
 MSE1VehicleActor::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
-    if (veh.getPositionOnLane()-veh.getLength() > posM) {
+    if (veh.getPositionOnLane()-veh.getVehicleType().getLength() > posM) {
         // vehicle-end is beyond detector. Ignore
         return false;
     }

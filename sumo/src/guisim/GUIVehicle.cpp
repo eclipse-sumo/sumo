@@ -351,7 +351,7 @@ GUIVehicle::getCenteringBoundary() const throw()
 inline void
 drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale)
 {
-    SUMOReal length = veh.getLength();
+    SUMOReal length = veh.getVehicleType().getLength();
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
     if (length<8) {
@@ -380,7 +380,7 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale)
 inline void
 drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale)
 {
-    SUMOReal length = veh.getLength();
+    SUMOReal length = veh.getVehicleType().getLength();
     SUMOReal offset = veh.getVehicleType().getGuiOffset();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
@@ -431,7 +431,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
     if (lighter[3]>1) lighter[3] = 1;
 
 
-    SUMOReal length = veh.getLength();
+    SUMOReal length = veh.getVehicleType().getLength();
     glPushMatrix();
     glRotated(90, 0, 0, 1);
     glTranslated(veh.getVehicleType().getGuiOffset(), 0, 0);
@@ -780,7 +780,7 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh)
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
     glPushMatrix();
-    glTranslated(dir, veh.getLength()-BLINKER_POS_BACK, 0);
+    glTranslated(dir, veh.getVehicleType().getLength()-BLINKER_POS_BACK, 0);
     GLHelper::drawFilledCircle(.5, 6);
     glPopMatrix();
 }
@@ -790,7 +790,7 @@ inline void
 drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
 {
     glPushMatrix();
-    glTranslated(0, veh.getLength() / 2., 0);
+    glTranslated(0, veh.getVehicleType().getLength() / 2., 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     pfSetPosition(0, 0);
     pfSetScale(size);

@@ -130,7 +130,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // process information about the last blocked vehicle
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*lastBlocked)!=0) {
-        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getLength()-myVehicle.getPositionOnLane();
+        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLength()-myVehicle.getPositionOnLane();
         if (gap>0.1) {
             if (myVehicle.getSpeed()<myVehicle.decelAbility()) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
@@ -158,7 +158,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal rv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
                   ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
                   : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
-    rv += myVehicle.getLength() * (SUMOReal) 2.;
+    rv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.occupied * (SUMOReal) JAM_FACTOR2;
     /*
@@ -358,7 +358,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // process information about the last blocked vehicle
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
     if ((*lastBlocked)!=0) {
-        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getLength()-myVehicle.getPositionOnLane();
+        SUMOReal gap = (*lastBlocked)->getPositionOnLane()-(*lastBlocked)->getVehicleType().getLength()-myVehicle.getPositionOnLane();
         if (gap>0.1) {
             if (myVehicle.getSpeed()<myVehicle.decelAbility()) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
@@ -386,7 +386,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal lv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
                   ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
                   : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
-    lv += myVehicle.getLength() * (SUMOReal) 2.;
+    lv += myVehicle.getVehicleType().getLength() * (SUMOReal) 2.;
 
 
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.occupied * (SUMOReal) JAM_FACTOR2;

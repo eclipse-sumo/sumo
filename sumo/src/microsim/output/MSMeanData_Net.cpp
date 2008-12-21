@@ -84,7 +84,7 @@ bool
 MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw()
 {
     bool ret = true;
-    SUMOReal l = veh.getLength();
+    SUMOReal l = veh.getVehicleType().getLength();
     SUMOReal fraction = 1.;
     if (oldPos<0&&newSpeed!=0) {
         fraction = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
@@ -115,7 +115,7 @@ bool
 MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     ++emitted;
-    SUMOReal l = veh.getLength();
+    SUMOReal l = veh.getVehicleType().getLength();
     SUMOReal fraction = 1.;
     if (veh.getPositionOnLane()+l>getLane()->length()) {
         fraction = l - (getLane()->length()-veh.getPositionOnLane());

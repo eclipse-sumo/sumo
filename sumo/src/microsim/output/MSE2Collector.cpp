@@ -85,7 +85,7 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
             veh.quitRemindedEntered(this);
         }
     }
-    if (newPos - veh.getLength() > myEndPos) {
+    if (newPos - veh.getVehicleType().getLength() > myEndPos) {
         veh.quitRemindedLeft(this);
         std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
@@ -100,7 +100,7 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 void
 MSE2Collector::dismissByLaneChange(MSVehicle& veh) throw()
 {
-    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
+    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
@@ -113,13 +113,13 @@ MSE2Collector::dismissByLaneChange(MSVehicle& veh) throw()
 bool
 MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
-    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
+    if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         // vehicle is on detector
         veh.quitRemindedEntered(this);
         myKnownVehicles.push_back(&veh);
         return true;
     }
-    if (veh.getPositionOnLane() - veh.getLength() > myEndPos) {
+    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myEndPos) {
         // vehicle is beyond detector
         return false;
     }
@@ -178,13 +178,13 @@ MSE2Collector::update(SUMOTime) throw()
     for (std::list<MSVehicle*>::const_iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
         MSVehicle *veh = *i;
 
-        SUMOReal length = veh->getLength();
+        SUMOReal length = veh->getVehicleType().getLength();
         if (&(veh->getLane())==getLane()) {
-            if (veh->getPositionOnLane() - veh->getLength() < myStartPos) {
+            if (veh->getPositionOnLane() - veh->getVehicleType().getLength() < myStartPos) {
                 // vehicle entered detector partially
-                length -= (veh->getLength() - (veh->getPositionOnLane()-myStartPos));
+                length -= (veh->getVehicleType().getLength() - (veh->getPositionOnLane()-myStartPos));
             }
-            if (veh->getPositionOnLane()>myEndPos && veh->getPositionOnLane()-veh->getLength()<=myEndPos) {
+            if (veh->getPositionOnLane()>myEndPos && veh->getPositionOnLane()-veh->getVehicleType().getLength()<=myEndPos) {
                 // vehicle left detector partially
                 length -= (veh->getPositionOnLane()-myEndPos);
             }
@@ -277,7 +277,7 @@ MSE2Collector::update(SUMOTime) throw()
         SUMOReal jamLengthInMeters =
             (*(*i)->firstStandingVehicle)->getPositionOnActiveMoveReminderLane(getLane())
             - (*(*i)->lastStandingVehicle)->getPositionOnActiveMoveReminderLane(getLane())
-            + (*(*i)->lastStandingVehicle)->getLength();
+            + (*(*i)->lastStandingVehicle)->getVehicleType().getLength();
         unsigned jamLengthInVehicles = (unsigned) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics
         myCurrentMaxJamLengthInMeters = MAX2(myCurrentMaxJamLengthInMeters, jamLengthInMeters);

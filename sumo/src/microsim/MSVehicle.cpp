@@ -548,7 +548,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     //
     SUMOReal vSafe  = myType->ffeV(myState.mySpeed, gap, pred->getSpeed());
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
-        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getLength()-getPositionOnLane());
+        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
         SUMOReal nVSafe = myType->ffeV(myState.mySpeed, mgap, neigh->getSpeed());
         vSafe = MIN2(vSafe, nVSafe);
     }
@@ -889,7 +889,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         SUMOReal r_dist2Pred = seen;
         if (nextLane->getLastVehicle()!=0) {
             // there is a leader -> compute distance to him
-            r_dist2Pred = r_dist2Pred + nextLane->myLastState.pos() - nextLane->getLastVehicle()->getLength();
+            r_dist2Pred = r_dist2Pred + nextLane->myLastState.pos() - nextLane->getLastVehicle()->getVehicleType().getLength();
         } else {
             // no, no leader; we'll look until the currently investigated lane's end
             r_dist2Pred = r_dist2Pred + nextLane->length();
@@ -913,7 +913,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                 const State &nextLanePred = nl->myLastState;
                 SUMOReal dist2Pred = seen;
                 if (nl->getLastVehicle()!=0) {
-                    dist2Pred = dist2Pred + nextLanePred.pos() - nl->getLastVehicle()->getLength();
+                    dist2Pred = dist2Pred + nextLanePred.pos() - nl->getLastVehicle()->getVehicleType().getLength();
                 } else {
                     dist2Pred = dist2Pred + nl->length();
                 }
@@ -950,7 +950,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                     const State &nextLanePred2 = nl2->myLastState;
                     SUMOReal dist2Pred2 = seen + nl->length();// @!!! the real length of the car
                     if (nl2->getLastVehicle()!=0) {
-                        dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getLength();
+                        dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getVehicleType().getLength();
                     } else {
                         dist2Pred2 = dist2Pred2 + nl2->length();
                     }
@@ -975,7 +975,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             const State &nextLanePred = nextLane->myLastState;
             SUMOReal dist2Pred = seen;
             if (nextLane->getLastVehicle()!=0) {
-                SUMOReal nextVehicleLength = nextLane->getLastVehicle()->getLength();
+                SUMOReal nextVehicleLength = nextLane->getLastVehicle()->getVehicleType().getLength();
                 if (nextLanePred.pos() - nextVehicleLength < 0) {
                     // the end of pred is beyond his lane's end
                     if (nextVehicleLength>=(*link)->getLength()) {

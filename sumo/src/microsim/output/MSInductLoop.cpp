@@ -96,10 +96,10 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         // entered the detector by move
         SUMOReal entryTimestep = (SUMOReal)
                                  ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed));
-        if (newPos - veh.getLength() > myPosition) {
+        if (newPos - veh.getVehicleType().getLength() > myPosition) {
             // entered and passed detector in a single timestep
             SUMOReal leaveTimestep = (SUMOReal)
-                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getLength()) / newSpeed));
+                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed));
             enterDetectorByMove(veh, entryTimestep);
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
@@ -109,10 +109,10 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         return true;
     } else {
         // vehicle has been on the detector the previous timestep
-        if (newPos - veh.getLength() >= myPosition) {
+        if (newPos - veh.getVehicleType().getLength() >= myPosition) {
             // vehicle passed the detector
             SUMOReal leaveTimestep = (SUMOReal)
-                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getLength()) / newSpeed));
+                                     ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getVehicleType().getLength()) / newSpeed));
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
         }
@@ -125,7 +125,7 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 void
 MSInductLoop::dismissByLaneChange(MSVehicle& veh) throw()
 {
-    if (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getLength() <= myPosition) {
+    if (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
     }
@@ -135,7 +135,7 @@ MSInductLoop::dismissByLaneChange(MSVehicle& veh) throw()
 bool
 MSInductLoop::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
-    if (veh.getPositionOnLane() - veh.getLength() > myPosition) {
+    if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myPosition) {
         // vehicle-front is beyond detector. Ignore
         return false;
     }
@@ -158,7 +158,7 @@ SUMOReal
 MSInductLoop::getCurrentLength() const throw()
 {
     if (myCurrentVehicle!=0) {
-        return myCurrentVehicle->getLength();
+        return myCurrentVehicle->getVehicleType().getLength();
     }
     return -1;
 }
@@ -267,7 +267,7 @@ MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
     SUMOReal entryTimestep = it->second;
     myVehiclesOnDet.erase(it);
     assert(entryTimestep < leaveTimestep);
-    myVehicleDataCont.push_back(VehicleData(veh.getLength(), entryTimestep, leaveTimestep));
+    myVehicleDataCont.push_back(VehicleData(veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
     myLastOccupancy = leaveTimestep - entryTimestep;
     myLastLeaveTimestep = leaveTimestep;
     myCurrentVehicle = 0;

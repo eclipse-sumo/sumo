@@ -137,7 +137,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw()
     } else {
         // check whether the vehicle can be put behind the last one if there is such
         MSVehicle *leader = *myVehicles.begin();
-        SUMOReal leaderPos = leader->getPositionOnLane() - leader->getLength();
+        SUMOReal leaderPos = leader->getPositionOnLane() - leader->getVehicleType().getLength();
         SUMOReal speed = mspeed;
         if (adaptableSpeed) {
             speed = leader->getSpeed();
@@ -165,14 +165,14 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw()
         }
 
         // compute the space needed to not collide with leader
-        SUMOReal leaderPos = leader!=0 ? leader->getPositionOnLane() - leader->getLength() : -1;
+        SUMOReal leaderPos = leader!=0 ? leader->getPositionOnLane() - leader->getVehicleType().getLength() : -1;
         SUMOReal frontGapNeeded = leader!=0 ? veh.getSecureGap(speed, leader->getSpeed(), *leader) : -1;
-        SUMOReal frontMax = leader!=0 ? leaderPos - frontGapNeeded - leader->getLength() : length();
+        SUMOReal frontMax = leader!=0 ? leaderPos - frontGapNeeded - leader->getVehicleType().getLength() : length();
 
         // compute the space needed to not let the follower collide
         SUMOReal followPos = follower->getPositionOnLane();
         SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, veh);
-        SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
+        SUMOReal backMin = followPos + backGapNeeded + veh.getVehicleType().getLength();
 
         // check whether there is enough room
         if (frontMax>0 && backMin<frontMax) {
@@ -284,7 +284,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             // check leader on next lane
             MSVehicle * leader = nextLane->getLastVehicle();
             if (leader!=0) {
-                SUMOReal nspeed = aVehicle->ffeV(speed, seen+leader->getPositionOnLane()-leader->getLength(), leader->getSpeed());
+                SUMOReal nspeed = aVehicle->ffeV(speed, seen+leader->getPositionOnLane()-leader->getVehicleType().getLength(), leader->getSpeed());
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
@@ -360,7 +360,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         // ok, there is one (a leader)
         MSVehicle* leader = *predIt;
         SUMOReal frontGapNeeded = aVehicle->getSecureGap(speed, leader->getSpeed(), *leader);
-        SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getLength(), pos);
+        SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getVehicleType().getLength(), pos);
         if (gap<frontGapNeeded) {
             // too close to the leader on this lane
             return false;
@@ -372,7 +372,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         // there is direct follower on this lane
         MSVehicle *follower = *(predIt-1);
         SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, *aVehicle);
-        SUMOReal gap = MSVehicle::gap(pos, aVehicle->getLength(), follower->getPositionOnLane());
+        SUMOReal gap = MSVehicle::gap(pos, aVehicle->getVehicleType().getLength(), follower->getPositionOnLane());
         if (gap<backGapNeeded) {
             // too close to the follower on this lane
             return false;
@@ -388,7 +388,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         if (approaching.first!=0) {
             const MSVehicle *const follower = approaching.first;
             SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, *aVehicle);
-            SUMOReal gap = approaching.second - pos - aVehicle->getLength();
+            SUMOReal gap = approaching.second - pos - aVehicle->getVehicleType().getLength();
             if (gap<backGapNeeded) {
                 // too close to the consecutive follower
                 return false;
@@ -405,7 +405,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     } else {
         myVehicles.insert(predIt, aVehicle);
     }
-    myVehicleLengthSum += aVehicle->getLength();
+    myVehicleLengthSum += aVehicle->getVehicleType().getLength();
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
@@ -521,7 +521,7 @@ MSLane::detectCollisions(SUMOTime timestep)
     VehCont::iterator lastVeh = myVehicles.end() - 1;
     for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh;) {
         VehCont::iterator pred = veh + 1;
-        SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getLength() - (*veh)->getPositionOnLane();
+        SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getVehicleType().getLength() - (*veh)->getPositionOnLane();
         if (gap < 0) {
             MSVehicle *predV = *pred;
             MSVehicle *vehV = *veh;
@@ -541,7 +541,7 @@ MSLane::detectCollisions(SUMOTime timestep)
             }
             veh = myVehicles.erase(veh); // remove current vehicle
             lastVeh = myVehicles.end() - 1;
-            myVehicleLengthSum -= (*veh)->getLength();
+            myVehicleLengthSum -= (*veh)->getVehicleType().getLength();
             if (veh==myVehicles.end()) {
                 break;
             }
@@ -647,7 +647,7 @@ MSLane::setCritical(std::vector<MSLane*> &into)
     for (VehCont::iterator veh = myVehicles.begin(); veh != myVehicles.end();) {
         MSVehicle *vehV = *veh;
         if (vehV->ends()) {
-            myVehicleLengthSum -= vehV->getLength();
+            myVehicleLengthSum -= vehV->getVehicleType().getLength();
             vehV->leaveLaneAtLaneChange();
             vehV->onTripEnd();
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehV);
@@ -724,7 +724,7 @@ MSLane::pop()
     MSVehicle* first = myVehicles.back();
     first->leaveLaneAtMove(SPEED2DIST(first->getSpeed())/* - first->pos()*/);
     myVehicles.pop_back();
-    myVehicleLengthSum -= first->getLength();
+    myVehicleLengthSum -= first->getVehicleType().getLength();
     if (myVehicles.size()==0) {
         myLastState = MSVehicle::State(10000, 10000);
     }
@@ -751,7 +751,7 @@ MSLane::integrateNewVehicle()
     for (std::vector<MSVehicle*>::const_iterator i=myVehBuffer.begin(); i!=myVehBuffer.end(); ++i) {
         MSVehicle *veh = *i;
         myVehicles.push_front(veh);
-        myVehicleLengthSum += veh->getLength();
+        myVehicleLengthSum += veh->getVehicleType().getLength();
     }
     myVehBuffer.clear();
     return wasInactive&&myVehicles.size()!=0;
@@ -927,7 +927,7 @@ MSLane::removeFirstVehicle()
     MSVehicle *veh = *(myVehicles.end()-1);
     veh->leaveLaneAtLaneChange();
     myVehicles.erase(myVehicles.end()-1);
-    myVehicleLengthSum -= veh->getLength();
+    myVehicleLengthSum -= veh->getVehicleType().getLength();
     return veh;
 }
 
@@ -941,7 +941,7 @@ MSLane::removeVehicle(MSVehicle * remVehicle)
         if (remVehicle->getID() == (*it)->getID()) {
             remVehicle->leaveLaneAtLaneChange();
             myVehicles.erase(it);
-            myVehicleLengthSum -= remVehicle->getLength();
+            myVehicleLengthSum -= remVehicle->getVehicleType().getLength();
             break;
         }
     }
@@ -1120,7 +1120,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         }
         MSVehicle * leader = nextLane->getLastVehicle();
         if (leader!=0) {
-            return std::pair<MSVehicle * const, SUMOReal>(leader, seen+leader->getPositionOnLane()-leader->getLength());
+            return std::pair<MSVehicle * const, SUMOReal>(leader, seen+leader->getPositionOnLane()-leader->getVehicleType().getLength());
         }
         if (nextLane->maxSpeed()<speed) {
             dist = veh.getVehicleType().brakeGap(nextLane->maxSpeed());
@@ -1143,14 +1143,14 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
 void
 MSLane::leftByLaneChange(MSVehicle *v)
 {
-    myVehicleLengthSum -= v->getLength();
+    myVehicleLengthSum -= v->getVehicleType().getLength();
 }
 
 
 void
 MSLane::enteredByLaneChange(MSVehicle *v)
 {
-    myVehicleLengthSum += v->getLength();
+    myVehicleLengthSum += v->getVehicleType().getLength();
 }
 
 
