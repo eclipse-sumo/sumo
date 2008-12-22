@@ -560,6 +560,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\src\microsim\output\HelpersHBEFA.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.cpp"
 				>
 			</File>
@@ -577,6 +581,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSInductLoop.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\output\MSMeanData_HBEFA.cpp"
 				>
 			</File>
 			<File
@@ -600,6 +608,10 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\..\..\src\microsim\output\HelpersHBEFA.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MS_E2_ZS_CollectorOverLanes.h"
 				>
@@ -626,6 +638,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSInductLoop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\output\MSMeanData_HBEFA.h"
 				>
 			</File>
 			<File
