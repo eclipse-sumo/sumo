@@ -101,7 +101,7 @@ public:
     void reset() throw();
 
 
-    /// @name Methods inherited from MSMoveReminder.
+    /// @name Methods inherited from MSMoveReminder
     /// @{
 
     /** @brief Checks whether the vehicle shall be counted and/or shall still touch this MSMoveReminder

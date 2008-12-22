@@ -195,6 +195,7 @@ class MSE3LeaveReminder : public MSMoveReminder
         bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
         //@}
 
+
     private:
         /// @brief The parent collector
         MSE3Collector& myCollector;
@@ -219,7 +220,8 @@ class MSE3LeaveReminder : public MSMoveReminder
      *  @param[in] id The detector's unique id.
      *  @param[in] entries Entry-cross-sections.
      *  @param[in] exits Leavey-cross-sections.
-     *  @param[in] haltingSpeedThreshold A vehicle must not drive a greater speed for at more than haltingTimeThreshold  to be a "halting" vehicle.
+     *  @param[in] haltingSpeedThreshold A vehicle must not drive a greater speed than haltingSpeedThreshold to be a "halting" vehicle.
+     *  @param[in] haltingTimeThreshold A vehicle must not drive a greater speed for more than haltingTimeThreshold to be a "halting" vehicle.
      */
     MSE3Collector(const std::string &id,
                   const CrossSectionVector &entries, const CrossSectionVector &exits,
@@ -227,7 +229,7 @@ class MSE3LeaveReminder : public MSMoveReminder
                   SUMOTime haltingTimeThreshold) throw();
 
 
-    /** @brief Destructor */
+    /// @brief Destructor
     virtual ~MSE3Collector() throw();
 
 

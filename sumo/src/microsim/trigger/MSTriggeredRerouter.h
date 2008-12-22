@@ -95,25 +95,58 @@ class Setter : public MSMoveReminder
          */
         Setter(MSTriggeredRerouter * const parent, MSLane * const lane) throw();
 
-        /// Destructor
+
+        /// @brief Destructor
         ~Setter() throw();
 
-        /// @name Methods inherited from MSMoveReminder.
+
+        /// @name Methods inherited from MSMoveReminder
         /// @{
 
-        /// Returns whether the vehicle has to be aware of this setter in the next step
+        /** @brief Tries to reroute the vehicle
+         *
+         * Calls parent's "reroute"-method with the vehicle as one of the
+         *  parameters. Returns false - the vehicle will not be rerouted again.
+         *
+         * @param[in] veh The regarded vehicle
+         * @param[in] oldPos Position before the move-micro-timestep.
+         * @param[in] newPos Position after the move-micro-timestep.
+         * @param[in] newSpeed The vehicle's current speed
+         * @return always false (the vehicle will not be rerouted again)
+         * @see MSMoveReminder
+         * @see MSMoveReminder::isStillActive
+         * @see MSTriggeredRerouter::reroute
+         */
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
                            SUMOReal newSpeed) throw();
 
-        /// Removes from the list of move reminders to be aware of
+
+        /** @brief Nothing is done here
+         *
+         * @param[in] veh The leaving vehicle.
+         * @see MSMoveReminder::dismissByLaneChange
+         */
         void dismissByLaneChange(MSVehicle& veh) throw();
 
-        /// Returns whether the vehicle shall be aware of this move reminder
+
+        /** @brief Tries to reroute the vehicle
+         *
+         * Calls parent's "reroute"-method with the vehicle as one of the
+         *  parameters. Returns false - the vehicle will not be rerouted again.
+         *
+         * @param[in] veh The entering vehicle.
+         * @param[in] isEmit true means emit, false: lane change
+         * @return always false (the vehicle will not be rerouted again)
+         * @see MSMoveReminder
+         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @see MSTriggeredRerouter::reroute
+         */
         bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
         /// @}
 
+
     private:
-        /// The rerouter used for rerouting the vehicle
+        /// @brief The rerouter used for rerouting the vehicle
         MSTriggeredRerouter * const myParent;
 
     private:

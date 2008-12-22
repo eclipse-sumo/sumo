@@ -88,22 +88,55 @@ public:
      */
     void reset() throw();
 
+
+    /// @name Methods inherited from MSMoveReminder
+    /// @{
+
+    /** @brief Computes current values and adds them to their sums
+     *
+     * The fraction of time the vehicle is on the lane is computed and
+     *  used as a weight for the vehicle's current values.
+     *
+     * Additionally, if the vehicle has entered this lane, "nVehEnteredLane"
+     *  is incremented, and if the vehicle has left the lane, "nVehLeftLane".
+     *
+     * @param[in] veh The regarded vehicle
+     * @param[in] oldPos Position before the move-micro-timestep.
+     * @param[in] newPos Position after the move-micro-timestep.
+     * @param[in] newSpeed The vehicle's current speed
+     * @return false, if the vehicle is beyond the lane, true otherwise
+     * @see MSMoveReminder
+     * @see MSMoveReminder::isStillActive
+     */
     bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
+
+    /** @brief Nothing is done here
+     *
+     * @param[in] veh The leaving vehicle.
+     * @see MSMoveReminder::dismissByLaneChange
+     */
     virtual void dismissByLaneChange(MSVehicle& veh) throw();
 
-    /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change
+
+    /** @brief Computes current emission values and adds them to their sums
      *
-     * Lane change means in this case that the vehicle changes to the lane
-     *  the reminder is placed at.
+     * The fraction of time the vehicle is on the lane is computed and
+     *  used as a weight for the vehicle's current values.
+     *  The "emitted" field is incremented, additionally.
      *
-     * @param[in] veh The entering vehicle.
+     * @param[in] veh The vehicle that enters the lane
      * @param[in] isEmit true means emit, false: lane change
-     *
-     * @return True if vehicle enters the reminder.
+     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+     * @return Always true
      */
     virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+    //@}
 
+
+
+    /// @name Collected values
+    /// @{
 
     /// @brief The number of sampled vehicle movements (in s)
     SUMOReal sampleSeconds;
@@ -125,6 +158,7 @@ public:
 
     /// @brief The number of vehicles that were emitted on the lane
     unsigned emitted;
+    //@}
 
 
 #ifdef HAVE_MESOSIM

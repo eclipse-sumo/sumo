@@ -75,6 +75,18 @@ public:
     virtual ~MSMoveReminder() throw() {}
 
 
+    /** @brief Returns the lane the reminder works on.
+     *
+     * @return The lane the reminder works on.
+     */
+    const MSLane* const getLane() const throw() {
+        return myLane;
+    }
+
+
+    /// @name Interface methods, to be derived by subclasses
+    /// @{
+
     /** @brief Checks whether the reminder still has to be notified aboutthe vehicle moves
      *
      * Indicator if the reminders is still active for the passed
@@ -114,15 +126,7 @@ public:
      * @return True if vehicle enters the reminder.
      */
     virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() = 0;
-
-
-    /** @brief Returns the lane the reminder works on.
-     *
-     * @return The lane the reminder works on.
-     */
-    const MSLane* const getLane() const throw() {
-        return myLane;
-    }
+    /// @}
 
 
 protected:

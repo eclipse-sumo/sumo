@@ -86,24 +86,16 @@ public:
     ~MSE1VehicleActor() throw();
 
 
-    /// @name Methods inherited from MSMoveReminder.
+    /// @name Methods inherited from MSMoveReminder
     /// @{
 
     /**
-     * Indicator if the reminders is still active for the passed
-     * vehicle/parameters. If false, the vehicle will erase this
-     * reminder from it's reminder-container. This method will
-     * determine the entry- and leave-time of the counted vehicle and
-     * pass this information to the methods enterDetectorByMove() and
-     * eaveDetectorByMove().
      *
-     * @param veh Vehicle that asks this remider.
-     * @param oldPos Position before move.
-     * @param newPos Position after move with newSpeed.
-     * @param newSpeed Moving speed.
-     *
+     * @param[in, changed] veh Vehicle that asks this remider.
+     * @param[in] oldPos Position before move.
+     * @param[in] newPos Position after move with newSpeed.
+     * @param[in] newSpeed Moving speed.
      * @return True if vehicle hasn't passed the detector completely.
-     *
      * @see MSMoveReminder
      * @see MSMoveReminder::isStillActive
      * @see enterDetectorByMove
@@ -115,28 +107,30 @@ public:
                        SUMOReal newSpeed) throw();
 
 
-    /**
-     *  Informs corresponding detector via leaveDetectorByLaneChange()
-     *  if vehicle leaves by lanechange.
+    /** @brief Nothing is done here
      *
-     * @param veh The leaving vehicle.
-     *
-     * @see leaveDetectorByLaneChange
+     * @param[in] veh The leaving vehicle.
+     * @see MSMoveReminder::dismissByLaneChange
      */
     void dismissByLaneChange(MSVehicle& veh) throw();
 
-    /**
-     * Informs corresponding detector if vehicle enters the reminder
-     * by emit or lanechange. Only vehicles that are completely in
-     * front of the detector will return true.
+
+    /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
+     *
+     * If the detector is in front of the vehicle, true is returned. If
+     *  the vehicle's front has passed the detector, false, because
+     *  the vehicle is no longer relevant for the detector.
      *
      * @param[in] veh The entering vehicle.
      * @param[in] isEmit true means emit, false: lane change
-     *
      * @return True if vehicle is on or in front of the detector.
+     * @see MSMoveReminder
+     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
      */
     bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
     /// @}
+
+
 
     /// Returns the number of vehicles that have passed this actor
     unsigned int getPassedVehicleNumber() const {

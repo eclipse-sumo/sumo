@@ -107,7 +107,7 @@ public:
 
 
 
-    /// @name Methods inherited from MSMoveReminder.
+    /// @name Methods inherited from MSMoveReminder
     /// @{
 
     /** @brief Adds/removes vehicles from the list of vehicles to regard

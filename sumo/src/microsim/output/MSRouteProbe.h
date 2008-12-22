@@ -81,7 +81,7 @@ public:
         EntryReminder(MSLane * const lane, MSRouteProbe& collector) throw();
 
 
-        /// @name Methods inherited from MSMoveReminder.
+        /// @name Methods inherited from MSMoveReminder
         /// @{
 
         /** @brief Checks whether the vehicle enters
