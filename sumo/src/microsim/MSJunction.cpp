@@ -67,7 +67,7 @@ MSJunction::getPosition() const
 
 
 void
-MSJunction::postloadInit()
+MSJunction::postloadInit() throw(ProcessError)
 {}
 
 

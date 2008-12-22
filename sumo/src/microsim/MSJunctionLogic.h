@@ -62,6 +62,11 @@ public:
         return myDummyFoes;
     }
 
+    unsigned int getLogicSize() const throw() {
+        return myNLinks;
+    }
+
+
 protected:
     /// Constructor.
     MSJunctionLogic(unsigned int nLinks, unsigned int nInLanes);

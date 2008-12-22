@@ -86,7 +86,7 @@ MSRightOfWayJunction::~MSRightOfWayJunction()
 
 
 void
-MSRightOfWayJunction::postloadInit()
+MSRightOfWayJunction::postloadInit() throw(ProcessError)
 {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
@@ -96,6 +96,9 @@ MSRightOfWayJunction::postloadInit()
         const MSLinkCont &links = (*i)->getLinkCont();
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            if(myLogic->getLogicSize()<=requestPos) {
+                throw ProcessError("Found invalid logic position of a link (network error)");
+            }
             (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, myLogic->getFoesFor(requestPos));
             requestPos++;
         }

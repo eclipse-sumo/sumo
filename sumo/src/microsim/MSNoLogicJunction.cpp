@@ -84,7 +84,7 @@ MSNoLogicJunction::~MSNoLogicJunction()
 //-------------------------------------------------------------------------//
 
 void
-MSNoLogicJunction::postloadInit()
+MSNoLogicJunction::postloadInit() throw(ProcessError)
 {
     LaneCont::iterator i;
     // inform links where they have to report approaching vehicles to

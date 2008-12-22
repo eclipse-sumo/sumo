@@ -71,7 +71,7 @@ MSInternalJunction::~MSInternalJunction()
 
 
 void
-MSInternalJunction::postloadInit()
+MSInternalJunction::postloadInit() throw(ProcessError)
 {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;

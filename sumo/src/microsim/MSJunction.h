@@ -34,6 +34,7 @@
 #include <vector>
 #include <map>
 #include <utils/geom/Position2D.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -60,7 +61,7 @@ public:
 
     /** performs some initialisation after the loading
         (e.g., link map computation) */
-    virtual void postloadInit();
+    virtual void postloadInit() throw(ProcessError);
 
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */
@@ -91,10 +92,10 @@ private:
     /// Default constructor.
     MSJunction();
 
-    /// Copy constructor.
+    /// @brief Invalidated copy constructor.
     MSJunction(const MSJunction&);
 
-    /// Assignment operator.
+    /// @brief Invalidated assignment operator.
     MSJunction& operator=(const MSJunction&);
 
 };

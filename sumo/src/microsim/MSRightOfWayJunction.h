@@ -4,7 +4,7 @@
 /// @date    Wed, 12 Dez 2001
 /// @version $Id$
 ///
-// junction.
+// A junction with right-of-way - rules
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,6 +49,8 @@ class findCompetitor;
 // ===========================================================================
 /**
  * @class MSRightOfWayJunction
+ * @brief A junction with right-of-way - rules
+ * 
  * A class which realises junctions that do regard any kind of a right-of-way.
  * The rules for the right-of-way themselves are stored within the associated
  * "MSJunctionLogic" - structure.
@@ -74,7 +76,7 @@ public:
     /** Sets the information which vehicles may drive */
     virtual bool setAllowed();
 
-    void postloadInit();
+    void postloadInit() throw(ProcessError);
 
 protected:
     /// Search for deadlock-situations and eleminate them.
@@ -84,7 +86,7 @@ protected:
     MSJunctionLogic* myLogic;
 
 private:
-    /// Invalidated copy constructor.
+    /// @brief Invalidated copy constructor.
     MSRightOfWayJunction(const MSRightOfWayJunction&);
 
     /// Invalidated assignment operator.

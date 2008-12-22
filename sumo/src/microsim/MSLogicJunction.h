@@ -77,7 +77,7 @@ public:
     typedef std::bitset<64> InnerState;
 
     /// initialises the junction after the whole net has been loaded
-    virtual void postloadInit();
+    virtual void postloadInit() throw(ProcessError);
 
 protected:
     /// constructor; this class is virtual
@@ -106,10 +106,10 @@ protected:
     Respond myRespond;
 
 private:
-    /// Invalidated copy constructor.
+    /// @brief Invalidated copy constructor.
     MSLogicJunction(const MSLogicJunction&);
 
-    /// Invalidated assignment operator.
+    /// @brief Invalidated assignment operator.
     MSLogicJunction& operator=(const MSLogicJunction&);
 
 };

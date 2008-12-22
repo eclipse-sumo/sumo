@@ -71,7 +71,7 @@ MSLogicJunction::~MSLogicJunction()
 //-------------------------------------------------------------------------//
 
 void
-MSLogicJunction::postloadInit()
+MSLogicJunction::postloadInit() throw(ProcessError)
 {
     /*
     if(getID()=="1565") {

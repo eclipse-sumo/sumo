@@ -68,16 +68,16 @@ public:
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */
     bool clearRequests();
-    void postloadInit();
+    void postloadInit() throw(ProcessError);
 
     /** Sets the information which vehicles may drive */
     virtual bool setAllowed();
 
 private:
-    /// Invalidated copy constructor.
+    /// @brief Invalidated copy constructor.
     MSInternalJunction(const MSInternalJunction&);
 
-    /// Invalidated assignment operator.
+    /// @brief Invalidated assignment operator.
     MSInternalJunction& operator=(const MSInternalJunction&);
 
 };

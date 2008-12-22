@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// Junction-operations.
+// Container for junctions; performs operations on all stored junctions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -35,6 +35,7 @@
 #include <string>
 
 #include <utils/common/NamedObjectCont.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -48,29 +49,49 @@ class MSJunction;
 // ===========================================================================
 /**
  * @class MSJunctionControl
+ * @brief Container for junctions; performs operations on all stored junctions
  */
 class MSJunctionControl : public NamedObjectCont<MSJunction*>
 {
 public:
-    /// Use this constructor only.
-    MSJunctionControl();
+    /// @brief Constructor
+    MSJunctionControl() throw();
 
-    /// Destructor.
-    ~MSJunctionControl();
 
-    /** resets the requests for all lanes */
-    void resetRequests();
+    /// @brief Destructor
+    ~MSJunctionControl() throw();
 
-    /// Sets the responds
-    void setAllowed();
 
-    void postloadInitContainer();
+    /** @brief Closes building of junctions
+     *
+     * Calls "postloadInit" on all stored junctions.
+     * @exception ProcessError From the called "postloadInit"
+     * @see MSJunction::postloadInit
+     */
+    void postloadInitContainer() throw(ProcessError);
+
+
+    /** @brief Resets the requests for all lanes 
+     *
+     * Calls "clearRequests" for all stored junctions.
+     * @see MSJunction::clearRequests
+     */
+    void resetRequests() throw();
+
+
+    /** @brief Sets the responds
+     *
+     * Calls "setAllowed" for all stored junctions.
+     * @see MSJunction::setAllowed
+     */
+    void setAllowed() throw();
+
 
 private:
-    /// Copy constructor.
+    /// @brief Invalidated copy constructor.
     MSJunctionControl(const MSJunctionControl&);
 
-    /// Assignment operator.
+    /// @brief Invalidated assignment operator.
     MSJunctionControl& operator=(const MSJunctionControl&);
 
 };

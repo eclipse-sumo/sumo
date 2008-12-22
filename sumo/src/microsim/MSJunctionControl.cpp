@@ -4,7 +4,7 @@
 /// @date    Tue, 06 Mar 2001
 /// @version $Id$
 ///
-// Junction-operations.
+// Container for junctions; performs operations on all stored junctions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,18 +46,28 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSJunctionControl::MSJunctionControl()
+MSJunctionControl::MSJunctionControl() throw()
 {
 }
 
 
-MSJunctionControl::~MSJunctionControl()
+MSJunctionControl::~MSJunctionControl() throw()
 {
 }
 
 
 void
-MSJunctionControl::resetRequests()
+MSJunctionControl::postloadInitContainer() throw(ProcessError)
+{
+    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
+        (*i)->postloadInit();
+    }
+}
+
+
+void
+MSJunctionControl::resetRequests() throw()
 {
     const vector<MSJunction*> &junctions = buildAndGetStaticVector();
     for_each(junctions.begin(), junctions.end(), mem_fun(& MSJunction::clearRequests));
@@ -65,20 +75,10 @@ MSJunctionControl::resetRequests()
 
 
 void
-MSJunctionControl::setAllowed()
+MSJunctionControl::setAllowed() throw()
 {
     const vector<MSJunction*> &junctions = buildAndGetStaticVector();
     for_each(junctions.begin(), junctions.end(), mem_fun(& MSJunction::setAllowed));
-}
-
-
-void
-MSJunctionControl::postloadInitContainer()
-{
-    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
-        (*i)->postloadInit();
-    }
 }
 
 

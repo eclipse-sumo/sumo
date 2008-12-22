@@ -77,7 +77,7 @@ public:
     };
 
     /** Initialises the junction after the net was completely loaded */
-    void postloadInit();
+    void postloadInit() throw(ProcessError);
 
 private:
     /** Lanes incoming to the junction */
@@ -89,10 +89,10 @@ private:
 #endif
 
 private:
-    /// Invalidated copy constructor.
+    /// @brief Invalidated copy constructor.
     MSNoLogicJunction(const MSNoLogicJunction&);
 
-    /// Invalidated assignment operator.
+    /// @brief Invalidated assignment operator.
     MSNoLogicJunction& operator=(const MSNoLogicJunction&);
 
     /** @brief a dump container
