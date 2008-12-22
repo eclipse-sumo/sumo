@@ -36,6 +36,8 @@
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/MSVTypeProbe.h>
 #include <microsim/output/MSRouteProbe.h>
+#include <microsim/output/MSMeanData_Net.h>
+#include <microsim/output/MSMeanData_HBEFA.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <microsim/actions/Command_SaveTLCoupledLaneDet.h>
@@ -629,9 +631,17 @@ NLDetectorBuilder::createEdgeMeanData(const std::string &id, SUMOTime frequency,
                                       OutputDevice& device) throw(InvalidArgument)
 {
     pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-lane");
-    MSMeanData_Net *det = new MSMeanData_Net(id, frequency, MSNet::getInstance()->getEdgeControl(), 
-        timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
-    MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
+    MSDetectorFileOutput *det = 0;
+    if(type==""||type=="performance"||type=="traffic") {
+        det = new MSMeanData_Net(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+            timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
+    } else if(type=="hbefa") {
+        det = new MSMeanData_HBEFA(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+            timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
+    }
+    if(det!=0) {
+        MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
+    }
 }
 
 
@@ -643,9 +653,17 @@ NLDetectorBuilder::createLaneMeanData(const std::string &id, SUMOTime frequency,
                                       OutputDevice& device) throw(InvalidArgument)
 {
     pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-lane");
-    MSMeanData_Net *det = new MSMeanData_Net(id, frequency, MSNet::getInstance()->getEdgeControl(), 
-        timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
-    MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
+    MSDetectorFileOutput *det = 0;
+    if(type==""||type=="performance"||type=="traffic") {
+        det = new MSMeanData_Net(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+            timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
+    } else if(type=="hbefa") {
+        det = new MSMeanData_HBEFA(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+            timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
+    }
+    if(det!=0) {
+        MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
+    }
 }
 
 

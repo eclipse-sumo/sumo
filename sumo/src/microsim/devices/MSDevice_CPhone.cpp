@@ -146,6 +146,7 @@ double beginProbs[] = {
 #include "../MSPhoneCell.h"
 #include "../MSPhoneLA.h"
 #include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS

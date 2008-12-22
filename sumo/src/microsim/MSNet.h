@@ -45,7 +45,6 @@
 #include <utils/geom/Position2D.h>
 #include <utils/common/SUMOTime.h>
 #include "MSPhoneNet.h"
-#include <microsim/output/MSMeanData_Net.h>
 #include <microsim/trigger/MSBusStop.h>
 
 #ifdef _MESSAGES

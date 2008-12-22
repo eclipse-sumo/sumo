@@ -80,8 +80,6 @@ public:
 
     friend class GUILaneWrapper;
 
-    friend class MSMeanData_Net;
-
     friend class MSXMLRawOut;
 
     /** Function-object in order to find the vehicle, that has just

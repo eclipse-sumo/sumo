@@ -59,7 +59,6 @@
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <utils/shapes/Polygon2D.h>
 #include <utils/shapes/ShapeContainer.h>
-#include "output/MSMeanData_Net.h"
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
