@@ -56,26 +56,40 @@ class GUI_E2_ZS_CollectorOverLanes;
  * @brief The gui-version of the MS_E2_ZS_Collector
  *
  * Allows the building of a wrapper (also declared herein) which draws the
- * detector on the gl-canvas. Beside this, the method "amVisible" is
- * overridden to signalise that this detector is not used for simulation-
- * -internal reasons, but is placed over the simulation by the user.
+ *  detector on the gl-canvas. Beside this, the method "amVisible" is
+ *  overridden to signalise that this detector is not used for simulation-
+ *  -internal reasons, but is placed over the simulation by the user.
  */
 class GUI_E2_ZS_Collector : public MSE2Collector
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] id The detector's unique id.
+     * @param[in] usage Information how the detector is used
+     * @param[in] lane The lane to place the detector at
+     * @param[in] startPos Begin position of the detector
+     * @param[in] detLength Length of the detector
+     * @param[in] haltingTimeThreshold The time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
+     * @param[in] haltingSpeedThreshold The speed a vehicle's speed must be below to be assigned as jammed
+     * @param[in] jamDistThreshold The distance between two vehicles in order to not count them to one jam
+     * @todo The lane should not be given as a pointer
+     */
     GUI_E2_ZS_Collector(const std::string &id, DetectorUsage usage,
-                        MSLane* lane, SUMOReal startPos, SUMOReal detLength,
+                        MSLane * const lane, SUMOReal startPos, SUMOReal detLength,
                         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                         SUMOReal jamDistThreshold) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~GUI_E2_ZS_Collector() throw();
+
 
     // valid for gui-version only
     virtual GUIDetectorWrapper *buildDetectorWrapper(
         GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper);
+
 
     // valid for gui-version and joined collectors only
     virtual GUIDetectorWrapper *buildDetectorWrapper(

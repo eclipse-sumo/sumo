@@ -87,13 +87,12 @@ public:
      * @todo The lane should not be given as a pointer
      */
     MSE2Collector(const std::string &id, DetectorUsage usage,
-                  MSLane* lane, SUMOReal startPos, SUMOReal detLength,
+                  MSLane * const lane, SUMOReal startPos, SUMOReal detLength,
                   SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
                   SUMOReal jamDistThreshold) throw();
 
 
-    /** @brief Destructor
-     */
+    /// @brief Destructor
     virtual ~MSE2Collector() throw();
 
 

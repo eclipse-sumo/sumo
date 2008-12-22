@@ -65,8 +65,8 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * MSTriggeredRerouter::Setter - methods
  * ----------------------------------------------------------------------- */
-MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter *parent,
-                                    MSLane *lane) throw()
+MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter * const parent,
+                                    MSLane * const lane) throw()
         : MSMoveReminder(lane), myParent(parent)
 {}
 

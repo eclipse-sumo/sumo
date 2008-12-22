@@ -36,7 +36,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSMoveReminder::MSMoveReminder(MSLane* lane) throw()
+MSMoveReminder::MSMoveReminder(MSLane * const lane) throw()
         : myLane(lane)
 {
     if (myLane!=0) {

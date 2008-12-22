@@ -78,7 +78,7 @@ public:
          * @param[in] lane The lane the entry belongs to
          * @param[in] collector The detector the entry belongs to
          */
-        EntryReminder(MSLane *lane, MSRouteProbe& collector) throw();
+        EntryReminder(MSLane * const lane, MSRouteProbe& collector) throw();
 
 
         /// @name Methods inherited from MSMoveReminder.

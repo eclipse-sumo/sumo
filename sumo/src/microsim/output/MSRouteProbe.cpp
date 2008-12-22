@@ -50,7 +50,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRouteProbe::EntryReminder::EntryReminder(MSLane *lane, MSRouteProbe& collector) throw()
+MSRouteProbe::EntryReminder::EntryReminder(MSLane * const lane, MSRouteProbe& collector) throw()
         : MSMoveReminder(lane), myCollector(collector)
 {}
 

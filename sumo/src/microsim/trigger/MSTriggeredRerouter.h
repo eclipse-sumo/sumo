@@ -55,6 +55,7 @@ class MSLane;
  *
  * A rerouter can be positioned on a list of edges and gives vehicles which
  *  arrive one of these edges a new route.
+ *
  * The new route may be either chosen from a set of routes where each is
  *  chosen with a certain probability, or newly computed, either by keeping
  *  the old destination or by choosing a new one from a set of existing ones.
@@ -75,18 +76,24 @@ public:
                         const std::vector<MSEdge*> &edges,
                         SUMOReal prob, const std::string &file, bool off);
 
-    /** destructor */
+
+    /** @brief Destructor */
     virtual ~MSTriggeredRerouter() throw();
+
 
     /**
      * @class Setter
-     * Responsible for setting a new route to a vehicle which arrives a single lane
+     * @brief Responsible for setting a new route to a vehicle which arrives at a single lane
      */
 class Setter : public MSMoveReminder
     {
     public:
-        /// Constructor
-        Setter(MSTriggeredRerouter *parent, MSLane *lane) throw();
+        /** @brief Constructor
+         *
+         * @param[in] parent The rerouter responsible for this actor
+         * @param[in] lane The lane this actor is placed at
+         */
+        Setter(MSTriggeredRerouter * const parent, MSLane * const lane) throw();
 
         /// Destructor
         ~Setter() throw();
@@ -107,7 +114,7 @@ class Setter : public MSMoveReminder
 
     private:
         /// The rerouter used for rerouting the vehicle
-        MSTriggeredRerouter *myParent;
+        MSTriggeredRerouter * const myParent;
 
     private:
         /// @brief Invalidated copy constructor.

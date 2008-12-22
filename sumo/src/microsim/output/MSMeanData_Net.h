@@ -81,7 +81,7 @@ class MSLaneMeanDataValues : public MSMoveReminder
 {
 public:
     /** @brief Constructor */
-    MSLaneMeanDataValues(MSLane* lane) throw();
+    MSLaneMeanDataValues(MSLane * const lane) throw();
 
 
     /** @brief Resets values so they may be used for the next interval

@@ -54,11 +54,21 @@ class GUILaneWrapper;
 class GUIInductLoop : public MSInductLoop
 {
 public:
-    /// Construtor
-    GUIInductLoop(const std::string &id, MSLane* lane, SUMOReal position) throw();
+    /**
+     * @brief Constructor.
+     *
+     * Adds reminder to MSLane.
+     *
+     * @param id Unique id.
+     * @param lane Lane where detector woks on.
+     * @param position Position of the detector within the lane.
+     */
+    GUIInductLoop(const std::string &id, MSLane * const lane, SUMOReal position) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~GUIInductLoop() throw();
+
 
     /** @brief Returns this detector's visualisation-wrapper
         valid for gui-version only */

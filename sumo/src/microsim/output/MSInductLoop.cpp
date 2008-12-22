@@ -55,7 +55,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 MSInductLoop::MSInductLoop(const string& id,
-                           MSLane* lane,
+                           MSLane * const lane,
                            SUMOReal positionInMeters) throw()
         : MSMoveReminder(lane), Named(id), myCurrentVehicle(0),
         myPosition(positionInMeters), myLastLeaveTimestep(0),

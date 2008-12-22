@@ -61,7 +61,7 @@ using namespace std;
 // ---------------------------------------------------------------------------
 // MSMeanData_Net::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* lane) throw()
+MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane) throw()
         : MSMoveReminder(lane), sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
         speedSum(0), haltSum(0), vehLengthSum(0),
         emitted(0) {}

@@ -86,10 +86,9 @@ public:
      * @param id Unique id.
      * @param lane Lane where detector woks on.
      * @param position Position of the detector within the lane.
-     * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
     MSInductLoop(const std::string& id,
-                 MSLane* lane,
+                 MSLane * const lane,
                  SUMOReal positionInMeters) throw();
 
 
