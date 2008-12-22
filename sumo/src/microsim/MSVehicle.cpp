@@ -609,6 +609,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
             myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
+    myAcceleration = SPEED2ACCEL(vNext-oldV);
     //@ to be optimized (move to somewhere else)
     //
     setBlinkerInformation();
@@ -768,6 +769,7 @@ MSVehicle::moveFirstChecked()
         myState.myPos>approachedLane->length()
         ? approachedLane->length() - pos
         : myState.myPos - pos;
+    myAcceleration = SPEED2ACCEL(vNext-oldV);
     SUMOReal tmpPos = approachedLane->length() + myType->brakeGap(myState.mySpeed);
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()
             &&

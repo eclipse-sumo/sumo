@@ -370,6 +370,14 @@ public:
     SUMOReal getSpeed() const throw() {
         return myState.mySpeed;
     }
+
+
+    /** brief Returns the vehicle's acceleration
+     * @return The acceleration
+     */
+    SUMOReal getAcceleration() const throw() {
+        return myAcceleration;
+    }
     //@}
 
 
@@ -909,6 +917,9 @@ protected:
 
     /// the position on the destination lane where the vehicle stops
     SUMOReal myArrivalPos;
+
+    /// @brief The current acceleration
+    SUMOReal myAcceleration;
 
 private:
     std::vector<MSDevice*> myDevices;
