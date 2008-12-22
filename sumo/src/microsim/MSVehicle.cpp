@@ -1358,19 +1358,7 @@ MSVehicle::onTripEnd(const MSLane * const lane)
     SUMOReal pos = myState.myPos;
     SUMOReal oldPos = pos - SPEED2DIST(pspeed);
     // process reminder
-    //   current
-    vector< MSMoveReminder* >::iterator rem;
-    for (rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ++rem) {
-        // the vehicle may only be at the entry occupancy correction
-        (*rem)->isStillActive(*this, oldPos, pos, pspeed);
-    }
-    //   old
-    rem = myOldLaneMoveReminders.begin();
-    OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
-    for (;rem!=myOldLaneMoveReminders.end(); ++rem, ++off) {
-        SUMOReal oldLaneLength = *off;
-        (*rem)->isStillActive(*this, oldPos+oldLaneLength, pos+oldLaneLength, pspeed);
-    }
+    workOnMoveReminders(oldPos, pos, pspeed);
     // remove from structures to be informed about it
     for (QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
         (*i)->removeOnTripEnd(this);
