@@ -175,6 +175,10 @@ enum SUMOVehicleClass {
  */
 enum SUMOEmissionClass {
     SVE_UNKNOWN,
+    SVE_PASSENGER_EURO4__1_4__2l,
+    SVE_BUS_CITY,
+    SVE_BUS_OVERLAND,
+    SVE_HDV_7_5t__EURO4,
     SVE_PASSENGER
 };
 
