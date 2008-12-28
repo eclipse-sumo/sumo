@@ -179,7 +179,7 @@ enum SUMOEmissionClass {
     SVE_BUS_CITY,
     SVE_BUS_OVERLAND,
     SVE_HDV_7_5t__EURO4,
-    SVE_PASSENGER
+    SVE_ZERO_EMISSIONS
 };
 
 
