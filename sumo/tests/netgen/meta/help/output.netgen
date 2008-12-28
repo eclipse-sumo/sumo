@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r6388
+SUMO netgen Version dev-SVN-r6499
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -141,7 +141,7 @@ Usage: netgen.exe [OPTION]*
   -R, --remove-geometry                Removes geometry information from edges
   --add-node-positions                 Adds node positions to edge geometries
   --no-turnarounds                     Disables building turnarounds
-  -I, --add-internal-links             Adds internal links
+  --no-internal-links                  Omits internal links
   --split-geometry                     Splits edges across geometry nodes
   --disable-normalize-node-positions   Turn off normalizing node positions
   --x-offset-to-apply FLOAT            Adds FLOAT to net x-positions

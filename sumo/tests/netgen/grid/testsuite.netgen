@@ -19,5 +19,8 @@ user_example1_2nodes
 # attaching streets at the border
 attach
 
+# no internal lanes
+nointernal
+
 # Tests processing of errors in input
 errors

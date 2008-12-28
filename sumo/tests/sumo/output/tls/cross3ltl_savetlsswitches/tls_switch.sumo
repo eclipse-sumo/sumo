@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/03/07 14:44:47 by SUMO sumo Version 0.9.6
+<!-- generated on 12/28/08 15:31:45 by SUMO sumo Version dev-SVN-r6499
 <configuration>
 
    <input>
@@ -23,52 +23,36 @@
 -->
 
 <tls-switches>
-   <tlsswitch tls="0" subid="default" fromLane="4si_0" toLane="1o_0" begin="0" end="20" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_1" toLane="3o_0" begin="0" end="20" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_0" toLane="2o_0" begin="0" end="20" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_1" toLane="4o_0" begin="0" end="20" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_2" toLane="2o_0" begin="0" end="27" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_2" toLane="4o_0" begin="0" end="27" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_2" toLane="1o_0" begin="0" end="27" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_2" toLane="3o_0" begin="0" end="27" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_0" toLane="4o_0" begin="31" end="51" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_1" toLane="1o_0" begin="31" end="51" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_0" toLane="3o_0" begin="31" end="51" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_1" toLane="2o_0" begin="31" end="51" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_2" toLane="3o_0" begin="31" end="58" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_2" toLane="2o_0" begin="31" end="58" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_2" toLane="4o_0" begin="31" end="58" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_2" toLane="1o_0" begin="31" end="58" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_0" toLane="1o_0" begin="62" end="82" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_1" toLane="3o_0" begin="62" end="82" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_0" toLane="2o_0" begin="62" end="82" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_1" toLane="4o_0" begin="62" end="82" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_2" toLane="2o_0" begin="62" end="89" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_2" toLane="4o_0" begin="62" end="89" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_2" toLane="1o_0" begin="62" end="89" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_2" toLane="3o_0" begin="62" end="89" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_0" toLane="4o_0" begin="93" end="113" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_1" toLane="1o_0" begin="93" end="113" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_0" toLane="3o_0" begin="93" end="113" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_1" toLane="2o_0" begin="93" end="113" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_2" toLane="3o_0" begin="93" end="120" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_2" toLane="2o_0" begin="93" end="120" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_2" toLane="4o_0" begin="93" end="120" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_2" toLane="1o_0" begin="93" end="120" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_0" toLane="1o_0" begin="124" end="144" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_1" toLane="3o_0" begin="124" end="144" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_0" toLane="2o_0" begin="124" end="144" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_1" toLane="4o_0" begin="124" end="144" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_2" toLane="2o_0" begin="124" end="151" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="4si_2" toLane="4o_0" begin="124" end="151" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_2" toLane="1o_0" begin="124" end="151" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="3si_2" toLane="3o_0" begin="124" end="151" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_0" toLane="4o_0" begin="155" end="175" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_1" toLane="1o_0" begin="155" end="175" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_0" toLane="3o_0" begin="155" end="175" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_1" toLane="2o_0" begin="155" end="175" duration="20"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_2" toLane="3o_0" begin="155" end="182" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="2si_2" toLane="2o_0" begin="155" end="182" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_2" toLane="4o_0" begin="155" end="182" duration="27"/>
-   <tlsswitch tls="0" subid="default" fromLane="1si_2" toLane="1o_0" begin="155" end="182" duration="27"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_0" toLane="1o_0" begin="0" end="31" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_1" toLane="3o_0" begin="0" end="31" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_0" toLane="2o_0" begin="0" end="31" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_1" toLane="4o_0" begin="0" end="31" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_2" toLane="2o_0" begin="0" end="41" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_2" toLane="4o_0" begin="0" end="41" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_2" toLane="1o_0" begin="0" end="41" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_2" toLane="3o_0" begin="0" end="41" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_0" toLane="4o_0" begin="45" end="76" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_1" toLane="1o_0" begin="45" end="76" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_0" toLane="3o_0" begin="45" end="76" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_1" toLane="2o_0" begin="45" end="76" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_2" toLane="3o_0" begin="45" end="86" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_2" toLane="2o_0" begin="45" end="86" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_2" toLane="4o_0" begin="45" end="86" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_2" toLane="1o_0" begin="45" end="86" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_0" toLane="1o_0" begin="90" end="121" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_1" toLane="3o_0" begin="90" end="121" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_0" toLane="2o_0" begin="90" end="121" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_1" toLane="4o_0" begin="90" end="121" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_2" toLane="2o_0" begin="90" end="131" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="4si_2" toLane="4o_0" begin="90" end="131" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_2" toLane="1o_0" begin="90" end="131" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="3si_2" toLane="3o_0" begin="90" end="131" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_0" toLane="4o_0" begin="135" end="166" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_1" toLane="1o_0" begin="135" end="166" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_0" toLane="3o_0" begin="135" end="166" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_1" toLane="2o_0" begin="135" end="166" duration="31"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_2" toLane="3o_0" begin="135" end="176" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="2si_2" toLane="2o_0" begin="135" end="176" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_2" toLane="4o_0" begin="135" end="176" duration="41"/>
+   <tlsswitch tls="0" subid="0" fromLane="1si_2" toLane="1o_0" begin="135" end="176" duration="41"/>
 </tls-switches>

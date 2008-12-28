@@ -84,7 +84,7 @@ NBNodeShapeComputer::compute()
     bool simpleContinuation = myNode.isSimpleContinuation();
     ret = computeContinuationNodeShape(simpleContinuation);
     // add the geometry of internal lanes
-    if (OptionsCont::getOptions().getBool("add-internal-links")) {
+    if (!OptionsCont::getOptions().getBool("no-internal-links")) {
         addInternalGeometry();
     }
     if (ret.size()<3) {

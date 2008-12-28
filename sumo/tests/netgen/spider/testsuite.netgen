@@ -19,7 +19,8 @@ nocenter
 # trying to build the minimal spider-net
 min_version
 
-
 # Tests processing of errors in input
 errors
 
+# no internal lanes
+nointernal

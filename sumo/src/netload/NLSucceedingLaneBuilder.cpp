@@ -110,7 +110,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     }
 #ifdef HAVE_INTERNAL_LANES
     MSLane *via = 0;
-    if (viaID!="" && OptionsCont::getOptions().getBool("use-internal-links")) {
+    if (viaID!="" && MSGlobals::gUsingInternalLanes) {
         via = MSLane::dictionary(viaID);
         if (via==0) {
             throw InvalidArgument("An unknown lane ('" + viaID + "') should be set as a via-lane for lane '" + myCurrentLane + "'.");

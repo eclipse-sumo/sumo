@@ -4,5 +4,5 @@ user_example1
 # the random network example from the user documentation (verbose)
 user_example1_v
 
-
-
+# no internal lanes
+nointernal

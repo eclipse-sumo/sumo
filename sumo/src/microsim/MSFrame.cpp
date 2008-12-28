@@ -161,8 +161,10 @@ MSFrame::fillOptions()
     oc.doRegister("route-steps", 's', new Option_Integer(200));
     oc.addDescription("route-steps", "Processing", "Load routes for the next INT steps ahead");
 
-    oc.doRegister("use-internal-links", 'I', new Option_Bool(false));//!!! check, describe
-    oc.addDescription("use-internal-links", "Processing", "Enable internal links (must be in the network)");
+#ifdef HAVE_INTERNAL_LANES
+    oc.doRegister("no-internal-links", new Option_Bool(false));
+    oc.addDescription("no-internal-links", "Processing", "Disable (junction) internal links");
+#endif
 
     oc.doRegister("quit-on-accident", new Option_Bool(false));
     oc.addDescription("quit-on-accident", "Processing", "Quit (with an error) if an accident occures");
@@ -387,8 +389,12 @@ MSFrame::setMSGlobals(OptionsCont &oc)
     // pre-initialise the network
     // set whether empty edges shall be printed on dump
     MSGlobals::gOmitEmptyEdgesOnDump = !oc.getBool("dump-empty-edges");
+#ifdef HAVE_INTERNAL_LANES
     // set whether internal lanes shall be used
-    MSGlobals::gUsingInternalLanes = oc.getBool("use-internal-links");
+    MSGlobals::gUsingInternalLanes = !oc.getBool("no-internal-links");
+#else
+    MSGlobals::gUsingInternalLanes = false;
+#endif
     // set the grid lock time
     MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0
                                  ? 0

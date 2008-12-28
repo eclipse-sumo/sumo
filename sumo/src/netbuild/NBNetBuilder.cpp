@@ -285,7 +285,7 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError)
 
     // write the numbers of some elements
     // edges
-    if (oc.getBool("add-internal-links")) {
+    if (!oc.getBool("no-internal-links")) {
         myNodeCont.writeXMLInternalLinks(device);
     }
 
@@ -302,12 +302,12 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError)
     // write the nodes
     myNodeCont.writeXML(device);
     // write internal nodes
-    if (oc.getBool("add-internal-links")) {
+    if (!oc.getBool("no-internal-links")) {
         myNodeCont.writeXMLInternalNodes(device);
     }
     // write the successors of lanes
-    myEdgeCont.writeXMLStep2(device, oc.getBool("add-internal-links"));
-    if (oc.getBool("add-internal-links")) {
+    myEdgeCont.writeXMLStep2(device, !oc.getBool("no-internal-links"));
+    if (!oc.getBool("no-internal-links")) {
         myNodeCont.writeXMLInternalSuccInfos(device);
     }
     device.close();
@@ -385,8 +385,8 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
 
-    oc.doRegister("add-internal-links", 'I', new Option_Bool(false)); // !!! not described
-    oc.addDescription("add-internal-links", "Processing", "Adds internal links");
+    oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
+    oc.addDescription("no-internal-links", "Processing", "Omits internal links");
 
     oc.doRegister("split-geometry", new Option_Bool(false)); // !!!not described
     oc.addDescription("split-geometry", "Processing", "Splits edges across geometry nodes");

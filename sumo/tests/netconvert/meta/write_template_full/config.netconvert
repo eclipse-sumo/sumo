@@ -104,7 +104,7 @@
       <remove-geometry>false</remove-geometry>
       <add-node-positions>false</add-node-positions>
       <no-turnarounds>false</no-turnarounds>
-      <add-internal-links>false</add-internal-links>
+      <no-internal-links>false</no-internal-links>
       <split-geometry>false</split-geometry>
       <disable-normalize-node-positions>false</disable-normalize-node-positions>
       <x-offset-to-apply>0</x-offset-to-apply>

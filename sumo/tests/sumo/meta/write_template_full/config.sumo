@@ -23,7 +23,7 @@
 
    <processing>
       <route-steps>200</route-steps>
-      <use-internal-links>false</use-internal-links>
+      <no-internal-links>false</no-internal-links>
       <quit-on-accident>false</quit-on-accident>
       <check-accidents>false</check-accidents>
       <too-slow-rtf>-1</too-slow-rtf>

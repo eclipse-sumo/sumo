@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r6410
+SUMO sumo Version dev-SVN-r6498
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -41,8 +41,7 @@ Usage: sumo.exe [OPTION]*
 
  Processing Options:
   -s, --route-steps INT               Load routes for the next INT steps ahead
-  -I, --use-internal-links            Enable internal links (must be in the
-                                        network)
+  --no-internal-links                 Disable (junction) internal links
   --quit-on-accident                  Quit (with an error) if an accident
                                         occures
   --check-accidents                   Check whether accidents occure more

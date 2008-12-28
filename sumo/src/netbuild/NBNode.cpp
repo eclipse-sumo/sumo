@@ -1133,7 +1133,7 @@ NBNode::writeXML(OutputDevice &into)
     }
     into << "</inclanes>\n";
     // write the internal lanes
-    if (OptionsCont::getOptions().getBool("add-internal-links")) {
+    if (!OptionsCont::getOptions().getBool("no-internal-links")) {
         into << "      <intlanes>";
         writeinternal(myIncomingEdges, into, myID);
         into << "</intlanes>\n";

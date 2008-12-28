@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/16/08 09:54:00 by SUMO sumo Version dev-SVN-r6410
+<!-- generated on 12/23/08 23:37:43 by SUMO sumo Version dev-SVN-r6498
 <configuration>
 
    <input>
@@ -26,43 +26,43 @@
 -->
 
 <routes>
-   <vehicle id="horizontal01" depart="100" arrival="324">
+   <vehicle id="horizontal01" depart="100" arrival="276">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal02" depart="102" arrival="326">
+   <vehicle id="horizontal02" depart="102" arrival="278">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal03" depart="105" arrival="327">
+   <vehicle id="horizontal03" depart="105" arrival="281">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal04" depart="108" arrival="329">
+   <vehicle id="horizontal04" depart="108" arrival="284">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal05" depart="111" arrival="331">
+   <vehicle id="horizontal05" depart="111" arrival="287">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal06" depart="113" arrival="332">
+   <vehicle id="horizontal06" depart="113" arrival="289">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal07" depart="116" arrival="334">
+   <vehicle id="horizontal07" depart="116" arrival="292">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal08" depart="119" arrival="336">
+   <vehicle id="horizontal08" depart="119" arrival="295">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal09" depart="122" arrival="337">
+   <vehicle id="horizontal09" depart="122" arrival="298">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal10" depart="124" arrival="339">
+   <vehicle id="horizontal10" depart="124" arrival="362">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 

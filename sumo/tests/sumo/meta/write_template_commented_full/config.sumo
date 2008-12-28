@@ -49,8 +49,8 @@
       <!-- Load routes for the next INT steps ahead -->
       <route-steps>200</route-steps>
 
-      <!-- Enable internal links (must be in the network) -->
-      <use-internal-links>false</use-internal-links>
+      <!-- Disable (junction) internal links -->
+      <no-internal-links>false</no-internal-links>
 
       <!-- Quit (with an error) if an accident occures -->
       <quit-on-accident>false</quit-on-accident>

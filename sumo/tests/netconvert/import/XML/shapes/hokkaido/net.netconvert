@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/24/08 16:06:27 by SUMO netconvert Version dev-SVN-r6190
+<!-- generated on 12/28/08 15:58:27 by SUMO netconvert Version dev-SVN-r6499
 <configuration>
 
    <input>
@@ -22,6 +22,31 @@
    <conv-boundary>0.00,0.00,1390.99,190.99</conv-boundary>
    <orig-boundary>-95.49,0.00,1295.49,190.99</orig-boundary>
    <orig-proj>!</orig-proj>
+
+   <edge id=":dl_0" function="internal">
+      <lanes>
+         <lane id=":dl_0_0" depart="0" maxspeed="13.90" length="0.42" >84.12,0.05 84.54,0.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":dr_0" function="internal">
+      <lanes>
+         <lane id=":dr_0_0" depart="0" maxspeed="13.90" length="0.42" >1306.45,0.00 1306.86,0.05</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":tl_0" function="internal">
+      <lanes>
+         <lane id=":tl_0_0" depart="0" maxspeed="13.90" length="0.42" >84.55,190.99 84.14,190.94</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":tr_0" function="internal">
+      <lanes>
+         <lane id=":tr_0_0" depart="0" maxspeed="13.90" length="0.42" >1306.85,190.94 1306.44,190.99</lane>
+      </lanes>
+   </edge>
+
 
    <node_count>4</node_count>
 
@@ -56,7 +81,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -65,7 +90,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -74,7 +99,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -83,7 +108,7 @@
       <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="0" foes="0"/>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
@@ -91,40 +116,58 @@
 
    <junction id="dl" type="priority" x="95.49" y="0.00">
       <inclanes>4_0</inclanes>
+      <intlanes>:dl_0_0</intlanes>
       <shape>84.54,1.60 84.54,-1.60 83.71,-1.49 84.54,1.60</shape>
    </junction>
 
    <junction id="dr" type="priority" x="1295.49" y="0.00">
       <inclanes>1_0</inclanes>
+      <intlanes>:dr_0_0</intlanes>
       <shape>1306.45,1.60 1307.28,-1.49 1306.45,-1.60 1306.45,1.60</shape>
    </junction>
 
    <junction id="tl" type="priority" x="95.49" y="190.99">
       <inclanes>3_0</inclanes>
+      <intlanes>:tl_0_0</intlanes>
       <shape>84.55,192.59 84.55,189.39 83.72,192.48</shape>
    </junction>
 
    <junction id="tr" type="priority" x="1295.49" y="190.99">
       <inclanes>2_0</inclanes>
+      <intlanes>:tr_0_0</intlanes>
       <shape>1307.26,192.48 1306.44,189.39 1306.44,192.59</shape>
    </junction>
 
 
+
    <succ edge="1" lane="1_0" junction="dr">
-      <succlane lane="2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="2_0" via=":dr_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="tr">
-      <succlane lane="3_0" yield="0" dir="s" state="M"/>
+      <succlane lane="3_0" via=":tr_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="3" lane="3_0" junction="tl">
-      <succlane lane="4_0" yield="0" dir="s" state="M"/>
+      <succlane lane="4_0" via=":tl_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="4" lane="4_0" junction="dl">
-      <succlane lane="1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1_0" via=":dl_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
+
+   <succ edge=":dl_0" lane=":dl_0_0" junction="dl">
+      <succlane lane="1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":dr_0" lane=":dr_0_0" junction="dr">
+      <succlane lane="2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":tl_0" lane=":tl_0_0" junction="tl">
+      <succlane lane="4_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":tr_0" lane=":tr_0_0" junction="tr">
+      <succlane lane="3_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
 
 </net>

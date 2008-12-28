@@ -268,8 +268,8 @@
       <!-- Disables building turnarounds -->
       <no-turnarounds>false</no-turnarounds>
 
-      <!-- Adds internal links -->
-      <add-internal-links>false</add-internal-links>
+      <!-- Omits internal links -->
+      <no-internal-links>false</no-internal-links>
 
       <!-- Splits edges across geometry nodes -->
       <split-geometry>false</split-geometry>

@@ -1,0 +1,1 @@
+--spider-net --spider-arm-number=10 --spider-circle-number=10 --spider-space-rad=100 --output-file=net.net.xml --no-internal-links

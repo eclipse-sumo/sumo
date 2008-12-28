@@ -505,7 +505,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
         os << "\" foes=\"";
         writeAreFoes(os, from, (*j).toEdge, myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0);
         os << "\"";
-        if (OptionsCont::getOptions().getBool("add-internal-links")) {
+        if (!OptionsCont::getOptions().getBool("no-internal-links")) {
             if (myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0) {
                 os << " cont=\"1\"";
             } else {
