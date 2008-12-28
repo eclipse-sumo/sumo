@@ -4,3 +4,5 @@ lanechange
 # Test for [ 2350888 ] vehicle on false lane with cyclic routes (thanks to Daniel Janusz)
 2350888
 
+# Test for [ 2468327 ] log files together with input errors let sumo crash
+2468327
