@@ -224,7 +224,6 @@ MSNet::~MSNet()
     delete myEmissionEvents;
     clearAll();
     GeoConvHelper::close();
-    OutputDevice::closeAll();
 }
 
 
