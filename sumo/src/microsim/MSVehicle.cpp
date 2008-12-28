@@ -212,7 +212,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myMoveReminders(0),
         myOldLaneMoveReminders(0),
         myOldLaneMoveReminderOffsets(0),
-        myArrivalPos(pars->arrivalPos)
+        myArrivalPos(pars->arrivalPos),
+        myAcceleration(0)
 #ifndef NO_TRACI
         ,myWeightChangedViaTraci(false),
         adaptingSpeed(false),
