@@ -1,6 +1,3 @@
-# [ 2149069 ] DFROUTER does not work with internal lanes (test uses a network with internal lanes)
-2149069_internal_edges
-
 # Test for [ 2468327 ] log files together with input errors let sumo crash (should not make problems, was a SUMO issue only)
 2468327
 

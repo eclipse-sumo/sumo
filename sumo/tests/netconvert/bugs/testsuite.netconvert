@@ -13,3 +13,7 @@
 
 # testing bug 2392943 (netconvert fails when removing edges and guessing ramps)
 2392943
+
+# Test for [ 2468327 ] log files together with input errors let sumo crash (should not make problems, was a SUMO issue only)
+2468327
+
