@@ -78,7 +78,7 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
             (int) into.size()<myMaxEdges) {
 
         into.push_back(current);
-        time += (SUMOTime) current->getDuration(vehicle, time);
+        time += (SUMOTime) current->getEffort(vehicle, time);
         current = current->chooseNext(myIgnoreClasses ? 0 : vehicle, time);
         assert(myIgnoreClasses||current==0||!current->prohibits(vehicle));
     }

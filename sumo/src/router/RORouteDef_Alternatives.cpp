@@ -337,11 +337,11 @@ RORouteDef_Alternatives::removeLast()
 
 
 OutputDevice &
-RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const
+RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const
 {
     // (optional) alternatives header
     if (asAlternatives) {
-        dev << "<routealt last=\"" << myLastUsed << "\"";
+        dev << "<routeDistribution last=\"" << myLastUsed << "\"";
         dev << ">\n";
         for (size_t i=0; i!=myAlternatives.size(); i++) {
             const RORoute &alt = *(myAlternatives[i]);
@@ -352,9 +352,9 @@ RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle *
             } else if (myColor!=0) {
                 dev << "\" color=\"" << *myColor;
             }
-            dev << "\">" << alt.getEdgeVector() << "</route>\n";
+            dev << "\" edges=\"" << alt.getEdgeVector() << "\"/>\n";
         }
-        dev << "      </routealt>\n";
+        dev << "      </routeDistribution>\n";
         return dev;
     } else {
         return myAlternatives[myLastUsed]->writeXMLDefinition(dev, asAlternatives);

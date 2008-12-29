@@ -17,23 +17,23 @@
 
 <route-alternatives>
    <vehicle id="0" depart="0">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+      </routeDistribution>
    </vehicle>
    <vehicle id="1" depart="10">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00" color="1.00,1.00,0.00">beg middle end rend</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="124.88" probability="1.00" color="1.00,1.00,0.00" edges="beg middle end rend"/>
+      </routeDistribution>
    </vehicle>
    <vehicle id="2" depart="20" color="1.00,1.00,0.00">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+      </routeDistribution>
    </vehicle>
    <vehicle id="3" depart="30" color="1.00,1.00,0.00">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00" color="1.00,1.00,0.00">beg middle end rend</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="124.88" probability="1.00" color="1.00,1.00,0.00" edges="beg middle end rend"/>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

@@ -116,12 +116,11 @@ RORouteDef_Complete::copy(const std::string &id) const
 
 
 OutputDevice &
-RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const
+RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const
 {
     // (optional) alternatives header
     if (asAlternatives) {
-        dev << "<routealt last=\"0\"";
-        dev << ">\n         ";
+        dev << "<routeDistribution last=\"0\">\n         ";
     }
     // the route
     dev << "<route";
@@ -132,10 +131,10 @@ RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * con
     if (myColor!=0) {
         dev << " color=\"" << *myColor << "\"";
     }
-    dev << ">" << myEdges << "</route>\n";
+    dev << " edges=\"" << myEdges << "\"/>\n";
     // (optional) alternatives end
     if (asAlternatives) {
-        dev << "      </routealt>\n";
+        dev << "      </routeDistribution>\n";
     }
     return dev;
 }

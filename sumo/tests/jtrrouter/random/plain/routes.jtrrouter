@@ -25,6 +25,6 @@
 
 <routes>
    <vehicle id="Rand0" depart="0">
-      <route>left2end -middle -beg beg beg2right -beg2right beg2left left -left -beg2left middle end -end -right2end -right -beg2right beg2right right -right -beg2right beg2left left -left left -left left left2end -right2end -right -beg2right beg2left -beg2left -beg beg beg2right -beg2right beg2left</route>
+      <route edges="left2end -middle -beg beg beg2right -beg2right beg2left left -left -beg2left middle end -end -right2end -right -beg2right beg2right right -right -beg2right beg2left left -left left -left left left2end -right2end -right -beg2right beg2left -beg2left -beg beg beg2right -beg2right beg2left"/>
    </vehicle>
 </routes>

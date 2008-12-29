@@ -17,13 +17,13 @@
 
 <route-alternatives>
    <vehicle id="0_0" depart="0">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+      </routeDistribution>
    </vehicle>
    <vehicle id="0_1" depart="5">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

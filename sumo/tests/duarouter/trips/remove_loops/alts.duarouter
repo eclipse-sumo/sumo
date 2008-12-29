@@ -21,8 +21,8 @@
 
 <route-alternatives>
    <vehicle id="0" type="0" depart="0">
-      <routealt last="0">
-         <route cost="19.64" probability="1.00">0/0to1/0 1/0to2/0 2/0to3/0</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="19.64" probability="1.00" edges="0/0to1/0 1/0to2/0 2/0to3/0"/>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

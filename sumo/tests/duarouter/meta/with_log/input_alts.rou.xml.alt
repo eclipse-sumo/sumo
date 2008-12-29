@@ -1,13 +1,13 @@
 <route-alternatives>
    <vtype id="0" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
    <vehicle id="0" type="0" depart="0" color="1,1,0">
-      <routealt last="0">
+      <routeDistribution last="0">
          <route cost="125.126" probability="1">beg middle end rend</route>
-      </routealt>
+      </routeDistribution>
    </vehicle>
    <vehicle id="10" type="0" depart="0" color="1,1,0">
-      <routealt last="0">
+      <routeDistribution last="0">
          <route cost="125.126" probability="1">beg middle end rend</route>
-      </routealt>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

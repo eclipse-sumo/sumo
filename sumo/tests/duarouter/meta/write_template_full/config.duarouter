@@ -13,6 +13,7 @@
 
    <output>
       <output-file></output-file>
+      <exit-times>false</exit-times>
    </output>
 
    <processing>

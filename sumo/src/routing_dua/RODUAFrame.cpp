@@ -120,6 +120,9 @@ RODUAFrame::addDUAOptions()
 
     oc.doRegister("gA", new Option_Float((SUMOReal) 0.05));
     oc.addDescription("gA", "Processing", "Use FLOAT as Gawron's alpha");
+
+    oc.doRegister("exit-times", new Option_Bool(false));
+    oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
 }
 
 

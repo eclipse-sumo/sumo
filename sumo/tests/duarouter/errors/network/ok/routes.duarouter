@@ -17,6 +17,6 @@
 
 <routes>
    <vehicle id="0" depart="0">
-      <route>1 2</route>
+      <route edges="1 2"/>
    </vehicle>
 </routes>

@@ -18,9 +18,9 @@
 <route-alternatives>
    <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00"/>
    <vehicle id="0_0" type="0" depart="0">
-      <routealt last="1">
-         <route cost="125.22" probability="0.50">absBeg beg2left left left2end end absEnd</route>
-         <route cost="125.11" probability="0.50">absBeg middle end absEnd</route>
-      </routealt>
+      <routeDistribution last="1">
+         <route cost="125.22" probability="0.50" edges="absBeg beg2left left left2end end absEnd"/>
+         <route cost="125.11" probability="0.50" edges="absBeg middle end absEnd"/>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

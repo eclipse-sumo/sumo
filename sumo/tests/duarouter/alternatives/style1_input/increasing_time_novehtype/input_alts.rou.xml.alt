@@ -1,22 +1,22 @@
 <route-alternatives>
-   <routealt id="0" last="0">
+   <routeDistribution id="0" last="0">
       <route cost="125.126" probability="1">beg middle end rend</route>
-   </routealt>
+   </routeDistribution>
    <vehicle id="0" route="0" depart="0"/>
 
-   <routealt id="1" last="0">
+   <routeDistribution id="1" last="0">
       <route cost="125.126" probability="1" color="1,1,0">beg middle end rend</route>
-   </routealt>
+   </routeDistribution>
    <vehicle id="1" route="1" depart="10"/>
 
-   <routealt id="2" last="0">
+   <routeDistribution id="2" last="0">
       <route cost="125.126" probability="1">beg middle end rend</route>
-   </routealt>
+   </routeDistribution>
    <vehicle id="2" route="2" depart="20" color="1,1,0"/>
 
-   <routealt id="3" last="0">
+   <routeDistribution id="3" last="0">
       <route cost="125.126" probability="1" color="1,1,0">beg middle end rend</route>
-   </routealt>
+   </routeDistribution>
    <vehicle id="3" route="3" depart="30" color="1,1,0"/>
 
 </route-alternatives>

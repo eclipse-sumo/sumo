@@ -253,7 +253,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
         // ok, compute the route (try it)
         if (computeRoute(options, router, veh)) {
             // write the route
-            veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput);
+            veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, options.getBool("exit-times"));
             myWrittenRouteNo++;
             // remove the route if it is not longer used
             /*

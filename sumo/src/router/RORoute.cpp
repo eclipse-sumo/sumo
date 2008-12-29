@@ -83,25 +83,6 @@ RORoute::add(ROEdge *edge) throw()
 
 
 void
-RORoute::xmlOut(OutputDevice &dev, bool isPeriodical) const
-{
-    dev << "   <route id=\"" << myID << "\"";
-    if (isPeriodical) {
-        dev << " multi_ref=\"x\"";
-    }
-    dev << ">";
-    dev << myRoute;
-    dev << "</route>\n";
-}
-
-void
-RORoute::xmlOutEdges(OutputDevice &dev) const
-{
-    dev << myRoute;
-}
-
-
-void
 RORoute::setCosts(SUMOReal costs) throw()
 {
     myCosts = costs;
@@ -134,8 +115,7 @@ RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const
 {
     // (optional) alternatives header
     if (asAlternatives) {
-        dev << "<routealt last=\"0\"";
-        dev << ">\n         ";
+        dev << "<routeDistribution last=\"0\">\n         ";
     }
     // the route
     dev << "<route";
@@ -146,10 +126,10 @@ RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const
     if (myColor!=0) {
         dev << " color=\"" << *myColor << "\"";
     }
-    dev << ">" << myRoute << "</route>\n";
+    dev << " edges=\"" << myRoute << "\"/>\n";
     // (optional) alternatives end
     if (asAlternatives) {
-        dev << "      </routealt>\n";
+        dev << "      </routeDistribution>\n";
     }
     return dev;
 }

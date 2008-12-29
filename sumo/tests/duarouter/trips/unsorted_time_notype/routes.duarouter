@@ -21,33 +21,33 @@
 
 <routes>
    <vehicle id="8" depart="1">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="7" depart="18">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="2" depart="20">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="6" depart="43">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="1" depart="51">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="5" depart="66">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0" depart="71">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="3" depart="78">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="4" depart="84">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="9" depart="99">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

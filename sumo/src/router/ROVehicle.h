@@ -126,7 +126,7 @@ public:
      * @exception IOError If something fails (not yet implemented)
      * @todo What is the given route definition?
      */
-    void saveAllAsXML(OutputDevice &os, OutputDevice * const altos) const throw(IOError);
+    void saveAllAsXML(OutputDevice &os, OutputDevice * const altos, bool withExitTimes) const throw(IOError);
 
 
     /** @brief Returns a copy of the vehicle using a new id, departure time and route

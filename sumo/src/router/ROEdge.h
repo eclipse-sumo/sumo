@@ -254,31 +254,8 @@ public:
      * @return The effort needed by the given vehicle to pass the edge at the given time
      * @todo Refactor weights usage
      * @todo Recheck whether the vehicle's maximum speed is considered
-     * @todo What is the difference to getCost?
      */
-    virtual SUMOReal getEffort(const ROVehicle * const veh, SUMOReal time) const throw();
-
-
-    /** @brief retrieves the cost of this edge at the given time
-     *
-     * @param[in] veh The vehicle for which the cost on this edge shall be retrieved
-     * @param[in] time The tim for which the cost shall be returned
-     * @return The cost needed by the given vehicle to pass the edge at the given time
-     * @todo Refactor weights usage
-     * @todo Recheck whether the vehicle's maximum speed is considered
-     * @todo What is the difference to getEffort?
-     */
-    SUMOReal getCost(const ROVehicle * const veh, SUMOTime time) const throw();
-
-
-    /** @brief Retrieves the travel time a vehicle needs to pass this edge starting at the given time
-     *
-     * @param[in] veh The vehicle for which the travel time on this edge shall be retrieved
-     * @param[in] time The tim for which the travel time shall be returned
-     * @return The travel time needed by the given vehicle to pass the edge at the given time
-     * @todo This is read from the smae container as cost??? Not good
-     */
-    SUMOReal getDuration(const ROVehicle *const, SUMOTime time) const throw();
+    SUMOReal getEffort(const ROVehicle * const veh, SUMOReal time) const throw();
 
 
     /** @brief Sets additional weight information

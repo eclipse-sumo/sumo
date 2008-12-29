@@ -87,7 +87,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "tl-logic",         SUMO_TAG_TLLOGIC },
     { "offset",           SUMO_TAG_OFFSET },
     { "phase",            SUMO_TAG_PHASE },
-    { "routealt",         SUMO_TAG_ROUTEALT },
     { "tripdef",          SUMO_TAG_TRIPDEF },
     { "flow",             SUMO_TAG_FLOW },
     { "subkey",           SUMO_TAG_SUBKEY },

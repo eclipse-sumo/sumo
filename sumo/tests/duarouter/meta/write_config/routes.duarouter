@@ -18,9 +18,9 @@
 <routes>
    <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00"/>
    <vehicle id="0" type="0" depart="0" color="1.00,1.00,0.00">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="10" type="0" depart="0" color="1.00,1.00,0.00">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

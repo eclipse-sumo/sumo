@@ -26,23 +26,23 @@
 
 <route-alternatives>
    <vehicle id="Rand2" depart="2">
-      <routealt last="0">
-         <route cost="71.49" probability="1.00">left left2end end</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="71.49" probability="1.00" edges="left left2end end"/>
+      </routeDistribution>
    </vehicle>
    <vehicle id="Rand3" depart="3">
-      <routealt last="0">
-         <route cost="53.50" probability="1.00">left2end end rend</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="53.50" probability="1.00" edges="left2end end rend"/>
+      </routeDistribution>
    </vehicle>
    <vehicle id="Rand6" depart="6">
-      <routealt last="0">
-         <route cost="53.55" probability="1.00">beg2left left</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="53.55" probability="1.00" edges="beg2left left"/>
+      </routeDistribution>
    </vehicle>
    <vehicle id="Rand8" depart="8">
-      <routealt last="0">
-         <route cost="71.49" probability="1.00">left left2end end</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="71.49" probability="1.00" edges="left left2end end"/>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

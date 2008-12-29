@@ -1,4 +1,4 @@
-SUMO duarouter Version 0.9.7
+SUMO duarouter Version dev-SVN-r6504
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -28,6 +28,7 @@ Usage: duarouter.exe [OPTION]*
 
  Output Options:
   -o, --output-file FILE              Write generated routes to FILE
+  --exit-times                        Write exit times (weights) for each edge
 
  Processing Options:
   --continue-on-unbuild               Continue if a route could not be build

@@ -1,13 +1,13 @@
 <route-alternatives>
    <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
-   <routealt id="0" last="0">
+   <routeDistribution id="0" last="0">
       <route cost="125.126" probability="1">beg middle end rend</route>
-   </routealt>
+   </routeDistribution>
    <vehicle id="0" type="KRAUSS_DEFAULT" route="0" depart="0"/>
 
-   <routealt id="1" last="0">
+   <routeDistribution id="1" last="0">
       <route cost="125.126">beg middle end rend</route>
-   </routealt>
+   </routeDistribution>
    <vehicle id="1" type="KRAUSS_DEFAULT" route="1" depart="10"/>
 
 </route-alternatives>

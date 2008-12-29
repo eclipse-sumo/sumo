@@ -17,33 +17,33 @@
 
 <routes>
    <vehicle id="0_0" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_1" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_2" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_3" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_4" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_5" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_6" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_7" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_8" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_9" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

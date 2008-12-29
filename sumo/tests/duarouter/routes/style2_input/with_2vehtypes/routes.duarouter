@@ -18,16 +18,16 @@
 <routes>
    <vtype model="SUMO_KRAUSS" id="0" accel="2.00" decel="4.00" sigma="0.90" length="5.50" maxspeed="70.00" tau="1.00"/>
    <vehicle id="0" type="0" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vtype model="SUMO_KRAUSS" id="1" accel="2.00" decel="4.00" sigma="0.90" length="5.50" maxspeed="70.00" tau="1.00"/>
    <vehicle id="1" type="1" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="10" type="0" depart="10">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="11" type="1" depart="10">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

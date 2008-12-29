@@ -17,8 +17,8 @@
 
 <route-alternatives>
    <vehicle id="0" depart="0">
-      <routealt last="0">
-         <route cost="10.53" probability="1.00">1 2</route>
-      </routealt>
+      <routeDistribution last="0">
+         <route cost="10.53" probability="1.00" edges="1 2"/>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

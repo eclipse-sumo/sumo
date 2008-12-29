@@ -26,15 +26,15 @@
 
 <routes>
    <vehicle id="Rand2" depart="2">
-      <route>left left2end end</route>
+      <route edges="left left2end end"/>
    </vehicle>
    <vehicle id="Rand3" depart="3">
-      <route>left2end end rend</route>
+      <route edges="left2end end rend"/>
    </vehicle>
    <vehicle id="Rand6" depart="6">
-      <route>beg2left left</route>
+      <route edges="beg2left left"/>
    </vehicle>
    <vehicle id="Rand8" depart="8">
-      <route>left left2end end</route>
+      <route edges="left left2end end"/>
    </vehicle>
 </routes>

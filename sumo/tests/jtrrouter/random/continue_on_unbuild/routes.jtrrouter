@@ -26,33 +26,33 @@
 
 <routes>
    <vehicle id="Rand0" depart="0">
-      <route>left2end -middle -beg beg beg2right -beg2right beg2left left -left -beg2left middle end -end -right2end -right -beg2right beg2right right -right -beg2right beg2left left -left left -left left left2end -right2end -right -beg2right beg2left -beg2left -beg beg beg2right -beg2right beg2left</route>
+      <route edges="left2end -middle -beg beg beg2right -beg2right beg2left left -left -beg2left middle end -end -right2end -right -beg2right beg2right right -right -beg2right beg2left left -left left -left left left2end -right2end -right -beg2right beg2left -beg2left -beg beg beg2right -beg2right beg2left"/>
    </vehicle>
    <vehicle id="Rand1" depart="1">
-      <route>right right2end -right2end -right -beg2right middle -left2end -left left left2end end -end -right2end right2end -right2end right2end -left2end -left left left2end -left2end -left left left2end -middle -beg beg -beg beg beg2right -beg2right beg2left left left2end end -end -left2end</route>
+      <route edges="right right2end -right2end -right -beg2right middle -left2end -left left left2end end -end -right2end right2end -right2end right2end -left2end -left left left2end -left2end -left left left2end -middle -beg beg -beg beg beg2right -beg2right beg2left left left2end end -end -left2end"/>
    </vehicle>
    <vehicle id="Rand2" depart="2">
-      <route>-left2end -left left left2end end -end -middle beg2right -beg2right beg2left left -left -beg2left beg2right right -right right -right -beg2right beg2left -beg2left beg2right -beg2right -beg beg middle end -end -right2end -right -beg2right -beg beg middle -left2end -left left</route>
+      <route edges="-left2end -left left left2end end -end -middle beg2right -beg2right beg2left left -left -beg2left beg2right right -right right -right -beg2right beg2left -beg2left beg2right -beg2right -beg beg middle end -end -right2end -right -beg2right -beg beg middle -left2end -left left"/>
    </vehicle>
    <vehicle id="Rand3" depart="3">
-      <route>end -end end -end -left2end left2end -right2end right2end -left2end left2end -right2end -right right -right right right2end -right2end right2end -middle middle end -end end -end -middle middle -right2end -right right right2end -left2end -left left -left -beg2left beg2right -beg2right</route>
+      <route edges="end -end end -end -left2end left2end -right2end right2end -left2end left2end -right2end -right right -right right right2end -right2end right2end -middle middle end -end end -end -middle middle -right2end -right right right2end -left2end -left left -left -beg2left beg2right -beg2right"/>
    </vehicle>
    <vehicle id="Rand4" depart="4">
-      <route>-end -middle middle -left2end -left left left2end -middle beg2left left left2end end -end -middle beg2right right -right -beg2right -beg beg beg2right right right2end end -end -middle -beg beg middle -right2end -right right right2end -right2end right2end -middle -beg</route>
+      <route edges="-end -middle middle -left2end -left left left2end -middle beg2left left left2end end -end -middle beg2right right -right -beg2right -beg beg beg2right right right2end end -end -middle -beg beg middle -right2end -right right right2end -right2end right2end -middle -beg"/>
    </vehicle>
    <vehicle id="Rand5" depart="5">
-      <route>-middle beg2right -beg2right -beg beg middle -right2end right2end end -end -right2end right2end -middle beg2left -beg2left beg2right right right2end end -end -middle -beg beg -beg beg -beg beg beg2right right right2end -left2end -left left -left -beg2left beg2left left</route>
+      <route edges="-middle beg2right -beg2right -beg beg middle -right2end right2end end -end -right2end right2end -middle beg2left -beg2left beg2right right right2end end -end -middle -beg beg -beg beg -beg beg beg2right right right2end -left2end -left left -left -beg2left beg2left left"/>
    </vehicle>
    <vehicle id="Rand6" depart="6">
-      <route>left -left -beg2left -beg beg -beg beg middle end -end -right2end -right right right2end -left2end left2end end -end -middle -beg beg middle -right2end -right -beg2right -beg beg -beg beg beg2left left -left left left2end -right2end right2end -middle</route>
+      <route edges="left -left -beg2left -beg beg -beg beg middle end -end -right2end -right right right2end -left2end left2end end -end -middle -beg beg middle -right2end -right -beg2right -beg beg -beg beg beg2left left -left left left2end -right2end right2end -middle"/>
    </vehicle>
    <vehicle id="Rand7" depart="7">
-      <route>-middle -beg beg middle -left2end left2end -left2end -left left left2end -right2end -right right -right right -right -beg2right beg2right -beg2right -beg beg beg2right right -right right right2end end -end -middle beg2left -beg2left beg2left left left2end -middle -beg beg</route>
+      <route edges="-middle -beg beg middle -left2end left2end -left2end -left left left2end -right2end -right right -right right -right -beg2right beg2right -beg2right -beg beg beg2right right -right right right2end end -end -middle beg2left -beg2left beg2left left left2end -middle -beg beg"/>
    </vehicle>
    <vehicle id="Rand8" depart="8">
-      <route>end -end -right2end -right right right2end -middle beg2left left left2end -middle beg2left left left2end end -end end -end -left2end left2end -right2end -right -beg2right beg2left -beg2left beg2right right right2end -left2end left2end -left2end left2end -left2end left2end end -end -right2end</route>
+      <route edges="end -end -right2end -right right right2end -middle beg2left left left2end -middle beg2left left left2end end -end end -end -left2end left2end -right2end -right -beg2right beg2left -beg2left beg2right right right2end -left2end left2end -left2end left2end -left2end left2end end -end -right2end"/>
    </vehicle>
    <vehicle id="Rand9" depart="9">
-      <route>-right -beg2right -beg beg beg2right -beg2right -beg beg beg2right right -right right -right right -right -beg2right middle -left2end left2end -right2end -right -beg2right beg2left left left2end -right2end right2end -right2end -right -beg2right middle -middle middle -right2end right2end end -end</route>
+      <route edges="-right -beg2right -beg beg beg2right -beg2right -beg beg beg2right right -right right -right right -right -beg2right middle -left2end left2end -right2end -right -beg2right beg2left left left2end -right2end right2end -right2end -right -beg2right middle -middle middle -right2end right2end end -end"/>
    </vehicle>
 </routes>

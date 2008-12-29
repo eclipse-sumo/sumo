@@ -2,8 +2,8 @@
 <route-alternatives>
    <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00"/>
    <vehicle id="0_0" type="0" depart="0">
-      <routealt last="0">
+      <routeDistribution last="0">
          <route cost="125.22" probability="1">absBeg middle end absEnd</route>
-      </routealt>
+      </routeDistribution>
    </vehicle>
 </route-alternatives>

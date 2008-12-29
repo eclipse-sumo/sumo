@@ -155,7 +155,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
 
 void
 ROVehicle::saveAllAsXML(OutputDevice &os,
-                        OutputDevice * const altos) const throw(IOError)
+                        OutputDevice * const altos, bool withExitTimes) const throw(IOError)
 {
     // check whether the vehicle's type was saved before
     if (myType!=0&&!myType->isSaved()) {
@@ -178,10 +178,10 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
     // check whether the route shall be saved
     if (!myRoute->isSaved()) {
         os << "      ";
-        myRoute->writeXMLDefinition(os, this, false);
+        myRoute->writeXMLDefinition(os, this, false, withExitTimes);
         if (altos!=0) {
             (*altos) << "      ";
-            myRoute->writeXMLDefinition(*altos, this, true);
+            myRoute->writeXMLDefinition(*altos, this, true, withExitTimes);
         }
     }
     os << "   </vehicle>\n";

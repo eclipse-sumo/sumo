@@ -131,8 +131,6 @@ enum SumoXMLTag {
     SUMO_TAG_OFFSET,
     /** a single phase description */
     SUMO_TAG_PHASE,
-    /** the route alternatives */
-    SUMO_TAG_ROUTEALT,
     /** a single trip definition (used by router) */
     SUMO_TAG_TRIPDEF,
     /** a flow definition (used by router) */

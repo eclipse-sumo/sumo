@@ -88,22 +88,6 @@ public:
     void add(ROEdge *edge) throw();
 
 
-    /** @brief Saves the whole route (as a route)
-     *
-     * @param[in] dev The device to save the route into
-     * @param[in] isPeriodical Whether the route shall be reused by other vehicles
-     * @todo is isPeriodical really needed?
-     */
-    void xmlOut(OutputDevice &dev, bool isPeriodical) const;
-
-
-    /** @brief Saves the edges the route consists of
-     *
-     * @param[in] dev The device to save the route into
-     */
-    void xmlOutEdges(OutputDevice &dev) const;
-
-
     /** @brief Returns the first edge in the route
      *
      * @return The route's first edge

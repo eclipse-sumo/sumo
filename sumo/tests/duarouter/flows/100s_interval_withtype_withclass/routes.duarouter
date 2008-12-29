@@ -18,33 +18,33 @@
 <routes>
    <vtype model="SUMO_KRAUSS" id="0" accel="1.60" decel="5.50" sigma="0.90" length="7.00" maxspeed="30.00" tau="1.00" color="1,0,0" vclass="bus"/>
    <vehicle id="0_0" type="0" depart="0">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_1" type="0" depart="10">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_2" type="0" depart="20">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_3" type="0" depart="30">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_4" type="0" depart="40">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_5" type="0" depart="50">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_6" type="0" depart="60">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_7" type="0" depart="70">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_8" type="0" depart="80">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="0_9" type="0" depart="90">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

@@ -104,7 +104,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
     case SUMO_TAG_VTYPE:
         startVehType(attrs);
         break;
-    case SUMO_TAG_ROUTEALT:
+    case SUMO_TAG_ROUTE_DISTRIBUTION:
         myAltIsValid = true;
         startAlternative(attrs);
         if (!myCurrentIsOk) {
@@ -128,6 +128,9 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
     if (!myAltIsValid) {
         return;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+        myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
+    }
     if (myCurrentAlternatives==0) {
         myCurrentIsOk = true;
         // parse plain route...
@@ -137,31 +140,28 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
             } else {
                 myCurrentRouteName = attrs.getString(SUMO_ATTR_ID);
             }
-            if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-                myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
-            }
         } catch (EmptyData &) {
             myCurrentRouteName = "";
             MsgHandler::getErrorInstance()->inform("Missing id in route.");
             myCurrentIsOk = false;
         }
-        return;
+    } else {
+        // parse route alternative...
+        myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+        myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+        if (myCurrentIsOk&&myCost<0) {
+            MsgHandler::getErrorInstance()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
+            myCurrentIsOk = false;
+            return;
+        }
+        if (myCurrentIsOk&&myProbability<0) {
+            MsgHandler::getErrorInstance()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
+            myCurrentIsOk = false;
+            return;
+        }
     }
-    // parse route alternative...
-    myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-    myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
-    }
-    if (myCurrentIsOk&&myCost<0) {
-        MsgHandler::getErrorInstance()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
-        myCurrentIsOk = false;
-        return;
-    }
-    if (myCurrentIsOk&&myProbability<0) {
-        MsgHandler::getErrorInstance()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
-        myCurrentIsOk = false;
-        return;
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        myCharacters(SUMO_TAG_ROUTE, attrs.getString(SUMO_ATTR_EDGES));
     }
 }
 
@@ -175,13 +175,13 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
     if (myVehicleParameter!=0) {
         id = myVehicleParameter->id;
         if (id=="") {
-            MsgHandler::getErrorInstance()->inform("Missing 'id' of a routealt.");
+            MsgHandler::getErrorInstance()->inform("Missing 'id' of a routeDistribution.");
             myCurrentIsOk = false;
             return;
         }
         id = "!" + id;
     } else {
-        if (!attrs.setIDFromAttributes("routealt", id)) {
+        if (!attrs.setIDFromAttributes("routeDistribution", id)) {
             myCurrentIsOk = false;
             return;
         }
@@ -262,7 +262,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
             myCurrentRoute = 0;
         }
         break;
-    case SUMO_TAG_ROUTEALT:
+    case SUMO_TAG_ROUTE_DISTRIBUTION:
         if (!myCurrentIsOk) {
             return;
         }
