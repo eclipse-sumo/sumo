@@ -34,4 +34,7 @@ with_vehtype_withclass
 # Checks whether the vehicle type can be omitted
 no_vehtype
 
+# Checks whether exit time output works
+exit_times
+
 

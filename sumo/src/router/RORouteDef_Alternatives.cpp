@@ -337,7 +337,8 @@ RORouteDef_Alternatives::removeLast()
 
 
 OutputDevice &
-RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const
+RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
+                                            bool asAlternatives, bool withExitTimes) const
 {
     // (optional) alternatives header
     if (asAlternatives) {
@@ -352,7 +353,17 @@ RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle *
             } else if (myColor!=0) {
                 dev << "\" color=\"" << *myColor;
             }
-            dev << "\" edges=\"" << alt.getEdgeVector() << "\"/>\n";
+            dev << "\" edges=\"" << alt.getEdgeVector();
+            if (withExitTimes) {
+                SUMOReal time = veh->getDepartureTime();
+                dev << "\" exitTimes=\"";
+                std::vector<const ROEdge*>::const_iterator i = alt.getEdgeVector().begin();
+                for (; i!=alt.getEdgeVector().end(); ++i) {
+                    time += (*i)->getEffort(veh, time);
+                    dev << time << " ";
+                }
+            }
+            dev << "\"/>\n";
         }
         dev << "      </routeDistribution>\n";
         return dev;
