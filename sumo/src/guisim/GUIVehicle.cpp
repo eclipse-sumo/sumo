@@ -617,6 +617,8 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
     }
 
     switch (shape) {
+    case SVS_PEDESTRIAN:
+        break;
     case SVS_BICYCLE:
         //glScaled(length-veh.getVehicleType().getGuiOffset(), 1, 1.);
         glBegin(GL_TRIANGLE_FAN);
@@ -682,6 +684,18 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
         GLHelper::drawBoxLine(Position2D(2.3+l+.5, 0), 90., l-.5, .5);
         break;
         }
+    case SVS_BUS:
+    case SVS_BUS_CITY:
+    case SVS_BUS_CITY_FLEXIBLE:
+    case SVS_BUS_OVERLAND:
+    case SVS_RAIL:
+    case SVS_RAIL_LIGHT:
+    case SVS_RAIL_CITY:
+    case SVS_RAIL_SLOW:
+    case SVS_RAIL_FAST:
+    case SVS_RAIL_CARGO:
+    case SVS_E_VEHICLE:
+        break;
     default: // same as passenger/sedan
         drawPoly(vehiclePoly_PassengerSedanRightGlass, -4.5);
         drawPoly(vehiclePoly_PassengerSedanLeftGlass, -4.5);
