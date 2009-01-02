@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/15/08 14:18:10 by SUMO netconvert Version dev-SVN-r6145
+<!-- generated on 01/02/09 22:47:08 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -15,6 +15,7 @@
 
    <processing>
       <speed-in-kmh>true</speed-in-kmh>
+      <no-internal-links>true</no-internal-links>
    </processing>
 
 </configuration>

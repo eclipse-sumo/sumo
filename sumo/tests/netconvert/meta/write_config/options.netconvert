@@ -1,1 +1,1 @@
---save-configuration config.cfg --xml-edge-files=input_edges.edg.xml --xml-connection-files input_connections.con.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml --speed-in-kmh
+--no-internal-links --save-configuration config.cfg --xml-edge-files=input_edges.edg.xml --xml-connection-files input_connections.con.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml --speed-in-kmh

@@ -12,6 +12,7 @@
 
    <processing>
       <speed-in-kmh>true</speed-in-kmh>
+      <no-internal-links>true</no-internal-links>
    </processing>
 
 </configuration>
