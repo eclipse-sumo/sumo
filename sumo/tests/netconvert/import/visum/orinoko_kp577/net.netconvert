@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 22:26:57 by SUMO netconvert Version 0.9.7
+<!-- generated on 01/02/09 23:26:10 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -28,8 +28,6 @@
    <conv-boundary>0.00,0.00,4020.00,3208.00</conv-boundary>
    <orig-boundary>4436760.00,5472772.00,4441717.00,5475996.00</orig-boundary>
    <orig-proj>!</orig-proj>
-
-   <node_count>49</node_count>
 
    <district id="1058279604">
    </district>

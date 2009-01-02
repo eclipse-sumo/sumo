@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/28/08 15:59:05 by SUMO netconvert Version dev-SVN-r6499
+<!-- generated on 01/02/09 23:26:51 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -128,8 +128,6 @@
       </lanes>
    </edge>
 
-
-   <node_count>4</node_count>
 
 
    <edge id="e10" from="n5" to="n3" priority="-1" type="" function="normal">

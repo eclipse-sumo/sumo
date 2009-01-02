@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 22:26:59 by SUMO netconvert Version 0.9.7
+<!-- generated on 01/02/09 23:26:12 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -28,8 +28,6 @@
    <conv-boundary>0.00,0.00,3289.50,4147.00</conv-boundary>
    <orig-boundary>4437087.50,5472770.50,4440377.00,5476917.50</orig-boundary>
    <orig-proj>!</orig-proj>
-
-   <node_count>40</node_count>
 
 
    <edge id="1" from="605000010" to="605000011" priority="-1" type="83" function="normal">
