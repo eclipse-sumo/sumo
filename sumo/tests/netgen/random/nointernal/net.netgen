@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/28/08 15:53:55 by SUMO netgen Version dev-SVN-r6499
+<!-- generated on 01/02/09 23:24:30 by SUMO netgen Version 0.9.7
 <configuration>
 
    <random_network>
@@ -25,8 +25,6 @@
    <conv-boundary>0.00,0.00,2463.28,3477.43</conv-boundary>
    <orig-boundary>-1263.68,-1880.98,1199.60,1596.45</orig-boundary>
    <orig-proj>!</orig-proj>
-
-   <node_count>200</node_count>
 
 
    <edge id="1005" from="611" to="1004" priority="-1" type="netgen-default" function="normal">
