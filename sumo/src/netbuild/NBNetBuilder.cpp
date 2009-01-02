@@ -289,9 +289,6 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError)
         myNodeCont.writeXMLInternalLinks(device);
     }
 
-    // write the number of nodes
-    myNodeCont.writeXMLNumber(device);
-    device << "\n";
     // write the districts
     myDistrictCont.writeXML(device);
     // write edges with lanes and connected edges

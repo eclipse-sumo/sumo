@@ -123,8 +123,6 @@ enum SumoXMLTag {
     SUMO_TAG_DSOURCE,
     /** a sink within a district (connection road) */
     SUMO_TAG_DSINK,
-    /** the number of nodes within the net */
-    SUMO_TAG_NODECOUNT,
     /** a traffic light logic */
     SUMO_TAG_TLLOGIC,
     /** the time offset from the first switch */

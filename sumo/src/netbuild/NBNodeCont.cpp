@@ -240,13 +240,6 @@ NBNodeCont::sortNodesEdges(const NBTypeCont &tc)
 
 
 void
-NBNodeCont::writeXMLNumber(OutputDevice &into)
-{
-    into << "   <node_count>" << myNodes.size() << "</node_count>\n";
-}
-
-
-void
 NBNodeCont::writeXMLInternalLinks(OutputDevice &into)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {

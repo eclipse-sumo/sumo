@@ -107,9 +107,6 @@ public:
     /// sorts the nodes' edges
     void sortNodesEdges(const NBTypeCont &tc);
 
-    /// writes the number nodes into the given ostream
-    void writeXMLNumber(OutputDevice &into);
-
     void writeXMLInternalLinks(OutputDevice &into);
     void writeXMLInternalSuccInfos(OutputDevice &into);
     void writeXMLInternalNodes(OutputDevice &into);

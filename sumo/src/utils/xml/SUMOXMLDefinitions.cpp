@@ -83,7 +83,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "district",         SUMO_TAG_DISTRICT },
     { "dsource",          SUMO_TAG_DSOURCE },
     { "dsink",            SUMO_TAG_DSINK },
-    { "node_count",       SUMO_TAG_NODECOUNT },
     { "tl-logic",         SUMO_TAG_TLLOGIC },
     { "offset",           SUMO_TAG_OFFSET },
     { "phase",            SUMO_TAG_PHASE },

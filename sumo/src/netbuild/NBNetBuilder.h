@@ -176,7 +176,6 @@ protected:
      * @param[in] device The device to write the network into
      * @param[in] oc Options needed to know what shall be saved (mainly whether internal links shall be saved)
      * @exception IOError (not yet implemented)
-     * @see NBNodeCont::writeXMLNumber
      * @see NBDistrictCont::writeXML
      * @see NBEdgeCont::writeXMLStep1
      * @see NBJunctionLogicCont::writeXML
