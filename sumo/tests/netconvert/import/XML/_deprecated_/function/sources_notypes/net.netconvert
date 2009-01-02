@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/24/08 16:48:48 by SUMO netconvert Version dev-SVN-r6190
+<!-- generated on 01/02/09 22:24:59 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -11,6 +11,10 @@
    <output>
       <output-file>net.net.xml</output-file>
    </output>
+
+   <processing>
+      <no-internal-links>true</no-internal-links>
+   </processing>
 
 </configuration>
 -->

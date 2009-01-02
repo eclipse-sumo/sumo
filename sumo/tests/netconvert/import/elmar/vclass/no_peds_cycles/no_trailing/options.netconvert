@@ -1,1 +1,1 @@
---elmar2=elmar --output-file=net.net.xml -v
+--no-internal-links --elmar2=elmar --output-file=net.net.xml -v

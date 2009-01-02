@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/08 10:46:07 by SUMO netconvert Version dev-SVN-r6410
+<!-- generated on 01/02/09 22:39:41 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -10,6 +10,7 @@
 
    <processing>
       <remove-geometry>true</remove-geometry>
+      <no-internal-links>true</no-internal-links>
    </processing>
 
    <report>

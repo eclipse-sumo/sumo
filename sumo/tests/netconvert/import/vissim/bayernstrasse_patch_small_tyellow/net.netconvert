@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/08 10:45:44 by SUMO netconvert Version dev-SVN-r6410
+<!-- generated on 01/02/09 22:27:02 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -14,6 +14,10 @@
    <tls_building>
       <patch-small-tyellow>true</patch-small-tyellow>
    </tls_building>
+
+   <processing>
+      <no-internal-links>true</no-internal-links>
+   </processing>
 
    <report>
       <verbose>true</verbose>

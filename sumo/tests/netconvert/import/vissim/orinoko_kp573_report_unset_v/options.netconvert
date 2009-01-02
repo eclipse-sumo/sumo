@@ -1,1 +1,1 @@
--v --vissim vissim.inp --output-file=net.net.xml --vissim.report-unset-speeds
+--no-internal-links -v --vissim vissim.inp --output-file=net.net.xml --vissim.report-unset-speeds

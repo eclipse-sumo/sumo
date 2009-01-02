@@ -1,1 +1,1 @@
--v --remove-edges 4fi,4si,4o --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml
+--no-internal-links -v --remove-edges 4fi,4si,4o --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml

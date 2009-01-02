@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/08 10:04:26 by SUMO netconvert Version dev-SVN-r6410
+<!-- generated on 01/02/09 22:39:43 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -19,6 +19,10 @@
    <edge_removal>
       <keep-edges>s1,s2,s3,s4,on,off</keep-edges>
    </edge_removal>
+
+   <processing>
+      <no-internal-links>true</no-internal-links>
+   </processing>
 
 </configuration>
 -->

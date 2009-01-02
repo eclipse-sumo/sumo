@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:11:59 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 01/02/09 22:39:40 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
       <xml-edge-files>input_edges.edg.xml</xml-edge-files>
    </input>
+
+   <processing>
+      <no-internal-links>true</no-internal-links>
+   </processing>
 
 </configuration>
 -->

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/29/08 14:10:51 by SUMO netconvert Version 0.9.7
+<!-- generated on 01/02/09 22:35:03 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -15,6 +15,10 @@
    <edge_removal>
       <keep-edges>1fi,1si,1o,3fi,3si,3o,4fi,4si,4o</keep-edges>
    </edge_removal>
+
+   <processing>
+      <no-internal-links>true</no-internal-links>
+   </processing>
 
    <report>
       <verbose>true</verbose>

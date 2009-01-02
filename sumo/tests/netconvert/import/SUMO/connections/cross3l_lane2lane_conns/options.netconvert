@@ -1,2 +1,2 @@
---sumo-net=input_net.net.xml --output-file=net.net.xml -v
+--no-internal-links --sumo-net=input_net.net.xml --output-file=net.net.xml -v
 

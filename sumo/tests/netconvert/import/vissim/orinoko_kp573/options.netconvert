@@ -1,1 +1,1 @@
--v --vissim vissim.inp --output-file=net.net.xml
+--no-internal-links -v --vissim vissim.inp --output-file=net.net.xml

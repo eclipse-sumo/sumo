@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/10/08 10:45:49 by SUMO netconvert Version dev-SVN-r6410
+<!-- generated on 01/02/09 22:30:23 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -17,6 +17,7 @@
 
    <processing>
       <dismiss-vclasses>true</dismiss-vclasses>
+      <no-internal-links>true</no-internal-links>
    </processing>
 
    <report>

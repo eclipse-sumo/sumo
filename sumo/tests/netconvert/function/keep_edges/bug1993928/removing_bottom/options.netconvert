@@ -1,1 +1,1 @@
--v --keep-edges 1fi,1si,1o,2fi,2si,2o,4fi,4si,4o --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml
+--no-internal-links -v --keep-edges 1fi,1si,1o,2fi,2si,2o,4fi,4si,4o --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml

@@ -1,1 +1,1 @@
---remove-geometry -v -n input_nodes.nod.xml -e input_edges.edg.xml
+--no-internal-links --remove-geometry -v -n input_nodes.nod.xml -e input_edges.edg.xml

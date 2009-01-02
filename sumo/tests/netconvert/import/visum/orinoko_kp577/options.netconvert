@@ -1,1 +1,1 @@
--v --visum visum.net --output-file=net.net.xml
+--no-internal-links -v --visum visum.net --output-file=net.net.xml
