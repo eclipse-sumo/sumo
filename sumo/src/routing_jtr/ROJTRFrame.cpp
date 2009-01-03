@@ -89,6 +89,10 @@ ROJTRFrame::addJTROptions()
     oc.addDescription("turn-definition", "Input", "Read turn-definitions from FILE");
 
 
+    oc.doRegister("exit-times", new Option_Bool(false));
+    oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
+
+
     oc.doRegister("max-edges-factor", new Option_Float(2.0));
     oc.addDescription("max-edges-factor", "Processing", "");
 
