@@ -1351,6 +1351,11 @@ NBNode::computeLanes2Lanes()
 
         NBEdge *incoming = (*myIncomingEdges)[0];
         NBEdge *outgoing = (*myOutgoingEdges)[0];
+        // check if it's not the turnaround
+        if(incoming->getTurnDestination()==outgoing) {
+            // will be added later or not...
+            return;
+        }
         for (int i=0; i<(int) incoming->getNoLanes(); ++i) {
             incoming->setConnection(i, outgoing, i+1, NBEdge::L2L_COMPUTED);
         }
@@ -1397,7 +1402,7 @@ NBNode::getEdgesThatApproach(NBEdge *currentOutgoing)
     vector<NBEdge*> *approaching = new vector<NBEdge*>();
     for (; *i!=currentOutgoing;) {
         // check only incoming edges
-        if ((*i)->getToNode()==this) {
+        if ((*i)->getToNode()==this&&(*i)->getTurnDestination()!=currentOutgoing) {
             vector<int> connLanes = (*i)->getConnectionLanes(currentOutgoing);
             if (connLanes.size()!=0) {
                 approaching->push_back(*i);
