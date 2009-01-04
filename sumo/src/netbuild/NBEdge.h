@@ -455,8 +455,15 @@ public:
         optimises the connections once again */
     bool recheckLanes();
 
-    /// appends turnarounds
-    void appendTurnaround();
+    /** @brief Add a connection to the previously computed turnaround, if wished
+     *
+     * If a turning direction exists (myTurnDestination!=0) and either the
+     *  edge is not controlled by a tls or noTLSControlled is false, a connection
+     *  to the edge stored in myTurnDestination is added (from the leftmost lane
+     *  of this edge to the leftmost lane of myTurnDestination).
+     * @param[in] noTLSControlled Whether the turnaround shall not be connected if this edge is controlled by a tls
+     */
+    void appendTurnaround(bool noTLSControlled) throw();
 
     /// returns the list of lanes that may be used to reach the given edge
     std::vector<int> getConnectionLanes(NBEdge *currentOutgoing) const;

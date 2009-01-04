@@ -209,7 +209,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
     //
     if (!oc.getBool("no-turnarounds")) {
         inform(step, "Appending Turnarounds");
-        myEdgeCont.appendTurnarounds();
+        myEdgeCont.appendTurnarounds(oc.getBool("no-tls-turnarounds"));
     }
     //
     inform(step, "Rechecking of lane endings");
@@ -381,6 +381,8 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
+    oc.doRegister("no-tls-turnarounds", new Option_Bool(false));
+    oc.addDescription("no-tls-turnarounds", "Processing", "Disables building turnarounds at tls-controlled junctions");
 
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Processing", "Omits internal links");

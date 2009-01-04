@@ -458,10 +458,10 @@ NBEdgeCont::recheckLanes() throw()
 
 
 void
-NBEdgeCont::appendTurnarounds() throw()
+NBEdgeCont::appendTurnarounds(bool noTLSControlled) throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->appendTurnaround();
+        (*i).second->appendTurnaround(noTLSControlled);
     }
 }
 

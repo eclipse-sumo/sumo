@@ -304,10 +304,11 @@ public:
      *
      * Calls "NBEdge::appendTurnaround" for all edges within the container.
      *
+     * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds() throw();
+    void appendTurnarounds(bool noTLSControlled) throw();
 
 
     /** @brief Moves the geometries of all known edges by the network offset

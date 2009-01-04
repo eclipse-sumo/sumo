@@ -1193,11 +1193,18 @@ NBEdge::computePrioritySum(vector<size_t> *priorities)
 
 
 void
-NBEdge::appendTurnaround()
+NBEdge::appendTurnaround(bool noTLSControlled) throw()
 {
-    if (myTurnDestination!=0&&myStep!=LANES2LANES_USER) {
-        setConnection(myLanes.size()-1, myTurnDestination, myTurnDestination->getNoLanes()-1, L2L_VALIDATED, false);
+    // do nothing if no turnaround is known
+    if (myTurnDestination==0) {
+        return;
     }
+    // do nothing if the destination node is controlled by a tls and no turnarounds 
+    //  shall be appended for such junctions
+    if (noTLSControlled&&myTo->isTLControlled()) {
+        return;
+    }
+    setConnection(myLanes.size()-1, myTurnDestination, myTurnDestination->getNoLanes()-1, L2L_VALIDATED);
 }
 
 
