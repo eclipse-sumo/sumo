@@ -268,6 +268,9 @@
       <!-- Disables building turnarounds -->
       <no-turnarounds>false</no-turnarounds>
 
+      <!-- Disables building turnarounds at tls-controlled junctions -->
+      <no-tls-turnarounds>false</no-tls-turnarounds>
+
       <!-- Omits internal links -->
       <no-internal-links>false</no-internal-links>
 
