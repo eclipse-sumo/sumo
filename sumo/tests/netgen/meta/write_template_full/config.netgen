@@ -64,6 +64,7 @@
       <tls-guess.min-outgoing-speed>11.1111</tls-guess.min-outgoing-speed>
       <tls-guess.max-outgoing-speed>19.1667</tls-guess.max-outgoing-speed>
       <tls-guess.district-nodes>false</tls-guess.district-nodes>
+      <tls-guess.joining>false</tls-guess.joining>
       <min-decel>3</min-decel>
       <patch-small-tyellow>false</patch-small-tyellow>
       <traffic-light-green></traffic-light-green>
@@ -88,6 +89,7 @@
       <keep-edges></keep-edges>
       <keep-edges.input-file></keep-edges.input-file>
       <keep-edges.postload>false</keep-edges.postload>
+      <keep-edges.in-boundary></keep-edges.in-boundary>
       <remove-edges.by-vclass></remove-edges.by-vclass>
    </edge_removal>
 

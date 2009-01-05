@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r6498
+SUMO netconvert Version dev-SVN-r6521
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -71,6 +71,7 @@ Usage: netconvert.exe [OPTION]*
                                          edges must allowed in order to make
                                          their junction TLS-controlled.
   --tls-guess.district-nodes           
+  --tls-guess.joining                  
   -D, --min-decel FLOAT                Defines smallest vehicle deceleration
   --patch-small-tyellow                Given yellow times are patched even if
                                          being too short
@@ -99,6 +100,8 @@ Usage: netconvert.exe [OPTION]*
   --keep-edges STR                     Remove edges not in STR
   --keep-edges.input-file FILE         Removed edges not in FILE
   --keep-edges.postload                Remove edges after joining
+  --keep-edges.in-boundary STR         Keeps edges which are located within the
+                                         given boundary
   --remove-edges.by-vclass STR         Remove edges where vclass def is not in
                                          STR
 

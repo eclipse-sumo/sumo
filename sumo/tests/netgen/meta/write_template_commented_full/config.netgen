@@ -160,6 +160,9 @@
       <!--  -->
       <tls-guess.district-nodes>false</tls-guess.district-nodes>
 
+      <!--  -->
+      <tls-guess.joining>false</tls-guess.joining>
+
       <!-- Defines smallest vehicle deceleration -->
       <min-decel>3</min-decel>
 
@@ -219,6 +222,9 @@
 
       <!-- Remove edges after joining -->
       <keep-edges.postload>false</keep-edges.postload>
+
+      <!-- Keeps edges which are located within the given boundary -->
+      <keep-edges.in-boundary></keep-edges.in-boundary>
 
       <!-- Remove edges where vclass def is not in STR -->
       <remove-edges.by-vclass></remove-edges.by-vclass>
