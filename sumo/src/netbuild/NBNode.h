@@ -279,6 +279,7 @@ public:
     bool checkIsRemovable() const;
 
     bool isTLControlled() const;
+    bool isJoinedTLSControlled() const;
 
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 

@@ -442,6 +442,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("tls-guess.district-nodes", new Option_Bool(false));
     oc.addDescription("tls-guess.district-nodes", "TLS Building", ""); // !!! describe
 
+    oc.doRegister("tls-guess.joining", new Option_Bool(false));
+    oc.addDescription("tls-guess.joining", "TLS Building", ""); // !!! describe
+
     // computational
     oc.doRegister("min-decel", 'D', new Option_Float(3.0));
     oc.addDescription("min-decel", "TLS Building", "Defines smallest vehicle deceleration");
@@ -478,6 +481,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
     oc.doRegister("keep-edges.postload", new Option_Bool(false));
     oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
+
+    oc.doRegister("keep-edges.in-boundary", new Option_String());
+    oc.addDescription("keep-edges.in-boundary", "Edge Removal", "Keeps edges which are located within the given boundary");
 
     oc.doRegister("remove-edges.by-vclass", new Option_String());
     oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");

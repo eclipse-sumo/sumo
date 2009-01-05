@@ -38,6 +38,7 @@
 #include "NBCont.h"
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/geom/Position2DVector.h>
 
 
 // ===========================================================================
@@ -479,6 +480,9 @@ private:
     /// @brief Vector of vehicle types which must not be disallowed on edges in order to keep them
     std::set<SUMOVehicleClass> myVehicleClasses2Remove;
 
+    /// @brief Boundary within which an edge must be located in order to be kept
+    Position2DVector myPrunningBoundary;
+
     /// @}
 
 private:
@@ -487,6 +491,7 @@ private:
 
     /// @brief invalidated assignment operator
     NBEdgeCont &operator=(const NBEdgeCont &s);
+
 
 };
 
