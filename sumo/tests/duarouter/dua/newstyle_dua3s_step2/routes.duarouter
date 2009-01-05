@@ -5,7 +5,7 @@
 
    <input>
       <net-file>input_net.net.xml</net-file>
-      <alternatives>input_alts.rou.xml.alt</alternatives>
+      <alternatives>input_alts.rou.alt.xml</alternatives>
       <weights>input_weights.dump.xml</weights>
    </input>
 

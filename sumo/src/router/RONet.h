@@ -228,7 +228,7 @@ public:
      *
      * If the second parameter is true, a second file for route alternatives
      *  will be opened. The route alternatives files is simply the given
-     *  name with ".alt" appended.
+     *  name with ".alt" appended (before the ".xml"-suffix).
      * If one of the file outputs can not be build, an IOError is thrown
      *
      * @param[in] filename The (base) name of the file(s) to create

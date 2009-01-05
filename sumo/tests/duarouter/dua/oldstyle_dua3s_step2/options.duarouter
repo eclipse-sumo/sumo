@@ -1,1 +1,1 @@
---net-file=input_net.net.xml --weights=input_weights.dump.xml --alternatives=input_alts.rou.xml.alt -o routes.rou.xml
+--net-file=input_net.net.xml --weights=input_weights.dump.xml --alternatives=input_alts.rou.alt.xml -o routes.rou.xml

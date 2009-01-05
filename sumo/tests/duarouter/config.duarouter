@@ -1,6 +1,6 @@
 import_config_file:../config_all
 binary:$DUAROUTER_BINARY
-copy_test_path:input_alts.rou.xml.alt
+copy_test_path:input_alts.rou.alt.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_trips.trips.xml
@@ -10,7 +10,7 @@ copy_test_path:net.net.xml
 
 [collate_file]
 routes:routes.rou.xml
-alts:routes.rou.xml.alt
+alts:routes.rou.alt.xml
 config:config.cfg
 log:log.txt
 

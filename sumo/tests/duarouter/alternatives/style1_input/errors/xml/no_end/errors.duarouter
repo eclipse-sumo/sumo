@@ -1,5 +1,5 @@
 Error: The input ended before all started tags were ended. Last tag started was 'route-alternatives'
- In file 'input_alts.rou.xml.alt'
+ In file 'input_alts.rou.alt.xml'
  At line/column 14/1.
 
 Quitting (on error).

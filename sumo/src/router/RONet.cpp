@@ -116,7 +116,12 @@ RONet::openOutput(const std::string &filename, bool useAlternatives) throw(IOErr
     myRoutesOutput = &OutputDevice::getDevice(filename);
     myRoutesOutput->writeXMLHeader("routes");
     if (useAlternatives) {
-        myRouteAlternativesOutput = &OutputDevice::getDevice(filename+".alt");
+        size_t len = filename.length();
+        if (len > 4 && filename.substr(len - 4) == ".xml") {
+            myRouteAlternativesOutput = &OutputDevice::getDevice(filename.substr(0, len-4)+".alt.xml");
+        } else {
+            myRouteAlternativesOutput = &OutputDevice::getDevice(filename+".alt");
+        }
         myRouteAlternativesOutput->writeXMLHeader("route-alternatives");
     }
 }
