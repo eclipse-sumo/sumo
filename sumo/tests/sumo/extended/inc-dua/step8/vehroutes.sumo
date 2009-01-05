@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/23/08 23:37:43 by SUMO sumo Version dev-SVN-r6498
+<!-- generated on 01/05/09 15:08:43 by SUMO sumo Version dev-SVN-r6521
 <configuration>
 
    <input>
@@ -26,35 +26,35 @@
 -->
 
 <routes>
-   <vehicle id="horizontal01" depart="100" arrival="276">
+   <vehicle id="horizontal01" depart="100" arrival="270">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal02" depart="102" arrival="278">
+   <vehicle id="horizontal02" depart="102" arrival="273">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal03" depart="105" arrival="281">
+   <vehicle id="horizontal03" depart="105" arrival="275">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal04" depart="108" arrival="284">
+   <vehicle id="horizontal04" depart="108" arrival="278">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal05" depart="111" arrival="287">
+   <vehicle id="horizontal05" depart="111" arrival="281">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal06" depart="113" arrival="289">
+   <vehicle id="horizontal06" depart="113" arrival="284">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal07" depart="116" arrival="292">
+   <vehicle id="horizontal07" depart="116" arrival="286">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal08" depart="119" arrival="295">
+   <vehicle id="horizontal08" depart="119" arrival="289">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
