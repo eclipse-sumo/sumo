@@ -40,7 +40,6 @@
 #include "ROVehicle.h"
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
-#include "ROVehicleBuilder.h"
 #include "ROVehicleType_Krauss.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
@@ -58,11 +57,11 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORDLoader_TripDefs::RORDLoader_TripDefs(ROVehicleBuilder &vb, RONet &net,
+RORDLoader_TripDefs::RORDLoader_TripDefs(RONet &net,
         SUMOTime begin, SUMOTime end,
         bool emptyDestinationsAllowed,
         const std::string &fileName) throw(ProcessError)
-        : ROTypedXMLRoutesLoader(vb, net, begin, end, fileName),
+        : ROTypedXMLRoutesLoader(net, begin, end, fileName),
         myEmptyDestinationsAllowed(emptyDestinationsAllowed),
         myDepartureTime(-1), myCurrentVehicleType(0),
         myParameter(0)
@@ -255,7 +254,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
         myNet.addRouteDef(route);
         myNextRouteRead = true;
         // build the vehicle
-        ROVehicle *veh = myVehicleBuilder.buildVehicle(*myParameter, route, type);
+        ROVehicle *veh = new ROVehicle(*myParameter, route, type);
         myNet.addVehicle(myParameter->id, veh);
         delete myParameter;
         myParameter = 0;

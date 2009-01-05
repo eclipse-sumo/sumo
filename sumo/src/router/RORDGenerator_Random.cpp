@@ -40,7 +40,6 @@
 #include "RORouteDef.h"
 #include "RORouteDef_OrigDest.h"
 #include "RONet.h"
-#include "ROVehicleBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -56,9 +55,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
+RORDGenerator_Random::RORDGenerator_Random(RONet &net,
         SUMOTime begin, SUMOTime end, bool removeFirst) throw(ProcessError)
-        : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
+        : ROAbstractRouteDefLoader(net, begin, end), myIDSupplier("Rand"),
         myCurrentTime(-1), myRemoveFirst(removeFirst), myColor(RGBColor::DEFAULT_COLOR)
 {
     OptionsCont &oc = OptionsCont::getOptions();
@@ -108,7 +107,7 @@ RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw
         pars.id = myIDSupplier.getNext();
         pars.depart = time;
         RORouteDef *route = new RORouteDef_OrigDest(pars.id, 0, from, to, myRemoveFirst);
-        myNet.addVehicle(pars.id, myVehicleBuilder.buildVehicle(pars, route, 0));
+        myNet.addVehicle(pars.id, new ROVehicle(pars, route, 0));
         myNet.addRouteDef(route);
         myReadNewRoute = true;
         // decrement counter

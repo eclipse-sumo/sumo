@@ -42,7 +42,6 @@
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROVehicleType_Krauss.h>
-#include <router/ROVehicleBuilder.h>
 #include <routing_df/RODFEdgeBuilder.h>
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
@@ -279,8 +278,7 @@ main(int argc, char **argv)
         if (!RODFFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         // load data
-        ROVehicleBuilder vb;
-        ROLoader loader(oc, vb, false);
+        ROLoader loader(oc, false);
         net = new RODFNet(oc.getBool("highway-mode"));
         RODFEdgeBuilder builder;
         loader.loadNet(*net, builder);

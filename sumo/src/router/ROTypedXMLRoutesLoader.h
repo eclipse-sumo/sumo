@@ -70,7 +70,7 @@ public:
      * @param[in] file Name of the used input file
      * @exception ProcessError If an error occured during initialisation of parsing the xml-file
      */
-    ROTypedXMLRoutesLoader(ROVehicleBuilder &vb, RONet &net,
+    ROTypedXMLRoutesLoader(RONet &net,
                            SUMOTime begin, SUMOTime end, const std::string &file="") throw(ProcessError);
 
 

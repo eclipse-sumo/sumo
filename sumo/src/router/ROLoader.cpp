@@ -199,10 +199,8 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getMultRetriever()
 // ---------------------------------------------------------------------------
 // ROLoader - methods
 // ---------------------------------------------------------------------------
-ROLoader::ROLoader(OptionsCont &oc, ROVehicleBuilder &vb,
-                   bool emptyDestinationsAllowed) throw()
-        : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed),
-        myVehicleBuilder(vb)
+ROLoader::ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed) throw()
+        : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed)
 {}
 
 
@@ -248,7 +246,7 @@ ROLoader::openRoutes(RONet &net)
     ok &= openTypedRoutes("flows", net);
     // build generators
     if (myOptions.isSet("R")) {
-        myHandler.push_back(new RORDGenerator_Random(myVehicleBuilder, net,
+        myHandler.push_back(new RORDGenerator_Random(net,
                             myOptions.getInt("begin"), myOptions.getInt("end"), myOptions.getBool("prune-random")));
     }
     // check
@@ -398,26 +396,26 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                             RONet &net) throw(ProcessError)
 {
     if (optionName=="sumo-input") {
-        return new RORDLoader_SUMOBase(myVehicleBuilder, net,
+        return new RORDLoader_SUMOBase(net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        file);
     }
     if (optionName=="trip-defs") {
-        return new RORDLoader_TripDefs(myVehicleBuilder, net,
+        return new RORDLoader_TripDefs(net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myEmptyDestinationsAllowed, file);
     }
     if (optionName=="alternatives") {
-        return new RORDLoader_SUMOBase(myVehicleBuilder, net,
+        return new RORDLoader_SUMOBase(net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        file);
     }
     if (optionName=="flows") {
-        return new RORDGenerator_ODAmounts(myVehicleBuilder, net,
+        return new RORDGenerator_ODAmounts(net,
                                            myOptions.getInt("begin"), myOptions.getInt("end"),
                                            myEmptyDestinationsAllowed, myOptions.getBool("randomize-flows"), file);
     }

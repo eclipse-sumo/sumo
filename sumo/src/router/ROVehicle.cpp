@@ -34,7 +34,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <string>
 #include <iostream>
-#include "ROVehicleBuilder.h"
 #include "ROVehicleType.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
@@ -45,12 +44,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -79,7 +72,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
     // depart-values
     // departlane
     if (myParameter.wasSet(VEHPARS_DEPARTLANE_SET)) {
-        string val;
+        std::string val;
         switch (myParameter.departLaneProcedure) {
         case DEPART_LANE_GIVEN:
             val = toString(myParameter.departLane);
@@ -95,14 +88,13 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
             break;
         case DEPART_LANE_DEFAULT:
         default:
-            cerr << "should not happen..." << endl;
             break;
         }
         dev << " departlane=\"" << val << "\"";
     }
     // departpos
     if (myParameter.wasSet(VEHPARS_DEPARTPOS_SET)) {
-        string val;
+        std::string val;
         switch (myParameter.departPosProcedure) {
         case DEPART_POS_GIVEN:
             val = toString(myParameter.departPos);
@@ -120,7 +112,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
     }
     // departspeed
     if (myParameter.wasSet(VEHPARS_DEPARTSPEED_SET)) {
-        string val;
+        std::string val;
         switch (myParameter.departSpeedProcedure) {
         case DEPART_SPEED_GIVEN:
             val = toString(myParameter.departSpeed);
@@ -133,7 +125,6 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
             break;
         case DEPART_SPEED_DEFAULT:
         default:
-            cerr << "should not happen..." << endl;
             break;
         }
         dev << " departspeed=\"" << val << "\"";

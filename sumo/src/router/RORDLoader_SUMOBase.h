@@ -64,7 +64,7 @@ class RORDLoader_SUMOBase :
 {
 public:
     /// Constructor
-    RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
+    RORDLoader_SUMOBase(RONet &net,
                         SUMOTime begin, SUMOTime end,
                         SUMOReal gawronBeta, SUMOReal gawronA,
                         int maxRouteNumber, bool tryRepair,

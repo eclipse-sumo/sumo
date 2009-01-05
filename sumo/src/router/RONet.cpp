@@ -42,7 +42,6 @@
 #include "ROVehicleType.h"
 #include "ROVehicleType_ID.h"
 #include <utils/common/SUMOAbstractRouter.h>
-#include "ROAbstractEdgeBuilder.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
@@ -54,12 +53,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================

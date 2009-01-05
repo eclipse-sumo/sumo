@@ -50,7 +50,6 @@
 class RONode;
 class RORouteDef;
 class OptionsCont;
-class ROAbstractEdgeBuilder;
 class OutputDevice;
 
 

@@ -43,7 +43,6 @@
 #include <router/ROFrame.h>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
-#include <router/ROVehicleBuilder.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -211,8 +210,7 @@ main(int argc, char **argv)
         RandHelper::initRandGlobal();
         std::vector<SUMOReal> defs = getTurningDefaults(oc);
         // load data
-        ROVehicleBuilder vb;
-        ROLoader loader(oc, vb, true);
+        ROLoader loader(oc, true);
         net = new RONet();
         initNet(*net, loader, oc, defs);
         try {

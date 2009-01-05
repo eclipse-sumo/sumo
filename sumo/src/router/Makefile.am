@@ -1,8 +1,6 @@
 noinst_LIBRARIES = librouter.a
 
-EXTRA_DIST = ReferencedItem.h
-
-librouter_a_SOURCES = \
+librouter_a_SOURCES = ReferencedItem.h \
 ROAbstractEdgeBuilder.h \
 ROAbstractRouteDefLoader.cpp ROAbstractRouteDefLoader.h \
 ROEdge.cpp ROEdge.h \
@@ -19,7 +17,7 @@ RORouteDef_Complete.cpp RORouteDef_Complete.h \
 RORouteDef_OrigDest.cpp RORouteDef_OrigDest.h \
 ROTypedXMLRoutesLoader.cpp ROTypedXMLRoutesLoader.h \
 ROVehicle.cpp ROVehicle.h \
-ROVehicleBuilder.cpp ROVehicleBuilder.h ROVehicleCont.cpp ROVehicleCont.h \
+ROVehicleCont.cpp ROVehicleCont.h \
 ROVehicleType.cpp ROVehicleType.h \
 ROVehicleType_ID.cpp ROVehicleType_ID.h ROVehicleType_Krauss.cpp ROVehicleType_Krauss.h
 

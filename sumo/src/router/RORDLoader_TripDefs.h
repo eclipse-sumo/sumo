@@ -52,8 +52,7 @@ class RORDLoader_TripDefs : public ROTypedXMLRoutesLoader
 {
 public:
     /// Constructor
-    RORDLoader_TripDefs(ROVehicleBuilder &vb,
-                        RONet &net, SUMOTime begin, SUMOTime end,
+    RORDLoader_TripDefs(RONet &net, SUMOTime begin, SUMOTime end,
                         bool emptyDestinationsAllowed, const std::string &file="") throw(ProcessError);
 
     /// Destructor

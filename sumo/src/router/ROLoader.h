@@ -45,7 +45,6 @@ class OptionsCont;
 class RONet;
 class ROAbstractRouteDefLoader;
 class ROAbstractEdgeBuilder;
-class ROVehicleBuilder;
 class GUIRouterRunThread;
 class ROVehicle;
 
@@ -67,12 +66,10 @@ public:
     /** @brief Constructor
      *
      * @param[in] oc The options to use
-     * @param[in] vb The vehicle builder to use
      * @param[in] emptyDestinationsAllowed Whether tripdefs may be given without destinations
      * @todo Recheck usage of emptyDestinationsAllowed
      */
-    ROLoader(OptionsCont &oc, ROVehicleBuilder &vb,
-             bool emptyDestinationsAllowed) throw();
+    ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed) throw();
 
 
     /// @brief Destructor
@@ -281,9 +278,6 @@ protected:
 
     /// @brief Information whether empty destinations are allowed
     bool myEmptyDestinationsAllowed;
-
-    /// @brief The vehicle builder to use
-    ROVehicleBuilder &myVehicleBuilder;
 
 
 private:

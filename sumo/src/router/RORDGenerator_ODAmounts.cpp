@@ -42,7 +42,6 @@
 #include "RORouteDef_OrigDest.h"
 #include "RORDGenerator_ODAmounts.h"
 #include "ROVehicle.h"
-#include "ROVehicleBuilder.h"
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -151,14 +150,13 @@ RORDGenerator_ODAmounts::FlowDef::getIntervalEnd() const
 /* -------------------------------------------------------------------------
  * RORDGenerator_ODAmounts - methods
  * ----------------------------------------------------------------------- */
-RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(ROVehicleBuilder &vb,
-        RONet &net,
+RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet &net,
         SUMOTime begin,
         SUMOTime end,
         bool emptyDestinationsAllowed,
         bool randomize,
         const std::string &fileName) throw(ProcessError)
-        : RORDLoader_TripDefs(vb, net, begin, end, emptyDestinationsAllowed, fileName),
+        : RORDLoader_TripDefs(net, begin, end, emptyDestinationsAllowed, fileName),
         myRandom(randomize)
 {
     // read the complete file on initialisation
@@ -329,7 +327,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         // build the vehicle
         myNet.addRouteDef(route);
         myNextRouteRead = true;
-        ROVehicle *vehicle = myVehicleBuilder.buildVehicle(*myParameter, route, type);
+        ROVehicle *vehicle = new ROVehicle(*myParameter, route, type);
         // add to the container
         FlowDef *fd =
             new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd,

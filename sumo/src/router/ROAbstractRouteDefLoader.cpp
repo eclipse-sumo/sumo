@@ -43,17 +43,11 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(ROVehicleBuilder &vb,
-        RONet &net, SUMOTime begin, SUMOTime end) throw()
-        : myNet(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
+ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(RONet &net, SUMOTime begin,
+                                                   SUMOTime end) throw()
+        : myNet(net), myBegin(begin), myEnd(end)
 {}
 
 

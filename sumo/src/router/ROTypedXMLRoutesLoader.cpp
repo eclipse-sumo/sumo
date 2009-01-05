@@ -63,12 +63,11 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
-        RONet &net,
+ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(RONet &net,
         SUMOTime begin,
         SUMOTime end,
         const std::string &file) throw(ProcessError)
-        : ROAbstractRouteDefLoader(vb, net, begin, end),
+        : ROAbstractRouteDefLoader(net, begin, end),
         SUMOSAXHandler(file),
         myParser(XMLSubSys::getSAXReader(*this)), myToken(), myEnded(false)
 {

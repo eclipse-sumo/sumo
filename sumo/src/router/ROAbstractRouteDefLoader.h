@@ -41,7 +41,6 @@
 class ROLoader;
 class RONet;
 class OptionsCont;
-class ROVehicleBuilder;
 
 
 // ===========================================================================
@@ -59,13 +58,11 @@ class ROAbstractRouteDefLoader
 public:
     /** @brief Constructor
      *
-     * @param[in] vb The vehicle builder to use
      * @param[in] net The network to add loaded route definitions to
      * @param[in] begin Vehicles departing before this time shall not be loaded
      * @param[in] end Vehicles departing after this time shall not be loaded
      */
-    ROAbstractRouteDefLoader(ROVehicleBuilder &vb, RONet &net,
-                             SUMOTime begin, SUMOTime end) throw();
+    ROAbstractRouteDefLoader(RONet &net, SUMOTime begin, SUMOTime end) throw();
 
 
     /// @brief Destructor
@@ -113,9 +110,6 @@ protected:
 
     /// @brief The time for which the first route shall be loaded
     SUMOTime myEnd;
-
-    /// @brief The vehicle builder to use
-    ROVehicleBuilder &myVehicleBuilder;
 
 
 private:

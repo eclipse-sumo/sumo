@@ -37,7 +37,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include "ROVehicleType_Krauss.h"
-#include "ROVehicleBuilder.h"
 #include <utils/options/OptionsCont.h>
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
@@ -59,12 +58,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
+RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         SUMOTime begin, SUMOTime end,
         SUMOReal gawronBeta, SUMOReal gawronA,
         int maxRouteNumber, bool tryRepair,
         const std::string &file) throw(ProcessError)
-        : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
+        : ROTypedXMLRoutesLoader(net, begin, end, file),
         myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
@@ -310,7 +309,7 @@ RORDLoader_SUMOBase::closeVehicle() throw()
     }
     // build the vehicle
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        ROVehicle *veh = myVehicleBuilder.buildVehicle(*myVehicleParameter, route, type);
+        ROVehicle *veh = new ROVehicle(*myVehicleParameter, route, type);
         myNet.addVehicle(myVehicleParameter->id, veh);
         return true;
     }

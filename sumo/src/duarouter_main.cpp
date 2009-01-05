@@ -43,7 +43,6 @@
 #include <router/RONet.h>
 #include <router/ROEdge.h>
 #include <router/ROVehicleType_Krauss.h>
-#include <router/ROVehicleBuilder.h>
 #include <utils/common/SUMODijkstraRouter.h>
 #include <routing_dua/RODUAEdgeBuilder.h>
 #include <router/ROFrame.h>
@@ -173,8 +172,7 @@ main(int argc, char **argv)
         if (!RODUAFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         // load data
-        ROVehicleBuilder vb;
-        ROLoader loader(oc, vb, false);
+        ROLoader loader(oc, false);
         net = new RONet();
         initNet(*net, loader, oc);
         // build routes

@@ -58,7 +58,7 @@ class RORDGenerator_Random :
 {
 public:
     /// Constructor
-    RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
+    RORDGenerator_Random(RONet &net,
                          SUMOTime begin, SUMOTime end, bool removeFirst) throw(ProcessError);
 
     /// Destructor
