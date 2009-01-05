@@ -16,6 +16,9 @@ cross3l_lane2lane_conns
 # Test for not appending turnarounds
 cross3l_no_turnarounds
 
+# Test for not appending turnarounds on tls-controlled edges
+cross3l_no_tls_turnarounds
+
 # Test whether setting prohibitions works
 cross3l_prohibitions
 
