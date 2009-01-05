@@ -30,43 +30,43 @@
 
 <routes>
    <vehicle id="emitter_0_0" depart="0" arrival="72">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_20_1" depart="20" arrival="92">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_40_2" depart="40" arrival="112">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_60_3" depart="60" arrival="132">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_80_4" depart="80" arrival="152">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_100_5" depart="100" arrival="173">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_120_6" depart="120" arrival="193">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_140_7" depart="140" arrival="212">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_160_8" depart="160" arrival="232">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_180_9" depart="180" arrival="253">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
 </routes>

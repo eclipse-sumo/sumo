@@ -1803,15 +1803,15 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"" << (*v)[index].edge->getID() << "\" ";
         // write the time at which the route was replaced
-        os << " replacedAtTime=\"" << (*v)[index].time << "\">";
+        os << " replacedAtTime=\"" << (*v)[index].time << "\" edges=\"";
         // get the route
         for (int i=0; i<index; ++i) {
             (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
         }
         (*v)[index].route->writeEdgeIDs(os);
-        os << "</replaced_route>\n";
+        os << "\"/>\n";
     } else {
-        os << "      <route>";
+        os << "      <route edges=\"";
         if (hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             int noReroutes = getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             std::map<MSCORN::Pointer, void*>::const_iterator it = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
@@ -1823,7 +1823,7 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
             }
         }
         myRoute->writeEdgeIDs(os);
-        os << "</route>\n";
+        os << "\"/>\n";
     }
 }
 

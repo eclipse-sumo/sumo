@@ -22,43 +22,43 @@
 
 <routes>
    <vehicle id="route0_0" depart="0" arrival="74">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="route0_1" depart="5" arrival="81">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="route0_2" depart="11" arrival="87">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="route0_3" depart="16" arrival="92">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="route0_4" depart="22" arrival="98">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="route1_0" depart="2" arrival="187">
-      <route>beg beg2left left left2end end rend</route>
+      <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
    <vehicle id="route1_1" depart="8" arrival="192">
-      <route>beg beg2left left left2end end rend</route>
+      <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
    <vehicle id="route1_2" depart="13" arrival="198">
-      <route>beg beg2left left left2end end rend</route>
+      <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
    <vehicle id="route1_3" depart="19" arrival="207">
-      <route>beg beg2left left left2end end rend</route>
+      <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
    <vehicle id="route1_4" depart="24" arrival="213">
-      <route>beg beg2left left left2end end rend</route>
+      <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
 </routes>

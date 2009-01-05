@@ -26,7 +26,7 @@
 
 <routes>
    <vehicle id="0" depart="0" arrival="108">
-      <route>4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1</route>
+      <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
    </vehicle>
 
 </routes>

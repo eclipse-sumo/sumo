@@ -27,7 +27,7 @@
 
 <routes>
    <vehicle id="horizontal01" depart="100" arrival="270">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+      <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
 </routes>

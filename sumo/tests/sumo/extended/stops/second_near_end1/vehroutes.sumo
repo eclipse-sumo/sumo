@@ -22,7 +22,7 @@
 
 <routes>
    <vehicle id="veh0" depart="1" arrival="173">
-      <route>beg end</route>
+      <route edges="beg end"/>
    </vehicle>
 
 </routes>

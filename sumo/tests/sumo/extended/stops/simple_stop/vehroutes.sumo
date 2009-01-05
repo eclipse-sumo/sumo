@@ -22,11 +22,11 @@
 
 <routes>
    <vehicle id="veh0" depart="1" arrival="58">
-      <route>1to2 out</route>
+      <route edges="1to2 out"/>
    </vehicle>
 
    <vehicle id="veh1" depart="10" arrival="60">
-      <route>1to2 out</route>
+      <route edges="1to2 out"/>
    </vehicle>
 
 </routes>
