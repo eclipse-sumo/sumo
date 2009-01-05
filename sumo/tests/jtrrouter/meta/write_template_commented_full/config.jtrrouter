@@ -25,6 +25,9 @@
       <!-- Write generated routes to FILE -->
       <output-file></output-file>
 
+      <!-- Write exit times (weights) for each edge -->
+      <exit-times>false</exit-times>
+
    </output>
 
    <processing>

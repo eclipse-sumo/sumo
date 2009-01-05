@@ -1,4 +1,4 @@
-SUMO jtrrouter Version 0.9.7
+SUMO jtrrouter Version dev-SVN-r6521
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -26,6 +26,7 @@ Usage: jtrrouter.exe [OPTION]*
 
  Output Options:
   -o, --output-file FILE           Write generated routes to FILE
+  --exit-times                     Write exit times (weights) for each edge
 
  Processing Options:
   --continue-on-unbuild            Continue if a route could not be build
