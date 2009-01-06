@@ -18,15 +18,6 @@
 //
 /****************************************************************************/
 // ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#pragma warning(disable: 4503)
-#endif
-
-
-// ===========================================================================
 // included modules
 // ===========================================================================
 #ifdef _MSC_VER
@@ -504,7 +495,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError)
     if (missingOptions) {
         // no options are given
         cout << myFullName << endl;
-        cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
+        cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << endl;
         cout << " Use --help to get the list of options." << endl;
         return true;
     }
@@ -513,7 +504,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError)
     // check whether the help shall be printed
     if (oc.getBool("help")) {
         cout << myFullName << endl;
-        cout << " (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net" << endl;
+        cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << endl;
         oc.printHelp(cout);
         return true;
     }
