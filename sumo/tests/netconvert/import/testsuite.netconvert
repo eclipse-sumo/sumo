@@ -13,3 +13,6 @@ elmar
 # testing SUMO-import
 SUMO
 
+# testing OpenStreetMap-import
+OSM
+
