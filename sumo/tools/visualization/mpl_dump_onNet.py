@@ -190,18 +190,23 @@ class NetReader(handler.ContentHandler):
            if edge in values1:
                w = values1[edge]
                if w>0:
-                   edge2plotWidth[edge] = 10. * math.log(1 + values1[edge]) + min_width
+                   w = 10. * math.log(1 + values1[edge]) + min_width
                else:
-                   edge2plotWidth[edge] = min_width
+                   w = min_width
+               if options.max_width and w>options.max_width:
+                   w = options.max_width
+               if w<min_width:
+                   w = min_width
+               edge2plotWidth[edge] = w
            else:
                edge2plotWidth[edge] = min_width
         if options.verbose:
             print "x-limits: " + str(xmin) + " - " + str(xmax)
             print "y-limits: " + str(ymin) + " - " + str(ymax)
-        # set figure size
         if not options.show:
             rcParams['backend'] = 'Agg'
-        if options.size:
+        # set figure size
+        if options.size and not options.show:
             f = figure(figsize=(options.size.split(",")))
         else:
             f = figure()
@@ -225,10 +230,10 @@ class NetReader(handler.ContentHandler):
         else:
            ylim(ymin, ymax)
 
-        if options.show:
-           show()
         if saveName:
            savefig(saveName);
+        if options.show:
+           show()
 
 
     def plot(self, weights, options, colorMap):
@@ -245,6 +250,7 @@ class NetReader(handler.ContentHandler):
                     print " Processing step %d..." % i
                 output = options.output
                 if output:
+                    output = output.replace("HERE", "%")
                     output = output % i
                 self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value2[i], output, colorMap )
 
@@ -346,7 +352,6 @@ class WeightsReader(handler.ContentHandler):
                 if float(self._edge2no2[edge])!=0:
                     self._edge2value2[edge] = float(self._edge2value2[edge]) / float(self._edge2no2[edge])
                 else:
-                    print "ha"
                     self._edge2value2[edge] = float(self._edge2value2[edge])
         # compute min/max
         if options.join:
