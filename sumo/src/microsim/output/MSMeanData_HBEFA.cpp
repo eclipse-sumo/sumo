@@ -251,11 +251,16 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             if (myDumpEmptyEdges||nVehS>0) {
                 dev<<"      <edge id=\""<<edge->getID()<<
                 "\" sampledSeconds=\""<< nVehS <<
-                "\" CO=\""<< coS <<
-                "\" CO2=\""<<co2S<<
-                "\" PMx=\""<<pmxS<<
-                "\" NOx=\""<<noxS<<
-                "\" fuel=\""<<fuelS<<
+                "\" CO_abs=\""<< coS <<
+                "\" CO2_abs=\""<<co2S<<
+                "\" PMx_abs=\""<<pmxS<<
+                "\" NOx_abs=\""<<noxS<<
+                "\" fuel_abs=\""<<fuelS<<
+                "\" CO_normed=\""<<norm(coS, (SUMOReal) (stopTime-startTime+1), (*edge->getLanes())[0]->length()) <<
+                "\" CO2_normed=\""<<norm(co2S, (SUMOReal) (stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
+                "\" PMx_normed=\""<<norm(pmxS, (SUMOReal) (stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
+                "\" NOx_normed=\""<<norm(noxS, (SUMOReal) (stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
+                "\" fuel_normed=\""<<norm(fuelS, (SUMOReal) (stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
                 "\"/>\n";
             }
         }
@@ -271,11 +276,16 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
         // calculate mean data
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
                 "\" sampledSeconds=\""<< laneValues.sampleSeconds <<
-                "\" CO=\""<< laneValues.CO <<
-                "\" CO2=\""<<laneValues.CO2<<
-                "\" PMx=\""<<laneValues.PMx<<
-                "\" NOx=\""<<laneValues.NOx<<
-                "\" fuel=\""<<laneValues.fuel<<
+                "\" CO_abs=\""<< laneValues.CO <<
+                "\" CO2_abs=\""<<laneValues.CO2<<
+                "\" PMx_abs=\""<<laneValues.PMx<<
+                "\" NOx_abs=\""<<laneValues.NOx<<
+                "\" fuel_abs=\""<<laneValues.fuel<<
+                "\" CO_normed=\""<<norm(laneValues.CO, (SUMOReal) (stopTime-startTime+1), laneValues.getLane()->length()) <<
+                "\" CO2_normed=\""<<norm(laneValues.CO2, (SUMOReal) (stopTime-startTime+1), laneValues.getLane()->length())<<
+                "\" PMx_normed=\""<<norm(laneValues.PMx, (SUMOReal) (stopTime-startTime+1), laneValues.getLane()->length())<<
+                "\" NOx_normed=\""<<norm(laneValues.NOx, (SUMOReal) (stopTime-startTime+1), laneValues.getLane()->length())<<
+                "\" fuel_normed=\""<<norm(laneValues.fuel, (SUMOReal) (stopTime-startTime+1), laneValues.getLane()->length())<<
                 "\"/>\n";
     }
     laneValues.reset();

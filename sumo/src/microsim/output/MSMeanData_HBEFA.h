@@ -264,6 +264,17 @@ protected:
     void resetOnly(SUMOTime stopTime) throw();
 
 
+    /** @brief Norms the values by the given length/duration
+     *
+     * @param[in] val The initial value
+     * @param[in] dur The aggregation duration in s
+     * @param[in] len The length of the edge
+     * @todo Check subseconds simulation
+     */
+    inline SUMOReal norm(SUMOReal val, SUMOReal dur, SUMOReal len) const throw() {
+        return val / dur / len;
+    }
+
 protected:
     /// @brief The id of the detector
     std::string myID;
