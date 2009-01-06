@@ -104,10 +104,10 @@ TraCIServer::TraCIServer()
     myDoingSimStep = false;
 
     // display warning if internal lanes are not used
-    if (!oc.isSet("use-internal-links")) {
+    if (oc.isSet("no-internal-links")) {
         MsgHandler::getWarningInstance()->inform("Starting TraCI without using internal lanes!");
         MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
-        MsgHandler::getWarningInstance()->inform("Use option --use-internal-links to avoid unexpected behavior", false);
+        MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
     }
 
     // map the internal id of all traffic lights, polygons and poi to external id and vice versa
