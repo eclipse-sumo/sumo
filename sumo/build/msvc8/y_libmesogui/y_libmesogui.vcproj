@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="y_libmesogui"
 	ProjectGUID="{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}"
 	>
@@ -366,10 +366,6 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\mesogui\GUIBaseEdgeDrawer.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\mesogui\GUIMEInductLoop.h"
 				>
