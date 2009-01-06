@@ -1,5 +1,5 @@
-SUMO dfrouter Version dev-SVN-r6121
- (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
+SUMO dfrouter Version dev-SVN-r6538
+ (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
 
