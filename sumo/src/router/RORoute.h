@@ -149,13 +149,6 @@ public:
     }
 
 
-    /** @brief Removes the first edge
-     *
-     * Used if this edge is too short to emit vehicles on
-     */
-    void pruneFirst() throw();
-
-
     /** @brief Returns the list of edges this route consists of
      *
      * @return The edges this route consists of

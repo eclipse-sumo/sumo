@@ -97,13 +97,6 @@ RORoute::setProbability(SUMOReal prob) throw()
 
 
 void
-RORoute::pruneFirst() throw()
-{
-    myRoute.erase(myRoute.begin());
-}
-
-
-void
 RORoute::recheckForLoops() throw()
 {
     ROHelper::recheckForLoops(myRoute);
