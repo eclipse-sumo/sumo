@@ -426,10 +426,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROVehicleBuilder.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\ROVehicleCont.cpp"
 				>
 			</File>
@@ -536,10 +532,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ROVehicle.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\ROVehicleBuilder.h"
 				>
 			</File>
 			<File
