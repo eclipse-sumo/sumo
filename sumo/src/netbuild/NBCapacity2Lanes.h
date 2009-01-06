@@ -7,8 +7,7 @@
 // A helper class which computes the lane number from given capacity
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// copyright : (C) 2001-2007
-//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+// Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
