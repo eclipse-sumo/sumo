@@ -2,7 +2,7 @@
 /// @file    GUIVisualizationSettings.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: GUIVisualizationSettings.cpp 5304 2008-04-02 11:13:07Z dkrajzew $
+/// @version $Id$
 ///
 // Stores the information about how to visualize structures
 /****************************************************************************/

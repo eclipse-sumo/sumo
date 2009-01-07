@@ -2,7 +2,7 @@
 /// @file    GUIVisualizationSettings.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: GUIVisualizationSettings.h 6047 2008-09-11 13:08:48Z dkrajzew $
+/// @version $Id$
 ///
 // Stores the information about how to visualize structures
 /****************************************************************************/
