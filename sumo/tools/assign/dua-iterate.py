@@ -89,10 +89,10 @@ def writeSUMOConf(step, options, files):
     fd.write("   </reports>\n")
     fd.write("</configuration>\n")
     fd.close()
-    fd = open("dua_dump_" + str(step) + ".add.xml", "w")
-    fd.write("<a>\n");
-    fd.write('    <meandata-edge id="dump_' + str(step) + '_' + str(options.aggregation) + '" freq="' + str(options.aggregation) + '" file="dump_' + str(step) + '_' + str(options.aggregation) + '.xml" excludeEmpty="true"/>\n')
-    fd.write("</a>\n");
+    fd = open("dua_dump_%s.add.xml" % step, "w")
+    print >> fd, """<a>
+    <meandata-edge id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
+</a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
 
@@ -147,7 +147,7 @@ optParser.add_option("-p", "--path", dest="path",
 (options, args) = optParser.parse_args()
 
 
-if (sys.platform=="win32"):        
+if (sys.platform=="win32"):
     duaBinary = os.path.join(options.path, "duarouter.exe")
     if options.mesosim:
         sumoBinary = os.path.join(options.path, "meso.exe")
