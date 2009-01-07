@@ -769,5 +769,19 @@ GUILaneWrapper::getEdgeLaneNumber() const
 }
 
 
+SUMOReal
+GUILaneWrapper::getHBEFA_CO2Emissions() const
+{
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
+    for(MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_CO2Emissions();
+    }
+    myLane.releaseVehicles();
+    return ret / myLane.length();
+}
+
+
+
 /****************************************************************************/
 

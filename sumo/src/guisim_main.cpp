@@ -124,6 +124,12 @@ initVehicleColoringSchemes()
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
+    // ... emissions ...
+    sm.add("by CO2 emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, (SUMOReal)(5), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_CO2Emissions));
+
     // ... and some not always used values
     sm.add("by reroute number",
            new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
@@ -247,6 +253,12 @@ initLaneColoringSchemes()
                0, (SUMOReal) 5,
                RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
+    // ... emissions ...
+    sm.add("by first vehicle waiting time (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, 200,
+               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
     // using C2C extensions
     /*
     sm.add("C2C: by vehicle knowledge",

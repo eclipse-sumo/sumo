@@ -49,6 +49,8 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
+#include <microsim/output/HelpersHBEFA.h>
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -998,6 +1000,11 @@ GUIVehicle::initShapes() throw()
 }
 
 
+SUMOReal 
+GUIVehicle::getHBEFA_CO2Emissions() const throw()
+{
+    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration);
+}
 
 
 /****************************************************************************/

@@ -153,6 +153,7 @@ public:
 
     SUMOReal firstWaitingTime() const;
     SUMOReal getDensity() const;
+    SUMOReal getHBEFA_CO2Emissions() const;
 
 
     /// Returns the fastest known lane speed

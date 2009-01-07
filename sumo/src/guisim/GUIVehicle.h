@@ -87,6 +87,15 @@ public:
 
     static void initShapes() throw();
 
+    /// @name Emission retrieval methods for coloring
+    //@{
+
+    /** @brief Return CO2 emission of the current state
+     * @return The current CO2 emission
+     */
+    SUMOReal getHBEFA_CO2Emissions() const throw();
+    //@}
+
 
     /// @name inherited from GUIGlObject
     //@{
