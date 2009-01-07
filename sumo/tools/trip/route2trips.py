@@ -41,6 +41,8 @@ class RouteReader(handler.ContentHandler):
             if not self._vID:
                 self._routeID = attrs['id']
             self._routeString = ''
+            if attrs.has_key('edges'):
+                self._routeString = attrs['edges']
         elif name == 'routes':
             print """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
