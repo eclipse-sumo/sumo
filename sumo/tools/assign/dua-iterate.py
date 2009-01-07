@@ -58,14 +58,12 @@ def writeSUMOConf(step, options, files):
     fd.write("   <files>\n")
     fd.write("      <net-file>" + options.net + "</net-file>\n")
     fd.write("      <route-files>" + files + "</route-files>\n")
-    fd.write("      <dump-basename>dump_" + str(step) + "</dump-basename>\n")
-    fd.write("      <dump-intervals>" + str(options.aggregation) + "</dump-intervals>\n")
     if not options.noEmissions:
         fd.write("      <emissions>emissions_" + str(step) + ".xml</emissions>\n")
     if not options.noTripinfo:
         fd.write("      <tripinfo>tripinfo_" + str(step) + ".xml</tripinfo>\n")
     if options.additional!="":
-        fd.write("      <additional-files>" + options.additional + "</additional-files>\n")
+        fd.write("      <additional-files>dua_dump_" + str(step) + ".add.xml" + options.additional + "</additional-files>\n")
     fd.write("   </files>\n")
     fd.write("   <process>\n")
     fd.write("      <begin>" + str(options.begin) + "</begin>\n")
@@ -89,6 +87,12 @@ def writeSUMOConf(step, options, files):
     fd.write("   </reports>\n")
     fd.write("</configuration>\n")
     fd.close()
+    fd = open("dua_dump_" + str(step) + ".add.xml", "w")
+    fd.write("<a>\n");
+    fd.write('    <meandata-edge id="dump_' + str(options.aggregation) + '" freq="' + str(options.aggregation) + '" file="dump_' + str(options.aggregation) + '.xml" excludeEmpty="true"/>\n')
+    fd.write("</a>\n");
+    fd.close()
+
 
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -169,7 +173,7 @@ for step in range(options.firstStep, options.lastStep):
         file = tripFile
         tripFile = os.path.basename(tripFile)
         if step>0:
-            file = tripFile[:tripFile.find(".")] + "_%s.rou.xml.alt" % (step-1)
+            file = tripFile[:tripFile.find(".")] + "_%s.rou.alt.xml" % (step-1)
         output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
         print ">> Running router with " + file
         btime = datetime.now()
