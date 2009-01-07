@@ -2,7 +2,7 @@
 /// @file    ValueTimeLine.h
 /// @author  Christian Roessel
 /// @date    Sept 2002
-/// @version $Id:ValueTimeLine.h 4690 2007-11-09 13:19:45Z dkrajzew $
+/// @version $Id$
 ///
 // A list of time ranges with SUMOReal values
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    NIVisumTL.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thr, 08 May 2003
-/// @version $Id:NIVisumTL.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Intermediate class for storing visum traffic lights during their import
 /****************************************************************************/

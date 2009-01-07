@@ -2,7 +2,7 @@
 /// @file    MSLCM_DK2004.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id:MSLCM_DK2004.h 4683 2007-11-09 12:54:04Z dkrajzew $
+/// @version $Id$
 ///
 //	»missingDescription«
 /****************************************************************************/

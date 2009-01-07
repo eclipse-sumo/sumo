@@ -2,7 +2,7 @@
 /// @file    NIXMLNodesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id:NIXMLNodesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for network nodes stored in XML
 /****************************************************************************/

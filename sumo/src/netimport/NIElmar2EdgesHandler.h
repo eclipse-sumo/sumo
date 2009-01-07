@@ -2,7 +2,7 @@
 /// @file    NIElmar2EdgesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 16 May 2004
-/// @version $Id:NIElmar2EdgesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer of edges stored in unsplit elmar format
 /****************************************************************************/

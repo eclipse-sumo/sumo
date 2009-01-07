@@ -2,7 +2,7 @@
 /// @file    NIXMLEdgesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id:NIXMLEdgesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for network edges stored in XML
 /****************************************************************************/

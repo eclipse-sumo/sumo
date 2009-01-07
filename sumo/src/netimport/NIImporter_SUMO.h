@@ -2,7 +2,7 @@
 /// @file    NIImporter_SUMO.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id:NIImporter_SUMO.h 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for networks stored in SUMO format
 /****************************************************************************/

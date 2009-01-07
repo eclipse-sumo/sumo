@@ -2,7 +2,7 @@
 /// @file    NIVisumLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
-/// @version $Id:NIVisumLoader.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // A VISUM network importer
 /****************************************************************************/

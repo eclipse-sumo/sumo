@@ -2,7 +2,7 @@
 /// @file    MSLCM_DK2004.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29.05.2005
-/// @version $Id:MSLCM_DK2004.cpp 4683 2007-11-09 12:54:04Z dkrajzew $
+/// @version $Id$
 ///
 //  missingDescription
 /****************************************************************************/

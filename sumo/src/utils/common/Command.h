@@ -2,7 +2,7 @@
 /// @file    Command.h
 /// @author  Christian Roessel
 /// @date    Thu, 20 Dec 2001
-/// @version $Id:Command.h 4699 2007-11-09 14:05:13Z dkrajzew $
+/// @version $Id$
 ///
 // Base (microsim) event class
 /****************************************************************************/

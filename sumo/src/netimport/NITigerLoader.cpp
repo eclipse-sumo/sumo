@@ -2,7 +2,7 @@
 /// @file    NITigerLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29 Jun 2004
-/// @version $Id:NITigerLoader.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for TIGER networks
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GLHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id:GLHelper.h 4697 2007-11-09 13:41:34Z dkrajzew $
+/// @version $Id$
 ///
 // Some methods which help to draw certain geometrical objects in openGL
 /****************************************************************************/

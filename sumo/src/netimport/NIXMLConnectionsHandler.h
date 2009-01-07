@@ -2,7 +2,7 @@
 /// @file    NIXMLConnectionsHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id:NIXMLConnectionsHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for edge connections stored in XML
 /****************************************************************************/

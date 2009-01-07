@@ -2,7 +2,7 @@
 /// @file    NIElmarNodesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 16 May 2004
-/// @version $Id:NIElmarNodesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer of nodes stored in split elmar format
 /****************************************************************************/

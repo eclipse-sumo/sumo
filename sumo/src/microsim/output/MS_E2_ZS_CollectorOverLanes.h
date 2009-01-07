@@ -2,7 +2,7 @@
 /// @file    MS_E2_ZS_CollectorOverLanes.h
 /// @author  Daniel Krajzewicz
 /// @date    Oct 2003
-/// @version $Id:MS_E2_ZS_CollectorOverLanes.h 4976 2008-01-30 14:23:39Z dkrajzew $
+/// @version $Id$
 ///
 // A detector which joins E2Collectors over consecutive lanes (backward)
 /****************************************************************************/
