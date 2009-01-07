@@ -76,6 +76,8 @@ optParser.add_option("-R", "--route-steps", dest="routeSteps",
                      type="int", default=200, help="Set simulation route steps")
 optParser.add_option("-a", "--aggregation", dest="aggregation",
                      type="int", default=900, help="Set main weights aggregation period")
+optParser.add_option("-f", "--frequencies", dest="frequencies",
+                     default="-1,1800,300,15", help="Set the frequencies to iterate over")
 
 optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
                      default=False, help="No emissions are written by the simulation")
@@ -101,7 +103,8 @@ logQuiet = open("one_shot-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
 sys.stderr = TeeFile(sys.stderr, logQuiet)
 starttime = datetime.now()
-for step in [-1, 1800, 300, 15]:
+for step in options.frequencies.split(","):
+    step = int(step)
     btimeA = datetime.now()
     print "> Executing step " + str(step)
 
