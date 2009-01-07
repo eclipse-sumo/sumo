@@ -2,7 +2,7 @@
 /// @file    MSMeanData_HBEFA.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id: MSMeanData_HBEFA.cpp 4976 2008-01-30 14:23:39Z dkrajzew $
+/// @version $Id$
 ///
 // Redirector for mean data output (net->edgecontrol)
 /****************************************************************************/
