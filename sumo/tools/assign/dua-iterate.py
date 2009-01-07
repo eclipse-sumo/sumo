@@ -62,8 +62,10 @@ def writeSUMOConf(step, options, files):
         fd.write("      <emissions>emissions_" + str(step) + ".xml</emissions>\n")
     if not options.noTripinfo:
         fd.write("      <tripinfo>tripinfo_" + str(step) + ".xml</tripinfo>\n")
+    fd.write("      <additional-files>dua_dump_" + str(step) + ".add.xml" + options.additional)
     if options.additional!="":
-        fd.write("      <additional-files>dua_dump_" + str(step) + ".add.xml" + options.additional + "</additional-files>\n")
+        fd.write("," + options.additional)
+    fd.write("</additional-files>\n")
     fd.write("   </files>\n")
     fd.write("   <process>\n")
     fd.write("      <begin>" + str(options.begin) + "</begin>\n")
@@ -89,7 +91,7 @@ def writeSUMOConf(step, options, files):
     fd.close()
     fd = open("dua_dump_" + str(step) + ".add.xml", "w")
     fd.write("<a>\n");
-    fd.write('    <meandata-edge id="dump_' + str(options.aggregation) + '" freq="' + str(options.aggregation) + '" file="dump_' + str(options.aggregation) + '.xml" excludeEmpty="true"/>\n')
+    fd.write('    <meandata-edge id="dump_' + str(step) + '_' + str(options.aggregation) + '" freq="' + str(options.aggregation) + '" file="dump_' + str(step) + '_' + str(options.aggregation) + '.xml" excludeEmpty="true"/>\n')
     fd.write("</a>\n");
     fd.close()
 
