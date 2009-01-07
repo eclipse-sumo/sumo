@@ -54,6 +54,7 @@
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSLane.h"
 #include "microsim/trigger/MSCalibrator.h"
+#include <microsim/MSGlobals.h>
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
@@ -104,7 +105,7 @@ TraCIServer::TraCIServer()
     myDoingSimStep = false;
 
     // display warning if internal lanes are not used
-    if (oc.isSet("no-internal-links")) {
+    if (!MSGlobals::gUsingInternalLanes) {
         MsgHandler::getWarningInstance()->inform("Starting TraCI without using internal lanes!");
         MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
