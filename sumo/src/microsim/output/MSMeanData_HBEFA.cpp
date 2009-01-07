@@ -129,12 +129,12 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
 // MSMeanData_HBEFA - methods
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id, 
-                               unsigned int t, MSEdgeControl &edges,
+                               MSEdgeControl &edges,
                                const std::vector<int> &dumpBegins,
                                const std::vector<int> &dumpEnds,
                                bool useLanes,
                                bool withEmptyEdges, bool withEmptyLanes) throw()
-        : myID(id), myInterval(t), 
+        : myID(id),
         myAmEdgeBased(!useLanes), myDumpBegins(dumpBegins), myDumpEnds(dumpEnds),
         myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes)
 {

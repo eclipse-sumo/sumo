@@ -629,13 +629,13 @@ NLDetectorBuilder::createEdgeMeanData(const std::string &id, SUMOTime frequency,
                                       const std::string &edges, bool excludeEmpty,
                                       OutputDevice& device) throw(InvalidArgument)
 {
-    pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-lane");
+    pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-edge");
     MSDetectorFileOutput *det = 0;
     if(type==""||type=="performance"||type=="traffic") {
-        det = new MSMeanData_Net(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(), 
             timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
     } else if(type=="hbefa") {
-        det = new MSMeanData_HBEFA(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(), 
             timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
     }
     if(det!=0) {
@@ -654,10 +654,10 @@ NLDetectorBuilder::createLaneMeanData(const std::string &id, SUMOTime frequency,
     pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-lane");
     MSDetectorFileOutput *det = 0;
     if(type==""||type=="performance"||type=="traffic") {
-        det = new MSMeanData_Net(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(), 
             timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
     } else if(type=="hbefa") {
-        det = new MSMeanData_HBEFA(id, frequency, MSNet::getInstance()->getEdgeControl(), 
+        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(), 
             timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
     }
     if(det!=0) {
@@ -683,7 +683,6 @@ std::pair<std::vector<SUMOTime>, std::vector<SUMOTime> >
 NLDetectorBuilder::getTimeBounds(const std::string &begins, const std::string &ends,
                                  const std::string &id, const std::string &type) throw(InvalidArgument)
 {
-    StringTokenizer st(begins, ";");
     vector<SUMOTime> dumpBegins, dumpEnds;
     try {
         dumpBegins = parseTimeList(begins);
