@@ -189,7 +189,6 @@ for period in range(5, 50, 5):
     print >> config, """<c>
         <net-file>%s.net.xml</net-file>
         <route-files>%s.rou.xml,%s_demand%02i.rou.xml</route-files>
-        <use-internal-links>x</use-internal-links>
         <no-step-log>x</no-step-log>
         <time-to-teleport>0</time-to-teleport>
         <remote-port>%s</remote-port>
