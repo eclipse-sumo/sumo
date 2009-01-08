@@ -205,6 +205,8 @@
 #define DOMVAR_ANGLE 0x13
 // current simulation time
 #define DOMVAR_SIMTIME 0x14
+// current CO2 emission of a node
+#define DOMVAR_CO2EMISSION 0x20
 
 // ****************************************
 // TRAFFIC LIGHT PHASES

@@ -61,6 +61,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <microsim/output/HelpersHBEFA.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -1448,6 +1449,8 @@ throw(TraCIException)
                     ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP))
                     ||
                     ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT))
+                    ||
+                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_CO2EMISSION) && (dataType == TYPE_FLOAT))
                 )) {
             // send negative command response
             writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can not subscribe to this domain/variable/type combination");
@@ -2136,6 +2139,20 @@ throw(TraCIException)
             // write response
             response.writeUnsignedByte(TYPE_FLOAT);
             response.writeFloat(distance);
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+
+        // CO2 emission
+    case DOMVAR_CO2EMISSION:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(HelpersHBEFA::computeCO2(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getAcceleration()));
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
         } else {
             throw TraCIException("Unable to retrieve node with given ID");
         }
