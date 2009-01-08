@@ -454,9 +454,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
     } else {
         if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
             glPolygonOffset(0, 0.5);
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth*1.);
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth);
         } else {
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth*1.);
+            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth);
         }
         // (optional) clear id
         if (s.needsGlID) {
