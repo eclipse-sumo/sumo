@@ -111,7 +111,8 @@ HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw()
         c3 = 0.00805027554844549;
         break;
     }
-    return (SUMOReal) (c0 + cav1*a*v + cav2*pow(a,2.)*v + c1*v + c2*pow(v,2.) + c3*pow(v,3.));
+    v *= 3.6;
+    return (SUMOReal) ((c0 + cav1*a*v + cav2*pow(a,2.)*v + c1*v + c2*pow(v,2.) + c3*pow(v,3.)) / 3600.);
 }
 
 
