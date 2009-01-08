@@ -112,6 +112,10 @@ initVehicleColoringSchemes()
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getSpeed));
+    sm.add("by acceleration",
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, (SUMOReal)(5.), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getAcceleration));
     sm.add("by waiting time",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
                0, (SUMOReal)(5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
@@ -125,9 +129,9 @@ initVehicleColoringSchemes()
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
     // ... emissions ...
-    sm.add("by CO2 emissions (HBEFA)",
+    sm.add("by CO2 emissions (HBEFA)", // "good": 2g/s; bad: >7.5g/s
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, (SUMOReal)(5), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               0, (SUMOReal) 7.5, RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_CO2Emissions));
 
     // ... and some not always used values
@@ -254,9 +258,9 @@ initLaneColoringSchemes()
                RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
     // ... emissions ...
-    sm.add("by first vehicle waiting time (lanewise)",
+    sm.add("by CO2 emissions (HBEFA)",
            new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, 200,
+               0, (SUMOReal) 1, 
                RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
     // using C2C extensions
