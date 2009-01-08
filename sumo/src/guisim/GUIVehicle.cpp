@@ -297,6 +297,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
+    ret->mkItem("CO2 (HBEFA) [g/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_CO2Emissions));
     // close building
     ret->closeBuilding();
     return ret;
