@@ -670,6 +670,9 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
         drawPoly(vehiclePoly_PassengerWagonLeftGlass, -4.5);
         drawPoly(vehiclePoly_PassengerWagonBackGlass, -4.5);
         break;
+    case SVS_PASSENGER_VAN:
+    case SVS_DELIVERY:
+        break;
     case SVS_TRANSPORT:
         glColor3dv(current);
         GLHelper::drawBoxLine(Position2D(2.3, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.3, .5);
