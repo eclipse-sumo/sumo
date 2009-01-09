@@ -36,7 +36,11 @@ def personUnloaded(personID, step):
     personsRunning -= 1
 
 def evaluate():
-    import numpy, math
+    try:
+        import numpy, math
+    except ImportError:
+        print "No numpy available, skipping statistics"
+        return
     waitTimes = []
     routeTimes = {}
     for person in persons.itervalues():
