@@ -444,7 +444,7 @@ main(int argc, char **argv)
         MsgHandler::getMessageInstance()->report2cout(false);
         MsgHandler::getMessageInstance()->report2cerr(false);
         // Make application
-        FXApp application("SUMO GUISimulation", "DLR+ZAIK");
+        FXApp application("SUMO GUISimulation", "DLR");
         gFXApp = &application;
         // Open display
         application.init(argc,argv);
