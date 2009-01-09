@@ -455,7 +455,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
         visited.push_back(e);
         computeRoutesFor(e, rd, 0, keepUnfoundEnds, keepShortestOnly,
                          visited, **i, *routes, detcont, maxFollowingLength, seen);
-        if(allEndFollower) {
+        if (allEndFollower) {
             routes->addAllEndFollower();
         }
         //!!!routes->removeIllegal(illegals);

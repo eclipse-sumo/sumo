@@ -52,8 +52,8 @@ class MSLane;
  * @class MSMeanData_HBEFA
  * @brief Redirector for mean data output (net->edgecontrol)
  *
- * This structure does not contain the data itself, it is stored within 
- *  MSLaneMeanDataValues-MoveReminder objects. 
+ * This structure does not contain the data itself, it is stored within
+ *  MSLaneMeanDataValues-MoveReminder objects.
  * This class is used to build the output, optionally, in the case
  *  of edge-based dump, aggregated over the edge's lanes.
  *
@@ -63,101 +63,101 @@ class MSLane;
 class MSMeanData_HBEFA : public MSDetectorFileOutput
 {
 public:
-/**
- * @class MSLaneMeanDataValues
- * @brief Data structure for mean (aggregated) edge/lane values
- *
- * Structure holding values that describe the flow and other physical
- *  properties aggregated over some seconds and normalised by the
- *  aggregation period.
- *
- * @todo Check whether the haltings-information is used and how
- */
-class MSLaneMeanDataValues : public MSMoveReminder
-{
-public:
-    /** @brief Constructor */
-    MSLaneMeanDataValues(MSLane * const lane) throw();
-
-
-    /** @brief Resets values so they may be used for the next interval
+    /**
+     * @class MSLaneMeanDataValues
+     * @brief Data structure for mean (aggregated) edge/lane values
+     *
+     * Structure holding values that describe the flow and other physical
+     *  properties aggregated over some seconds and normalised by the
+     *  aggregation period.
+     *
+     * @todo Check whether the haltings-information is used and how
      */
-    void reset() throw();
+    class MSLaneMeanDataValues : public MSMoveReminder
+    {
+    public:
+        /** @brief Constructor */
+        MSLaneMeanDataValues(MSLane * const lane) throw();
 
 
-    /// @name Methods inherited from MSMoveReminder.
-    /// @{
-
-    /** @brief Computes current emission values and adds them to their sums
-     *
-     * The fraction of time the vehicle is on the lane is computed and
-     *  used as a weight for the vehicle's current emission values
-     *  which are computed using the current velocity and acceleration.
-     *
-     * @param[in] veh The regarded vehicle
-     * @param[in] oldPos Position before the move-micro-timestep.
-     * @param[in] newPos Position after the move-micro-timestep.
-     * @param[in] newSpeed The vehicle's current speed
-     * @return false, if the vehicle is beyond the lane, true otherwise
-     * @see MSMoveReminder
-     * @see MSMoveReminder::isStillActive
-     * @see HelpersHBEFA
-     */
-    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        /** @brief Resets values so they may be used for the next interval
+         */
+        void reset() throw();
 
 
-    /** @brief Nothing is done here
-     *
-     * @param[in] veh The leaving vehicle.
-     * @see MSMoveReminder::dismissByLaneChange
-     */
-    virtual void dismissByLaneChange(MSVehicle& veh) throw();
+        /// @name Methods inherited from MSMoveReminder.
+        /// @{
+
+        /** @brief Computes current emission values and adds them to their sums
+         *
+         * The fraction of time the vehicle is on the lane is computed and
+         *  used as a weight for the vehicle's current emission values
+         *  which are computed using the current velocity and acceleration.
+         *
+         * @param[in] veh The regarded vehicle
+         * @param[in] oldPos Position before the move-micro-timestep.
+         * @param[in] newPos Position after the move-micro-timestep.
+         * @param[in] newSpeed The vehicle's current speed
+         * @return false, if the vehicle is beyond the lane, true otherwise
+         * @see MSMoveReminder
+         * @see MSMoveReminder::isStillActive
+         * @see HelpersHBEFA
+         */
+        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
-    /** @brief Computes current emission values and adds them to their sums
-     *
-     * The fraction of time the vehicle is on the lane is computed and
-     *  used as a weight for the vehicle's current emission values
-     *  which are computed using the current velocity and acceleration.
-     *
-     * @param[in] veh The vehicle that enters the lane
-     * @param[in] isEmit true means emit, false: lane change
-     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
-     * @return Always true
-     */
-    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
-    //@}
+        /** @brief Nothing is done here
+         *
+         * @param[in] veh The leaving vehicle.
+         * @see MSMoveReminder::dismissByLaneChange
+         */
+        virtual void dismissByLaneChange(MSVehicle& veh) throw();
+
+
+        /** @brief Computes current emission values and adds them to their sums
+         *
+         * The fraction of time the vehicle is on the lane is computed and
+         *  used as a weight for the vehicle's current emission values
+         *  which are computed using the current velocity and acceleration.
+         *
+         * @param[in] veh The vehicle that enters the lane
+         * @param[in] isEmit true means emit, false: lane change
+         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @return Always true
+         */
+        virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        //@}
 
 
 
-    /// @name Collected values
-    /// @{
+        /// @name Collected values
+        /// @{
 
-    /// @brief The number of sampled vehicle movements (in s)
-    SUMOReal sampleSeconds;
+        /// @brief The number of sampled vehicle movements (in s)
+        SUMOReal sampleSeconds;
 
-    /// @brief Sum of CO2 emissions
-    SUMOReal CO2;
+        /// @brief Sum of CO2 emissions
+        SUMOReal CO2;
 
-    /// @brief Sum of CO emissions
-    SUMOReal CO;
+        /// @brief Sum of CO emissions
+        SUMOReal CO;
 
-    /// @brief Sum of NOx emissions
-    SUMOReal NOx;
+        /// @brief Sum of NOx emissions
+        SUMOReal NOx;
 
-    /// @brief Sum of PMx emissions
-    SUMOReal PMx;
+        /// @brief Sum of PMx emissions
+        SUMOReal PMx;
 
-    /// @brief  Sum of consumed fuel
-    SUMOReal fuel;
-    //@}
+        /// @brief  Sum of consumed fuel
+        SUMOReal fuel;
+        //@}
 
 
 #ifdef HAVE_MESOSIM
-    std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
+        std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 
-};
+    };
 
 
 public:
@@ -171,9 +171,9 @@ public:
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      */
     MSMeanData_HBEFA(const std::string &id,
-                   MSEdgeControl &edges, const std::vector<int> &dumpBegins,
-                   const std::vector<int> &dumpEnds, bool useLanes,
-                   bool withEmptyEdges, bool withEmptyLanes) throw();
+                     MSEdgeControl &edges, const std::vector<int> &dumpBegins,
+                     const std::vector<int> &dumpEnds, bool useLanes,
+                     bool withEmptyEdges, bool withEmptyLanes) throw();
 
 
     /// @brief Destructor

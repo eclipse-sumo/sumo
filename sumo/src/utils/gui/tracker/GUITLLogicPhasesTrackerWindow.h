@@ -125,7 +125,7 @@ public:
      * The canvas for the visualisation.
      * The drawing itself id done by the parent.
      */
-class GUITLLogicPhasesTrackerPanel : public FXGLCanvas
+    class GUITLLogicPhasesTrackerPanel : public FXGLCanvas
     {
         FXDECLARE(GUITLLogicPhasesTrackerPanel)
     public:

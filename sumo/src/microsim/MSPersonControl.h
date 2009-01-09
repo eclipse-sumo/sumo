@@ -107,7 +107,7 @@ private:
      * The class that performs the checking whether the current item in a search
      * is smaller or equal to a time
      */
-class my_greater : public std::unary_function<SameDepartureTimeCont, bool>
+    class my_greater : public std::unary_function<SameDepartureTimeCont, bool>
     {
     public:
         my_greater(SUMOTime value) : m_value(value) {}
@@ -126,7 +126,7 @@ private:
      * The class that performs the checking whether the current item in a search
      * is equal to a time
      */
-class equal : public std::unary_function<SameDepartureTimeCont, bool>
+    class equal : public std::unary_function<SameDepartureTimeCont, bool>
     {
     public:
         equal(SUMOTime value) : m_value(value) {}

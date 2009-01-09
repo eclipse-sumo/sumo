@@ -260,7 +260,7 @@ initLaneColoringSchemes()
     // ... emissions ...
     sm.add("by CO2 emissions (HBEFA)",
            new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal) 1, 
+               0, (SUMOReal) 1,
                RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
     // using C2C extensions

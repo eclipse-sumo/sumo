@@ -106,7 +106,7 @@ protected:
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-    class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
+        class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
         {
         public:
             /// Constructor

@@ -103,7 +103,7 @@ public:
      * @return The same device for further usage
      */
     virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
-                                             bool asAlternatives, bool withExitTimes) const = 0;
+            bool asAlternatives, bool withExitTimes) const = 0;
 
 protected:
     const RGBColor * const copyColorIfGiven() const throw();

@@ -1064,7 +1064,7 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
         << "\" maxExagg=\"" << mySettings->maxExagg
         << "\" showRails=\"" << mySettings->showRails
         << "\" edgeNameSize=\"" << mySettings->edgeNameSize
-        << "\" edgeNameColor=\"" << mySettings->edgeNameColor 
+        << "\" edgeNameColor=\"" << mySettings->edgeNameColor
         << "\" hideConnectors=\"" << mySettings->hideConnectors
         << "\">\n";
         for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {

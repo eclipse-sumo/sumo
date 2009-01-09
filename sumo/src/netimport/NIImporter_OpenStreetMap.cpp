@@ -265,7 +265,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     }
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes >= 0) {
-        if(!addSecond) {
+        if (!addSecond) {
             noLanes = e->myNoLanes;
         } else {
             noLanes = e->myNoLanes / 2;

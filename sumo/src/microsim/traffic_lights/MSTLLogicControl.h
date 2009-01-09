@@ -337,7 +337,7 @@ protected:
      * This command is reused. The index of the WAUT-switch is incremented at each
      *  call to the control.
      */
-class SwitchInitCommand : public Command
+    class SwitchInitCommand : public Command
     {
     public:
         // / Constructor
@@ -515,7 +515,7 @@ protected:
      * @class WAUTSwitchProcedure_JustSwitch
      * @brief This class simply switches to the next program
      */
-class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure
+    class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure
     {
     public:
         /// Constructor
@@ -546,7 +546,7 @@ class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure
      * @class WAUTSwitchProcedure_GSP
      * @brief This class switches using the GSP algorithm.
      */
-class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure
+    class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure
     {
     public:
         /// Constructor
@@ -577,7 +577,7 @@ class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure
      * @class WAUTSwitchProcedure_Stretch
      * @brief This class switches using the Stretch algorithm.
      */
-class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
+    class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
     {
     public:
         /// Constructor

@@ -141,7 +141,7 @@ public:
      * The popup-menu for a TLS-logic. Adds the functionality to open a
      *  view on the tls-logic and to start tracking of the tls-logic.
      */
-class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu
+    class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu
     {
         FXDECLARE(GUITrafficLightLogicWrapperPopupMenu)
     public:

@@ -337,7 +337,7 @@ MSNet::initialiseSimulation() {
         MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
     }
     // initialise performance computation
-    if(myLogExecutionTime) {
+    if (myLogExecutionTime) {
         mySimBeginMillis = SysUtils::getCurrentMillis();
     }
 }
@@ -352,7 +352,7 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         ostringstream msg;
         msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
-        if(duration!=0) {
+        if (duration!=0) {
             msg << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
@@ -590,22 +590,22 @@ void
 MSNet::postSimStepOutput() const throw() {
     if (myLogExecutionTime) {
         string msg;
-            ostringstream oss;
-            oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
-            oss.setf(std::ios::showpoint);    // print decimal point
-            oss << std::setprecision(OUTPUT_ACCURACY);
-            if (mySimStepDuration!=0) {
-                oss << " (" << mySimStepDuration << "ms ~= "
-                << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
-                << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
-            } else {
-                oss << " (0ms ?*RT. ?";
-            }
-            oss << "UPS, vehicles"
-            << " TOT " << myVehicleControl->getEmittedVehicleNo()
-            << " ACT " << myVehicleControl->getRunningVehicleNo()
-            << ")                                              ";
-            msg = oss.str();
+        ostringstream oss;
+        oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+        oss.setf(std::ios::showpoint);    // print decimal point
+        oss << std::setprecision(OUTPUT_ACCURACY);
+        if (mySimStepDuration!=0) {
+            oss << " (" << mySimStepDuration << "ms ~= "
+            << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
+            << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
+        } else {
+            oss << " (0ms ?*RT. ?";
+        }
+        oss << "UPS, vehicles"
+        << " TOT " << myVehicleControl->getEmittedVehicleNo()
+        << " ACT " << myVehicleControl->getRunningVehicleNo()
+        << ")                                              ";
+        msg = oss.str();
         string prev = "Step #" + toString(myStep);
         msg = msg.substr(0, 78 - prev.length());
         cout << msg;

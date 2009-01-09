@@ -545,10 +545,10 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     assert(connected[k].toEdge==0 || (size_t) getIndex(*i, connected[k].toEdge)<myIncoming->size()*myOutgoing->size());
                     // check whether the connection is prohibited by another one
                     if (connected[k].toEdge!=0 && myForbids[getIndex(*i, connected[k].toEdge)][idx]) {
-                        // ok, the edges are foes; 
+                        // ok, the edges are foes;
                         //  either we have an accelaration lane or not
-                        if(from->getSpeed()<70./3.6 || (*i)->getSpeed()<70./3.6 || 
-                            find_if(allConnections.begin(), allConnections.end(), NBEdge::connections_toedgelane_finder(to, toLane))!=allConnections.end()) {
+                        if (from->getSpeed()<70./3.6 || (*i)->getSpeed()<70./3.6 ||
+                                find_if(allConnections.begin(), allConnections.end(), NBEdge::connections_toedgelane_finder(to, toLane))!=allConnections.end()) {
                             os << '1';
                             continue;
                         }

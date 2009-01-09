@@ -157,7 +157,7 @@ protected:
      * @class SwitchCommand
      * Class realising the switch between the traffic light states (phases
      */
-class SwitchCommand : public Command
+    class SwitchCommand : public Command
     {
     public:
         /// Constructor

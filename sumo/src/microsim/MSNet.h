@@ -172,14 +172,14 @@ public:
     //@{
 
     /** @brief Prints the current step number
-     * 
+     *
      * Called on the begin of a simulation step
      */
     void preSimStepOutput() const throw();
 
 
     /** @brief Prints the statistics of the step at its end
-     * 
+     *
      * Called on the end of a simulation step
      */
     void postSimStepOutput() const throw();

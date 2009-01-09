@@ -120,7 +120,7 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
         // read in edge attributes
         string id = poFeature->GetFieldAsString(idField.c_str());
         id = StringUtils::prune(id);
-        if(id=="") {
+        if (id=="") {
             throw ProcessError("Missing id under '" + idField + "'");
         }
         id = prefix + id;
@@ -131,89 +131,83 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             poGeometry->transform(poCT);
         }
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
-        switch(gtype) {
-        case wkbPoint:
-            {
-                OGRPoint *cgeom = (OGRPoint*) poGeometry;
-                Position2D pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
+        switch (gtype) {
+        case wkbPoint: {
+            OGRPoint *cgeom = (OGRPoint*) poGeometry;
+            Position2D pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
+            GeoConvHelper::x2cartesian(pos);
+            PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
+            toFill.insert(id, poi, layer);
+        }
+        break;
+        case wkbLineString: {
+            OGRLineString *cgeom = (OGRLineString*) poGeometry;
+            Position2DVector shape;
+            for (int j=0; j<cgeom->getNumPoints(); j++) {
+                Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
                 GeoConvHelper::x2cartesian(pos);
-                PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
-                toFill.insert(id, poi, layer);
+                shape.push_back_noDoublePos(pos);
             }
-            break;
-        case wkbLineString:
-            {
-                OGRLineString *cgeom = (OGRLineString*) poGeometry;
+            Polygon2D *poly = new Polygon2D(id, type, color, shape, false);
+            toFill.insert(id, poly, layer);
+        }
+        break;
+        case wkbPolygon: {
+            OGRLinearRing *cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
+            Position2DVector shape;
+            for (int j=0; j<cgeom->getNumPoints(); j++) {
+                Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                GeoConvHelper::x2cartesian(pos);
+                shape.push_back_noDoublePos(pos);
+            }
+            Polygon2D *poly = new Polygon2D(id, type, color, shape, true);
+            toFill.insert(id, poly, layer);
+        }
+        break;
+        case wkbMultiPoint: {
+            OGRMultiPoint *cgeom = (OGRMultiPoint*) poGeometry;
+            for (int i=0; i<cgeom->getNumGeometries(); ++i) {
+                OGRPoint *cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
+                Position2D pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
+                GeoConvHelper::x2cartesian(pos);
+                string tid = id + "#" + toString(i);
+                PointOfInterest *poi = new PointOfInterest(tid, type, pos, color);
+                toFill.insert(tid, poi, layer);
+            }
+        }
+        break;
+        case wkbMultiLineString: {
+            OGRMultiLineString *cgeom = (OGRMultiLineString*) poGeometry;
+            for (int i=0; i<cgeom->getNumGeometries(); ++i) {
+                OGRLineString *cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
                 Position2DVector shape;
-                for (int j=0; j<cgeom->getNumPoints(); j++) {
-                    Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                for (int j=0; j<cgeom2->getNumPoints(); j++) {
+                    Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     GeoConvHelper::x2cartesian(pos);
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon2D *poly = new Polygon2D(id, type, color, shape, false);
-                toFill.insert(id, poly, layer);
+                string tid = id + "#" + toString(i);
+                Polygon2D *poly = new Polygon2D(tid, type, color, shape, false);
+                toFill.insert(tid, poly, layer);
             }
-            break;
-        case wkbPolygon:
-            {
-                OGRLinearRing *cgeom = ((OGRPolygon*) poGeometry)->getExteriorRing();
+        }
+        break;
+        case wkbMultiPolygon: {
+            OGRMultiPolygon *cgeom = (OGRMultiPolygon*) poGeometry;
+            for (int i=0; i<cgeom->getNumGeometries(); ++i) {
+                OGRLinearRing *cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
                 Position2DVector shape;
-                for (int j=0; j<cgeom->getNumPoints(); j++) {
-                    Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+                for (int j=0; j<cgeom2->getNumPoints(); j++) {
+                    Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
                     GeoConvHelper::x2cartesian(pos);
                     shape.push_back_noDoublePos(pos);
                 }
-                Polygon2D *poly = new Polygon2D(id, type, color, shape, true);
-                toFill.insert(id, poly, layer);
+                string tid = id + "#" + toString(i);
+                Polygon2D *poly = new Polygon2D(tid, type, color, shape, true);
+                toFill.insert(tid, poly, layer);
             }
-            break;
-        case wkbMultiPoint:
-            {
-                OGRMultiPoint *cgeom = (OGRMultiPoint*) poGeometry;
-                for(int i=0; i<cgeom->getNumGeometries(); ++i) {
-                    OGRPoint *cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
-                    Position2D pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
-                    GeoConvHelper::x2cartesian(pos);
-                    string tid = id + "#" + toString(i);
-                    PointOfInterest *poi = new PointOfInterest(tid, type, pos, color);
-                    toFill.insert(tid, poi, layer);
-                }
-            }
-            break;
-        case wkbMultiLineString:
-            {
-                OGRMultiLineString *cgeom = (OGRMultiLineString*) poGeometry;
-                for(int i=0; i<cgeom->getNumGeometries(); ++i) {
-                    OGRLineString *cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
-                    Position2DVector shape;
-                    for (int j=0; j<cgeom2->getNumPoints(); j++) {
-                        Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                        GeoConvHelper::x2cartesian(pos);
-                        shape.push_back_noDoublePos(pos);
-                    }
-                    string tid = id + "#" + toString(i);
-                    Polygon2D *poly = new Polygon2D(tid, type, color, shape, false);
-                    toFill.insert(tid, poly, layer);
-                }
-            }
-            break;
-        case wkbMultiPolygon:
-            {
-                OGRMultiPolygon *cgeom = (OGRMultiPolygon*) poGeometry;
-                for(int i=0; i<cgeom->getNumGeometries(); ++i) {
-                    OGRLinearRing *cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
-                    Position2DVector shape;
-                    for (int j=0; j<cgeom2->getNumPoints(); j++) {
-                        Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                        GeoConvHelper::x2cartesian(pos);
-                        shape.push_back_noDoublePos(pos);
-                    }
-                    string tid = id + "#" + toString(i);
-                    Polygon2D *poly = new Polygon2D(tid, type, color, shape, true);
-                    toFill.insert(tid, poly, layer);
-                }
-            }
-            break;
+        }
+        break;
         default:
             MsgHandler::getWarningInstance()->inform("Unsupported shape type occured (id='" + id + "').");
             break;

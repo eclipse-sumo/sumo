@@ -470,7 +470,7 @@ private:
     /// TimedValueVector. The first value of TimeRange is used for
     /// ordering and searching. If necessary, check for the second
     /// one yourself.
-struct TimeRangeLess :
+    struct TimeRangeLess :
                 std::binary_function< unsigned, ValuedTimeRange, bool > {
         /// predicate to use with upper_bound.
         bool operator()(const unsigned searchTime,

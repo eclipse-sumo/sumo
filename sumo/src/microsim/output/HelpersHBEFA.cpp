@@ -57,18 +57,18 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOReal 
+SUMOReal
 HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) throw()
 {
     return 0;
 }
 
 
-SUMOReal 
+SUMOReal
 HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw()
 {
     double c0, cav1, cav2, c1, c2, c3;
-    switch(c) {
+    switch (c) {
     case SVE_UNKNOWN:
     case SVE_PASSENGER_EURO4__1_4__2l:
         c0 = 2848.06755056818;
@@ -112,25 +112,25 @@ HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw()
         break;
     }
     v *= 3.6;
-    return (SUMOReal) ((c0 + cav1*a*v + cav2*pow(a,2.)*v + c1*v + c2*pow(v,2.) + c3*pow(v,3.)) / 3600.);
+    return (SUMOReal)((c0 + cav1*a*v + cav2*pow(a,2.)*v + c1*v + c2*pow(v,2.) + c3*pow(v,3.)) / 3600.);
 }
 
 
-SUMOReal 
+SUMOReal
 HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw()
 {
     return 0;
 }
 
 
-SUMOReal 
+SUMOReal
 HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) throw()
 {
     return 0;
 }
 
 
-SUMOReal 
+SUMOReal
 HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) throw()
 {
     return 0;

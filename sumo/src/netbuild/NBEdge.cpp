@@ -486,7 +486,7 @@ NBEdge::writeXMLStep1(OutputDevice &into)
     "\" to=\"" << myTo->getID() <<
     "\" priority=\"" << myPriority <<
     "\" type=\"" << myType;
-    if(isMacroscopicConnector()) {
+    if (isMacroscopicConnector()) {
         into << "\" function=\"connector";
     } else {
         into << "\" function=\"normal";
@@ -1198,7 +1198,7 @@ NBEdge::appendTurnaround(bool noTLSControlled) throw()
     if (myTurnDestination==0) {
         return;
     }
-    // do nothing if the destination node is controlled by a tls and no turnarounds 
+    // do nothing if the destination node is controlled by a tls and no turnarounds
     //  shall be appended for such junctions
     if (noTLSControlled&&myTo->isTLControlled()) {
         return;

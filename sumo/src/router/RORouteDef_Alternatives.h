@@ -79,7 +79,7 @@ public:
     void removeLast();
 
     virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
-                                             bool asAlternatives, bool withExitTimes) const;
+            bool asAlternatives, bool withExitTimes) const;
 
 private:
     /// Searches for the route within the list of alternatives

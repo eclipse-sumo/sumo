@@ -133,7 +133,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& v
 // ---------------------------------------------------------------------------
 // MSMeanData_Net - methods
 // ---------------------------------------------------------------------------
-MSMeanData_Net::MSMeanData_Net(const std::string &id, 
+MSMeanData_Net::MSMeanData_Net(const std::string &id,
                                MSEdgeControl &edges,
                                const std::vector<int> &dumpBegins,
                                const std::vector<int> &dumpEnds,

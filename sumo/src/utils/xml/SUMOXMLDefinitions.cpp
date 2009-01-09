@@ -53,7 +53,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "e3-detector",      SUMO_TAG_E3DETECTOR },
     { "meandata-edge",    SUMO_TAG_MEANDATA_EDGE },
     { "meandata-lane",    SUMO_TAG_MEANDATA_LANE },
-    
+
 #ifdef _MESSAGES
     { "msgemitter",		  SUMO_TAG_MSG_EMITTER },
     { "e4-detector",	  SUMO_TAG_MSG },

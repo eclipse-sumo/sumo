@@ -464,7 +464,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
         NBEdge *cont = cur->getOutgoingEdges()[0];
 
         // do not build ramps on connectors
-        if(pot_highway->isMacroscopicConnector()||pot_ramp->isMacroscopicConnector()||cont->isMacroscopicConnector()) {
+        if (pot_highway->isMacroscopicConnector()||pot_ramp->isMacroscopicConnector()||cont->isMacroscopicConnector()) {
             return false;
         }
 
@@ -742,7 +742,7 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
         NBEdge *prev = cur->getIncomingEdges()[0];
 
         // do not build ramps on connectors
-        if(pot_highway->isMacroscopicConnector()||pot_ramp->isMacroscopicConnector()||prev->isMacroscopicConnector()) {
+        if (pot_highway->isMacroscopicConnector()||pot_ramp->isMacroscopicConnector()||prev->isMacroscopicConnector()) {
             return false;
         }
 

@@ -429,7 +429,7 @@ protected:
      *
      * @see addDetectorAndInterval
      */
-struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
+    struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
         /** @brief Returns true if detectors are equal. */
         bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const throw() {
             return pair.first == det;

@@ -93,7 +93,7 @@ public:
      * @class GUI_E2_ZS_CollectorOverLanes::MyWrapper
      * A GUI_E2_ZS_CollectorOverLanes-visualiser
      */
-class MyWrapper : public GUIDetectorWrapper
+    class MyWrapper : public GUIDetectorWrapper
     {
     public:
         /// Constructor

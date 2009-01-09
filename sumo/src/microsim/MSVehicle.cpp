@@ -900,7 +900,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 #ifdef HAVE_INTERNAL_LANES
         if (MSGlobals::gUsingInternalLanes) {
             for (size_t j=0; j<lc.size(); ++j) {
-                if(lc[j]->getDirection()==MSLink::LINKDIR_TURN) {
+                if (lc[j]->getDirection()==MSLink::LINKDIR_TURN) {
                     // hack - opposite traffic causes jams
                     continue;
                 }
@@ -938,7 +938,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 
                 const MSLinkCont &lc2 = nl->getLinkCont();
                 for (size_t j2=0; j2<lc2.size(); ++j2) {
-                    if(lc2[j2]->getDirection()==MSLink::LINKDIR_TURN) {
+                    if (lc2[j2]->getDirection()==MSLink::LINKDIR_TURN) {
                         // hack - opposite traffic causes jams
                         continue;
                     }

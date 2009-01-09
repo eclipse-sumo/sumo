@@ -134,7 +134,7 @@ public:
                                     GUISUMOAbstractView &parent);
 
 public:
-class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu
+    class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu
     {
         FXDECLARE(GUILaneSpeedTriggerPopupMenu)
     public:
@@ -152,7 +152,7 @@ class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu
 
     };
 
-class GUIManip_LaneSpeedTrigger : public GUIManipulator
+    class GUIManip_LaneSpeedTrigger : public GUIManipulator
     {
         FXDECLARE(GUIManip_LaneSpeedTrigger)
     public:

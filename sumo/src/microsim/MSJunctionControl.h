@@ -70,7 +70,7 @@ public:
     void postloadInitContainer() throw(ProcessError);
 
 
-    /** @brief Resets the requests for all lanes 
+    /** @brief Resets the requests for all lanes
      *
      * Calls "clearRequests" for all stored junctions.
      * @see MSJunction::clearRequests

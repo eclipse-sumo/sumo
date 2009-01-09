@@ -195,7 +195,7 @@ protected:
     void loadDecals(const std::string &file) throw();
 
 
-class SchemeLoader : public SUMOSAXHandler
+    class SchemeLoader : public SUMOSAXHandler
     {
     public:
         SchemeLoader(GUIVisualizationSettings &s);
@@ -218,7 +218,7 @@ class SchemeLoader : public SUMOSAXHandler
         GUIVisualizationSettings &mySettings;
     };
 
-class DecalsLoader : public SUMOSAXHandler
+    class DecalsLoader : public SUMOSAXHandler
     {
     public:
         DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals);

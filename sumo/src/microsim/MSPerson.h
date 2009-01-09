@@ -96,7 +96,7 @@ public:
      * The walking does not need any route as it is not simulated.
      * Only the duration is needed
      */
-class MSPersonStage_Walking : MSPersonStage
+    class MSPersonStage_Walking : MSPersonStage
     {
     public:
         /// constructor
@@ -136,7 +136,7 @@ class MSPersonStage_Walking : MSPersonStage
      *  until the destination edge is reached. The travel time is computed
      *  by the simulation.
      */
-class MSPersonStage_PublicVehicle : MSPersonStage
+    class MSPersonStage_PublicVehicle : MSPersonStage
     {
     public:
         /// constructor
@@ -173,7 +173,7 @@ class MSPersonStage_PublicVehicle : MSPersonStage
      * A "real" stage performing the travelling by a private transport system
      * The given route will be chosen. The travel time is computed by the simulation
      */
-class MSPersonStage_PrivateVehicle : MSPersonStage
+    class MSPersonStage_PrivateVehicle : MSPersonStage
     {
     public:
         /// constructor
@@ -224,7 +224,7 @@ class MSPersonStage_PrivateVehicle : MSPersonStage
      * A "real" stage performing a waiting over the specified time
      * The time is not being added to the travel time?
      */
-class MSPersonStage_Waiting : MSPersonStage
+    class MSPersonStage_Waiting : MSPersonStage
     {
     public:
         /// constructor

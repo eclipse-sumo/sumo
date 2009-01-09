@@ -126,7 +126,7 @@ public:
                                     GUISUMOAbstractView &parent);
 
 public:
-class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu
+    class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu
     {
         FXDECLARE(GUITriggeredRerouterPopupMenu)
     public:
@@ -145,7 +145,7 @@ class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu
     };
 
 
-class GUIManip_TriggeredRerouter : public GUIManipulator
+    class GUIManip_TriggeredRerouter : public GUIManipulator
     {
         FXDECLARE(GUIManip_TriggeredRerouter)
     public:

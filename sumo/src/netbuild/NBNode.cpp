@@ -1173,7 +1173,7 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
                                   static_cast<const EdgeVector * const>(myOutgoingEdges),
                                   myBlockedConnections);
         // check whether it is not too large
-        if(myRequest->getSizes().second>=64) {
+        if (myRequest->getSizes().second>=64) {
             // yep -> make it untcontrolled, warn
             MsgHandler::getWarningInstance()->inform("Junction '" + getID() + "' is too complicated (#links>64); will be set to unregulated.");
             delete myRequest;
@@ -1351,7 +1351,7 @@ NBNode::computeLanes2Lanes()
         NBEdge *incoming = (*myIncomingEdges)[0];
         NBEdge *outgoing = (*myOutgoingEdges)[0];
         // check if it's not the turnaround
-        if(incoming->getTurnDestination()==outgoing) {
+        if (incoming->getTurnDestination()==outgoing) {
             // will be added later or not...
             return;
         }
@@ -1791,7 +1791,7 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
         return true;
     }
     // unregulated->does not need to brake
-    if(myRequest==0) {
+    if (myRequest==0) {
         return false;
     }
     // vehicles which do not have a following lane must always decelerate to the end
@@ -1844,8 +1844,8 @@ NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
                 bool regardNonSignalisedLowerPriority) const
 {
     return myRequest!=0&&myRequest->forbids(possProhibitorFrom, possProhibitorTo,
-                              possProhibitedFrom, possProhibitedTo,
-                              regardNonSignalisedLowerPriority);
+                                            possProhibitedFrom, possProhibitedTo,
+                                            regardNonSignalisedLowerPriority);
 }
 
 
@@ -2135,11 +2135,11 @@ NBNode::isTLControlled() const
 bool
 NBNode::isJoinedTLSControlled() const
 {
-    if(!isTLControlled()) {
+    if (!isTLControlled()) {
         return false;
     }
-    for(set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); ++i) {
-        if((*i)->getID().find("joined")==0) {
+    for (set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); ++i) {
+        if ((*i)->getID().find("joined")==0) {
             return true;
         }
     }

@@ -140,7 +140,7 @@ public:
     void toggleDrawRoutes();
 
 protected:
-class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
+    class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
     {
     public:
         GUIEmitterChild_UserTriggeredChild(
@@ -158,7 +158,7 @@ class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
     };
 
 public:
-class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu
+    class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu
     {
         FXDECLARE(GUIEmitterPopupMenu)
     public:
@@ -178,7 +178,7 @@ class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu
 
     };
 
-class GUIManip_TriggeredEmitter : public GUIManipulator
+    class GUIManip_TriggeredEmitter : public GUIManipulator
     {
         FXDECLARE(GUIManip_TriggeredEmitter)
     public:

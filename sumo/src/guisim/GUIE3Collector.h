@@ -74,7 +74,7 @@ public:
      * @class GUIE3Collector::MyWrapper
      * A GUIE3Collector-visualiser
      */
-class MyWrapper : public GUIDetectorWrapper
+    class MyWrapper : public GUIDetectorWrapper
     {
     public:
         /// Constructor

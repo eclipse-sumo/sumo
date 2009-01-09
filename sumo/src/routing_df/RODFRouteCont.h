@@ -140,7 +140,7 @@ public:
 protected:
     /** @brief Computes and sets the id of a route
      *
-     * The id is <FIRST_EDGE>_to_<LAST_EDGE>_<RUNNING> where <RUNNING> 
+     * The id is <FIRST_EDGE>_to_<LAST_EDGE>_<RUNNING> where <RUNNING>
      *  is the number of routes which connect <FIRST_EDGE> and <LAST_EDGE>.
      *
      * @param[in] desc The route description to add

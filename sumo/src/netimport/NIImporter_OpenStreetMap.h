@@ -119,7 +119,7 @@ private:
      * @class NodesHandler
      * @brief A class which extracts OSM-nodes from a parsed OSM-file
      */
-class NodesHandler : public SUMOSAXHandler
+    class NodesHandler : public SUMOSAXHandler
     {
     public:
         /** @brief Contructor
@@ -180,7 +180,7 @@ class NodesHandler : public SUMOSAXHandler
      * @class EdgesHandler
      * @brief A class which extracts OSM-edges from a parsed OSM-file
      */
-class EdgesHandler : public SUMOSAXHandler
+    class EdgesHandler : public SUMOSAXHandler
     {
     public:
         /** @brief Constructor

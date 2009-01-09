@@ -868,8 +868,8 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs)
     }
 #ifdef _DEBUG
     cout << "id: '"+ id + "'" << endl
-    << "file: '" + file + "'" << endl
-    << "getFileName(): '" + getFileName() + "'" << endl;
+         << "file: '" + file + "'" << endl
+         << "getFileName(): '" + getFileName() + "'" << endl;
 #endif
     string whatemit;
     bool reverse = attrs.getBoolSecure(SUMO_ATTR_REVERSE, false);
@@ -1264,11 +1264,11 @@ NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs)
     }
     try {
         myDetectorBuilder.buildEdgeMeanData(id, attrs.getInt(SUMO_ATTR_FREQUENCY),
-            attrs.getStringSecure(SUMO_ATTR_BEGIN, ""), attrs.getStringSecure(SUMO_ATTR_END, ""),
-            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
-            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
-            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
-            OutputDevice::getDevice(file, getFileName()));
+                                            attrs.getStringSecure(SUMO_ATTR_BEGIN, ""), attrs.getStringSecure(SUMO_ATTR_END, ""),
+                                            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
+                                            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
+                                            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
+                                            OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
@@ -1296,11 +1296,11 @@ NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs)
     }
     try {
         myDetectorBuilder.buildLaneMeanData(id, attrs.getInt(SUMO_ATTR_FREQUENCY),
-            attrs.getStringSecure(SUMO_ATTR_BEGIN, ""), attrs.getStringSecure(SUMO_ATTR_END, ""),
-            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
-            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
-            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
-            OutputDevice::getDevice(file, getFileName()));
+                                            attrs.getStringSecure(SUMO_ATTR_BEGIN, ""), attrs.getStringSecure(SUMO_ATTR_END, ""),
+                                            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
+                                            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
+                                            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
+                                            OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {

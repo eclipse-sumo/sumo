@@ -89,7 +89,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
     if (e!=0) {
         e->addWeight(val, beg, end);
     } else {
-        if(id[0]!=':') {
+        if (id[0]!=':') {
             MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
         }
     }

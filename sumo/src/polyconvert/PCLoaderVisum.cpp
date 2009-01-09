@@ -99,11 +99,11 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
     while (lr.hasMore()) {
         string line = lr.readLine();
         // reset if current is over
-        if(line.length()==0||line[0]=='*'||line[0]=='$') {
+        if (line.length()==0||line[0]=='*'||line[0]=='$') {
             what = "";
         }
         // read items
-        if(what=="$PUNKT") {
+        if (what=="$PUNKT") {
             lineParser.parseLine(line);
             long id = TplConvert<char>::_2long(lineParser.get("ID").c_str());
             SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
@@ -112,7 +112,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             GeoConvHelper::x2cartesian(pos);
             punkte[id] = pos;
             continue;
-        } else if(what=="$KANTE") {
+        } else if (what=="$KANTE") {
             lineParser.parseLine(line);
             long id = TplConvert<char>::_2long(lineParser.get("ID").c_str());
             long fromID = TplConvert<char>::_2long(lineParser.get("VONPUNKTID").c_str());
@@ -122,7 +122,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             vec.push_back(punkte[toID]);
             kanten[id] = vec;
             continue;
-        } else if(what=="$ZWISCHENPUNKT") {
+        } else if (what=="$ZWISCHENPUNKT") {
             lineParser.parseLine(line);
             long id = TplConvert<char>::_2long(lineParser.get("KANTEID").c_str());
             int index = TplConvert<char>::_2int(lineParser.get("INDEX").c_str());
@@ -132,27 +132,27 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             GeoConvHelper::x2cartesian(pos);
             kanten[id].insertAt(index, pos);
             continue;
-        } else if(what=="$TEILFLAECHENELEMENT") {
+        } else if (what=="$TEILFLAECHENELEMENT") {
             lineParser.parseLine(line);
             long id = TplConvert<char>::_2long(lineParser.get("TFLAECHEID").c_str());
             int index = TplConvert<char>::_2int(lineParser.get("INDEX").c_str());
             index = 0; /// hmmmm - assume it's sorted...
             long kid = TplConvert<char>::_2long(lineParser.get("KANTEID").c_str());
             int dir = TplConvert<char>::_2int(lineParser.get("RICHTUNG").c_str());
-            if(teilflaechen.find(id)==teilflaechen.end()) {
+            if (teilflaechen.find(id)==teilflaechen.end()) {
                 teilflaechen[id] = Position2DVector();
             }
-            if(dir==0) {
-                for(int i=0; i<(int) kanten[kid].size(); ++i) {
+            if (dir==0) {
+                for (int i=0; i<(int) kanten[kid].size(); ++i) {
                     teilflaechen[id].push_back_noDoublePos(kanten[kid][i]);
                 }
             } else {
-                for(int i=(int) kanten[kid].size()-1; i>=0; --i) {
+                for (int i=(int) kanten[kid].size()-1; i>=0; --i) {
                     teilflaechen[id].push_back_noDoublePos(kanten[kid][i]);
                 }
             }
             continue;
-        } else if(what=="$FLAECHENELEMENT") {
+        } else if (what=="$FLAECHENELEMENT") {
             lineParser.parseLine(line);
             long id = TplConvert<char>::_2long(lineParser.get("FLAECHEID").c_str());
             long tid = TplConvert<char>::_2long(lineParser.get("TFLAECHEID").c_str());
@@ -162,20 +162,20 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             continue;
         }
         // set if read
-        if(line[0]=='$') {
+        if (line[0]=='$') {
             what = "";
-            if(line.find("$PUNKT")==0) {
+            if (line.find("$PUNKT")==0) {
                 what = "$PUNKT";
-            } else if(line.find("$KANTE")==0) {
-                what = "$KANTE";  
-            } else if(line.find("$ZWISCHENPUNKT")==0) {
-                what = "$ZWISCHENPUNKT";  
-            } else if(line.find("$TEILFLAECHENELEMENT")==0) {
-                what = "$TEILFLAECHENELEMENT";  
-            } else if(line.find("$FLAECHENELEMENT")==0) {
-                what = "$FLAECHENELEMENT";  
+            } else if (line.find("$KANTE")==0) {
+                what = "$KANTE";
+            } else if (line.find("$ZWISCHENPUNKT")==0) {
+                what = "$ZWISCHENPUNKT";
+            } else if (line.find("$TEILFLAECHENELEMENT")==0) {
+                what = "$TEILFLAECHENELEMENT";
+            } else if (line.find("$FLAECHENELEMENT")==0) {
+                what = "$FLAECHENELEMENT";
             }
-            if(what!="") {
+            if (what!="") {
                 lineParser.reinit(line.substr(what.length()+1));
             }
         }
@@ -299,8 +299,8 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
         }
 
         // district refering a shape
-        if(parsingDistrictsDirectly) {
-            //$BEZIRK:NR	CODE	NAME	TYPNR	XKOORD	YKOORD	FLAECHEID	BEZART	IVANTEIL_Q	IVANTEIL_Z	OEVANTEIL	METHODEANBANTEILE	ZWERT1	ZWERT2	ZWERT3	ISTINAUSWAHL	OBEZNR	NOM_COM	COD_COM																																																															
+        if (parsingDistrictsDirectly) {
+            //$BEZIRK:NR	CODE	NAME	TYPNR	XKOORD	YKOORD	FLAECHEID	BEZART	IVANTEIL_Q	IVANTEIL_Z	OEVANTEIL	METHODEANBANTEILE	ZWERT1	ZWERT2	ZWERT3	ISTINAUSWAHL	OBEZNR	NOM_COM	COD_COM
             StringTokenizer st(line, ";");
             string num = st.next();
             string code = st.next();
@@ -328,7 +328,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
                 color = c;
             }
             if (!discard) {
-                if(teilflaechen[flaechenelemente[id]].size()>0) {
+                if (teilflaechen[flaechenelemente[id]].size()>0) {
                     Polygon2D *poly = new Polygon2D(name, type, color, teilflaechen[flaechenelemente[id]], false);
                     toFill.insert(name, poly, layer);
                 } else {

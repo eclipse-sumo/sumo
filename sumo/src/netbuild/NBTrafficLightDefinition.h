@@ -58,7 +58,7 @@ class NBTrafficLightLogicVector;
  * @class NBTrafficLightDefinition
  * @brief The base class for traffic light logic definitions
  *
- * A base class is necessary, as we have two cases: a) the logic is given by 
+ * A base class is necessary, as we have two cases: a) the logic is given by
  *  the imported network, or b) the logic is not given and we have to compute
  *  it by ourselves. In the first case, NBLoadedTLDef should be used, in the
  *  second NBOwnTLDef.
@@ -115,8 +115,8 @@ public:
 
     /** @brief Computes the traffic light logic
      *
-     * Does some initialisation at first, then calls myCompute to finally 
-     *  build the tl-logic 
+     * Does some initialisation at first, then calls myCompute to finally
+     *  build the tl-logic
      *
      * @param[in] ec The edge container in order to retrieve edge information
      * @param[in] oc The options container holding options needed during the building

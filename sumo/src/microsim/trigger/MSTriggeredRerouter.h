@@ -84,7 +84,7 @@ public:
      * @class Setter
      * @brief Responsible for setting a new route to a vehicle which arrives at a single lane
      */
-class Setter : public MSMoveReminder
+    class Setter : public MSMoveReminder
     {
     public:
         /** @brief Constructor

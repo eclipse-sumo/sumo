@@ -337,7 +337,7 @@ RORouteDef_Alternatives::removeLast()
 
 OutputDevice &
 RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
-                                            bool asAlternatives, bool withExitTimes) const
+        bool asAlternatives, bool withExitTimes) const
 {
     // (optional) alternatives header
     if (asAlternatives) {

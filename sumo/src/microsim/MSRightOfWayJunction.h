@@ -49,7 +49,7 @@ class findCompetitor;
 /**
  * @class MSRightOfWayJunction
  * @brief A junction with right-of-way - rules
- * 
+ *
  * A class which realises junctions that do regard any kind of a right-of-way.
  * The rules for the right-of-way themselves are stored within the associated
  * "MSJunctionLogic" - structure.

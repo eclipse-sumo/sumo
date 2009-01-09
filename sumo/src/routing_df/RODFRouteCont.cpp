@@ -146,18 +146,18 @@ RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
 }
 
 
-void 
+void
 RODFRouteCont::addAllEndFollower() throw()
 {
     vector<RODFRouteDesc> newRoutes;
     for (vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
         RODFRouteDesc &desc = *i;
         ROEdge *last = *(desc.edges2Pass.end()-1);
-        if(last->getNoFollowing()==0) {
+        if (last->getNoFollowing()==0) {
             newRoutes.push_back(desc);
             continue;
         }
-        for(int j=0; j<last->getNoFollowing(); ++j) {
+        for (int j=0; j<last->getNoFollowing(); ++j) {
             RODFRouteDesc ndesc(desc);
             ndesc.edges2Pass.push_back(last->getFollower(j));
             setID(ndesc);

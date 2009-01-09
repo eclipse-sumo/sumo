@@ -55,8 +55,8 @@ class MEVehicle;
  * @class MSMeanData_Net
  * @brief Redirector for mean data output (net->edgecontrol)
  *
- * This structure does not contain the data itself, it is stored within 
- *  MSLaneMeanDataValues-MoveReminder objects. 
+ * This structure does not contain the data itself, it is stored within
+ *  MSLaneMeanDataValues-MoveReminder objects.
  * This class is used to build the output, optionally, in the case
  *  of edge-based dump, aggregated over the edge's lanes.
  *
@@ -66,105 +66,105 @@ class MEVehicle;
 class MSMeanData_Net : public MSDetectorFileOutput
 {
 public:
-/**
- * @class MSLaneMeanDataValues
- * @brief Data structure for mean (aggregated) edge/lane values
- *
- * Structure holding values that describe the flow and other physical
- *  properties aggregated over some seconds and normalised by the
- *  aggregation period.
- *
- * @todo Check whether the haltings-information is used and how
- */
-class MSLaneMeanDataValues : public MSMoveReminder
-{
-public:
-    /** @brief Constructor */
-    MSLaneMeanDataValues(MSLane * const lane) throw();
-
-
-    /** @brief Resets values so they may be used for the next interval
+    /**
+     * @class MSLaneMeanDataValues
+     * @brief Data structure for mean (aggregated) edge/lane values
+     *
+     * Structure holding values that describe the flow and other physical
+     *  properties aggregated over some seconds and normalised by the
+     *  aggregation period.
+     *
+     * @todo Check whether the haltings-information is used and how
      */
-    void reset() throw();
+    class MSLaneMeanDataValues : public MSMoveReminder
+    {
+    public:
+        /** @brief Constructor */
+        MSLaneMeanDataValues(MSLane * const lane) throw();
 
 
-    /// @name Methods inherited from MSMoveReminder
-    /// @{
-
-    /** @brief Computes current values and adds them to their sums
-     *
-     * The fraction of time the vehicle is on the lane is computed and
-     *  used as a weight for the vehicle's current values.
-     *
-     * Additionally, if the vehicle has entered this lane, "nVehEnteredLane"
-     *  is incremented, and if the vehicle has left the lane, "nVehLeftLane".
-     *
-     * @param[in] veh The regarded vehicle
-     * @param[in] oldPos Position before the move-micro-timestep.
-     * @param[in] newPos Position after the move-micro-timestep.
-     * @param[in] newSpeed The vehicle's current speed
-     * @return false, if the vehicle is beyond the lane, true otherwise
-     * @see MSMoveReminder
-     * @see MSMoveReminder::isStillActive
-     */
-    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        /** @brief Resets values so they may be used for the next interval
+         */
+        void reset() throw();
 
 
-    /** @brief Nothing is done here
-     *
-     * @param[in] veh The leaving vehicle.
-     * @see MSMoveReminder::dismissByLaneChange
-     */
-    virtual void dismissByLaneChange(MSVehicle& veh) throw();
+        /// @name Methods inherited from MSMoveReminder
+        /// @{
+
+        /** @brief Computes current values and adds them to their sums
+         *
+         * The fraction of time the vehicle is on the lane is computed and
+         *  used as a weight for the vehicle's current values.
+         *
+         * Additionally, if the vehicle has entered this lane, "nVehEnteredLane"
+         *  is incremented, and if the vehicle has left the lane, "nVehLeftLane".
+         *
+         * @param[in] veh The regarded vehicle
+         * @param[in] oldPos Position before the move-micro-timestep.
+         * @param[in] newPos Position after the move-micro-timestep.
+         * @param[in] newSpeed The vehicle's current speed
+         * @return false, if the vehicle is beyond the lane, true otherwise
+         * @see MSMoveReminder
+         * @see MSMoveReminder::isStillActive
+         */
+        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
-    /** @brief Computes current emission values and adds them to their sums
-     *
-     * The fraction of time the vehicle is on the lane is computed and
-     *  used as a weight for the vehicle's current values.
-     *  The "emitted" field is incremented, additionally.
-     *
-     * @param[in] veh The vehicle that enters the lane
-     * @param[in] isEmit true means emit, false: lane change
-     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
-     * @return Always true
-     */
-    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
-    //@}
+        /** @brief Nothing is done here
+         *
+         * @param[in] veh The leaving vehicle.
+         * @see MSMoveReminder::dismissByLaneChange
+         */
+        virtual void dismissByLaneChange(MSVehicle& veh) throw();
+
+
+        /** @brief Computes current emission values and adds them to their sums
+         *
+         * The fraction of time the vehicle is on the lane is computed and
+         *  used as a weight for the vehicle's current values.
+         *  The "emitted" field is incremented, additionally.
+         *
+         * @param[in] veh The vehicle that enters the lane
+         * @param[in] isEmit true means emit, false: lane change
+         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @return Always true
+         */
+        virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        //@}
 
 
 
-    /// @name Collected values
-    /// @{
+        /// @name Collected values
+        /// @{
 
-    /// @brief The number of sampled vehicle movements (in s)
-    SUMOReal sampleSeconds;
+        /// @brief The number of sampled vehicle movements (in s)
+        SUMOReal sampleSeconds;
 
-    /// @brief The number of vehicles that left this lane within the sample intervall
-    unsigned nVehLeftLane;
+        /// @brief The number of vehicles that left this lane within the sample intervall
+        unsigned nVehLeftLane;
 
-    /// @brief The number of vehicles that entered this lane within the sample intervall
-    unsigned nVehEnteredLane;
+        /// @brief The number of vehicles that entered this lane within the sample intervall
+        unsigned nVehEnteredLane;
 
-    /// @brief The sum of the speeds the vehicles had
-    SUMOReal speedSum;
+        /// @brief The sum of the speeds the vehicles had
+        SUMOReal speedSum;
 
-    /// @brief The number of vehicle probes with v<0.1
-    unsigned haltSum;
+        /// @brief The number of vehicle probes with v<0.1
+        unsigned haltSum;
 
-    /// @brief The sum of the lengths the vehicles had
-    SUMOReal vehLengthSum;
+        /// @brief The sum of the lengths the vehicles had
+        SUMOReal vehLengthSum;
 
-    /// @brief The number of vehicles that were emitted on the lane
-    unsigned emitted;
-    //@}
+        /// @brief The number of vehicles that were emitted on the lane
+        unsigned emitted;
+        //@}
 
 
 #ifdef HAVE_MESOSIM
-    std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
+        std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 
-};
+    };
 
 
 public:

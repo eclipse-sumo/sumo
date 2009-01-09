@@ -81,7 +81,7 @@ protected:
 
 
     /** @brief Returns the node at the given position
-     * 
+     *
      * Tries to get and return a previously built node that is on the given position.
      * If no such node exists, builds one at the position, tries
      *  to add it into the node container and returns it. If the node

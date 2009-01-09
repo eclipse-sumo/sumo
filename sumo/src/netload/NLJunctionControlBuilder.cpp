@@ -316,11 +316,11 @@ NLJunctionControlBuilder::addLogicItem(int request,
                                        const std::string &foes,
                                        bool cont) throw(InvalidArgument)
 {
-    if(myCurrentHasError) {
+    if (myCurrentHasError) {
         // had an error
         return;
     }
-    if(request>63) {
+    if (request>63) {
         // bad request
         myCurrentHasError = true;
         throw InvalidArgument("Junction logic '" + myActiveKey + "' is larger than allowed; recheck the network.");
@@ -431,7 +431,7 @@ NLJunctionControlBuilder::setSubKey(const std::string &subkey) throw()
 void
 NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument)
 {
-    if(myCurrentHasError) {
+    if (myCurrentHasError) {
         // had an error before...
         return;
     }

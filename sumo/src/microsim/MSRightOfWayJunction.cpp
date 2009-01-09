@@ -95,7 +95,7 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError)
         const MSLinkCont &links = (*i)->getLinkCont();
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            if(myLogic->getLogicSize()<=requestPos) {
+            if (myLogic->getLogicSize()<=requestPos) {
                 throw ProcessError("Found invalid logic position of a link (network error)");
             }
             (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, myLogic->getFoesFor(requestPos));

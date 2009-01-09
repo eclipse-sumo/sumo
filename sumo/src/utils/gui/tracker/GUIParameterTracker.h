@@ -107,7 +107,7 @@ public:
      * It is the widget responsible for displaying the information while
      * GUIParameterTracker only provides window-facilities.
      */
-class GUIParameterTrackerPanel : public FXGLCanvas
+    class GUIParameterTrackerPanel : public FXGLCanvas
     {
         FXDECLARE(GUIParameterTrackerPanel)
     public:

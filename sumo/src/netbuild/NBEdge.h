@@ -596,7 +596,7 @@ private:
      * A class that being a bresenham-callback assigns the incoming
      * lanes to the edges
      */
-class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
+    class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
     {
     private:
         /// map of edges to this edge's lanes that reach them

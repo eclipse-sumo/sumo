@@ -119,9 +119,9 @@ public:
     }
 
     /** @brief Returns the members of the distribution.
-     * 
+     *
      * See getProbs for the corresponding probabilities.
-     * 
+     *
      * @return the members of the distribution
      * @see RandomDistributor::getProbs
      */
@@ -130,9 +130,9 @@ public:
     }
 
     /** @brief Returns the probabilities assigned to the members of the distribution.
-     * 
+     *
      * See getVals for the corresponding members.
-     * 
+     *
      * @return the probabilities assigned to the distribution
      * @see RandomDistributor::getVals
      */

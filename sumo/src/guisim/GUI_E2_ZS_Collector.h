@@ -101,7 +101,7 @@ public:
      * @class GUI_E2_ZS_Collector::MyWrapper
      * A GUI_E2_ZS_Collector-visualiser
      */
-class MyWrapper : public GUIDetectorWrapper
+    class MyWrapper : public GUIDetectorWrapper
     {
     public:
         /// Constructor

@@ -235,7 +235,7 @@ GUIEdge::getCenteringBoundary() const throw()
 void
 GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
 {
-    if(s.hideConnectors&&myFunction==MSEdge::EDGEFUNCTION_CONNECTOR) {
+    if (s.hideConnectors&&myFunction==MSEdge::EDGEFUNCTION_CONNECTOR) {
         return;
     }
     // check whether lane boundaries shall be drawn

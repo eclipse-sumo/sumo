@@ -73,7 +73,7 @@ bool
 MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 {
     if (isEmit) {
-    	myCollector.addRoute(veh.getRoute());
+        myCollector.addRoute(veh.getRoute());
     }
     return false;
 }

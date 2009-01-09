@@ -98,21 +98,21 @@ NBEdgeCont::applyOptions(OptionsCont &oc)
             myVehicleClasses2Keep.insert(getVehicleClassID(*i));
         }
     }
-    if(oc.isSet("keep-edges.in-boundary")) {
+    if (oc.isSet("keep-edges.in-boundary")) {
         vector<string> polyS = oc.getStringVector("keep-edges.in-boundary");
         // !!! throw something if length<4 || length%2!=0?
         vector<SUMOReal> poly;
-        for(vector<string>::iterator i=polyS.begin(); i!=polyS.end(); ++i) {
+        for (vector<string>::iterator i=polyS.begin(); i!=polyS.end(); ++i) {
             poly.push_back(TplConvert<char>::_2SUMOReal((*i).c_str())); // !!! may throw something anyhow...
         }
-        if(poly.size()==4) {
+        if (poly.size()==4) {
             // prunning boundary (box)
             myPrunningBoundary.push_back(Position2D(poly[0], poly[1]));
             myPrunningBoundary.push_back(Position2D(poly[2], poly[1]));
             myPrunningBoundary.push_back(Position2D(poly[2], poly[3]));
             myPrunningBoundary.push_back(Position2D(poly[0], poly[3]));
         } else {
-            for(vector<SUMOReal>::iterator j=poly.begin(); j!=poly.end(); ) {
+            for (vector<SUMOReal>::iterator j=poly.begin(); j!=poly.end();) {
                 SUMOReal x = *j++;
                 SUMOReal y = *j++;
                 myPrunningBoundary.push_back(Position2D(x, y));
@@ -141,7 +141,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw()
     if (i!=myEdges.end()) {
         return false;
     }
-    if(ignorePrunning) {
+    if (ignorePrunning) {
         myEdges.insert(EdgeCont::value_type(edge->getID(), edge));
         return true;
     }
@@ -209,9 +209,9 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw()
         }
     }
     // check whether the edge is within the prunning boundary
-    if(myPrunningBoundary.size()!=0) {
+    if (myPrunningBoundary.size()!=0) {
         Position2D p;
-        if(!myPrunningBoundary.around(edge->getFromNode()->getPosition()) && !myPrunningBoundary.around(edge->getToNode()->getPosition()) ) {
+        if (!myPrunningBoundary.around(edge->getFromNode()->getPosition()) && !myPrunningBoundary.around(edge->getToNode()->getPosition())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;

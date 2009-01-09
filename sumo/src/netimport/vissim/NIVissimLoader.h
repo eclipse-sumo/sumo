@@ -63,7 +63,7 @@ public:
     bool admitContinue(const std::string &tag);
 
 public:
-class VissimSingleTypeParser
+    class VissimSingleTypeParser
     {
     public:
         /// Constructor

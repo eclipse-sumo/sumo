@@ -47,7 +47,7 @@
 class NBLoadedTLDef : public NBTrafficLightDefinition
 {
 public:
-class SignalGroup : public Named
+    class SignalGroup : public Named
     {
     public:
         SignalGroup(const std::string &id) throw();

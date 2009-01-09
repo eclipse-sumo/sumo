@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 
     if ((argc == 1) || (argc % 2 == 0)) {
         std::cout << "Usage: TraciTestClient -def <definition_file>  -p <remote port>"
-        << "[-h <remote host>] [-o <outputfile name>]" << std::endl;
+                  << "[-h <remote host>] [-o <outputfile name>]" << std::endl;
         return 0;
     }
 

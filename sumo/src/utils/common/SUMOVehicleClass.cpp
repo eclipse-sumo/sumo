@@ -288,17 +288,17 @@ getVehicleShapeID(const std::string &name) throw()
 SUMOEmissionClass
 getVehicleEmissionTypeID(const std::string &name) throw()
 {
-    if(name=="") {
+    if (name=="") {
         return SVE_UNKNOWN;
-    } else if(name=="passenger_1_4__2l") {
+    } else if (name=="passenger_1_4__2l") {
         return SVE_PASSENGER_EURO4__1_4__2l;
-    } else if(name=="bus/city") {
+    } else if (name=="bus/city") {
         return SVE_BUS_CITY;
-    } else if(name=="bus/overland") {
+    } else if (name=="bus/overland") {
         return SVE_BUS_OVERLAND;
-    } else if(name=="transport_7_5t__euro4") {
+    } else if (name=="transport_7_5t__euro4") {
         return SVE_HDV_7_5t__EURO4;
-    } else if(name=="zero") {
+    } else if (name=="zero") {
         return SVE_ZERO_EMISSIONS;
     }
     return SVE_UNKNOWN;
@@ -308,7 +308,7 @@ getVehicleEmissionTypeID(const std::string &name) throw()
 std::string
 getVehicleClassName(SUMOEmissionClass id) throw()
 {
-    switch(id) {
+    switch (id) {
     case SVE_UNKNOWN:
         return "";
     case SVE_PASSENGER_EURO4__1_4__2l:

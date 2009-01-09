@@ -388,7 +388,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
     for (size_t i=0; i<noLinks; ++i) {
         MSLink::LinkState state = lane.getLinkState(i);
         const MSLane *connected = lane.getLinkLane(i);
-        if(connected==0) {
+        if (connected==0) {
             continue;
         }
         switch (state) {
@@ -421,13 +421,13 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
             break;
         }
 
-            glBegin(GL_LINES);
-            const Position2D &p1 = lane.getShape()[-1];
-            const Position2D &p2 = connected->getShape()[0];
-            glVertex2f(p1.x(), p1.y());
-            glVertex2f(p2.x(), p2.y());
-            glEnd();
-            GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
+        glBegin(GL_LINES);
+        const Position2D &p1 = lane.getShape()[-1];
+        const Position2D &p2 = connected->getShape()[0];
+        glVertex2f(p1.x(), p1.y());
+        glVertex2f(p2.x(), p2.y());
+        glEnd();
+        GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
     }
 }
 
@@ -774,7 +774,7 @@ GUILaneWrapper::getHBEFA_CO2Emissions() const
 {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for(MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
         ret += static_cast<GUIVehicle*>(*i)->getHBEFA_CO2Emissions();
     }
     myLane.releaseVehicles();

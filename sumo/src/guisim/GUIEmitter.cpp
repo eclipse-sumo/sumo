@@ -148,10 +148,10 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentT
         SUMOVehicleParameter* p = new SUMOVehicleParameter();
         p->id = myParent.getID() + "_user_" +  toString(currentTime);
         const MSRoute *aRoute = myRouteDist.getOverallProb()!=0
-                          ? myRouteDist.get()
-                          : mySource.hasRoutes()
-                          ? mySource.getRndRoute()
-                          : 0;
+                                ? myRouteDist.get()
+                                : mySource.hasRoutes()
+                                ? mySource.getRndRoute()
+                                : 0;
         if (aRoute==0) {
             MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid route.");
             return 0;

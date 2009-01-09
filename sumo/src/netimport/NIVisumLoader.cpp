@@ -292,7 +292,7 @@ NIVisumLoader::parse_Point()
 void
 NIVisumLoader::parse_Edges()
 {
-    if(myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
+    if (myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
         // no vehicle allowed; don't add
         return;
     }
@@ -325,7 +325,7 @@ NIVisumLoader::parse_Edges()
                   : true;
     // get the number of lanes
     int nolanes = 0;
-    if(!OptionsCont::getOptions().getBool("visum.recompute-laneno")) {
+    if (!OptionsCont::getOptions().getBool("visum.recompute-laneno")) {
         try {
             nolanes = myLineParser.know("Fahrstreifen")
                       ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
@@ -335,8 +335,8 @@ NIVisumLoader::parse_Edges()
         }
     } else {
         SUMOReal cap = myLineParser.know("KAPIV")
-                ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAPIV").c_str(), -1)
-                : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAP-IV").c_str(), -1);
+                       ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAPIV").c_str(), -1)
+                       : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("KAP-IV").c_str(), -1);
         nolanes = myCapacity2Lanes.get(cap);
     }
     // check whether the id is already used
@@ -417,7 +417,7 @@ NIVisumLoader::parse_PartOfArea()
 void
 NIVisumLoader::parse_Connectors()
 {
-    if(OptionsCont::getOptions().getBool("visum.no-connectors")) {
+    if (OptionsCont::getOptions().getBool("visum.no-connectors")) {
         // do nothing, if connectors shall not be imported
         return;
     }
@@ -456,12 +456,12 @@ NIVisumLoader::parse_Connectors()
     if (dir.find('Q')!=string::npos) {
         const vector<NBEdge*> &edges = dest->getOutgoingEdges();
         bool hasContinuation = false;
-        for(vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-            if(!(*i)->isMacroscopicConnector()) {
+        for (vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            if (!(*i)->isMacroscopicConnector()) {
                 hasContinuation = true;
             }
         }
-        if(!hasContinuation) {
+        if (!hasContinuation) {
             // obviously, there is no continuation on the net
             MsgHandler::getWarningInstance()->inform("Incoming connector '" + id + "' will not be build - would be not connected to network.");
         } else {
@@ -471,9 +471,9 @@ NIVisumLoader::parse_Connectors()
                 return;
             }
             NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
-                OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-                OptionsCont::getOptions().getInt("visum.connector-laneno"),
-                -1, NBEdge::LANESPREAD_RIGHT);
+                                      OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+                                      OptionsCont::getOptions().getInt("visum.connector-laneno"),
+                                      -1, NBEdge::LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
@@ -486,12 +486,12 @@ NIVisumLoader::parse_Connectors()
     if (dir.find('Z')!=string::npos) {
         const vector<NBEdge*> &edges = dest->getIncomingEdges();
         bool hasPredeccessor = false;
-        for(vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-            if(!(*i)->isMacroscopicConnector()) {
+        for (vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            if (!(*i)->isMacroscopicConnector()) {
                 hasPredeccessor = true;
             }
         }
-        if(!hasPredeccessor) {
+        if (!hasPredeccessor) {
             // obviously, the network is not connected to this node
             MsgHandler::getWarningInstance()->inform("Outgoing connector '" + id + "' will not be build - would be not connected to network.");
         } else {
@@ -502,9 +502,9 @@ NIVisumLoader::parse_Connectors()
             }
             id = "-" + id;
             NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
-                OptionsCont::getOptions().getFloat("visum.connector-speeds"),
-                OptionsCont::getOptions().getInt("visum.connector-laneno"),
-                -1, NBEdge::LANESPREAD_RIGHT);
+                                      OptionsCont::getOptions().getFloat("visum.connector-speeds"),
+                                      OptionsCont::getOptions().getInt("visum.connector-laneno"),
+                                      -1, NBEdge::LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
@@ -519,7 +519,7 @@ NIVisumLoader::parse_Connectors()
 void
 NIVisumLoader::parse_Turns()
 {
-    if(myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
+    if (myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
         // no vehicle allowed; don't add
         return;
     }

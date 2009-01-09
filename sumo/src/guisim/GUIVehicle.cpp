@@ -681,15 +681,14 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
         glColor3dv(current);
         GLHelper::drawBoxLine(Position2D(2.8, 0), 90., length-veh.getVehicleType().getGuiOffset()-2.8, .5);
         break;
-    case SVS_TRANSPORT_1TRAILER:
-        {
+    case SVS_TRANSPORT_1TRAILER: {
         glColor3dv(current);
         SUMOReal l = length-veh.getVehicleType().getGuiOffset()-2.3;
         l = l/2.;
         GLHelper::drawBoxLine(Position2D(2.3, 0), 90., l, .5);
         GLHelper::drawBoxLine(Position2D(2.3+l+.5, 0), 90., l-.5, .5);
         break;
-        }
+    }
     case SVS_BUS:
     case SVS_BUS_CITY:
     case SVS_BUS_CITY_FLEXIBLE:
@@ -1005,7 +1004,7 @@ GUIVehicle::initShapes() throw()
 }
 
 
-SUMOReal 
+SUMOReal
 GUIVehicle::getHBEFA_CO2Emissions() const throw()
 {
     return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration);

@@ -191,7 +191,7 @@ public:
      *  also allows to:
      * - show/hide the vehicle route
      */
-class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
+    class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
     {
         FXDECLARE(GUIVehiclePopupMenu)
     public:

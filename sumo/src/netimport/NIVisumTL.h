@@ -68,7 +68,7 @@ public:
     };
 
     // phase
-class Phase : public TimePeriod
+    class Phase : public TimePeriod
     {
     public:
         Phase();
@@ -82,7 +82,7 @@ class Phase : public TimePeriod
 
     // SignalGroup
     // a Signal Group can be defined either by a time period or by phases
-class SignalGroup : public TimePeriod
+    class SignalGroup : public TimePeriod
     {
     public:
         // constructor

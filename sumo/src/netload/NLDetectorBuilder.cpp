@@ -462,22 +462,22 @@ NLDetectorBuilder::buildRouteProbe(const std::string &id,
 }
 
 
-void 
+void
 NLDetectorBuilder::buildEdgeMeanData(const std::string &id, SUMOTime frequency,
                                      const std::string &begins, const std::string &ends,
-                                     const std::string &type, 
-                                     const std::string &edges, bool excludeEmpty, 
+                                     const std::string &type,
+                                     const std::string &edges, bool excludeEmpty,
                                      OutputDevice& device) throw(InvalidArgument)
 {
     createEdgeMeanData(id, frequency, begins, ends, type, edges, excludeEmpty, device);
 }
 
 
-void 
+void
 NLDetectorBuilder::buildLaneMeanData(const std::string &id, SUMOTime frequency,
                                      const std::string &begins, const std::string &ends,
-                                     const std::string &type, 
-                                     const std::string &edges, bool excludeEmpty, 
+                                     const std::string &type,
+                                     const std::string &edges, bool excludeEmpty,
                                      OutputDevice& device) throw(InvalidArgument)
 {
     createLaneMeanData(id, frequency, begins, ends, type, edges, excludeEmpty, device);
@@ -622,45 +622,45 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendly
 }
 
 
-void 
+void
 NLDetectorBuilder::createEdgeMeanData(const std::string &id, SUMOTime frequency,
                                       const std::string &begins, const std::string &ends,
-                                      const std::string &type, 
+                                      const std::string &type,
                                       const std::string &edges, bool excludeEmpty,
                                       OutputDevice& device) throw(InvalidArgument)
 {
     pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-edge");
     MSDetectorFileOutput *det = 0;
-    if(type==""||type=="performance"||type=="traffic") {
-        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(), 
-            timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
-    } else if(type=="hbefa") {
-        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(), 
-            timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
+    if (type==""||type=="performance"||type=="traffic") {
+        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(),
+                                 timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
+    } else if (type=="hbefa") {
+        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
+                                   timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
     }
-    if(det!=0) {
+    if (det!=0) {
         MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
     }
 }
 
 
-void 
+void
 NLDetectorBuilder::createLaneMeanData(const std::string &id, SUMOTime frequency,
                                       const std::string &begins, const std::string &ends,
-                                      const std::string &type, 
+                                      const std::string &type,
                                       const std::string &edges, bool excludeEmpty,
                                       OutputDevice& device) throw(InvalidArgument)
 {
     pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-lane");
     MSDetectorFileOutput *det = 0;
-    if(type==""||type=="performance"||type=="traffic") {
-        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(), 
-            timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
-    } else if(type=="hbefa") {
-        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(), 
-            timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
+    if (type==""||type=="performance"||type=="traffic") {
+        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(),
+                                 timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
+    } else if (type=="hbefa") {
+        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
+                                   timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
     }
-    if(det!=0) {
+    if (det!=0) {
         MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
     }
 }
@@ -670,9 +670,9 @@ std::vector<SUMOTime>
 NLDetectorBuilder::parseTimeList(const std::string &l) throw(EmptyData, NumberFormatException)
 {
     std::vector<SUMOTime> ret;
-    if(l.length()!=0) {
+    if (l.length()!=0) {
         StringTokenizer st(l, ",");
-        while(st.hasNext()) {
+        while (st.hasNext()) {
             ret.push_back(TplConvert<char>::_2int(st.next().c_str()));
         }
     }

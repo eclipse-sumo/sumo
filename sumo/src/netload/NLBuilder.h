@@ -96,9 +96,9 @@ public:
     /** @brief Builds and initialises the simulation
      *
      * At first, the network is loaded and the built using "buildNet".
-     *  If this could be done, additional information is loaded (state dump, 
+     *  If this could be done, additional information is loaded (state dump,
      *  weight files, route files, and additional files).
-     * If everything could be done, true is returned, otherwise false. 
+     * If everything could be done, true is returned, otherwise false.
      *
      * @see buildNet
      * @exception ProcessError If something fails on network building
@@ -124,7 +124,7 @@ protected:
      *
      * @todo Why is the network not a reference?
      */
-class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
+    class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
     {
     public:
         /// @brief Constructor

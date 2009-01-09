@@ -142,7 +142,7 @@ protected:
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
      */
-class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
+    class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
     {
     public:
         /// Constructor
@@ -187,7 +187,7 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloa
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-    class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
+        class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
         {
         public:
             /// Constructor

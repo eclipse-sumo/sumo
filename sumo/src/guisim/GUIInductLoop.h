@@ -79,7 +79,7 @@ public:
      * @class GUIInductLoop::MyWrapper
      * A MSInductLoop-visualiser
      */
-class MyWrapper : public GUIDetectorWrapper
+    class MyWrapper : public GUIDetectorWrapper
     {
     public:
         /// Constructor

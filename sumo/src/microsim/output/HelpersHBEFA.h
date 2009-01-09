@@ -52,7 +52,7 @@ class MSLane;
  * @class HelpersHBEFA
  * @brief Helper methods for HBEFA-based emission computation
  */
-class HelpersHBEFA 
+class HelpersHBEFA
 {
 public:
     static SUMOReal computeCO(SUMOEmissionClass c, double v, double a) throw();

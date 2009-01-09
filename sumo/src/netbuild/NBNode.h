@@ -82,7 +82,7 @@ public:
      * The lanes are spreaded from this middle position both to left and right
      *  but may also be transposed in full when there is not enough space.
      */
-class ApproachingDivider : public Bresenham::BresenhamCallBack
+    class ApproachingDivider : public Bresenham::BresenhamCallBack
     {
     private:
         /// @brief The list of edges that approach the current edge
@@ -112,7 +112,7 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
 
     };
 
-    
+
     /** @enum BasicNodeType
      * @brief Possible node types
      */

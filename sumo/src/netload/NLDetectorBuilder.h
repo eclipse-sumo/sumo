@@ -343,9 +343,9 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void buildEdgeMeanData(const std::string &id, SUMOTime frequency,
-        const std::string &begins, const std::string &ends,
-        const std::string &type, 
-        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
+                           const std::string &begins, const std::string &ends,
+                           const std::string &type,
+                           const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
 
 
     /** @brief Builds lane based mean data collector using the given specification
@@ -366,9 +366,9 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void buildLaneMeanData(const std::string &id, SUMOTime frequency,
-        const std::string &begins, const std::string &ends,
-        const std::string &type, 
-        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
+                           const std::string &begins, const std::string &ends,
+                           const std::string &type,
+                           const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
     /// @}
 
 
@@ -480,9 +480,9 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void createEdgeMeanData(const std::string &id, SUMOTime frequency,
-        const std::string &begins, const std::string &ends,
-        const std::string &type, 
-        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
+                            const std::string &begins, const std::string &ends,
+                            const std::string &type,
+                            const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
 
 
     /** @brief Creates edge based mean data collector using the given specification
@@ -498,9 +498,9 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     void createLaneMeanData(const std::string &id, SUMOTime frequency,
-        const std::string &begins, const std::string &ends,
-        const std::string &type, 
-        const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
+                            const std::string &begins, const std::string &ends,
+                            const std::string &type,
+                            const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
     /// @}
 
 
@@ -667,8 +667,8 @@ protected:
      * @return The converted lists of SUMOTime-begins and -ends
      * @exception InvalidArgument If the given definitions are not correct
      */
-    std::pair<std::vector<SUMOTime>, std::vector<SUMOTime> > getTimeBounds(const std::string &begins, 
-        const std::string &ends, const std::string &id, const std::string &type) throw(InvalidArgument);
+    std::pair<std::vector<SUMOTime>, std::vector<SUMOTime> > getTimeBounds(const std::string &begins,
+            const std::string &ends, const std::string &id, const std::string &type) throw(InvalidArgument);
 
 
 protected:

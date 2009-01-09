@@ -83,7 +83,7 @@ public:
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
-struct VehPosition : public std::binary_function< const MSVehicle*,
+    struct VehPosition : public std::binary_function< const MSVehicle*,
                 SUMOReal, bool > {
         /// compares vehicle position to the detector position
         bool operator()(const MSVehicle* cmp, SUMOReal pos) const {
