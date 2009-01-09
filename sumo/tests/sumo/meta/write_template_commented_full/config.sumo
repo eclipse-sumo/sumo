@@ -138,14 +138,14 @@
 
    </report>
 
-   <traffic_control_interface_(traci)_server>
+   <traci_server>
       <!-- Enables TraCI Server if set -->
       <remote-port>0</remote-port>
 
       <!-- Value in 0..1 [default: 1] -->
       <penetration>1</penetration>
 
-   </traffic_control_interface_(traci)_server>
+   </traci_server>
 
    <c2c>
       <!-- The probability for a vehicle to have c2c -->

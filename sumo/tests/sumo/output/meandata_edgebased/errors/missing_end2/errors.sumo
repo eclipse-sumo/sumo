@@ -1,2 +1,2 @@
-Error: The number of entries in 'begin' differs from the number in 'end' for meandata-lane 'dump_15'.
+Error: The number of entries in 'begin' differs from the number in 'end' for meandata-edge 'dump_15'.
 Quitting (on error).

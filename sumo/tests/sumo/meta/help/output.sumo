@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r6538
+SUMO sumo Version dev-SVN-r6603
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -81,7 +81,7 @@ Usage: sumo.exe [OPTION]*
   -?, --help                          Prints this screen
   -l, --log-file FILE                 Writes all messages to FILE
 
- Traffic Control Interface (TraCI) Server Options:
+ TraCI Server Options:
   --remote-port INT                   Enables TraCI Server if set
   --penetration FLOAT                 Value in 0..1 [default: 1]
 

@@ -58,10 +58,10 @@
       <log-file></log-file>
    </report>
 
-   <traffic_control_interface_(traci)_server>
+   <traci_server>
       <remote-port>0</remote-port>
       <penetration>1</penetration>
-   </traffic_control_interface_(traci)_server>
+   </traci_server>
 
    <c2c>
       <device.c2x.probability>0</device.c2x.probability>
