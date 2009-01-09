@@ -4818,7 +4818,7 @@
           <replaceable>&lt;SUMO_DIST&gt;</replaceable><filename>/tools/routecheck.py</filename>.</para>
         </sect3>
 
-        <sect3 id="user_chp05-explicite-hand" revision="0.9.5">
+        <sect3 id="user_chp05-distributions" revision="0.10.0">
           <title>Route and vehicle type distributions</title>
 
           <para>Instead of defining routes and vtypes explicitly SUMO can
