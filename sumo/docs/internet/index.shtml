@@ -73,19 +73,19 @@
 <p><b>"Simulation of Urban MObility"</b> (SUMO) is an open source, highly portable, microscopic road traffic simulation package designed to handle large road networks.</p>
 <p>It is developed by employees of the Centre for Applied Informatics (ZAIK) and the Institute of Transport Research at the German Aerospace Centre.</p>
 <p>You may find the application and some examples within the <a class="SUMOInLineLink" href="downloads/downloads.shtml">download</a>-section.</p>
-<p>We kindly ask you to participate in any way - ask questions, report bugs, tell your needs. Please use the mailing lists (see <a class="SUMOInLineLink" href="https://apps.sourceforge.net/mediawiki/sumo/index.php?title=Contact">Contact</a>) to exchange problems or ideas.</p>
-<p>Help and documentation can be found within our <a class="SUMOInLineLink" href="https://apps.sourceforge.net/mediawiki/sumo/index.php?title=Main_Page">wiki</a>. This will incrementally replace the current <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/documentation.shtml">documentation section</a>.</p>
+<p>We kindly ask you to participate in any way - ask questions, report bugs, tell your needs. Please use the mailing lists (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Contact">Contact</a>) to exchange problems or ideas.</p>
+<p>Help and documentation can be found within our <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Main_Page">wiki</a>. This will incrementally replace the current <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/documentation.shtml">documentation section</a>.</p>
 
 
 <hr class="thin"/>
 
 <p><b>News</b><br>
 <!-- 0 --> 09.01.2009: version 0.10.0 released<br/>
-<!-- 0 --> 16.09.2008: version 0.9.10 released<br/>
-<!-- 1 --> 05.08.2008: version 0.9.9 released<br/>
-<!-- 2 --> 07.02.2008: version 0.9.8 released<br/>
-<!-- 3 --> 18.11.2007: version 0.9.7 released<br/>
-<!-- 4 --> 23.05.2007: version 0.9.6 released<br/>
+<!-- 1 --> 16.09.2008: version 0.9.10 released<br/>
+<!-- 2 --> 05.08.2008: version 0.9.9 released<br/>
+<!-- 3 --> 07.02.2008: version 0.9.8 released<br/>
+<!-- 4 --> 18.11.2007: version 0.9.7 released<br/>
+<!-- 5 --> 23.05.2007: version 0.9.6 released<br/>
 </p>
 
 <hr class="thin"/>

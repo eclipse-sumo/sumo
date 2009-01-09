@@ -20,13 +20,13 @@ RewriteCond	%{REQUEST_URI}	^/contact.shtml
 RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Contact
 
 RewriteCond	%{REQUEST_URI}	^/downloads/downloads.shtml
-RewriteRule	.*	https://apps.sourceforge.net/mediawiki/sumo/index.php?title=Downloads
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Downloads
 
 RewriteCond	%{REQUEST_URI}	^/screenshots.shtml
-RewriteRule	.*	https://apps.sourceforge.net/mediawiki/sumo/index.php?title=Screenshots
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Screenshots
 
 RewriteCond	%{REQUEST_URI}	^/overview.shtml
-RewriteRule	.*	https://apps.sourceforge.net/mediawiki/sumo/index.php?title=Main_Page
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Main_Page
 
 RewriteCond	%{REQUEST_URI}	^/docs/gen/sumo_howto_building.shtml
-RewriteRule	.*	https://apps.sourceforge.net/mediawiki/sumo/index.php?title=DeveloperDocumentation
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=DeveloperDocumentation
