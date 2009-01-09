@@ -64,7 +64,7 @@
 
       <para><itemizedlist spacing="compact">
           <listitem>
-            <para>High portability (using standard - c++ and portable
+            <para>High portability (using standard - C++ and portable
             libraries only)</para>
           </listitem>
 
@@ -110,8 +110,8 @@
           </listitem>
 
           <listitem>
-            <para>Supports import of many network formats (Visum, Vissim,
-            ArcView, XML-Descriptions)</para>
+            <para>Supports import of many network formats (OpenStreetMap,
+            Visum, Vissim, ArcView, XML-Descriptions)</para>
           </listitem>
         </itemizedlist></para>
     </sect1>
@@ -3669,34 +3669,33 @@
       </sect2>
 
       <sect2 id="user_chp04-further_options-internal_lanes" revision="0.9.5">
-        <title>Adding inner-junction Traffic</title>
+        <title>Inner-junction Traffic</title>
 
         <para>If you already know <application>SUMO</application> or if you
         have taken a look at some of the examples you may have noticed that
-        vehicles "jump" over a junction instead of driving over them. This
-        behaviour was quite appropriate for simulating large scenarios as in
-        these cases the simulation error could be neglected (at least we have
-        neglected it). Since version 0.9.5 <application>SUMO</application> is
-        capable to simulate traffic over the junctions in a way you know it
-        from reality. Because inserting inner lanes into a network
-        dramatically increases the network's size, junction-internal lanes are
-        not build by default. You can allow their building using the option
-        <option>--add-internal-links</option> (or <option>-I</option> for
-        short).</para>
+        vehicles used to "jump" over a junction instead of driving over them.
+        This behaviour was quite appropriate for simulating large scenarios as
+        in these cases the simulation error could be neglected (at least we
+        have neglected it). Since version 0.10.0
+        <application>SUMO</application> will by default simulate traffic over
+        the junctions in a way you know it from reality. Because inserting
+        inner lanes into a network dramatically increases the network's size,
+        you may want to return to the old behavior using the option
+        <option>--no-internal-links</option>.</para>
 
         <note>
-          <para>Please note that you also have to enable the usage of internal
-          lanes within the simulation.</para>
+          <para>Please note that you also have to disable the usage of
+          internal lanes within the simulation.</para>
         </note>
 
         <para>Specific Options:</para>
 
         <variablelist>
           <varlistentry>
-            <term>( --add-internal-links | -I )</term>
+            <term>( --no-internal-links)</term>
 
             <listitem>
-              <para>Enables building of junction-internal lanes.
+              <para>Disables building of junction-internal lanes.
               <remark>Optional, type:bool, default: false</remark></para>
             </listitem>
           </varlistentry>
@@ -3704,15 +3703,15 @@
 
         <para>Examples:</para>
 
-        <para>Meanwhile all of the examples included in the distribution are
-        build with this option set.</para>
+        <para>Meanwhile all of the examples included in the distribution have
+        internal lanes.</para>
 
         <para>Recent changes:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
-            <para>Inner-junction traffic was revalidated for version
-            0.9.5</para>
+            <para>Inner-junction traffic was made default for version
+            0.10.0.</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -4700,7 +4699,7 @@
    <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
 
    <sgmltag>&lt;vehicle id="0" type="type1" depart="0" color="1,0,0"&gt;</sgmltag>
-      <sgmltag>&lt;route&gt;beg middle end rend&lt;/route&gt;</sgmltag>
+      <sgmltag>&lt;route edges="beg middle end rend"/&gt;</sgmltag>
    <sgmltag>&lt;/vehicle&gt;</sgmltag>
 
 <sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
@@ -4748,7 +4747,7 @@
           <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
    <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
 
-   <sgmltag>&lt;route id="route0" color="1,1,0"&gt;beg middle end rend&lt;/route&gt;</sgmltag>
+   <sgmltag>&lt;route id="route0" color="1,1,0" edges="beg middle end rend"/&gt;</sgmltag>
 
    <sgmltag>&lt;vehicle id="0" type="type1" route="route0" depart="0" color="1,0,0"/&gt;</sgmltag>
    <sgmltag>&lt;vehicle id="1" type="type1" route="route0" depart="0" color="0,1,0"/&gt;</sgmltag>
@@ -4762,6 +4761,12 @@
             <listitem>
               <para><sgmltag>id</sgmltag>: A string holding the id of the
               route</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>edges</sgmltag>: A space spearated list of edge
+              ids forming the route (the old style of defining the edges
+              inside route brackets is considered deprecated)</para>
             </listitem>
 
             <listitem>
@@ -4790,7 +4795,8 @@
                 <para><emphasis>Routes have to contain at least two
                 edges.</emphasis> The simulation stops the car at the start of
                 the last edge, thus a route consisting of a single edge is
-                empty.</para>
+                empty. This is likely to change in future versions of
+                SUMO.</para>
               </listitem>
 
               <listitem>
@@ -4818,6 +4824,41 @@
 
           <para>The first three conditions can be checked using
           <replaceable>&lt;SUMO_DIST&gt;</replaceable><filename>/tools/routecheck.py</filename>.</para>
+        </sect3>
+
+        <sect3 id="user_chp05-explicite-hand" revision="0.9.5">
+          <title>Route and vehicle type distributions</title>
+
+          <para>Instead of defining routes and vtypes explicitly SUMO can
+          choose them at runtime from a given distribution. In order to use
+          this feature just define distributions as following:</para>
+
+          <programlisting><sgmltag>&lt;routes&gt;
+</sgmltag><sgmltag>   &lt;vtypeDistribution id="typedist1"&gt;</sgmltag>
+      <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70" probability="0.9"/&gt;</sgmltag>
+      <sgmltag>&lt;vtype id="type2" accel="1.8" decel="4.5" sigma="0.5" length="15" maxspeed="50" probability="0.1"/&gt;</sgmltag>
+<sgmltag>   &lt;/vtypeDistribution&gt;
+</sgmltag><sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
+
+          <programlisting><sgmltag>&lt;routes&gt;
+</sgmltag><sgmltag>   &lt;routeDistribution id="routedist1"&gt;</sgmltag>
+      <sgmltag>&lt;route id="route0" color="1,1,0" edges="beg middle end rend" probability="0.9"/&gt;</sgmltag>
+<sgmltag>      &lt;route id="route1" color="1,2,0" edges="beg middle end" probability="0.1"/&gt;</sgmltag>
+<sgmltag>   &lt;/routeDistribution&gt;
+</sgmltag><sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
+
+          <para>A distribution has only an id as (mandatory) attribute and
+          needs a probability attribute for each of its child elements. The
+          sum of the probability values needs not to be 1, they are scaled
+          accordingly. At the moment the id for the childs is mandatory, this
+          is likely to change in future versions.</para>
+
+          <para>Now you can use distribution just as you would use individual
+          types and routes:</para>
+
+          <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
+   <sgmltag>&lt;vehicle id="0" type="typedist1" route="routedist1" depart="0" color="1,0,0"/&gt;</sgmltag>
+<sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
         </sect3>
 
         <sect3 id="user_chp05-explicite-trips">
@@ -6019,19 +6060,15 @@
       </itemizedlist>
 
       <sect2 id="user_chp05-dua-iterate" revision="0.9.6">
-        <title>Automatic Iteration using 'dua-iterate.pl'</title>
+        <title>Automatic Iteration using 'dua-iterate.py'</title>
 
-        <para>"<command>dua-iterate.pl</command>" helps you to perform the
+        <para>"<command>dua-iterate.py</command>" helps you to perform the
         computation of a dynamic user assignment. The script needs at least
         two parameter: the path to the folder where your SUMO-binaries are
         located and the number of iteration steps to perform. When started
         with these two options, the script computes the given number of
-        dua-steps. As input two files have to be located in the same folder as
-        the script: a SUMO-network named "<filename>net.net.xml</filename>"
-        and a set of trip definitions named
-        "<filename>trips.trips.xml</filename>". if you want to start with
-        another routes definition, you have to change this within the script's
-        source code.</para>
+        dua-steps. At least two files have to be given as input the script: a
+        SUMO-network and a set of trip definitions.</para>
 
         <para>Within each iteration step, the script generates a configuration
         file for the <application>DUAROUTER</application> and starts
@@ -6048,43 +6085,15 @@
         because this is read by the <application>DUAROUTER</application> in
         the next iteration steps in order to compute the DUA.</para>
 
-        <para>When started with a third parameter, the second parameter given
-        will be interpreted as the start iteration step and the third as the
-        end iteration step.</para>
-
         <para>This useful script is located in
-        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools/</filename>.</para>
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/assign/</filename>.</para>
+
+        <para>For further options to the script look either at the source code
+        or start it with the "--help" option.</para>
 
         <para>Synopsis:</para>
 
-        <screen>dua-iterate.pl <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;</replaceable> <optional>[<replaceable>&lt;BEGIN_ITERATION_STEP&gt;</replaceable>]</optional> <replaceable>&lt;END_ITERATION_STEP&gt;</replaceable></screen>
-
-        <sect3 id="user_chp05-dua-iterate-printProgress" revision="0.9.6">
-          <title>Tracking the progress online using "printProgress.pl"</title>
-
-          <para>printProgress.pl is a small script which, started in the
-          folder the dua-iterate.pl - iteration takes place - shows how many
-          vehicles were running at the end of the simulation. This helps to
-          see how good the current assignment is (see also "<ulink
-          url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_dua.shtml">More
-          On... Dynamic User Assignment</ulink>").</para>
-
-          <para>This script is located in
-          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools/</filename>.</para>
-
-          <para>Synopsis:</para>
-
-          <screen>printProgress.pl</screen>
-
-          <para>Recent changes:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para><command>printProgress.pl</command> is a part of the
-              distribution since version 0.9.6.</para>
-            </listitem>
-          </itemizedlist>
-        </sect3>
+        <screen>dua-iterate.py -n <replaceable>&lt;PATH_TO_SUMO_NET&gt;</replaceable> -t <replaceable>&lt;PATH_TO_TRIPS&gt;</replaceable></screen>
       </sect2>
     </sect1>
 
@@ -8894,18 +8903,18 @@ myDet1;0;10;2;100;80
 
         <para>The generated file look like this:</para>
 
-        <programlisting><sgmltag>&lt;vehicleroutes&gt;</sgmltag>
-   <sgmltag>&lt;vehicle id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" emitedAt="<replaceable>&lt;EMISSION_TIME&gt;</replaceable>" endedAt="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>"&gt;</sgmltag>
-      <sgmltag>&lt;route replacedOnEdge="<replaceable>&lt;EDGE_ID&gt;</replaceable>" replacedAtTime="<replaceable>&lt;TIME&gt;</replaceable>"&gt;<replaceable>&lt;PREVIOUS_ROUTE&gt;</replaceable>&lt;/route&gt;</sgmltag>
+        <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
+   <sgmltag>&lt;vehicle id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" depart="<replaceable>&lt;EMISSION_TIME&gt;</replaceable>" arrival="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>"&gt;</sgmltag>
+      <sgmltag>&lt;route replacedOnEdge="<replaceable>&lt;EDGE_ID&gt;</replaceable>" replacedAtTime="<replaceable>&lt;TIME&gt;</replaceable>" edges="<replaceable>&lt;PREVIOUS_ROUTE&gt;"</replaceable>/&gt;</sgmltag>
 
       ... further replaced routes ...
 
-     <sgmltag> &lt;route&gt;<replaceable>&lt;LAST_ROUTE&gt;</replaceable>&lt;/route&gt;</sgmltag>
+     <sgmltag> &lt;route edges="<replaceable>&lt;LAST_ROUTE&gt;"</replaceable>/&gt;</sgmltag>
    <sgmltag>&lt;/vehicle&gt;</sgmltag>
 
 <sgmltag>   ... information about further vehicles ...
 
-&lt;/tripinfos&gt;</sgmltag></programlisting>
+&lt;/routes&gt;</sgmltag></programlisting>
 
         <para>The values have the following meanings:</para>
 
@@ -8916,12 +8925,12 @@ myDet1;0;10;2;100;80
           </listitem>
 
           <listitem>
-            <para><sgmltag>emitedAt</sgmltag>: The time the vehicle was
-            emitted into the network)</para>
+            <para><sgmltag>depart</sgmltag>: The time the vehicle was emitted
+            into the network)</para>
           </listitem>
 
           <listitem>
-            <para><sgmltag>endedAt</sgmltag>: The time the vehicle was removed
+            <para><sgmltag>arrival</sgmltag>: The time the vehicle was removed
             from the simulation (due to arriving at the route end)</para>
           </listitem>
 
@@ -8990,6 +8999,11 @@ myDet1;0;10;2;100;80
           <listitem>
             <para>This output was finally finished and validated for version
             0.9.3</para>
+          </listitem>
+
+          <listitem>
+            <para>The format was changed to fit a normal route file more
+            closely in 0.10.0</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -9361,6 +9375,11 @@ myDet1;0;10;2;100;80
           <listitem>
             <para>The attribute vehtype was renamed to type while working on
             version 0.9.9</para>
+          </listitem>
+
+          <listitem>
+            <para>Emitters are considered deprecated since version
+            0.10.0</para>
           </listitem>
         </itemizedlist>
 
@@ -9938,8 +9957,7 @@ myDet1;0;10;2;100;80
             color="1,1,0"/&gt;</sgmltag>
 
     <sgmltag>&lt;vehicle id="0" type="BUS" depart="0" color="1,1,0"&gt;</sgmltag>
-        <sgmltag>&lt;route&gt;2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0
-                              2/0to2/1&lt;/route&gt;</sgmltag>
+        <sgmltag>&lt;route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"/&gt;</sgmltag>
         <sgmltag>&lt;stop bus_stop="busstop1" duration="20"/&gt;</sgmltag>
         <sgmltag>&lt;stop bus_stop="busstop2" duration="20"/&gt;</sgmltag>
         <sgmltag>&lt;stop bus_stop="busstop3" duration="20"/&gt;</sgmltag>
@@ -10663,7 +10681,7 @@ myDet1;0;10;2;100;80
 
       <para>--no-duration-log</para>
 
-      <para>loading &amp; saving of states</para>
+      <para>--no-internal-links</para>
 
       <para>--time-to-teleport</para>
     </sect1>
