@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 13:15:08 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 01/08/09 10:35:02 by SUMO netconvert Version dev-SVN-r6564
 <configuration>
 
    <input>
@@ -11,10 +11,6 @@
    <output>
       <output-file>straight1.net.xml</output-file>
    </output>
-
-   <processing>
-      <add-internal-links>true</add-internal-links>
-   </processing>
 
    <report>
       <verbose>true</verbose>
@@ -102,8 +98,6 @@
       </lanes>
    </edge>
 
-
-   <node_count>14</node_count>
 
 
    <edge id="0" from="a0" to="a1" priority="-1" type="" function="normal">
