@@ -78,7 +78,7 @@ MSFrame::fillOptions()
     oc.addOptionSubTopic("TLS Defaults");
     oc.addOptionSubTopic("Report");
 #ifndef NO_TRACI
-    oc.addOptionSubTopic("Traffic Control Interface (TraCI) Server");
+    oc.addOptionSubTopic("TraCI Server");
 #endif // TRACI
 #ifdef HAVE_MESOSIM
     oc.addOptionSubTopic("Mesoscopic");
