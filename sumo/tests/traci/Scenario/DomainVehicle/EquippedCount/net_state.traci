@@ -12,10 +12,10 @@
       <netstate-dump>netstate_dump.xml</netstate-dump>
    </output>
 
-   <traffic_control_interface_(traci)_server>
+   <traci_server>
       <remote-port>8861</remote-port>
       <penetration>1</penetration>
-   </traffic_control_interface_(traci)_server>
+   </traci_server>
 
 </configuration>
 -->

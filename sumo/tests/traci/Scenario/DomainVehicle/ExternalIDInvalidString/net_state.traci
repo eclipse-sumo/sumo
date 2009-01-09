@@ -16,10 +16,10 @@
       <no-step-log>true</no-step-log>
    </processing>
 
-   <traffic_control_interface_(traci)_server>
+   <traci_server>
       <remote-port>8860</remote-port>
       <penetration>1</penetration>
-   </traffic_control_interface_(traci)_server>
+   </traci_server>
 
 </configuration>
 -->

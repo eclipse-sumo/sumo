@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/12/08 16:04:53 by SUMO sumo Version dev-SVN-r6410
+<!-- generated on 01/09/09 17:34:40 by SUMO sumo Version dev-SVN-r6603
 <configuration>
 
    <input>
@@ -16,10 +16,10 @@
       <no-step-log>true</no-step-log>
    </processing>
 
-   <traffic_control_interface_(traci)_server>
+   <traci_server>
       <remote-port>8801</remote-port>
       <penetration>1</penetration>
-   </traffic_control_interface_(traci)_server>
+   </traci_server>
 
 </configuration>
 -->
