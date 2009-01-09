@@ -31,8 +31,10 @@ BREAK_DELAY = 1200
 
 PORT = 8813
 if os.name == "posix":
+    NETCONVERT = "../../../src/sumo-netconvert"
     SUMO = "../../../src/sumo"
     SUMOGUI = "../../../src/sumo-guisim"
 else:
+    NETCONVERT = "..\\..\\..\\bin\\netconvert"
     SUMO = "..\\..\\..\\bin\\sumo"
     SUMOGUI = "..\\..\\..\\bin\\guisim"

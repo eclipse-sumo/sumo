@@ -10,8 +10,6 @@ Collecting statistics for the CityMobil parking lot
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import numpy, math
-
 persons = {}
 personsRunning = 0
 
@@ -38,6 +36,7 @@ def personUnloaded(personID, step):
     personsRunning -= 1
 
 def evaluate():
+    import numpy, math
     waitTimes = []
     routeTimes = {}
     for person in persons.itervalues():

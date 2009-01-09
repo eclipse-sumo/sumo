@@ -151,7 +151,7 @@ edges.close()
 print >> connections, "</connections>"
 connections.close()
 
-os.system("netconvert -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" % (PREFIX, PREFIX, PREFIX, PREFIX))
+os.system("%s -n %s.nod.xml -e %s.edg.xml -x %s.con.xml -o %s.net.xml" % (NETCONVERT, PREFIX, PREFIX, PREFIX, PREFIX))
 
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
 print >> routes, """    <vehicle id="b" type="cybercar" depart="0" period="100" repno="%s" arrivalpos="10000">
