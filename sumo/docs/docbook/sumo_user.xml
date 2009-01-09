@@ -9,20 +9,12 @@
       <firstname>Daniel</firstname>
 
       <surname>Krajzewicz</surname>
-
-      <affiliation>
-        <address><email>Daniel.Krajzewicz@dlr.de</email></address>
-      </affiliation>
     </author>
 
     <author>
-      <firstname>Christian</firstname>
+      <firstname>Michael</firstname>
 
-      <surname>Rössel</surname>
-
-      <affiliation>
-        <address><email>christian.roessel@dlr.de</email></address>
-      </affiliation>
+      <surname>Behrisch</surname>
     </author>
 
     <releaseinfo>$Revision$</releaseinfo>
@@ -6929,7 +6921,8 @@ myDet1;0;10;2;100;80
         <sect3 id="user_chp06-output-detectors-e1">
           <title>E1-Detectors (Induction Loops)</title>
 
-          <para>An induction loop is defined this way:</para>
+          <para>An induction loop is defined this way within an additional
+          file:</para>
 
           <programlisting><sgmltag>&lt;e1-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
    freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
@@ -7135,7 +7128,8 @@ myDet1;0;10;2;100;80
         <sect3 id="user_chp06-output-detectors-e2">
           <title>E2-Detectors (Areal, lane-based Detectors)</title>
 
-          <para>An e2-detector is defined the following way:</para>
+          <para>An e2-detector is defined the following way within an
+          additional file:</para>
 
           <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
    length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" 
@@ -8157,28 +8151,34 @@ myDet1;0;10;2;100;80
             <para>Furthermore, computation of the density and the occupancy
             has been debugged for version 0.9.5.</para>
           </listitem>
+
+          <listitem>
+            <para>Since version 0.10.0, edge/lane states are defined within
+            additional files.</para>
+          </listitem>
         </itemizedlist>
 
         <sect3 id="user_chp06-output-edgelanedump-edges">
           <title>Edge-Based Network States</title>
 
-          <para>To force SUMO to generate edge-based state dumps, you have to
-          use two command line options: a) <option>--dump-basename
-          <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option>
-          describes where to write the dumps to and how the begin of the file
-          name is, b) <option>--dump-intervals
-          <replaceable>&lt;INTERVAL&gt;</replaceable>[,<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>
-          describes over what time the values shall be collected and
-          aggregated ("interval length"). Each aggregation interval is written
-          into an own, single file. The file name is made up from the base
-          name and the aggregation interval:
-          <filename><replaceable>&lt;FILENAME&gt;</replaceable> =
-          <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable>_<replaceable>&lt;INTERVAL&gt;</replaceable>.xml</filename>.
-          An example: <option>--dump-basename=./output/lanedump
-          --dump-intervals=300,600</option> will build two files:
-          <filename>./output/lanedump_300.xml</filename> and
-          <filename>./output/lanedump_600.xml</filename>. For edge-based state
-          dumps, the output file will look like the following:</para>
+          <para>An edge-based state dump is defined this way:</para>
+
+          <programlisting><sgmltag>&lt;meandata-edge id="&lt;DETECTOR_ID&gt;" freq="&lt;FREQUENCY&gt;" file="&lt;OUTPUT_FILE&gt;" \
+   excludeEmpty="true"/&gt;</sgmltag></programlisting>
+
+          <para>The "<sgmltag>id</sgmltag>" is any string by which you can
+          name the detector. The "<sgmltag>freq</sgmltag>"-attribute describes
+          the period over which collected values shalle be aggregated. The
+          "<sgmltag>file</sgmltag>" attribute tells the simulation to which
+          file the detector shall write his results into. The file will be
+          generated, does not have to exist earlier and will be overwritten if
+          existing without any warning. The folder the output file shall be
+          generated in must exist. If "<sgmltag>excludeEmpty</sgmltag>" is set
+          to true, no information aboute edges where no vehicle drove is
+          written.</para>
+
+          <para>For edge-based state dumps, the output file will look like the
+          following:</para>
 
           <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
@@ -8216,12 +8216,13 @@ myDet1;0;10;2;100;80
         <sect3 id="user_chp06-output-edgelanedump-lanes">
           <title>Lane-Based Network States</title>
 
-          <para>Lane-dumps are generated analogous to edge-dumps using the
-          options <option>--lanedump-basename
-          <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option> and
-          <option>--lanedump-intervals
-          <replaceable>&lt;INTERVAL&gt;</replaceable>[,<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>.
-          The generated output looks like the following:</para>
+          <para>A lane-based state dump is defined analogous to
+          edge-dumps:</para>
+
+          <programlisting><sgmltag>&lt;meandata-lane id="&lt;DETECTOR_ID&gt;" freq="&lt;FREQUENCY&gt;" file="&lt;OUTPUT_FILE&gt;" \
+   excludeEmpty="true"/&gt;</sgmltag></programlisting>
+
+          <para>The generated output looks like the following:</para>
 
           <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
@@ -8417,26 +8418,18 @@ myDet1;0;10;2;100;80
           <title>Constraining the State Outputs</title>
 
           <para>If you need only information about the network states during
-          certain time periods, you may constraint generation of the dumps
-          using the options <option>--dump-begins
-          <replaceable>&lt;TIME&gt;[,&lt;TIME&gt;]+</replaceable></option> and
-          <option>--dump-ends
-          <replaceable>&lt;TIME&gt;[,&lt;TIME&gt;]+</replaceable></option>.
+          certain time periods, you may constraint generation of the dumps by
+          giving attributes
+          "<sgmltag>begin="<replaceable>&lt;TIME&gt;[,&lt;TIME&gt;]+</replaceable>"</sgmltag>"
+          and
+          "<sgmltag>end="<replaceable>&lt;TIME&gt;[,&lt;TIME&gt;]+</replaceable>"</sgmltag>".
           When at least one combination is given, dumps will be written only
           if an according begin/end-pair exists for the current time. This
           means, only those intervals will be saved for which
-          dump-begins[x]&lt;=INTERVAL_END and dump-ends[x]&gt;=INTERVAL_BEGIN.
-          All dumps will cover the complete simulation if the options
-          <option>--dump-begins</option> and <option>--dump-ends</option> are
-          not set.</para>
-
-          <para>Normally, dumps also include information about streets/lanes
-          that were not used within the interval. Values for speed and
-          traveltime are in this case computed using the edges'/lanes' default
-          maximum speed. You can force to include only edges/lanes that were
-          occupied by vehicles using the options
-          <option>--exclude-empty-edges</option> and
-          <option>--exclude-empty-lanes</option>.</para>
+          <sgmltag>begin</sgmltag>[x]&lt;=INTERVAL_END and
+          <sgmltag>end</sgmltag>[x]&gt;=INTERVAL_BEGIN. All dumps will cover
+          the complete simulation if no values for
+          <sgmltag>begin</sgmltag>/<sgmltag>end</sgmltag> are given..</para>
         </sect3>
 
         <sect3 id="user_chp06-output-edgelanedump-misc">
@@ -8460,12 +8453,6 @@ myDet1;0;10;2;100;80
             <listitem>
               <para>The values have been revisited and partially changed for
               version 0.9.9</para>
-            </listitem>
-
-            <listitem>
-              <para>The options <option>--exclude-empty-edges</option> and
-              <option>--exclude-empty-lanes</option> were added in version
-              0.9.9</para>
             </listitem>
           </itemizedlist>
         </sect3>
