@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 08:52:42 by SUMO duarouter Version 0.9.7
+<!-- generated on 01/09/09 12:58:30 by SUMO duarouter Version dev-SVN-r6586
 <configuration>
 
    <input>
@@ -21,6 +21,6 @@
 
 <routes>
    <vehicle id="0" depart="0" repno="100" period="0">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
 </routes>

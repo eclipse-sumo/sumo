@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 08:52:42 by SUMO duarouter Version 0.9.7
+<!-- generated on 01/09/09 12:58:30 by SUMO duarouter Version dev-SVN-r6586
 <configuration>
 
    <input>
@@ -21,303 +21,303 @@
 
 <routes>
    <vehicle id="0_0" depart="0">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_1" depart="2">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_2" depart="4">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_3" depart="6">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_4" depart="8">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_5" depart="10">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_6" depart="12">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_7" depart="14">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_8" depart="16">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_9" depart="18">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_10" depart="20">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_11" depart="22">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_12" depart="24">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_13" depart="26">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_14" depart="28">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_15" depart="30">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_16" depart="32">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_17" depart="34">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_18" depart="36">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_19" depart="38">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_20" depart="40">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_21" depart="42">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_22" depart="44">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_23" depart="46">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_24" depart="48">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_25" depart="50">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_26" depart="52">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_27" depart="54">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_28" depart="56">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_29" depart="58">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_30" depart="60">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_31" depart="62">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_32" depart="64">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_33" depart="66">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_34" depart="68">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_35" depart="70">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_36" depart="72">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_37" depart="74">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_38" depart="76">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_39" depart="78">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_40" depart="80">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_41" depart="82">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_42" depart="84">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_43" depart="86">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_44" depart="88">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_45" depart="90">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_46" depart="92">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_47" depart="94">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_48" depart="96">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_49" depart="98">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_50" depart="100">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_51" depart="102">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_52" depart="104">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_53" depart="106">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_54" depart="108">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_55" depart="110">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_56" depart="112">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_57" depart="114">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_58" depart="116">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_59" depart="118">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_60" depart="120">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_61" depart="122">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_62" depart="124">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_63" depart="126">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_64" depart="128">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_65" depart="130">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_66" depart="132">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_67" depart="134">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_68" depart="136">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_69" depart="138">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_70" depart="140">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_71" depart="142">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_72" depart="144">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_73" depart="146">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_74" depart="148">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_75" depart="150">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_76" depart="152">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_77" depart="154">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_78" depart="156">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_79" depart="158">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_80" depart="160">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_81" depart="162">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_82" depart="164">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_83" depart="166">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_84" depart="168">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_85" depart="170">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_86" depart="172">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_87" depart="174">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_88" depart="176">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_89" depart="178">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_90" depart="180">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_91" depart="182">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_92" depart="184">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_93" depart="186">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_94" depart="188">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_95" depart="190">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_96" depart="192">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_97" depart="194">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_98" depart="196">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
    <vehicle id="0_99" depart="198">
-      <route>beg middle1 middle2 end rend</route>
+      <route edges="beg middle1 middle2 end rend"/>
    </vehicle>
 </routes>

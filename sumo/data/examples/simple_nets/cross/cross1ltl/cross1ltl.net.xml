@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 13:15:17 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 01/09/09 12:58:25 by SUMO netconvert Version dev-SVN-r6586
 <configuration>
 
    <input>
@@ -11,10 +11,6 @@
    <output>
       <output-file>cross1ltl.net.xml</output-file>
    </output>
-
-   <processing>
-      <add-internal-links>true</add-internal-links>
-   </processing>
 
    <report>
       <verbose>true</verbose>
@@ -198,8 +194,6 @@
       </lanes>
    </edge>
 
-
-   <node_count>5</node_count>
 
 
    <edge id="1i" from="1" to="0" priority="78" type="" function="normal">

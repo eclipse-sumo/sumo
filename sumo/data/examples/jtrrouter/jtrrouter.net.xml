@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 13:14:52 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 01/09/09 12:57:51 by SUMO netconvert Version dev-SVN-r6586
 <configuration>
 
    <input>
@@ -11,10 +11,6 @@
    <output>
       <output-file>jtrrouter.net.xml</output-file>
    </output>
-
-   <processing>
-      <add-internal-links>true</add-internal-links>
-   </processing>
 
    <report>
       <verbose>true</verbose>
@@ -378,8 +374,6 @@
       </lanes>
    </edge>
 
-
-   <node_count>8</node_count>
 
 
    <edge id="-beg" from="beg" to="absBeg" priority="-1" type="" function="normal">

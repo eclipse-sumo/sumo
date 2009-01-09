@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 13:14:51 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 01/09/09 12:57:48 by SUMO netconvert Version dev-SVN-r6586
 <configuration>
 
    <input>
@@ -11,10 +11,6 @@
    <output>
       <output-file>vss1.net.xml</output-file>
    </output>
-
-   <processing>
-      <add-internal-links>true</add-internal-links>
-   </processing>
 
    <report>
       <verbose>true</verbose>
@@ -78,8 +74,6 @@
       </lanes>
    </edge>
 
-
-   <node_count>10</node_count>
 
 
    <edge id="beg" from="absBeg" to="beg" priority="-1" type="" function="normal">
@@ -163,7 +157,7 @@
       <lanenumber>2</lanenumber>
       <logic>
          <logicitem request="0" response="00" foes="10" cont="0"/>
-         <logicitem request="1" response="00" foes="01" cont="0"/>
+         <logicitem request="1" response="01" foes="01" cont="0"/>
       </logic>
    </row-logic>
 

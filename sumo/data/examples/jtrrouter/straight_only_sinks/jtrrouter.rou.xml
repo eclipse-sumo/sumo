@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 08:52:42 by SUMO jtrrouter Version 0.9.7
+<!-- generated on 01/09/09 12:58:31 by SUMO jtrrouter Version dev-SVN-r6586
 <configuration>
 
    <input>
@@ -27,33 +27,33 @@
 
 <routes>
    <vehicle id="0_0" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_1" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_2" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_3" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_4" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_5" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_6" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_7" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_8" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
    <vehicle id="0_9" depart="0">
-      <route>beg middle end</route>
+      <route edges="beg middle end"/>
    </vehicle>
 </routes>

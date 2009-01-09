@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 13:14:49 by SUMO netgen Version dev-SVN-r5964
+<!-- generated on 01/09/09 12:57:33 by SUMO netgen Version dev-SVN-r6586
 <configuration>
 
    <grid_network>
@@ -14,10 +14,6 @@
    <output>
       <output-file>busses1.net.xml</output-file>
    </output>
-
-   <processing>
-      <add-internal-links>true</add-internal-links>
-   </processing>
 
    <building_defaults>
       <default-junction-type>actuated</default-junction-type>
@@ -662,8 +658,6 @@
    </edge>
 
 
-   <node_count>9</node_count>
-
 
    <edge id="0/0to0/1" from="0/0" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
@@ -951,59 +945,51 @@
    </row-logic>
 
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>0/0</key>
       <subkey>0</subkey>
-      <phaseno>4</phaseno>
+      <phaseno>2</phaseno>
       <offset>0</offset>
       <phase duration="31" phase="1111" brake="1010" yellow="0000"/>
-      <phase duration="4" phase="1010" brake="1111" yellow="0101"/>
-      <phase duration="6" phase="1010" brake="0101" yellow="0000"/>
-      <phase duration="4" phase="0000" brake="1111" yellow="1010"/>
+      <phase duration="4" phase="0000" brake="1111" yellow="1111"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>0/1</key>
       <subkey>0</subkey>
-      <phaseno>8</phaseno>
+      <phaseno>6</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="001111111" brake="110110110" yellow="000000000"/>
-      <phase duration="4" phase="000110110" brake="111111111" yellow="001001001"/>
-      <phase duration="6" phase="000110110" brake="111001001" yellow="000000000"/>
-      <phase duration="4" phase="000000000" brake="111111111" yellow="000110110"/>
       <phase duration="31" phase="111000111" brake="100111110" yellow="000000000"/>
       <phase duration="4" phase="100000110" brake="111111111" yellow="011000001"/>
       <phase duration="6" phase="100000110" brake="011111001" yellow="000000000"/>
       <phase duration="4" phase="000000000" brake="111111111" yellow="100000110"/>
+      <phase duration="31" phase="001111000" brake="110100111" yellow="000000000"/>
+      <phase duration="4" phase="000000000" brake="111111111" yellow="001111000"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>0/2</key>
       <subkey>0</subkey>
-      <phaseno>4</phaseno>
+      <phaseno>2</phaseno>
       <offset>0</offset>
       <phase duration="31" phase="1111" brake="1010" yellow="0000"/>
-      <phase duration="4" phase="1010" brake="1111" yellow="0101"/>
-      <phase duration="6" phase="1010" brake="0101" yellow="0000"/>
-      <phase duration="4" phase="0000" brake="1111" yellow="1010"/>
+      <phase duration="4" phase="0000" brake="1111" yellow="1111"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>1/0</key>
       <subkey>0</subkey>
-      <phaseno>8</phaseno>
+      <phaseno>6</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="000001111" brake="111110100" yellow="000000000"/>
-      <phase duration="4" phase="000000100" brake="111111111" yellow="000001011"/>
-      <phase duration="6" phase="000000100" brake="111111011" yellow="000000000"/>
-      <phase duration="4" phase="000000000" brake="111111111" yellow="000000100"/>
       <phase duration="31" phase="111111000" brake="110100111" yellow="000000000"/>
       <phase duration="4" phase="110100000" brake="111111111" yellow="001011000"/>
       <phase duration="6" phase="110100000" brake="001011111" yellow="000000000"/>
       <phase duration="4" phase="000000000" brake="111111111" yellow="110100000"/>
+      <phase duration="31" phase="000001111" brake="111110100" yellow="000000000"/>
+      <phase duration="4" phase="000000000" brake="111111111" yellow="000001111"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>1/1</key>
       <subkey>0</subkey>
       <phaseno>8</phaseno>
@@ -1018,56 +1004,48 @@
       <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="1100000011000000"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>1/2</key>
       <subkey>0</subkey>
-      <phaseno>8</phaseno>
+      <phaseno>6</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="001111111" brake="110110110" yellow="000000000"/>
-      <phase duration="4" phase="000110110" brake="111111111" yellow="001001001"/>
-      <phase duration="6" phase="000110110" brake="111001001" yellow="000000000"/>
-      <phase duration="4" phase="000000000" brake="111111111" yellow="000110110"/>
       <phase duration="31" phase="111000111" brake="100111110" yellow="000000000"/>
       <phase duration="4" phase="100000110" brake="111111111" yellow="011000001"/>
       <phase duration="6" phase="100000110" brake="011111001" yellow="000000000"/>
       <phase duration="4" phase="000000000" brake="111111111" yellow="100000110"/>
+      <phase duration="31" phase="001111000" brake="110100111" yellow="000000000"/>
+      <phase duration="4" phase="000000000" brake="111111111" yellow="001111000"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>2/0</key>
       <subkey>0</subkey>
-      <phaseno>4</phaseno>
+      <phaseno>2</phaseno>
       <offset>0</offset>
       <phase duration="31" phase="1111" brake="1010" yellow="0000"/>
-      <phase duration="4" phase="1010" brake="1111" yellow="0101"/>
-      <phase duration="6" phase="1010" brake="0101" yellow="0000"/>
-      <phase duration="4" phase="0000" brake="1111" yellow="1010"/>
+      <phase duration="4" phase="0000" brake="1111" yellow="1111"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>2/1</key>
       <subkey>0</subkey>
-      <phaseno>8</phaseno>
+      <phaseno>6</phaseno>
       <offset>0</offset>
       <phase duration="31" phase="000111111" brake="111110100" yellow="000000000"/>
       <phase duration="4" phase="000110100" brake="111111111" yellow="000001011"/>
       <phase duration="6" phase="000110100" brake="111001011" yellow="000000000"/>
       <phase duration="4" phase="000000000" brake="111111111" yellow="000110100"/>
       <phase duration="31" phase="111000001" brake="100111110" yellow="000000000"/>
-      <phase duration="4" phase="100000000" brake="111111111" yellow="011000001"/>
-      <phase duration="6" phase="100000000" brake="011111111" yellow="000000000"/>
-      <phase duration="4" phase="000000000" brake="111111111" yellow="100000000"/>
+      <phase duration="4" phase="000000000" brake="111111111" yellow="111000001"/>
    </tl-logic>
 
-   <tl-logic type="actuated">
+   <tl-logic type="static">
       <key>2/2</key>
       <subkey>0</subkey>
-      <phaseno>4</phaseno>
+      <phaseno>2</phaseno>
       <offset>0</offset>
       <phase duration="31" phase="1111" brake="1010" yellow="0000"/>
-      <phase duration="4" phase="1010" brake="1111" yellow="0101"/>
-      <phase duration="6" phase="1010" brake="0101" yellow="0000"/>
-      <phase duration="4" phase="0000" brake="1111" yellow="1010"/>
+      <phase duration="4" phase="0000" brake="1111" yellow="1111"/>
    </tl-logic>
 
 
