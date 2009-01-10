@@ -186,6 +186,9 @@ protected:
     /// The current stage of inc-dua
     int myIncrementalStage;
 
+    /// whether we have warned about routes defined as character strings
+    bool myHaveWarned;
+
 private:
     /** invalid copy constructor */
     MSRouteHandler(const MSRouteHandler &s);

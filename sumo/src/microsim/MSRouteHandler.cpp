@@ -72,7 +72,8 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
         myAddVehiclesDirectly(addVehiclesDirectly),
         myRunningVehicleNumber(0),
         myCurrentVTypeDistribution(0),
-        myCurrentRouteDistribution(0)
+        myCurrentRouteDistribution(0),
+        myHaveWarned(false)
 {
     myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
     myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
@@ -327,6 +328,10 @@ MSRouteHandler::myCharacters(SumoXMLTag element,
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
+        if (!myHaveWarned) {
+            MsgHandler::getWarningInstance()->inform("Defining routes as a nested string is deprecated, use the edges attribute instead.");
+            myHaveWarned = true;
+        }
         addRouteElements(chars);
         break;
     default:
