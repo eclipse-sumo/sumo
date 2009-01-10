@@ -22,7 +22,7 @@ RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Contac
 RewriteCond	%{REQUEST_URI}	^/downloads/downloads.shtml
 RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Downloads
 
-RewriteCond	%{REQUEST_URI}	^/screenshots.shtml
+RewriteCond	%{REQUEST_URI}	^/screens/screenshots.shtml
 RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Screenshots
 
 RewriteCond	%{REQUEST_URI}	^/overview.shtml
