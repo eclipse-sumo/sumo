@@ -132,7 +132,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
     // check which value entry was pressed
     myTable->onLeftBtnPress(sender, sel, data);
     int row = myTable->getCurrentRow();
-    if (row==-1) {
+    if (row==-1||row>=myItems.size()) {
         return 1;
     }
     GUIParameterTableItemInterface *i = myItems[row];
