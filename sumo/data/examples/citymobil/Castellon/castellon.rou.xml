@@ -1,3 +1,3 @@
 <routes>
-	<route id="sup_veh_route" multi_ref="x" color="1,1,0">busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route>
+	<route id="sup_veh_route" multi_ref="x" color="1,1,0" edges="busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o"/>
 </routes>

@@ -1,11 +1,11 @@
 <routes>
    <vtype id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
-   <route id="always_right" multi_ref="x">1i 4o 4i 2o 2i 3o 3i 1o 1i</route>
+   <route id="always_right" multi_ref="x" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i"/>
    <vehicle id="always_right" type="SUMO_DEFAULT_TYPE" route="always_right" depart="0" period="30" repno="100"/>
-   <route id="always_left" multi_ref="x">3i 2o 2i 4o 4i 1o 1i 3o 3i</route>
+   <route id="always_left" multi_ref="x" edges="3i 2o 2i 4o 4i 1o 1i 3o 3i"/>
    <vehicle id="always_left" type="SUMO_DEFAULT_TYPE" route="always_left" depart="0" period="30" repno="100"/>
-   <route id="horizontal" multi_ref="x">2i 1o 1i 2o 2i</route>
+   <route id="horizontal" multi_ref="x" edges="2i 1o 1i 2o 2i"/>
    <vehicle id="horizontal" type="SUMO_DEFAULT_TYPE" route="horizontal" depart="0" period="30" repno="100"/>
-   <route id="vertical" multi_ref="x">3i 4o 4i 3o 3i</route>
+   <route id="vertical" multi_ref="x" edges="3i 4o 4i 3o 3i"/>
    <vehicle id="vertical" type="SUMO_DEFAULT_TYPE" route="vertical" depart="0" period="30" repno="100"/>
 </routes>
