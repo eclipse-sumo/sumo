@@ -1,7 +1,7 @@
 <routes>
    <vtype id="DEFAULT_VEHTYPE" sigma="0" maxspeed="70"/>
 
-   <route id="horizontal" multi_ref="x">2fi 2si 1o 1fi 1si 2o 2fi</route>
+   <route id="horizontal" multi_ref="x" edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
 
    <vehicle id="horizontal01" route="horizontal" depart="100"/>
    <vehicle id="horizontal02" route="horizontal" depart="100"/>

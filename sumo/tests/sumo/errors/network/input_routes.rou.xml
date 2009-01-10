@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
-  <route id="route0" multi_ref="x">1 2</route>
+  <route id="route0" multi_ref="x" edges="1 2"/>
   <vehicle depart="1" id="route0" route="route0"/>
 </routes>

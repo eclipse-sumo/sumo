@@ -1,6 +1,6 @@
 <routes>
    <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0" color="0,0,0" repno="10">
-      <route>beg middle end rend</route>
+      <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

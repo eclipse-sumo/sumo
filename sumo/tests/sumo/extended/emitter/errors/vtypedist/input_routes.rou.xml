@@ -1,5 +1,5 @@
 <routes>
-   <route id="0" multi_ref="x">beg middle end rend</route>
+   <route id="0" multi_ref="x" edges="beg middle end rend"/>
    <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,0,0"/>
    <vtype id="KRAUSS_DEFAULT2" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="10" color="0,1,0"/>
 </routes>

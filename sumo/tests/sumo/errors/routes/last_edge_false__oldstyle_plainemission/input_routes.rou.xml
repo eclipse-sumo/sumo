@@ -1,4 +1,4 @@
 <routes>
-   <route id="0">beg middle end xxx</route>
+   <route id="0" edges="beg middle end xxx"/>
    <vehicle id="0" route="0" depart="0"/>
 </routes>

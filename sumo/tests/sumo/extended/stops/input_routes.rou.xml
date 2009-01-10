@@ -3,7 +3,7 @@
   <vtype accel="1.0" decel="5.0" id="Car" length="3.0" maxspeed="100.0"
          sigma="0" />
 
-  <route id="route0">1to2 out</route>
+  <route id="route0" edges="1to2 out"/>
 
   <vehicle depart="1" id="veh0" route="route0" type="Car">
       <stop lane="1to2_0" pos="4" duration="50"/>

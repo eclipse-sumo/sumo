@@ -1,4 +1,4 @@
 <routes>
-   <route id="horizontal1" multi_ref="x">2fi 2si 1o 1fi</route>
+   <route id="horizontal1" multi_ref="x" edges="2fi 2si 1o 1fi"/>
    <vehicle id="horizontal1" route="horizontal1" depart="100000"/>
 </routes>

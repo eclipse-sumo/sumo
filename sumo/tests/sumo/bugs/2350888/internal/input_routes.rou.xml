@@ -1,30 +1,30 @@
-<?xml version="1.0"?>
-
-<!-- generated on 11/10/08 13:07:07 by SUMO duarouter Version dev-SVN-r6319
-<configuration>
-
-   <input>
-      <net-file>test\net.net.xml</net-file>
-   </input>
-
-   <output>
-      <output-file>test\net1dua.rou.xml</output-file>
-   </output>
-
-   <processing>
-      <random-per-second>1</random-per-second>
-   </processing>
-
-   <time>
-      <begin>0</begin>
-      <end>1000</end>
-   </time>
-
-</configuration>
--->
-
-<routes>
-   <vehicle id="Rand0" depart="0">
-      <route>3fi 3si 3o 3fi 3si 2o 2fi 2si 2o 2fi 2si 4o 4fi 4si 4o 4fi 4si 3o 3fi 3si 3o 3fi 3si 2o 2fi 2si 3o</route>
-   </vehicle>
-</routes>
+<?xml version="1.0"?>
+
+<!-- generated on 11/10/08 13:07:07 by SUMO duarouter Version dev-SVN-r6319
+<configuration>
+
+   <input>
+      <net-file>test\net.net.xml</net-file>
+   </input>
+
+   <output>
+      <output-file>test\net1dua.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <random-per-second>1</random-per-second>
+   </processing>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="Rand0" depart="0">
+      <route edges="3fi 3si 3o 3fi 3si 2o 2fi 2si 2o 2fi 2si 4o 4fi 4si 4o 4fi 4si 3o 3fi 3si 3o 3fi 3si 2o 2fi 2si 3o"/>
+   </vehicle>
+</routes>

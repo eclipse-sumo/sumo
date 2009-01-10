@@ -1,4 +1,4 @@
 <additional>
-      <route id="0">xxx middle end rend</route>
+      <route id="0" edges="xxx middle end rend"/>
 	<emitter id="emitter"  pos="0" objectid="beg_0" file="input_definition.def.xml"/>
 </additional>

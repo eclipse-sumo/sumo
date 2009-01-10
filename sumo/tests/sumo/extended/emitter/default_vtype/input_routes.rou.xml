@@ -1,3 +1,3 @@
 <routes>
-   <route id="0" multi_ref="x">beg middle end rend</route>
+   <route id="0" multi_ref="x" edges="beg middle end rend"/>
 </routes>

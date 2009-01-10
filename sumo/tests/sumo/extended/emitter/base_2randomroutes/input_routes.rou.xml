@@ -1,5 +1,5 @@
 <routes>
-   <route id="0" multi_ref="x">beg middle end rend</route>
-   <route id="1" multi_ref="x">beg beg2left left left2end end rend</route>
+   <route id="0" multi_ref="x" edges="beg middle end rend"/>
+   <route id="1" multi_ref="x" edges="beg beg2left left left2end end rend"/>
    <vtype id="DEFAULT_VEHTYPE" sigma="0" maxspeed="70" color="1,1,0"/>
 </routes>

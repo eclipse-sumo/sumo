@@ -1,5 +1,5 @@
 <routes>
-   <route id="0" multi_ref="x">beg middle end rend</route>
+   <route id="0" multi_ref="x" edges="beg middle end rend"/>
    <vtype id="t1"/>
 
    <vehicle id="0" type="t1" route="0" depart="0"/>

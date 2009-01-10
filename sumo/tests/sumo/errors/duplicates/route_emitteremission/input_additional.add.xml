@@ -1,5 +1,5 @@
 <additional>
-      <route id="0">beg middle end rend</route>
-      <route id="0">beg middle end rend</route>
+      <route id="0" edges="beg middle end rend"/>
+      <route id="0" edges="beg middle end rend"/>
 	<emitter id="emitter"  pos="0" objectid="beg_0" file="input_definition.def.xml"/>
 </additional>

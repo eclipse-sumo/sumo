@@ -1,5 +1,5 @@
 <routes>
-   <route id="0" multi_ref="x">beg middle end rend</route>
+   <route id="0" multi_ref="x" edges="beg middle end rend"/>
    <vtypeDistribution id="vt1">
        <vtype id="t1" probability="0" sigma="0"/>
        <vtype id="t2" probability=".2" sigma="0"/>

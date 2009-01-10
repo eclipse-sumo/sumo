@@ -1,13 +1,13 @@
 <routes>
-   <route id="0">beg beg2right right right2end end rend</route>
-   <route id="1">beg beg2right right right2end end rend</route>
-   <route id="2">beg beg2right right right2end end rend</route>
-   <route id="3">beg beg2right right right2end end rend</route>
-   <route id="4">beg beg2right right right2end end rend</route>
-   <route id="5">beg beg2right right right2end end rend</route>
-   <route id="6">beg beg2right right right2end end rend</route>
-   <route id="7">beg beg2right right right2end end rend</route>
-   <route id="8">beg beg2right right right2end end rend</route>
-   <route id="9">beg beg2right right right2end end rend</route>
+   <route id="0" edges="beg beg2right right right2end end rend"/>
+   <route id="1" edges="beg beg2right right right2end end rend"/>
+   <route id="2" edges="beg beg2right right right2end end rend"/>
+   <route id="3" edges="beg beg2right right right2end end rend"/>
+   <route id="4" edges="beg beg2right right right2end end rend"/>
+   <route id="5" edges="beg beg2right right right2end end rend"/>
+   <route id="6" edges="beg beg2right right right2end end rend"/>
+   <route id="7" edges="beg beg2right right right2end end rend"/>
+   <route id="8" edges="beg beg2right right right2end end rend"/>
+   <route id="9" edges="beg beg2right right right2end end rend"/>
    <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0" length="5" maxspeed="70"/>
 </routes>

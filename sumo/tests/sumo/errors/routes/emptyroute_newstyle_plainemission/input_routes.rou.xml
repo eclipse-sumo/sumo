@@ -1,5 +1,5 @@
 <routes>
    <vehicle id="0" depart="0">
-      <route></route>
+      <route edges=""/>
    </vehicle>
 </routes>
