@@ -537,7 +537,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     SUMOReal oldV = myState.mySpeed;
     // compute gap to use
     SUMOReal gap = gap2pred(*pred);
-    if (gap<0) {
+    if (MSGlobals::gCheck4Accidents && gap<0) {
         // collision occured!
         return true;
     }
@@ -637,7 +637,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         SUMOReal vWish = myType->ffeS(myState.mySpeed, myLane->length()-myState.myPos);
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
-            if (gap<0) {
+            if (MSGlobals::gCheck4Accidents && gap<0) {
                 // collision occured!
                 return true;
             }
@@ -656,7 +656,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         SUMOReal vBeg = MIN2(myType->maxNextSpeed(myState.mySpeed), lane->maxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
-            if (gap<0) {
+            if (MSGlobals::gCheck4Accidents && gap<0) {
                 // collision occured!
                 return true;
             }
