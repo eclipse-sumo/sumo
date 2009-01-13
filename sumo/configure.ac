@@ -315,9 +315,10 @@ dnl   ... for includes
 fi
 AM_CONDITIONAL([WITH_GUI], [test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x])
 if test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x; then
-   ac_enabled="$ac_enabled GUI"
+    AC_CHECK_HEADERS([GL/gl.h GL/glu.h])
+    ac_enabled="$ac_enabled GUI"
 else
-   ac_disabled="$ac_disabled GUI"
+    ac_disabled="$ac_disabled GUI"
 fi
 
 AC_SUBST(AM_CPPFLAGS)
