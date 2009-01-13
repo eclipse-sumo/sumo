@@ -29,15 +29,15 @@ def writeSUMOConf(step, options, files):
     fd.write("   <files>\n")
     fd.write("      <net-file>" + options.net + "</net-file>\n")
     fd.write("      <route-files>" + files + "</route-files>\n")
-    fd.write("      <dump-basename>dump_" + str(step) + "</dump-basename>\n")
-    fd.write("      <dump-intervals>" + str(options.aggregation) + "</dump-intervals>\n")
     fd.write("      <vehroutes>vehroutes_" + str(step) + ".xml</vehroutes>\n")
     if not options.noEmissions:
         fd.write("      <emissions>emissions_" + str(step) + ".xml</emissions>\n")
     if not options.noTripinfo:
         fd.write("      <tripinfo>tripinfo_" + str(step) + ".xml</tripinfo>\n")
+    fd.write("      <additional-files>dump_" + str(step) + ".add.xml" + options.additional)
     if options.additional!="":
-        fd.write("      <additional-files>" + options.additional + "</additional-files>\n")
+        fd.write("," + options.additional)
+    fd.write("</additional-files>\n")
     fd.write("   </files>\n")
     fd.write("   <process>\n")
     fd.write("      <begin>" + str(options.begin) + "</begin>\n")
@@ -55,6 +55,11 @@ def writeSUMOConf(step, options, files):
         fd.write("      <suppress-warnings>x</suppress-warnings>\n")
     fd.write("   </reports>\n")
     fd.write("</configuration>\n")
+    fd.close()
+    fd = open("dump_%s.add.xml" % step, "w")
+    print >> fd, """<a>
+    <meandata-edge id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
+</a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
 optParser = OptionParser()
