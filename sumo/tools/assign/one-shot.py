@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """
-@file    route2trips.py
+@file    one-shot.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2008-03-10
 @version $Id$
 
-This script does multpile sumo runs with different rerouting intervals.
+This script does multiple sumo runs with different rerouting intervals.
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
