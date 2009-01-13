@@ -125,6 +125,10 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
                 myEdgeWeightSettingCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
         }
+        // the following is just to give the vehicle a valid route before the route is checked at init
+        SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing>
+        router(MSEdge::dictSize(), true, device, &MSDevice_Routing::getEffort);
+        v.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
     myVehicleIndex++;
 }

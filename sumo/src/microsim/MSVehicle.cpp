@@ -243,12 +243,11 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     if (myArrivalPos>lastLaneLength) {
         myArrivalPos = lastLaneLength;
     }
-    //
+    MSDevice_Routing::buildVehicleDevices(*this, myDevices);
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init devices
     MSDevice_C2C::buildVehicleDevices(*this, myDevices);
-    MSDevice_Routing::buildVehicleDevices(*this, myDevices);
     MSDevice_CPhone::buildVehicleDevices(*this, myDevices);
     // init CORN containers
     if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {

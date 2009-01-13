@@ -126,6 +126,14 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_ROUTE_DISTRIBUTION:
         openRouteDistribution(attrs);
         break;
+    case SUMO_TAG_TRIPDEF:
+        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+        myActiveRouteID = "!" + myVehicleParameter->id;
+        addRouteElements(attrs.getString(SUMO_ATTR_FROM));
+        addRouteElements(attrs.getString(SUMO_ATTR_TO));
+        closeRoute();
+        closeVehicle();
+        break;
     default:
         break;
     }
