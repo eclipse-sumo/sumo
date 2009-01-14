@@ -226,8 +226,20 @@ MSLane::emit(MSVehicle& veh) throw()
         }
         break;
     case DEPART_POS_RANDOM:
-        pos = RandHelper::rand(length());
-        break;
+		{
+		bool success=false;
+		unsigned int i=0;
+		// we will try many random positions ...
+		while (i <= 10)
+		{
+			pos = RandHelper::rand(length());
+			success = isEmissionSuccess(&veh, speed, pos, patchSpeed);
+			if (success) return true; else i++;
+		}
+		// ... and if that doesn't work, we put the vehicle to the free position
+		return freeEmit(veh, speed);
+		}
+		break;
     case DEPART_POS_FREE:
         return freeEmit(veh, speed);
     case DEPART_POS_DEFAULT:
