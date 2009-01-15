@@ -40,6 +40,8 @@ class RouteReader(handler.ContentHandler):
                 self._routeID = self._vID
                 self._vID = ''
             self._routeString = ''
+            if attrs.has_key('edges'):
+                self._routeString = attrs['edges']
 
     def endElement(self, name):
         if name == 'route':

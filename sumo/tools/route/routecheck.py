@@ -1,16 +1,26 @@
 #!/usr/bin/python
-# This script does simple checks for the routes on a given network.
-# It needs at least two parameters, the SUMO net (.net.xml) and a file
-# specifying routes.
-# Warnings will be issued if there is an unknown edge in the route,
-# if the route is too short (only one edge), if the route is disconnected
-# or if the route definition does not use the edges attribute.
-# If one specifies -f or --fix all subsequent route files will be fixed
-# (if possible). At the moment this means adding an intermediate edge
-# if just one link is missing in a disconnected route, or adding an edges
-# attribute if it is missing.
-# All changes are documented within the output file which has the same name
-# as the input file with an additional .fixed suffix.
+"""
+@file    routecheck.py
+@author  Michael.Behrisch@dlr.de
+@date    2007-03-09
+@version $Id$
+
+This script does simple checks for the routes on a given network.
+It needs at least two parameters, the SUMO net (.net.xml) and a file
+specifying routes.
+Warnings will be issued if there is an unknown edge in the route,
+if the route is too short (only one edge), if the route is disconnected
+or if the route definition does not use the edges attribute.
+If one specifies -f or --fix all subsequent route files will be fixed
+(if possible). At the moment this means adding an intermediate edge
+if just one link is missing in a disconnected route, or adding an edges
+attribute if it is missing.
+All changes are documented within the output file which has the same name
+as the input file with an additional .fixed suffix.
+
+Copyright (C) 2007-2009 DLR/TS, Germany
+All rights reserved
+"""
 import os, string, sys, StringIO
 from xml.sax import saxutils, make_parser, handler
 
@@ -51,7 +61,6 @@ class NetReader(handler.ContentHandler):
 class RouteReader(handler.ContentHandler):
 
     def __init__(self, net, outFileName):
-        self._vType = ''
         self._vID = ''
         self._routeID = ''
         self._routeString = ''
@@ -98,7 +107,6 @@ class RouteReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'vehicle' and not attrs.has_key('route'):
             self.condOutputRedirect()
-            self._vType = attrs['type']
             self._vID = attrs['id']
         if name == 'route':
             self.condOutputRedirect()
@@ -112,6 +120,8 @@ class RouteReader(handler.ContentHandler):
             else:
                 self._changed = True
                 print "Warning: No edges attribute in route " + self._routeID
+        elif self._routeID:
+            print "Warning: This script does not handle nested '%s' elements properly." % name
         if self._out:
             self._out.write('<' + name)
             for (key, value) in attrs.items():
@@ -121,7 +131,6 @@ class RouteReader(handler.ContentHandler):
                 self._out.write('>')
 
     def endElement(self, name):
-        routeSectionEnded = False
         if name == 'route':
             self._isRouteValid = self.testRoute()
             if self._out:
@@ -129,15 +138,14 @@ class RouteReader(handler.ContentHandler):
             self._routeID = ''
             self._routeString = ''
             if self._vID == '':
-                routeSectionEnded = True
-        if name == 'vehicle' and self._vID != '':
-            self._vType = ''
+                self.endOutputRedirect()
+        elif name == 'vehicle' and self._vID != '':
             self._vID = ''
-            routeSectionEnded = True
-        if self._out:
-            self._out.write('</%s>' % name)
-        if routeSectionEnded:
+            if self._out:
+                self._out.write('</vehicle>')
             self.endOutputRedirect()
+        elif self._out:
+            self._out.write('</%s>' % name)
 
     def characters(self, content):
         if self._routeID != '':

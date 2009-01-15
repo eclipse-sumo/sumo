@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<routes>
+   <vehicle depart="0" id="0">
+      <route edges="absBeg beg2left"/>
+   </vehicle>
+</routes>
