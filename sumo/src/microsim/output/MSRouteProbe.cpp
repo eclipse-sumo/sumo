@@ -83,9 +83,11 @@ MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool 
 MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime begin) throw()
         : Named(id), myCurrentRouteDistribution(0)
 {
-    myCurrentRouteDistribution = MSRoute::distDictionary(id + "_" + toString(begin));
+    const std::string distID = id + "_" + toString(begin);
+    myCurrentRouteDistribution = MSRoute::distDictionary(distID);
     if (myCurrentRouteDistribution == 0) {
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+        MSRoute::dictionary(distID, myCurrentRouteDistribution);
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -112,12 +114,11 @@ MSRouteProbe::~MSRouteProbe() throw()
 
 void
 MSRouteProbe::writeXMLOutput(OutputDevice &dev,
-                             SUMOTime startTime, SUMOTime) throw(IOError)
+                             SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
         const std::string indent("    ");
-        const std::string id = getID() + "_" + toString(startTime);
-        dev << indent << "<routeDistribution id=\"" << id << "\">\n";
+        dev << indent << "<routeDistribution id=\"" << getID() + "_" + toString(startTime) << "\">\n";
         const std::vector<const MSRoute*> &routes = myCurrentRouteDistribution->getVals();
         const std::vector<SUMOReal> &probs = myCurrentRouteDistribution->getProbs();
         for (unsigned int j=0; j<routes.size(); ++j) {
@@ -131,8 +132,8 @@ MSRouteProbe::writeXMLOutput(OutputDevice &dev,
             dev << "\" probability=\"" << probs[j] << "\"/>\n";
         }
         dev << indent << "</routeDistribution>\n";
-        MSRoute::dictionary(id, myCurrentRouteDistribution);
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+        MSRoute::dictionary(getID() + "_" + toString(stopTime+1), myCurrentRouteDistribution);
     }
 }
 
@@ -148,11 +149,13 @@ void
 MSRouteProbe::addRoute(const MSRoute &route) const
 {
     if (myCurrentRouteDistribution != 0) {
+        const MSRoute* routep = &route;
         if (!route.inFurtherUse()) {
             const std::string id = getID() + "_" + route.getID();
-            MSRoute::dictionary(id, new MSRoute(id, route.getEdges(), true));
+            routep = new MSRoute(id, route.getEdges(), true);
+            MSRoute::dictionary(id, routep);
         }
-        myCurrentRouteDistribution->add(1., &route);
+        myCurrentRouteDistribution->add(1., routep);
     }
 }
 
