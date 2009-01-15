@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/03/08 14:22:24 by SUMO sumo Version dev-SVN-r6273
+<!-- generated on 01/15/09 13:26:12 by SUMO sumo Version dev-SVN-r6617
 <configuration>
 
    <input>
@@ -36,55 +36,55 @@
    </vehicle>
 
    <vehicle id="emitter_20_1" depart="20" arrival="93">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="20" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_40_2" depart="40" arrival="113">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="40" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="20" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_60_3" depart="60" arrival="132">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="60" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="40" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_80_4" depart="80" arrival="152">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="80" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="60" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_100_5" depart="100" arrival="172">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="100" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="80" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_120_6" depart="120" arrival="192">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="120" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="100" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_140_7" depart="140" arrival="213">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="140" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="120" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_160_8" depart="160" arrival="232">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="160" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="140" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="emitter_180_9" depart="180" arrival="252">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="180" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="160" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>

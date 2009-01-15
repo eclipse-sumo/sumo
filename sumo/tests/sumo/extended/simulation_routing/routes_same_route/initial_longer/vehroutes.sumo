@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/03/08 14:22:25 by SUMO sumo Version dev-SVN-r6273
+<!-- generated on 01/15/09 13:26:13 by SUMO sumo Version dev-SVN-r6617
 <configuration>
 
    <input>
@@ -36,61 +36,61 @@
    </vehicle>
 
    <vehicle id="0_0" depart="20" arrival="100">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="20" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_1" depart="40" arrival="120">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="40" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="20" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_2" depart="60" arrival="141">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="60" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="40" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_3" depart="80" arrival="160">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="80" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="60" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_4" depart="100" arrival="181">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="100" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="80" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_5" depart="120" arrival="201">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="120" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="100" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_6" depart="140" arrival="220">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="140" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="120" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_7" depart="160" arrival="240">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="160" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="140" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_8" depart="180" arrival="261">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="180" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="160" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
 
    <vehicle id="0_9" depart="200" arrival="280">
-      <replaced_route replacedOnEdge="beg"  replacedAtTime="200" edges="beg beg2right right right2end end rend"/>
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="180" edges="beg beg2right right right2end end rend"/>
 
       <route edges="beg middle end rend"/>
    </vehicle>
