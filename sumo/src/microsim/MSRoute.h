@@ -80,8 +80,6 @@ public:
         This may be the case, when more than a single vehicle use the same route */
     bool inFurtherUse() const;
 
-    bool replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge);
-
     /// output the edge ids up to but not including the id of the given edge
     void writeEdgeIDs(OutputDevice &os, const MSEdge *upTo=0) const;
 
@@ -140,8 +138,12 @@ public:
     static bool dictionary(const std::string &id, RandomDistributor<const MSRoute*> *routeDist);
 
     /** @brief Returns the named route or a sample from the named distribution
-        Returns 0 if no route (distribution) with the given name exitsts */
+        Returns 0 if no route (distribution) with the given name exists */
     static const MSRoute *dictionary(const std::string &id);
+
+    /** @brief Returns the named route distribution
+        Returns 0 if no route distribution with the given name exists */
+    static RandomDistributor<const MSRoute*> *distDictionary(const std::string &id);
 
     /// Clears the dictionary (delete all known routes, too)
     static void clear();

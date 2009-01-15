@@ -1070,6 +1070,7 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs)
         myDetectorBuilder.buildRouteProbe(id,
                                           attrs.getString(SUMO_ATTR_EDGE),
                                           attrs.getInt(SUMO_ATTR_FREQUENCY),
+                                          attrs.getIntSecure(SUMO_ATTR_BEGIN, -1),
                                           OutputDevice::getDevice(attrs.getString(SUMO_ATTR_FILE), getFileName()));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());

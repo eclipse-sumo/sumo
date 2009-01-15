@@ -132,6 +132,17 @@ MSRoute::dictionary(const string &id)
 }
 
 
+RandomDistributor<const MSRoute*> *
+MSRoute::distDictionary(const string &id)
+{
+    RouteDistDict::iterator it2 = myDistDict.find(id);
+    if (it2 == myDistDict.end()) {
+        return 0;
+    }
+    return it2->second;
+}
+
+
 void
 MSRoute::clear()
 {
@@ -156,24 +167,6 @@ bool
 MSRoute::inFurtherUse() const
 {
     return myMultipleReferenced;
-}
-
-
-bool
-MSRoute::replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge)
-{
-    // do not replace if the vehicle is already out of the route
-    MSEdgeVector::const_iterator i =
-        std::find(edges.begin(), edges.end(), *currentEdge);
-    if (i==edges.end()) {
-        return false;
-    }
-    MSEdgeVector n;
-    copy(myEdges.begin(), std::find(myEdges.begin(), myEdges.end(), *currentEdge),
-         back_inserter(n));
-    copy(i, edges.end(), back_inserter(n));
-    myEdges = n;
-    return true;
 }
 
 

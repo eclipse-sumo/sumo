@@ -445,8 +445,8 @@ NLDetectorBuilder::buildVTypeProbe(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildRouteProbe(const std::string &id,
-                                   const std::string &edge, SUMOTime frequency,
+NLDetectorBuilder::buildRouteProbe(const std::string &id, const std::string &edge,
+                                   SUMOTime frequency, SUMOTime begin,
                                    OutputDevice& device) throw(InvalidArgument)
 {
     if (frequency<=0) {
@@ -456,9 +456,9 @@ NLDetectorBuilder::buildRouteProbe(const std::string &id,
     if (e==0) {
         throw InvalidArgument("The edge with the id '" + edge + "' is not known (in routeprobe '" + id + "').");
     }
-    MSRouteProbe *probe = new MSRouteProbe(id, e);
+    MSRouteProbe *probe = new MSRouteProbe(id, e, begin);
     // add the file output
-    myNet.getDetectorControl().add(probe, device, frequency);
+    myNet.getDetectorControl().add(probe, device, frequency, begin);
 }
 
 

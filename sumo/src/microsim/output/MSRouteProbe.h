@@ -141,9 +141,11 @@ public:
      *
      * @param[in] id The id of the route probe
      * @param[in] edge The edge where the distribution shall be estimated
+     * @param[in] begin The start of the first reporting interval
      */
     MSRouteProbe(const std::string &id,
-                 const MSEdge *edge) throw();
+                 const MSEdge *edge,
+                 SUMOTime begin) throw();
 
 
     /// @brief Destructor

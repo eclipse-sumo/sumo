@@ -241,9 +241,10 @@ public:
      * @param[in] vp The routeprobe to add
      * @param[in] device The device the routeprobe uses
      * @param[in] frequency The frequency of calling this routeprobe
+     * @param[in] begin The begin of the first interval
      * @exception ProcessError If the detector is already known
      */
-    void add(MSRouteProbe *vp, OutputDevice& device, int frequency) throw(ProcessError);
+    void add(MSRouteProbe *vp, OutputDevice& device, SUMOTime frequency, SUMOTime begin) throw(ProcessError);
 
 
 #ifdef HAVE_MESOSIM
@@ -300,16 +301,6 @@ public:
     /// @}
 
 
-    /** @brief Resets the interval of an output device
-     *
-     * This method is used within the TrafficTower-extension of SUMO
-     *
-     * @param[in] il The detector to reset the interval of
-     * @param[in] newinterval The new interval to assign
-     */
-    void resetInterval(MSDetectorFileOutput *il, SUMOTime newinterval) throw();
-
-
     /** @brief Adds one of the detectors as a new MSDetectorFileOutput
      *
      * This method is used within the TrafficTower-extension of SUMO
@@ -317,14 +308,11 @@ public:
      * @param[in] det The generator to add
      * @param[in] device The device to use
      * @param[in] interval The sample interval to use
-     * @param[in] reinsert Used to determine whether the prolog shall be written (if false)
-     * @param[in] onStepBegin If true, writeXMLOutput will be called at interval begin (see writeOutput)
-     * @tode Recheck whether this method could be made private/protected
+     * @param[in] begin The start of the first sample interval to use
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
-                                OutputDevice *device, SUMOTime interval,
-                                bool reinsert=false,
-                                bool onStepBegin=false) throw();
+                                OutputDevice *device,
+                                SUMOTime interval, SUMOTime begin=-1) throw();
 
 
 
@@ -412,7 +400,7 @@ protected:
     typedef std::vector< DetectorFilePair > DetectorFileVec;
 
     /// @brief Definition of the interval key
-    typedef std::pair<SUMOTime, bool> IntervalsKey;
+    typedef std::pair<SUMOTime, SUMOTime> IntervalsKey;
 
     /// @brief Association of intervals to DetectorFilePair containers.
     typedef std::map< IntervalsKey, DetectorFileVec > Intervals;

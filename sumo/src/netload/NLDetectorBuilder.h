@@ -317,11 +317,12 @@ public:
      * @param[in] id The id the detector shall have
      * @param[in] edge The name of the edge the detector shall observe
      * @param[in] frequency The reporting frequency
+     * @param[in] begin The start of the first reporting interval
      * @param[in] device The output device the detector shall write into
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildRouteProbe(const std::string &id,
-                         const std::string &edge, SUMOTime frequency,
+    void buildRouteProbe(const std::string &id, const std::string &edge,
+                         SUMOTime frequency, SUMOTime begin,
                          OutputDevice& device) throw(InvalidArgument);
 
 

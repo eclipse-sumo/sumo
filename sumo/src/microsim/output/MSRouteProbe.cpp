@@ -80,10 +80,13 @@ MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool 
 
 
 
-MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge) throw()
-        : Named(id)
+MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime begin) throw()
+        : Named(id), myCurrentRouteDistribution(0)
 {
-    myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+    myCurrentRouteDistribution = MSRoute::distDictionary(id + "_" + toString(begin));
+    if (myCurrentRouteDistribution == 0) {
+        myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
+    }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment *seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
@@ -145,6 +148,10 @@ void
 MSRouteProbe::addRoute(const MSRoute &route) const
 {
     if (myCurrentRouteDistribution != 0) {
+        if (!route.inFurtherUse()) {
+            const std::string id = getID() + "_" + route.getID();
+            MSRoute::dictionary(id, new MSRoute(id, route.getEdges(), true));
+        }
         myCurrentRouteDistribution->add(1., &route);
     }
 }

@@ -88,10 +88,7 @@ void
 MSDetectorControl::close(SUMOTime step) throw(IOError)
 {
     // flush the last values
-    Intervals::iterator it;
-    for (it = myIntervals.begin(); it != myIntervals.end(); ++it) {
-        writeOutput(step, true);
-    }
+    writeOutput(step, true);
     // [...] files are closed on another place [...]
     //
     myIntervals.clear();
@@ -179,7 +176,8 @@ MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval)
 
 
 void
-MSDetectorControl::add(MSVTypeProbe *vp, OutputDevice& device, int frequency) throw(ProcessError)
+MSDetectorControl::add(MSVTypeProbe *vp, OutputDevice& device,
+                       int frequency) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myVTypeProbeDetectors.add(vp->getID(), vp)) {
@@ -190,13 +188,14 @@ MSDetectorControl::add(MSVTypeProbe *vp, OutputDevice& device, int frequency) th
 
 
 void
-MSDetectorControl::add(MSRouteProbe *vp, OutputDevice& device, int frequency) throw(ProcessError)
+MSDetectorControl::add(MSRouteProbe *vp, OutputDevice& device,
+                       SUMOTime frequency, SUMOTime begin) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myRouteProbeDetectors.add(vp->getID(), vp)) {
         throw ProcessError("routeprobe '" + vp->getID() + "' could not be build;\n (declared twice?)");
     }
-    addDetectorAndInterval(vp, &device, frequency);
+    addDetectorAndInterval(vp, &device, frequency, begin);
 }
 
 
@@ -236,39 +235,19 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw()
 
 
 void
-MSDetectorControl::resetInterval(MSDetectorFileOutput *det,
-                                 SUMOTime newinterval) throw()
-{
-    for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
-        DetectorFileVec &dets = (*i).second;
-        for (DetectorFileVec::iterator j=dets.begin(); j!=dets.end(); ++j) {
-            DetectorFilePair &dvp = *j;
-            if (dvp.first==det) {
-                DetectorFilePair dvpu = *j;
-                dets.erase(j);
-                addDetectorAndInterval(dvpu.first, dvpu.second, newinterval, true);
-                return;
-            }
-        }
-    }
-}
-
-
-void
 MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError)
 {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         IntervalsKey interval = (*i).first;
         if (myLastCalls[interval]+interval.first-1<=step || (closing && myLastCalls[interval]<step)) {
             DetectorFileVec dfVec = (*i).second;
-            SUMOTime stopTime = step;
             SUMOTime startTime = myLastCalls[interval];
             // check whether at the end the output was already generated
             for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
                 MSDetectorFileOutput* det = it->first;
-                det->writeXMLOutput(*(it->second), startTime, stopTime);
+                det->writeXMLOutput(*(it->second), startTime, step);
             }
-            myLastCalls[interval] = stopTime + 1;
+            myLastCalls[interval] = step + 1;
         }
     }
 }
@@ -278,19 +257,19 @@ void
 MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         OutputDevice *device,
         SUMOTime interval,
-        bool reinsert,
-        bool onStepBegin) throw()
+        SUMOTime begin) throw()
 {
-    IntervalsKey key = make_pair(interval, onStepBegin);
+    if (begin == -1) {
+        begin = OptionsCont::getOptions().getInt("begin");
+    }
+    IntervalsKey key = make_pair(interval, begin);
     Intervals::iterator it = myIntervals.find(key);
     // Add command for given key only once to MSEventControl...
     if (it == myIntervals.end()) {
         DetectorFileVec detAndFileVec;
         detAndFileVec.push_back(make_pair(det, device));
         myIntervals.insert(make_pair(key, detAndFileVec));
-        myLastCalls[key] = onStepBegin
-                           ? OptionsCont::getOptions().getInt("begin") - interval + 1
-                           : OptionsCont::getOptions().getInt("begin");
+        myLastCalls[key] = begin;
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if (find_if(detAndFileVec.begin(), detAndFileVec.end(), bind2nd(detectorEquals(), det)) == detAndFileVec.end()) {
@@ -301,9 +280,7 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
             return;
         }
     }
-    if (!reinsert) {
-        det->writeXMLDetectorProlog(*device);
-    }
+    det->writeXMLDetectorProlog(*device);
 }
 
 
