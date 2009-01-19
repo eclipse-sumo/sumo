@@ -101,10 +101,12 @@ MSLaneSpeedTrigger::processCommand(bool move2next)
     for (i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
         (*i)->myMaxSpeed = getCurrentSpeed();
     }
-    if (move2next&&myCurrentEntry!=myLoadedSpeeds.end()) {
-        ++myCurrentEntry;
+    if(!move2next) {
+        // changed from the gui
+        return 0;
     }
     if (myCurrentEntry!=myLoadedSpeeds.end()) {
+        ++myCurrentEntry;
         return ((*myCurrentEntry).first)-((*(myCurrentEntry-1)).first);
     } else {
         return 0;
