@@ -395,12 +395,12 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
         }
         glColor3f(1, 0, 0);
         GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
-        if (s.scale>=10) {
+        if (s.scale>=5) {
+            glPolygonOffset(0, -4);
             glColor3f(0, 0, 0);
             GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
             // draw the speed string
             // not if scale to low
-            if (s.scale>=4.5) {
                 // compute
                 SUMOReal value = (SUMOReal) getCurrentSpeed();
                 if (myShowAsKMH) {
@@ -422,7 +422,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
                 }
                 //draw
                 glColor3f(1, 1, 0);
-
+                glPolygonOffset(0, -5);
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 pfSetPosition(0, 0);
                 pfSetScale(1.2f);
@@ -430,7 +430,6 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
                 glRotated(180, 0, 1, 0);
                 glTranslated(-w/2., 0.3, 0);
                 pfDrawString(myLastValueString.c_str());
-            }
         }
         glPopMatrix();
     }
