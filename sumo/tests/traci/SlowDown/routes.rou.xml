@@ -1,7 +1,7 @@
 <routes>   
     <vtype id="DEFAULT_VEHTYPE" accel="0.8" decel="4.5" sigma="0" length="5" maxspeed="70"/>
     <vehicle id="veh0" depart="0">
-        <route> e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6</route>
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
     </vehicle>
 </routes>
 
