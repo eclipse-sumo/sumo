@@ -10220,7 +10220,7 @@ myDet1;0;10;2;100;80
           this:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
-   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"&gt;</sgmltag>
       <sgmltag>&lt;closing_reroute id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"/&gt;</sgmltag>
    <sgmltag>&lt;/interval&gt;</sgmltag>
 
@@ -10249,7 +10249,7 @@ myDet1;0;10;2;100;80
           a new destination in the according element:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
-   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"&gt;</sgmltag>
       <sgmltag>&lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;</sgmltag>
       <sgmltag>&lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;</sgmltag>
    <sgmltag>&lt;/interval&gt;</sgmltag>
@@ -10292,7 +10292,7 @@ myDet1;0;10;2;100;80
           supplied instead of a new destination:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
-   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"&gt;</sgmltag>
       <sgmltag>&lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;</sgmltag>
       <sgmltag>&lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;</sgmltag>
    <sgmltag>&lt;/interval&gt;</sgmltag>
