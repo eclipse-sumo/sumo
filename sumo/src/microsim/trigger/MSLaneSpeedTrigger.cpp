@@ -107,6 +107,8 @@ MSLaneSpeedTrigger::processCommand(bool move2next)
     }
     if (myCurrentEntry!=myLoadedSpeeds.end()) {
         ++myCurrentEntry;
+    }
+    if (myCurrentEntry!=myLoadedSpeeds.end()) {
         return ((*myCurrentEntry).first)-((*(myCurrentEntry-1)).first);
     } else {
         return 0;
