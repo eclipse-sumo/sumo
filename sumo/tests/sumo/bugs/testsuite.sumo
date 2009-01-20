@@ -6,3 +6,7 @@ lanechange
 
 # Test for [ 2468327 ] log files together with input errors let sumo crash
 2468327
+
+# Tests for [ 2524031 ] sumo xml parser relies on sequence order instead IDs
+2524031
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+  <edge id="in1" xfrom="-210.0" xto="-200.0" yfrom="0.0" yto="0.0" />
+  <edge id="in2" xfrom="+210.0" xto="+200.0" yfrom="1.0" yto="1.0" />
+
+  <edge id="1to2" xfrom="-200.0" xto="+200.0" yfrom="0.0" yto="0.0" />
+  <edge id="2to1" xfrom="+200.0" xto="-200.0" yfrom="1.0" yto="1.0" />
+
+  <edge id="out2" xfrom="+200.0" xto="+210.0" yfrom="0.0" yto="0.0" />
+  <edge id="out1" xfrom="-200.0" xto="-210.0" yfrom="1.0" yto="1.0" />
+</edges>

@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+
+<!-- generated on Tue Jan 13 13:07:57 2009 by SUMO netconvert Version 0.10.1
+<configuration>
+
+   <input>
+      <xml-edge-files>my_hello_redux.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>210.00,0.00</net-offset>
+   <conv-boundary>0.00,0.00,420.00,1.00</conv-boundary>
+   <orig-boundary>-210.00,0.00,210.00,1.00</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edge id=":SUMOGenerated1_0" function="internal">
+      <lanes>
+         <lane id=":SUMOGenerated1_0_0" depart="0" maxspeed="13.90" length="0.10" >10.00,-1.65 10.00,-1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":SUMOGenerated3_0" function="internal">
+      <lanes>
+         <lane id=":SUMOGenerated3_0_0" depart="0" maxspeed="13.90" length="0.10" >410.00,2.65 410.00,2.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":SUMOGenerated4_0" function="internal">
+      <lanes>
+         <lane id=":SUMOGenerated4_0_0" depart="0" maxspeed="13.90" length="0.10" >410.00,-1.65 410.00,-1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":SUMOGenerated5_0" function="internal">
+      <lanes>
+         <lane id=":SUMOGenerated5_0_0" depart="0" maxspeed="13.90" length="0.10" >10.00,2.65 10.00,2.65</lane>
+      </lanes>
+   </edge>
+
+
+
+   <edge id="1to2" from="SUMOGenerated1" to="SUMOGenerated4" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="400.00">10.00,-1.65 410.00,-1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="2to1" from="SUMOGenerated3" to="SUMOGenerated5" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="2to1_0" depart="1" vclasses="" maxspeed="13.90" length="400.00">410.00,2.65 10.00,2.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="in1" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="in1_0" depart="1" vclasses="" maxspeed="13.90" length="10.00">0.00,-1.65 10.00,-1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="in2" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="in2_0" depart="1" vclasses="" maxspeed="13.90" length="10.00">420.00,2.65 410.00,2.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="out1" from="SUMOGenerated5" to="SUMOGenerated7" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="out1_0" depart="1" vclasses="" maxspeed="13.90" length="10.00">10.00,2.65 0.00,2.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="out2" from="SUMOGenerated4" to="SUMOGenerated6" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="out2_0" depart="1" vclasses="" maxspeed="13.90" length="10.00">410.00,-1.65 420.00,-1.65</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>SUMOGenerated1</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>SUMOGenerated3</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>SUMOGenerated4</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>SUMOGenerated5</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <intlanes></intlanes>
+      <shape>-0.00,-0.05 -0.00,-3.25</shape>
+   </junction>
+
+   <junction id="SUMOGenerated1" type="priority" x="10.00" y="0.00">
+      <inclanes>in1_0</inclanes>
+      <intlanes>:SUMOGenerated1_0_0</intlanes>
+      <shape>10.00,-0.05 10.00,-3.25 10.00,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated2" type="DEAD_END" x="420.00" y="1.00">
+      <inclanes></inclanes>
+      <intlanes></intlanes>
+      <shape>420.00,1.05 420.00,4.25</shape>
+   </junction>
+
+   <junction id="SUMOGenerated3" type="priority" x="410.00" y="1.00">
+      <inclanes>in2_0</inclanes>
+      <intlanes>:SUMOGenerated3_0_0</intlanes>
+      <shape>410.00,4.25 410.00,1.05 410.00,4.25</shape>
+   </junction>
+
+   <junction id="SUMOGenerated4" type="priority" x="410.00" y="0.00">
+      <inclanes>1to2_0</inclanes>
+      <intlanes>:SUMOGenerated4_0_0</intlanes>
+      <shape>410.00,-0.05 410.00,-3.25 410.00,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated5" type="priority" x="10.00" y="1.00">
+      <inclanes>2to1_0</inclanes>
+      <intlanes>:SUMOGenerated5_0_0</intlanes>
+      <shape>10.00,4.25 10.00,1.05 10.00,4.25</shape>
+   </junction>
+
+   <junction id="SUMOGenerated6" type="DEAD_END" x="420.00" y="0.00">
+      <inclanes>out2_0</inclanes>
+      <intlanes></intlanes>
+      <shape>420.00,-3.25 420.00,-0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated7" type="DEAD_END" x="0.00" y="1.00">
+      <inclanes>out1_0</inclanes>
+      <intlanes></intlanes>
+      <shape>0.00,4.25 0.00,1.05</shape>
+   </junction>
+
+
+
+   <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated4">
+      <succlane lane="out2_0" via=":SUMOGenerated4_0_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="2to1" lane="2to1_0" junction="SUMOGenerated5">
+      <succlane lane="out1_0" via=":SUMOGenerated5_0_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="in1" lane="in1_0" junction="SUMOGenerated1">
+      <succlane lane="1to2_0" via=":SUMOGenerated1_0_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="in2" lane="in2_0" junction="SUMOGenerated3">
+      <succlane lane="2to1_0" via=":SUMOGenerated3_0_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="out1" lane="out1_0" junction="SUMOGenerated7">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="out2" lane="out2_0" junction="SUMOGenerated6">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+   <succ edge=":SUMOGenerated1_0" lane=":SUMOGenerated1_0_0" junction="SUMOGenerated1">
+      <succlane lane="1to2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":SUMOGenerated3_0" lane=":SUMOGenerated3_0_0" junction="SUMOGenerated3">
+      <succlane lane="2to1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":SUMOGenerated4_0" lane=":SUMOGenerated4_0_0" junction="SUMOGenerated4">
+      <succlane lane="out2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":SUMOGenerated5_0" lane=":SUMOGenerated5_0_0" junction="SUMOGenerated5">
+      <succlane lane="out1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+
+</net>
