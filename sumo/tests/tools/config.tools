@@ -3,8 +3,13 @@ binary:$TEXTTEST_HOME/toolrunner.py
 copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
 copy_test_path:input_net.net.xml
+copy_test_path:tracefile.xml
 
 [collate_file]
 edges:edges.xml
 nodes:nodes.xml
 fixed:routes.rou.xml.fixed
+activityfile:activityfile.tcl
+mobilityfile:mobilityfile.tcl
+config:config.tcl
+

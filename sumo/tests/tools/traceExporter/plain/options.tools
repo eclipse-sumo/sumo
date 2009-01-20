@@ -1,0 +1,1 @@
+traceExporter/traceExporter.jar ns2 -n input_net.net.xml -t tracefile.xml -a activityfile.tcl -m mobilityfile.tcl -c config.tcl -p 1
