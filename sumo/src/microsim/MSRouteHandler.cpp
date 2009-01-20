@@ -420,6 +420,7 @@ MSRouteHandler::closeRoute() throw(ProcessError)
             myCurrentRouteDistribution->add(myActiveRouteProbability, route);
         }
     }
+    myActiveRouteID = "";
 }
 
 
@@ -491,7 +492,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     }
     // get the vehicle's route
     //  maybe it was explicitely assigned to the vehicle
-    const MSRoute *route = MSRoute::dictionary(myActiveRouteID);
+    const MSRoute *route = MSRoute::dictionary("!" + myVehicleParameter->id);
     if (route==0) {
         // if not, try via the (hopefully) given route-id
         route = MSRoute::dictionary(myVehicleParameter->routeid);

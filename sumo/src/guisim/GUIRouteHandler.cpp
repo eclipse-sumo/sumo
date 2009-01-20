@@ -107,6 +107,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
         }
 #endif
     }
+    myActiveRouteID = "";
 }
 
 

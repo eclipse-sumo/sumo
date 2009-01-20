@@ -145,11 +145,13 @@ GUIHandler::closeRoute() throw(ProcessError)
                     MsgHandler::getErrorInstance()->inform("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
                 }
             }
+            myActiveRouteID = "";
             return;
 #ifdef HAVE_MESOSIM
         }
 #endif
     }
+    myActiveRouteID = "";
 }
 
 
