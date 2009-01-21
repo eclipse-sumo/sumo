@@ -266,8 +266,12 @@ protected:
     /** applies the changes arised from window resize or movement */
     void applyChanges(SUMOReal scale, size_t xoff, size_t yoff);
 
-    /// draws the legend
-    void displayLegend(bool flip=false);
+    /** brief Draws the size legend
+     *
+     * Draws a line with ticks, and the length information.
+     */
+    void displayLegend() throw();
+
 
     /// centers the given boundary
     void centerTo(Boundary bound);

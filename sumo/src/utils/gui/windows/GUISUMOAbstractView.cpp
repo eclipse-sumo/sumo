@@ -519,7 +519,7 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
 
 
 void
-GUISUMOAbstractView::displayLegend(bool /*flip !!!*/)
+GUISUMOAbstractView::displayLegend() throw()
 {
     // compute the scale bar length
     size_t length = 1;
@@ -533,6 +533,9 @@ GUISUMOAbstractView::displayLegend(bool /*flip !!!*/)
         }
         length *= 10;
         noDigits++;
+        if(noDigits>text.length()) {
+            return;
+        }
     }
     SUMOReal lineWidth = 1.0;
     glLineWidth((SUMOReal) lineWidth);
@@ -552,25 +555,30 @@ GUISUMOAbstractView::displayLegend(bool /*flip !!!*/)
 
     SUMOReal len = (SUMOReal) pixelSize / (SUMOReal)(myWidthInPixels-1) * (SUMOReal) 2.0;
     glColor3f(0, 0, 0);
+    double o = double(15) / double(myHeightInPixels);
+    double o2 = o + o;
+    double oo = double(5) / double(myHeightInPixels);
     glBegin(GL_LINES);
     // vertical
-    glVertex2d(-.98, -.98);
-    glVertex2d(-.98+len, -.98);
+    glVertex2d(-.98, -1.+o);
+    glVertex2d(-.98+len, -1.+o);
     // tick at begin
-    glVertex2d(-.98, -.98);
-    glVertex2d(-.98, -.97);
+    glVertex2d(-.98, -1.+o);
+    glVertex2d(-.98, -1.+o2);
     // tick at end
-    glVertex2d(-.98+len, -.98);
-    glVertex2d(-.98+len, -.97);
+    glVertex2d(-.98+len, -1.+o);
+    glVertex2d(-.98+len, -1.+o2);
     glEnd();
 
-    pfSetPosition(-0.99f, 0.96f);
-    pfSetScale(0.03f);
+    SUMOReal w = SUMOReal(35) / SUMOReal(myWidthInPixels);
+    SUMOReal h = SUMOReal(35) / SUMOReal(myHeightInPixels);
+    pfSetPosition(-0.99f, 1.-o2-oo);
+    pfSetScaleXY(w, h);
     glRotated(180, 1, 0, 0);
     pfDrawString("0m");
     glRotated(-180, 1, 0, 0);
 
-    pfSetPosition((SUMOReal)(-.99+len), .96f);
+    pfSetPosition((SUMOReal)(-.99+len), 1.-o2-oo);
     glRotated(180, 1, 0, 0);
     pfDrawString((text.substr(0, noDigits) + "m").c_str());
     glRotated(-180, 1, 0, 0);
