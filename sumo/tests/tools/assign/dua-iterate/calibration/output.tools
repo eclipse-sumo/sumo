@@ -1,0 +1,701 @@
+> Executing step 0
+>> Running router with input_trips.trips.xml
+>>> Begin time 2009-01-22 12:33:21.601000
+>>> End time 2009-01-22 12:33:23.148000
+>>> Duration 0:00:01.547000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:23.148000
+>>> End time 2009-01-22 12:33:23.991000
+>>> Duration 0:00:00.843000
+<<
+< Step 0 ended (duration: 0:00:02.390000)
+------------------
+
+> Executing step 1
+>> Running router with input_trips_0.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:23.991000
+>>> End time 2009-01-22 12:33:24.866000
+>>> Duration 0:00:00.875000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:24.866000
+>>> End time 2009-01-22 12:33:25.163000
+>>> Duration 0:00:00.297000
+<<
+< Step 1 ended (duration: 0:00:01.172000)
+------------------
+
+> Executing step 2
+>> Running router with input_trips_1.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:25.163000
+>>> End time 2009-01-22 12:33:25.241000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:25.241000
+>>> End time 2009-01-22 12:33:25.366000
+>>> Duration 0:00:00.125000
+<<
+< Step 2 ended (duration: 0:00:00.203000)
+------------------
+
+> Executing step 3
+>> Running router with input_trips_2.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:25.366000
+>>> End time 2009-01-22 12:33:25.507000
+>>> Duration 0:00:00.141000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:25.507000
+>>> End time 2009-01-22 12:33:25.601000
+>>> Duration 0:00:00.094000
+<<
+< Step 3 ended (duration: 0:00:00.235000)
+------------------
+
+> Executing step 4
+>> Running router with input_trips_3.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:25.601000
+>>> End time 2009-01-22 12:33:25.694000
+>>> Duration 0:00:00.093000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:25.694000
+>>> End time 2009-01-22 12:33:25.819000
+>>> Duration 0:00:00.125000
+<<
+< Step 4 ended (duration: 0:00:00.218000)
+------------------
+
+> Executing step 5
+>> Running router with input_trips_4.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:25.819000
+>>> End time 2009-01-22 12:33:25.898000
+>>> Duration 0:00:00.079000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:25.898000
+>>> End time 2009-01-22 12:33:26.054000
+>>> Duration 0:00:00.156000
+<<
+< Step 5 ended (duration: 0:00:00.235000)
+------------------
+
+> Executing step 6
+>> Running router with input_trips_5.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:26.054000
+>>> End time 2009-01-22 12:33:26.148000
+>>> Duration 0:00:00.094000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:26.148000
+>>> End time 2009-01-22 12:33:26.226000
+>>> Duration 0:00:00.078000
+<<
+< Step 6 ended (duration: 0:00:00.172000)
+------------------
+
+> Executing step 7
+>> Running router with input_trips_6.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:26.226000
+>>> End time 2009-01-22 12:33:26.335000
+>>> Duration 0:00:00.109000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:26.335000
+>>> End time 2009-01-22 12:33:26.444000
+>>> Duration 0:00:00.109000
+<<
+< Step 7 ended (duration: 0:00:00.218000)
+------------------
+
+> Executing step 8
+>> Running router with input_trips_7.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:26.444000
+>>> End time 2009-01-22 12:33:26.569000
+>>> Duration 0:00:00.125000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:26.569000
+>>> End time 2009-01-22 12:33:26.663000
+>>> Duration 0:00:00.094000
+<<
+< Step 8 ended (duration: 0:00:00.219000)
+------------------
+
+> Executing step 9
+>> Running router with input_trips_8.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:26.663000
+>>> End time 2009-01-22 12:33:26.741000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:26.741000
+>>> End time 2009-01-22 12:33:26.835000
+>>> Duration 0:00:00.094000
+<<
+< Step 9 ended (duration: 0:00:00.172000)
+------------------
+
+> Executing step 10
+>> Running router with input_trips_9.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:26.835000
+>>> End time 2009-01-22 12:33:26.898000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:26.898000
+>>> End time 2009-01-22 12:33:26.976000
+>>> Duration 0:00:00.078000
+<<
+< Step 10 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 11
+>> Running router with input_trips_10.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:27.023000
+>>> End time 2009-01-22 12:33:27.179000
+>>> Duration 0:00:00.156000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:27.179000
+>>> End time 2009-01-22 12:33:27.273000
+>>> Duration 0:00:00.094000
+<<
+< Step 11 ended (duration: 0:00:00.250000)
+------------------
+
+> Executing step 12
+>> Running router with input_trips_11.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:27.273000
+>>> End time 2009-01-22 12:33:27.382000
+>>> Duration 0:00:00.109000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:27.382000
+>>> End time 2009-01-22 12:33:27.460000
+>>> Duration 0:00:00.078000
+<<
+< Step 12 ended (duration: 0:00:00.187000)
+------------------
+
+> Executing step 13
+>> Running router with input_trips_12.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:27.460000
+>>> End time 2009-01-22 12:33:27.523000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:27.523000
+>>> End time 2009-01-22 12:33:27.616000
+>>> Duration 0:00:00.093000
+<<
+< Step 13 ended (duration: 0:00:00.156000)
+------------------
+
+> Executing step 14
+>> Running router with input_trips_13.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:27.616000
+>>> End time 2009-01-22 12:33:27.679000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:27.679000
+>>> End time 2009-01-22 12:33:27.757000
+>>> Duration 0:00:00.078000
+<<
+< Step 14 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 15
+>> Running router with input_trips_14.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:27.757000
+>>> End time 2009-01-22 12:33:27.835000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:27.835000
+>>> End time 2009-01-22 12:33:27.898000
+>>> Duration 0:00:00.063000
+<<
+< Step 15 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 16
+>> Running router with input_trips_15.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:27.898000
+>>> End time 2009-01-22 12:33:27.976000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:27.976000
+>>> End time 2009-01-22 12:33:28.085000
+>>> Duration 0:00:00.109000
+<<
+< Step 16 ended (duration: 0:00:00.187000)
+------------------
+
+> Executing step 17
+>> Running router with input_trips_16.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:28.085000
+>>> End time 2009-01-22 12:33:28.163000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:28.163000
+>>> End time 2009-01-22 12:33:28.257000
+>>> Duration 0:00:00.094000
+<<
+< Step 17 ended (duration: 0:00:00.172000)
+------------------
+
+> Executing step 18
+>> Running router with input_trips_17.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:28.257000
+>>> End time 2009-01-22 12:33:28.366000
+>>> Duration 0:00:00.109000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:28.366000
+>>> End time 2009-01-22 12:33:28.444000
+>>> Duration 0:00:00.078000
+<<
+< Step 18 ended (duration: 0:00:00.187000)
+------------------
+
+> Executing step 19
+>> Running router with input_trips_18.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:28.444000
+>>> End time 2009-01-22 12:33:28.523000
+>>> Duration 0:00:00.079000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:28.523000
+>>> End time 2009-01-22 12:33:28.601000
+>>> Duration 0:00:00.078000
+<<
+< Step 19 ended (duration: 0:00:00.157000)
+------------------
+
+> Executing step 20
+>> Running router with input_trips_19.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:28.601000
+>>> End time 2009-01-22 12:33:28.694000
+>>> Duration 0:00:00.093000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:28.694000
+>>> End time 2009-01-22 12:33:28.788000
+>>> Duration 0:00:00.094000
+<<
+< Step 20 ended (duration: 0:00:00.187000)
+------------------
+
+> Executing step 21
+>> Running router with input_trips_20.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:28.788000
+>>> End time 2009-01-22 12:33:28.866000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:28.866000
+>>> End time 2009-01-22 12:33:28.944000
+>>> Duration 0:00:00.078000
+<<
+< Step 21 ended (duration: 0:00:00.156000)
+------------------
+
+> Executing step 22
+>> Running router with input_trips_21.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:28.944000
+>>> End time 2009-01-22 12:33:29.007000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:29.007000
+>>> End time 2009-01-22 12:33:29.085000
+>>> Duration 0:00:00.078000
+<<
+< Step 22 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 23
+>> Running router with input_trips_22.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:29.085000
+>>> End time 2009-01-22 12:33:29.148000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:29.148000
+>>> End time 2009-01-22 12:33:29.257000
+>>> Duration 0:00:00.109000
+<<
+< Step 23 ended (duration: 0:00:00.172000)
+------------------
+
+> Executing step 24
+>> Running router with input_trips_23.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:29.257000
+>>> End time 2009-01-22 12:33:29.413000
+>>> Duration 0:00:00.156000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:29.413000
+>>> End time 2009-01-22 12:33:29.523000
+>>> Duration 0:00:00.110000
+<<
+< Step 24 ended (duration: 0:00:00.266000)
+------------------
+
+> Executing step 25
+>> Running router with input_trips_24.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:29.523000
+>>> End time 2009-01-22 12:33:29.616000
+>>> Duration 0:00:00.093000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:29.616000
+>>> End time 2009-01-22 12:33:29.710000
+>>> Duration 0:00:00.094000
+<<
+< Step 25 ended (duration: 0:00:00.187000)
+------------------
+
+> Executing step 26
+>> Running router with input_trips_25.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:29.710000
+>>> End time 2009-01-22 12:33:29.788000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:29.788000
+>>> End time 2009-01-22 12:33:30.148000
+>>> Duration 0:00:00.360000
+<<
+< Step 26 ended (duration: 0:00:00.438000)
+------------------
+
+> Executing step 27
+>> Running router with input_trips_26.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:30.148000
+>>> End time 2009-01-22 12:33:30.226000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:30.226000
+>>> End time 2009-01-22 12:33:30.335000
+>>> Duration 0:00:00.109000
+<<
+< Step 27 ended (duration: 0:00:00.187000)
+------------------
+
+> Executing step 28
+>> Running router with input_trips_27.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:30.335000
+>>> End time 2009-01-22 12:33:30.429000
+>>> Duration 0:00:00.094000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:30.429000
+>>> End time 2009-01-22 12:33:30.585000
+>>> Duration 0:00:00.156000
+<<
+< Step 28 ended (duration: 0:00:00.250000)
+------------------
+
+> Executing step 29
+>> Running router with input_trips_28.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:30.585000
+>>> End time 2009-01-22 12:33:30.663000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:30.663000
+>>> End time 2009-01-22 12:33:30.882000
+>>> Duration 0:00:00.219000
+<<
+< Step 29 ended (duration: 0:00:00.297000)
+------------------
+
+> Executing step 30
+>> Running router with input_trips_29.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:30.882000
+>>> End time 2009-01-22 12:33:30.991000
+>>> Duration 0:00:00.109000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:30.991000
+>>> End time 2009-01-22 12:33:31.069000
+>>> Duration 0:00:00.078000
+<<
+< Step 30 ended (duration: 0:00:00.187000)
+------------------
+
+> Executing step 31
+>> Running router with input_trips_30.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:31.069000
+>>> End time 2009-01-22 12:33:31.132000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:31.132000
+>>> End time 2009-01-22 12:33:31.210000
+>>> Duration 0:00:00.078000
+<<
+< Step 31 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 32
+>> Running router with input_trips_31.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:31.210000
+>>> End time 2009-01-22 12:33:31.288000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:31.288000
+>>> End time 2009-01-22 12:33:31.398000
+>>> Duration 0:00:00.110000
+<<
+< Step 32 ended (duration: 0:00:00.188000)
+------------------
+
+> Executing step 33
+>> Running router with input_trips_32.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:31.398000
+>>> End time 2009-01-22 12:33:31.460000
+>>> Duration 0:00:00.062000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:31.460000
+>>> End time 2009-01-22 12:33:31.569000
+>>> Duration 0:00:00.109000
+<<
+< Step 33 ended (duration: 0:00:00.171000)
+------------------
+
+> Executing step 34
+>> Running router with input_trips_33.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:31.569000
+>>> End time 2009-01-22 12:33:31.632000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:31.632000
+>>> End time 2009-01-22 12:33:31.710000
+>>> Duration 0:00:00.078000
+<<
+< Step 34 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 35
+>> Running router with input_trips_34.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:31.710000
+>>> End time 2009-01-22 12:33:31.819000
+>>> Duration 0:00:00.109000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:31.819000
+>>> End time 2009-01-22 12:33:31.882000
+>>> Duration 0:00:00.063000
+<<
+< Step 35 ended (duration: 0:00:00.172000)
+------------------
+
+> Executing step 36
+>> Running router with input_trips_35.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:31.882000
+>>> End time 2009-01-22 12:33:31.976000
+>>> Duration 0:00:00.094000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:31.976000
+>>> End time 2009-01-22 12:33:32.054000
+>>> Duration 0:00:00.078000
+<<
+< Step 36 ended (duration: 0:00:00.172000)
+------------------
+
+> Executing step 37
+>> Running router with input_trips_36.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:32.054000
+>>> End time 2009-01-22 12:33:32.116000
+>>> Duration 0:00:00.062000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:32.116000
+>>> End time 2009-01-22 12:33:32.210000
+>>> Duration 0:00:00.094000
+<<
+< Step 37 ended (duration: 0:00:00.156000)
+------------------
+
+> Executing step 38
+>> Running router with input_trips_37.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:32.210000
+>>> End time 2009-01-22 12:33:32.288000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:32.288000
+>>> End time 2009-01-22 12:33:32.382000
+>>> Duration 0:00:00.094000
+<<
+< Step 38 ended (duration: 0:00:00.172000)
+------------------
+
+> Executing step 39
+>> Running router with input_trips_38.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:32.382000
+>>> End time 2009-01-22 12:33:32.460000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:32.460000
+>>> End time 2009-01-22 12:33:32.538000
+>>> Duration 0:00:00.078000
+<<
+< Step 39 ended (duration: 0:00:00.156000)
+------------------
+
+> Executing step 40
+>> Running router with input_trips_39.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:32.538000
+>>> End time 2009-01-22 12:33:32.616000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:32.616000
+>>> End time 2009-01-22 12:33:32.694000
+>>> Duration 0:00:00.078000
+<<
+< Step 40 ended (duration: 0:00:00.156000)
+------------------
+
+> Executing step 41
+>> Running router with input_trips_40.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:32.694000
+>>> End time 2009-01-22 12:33:32.757000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:32.757000
+>>> End time 2009-01-22 12:33:32.835000
+>>> Duration 0:00:00.078000
+<<
+< Step 41 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 42
+>> Running router with input_trips_41.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:32.835000
+>>> End time 2009-01-22 12:33:32.898000
+>>> Duration 0:00:00.063000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:32.898000
+>>> End time 2009-01-22 12:33:32.991000
+>>> Duration 0:00:00.093000
+<<
+< Step 42 ended (duration: 0:00:00.156000)
+------------------
+
+> Executing step 43
+>> Running router with input_trips_42.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:32.991000
+>>> End time 2009-01-22 12:33:33.069000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:33.069000
+>>> End time 2009-01-22 12:33:33.132000
+>>> Duration 0:00:00.063000
+<<
+< Step 43 ended (duration: 0:00:00.141000)
+------------------
+
+> Executing step 44
+>> Running router with input_trips_43.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:33.132000
+>>> End time 2009-01-22 12:33:33.210000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:33.210000
+>>> End time 2009-01-22 12:33:33.335000
+>>> Duration 0:00:00.125000
+<<
+< Step 44 ended (duration: 0:00:00.203000)
+------------------
+
+> Executing step 45
+>> Running router with input_trips_44.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:33.335000
+>>> End time 2009-01-22 12:33:33.429000
+>>> Duration 0:00:00.094000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:33.429000
+>>> End time 2009-01-22 12:33:33.523000
+>>> Duration 0:00:00.094000
+<<
+< Step 45 ended (duration: 0:00:00.188000)
+------------------
+
+> Executing step 46
+>> Running router with input_trips_45.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:33.523000
+>>> End time 2009-01-22 12:33:33.726000
+>>> Duration 0:00:00.203000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:33.726000
+>>> End time 2009-01-22 12:33:33.804000
+>>> Duration 0:00:00.078000
+<<
+< Step 46 ended (duration: 0:00:00.281000)
+------------------
+
+> Executing step 47
+>> Running router with input_trips_46.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:33.804000
+>>> End time 2009-01-22 12:33:33.882000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:33.882000
+>>> End time 2009-01-22 12:33:34.007000
+>>> Duration 0:00:00.125000
+<<
+< Step 47 ended (duration: 0:00:00.203000)
+------------------
+
+> Executing step 48
+>> Running router with input_trips_47.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:34.007000
+>>> End time 2009-01-22 12:33:34.163000
+>>> Duration 0:00:00.156000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:34.163000
+>>> End time 2009-01-22 12:33:34.241000
+>>> Duration 0:00:00.078000
+<<
+< Step 48 ended (duration: 0:00:00.234000)
+------------------
+
+> Executing step 49
+>> Running router with input_trips_48.rou.alt.xml
+>>> Begin time 2009-01-22 12:33:34.241000
+>>> End time 2009-01-22 12:33:34.319000
+>>> Duration 0:00:00.078000
+<<
+>> Running simulation
+>>> Begin time 2009-01-22 12:33:34.319000
+>>> End time 2009-01-22 12:33:34.460000
+>>> Duration 0:00:00.141000
+<<
+< Step 49 ended (duration: 0:00:00.219000)
+------------------
+
+dua-iterate ended (duration: 0:00:12.859000)

@@ -3,7 +3,9 @@ binary:$TEXTTEST_HOME/toolrunner.py
 copy_test_path:routes.rou.xml
 copy_test_path:routes2.rou.xml
 copy_test_path:input_net.net.xml
+copy_test_path:input_trips.trips.xml
 copy_test_path:tracefile.xml
+copy_test_path:input_weights.dump.xml
 
 [collate_file]
 edges:edges.xml
@@ -13,3 +15,7 @@ activityfile:activityfile.tcl
 mobilityfile:mobilityfile.tcl
 config:config.tcl
 
+[run_dependent_text]
+output:Begin time
+output:End time
+output:uration

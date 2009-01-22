@@ -1,0 +1,12 @@
+<tripdefs>
+	<tripdef depart="0" from="beg" to="rend"/>
+	<tripdef depart="10" from="beg" to="rend"/>
+	<tripdef depart="20" from="beg" to="rend"/>
+	<tripdef depart="30" from="beg" to="rend"/>
+	<tripdef depart="40" from="beg" to="rend"/>
+	<tripdef depart="50" from="beg" to="rend"/>
+	<tripdef depart="60" from="beg" to="rend"/>
+	<tripdef depart="70" from="beg" to="rend"/>
+	<tripdef depart="80" from="beg" to="rend"/>
+	<tripdef depart="90" from="beg" to="rend"/>
+</tripdefs>

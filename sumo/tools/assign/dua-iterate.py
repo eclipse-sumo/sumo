@@ -24,7 +24,7 @@ class TeeFile:
         for fp in self.files:
             fp.write(txt)
 
-def writeRouteConf(step, options, file, output):
+def writeRouteConf(step, options, file, output, withExitTimes):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
     fd.write("<configuration>\n")
     fd.write("<remove-loops>x</remove-loops>\n") # !!!
@@ -35,7 +35,9 @@ def writeRouteConf(step, options, file, output):
         fd.write("      <t>" + file + "</t>\n")
     else:
         fd.write("      <alternatives>" + file + "</alternatives>\n")
-        fd.write("      <weights>dump_" + str(step-1) + "_" + str(options.aggregation) + ".xml</weights>\n")
+        fd.write("      <weights>dump_%s_%s.xml</weights>\n" % (step-1, options.aggregation))
+    if withExitTimes:
+        fd.write("      <exit-times>x</exit-times>\n")
     fd.write("   </files>\n")
     fd.write("   <process>\n")
     fd.write("      <begin>" + str(options.begin) + "</begin>\n")
@@ -144,6 +146,14 @@ optParser.add_option("-l", "--last-step", dest="lastStep",
                      type="int", default=50, help="Last DUA step")
 optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO", ""), help="Path to binaries")
+
+optParser.add_option("-d", "--detector-values", dest="detvals",
+                     help="adapt to the flow on the given edges", metavar="FILE")
+optParser.add_option("-c", "--classpath", dest="classpath",
+                     default=os.path.join(os.path.dirname(sys.argv[0]), "calibration", "src"),
+                     help="classpath for the calibrator")
+optParser.add_option("-s", "--first-calibration-step", dest="calibStep",
+                     type="int", default=10, help="step at which to start calibration")
 (options, args) = optParser.parse_args()
 
 
@@ -159,6 +169,7 @@ else:
         sumoBinary = os.path.join(options.path, "meso")
     else:
         sumoBinary = os.path.join(options.path, "sumo")
+calibrator = "java -cp %s ch.epfl.transpor.calibration.interfaces.sumo.SumoControler" % options.classpath
 log = open("dua-log.txt", "w")
 logQuiet = open("dua-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
@@ -169,6 +180,11 @@ for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
     print "> Executing step " + str(step)
 
+    # calibration init
+    doCalibration = options.detvals and step >= options.calibStep
+    if options.detvals and step == options.calibStep: 
+        subprocess.call("%s INIT %s 100 071276 0.95 5 20 %s" % (calibrator, options.detvals, options.aggregation),
+                        shell=True, stdout=log, stderr=log)
     # router
     files = []
     for tripFile in tripFiles:
@@ -180,7 +196,7 @@ for step in range(options.firstStep, options.lastStep):
         print ">> Running router with " + file
         btime = datetime.now()
         print ">>> Begin time %s" % btime
-        writeRouteConf(step, options, file, output)
+        writeRouteConf(step, options, file, output, doCalibration)
         if options.verbose:
             print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
             subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
@@ -193,8 +209,12 @@ for step in range(options.firstStep, options.lastStep):
         print ">>> End time %s" % etime
         print ">>> Duration %s" % (etime-btime)
         print "<<"
+        # calibration choice
+        if doCalibration:
+            subprocess.call("%s CHOICE %s.alt.xml %s.cal.xml" % (calibrator, output[:-4], output[:-4]),
+                            shell=True, stdout=log, stderr=log)
+            output = output[:-4] + ".cal.xml"
         files.append(output)
-
     # simulation
     print ">> Running simulation"
     btime = datetime.now()
@@ -212,6 +232,10 @@ for step in range(options.firstStep, options.lastStep):
     print ">>> End time %s" % etime
     print ">>> Duration %s" % (etime-btime)
     print "<<"
+    # calibration update
+    if doCalibration: 
+        subprocess.call("%s UPDATE dump_%s_%s.xml" % (calibrator, step, options.aggregation),
+                        shell=True, stdout=log, stderr=log)
     print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
     print "------------------\n"
 print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
