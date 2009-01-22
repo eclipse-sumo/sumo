@@ -1422,6 +1422,7 @@ MSVehicle::getRoute(int index) const
     if (index==0) {
         return *myRoute;
     }
+    --index; // only prior routes are stored
     std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
     assert(i!=myPointerCORNMap.end());
     const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const)(*i).second;

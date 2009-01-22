@@ -93,6 +93,8 @@ GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
         myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0)
 {
+    // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
+    MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
 }
 
 

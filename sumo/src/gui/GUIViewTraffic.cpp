@@ -300,10 +300,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
                 if (vo.vehicle->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
                     int noReroutePlus1 = vo.vehicle->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
                     for (int i=noReroutePlus1-1; i>=0; i--) {
-                        SUMOReal darken =
-                            (SUMOReal) 0.4
-                            / (SUMOReal) noReroutePlus1
-                            * (SUMOReal) i;
+                        SUMOReal darken = SUMOReal(0.4) / SUMOReal(noReroutePlus1) * SUMOReal(i);
                         drawRoute(vo, i, darken);
                     }
                 } else {
