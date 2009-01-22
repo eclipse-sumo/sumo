@@ -1149,7 +1149,7 @@
           <programlisting>... previous definitions ...
    <sgmltag>&lt;edge id="2si" fromnode="m2" tonode="0" priority="3" nolanes="3" speed="13.89"&gt;</sgmltag>
       <sgmltag>&lt;lane id="2" allow="bus"/&gt;</sgmltag>
-   <sgmltag>&lt;edge&gt;</sgmltag>
+   <sgmltag>&lt;/edge&gt;</sgmltag>
 ... further definitions ...
 </programlisting>
 
@@ -1159,7 +1159,7 @@
           <programlisting>... previous definitions ...
    <sgmltag>&lt;edge id="2si" fromnode="m2" tonode="0" priority="3" nolanes="3" speed="13.89"&gt;</sgmltag>
       <sgmltag>&lt;lane id="2" disallow="passenger;taxis"/&gt;</sgmltag>
-   <sgmltag>&lt;edge&gt;</sgmltag>
+   <sgmltag>&lt;/edge&gt;</sgmltag>
 ... further definitions ...
 </programlisting>
 
