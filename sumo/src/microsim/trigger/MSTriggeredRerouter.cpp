@@ -269,7 +269,7 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while (i!=myIntervals.end()) {
         if ((*i).begin<=time && (*i).end>=time) {
-            if ((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0) {
+            if ((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0||(*i).closed.size()!=0) {
                 return true;
             }
         }
@@ -301,7 +301,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const
 {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while (i!=myIntervals.end()) {
-        if ((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0) {
+        if ((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0||(*i).closed.size()!=0) {
             return *i;
         }
         i++;

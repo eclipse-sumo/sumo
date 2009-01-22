@@ -16,13 +16,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-// ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#pragma warning(disable: 4355)
-#endif
 
 
 // ===========================================================================
@@ -323,7 +316,6 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -3);
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
@@ -331,6 +323,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
         glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
+        glPolygonOffset(0, -3);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         glBegin(GL_TRIANGLES);
@@ -344,6 +337,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
         glVertex2d(0+1.4, 6);
         glEnd();
 
+        glPolygonOffset(0, -4);
         glColor3f(0, 0, 0);
         pfSetPosition(0, 0);
         pfSetScale(3.f);
@@ -358,7 +352,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
         prob = (SUMOReal)((int) prob);
         string str = toString(prob) + "%";
         pfSetPosition(0, 0);
-        pfSetScale(1.4f);
+        pfSetScale(.7f);
         w = pfdkGetStringWidth(str.c_str());
         glTranslated(-w/2., 4, 0);
         pfDrawString(str.c_str());
@@ -391,10 +385,13 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
                         noPoints = 36;
                     }
                 }
+                glPolygonOffset(0, -3);
                 glColor3f((SUMOReal) 0.7, (SUMOReal) 0, (SUMOReal) 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
+                glPolygonOffset(0, -4);
                 glColor3f(1, 0, 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob);
+                glPolygonOffset(0, -5);
                 glColor3f(1, 1, 1);
                 glRotated(-90, 0, 0, 1);
                 glBegin(GL_TRIANGLES);
