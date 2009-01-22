@@ -195,11 +195,22 @@ protected:
     void loadDecals(const std::string &file) throw();
 
 
+
+    /** @class SchemeLoader
+     * @brief An XML-handler for visualisation schemes
+     */
     class SchemeLoader : public SUMOSAXHandler
     {
     public:
-        SchemeLoader(GUIVisualizationSettings &s);
+        /** @brief Constructor
+         * @param[in, out] s The settings to fill
+         */
+        SchemeLoader(GUIVisualizationSettings &s) throw();
+
+
+        /// @brief Destructor
         ~SchemeLoader() throw();
+
 
         /// @name inherited from GenericSAXHandler
         //@{
@@ -214,15 +225,30 @@ protected:
         void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
         //@}
 
+
     protected:
+        /// @brief The settings to fill
         GUIVisualizationSettings &mySettings;
+
     };
 
+
+
+    /** @class DecalsLoader
+     * @brief An XML-handler for decals
+     */
     class DecalsLoader : public SUMOSAXHandler
     {
     public:
-        DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals);
+        /** @brief Constructor
+         * @param[in, out] s The decals list to fill
+         */
+        DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals) throw();
+
+
+        /// @brief Destructor
         ~DecalsLoader() throw();
+
 
         /// @name inherited from GenericSAXHandler
         //@{
@@ -237,9 +263,14 @@ protected:
         void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
         //@}
 
+
     protected:
+        /// @brief The decals list to fill
         std::vector<GUISUMOAbstractView::Decal> &myDecals;
+
+
     };
+
 
 private:
     /// @brief The parent view (which settings are changed)
@@ -263,9 +294,9 @@ private:
     /// @brief Lock used when changing the decals
     MFXMutex *myDecalsLock;
 
-    /// @name Dialogs
-    /// @{
 
+    /// @name Dialog elements
+    /// @{
     FXComboBox *mySchemeName;
     FXCheckButton *myShowGrid;
     FXRealSpinDial *myGridXSizeDialer, *myGridYSizeDialer;

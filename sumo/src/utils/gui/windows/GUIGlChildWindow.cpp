@@ -215,7 +215,6 @@ GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
     myView->showToolTips(button->amChecked());
-//    myUseToolTips = button->amChecked();
     update();
     myView->update();
     return 1;

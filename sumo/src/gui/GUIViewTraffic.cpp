@@ -255,26 +255,31 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 
     // compute lane width
     SUMOReal lw = m2p(3.0) * scale;
-    // draw decals
-    glPolygonOffset(0, 10);
-    myDecalsLock.lock();
-    for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
-        GUISUMOAbstractView::Decal &d = *l;
-        if (!d.initialised) {
-            FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
-            if (i!=0) {
-                d.glID = GUITexturesHelper::add(i);
-                d.initialised = true;
+    // draw decals (if not in grabbing mode)
+    if (!myUseToolTips) {
+        glPolygonOffset(0, 10);
+        myDecalsLock.lock();
+        for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
+            GUISUMOAbstractView::Decal &d = *l;
+            if (!d.initialised) {
+                FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
+                if (i!=0) {
+                    d.glID = GUITexturesHelper::add(i);
+                    d.initialised = true;
+                }
             }
+            glPushMatrix();
+            glTranslated(d.centerX, d.centerY, 0);
+            glRotated(d.rot, 0, 0, 1);
+            glColor3d(1,1,1);
+            SUMOReal halfWidth(d.width / 2.);
+            SUMOReal halfHeight(d.height / 2.);
+            GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
+            glPopMatrix();
         }
-        glPushMatrix();
-        glTranslated(d.left, d.top, 0);
-        glRotated(d.rot, 0, 0, 1);
-        glColor3d(1,1,1);
-        GUITexturesHelper::drawTexturedBox(d.glID, 0, 0, d.right-d.left, d.bottom-d.top);
-        glPopMatrix();
+        myDecalsLock.unlock();
     }
-    myDecalsLock.unlock();
+
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     float minB[2];

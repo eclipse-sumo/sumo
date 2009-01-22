@@ -228,16 +228,35 @@ public:
         VCS_BY_TYPE = 0
     };
 
+
+    /** @struct Decal
+     * @brief A decal (an image) that can be shown
+     */
     struct Decal {
+        /// @brief Constructor
+        Decal() 
+            : filename(), centerX(0), centerY(0), 
+            width(1000), height(1000), rot(0), 
+            initialised(false), glID(-1) { }
+
+        /// @brief The path to the file the image is located at
         std::string filename;
-        SUMOReal left;
-        SUMOReal top;
-        SUMOReal right;
-        SUMOReal bottom;
+        /// @brief The center of the image in x-direction (net coordinates, in m)
+        SUMOReal centerX;
+        /// @brief The center of the image in y-direction (net coordinates, in m)
+        SUMOReal centerY;
+        /// @brief The width of the image (net coordinates, in m)
+        SUMOReal width;
+        /// @brief The height of the image (net coordinates, in m)
+        SUMOReal height;
+        /// @brief The rotation of the image (in degrees)
         SUMOReal rot;
+        /// @brief Whether this image was initialised (inserted as a texture)
         bool initialised;
+        /// @brief The gl-id of the texture that holds this image
         int glID;
     };
+
 
 public:
     FXComboBox &getColoringSchemesCombo();

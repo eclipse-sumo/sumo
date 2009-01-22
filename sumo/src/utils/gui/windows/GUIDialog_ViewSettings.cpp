@@ -91,7 +91,7 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ViewSettings::DecalsLoader::DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals)
+GUIDialog_ViewSettings::DecalsLoader::DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals) throw()
         : myDecals(decals)
 {
 }
@@ -110,12 +110,12 @@ GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element,
     case SUMO_TAG_VIEWSETTINGS_DECAL: {
         GUISUMOAbstractView::Decal d;
         d.filename = attrs.getStringSecure("filename", d.filename);
-        d.left = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("left", toString(d.left)).c_str());
-        d.top = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("top", toString(d.top)).c_str());
-        d.right = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("right", toString(d.right)).c_str());
-        d.bottom = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("bottom", toString(d.bottom)).c_str());
+        d.centerX = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("centerX", toString(d.centerX)).c_str());
+        d.centerY = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("centerY", toString(d.centerY)).c_str());
+        d.width = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("width", toString(d.width)).c_str());
+        d.height = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("height", toString(d.height)).c_str());
+        d.rot = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
         d.initialised = false;
-        d.rot = 0;
         myDecals.push_back(d);
     }
     break;
@@ -123,7 +123,7 @@ GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element,
 }
 
 
-GUIDialog_ViewSettings::SchemeLoader::SchemeLoader(GUIVisualizationSettings &s)
+GUIDialog_ViewSettings::SchemeLoader::SchemeLoader(GUIVisualizationSettings &s) throw()
         : mySettings(s)
 {
 }
@@ -231,7 +231,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     BaseSchemeInfoSource *vehicleModeSource,
     std::vector<GUISUMOAbstractView::Decal> *decals,
     MFXMutex *decalsLock) throw()
-        : FXDialogBox(parent, "View Settings"),
+        : FXDialogBox(parent, "View Settings", DECOR_TITLE|DECOR_BORDER, 0,0,0,0, 0,0,0,0, 0,0),
         myParent(parent), mySettings(settings),
         myLaneColoringInfoSource(laneEdgeModeSource),
         myVehicleColoringInfoSource(vehicleModeSource),
@@ -241,7 +241,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
 
     FXVerticalFrame *contentFrame =
         new FXVerticalFrame(this, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-                            0,0,0,0, 0,0,0,0, 5,5);
+                            0,0,0,0, 0,0,0,0, 2,2);
     //
     {
         FXHorizontalFrame *frame0 =
@@ -269,7 +269,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     }
     //
     FXTabBook *tabbook =
-        new FXTabBook(contentFrame,0,0,TABBOOK_LEFTTABS|PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT);
+        new FXTabBook(contentFrame,0,0,TABBOOK_LEFTTABS|PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT,
+            0,0,0,0, 0,0,0,0);
     {
         // tab for the background
         FXTabItem *tab1 = new FXTabItem(tabbook,"Background",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
@@ -1146,10 +1147,11 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw()
         for (j=myDecals->begin(); j!=myDecals->end(); ++j) {
             GUISUMOAbstractView::Decal &d = *j;
             dev << "    <decal filename=\"" << d.filename
-            << "\" left=\"" << d.left
-            << "\" top=\"" << d.top
-            << "\" right=\"" << d.right
-            << "\" bottom=\"" << d.bottom
+            << "\" centerX=\"" << d.centerX
+            << "\" centerY=\"" << d.centerY
+            << "\" width=\"" << d.width
+            << "\" height=\"" << d.height
+            << "\" rotation=\"" << d.rot
             << "\">\n";
         }
         dev << "<decals/>\n";
@@ -1378,92 +1380,65 @@ GUIDialog_ViewSettings::rebuildList() throw()
     myDecalsTable->clearItems();
 
     // set table attributes
-    myDecalsTable->setTableSize(10, 8); //!!!
+    myDecalsTable->setTableSize(10, 6);
     myDecalsTable->setColumnText(0, "picture file");
-    myDecalsTable->setColumnText(1, "left");
-    myDecalsTable->setColumnText(2, "top");
-    myDecalsTable->setColumnText(3, "right");
-    myDecalsTable->setColumnText(4, "bottom");
-    myDecalsTable->setColumnText(5, "width");
-    myDecalsTable->setColumnText(6, "height");
-    myDecalsTable->setColumnText(7, "rotation");
+    myDecalsTable->setColumnText(1, "center x");
+    myDecalsTable->setColumnText(2, "center y");
+    myDecalsTable->setColumnText(3, "width");
+    myDecalsTable->setColumnText(4, "height");
+    myDecalsTable->setColumnText(5, "rotation");
     FXHeader *header = myDecalsTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight()+getApp()->getNormalFont()->getFontAscent());
     int k;
-    for (k=0; k<8; k++) {
+    for (k=0; k<6; k++) {
         header->setItemJustify(k, JUSTIFY_CENTER_X|JUSTIFY_TOP);
+        header->setItemSize(k, 60);
     }
-    header->setItemSize(0, 150); // !! check if the size will be changed
-    header->setItemSize(1, 60); // !! check if the size will be changed
-    header->setItemSize(2, 60); // !! check if the size will be changed
-    header->setItemSize(3, 60); // !! check if the size will be changed
-    header->setItemSize(4, 60); // !! check if the size will be changed
-    header->setItemSize(5, 60); // !! check if the size will be changed
-    header->setItemSize(6, 60); // !! check if the size will be changed
-    header->setItemSize(7, 60); // !! check if the size will be changed
+    header->setItemSize(0, 150);
 
-    // insert into table
+    // insert already known decals information into table
     FXint row = 0;
     std::vector<GUISUMOAbstractView::Decal>::iterator j;
     for (j=myDecals->begin(); j!=myDecals->end(); ++j) {
         GUISUMOAbstractView::Decal &d = *j;
         myDecalsTable->setItemText(row, 0, d.filename.c_str());
-        myDecalsTable->setItemText(row, 1, toString<SUMOReal>(d.left).c_str());
-        myDecalsTable->setItemText(row, 2, toString<SUMOReal>(d.top).c_str());
-        myDecalsTable->setItemText(row, 3, toString<SUMOReal>(d.right).c_str());
-        myDecalsTable->setItemText(row, 4, toString<SUMOReal>(d.bottom).c_str());
-        myDecalsTable->setItemText(row, 5, toString<SUMOReal>(d.right - d.left).c_str());
-        myDecalsTable->setItemText(row, 6, toString<SUMOReal>(d.bottom-d.top).c_str());
-        myDecalsTable->setItemText(row, 7, toString<SUMOReal>(d.rot).c_str());
+        myDecalsTable->setItemText(row, 1, toString<SUMOReal>(d.centerX).c_str());
+        myDecalsTable->setItemText(row, 2, toString<SUMOReal>(d.centerY).c_str());
+        myDecalsTable->setItemText(row, 3, toString<SUMOReal>(d.width).c_str());
+        myDecalsTable->setItemText(row, 4, toString<SUMOReal>(d.height).c_str());
+        myDecalsTable->setItemText(row, 5, toString<SUMOReal>(d.rot).c_str());
         row++;
     }
     // insert dummy last field
-    for (k=0; k<8; k++) {
+    for (k=0; k<6; k++) {
         myDecalsTable->setItemText(row, k, " ");
     }
-    //
 }
 
 
 void
 GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw()
 {
-    {
-        // decals
-        delete myDecalsTable;
-        myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE,
-                LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0,0, 470, 0);
-        myDecalsTable->setVisibleRows(5);
-        myDecalsTable->setVisibleColumns(8);
-        myDecalsTable->setTableSize(5,8);
-        myDecalsTable->setBackColor(FXRGB(255,255,255));
-        myDecalsTable->getRowHeader()->setWidth(0);
-        myDecalsTable->setCellType(1, CT_REAL);
-        myDecalsTable->setNumberCellParams(1, -10000000, 10000000,
-                                           10, 100, 100000, "%.2f");
-        myDecalsTable->setCellType(2, CT_REAL);
-        myDecalsTable->setNumberCellParams(2, -10000000, 10000000,
-                                           10, 100, 100000, "%.2f");
-        myDecalsTable->setCellType(3, CT_REAL);
-        myDecalsTable->setNumberCellParams(3, -10000000, 10000000,
-                                           10, 100, 100000, "%.2f");
-        myDecalsTable->setCellType(4, CT_REAL);
-        myDecalsTable->setNumberCellParams(4, -10000000, 10000000,
-                                           10, 100, 100000, "%.2f");
-        myDecalsTable->setCellType(5, CT_REAL);
-        myDecalsTable->setNumberCellParams(5, -10000000, 10000000,
-                                           .1, 1, 10, "%.2f");
-        myDecalsTable->setCellType(6, CT_REAL);
-        myDecalsTable->setNumberCellParams(6, -10000000, 10000000,
-                                           .1, 1, 10, "%.2f");
-        myDecalsTable->setCellType(7, CT_REAL);
-        myDecalsTable->setNumberCellParams(7, -10000000, 10000000,
-                                           .1, 1, 10, "%.2f");
-        rebuildList();
-        if (doCreate) {
-            myDecalsTable->create();
-        }
+    // decals
+    delete myDecalsTable;
+    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE,
+        LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0,0, 470, 0);
+    myDecalsTable->setVisibleRows(5);
+    myDecalsTable->setVisibleColumns(6);
+    myDecalsTable->setTableSize(5,6);
+    myDecalsTable->setBackColor(FXRGB(255,255,255));
+    myDecalsTable->getRowHeader()->setWidth(0);
+    for(int i=1; i<5; ++i) {
+        myDecalsTable->setCellType(i, CT_REAL);
+        myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
     }
+    myDecalsTable->setCellType(5, CT_REAL);
+    myDecalsTable->setNumberCellParams(5, -10000000, 10000000, .1, 1, 10, "%.2f");
+    rebuildList();
+    if (doCreate) {
+        myDecalsTable->create();
+    }
+
     {
         // lane
         MFXUtils::deleteChildren(myLaneColorSettingFrame);
@@ -1562,10 +1537,10 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
     int row = i->row;
     if (row==myDecals->size()) {
         d.filename = "";
-        d.left = 0;
-        d.top = 0;
-        d.right = myParent->getGridWidth();
-        d.bottom = myParent->getGridHeight();
+        d.centerX = SUMOReal(myParent->getGridWidth() / 2.);
+        d.centerY = SUMOReal(myParent->getGridHeight() / 2.);
+        d.width = SUMOReal(myParent->getGridWidth());
+        d.height = SUMOReal(myParent->getGridHeight());
         d.initialised = false;
         d.rot = 0;
         myDecalsLock->lock();
@@ -1577,13 +1552,14 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
 
     switch (i->col) {
     case 0:
+        if(d.initialised&&d.filename!=value) {
+            d.initialised = false;
+        }
         d.filename = value;
         break;
     case 1:
         try {
-            d.left = TplConvert<char>::_2SUMOReal(value.c_str());
-            SUMOReal width = d.right - d.left;
-            myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
+            d.centerX = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
@@ -1591,9 +1567,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 2:
         try {
-            d.top = TplConvert<char>::_2SUMOReal(value.c_str());
-            SUMOReal height = d.bottom - d.top;
-            myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
+            d.centerY = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
@@ -1601,9 +1575,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 3:
         try {
-            d.right = TplConvert<char>::_2SUMOReal(value.c_str());
-            SUMOReal width = d.right - d.left;
-            myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
+            d.width = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
@@ -1611,35 +1583,13 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 4:
         try {
-            d.bottom = TplConvert<char>::_2SUMOReal(value.c_str());
-            SUMOReal height = d.bottom - d.top;
-            myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
+            d.height = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
     case 5:
-        try {
-            SUMOReal width = TplConvert<char>::_2SUMOReal(value.c_str());
-            d.right = width + d.left;
-            myDecalsTable->setItemText(i->row, 3, toString(d.right).c_str());
-        } catch (NumberFormatException &) {
-            string msg = "The value must be a float, is:" + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
-        }
-        break;
-    case 6:
-        try {
-            SUMOReal height = TplConvert<char>::_2SUMOReal(value.c_str());
-            d.bottom = height + d.top;
-            myDecalsTable->setItemText(i->row, 4, toString(d.bottom).c_str());
-        } catch (NumberFormatException &) {
-            string msg = "The value must be a float, is:" + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
-        }
-        break;
-    case 7:
         try {
             d.rot = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
