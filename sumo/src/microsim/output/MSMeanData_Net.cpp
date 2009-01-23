@@ -135,8 +135,8 @@ MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& v
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSMeanData_Net(const std::string &id,
                                MSEdgeControl &edges,
-                               const std::vector<int> &dumpBegins,
-                               const std::vector<int> &dumpEnds,
+                               const std::vector<SUMOTime> &dumpBegins,
+                               const std::vector<SUMOTime> &dumpEnds,
                                bool useLanes,
                                bool withEmptyEdges, bool withEmptyLanes) throw()
         : myID(id),

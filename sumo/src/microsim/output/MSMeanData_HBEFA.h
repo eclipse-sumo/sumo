@@ -171,8 +171,8 @@ public:
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      */
     MSMeanData_HBEFA(const std::string &id,
-                     MSEdgeControl &edges, const std::vector<int> &dumpBegins,
-                     const std::vector<int> &dumpEnds, bool useLanes,
+                     MSEdgeControl &edges, const std::vector<SUMOTime> &dumpBegins,
+                     const std::vector<SUMOTime> &dumpEnds, bool useLanes,
                      bool withEmptyEdges, bool withEmptyLanes) throw();
 
 
@@ -282,7 +282,7 @@ protected:
     bool myAmEdgeBased;
 
     /// @brief The first and the last time steps to write information (-1 indicates always)
-    std::vector<int> myDumpBegins, myDumpEnds;
+    std::vector<SUMOTime> myDumpBegins, myDumpEnds;
 
     /// @brief Whether empty lanes/edges shall be written
     bool myDumpEmptyEdges, myDumpEmptyLanes;

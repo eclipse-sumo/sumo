@@ -64,7 +64,7 @@ MSPhoneNet::~MSPhoneNet()
 {
     // close outputs
     SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-    if ((currentTime-1)%300!=0) {
+    if (TMOD((currentTime-1),300)!=0) { // !!! compiles, but will fail with time being a real number due to inexact representation
         if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
             writeCellOutput(currentTime);
         }

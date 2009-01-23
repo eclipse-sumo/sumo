@@ -438,7 +438,8 @@ MSEdge::getEffort(SUMOReal forTime) const throw()
             }
         }
     }
-    return myPackedValueLine[(t-myShortCutBegin)/myShortCutInterval];
+    unsigned int index = (unsigned int) ((t-myShortCutBegin)/myShortCutInterval);
+    return myPackedValueLine[index];
 }
 
 

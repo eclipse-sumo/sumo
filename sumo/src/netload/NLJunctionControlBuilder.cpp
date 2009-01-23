@@ -243,7 +243,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument)
     // compute the initial step and first switch time of the tls-logic
     unsigned int step = 0;
     SUMOTime firstEventOffset = 0;
-    SUMOTime offset = (myNet.getCurrentTimeStep() + ((int) myOffset%(int) myAbsDuration)) % (int) myAbsDuration;
+    SUMOTime offset = TMOD((myNet.getCurrentTimeStep() + TMOD(myOffset,myAbsDuration)),myAbsDuration);
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
     while (offset>=(*i)->duration) {
         step++;

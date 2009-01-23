@@ -169,14 +169,14 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
             myMSPhoneNet, &MSPhoneNet::writeCellOutput);
         getEndOfTimestepEvents().addEvent(
-            writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
+            writeDate, (SUMOTime) (TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
     }
     if (OptionsCont::getOptions().isSet("ss2-la-output")||OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
             myMSPhoneNet, &MSPhoneNet::writeLAOutput);
         getEndOfTimestepEvents().addEvent(
-            writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
+            writeDate, (SUMOTime) (TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
     }
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;

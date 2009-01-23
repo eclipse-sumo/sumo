@@ -150,7 +150,7 @@ MSFrame::fillOptions()
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
 #ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
-    oc.doRegister("step-length", new Option_Float((SUMOReal) .1));
+    oc.doRegister("step-length", new Option_Float((SUMOReal) 1.));
     oc.addDescription("step-length", "Time", "Defines the step duration");
 #endif
 #endif

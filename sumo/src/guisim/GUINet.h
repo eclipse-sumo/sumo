@@ -106,12 +106,21 @@ public:
     /// Some further steps needed for gui processing
     void guiSimulationStep();
 
-    //{@ functions for performace measurements
-    /// Returns the duration of the last step (sim+visualisation+idle) (in ms)
-    int getWholeDuration() const;
 
-    /// Returns the duration of the last step's simulation part (in ms)
-    int getSimDuration() const;
+    /// @name functions for performace measurements
+    //{@ 
+
+    /** @brief Returns the duration of the last step (sim+visualisation+idle) (in ms)
+     * @return How long it took to compute and display the last step
+     */
+    unsigned int getWholeDuration() const throw();
+
+
+    /** @brief Returns the duration of the last step's simulation part (in ms)
+     * @return How long it took to compute the last step
+     */
+    unsigned int getSimDuration() const throw();
+
 
     /// Returns the simulation speed as a factor to real time
     SUMOReal getRTFactor() const;
@@ -129,7 +138,7 @@ public:
     //int getVisDuration() const;
 
     /// Returns the duration of the last step's idle part (in ms)
-    int getIdleDuration() const;
+    unsigned int getIdleDuration() const throw();
 
     /// Sets the duration of the last step's simulation part
     void setSimDuration(int val);
@@ -223,8 +232,8 @@ protected:
     Logics2WrapperMap myLogics2Wrapper;
 
 
-    /// The step durations (simulation, /*visualisation, */idle)
-    int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;
+    /// @brief The step durations (simulation, /*visualisation, */idle)
+    unsigned int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;
 
     long myLastVehicleMovementCount, myOverallVehicleCount;
     long myOverallSimDuration;

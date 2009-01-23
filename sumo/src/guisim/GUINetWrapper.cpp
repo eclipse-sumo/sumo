@@ -99,23 +99,23 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("vehicles waiting [#]", true,
                 new FunctionBinding<MSEmitControl, unsigned int>(&(getNet().getEmitControl()), &MSEmitControl::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
-                OptionsCont::getOptions().getInt("end"));
+                (SUMOTime) OptionsCont::getOptions().getInt("end"));
     ret->mkItem("begin time [s]", false,
-                OptionsCont::getOptions().getInt("begin"));
+                (SUMOTime) OptionsCont::getOptions().getInt("begin"));
     ret->mkItem("time step [s]", true,
                 new FunctionBinding<GUINet, SUMOTime>(&(getNet()), &GUINet::getCurrentTimeStep));
     if (getNet().logSimulationDuration()) {
         ret->mkItem("step duration [ms]", true,
-                    new FunctionBinding<GUINet, int>(&(getNet()), &GUINet::getWholeDuration));
+                    new FunctionBinding<GUINet, unsigned int>(&(getNet()), &GUINet::getWholeDuration));
         ret->mkItem("simulation duration [ms]", true,
-                    new FunctionBinding<GUINet, int>(&(getNet()), &GUINet::getSimDuration));
+                    new FunctionBinding<GUINet, unsigned int>(&(getNet()), &GUINet::getSimDuration));
         /*
         ret->mkItem("visualisation duration [ms]", true,
             new CastingFunctionBinding<GUINet, SUMOReal, int>(
                 &(getNet()), &GUINet::getVisDuration));
         */
         ret->mkItem("idle duration [ms]", true,
-                    new FunctionBinding<GUINet, int>(&(getNet()), &GUINet::getIdleDuration));
+                    new FunctionBinding<GUINet, unsigned int>(&(getNet()), &GUINet::getIdleDuration));
         ret->mkItem("duration factor []", true,
                     new FunctionBinding<GUINet, SUMOReal>(&(getNet()), &GUINet::getRTFactor));
         /*

@@ -404,15 +404,15 @@ GUINet::initGUIStructures()
 }
 
 
-int
-GUINet::getWholeDuration() const
+unsigned int
+GUINet::getWholeDuration() const throw()
 {
     return myLastSimDuration+/*myLastVisDuration+*/myLastIdleDuration;
 }
 
 
-int
-GUINet::getSimDuration() const
+unsigned int
+GUINet::getSimDuration() const throw()
 {
     return myLastSimDuration;
 }
@@ -466,8 +466,8 @@ GUINet::getMeanUPS() const
 }
 
 
-int
-GUINet::getIdleDuration() const
+unsigned int
+GUINet::getIdleDuration() const throw()
 {
     return myLastIdleDuration;
 }

@@ -186,7 +186,8 @@ ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const throw()
                 }
             }
         } else {
-            value = myPackedValueLine[(time-myShortCutBegin)/myShortCutInterval];
+            unsigned int index = (unsigned int) ((time-myShortCutBegin)/myShortCutInterval);
+            return myPackedValueLine[index];
         }
     }
 

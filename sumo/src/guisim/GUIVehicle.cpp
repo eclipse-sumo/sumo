@@ -286,8 +286,12 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 9);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
-    ret->mkItem("left same route [#]", false, getParameter().repetitionNumber);
-    ret->mkItem("emission period [s]", false, getParameter().repetitionOffset);
+    if(getParameter().repetitionNumber>0) {
+        ret->mkItem("left same route [#]", false, (unsigned int) getParameter().repetitionNumber);
+    }
+    if(getParameter().repetitionOffset>0) {
+        ret->mkItem("emission period [s]", false, (SUMOTime) getParameter().repetitionOffset);
+    }
     ret->mkItem("waiting time [s]", true,
                 new CastingFunctionBinding<MSVehicle, SUMOReal, unsigned int>(this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,

@@ -58,7 +58,7 @@ public:
                       const std::bitset<64> &yellowMaskArg)
             : duration(durationArg), myLastSwitch(0), driveMask(driveMaskArg),
             breakMask(breakMaskArg), yellowMask(yellowMaskArg) {
-        myLastSwitch = OptionsCont::getOptions().getInt("begin");
+        myLastSwitch = OptionsCont::getOptions().getInt("begin"); // SUMOTime-option
     }
 
     /// destructor
