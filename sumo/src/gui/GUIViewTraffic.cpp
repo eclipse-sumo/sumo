@@ -436,7 +436,7 @@ GUIViewTraffic::draw(const MSRoute &r)
 
 
 void
-GUIViewTraffic::showRoute(GUIVehicle *v, int index)
+GUIViewTraffic::showRoute(GUIVehicle * v, int index) throw()
 {
     VehicleOps vo;
     vo.vehicle = v;
@@ -459,7 +459,7 @@ GUIViewTraffic::showBestLanes(GUIVehicle *v)
 
 
 void
-GUIViewTraffic::hideRoute(GUIVehicle *v, int index)
+GUIViewTraffic::hideRoute(GUIVehicle * v, int index) throw()
 {
     std::vector<VehicleOps>::iterator i =
         find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
@@ -493,7 +493,7 @@ GUIViewTraffic::hideBestLanes(GUIVehicle *v)
 
 
 bool
-GUIViewTraffic::amShowingRouteFor(GUIVehicle *v, int index)
+GUIViewTraffic::amShowingRouteFor(GUIVehicle * v, int index) throw()
 {
     std::vector<VehicleOps>::iterator i =
         find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));

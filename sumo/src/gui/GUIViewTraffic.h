@@ -102,14 +102,22 @@ public:
     void changeTyp(GUIGlObject *o);
     void deleteObj(GUIGlObject *o);
 
-    /// shows a vehicle route
-    void showRoute(GUIVehicle *v, int index=-1);
+    /** @brief Shows a vehicle's route(s)
+     * @param[in] v The vehicle to show routes for
+     * @param[in] index The index of the route to show (-1: "all routes")
+     * @see GUISUMOAbstractView::showRoute
+     */
+    void showRoute(GUIVehicle * v, int index=-1) throw();
 
     ///
     void showBestLanes(GUIVehicle *v);
 
-    /// hides a vehicle route
-    void hideRoute(GUIVehicle *v, int index=-1);
+    /** @brief Stops showing a vehicle's routes
+     * @param[in] v The vehicle to stop showing routes for
+     * @param[in] index The index of the route to hide (-1: "all routes")
+     * @see GUISUMOAbstractView::hideRoute
+     */
+    void hideRoute(GUIVehicle * v, int index=-1) throw();
 
     ///
     void hideBestLanes(GUIVehicle *v);
@@ -118,8 +126,13 @@ public:
 
 
 
-    /// Returns the information whether the route of the given vehicle is shown
-    bool amShowingRouteFor(GUIVehicle *v, int index=-1);
+    /** @brief Returns the information whether the given route of the given vehicle is shown
+     * @param[in] v The vehicle which route may be shown
+     * @param[in] index The index of the route (-1: "all routes")
+     * @return Whether the route with the given index is shown
+     * @see GUISUMOAbstractView::amShowingRouteFor
+     */
+    bool amShowingRouteFor(GUIVehicle * v, int index=-1) throw();
 
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingBestLanesFor(GUIVehicle *v);

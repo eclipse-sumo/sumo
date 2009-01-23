@@ -193,14 +193,20 @@ public:
     SUMOReal getGridWidth() const;
     SUMOReal getGridHeight() const;
 
-    /// shows a vehicle route
-    virtual void showRoute(GUIVehicle * /*v*/, int /*index=-1*/) { }
+    /** @brief Shows a vehicle's route(s)
+     * @param[in] v The vehicle to show routes for
+     * @param[in] index The index of the route to show (-1: "all routes")
+     */
+    virtual void showRoute(GUIVehicle * /*v*/, int /*index=-1*/) throw() { }
 
     /// shows
     virtual void showBestLanes(GUIVehicle * /*v*/) { }
 
-    /// hides a vehicle route
-    virtual void hideRoute(GUIVehicle * /*v*/, int /*index=-1*/) { }
+    /** @brief Stops showing a vehicle's routes
+     * @param[in] v The vehicle to stop showing routes for
+     * @param[in] index The index of the route to hide (-1: "all routes")
+     */
+    virtual void hideRoute(GUIVehicle * /*v*/, int index=-1) throw() { }
 
     /// hides
     virtual void hideBestLanes(GUIVehicle * /*v*/) { }
@@ -210,7 +216,14 @@ public:
     virtual int getTrackedID() const {
         return -1;
     }
-    virtual bool amShowingRouteFor(GUIVehicle * /*v*/, int /*index=-1*/) {
+
+
+    /** @brief Returns the information whether the given route of the given vehicle is shown
+     * @param[in] v The vehicle which route may be shown
+     * @param[in] index The index of the route (-1: "all routes")
+     * @return Whether the route with the given index is shown
+     */
+    virtual bool amShowingRouteFor(GUIVehicle * /*v*/, int /*index=-1*/) throw() {
         return false;
     }
 
