@@ -1,5 +1,0 @@
-<netstats>
-   <interval begin="0" end="299">
-      <edge id="2" entered="100"/>
-   </interval>
-</netstats>
