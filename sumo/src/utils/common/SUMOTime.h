@@ -62,7 +62,7 @@ typedef SUMOReal SUMOTime;
 #ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
 extern SUMOReal DELTA_T;
 #else
-#define DELTA_T = .1;
+#define DELTA_T .1
 #endif
 // x*deltaT
 #define SPEED2DIST(x) ((x)*DELTA_T)
