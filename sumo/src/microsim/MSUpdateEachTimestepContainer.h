@@ -4,7 +4,7 @@
 /// @date    Thu Oct 23 16:38:35 2003
 /// @version $Id$
 ///
-//	»missingDescription«
+// Container of typed objects that shall be updated in each simulation step
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -20,27 +20,6 @@
 #define MSUpdateEachTimestepContainer_h
 
 
-/**
- * @file   MSUpdateEachTimestepContainer.h
- * @author Christian Roessel
- * @date   Started Thu Oct 23 16:38:35 2003
- * @version $Id$
- * @brief
- *
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -53,59 +32,98 @@
 #include <vector>
 #include <algorithm>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class MSUpdateEachTimestepContainer
+ * @brief Container of typed objects that shall be updated in each simulation step
+ */
 template< class UpdateEachTimestep >
 class MSUpdateEachTimestepContainer
 {
 public:
-    static MSUpdateEachTimestepContainer* getInstance(void) {
-        if (instanceM == 0) {
-            instanceM = new MSUpdateEachTimestepContainer();
+    /** @brief Singleton instance retriever
+     * @return The instance of this singleton
+     */
+    static MSUpdateEachTimestepContainer* getInstance() throw() {
+        if (myInstance == 0) {
+            myInstance = new MSUpdateEachTimestepContainer();
         }
-        return instanceM;
+        return myInstance;
     }
 
-    void addItemToUpdate(UpdateEachTimestep* item) {
-        containerM.push_back(item);
+
+    /** @brief Adds an item that shall be updated in each time step
+     * @patam[in] item The item to add
+     */
+    void addItemToUpdate(UpdateEachTimestep* item) throw() {
+        myContainer.push_back(item);
     }
 
-    void removeItemToUpdate(UpdateEachTimestep* item) {
+
+    /** @brief Removes an item 
+     * @patam[in] item The item to remove
+     */
+    void removeItemToUpdate(UpdateEachTimestep* item) throw() {
         typename std::vector< UpdateEachTimestep* >::iterator i =
-            std::find(containerM.begin(), containerM.end(), item);
-        if (i!=containerM.end()) {
-            containerM.erase(i);
+            std::find(myContainer.begin(), myContainer.end(), item);
+        if (i!=myContainer.end()) {
+            myContainer.erase(i);
         }
     }
 
-    void updateAll(void) {
-        std::for_each(containerM.begin(), containerM.end(),
+
+    /** @brief Updates all items
+     *
+     * Calls updateEachTimestep on all stored items
+     * @see MSUpdateEachTimestep::updateEachTimestep
+     */
+    void updateAll() {
+        std::for_each(myContainer.begin(), myContainer.end(),
                       std::mem_fun(&UpdateEachTimestep::updateEachTimestep));
     }
 
-    ~MSUpdateEachTimestepContainer(void) {
-        containerM.clear();
-        instanceM = 0;
+
+    /// @brief Destructor
+    ~MSUpdateEachTimestepContainer() throw() {
+        myContainer.clear();
+        myInstance = 0;
     }
 
-    void clear() {
-        for (typename std::vector< UpdateEachTimestep* >::iterator i=containerM.begin(); i!=containerM.end(); ++i) {
+
+    /** @brief Clears the container
+     *
+     * All items will be destructed
+     */
+    void clear() throw() {
+        for (typename std::vector< UpdateEachTimestep* >::iterator i=myContainer.begin(); i!=myContainer.end(); ++i) {
             delete(*i);
         }
-        containerM.clear();
+        myContainer.clear();
     }
 
+
 private:
-    MSUpdateEachTimestepContainer(void)
-            : containerM() {}
+    /// @brief Constructor
+    MSUpdateEachTimestepContainer()
+            : myContainer() {}
 
-    std::vector< UpdateEachTimestep* > containerM;
 
-    static MSUpdateEachTimestepContainer* instanceM;
+    /// @brief The container of items that shall be updated
+    std::vector< UpdateEachTimestep* > myContainer;
+
+    /// @brief The singleton instance
+    static MSUpdateEachTimestepContainer* myInstance;
+
+
 };
 
 // initialize static member
 template< class UpdateEachTimestep >
 MSUpdateEachTimestepContainer< UpdateEachTimestep >*
-MSUpdateEachTimestepContainer< UpdateEachTimestep >::instanceM = 0;
+MSUpdateEachTimestepContainer< UpdateEachTimestep >::myInstance = 0;
 
 
 #endif

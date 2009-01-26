@@ -38,7 +38,6 @@
 #include <vector>
 #include <limits>
 #include <microsim/MSVehicleQuitReminded.h>
-#include <microsim/MSUpdateEachTimestep.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/MsgHandler.h>

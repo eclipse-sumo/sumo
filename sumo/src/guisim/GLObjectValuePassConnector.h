@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-// »missingDescription«
+// Class passing values from a gl-object to another object
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -40,27 +40,45 @@
 // ===========================================================================
 class GUIGlObject;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class GLObjectValuePassConnector
+ * @brief Class passing values from a gl-object to another object
+ * @see MSUpdateEachTimestep
+ * @see GUIGlObject
  */
 template<typename T>
 class GLObjectValuePassConnector :
             public MSUpdateEachTimestep<GLObjectValuePassConnector<T> >
 {
 public:
+    /** @brief Constructor
+     * @param[in] o The object to get the value from
+     * @param[in] source The method for obtaining the value
+     * @param[in] retriever The object to pass the value to
+     */
     GLObjectValuePassConnector(GUIGlObject &o,
                                ValueSource<T> *source,
-                               ValueRetriever<T> *retriever)
+                               ValueRetriever<T> *retriever) throw()
             : myObject(o), mySource(source), myRetriever(retriever) { }
 
+
+    /// @brief Destructor
     virtual ~GLObjectValuePassConnector() {
         delete mySource;
     }
 
-    virtual bool updateEachTimestep(void) {
+    
+    /** @brief Passes the value to the retriever
+     *
+     * Retrieves the value from the object, in the case the object is active.
+     *  Passes the value to the retriever.
+     * @see GUIGlObject::active
+     */
+    virtual bool updateEachTimestep() throw() {
         if (!myObject.active()) {
             return false;
         }
@@ -69,9 +87,15 @@ public:
     }
 
 private:
+    /// @brief The object to get the values of (the object that must be active)
     GUIGlObject &myObject;
+
+    /// @brief The source for values
     ValueSource<T> *mySource;
+
+    /// @brief The destination for values
     ValueRetriever<T> *myRetriever;
+
 
 };
 

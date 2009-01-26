@@ -4,7 +4,7 @@
 /// @date    Thu Oct 23 16:22:53 2003
 /// @version $Id$
 ///
-//	»missingDescription«
+// Base class for objects that shall be updated in each simulation step
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -20,27 +20,6 @@
 #define MSUpdateEachTimestep_h
 
 
-/**
- * @file   MSUpdateEachTimestep.h
- * @author Christian Roessel
- * @date   Started Thu Oct 23 16:22:53 2003
- * @version $Id$
- * @brief
- *
- *
- */
-
-/* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
-
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -52,21 +31,39 @@
 
 #include "MSUpdateEachTimestepContainer.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class MSUpdateEachTimestep
+ * @brief Base class for objects that shall be updated in each simulation step
+ */
 template < class ToUpdate >
 class MSUpdateEachTimestep
 {
 public:
-    MSUpdateEachTimestep(void) {
+    /// @brief Counstructor
+    MSUpdateEachTimestep() throw() {
         MSUpdateEachTimestepContainer< MSUpdateEachTimestep<
         ToUpdate > >::getInstance()->addItemToUpdate(this);
     }
 
-    virtual ~MSUpdateEachTimestep(void) {
+
+    /// @brief Destructor
+    virtual ~MSUpdateEachTimestep() throw() {
         MSUpdateEachTimestepContainer< MSUpdateEachTimestep<
         ToUpdate > >::getInstance()->removeItemToUpdate(this);
     }
 
-    virtual bool updateEachTimestep(void) = 0;
+
+    /** @brief The update method
+     * 
+     * Derived objects will be called in each time step using this method
+     * @return discarded (unused)
+     */
+    virtual bool updateEachTimestep() throw() = 0;
+
 };
 
 
