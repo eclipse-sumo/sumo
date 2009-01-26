@@ -650,7 +650,7 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
         SUMOReal decelGap =
             neighFollow.second
             + SPEED2DIST(myVehicle.getSpeed()) * (SUMOReal) 2.0
-            - MAX2(nv->getSpeed() - ACCEL2SPEED(nv->decelAbility()) * (SUMOReal) 2.0, (SUMOReal) 0);
+            - MAX2(nv->getSpeed() - (SUMOReal) ACCEL2SPEED(nv->decelAbility()) * (SUMOReal) 2.0, (SUMOReal) 0);
         if (neighFollow.second>0&&decelGap>0&&nv->hasSafeGap(nv->getSpeed(), decelGap, myVehicle.getSpeed(), nv->getLane().maxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
             SUMOReal vsafe = myVehicle.ffeV(myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(

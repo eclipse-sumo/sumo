@@ -559,7 +559,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
         myLaneChangeModel->patchSpeed(
-            MAX2((SUMOReal) 0, myState.mySpeed-ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
+            MAX2((SUMOReal) 0, myState.mySpeed-(SUMOReal)ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
             vNext,
             MIN3(vSafe, myLane->maxSpeed(), maxNextSpeed),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
@@ -568,7 +568,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     SUMOReal predDec = pred->getSpeedAfterMaxDecel(pred->getSpeed()); //!!!!q//-decelAbility() /* !!! decelAbility of leader! */);
     if (myType->brakeGap(vNext)+vNext*myType->getTau() > myType->brakeGap(predDec) + gap) {
 
-        vNext = MIN2(vNext, DIST2SPEED(gap));
+        vNext = MIN2(vNext, (SUMOReal) DIST2SPEED(gap));
     }
 
     vNext = MAX3((SUMOReal) 0, vNext, myType->getSpeedAfterMaxDecel(oldV));
@@ -922,10 +922,10 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                     // leading vehicle is not overlapping
                     vsafePredNextLane =
                         MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed()));
-                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-ACCEL2SPEED(myType->decelAbility()) /* !!! decelAbility of leader! */);
+                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-(SUMOReal)ACCEL2SPEED(myType->decelAbility()) /* !!! decelAbility of leader! */);
                     if (myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
 
-                        vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
+                        vsafePredNextLane = MIN2(vsafePredNextLane, (SUMOReal)DIST2SPEED(dist2Pred));
                         // !!! break? next vehicle was already seen!
                     }
                 } else {
@@ -962,7 +962,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                         SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred2.speed()-myType->decelAbility() /* !!! decelAbility of leader! */);
                         if (myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred2) {
 
-                            vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred2));
+                            vsafePredNextLane = MIN2(vsafePredNextLane, (SUMOReal)DIST2SPEED(dist2Pred2));
                         }
                     } else {
                         // leading vehicle is overlapping (stands within the junction)
@@ -1011,7 +1011,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                 SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() /* !!! decelAbility of leader! */);
                 if (myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
 
-                    vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
+                    vsafePredNextLane = MIN2(vsafePredNextLane, (SUMOReal)DIST2SPEED(dist2Pred));
                 }
             } else {
                 // leading vehicle is overlapping (stands within the junction)

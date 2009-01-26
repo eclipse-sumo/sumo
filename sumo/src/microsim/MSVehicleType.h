@@ -275,11 +275,11 @@ public:
     }
 
     SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
-        return MAX2((SUMOReal) 0, v - ACCEL2SPEED(myDecel));
+        return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
     }
 
     SUMOReal maxNextSpeed(SUMOReal v) const {
-        return MIN2(v+ACCEL2SPEED(getMaxAccel(v)), myMaxSpeed);
+        return MIN2(v + (SUMOReal) ACCEL2SPEED(getMaxAccel(v)), myMaxSpeed);
     }
 
     SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {

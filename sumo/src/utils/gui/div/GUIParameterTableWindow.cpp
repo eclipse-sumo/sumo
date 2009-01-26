@@ -175,7 +175,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 }
 
 
-#ifndef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
+#ifndef HAVE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 ValueSource<SUMOTime> *src) throw()
@@ -217,7 +217,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 }
 
 
-#ifndef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
+#ifndef HAVE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 SUMOTime value) throw()
