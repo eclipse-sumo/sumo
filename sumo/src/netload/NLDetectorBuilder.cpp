@@ -688,11 +688,15 @@ NLDetectorBuilder::getTimeBounds(const std::string &begins, const std::string &e
         dumpBegins = parseTimeList(begins);
     } catch (NumberFormatException &) {
         throw InvalidArgument("Not numeric 'begin' in definition of " + type + " '" + id + "'.");
+    } catch (EmptyData &) {
+        throw InvalidArgument("Empty 'begin' in definition of " + type + " '" + id + "'.");
     }
     try {
         dumpEnds = parseTimeList(ends);
     } catch (NumberFormatException &) {
         throw InvalidArgument("Not numeric 'end' in definition of " + type + " '" + id + "'.");
+    } catch (EmptyData &) {
+        throw InvalidArgument("Empty 'end' in definition of " + type + " '" + id + "'.");
     }
     if (dumpBegins.size()!=dumpEnds.size()) {
         throw InvalidArgument("The number of entries in 'begin' differs from the number in 'end' for " + type + " '" + id + "'.");
