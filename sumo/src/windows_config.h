@@ -59,6 +59,14 @@
 
 #define HAVE_INTERNAL_LANES 1
 
+/* Define in order to enable subsecond timesteps. You might want
+   to enable HAVE_VARIABLE_SUBSECOND_TIMESTEPS as well or change
+   the interval in utils/common/SUMOTime.h */
+//#define HAVE_SUBSECOND_TIMESTEPS 1
+
+/* Define in order to enable variable subsecond timesteps. */
+//#define HAVE_VARIABLE_SUBSECOND_TIMESTEPS 1
+
 /* define to use nvwa for memory leak checking */
 //#define CHECK_MEMORY_LEAKS 1
 
