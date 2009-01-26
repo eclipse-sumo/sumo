@@ -1,2 +1,2 @@
-Error: The description of the meandata_edge 'dump_15' does not contain a needed value.
+Error: Empty 'begin' in definition of meandata-edge 'dump_15'.
 Quitting (on error).

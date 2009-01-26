@@ -1,2 +1,2 @@
-Error: The description of the meandata_lane 'dump_15' does not contain a needed value.
+Error: Empty 'begin' in definition of meandata-lane 'dump_15'.
 Quitting (on error).
