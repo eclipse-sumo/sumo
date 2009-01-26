@@ -67,7 +67,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~GLObjectValuePassConnector() {
+    virtual ~GLObjectValuePassConnector() throw() {
         delete mySource;
     }
 
