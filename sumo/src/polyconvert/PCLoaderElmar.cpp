@@ -173,7 +173,10 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
                 ignorePrunning = true;
             }
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-            toFill.insert(name, poi, layer, ignorePrunning);
+            if(!toFill.insert(name, poi, layer, ignorePrunning)) {
+                MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                delete poi;
+            }
         }
     }
 }
@@ -259,7 +262,10 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
         }
         if (!discard) {
             Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
-            toFill.insert(name, poly, layer);
+            if(!toFill.insert(name, poly, layer)) {
+                MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
+                delete poly;
+            }
         }
         vec.clear();
     }

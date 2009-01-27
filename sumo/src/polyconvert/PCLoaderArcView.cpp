@@ -137,7 +137,10 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             Position2D pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
             GeoConvHelper::x2cartesian(pos);
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
-            toFill.insert(id, poi, layer);
+            if(!toFill.insert(id, poi, layer)) {
+                MsgHandler::getErrorInstance()->inform("POI '" + id + "' could not been added.");
+                delete poi;
+            }
         }
         break;
         case wkbLineString: {
@@ -149,7 +152,10 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
                 shape.push_back_noDoublePos(pos);
             }
             Polygon2D *poly = new Polygon2D(id, type, color, shape, false);
-            toFill.insert(id, poly, layer);
+            if(!toFill.insert(id, poly, layer)) {
+                MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
+                delete poly;
+            }
         }
         break;
         case wkbPolygon: {
@@ -161,7 +167,10 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
                 shape.push_back_noDoublePos(pos);
             }
             Polygon2D *poly = new Polygon2D(id, type, color, shape, true);
-            toFill.insert(id, poly, layer);
+            if(!toFill.insert(id, poly, layer)) {
+                MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
+                delete poly;
+            }
         }
         break;
         case wkbMultiPoint: {
@@ -172,7 +181,10 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
                 GeoConvHelper::x2cartesian(pos);
                 string tid = id + "#" + toString(i);
                 PointOfInterest *poi = new PointOfInterest(tid, type, pos, color);
-                toFill.insert(tid, poi, layer);
+                if(!toFill.insert(tid, poi, layer)) {
+                    MsgHandler::getErrorInstance()->inform("POI '" + tid + "' could not been added.");
+                    delete poi;
+                }
             }
         }
         break;
@@ -188,7 +200,10 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
                 }
                 string tid = id + "#" + toString(i);
                 Polygon2D *poly = new Polygon2D(tid, type, color, shape, false);
-                toFill.insert(tid, poly, layer);
+                if(!toFill.insert(tid, poly, layer)) {
+                    MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
+                    delete poly;
+                }
             }
         }
         break;
@@ -204,7 +219,10 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
                 }
                 string tid = id + "#" + toString(i);
                 Polygon2D *poly = new Polygon2D(tid, type, color, shape, true);
-                toFill.insert(tid, poly, layer);
+                if(!toFill.insert(tid, poly, layer)) {
+                    MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
+                    delete poly;
+                }
             }
         }
         break;

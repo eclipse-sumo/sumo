@@ -147,7 +147,10 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                 type = e->myType;
             }
             Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
-            toFill.insert(name, poly, layer);
+            if(!toFill.insert(name, poly, layer)) {
+                MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
+                delete poly;
+            }
         }
     }
     // instatiate pois
@@ -193,7 +196,10 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             Position2D pos(n->lon, n->lat);
             GeoConvHelper::x2cartesian(pos);
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-            toFill.insert(name, poi, layer, ignorePrunning);
+            if(!toFill.insert(name, poi, layer, ignorePrunning)) {
+                MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                delete poi;
+            }
         }
     }
 

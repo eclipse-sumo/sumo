@@ -133,13 +133,13 @@ PCPolyContainer::clear() throw()
 {
     // polys
     for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); i++) {
-        delete((*i).second);
+        delete (*i).second;
     }
     myPolyCont.clear();
     myPolyLayerMap.clear();
     // pois
     for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); i++) {
-        delete((*i).second);
+        delete (*i).second;
     }
     myPOICont.clear();
     myPOILayerMap.clear();

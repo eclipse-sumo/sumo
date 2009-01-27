@@ -255,7 +255,10 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             }
             if (!discard) {
                 PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-                toFill.insert(name, poi, layer);
+                if(!toFill.insert(name, poi, layer)) {
+                    MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                    delete poi;
+                }
             }
         }
 
@@ -283,7 +286,10 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
                 }
                 if (!discard) {
                     Polygon2D *poly = new Polygon2D(id, type, color, vec, false);
-                    toFill.insert(id, poly, 1);
+                    if(!toFill.insert(id, poly, 1)) {
+                        MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
+                        delete poly;
+                    }
                 }
                 vec.clear();
             }
@@ -330,14 +336,20 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             if (!discard) {
                 if (teilflaechen[flaechenelemente[id]].size()>0) {
                     Polygon2D *poly = new Polygon2D(name, type, color, teilflaechen[flaechenelemente[id]], false);
-                    toFill.insert(name, poly, layer);
+                    if(!toFill.insert(name, poly, layer)) {
+                        MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
+                        delete poly;
+                    }
                 } else {
                     SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
                     SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
                     Position2D pos(x, y);
                     GeoConvHelper::x2cartesian(pos);
                     PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-                    toFill.insert(name, poi, layer);
+                    if(!toFill.insert(name, poi, layer)) {
+                        MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
+                        delete poi;
+                    }
                 }
             }
         }

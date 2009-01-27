@@ -141,7 +141,10 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
                 ignorePrunning = true;
             }
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
-            myCont.insert(id, poi, layer, ignorePrunning);
+            if(!myCont.insert(id, poi, layer, ignorePrunning)) {
+                MsgHandler::getErrorInstance()->inform("POI '" + id + "' could not been added.");
+                delete poi;
+            }
         }
     }
     if (element==SUMO_TAG_POLY) {
@@ -187,12 +190,14 @@ PCLoaderXML::myCharacters(SumoXMLTag element,
         Position2DVector shape;
         for (Position2DVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
             Position2D pos((*i));
-            //pos.mul(1./100000.0);
             GeoConvHelper::x2cartesian(pos);
             shape.push_back(pos);
         }
         Polygon2D *poly = new Polygon2D(myCurrentID, myCurrentType, myCurrentColor, shape, false);
-        myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning);
+        if(!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
+            MsgHandler::getErrorInstance()->inform("Polygon '" + myCurrentID + "' could not been added.");
+            delete poly;
+        }
     }
 }
 
