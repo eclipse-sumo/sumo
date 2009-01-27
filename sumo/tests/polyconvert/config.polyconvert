@@ -1,11 +1,14 @@
 import_config_file:../config_all
 binary:$POLYCONVERT_BINARY
 copy_test_path:input_net.net.xml
+copy_test_path:input_poi.poi.xml
+
 
 [collate_file]
 config:config.cfg
+pois:pois.poi.xml
 log:log.txt
 
 [run_dependent_text]
 output:polyconvert.exe{REPLACE sumo-polyconvert}
-net:Version
+pois:Version
