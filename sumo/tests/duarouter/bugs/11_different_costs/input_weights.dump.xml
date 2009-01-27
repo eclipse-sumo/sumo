@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/28/09 00:20:37 by SUMO sumo Version dev-SVN-r6617
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <route-files>input_trips_9.rou.xml</route-files>
+      <additional-files>dua_dump_9.add.xml</additional-files>
+   </input>
+
+   <output>
+      <emissions-output>emissions_9.xml</emissions-output>
+      <tripinfo-output>tripinfo_9.xml</tripinfo-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>86400</end>
+   </time>
+
+   <processing>
+      <route-steps>200</route-steps>
+   </processing>
+
+   <report>
+      <suppress-warnings>true</suppress-warnings>
+   </report>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="307" id="dump_9_900">
+      <edge id="beg2left" traveltime="18.08" sampledSeconds="108.46" density="1.05" occupancy="0.79" noStops="0" speed="27.40" entered="6" emitted="0" left="6"/>
+      <edge id="left" traveltime="36.25" sampledSeconds="217.48" density="1.05" occupancy="0.79" noStops="0" speed="27.41" entered="6" emitted="0" left="6"/>
+      <edge id="left2end" traveltime="18.09" sampledSeconds="108.53" density="1.05" occupancy="0.79" noStops="0" speed="27.38" entered="6" emitted="0" left="6"/>
+      <edge id="middle" traveltime="75.99" sampledSeconds="303.94" density="1.48" occupancy="1.11" noStops="0" speed="13.04" entered="4" emitted="0" left="4"/>
+      <edge id="beg" traveltime="28.08" sampledSeconds="276.75" density="2.67" occupancy="1.00" noStops="10" speed="17.88" entered="0" emitted="16" left="10"/>
+      <edge id="end" traveltime="21.11" sampledSeconds="205.24" density="1.98" occupancy="0.74" noStops="0" speed="24.08" entered="10" emitted="0" left="10"/>
+      <edge id="rend" traveltime="17.98" sampledSeconds="4.59" density="0.04" occupancy="0.02" noStops="0" speed="27.45" entered="10" emitted="0" left="0"/>
+   </interval>
+</netstats>
