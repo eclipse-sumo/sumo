@@ -149,10 +149,8 @@ MSFrame::fillOptions()
     oc.addDescription("end", "Time", "Defines the end time; The simulation ends at this time");
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-#ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
     oc.doRegister("step-length", new Option_Float((SUMOReal) 1.));
     oc.addDescription("step-length", "Time", "Defines the step duration");
-#endif
 #endif
 
 
@@ -413,9 +411,7 @@ MSFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gAddInfoFactor = oc.getFloat("device.c2x.insert-info-factor");
     //
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-#ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
     DELTA_T = oc.getFloat("step-length");
-#endif
 #endif
     //
 #ifdef HAVE_MESOSIM

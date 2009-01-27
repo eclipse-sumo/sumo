@@ -30,9 +30,7 @@
 // type definitions
 // ===========================================================================
 #ifdef HAVE_SUBSECOND_TIMESTEPS
-#ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
 SUMOReal DELTA_T = (SUMOReal) 1.;
-#endif
 #endif
 
 

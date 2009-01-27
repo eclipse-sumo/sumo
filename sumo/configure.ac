@@ -80,14 +80,6 @@ else
     ac_disabled="$ac_disabled Subsecond"
 fi
 
-AC_ARG_ENABLE([variable-subsecond], [AS_HELP_STRING([--enable-variable-subsecond],[enable variable subsecond timesteps [default=no].])])
-if test x$enable_variable_subsecond = xyes; then
-    AC_DEFINE(HAVE_VARIABLE_SUBSECOND_TIMESTEPS, 1, [Define to 1 in order to enable variable subsecond timesteps.])
-    ac_enabled="$ac_enabled VariableSubsecond"
-else
-    ac_disabled="$ac_disabled VariableSubsecond"
-fi
-
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 
