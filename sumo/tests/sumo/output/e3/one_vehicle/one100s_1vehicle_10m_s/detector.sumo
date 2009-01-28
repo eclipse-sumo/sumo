@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/31/08 11:08:56 by SUMO sumo Version 0.9.7
+<!-- generated on 01/28/09 10:27:10 by SUMO sumo Version dev-SVN-r6670
 <configuration>
 
    <input>
@@ -23,5 +23,13 @@
 
 <e3-detector>
    <interval begin="0" end="99" id="3/1to2/1" meanTravelTime="20.00" meanSpeed="10.00" meanHaltsPerVehicle="0.00" vehicleSum="1" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
-   <interval begin="100" end="108" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="100" end="199" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="200" end="299" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="300" end="399" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="400" end="499" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="500" end="599" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="600" end="699" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="700" end="799" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="800" end="899" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
+   <interval begin="900" end="999" id="3/1to2/1" meanTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" vehicleSum="0" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00"/>
 </e3-detector>

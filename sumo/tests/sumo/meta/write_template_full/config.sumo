@@ -18,7 +18,7 @@
 
    <time>
       <begin>0</begin>
-      <end>86400</end>
+      <end>2147483647</end>
    </time>
 
    <processing>

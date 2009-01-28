@@ -41,7 +41,7 @@
       <begin>0</begin>
 
       <!-- Defines the end time; The simulation ends at this time -->
-      <end>86400</end>
+      <end>2147483647</end>
 
    </time>
 

@@ -288,7 +288,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if (traci::TraCIServer::wasClosed()) {
             quitMessage = "Simulation End: TraCI requested termination.";
         }
-        if (OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit()) {
+        if (OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && stop == INT_MAX) {
 #else
         if (myVehicleControl->haveAllVehiclesQuit()) {
 #endif
