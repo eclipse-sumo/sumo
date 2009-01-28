@@ -473,20 +473,11 @@ MSVehicleControl::getVehicle(const std::string &id) throw()
 
 
 void
-MSVehicleControl::deleteVehicle(const std::string &id) throw()
-{
-    myEndedVehNo++;
-    VehicleDictType::iterator i = myVehicleDict.find(id);
-    MSVehicle *veh = (*i).second;
-    myVehicleDict.erase(id);
-    delete veh;
-}
-
-
-void
 MSVehicleControl::deleteVehicle(MSVehicle *veh) throw()
 {
-    deleteVehicle(veh->getID());
+    myEndedVehNo++;
+    myVehicleDict.erase(veh->getID());
+    delete veh;
 }
 
 
