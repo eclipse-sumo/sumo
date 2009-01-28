@@ -46,8 +46,7 @@ recomputeCosts(const std::vector<const ROEdge*> &edges,
 {
     SUMOReal costs = 0;
     for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
-        costs += (*i)->getEffort(v, time);
-        time += ((SUMOTime)(*i)->getEffort(v, time));
+        costs += (*i)->getEffort(v, time + costs);
         if ((*i)->prohibits(v)) {
             return -1;
         }
