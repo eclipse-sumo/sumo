@@ -232,7 +232,6 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
              - v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME));
     }
     myRunningVehNo--;
-    myEndedVehNo++;
     deleteVehicle(v);
 }
 
@@ -476,6 +475,7 @@ MSVehicleControl::getVehicle(const std::string &id) throw()
 void
 MSVehicleControl::deleteVehicle(const std::string &id) throw()
 {
+    myEndedVehNo++;
     VehicleDictType::iterator i = myVehicleDict.find(id);
     MSVehicle *veh = (*i).second;
     myVehicleDict.erase(id);
