@@ -31,7 +31,7 @@
 -->
 
 <netstats>
-   <interval begin="0" end="307" id="dump_9_900">
+   <interval begin="0" end="899" id="dump_9_900">
       <edge id="beg2left" traveltime="18.08" sampledSeconds="108.46" density="1.05" occupancy="0.79" noStops="0" speed="27.40" entered="6" emitted="0" left="6"/>
       <edge id="left" traveltime="36.25" sampledSeconds="217.48" density="1.05" occupancy="0.79" noStops="0" speed="27.41" entered="6" emitted="0" left="6"/>
       <edge id="left2end" traveltime="18.09" sampledSeconds="108.53" density="1.05" occupancy="0.79" noStops="0" speed="27.38" entered="6" emitted="0" left="6"/>
