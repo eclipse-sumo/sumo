@@ -1154,7 +1154,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw()
             << "\" rotation=\"" << d.rot
             << "\">\n";
         }
-        dev << "<decals/>\n";
+        dev << "</decals>\n";
     } catch (IOError &e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
