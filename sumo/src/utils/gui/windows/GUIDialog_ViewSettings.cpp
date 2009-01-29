@@ -1152,7 +1152,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw()
             << "\" width=\"" << d.width
             << "\" height=\"" << d.height
             << "\" rotation=\"" << d.rot
-            << "\">\n";
+            << "\"/>\n";
         }
         dev << "</decals>\n";
     } catch (IOError &e) {
