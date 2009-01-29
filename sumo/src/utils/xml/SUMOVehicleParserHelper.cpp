@@ -96,6 +96,8 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         string helper = attrs.getString(SUMO_ATTR_DEPARTPOS);
         if (helper=="random") {
             ret->departPosProcedure = DEPART_POS_RANDOM;
+        } else if (helper=="random_free") {
+            ret->departPosProcedure = DEPART_POS_RANDOM_FREE;
         } else if (helper=="free") {
             ret->departPosProcedure = DEPART_POS_FREE;
         } else {

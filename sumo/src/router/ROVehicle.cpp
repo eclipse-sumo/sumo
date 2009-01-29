@@ -101,6 +101,9 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
         case DEPART_POS_RANDOM:
             val = "random";
             break;
+        case DEPART_POS_RANDOM_FREE:
+            val = "random_free";
+            break;
         case DEPART_POS_FREE:
             val = "free";
         case DEPART_POS_DEFAULT:

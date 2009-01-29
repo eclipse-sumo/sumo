@@ -83,7 +83,9 @@ enum DepartPosDefinition {
     /// @brief The position is chosen randomly
     DEPART_POS_RANDOM,
     /// @brief A free position is chosen
-    DEPART_POS_FREE
+    DEPART_POS_FREE,
+	/// @brief The position is chosen randomly from all free positions on the lane
+	DEPART_POS_RANDOM_FREE
 };
 
 
