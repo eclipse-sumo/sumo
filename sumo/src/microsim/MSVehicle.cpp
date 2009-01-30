@@ -2193,15 +2193,12 @@ MSVehicle::processTraCICommands(SUMOTime time)
 bool
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration)
 {
-
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane == lane && fabs(iter->pos - pos) < POSITION_EPS) {
             if (duration == 0 && !iter->reached) {
-                //MSG_OUT << getID() << " deleting stop " << lane->getID() << " " << pos << "\n";
                 myStops.erase(iter);
             } else {
-                //MSG_OUT << getID() << " resetting stop " << lane->getID() << " " << pos << "\n";
                 iter->duration = duration;
             }
             return true;
@@ -2215,7 +2212,7 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
     newStop.duration = duration;
     newStop.until = -1;
     newStop.reached = false;
-    newStop.busstop = NULL;
+    newStop.busstop = MSNet::getInstance()->getBusStop(lane, pos);
     return addStop(newStop);
     /*std::cerr << "added tracistop:  lane " << newStop.lane->getID() << "  pos " << newStop.pos << "  duration "
     		<< newStop.duration  <<  std::endl;*/

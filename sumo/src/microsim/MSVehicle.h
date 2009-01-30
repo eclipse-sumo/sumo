@@ -647,7 +647,7 @@ public:
      */
     struct Stop {
         /// @brief The lane to stop at
-        MSLane *lane;
+        const MSLane *lane;
         /// @brief (Optional) bus stop if one is assigned to the stop
         MSBusStop *busstop;
         /// @brief The stopping position
