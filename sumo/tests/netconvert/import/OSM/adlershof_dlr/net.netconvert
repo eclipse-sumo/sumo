@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/06/09 10:56:48 by SUMO netconvert Version dev-SVN-r6533
+<!-- generated on 01/30/09 08:45:08 by SUMO netconvert Version dev-SVN-r6680
 <configuration>
 
    <input>
@@ -1830,19 +1830,19 @@
          <logicitem request="1" response="000000000000000000" foes="011111000011000000"/>
          <logicitem request="2" response="000000000000000000" foes="011111000011000000"/>
          <logicitem request="3" response="000000111000000000" foes="011000111111000000"/>
-         <logicitem request="4" response="010000110000000000" foes="010000110000100000"/>
+         <logicitem request="4" response="010000110000100000" foes="010000110000100000"/>
          <logicitem request="5" response="000000110000000000" foes="010000110000010000"/>
          <logicitem request="6" response="000001110000001111" foes="110001110000001111"/>
-         <logicitem request="7" response="000001110000001110" foes="001111110000001110"/>
+         <logicitem request="7" response="001101110000001110" foes="001111110000001110"/>
          <logicitem request="8" response="001000001000001000" foes="001000001000001000"/>
          <logicitem request="9" response="000000000000000000" foes="001000000100001000"/>
          <logicitem request="10" response="000000000000000000" foes="011000000011111000"/>
          <logicitem request="11" response="000000000000000000" foes="011000000011111000"/>
          <logicitem request="12" response="000000000000000111" foes="111000000011000111"/>
-         <logicitem request="13" response="000000000010000110" foes="000100000010000110"/>
+         <logicitem request="13" response="000100000010000110" foes="000100000010000110"/>
          <logicitem request="14" response="000000000000000110" foes="000010000010000110"/>
          <logicitem request="15" response="000001111000001110" foes="000001111110001110"/>
-         <logicitem request="16" response="000001110000001110" foes="000001110001111110"/>
+         <logicitem request="16" response="000001110001101110" foes="000001110001111110"/>
          <logicitem request="17" response="000001000001000001" foes="000001000001000001"/>
       </logic>
    </row-logic>
