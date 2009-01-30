@@ -1,13 +1,6 @@
 # Tests are based on extended/wauts/cross3ltl_switch100_off0
 
-# Test what happens if the junction id is missing
-cross3ltl_error_missing_junctiondef
-
-
 # Tests for missing waut parameter
-# Tests what happens if the reference time attribute is missing
-cross3ltl_error_missing_reftime
-
 # Tests what happens if the start program attribute is missing
 cross3ltl_error_missing_startprog
 
