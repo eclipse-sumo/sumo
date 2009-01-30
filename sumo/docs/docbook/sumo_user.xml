@@ -9943,6 +9943,11 @@ myDet1;0;10;2;100;80
         <programlisting>    <sgmltag>&lt;vtype id="BUS" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70"
             color="1,1,0"/&gt;</sgmltag>
 
+    &lt;busStop id="busstop1" lane="2/1to1/1_0" from="20" to="40" lines="100;101;102" /&gt; 
+    &lt;busStop id="busstop2" lane="1/2to0/2_0" from="20" to="40" lines="100;101" /&gt; 
+    &lt;busStop id="busstop3" lane="0/1to0/0_0" from="20" to="40" lines="100;101;102" /&gt; 
+    &lt;busStop id="busstop4" lane="1/0to2/0_0" from="20" to="40" lines="100;101" /&gt; 
+
     <sgmltag>&lt;vehicle id="0" type="BUS" depart="0" color="1,1,0"&gt;</sgmltag>
         <sgmltag>&lt;route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"/&gt;</sgmltag>
         <sgmltag>&lt;stop bus_stop="busstop1" duration="20"/&gt;</sgmltag>
