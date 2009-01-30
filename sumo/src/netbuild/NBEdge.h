@@ -140,7 +140,8 @@ public:
          * @param[in] toLane_ The lane the connections yields in
          */
         Connection(int fromLane_, NBEdge *toEdge_, int toLane_) throw()
-                : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_) { }
+                : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_),
+                mayDefinitelyPass(false) { }
 
 
         /// @brief The lane the connections starts at
@@ -153,6 +154,8 @@ public:
         std::string tlID;
         /// @brief The index of this connection within the controlling traffic light
         unsigned int tlLinkNo;
+        /// @brief Information about being definitely free to drive (on-ramps)
+        bool mayDefinitelyPass;
 
     };
 
@@ -381,6 +384,88 @@ public:
     /// @name Setting and getting connections
     /// @{
 
+    /** @brief Adds a connection to another edge
+     *
+     * If the given edge does not start at the node this edge ends on, false is returned.
+     *
+     * All other cases return true. Though, a connection may not been added if this edge
+     *  is in step "INIT_REJECT_CONNECTIONS". Also, this method assures that a connection
+     *  to an edge is set only once, no multiple connections to next edge are stored.
+     *
+     * After a first connection to an edge was set, the process step is set to "EDGE2EDGES".
+     *
+     * @param[in] dest The connection's destination edge
+     * @return Whether the connection was valid
+     */
+    bool addEdge2EdgeConnection(NBEdge *dest) throw();
+
+
+    /** @brief Adds a connection between the specified this edge's lane and an approached one 
+     *
+     * If the given edge does not start at the node this edge ends on, false is returned.
+     *
+     * All other cases return true. Though, a connection may not been added if this edge
+     *  is in step "INIT_REJECT_CONNECTIONS". Before the lane-to-lane connection is set,
+     *  a connection between edges is established using "addEdge2EdgeConnection". Then,
+     *  "setConnection" is called for inserting the lane-to-lane connection.
+     *
+     * @param[in] fromLane The connection's starting lane (of this edge)
+     * @param[in] dest The connection's destination edge
+     * @param[in] toLane The connection's destination lane
+     * @param[in] type The connections's type
+     * @param[in] mayUseSameDestination Whether this connection may be set though connecting an already connected lane
+     * @param[in] mayDefinitelyPass Whether this connection is definitely undistrubed (special case for on-ramps)
+     * @return Whether the connection was added / exists
+     * @see addEdge2EdgeConnection
+     * @see setConnection
+     * @todo Check difference between "setConnection" and "addLane2LaneConnection"
+     */
+    bool addLane2LaneConnection(unsigned int fromLane, NBEdge *dest,
+                                unsigned int toLane, Lane2LaneInfoType type,
+                                bool mayUseSameDestination=false,
+                                bool mayDefinitelyPass=false) throw();
+
+
+    /** @brief Builds no connections starting at the given lanes
+     *
+     * If "invalidatePrevious" is true, a call to "invalidateConnections(true)" is done.
+     * This method loops through the given connections to set, calling "addLane2LaneConnection"
+     *  for each.
+     *
+     * @param[in] fromLane The first of the connections' starting lanes (of this edge)
+     * @param[in] dest The connections' destination edge
+     * @param[in] toLane The first of the connections' destination lanes
+     * @param[in] no The number of connections to set
+     * @param[in] type The connections' type
+     * @param[in] invalidatePrevious Whether previously set connection shall be deleted
+     * @param[in] mayDefinitelyPass Whether these connections are definitely undistrubed (special case for on-ramps)
+     * @return Whether the connections were added / existed
+     * @see addLane2LaneConnection
+     * @see invalidateConnections
+     */
+    bool addLane2LaneConnections(unsigned int fromLane,
+                                 NBEdge *dest, unsigned int toLane, unsigned int no,
+                                 Lane2LaneInfoType type, bool invalidatePrevious=false,
+                                 bool mayDefinitelyPass=false) throw();
+
+
+    /** @brief Adds a connection to a certain lane of a certain edge
+     *
+     * @param[in] lane The connection's starting lane (of this edge)
+     * @param[in] destEdge The connection's destination edge
+     * @param[in] destLane The connection's destination lane
+     * @param[in] type The connections's type
+     * @param[in] mayUseSameDestination Whether this connection may be set though connecting an already connected lane
+     * @param[in] mayDefinitelyPass Whether this connection is definitely undistrubed (special case for on-ramps)
+     * @todo Check difference between "setConnection" and "addLane2LaneConnection"
+     */
+    void setConnection(unsigned int lane, NBEdge *destEdge,
+                       unsigned int destLane,
+                       Lane2LaneInfoType type,
+                       bool mayUseSameDestination=false,
+                       bool mayDefinitelyPass=false) throw();
+
+
     /** @brief Returns connections from a given lane
      *
      * @param[in] lane The lane which connections shall be returned
@@ -425,21 +510,8 @@ public:
     void dismissVehicleClassInformation();
 
 
-    /** adds a connection to another edge;
-        instead of adding connections one by one, they may be computed
-        using "computeEdge2Edges"
-        returns false when an connection already existed; otherwise true */
-    bool addEdge2EdgeConnection(NBEdge *dest);
 
-    /** adds a connection between the specified this edge's lane and an approached one */
-    bool addLane2LaneConnection(size_t fromLane, NBEdge *dest,
-                                size_t toLane, Lane2LaneInfoType type,
-                                bool mayUseSameDestination=false);
 
-    /** builds no connections starting at the given lanes */
-    bool addLane2LaneConnections(size_t fromLane,
-                                 NBEdge *dest, size_t toLane, size_t no,
-                                 Lane2LaneInfoType type, bool invalidatePrevious=false);
 
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
@@ -467,11 +539,6 @@ public:
     /// returns the list of lanes that may be used to reach the given edge
     std::vector<int> getConnectionLanes(NBEdge *currentOutgoing) const;
 
-    /// adds a connection to a certain lane of a certain edge
-    void setConnection(size_t lane, NBEdge *destEdge,
-                       size_t destLane,
-                       Lane2LaneInfoType type,
-                       bool mayUseSameDestination=false);
 
     /** returns the information whether the given edge is the opposite
         direction to this edge */

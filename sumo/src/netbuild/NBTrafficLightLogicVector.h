@@ -69,11 +69,22 @@ public:
     /// returns the information whether the given phaselists is already within this container
     bool contains(NBTrafficLightLogic *logic) const;
 
-    /// Returns the number of phaselists within this container
-    int size() const;
 
-    /// Returns the type of this traffic light logic
-    const std::string &getType() const;
+    /** @brief Returns the number of phaselists within this container
+     * @return The number of programs stored
+     */
+    unsigned int size() const throw() {
+        return (unsigned int) myCont.size();
+    }
+
+
+    /** @brief Returns the type of this traffic light logic
+     * @return The type of this tls
+     */
+    const std::string &getType() const throw() {
+        return myType;
+    }
+
 
     void setOffsetsToHalf();
     void setOffsetsToQuarter();

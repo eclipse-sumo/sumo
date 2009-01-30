@@ -122,10 +122,10 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw()
     assert(approachedLanes->size()<=myCurrentOutgoing->getNoLanes());
     // set lanes
     for (size_t i=0; i<approachedLanes->size(); i++) {
-        size_t approached = (*approachedLanes)[i];
+        unsigned int approached = (*approachedLanes)[i];
         assert(approachedLanes->size()>i);
         assert(approachingLanes.size()>i);
-        incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing,
+        incomingEdge->setConnection((unsigned int) approachingLanes[i], myCurrentOutgoing,
                                     approached, NBEdge::L2L_COMPUTED);
     }
     delete approachedLanes;

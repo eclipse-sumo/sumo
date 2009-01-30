@@ -53,6 +53,7 @@ NBTrafficLightLogicVector::NBTrafficLightLogicVector(
         : myInLinks(inLanes), myType(type)
 {}
 
+
 NBTrafficLightLogicVector::~NBTrafficLightLogicVector()
 {
     for (LogicVector::iterator i=myCont.begin(); i!=myCont.end(); i++) {
@@ -113,20 +114,6 @@ NBTrafficLightLogicVector::contains(NBTrafficLightLogic *logic) const
         }
     }
     return false;
-}
-
-
-int
-NBTrafficLightLogicVector::size() const
-{
-    return myCont.size();
-}
-
-
-const std::string &
-NBTrafficLightLogicVector::getType() const
-{
-    return myType;
 }
 
 

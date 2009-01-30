@@ -215,10 +215,6 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
-    string from1ID = "1si";
-    string to1ID = "4o";
-    string from2ID = "2si";
-    string to2ID = "4o";
     // check whether one of the links has a dead end
     if (to1==0||to2==0) {
         return;
@@ -500,7 +496,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
     vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
-        writeResponse(os, from, (*j).toEdge, fromLane, (*j).toLane);
+        writeResponse(os, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass);
         os << "\" foes=\"";
         writeAreFoes(os, from, (*j).toEdge, myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0);
         os << "\"";
@@ -518,14 +514,13 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
 
 
 void
-NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
-                         int fromLane, int toLane)
+NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEdge * const to,
+                         int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError)
 {
     int idx = 0;
     if (to!=0) {
         idx = getIndex(from, to);
     }
-    // !!! move to forbidden
     for (EdgeVector::const_reverse_iterator i=myIncoming->rbegin(); i!=myIncoming->rend(); i++) {
         const vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         unsigned int noLanes = (*i)->getNoLanes();
@@ -533,7 +528,9 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
             vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             size_t size = connected.size();
             for (int k=size; k-->0;) {
-                if (to==0) {
+                if (mayDefinitelyPass) {
+                    os << '0';
+                } else if (to==0) {
                     // should wait if no further connection!?
                     os << '1';
                 } else if ((*i)==from&&fromLane==j) {
@@ -545,13 +542,8 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     assert(connected[k].toEdge==0 || (size_t) getIndex(*i, connected[k].toEdge)<myIncoming->size()*myOutgoing->size());
                     // check whether the connection is prohibited by another one
                     if (connected[k].toEdge!=0 && myForbids[getIndex(*i, connected[k].toEdge)][idx]) {
-                        // ok, the edges are foes;
-                        //  either we have an accelaration lane or not
-                        if (from->getSpeed()<70./3.6 || (*i)->getSpeed()<70./3.6 ||
-                                find_if(allConnections.begin(), allConnections.end(), NBEdge::connections_toedgelane_finder(to, toLane))!=allConnections.end()) {
-                            os << '1';
-                            continue;
-                        }
+                        os << '1';
+                        continue;
                     }
                     os << '0';
                 }
@@ -597,19 +589,15 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
 
 
 int
-NBRequest::getIndex(NBEdge *from, NBEdge *to) const
+NBRequest::getIndex(const NBEdge * const from, const NBEdge * const to) const throw()
 {
-    EdgeVector::const_iterator fp = find(myIncoming->begin(),
-                                         myIncoming->end(), from);
-    EdgeVector::const_iterator tp = find(myOutgoing->begin(),
-                                         myOutgoing->end(), to);
+    EdgeVector::const_iterator fp = find(myIncoming->begin(), myIncoming->end(), from);
+    EdgeVector::const_iterator tp = find(myOutgoing->begin(), myOutgoing->end(), to);
     if (fp==myIncoming->end()||tp==myOutgoing->end()) {
         return -1;
     }
     // compute the index
-    return distance(
-               myIncoming->begin(), fp) * myOutgoing->size()
-           + distance(myOutgoing->begin(), tp);
+    return distance(myIncoming->begin(), fp) * myOutgoing->size() + distance(myOutgoing->begin(), tp);
 }
 
 

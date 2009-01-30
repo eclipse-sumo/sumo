@@ -366,6 +366,129 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw()
 
 
 // ----------- Setting and getting connections
+bool
+NBEdge::addEdge2EdgeConnection(NBEdge *dest) throw()
+{
+    if (myStep==INIT_REJECT_CONNECTIONS) {
+        return true;
+    }
+    // check whether the node was merged and now a connection between
+    //  not matching edges is tried to be added
+    //  This happens f.e. within the ptv VISSIM-example "Beijing"
+    if (dest!=0 && myTo!=dest->myFrom) {
+        return false;
+    }
+    if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest))==myConnections.end()) {
+        myConnections.push_back(Connection(-1, dest, -1));
+    }
+    if (myStep<EDGE2EDGES) {
+        myStep = EDGE2EDGES;
+    }
+    return true;
+}
+
+
+bool
+NBEdge::addLane2LaneConnection(unsigned int from, NBEdge *dest,
+                               unsigned int toLane, Lane2LaneInfoType type,
+                               bool mayUseSameDestination,
+                               bool mayDefinitelyPass) throw()
+{
+    if (myStep==INIT_REJECT_CONNECTIONS) {
+        return true;
+    }
+    // check whether the node was merged and now a connection between
+    //  not matching edges is tried to be added
+    //  This happens f.e. within the ptv VISSIM-example "Beijing"
+    if (myTo!=dest->myFrom) {
+        return false;
+    }
+    if (!addEdge2EdgeConnection(dest)) {
+        return false;
+    }
+    setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass);
+    return true;
+}
+
+
+bool
+NBEdge::addLane2LaneConnections(unsigned int fromLane,
+                                NBEdge *dest, unsigned int toLane,
+                                unsigned int no, Lane2LaneInfoType type,
+                                bool invalidatePrevious,
+                                bool mayDefinitelyPass) throw()
+{
+    if (invalidatePrevious) {
+        invalidateConnections(true);
+    }
+    bool ok = true;
+    for (size_t i=0; i<no&&ok; i++) {
+        ok &= addLane2LaneConnection(fromLane+i, dest, toLane+i, type, false, mayDefinitelyPass);
+    }
+    return ok;
+}
+
+
+void
+NBEdge::setConnection(unsigned int src_lane, NBEdge *dest_edge,
+                      unsigned int dest_lane, Lane2LaneInfoType type,
+                      bool mayUseSameDestination,
+                      bool mayDefinitelyPass) throw()
+{
+    if (myStep==INIT_REJECT_CONNECTIONS) {
+        return;
+    }
+    assert(dest_lane<=10);
+    assert(src_lane<=10);
+    // some kind of a misbehaviour which may occure when the junction's outgoing
+    //  edge priorities were not properly computed, what may happen due to
+    //  an incomplete or not proper input
+    // what happens is that under some circumstances a single lane may set to
+    //  be approached more than once by the one of our lanes.
+    //  This must not be!
+    // we test whether it is the case and do nothing if so - the connection
+    //  will be refused
+    //
+    if (!mayUseSameDestination) {
+        if (dest_edge!=0&&find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(dest_edge, dest_lane))!=myConnections.end()) {
+            return;
+        }
+    }
+    if (find_if(myConnections.begin(), myConnections.end(), connections_finder(src_lane, dest_edge, dest_lane))!=myConnections.end()) {
+        return;
+    }
+    if (myLanes.size()<=src_lane) {
+        MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myID + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
+        return;
+    }
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
+        if ((*i).toEdge==dest_edge && ((*i).fromLane==-1 || (*i).toLane==-1)) {
+            i = myConnections.erase(i);
+        } else {
+            ++i;
+        }
+    }
+    myConnections.push_back(Connection(src_lane, dest_edge, dest_lane));
+    if(mayDefinitelyPass) {
+        myConnections[myConnections.size()-1].mayDefinitelyPass = true;
+    }
+    if (type==L2L_USER) {
+        myStep = LANES2LANES_USER;
+    } else {
+        // check whether we have to take another look at it later
+        if (type==L2L_COMPUTED) {
+            // yes, the connection was set using an algorithm which requires a recheck
+            myStep = LANES2LANES_RECHECK;
+        } else {
+            // ok, let's only not recheck it if we did no add something that has to be recheked
+            if (myStep!=LANES2LANES_RECHECK) {
+                myStep = LANES2LANES_DONE;
+            }
+        }
+    }
+}
+
+
 vector<NBEdge::Connection>
 NBEdge::getConnectionsFromLane(unsigned int lane) const throw()
 {
@@ -825,67 +948,6 @@ NBEdge::writeLanesPlain(OutputDevice &into)
 
 
 bool
-NBEdge::addEdge2EdgeConnection(NBEdge *dest)
-{
-    if (myStep==INIT_REJECT_CONNECTIONS) {
-        return true;
-    }
-    // check whether the node was merged and now a connection between
-    //  not matching edges is tried to be added
-    //  This happens f.e. within the ptv VISSIM-example "Beijing"
-    if (dest!=0 && myTo!=dest->myFrom) {
-        return false;
-    }
-    if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest))==myConnections.end()) {
-        myConnections.push_back(Connection(-1, dest, -1));
-    }
-    if (myStep<EDGE2EDGES) {
-        myStep = EDGE2EDGES;
-    }
-    return true;
-}
-
-
-bool
-NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
-                               size_t toLane, Lane2LaneInfoType type,
-                               bool mayUseSameDestination)
-{
-    if (myStep==INIT_REJECT_CONNECTIONS) {
-        return true;
-    }
-    // check whether the node was merged and now a connection between
-    //  not matching edges is tried to be added
-    //  This happens f.e. within the ptv VISSIM-example "Beijing"
-    if (myTo!=dest->myFrom) {
-        return false;
-    }
-    if (!addEdge2EdgeConnection(dest)) {
-        return false;
-    }
-    setConnection(from, dest, toLane, type, mayUseSameDestination);
-    return true;
-}
-
-
-bool
-NBEdge::addLane2LaneConnections(size_t fromLane,
-                                NBEdge *dest, size_t toLane,
-                                size_t no, Lane2LaneInfoType type,
-                                bool invalidatePrevious)
-{
-    if (invalidatePrevious) {
-        invalidateConnections(true);
-    }
-    bool ok = true;
-    for (size_t i=0; i<no&&ok; i++) {
-        ok &= addLane2LaneConnection(fromLane+i, dest, toLane+i, type);
-    }
-    return ok;
-}
-
-
-bool
 NBEdge::computeEdge2Edges()
 {
     // return if this relationship has been build in previous steps or
@@ -1211,63 +1273,6 @@ void
 NBEdge::sortOutgoingLanesConnections()
 {
     sort(myConnections.begin(), myConnections.end(), connections_relative_edgelane_sorter(this, myTo));
-}
-
-
-
-void
-NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
-                      size_t dest_lane, Lane2LaneInfoType type,
-                      bool mayUseSameDestination)
-{
-    if (myStep==INIT_REJECT_CONNECTIONS) {
-        return;
-    }
-    assert(dest_lane<=10);
-    assert(src_lane<=10);
-    // some kind of a misbehaviour which may occure when the junction's outgoing
-    //  edge priorities were not properly computed, what may happen due to
-    //  an incomplete or not proper input
-    // what happens is that under some circumstances a single lane may set to
-    //  be approached more than once by the one of our lanes.
-    //  This must not be!
-    // we test whether it is the case and do nothing if so - the connection
-    //  will be refused
-    //
-    if (!mayUseSameDestination) {
-        if (dest_edge!=0&&find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(dest_edge, dest_lane))!=myConnections.end()) {
-            return;
-        }
-    }
-    if (find_if(myConnections.begin(), myConnections.end(), connections_finder(src_lane, dest_edge, dest_lane))!=myConnections.end()) {
-        return;
-    }
-    if (myLanes.size()<=src_lane) {
-        MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myID + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
-        return;
-    }
-    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
-        if ((*i).toEdge==dest_edge && ((*i).fromLane==-1 || (*i).toLane==-1)) {
-            i = myConnections.erase(i);
-        } else {
-            ++i;
-        }
-    }
-    myConnections.push_back(Connection(src_lane, dest_edge, dest_lane));
-    if (type==L2L_USER) {
-        myStep = LANES2LANES_USER;
-    } else {
-        // check whether we have to take another look at it later
-        if (type==L2L_COMPUTED) {
-            // yes, the connection was set using an algorithm which requires a recheck
-            myStep = LANES2LANES_RECHECK;
-        } else {
-            // ok, let's only not recheck it if we did no add something that has to be recheked
-            if (myStep!=LANES2LANES_RECHECK) {
-                myStep = LANES2LANES_DONE;
-            }
-        }
-    }
 }
 
 
