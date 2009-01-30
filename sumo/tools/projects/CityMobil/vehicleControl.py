@@ -96,7 +96,7 @@ def stopAt(vehicleID, edge, pos=None):
     if setting.verbose:
         print "stopAt", vehicleID, edge
     if pos == None:
-        pos = ROW_DIST-15.
+        pos = STOP_POS
         if edge.endswith("out") or edge.endswith("in"):
             pos = 90.
     changeTarget(edge, vehicleID)

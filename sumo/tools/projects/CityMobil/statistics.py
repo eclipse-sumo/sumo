@@ -54,6 +54,14 @@ def evaluate():
     for route, times in sorted(routeTimes.iteritems()):
         timeArray = numpy.array(times)
         print route, timeArray.max(), timeArray.mean(), math.sqrt(timeArray.var())
+    co2 = 0.
+    for line in open("aggregated.xml"):
+        if "cyber" in line:
+            pos = line.find('CO2_abs="') + 9
+            if pos >= 0:
+                endpos = line.find('"', pos)
+                co2 += float(line[pos:endpos])
+    print "CO2:", co2
 
 if __name__ == "__main__":
     from pylab import *

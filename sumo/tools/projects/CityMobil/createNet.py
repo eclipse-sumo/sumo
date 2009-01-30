@@ -25,7 +25,7 @@ routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
     <vtype id="car" length="6" guiShape="passenger" maxspeed="50" color="0.7,0.7,0.7"/>
     <vtype id="person" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25" maxspeed="5" color="1,0.2,0.2"/>
-    <vtype id="cybercar" length="9" guiShape="evehicle" maxspeed="%s" color="0,1,0"/>""" % CYBER_SPEED
+    <vtype id="cybercar" length="%s" guiShape="evehicle" maxspeed="%s" color="0,1,0"/>""" % (CYBER_LENGTH, CYBER_SPEED)
 #streets
 nodeID = "main-0"
 print >> nodes, '<node id="in" x="-100" y="0"/>' 
@@ -168,6 +168,19 @@ print >> routes, """<routes>
 </routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses - 1)
 routes.close()
 
+stops = open("%s.add.xml" % PREFIX, "w")
+print >> stops, "<additional>"
+for row in range(DOUBLE_ROWS):
+    edgeID = "cyber%sto%s" % (row, row+1)
+    print >> stops, '    <busStop id="%sstop" lane="%s_0"' % (edgeID, edgeID),
+    print >> stops, 'from="%s" to="%s"/>' % (STOP_POS-2*CYBER_LENGTH-1, STOP_POS) 
+for edge in ["cyberin", "cyberout"]:
+    print >> stops, '    <busStop id="%sstop" lane="%s_0"' % (edge, edge),
+    print >> stops, 'from="%s" to="%s"/>' % (90-2*CYBER_LENGTH-1, 90) 
+print >> stops, '    <meandata-edge id="dump" freq="3600" file="aggregated.xml" excludeEmpty="true" type="hbefa"/>' 
+print >> stops, "</additional>"
+stops.close()
+
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 bat = open("%s.bat" % PREFIX, "w")
 breakbat = open("%s_break.bat" % PREFIX, "w")
@@ -189,10 +202,11 @@ for period in range(5, 50, 5):
     print >> config, """<c>
         <net-file>%s.net.xml</net-file>
         <route-files>%s.rou.xml,%s_demand%02i.rou.xml</route-files>
+        <additional-files>%s.add.xml</additional-files>
         <no-step-log>x</no-step-log>
         <time-to-teleport>0</time-to-teleport>
         <remote-port>%s</remote-port>
-    </c>""" % (PREFIX, PREFIX, PREFIX, period, PORT)
+    </c>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX, PORT)
     config.close()
     print >> bat, "simpleManager.py -d %s" % period
     print >> breakbat, "simpleManager.py -b 120 -d %s" % period
@@ -201,11 +215,11 @@ for period in range(5, 50, 5):
     print >> config, """<c>
         <net-file>%s.net.xml</net-file>
         <route-files>%s.rou.xml,%s_cyber.rou.xml,%s_demand%02i.rou.xml</route-files>
-        <use-internal-links>x</use-internal-links>
+        <additional-files>%s.add.xml</additional-files>
         <no-step-log>x</no-step-log>
         <time-to-teleport>0</time-to-teleport>
         <remote-port>%s</remote-port>
-    </c>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PORT)
+    </c>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX, PORT)
     config.close()
     print >> bat, "agentManager.py -c -d %s" % period
     print >> breakbat, "agentManager.py -c -b 120 -d %s" % period
