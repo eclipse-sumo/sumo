@@ -51,15 +51,85 @@ class MSLane;
 /**
  * @class HelpersHBEFA
  * @brief Helper methods for HBEFA-based emission computation
+ *
+ * The parameter are stored per vehicle class; 6*6 parameter are used, sorted by 
+ *  the pollutant (CO2, CO, HC, fuel, NOx, PMx), and the function part 
+ *  (c0, cav1, cav2, c1, c2, c3).
  */
 class HelpersHBEFA
 {
 public:
+    /** @brief Returns the amount of emitted CO given the vehicle type and state (in g/s)
+     * @param[in] c The vehicle emission class
+     * @param[in] v The vehicle's current velocity
+     * @param[in] a The vehicle's current acceleration
+     */
     static SUMOReal computeCO(SUMOEmissionClass c, double v, double a) throw();
+
+
+    /** @brief Returns the amount of emitted CO2 given the vehicle type and state (in g/s)
+     * @param[in] c The vehicle emission class
+     * @param[in] v The vehicle's current velocity
+     * @param[in] a The vehicle's current acceleration
+     */
     static SUMOReal computeCO2(SUMOEmissionClass c, double v, double a) throw();
+
+
+    /** @brief Returns the amount of emitted NOx given the vehicle type and state (in g/s)
+     * @param[in] c The vehicle emission class
+     * @param[in] v The vehicle's current velocity
+     * @param[in] a The vehicle's current acceleration
+     */
     static SUMOReal computeNOx(SUMOEmissionClass c, double v, double a) throw();
+
+
+    /** @brief Returns the amount of emitted PMx given the vehicle type and state (in g/s)
+     * @param[in] c The vehicle emission class
+     * @param[in] v The vehicle's current velocity
+     * @param[in] a The vehicle's current acceleration
+     */
     static SUMOReal computePMx(SUMOEmissionClass c, double v, double a) throw();
+
+
+    /** @brief Returns the amount of consumed fuel given the vehicle type and state (in l/s)
+     * @param[in] c The vehicle emission class
+     * @param[in] v The vehicle's current velocity
+     * @param[in] a The vehicle's current acceleration
+     */
     static SUMOReal computeFuel(SUMOEmissionClass c, double v, double a) throw();
+
+
+private:
+    /** @brief Returns the parameter for the given vehicle emission class
+     * @param[in] c The vehicle emission class
+     * @return The function parameter (for all pollutants)
+     */
+    static inline double *getParameterForClass(SUMOEmissionClass c) throw() {
+        return myFunctionParameter[c];
+    }
+
+
+    /** @brief Computes the emitted pollutant amount using the given values
+     *
+     * As the functions are defining emissions/hour, the function's result is normed
+     *  by 3600. (seconds in an hour).
+     *
+     * @param[in] f Pointer to the function parameters to use
+     * @param[in] v The vehicle's current velocity
+     * @param[in] a The vehicle's current acceleration
+     */
+    static inline double computeUsing(double *f, double v, double a) throw() {
+        if(a<0) {
+            return 0.;
+        }
+        return ((f[0] + f[1]*a*v + f[2]*pow(a,2.)*v + f[3]*v + f[4]*pow(v,2.) + f[5]*pow(v,3.)) / 3600.);
+    }
+
+
+private:
+    /// @brief The function parameter
+    static double myFunctionParameter[42][36];
+
 };
 
 

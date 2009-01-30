@@ -30,6 +30,9 @@
 #include <string>
 #include <map>
 #include "SUMOVehicleClass.h"
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -286,20 +289,26 @@ getVehicleShapeID(const std::string &name) throw()
 
 // ------------ Conversion of SUMOEmissionClass
 SUMOEmissionClass
-getVehicleEmissionTypeID(const std::string &name) throw()
+getVehicleEmissionTypeID(const std::string &name) throw(ProcessError)
 {
-    if (name=="") {
-        return SVE_UNKNOWN;
-    } else if (name=="passenger_1_4__2l") {
-        return SVE_PASSENGER_EURO4__1_4__2l;
-    } else if (name=="bus/city") {
-        return SVE_BUS_CITY;
-    } else if (name=="bus/overland") {
-        return SVE_BUS_OVERLAND;
-    } else if (name=="transport_7_5t__euro4") {
-        return SVE_HDV_7_5t__EURO4;
-    } else if (name=="zero") {
-        return SVE_ZERO_EMISSIONS;
+    try {
+        if (name=="") {
+            return SVE_UNKNOWN;
+        } else if (name=="zero") {
+            return SVE_ZERO_EMISSIONS;
+        } else if (name.find("HDV_3_")==0) {
+            return (SUMOEmissionClass) (SVE_HDV_3_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+        } else if (name.find("HDV_6_")==0) {
+            return (SUMOEmissionClass) (SVE_HDV_6_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+        } else if (name.find("HDV_12_")==0) {
+            return (SUMOEmissionClass) (SVE_HDV_12_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+        } else if (name.find("P_7_")==0) {
+            return (SUMOEmissionClass) (SVE_P_LDV_7_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+        } else if (name.find("P_14_")==0) {
+            return (SUMOEmissionClass) (SVE_P_LDV_14_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+        }
+    } catch (NumberFormatException &) {
+        throw ProcessError("Unknown emission type '" + name + "'.");
     }
     return SVE_UNKNOWN;
 }
@@ -308,22 +317,23 @@ getVehicleEmissionTypeID(const std::string &name) throw()
 std::string
 getVehicleClassName(SUMOEmissionClass id) throw()
 {
-    switch (id) {
-    case SVE_UNKNOWN:
-        return "";
-    case SVE_PASSENGER_EURO4__1_4__2l:
-        return "passenger_1_4__2l";
-    case SVE_BUS_CITY:
-        return "bus/city";
-    case SVE_BUS_OVERLAND:
-        return "bus/overland";
-    case SVE_HDV_7_5t__EURO4:
-        return "transport_7_5t__euro4";
-    case SVE_ZERO_EMISSIONS:
+    if(id==SVE_ZERO_EMISSIONS) {
         return "zero";
-    default:
-        return "";
     }
+    if(id<0) {
+        return "";
+    } else if(id<3) {
+        return "HDV_3_" + toString(int(id));
+    } else if(id<3+6) {
+        return "HDV_6_" + toString(int(id-3));
+    } else if(id<3+6+12) {
+        return "HDV_12_" + toString(int(id-3-6));
+    } else if(id<3+6+12+7) {
+        return "P_7_" + toString(int(id-3-6-12));
+    } else if(id<3+6+12+7+14) {
+        return "P_14_" + toString(int(id-3-6-12-7));
+    }
+    return "";
 }
 
 

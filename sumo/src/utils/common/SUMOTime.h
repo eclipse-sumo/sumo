@@ -60,6 +60,7 @@ typedef int SUMOTime;
 
 typedef SUMOReal SUMOTime;
 extern SUMOReal DELTA_T;
+
 // x*deltaT
 #define SPEED2DIST(x) ((x)*DELTA_T)
 // x/deltaT

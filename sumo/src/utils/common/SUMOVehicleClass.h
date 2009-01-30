@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -171,13 +172,60 @@ enum SUMOVehicleClass {
 /**
  * @enum SUMOEmissionClass
  * @brief Definition of vehicle emission classes
+ *
+ * The order is important - HBEFA computation helper use it.
+ * @see HelpersHBEFA
  */
 enum SUMOEmissionClass {
-    SVE_UNKNOWN,
-    SVE_PASSENGER_EURO4__1_4__2l,
-    SVE_BUS_CITY,
-    SVE_BUS_OVERLAND,
-    SVE_HDV_7_5t__EURO4,
+    SVE_UNKNOWN = -1,
+    // heavy duty vehicles; 3 clusters
+    SVE_HDV_3_1 = 0,
+    SVE_HDV_3_2,
+    SVE_HDV_3_3,
+    // heavy duty vehicles; 6 clusters
+    SVE_HDV_6_1,
+    SVE_HDV_6_2,
+    SVE_HDV_6_3,
+    SVE_HDV_6_4,
+    SVE_HDV_6_5,
+    SVE_HDV_6_6,
+    // heavy duty vehicles; 12 clusters
+    SVE_HDV_12_1,
+    SVE_HDV_12_2,
+    SVE_HDV_12_3,
+    SVE_HDV_12_4,
+    SVE_HDV_12_5,
+    SVE_HDV_12_6,
+    SVE_HDV_12_7,
+    SVE_HDV_12_8,
+    SVE_HDV_12_9,
+    SVE_HDV_12_10,
+    SVE_HDV_12_11,
+    SVE_HDV_12_12,
+    // passenger & light duty vehicles; 7 clusters
+    SVE_P_LDV_7_1,
+    SVE_P_LDV_7_2,
+    SVE_P_LDV_7_3,
+    SVE_P_LDV_7_4,
+    SVE_P_LDV_7_5,
+    SVE_P_LDV_7_6,
+    SVE_P_LDV_7_7,
+    // passenger & light duty vehicles; 14 clusters
+    SVE_P_LDV_14_1,
+    SVE_P_LDV_14_2,
+    SVE_P_LDV_14_3,
+    SVE_P_LDV_14_4,
+    SVE_P_LDV_14_5,
+    SVE_P_LDV_14_6,
+    SVE_P_LDV_14_7,
+    SVE_P_LDV_14_8,
+    SVE_P_LDV_14_9,
+    SVE_P_LDV_14_10,
+    SVE_P_LDV_14_11,
+    SVE_P_LDV_14_12,
+    SVE_P_LDV_14_13,
+    SVE_P_LDV_14_14,
+    // no emissions
     SVE_ZERO_EMISSIONS
 };
 
@@ -191,7 +239,7 @@ extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
 extern std::string getVehicleShapeName(SUMOVehicleShape id) throw();
 extern SUMOVehicleShape getVehicleShapeID(const std::string &name) throw();
 extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
-extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw();
+extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw(ProcessError);
 
 
 // ===========================================================================
