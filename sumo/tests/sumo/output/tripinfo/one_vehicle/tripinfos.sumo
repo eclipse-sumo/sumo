@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/08 08:26:44 by SUMO sumo Version dev-SVN-r6273
+<!-- generated on 01/31/09 14:26:09 by SUMO sumo Version dev-SVN-r6688
 <configuration>
 
    <input>
@@ -26,5 +26,5 @@
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="108" arrivalLane="2/1to1/1_0" arrivalPos="8.50" arrivalSpeed="10.00" duration="108" routeLength="1080.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""/>
+    <tripinfo id="0" depart="0" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="108" arrivalLane="2/1to1/1_0" arrivalPos="8.50" arrivalSpeed="10.00" duration="108" routeLength="1080.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
 </tripinfos>
