@@ -181,7 +181,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_VAPORIZED)) {
             od << 1 << ";" << v->getCORNIntValue(MSCORN::CORN_VEH_VAPORIZED);
         }
-        od << "\"/>\n";
+        od << "\"></tripinfo>\n";
     }
 
     // check whether to generate the information about the vehicle's routes

@@ -32,6 +32,13 @@
 #include <string>
 #include <vector>
 #include <microsim/MSVehicle.h>
+#include <utils/common/UtilExceptions.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
 
 
 // ===========================================================================
@@ -125,6 +132,22 @@ public:
     /** @brief Called when the vehicle leaves the lane */
     virtual void onTripEnd() { }
     // @}
+
+
+    /** @brief Called on writing tripinfo output
+     *
+     * The device may write some statistics into the tripinfo output. It
+     *  is assumed that the written information is a valid xml-snipplet, which
+     *  will be embedded within the vehicle's information.
+     *
+     * The method must return whether any information was written.
+     * @param[in] os The stream to write the information into
+     * @return Whether any information was written.
+     * @exception IOError not yet implemented
+     */
+    virtual bool tripInfoOutput(OutputDevice &os) const throw(IOError) {
+        return false;
+    }
 
 
 protected:
