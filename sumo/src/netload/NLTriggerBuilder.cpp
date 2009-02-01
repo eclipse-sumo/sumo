@@ -270,7 +270,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
             throw InvalidArgument("Bus stop '" + id + "' ends after the lane's end.");
         } else {
             MsgHandler::getWarningInstance()->inform("Bus stop '" + id + "' ends after the lane's end (moving to the end).");
-            topos = lane->length() - .1;
+            topos = lane->length() - (SUMOReal) .1;
         }
     }
     if (frompos<0 || frompos>lane->length()) {
@@ -278,7 +278,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
             throw InvalidArgument("Bus stop '" + id + "' begins after the lane's end.");
         } else {
             MsgHandler::getWarningInstance()->inform("Bus stop '" + id + "' begins after the lane's end (moving to the begin-10m).");
-            frompos = MAX2(SUMOReal(0), SUMOReal(topos-10));
+            frompos = MAX2(SUMOReal(0), SUMOReal(topos-10.));
         }
     }
     if (topos<frompos) {
