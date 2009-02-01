@@ -65,7 +65,7 @@ MSDevice_HBEFA::insertOptions() throw()
     oc.addOptionSubTopic("Emissions");
 
     oc.doRegister("device.hbefa.probability", new Option_Float(0.));//!!! describe
-    oc.addDescription("device.hbefa.probability", "Routing", "The probability for a vehicle to have a routing device");
+    oc.addDescription("device.hbefa.probability", "Routing", "The probability for a vehicle to have an emission logging device");
 
     oc.doRegister("device.hbefa.knownveh", new Option_String());//!!! describe
     oc.addDescription("device.hbefa.knownveh", "Routing", "Assign a device to named vehicles");
