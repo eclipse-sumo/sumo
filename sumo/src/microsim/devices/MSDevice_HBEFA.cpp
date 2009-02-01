@@ -95,7 +95,7 @@ MSDevice_HBEFA::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) 
     bool haveByName = oc.isSet("device.hbefa.knownveh") && OptionsCont::getOptions().isInStringVector("device.hbefa.knownveh", v.getID());
     if (haveByNumber||haveByName) {
         // build the device
-        MSDevice_HBEFA* device = new MSDevice_HBEFA(v, "routing_" + v.getID());
+        MSDevice_HBEFA* device = new MSDevice_HBEFA(v, "hbefa_" + v.getID());
         into.push_back(device);
     }
     myVehicleIndex++;
@@ -110,7 +110,7 @@ MSDevice_HBEFA::MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw()
     myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0)
 {
     myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
         myComputeAndCollectCommand, MSNet::getInstance()->getCurrentTimeStep(),
         MSEventControl::ADAPT_AFTER_EXECUTION);
 }
@@ -142,7 +142,8 @@ MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(Process
 bool 
 MSDevice_HBEFA::tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError) 
 {
-    os << "<emissions CO_abs=\"" << myCO <<
+    os << intend <<
+        "<emissions CO_abs=\"" << myCO <<
         "\" CO2_abs=\"" << myCO2 <<
         "\" HC_abs=\"" << myHC <<
         "\" PMx_abs=\""<< myPMx <<

@@ -206,7 +206,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
             }
         }
         if(hadOutput) {
-            od << "    ";
+            od << "\n    ";
         }
         // close
         od << "</tripinfo>\n";
