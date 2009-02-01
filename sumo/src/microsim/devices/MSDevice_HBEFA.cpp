@@ -109,10 +109,6 @@ MSDevice_HBEFA::MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw()
     : MSDevice(holder, id), myComputeAndCollectCommand(0),
     myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0)
 {
-    myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
-    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
-        myComputeAndCollectCommand, MSNet::getInstance()->getCurrentTimeStep(),
-        MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 
@@ -120,6 +116,16 @@ MSDevice_HBEFA::~MSDevice_HBEFA() throw()
 {
     // make the rerouting command invalid
     myComputeAndCollectCommand->deschedule();
+}
+
+
+void
+MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
+{
+    myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
+    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
+        myComputeAndCollectCommand, MSNet::getInstance()->getCurrentTimeStep(),
+        MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 

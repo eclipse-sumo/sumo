@@ -87,19 +87,33 @@ public:
 
 
 public:
+    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
+    /// @{
 
-
-private:
-    /** @brief Constructor
+    /** @brief Computes a new route on vehicle emission
      *
-     * @param[in] holder The vehicle that holds this device
-     * @param[in] id The ID of the device
+     * An event is created and added to the list of simulation step end 
+     *  events which executes "wrappedComputeCommandExecute".
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     * @param[in] state The vehicle's state during the emission
+     * @see MSVehicle::reroute
+     * @see MSEventHandler
+     * @see WrappingCommand
      */
-    MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw();
+    void enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &state);
+    /// @}
 
 
-    /// @brief Destructor.
-    ~MSDevice_HBEFA() throw();
+    /** @brief Called on writing tripinfo output
+     *
+     * @param[in] os The stream to write the information into
+     * @param[in] intend The string used for intendation
+     * @return Whether any information was written.
+     * @exception IOError not yet implemented
+     * @see MSDevice::tripInfoOutput
+     */
+    bool tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError);
 
 
     /** @brief Performs rerouting after a period
@@ -120,15 +134,18 @@ private:
     SUMOTime wrappedComputeCommandExecute(SUMOTime currentTime) throw(ProcessError);
 
 
-    /** @brief Called on writing tripinfo output
+
+private:
+    /** @brief Constructor
      *
-     * @param[in] os The stream to write the information into
-     * @param[in] intend The string used for intendation
-     * @return Whether any information was written.
-     * @exception IOError not yet implemented
-     * @see MSDevice::tripInfoOutput
+     * @param[in] holder The vehicle that holds this device
+     * @param[in] id The ID of the device
      */
-    bool tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError);
+    MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw();
+
+
+    /// @brief Destructor.
+    ~MSDevice_HBEFA() throw();
 
 
 private:
