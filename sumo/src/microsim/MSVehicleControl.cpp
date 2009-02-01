@@ -175,13 +175,41 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         } else {
             od << '0';
         }
-        od << "\" devices=\"" << v->buildDeviceIDList()
+        // compute device id list
+        const std::vector<MSDevice*> &devices = v->getDevices();
+        string deviceIDs;
+        if(devices.size()!=0) {
+            ostringstream str;
+            bool addSem = false;
+            for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
+                if (addSem) {
+                    str << ';';
+                }
+                addSem = true;
+                str << (*i)->getID();
+            }
+            deviceIDs = str.str();
+        }
+        //
+        od << "\" devices=\"" << deviceIDs
         << "\" vtype=\"" << v->getVehicleType().getID()
         << "\" vaporized=\"";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_VAPORIZED)) {
             od << 1 << ";" << v->getCORNIntValue(MSCORN::CORN_VEH_VAPORIZED);
         }
-        od << "\"></tripinfo>\n";
+        od << "\">";
+        // write device information
+        bool hadOutput = false;
+        if(devices.size()!=0) {
+            for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
+                hadOutput |= (*i)->tripInfoOutput(od, "\n        ");
+            }
+        }
+        if(hadOutput) {
+            od << "    ";
+        }
+        // close
+        od << "</tripinfo>\n";
     }
 
     // check whether to generate the information about the vehicle's routes

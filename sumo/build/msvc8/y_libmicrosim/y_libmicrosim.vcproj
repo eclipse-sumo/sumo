@@ -576,6 +576,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_Routing.cpp"
 				>
 			</File>
@@ -753,6 +757,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_CPhone.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.h"
 				>
 			</File>
 			<File

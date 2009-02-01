@@ -57,6 +57,7 @@
 #include <utils/common/RandHelper.h>
 #include "devices/MSDevice_C2C.h"
 #include "devices/MSDevice_Routing.h"
+#include <microsim/devices/MSDevice_HBEFA.h>
 
 #ifdef _MESSAGES
 #include "MSMessageEmitter.h"
@@ -249,6 +250,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     // init devices
     MSDevice_C2C::buildVehicleDevices(*this, myDevices);
     MSDevice_CPhone::buildVehicleDevices(*this, myDevices);
+    MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
     // init CORN containers
     if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
         myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = 0;
@@ -1311,23 +1313,6 @@ unsigned int
 MSVehicle::getWaitingTime() const
 {
     return myWaitingTime;
-}
-
-
-
-std::string
-MSVehicle::buildDeviceIDList() const
-{
-    ostringstream str;
-    bool addSem = false;
-    for (std::vector<MSDevice*>::const_iterator i=myDevices.begin(); i!=myDevices.end(); ++i) {
-        if (addSem) {
-            str << ';';
-        }
-        addSem = true;
-        str << (*i)->getID();
-    }
-    return str.str();
 }
 
 

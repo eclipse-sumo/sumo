@@ -43,6 +43,7 @@
 #include <microsim/devices/MSDevice_C2C.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_CPhone.h>
+#include <microsim/devices/MSDevice_HBEFA.h>
 #include <utils/common/RandHelper.h>
 #include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
@@ -202,6 +203,7 @@ MSFrame::fillOptions()
     MSDevice_C2C::insertOptions();
     MSDevice_Routing::insertOptions();
     MSDevice_CPhone::insertOptions();
+    MSDevice_HBEFA::insertOptions();
 
 
     // tls

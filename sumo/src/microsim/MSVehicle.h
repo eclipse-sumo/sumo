@@ -572,8 +572,6 @@ public:
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
     typedef std::deque<const MSEdge::LaneCont*> NextAllowedLanes;
 
-    std::string buildDeviceIDList() const;
-
     /// @name stretegical/tactical lane choosing methods
     /// @{
 
@@ -700,6 +698,9 @@ public:
     SUMOReal getEffort(const MSEdge * const e, SUMOReal t) const;
 
 
+    /** @brief Returns this vehicle's devices
+     * @return This vehicle's devices
+     */
     const std::vector<MSDevice*> &getDevices() const {
         return myDevices;
     }

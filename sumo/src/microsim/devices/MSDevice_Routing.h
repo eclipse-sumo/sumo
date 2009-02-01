@@ -139,6 +139,7 @@ private:
      *  step after the rerouting period is over. The reroute period is returned.
      *
      * @param[in] currentTime The current simulation time
+     * @return The offset to the next call (the rerouting period "myPeriod")
      * @see MSVehicle::reroute
      * @see MSEventHandler
      * @see WrappingCommand
