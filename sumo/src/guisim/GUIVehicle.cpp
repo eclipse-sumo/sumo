@@ -283,7 +283,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
                                GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 9);
+        new GUIParameterTableWindow(app, *this, 15);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
     if(getParameter().repetitionNumber>0) {
@@ -303,6 +303,16 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getSpeed));
     ret->mkItem("CO2 (HBEFA) [g/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_CO2Emissions));
+    ret->mkItem("CO (HBEFA) [g/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_COEmissions));
+    ret->mkItem("HC (HBEFA) [g/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_HCEmissions));
+    ret->mkItem("NOx (HBEFA) [g/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_NOxEmissions));
+    ret->mkItem("PMx (HBEFA) [g/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_PMxEmissions));
+    ret->mkItem("fuel (HBEFA) [l/s]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_FuelConsumption));
     // close building
     ret->closeBuilding();
     return ret;
@@ -1012,6 +1022,41 @@ SUMOReal
 GUIVehicle::getHBEFA_CO2Emissions() const throw()
 {
     return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration);
+}
+
+
+SUMOReal
+GUIVehicle::getHBEFA_COEmissions() const throw()
+{
+    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myAcceleration);
+}
+
+
+SUMOReal
+GUIVehicle::getHBEFA_HCEmissions() const throw()
+{
+    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myAcceleration);
+}
+
+
+SUMOReal
+GUIVehicle::getHBEFA_NOxEmissions() const throw()
+{
+    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myAcceleration);
+}
+
+
+SUMOReal
+GUIVehicle::getHBEFA_PMxEmissions() const throw()
+{
+    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myAcceleration);
+}
+
+
+SUMOReal
+GUIVehicle::getHBEFA_FuelConsumption() const throw()
+{
+    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myAcceleration);
 }
 
 

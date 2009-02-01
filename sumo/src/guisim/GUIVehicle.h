@@ -94,6 +94,36 @@ public:
      * @return The current CO2 emission
      */
     SUMOReal getHBEFA_CO2Emissions() const throw();
+
+
+    /** @brief Return CO emission of the current state
+     * @return The current CO emission
+     */
+    SUMOReal getHBEFA_COEmissions() const throw();
+
+
+    /** @brief Return HC emission of the current state
+     * @return The current HC emission
+     */
+    SUMOReal getHBEFA_HCEmissions() const throw();
+
+
+    /** @brief Return NOx emission of the current state
+     * @return The current NOx emission
+     */
+    SUMOReal getHBEFA_NOxEmissions() const throw();
+
+
+    /** @brief Return PMx emission of the current state
+     * @return The current PMx emission
+     */
+    SUMOReal getHBEFA_PMxEmissions() const throw();
+
+
+    /** @brief Return fuel consumption of the current state
+     * @return The current fuel consumption
+     */
+    SUMOReal getHBEFA_FuelConsumption() const throw();
     //@}
 
 
