@@ -142,6 +142,9 @@ public:
         /// @brief Sum of CO emissions
         SUMOReal CO;
 
+        /// @brief Sum of HC emissions
+        SUMOReal HC;
+
         /// @brief Sum of NOx emissions
         SUMOReal NOx;
 

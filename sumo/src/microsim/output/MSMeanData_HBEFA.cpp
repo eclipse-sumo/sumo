@@ -62,7 +62,7 @@ using namespace std;
 // MSMeanData_HBEFA::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane) throw()
-        : MSMoveReminder(lane), sampleSeconds(0), CO2(0), CO(0),
+        : MSMoveReminder(lane), sampleSeconds(0), CO2(0), CO(0), HC(0),
         NOx(0), PMx(0), fuel(0) {}
 
 
@@ -72,6 +72,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw()
     sampleSeconds = 0.;
     CO2 = 0;
     CO = 0;
+    HC = 0;
     NOx = 0;
     PMx = 0;
     fuel = 0;
@@ -93,6 +94,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
     sampleSeconds += fraction;
     CO += (fraction * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
     CO2 += (fraction * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
+    HC += (fraction * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
     NOx += (fraction * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
     PMx += (fraction * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
     fuel += (fraction * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
@@ -117,6 +119,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
     sampleSeconds += fraction;
     CO += (fraction * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
     CO2 += (fraction * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
+    HC += (fraction * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
     NOx += (fraction * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
     PMx += (fraction * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
     fuel += (fraction * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
@@ -233,6 +236,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
     } else {
         SUMOReal coS = 0;
         SUMOReal co2S = 0;
+        SUMOReal hc2S = 0;
         SUMOReal pmxS = 0;
         SUMOReal noxS = 0;
         SUMOReal fuelS = 0;
@@ -242,6 +246,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             // calculate mean data
             coS += meanData.CO;
             co2S += meanData.CO2;
+            hc2S += meanData.HC;
             pmxS += meanData.PMx;
             noxS += meanData.NOx;
             fuelS += meanData.fuel;
@@ -253,11 +258,13 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             "\" sampledSeconds=\""<< nVehS <<
             "\" CO_abs=\""<< coS <<
             "\" CO2_abs=\""<<co2S<<
+            "\" HC_abs=\""<<hc2S<<
             "\" PMx_abs=\""<<pmxS<<
             "\" NOx_abs=\""<<noxS<<
             "\" fuel_abs=\""<<fuelS<<
             "\" CO_normed=\""<<norm(coS, (SUMOReal)(stopTime-startTime+1), (*edge->getLanes())[0]->length()) <<
             "\" CO2_normed=\""<<norm(co2S, (SUMOReal)(stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
+            "\" HC_normed=\""<<norm(hc2S, (SUMOReal)(stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
             "\" PMx_normed=\""<<norm(pmxS, (SUMOReal)(stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
             "\" NOx_normed=\""<<norm(noxS, (SUMOReal)(stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
             "\" fuel_normed=\""<<norm(fuelS, (SUMOReal)(stopTime-startTime+1), (*edge->getLanes())[0]->length())<<
@@ -278,11 +285,13 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
         "\" sampledSeconds=\""<< laneValues.sampleSeconds <<
         "\" CO_abs=\""<< laneValues.CO <<
         "\" CO2_abs=\""<<laneValues.CO2<<
+        "\" HC_abs=\""<<laneValues.HC<<
         "\" PMx_abs=\""<<laneValues.PMx<<
         "\" NOx_abs=\""<<laneValues.NOx<<
         "\" fuel_abs=\""<<laneValues.fuel<<
         "\" CO_normed=\""<<norm(laneValues.CO, (SUMOReal)(stopTime-startTime+1), laneValues.getLane()->length()) <<
         "\" CO2_normed=\""<<norm(laneValues.CO2, (SUMOReal)(stopTime-startTime+1), laneValues.getLane()->length())<<
+        "\" HC_normed=\""<<norm(laneValues.HC, (SUMOReal)(stopTime-startTime+1), laneValues.getLane()->length())<<
         "\" PMx_normed=\""<<norm(laneValues.PMx, (SUMOReal)(stopTime-startTime+1), laneValues.getLane()->length())<<
         "\" NOx_normed=\""<<norm(laneValues.NOx, (SUMOReal)(stopTime-startTime+1), laneValues.getLane()->length())<<
         "\" fuel_normed=\""<<norm(laneValues.fuel, (SUMOReal)(stopTime-startTime+1), laneValues.getLane()->length())<<
