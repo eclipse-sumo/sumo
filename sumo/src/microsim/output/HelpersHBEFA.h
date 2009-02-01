@@ -75,6 +75,14 @@ public:
     static SUMOReal computeCO2(SUMOEmissionClass c, double v, double a) throw();
 
 
+    /** @brief Returns the amount of emitted HC given the vehicle type and state (in g/s)
+     * @param[in] c The vehicle emission class
+     * @param[in] v The vehicle's current velocity
+     * @param[in] a The vehicle's current acceleration
+     */
+    static SUMOReal computeHC(SUMOEmissionClass c, double v, double a) throw();
+
+
     /** @brief Returns the amount of emitted NOx given the vehicle type and state (in g/s)
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity

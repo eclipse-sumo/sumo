@@ -208,6 +208,22 @@ HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw()
 
 
 SUMOReal
+HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) throw()
+{
+    switch(c) {
+    case SVE_ZERO_EMISSIONS:
+        return 0;
+    case SVE_UNKNOWN:
+        c = SVE_P_LDV_7_7;
+        break;
+    default:
+        break;
+    }
+    return (SUMOReal) computeUsing(getParameterForClass(c)+HC_OFFSET,v,a);
+}
+
+
+SUMOReal
 HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw()
 {
     switch(c) {
