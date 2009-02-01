@@ -84,6 +84,9 @@
       <device.routing.deterministic>false</device.routing.deterministic>
       <device.routing.period>0</device.routing.period>
       <device.routing.adaptation-weight>0.5</device.routing.adaptation-weight>
+      <device.hbefa.probability>0</device.hbefa.probability>
+      <device.hbefa.knownveh></device.hbefa.knownveh>
+      <device.hbefa.deterministic>false</device.hbefa.deterministic>
    </routing>
 
    <cellular>

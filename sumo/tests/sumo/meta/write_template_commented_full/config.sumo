@@ -202,6 +202,15 @@
       <!-- The weight of prior edge weights. -->
       <device.routing.adaptation-weight>0.5</device.routing.adaptation-weight>
 
+      <!-- The probability for a vehicle to have an emission logging device -->
+      <device.hbefa.probability>0</device.hbefa.probability>
+
+      <!-- Assign a device to named vehicles -->
+      <device.hbefa.knownveh></device.hbefa.knownveh>
+
+      <!-- The devices are set deterministic using a fraction of 1000 -->
+      <device.hbefa.deterministic>false</device.hbefa.deterministic>
+
    </routing>
 
    <cellular>

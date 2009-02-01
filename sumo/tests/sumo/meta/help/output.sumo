@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r6603
+SUMO sumo Version dev-SVN-r6688
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -110,6 +110,11 @@ Usage: sumo.exe [OPTION]*
   --device.routing.period INT         The period with which the vehicle shall
                                         be rerouted
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
+  --device.hbefa.probability FLOAT    The probability for a vehicle to have an
+                                        emission logging device
+  --device.hbefa.knownveh STR         Assign a device to named vehicles
+  --device.hbefa.deterministic        The devices are set deterministic using a
+                                        fraction of 1000
 
  Cellular Options:
   --device.cell-phone.percent-of-activity  
@@ -130,6 +135,8 @@ Usage: sumo.exe [OPTION]*
   --device.cell-phone.amount.min FLOAT  
   --device.cell-phone.amount.max FLOAT  
   --device.cell-phone.sql-date STR    Sets the date to use in sql-dumps
+
+ Emissions Options:
 
  Random Number Options:
   --srand INT                         Initialises the random number generator
