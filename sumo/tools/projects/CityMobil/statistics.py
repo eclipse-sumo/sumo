@@ -58,7 +58,7 @@ def evaluate():
     for line in open("aggregated.xml"):
         if "cyber" in line:
             pos = line.find('CO2_abs="') + 9
-            if pos >= 0:
+            if pos >= 9:
                 endpos = line.find('"', pos)
                 co2 += float(line[pos:endpos])
     print "CO2:", co2
