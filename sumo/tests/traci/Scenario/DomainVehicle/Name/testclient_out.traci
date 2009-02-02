@@ -1,13 +1,13 @@
-TraCITestClient output file. Date: Sat May 24 15:14:43 2008
+TraCITestClient output file. Date: Mon Feb 02 15:11:41 2009
 
 
 -> Command sent: <SimulationStep>:
   TargetTime=1 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=0.1 y=491.85
+  nodeId=0 targetTime=1 2D-Position: x=0 y=491.75
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=1 2D-Position: x=2992.05 y=1008.35
+  nodeId=1 targetTime=1 2D-Position: x=2991.95 y=1008.25
 
 -> Command sent: <Scenario>:
   flag=0 domain=1 domainId=0 variable=13 valueDataType=0 [no value sent]
@@ -19,9 +19,9 @@ TraCITestClient output file. Date: Sat May 24 15:14:43 2008
   TargetTime=2 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=2 2D-Position: x=0.882016 y=491.85
+  nodeId=0 targetTime=2 2D-Position: x=0.51826 y=491.75
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=2 2D-Position: x=2991.53 y=1008.35
+  nodeId=1 targetTime=2 2D-Position: x=2991.5 y=1008.25
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

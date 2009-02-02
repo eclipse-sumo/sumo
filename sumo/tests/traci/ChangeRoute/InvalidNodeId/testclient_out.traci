@@ -1,11 +1,11 @@
-TraCITestClient output file. Date: Sun May 18 18:11:42 2008
+TraCITestClient output file. Date: Mon Feb 02 15:11:22 2009
 
 
 -> Command sent: <SimulationStep>:
   TargetTime=1 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=3491.85 y=488.75
+  nodeId=0 targetTime=1 2D-Position: x=3491.75 y=488.65
 
 -> Command sent: <ChangeRoute>:
   NodeId=1 RoadId=e_m6 travelTime=1

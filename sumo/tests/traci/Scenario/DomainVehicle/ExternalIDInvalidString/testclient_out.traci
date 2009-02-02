@@ -1,17 +1,17 @@
-TraCITestClient output file. Date: Mon Feb 02 13:18:03 2009
+TraCITestClient output file. Date: Mon Feb 02 15:11:44 2009
 
 
 -> Command sent: <SimulationStep>:
   TargetTime=11 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=11 2D-Position: x=33.5375 y=491.85
+  nodeId=0 targetTime=11 2D-Position: x=33.4375 y=491.75
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=11 2D-Position: x=2961.26 y=1008.35
+  nodeId=1 targetTime=11 2D-Position: x=2961.16 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=2 targetTime=11 2D-Position: x=2981.64 y=1008.35
+  nodeId=2 targetTime=11 2D-Position: x=2981.54 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=3 targetTime=11 2D-Position: x=2992.05 y=1008.35
+  nodeId=3 targetTime=11 2D-Position: x=2991.95 y=1008.25
 
 -> Command sent: <Scenario>:
   flag=0 domain=1 domainId=0 variable=18 valueDataType=0 StringValue=notexisting_vehicle

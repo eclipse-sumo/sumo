@@ -492,16 +492,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 // end time
                 tempMsg.writeDouble(targetTime_);
 
-                if (resType == POSITION_2D) {
-                    // return type
-                    tempMsg.writeUnsignedByte(POSITION_2D);
-
-                    Position2D pos = vehicle->getPosition();
-                    //xpos
-                    tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
-                    // y pos
-                    tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
-                } else if (resType == POSITION_ROADMAP) {
+                if (resType == POSITION_ROADMAP) {
                     // return type
                     tempMsg.writeUnsignedByte(POSITION_ROADMAP);
 
@@ -515,17 +506,15 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                         laneId++;
                     }
                     tempMsg.writeUnsignedByte(laneId);
-                } else if (resType == POSITION_3D || resType == POSITION_2_5D) {
-                    // return type
+                } else if (resType == POSITION_2D || resType == POSITION_3D || resType == POSITION_2_5D) {
                     tempMsg.writeUnsignedByte(resType);
-
                     Position2D pos = vehicle->getPosition();
-                    //xpos
-                    tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
-                    // y pos
-                    tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
-                    // z pos: ignored
-                    tempMsg.writeFloat(0);
+                    tempMsg.writeFloat(pos.x());
+                    tempMsg.writeFloat(pos.y());
+                    if (resType != POSITION_2D) {
+                        // z pos: ignored
+                        tempMsg.writeFloat(0);
+                    }
                 }
 
                 // command length
@@ -1645,9 +1634,6 @@ TraCIServer::getNetBoundary()
             netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
         }
     }
-
-    // make the boundary slightly larger
-    netBoundary_->grow(0.1);
 
     return *netBoundary_;
 }

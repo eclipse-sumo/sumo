@@ -1,11 +1,11 @@
-TraCITestClient output file. Date: Tue May 13 20:18:35 2008
+TraCITestClient output file. Date: Mon Feb 02 15:11:24 2009
 
 
 -> Command sent: <SimulationStep>:
   TargetTime=1 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=2508.15 y=491.85
+  nodeId=0 targetTime=1 2D-Position: x=2508.05 y=491.75
 
 -> Command sent: <ChangeTarget>:
   NodeId=1 RoadId=e_m6
@@ -14,6 +14,6 @@ TraCITestClient output file. Date: Tue May 13 20:18:35 2008
 -> Command sent: <SimulationStep>:
   TargetTime=150 PosFormat=1
 ----
-Error while receiving command: tcpip::Socket::receive() @ recv: Socket reset by peer
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
 ----
-Error while sending command: send failed: Socket reset by peer
+Error while sending command: send failed: Software caused tcpip::Socket abort
