@@ -1,0 +1,14 @@
+# all vehicles have the device, using probability=1
+all_by_prob
+
+# all vehicles have the device, using probability=1and trips as input
+all_by_prob_trip
+
+# all vehicles have the device, by naming all of them
+all_by_name
+
+# half vehicles have the device, using probability=.5
+half_by_prob
+
+# half vehicles have the device, by naming all of them (even ones)
+half_by_name
