@@ -1,1 +1,1 @@
-sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8835 --netstate-dump netstate_dump.xml TraCITestClient.exe -def distrequest_3d3dair.prog -p 8835 -h localhost -o testclient_out.txt
+sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8835 --netstate-dump netstate_dump.xml TraCITestClient.exe -def testclient.prog -p 8835 -h localhost -o testclient_out.txt

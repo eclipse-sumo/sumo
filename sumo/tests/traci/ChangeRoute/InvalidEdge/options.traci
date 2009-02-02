@@ -1,1 +1,1 @@
-sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8818 --netstate-dump netstate_dump.xml TraCITestClient.exe -def changeroute_invalidedge.prog -p 8818 -h localhost -o testclient_out.txt
+sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8818 --netstate-dump netstate_dump.xml TraCITestClient.exe -def testclient.prog -p 8818 -h localhost -o testclient_out.txt

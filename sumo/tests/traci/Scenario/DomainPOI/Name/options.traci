@@ -1,3 +1,3 @@
 sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --additional-files additional.xml --penetration 1.0 --remote-port 8881 --netstate-dump netstate_dump.xml
 endsumo
-TraCITestClient.exe -def scenario_poi_name.prog -p 8881 -h localhost -o testclient_out.txt
+TraCITestClient.exe -def testclient.prog -p 8881 -h localhost -o testclient_out.txt

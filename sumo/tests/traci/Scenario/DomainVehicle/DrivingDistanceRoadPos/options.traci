@@ -1,3 +1,3 @@
 sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8870 --netstate-dump netstate_dump.xml
 endsumo
-TraCITestClient.exe -def scenario_vehicle_drivingdistance_roadpos.prog -p 8870 -h localhost -o testclient_out.txt
+TraCITestClient.exe -def testclient.prog -p 8870 -h localhost -o testclient_out.txt

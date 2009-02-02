@@ -1,5 +1,0 @@
-TraCITestClient output file. Date: Thu Jul 10 14:47:38 2008
-
-----
-Can not open definition file movenode_invalidpos.prog
-

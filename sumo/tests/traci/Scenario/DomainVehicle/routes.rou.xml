@@ -3,32 +3,32 @@
     
     <!-- +1 vehicles -->
     <vehicle id="veh0" depart="0" type="vtype1">
-        <route> e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6</route>
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
     </vehicle>
     
     <!-- +0 vehicles -->
     <vehicle id="veh1" depart="-10" type="vtype1">
-        <route> e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6</route>
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
     </vehicle>
     
     <!-- +4 vehicles -->
     <vehicle id="veh2" depart="-5" type="vtype1" repno="4" period="5">
-        <route> e_o1 e_o0 e_vo0 e_m4 e_m5 </route>
+        <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
     
     <!-- +0 vehicles -->
     <vehicle id="veh3" depart="1001" type="vtype1">
-        <route> e_o1 e_o0 e_vo0 e_m4 e_m5 </route>
+        <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
     
     <!-- +1 vehicles -->
     <vehicle id="veh4" depart="1000" type="vtype1">
-        <route> e_o1 e_o0 e_vo0 e_m4 e_m5 </route>
+        <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
     
     <!-- +2 vehicles -->
     <vehicle id="veh5" depart="900" type="vtype1" repno = "2" period="100">
-        <route> e_o1 e_o0 e_vo0 e_m4 e_m5 </route>
+        <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
     </vehicle>
     
 </routes>
