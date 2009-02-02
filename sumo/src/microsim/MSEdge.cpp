@@ -474,7 +474,7 @@ MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOReal t) const throw()
     if (teffort>=0) {
         return teffort;
     }
-    return MIN2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort(t));
+    return MAX2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort(t));
 }
 
 
