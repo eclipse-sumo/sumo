@@ -267,7 +267,7 @@ HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) throw()
     default:
         break;
     }
-    return (SUMOReal) computeUsing(getParameterForClass(c)+FUEL_OFFSET,v,a);
+    return (SUMOReal) (computeUsing(getParameterForClass(c)+FUEL_OFFSET,v,a) / 790.);
 }
 
 
