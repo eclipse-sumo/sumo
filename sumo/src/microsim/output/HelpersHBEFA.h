@@ -33,6 +33,7 @@
 #include <cassert>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSMoveReminder.h>
+#include <utils/common/StdDefs.h>
 #include <limits>
 
 
@@ -130,7 +131,8 @@ private:
         if(a<0) {
             return 0.;
         }
-        return ((f[0] + f[1]*a*v + f[2]*pow(a,2.)*v + f[3]*v + f[4]*pow(v,2.) + f[5]*pow(v,3.)) / 3600.);
+        v = v * 3.6;
+        return MAX2(((f[0] + f[1]*a*v + f[2]*a*a*v + f[3]*v + f[4]*v*v + f[5]*v*v*v) / 3600.), 0.);
     }
 
 
