@@ -4,7 +4,7 @@
 /// @date    2006-01-24
 /// @version $Id$
 ///
-// missing_desc
+// Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -234,11 +234,56 @@ enum SUMOEmissionClass {
 // method declarations
 // ===========================================================================
 extern void initGuiShapeNames() throw();
+
+
+// ---------------------------------------------------------------------------
+// abstract vehicle class / purpose
+// ---------------------------------------------------------------------------
+/** @brief Returns the class name of the abstract class given by its id
+ * @param[in] id The id of the abstract vehicle class
+ * @return The string representation of this class
+ */
 extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
+
+
+/** @brief Returns the class id of the abstract class given by its name
+ * @param[in] name The name of the abstract vehicle class
+ * @return The internal representation of this class
+ */
 extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
+
+
+// ---------------------------------------------------------------------------
+// vehicle shape class
+// ---------------------------------------------------------------------------
+/** @brief Returns the class name of the shape class given by its id
+ * @param[in] id The id of the shape class
+ * @return The string representation of this class
+ */
 extern std::string getVehicleShapeName(SUMOVehicleShape id) throw();
+
+
+/** @brief Returns the class id of the shape class given by its name
+ * @param[in] name The name of the shape class
+ * @return The internal representation of this class
+ */
 extern SUMOVehicleShape getVehicleShapeID(const std::string &name) throw();
+
+
+// ---------------------------------------------------------------------------
+// emission class
+// ---------------------------------------------------------------------------
+/** @brief Returns the class name of the emission class given by its id
+ * @param[in] id The id of the emission class
+ * @return The string representation of this class
+ */
 extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
+
+
+/** @brief Returns the class id of the emission class given by its name
+ * @param[in] name The name of the emission class
+ * @return The internal representation of this class
+ */
 extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw(ProcessError);
 
 

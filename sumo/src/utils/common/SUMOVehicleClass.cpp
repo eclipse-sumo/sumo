@@ -4,7 +4,7 @@
 /// @date    2006-01-24
 /// @version $Id$
 ///
-// missing_desc
+// Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -297,15 +297,15 @@ getVehicleEmissionTypeID(const std::string &name) throw(ProcessError)
         } else if (name=="zero") {
             return SVE_ZERO_EMISSIONS;
         } else if (name.find("HDV_3_")==0) {
-            return (SUMOEmissionClass) (SVE_HDV_3_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+            return (SUMOEmissionClass) (SVE_HDV_3_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("HDV_6_")==0) {
-            return (SUMOEmissionClass) (SVE_HDV_6_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+            return (SUMOEmissionClass) (SVE_HDV_6_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("HDV_12_")==0) {
-            return (SUMOEmissionClass) (SVE_HDV_12_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+            return (SUMOEmissionClass) (SVE_HDV_12_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("P_7_")==0) {
-            return (SUMOEmissionClass) (SVE_P_LDV_7_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+            return (SUMOEmissionClass) (SVE_P_LDV_7_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("P_14_")==0) {
-            return (SUMOEmissionClass) (SVE_P_LDV_14_1 + TplConvert<char>::_2int(name.substr(name.rfind("_")).c_str()));
+            return (SUMOEmissionClass) (SVE_P_LDV_14_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         }
     } catch (NumberFormatException &) {
         throw ProcessError("Unknown emission type '" + name + "'.");
