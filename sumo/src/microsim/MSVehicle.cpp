@@ -1960,6 +1960,14 @@ MSVehicle::setWasVaporized(bool onDepart)
 void
 MSVehicle::checkReroute(SUMOTime t)
 {
+
+#ifdef HAVE_INTERNAL_LANES
+    // delay any rerouting while we're on an internal lane
+    // otherwise, we'd mess up our route, plus there's not much we could do anyway
+    // TODO: [sommerc] add nicer check for a vehicle being on an internal lane?
+    if (myLane && (myLane->getID()[0] == ':')) return;
+#endif
+
     if (myWeightChangedViaTraci && myHaveRouteInfo && myStops.size()==0) {
         myHaveRouteInfo = false;
         SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> >
