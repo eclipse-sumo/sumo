@@ -1,0 +1,21 @@
+# no traffic, just plain output
+no_vehicles
+
+# one vehicle is moving
+one_vehicle
+
+# two vehicles are moving which have same properties
+two_same_vehicles
+
+# Testing error cases
+errors
+
+
+
+# a jam test (20 vehicles waiting)
+jam1
+
+# a jam test (78 vehicles waiting)
+jam2
+
+

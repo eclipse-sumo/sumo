@@ -1,0 +1,6 @@
+<add>
+
+	<meandata-edge id="dump_300" type="hbefa" freq="300" file="aggregated_300.xml"/>
+	<meandata-edge id="dump_900" type="hbefa" freq="900" file="aggregated_900.xml"/>
+
+</add>

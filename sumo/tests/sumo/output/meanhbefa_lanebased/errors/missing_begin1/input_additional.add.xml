@@ -1,0 +1,4 @@
+<additional>
+	<meandata-lane id="dump_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true" begin="0" end="119,1019"/>
+	<meandata-lane id="dump_60" type="hbefa" freq="60" file="aggregated_60.xml" excludeEmpty="true" begin="0" end="119,1019"/>
+</additional>

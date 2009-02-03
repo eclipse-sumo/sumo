@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/03/09 16:09:56 by SUMO sumo Version dev-SVN-r6717
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <time-to-teleport>-1</time-to-teleport>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="59" id="dump_60">
+   </interval>
+   <interval begin="60" end="119" id="dump_60">
+   </interval>
+   <interval begin="120" end="179" id="dump_60">
+   </interval>
+   <interval begin="180" end="239" id="dump_60">
+   </interval>
+   <interval begin="240" end="299" id="dump_60">
+   </interval>
+   <interval begin="300" end="359" id="dump_60">
+   </interval>
+   <interval begin="360" end="419" id="dump_60">
+   </interval>
+   <interval begin="420" end="479" id="dump_60">
+   </interval>
+   <interval begin="480" end="539" id="dump_60">
+   </interval>
+   <interval begin="540" end="599" id="dump_60">
+   </interval>
+   <interval begin="600" end="659" id="dump_60">
+      <edge id="3/1to2/1">
+         <lane id="3/1to2/1_0" sampledSeconds="3120.00" CO_abs="19.88" CO2_abs="1877.26" HC_abs="1.09" PMx_abs="0.07" NOx_abs="2.62" fuel_abs="0.75" CO_normed="3054.50" CO2_normed="288439.56" HC_normed="167.50" PMx_normed="10.19" NOx_normed="402.44" fuel_normed="115.00"/>
+      </edge>
+      <edge id="4/1to3/1">
+         <lane id="4/1to3/1_0" sampledSeconds="1560.00" CO_abs="9.94" CO2_abs="938.63" HC_abs="0.55" PMx_abs="0.03" NOx_abs="1.31" fuel_abs="0.37" CO_normed="1527.21" CO2_normed="144220.16" HC_normed="83.75" PMx_normed="5.10" NOx_normed="201.22" fuel_normed="57.50"/>
+      </edge>
+   </interval>
+   <interval begin="660" end="719" id="dump_60">
+   </interval>
+   <interval begin="720" end="779" id="dump_60">
+   </interval>
+   <interval begin="780" end="839" id="dump_60">
+   </interval>
+   <interval begin="840" end="899" id="dump_60">
+   </interval>
+   <interval begin="900" end="959" id="dump_60">
+   </interval>
+   <interval begin="960" end="1000" id="dump_60">
+   </interval>
+</netstats>
