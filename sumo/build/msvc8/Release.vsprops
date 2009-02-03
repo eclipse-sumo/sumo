@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="Release"
-        WholeProgramOptimization="1"
         >
 	<Tool
 		Name="VCCLCompilerTool"
@@ -26,5 +25,9 @@
 		LinkIncremental="1"
 		GenerateDebugInformation="false"
                 LinkTimeCodeGeneration="1"
+	/>
+	<Tool
+		Name="VCLibrarianTool"
+		AdditionalOptions="/LTCG"
 	/>
 </VisualStudioPropertySheet>
