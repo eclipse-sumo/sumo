@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Feb 02 15:11:21 2009
+TraCITestClient output file. Date: Tue Feb 03 22:52:41 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -12,8 +12,10 @@ TraCITestClient output file. Date: Mon Feb 02 15:11:21 2009
 .. Answered with error to command (48), [description: Could not set travel time properly]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=100 PosFormat=1
-----
-Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
-----
-Error while sending command: send failed: Software caused tcpip::Socket abort
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=1 2D-Position: x=3491.75 y=488.202
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

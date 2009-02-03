@@ -285,68 +285,72 @@ throw(TraCIException, std::invalid_argument)
     int commandLength = myInputStorage.readUnsignedByte();
 
     int commandId = myInputStorage.readUnsignedByte();
+    bool success = false;
 
     // dispatch commands
     switch (commandId) {
     case CMD_SETMAXSPEED:
-        commandSetMaximumSpeed();
+        success = commandSetMaximumSpeed();
         break;
     case CMD_SIMSTEP:
-        targetTime_ = static_cast<SUMOTime>(myInputStorage.readDouble());
+        success = targetTime_ = static_cast<SUMOTime>(myInputStorage.readDouble());
         return commandId;
     case CMD_STOP:
-        commandStopNode();
+        success = commandStopNode();
         break;
     case CMD_CHANGELANE:
-        commandChangeLane();
+        success = commandChangeLane();
         break;
     case CMD_CHANGEROUTE:
-        commandChangeRoute();
+        success = commandChangeRoute();
         break;
     case CMD_CHANGETARGET:
-        commandChangeTarget();
+        success = commandChangeTarget();
         break;
     case CMD_GETALLTLIDS:
-        commandGetAllTLIds();
+        success = commandGetAllTLIds();
         break;
     case CMD_GETTLSTATUS:
-        commandGetTLStatus();
+        success = commandGetTLStatus();
         break;
     case CMD_CLOSE:
-        commandCloseConnection();
+        success = commandCloseConnection();
         break;
     case CMD_UPDATECALIBRATOR:
-        commandUpdateCalibrator();
+        success = commandUpdateCalibrator();
         break;
     case CMD_POSITIONCONVERSION:
-        commandPositionConversion();
+        success = commandPositionConversion();
         break;
     case CMD_SLOWDOWN:
-        commandSlowDown();
+        success = commandSlowDown();
         break;
     case CMD_SCENARIO:
-        commandScenario();
+        success = commandScenario();
         break;
     case CMD_DISTANCEREQUEST:
-        commandDistanceRequest();
+        success = commandDistanceRequest();
         break;
     case CMD_SUBSCRIBELIFECYCLES:
-        commandSubscribeLifecycles();
+        success = commandSubscribeLifecycles();
         break;
     case CMD_UNSUBSCRIBELIFECYCLES:
-        commandUnsubscribeLifecycles();
+        success = commandUnsubscribeLifecycles();
         break;
     case CMD_SUBSCRIBEDOMAIN:
-        commandSubscribeDomain();
+        success = commandSubscribeDomain();
         break;
     case CMD_UNSUBSCRIBEDOMAIN:
-        commandUnsubscribeDomain();
+        success = commandUnsubscribeDomain();
         break;
     default:
         writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
-        closeConnection_ = true;
     }
-
+    if (!success) {
+        while (myInputStorage.valid_pos() && myInputStorage.position() < commandStart + commandLength) {
+            myInputStorage.readChar();
+        }
+    }
     if (myInputStorage.position() != commandStart + commandLength) {
         ostringstream msg;
         msg << "Wrong position in requestMessage after dispatching command.";
@@ -360,7 +364,7 @@ throw(TraCIException, std::invalid_argument)
 
 /*****************************************************************************/
 
-void
+bool
 TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument)
 {
     MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
@@ -368,7 +372,7 @@ TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argumen
 
     if (veh == NULL) {
         writeStatusCmd(CMD_SETMAXSPEED, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
+        return false;
     }
 
     if (maxspeed>=0.0) {
@@ -380,7 +384,7 @@ TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argumen
     // create a reply message
     writeStatusCmd(CMD_SETMAXSPEED, RTYPE_OK, "");
 
-    return;
+    return true;
 }
 
 /*****************************************************************************/
@@ -393,7 +397,6 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
     if (resType != POSITION_NONE && resType != POSITION_2D && resType != POSITION_ROADMAP
             && resType != POSITION_2_5D && resType != POSITION_3D) {
         writeStatusCmd(CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
-        closeConnection_ = true;
         return;
     }
     isMapChanged_ = true;
@@ -525,12 +528,13 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
         }
     } catch (...) {
         writeStatusCmd(CMD_SIMSTEP, RTYPE_ERR, "some error happen in command: simulation step. Sumo shuts down.");
+        closeConnection_ = true;
     }
 }
 
 /*****************************************************************************/
 
-void
+bool
 TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
 {
     //std::string roadID;
@@ -545,7 +549,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
 
     if (veh == NULL) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
+        return false;
     }
 
     // StopPosition
@@ -568,7 +572,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
         break;
     default:
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Not supported or unknown Position Format");
-        return;
+        return false;
     }
 
     // Radius
@@ -578,20 +582,20 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
 
     if (roadPos.pos < 0) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
-        return;
+        return false;
     }
 
     // get the actual lane that is referenced by laneIndex
     MSEdge* road = MSEdge::dictionary(roadPos.roadId);
     if (road == NULL) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
-        return;
+        return false;
     }
 
     const MSEdge::LaneCont* const allLanes = road->getLanes();
     if (roadPos.laneId >= allLanes->size()) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
-        return;
+        return false;
     }
 
     actLane = (*allLanes)[0];
@@ -614,7 +618,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
     // Forward command to vehicle
     if (!veh->addTraciStop(actLane, roadPos.pos, radius, waitTime)) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Vehicle is too close or behind the stop on " + actLane->getID());
-        return;
+        return false;
     }
 
     // create a reply message
@@ -631,11 +635,11 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
     myOutputStorage.writeFloat(radius);						// radius
     myOutputStorage.writeDouble(waitTime);					// wait time
 
-    return;
+    return true;
 }
 
 /*****************************************************************************/
-void
+bool
 TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument)
 {
     // NodeId
@@ -647,13 +651,14 @@ TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument)
 
     if (veh == NULL) {
         writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
+        return false;
     }
 
     /*const MSEdge* const road = veh->getEdge();
     const MSEdge::LaneCont* const allLanes = road->getLanes();*/
     if ((laneIndex < 0) || (laneIndex >= veh->getEdge()->getLanes()->size())) {
         writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
+        return false;
     }
 
     // Forward command to vehicle
@@ -662,11 +667,11 @@ TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument)
     // create a reply message
     writeStatusCmd(CMD_CHANGELANE, RTYPE_OK, "");
 
-    return;
+    return true;
 }
 
 /*****************************************************************************/
-void
+bool
 TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument)
 {
     // NodeId
@@ -681,7 +686,7 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument)
         std::ostringstream os;
         os << "Can not retrieve node with ID " << vehId;
         writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, os.str());
-        return;
+        return false;
     }
 
     bool result;
@@ -696,13 +701,15 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument)
     // create a reply message
     if (result) {
         writeStatusCmd(CMD_CHANGEROUTE, RTYPE_OK, "");
+        return true;
     } else {
         writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Could not set travel time properly");
+        return false;
     }
 }
 
 /*****************************************************************************/
-void
+bool
 TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument)
 {
     // NodeId
@@ -715,12 +722,12 @@ TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument)
 
     if (veh == NULL) {
         writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
+        return false;
     }
 
     if (destEdge == NULL) {
         writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with ID " + edgeID);
-        return;
+        return false;
     }
 
     // build a new route between the vehicle's current edge and destination edge
@@ -733,15 +740,16 @@ TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument)
     // replace the vehicle's route by the new one
     if (veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
         writeStatusCmd(CMD_CHANGETARGET, RTYPE_OK, "");
+        return true;
     } else {
         writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Route replacement failed for " + veh->getID());
+        return false;
     }
 }
 
 /*****************************************************************************/
-void
-TraCIServer::commandGetAllTLIds()
-throw(TraCIException)
+bool
+TraCIServer::commandGetAllTLIds() throw(TraCIException)
 {
     tcpip::Storage tempMsg;
 
@@ -753,7 +761,7 @@ throw(TraCIException)
     if (idList.size() == 0) {
         // create negative response message
         writeStatusCmd(CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");
-        return;
+        return false;
     }
 
     // create positive response message
@@ -768,12 +776,12 @@ throw(TraCIException)
         // id string
         myOutputStorage.writeString((*iter));
     }
+    return true;
 }
 
 /*****************************************************************************/
-void
-TraCIServer::commandGetTLStatus()
-throw(TraCIException)
+bool
+TraCIServer::commandGetTLStatus() throw(TraCIException)
 {
     SUMOTime lookback = 60; // Time to look in history for recognizing yellowTimes
 
@@ -792,11 +800,11 @@ throw(TraCIException)
     // error checking
     if (tlLogic == NULL) {
         writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");
-        return;
+        return false;
     }
     if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
         writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "The given time interval is not valid");
-        return;
+        return false;
     }
 
     // acknowledge the request
@@ -902,13 +910,13 @@ throw(TraCIException)
             }
         }
     }
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandSlowDown()
-throw(TraCIException)
+bool
+TraCIServer::commandSlowDown() throw(TraCIException)
 {
     // NodeId
     MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
@@ -919,42 +927,42 @@ throw(TraCIException)
 
     if (veh == NULL) {
         writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
+        return false;
     }
     /*if (newSpeed < 0) {
         writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
-        return;
+        return false;
     }*/
     if (duration <= 0) {
         writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
-        return;
+        return false;
     }
 
     if (!veh->startSpeedAdaption(newSpeed, static_cast<SUMOTime>(duration), MSNet::getInstance()->getCurrentTimeStep())) {
         writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
-        return;
+        return false;
     }
 
     // create positive response message
     writeStatusCmd(CMD_SLOWDOWN, RTYPE_OK, "");
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandCloseConnection()
-throw(TraCIException)
+bool
+TraCIServer::commandCloseConnection() throw(TraCIException)
 {
     closeConnection_ = true;
     // write answer
     writeStatusCmd(CMD_CLOSE, RTYPE_OK, "Goodbye");
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandSimulationParameter()
-throw(TraCIException)
+bool
+TraCIServer::commandSimulationParameter() throw(TraCIException)
 {
     bool setParameter = (myInputStorage.readByte() != 0);
     string parameter = myInputStorage.readString();
@@ -965,23 +973,24 @@ throw(TraCIException)
     if (parameter.compare("maxX")) {
         if (setParameter) {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxX is a read only parameter");
-            return;
+            return false;
         } else {
             answerTmp.writeFloat(getNetBoundary().getWidth());
         }
     } else if (parameter.compare("maxY")) {
         if (setParameter) {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxY is a read only parameter");
-            return;
+            return false;
         } else {
             answerTmp.writeFloat(getNetBoundary().getHeight());
         }
     } else if (parameter.compare("numberOfNodes")) {
         if (setParameter) {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "numberOfNodes is a read only parameter");
+            return false;
         } else {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "numberOfNodes not implemented yet");
-            return;
+            return false;
             //answerTmp.writeInt( --- Don't know where to get that information ---);
         }
     } else if (parameter.compare("airDistance")) {
@@ -991,7 +1000,7 @@ throw(TraCIException)
         if (veh1 != NULL && veh2 != NULL) {
             if (setParameter) {
                 writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
-                return;
+                return false;
             } else {
                 float dx = veh1->getPosition().x() - veh2->getPosition().x();
                 float dy = veh1->getPosition().y() - veh2->getPosition().y();
@@ -999,7 +1008,7 @@ throw(TraCIException)
             }
         } else {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
-            return;
+            return false;
         }
     } else if (parameter.compare("drivingDistance")) {
         MSVehicle* veh1 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
@@ -1008,10 +1017,10 @@ throw(TraCIException)
         if (veh1 != NULL && veh2 != NULL) {
             if (setParameter) {
                 writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
-                return;
+                return false;
             } else {
                 writeStatusCmd(CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "drivingDistance not implemented yet");
-                return;
+                return false;
                 //float dx = veh1->getPosition().x() - veh2->getPosition().x();
                 //float dy = veh1->getPosition().y() - veh2->getPosition().y();
                 //float distance = sqrt( dx * dx + dy * dy );
@@ -1019,7 +1028,7 @@ throw(TraCIException)
             }
         } else {
             writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
-            return;
+            return false;
         }
     }
 
@@ -1036,13 +1045,13 @@ throw(TraCIException)
     myOutputStorage.writeString(parameter);
     // and the parameter dependant part
     myOutputStorage.writeStorage(answerTmp);
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandUpdateCalibrator()
-throw(TraCIException)
+bool
+TraCIServer::commandUpdateCalibrator() throw(TraCIException)
 {
     myOutputStorage.reset();
 
@@ -1054,14 +1063,13 @@ throw(TraCIException)
 
     //@TODO write response according to result of updateCalibrator
 
-    return;
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandPositionConversion()
-throw(TraCIException)
+bool
+TraCIServer::commandPositionConversion() throw(TraCIException)
 {
     tcpip::Storage tmpResult;
     RoadMapPos roadPos;
@@ -1093,14 +1101,6 @@ throw(TraCIException)
             // convert road map to 3D position
             roadPos = convertCartesianToRoadMap(Position2D(x, y));
 
-            /*out << "TraCI: position conversion from: x=" << x << " y=" << y
-            	<< " to: roadId=" << roadPos.roadId << " pos=" << roadPos.pos
-            	<< " laneId =" << (int)roadPos.laneId << std::endl;
-            std::cerr << out.str();
-            file.open("pos_convert_log.txt");
-            file.write(out.str().c_str(), out.str().size());
-            file.close();*/
-
             // write result that is added to response msg
             tmpResult.writeUnsignedByte(POSITION_ROADMAP);
             tmpResult.writeString(roadPos.roadId);
@@ -1110,11 +1110,11 @@ throw(TraCIException)
         case POSITION_3D:
             writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
                            "Destination position type is same as source position type");
-            return;
+            return false;
         default:
             writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
                            "Destination position type not supported");
-            return;
+            return false;
         }
         break;
     case POSITION_ROADMAP:
@@ -1132,14 +1132,6 @@ throw(TraCIException)
                 Position2D result = convertRoadMapToCartesian(roadPos);
                 x = result.x();
                 y = result.y();
-
-                /*out << "TraCI: position conversion from: roadId=" << roadPos.roadId << " pos="
-                	<< roadPos.pos << " laneId= " << (int)roadPos.laneId
-                	<< " to: x=" << x << " y=" << y << std::endl;
-                std::cerr << out.str();
-                file.open("pos_convert_log.txt");
-                file.write(out.str().c_str(), out.str().size());
-                file.close();*/
             } catch (TraCIException e) {
                 writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
             }
@@ -1153,17 +1145,17 @@ throw(TraCIException)
         case POSITION_ROADMAP:
             writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
                            "Destination position type is same as source position type");
-            return;
+            return false;
         default:
             writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
                            "Destination position type not supported");
-            return;
+            return false;
         }
         break;
     default:
         writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
                        "Source position type not supported");
-        return;
+        return false;
     }
 
     // write response message
@@ -1173,11 +1165,12 @@ throw(TraCIException)
     myOutputStorage.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
     myOutputStorage.writeStorage(tmpResult);	// position dependant part
     myOutputStorage.writeUnsignedByte(destPosType);	// destination type
+    return true;
 }
 
 /*****************************************************************************/
 
-void
+bool
 TraCIServer::commandScenario() throw(TraCIException)
 {
     Storage tmpResult;
@@ -1208,11 +1201,11 @@ TraCIServer::commandScenario() throw(TraCIException)
             break;
         default:
             writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, "Unknown domain specified");
-            return;
+            return false;
         }
     } catch (TraCIException e) {
         writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, e.what());
-        return;
+        return false;
     }
 
     // write response message
@@ -1230,13 +1223,13 @@ TraCIServer::commandScenario() throw(TraCIException)
             myOutputStorage.writeStorage(tmpResult);	// variable dependant part
         }
     }
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandDistanceRequest()
-throw(TraCIException)
+bool
+TraCIServer::commandDistanceRequest() throw(TraCIException)
 {
     Position2D pos1;
     Position2D pos2;
@@ -1255,7 +1248,7 @@ throw(TraCIException)
             pos1 = convertRoadMapToCartesian(roadPos1);
         } catch (TraCIException e) {
             writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
-            return;
+            return false;
         }
         break;
     case POSITION_2D:
@@ -1269,7 +1262,7 @@ throw(TraCIException)
         break;
     default:
         writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
-        return;
+        return false;
     }
 
     // read position 2
@@ -1283,7 +1276,7 @@ throw(TraCIException)
             pos2 = convertRoadMapToCartesian(roadPos2);
         } catch (TraCIException e) {
             writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
-            return;
+            return false;
         }
         break;
     case POSITION_2D:
@@ -1297,7 +1290,7 @@ throw(TraCIException)
         break;
     default:
         writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
-        return;
+        return false;
     }
 
     // read distance type
@@ -1315,23 +1308,9 @@ throw(TraCIException)
         } else {
             router.compute(MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId), NULL,
                            MSNet::getInstance()->getCurrentTimeStep(), edges);
-//			cerr << "route: ";
-            for (MSRouteIterator it=edges.begin(); it != edges.end(); it++) {
-//				cerr << " " << (*it)->getID();
-            }
-//			cerr << endl;
             MSRoute route("", edges, false);
             distance = static_cast<float>(route.getDistanceBetween(roadPos1.pos, roadPos2.pos,
                                           MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId)));
-            /*if (edges.size() != 0) {
-            	distance = -roadPos1.pos;
-            	for (std::vector<const MSEdge*>::iterator edge=edges.begin(); edge!=edges.end(); edge++) {
-            		lanes = (*edge)->getLanes();
-            		distance += (*lanes)[0]->getShape().length();
-            	}
-            	lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
-            	distance -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
-            }*/
         }
     } else {
         // compute air distance (default)
@@ -1347,13 +1326,13 @@ throw(TraCIException)
     myOutputStorage.writeUnsignedByte(CMD_DISTANCEREQUEST);		// command type
     myOutputStorage.writeUnsignedByte(distType);		// distance type
     myOutputStorage.writeFloat(distance);	// distance;
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandSubscribeLifecycles()
-throw(TraCIException)
+bool
+TraCIServer::commandSubscribeLifecycles() throw(TraCIException)
 {
     // domain
     int domain = myInputStorage.readUnsignedByte();
@@ -1361,7 +1340,7 @@ throw(TraCIException)
     if (domain != DOM_VEHICLE) {
         // send negative command response
         writeStatusCmd(CMD_SUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
-        return;
+        return false;
     }
 
     myLifecycleSubscriptions.insert(domain);
@@ -1373,13 +1352,13 @@ throw(TraCIException)
 
     // send positive command response
     writeStatusCmd(CMD_SUBSCRIBELIFECYCLES, RTYPE_OK, "");
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandUnsubscribeLifecycles()
-throw(TraCIException)
+bool
+TraCIServer::commandUnsubscribeLifecycles() throw(TraCIException)
 {
     // domain
     int domain = myInputStorage.readUnsignedByte();
@@ -1387,7 +1366,7 @@ throw(TraCIException)
     if (domain != DOM_VEHICLE) {
         // send negative command response
         writeStatusCmd(CMD_UNSUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
-        return;
+        return false;
     }
 
     myLifecycleSubscriptions.erase(domain);
@@ -1399,13 +1378,13 @@ throw(TraCIException)
 
     // send positive command response
     writeStatusCmd(CMD_UNSUBSCRIBELIFECYCLES, RTYPE_OK, "");
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandSubscribeDomain()
-throw(TraCIException)
+bool
+TraCIServer::commandSubscribeDomain() throw(TraCIException)
 {
     // domain
     int domainId = myInputStorage.readUnsignedByte();
@@ -1413,7 +1392,7 @@ throw(TraCIException)
     if (domainId != DOM_VEHICLE) {
         // send negative command response
         writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to DOM_VEHICLE at this time");
-        return;
+        return false;
     }
 
     // variable count
@@ -1443,7 +1422,7 @@ throw(TraCIException)
                 )) {
             // send negative command response
             writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can not subscribe to this domain/variable/type combination");
-            return;
+            return false;
         }
 
         subscribedVariables.push_back(std::pair<int, int>(variableId, dataType));
@@ -1454,13 +1433,13 @@ throw(TraCIException)
 
     // send positive command response
     writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_OK, "");
+    return true;
 }
 
 /*****************************************************************************/
 
-void
-TraCIServer::commandUnsubscribeDomain()
-throw(TraCIException)
+bool
+TraCIServer::commandUnsubscribeDomain() throw(TraCIException)
 {
     // domain
     int domain = myInputStorage.readUnsignedByte();
@@ -1468,13 +1447,14 @@ throw(TraCIException)
     if (domain != DOM_VEHICLE) {
         // send negative command response
         writeStatusCmd(CMD_UNSUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
-        return;
+        return false;
     }
 
     myDomainSubscriptions.erase(domain);
 
     // send positive command response
     writeStatusCmd(CMD_UNSUBSCRIBEDOMAIN, RTYPE_OK, "");
+    return true;
 }
 
 /*****************************************************************************/
@@ -1483,7 +1463,6 @@ void
 TraCIServer::writeStatusCmd(int commandId, int status, std::string description)
 {
     if (status == RTYPE_ERR) {
-        closeConnection_ = true;
         MsgHandler::getErrorInstance()->inform("Answered with error to command " + toString(commandId) +
                                                ": " + description);
     } else if (status == RTYPE_NOTIMPLEMENTED) {

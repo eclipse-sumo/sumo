@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Feb 02 15:11:44 2009
+TraCITestClient output file. Date: Tue Feb 03 22:53:09 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -18,8 +18,16 @@ TraCITestClient output file. Date: Mon Feb 02 15:11:44 2009
 .. Answered with error to command (115), [description: Vehicle with internal id notexisting_vehicle not existing or not accessible via TraCI]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=12 PosFormat=1
-----
-Error while receiving command: tcpip::Socket::receive() @ recv: No error
-----
-Error while sending command: send failed: Software caused tcpip::Socket abort
+  TargetTime=2 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=2 2D-Position: x=39.8619 y=491.75
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=2 2D-Position: x=2955 y=1008.25
+.. Received Response <MoveNode>:
+  nodeId=2 targetTime=2 2D-Position: x=2977.78 y=1008.25
+.. Received Response <MoveNode>:
+  nodeId=3 targetTime=2 2D-Position: x=2991.48 y=1008.25
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

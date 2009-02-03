@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/02/09 13:18:08 by SUMO sumo Version dev-SVN-r6683
+<!-- generated on 02/03/09 22:53:14 by SUMO sumo Version dev-SVN-r6713
 <configuration>
 
    <input>
@@ -579,6 +579,25 @@
             <vehicle id="veh2_1" pos="120.11" speed="10.99"/>
             <vehicle id="veh2_0" pos="193.71" speed="14.13"/>
             <vehicle id="veh2" pos="264.52" speed="16.41"/>
+         </lane>
+         <lane id="e_o1_1"/>
+         <lane id="e_o1_2"/>
+      </edge>
+   </timestep>
+   <timestep time="31">
+      <edge id="e_m0">
+         <lane id="e_m0_0">
+            <vehicle id="veh0" pos="272.41" speed="16.17"/>
+         </lane>
+         <lane id="e_m0_1"/>
+         <lane id="e_m0_2"/>
+      </edge>
+      <edge id="e_o1">
+         <lane id="e_o1_0">
+            <vehicle id="veh2_2" pos="81.81" speed="9.45"/>
+            <vehicle id="veh2_1" pos="131.76" speed="11.65"/>
+            <vehicle id="veh2_0" pos="208.36" speed="14.65"/>
+            <vehicle id="veh2" pos="281.34" speed="16.82"/>
          </lane>
          <lane id="e_o1_1"/>
          <lane id="e_o1_2"/>

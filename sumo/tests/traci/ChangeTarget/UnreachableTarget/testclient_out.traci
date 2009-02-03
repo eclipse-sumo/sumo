@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Feb 02 15:11:23 2009
+TraCITestClient output file. Date: Tue Feb 03 22:52:43 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -12,8 +12,10 @@ TraCITestClient output file. Date: Mon Feb 02 15:11:23 2009
 .. Answered with error to command (49), [description: Can not retrieve road with ID e_bla]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=200 PosFormat=1
-----
-Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
-----
-Error while sending command: send failed: Software caused tcpip::Socket abort
+  TargetTime=2 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=2 2D-Position: x=2508.5 y=491.75
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

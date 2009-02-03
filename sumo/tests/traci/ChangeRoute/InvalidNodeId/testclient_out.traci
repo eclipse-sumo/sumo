@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Feb 02 15:11:22 2009
+TraCITestClient output file. Date: Tue Feb 03 22:52:42 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -13,7 +13,9 @@ TraCITestClient output file. Date: Mon Feb 02 15:11:22 2009
 
 -> Command sent: <SimulationStep>:
   TargetTime=2 PosFormat=1
-----
-Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
-----
-Error while sending command: send failed: Software caused tcpip::Socket abort
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=2 2D-Position: x=3491.75 y=488.202
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

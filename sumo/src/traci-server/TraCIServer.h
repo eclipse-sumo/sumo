@@ -124,7 +124,7 @@ private:
     // @param in contains unparsed parameters targetTime, ResultType
     // @param out contains node positions ready for output
     // @param length message length
-    void commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument);
+    bool commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument);
 
     // process command simStep
     // This is the basic comman that encourage the mobility generator to simulate up to the given TargetTime.
@@ -135,49 +135,49 @@ private:
     // If more than one representation is needed, the command simulation step can be sent several times with the same Target Time and different ResultTypes.
     void postProcessSimulationStep() throw(TraCIException, std::invalid_argument);
 
-    void commandStopNode() throw(TraCIException, std::invalid_argument);
+    bool commandStopNode() throw(TraCIException, std::invalid_argument);
 
-    void commandChangeLane() throw(TraCIException, std::invalid_argument);
+    bool commandChangeLane() throw(TraCIException, std::invalid_argument);
 
-    void commandChangeRoute() throw(TraCIException, std::invalid_argument);
+    bool commandChangeRoute() throw(TraCIException, std::invalid_argument);
 
-    void commandChangeTarget() throw(TraCIException, std::invalid_argument);
+    bool commandChangeTarget() throw(TraCIException, std::invalid_argument);
 
-    void commandCloseConnection() throw(TraCIException);
+    bool commandCloseConnection() throw(TraCIException);
 
-    void commandSimulationParameter() throw(TraCIException);
+    bool commandSimulationParameter() throw(TraCIException);
 
     // process command getTLStatus
     // The traffic light with the given id is asked for all state transitions, that will occur  within
     // a given time interval. Each status change is returned by a TLSwitch command.
-    void commandGetTLStatus() throw(TraCIException);
+    bool commandGetTLStatus() throw(TraCIException);
 
     // process command slowDown
     // Tell the node given by nodeID to slow down to the given speed (float) within the time intervall
     // given by duration. This simulates different methods of slowing down, like instant braking, coasting...
     // It's assumed that the speed reduction is linear
     // @param in contains nodeID(integer), speed (float), duration(double)
-    void commandSlowDown() throw(TraCIException);
+    bool commandSlowDown() throw(TraCIException);
 
     // command getAllTLIds
     // Returns a list of strings representing the ids of all traffic lights in the simulation
-    void commandGetAllTLIds() throw(TraCIException);
+    bool commandGetAllTLIds() throw(TraCIException);
 
-    void commandUpdateCalibrator() throw(TraCIException);
+    bool commandUpdateCalibrator() throw(TraCIException);
 
-    void commandPositionConversion() throw(TraCIException);
+    bool commandPositionConversion() throw(TraCIException);
 
-    void commandScenario() throw(TraCIException);
+    bool commandScenario() throw(TraCIException);
 
-    void commandDistanceRequest() throw(TraCIException);
+    bool commandDistanceRequest() throw(TraCIException);
 
-    void commandSubscribeLifecycles() throw(TraCIException);
+    bool commandSubscribeLifecycles() throw(TraCIException);
 
-    void commandUnsubscribeLifecycles() throw(TraCIException);
+    bool commandUnsubscribeLifecycles() throw(TraCIException);
 
-    void commandSubscribeDomain() throw(TraCIException);
+    bool commandSubscribeDomain() throw(TraCIException);
 
-    void commandUnsubscribeDomain() throw(TraCIException);
+    bool commandUnsubscribeDomain() throw(TraCIException);
 
     void writeStatusCmd(int commandId, int status, std::string description);
 
