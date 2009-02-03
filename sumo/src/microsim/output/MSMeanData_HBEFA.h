@@ -274,7 +274,7 @@ protected:
      * @todo Check subseconds simulation
      */
     inline SUMOReal norm(SUMOReal val, SUMOReal dur, SUMOReal len) const throw() {
-        return val / dur / len;
+        return SUMOReal(val * 3600. * 1000. / dur / len);
     }
 
 protected:
