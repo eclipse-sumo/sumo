@@ -112,10 +112,12 @@ initVehicleColoringSchemes()
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getSpeed));
+    /*
     sm.add("by acceleration",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(5.), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getAcceleration));
+               */
     sm.add("by waiting time",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
                0, (SUMOReal)(5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
@@ -254,8 +256,10 @@ initLaneColoringSchemes()
            new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
     sm.add("by selection (lane-/streetwise)",
            new GUIColorer_LaneBySelection<GUILaneWrapper>());
+    /*
     sm.add("by purpose (lanewise)",
            new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+           */
     // from a lane's standard values
     sm.add("by allowed speed (lanewise)",
            new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
