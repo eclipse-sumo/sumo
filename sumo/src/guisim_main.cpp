@@ -129,10 +129,30 @@ initVehicleColoringSchemes()
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
     // ... emissions ...
-    sm.add("by CO2 emissions (HBEFA)", // "good": 2g/s; bad: >7.5g/s
+    sm.add("by CO2 emissions (HBEFA)", // "good": 2g/s; bad: >10g/s
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, (SUMOReal) 7.5, RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               SUMOReal(2.), SUMOReal(10./2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_CO2Emissions));
+    sm.add("by CO emissions (HBEFA)", // "good": .00003g/s; bad: >.05g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               SUMOReal(.00003), SUMOReal(0.05), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_COEmissions));
+    sm.add("by PMx emissions (HBEFA)", // "good": 0g/s; bad: >.005g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_PMxEmissions));
+    sm.add("by NOx emissions (HBEFA)", // "good": .001g/s; bad: >.125g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               SUMOReal(0.001), SUMOReal(.125), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_NOxEmissions));
+    sm.add("by HC emissions (HBEFA)", // "good": .00005g/s; bad: >0.02g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               SUMOReal(.00005), SUMOReal(.02), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_HCEmissions));
+    sm.add("by fuel consumption (HBEFA)", // "good": .0004l/s; bad: >.005l/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               SUMOReal(.0004), SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_FuelConsumption));
 
     // ... and some not always used values
     sm.add("by reroute number",
@@ -260,8 +280,27 @@ initLaneColoringSchemes()
     // ... emissions ...
     sm.add("by CO2 emissions (HBEFA)",
            new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal) 1,
-               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               SUMOReal(0), SUMOReal(10./7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
+    sm.add("by CO emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               SUMOReal(.00003/7.5), SUMOReal(0.05/7.5/2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_COEmissions));
+    sm.add("by PMx emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(.005/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_PMxEmissions));
+    sm.add("by NOx emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               SUMOReal(0.001/7.5), SUMOReal(.125/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_NOxEmissions));
+    sm.add("by HC emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               SUMOReal(.00005/7.5), SUMOReal(.02/7.5/4.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_HCEmissions));
+    sm.add("by fuel consumption (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               SUMOReal(.0004/7.5), SUMOReal(.005/7.5*100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
     // using C2C extensions
     /*

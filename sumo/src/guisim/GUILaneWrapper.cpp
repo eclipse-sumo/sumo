@@ -782,6 +782,71 @@ GUILaneWrapper::getHBEFA_CO2Emissions() const
 }
 
 
+SUMOReal
+GUILaneWrapper::getHBEFA_COEmissions() const
+{
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_COEmissions();
+    }
+    myLane.releaseVehicles();
+    return ret / myLane.length();
+}
+
+
+SUMOReal
+GUILaneWrapper::getHBEFA_PMxEmissions() const
+{
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_PMxEmissions();
+    }
+    myLane.releaseVehicles();
+    return ret / myLane.length();
+}
+
+
+SUMOReal
+GUILaneWrapper::getHBEFA_NOxEmissions() const
+{
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_NOxEmissions();
+    }
+    myLane.releaseVehicles();
+    return ret / myLane.length();
+}
+
+
+SUMOReal
+GUILaneWrapper::getHBEFA_HCEmissions() const
+{
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_HCEmissions();
+    }
+    myLane.releaseVehicles();
+    return ret / myLane.length();
+}
+
+
+SUMOReal
+GUILaneWrapper::getHBEFA_FuelConsumption() const
+{
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_FuelConsumption();
+    }
+    myLane.releaseVehicles();
+    return ret / myLane.length();
+}
+
+
 
 /****************************************************************************/
 
