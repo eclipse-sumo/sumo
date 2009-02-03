@@ -43,5 +43,11 @@ meandata_edgebased
 # Tests for lane-based mean data output (aka "lanedump")
 meandata_lanebased
 
+# Tests for edge-based mean emission data output (aka "mean hbefa edge dump")
+meanhbefa_edgebased
+
+# Tests for lane-based mean emission data output (aka "mean hbefa lane dump")
+meanhbefa_lanebased
+
 
 
