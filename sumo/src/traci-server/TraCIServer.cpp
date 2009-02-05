@@ -1419,6 +1419,16 @@ TraCIServer::commandSubscribeDomain() throw(TraCIException)
                     ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT))
                     ||
                     ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_CO2EMISSION) && (dataType == TYPE_FLOAT))
+                    ||
+                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_COEMISSION) && (dataType == TYPE_FLOAT))
+                    ||
+                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_HCEMISSION) && (dataType == TYPE_FLOAT))
+                    ||
+                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_PMXEMISSION) && (dataType == TYPE_FLOAT))
+                    ||
+                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_NOXEMISSION) && (dataType == TYPE_FLOAT))
+                    ||
+                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_FUELCONSUMPTION) && (dataType == TYPE_FLOAT))
                 )) {
             // send negative command response
             writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can not subscribe to this domain/variable/type combination");
@@ -2114,6 +2124,71 @@ throw(TraCIException)
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
             response.writeFloat(HelpersHBEFA::computeCO2(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+        // CO emission
+    case DOMVAR_COEMISSION:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(HelpersHBEFA::computeCO(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+        // HC emission
+    case DOMVAR_HCEMISSION:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(HelpersHBEFA::computeHC(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+        // PMx emission
+    case DOMVAR_PMXEMISSION:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(HelpersHBEFA::computePMx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+        // NOx emission
+    case DOMVAR_NOXEMISSION:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(HelpersHBEFA::computeNOx(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+        // CO2 emission
+    case DOMVAR_FUELCONSUMPTION:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(HelpersHBEFA::computeFuel(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";

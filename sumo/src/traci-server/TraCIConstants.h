@@ -207,6 +207,16 @@
 #define DOMVAR_SIMTIME 0x14
 // current CO2 emission of a node
 #define DOMVAR_CO2EMISSION 0x20
+// current CO emission of a node
+#define DOMVAR_COEMISSION 0x21
+// current HC emission of a node
+#define DOMVAR_HCEMISSION 0x22
+// current PMx emission of a node
+#define DOMVAR_PMXEMISSION 0x23
+// current NOx emission of a node
+#define DOMVAR_NOXEMISSION 0x24
+// current fuel consumption of a node
+#define DOMVAR_FUELCONSUMPTION 0x25
 
 // ****************************************
 // TRAFFIC LIGHT PHASES
