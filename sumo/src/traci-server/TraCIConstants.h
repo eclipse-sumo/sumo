@@ -2,6 +2,7 @@
 /// @file    TraCIConstants.h
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
 /// @date    2007/10/24
+/// @version $Id$
 ///
 /// holds codes used for TraCI
 /****************************************************************************/
