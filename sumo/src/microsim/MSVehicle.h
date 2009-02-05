@@ -371,11 +371,11 @@ public:
     }
 
 
-    /** brief Returns the vehicle's acceleration
-     * @return The acceleration
+    /** brief Returns the vehicle's acceleration before dawdling
+     * @return The acceleration before dawdling 
      */
-    SUMOReal getAcceleration() const throw() {
-        return myAcceleration;
+    SUMOReal getPreDawdleAcceleration() const throw() {
+        return myPreDawdleAcceleration;
     }
     //@}
 
@@ -918,8 +918,8 @@ protected:
     /// the position on the destination lane where the vehicle stops
     SUMOReal myArrivalPos;
 
-    /// @brief The current acceleration
-    SUMOReal myAcceleration;
+    /// @brief The current acceleration before dawdling
+    SUMOReal myPreDawdleAcceleration;
 
 private:
     std::vector<MSDevice*> myDevices;

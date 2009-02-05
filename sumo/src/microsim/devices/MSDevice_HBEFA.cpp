@@ -134,7 +134,7 @@ MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(Process
 {
     SUMOEmissionClass c = getHolder().getVehicleType().getEmissionClass();
     SUMOReal v = getHolder().getSpeed();
-    SUMOReal a = getHolder().getAcceleration();
+    SUMOReal a = getHolder().getPreDawdleAcceleration();
     myCO2 += HelpersHBEFA::computeCO2(c, v, a);
     myCO += HelpersHBEFA::computeCO(c, v, a);
     myHC += HelpersHBEFA::computeHC(c, v, a);

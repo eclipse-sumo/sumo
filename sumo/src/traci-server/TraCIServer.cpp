@@ -2113,7 +2113,7 @@ throw(TraCIException)
     case DOMVAR_CO2EMISSION:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(HelpersHBEFA::computeCO2(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getAcceleration()));
+            response.writeFloat(HelpersHBEFA::computeCO2(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";

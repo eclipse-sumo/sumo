@@ -213,7 +213,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myOldLaneMoveReminders(0),
         myOldLaneMoveReminderOffsets(0),
         myArrivalPos(pars->arrivalPos),
-        myAcceleration(0)
+        myPreDawdleAcceleration(0)
 #ifndef NO_TRACI
         ,myWeightChangedViaTraci(false),
         adaptingSpeed(false),
@@ -557,6 +557,11 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     vSafe = MIN2(vSafe, processNextStop(vSafe));
 
     SUMOReal maxNextSpeed = myType->maxNextSpeed(myState.mySpeed);
+    // we need the acceleration for emission computation; 
+    //  in this case, we neglect dawdling, nonetheless, using
+    //  vSafe does not incorporate speed reduction due to interaction
+    //  on lane changing
+    myPreDawdleAcceleration = SPEED2ACCEL(vSafe-oldV);
 
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
@@ -610,7 +615,6 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
             myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
-    myAcceleration = SPEED2ACCEL(vNext-oldV);
     //@ to be optimized (move to somewhere else)
     //
     setBlinkerInformation();
@@ -720,6 +724,11 @@ MSVehicle::moveFirstChecked()
 
     // take stops into account
     vSafe = MIN2(vSafe, processNextStop(vSafe));
+    // we need the acceleration for emission computation; 
+    //  in this case, we neglect dawdling, nonetheless, using
+    //  vSafe does not incorporate speed reduction due to interaction
+    //  on lane changing
+    myPreDawdleAcceleration = SPEED2ACCEL(vSafe-oldV);
     // compute vNext in considering dawdling
     SUMOReal vNext = myType->dawdle(vSafe);
     vNext =
@@ -770,7 +779,6 @@ MSVehicle::moveFirstChecked()
         myState.myPos>approachedLane->length()
         ? approachedLane->length() - pos
         : myState.myPos - pos;
-    myAcceleration = SPEED2ACCEL(vNext-oldV);
     SUMOReal tmpPos = approachedLane->length() + myType->brakeGap(myState.mySpeed);
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()
             &&

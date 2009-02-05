@@ -1021,42 +1021,42 @@ GUIVehicle::initShapes() throw()
 SUMOReal
 GUIVehicle::getHBEFA_CO2Emissions() const throw()
 {
-    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myAcceleration);
+    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
 GUIVehicle::getHBEFA_COEmissions() const throw()
 {
-    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myAcceleration);
+    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
 GUIVehicle::getHBEFA_HCEmissions() const throw()
 {
-    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myAcceleration);
+    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
 GUIVehicle::getHBEFA_NOxEmissions() const throw()
 {
-    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myAcceleration);
+    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
 GUIVehicle::getHBEFA_PMxEmissions() const throw()
 {
-    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myAcceleration);
+    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
 GUIVehicle::getHBEFA_FuelConsumption() const throw()
 {
-    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myAcceleration);
+    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 

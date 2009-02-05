@@ -116,7 +116,7 @@ initVehicleColoringSchemes()
     sm.add("by acceleration",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(5.), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getAcceleration));
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getPreDawdleAcceleration));
                */
     sm.add("by waiting time",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(

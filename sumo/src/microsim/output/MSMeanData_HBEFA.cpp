@@ -92,12 +92,13 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
         ret = false;
     }
     sampleSeconds += fraction;
-    CO += (fraction * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
-    CO2 += (fraction * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
-    HC += (fraction * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
-    NOx += (fraction * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
-    PMx += (fraction * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
-    fuel += (fraction * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) veh.getAcceleration()));
+    SUMOReal a = veh.getPreDawdleAcceleration();
+    CO += (fraction * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    CO2 += (fraction * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    HC += (fraction * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    NOx += (fraction * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    PMx += (fraction * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
+    fuel += (fraction * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
     return ret;
 }
 
@@ -117,12 +118,13 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
         fraction = l - (getLane()->length()-veh.getPositionOnLane());
     }
     sampleSeconds += fraction;
-    CO += (fraction * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
-    CO2 += (fraction * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
-    HC += (fraction * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
-    NOx += (fraction * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
-    PMx += (fraction * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
-    fuel += (fraction * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) veh.getAcceleration()));
+    SUMOReal a = veh.getPreDawdleAcceleration();
+    CO += (fraction * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) a));
+    CO2 += (fraction * HelpersHBEFA::computeCO2(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) a));
+    HC += (fraction * HelpersHBEFA::computeHC(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) a));
+    NOx += (fraction * HelpersHBEFA::computeNOx(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) a));
+    PMx += (fraction * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) a));
+    fuel += (fraction * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) a));
     return true;
 }
 
