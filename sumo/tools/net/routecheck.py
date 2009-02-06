@@ -3,7 +3,7 @@
 @file    routecheck.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-03-20
-@version $Id: routecheck.py 6171 2008-10-20 12:21:32Z wang $
+@version $Id$
 
 This script checks if at least one route for a given OD pair exists.
 
