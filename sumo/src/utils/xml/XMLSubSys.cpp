@@ -42,23 +42,12 @@
 
 
 // ===========================================================================
-// xerces 2.2 compatibility
-// ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member variables
 // ===========================================================================
 SAX2XMLReader* XMLSubSys::myReader;
+SAX2XMLReader* XMLSubSys::mySecondaryReader;
+bool XMLSubSys::myReaderBusy;
+bool XMLSubSys::mySecondaryReaderBusy;
 bool XMLSubSys::myEnableValidation;
 
 
@@ -69,9 +58,12 @@ void
 XMLSubSys::init(bool enableValidation) throw(ProcessError)
 {
     myEnableValidation = enableValidation;
+    myReaderBusy = false;
+    mySecondaryReaderBusy = false;
     try {
         XMLPlatformUtils::Initialize();
         myReader = getSAXReader();
+        mySecondaryReader = getSAXReader();
     } catch (const XMLException& e) {
         throw ProcessError("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
@@ -82,7 +74,9 @@ void
 XMLSubSys::close() throw()
 {
     delete myReader;
+    delete mySecondaryReader;
     myReader = 0;
+    mySecondaryReader = 0;
     XMLPlatformUtils::Terminate();
 }
 
@@ -100,18 +94,38 @@ XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw()
 }
 
 
+void
+XMLSubSys::setHandler(GenericSAXHandler &handler)
+{
+    myReader->setContentHandler(&handler);
+    myReader->setErrorHandler(&handler);
+}
+
+
 bool
 XMLSubSys::runParser(SUMOSAXHandler &handler,
                      const std::string &file) throw()
 {
     try {
-        myReader->setContentHandler(&handler);
-        myReader->setErrorHandler(&handler);
-        myReader->parse(file.c_str());
-    } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
+        if (myReaderBusy) {
+            if (mySecondaryReaderBusy) {
+                MsgHandler::getErrorInstance()->inform("No reader available.");
+                return false;
+            }
+            mySecondaryReaderBusy = true;
+            mySecondaryReader->setContentHandler(&handler);
+            mySecondaryReader->setErrorHandler(&handler);
+            mySecondaryReader->parse(file.c_str());
+            mySecondaryReaderBusy = false;
+        } else {
+            myReaderBusy = true;
+            myReader->setContentHandler(&handler);
+            myReader->setErrorHandler(&handler);
+            myReader->parse(file.c_str());
+            myReaderBusy = false;
         }
+    } catch (ProcessError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
         return false;
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("An error occured.");

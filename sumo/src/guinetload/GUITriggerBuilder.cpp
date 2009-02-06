@@ -63,7 +63,7 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
         const std::string &id, const std::vector<MSLane*> &destLanes,
         const std::string &file) throw(ProcessError)
 {
-    new GUILaneSpeedTrigger(id, net, destLanes, file);
+    new GUILaneSpeedTrigger(id, destLanes, file);
 }
 
 

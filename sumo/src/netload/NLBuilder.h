@@ -85,7 +85,7 @@ public:
      */
     NLBuilder(const OptionsCont &oc, MSNet &net,
               NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
-              NLDetectorBuilder &db, NLTriggerBuilder &tb,
+              NLDetectorBuilder &db,
               NLGeomShapeBuilder &sb, NLHandler &xmlHandler) throw();
 
 
@@ -109,7 +109,7 @@ public:
 
 protected:
     /// loads a described subpart form the given list of files
-    bool load(const std::string &mmlWhat, SAX2XMLReader &parser);
+    bool load(const std::string &mmlWhat);
 
     /// Closes the net building process
     void buildNet() throw(ProcessError);
@@ -156,9 +156,6 @@ protected:
 
     /// @brief The detector control builder to use
     NLDetectorBuilder &myDetectorBuilder;
-
-    /// @brief The trigger control builder to use
-    NLTriggerBuilder &myTriggerBuilder;
 
     /// The geometry shapes builder to use
     NLGeomShapeBuilder &myShapeBuilder;

@@ -66,11 +66,13 @@ public:
      * @param[in] file Name of the file to read the speeds to set from
      */
     MSLaneSpeedTrigger(const std::string &id,
-                       MSNet &net, const std::vector<MSLane*> &destLanes,
+                       const std::vector<MSLane*> &destLanes,
                        const std::string &file) throw(ProcessError);
 
     /** destructor */
     virtual ~MSLaneSpeedTrigger() throw();
+
+    void init() throw(ProcessError);
 
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 

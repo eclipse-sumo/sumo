@@ -399,7 +399,7 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
                                         const std::string &file) throw(ProcessError)
 {
-    new MSLaneSpeedTrigger(id, net, destLanes, file);
+    new MSLaneSpeedTrigger(id, destLanes, file);
 }
 
 

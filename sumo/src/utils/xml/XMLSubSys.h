@@ -36,6 +36,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GenericSAXHandler;
 class SUMOSAXHandler;
 
 
@@ -109,6 +110,16 @@ public:
 
 
     /**
+     * @brief Sets the given handler for the default reader
+     *
+     * Uses the reader built on init() which is stored in myReader.
+     *
+     * @param[in] handler The handler to assign to the built reader
+     */
+    static void setHandler(GenericSAXHandler &handler);
+
+
+    /**
      * @brief Runs the given handler on the given file; returns if everything's ok
      *
      * Uses the reader built on init() which is stored in myReader to parse the given
@@ -159,6 +170,15 @@ protected:
 private:
     /// @brief The XML Reader used for repeated parsing
     static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * myReader;
+
+    /// @brief The second XML Reader used for repeated parsing, if the first one is busy
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * mySecondaryReader;
+
+    /// @brief Information whether the primary reader is parsing
+    static bool myReaderBusy;
+
+    /// @brief Information whether the secondary reader is parsing
+    static bool mySecondaryReaderBusy;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
     static bool myEnableValidation;

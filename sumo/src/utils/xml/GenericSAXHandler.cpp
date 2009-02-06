@@ -32,6 +32,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
 #include "SUMOSAXAttributesImpl_Xerces.h"
+#include "XMLSubSys.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -39,20 +40,11 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
-GenericSAXHandler::GenericSAXHandler() throw()
-{ }
-
-
 GenericSAXHandler::GenericSAXHandler(GenericSAXHandler::Tag *tags,
                                      GenericSAXHandler::Attr *attrs) throw()
+     : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING)
 {
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
@@ -76,110 +68,6 @@ GenericSAXHandler::~GenericSAXHandler() throw()
     }
 }
 
-/*
-bool
-GenericSAXHandler::hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw()
-{
-    AttrMap::const_iterator i=myPredefinedTags.find(id);
-    if (i==myPredefinedTags.end()) {
-        return false;
-    }
-    return attrs.getIndex((*i).second)>=0;
-}
-
-
-bool
-GenericSAXHandler::hasAttribute(const Attributes &attrs,
-                                const XMLCh * const id) throw()
-{
-    return attrs.getIndex(id)>=0;
-}
-
-
-bool
-GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, BoolFormatException)
-{
-    return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
-}
-
-
-bool
-GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData)
-{
-    return TplConvertSec<XMLCh>::_2boolSec(getAttributeValueSecure(attrs, id), val);
-}
-
-
-int
-GenericSAXHandler::getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException)
-{
-    return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
-}
-
-
-int
-GenericSAXHandler::getIntSecure(const Attributes &attrs, SumoXMLAttr id,
-                                int def) const throw(EmptyData, NumberFormatException)
-{
-    return TplConvertSec<XMLCh>::_2intSec(getAttributeValueSecure(attrs, id), def);
-}
-
-
-std::string
-GenericSAXHandler::getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData)
-{
-    return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
-}
-
-
-std::string
-GenericSAXHandler::getStringSecure(const Attributes &attrs, SumoXMLAttr id,
-                                   const std::string &str) const throw(EmptyData)
-{
-    return TplConvertSec<XMLCh>::_2strSec(getAttributeValueSecure(attrs, id), str);
-}
-
-
-std::string
-GenericSAXHandler::getStringSecure(const Attributes &attrs, const XMLCh * const id,
-                                   const std::string &str) const throw(EmptyData)
-{
-    return TplConvertSec<XMLCh>::_2strSec(attrs.getValue(id), str);
-}
-
-
-SUMOReal
-GenericSAXHandler::getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException)
-{
-    return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
-}
-
-
-SUMOReal
-GenericSAXHandler::getFloatSecure(const Attributes &attrs, SumoXMLAttr id,
-                                  SUMOReal def) const throw(EmptyData, NumberFormatException)
-{
-    return TplConvertSec<XMLCh>::_2SUMORealSec(getAttributeValueSecure(attrs, id), def);
-}
-
-
-SUMOReal
-GenericSAXHandler::getFloat(const Attributes &attrs,
-                            const XMLCh * const id) const throw(EmptyData, NumberFormatException)
-{
-    return TplConvert<XMLCh>::_2SUMOReal(attrs.getValue(id));
-}
-
-
-const XMLCh *
-GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
-        SumoXMLAttr id) const throw()
-{
-    AttrMap::const_iterator i=myPredefinedTags.find(id);
-    assert(i!=myPredefinedTags.end());
-    return attrs.getValue((*i).second);
-}
-*/
 
 XMLCh*
 GenericSAXHandler::convert(const std::string &name) const throw()
@@ -201,7 +89,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const qname,
                                 const Attributes& attrs)
 {
-    string name = TplConvert<XMLCh>::_2str(qname);
+    std::string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     //myTagTree.push(element);
     //_characters = "";
@@ -216,7 +104,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
                               const XMLCh* const qname)
 {
-    string name = TplConvert<XMLCh>::_2str(qname);
+    std::string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     // collect characters
     if (myCharactersVector.size()!=0) {
@@ -244,6 +132,20 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
         delete[] buf;
     }
     myEndElement(element);
+    if (myParentHandler && myParentIndicator == element) {
+        XMLSubSys::setHandler(*myParentHandler);
+        myParentIndicator = SUMO_TAG_NOTHING;
+        myParentHandler = 0;
+    }
+}
+
+
+void
+GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handler) throw(ProcessError)
+{
+    myParentHandler = handler;
+    myParentIndicator = tag;
+    XMLSubSys::setHandler(*this);
 }
 
 

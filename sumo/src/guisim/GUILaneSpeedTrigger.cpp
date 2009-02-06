@@ -306,9 +306,9 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
  * GUILaneSpeedTrigger - methods
  * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
-        MSNet &net, const std::vector<MSLane*> &destLanes,
+        const std::vector<MSLane*> &destLanes,
         const std::string &aXMLFilename) throw(ProcessError)
-        : MSLaneSpeedTrigger(id, net, destLanes, aXMLFilename),
+        : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
         GUIGlObject_AbstractAdd(gIDStorage, "speedtrigger:" + id, GLO_TRIGGER),
         myShowAsKMH(true), myLastValue(-1)
 {

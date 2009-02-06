@@ -89,7 +89,7 @@ load(OptionsCont &oc)
     NLTriggerBuilder tb;
     NLGeomShapeBuilder sb(*net);
     NLHandler handler("", *net, db, tb, eb, jb, sb);
-    NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
+    NLBuilder builder(oc, *net, eb, jb, db, sb, handler);
     if (!builder.build()) {
         delete net;
         throw ProcessError();

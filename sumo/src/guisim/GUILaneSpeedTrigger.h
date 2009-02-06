@@ -66,11 +66,10 @@ public:
     /** @brief Constructor
      *
      * @param[in] id The id of the lane speed trigger
-     * @param[in] net The net the lane speed trigger belongs to
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      */
-    GUILaneSpeedTrigger(const std::string &id, MSNet &net,
+    GUILaneSpeedTrigger(const std::string &id,
                         const std::vector<MSLane*> &destLanes,
                         const std::string &file) throw(ProcessError);
 

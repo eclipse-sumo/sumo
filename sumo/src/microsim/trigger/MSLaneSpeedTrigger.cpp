@@ -53,17 +53,23 @@ using namespace std;
 // method definitions
 // ===========================================================================
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
-                                       MSNet &net,
                                        const std::vector<MSLane*> &destLanes,
                                        const std::string &file) throw(ProcessError)
         : MSTrigger(id), SUMOSAXHandler(file),
         myDestLanes(destLanes), myAmOverriding(false)
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
-    // read in the trigger description
-    if (!XMLSubSys::runParser(*this, file)) {
-        throw ProcessError();
+    if (file != "") {
+        if (!XMLSubSys::runParser(*this, file)) {
+            throw ProcessError();
+        }
+        init();
     }
+}
+
+void
+MSLaneSpeedTrigger::init() throw(ProcessError)
+{
     // set it to the right value
     // assert there is at least one
     if (myLoadedSpeeds.size()==0) {
@@ -72,7 +78,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
     // set the process to the begin
     myCurrentEntry = myLoadedSpeeds.begin();
     // pass previous time steps
-    while ((*myCurrentEntry).first<net.getCurrentTimeStep()&&myCurrentEntry!=myLoadedSpeeds.end()) {
+    while ((*myCurrentEntry).first<MSNet::getInstance()->getCurrentTimeStep()&&myCurrentEntry!=myLoadedSpeeds.end()) {
         processCommand(true);
     }
 

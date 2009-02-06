@@ -111,11 +111,10 @@ NLBuilder::NLBuilder(const OptionsCont &oc,
                      NLEdgeControlBuilder &eb,
                      NLJunctionControlBuilder &jb,
                      NLDetectorBuilder &db,
-                     NLTriggerBuilder &tb,
                      NLGeomShapeBuilder &sb,
                      NLHandler &xmlHandler) throw()
         : myOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
-        myDetectorBuilder(db), myTriggerBuilder(tb), myShapeBuilder(sb),
+        myDetectorBuilder(db), myShapeBuilder(sb),
         myNet(net), myXMLHandler(xmlHandler)
 {}
 
@@ -127,10 +126,8 @@ NLBuilder::~NLBuilder() throw()
 bool
 NLBuilder::build() throw(ProcessError)
 {
-    SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
     // try to build the net
-    if (!load("net-file", *parser)) {
-        delete parser;
+    if (!load("net-file")) {
         return false;
     }
     buildNet();
@@ -155,7 +152,6 @@ NLBuilder::build() throw(ProcessError)
     // load weights if wished
     if (myOptions.isSet("weight-files")) {
         if (!myOptions.isUsableFileList("weight-files")) {
-            delete parser;
             return false;
         }
         // start parsing; for each file in the list
@@ -182,19 +178,16 @@ NLBuilder::build() throw(ProcessError)
     }
     // load routes
     if (myOptions.isSet("route-files")&&myOptions.getInt("route-steps")<=0) {
-        if (!load("route-files", *parser)) {
-            delete parser;
+        if (!load("route-files")) {
             return false;
         }
     }
     // load additional net elements (sources, detectors, ...)
     if (myOptions.isSet("additional-files")) {
-        if (!load("additional-files", *parser)) {
-            delete parser;
+        if (!load("additional-files")) {
             return false;
         }
     }
-    delete parser;
     WRITE_MESSAGE("Loading done.");
     return true;
 }
@@ -225,11 +218,8 @@ NLBuilder::buildNet() throw(ProcessError)
 
 
 bool
-NLBuilder::load(const std::string &mmlWhat, SAX2XMLReader &parser)
+NLBuilder::load(const std::string &mmlWhat)
 {
-    // start parsing
-    parser.setContentHandler(&myXMLHandler);
-    parser.setErrorHandler(&myXMLHandler);
     if (!OptionsCont::getOptions().isUsableFileList(mmlWhat)) {
         return false;
     }
@@ -238,7 +228,7 @@ NLBuilder::load(const std::string &mmlWhat, SAX2XMLReader &parser)
     for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         WRITE_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'...");
         myXMLHandler.setFileName(*fileIt);
-        parser.parse(fileIt->c_str());
+        XMLSubSys::runParser(myXMLHandler, *fileIt);
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;

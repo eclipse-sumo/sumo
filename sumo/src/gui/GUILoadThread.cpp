@@ -132,7 +132,7 @@ GUILoadThread::run()
     GUIGeomShapeBuilder sb(*net, gIDStorage);
     GUITriggerBuilder tb;
     GUIHandler handler("", *net, db, tb, *eb, jb, sb);
-    NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);
+    NLBuilder builder(oc, *net, *eb, jb, db, sb, handler);
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
