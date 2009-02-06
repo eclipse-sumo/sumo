@@ -1,0 +1,8 @@
+# Test with a static speed of 30km/h
+all_30kmh
+
+# Test with a static speed of 50km/h
+all_50kmh
+
+# Test with a static speed of 70km/h
+all_70kmh
