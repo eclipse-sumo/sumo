@@ -85,7 +85,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
 
 NLHandler::NLHandler(const std::string &file, MSNet &net,
                      NLDetectorBuilder &detBuilder,
-                     NLTriggerBuilder &triggerBuilder,
+                     NLTriggerBuilder triggerBuilder,
                      NLEdgeControlBuilder &edgeBuilder,
                      NLJunctionControlBuilder &junctionBuilder,
                      NLGeomShapeBuilder &shapeBuilder) throw()

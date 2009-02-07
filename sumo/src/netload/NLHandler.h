@@ -150,7 +150,7 @@ protected:
      * @param[in] shapeBuilder The geometric shapes builder to use
      */
     NLHandler(const std::string &file, MSNet &net,
-              NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
+              NLDetectorBuilder &detBuilder, NLTriggerBuilder triggerBuilder,
               NLEdgeControlBuilder &edgeBuilder,
               NLJunctionControlBuilder &junctionBuilder,
               NLGeomShapeBuilder &shapeBuilder) throw();
