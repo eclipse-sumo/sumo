@@ -136,7 +136,6 @@ NLBuilder::build() throw(ProcessError)
             myNet.loadState(strm);
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
-            delete parser;
             return false;
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
