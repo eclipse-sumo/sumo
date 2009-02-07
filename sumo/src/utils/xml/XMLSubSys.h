@@ -29,6 +29,7 @@
 #include <config.h>
 #endif
 
+#include <vector>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/UtilExceptions.h>
 
@@ -168,17 +169,11 @@ protected:
 
 
 private:
-    /// @brief The XML Reader used for repeated parsing
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * myReader;
+    /// @brief The XML Readers used for repeated parsing
+    static std::vector<XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader *> myReaders;
 
-    /// @brief The second XML Reader used for repeated parsing, if the first one is busy
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * mySecondaryReader;
-
-    /// @brief Information whether the primary reader is parsing
-    static bool myReaderBusy;
-
-    /// @brief Information whether the secondary reader is parsing
-    static bool mySecondaryReaderBusy;
+    /// @brief Information whether the reader is parsing
+    static unsigned int myNextFreeReader;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
     static bool myEnableValidation;

@@ -42,15 +42,10 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-GUITriggerBuilder::GUITriggerBuilder() throw()
+GUITriggerBuilder::GUITriggerBuilder(NLHandler &handler) throw()
+: NLTriggerBuilder(handler)
 {}
 
 
@@ -58,12 +53,12 @@ GUITriggerBuilder::~GUITriggerBuilder() throw()
 {}
 
 
-void
+MSLaneSpeedTrigger*
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
         const std::string &id, const std::vector<MSLane*> &destLanes,
         const std::string &file) throw(ProcessError)
 {
-    new GUILaneSpeedTrigger(id, destLanes, file);
+    return new GUILaneSpeedTrigger(id, destLanes, file);
 }
 
 

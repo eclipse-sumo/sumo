@@ -44,10 +44,8 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-SAX2XMLReader* XMLSubSys::myReader;
-SAX2XMLReader* XMLSubSys::mySecondaryReader;
-bool XMLSubSys::myReaderBusy;
-bool XMLSubSys::mySecondaryReaderBusy;
+std::vector<SAX2XMLReader*> XMLSubSys::myReaders;
+unsigned int XMLSubSys::myNextFreeReader;
 bool XMLSubSys::myEnableValidation;
 
 
@@ -58,12 +56,10 @@ void
 XMLSubSys::init(bool enableValidation) throw(ProcessError)
 {
     myEnableValidation = enableValidation;
-    myReaderBusy = false;
-    mySecondaryReaderBusy = false;
     try {
         XMLPlatformUtils::Initialize();
-        myReader = getSAXReader();
-        mySecondaryReader = getSAXReader();
+        myReaders.push_back(getSAXReader());
+        myNextFreeReader = 0;
     } catch (const XMLException& e) {
         throw ProcessError("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
@@ -73,10 +69,10 @@ XMLSubSys::init(bool enableValidation) throw(ProcessError)
 void
 XMLSubSys::close() throw()
 {
-    delete myReader;
-    delete mySecondaryReader;
-    myReader = 0;
-    mySecondaryReader = 0;
+    for (std::vector<SAX2XMLReader*>::iterator i=myReaders.begin(); i!=myReaders.end(); ++i) {
+        delete *i;
+    }
+    myReaders.clear();
     XMLPlatformUtils::Terminate();
 }
 
@@ -97,8 +93,8 @@ XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw()
 void
 XMLSubSys::setHandler(GenericSAXHandler &handler)
 {
-    myReader->setContentHandler(&handler);
-    myReader->setErrorHandler(&handler);
+    myReaders[myNextFreeReader-1]->setContentHandler(&handler);
+    myReaders[myNextFreeReader-1]->setErrorHandler(&handler);
 }
 
 
@@ -107,23 +103,13 @@ XMLSubSys::runParser(SUMOSAXHandler &handler,
                      const std::string &file) throw()
 {
     try {
-        if (myReaderBusy) {
-            if (mySecondaryReaderBusy) {
-                MsgHandler::getErrorInstance()->inform("No reader available.");
-                return false;
-            }
-            mySecondaryReaderBusy = true;
-            mySecondaryReader->setContentHandler(&handler);
-            mySecondaryReader->setErrorHandler(&handler);
-            mySecondaryReader->parse(file.c_str());
-            mySecondaryReaderBusy = false;
-        } else {
-            myReaderBusy = true;
-            myReader->setContentHandler(&handler);
-            myReader->setErrorHandler(&handler);
-            myReader->parse(file.c_str());
-            myReaderBusy = false;
+        if (myNextFreeReader == myReaders.size()) {
+            myReaders.push_back(getSAXReader());
         }
+        myNextFreeReader++;
+        setHandler(handler);
+        myReaders[myNextFreeReader-1]->parse(file.c_str());
+        myNextFreeReader--;
     } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         return false;

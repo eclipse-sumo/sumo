@@ -80,13 +80,12 @@ public:
      * @param[in] jb The builder of junctions to use
      * @param[in] db The detector builder to use
      * @param[in] tb The trigger builder to use
-     * @param[in] sb The geometric shapes builder to use
      * @param[in] xmlHandler The xml handler to use
      */
     NLBuilder(const OptionsCont &oc, MSNet &net,
               NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
               NLDetectorBuilder &db,
-              NLGeomShapeBuilder &sb, NLHandler &xmlHandler) throw();
+              NLHandler &xmlHandler) throw();
 
 
     /// @brief Destructor
@@ -156,9 +155,6 @@ protected:
 
     /// @brief The detector control builder to use
     NLDetectorBuilder &myDetectorBuilder;
-
-    /// The geometry shapes builder to use
-    NLGeomShapeBuilder &myShapeBuilder;
 
     /// @brief The net to fill
     MSNet &myNet;

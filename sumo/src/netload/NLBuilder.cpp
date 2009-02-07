@@ -66,12 +66,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -111,10 +105,9 @@ NLBuilder::NLBuilder(const OptionsCont &oc,
                      NLEdgeControlBuilder &eb,
                      NLJunctionControlBuilder &jb,
                      NLDetectorBuilder &db,
-                     NLGeomShapeBuilder &sb,
                      NLHandler &xmlHandler) throw()
         : myOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
-        myDetectorBuilder(db), myShapeBuilder(sb),
+        myDetectorBuilder(db),
         myNet(net), myXMLHandler(xmlHandler)
 {}
 
@@ -157,7 +150,7 @@ NLBuilder::build() throw(ProcessError)
         // start parsing; for each file in the list
         StringTokenizer st(myOptions.getString("weight-files"), ';');
         while (st.hasNext()) {
-            string tmp = st.next();
+            std::string tmp = st.next();
             // report about loading when wished
             WRITE_MESSAGE("Loading weights from '" + tmp + "'...");
             // check whether the file exists
@@ -201,8 +194,8 @@ NLBuilder::buildNet() throw(ProcessError)
         myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
         edges = myEdgeBuilder.build();
         MSFrame::buildStreams();
-        vector<int> stateDumpTimes;
-        string stateDumpFiles;
+        std::vector<int> stateDumpTimes;
+        std::string stateDumpFiles;
 #ifdef HAVE_MESOSIM
         stateDumpTimes = myOptions.getIntVector("save-state.times");
         stateDumpFiles = myOptions.getString("save-state.prefix");
@@ -224,8 +217,8 @@ NLBuilder::load(const std::string &mmlWhat)
         return false;
     }
     long before = SysUtils::getCurrentMillis();
-    vector<string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
-    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    std::vector<std::string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
+    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         WRITE_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'...");
         myXMLHandler.setFileName(*fileIt);
         XMLSubSys::runParser(myXMLHandler, *fileIt);
@@ -246,14 +239,14 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc) throw(ProcessError)
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing
     if (oc.isSet("route-files")&&oc.getInt("route-steps")>0) {
-        vector<string> files = oc.getStringVector("route-files");
-        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        std::vector<std::string> files = oc.getStringVector("route-files");
+        for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 throw ProcessError("The route file '" + *fileIt + "' does not exist.");
             }
         }
         // open files for reading
-        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             loaders.push_back(myNet.buildRouteLoader(*fileIt));
         }
     }

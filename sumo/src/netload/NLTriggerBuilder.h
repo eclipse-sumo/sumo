@@ -76,7 +76,7 @@ class NLTriggerBuilder
 {
 public:
     /// @brief Constructor
-    NLTriggerBuilder() throw();
+    NLTriggerBuilder(NLHandler &handler) throw();
 
 
     /// @brief Destructor
@@ -212,7 +212,7 @@ protected:
      * @see MSLaneSpeedTrigger
      * @exception ProcessError If the XML definition file is errornous
      */
-    virtual void buildLaneSpeedTrigger(MSNet &net,
+    virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet &net,
                                        const std::string &id, const std::vector<MSLane*> &destLanes,
                                        const std::string &file) throw(ProcessError);
 
@@ -330,7 +330,8 @@ protected:
      * @todo Recheck usage of the helper class
      */
     std::string getFileName(const SUMOSAXAttributes &attrs,
-                            const std::string &base) throw();
+                            const std::string &base,
+                            const bool allowEmpty=false) throw(InvalidArgument);
 
 
     /** @brief Returns the lane defined by attribute "lane"
@@ -372,6 +373,9 @@ protected:
 
     /// @brief Information whether an emitter shall be built (is deprecated)
     bool myHaveInformedAboutDeprecatedEmitter;
+
+    /// @brief The parent handler to set for subhandlers
+    NLHandler &myHandler;
 
 };
 

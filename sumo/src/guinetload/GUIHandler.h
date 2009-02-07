@@ -57,7 +57,7 @@ public:
     /// standard constructor
     GUIHandler(const std::string &file,
                MSNet &net,
-               NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
+               NLDetectorBuilder &detBuilder,
                NLEdgeControlBuilder &edgeBuilder,
                NLJunctionControlBuilder &junctionBuilder,
                NLGeomShapeBuilder &shapeBuilder) throw();

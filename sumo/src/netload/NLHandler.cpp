@@ -67,14 +67,22 @@
 
 
 // ===========================================================================
-// using namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
+NLHandler::NLHandler(const std::string &file, MSNet &net,
+                     NLDetectorBuilder &detBuilder,
+                     NLEdgeControlBuilder &edgeBuilder,
+                     NLJunctionControlBuilder &junctionBuilder) throw()
+        : MSRouteHandler(file, true),
+        myNet(net), myActionBuilder(net),
+        myCurrentIsInternalToSkip(false),
+        myDetectorBuilder(detBuilder), myTriggerBuilder(*this),
+        myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
+        myShapeBuilder(net), mySucceedingLaneBuilder(junctionBuilder, myContinuations),
+        myAmInTLLogicMode(false), myCurrentIsBroken(false)
+{}
+
+
 NLHandler::NLHandler(const std::string &file, MSNet &net,
                      NLDetectorBuilder &detBuilder,
                      NLTriggerBuilder &triggerBuilder,
@@ -329,7 +337,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs)
 {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("edge", id)) {
         myCurrentIsBroken = true;
         return;
@@ -342,7 +350,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs)
     myCurrentIsInternalToSkip = false;
 
     // get the function
-    string func;
+    std::string func;
     try {
         func = attrs.getString(SUMO_ATTR_FUNCTION);
     } catch (EmptyData &) {
@@ -406,7 +414,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs)
         return;
     }
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("lane", id)) {
         myCurrentIsBroken = true;
         return;
@@ -484,7 +492,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs)
 {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("junction", id)) {
         myCurrentIsBroken = true;
         return;
@@ -499,7 +507,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing attribute in junction '" + id + "'.\n Can not build according junction.");
         myCurrentIsBroken = true;
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what() + string("\n Can not build according junction."));
+        MsgHandler::getErrorInstance()->inform(e.what() + std::string("\n Can not build according junction."));
         myCurrentIsBroken = true;
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Position of junction '" + id + "' is not numeric.\n Can not build according junction.");
@@ -525,7 +533,7 @@ NLHandler::closeJunction()
 void
 NLHandler::addParam(const SUMOSAXAttributes &attrs)
 {
-    string key, val;
+    std::string key, val;
     try {
         key = attrs.getString(SUMO_ATTR_KEY);
     } catch (EmptyData &) {
@@ -553,7 +561,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs)
     myCurrentIsBroken = false;
     SUMOTime t;
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("waut", id)) {
         myCurrentIsBroken = true;
         return;
@@ -655,7 +663,7 @@ void
 NLHandler::addPOI(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("poi", id)) {
         return;
     }
@@ -684,7 +692,7 @@ void
 NLHandler::addPoly(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("poly", id)) {
         return;
     }
@@ -719,7 +727,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs)
         return;
     }
     // parse the response
-    string response;
+    std::string response;
     try {
         response = attrs.getString(SUMO_ATTR_RESPONSE);
     } catch (EmptyData &) {
@@ -727,7 +735,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs)
         return;
     }
     // parse the internal links information (when wished)
-    string foes;
+    std::string foes;
     try {
         foes = attrs.getString(SUMO_ATTR_FOES);
     } catch (EmptyData &) {
@@ -757,7 +765,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs)
     SUMOReal detectorOffset = -1;
     myJunctionControlBuilder.initIncomingLanes();
     try {
-        string type = attrs.getString(SUMO_ATTR_TYPE);
+        std::string type = attrs.getString(SUMO_ATTR_TYPE);
         // get the detector offset
         {
             try {
@@ -782,7 +790,7 @@ void
 NLHandler::addPhase(const SUMOSAXAttributes &attrs)
 {
     // try to get the phase definition
-    string phase;
+    std::string phase;
     try {
         phase = attrs.getString(SUMO_ATTR_PHASE);
     } catch (EmptyData &) {
@@ -790,7 +798,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs)
         return;
     }
     // try to get the break definition
-    string brakeMask;
+    std::string brakeMask;
     try {
         brakeMask = attrs.getString(SUMO_ATTR_BRAKE);
     } catch (EmptyData &) {
@@ -798,7 +806,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs)
         return;
     }
     // try to get the yellow definition
-    string yellowMask;
+    std::string yellowMask;
     try {
         yellowMask = attrs.getString(SUMO_ATTR_YELLOW);
     } catch (EmptyData &) {
@@ -854,14 +862,14 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs)
 {
-    string id;
+    std::string id;
     try {
         id = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing id of a message emitter object.");
         return;
     }
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     // if no file given, use stdout
     if (file=="") {
         file = "-";
@@ -871,7 +879,7 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs)
          << "file: '" + file + "'" << endl
          << "getFileName(): '" + getFileName() + "'" << endl;
 #endif
-    string whatemit;
+    std::string whatemit;
     bool reverse = attrs.getBoolSecure(SUMO_ATTR_REVERSE, false);
     bool table = attrs.getBoolSecure(SUMO_ATTR_TABLE, true);
     bool xycoord = attrs.getBoolSecure(SUMO_ATTR_XY, false);
@@ -891,12 +899,12 @@ void
 NLHandler::addDetector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("detector", id)) {
         return;
     }
     // try to get the type
-    string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "induct_loop");
+    std::string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "induct_loop");
     // build in dependence to type
     // induct loops (E1-detectors)
     if (type=="induct_loop"||type=="E1"||type=="e1") {
@@ -932,7 +940,7 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs)
 #ifdef _DEBUG
     cout << "=====DEBUG OUTPUT=====" << endl << "Hier kommen die Detektoren rein..." << endl;
 #endif
-    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+    std::string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
     if (id=="") {
         MsgHandler::getErrorInstance()->inform("Missing id of a e4-detector-object.");
         return;
@@ -940,7 +948,7 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs)
 #ifdef _DEBUG
     cout << "ID: " << id << endl;
 #endif
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
@@ -948,7 +956,7 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs)
 #ifdef _DEBUG
     cout << "File: " << file << endl;
 #endif
-    string msg = attrs.getStringSecure(SUMO_ATTR_MSG, "");
+    std::string msg = attrs.getStringSecure(SUMO_ATTR_MSG, "");
     if (msg=="") {
         MsgHandler::getErrorInstance()->inform("Missing message for detector '" + id + "'.");
         return;
@@ -987,11 +995,11 @@ void
 NLHandler::addE1Detector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("e1-detector", id)) {
         return;
     }
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
@@ -1025,11 +1033,11 @@ void
 NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("vtypeprobe", id)) {
         return;
     }
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for vtypeprobe '" + id + "'.");
         return;
@@ -1057,11 +1065,11 @@ void
 NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("routeprobe", id)) {
         return;
     }
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for routeprobe '" + id + "'.");
         return;
@@ -1091,7 +1099,7 @@ void
 NLHandler::addE2Detector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("e2-detector", id)) {
         return;
     }
@@ -1099,7 +1107,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs)
     std::string lsaid = attrs.getStringSecure(SUMO_ATTR_TLID, "<invalid>");
     std::string toLane = attrs.getStringSecure(SUMO_ATTR_TO, "<invalid>");
     // get the file name; it should not be empty
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
@@ -1176,12 +1184,12 @@ void
 NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("e3-detector", id)) {
         return;
     }
     // get the file name; it should not be empty
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
@@ -1254,11 +1262,11 @@ void
 NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("meandata_edge", id)) {
         return;
     }
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for meandata_edge '" + id + "'.");
         return;
@@ -1286,11 +1294,11 @@ void
 NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("meandata_lane", id)) {
         return;
     }
-    string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for meandata_lane '" + id + "'.");
         return;
@@ -1321,7 +1329,7 @@ void
 NLHandler::addSource(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("source", id)) {
         return;
     }
@@ -1337,7 +1345,7 @@ void
 NLHandler::addTrigger(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("trigger", id)) {
         return;
     }
@@ -1354,7 +1362,7 @@ void
 NLHandler::openSucc(const SUMOSAXAttributes &attrs)
 {
     try {
-        string id = attrs.getString(SUMO_ATTR_LANE);
+        std::string id = attrs.getString(SUMO_ATTR_LANE);
         if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
             myCurrentIsInternalToSkip = true;
             return;
@@ -1374,7 +1382,7 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs)
         return;
     }
     try {
-        string tlID = attrs.getStringSecure(SUMO_ATTR_TLID, "");
+        std::string tlID = attrs.getStringSecure(SUMO_ATTR_TLID, "");
         if (tlID!="") {
             mySucceedingLaneBuilder.addSuccLane(
                 attrs.getBool(SUMO_ATTR_YIELD),
@@ -1570,7 +1578,7 @@ NLHandler::addIncomingLanes(const std::string &chars)
 {
     StringTokenizer st(chars);
     while (st.hasNext()) {
-        string set = st.next();
+        std::string set = st.next();
         MSLane *lane = MSLane::dictionary(set);
         if (!MSGlobals::gUsingInternalLanes&&set[0]==':') {
             continue;
@@ -1607,7 +1615,7 @@ NLHandler::addInternalLanes(const std::string &chars)
     }
     StringTokenizer st(chars);
     while (st.hasNext()) {
-        string set = st.next();
+        std::string set = st.next();
         MSLane *lane = MSLane::dictionary(set);
         if (lane==0) {
             MsgHandler::getErrorInstance()->inform("An unknown lane ('" + set + "') was tried to be set as internal.");

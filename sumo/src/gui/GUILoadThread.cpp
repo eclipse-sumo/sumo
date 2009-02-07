@@ -65,13 +65,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-using namespace FXEX;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 GUILoadThread::GUILoadThread(MFXInterThreadEventClient *mw,
@@ -130,9 +123,8 @@ GUILoadThread::run()
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, gIDStorage);
-    GUITriggerBuilder tb;
-    GUIHandler handler("", *net, db, tb, *eb, jb, sb);
-    NLBuilder builder(oc, *net, *eb, jb, db, sb, handler);
+    GUIHandler handler("", *net, db, *eb, jb, sb);
+    NLBuilder builder(oc, *net, *eb, jb, db, handler);
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
@@ -146,7 +138,7 @@ GUILoadThread::run()
             simEndTime = oc.getInt("end");
         }
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -155,7 +147,7 @@ GUILoadThread::run()
         net = 0;
         MsgHandler::cleanupOnEnd();
 #ifndef _DEBUG
-    } catch (exception &e) {
+    } catch (std::exception &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         delete net;
         MSNet::clearAll();
@@ -220,7 +212,7 @@ GUILoadThread::initOptions()
         OptionsIO::getOptions(true, 1, 0);
         return true;
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

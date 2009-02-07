@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
@@ -73,7 +67,7 @@ MSLaneSpeedTrigger::init() throw(ProcessError)
     // set it to the right value
     // assert there is at least one
     if (myLoadedSpeeds.size()==0) {
-        myLoadedSpeeds.push_back(make_pair(100000, myCurrentSpeed));
+        myLoadedSpeeds.push_back(std::make_pair(100000, myCurrentSpeed));
     }
     // set the process to the begin
     myCurrentEntry = myLoadedSpeeds.begin();
@@ -144,7 +138,7 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
             return;
         }
         // set the values for the next step as they are valid
-        myLoadedSpeeds.push_back(make_pair(next, speed));
+        myLoadedSpeeds.push_back(std::make_pair(next, speed));
     } catch (NumberFormatException &) {
         throw ProcessError("Could not initialise vss '" + getID() + "'.");
 

@@ -58,17 +58,11 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-NLTriggerBuilder::NLTriggerBuilder() throw()
+NLTriggerBuilder::NLTriggerBuilder(NLHandler &handler) throw()
         : myHaveInformedAboutDeprecatedTriggerDefinition(false),
-        myHaveInformedAboutDeprecatedEmitter(false)
+        myHaveInformedAboutDeprecatedEmitter(false), myHandler(handler)
 {}
 
 
@@ -81,8 +75,8 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
                                const SUMOSAXAttributes &attrs,
                                const std::string &base) throw(InvalidArgument)
 {
-    string type = attrs.getString(SUMO_ATTR_OBJECTTYPE);
-    string attr = attrs.getStringSecure(SUMO_ATTR_ATTR, "");
+    std::string type = attrs.getString(SUMO_ATTR_OBJECTTYPE);
+    std::string attr = attrs.getStringSecure(SUMO_ATTR_ATTR, "");
     // check which type of a trigger shall be build
     if (type=="lane"&&attr=="speed") {
         parseAndBuildLaneSpeedTrigger(net, attrs, base);
@@ -135,7 +129,7 @@ void
 NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw()
 {
     // get the id, throw if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("vaporizer", id, false)) {
         MsgHandler::getErrorInstance()->inform("Missing or empty id in a vaporizer-object.");
         return;
@@ -182,13 +176,13 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
         const std::string &base) throw(InvalidArgument)
 {
     // get the id, throw if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("lane speed trigger", id, false)) {
         throw InvalidArgument("A lane speed trigger definition does not contain an id");
     }
     // get the file name to read further definitions from
-    string file = getFileName(attrs, base);
-    string objectid;
+    std::string file = getFileName(attrs, base, true);
+    std::string objectid;
     if (attrs.hasAttribute(SUMO_ATTR_LANES)) {
         objectid = attrs.getString(SUMO_ATTR_LANES);
     } else {
@@ -210,7 +204,10 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
         throw InvalidArgument("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
     }
     try {
-        buildLaneSpeedTrigger(net, id, lanes, file);
+        MSLaneSpeedTrigger* trigger = buildLaneSpeedTrigger(net, id, lanes, file);
+        if (file == "") {
+            trigger->registerParent(SUMO_TAG_VSS, &myHandler);
+        }
     } catch (ProcessError &e) {
         throw InvalidArgument(e.what());
     }
@@ -226,12 +223,12 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttribut
         MsgHandler::getWarningInstance()->inform("Emitter are deprecated; use departpos/departspeed within routes instead.");
     }
     // get the id, throw if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("emitter", id, false)) {
         throw InvalidArgument("An emitter does not contain an id");
     }
     // get the file name to read further definitions from
-    string file = getFileName(attrs, base);
+    std::string file = getFileName(attrs, base);
     MSLane *lane = getLane(attrs, "emitter", id);
     SUMOReal pos = getPosition(attrs, lane, "emitter", id);
     buildLaneEmitTrigger(net, id, lane, pos, file);
@@ -242,7 +239,7 @@ void
 NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
 {
     // get the id, throw if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("bus stop", id, false)) {
         throw InvalidArgument("A bus stop does not contain an id");
     }
@@ -300,7 +297,7 @@ void
 NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
 {
     // get the id, throw if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("vehicle actor", id, false)) {
         throw InvalidArgument("A vehicle actor does not contain an id");
     }
@@ -318,12 +315,12 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
         const std::string &base) throw(InvalidArgument)
 {
     // get the id, throw if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("calibrator", id, false)) {
         throw InvalidArgument("A calibrator does not contain an id");
     }
     // get the file name to read further definitions from
-    string file = getFileName(attrs, base);
+    std::string file = getFileName(attrs, base);
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
 #ifdef HAVE_MESOSIM
@@ -337,7 +334,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
             s = s->getNextSegment();
         }
         SUMOReal rpos = pos-cpos-prev->getLength();
-        string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
+        std::string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
         buildCalibrator(net, id, prev, rpos, file, outfile);
     } else {
 #endif
@@ -353,13 +350,13 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
                                         const std::string &base) throw(InvalidArgument)
 {
     // get the id, throw if not given or empty...
-    string id;
+    std::string id;
     if (!attrs.setIDFromAttributes("rerouter", id, false)) {
         throw InvalidArgument("A rerouter does not contain an id");
     }
     // get the file name to read further definitions from
-    string file = getFileName(attrs, base);
-    string objectid;
+    std::string file = getFileName(attrs, base);
+    std::string objectid;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         objectid = attrs.getString(SUMO_ATTR_EDGES);
     } else {
@@ -394,12 +391,12 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
 // -------------------------
 
 
-void
+MSLaneSpeedTrigger*
 NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
                                         const std::string &file) throw(ProcessError)
 {
-    new MSLaneSpeedTrigger(id, destLanes, file);
+    return new MSLaneSpeedTrigger(id, destLanes, file);
 }
 
 
@@ -464,10 +461,17 @@ NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
 
 std::string
 NLTriggerBuilder::getFileName(const SUMOSAXAttributes &attrs,
-                              const std::string &base) throw()
+                              const std::string &base,
+                              const bool allowEmpty) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
-    string file = attrs.getString(SUMO_ATTR_FILE);
+    std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+    if (file == "") {
+        if (allowEmpty) {
+            return file;
+        }
+        throw InvalidArgument("No filename given.");
+    }
     // check whether absolute or relative filenames are given
     if (!FileHelpers::isAbsolute(file)) {
         return FileHelpers::getConfigurationRelative(base, file);
@@ -481,7 +485,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
                           const std::string &tt,
                           const std::string &tid) throw(InvalidArgument)
 {
-    string objectid;
+    std::string objectid;
     if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
         objectid = attrs.getString(SUMO_ATTR_LANE);
     } else {

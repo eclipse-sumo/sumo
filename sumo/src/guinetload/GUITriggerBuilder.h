@@ -53,7 +53,7 @@ class GUITriggerBuilder : public NLTriggerBuilder
 {
 public:
     /// @brief Constructor
-    GUITriggerBuilder() throw();
+    GUITriggerBuilder(NLHandler &handler) throw();
 
 
     /// @brief Destructor
@@ -78,7 +78,7 @@ protected:
      * @see MSLaneSpeedTrigger
      * @exception ProcessError If the XML definition file is errornous
      */
-    virtual void buildLaneSpeedTrigger(MSNet &net,
+    virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet &net,
                                        const std::string &id, const std::vector<MSLane*> &destLanes,
                                        const std::string &file) throw(ProcessError);
 

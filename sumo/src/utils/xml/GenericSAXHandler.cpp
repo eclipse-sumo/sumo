@@ -141,7 +141,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
 
 
 void
-GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handler) throw(ProcessError)
+GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handler)
 {
     myParentHandler = handler;
     myParentIndicator = tag;
