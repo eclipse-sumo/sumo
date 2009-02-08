@@ -2,7 +2,7 @@
 rerouter
 
 # Tests whether variable speed signs work
-#variable_speed_signs
+variable_speed_signs
 
 # Tests whether emitters work
 emitter

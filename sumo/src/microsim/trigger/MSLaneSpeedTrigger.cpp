@@ -50,14 +50,16 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        const std::vector<MSLane*> &destLanes,
                                        const std::string &file) throw(ProcessError)
         : MSTrigger(id), SUMOSAXHandler(file),
-        myDestLanes(destLanes), myAmOverriding(false)
+        myDestLanes(destLanes), myAmOverriding(false), myDidInit(false)
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {
             throw ProcessError();
         }
-        init();
+        if (!myDidInit) {
+            init();
+        }
     }
 }
 
@@ -80,6 +82,7 @@ MSLaneSpeedTrigger::init() throw(ProcessError)
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         new WrappingCommand<MSLaneSpeedTrigger>(this, &MSLaneSpeedTrigger::execute),
         (*myCurrentEntry).first, MSEventControl::NO_CHANGE);
+    myDidInit = true;
 }
 
 
@@ -120,7 +123,7 @@ void
 MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
-    // check whethe the correct tag is read
+    // check whether the correct tag is read
     if (element!=SUMO_TAG_STEP) {
         return;
     }
@@ -141,7 +144,15 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
         myLoadedSpeeds.push_back(std::make_pair(next, speed));
     } catch (NumberFormatException &) {
         throw ProcessError("Could not initialise vss '" + getID() + "'.");
+    }
+}
 
+
+void
+MSLaneSpeedTrigger::myEndElement(SumoXMLTag element) throw(ProcessError)
+{
+    if (element==SUMO_TAG_VSS && !myDidInit) {
+        init();
     }
 }
 

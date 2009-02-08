@@ -1,1 +1,1 @@
---no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -a=input_additional.add.xml --dump-basename=aggregated --dump-intervals=25
+--no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -a input_additional.add.xml,input_additional2.add.xml

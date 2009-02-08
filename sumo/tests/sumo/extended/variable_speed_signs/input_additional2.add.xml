@@ -1,0 +1,5 @@
+<add>
+
+	<meandata-edge id="dump_25" freq="25" file="aggregated_25.xml" excludeEmpty="true"/>
+
+</add>

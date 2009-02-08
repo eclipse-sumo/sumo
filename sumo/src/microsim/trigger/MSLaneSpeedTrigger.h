@@ -40,7 +40,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSNet;
 class MSLane;
 
 
@@ -72,8 +71,6 @@ public:
     /** destructor */
     virtual ~MSLaneSpeedTrigger() throw();
 
-    void init() throw(ProcessError);
-
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
     SUMOTime processCommand(bool move2next);
@@ -102,6 +99,14 @@ protected:
      */
     virtual void myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
+
+    /** @brief Called on the closing of a tag;
+     *
+     * @param[in] element ID of the currently closed element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 
@@ -134,6 +139,12 @@ private:
     /// @brief Invalidated assignment operator.
     MSLaneSpeedTrigger& operator=(const MSLaneSpeedTrigger&);
 
+    void init() throw(ProcessError);
+
+
+private:
+    /// The information whether init was called
+    bool myDidInit;
 
 };
 
