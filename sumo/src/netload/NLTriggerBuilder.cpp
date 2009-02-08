@@ -320,7 +320,6 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
         throw InvalidArgument("A calibrator does not contain an id");
     }
     // get the file name to read further definitions from
-    std::string file = getFileName(attrs, base);
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
 #ifdef HAVE_MESOSIM
@@ -334,10 +333,15 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
             s = s->getNextSegment();
         }
         SUMOReal rpos = pos-cpos-prev->getLength();
+        std::string file = getFileName(attrs, base, true);
         std::string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
-        buildCalibrator(net, id, prev, rpos, file, outfile);
+        METriggeredCalibrator* trigger = buildCalibrator(net, id, prev, rpos, file, outfile);
+        if (file == "") {
+            trigger->registerParent(SUMO_TAG_CALIBRATOR, &myHandler);
+        }
     } else {
 #endif
+        std::string file = getFileName(attrs, base);
         buildLaneCalibrator(net, id, lane, pos, file);
 #ifdef HAVE_MESOSIM
     }
@@ -419,13 +423,13 @@ NLTriggerBuilder::buildLaneCalibrator(MSNet &net, const std::string &id,
 
 
 #ifdef HAVE_MESOSIM
-void
+METriggeredCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
                                   MESegment *edge, SUMOReal pos,
                                   const std::string &file,
                                   const std::string &outfile) throw()
 {
-    new METriggeredCalibrator(id, edge, file, outfile);
+    return new METriggeredCalibrator(id, edge, file, outfile);
 }
 #endif
 
