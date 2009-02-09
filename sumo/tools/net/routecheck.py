@@ -106,16 +106,14 @@ class Net:
                 target.add(end)
         return target
         
-    def checkRoute(self, startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet):
+    def checkRoute(self, startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, skipList):
         totalCounts += 1
         vertex = endVertex
-        while vertex != startVertex:
-            if vertex in P:
-                vertex = P[vertex].source    
-            else:
+        if startVertex.label not in options.skipList and endVertex.label not in options.skipList:
+            if vertex not in P:
                 subCounts += 1
                 odPairSet.append((startVertex.label, endVertex.label))
-                break
+
         return totalCounts, subCounts, odPairSet
         
 # The class is for parsing the XML input file (network file). The data parsed is written into the net.
@@ -272,6 +270,7 @@ def main():
     subCounts = 0    
     separateZones = []
     odPairSet= []
+    skipList = []
     net = Net()
     
     for item in options.spearatezones.split(','):
@@ -284,7 +283,8 @@ def main():
 
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
-    
+    for elem in options.skipList.split(','):
+        skipList.append(elem)
     matrixPshort = getMatrix(net, options.verbose, matrix, MatrixSum)
     
     if options.verbose:
@@ -299,11 +299,11 @@ def main():
 
             for end, endVertex in enumerate(net._endVertices):
                 if startVertex.label != endVertex.label and endVertex not in separateZones and matrixPshort[start][end] > 0.:
-                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet)
+                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, skipList)
         else:
             for endVertex in separateZones:
                 if startVertex.label != endVertex.label:
-                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet)
+                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, skipList)
 
     print 'total OD connnetions:', totalCounts
     if len(odPairSet) > 0:
@@ -328,7 +328,9 @@ optParser.add_option("-d", "--districts-file", dest="districtfile",
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-i", "--separate-zones", dest="spearatezones", type='string',
-                     default= "dist_00101,dist_00102,dist_00103,dist_00104,dist_00105", help="define the zones which should be separated")                     
+                     help="define the zones which should be separated") # e.g. dist_00101,dist_00102
+optParser.add_option("-s", "--skip-list", dest="skipList", type='string',
+                     help="define the zones which will not be compared with each other")# e.g. dist_00101,dist_00102
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
                      default=False, help="debug the program")
                                     
