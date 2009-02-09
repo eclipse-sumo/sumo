@@ -1155,6 +1155,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw()
             << "\"/>\n";
         }
         dev << "</decals>\n";
+        dev.close();
     } catch (IOError &e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
