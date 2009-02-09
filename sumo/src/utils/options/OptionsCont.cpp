@@ -522,6 +522,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError)
             if (oc.getBool("verbose")) {
                 MsgHandler::getMessageInstance()->inform("Written configuration to '" + oc.getString("save-configuration") + "'");
             }
+            return true;
         }
     }
     // whether the template shall be saved
