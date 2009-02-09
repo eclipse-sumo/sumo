@@ -22,6 +22,7 @@ rmdir /S /Q %TEXTTEST_TMP%
 rmdir /S /Q %SUMO_REPORT%
 mkdir %SUMO_REPORT%
 call testEnv.bat
+runGuisimTests.py -b
 texttest.py -b %SUMO_REPORT%
 texttest.py -b %SUMO_REPORT% -coll
 cd ..
