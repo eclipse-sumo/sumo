@@ -111,7 +111,9 @@ XMLSubSys::runParser(SUMOSAXHandler &handler,
         myReaders[myNextFreeReader-1]->parse(file.c_str());
         myNextFreeReader--;
     } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         return false;
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("An error occured.");
