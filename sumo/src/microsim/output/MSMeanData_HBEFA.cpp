@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// Redirector for mean data output (net->edgecontrol)
+// Emission data collector for edges/lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors

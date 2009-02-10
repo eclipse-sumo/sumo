@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// Redirector for mean data output (net->edgecontrol)
+// Network state mean data collector for edges/lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -53,7 +53,7 @@ class MEVehicle;
 // ===========================================================================
 /**
  * @class MSMeanData_Net
- * @brief Redirector for mean data output (net->edgecontrol)
+ * @brief Network state mean data collector for edges/lanes
  *
  * This structure does not contain the data itself, it is stored within
  *  MSLaneMeanDataValues-MoveReminder objects.
@@ -71,8 +71,7 @@ public:
      * @brief Data structure for mean (aggregated) edge/lane values
      *
      * Structure holding values that describe the flow and other physical
-     *  properties aggregated over some seconds and normalised by the
-     *  aggregation period.
+     *  properties aggregated over some seconds.
      *
      * @todo Check whether the haltings-information is used and how
      */

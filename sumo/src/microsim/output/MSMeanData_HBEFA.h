@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// Redirector for mean data output (net->edgecontrol)
+// Emission data collector for edges/lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -50,14 +50,13 @@ class MSLane;
 // ===========================================================================
 /**
  * @class MSMeanData_HBEFA
- * @brief Redirector for mean data output (net->edgecontrol)
+ * @brief Emission data collector for edges/lanes
  *
  * This structure does not contain the data itself, it is stored within
  *  MSLaneMeanDataValues-MoveReminder objects.
  * This class is used to build the output, optionally, in the case
  *  of edge-based dump, aggregated over the edge's lanes.
  *
- * @todo check where mean data is stored in mesosim.
  * @todo consider error-handling on write (using IOError)
  */
 class MSMeanData_HBEFA : public MSDetectorFileOutput
@@ -67,11 +66,8 @@ public:
      * @class MSLaneMeanDataValues
      * @brief Data structure for mean (aggregated) edge/lane values
      *
-     * Structure holding values that describe the flow and other physical
-     *  properties aggregated over some seconds and normalised by the
-     *  aggregation period.
-     *
-     * @todo Check whether the haltings-information is used and how
+     * Structure holding values that describe the emissions aggregated 
+     *  over some seconds.
      */
     class MSLaneMeanDataValues : public MSMoveReminder
     {
