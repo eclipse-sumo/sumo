@@ -297,13 +297,11 @@ def main():
         
     for start, startVertex in enumerate(net._startVertices):
         if startVertex not in separateZones:
-            print 'newStart'
             targets = net.getTargets(separateZones)
             D, P = dijkstraPlain(startVertex, targets)
 
             for end, endVertex in enumerate(net._endVertices):
                 if startVertex.label != endVertex.label and endVertex not in separateZones and matrixPshort[start][end] > 0.:
-                    print 'newEnd'
                     totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrixPshort, skipList)
         else:
             for endVertex in separateZones:
