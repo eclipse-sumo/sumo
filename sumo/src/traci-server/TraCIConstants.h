@@ -218,6 +218,9 @@
 #define DOMVAR_NOXEMISSION 0x24
 // current fuel consumption of a node
 #define DOMVAR_FUELCONSUMPTION 0x25
+// current noise emission of a node
+#define DOMVAR_NOISEEMISSION 0x26
+
 
 // ****************************************
 // TRAFFIC LIGHT PHASES

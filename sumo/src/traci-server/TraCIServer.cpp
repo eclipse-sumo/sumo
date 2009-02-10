@@ -62,6 +62,7 @@
 #include <map>
 #include <iostream>
 #include <microsim/output/HelpersHBEFA.h>
+#include <microsim/output/HelpersHarmonoise.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -2189,6 +2190,19 @@ throw(TraCIException)
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
             response.writeFloat(HelpersHBEFA::computeFuel(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+        // noise emission
+    case DOMVAR_NOISEEMISSION:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getPreDawdleAcceleration()));
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
