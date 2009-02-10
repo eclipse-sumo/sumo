@@ -1,12 +1,14 @@
 noinst_LIBRARIES = libmicrosimoutput.a
 
-libmicrosimoutput_a_SOURCES = HelpersHBEFA.cpp HelpersHBEFA.h MSCrossSection.h \
+libmicrosimoutput_a_SOURCES = HelpersHarmonoise.cpp HelpersHarmonoise.h \
+HelpersHBEFA.cpp HelpersHBEFA.h MSCrossSection.h \
 MSDetectorControl.cpp MSDetectorControl.h \
 MSDetectorFileOutput.h \
 MSE2Collector.cpp MSE2Collector.h \
 MS_E2_ZS_CollectorOverLanes.cpp MS_E2_ZS_CollectorOverLanes.h \
 MSE3Collector.cpp MSE3Collector.h \
 MSInductLoop.cpp MSInductLoop.h \
+MSMeanData_Harmonoise.cpp MSMeanData_Harmonoise.h \
 MSMeanData_HBEFA.cpp MSMeanData_HBEFA.h \
 MSMeanData_Net.cpp MSMeanData_Net.h \
 MSMsgInductLoop.cpp MSMsgInductLoop.h \
