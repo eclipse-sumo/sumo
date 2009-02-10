@@ -141,7 +141,7 @@ public:
          * @param[in] fraction The amount of time the vehicle was on the lane
          * @param[in] flushOnly Whether this call shall only close the current step computation
          */
-        void MSLaneMeanDataValues::add(SUMOReal sn, SUMOReal fraction, bool flushOnly=false) throw();
+        void add(SUMOReal sn, SUMOReal fraction, bool flushOnly=false) throw();
 
 
         /// @name Collected values
