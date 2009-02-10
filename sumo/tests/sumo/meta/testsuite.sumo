@@ -13,9 +13,11 @@ write_template_commented_full
 # Tests configuration writing
 write_config
 
+# Tests command line option list
+option_list
+
+# Tests command line option list with equal sign
+option_list_equal_sign
+
 # Tests whether log-file output works
 with_log
-
-
-
-
