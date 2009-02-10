@@ -123,7 +123,9 @@ GUILoadThread::run()
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, gIDStorage);
-    GUIHandler handler("", *net, db, *eb, jb, sb);
+    GUITriggerBuilder tb;
+    GUIHandler handler("", *net, db, tb, *eb, jb, sb);
+    tb.setHandler(&handler);
     NLBuilder builder(oc, *net, *eb, jb, db, handler);
     try {
         MsgHandler::getErrorInstance()->clear();

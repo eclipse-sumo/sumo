@@ -71,21 +71,7 @@
 // ===========================================================================
 NLHandler::NLHandler(const std::string &file, MSNet &net,
                      NLDetectorBuilder &detBuilder,
-                     NLEdgeControlBuilder &edgeBuilder,
-                     NLJunctionControlBuilder &junctionBuilder) throw()
-        : MSRouteHandler(file, true),
-        myNet(net), myActionBuilder(net),
-        myCurrentIsInternalToSkip(false),
-        myDetectorBuilder(detBuilder), myTriggerBuilder(*this),
-        myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-        myShapeBuilder(net), mySucceedingLaneBuilder(junctionBuilder, myContinuations),
-        myAmInTLLogicMode(false), myCurrentIsBroken(false)
-{}
-
-
-NLHandler::NLHandler(const std::string &file, MSNet &net,
-                     NLDetectorBuilder &detBuilder,
-                     NLTriggerBuilder triggerBuilder,
+                     NLTriggerBuilder &triggerBuilder,
                      NLEdgeControlBuilder &edgeBuilder,
                      NLJunctionControlBuilder &junctionBuilder,
                      NLGeomShapeBuilder &shapeBuilder) throw()

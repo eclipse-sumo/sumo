@@ -132,9 +132,6 @@ public:
     /// Opens the application settings menu
     long onCmdAppSettings(FXObject*,FXSelector,void*);
 
-    /// Opens the simulation settings menu
-    long onCmdSimSettings(FXObject*,FXSelector,void*);
-
     /// Shows the about dialog
     long onCmdAbout(FXObject*,FXSelector,void*);
 
@@ -158,7 +155,6 @@ public:
     long onUpdEditChosen(FXObject*sender,FXSelector,void*ptr);
     virtual long onUpdEditAddWeights(FXObject*,FXSelector,void*);
     virtual long onUpdEditBreakpoints(FXObject*,FXSelector,void*);
-    long onUpdSimSettings(FXObject*sender,FXSelector,void*ptr);
     long onCmdClearMsgWindow(FXObject*,FXSelector,void*);
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);

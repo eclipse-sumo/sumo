@@ -44,8 +44,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUITriggerBuilder::GUITriggerBuilder(NLHandler &handler) throw()
-: NLTriggerBuilder(handler)
+GUITriggerBuilder::GUITriggerBuilder() throw()
 {}
 
 

@@ -66,9 +66,6 @@ private:
 /// the window shall be closed when the simulation has ended
 extern bool gQuitOnEnd;
 
-/// Information whether not to display the information about a simulation's end
-extern bool gSuppressEndInfo;
-
 /// Structure holding the used network
 extern GUISimInfo *gSimInfo;
 

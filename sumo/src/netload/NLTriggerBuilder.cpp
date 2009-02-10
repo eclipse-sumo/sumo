@@ -60,14 +60,20 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLTriggerBuilder::NLTriggerBuilder(NLHandler &handler) throw()
+NLTriggerBuilder::NLTriggerBuilder() throw()
         : myHaveInformedAboutDeprecatedTriggerDefinition(false),
-        myHaveInformedAboutDeprecatedEmitter(false), myHandler(handler)
+        myHaveInformedAboutDeprecatedEmitter(false), myHandler(0)
 {}
 
 
 NLTriggerBuilder::~NLTriggerBuilder() throw()
 {}
+
+void
+NLTriggerBuilder::setHandler(NLHandler *handler) throw()
+{
+	myHandler = handler;
+}
 
 
 void
@@ -206,7 +212,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
     try {
         MSLaneSpeedTrigger* trigger = buildLaneSpeedTrigger(net, id, lanes, file);
         if (file == "") {
-            trigger->registerParent(SUMO_TAG_VSS, &myHandler);
+            trigger->registerParent(SUMO_TAG_VSS, myHandler);
         }
     } catch (ProcessError &e) {
         throw InvalidArgument(e.what());
@@ -337,7 +343,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
         std::string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
         METriggeredCalibrator* trigger = buildCalibrator(net, id, prev, rpos, file, outfile);
         if (file == "") {
-            trigger->registerParent(SUMO_TAG_CALIBRATOR, &myHandler);
+            trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
     } else {
 #endif

@@ -48,7 +48,6 @@
 #include "GUIEdgeControlBuilder.h"
 #include "GUIJunctionControlBuilder.h"
 #include "GUIDetectorBuilder.h"
-#include "GUITriggerBuilder.h"
 #include "GUIHandler.h"
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIRoute.h>
@@ -67,10 +66,11 @@
 GUIHandler::GUIHandler(const std::string &file,
                        MSNet &net,
                        NLDetectorBuilder &detBuilder,
+                       NLTriggerBuilder &triggerBuilder,
                        NLEdgeControlBuilder &edgeBuilder,
                        NLJunctionControlBuilder &junctionBuilder,
                        NLGeomShapeBuilder &shapeBuilder) throw()
-        : NLHandler(file, net, detBuilder, GUITriggerBuilder(*this),
+        : NLHandler(file, net, detBuilder, triggerBuilder,
                     edgeBuilder, junctionBuilder, shapeBuilder)
 {}
 

@@ -53,7 +53,7 @@ class GUITriggerBuilder : public NLTriggerBuilder
 {
 public:
     /// @brief Constructor
-    GUITriggerBuilder(NLHandler &handler) throw();
+    GUITriggerBuilder() throw();
 
 
     /// @brief Destructor

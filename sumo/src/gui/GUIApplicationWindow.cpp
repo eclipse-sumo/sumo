@@ -64,7 +64,6 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include "dialogs/GUIDialog_AboutSUMO.h"
 #include "dialogs/GUIDialog_AppSettings.h"
-#include "dialogs/GUIDialog_SimSettings.h"
 #include "dialogs/GUIDialog_EditAddWeights.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -109,7 +108,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onCmdEditBreakpoints),
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMSETTINGS,        GUIApplicationWindow::onCmdSimSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewMicro),
     FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
@@ -131,7 +129,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdEditChosen),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_ADD_WEIGHTS,  GUIApplicationWindow::onUpdEditAddWeights),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdEditBreakpoints),
-    FXMAPFUNC(SEL_UPDATE,   MID_SIMSETTINGS,       GUIApplicationWindow::onUpdSimSettings),
 #ifdef HAVE_MESOSIM
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MESOVIEW,     GUIApplicationWindow::onUpdAddMesoView),
 #endif
@@ -393,11 +390,6 @@ GUIApplicationWindow::fillMenuBar()
     new FXMenuCommand(mySettingsMenu,
                       "Application Settings...\t\tOpen a Dialog for Application Settings editing.",
                       NULL,this,MID_APPSETTINGS);
-    /*
-    new FXMenuCommand(mySettingsMenu,
-                      "Simulation Settings...\t\tOpen a Dialog for Simulation Settings editing.",
-                      NULL,this,MID_SIMSETTINGS);
-                      */
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
@@ -825,17 +817,6 @@ GUIApplicationWindow::onUpdStep(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdSimSettings(FXObject*sender,FXSelector,void*ptr)
-{
-    sender->handle(this,
-                   !myRunThread->simulationAvailable()||myAmLoading
-                   ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
-                   ptr);
-    return 1;
-}
-
-
-long
 GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
@@ -874,13 +855,6 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*)
     GUIDialog_AppSettings *d = new GUIDialog_AppSettings(this);
     d->create();
     d->show(PLACEMENT_OWNER);
-    return 1;
-}
-
-
-long
-GUIApplicationWindow::onCmdSimSettings(FXObject*,FXSelector,void*)
-{
     return 1;
 }
 
@@ -973,17 +947,17 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     // check whether the loading was successfull
     if (ec->myNet==0) {
         // report failure
-        string text = "Loading of '" + ec->myFile + "' failed!";
-        myStatusbar->getStatusLine()->setText(text.c_str());
-        myStatusbar->getStatusLine()->setNormalText(text.c_str());
+        setStatusBarText("Loading of '" + ec->myFile + "' failed!");
+        if (gQuitOnEnd) {
+            closeAllWindows();
+            getApp()->exit(0);
+        }
     } else {
         // initialise global information
         gSimInfo = new GUISimInfo(*(ec->myNet));
         gNetWrapper = ec->myNet->getWrapper();
         // report success
-        string text = "'" + ec->myFile + "' loaded.";
-        myStatusbar->getStatusLine()->setText(text.c_str());
-        myStatusbar->getStatusLine()->setNormalText(text.c_str());
+        setStatusBarText("'" + ec->myFile + "' loaded.");
         // initialise simulation thread
         myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd);
         myWasStarted = false;
@@ -1040,7 +1014,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
 {
     GUIEvent_SimulationEnded *ec =
         static_cast<GUIEvent_SimulationEnded*>(e);
-    if (!gSuppressEndInfo) {
+    if (!gQuitOnEnd) {
         // build the text
         stringstream text;
         text << "The simulation has ended at time step "
@@ -1089,16 +1063,13 @@ GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload)
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    string text;
     if (isReload) {
         myLoadThread->start();
-        text = "Reloading.";
+        setStatusBarText("Reloading.");
     } else {
         myLoadThread->load(file, isNet);
-        text = "Loading '" + file + "'.";
+        setStatusBarText("Loading '" + file + "'.");
     }
-    myStatusbar->getStatusLine()->setText(text.c_str());
-    myStatusbar->getStatusLine()->setNormalText(text.c_str());
     update();
 }
 

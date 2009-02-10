@@ -86,7 +86,10 @@ load(OptionsCont &oc)
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);
-    NLHandler handler("", *net, db, eb, jb);
+    NLTriggerBuilder tb;
+    NLGeomShapeBuilder sb(*net);
+    NLHandler handler("", *net, db, tb, eb, jb, sb);
+    tb.setHandler(&handler);
     NLBuilder builder(oc, *net, eb, jb, db, handler);
     if (!builder.build()) {
         delete net;

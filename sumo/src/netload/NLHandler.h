@@ -35,7 +35,6 @@
 #include "NLBuilder.h"
 #include "NLDiscreteEventBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
-#include "NLTriggerBuilder.h"
 #include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
@@ -50,6 +49,7 @@
 // ===========================================================================
 class NLContainer;
 class NLDetectorBuilder;
+class NLTriggerBuilder;
 class MSTrafficLightLogic;
 class NLGeomShapeBuilder;
 
@@ -77,14 +77,16 @@ public:
      * @param[in] file Name of the parsed file
      * @param[in, out] net The network to fill
      * @param[in] detBuilder The detector builder to use
+     * @param[in] triggerBuilder The trigger builder to use
      * @param[in] edgeBuilder The builder of edges to use
      * @param[in] junctionBuilder The builder of junctions to use
      * @param[in] shapeBuilder The geometric shapes builder to use
      */
     NLHandler(const std::string &file, MSNet &net,
-              NLDetectorBuilder &detBuilder,
+              NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
               NLEdgeControlBuilder &edgeBuilder,
-              NLJunctionControlBuilder &junctionBuilder) throw();
+              NLJunctionControlBuilder &junctionBuilder,
+              NLGeomShapeBuilder &shapeBuilder) throw();
 
 
     /// @brief Destructor
@@ -139,22 +141,6 @@ protected:
 
 
 protected:
-    /** @brief Constructor to be used by subclass
-     *
-     * @param[in] file Name of the parsed file
-     * @param[in, out] net The network to fill
-     * @param[in] detBuilder The detector builder to use
-     * @param[in] triggerBuilder The trigger builder to use
-     * @param[in] edgeBuilder The builder of edges to use
-     * @param[in] junctionBuilder The builder of junctions to use
-     * @param[in] shapeBuilder The geometric shapes builder to use
-     */
-    NLHandler(const std::string &file, MSNet &net,
-              NLDetectorBuilder &detBuilder, NLTriggerBuilder triggerBuilder,
-              NLEdgeControlBuilder &edgeBuilder,
-              NLJunctionControlBuilder &junctionBuilder,
-              NLGeomShapeBuilder &shapeBuilder) throw();
-
     void addParam(const SUMOSAXAttributes &attrs);
 
     /** @brief adds a detector
@@ -359,7 +345,7 @@ protected:
     std::string myCurrentDetectorType;
 
     /// The trigger builder to use
-    NLTriggerBuilder myTriggerBuilder;
+    NLTriggerBuilder &myTriggerBuilder;
 
     /** storage for edges during building */
     NLEdgeControlBuilder &myEdgeControlBuilder;
@@ -367,7 +353,7 @@ protected:
     /** storage for junctions during building */
     NLJunctionControlBuilder &myJunctionControlBuilder;
 
-    NLGeomShapeBuilder myShapeBuilder;
+    NLGeomShapeBuilder &myShapeBuilder;
 
     /// storage for building succeeding lanes
     NLSucceedingLaneBuilder mySucceedingLaneBuilder;

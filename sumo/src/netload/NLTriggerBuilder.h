@@ -76,11 +76,18 @@ class NLTriggerBuilder
 {
 public:
     /// @brief Constructor
-    NLTriggerBuilder(NLHandler &handler) throw();
+    NLTriggerBuilder() throw();
 
 
     /// @brief Destructor
     virtual ~NLTriggerBuilder() throw();
+
+
+    /** @brief Sets the parent handler to use for nested parsing
+     *
+     * @param[in] handler The netload handler to set
+     */
+    void setHandler(NLHandler *handler) throw();
 
 
     /** @brief builds the specified trigger
@@ -375,7 +382,7 @@ protected:
     bool myHaveInformedAboutDeprecatedEmitter;
 
     /// @brief The parent handler to set for subhandlers
-    NLHandler &myHandler;
+    NLHandler* myHandler;
 
 };
 

@@ -134,8 +134,6 @@ enum {
 
     /// Application settings - menu entry
     MID_APPSETTINGS,
-    /// Simulation settings - menu entry
-    MID_SIMSETTINGS,
     /// The Simulation delay control
     MID_SIMDELAY,
     //@}
@@ -272,8 +270,6 @@ enum {
 
     /// Close simulation at end - Option
     MID_QUITONSIMEND,
-    /// Suppress end message - Option
-    MID_SUPPRESSENDINFO,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,
     //@}

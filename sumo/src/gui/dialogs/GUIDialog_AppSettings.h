@@ -59,18 +59,12 @@ public:
     /// Called on "Quit on end"-button change
     long onCmdQuitOnEnd(FXObject*,FXSelector,void*);
 
-    /// Called on "Suppress end Message"-button change
-    long onCmdSuppressEnd(FXObject*,FXSelector,void*);
-
     /// Called on "Allow textures"-button change
     long onCmdAllowTextures(FXObject*,FXSelector,void*);
 
 private:
     /// Information whether the application shall be quit
     bool myAppQuitOnEnd;
-
-    /// Information whether the end message shall nt be displayed
-    bool mySuppressEnd;
 
     /// Information whether textures may be used
     bool myAllowTextures;
