@@ -131,11 +131,11 @@ initVehicleColoringSchemes()
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
     // ... emissions ...
-    sm.add("by CO2 emissions (HBEFA)", // "good": 2g/s; bad: >10g/s
+    sm.add("by CO2 emissions (HBEFA)", // "good": 0g/s; bad: >10g/s
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, SUMOReal(10./2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_CO2Emissions));
-    sm.add("by CO emissions (HBEFA)", // "good": .00003g/s; bad: >.05g/s
+    sm.add("by CO emissions (HBEFA)", // "good": 0g/s; bad: >.05g/s
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, SUMOReal(0.05), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_COEmissions));
@@ -143,18 +143,22 @@ initVehicleColoringSchemes()
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_PMxEmissions));
-    sm.add("by NOx emissions (HBEFA)", // "good": .001g/s; bad: >.125g/s
+    sm.add("by NOx emissions (HBEFA)", // "good": 0g/s; bad: >.125g/s
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, SUMOReal(.125), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_NOxEmissions));
-    sm.add("by HC emissions (HBEFA)", // "good": .00005g/s; bad: >0.02g/s
+    sm.add("by HC emissions (HBEFA)", // "good": 0g/s; bad: >0.02g/s
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, SUMOReal(.02), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_HCEmissions));
-    sm.add("by fuel consumption (HBEFA)", // "good": .0004l/s; bad: >.005l/s
+    sm.add("by fuel consumption (HBEFA)", // "good": 0l/s; bad: >.005l/s
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_FuelConsumption));
+    sm.add("by noise emissions (Harmonoise)", // "good": 0dB; bad: >100dB
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHarmonoise_NoiseEmissions));
 
     // ... and some not always used values
     sm.add("by reroute number",
@@ -306,6 +310,10 @@ initLaneColoringSchemes()
            new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
                0, SUMOReal(.005/7.5*100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
+    sm.add("by noise emissions (Harmonoise)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHarmonoise_NoiseEmissions));
     // using C2C extensions
     /*
     sm.add("C2C: by vehicle knowledge",
