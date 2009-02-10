@@ -159,6 +159,7 @@ public:
     SUMOReal getHBEFA_NOxEmissions() const;
     SUMOReal getHBEFA_HCEmissions() const;
     SUMOReal getHBEFA_FuelConsumption() const;
+    SUMOReal getHarmonoise_NoiseEmissions() const;
 
 
     /// Returns the fastest known lane speed

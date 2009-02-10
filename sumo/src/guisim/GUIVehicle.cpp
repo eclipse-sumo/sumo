@@ -50,6 +50,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <microsim/output/HelpersHBEFA.h>
+#include <microsim/output/HelpersHarmonoise.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -313,6 +314,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_PMxEmissions));
     ret->mkItem("fuel (HBEFA) [l/s]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHBEFA_FuelConsumption));
+    ret->mkItem("noise (Harmonoise) [dB]", true,
+                new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getHarmonoise_NoiseEmissions));
     // close building
     ret->closeBuilding();
     return ret;
@@ -1057,6 +1060,13 @@ SUMOReal
 GUIVehicle::getHBEFA_FuelConsumption() const throw()
 {
     return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+SUMOReal
+GUIVehicle::getHarmonoise_NoiseEmissions() const throw()
+{
+    return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 

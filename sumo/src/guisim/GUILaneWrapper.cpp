@@ -52,6 +52,8 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <guisim/GUIVehicle.h>
 #include <foreign/polyfonts/polyfonts.h>
+#include <microsim/output/HelpersHarmonoise.h>
+
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -846,6 +848,19 @@ GUILaneWrapper::getHBEFA_FuelConsumption() const
     return ret / myLane.length();
 }
 
+
+SUMOReal
+GUILaneWrapper::getHarmonoise_NoiseEmissions() const
+{
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        SUMOReal sv = static_cast<GUIVehicle*>(*i)->getHarmonoise_NoiseEmissions();
+        ret += (SUMOReal) pow(10., (sv/10.));
+    }
+    myLane.releaseVehicles();
+    return HelpersHarmonoise::sum(ret);
+}
 
 
 /****************************************************************************/
