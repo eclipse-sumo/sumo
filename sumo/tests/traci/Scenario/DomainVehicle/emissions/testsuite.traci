@@ -1,0 +1,21 @@
+# Tests whether CO emission can be retrieved
+CO
+
+# Tests whether CO2 emission can be retrieved
+CO2
+
+# Tests whether PMx emission can be retrieved
+PMx
+
+# Tests whether NOx emission can be retrieved
+NOx
+
+# Tests whether HC emission can be retrieved
+HC
+
+# Tests whether fuel consumption can be retrieved
+fuel
+
+# Tests whether noise emission can be retrieved
+noise
+

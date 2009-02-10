@@ -51,3 +51,7 @@ DrivingDistanceRoadPos
 
 # Test for variable position
 Position
+
+# Tests for retrieving emission/consumption values
+emissions
+
