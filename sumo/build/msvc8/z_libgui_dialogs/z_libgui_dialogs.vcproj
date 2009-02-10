@@ -599,10 +599,6 @@
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_SimSettings.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -626,10 +622,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_SimSettings.h"
 				>
 			</File>
 		</Filter>
