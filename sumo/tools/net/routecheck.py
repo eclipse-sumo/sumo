@@ -106,13 +106,14 @@ class Net:
                 target.add(end)
         return target
         
-    def checkRoute(self, startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, skipList):
+    def checkRoute(self, startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrix, skipList):
         totalCounts += 1
         vertex = endVertex
-        if startVertex.label not in options.skipList and endVertex.label not in options.skipList:
+        if startVertex.label not in skipList and endVertex.label not in skipList:
             if vertex not in P:
                 subCounts += 1
-                odPairSet.append((startVertex.label, endVertex.label))
+                print 'sunCounts:', subCounts
+                odPairSet.append((startVertex.label, endVertex.label, matrix[start][end]))
 
         return totalCounts, subCounts, odPairSet
         
@@ -160,7 +161,7 @@ class NetworkReader(handler.ContentHandler):
         self._chars += content
 
     def endElement(self, name):
-        if name == 'edge':
+        if name == 'edge' and self._edge != '':
             self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
             self._edge = ''
                 
@@ -264,6 +265,7 @@ def main():
     districts = os.path.join(dataDir, options.districtfile)
     matrix = os.path.join(dataDir, options.mtxfile)
     netfile = os.path.join(dataDir, options.netfile)
+    sumDemand = 0.
     count = 0
     MatrixSum = 0.
     totalCounts = 0
@@ -272,53 +274,58 @@ def main():
     odPairSet= []
     skipList = []
     net = Net()
-    
-    for item in options.spearatezones.split(','):
-        for district in net._startVertices:
-            if district.label == item:
-                separateZones.append(district)
-        
+    if options.spearatezones:
+        for item in options.spearatezones.split(','):
+            for district in net._startVertices:
+                if district.label == item:
+                    separateZones.append(district)
+                    
+
     parser.setContentHandler(NetworkReader(net))
     parser.parse(netfile)    
 
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
-    for elem in options.skipList.split(','):
-        skipList.append(elem)
+    if options.skipList:
+        for elem in options.skipList.split(','):
+            skipList.append(elem)
     matrixPshort = getMatrix(net, options.verbose, matrix, MatrixSum)
     
-    if options.verbose:
-        print len(net._edges), "edges read"
-        print len(net._startVertices), "start vertices read"
-        print len(net._endVertices), "target vertices read"    
+    print len(net._edges), "edges read"
+    print len(net._startVertices), "start vertices read"
+    print len(net._endVertices), "target vertices read"    
         
     for start, startVertex in enumerate(net._startVertices):
         if startVertex not in separateZones:
+            print 'newStart'
             targets = net.getTargets(separateZones)
             D, P = dijkstraPlain(startVertex, targets)
 
             for end, endVertex in enumerate(net._endVertices):
                 if startVertex.label != endVertex.label and endVertex not in separateZones and matrixPshort[start][end] > 0.:
-                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, skipList)
+                    print 'newEnd'
+                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrixPshort, skipList)
         else:
             for endVertex in separateZones:
                 if startVertex.label != endVertex.label:
-                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, skipList)
+                    totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrixPshort, skipList)
 
     print 'total OD connnetions:', totalCounts
     if len(odPairSet) > 0:
+        foutzones = file('absentConnections.txt', 'w')
         for pair in odPairSet:
-            foutzones = file('absentConnections.txt', 'w')
-            foutzones.write('from: %s   to: %s\n' %(pair[0], pair[1]))
+            sumDemand += float(pair[2])
+            foutzones.write('from: %s   to: %s; demand:%s\n' %(pair[0], pair[1], pair[2]))
         foutzones.close()
         print subCounts, 'connections are absent!' 
+        print sumDemand, 'vehilces are absent.'
     else:
         print 'all connections exist! '
     
     
 optParser = OptionParser()
 optParser.add_option("-r", "--data-dir", dest="datadir",
-                     help="give the data directory path")
+                     default= os.getcwd(), help="give the data directory path")
 optParser.add_option("-n", "--net-file", dest="netfile",
                      help="define the net file")
 optParser.add_option("-m", "--matrix-file", dest="mtxfile",
