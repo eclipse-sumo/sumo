@@ -115,6 +115,14 @@ HelpersHarmonoise::myAOctaveBandCorrection[27] =
 +1.0, +1.2, +1.3, +1.2, +1.0, +0.5, -0.1, -1.1, -2.5 };
 
 
+
+double 
+mySurfaceCorrection[27] =
+{ 0.7, 0.2, 3.6, -1.0, -1.8, -0.1, -0.9, -0.7, -1.1, -0.5, -1.5, 
+-2.4, -3.0, -4.6, -5.8, -6.5, -7.9, -7.8, -7.2, -6.3, -5.6,
+-5.5, -4.8, -4.3 };
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -143,33 +151,18 @@ HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) throw()
 	double L_high = 0;
     v = v * 3.6;
     for(unsigned int i=0; i<27; ++i) {
-		double crc_low = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.8);
+		double crc_low = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.8)// + mySurfaceCorrection[i];
         double ctc_low = alphaT[i] + betaT[i]*((v-70.)/70.) + a*ac + 10.*log10(.2);
-        double Li_low = (10. * log10( pow(10., (crc_low/10.)) + pow(10., (ctc_low/10.)) ));
-		double crc_high = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.2);
+        double Li_low = 10. * log10( pow(10., (crc_low/10.)) + pow(10., (ctc_low/10.)) );
+		double crc_high = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.2)// + mySurfaceCorrection[i];
         double ctc_high = alphaT[i] + betaT[i]*((v-70.)/70.) + a*ac + 10.*log10(.8);
-        double Li_high = (10. * log10( pow(10., (crc_high/10.)) + pow(10., (ctc_high/10.)) ));
+        double Li_high = 10. * log10( pow(10., (crc_high/10.)) + pow(10., (ctc_high/10.)) );
         L_low += pow(10., (Li_low+myAOctaveBandCorrection[i])/10.);
         L_high += pow(10., (Li_high+myAOctaveBandCorrection[i])/10.);
     }
     L_low = (10. * log10(L_low));
     L_high = (10. * log10(L_high));
-    SUMOReal v1 =  (SUMOReal) (10. * log10( pow(10., L_low/10.) + pow(10., L_high/10.) ) );
-
-    double L = 0;
-    for(unsigned int i=0; i<27; ++i) {
-		double crc_low = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.8);
-        double ctc_low = alphaT[i] + betaT[i]*((v-70.)/70.) + a*ac + 10.*log10(.2);
-        double Li_low = (10. * log10( pow(10., (crc_low/10.)) + pow(10., (ctc_low/10.)) ));
-		double crc_high = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.2);
-        double ctc_high = alphaT[i] + betaT[i]*((v-70.)/70.) + a*ac + 10.*log10(.8);
-        double Li_high = (10. * log10( pow(10., (crc_high/10.)) + pow(10., (ctc_high/10.)) ));
-        double Lt = (10. * log10( pow(10., (Li_low/10.)) + pow(10., (Li_high/10.)) ));
-        L += pow(10., (Lt+myAOctaveBandCorrection[i])/10.);
-    }
-
-    SUMOReal v2 =  (SUMOReal) (10. * log10(L) );
-    return v2;
+    return (SUMOReal) (10. * log10( pow(10., L_low/10.) + pow(10., L_high/10.) ) );
 }
 
 
