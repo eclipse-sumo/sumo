@@ -29,21 +29,17 @@
 #include <config.h>
 #endif
 
-#include <string>
-#include <vector>
-#include <fx.h>
-#include <FXThread.h>
-#include <utils/gui/windows/GUIAbstractLoadThread.h>
-#include <utils/foxtools/FXThreadEvent.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/foxtools/FXThreadEvent.h>
+#include <utils/common/MsgHandler.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUIEdgeControlBuilder;
-class OptionsCont;
-class GUIVehicleControl;
+class MFXInterThreadEventClient;
+class MFXEventQue;
 class GUINet;
 
 
@@ -53,7 +49,7 @@ class GUINet;
 /**
  * @class GUILoadThread
  */
-class GUILoadThread : public GUIAbstractLoadThread
+class GUILoadThread : public FXSingleEventThread
 {
 public:
     /// constructor
@@ -67,9 +63,15 @@ public:
         the thread ends after the net has been loaded */
     FXint run();
 
+    /// begins the loading of the given file
+    void load(const std::string &file, bool isNet);
+
+    /// Retrieves messages from the loading module
+    void retrieveMessage(const MsgHandler::MsgType type, const std::string &msg);
+
+    const std::string &getFileName() const;
+
 protected:
-    virtual GUIEdgeControlBuilder *buildEdgeBuilder();
-    virtual GUIVehicleControl *buildVehicleControl();
     virtual bool initOptions();
 
 
@@ -80,10 +82,27 @@ protected:
      * application is informed about the loading */
     void submitEndAndCleanup(GUINet *net, SUMOTime simStartTime, SUMOTime simEndTime);
 
+protected:
+    /// the parent window to inform about the loading
+    MFXInterThreadEventClient *myParent;
+
+    /// the path to load the simulation from
+    std::string myFile;
+
+    /** @brief The instances of message retriever encapsulations
+        Needed to be deleted from the handler later on */
+    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
+
+    MFXEventQue &myEventQue;
+
+    FXEX::FXThreadEvent &myEventThrow;
+
+    /// Information whether only the network shall be loaded
+    bool myLoadNet;
+
 };
 
 
 #endif
 
 /****************************************************************************/
-

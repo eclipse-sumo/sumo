@@ -69,12 +69,25 @@
 // ===========================================================================
 GUILoadThread::GUILoadThread(MFXInterThreadEventClient *mw,
                              MFXEventQue &eq, FXEX::FXThreadEvent &ev)
-        : GUIAbstractLoadThread(mw, eq, ev)
-{}
+        : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
+        myEventThrow(ev)
+{
+    myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
+            &GUILoadThread::retrieveMessage, MsgHandler::MT_ERROR);
+    myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
+            &GUILoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
+    myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
+            &GUILoadThread::retrieveMessage, MsgHandler::MT_WARNING);
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
+}
 
 
 GUILoadThread::~GUILoadThread()
-{}
+{
+    delete myErrorRetriever;
+    delete myMessageRetriever;
+    delete myWarningRetriever;
+}
 
 
 FXint
@@ -96,7 +109,7 @@ GUILoadThread::run()
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 
     // try to load the given configuration
     if (!initOptions()) {
@@ -117,9 +130,9 @@ GUILoadThread::run()
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
     MSFrame::setMSGlobals(oc);
-    net = new GUINet(buildVehicleControl(), new GUIEventControl(),
+    net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
                      new GUIEventControl(), new GUIEventControl());
-    GUIEdgeControlBuilder *eb = buildEdgeBuilder();
+    GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(gIDStorage);
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, gIDStorage);
@@ -164,22 +177,6 @@ GUILoadThread::run()
 
 
 
-GUIEdgeControlBuilder *
-GUILoadThread::buildEdgeBuilder()
-{
-    return new GUIEdgeControlBuilder(gIDStorage);
-}
-
-
-
-
-GUIVehicleControl*
-GUILoadThread::buildVehicleControl()
-{
-    return new GUIVehicleControl();
-}
-
-
 void
 GUILoadThread::submitEndAndCleanup(GUINet *net,
                                    SUMOTime simStartTime,
@@ -187,7 +184,7 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
 {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
+    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
     GUIEvent *e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile);
@@ -217,6 +214,31 @@ GUILoadThread::initOptions()
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
     }
     return false;
+}
+
+
+void
+GUILoadThread::load(const std::string &file, bool isNet)
+{
+    myFile = file;
+    myLoadNet = isNet;
+    start();
+}
+
+
+void
+GUILoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg)
+{
+    GUIEvent *e = new GUIEvent_Message(type, msg);
+    myEventQue.add(e);
+    myEventThrow.signal();
+}
+
+
+const std::string &
+GUILoadThread::getFileName() const
+{
+    return myFile;
 }
 
 

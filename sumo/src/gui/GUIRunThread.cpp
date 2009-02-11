@@ -74,7 +74,7 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
             &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
             &GUIRunThread::retrieveMessage, MsgHandler::MT_MESSAGE);
-    myWarningRetreiver = new MsgRetrievingFunction<GUIRunThread>(this,
+    myWarningRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
             &GUIRunThread::retrieveMessage, MsgHandler::MT_WARNING);
 }
 
@@ -86,7 +86,7 @@ GUIRunThread::~GUIRunThread()
     deleteSim();
     delete myErrorRetriever;
     delete myMessageRetriever;
-    delete myWarningRetreiver;
+    delete myWarningRetriever;
     // wait for the thread
     while (mySimulationInProgress||myNet!=0);
 }
@@ -103,7 +103,7 @@ GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
     // register message callbacks
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 }
 
 
@@ -295,7 +295,7 @@ GUIRunThread::deleteSim()
     myHalting = true;
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
+    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     //
     mySimulationLock.lock();

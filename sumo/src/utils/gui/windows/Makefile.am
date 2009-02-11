@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libguiutilsWindows.a
 
 libguiutilsWindows_a_SOURCES = \
-GUIAbstractLoadThread.cpp GUIAbstractLoadThread.h \
 GUIAppEnum.h GUIAppGlobals.cpp GUIAppGlobals.h \
 GUIDanielPerspectiveChanger.cpp GUIDanielPerspectiveChanger.h \
 GUIDialog_EditViewport.cpp GUIDialog_EditViewport.h \

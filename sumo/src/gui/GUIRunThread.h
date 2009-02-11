@@ -143,7 +143,7 @@ protected:
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
-    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
+    OutputDevice *myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
     FXRealSpinDial &mySimDelay;
 
