@@ -48,26 +48,25 @@ output:\r{REPLACE \n}
 output:sumo.exe{REPLACE sumo}
 output:\([1-9][0-9]*ms\){REPLACE (TIME)}
 log:\([1-9][0-9]*ms\){REPLACE (TIME)}
-detector:Version
-emissions:Version
-aggregated1:Version
-aggregated15:Version
-aggregated25:Version
-aggregated60:Version
-aggregated300:Version
-aggregated900:Version
-rawdump:Version
-tripinfos:Version
-vtypeprobe:Version
-vehroutes:Version
-tls_state:Version
-tls_switch:Version
-tls_state_switch:Version
-physstates:Version
-c2x_cluster_info:Version
-c2x_saved_info:Version
-c2x_transmitted_info:Version
-c2x_vehicle_in_range:Version
-c2x_saved_info_freq:Version
-c2x_edge_near_info:Version
-
+detector:xml version{->}-->
+emissions:xml version{->}-->
+aggregated1:xml version{->}-->
+aggregated15:xml version{->}-->
+aggregated25:xml version{->}-->
+aggregated60:xml version{->}-->
+aggregated300:xml version{->}-->
+aggregated900:xml version{->}-->
+rawdump:xml version{->}-->
+tripinfos:xml version{->}-->
+vtypeprobe:xml version{->}-->
+vehroutes:xml version{->}-->
+tls_state:xml version{->}-->
+tls_switch:xml version{->}-->
+tls_state_switch:xml version{->}-->
+physstates:xml version{->}-->
+c2x_cluster_info:xml version{->}-->
+c2x_saved_info:xml version{->}-->
+c2x_transmitted_info:xml version{->}-->
+c2x_vehicle_in_range:xml version{->}-->
+c2x_saved_info_freq:xml version{->}-->
+c2x_edge_near_info:xml version{->}-->
