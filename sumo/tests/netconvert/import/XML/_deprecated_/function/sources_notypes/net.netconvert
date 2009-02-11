@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:26:06 by SUMO netconvert Version 0.9.7
+<!-- generated on 02/06/09 10:51:38 by SUMO netconvert Version dev-SVN-r6728
 <configuration>
 
    <input>
@@ -29,13 +29,13 @@
 
    <edge id="1" from="dl" to="dr" priority="2" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" vclasses="" maxspeed="28.00" length="1226.77">486.72,-2.41 500.00,0.00 1700.00,0.00 1713.22,-1.23</lane>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="28.00" length="1207.96">501.50,0.00 1709.46,0.00</lane>
       </lanes>
    </edge>
 
    <edge id="2" from="dr" to="tr" priority="2" type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" vclasses="" maxspeed="28.00" length="270.07">1718.20,1.88 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.07 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1711.36,190.94</lane>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="28.00" length="275.63">1712.82,0.44 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.07 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1711.36,190.94</lane>
       </lanes>
    </edge>
 
@@ -47,22 +47,22 @@
 
    <edge id="4" from="tl" to="dl" priority="2" type="" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" vclasses="" maxspeed="28.00" length="270.07">488.64,190.94 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 481.80,1.88</lane>
+         <lane id="4_0" depart="1" vclasses="" maxspeed="28.00" length="287.35">488.64,190.94 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 498.50,-2.59</lane>
       </lanes>
    </edge>
 
    <edge id="sink" from="dr" to="sink" priority="1" type="" function="normal">
       <lanes>
-         <lane id="sink_0" depart="1" vclasses="" maxspeed="30.00" length="481.34">1718.66,-8.25 2200.00,-8.25</lane>
-         <lane id="sink_1" depart="0" vclasses="" maxspeed="30.00" length="481.34">1718.66,-4.95 2200.00,-4.95</lane>
-         <lane id="sink_2" depart="0" vclasses="" maxspeed="30.00" length="481.34">1718.66,-1.65 2200.00,-1.65</lane>
+         <lane id="sink_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">1700.00,-8.25 2200.00,-8.25</lane>
+         <lane id="sink_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-4.95 2200.00,-4.95</lane>
+         <lane id="sink_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">1700.00,-1.65 2200.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="source" from="source" to="dl" priority="1" type="" function="normal">
       <lanes>
-         <lane id="source_0" depart="1" vclasses="" maxspeed="40.00" length="481.34">0.00,-4.95 481.34,-4.95</lane>
-         <lane id="source_1" depart="0" vclasses="" maxspeed="40.00" length="481.34">0.00,-1.65 481.34,-1.65</lane>
+         <lane id="source_0" depart="1" vclasses="" maxspeed="40.00" length="498.50">0.00,-4.95 498.50,-4.95</lane>
+         <lane id="source_1" depart="0" vclasses="" maxspeed="40.00" length="498.50">0.00,-1.65 498.50,-1.65</lane>
       </lanes>
    </edge>
 
@@ -112,12 +112,12 @@
 
    <junction id="dl" type="priority" x="500.00" y="0.00">
       <inclanes>source_0 source_1 4_0</inclanes>
-      <shape>486.44,-0.83 487.01,-3.98 481.34,-6.55 481.34,-0.05 481.39,0.34 482.22,3.43</shape>
+      <shape>501.50,1.60 501.50,-1.60 498.50,-6.55 498.50,-0.05</shape>
    </junction>
 
    <junction id="dr" type="priority" x="1700.00" y="0.00">
       <inclanes>1_0</inclanes>
-      <shape>1717.78,3.43 1718.61,0.34 1718.66,-0.05 1718.66,-9.85 1713.07,-2.83 1713.37,0.36</shape>
+      <shape>1712.41,1.99 1713.23,-1.10 1709.46,-1.60 1709.46,1.60</shape>
    </junction>
 
    <junction id="sink" type="DEAD_END" x="2200.00" y="0.00">
