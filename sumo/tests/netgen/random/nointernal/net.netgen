@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:24:30 by SUMO netgen Version 0.9.7
+<!-- generated on 02/06/09 10:50:52 by SUMO netgen Version dev-SVN-r6728
 <configuration>
 
    <random_network>
@@ -677,7 +677,7 @@
 
    <edge id="2439" from="617" to="2438" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2439_0" depart="1" vclasses="" maxspeed="13.90" length="107.54">1610.94,2630.52 1706.20,2580.61</lane>
+         <lane id="2439_0" depart="1" vclasses="" maxspeed="13.90" length="108.74">1610.94,2630.52 1707.26,2580.06</lane>
       </lanes>
    </edge>
 
@@ -707,7 +707,7 @@
 
    <edge id="2482" from="2184" to="2481" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2482_0" depart="1" vclasses="" maxspeed="13.90" length="230.14">582.94,979.20 404.49,833.88</lane>
+         <lane id="2482_0" depart="1" vclasses="" maxspeed="13.90" length="228.40">582.94,979.20 405.84,834.97</lane>
       </lanes>
    </edge>
 
@@ -779,7 +779,7 @@
 
    <edge id="2873" from="2411" to="2438" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2873_0" depart="1" vclasses="" maxspeed="13.90" length="193.36">1880.56,2496.90 1707.70,2583.55</lane>
+         <lane id="2873_0" depart="1" vclasses="" maxspeed="13.90" length="191.80">1880.56,2496.90 1709.10,2582.85</lane>
       </lanes>
    </edge>
 
@@ -833,7 +833,7 @@
 
    <edge id="2979" from="2438" to="2978" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2979_0" depart="1" vclasses="" maxspeed="13.90" length="229.58">1708.26,2581.05 1850.25,2761.45</lane>
+         <lane id="2979_0" depart="1" vclasses="" maxspeed="13.90" length="230.78">1707.52,2580.11 1850.25,2761.45</lane>
       </lanes>
    </edge>
 
@@ -863,13 +863,13 @@
 
    <edge id="3119" from="2452" to="3118" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3119_0" depart="1" vclasses="" maxspeed="13.90" length="108.70">479.70,334.54 404.91,413.41</lane>
+         <lane id="3119_0" depart="1" vclasses="" maxspeed="13.90" length="109.90">479.70,334.54 404.08,414.29</lane>
       </lanes>
    </edge>
 
    <edge id="3121" from="2182" to="2481" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3121_0" depart="1" vclasses="" maxspeed="13.90" length="113.38">423.34,720.58 407.15,832.80</lane>
+         <lane id="3121_0" depart="1" vclasses="" maxspeed="13.90" length="114.94">423.34,720.58 406.93,834.34</lane>
       </lanes>
    </edge>
 
@@ -1145,7 +1145,7 @@
 
    <edge id="3769" from="2978" to="3768" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3769_0" depart="1" vclasses="" maxspeed="13.90" length="150.94">1854.58,2761.17 1931.88,2631.52</lane>
+         <lane id="3769_0" depart="1" vclasses="" maxspeed="13.90" length="154.82">1854.58,2761.17 1933.86,2628.19</lane>
       </lanes>
    </edge>
 
@@ -1163,7 +1163,7 @@
 
    <edge id="3779" from="3090" to="2481" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3779_0" depart="1" vclasses="" maxspeed="13.90" length="230.08">213.78,705.40 406.42,831.20</lane>
+         <lane id="3779_0" depart="1" vclasses="" maxspeed="13.90" length="197.23">213.78,705.40 378.92,813.24</lane>
       </lanes>
    </edge>
 
@@ -1175,7 +1175,7 @@
 
    <edge id="379" from="343" to="378" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="379_0" depart="1" vclasses="" maxspeed="13.90" length="168.53">1870.81,2049.70 1921.91,1889.10</lane>
+         <lane id="379_0" depart="1" vclasses="" maxspeed="13.90" length="225.67">1870.81,2049.70 1939.24,1834.65</lane>
       </lanes>
    </edge>
 
@@ -1193,7 +1193,7 @@
 
    <edge id="3800" from="2170" to="3118" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3800_0" depart="1" vclasses="" maxspeed="13.90" length="202.45">260.97,555.85 402.53,411.12</lane>
+         <lane id="3800_0" depart="1" vclasses="" maxspeed="13.90" length="200.89">260.97,555.85 401.44,412.24</lane>
       </lanes>
    </edge>
 
@@ -1211,7 +1211,7 @@
 
    <edge id="3814" from="3118" to="3813" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3814_0" depart="1" vclasses="" maxspeed="13.90" length="111.54">402.79,413.65 309.27,352.86</lane>
+         <lane id="3814_0" depart="1" vclasses="" maxspeed="13.90" length="112.77">403.83,414.32 309.27,352.86</lane>
       </lanes>
    </edge>
 
@@ -1325,7 +1325,7 @@
 
    <edge id="4257" from="3610" to="3768" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4257_0" depart="1" vclasses="" maxspeed="13.90" length="108.75">1993.94,2538.94 1936.08,2631.03</lane>
+         <lane id="4257_0" depart="1" vclasses="" maxspeed="13.90" length="108.42">1993.94,2538.94 1936.26,2630.75</lane>
       </lanes>
    </edge>
 
@@ -1391,7 +1391,7 @@
 
    <edge id="4539" from="3768" to="4538" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4539_0" depart="1" vclasses="" maxspeed="13.90" length="135.05">1935.91,2634.01 1994.35,2755.77</lane>
+         <lane id="4539_0" depart="1" vclasses="" maxspeed="13.90" length="136.14">1935.44,2633.03 1994.35,2755.77</lane>
       </lanes>
    </edge>
 
@@ -1403,7 +1403,7 @@
 
    <edge id="492" from="360" to="378" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="492_0" depart="1" vclasses="" maxspeed="13.90" length="229.36">1982.24,1667.89 1925.08,1890.01</lane>
+         <lane id="492_0" depart="1" vclasses="" maxspeed="13.90" length="169.13">1982.24,1667.89 1940.09,1831.68</lane>
       </lanes>
    </edge>
 
@@ -1457,7 +1457,7 @@
 
    <edge id="570" from="378" to="124" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="570_0" depart="1" vclasses="" maxspeed="13.90" length="146.52">1924.14,1891.12 1790.48,1951.14</lane>
+         <lane id="570_0" depart="1" vclasses="" maxspeed="13.90" length="146.60">1924.22,1891.08 1790.48,1951.14</lane>
       </lanes>
    </edge>
 
@@ -3531,7 +3531,7 @@
 
    <junction id="2438" type="priority" x="1706.96" y="2582.08">
       <inclanes>2873_0 2439_0</inclanes>
-      <shape>1707.00,2582.04 1709.52,2580.07 1705.45,2579.20 1706.94,2582.03 1708.42,2584.98 1706.98,2582.12</shape>
+      <shape>1706.26,2581.10 1708.77,2579.12 1706.52,2578.64 1708.00,2581.47 1709.81,2584.28 1708.38,2581.42</shape>
    </junction>
 
    <junction id="2452" type="priority" x="482.38" y="329.32">
@@ -3546,7 +3546,7 @@
 
    <junction id="2481" type="DEAD_END" x="405.51" y="832.58">
       <inclanes>2482_0 3121_0 3779_0</inclanes>
-      <shape>407.29,829.86 405.54,832.54 408.73,833.05 405.56,832.59 403.46,835.10 405.48,832.62</shape>
+      <shape>379.79,811.90 378.04,814.58 408.40,835.34 405.23,834.89 380.19,816.15 382.21,813.67</shape>
    </junction>
 
    <junction id="2485" type="DEAD_END" x="621.14" y="813.30">
@@ -3646,7 +3646,7 @@
 
    <junction id="3118" type="priority" x="403.71" y="412.28">
       <inclanes>3119_0 3800_0</inclanes>
-      <shape>401.39,410.01 403.68,412.24 401.94,415.00 406.07,414.51 403.75,412.31</shape>
+      <shape>400.30,411.12 402.59,413.36 404.70,412.98 402.95,415.66 405.24,415.39 402.92,413.19</shape>
    </junction>
 
    <junction id="3130" type="priority" x="2012.64" y="284.02">
@@ -3811,12 +3811,12 @@
 
    <junction id="3768" type="priority" x="1933.29" y="2632.37">
       <inclanes>4257_0 3769_0</inclanes>
-      <shape>1933.34,2632.35 1936.22,2630.96 1930.50,2630.70 1933.25,2632.34 1936.05,2634.10 1933.34,2632.39</shape>
+      <shape>1934.00,2633.72 1936.88,2632.34 1932.84,2626.79 1935.58,2628.43 1936.86,2632.80 1934.15,2631.10</shape>
    </junction>
 
    <junction id="378" type="priority" x="1923.48" y="1889.60">
       <inclanes>492_0 379_0</inclanes>
-      <shape>1920.39,1888.62 1923.44,1889.59 1924.81,1892.57 1926.63,1890.41 1923.53,1889.62</shape>
+      <shape>1937.71,1834.17 1940.76,1835.14 1923.56,1889.62 1924.87,1892.54 1941.64,1832.08 1938.54,1831.28</shape>
    </junction>
 
    <junction id="3786" type="DEAD_END" x="232.44" y="929.60">
