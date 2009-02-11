@@ -251,6 +251,12 @@ MSFrame::fillOptions()
     oc.doRegister("log-file", 'l', new Option_FileName());
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");
 
+    oc.doRegister("message-log", new Option_FileName());
+    oc.addDescription("message-log", "Report", "Writes all non-error messages to FILE");
+
+    oc.doRegister("error-log", new Option_FileName());
+    oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");
+
 
     // TraCI server
 #ifndef NO_TRACI

@@ -132,8 +132,7 @@ GUILoadThread::run()
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
         if (!builder.build()) {
-            delete net;
-            net = 0;
+            throw ProcessError();
         } else {
             net->initGUIStructures();
             simStartTime = oc.getInt("begin");
@@ -145,20 +144,18 @@ GUILoadThread::run()
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         delete net;
-        MSNet::clearAll();
         net = 0;
-        MsgHandler::cleanupOnEnd();
 #ifndef _DEBUG
     } catch (std::exception &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         delete net;
-        MSNet::clearAll();
         net = 0;
-        MsgHandler::cleanupOnEnd();
 #endif
     }
     if (net==0) {
         MSNet::clearAll();
+        OutputDevice::closeAll();
+        MsgHandler::cleanupOnEnd();
     }
     delete eb;
     submitEndAndCleanup(net, simStartTime, simEndTime);
