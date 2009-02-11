@@ -58,6 +58,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/windows/GUIVisualizationSettings.h>
 #include <fxkeys.h>
+#include <utils/foxtools/MFXImageHelper.h>
 
 #include <guisim/GUINet.h>
 #include <microsim/MSNet.h>
@@ -1023,6 +1024,33 @@ FXComboBox &
 GUISUMOAbstractView::getColoringSchemesCombo()
 {
     return myParent->getColoringSchemesCombo();
+}
+
+
+void 
+GUISUMOAbstractView::drawDecals() throw()
+{
+        glPolygonOffset(0, 10);
+        myDecalsLock.lock();
+        for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
+            GUISUMOAbstractView::Decal &d = *l;
+            if (!d.initialised) {
+                FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
+                if (i!=0) {
+                    d.glID = GUITexturesHelper::add(i);
+                    d.initialised = true;
+                }
+            }
+            glPushMatrix();
+            glTranslated(d.centerX, d.centerY, 0);
+            glRotated(d.rot, 0, 0, 1);
+            glColor3d(1,1,1);
+            SUMOReal halfWidth(d.width / 2.);
+            SUMOReal halfHeight(d.height / 2.);
+            GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
+            glPopMatrix();
+        }
+        myDecalsLock.unlock();
 }
 
 

@@ -315,6 +315,11 @@ protected:
     void showToolTipFor(unsigned int id);
 
 protected:
+    /** @brief Draws the stored decals
+     */
+    void drawDecals() throw();
+
+protected:
     double myX1, myY1;
     double myCX, myCY;
 
@@ -372,8 +377,15 @@ protected:
     GUIDialog_EditViewport *myViewportChooser;
     GUIDialog_ViewSettings *myVisualizationChanger;
 
+    /// @name Optionally shown decals
+    /// @{
+
+    /// @brief The list of decals to show
     std::vector<Decal> myDecals;
+
+    /// @brief The mutex to use before accessing the decals list in order to avoid thread conficts
     MFXMutex myDecalsLock;
+    /// @}
 
     mutable MFXMutex myPolyDrawLock;
 
