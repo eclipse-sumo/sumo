@@ -49,13 +49,11 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSVehicle;
 class GUINet;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
-class GUIEdge;
-class GUIPerspectiveChanger;
+class PointOfInterest;
 
 
 // ===========================================================================

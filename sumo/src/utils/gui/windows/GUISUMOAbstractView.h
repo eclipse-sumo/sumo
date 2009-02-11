@@ -52,20 +52,12 @@
 // class declarations
 // ===========================================================================
 class GUIGLObjectToolTip;
-class MSVehicle;
-class GUINet;
 class GUIGlChildWindow;
 class GUIVehicle;
-class GUILaneWrapper;
 class GUIPerspectiveChanger;
 class GUIMainWindow;
-class GUIJunctionWrapper;
-class GUIDetectorWrapper;
 class GUIGLObjectPopupMenu;
 class GUIGlObject;
-class GUIGlObjectStorage;
-class PointOfInterest;
-class ShapeContainer;
 class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
 struct GUIVisualizationSettings;
@@ -143,7 +135,6 @@ public:
     /// returns true, if the edit button was pressed
     bool isInEditMode();
 
-    //GUINet &getNet() const;
 
 
     long onConfigure(FXObject*,FXSelector,void*);
