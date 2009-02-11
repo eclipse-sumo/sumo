@@ -1939,16 +1939,13 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge)
     if (isOnRoad() && destEdge != NULL) {
         if (myLane->getEdge() == (*myCurrEdge)) {
             // vehicle is on a normal edge
-            distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos,
-                                                   *myCurrEdge, destEdge);
+            distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos, *myCurrEdge, destEdge);
         } else {
             // vehicle is on inner junction edge
             distance = myLane->length() - getPositionOnLane();
-            distance += myRoute->getDistanceBetween(0, destPos,
-                                                    *(myCurrEdge+1), destEdge);
+            distance += myRoute->getDistanceBetween(0, destPos, *(myCurrEdge+1), destEdge);
         }
     }
-
     return distance;
 }
 
@@ -1975,7 +1972,6 @@ MSVehicle::checkReroute(SUMOTime t)
     // TODO: [sommerc] add nicer check for a vehicle being on an internal lane?
     if (myLane && (myLane->getID()[0] == ':')) return;
 #endif
-
     if (myWeightChangedViaTraci && myHaveRouteInfo && myStops.size()==0) {
         myHaveRouteInfo = false;
         SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> >
@@ -1990,13 +1986,10 @@ MSVehicle::changeEdgeWeightLocally(std::string edgeID, SUMOReal travelTime, SUMO
     MSEdge* edgeToChange = MSEdge::dictionary(edgeID);
     SUMOReal oldNeededTime = -1;
     SUMOTime oldTime = -1;
-
     if (edgeToChange == NULL || travelTime <= 0) {
         return false;
     }
-
     InfoCont::iterator infoToChange = infoCont.find(edgeToChange);
-
     if (infoToChange == infoCont.end()) {
         // if the edge is not already stored in infoCont, create a new key
         infoCont[edgeToChange] = new Information(travelTime, currentTime);
@@ -2015,15 +2008,12 @@ MSVehicle::changeEdgeWeightLocally(std::string edgeID, SUMOReal travelTime, SUMO
     if (iter == edgesChangedByTraci.end()) {
         edgesChangedByTraci[edgeToChange] = new Information(oldNeededTime, oldTime);
     }
-
     myWeightChangedViaTraci = true;
-
     // if the edge is on the vehicle's route, mark that a relevant information has been added
     bool bWillPass = willPass(edgeToChange);
     if (bWillPass) {
         myHaveRouteInfo = true;
     }
-
     return true;
 }
 
@@ -2032,13 +2022,10 @@ bool
 MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
 {
     MSEdge *edgeToRestore = MSEdge::dictionary(edgeID);
-
     if (edgeToRestore == NULL) {
         return false;
     }
-
     InfoCont::iterator infoToRestore;
-
     if (edgesChangedByTraci.end() != (infoToRestore = edgesChangedByTraci.find(edgeToRestore))) {
         if (infoToRestore->second->time == -1) {
 
@@ -2056,7 +2043,6 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
     } else {
         return false;
     }
-
     return true;
 }
 
@@ -2067,14 +2053,11 @@ MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime curren
     if (newSpeed < 0 || duration <= 0/* || newSpeed >= getSpeed()*/) {
         return false;
     }
-
     speedBeforeAdaption = getSpeed();
     timeBeforeAdaption = currentTime;
     adaptDuration = duration;
     speedReduction = MAX2((SUMOReal) 0.0f, (SUMOReal)(speedBeforeAdaption - newSpeed));
-
     adaptingSpeed = true;
-
     return true;
 }
 
@@ -2084,18 +2067,15 @@ MSVehicle::adaptSpeed()
 {
     SUMOReal maxSpeed = 0;
     SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-
     if (!adaptingSpeed) {
         return;
     }
-
     if (isLastAdaption) {
         unsetIndividualMaxSpeed();
         adaptingSpeed = false;
         isLastAdaption = false;
         return;
     }
-
     if (currentTime <= timeBeforeAdaption + adaptDuration) {
         maxSpeed = speedBeforeAdaption - (speedReduction / adaptDuration)
                    * (currentTime - timeBeforeAdaption);
@@ -2103,7 +2083,6 @@ MSVehicle::adaptSpeed()
         maxSpeed = speedBeforeAdaption - speedReduction;
         isLastAdaption = true;
     }
-
     setIndividualMaxSpeed(maxSpeed);
 }
 
@@ -2114,11 +2093,8 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time)
     if (!laneChangeConstraintActive) {
         return;
     }
-
     if ((time - timeBeforeLaneChange) >= laneChangeStickyTime) {
-        //myLaneChangeModel->setTraciState(0);
         laneChangeConstraintActive = false;
-//		std::cerr << "TraCi: lane change constraint reset at " << time << std::endl;
     }
 }
 
@@ -2126,7 +2102,6 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time)
 void
 MSVehicle::startLaneChange(unsigned lane, SUMOTime stickyTime)
 {
-    //std::cerr << "TraCI: init lane change to lane " << lane << " for " << stickyTime << "s" << " | node: " << myID << std::endl;
     if (lane < 0) {
         return;
     }
@@ -2134,7 +2109,6 @@ MSVehicle::startLaneChange(unsigned lane, SUMOTime stickyTime)
     laneChangeStickyTime = stickyTime;
     myDestinationLane = lane;
     laneChangeConstraintActive = true;
-
     checkForLaneChanges();
 }
 
@@ -2144,34 +2118,23 @@ MSVehicle::checkForLaneChanges()
 {
     MSLane* tmpLane;
     unsigned currentLaneIndex = 0;
-
     if (!laneChangeConstraintActive) {
         myLaneChangeModel->requestLaneChange(REQUEST_NONE);
         return;
     }
     if ((*myCurrEdge)->nLanes() <= myDestinationLane) {
         laneChangeConstraintActive = false;
-        //std::cerr << "TraCI: " << "aborting lane change, lane does not exist" << " |node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep() << std::endl;
         return;
     }
-
     tmpLane = myLane;
     while ((tmpLane =tmpLane->getRightLane()) != NULL) {
         currentLaneIndex++;
     }
-
-//	std:cerr << "TraCI: currentLaneIndex=" << currentLaneIndex <<", destLane=" << myDestinationLane << " myLane=" << myLane->getID() << std::endl;
-
     if (currentLaneIndex > myDestinationLane) {
         myLaneChangeModel->requestLaneChange(REQUEST_RIGHT);
-        //std::cerr << "TraCI: " << "requesting lane change to right " << " | node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep()  << std::endl;
-    }
-    if (currentLaneIndex < myDestinationLane) {
+    } else if (currentLaneIndex < myDestinationLane) {
         myLaneChangeModel->requestLaneChange(REQUEST_LEFT);
-        //std::cerr << "TraCI: " << "requesting lane change to left " << " | node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep()  << std::endl;
-    }
-    if (currentLaneIndex == myDestinationLane) {
-//		std::cerr << "TraCI: holding lane" << std::endl;
+    } else {
         myLaneChangeModel->requestLaneChange(REQUEST_HOLD);
     }
 }
@@ -2182,10 +2145,8 @@ MSVehicle::processTraCICommands(SUMOTime time)
 {
     // try to reroute in case of previous "changeRoute" messages
     checkReroute(time);
-
     // check for applied lane changing constraints
     checkLaneChangeConstraint(time);
-
     // change speed in case of previous "slowDown" command
     adaptSpeed();
 }
@@ -2209,14 +2170,11 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
     Stop newStop;
     newStop.lane = lane;
     newStop.pos = pos;
-    /*newStop.radius = radius;*/
     newStop.duration = duration;
     newStop.until = -1;
     newStop.reached = false;
     newStop.busstop = MSNet::getInstance()->getBusStop(lane, pos);
     return addStop(newStop);
-    /*std::cerr << "added tracistop:  lane " << newStop.lane->getID() << "  pos " << newStop.pos << "  duration "
-    		<< newStop.duration  <<  std::endl;*/
 }
 
 
