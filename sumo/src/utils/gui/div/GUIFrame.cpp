@@ -54,9 +54,6 @@ GUIFrame::fillInitOptions()
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
 
-    oc.doRegister("suppress-end-info", 'S', new Option_Bool(false));
-    oc.addDescription("suppress-end-info", "Process", "Suppresses the information about the simulation's end");
-
     oc.doRegister("no-start", 'N', new Option_Bool(false));
     oc.addDescription("no-start", "Process", "Does not start the simulation after loading");
 

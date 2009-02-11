@@ -44,12 +44,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // global variable definitions
 // ===========================================================================
 bool gSuppressWarnings = false;
@@ -63,7 +57,6 @@ MsgHandler *MsgHandler::myErrorInstance = 0;
 MsgHandler *MsgHandler::myWarningInstance = 0;
 MsgHandler *MsgHandler::myMessageInstance = 0;
 bool MsgHandler::myAmProcessingProcess = false;
-OutputDevice *MsgHandler::myLogFile = 0;
 AbstractMutex *MsgHandler::myLock = 0;
 
 
@@ -101,25 +94,25 @@ MsgHandler::getErrorInstance()
 
 
 void
-MsgHandler::inform(string msg, bool addType)
+MsgHandler::inform(std::string msg, bool addType)
 {
     if (myLock!=0) {
         myLock->lock();
     }
     msg = build(msg, addType);
-    // report to cout if wished
+    // report to std::cout if wished
     if (myReport2COUT) {
         if (myAmProcessingProcess) {
-            cout << endl;
+            std::cout << std::endl;
         }
-        cout << msg << endl;
+        std::cout << msg << std::endl;
     }
-    // report to cerr if wished
+    // report to std::cerr if wished
     if (myReport2CERR) {
         if (myAmProcessingProcess) {
-            cerr << endl;
+            std::cerr << std::endl;
         }
-        cerr << msg << endl;
+        std::cerr << msg << std::endl;
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
@@ -135,25 +128,25 @@ MsgHandler::inform(string msg, bool addType)
 
 
 void
-MsgHandler::progressMsg(string msg, bool addType)
+MsgHandler::progressMsg(std::string msg, bool addType)
 {
     if (myLock!=0) {
         myLock->lock();
     }
     msg = build(msg, addType);
-    // report to cout if wished
+    // report to std::cout if wished
     if (myReport2COUT) {
         if (myAmProcessingProcess) {
-            cout << endl;
+            std::cout << std::endl;
         }
-        cout << msg << (char) 13;
+        std::cout << msg << (char) 13;
     }
-    // report to cerr if wished
+    // report to std::cerr if wished
     if (myReport2CERR) {
         if (myAmProcessingProcess) {
-            cout << endl;
+            std::cerr << std::endl;
         }
-        cerr << msg << (char) 13;
+        std::cerr << msg << (char) 13;
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
@@ -175,25 +168,23 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType)
         myLock->lock();
     }
     msg = build(msg, addType);
-    // report to cout if wished
+    // report to std::cout if wished
     if (myReport2COUT) {
-        cout << msg << ' ';
-        cout.flush();
-        myAmProcessingProcess = true;
+        std::cout << msg << ' ';
+        std::cout.flush();
     }
-    // report to cerr if wished
+    // report to std::cerr if wished
     if (myReport2CERR) {
-        cerr << msg << ' ';
-        cerr.flush();
-        myAmProcessingProcess = true;
+        std::cerr << msg << ' ';
+        std::cerr.flush();
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
         (*i)->inform(msg + " ");
-        myAmProcessingProcess = true;
     }
     // set the information that something occured
     myWasInformed = true;
+    myAmProcessingProcess = true;
     if (myLock!=0) {
         myLock->unlock();
     }
@@ -206,23 +197,21 @@ MsgHandler::endProcessMsg(std::string msg)
     if (myLock!=0) {
         myLock->lock();
     }
-    // report to cout if wished
+    // report to std::cout if wished
     if (myReport2COUT) {
-        cout << msg << endl;
-        myAmProcessingProcess = false;
+        std::cout << msg << std::endl;
     }
-    // report to cerr if wished
+    // report to std::cerr if wished
     if (myReport2CERR) {
-        cerr << msg << endl;
-        myAmProcessingProcess = false;
+        std::cerr << msg << std::endl;
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
         (*i)->inform(msg);
-        myAmProcessingProcess = false;
     }
     // set the information that something occured
     myWasInformed = true;
+    myAmProcessingProcess = false;
     if (myLock!=0) {
         myLock->unlock();
     }
@@ -306,7 +295,7 @@ MsgHandler::report2cout(bool value)
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
     }
-    cout.setf(ios::fixed ,ios::floatfield);
+    std::cout.setf(std::ios::fixed, std::ios::floatfield);
     if (myLock!=0) {
         myLock->unlock();
     }
@@ -327,7 +316,7 @@ MsgHandler::report2cerr(bool value)
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
     }
-    cerr.setf(ios::fixed ,ios::floatfield);
+    std::cerr.setf(std::ios::fixed, std::ios::floatfield);
     if (myLock!=0) {
         myLock->unlock();
     }
@@ -343,13 +332,29 @@ MsgHandler::initOutputOptions(bool gui)
     // build the logger if possible
     if (oc.isSet("log-file")) {
         try {
-            myLogFile = &OutputDevice::getDevice(oc.getString("log-file"));
-            getErrorInstance()->addRetriever(myLogFile);
-            getWarningInstance()->addRetriever(myLogFile);
-            getMessageInstance()->addRetriever(myLogFile);
+            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("log-file"));
+            getErrorInstance()->addRetriever(logFile);
+            getWarningInstance()->addRetriever(logFile);
+            getMessageInstance()->addRetriever(logFile);
         } catch (IOError &) {
-            myLogFile = 0;
             throw ProcessError("Could not build logging file '" + oc.getString("log-file") + "'");
+        }
+    }
+    if (oc.isSet("message-log")) {
+        try {
+            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("message-log"));
+            getMessageInstance()->addRetriever(logFile);
+        } catch (IOError &) {
+            throw ProcessError("Could not build logging file '" + oc.getString("message-log") + "'");
+        }
+    }
+    if (oc.isSet("error-log")) {
+        try {
+            OutputDevice *logFile = &OutputDevice::getDevice(oc.getString("error-log"));
+            getErrorInstance()->addRetriever(logFile);
+            getWarningInstance()->addRetriever(logFile);
+        } catch (IOError &) {
+            throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");
         }
     }
 }
@@ -361,7 +366,6 @@ MsgHandler::cleanupOnEnd()
     if (myLock!=0) {
         myLock->lock();
     }
-    myLogFile = 0;
     delete myMessageInstance;
     myMessageInstance = 0;
     delete myWarningInstance;

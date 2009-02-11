@@ -188,10 +188,6 @@ private:
     /// Information whether a process information is printed to cout
     static bool myAmProcessingProcess;
 
-    /** Static storage for the logging file used
-        A separate storage is needed to delete the log file at application closing */
-    static OutputDevice *myLogFile;
-
     /** @brief The lock if any has to be used
         The lock will not be deleted */
     static AbstractMutex *myLock;
