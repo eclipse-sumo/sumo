@@ -271,7 +271,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
 
     return matrixPshort, begintime, assignPeriod
     
-def main():
+def main(options):
     parser = make_parser()
     dataDir = options.datadir
     districts = os.path.join(dataDir, options.districtfile)
@@ -337,27 +337,28 @@ def main():
     fouttrips.close()
     
     print 'trips are generated!'
+
+if __name__ == "__main__":    
+    optParser = OptionParser()
+    optParser.add_option("-r", "--data-dir", dest="datadir",
+                         default= os.getcwd(), help="give the data directory path")
+    optParser.add_option("-n", "--net-file", dest="netfile",
+                         help="define the net file")
+    optParser.add_option("-m", "--matrix-file", dest="mtxfile",
+                         help="define the matrix file")
+    optParser.add_option("-d", "--districts-file", dest="districtfile",
+                         help="define the district file")
+    optParser.add_option("-o", "--trip-file", dest="tripfile",
+                         default= "trips.trips.xml", help="define the output trip filename")                     
+    optParser.add_option("-b", "--debug", action="store_true", dest="debug",
+                         default=False, help="debug the program")
+    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                         default=False, help="tell me what you are doing")
+                                        
+    (options, args) = optParser.parse_args()
     
-optParser = OptionParser()
-optParser.add_option("-r", "--data-dir", dest="datadir",
-                     default= os.getcwd(), help="give the data directory path")
-optParser.add_option("-n", "--net-file", dest="netfile",
-                     help="define the net file")
-optParser.add_option("-m", "--matrix-file", dest="mtxfile",
-                     help="define the matrix file")
-optParser.add_option("-d", "--districts-file", dest="districtfile",
-                     help="define the district file")
-optParser.add_option("-o", "--trip-file", dest="tripfile",
-                     default= "trips.trips.xml", help="define the output trip filename")                     
-optParser.add_option("-b", "--debug", action="store_true", dest="debug",
-                     default=False, help="debug the program")
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-                                    
-(options, args) = optParser.parse_args()
-
-if not options.netfile or not options.mtxfile or not options.districtfile:
-    optParser.print_help()
-    sys.exit()
-
-main()
+    if not options.netfile or not options.mtxfile or not options.districtfile:
+        optParser.print_help()
+        sys.exit()
+    
+    main(options)
