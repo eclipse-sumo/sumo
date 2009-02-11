@@ -229,11 +229,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
         l.speed = mySpeed;
         myLanes.push_back(l);
     }
-    try {
-        computeLaneShapes();
-    } catch (InvalidArgument &ia) {
-        throw ProcessError(string(ia.what()) + " in edge " + myID + ".");
-    }
+    computeLaneShapes();
 }
 
 
@@ -719,7 +715,7 @@ NBEdge::getLaneSpeed(unsigned int lane) const
 
 
 void
-NBEdge::computeLaneShapes() throw(InvalidArgument)
+NBEdge::computeLaneShapes() throw()
 {
     // vissim needs this
     if (myFrom==myTo) {
@@ -727,7 +723,11 @@ NBEdge::computeLaneShapes() throw(InvalidArgument)
     }
     // build the shape of each lane
     for (size_t i=0; i<myLanes.size(); i++) {
-        myLanes[i].shape = computeLaneShape(i);
+        try {
+            myLanes[i].shape = computeLaneShape(i);
+        } catch(InvalidArgument &) {
+            MsgHandler::getErrorInstance()->inform("In edge '" + getID() + "': lane shape could not been determined");
+        }
     }
 }
 

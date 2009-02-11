@@ -59,9 +59,6 @@ public:
     Position2DVector compute();
 
 private:
-    /// Adds internal geometry information
-    void addInternalGeometry();
-
     Position2DVector computeContinuationNodeShape(bool simpleContinuation);
 
     /** @brief Computes the node geometry using normals

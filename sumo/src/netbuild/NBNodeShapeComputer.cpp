@@ -83,9 +83,6 @@ NBNodeShapeComputer::compute()
     bool simpleContinuation = myNode.isSimpleContinuation();
     ret = computeContinuationNodeShape(simpleContinuation);
     // add the geometry of internal lanes
-    if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-        addInternalGeometry();
-    }
     if (ret.size()<3) {
         ret = computeNodeShapeByCrosses();
     }
@@ -98,13 +95,6 @@ NBNodeShapeComputer::compute()
         }
     }
     return ret;
-}
-
-
-void
-NBNodeShapeComputer::addInternalGeometry()
-{
-    // !!!
 }
 
 
@@ -184,11 +174,7 @@ NBNodeShapeComputer::replaceFirstChecking(Position2DVector &g, bool decenter,
     if (decenter) {
         Line2D l(g[0], g[1]);
         SUMOReal factor = laneDiff%2!=0 ? SUMO_const_halfLaneAndOffset : SUMO_const_laneWidthAndOffset;
-        /*
-            SUMO_const_laneWidthAndOffset * (SUMOReal) (counterLanes-1)
-            + SUMO_const_halfLaneAndOffset * (SUMOReal) (counterLanes%2);
-            */
-        l.move2side(-factor);//SUMO_const_laneWidthAndOffset);
+        l.move2side(-factor);
         g.replaceAt(0, l.p1());
     }
 }
@@ -202,7 +188,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     if (myNode.myAllEdges.size()<2) {
         return Position2DVector();
     }
-
     // initialise
     EdgeVector::const_iterator i;
     // edges located in the value-vector have the same direction as the key edge
@@ -218,18 +203,14 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
         cwBoundary[*i] = *i;
         ccwBoundary[*i] = *i;
     }
-
     // check which edges are parallel
     joinSameDirectionEdges(same, geomsCCW, geomsCW);
-
     // compute unique direction list
     std::vector<NBEdge*> newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW, ccwBoundary, cwBoundary);
-
     // if we have only two "directions", let's not compute the geometry using this method
     if (newAll.size()<2) {
         return Position2DVector();
     }
-
     // combine all geoms
     std::map<NBEdge*, bool> myExtended;
     std::map<NBEdge*, SUMOReal> distances;
@@ -333,14 +314,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
 
         } else {
-            if (ccad>(90.+70.)/180.*pi&&cad>(90.+70.)/180.*PI&&*ccwi!=*cwi/*&&cwBoundary[*i]==ccwBoundary[*i]*/) {
-                // ok, in this case we have a street which is opposite to at least
-                //  two edges which have a very similar angle
-                // let's skip the computation for now, because we want the current
-                //  edge to be almost at these edges' crossing point and maybe
-                //  one of the edges' crossings is not yet computed...
-                continue;
-            } else {
                 if (ccad<cad) {
                     if (!simpleContinuation) {
                         if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
@@ -402,7 +375,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                         }
                     }
                 }
-            }
         }
     }
 
@@ -663,7 +635,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge
             tmp = geomsCW[*j].lineAt(0);
             tmp.extrapolateBy(100);
             geomsCW[*j].replaceAt(0, tmp.p1());
-            if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())<1) {
+            if (fabs(l1.atan2DegreeAngle()-l2.atan2DegreeAngle())<20) {
                 if (same.find(*i)==same.end()) {
                     same[*i] = std::vector<NBEdge*>();
                 }

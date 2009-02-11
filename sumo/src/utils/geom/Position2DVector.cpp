@@ -881,8 +881,7 @@ Position2DVector::move2side(SUMOReal amount, int index)
         if (l1.intersects(l2)) {
             myCont[index] = l1.intersectsAt(l2);
         } else {
-            // !!! should never happen
-            //   throw 1;
+            throw InvalidArgument("no line intersection");
         }
     }
 
@@ -933,8 +932,7 @@ Position2DVector::move2side(SUMOReal amount)
                     // (methode umbenennen; was heisst hier "-")
                     l1.intersectsAt(l2));
             } else {
-                // !!! should never happen
-                //   throw 1;
+                throw InvalidArgument("no line intersection");
             }
         }
     }

@@ -746,7 +746,7 @@ private:
     std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
             const Position2D &to, SUMOReal lanewidth, size_t lane) throw(InvalidArgument);
 
-    void computeLaneShapes() throw(InvalidArgument);
+    void computeLaneShapes() throw();
 
     bool splitGeometry(NBEdgeCont &ec, NBNodeCont &nc);
 protected:

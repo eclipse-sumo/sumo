@@ -1288,8 +1288,12 @@ NBNode::computeNodeShape()
     if (myIncomingEdges->size()==0&&myOutgoingEdges->size()==0) {
         return;
     }
-    NBNodeShapeComputer computer(*this);
-    myPoly = computer.compute();
+    try {
+        NBNodeShapeComputer computer(*this);
+        myPoly = computer.compute();
+    } catch (InvalidArgument &) {
+        MsgHandler::getErrorInstance()->inform("For node '" + getID() + "': could not compute shape.");
+    }
 }
 
 
