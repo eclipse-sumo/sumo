@@ -85,7 +85,8 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
     new FXMenuSeparator(ret);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret, false);
+    buildSelectionPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

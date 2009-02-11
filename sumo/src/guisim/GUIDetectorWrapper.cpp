@@ -69,7 +69,8 @@ GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
-    buildShowParamsPopupEntry(ret, false);
+    buildShowParamsPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

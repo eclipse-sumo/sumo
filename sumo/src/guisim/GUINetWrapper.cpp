@@ -76,7 +76,8 @@ GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
-    buildShowParamsPopupEntry(ret, false);
+    buildShowParamsPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

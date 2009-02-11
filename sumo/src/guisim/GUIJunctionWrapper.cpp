@@ -81,6 +81,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

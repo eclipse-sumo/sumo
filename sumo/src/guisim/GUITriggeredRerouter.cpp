@@ -288,8 +288,8 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
     buildCenterPopupEntry(ret);
     buildShowManipulatorPopupEntry(ret, false);
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret, false);
-    //(nothing to show, see below) buildShowParamsPopupEntry(ret, false);
+    buildSelectionPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

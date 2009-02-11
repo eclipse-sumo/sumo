@@ -394,7 +394,7 @@ GUIEmitter::getPopUpMenu(GUIMainWindow &app,
     //
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
-    //(nothing to show, see below) buildShowParamsPopupEntry(ret, false);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

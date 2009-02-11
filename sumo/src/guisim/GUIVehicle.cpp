@@ -274,7 +274,8 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
     }
     new FXMenuSeparator(ret);
     //
-    buildShowParamsPopupEntry(ret, false);
+    buildShowParamsPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

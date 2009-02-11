@@ -181,12 +181,13 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw()
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret, true);
+    buildSelectionPopupEntry(ret);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        buildShowParamsPopupEntry(ret, false);
+        buildShowParamsPopupEntry(ret);
     }
 #endif
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

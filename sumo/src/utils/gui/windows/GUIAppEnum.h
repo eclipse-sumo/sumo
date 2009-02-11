@@ -192,15 +192,17 @@ enum {
     /// @name Object PopUp Entries - IDs
     //@{
 
-    /// Center view to object - menu entry
+    /// Center view to object - popup entry
     MID_CENTER,
-    /// Center view to object - menu entry
+    /// Copy object name - popup entry
     MID_COPY_NAME,
-    /// Center View to object - menu entry
+    /// Copy typed object name - popup entry
     MID_COPY_TYPED_NAME,
-    /// Show object parameter - menu entry
+    /// Copy cursor position - popup entry
+    MID_COPY_CURSOR_POSITION,
+    /// Show object parameter - popup entry
     MID_SHOWPARS,
-    /// Show TLS phases - menu entry
+    /// Show TLS phases - popup entry
     MID_SWITCH_OFF,
     MID_SWITCH,
     MID_SHOWPHASES = MID_SWITCH + 20,

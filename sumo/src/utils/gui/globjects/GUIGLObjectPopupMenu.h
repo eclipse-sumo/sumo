@@ -69,6 +69,9 @@ public:
     /// Called if the typed name shall be copied to clipboard
     long onCmdCopyTypedName(FXObject*,FXSelector,void*);
 
+    /// Called if the cursor position shall be copied to clipboard
+    long onCmdCopyCursorPosition(FXObject*,FXSelector,void*);
+
     /// Called if the parameter of this object shall be shown
     long onCmdShowPars(FXObject*,FXSelector,void*);
 

@@ -173,7 +173,8 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
     new FXMenuSeparator(ret);
     //
     buildNameCopyPopupEntry(ret);
-    buildSelectionPopupEntry(ret, false);
+    buildSelectionPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
     return ret;
 }
 

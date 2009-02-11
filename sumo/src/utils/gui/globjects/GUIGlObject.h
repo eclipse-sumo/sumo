@@ -85,6 +85,8 @@ public:
     /// @brief Destructor
     virtual ~GUIGlObject() throw();
 
+
+
     /// @name Atomar getter methods
     /// @{
 
@@ -105,8 +107,10 @@ public:
     /// @}
 
 
+
     /// @brief Needed to set the id
     friend class GUIGlObjectStorage;
+
 
 
     /// @name interfaces to be implemented by derived classes
@@ -174,39 +178,82 @@ protected:
     /// @name helper methods for building popup-menus
     //@{
 
-    /// Builds the header
+    /** @brief Builds the header
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] app The application, needed for callbacks
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
     void buildPopupHeader(GUIGLObjectPopupMenu *ret,
                           GUIMainWindow &app, bool addSeparator=true) throw();
 
-    /// Builds an entry which allows to center to the object
+
+    /** @brief Builds an entry which allows to center to the object
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] app The application, needed for callbacks
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
     void buildCenterPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true) throw();
 
-    /// Builds entries which allow to copy the name / typed name into the clipboard
+
+    /** @brief Builds entries which allow to copy the name / typed name into the clipboard
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] app The application, needed for callbacks
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
     void buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret,
                                  bool addSeparator=true) throw();
 
-    /// Builds an entry which allows to (de)select the object
+
+    /** @brief Builds an entry which allows to (de)select the object
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] app The application, needed for callbacks
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
     void buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,
                                   bool addSeparator=true) throw();
 
-    /// Builds an entry which allows to open the parameter window
+
+    /** @brief Builds an entry which allows to open the parameter window
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] app The application, needed for callbacks
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
     void buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret,
                                    bool addSeparator=true) throw();
 
-    /// Builds an entry which allows to open the manipulator window
+
+    /** @brief Builds an entry which allows to copy the cursor position
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] app The application, needed for callbacks
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
+    void buildPositionCopyEntry(GUIGLObjectPopupMenu *ret,
+                                   bool addSeparator=true) throw();
+
+
+    /** @brief Builds an entry which allows to open the manipulator window
+     * @param[in, filled] ret The popup menu to add the entry to
+     * @param[in] app The application, needed for callbacks
+     * @param[in] addSeparator Whether a separator shall be added, too
+     */
     void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret,
                                         bool addSeparator=true) throw();
     //@}
 
 private:
-    /// Sets the id of the object
+    /** @brief Sets the id of the object
+     *
+     * May not be done within the constructor in the case of compund objects
+     * @param[in] id The (new) id of the object
+     */
     void setGlID(GLuint id) throw();
 
+
 private:
-    /// The numerical id of the object
+    /// @brief The numerical id of the object
     GLuint myGlID;
 
-    /// The name of the object
+    /// @brief The name of the object
     std::string myFullName;
 
 };

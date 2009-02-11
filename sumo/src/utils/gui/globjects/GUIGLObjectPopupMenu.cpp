@@ -36,6 +36,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIUserIO.h>
+#include <utils/common/ToString.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -53,8 +54,9 @@ using namespace std;
 // ===========================================================================
 FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_CENTER,         GUIGLObjectPopupMenu::onCmdCenter),
-    FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,       GUIGLObjectPopupMenu::onCmdCopyName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,      GUIGLObjectPopupMenu::onCmdCopyName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME, GUIGLObjectPopupMenu::onCmdCopyTypedName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION, GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected),
@@ -104,6 +106,15 @@ long
 GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*)
 {
     GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getFullName());
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*)
+{
+    Position2D p = myParent->getPositionInformation();
+    GUIUserIO::copyToClipboard(*myParent->getApp(), toString(p));
     return 1;
 }
 

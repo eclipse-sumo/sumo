@@ -91,8 +91,7 @@ void
 GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu *ret,
                                    bool addSeparator) throw()
 {
-    new FXMenuCommand(ret, "Center",
-                      GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
+    new FXMenuCommand(ret, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -103,10 +102,8 @@ void
 GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret,
                                      bool addSeparator) throw()
 {
-    new FXMenuCommand(ret, "Copy name to clipboard",
-                      0, ret, MID_COPY_NAME);
-    new FXMenuCommand(ret, "Copy typed name to clipboard",
-                      0, ret, MID_COPY_TYPED_NAME);
+    new FXMenuCommand(ret, "Copy name to clipboard", 0, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, "Copy typed name to clipboard", 0, ret, MID_COPY_TYPED_NAME);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -118,11 +115,9 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,
                                       bool addSeparator) throw()
 {
     if (gSelected.isSelected(getType(), getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-                          GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
+        new FXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        new FXMenuCommand(ret, "Add To Selected",
-                          GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
+        new FXMenuCommand(ret, "Add To Selected", GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -134,8 +129,18 @@ void
 GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret,
                                        bool addSeparator) throw()
 {
-    new FXMenuCommand(ret, "Show Parameter",
-                      GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    new FXMenuCommand(ret, "Show Parameter", GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    if (addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void
+GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret,
+                                     bool addSeparator) throw()
+{
+    new FXMenuCommand(ret, "Copy cursor position to clipboard", 0, ret, MID_COPY_CURSOR_POSITION);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
