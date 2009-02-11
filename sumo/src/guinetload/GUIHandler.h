@@ -80,8 +80,8 @@ protected:
                       const std::string &chars) throw(ProcessError);
     //@}
 
-    /// Ends route processing
-    void closeRoute() throw(ProcessError);
+    /// Builds the route by calling the constructor
+    MSRoute* buildRoute() throw();
 
     /// Starts route processing
     void openRoute(const SUMOSAXAttributes &attrs);

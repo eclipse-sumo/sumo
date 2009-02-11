@@ -110,42 +110,10 @@ GUIHandler::addJunctionShape(const std::string &chars)
 }
 
 
-void
-GUIHandler::closeRoute() throw(ProcessError)
+MSRoute*
+GUIHandler::buildRoute() throw()
 {
-    int size = (int) myActiveRoute.size();
-    if (size==0) {
-        if (myActiveRouteID[0]!='!') {
-            MsgHandler::getErrorInstance()->inform("Route '" + myActiveRouteID + "' has no edges.");
-        } else {
-            MsgHandler::getErrorInstance()->inform("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
-        }
-        return;
-    }
-    GUIRoute *route =
-        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
-    myActiveRoute.clear();
-    if (!MSRoute::dictionary(myActiveRouteID, route)) {
-        delete route;
-#ifdef HAVE_MESOSIM
-        if (!MSGlobals::gStateLoaded) {
-#endif
-            if (myActiveRouteID[0]!='!') {
-                MsgHandler::getErrorInstance()->inform("Another route with the id '" + myActiveRouteID + "' exists.");
-            } else {
-                if (MSNet::getInstance()->getVehicleControl().getVehicle(myVehicleParameter->id)==0) {
-                    MsgHandler::getErrorInstance()->inform("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
-                } else {
-                    MsgHandler::getErrorInstance()->inform("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
-                }
-            }
-            myActiveRouteID = "";
-            return;
-#ifdef HAVE_MESOSIM
-        }
-#endif
-    }
-    myActiveRouteID = "";
+    return new GUIRoute(myColor, myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
 }
 
 

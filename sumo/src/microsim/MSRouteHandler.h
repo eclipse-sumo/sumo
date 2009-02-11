@@ -117,12 +117,15 @@ protected:
     /** opens a route for reading */
     virtual void openRoute(const SUMOSAXAttributes &attrs);
 
+    /** wrapper for constructor call to allow override in (gui) subclasses */
+    virtual MSRoute* buildRoute() throw();
+
     /** closes (ends) the building of a route.
         Afterwards no edges may be added to it;
         this method may throw exceptions when
         a) the route is empty or
         b) another route with the same id already exists */
-    virtual void closeRoute() throw(ProcessError);
+    void closeRoute() throw(ProcessError);
 
     /** reads the route elements */
     void addRouteElements(const std::string &chars);

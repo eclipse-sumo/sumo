@@ -385,6 +385,12 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 }
 
 
+MSRoute*
+MSRouteHandler::buildRoute() throw()
+{
+    return new MSRoute(myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
+}
+
 void
 MSRouteHandler::closeRoute() throw(ProcessError)
 {
@@ -396,7 +402,7 @@ MSRouteHandler::closeRoute() throw(ProcessError)
         }
     }
     // check whether the route is long enough
-    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
+    MSRoute *route = buildRoute();
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
