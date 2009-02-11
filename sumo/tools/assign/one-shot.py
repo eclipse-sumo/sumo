@@ -99,10 +99,12 @@ optParser.add_option("-p", "--path", dest="path",
 (options, args) = optParser.parse_args()
 
 
-if (sys.platform=="win32"):        
-        sumoBinary = os.path.join(options.path, "sumo.exe")
+if options.path.endswith(".exe"):
+    sumoBinary = options.path
+elif (sys.platform=="win32"):        
+    sumoBinary = os.path.join(options.path, "sumo.exe")
 else:
-        sumoBinary = os.path.join(options.path, "sumo")
+    sumoBinary = os.path.join(options.path, "sumo")
 log = open("one_shot-log.txt", "w")
 logQuiet = open("one_shot-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
