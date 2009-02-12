@@ -175,7 +175,7 @@ GUIRunThread::makeStep()
         // stop the simulation when the last step has been reached
         if (myStep>mySimEndTime) {
             e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myStep);
+                GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myStep-DELTA_T);
             myEventQue.add(e);
             myEventThrow.signal();
             myHalting = true;

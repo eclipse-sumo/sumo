@@ -20,8 +20,9 @@ if len(sys.argv) > 1 and sys.argv[1] == "-b" and os.path.exists(guisimRoot):
 if not os.path.exists(guisimRoot):
     os.mkdir(guisimRoot)
     for root, dirs, files in os.walk(sumoRoot):
-        if '.svn' in dirs:
-            dirs.remove('.svn')
+        for folder in ['.svn', 'meta']:
+            if folder in dirs:
+                dirs.remove(folder)
         newRoot = root.replace(sumoRoot, guisimRoot)
         for folder in dirs:
             newDir = os.path.join(newRoot, folder)

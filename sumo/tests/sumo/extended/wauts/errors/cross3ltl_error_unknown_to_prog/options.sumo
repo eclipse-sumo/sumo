@@ -1,1 +1,1 @@
---no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -b 0 -e 400 -a input_additional.add.xml
+--no-duration-log --no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml -b 0 -e 400 -a input_additional.add.xml
