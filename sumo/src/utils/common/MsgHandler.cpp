@@ -99,19 +99,17 @@ MsgHandler::inform(std::string msg, bool addType)
     if (myLock!=0) {
         myLock->lock();
     }
+    // beautify progress output
+    if (myAmProcessingProcess && (myReport2COUT || myReport2CERR)) {
+        std::cout << std::endl;
+    }
     msg = build(msg, addType);
     // report to std::cout if wished
     if (myReport2COUT) {
-        if (myAmProcessingProcess) {
-            std::cout << std::endl;
-        }
         std::cout << msg << std::endl;
     }
     // report to std::cerr if wished
     if (myReport2CERR) {
-        if (myAmProcessingProcess) {
-            std::cerr << std::endl;
-        }
         std::cerr << msg << std::endl;
     }
     // inform all other receivers
@@ -133,20 +131,18 @@ MsgHandler::progressMsg(std::string msg, bool addType)
     if (myLock!=0) {
         myLock->lock();
     }
+    // beautify progress output
+    if (myAmProcessingProcess && (myReport2COUT || myReport2CERR)) {
+        std::cout << std::endl;
+    }
     msg = build(msg, addType);
     // report to std::cout if wished
     if (myReport2COUT) {
-        if (myAmProcessingProcess) {
-            std::cout << std::endl;
-        }
-        std::cout << msg << (char) 13;
+        std::cout << msg << '\r';
     }
     // report to std::cerr if wished
     if (myReport2CERR) {
-        if (myAmProcessingProcess) {
-            std::cerr << std::endl;
-        }
-        std::cerr << msg << (char) 13;
+        std::cerr << msg << '\r';
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
@@ -172,19 +168,21 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType)
     if (myReport2COUT) {
         std::cout << msg << ' ';
         std::cout.flush();
+        myAmProcessingProcess = true;
     }
     // report to std::cerr if wished
     if (myReport2CERR) {
         std::cerr << msg << ' ';
         std::cerr.flush();
+        myAmProcessingProcess = true;
     }
     // inform all other receivers
     for (RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
         (*i)->inform(msg + " ");
+        myAmProcessingProcess = true;
     }
     // set the information that something occured
     myWasInformed = true;
-    myAmProcessingProcess = true;
     if (myLock!=0) {
         myLock->unlock();
     }
