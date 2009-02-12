@@ -150,19 +150,23 @@ HelpersHarmonoise::computeNoise(SUMOEmissionClass c, double v, double a) throw()
 	double L_low = 0;
 	double L_high = 0;
     v = v * 3.6;
+    double s = -30.;//
     for(unsigned int i=0; i<27; ++i) {
 		double crc_low = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.8);// + mySurfaceCorrection[i];
         double ctc_low = alphaT[i] + betaT[i]*((v-70.)/70.) + a*ac + 10.*log10(.2);
         double Li_low = 10. * log10( pow(10., (crc_low/10.)) + pow(10., (ctc_low/10.)) );
+        Li_low += s;
 		double crc_high = alphaR[i] + betaR[i]*log10(v/70.) + 10.*log10(.2);// + mySurfaceCorrection[i];
         double ctc_high = alphaT[i] + betaT[i]*((v-70.)/70.) + a*ac + 10.*log10(.8);
         double Li_high = 10. * log10( pow(10., (crc_high/10.)) + pow(10., (ctc_high/10.)) );
+        Li_high += s;
         L_low += pow(10., (Li_low+myAOctaveBandCorrection[i])/10.);
         L_high += pow(10., (Li_high+myAOctaveBandCorrection[i])/10.);
     }
     L_low = (10. * log10(L_low));
     L_high = (10. * log10(L_high));
-    return (SUMOReal) (10. * log10( pow(10., L_low/10.) + pow(10., L_high/10.) ) );
+    SUMOReal v1 = (SUMOReal) (10. * log10( pow(10., L_low/10.) + pow(10., L_high/10.) ) );
+    return v1;
 }
 
 
