@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r6688
+SUMO sumo Version dev-SVN-r6787
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -80,6 +80,8 @@ Usage: sumo.exe [OPTION]*
   -p, --print-options                 Prints option values before processing
   -?, --help                          Prints this screen
   -l, --log-file FILE                 Writes all messages to FILE
+  --message-log FILE                  Writes all non-error messages to FILE
+  --error-log FILE                    Writes all warnings and errors to FILE
 
  TraCI Server Options:
   --remote-port INT                   Enables TraCI Server if set

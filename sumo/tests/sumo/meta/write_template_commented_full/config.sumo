@@ -136,6 +136,12 @@
       <!-- Writes all messages to FILE -->
       <log-file></log-file>
 
+      <!-- Writes all non-error messages to FILE -->
+      <message-log></message-log>
+
+      <!-- Writes all warnings and errors to FILE -->
+      <error-log></error-log>
+
    </report>
 
    <traci_server>
