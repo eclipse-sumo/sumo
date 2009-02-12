@@ -364,7 +364,7 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop) {
         << " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
     }
-    myDetectorControl->close(myStep-DELTA_T);
+    myDetectorControl->close(stop);
 }
 
 
