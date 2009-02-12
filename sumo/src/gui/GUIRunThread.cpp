@@ -188,7 +188,7 @@ GUIRunThread::makeStep()
         // simulation step is over
         mySimulationInProgress = false;
         // check whether all vehicles loaded have left the simulation
-        if (myNet->getVehicleControl().haveAllVehiclesQuit()) {
+        if (mySimEndTime == INT_MAX && myNet->getVehicleControl().haveAllVehiclesQuit()) {
             myHalting = true;
             e = new GUIEvent_SimulationEnded(
                 GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-DELTA_T);
