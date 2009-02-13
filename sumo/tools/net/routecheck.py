@@ -112,7 +112,6 @@ class Net:
         if startVertex.label not in skipList and endVertex.label not in skipList:
             if vertex not in P:
                 subCounts += 1
-                print 'sunCounts:', subCounts
                 odPairSet.append((startVertex.label, endVertex.label, matrix[start][end]))
 
         return totalCounts, subCounts, odPairSet
@@ -215,7 +214,9 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     skipCount = 0
     zones = 0
     smallDemandNum = 0
+    checkCounts = 0
     for line in open(matrix):
+        checkCounts += 1
         if line[0] == '$':
             visumCode = line[1:3]
             if visumCode != 'VM':
@@ -242,12 +243,12 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                     dest = len(endVertices)        
                 elif len(startVertices) == zones:
                     if ODpairs % origins == 0:
-                        matrixPshort.append([])
+                        matrixPshort.append([])          
                     for item in line.split():
                         matrixPshort[-1].append(float(item))
                         ODpairs += 1
                         MatrixSum += float(item)
-                        CurrentMatrixSum += float(item) 
+                        CurrentMatrixSum += float(item)
                         if float(item) > 0.:
                             Pshort_EffCells += 1
                         if float(item) < 1. and float(item) > 0.:
@@ -256,7 +257,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     assignPeriod = int(periodList[1]) - begintime
     smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
 
-    return matrixPshort
+    return matrixPshort, startVertices, endVertices
     
 def main():
     parser = make_parser()
@@ -280,7 +281,6 @@ def main():
                 if district.label == item:
                     separateZones.append(district)
                     
-
     parser.setContentHandler(NetworkReader(net))
     parser.parse(netfile)    
 
@@ -289,18 +289,18 @@ def main():
     if options.skipList:
         for elem in options.skipList.split(','):
             skipList.append(elem)
-    matrixPshort = getMatrix(net, options.verbose, matrix, MatrixSum)
+    matrixPshort, startVertices, endVertices = getMatrix(net, options.verbose, matrix, MatrixSum)
     
     print len(net._edges), "edges read"
-    print len(net._startVertices), "start vertices read"
-    print len(net._endVertices), "target vertices read"    
-        
-    for start, startVertex in enumerate(net._startVertices):
+    print len(startVertices), "start vertices read"
+    print len(endVertices), "target vertices read"    
+
+    for start, startVertex in enumerate(startVertices):
         if startVertex not in separateZones:
             targets = net.getTargets(separateZones)
             D, P = dijkstraPlain(startVertex, targets)
 
-            for end, endVertex in enumerate(net._endVertices):
+            for end, endVertex in enumerate(endVertices):
                 if startVertex.label != endVertex.label and endVertex not in separateZones and matrixPshort[start][end] > 0.:
                     totalCounts, subCounts, odPairSet = net.checkRoute(startVertex, endVertex, start, end, totalCounts, subCounts, P, odPairSet, matrixPshort, skipList)
         else:
