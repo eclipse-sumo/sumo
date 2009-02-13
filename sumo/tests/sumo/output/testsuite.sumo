@@ -49,5 +49,11 @@ meanhbefa_edgebased
 # Tests for lane-based mean emission data output (aka "mean hbefa lane dump")
 meanhbefa_lanebased
 
+# Tests for edge-based mean noise output (aka "mean harmonoise edge dump")
+meannoise_edgebased
+
+# Tests for lane-based mean noise output (aka "mean harmonoise lane dump")
+meannoise_lanebased
+
 
 

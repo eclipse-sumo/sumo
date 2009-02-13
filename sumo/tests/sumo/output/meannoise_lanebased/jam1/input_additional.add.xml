@@ -1,0 +1,5 @@
+<additional>
+    <variableSpeedSign id="vss" lanes="2/1to1/1_0" file="input_definition2.def.xml"/>
+	<meandata-lane id="dump_15" type="harmonoise" freq="15" file="aggregated_15.xml" excludeEmpty="true" begin="600" end="659"/>
+	<meandata-lane id="dump_60" type="harmonoise" freq="60" file="aggregated_60.xml" excludeEmpty="true" begin="600" end="659"/>
+</additional>

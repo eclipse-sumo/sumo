@@ -1,0 +1,2 @@
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -a input_additional.add.xml
+
