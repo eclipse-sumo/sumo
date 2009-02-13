@@ -462,10 +462,10 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
     // Fit the view's size to the size of the net
     myX1 /= (2.0/myNetScale);
     myY1 /= (2.0/myNetScale);
-    glScaled(2.0/myNetScale, 2.0/myNetScale, 0);
+    glScaled(2.0/myNetScale, 2.0/myNetScale, 1);
     //myAddScl *= (2.0/myNetScale);
     // apply ratio between window width and height
-    glScaled(1./myRatio, 1, 0);
+    glScaled(1./myRatio, 1, 1);
     myX1 /= (1./myRatio);
     myY1 /= 1.;
     SUMOReal width = myGrid->getWidth();
@@ -492,7 +492,7 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
 
     // Apply the zoom and the scale
     SUMOReal zoom = (SUMOReal)(myChanger->getZoom() / 100.0 * scale);
-    glScaled(zoom, zoom, 0);
+    glScaled(zoom, zoom, 1);
     myX1 /= zoom;
     myY1 /= zoom;
     //myAddScl *= zoom;
