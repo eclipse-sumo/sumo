@@ -203,7 +203,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myRoute(route),
         myState(0, 0), //
         myIndividualMaxSpeed(0.0),
-        myIsIndividualMaxSpeedSet(false),
+        myHasIndividualMaxSpeed(false),
         myLane(0),
         myType(type),
         myLastBestLanesEdge(0),

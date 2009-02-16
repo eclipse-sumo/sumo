@@ -399,15 +399,19 @@ public:
         return resGap;
     }
 
-    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
+    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
         return myType->ffeV(speed, gap2pred, predSpeed);
     }
 
-    SUMOReal decelAbility() const {
+    SUMOReal getLength() const throw() {
+        return myType->getLength();
+    }
+
+    SUMOReal decelAbility() const throw() {
         return myType->decelAbility(); // !!! really the speed?
     }
 
-    SUMOReal maxNextSpeed(SUMOReal v) const {
+    SUMOReal maxNextSpeed(SUMOReal v) const throw() {
         return myType->maxNextSpeed(v);
     }
 
@@ -416,28 +420,19 @@ public:
     }
 
     SUMOReal getMaxSpeed() const {
-        if (isIndividualMaxSpeedSet())
-            return getIndividualMaxSpeed();
+        if (myHasIndividualMaxSpeed)
+            return myIndividualMaxSpeed;
 
         return myType->getMaxSpeed();
     }
 
     void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
-        myIsIndividualMaxSpeedSet = true;
+        myHasIndividualMaxSpeed = true;
         myIndividualMaxSpeed = individualMaxSpeed;
     }
 
     void unsetIndividualMaxSpeed(void) {
-        myIsIndividualMaxSpeedSet = false;
-        myIndividualMaxSpeed = 0.0;
-    }
-
-    SUMOReal getIndividualMaxSpeed(void) const {
-        return myIndividualMaxSpeed;
-    }
-
-    bool isIndividualMaxSpeedSet(void) const {
-        return myIsIndividualMaxSpeedSet;
+        myHasIndividualMaxSpeed = false;
     }
 
     /** */
@@ -895,7 +890,7 @@ protected:
     SUMOReal myIndividualMaxSpeed;
 
     /// is true if there has an individual speed been set
-    bool myIsIndividualMaxSpeedSet;
+    bool myHasIndividualMaxSpeed;
 
     /// The lane the vehicle is on
     MSLane* myLane;
