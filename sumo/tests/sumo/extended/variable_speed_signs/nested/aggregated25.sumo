@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/08/09 13:26:09 by SUMO sumo Version dev-SVN-r6737
+<!-- generated on 02/16/09 11:09:36 by SUMO sumo Version dev-SVN-r6787
 <configuration>
 
    <input>
@@ -8,6 +8,11 @@
       <route-files>input_routes.rou.xml</route-files>
       <additional-files>input_additional.add.xml,input_additional2.add.xml</additional-files>
    </input>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
 
    <processing>
       <no-duration-log>true</no-duration-log>
@@ -130,9 +135,55 @@
       <edge id="middle" traveltime="234.50" sampledSeconds="68.65" density="2.77" occupancy="1.39" noStops="0" speed="4.22" entered="0" emitted="0" left="7"/>
       <edge id="rend" traveltime="18.20" sampledSeconds="3.73" density="0.30" occupancy="0.15" noStops="0" speed="27.47" entered="11" emitted="0" left="0"/>
    </interval>
-   <interval begin="400" end="415" id="dump_25">
-      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.03" density="15.93" occupancy="7.96" noStops="0" speed="27.46" entered="7" emitted="0" left="7"/>
-      <edge id="end" traveltime="18.63" sampledSeconds="61.44" density="7.70" occupancy="3.85" noStops="0" speed="26.76" entered="0" emitted="0" left="7"/>
-      <edge id="rend" traveltime="18.29" sampledSeconds="3.54" density="0.44" occupancy="0.22" noStops="0" speed="27.34" entered="7" emitted="0" left="0"/>
+   <interval begin="400" end="424" id="dump_25">
+      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.03" density="10.20" occupancy="5.10" noStops="0" speed="27.46" entered="7" emitted="0" left="7"/>
+      <edge id="end" traveltime="18.63" sampledSeconds="61.44" density="4.93" occupancy="2.46" noStops="0" speed="26.76" entered="0" emitted="0" left="7"/>
+      <edge id="rend" traveltime="18.29" sampledSeconds="3.54" density="0.28" occupancy="0.14" noStops="0" speed="27.34" entered="7" emitted="0" left="0"/>
+   </interval>
+   <interval begin="425" end="449" id="dump_25">
+   </interval>
+   <interval begin="450" end="474" id="dump_25">
+   </interval>
+   <interval begin="475" end="499" id="dump_25">
+   </interval>
+   <interval begin="500" end="524" id="dump_25">
+   </interval>
+   <interval begin="525" end="549" id="dump_25">
+   </interval>
+   <interval begin="550" end="574" id="dump_25">
+   </interval>
+   <interval begin="575" end="599" id="dump_25">
+   </interval>
+   <interval begin="600" end="624" id="dump_25">
+   </interval>
+   <interval begin="625" end="649" id="dump_25">
+   </interval>
+   <interval begin="650" end="674" id="dump_25">
+   </interval>
+   <interval begin="675" end="699" id="dump_25">
+   </interval>
+   <interval begin="700" end="724" id="dump_25">
+   </interval>
+   <interval begin="725" end="749" id="dump_25">
+   </interval>
+   <interval begin="750" end="774" id="dump_25">
+   </interval>
+   <interval begin="775" end="799" id="dump_25">
+   </interval>
+   <interval begin="800" end="824" id="dump_25">
+   </interval>
+   <interval begin="825" end="849" id="dump_25">
+   </interval>
+   <interval begin="850" end="874" id="dump_25">
+   </interval>
+   <interval begin="875" end="899" id="dump_25">
+   </interval>
+   <interval begin="900" end="924" id="dump_25">
+   </interval>
+   <interval begin="925" end="949" id="dump_25">
+   </interval>
+   <interval begin="950" end="974" id="dump_25">
+   </interval>
+   <interval begin="975" end="999" id="dump_25">
    </interval>
 </netstats>
