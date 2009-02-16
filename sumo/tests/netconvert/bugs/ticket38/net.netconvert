@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/16/09 10:32:25 by SUMO netconvert Version dev-SVN-r6799
+<configuration>
+
+   <input>
+      <xml-node-files>input_nodes.nod.xml</xml-node-files>
+      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
+   </input>
+
+   <processing>
+      <no-internal-links>true</no-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>-500.00,0.00</net-offset>
+   <conv-boundary>0.00,0.00,500.00,0.00</conv-boundary>
+   <orig-boundary>500.00,0.00,1000.00,0.00</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+
+   <edge id="1" from="1" to="2" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">500.00,8.25 0.00,8.25</lane>
+         <lane id="1_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">500.00,4.95 0.00,4.95</lane>
+         <lane id="1_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">500.00,1.65 0.00,1.65</lane>
+      </lanes>
+   </edge>
+
+
+
+
+   <junction id="1" type="DEAD_END" x="500.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>500.00,0.05 500.00,9.85</shape>
+   </junction>
+
+   <junction id="2" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes>1_0 1_1 1_2</inclanes>
+      <shape>0.00,9.85 0.00,0.05</shape>
+   </junction>
+
+
+   <succ edge="1" lane="1_0" junction="2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="1" lane="1_1" junction="2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="1" lane="1_2" junction="2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>

@@ -19,3 +19,6 @@
 
 # Test for [ 2171355 ] turnarounds even with --no-turnarounds
 2171355
+
+# Test for #38 speed instead of length while importing XML
+ticket38

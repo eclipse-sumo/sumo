@@ -1,0 +1,5 @@
+<edges>
+
+	<edge id="1" fromnode="1" tonode="2" nolanes="3" speed="30" length="500"/>
+
+</edges>
