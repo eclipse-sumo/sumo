@@ -290,7 +290,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         }
         if (OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && stop == INT_MAX) {
 #else
-        if (myVehicleControl->haveAllVehiclesQuit()) {
+        if (myVehicleControl->haveAllVehiclesQuit() && stop == INT_MAX) {
 #endif
             if (myEmissionEvents->isEmpty()) {
                 quitMessage = "Simulation End: All vehicles have left the simulation.";
