@@ -125,6 +125,18 @@ public:
     }
 
 
+    /** @brief Get vehicle's maximum speed [m/s].
+     * @return The maximum speed (in m/s) of vehicles of this class
+     */
+    SUMOReal getMaxSpeedWithDeviation(SUMOReal referenceSpeed) const throw() {
+        SUMOReal speed = mySpeedFactor * referenceSpeed;
+        if (mySpeedDev != 0.0) {
+            speed = RandHelper::randNorm(speed, mySpeedDev * speed * mySpeedDev * speed);
+        }
+        return MIN2(speed, myMaxSpeed);
+    }
+
+
     /** @brief Get the vehicle's maximum deceleration [m/s^2]
      * @return The maximum deceleration (in m/s^2) of vehicles of this class
      */

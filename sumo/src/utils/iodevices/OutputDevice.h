@@ -189,11 +189,13 @@ public:
      *
      * The topmost xml-element from the stack is written into the stream
      *  as a closing element ("</" + element + ">") and is then removed from
-     *  the stack.
+     *  the stack. If abbreviated closing is requested, only "/>" is the output.
+     *
+     * @param[in] name whether abbreviated closing is performed
      * @returns Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag() throw();
+    bool closeTag(bool abbreviated=false) throw();
 
 
     /// @name methods for saving/reading an abstract state

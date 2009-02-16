@@ -194,11 +194,15 @@ OutputDevice::openTag(const string &xmlElement) throw()
 
 
 bool
-OutputDevice::closeTag() throw()
+OutputDevice::closeTag(bool abbreviated) throw()
 {
     if (!myXMLStack.empty()) {
-        string indent(3*(myXMLStack.size()-1), ' ');
-        getOStream() << indent << "</" << myXMLStack.back() << ">" << endl;
+        if (abbreviated) {
+            getOStream() << "/>" << endl;
+        } else {
+            string indent(3*(myXMLStack.size()-1), ' ');
+            getOStream() << indent << "</" << myXMLStack.back() << ">" << endl;
+        }
         myXMLStack.pop_back();
         postWriteHook();
         return true;

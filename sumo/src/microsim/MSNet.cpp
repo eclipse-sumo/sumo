@@ -491,7 +491,7 @@ MSNet::writeOutput() {
     myDetectorControl->updateDetectors(myStep);
     // check state dumps
     if (OptionsCont::getOptions().isSet("netstate-dump")) {
-        MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep, 3);
+        MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep);
     }
     // emission output
     if (OptionsCont::getOptions().isSet("emissions-output")) {

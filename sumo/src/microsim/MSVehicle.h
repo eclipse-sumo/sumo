@@ -422,8 +422,16 @@ public:
     SUMOReal getMaxSpeed() const {
         if (myHasIndividualMaxSpeed)
             return myIndividualMaxSpeed;
-
         return myType->getMaxSpeed();
+    }
+
+    SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) {
+        if (referenceSpeed != myReferenceSpeed) {
+            myHasIndividualMaxSpeed = true;
+            myIndividualMaxSpeed = myType->getMaxSpeedWithDeviation(referenceSpeed);
+            myReferenceSpeed = referenceSpeed;
+            return myIndividualMaxSpeed;
+        }
     }
 
     void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
@@ -891,6 +899,9 @@ protected:
 
     /// is true if there has an individual speed been set
     bool myHasIndividualMaxSpeed;
+
+    /// the speed which served as reference when calculating the individual maxspeed
+    SUMOReal myReferenceSpeed;
 
     /// The lane the vehicle is on
     MSLane* myLane;

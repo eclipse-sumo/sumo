@@ -85,6 +85,11 @@ public:
         return minV + rand(maxV - minV);
     }
 
+	/// Access to a random number from a normal distribution
+    static inline SUMOReal randNorm(SUMOReal mean, SUMOReal variance) {
+        return RandHelper::myRandomNumberGenerator.randNorm(mean, variance);
+    }
+	
     /// Returns a random element from the given vector
     template<class T>
     static inline T

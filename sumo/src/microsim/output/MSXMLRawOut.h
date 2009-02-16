@@ -64,11 +64,10 @@ public:
      * @param[in] of The output device to use
      * @param[in] ec The EdgeControl which holds the edges to write
      * @param[in] timestep The current time step
-     * @param[in] intend The intendation width to use
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     static void write(OutputDevice &of, const MSEdgeControl &ec,
-                      SUMOTime timestep, unsigned int intend) throw(IOError);
+                      SUMOTime timestep) throw(IOError);
 
 
 private:
@@ -79,12 +78,10 @@ private:
      *
      * @param[in] of The output device to use
      * @param[in] edge The edge to dump
-     * @param[in] intend The intendation width to use
      * @todo MSGlobals::gOmitEmptyEdgesOnDump should not be used; rather the according option read in write
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    static void writeEdge(OutputDevice &of, const MSEdge &edge,
-                          unsigned int intend) throw(IOError);
+    static void writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError);
 
 
     /** @brief Writes the dump of the given lane into the given device
@@ -94,22 +91,18 @@ private:
      *
      * @param[in] of The output device to use
      * @param[in] lane The lane to dump
-     * @param[in] intend The intendation width to use
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    static void writeLane(OutputDevice &of, const MSLane &lane,
-                          unsigned int intend) throw(IOError);
+    static void writeLane(OutputDevice &of, const MSLane &lane) throw(IOError);
 
 
     /** @brief Writes the dump of the given vehicle into the given device
      *
      * @param[in] of The output device to use
      * @param[in] veh The vehicle to dump
-     * @param[in] intend The intendation width to use
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    static void writeVehicle(OutputDevice &of, const MSVehicle &veh,
-                             unsigned int intend) throw(IOError);
+    static void writeVehicle(OutputDevice &of, const MSVehicle &veh) throw(IOError);
 
 
 private:
