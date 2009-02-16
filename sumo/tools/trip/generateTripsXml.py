@@ -271,7 +271,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
 
     return matrixPshort, begintime, assignPeriod, startVertices, endVertices
     
-def generateTrips(options):
+def main(options):# generateTrips(options):
     parser = make_parser()
     dataDir = options.datadir
     districts = os.path.join(dataDir, options.districtfile)
@@ -336,7 +336,7 @@ def generateTrips(options):
     
     return odConnMap
 
-if __name__ == "__generateTrips__":    
+if __name__ == "__main__":    
     optParser = OptionParser()
     optParser.add_option("-r", "--data-dir", dest="datadir",
                          default= os.getcwd(), help="give the data directory path")
@@ -347,7 +347,7 @@ if __name__ == "__generateTrips__":
     optParser.add_option("-d", "--districts-file", dest="districtfile",
                          help="define the district file")
     optParser.add_option("-t", "--trip-file", dest="tripfile",
-                         default= "trips.trips.xml", help="define the output trip filename")                     
+                         default= "trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-b", "--debug", action="store_true", dest="debug",
                          default=False, help="debug the program")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -359,4 +359,4 @@ if __name__ == "__generateTrips__":
         optParser.print_help()
         sys.exit()
     
-    generateTrips(options)
+    main(options)
