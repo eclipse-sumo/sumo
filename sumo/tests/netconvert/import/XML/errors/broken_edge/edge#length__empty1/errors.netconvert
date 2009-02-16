@@ -1,2 +1,2 @@
-Error: Attribute 'speed' is missing in definition of edge '1'.
+Error: Attribute 'length' in definition of edge '1' is empty.
 Quitting (on error).
