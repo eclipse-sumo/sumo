@@ -149,7 +149,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         }
         // get the length or compute it
         if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-            myLength = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, "edge", myCurrentID.c_str(), ok);
+            myLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "edge", myCurrentID.c_str(), ok);
         } else {
             myLength = 0;
         }
