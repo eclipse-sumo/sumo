@@ -661,7 +661,6 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
         into << " depart=\"0\"";
     }
     // write the list of allowed/disallowed vehicle classes
-    {
         into << " vclasses=\"";
         vector<SUMOVehicleClass>::const_iterator i;
         bool hadOne = false;
@@ -680,7 +679,6 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
             hadOne = true;
         }
         into << '\"';
-    }
     // some further information
     if (lane.speed==0) {
         WRITE_WARNING("Lane #" + toString(index) + " of edge '" + myID + "' has a maximum velocity of 0.");
@@ -1298,28 +1296,6 @@ NBEdge::isTurningDirectionAt(const NBNode *n, NBEdge *edge) const
         swap(thisFromAngle2, otherToAngle2);
     }
     if (thisFromAngle2-otherToAngle2>170&&thisFromAngle2-otherToAngle2<190) {
-        return true;
-    }
-    return false;
-}
-
-
-
-bool
-NBEdge::isAlmostSameDirectionAt(const NBNode *n, NBEdge *edge) const
-{
-    // if the same nodes are connected
-    if (myTo==edge->myTo && myFrom==edge->myFrom) {
-        return true;
-    }
-    // we have to checke whether the connection between the nodes is
-    //  geometrically similar
-    SUMOReal thisFromAngle2 = getAngle(*n);
-    SUMOReal otherToAngle2 = edge->getAngle(*n);
-    if (thisFromAngle2<otherToAngle2) {
-        swap(thisFromAngle2, otherToAngle2);
-    }
-    if (thisFromAngle2-otherToAngle2<20&&thisFromAngle2-otherToAngle2>-20) {
         return true;
     }
     return false;

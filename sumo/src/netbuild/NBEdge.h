@@ -473,7 +473,6 @@ public:
      * @see NBEdge::Connection
      */
     std::vector<Connection> getConnectionsFromLane(unsigned int lane) const throw();
-
     /// @}
 
 
@@ -544,7 +543,6 @@ public:
         direction to this edge */
     bool isTurningDirectionAt(const NBNode *n, NBEdge *edge) const;
 
-    bool isAlmostSameDirectionAt(const NBNode *n, NBEdge *edge) const;
 
 
     /** @brief Returns the node at the given edges length (using an epsilon)

@@ -507,21 +507,15 @@ NBNode::setPriorityJunctionPriorities()
     for (i=bestIncoming.begin(); i!=bestIncoming.end(); ++i) {
         vector<NBEdge*>::iterator j;
         NBEdge *t1 = *i;
-        SUMOReal angle1 = 0;
-        {
-            angle1 = t1->getAngle()+180;
-            if (angle1>=360) {
-                angle1 -= 360;
-            }
+        SUMOReal angle1 = t1->getAngle()+180;
+        if (angle1>=360) {
+            angle1 -= 360;
         }
         for (j=i+1; j!=bestIncoming.end(); ++j) {
             NBEdge *t2 = *j;
-            SUMOReal angle2 = 0;
-            {
-                angle2 = t2->getAngle()+180;
-                if (angle2>=360) {
-                    angle2 -= 360;
-                }
+            SUMOReal angle2 = angle2 = t2->getAngle()+180;
+            if (angle2>=360) {
+                angle2 -= 360;
             }
             SUMOReal angle = MIN2(GeomHelper::getCCWAngleDiff(angle1, angle2), GeomHelper::getCWAngleDiff(angle1, angle2));
             if (!hadBest||angle>bestAngle) {
@@ -677,11 +671,9 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
 {
     if (fromL>=fromE->getNoLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
-
     }
     if (toL>=toE->getNoLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' yields in a not existing lane.");
-
     }
     bool noSpline = false;
     Position2DVector ret;
@@ -1021,14 +1013,11 @@ NBNode::writeXMLInternalNodes(OutputDevice &into)
                 if ((*k).toEdge==0) {
                     continue;
                 }
-
-
                 std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
                 if (cross.first<=0) {
                     lno++;
                     continue;
                 }
-
                 // write the attributes
                 string sid = ":" + myID + "_" + toString<size_t>(splitNo+noInternalNoSplits) + "_0";
                 string iid = ":" + myID + "_" + toString<size_t>(lno) + "_0";
@@ -1296,21 +1285,6 @@ NBNode::computeNodeShape()
     }
 }
 
-
-SUMOReal
-NBNode::chooseLaneOffset(DoubleVector &chk)
-{
-    return VectorHelper<SUMOReal>::minValue(chk);
-}
-
-
-SUMOReal
-NBNode::chooseLaneOffset2(DoubleVector &chk)
-{
-    VectorHelper<SUMOReal>::remove_larger_than(chk, 100);
-    SUMOReal max = VectorHelper<SUMOReal>::maxValue(chk);
-    return 100-max+100;
-}
 
 SUMOReal
 NBNode::getOffset(Position2DVector on, Position2DVector cross) const

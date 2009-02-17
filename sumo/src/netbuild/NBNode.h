@@ -370,9 +370,6 @@ private:
     void remapRemoved(NBTrafficLightLogicCont &tc,
                       NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
 
-    SUMOReal chooseLaneOffset(DoubleVector &chk);
-    SUMOReal chooseLaneOffset2(DoubleVector &chk);
-
     Position2DVector computeInternalLaneShape(NBEdge *fromE,
             size_t fromL, NBEdge *toE, size_t toL);
 

@@ -703,14 +703,11 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             } else {
                 if (!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {
                     throw ProcessError("Could not set connection!");
-
                 }
             }
             if (!added_ramp->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
                     MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), NBEdge::L2L_VALIDATED, true)) {
-
                 throw ProcessError("Could not set connection!");
-
             }
             if (!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, false)) {
                 throw ProcessError("Could not set connection!");
