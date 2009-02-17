@@ -1319,7 +1319,7 @@ NBNode::getOffset(Position2DVector on, Position2DVector cross) const
 void
 NBNode::computeLanes2Lanes()
 {
-    // special case:
+    // special case a):
     //  one in, one out, the outgoing has one lane more
     if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1
             &&(*myIncomingEdges)[0]->getNoLanes()==(*myOutgoingEdges)[0]->getNoLanes()-1
@@ -1337,6 +1337,34 @@ NBNode::computeLanes2Lanes()
             incoming->setConnection(i, outgoing, i+1, NBEdge::L2L_COMPUTED);
         }
         incoming->setConnection(0, outgoing, 0, NBEdge::L2L_COMPUTED);
+        return;
+    }
+    // special case b):
+    //  two in, one out, the outgoing has the same number of lanes as the sum of the incoming
+    //  and a high speed, too
+    //  --> highway on-ramp
+    bool check = false;
+    if(myIncomingEdges->size()==2&&myOutgoingEdges->size()==1) {
+        check = (*myIncomingEdges)[0]->getNoLanes()+(*myIncomingEdges)[1]->getNoLanes()==(*myOutgoingEdges)[0]->getNoLanes();
+        check &= ((*myIncomingEdges)[0]->getStep() <= NBEdge::LANES2EDGES);
+        check &= ((*myIncomingEdges)[1]->getStep() <= NBEdge::LANES2EDGES);
+    }
+    if (check
+            &&(*myIncomingEdges)[0]!=(*myOutgoingEdges)[0]
+            &&(*myIncomingEdges)[0]->isConnectedTo((*myOutgoingEdges)[0])) {
+        NBEdge *inc1 = (*myIncomingEdges)[0];
+        NBEdge *inc2 = (*myIncomingEdges)[1];
+        // for internal: check which one is the rightmost
+        SUMOReal a1 = inc1->getAngle(*this);
+        SUMOReal a2 = inc2->getAngle(*this);
+        SUMOReal ccw = GeomHelper::getCCWAngleDiff(a1, a2);
+        SUMOReal cw = GeomHelper::getCWAngleDiff(a1, a2);
+        if(ccw<cw) {
+            swap(inc1, inc2);
+        }
+        //
+        inc1->addLane2LaneConnections(0, (*myOutgoingEdges)[0], 0, inc1->getNoLanes(), NBEdge::L2L_VALIDATED, true, true);
+        inc2->addLane2LaneConnections(0, (*myOutgoingEdges)[0], inc1->getNoLanes(), inc2->getNoLanes(), NBEdge::L2L_VALIDATED, true, true);
         return;
     }
 
