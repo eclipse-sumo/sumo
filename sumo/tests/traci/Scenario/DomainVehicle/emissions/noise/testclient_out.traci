@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Feb 10 14:19:22 2009
+TraCITestClient output file. Date: Fri Feb 13 11:51:31 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -11,7 +11,7 @@ TraCITestClient output file. Date: Tue Feb 10 14:19:22 2009
   flag=0 domain=1 domainId=0 variable=38 valueDataType=0 [no value sent]
 .. Command acknowledged (115), [description: Warning: requested data type could not be used; using float instead!]
 .. Received Response <Scenario>:
-  flag=0  domain=1 domainId=0 variable=38 valueDataType=10 float value: 69.6054
+  flag=0  domain=1 domainId=0 variable=38 valueDataType=10 float value: 64.5679
 
 -> Command sent: <SimulationStep>:
   TargetTime=31 PosFormat=1
