@@ -65,24 +65,48 @@ Position2DVector
 NBNodeShapeComputer::compute()
 {
     Position2DVector ret;
-    bool isDeadEnd = false;
+    // check whether the node is a dead end node or a node where only turning is possible
+    //  in this case, we will use "computeNodeShapeByCrosses"
+    bool singleDirection = false;
     if (myNode.myAllEdges.size()==1) {
-        isDeadEnd = true;
+        singleDirection = true;
     }
     if (myNode.myAllEdges.size()==2&&myNode.getIncomingEdges().size()==1) {
         if (myNode.getIncomingEdges()[0]->isTurningDirectionAt(&myNode, myNode.getOutgoingEdges()[0])) {
-            isDeadEnd = true;
+            singleDirection = true;
         }
     }
-    if (isDeadEnd) {
-        ret = computeNodeShapeByCrosses();
-        return ret;
+    if (singleDirection) {
+        return computeNodeShapeByCrosses();
+    }
+    // check whether the node is a just something like a geometry 
+    //  node (one in and one out or two in and two out, pair-wise continuations)
+    // also in this case "computeNodeShapeByCrosses" is used
+    bool geometryLike = myNode.isSimpleContinuation();
+    if(geometryLike) {
+        // additionally, the angle between the edges must not be larger than 45 degrees
+        //  (otherwise, we will try to compute the shape in a different way)
+        const std::vector<NBEdge*> &incoming = myNode.getIncomingEdges();
+        const std::vector<NBEdge*> &outgoing = myNode.getOutgoingEdges();
+        SUMOReal maxAngle = SUMOReal(0);
+        for(std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
+            SUMOReal ia = (*i)->getAngle(myNode);
+            for(std::vector<NBEdge*>::const_iterator j=outgoing.begin(); j!=outgoing.end(); ++j) {
+                SUMOReal oa = (*j)->getAngle(myNode);
+                SUMOReal ad = MIN2(GeomHelper::getCCWAngleDiff(ia, oa), GeomHelper::getCWAngleDiff(ia, oa));
+                if(22.5>=ad) {
+                    maxAngle = MAX2(ad, maxAngle);
+                }
+            }
+        }
+        if(maxAngle>22.5) {
+            return computeNodeShapeByCrosses();
+        }
     }
 
-
-    bool simpleContinuation = myNode.isSimpleContinuation();
-    ret = computeContinuationNodeShape(simpleContinuation);
-    // add the geometry of internal lanes
+    //
+    ret = computeContinuationNodeShape(geometryLike);
+    // fail fall-back: use "computeNodeShapeByCrosses"
     if (ret.size()<3) {
         ret = computeNodeShapeByCrosses();
     }
