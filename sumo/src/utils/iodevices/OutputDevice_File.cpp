@@ -47,7 +47,15 @@ using namespace std;
 OutputDevice_File::OutputDevice_File(const std::string &fullName) throw(IOError)
         : myFileStream(0)
 {
-    myFileStream = new std::ofstream(fullName.c_str());
+    if(fullName=="null"||fullName=="NULL") {
+#ifdef WIN32
+        myFileStream = new std::ofstream("NUL");
+#else
+        myFileStream = new std::ofstream("/dev/null");
+#endif
+    } else {
+        myFileStream = new std::ofstream(fullName.c_str());
+    }
     if (!myFileStream->good()) {
         delete myFileStream;
         throw IOError("Could not build output file '" + fullName + "'.");

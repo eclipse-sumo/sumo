@@ -85,7 +85,10 @@ OutputDevice::getDevice(const std::string &name,
             throw IOError("No port number given.");
         }
     } else {
-        std::string fullName = FileHelpers::checkForRelativity(name, base);
+        std::string fullName = name;
+        if(name!="null"&&name!="NULL") {
+            FileHelpers::checkForRelativity(name, base);
+        }
         dev = new OutputDevice_File(fullName);
     }
     dev->setPrecision();
