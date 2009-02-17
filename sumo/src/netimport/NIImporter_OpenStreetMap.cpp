@@ -176,7 +176,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
             passed.push_back(*j);
             if (nodeUsage[*j]>1&&j!=e->myCurrentNodes.end()-1&&j!=e->myCurrentNodes.begin()) {
                 NBNode *currentTo = insertNodeChecking(*j, nodes, nc, tlsc);
-                insertEdge(e, running, currentFrom, currentTo, passed, nodes, nc, ec, tc, !oc.getBool("add-node-positions"));
+                insertEdge(e, running, currentFrom, currentTo, passed, nodes, nc, ec, tc);
                 currentFrom = currentTo;
                 running++;
                 passed.clear();
@@ -185,7 +185,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
         if (running==0) {
             running = -1;
         }
-        insertEdge(e, running, currentFrom, last, passed, nodes, nc, ec, tc, !oc.getBool("add-node-positions"));
+        insertEdge(e, running, currentFrom, last, passed, nodes, nc, ec, tc);
     }
     // delete nodes
     for (std::map<int, NIOSMNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
@@ -200,7 +200,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
 
 NBNode *
 NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc,
-        NBTrafficLightLogicCont &tlsc)
+        NBTrafficLightLogicCont &tlsc) throw(ProcessError)
 {
     NBNode *from = nc.retrieve(toString(id));
     if (from==0) {
@@ -231,8 +231,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
 void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
                                      const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
-                                     bool tryIgnoreNodePositions)
+                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError)
 {
     // patch the id
     string id = e->id;
@@ -288,14 +287,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
         }
         NBEdge::LaneSpreadFunction lsf = addSecond ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
-        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, tryIgnoreNodePositions, lsf);
+        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, false, lsf);
         nbe->setVehicleClasses(allowedClasses, disallowedClasses);
         if (!ec.insert(nbe)) {
             delete nbe;
             throw ProcessError("Could not add edge '" + id + "'.");
         }
         if (addSecond) {
-            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape.reverse(), tryIgnoreNodePositions, lsf);
+            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape.reverse(), false, lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -310,7 +309,7 @@ void
 NIImporter_OpenStreetMap::addTypeSecure(NBTypeCont &tc,
                                         const std::string &mClass, const std::string &sClass,
                                         int noLanes, SUMOReal maxSpeed, int prio,
-                                        SUMOVehicleClass vClasses, bool oneWayIsDefault)
+                                        SUMOVehicleClass vClasses, bool oneWayIsDefault) throw()
 {
     string id = mClass + "." + sClass;
     if (tc.knows(id)) {

@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -103,13 +104,58 @@ protected:
 
 
 private:
-    static NBNode *insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) ;
+    /** @brief Builds an NBNode
+     *
+     * If a node with the given id is already known, nothing is done.
+     *  Otherwise, the position and other information of the node is retrieved from the
+     *  given node map, the node is built and added to the given node container.
+     * If the node is controlled by a tls, the according tls is built and added
+     *  to the tls container.
+     * @param[in] id The id of the node to build
+     * @param[in] osmNodes Map of node ids to information about these
+     * @param[in, out] nc The node container to add the built node to
+     * @param[in, out] tlsc The traffic lights logic container to add the built tls to
+     * @return The built/found node
+     * @exception ProcessError If the tls could not be added to the container
+     */
+    static NBNode *insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, 
+        NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) throw(ProcessError);
+
+
+    /** @brief Builds an NBEdge
+     *
+     * @param[in] e The definition of the edge
+     * @param[in] index The index of the edge (in the case it is split along her nodes)
+     * @param[in] from The origin node of the edge
+     * @param[in] to The destination node of the edge
+     * @param[in] passed The list of passed nodes (geometry information)
+     * @param[in] osmNodes Container of node definitions for getting information about nodes from
+     * @param[in] nc The container for built nodes
+     * @param[in, out] The edge container to add the built edge to
+     * @param[in] tc The type container to get information about the edge from
+     * @exception ProcessError If the edge could not be added to the container
+     */
     static void insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
                            const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                           NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
-                           bool tryIgnoreNodePositions);
+                           NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError);
+
+
+    /** @brief Inserts the given type into the type container if not known
+     *
+     * The type name is built from the given major/minor class of the type to add. 
+     *
+     * @param[in, out] tc The type container to add the type to
+     * @param[in] mClass The major class of this type
+     * @param[in] sClass The minor class of this type
+     * @param[in] noLanes The number of lanes streets of this type should have
+     * @param[in] maxSpeed The maximum speed allowed on edges of this type
+     * @param[in] prio The priority of edges of this type
+     * @param[in] vClasses Vehicle classes allowed on edges of this type
+     * @param[in] oneWayIsDefault Whether edges of this type are per default one-way streets
+     */
     static void addTypeSecure(NBTypeCont &tc, const std::string &mClass, const std::string &sClass,
-                              int noLanes, SUMOReal maxSpeed, int prio, SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false);
+                              int noLanes, SUMOReal maxSpeed, int prio, SUMOVehicleClass vClasses=SVC_UNKNOWN, 
+                              bool oneWayIsDefault=false) throw();
 
 
 
@@ -161,6 +207,7 @@ private:
         /// @brief The nodes container to fill
         std::map<int, NIOSMNode*> &myToFill;
 
+        /// @brief The element stack
         std::vector<SumoXMLTag> myParentElements;
 
         int myLastNodeID;
@@ -230,6 +277,7 @@ private:
         /// @brief The currently built edge
         Edge *myCurrentEdge;
 
+        /// @brief The element stack
         std::vector<SumoXMLTag> myParentElements;
 
 
