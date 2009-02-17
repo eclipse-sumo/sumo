@@ -1,0 +1,8 @@
+<add>
+
+	<meandata-edge id="dump_15" freq="15" file="aggregated_edges_15.out.xml"/>
+	<meandata-edge id="dump_60" freq="60" file="aggregated_edges_60.out.xml"/>
+	<meandata-edge id="dump_300" freq="300" file="aggregated_edges_300.out.xml"/>
+	<meandata-edge id="dump_900" freq="900" file="aggregated_edges_900.out.xml"/>
+
+</add>
