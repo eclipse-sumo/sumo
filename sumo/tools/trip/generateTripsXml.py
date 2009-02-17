@@ -269,7 +269,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     assignPeriod = int(periodList[1]) - begintime
     smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
 
-    return matrixPshort, begintime, assignPeriod, startVertices, endVertices
+    return matrixPshort, begintime, assignPeriod, startVertices, endVertices, MatrixSum
     
 def main(options):# generateTrips(options):
     parser = make_parser()
@@ -287,11 +287,12 @@ def main(options):# generateTrips(options):
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
     
-    matrixPshort, begin, period, startVertices, endVertices = getMatrix(net, options.verbose, matrix, MatrixSum)
+    matrixPshort, begin, period, startVertices, endVertices, MatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
     if options.debug:
         print len(net._edges), "edges read"
         print len(net._startVertices), "start vertices read"
         print len(net._endVertices), "target vertices read"
+        print 'total demand:', MatrixSum
          
     for start, startVertex in enumerate(startVertices):
         if startVertex.label not in odConnMap:
@@ -314,20 +315,21 @@ def main(options):# generateTrips(options):
     fouttrips.write("<tripdefs>\n")
     
     for start, startVertex in enumerate(startVertices):
-        counts = 0.
         for end, endVertex in enumerate(endVertices):
             if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
-                while counts < math.ceil(matrixPshort[start][end]):
+                counts = 0.
+                while counts < float(math.ceil(matrixPshort[start][end])):
                     counts += 1.
                     vehID += 1
                     depart = random.randint(begin*3600, (begin + period)*3600)
 
                     if len(odConnMap[startVertex.label][endVertex.label]) > 0:
                         connIndex = random.randint(0, len(odConnMap[startVertex.label][endVertex.label])-1)
-
                         connPair = odConnMap[startVertex.label][endVertex.label][connIndex]
                         veh = Trip(vehID, depart, connPair[0], connPair[1])
                         tripList.append(veh)
+                        
+    print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
     for trip in tripList:            
         fouttrips.write('   <tripdef id="%s" depart="%s" from="%s" to="%s" departlane="free" departspeed="max"/>\n' %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge))
