@@ -40,7 +40,7 @@
  * @class OutputDevice_File
  * @brief An output device that encapsulates an ofstream
  *
- * Please remark that the device gots responsible for the stream and deletes
+ * Please note that the device gots responsible for the stream and deletes
  *  it (it should not be deleted elsewhere).
  */
 class OutputDevice_File : public OutputDevice

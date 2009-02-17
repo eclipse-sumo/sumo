@@ -53,7 +53,7 @@ class MSLane;
  *  about entered vehicles' begin and end position within an internal
  *  container ("myEndPositions") and is so able to compute the last free space.
  *
- * Please remark that using the last free space disallows vehicles to enter a
+ * Please note that using the last free space disallows vehicles to enter a
  *  free space in between other vehicles.
  */
 class MSBusStop : public MSTrigger

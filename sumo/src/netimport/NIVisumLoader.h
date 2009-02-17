@@ -173,7 +173,7 @@ private:
     /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
      *
      * When the SUMOReal cannot be extracted using the given name, "(IV)" is
-     * appended to the begin of the name. Remark that this function does not
+     * appended to the begin of the name. Note that this function does not
      * yet support public traffic.
      *
      * @param[in] name Name of the column to extract the real from
@@ -185,7 +185,7 @@ private:
     /** @brief tries to get a bool which is possibly assigned to a certain modality
      *
      * When the bool cannot be extracted using the given name, "IV" is
-     * appended to the begin of the name. Remark that this function does not
+     * appended to the begin of the name. Note that this function does not
      * yet support public traffic.
      *
      * @param[in] name Name of the column to extract the bool from

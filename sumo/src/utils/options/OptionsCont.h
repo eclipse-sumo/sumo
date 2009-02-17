@@ -183,7 +183,7 @@ public:
 
     /** @brief Writes a standard XML header, optionally including the configuration
      *
-     * The header consists of the xml-declaration, followed by a remark which contains
+     * The header consists of the xml-declaration, followed by a note which contains
      *  the current date and time and optionally the application configuration (set values).
      *
      * @param[in] os The stream to write the header into

@@ -43,7 +43,7 @@
  * This class opens a binary file stream for reading and offers read access
  *  functions on it.
  *
- * Please remark that the byte order is undefined. Also the length of each
+ * Please note that the byte order is undefined. Also the length of each
  *  type is not defined on a global scale and may differ across compilers or
  *  platforms.
  *

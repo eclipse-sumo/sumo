@@ -132,7 +132,7 @@ public:
      * @param[in] vclass The vehicle class for which this information shall be returned
      * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
      * @todo At the begin, three checks are done for determining whether the class is of importance. Consolidate this
-     * @todo There is also a further remark in the code that should be checked
+     * @todo There is also a further note in the code that should be checked
      */
     const LaneCont* allowedLanes(const MSEdge& destination,
                                  SUMOVehicleClass vclass) const throw();

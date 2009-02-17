@@ -94,7 +94,7 @@ MSEdge::~MSEdge() throw()
         }
     }
     delete myLanes;
-    // Remark: Lanes are delete using MSLane::clear();
+    // Note: Lanes are delete using MSLane::clear();
 }
 
 
