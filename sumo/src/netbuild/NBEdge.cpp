@@ -847,7 +847,7 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, /
         into << " linkno=\"" << c.tlLinkNo << "\"";
     }
     // write information whether the connection yields
-    if (myAmInnerEdge||!myTo->mustBrake(this, c.toEdge, c.toLane)) {
+    if ((myAmInnerEdge||!myTo->mustBrake(this, c.toEdge, c.toLane)) || c.mayDefinitelyPass) {
         into << " yield=\"0\"";
     } else {
         into << " yield=\"1\"";
@@ -884,7 +884,7 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, /
     if (c.tlID!="") {
         into << "state=\"t";
     } else {
-        into << "state=\"" << myTo->stateCode(this, c.toEdge, c.toLane);
+        into << "state=\"" << myTo->stateCode(this, c.toEdge, c.toLane, c.mayDefinitelyPass);
     }
     if (myTo->getCrossingPosition(this, c.fromLane, c.toEdge, c.toLane).first>=0) {
         into << "\" int_end=\"x";

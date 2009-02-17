@@ -258,7 +258,7 @@ public:
 
     NBMMLDirection getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const;
 
-    char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane);
+    char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
 
     void computeNodeShape();
 

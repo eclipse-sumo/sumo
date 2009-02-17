@@ -1974,7 +1974,7 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
 
 
 char
-NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane)
+NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane, bool mayDefinitelyPass) const throw()
 {
     if (outgoing==0) {
         return 'O'; // always off
@@ -1982,7 +1982,7 @@ NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane)
     if (myType==NODETYPE_RIGHT_BEFORE_LEFT) {
         return '='; // all the same
     }
-    if (!incoming->isInnerEdge()&&mustBrake(incoming, outgoing, fromlane)) {
+    if ((!incoming->isInnerEdge()&&mustBrake(incoming, outgoing, fromlane)) && !mayDefinitelyPass) {
         return 'm'; // minor road
     }
     // traffic lights are not regardedm here
