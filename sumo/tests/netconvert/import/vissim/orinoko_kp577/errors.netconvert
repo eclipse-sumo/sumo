@@ -12,3 +12,6 @@ Warning: Could not set connection between '1001201_0' and '15_0'.
 Warning: Could not set connection between '1001201_1' and '15_1'.
 Warning: 10 of 236 connections could not be assigned.
 Warning: Could not build 36 of 66 disturbances.
+Warning: For node '605001144': could not compute shape.
+Warning: For node '605001189': could not compute shape.
+Warning: For node '605001196': could not compute shape.

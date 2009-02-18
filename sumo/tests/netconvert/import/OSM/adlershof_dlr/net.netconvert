@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/17/09 12:50:02 by SUMO netconvert Version dev-SVN-r6809
+<!-- generated on 02/18/09 09:09:12 by SUMO netconvert Version dev-SVN-r6820
 <configuration>
 
    <input>
@@ -38,8 +38,8 @@
 
    <edge id="-24214693" from="57343510" to="32266935" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="-24214693_0" depart="1" vclasses="" maxspeed="27.78" length="465.65">43.13,47.55 62.66,48.05 233.08,54.55 508.38,67.32</lane>
-         <lane id="-24214693_1" depart="0" vclasses="" maxspeed="27.78" length="465.65">43.04,50.85 62.55,51.35 232.95,57.85 508.23,70.62</lane>
+         <lane id="-24214693_0" depart="1" vclasses="" maxspeed="27.78" length="465.65">43.13,47.55 62.63,48.05 233.06,54.55 508.38,67.32</lane>
+         <lane id="-24214693_1" depart="0" vclasses="" maxspeed="27.78" length="465.65">43.04,50.85 62.54,51.35 232.94,57.85 508.23,70.62</lane>
       </lanes>
    </edge>
 
@@ -51,7 +51,7 @@
 
    <edge id="-25944590#0" from="283018841" to="283018817" priority="1" type="highway.footway" function="normal">
       <lanes>
-         <lane id="-25944590#0_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="83.15">492.50,489.26 494.90,490.48 515.65,497.93 571.49,515.05</lane>
+         <lane id="-25944590#0_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="83.15">492.50,489.26 495.00,490.53 515.68,497.95 571.49,515.05</lane>
       </lanes>
    </edge>
 
@@ -63,7 +63,7 @@
 
    <edge id="-25944590#2" from="283018844" to="283018842" priority="1" type="highway.footway" function="normal">
       <lanes>
-         <lane id="-25944590#2_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="89.14">381.71,423.58 393.33,432.65 455.87,472.95</lane>
+         <lane id="-25944590#2_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="89.14">381.71,423.58 393.39,432.70 455.87,472.95</lane>
       </lanes>
    </edge>
 
@@ -105,7 +105,7 @@
 
    <edge id="-25944605" from="283018842" to="283018937" priority="1" type="highway.footway" function="normal">
       <lanes>
-         <lane id="-25944605_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="20.18">456.75,479.97 460.77,486.11 467.54,497.03</lane>
+         <lane id="-25944605_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="20.18">456.75,479.97 460.76,486.10 467.54,497.03</lane>
       </lanes>
    </edge>
 
@@ -202,7 +202,7 @@
 
    <edge id="-26816553" from="294168972" to="294168098" priority="2" type="highway.service" function="normal">
       <lanes>
-         <lane id="-26816553_0" depart="1" vclasses="delivery" maxspeed="5.56" length="219.64">726.79,220.25 720.62,224.81 691.30,247.75 649.63,201.34 575.24,268.72 567.22,276.15 567.33,277.21</lane>
+         <lane id="-26816553_0" depart="1" vclasses="delivery" maxspeed="5.56" length="219.64">726.79,220.25 720.61,224.83 691.30,247.75 649.63,201.34 575.23,268.72 567.22,276.15 567.33,277.21</lane>
       </lanes>
    </edge>
 
@@ -220,7 +220,7 @@
 
    <edge id="-26816590#2" from="294169342" to="294169339" priority="2" type="highway.service" function="normal">
       <lanes>
-         <lane id="-26816590#2_0" depart="1" vclasses="delivery" maxspeed="5.56" length="40.24">502.91,258.66 513.72,259.35 543.07,261.08</lane>
+         <lane id="-26816590#2_0" depart="1" vclasses="delivery" maxspeed="5.56" length="40.24">502.91,258.66 513.73,259.35 543.07,261.08</lane>
       </lanes>
    </edge>
 
@@ -244,7 +244,7 @@
 
    <edge id="-5198584" from="36268382" to="36268416" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="-5198584_0" depart="1" vclasses="" maxspeed="13.89" length="522.52">1393.55,650.98 1246.94,452.00 1075.73,236.34</lane>
+         <lane id="-5198584_0" depart="1" vclasses="" maxspeed="13.89" length="522.52">1393.55,650.98 1246.92,451.98 1075.73,236.34</lane>
       </lanes>
    </edge>
 
@@ -298,7 +298,7 @@
 
    <edge id="-5198585#8" from="36268381" to="283719736" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="-5198585#8_0" depart="1" vclasses="" maxspeed="13.89" length="286.75">1192.42,795.97 1105.43,676.99 1055.60,613.04 1017.80,568.66</lane>
+         <lane id="-5198585#8_0" depart="1" vclasses="" maxspeed="13.89" length="286.75">1192.42,795.97 1105.42,676.97 1055.57,613.01 1017.80,568.66</lane>
       </lanes>
    </edge>
 
@@ -328,7 +328,7 @@
 
    <edge id="-5198586#4" from="261636677" to="36268416" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="-5198586#4_0" depart="1" vclasses="" maxspeed="13.89" length="90.79">1149.97,174.00 1132.33,184.35 1078.62,229.76</lane>
+         <lane id="-5198586#4_0" depart="1" vclasses="" maxspeed="13.89" length="90.79">1149.97,174.00 1132.21,184.42 1078.62,229.76</lane>
       </lanes>
    </edge>
 
@@ -394,7 +394,7 @@
 
    <edge id="-5198597#2" from="56231598" to="56231597" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="-5198597#2_0" depart="1" vclasses="" maxspeed="13.89" length="31.35">600.16,385.15 604.57,379.50 619.15,360.20</lane>
+         <lane id="-5198597#2_0" depart="1" vclasses="" maxspeed="13.89" length="31.35">600.16,385.15 604.57,379.49 619.15,360.20</lane>
       </lanes>
    </edge>
 
@@ -454,7 +454,7 @@
 
    <edge id="-6137233#3" from="283018933" to="283018932" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="-6137233#3_0" depart="1" vclasses="" maxspeed="13.89" length="121.04">501.32,465.50 467.38,445.97 392.45,412.94</lane>
+         <lane id="-6137233#3_0" depart="1" vclasses="" maxspeed="13.89" length="121.04">501.32,465.50 467.30,445.93 392.45,412.94</lane>
       </lanes>
    </edge>
 
@@ -478,7 +478,7 @@
 
    <edge id="-6137239#2" from="38919808" to="38919841" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="-6137239#2_0" depart="1" vclasses="" maxspeed="13.89" length="93.45">558.60,532.48 483.89,522.62 471.16,518.54 466.86,516.60</lane>
+         <lane id="-6137239#2_0" depart="1" vclasses="" maxspeed="13.89" length="93.45">558.60,532.48 483.89,522.62 471.25,518.57 466.86,516.60</lane>
       </lanes>
    </edge>
 
@@ -496,8 +496,8 @@
 
    <edge id="-7216737#0" from="36268421" to="94487954" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="-7216737#0_0" depart="1" vclasses="" maxspeed="27.78" length="601.41">1188.54,108.72 1553.81,129.56 1651.65,136.07 1686.16,141.13 1726.27,150.27 1742.11,156.91 1765.67,166.13 1781.70,178.02</lane>
-         <lane id="-7216737#0_1" depart="0" vclasses="" maxspeed="27.78" length="601.41">1188.35,112.01 1553.60,132.85 1651.30,139.36 1685.55,144.38 1725.26,153.42 1740.87,159.97 1764.06,169.04 1779.73,180.67</lane>
+         <lane id="-7216737#0_0" depart="1" vclasses="" maxspeed="27.78" length="601.41">1188.54,108.72 1553.78,129.56 1651.45,136.06 1685.97,141.10 1725.85,150.17 1742.16,156.94 1765.67,166.13 1781.70,178.02</lane>
+         <lane id="-7216737#0_1" depart="0" vclasses="" maxspeed="27.78" length="601.41">1188.35,112.01 1553.59,132.85 1651.23,139.35 1685.49,144.37 1725.12,153.39 1740.89,159.98 1764.06,169.04 1779.73,180.67</lane>
       </lanes>
    </edge>
 
@@ -510,8 +510,8 @@
 
    <edge id="-7216737#2" from="36268369" to="261636678" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="-7216737#2_0" depart="1" vclasses="" maxspeed="27.78" length="473.33">680.88,79.57 810.52,80.05 972.70,89.06 1085.61,97.57 1153.33,105.74</lane>
-         <lane id="-7216737#2_1" depart="0" vclasses="" maxspeed="27.78" length="473.33">680.87,82.87 810.42,83.35 972.48,92.35 1085.29,100.86 1152.94,109.01</lane>
+         <lane id="-7216737#2_0" depart="1" vclasses="" maxspeed="27.78" length="473.33">680.88,79.57 810.39,80.05 972.65,89.06 1085.50,97.56 1153.33,105.74</lane>
+         <lane id="-7216737#2_1" depart="0" vclasses="" maxspeed="27.78" length="473.33">680.87,82.87 810.38,83.35 972.47,92.35 1085.25,100.85 1152.94,109.01</lane>
       </lanes>
    </edge>
 
@@ -536,7 +536,7 @@
 
    <edge id="-7727483#2" from="261647702" to="261647692" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="-7727483#2_0" depart="1" vclasses="" maxspeed="22.22" length="114.36">511.02,119.13 509.39,139.15 505.65,185.62 501.89,233.13</lane>
+         <lane id="-7727483#2_0" depart="1" vclasses="" maxspeed="22.22" length="114.36">511.02,119.13 509.39,139.13 505.64,185.63 501.89,233.13</lane>
       </lanes>
    </edge>
 
@@ -560,7 +560,7 @@
 
    <edge id="20430080" from="57343359" to="59993001" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="20430080_0" depart="1" vclasses="" maxspeed="22.22" length="493.93">2.64,215.34 5.50,213.00 15.00,205.00 35.50,207.50 189.50,245.00 302.00,271.00 382.62,294.50 474.57,331.81</lane>
+         <lane id="20430080_0" depart="1" vclasses="" maxspeed="22.22" length="493.93">2.64,215.34 5.50,213.00 15.00,205.00 35.50,207.50 189.50,245.00 302.00,271.00 382.63,294.50 474.57,331.81</lane>
       </lanes>
    </edge>
 
@@ -584,8 +584,8 @@
 
    <edge id="24214693" from="32266935" to="57343510" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="24214693_0" depart="1" vclasses="" maxspeed="27.78" length="465.51">507.93,77.21 232.67,64.45 62.34,57.95 42.87,57.45</lane>
-         <lane id="24214693_1" depart="0" vclasses="" maxspeed="27.78" length="465.51">508.08,73.92 232.81,61.15 62.45,54.65 42.96,54.15</lane>
+         <lane id="24214693_0" depart="1" vclasses="" maxspeed="27.78" length="465.51">507.93,77.21 232.65,64.44 62.31,57.95 42.87,57.45</lane>
+         <lane id="24214693_1" depart="0" vclasses="" maxspeed="27.78" length="465.51">508.08,73.92 232.80,61.15 62.44,54.65 42.96,54.15</lane>
       </lanes>
    </edge>
 
@@ -597,7 +597,7 @@
 
    <edge id="25944590#0" from="283018817" to="283018841" priority="1" type="highway.footway" function="normal">
       <lanes>
-         <lane id="25944590#0_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="83.71">570.52,518.20 514.60,501.07 493.60,493.52 491.01,492.21</lane>
+         <lane id="25944590#0_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="83.71">570.52,518.20 514.64,501.08 493.69,493.55 491.01,492.20</lane>
       </lanes>
    </edge>
 
@@ -609,7 +609,7 @@
 
    <edge id="25944590#2" from="283018842" to="283018844" priority="1" type="highway.footway" function="normal">
       <lanes>
-         <lane id="25944590#2_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="89.44">454.08,475.72 391.42,435.35 379.68,426.18</lane>
+         <lane id="25944590#2_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="89.44">454.08,475.72 391.48,435.39 379.68,426.17</lane>
       </lanes>
    </edge>
 
@@ -651,7 +651,7 @@
 
    <edge id="25944605" from="283018937" to="283018842" priority="1" type="highway.footway" function="normal">
       <lanes>
-         <lane id="25944605_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="20.10">464.74,498.77 457.98,487.89 453.99,481.78</lane>
+         <lane id="25944605_0" depart="1" vclasses="pedestrian" maxspeed="8.33" length="20.10">464.74,498.77 457.97,487.87 453.99,481.78</lane>
       </lanes>
    </edge>
 
@@ -747,7 +747,7 @@
 
    <edge id="26816553" from="294168098" to="294168972" priority="2" type="highway.service" function="normal">
       <lanes>
-         <lane id="26816553_0" depart="1" vclasses="delivery" maxspeed="5.56" length="224.30">564.12,278.32 563.78,274.85 573.01,266.28 649.87,196.66 691.70,243.25 718.62,222.19 724.82,217.60</lane>
+         <lane id="26816553_0" depart="1" vclasses="delivery" maxspeed="5.56" length="224.30">564.12,278.32 563.78,274.85 573.00,266.29 649.87,196.66 691.70,243.25 718.61,222.20 724.82,217.60</lane>
       </lanes>
    </edge>
 
@@ -765,7 +765,7 @@
 
    <edge id="26816590#2" from="294169339" to="294169342" priority="2" type="highway.service" function="normal">
       <lanes>
-         <lane id="26816590#2_0" depart="1" vclasses="delivery" maxspeed="5.56" length="40.25">542.88,264.37 513.52,262.65 502.70,261.95</lane>
+         <lane id="26816590#2_0" depart="1" vclasses="delivery" maxspeed="5.56" length="40.25">542.88,264.37 513.53,262.65 502.70,261.95</lane>
       </lanes>
    </edge>
 
@@ -789,7 +789,7 @@
 
    <edge id="27437972#0" from="38918157" to="36268398" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="27437972#0_0" depart="1" vclasses="" maxspeed="22.22" length="236.88">990.50,811.50 968.12,779.50 920.37,715.50 898.51,684.02 883.88,663.00 872.88,649.50 857.00,635.50 845.61,625.04</lane>
+         <lane id="27437972#0_0" depart="1" vclasses="" maxspeed="22.22" length="236.88">990.50,811.50 968.13,779.50 920.38,715.50 898.50,684.00 883.88,663.00 872.88,649.50 857.00,635.50 845.61,625.04</lane>
       </lanes>
    </edge>
 
@@ -837,7 +837,7 @@
 
    <edge id="27445000" from="38919945" to="57343359" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="27445000_0" depart="1" vclasses="" maxspeed="22.22" length="484.71">469.84,344.25 380.37,306.00 299.25,281.50 187.63,254.50 132.37,243.00 3.35,218.15</lane>
+         <lane id="27445000_0" depart="1" vclasses="" maxspeed="22.22" length="484.71">469.84,344.25 380.38,306.00 299.25,281.50 187.63,254.50 132.38,243.00 3.35,218.15</lane>
       </lanes>
    </edge>
 
@@ -861,7 +861,7 @@
 
    <edge id="27445015#2" from="56242425" to="36268415" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="27445015#2_0" depart="1" vclasses="" maxspeed="22.22" length="129.96">646.82,417.66 661.37,429.00 679.50,445.50 710.37,474.50 741.77,506.23</lane>
+         <lane id="27445015#2_0" depart="1" vclasses="" maxspeed="22.22" length="129.96">646.82,417.66 661.38,429.00 679.50,445.50 710.38,474.50 741.77,506.23</lane>
       </lanes>
    </edge>
 
@@ -873,13 +873,13 @@
 
    <edge id="27445015#4" from="38920778" to="57343487" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="27445015#4_0" depart="1" vclasses="" maxspeed="22.22" length="236.10">859.72,614.23 885.38,636.50 901.13,654.00 917.12,674.50 940.77,708.02 984.38,770.00 1006.00,798.50</lane>
+         <lane id="27445015#4_0" depart="1" vclasses="" maxspeed="22.22" length="236.10">859.72,614.23 885.38,636.50 901.13,654.00 917.13,674.50 940.75,708.00 984.38,770.00 1006.00,798.50</lane>
       </lanes>
    </edge>
 
    <edge id="5198584" from="36268416" to="36268382" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="5198584_0" depart="1" vclasses="" maxspeed="13.89" length="522.64">1078.32,234.28 1249.56,450.00 1396.20,649.02</lane>
+         <lane id="5198584_0" depart="1" vclasses="" maxspeed="13.89" length="522.64">1078.32,234.28 1249.54,449.97 1396.20,649.02</lane>
       </lanes>
    </edge>
 
@@ -933,7 +933,7 @@
 
    <edge id="5198585#8" from="283719736" to="36268381" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="5198585#8_0" depart="1" vclasses="" maxspeed="13.89" length="287.00">1020.32,566.52 1058.16,610.96 1108.07,675.01 1195.08,794.03</lane>
+         <lane id="5198585#8_0" depart="1" vclasses="" maxspeed="13.89" length="287.00">1020.32,566.52 1058.13,610.93 1108.05,674.99 1195.08,794.03</lane>
       </lanes>
    </edge>
 
@@ -963,7 +963,7 @@
 
    <edge id="5198586#4" from="36268416" to="261636677" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="5198586#4_0" depart="1" vclasses="" maxspeed="13.89" length="91.35">1076.49,227.24 1130.42,181.65 1148.30,171.16</lane>
+         <lane id="5198586#4_0" depart="1" vclasses="" maxspeed="13.89" length="91.35">1076.49,227.24 1130.31,181.74 1148.30,171.16</lane>
       </lanes>
    </edge>
 
@@ -1029,7 +1029,7 @@
 
    <edge id="5198597#2" from="56231597" to="56231598" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="5198597#2_0" depart="1" vclasses="" maxspeed="13.89" length="31.40">621.78,362.19 607.18,381.51 602.76,387.18</lane>
+         <lane id="5198597#2_0" depart="1" vclasses="" maxspeed="13.89" length="31.40">621.78,362.19 607.19,381.49 602.76,387.18</lane>
       </lanes>
    </edge>
 
@@ -1047,7 +1047,7 @@
 
    <edge id="5784950#0" from="38920557" to="38919808" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="5784950#0_0" depart="1" vclasses="" maxspeed="13.89" length="195.96">448.75,697.50 484.12,646.01 560.33,536.41</lane>
+         <lane id="5784950#0_0" depart="1" vclasses="" maxspeed="13.89" length="195.96">448.75,697.50 484.13,646.00 560.33,536.41</lane>
       </lanes>
    </edge>
 
@@ -1125,7 +1125,7 @@
 
    <edge id="6137233#3" from="283018932" to="283018933" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="6137233#3_0" depart="1" vclasses="" maxspeed="13.89" length="121.40">393.78,409.92 468.87,443.03 502.96,462.63</lane>
+         <lane id="6137233#3_0" depart="1" vclasses="" maxspeed="13.89" length="121.40">393.78,409.92 468.79,442.99 502.96,462.64</lane>
       </lanes>
    </edge>
 
@@ -1149,7 +1149,7 @@
 
    <edge id="6137239#2" from="38919841" to="38919808" priority="4" type="highway.residential" function="normal">
       <lanes>
-         <lane id="6137239#2_0" depart="1" vclasses="" maxspeed="13.89" length="92.48">468.21,513.60 472.34,515.46 484.61,519.38 559.03,529.21</lane>
+         <lane id="6137239#2_0" depart="1" vclasses="" maxspeed="13.89" length="92.48">468.21,513.60 472.43,515.50 484.61,519.38 559.03,529.21</lane>
       </lanes>
    </edge>
 
@@ -1173,8 +1173,8 @@
 
    <edge id="7216737#0" from="94487954" to="36268421" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="7216737#0_0" depart="1" vclasses="" maxspeed="27.78" length="597.56">1775.80,185.98 1760.83,174.87 1738.39,166.09 1723.23,159.73 1684.34,150.87 1650.60,145.93 1553.19,139.44 1187.97,118.60</lane>
-         <lane id="7216737#0_1" depart="0" vclasses="" maxspeed="27.78" length="597.56">1777.77,183.33 1762.44,171.96 1739.63,163.03 1724.24,156.58 1684.95,147.62 1650.95,142.64 1553.40,136.15 1188.16,115.30</lane>
+         <lane id="7216737#0_0" depart="1" vclasses="" maxspeed="27.78" length="597.57">1775.80,185.98 1760.83,174.87 1738.45,166.11 1722.84,159.56 1684.15,150.83 1650.41,145.90 1553.17,139.44 1187.97,118.60</lane>
+         <lane id="7216737#0_1" depart="0" vclasses="" maxspeed="27.78" length="597.57">1777.77,183.33 1762.44,171.96 1739.65,163.04 1724.11,156.52 1684.88,147.61 1650.89,142.63 1553.39,136.15 1188.16,115.30</lane>
       </lanes>
    </edge>
 
@@ -1187,8 +1187,8 @@
 
    <edge id="7216737#2" from="261636678" to="36268369" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="7216737#2_0" depart="1" vclasses="" maxspeed="27.78" length="472.56">1152.15,115.57 1084.64,107.43 972.05,98.94 810.23,89.95 680.84,89.47</lane>
-         <lane id="7216737#2_1" depart="0" vclasses="" maxspeed="27.78" length="472.56">1152.54,112.29 1084.96,104.14 972.27,95.65 810.33,86.65 680.85,86.17</lane>
+         <lane id="7216737#2_0" depart="1" vclasses="" maxspeed="27.78" length="472.56">1152.15,115.57 1084.53,107.41 972.00,98.94 810.10,89.94 680.84,89.47</lane>
+         <lane id="7216737#2_1" depart="0" vclasses="" maxspeed="27.78" length="472.56">1152.54,112.29 1084.93,104.14 972.25,95.65 810.28,86.65 680.85,86.17</lane>
       </lanes>
    </edge>
 
@@ -1201,7 +1201,7 @@
 
    <edge id="7727482" from="38920501" to="56231397" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="7727482_0" depart="1" vclasses="" maxspeed="22.22" length="57.20">496.70,277.61 495.37,297.00 490.69,334.47</lane>
+         <lane id="7727482_0" depart="1" vclasses="" maxspeed="22.22" length="57.20">496.70,277.61 495.38,297.00 490.69,334.47</lane>
       </lanes>
    </edge>
 
@@ -1219,7 +1219,7 @@
 
    <edge id="7727483#2" from="261647692" to="261647702" priority="6" type="highway.tertiary" function="normal">
       <lanes>
-         <lane id="7727483#2_0" depart="1" vclasses="" maxspeed="22.22" length="114.37">498.61,232.87 502.36,185.36 506.10,138.88 507.73,118.87</lane>
+         <lane id="7727483#2_0" depart="1" vclasses="" maxspeed="22.22" length="114.37">498.61,232.87 502.36,185.37 506.11,138.87 507.73,118.87</lane>
       </lanes>
    </edge>
 
@@ -2558,7 +2558,7 @@
 
    <junction id="283018841" type="right_before_left" x="485.38" y="487.50">
       <inclanes>25944590#0_0 25944603#0_0 -25944590#1_0 -25944603#1_0</inclanes>
-      <shape>490.28,493.63 493.22,487.83 493.14,486.34 489.61,480.89 481.02,481.86 478.25,487.74 478.50,489.39 482.89,494.18</shape>
+      <shape>490.29,493.62 493.22,487.83 493.14,486.34 489.61,480.89 481.02,481.86 478.25,487.74 478.50,489.39 482.89,494.18</shape>
    </junction>
 
    <junction id="283018842" type="right_before_left" x="448.25" y="470.00">
@@ -2593,7 +2593,7 @@
 
    <junction id="283719736" type="priority" x="1016.00" y="564.00">
       <inclanes>-5198585#8_0 5198585#7_0 -26004787#0_0 -26004868#0_0</inclanes>
-      <shape>1016.59,569.70 1021.54,565.49 1013.63,556.30 1008.72,560.56 1002.45,562.82 1003.45,569.25 1003.78,569.98 1007.95,574.96</shape>
+      <shape>1016.59,569.70 1021.53,565.49 1013.63,556.30 1008.72,560.56 1002.45,562.82 1003.45,569.25 1003.78,569.98 1007.95,574.96</shape>
    </junction>
 
    <junction id="283719904" type="priority" x="889.25" y="579.50">
