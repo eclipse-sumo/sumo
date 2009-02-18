@@ -328,8 +328,8 @@ def main(options):# generateTrips(options):
                         connPair = odConnMap[startVertex.label][endVertex.label][connIndex]
                         veh = Trip(vehID, depart, connPair[0], connPair[1])
                         tripList.append(veh)
-                        
-    print vehID, 'trips generated' 
+    if options.debug:                    
+        print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
     for trip in tripList:            
         fouttrips.write('   <tripdef id="%s" depart="%s" from="%s" to="%s" departlane="free" departspeed="max"/>\n' %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge))
