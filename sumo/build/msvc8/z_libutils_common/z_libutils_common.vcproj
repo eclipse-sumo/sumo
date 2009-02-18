@@ -462,6 +462,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\SUMOVehicle.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\SUMOVehicleClass.h"
 				>
 			</File>

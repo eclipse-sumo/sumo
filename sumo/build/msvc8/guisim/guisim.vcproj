@@ -52,7 +52,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX14_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Debug/guisimD.exe"
+				OutputFile="$(OutDir)\guisimD.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -114,7 +114,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX14_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Debug/guisim64D.exe"
+				OutputFile="$(OutDir)\guisim64D.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -176,7 +176,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX14_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Release/guisim.exe"
+				OutputFile="$(OutDir)\guisim.exe"
 				SubSystem="2"
 				EntryPointSymbol="mainCRTStartup"
 			/>
@@ -240,7 +240,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX14_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Release/guisim64.exe"
+				OutputFile="$(OutDir)\guisim64.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -302,7 +302,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX14_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Release/guimeso.exe"
+				OutputFile="$(OutDir)\guimeso.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -364,7 +364,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX14_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Release/guimeso.exe"
+				OutputFile="$(OutDir)\guimeso.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -426,7 +426,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX14_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Debug/guimesoD.exe"
+				OutputFile="$(OutDir)\guimesoD.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -488,7 +488,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX14_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Debug/guimesoD.exe"
+				OutputFile="$(OutDir)\guimesoD.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -552,7 +552,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX14_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Fastbuild/guisimF.exe"
+				OutputFile="$(OutDir)\guisimF.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -617,7 +617,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX14_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile=".\Fastbuild/guimeso.exe"
+				OutputFile="$(OutDir)\guisim64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool

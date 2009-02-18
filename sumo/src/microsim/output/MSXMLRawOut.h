@@ -102,7 +102,7 @@ private:
      * @param[in] veh The vehicle to dump
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    static void writeVehicle(OutputDevice &of, const MSVehicle &veh) throw(IOError);
+    static void writeVehicle(OutputDevice &of, const SUMOVehicle &veh) throw(IOError);
 
 
 private:

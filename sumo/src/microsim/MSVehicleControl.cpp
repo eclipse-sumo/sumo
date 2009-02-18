@@ -459,7 +459,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             v->mySegment = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
-            while (v->mySegment->get_index()!=segIndex) {
+            while (v->mySegment->getIndex()!=segIndex) {
                 v->mySegment = MSGlobals::gMesoNet->next_segment(v->mySegment, v);
             }
             v->myEventTime = tEvent;

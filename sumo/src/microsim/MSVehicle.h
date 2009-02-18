@@ -33,6 +33,7 @@
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSCORN.h"
+#include "MSGlobals.h"
 #include <list>
 #include <deque>
 #include <map>
@@ -41,6 +42,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "MSVehicleQuitReminded.h"
+#include <utils/common/SUMOVehicle.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
 #include <utils/common/SUMOAbstractRouter.h>
@@ -76,6 +78,8 @@ class MSMessageEmitter;
 class MSVehicle : public MSVehicleQuitReminded
 #ifdef HAVE_MESOSIM
             , public MEVehicle
+#else
+            , public SUMOVehicle
 #endif
 {
 public:
@@ -354,11 +358,15 @@ public:
         return myState;
     }
 
-
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
      */
     SUMOReal getPositionOnLane() const throw() {
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            return MEVehicle::getPositionOnLane();
+        }
+#endif
         return myState.myPos;
     }
 
@@ -367,9 +375,13 @@ public:
      * @return The vehicle's speed
      */
     SUMOReal getSpeed() const throw() {
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            return MEVehicle::getSpeed();
+        }
+#endif
         return myState.mySpeed;
     }
-
 
     /** brief Returns the vehicle's acceleration before dawdling
      * @return The acceleration before dawdling 
@@ -426,12 +438,14 @@ public:
     }
 
     SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) {
-        if (referenceSpeed != myReferenceSpeed) {
+        if (myType->hasSpeedDeviation() && referenceSpeed != myReferenceSpeed) {
             myHasIndividualMaxSpeed = true;
             myIndividualMaxSpeed = myType->getMaxSpeedWithDeviation(referenceSpeed);
             myReferenceSpeed = referenceSpeed;
-            return myIndividualMaxSpeed;
         }
+        if (myHasIndividualMaxSpeed)
+            return myIndividualMaxSpeed;
+        return MIN2(myType->getMaxSpeed(), referenceSpeed);
     }
 
     void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
@@ -451,7 +465,7 @@ public:
 
 
     /// Returns the name of the vehicle
-    const std::string &getID() const;
+    const std::string &getID() const throw();
 
     /** Return true if the lane is allowed */
     bool onAllowed(const MSLane* lane) const;

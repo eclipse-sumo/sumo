@@ -204,6 +204,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myState(0, 0), //
         myIndividualMaxSpeed(0.0),
         myHasIndividualMaxSpeed(false),
+        myReferenceSpeed(-1.0),
         myLane(0),
         myType(type),
         myLastBestLanesEdge(0),
@@ -1097,7 +1098,7 @@ MSVehicle::getPosition() const
 
 
 const string &
-MSVehicle::getID() const
+MSVehicle::getID() const throw()
 {
     return myParameter->id;
 }
@@ -1842,7 +1843,7 @@ MSVehicle::saveState(std::ostream &os)
     if (mySegment==0) {
         FileHelpers::writeUInt(os, 0);
     } else {
-        FileHelpers::writeUInt(os, mySegment->get_index());
+        FileHelpers::writeUInt(os, mySegment->getIndex());
     }
     FileHelpers::writeFloat(os, myEventTime);
     FileHelpers::writeFloat(os, myLastEntryTime);
