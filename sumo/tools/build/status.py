@@ -16,7 +16,7 @@ warnings = 0
 errors = 0
 svnLocked = False
 for l in file(makelog):
-    if "svn: Working copy" in l and "locked" in l:
+    if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
         svnLocked = True
         failed += l
     if "warning " in l.lower():
