@@ -724,7 +724,7 @@ NBEdge::computeLaneShapes() throw()
         try {
             myLanes[i].shape = computeLaneShape(i);
         } catch(InvalidArgument &) {
-            MsgHandler::getErrorInstance()->inform("In edge '" + getID() + "': lane shape could not been determined");
+            MsgHandler::getWarningInstance()->inform("In edge '" + getID() + "': lane shape could not been determined");
         }
     }
 }
@@ -734,7 +734,7 @@ Position2DVector
 NBEdge::computeLaneShape(size_t lane) throw(InvalidArgument)
 {
     Position2DVector shape;
-
+    bool haveWarned = false;
     for (size_t i=0; i<myGeom.size(); i++) {
         if (/*i==myGeom.size()-2||*/i==0) {
             Position2D from = myGeom[i];
@@ -756,10 +756,8 @@ NBEdge::computeLaneShape(size_t lane) throw(InvalidArgument)
             Position2D from = myGeom[i-1];
             Position2D me = myGeom[i];
             Position2D to = myGeom[i+1];
-            pair<SUMOReal, SUMOReal> offsets =
-                laneOffset(from, me, SUMO_const_laneWidthAndOffset, myLanes.size()-1-lane);
-            pair<SUMOReal, SUMOReal> offsets2 =
-                laneOffset(me, to, SUMO_const_laneWidthAndOffset, myLanes.size()-1-lane);
+            pair<SUMOReal, SUMOReal> offsets = laneOffset(from, me, SUMO_const_laneWidthAndOffset, myLanes.size()-1-lane);
+            pair<SUMOReal, SUMOReal> offsets2 = laneOffset(me, to, SUMO_const_laneWidthAndOffset, myLanes.size()-1-lane);
             Line2D l1(
                 Position2D(from.x()-offsets.first, from.y()-offsets.second),
                 Position2D(me.x()-offsets.first, me.y()-offsets.second));
@@ -767,12 +765,21 @@ NBEdge::computeLaneShape(size_t lane) throw(InvalidArgument)
             Line2D l2(
                 Position2D(me.x()-offsets2.first, me.y()-offsets2.second),
                 Position2D(to.x()-offsets2.first, to.y()-offsets2.second));
+            SUMOReal angle = GeomHelper::getCWAngleDiff(l1.atan2DegreeAngle(), l2.atan2DegreeAngle());
+            if (angle<10.||angle>350.) {
+                shape.push_back_noDoublePos(//.push_back(
+                    // (methode umbenennen; was heisst hier "-")
+                    Position2D(me.x()-offsets.first, me.y()-offsets.second));
+                continue;
+            }
             l2.extrapolateBy(100);
             if (l1.intersects(l2)) {
                 shape.push_back_noDoublePos(l1.intersectsAt(l2));
             } else {
-                // !!! should never happen
-                //   throw 1;
+                if(!haveWarned) {
+                    MsgHandler::getWarningInstance()->inform("In lane '" + getID() + "_" + toString(lane) + "': Could not build shape.");
+                    haveWarned = true;
+                }
             }
         }
     }

@@ -538,7 +538,6 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             if (!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNoLanes(),
                     MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
-
             }
             if (!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true, true)) {
                 throw ProcessError("Could not set connection!");
@@ -552,9 +551,13 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             }
             //
             if (cont->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
-                Position2DVector g = cont->getGeometry();
-                g.move2side(SUMO_const_laneWidthAndOffset);
-                cont->setGeometry(g);
+                try {
+                    Position2DVector g = cont->getGeometry();
+                    g.move2side(SUMO_const_laneWidthAndOffset);
+                    cont->setGeometry(g);
+                } catch (InvalidArgument &) {
+                    MsgHandler::getWarningInstance()->inform("For edge '" + cont->getID() + "': could not compute shape.");
+                }
             }
         }
         Position2DVector p = pot_ramp->getGeometry();
@@ -587,12 +590,14 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                     throw ProcessError("Could not set connection!");
                 }
                 if (added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
-                    Position2DVector g = added_ramp->getGeometry();
-                    SUMOReal factor =
-                        SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1)
-                        + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
-                    g.move2side(factor);
-                    added_ramp->setGeometry(g);
+                    try {
+                        Position2DVector g = added_ramp->getGeometry();
+                        SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
+                        g.move2side(factor);
+                        added_ramp->setGeometry(g);
+                    } catch (InvalidArgument &) {
+                        MsgHandler::getWarningInstance()->inform("For edge '" + added_ramp->getID() + "': could not compute shape.");
+                    }
                 }
             } else {
                 if (!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {
@@ -657,9 +662,13 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
 
             }
             if (prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
-                Position2DVector g = prev->getGeometry();
-                g.move2side(SUMO_const_laneWidthAndOffset);//SUMO_const_laneWidthAndOffset*(SUMOReal)(toAdd-1)+SUMO_const_halfLaneAndOffset);
-                prev->setGeometry(g);
+                try {
+                    Position2DVector g = prev->getGeometry();
+                    g.move2side(SUMO_const_laneWidthAndOffset);
+                    prev->setGeometry(g);
+                } catch (InvalidArgument &) {
+                    MsgHandler::getWarningInstance()->inform("For edge '" + prev->getID() + "': could not compute shape.");
+                }
             }
         }
         Position2DVector p = pot_ramp->getGeometry();
@@ -693,12 +702,14 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
 
                 }
                 if (added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
-                    Position2DVector g = added_ramp->getGeometry();
-                    SUMOReal factor =
-                        SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1)
-                        + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
-                    g.move2side(factor);
-                    added_ramp->setGeometry(g);
+                    try {
+                        Position2DVector g = added_ramp->getGeometry();
+                        SUMOReal factor = SUMO_const_laneWidthAndOffset * (SUMOReal)(toAdd-1) + SUMO_const_halfLaneAndOffset * (SUMOReal)(toAdd%2);
+                        g.move2side(factor);
+                        added_ramp->setGeometry(g);
+                    } catch (InvalidArgument &) {
+                        MsgHandler::getWarningInstance()->inform("For edge '" + added_ramp->getID() + "': could not compute shape.");
+                    }
                 }
             } else {
                 if (!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), NBEdge::L2L_VALIDATED, true)) {

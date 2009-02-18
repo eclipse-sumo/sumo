@@ -1281,7 +1281,7 @@ NBNode::computeNodeShape()
         NBNodeShapeComputer computer(*this);
         myPoly = computer.compute();
     } catch (InvalidArgument &) {
-        MsgHandler::getErrorInstance()->inform("For node '" + getID() + "': could not compute shape.");
+        MsgHandler::getWarningInstance()->inform("For node '" + getID() + "': could not compute shape.");
     }
 }
 
