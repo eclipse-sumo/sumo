@@ -85,11 +85,7 @@ OutputDevice::getDevice(const std::string &name,
             throw IOError("No port number given.");
         }
     } else {
-        std::string fullName = name;
-        if(name!="null"&&name!="NULL") {
-            FileHelpers::checkForRelativity(name, base);
-        }
-        dev = new OutputDevice_File(fullName);
+        dev = new OutputDevice_File(FileHelpers::checkForRelativity(name, base));
     }
     dev->setPrecision();
     dev->getOStream() << setiosflags(ios::fixed);

@@ -36,21 +36,16 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 OutputDevice_File::OutputDevice_File(const std::string &fullName) throw(IOError)
         : myFileStream(0)
 {
-    if(fullName=="null"||fullName=="NULL") {
 #ifdef WIN32
+    if (fullName=="/dev/null") {
         myFileStream = new std::ofstream("NUL");
 #else
+    if(fullName=="nul"||fullName=="NUL") {
         myFileStream = new std::ofstream("/dev/null");
 #endif
     } else {

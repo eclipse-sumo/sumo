@@ -6,3 +6,9 @@ two_same_b5
 
 # Two vehicles driving the same route with begin
 two_same_begin
+
+# Output to null file
+null_output
+
+# Output to null file (Posix)
+devnull_output

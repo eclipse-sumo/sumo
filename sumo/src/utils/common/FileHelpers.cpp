@@ -125,7 +125,13 @@ FileHelpers::isAbsolute(const std::string &path)
         return true;
     }
     // check Windows - absolute paths
+    if (path.length()>0&&path[0]=='\\') {
+        return true;
+    }
     if (path.length()>1&&path[1]==':') {
+        return true;
+    }
+    if (path=="nul"||path=="NUL") {
         return true;
     }
     return false;
