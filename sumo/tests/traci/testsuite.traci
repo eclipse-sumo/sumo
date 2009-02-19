@@ -1,5 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
 # tests for <SimulationStep> command and <movenode> responses
 MoveNode
 
@@ -32,3 +30,7 @@ Scenario
 
 # tests for command <GetTrafficLightStatus>
 GetTrafficLightStatus
+
+# Tests for variable retrieval
+VariableRetrieval
+

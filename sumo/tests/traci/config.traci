@@ -5,14 +5,19 @@ copy_test_path:net.net.xml
 copy_test_path:routes.rou.xml
 copy_test_path:additional.xml
 copy_test_path:testclient.prog
+copy_test_path:input_additional.add.xml
+copy_test_path:input_additional2.add.xml
+copy_test_path:input_routes.rou.xml
 
 [collate_file]
 testclient_out:testclient_out.txt
 net_state:netstate_dump.xml
+detector:detector.xml
 
 [run_dependent_text]
 testclient_out:Date
 testclient_out:Socket
+detector:xml version{->}-->
 net_state:Version
 output:port
 errors:Socket
