@@ -50,6 +50,9 @@
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/output/MSDetectorControl.h>
+#include <microsim/output/MSInductLoop.h>
+#include <microsim/output/MSE3Collector.h>
 
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
@@ -343,6 +346,15 @@ throw(TraCIException, std::invalid_argument)
         break;
     case CMD_UNSUBSCRIBEDOMAIN:
         success = commandUnsubscribeDomain();
+        break;
+    case CMD_GET_INDUCTIONLOOP_VARIABLE:
+        success = commandGetInductionLoopVariable();
+        break;
+    case CMD_GET_AREALDETECTOR_VARIABLE:
+        success = commandGetArealDetectorVariable();
+        break;
+    case CMD_GET_TL_VARIABLE:
+        success = commandGetTrafficLightVariable();
         break;
     default:
         writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
@@ -2805,6 +2817,219 @@ throw(TraCIException)
 }
 
 /*****************************************************************************/
+unsigned int 
+TraCIServer::countLengths(const std::vector<std::string> &ids) const throw()
+{
+    unsigned int size = 4;
+    for(vector<string>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
+        size += 4 + (*i).length();
+    }
+    return size;
+}
+
+
+/*****************************************************************************/
+bool
+TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
+{
+    Storage tmpResult;
+    string warning = "";	// additional description for response
+    // variable
+    int variable = myInputStorage.readUnsignedByte();
+    string id = myInputStorage.readString();
+    // check variable
+    if(variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+        writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
+        return false;
+    }
+    // begin response building
+    Storage tempMsg;
+    //  response-code, variableID, objectID
+    unsigned int msgSize = 1 + 1 + (4 + id.length());
+    tempMsg.writeUnsignedByte(RESPONSE_GET_INDUCTIONLOOP_VARIABLE);
+    tempMsg.writeUnsignedByte(variable);
+    tempMsg.writeString(id);
+    // process request
+    if(variable==ID_LIST) {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+        tempMsg.writeStringList(ids);
+        msgSize += 1 + countLengths(ids);
+    } else {
+        MSInductLoop *il = MSNet::getInstance()->getDetectorControl().getInductLoops().get(id);
+        if(il==0) {
+            writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Induction loop '" + id + "' is not known");
+            return false;
+        }
+        switch (variable) {
+        case ID_LIST:
+            break;
+        case LAST_STEP_VEHICLE_NUMBER:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(il->getCurrentPassedNumber());
+            msgSize += 1 + 4;
+            break;
+        case LAST_STEP_MEAN_SPEED:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat((float) il->getCurrentSpeed());
+            msgSize += 1 + 4;
+            break;
+        case LAST_STEP_VEHICLE_ID_LIST:
+            {
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                vector<string> ids = il->getCurrentVehicleIDs();
+                tempMsg.writeStringList(ids);
+                msgSize += 1 + countLengths(ids);
+            }
+            break;
+        default:
+            break;
+        }
+    } 
+    writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, warning);
+    // send response
+    myOutputStorage.writeUnsignedByte(0); // command length -> extended
+    myOutputStorage.writeInt(1 + 4 + tempMsg.size());
+    myOutputStorage.writeStorage(tempMsg);
+    return true;
+}
+
+/*****************************************************************************/
+bool
+TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
+{
+    Storage tmpResult;
+    string warning = "";	// additional description for response
+    // variable
+    int variable = myInputStorage.readUnsignedByte();
+    string id = myInputStorage.readString();
+    // check variable
+    if(variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+        writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
+        return false;
+    }
+    // begin response building
+    Storage tempMsg;
+    //  response-code, variableID, objectID
+    unsigned int msgSize = 1 + 1 + (4 + id.length());
+    tempMsg.writeUnsignedByte(RESPONSE_GET_AREALDETECTOR_VARIABLE);
+    tempMsg.writeUnsignedByte(variable);
+    tempMsg.writeString(id);
+    if(variable==ID_LIST) {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+        tempMsg.writeStringList(ids);
+        msgSize += 1 + countLengths(ids);
+    } else {
+        MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
+        if(e3==0) {
+            writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known");
+            return false;
+        }
+        switch (variable) {
+        case ID_LIST:
+            break;
+        case LAST_STEP_VEHICLE_NUMBER:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((float) e3->getVehiclesWithin());
+            msgSize += 1 + 4;
+            break;
+        case LAST_STEP_MEAN_SPEED:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat((float) e3->getCurrentMeanSpeed());
+            msgSize += 1 + 4;
+            break;
+        case LAST_STEP_VEHICLE_ID_LIST:
+            {
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                vector<string> ids = e3->getCurrentVehicleIDs();
+                tempMsg.writeStringList(ids);
+                msgSize += 1 + countLengths(ids);
+            }
+            break;
+        default:
+            break;
+        }
+    } 
+    writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_OK, warning);
+    // send response
+    myOutputStorage.writeUnsignedByte(0); // command length -> extended
+    myOutputStorage.writeInt(1 + 4 + tempMsg.size());
+    myOutputStorage.writeStorage(tempMsg);
+    return true;
+}
+
+/*****************************************************************************/
+bool
+TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
+{
+    Storage tmpResult;
+    string warning = "";	// additional description for response
+    // variable
+    int variable = myInputStorage.readUnsignedByte();
+    string id = myInputStorage.readString();
+    // check variable
+    if(variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE) {
+        writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
+        return false;
+    }
+    // begin response building
+    Storage tempMsg;
+    //  response-code, variableID, objectID
+    unsigned int msgSize = 1 + 1 + (4 + id.length());
+    tempMsg.writeUnsignedByte(RESPONSE_GET_TL_VARIABLE);
+    tempMsg.writeUnsignedByte(variable);
+    tempMsg.writeString(id);
+    if(variable==ID_LIST) {
+        std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
+        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+        tempMsg.writeStringList(ids);
+        msgSize += 1 + countLengths(ids);
+    } else {
+        if(!MSNet::getInstance()->getTLSControl().knows(id)) {
+            writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known");
+            return false;
+        }
+        MSTLLogicControl::TLSLogicVariants &vars = MSNet::getInstance()->getTLSControl().get(id);
+        switch (variable) {
+        case ID_LIST:
+            break;
+        case TL_RED_YELLOW_GREEN_STATE:
+            {
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                string state = vars.getActive()->buildStateList();
+                tempMsg.writeString(state);
+                msgSize += 1 + 4 + state.length();
+            }
+            break;
+        case TL_PHASE_BRAKE_YELLOW_STATE:
+            {
+                MSPhaseDefinition phase = vars.getActive()->getCurrentPhaseDef();
+                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                vector<string> phaseDef;
+                phaseDef.push_back(phase.getDriveMask().to_string());
+                phaseDef.push_back(phase.getBreakMask().to_string());
+                phaseDef.push_back(phase.getYellowMask().to_string());
+                tempMsg.writeStringList(phaseDef);
+                msgSize += 1 + countLengths(phaseDef);
+            }
+            break;
+        default:
+            break;
+        }
+    } 
+    writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, warning);
+    // send response
+    myOutputStorage.writeUnsignedByte(0); // command length -> extended
+    myOutputStorage.writeInt(1 + 4 + tempMsg.size());
+    myOutputStorage.writeStorage(tempMsg);
+    return true;
+}
+
+/*****************************************************************************/
+
 }
 
 #endif

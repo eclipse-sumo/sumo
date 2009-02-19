@@ -179,7 +179,15 @@ private:
 
     bool commandUnsubscribeDomain() throw(TraCIException);
 
+    bool commandGetInductionLoopVariable() throw(TraCIException);
+
+    bool commandGetArealDetectorVariable() throw(TraCIException);
+
+    bool commandGetTrafficLightVariable() throw(TraCIException);
+
     void writeStatusCmd(int commandId, int status, std::string description);
+
+    unsigned int countLengths(const std::vector<std::string> &ids) const throw();
 
     /**
      * Handles the request of a Scenario Command for obtaining information on
