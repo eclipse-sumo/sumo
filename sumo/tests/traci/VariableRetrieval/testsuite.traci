@@ -1,0 +1,9 @@
+# Tests retrieval of variables from induction loops (0xa0)
+InductionLoop
+
+# Tests retrieval of variables from areal detectors (0xa1)
+ArealDetector
+
+# Tests retrieval of variables from traffic lights (0xa2)
+TrafficLight
+

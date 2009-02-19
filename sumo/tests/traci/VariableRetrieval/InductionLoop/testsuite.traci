@@ -1,0 +1,14 @@
+# Tests retrieval of induction loops in scenario (ID_LIST)
+ID_LIST
+
+# one vehicle is moving
+one_vehicle
+
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s
+two_vehicles_diff_speed
+
+# Testing error cases
+errors
+
+
+

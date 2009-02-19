@@ -1,0 +1,29 @@
+simstep 50 1
+getvariable 160 16 3/1to2/1
+getvariable 160 17 3/1to2/1
+getvariable 160 18 3/1to2/1
+simstep 51 1
+getvariable 160 16 3/1to2/1
+getvariable 160 17 3/1to2/1
+getvariable 160 18 3/1to2/1
+simstep 52 1
+getvariable 160 16 3/1to2/1
+getvariable 160 17 3/1to2/1
+getvariable 160 18 3/1to2/1
+simstep 60 1
+getvariable 160 16 3/1to2/1
+getvariable 160 17 3/1to2/1
+getvariable 160 18 3/1to2/1
+simstep 61 1
+getvariable 160 16 3/1to2/1
+getvariable 160 17 3/1to2/1
+getvariable 160 18 3/1to2/1
+simstep 62 1
+getvariable 160 16 3/1to2/1
+getvariable 160 17 3/1to2/1
+getvariable 160 18 3/1to2/1
+simstep 63 1
+getvariable 160 16 3/1to2/1
+getvariable 160 17 3/1to2/1
+getvariable 160 18 3/1to2/1
+simstep 64 1

@@ -1,0 +1,373 @@
+TraCITestClient output file. Date: Thu Feb 19 13:58:14 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=9 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=9 2D-Position: x=1415.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=9 2D-Position: x=1468.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=10 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=10 2D-Position: x=1405.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=10 2D-Position: x=1459.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=11 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=11 2D-Position: x=1395.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=11 2D-Position: x=1450.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: 10
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+"0" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=12 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=12 2D-Position: x=1385.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=12 2D-Position: x=1441.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: 10
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+"0" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=16 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=16 2D-Position: x=1345.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=16 2D-Position: x=1405.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=17 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=17 2D-Position: x=1335.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=17 2D-Position: x=1396.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=18 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=18 2D-Position: x=1325.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=18 2D-Position: x=1387.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: 9
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+"1" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=19 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=19 2D-Position: x=1315.25 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=19 2D-Position: x=1378.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=4/1to3/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=50 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=50 2D-Position: x=995.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=50 2D-Position: x=1089.75 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=51 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=51 2D-Position: x=985.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=51 2D-Position: x=1080.75 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: 10
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+"0" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=52 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=52 2D-Position: x=975.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=52 2D-Position: x=1071.75 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=60 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=60 2D-Position: x=895.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=60 2D-Position: x=999.75 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=61 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=61 2D-Position: x=885.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=61 2D-Position: x=990.75 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: 9
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+"1" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=62 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=62 2D-Position: x=875.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=62 2D-Position: x=981.75 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: 8.99997
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+"1" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=63 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=63 2D-Position: x=865.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=63 2D-Position: x=972.75 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=16 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=17 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1
+
+-> Command sent: <GetVariable>:
+  domID=160 varID=18 objID=3/1to2/1
+.. Command acknowledged (160), [description: ]
+  CommandID=176  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=64 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=64 2D-Position: x=855.75 y=401.65
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=64 2D-Position: x=963.75 y=401.65
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Thu Feb 19 14:14:28 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=48 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=16 objID=xxx
+.. Answered with error to command (161), [description: Areal detector 'xxx' is not known]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=49 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
