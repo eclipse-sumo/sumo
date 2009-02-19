@@ -425,6 +425,15 @@ TraCITestClient::run(std::string fileName, int port, std::string host)
             defFile >> intervalStart;
             defFile >> intervalEnd;
             commandGetTLStatus(tlId, intervalStart, intervalEnd);
+        } else if (lineCommand.compare("getvariable") == 0) {
+            // trigger command GetTrafficLightStatus
+            int domID, varID;
+            string objID;
+
+            defFile >> domID;
+            defFile >> varID;
+            defFile >> objID;
+            commandGetVariable(domID, varID, objID);
         } else {
             msg << "Error in definition file: " << lineCommand
             << " is not a valid command";
@@ -1243,6 +1252,84 @@ TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double inter
 }
 
 
+
+void 
+TraCITestClient::commandGetVariable(int domID, int varID, const std::string &objID)
+{
+    tcpip::Storage outMsg;
+    tcpip::Storage inMsg;
+    std::stringstream msg;
+    if (socket == NULL) {
+        msg << "#Error while sending command: no connection to server" ;
+        errorMsg(msg);
+        return;
+    }
+    // command length
+    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + objID.length());
+    // command id
+    outMsg.writeUnsignedByte(domID);
+    // variable id
+    outMsg.writeUnsignedByte(varID);
+    // object id
+    outMsg.writeString(objID);
+
+    // send request message
+    try {
+        socket->sendExact(outMsg);
+    } catch (SocketException e) {
+        msg << "Error while sending command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    answerLog << endl << "-> Command sent: <GetVariable>:" << endl
+    << "  domID=" << domID << " varID=" << varID
+    << " objID=" << objID << endl;
+
+    // receive answer message
+    try {
+        socket->receiveExact(inMsg);
+        if (!reportResultState(inMsg, domID)) {
+            return;
+        }
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    // validate result state
+    try {
+        int respStart = inMsg.position();
+        int extLength = inMsg.readUnsignedByte();
+        int respLength = inMsg.readInt();
+        int cmdId = inMsg.readUnsignedByte();
+        if (cmdId != (domID+0x10)) {
+            answerLog << "#Error: received response with command id: " << cmdId
+                << "but expected: " << (int)(domID+0x10) << endl;
+            return;
+        }
+        answerLog << "  CommandID=" << cmdId;
+        answerLog << "  VariableID=" << inMsg.readUnsignedByte();
+        answerLog << "  ObjectID=" << inMsg.readString();
+        int valueDataType = inMsg.readUnsignedByte();
+        answerLog << " valueDataType=" << valueDataType;
+        readAndReportTypeDependent(inMsg, valueDataType);
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+
+    /*
+    answerLog << "  ObjectID=" << inMsg.readString();
+    /*
+    // read value
+    int valueDataType = inMsg.readUnsignedByte();
+    answerLog << " valueDataType=" << valueDataType;
+    readAndReportTypeDependent(inMsg, valueDataType);
+    */
+}
+
+
 void
 TraCITestClient::commandClose()
 {
@@ -1780,82 +1867,7 @@ TraCITestClient::validateScenario(tcpip::Storage &inMsg)
         valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         // read value
-        if (valueDataType == TYPE_UBYTE) {
-            int ubyte = inMsg.readUnsignedByte();
-            answerLog << " Unsigned Byte Value: " << ubyte << endl;
-        } else if (valueDataType == TYPE_BYTE) {
-            int byte = inMsg.readByte();
-            answerLog << " Byte value: " << byte << endl;
-        } else if (valueDataType == TYPE_INTEGER) {
-            int integer = inMsg.readInt();
-            answerLog << " Int value: " << integer << endl;
-        } else if (valueDataType == TYPE_FLOAT) {
-            float floatv = inMsg.readFloat();
-            answerLog << " float value: " << floatv << endl;
-        } else if (valueDataType == TYPE_DOUBLE) {
-            double doublev = inMsg.readDouble();
-            answerLog << " Double value: " << doublev << endl;
-        } else if (valueDataType == TYPE_BOUNDINGBOX) {
-            testclient::BoundingBox box;
-            box.lowerLeft.x = inMsg.readFloat();
-            box.lowerLeft.y = inMsg.readFloat();
-            box.upperRight.x = inMsg.readFloat();
-            box.upperRight.y = inMsg.readFloat();
-            answerLog << " BoundaryBoxValue: lowerLeft x="<< box.lowerLeft.x
-            << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
-            << " y=" << box.upperRight.y << endl;
-        } else if (valueDataType == TYPE_POLYGON) {
-            int length = inMsg.readUnsignedByte();
-            answerLog << " PolygonValue: ";
-            for (int i=0; i < length; i++) {
-                float x = inMsg.readFloat();
-                float y = inMsg.readFloat();
-                answerLog << "(" << x << "," << y << ") ";
-            }
-            answerLog << endl;
-        } else if (valueDataType == POSITION_3D) {
-            float x = inMsg.readFloat();
-            float y = inMsg.readFloat();
-            float z = inMsg.readFloat();
-            answerLog << " Position3DValue: " << std::endl;
-            answerLog << " x: " << x << " y: " << y
-            << " z: " << z << std::endl;
-        } else if (valueDataType == POSITION_ROADMAP) {
-            std::string roadId = inMsg.readString();
-            float pos = inMsg.readFloat();
-            int laneId = inMsg.readUnsignedByte();
-            answerLog << " RoadMapPositionValue: roadId=" << roadId
-            << " pos=" << pos
-            << " laneId=" << laneId << std::endl;
-        } else if (valueDataType == TYPE_TLPHASELIST) {
-            int length = inMsg.readUnsignedByte();
-            answerLog << " TLPhaseListValue: length=" << length << endl;
-            for (int i=0; i< length; i++) {
-                string pred = inMsg.readString();
-                string succ = inMsg.readString();
-                int phase = inMsg.readUnsignedByte();
-                answerLog << " precRoad=" << pred << " succRoad=" << succ
-                << " phase=";
-                switch (phase) {
-                case TLPHASE_RED:
-                    answerLog << "red" << endl;
-                    break;
-                case TLPHASE_YELLOW:
-                    answerLog << "yellow" << endl;
-                    break;
-                case TLPHASE_GREEN:
-                    answerLog << "green" << endl;
-                    break;
-                default:
-                    answerLog << "#Error: unknown phase value" << (int)phase << endl;
-                    return false;
-                }
-            }
-        } else if (valueDataType == TYPE_STRING) {
-            string s = inMsg.readString();
-            answerLog << " string value: " << s << endl;
-        } else {
-            answerLog << "#Error: unknown valueDataType!" << endl;
+        if(!readAndReportTypeDependent(inMsg, valueDataType)) {
             return false;
         }
         // check command length
@@ -1865,6 +1877,100 @@ TraCITestClient::validateScenario(tcpip::Storage &inMsg)
         }
     } catch (std::invalid_argument e) {
         answerLog << "#Error while reading message:" << e.what() << endl;
+        return false;
+    }
+    return true;
+}
+
+bool
+TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueDataType)
+{
+    if (valueDataType == TYPE_UBYTE) {
+        int ubyte = inMsg.readUnsignedByte();
+        answerLog << " Unsigned Byte Value: " << ubyte << endl;
+    } else if (valueDataType == TYPE_BYTE) {
+        int byte = inMsg.readByte();
+        answerLog << " Byte value: " << byte << endl;
+    } else if (valueDataType == TYPE_INTEGER) {
+        int integer = inMsg.readInt();
+        answerLog << " Int value: " << integer << endl;
+    } else if (valueDataType == TYPE_FLOAT) {
+        float floatv = inMsg.readFloat();
+        answerLog << " float value: " << floatv << endl;
+    } else if (valueDataType == TYPE_DOUBLE) {
+        double doublev = inMsg.readDouble();
+        answerLog << " Double value: " << doublev << endl;
+    } else if (valueDataType == TYPE_BOUNDINGBOX) {
+        testclient::BoundingBox box;
+        box.lowerLeft.x = inMsg.readFloat();
+        box.lowerLeft.y = inMsg.readFloat();
+        box.upperRight.x = inMsg.readFloat();
+        box.upperRight.y = inMsg.readFloat();
+        answerLog << " BoundaryBoxValue: lowerLeft x="<< box.lowerLeft.x
+            << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
+            << " y=" << box.upperRight.y << endl;
+    } else if (valueDataType == TYPE_POLYGON) {
+        int length = inMsg.readUnsignedByte();
+        answerLog << " PolygonValue: ";
+        for (int i=0; i < length; i++) {
+            float x = inMsg.readFloat();
+            float y = inMsg.readFloat();
+            answerLog << "(" << x << "," << y << ") ";
+        }
+        answerLog << endl;
+    } else if (valueDataType == POSITION_3D) {
+        float x = inMsg.readFloat();
+        float y = inMsg.readFloat();
+        float z = inMsg.readFloat();
+        answerLog << " Position3DValue: " << std::endl;
+        answerLog << " x: " << x << " y: " << y
+            << " z: " << z << std::endl;
+    } else if (valueDataType == POSITION_ROADMAP) {
+        std::string roadId = inMsg.readString();
+        float pos = inMsg.readFloat();
+        int laneId = inMsg.readUnsignedByte();
+        answerLog << " RoadMapPositionValue: roadId=" << roadId
+            << " pos=" << pos
+            << " laneId=" << laneId << std::endl;
+    } else if (valueDataType == TYPE_TLPHASELIST) {
+        int length = inMsg.readUnsignedByte();
+        answerLog << " TLPhaseListValue: length=" << length << endl;
+        for (int i=0; i< length; i++) {
+            string pred = inMsg.readString();
+            string succ = inMsg.readString();
+            int phase = inMsg.readUnsignedByte();
+            answerLog << " precRoad=" << pred << " succRoad=" << succ
+                << " phase=";
+            switch (phase) {
+            case TLPHASE_RED:
+                answerLog << "red" << endl;
+                break;
+            case TLPHASE_YELLOW:
+                answerLog << "yellow" << endl;
+                break;
+            case TLPHASE_GREEN:
+                answerLog << "green" << endl;
+                break;
+            default:
+                answerLog << "#Error: unknown phase value" << (int)phase << endl;
+                return false;
+            }
+        }
+    } else if (valueDataType == TYPE_STRING) {
+        string s = inMsg.readString();
+        answerLog << " string value: " << s << endl;
+    } else if (valueDataType == TYPE_STRINGLIST) {
+        vector<string> s = inMsg.readStringList();
+        answerLog << " string list value: [ " << endl;
+        for(vector<string>::iterator i=s.begin(); i!=s.end(); ++i) {
+            if(i!=s.begin()) {
+                answerLog << ", ";
+            }
+            answerLog << '"' << *i << '"';
+        }
+        answerLog << " ]" << endl;
+    } else {
+        answerLog << "#Error: unknown valueDataType!" << endl;
         return false;
     }
     return true;

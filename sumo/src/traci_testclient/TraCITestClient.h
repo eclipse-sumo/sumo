@@ -122,6 +122,7 @@ public:
     void commandScenario(int flag, int domain, int domainId, int variable, testclient::PositionRoadMap roadPosVal);
 
     void commandGetTLStatus(int tlId, double intervalStart, double intervalEnd);
+    void commandGetVariable(int domID, int varID, const std::string &objID);
 
     void commandClose();
 
@@ -169,6 +170,9 @@ private:
     bool validateScenario(tcpip::Storage& inMsg);
 
     bool validateGetTLStatus(tcpip::Storage& inMsg);
+
+    bool readAndReportTypeDependent(tcpip::Storage &inMsg, int valueDataType);
+
 
 private:
     tcpip::Socket* socket;
