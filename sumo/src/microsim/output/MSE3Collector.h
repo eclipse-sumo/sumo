@@ -299,13 +299,10 @@ public:
     SUMOReal getCurrentHaltingNumber() const throw();
 
 
-    /** @brief Returns the number of touched vehicles (vehicles within the area)
-     *
-     * Please note, that vehicles that enter the area are given as a fraction.
-     *
-     * @return The number of touched vehicles
+    /** @brief Returns the number of vehicles within the area
+     * @return The number of vehicles that passed the entry collector
      */
-    SUMOReal getCurrentTouchedVehicles() const throw();
+    SUMOReal getVehiclesWithin() const throw();
 
 
     /** @brief Returns the number of vehicles within the area

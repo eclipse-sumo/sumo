@@ -349,7 +349,14 @@ MSE3Collector::update(SUMOTime execTime) throw()
 SUMOReal
 MSE3Collector::getCurrentMeanSpeed() const throw()
 {
-    return myCurrentMeanSpeed;
+    SUMOReal ret = 0;
+    if(myEnteredContainer.size()==0) {
+        return -1;
+    }
+    for (std::map<MSVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
+        ret += (*pair).first->getSpeed();
+    }
+    return ret / SUMOReal(myEnteredContainer.size());
 }
 
 
@@ -361,9 +368,9 @@ MSE3Collector::getCurrentHaltingNumber() const throw()
 
 
 SUMOReal
-MSE3Collector::getCurrentTouchedVehicles() const throw()
+MSE3Collector::getVehiclesWithin() const throw()
 {
-    return myCurrentTouchedVehicles;
+    return (SUMOReal) myEnteredContainer.size();
 }
 
 
