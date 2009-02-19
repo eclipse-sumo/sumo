@@ -121,13 +121,31 @@ class Net:
                    target.add(end)
         return target
         
-    def checkRoute(self, startVertex, endVertex, start, end, P, odConnMap, source):
-        source.outEdges[0]
+    def checkRoute(self, startVertex, endVertex, start, end, P, odConnMap, source, options):
         for node in endVertex.sinkConnNodes:
+            length = 0.
+            vertex = node
             if node in P: 
                 link = P[node]
-                odConnMap[startVertex.label][endVertex.label].append((source.outEdges[0].label, link.label))
-        
+                if options.limitlength:
+                    while vertex != source:
+                        if P[vertex].kind == "real":
+                            length += P[vertex].length
+                        vertex = P[vertex].source
+                odConnMap[startVertex.label][endVertex.label].append((source.outEdges[0].label, link.label, length))
+             
+        if options.limitlength and len(odConnMap[startVertex.label][endVertex.label]) > 0:
+            for count, item in enumerate(odConnMap[startVertex.label][endVertex.label]):
+                if count == 0:
+                    minLength = item[2]
+                else:
+                    if item[2] < minLength:
+                        minLength = item[2]
+            minLength *= 1.6
+            for item in odConnMap[startVertex.label][endVertex.label]:
+                if item[2] > minLength:
+                    odConnMap[startVertex.label][endVertex.label].remove(item)
+                    
 # The class is for parsing the XML input file (network file). The data parsed is written into the net.
 class NetworkReader(handler.ContentHandler):
     def __init__(self, net):
@@ -185,27 +203,29 @@ class DistrictsReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'district':
-            self._district = self._net.newVertex()
-            self._district.label = attrs['id']
-            self._net._startVertices.append(self._district)
-            self._net._endVertices.append(self._district)
+            self._districtSource = self._net.newVertex()
+            self._districtSource.label = attrs['id']
+            self._net._startVertices.append(self._districtSource)
+            self._districtSink = self._net.newVertex()
+            self._districtSink.label = attrs['id']
+            self._net._endVertices.append(self._districtSink)
         elif name == 'dsink':
             sinklink = self._net.getEdge(attrs['id'])
             self.I += 1
-            conlink = self._district.label + str(self.I)
-            newEdge = Edge(conlink, sinklink.target, self._district, "real")
+            conlink = self._districtSink.label + str(self.I)
+            newEdge = Edge(conlink, sinklink.target, self._districtSink, "real")
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
-            self._district.sinkConnNodes.append(sinklink.target)
+            self._districtSink.sinkConnNodes.append(sinklink.target)
             newEdge.connection = 1
         elif name == 'dsource':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
-            conlink = self._district.label + str(self.I)
-            newEdge = Edge(conlink, self._district, sourcelink.source, "real")
+            conlink = self._districtSource.label + str(self.I)
+            newEdge = Edge(conlink, self._districtSource, sourcelink.source, "real")
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
-            self._district.sourceConnNodes.append(sourcelink.source)
+            self._districtSource.sourceConnNodes.append(sourcelink.source)
             newEdge.connection = 2
     def endElement(self, name):
         if name == 'district':
@@ -304,7 +324,8 @@ def main(options):# generateTrips(options):
                 if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
                     if endVertex.label not in odConnMap[startVertex.label]:
                         odConnMap[startVertex.label][endVertex.label]= []
-                    net.checkRoute(startVertex, endVertex, start, end, P, odConnMap, source)
+                    net.checkRoute(startVertex, endVertex, start, end, P, odConnMap, source, options)
+
     # output trips
     vehID = 0
     random.seed(42)    
@@ -348,6 +369,8 @@ if __name__ == "__main__":
                          help="define the matrix file")
     optParser.add_option("-d", "--districts-file", dest="districtfile",
                          help="define the district file")
+    optParser.add_option("-l", "--limitlength", action="store_true", dest="limitlength",
+                        default=False, help="the route length of possible connections of a given OD pair shall be less than 1.4 * min.length")   
     optParser.add_option("-t", "--trip-file", dest="tripfile",
                          default= "trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-b", "--debug", action="store_true", dest="debug",
