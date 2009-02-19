@@ -306,6 +306,13 @@ public:
      * @return The number of touched vehicles
      */
     SUMOReal getCurrentTouchedVehicles() const throw();
+
+
+    /** @brief Returns the number of vehicles within the area
+     *
+     * @return The number of vehicles that have passed the entry, but not yet an exit point
+     */
+    std::vector<std::string> getCurrentVehicleIDs() const throw();
     /// @}
 
 

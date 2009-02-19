@@ -200,6 +200,14 @@ public:
     SUMOReal getCurrentPassedNumber() const throw();
 
 
+    /** @brief Returns the ids of vehicles that have passed the detector
+     *
+     * @return The ids of vehicles that have passed the detector
+     * @todo recheck (especially if more than one vehicle has passed)
+     */
+    std::vector<std::string> getCurrentVehicleIDs() const throw();
+
+
     /** @brief Returns the time since the last vehicle left the detector
      *
      * @return Timesteps from last leaving (detection) of the detector
@@ -298,11 +306,13 @@ protected:
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
-        VehicleData(SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep) throw()
-                : lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
+        VehicleData(const std::string &id, SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep) throw()
+                : idM(id), lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
                 speedM(lengthM / (leaveTimeM - entryTimeM)),
                 occupancyM(leaveTimeM - entryTimeM) {}
 
+        /** @brief The id of the vehicle */
+        std::string idM;
         /** @brief Length of the vehicle. */
         SUMOReal lengthM;
         /** @brief Entry-time of the vehicle in [s]. */
@@ -337,6 +347,17 @@ protected:
     ///@}
 
 
+    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
+     *
+     *
+     *
+     * 
+     * @param[in] t The time from which vehicles shall be counted
+     * @return The list of vehicles 
+     */
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
+
+
 protected:
     /// @brief The vehicle that is currently on the detector
     MSVehicle *myCurrentVehicle;
@@ -360,11 +381,14 @@ protected:
     /// @brief Data of vehicles that have completely passed the detector
     VehicleDataCont myVehicleDataCont;
 
+    /// @brief Data of vehicles that have completely passed the detector in the last time interval
+    VehicleDataCont myLastVehicleDataCont;
+
 
     /// @brief Type of myVehiclesOnDet
     typedef std::map< MSVehicle*, SUMOReal > VehicleMap;
 
-    /// @brief Data for vehicles that have entered the detector
+    /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
     VehicleMap myVehiclesOnDet;
 
 

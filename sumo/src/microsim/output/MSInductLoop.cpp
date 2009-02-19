@@ -79,6 +79,7 @@ void
 MSInductLoop::reset() throw()
 {
     myDismissedVehicleNumber = 0;
+    myLastVehicleDataCont = myVehicleDataCont;
     myVehicleDataCont.clear();
 }
 
@@ -146,53 +147,57 @@ MSInductLoop::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
 SUMOReal
 MSInductLoop::getCurrentSpeed() const throw()
 {
-    if (myCurrentVehicle!=0) {
-        return myCurrentVehicle->getSpeed();
-    }
-    return -1;
+    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    return d.size()!=0
+            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) d.size()
+            : -1;
 }
 
 
 SUMOReal
 MSInductLoop::getCurrentLength() const throw()
 {
-    if (myCurrentVehicle!=0) {
-        return myCurrentVehicle->getVehicleType().getLength();
-    }
-    return -1;
+    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    return d.size()!=0
+            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) d.size()
+            : -1;
 }
 
 
 SUMOReal
 MSInductLoop::getCurrentOccupancy() const throw()
 {
-    if (myCurrentVehicle!=0) {
-        return 1.;
-    }
-    if (myLastLeaveTimestep>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
-        return 0.;
-    }
-    return myLastOccupancy;
+    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    return d.size()!=0
+            ? accumulate(d.begin(), d.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) d.size()
+            : -1;
 }
 
 
 SUMOReal
 MSInductLoop::getCurrentPassedNumber() const throw()
 {
-    if (myCurrentVehicle!=0) {
-        return 1.;
+    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    return (SUMOReal) d.size();
+}
+
+
+std::vector<std::string> 
+MSInductLoop::getCurrentVehicleIDs() const throw() 
+{
+    vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T);
+    std::vector<std::string> ret;
+    for(vector<VehicleData>::iterator i=d.begin(); i!=d.end(); ++i) {
+        ret.push_back((*i).idM);
     }
-    if (myLastLeaveTimestep>MSNet::getInstance()->getCurrentTimeStep()-DELTA_T) {
-        return 0.;
-    }
-    return 1.;
+    return ret;
 }
 
 
 unsigned
 MSInductLoop::getNVehContributed() const throw()
 {
-    return (unsigned) myVehicleDataCont.size();
+    return (unsigned int) collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep()-DELTA_T).size();
 }
 
 
@@ -266,7 +271,7 @@ MSInductLoop::leaveDetectorByMove(MSVehicle& veh,
     SUMOReal entryTimestep = it->second;
     myVehiclesOnDet.erase(it);
     assert(entryTimestep < leaveTimestep);
-    myVehicleDataCont.push_back(VehicleData(veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
+    myVehicleDataCont.push_back(VehicleData(veh.getID(), veh.getVehicleType().getLength(), entryTimestep, leaveTimestep));
     myLastOccupancy = leaveTimestep - entryTimestep;
     myLastLeaveTimestep = leaveTimestep;
     myCurrentVehicle = 0;
@@ -290,6 +295,31 @@ MSInductLoop::removeOnTripEnd(MSVehicle *veh) throw()
 {
     myCurrentVehicle = 0;
     myVehiclesOnDet.erase(veh);
+}
+
+
+std::vector<MSInductLoop::VehicleData> 
+MSInductLoop::collectVehiclesOnDet(SUMOTime t) const throw()
+{
+    std::vector<VehicleData> ret;
+    for(VehicleDataCont::const_iterator i=myVehicleDataCont.begin(); i!=myVehicleDataCont.end(); ++i) {
+        if((*i).leaveTimeM>=t) {
+            ret.push_back(*i);
+        }
+    }
+    for(VehicleDataCont::const_iterator i=myLastVehicleDataCont.begin(); i!=myLastVehicleDataCont.end(); ++i) {
+        if((*i).leaveTimeM>=t) {
+            ret.push_back(*i);
+        }
+    }
+    SUMOTime ct = MSNet::getInstance()->getCurrentTimeStep();
+    for(VehicleMap::const_iterator i=myVehiclesOnDet.begin(); i!=myVehiclesOnDet.end(); ++i) {
+        MSVehicle *v = (*i).first;
+        VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, (SUMOReal) ct);
+        d.speedM = v->getSpeed();
+        ret.push_back(d);
+    }
+    return ret;
 }
 
 
