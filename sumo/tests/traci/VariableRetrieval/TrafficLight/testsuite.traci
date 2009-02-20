@@ -1,0 +1,14 @@
+# Tests retrieval of induction loops in scenario (ID_LIST)
+ID_LIST
+
+# Tests TL_RED_YELLOW_GREEN_STATE retrieval
+TL_RYG_STATE
+
+# Tests TL_PHASE_BRAKE_YELLOW_STATE retrieval
+TL_PBY_STATE
+
+# Testing error cases
+errors
+
+
+

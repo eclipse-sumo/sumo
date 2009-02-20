@@ -1,0 +1,4 @@
+<routes>
+   <route id="always_right" multi_ref="x" edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
+   <vehicle id="always_right" route="always_right" depart="1000"/>
+</routes>
