@@ -1757,7 +1757,6 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg)
 {
     int cmdId;
     int cmdLength;
-    int posType;
     int flag;
     int cmdStart;
     float distance;

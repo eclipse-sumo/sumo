@@ -93,8 +93,8 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2)
             for (vector<NBEdge::Connection>::iterator e1c=approached1.begin(); e1c!=approached1.end(); ++e1c) {
                 for (vector<NBEdge::Connection>::iterator e2c=approached2.begin(); e2c!=approached2.end(); ++e2c) {
                     if (!foes(e1, (*e1c).toEdge, e2, (*e2c).toEdge)) {
-                        val += e1->getToNode()->getMMLDirection(e1, (*e1c).toEdge)==MMLDIR_STRAIGHT ? 1 : .5;
-                        val += e2->getToNode()->getMMLDirection(e2, (*e2c).toEdge)==MMLDIR_STRAIGHT ? 1 : .5;
+                        val += e1->getToNode()->getMMLDirection(e1, (*e1c).toEdge)==MMLDIR_STRAIGHT ? 1 : SUMOReal(.5);
+                        val += e2->getToNode()->getMMLDirection(e2, (*e2c).toEdge)==MMLDIR_STRAIGHT ? 1 : SUMOReal(.5);
                     }
                 }
             }

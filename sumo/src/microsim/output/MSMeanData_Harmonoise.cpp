@@ -253,7 +253,7 @@ MSMeanData_Harmonoise::writeEdge(OutputDevice &dev,
             nVehS += meanData.sampleSeconds;
             meanData.reset();
         }
-        SUMOReal v = nS!=0. ? (SUMOReal) (10. * log10(nS/(SUMOReal)(stopTime-startTime+1))) : 0.;
+        SUMOReal v = nS!=0. ? (SUMOReal) (10. * log10(nS/(SUMOReal)(stopTime-startTime+1))) : (SUMOReal) 0.;
         if (myDumpEmptyEdges||nVehS>0) {
             dev<<"      <edge id=\""<<edge->getID()<<
             "\" sampledSeconds=\""<< nVehS <<
@@ -272,7 +272,7 @@ MSMeanData_Harmonoise::writeLane(OutputDevice &dev,
     if (myDumpEmptyLanes||laneValues.sampleSeconds>0) {
         // calculate mean data
         laneValues.add(0, 0, true);
-        SUMOReal v = laneValues.meanNTemp!=0 ? (SUMOReal) (10. * log10(laneValues.meanNTemp/(SUMOReal)(stopTime-startTime+1))) : 0.;
+        SUMOReal v = laneValues.meanNTemp!=0 ? (SUMOReal) (10. * log10(laneValues.meanNTemp/(SUMOReal)(stopTime-startTime+1))) : (SUMOReal) 0.;
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
         "\" sampledSeconds=\""<< laneValues.sampleSeconds <<
         "\" noise=\""<< v <<

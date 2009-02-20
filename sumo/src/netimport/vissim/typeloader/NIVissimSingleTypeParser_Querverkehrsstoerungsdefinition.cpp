@@ -172,7 +172,6 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     from >> edgeid; // type-checking is missing!
     //
     string tag;
-    int laneno;
     from >> tag;
     from >> tag;
     IntVector lanes;

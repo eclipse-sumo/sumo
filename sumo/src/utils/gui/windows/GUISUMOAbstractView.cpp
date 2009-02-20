@@ -471,8 +471,8 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
     SUMOReal width = myGrid->getWidth();
     SUMOReal height = myGrid->getHeight();
     // initially (zoom=100), the net shall be completely visible on the screen
-    SUMOReal xs = 1. / (width / myNetScale) * myRatio;
-    SUMOReal ys = 1. / (height / myNetScale);
+    SUMOReal xs = (SUMOReal) (1. / (width / myNetScale) * myRatio);
+    SUMOReal ys = (SUMOReal) (1. / (height / myNetScale));
     if (xs<ys) {
         glScaled(xs, xs, 1);
         myX1 /= xs;
@@ -573,13 +573,13 @@ GUISUMOAbstractView::displayLegend() throw()
 
     SUMOReal w = SUMOReal(35) / SUMOReal(myWidthInPixels);
     SUMOReal h = SUMOReal(35) / SUMOReal(myHeightInPixels);
-    pfSetPosition(-0.99f, 1.-o2-oo);
+    pfSetPosition(SUMOReal(-0.99), SUMOReal(1.-o2-oo));
     pfSetScaleXY(w, h);
     glRotated(180, 1, 0, 0);
     pfDrawString("0m");
     glRotated(-180, 1, 0, 0);
 
-    pfSetPosition((SUMOReal)(-.99+len), 1.-o2-oo);
+    pfSetPosition(SUMOReal(-.99+len), SUMOReal(1.-o2-oo));
     glRotated(180, 1, 0, 0);
     pfDrawString((text.substr(0, noDigits) + "m").c_str());
     glRotated(-180, 1, 0, 0);
@@ -1045,8 +1045,8 @@ GUISUMOAbstractView::drawDecals() throw()
             glTranslated(d.centerX, d.centerY, 0);
             glRotated(d.rot, 0, 0, 1);
             glColor3d(1,1,1);
-            SUMOReal halfWidth(d.width / 2.);
-            SUMOReal halfHeight(d.height / 2.);
+            SUMOReal halfWidth((d.width / 2.));
+            SUMOReal halfHeight((d.height / 2.));
             GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
             glPopMatrix();
         }

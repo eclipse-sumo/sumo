@@ -311,7 +311,7 @@ Position2DVector::getLineCenter() const
     if (myCont.size()==1) {
         return myCont[0];
     }
-    return positionAtLengthPosition(length()/2.);
+    return positionAtLengthPosition(SUMOReal((length()/2.)));
 }
 
 
