@@ -1,0 +1,15 @@
+# Tests for setting a phase definition (phase/brake/yellow)
+TL_PBY_STATE
+
+# Tests for setting a phase index
+TL_PHASE_INDEX
+
+# Tests for setting a program
+TL_PROGRAM
+
+# Tests for setting a phase duration
+TL_PHASE_DURATION
+
+
+# Tests for error handling
+errors

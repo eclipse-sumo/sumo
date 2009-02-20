@@ -1,0 +1,3 @@
+simstep 48 1
+setvalue 194 34 xxx <string> dummy
+simstep 49 1

@@ -13,10 +13,12 @@ copy_test_path:input_routes.rou.xml
 testclient_out:testclient_out.txt
 net_state:netstate_dump.xml
 detector:detector.xml
+tls_state:tls_state.xml
 
 [run_dependent_text]
 testclient_out:Date
 testclient_out:Socket
+tls_state:xml version{->}-->
 detector:xml version{->}-->
 net_state:Version
 output:port

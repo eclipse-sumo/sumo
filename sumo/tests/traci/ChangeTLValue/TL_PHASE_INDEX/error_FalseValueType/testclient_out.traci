@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Fri Feb 20 16:10:19 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=10 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=194 varID=34 objID=1/1
+.. Answered with error to command (194), [description: The phase index must be given as an integer.]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=31 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

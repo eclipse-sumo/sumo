@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/20/09 15:52:16 by SUMO sumo Version dev-SVN-r6842
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_additional.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>200</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+   <traci_server>
+      <remote-port>8863</remote-port>
+      <penetration>0.7</penetration>
+   </traci_server>
+
+</configuration>
+-->
+
+<tls-states>
+    <tlsstate time="0" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="1" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="2" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="3" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="4" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="5" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="6" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="7" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="8" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="9" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="10" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="11" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="12" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="13" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="14" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="15" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="16" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="17" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="18" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="19" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="20" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="21" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="22" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="23" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="24" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="25" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="26" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="27" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="28" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="29" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="30" id="1/1" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="31" id="1/1" subid="0" phase="1">YYGGRRRRYYGGRRRR</tlsstate>
+</tls-states>

@@ -34,3 +34,6 @@ GetTrafficLightStatus
 # Tests for variable retrieval
 VariableRetrieval
 
+# Tests for changing TL values
+ChangeTLValue
+

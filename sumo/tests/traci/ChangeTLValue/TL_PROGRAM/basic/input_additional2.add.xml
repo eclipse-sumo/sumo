@@ -1,0 +1,10 @@
+<additional>
+   <tl-logic type="static">
+      <key>1/1</key>
+      <subkey>prog1</subkey>
+      <phaseno>1</phaseno>
+      <offset>0</offset>
+      <phase duration="10" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+      <phase duration="10" phase="0000000000000000" brake="1111111111111111" yellow="0000000000000000"/>
+   </tl-logic>
+</additional>

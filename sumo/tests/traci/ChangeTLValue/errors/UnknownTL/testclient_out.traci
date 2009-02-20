@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Fri Feb 20 15:18:44 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=48 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=194 varID=34 objID=xxx
+.. Answered with error to command (194), [description: Traffic light 'xxx' is not known]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=49 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
