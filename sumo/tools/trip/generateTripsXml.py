@@ -244,7 +244,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     ODpairs = 0
     origins = 0
     dest= 0
-    CurrentMatrixSum = 0.0
+    currentMatrixSum = 0.0
     skipCount = 0
     zones = 0
     smallDemandNum = 0
@@ -280,7 +280,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         matrixPshort[-1].append(float(item))
                         ODpairs += 1
                         MatrixSum += float(item)
-                        CurrentMatrixSum += float(item) 
+                        currentMatrixSum += float(item) 
                         if float(item) > 0.:
                             Pshort_EffCells += 1
                         if float(item) < 1. and float(item) > 0.:
@@ -289,7 +289,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     assignPeriod = int(periodList[1]) - begintime
     smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
 
-    return matrixPshort, begintime, assignPeriod, startVertices, endVertices, MatrixSum
+    return matrixPshort, begintime, assignPeriod, startVertices, endVertices, MatrixSum, currentMatrixSum
     
 def main(options):# generateTrips(options):
     parser = make_parser()
@@ -307,12 +307,12 @@ def main(options):# generateTrips(options):
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
     
-    matrixPshort, begin, period, startVertices, endVertices, MatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
+    matrixPshort, begin, period, startVertices, endVertices, MatrixSum, currentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
     if options.debug:
         print len(net._edges), "edges read"
         print len(net._startVertices), "start vertices read"
         print len(net._endVertices), "target vertices read"
-        print 'total demand:', MatrixSum
+        print 'currentMatrixSum:', currentMatrixSum
          
     for start, startVertex in enumerate(startVertices):
         if startVertex.label not in odConnMap:
@@ -328,7 +328,8 @@ def main(options):# generateTrips(options):
 
     # output trips
     vehID = 0
-    random.seed(42)    
+    random.seed(42)
+    matrixSum = 0.
     fouttrips = file(options.tripfile, 'w')
     fouttrips.write('<?xml version="1.0"?>\n')
     print >> fouttrips, """<!-- generated on %s by $Id: generateTripsXml.py 6768 2009-02-11 08:58:09Z behrisch $ -->
@@ -339,16 +340,17 @@ def main(options):# generateTrips(options):
         for end, endVertex in enumerate(endVertices):
             if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
                 counts = 0.
-                while counts < float(math.ceil(matrixPshort[start][end])):
+                matrixSum += matrixPshort[start][end]
+                while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
                     counts += 1.
                     vehID += 1
                     depart = random.randint(begin*3600, (begin + period)*3600)
-
                     if len(odConnMap[startVertex.label][endVertex.label]) > 0:
                         connIndex = random.randint(0, len(odConnMap[startVertex.label][endVertex.label])-1)
                         connPair = odConnMap[startVertex.label][endVertex.label][connIndex]
                         veh = Trip(vehID, depart, connPair[0], connPair[1])
                         tripList.append(veh)
+                    
     if options.debug:                    
         print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
