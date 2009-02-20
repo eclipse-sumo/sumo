@@ -1267,7 +1267,11 @@ TraCIServer::commandDistanceRequest() throw(TraCIException)
     case POSITION_2D:
     case POSITION_2_5D:
     case POSITION_3D:
-        pos1.set(myInputStorage.readFloat(), myInputStorage.readFloat());
+        {
+            float p1x = myInputStorage.readFloat();
+            float p1y = myInputStorage.readFloat();
+            pos1.set(p1x, p1y);
+        }
         if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
             myInputStorage.readFloat();		// z value is ignored
         }
@@ -1295,7 +1299,11 @@ TraCIServer::commandDistanceRequest() throw(TraCIException)
     case POSITION_2D:
     case POSITION_2_5D:
     case POSITION_3D:
-        pos2.set(myInputStorage.readFloat(), myInputStorage.readFloat());
+        {
+            float p2x = myInputStorage.readFloat();
+            float p2y = myInputStorage.readFloat();
+            pos2.set(p2x, p2y);
+        }
         if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
             myInputStorage.readFloat();		// z value is ignored
         }
