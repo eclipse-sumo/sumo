@@ -381,6 +381,7 @@ MSE3Collector::getCurrentVehicleIDs() const throw()
     for (std::map<MSVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         ret.push_back((*pair).first->getID());
     }
+    std::sort(ret.begin(), ret.end());
     return ret;
 }
 
