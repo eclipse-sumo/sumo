@@ -187,8 +187,6 @@ private:
 
     void writeStatusCmd(int commandId, int status, std::string description);
 
-    unsigned int countLengths(const std::vector<std::string> &ids) const throw();
-
     /**
      * Handles the request of a Scenario Command for obtaining information on
      * the road map domain.

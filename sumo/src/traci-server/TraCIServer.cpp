@@ -2817,18 +2817,6 @@ throw(TraCIException)
 }
 
 /*****************************************************************************/
-unsigned int 
-TraCIServer::countLengths(const std::vector<std::string> &ids) const throw()
-{
-    unsigned int size = 4;
-    for(vector<string>::const_iterator i=ids.begin(); i!=ids.end(); ++i) {
-        size += 4 + (*i).length();
-    }
-    return size;
-}
-
-
-/*****************************************************************************/
 bool
 TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
 {
@@ -2845,7 +2833,6 @@ TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
     // begin response building
     Storage tempMsg;
     //  response-code, variableID, objectID
-    unsigned int msgSize = 1 + 1 + (4 + id.length());
     tempMsg.writeUnsignedByte(RESPONSE_GET_INDUCTIONLOOP_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
@@ -2855,7 +2842,6 @@ TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
         MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
-        msgSize += 1 + countLengths(ids);
     } else {
         MSInductLoop *il = MSNet::getInstance()->getDetectorControl().getInductLoops().get(id);
         if(il==0) {
@@ -2868,19 +2854,16 @@ TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
         case LAST_STEP_VEHICLE_NUMBER:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(il->getCurrentPassedNumber());
-            msgSize += 1 + 4;
             break;
         case LAST_STEP_MEAN_SPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat((float) il->getCurrentSpeed());
-            msgSize += 1 + 4;
             break;
         case LAST_STEP_VEHICLE_ID_LIST:
             {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 vector<string> ids = il->getCurrentVehicleIDs();
                 tempMsg.writeStringList(ids);
-                msgSize += 1 + countLengths(ids);
             }
             break;
         default:
@@ -2912,7 +2895,6 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
     // begin response building
     Storage tempMsg;
     //  response-code, variableID, objectID
-    unsigned int msgSize = 1 + 1 + (4 + id.length());
     tempMsg.writeUnsignedByte(RESPONSE_GET_AREALDETECTOR_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
@@ -2921,7 +2903,6 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
         MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
-        msgSize += 1 + countLengths(ids);
     } else {
         MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
         if(e3==0) {
@@ -2934,19 +2915,16 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
         case LAST_STEP_VEHICLE_NUMBER:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt((float) e3->getVehiclesWithin());
-            msgSize += 1 + 4;
             break;
         case LAST_STEP_MEAN_SPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat((float) e3->getCurrentMeanSpeed());
-            msgSize += 1 + 4;
             break;
         case LAST_STEP_VEHICLE_ID_LIST:
             {
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 vector<string> ids = e3->getCurrentVehicleIDs();
                 tempMsg.writeStringList(ids);
-                msgSize += 1 + countLengths(ids);
             }
             break;
         default:
@@ -2978,7 +2956,6 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
     // begin response building
     Storage tempMsg;
     //  response-code, variableID, objectID
-    unsigned int msgSize = 1 + 1 + (4 + id.length());
     tempMsg.writeUnsignedByte(RESPONSE_GET_TL_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
@@ -2986,7 +2963,6 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
         std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
-        msgSize += 1 + countLengths(ids);
     } else {
         if(!MSNet::getInstance()->getTLSControl().knows(id)) {
             writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known");
@@ -3001,19 +2977,18 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 string state = vars.getActive()->buildStateList();
                 tempMsg.writeString(state);
-                msgSize += 1 + 4 + state.length();
             }
             break;
         case TL_PHASE_BRAKE_YELLOW_STATE:
             {
                 MSPhaseDefinition phase = vars.getActive()->getCurrentPhaseDef();
+                unsigned int linkNo = vars.getActive()->getLinks().size();
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 vector<string> phaseDef;
-                phaseDef.push_back(phase.getDriveMask().to_string());
-                phaseDef.push_back(phase.getBreakMask().to_string());
-                phaseDef.push_back(phase.getYellowMask().to_string());
+                phaseDef.push_back(phase.getDriveMask().to_string().substr(64-linkNo, 64));
+                phaseDef.push_back(phase.getBreakMask().to_string().substr(64-linkNo, 64));
+                phaseDef.push_back(phase.getYellowMask().to_string().substr(64-linkNo, 64));
                 tempMsg.writeStringList(phaseDef);
-                msgSize += 1 + countLengths(phaseDef);
             }
             break;
         default:
