@@ -426,14 +426,27 @@ TraCITestClient::run(std::string fileName, int port, std::string host)
             defFile >> intervalEnd;
             commandGetTLStatus(tlId, intervalStart, intervalEnd);
         } else if (lineCommand.compare("getvariable") == 0) {
-            // trigger command GetTrafficLightStatus
+            // trigger command GetXXXVariable
             int domID, varID;
             string objID;
-
-            defFile >> domID;
-            defFile >> varID;
-            defFile >> objID;
+            defFile >> domID >> varID >> objID;
             commandGetVariable(domID, varID, objID);
+        } else if (lineCommand.compare("setvalue") == 0) {
+            // trigger command SetXXXValue
+            int domID, varID;
+            string objID, dataType, value;
+            vector<string> slValue;
+            defFile >> domID >> varID >> objID >> dataType >> value;
+            if(dataType=="<string*>") {
+                int number = atoi(value.c_str());
+                value = "";
+                for(int i=0; i<number; ++i) {
+                    string tmp;
+                    defFile >> tmp;
+                    slValue.push_back(tmp);
+                }
+            }
+            commandSetValue(domID, varID, objID, dataType, value, slValue);
         } else {
             msg << "Error in definition file: " << lineCommand
             << " is not a valid command";
@@ -1256,8 +1269,7 @@ TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double inter
 void 
 TraCITestClient::commandGetVariable(int domID, int varID, const std::string &objID)
 {
-    tcpip::Storage outMsg;
-    tcpip::Storage inMsg;
+    tcpip::Storage outMsg, inMsg;
     std::stringstream msg;
     if (socket == NULL) {
         msg << "#Error while sending command: no connection to server" ;
@@ -1318,16 +1330,96 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         errorMsg(msg);
         return;
     }
-
-    /*
-    answerLog << "  ObjectID=" << inMsg.readString();
-    /*
-    // read value
-    int valueDataType = inMsg.readUnsignedByte();
-    answerLog << " valueDataType=" << valueDataType;
-    readAndReportTypeDependent(inMsg, valueDataType);
-    */
 }
+
+
+void 
+TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID, 
+                                 const std::string &dataTypeS, const std::string &value,
+                                 const std::vector<std::string> &slValue)
+{
+    tcpip::Storage outMsg, inMsg;
+    std::stringstream msg;
+    if (socket == NULL) {
+        msg << "#Error while sending command: no connection to server" ;
+        errorMsg(msg);
+        return;
+    }
+    int dataLength = 0;
+    int dataType = 0;
+    if(dataTypeS=="<int>") {
+        dataLength = 4;
+        dataType = TYPE_INTEGER;
+    } else if(dataTypeS=="<float>") {
+        dataLength = 4;
+        dataType = TYPE_FLOAT;
+    } else if(dataTypeS=="<string>") {
+        dataLength = 4 + value.length();
+        dataType = TYPE_STRING;
+    } else if(dataTypeS=="<string*>") {
+        dataLength = 4 + 4 * slValue.size();
+        for(vector<string>::const_iterator i=slValue.begin(); i!=slValue.end(); ++i) {
+            dataLength += (*i).length();
+        }
+        dataType = TYPE_STRINGLIST;
+    } else {
+        msg << "## Unknown data type: " << dataType;
+        errorMsg(msg);
+        return;
+    }
+    // command length (domID, varID, objID, dataType, data)
+    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + objID.length() + 1 + dataLength);
+    // command id
+    outMsg.writeUnsignedByte(domID);
+    // variable id
+    outMsg.writeUnsignedByte(varID);
+    // object id
+    outMsg.writeString(objID);
+    // data type
+    outMsg.writeUnsignedByte(dataType);
+    // data
+    switch(dataType) {
+    case TYPE_INTEGER:
+        outMsg.writeInt(atoi(value.c_str()));
+        break;
+    case TYPE_FLOAT:
+        outMsg.writeFloat(atof(value.c_str()));
+        break;
+    case TYPE_STRING:
+        outMsg.writeString(value);
+        break;
+    case TYPE_STRINGLIST:
+        outMsg.writeStringList(slValue);
+        break;
+    default:
+        break;
+    }
+    // send request message
+    try {
+        socket->sendExact(outMsg);
+    } catch (SocketException e) {
+        msg << "Error while sending command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    answerLog << endl << "-> Command sent: <SetValue>:" << endl
+    << "  domID=" << domID << " varID=" << varID
+    << " objID=" << objID << endl;
+
+    // receive answer message
+    try {
+        socket->receiveExact(inMsg);
+        if (!reportResultState(inMsg, domID)) {
+            return;
+        }
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+}
+
+
 
 
 void

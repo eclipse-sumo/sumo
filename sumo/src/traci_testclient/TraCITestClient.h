@@ -123,6 +123,8 @@ public:
 
     void commandGetTLStatus(int tlId, double intervalStart, double intervalEnd);
     void commandGetVariable(int domID, int varID, const std::string &objID);
+    void commandSetValue(int domID, int varID, const std::string &objID, const std::string &dataTypeS, 
+        const std::string &value, const std::vector<std::string> &slValue);
 
     void commandClose();
 
