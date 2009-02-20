@@ -74,9 +74,9 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw(ProcessError)
     }
     //
     bool isActive = myTLControl.isActive(myTLLogic);
-    size_t step1 = myTLLogic->getStepNo();
+    size_t step1 = myTLLogic->getCurrentPhaseIndex();
     SUMOTime next = myTLLogic->trySwitch(isActive);
-    size_t step2 = myTLLogic->getStepNo();
+    size_t step2 = myTLLogic->getCurrentPhaseIndex();
     if (step1!=step2) {
         if (isActive) {
             // execute any action connected to this tls
@@ -124,6 +124,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder &, const MSEdgeContinuations &)
 
 MSTrafficLightLogic::~MSTrafficLightLogic()
 {
+    mySwitchCommand->deschedule(this);
 }
 
 

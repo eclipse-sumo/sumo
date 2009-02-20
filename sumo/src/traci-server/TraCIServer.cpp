@@ -356,6 +356,9 @@ throw(TraCIException, std::invalid_argument)
     case CMD_GET_TL_VARIABLE:
         success = commandGetTrafficLightVariable();
         break;
+    case CMD_SET_TL_VARIABLE:
+        success = commandSetTrafficLightVariable();
+        break;
     default:
         writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
     }
@@ -824,7 +827,7 @@ TraCIServer::commandGetTLStatus() throw(TraCIException)
     writeStatusCmd(CMD_GETTLSTATUS, RTYPE_OK, "");
     std::vector<MSLink::LinkState> linkStates;
     std::vector<double> yellowTimes;
-    size_t lastStep = tlLogic->getStepNo();
+    size_t lastStep = tlLogic->getCurrentPhaseIndex();
     MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
     MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
 
@@ -2343,9 +2346,9 @@ throw(TraCIException)
     case DOMVAR_NEXTTLPHASE:
         if (tlLogic != NULL) {
             // get the required phase of the tl logic
-            size_t step = tlLogic->getStepNo();
+            size_t step = tlLogic->getCurrentPhaseIndex();
             if (variableId == DOMVAR_NEXTTLPHASE) {
-                size_t curStep = tlLogic->getStepNo();
+                size_t curStep = tlLogic->getCurrentPhaseIndex();
                 size_t pos = tlLogic->getPosition(MSNet::getInstance()->getCurrentTimeStep());
                 do {
                     pos++;
@@ -3008,6 +3011,100 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
     myOutputStorage.writeUnsignedByte(0); // command length -> extended
     myOutputStorage.writeInt(1 + 4 + tempMsg.size());
     myOutputStorage.writeStorage(tempMsg);
+    return true;
+}
+
+/*****************************************************************************/
+bool
+TraCIServer::commandSetTrafficLightVariable() throw(TraCIException)
+{
+    Storage tmpResult;
+    string warning = "";	// additional description for response
+    // variable
+    int variable = myInputStorage.readUnsignedByte();
+    if(variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM&&variable!=TL_PHASE_DURATION) {
+        writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
+        return false;
+    }
+    string id = myInputStorage.readString();
+    if(!MSNet::getInstance()->getTLSControl().knows(id)) {
+        writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known");
+        return false;
+    }
+    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
+    SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
+    MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(id);
+    int valueDataType = myInputStorage.readUnsignedByte();
+    switch (variable) {
+    case TL_PHASE_BRAKE_YELLOW_STATE:
+        {
+            if(valueDataType!=TYPE_STRINGLIST) {
+                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
+                return false;
+            }
+            vector<string> defs = myInputStorage.readStringList();
+            if(defs.size()!=3) {
+                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
+                return false;
+            }
+            bitset<64> prios(defs[1]);
+            prios.flip();
+            // build only once...
+            MSPhaseDefinition *phase = new MSPhaseDefinition(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
+            vector<MSPhaseDefinition*> phases;
+            phases.push_back(phase);
+            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(*MSNet::getInstance(), tlsControl, id, "online", phases, 0, cTime+1);
+            if(!vars.addLogic("online", logic, true, true)) {
+                delete logic;
+                MSPhaseDefinition nphase(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
+                *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
+            }
+        }
+        break;
+    case TL_PHASE_INDEX:
+        {
+            if(valueDataType!=TYPE_INTEGER) {
+                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index must be given as an integer.");
+                return false;
+            }
+            int index = myInputStorage.readInt();
+            if(index<0||vars.getActive()->getPhaseNumber()<=index) {
+                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index is not in the allowed range.");
+                return false;
+            }
+            int duration = vars.getActive()->getPhaseFromStep(index).duration;
+            vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
+        }
+        break;
+    case TL_PROGRAM:
+        {
+            if(valueDataType!=TYPE_STRING) {
+                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The program must be given as a string.");
+                return false;
+            }
+            string subID = myInputStorage.readString();
+            try {
+                vars.switchTo(tlsControl, subID);
+            } catch (ProcessError &e) {
+                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, e.what());
+                return false;
+            }
+        }
+        break;
+    case TL_PHASE_DURATION:
+        {
+            if(valueDataType!=TYPE_INTEGER) {
+                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase duration must be given as an integer.");
+                return false;
+            }
+            int duration = myInputStorage.readInt();
+            int index = vars.getActive()->getCurrentPhaseIndex();
+            vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
+        }
+    default:
+        break;
+    } 
+    writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_OK, warning);
     return true;
 }
 

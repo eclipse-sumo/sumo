@@ -68,8 +68,11 @@ public:
         Returns the time of the next switch */
     SUMOTime trySwitch(bool isActive);
 
+    /// Returns the number of phases
+    unsigned int getPhaseNumber() const;
+
     /// returns the current step
-    size_t getStepNo() const;
+    size_t getCurrentPhaseIndex() const;
 
     void setLinkPriorities() const;
     bool maskRedLinks() const;
@@ -90,6 +93,9 @@ public:
 
     /// Returns the phases of this tls
     const Phases &getPhases() const;
+
+    /// Returns the phases of this tls
+    Phases &getPhases();
 
     /// Returns the phase of a given step
     const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const;

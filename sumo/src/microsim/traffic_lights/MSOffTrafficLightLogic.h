@@ -77,8 +77,11 @@ public:
 
     const std::bitset<64> &allowed() const;
 
+    /// Returns the number of phases
+    unsigned int getPhaseNumber() const;
+
     /// returns the current step
-    size_t getStepNo() const;
+    size_t getCurrentPhaseIndex() const;
 
     /// returns the cycletime
     size_t getCycleTime() ;

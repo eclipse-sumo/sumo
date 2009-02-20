@@ -97,8 +97,15 @@ MSSimpleTrafficLightLogic::trySwitch(bool)
 }
 
 
+unsigned int 
+MSSimpleTrafficLightLogic::getPhaseNumber() const
+{
+    return (unsigned int) myPhases.size();
+}
+
+
 size_t
-MSSimpleTrafficLightLogic::getStepNo() const
+MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const
 {
     return myStep;
 }
@@ -250,6 +257,12 @@ MSSimpleTrafficLightLogic::getPosFromStep(unsigned int step)
 const MSSimpleTrafficLightLogic::Phases &
 MSSimpleTrafficLightLogic::getPhases() const
 {
+    return myPhases;
+}
+
+
+MSSimpleTrafficLightLogic::Phases &
+MSSimpleTrafficLightLogic::getPhases() {
     return myPhases;
 }
 

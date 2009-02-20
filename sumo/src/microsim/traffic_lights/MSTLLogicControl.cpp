@@ -214,14 +214,6 @@ MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const
 {
     for (std::vector<OnSwitchAcion*>::const_iterator i=onSwitchActions.begin(); i!=onSwitchActions.end();) {
         (*i)->execute();
-        /* !!!
-        if (!(*i)->execute()) {
-            i = vars.onSwitchActions.erase(i);
-            // !!! delete???
-        } else {
-            i++;
-        }
-        */
         ++i;
     }
 }

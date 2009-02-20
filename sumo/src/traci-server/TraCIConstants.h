@@ -117,6 +117,10 @@
 // response: get traffic lights variable
 #define RESPONSE_GET_TL_VARIABLE 0xb2
 
+// command: set traffic lights variable
+#define CMD_SET_TL_VARIABLE 0xc2
+
+
 // ****************************************
 // POSITION REPRESENTATIONS
 // ****************************************
@@ -270,23 +274,32 @@
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
 // ****************************************
-// list of instances' ids (induction loops, areal detector, traffic lights)
+// list of instances' ids (get: induction loops, areal detector, traffic lights)
 #define ID_LIST 0x00
 
-// last step vehicle number (induction loops, areal detector)
+// last step vehicle number (get: induction loops, areal detector)
 #define LAST_STEP_VEHICLE_NUMBER 0x10
 
-// last step vehicle number (induction loops)
+// last step vehicle number (get: induction loops)
 #define LAST_STEP_MEAN_SPEED 0x11
 
-// last step vehicle number (induction loops)
+// last step vehicle number (get: induction loops)
 #define LAST_STEP_VEHICLE_ID_LIST 0x12
 
-// traffic light states, encoded as rRgGyYoO tuple (traffic lights)
+// traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 #define TL_RED_YELLOW_GREEN_STATE 0x20
 
-// traffic light states, encoded phase, brake, and yellow tuple (traffic lights)
+// traffic light states, encoded phase, brake, and yellow tuple (get: traffic lights, set: traffic lights)
 #define TL_PHASE_BRAKE_YELLOW_STATE 0x21
+
+// index of the phase (set: traffic lights)
+#define TL_PHASE_INDEX 0x22
+
+// traffic light program (set: traffic lights)
+#define TL_PROGRAM 0x23
+
+// phase duration (set: traffic lights)
+#define TL_PHASE_DURATION 0x24
 
 
 #endif

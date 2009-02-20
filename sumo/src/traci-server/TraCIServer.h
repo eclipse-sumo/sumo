@@ -185,6 +185,8 @@ private:
 
     bool commandGetTrafficLightVariable() throw(TraCIException);
 
+    bool commandSetTrafficLightVariable() throw(TraCIException);
+
     void writeStatusCmd(int commandId, int status, std::string description);
 
     /**

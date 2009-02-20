@@ -85,8 +85,11 @@ public:
         Returns the time of the next switch */
     virtual SUMOTime trySwitch(bool isActive) = 0;
 
+    /// Returns the number of phases
+    virtual unsigned int getPhaseNumber() const = 0;
+
     /// Returns the current step
-    virtual size_t getStepNo() const = 0;
+    virtual size_t getCurrentPhaseIndex() const = 0;
 
     /// returns the position of the logic at the actual step of the simulation
     virtual size_t getPosition(SUMOTime simStep) = 0;

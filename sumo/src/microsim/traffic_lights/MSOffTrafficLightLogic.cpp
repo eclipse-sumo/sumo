@@ -61,8 +61,15 @@ MSOffTrafficLightLogic::trySwitch(bool)
 }
 
 
+unsigned int 
+MSOffTrafficLightLogic::getPhaseNumber() const
+{
+    return 1;
+}
+
+
 size_t
-MSOffTrafficLightLogic::getStepNo() const
+MSOffTrafficLightLogic::getCurrentPhaseIndex() const
 {
     return 0;
 }
