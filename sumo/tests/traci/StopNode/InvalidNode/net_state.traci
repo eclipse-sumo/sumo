@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/23/09 14:50:16 by SUMO sumo Version dev-SVN-r6846
+<!-- generated on 02/23/09 15:03:13 by SUMO sumo Version dev-SVN-r6846
 <configuration>
 
    <input>
@@ -30,6 +30,7 @@
          <lane id="1fi_0">
             <vehicle id="veh0" pos="0.00" speed="0.00"/>
          </lane>
+         <lane id="1fi_1"/>
       </edge>
    </timestep>
    <timestep time="1">
@@ -37,6 +38,7 @@
          <lane id="1fi_0">
             <vehicle id="veh0" pos="0.80" speed="0.80"/>
          </lane>
+         <lane id="1fi_1"/>
       </edge>
    </timestep>
    <timestep time="2">
@@ -44,6 +46,7 @@
          <lane id="1fi_0">
             <vehicle id="veh0" pos="2.34" speed="1.54"/>
          </lane>
+         <lane id="1fi_1"/>
       </edge>
    </timestep>
 </sumo-netstate>
