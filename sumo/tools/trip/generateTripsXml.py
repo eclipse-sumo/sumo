@@ -5,7 +5,7 @@
 @date    2009-02-09
 @version $Id: generateTripsXml.py 6768 2009-02-11 08:58:09Z behrisch $
 
-This script checks if at least one route for a given OD pair exists.
+This script generate a trip file as input data in sumo
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -372,7 +372,7 @@ if __name__ == "__main__":
     optParser.add_option("-d", "--districts-file", dest="districtfile",
                          help="define the district file")
     optParser.add_option("-l", "--limitlength", action="store_true", dest="limitlength",
-                        default=False, help="the route length of possible connections of a given OD pair shall be less than 1.4 * min.length")   
+                        default=False, help="the route length of possible connections of a given OD pair shall be less than 1.6 * min.length")   
     optParser.add_option("-t", "--trip-file", dest="tripfile",
                          default= "trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-b", "--debug", action="store_true", dest="debug",
