@@ -1,10 +1,5 @@
 simstep 1 1
 
-stopnode_roadpos 0 e_m5 200 1 0 5
-stopnode_roadpos 0 e_shape0 200 1 0 10
+stopnode_roadpos 0 1fi 200 0 0 5
 
-stopnode_roadpos 1 e_m5 220 2 0 5
-stopnode_roadpos 1 e_shape1 350 0 0 10
-stopnode_roadpos 1 e_m1 100 0 0 10
-
-simstep_repeat 2 500 1 1
+simstep_repeat 2 50 1 1
