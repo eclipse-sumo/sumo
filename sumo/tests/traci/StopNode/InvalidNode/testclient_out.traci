@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Feb 03 22:52:33 2009
+TraCITestClient output file. Date: Wed Feb 11 11:04:36 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -15,7 +15,7 @@ TraCITestClient output file. Date: Tue Feb 03 22:52:33 2009
   TargetTime=1 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=2008.5 y=491.75
+  nodeId=0 targetTime=1 2D-Position: x=2009.05 y=491.75
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

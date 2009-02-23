@@ -1,5 +1,5 @@
 <routes>   
-    <vtype id="vtype1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
+    <vtype id="vtype1" accel="1." decel="4.5" sigma="0." length="5" maxspeed="70"/>
     <vehicle id="veh0" depart="0" type="vtype1">
         <route edges="e_m4 e_m5 e_m6 e_shape0 e_o1 e_vo1 e_m5 e_m6 e_shape0 e_o1 e_vo1 e_m5"/>
     </vehicle>
