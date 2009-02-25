@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The popup menu which is displayed when pressing the right mouse button over
+// The popup menu of a globject
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -76,13 +76,14 @@ FXIMPLEMENT(GUIGLObjectPopupMenu, FXMenuPane, GUIGLObjectPopupMenuMap, ARRAYNUMB
 // ===========================================================================
 GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent,
-        GUIGlObject &o)
+        GUIGlObject &o) throw()
         : FXMenuPane(&parent), myParent(&parent), myObject(&o),
-        myApplication(&app)
-{}
+        myApplication(&app), myNetworkPosition(parent.getPositionInformation())
+{
+}
 
 
-GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu()
+GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() throw()
 {}
 
 
@@ -113,8 +114,7 @@ GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*)
 long
 GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*)
 {
-    Position2D p = myParent->getPositionInformation();
-    GUIUserIO::copyToClipboard(*myParent->getApp(), toString(p));
+    GUIUserIO::copyToClipboard(*myParent->getApp(), toString(myNetworkPosition));
     return 1;
 }
 

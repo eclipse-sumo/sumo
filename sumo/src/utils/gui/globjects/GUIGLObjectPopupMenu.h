@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The popup menu which is displayed when pressing the right mouse button over
+// The popup menu of a globject
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -31,6 +31,7 @@
 
 #include <vector>
 #include <fx.h>
+#include <utils/geom/Position2D.h>
 
 
 // ===========================================================================
@@ -46,18 +47,26 @@ class GUIMainWindow;
 // ===========================================================================
 /**
  * @class GUIGLObjectPopupMenu
+ * @brief The popup menu of a globject
  */
 class GUIGLObjectPopupMenu : public FXMenuPane
 {
     // FOX-declarations
     FXDECLARE(GUIGLObjectPopupMenu)
-public:
-    /// Constructor
-    GUIGLObjectPopupMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent, GUIGlObject &o);
 
-    /// Destructor
-    virtual ~GUIGLObjectPopupMenu();
+public:
+    /** @brief Constructor
+     * @param[in] app The main window for instantiation of other windows
+     * @param[in] parent The parent view for changing it
+     * @param[in] o The object of interest
+     */
+    GUIGLObjectPopupMenu(GUIMainWindow &app,
+                         GUISUMOAbstractView &parent, GUIGlObject &o) throw();
+
+
+    /// @brief Destructor
+    virtual ~GUIGLObjectPopupMenu() throw();
+
 
 public:
     /// Called if the assigned objects shall be centered
@@ -98,18 +107,23 @@ public:
 
 
 protected:
-    /// The parent window
+    /// @brief The parent window
     GUISUMOAbstractView *myParent; // !!! needed?
 
-    /// The object that belongs to this popup-menu
+    /// @brief The object that belongs to this popup-menu
     GUIGlObject *myObject;
 
-    /// The main application
+    /// @brief The main application
     GUIMainWindow *myApplication;
 
+    /// @brief The position within the network the cursor was above when instanting the popup
+    Position2D myNetworkPosition;
+
+
 protected:
-    /// FOX needs this
+    /// @brief FOX needs this
     GUIGLObjectPopupMenu() { }
+
 
 };
 

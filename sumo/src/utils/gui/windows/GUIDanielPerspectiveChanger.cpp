@@ -223,7 +223,7 @@ void
 GUIDanielPerspectiveChanger::onMouseMove(void*data)
 {
     FXEvent* e = (FXEvent*) data;
-    myCallback.setTooltipPosition(e->win_x, e->win_y, e->root_x, e->root_y);
+    myCallback.setWindowCursorPosition(e->win_x, e->win_y);
     int xdiff = myMouseXPosition - e->win_x;
     int ydiff = myMouseYPosition - e->win_y;
     switch (myMouseButtonState) {

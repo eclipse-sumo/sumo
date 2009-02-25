@@ -208,7 +208,7 @@ GUISUMOAbstractView::updateToolTip()
 Position2D
 GUISUMOAbstractView::getPositionInformation() const
 {
-    return getPositionInformation(myChanger->getMouseXPosition(), myChanger->getMouseYPosition());
+    return getPositionInformation(myWindowCursorPositionX, myWindowCursorPositionY);
 }
 
 
@@ -317,8 +317,8 @@ GUISUMOAbstractView::paintGL()
 unsigned int
 GUISUMOAbstractView::getObjectUnderCursor()
 {
-    int xpos = myToolTipX+myMouseHotspotX;
-    int ypos = myToolTipY+myMouseHotspotY;
+    int xpos = myWindowCursorPositionX+myMouseHotspotX;
+    int ypos = myWindowCursorPositionY+myMouseHotspotY;
     if (xpos<0||xpos>=myWidthInPixels) {
         return 0;
     }
@@ -336,7 +336,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
     glInitNames();
     // compute new scale
     SUMOReal scale = SUMOReal(getWidth())/SUMOReal(SENSITIVITY);
-    applyChanges(scale, myToolTipX+myMouseHotspotX, myToolTipY+myMouseHotspotY);
+    applyChanges(scale, myWindowCursorPositionX+myMouseHotspotX, myWindowCursorPositionY+myMouseHotspotY);
     // paint in select mode
     bool tmp = myUseToolTips;
     myUseToolTips = true;
@@ -345,6 +345,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     if (nb_hits==0||hits2==0) {
+        applyChanges(1, 0, 0);
         return 0;
     }
     // Interpret results
@@ -393,6 +394,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
         gIDStorage.unblockObject(id);
         assert(i*4+3<NB_HITS_MAX);
     }
+    applyChanges(1, 0, 0);
     return idMax;
 }
 
@@ -402,7 +404,10 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id)
 {
     if (id!=0) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(id);
-        myToolTip->setObjectTip(object, myMouseX, myMouseY);
+        int x, y;
+        FXuint b;
+        myApp->getCursorPosition(x, y, b);
+        myToolTip->setObjectTip(object, x + myApp->getX(), y + myApp->getY());
         if (object!=0) {
             gIDStorage.unblockObject(id);
         }
@@ -640,13 +645,10 @@ GUISUMOAbstractView::allowRotation() const
 */
 
 void
-GUISUMOAbstractView::setTooltipPosition(FXint x, FXint y,
-                                        FXint mouseX, FXint mouseY)
+GUISUMOAbstractView::setWindowCursorPosition(FXint x, FXint y)
 {
-    myToolTipX = x;
-    myToolTipY = y;
-    myMouseX = mouseX;
-    myMouseY = mouseY;
+    myWindowCursorPositionX = x;
+    myWindowCursorPositionY = y;
 }
 
 
@@ -821,8 +823,11 @@ GUISUMOAbstractView::openObjectDialog()
         }
         if (o!=0) {
             myPopup = o->getPopUpMenu(*myApp, *this);
-            myPopup->setX(myMouseX);
-            myPopup->setY(myMouseY);
+            int x, y;
+            FXuint b;
+            myApp->getCursorPosition(x, y, b);
+            myPopup->setX(x + myApp->getX());
+            myPopup->setY(y + myApp->getY());
             myPopup->create();
             myPopup->show();
             myChanger->onRightBtnRelease(0);

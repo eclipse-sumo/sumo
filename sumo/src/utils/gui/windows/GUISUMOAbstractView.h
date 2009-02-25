@@ -127,7 +127,7 @@ public:
 //    bool allowRotation() const;
 
     /// Returns the gl-id of the object under the given coordinates
-    void setTooltipPosition(FXint x, FXint y, FXint mouseX, FXint mouseY);
+    void setWindowCursorPosition(FXint x, FXint y);
 
     /// A reimplementation due to some internal reasons
     FXbool makeCurrent();
@@ -339,11 +339,8 @@ protected:
     /// The used tooltip-class
     GUIGLObjectToolTip *myToolTip;
 
-    /// position to display the tooltip at
-    FXint myToolTipX, myToolTipY;
-
-    /// The current mouse position (if the mouse is over this canvas)
-    FXint myMouseX, myMouseY;
+    /// position of the cursor relative to the window
+    FXint myWindowCursorPositionX, myWindowCursorPositionY;
 
     /// Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
