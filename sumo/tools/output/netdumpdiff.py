@@ -3,7 +3,7 @@
 @file    netdumpdiff.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-10-25
-@version $Id: netdumpdiff.py 625 2008-03-08 14:04:01Z behr_mi $
+@version $Id$
 
 
 This script reads two network dumps 

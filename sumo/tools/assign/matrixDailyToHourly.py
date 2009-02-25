@@ -2,7 +2,7 @@
 @file    getHourlyMatrix.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2008-08-20
-@version $Id: getHourlyMatrix.py 5792 2008-07-15 14:53:05Z yunpangwang $
+@version $Id$
 
 This script is to generate hourly matrices from a VISUM daily matrix. 
 The taffic demand of the traffic zones, which have the same connection links, will be integrated.

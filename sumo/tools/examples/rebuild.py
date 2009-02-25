@@ -3,7 +3,7 @@
 @file    rebuild.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    28-07-2008
-@version $Id: rebuild.py 5503 2008-05-09 08:39:14Z behrisch $
+@version $Id$
 
 Goes through all files in examples; executes found configurations 
  using the proper application.

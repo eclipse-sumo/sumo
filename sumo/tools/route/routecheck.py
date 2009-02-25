@@ -3,7 +3,7 @@
 @file    routecheck.py
 @author  Michael.Behrisch@dlr.de
 @date    2007-03-09
-@version $Id: routecheck.py 6623 2009-01-15 10:35:15Z behrisch $
+@version $Id$
 
 This script does simple checks for the routes on a given network.
 It needs at least two parameters, the SUMO net (.net.xml) and a file

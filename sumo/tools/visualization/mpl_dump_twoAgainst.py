@@ -3,7 +3,7 @@
 @file    mpl_dump_twoAgainst.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-10-25
-@version $Id: mpl_dump_twoAgainst.py 625 2008-03-08 14:04:01Z behr_mi $
+@version $Id$
 
 
 This script reads two dump files and plots one of the values

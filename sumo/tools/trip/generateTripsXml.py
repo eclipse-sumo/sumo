@@ -3,7 +3,7 @@
 @file    generateTripsXml.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2009-02-09
-@version $Id: generateTripsXml.py 6768 2009-02-11 08:58:09Z behrisch $
+@version $Id$
 
 This script generate a trip file as input data in sumo
 
@@ -332,7 +332,7 @@ def main(options):# generateTrips(options):
     matrixSum = 0.
     fouttrips = file(options.tripfile, 'w')
     fouttrips.write('<?xml version="1.0"?>\n')
-    print >> fouttrips, """<!-- generated on %s by $Id: generateTripsXml.py 6768 2009-02-11 08:58:09Z behrisch $ -->
+    print >> fouttrips, """<!-- generated on %s by $Id$ -->
     """ % datetime.datetime.now()
     fouttrips.write("<tripdefs>\n")
     

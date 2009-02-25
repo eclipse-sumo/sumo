@@ -1,9 +1,8 @@
-#!/usr/bin/env python
 """
 @file    netmatching.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2008-03-27
-@version $Id: $
+@version $Id$
 
 
 Copyright (C) 2008 DLR/TS, Germany

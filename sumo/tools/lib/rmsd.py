@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from numpy import append, array, dot, shape, transpose
 from numpy.linalg import det, svd
 
