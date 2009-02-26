@@ -362,7 +362,8 @@ def main(options):
                     matrixSum += matrixPshort[start][end]
                     while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
                         counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
-    if options.verbose:            
+    if options.verbose:
+        print 'total demand:', matrixSum           
         print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
     for trip in tripList:            
