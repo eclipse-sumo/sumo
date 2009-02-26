@@ -10,15 +10,11 @@ This script generate a trip file as input data in sumo
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-
 import os, string, sys, operator, math, datetime, random
-
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-
 pyPath = os.path.dirname(sys.argv[0])
 sys.path.append(os.path.join(pyPath, "..", "assign"))
-
 from dijkstra import dijkstraPlain
 
 # This class is used to build the nodes in the investigated network and 
@@ -111,8 +107,8 @@ class Net:
 
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
-                          "real"))  
-                                            
+                          "real"))
+
     def getTargets(self):
         target = set()
         for end in self._endVertices:
@@ -227,6 +223,7 @@ class DistrictsReader(handler.ContentHandler):
             newEdge.weight = attrs['weight']
             self._districtSource.sourceConnNodes.append(sourcelink.source)
             newEdge.connection = 2
+            
     def endElement(self, name):
         if name == 'district':
             self._district = ''
@@ -291,12 +288,25 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
 
     return matrixPshort, begintime, assignPeriod, startVertices, endVertices, MatrixSum, currentMatrixSum
     
-def main(options):# generateTrips(options):
+def addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList):
+    counts += 1.
+    vehID += 1
+    depart = random.randint(begin*3600, (begin + period)*3600)
+    if len(odConnMap[startVertex.label][endVertex.label]) > 0:
+        connIndex = random.randint(0, len(odConnMap[startVertex.label][endVertex.label])-1)
+        connPair = odConnMap[startVertex.label][endVertex.label][connIndex]
+        veh = Trip(vehID, depart, connPair[0], connPair[1])
+        tripList.append(veh)
+    
+    return counts, vehID, tripList    
+       
+def main(options):
     parser = make_parser()
     dataDir = options.datadir
     districts = os.path.join(dataDir, options.districtfile)
     matrix = os.path.join(dataDir, options.mtxfile)
     netfile = os.path.join(dataDir, options.netfile)
+    
     MatrixSum = 0.
     tripList = []
     net = Net()
@@ -325,9 +335,9 @@ def main(options):# generateTrips(options):
                     if endVertex.label not in odConnMap[startVertex.label]:
                         odConnMap[startVertex.label][endVertex.label]= []
                     net.checkRoute(startVertex, endVertex, start, end, P, odConnMap, source, options)
-
     # output trips
     vehID = 0
+    subVehID = 0
     random.seed(42)
     matrixSum = 0.
     fouttrips = file(options.tripfile, 'w')
@@ -340,18 +350,19 @@ def main(options):# generateTrips(options):
         for end, endVertex in enumerate(endVertices):
             if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
                 counts = 0.
-                matrixSum += matrixPshort[start][end]
-                while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
-                    counts += 1.
-                    vehID += 1
-                    depart = random.randint(begin*3600, (begin + period)*3600)
-                    if len(odConnMap[startVertex.label][endVertex.label]) > 0:
-                        connIndex = random.randint(0, len(odConnMap[startVertex.label][endVertex.label])-1)
-                        connPair = odConnMap[startVertex.label][endVertex.label][connIndex]
-                        veh = Trip(vehID, depart, connPair[0], connPair[1])
-                        tripList.append(veh)
-                    
-    if options.debug:                    
+                if options.odestimation:
+                    if matrixPshort[start][end] < 1.:
+                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
+                    else:
+                        matrixSum += matrixPshort[start][end]
+                        while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(subVehID) < matrixSum)or float(subVehID) < matrixSum:
+                            counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
+                            subVehID += 1
+                else:
+                    matrixSum += matrixPshort[start][end]
+                    while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
+                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
+    if options.verbose:            
         print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
     for trip in tripList:            
@@ -375,6 +386,8 @@ if __name__ == "__main__":
                         default=False, help="the route length of possible connections of a given OD pair shall be less than 1.6 * min.length")   
     optParser.add_option("-t", "--trip-file", dest="tripfile",
                          default= "trips.trips.xml", help="define the output trip filename")
+    optParser.add_option("-x", "--odestimation", action="store_true", dest="odestimation",
+                         default=False, help="generate trips for OD estimation")
     optParser.add_option("-b", "--debug", action="store_true", dest="debug",
                          default=False, help="debug the program")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
