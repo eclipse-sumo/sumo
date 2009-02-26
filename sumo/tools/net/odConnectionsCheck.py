@@ -3,7 +3,7 @@
 @file    odConnectionsCheck.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-03-20
-@version $Id: odConnectionsCheck.py 6796 2009-02-13 09:47:16Z yunpangwang $
+@version $Id$
 
 This script checks if at least one route for a given OD pair exists.
 
