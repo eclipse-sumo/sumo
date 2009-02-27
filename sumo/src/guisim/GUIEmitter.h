@@ -166,7 +166,7 @@ public:
         GUIEmitterPopupMenu(GUIMainWindow &app,
                             GUISUMOAbstractView &parent, GUIGlObject &o);
 
-        ~GUIEmitterPopupMenu();
+        ~GUIEmitterPopupMenu() throw();
 
         /** @brief Called if the object's manipulator shall be shown */
         long onCmdOpenManip(FXObject*,FXSelector,void*);

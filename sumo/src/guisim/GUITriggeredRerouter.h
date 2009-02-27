@@ -134,7 +134,7 @@ public:
         GUITriggeredRerouterPopupMenu(GUIMainWindow &app,
                                       GUISUMOAbstractView &parent, GUIGlObject &o);
 
-        ~GUITriggeredRerouterPopupMenu();
+        ~GUITriggeredRerouterPopupMenu() throw();
 
         /** @brief Called if the object's manipulator shall be shown */
         long onCmdOpenManip(FXObject*,FXSelector,void*);

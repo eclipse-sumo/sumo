@@ -17,15 +17,6 @@
 //
 /****************************************************************************/
 // ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#pragma warning(disable: 4355)
-#endif
-
-
-// ===========================================================================
 // included modules
 // ===========================================================================
 #ifdef _MSC_VER
@@ -287,7 +278,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::GUILaneSpeedTriggerPopupMenu(
 {}
 
 
-GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu()
+GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu() throw()
 {}
 
 

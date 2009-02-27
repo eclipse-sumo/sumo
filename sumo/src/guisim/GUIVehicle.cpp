@@ -137,7 +137,7 @@ GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
 }
 
 
-GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu()
+GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu() throw()
 {}
 
 

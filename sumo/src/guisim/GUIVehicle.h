@@ -236,7 +236,7 @@ public:
                             GUISUMOAbstractView &parent, GUIGlObject &o);
 
         /// Destructor
-        ~GUIVehiclePopupMenu();
+        ~GUIVehiclePopupMenu() throw();
 
         /// Called if all routes of the vehicle shall be shown
         long onCmdShowAllRoutes(FXObject*,FXSelector,void*);

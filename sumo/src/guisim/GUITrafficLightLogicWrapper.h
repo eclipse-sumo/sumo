@@ -150,7 +150,7 @@ public:
                                              GUISUMOAbstractView &parent, GUIGlObject &o);
 
         /// Destructor
-        ~GUITrafficLightLogicWrapperPopupMenu();
+        ~GUITrafficLightLogicWrapperPopupMenu() throw ();
 
         /// Called if the phases shall be shown
         long onCmdShowPhases(FXObject*,FXSelector,void*);
