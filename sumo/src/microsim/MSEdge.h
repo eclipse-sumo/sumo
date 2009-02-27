@@ -46,6 +46,7 @@
 class MSLane;
 class MSLaneChanger;
 class OutputDevice;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -316,7 +317,7 @@ public:
      * @see MSVehicle::getEffort
      * @deprecated This explicite combination is not variable enough; see determination in C2C-device
      */
-    SUMOReal getVehicleEffort(const MSVehicle * const v, SUMOReal t) const throw();
+    SUMOReal getVehicleEffort(const SUMOVehicle * const v, SUMOReal t) const throw();
 
 
     /** @brief Adds a loaded weight
@@ -399,7 +400,7 @@ public:
 #endif
 
     /// @todo recheck usage
-    virtual bool prohibits(const MSVehicle *) const throw() {
+    virtual bool prohibits(const SUMOVehicle *) const throw() {
         return false;
     }
 

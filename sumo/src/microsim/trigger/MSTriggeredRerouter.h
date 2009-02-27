@@ -43,6 +43,7 @@
 // ===========================================================================
 class MSNet;
 class MSLane;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -176,13 +177,13 @@ public:
     };
 
     /// Reroutes a vehicle
-    void reroute(MSVehicle &veh, const MSEdge *src);
+    void reroute(SUMOVehicle &veh, const MSEdge *src);
 
     /// Returns whether a rerouting definition is valid for the given time and vehicle
-    bool hasCurrentReroute(SUMOTime time, MSVehicle &veh) const;
+    bool hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const;
 
     /// Returns the rerouting definition valid for the given time and vehicle
-    const RerouteInterval &getCurrentReroute(SUMOTime time, MSVehicle &veh) const;
+    const RerouteInterval &getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const;
 
     /// Returns whether a rerouting definition is valid for the given time
     bool hasCurrentReroute(SUMOTime time) const;

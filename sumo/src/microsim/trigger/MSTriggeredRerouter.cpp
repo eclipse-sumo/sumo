@@ -247,7 +247,7 @@ MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 bool
-MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, MSVehicle &veh) const
+MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const
 {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     const MSRoute &route = veh.getRoute();
@@ -280,7 +280,7 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const
 
 
 const MSTriggeredRerouter::RerouteInterval &
-MSTriggeredRerouter::getCurrentReroute(SUMOTime time, MSVehicle &veh) const
+MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const
 {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     const MSRoute &route = veh.getRoute();
@@ -312,7 +312,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const
 
 
 void
-MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
+MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge *src)
 {
     // check whether the vehicle shall be rerouted
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
@@ -343,7 +343,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     }
 
     // we have a new destination, let's replace the vehicle route
-    SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+    SUMODijkstraRouter_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
     router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
     router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);

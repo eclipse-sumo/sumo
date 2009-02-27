@@ -108,7 +108,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError)
             while (seg != 0) {
                 std::vector<MEVehicle*> vehs = seg->getVehicles();
                 for (vector<MEVehicle*>::const_iterator veh = vehs.begin(); veh != vehs.end(); ++veh) {
-                    writeVehicle(of, *(*veh)->getSUMOVehicle());
+                    writeVehicle(of, *(*veh));
                 }
                 seg = seg->getNextSegment();
             }

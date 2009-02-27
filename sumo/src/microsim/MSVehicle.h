@@ -218,7 +218,7 @@ public:
 
     bool willPass(const MSEdge * const edge) const;
 
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, MSVehicle> &router);
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router);
 
 
 

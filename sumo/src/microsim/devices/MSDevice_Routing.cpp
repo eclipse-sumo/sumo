@@ -126,7 +126,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
         }
         // the following is just to give the vehicle a valid route before the route is checked at init
-        SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing>
+        SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
         router(MSEdge::dictSize(), true, device, &MSDevice_Routing::getEffort);
         v.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
@@ -156,7 +156,7 @@ MSDevice_Routing::~MSDevice_Routing() throw()
 void
 MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
 {
-    SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing>
+    SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     // build repetition trigger if routing shall be done more often
@@ -172,7 +172,7 @@ MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
 SUMOTime
 MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(ProcessError)
 {
-    SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing>
+    SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(currentTime, router);
     return myPeriod;
@@ -180,7 +180,7 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(Proce
 
 
 SUMOReal
-MSDevice_Routing::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal t) const
+MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const
 {
     assert(myEdgeEfforts.find(e)!=myEdgeEfforts.end());
     return MAX2(myEdgeEfforts.find(e)->second, (*e->getLanes())[0]->length()/v->getMaxSpeed());

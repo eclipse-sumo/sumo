@@ -49,12 +49,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSVehicleControl::MSVehicleControl() throw()
@@ -124,7 +118,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         SUMOTime departTime = -1;
         if (departInfo!=0) {
             routeLength -= departInfo->pos;
-            string laneID = departInfo->lane!=0 ? departInfo->lane->getID() : "";
+            std::string laneID = departInfo->lane!=0 ? departInfo->lane->getID() : "";
             od << "depart=\"" << departInfo->time << "\" "
             << "departLane=\"" << laneID << "\" "
             << "departPos=\"" << departInfo->pos << "\" "
@@ -145,7 +139,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         }
         SUMOTime arrivalTime = -1;
         if (arrivalInfo!=0) {
-            string laneID = "";
+            std::string laneID = "";
             if (arrivalInfo->lane!=0) {
                 routeLength -= arrivalInfo->lane->length() - arrivalInfo->pos;
                 laneID = arrivalInfo->lane->getID();
@@ -177,9 +171,9 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         }
         // compute device id list
         const std::vector<MSDevice*> &devices = v->getDevices();
-        string deviceIDs;
+        std::string deviceIDs;
         if(devices.size()!=0) {
-            ostringstream str;
+            std::ostringstream str;
             bool addSem = false;
             for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
                 if (addSem) {
@@ -340,11 +334,11 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
     unsigned int size;
     bis >> size;
     while (size-->0) {
-        string id;
+        std::string id;
         SUMOReal length, maxSpeed, accel, decel, dawdle, tau, guiWidth, guiOffset,
         prob, speedFactor, speedDev, r, g, b;
         int vclass, emissionClass, shape;
-        string followModel, laneChangeModel;
+        std::string followModel, laneChangeModel;
         bis >> id;
         bis >> length;
         bis >> maxSpeed;
@@ -375,14 +369,14 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
     unsigned int numVTypeDists;
     bis >> numVTypeDists;
     for (;numVTypeDists>0;numVTypeDists--) {
-        string id;
+        std::string id;
         bis >> id;
         unsigned int no;
         bis >> no;
         if (getVType(id)==0) {
             RandomDistributor<MSVehicleType*> *dist = new RandomDistributor<MSVehicleType*>();
             for (;no>0;no--) {
-                string vtypeID;
+                std::string vtypeID;
                 bis >> vtypeID;
                 MSVehicleType *t = getVType(vtypeID);
                 assert(t!=0);
@@ -393,7 +387,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
             addVTypeDistribution(id, dist);
         } else {
             for (;no>0;no--) {
-                string vtypeID;
+                std::string vtypeID;
                 bis >> vtypeID;
                 SUMOReal prob;
                 bis >> prob;
@@ -561,7 +555,7 @@ MSVehicleControl::addVTypeDistribution(const std::string &id, RandomDistributor<
 
 
 MSVehicleType*
-MSVehicleControl::getVType(const string &id) throw()
+MSVehicleControl::getVType(const std::string &id) throw()
 {
     VTypeDictType::iterator it = myVTypeDict.find(id);
     if (it == myVTypeDict.end()) {

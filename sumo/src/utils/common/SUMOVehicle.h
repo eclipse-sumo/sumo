@@ -29,6 +29,18 @@
 #include <config.h>
 #endif
 
+#include <vector>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSVehicleType;
+class MSRoute;
+class MSEdge;
+
+typedef std::vector<const MSEdge*> MSEdgeVector;
+
 
 // ===========================================================================
 // class definitions
@@ -45,21 +57,51 @@ public:
      */
     virtual const std::string& getID() const throw() = 0;
 
-
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)
      */
     virtual SUMOReal getPositionOnLane() const throw() = 0;
 
+    /** @brief Returns the vehicle's maximum speed
+     * @return The vehicle's maximum speed
+     */
+    virtual SUMOReal getMaxSpeed() const = 0;
 
     /** @brief Returns the vehicle's current speed
      * @return The vehicle's speed
      */
     virtual SUMOReal getSpeed() const throw() = 0;
+
+    /** @brief Returns the vehicle's type
+     * @return The vehicle's type
+     */
+    virtual const MSVehicleType &getVehicleType() const = 0;
+
+    /// Returns the current route
+    virtual const MSRoute &getRoute() const = 0;
+
+    /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
+     *
+     * If the rest of the route (counted from the current edge) than nSuccs,
+     *  0 is returned.
+     * @param[in] nSuccs The number of edge to look forward
+     * @return The nSuccs'th following edge in the vehicle's route
+     */
+    virtual const MSEdge* succEdge(unsigned int nSuccs) const throw() = 0;
+
+    /** @brief Adapt the vehicle's maximum speed depending on the reference speed
+     * @param[in] the maximum speed on the edge
+     * @return The vehicle's new maximum speed
+     */
+    virtual SUMOReal adaptMaxSpeed(SUMOReal referenceSpeed) = 0;
+
+    /// Replaces the current route by the given edges
+    virtual bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) = 0;
+
+    virtual SUMOReal getEffort(const MSEdge * const e, SUMOReal t) const = 0;
 };
 
 
 #endif
 
 /****************************************************************************/
-

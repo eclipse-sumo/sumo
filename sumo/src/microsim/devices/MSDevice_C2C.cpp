@@ -977,7 +977,7 @@ MSDevice_C2C::checkReroute(SUMOTime t)
     // try to reroute
     if (!myHolder.hasStops()) {
         myHaveRouteInfo = false;
-        SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> >
+        SUMODijkstraRouter_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
         router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
         myHolder.reroute(t, router);
     }

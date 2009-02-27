@@ -194,7 +194,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSVehicleType* type,
                      int vehicleIndex) :
 #ifdef HAVE_MESOSIM
-        MEVehicle(this, 0, 0),
+        MEVehicle(0, 0),
 #endif
         myLastLaneChangeOffset(0),
         myTarget(0),
@@ -1869,7 +1869,7 @@ MSVehicle::willPass(const MSEdge * const edge) const
 
 
 void
-MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, MSVehicle> &router)
+MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router)
 {
     // check whether to reroute
     std::vector<const MSEdge*> edges;
@@ -1974,7 +1974,7 @@ MSVehicle::checkReroute(SUMOTime t)
 #endif
     if (myWeightChangedViaTraci && myHaveRouteInfo && myStops.size()==0) {
         myHaveRouteInfo = false;
-        SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> >
+        SUMODijkstraRouter_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
         router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
         reroute(t, router);
     }

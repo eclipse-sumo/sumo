@@ -467,7 +467,7 @@ MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw()
 
 
 SUMOReal
-MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOReal t) const throw()
+MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOReal t) const throw()
 {
     SUMOReal teffort = v->getEffort(this, t);
     if (teffort>=0) {
