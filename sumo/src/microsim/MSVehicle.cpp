@@ -1847,7 +1847,6 @@ MSVehicle::saveState(std::ostream &os)
     }
     FileHelpers::writeFloat(os, myEventTime);
     FileHelpers::writeFloat(os, myLastEntryTime);
-    FileHelpers::writeByte(os, inserted);
 #endif
 }
 

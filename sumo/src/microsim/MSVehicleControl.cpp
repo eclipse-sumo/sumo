@@ -439,8 +439,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
             tEvent -= offset;
             tLastEntry -= offset;
         }
-        bool inserted;
-        bis >> inserted;
 #endif
         route = MSRoute::dictionary(p->routeid);
         assert(route!=0);
@@ -464,7 +462,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
             }
             v->myEventTime = tEvent;
             v->myLastEntryTime = tLastEntry;
-            v->inserted = inserted!=0;
         }
 #endif
         if (!addVehicle(p->id, v)) {
