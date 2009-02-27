@@ -338,12 +338,28 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
     if (isVaporizing()) {
         return false;
     }
+    const SUMOVehicleParameter &pars = v.getParameter();
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        v.setSegment(MSGlobals::gMesoNet->getSegmentForEdge(this));
+        SUMOReal pos = 0.0;
+        switch (pars.departPosProcedure) {
+        case DEPART_POS_GIVEN:
+            if (pars.departPos >= 0.) {
+                pos = pars.departPos;
+            } else {
+                pos = pars.departPos + (*getLanes())[0]->length();
+            }
+            break;
+        case DEPART_POS_RANDOM:
+            pos = RandHelper::rand((*getLanes())[0]->length());
+            break;
+        default:
+            break;
+        }
+        v.setSegment(MSGlobals::gMesoNet->getSegmentForEdge(this, pos));
         v.setEventTime((SUMOReal) time);
         bool insertToNet = false;
-        if (MSGlobals::gMesoNet->getSegmentForEdge(this)->initialise(&v, 0, time, insertToNet)) {
+        if (v.getSegment()->initialise(&v, 0, time, insertToNet)) {
             if (insertToNet) {
                 MSGlobals::gMesoNet->addCar(&v);
             }
@@ -353,7 +369,6 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
         }
     }
 #endif
-    const SUMOVehicleParameter &pars = v.getParameter();
     switch (pars.departLaneProcedure) {
     case DEPART_LANE_GIVEN:
         return v.getDepartLanes()[pars.departLane]->emit(v); // !!! unsecure

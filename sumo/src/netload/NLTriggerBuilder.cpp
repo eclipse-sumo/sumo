@@ -48,8 +48,6 @@
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/METriggeredCalibrator.h>
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -330,18 +328,9 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
-        MESegment *prev = s;
-        SUMOReal cpos = 0;
-        while (cpos<pos&&s!=0) {
-            prev = s;
-            cpos += s->getLength();
-            s = s->getNextSegment();
-        }
-        SUMOReal rpos = pos-cpos-prev->getLength();
         std::string file = getFileName(attrs, base, true);
         std::string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
-        METriggeredCalibrator* trigger = buildCalibrator(net, id, prev, rpos, file, outfile);
+        METriggeredCalibrator* trigger = buildCalibrator(net, id, lane->getEdge(), pos, file, outfile);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
@@ -431,11 +420,11 @@ NLTriggerBuilder::buildLaneCalibrator(MSNet &net, const std::string &id,
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
-                                  MESegment *edge, SUMOReal pos,
+                                  const MSEdge *edge, SUMOReal pos,
                                   const std::string &file,
                                   const std::string &outfile) throw()
 {
-    return new METriggeredCalibrator(id, edge, file, outfile);
+    return new METriggeredCalibrator(id, edge, pos, file, outfile);
 }
 #endif
 

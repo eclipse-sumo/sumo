@@ -50,7 +50,6 @@ class MSCalibrator;
 
 #ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
-class MESegment;
 #endif
 
 
@@ -284,7 +283,7 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual METriggeredCalibrator* buildCalibrator(MSNet &net,
-                                 const std::string &id, MESegment *edge, SUMOReal pos,
+                                 const std::string &id, const MSEdge *edge, SUMOReal pos,
                                  const std::string &file, const std::string &outfile) throw();
 #endif
 
