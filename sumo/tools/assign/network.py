@@ -67,6 +67,24 @@ class Net:
     def getJunction(self, junctionlabel):
         return self._junctions[junctionlabel]
         
+    def getstartCounts(self):
+        return len(self._startVertices)
+        
+    def getendCounts(self):
+        return len(self._endVertices)
+        
+    def getstartVertices(self):
+        return self._startVertices
+        
+    def getendVertices(self):
+        return self._endVertices
+        
+    def geteffEdgeCounts(self):
+        return len(net._edges)
+        
+    def getfullEdgeCounts(self):
+        return len(net._fullEdges)
+        
     def linkReduce(self):
         toRemove = []
         for node in self._vertices:

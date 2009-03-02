@@ -45,10 +45,10 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                 elif len(startVertices) < zones:
                     for elem in line.split():
                         if len(elem) > 0:
-                            for startVertex in net._startVertices:
+                            for startVertex in net.getstartVertices():
                                 if startVertex.label == elem:
                                     startVertices.append(startVertex)
-                            for endVertex in net._endVertices:
+                            for endVertex in net.getendVertices():
                                 if endVertex.label == elem:
                                     endVertices.append(endVertex)
                     origins = len(startVertices)
@@ -76,8 +76,8 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'begintime:', begintime
         print 'currentMatrixSum:', currentMatrixSum        
         print 'Effective O-D Cells:', Pshort_EffCells
-        print 'len(net._startVertices):', len(net._startVertices)
-        print 'len(net._endVertices):', len(net._endVertices)
+        print 'number of start Vertices:', net.getstartCounts()
+        print 'number of end Vertices):',  net.getendCounts()
         print 'smallDemandRatio):', smallDemandRatio
     
     return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, Pshort_EffCells, MatrixSum, smallDemandRatio  

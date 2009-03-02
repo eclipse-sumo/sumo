@@ -49,10 +49,10 @@ def main():
         parser.setContentHandler(ExtraSignalInformationReader(net))
         parser.parse(options.sigfile)
     foutlog.write('- Reading network: done.\n')
-    foutlog.write('number of total startVertices:%s\n' %len(net._startVertices))
-    foutlog.write('number of total endVertices:%s\n' %len(net._endVertices))
+    foutlog.write('number of total startVertices:%s\n' %net.getstartCounts())
+    foutlog.write('number of total endVertices:%s\n' %getendCounts())
     if options.verbose:
-        print len(net._fullEdges), "edges read"
+        print net.getfullEdgeCounts(), "edges read (internal edges included)"
 
     if options.curvefile:
         updateCurveTable(options.curvefile)
@@ -73,7 +73,7 @@ def main():
     if options.dijkstra == 'boost':
         net.createBoostGraph()
     if options.verbose:
-        print "after link reduction:", len(net._fullEdges), "edges read"
+        print "after link reduction:", net.getfullEdgeCounts(), "edges read"
 
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)

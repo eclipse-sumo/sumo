@@ -134,7 +134,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     if not lohse and iter > 5:
         if notstable == 0:
             stable = True        
-        elif notstable < math.ceil(len(net._edges)*0.005) or notstable < 3:
+        elif notstable < math.ceil(net.geteffEdgeCounts()*0.005) or notstable < 3:
             stable = True
             
         if iter > options.maxiteration:
@@ -286,10 +286,10 @@ def doLohseStopCheck(net, options, stable, iter, maxIter, foutlog):
             stop = edge.stopCheck(options)
             if stop: 
                 counts += 1
-        if counts == len(net._edges):
+        if counts == net.geteffEdgeCounts():
             stable = True
             foutlog.write('The defined convergence is reached. The number of the required iterations:%s\n' %iter)
-        elif counts < int(len(net._edges)*0.05) and float(iter) >  options.maxiteration*0.85:
+        elif counts < int(net.geteffEdgeCounts()*0.05) and float(iter) >  options.maxiteration*0.85:
             stable = True
             foutlog.write('The number of the links with convergence is 95% of the total links. The number of executed iterations:%s\n' %iter)
 
