@@ -24,7 +24,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     ODpairs = 0
     origins = 0
     dest= 0
-    CurrentMatrixSum = 0.0
+    currentMatrixSum = 0.0
     skipCount = 0
     zones = 0
     smallDemandNum = 0
@@ -46,10 +46,10 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                     for elem in line.split():
                         if len(elem) > 0:
                             for startVertex in net._startVertices:
-                                if str(startVertex.label) == str(elem):
+                                if startVertex.label == elem:
                                     startVertices.append(startVertex)
                             for endVertex in net._endVertices:
-                                if str(endVertex.label) == str(elem):
+                                if endVertex.label == elem:
                                     endVertices.append(endVertex)
                     origins = len(startVertices)
                     dest = len(endVertices)        
@@ -60,7 +60,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         matrixPshort[-1].append(float(item))
                         ODpairs += 1
                         MatrixSum += float(item)
-                        CurrentMatrixSum += float(item) 
+                        currentMatrixSum += float(item) 
                         if float(item) > 0.:
                             Pshort_EffCells += 1
                         if float(item) < 1. and float(item) > 0.:
@@ -74,13 +74,13 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'Number of origins:', origins
         print 'Number of destinations:', dest
         print 'begintime:', begintime
-        print 'CurrentMatrixSum:', CurrentMatrixSum        
+        print 'currentMatrixSum:', currentMatrixSum        
         print 'Effective O-D Cells:', Pshort_EffCells
         print 'len(net._startVertices):', len(net._startVertices)
         print 'len(net._endVertices):', len(net._endVertices)
         print 'smallDemandRatio):', smallDemandRatio
     
-    return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime, smallDemandRatio, assignPeriod #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
+    return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, Pshort_EffCells, MatrixSum, smallDemandRatio  
 
 # estimate the travel times on the district connectors
 # assumption: all vehilces can reach the access links within 10 min from the respective traffic zone

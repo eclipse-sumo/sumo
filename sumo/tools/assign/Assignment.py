@@ -122,7 +122,7 @@ def main():
         # delete all vehicle information related to the last matrix for saving the disk space
         vehicles = []
         iterInterval = 0
-        matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime, smallDemandRatio, assignPeriod = getMatrix(net, options.verbose, matrix, matrixSum)
+        matrixPshort, startVertices, endVertices, CurrentMatrixSum, begintime, assignPeriod, Pshort_EffCells, MatrixSum, smallDemandRatio = getMatrix(net, options.verbose, matrix, matrixSum)
         options.hours = float(assignPeriod)
         smallDemandPortion = math.ceil(float(options.maxiteration)/2. * smallDemandRatio)
         if float(smallDemandPortion) != 0.:
