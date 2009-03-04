@@ -13,6 +13,9 @@ write_template_commented_full
 # Tests configuration writing
 write_config
 
+# Tests configuration with invalid boolean values
+invalid_bool
+
 # Tests command line option list
 option_list
 

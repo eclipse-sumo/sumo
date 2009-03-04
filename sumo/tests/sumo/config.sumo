@@ -9,6 +9,7 @@ copy_test_path:input_additional2.add.xml
 copy_test_path:input_definition.def.xml
 copy_test_path:input_definition2.def.xml
 copy_test_path:input_trips.trips.xml
+copy_test_path:sumo.sumo.cfg
 
 [collate_file]
 detector:detector.xml
