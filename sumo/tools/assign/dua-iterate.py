@@ -26,32 +26,34 @@ class TeeFile:
 
 def writeRouteConf(step, options, file, output, withExitTimes):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
-    fd.write("<configuration>\n")
-    fd.write("<remove-loops>x</remove-loops>\n") # !!!
-    fd.write("   <files>\n")
-    fd.write("      <net-file>" + options.net + "</net-file>\n")
-    fd.write("      <output>" + output + "</output>\n")
+    print >> fd, """<configuration>
+   <input>
+      <net-file>%s</net-file>""" % options.net
     if(step==0):
-        fd.write("      <t>" + file + "</t>\n")
+        print >> fd, "      <trip-defs>%s</trip-defs>" % file
     else:
-        fd.write("      <alternatives>" + file + "</alternatives>\n")
-        fd.write("      <weights>dump_%s_%s.xml</weights>\n" % (step-1, options.aggregation))
-    if withExitTimes:
-        fd.write("      <exit-times>x</exit-times>\n")
-    fd.write("   </files>\n")
-    fd.write("   <process>\n")
-    fd.write("      <begin>" + str(options.begin) + "</begin>\n")
-    fd.write("      <end>" + str(options.end) + "</end>\n")
-    fd.write("   </process>\n")
-    fd.write("   <reports>\n")
-    if options.verbose:
-        fd.write("      <verbose>x</verbose>\n")
-    if options.continueOnUnbuild:
-        fd.write("      <continue-on-unbuild>x</continue-on-unbuild>\n")
-    if not options.withWarnings:
-        fd.write("      <suppress-warnings>x</suppress-warnings>\n")
-    fd.write("   </reports>\n")
-    fd.write("</configuration>\n")
+        print >> fd, "      <alternatives>%s</alternatives>" % file
+        print >> fd, "      <weights>dump_%s_%s.xml</weights>" % (step-1, options.aggregation)
+    print >> fd, """   </input>
+   <output>
+      <output-file>%s</output-file>
+      <exit-times>%s</exit-times>
+   </output>""" % (output, withExitTimes)
+    print >> fd, """   <processing>
+      <continue-on-unbuild>%s</continue-on-unbuild>
+      <gBeta>%s</gBeta>
+      <gA>%s</gA>
+   </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
+    print >> fd, """   <time>
+      <begin>%s</begin>
+      <end>%s</end>
+   </time>
+   <report>
+      <verbose>%s</verbose>
+      <suppress-warnings>%s</suppress-warnings>
+   </report>
+</configuration>""" % (options.begin, options.end,
+                       options.verbose, not options.withWarnings)
     fd.close()
 
 def writeSUMOConf(step, options, files):
@@ -181,7 +183,7 @@ for step in range(options.firstStep, options.lastStep):
     print "> Executing step " + str(step)
 
     # calibration init
-    doCalibration = options.detvals and step >= options.calibStep
+    doCalibration = options.detvals != None and step >= options.calibStep
     if options.detvals and step == options.calibStep: 
         subprocess.call("%s INIT %s 100 071276 0.95 5 20 %s" % (calibrator, options.detvals, options.aggregation),
                         shell=True, stdout=log, stderr=log)
