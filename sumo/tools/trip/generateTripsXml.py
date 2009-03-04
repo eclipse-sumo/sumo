@@ -13,9 +13,10 @@ All rights reserved
 import os, string, sys, operator, math, datetime, random
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-pyPath = os.path.dirname(sys.argv[0])
-sys.path.append(os.path.join(pyPath, "..", "assign"))
+
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "assign"))
 from dijkstra import dijkstraPlain
+from inputs import getMatrix
 
 # This class is used to build the nodes in the investigated network and 
 # includes the update-function for searching the k shortest paths.
@@ -108,7 +109,19 @@ class Net:
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
                           "real"))
-
+                          
+    def getstartVertices(self):
+        return self._startVertices
+        
+    def getendVertices(self):
+        return self._endVertices
+        
+    def getstartCounts(self):
+        return len(self._startVertices)
+        
+    def getendCounts(self):
+        return len(self._endVertices)
+        
     def getTargets(self):
         target = set()
         for end in self._endVertices:
@@ -227,66 +240,6 @@ class DistrictsReader(handler.ContentHandler):
     def endElement(self, name):
         if name == 'district':
             self._district = ''
-            
-def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
-    """
-    This method is to read matrix from the given file.
-    """
-    matrixPshort = []
-    startVertices = []
-    endVertices = []
-    Pshort_EffCells = 0
-    periodList = []
-
-    ODpairs = 0
-    origins = 0
-    dest= 0
-    currentMatrixSum = 0.0
-    skipCount = 0
-    zones = 0
-    smallDemandNum = 0
-    for line in open(matrix):
-        if line[0] == '$':
-            visumCode = line[1:3]
-            if visumCode != 'VM':
-                skipCount += 1
-        elif line[0] != '*' and line[0] != '$':
-            skipCount += 1
-            if skipCount == 2:
-                for elem in line.split():
-                    periodList.append(float(elem))
-            elif skipCount > 3:
-                if zones == 0:
-                    for elem in line.split():
-                        zones = int(elem)
-                elif len(startVertices) < zones:
-                    for elem in line.split():
-                        if len(elem) > 0:
-                            for startVertex in net._startVertices:
-                                if startVertex.label == elem:
-                                    startVertices.append(startVertex)
-                            for endVertex in net._endVertices:
-                                if endVertex.label == elem:
-                                    endVertices.append(endVertex)
-                    origins = len(startVertices)
-                    dest = len(endVertices)        
-                elif len(startVertices) == zones:
-                    if ODpairs % origins == 0:
-                        matrixPshort.append([])
-                    for item in line.split():
-                        matrixPshort[-1].append(float(item))
-                        ODpairs += 1
-                        MatrixSum += float(item)
-                        currentMatrixSum += float(item) 
-                        if float(item) > 0.:
-                            Pshort_EffCells += 1
-                        if float(item) < 1. and float(item) > 0.:
-                            smallDemandNum += 1
-    begintime = int(periodList[0])
-    assignPeriod = int(periodList[1]) - begintime
-    smallDemandRatio = float(smallDemandNum)/float(Pshort_EffCells)
-
-    return matrixPshort, begintime, assignPeriod, startVertices, endVertices, MatrixSum, currentMatrixSum
     
 def addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList):
     counts += 1.
@@ -307,7 +260,7 @@ def main(options):
     matrix = os.path.join(dataDir, options.mtxfile)
     netfile = os.path.join(dataDir, options.netfile)
     
-    MatrixSum = 0.
+    matrixSum = 0.
     tripList = []
     net = Net()
     odConnMap = {}
@@ -317,7 +270,8 @@ def main(options):
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
     
-    matrixPshort, begin, period, startVertices, endVertices, MatrixSum, currentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
+    matrixPshort, startVertices, endVertices, currentMatrixSum, begin, period = getMatrix(net, options.debug, matrix, matrixSum)[:6]
+
     if options.debug:
         print len(net._edges), "edges read"
         print len(net._startVertices), "start vertices read"
@@ -362,7 +316,7 @@ def main(options):
                     matrixSum += matrixPshort[start][end]
                     while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
                         counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
-    if options.verbose:
+    if options.debug:
         print 'total demand:', matrixSum           
         print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
