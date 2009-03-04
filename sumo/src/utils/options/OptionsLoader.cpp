@@ -27,8 +27,8 @@
 #include <config.h>
 #endif
 
+#include <algorithm>
 #include <string>
-//#include <iostream>
 #include <vector>
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/AttributeList.hpp>
@@ -85,10 +85,13 @@ void OptionsLoader::characters(const XMLCh* const chars,
         try {
             bool isWriteable;
             if (myOptions.isBool(myItem)) {
-                if (value=="0"||value=="false"||value=="FALSE") {
+                std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+                if (value=="1"||value=="yes"||value=="true"||value=="on"||value=="x") {
+                    isWriteable = setSecure(myItem, true);
+                } else if (value=="0"||value=="no"||value=="false"||value=="off") {
                     isWriteable = setSecure(myItem, false);
                 } else {
-                    isWriteable = setSecure(myItem, true);
+                    throw InvalidArgument("Invalid boolean value for option '" + myItem + "'.");
                 }
             } else {
                 if (myOptions.isFileName(myItem)) {
