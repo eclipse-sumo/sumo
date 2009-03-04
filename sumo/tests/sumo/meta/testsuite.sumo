@@ -16,6 +16,9 @@ write_config
 # Tests configuration with invalid boolean values
 invalid_bool
 
+# Tests configuration with boolean values
+bool_value
+
 # Tests command line option list
 option_list
 

@@ -1,0 +1,3 @@
+Error: Invalid boolean value for option 'no-duration-log'.
+Error: Could not load configuration 'sumo.sumo.cfg'.
+Quitting (on error).
