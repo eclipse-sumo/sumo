@@ -57,7 +57,7 @@ class PCLoaderXML : public SUMOSAXHandler
 public:
     /** @brief Loads pois/polygons assumed to be stored as XML
      *
-     * If the option "xml-points" is set within the given options container,
+     * If the option "xml" is set within the given options container,
      *  an instance of PCLoaderXML is built and used as a handler for the
      *  files given in this option.
      *

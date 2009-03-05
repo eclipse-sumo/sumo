@@ -103,18 +103,20 @@ fillOptions() throw()
     oc.addDescription("visum-files", "Input", "Reads polygons from FILE assuming it's a Visum-net");
 
     // xml import
-    oc.doRegister("xml-points", new Option_FileName());
-    oc.addDescription("xml-points", "Input", "Reads pois from FILE assuming they're coded in XML");
+    oc.doRegister("xml", new Option_FileName());
+    oc.addDescription("xml", "Input", "Reads pois from FILE assuming they're coded in XML");
 
     // osm import
     oc.doRegister("osm-files", new Option_FileName());
+    oc.addSynonyme("osm-files", "osm");
     oc.addDescription("osm-files", "Input", "Reads pois from FILE+ assuming they're coded in OSM");
     oc.doRegister("osm.keep-full-type", new Option_Bool(false));
     oc.addDescription("osm.keep-full-type", "Input", "The type will be made of the key-value - pair.");
 
     // arcview import
-    oc.doRegister("shape-files", new Option_FileName());
-    oc.addDescription("shape-files", "Input", "Reads shapes from shape-files FILE+");
+    oc.doRegister("shape-file", new Option_FileName());
+    oc.addSynonyme("shape-file", "shape");
+    oc.addDescription("shape-file", "Input", "Reads shapes from shape-files FILE+");
     oc.doRegister("arcview.guess-projection", new Option_Bool(false));
     oc.addDescription("arcview.guess-projection", "Input", "Guesses the shapefile's projection");
     oc.doRegister("shape-file.id-name", new Option_FileName());

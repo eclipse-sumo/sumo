@@ -66,12 +66,12 @@ void
 PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                        PCTypeMap &tm) throw(ProcessError)
 {
-    if (!oc.isSet("xml-points")) {
+    if (!oc.isSet("xml")) {
         return;
     }
     PCLoaderXML handler(toFill, tm, oc);
     // parse file(s)
-    vector<string> files = oc.getStringVector("xml-points");
+    vector<string> files = oc.getStringVector("xml");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
             throw ProcessError("Could not open osm-file '" + *file + "'.");
