@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r6538
+SUMO polyconvert Version dev-SVN-r6854
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
@@ -24,13 +24,13 @@ Usage: polyconvert.exe [OPTION]*
                                      in Elmar-format
   --visum-files FILE               Reads polygons from FILE assuming it's a
                                      Visum-net
-  --xml-points FILE                Reads pois from FILE assuming they're coded
+  --xml FILE                       Reads pois from FILE assuming they're coded
                                      in XML
   --osm-files FILE                 Reads pois from FILE+ assuming they're coded
                                      in OSM
   --osm.keep-full-type             The type will be made of the key-value -
                                      pair.
-  --shape-files FILE               Reads shapes from shape-files FILE+
+  --shape-file FILE                Reads shapes from shape-files FILE+
   --arcview.guess-projection       Guesses the shapefile's projection
   --shape-file.id-name FILE        Defines where to find the id
   --typemap FILE                   Reads types from FILE
