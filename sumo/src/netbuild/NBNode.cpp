@@ -247,15 +247,37 @@ NBNode::~NBNode()
 }
 
 
-Position2D
-NBNode::getPosition() const
+// -----------  Methods for dealing with assigned traffic lights
+void
+NBNode::addTrafficLight(NBTrafficLightDefinition *tld) throw()
 {
-    return myPosition;
+    myTrafficLights.insert(tld);
 }
 
 
+void 
+NBNode::removeTrafficLights() throw()
+{
+    myTrafficLights.clear();
+}
 
 
+bool
+NBNode::isJoinedTLSControlled() const throw()
+{
+    if (!isTLControlled()) {
+        return false;
+    }
+    for (set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); ++i) {
+        if ((*i)->getID().find("joined")==0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+// -----------  
 void
 NBNode::addIncomingEdge(NBEdge *edge)
 {
@@ -287,34 +309,6 @@ NBNode::addOutgoingEdge(NBEdge *edge)
             }
         }
     }
-}
-
-
-const std::string &
-NBNode::getID() const
-{
-    return myID;
-}
-
-
-const EdgeVector &
-NBNode::getIncomingEdges() const
-{
-    return *myIncomingEdges;
-}
-
-
-const EdgeVector &
-NBNode::getOutgoingEdges() const
-{
-    return *myOutgoingEdges;
-}
-
-
-const EdgeVector &
-NBNode::getEdges() const
-{
-    return myAllEdges;
 }
 
 
@@ -1944,13 +1938,6 @@ NBNode::remapRemoved(NBTrafficLightLogicCont &tc,
 }
 
 
-void
-NBNode::addTrafficLight(NBTrafficLightDefinition *tld)
-{
-    myTrafficLights.insert(tld);
-}
-
-
 NBMMLDirection
 NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
 {
@@ -2128,28 +2115,6 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane,
         }
     }
     throw 1;
-}
-
-
-bool
-NBNode::isTLControlled() const
-{
-    return myTrafficLights.size()!=0;
-}
-
-
-bool
-NBNode::isJoinedTLSControlled() const
-{
-    if (!isTLControlled()) {
-        return false;
-    }
-    for (set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); ++i) {
-        if ((*i)->getID().find("joined")==0) {
-            return true;
-        }
-    }
-    return false;
 }
 
 

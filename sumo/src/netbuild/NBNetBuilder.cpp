@@ -189,6 +189,10 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
     }
     myNodeCont.guessTLs(oc, myTLLCont);
     //
+    if(oc.getBool("try-join-tls")) {
+        myNodeCont.joinTLS(myTLLCont);
+    }
+    //
     inform(step, "Computing turning directions");
     myEdgeCont.computeTurningDirections();
     //
@@ -414,35 +418,14 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("guess-tls", new Option_Bool(false));
     oc.addDescription("guess-tls", "TLS Building", "Turns on TLS guessing");
 
-    oc.doRegister("tls-guess.no-incoming-min", new Option_Integer(2));
-    oc.addDescription("tls-guess.no-incoming-min", "TLS Building", "");
-
-    oc.doRegister("tls-guess.no-incoming-max", new Option_Integer(5));
-    oc.addDescription("tls-guess.no-incoming-max", "TLS Building", "");
-
-    oc.doRegister("tls-guess.no-outgoing-min", new Option_Integer(1));
-    oc.addDescription("tls-guess.no-outgoing-min", "TLS Building", "");
-
-    oc.doRegister("tls-guess.no-outgoing-max", new Option_Integer(5));
-    oc.addDescription("tls-guess.no-outgoing-max", "TLS Building", "Min/max of incoming/outgoing edges a junction may have in order to be tls-controlled.");
-
-    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float((SUMOReal)(40/3.6)));
-    oc.addDescription("tls-guess.min-incoming-speed", "TLS Building", "");
-
-    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float((SUMOReal)(69/3.6)));
-    oc.addDescription("tls-guess.max-incoming-speed", "TLS Building", "");
-
-    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((SUMOReal)(40/3.6)));
-    oc.addDescription("tls-guess.min-outgoing-speed", "TLS Building", "");
-
-    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((SUMOReal)(69/3.6)));
-    oc.addDescription("tls-guess.max-outgoing-speed", "TLS Building", "Min/max speeds that incoming/outgoing edges must allowed in order to make their junction TLS-controlled.");
-
     oc.doRegister("tls-guess.district-nodes", new Option_Bool(false));
-    oc.addDescription("tls-guess.district-nodes", "TLS Building", ""); // !!! describe
+    oc.addDescription("tls-guess.district-nodes", "TLS Building", "Sets district nodes as tls-controlled"); // !!! describe
 
     oc.doRegister("tls-guess.joining", new Option_Bool(false));
-    oc.addDescription("tls-guess.joining", "TLS Building", ""); // !!! describe
+    oc.addDescription("tls-guess.joining", "TLS Building", "Includes node clusters into guess"); // !!! describe
+
+    oc.doRegister("try-join-tls", new Option_Bool(false));
+    oc.addDescription("try-join-tls", "TLS Building", "Tries to cluster tls-controlled nodes"); // !!! describe
 
     // computational
     oc.doRegister("min-decel", 'D', new Option_Float(3.0));

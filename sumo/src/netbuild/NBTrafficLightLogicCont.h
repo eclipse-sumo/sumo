@@ -93,6 +93,17 @@ public:
     bool insert(NBTrafficLightDefinition *logic) throw();
 
 
+    /** @brief Removes a logic definition from the dictionary
+     *
+     * "true" is returned if the logic if the logic existed in the dictionary, 
+     *  otherwise "false".
+     *
+     * @param[in] id The id of the logic to remove
+     * @return Whether the named logic was within the dictionary
+     */
+    bool remove(const std::string &id) throw();
+
+
     /** @brief Computes the traffic light logics using the stored definitions and stores the results
      *
      * Goes through all stored definitions and calls "NBTrafficLightDefinition::compute"

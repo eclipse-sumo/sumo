@@ -64,12 +64,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNodeCont::NBNodeCont()
-        : myInternalID(1)
+NBNodeCont::NBNodeCont() throw()
+    : myInternalID(1)
 {}
 
 
-NBNodeCont::~NBNodeCont()
+NBNodeCont::~NBNodeCont() throw()
 {
     clear();
 }
@@ -182,6 +182,228 @@ NBNodeCont::erase(NBNode *node)
 }
 
 
+// ----------- (Helper) methods for guessing/computing traffic lights
+void 
+NBNodeCont::generateNodeClusters(SUMOReal maxDist, vector<set<NBNode*> >&into) const throw()
+{
+    set<NBNode*> visited;
+    for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        vector<NBNode*> toProc;
+        if(visited.find((*i).second)!=visited.end()) {
+            continue;
+        }
+        toProc.push_back((*i).second);
+        set<NBNode*> c;
+        while(!toProc.empty()) {
+            NBNode *n = toProc.back();
+            toProc.pop_back();
+            if(visited.find(n)!=visited.end()) {
+                continue;
+            }
+            c.insert(n);
+            visited.insert(n);
+            const EdgeVector &edges = n->getEdges();
+            for(EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
+                NBEdge *e = *j;
+                NBNode *s = 0;
+                if(n->hasIncoming(e)) {
+                    s = e->getFromNode();
+                } else {
+                    s = e->getToNode();
+                }
+                if(visited.find(s)!=visited.end()) {
+                    continue;
+                }
+                if(GeomHelper::distance(n->getPosition(), s->getPosition())<maxDist) {
+                    toProc.push_back(s);
+                }
+            }
+        }
+        if(c.size()<2) {
+            continue;
+        }
+        into.push_back(c);
+    }
+}
+
+
+bool 
+NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const throw()
+{
+    unsigned int noIncoming = 0;
+    unsigned int noOutgoing = 0;
+    bool tooFast = false;
+    SUMOReal f = 0;
+    set<NBEdge*> seen;
+    for(set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
+        const EdgeVector &edges = (*j)->getEdges();
+        for(EdgeVector::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
+            if(c.find((*k)->getFromNode())!=c.end()&&c.find((*k)->getToNode())!=c.end()) {
+                continue;
+            }
+            if((*j)->hasIncoming(*k)) {
+                ++noIncoming;
+                f += (SUMOReal) (*k)->getNoLanes() * (*k)->getLaneSpeed(0);
+            } else {
+                ++noOutgoing;
+            }
+            if((*k)->getLaneSpeed(0)*3.6>79) {
+                tooFast = true;
+            }
+        }
+    }
+    return !tooFast && f>=150./3.6 && c.size()!=0;
+}
+
+
+void
+NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
+{
+    // build list of definitely not tls-controlled junctions
+    std::vector<NBNode*> ncontrolled;
+    if (oc.isSet("explicite-no-tls")) {
+        vector<string> notTLControlledNodes = oc.getStringVector("explicite-no-tls");
+        for (vector<string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
+            NBNode *n = NBNodeCont::retrieve(*i);
+            if (n==0) {
+                throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
+            }
+            ncontrolled.push_back(n);
+        }
+    }
+
+    // loop#1 checking whether the node shall tls controlled,
+    //  because it is assigned to a district
+    if (oc.getBool("tls-guess.district-nodes")) {
+        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+            NBNode *cur = (*i).second;
+            if (cur->isNearDistrict()&&find(ncontrolled.begin(), ncontrolled.end(), cur)==ncontrolled.end()) {
+                setAsTLControlled(cur, tlc);
+            }
+        }
+    }
+
+    // maybe no tls shall be guessed
+    if (!oc.getBool("guess-tls")) {
+        return;
+    }
+
+    // guess joined tls first, if wished
+    if(oc.getBool("tls-guess.joining")) {
+        // get node clusters
+        SUMOReal MAXDIST = 25;
+        vector<set<NBNode*> > cands;
+        generateNodeClusters(MAXDIST, cands);
+        // check these candidates (clusters) whether they should be controlled by a tls
+        for(vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ) {
+            set<NBNode*> &c = (*i);
+            // regard only junctions which are not yet controlled and are not
+            //  forbidden to be controlled
+            for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ) {
+                if((*j)->isTLControlled()||find(ncontrolled.begin(), ncontrolled.end(), *j)!=ncontrolled.end()) {
+                    j = c.erase(j);
+                } else {
+                    ++j;
+                }
+            }
+            // check whether the cluster should be controlled
+            if(!shouldBeTLSControlled(c)) {
+                i = cands.erase(i);
+            } else {
+                ++i;
+            }
+        }
+        // cands now only contain sets of junctions that shall be joined into being tls-controlled
+        unsigned int index = 0;
+        for(vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+            set<NBNode*> &near = (*i);
+            string id = "joinedG_" + toString(index++);
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, near);
+            if (!tlc.insert(tlDef)) {
+                // actually, nothing should fail here
+                WRITE_WARNING("Could not build guessed, joined tls");
+                delete tlDef;
+                return;
+            }
+        }
+    }
+
+    // guess tls
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        NBNode *cur = (*i).second;
+        //  do nothing if already is tl-controlled
+        if (cur->isTLControlled()) {
+            continue;
+        }
+        // do nothing if in the list of explicite non-controlled junctions
+        if (find(ncontrolled.begin(), ncontrolled.end(), cur)!=ncontrolled.end()) {
+            continue;
+        }
+        set<NBNode*> c;
+        c.insert(cur);
+        if(!shouldBeTLSControlled(c)||cur->getIncomingEdges().size()<3) {
+            continue;
+        }
+        setAsTLControlled((*i).second, tlc);
+    }
+}
+
+
+void 
+NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc)
+{
+    SUMOReal MAXDIST = 25;
+    vector<set<NBNode*> > cands;
+    generateNodeClusters(MAXDIST, cands);
+    unsigned int index = 0;
+    for(vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+        set<NBNode*> &c = (*i);
+        for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ) {
+            if(!(*j)->isTLControlled()) {
+                j = c.erase(j);
+            } else {
+                ++j;
+            }
+        }
+        if(c.size()<2) {
+            continue;
+        }
+        for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
+            const set<NBTrafficLightDefinition*> &tls = (*j)->getControllingTLS();
+            for(set<NBTrafficLightDefinition*>::const_iterator k=tls.begin(); k!=tls.end(); ++k) {
+                tlc.remove((*j)->getID());
+            }
+            (*j)->removeTrafficLights();
+        }
+        string id = "joinedS_" + toString(index++);
+        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, c);
+        if (!tlc.insert(tlDef)) {
+            // actually, nothing should fail here
+            WRITE_WARNING("Could not build a joined tls.");
+            delete tlDef;
+            return;
+        }
+    }
+}
+
+
+void
+NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id)
+{
+    if (id=="") {
+        id = node->getID();
+    }
+    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, node);
+    if (!tlc.insert(tlDef)) {
+        // actually, nothing should fail here
+        WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
+        delete tlDef;
+        return;
+    }
+}
+
+
+// ----------- 
 void
 NBNodeCont::normaliseNodePositions()
 {
@@ -893,104 +1115,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
 }
 
 
-void
-NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
-{
-    // loop#1 checking whether the node shall tls controlled,
-    //  because it is assigned to a district
-    if (oc.getBool("tls-guess.district-nodes")) {
-        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-            NBNode *cur = (*i).second;
-            if (cur->isNearDistrict()) {
-                setAsTLControlled(cur, tlc);
-            }
-        }
-    }
-    // maybe no tls shall be guessed
-    if (!oc.getBool("guess-tls")) {
-        return;
-    }
-    // build list of definitely not tls-controlled junctions
-    std::vector<NBNode*> ncontrolled;
-    if (oc.isSet("explicite-no-tls")) {
-        vector<string> notTLControlledNodes = oc.getStringVector("explicite-no-tls");
-        for (vector<string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
-            NBNode *n = NBNodeCont::retrieve(*i);
-            if (n==0) {
-                throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
-            }
-            ncontrolled.push_back(n);
-        }
-    }
 
-    // loop#2: checking whether the node shall be controlled by a tls due
-    //  to the number of lane & their speeds
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *cur = (*i).second;
-        //  do nothing if already is tl-controlled
-        if (cur->isTLControlled()) {
-            continue;
-        }
-        // do nothing if in the list of explicite non-controlled junctions
-        if (find(ncontrolled.begin(), ncontrolled.end(), cur)!=ncontrolled.end()) {
-            continue;
-        }
-
-        // check whether the node has the right amount of incoming edges
-        //  to be controlled by a tl
-        if ((int) cur->getIncomingEdges().size()<oc.getInt("tls-guess.no-incoming-min")
-                ||
-                (int) cur->getIncomingEdges().size()>oc.getInt("tls-guess.no-incoming-max")) {
-
-            // nope...
-            continue;
-        }
-
-        // check whether the node has the right amount of outgoing edges
-        //  to be controlled by a tl
-        if ((int) cur->getOutgoingEdges().size()<oc.getInt("tls-guess.no-outgoing-min")
-                ||
-                (int) cur->getOutgoingEdges().size()>oc.getInt("tls-guess.no-outgoing-max")) {
-
-            // nope...
-            continue;
-        }
-
-        // check whether the edges have the correct speed
-        //  to be controlled by a tl
-        if (NBContHelper::getMinSpeed(cur->getIncomingEdges())<oc.getFloat("tls-guess.min-incoming-speed")
-                ||
-                NBContHelper::getMaxSpeed(cur->getIncomingEdges())>oc.getFloat("tls-guess.max-incoming-speed")
-                ||
-                NBContHelper::getMinSpeed(cur->getOutgoingEdges())<oc.getFloat("tls-guess.min-outgoing-speed")
-                ||
-                NBContHelper::getMaxSpeed(cur->getOutgoingEdges())>oc.getFloat("tls-guess.max-outgoing-speed")) {
-
-            // nope...
-            continue;
-        }
-
-        // hmmm, should be tls-controlled (probably)
-        setAsTLControlled((*i).second, tlc);
-
-    }
-}
-
-
-void
-NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id)
-{
-    if (id=="") {
-        id = node->getID();
-    }
-    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, node);
-    if (!tlc.insert(tlDef)) {
-        // actually, nothing should fail here
-        WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
-        delete tlDef;
-        return;
-    }
-}
 
 
 bool
@@ -1007,7 +1132,7 @@ NBNodeCont::savePlain(const std::string &file)
             const set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
             for (set<NBTrafficLightDefinition*>::const_iterator t=tlss.begin(); t!=tlss.end(); ++t) {
                 if (t!=tlss.begin()) {
-                    device << ";";
+                    device << ",";
                 }
                 device << (*t)->getID();
             }

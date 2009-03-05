@@ -89,6 +89,19 @@ NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw()
 }
 
 
+bool
+NBTrafficLightLogicCont::remove(const std::string &id) throw()
+{
+    DefinitionContType::iterator i=myDefinitions.find(id);
+    if (i==myDefinitions.end()) {
+        return false;
+    }
+    delete (*i).second;
+    myDefinitions.erase(i);
+    return true;
+}
+
+
 void
 NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw()
 {

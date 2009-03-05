@@ -145,40 +145,123 @@ public:
     /** a counter for right-before-left-junctions build */
     static int myNoRightBeforeLeftJunctions;
 
-    friend class NBEdgeCont;
-
 public:
-    /** constructor */
+    /** @brief Constructor 
+     * @param[in] id The id of the node
+     * @param[in] position The position of the node
+     */
     NBNode(const std::string &id, const Position2D &position);
 
-    /** constructor */
+
+    /** @brief Constructor 
+     * @param[in] id The id of the node
+     * @param[in] position The position of the node
+     * @param[in] type The type of the node
+     */
     NBNode(const std::string &id, const Position2D &position, BasicNodeType type);
 
-    /** constructor */
+
+    /** @brief Constructor 
+     * @param[in] id The id of the node
+     * @param[in] position The position of the node
+     * @param[in] district The district this district node represents
+     */
     NBNode(const std::string &id, const Position2D &position, NBDistrict *district);
 
-    /** destructor */
+
+    /// @brief Destructor
     ~NBNode();
 
-    Position2D getPosition() const;
 
-    /** returns the id of the node */
-    const std::string &getID() const;
+
+    /// @name Atomar getter methods
+    /// @{
+
+    /** @brief Returns the id of the node 
+     * @return The id of this node
+     */
+    const std::string &getID() const throw() {
+        return myID;
+    }
+
+
+    /** @brief Returns the position of this node
+     * @return This node's position
+     */
+    const Position2D &getPosition() const throw() {
+        return myPosition;
+    }
+
+
+    /** @brief Returns this node's incoming edges
+     * @return The edges which yield in this node
+     */
+    const EdgeVector &getIncomingEdges() const throw() {
+        return *myIncomingEdges;
+    }
+
+
+    /** @brief Returns this node's outgoing edges
+     * @return The edges which start at this node
+     */
+    const EdgeVector &getOutgoingEdges() const throw() {
+        return *myOutgoingEdges;
+    }
+
+
+    /** @brief Returns all edges which participate in this node
+     * @return Edges that start or end at this node
+     */
+    const EdgeVector &getEdges() const throw() {
+        return myAllEdges;
+    }
+    /// @}
+
+
+
+    /// @name Methods for dealing with assigned traffic lights
+    /// @{
+
+    /** @brief Adds a traffic light to the list of traffic lights that control this node
+     * @param[in] tld The traffic light that controls this node
+     */
+    void addTrafficLight(NBTrafficLightDefinition *tld) throw();
+
+
+    /** @brief Removes all references to traffic lights that control this tls
+     */
+    void removeTrafficLights() throw();
+
+
+    /** @brief Returns whether this node is controlled by any tls
+     * @return Whether a traffic light was assigned to this node
+     */
+    bool isTLControlled() const throw() {
+        return myTrafficLights.size()!=0;
+    }
+
+
+    /** @brief Returns whether this node is controlled by a tls that spans over more than one node
+     * @return Whether a "joined" traffic light was assigned to this node
+     */
+    bool isJoinedTLSControlled() const throw();
+
+
+    /** @brief Returns the traffic lights that were assigned to this node
+     * @return The set of tls that control this node
+     */
+    const std::set<NBTrafficLightDefinition*> &getControllingTLS() const throw() {
+        return myTrafficLights;
+    }
+    /// @}
+
+
 
     /// adds an incoming edge
     void addIncomingEdge(NBEdge *edge);
 
     /// adds an outgoing edge
     void addOutgoingEdge(NBEdge *edge);
-
-    /// returns the list of the ids of the incoming edges
-    const EdgeVector &getIncomingEdges() const;
-
-    /// returns the list of the ids of the outgoing edges
-    const EdgeVector &getOutgoingEdges() const;
-
-    /// returns the list of all edgs
-    const EdgeVector &getEdges() const;
 
     void writeXMLInternalLinks(OutputDevice &into);
     void writeXMLInternalSuccInfos(OutputDevice &into);
@@ -254,7 +337,6 @@ public:
 
     bool foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
 
-    void addTrafficLight(NBTrafficLightDefinition *tld);
 
     NBMMLDirection getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const;
 
@@ -277,8 +359,6 @@ public:
 
     bool checkIsRemovable() const;
 
-    bool isTLControlled() const;
-    bool isJoinedTLSControlled() const;
 
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 
@@ -297,19 +377,23 @@ public:
     std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
             NBEdge *toE, size_t toL);
 
-    const std::set<NBTrafficLightDefinition*> &getControllingTLS() const {
-        return myTrafficLights;
-    }
+    /** @brief Replaces occurences of the first edge within the list of incoming by the second
+        Connections are remapped, too */
+    void replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff);
+
+    /** @brief Replaces occurences of every edge from the given list within the list of incoming by the second
+        Connections are remapped, too */
+    void replaceIncoming(const EdgeVector &which, NBEdge *by);
+
+    /** @brief Replaces occurences of the first edge within the list of outgoing by the second
+        Connections are remapped, too */
+    void replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff);
+
+    /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
+        Connections are remapped, too */
+    void replaceOutgoing(const EdgeVector &which, NBEdge *by);
 
 private:
-
-
-    /// sets the computed non - permutating key
-    void setKey(std::string key);
-
-    /// build the logic using the NBRequest
-    void buildMapLogic();
-
     /// build the logic using the NBRequest
     void buildBitfieldLogic();
 
@@ -346,21 +430,6 @@ private:
 
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
-    /** @brief Replaces occurences of the first edge within the list of incoming by the second
-        Connections are remapped, too */
-    void replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff);
-
-    /** @brief Replaces occurences of every edge from the given list within the list of incoming by the second
-        Connections are remapped, too */
-    void replaceIncoming(const EdgeVector &which, NBEdge *by);
-
-    /** @brief Replaces occurences of the first edge within the list of outgoing by the second
-        Connections are remapped, too */
-    void replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff);
-
-    /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
-        Connections are remapped, too */
-    void replaceOutgoing(const EdgeVector &which, NBEdge *by);
 
 
     void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
@@ -376,26 +445,23 @@ private:
     void writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id);
 
 private:
-    /** the name of the node */
-    std::string  myID;
+    /// @brief The id of the node
+    std::string myID;
 
-    /// The position the node lies at
+    /// @brief The position the node lies at
     Position2D myPosition;
 
-    /** the logic-key */
-    //std::string myKey;
-
-    /// vector of incoming edges
+    /// @brief Vector of incoming edges
     std::vector<NBEdge*> *myIncomingEdges;
 
-    /// vector of outgoing edges
+    /// @brief Vector of outgoing edges
     std::vector<NBEdge*> *myOutgoingEdges;
 
-    /// a vector of incoming and outgoing edges
+    /// @brief Vector of incoming and outgoing edges
     std::vector<NBEdge*> myAllEdges;
 
-    /// the type of the junction
-    BasicNodeType   myType;
+    /// @brief The type of the junction
+    BasicNodeType myType;
 
     /** The container for connection block dependencies */
     NBConnectionProhibits myBlockedConnections;
@@ -411,11 +477,12 @@ private:
     std::set<NBTrafficLightDefinition*> myTrafficLights;
 
 private:
-    /** invalid copy constructor */
+    /// @brief invalidated copy constructor
     NBNode(const NBNode &s);
 
-    /** invalid assignment operator */
+    /// @brief invalidated assignment operator
     NBNode &operator=(const NBNode &s);
+
 
 };
 

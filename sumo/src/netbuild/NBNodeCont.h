@@ -31,6 +31,8 @@
 
 #include <string>
 #include <map>
+#include <vector>
+#include <set>
 #include <utils/geom/Position2D.h>
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
@@ -56,13 +58,13 @@ class OutputDevice;
 class NBNodeCont
 {
 public:
-    /** definition of the map of names to nodes */
-    typedef std::map<std::string, NBNode*> NodeCont;
+    /// @brief Constructor
+    NBNodeCont() throw();
 
-public:
-    NBNodeCont();
 
-    ~NBNodeCont();
+    /// @brief Destructor
+    ~NBNodeCont() throw();
+
 
     /** inserts a node into the map */
     bool insert(const std::string &id, const Position2D &position,
@@ -86,11 +88,34 @@ public:
     /** returns the node with the given coordinates */
     NBNode *retrieve(const Position2D &position);
 
-    /// returns the begin of the dictionary
-    NodeCont::iterator begin();
 
-    /// returns the end of the dictionary
-    NodeCont::iterator end();
+
+    /// @name Methods for guessing/computing traffic lights
+    /// @{
+
+    /** @brief Guesses which junctions or junction clusters shall be controlled by tls
+     * @param[in] oc The options that steer the guessing process
+     * @param[filled] tlc The traffic lights control into which new traffic light definitions shall be stored
+     * @todo Recheck exception handling
+     */
+    void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
+
+
+    /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
+     * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
+     * @todo Recheck exception handling
+     */
+    void joinTLS(NBTrafficLightLogicCont &tlc);
+
+
+    /** @brief Sets the given node as being controlled by a tls
+     * @param[in] node The node that shall be controlled by a tls
+     * @param[in] tlc The traffic lights control into which the new traffic light definition shall be stored
+     * @param[in] id The id of the tls to add
+     * @todo Recheck exception handling
+     */
+    void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
+    /// @}
 
     /// resets the node positions in a way that they begin from (0, 0)
     void normaliseNodePositions();
@@ -154,9 +179,6 @@ public:
                              bool removeGeometryNodes) throw();
 
     void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
-    void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
-
-    void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
 
     bool savePlain(const std::string &file);
 
@@ -178,12 +200,36 @@ private:
     void checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp);
 
 
+    /// @name Helper methods for guessing/computing traffic lights
+    /// @{
+
+    /** @brief Builds node clusters
+     *
+     * A node cluster is made up from nodes which are near by (distance<maxDist) and connected.
+     *
+     * @param[in] maxDist The maximum distance between two nodes for clustering
+     * @param[in, filled] into The container to store the clusters in
+     */
+    void generateNodeClusters(SUMOReal maxDist, std::vector<std::set<NBNode*> >&into) const throw();
+
+
+    /** @brief Returns whethe the given node cluster should be controlled by a tls
+     * @param[in] c The node cluster
+     * @return Whether this node cluster shall be controlled by a tls
+     */
+    bool shouldBeTLSControlled(const std::set<NBNode*> &c) const throw();
+    /// @}
+
+
 private:
     /** the running internal id */
-    int     myInternalID;
+    int myInternalID;
+
+    /** definition of the map of names to nodes */
+    typedef std::map<std::string, NBNode*> NodeCont;
 
     /** the map of names to nodes */
-    NodeCont   myNodes;
+    NodeCont myNodes;
 
 private:
     /** invalid copy constructor */
