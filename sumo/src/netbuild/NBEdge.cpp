@@ -295,7 +295,7 @@ NBEdge::computeEdgeShape() throw()
             if (pev.size()>0) {
                 SUMOReal pe = VectorHelper<SUMOReal>::maxValue(pev);
                 if (pe>=0) {
-                    shape.eraseAt(shape.size()-1);
+                    shape.eraseAt((int) shape.size()-1);
                     shape.push_back_noDoublePos(le.getPositionAtDistance(pe));
                 }
             }
@@ -616,7 +616,7 @@ NBEdge::writeXMLStep1(OutputDevice &into)
     into << "\">\n";
     // write the lanes
     into << "      <lanes>\n";
-    for (size_t i=0; i<myLanes.size(); i++) {
+    for (unsigned int i=0; i<(unsigned int) myLanes.size(); i++) {
         writeLane(into, myLanes[i], i);
     }
     into << "      </lanes>\n";
@@ -735,7 +735,7 @@ NBEdge::computeLaneShape(size_t lane) throw(InvalidArgument)
 {
     Position2DVector shape;
     bool haveWarned = false;
-    for (size_t i=0; i<myGeom.size(); i++) {
+    for (int i=0; i<myGeom.size(); i++) {
         if (/*i==myGeom.size()-2||*/i==0) {
             Position2D from = myGeom[i];
             Position2D to = myGeom[i+1];
@@ -1821,7 +1821,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
     NBNode *myLastNode = myTo;
     NBNode *newTo = 0;
     NBEdge *currentEdge = this;
-    for (size_t i=1; i<myGeom.size()-1; i++) {
+    for (int i=1; i<(int) myGeom.size()-1; i++) {
         // build the node first
         if (i!=myGeom.size()-2) {
             string nodename = myID + "_in_between#" + toString(i);
