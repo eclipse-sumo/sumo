@@ -36,16 +36,9 @@
       <explicite-tls></explicite-tls>
       <explicite-no-tls></explicite-no-tls>
       <guess-tls>false</guess-tls>
-      <tls-guess.no-incoming-min>2</tls-guess.no-incoming-min>
-      <tls-guess.no-incoming-max>5</tls-guess.no-incoming-max>
-      <tls-guess.no-outgoing-min>1</tls-guess.no-outgoing-min>
-      <tls-guess.no-outgoing-max>5</tls-guess.no-outgoing-max>
-      <tls-guess.min-incoming-speed>11.1111</tls-guess.min-incoming-speed>
-      <tls-guess.max-incoming-speed>19.1667</tls-guess.max-incoming-speed>
-      <tls-guess.min-outgoing-speed>11.1111</tls-guess.min-outgoing-speed>
-      <tls-guess.max-outgoing-speed>19.1667</tls-guess.max-outgoing-speed>
       <tls-guess.district-nodes>false</tls-guess.district-nodes>
       <tls-guess.joining>false</tls-guess.joining>
+      <try-join-tls>false</try-join-tls>
       <min-decel>3</min-decel>
       <patch-small-tyellow>false</patch-small-tyellow>
       <traffic-light-green></traffic-light-green>

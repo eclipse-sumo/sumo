@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r6538
+SUMO netgen Version dev-SVN-r6854
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -86,20 +86,9 @@ Usage: netgen.exe [OPTION]*
   --explicite-no-tls STR               Interprets STR as list of junctions to
                                          be not controlled by TLS
   --guess-tls                          Turns on TLS guessing
-  --tls-guess.no-incoming-min INT      
-  --tls-guess.no-incoming-max INT      
-  --tls-guess.no-outgoing-min INT      
-  --tls-guess.no-outgoing-max INT      Min/max of incoming/outgoing edges a
-                                         junction may have in order to be
-                                         tls-controlled.
-  --tls-guess.min-incoming-speed FLOAT  
-  --tls-guess.max-incoming-speed FLOAT  
-  --tls-guess.min-outgoing-speed FLOAT  
-  --tls-guess.max-outgoing-speed FLOAT  Min/max speeds that incoming/outgoing
-                                         edges must allowed in order to make
-                                         their junction TLS-controlled.
-  --tls-guess.district-nodes           
-  --tls-guess.joining                  
+  --tls-guess.district-nodes           Sets district nodes as tls-controlled
+  --tls-guess.joining                  Includes node clusters into guess
+  --try-join-tls                       Tries to cluster tls-controlled nodes
   -D, --min-decel FLOAT                Defines smallest vehicle deceleration
   --patch-small-tyellow                Given yellow times are patched even if
                                          being too short
