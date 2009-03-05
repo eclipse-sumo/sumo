@@ -428,7 +428,7 @@ NBRequest::getSizes() const
         for (unsigned int j=0; j<noLanesEdge; j++) {
             // assert that at least one edge is approached from this lane
             assert((*i)->getConnectionsFromLane(j).size()!=0);
-            noLinks += (*i)->getConnectionsFromLane(j).size();
+            noLinks += (unsigned int) (*i)->getConnectionsFromLane(j).size();
         }
         noLanes += noLanesEdge;
     }
@@ -526,7 +526,7 @@ NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEd
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
             vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
-            size_t size = connected.size();
+            int size = (int) connected.size();
             for (int k=size; k-->0;) {
                 if (mayDefinitelyPass) {
                     os << '0';
@@ -570,7 +570,7 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
         unsigned int noLanes = (*i)->getNoLanes();
         for (unsigned int j=noLanes; j-->0;) {
             vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
-            size_t size = connected.size();
+            int size = (int) connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {
                     os << '0';
