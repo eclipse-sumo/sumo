@@ -13,5 +13,8 @@ subprocess.call(sumoBinary + " --error-log guisim.stderr --save-configuration gu
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
 subprocess.call(guisimBinary + " -Q -c guisim.cfg", 
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
-#shutil.copyfileobj(open("guisim.stdout"), sys.stdout)
-shutil.copyfileobj(open("guisim.stderr"), sys.stderr)
+if os.path.exists("guisim.stderr"):
+    f = open("guisim.stderr")
+    shutil.copyfileobj(f, sys.stderr)
+    f.close()
+    os.remove("guisim.stderr")
