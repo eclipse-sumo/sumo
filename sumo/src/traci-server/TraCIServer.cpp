@@ -694,32 +694,23 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument)
     int vehId = myInputStorage.readInt();
     MSVehicle* veh = getVehicleByExtId(vehId);   // external node id (equipped vehicle number)
     // edgeID
-    std::string edgeID = myInputStorage.readString();
+    std::string edgeId = myInputStorage.readString();
+    MSEdge* edge = MSEdge::dictionary(edgeId);
     // travelTime
     double travelTime = myInputStorage.readDouble();
-
     if (veh == NULL) {
-        std::ostringstream os;
-        os << "Can not retrieve node with ID " << vehId;
-        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, os.str());
+        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with ID " + toString(vehId));
         return false;
     }
-
-    bool result;
-    if (travelTime < 0) {
-        // restore last travel time
-        result = veh->restoreEdgeWeightLocally(edgeID, MSNet::getInstance()->getCurrentTimeStep());
-    } else {
-        // change edge weight for the vehicle
-        result = veh->changeEdgeWeightLocally(edgeID, travelTime,
-                                              MSNet::getInstance()->getCurrentTimeStep());
+    if (edge == NULL) {
+        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve edge with ID " + edgeId);
+        return false;
     }
-    // create a reply message
-    if (result) {
+    if (veh->changeEdgeWeightLocally(edge, travelTime)) {
         writeStatusCmd(CMD_CHANGEROUTE, RTYPE_OK, "");
         return true;
     } else {
-        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Could not set travel time properly");
+        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Could not (re-)set travel time properly");
         return false;
     }
 }

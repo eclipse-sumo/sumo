@@ -750,19 +750,12 @@ public:
     void checkReroute(SUMOTime t);
 
     /**
-     * Used by TraCIServer to change the weight of an edge locally for a specific vehicle
-     * @param edgeID: ID of the edge to change
+     * Used by TraCIServer to change the weight of an edge locally for a specific vehicle.
+     * Nagative values for travelTime unset previous changes.
+     * @param edge: the edge to change
      * @param travelTime: the new time to be set for the edge
-     * @param currentTime: the current simulation time
      */
-    bool changeEdgeWeightLocally(std::string edgeID, SUMOReal travelTime, SUMOTime currentTime);
-
-    /**
-     * Used by TraCIServer to restore the weight of an edge that was changed previously
-     * via "changeRoute" command
-     * @param edgeID: ID of the edge to restore
-     */
-    bool restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime);
+    bool changeEdgeWeightLocally(MSEdge* edge, SUMOReal travelTime);
 
     /**
      * The vehicle will slow down to newSpeed within the time interval duration.
@@ -1043,7 +1036,6 @@ private:
     };
 
 #ifndef NO_TRACI
-    bool myHaveRouteInfo;
     typedef std::map<const MSEdge * const, Information *> InfoCont;
     InfoCont infoCont;
 
@@ -1051,7 +1043,7 @@ private:
      * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
      * thus it checks for a new route when the next simulation step is performed by TraCI
      */
-    bool myWeightChangedViaTraci;
+    bool myNeedReroute;
 
     /**
      * all edges in this list are marked as "changed by TracI", this means infoCont data
