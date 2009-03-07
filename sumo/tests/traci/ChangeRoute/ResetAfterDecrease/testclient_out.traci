@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Mar 07 23:12:49 2009
+TraCITestClient output file. Date: Sun Mar 08 00:49:20 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -8,7 +8,15 @@ TraCITestClient output file. Date: Sat Mar 07 23:12:49 2009
   nodeId=0 targetTime=1 2D-Position: x=0 y=498.35
 
 -> Command sent: <ChangeRoute>:
+  NodeId=0 RoadId=beg2left travelTime=0.1
+.. Command acknowledged (48), [description: ]
+
+-> Command sent: <ChangeRoute>:
   NodeId=0 RoadId=left travelTime=0.1
+.. Command acknowledged (48), [description: ]
+
+-> Command sent: <ChangeRoute>:
+  NodeId=0 RoadId=left2end travelTime=0.1
 .. Command acknowledged (48), [description: ]
 
 -> Command sent: <SimulationStep>:

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sat Mar 07 23:12:50 2009
+TraCITestClient output file. Date: Sun Mar 08 00:04:05 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -9,7 +9,7 @@ TraCITestClient output file. Date: Sat Mar 07 23:12:50 2009
 
 -> Command sent: <ChangeRoute>:
   NodeId=0 RoadId=blub travelTime=100000
-.. Answered with error to command (48), [description: Could not set travel time properly]
+.. Answered with error to command (48), [description: Can not retrieve edge with ID blub]
 
 -> Command sent: <SimulationStep>:
   TargetTime=2 PosFormat=1

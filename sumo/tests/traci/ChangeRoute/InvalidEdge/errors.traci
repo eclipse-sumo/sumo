@@ -1,3 +1,1 @@
-Error: Answered with error to command 48: Could not set travel time properly
-Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
-Error while sending command: send failed: Software caused tcpip::Socket abort
+Error: Answered with error to command 48: Can not retrieve edge with ID blub
