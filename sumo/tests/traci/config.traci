@@ -2,6 +2,7 @@ import_config_file:../config_all
 binary:$TEXTTEST_HOME/tracirunner.py
 
 copy_test_path:net.net.xml
+copy_test_path:three_split.net.xml
 copy_test_path:routes.rou.xml
 copy_test_path:additional.xml
 copy_test_path:testclient.prog
@@ -14,12 +15,14 @@ testclient_out:testclient_out.txt
 net_state:netstate_dump.xml
 detector:detector.xml
 tls_state:tls_state.xml
+vehroutes:vehroutes.xml
 
 [run_dependent_text]
 testclient_out:Date
 testclient_out:Socket
 tls_state:xml version{->}-->
 detector:xml version{->}-->
-net_state:Version
+vehroutes:xml version{->}-->
+net_state:xml version{->}-->
 output:port
 errors:Socket

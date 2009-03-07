@@ -1,9 +1,5 @@
 simstep 1 1
-changeroute 0 e_vu2 5000
-changeroute 0 e_vu1 5000
-changeroute 0 e_vu0 1000
-simstep_repeat 2 10 1 1
-changeroute 0 e_vu0 15000
-simstep 11 1
-changeroute 0 e_vu0 -1 
-simstep_repeat 12 200 1 1
+changeroute 0 middle 100000
+simstep 2 1
+changeroute 0 middle -1
+simstep_repeat 3 1000 1 1
