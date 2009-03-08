@@ -170,13 +170,7 @@ MSVehicle::~MSVehicle() throw()
     }
     myDevices.clear();
 #ifndef NO_TRACI
-    {
-        // edges changed by TraCI
-        for (InfoCont::iterator i=edgesChangedByTraci.begin(); i!=edgesChangedByTraci.end(); ++i) {
-            delete(*i).second;
-        }
-        edgesChangedByTraci.clear();
-    }
+    myTraciEdgeWeights.clear();
 #endif
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
@@ -1891,8 +1885,8 @@ SUMOReal
 MSVehicle::getEffort(const MSEdge * const e, SUMOReal t) const
 {
 #ifndef NO_TRACI
-    if (infoCont.find(e)!=infoCont.end()) {
-        return infoCont.find(e)->second->neededTime;
+    if (myTraciEdgeWeights.find(e)!=myTraciEdgeWeights.end()) {
+        return myTraciEdgeWeights.find(e)->second;
     }
 #endif
     for (vector< MSDevice* >::const_iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
@@ -1984,43 +1978,14 @@ MSVehicle::changeEdgeWeightLocally(MSEdge* edge, SUMOReal travelTime)
 {
     SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     SUMOReal effortBefore = edge->getVehicleEffort(this, currentTime);
-    InfoCont::iterator oldInfo = edgesChangedByTraci.find(edge);
     if (travelTime < 0) {
-        if (oldInfo == edgesChangedByTraci.end()) {
+        EdgeWeightMap::iterator oldWeight = myTraciEdgeWeights.find(edge);
+        if (oldWeight == myTraciEdgeWeights.end()) {
             return false;
         }
-        if (oldInfo->second->time == -1) {
-            // the edge was not known to the vehicle before any TraCI message, so it is
-            // deleted now
-            infoCont.erase(infoCont.find(edge));
-        } else {
-            // the edge was already known to the vehicle, so it's original data (before any TraCI message
-            // was sent) is restored
-            infoCont[edge]->neededTime = (*oldInfo).second->neededTime;
-            infoCont[edge]->time = currentTime;//(*infoToRestore).second->time;
-        }
-        edgesChangedByTraci.erase(oldInfo);
+        myTraciEdgeWeights.erase(oldWeight);
     } else {
-        SUMOReal oldNeededTime = -1;
-        SUMOTime oldTime = -1;
-        InfoCont::iterator infoToChange = infoCont.find(edge);
-        if (infoToChange == infoCont.end()) {
-            // if the edge is not already stored in infoCont, create a new key
-            infoCont[edge] = new Information(travelTime, currentTime);
-        } else {
-            // otherwise, alter the existing information
-            oldNeededTime = (*infoToChange).second->neededTime;
-            oldTime = (*infoToChange).second->time;
-            (*infoToChange).second->time = currentTime;
-            (*infoToChange).second->neededTime = travelTime;
-        }
-
-        // check wether this edge has not been changed by TraCI before, if so, save the old data
-        // and lock this edge, so that it's weight will not be changed in the future except by
-        // another "changeRoute" TraCI message
-        if (oldInfo == edgesChangedByTraci.end()) {
-            edgesChangedByTraci[edge] = new Information(oldNeededTime, oldTime);
-        }
+        myTraciEdgeWeights[edge] = travelTime;
     }
     SUMOReal effortAfter = edge->getVehicleEffort(this, currentTime);
     if (!myNeedReroute && (effortBefore != effortAfter)) {

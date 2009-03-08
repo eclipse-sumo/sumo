@@ -703,15 +703,6 @@ public:
     }
     bool knowsEdgeTest(MSEdge &edge) const;
 
-    class Information
-    {
-    public:
-        Information(SUMOReal neededTime_, SUMOTime time_)
-                : neededTime(neededTime_), time(time_) { }
-        SUMOReal neededTime; // how long needed the vehicle to travel on the edge
-        SUMOTime time; // the Time, when the Info was saved
-    };
-
     SUMOReal getEffort(const MSEdge * const e, SUMOReal t) const;
 
 
@@ -1036,8 +1027,7 @@ private:
     };
 
 #ifndef NO_TRACI
-    typedef std::map<const MSEdge * const, Information *> InfoCont;
-    InfoCont infoCont;
+    typedef std::map<const MSEdge * const, SUMOReal> EdgeWeightMap;
 
     /**
      * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
@@ -1046,12 +1036,9 @@ private:
     bool myNeedReroute;
 
     /**
-     * all edges in this list are marked as "changed by TracI", this means infoCont data
-     * of this edge must not be changed except by a TraCI "changeRoute" message.
-     * The corresponding Information value of the map holds the Information data
-     * related to an edge before it was changed by TraCI
+     * the local edge weights set by TraCI
      */
-    InfoCont edgesChangedByTraci;
+    EdgeWeightMap myTraciEdgeWeights;
 
     /* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
     bool adaptingSpeed;
