@@ -1969,7 +1969,7 @@ MSVehicle::checkReroute(SUMOTime t)
 #ifdef HAVE_INTERNAL_LANES
     // delay any rerouting while we're on an internal lane
     // otherwise, we'd mess up our route, plus there's not much we could do anyway
-    if (myLane->getEdge() != (*myCurrEdge)) return;
+    if (myLane != 0 && myLane->getEdge() != (*myCurrEdge)) return;
 #endif
     if (myNeedReroute && myStops.size()==0) {
         myNeedReroute = false;
