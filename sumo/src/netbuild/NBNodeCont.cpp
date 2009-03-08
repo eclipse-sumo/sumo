@@ -301,7 +301,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
             //  forbidden to be controlled
             for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ) {
                 if((*j)->isTLControlled()||find(ncontrolled.begin(), ncontrolled.end(), *j)!=ncontrolled.end()) {
-                    j = c.erase(j);
+                    c.erase(j++);
                 } else {
                     ++j;
                 }
@@ -360,7 +360,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc)
         set<NBNode*> &c = (*i);
         for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ) {
             if(!(*j)->isTLControlled()) {
-                j = c.erase(j);
+                c.erase(j++);
             } else {
                 ++j;
             }
