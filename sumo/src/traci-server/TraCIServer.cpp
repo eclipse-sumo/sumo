@@ -580,8 +580,11 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
     case POSITION_2D:
     case POSITION_3D:
         // convert other position type to road map position
-        roadPos = convertCartesianToRoadMap(Position2D(myInputStorage.readFloat(),
-                                            myInputStorage.readFloat()));
+        {
+            float x = myInputStorage.readFloat();
+            float y = myInputStorage.readFloat();
+            roadPos = convertCartesianToRoadMap(Position2D(x,y));
+        }
         if (posType == POSITION_3D) {
             myInputStorage.readFloat();	// z value is ignored
         }
