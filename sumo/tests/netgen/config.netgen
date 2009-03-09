@@ -1,6 +1,7 @@
 import_config_file:../config_all
 binary:$NETGEN_BINARY
 copy_test_path:input_net.net.xml
+floating_point_tolerance:0.0101
 
 [collate_file]
 net:net.net.xml
