@@ -5,5 +5,5 @@ DOCDIR=$PREFIX/sumodoku
 
 cd $PREFIX/sumo
 rm -rf $DOCDIR
-nice -19 doxygen sumo.doxyconf
-scp -qr $DOCDIR $REMOTEDIR/doxygen
+nice -19 doxygen sumo.doxyconf &> $DOCDIR.log
+scp -qr $DOCDIR $REMOTEDIR
