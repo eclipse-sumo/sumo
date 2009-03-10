@@ -1,21 +1,21 @@
-TraCITestClient output file. Date: Tue Feb 03 22:52:35 2009
+TraCITestClient output file. Date: Tue Mar 10 14:57:03 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=0 y=491.75
+  nodeId=0 targetTime=1.00 2D-Position: x=0.00 y=491.75
 
 -> Command sent: <SlowDown>:
-  NodeId=0 MinSpeed=10 timeInterval-1
+  NodeId=0 MinSpeed=10.00 timeInterval-1.00
 .. Answered with error to command (20), [description: Invalid time interval]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=0.8 y=491.75
+  nodeId=0 targetTime=1.00 2D-Position: x=0.80 y=491.75
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

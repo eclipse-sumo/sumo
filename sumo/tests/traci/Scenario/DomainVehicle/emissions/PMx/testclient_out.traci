@@ -1,23 +1,23 @@
-TraCITestClient output file. Date: Tue Feb 10 14:19:18 2009
+TraCITestClient output file. Date: Tue Mar 10 14:57:46 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=30 PosFormat=1
+  TargetTime=30.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=30 2D-Position: x=402.81 y=491.75
+  nodeId=0 targetTime=30.00 2D-Position: x=402.81 y=491.75
 
 -> Command sent: <Scenario>:
   flag=0 domain=1 domainId=0 variable=35 valueDataType=0 [no value sent]
 .. Command acknowledged (115), [description: Warning: requested data type could not be used; using float instead!]
 .. Received Response <Scenario>:
-  flag=0  domain=1 domainId=0 variable=35 valueDataType=10 float value: 0.000137425
+  flag=0  domain=1 domainId=0 variable=35 valueDataType=10 float value: 0.00
 
 -> Command sent: <SimulationStep>:
-  TargetTime=31 PosFormat=1
+  TargetTime=31.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=31 2D-Position: x=416.7 y=491.75
+  nodeId=0 targetTime=31.00 2D-Position: x=416.70 y=491.75
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

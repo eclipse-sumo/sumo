@@ -1,33 +1,33 @@
-TraCITestClient output file. Date: Tue Feb 03 22:53:09 2009
+TraCITestClient output file. Date: Tue Mar 10 14:57:36 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=11 PosFormat=1
+  TargetTime=11.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=11 2D-Position: x=33.4375 y=491.75
+  nodeId=0 targetTime=11.00 2D-Position: x=33.44 y=491.75
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=11 2D-Position: x=2961.16 y=1008.25
+  nodeId=1 targetTime=11.00 2D-Position: x=2961.16 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=2 targetTime=11 2D-Position: x=2981.54 y=1008.25
+  nodeId=2 targetTime=11.00 2D-Position: x=2981.54 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=3 targetTime=11 2D-Position: x=2991.95 y=1008.25
+  nodeId=3 targetTime=11.00 2D-Position: x=2991.95 y=1008.25
 
 -> Command sent: <Scenario>:
   flag=0 domain=1 domainId=0 variable=18 valueDataType=0 StringValue=notexisting_vehicle
 .. Answered with error to command (115), [description: Vehicle with internal id notexisting_vehicle not existing or not accessible via TraCI]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=2 PosFormat=1
+  TargetTime=2.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=2 2D-Position: x=39.8619 y=491.75
+  nodeId=0 targetTime=2.00 2D-Position: x=39.86 y=491.75
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=2 2D-Position: x=2955 y=1008.25
+  nodeId=1 targetTime=2.00 2D-Position: x=2955.00 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=2 targetTime=2 2D-Position: x=2977.78 y=1008.25
+  nodeId=2 targetTime=2.00 2D-Position: x=2977.78 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=3 targetTime=2 2D-Position: x=2991.48 y=1008.25
+  nodeId=3 targetTime=2.00 2D-Position: x=2991.48 y=1008.25
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

@@ -1,25 +1,25 @@
-TraCITestClient output file. Date: Tue Feb 03 22:53:07 2009
+TraCITestClient output file. Date: Tue Mar 10 14:57:33 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=0 y=491.75
+  nodeId=0 targetTime=1.00 2D-Position: x=0.00 y=491.75
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=1 2D-Position: x=2991.95 y=1008.25
+  nodeId=1 targetTime=1.00 2D-Position: x=2991.95 y=1008.25
 
 -> Command sent: <Scenario>:
   flag=0 domain=1 domainId=0 variable=18 valueDataType=0 [no value sent]
 .. Answered with error to command (115), [description: Internal id must be given as string value]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=2 PosFormat=1
+  TargetTime=2.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=2 2D-Position: x=0.51826 y=491.75
+  nodeId=0 targetTime=2.00 2D-Position: x=0.52 y=491.75
 .. Received Response <MoveNode>:
-  nodeId=1 targetTime=2 2D-Position: x=2991.5 y=1008.25
+  nodeId=1 targetTime=2.00 2D-Position: x=2991.50 y=1008.25
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

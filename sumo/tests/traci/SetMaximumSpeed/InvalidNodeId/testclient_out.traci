@@ -1,21 +1,21 @@
-TraCITestClient output file. Date: Tue Mar 10 13:58:41 2009
+TraCITestClient output file. Date: Tue Mar 10 14:56:58 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=0 y=491.75
+  nodeId=0 targetTime=1.00 2D-Position: x=0.00 y=491.75
 
 -> Command sent: <SetMaximumSpeed>:
-  NodeId=42 MaxSpeed=10
+  NodeId=42 MaxSpeed=10.00
 .. Answered with error to command (17), [description: Can not retrieve node with given ID]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 .. Received Response <MoveNode>:
-  nodeId=0 targetTime=1 2D-Position: x=0.8 y=491.75
+  nodeId=0 targetTime=1.00 2D-Position: x=0.80 y=491.75
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

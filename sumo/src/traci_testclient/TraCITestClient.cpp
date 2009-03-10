@@ -24,6 +24,7 @@
 #include "TraCITestClient.h"
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 #include <ctime>
@@ -51,7 +52,11 @@ TraCITestClient::TraCITestClient(std::string outputFileName)
         :socket(NULL),
         outputFileName(outputFileName),
         answerLog("")
-{}
+{
+    answerLog.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+    answerLog.setf(std::ios::showpoint);    // print decimal point
+    answerLog << std::setprecision(2);
+}
 
 
 TraCITestClient::~TraCITestClient()

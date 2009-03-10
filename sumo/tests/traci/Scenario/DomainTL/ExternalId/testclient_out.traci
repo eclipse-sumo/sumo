@@ -1,8 +1,8 @@
-TraCITestClient output file. Date: Sat May 24 17:19:26 2008
+TraCITestClient output file. Date: Tue Mar 10 14:57:50 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Scenario>:
@@ -12,7 +12,7 @@ TraCITestClient output file. Date: Sat May 24 17:19:26 2008
   flag=0  domain=2 domainId=0 variable=18 valueDataType=9 Int value: 1
 
 -> Command sent: <SimulationStep>:
-  TargetTime=2 PosFormat=1
+  TargetTime=2.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:

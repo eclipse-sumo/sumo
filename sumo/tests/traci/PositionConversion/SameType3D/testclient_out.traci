@@ -1,16 +1,16 @@
-TraCITestClient output file. Date: Tue Feb 03 22:52:46 2009
+TraCITestClient output file. Date: Tue Mar 10 14:57:16 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <PositionConversion>:
- DestPosition-3D: x=1 y=1 z=0 posId=3
+ DestPosition-3D: x=1.00 y=1.00 z=0.00 posId=3
 .. Answered with error to command (113), [description: Destination position type is same as source position type]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=2 PosFormat=1
+  TargetTime=2.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:

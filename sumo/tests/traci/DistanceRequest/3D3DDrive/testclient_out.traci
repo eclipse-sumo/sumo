@@ -1,18 +1,18 @@
-TraCITestClient output file. Date: Sun May 18 17:45:53 2008
+TraCITestClient output file. Date: Tue Mar 10 14:57:21 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <DistanceRequest>:
- FirstPosition-3D: x=2900 y=495 z=0 SecondPosition-3D: x=2994 y=950 z=0 Flag=1
+ FirstPosition-3D: x=2900.00 y=495.00 z=0.00 SecondPosition-3D: x=2994.00 y=950.00 z=0.00 Flag=1
 .. Command acknowledged (114), [description: ]
 .. Received Response <DistanceRequest>:
  flag=1 distance=1511.62
 
 -> Command sent: <SimulationStep>:
-  TargetTime=2 PosFormat=1
+  TargetTime=2.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:

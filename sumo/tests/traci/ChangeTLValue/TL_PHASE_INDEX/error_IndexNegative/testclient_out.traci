@@ -1,8 +1,8 @@
-TraCITestClient output file. Date: Fri Feb 20 16:10:20 2009
+TraCITestClient output file. Date: Tue Mar 10 14:58:21 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=10 PosFormat=1
+  TargetTime=10.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <SetValue>:
@@ -10,7 +10,7 @@ TraCITestClient output file. Date: Fri Feb 20 16:10:20 2009
 .. Answered with error to command (194), [description: The phase index is not in the allowed range.]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=31 PosFormat=1
+  TargetTime=31.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:

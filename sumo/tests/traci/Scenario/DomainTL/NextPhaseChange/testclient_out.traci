@@ -1,8 +1,8 @@
-TraCITestClient output file. Date: Sat May 24 17:45:12 2008
+TraCITestClient output file. Date: Tue Mar 10 14:57:55 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=40 PosFormat=1
+  TargetTime=40.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Scenario>:
@@ -15,7 +15,7 @@ TraCITestClient output file. Date: Sat May 24 17:45:12 2008
  precRoad=e_m3 succRoad=e_m4 phase=red
 
 -> Command sent: <SimulationStep>:
-  TargetTime=41 PosFormat=1
+  TargetTime=41.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:

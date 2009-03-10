@@ -1,8 +1,8 @@
-TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
+TraCITestClient output file. Date: Tue Mar 10 14:58:16 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -13,7 +13,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=4/1to3/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=4/1to3/1
@@ -22,7 +22,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
  ]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=15 PosFormat=1
+  TargetTime=15.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -33,7 +33,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=4/1to3/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: 9.5
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: 9.50
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=4/1to3/1
@@ -42,7 +42,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 "0", "1" ]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=30 PosFormat=1
+  TargetTime=30.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -53,7 +53,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=4/1to3/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=4/1to3/1
@@ -69,7 +69,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=3/1to2/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=3/1to2/1
@@ -78,7 +78,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
  ]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=50 PosFormat=1
+  TargetTime=50.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -89,7 +89,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=3/1to2/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: 9.5
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: 9.50
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=3/1to2/1
@@ -98,7 +98,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 "0", "1" ]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=80 PosFormat=1
+  TargetTime=80.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -109,7 +109,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
 -> Command sent: <GetVariable>:
   domID=161 varID=17 objID=3/1to2/1
 .. Command acknowledged (161), [description: ]
-  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
 
 -> Command sent: <GetVariable>:
   domID=161 varID=18 objID=3/1to2/1
@@ -118,7 +118,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:35:36 2009
  ]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=90 PosFormat=1
+  TargetTime=90.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:

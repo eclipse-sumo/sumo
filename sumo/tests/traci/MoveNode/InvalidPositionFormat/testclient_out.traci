@@ -1,8 +1,8 @@
-TraCITestClient output file. Date: Tue Feb 03 22:30:54 2009
+TraCITestClient output file. Date: Tue Mar 10 14:56:56 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=100
+  TargetTime=1.00 PosFormat=100
 .. Answered with error to command (1), [description: Error: unsupported return format requested.]
 
 -> Command sent: <Close>:

@@ -1,8 +1,8 @@
-TraCITestClient output file. Date: Thu Feb 19 14:11:32 2009
+TraCITestClient output file. Date: Tue Mar 10 14:58:11 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=48 PosFormat=1
+  TargetTime=48.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -12,7 +12,7 @@ TraCITestClient output file. Date: Thu Feb 19 14:11:32 2009
  ]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=49 PosFormat=1
+  TargetTime=49.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:

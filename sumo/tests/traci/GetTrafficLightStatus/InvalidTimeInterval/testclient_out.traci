@@ -1,16 +1,16 @@
-TraCITestClient output file. Date: Tue Feb 03 22:53:29 2009
+TraCITestClient output file. Date: Tue Mar 10 14:58:01 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=1 PosFormat=1
+  TargetTime=1.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetTLStatus>:
-  TLId=1 IntervalStart=100 IntervalEnd=20
+  TLId=1 IntervalStart=100.00 IntervalEnd=20.00
 .. Answered with error to command (65), [description: The given time interval is not valid]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=2 PosFormat=1
+  TargetTime=2.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:
