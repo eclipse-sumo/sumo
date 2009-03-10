@@ -28,6 +28,7 @@
 #include <fstream>
 #include <sstream>
 #include <ctime>
+#include <cstdlib>
 
 #include <traci-server/TraCIConstants.h>
 
