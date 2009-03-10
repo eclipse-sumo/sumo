@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Feb 23 15:03:13 2009
+TraCITestClient output file. Date: Tue Mar 10 13:58:44 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -8,7 +8,7 @@ TraCITestClient output file. Date: Mon Feb 23 15:03:13 2009
   nodeId=0 targetTime=1 2D-Position: x=0 y=495.05
 
 -> Command sent: <StopNode>:
-  NodeId=-1 Position-2D: x=0 y=0 radius=0 waitTime=0
+  NodeId=42 Position-2D: x=0 y=0 radius=0 waitTime=0
 .. Answered with error to command (18), [description: Can not retrieve node with given ID]
 
 -> Command sent: <SimulationStep>:

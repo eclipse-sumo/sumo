@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Feb 03 22:52:29 2009
+TraCITestClient output file. Date: Tue Mar 10 13:58:41 2009
 
 
 -> Command sent: <SimulationStep>:
@@ -8,7 +8,7 @@ TraCITestClient output file. Date: Tue Feb 03 22:52:29 2009
   nodeId=0 targetTime=1 2D-Position: x=0 y=491.75
 
 -> Command sent: <SetMaximumSpeed>:
-  NodeId=-1 MaxSpeed=10
+  NodeId=42 MaxSpeed=10
 .. Answered with error to command (17), [description: Can not retrieve node with given ID]
 
 -> Command sent: <SimulationStep>:
