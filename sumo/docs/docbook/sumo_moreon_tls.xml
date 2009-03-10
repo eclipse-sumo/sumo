@@ -816,9 +816,10 @@ MSSimpleTrafficLightLogic::trySwitch()
         traffic lights? In other words, is it possible to say that one light
         has to become green x seconds after the other?</para>
 
-        <para><emphasis>Answer:</emphasis> Is it possible to "connect" two
-        traffic lights? In other words, is it possible to say that one light
-        has to become green x seconds after the other?</para>
+        <para><emphasis>Answer:</emphasis> No, there is no possibility to
+        couple traffic lights directly in SUMO. What one can do is to
+        synchronize them on-line using TraCI. Also, one can load additional
+        programs into SUMO.</para>
       </sect2>
     </sect1>
   </chapter>
