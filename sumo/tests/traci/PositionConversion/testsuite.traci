@@ -13,6 +13,9 @@ SameTypeRoadPos
 # Test conversion from road map to 3d position
 RoadPosTo3D
 
+# Test conversion from road map to 2d position
+RoadPosTo2D
+
 # Test error on specifying an invalid road id
 InvalidRoadId
 

@@ -1088,18 +1088,16 @@ TraCIServer::commandPositionConversion() throw(TraCIException)
     float z = 0;
     unsigned char destPosType;
 
-    static std::stringstream out;
-    std::ofstream file;
-
     // actual position type that will be converted
     unsigned char srcPosType = myInputStorage.readUnsignedByte();
 
     switch (srcPosType) {
     case POSITION_2D:
+    case POSITION_2_5D:
     case POSITION_3D:
         x = myInputStorage.readFloat();
         y = myInputStorage.readFloat();
-        if (srcPosType == POSITION_3D) {
+        if (srcPosType != POSITION_2D) {
             z = myInputStorage.readFloat();
         }
         // destination position type
@@ -1135,6 +1133,8 @@ TraCIServer::commandPositionConversion() throw(TraCIException)
         destPosType = myInputStorage.readUnsignedByte();
 
         switch (destPosType) {
+        case POSITION_2D:
+        case POSITION_2_5D:
         case POSITION_3D:
             //convert 3D to road map position
             try {
@@ -1143,13 +1143,16 @@ TraCIServer::commandPositionConversion() throw(TraCIException)
                 y = result.y();
             } catch (TraCIException e) {
                 writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
+                return false;
             }
 
             // write result that is added to response msg
-            tmpResult.writeUnsignedByte(POSITION_3D);
+            tmpResult.writeUnsignedByte(destPosType);
             tmpResult.writeFloat(x);
             tmpResult.writeFloat(y);
-            tmpResult.writeFloat(z);
+            if (destPosType != POSITION_2D) {
+                tmpResult.writeFloat(z);
+            }
             break;
         case POSITION_ROADMAP:
             writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR,
