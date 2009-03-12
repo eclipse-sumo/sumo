@@ -867,7 +867,9 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw()
         if(removalBegin!=-1) {
             myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
             for(int i=removalBegin; i<myLFLinkLanes.size(); ++i) {
-                myLFLinkLanes[i].myLink->deleteRequest();
+                if(myLFLinkLanes[i].myLink!=0) {
+                    myLFLinkLanes[i].myLink->deleteRequest();
+                }
             }
             if(removalBegin+1<myLFLinkLanes.size()) {
                 myLFLinkLanes.erase(myLFLinkLanes.begin()+removalBegin+1, myLFLinkLanes.end());
