@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/09/09 12:56:19 by SUMO netconvert Version dev-SVN-r6586
+<!-- generated on 03/12/09 09:55:09 by SUMO netconvert Version dev-SVN-r6902
 <configuration>
 
    <input>
@@ -277,7 +277,7 @@
       <lanenumber>2</lanenumber>
       <logic>
          <logicitem request="0" response="00" foes="10" cont="0"/>
-         <logicitem request="1" response="01" foes="01" cont="0"/>
+         <logicitem request="1" response="00" foes="01" cont="0"/>
       </logic>
    </row-logic>
 
@@ -473,7 +473,7 @@
    </succ>
 
    <succ edge="middle2" lane="middle2_0" junction="end">
-      <succlane lane="end_0" via=":end_1_0" yield="1" dir="s" state="m"/>
+      <succlane lane="end_0" via=":end_1_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="rend" lane="rend_0" junction="rabsEnd">

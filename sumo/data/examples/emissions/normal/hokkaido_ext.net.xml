@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/09/09 12:57:03 by SUMO netconvert Version dev-SVN-r6586
+<!-- generated on 03/12/09 09:55:16 by SUMO netconvert Version dev-SVN-r6902
 <configuration>
 
    <input>
@@ -28,13 +28,13 @@
 
    <edge id=":dl_0" function="internal">
       <lanes>
-         <lane id=":dl_0_0" depart="0" maxspeed="13.90" length="5.46" >481.34,-1.65 486.78,-1.23</lane>
+         <lane id=":dl_0_0" depart="0" maxspeed="13.90" length="3.42" >498.50,-1.65 501.50,0.00</lane>
       </lanes>
    </edge>
 
    <edge id=":dl_1" function="internal">
       <lanes>
-         <lane id=":dl_1_0" depart="0" maxspeed="13.90" length="5.87" >481.80,1.88 486.78,-1.23</lane>
+         <lane id=":dl_1_0" depart="0" maxspeed="13.90" length="3.96" >498.50,-2.59 501.50,0.00</lane>
       </lanes>
    </edge>
 
@@ -60,7 +60,7 @@
 
    <edge id="1" from="dl" to="dr" priority="2" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" vclasses="" maxspeed="13.90" length="1224.23">486.78,-1.23 500.00,0.00 1710.96,0.00</lane>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="13.90" length="1209.46">501.50,0.00 1710.96,0.00</lane>
       </lanes>
    </edge>
 
@@ -78,13 +78,13 @@
 
    <edge id="4" from="tl" to="dl" priority="2" type="" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" vclasses="" maxspeed="13.90" length="270.07">488.64,190.94 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 481.80,1.88</lane>
+         <lane id="4_0" depart="1" vclasses="" maxspeed="13.90" length="287.35">488.64,190.94 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 498.50,-2.59</lane>
       </lanes>
    </edge>
 
    <edge id="source" from="source" to="dl" priority="1" type="" function="normal">
       <lanes>
-         <lane id="source_0" depart="1" vclasses="" maxspeed="13.90" length="481.34">0.00,-1.65 481.34,-1.65</lane>
+         <lane id="source_0" depart="1" vclasses="" maxspeed="13.90" length="498.50">0.00,-1.65 498.50,-1.65</lane>
       </lanes>
    </edge>
 
@@ -131,7 +131,7 @@
    <junction id="dl" type="priority" x="500.00" y="0.00">
       <inclanes>source_0 4_0</inclanes>
       <intlanes>:dl_0_0 :dl_1_0</intlanes>
-      <shape>486.63,0.36 486.93,-2.83 481.34,-3.25 481.34,-0.05 481.39,0.34 482.22,3.43</shape>
+      <shape>501.50,1.60 501.50,-1.60 498.50,-3.25 498.50,-0.05</shape>
    </junction>
 
    <junction id="dr" type="priority" x="1700.00" y="0.00">
