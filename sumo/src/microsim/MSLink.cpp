@@ -116,7 +116,6 @@ bool
 MSLink::hasApproachingFoe() const throw()
 {
     if (myRequest==0) {
-        // !!! may this happen?
         return false;
     }
     return (*myRequest&myFoes).any();
@@ -126,16 +125,13 @@ MSLink::hasApproachingFoe() const throw()
 void
 MSLink::deleteRequest() throw()
 {
-    if (myRequest==0) {
-        std::cout << "Buggy" << std::endl;
-        return ; // !!! should never happen, was sometimes the case in possibly buggy networks
+    if (myRequest!=0) {
+        myRequest->reset(myRequestIdx);
     }
-    myRequest->reset(myRequestIdx);
-    if (myRespond==0) {
-        std::cout << "Buggy" << std::endl;
-        return ; // !!! should never happen, was sometimes the case in possibly buggy networks
+    if (myRespond!=0) {
+        myRespond->reset(myRespondIdx);
     }
-    myRespond->reset(myRespondIdx);
+    myApproaching = 0;
 }
 
 

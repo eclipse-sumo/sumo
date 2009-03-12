@@ -479,6 +479,9 @@ protected:
     /// index of the first vehicle that may drive over the lane's end
     size_t myFirstUnsafe;
 
+    /// @brief Not yet seen vehicle lengths
+    SUMOReal myLeftVehLength;
+
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;

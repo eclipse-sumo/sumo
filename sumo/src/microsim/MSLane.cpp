@@ -432,6 +432,7 @@ MSLane::moveNonCritical()
     // Set the information about the last vehicle
     myLastState = (*myVehicles.begin())->getState();
     myFirstUnsafe = 0;
+    myLeftVehLength = myVehicleLengthSum;
 
     // Move vehicles except first and all vehicles that may reach the end of the lane
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
@@ -449,7 +450,7 @@ MSLane::moveNonCritical()
 
     vector<MSVehicle*> collisions;
     for (veh = myVehicles.begin(); !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;) {
-
+        myLeftVehLength -= (*veh)->getVehicleType().getLength();
         // get the leader
         //  ... there must be one, because the first vehicle is moved
         //   using moveCritical ...
@@ -501,13 +502,15 @@ MSLane::moveCritical()
     VehCont::iterator veh;
     // Move all next vehicles beside the first
     for (veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;) {
+        myLeftVehLength -= (*veh)->getVehicleType().getLength();
         VehCont::const_iterator pred(veh + 1);
-        if ((*veh)->moveRegardingCritical(this, *pred, 0)) {
+        if ((*veh)->moveRegardingCritical(this, *pred, 0, myLeftVehLength)) {
             collisions.push_back(*veh);
         }
         ++veh;
     }
-    if ((*veh)->moveRegardingCritical(this, 0, 0)) {
+    myLeftVehLength -= (*veh)->getVehicleType().getLength();
+    if ((*veh)->moveRegardingCritical(this, 0, 0, myLeftVehLength)) {
         collisions.push_back(*veh);
     }
     assert((*veh)->getPositionOnLane() <= myLength);

@@ -620,7 +620,8 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
 bool
 MSVehicle::moveRegardingCritical(const MSLane* const lane,
                                  const MSVehicle * const pred,
-                                 const MSVehicle * const neigh) throw()
+                                 const MSVehicle * const neigh,
+                                 SUMOReal lengthsInFront) throw()
 {
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
@@ -668,7 +669,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         vBeg = MAX2(vBeg, myType->getSpeedAfterMaxDecel(myState.mySpeed));
         // check whether the driver wants to let someone in
         // set next links, computing possible speeds
-        vsafeCriticalCont(vBeg);
+        vsafeCriticalCont(vBeg, lengthsInFront);
     }
     //@ to be optimized (move to somewhere else)
     if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
@@ -821,9 +822,65 @@ MSVehicle::moveFirstChecked()
     setBlinkerInformation();
 }
 
+void 
+MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw()
+{
+#ifdef HAVE_INTERNAL_LANES
+    if (MSGlobals::gUsingInternalLanes) {
+        int removalBegin = -1;
+        bool hadVehicle = false;
+        SUMOReal seenSpace = -lengthsInFront;
+        MSLane *nextSeenNonInternal = 0;
+        for(int i=myLFLinkLanes.size()-1; i>=0; --i) {
+            DriveProcessItem &item = myLFLinkLanes[i];
+            if(item.myLink==0) {
+                continue;
+            }
+            MSLane *nl = item.myLink->getLane();
+            MSLane *vl = item.myLink->getViaLane();
+            MSEdge::EdgeBasicFunction ef;
+            if(vl!=0) {
+                // link from normal to internal
+                seenSpace = seenSpace - vl->getVehLenSum();
+                hadVehicle |= vl->getVehicleNumber()!=0;
+                ef = MSEdge::EDGEFUNCTION_INTERNAL;
+            } else {
+                if(nl!=0) {
+                    ef = nl->getEdge()->getPurpose();
+                }
+            }
+            // link from internal to normal
+            if(nl!=0) {
+                seenSpace = seenSpace + nl->length() - nl->getVehLenSum();
+                hadVehicle |= nl->getVehicleNumber()!=0;
+                MSEdge::EdgeBasicFunction ef2 = nl->getEdge()->getPurpose();
+                if(ef2!=MSEdge::EDGEFUNCTION_INNERJUNCTION) {
+                    nextSeenNonInternal = nl;
+                }
+            }
+            if(ef==MSEdge::EDGEFUNCTION_INNERJUNCTION||ef==MSEdge::EDGEFUNCTION_INTERNAL) {
+                if(hadVehicle&&seenSpace<getVehicleType().getLength()-SUMOReal(myWaitingTime)/10.&&nextSeenNonInternal!=0) {
+                    removalBegin = i;
+                }
+            }
+        }
+        if(removalBegin!=-1) {
+            myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
+            for(int i=removalBegin; i<myLFLinkLanes.size(); ++i) {
+                myLFLinkLanes[i].myLink->deleteRequest();
+            }
+            if(removalBegin+1<myLFLinkLanes.size()) {
+                myLFLinkLanes.erase(myLFLinkLanes.begin()+removalBegin+1, myLFLinkLanes.end());
+            }
+        }
+    }
+#endif
+}
+
+
 
 void
-MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
+MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront)
 {
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
@@ -855,10 +912,11 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
         if (nextLane->isLinkEnd(link)) {
+            // the vehicle will not drive further
             SUMOReal laneEndVSafe = myType->ffeS(myState.mySpeed, seen);
             myLFLinkLanes.push_back(
                 DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe)));
-            // the vehicle will not drive further
+            checkRewindLinkLanes(lengthsInFront);
             return;
         }
         // the link was passed
@@ -1038,6 +1096,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 
         if ((*link)->getState()==MSLink::LINKSTATE_TL_YELLOW&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait));
+            checkRewindLinkLanes(lengthsInFront);
             return;
         }
         // valid, when a vehicle is not on a priorised lane
@@ -1064,10 +1123,12 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         if (vLinkPass>0&&dist-seen>0) {
             (*link)->setApproaching(this);
         } else {
+            checkRewindLinkLanes(lengthsInFront);
             return;
         }
         seen += nextLane->length();
         if (seen>dist) {
+            checkRewindLinkLanes(lengthsInFront);
             return;
         }
 #ifdef HAVE_INTERNAL_LANES
@@ -1929,7 +1990,6 @@ SUMOReal
 MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge)
 {
     SUMOReal distance = std::numeric_limits<SUMOReal>::max();
-
     if (isOnRoad() && destEdge != NULL) {
         if (myLane->getEdge() == (*myCurrEdge)) {
             // vehicle is on a normal edge

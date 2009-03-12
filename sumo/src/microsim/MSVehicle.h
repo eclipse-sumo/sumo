@@ -342,9 +342,11 @@ public:
      * @param[in] lane The lane the vehicle is on
      * @param[in] pred The leader (may be 0)
      * @param[in] neigh The neighbor vehicle (may be 0)
+     * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      * @return Whether a collision occured (gap2pred(leader)<=0)
      */
-    bool moveRegardingCritical(const MSLane* const lane, const MSVehicle * const pred, const MSVehicle * const neigh) throw();
+    bool moveRegardingCritical(const MSLane* const lane, const MSVehicle * const pred, 
+        const MSVehicle * const neigh, SUMOReal lengthsInFront) throw();
 
 
     /// @name state setter/getter
@@ -390,7 +392,6 @@ public:
         return myPreDawdleAcceleration;
     }
     //@}
-
 
 
     SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
@@ -544,7 +545,7 @@ public:
 
     friend class MSVehicleControl;
 
-    void vsafeCriticalCont(SUMOReal minVSafe);
+    void vsafeCriticalCont(SUMOReal minVSafe, SUMOReal lengthsInFront);
 
     MSLane *getTargetLane() const;
 
@@ -814,6 +815,8 @@ protected:
 
 
 
+    void checkRewindLinkLanes(SUMOReal lengthsInFront) throw();
+
     /// @name Interaction with move reminders
     ///@{
 
@@ -977,8 +980,6 @@ private:
     /// @brief Offsets for prior move reminder
     OffsetVector myOldLaneMoveReminderOffsets;
     /// @}
-
-
 
     typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
     QuitRemindedVector myQuitReminded;
