@@ -389,7 +389,7 @@
 
       <para>We apologize that a documentation on the examples does not exist
       (yet). Nonetheless please feel invited to take a look at the <ulink
-      url="http://sumo.sourceforge.net/wiki/index.php/Tutorial">tutorial</ulink>(s)
+      url="http://sumo.sourceforge.net/wiki/index.php/Tutorials">tutorial</ulink>(s)
       available at our <ulink
       url="http://sumo.sourceforge.net/wiki/index.php/Main_Page">wiki</ulink>.</para>
     </sect1>
@@ -475,7 +475,7 @@
         Other obstacles, such as traffic lights, are of course considered
         herein, too.</para>
 
-        <para>It seems obvious, that each driver is trying to use to shortest
+        <para>It seems obvious, that each driver is trying to use the shortest
         path through the network. But when all are trying to do this, some of
         the roads - mainly the arterial roads - would get congested reducing
         the benefit of using them. Solutions for this problem are known to
@@ -580,7 +580,7 @@
 
       <para>Please remark, that most of the tools are command-line tools by
       now. They do nothing if you just double-click them (besides printing
-      errors). Do also notice, that the call parameter desribed in the
+      errors). Do also notice, that the call parameter described in the
       following chapters may be also stored in so-called
       "<emphasis>configuration files</emphasis>" to allow their reuse. This
       possibility is described in chapter "<ulink
@@ -735,8 +735,7 @@
 
       <itemizedlist spacing="compact">
         <listitem>
-          <para>ARTEMIS network import is was removed from version
-          0.9.7</para>
+          <para>ARTEMIS network import was removed from version 0.9.7</para>
         </listitem>
       </itemizedlist>
     </sect1>
@@ -854,7 +853,7 @@
 
         <para>You should also know something about the coordinate system: the
         higher a node on the screen shall be (the nearer to the top of your
-        monitor), the higher his y-value must be. The more to left it shall
+        monitor), the higher his y-value must be. The more to right it shall
         be, the higher his x-value.</para>
 
         <figure id="img_coordinate_system">
@@ -1053,7 +1052,7 @@
                   position is encoded in x,y (do not separate the numbers with
                   a space!) in meters; the start and end node are omitted from
                   the shape definition; an example: <sgmltag>&lt;edge id="e1"
-                  fromnode="0" tonode="1" shape="0,0 0,100"/&gt;</sgmltag>
+                  fromnode="0" tonode="1" shape="0,0 100,0"/&gt;</sgmltag>
                   describes an edge that after starting at node 0, first
                   visits position 0,0 than goes one hundred meters to the
                   right before finally reaching the position of node 1.</para>
@@ -1296,7 +1295,7 @@
         <itemizedlist spacing="compact">
           <listitem>
             <para>The basic usage of types is shown in
-            <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>
+            "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>"
             where the same network is constructed once not using types
             (subfolder "<filename>cross_notypes</filename>") and once using
             them (subfolder "<filename>cross_usingtypes</filename>").</para>
@@ -1417,7 +1416,7 @@
           </figure>
 
           <para>The example
-          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>"
+          "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>"
           shows what happens when one uses connections to limit the number of
           reachable edges. To do this we built a connections file where we say
           that the horizontal edges ("1si" and "2si") have only connections to
@@ -1536,18 +1535,18 @@
 
    <remark>&lt;!-- now, let's prohibit the vertical connections by the horizontal --&gt;</remark>
    <remark>&lt;!-- prohibit moving right from top to left by straight from right to left --&gt;</remark>
-   &lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;1o"/&gt;
+   <sgmltag>&lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;1o"/&gt;</sgmltag>
    <remark>&lt;!-- prohibit moving straight from top to bottom by straight from right to left --&gt;</remark>
-   &lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;3o"/&gt;
+   <sgmltag>&lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;3o"/&gt;</sgmltag>
    <remark>&lt;!-- prohibit moving left from top to right by straight from right to left --&gt;</remark>
-   &lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;2o"/&gt;
+   <sgmltag>&lt;prohibition prohibitor="2si-&gt;1o" prohibited="4si-&gt;2o"/&gt;</sgmltag>
 
    <remark>&lt;!-- prohibit moving right from bottom to right by straight from left to right --&gt;</remark>
-   &lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;2o"/&gt;
+   <sgmltag>&lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;2o"/&gt;</sgmltag>
    <remark>&lt;!-- prohibit moving straight from bottom to top by straight from left to right --&gt;</remark>
-   &lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;4o"/&gt;
+   <sgmltag>&lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;4o"/&gt;</sgmltag>
    <remark>&lt;!-- prohibit moving left from bottom to right by straight from left to right --&gt;</remark>
-   &lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;1o"/&gt;
+   <sgmltag>&lt;prohibition prohibitor="1si-&gt;2o" prohibited="3si-&gt;1o"/&gt;</sgmltag>
 
 <sgmltag>&lt;/connections&gt;</sgmltag>
 </programlisting>
@@ -1761,11 +1760,11 @@
 
             <itemizedlist>
               <listitem>
-                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_notypes_kmh/</filename></para>
+                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/speed_in_kmh/cross_notypes_kmh/</filename></para>
               </listitem>
 
               <listitem>
-                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_usingtypes_kmh/</filename></para>
+                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/speed_in_kmh/cross_usingtypes_kmh/</filename></para>
               </listitem>
             </itemizedlist>
           </listitem>
@@ -3122,7 +3121,7 @@
         the simulation speed due to a smaller number of edges to process
         during each time step. To remove such nodes and join the incoming and
         outgoing edges use "<option>--remove-geometry</option>". The removal
-        of nodes preserves the geometry of edges by ading a further geometry
+        of nodes preserves the geometry of edges by adding a further geometry
         point at the removed node's position.</para>
 
         <para>Specific option:</para>
@@ -3188,15 +3187,15 @@
 
         <para><itemizedlist spacing="compact">
             <listitem>
-              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\cross_notypes_kmh</filename>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\speed_in_kmh\cross_notypes_kmh</filename>
               in comparison to
-              <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\cross_notypes</filename></para>
+              <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\types\cross_notypes</filename></para>
             </listitem>
 
             <listitem>
-              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\cross_usingtypes_kmh</filename>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\speed_in_kmh\cross_usingtypes_kmh</filename>
               in comparison to
-              <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\cross_usingtypes</filename></para>
+              <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>\data\examples\netbuild\types\cross_usingtypes</filename></para>
             </listitem>
           </itemizedlist></para>
 
@@ -3578,7 +3577,7 @@
 
         <para>Most professional networks are not stored using cartesian, but
         geo-coordinates. Since version 0.9.4 NETCONVERT is able to deal with
-        such positions. NETCONVERT uses herefor the projection library
+        such positions. NETCONVERT uses therefor the projection library
         "PROJ.4". This is important for you as a user, because you may have to
         describe the original projection of your file and when doing this, you
         have to describe it using the options offered by PROJ.4. In order to
@@ -4074,7 +4073,7 @@
         specifying <option>--spider-omit-center</option> or
         <option>--nocenter</option>. This also gives an easy way of generating
         a circle network. Using for instance <command>netgen --spider-net
-        --spider-omit-center --output-file=MySUMOFile.net.xml</command>will
+        --spider-omit-center --output-file=MySUMOFile.net.xml</command> will
         create a circle consisting of 13 elements with a radius of
         100m.</para>
 
@@ -4835,7 +4834,7 @@
           <programlisting><sgmltag>&lt;routes&gt;
 </sgmltag><sgmltag>   &lt;routeDistribution id="routedist1"&gt;</sgmltag>
       <sgmltag>&lt;route id="route0" color="1,1,0" edges="beg middle end rend" probability="0.9"/&gt;</sgmltag>
-<sgmltag>      &lt;route id="route1" color="1,2,0" edges="beg middle end" probability="0.1"/&gt;</sgmltag>
+      <sgmltag>&lt;route id="route1" color="1,2,0" edges="beg middle end" probability="0.1"/&gt;</sgmltag>
 <sgmltag>   &lt;/routeDistribution&gt;
 </sgmltag><sgmltag>&lt;/routes&gt;</sgmltag></programlisting>
 
@@ -4953,13 +4952,13 @@
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/router/trips2routes/</filename>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/duarouter/trips2routes/</filename>
               shows the basic usage of trips; This example is quiet trivial -
               100 same vehicles are emitted</para>
             </listitem>
 
             <listitem>
-              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/router/trips2routes_repetition/</filename>
+              <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/duarouter/trips2routes_repetition/</filename>
               does exactly the same, but not by defining each of the 100
               vehicles, but letting one vehicle be duplicated using
               <sgmltag>period</sgmltag> and <sgmltag>repno</sgmltag></para>
