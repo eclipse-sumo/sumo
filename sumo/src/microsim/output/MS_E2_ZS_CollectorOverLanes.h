@@ -58,8 +58,7 @@ class MSEdgeContinuations;
  *  combinations shall be treated.
  */
 class MS_E2_ZS_CollectorOverLanes :
-            public MSDetectorFileOutput
-{
+            public MSDetectorFileOutput {
 public:
     /// Definition of a E2-collector storage
     typedef std::vector< MSE2Collector* > CollectorCont;

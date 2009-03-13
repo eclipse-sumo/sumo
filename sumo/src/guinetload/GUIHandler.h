@@ -51,8 +51,7 @@ class NLContainer;
  * network description handler in order to be used together with a GUIContainer
  * and allow instantiations of gui versions of the microsimulation artifacts
  */
-class GUIHandler : public NLHandler
-{
+class GUIHandler : public NLHandler {
 public:
     /// standard constructor
     GUIHandler(const std::string &file,

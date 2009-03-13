@@ -52,8 +52,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-ROFrame::fillOptions(OptionsCont &oc)
-{
+ROFrame::fillOptions(OptionsCont &oc) {
     // register options
     // register I/O options
     oc.doRegister("output", 'o', new Option_FileName());
@@ -132,8 +131,7 @@ ROFrame::fillOptions(OptionsCont &oc)
 
 
 bool
-ROFrame::checkOptions(OptionsCont &oc)
-{
+ROFrame::checkOptions(OptionsCont &oc) {
     // check whether the output is valid and can be build
     if (!oc.isSet("output")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");

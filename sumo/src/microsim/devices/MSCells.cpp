@@ -43,8 +43,7 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSCells::MSCells(SUMOReal cellSize)
-{
+MSCells::MSCells(SUMOReal cellSize) {
     myXcellsize = cellSize;
     myYcellsize = cellSize;
     Boundary boundary = GeoConvHelper::getConvBoundary();
@@ -55,25 +54,21 @@ MSCells::MSCells(SUMOReal cellSize)
     }
 }
 
-MSCells::~MSCells()
-{
+MSCells::~MSCells() {
     for (unsigned i=0; i<myXsize*myYsize; ++i) {
         delete myCellsCont[i];
     }
 }
 
-MSCells::CellsIterator MSCells::begin()
-{
+MSCells::CellsIterator MSCells::begin() {
     return myCellsCont.begin();
 }
 
-MSCells::CellsIterator MSCells::end()
-{
+MSCells::CellsIterator MSCells::end() {
     return myCellsCont.end();
 }
 
-void MSCells::update()
-{
+void MSCells::update() {
     for (vector<Cell*>::const_iterator cell = myCellsCont.begin();
             cell != myCellsCont.end(); ++cell) {
         for (MSCells::Cell::iterator device = (*cell)->begin();
@@ -89,8 +84,7 @@ void MSCells::update()
     }
 }
 
-void MSCells::add(MSDevice_C2C* device)
-{
+void MSCells::add(MSDevice_C2C* device) {
     MSCells::Cell* cell = getCellByPosition(device);
     if (cell == 0) {
         myUndetermined.push_back(device);
@@ -99,8 +93,7 @@ void MSCells::add(MSDevice_C2C* device)
     }
 }
 
-void MSCells::remove(MSDevice_C2C* device)
-{
+void MSCells::remove(MSDevice_C2C* device) {
     MSCells::Cell* cell = getCellByPosition(device);
     if (cell == 0) {
         myUndetermined.erase(find(myUndetermined.begin(), myUndetermined.end(),
@@ -114,8 +107,7 @@ void MSCells::remove(MSDevice_C2C* device)
 }
 
 MSCells::Cell* MSCells::getNeighbor(std::vector<Cell*>::const_iterator center,
-                                    int xOffset, int yOffset)
-{
+                                    int xOffset, int yOffset) {
     int offset = yOffset*myXsize + xOffset;
     if (offset < 0 && distance(begin(), center) < -offset) {
         return 0;
@@ -126,8 +118,7 @@ MSCells::Cell* MSCells::getNeighbor(std::vector<Cell*>::const_iterator center,
     return *(center + offset);
 }
 
-MSCells::Cell* MSCells::getCellByPosition(MSDevice_C2C* device)
-{
+MSCells::Cell* MSCells::getCellByPosition(MSDevice_C2C* device) {
     const Position2D &pos = device->getHolder().getPosition();
     Boundary boundary = GeoConvHelper::getConvBoundary();
     int xIndex = (int)((pos.x() - boundary.xmin()) / myXcellsize);

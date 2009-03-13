@@ -56,17 +56,14 @@ GUIRightOfWayJunction::GUIRightOfWayJunction(const std::string &id,
 #endif
                                logic),
 
-        myShape(shape)
-{}
+        myShape(shape) {}
 
 
-GUIRightOfWayJunction::~GUIRightOfWayJunction()
-{}
+GUIRightOfWayJunction::~GUIRightOfWayJunction() {}
 
 
 GUIJunctionWrapper *
-GUIRightOfWayJunction::buildJunctionWrapper(GUIGlObjectStorage &idStorage)
-{
+GUIRightOfWayJunction::buildJunctionWrapper(GUIGlObjectStorage &idStorage) {
     return new GUIJunctionWrapper(idStorage, *this, myShape);
 }
 

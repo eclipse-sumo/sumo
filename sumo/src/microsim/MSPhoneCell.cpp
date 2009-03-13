@@ -58,8 +58,7 @@ MSPhoneCell::MSPhoneCell(int id)
         myCurrentExpectedCallCount(0), myCurrentExpectedEntering(0), myCallDuration(0),
         myCallDeviation(0), myConnectionTypSelector(true),
         myDynIntervalDuration(0), myLaterDynamicStarted(0),
-        myVehiclesEntered(0), myVehicleTimes(0)
-{
+        myVehiclesEntered(0), myVehicleTimes(0) {
     OptionsCont &oc = OptionsCont::getOptions();
     myStaticCallCountScaleFactor = oc.getFloat("cell-static-callcount-scale-factor");
     myDynamicCallCountScaleFactor = oc.getFloat("cell-dynamic-callcount-scale-factor");
@@ -68,13 +67,11 @@ MSPhoneCell::MSPhoneCell(int id)
 }
 
 
-MSPhoneCell::~MSPhoneCell()
-{}
+MSPhoneCell::~MSPhoneCell() {}
 
 
 void
-MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
-{
+MSPhoneCell::addCall(int callid, CallType ct, int cellCount) {
     myCalls[callid] = ct;
     /*
     if (cellCount < 1) {
@@ -116,8 +113,7 @@ MSPhoneCell::addCall(int callid, CallType ct, int cellCount)
 
 
 void
-MSPhoneCell::remCall(int callid)
-{
+MSPhoneCell::remCall(int callid) {
     myitCalls = myCalls.find(callid);
     if (myitCalls!=myCalls.end()) {
         myCalls.erase(myitCalls);
@@ -141,14 +137,12 @@ MSPhoneCell::remCall(int callid)
 
 
 bool
-MSPhoneCell::hasCall(int callid)
-{
+MSPhoneCell::hasCall(int callid) {
     return myCalls.find(callid) != myCalls.end();
 }
 
 void
-MSPhoneCell::addCPhone(const std::string &device_id, MSDevice_CPhone* device_pointer)
-{
+MSPhoneCell::addCPhone(const std::string &device_id, MSDevice_CPhone* device_pointer) {
     myRegisteredDevices[device_id] = device_pointer;
     if (device_pointer->GetState()==MSDevice_CPhone::STATE_CONNECTED_IN||device_pointer->GetState()==MSDevice_CPhone::STATE_CONNECTED_OUT) {
         myDynIncomingStarted++;
@@ -165,14 +159,12 @@ MSPhoneCell::addCPhone(const std::string &device_id, MSDevice_CPhone* device_poi
 }
 
 bool
-MSPhoneCell::hasCPhone(const std::string &device_id)
-{
+MSPhoneCell::hasCPhone(const std::string &device_id) {
     return myRegisteredDevices.find(device_id) != myRegisteredDevices.end();
 }
 
 void
-MSPhoneCell::remCPhone(const std::string &device_id)
-{
+MSPhoneCell::remCPhone(const std::string &device_id) {
     std::map<std::string, MSDevice_CPhone*>::iterator idevice = myRegisteredDevices.find(device_id);
     if (idevice != myRegisteredDevices.end()) {
         myRegisteredDevices.erase(idevice);
@@ -181,16 +173,14 @@ MSPhoneCell::remCPhone(const std::string &device_id)
 
 
 SUMOTime
-MSPhoneCell::wrappedSetStatParamsExecute(SUMOTime time) throw(ProcessError)
-{
+MSPhoneCell::wrappedSetStatParamsExecute(SUMOTime time) throw(ProcessError) {
     return nextStatPeriod(time);
 }
 
 
 
 void
-MSPhoneCell::setStatParams(int interval, int statcallcount)
-{
+MSPhoneCell::setStatParams(int interval, int statcallcount) {
     if (myExpectedStaticCalls.size()==0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new WrappingCommand< MSPhoneCell >(this, &MSPhoneCell::wrappedSetStatParamsExecute),
@@ -203,16 +193,14 @@ MSPhoneCell::setStatParams(int interval, int statcallcount)
 
 
 SUMOTime
-MSPhoneCell::wrappedSetDynParamsExecute(SUMOTime time) throw(ProcessError)
-{
+MSPhoneCell::wrappedSetDynParamsExecute(SUMOTime time) throw(ProcessError) {
     return nextDynPeriod(time);
 }
 
 
 void
 MSPhoneCell::setDynParams(int interval, int count, SUMOReal duration, SUMOReal deviation,
-                          int entering)
-{
+                          int entering) {
     DynParam p;
     p.count = (int)((SUMOReal) count * myDynamicCallCountScaleFactor);
     p.deviation = deviation * myDynamicCallDeviationScaleFactor;
@@ -240,8 +228,7 @@ MSPhoneCell::setDynParams(int interval, int count, SUMOReal duration, SUMOReal d
 
 
 SUMOTime
-MSPhoneCell::nextStatPeriod(SUMOTime time)
-{
+MSPhoneCell::nextStatPeriod(SUMOTime time) {
     if (myExpectedStaticCalls.size()==0) {
         myStaticCallsIn = 0;
         myStaticCallsOut = 0;
@@ -273,8 +260,7 @@ MSPhoneCell::nextStatPeriod(SUMOTime time)
 
 
 SUMOTime
-MSPhoneCell::nextDynPeriod(SUMOTime time)
-{
+MSPhoneCell::nextDynPeriod(SUMOTime time) {
     if (myExpectedDynamicCalls.size()==0) {
         myCurrentExpectedCallCount  = 0;
         myCallDuration              = 300;
@@ -315,8 +301,7 @@ MSPhoneCell::nextDynPeriod(SUMOTime time)
 
 
 bool
-MSPhoneCell::useAsIncomingDynamic(SUMOTime time)
-{
+MSPhoneCell::useAsIncomingDynamic(SUMOTime time) {
     return false;
     if (myDynIntervalDuration==0) {
         return false;
@@ -333,8 +318,7 @@ MSPhoneCell::useAsIncomingDynamic(SUMOTime time)
 
 
 void
-MSPhoneCell::setDynamicCalls(SUMOTime time)
-{
+MSPhoneCell::setDynamicCalls(SUMOTime time) {
     return;
     if (myDynIntervalDuration==0) {
         return;
@@ -369,8 +353,7 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
 
 
 void
-MSPhoneCell::writeOutput(SUMOTime t)
-{
+MSPhoneCell::writeOutput(SUMOTime t) {
     if (OptionsCont::getOptions().isSet("ss2-cell-output")) {
         std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
         timestr = timestr + " " + StringUtils::toTimeString(t);
@@ -425,15 +408,13 @@ MSPhoneCell::writeOutput(SUMOTime t)
 }
 
 #include <microsim/MSVehicle.h>
-void MSPhoneCell::incVehiclesEntered(MSVehicle& veh, SUMOTime t)
-{
+void MSPhoneCell::incVehiclesEntered(MSVehicle& veh, SUMOTime t) {
     myVehiclesEntered++;
     assert(myVehicles.find(&veh)==myVehicles.end());
     myVehicles[&veh] = t;
 }
 
-void MSPhoneCell::removeVehicle(MSVehicle& veh, SUMOTime t)
-{
+void MSPhoneCell::removeVehicle(MSVehicle& veh, SUMOTime t) {
     if (LastCells.find(&veh)!=LastCells.end()) {
         LastCells.erase(LastCells.find(&veh));
     }

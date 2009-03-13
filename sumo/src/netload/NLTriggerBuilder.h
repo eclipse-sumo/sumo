@@ -71,8 +71,7 @@ class METriggeredCalibrator;
  *  for example.
  *
  */
-class NLTriggerBuilder
-{
+class NLTriggerBuilder {
 public:
     /// @brief Constructor
     NLTriggerBuilder() throw();
@@ -219,8 +218,8 @@ protected:
      * @exception ProcessError If the XML definition file is errornous
      */
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet &net,
-                                       const std::string &id, const std::vector<MSLane*> &destLanes,
-                                       const std::string &file) throw(ProcessError);
+            const std::string &id, const std::vector<MSLane*> &destLanes,
+            const std::string &file) throw(ProcessError);
 
 
     /** @brief Builds an emitter
@@ -283,8 +282,8 @@ protected:
      * @todo Is the position correct/needed
      */
     virtual METriggeredCalibrator* buildCalibrator(MSNet &net,
-                                 const std::string &id, const MSEdge *edge, SUMOReal pos,
-                                 const std::string &file, const std::string &outfile) throw();
+            const std::string &id, const MSEdge *edge, SUMOReal pos,
+            const std::string &file, const std::string &outfile) throw();
 #endif
 
 

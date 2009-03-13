@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Parkplatzdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Parkplatzdefinition(NIVissimLoader &parent);

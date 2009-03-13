@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition(NIVissimLoader &parent);

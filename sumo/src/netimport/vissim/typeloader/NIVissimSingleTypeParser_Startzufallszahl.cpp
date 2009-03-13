@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Startzufallszahl::NIVissimSingleTypeParser_Startzufallszahl(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Startzufallszahl::~NIVissimSingleTypeParser_Startzufallszahl()
-{}
+NIVissimSingleTypeParser_Startzufallszahl::~NIVissimSingleTypeParser_Startzufallszahl() {}
 
 
 bool
-NIVissimSingleTypeParser_Startzufallszahl::parse(std::istream &)
-{
+NIVissimSingleTypeParser_Startzufallszahl::parse(std::istream &) {
     return true;
 }
 

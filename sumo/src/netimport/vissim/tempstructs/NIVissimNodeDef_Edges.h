@@ -37,8 +37,7 @@
 #include "NIVissimNodeDef.h"
 
 class NIVissimNodeDef_Edges :
-            public NIVissimNodeDef
-{
+            public NIVissimNodeDef {
 public:
     NIVissimNodeDef_Edges(int id, const std::string &name,
                           const NIVissimNodeParticipatingEdgeVector &edges);
@@ -52,8 +51,7 @@ public:
     /**
      *
      */
-    class id_matches
-    {
+    class id_matches {
     public:
         explicit id_matches(int id) : myEdgeID(id) { }
         bool operator()(NIVissimNodeParticipatingEdge *e) {
@@ -63,8 +61,7 @@ public:
         int myEdgeID;
     };
 
-    class lying_within_match
-    {
+    class lying_within_match {
     public:
         explicit lying_within_match(NIVissimNodeParticipatingEdge *e) : myEdge(e) { }
         bool operator()(NIVissimExtendedEdgePoint *e) {

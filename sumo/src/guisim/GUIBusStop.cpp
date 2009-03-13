@@ -78,8 +78,7 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
                        const std::vector<std::string> &lines, MSLane &lane,
                        SUMOReal frompos, SUMOReal topos) throw()
         : MSBusStop(id, lines, lane, frompos, topos),
-        GUIGlObject_AbstractAdd(gIDStorage, "bus_stop:" + id, GLO_TRIGGER)
-{
+        GUIGlObject_AbstractAdd(gIDStorage, "bus_stop:" + id, GLO_TRIGGER) {
     myFGShape = lane.getShape();
     myFGShape.move2side((SUMOReal) 1.65);
     myFGShape = myFGShape.getSubpart(frompos, topos);
@@ -103,14 +102,12 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
 }
 
 
-GUIBusStop::~GUIBusStop() throw()
-{}
+GUIBusStop::~GUIBusStop() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUIBusStop::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent) throw()
-{
+                         GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -123,22 +120,19 @@ GUIBusStop::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIBusStop::getParameterWindow(GUIMainWindow &,
-                               GUISUMOAbstractView &) throw()
-{
+                               GUISUMOAbstractView &) throw() {
     return 0;
 }
 
 
 const std::string &
-GUIBusStop::getMicrosimID() const throw()
-{
+GUIBusStop::getMicrosimID() const throw() {
     return getID();
 }
 
 
 void
-GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -213,8 +207,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw()
 
 
 Boundary
-GUIBusStop::getCenteringBoundary() const throw()
-{
+GUIBusStop::getCenteringBoundary() const throw() {
     Boundary b = myFGShape.getBoxBoundary();
     b.grow(20);
     return b;

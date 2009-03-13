@@ -42,8 +42,7 @@ using namespace testclient;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     std::string defFile = "";
     std::string outFileName = "testclient_out.txt";
     int port = -1;

@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Querschnittsmessungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Querschnittsmessungsdefinition(NIVissimLoader &parent);

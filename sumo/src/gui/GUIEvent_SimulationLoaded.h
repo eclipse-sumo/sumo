@@ -50,8 +50,7 @@ class GUINet;
  * Throw to GUIApplicationWindow from GUILoadThread after a simulation has
  * been loaded or the loading process failed
  */
-class GUIEvent_SimulationLoaded : public GUIEvent
-{
+class GUIEvent_SimulationLoaded : public GUIEvent {
 public:
     /// constructor
     GUIEvent_SimulationLoaded(GUINet *net,

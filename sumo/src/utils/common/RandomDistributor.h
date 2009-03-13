@@ -49,8 +49,7 @@
  */
 
 template<class T>
-class RandomDistributor
-{
+class RandomDistributor {
 public:
     /// @brief Constructor for an empty distribution
     RandomDistributor() : myProb(0) { }

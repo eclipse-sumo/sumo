@@ -40,8 +40,7 @@
  * @class TNeighbourDistribution
  * @todo Check whether this can be replaced by RandomDistributor
  */
-class TNeighbourDistribution
-{
+class TNeighbourDistribution {
 public:
     /**
      * @brief adds a neighbour item to list
@@ -75,8 +74,7 @@ private:
  *
  * @todo Describe the algorithm
  */
-class NGRandomNetBuilder
-{
+class NGRandomNetBuilder {
 public:
     /** @brief Constructor
      *

@@ -59,8 +59,7 @@ class GUIApplicationWindow;
  *  options.
  * The rest of the window is a canvas that contains the display itself
  */
-class GUISUMOViewParent : public GUIGlChildWindow
-{
+class GUISUMOViewParent : public GUIGlChildWindow {
     // FOX-declarations
     FXDECLARE(GUISUMOViewParent)
 public:

@@ -48,8 +48,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 void
-GUISelectionLoader::loadSelection(const std::string &file)
-{
+GUISelectionLoader::loadSelection(const std::string &file) {
     // ok, load all
     std::map<std::string, int> typeMap;
     typeMap["edge"] = GLO_EDGE;
@@ -117,12 +116,10 @@ GUISelectionLoader::loadSelection(const std::string &file)
 }
 
 
-GUISelectionLoader::GUISelectionLoader()
-{}
+GUISelectionLoader::GUISelectionLoader() {}
 
 
-GUISelectionLoader::~GUISelectionLoader()
-{}
+GUISelectionLoader::~GUISelectionLoader() {}
 
 
 

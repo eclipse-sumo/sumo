@@ -48,12 +48,10 @@ using namespace std;
 // member definitions
 // ===========================================================================
 MSEventControl::MSEventControl() throw()
-        : myEvents()
-{}
+        : myEvents() {}
 
 
-MSEventControl::~MSEventControl() throw()
-{
+MSEventControl::~MSEventControl() throw() {
     // delete the events
     while (! myEvents.empty()) {
         Event e = myEvents.top();
@@ -66,8 +64,7 @@ MSEventControl::~MSEventControl() throw()
 SUMOTime
 MSEventControl::addEvent(Command* operation,
                          SUMOTime execTimeStep,
-                         AdaptType type) throw()
-{
+                         AdaptType type) throw() {
     SUMOTime currTimeStep = MSNet::getInstance()->getCurrentTimeStep();
     if (type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep) {
         execTimeStep = currTimeStep;
@@ -79,10 +76,9 @@ MSEventControl::addEvent(Command* operation,
 
 
 void
-MSEventControl::execute(SUMOTime execTime) throw(ProcessError)
-{
+MSEventControl::execute(SUMOTime execTime) throw(ProcessError) {
     // Execute all events that are scheduled for execTime.
-    for (;!myEvents.empty();) {
+    for (; !myEvents.empty();) {
         Event currEvent = myEvents.top();
         if (currEvent.second == execTime || currEvent.second<execTime+DELTA_T) {
             Command *command = currEvent.first;
@@ -121,8 +117,7 @@ MSEventControl::execute(SUMOTime execTime) throw(ProcessError)
 
 
 bool
-MSEventControl::isEmpty() throw()
-{
+MSEventControl::isEmpty() throw() {
     return myEvents.empty();
 }
 

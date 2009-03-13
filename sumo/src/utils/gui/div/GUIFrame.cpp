@@ -41,8 +41,7 @@
 // methods
 // ===========================================================================
 void
-GUIFrame::fillInitOptions()
-{
+GUIFrame::fillInitOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.doRegister("max-gl-width", 'w', new Option_Integer(1280));
     oc.addDescription("max-gl-width", "Open GL", ""); // !!!
@@ -76,8 +75,7 @@ GUIFrame::fillInitOptions()
 
 
 bool
-GUIFrame::checkInitOptions()
-{
+GUIFrame::checkInitOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // check whether the parameter are ok
     if (oc.getInt("w")<0||oc.getInt("h")<0) {

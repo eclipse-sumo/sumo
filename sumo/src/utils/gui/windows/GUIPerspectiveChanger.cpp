@@ -39,46 +39,39 @@
 // method definitions
 // ===========================================================================
 GUIPerspectiveChanger::GUIPerspectiveChanger(GUISUMOAbstractView &callBack)
-        : myCallback(callBack), myHaveChanged(true)
-{}
+        : myCallback(callBack), myHaveChanged(true) {}
 
 
-GUIPerspectiveChanger::~GUIPerspectiveChanger()
-{}
+GUIPerspectiveChanger::~GUIPerspectiveChanger() {}
 
 
 bool
-GUIPerspectiveChanger::changed() const
-{
+GUIPerspectiveChanger::changed() const {
     return myHaveChanged;
 }
 
 
 void
-GUIPerspectiveChanger::otherChange()
-{
+GUIPerspectiveChanger::otherChange() {
     myHaveChanged = true;
 }
 
 
 void
-GUIPerspectiveChanger::applied()
-{
+GUIPerspectiveChanger::applied() {
     myHaveChanged = false;
 }
 
 
 void
-GUIPerspectiveChanger::setNetSizes(size_t width, size_t height)
-{
+GUIPerspectiveChanger::setNetSizes(size_t width, size_t height) {
     myNetWidth = width;
     myNetHeight = height;
 }
 
 
 void
-GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height)
-{
+GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height) {
     myCanvasWidth = width;
     myCanvasHeight = height;
     otherChange();
@@ -86,42 +79,35 @@ GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height)
 
 
 void
-GUIPerspectiveChanger::onLeftBtnPress(void*)
-{}
+GUIPerspectiveChanger::onLeftBtnPress(void*) {}
 
 
 void
-GUIPerspectiveChanger::onLeftBtnRelease(void*)
-{}
+GUIPerspectiveChanger::onLeftBtnRelease(void*) {}
 
 
 void
-GUIPerspectiveChanger::onRightBtnPress(void*)
-{}
+GUIPerspectiveChanger::onRightBtnPress(void*) {}
 
 
 bool
-GUIPerspectiveChanger::onRightBtnRelease(void*)
-{
+GUIPerspectiveChanger::onRightBtnRelease(void*) {
     return false;
 }
 
 
 void
-GUIPerspectiveChanger::onMouseMove(void *)
-{}
+GUIPerspectiveChanger::onMouseMove(void *) {}
 
 
 FXint
-GUIPerspectiveChanger::getMouseXPosition() const
-{
+GUIPerspectiveChanger::getMouseXPosition() const {
     return myMouseXPosition;
 }
 
 
 FXint
-GUIPerspectiveChanger::getMouseYPosition() const
-{
+GUIPerspectiveChanger::getMouseYPosition() const {
     return myMouseYPosition;
 }
 

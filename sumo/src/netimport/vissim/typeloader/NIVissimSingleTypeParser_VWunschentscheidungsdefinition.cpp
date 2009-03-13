@@ -51,17 +51,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_VWunschentscheidungsdefinition::NIVissimSingleTypeParser_VWunschentscheidungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_VWunschentscheidungsdefinition::~NIVissimSingleTypeParser_VWunschentscheidungsdefinition()
-{}
+NIVissimSingleTypeParser_VWunschentscheidungsdefinition::~NIVissimSingleTypeParser_VWunschentscheidungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream &from) {
     string tag;
     from >> tag; // id
     from >> tag; // name

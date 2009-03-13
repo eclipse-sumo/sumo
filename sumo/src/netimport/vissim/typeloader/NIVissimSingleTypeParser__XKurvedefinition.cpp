@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser__XKurvedefinition::NIVissimSingleTypeParser__XKurvedefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser__XKurvedefinition::~NIVissimSingleTypeParser__XKurvedefinition()
-{}
+NIVissimSingleTypeParser__XKurvedefinition::~NIVissimSingleTypeParser__XKurvedefinition() {}
 
 
 bool
-NIVissimSingleTypeParser__XKurvedefinition::parse(std::istream &)
-{
+NIVissimSingleTypeParser__XKurvedefinition::parse(std::istream &) {
     return true;
 }
 

@@ -47,8 +47,7 @@ class OutputDevice;
  * This class holds all computed traffic light phases (with changing cliques)
  * valid for the given set of connections
  */
-class NBTrafficLightLogicVector
-{
+class NBTrafficLightLogicVector {
 public:
     /// Constructor
     NBTrafficLightLogicVector(const NBConnectionVector &inLanes,

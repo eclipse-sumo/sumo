@@ -83,8 +83,7 @@ using namespace std;
  */
 void
 initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
-        const std::vector<SUMOReal> &turnDefs)
-{
+        const std::vector<SUMOReal> &turnDefs) {
     // load the net
     ROJTREdgeBuilder builder;
     loader.loadNet(net, builder);
@@ -103,8 +102,7 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
 }
 
 std::vector<SUMOReal>
-getTurningDefaults(OptionsCont &oc)
-{
+getTurningDefaults(OptionsCont &oc) {
     std::vector<SUMOReal> ret;
     vector<string> defs = oc.getStringVector("turn-defaults");
     if (defs.size()<2) {
@@ -123,8 +121,7 @@ getTurningDefaults(OptionsCont &oc)
 
 
 void
-loadJTRDefinitions(RONet &net, OptionsCont &oc)
-{
+loadJTRDefinitions(RONet &net, OptionsCont &oc) {
     // load the turning definitions (and possible sink definition)
     if (oc.isSet("turn-definition")) {
         ROJTRTurnDefLoader loader(net);
@@ -153,8 +150,7 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
  * Computes the routes saving them
  */
 void
-computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc)
-{
+computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
@@ -183,8 +179,7 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc)
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");

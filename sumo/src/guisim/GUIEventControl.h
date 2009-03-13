@@ -43,8 +43,7 @@
  * Encapsulates MSEventControl-methods using a lock, prohibiting parallel addition /
  *  processing of events what may yield in application break due to broken containers.
  */
-class GUIEventControl : public MSEventControl
-{
+class GUIEventControl : public MSEventControl {
 public:
     /// @brief Default constructor.
     GUIEventControl() throw();

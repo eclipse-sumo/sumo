@@ -68,8 +68,7 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
                            FXEX::FXThreadEvent &ev)
         : FXSingleEventThread(gFXApp, parent),
         myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
-        mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
-{
+        mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
             &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
@@ -79,8 +78,7 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
 }
 
 
-GUIRunThread::~GUIRunThread()
-{
+GUIRunThread::~GUIRunThread() {
     // the thread shall stop
     myQuit = true;
     deleteSim();
@@ -93,8 +91,7 @@ GUIRunThread::~GUIRunThread()
 
 
 void
-GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
-{
+GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end) {
     // assign new values
     myNet = net;
     mySimStartTime = start;
@@ -108,8 +105,7 @@ GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
 
 
 FXint
-GUIRunThread::run()
-{
+GUIRunThread::run() {
     long beg = 0;
     long end = 0;
     long end2 = -1;
@@ -154,8 +150,7 @@ GUIRunThread::run()
 
 
 void
-GUIRunThread::makeStep()
-{
+GUIRunThread::makeStep() {
     GUIEvent *e = 0;
     // simulation is being perfomed
     mySimulationInProgress = true;
@@ -236,24 +231,21 @@ GUIRunThread::makeStep()
 
 
 void
-GUIRunThread::resume()
-{
+GUIRunThread::resume() {
     mySingle = false;
     myHalting = false;
 }
 
 
 void
-GUIRunThread::singleStep()
-{
+GUIRunThread::singleStep() {
     mySingle = true;
     myHalting = false;
 }
 
 
 void
-GUIRunThread::begin()
-{
+GUIRunThread::begin() {
 #ifndef _DEBUG
     try {
 #endif
@@ -275,23 +267,20 @@ GUIRunThread::begin()
 
 
 void
-GUIRunThread::stop()
-{
+GUIRunThread::stop() {
     mySingle = false;
     myHalting = true;
 }
 
 
 bool
-GUIRunThread::simulationAvailable() const
-{
+GUIRunThread::simulationAvailable() const {
     return myNet!=0;
 }
 
 
 void
-GUIRunThread::deleteSim()
-{
+GUIRunThread::deleteSim() {
     myHalting = true;
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
@@ -312,31 +301,27 @@ GUIRunThread::deleteSim()
 
 
 GUINet &
-GUIRunThread::getNet() const
-{
+GUIRunThread::getNet() const {
     return *myNet;
 }
 
 
 SUMOTime
-GUIRunThread::getCurrentTimeStep() const
-{
+GUIRunThread::getCurrentTimeStep() const {
     return myStep;
 }
 
 
 
 void
-GUIRunThread::prepareDestruction()
-{
+GUIRunThread::prepareDestruction() {
     myHalting = true;
     myQuit = true;
 }
 
 
 void
-GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg)
-{
+GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg) {
     if (!mySimulationInProgress) {
         return;
     }
@@ -347,22 +332,19 @@ GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string 
 
 
 bool
-GUIRunThread::simulationIsStartable() const
-{
+GUIRunThread::simulationIsStartable() const {
     return myNet!=0&&myHalting;
 }
 
 
 bool
-GUIRunThread::simulationIsStopable() const
-{
+GUIRunThread::simulationIsStopable() const {
     return myNet!=0&&(!myHalting);
 }
 
 
 bool
-GUIRunThread::simulationIsStepable() const
-{
+GUIRunThread::simulationIsStepable() const {
     return myNet!=0&&myHalting;
 }
 

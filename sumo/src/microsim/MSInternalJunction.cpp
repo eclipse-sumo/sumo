@@ -54,24 +54,20 @@ MSInternalJunction::MSInternalJunction(string id,
                                        const Position2D &position,
                                        LaneCont incoming,
                                        LaneCont internal)
-        : MSLogicJunction(id, position, incoming, internal)
-{}
+        : MSLogicJunction(id, position, incoming, internal) {}
 
 
 bool
-MSInternalJunction::clearRequests()
-{
+MSInternalJunction::clearRequests() {
     return true;
 }
 
 
-MSInternalJunction::~MSInternalJunction()
-{}
+MSInternalJunction::~MSInternalJunction() {}
 
 
 void
-MSInternalJunction::postloadInit() throw(ProcessError)
-{
+MSInternalJunction::postloadInit() throw(ProcessError) {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     if (myIncomingLanes.size()!=0) {
@@ -100,8 +96,7 @@ MSInternalJunction::postloadInit() throw(ProcessError)
 
 
 bool
-MSInternalJunction::setAllowed()
-{
+MSInternalJunction::setAllowed() {
     // Get myRespond from logic and check for deadlocks.
     myRespond.set(0, true);
     LaneCont::iterator i;

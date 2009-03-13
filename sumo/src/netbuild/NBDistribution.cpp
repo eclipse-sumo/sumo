@@ -52,8 +52,7 @@ NBDistribution::TypedDistDict NBDistribution::myDict;
 // ===========================================================================
 bool
 NBDistribution::dictionary(const std::string &type, const std::string &id,
-                           Distribution *d)
-{
+                           Distribution *d) {
     TypedDistDict::iterator i=myDict.find(type);
 
     if (i==myDict.end()) {
@@ -72,8 +71,7 @@ NBDistribution::dictionary(const std::string &type, const std::string &id,
 
 Distribution *
 NBDistribution::dictionary(const std::string &type,
-                           const std::string &id)
-{
+                           const std::string &id) {
     TypedDistDict::iterator i=myDict.find(type);
     if (i==myDict.end()) {
         return 0;
@@ -88,8 +86,7 @@ NBDistribution::dictionary(const std::string &type,
 
 
 void
-NBDistribution::clear()
-{
+NBDistribution::clear() {
     for (TypedDistDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         DistDict &dict = (*i).second;
         for (DistDict::iterator j=dict.begin(); j!=dict.end(); j++) {

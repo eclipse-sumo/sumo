@@ -45,8 +45,7 @@ class MSLane;
  * @class MSCrossSection
  * @brief A simple description of a position on a lane (crossing of a lane)
  */
-class MSCrossSection
-{
+class MSCrossSection {
 public:
     /** @brief Constructor
      *

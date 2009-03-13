@@ -47,17 +47,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Richtungsentscheidungsdefinition::NIVissimSingleTypeParser_Richtungsentscheidungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Richtungsentscheidungsdefinition::~NIVissimSingleTypeParser_Richtungsentscheidungsdefinition()
-{}
+NIVissimSingleTypeParser_Richtungsentscheidungsdefinition::~NIVissimSingleTypeParser_Richtungsentscheidungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Richtungsentscheidungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Richtungsentscheidungsdefinition::parse(std::istream &from) {
     return skipOverreading(from, "fahrzeugklassen");
 }
 

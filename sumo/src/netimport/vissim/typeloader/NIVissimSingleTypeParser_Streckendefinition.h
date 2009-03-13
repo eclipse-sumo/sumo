@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Streckendefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Streckendefinition(NIVissimLoader &parent);

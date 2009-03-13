@@ -41,8 +41,7 @@
  * @class DistributionCont
  * A container for distributions of different type.
  */
-class DistributionCont
-{
+class DistributionCont {
 public:
     /// Adds a distribution of the given type and name to the container
     static bool dictionary(const std::string &type, const std::string &id,

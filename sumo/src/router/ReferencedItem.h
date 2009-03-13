@@ -41,8 +41,7 @@
  *  is to have an information whether an instance of a derived class was already
  *  saved (together with a referencing class) or shall be saved this time.
  */
-class ReferencedItem
-{
+class ReferencedItem {
 public:
     /// @brief Constructor
     ReferencedItem() throw() : myWasSaved(false) { }

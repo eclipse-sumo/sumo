@@ -46,8 +46,7 @@
  * Encapsulation is done to allow a common acces without the need to
  *  import all the Xerces-definitions.
  */
-class SUMOSAXAttributes
-{
+class SUMOSAXAttributes {
 public:
     /// @brief Constructor
     SUMOSAXAttributes() throw() { }

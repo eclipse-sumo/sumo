@@ -48,8 +48,7 @@
  *  scheme differs very much from the way the clipboard is handled in windows,
  *  is is implemented "from scratch" herein.
  */
-class GUIUserIO
-{
+class GUIUserIO {
 public:
     /** @brief Copies the given text to clipboard
      *

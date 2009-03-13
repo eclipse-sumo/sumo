@@ -39,17 +39,14 @@
 // method definitions
 // ===========================================================================
 RONode::RONode(const std::string &id) throw()
-        : Named(id)
-{}
+        : Named(id) {}
 
 
-RONode::~RONode() throw()
-{}
+RONode::~RONode() throw() {}
 
 
 void
-RONode::setPosition(const Position2D &p) throw()
-{
+RONode::setPosition(const Position2D &p) throw() {
     myPosition = p;
 }
 

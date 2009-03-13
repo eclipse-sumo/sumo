@@ -45,8 +45,7 @@
  * @class RODFNet
  * @brief A DFROUTER-network
  */
-class RODFNet : public RONet
-{
+class RODFNet : public RONet {
 public:
     /** @brief Constructor
      * @param[in] amInHighwayMode Whether search for following edges shall stop at slow edges
@@ -135,8 +134,7 @@ protected:
     };
 
 protected:
-    class DFRouteDescByTimeComperator
-    {
+    class DFRouteDescByTimeComperator {
     public:
         /// Constructor
         explicit DFRouteDescByTimeComperator() { }

@@ -54,12 +54,10 @@ MFXAddEditTypedTable::MFXAddEditTypedTable(FXComposite *p, FXObject* tgt,
         FXSelector sel, FXuint opts,
         FXint x, FXint y, FXint w, FXint h,
         FXint pl,FXint pr,FXint pt,FXint pb)
-        : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb)
-{}
+        : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {}
 
 
-MFXAddEditTypedTable::~MFXAddEditTypedTable()
-{}
+MFXAddEditTypedTable::~MFXAddEditTypedTable() {}
 
 /*
 void
@@ -200,8 +198,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
 
 
 FXWindow *
-MFXAddEditTypedTable::getControlForItem(FXint r,FXint c)
-{
+MFXAddEditTypedTable::getControlForItem(FXint r,FXint c) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
         return 0;
@@ -278,8 +275,7 @@ MFXAddEditTypedTable::getControlForItem(FXint r,FXint c)
 
 // Cancel editing cell
 void
-MFXAddEditTypedTable::cancelInput()
-{
+MFXAddEditTypedTable::cancelInput() {
     if (editor) {
         delete editor;
         input.fm.row=-1;
@@ -292,8 +288,7 @@ MFXAddEditTypedTable::cancelInput()
 
 // Done with editing cell
 void
-MFXAddEditTypedTable::acceptInput(FXbool notify)
-{
+MFXAddEditTypedTable::acceptInput(FXbool notify) {
     bool set = false;
     FXTableRange tablerange=input;
     if (editor) {
@@ -324,8 +319,7 @@ MFXAddEditTypedTable::acceptInput(FXbool notify)
 
 
 void
-MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control)
-{
+MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
         cells[r*ncols+c]=item=createItem(NULL,NULL,NULL);
@@ -378,8 +372,7 @@ MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control)
 
 
 void
-MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r,FXint c,FXWindow *control)
-{
+MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r,FXint c,FXWindow *control) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
         return;
@@ -418,8 +411,7 @@ MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r,FXint c,FXWindow *con
 
 
 // Released button
-long MFXAddEditTypedTable::onLeftBtnRelease(FXObject*,FXSelector,void* ptr)
-{
+long MFXAddEditTypedTable::onLeftBtnRelease(FXObject*,FXSelector,void* ptr) {
     FXEvent* event=(FXEvent*)ptr;
     if (isEnabled()) {
         ungrab();
@@ -457,8 +449,7 @@ long MFXAddEditTypedTable::onLeftBtnRelease(FXObject*,FXSelector,void* ptr)
 
 // Pressed button
 long
-MFXAddEditTypedTable::onLeftBtnPress(FXObject*,FXSelector,void* ptr)
-{
+MFXAddEditTypedTable::onLeftBtnPress(FXObject*,FXSelector,void* ptr) {
     FXEvent* event=(FXEvent*)ptr;
     FXTablePos tablepos;
     flags&=~FLAG_TIP;
@@ -517,8 +508,7 @@ MFXAddEditTypedTable::onLeftBtnPress(FXObject*,FXSelector,void* ptr)
 
 // Clicked in list
 long
-MFXAddEditTypedTable::onClicked(FXObject*,FXSelector ,void* ptr)
-{
+MFXAddEditTypedTable::onClicked(FXObject*,FXSelector ,void* ptr) {
     if (editor) {
         delete editor;
         input.fm.row=-1;
@@ -536,8 +526,7 @@ MFXAddEditTypedTable::onClicked(FXObject*,FXSelector ,void* ptr)
 
 
 // Double clicked in list; ptr may or may not point to an item
-long MFXAddEditTypedTable::onDoubleClicked(FXObject*,FXSelector,void* ptr)
-{
+long MFXAddEditTypedTable::onDoubleClicked(FXObject*,FXSelector,void* ptr) {
     if (editor) {
         delete editor;
         input.fm.row=-1;
@@ -554,8 +543,7 @@ long MFXAddEditTypedTable::onDoubleClicked(FXObject*,FXSelector,void* ptr)
 
 
 CellType
-MFXAddEditTypedTable::getCellType(size_t pos) const
-{
+MFXAddEditTypedTable::getCellType(size_t pos) const {
     if (myCellTypes.size()<=pos) {
         return CT_UNDEFINED;
     }
@@ -564,8 +552,7 @@ MFXAddEditTypedTable::getCellType(size_t pos) const
 
 
 void
-MFXAddEditTypedTable::setCellType(size_t pos, CellType t)
-{
+MFXAddEditTypedTable::setCellType(size_t pos, CellType t) {
     while (myCellTypes.size()<pos+1) {
         myCellTypes.push_back(CT_UNDEFINED);
     }
@@ -577,8 +564,7 @@ MFXAddEditTypedTable::setNumberCellParams(size_t pos, double min, double max,
         double steps1,
         double steps2,
         double steps3,
-        const std::string &format)
-{
+        const std::string &format) {
     while (myNumberCellParams.size()<=pos) {
         NumberCellParams np;
         np.format = "undefined";
@@ -597,8 +583,7 @@ MFXAddEditTypedTable::setNumberCellParams(size_t pos, double min, double max,
 
 
 MFXAddEditTypedTable::NumberCellParams
-MFXAddEditTypedTable::getNumberCellParams(size_t pos) const
-{
+MFXAddEditTypedTable::getNumberCellParams(size_t pos) const {
     if (myNumberCellParams.size()<=pos) {
         NumberCellParams np;
         np.format = "undefined";
@@ -611,8 +596,7 @@ MFXAddEditTypedTable::getNumberCellParams(size_t pos) const
 
 void
 MFXAddEditTypedTable::setEnums(size_t pos,
-                               const std::vector<std::string> &params)
-{
+                               const std::vector<std::string> &params) {
     while (myEnums.size()<=pos) {
         myEnums.push_back(std::vector<std::string>());
     }
@@ -622,8 +606,7 @@ MFXAddEditTypedTable::setEnums(size_t pos,
 
 void
 MFXAddEditTypedTable::addEnum(size_t pos,
-                              const std::string &e)
-{
+                              const std::string &e) {
     while (myEnums.size()<=pos) {
         myEnums.push_back(std::vector<std::string>());
     }
@@ -632,8 +615,7 @@ MFXAddEditTypedTable::addEnum(size_t pos,
 
 
 const std::vector<std::string> &
-MFXAddEditTypedTable::getEnums(size_t pos) const
-{
+MFXAddEditTypedTable::getEnums(size_t pos) const {
     return myEnums[pos];
 }
 

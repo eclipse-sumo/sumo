@@ -46,17 +46,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Fahrverhaltendefinition::NIVissimSingleTypeParser_Fahrverhaltendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Fahrverhaltendefinition::~NIVissimSingleTypeParser_Fahrverhaltendefinition()
-{}
+NIVissimSingleTypeParser_Fahrverhaltendefinition::~NIVissimSingleTypeParser_Fahrverhaltendefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Fahrverhaltendefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Fahrverhaltendefinition::parse(std::istream &from) {
     string tmp;
     from >> tmp;
     // in the both next cases, we do not have to overread anything

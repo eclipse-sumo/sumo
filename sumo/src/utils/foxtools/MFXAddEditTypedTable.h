@@ -45,8 +45,7 @@ enum CellType {
 
 
 
-class MFXAddEditTypedTable : public FXTable
-{
+class MFXAddEditTypedTable : public FXTable {
     FXDECLARE(MFXAddEditTypedTable)
 public:
     MFXAddEditTypedTable(FXComposite *p,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_MARGIN,FXint pr=DEFAULT_MARGIN,FXint pt=DEFAULT_MARGIN,FXint pb=DEFAULT_MARGIN);

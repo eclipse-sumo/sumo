@@ -39,44 +39,38 @@
 NIVissimBoundedClusterObject::ContType NIVissimBoundedClusterObject::myDict;
 
 NIVissimBoundedClusterObject::NIVissimBoundedClusterObject()
-        : myBoundary(0), myClusterID(-1)
-{
+        : myBoundary(0), myClusterID(-1) {
     myDict.insert(this);
 }
 
 
-NIVissimBoundedClusterObject::~NIVissimBoundedClusterObject()
-{
+NIVissimBoundedClusterObject::~NIVissimBoundedClusterObject() {
     delete myBoundary;
 }
 
 
 bool
 NIVissimBoundedClusterObject::crosses(const AbstractPoly &poly,
-                                      SUMOReal offset) const
-{
+                                      SUMOReal offset) const {
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
     return myBoundary->overlapsWith(poly, offset);
 }
 
 
 void
-NIVissimBoundedClusterObject::inCluster(int id)
-{
+NIVissimBoundedClusterObject::inCluster(int id) {
     myClusterID = id;
 }
 
 
 bool
-NIVissimBoundedClusterObject::clustered() const
-{
+NIVissimBoundedClusterObject::clustered() const {
     return myClusterID>0;
 }
 
 
 void
-NIVissimBoundedClusterObject::closeLoading()
-{
+NIVissimBoundedClusterObject::closeLoading() {
     for (ContType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         (*i)->computeBounding();
     }
@@ -84,8 +78,7 @@ NIVissimBoundedClusterObject::closeLoading()
 
 
 const Boundary &
-NIVissimBoundedClusterObject::getBoundary() const
-{
+NIVissimBoundedClusterObject::getBoundary() const {
     return *myBoundary;
 }
 

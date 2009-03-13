@@ -63,18 +63,15 @@ RORDLoader_TripDefs::RORDLoader_TripDefs(RONet &net,
         : ROTypedXMLRoutesLoader(net, begin, end, fileName),
         myEmptyDestinationsAllowed(emptyDestinationsAllowed),
         myDepartureTime(-1), myCurrentVehicleType(0),
-        myParameter(0)
-{}
+        myParameter(0) {}
 
 
-RORDLoader_TripDefs::~RORDLoader_TripDefs() throw()
-{}
+RORDLoader_TripDefs::~RORDLoader_TripDefs() throw() {}
 
 
 void
 RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIPDEF) {
         bool ok = true;
@@ -136,8 +133,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
 
 
 std::string
-RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs)
-{
+RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     string id;
     attrs.setIDFromAttributes("tripdef", id, false);
@@ -153,8 +149,7 @@ ROEdge *
 RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
                              const std::string &purpose,
                              SumoXMLAttr which, const string &vid,
-                             bool emptyAllowed)
-{
+                             bool emptyAllowed) {
     ROEdge *e = 0;
     string id;
     try {
@@ -181,8 +176,7 @@ SUMOReal
 RORDLoader_TripDefs::getOptionalFloat(const SUMOSAXAttributes &attrs,
                                       const std::string &name,
                                       SumoXMLAttr which,
-                                      const std::string &place)
-{
+                                      const std::string &place) {
     if (!attrs.hasAttribute(which)) {
         return -1;
     }
@@ -199,8 +193,7 @@ RORDLoader_TripDefs::getOptionalFloat(const SUMOSAXAttributes &attrs,
 
 SUMOTime
 RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
-                               const std::string &id)
-{
+                               const std::string &id) {
     if (!attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         return -1;
     }
@@ -212,8 +205,7 @@ RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
 
 int
 RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
-        const std::string &id)
-{
+        const std::string &id) {
     if (!attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         return -1;
     }
@@ -224,8 +216,7 @@ RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
 
 
 string
-RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs)
-{
+RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs) {
     try {
         return attrs.getString(SUMO_ATTR_LANE);
     } catch (EmptyData &) {
@@ -235,8 +226,7 @@ RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs)
 
 
 void
-RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_TRIPDEF &&
             !MsgHandler::getErrorInstance()->wasInformed()) {
 
@@ -262,8 +252,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 void
-RORDLoader_TripDefs::beginNextRoute() throw()
-{
+RORDLoader_TripDefs::beginNextRoute() throw() {
     myNextRouteRead = false;
 }
 

@@ -31,6 +31,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -62,14 +63,12 @@ using namespace std;
 // MSMeanData_Harmonoise::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane) throw()
-        : MSMoveReminder(lane), sampleSeconds(0), 
-        currentTimeN(0), meanNTemp(0), myLastTimeStep((SUMOTime) -1)
-{}
+        : MSMoveReminder(lane), sampleSeconds(0),
+        currentTimeN(0), meanNTemp(0), myLastTimeStep((SUMOTime) -1) {}
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::reset() throw()
-{
+MSMeanData_Harmonoise::MSLaneMeanDataValues::reset() throw() {
     sampleSeconds = 0;
     currentTimeN = 0;
     meanNTemp = 0;
@@ -77,28 +76,22 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::reset() throw()
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::add(SUMOReal sn, SUMOReal fraction, bool flushOnly) throw()
-{
+MSMeanData_Harmonoise::MSLaneMeanDataValues::add(SUMOReal sn, SUMOReal fraction) throw() {
     SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
-    if(step!=myLastTimeStep||flushOnly) {
-        if(currentTimeN!=0) {
-            meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(currentTimeN)/10.);
-        }
-        currentTimeN = 0;
-        if(!flushOnly) {
-            myLastTimeStep = step;
-        }
-    }
-    if(!flushOnly) {
-        currentTimeN += (SUMOReal) pow(10., (sn/10.));
-        sampleSeconds += fraction;
-    }
+    currentTimeN += (SUMOReal) pow(10., (sn/10.));
+    sampleSeconds += fraction;
+}
+
+
+void
+MSMeanData_Harmonoise::MSLaneMeanDataValues::flushStep() throw() {
+    meanNTemp += (SUMOReal) pow(10., HelpersHarmonoise::sum(currentTimeN)/10.);
+    currentTimeN = 0;
 }
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw()
-{
+MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     bool ret = true;
     SUMOReal fraction = 1.;
     if (oldPos<0&&newSpeed!=0) {
@@ -116,14 +109,12 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw()
-{
+MSMeanData_Harmonoise::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
 }
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
-{
+MSMeanData_Harmonoise::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     SUMOReal fraction = 1.;
     SUMOReal l = veh.getVehicleType().getLength();
     if (veh.getPositionOnLane()+l>getLane()->length()) {
@@ -141,15 +132,15 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVeh
 // MSMeanData_Harmonoise - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string &id,
-                                   MSEdgeControl &edges,
-                                   const std::vector<SUMOTime> &dumpBegins,
-                                   const std::vector<SUMOTime> &dumpEnds,
-                                   bool useLanes,
-                                   bool withEmptyEdges, bool withEmptyLanes) throw()
+        MSEdgeControl &edges,
+        const std::vector<SUMOTime> &dumpBegins,
+        const std::vector<SUMOTime> &dumpEnds,
+        bool useLanes,
+        bool withEmptyEdges, bool withEmptyLanes) throw()
         : myID(id),
         myAmEdgeBased(!useLanes), myDumpBegins(dumpBegins), myDumpEnds(dumpEnds),
-        myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes)
-{
+        myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes) {
+    MSNet::getInstance()->getDetectorControl().add(this);
     // interval begin
     // edges
     MSEdgeControl::EdgeCont::const_iterator edg;
@@ -180,13 +171,11 @@ MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string &id,
 }
 
 
-MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw()
-{}
+MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
 
 
 void
-MSMeanData_Harmonoise::resetOnly(SUMOTime stopTime) throw()
-{
+MSMeanData_Harmonoise::resetOnly(SUMOTime stopTime) throw() {
     for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
         for (vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
             (*j)->reset();
@@ -197,8 +186,7 @@ MSMeanData_Harmonoise::resetOnly(SUMOTime stopTime) throw()
 
 void
 MSMeanData_Harmonoise::write(OutputDevice &dev,
-                        SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                             SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
     bool found = myDumpBegins.size()==0;
     for (unsigned int i=0; i<myDumpBegins.size()&&!found; ++i) {
@@ -221,9 +209,8 @@ MSMeanData_Harmonoise::write(OutputDevice &dev,
 
 void
 MSMeanData_Harmonoise::writeEdge(OutputDevice &dev,
-                            const vector<MSLaneMeanDataValues*> &edgeValues,
-                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                                 const vector<MSLaneMeanDataValues*> &edgeValues,
+                                 MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     vector<MSLaneMeanDataValues*>::const_iterator lane;
     if (!myAmEdgeBased) {
         bool writeCheck = myDumpEmptyEdges;
@@ -247,13 +234,12 @@ MSMeanData_Harmonoise::writeEdge(OutputDevice &dev,
         SUMOReal nVehS = 0;
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MSLaneMeanDataValues& meanData = *(*lane);
-            meanData.add(0, 0, true);
             // calculate mean data
             nS += meanData.meanNTemp;
             nVehS += meanData.sampleSeconds;
             meanData.reset();
         }
-        SUMOReal v = nS!=0. ? (SUMOReal) (10. * log10(nS/(SUMOReal)(stopTime-startTime+1))) : (SUMOReal) 0.;
+        SUMOReal v = nS!=0. ? (SUMOReal)(10. * log10(nS/(SUMOReal)(stopTime-startTime+1))) : (SUMOReal) 0.;
         if (myDumpEmptyEdges||nVehS>0) {
             dev<<"      <edge id=\""<<edge->getID()<<
             "\" sampledSeconds=\""<< nVehS <<
@@ -266,13 +252,11 @@ MSMeanData_Harmonoise::writeEdge(OutputDevice &dev,
 
 void
 MSMeanData_Harmonoise::writeLane(OutputDevice &dev,
-                            MSLaneMeanDataValues &laneValues,
-                            SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                                 MSLaneMeanDataValues &laneValues,
+                                 SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     if (myDumpEmptyLanes||laneValues.sampleSeconds>0) {
         // calculate mean data
-        laneValues.add(0, 0, true);
-        SUMOReal v = laneValues.meanNTemp!=0 ? (SUMOReal) (10. * log10(laneValues.meanNTemp/(SUMOReal)(stopTime-startTime+1))) : (SUMOReal) 0.;
+        SUMOReal v = laneValues.meanNTemp!=0 ? (SUMOReal)(10. * log10(laneValues.meanNTemp/(SUMOReal)(stopTime-startTime+1))) : (SUMOReal) 0.;
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
         "\" sampledSeconds=\""<< laneValues.sampleSeconds <<
         "\" noise=\""<< v <<
@@ -284,8 +268,7 @@ MSMeanData_Harmonoise::writeLane(OutputDevice &dev,
 
 void
 MSMeanData_Harmonoise::writeXMLOutput(OutputDevice &dev,
-                                 SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                                      SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
     stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
     write(dev, startTime, stopTime);
@@ -294,9 +277,19 @@ MSMeanData_Harmonoise::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSMeanData_Harmonoise::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
-{
+MSMeanData_Harmonoise::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
     dev.writeXMLHeader("netstats");
+}
+
+
+void
+MSMeanData_Harmonoise::update() throw() {
+    for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+        const vector<MSLaneMeanDataValues*> &lm = *i;
+        for (std::vector<MSLaneMeanDataValues*>::const_iterator j=lm.begin(); j!=lm.end(); ++j) {
+            (*j)->flushStep();
+        }
+    }
 }
 
 

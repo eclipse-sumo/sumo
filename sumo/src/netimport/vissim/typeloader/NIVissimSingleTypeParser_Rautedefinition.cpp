@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Rautedefinition::NIVissimSingleTypeParser_Rautedefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Rautedefinition::~NIVissimSingleTypeParser_Rautedefinition()
-{}
+NIVissimSingleTypeParser_Rautedefinition::~NIVissimSingleTypeParser_Rautedefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Rautedefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Rautedefinition::parse(std::istream &from) {
     string t;
     getline(from, t);
     return true;

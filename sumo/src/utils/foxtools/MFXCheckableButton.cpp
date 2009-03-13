@@ -50,33 +50,28 @@ MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
                                        FXint x,FXint y,FXint w,FXint h,
                                        FXint pl,FXint pr,FXint pt,FXint pb)
         : FXButton(p, text, ic, tgt, sel, opts, x, y, w,h, pl,pr,pt,pb),
-        myAmChecked(amChecked), myAmInitialised(false)
-{
+        myAmChecked(amChecked), myAmInitialised(false) {
     border = 0;
 }
 
 
-MFXCheckableButton::~MFXCheckableButton()
-{}
+MFXCheckableButton::~MFXCheckableButton() {}
 
 
 bool
-MFXCheckableButton::amChecked() const
-{
+MFXCheckableButton::amChecked() const {
     return myAmChecked;
 }
 
 
 void
-MFXCheckableButton::setChecked(bool val)
-{
+MFXCheckableButton::setChecked(bool val) {
     myAmChecked = val;
 }
 
 
 long
-MFXCheckableButton::onPaint(FXObject*sender,FXSelector sel,void *data)
-{
+MFXCheckableButton::onPaint(FXObject*sender,FXSelector sel,void *data) {
     if (!myAmInitialised) {
         buildColors();
     }
@@ -86,8 +81,7 @@ MFXCheckableButton::onPaint(FXObject*sender,FXSelector sel,void *data)
 
 
 long
-MFXCheckableButton::onUpdate(FXObject *sender,FXSelector sel,void *data)
-{
+MFXCheckableButton::onUpdate(FXObject *sender,FXSelector sel,void *data) {
     if (!myAmInitialised) {
         buildColors();
     }
@@ -98,8 +92,7 @@ MFXCheckableButton::onUpdate(FXObject *sender,FXSelector sel,void *data)
 
 
 void
-MFXCheckableButton::buildColors()
-{
+MFXCheckableButton::buildColors() {
     myBackColor = backColor;
     myDarkColor = makeShadowColor(myBackColor);
     myHiliteColor = hiliteColor;
@@ -109,8 +102,7 @@ MFXCheckableButton::buildColors()
 
 
 void
-MFXCheckableButton::setColors()
-{
+MFXCheckableButton::setColors() {
     options &= (0xffffffff-(FRAME_SUNKEN|FRAME_SUNKEN|FRAME_THICK));
     if (myAmChecked) {
         backColor = myShadowColor;

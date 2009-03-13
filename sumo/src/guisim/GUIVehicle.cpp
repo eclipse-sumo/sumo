@@ -132,18 +132,15 @@ double vehiclePoly_EVehicleBackGlass[] =  { 0.65,0,  0.9,0,  0.9,0.4,  0.57,0.3,
 GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
     GUIMainWindow &app, GUISUMOAbstractView &parent,
     GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o)
-{
+        : GUIGLObjectPopupMenu(app, parent, o) {
 }
 
 
-GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu() throw()
-{}
+GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu() throw() {}
 
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->showRoute(static_cast<GUIVehicle*>(myObject), -1);
     return 1;
@@ -151,8 +148,7 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowAllRoutes(FXObject*,FXSelector,void*)
 
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->hideRoute(static_cast<GUIVehicle*>(myObject), -1);
     return 1;
@@ -160,8 +156,7 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes(FXObject*,FXSelector,void*)
 
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->showRoute(static_cast<GUIVehicle*>(myObject), 0);
     return 1;
@@ -169,8 +164,7 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void
 
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->showBestLanes(static_cast<GUIVehicle*>(myObject));
     return 1;
@@ -178,32 +172,28 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*,FXSelector,void*)
 
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->hideRoute(static_cast<GUIVehicle*>(myObject), 0);
     return 1;
 }
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdHideBestLanes(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideBestLanes(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->hideBestLanes(static_cast<GUIVehicle*>(myObject));
     return 1;
 }
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->startTrack(static_cast<GUIVehicle*>(myObject)->getGlID());
     return 1;
 }
 
 long
-GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*)
-{
+GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->stopTrack();
     return 1;
@@ -218,14 +208,12 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        const MSVehicleType* type,
                        int vehicleIndex) throw()
         : MSVehicle(pars, route, type, vehicleIndex),
-        GUIGlObject(idStorage, "vehicle:"+pars->id)
-{
+        GUIGlObject(idStorage, "vehicle:"+pars->id) {
     myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
 }
 
 
-GUIVehicle::~GUIVehicle() throw()
-{
+GUIVehicle::~GUIVehicle() throw() {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
@@ -234,16 +222,14 @@ GUIVehicle::~GUIVehicle() throw()
 
 
 SUMOReal
-GUIVehicle::getTimeSinceLastLaneChangeAsReal() const
-{
+GUIVehicle::getTimeSinceLastLaneChangeAsReal() const {
     return (SUMOReal) myLastLaneChangeOffset;
 }
 
 
 GUIGLObjectPopupMenu *
 GUIVehicle::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent) throw()
-{
+                         GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -282,16 +268,15 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIVehicle::getParameterWindow(GUIMainWindow &app,
-                               GUISUMOAbstractView &) throw()
-{
+                               GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 15);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
-    if(getParameter().repetitionNumber>0) {
+    if (getParameter().repetitionNumber>0) {
         ret->mkItem("left same route [#]", false, (unsigned int) getParameter().repetitionNumber);
     }
-    if(getParameter().repetitionOffset>0) {
+    if (getParameter().repetitionOffset>0) {
         ret->mkItem("emission period [s]", false, (SUMOTime) getParameter().repetitionOffset);
     }
     ret->mkItem("waiting time [s]", true,
@@ -324,36 +309,31 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIVehicle::getMicrosimID() const throw()
-{
+GUIVehicle::getMicrosimID() const throw() {
     return getID();
 }
 
 
 bool
-GUIVehicle::active() const throw()
-{
+GUIVehicle::active() const throw() {
     return isOnRoad();
 }
 
 
 void
-GUIVehicle::setRemoved()
-{
+GUIVehicle::setRemoved() {
     myLane = 0;
 }
 
 
 unsigned int
-GUIVehicle::getLastLaneChangeOffset() const
-{
+GUIVehicle::getLastLaneChangeOffset() const {
     return myLastLaneChangeOffset;
 }
 
 
 Boundary
-GUIVehicle::getCenteringBoundary() const throw()
-{
+GUIVehicle::getCenteringBoundary() const throw() {
     Boundary b;
     b.add(getPosition());
     b.grow(20);
@@ -370,8 +350,7 @@ GUIVehicle::getCenteringBoundary() const throw()
 
 
 inline void
-drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale)
-{
+drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale) {
     SUMOReal length = veh.getVehicleType().getLength();
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
@@ -399,8 +378,7 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale)
 }
 
 inline void
-drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale)
-{
+drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
     SUMOReal length = veh.getVehicleType().getLength();
     SUMOReal offset = veh.getVehicleType().getGuiOffset();
     glPushMatrix();
@@ -424,8 +402,7 @@ drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale)
 
 
 void
-drawPoly(double *poses, SUMOReal offset)
-{
+drawPoly(double *poses, SUMOReal offset) {
     glPolygonOffset(0, offset);
     glBegin(GL_TRIANGLE_FAN);
     int i = 0;
@@ -438,8 +415,7 @@ drawPoly(double *poses, SUMOReal offset)
 
 
 inline void
-drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
-{
+drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     GLdouble current[4], lighter[4];
     glGetDoublev(GL_CURRENT_COLOR, current);
     lighter[0] = current[0]+.2;
@@ -802,8 +778,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale)
 #define BLINKER_POS_BACK .5
 
 inline void
-drawAction_drawVehicleBlinker(const GUIVehicle &veh)
-{
+drawAction_drawVehicleBlinker(const GUIVehicle &veh) {
     double dir = (double) veh.getCORNIntValue(MSCORN::CORN_VEH_BLINKER)*veh.getVehicleType().getGuiWidth()*.5;
     if (dir==0) {
         return;
@@ -824,8 +799,7 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh)
 
 
 inline void
-drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
-{
+drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size) {
     glPushMatrix();
     glTranslated(0, veh.getVehicleType().getLength() / 2., 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -841,8 +815,7 @@ drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
 
 #ifdef HAVE_BOYOM_C2C
 inline void
-drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
-{
+drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh) {
     if (veh.isEquipped()) {
         int cluster = veh.getClusterId();
         if (veh.getConnections().size()==0) {
@@ -868,8 +841,7 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
 #include <gui/GUIViewTraffic.h>
 
 void
-GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPolygonOffset(0, -4);
     // set lane color
     GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap(); //!!!
@@ -973,8 +945,7 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw()
 }
 
 const std::vector<MSVehicle::LaneQ> &
-GUIVehicle::getBestLanes() const throw()
-{
+GUIVehicle::getBestLanes() const throw() {
     myLock.lock();
     const std::vector<MSVehicle::LaneQ> &ret = MSVehicle::getBestLanes();
     myLock.unlock();
@@ -983,8 +954,7 @@ GUIVehicle::getBestLanes() const throw()
 
 
 void
-GUIVehicle::setBlinkerInformation()
-{
+GUIVehicle::setBlinkerInformation() {
     if (hasCORNIntValue(MSCORN::CORN_VEH_BLINKER)) {
         int blinker = 0;
         int state = getLaneChangeModel().getState();
@@ -1017,56 +987,48 @@ GUIVehicle::setBlinkerInformation()
 
 
 void
-GUIVehicle::initShapes() throw()
-{
+GUIVehicle::initShapes() throw() {
 }
 
 
 SUMOReal
-GUIVehicle::getHBEFA_CO2Emissions() const throw()
-{
+GUIVehicle::getHBEFA_CO2Emissions() const throw() {
     return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-GUIVehicle::getHBEFA_COEmissions() const throw()
-{
+GUIVehicle::getHBEFA_COEmissions() const throw() {
     return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-GUIVehicle::getHBEFA_HCEmissions() const throw()
-{
+GUIVehicle::getHBEFA_HCEmissions() const throw() {
     return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-GUIVehicle::getHBEFA_NOxEmissions() const throw()
-{
+GUIVehicle::getHBEFA_NOxEmissions() const throw() {
     return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-GUIVehicle::getHBEFA_PMxEmissions() const throw()
-{
+GUIVehicle::getHBEFA_PMxEmissions() const throw() {
     return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-GUIVehicle::getHBEFA_FuelConsumption() const throw()
-{
+GUIVehicle::getHBEFA_FuelConsumption() const throw() {
     return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 
 SUMOReal
-GUIVehicle::getHarmonoise_NoiseEmissions() const throw()
-{
+GUIVehicle::getHarmonoise_NoiseEmissions() const throw() {
     return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 

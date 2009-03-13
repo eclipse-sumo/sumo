@@ -50,17 +50,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Laengenverteilungsdefinition::NIVissimSingleTypeParser_Laengenverteilungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Laengenverteilungsdefinition::~NIVissimSingleTypeParser_Laengenverteilungsdefinition()
-{}
+NIVissimSingleTypeParser_Laengenverteilungsdefinition::~NIVissimSingleTypeParser_Laengenverteilungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream &from) {
     // id
     string id;
     from >> id;

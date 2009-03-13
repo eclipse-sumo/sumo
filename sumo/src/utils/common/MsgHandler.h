@@ -54,8 +54,7 @@ extern bool gSuppressMessages;
 /**
  * MsgHandler
  */
-class MsgHandler
-{
+class MsgHandler {
 public:
     /**
      * @enum MsgType

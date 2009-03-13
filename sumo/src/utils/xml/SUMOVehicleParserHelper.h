@@ -46,8 +46,7 @@
  *
  * This class supports helper methods for parsing a vehicle's attributes.
  */
-class SUMOVehicleParserHelper
-{
+class SUMOVehicleParserHelper {
 public:
     /** @brief Parses a vehicle's attributes
      *

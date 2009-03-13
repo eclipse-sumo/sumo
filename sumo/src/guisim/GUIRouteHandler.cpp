@@ -65,24 +65,20 @@ using namespace std;
 // ===========================================================================
 GUIRouteHandler::GUIRouteHandler(const std::string &file,
                                  bool addVehiclesDirectly)
-        : MSRouteHandler(file, addVehiclesDirectly)
-{}
+        : MSRouteHandler(file, addVehiclesDirectly) {}
 
 
-GUIRouteHandler::~GUIRouteHandler() throw()
-{}
+GUIRouteHandler::~GUIRouteHandler() throw() {}
 
 
 MSRoute*
-GUIRouteHandler::buildRoute() throw()
-{
+GUIRouteHandler::buildRoute() throw() {
     return new GUIRoute(myColor, myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
 }
 
 
 void
-GUIRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
-{
+GUIRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
     myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
     MSRouteHandler::openRoute(attrs);
 }

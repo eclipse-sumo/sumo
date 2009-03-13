@@ -49,8 +49,7 @@ typedef std::vector<int> IntVector;
  *
  */
 template<class T>
-class VectorHelper
-{
+class VectorHelper {
 public:
     static T sum(const std::vector<T> &v) {
         T sum = 0;
@@ -162,8 +161,7 @@ public:
 };
 
 template<class T>
-std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
-{
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
     for (typename std::vector<T>::const_iterator i=v.begin(); i!=v.end(); i++) {
         if (i!=v.begin()) {
             os << ", ";

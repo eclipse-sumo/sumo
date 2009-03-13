@@ -42,8 +42,7 @@
  * @class RODFDetectorHandler
  * @brief SAX2-Handler for loading DFROUTER-detector definitions
  */
-class RODFDetectorHandler : public SUMOSAXHandler
-{
+class RODFDetectorHandler : public SUMOSAXHandler {
 public:
     /// Constructor
     RODFDetectorHandler(OptionsCont &oc, RODFDetectorCon &con,

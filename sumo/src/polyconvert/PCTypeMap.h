@@ -43,8 +43,7 @@
  * This class holds the mappings between names of read polygon/poi types and the
  *  values (color, new type name etc.) that shall be assigned to them.
  */
-class PCTypeMap
-{
+class PCTypeMap {
 public:
     /// @brief Constructor
     PCTypeMap() throw();

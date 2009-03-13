@@ -60,8 +60,7 @@ using namespace std;
 
 /* function to calculate the factorial */
 
-SUMOReal factrl(int n)
-{
+SUMOReal factrl(int n) {
     static int ntop=6;
     static SUMOReal a[33]= {
         1.0,1.0,2.0,6.0,24.0,120.0,720.0
@@ -85,8 +84,7 @@ SUMOReal factrl(int n)
 
 /* function to calculate the factorial function for Bernstein basis */
 
-SUMOReal Ni(int n,int i)
-{
+SUMOReal Ni(int n,int i) {
     SUMOReal ni;
     ni = factrl(n)/(factrl(i)*factrl(n-i));
     return ni;
@@ -94,8 +92,7 @@ SUMOReal Ni(int n,int i)
 
 /* function to calculate the Bernstein basis */
 
-SUMOReal Basis(int n,int i,SUMOReal t)
-{
+SUMOReal Basis(int n,int i,SUMOReal t) {
     SUMOReal basis;
     SUMOReal ti; /* this is t^i */
     SUMOReal tni; /* this is (1 - t)^i */
@@ -112,8 +109,7 @@ SUMOReal Basis(int n,int i,SUMOReal t)
 
 /* Bezier curve subroutine */
 void
-bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[])
-{
+bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[]) {
     int i;
     int j;
     int i1;

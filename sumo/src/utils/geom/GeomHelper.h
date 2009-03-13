@@ -44,8 +44,7 @@
 /**
  *
  */
-class GeomHelper
-{
+class GeomHelper {
 public:
     static bool intersects(SUMOReal x1b, SUMOReal y1b, SUMOReal x1e, SUMOReal y1e,
                            SUMOReal x2b, SUMOReal y2b, SUMOReal x2e, SUMOReal y2e);

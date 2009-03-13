@@ -47,8 +47,7 @@ class ROJTREdge;
  * @class ROJTRRouter
  * Lays the given route over the edges using the dijkstra algorithm
  */
-class ROJTRRouter : public SUMOAbstractRouter<ROEdge,ROVehicle>
-{
+class ROJTRRouter : public SUMOAbstractRouter<ROEdge,ROVehicle> {
 public:
     /// Constructor
     ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,

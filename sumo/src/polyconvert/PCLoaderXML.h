@@ -52,8 +52,7 @@ class OptionsCont;
  * Reads pois stored as XML definition. The definitions must match
  *  the format POLYCONVERT generates.
  */
-class PCLoaderXML : public SUMOSAXHandler
-{
+class PCLoaderXML : public SUMOSAXHandler {
 public:
     /** @brief Loads pois/polygons assumed to be stored as XML
      *

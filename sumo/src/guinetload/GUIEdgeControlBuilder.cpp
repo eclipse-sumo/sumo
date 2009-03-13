@@ -57,17 +57,14 @@ using namespace std;
 // ===========================================================================
 GUIEdgeControlBuilder::GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage) throw()
         : NLEdgeControlBuilder(),
-        myGlObjectIDStorage(glObjectIDStorage)
-{}
+        myGlObjectIDStorage(glObjectIDStorage) {}
 
 
-GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw()
-{}
+GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw() {}
 
 
 MSEdge *
-GUIEdgeControlBuilder::closeEdge()
-{
+GUIEdgeControlBuilder::closeEdge() {
     MSEdge *ret = NLEdgeControlBuilder::closeEdge();
     static_cast<GUIEdge*>(ret)->initGeometry(gIDStorage);
     return ret;
@@ -78,8 +75,7 @@ MSLane *
 GUIEdgeControlBuilder::addLane(const std::string &id,
                                SUMOReal maxSpeed, SUMOReal length, bool isDepart,
                                const Position2DVector &shape,
-                               const std::string &vclasses)
-{
+                               const std::string &vclasses) {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
         throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");
@@ -111,8 +107,7 @@ GUIEdgeControlBuilder::addLane(const std::string &id,
 
 
 MSEdge *
-GUIEdgeControlBuilder::buildEdge(const std::string &id) throw()
-{
+GUIEdgeControlBuilder::buildEdge(const std::string &id) throw() {
     return new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
 }
 

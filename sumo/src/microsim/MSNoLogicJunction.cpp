@@ -70,21 +70,18 @@ MSNoLogicJunction::MSNoLogicJunction(string id, const Position2D &position,
 
 
 bool
-MSNoLogicJunction::clearRequests()
-{
+MSNoLogicJunction::clearRequests() {
     return true;
 }
 
 //-------------------------------------------------------------------------//
 
-MSNoLogicJunction::~MSNoLogicJunction()
-{}
+MSNoLogicJunction::~MSNoLogicJunction() {}
 
 //-------------------------------------------------------------------------//
 
 void
-MSNoLogicJunction::postloadInit() throw(ProcessError)
-{
+MSNoLogicJunction::postloadInit() throw(ProcessError) {
     LaneCont::iterator i;
     // inform links where they have to report approaching vehicles to
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {

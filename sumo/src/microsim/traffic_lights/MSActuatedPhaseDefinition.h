@@ -42,8 +42,7 @@
  * We moved it out of the main class to allow later template
  * parametrisation.
  */
-class MSActuatedPhaseDefinition : public MSPhaseDefinition
-{
+class MSActuatedPhaseDefinition : public MSPhaseDefinition {
 public:
     /// The minimum duration of the phase
     SUMOTime minDuration;

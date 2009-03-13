@@ -55,8 +55,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-ROJTRFrame::fillOptions()
-{
+ROJTRFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -76,8 +75,7 @@ ROJTRFrame::fillOptions()
 
 
 void
-ROJTRFrame::addJTROptions()
-{
+ROJTRFrame::addJTROptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.addSynonyme("flow-definition", "flows");
@@ -113,8 +111,7 @@ ROJTRFrame::addJTROptions()
 
 
 bool
-ROJTRFrame::checkOptions()
-{
+ROJTRFrame::checkOptions() {
     return ROFrame::checkOptions(OptionsCont::getOptions());
 }
 

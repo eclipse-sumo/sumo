@@ -64,19 +64,16 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::MSCalibrator_FileTriggeredChild(
     MSNet &net, const std::string &aXMLFilename,
     MSCalibrator &parent, MSVehicleControl &vc) throw()
         : MSTriggeredXMLReader(net, aXMLFilename), MSCalibratorChild(parent, vc),
-        myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0)
-{
+        myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0) {
     myBeginTime = net.getCurrentTimeStep();
 }
 
 
-MSCalibrator::MSCalibrator_FileTriggeredChild::~MSCalibrator_FileTriggeredChild() throw()
-{}
+MSCalibrator::MSCalibrator_FileTriggeredChild::~MSCalibrator_FileTriggeredChild() throw() {}
 
 
 SUMOTime
-MSCalibrator::MSCalibrator_FileTriggeredChild::execute(SUMOTime) throw(ProcessError)
-{
+MSCalibrator::MSCalibrator_FileTriggeredChild::execute(SUMOTime) throw(ProcessError) {
     if (myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();
         return (SUMOTime) computeOffset(myFlow);
@@ -87,8 +84,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::execute(SUMOTime) throw(ProcessEr
 
 
 SUMOTime
-MSCalibrator::execute(SUMOTime timestep) throw(ProcessError)
-{
+MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
 
     if (timestep == 0) {
         return 1;
@@ -184,8 +180,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError)
 ///TM
 
 bool
-MSCalibrator::MSCalibrator_FileTriggeredChild::processNextEntryReaderTriggered()
-{
+MSCalibrator::MSCalibrator_FileTriggeredChild::processNextEntryReaderTriggered() {
     if (myFlow>=0) {
         return true;
     }
@@ -201,8 +196,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::processNextEntryReaderTriggered()
 
 
 void
-MSCalibrator::MSCalibrator_FileTriggeredChild::buildAndScheduleFlowVehicle(SUMOReal speed)
-{
+MSCalibrator::MSCalibrator_FileTriggeredChild::buildAndScheduleFlowVehicle(SUMOReal speed) {
     SUMOVehicleParameter* pars = new SUMOVehicleParameter();
     pars->id = myParent.getID() + "_" + toString(myRunningID++);
     pars->depart = myOffset+1;
@@ -233,8 +227,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::buildAndScheduleFlowVehicle(SUMOR
 
 void
 MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         // parse route distributino
         // check if route exists
@@ -403,22 +396,19 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
 
 
 bool
-MSCalibrator::MSCalibrator_FileTriggeredChild::nextRead()
-{
+MSCalibrator::MSCalibrator_FileTriggeredChild::nextRead() {
     return myHaveNext;
 }
 
 
 SUMOReal
-MSCalibrator::MSCalibrator_FileTriggeredChild::getLoadedFlow() const
-{
+MSCalibrator::MSCalibrator_FileTriggeredChild::getLoadedFlow() const {
     return myFlow;
 }
 
 
 void
-MSCalibrator::MSCalibrator_FileTriggeredChild::inputEndReached()
-{
+MSCalibrator::MSCalibrator_FileTriggeredChild::inputEndReached() {
     if (myFlow>0&&!myHaveInitialisedFlow) {
         buildAndScheduleFlowVehicle();
         MSNet::getInstance()->getEmissionEvents().addEvent(
@@ -439,8 +429,7 @@ MSCalibrator::MSCalibrator(const std::string &id,
                            const std::string &aXMLFilename) throw()
         : MSTrigger(id), myNet(net),
         myDestLane(destLane), myPos((SUMOReal) pos), myDb(net),
-        myDebugLevel(0), myDebugFilesBaseName("x:\\temp\\dbg_")
-{
+        myDebugLevel(0), myDebugFilesBaseName("x:\\temp\\dbg_") {
     assert(myPos>=0);
 
     myToCalibrate = 0;
@@ -471,8 +460,7 @@ MSCalibrator::MSCalibrator(const std::string &id,
 }
 
 
-MSCalibrator::~MSCalibrator() throw()
-{
+MSCalibrator::~MSCalibrator() throw() {
     {
         delete myFileBasedCalibrator;
     }
@@ -486,8 +474,7 @@ MSCalibrator::~MSCalibrator() throw()
 
 
 bool
-MSCalibrator::childCheckEmit(MSCalibratorChild *child)
-{
+MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
     if (myToEmit.find(child)==myToEmit.end()) {
         // should not happen - a child is calling and should have a vehicle added
         throw 1;
@@ -549,31 +536,27 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
 
 void
 MSCalibrator::schedule(MSCalibratorChild *child,
-                       MSVehicle *v, SUMOReal speed)
-{
+                       MSVehicle *v, SUMOReal speed) {
     myToEmit[child] = make_pair(v, speed);
 }
 
 
 size_t
-MSCalibrator::getActiveChildIndex() const
-{
+MSCalibrator::getActiveChildIndex() const {
     return
         myFileBasedCalibrator==myActiveChild ? 0 : 1;
 }
 
 
 void
-MSCalibrator::setActiveChild(MSCalibratorChild *c)
-{
+MSCalibrator::setActiveChild(MSCalibratorChild *c) {
     myActiveChild = c;
 }
 
 std::map<std::string, MSCalibrator*> MSCalibrator::calibratorMap;
 
 void
-MSCalibrator::updateCalibrator(std::string name, int time, SUMOReal count)
-{
+MSCalibrator::updateCalibrator(std::string name, int time, SUMOReal count) {
 
     std::map<std::string, MSCalibrator*>::iterator it = MSCalibrator::calibratorMap.find(name);
 

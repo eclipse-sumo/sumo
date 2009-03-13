@@ -41,8 +41,7 @@
  * @class GeomConvHelper
  * This class holds some helping functions for the parsing of geometries
  */
-class GeomConvHelper
-{
+class GeomConvHelper {
 public:
     /** @brief This method builds a Position2DVector from a string representation
      *

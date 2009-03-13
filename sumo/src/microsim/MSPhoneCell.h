@@ -58,8 +58,7 @@ class MSDevice_CPhone;
  * @class MSPhoneCell
  * @brief A cell of a cellular network (GSM)
  */
-class MSPhoneCell
-{
+class MSPhoneCell {
 public:
     /// Constructor
     MSPhoneCell(int ID);

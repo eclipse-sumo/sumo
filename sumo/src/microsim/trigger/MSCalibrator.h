@@ -56,8 +56,7 @@ class MSInductLoop;
  * @brief Calibrates the number of vehicles on a lane
  *
  */
-class MSCalibrator : public MSTrigger
-{
+class MSCalibrator : public MSTrigger {
 public:
     /** @brief Constructor
      *
@@ -82,8 +81,7 @@ public:
      * Classes which realise different schemes to emit vehicles (file-based,
      *  based on user entries on the gui, etc.) should subclass this class
      */
-    class MSCalibratorChild
-    {
+    class MSCalibratorChild {
     public:
         /// Constructor
         MSCalibratorChild(MSCalibrator &parent, MSVehicleControl &vc)
@@ -183,8 +181,7 @@ protected:
      * @brief An CalibratorChild which uses information from a parsed file
      */
     class MSCalibrator_FileTriggeredChild
-                : public MSTriggeredXMLReader, public MSCalibratorChild, public Command
-    {
+                : public MSTriggeredXMLReader, public MSCalibratorChild, public Command {
     public:
         /// Constructor
         MSCalibrator_FileTriggeredChild(MSNet &net,

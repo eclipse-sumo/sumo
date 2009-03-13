@@ -49,8 +49,7 @@ class MSTriggerControl;
  * @class GUITriggerBuilder
  * @brief Builds trigger objects for guisim
  */
-class GUITriggerBuilder : public NLTriggerBuilder
-{
+class GUITriggerBuilder : public NLTriggerBuilder {
 public:
     /// @brief Constructor
     GUITriggerBuilder() throw();
@@ -79,8 +78,8 @@ protected:
      * @exception ProcessError If the XML definition file is errornous
      */
     virtual MSLaneSpeedTrigger* buildLaneSpeedTrigger(MSNet &net,
-                                       const std::string &id, const std::vector<MSLane*> &destLanes,
-                                       const std::string &file) throw(ProcessError);
+            const std::string &id, const std::vector<MSLane*> &destLanes,
+            const std::string &file) throw(ProcessError);
 
 
     /** @brief Builds an emitter

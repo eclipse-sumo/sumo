@@ -68,31 +68,26 @@ NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int lsaid, int id,
         const IntVector &vehicleTypes)
         : myLSA(lsaid), myID(id), myName(name), myGroupIDs(groupids),
         myEdgeID(edgeid), myLane(laneno), myPosition(position),
-        myVehicleTypes(vehicleTypes)
-{}
+        myVehicleTypes(vehicleTypes) {}
 
 
-NIVissimTL::NIVissimTLSignal::~NIVissimTLSignal()
-{}
+NIVissimTL::NIVissimTLSignal::~NIVissimTLSignal() {}
 
 bool
-NIVissimTL::NIVissimTLSignal::isWithin(const Position2DVector &poly) const
-{
+NIVissimTL::NIVissimTLSignal::isWithin(const Position2DVector &poly) const {
     return poly.around(getPosition());
 }
 
 
 Position2D
-NIVissimTL::NIVissimTLSignal::getPosition() const
-{
+NIVissimTL::NIVissimTLSignal::getPosition() const {
     return NIVissimAbstractEdge::dictionary(myEdgeID)->getGeomPosition(myPosition);
 }
 
 
 bool
 NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id,
-        NIVissimTL::NIVissimTLSignal *o)
-{
+        NIVissimTL::NIVissimTLSignal *o) {
     SignalDictType::iterator i = myDict.find(lsaid);
     if (i==myDict.end()) {
         myDict[lsaid] = SSignalDictType();
@@ -108,8 +103,7 @@ NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id,
 
 
 NIVissimTL::NIVissimTLSignal*
-NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id)
-{
+NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id) {
     SignalDictType::iterator i = myDict.find(lsaid);
     if (i==myDict.end()) {
         return 0;
@@ -123,8 +117,7 @@ NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id)
 
 
 void
-NIVissimTL::NIVissimTLSignal::clearDict()
-{
+NIVissimTL::NIVissimTLSignal::clearDict() {
     for (SignalDictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         for (SSignalDictType::iterator j=(*i).second.begin(); j!=(*i).second.end(); j++) {
             delete(*j).second;
@@ -135,8 +128,7 @@ NIVissimTL::NIVissimTLSignal::clearDict()
 
 
 NIVissimTL::SSignalDictType
-NIVissimTL::NIVissimTLSignal::getSignalsFor(int tlid)
-{
+NIVissimTL::NIVissimTLSignal::getSignalsFor(int tlid) {
     SignalDictType::iterator i = myDict.find(tlid);
     if (i==myDict.end()) {
         return SSignalDictType();
@@ -146,8 +138,7 @@ NIVissimTL::NIVissimTLSignal::getSignalsFor(int tlid)
 
 
 bool
-NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont &ec, NBLoadedTLDef *tl) const
-{
+NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont &ec, NBLoadedTLDef *tl) const {
     NIVissimConnection *c = NIVissimConnection::dictionary(myEdgeID);
     NBConnectionVector assignedConnections;
     if (c==0) {
@@ -225,18 +216,15 @@ NIVissimTL::NIVissimTLSignalGroup::NIVissimTLSignalGroup(
     SUMOTime tredyellow, SUMOTime tyellow)
         : myLSA(lsaid), myID(id), myName(name), myTimes(times),
         myFirstIsRed(!isGreenBegin), myTRedYellow(tredyellow),
-        myTYellow(tyellow)
-{}
+        myTYellow(tyellow) {}
 
 
-NIVissimTL::NIVissimTLSignalGroup::~NIVissimTLSignalGroup()
-{}
+NIVissimTL::NIVissimTLSignalGroup::~NIVissimTLSignalGroup() {}
 
 
 bool
 NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id,
-        NIVissimTL::NIVissimTLSignalGroup *o)
-{
+        NIVissimTL::NIVissimTLSignalGroup *o) {
     GroupDictType::iterator i = myDict.find(lsaid);
     if (i==myDict.end()) {
         myDict[lsaid] = SGroupDictType();
@@ -260,8 +248,7 @@ NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id,
 
 
 NIVissimTL::NIVissimTLSignalGroup*
-NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id)
-{
+NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id) {
     GroupDictType::iterator i = myDict.find(lsaid);
     if (i==myDict.end()) {
         return 0;
@@ -274,8 +261,7 @@ NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id)
 }
 
 void
-NIVissimTL::NIVissimTLSignalGroup::clearDict()
-{
+NIVissimTL::NIVissimTLSignalGroup::clearDict() {
     for (GroupDictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         for (SGroupDictType::iterator j=(*i).second.begin(); j!=(*i).second.end(); j++) {
             delete(*j).second;
@@ -286,8 +272,7 @@ NIVissimTL::NIVissimTLSignalGroup::clearDict()
 
 
 NIVissimTL::SGroupDictType
-NIVissimTL::NIVissimTLSignalGroup::getGroupsFor(int tlid)
-{
+NIVissimTL::NIVissimTLSignalGroup::getGroupsFor(int tlid) {
     GroupDictType::iterator i = myDict.find(tlid);
     if (i==myDict.end()) {
         return SGroupDictType();
@@ -297,8 +282,7 @@ NIVissimTL::NIVissimTLSignalGroup::getGroupsFor(int tlid)
 
 
 bool
-NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef *tl) const
-{
+NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef *tl) const {
     // get the color at the begin
     NBTrafficLightDefinition::TLColor color = myFirstIsRed
             ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
@@ -338,8 +322,7 @@ NIVissimTL::NIVissimTL(int id, const std::string &type,
 {}
 
 
-NIVissimTL::~NIVissimTL()
-{}
+NIVissimTL::~NIVissimTL() {}
 
 
 
@@ -348,8 +331,7 @@ NIVissimTL::~NIVissimTL()
 bool
 NIVissimTL::dictionary(int id, const std::string &type,
                        const std::string &name, SUMOTime absdur,
-                       SUMOTime offset)
-{
+                       SUMOTime offset) {
     NIVissimTL *o = new NIVissimTL(id, type, name, absdur, offset);
     if (!dictionary(id, o)) {
         delete o;
@@ -359,8 +341,7 @@ NIVissimTL::dictionary(int id, const std::string &type,
 }
 
 bool
-NIVissimTL::dictionary(int id, NIVissimTL *o)
-{
+NIVissimTL::dictionary(int id, NIVissimTL *o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -371,8 +352,7 @@ NIVissimTL::dictionary(int id, NIVissimTL *o)
 
 
 NIVissimTL *
-NIVissimTL::dictionary(int id)
-{
+NIVissimTL::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -382,8 +362,7 @@ NIVissimTL::dictionary(int id)
 
 
 void
-NIVissimTL::clearDict()
-{
+NIVissimTL::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }
@@ -396,8 +375,7 @@ NIVissimTL::clearDict()
 
 bool
 NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
-                            NBEdgeCont &ec)
-{
+                            NBEdgeCont &ec) {
     size_t ref = 0;
     size_t ref_groups = 0;
     size_t ref_signals = 0;
@@ -453,15 +431,13 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
 
 
 std::string
-NIVissimTL::getType() const
-{
+NIVissimTL::getType() const {
     return myType;
 }
 
 
 int
-NIVissimTL::getID() const
-{
+NIVissimTL::getID() const {
     return myID;
 }
 

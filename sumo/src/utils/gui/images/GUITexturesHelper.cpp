@@ -71,16 +71,14 @@ FXImage *GUITexturesHelper::myTextures[TEXTURE_MAX];
 // method definitions
 // ===========================================================================
 void
-GUITexturesHelper::init(FXApp *a)
-{
+GUITexturesHelper::init(FXApp *a) {
     myApp = a;
     myWasInitialised = false;
 }
 
 
 void
-GUITexturesHelper::assignTextures()
-{
+GUITexturesHelper::assignTextures() {
     if (myWasInitialised) {
         return;
     }
@@ -112,8 +110,7 @@ GUITexturesHelper::assignTextures()
 }
 
 unsigned int
-GUITexturesHelper::add(FXImage *i)
-{
+GUITexturesHelper::add(FXImage *i) {
     GLuint id;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
@@ -130,8 +127,7 @@ GUITexturesHelper::add(FXImage *i)
 
 
 void
-GUITexturesHelper::drawDirectionArrow(GUITexture which, SUMOReal size)
-{
+GUITexturesHelper::drawDirectionArrow(GUITexture which, SUMOReal size) {
     drawTexturedBox(myTextureIDs[which], size, size, -size, -size);
 }
 
@@ -139,14 +135,12 @@ GUITexturesHelper::drawDirectionArrow(GUITexture which, SUMOReal size)
 void
 GUITexturesHelper::drawDirectionArrow(unsigned int which,
                                       SUMOReal sizeX1, SUMOReal sizeY1,
-                                      SUMOReal sizeX2, SUMOReal sizeY2)
-{
+                                      SUMOReal sizeX2, SUMOReal sizeY2) {
     drawTexturedBox(myTextureIDs[which], sizeX1, sizeY1, sizeX2, sizeY2);
 }
 
 void
-GUITexturesHelper::drawTexturedBox(unsigned int which, SUMOReal size)
-{
+GUITexturesHelper::drawTexturedBox(unsigned int which, SUMOReal size) {
     drawTexturedBox(which, size, size, -size, -size);
 }
 
@@ -154,8 +148,7 @@ GUITexturesHelper::drawTexturedBox(unsigned int which, SUMOReal size)
 void
 GUITexturesHelper::drawTexturedBox(unsigned int which,
                                    SUMOReal sizeX1, SUMOReal sizeY1,
-                                   SUMOReal sizeX2, SUMOReal sizeY2)
-{
+                                   SUMOReal sizeX2, SUMOReal sizeY2) {
     if (!gAllowTextures) {
         return;
     }
@@ -191,8 +184,7 @@ GUITexturesHelper::drawTexturedBox(unsigned int which,
 
 
 void
-GUITexturesHelper::close()
-{
+GUITexturesHelper::close() {
     if (!myWasInitialised) {
         // nothing to do
         return;

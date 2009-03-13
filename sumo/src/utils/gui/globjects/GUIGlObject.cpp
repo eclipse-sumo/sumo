@@ -50,26 +50,22 @@
 // ===========================================================================
 GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
                          std::string fullName) throw()
-        : myFullName(fullName)
-{
+        : myFullName(fullName) {
     idStorage.registerObject(this);
 }
 
 
 GUIGlObject::GUIGlObject(std::string fullName, GLuint glID) throw()
-        : myFullName(fullName)
-{
+        : myFullName(fullName) {
 }
 
 
 
-GUIGlObject::~GUIGlObject() throw()
-{}
+GUIGlObject::~GUIGlObject() throw() {}
 
 
 void
-GUIGlObject::setGlID(GLuint id) throw()
-{
+GUIGlObject::setGlID(GLuint id) throw() {
     myGlID = id;
 }
 
@@ -78,8 +74,7 @@ GUIGlObject::setGlID(GLuint id) throw()
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu *ret,
                               GUIMainWindow &app,
-                              bool addSeparator) throw()
-{
+                              bool addSeparator) throw() {
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -89,8 +84,7 @@ GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu *ret,
 
 void
 GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu *ret,
-                                   bool addSeparator) throw()
-{
+                                   bool addSeparator) throw() {
     new FXMenuCommand(ret, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -100,8 +94,7 @@ GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu *ret,
 
 void
 GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret,
-                                     bool addSeparator) throw()
-{
+                                     bool addSeparator) throw() {
     new FXMenuCommand(ret, "Copy name to clipboard", 0, ret, MID_COPY_NAME);
     new FXMenuCommand(ret, "Copy typed name to clipboard", 0, ret, MID_COPY_TYPED_NAME);
     if (addSeparator) {
@@ -112,8 +105,7 @@ GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu *ret,
 
 void
 GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,
-                                      bool addSeparator) throw()
-{
+                                      bool addSeparator) throw() {
     if (gSelected.isSelected(getType(), getGlID())) {
         new FXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
@@ -127,8 +119,7 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,
 
 void
 GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret,
-                                       bool addSeparator) throw()
-{
+                                       bool addSeparator) throw() {
     new FXMenuCommand(ret, "Show Parameter", GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -138,8 +129,7 @@ GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret,
 
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret,
-                                     bool addSeparator) throw()
-{
+                                    bool addSeparator) throw() {
     new FXMenuCommand(ret, "Copy cursor position to clipboard", 0, ret, MID_COPY_CURSOR_POSITION);
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -149,8 +139,7 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu *ret,
 
 void
 GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret,
-        bool addSeparator) throw()
-{
+        bool addSeparator) throw() {
     new FXMenuCommand(ret, "Open Manipulator...",
                       GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
     if (addSeparator) {

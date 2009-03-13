@@ -63,8 +63,7 @@ class BinaryInputDevice;
  *
  * @see GUIVehicleControl
  */
-class MSVehicleControl
-{
+class MSVehicleControl {
 public:
     /// @brief Definition of the internal vehicles map iterator
     typedef std::map<std::string, MSVehicle*>::const_iterator constVehIt;

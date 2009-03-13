@@ -34,8 +34,7 @@
 #include <utils/shapes/Polygon2D.h>
 #include "PointOfInterest.h"
 
-class ShapeContainer
-{
+class ShapeContainer {
 public:
     ShapeContainer();
     virtual ~ShapeContainer();

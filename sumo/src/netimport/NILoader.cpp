@@ -80,17 +80,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NILoader::NILoader(NBNetBuilder &nb) throw()
-        : myNetBuilder(nb)
-{}
+        : myNetBuilder(nb) {}
 
 
-NILoader::~NILoader() throw()
-{}
+NILoader::~NILoader() throw() {}
 
 
 void
-NILoader::load(OptionsCont &oc)
-{
+NILoader::load(OptionsCont &oc) {
     // build the projection
     if (!oc.getBool("use-projection")) {
         GeoConvHelper::init("!", Position2D());
@@ -142,8 +139,7 @@ NILoader::load(OptionsCont &oc)
  * file loading methods
  * ----------------------------------------------------------------------- */
 void
-NILoader::loadXML(OptionsCont &oc)
-{
+NILoader::loadXML(OptionsCont &oc) {
     // load nodes
     loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
                                       myNetBuilder.getTLLogicCont(), oc),
@@ -163,8 +159,7 @@ NILoader::loadXML(OptionsCont &oc)
 /** loads a single user-specified file */
 void
 NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
-                      const string &type)
-{
+                      const string &type) {
     // build parser
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(*handler);
     string exceptMsg = "";
@@ -199,8 +194,7 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
 
 bool
 NILoader::useLineReader(LineReader &lr, const std::string &file,
-                        LineHandler &lh)
-{
+                        LineHandler &lh) {
     // check opening
     if (!lr.setFile(file)) {
         MsgHandler::getErrorInstance()->inform("The file '" + file + "' could not be opened.");
@@ -212,8 +206,7 @@ NILoader::useLineReader(LineReader &lr, const std::string &file,
 
 
 void
-NILoader::loadVisum(OptionsCont &oc)
-{
+NILoader::loadVisum(OptionsCont &oc) {
     if (!oc.isSet("visum")) {
         return;
     }
@@ -226,8 +219,7 @@ NILoader::loadVisum(OptionsCont &oc)
 
 
 void
-NILoader::loadArcView(OptionsCont &oc)
-{
+NILoader::loadArcView(OptionsCont &oc) {
     if (!oc.isSet("arcview")) {
         return;
     }
@@ -258,8 +250,7 @@ NILoader::loadArcView(OptionsCont &oc)
 
 
 void
-NILoader::loadVissim(OptionsCont &oc)
-{
+NILoader::loadVissim(OptionsCont &oc) {
     if (!oc.isSet("vissim")) {
         return;
     }
@@ -270,8 +261,7 @@ NILoader::loadVissim(OptionsCont &oc)
 
 
 void
-NILoader::loadElmar(OptionsCont &oc)
-{
+NILoader::loadElmar(OptionsCont &oc) {
     if (!oc.isSet("elmar")&&!oc.isSet("elmar2")) {
         return;
     }
@@ -331,8 +321,7 @@ NILoader::loadElmar(OptionsCont &oc)
 
 
 void
-NILoader::loadTiger(OptionsCont &oc)
-{
+NILoader::loadTiger(OptionsCont &oc) {
     if (!oc.isSet("tiger")) {
         return;
     }

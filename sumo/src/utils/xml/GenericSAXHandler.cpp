@@ -44,8 +44,7 @@
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(GenericSAXHandler::Tag *tags,
                                      GenericSAXHandler::Attr *attrs) throw()
-     : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING)
-{
+        : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING) {
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
         myTagMap.insert(TagMap::value_type(tags[i].name, tags[i].key));
@@ -61,8 +60,7 @@ GenericSAXHandler::GenericSAXHandler(GenericSAXHandler::Tag *tags,
 }
 
 
-GenericSAXHandler::~GenericSAXHandler() throw()
-{
+GenericSAXHandler::~GenericSAXHandler() throw() {
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
         delete[](*i1).second;
     }
@@ -70,8 +68,7 @@ GenericSAXHandler::~GenericSAXHandler() throw()
 
 
 XMLCh*
-GenericSAXHandler::convert(const std::string &name) const throw()
-{
+GenericSAXHandler::convert(const std::string &name) const throw() {
     size_t len = name.length();
     XMLCh *ret = new XMLCh[len+1];
     size_t i=0;
@@ -87,8 +84,7 @@ void
 GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const /*localname*/,
                                 const XMLCh* const qname,
-                                const Attributes& attrs)
-{
+                                const Attributes& attrs) {
     std::string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     //myTagTree.push(element);
@@ -102,8 +98,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
 void
 GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
-                              const XMLCh* const qname)
-{
+                              const XMLCh* const qname) {
     std::string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     // collect characters
@@ -141,8 +136,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
 
 
 void
-GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handler)
-{
+GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handler) {
     myParentHandler = handler;
     myParentIndicator = tag;
     XMLSubSys::setHandler(*this);
@@ -151,15 +145,13 @@ GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handl
 
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
-                              const unsigned int length)
-{
+                              const unsigned int length) {
     myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
 }
 
 
 SumoXMLTag
-GenericSAXHandler::convertTag(const std::string &tag) const throw()
-{
+GenericSAXHandler::convertTag(const std::string &tag) const throw() {
     TagMap::const_iterator i=myTagMap.find(tag);
     if (i==myTagMap.end()) {
         return SUMO_TAG_NOTHING;
@@ -169,18 +161,15 @@ GenericSAXHandler::convertTag(const std::string &tag) const throw()
 
 
 void
-GenericSAXHandler::myStartElement(SumoXMLTag, const SUMOSAXAttributes &) throw(ProcessError)
-{}
+GenericSAXHandler::myStartElement(SumoXMLTag, const SUMOSAXAttributes &) throw(ProcessError) {}
 
 
 void
-GenericSAXHandler::myCharacters(SumoXMLTag, const std::string &) throw(ProcessError)
-{}
+GenericSAXHandler::myCharacters(SumoXMLTag, const std::string &) throw(ProcessError) {}
 
 
 void
-GenericSAXHandler::myEndElement(SumoXMLTag) throw(ProcessError)
-{}
+GenericSAXHandler::myEndElement(SumoXMLTag) throw(ProcessError) {}
 
 
 /****************************************************************************/

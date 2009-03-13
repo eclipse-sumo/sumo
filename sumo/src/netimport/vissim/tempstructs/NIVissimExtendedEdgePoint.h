@@ -45,8 +45,7 @@ class NBEdge;
 /**
  *
  */
-class NIVissimExtendedEdgePoint
-{
+class NIVissimExtendedEdgePoint {
 public:
     /** @brief Constructor
      * @param[in] edgeid The id of the Vissim-edge

@@ -49,8 +49,7 @@ class MSVehicle;
  * and the emit control. Stores vehicles in a heap of vehiclevector/departure-
  * pairs.
  */
-class MSVehicleContainer
-{
+class MSVehicleContainer {
 public:
     /// definition of a list of vehicles which have the same departure time
     typedef std::vector<MSVehicle*> VehicleVector;
@@ -110,8 +109,7 @@ private:
     bool isFull() const;
 
     /// Sort-criterion for vehicle departure lists
-    class VehicleDepartureVectorSortCrit
-    {
+    class VehicleDepartureVectorSortCrit {
     public:
         /// comparison operator
         bool operator()(const VehicleDepartureVector& e1,
@@ -119,8 +117,7 @@ private:
     };
 
     /// Searches for the VehicleDepartureVector with the wished depart
-    class DepartFinder
-    {
+    class DepartFinder {
     public:
         /// constructor
         explicit DepartFinder(SUMOTime time);

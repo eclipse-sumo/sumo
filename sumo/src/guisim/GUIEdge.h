@@ -63,8 +63,7 @@ class GUIGlObjectStorage;
  *
  * @see MSEdge
  */
-class GUIEdge : public MSEdge, public GUIGlObject
-{
+class GUIEdge : public MSEdge, public GUIGlObject {
 public:
     /** @brief Constructor.
      * @param[in] id The id of the edge
@@ -196,8 +195,7 @@ private:
      * @class lane_wrapper_finder
      * @brief A class to find the matching lane wrapper
      */
-    class lane_wrapper_finder
-    {
+    class lane_wrapper_finder {
     public:
         /** @brief constructor */
         explicit lane_wrapper_finder(const MSLane &lane) : myLane(lane) { }

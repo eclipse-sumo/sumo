@@ -56,8 +56,7 @@ MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
 // member method definitions
 // ===========================================================================
 void
-MSVehicleTransfer::addVeh(MSVehicle *veh)
-{
+MSVehicleTransfer::addVeh(MSVehicle *veh) {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
     WRITE_WARNING("Vehicle '" + veh->getID() + "' will be teleported; edge '" + e->getID() + "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
@@ -77,8 +76,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
 
 
 void
-MSVehicleTransfer::checkEmissions(SUMOTime time)
-{
+MSVehicleTransfer::checkEmissions(SUMOTime time) {
     // go through vehicles
     for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         // get the vehicle information
@@ -116,27 +114,23 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
 
 
 MSVehicleTransfer *
-MSVehicleTransfer::getInstance()
-{
+MSVehicleTransfer::getInstance() {
     return myInstance;
 }
 
 
 void
-MSVehicleTransfer::setInstance(MSVehicleTransfer *vt)
-{
+MSVehicleTransfer::setInstance(MSVehicleTransfer *vt) {
     assert(myInstance==0);
     myInstance = vt;
 }
 
 
 MSVehicleTransfer::MSVehicleTransfer()
-        : myNoTransfered(0)
-{}
+        : myNoTransfered(0) {}
 
 
-MSVehicleTransfer::~MSVehicleTransfer()
-{
+MSVehicleTransfer::~MSVehicleTransfer() {
     myInstance = 0;
 }
 

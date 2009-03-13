@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition(NIVissimLoader &parent);

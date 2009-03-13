@@ -34,8 +34,7 @@
 #ifndef FXBASEOBJECT_H
 #include "FXBaseObject.h"
 #endif
-namespace FXEX
-{
+namespace FXEX {
 
 /**
  * :Description
@@ -108,8 +107,7 @@ namespace FXEX
  *  }
  *
  */
-class /*FXAPI */FXThreadEvent : public FXBaseObject
-{
+class /*FXAPI */FXThreadEvent : public FXBaseObject {
     FXDECLARE(FXThreadEvent)
 
 private:

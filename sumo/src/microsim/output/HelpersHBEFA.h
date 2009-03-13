@@ -61,12 +61,11 @@ class MSLane;
  * @class HelpersHBEFA
  * @brief Helper methods for HBEFA-based emission computation
  *
- * The parameter are stored per vehicle class; 6*6 parameter are used, sorted by 
- *  the pollutant (CO2, CO, HC, fuel, NOx, PMx), and the function part 
+ * The parameter are stored per vehicle class; 6*6 parameter are used, sorted by
+ *  the pollutant (CO2, CO, HC, fuel, NOx, PMx), and the function part
  *  (c0, cav1, cav2, c1, c2, c3).
  */
-class HelpersHBEFA
-{
+class HelpersHBEFA {
 public:
     /** @brief Returns the amount of emitted CO given the vehicle type and state (in g/s)
      * @param[in] c The vehicle emission class
@@ -142,7 +141,7 @@ private:
      * @param[in] a The vehicle's current acceleration
      */
     static inline double computeUsing(double *f, double v, double a) throw() {
-        if(a<0) {
+        if (a<0) {
             return 0.;
         }
         v = v * 3.6;

@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Emission :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Emission(NIVissimLoader &parent);

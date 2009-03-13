@@ -53,8 +53,7 @@ class PCTypeMap;
  *
  * @todo reinsert import via shapelib
  */
-class PCLoaderArcView
-{
+class PCLoaderArcView {
 public:
     /** @brief Loads pois/polygons assumed to be stored as shape files-files
      *

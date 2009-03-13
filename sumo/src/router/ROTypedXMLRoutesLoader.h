@@ -57,8 +57,7 @@ class Options;
  * @todo recheck/refactor
  */
 class ROTypedXMLRoutesLoader : public ROAbstractRouteDefLoader,
-            public SUMOSAXHandler
-{
+            public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *

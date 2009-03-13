@@ -42,8 +42,7 @@
 /**
  * @class MSRouteLoader
  */
-class MSRouteLoader
-{
+class MSRouteLoader {
 public:
     /// constructor
     MSRouteLoader(MSNet &net,

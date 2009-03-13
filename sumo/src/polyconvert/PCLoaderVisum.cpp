@@ -66,8 +66,7 @@ using namespace std;
 // ===========================================================================
 void
 PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                         PCTypeMap &tm) throw(ProcessError)
-{
+                         PCTypeMap &tm) throw(ProcessError) {
     if (!oc.isSet("visum-files")) {
         return;
     }
@@ -87,8 +86,7 @@ PCLoaderVisum::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 void
 PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill,
-                    PCTypeMap &tm) throw(ProcessError)
-{
+                    PCTypeMap &tm) throw(ProcessError) {
     string what;
     map<long, Position2D> punkte;
     map<long, Position2DVector> kanten;
@@ -255,7 +253,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             }
             if (!discard) {
                 PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-                if(!toFill.insert(name, poi, layer)) {
+                if (!toFill.insert(name, poi, layer)) {
                     MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
                     delete poi;
                 }
@@ -286,7 +284,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
                 }
                 if (!discard) {
                     Polygon2D *poly = new Polygon2D(id, type, color, vec, false);
-                    if(!toFill.insert(id, poly, 1)) {
+                    if (!toFill.insert(id, poly, 1)) {
                         MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' could not been added.");
                         delete poly;
                     }
@@ -336,7 +334,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             if (!discard) {
                 if (teilflaechen[flaechenelemente[id]].size()>0) {
                     Polygon2D *poly = new Polygon2D(name, type, color, teilflaechen[flaechenelemente[id]], false);
-                    if(!toFill.insert(name, poly, layer)) {
+                    if (!toFill.insert(name, poly, layer)) {
                         MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
                         delete poly;
                     }
@@ -346,7 +344,7 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
                     Position2D pos(x, y);
                     GeoConvHelper::x2cartesian(pos);
                     PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-                    if(!toFill.insert(name, poi, layer)) {
+                    if (!toFill.insert(name, poi, layer)) {
                         MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
                         delete poi;
                     }

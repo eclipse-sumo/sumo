@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Laengenverteilungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Laengenverteilungsdefinition(NIVissimLoader &parent);

@@ -43,8 +43,7 @@
  *
  * The definition of a single phase
  */
-class MSPhaseDefinition
-{
+class MSPhaseDefinition {
 public:
     /// the duration of the phase
     SUMOTime duration;

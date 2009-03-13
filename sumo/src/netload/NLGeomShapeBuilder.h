@@ -54,8 +54,7 @@ class MSNet;
  * @todo Check why the container is not given directly
  * @todo find a better solution than using INVALID_POSITION
  */
-class NLGeomShapeBuilder
-{
+class NLGeomShapeBuilder {
 public:
     /** @brief Constructor
      *

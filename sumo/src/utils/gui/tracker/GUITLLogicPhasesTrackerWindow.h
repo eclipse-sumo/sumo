@@ -66,9 +66,8 @@ class GUITrafficLightLogicWrapper;
  * @brief This window displays a phase diagram for a chosen tl-logic.
  */
 class GUITLLogicPhasesTrackerWindow
-            : public FXMainWindow,
-            public ValueRetriever<std::pair<SUMOTime, MSPhaseDefinition> >
-{
+        : public FXMainWindow,
+            public ValueRetriever<std::pair<SUMOTime, MSPhaseDefinition> > {
     FXDECLARE(GUITLLogicPhasesTrackerWindow)
 public:
     /// Constructor to track current phases
@@ -125,8 +124,7 @@ public:
      * The canvas for the visualisation.
      * The drawing itself id done by the parent.
      */
-    class GUITLLogicPhasesTrackerPanel : public FXGLCanvas
-    {
+    class GUITLLogicPhasesTrackerPanel : public FXGLCanvas {
         FXDECLARE(GUITLLogicPhasesTrackerPanel)
     public:
         /// Constructor

@@ -52,8 +52,7 @@ class ROLane;
  * A router edge extended by the definition about the probability a
  *  vehicle chooses a certain following edge over time.
  */
-class ROJTREdge : public ROEdge
-{
+class ROJTREdge : public ROEdge {
 public:
     /** @brief Constructor
      *

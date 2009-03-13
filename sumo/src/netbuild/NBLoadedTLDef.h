@@ -44,11 +44,9 @@
  * @class NBLoadedTLDef
  * @brief A lodeded (complete) traffic light logic
  */
-class NBLoadedTLDef : public NBTrafficLightDefinition
-{
+class NBLoadedTLDef : public NBTrafficLightDefinition {
 public:
-    class SignalGroup : public Named
-    {
+    class SignalGroup : public Named {
     public:
         SignalGroup(const std::string &id) throw();
         ~SignalGroup() throw();
@@ -75,8 +73,7 @@ public:
         friend class phase_by_time_sorter;
 
     private:
-        class PhaseDef
-        {
+        class PhaseDef {
         public:
             PhaseDef(SUMOTime time, TLColor color)
                     : myTime(time), myColor(color) { }
@@ -86,8 +83,7 @@ public:
             TLColor myColor;
         };
 
-        class phase_by_time_sorter
-        {
+        class phase_by_time_sorter {
         public:
             /// constructor
             explicit phase_by_time_sorter() { }
@@ -104,8 +100,7 @@ public:
     };
 
     class Phase
-                : public Named
-    {
+                : public Named {
     public:
         Phase(const std::string &id, SUMOTime begin, SUMOTime end) throw();
         ~Phase() throw();

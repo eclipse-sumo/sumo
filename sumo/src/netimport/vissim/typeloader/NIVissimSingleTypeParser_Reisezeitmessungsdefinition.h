@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Reisezeitmessungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Reisezeitmessungsdefinition(NIVissimLoader &parent);

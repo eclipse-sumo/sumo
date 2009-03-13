@@ -54,8 +54,7 @@ class findCompetitor;
  * The rules for the right-of-way themselves are stored within the associated
  * "MSJunctionLogic" - structure.
  */
-class MSRightOfWayJunction : public MSLogicJunction
-{
+class MSRightOfWayJunction : public MSLogicJunction {
 public:
     /** Use this constructor only. */
     MSRightOfWayJunction(std::string id, const Position2D &position,

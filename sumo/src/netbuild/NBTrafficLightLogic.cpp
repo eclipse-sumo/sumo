@@ -59,20 +59,17 @@ NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id,
         const std::string &subid, const std::string &type,
         unsigned int noLinks) throw()
         : Named(id), myNoLinks(noLinks), mySubID(subid), myType(type),
-        myOffset(0)
-{}
+        myOffset(0) {}
 
 
-NBTrafficLightLogic::~NBTrafficLightLogic() throw()
-{}
+NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 
 void
 NBTrafficLightLogic::addStep(SUMOTime duration,
                              std::bitset<64> driveMask,
                              std::bitset<64> brakeMask,
-                             std::bitset<64> yellowMask) throw()
-{
+                             std::bitset<64> yellowMask) throw() {
     myPhases.push_back(PhaseDefinition(duration, driveMask, brakeMask, yellowMask));
 }
 
@@ -80,8 +77,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration,
 void
 NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance*/,
                               std::string type,
-                              const std::set<string> &/*inLanes*/) const throw()
-{
+                              const std::set<string> &/*inLanes*/) const throw() {
     into << "   <tl-logic type=\"" << type << "\">\n";
     into << "      <key>" << getID() << "</key>\n";
     into << "      <subkey>" << no << "</subkey>\n";
@@ -113,8 +109,7 @@ NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance
 
 
 bool
-NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const throw()
-{
+NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const throw() {
     if (myPhases.size()!=logic.myPhases.size()) {
         return false;
     }
@@ -130,8 +125,7 @@ NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const throw()
 
 
 SUMOTime
-NBTrafficLightLogic::getDuration() const throw()
-{
+NBTrafficLightLogic::getDuration() const throw() {
     SUMOTime duration = 0;
     for (PhaseDefinitionVector::const_iterator i=myPhases.begin(); i!=myPhases.end(); ++i) {
         duration += (*i).duration;
@@ -141,8 +135,7 @@ NBTrafficLightLogic::getDuration() const throw()
 
 
 void
-NBTrafficLightLogic::closeBuilding() throw()
-{
+NBTrafficLightLogic::closeBuilding() throw() {
     for (size_t i=0; i<myPhases.size()-1;) {
         if (myPhases[i].driveMask!=myPhases[i+1].driveMask
                 ||
@@ -162,8 +155,7 @@ NBTrafficLightLogic::closeBuilding() throw()
 
 
 SUMOTime
-NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const throw()
-{
+NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const throw() {
     SUMOTime dur = 0;
     for (size_t i=0; i<myPhases.size(); ++i) {
         dur += myPhases[i].duration;

@@ -49,12 +49,10 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBDistrictCont::NBDistrictCont() throw()
-{}
+NBDistrictCont::NBDistrictCont() throw() {}
 
 
-NBDistrictCont::~NBDistrictCont() throw()
-{
+NBDistrictCont::~NBDistrictCont() throw() {
     for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         delete((*i).second);
     }
@@ -63,8 +61,7 @@ NBDistrictCont::~NBDistrictCont() throw()
 
 
 bool
-NBDistrictCont::insert(NBDistrict * const district) throw()
-{
+NBDistrictCont::insert(NBDistrict * const district) throw() {
     DistrictCont::const_iterator i = myDistricts.find(district->getID());
     if (i!=myDistricts.end()) return false;
     myDistricts.insert(DistrictCont::value_type(district->getID(), district));
@@ -73,8 +70,7 @@ NBDistrictCont::insert(NBDistrict * const district) throw()
 
 
 NBDistrict *
-NBDistrictCont::retrieve(const string &id) const throw()
-{
+NBDistrictCont::retrieve(const string &id) const throw() {
     DistrictCont::const_iterator i = myDistricts.find(id);
     if (i==myDistricts.end()) return 0;
     return (*i).second;
@@ -82,8 +78,7 @@ NBDistrictCont::retrieve(const string &id) const throw()
 
 
 void
-NBDistrictCont::writeXML(OutputDevice &into) const throw()
-{
+NBDistrictCont::writeXML(OutputDevice &into) const throw() {
     for (DistrictCont::const_iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->writeXML(into);
     }
@@ -92,16 +87,14 @@ NBDistrictCont::writeXML(OutputDevice &into) const throw()
 
 
 size_t
-NBDistrictCont::size() const throw()
-{
+NBDistrictCont::size() const throw() {
     return myDistricts.size();
 }
 
 
 bool
 NBDistrictCont::addSource(const std::string &dist, NBEdge * const source,
-                          SUMOReal weight) throw()
-{
+                          SUMOReal weight) throw() {
     NBDistrict *o = retrieve(dist);
     if (o==0) {
         return false;
@@ -112,8 +105,7 @@ NBDistrictCont::addSource(const std::string &dist, NBEdge * const source,
 
 bool
 NBDistrictCont::addSink(const std::string &dist, NBEdge * const destination,
-                        SUMOReal weight) throw()
-{
+                        SUMOReal weight) throw() {
     NBDistrict *o = retrieve(dist);
     if (o==0) {
         return false;
@@ -123,8 +115,7 @@ NBDistrictCont::addSink(const std::string &dist, NBEdge * const destination,
 
 
 void
-NBDistrictCont::removeFromSinksAndSources(NBEdge * const e) throw()
-{
+NBDistrictCont::removeFromSinksAndSources(NBEdge * const e) throw() {
     for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->removeFromSinksAndSources(e);
     }
@@ -132,8 +123,7 @@ NBDistrictCont::removeFromSinksAndSources(NBEdge * const e) throw()
 
 
 void
-NBDistrictCont::normaliseDistrictPositions() throw()
-{
+NBDistrictCont::normaliseDistrictPositions() throw() {
     for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->normalisePositions();
     }

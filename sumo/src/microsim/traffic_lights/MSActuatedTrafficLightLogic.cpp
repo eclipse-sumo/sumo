@@ -55,14 +55,12 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
     SUMOReal detectorGap)
         : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
         myContinue(false),
-        myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
-{}
+        myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap) {}
 
 
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
-                                  const MSEdgeContinuations &/*edgeContinuations*/)
-{
+                                  const MSEdgeContinuations &/*edgeContinuations*/) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //
@@ -119,8 +117,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
 
 
 
-MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic()
-{
+MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
     {
         for (InductLoopMap::iterator i=myInductLoops.begin(); i!=myInductLoops.end(); ++i) {
             delete(*i).second;
@@ -137,8 +134,7 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic()
 
 
 SUMOTime
-MSActuatedTrafficLightLogic::duration() const
-{
+MSActuatedTrafficLightLogic::duration() const {
     if (myContinue) {
         return 1;
     }
@@ -155,7 +151,7 @@ MSActuatedTrafficLightLogic::duration() const
             if (lanes.empty())    {
                 break;
             }
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
+            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
                 InductLoopMap::const_iterator k = myInductLoops.find(*j);
                 SUMOReal waiting = (SUMOReal)(*k).second->getNVehContributed();
                 SUMOReal tmpdur =  myPassingTime * waiting;
@@ -188,8 +184,7 @@ MSActuatedTrafficLightLogic::duration() const
 
 
 SUMOTime
-MSActuatedTrafficLightLogic::trySwitch(bool)
-{
+MSActuatedTrafficLightLogic::trySwitch(bool) {
     // checks if the actual phase should be continued
     gapControl();
     if (myContinue) {
@@ -210,8 +205,7 @@ MSActuatedTrafficLightLogic::trySwitch(bool)
 
 
 bool
-MSActuatedTrafficLightLogic::isGreenPhase() const
-{
+MSActuatedTrafficLightLogic::isGreenPhase() const {
     if (currentPhaseDef()->getDriveMask().none()) {
         return false;
     }
@@ -223,8 +217,7 @@ MSActuatedTrafficLightLogic::isGreenPhase() const
 
 
 void
-MSActuatedTrafficLightLogic::gapControl()
-{
+MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
     if (!isGreenPhase()) {
@@ -266,8 +259,7 @@ MSActuatedTrafficLightLogic::gapControl()
 
 
 MSActuatedPhaseDefinition *
-MSActuatedTrafficLightLogic::currentPhaseDef() const
-{
+MSActuatedTrafficLightLogic::currentPhaseDef() const {
     assert(myPhases.size()>myStep);
     return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }

@@ -53,8 +53,7 @@ class NBTrafficLightLogicCont;
  *  container. Additionally, the given tls-container may be filled with
  *  additional information.
  */
-class NIXMLNodesHandler : public SUMOSAXHandler
-{
+class NIXMLNodesHandler : public SUMOSAXHandler {
 
 public:
     /** @brief Constructor

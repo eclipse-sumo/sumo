@@ -49,8 +49,7 @@ class MSLane;
  * kind of an operation to determine which cars are allowed to drive in this
  * step.
  */
-class MSLogicJunction : public MSJunction
-{
+class MSLogicJunction : public MSJunction {
 public:
     /** Container for incoming lanes. */
     typedef std::vector< MSLane* > LaneCont;

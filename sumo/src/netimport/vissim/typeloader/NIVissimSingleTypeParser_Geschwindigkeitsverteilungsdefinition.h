@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition(NIVissimLoader &parent);

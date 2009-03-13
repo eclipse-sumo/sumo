@@ -53,8 +53,7 @@ using namespace XERCES_CPP_NAMESPACE;
  *
  * @see SUMOSAXAttributes
  */
-class SUMOSAXAttributesImpl_Xerces : public SUMOSAXAttributes
-{
+class SUMOSAXAttributesImpl_Xerces : public SUMOSAXAttributes {
 public:
     /** @brief Constructor
      *

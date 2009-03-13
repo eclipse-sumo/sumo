@@ -49,8 +49,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBConnection::NBConnection(NBEdge *from, NBEdge *to)
-        : myFrom(from), myTo(to), myFromLane(-1), myToLane(-1)
-{
+        : myFrom(from), myTo(to), myFromLane(-1), myToLane(-1) {
     myFromID = from->getID();
     myToID = to->getID();
 }
@@ -59,14 +58,12 @@ NBConnection::NBConnection(NBEdge *from, NBEdge *to)
 NBConnection::NBConnection(const std::string &fromID, NBEdge *from,
                            const std::string &toID, NBEdge *to)
         : myFrom(from), myTo(to), myFromID(fromID), myToID(toID),
-        myFromLane(-1), myToLane(-1)
-{}
+        myFromLane(-1), myToLane(-1) {}
 
 
 NBConnection::NBConnection(NBEdge *from, int fromLane,
                            NBEdge *to, int toLane)
-        : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane)
-{
+        : myFrom(from), myTo(to), myFromLane(fromLane), myToLane(toLane) {
     assert(myFromLane<0||from->getNoLanes()>(size_t) myFromLane);
     assert(myToLane<0||to->getNoLanes()>(size_t) myToLane);
     myFromID = from->getID();
@@ -74,34 +71,29 @@ NBConnection::NBConnection(NBEdge *from, int fromLane,
 }
 
 
-NBConnection::~NBConnection()
-{}
+NBConnection::~NBConnection() {}
 
 
 NBConnection::NBConnection(const NBConnection &c)
         : myFrom(c.myFrom), myTo(c.myTo),
         myFromID(c.myFromID), myToID(c.myToID),
-        myFromLane(c.myFromLane), myToLane(c.myToLane)
-{}
+        myFromLane(c.myFromLane), myToLane(c.myToLane) {}
 
 
 NBEdge *
-NBConnection::getFrom() const
-{
+NBConnection::getFrom() const {
     return myFrom;
 }
 
 
 NBEdge *
-NBConnection::getTo() const
-{
+NBConnection::getTo() const {
     return myTo;
 }
 
 
 bool
-NBConnection::replaceFrom(NBEdge *which, NBEdge *by)
-{
+NBConnection::replaceFrom(NBEdge *which, NBEdge *by) {
     if (myFrom==which) {
         myFrom = by;
         myFromID = myFrom->getID();
@@ -113,8 +105,7 @@ NBConnection::replaceFrom(NBEdge *which, NBEdge *by)
 
 bool
 NBConnection::replaceFrom(NBEdge *which, int whichLane,
-                          NBEdge *by, int byLane)
-{
+                          NBEdge *by, int byLane) {
     if (myFrom==which&&(myFromLane==(int) whichLane||myFromLane<0)) {
         myFrom = by;
         myFromID = myFrom->getID();
@@ -126,8 +117,7 @@ NBConnection::replaceFrom(NBEdge *which, int whichLane,
 
 
 bool
-NBConnection::replaceTo(NBEdge *which, NBEdge *by)
-{
+NBConnection::replaceTo(NBEdge *which, NBEdge *by) {
     if (myTo==which) {
         myTo = by;
         myToID = myTo->getID();
@@ -139,8 +129,7 @@ NBConnection::replaceTo(NBEdge *which, NBEdge *by)
 
 bool
 NBConnection::replaceTo(NBEdge *which, int whichLane,
-                        NBEdge *by, int byLane)
-{
+                        NBEdge *by, int byLane) {
     if (myTo==which&&(myToLane==(int) whichLane||myFromLane<0)) {
         myTo = by;
         myToID = myTo->getID();
@@ -152,8 +141,7 @@ NBConnection::replaceTo(NBEdge *which, int whichLane,
 
 
 bool
-operator<(const NBConnection &c1, const NBConnection &c2)
-{
+operator<(const NBConnection &c1, const NBConnection &c2) {
     return
         std::pair<NBEdge*, NBEdge*>(c1.getFrom(), c1.getTo())
         <
@@ -163,8 +151,7 @@ operator<(const NBConnection &c1, const NBConnection &c2)
 
 
 bool
-NBConnection::check(const NBEdgeCont &ec)
-{
+NBConnection::check(const NBEdgeCont &ec) {
     myFrom = checkFrom(ec);
     myTo = checkTo(ec);
     return myFrom!=0 && myTo!=0;
@@ -172,8 +159,7 @@ NBConnection::check(const NBEdgeCont &ec)
 
 
 NBEdge *
-NBConnection::checkFrom(const NBEdgeCont &ec)
-{
+NBConnection::checkFrom(const NBEdgeCont &ec) {
     NBEdge *e = ec.retrieve(myFromID);
     // ok, the edge was not changed
     if (e==myFrom) {
@@ -185,8 +171,7 @@ NBConnection::checkFrom(const NBEdgeCont &ec)
 
 
 NBEdge *
-NBConnection::checkTo(const NBEdgeCont &ec)
-{
+NBConnection::checkTo(const NBEdgeCont &ec) {
     NBEdge *e = ec.retrieve(myToID);
     // ok, the edge was not changed
     if (e==myTo) {
@@ -198,8 +183,7 @@ NBConnection::checkTo(const NBEdgeCont &ec)
 
 
 std::string
-NBConnection::getID() const
-{
+NBConnection::getID() const {
     stringstream str;
     str << myFromID << "_" << myFromLane << "->" << myToID << "_" << myToLane;
     return str.str();
@@ -207,15 +191,13 @@ NBConnection::getID() const
 
 
 int
-NBConnection::getFromLane() const
-{
+NBConnection::getFromLane() const {
     return myFromLane;
 }
 
 
 int
-NBConnection::getToLane() const
-{
+NBConnection::getToLane() const {
     return myToLane;
 }
 

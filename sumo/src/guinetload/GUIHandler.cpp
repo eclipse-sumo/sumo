@@ -71,18 +71,15 @@ GUIHandler::GUIHandler(const std::string &file,
                        NLJunctionControlBuilder &junctionBuilder,
                        NLGeomShapeBuilder &shapeBuilder) throw()
         : NLHandler(file, net, detBuilder, triggerBuilder,
-                    edgeBuilder, junctionBuilder, shapeBuilder)
-{}
+                    edgeBuilder, junctionBuilder, shapeBuilder) {}
 
 
-GUIHandler::~GUIHandler() throw()
-{}
+GUIHandler::~GUIHandler() throw() {}
 
 
 void
 GUIHandler::myCharacters(SumoXMLTag element,
-                         const std::string &chars) throw(ProcessError)
-{
+                         const std::string &chars) throw(ProcessError) {
     NLHandler::myCharacters(element, chars);
     switch (element) {
     case SUMO_TAG_SHAPE:
@@ -95,8 +92,7 @@ GUIHandler::myCharacters(SumoXMLTag element,
 
 
 void
-GUIHandler::addJunctionShape(const std::string &chars)
-{
+GUIHandler::addJunctionShape(const std::string &chars) {
     try {
         Position2DVector shape = GeomConvHelper::parseShape(chars);
         static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
@@ -111,15 +107,13 @@ GUIHandler::addJunctionShape(const std::string &chars)
 
 
 MSRoute*
-GUIHandler::buildRoute() throw()
-{
+GUIHandler::buildRoute() throw() {
     return new GUIRoute(myColor, myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
 }
 
 
 void
-GUIHandler::openRoute(const SUMOSAXAttributes &attrs)
-{
+GUIHandler::openRoute(const SUMOSAXAttributes &attrs) {
     myColor =
         RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
     MSRouteHandler::openRoute(attrs);

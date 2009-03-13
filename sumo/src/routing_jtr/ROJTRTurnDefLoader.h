@@ -56,8 +56,7 @@ class RONet;
  * All read values are stored directly into the given network's structures
  *   (edges).
  */
-class ROJTRTurnDefLoader : public SUMOSAXHandler
-{
+class ROJTRTurnDefLoader : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *

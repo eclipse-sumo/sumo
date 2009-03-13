@@ -59,8 +59,7 @@ int MSDevice_HBEFA::myVehicleIndex = 0;
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_HBEFA::insertOptions() throw()
-{
+MSDevice_HBEFA::insertOptions() throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Emissions");
 
@@ -78,8 +77,7 @@ MSDevice_HBEFA::insertOptions() throw()
 
 
 void
-MSDevice_HBEFA::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw()
-{
+MSDevice_HBEFA::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.getFloat("device.hbefa.probability")==0&&!oc.isSet("device.hbefa.knownveh")) {
         // no route computation is modelled
@@ -106,22 +104,19 @@ MSDevice_HBEFA::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) 
 // MSDevice_HBEFA-methods
 // ---------------------------------------------------------------------------
 MSDevice_HBEFA::MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw()
-    : MSDevice(holder, id), myComputeAndCollectCommand(0),
-    myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0)
-{
+        : MSDevice(holder, id), myComputeAndCollectCommand(0),
+        myCO2(0), myCO(0), myHC(0), myPMx(0), myNOx(0), myFuel(0) {
 }
 
 
-MSDevice_HBEFA::~MSDevice_HBEFA() throw()
-{
+MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
     // make the rerouting command invalid
     myComputeAndCollectCommand->deschedule();
 }
 
 
 void
-MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
-{
+MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
     myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
         myComputeAndCollectCommand, MSNet::getInstance()->getCurrentTimeStep(),
@@ -130,8 +125,7 @@ MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
 
 
 SUMOTime
-MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(ProcessError)
-{
+MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(ProcessError) {
     SUMOEmissionClass c = getHolder().getVehicleType().getEmissionClass();
     SUMOReal v = getHolder().getSpeed();
     SUMOReal a = getHolder().getPreDawdleAcceleration();
@@ -145,17 +139,16 @@ MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(Process
 }
 
 
-bool 
-MSDevice_HBEFA::tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError) 
-{
+bool
+MSDevice_HBEFA::tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError) {
     os << intend <<
-        "<emissions CO_abs=\"" << myCO <<
-        "\" CO2_abs=\"" << myCO2 <<
-        "\" HC_abs=\"" << myHC <<
-        "\" PMx_abs=\""<< myPMx <<
-        "\" NOx_abs=\""<< myNOx <<
-        "\" fuel_abs=\""<< myFuel <<
-        "\"/>";
+    "<emissions CO_abs=\"" << myCO <<
+    "\" CO2_abs=\"" << myCO2 <<
+    "\" HC_abs=\"" << myHC <<
+    "\" PMx_abs=\""<< myPMx <<
+    "\" NOx_abs=\""<< myNOx <<
+    "\" fuel_abs=\""<< myFuel <<
+    "\"/>";
     return true;
 }
 

@@ -52,47 +52,40 @@ using namespace std;
  * NBLoadedTLDef::SignalGroup-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::SignalGroup::SignalGroup(const std::string &id) throw()
-        : Named(id)
-{}
+        : Named(id) {}
 
-NBLoadedTLDef::SignalGroup::~SignalGroup() throw()
-{}
+NBLoadedTLDef::SignalGroup::~SignalGroup() throw() {}
 
 void
-NBLoadedTLDef::SignalGroup::addConnection(const NBConnection &c)
-{
+NBLoadedTLDef::SignalGroup::addConnection(const NBConnection &c) {
     assert(c.getFromLane()<0||c.getFrom()->getNoLanes()>(size_t)c.getFromLane());
     myConnections.push_back(c);
 }
 
 
 void
-NBLoadedTLDef::SignalGroup::addPhaseBegin(SUMOTime time, TLColor color)
-{
+NBLoadedTLDef::SignalGroup::addPhaseBegin(SUMOTime time, TLColor color) {
     myPhases.push_back(PhaseDef(time, color));
 }
 
 
 void
 NBLoadedTLDef::SignalGroup::setYellowTimes(SUMOTime tRedYellow,
-        SUMOTime tYellow)
-{
+        SUMOTime tYellow) {
     myTRedYellow = tRedYellow;
     myTYellow = tYellow;
 }
 
 
 void
-NBLoadedTLDef::SignalGroup::sortPhases()
-{
+NBLoadedTLDef::SignalGroup::sortPhases() {
     sort(myPhases.begin(), myPhases.end(),
          phase_by_time_sorter());
 }
 
 
 void
-NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow)
-{
+NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow) {
     if (myTYellow<tyellow) {
         WRITE_WARNING("TYellow of signal group '" + getID()+ "' was less than the computed one; patched (was:" + toString<SUMOTime>(myTYellow) + ", is:" + toString<int>(tyellow) + ")");
         myTYellow = tyellow;
@@ -122,8 +115,7 @@ NBLoadedTLDef::SignalGroup::patchFalseGreenPhases(SUMOReal cycleDuration)
 */
 
 DoubleVector
-NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const
-{
+NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const {
     // within the phase container, we should have the green and red phases
     //  add their times
     DoubleVector ret; // !!! time vector
@@ -156,15 +148,13 @@ NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const
 
 
 size_t
-NBLoadedTLDef::SignalGroup::getLinkNo() const
-{
+NBLoadedTLDef::SignalGroup::getLinkNo() const {
     return myConnections.size();
 }
 
 
 bool
-NBLoadedTLDef::SignalGroup::mayDrive(SUMOTime time) const
-{
+NBLoadedTLDef::SignalGroup::mayDrive(SUMOTime time) const {
     assert(myPhases.size()!=0);
     for (GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
         SUMOTime nextTime = (*i).myTime;
@@ -181,8 +171,7 @@ NBLoadedTLDef::SignalGroup::mayDrive(SUMOTime time) const
 
 
 bool
-NBLoadedTLDef::SignalGroup::hasYellow(SUMOTime time) const
-{
+NBLoadedTLDef::SignalGroup::hasYellow(SUMOTime time) const {
     bool has_red_now = !mayDrive(time);
     bool had_green = mayDrive(time-myTYellow);
     return has_red_now&&had_green;
@@ -208,8 +197,7 @@ NBLoadedTLDef::SignalGroup::mustBrake(SUMOReal time) const
 */
 
 bool
-NBLoadedTLDef::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const
-{
+NBLoadedTLDef::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const {
     for (NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if ((*i).getFrom()==from&&(*i).getTo()==to) {
             return true;
@@ -221,16 +209,14 @@ NBLoadedTLDef::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const
 
 
 const NBConnection &
-NBLoadedTLDef::SignalGroup::getConnection(size_t pos) const
-{
+NBLoadedTLDef::SignalGroup::getConnection(size_t pos) const {
     assert(pos<myConnections.size());
     return myConnections[pos];
 }
 
 
 bool
-NBLoadedTLDef::SignalGroup::containsIncoming(NBEdge *from) const
-{
+NBLoadedTLDef::SignalGroup::containsIncoming(NBEdge *from) const {
     for (NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if ((*i).getFrom()==from) {
             return true;
@@ -241,8 +227,7 @@ NBLoadedTLDef::SignalGroup::containsIncoming(NBEdge *from) const
 
 
 void
-NBLoadedTLDef::SignalGroup::remapIncoming(NBEdge *which, const EdgeVector &by)
-{
+NBLoadedTLDef::SignalGroup::remapIncoming(NBEdge *which, const EdgeVector &by) {
     NBConnectionVector newConns;
     for (NBConnectionVector::iterator i=myConnections.begin(); i!=myConnections.end();) {
         if ((*i).getFrom()==which) {
@@ -265,8 +250,7 @@ NBLoadedTLDef::SignalGroup::remapIncoming(NBEdge *which, const EdgeVector &by)
 
 
 bool
-NBLoadedTLDef::SignalGroup::containsOutgoing(NBEdge *to) const
-{
+NBLoadedTLDef::SignalGroup::containsOutgoing(NBEdge *to) const {
     for (NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if ((*i).getTo()==to) {
             return true;
@@ -277,8 +261,7 @@ NBLoadedTLDef::SignalGroup::containsOutgoing(NBEdge *to) const
 
 
 void
-NBLoadedTLDef::SignalGroup::remapOutgoing(NBEdge *which, const EdgeVector &by)
-{
+NBLoadedTLDef::SignalGroup::remapOutgoing(NBEdge *which, const EdgeVector &by) {
     NBConnectionVector newConns;
     for (NBConnectionVector::iterator i=myConnections.begin(); i!=myConnections.end();) {
         if ((*i).getTo()==which) {
@@ -302,8 +285,7 @@ NBLoadedTLDef::SignalGroup::remapOutgoing(NBEdge *which, const EdgeVector &by)
 
 void
 NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
-                                  NBEdge *by, int byLane)
-{
+                                  NBEdge *by, int byLane) {
     for (NBConnectionVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         if ((*i).getTo()==removed
                 &&
@@ -334,12 +316,10 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::Phase::Phase(const std::string &id, SUMOTime begin, SUMOTime end) throw()
-        : Named(id), myBegin(begin), myEnd(end)
-{}
+        : Named(id), myBegin(begin), myEnd(end) {}
 
 
-NBLoadedTLDef::Phase::~Phase() throw()
-{}
+NBLoadedTLDef::Phase::~Phase() throw() {}
 
 
 /* -------------------------------------------------------------------------
@@ -347,22 +327,18 @@ NBLoadedTLDef::Phase::~Phase() throw()
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id,
                              const std::set<NBNode*> &junctions) throw()
-        : NBTrafficLightDefinition(id, junctions)
-{}
+        : NBTrafficLightDefinition(id, junctions) {}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id, NBNode *junction) throw()
-        : NBTrafficLightDefinition(id, junction)
-{}
+        : NBTrafficLightDefinition(id, junction) {}
 
 
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id) throw()
-        : NBTrafficLightDefinition(id)
-{}
+        : NBTrafficLightDefinition(id) {}
 
 
-NBLoadedTLDef::~NBLoadedTLDef() throw()
-{
+NBLoadedTLDef::~NBLoadedTLDef() throw() {
     for (SignalGroupCont::iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); ++i) {
         delete(*i).second;
     }
@@ -370,8 +346,7 @@ NBLoadedTLDef::~NBLoadedTLDef() throw()
 
 
 NBTrafficLightLogicVector *
-NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string type)
-{
+NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string type) {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
     // compute the switching times
@@ -437,8 +412,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
 
 
 void
-NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
-{
+NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const {
     // assign the links to the connections
     size_t pos = 0;
     for (SignalGroupCont::const_iterator m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
@@ -463,8 +437,7 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
 }
 
 NBLoadedTLDef::Masks
-NBLoadedTLDef::buildPhaseMasks(const NBEdgeCont &ec, size_t time) const
-{
+NBLoadedTLDef::buildPhaseMasks(const NBEdgeCont &ec, size_t time) const {
     // set the masks
     Masks masks;
     size_t pos = 0;
@@ -516,8 +489,7 @@ NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
                          const NBConnection &possProhibited,
                          const std::bitset<64> &green,
                          const std::bitset<64> &/*yellow*/,
-                         size_t strmpos) const
-{
+                         size_t strmpos) const {
     // check whether the stream has red
     if (!green.test(strmpos)) {
         return true;
@@ -567,8 +539,7 @@ NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
 
 
 void
-NBLoadedTLDef::collectNodes()
-{
+NBLoadedTLDef::collectNodes() {
     SignalGroupCont::const_iterator m;
     for (m=mySignalGroups.begin(); m!=mySignalGroups.end(); m++) {
         SignalGroup *group = (*m).second;
@@ -584,8 +555,7 @@ NBLoadedTLDef::collectNodes()
 
 
 void
-NBLoadedTLDef::collectLinks()
-{
+NBLoadedTLDef::collectLinks() {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
@@ -604,8 +574,7 @@ NBLoadedTLDef::collectLinks()
 
 
 NBLoadedTLDef::SignalGroup *
-NBLoadedTLDef::findGroup(NBEdge *from, NBEdge *to) const
-{
+NBLoadedTLDef::findGroup(NBEdge *from, NBEdge *to) const {
     for (SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         if ((*i).second->containsConnection(from, to)) {
             return (*i).second;
@@ -618,8 +587,7 @@ NBLoadedTLDef::findGroup(NBEdge *from, NBEdge *to) const
 
 bool
 NBLoadedTLDef::addToSignalGroup(const std::string &groupid,
-                                const NBConnection &connection)
-{
+                                const NBConnection &connection) {
     if (mySignalGroups.find(groupid)==mySignalGroups.end()) {
         return false;
     }
@@ -640,8 +608,7 @@ NBLoadedTLDef::addToSignalGroup(const std::string &groupid,
 
 bool
 NBLoadedTLDef::addToSignalGroup(const std::string &groupid,
-                                const NBConnectionVector &connections)
-{
+                                const NBConnectionVector &connections) {
     bool ok = true;
     for (NBConnectionVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
         ok &= addToSignalGroup(groupid, *i);
@@ -651,8 +618,7 @@ NBLoadedTLDef::addToSignalGroup(const std::string &groupid,
 
 
 void
-NBLoadedTLDef::addSignalGroup(const std::string &id)
-{
+NBLoadedTLDef::addSignalGroup(const std::string &id) {
     assert(mySignalGroups.find(id)==mySignalGroups.end());
     mySignalGroups[id] = new SignalGroup(id);
 }
@@ -660,24 +626,21 @@ NBLoadedTLDef::addSignalGroup(const std::string &id)
 
 void
 NBLoadedTLDef::addSignalGroupPhaseBegin(const std::string &groupid, SUMOTime time,
-                                        TLColor color)
-{
+                                        TLColor color) {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
     mySignalGroups[groupid]->addPhaseBegin(time, color);
 }
 
 void
 NBLoadedTLDef::setSignalYellowTimes(const std::string &groupid,
-                                    SUMOTime myTRedYellow, SUMOTime myTYellow)
-{
+                                    SUMOTime myTRedYellow, SUMOTime myTYellow) {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
     mySignalGroups[groupid]->setYellowTimes(myTRedYellow, myTYellow);
 }
 
 
 void
-NBLoadedTLDef::setCycleDuration(size_t cycleDur)
-{
+NBLoadedTLDef::setCycleDuration(size_t cycleDur) {
     myCycleDuration = cycleDur;
 }
 
@@ -685,8 +648,7 @@ NBLoadedTLDef::setCycleDuration(size_t cycleDur)
 void
 NBLoadedTLDef::remapRemoved(NBEdge *removed,
                             const EdgeVector &incoming,
-                            const EdgeVector &outgoing)
-{
+                            const EdgeVector &outgoing) {
     for (SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
         if (group->containsIncoming(removed)) {
@@ -701,8 +663,7 @@ NBLoadedTLDef::remapRemoved(NBEdge *removed,
 
 void
 NBLoadedTLDef::replaceRemoved(NBEdge *removed, int removedLane,
-                              NBEdge *by, int byLane)
-{
+                              NBEdge *by, int byLane) {
     for (SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
         if (group->containsIncoming(removed)||group->containsOutgoing(removed)) {

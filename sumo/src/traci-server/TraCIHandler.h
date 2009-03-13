@@ -46,10 +46,8 @@
  * The class is currently used to determine the maximum number of vehicles
  * before simulation start.
  */
-namespace traci
-{
-class TraCIHandler : public SUMOSAXHandler
-{
+namespace traci {
+class TraCIHandler : public SUMOSAXHandler {
 public:
     /**
      * @brief Constructor

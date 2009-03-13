@@ -43,8 +43,7 @@
  * A class that stores the relationship between incoming edges and the
  * junction type resulting from their types.
  */
-class NBJunctionTypesMatrix
-{
+class NBJunctionTypesMatrix {
 public:
     /** constructor */
     NBJunctionTypesMatrix();
@@ -65,8 +64,7 @@ private:
      * priority_finder
      * Searches for the named priority in the range container
      */
-    class range_finder
-    {
+    class range_finder {
     public:
         /** constructor */
         explicit range_finder(SUMOReal speed) : mySpeed(speed) { }

@@ -50,8 +50,7 @@ class OptionsCont;
  *
  * The class assumes all options are unset or using default values only.
  */
-class OptionsParser
-{
+class OptionsParser {
 public:
     /** @brief Parses the given command line arguments
      *

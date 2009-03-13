@@ -52,8 +52,7 @@ class OptionsCont;
  * XML-reading loaders are not derived directly, but use the derived
  *  ROTypedXMLRoutesLoader class as their upper class.
  */
-class ROAbstractRouteDefLoader
-{
+class ROAbstractRouteDefLoader {
 public:
     /** @brief Constructor
      *

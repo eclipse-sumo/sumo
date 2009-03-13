@@ -48,8 +48,7 @@ extern std::map<MSVehicle *, MSPhoneCell*> LastCells;
  * @class MSPhoneNet
  * @brief The cellular network (GSM)
  */
-class MSPhoneNet
-{
+class MSPhoneNet {
 public:
     /// Constructor
     MSPhoneNet();

@@ -57,13 +57,11 @@ SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string 
         bool edgeBased,
         EdgeFloatTimeLineRetriever &destination)
         : myDestination(destination), myAmEdgeBased(edgeBased),
-        myAttributeName(attributeName)
-{
+        myAttributeName(attributeName) {
 }
 
 
-SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
-{
+SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition() {
 }
 
 
@@ -74,21 +72,18 @@ SAXWeightsHandler::SAXWeightsHandler(const std::vector<ToRetrieveDefinition*> &d
                                      const std::string &file)
         : SUMOSAXHandler(file),
         myCurrentTimeBeg(-1), myCurrentTimeEnd(-1),
-        myDefinitions(defs)
-{}
+        myDefinitions(defs) {}
 
 
 SAXWeightsHandler::SAXWeightsHandler(ToRetrieveDefinition *def,
                                      const std::string &file)
         : SUMOSAXHandler(file),
-        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1)
-{
+        myCurrentTimeBeg(-1), myCurrentTimeEnd(-1) {
     myDefinitions.push_back(def);
 }
 
 
-SAXWeightsHandler::~SAXWeightsHandler() throw()
-{
+SAXWeightsHandler::~SAXWeightsHandler() throw() {
     std::vector<ToRetrieveDefinition*>::iterator i;
     for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
         delete *i;
@@ -97,8 +92,7 @@ SAXWeightsHandler::~SAXWeightsHandler() throw()
 
 
 void SAXWeightsHandler::myStartElement(SumoXMLTag element,
-                                       const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                       const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_INTERVAL:
         try {
@@ -122,8 +116,7 @@ void SAXWeightsHandler::myStartElement(SumoXMLTag element,
 
 
 void
-SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge)
-{
+SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge) {
     std::vector<ToRetrieveDefinition*>::iterator i;
     if (isEdge) {
         // process all that want values directly from the edge
@@ -167,8 +160,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge)
 
 
 void
-SAXWeightsHandler::myEndElement(SumoXMLTag element) throw()
-{
+SAXWeightsHandler::myEndElement(SumoXMLTag element) throw() {
     if (element==SUMO_TAG_EDGE) {
         std::vector<ToRetrieveDefinition*>::iterator i;
         for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {

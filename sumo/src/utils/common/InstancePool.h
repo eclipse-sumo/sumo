@@ -42,8 +42,7 @@
  * @brief A pool of resuable instances
  */
 template<typename T>
-class InstancePool
-{
+class InstancePool {
 public:
     /** @brief Constructor
      *

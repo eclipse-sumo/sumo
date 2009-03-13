@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Linksverkehr::NIVissimSingleTypeParser_Linksverkehr(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Linksverkehr::~NIVissimSingleTypeParser_Linksverkehr()
-{}
+NIVissimSingleTypeParser_Linksverkehr::~NIVissimSingleTypeParser_Linksverkehr() {}
 
 
 bool
-NIVissimSingleTypeParser_Linksverkehr::parse(std::istream &)
-{
+NIVissimSingleTypeParser_Linksverkehr::parse(std::istream &) {
     return true;
 }
 

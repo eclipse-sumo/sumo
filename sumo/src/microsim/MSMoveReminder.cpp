@@ -36,8 +36,7 @@
 // method definitions
 // ===========================================================================
 MSMoveReminder::MSMoveReminder(MSLane * const lane) throw()
-        : myLane(lane)
-{
+        : myLane(lane) {
     if (myLane!=0) {
         // add reminder to lane
         myLane->addMoveReminder(this);

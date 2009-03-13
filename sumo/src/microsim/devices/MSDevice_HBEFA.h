@@ -58,8 +58,7 @@ class MSLane;
  * @see MSDevice
  * @see HelpersHBEFA
  */
-class MSDevice_HBEFA : public MSDevice
-{
+class MSDevice_HBEFA : public MSDevice {
 public:
     /** @brief Inserts MSDevice_HBEFA-options
      */
@@ -92,7 +91,7 @@ public:
 
     /** @brief Computes a new route on vehicle emission
      *
-     * An event is created and added to the list of simulation step end 
+     * An event is created and added to the list of simulation step end
      *  events which executes "wrappedComputeCommandExecute".
      *
      * @param[in] enteredLane The lane the vehicle enters
@@ -157,7 +156,7 @@ private:
 
     /// @name Internal storages for pollutant/fuel sum
     /// @{
-    
+
     SUMOReal myCO2, myCO, myHC, myPMx, myNOx, myFuel;
 
     /// @}

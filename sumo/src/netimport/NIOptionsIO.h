@@ -37,8 +37,7 @@
  * @class NIOptionsIO
  * @brief Sets and checks options for netimport
  */
-class NIOptionsIO
-{
+class NIOptionsIO {
 public:
     /** @brief Inserts options used by the network importer and network building modules
      *

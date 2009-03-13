@@ -50,52 +50,44 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ODDistrict::ODDistrict(const std::string &id) throw()
-        : Named(id)
-{}
+        : Named(id) {}
 
 
-ODDistrict::~ODDistrict() throw()
-{}
+ODDistrict::~ODDistrict() throw() {}
 
 
 void
-ODDistrict::addSource(const std::string &id, SUMOReal weight) throw()
-{
+ODDistrict::addSource(const std::string &id, SUMOReal weight) throw() {
     mySources.add(weight, id);
 }
 
 
 void
-ODDistrict::addSink(const std::string &id, SUMOReal weight) throw()
-{
+ODDistrict::addSink(const std::string &id, SUMOReal weight) throw() {
     mySinks.add(weight, id);
 }
 
 
 std::string
-ODDistrict::getRandomSource() const throw(OutOfBoundsException)
-{
+ODDistrict::getRandomSource() const throw(OutOfBoundsException) {
     return mySources.get();
 }
 
 
 std::string
-ODDistrict::getRandomSink() const throw(OutOfBoundsException)
-{
+ODDistrict::getRandomSink() const throw(OutOfBoundsException) {
     return mySinks.get();
 }
 
 
 unsigned int
-ODDistrict::sinkNumber() const
-{
+ODDistrict::sinkNumber() const {
     return (unsigned int) mySinks.getVals().size();
 }
 
 
 unsigned int
-ODDistrict::sourceNumber() const
-{
+ODDistrict::sourceNumber() const {
     return (unsigned int) mySources.getVals().size();
 }
 

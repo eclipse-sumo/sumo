@@ -50,8 +50,7 @@ class MSNet;
  * This class is responsible for building event-handling actions which
  *  the simulation shall execute.
  */
-class NLDiscreteEventBuilder
-{
+class NLDiscreteEventBuilder {
 public:
     /// Known action types
     enum ActionType {

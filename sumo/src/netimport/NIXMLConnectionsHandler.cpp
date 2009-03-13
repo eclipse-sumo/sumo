@@ -62,18 +62,15 @@ using namespace std;
 // ===========================================================================
 NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec) throw()
         : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec),
-        myHaveReportedAboutFunctionDeprecation(false)
-{}
+        myHaveReportedAboutFunctionDeprecation(false) {}
 
 
-NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw()
-{}
+NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw() {}
 
 
 void
 NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
-                                        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_RESET) {
         string from = attrs.getStringSecure(SUMO_ATTR_FROM, "");
         string to = attrs.getStringSecure(SUMO_ATTR_TO, "");
@@ -146,8 +143,7 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
 
 NBConnection
 NIXMLConnectionsHandler::parseConnection(const std::string &defRole,
-        const string &def) throw()
-{
+        const string &def) throw() {
     // split from/to
     size_t div = def.find("->");
     if (div==string::npos) {
@@ -184,8 +180,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string &defRole,
 void
 NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
                                         NBEdge *from,
-                                        NBEdge *to) throw()
-{
+                                        NBEdge *to) throw() {
     if (to==0) {
         // do nothing if it's a dead end
         return;

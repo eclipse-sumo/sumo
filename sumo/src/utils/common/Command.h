@@ -56,8 +56,7 @@
  * @see WrappingCommand
  * @see MSEventControl
  */
-class Command
-{
+class Command {
 public:
     /// @brief Constructor
     Command() throw() { }

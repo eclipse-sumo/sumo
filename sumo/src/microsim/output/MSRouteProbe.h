@@ -62,15 +62,13 @@ class MSVehicle;
  * @see Named
  */
 
-class MSRouteProbe : public MSDetectorFileOutput, public Named
-{
+class MSRouteProbe : public MSDetectorFileOutput, public Named {
 public:
     /**
      * @class EntryReminder
      * @brief A place on the road net (at a certain lane and position on it) where the E3-area begins
      */
-    class EntryReminder : public MSMoveReminder
-    {
+    class EntryReminder : public MSMoveReminder {
     public:
         /** @brief Constructor
          *

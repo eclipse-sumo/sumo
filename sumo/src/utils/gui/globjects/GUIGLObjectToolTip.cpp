@@ -60,8 +60,7 @@ FXIMPLEMENT(GUIGLObjectToolTip,FXToolTip,GUIGLObjectToolTipMap,ARRAYNUMBER(GUIGL
 GUIGLObjectToolTip::GUIGLObjectToolTip(FXWindow *a)
         : FXToolTip(a->getApp(), /*TOOLTIP_NORMAL*/TOOLTIP_PERMANENT, 0, 0, 200, 200),
         myFont(a->getApp()->getNormalFont()),
-        myObject(0)
-{
+        myObject(0) {
     setBackColor((255)|(204<<8)|(0<<16));
     myTextHeight = myFont->getFontHeight();
     create();
@@ -69,13 +68,11 @@ GUIGLObjectToolTip::GUIGLObjectToolTip(FXWindow *a)
 }
 
 
-GUIGLObjectToolTip::~GUIGLObjectToolTip()
-{}
+GUIGLObjectToolTip::~GUIGLObjectToolTip() {}
 
 void
 GUIGLObjectToolTip::setObjectTip(GUIGlObject *object,
-                                 FXint x, FXint y)
-{
+                                 FXint x, FXint y) {
     // check whether the object has changed
     bool objectChanged = (myObject!=object);
     // save current object
@@ -109,8 +106,7 @@ GUIGLObjectToolTip::setObjectTip(GUIGlObject *object,
 
 
 long
-GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void*)
-{
+GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void*) {
     if (myObject==0) {
         return 1;
     }
@@ -129,29 +125,25 @@ GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void*)
 
 
 FXint
-GUIGLObjectToolTip::getDefaultWidth()
-{
+GUIGLObjectToolTip::getDefaultWidth() {
     return myWidth;
 }
 
 
 FXint
-GUIGLObjectToolTip::getDefaultHeight()
-{
+GUIGLObjectToolTip::getDefaultHeight() {
     return myHeight;
 }
 
 
 long
-GUIGLObjectToolTip::onTipShow(FXObject*,FXSelector,void*)
-{
+GUIGLObjectToolTip::onTipShow(FXObject*,FXSelector,void*) {
     return 1;
 }
 
 
 long
-GUIGLObjectToolTip::onTipHide(FXObject*,FXSelector,void*)
-{
+GUIGLObjectToolTip::onTipHide(FXObject*,FXSelector,void*) {
     return 1;
 }
 

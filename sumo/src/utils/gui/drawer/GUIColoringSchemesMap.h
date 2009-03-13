@@ -38,8 +38,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class BaseSchemeInfoSource
-{
+class BaseSchemeInfoSource {
 public:
     virtual ~BaseSchemeInfoSource() { }
 
@@ -58,8 +57,7 @@ public:
  * numerical representation within a filled chooser widget.
  */
 template<class T1>
-class GUIColoringSchemesMap : public BaseSchemeInfoSource
-{
+class GUIColoringSchemesMap : public BaseSchemeInfoSource {
 public:
     /// Constructor
     GUIColoringSchemesMap() { }

@@ -42,8 +42,7 @@
  *  classes
  */
 class Distribution_MeanDev :
-            public Distribution
-{
+            public Distribution {
 public:
     /// Constructor
     Distribution_MeanDev(const std::string &id, SUMOReal mean,

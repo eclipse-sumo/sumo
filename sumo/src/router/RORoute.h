@@ -51,8 +51,7 @@ class OutputDevice;
  * This class represents a single and complete vehicle route after being
  *  computed/imported.
  */
-class RORoute : public Named
-{
+class RORoute : public Named {
 public:
     /** @brief Constructor
      *

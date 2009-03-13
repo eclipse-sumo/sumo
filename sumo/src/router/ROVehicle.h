@@ -52,8 +52,7 @@ class OutputDevice;
  * @class ROVehicle
  * @brief A vehicle as used by router
  */
-class ROVehicle
-{
+class ROVehicle {
 public:
     /** @brief Constructor
      *

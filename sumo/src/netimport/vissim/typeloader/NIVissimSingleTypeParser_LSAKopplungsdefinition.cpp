@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_LSAKopplungsdefinition::NIVissimSingleTypeParser_LSAKopplungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_LSAKopplungsdefinition::~NIVissimSingleTypeParser_LSAKopplungsdefinition()
-{}
+NIVissimSingleTypeParser_LSAKopplungsdefinition::~NIVissimSingleTypeParser_LSAKopplungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_LSAKopplungsdefinition::parse(std::istream &)
-{
+NIVissimSingleTypeParser_LSAKopplungsdefinition::parse(std::istream &) {
     return true;
 }
 

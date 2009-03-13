@@ -62,8 +62,7 @@
  *
  * The Boolean markers are used rarely and might get removed in future versions.
  */
-class OutputDevice
-{
+class OutputDevice {
 public:
     /// @name static access methods to OutputDevices
     /// @{

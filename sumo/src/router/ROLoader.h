@@ -59,8 +59,7 @@ class ROVehicle;
  *
  * Is capable to either load all routes in one step or go through them step wise.
  */
-class ROLoader
-{
+class ROLoader {
 public:
     /** @brief Constructor
      *
@@ -142,8 +141,7 @@ protected:
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
      */
-    class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
-    {
+    class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// Constructor
         EdgeFloatTimeLineRetriever_EdgeWeight(RONet *net);
@@ -167,8 +165,7 @@ protected:
      * @class EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight
      * @brief Obtains supplementary edge weights from a weights handler and stores them within the edges
      */
-    class EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight
-    {
+    class EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight {
     public:
         /**
          * enum Type
@@ -187,8 +184,7 @@ protected:
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-        class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
-        {
+        class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
         public:
             /// Constructor
             SingleWeightRetriever(Type type, EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight *parent);

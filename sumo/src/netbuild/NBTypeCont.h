@@ -50,8 +50,7 @@
  * Additionally, a default type is stored which is used if no type information
  *  is given.
  */
-class NBTypeCont
-{
+class NBTypeCont {
 public:
     /// @brief Constructor
     NBTypeCont() throw() {}

@@ -62,8 +62,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         SUMOReal xoff, SUMOReal yoff,
         int x, int y)
         : FXDialogBox(parent, name, DECOR_TITLE|DECOR_BORDER, x, y, 0, 0),
-        myParent(parent), myOldZoom(zoom), myOldXOff(xoff), myOldYOff(yoff)
-{
+        myParent(parent), myOldZoom(zoom), myOldXOff(xoff), myOldYOff(yoff) {
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this,
                             LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X,
@@ -112,13 +111,11 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
 }
 
 
-GUIDialog_EditViewport::~GUIDialog_EditViewport()
-{}
+GUIDialog_EditViewport::~GUIDialog_EditViewport() {}
 
 
 long
-GUIDialog_EditViewport::onCmdOk(FXObject*,FXSelector,void*)
-{
+GUIDialog_EditViewport::onCmdOk(FXObject*,FXSelector,void*) {
     myParent->setViewport((SUMOReal) myZoom->getValue(),
                           (SUMOReal) myXOff->getValue(), (SUMOReal) myYOff->getValue());
     hide();
@@ -127,8 +124,7 @@ GUIDialog_EditViewport::onCmdOk(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_EditViewport::onCmdCancel(FXObject*,FXSelector,void*)
-{
+GUIDialog_EditViewport::onCmdCancel(FXObject*,FXSelector,void*) {
     myParent->setViewport(myOldZoom, myOldXOff, myOldYOff);
     hide();
     return 1;
@@ -136,8 +132,7 @@ GUIDialog_EditViewport::onCmdCancel(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_EditViewport::onCmdChanged(FXObject*,FXSelector,void*)
-{
+GUIDialog_EditViewport::onCmdChanged(FXObject*,FXSelector,void*) {
     myParent->setViewport((SUMOReal) myZoom->getValue(),
                           (SUMOReal) myXOff->getValue(), (SUMOReal) myYOff->getValue());
     return 1;
@@ -146,8 +141,7 @@ GUIDialog_EditViewport::onCmdChanged(FXObject*,FXSelector,void*)
 
 void
 GUIDialog_EditViewport::setValues(SUMOReal zoom,
-                                  SUMOReal xoff, SUMOReal yoff)
-{
+                                  SUMOReal xoff, SUMOReal yoff) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
@@ -155,8 +149,7 @@ GUIDialog_EditViewport::setValues(SUMOReal zoom,
 
 
 void
-GUIDialog_EditViewport::setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff)
-{
+GUIDialog_EditViewport::setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
@@ -167,8 +160,7 @@ GUIDialog_EditViewport::setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff
 
 
 bool
-GUIDialog_EditViewport::haveGrabbed() const
-{
+GUIDialog_EditViewport::haveGrabbed() const {
     return myZoom->getDial().grabbed()||myXOff->getDial().grabbed()||myYOff->getDial().grabbed();
 }
 

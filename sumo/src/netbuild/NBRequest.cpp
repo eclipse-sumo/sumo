@@ -74,8 +74,7 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
                      const EdgeVector * const outgoing,
                      const NBConnectionProhibits &loadedProhibits)
         : myJunction(junction),
-        myAll(all), myIncoming(incoming), myOutgoing(outgoing)
-{
+        myAll(all), myIncoming(incoming), myOutgoing(outgoing) {
     size_t variations = myIncoming->size() * myOutgoing->size();
     // build maps with information which forbidding connection were
     //  computed and what's in there
@@ -152,14 +151,12 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
 }
 
 
-NBRequest::~NBRequest()
-{}
+NBRequest::~NBRequest() {}
 
 
 void
 NBRequest::buildBitfieldLogic(NBJunctionLogicCont &jc,
-                              const std::string &key)
-{
+                              const std::string &key) {
     EdgeVector::const_iterator i, j;
     for (i=myIncoming->begin(); i!=myIncoming->end(); i++) {
         for (j=myOutgoing->begin(); j!=myOutgoing->end(); j++) {
@@ -172,8 +169,7 @@ NBRequest::buildBitfieldLogic(NBJunctionLogicCont &jc,
 
 
 void
-NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
-{
+NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to) {
     EdgeVector::const_iterator pfrom = find(myAll->begin(), myAll->end(), from);
     while (*pfrom!=to) {
         NBContHelper::nextCCW(myAll, pfrom);
@@ -192,8 +188,7 @@ NBRequest::computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
 
 
 void
-NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
-{
+NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to) {
     EdgeVector::const_iterator pfrom = find(myAll->begin(), myAll->end(), from);
     while (*pfrom!=to) {
         NBContHelper::nextCW(myAll, pfrom);
@@ -213,8 +208,7 @@ NBRequest::computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to)
 
 void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
-                       NBEdge *from2, NBEdge *to2)
-{
+                       NBEdge *from2, NBEdge *to2) {
     // check whether one of the links has a dead end
     if (to1==0||to2==0) {
         return;
@@ -308,8 +302,7 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
 
 
 size_t
-NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to)
-{
+NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to) {
     EdgeVector::const_iterator p = find(myAll->begin(), myAll->end(), from);
     size_t ret = 0;
     while (true) {
@@ -326,8 +319,7 @@ NBRequest::distanceCounterClockwise(NBEdge *from, NBEdge *to)
 
 
 string
-NBRequest::bitsetToXML(string key)
-{
+NBRequest::bitsetToXML(string key) {
     ostringstream os;
     // reset signalised/non-signalised dependencies
     resetSignalised();
@@ -357,8 +349,7 @@ NBRequest::bitsetToXML(string key)
 
 
 void
-NBRequest::resetSignalised()
-{
+NBRequest::resetSignalised() {
     // go through possible prohibitions
     for (EdgeVector::const_iterator i11=myIncoming->begin(); i11!=myIncoming->end(); i11++) {
         unsigned int noLanesEdge1 = (*i11)->getNoLanes();
@@ -418,8 +409,7 @@ NBRequest::resetSignalised()
 
 
 pair<unsigned int, unsigned int>
-NBRequest::getSizes() const
-{
+NBRequest::getSizes() const {
     unsigned int noLanes = 0;
     unsigned int noLinks = 0;
     for (EdgeVector::const_iterator i=myIncoming->begin();
@@ -428,7 +418,7 @@ NBRequest::getSizes() const
         for (unsigned int j=0; j<noLanesEdge; j++) {
             // assert that at least one edge is approached from this lane
             assert((*i)->getConnectionsFromLane(j).size()!=0);
-            noLinks += (unsigned int) (*i)->getConnectionsFromLane(j).size();
+            noLinks += (unsigned int)(*i)->getConnectionsFromLane(j).size();
         }
         noLanes += noLanesEdge;
     }
@@ -438,8 +428,7 @@ NBRequest::getSizes() const
 
 bool
 NBRequest::foes(NBEdge *from1, NBEdge *to1,
-                NBEdge *from2, NBEdge *to2) const
-{
+                NBEdge *from2, NBEdge *to2) const {
     // unconnected edges do not forbid other edges
     if (to1==0 || to2==0) {
         return false;
@@ -459,8 +448,7 @@ NBRequest::foes(NBEdge *from1, NBEdge *to1,
 bool
 NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
                    NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
-                   bool regardNonSignalisedLowerPriority) const
-{
+                   bool regardNonSignalisedLowerPriority) const {
     // unconnected edges do not forbid other edges
     if (possProhibitorTo==0 || possProhibitedTo==0) {
         return false;
@@ -491,8 +479,7 @@ NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
 
 int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
-                             int fromLane, int pos)
-{
+                             int fromLane, int pos) {
     vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
     for (vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
@@ -515,8 +502,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
 
 void
 NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEdge * const to,
-                         int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError)
-{
+                         int fromLane, int toLane, bool mayDefinitelyPass) const throw(IOError) {
     int idx = 0;
     if (to!=0) {
         idx = getIndex(from, to);
@@ -554,8 +540,7 @@ NBRequest::writeResponse(std::ostream &os, const NBEdge * const from, const NBEd
 
 
 void
-NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInnerEnd)
-{
+NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInnerEnd) {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
     // junction
@@ -589,8 +574,7 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
 
 
 int
-NBRequest::getIndex(const NBEdge * const from, const NBEdge * const to) const throw()
-{
+NBRequest::getIndex(const NBEdge * const from, const NBEdge * const to) const throw() {
     EdgeVector::const_iterator fp = find(myIncoming->begin(), myIncoming->end(), from);
     EdgeVector::const_iterator tp = find(myOutgoing->begin(), myOutgoing->end(), to);
     if (fp==myIncoming->end()||tp==myOutgoing->end()) {
@@ -602,8 +586,7 @@ NBRequest::getIndex(const NBEdge * const from, const NBEdge * const to) const th
 
 
 std::ostream &
-operator<<(std::ostream &os, const NBRequest &r)
-{
+operator<<(std::ostream &os, const NBRequest &r) {
     size_t variations = r.myIncoming->size() * r.myOutgoing->size();
     for (size_t i=0; i<variations; i++) {
         os << i << ' ';
@@ -621,8 +604,7 @@ operator<<(std::ostream &os, const NBRequest &r)
 
 
 bool
-NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
-{
+NBRequest::mustBrake(NBEdge *from, NBEdge *to) const {
     // vehicles which do not have a following lane must always decelerate to the end
     if (to==0) {
         return true;
@@ -646,8 +628,7 @@ NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
 
 
 bool
-NBRequest::mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
-{
+NBRequest::mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const {
     // get the indices
     int idx1 = getIndex(from1, to1);
     int idx2 = getIndex(from2, to2);
@@ -656,8 +637,7 @@ NBRequest::mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) con
 
 
 void
-NBRequest::reportWarnings()
-{
+NBRequest::reportWarnings() {
     // check if any errors occured on build the link prohibitions
     if (myNotBuild!=0) {
         WRITE_WARNING(toString<int>(myNotBuild) + " of " + toString<int>(myNotBuild+myGoodBuilds)+ " prohibitions were not build.");

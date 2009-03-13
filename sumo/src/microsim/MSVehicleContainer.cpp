@@ -51,8 +51,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 bool
 MSVehicleContainer::VehicleDepartureVectorSortCrit::operator()
-(const VehicleDepartureVector& e1, const VehicleDepartureVector& e2) const
-{
+(const VehicleDepartureVector& e1, const VehicleDepartureVector& e2) const {
     return e1.first < e2.first;
 }
 
@@ -62,14 +61,12 @@ MSVehicleContainer::VehicleDepartureVectorSortCrit::operator()
  * methods from MSVehicleContainer::DepartFinder
  * ----------------------------------------------------------------------- */
 MSVehicleContainer::DepartFinder::DepartFinder(SUMOTime time)
-        : myTime(time)
-{}
+        : myTime(time) {}
 
 
 bool
 MSVehicleContainer::DepartFinder::operator()
-(const VehicleDepartureVector& e) const
-{
+(const VehicleDepartureVector& e) const {
     return myTime == e.first;
 }
 
@@ -79,19 +76,16 @@ MSVehicleContainer::DepartFinder::operator()
  * methods from MSVehicleContainer
  * ----------------------------------------------------------------------- */
 MSVehicleContainer::MSVehicleContainer(size_t capacity)
-        : currentSize(0), array(capacity + 1, VehicleDepartureVector())
-{}
+        : currentSize(0), array(capacity + 1, VehicleDepartureVector()) {}
 
 
-MSVehicleContainer::~MSVehicleContainer()
-{
+MSVehicleContainer::~MSVehicleContainer() {
     // !!! vehicles are deleted in MSVehicle
 }
 
 
 void
-MSVehicleContainer::add(MSVehicle *veh)
-{
+MSVehicleContainer::add(MSVehicle *veh) {
     // check whether a new item shall be added or the vehicle may be
     //  added to an existing list
     VehicleHeap::iterator i =
@@ -109,8 +103,7 @@ MSVehicleContainer::add(MSVehicle *veh)
 
 
 void
-MSVehicleContainer::moveFrom(MSVehicleContainer &cont)
-{
+MSVehicleContainer::moveFrom(MSVehicleContainer &cont) {
     if (cont.size()==0) {
         return;
     }
@@ -124,8 +117,7 @@ MSVehicleContainer::moveFrom(MSVehicleContainer &cont)
 
 
 void
-MSVehicleContainer::add(SUMOTime time, const VehicleVector &cont)
-{
+MSVehicleContainer::add(SUMOTime time, const VehicleVector &cont) {
     VehicleHeap::iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1,
                 DepartFinder(time));
@@ -143,8 +135,7 @@ MSVehicleContainer::add(SUMOTime time, const VehicleVector &cont)
 
 
 void
-MSVehicleContainer::addReplacing(const VehicleDepartureVector & x)
-{
+MSVehicleContainer::addReplacing(const VehicleDepartureVector & x) {
     if (isFull()) {
         std::vector<VehicleDepartureVector> array2((array.size()-1)*2+1, VehicleDepartureVector());
         for (size_t i=array.size(); i-->0;) {
@@ -166,8 +157,7 @@ MSVehicleContainer::addReplacing(const VehicleDepartureVector & x)
 
 
 bool
-MSVehicleContainer::anyWaitingFor(SUMOTime time) const
-{
+MSVehicleContainer::anyWaitingFor(SUMOTime time) const {
     VehicleHeap::const_iterator j =
         find_if(array.begin()+1, array.begin()+currentSize+1, DepartFinder(time));
     return j!=array.begin()+currentSize+1;
@@ -175,8 +165,7 @@ MSVehicleContainer::anyWaitingFor(SUMOTime time) const
 
 
 const MSVehicleContainer::VehicleVector &
-MSVehicleContainer::top()
-{
+MSVehicleContainer::top() {
     if (isEmpty())
         throw 1;//!!!Underflow( );
     assert(array.size()>1);
@@ -185,8 +174,7 @@ MSVehicleContainer::top()
 
 
 SUMOTime
-MSVehicleContainer::topTime() const
-{
+MSVehicleContainer::topTime() const {
     if (isEmpty())
         throw 1;//!!!Underflow( );
     assert(array.size()>1);
@@ -208,22 +196,19 @@ MSVehicleContainer::pop()
 
 
 bool
-MSVehicleContainer::isEmpty() const
-{
+MSVehicleContainer::isEmpty() const {
     return currentSize == 0;
 }
 
 
 bool
-MSVehicleContainer::isFull() const
-{
+MSVehicleContainer::isFull() const {
     return currentSize >= ((int) array.size()) - 1;
 }
 
 
 void
-MSVehicleContainer::percolateDown(int hole)
-{
+MSVehicleContainer::percolateDown(int hole) {
     int child;
     assert(array.size()>(size_t)hole);
     VehicleDepartureVector tmp = array[ hole ];
@@ -244,15 +229,13 @@ MSVehicleContainer::percolateDown(int hole)
 
 
 size_t
-MSVehicleContainer::size() const
-{
+MSVehicleContainer::size() const {
     return currentSize;
 }
 
 
 void
-MSVehicleContainer::showArray() const
-{
+MSVehicleContainer::showArray() const {
     for (VehicleHeap::const_iterator i=array.begin()+1; i!=array.begin()+currentSize+1; ++i) {
         if (i!=array.begin()+1) {
             cout << ", ";
@@ -263,8 +246,7 @@ MSVehicleContainer::showArray() const
 }
 
 
-std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont)
-{
+std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont) {
     strm << "------------------------------------" << std::endl;
     while (!cont.isEmpty()) {
         const MSVehicleContainer::VehicleVector &v = cont.top();

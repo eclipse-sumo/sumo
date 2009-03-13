@@ -65,8 +65,7 @@ class NLGeomShapeBuilder;
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  *  be loaded from network descriptions.
  */
-class NLHandler : public MSRouteHandler
-{
+class NLHandler : public MSRouteHandler {
 public:
     /// @brief Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;

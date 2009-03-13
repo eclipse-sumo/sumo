@@ -129,8 +129,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
 
 
 void
-GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
-{
+GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net) {
     /*
     // Make MDI Window Menu
     setTracking();
@@ -172,23 +171,20 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
 }
 
 
-GUISUMOViewParent::~GUISUMOViewParent()
-{
+GUISUMOViewParent::~GUISUMOViewParent() {
     myParent->removeChild(this);
 //    delete myToolBarDrag;
 }
 
 
 void
-GUISUMOViewParent::create()
-{
+GUISUMOViewParent::create() {
     GUIGlChildWindow::create();
 }
 
 
 long
-GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
-{
+GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Save Snapshot");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
@@ -229,8 +225,7 @@ GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
 
 
 void
-GUISUMOViewParent::showLocator(GUIGlObjectType type)
-{
+GUISUMOViewParent::showLocator(GUIGlObjectType type) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
@@ -242,48 +237,42 @@ GUISUMOViewParent::showLocator(GUIGlObjectType type)
 
 
 long
-GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
-{
+GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*) {
     showLocator(GLO_JUNCTION);
     return 1;
 }
 
 
 long
-GUISUMOViewParent::onCmdLocateEdge(FXObject *,FXSelector,void*)
-{
+GUISUMOViewParent::onCmdLocateEdge(FXObject *,FXSelector,void*) {
     showLocator(GLO_EDGE);
     return 1;
 }
 
 
 long
-GUISUMOViewParent::onCmdLocateVehicle(FXObject *,FXSelector,void*)
-{
+GUISUMOViewParent::onCmdLocateVehicle(FXObject *,FXSelector,void*) {
     showLocator(GLO_VEHICLE);
     return 1;
 }
 
 
 long
-GUISUMOViewParent::onCmdLocateTLS(FXObject *,FXSelector,void*)
-{
+GUISUMOViewParent::onCmdLocateTLS(FXObject *,FXSelector,void*) {
     showLocator(GLO_TLLOGIC);
     return 1;
 }
 
 
 long
-GUISUMOViewParent::onCmdLocateAdd(FXObject *,FXSelector,void*)
-{
+GUISUMOViewParent::onCmdLocateAdd(FXObject *,FXSelector,void*) {
     showLocator(GLO_ADDITIONAL);
     return 1;
 }
 
 
 long
-GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*)
-{
+GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
@@ -300,29 +289,25 @@ GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*)
 
 
 void
-GUISUMOViewParent::setView(GUIGlObject *o)
-{
+GUISUMOViewParent::setView(GUIGlObject *o) {
     myView->centerTo(o);
 }
 
 
 int
-GUISUMOViewParent::getMaxGLWidth() const
-{
+GUISUMOViewParent::getMaxGLWidth() const {
     return myParent->getMaxGLWidth();
 }
 
 
 int
-GUISUMOViewParent::getMaxGLHeight() const
-{
+GUISUMOViewParent::getMaxGLHeight() const {
     return myParent->getMaxGLHeight();
 }
 
 
 long
-GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*)
-{
+GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
     myView->update();
     return 1;
 }

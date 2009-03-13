@@ -56,17 +56,14 @@ using namespace std;
 NIElmar2NodesHandler::NIElmar2NodesHandler(NBNodeCont &nc,
         const std::string &file,
         std::map<std::string, Position2DVector> &geoms) throw()
-        : myNodeCont(nc), myGeoms(geoms)
-{}
+        : myNodeCont(nc), myGeoms(geoms) {}
 
 
-NIElmar2NodesHandler::~NIElmar2NodesHandler() throw()
-{}
+NIElmar2NodesHandler::~NIElmar2NodesHandler() throw() {}
 
 
 bool
-NIElmar2NodesHandler::report(const std::string &result) throw(ProcessError)
-{
+NIElmar2NodesHandler::report(const std::string &result) throw(ProcessError) {
     if (result[0]=='#') {
         return true;
     }

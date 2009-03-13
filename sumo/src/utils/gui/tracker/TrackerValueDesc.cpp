@@ -48,12 +48,10 @@ TrackerValueDesc::TrackerValueDesc(const std::string &name,
         myActiveCol(col), myInactiveCol(col),
         myMin(0), myMax(0),
         myAggregationInterval(1), myInvalidValue(-1), myValidNo(0),
-        myRecordingBegin(recordBegin), myTmpLastAggValue(0)
-{}
+        myRecordingBegin(recordBegin), myTmpLastAggValue(0) {}
 
 
-TrackerValueDesc::~TrackerValueDesc()
-{
+TrackerValueDesc::~TrackerValueDesc() {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
@@ -62,8 +60,7 @@ TrackerValueDesc::~TrackerValueDesc()
 
 
 void
-TrackerValueDesc::addValue(SUMOReal value)
-{
+TrackerValueDesc::addValue(SUMOReal value) {
     if (myValues.size()==0) {
         myMin = (SUMOReal) value;
         myMax = (SUMOReal) value;
@@ -106,8 +103,7 @@ TrackerValueDesc::addValue(SUMOReal value)
 
 
 SUMOReal
-TrackerValueDesc::getRange() const
-{
+TrackerValueDesc::getRange() const {
     getMin();
     getMax();
     return myMax - myMin;
@@ -115,22 +111,19 @@ TrackerValueDesc::getRange() const
 
 
 SUMOReal
-TrackerValueDesc::getMin() const
-{
+TrackerValueDesc::getMin() const {
     return myMin;
 }
 
 
 SUMOReal
-TrackerValueDesc::getMax() const
-{
+TrackerValueDesc::getMax() const {
     return myMax;
 }
 
 
 SUMOReal
-TrackerValueDesc::getYCenter() const
-{
+TrackerValueDesc::getYCenter() const {
     getMin();
     getMax();
     return (myMin + myMax) / 2.0f;
@@ -138,44 +131,38 @@ TrackerValueDesc::getYCenter() const
 
 
 const RGBColor &
-TrackerValueDesc::getColor() const
-{
+TrackerValueDesc::getColor() const {
     return myActiveCol;
 }
 
 
 const std::vector<SUMOReal> &
-TrackerValueDesc::getValues()
-{
+TrackerValueDesc::getValues() {
     myLock.lock();
     return myValues;
 }
 
 
 const std::vector<SUMOReal> &
-TrackerValueDesc::getAggregatedValues()
-{
+TrackerValueDesc::getAggregatedValues() {
     myLock.lock();
     return myAggregatedValues;
 }
 
 
 const std::string &
-TrackerValueDesc::getName() const
-{
+TrackerValueDesc::getName() const {
     return myName;
 }
 
 void
-TrackerValueDesc::unlockValues()
-{
+TrackerValueDesc::unlockValues() {
     myLock.unlock();
 }
 
 
 void
-TrackerValueDesc::setAggregationSpan(size_t as)
-{
+TrackerValueDesc::setAggregationSpan(size_t as) {
     myLock.lock();
     if (myAggregationInterval!=as) {
         // ok, the aggregation has changed,
@@ -206,15 +193,13 @@ TrackerValueDesc::setAggregationSpan(size_t as)
 
 
 size_t
-TrackerValueDesc::getAggregationSpan() const
-{
+TrackerValueDesc::getAggregationSpan() const {
     return myAggregationInterval;
 }
 
 
 size_t
-TrackerValueDesc::getRecordingBegin() const
-{
+TrackerValueDesc::getRecordingBegin() const {
     return myRecordingBegin;
 }
 

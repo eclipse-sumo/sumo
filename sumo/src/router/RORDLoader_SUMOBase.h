@@ -59,8 +59,7 @@ class RORoute;
  *  single class (this one).
  */
 class RORDLoader_SUMOBase :
-            public ROTypedXMLRoutesLoader
-{
+            public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
     RORDLoader_SUMOBase(RONet &net,

@@ -62,8 +62,7 @@ class BinaryInputDevice;
  *  ("myChangedStateLanes") which entries are integrated at the begin of is step
  *  in "patchActiveLanes".
  */
-class MSEdgeControl
-{
+class MSEdgeControl {
 public:
     /// @brief Container for edges.
     typedef std::vector< MSEdge* > EdgeCont;

@@ -49,8 +49,7 @@ typedef HANDLE	 	FXThreadMutex;        // handle to a mutex
  * Recursive mutual exclusion object.
  * Unlocks on destruction
  */
-class MFXMutex : public AbstractMutex
-{
+class MFXMutex : public AbstractMutex {
 public:
     /// create me a mutex :-)
     MFXMutex();

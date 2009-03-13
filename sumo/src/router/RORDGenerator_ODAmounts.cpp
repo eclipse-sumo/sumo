@@ -71,8 +71,7 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
         bool randomize)
         : myVehicle(vehicle), myVehicleType(type), myRoute(route),
         myIntervalBegin(intBegin), myIntervalEnd(intEnd),
-        myVehicle2EmitNumber(vehicles2Emit), myEmitted(0), myRandom(randomize)
-{
+        myVehicle2EmitNumber(vehicles2Emit), myEmitted(0), myRandom(randomize) {
     assert(myIntervalBegin<myIntervalEnd);
     if (myRandom) {
         SUMOTime period = myIntervalEnd - myIntervalBegin;
@@ -87,22 +86,19 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
 }
 
 
-RORDGenerator_ODAmounts::FlowDef::~FlowDef()
-{
+RORDGenerator_ODAmounts::FlowDef::~FlowDef() {
     delete myVehicle;
 }
 
 
 bool
-RORDGenerator_ODAmounts::FlowDef::applicableForTime(SUMOTime t) const
-{
+RORDGenerator_ODAmounts::FlowDef::applicableForTime(SUMOTime t) const {
     return myIntervalBegin<=t&&myIntervalEnd>t;
 }
 
 
 void
-RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t)
-{
+RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
     assert(myIntervalBegin<=t&&myIntervalEnd>=t);
     //
     if (!myRandom) {
@@ -128,8 +124,7 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t)
 
 
 void
-RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net, SUMOTime t)
-{
+RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net, SUMOTime t) {
     string id = myVehicle->getID() + "_" + toString<unsigned int>(myEmitted);
     RORouteDef *rd = myRoute->copy(id);
     net.addRouteDef(rd);
@@ -140,8 +135,7 @@ RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net, SUMOTime t)
 
 
 SUMOTime
-RORDGenerator_ODAmounts::FlowDef::getIntervalEnd() const
-{
+RORDGenerator_ODAmounts::FlowDef::getIntervalEnd() const {
     return myIntervalEnd;
 }
 
@@ -156,8 +150,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet &net,
         bool randomize,
         const std::string &fileName) throw(ProcessError)
         : RORDLoader_TripDefs(net, begin, end, emptyDestinationsAllowed, fileName),
-        myRandom(randomize)
-{
+        myRandom(randomize) {
     // read the complete file on initialisation
     myParser->parseReset(myToken);
     myParser->parse(getFileName().c_str());
@@ -165,8 +158,7 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(RONet &net,
 }
 
 
-RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw()
-{
+RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw() {
     for (FlowDefV::const_iterator i=myFlows.begin(); i!=myFlows.end(); i++) {
         delete(*i);
     }
@@ -174,8 +166,7 @@ RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw()
 
 
 bool
-RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw(ProcessError)
-{
+RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw(ProcessError) {
     // skip routes before begin
     if (until<myBegin) {
         myDepartureTime = until;
@@ -188,8 +179,7 @@ RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) t
 
 
 void
-RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) throw()
-{
+RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) throw() {
     SUMOTime t;
     for (t=myDepartureTime; t<until+1; t++) {
         buildForTimeStep(t);
@@ -199,8 +189,7 @@ RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) throw()
 
 
 void
-RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time) throw()
-{
+RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time) throw() {
     if (time<myBegin||time>=myEnd) {
         return;
     }
@@ -221,8 +210,7 @@ RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time) throw()
 
 void
 RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
-                                        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     RORDLoader_TripDefs::myStartElement(element, attrs);
     if (element == SUMO_TAG_FLOW) {
         parseFlowAmountDef(attrs);
@@ -233,8 +221,7 @@ RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
 
 
 void
-RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs)
-{
+RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) {
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
     string id = getVehicleID(attrs);
@@ -270,8 +257,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs)
 
 
 void
-RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs)
-{
+RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs) {
     try {
         myUpperIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, -1);
     } catch (NumberFormatException &) {
@@ -288,8 +274,7 @@ RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs)
 
 
 void
-RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element) throw(ProcessError) {
     RORDLoader_TripDefs::myEndElement(element);
     if (element == SUMO_TAG_FLOW) {
         myEndFlowAmountDef();
@@ -300,16 +285,14 @@ RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 void
-RORDGenerator_ODAmounts::myEndInterval()
-{
+RORDGenerator_ODAmounts::myEndInterval() {
     myUpperIntervalBegin = 0; // !!! was -1
     myUpperIntervalEnd = 0; // !!! was: -1
 }
 
 
 void
-RORDGenerator_ODAmounts::myEndFlowAmountDef()
-{
+RORDGenerator_ODAmounts::myEndFlowAmountDef() {
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
 
         if (myIntervalEnd<myBegin) {

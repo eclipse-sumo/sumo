@@ -57,8 +57,7 @@ class GUIManipulator;
  * @class GUIEmitter
  * @brief A vehicle emitting device (gui version)
  */
-class GUIEmitter : public MSEmitter, public GUIGlObject_AbstractAdd
-{
+class GUIEmitter : public MSEmitter, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      *
@@ -140,8 +139,7 @@ public:
     void toggleDrawRoutes();
 
 protected:
-    class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
-    {
+    class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild {
     public:
         GUIEmitterChild_UserTriggeredChild(
             MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
@@ -158,8 +156,7 @@ protected:
     };
 
 public:
-    class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu
-    {
+    class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUIEmitterPopupMenu)
     public:
 
@@ -178,8 +175,7 @@ public:
 
     };
 
-    class GUIManip_TriggeredEmitter : public GUIManipulator
-    {
+    class GUIManip_TriggeredEmitter : public GUIManipulator {
         FXDECLARE(GUIManip_TriggeredEmitter)
     public:
         enum {

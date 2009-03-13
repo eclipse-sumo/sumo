@@ -38,8 +38,7 @@
 // method definitions
 // ===========================================================================
 GUIGradientStorage::GUIGradientStorage(FXComposite *vp)
-        : myVirtualParent(vp)
-{
+        : myVirtualParent(vp) {
     // build defaults
     FXGradient tmpG;
     std::vector<FXGradient> tmpGB;
@@ -93,13 +92,11 @@ GUIGradientStorage::GUIGradientStorage(FXComposite *vp)
 }
 
 
-GUIGradientStorage::~GUIGradientStorage()
-{}
+GUIGradientStorage::~GUIGradientStorage() {}
 
 
 std::vector<RGBColor>
-GUIGradientStorage::getRGBColors(GradientName idx, FXint noCells)
-{
+GUIGradientStorage::getRGBColors(GradientName idx, FXint noCells) {
     FXint i;
     FXGradientBar *bar = new FXGradientBar(myVirtualParent);
     FXGradient *gradients;
@@ -128,8 +125,7 @@ GUIGradientStorage::getRGBColors(GradientName idx, FXint noCells)
 
 void
 GUIGradientStorage::set(GradientName idx,
-                        const std::vector<FXGradient> &gradient)
-{
+                        const std::vector<FXGradient> &gradient) {
     myGradients[idx] = gradient;
 }
 

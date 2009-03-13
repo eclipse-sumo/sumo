@@ -42,8 +42,7 @@
  * We name most of the additional microsim-structures "trigger" in order to
  *  allow some common operation on them.
  */
-class MSTrigger : public Named
-{
+class MSTrigger : public Named {
 public:
     /** @brief Constructor
      *

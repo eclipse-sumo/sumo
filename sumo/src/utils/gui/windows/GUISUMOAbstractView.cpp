@@ -129,8 +129,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         myPopup(0),
         myAmInitialised(false),
         myViewportChooser(0), myVisualizationChanger(0),
-        myUseToolTips(false)
-{
+        myUseToolTips(false) {
     setTarget(this);
     enable();
     flags|=FLAG_ENABLED;
@@ -162,8 +161,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         myPopup(0),
         myAmInitialised(false),
         myViewportChooser(0), myVisualizationChanger(0),
-        myUseToolTips(false)
-{
+        myUseToolTips(false) {
     setTarget(this);
     enable();
     flags|=FLAG_ENABLED;
@@ -179,8 +177,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
 }
 
 
-GUISUMOAbstractView::~GUISUMOAbstractView()
-{
+GUISUMOAbstractView::~GUISUMOAbstractView() {
     delete myChanger;
     delete myToolTip;
     delete myViewportChooser;
@@ -189,15 +186,13 @@ GUISUMOAbstractView::~GUISUMOAbstractView()
 
 
 bool
-GUISUMOAbstractView::isInEditMode()
-{
+GUISUMOAbstractView::isInEditMode() {
     return myInEditMode;
 }
 
 
 void
-GUISUMOAbstractView::updateToolTip()
-{
+GUISUMOAbstractView::updateToolTip() {
     if (!myUseToolTips) {
         return;
     }
@@ -206,15 +201,13 @@ GUISUMOAbstractView::updateToolTip()
 
 
 Position2D
-GUISUMOAbstractView::getPositionInformation() const
-{
+GUISUMOAbstractView::getPositionInformation() const {
     return getPositionInformation(myWindowCursorPositionX, myWindowCursorPositionY);
 }
 
 
 Position2D
-GUISUMOAbstractView::getPositionInformation(int mx, int my) const
-{
+GUISUMOAbstractView::getPositionInformation(int mx, int my) const {
     SUMOReal mzoom = myChanger->getZoom();
     // compute the offset
     SUMOReal cy = myChanger->getYPos();
@@ -231,8 +224,7 @@ GUISUMOAbstractView::getPositionInformation(int mx, int my) const
 
 
 void
-GUISUMOAbstractView::updatePositionInformation() const
-{
+GUISUMOAbstractView::updatePositionInformation() const {
     if (true) {
         string text;
         Position2D pos = getPositionInformation();
@@ -250,8 +242,7 @@ GUISUMOAbstractView::updatePositionInformation() const
 
 
 void
-GUISUMOAbstractView::paintGL()
-{
+GUISUMOAbstractView::paintGL() {
     myWidthInPixels = getWidth();
     myHeightInPixels = getHeight();
     if (myWidthInPixels==0||myHeightInPixels==0) {
@@ -315,8 +306,7 @@ GUISUMOAbstractView::paintGL()
 
 
 unsigned int
-GUISUMOAbstractView::getObjectUnderCursor()
-{
+GUISUMOAbstractView::getObjectUnderCursor() {
     int xpos = myWindowCursorPositionX+myMouseHotspotX;
     int ypos = myWindowCursorPositionY+myMouseHotspotY;
     if (xpos<0||xpos>=myWidthInPixels) {
@@ -400,8 +390,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
 
 
 void
-GUISUMOAbstractView::showToolTipFor(unsigned int id)
-{
+GUISUMOAbstractView::showToolTipFor(unsigned int id) {
     if (id!=0) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(id);
         int x, y;
@@ -418,8 +407,7 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id)
 
 
 void
-GUISUMOAbstractView::paintGLGrid()
-{
+GUISUMOAbstractView::paintGLGrid() {
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
@@ -452,8 +440,7 @@ GUISUMOAbstractView::paintGLGrid()
 
 
 void
-GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
-{
+GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff) {
     myWidthInPixels = getWidth();
     myHeightInPixels = getHeight();
     glMatrixMode(GL_MODELVIEW);
@@ -476,8 +463,8 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
     SUMOReal width = myGrid->getWidth();
     SUMOReal height = myGrid->getHeight();
     // initially (zoom=100), the net shall be completely visible on the screen
-    SUMOReal xs = (SUMOReal) (1. / (width / myNetScale) * myRatio);
-    SUMOReal ys = (SUMOReal) (1. / (height / myNetScale));
+    SUMOReal xs = (SUMOReal)(1. / (width / myNetScale) * myRatio);
+    SUMOReal ys = (SUMOReal)(1. / (height / myNetScale));
     if (xs<ys) {
         glScaled(xs, xs, 1);
         myX1 /= xs;
@@ -525,8 +512,7 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
 
 
 void
-GUISUMOAbstractView::displayLegend() throw()
-{
+GUISUMOAbstractView::displayLegend() throw() {
     // compute the scale bar length
     size_t length = 1;
     const string text("10000000000");
@@ -539,7 +525,7 @@ GUISUMOAbstractView::displayLegend() throw()
         }
         length *= 10;
         noDigits++;
-        if(noDigits>text.length()) {
+        if (noDigits>text.length()) {
             return;
         }
     }
@@ -598,8 +584,7 @@ GUISUMOAbstractView::displayLegend() throw()
 
 
 SUMOReal
-GUISUMOAbstractView::m2p(SUMOReal meter)
-{
+GUISUMOAbstractView::m2p(SUMOReal meter) {
     return (SUMOReal)(meter / myNetScale
                       *(myWidthInPixels/myRatio)
                       * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
@@ -607,23 +592,20 @@ GUISUMOAbstractView::m2p(SUMOReal meter)
 
 
 SUMOReal
-GUISUMOAbstractView::p2m(SUMOReal pixel)
-{
+GUISUMOAbstractView::p2m(SUMOReal pixel) {
     return (SUMOReal) pixel * myNetScale /
            ((myWidthInPixels/myRatio) * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
 }
 
 
 void
-GUISUMOAbstractView::recenterView()
-{
+GUISUMOAbstractView::recenterView() {
     myChanger->recenterView();
 }
 
 
 void
-GUISUMOAbstractView::centerTo(GUIGlObject *o)
-{
+GUISUMOAbstractView::centerTo(GUIGlObject *o) {
     centerTo(o->getCenteringBoundary());
     myChanger->otherChange();
     update();
@@ -631,8 +613,7 @@ GUISUMOAbstractView::centerTo(GUIGlObject *o)
 
 
 void
-GUISUMOAbstractView::centerTo(Boundary bound)
-{
+GUISUMOAbstractView::centerTo(Boundary bound) {
     myChanger->centerTo(*myGrid, bound);
 }
 
@@ -645,16 +626,14 @@ GUISUMOAbstractView::allowRotation() const
 */
 
 void
-GUISUMOAbstractView::setWindowCursorPosition(FXint x, FXint y)
-{
+GUISUMOAbstractView::setWindowCursorPosition(FXint x, FXint y) {
     myWindowCursorPositionX = x;
     myWindowCursorPositionY = y;
 }
 
 
 FXbool
-GUISUMOAbstractView::makeCurrent()
-{
+GUISUMOAbstractView::makeCurrent() {
     FXbool ret = FXGLCanvas::makeCurrent();
     return ret;
 }
@@ -662,21 +641,18 @@ GUISUMOAbstractView::makeCurrent()
 
 
 int
-GUISUMOAbstractView::getMaxGLWidth() const
-{
+GUISUMOAbstractView::getMaxGLWidth() const {
     return myApp->getMaxGLWidth();
 }
 
 int
-GUISUMOAbstractView::getMaxGLHeight() const
-{
+GUISUMOAbstractView::getMaxGLHeight() const {
     return myApp->getMaxGLHeight();
 }
 
 
 long
-GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
-{
+GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*) {
     if (makeCurrent()) {
         myWidthInPixels = getWidth();
         myHeightInPixels = getHeight();
@@ -697,8 +673,7 @@ GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
 
 
 long
-GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*)
-{
+GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*) {
     if (!isEnabled()||!myAmInitialised) {
         return 1;
     }
@@ -711,8 +686,7 @@ GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*)
 
 
 long
-GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
-{
+GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
     FXEvent *e = (FXEvent*) data;
@@ -739,8 +713,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
 
 
 long
-GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data)
-{
+GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
     myChanger->onLeftBtnRelease(data);
@@ -750,8 +723,7 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data)
 
 
 long
-GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data)
-{
+GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
     myChanger->onRightBtnPress(data);
@@ -761,8 +733,7 @@ GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data)
 
 
 long
-GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data)
-{
+GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
     if (myChanger->onRightBtnRelease(data)) {
@@ -774,8 +745,7 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data)
 
 
 long
-GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data)
-{
+GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data) {
     SUMOReal xpos = myChanger->getXPos();
     SUMOReal ypos = myChanger->getYPos();
     SUMOReal zoom = myChanger->getZoom();
@@ -795,8 +765,7 @@ GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data)
 
 
 long
-GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void *data)
-{
+GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void *data) {
     if (myViewportChooser==0||!myViewportChooser->haveGrabbed()) {
 //        myChanger->onMouseLeft();
         myToolTip->setObjectTip(0, -1, -1);
@@ -806,8 +775,7 @@ GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void *data)
 
 
 void
-GUISUMOAbstractView::openObjectDialog()
-{
+GUISUMOAbstractView::openObjectDialog() {
     ungrab();
     if (!isEnabled()||!myAmInitialised) {
         return;
@@ -838,8 +806,7 @@ GUISUMOAbstractView::openObjectDialog()
 
 
 long
-GUISUMOAbstractView::onKeyPress(FXObject *o,FXSelector sel,void *data)
-{
+GUISUMOAbstractView::onKeyPress(FXObject *o,FXSelector sel,void *data) {
     FXEvent *e = (FXEvent*) data;
     if ((e->state&ALTMASK)!=0) {
         setDefaultCursor(getApp()->getDefaultCursor(DEF_CROSSHAIR_CURSOR));
@@ -868,8 +835,7 @@ GUISUMOAbstractView::onKeyPress(FXObject *o,FXSelector sel,void *data)
 
 
 long
-GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data)
-{
+GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data) {
     FXEvent *e = (FXEvent*) data;
     if ((e->state&ALTMASK)==0) {
         ungrabKeyboard();
@@ -880,16 +846,14 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data)
 
 
 long
-GUISUMOAbstractView::onSimStep(FXObject*,FXSelector,void*)
-{
+GUISUMOAbstractView::onSimStep(FXObject*,FXSelector,void*) {
     update();
     return 1;
 }
 
 
 FXColor *
-GUISUMOAbstractView::getSnapshot()
-{
+GUISUMOAbstractView::getSnapshot() {
     makeCurrent();
     // draw
     // draw
@@ -958,8 +922,7 @@ GUISUMOAbstractView::getSnapshot()
 
 
 void
-GUISUMOAbstractView::showViewportEditor()
-{
+GUISUMOAbstractView::showViewportEditor() {
     if (myViewportChooser==0) {
         myViewportChooser =
             new GUIDialog_EditViewport(this, "Edit Viewport...",
@@ -974,8 +937,7 @@ GUISUMOAbstractView::showViewportEditor()
 
 
 void
-GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
-{
+GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos) {
     myChanger->setViewport(zoom, xPos, yPos);
     myChanger->otherChange();
     update();
@@ -983,79 +945,69 @@ GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 
 
 void
-GUISUMOAbstractView::showToolTips(bool val)
-{
+GUISUMOAbstractView::showToolTips(bool val) {
     myUseToolTips = val;
 }
 
 
 
 SUMOReal
-GUISUMOAbstractView::getGridWidth() const
-{
+GUISUMOAbstractView::getGridWidth() const {
     return myGrid->getWidth();
 }
 
 
 SUMOReal
-GUISUMOAbstractView::getGridHeight() const
-{
+GUISUMOAbstractView::getGridHeight() const {
     return myGrid->getHeight();
 }
 
 
 void
-GUISUMOAbstractView::rename(GUIGlObject *)
-{}
+GUISUMOAbstractView::rename(GUIGlObject *) {}
 
 void
-GUISUMOAbstractView::moveTo(GUIGlObject *)
-{}
+GUISUMOAbstractView::moveTo(GUIGlObject *) {}
 
 void
-GUISUMOAbstractView::changeCol(GUIGlObject *)
-{}
+GUISUMOAbstractView::changeCol(GUIGlObject *) {}
 
 void
-GUISUMOAbstractView::changeTyp(GUIGlObject *)
-{}
+GUISUMOAbstractView::changeTyp(GUIGlObject *) {}
 
 void
-GUISUMOAbstractView::deleteObj(GUIGlObject *)
-{}
+GUISUMOAbstractView::deleteObj(GUIGlObject *) {}
 
 
 FXComboBox &
-GUISUMOAbstractView::getColoringSchemesCombo()
-{
+GUISUMOAbstractView::getColoringSchemesCombo() {
     return myParent->getColoringSchemesCombo();
 }
 
 
-void 
-GUISUMOAbstractView::drawDecals() throw()
-{
-        glPolygonOffset(0, 10);
-        myDecalsLock.lock();
-        for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
-            GUISUMOAbstractView::Decal &d = *l;
-            if (!d.initialised) {
-                FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
-                if (i!=0) {
-                    d.glID = GUITexturesHelper::add(i);
-                    d.initialised = true;
-                }
+void
+GUISUMOAbstractView::drawDecals() throw() {
+    glPolygonOffset(0, 10);
+    myDecalsLock.lock();
+    for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
+        GUISUMOAbstractView::Decal &d = *l;
+        if (!d.initialised) {
+            FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
+            if (i!=0) {
+                d.glID = GUITexturesHelper::add(i);
+                d.initialised = true;
             }
-            glPushMatrix();
-            glTranslated(d.centerX, d.centerY, 0);
-            glRotated(d.rot, 0, 0, 1);
-            glColor3d(1,1,1);
-            SUMOReal halfWidth((d.width / 2.));
-            SUMOReal halfHeight((d.height / 2.));
-            GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
-            glPopMatrix();
         }
-        myDecalsLock.unlock();
+        glPushMatrix();
+        glTranslated(d.centerX, d.centerY, 0);
+        glRotated(d.rot, 0, 0, 1);
+        glColor3d(1,1,1);
+        SUMOReal halfWidth((d.width / 2.));
+        SUMOReal halfHeight((d.height / 2.));
+        GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
+        glPopMatrix();
+    }
+    myDecalsLock.unlock();
 }
 
 

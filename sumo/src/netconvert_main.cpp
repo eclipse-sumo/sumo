@@ -67,8 +67,7 @@ using namespace std;
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");

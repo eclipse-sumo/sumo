@@ -41,8 +41,7 @@
  * Superclass for structures that read from a file where the times the next
  * reading is performed are triggered by events,
  */
-class MSTriggeredReader
-{
+class MSTriggeredReader {
 public:
     /// Destructor
     virtual ~MSTriggeredReader();

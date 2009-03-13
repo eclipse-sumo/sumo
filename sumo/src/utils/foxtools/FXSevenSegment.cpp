@@ -50,8 +50,7 @@ using namespace FX;
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 using namespace FXEX;
-namespace FXEX
-{
+namespace FXEX {
 
 /* note: this class may change into FXLCDsegment, so as to support 7 or 14 segment display */
 #define ASCII_ZERO 48
@@ -70,28 +69,24 @@ FXDEFMAP(FXSevenSegment) FXSevenSegmentMap[]={
 FXIMPLEMENT(FXSevenSegment,FXFrame,FXSevenSegmentMap,ARRAYNUMBER(FXSevenSegmentMap))
 
 // ctor
-FXSevenSegment::FXSevenSegment(FXComposite* p,FXObject *tgt,FXSelector sel,FXuint opts,FXint pl,FXint pr,FXint pt,FXint pb) : FXFrame(p,opts,0,0,0,0,pl,pr,pt,pb),value(' '),fgcolor(FXRGB(0,255,0)),bgcolor(FXRGB(0,0,0)),hsl(8),vsl(8),st(3),groove(1)
-{
+FXSevenSegment::FXSevenSegment(FXComposite* p,FXObject *tgt,FXSelector sel,FXuint opts,FXint pl,FXint pr,FXint pt,FXint pb) : FXFrame(p,opts,0,0,0,0,pl,pr,pt,pb),value(' '),fgcolor(FXRGB(0,255,0)),bgcolor(FXRGB(0,0,0)),hsl(8),vsl(8),st(3),groove(1) {
     setTarget(tgt);
     setSelector(sel);
     enable();
 }
 
 // minimum width
-FXint FXSevenSegment::getDefaultWidth()
-{
+FXint FXSevenSegment::getDefaultWidth() {
     return padleft + (groove<<1) + hsl + padright + (border<<1);
 }
 
 // minimum height
-FXint FXSevenSegment::getDefaultHeight()
-{
+FXint FXSevenSegment::getDefaultHeight() {
     return padtop + (groove<<2) + (vsl<<1) + padbottom + (border<<1);
 }
 
 // set value on widget
-void FXSevenSegment::setText(FXchar val)
-{
+void FXSevenSegment::setText(FXchar val) {
     if (FXString(val,1).upper() != FXString(value,1).upper()) {
         value=val;
         recalc();
@@ -100,8 +95,7 @@ void FXSevenSegment::setText(FXchar val)
 }
 
 // set foreground color
-void FXSevenSegment::setFgColor(const FXColor clr)
-{
+void FXSevenSegment::setFgColor(const FXColor clr) {
     if (fgcolor!=clr) {
         fgcolor=clr;
         recalc();
@@ -110,8 +104,7 @@ void FXSevenSegment::setFgColor(const FXColor clr)
 }
 
 // set backgound color
-void FXSevenSegment::setBgColor(const FXColor clr)
-{
+void FXSevenSegment::setBgColor(const FXColor clr) {
     if (bgcolor!=clr) {
         bgcolor=clr;
         recalc();
@@ -120,8 +113,7 @@ void FXSevenSegment::setBgColor(const FXColor clr)
 }
 
 // set horizontal segment length
-void FXSevenSegment::setHorizontal(const FXint len)
-{
+void FXSevenSegment::setHorizontal(const FXint len) {
     if (len!=hsl) {
         hsl=len;
         checkSize();
@@ -131,8 +123,7 @@ void FXSevenSegment::setHorizontal(const FXint len)
 }
 
 // set vertical segment length
-void FXSevenSegment::setVertical(const FXint len)
-{
+void FXSevenSegment::setVertical(const FXint len) {
     if (len!=vsl) {
         vsl=len;
         checkSize();
@@ -142,8 +133,7 @@ void FXSevenSegment::setVertical(const FXint len)
 }
 
 // set segment thickness
-void FXSevenSegment::setThickness(const FXint width)
-{
+void FXSevenSegment::setThickness(const FXint width) {
     if (width!=st) {
         st=width;
         checkSize();
@@ -153,8 +143,7 @@ void FXSevenSegment::setThickness(const FXint width)
 }
 
 // set groove thickness
-void FXSevenSegment::setGroove(const FXint width)
-{
+void FXSevenSegment::setGroove(const FXint width) {
     if (width!=groove) {
         groove=width;
         checkSize();
@@ -164,8 +153,7 @@ void FXSevenSegment::setGroove(const FXint width)
 }
 
 // draw/redraw object
-long FXSevenSegment::onPaint(FXObject*,FXSelector,void *ptr)
-{
+long FXSevenSegment::onPaint(FXObject*,FXSelector,void *ptr) {
     FXEvent *event= (FXEvent*) ptr;
     FXDCWindow dc(this, event);
     drawFrame(dc,0,0,width,height);
@@ -177,16 +165,14 @@ long FXSevenSegment::onPaint(FXObject*,FXSelector,void *ptr)
 }
 
 // set from value
-long FXSevenSegment::onCmdSetValue(FXObject*,FXSelector,void *ptr)
-{
+long FXSevenSegment::onCmdSetValue(FXObject*,FXSelector,void *ptr) {
     FXchar *c=(FXchar*)ptr;
     if (c[0] != '\0') setText(c[0]);
     return 1;
 }
 
 // get value from int
-long FXSevenSegment::onCmdGetIntValue(FXObject *sender,FXSelector,void*)
-{
+long FXSevenSegment::onCmdGetIntValue(FXObject *sender,FXSelector,void*) {
     FXint i=value-ASCII_ZERO;
     if (i < 0) i=0;
     if (i > 9) i=9;
@@ -195,8 +181,7 @@ long FXSevenSegment::onCmdGetIntValue(FXObject *sender,FXSelector,void*)
 }
 
 // set from int value
-long FXSevenSegment::onCmdSetIntValue(FXObject*,FXSelector,void *ptr)
-{
+long FXSevenSegment::onCmdSetIntValue(FXObject*,FXSelector,void *ptr) {
     FXint i=*((FXint*)ptr);
     if (i < 0) i=0;
     if (i > 9) i=9;
@@ -205,24 +190,21 @@ long FXSevenSegment::onCmdSetIntValue(FXObject*,FXSelector,void *ptr)
 }
 
 // get value from string
-long FXSevenSegment::onCmdGetStringValue(FXObject *sender,FXSelector,void*)
-{
+long FXSevenSegment::onCmdGetStringValue(FXObject *sender,FXSelector,void*) {
     FXString s(value,1);
     sender->handle(this,FXSEL(SEL_COMMAND,ID_SETSTRINGVALUE),(void*)&s);
     return 1;
 }
 
 // set from string value
-long FXSevenSegment::onCmdSetStringValue(FXObject*,FXSelector,void *ptr)
-{
+long FXSevenSegment::onCmdSetStringValue(FXObject*,FXSelector,void *ptr) {
     FXString *s=(FXString*)ptr;
     if ((*s).length()) setText((*s)[0]);
     return 1;
 }
 
 // draw the specific character - figure out which segments to draw
-void FXSevenSegment::drawFigure(FXDCWindow &dc,FXchar figure)
-{
+void FXSevenSegment::drawFigure(FXDCWindow &dc,FXchar figure) {
     switch (figure) {
     case ' ' :
         drawSegments(dc, FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE);
@@ -379,8 +361,7 @@ void FXSevenSegment::drawFigure(FXDCWindow &dc,FXchar figure)
 }
 
 // validates the sizes of the segment dimensions
-void FXSevenSegment::checkSize()
-{
+void FXSevenSegment::checkSize() {
     if (hsl<3) {
         hsl=3;
         st=1;
@@ -399,8 +380,7 @@ void FXSevenSegment::checkSize()
 
 // draw each segment, into the available drawing space
 // if widget is resizeable, caculate new sizes for length/width/grove of each segment
-void FXSevenSegment::drawSegments(FXDCWindow &dc,FXbool s1,FXbool s2,FXbool s3,FXbool s4,FXbool s5,FXbool s6,FXbool s7)
-{
+void FXSevenSegment::drawSegments(FXDCWindow &dc,FXbool s1,FXbool s2,FXbool s3,FXbool s4,FXbool s5,FXbool s6,FXbool s7) {
     FXint sx=border+padleft, sy=border+padtop;
     FXint x,y;
     if (options&LAYOUT_FILL) {
@@ -456,8 +436,7 @@ void FXSevenSegment::drawSegments(FXDCWindow &dc,FXbool s1,FXbool s2,FXbool s3,F
     }
 }
 
-void FXSevenSegment::drawTopSegment(FXDCWindow &dc,FXshort x,FXshort y)
-{
+void FXSevenSegment::drawTopSegment(FXDCWindow &dc,FXshort x,FXshort y) {
     FXPoint points[4];
     points[0].x=x;
     points[0].y=y;
@@ -470,8 +449,7 @@ void FXSevenSegment::drawTopSegment(FXDCWindow &dc,FXshort x,FXshort y)
     dc.fillPolygon(points,4);
 }
 
-void FXSevenSegment::drawLeftTopSegment(FXDCWindow &dc,FXshort x,FXshort y)
-{
+void FXSevenSegment::drawLeftTopSegment(FXDCWindow &dc,FXshort x,FXshort y) {
     FXPoint points[4];
     points[0].x=x;
     points[0].y=y;
@@ -484,8 +462,7 @@ void FXSevenSegment::drawLeftTopSegment(FXDCWindow &dc,FXshort x,FXshort y)
     dc.fillPolygon(points,4);
 }
 
-void FXSevenSegment::drawRightTopSegment(FXDCWindow &dc,FXshort x,FXshort y)
-{
+void FXSevenSegment::drawRightTopSegment(FXDCWindow &dc,FXshort x,FXshort y) {
     FXPoint points[4];
     points[0].x=x+st;
     points[0].y=y;
@@ -498,8 +475,7 @@ void FXSevenSegment::drawRightTopSegment(FXDCWindow &dc,FXshort x,FXshort y)
     dc.fillPolygon(points,4);
 }
 
-void FXSevenSegment::drawMiddleSegment(FXDCWindow &dc,FXshort x,FXshort y)
-{
+void FXSevenSegment::drawMiddleSegment(FXDCWindow &dc,FXshort x,FXshort y) {
     FXPoint points[6];
     points[0].x=x+st;
     points[0].y=y;
@@ -516,8 +492,7 @@ void FXSevenSegment::drawMiddleSegment(FXDCWindow &dc,FXshort x,FXshort y)
     dc.fillPolygon(points,6);
 }
 
-void FXSevenSegment::drawLeftBottomSegment(FXDCWindow &dc,FXshort x,FXshort y)
-{
+void FXSevenSegment::drawLeftBottomSegment(FXDCWindow &dc,FXshort x,FXshort y) {
     FXPoint points[4];
     points[0].x=x;
     points[0].y=y;
@@ -530,8 +505,7 @@ void FXSevenSegment::drawLeftBottomSegment(FXDCWindow &dc,FXshort x,FXshort y)
     dc.fillPolygon(points,4);
 }
 
-void FXSevenSegment::drawRightBottomSegment(FXDCWindow &dc,FXshort x,FXshort y)
-{
+void FXSevenSegment::drawRightBottomSegment(FXDCWindow &dc,FXshort x,FXshort y) {
     FXPoint points[4];
     points[0].x=x+st;
     points[0].y=y;
@@ -544,8 +518,7 @@ void FXSevenSegment::drawRightBottomSegment(FXDCWindow &dc,FXshort x,FXshort y)
     dc.fillPolygon(points,4);
 }
 
-void FXSevenSegment::drawBottomSegment(FXDCWindow &dc,FXshort x,FXshort y)
-{
+void FXSevenSegment::drawBottomSegment(FXDCWindow &dc,FXshort x,FXshort y) {
     FXPoint points[4];
     points[0].x=x+st;
     points[0].y=y;
@@ -558,8 +531,7 @@ void FXSevenSegment::drawBottomSegment(FXDCWindow &dc,FXshort x,FXshort y)
     dc.fillPolygon(points,4);
 }
 
-void FXSevenSegment::save(FXStream &store) const
-{
+void FXSevenSegment::save(FXStream &store) const {
     FXFrame::save(store);
     store << value;
     store << fgcolor;
@@ -570,8 +542,7 @@ void FXSevenSegment::save(FXStream &store) const
     store << groove;
 }
 
-void FXSevenSegment::load(FXStream &store)
-{
+void FXSevenSegment::load(FXStream &store) {
     FXFrame::load(store);
     store >> value;
     store >> fgcolor;
@@ -583,15 +554,13 @@ void FXSevenSegment::load(FXStream &store)
 }
 
 // let parent show tip if appropriate
-long FXSevenSegment::onQueryTip(FXObject *sender,FXSelector sel,void *ptr)
-{
+long FXSevenSegment::onQueryTip(FXObject *sender,FXSelector sel,void *ptr) {
     if (getParent()) return getParent()->handle(sender,sel,ptr);
     return 0;
 }
 
 // let parent show help if appropriate
-long FXSevenSegment::onQueryHelp(FXObject *sender,FXSelector sel,void *ptr)
-{
+long FXSevenSegment::onQueryHelp(FXObject *sender,FXSelector sel,void *ptr) {
     if (getParent()) return getParent()->handle(sender,sel,ptr);
     return 0;
 }

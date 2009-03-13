@@ -40,8 +40,7 @@
  * @class FuncBinding_IntParam
  */
 template< class T, typename R  >
-class FuncBinding_IntParam : public ValueSource<R>
-{
+class FuncBinding_IntParam : public ValueSource<R> {
 public:
     /// Type of the function to execute.
     typedef R(T::* Operation)(int) const;

@@ -62,17 +62,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() throw()
-        : myTypeCont()
-{}
+        : myTypeCont() {}
 
 
-NBNetBuilder::~NBNetBuilder() throw()
-{}
+NBNetBuilder::~NBNetBuilder() throw() {}
 
 
 void
-NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError)
-{
+NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
     // we possibly have to load the edges to keep
     if (oc.isSet("keep-edges.input-file")) {
         ifstream strm(oc.getString("keep-edges.input-file").c_str());
@@ -106,8 +103,7 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError)
 
 
 void
-NBNetBuilder::buildLoaded() throw(IOError)
-{
+NBNetBuilder::buildLoaded() throw(IOError) {
     // perform the computation
     OptionsCont &oc = OptionsCont::getOptions();
     compute(oc);
@@ -128,8 +124,7 @@ NBNetBuilder::buildLoaded() throw(IOError)
 
 
 void
-NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
-{
+NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     int step = 1;
     //
     // Removes edges that are connecting the same node
@@ -189,7 +184,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
     }
     myNodeCont.guessTLs(oc, myTLLCont);
     //
-    if(oc.getBool("try-join-tls")) {
+    if (oc.getBool("try-join-tls")) {
         myNodeCont.joinTLS(myTLLCont);
     }
     //
@@ -254,8 +249,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
 
 
 void
-NBNetBuilder::inform(int &step, const std::string &about) throw()
-{
+NBNetBuilder::inform(int &step, const std::string &about) throw() {
     WRITE_MESSAGE("Computing step " + toString<int>(step)+ ": " + about);
     step++;
 }
@@ -264,8 +258,7 @@ NBNetBuilder::inform(int &step, const std::string &about) throw()
 
 // ----- proetected methods
 void
-NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError)
-{
+NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     device.writeXMLHeader("net");
     device << "\n";
     // write network offsets
@@ -317,8 +310,7 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError)
 
 // ----- static methods
 void
-NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
-{
+NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
     // register additional output options
     oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
     oc.addSynonyme("output-file", "output");

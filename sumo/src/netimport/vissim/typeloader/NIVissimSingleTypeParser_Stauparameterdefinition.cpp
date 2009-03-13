@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Stauparameterdefinition::NIVissimSingleTypeParser_Stauparameterdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Stauparameterdefinition::~NIVissimSingleTypeParser_Stauparameterdefinition()
-{}
+NIVissimSingleTypeParser_Stauparameterdefinition::~NIVissimSingleTypeParser_Stauparameterdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Stauparameterdefinition::parse(std::istream &)
-{
+NIVissimSingleTypeParser_Stauparameterdefinition::parse(std::istream &) {
     return true;
 }
 

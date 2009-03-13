@@ -42,8 +42,7 @@
 // ===========================================================================
 bool
 GeomHelper::intersects(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2,
-                       SUMOReal x3, SUMOReal y3, SUMOReal x4, SUMOReal y4)
-{
+                       SUMOReal x3, SUMOReal y3, SUMOReal x4, SUMOReal y4) {
     /* Compute a1, b1, c1, where line joining points 1 and 2
      * is "a1 x  +  b1 y  +  c1  =  0".
      */
@@ -97,8 +96,7 @@ GeomHelper::intersects(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2,
 
 bool
 GeomHelper::intersects(const Position2D &p11, const Position2D &p12,
-                       const Position2D &p21, const Position2D &p22)
-{
+                       const Position2D &p21, const Position2D &p22) {
     return intersects(p11.x(), p11.y(), p12.x(), p12.y(),
                       p21.x(), p21.y(), p22.x(), p22.y());
 }
@@ -121,8 +119,7 @@ GeomHelper::intersects(const Position2DVector &v1,
 
 
 SUMOReal
-GeomHelper::distance(const Position2D &p1, const Position2D &p2)
-{
+GeomHelper::distance(const Position2D &p1, const Position2D &p2) {
     return sqrt(
                (p1.x()-p2.x())*(p1.x()-p2.x())
                +
@@ -165,8 +162,7 @@ Position2D
 GeomHelper::intersection_position(const Position2D &p11,
                                   const Position2D &p12,
                                   const Position2D &p21,
-                                  const Position2D &p22)
-{
+                                  const Position2D &p22) {
     /*void Intersect_Lines(SUMOReal p11.x(),SUMOReal p11.y(),SUMOReal p12.x(),SUMOReal p12.y(),
                          SUMOReal p21.x(),SUMOReal p21.y(),SUMOReal p22.x(),SUMOReal p22.y(),
                          SUMOReal *xi,SUMOReal *yi)
@@ -223,8 +219,7 @@ GeomHelper::intersection_position(const Position2D &p11,
    The result is between -pi -> pi
 */
 SUMOReal
-GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
-{
+GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
     SUMOReal dtheta,theta1,theta2;
 
     theta1 = atan2(y1,x1);
@@ -272,8 +267,7 @@ GeomHelper::position_at_length_position(const Position2D &p1,
 
 Position2D
 GeomHelper::interpolate(const Position2D &p1,
-                        const Position2D &p2, SUMOReal length)
-{
+                        const Position2D &p2, SUMOReal length) {
     SUMOReal oldlen = distance(p1, p2);
     SUMOReal x = p1.x() + (p2.x() - p1.x()) * length / oldlen;
     SUMOReal y = p1.y() + (p2.y() - p1.y()) * length / oldlen;
@@ -283,8 +277,7 @@ GeomHelper::interpolate(const Position2D &p1,
 
 Position2D
 GeomHelper::extrapolate_first(const Position2D &p1,
-                              const Position2D &p2, SUMOReal length)
-{
+                              const Position2D &p2, SUMOReal length) {
     SUMOReal oldlen = distance(p1, p2);
     SUMOReal x = p1.x() - (p2.x() - p1.x()) * (length) / oldlen;
     SUMOReal y = p1.y() - (p2.y() - p1.y()) * (length) / oldlen;
@@ -294,8 +287,7 @@ GeomHelper::extrapolate_first(const Position2D &p1,
 
 Position2D
 GeomHelper::extrapolate_second(const Position2D &p1,
-                               const Position2D &p2, SUMOReal length)
-{
+                               const Position2D &p2, SUMOReal length) {
     SUMOReal oldlen = distance(p1, p2);
     SUMOReal x = p2.x() - (p1.x() - p2.x()) * (length) / oldlen;
     SUMOReal y = p2.y() - (p1.y() - p2.y()) * (length) / oldlen;
@@ -306,8 +298,7 @@ GeomHelper::extrapolate_second(const Position2D &p1,
 SUMOReal
 GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
         const Position2D &LineEnd,
-        const Position2D &Point)
-{
+        const Position2D &Point) {
     SUMOReal LineMag;
     SUMOReal U;
 
@@ -329,8 +320,7 @@ GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
 
 SUMOReal
 GeomHelper::Magnitude(const Position2D &Point1,
-                      const Position2D &Point2)
-{
+                      const Position2D &Point2) {
     SUMOReal x = Point2.x() - Point1.x();
     SUMOReal y = Point2.y() - Point1.y();
     return sqrt(x*x + y*y);
@@ -340,8 +330,7 @@ GeomHelper::Magnitude(const Position2D &Point1,
 SUMOReal
 GeomHelper::DistancePointLine(const Position2D &Point,
                               const Position2D &LineStart,
-                              const Position2D &LineEnd)
-{
+                              const Position2D &LineEnd) {
     SUMOReal LineMag;
     SUMOReal U;
 
@@ -373,8 +362,7 @@ SUMOReal
 GeomHelper::closestDistancePointLine(const Position2D &Point,
                                      const Position2D &LineStart,
                                      const Position2D &LineEnd,
-                                     Position2D& outIntersection)
-{
+                                     Position2D& outIntersection) {
     Position2D directVec;
     SUMOReal sProduct;
     SUMOReal U;
@@ -420,8 +408,7 @@ Position2D
 GeomHelper::transfer_to_side(Position2D &p,
                              const Position2D &lineBeg,
                              const Position2D &lineEnd,
-                             SUMOReal amount)
-{
+                             SUMOReal amount) {
     SUMOReal dx = lineBeg.x() - lineEnd.x();
     SUMOReal dy = lineBeg.y() - lineEnd.y();
     SUMOReal length = sqrt(
@@ -459,8 +446,7 @@ GeomHelper::transfer_to_side(Position2D &p,
 
 
 Position2D
-GeomHelper::crossPoint(const Boundary &b, const Position2DVector &v)
-{
+GeomHelper::crossPoint(const Boundary &b, const Position2DVector &v) {
     if (v.intersects(Position2D(b.xmin(), b.ymin()), Position2D(b.xmin(), b.ymax()))) {
         return v.intersectsAtPoint(
                    Position2D(b.xmin(), b.ymin()),
@@ -487,8 +473,7 @@ GeomHelper::crossPoint(const Boundary &b, const Position2DVector &v)
 std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(const Position2D &beg,
                             const Position2D &end,
-                            SUMOReal wanted_offset)
-{
+                            SUMOReal wanted_offset) {
     SUMOReal length = sqrt((beg.x()-end.x())*(beg.x()-end.x()) + (beg.y()-end.y())*(beg.y()-end.y()));
     return getNormal90D_CW(beg.x(), beg.y(), end.x(), end.y(),
                            length, wanted_offset);
@@ -498,8 +483,7 @@ GeomHelper::getNormal90D_CW(const Position2D &beg,
 std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(const Position2D &beg,
                             const Position2D &end,
-                            SUMOReal length, SUMOReal wanted_offset)
-{
+                            SUMOReal length, SUMOReal wanted_offset) {
     return getNormal90D_CW(beg.x(), beg.y(), end.x(), end.y(),
                            length, wanted_offset);
 }
@@ -508,8 +492,7 @@ GeomHelper::getNormal90D_CW(const Position2D &beg,
 std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
                             SUMOReal x2, SUMOReal y2,
-                            SUMOReal length, SUMOReal wanted_offset) throw(InvalidArgument)
-{
+                            SUMOReal length, SUMOReal wanted_offset) throw(InvalidArgument) {
     SUMOReal dx = x1 - x2;
     SUMOReal dy = y1 - y2;
     if (dx<0) { // fromX<toX -> to right
@@ -549,8 +532,7 @@ GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
 
 
 SUMOReal
-GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2)
-{
+GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     if (angle1<0) {
         angle1 = 360 + angle1;
     }
@@ -564,8 +546,7 @@ GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2)
 }
 
 SUMOReal
-GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2)
-{
+GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     if (angle1<0) {
         angle1 = 360 + angle1;
     }

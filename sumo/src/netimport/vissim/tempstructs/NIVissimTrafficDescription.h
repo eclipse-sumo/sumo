@@ -40,8 +40,7 @@
 /**
  *
  */
-class NIVissimTrafficDescription
-{
+class NIVissimTrafficDescription {
 public:
     NIVissimTrafficDescription(int id, const std::string &name,
                                const NIVissimVehicleClassVector &vehicleTypes);

@@ -50,8 +50,7 @@ class NBEdgeCont;
  * This importer parses connections, and prohibitions, and is able
  *  to reset connections between edges.
  */
-class NIXMLConnectionsHandler : public SUMOSAXHandler
-{
+class NIXMLConnectionsHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      * @param[in] ec The edge container which includes the edges to change connections of

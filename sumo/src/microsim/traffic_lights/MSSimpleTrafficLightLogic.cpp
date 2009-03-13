@@ -52,14 +52,12 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet& /*net*/,
         size_t step,
         SUMOTime delay)
         : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
-        myStep(step), myCycleTime(0)
-{
+        myStep(step), myCycleTime(0) {
     myCycleTime=getCycleTime();
 }
 
 
-MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
-{
+MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() {
     for (size_t i=0; i<myPhases.size(); i++) {
         delete myPhases[i];
     }
@@ -67,8 +65,7 @@ MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
 
 
 SUMOTime
-MSSimpleTrafficLightLogic::trySwitch(bool)
-{
+MSSimpleTrafficLightLogic::trySwitch(bool) {
     // check whether the current duration shall be increased
     if (myCurrentDurationIncrement>0) {
         SUMOTime delay = myCurrentDurationIncrement;
@@ -97,23 +94,20 @@ MSSimpleTrafficLightLogic::trySwitch(bool)
 }
 
 
-unsigned int 
-MSSimpleTrafficLightLogic::getPhaseNumber() const
-{
+unsigned int
+MSSimpleTrafficLightLogic::getPhaseNumber() const {
     return (unsigned int) myPhases.size();
 }
 
 
 size_t
-MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const
-{
+MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const {
     return myStep;
 }
 
 
 void
-MSSimpleTrafficLightLogic::setLinkPriorities() const
-{
+MSSimpleTrafficLightLogic::setLinkPriorities() const {
     const std::bitset<64> &linkPrios = myPhases[myStep]->getBreakMask();
     for (size_t i=0; i<myLinks.size(); i++) {
         const LinkVector &currGroup = myLinks[i];
@@ -125,8 +119,7 @@ MSSimpleTrafficLightLogic::setLinkPriorities() const
 
 
 bool
-MSSimpleTrafficLightLogic::maskRedLinks() const
-{
+MSSimpleTrafficLightLogic::maskRedLinks() const {
     // get the current traffic light signal combination
     const std::bitset<64> &allowedLinks = myPhases[myStep]->getDriveMask();
     const std::bitset<64> &yellowLinks = myPhases[myStep]->getYellowMask();
@@ -165,8 +158,7 @@ MSSimpleTrafficLightLogic::maskRedLinks() const
 
 
 bool
-MSSimpleTrafficLightLogic::maskYellowLinks() const
-{
+MSSimpleTrafficLightLogic::maskYellowLinks() const {
     // get the current traffic light signal combination
     const std::bitset<64> &allowedLinks = myPhases[myStep]->getDriveMask();
     // go through the links
@@ -184,15 +176,13 @@ MSSimpleTrafficLightLogic::maskYellowLinks() const
 
 
 MSPhaseDefinition
-MSSimpleTrafficLightLogic::getCurrentPhaseDef() const
-{
+MSSimpleTrafficLightLogic::getCurrentPhaseDef() const {
     return *myPhases[myStep];
 }
 
 
 size_t
-MSSimpleTrafficLightLogic::getCycleTime()
-{
+MSSimpleTrafficLightLogic::getCycleTime() {
     myCycleTime = 0;
     for (size_t i=0; i<myPhases.size(); i++) {
         myCycleTime = myCycleTime + myPhases[i]->duration;
@@ -202,8 +192,7 @@ MSSimpleTrafficLightLogic::getCycleTime()
 
 
 size_t
-MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
-{
+MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep) {
     size_t position = 0;
     if (myStep > 0)	{
         for (size_t i=0; i < myStep; i++) {
@@ -217,8 +206,7 @@ MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
 }
 
 unsigned int
-MSSimpleTrafficLightLogic::getStepFromPos(unsigned int position)
-{
+MSSimpleTrafficLightLogic::getStepFromPos(unsigned int position) {
     assert(position <= myCycleTime);
     if (position == myCycleTime) {
         return 0;
@@ -240,8 +228,7 @@ MSSimpleTrafficLightLogic::getStepFromPos(unsigned int position)
 
 
 unsigned int
-MSSimpleTrafficLightLogic::getPosFromStep(unsigned int step)
-{
+MSSimpleTrafficLightLogic::getPosFromStep(unsigned int step) {
     assert(step < myPhases.size());
     if (step == 0) {
         return 0;
@@ -255,8 +242,7 @@ MSSimpleTrafficLightLogic::getPosFromStep(unsigned int step)
 
 
 const MSSimpleTrafficLightLogic::Phases &
-MSSimpleTrafficLightLogic::getPhases() const
-{
+MSSimpleTrafficLightLogic::getPhases() const {
     return myPhases;
 }
 
@@ -268,8 +254,7 @@ MSSimpleTrafficLightLogic::getPhases() {
 
 
 const MSPhaseDefinition &
-MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const
-{
+MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const {
     assert(myPhases.size()>givenStep);
     return *myPhases[givenStep];
 }
@@ -279,8 +264,7 @@ void
 MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
         SUMOTime simStep,
         int step,
-        SUMOTime stepDuration)
-{
+        SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
     myStep = step;
@@ -291,8 +275,7 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
 
 
 std::string
-MSSimpleTrafficLightLogic::buildStateList() const
-{
+MSSimpleTrafficLightLogic::buildStateList() const {
     MSPhaseDefinition curr = getCurrentPhaseDef();
     std::ostringstream strm;
     const std::bitset<64> &allowedLinks = curr.getDriveMask();

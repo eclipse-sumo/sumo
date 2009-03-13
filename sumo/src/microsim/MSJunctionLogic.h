@@ -39,8 +39,7 @@
 /**
  * @class MSJunctionLogic
  */
-class MSJunctionLogic
-{
+class MSJunctionLogic {
 public:
     /// Destructor.
     virtual ~MSJunctionLogic();

@@ -46,17 +46,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 IDSupplier::IDSupplier(const std::string &prefix, long begin)
-        : myCurrent(begin), myPrefix(prefix)
-{}
+        : myCurrent(begin), myPrefix(prefix) {}
 
 
-IDSupplier::~IDSupplier()
-{}
+IDSupplier::~IDSupplier() {}
 
 
 std::string
-IDSupplier::getNext()
-{
+IDSupplier::getNext() {
     ostringstream strm;
     strm << myPrefix << myCurrent++;
     return strm.str();

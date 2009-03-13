@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Fensterdefinition::NIVissimSingleTypeParser_Fensterdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Fensterdefinition::~NIVissimSingleTypeParser_Fensterdefinition()
-{}
+NIVissimSingleTypeParser_Fensterdefinition::~NIVissimSingleTypeParser_Fensterdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Fensterdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Fensterdefinition::parse(std::istream &from) {
     string id;
     from >> id; // "typ"
     string type = myRead(from);

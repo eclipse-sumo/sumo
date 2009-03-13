@@ -66,13 +66,11 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(0)
-{
+        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(0) {
 }
 
 
-RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
-{
+RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw() {
     // clean up (on failure)
     delete myCurrentAlternatives;
     delete myCurrentRoute;
@@ -83,8 +81,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
 
 void
 RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE:
         startRoute(attrs);
@@ -119,8 +116,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
 
 
 void
-RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
-{
+RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
     delete myColor;
     myColor = 0;
     if (!myAltIsValid) {
@@ -165,8 +161,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
 
 
 void
-RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
-{
+RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs) {
     // try to get the id
     myCurrentIsOk = true;
     string id;
@@ -197,8 +192,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
 
 void
 RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
-                                  const std::string &chars) throw(ProcessError)
-{
+                                  const std::string &chars) throw(ProcessError) {
     // process routes only, all other elements do
     //  not have embedded characters
     if (element!=SUMO_TAG_ROUTE) {
@@ -242,8 +236,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
 
 
 void
-RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE:
         if (!myAltIsValid) {
@@ -287,8 +280,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 bool
-RORDLoader_SUMOBase::closeVehicle() throw()
-{
+RORDLoader_SUMOBase::closeVehicle() throw() {
     // get the vehicle id
     if (myVehicleParameter->depart<myBegin||myVehicleParameter->depart>=myEnd) {
         myCurrentIsOk = false;
@@ -317,8 +309,7 @@ RORDLoader_SUMOBase::closeVehicle() throw()
 
 
 void
-RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
-{
+RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     string id;
     if (!attrs.setIDFromAttributes("vtype", id, false)) {
@@ -347,8 +338,7 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
 
 
 void
-RORDLoader_SUMOBase::beginNextRoute() throw()
-{
+RORDLoader_SUMOBase::beginNextRoute() throw() {
     myHaveNextRoute = false;
 }
 

@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROVehicleType_ID::ROVehicleType_ID(const std::string &id) throw()
-        : ROVehicleType(id, "", 1, SVC_UNKNOWN)
-{}
+        : ROVehicleType(id, "", 1, SVC_UNKNOWN) {}
 
 
-ROVehicleType_ID::~ROVehicleType_ID() throw()
-{}
+ROVehicleType_ID::~ROVehicleType_ID() throw() {}
 
 
 OutputDevice &
-ROVehicleType_ID::writeXMLDefinition(OutputDevice &dev) const
-{
+ROVehicleType_ID::writeXMLDefinition(OutputDevice &dev) const {
     return dev;
 }
 

@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Stauparameterdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Stauparameterdefinition(NIVissimLoader &parent);

@@ -65,20 +65,17 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBNodeCont::NBNodeCont() throw()
-    : myInternalID(1)
-{}
+        : myInternalID(1) {}
 
 
-NBNodeCont::~NBNodeCont() throw()
-{
+NBNodeCont::~NBNodeCont() throw() {
     clear();
 }
 
 
 bool
 NBNodeCont::insert(const std::string &id, const Position2D &position,
-                   NBDistrict *district)
-{
+                   NBDistrict *district) {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
@@ -94,8 +91,7 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
 
 
 bool
-NBNodeCont::insert(const string &id, const Position2D &position)
-{
+NBNodeCont::insert(const string &id, const Position2D &position) {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
@@ -111,8 +107,7 @@ NBNodeCont::insert(const string &id, const Position2D &position)
 
 
 Position2D
-NBNodeCont::insert(const string &id) // !!! really needed
-{
+NBNodeCont::insert(const string &id) { // !!! really needed
     pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
@@ -126,8 +121,7 @@ NBNodeCont::insert(const string &id) // !!! really needed
 
 
 bool
-NBNodeCont::insert(NBNode *node)
-{
+NBNodeCont::insert(NBNode *node) {
     string id = node->getID();
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
@@ -143,8 +137,7 @@ NBNodeCont::insert(NBNode *node)
 
 
 NBNode *
-NBNodeCont::retrieve(const string &id)
-{
+NBNodeCont::retrieve(const string &id) {
     NodeCont::iterator i = myNodes.find(id);
     if (i==myNodes.end()) {
         return 0;
@@ -154,8 +147,7 @@ NBNodeCont::retrieve(const string &id)
 
 
 NBNode *
-NBNodeCont::retrieve(const Position2D &position)
-{
+NBNodeCont::retrieve(const Position2D &position) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *node = (*i).second;
         if (fabs(node->getPosition().x()-position.x())<POSITION_EPS
@@ -170,8 +162,7 @@ NBNodeCont::retrieve(const Position2D &position)
 
 
 bool
-NBNodeCont::erase(NBNode *node)
-{
+NBNodeCont::erase(NBNode *node) {
     NodeCont::iterator i = myNodes.find(node->getID());
     if (i==myNodes.end()) {
         return false;
@@ -183,43 +174,42 @@ NBNodeCont::erase(NBNode *node)
 
 
 // ----------- (Helper) methods for guessing/computing traffic lights
-void 
-NBNodeCont::generateNodeClusters(SUMOReal maxDist, vector<set<NBNode*> >&into) const throw()
-{
+void
+NBNodeCont::generateNodeClusters(SUMOReal maxDist, vector<set<NBNode*> >&into) const throw() {
     set<NBNode*> visited;
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         vector<NBNode*> toProc;
-        if(visited.find((*i).second)!=visited.end()) {
+        if (visited.find((*i).second)!=visited.end()) {
             continue;
         }
         toProc.push_back((*i).second);
         set<NBNode*> c;
-        while(!toProc.empty()) {
+        while (!toProc.empty()) {
             NBNode *n = toProc.back();
             toProc.pop_back();
-            if(visited.find(n)!=visited.end()) {
+            if (visited.find(n)!=visited.end()) {
                 continue;
             }
             c.insert(n);
             visited.insert(n);
             const EdgeVector &edges = n->getEdges();
-            for(EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
+            for (EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
                 NBEdge *e = *j;
                 NBNode *s = 0;
-                if(n->hasIncoming(e)) {
+                if (n->hasIncoming(e)) {
                     s = e->getFromNode();
                 } else {
                     s = e->getToNode();
                 }
-                if(visited.find(s)!=visited.end()) {
+                if (visited.find(s)!=visited.end()) {
                     continue;
                 }
-                if(GeomHelper::distance(n->getPosition(), s->getPosition())<maxDist) {
+                if (GeomHelper::distance(n->getPosition(), s->getPosition())<maxDist) {
                     toProc.push_back(s);
                 }
             }
         }
-        if(c.size()<2) {
+        if (c.size()<2) {
             continue;
         }
         into.push_back(c);
@@ -227,27 +217,26 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, vector<set<NBNode*> >&into) c
 }
 
 
-bool 
-NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const throw()
-{
+bool
+NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const throw() {
     unsigned int noIncoming = 0;
     unsigned int noOutgoing = 0;
     bool tooFast = false;
     SUMOReal f = 0;
     set<NBEdge*> seen;
-    for(set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
+    for (set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
         const EdgeVector &edges = (*j)->getEdges();
-        for(EdgeVector::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
-            if(c.find((*k)->getFromNode())!=c.end()&&c.find((*k)->getToNode())!=c.end()) {
+        for (EdgeVector::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
+            if (c.find((*k)->getFromNode())!=c.end()&&c.find((*k)->getToNode())!=c.end()) {
                 continue;
             }
-            if((*j)->hasIncoming(*k)) {
+            if ((*j)->hasIncoming(*k)) {
                 ++noIncoming;
-                f += (SUMOReal) (*k)->getNoLanes() * (*k)->getLaneSpeed(0);
+                f += (SUMOReal)(*k)->getNoLanes() * (*k)->getLaneSpeed(0);
             } else {
                 ++noOutgoing;
             }
-            if((*k)->getLaneSpeed(0)*3.6>79) {
+            if ((*k)->getLaneSpeed(0)*3.6>79) {
                 tooFast = true;
             }
         }
@@ -257,8 +246,7 @@ NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const throw()
 
 
 void
-NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
-{
+NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
     // build list of definitely not tls-controlled junctions
     std::vector<NBNode*> ncontrolled;
     if (oc.isSet("explicite-no-tls")) {
@@ -289,25 +277,25 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
     }
 
     // guess joined tls first, if wished
-    if(oc.getBool("tls-guess.joining")) {
+    if (oc.getBool("tls-guess.joining")) {
         // get node clusters
         SUMOReal MAXDIST = 25;
         vector<set<NBNode*> > cands;
         generateNodeClusters(MAXDIST, cands);
         // check these candidates (clusters) whether they should be controlled by a tls
-        for(vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ) {
+        for (vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end();) {
             set<NBNode*> &c = (*i);
             // regard only junctions which are not yet controlled and are not
             //  forbidden to be controlled
-            for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ) {
-                if((*j)->isTLControlled()||find(ncontrolled.begin(), ncontrolled.end(), *j)!=ncontrolled.end()) {
+            for (set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
+                if ((*j)->isTLControlled()||find(ncontrolled.begin(), ncontrolled.end(), *j)!=ncontrolled.end()) {
                     c.erase(j++);
                 } else {
                     ++j;
                 }
             }
             // check whether the cluster should be controlled
-            if(!shouldBeTLSControlled(c)) {
+            if (!shouldBeTLSControlled(c)) {
                 i = cands.erase(i);
             } else {
                 ++i;
@@ -315,7 +303,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
         }
         // cands now only contain sets of junctions that shall be joined into being tls-controlled
         unsigned int index = 0;
-        for(vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+        for (vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
             set<NBNode*> &near = (*i);
             string id = "joinedG_" + toString(index++);
             NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, near);
@@ -341,7 +329,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
         }
         set<NBNode*> c;
         c.insert(cur);
-        if(!shouldBeTLSControlled(c)||cur->getIncomingEdges().size()<3) {
+        if (!shouldBeTLSControlled(c)||cur->getIncomingEdges().size()<3) {
             continue;
         }
         setAsTLControlled((*i).second, tlc);
@@ -349,28 +337,27 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
 }
 
 
-void 
-NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc)
-{
+void
+NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
     SUMOReal MAXDIST = 25;
     vector<set<NBNode*> > cands;
     generateNodeClusters(MAXDIST, cands);
     unsigned int index = 0;
-    for(vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+    for (vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
         set<NBNode*> &c = (*i);
-        for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ) {
-            if(!(*j)->isTLControlled()) {
+        for (set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
+            if (!(*j)->isTLControlled()) {
                 c.erase(j++);
             } else {
                 ++j;
             }
         }
-        if(c.size()<2) {
+        if (c.size()<2) {
             continue;
         }
-        for(set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
+        for (set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
             const set<NBTrafficLightDefinition*> &tls = (*j)->getControllingTLS();
-            for(set<NBTrafficLightDefinition*>::const_iterator k=tls.begin(); k!=tls.end(); ++k) {
+            for (set<NBTrafficLightDefinition*>::const_iterator k=tls.begin(); k!=tls.end(); ++k) {
                 tlc.remove((*j)->getID());
             }
             (*j)->removeTrafficLights();
@@ -388,8 +375,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc)
 
 
 void
-NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id)
-{
+NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id) {
     if (id=="") {
         id = node->getID();
     }
@@ -403,10 +389,9 @@ NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::s
 }
 
 
-// ----------- 
+// -----------
 void
-NBNodeCont::normaliseNodePositions()
-{
+NBNodeCont::normaliseNodePositions() {
     NodeCont::iterator i;
     // reformat
     const Boundary &b = GeoConvHelper::getConvBoundary();
@@ -422,8 +407,7 @@ NBNodeCont::normaliseNodePositions()
 
 
 void
-NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
-{
+NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
     }
@@ -432,8 +416,7 @@ NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 
 
 void
-NBNodeCont::computeLanes2Lanes()
-{
+NBNodeCont::computeLanes2Lanes() {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeLanes2Lanes();
     }
@@ -443,8 +426,7 @@ NBNodeCont::computeLanes2Lanes()
 // computes the "wheel" of incoming and outgoing edges for every node
 void
 NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
-                          OptionsCont &oc)
-{
+                          OptionsCont &oc) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeLogic(ec, jc, oc);
     }
@@ -452,8 +434,7 @@ NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
 
 
 void
-NBNodeCont::sortNodesEdges(const NBTypeCont &tc)
-{
+NBNodeCont::sortNodesEdges(const NBTypeCont &tc) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->sortNodesEdges(tc);
     }
@@ -461,8 +442,7 @@ NBNodeCont::sortNodesEdges(const NBTypeCont &tc)
 
 
 void
-NBNodeCont::writeXMLInternalLinks(OutputDevice &into)
-{
+NBNodeCont::writeXMLInternalLinks(OutputDevice &into) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXMLInternalLinks(into);
     }
@@ -471,8 +451,7 @@ NBNodeCont::writeXMLInternalLinks(OutputDevice &into)
 
 
 void
-NBNodeCont::writeXMLInternalSuccInfos(OutputDevice &into)
-{
+NBNodeCont::writeXMLInternalSuccInfos(OutputDevice &into) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXMLInternalSuccInfos(into);
     }
@@ -481,8 +460,7 @@ NBNodeCont::writeXMLInternalSuccInfos(OutputDevice &into)
 
 
 void
-NBNodeCont::writeXMLInternalNodes(OutputDevice &into)
-{
+NBNodeCont::writeXMLInternalNodes(OutputDevice &into) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXMLInternalNodes(into);
     }
@@ -491,8 +469,7 @@ NBNodeCont::writeXMLInternalNodes(OutputDevice &into)
 
 
 void
-NBNodeCont::writeXML(OutputDevice &into)
-{
+NBNodeCont::writeXML(OutputDevice &into) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXML(into);
     }
@@ -501,8 +478,7 @@ NBNodeCont::writeXML(OutputDevice &into)
 
 
 void
-NBNodeCont::clear()
-{
+NBNodeCont::clear() {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         delete((*i).second);
     }
@@ -512,8 +488,7 @@ NBNodeCont::clear()
 
 void
 NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
-                         NBEdgeCont &ec)
-{
+                         NBEdgeCont &ec) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         // count the edges to other nodes outgoing from the current
         //  node
@@ -586,8 +561,7 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
 
 void
 NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
-                             NBTrafficLightLogicCont &tc)
-{
+                             NBTrafficLightLogicCont &tc) {
     unsigned int no = 0;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         no += (*i).second->eraseDummies(dc, ec, tc);
@@ -599,15 +573,13 @@ NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
 
 
 std::string
-NBNodeCont::getFreeID()
-{
+NBNodeCont::getFreeID() {
     return "SUMOGenerated" + toString<int>(size());
 }
 
 
 void
-NBNodeCont::computeNodeShapes()
-{
+NBNodeCont::computeNodeShapes() {
     OutputDevice::createDeviceByOption("node-geometry-dump", "pois");
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeNodeShape();
@@ -618,8 +590,7 @@ NBNodeCont::computeNodeShapes()
 void
 NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                                 NBTrafficLightLogicCont &tlc,
-                                bool removeGeometryNodes) throw()
-{
+                                bool removeGeometryNodes) throw() {
     unsigned int no = 0;
     std::vector<NBNode*> toRemove;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
@@ -677,8 +648,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
 
 
 bool
-NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
-{
+NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
     if (cur->getIncomingEdges().size()==2&&cur->getOutgoingEdges().size()==1) {
         // may be an on-ramp
         NBEdge *pot_highway = cur->getIncomingEdges()[0];
@@ -729,8 +699,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
 void
 NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                         NBEdgeCont &ec, NBDistrictCont &dc,
-                        std::vector<NBEdge*> &incremented)
-{
+                        std::vector<NBEdge*> &incremented) {
     NBEdge *pot_highway = cur->getIncomingEdges()[0];
     NBEdge *pot_ramp = cur->getIncomingEdges()[1];
     NBEdge *cont = cur->getOutgoingEdges()[0];
@@ -846,8 +815,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
 void
 NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                          NBEdgeCont &ec, NBDistrictCont &dc,
-                         std::vector<NBEdge*> &incremented)
-{
+                         std::vector<NBEdge*> &incremented) {
     NBEdge *pot_highway = cur->getOutgoingEdges()[0];
     NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
     NBEdge *prev = cur->getIncomingEdges()[0];
@@ -956,8 +924,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
 
 
 bool
-NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
-{
+NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const {
     if (cur->getIncomingEdges().size()==1&&cur->getOutgoingEdges().size()==2) {
         // may be an off-ramp
         NBEdge *pot_highway = cur->getOutgoingEdges()[0];
@@ -1005,8 +972,7 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
 
 
 void
-NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp)
-{
+NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp) {
     if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
         swap(pot_highway, pot_ramp);
     } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
@@ -1020,8 +986,7 @@ NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp)
 
 void
 NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
-                       NBDistrictCont &dc)
-{
+                       NBDistrictCont &dc) {
     std::vector<NBEdge*> incremented;
     // check whether obsure highway connections shall be checked
     if (oc.getBool("guess-obscure-ramps")) {
@@ -1119,8 +1084,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
 
 
 bool
-NBNodeCont::savePlain(const std::string &file)
-{
+NBNodeCont::savePlain(const std::string &file) {
     OutputDevice& device = OutputDevice::getDevice(file);
     device.writeXMLHeader("nodes");
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
@@ -1146,8 +1110,7 @@ NBNodeCont::savePlain(const std::string &file)
 
 
 void
-NBNodeCont::writeTLSasPOIs(OutputDevice &device) throw(IOError)
-{
+NBNodeCont::writeTLSasPOIs(OutputDevice &device) throw(IOError) {
     device.writeXMLHeader("pois");
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *n = (*i).second;

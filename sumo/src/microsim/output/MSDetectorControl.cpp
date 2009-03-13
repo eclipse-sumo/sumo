@@ -34,6 +34,7 @@
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
+#include <microsim/output/MSMeanData_Harmonoise.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 
@@ -59,13 +60,11 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSDetectorControl::MSDetectorControl() throw()
-{
+MSDetectorControl::MSDetectorControl() throw() {
 }
 
 
-MSDetectorControl::~MSDetectorControl() throw()
-{
+MSDetectorControl::~MSDetectorControl() throw() {
 #ifdef HAVE_MESOSIM
     myMesoLoops.clear();
 #endif
@@ -85,8 +84,7 @@ MSDetectorControl::~MSDetectorControl() throw()
 
 
 void
-MSDetectorControl::close(SUMOTime step) throw(IOError)
-{
+MSDetectorControl::close(SUMOTime step) throw(IOError) {
     // flush the last values
     writeOutput(step, true);
     // [...] files are closed on another place [...]
@@ -97,8 +95,7 @@ MSDetectorControl::close(SUMOTime step) throw(IOError)
 
 #ifdef _MESSAGES
 void
-MSDetectorControl::add(MSMsgInductLoop *msgl, OutputDevice& device, int splInterval) throw(ProcessError)
-{
+MSDetectorControl::add(MSMsgInductLoop *msgl, OutputDevice& device, int splInterval) throw(ProcessError) {
 #ifdef _DEBUG
     cout << "adding MSMsgInductLoop..." << endl;
 #endif
@@ -112,8 +109,7 @@ MSDetectorControl::add(MSMsgInductLoop *msgl, OutputDevice& device, int splInter
 
 
 void
-MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval) throw(ProcessError)
-{
+MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myLoops.add(il->getID(), il)) {
         throw ProcessError("induct loop '" + il->getID() + "' could not be build;\n (declared twice?)");
@@ -123,8 +119,7 @@ MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval) 
 
 
 void
-MSDetectorControl::add(MSE2Collector *e2, OutputDevice& device, int splInterval) throw(ProcessError)
-{
+MSDetectorControl::add(MSE2Collector *e2, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
         throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
@@ -134,8 +129,7 @@ MSDetectorControl::add(MSE2Collector *e2, OutputDevice& device, int splInterval)
 
 
 void
-MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device, int splInterval) throw(ProcessError)
-{
+MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
         throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
@@ -145,8 +139,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device, 
 
 
 void
-MSDetectorControl::add(MSE2Collector *e2) throw(ProcessError)
-{
+MSDetectorControl::add(MSE2Collector *e2) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
         throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
@@ -155,8 +148,7 @@ MSDetectorControl::add(MSE2Collector *e2) throw(ProcessError)
 
 
 void
-MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError)
-{
+MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError) {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
         throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
@@ -165,8 +157,13 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError)
 
 
 void
-MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError)
-{
+MSDetectorControl::add(MSMeanData_Harmonoise *mn) throw() {
+    myHarmonoiseDetectors.push_back(mn);
+}
+
+
+void
+MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myE3Detectors.add(e3->getID(), e3)) {
         throw ProcessError("e3-detector '" + e3->getID() + "' could not be build;\n (declared twice?)");
@@ -177,8 +174,7 @@ MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval)
 
 void
 MSDetectorControl::add(MSVTypeProbe *vp, OutputDevice& device,
-                       int frequency) throw(ProcessError)
-{
+                       int frequency) throw(ProcessError) {
     // insert object into dictionary
     if (! myVTypeProbeDetectors.add(vp->getID(), vp)) {
         throw ProcessError("vtypeprobe '" + vp->getID() + "' could not be build;\n (declared twice?)");
@@ -189,8 +185,7 @@ MSDetectorControl::add(MSVTypeProbe *vp, OutputDevice& device,
 
 void
 MSDetectorControl::add(MSRouteProbe *vp, OutputDevice& device,
-                       SUMOTime frequency, SUMOTime begin) throw(ProcessError)
-{
+                       SUMOTime frequency, SUMOTime begin) throw(ProcessError) {
     // insert object into dictionary
     if (! myRouteProbeDetectors.add(vp->getID(), vp)) {
         throw ProcessError("routeprobe '" + vp->getID() + "' could not be build;\n (declared twice?)");
@@ -203,8 +198,7 @@ MSDetectorControl::add(MSRouteProbe *vp, OutputDevice& device,
 
 #ifdef HAVE_MESOSIM
 void
-MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval) throw(ProcessError)
-{
+MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval) throw(ProcessError) {
     // insert object into dictionary
     if (! myMesoLoops.add(meil->getID(), meil)) {
         throw ProcessError("meso-induct loop '" + meil->getID() + "' could not be build;"
@@ -216,8 +210,7 @@ MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval
 
 
 void
-MSDetectorControl::updateDetectors(SUMOTime step) throw()
-{
+MSDetectorControl::updateDetectors(SUMOTime step) throw() {
     // update all detectors with inner containers
     // e2-detectors
     const std::vector<MSE2Collector*> &e2s = myE2Detectors.buildAndGetStaticVector();
@@ -231,12 +224,14 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw()
     }
     // induct loops do not need to be updated...
     // vtypeprobes do not need to be updated...
+    for (vector<MSMeanData_Harmonoise*>::const_iterator i=myHarmonoiseDetectors.begin(); i!=myHarmonoiseDetectors.end(); ++i) {
+        (*i)->update();
+    }
 }
 
 
 void
-MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError)
-{
+MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError) {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         IntervalsKey interval = (*i).first;
         if (myLastCalls[interval]+interval.first-1<=step || (closing && myLastCalls[interval]<step)) {
@@ -257,8 +252,7 @@ void
 MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         OutputDevice *device,
         SUMOTime interval,
-        SUMOTime begin) throw()
-{
+        SUMOTime begin) throw() {
     if (begin == -1) {
         begin = OptionsCont::getOptions().getInt("begin");
     }

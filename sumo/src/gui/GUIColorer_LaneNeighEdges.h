@@ -48,8 +48,7 @@
  * @class GUIColorer_LaneNeighEdges
  */
 template<class T>
-class GUIColorer_LaneNeighEdges : public GUIBaseColorer<T>
-{
+class GUIColorer_LaneNeighEdges : public GUIBaseColorer<T> {
 public:
     GUIColorer_LaneNeighEdges(GUISUMOAbstractView *parent) : myParent(parent) { }
 

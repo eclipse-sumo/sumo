@@ -57,15 +57,13 @@
  *  passed the in-cross-section are not detected.
  */
 class MSE3Collector : public MSDetectorFileOutput,
-            public MSVehicleQuitReminded
-{
+            public MSVehicleQuitReminded {
 public:
     /**
      * @class MSE3EntryReminder
      * @brief A place on the road net (at a certain lane and position on it) where the E3-area begins
      */
-    class MSE3EntryReminder : public MSMoveReminder
-    {
+    class MSE3EntryReminder : public MSMoveReminder {
     public:
         /** @brief Constructor
          *
@@ -140,8 +138,7 @@ public:
      * @class MSE3LeaveReminder
      * @brief A place on the road net (at a certain lane and position on it) where the E3-area ends
      */
-    class MSE3LeaveReminder : public MSMoveReminder
-    {
+    class MSE3LeaveReminder : public MSMoveReminder {
     public:
         /** @brief Constructor
          *

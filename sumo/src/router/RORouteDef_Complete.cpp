@@ -51,19 +51,16 @@ RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
         const RGBColor * const color,
         const std::vector<const ROEdge*> &edges,
         bool tryRepair) throw()
-        : RORouteDef(id, color), myEdges(edges), myTryRepair(tryRepair)
-{
+        : RORouteDef(id, color), myEdges(edges), myTryRepair(tryRepair) {
 }
 
 
-RORouteDef_Complete::~RORouteDef_Complete() throw()
-{}
+RORouteDef_Complete::~RORouteDef_Complete() throw() {}
 
 
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                                       SUMOTime begin, const ROVehicle &veh) const
-{
+                                       SUMOTime begin, const ROVehicle &veh) const {
     if (myTryRepair) {
         std::vector<const ROEdge*> newEdges;
         const std::vector<const ROEdge*> &oldEdges = myEdges;
@@ -94,24 +91,21 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
 
 
 void
-RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin)
-{
+RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin) {
     myStartTime = begin;
     delete current;
 }
 
 
 RORouteDef *
-RORouteDef_Complete::copy(const std::string &id) const
-{
+RORouteDef_Complete::copy(const std::string &id) const {
     return new RORouteDef_Complete(id, copyColorIfGiven(), myEdges, myTryRepair);
 }
 
 
 OutputDevice &
 RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
-                                        bool asAlternatives, bool withExitTimes) const
-{
+                                        bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
         dev << "<routeDistribution last=\"0\">\n         ";

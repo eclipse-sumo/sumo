@@ -55,17 +55,14 @@ using namespace std;
 // ===========================================================================
 NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
         const std::string &file) throw()
-        : myNodeCont(nc)
-{}
+        : myNodeCont(nc) {}
 
 
-NIElmarNodesHandler::~NIElmarNodesHandler() throw()
-{}
+NIElmarNodesHandler::~NIElmarNodesHandler() throw() {}
 
 
 bool
-NIElmarNodesHandler::report(const std::string &result) throw(ProcessError)
-{
+NIElmarNodesHandler::report(const std::string &result) throw(ProcessError) {
     if (result[0]=='#') {
         return true;
     }

@@ -60,8 +60,7 @@ class MSVehicleControl;
  *
  * @todo Whe a vehicle is deleted due to waiting too long or because of vaporizing, ths is not reported anywhere
  */
-class MSEmitControl
-{
+class MSEmitControl {
 public:
     /** @brief Constructor
      *

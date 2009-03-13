@@ -52,8 +52,7 @@ DistributionCont::TypedDistDict DistributionCont::myDict;
 // ===========================================================================
 bool
 DistributionCont::dictionary(const std::string &type, const std::string &id,
-                             Distribution *d)
-{
+                             Distribution *d) {
     TypedDistDict::iterator i=myDict.find(type);
 
     if (i==myDict.end()) {
@@ -72,8 +71,7 @@ DistributionCont::dictionary(const std::string &type, const std::string &id,
 
 Distribution *
 DistributionCont::dictionary(const std::string &type,
-                             const std::string &id)
-{
+                             const std::string &id) {
     TypedDistDict::iterator i=myDict.find(type);
     if (i==myDict.end()) {
         return 0;

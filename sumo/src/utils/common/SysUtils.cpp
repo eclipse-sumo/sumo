@@ -44,8 +44,7 @@
 // member method definitions
 // ===========================================================================
 long
-SysUtils::getCurrentMillis()
-{
+SysUtils::getCurrentMillis() {
 #ifndef WIN32
     timeval current;
     gettimeofday(&current, 0);

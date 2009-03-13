@@ -44,8 +44,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 bool
-GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2)
-{
+GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (antialiase!=v2.antialiase) return false;
     if (dither!=v2.dither) return false;
     if (backgroundColor!=v2.backgroundColor) return false;

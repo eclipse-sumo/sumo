@@ -49,8 +49,7 @@ class MSLane;
  * junctions where incoming vehicles are no foes to each other (may drive
  * simultaneously).
  */
-class MSNoLogicJunction  : public MSJunction
-{
+class MSNoLogicJunction  : public MSJunction {
 public:
     /// Destructor.
     virtual ~MSNoLogicJunction();

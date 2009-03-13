@@ -51,8 +51,7 @@ class OptionsCont;
  * @brief Importer for networks stored in OpenStreetMap format
  *
  */
-class NIImporter_OpenStreetMap
-{
+class NIImporter_OpenStreetMap {
 public:
     /** @brief Loads network definition from the assigned option and stores it in the given network builder
      *
@@ -118,8 +117,8 @@ private:
      * @return The built/found node
      * @exception ProcessError If the tls could not be added to the container
      */
-    static NBNode *insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, 
-        NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) throw(ProcessError);
+    static NBNode *insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes,
+                                      NBNodeCont &nc, NBTrafficLightLogicCont &tlsc) throw(ProcessError);
 
 
     /** @brief Builds an NBEdge
@@ -142,7 +141,7 @@ private:
 
     /** @brief Inserts the given type into the type container if not known
      *
-     * The type name is built from the given major/minor class of the type to add. 
+     * The type name is built from the given major/minor class of the type to add.
      *
      * @param[in, out] tc The type container to add the type to
      * @param[in] mClass The major class of this type
@@ -154,7 +153,7 @@ private:
      * @param[in] oneWayIsDefault Whether edges of this type are per default one-way streets
      */
     static void addTypeSecure(NBTypeCont &tc, const std::string &mClass, const std::string &sClass,
-                              int noLanes, SUMOReal maxSpeed, int prio, SUMOVehicleClass vClasses=SVC_UNKNOWN, 
+                              int noLanes, SUMOReal maxSpeed, int prio, SUMOVehicleClass vClasses=SVC_UNKNOWN,
                               bool oneWayIsDefault=false) throw();
 
 
@@ -165,8 +164,7 @@ private:
      * @class NodesHandler
      * @brief A class which extracts OSM-nodes from a parsed OSM-file
      */
-    class NodesHandler : public SUMOSAXHandler
-    {
+    class NodesHandler : public SUMOSAXHandler {
     public:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
@@ -227,8 +225,7 @@ private:
      * @class EdgesHandler
      * @brief A class which extracts OSM-edges from a parsed OSM-file
      */
-    class EdgesHandler : public SUMOSAXHandler
-    {
+    class EdgesHandler : public SUMOSAXHandler {
     public:
         /** @brief Constructor
          *

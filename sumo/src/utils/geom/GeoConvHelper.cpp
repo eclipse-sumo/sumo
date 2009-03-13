@@ -61,8 +61,7 @@ Boundary GeoConvHelper::myConvBoundary;
 bool
 GeoConvHelper::init(const std::string &proj,
                     const Position2D &offset,
-                    bool inverse)
-{
+                    bool inverse) {
     myUseInverseProjection = inverse;
 #ifdef HAVE_PROJ
     pj_free(myProjection);
@@ -100,8 +99,7 @@ GeoConvHelper::init(const std::string &proj,
                     const Position2D &offset,
                     const Boundary &orig,
                     const Boundary &conv,
-                    bool inverse)
-{
+                    bool inverse) {
     myUseInverseProjection = inverse;
     bool ret = init(proj, offset);
     myOrigBoundary.add(orig);
@@ -111,8 +109,7 @@ GeoConvHelper::init(const std::string &proj,
 
 
 void
-GeoConvHelper::close()
-{
+GeoConvHelper::close() {
 #ifdef HAVE_PROJ
     pj_free(myProjection);
     myProjection = 0;
@@ -121,8 +118,7 @@ GeoConvHelper::close()
 
 
 bool
-GeoConvHelper::usingGeoProjection()
-{
+GeoConvHelper::usingGeoProjection() {
 #ifdef HAVE_PROJ
     return myProjection!=0;
 #else
@@ -132,8 +128,7 @@ GeoConvHelper::usingGeoProjection()
 
 
 void
-GeoConvHelper::cartesian2geo(Position2D &cartesian)
-{
+GeoConvHelper::cartesian2geo(Position2D &cartesian) {
 #ifdef HAVE_PROJ
     if (myDisableProjection) {
         cartesian.sub(myOffset);
@@ -153,8 +148,7 @@ GeoConvHelper::cartesian2geo(Position2D &cartesian)
 
 
 void
-GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
-{
+GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
     myOrigBoundary.add(from);
     if (myDisableProjection) {
         from.add(myOffset);
@@ -214,51 +208,44 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
 
 
 void
-GeoConvHelper::includeInOriginal(SUMOReal x, SUMOReal y)
-{
+GeoConvHelper::includeInOriginal(SUMOReal x, SUMOReal y) {
     myOrigBoundary.add(x, y);
 }
 
 
 void
-GeoConvHelper::includeInOriginal(const Position2D &p)
-{
+GeoConvHelper::includeInOriginal(const Position2D &p) {
     myOrigBoundary.add(p);
 }
 
 
 void
-GeoConvHelper::includeInOriginal(const Boundary &b)
-{
+GeoConvHelper::includeInOriginal(const Boundary &b) {
     myOrigBoundary.add(b);
 }
 
 
 void
-GeoConvHelper::moveConvertedBy(SUMOReal x, SUMOReal y)
-{
+GeoConvHelper::moveConvertedBy(SUMOReal x, SUMOReal y) {
     myOffset.add(x, y);
     myConvBoundary.moveby(x, y);
 }
 
 
 const Boundary &
-GeoConvHelper::getOrigBoundary()
-{
+GeoConvHelper::getOrigBoundary() {
     return myOrigBoundary;
 }
 
 
 const Boundary &
-GeoConvHelper::getConvBoundary()
-{
+GeoConvHelper::getConvBoundary() {
     return myConvBoundary;
 }
 
 
 const Position2D &
-GeoConvHelper::getOffset()
-{
+GeoConvHelper::getOffset() {
     return myOffset;
 }
 

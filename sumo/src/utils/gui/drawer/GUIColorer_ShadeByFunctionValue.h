@@ -48,8 +48,7 @@
  * @brief Colors by using a retrieved value which is casted to SUMOReal
  */
 template<class T, class D>
-class GUIColorer_ShadeByFunctionValue : public GUIBaseColorer<T>
-{
+class GUIColorer_ShadeByFunctionValue : public GUIBaseColorer<T> {
 public:
     /// Type of the function to execute.
     typedef D(T::* Operation)() const;

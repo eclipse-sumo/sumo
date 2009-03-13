@@ -39,8 +39,7 @@
  * @class HaveBoundary
  * Class which allows the retrieval of a boundary
  */
-class HaveBoundary
-{
+class HaveBoundary {
 public:
     /// Constructor
     HaveBoundary() { }

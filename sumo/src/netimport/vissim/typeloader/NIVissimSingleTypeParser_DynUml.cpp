@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_DynUml::NIVissimSingleTypeParser_DynUml(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_DynUml::~NIVissimSingleTypeParser_DynUml()
-{}
+NIVissimSingleTypeParser_DynUml::~NIVissimSingleTypeParser_DynUml() {}
 
 
 bool
-NIVissimSingleTypeParser_DynUml::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_DynUml::parse(std::istream &from) {
     std::vector<std::string> tmp;
     tmp.push_back("reisezeit");
     tmp.push_back("kante");

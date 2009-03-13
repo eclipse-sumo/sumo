@@ -64,8 +64,7 @@ AbstractMutex *MsgHandler::myLock = 0;
 // method definitions
 // ===========================================================================
 MsgHandler *
-MsgHandler::getMessageInstance()
-{
+MsgHandler::getMessageInstance() {
     if (myMessageInstance==0) {
         myMessageInstance = new MsgHandler(MT_MESSAGE);
     }
@@ -74,8 +73,7 @@ MsgHandler::getMessageInstance()
 
 
 MsgHandler *
-MsgHandler::getWarningInstance()
-{
+MsgHandler::getWarningInstance() {
     if (myWarningInstance==0) {
         myWarningInstance = new MsgHandler(MT_WARNING);
     }
@@ -84,8 +82,7 @@ MsgHandler::getWarningInstance()
 
 
 MsgHandler *
-MsgHandler::getErrorInstance()
-{
+MsgHandler::getErrorInstance() {
     if (myErrorInstance==0) {
         myErrorInstance = new MsgHandler(MT_ERROR);
     }
@@ -94,8 +91,7 @@ MsgHandler::getErrorInstance()
 
 
 void
-MsgHandler::inform(std::string msg, bool addType)
-{
+MsgHandler::inform(std::string msg, bool addType) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -126,8 +122,7 @@ MsgHandler::inform(std::string msg, bool addType)
 
 
 void
-MsgHandler::progressMsg(std::string msg, bool addType)
-{
+MsgHandler::progressMsg(std::string msg, bool addType) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -158,8 +153,7 @@ MsgHandler::progressMsg(std::string msg, bool addType)
 
 
 void
-MsgHandler::beginProcessMsg(std::string msg, bool addType)
-{
+MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -190,8 +184,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType)
 
 
 void
-MsgHandler::endProcessMsg(std::string msg)
-{
+MsgHandler::endProcessMsg(std::string msg) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -217,8 +210,7 @@ MsgHandler::endProcessMsg(std::string msg)
 
 
 void
-MsgHandler::clear()
-{
+MsgHandler::clear() {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -230,8 +222,7 @@ MsgHandler::clear()
 
 
 void
-MsgHandler::addRetriever(OutputDevice *retriever)
-{
+MsgHandler::addRetriever(OutputDevice *retriever) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -255,8 +246,7 @@ MsgHandler::addRetriever(OutputDevice *retriever)
 
 
 void
-MsgHandler::removeRetriever(OutputDevice *retriever)
-{
+MsgHandler::removeRetriever(OutputDevice *retriever) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -280,8 +270,7 @@ MsgHandler::removeRetriever(OutputDevice *retriever)
 
 
 void
-MsgHandler::report2cout(bool value)
-{
+MsgHandler::report2cout(bool value) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -301,8 +290,7 @@ MsgHandler::report2cout(bool value)
 
 
 void
-MsgHandler::report2cerr(bool value)
-{
+MsgHandler::report2cerr(bool value) {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -322,8 +310,7 @@ MsgHandler::report2cerr(bool value)
 
 
 void
-MsgHandler::initOutputOptions(bool gui)
-{
+MsgHandler::initOutputOptions(bool gui) {
     OptionsCont& oc = OptionsCont::getOptions();
     getMessageInstance()->report2cout(!gui && oc.getBool("verbose"));
     getWarningInstance()->report2cerr(!gui && !oc.getBool("suppress-warnings"));
@@ -359,8 +346,7 @@ MsgHandler::initOutputOptions(bool gui)
 
 
 void
-MsgHandler::cleanupOnEnd()
-{
+MsgHandler::cleanupOnEnd() {
     if (myLock!=0) {
         myLock->lock();
     }
@@ -378,25 +364,21 @@ MsgHandler::cleanupOnEnd()
 
 MsgHandler::MsgHandler(MsgType type)
         : myType(type), myWasInformed(false), myReport2COUT(type==MT_MESSAGE),
-        myReport2CERR(type!=MT_MESSAGE)
-{}
+        myReport2CERR(type!=MT_MESSAGE) {}
 
 
-MsgHandler::~MsgHandler()
-{
+MsgHandler::~MsgHandler() {
 }
 
 
 bool
-MsgHandler::wasInformed() const
-{
+MsgHandler::wasInformed() const {
     return myWasInformed;
 }
 
 
 void
-MsgHandler::assignLock(AbstractMutex *lock)
-{
+MsgHandler::assignLock(AbstractMutex *lock) {
     assert(myLock==0);
     myLock = lock ;
 }

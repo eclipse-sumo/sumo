@@ -39,8 +39,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GUIGradientStorage
-{
+class GUIGradientStorage {
 public:
     /// Gradient enums
     enum GradientName {

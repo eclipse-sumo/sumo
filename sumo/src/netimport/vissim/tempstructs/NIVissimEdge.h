@@ -58,8 +58,7 @@ class NBDistrictCont;
  * @brief A temporary storage for edges imported from Vissim
  */
 class NIVissimEdge
-            : public NIVissimAbstractEdge
-{
+            : public NIVissimAbstractEdge {
 public:
     /// Constructor
     NIVissimEdge(int id, const std::string &name,
@@ -223,8 +222,7 @@ private:
      * Sorts connections the edge participates in by their position along
      * the given edge
      */
-    class connection_position_sorter
-    {
+    class connection_position_sorter {
     public:
         /// constructor
         explicit connection_position_sorter(int edgeid);
@@ -243,8 +241,7 @@ private:
      * Sorts connection clusters the edge participates in by their
      * position along the given edge
      */
-    class connection_cluster_position_sorter
-    {
+    class connection_cluster_position_sorter {
     public:
         /// constructor
         explicit connection_cluster_position_sorter(int edgeid);

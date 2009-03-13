@@ -53,8 +53,7 @@ class OptionsCont;
  * class as their upper class.
  */
 class RORDGenerator_Random :
-            public ROAbstractRouteDefLoader
-{
+            public ROAbstractRouteDefLoader {
 public:
     /// Constructor
     RORDGenerator_Random(RONet &net,

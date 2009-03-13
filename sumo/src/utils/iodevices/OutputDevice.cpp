@@ -64,8 +64,7 @@ OutputDevice::DeviceMap OutputDevice::myOutputDevices;
 // ===========================================================================
 OutputDevice&
 OutputDevice::getDevice(const std::string &name,
-                        const std::string &base) throw(IOError)
-{
+                        const std::string &base) throw(IOError) {
     // check whether the device has already been aqcuired
     if (myOutputDevices.find(name)!=myOutputDevices.end()) {
         return *myOutputDevices[name];
@@ -96,8 +95,7 @@ OutputDevice::getDevice(const std::string &name,
 
 bool
 OutputDevice::createDeviceByOption(const std::string &optionName,
-                                   const std::string &rootElement) throw(IOError)
-{
+                                   const std::string &rootElement) throw(IOError) {
     if (!OptionsCont::getOptions().isSet(optionName)) {
         return false;
     }
@@ -110,8 +108,7 @@ OutputDevice::createDeviceByOption(const std::string &optionName,
 
 
 OutputDevice&
-OutputDevice::getDeviceByOption(const std::string &optionName) throw(IOError, InvalidArgument)
-{
+OutputDevice::getDeviceByOption(const std::string &optionName) throw(IOError, InvalidArgument) {
     string devName = OptionsCont::getOptions().getString(optionName);
     if (myOutputDevices.find(devName)==myOutputDevices.end()) {
         throw InvalidArgument("Device '" + devName + "' has not been created.");
@@ -121,8 +118,7 @@ OutputDevice::getDeviceByOption(const std::string &optionName) throw(IOError, In
 
 
 void
-OutputDevice::closeAll() throw()
-{
+OutputDevice::closeAll() throw() {
     while (myOutputDevices.size()!=0) {
         myOutputDevices.begin()->second->close();
     }
@@ -135,14 +131,12 @@ OutputDevice::closeAll() throw()
 // member method definitions
 // ===========================================================================
 bool
-OutputDevice::ok() throw()
-{
+OutputDevice::ok() throw() {
     return getOStream().good();
 }
 
 void
-OutputDevice::close() throw()
-{
+OutputDevice::close() throw() {
     while (closeTag());
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         if (i->second == this) {
@@ -155,16 +149,14 @@ OutputDevice::close() throw()
 
 
 void
-OutputDevice::setPrecision(unsigned int precision) throw()
-{
+OutputDevice::setPrecision(unsigned int precision) throw() {
     getOStream() << setprecision(precision);
 }
 
 
 bool
 OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
-                             const string &attrs, const string &comment) throw()
-{
+                             const string &attrs, const string &comment) throw() {
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(getOStream(), writeConfig);
         if (comment != "") {
@@ -182,8 +174,7 @@ OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
 
 
 OutputDevice&
-OutputDevice::openTag(const string &xmlElement) throw()
-{
+OutputDevice::openTag(const string &xmlElement) throw() {
     string indent(3*myXMLStack.size(), ' ');
     myXMLStack.push_back(xmlElement);
     getOStream() << indent << "<" << xmlElement;
@@ -193,8 +184,7 @@ OutputDevice::openTag(const string &xmlElement) throw()
 
 
 bool
-OutputDevice::closeTag(bool abbreviated) throw()
-{
+OutputDevice::closeTag(bool abbreviated) throw() {
     if (!myXMLStack.empty()) {
         if (abbreviated) {
             getOStream() << "/>" << endl;
@@ -211,13 +201,11 @@ OutputDevice::closeTag(bool abbreviated) throw()
 
 
 void
-OutputDevice::postWriteHook() throw()
-{}
+OutputDevice::postWriteHook() throw() {}
 
 
 bool
-OutputDevice::getBoolMarker(const std::string &name) const throw()
-{
+OutputDevice::getBoolMarker(const std::string &name) const throw() {
     if (myBoolMarkers.find(name)==myBoolMarkers.end()) {
         return false;
     }
@@ -226,15 +214,13 @@ OutputDevice::getBoolMarker(const std::string &name) const throw()
 
 
 void
-OutputDevice::setBoolMarker(const std::string &name, bool value) throw()
-{
+OutputDevice::setBoolMarker(const std::string &name, bool value) throw() {
     myBoolMarkers[name] = value;
 }
 
 
 void
-OutputDevice::inform(const std::string &msg)
-{
+OutputDevice::inform(const std::string &msg) {
     getOStream() << msg << '\n';
     postWriteHook();
 }

@@ -57,8 +57,7 @@ enum MyLCAEnum {
 /**
  * @class MSLCM_DK2004
  */
-class MSLCM_DK2004 : public MSAbstractLaneChangeModel
-{
+class MSLCM_DK2004 : public MSAbstractLaneChangeModel {
 public:
     MSLCM_DK2004(MSVehicle &v);
 

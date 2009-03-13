@@ -50,8 +50,7 @@ class ROEdge;
  *
  * @see ROJTREdge
  */
-class ROJTREdgeBuilder : public ROAbstractEdgeBuilder
-{
+class ROJTREdgeBuilder : public ROAbstractEdgeBuilder {
 public:
     /// @brief Constructor
     ROJTREdgeBuilder() throw();

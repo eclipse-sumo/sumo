@@ -83,8 +83,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src)
         : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
                        20,20,300,200),
-        myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true)
-{
+        myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
     // build the toolbar
     myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
     myToolBar = new FXToolBar(this,myToolBarDrag, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
@@ -122,8 +121,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
                        20,20,300,200),
         myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
-        myToolBarDrag(0), myBeginOffset(0)
-{
+        myToolBarDrag(0), myBeginOffset(0) {
     myConnector = 0;
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
@@ -143,8 +141,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 }
 
 
-GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow()
-{
+GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() {
     myApplication->removeChild(this);
     delete myConnector;
     // just to quit cleanly on a failure
@@ -156,8 +153,7 @@ GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow()
 
 
 void
-GUITLLogicPhasesTrackerWindow::create()
-{
+GUITLLogicPhasesTrackerWindow::create() {
     FXMainWindow::create();
     if (myToolBarDrag!=0) {
         myToolBarDrag->create();
@@ -166,22 +162,19 @@ GUITLLogicPhasesTrackerWindow::create()
 
 
 int
-GUITLLogicPhasesTrackerWindow::getMaxGLWidth() const
-{
+GUITLLogicPhasesTrackerWindow::getMaxGLWidth() const {
     return myApplication->getMaxGLWidth();
 }
 
 
 int
-GUITLLogicPhasesTrackerWindow::getMaxGLHeight() const
-{
+GUITLLogicPhasesTrackerWindow::getMaxGLHeight() const {
     return myApplication->getMaxGLHeight();
 }
 
 
 void
-GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
-{
+GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) {
     // compute what shall be shown (what is visible)
     myFirstPhase2Show = 0;
     myFirstPhaseOffset = 0;
@@ -401,8 +394,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
 
 
 void
-GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition>  def)
-{
+GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition>  def) {
     // do not draw while adding
     myLock.lock();
     // set the first time if not set before
@@ -426,8 +418,7 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition>  
 
 long
 GUITLLogicPhasesTrackerWindow::onConfigure(FXObject *sender,
-        FXSelector sel, void *data)
-{
+        FXSelector sel, void *data) {
     myPanel->onConfigure(sender, sel, data);
     return FXMainWindow::onConfigure(sender, sel, data);
 }
@@ -435,8 +426,7 @@ GUITLLogicPhasesTrackerWindow::onConfigure(FXObject *sender,
 
 long
 GUITLLogicPhasesTrackerWindow::onPaint(FXObject *sender,
-                                       FXSelector sel, void *data)
-{
+                                       FXSelector sel, void *data) {
     myPanel->onPaint(sender, sel, data);
     return FXMainWindow::onPaint(sender, sel, data);
 }
@@ -444,8 +434,7 @@ GUITLLogicPhasesTrackerWindow::onPaint(FXObject *sender,
 
 long
 GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
-        FXSelector,void*)
-{
+        FXSelector,void*) {
     update();
     return 1;
 }
@@ -453,8 +442,7 @@ GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
 
 
 void
-GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time)
-{
+GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time) {
     myBeginTime = time;
 }
 
@@ -477,32 +465,27 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTra
     FXComposite *c, GUIMainWindow &app,
     GUITLLogicPhasesTrackerWindow &parent)
         : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
-        myParent(&parent), myApplication(&app)
-{}
+        myParent(&parent), myApplication(&app) {}
 
 
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel()
-{}
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() {}
 
 
 size_t
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getHeightInPixels() const
-{
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getHeightInPixels() const {
     return myHeightInPixels;
 }
 
 
 size_t
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getWidthInPixels() const
-{
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getWidthInPixels() const {
     return myWidthInPixels;
 }
 
 
 long
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
-    FXObject*,FXSelector,void*)
-{
+    FXObject*,FXSelector,void*) {
     if (makeCurrent()) {
         myWidthInPixels = myParent->getMaxGLWidth();
         myHeightInPixels = myParent->getMaxGLHeight();
@@ -523,8 +506,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
 
 long
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
-    FXObject*,FXSelector,void*)
-{
+    FXObject*,FXSelector,void*) {
     if (!isEnabled()) {
         return 1;
     }

@@ -41,8 +41,7 @@
  * Derived from the template time line to allow the computation of
  *  non-existing values through interpolation.
  */
-class FloatValueTimeLine : public ValueTimeLine<SUMOReal>
-{
+class FloatValueTimeLine : public ValueTimeLine<SUMOReal> {
 public:
     /// Constructor
     FloatValueTimeLine() { }

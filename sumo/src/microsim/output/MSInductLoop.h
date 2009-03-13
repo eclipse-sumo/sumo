@@ -73,9 +73,8 @@ class GUILaneWrapper;
  * @see MSDetectorFileOutput
  */
 class MSInductLoop
-            : public MSMoveReminder, public MSDetectorFileOutput,
-            public MSVehicleQuitReminded, public Named
-{
+        : public MSMoveReminder, public MSDetectorFileOutput,
+            public MSVehicleQuitReminded, public Named {
 public:
     /**
      * @brief Constructor.
@@ -351,9 +350,9 @@ protected:
      *
      *
      *
-     * 
+     *
      * @param[in] t The time from which vehicles shall be counted
-     * @return The list of vehicles 
+     * @return The list of vehicles
      */
     std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t) const throw();
 

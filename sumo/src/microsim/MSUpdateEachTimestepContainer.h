@@ -41,8 +41,7 @@
  * @brief Container of typed objects that shall be updated in each simulation step
  */
 template< class UpdateEachTimestep >
-class MSUpdateEachTimestepContainer
-{
+class MSUpdateEachTimestepContainer {
 public:
     /** @brief Singleton instance retriever
      * @return The instance of this singleton
@@ -63,7 +62,7 @@ public:
     }
 
 
-    /** @brief Removes an item 
+    /** @brief Removes an item
      * @patam[in] item The item to remove
      */
     void removeItemToUpdate(UpdateEachTimestep* item) throw() {

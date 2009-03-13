@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Netzobjektdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Netzobjektdefinition(NIVissimLoader &parent);

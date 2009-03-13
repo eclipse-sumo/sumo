@@ -44,8 +44,7 @@
  * @see MSEventControl
  */
 template< class T  >
-class StaticCommand : public Command
-{
+class StaticCommand : public Command {
 public:
     /// @brief Type of the function to execute.
     typedef SUMOTime(*Operation)(SUMOTime);

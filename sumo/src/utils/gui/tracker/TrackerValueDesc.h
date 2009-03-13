@@ -51,8 +51,7 @@ class GUIGlObject;
  * This class contains the information needed to display a time line of
  *  float values.
  */
-class TrackerValueDesc : public ValueRetriever<SUMOReal>
-{
+class TrackerValueDesc : public ValueRetriever<SUMOReal> {
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,

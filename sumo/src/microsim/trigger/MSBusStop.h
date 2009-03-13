@@ -56,8 +56,7 @@ class MSLane;
  * Please note that using the last free space disallows vehicles to enter a
  *  free space in between other vehicles.
  */
-class MSBusStop : public MSTrigger
-{
+class MSBusStop : public MSTrigger {
 public:
     /** @brief Constructor
      *

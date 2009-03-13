@@ -52,17 +52,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Signalgeberdefinition::NIVissimSingleTypeParser_Signalgeberdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Signalgeberdefinition::~NIVissimSingleTypeParser_Signalgeberdefinition()
-{}
+NIVissimSingleTypeParser_Signalgeberdefinition::~NIVissimSingleTypeParser_Signalgeberdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from) {
     //
     int id;
     from >> id;

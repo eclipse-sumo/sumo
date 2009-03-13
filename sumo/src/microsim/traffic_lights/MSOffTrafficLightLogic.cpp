@@ -44,97 +44,82 @@
 // ===========================================================================
 MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
         const std::string &id)
-        : MSTrafficLightLogic(tlcontrol, id, "off", 0)
-{
+        : MSTrafficLightLogic(tlcontrol, id, "off", 0) {
 }
 
 
-MSOffTrafficLightLogic::~MSOffTrafficLightLogic()
-{
+MSOffTrafficLightLogic::~MSOffTrafficLightLogic() {
 }
 
 
 SUMOTime
-MSOffTrafficLightLogic::trySwitch(bool)
-{
+MSOffTrafficLightLogic::trySwitch(bool) {
     return 0;
 }
 
 
-unsigned int 
-MSOffTrafficLightLogic::getPhaseNumber() const
-{
+unsigned int
+MSOffTrafficLightLogic::getPhaseNumber() const {
     return 1;
 }
 
 
 size_t
-MSOffTrafficLightLogic::getCurrentPhaseIndex() const
-{
+MSOffTrafficLightLogic::getCurrentPhaseIndex() const {
     return 0;
 }
 
 size_t
-MSOffTrafficLightLogic::getCycleTime()
-{
+MSOffTrafficLightLogic::getCycleTime() {
     return 0;
 }
 
 size_t
-MSOffTrafficLightLogic::getPosition(SUMOTime simStep)
-{
+MSOffTrafficLightLogic::getPosition(SUMOTime simStep) {
     return 0;
 }
 
 unsigned int
-MSOffTrafficLightLogic::getStepFromPos(unsigned int position)
-{
+MSOffTrafficLightLogic::getStepFromPos(unsigned int position) {
     return 0;
 }
 
 size_t
-MSOffTrafficLightLogic::getPosFromStep(size_t step)
-{
+MSOffTrafficLightLogic::getPosFromStep(size_t step) {
     return 0;
 }
 
 
 const MSOffTrafficLightLogic::Phases &
-MSOffTrafficLightLogic::getPhases() const
-{
+MSOffTrafficLightLogic::getPhases() const {
     throw 1;
 }
 
 const MSPhaseDefinition &
-MSOffTrafficLightLogic::getPhaseFromStep(size_t givenStep) const
-{
+MSOffTrafficLightLogic::getPhaseFromStep(size_t givenStep) const {
     throw 1;
 }
 
 
 void
-MSOffTrafficLightLogic::setLinkPriorities() const
-{
+MSOffTrafficLightLogic::setLinkPriorities() const {
 }
 
 
 bool
-MSOffTrafficLightLogic::maskRedLinks() const
-{
+MSOffTrafficLightLogic::maskRedLinks() const {
     return true;
 }
 
 
 bool
-MSOffTrafficLightLogic::maskYellowLinks() const
-{
+MSOffTrafficLightLogic::maskYellowLinks() const {
     return true;
 }
 
 
 MSPhaseDefinition
-MSOffTrafficLightLogic::getCurrentPhaseDef() const
-{
+MSOffTrafficLightLogic::getCurrentPhaseDef() const {
     size_t no = getLinks().size();
     std::bitset<64> driveMaskArg;
     std::bitset<64> breakMaskArg;
@@ -149,8 +134,7 @@ MSOffTrafficLightLogic::getCurrentPhaseDef() const
 
 
 std::string
-MSOffTrafficLightLogic::buildStateList() const
-{
+MSOffTrafficLightLogic::buildStateList() const {
     std::ostringstream strm;
     size_t no = getLinks().size();
     for (size_t i=0; i<no; ++i) {

@@ -45,17 +45,14 @@ Distribution_Points::Distribution_Points(const std::string &id,
         const Position2DVector &points,
         bool interpolating) throw()
         : Distribution(id), myPoints(points), myProbabilitiesAreComputed(false),
-        myInterpolateDist(interpolating)
-{}
+        myInterpolateDist(interpolating) {}
 
 
-Distribution_Points::~Distribution_Points() throw()
-{}
+Distribution_Points::~Distribution_Points() throw() {}
 
 
 SUMOReal
-Distribution_Points::getMax() const
-{
+Distribution_Points::getMax() const {
     assert(myPoints.size()>0);
     const Position2D &p = myPoints[-1];
     return p.x();
@@ -63,29 +60,25 @@ Distribution_Points::getMax() const
 
 
 size_t
-Distribution_Points::getAreaNo() const
-{
+Distribution_Points::getAreaNo() const {
     return myPoints.size()-1;
 }
 
 
 SUMOReal
-Distribution_Points::getAreaBegin(size_t index) const
-{
+Distribution_Points::getAreaBegin(size_t index) const {
     return myPoints[(int) index].x();
 }
 
 
 SUMOReal
-Distribution_Points::getAreaEnd(size_t index) const
-{
+Distribution_Points::getAreaEnd(size_t index) const {
     return myPoints[(int) index+1].x();
 }
 
 
 SUMOReal
-Distribution_Points::getAreaPerc(size_t index) const
-{
+Distribution_Points::getAreaPerc(size_t index) const {
     if (!myProbabilitiesAreComputed) {
         SUMOReal sum = 0;
         size_t i;

@@ -39,8 +39,7 @@
 /**
  *
  */
-class NIVissimNodeParticipatingEdge
-{
+class NIVissimNodeParticipatingEdge {
 public:
     NIVissimNodeParticipatingEdge(int edgeid,
                                   SUMOReal frompos, SUMOReal topos);

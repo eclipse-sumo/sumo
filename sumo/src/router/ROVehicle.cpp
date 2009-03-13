@@ -50,17 +50,14 @@
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter &pars,
                      RORouteDef *route, ROVehicleType *type) throw()
-        : myParameter(pars), myType(type), myRoute(route)
-{}
+        : myParameter(pars), myType(type), myRoute(route) {}
 
 
-ROVehicle::~ROVehicle() throw()
-{}
+ROVehicle::~ROVehicle() throw() {}
 
 
 void
-ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
-{
+ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError) {
     dev << "<vehicle id=\"" << myParameter.id << "\"";
     if (myParameter.wasSet(VEHPARS_VTYPE_SET)) {
         dev << " type=\"" << myType->getID() << "\"";
@@ -148,8 +145,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
 
 void
 ROVehicle::saveAllAsXML(OutputDevice &os,
-                        OutputDevice * const altos, bool withExitTimes) const throw(IOError)
-{
+                        OutputDevice * const altos, bool withExitTimes) const throw(IOError) {
     // check whether the vehicle's type was saved before
     if (myType!=0&&!myType->isSaved()) {
         // ... save if not
@@ -186,8 +182,7 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
 
 ROVehicle *
 ROVehicle::copy(const std::string &id, unsigned int depTime,
-                RORouteDef *newRoute) throw()
-{
+                RORouteDef *newRoute) throw() {
     SUMOVehicleParameter pars(myParameter);
     pars.id = id;
     pars.depart = depTime;

@@ -41,8 +41,7 @@
 // method definitions
 // ==========================================================================
 OutputDevice_Network::OutputDevice_Network(const std::string &host,
-        const int port) throw(IOError)
-{
+        const int port) throw(IOError) {
     mySocket = new tcpip::Socket(host, port);
     try {
         mySocket->connect();
@@ -52,23 +51,20 @@ OutputDevice_Network::OutputDevice_Network(const std::string &host,
 }
 
 
-OutputDevice_Network::~OutputDevice_Network() throw()
-{
+OutputDevice_Network::~OutputDevice_Network() throw() {
     mySocket->close();
     delete mySocket;
 }
 
 
 std::ostream &
-OutputDevice_Network::getOStream() throw()
-{
+OutputDevice_Network::getOStream() throw() {
     return myMessage;
 }
 
 
 void
-OutputDevice_Network::postWriteHook() throw()
-{
+OutputDevice_Network::postWriteHook() throw() {
     std::string toSend = myMessage.str();
     std::vector<unsigned char> msg;
     msg.insert(msg.end(), toSend.begin(), toSend.end());

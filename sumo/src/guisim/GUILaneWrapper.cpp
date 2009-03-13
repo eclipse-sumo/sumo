@@ -79,8 +79,7 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape) throw()
         : GUIGlObject(idStorage, "lane:"+lane.getID()),
-        myLane(lane), myShape(shape)
-{
+        myLane(lane), myShape(shape) {
     SUMOReal x1 = shape[0].x();
     SUMOReal y1 = shape[0].y();
     SUMOReal x2 = shape[-1].x();
@@ -105,56 +104,48 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
 }
 
 
-GUILaneWrapper::~GUILaneWrapper() throw()
-{}
+GUILaneWrapper::~GUILaneWrapper() throw() {}
 
 
 SUMOReal
-GUILaneWrapper::getLength() const
-{
+GUILaneWrapper::getLength() const {
     return myLane.myLength;
 }
 
 
 SUMOReal
-GUILaneWrapper::visLength() const
-{
+GUILaneWrapper::visLength() const {
     return myVisLength;
 }
 
 
 MSEdge::EdgeBasicFunction
-GUILaneWrapper::getPurpose() const
-{
+GUILaneWrapper::getPurpose() const {
     return myLane.myEdge->getPurpose();
 }
 
 
 SUMOReal
-GUILaneWrapper::maxSpeed() const
-{
+GUILaneWrapper::maxSpeed() const {
     return myLane.maxSpeed();
 }
 
 
 SUMOReal
-GUILaneWrapper::getOverallMaxSpeed()
-{
+GUILaneWrapper::getOverallMaxSpeed() {
     return myAllMaxSpeed;
 }
 
 
 bool
-GUILaneWrapper::forLane(const MSLane &lane) const
-{
+GUILaneWrapper::forLane(const MSLane &lane) const {
     return (&myLane)==(&lane);
 }
 
 
 
 void
-ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
-{
+ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
     size_t noLinks = lane.getLinkNumber();
     if (noLinks==0) {
         return;
@@ -192,8 +183,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
 
 
 void
-ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
-{
+ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
     size_t noLinks = lane.getLinkNumber();
     if (noLinks==0) {
         return;
@@ -235,8 +225,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
 
 void
 ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
-                            bool showToolTips)
-{
+                            bool showToolTips) {
     size_t noLinks = lane.getLinkNumber();
     const Position2DVector &g = lane.getShape();
     const Position2D &end = g.getEnd();
@@ -336,8 +325,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
 
 
 void
-ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips)
-{
+ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
     size_t noLinks = lane.getLinkNumber();
     if (noLinks==0) {
         return;
@@ -384,8 +372,7 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips)
 
 
 void
-ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
-{
+ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
     size_t noLinks = lane.getLinkNumber();
     for (size_t i=0; i<noLinks; ++i) {
         MSLink::LinkState state = lane.getLinkState(i);
@@ -435,8 +422,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane)
 
 
 void
-GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     // set lane color
     GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
     sm.getColorer(s.laneEdgeMode)->setGlColor(*this);
@@ -524,8 +510,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
 
 
 void
-GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw()
-{
+GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw() {
     GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
     sm.getColorer(s.laneEdgeMode)->setGlColor(*this);
     // check whether lane boundaries shall be drawn
@@ -549,8 +534,7 @@ GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw()
 
 GUIGLObjectPopupMenu *
 GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
-                             GUISUMOAbstractView &parent) throw()
-{
+                             GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -569,8 +553,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
-                                   GUISUMOAbstractView &) throw()
-{
+                                   GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 2);
     // add items
@@ -583,15 +566,13 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUILaneWrapper::getMicrosimID() const throw()
-{
+GUILaneWrapper::getMicrosimID() const throw() {
     return myLane.getID();
 }
 
 
 Boundary
-GUILaneWrapper::getCenteringBoundary() const throw()
-{
+GUILaneWrapper::getCenteringBoundary() const throw() {
     Boundary b;
     b.add(myShape[0]);
     b.add(myShape[-1]);
@@ -603,92 +584,79 @@ GUILaneWrapper::getCenteringBoundary() const throw()
 
 
 const Position2DVector &
-GUILaneWrapper::getShape() const
-{
+GUILaneWrapper::getShape() const {
     return myShape;
 }
 
 
 size_t
-GUILaneWrapper::getLinkNumber() const
-{
+GUILaneWrapper::getLinkNumber() const {
     return myLane.getLinkCont().size();
 }
 
 
 MSLink::LinkState
-GUILaneWrapper::getLinkState(size_t pos) const
-{
+GUILaneWrapper::getLinkState(size_t pos) const {
     return myLane.getLinkCont()[pos]->getState();
 }
 
 
 MSLink::LinkDirection
-GUILaneWrapper::getLinkDirection(size_t pos) const
-{
+GUILaneWrapper::getLinkDirection(size_t pos) const {
     return myLane.getLinkCont()[pos]->getDirection();
 }
 
 
 MSLane *
-GUILaneWrapper::getLinkLane(size_t pos) const
-{
+GUILaneWrapper::getLinkLane(size_t pos) const {
     return myLane.getLinkCont()[pos]->getLane();
 }
 
 
 int
-GUILaneWrapper::getLinkRespondIndex(size_t pos) const
-{
+GUILaneWrapper::getLinkRespondIndex(size_t pos) const {
     return myLane.getLinkCont()[pos]->getRespondIndex();
 }
 
 
 const DoubleVector &
-GUILaneWrapper::getShapeRotations() const
-{
+GUILaneWrapper::getShapeRotations() const {
     return myShapeRotations;
 }
 
 
 const DoubleVector &
-GUILaneWrapper::getShapeLengths() const
-{
+GUILaneWrapper::getShapeLengths() const {
     return myShapeLengths;
 }
 
 
 const MSLane::VehCont &
-GUILaneWrapper::getVehiclesSecure()
-{
+GUILaneWrapper::getVehiclesSecure() {
     return myLane.getVehiclesSecure();
 }
 
 
 void
-GUILaneWrapper::releaseVehicles()
-{
+GUILaneWrapper::releaseVehicles() {
     myLane.releaseVehicles();
 }
 
 
 unsigned int
-GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const
-{
+GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const {
     return net.getLinkTLID(myLane.getLinkCont()[pos]);
 }
 
 
 int
-GUILaneWrapper::getLinkTLIndex(const GUINet &net, size_t pos) const
-{
+GUILaneWrapper::getLinkTLIndex(const GUINet &net, size_t pos) const {
     return net.getLinkTLIndex(myLane.getLinkCont()[pos]);
 }
 
 
 const MSEdge * const
-GUILaneWrapper::getMSEdge() const
-{
+    GUILaneWrapper::getMSEdge() const {
     return myLane.getEdge();
 }
 
@@ -698,8 +666,7 @@ GUILaneWrapper::getMSEdge() const
 #include <guisim/GUIEdge.h>
 
 void
-GUILaneWrapper::selectSucessors()
-{
+GUILaneWrapper::selectSucessors() {
     SUMOReal maxDist = 2000;
     SUMOReal minDist = 1000;
     SUMOReal maxSpeed = 55.0;
@@ -751,8 +718,7 @@ GUILaneWrapper::selectSucessors()
 
 
 SUMOReal
-GUILaneWrapper::firstWaitingTime() const
-{
+GUILaneWrapper::firstWaitingTime() const {
     return myLane.myVehicles.size()==0
            ? 0
            : (SUMOReal)(*(myLane.myVehicles.end()-1))->getWaitingTime();
@@ -760,22 +726,19 @@ GUILaneWrapper::firstWaitingTime() const
 
 
 SUMOReal
-GUILaneWrapper::getDensity() const
-{
+GUILaneWrapper::getDensity() const {
     return myLane.getDensity();
 }
 
 
 SUMOReal
-GUILaneWrapper::getEdgeLaneNumber() const
-{
+GUILaneWrapper::getEdgeLaneNumber() const {
     return (SUMOReal) myLane.getEdge()->getLanes()->size();
 }
 
 
 SUMOReal
-GUILaneWrapper::getHBEFA_CO2Emissions() const
-{
+GUILaneWrapper::getHBEFA_CO2Emissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
@@ -787,8 +750,7 @@ GUILaneWrapper::getHBEFA_CO2Emissions() const
 
 
 SUMOReal
-GUILaneWrapper::getHBEFA_COEmissions() const
-{
+GUILaneWrapper::getHBEFA_COEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
@@ -800,8 +762,7 @@ GUILaneWrapper::getHBEFA_COEmissions() const
 
 
 SUMOReal
-GUILaneWrapper::getHBEFA_PMxEmissions() const
-{
+GUILaneWrapper::getHBEFA_PMxEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
@@ -813,8 +774,7 @@ GUILaneWrapper::getHBEFA_PMxEmissions() const
 
 
 SUMOReal
-GUILaneWrapper::getHBEFA_NOxEmissions() const
-{
+GUILaneWrapper::getHBEFA_NOxEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
@@ -826,8 +786,7 @@ GUILaneWrapper::getHBEFA_NOxEmissions() const
 
 
 SUMOReal
-GUILaneWrapper::getHBEFA_HCEmissions() const
-{
+GUILaneWrapper::getHBEFA_HCEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
@@ -839,8 +798,7 @@ GUILaneWrapper::getHBEFA_HCEmissions() const
 
 
 SUMOReal
-GUILaneWrapper::getHBEFA_FuelConsumption() const
-{
+GUILaneWrapper::getHBEFA_FuelConsumption() const {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
@@ -852,8 +810,7 @@ GUILaneWrapper::getHBEFA_FuelConsumption() const
 
 
 SUMOReal
-GUILaneWrapper::getHarmonoise_NoiseEmissions() const
-{
+GUILaneWrapper::getHarmonoise_NoiseEmissions() const {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {

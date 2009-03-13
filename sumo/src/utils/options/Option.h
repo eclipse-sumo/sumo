@@ -73,8 +73,7 @@ typedef std::vector<int> IntVector;
  * Each option may have a description about its purpose stored. Furthermore, it
  *  stores a man-readable type name for this option.
  */
-class Option
-{
+class Option {
 public:
     /** destructor */
     virtual ~Option() throw();
@@ -293,8 +292,7 @@ private:
  * @class Option_Integer
  * @brief An integer-option
  */
-class Option_Integer : public Option
-{
+class Option_Integer : public Option {
 public:
     /** @brief Constructor for an option with no default value
      *
@@ -369,8 +367,7 @@ private:
 /* -------------------------------------------------------------------------
  * Option_String
  * ----------------------------------------------------------------------- */
-class Option_String : public Option
-{
+class Option_String : public Option {
 public:
     /** @brief Constructor for an option with no default value
      *
@@ -441,8 +438,7 @@ protected:
 /* -------------------------------------------------------------------------
  * Option_Float
  * ----------------------------------------------------------------------- */
-class Option_Float : public Option
-{
+class Option_Float : public Option {
 public:
     /** @brief Constructor for an option with no default value
      *
@@ -517,8 +513,7 @@ private:
 /* -------------------------------------------------------------------------
  * Option_Bool
  * ----------------------------------------------------------------------- */
-class Option_Bool : public Option
-{
+class Option_Bool : public Option {
 public:
     /** @brief Constructor for an option with no default value
      *
@@ -588,8 +583,7 @@ private:
 /* -------------------------------------------------------------------------
  * Option_FileName
  * ----------------------------------------------------------------------- */
-class Option_FileName : public Option_String
-{
+class Option_FileName : public Option_String {
 public:
     /** @brief Constructor for an option with no default value
      */
@@ -628,8 +622,7 @@ public:
 /* -------------------------------------------------------------------------
  * Option_IntVector
  * ----------------------------------------------------------------------- */
-class Option_IntVector : public Option
-{
+class Option_IntVector : public Option {
 public:
     /** @brief Constructor for an option with no default value
      */

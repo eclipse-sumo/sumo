@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Rautedefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Rautedefinition(NIVissimLoader &parent);

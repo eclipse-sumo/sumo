@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Einheitendefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Einheitendefinition(NIVissimLoader &parent);

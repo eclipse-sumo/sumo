@@ -49,48 +49,40 @@ const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::parseColor(RGBColor::DEFAULT_
 // method definitions
 // ===========================================================================
 RGBColor::RGBColor()
-        : myRed(-1), myGreen(-1), myBlue(-1)
-{}
+        : myRed(-1), myGreen(-1), myBlue(-1) {}
 
 
 RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue)
-        : myRed(red), myGreen(green), myBlue(blue)
-{}
+        : myRed(red), myGreen(green), myBlue(blue) {}
 
 
 RGBColor::RGBColor(const RGBColor& col)
-        : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue)
-{}
+        : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue) {}
 
 
-RGBColor::~RGBColor()
-{}
+RGBColor::~RGBColor() {}
 
 
 SUMOReal
-RGBColor::red() const
-{
+RGBColor::red() const {
     return myRed;
 }
 
 
 SUMOReal
-RGBColor::green() const
-{
+RGBColor::green() const {
     return myGreen;
 }
 
 
 SUMOReal
-RGBColor::blue() const
-{
+RGBColor::blue() const {
     return myBlue;
 }
 
 
 std::ostream &
-operator<<(std::ostream &os, const RGBColor &col)
-{
+operator<<(std::ostream &os, const RGBColor &col) {
     os
     << col.myRed << ","
     << col.myGreen << ","
@@ -100,24 +92,21 @@ operator<<(std::ostream &os, const RGBColor &col)
 
 
 bool
-RGBColor::operator==(const RGBColor &c) const
-{
+RGBColor::operator==(const RGBColor &c) const {
     return fabs(myRed-c.myRed)<0.1 && fabs(myGreen-c.myGreen)<0.1 && fabs(myBlue-c.myBlue)<0.1;
     //return myRed==c.myRed&&myGreen==c.myGreen&&myBlue==c.myBlue;
 }
 
 
 bool
-RGBColor::operator!=(const RGBColor &c) const
-{
+RGBColor::operator!=(const RGBColor &c) const {
     return fabs(myRed-c.myRed)>0.1 || fabs(myGreen-c.myGreen)>0.1 || fabs(myBlue-c.myBlue)>0.1;
     //return myRed!=c.myRed||myGreen!=c.myGreen||myBlue!=c.myBlue;
 }
 
 
 RGBColor
-RGBColor::parseColor(const std::string &coldef)
-{
+RGBColor::parseColor(const std::string &coldef) {
     StringTokenizer st(coldef, ",");
     if (st.size()<3) {
         throw EmptyData();
@@ -129,8 +118,7 @@ RGBColor::parseColor(const std::string &coldef)
 }
 
 RGBColor
-RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight)
-{
+RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight) {
     if (weight < 0) weight = 0;
     if (weight > 1) weight = 1;
     SUMOReal r = minColor.myRed + (maxColor.myRed - minColor.myRed) * weight;

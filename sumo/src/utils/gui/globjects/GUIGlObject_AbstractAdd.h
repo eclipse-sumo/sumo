@@ -44,8 +44,7 @@
  * @class GUIGlObject_AbstractAdd
  */
 class GUIGlObject_AbstractAdd :
-            public GUIGlObject
-{
+            public GUIGlObject {
 public:
     GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
                             std::string fullName, GUIGlObjectType type) throw();

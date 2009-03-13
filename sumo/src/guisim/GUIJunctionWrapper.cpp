@@ -61,21 +61,18 @@ GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
                                        MSJunction &junction,
                                        const Position2DVector &shape) throw()
         : GUIGlObject(idStorage, "junction:"+junction.getID()),
-        myJunction(junction), myShape(shape)
-{
+        myJunction(junction), myShape(shape) {
     Boundary b = myShape.getBoxBoundary();
     myMaxSize = MAX2(b.getWidth(), b.getHeight());
 }
 
 
-GUIJunctionWrapper::~GUIJunctionWrapper() throw()
-{}
+GUIJunctionWrapper::~GUIJunctionWrapper() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent) throw()
-{
+                                 GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -88,22 +85,19 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
-                                       GUISUMOAbstractView &) throw()
-{
+                                       GUISUMOAbstractView &) throw() {
     return 0;
 }
 
 
 const std::string &
-GUIJunctionWrapper::getMicrosimID() const throw()
-{
+GUIJunctionWrapper::getMicrosimID() const throw() {
     return myJunction.getID();
 }
 
 
 Boundary
-GUIJunctionWrapper::getBoundary() const
-{
+GUIJunctionWrapper::getBoundary() const {
     Boundary boundary;
     int shapeLength = (int) myShape.size();
     for (int i=0; i<shapeLength; ++i) {
@@ -115,29 +109,25 @@ GUIJunctionWrapper::getBoundary() const
 
 
 const Position2DVector &
-GUIJunctionWrapper::getShape() const
-{
+GUIJunctionWrapper::getShape() const {
     return myShape;
 }
 
 
 Boundary
-GUIJunctionWrapper::getCenteringBoundary() const throw()
-{
+GUIJunctionWrapper::getCenteringBoundary() const throw() {
     Boundary b = getBoundary();
     b.grow(20);
     return b;
 }
 
 MSJunction &
-GUIJunctionWrapper::getJunction() const
-{
+GUIJunctionWrapper::getJunction() const {
     return myJunction;
 }
 
 void
-GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     // check whether it is not too small
     if (s.scale*myMaxSize<1.) {
         return;

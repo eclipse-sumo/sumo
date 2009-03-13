@@ -39,8 +39,7 @@
  * @class MFXUtils
  * @brief Some helper functions for FOX
  */
-class MFXUtils
-{
+class MFXUtils {
 public:
     /** @brief Deletes all children of the given window
      *

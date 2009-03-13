@@ -52,8 +52,7 @@ class MSVehicle;
  * Class in order to expand the MSVehicle-class concerning the availability
  *  and the usage state of cellphones carried along.
  */
-class MSDevice_CPhone : public MSDevice
-{
+class MSDevice_CPhone : public MSDevice {
 public:
     /** @brief Inserts MSDevice_CPhone-options
      */

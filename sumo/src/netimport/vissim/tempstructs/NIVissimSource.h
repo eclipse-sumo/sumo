@@ -39,8 +39,7 @@
 /**
  *
  */
-class NIVissimSource
-{
+class NIVissimSource {
 public:
     NIVissimSource(const std::string &id, const std::string &name,
                    const std::string &edgeid, SUMOReal q, bool exact,

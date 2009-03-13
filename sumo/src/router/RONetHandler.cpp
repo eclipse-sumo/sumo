@@ -59,18 +59,15 @@ RONetHandler::RONetHandler(RONet &net,
                            ROAbstractEdgeBuilder &eb)
         : SUMOSAXHandler("sumo-network"),
         myNet(net), myCurrentName(),
-        myCurrentEdge(0), myEdgeBuilder(eb)
-{}
+        myCurrentEdge(0), myEdgeBuilder(eb) {}
 
 
-RONetHandler::~RONetHandler() throw()
-{}
+RONetHandler::~RONetHandler() throw() {}
 
 
 void
 RONetHandler::myStartElement(SumoXMLTag element,
-                             const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                             const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         // in the first step, we do need the name to allocate the edge
@@ -99,8 +96,7 @@ RONetHandler::myStartElement(SumoXMLTag element,
 
 
 void
-RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
-{
+RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     if (!attrs.setIDFromAttributes("edge", myCurrentName)) {
         throw ProcessError();
@@ -173,8 +169,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
 
 
 void
-RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
-{
+RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
     if (myCurrentEdge==0) {
         // was an internal edge to skip or an error occured
         return;
@@ -230,8 +225,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
 
 
 void
-RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
-{
+RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     string id;
     if (!attrs.setIDFromAttributes("junction", id)) {
@@ -255,8 +249,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 
 
 void
-RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     string id = attrs.getString(SUMO_ATTR_EDGE);
     if (id[0]==':') {
         myCurrentEdge = 0;
@@ -270,8 +263,7 @@ RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessE
 
 
 void
-RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs)
-{
+RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
     if (myCurrentEdge==0) {
         // earlier error or internal link
         return;

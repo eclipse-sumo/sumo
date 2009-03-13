@@ -54,8 +54,7 @@ using namespace FX;
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 using namespace FXEX;
-namespace FXEX
-{
+namespace FXEX {
 
 FXDEFMAP(FXLCDLabel) FXLCDLabelMap[]={
     FXMAPFUNC(SEL_PAINT,0,FXLCDLabel::onPaint),
@@ -72,8 +71,7 @@ FXDEFMAP(FXLCDLabel) FXLCDLabelMap[]={
 };
 FXIMPLEMENT(FXLCDLabel,FXHorizontalFrame,FXLCDLabelMap,ARRAYNUMBER(FXLCDLabelMap))
 
-FXLCDLabel::FXLCDLabel(FXComposite* p,FXuint nfig,FXObject* tgt,FXSelector sel,FXuint opts,FXint pl,FXint pr,FXint pt,FXint pb,FXint hs) : FXHorizontalFrame(p,opts,0,0,0,0,pl,pr,pt,pb,hs,0)
-{
+FXLCDLabel::FXLCDLabel(FXComposite* p,FXuint nfig,FXObject* tgt,FXSelector sel,FXuint opts,FXint pl,FXint pr,FXint pt,FXint pb,FXint hs) : FXHorizontalFrame(p,opts,0,0,0,0,pl,pr,pt,pb,hs,0) {
     if (nfig==0) fxerror("%s: must have at least one figure.\n",getClassName());
     nfigures=nfig;
     setTarget(tgt);
@@ -84,8 +82,7 @@ FXLCDLabel::FXLCDLabel(FXComposite* p,FXuint nfig,FXObject* tgt,FXSelector sel,F
     }
 }
 
-FXLCDLabel::~FXLCDLabel()
-{
+FXLCDLabel::~FXLCDLabel() {
     /*
       for (FXSevenSegment *child=(FXSevenSegment*)getFirst(); child; child=(FXSevenSegment*)child->getNext()){
         delete child;
@@ -94,8 +91,7 @@ FXLCDLabel::~FXLCDLabel()
 }
 
 // create resources
-void FXLCDLabel::create()
-{
+void FXLCDLabel::create() {
     FXHorizontalFrame::create();
     for (FXWindow *child=getFirst(); child; child=child->getNext()) {
         child->create();
@@ -103,8 +99,7 @@ void FXLCDLabel::create()
 }
 
 // detach resources
-void FXLCDLabel::detach()
-{
+void FXLCDLabel::detach() {
     for (FXWindow *child=getFirst(); child; child=child->getNext()) {
         child->detach();
     }
@@ -112,8 +107,7 @@ void FXLCDLabel::detach()
 }
 
 // destroy resources
-void FXLCDLabel::destroy()
-{
+void FXLCDLabel::destroy() {
     for (FXWindow *child=getFirst(); child; child=child->getNext()) {
         child->destroy();
     }
@@ -121,15 +115,13 @@ void FXLCDLabel::destroy()
 }
 
 // get the foreground color
-FXColor FXLCDLabel::getFgColor() const
-{
+FXColor FXLCDLabel::getFgColor() const {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     return child->getFgColor();
 }
 
 // set the foreground color
-void FXLCDLabel::setFgColor(FXColor clr)
-{
+void FXLCDLabel::setFgColor(FXColor clr) {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     if (clr!=child->getFgColor()) {
         for (child=(FXSevenSegment*)getFirst(); child; child=(FXSevenSegment*)child->getNext()) {
@@ -139,15 +131,13 @@ void FXLCDLabel::setFgColor(FXColor clr)
 }
 
 // get the background color
-FXColor FXLCDLabel::getBgColor() const
-{
+FXColor FXLCDLabel::getBgColor() const {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     return child->getBgColor();
 }
 
 // set the background color
-void FXLCDLabel::setBgColor(FXColor clr)
-{
+void FXLCDLabel::setBgColor(FXColor clr) {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     if (clr!=child->getBgColor()) {
         for (child=(FXSevenSegment*)getFirst(); child; child=(FXSevenSegment*)child->getNext()) {
@@ -157,8 +147,7 @@ void FXLCDLabel::setBgColor(FXColor clr)
 }
 
 // set the text
-void FXLCDLabel::setText(FXString lbl)
-{
+void FXLCDLabel::setText(FXString lbl) {
     if (lbl!=label) {
         label=lbl;
         recalc();
@@ -167,15 +156,13 @@ void FXLCDLabel::setText(FXString lbl)
 }
 
 // get the length of the horizontal segments
-FXint FXLCDLabel::getHorizontal() const
-{
+FXint FXLCDLabel::getHorizontal() const {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     return child->getHorizontal();
 }
 
 // set the length of the horizontal segments
-void FXLCDLabel::setHorizontal(const FXint len)
-{
+void FXLCDLabel::setHorizontal(const FXint len) {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     if (len!=child->getHorizontal()) {
         for (child=(FXSevenSegment*)getFirst(); child; child=(FXSevenSegment*)child->getNext()) {
@@ -187,15 +174,13 @@ void FXLCDLabel::setHorizontal(const FXint len)
 }
 
 // get the length of the vertical segments
-FXint FXLCDLabel::getVertical() const
-{
+FXint FXLCDLabel::getVertical() const {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     return child->getVertical();
 }
 
 // set the length of the vertical segments
-void FXLCDLabel::setVertical(const FXint len)
-{
+void FXLCDLabel::setVertical(const FXint len) {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     if (len!=child->getVertical()) {
         for (child=(FXSevenSegment*)getFirst(); child; child=(FXSevenSegment*)child->getNext()) {
@@ -207,15 +192,13 @@ void FXLCDLabel::setVertical(const FXint len)
 }
 
 // get the width of the segments
-FXint FXLCDLabel::getThickness() const
-{
+FXint FXLCDLabel::getThickness() const {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     return child->getThickness();
 }
 
 // set the width of the segments
-void FXLCDLabel::setThickness(const FXint width)
-{
+void FXLCDLabel::setThickness(const FXint width) {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     if (width!=child->getThickness()) {
         for (child=(FXSevenSegment*)getFirst(); child; child=(FXSevenSegment*)child->getNext()) {
@@ -227,15 +210,13 @@ void FXLCDLabel::setThickness(const FXint width)
 }
 
 // get the width of the segments
-FXint FXLCDLabel::getGroove() const
-{
+FXint FXLCDLabel::getGroove() const {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     return child->getGroove();
 }
 
 // set the groove width
-void FXLCDLabel::setGroove(const FXint width)
-{
+void FXLCDLabel::setGroove(const FXint width) {
     FXSevenSegment *child = (FXSevenSegment*)getFirst();
     if (width!=child->getGroove()) {
         for (child=(FXSevenSegment*)getFirst(); child; child=(FXSevenSegment*)child->getNext()) {
@@ -247,57 +228,49 @@ void FXLCDLabel::setGroove(const FXint width)
 }
 
 // Update value from a message
-long FXLCDLabel::onCmdSetValue(FXObject*,FXSelector,void* ptr)
-{
+long FXLCDLabel::onCmdSetValue(FXObject*,FXSelector,void* ptr) {
     setText((const FXchar*)ptr);
     return 1;
 }
 
 // Update value from a message
-long FXLCDLabel::onCmdSetIntValue(FXObject*,FXSelector,void* ptr)
-{
+long FXLCDLabel::onCmdSetIntValue(FXObject*,FXSelector,void* ptr) {
     setText(FXStringVal(*((FXint*)ptr)));
     return 1;
 }
 
 // Update value from a message
-long FXLCDLabel::onCmdSetRealValue(FXObject*,FXSelector,void* ptr)
-{
+long FXLCDLabel::onCmdSetRealValue(FXObject*,FXSelector,void* ptr) {
     setText(FXStringVal(*((FXdouble*)ptr)));
     return 1;
 }
 
 // Update value from a message
-long FXLCDLabel::onCmdSetStringValue(FXObject*,FXSelector,void* ptr)
-{
+long FXLCDLabel::onCmdSetStringValue(FXObject*,FXSelector,void* ptr) {
     setText(*((FXString*)ptr));
     return 1;
 }
 
 // Obtain value from text field
-long FXLCDLabel::onCmdGetIntValue(FXObject*,FXSelector,void* ptr)
-{
+long FXLCDLabel::onCmdGetIntValue(FXObject*,FXSelector,void* ptr) {
     *((FXint*)ptr)=FXIntVal(getText());
     return 1;
 }
 
 // Obtain value from text field
-long FXLCDLabel::onCmdGetRealValue(FXObject*,FXSelector,void* ptr)
-{
+long FXLCDLabel::onCmdGetRealValue(FXObject*,FXSelector,void* ptr) {
     *((FXdouble*)ptr)=FXDoubleVal(getText());
     return 1;
 }
 
 // Obtain value from text field
-long FXLCDLabel::onCmdGetStringValue(FXObject*,FXSelector,void* ptr)
-{
+long FXLCDLabel::onCmdGetStringValue(FXObject*,FXSelector,void* ptr) {
     *((FXString*)ptr)=getText();
     return 1;
 }
 
 // handle paint event
-long FXLCDLabel::onPaint(FXObject*,FXSelector,void *ptr)
-{
+long FXLCDLabel::onPaint(FXObject*,FXSelector,void *ptr) {
     FXEvent *event= (FXEvent*) ptr;
     FXDCWindow dc(this, event);
     drawFrame(dc,0,0,width,height);
@@ -312,8 +285,7 @@ long FXLCDLabel::onPaint(FXObject*,FXSelector,void *ptr)
 }
 
 // draw a specified string/label
-void FXLCDLabel::drawString(const FXString& lbl)
-{
+void FXLCDLabel::drawString(const FXString& lbl) {
     FXint i=0;
     FXString displayString(' ',nfigures);
     if (options&LCDLABEL_LEADING_ZEROS && (FXIntVal(lbl) || lbl=="0")) {
@@ -323,12 +295,12 @@ void FXLCDLabel::drawString(const FXString& lbl)
             txt.remove(0);
             i=1;
         }
-        for (;(i+txt.length())<nfigures;i++) {
+        for (; (i+txt.length())<nfigures; i++) {
             displayString.replace(i,'0');
         }
         displayString.insert(i,txt);
     } else if (options&JUSTIFY_RIGHT) {
-        for (;(i+lbl.length())<nfigures;i++) {}
+        for (; (i+lbl.length())<nfigures; i++) {}
         displayString.insert(i,lbl);
     } else {
         displayString.insert(0,lbl);
@@ -381,8 +353,7 @@ void FXLCDLabel::drawString(const FXString& lbl)
 }
 
 // redirect events to main window
-long FXLCDLabel::onRedirectEvent(FXObject*,FXSelector sel,void *ptr)
-{
+long FXLCDLabel::onRedirectEvent(FXObject*,FXSelector sel,void *ptr) {
     FXuint seltype = FXSELTYPE(sel);
     if (isEnabled()) {
         if (target) target->handle(this,FXSEL(seltype,message),ptr);
@@ -391,43 +362,37 @@ long FXLCDLabel::onRedirectEvent(FXObject*,FXSelector sel,void *ptr)
 }
 
 // return minimum width
-FXint FXLCDLabel::getDefaultWidth()
-{
+FXint FXLCDLabel::getDefaultWidth() {
     return padleft + getFirst()->getDefaultWidth()*nfigures + hspacing*(nfigures-1) + padright + (border<<1);
 }
 
 // return minimum height
-FXint FXLCDLabel::getDefaultHeight()
-{
+FXint FXLCDLabel::getDefaultHeight() {
     return padtop + getFirst()->getDefaultHeight() + padbottom + (border<<1);
 }
 
 // save resources
-void FXLCDLabel::save(FXStream &store) const
-{
+void FXLCDLabel::save(FXStream &store) const {
     FXHorizontalFrame::save(store);
     store << label;
     store << nfigures;
 }
 
 // load resources
-void FXLCDLabel::load(FXStream &store)
-{
+void FXLCDLabel::load(FXStream &store) {
     FXHorizontalFrame::load(store);
     store >> label;
     store >> nfigures;
 }
 
 // let parent show tip if appropriate
-long FXLCDLabel::onQueryTip(FXObject *sender,FXSelector sel,void *ptr)
-{
+long FXLCDLabel::onQueryTip(FXObject *sender,FXSelector sel,void *ptr) {
     if (getParent()) return getParent()->handle(sender,sel,ptr);
     return 0;
 }
 
 // let parent show help if appropriate
-long FXLCDLabel::onQueryHelp(FXObject *sender,FXSelector sel,void *ptr)
-{
+long FXLCDLabel::onQueryHelp(FXObject *sender,FXSelector sel,void *ptr) {
     if (getParent()) return getParent()->handle(sender,sel,ptr);
     return 0;
 }

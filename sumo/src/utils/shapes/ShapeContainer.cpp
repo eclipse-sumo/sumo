@@ -60,17 +60,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ShapeContainer::ShapeContainer()
-        : myCurrentLayer(-10), myMinLayer(100), myMaxLayer(-100)
-{}
+        : myCurrentLayer(-10), myMinLayer(100), myMaxLayer(-100) {}
 
 
-ShapeContainer::~ShapeContainer()
-{}
+ShapeContainer::~ShapeContainer() {}
 
 
 bool
-ShapeContainer::add(int layer, Polygon2D *p)
-{
+ShapeContainer::add(int layer, Polygon2D *p) {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
         myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -81,8 +78,7 @@ ShapeContainer::add(int layer, Polygon2D *p)
 
 
 bool
-ShapeContainer::add(int layer, PointOfInterest *p)
-{
+ShapeContainer::add(int layer, PointOfInterest *p) {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -93,8 +89,7 @@ ShapeContainer::add(int layer, PointOfInterest *p)
 
 
 NamedObjectCont<Polygon2D*> &
-ShapeContainer::getPolygonCont(int layer) const
-{
+ShapeContainer::getPolygonCont(int layer) const {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
         myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -105,8 +100,7 @@ ShapeContainer::getPolygonCont(int layer) const
 
 
 NamedObjectCont<PointOfInterest*> &
-ShapeContainer::getPOICont(int layer) const
-{
+ShapeContainer::getPOICont(int layer) const {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -117,15 +111,13 @@ ShapeContainer::getPOICont(int layer) const
 
 
 int
-ShapeContainer::getMinLayer() const
-{
+ShapeContainer::getMinLayer() const {
     return myMinLayer;
 }
 
 
 int
-ShapeContainer::getMaxLayer() const
-{
+ShapeContainer::getMaxLayer() const {
     return myMaxLayer;
 }
 

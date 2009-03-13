@@ -53,8 +53,7 @@ class OutputDevice;
  * @todo Check whether there may be a better solution than calling "maskRedLinks" directly
  * @todo Problem: The detector may not save the last state (on simulation end)
  */
-class Command_SaveTLCoupledDet : public MSTLLogicControl::OnSwitchAcion
-{
+class Command_SaveTLCoupledDet : public MSTLLogicControl::OnSwitchAcion {
 public:
     /** @brief Constructor
      *

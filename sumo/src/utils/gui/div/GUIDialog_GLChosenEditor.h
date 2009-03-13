@@ -51,8 +51,7 @@ class GUISelectedStorage;
  * @see GUIMainWindow
  * @see GUISelectedStorage
  */
-class GUIDialog_GLChosenEditor : public FXMainWindow
-{
+class GUIDialog_GLChosenEditor : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_GLChosenEditor)
 

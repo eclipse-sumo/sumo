@@ -36,8 +36,7 @@
 /**
  *
  */
-class NIVissimVehicleClass
-{
+class NIVissimVehicleClass {
 public:
     NIVissimVehicleClass(int type, SUMOReal percentage, int vwish);
     ~NIVissimVehicleClass();

@@ -37,8 +37,7 @@
  * @class RODUAFrame
  * @brief Sets and checks options for dua-routing
  */
-class RODUAFrame
-{
+class RODUAFrame {
 public:
     /** @brief Inserts options used by duarouter into the OptionsCont-singleton
      *

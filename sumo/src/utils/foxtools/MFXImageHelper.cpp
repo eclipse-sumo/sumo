@@ -44,8 +44,7 @@ using namespace std;
 
 
 FXImage *
-MFXImageHelper::loadimage(FXApp *a, const std::string& file)
-{
+MFXImageHelper::loadimage(FXApp *a, const std::string& file) {
     FXString ext=FXFile::extension(file.c_str());
     FXImage *img=NULL;
     if (comparecase(ext,"gif")==0) {
@@ -109,8 +108,7 @@ MFXImageHelper::loadimage(FXApp *a, const std::string& file)
 // Save file
 FXbool
 MFXImageHelper::saveimage(FXApp *, const std::string& file,
-                          int width, int height, FXColor *data)
-{
+                          int width, int height, FXColor *data) {
     FXString ext=FXFile::extension(file.c_str());
     FXFileStream stream;
     if (!stream.open(file.c_str(), FXStreamSave)) {

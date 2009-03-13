@@ -18,8 +18,7 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-FXint fxexecute(FXString link)
-{
+FXint fxexecute(FXString link) {
 #ifdef WIN32
     FXString quoted = FXFile::enquote(link);
     FXint ret =
@@ -65,19 +64,16 @@ FXDEFMAP(FXLinkLabel) FXLinkLabelMap[]={
 FXIMPLEMENT(FXLinkLabel,FXLabel,FXLinkLabelMap,ARRAYNUMBER(FXLinkLabelMap))
 
 
-FXLinkLabel::FXLinkLabel(FXComposite* p,const FXString& text,FXIcon* ic,FXuint opts,FXint x,FXint y,FXint w,FXint h,FXint pl,FXint pr,FXint pt,FXint pb) :FXLabel(p,text,ic,opts,x,y,w,h,pl,pr,pt,pb)
-{
+FXLinkLabel::FXLinkLabel(FXComposite* p,const FXString& text,FXIcon* ic,FXuint opts,FXint x,FXint y,FXint w,FXint h,FXint pl,FXint pr,FXint pt,FXint pb) :FXLabel(p,text,ic,opts,x,y,w,h,pl,pr,pt,pb) {
     setDefaultCursor(getApp()->getDefaultCursor(DEF_HAND_CURSOR));
     setTextColor(FXRGB(0,0,255));
 }
 
-FXLinkLabel::~FXLinkLabel()
-{
+FXLinkLabel::~FXLinkLabel() {
     getApp()->removeTimeout(this,ID_TIMER);
 }
 
-long FXLinkLabel::onLeftBtnPress(FXObject*,FXSelector,void*)
-{
+long FXLinkLabel::onLeftBtnPress(FXObject*,FXSelector,void*) {
     FXString link = getTipText();
     if (link.length()) {
         getApp()->beginWaitCursor();
@@ -91,8 +87,7 @@ long FXLinkLabel::onLeftBtnPress(FXObject*,FXSelector,void*)
     return 1;
 }
 
-long FXLinkLabel::onTimer(FXObject*,FXSelector,void*)
-{
+long FXLinkLabel::onTimer(FXObject*,FXSelector,void*) {
     getApp()->endWaitCursor();
     return 1;
 }

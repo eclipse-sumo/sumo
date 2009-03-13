@@ -57,8 +57,7 @@ using namespace std;
 RORDGenerator_Random::RORDGenerator_Random(RONet &net,
         SUMOTime begin, SUMOTime end, bool removeFirst) throw(ProcessError)
         : ROAbstractRouteDefLoader(net, begin, end), myIDSupplier("Rand"),
-        myCurrentTime(-1), myRemoveFirst(removeFirst), myColor(RGBColor::DEFAULT_COLOR)
-{
+        myCurrentTime(-1), myRemoveFirst(removeFirst), myColor(RGBColor::DEFAULT_COLOR) {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.isSet("random-route-color")) {
         myColor = RGBColor::parseColor(OptionsCont::getOptions().getString("random-route-color"));
@@ -71,13 +70,11 @@ RORDGenerator_Random::RORDGenerator_Random(RONet &net,
 }
 
 
-RORDGenerator_Random::~RORDGenerator_Random() throw()
-{}
+RORDGenerator_Random::~RORDGenerator_Random() throw() {}
 
 
 bool
-RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError)
-{
+RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError) {
     // check whether the first route have to be skipped
     if (skipping) {
         myCurrentTime = myBegin;

@@ -36,8 +36,7 @@
 #include "NIVissimNodeDef_Edges.h"
 
 class NIVissimNodeDef_Poly :
-            public NIVissimNodeDef_Edges
-{
+            public NIVissimNodeDef_Edges {
 public:
     NIVissimNodeDef_Poly(int id, const std::string &name,
                          const Position2DVector &poly);

@@ -52,17 +52,14 @@ ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
         SUMOReal tau) throw()
         : ROVehicleType(id, col, length, vclass), myA(a), myB(b), myEps(eps),
-        myMaxSpeed(maxSpeed), myTau(tau)
-{}
+        myMaxSpeed(maxSpeed), myTau(tau) {}
 
 
-ROVehicleType_Krauss::~ROVehicleType_Krauss() throw()
-{}
+ROVehicleType_Krauss::~ROVehicleType_Krauss() throw() {}
 
 
 OutputDevice &
-ROVehicleType_Krauss::writeXMLDefinition(OutputDevice &dev) const
-{
+ROVehicleType_Krauss::writeXMLDefinition(OutputDevice &dev) const {
     dev << "   ";
     dev << "<vtype model=\"SUMO_KRAUSS\""
     << " id=\"" << myID << "\""

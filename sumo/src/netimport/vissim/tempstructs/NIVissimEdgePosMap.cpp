@@ -36,24 +36,20 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-NIVissimEdgePosMap::NIVissimEdgePosMap()
-{}
+NIVissimEdgePosMap::NIVissimEdgePosMap() {}
 
 
-NIVissimEdgePosMap::~NIVissimEdgePosMap()
-{}
+NIVissimEdgePosMap::~NIVissimEdgePosMap() {}
 
 
 void
-NIVissimEdgePosMap::add(int edgeid, SUMOReal pos)
-{
+NIVissimEdgePosMap::add(int edgeid, SUMOReal pos) {
     add(edgeid, pos, pos);
 }
 
 
 void
-NIVissimEdgePosMap::add(int edgeid, SUMOReal from, SUMOReal to)
-{
+NIVissimEdgePosMap::add(int edgeid, SUMOReal from, SUMOReal to) {
     if (from>to) {
         SUMOReal tmp = from;
         from = to;
@@ -77,8 +73,7 @@ NIVissimEdgePosMap::add(int edgeid, SUMOReal from, SUMOReal to)
 
 
 void
-NIVissimEdgePosMap::join(NIVissimEdgePosMap &with)
-{
+NIVissimEdgePosMap::join(NIVissimEdgePosMap &with) {
     for (ContType::iterator i=with.myCont.begin(); i!=with.myCont.end(); i++) {
         add((*i).first, (*i).second.first, (*i).second.second);
     }

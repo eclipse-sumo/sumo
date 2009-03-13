@@ -61,8 +61,7 @@ bool MSCORN::myFirstCall[CORN_MAX];
 // method definitions
 // ===========================================================================
 void
-MSCORN::init()
-{
+MSCORN::init() {
     // TrafficOnline output files & settings
     for (int i=0; i<CORN_MAX; ++i) {
         myWished[i] = false;
@@ -76,15 +75,13 @@ MSCORN::init()
 
 
 bool
-MSCORN::wished(Function f)
-{
+MSCORN::wished(Function f) {
     return myWished[(int) f];
 }
 
 
 void
-MSCORN::setWished(Function f)
-{
+MSCORN::setWished(Function f) {
     myWished[(int) f] = true;
     switch (f) {
     case CORN_OUT_TRIPDURATIONS:
@@ -119,8 +116,7 @@ MSCORN::setWished(Function f)
 void
 MSCORN::saveClusterInfoData(SUMOTime step, int id,
                             const std::string &headID, const std::string &vehs,
-                            int quantity)
-{
+                            int quantity) {
     if (!wished(CORN_OUT_CLUSTER_INFO)) {
         return;
     }
@@ -142,8 +138,7 @@ MSCORN::saveClusterInfoData(SUMOTime step, int id,
 void
 MSCORN::saveSavedInformationData(SUMOTime step, const std::string &veh,
                                  const std::string &edge, const std::string &type,
-                                 SUMOTime time, SUMOReal nt)
-{
+                                 SUMOTime time, SUMOReal nt) {
     if (!wished(CORN_OUT_SAVED_INFO)) {
         return;
     }
@@ -163,8 +158,7 @@ MSCORN::saveSavedInformationData(SUMOTime step, const std::string &veh,
 
 void
 MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string &from, const std::string &to,
-                                       const std::string &edge, SUMOTime time, SUMOReal nt)
-{
+                                       const std::string &edge, SUMOTime time, SUMOReal nt) {
     if (!wished(CORN_OUT_TRANS_INFO)) {
         return;
     }
@@ -184,8 +178,7 @@ MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string &from, c
 
 void
 MSCORN::saveVehicleInRangeData(SUMOTime step, const std::string &veh1, const std::string &veh2,
-                               SUMOReal x1, SUMOReal y1, SUMOReal x2 , SUMOReal y2)
-{
+                               SUMOReal x1, SUMOReal y1, SUMOReal x2 , SUMOReal y2) {
     if (!wished(MSCORN::CORN_OUT_VEH_IN_RANGE)) {
         return;
     }

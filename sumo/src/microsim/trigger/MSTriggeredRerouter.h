@@ -61,9 +61,8 @@ class SUMOVehicle;
  *  the old destination or by choosing a new one from a set of existing ones.
  */
 class MSTriggeredRerouter :
-            public MSTrigger,
-            public SUMOSAXHandler
-{
+        public MSTrigger,
+            public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *
@@ -85,8 +84,7 @@ public:
      * @class Setter
      * @brief Responsible for setting a new route to a vehicle which arrives at a single lane
      */
-    class Setter : public MSMoveReminder
-    {
+    class Setter : public MSMoveReminder {
     public:
         /** @brief Constructor
          *

@@ -44,8 +44,7 @@ enum {
 };
 
 
-class MFXEditableTable : public FXTable
-{
+class MFXEditableTable : public FXTable {
     FXDECLARE(MFXEditableTable)
 public:
     enum {

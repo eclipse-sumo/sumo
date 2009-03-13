@@ -57,15 +57,12 @@ using namespace std;
 // ===========================================================================
 NIElmarEdgesHandler::NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file) throw()
-        : myNodeCont(nc), myEdgeCont(ec)
-{}
+        : myNodeCont(nc), myEdgeCont(ec) {}
 
-NIElmarEdgesHandler::~NIElmarEdgesHandler() throw()
-{}
+NIElmarEdgesHandler::~NIElmarEdgesHandler() throw() {}
 
 bool
-NIElmarEdgesHandler::report(const std::string &result) throw(ProcessError)
-{
+NIElmarEdgesHandler::report(const std::string &result) throw(ProcessError) {
 // 00: KANTEN_ID Knoten_ID_FROM Knoten_ID_TO length vehicle_type
 // 05: form_of_way brunnel_type street_type speed_category number_of_lanes
 // average_speed    Namens_ID1  Namens_ID2  Hausnummern_rechts  Hausnummern_links   Postleitzahl    Gebiets_ID  Teilgebiets_ID  through_traffic special_restrictions    direction_of_flow_in_validity_period    direction_of_flow_through_traffic   direction_of_flow_vehicle_type  direction_of_flow_validity_period   construction_status_in_validity_period  construction_status_through_traffic construction_status_validity_period construction_status_vehicle_type

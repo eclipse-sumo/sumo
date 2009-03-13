@@ -63,26 +63,22 @@ OptionsCont OptionsCont::myOptions;
 // method definitions
 // ===========================================================================
 OptionsCont &
-OptionsCont::getOptions() throw()
-{
+OptionsCont::getOptions() throw() {
     return myOptions;
 }
 
 
 OptionsCont::OptionsCont() throw()
-        : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false)
-{}
+        : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false) {}
 
 
-OptionsCont::~OptionsCont() throw()
-{
+OptionsCont::~OptionsCont() throw() {
     clear();
 }
 
 
 void
-OptionsCont::doRegister(const string &name, Option *v) throw(InvalidArgument)
-{
+OptionsCont::doRegister(const string &name, Option *v) throw(InvalidArgument) {
     assert(v!=0);
     ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
     if (i==myAddresses.end()) {
@@ -96,16 +92,14 @@ OptionsCont::doRegister(const string &name, Option *v) throw(InvalidArgument)
 
 
 void
-OptionsCont::doRegister(const string &name1, char abbr, Option *v) throw(InvalidArgument)
-{
+OptionsCont::doRegister(const string &name1, char abbr, Option *v) throw(InvalidArgument) {
     doRegister(name1, v);
     doRegister(convertChar(abbr), v);
 }
 
 
 void
-OptionsCont::addSynonyme(const string &name1, const string &name2) throw(InvalidArgument)
-{
+OptionsCont::addSynonyme(const string &name1, const string &name2) throw(InvalidArgument) {
     KnownContType::iterator i1 = myValues.find(name1);
     KnownContType::iterator i2 = myValues.find(name2);
     if (i1==myValues.end()&&i2==myValues.end()) {
@@ -127,16 +121,14 @@ OptionsCont::addSynonyme(const string &name1, const string &name2) throw(Invalid
 
 
 bool
-OptionsCont::exists(const string &name) const throw()
-{
+OptionsCont::exists(const string &name) const throw() {
     KnownContType::const_iterator i = myValues.find(name);
     return i!=myValues.end();
 }
 
 
 bool
-OptionsCont::isSet(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::isSet(const string &name) const throw(InvalidArgument) {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         return false;
@@ -146,8 +138,7 @@ OptionsCont::isSet(const string &name) const throw(InvalidArgument)
 
 
 bool
-OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument)
-{
+OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument) {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         return false;
@@ -157,8 +148,7 @@ OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument)
 
 
 Option *
-OptionsCont::getSecure(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::getSecure(const string &name) const throw(InvalidArgument) {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         throw InvalidArgument("No option with the name '" + name + "' exists.");
@@ -168,48 +158,42 @@ OptionsCont::getSecure(const string &name) const throw(InvalidArgument)
 
 
 string
-OptionsCont::getString(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::getString(const string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getString();
 }
 
 
 SUMOReal
-OptionsCont::getFloat(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::getFloat(const string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getFloat();
 }
 
 
 int
-OptionsCont::getInt(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::getInt(const string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getInt();
 }
 
 
 bool
-OptionsCont::getBool(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::getBool(const string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getBool();
 }
 
 
 const IntVector &
-OptionsCont::getIntVector(const std::string &name) const throw(InvalidArgument)
-{
+OptionsCont::getIntVector(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getIntVector();
 }
 
 
 bool
-OptionsCont::set(const string &name, const string &value) throw(InvalidArgument)
-{
+OptionsCont::set(const string &name, const string &value) throw(InvalidArgument) {
     Option *o = getSecure(name);
     if (!o->isWriteable()) {
         reportDoubleSetting(name);
@@ -228,8 +212,7 @@ OptionsCont::set(const string &name, const string &value) throw(InvalidArgument)
 
 
 bool
-OptionsCont::set(const string &name, bool value) throw(InvalidArgument)
-{
+OptionsCont::set(const string &name, bool value) throw(InvalidArgument) {
     Option *o = getSecure(name);
     if (!o->isBool()) {
         throw InvalidArgument("The option '" + name + "' is not a boolean attribute and requires an argument.");
@@ -251,8 +234,7 @@ OptionsCont::set(const string &name, bool value) throw(InvalidArgument)
 
 
 vector<string>
-OptionsCont::getSynonymes(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::getSynonymes(const string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     vector<string> v(0);
     for (KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
@@ -265,8 +247,7 @@ OptionsCont::getSynonymes(const string &name) const throw(InvalidArgument)
 
 
 ostream&
-operator<<(ostream& os, const OptionsCont& oc)
-{
+operator<<(ostream& os, const OptionsCont& oc) {
     vector<string> done;
     os << "Options set:" << endl;
     for (OptionsCont::KnownContType::const_iterator i=oc.myValues.begin();
@@ -300,16 +281,14 @@ operator<<(ostream& os, const OptionsCont& oc)
 
 
 bool
-OptionsCont::isFileName(const std::string &name) const throw(InvalidArgument)
-{
+OptionsCont::isFileName(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->isFileName();
 }
 
 
 bool
-OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgument)
-{
+OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     // check whether the option is set
     //  return false i not
@@ -338,8 +317,7 @@ OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgume
 
 
 void
-OptionsCont::reportDoubleSetting(const string &arg) const throw()
-{
+OptionsCont::reportDoubleSetting(const string &arg) const throw() {
     vector<string> synonymes = getSynonymes(arg);
     ostringstream s;
     s << "A value for the option '" + arg + "' was already set.\n Possible synonymes: ";
@@ -355,8 +333,7 @@ OptionsCont::reportDoubleSetting(const string &arg) const throw()
 
 
 string
-OptionsCont::convertChar(char abbr) const throw()
-{
+OptionsCont::convertChar(char abbr) const throw() {
     char buf[2];
     buf[0] = abbr;
     buf[1] = 0;
@@ -366,16 +343,14 @@ OptionsCont::convertChar(char abbr) const throw()
 
 
 bool
-OptionsCont::isBool(const string &name) const throw(InvalidArgument)
-{
+OptionsCont::isBool(const string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->isBool();
 }
 
 
 void
-OptionsCont::resetWritable() throw()
-{
+OptionsCont::resetWritable() throw() {
     for (ItemAddressContType::iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         (*i)->myAmWritable = true;
     }
@@ -383,16 +358,14 @@ OptionsCont::resetWritable() throw()
 
 
 bool
-OptionsCont::isWriteable(const std::string &name) throw(InvalidArgument)
-{
+OptionsCont::isWriteable(const std::string &name) throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->isWriteable();
 }
 
 
 void
-OptionsCont::clear() throw()
-{
+OptionsCont::clear() throw() {
     ItemAddressContType::iterator i;
     for (i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         delete(*i);
@@ -407,8 +380,7 @@ OptionsCont::clear() throw()
 void
 OptionsCont::addDescription(const std::string &name,
                             const std::string &subtopic,
-                            const std::string &description) throw(InvalidArgument)
-{
+                            const std::string &description) throw(InvalidArgument) {
     Option *o = getSecure(name);
     assert(o!=0);
     assert(o->myDescription=="");
@@ -420,37 +392,32 @@ OptionsCont::addDescription(const std::string &name,
 
 void
 OptionsCont::setApplicationName(const std::string &appName,
-                                const std::string &fullName) throw()
-{
+                                const std::string &fullName) throw() {
     myAppName = appName;
     myFullName = fullName;
 }
 
 
 void
-OptionsCont::setApplicationDescription(const std::string &appDesc) throw()
-{
+OptionsCont::setApplicationDescription(const std::string &appDesc) throw() {
     myAppDescription = appDesc;
 }
 
 
 void
-OptionsCont::addCallExample(const std::string &example) throw()
-{
+OptionsCont::addCallExample(const std::string &example) throw() {
     myCallExamples.push_back(example);
 }
 
 
 void
-OptionsCont::setAdditionalHelpMessage(const std::string &add) throw()
-{
+OptionsCont::setAdditionalHelpMessage(const std::string &add) throw() {
     myAdditionalMessage = add;
 }
 
 
 void
-OptionsCont::addOptionSubTopic(const std::string &topic) throw()
-{
+OptionsCont::addOptionSubTopic(const std::string &topic) throw() {
     mySubTopics.push_back(topic);
     mySubTopicEntries[topic] = vector<string>();
 }
@@ -458,8 +425,7 @@ OptionsCont::addOptionSubTopic(const std::string &topic) throw()
 
 void
 OptionsCont::splitLines(std::ostream &os, std::string what,
-                        size_t offset, size_t nextOffset) throw()
-{
+                        size_t offset, size_t nextOffset) throw() {
     while (what.length()>0) {
         if (what.length()>79-offset) {
             size_t splitPos = what.rfind(';', 79-offset);
@@ -489,8 +455,7 @@ OptionsCont::splitLines(std::ostream &os, std::string what,
 
 
 bool
-OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError)
-{
+OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     if (missingOptions) {
         // no options are given
         cout << myFullName << endl;
@@ -542,8 +507,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError)
 }
 
 void
-OptionsCont::printHelp(std::ostream &os) throw()
-{
+OptionsCont::printHelp(std::ostream &os) throw() {
     vector<string>::const_iterator i, j;
     // print application description
     os << ' ' << endl;
@@ -639,8 +603,7 @@ OptionsCont::printHelp(std::ostream &os) throw()
 
 void
 OptionsCont::writeConfiguration(std::ostream &os, bool filled,
-                                bool complete, bool addComments) throw()
-{
+                                bool complete, bool addComments) throw() {
     vector<string>::const_iterator i, j;
     os << "<configuration>" << endl << endl;
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
@@ -692,8 +655,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig) throw()
-{
+OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig) throw() {
     time_t rawtime;
     char buffer [80];
 
@@ -709,8 +671,7 @@ OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig) throw()
 
 
 std::vector<std::string>
-OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgument)
-{
+OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgument) {
     vector<string> ret;
     Option *o = getSecure(name);
     string def = o->getString();
@@ -728,8 +689,7 @@ OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgumen
 
 bool
 OptionsCont::isInStringVector(const std::string &optionName,
-                              const std::string &itemName) throw(InvalidArgument)
-{
+                              const std::string &itemName) throw(InvalidArgument) {
     if (isSet(optionName)) {
         vector<string> values = getStringVector(optionName);
         return find(values.begin(), values.end(), itemName)!=values.end();

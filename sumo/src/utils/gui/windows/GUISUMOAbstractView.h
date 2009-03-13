@@ -73,8 +73,7 @@ struct GUIVisualizationSettings;
  * It shall be the main class to inherit views of the simulation (micro-
  * or macroscopic ones) from it.
  */
-class GUISUMOAbstractView : public FXGLCanvas
-{
+class GUISUMOAbstractView : public FXGLCanvas {
     FXDECLARE(GUISUMOAbstractView)
 public:
     /// constructor
@@ -238,10 +237,10 @@ public:
      */
     struct Decal {
         /// @brief Constructor
-        Decal() 
-            : filename(), centerX(0), centerY(0), 
-            width(1000), height(1000), rot(0), 
-            initialised(false), glID(-1) { }
+        Decal()
+                : filename(), centerX(0), centerY(0),
+                width(1000), height(1000), rot(0),
+                initialised(false), glID(-1) { }
 
         /// @brief The path to the file the image is located at
         std::string filename;
@@ -395,8 +394,7 @@ protected:
     /**
      * A class to find the matching lane wrapper
      */
-    class vehicle_in_ops_finder
-    {
+    class vehicle_in_ops_finder {
     public:
         /** constructor */
         explicit vehicle_in_ops_finder(const GUIVehicle * const v)

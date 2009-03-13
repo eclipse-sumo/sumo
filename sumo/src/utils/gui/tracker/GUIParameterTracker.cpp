@@ -83,8 +83,7 @@ FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(
 GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
         const std::string &name)
         : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
-        myApplication(&app)
-{
+        myApplication(&app) {
     buildToolBar();
     app.addChild(this, true);
     FXVerticalFrame *glcanvasFrame =
@@ -101,8 +100,7 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
         GUIGlObject &/*o*/,
         int /*xpos*/, int /*ypos*/)
         : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20, 20,300,200),
-        myApplication(&app)
-{
+        myApplication(&app) {
     buildToolBar();
     app.addChild(this, true);
     FXVerticalFrame *glcanvasFrame =
@@ -116,8 +114,7 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
 }
 
 
-GUIParameterTracker::~GUIParameterTracker()
-{
+GUIParameterTracker::~GUIParameterTracker() {
     myApplication->removeChild(this);
     for (TrackedVarsVector::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
         delete(*i1);
@@ -132,8 +129,7 @@ GUIParameterTracker::~GUIParameterTracker()
 
 
 void
-GUIParameterTracker::create()
-{
+GUIParameterTracker::create() {
     FXMainWindow::create();
     myToolBarDrag->create();
 }
@@ -141,8 +137,7 @@ GUIParameterTracker::create()
 
 void
 GUIParameterTracker::addVariable(GUIGlObject *o, const std::string &name,
-                                 size_t recordBegin)
-{
+                                 size_t recordBegin) {
     TrackerValueDesc *newTracked =
         new TrackerValueDesc(name, RGBColor(0, 0, 0), o, recordBegin);
     myTracked.push_back(newTracked);
@@ -150,22 +145,19 @@ GUIParameterTracker::addVariable(GUIGlObject *o, const std::string &name,
 
 
 int
-GUIParameterTracker::getMaxGLWidth() const
-{
+GUIParameterTracker::getMaxGLWidth() const {
     return myApplication->getMaxGLWidth();
 }
 
 
 int
-GUIParameterTracker::getMaxGLHeight() const
-{
+GUIParameterTracker::getMaxGLHeight() const {
     return myApplication->getMaxGLHeight();
 }
 
 
 void
-GUIParameterTracker::buildToolBar()
-{
+GUIParameterTracker::buildToolBar() {
     myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
     myToolBar = new FXToolBar(this,myToolBarDrag, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, TOOLBARGRIP_DOUBLE);
@@ -190,8 +182,7 @@ GUIParameterTracker::buildToolBar()
 void
 GUIParameterTracker::addTracked(GUIGlObject &o,
                                 ValueSource<SUMOReal> *src,
-                                TrackerValueDesc *newTracked)
-{
+                                TrackerValueDesc *newTracked) {
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
     myValuePassers.push_back(new GLObjectValuePassConnector<SUMOReal>(o,
@@ -200,32 +191,28 @@ GUIParameterTracker::addTracked(GUIGlObject &o,
 
 
 long
-GUIParameterTracker::onConfigure(FXObject *sender, FXSelector sel, void *data)
-{
+GUIParameterTracker::onConfigure(FXObject *sender, FXSelector sel, void *data) {
     myPanel->onConfigure(sender, sel, data);
     return FXMainWindow::onConfigure(sender, sel, data);
 }
 
 
 long
-GUIParameterTracker::onPaint(FXObject *sender, FXSelector sel, void *data)
-{
+GUIParameterTracker::onPaint(FXObject *sender, FXSelector sel, void *data) {
     myPanel->onPaint(sender, sel, data);
     return FXMainWindow::onPaint(sender, sel, data);
 }
 
 
 long
-GUIParameterTracker::onSimStep(FXObject*,FXSelector,void*)
-{
+GUIParameterTracker::onSimStep(FXObject*,FXSelector,void*) {
     update();
     return 1;
 }
 
 
 long
-GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*)
-{
+GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*) {
     int index = myAggregationInterval->getCurrentItem();
     size_t aggInt = 0;
     switch (index) {
@@ -260,8 +247,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*)
 
 
 long
-GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
-{
+GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*) {
     FXString file = MFXUtils::getFilename2Write(this, "Save Data", ".csv", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
     if (file=="") {
         return 1;
@@ -327,17 +313,14 @@ GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
     FXComposite *c, GUIMainWindow &app,
     GUIParameterTracker &parent)
         : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
-        myParent(&parent), myApplication(&app)
-{}
+        myParent(&parent), myApplication(&app) {}
 
 
-GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel()
-{}
+GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() {}
 
 
 void
-GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
-{
+GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
     // compute which font to use
     /*
     SUMOReal fontIdx = ((SUMOReal) myWidthInPixels-300.) / 10.;
@@ -367,8 +350,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
-        SUMOReal /*namePos*/)
-{
+        SUMOReal /*namePos*/) {
     // apply scaling
     glPushMatrix();
 
@@ -565,8 +547,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
 
 SUMOReal
 GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &desc,
-        SUMOReal d)
-{
+        SUMOReal d) {
     SUMOReal height = (SUMOReal) myHeightInPixels;
     SUMOReal range = (SUMOReal) desc.getRange();
     SUMOReal yoff = (SUMOReal) desc.getYCenter();
@@ -577,8 +558,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &
 
 long
 GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
-        FXSelector,void*)
-{
+        FXSelector,void*) {
     if (makeCurrent()) {
         myWidthInPixels = myParent->getMaxGLWidth();
         myHeightInPixels = myParent->getMaxGLHeight();
@@ -600,8 +580,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
 
 long
 GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
-        FXSelector,void*)
-{
+        FXSelector,void*) {
     if (!isEnabled()) {
         return 1;
     }

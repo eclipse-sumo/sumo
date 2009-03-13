@@ -68,8 +68,7 @@ class SSLaneMeanData;
  * Class which represents a single lane. Somekind of the main class of the
  *  simulation. Allows moving vehicles.
  */
-class MSLane
-{
+class MSLane {
 public:
     /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class MSLaneChanger;
@@ -390,8 +389,7 @@ protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
         Returns the information whether the position of the first vehicle
         is greater than the one of the second vehicle */
-    class PosGreater
-    {
+    class PosGreater {
     public:
         /// the first vehicle
         typedef const MSVehicle* first_argument_type;
@@ -501,8 +499,7 @@ private:
      * @class vehicle_position_sorter
      * @brief Sorts vehicles by their position (descending)
      */
-    class vehicle_position_sorter
-    {
+    class vehicle_position_sorter {
     public:
         /// @brief Constructor
         explicit vehicle_position_sorter() { }

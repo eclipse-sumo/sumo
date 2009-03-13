@@ -43,8 +43,7 @@
  *  a synchronized communication with an external application is established.
  *  In these cases, a further class should be implemented.
  */
-class AbstractMutex
-{
+class AbstractMutex {
 public:
     /// @brief Constructor
     AbstractMutex() { }

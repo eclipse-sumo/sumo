@@ -59,18 +59,16 @@ class MSLane;
  *
  * @todo consider error-handling on write (using IOError)
  */
-class MSMeanData_HBEFA : public MSDetectorFileOutput
-{
+class MSMeanData_HBEFA : public MSDetectorFileOutput {
 public:
     /**
      * @class MSLaneMeanDataValues
      * @brief Data structure for mean (aggregated) edge/lane values
      *
-     * Structure holding values that describe the emissions aggregated 
+     * Structure holding values that describe the emissions aggregated
      *  over some seconds.
      */
-    class MSLaneMeanDataValues : public MSMoveReminder
-    {
+    class MSLaneMeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane * const lane) throw();

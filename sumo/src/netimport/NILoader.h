@@ -52,8 +52,7 @@ class NBNetBuilder;
  *
  * A plain loader which encapsulates calls to the import modules.
  */
-class NILoader
-{
+class NILoader {
 public:
     /** @brief Constructor
      * @param[in] nb The network builder to fill with loaded data

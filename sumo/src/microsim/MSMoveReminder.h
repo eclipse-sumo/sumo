@@ -58,8 +58,7 @@ class MSLane;
  * @see MSLane::addMoveReminder
  * @see MSLane::getMoveReminder
  */
-class MSMoveReminder
-{
+class MSMoveReminder {
 public:
     /** @brief Constructor.
      *

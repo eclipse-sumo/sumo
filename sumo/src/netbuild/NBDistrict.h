@@ -66,8 +66,7 @@ class OutputDevice;
  *
  * @todo Recheck whether this can be somehow joined with ODDistrict
  */
-class NBDistrict : public Named
-{
+class NBDistrict : public Named {
 public:
     /** @brief Constructor with id, and position
      *

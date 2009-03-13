@@ -58,8 +58,7 @@ using namespace std;
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder()
         : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0),
-        myEdgesLaneChangeOutputDevice(0)
-{
+        myEdgesLaneChangeOutputDevice(0) {
     myActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();
     m_pDepartLane = (MSLane*) 0;
@@ -73,8 +72,7 @@ NLEdgeControlBuilder::NLEdgeControlBuilder()
 }
 
 
-NLEdgeControlBuilder::~NLEdgeControlBuilder()
-{
+NLEdgeControlBuilder::~NLEdgeControlBuilder() {
     delete m_pLaneStorage;
 }
 
@@ -82,8 +80,7 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder()
 void
 NLEdgeControlBuilder::beginEdgeParsing(const string &id,
                                        MSEdge::EdgeBasicFunction function,
-                                       bool inner) throw(InvalidArgument)
-{
+                                       bool inner) throw(InvalidArgument) {
     myActiveEdge = buildEdge(id);
     if (!MSEdge::dictionary(id, myActiveEdge)) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
@@ -102,8 +99,7 @@ MSLane *
 NLEdgeControlBuilder::addLane(const std::string &id,
                               SUMOReal maxSpeed, SUMOReal length, bool isDepart,
                               const Position2DVector &shape,
-                              const std::string &vclasses)
-{
+                              const std::string &vclasses) {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
         throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");
@@ -134,8 +130,7 @@ NLEdgeControlBuilder::addLane(const std::string &id,
 
 
 MSEdge *
-NLEdgeControlBuilder::closeEdge()
-{
+NLEdgeControlBuilder::closeEdge() {
     MSEdge::LaneCont *lanes = new MSEdge::LaneCont();
     lanes->reserve(m_pLaneStorage->size());
     copy(m_pLaneStorage->begin(), m_pLaneStorage->end(), back_inserter(*lanes));
@@ -152,8 +147,7 @@ NLEdgeControlBuilder::closeEdge()
 
 
 MSEdgeControl *
-NLEdgeControlBuilder::build()
-{
+NLEdgeControlBuilder::build() {
     MSEdgeControl::EdgeCont *singleLanes = new MSEdgeControl::EdgeCont();
     MSEdgeControl::EdgeCont *multiLanes = new MSEdgeControl::EdgeCont();
     singleLanes->reserve(m_iNoSingle);
@@ -171,8 +165,7 @@ NLEdgeControlBuilder::build()
 
 
 MSEdge *
-NLEdgeControlBuilder::buildEdge(const std::string &id) throw()
-{
+NLEdgeControlBuilder::buildEdge(const std::string &id) throw() {
     return new MSEdge(id, myCurrentNumericalEdgeID++);
 }
 
@@ -180,8 +173,7 @@ NLEdgeControlBuilder::buildEdge(const std::string &id) throw()
 void
 NLEdgeControlBuilder::parseVehicleClasses(const std::string &allowedS,
         std::vector<SUMOVehicleClass> &allowed,
-        std::vector<SUMOVehicleClass> &disallowed) throw()
-{
+        std::vector<SUMOVehicleClass> &disallowed) throw() {
     if (allowedS.length()!=0) {
         StringTokenizer st(allowedS, ";");
         while (st.hasNext()) {

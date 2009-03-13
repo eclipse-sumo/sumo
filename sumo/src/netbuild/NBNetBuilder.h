@@ -54,8 +54,7 @@ class OutputDevice;
  * @class NBNetBuilder
  * @brief Instance responsible for building networks
  */
-class NBNetBuilder
-{
+class NBNetBuilder {
 public:
     /// @brief Constructor
     NBNetBuilder() throw();

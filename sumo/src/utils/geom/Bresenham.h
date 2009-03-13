@@ -37,8 +37,7 @@
  * The class' only static method "execute" obtains a callback object and
  * performs the computation of the n:m - relationship
  */
-class Bresenham
-{
+class Bresenham {
 public:
     /**
      * BresenhamCallBack
@@ -47,8 +46,7 @@ public:
      * Derived classes must implement the execute-method which is called
      * on every bresenham-step
      */
-    class BresenhamCallBack
-    {
+    class BresenhamCallBack {
     public:
         /** constuctor */
         BresenhamCallBack() throw() { }

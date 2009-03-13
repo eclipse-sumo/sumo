@@ -40,8 +40,7 @@
 /**
  *
  */
-class NIVissimAbstractEdge
-{
+class NIVissimAbstractEdge {
 public:
     NIVissimAbstractEdge(int id, const Position2DVector &geom);
     virtual ~NIVissimAbstractEdge();

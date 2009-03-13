@@ -59,8 +59,7 @@ class OutputDevice;
  * @class NBEdge
  * @brief The representation of a single edge during network building
  */
-class NBEdge
-{
+class NBEdge {
 public:
     /**  @enum LaneSpreadFunction
      * @brief Information how the edge's lateral offset shall be computed
@@ -400,7 +399,7 @@ public:
     bool addEdge2EdgeConnection(NBEdge *dest) throw();
 
 
-    /** @brief Adds a connection between the specified this edge's lane and an approached one 
+    /** @brief Adds a connection between the specified this edge's lane and an approached one
      *
      * If the given edge does not start at the node this edge ends on, false is returned.
      *
@@ -661,8 +660,7 @@ private:
      * A class that being a bresenham-callback assigns the incoming
      * lanes to the edges
      */
-    class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
-    {
+    class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack {
     private:
         /// map of edges to this edge's lanes that reach them
         std::map<NBEdge*, std::vector<size_t> > myConnections;
@@ -702,8 +700,7 @@ private:
      * the junction the edge ends in
      * The back direction is not regarded
      */
-    class MainDirections
-    {
+    class MainDirections {
     public:
         /// enum of possible directions
         enum Direction { DIR_RIGHTMOST, DIR_LEFTMOST, DIR_FORWARD };
@@ -891,8 +888,7 @@ public:
     /**
      * @class tls_disable_finder
      */
-    class tls_disable_finder
-    {
+    class tls_disable_finder {
     public:
         /// constructor
         tls_disable_finder(const TLSDisabledConnection &tpl) : myDefinition(tpl) { }
@@ -920,8 +916,7 @@ public:
     /**
      * @class connections_toedge_finder
      */
-    class connections_toedge_finder
-    {
+    class connections_toedge_finder {
     public:
         /// constructor
         connections_toedge_finder(NBEdge * const edge2find) : myEdge2Find(edge2find) { }
@@ -938,8 +933,7 @@ public:
     /**
      * @class connections_toedgelane_finder
      */
-    class connections_toedgelane_finder
-    {
+    class connections_toedgelane_finder {
     public:
         /// constructor
         connections_toedgelane_finder(NBEdge * const edge2find, int lane2find) : myEdge2Find(edge2find), myLane2Find(lane2find) { }
@@ -956,8 +950,7 @@ public:
     /**
      * @class connections_finder
      */
-    class connections_finder
-    {
+    class connections_finder {
     public:
         /// constructor
         connections_finder(int fromLane, NBEdge * const edge2find, int lane2find) : myFromLane(fromLane), myEdge2Find(edge2find), myLane2Find(lane2find) { }
@@ -976,8 +969,7 @@ public:
     /**
      * @class connections_fromlane_finder
      */
-    class connections_fromlane_finder
-    {
+    class connections_fromlane_finder {
     public:
         /// constructor
         connections_fromlane_finder(int lane2find) : myLane2Find(lane2find) { }
@@ -994,8 +986,7 @@ public:
     /**
      * @class connections_sorter
      */
-    class connections_sorter
-    {
+    class connections_sorter {
     public:
         /// @brief constructor
         explicit connections_sorter() { }
@@ -1013,8 +1004,7 @@ public:
      * connections_relative_edgelane_sorter
      * Class to sort edges by their angle
      */
-    class connections_relative_edgelane_sorter
-    {
+    class connections_relative_edgelane_sorter {
     public:
         /// constructor
         explicit connections_relative_edgelane_sorter(NBEdge *e, NBNode *n)

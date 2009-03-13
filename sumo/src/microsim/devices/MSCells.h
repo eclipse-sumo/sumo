@@ -43,8 +43,7 @@ class MSDevice_C2C;
 /**
  * @class MSCells
  */
-class MSCells
-{
+class MSCells {
 public:
     /// Constructor
     MSCells(SUMOReal cellSize);

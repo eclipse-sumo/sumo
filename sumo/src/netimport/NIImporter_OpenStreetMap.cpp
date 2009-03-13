@@ -65,8 +65,7 @@ using namespace std;
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
-{
+NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("osm-files")) {
         return;
@@ -200,8 +199,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
 
 NBNode *
 NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc,
-        NBTrafficLightLogicCont &tlsc) throw(ProcessError)
-{
+        NBTrafficLightLogicCont &tlsc) throw(ProcessError) {
     NBNode *from = nc.retrieve(toString(id));
     if (from==0) {
         NIOSMNode *n = osmNodes.find(id)->second;
@@ -231,8 +229,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
 void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
                                      const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError)
-{
+                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError) {
     // patch the id
     string id = e->id;
     if (index>=0) {
@@ -309,8 +306,7 @@ void
 NIImporter_OpenStreetMap::addTypeSecure(NBTypeCont &tc,
                                         const std::string &mClass, const std::string &sClass,
                                         int noLanes, SUMOReal maxSpeed, int prio,
-                                        SUMOVehicleClass vClasses, bool oneWayIsDefault) throw()
-{
+                                        SUMOVehicleClass vClasses, bool oneWayIsDefault) throw() {
     string id = mClass + "." + sClass;
     if (tc.knows(id)) {
         return;
@@ -323,17 +319,14 @@ NIImporter_OpenStreetMap::addTypeSecure(NBTypeCont &tc,
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1)
-{}
+        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
 
 
-NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw()
-{}
+NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     if (element==SUMO_TAG_NODE) {
         bool ok = true;
@@ -400,8 +393,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_NODE) {
         myLastNodeID = -1;
     }
@@ -416,20 +408,17 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<int, NIOSMNode*> &osmNodes,
     std::map<std::string, Edge*> &toFill) throw()
         : SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes), myEdgeMap(toFill)
-{
+        myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
 
 
-NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw()
-{
+NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw() {
 }
 
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
@@ -501,8 +490,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
 
 
 void
-NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
         if (myCurrentEdge->myCurrentIsRoad) {

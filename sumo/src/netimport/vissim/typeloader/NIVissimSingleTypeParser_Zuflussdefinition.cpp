@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Zuflussdefinition::NIVissimSingleTypeParser_Zuflussdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Zuflussdefinition::~NIVissimSingleTypeParser_Zuflussdefinition()
-{}
+NIVissimSingleTypeParser_Zuflussdefinition::~NIVissimSingleTypeParser_Zuflussdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from) {
     string id, edgeid;
     from >> id; // type-checking is missing!
     string tag, name;

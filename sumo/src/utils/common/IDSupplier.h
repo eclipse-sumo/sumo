@@ -40,8 +40,7 @@
  * This class builds string ids by adding an increasing numerical value to a
  * previously given string
  */
-class IDSupplier
-{
+class IDSupplier {
 public:
     /// Constructor
     IDSupplier(const std::string &prefix="", long begin=0);

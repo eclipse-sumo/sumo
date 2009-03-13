@@ -90,10 +90,8 @@ using namespace FX;
 /*******************************************************************************/
 /*  Custom FXDial subclass                                                     */
 /*******************************************************************************/
-namespace FX
-{
-class FXRealSpinDialDial : public FXDial
-{
+namespace FX {
+class FXRealSpinDialDial : public FXDial {
     FXDECLARE(FXRealSpinDialDial)
 protected:
     FXRealSpinDialDial() {}
@@ -146,23 +144,19 @@ FXIMPLEMENT(FXRealSpinDialDial,FXDial,FXSpinDialMap,ARRAYNUMBER(FXSpinDialMap))
 //  if (target) return target->handle(o,s,p);
 //  return 0;
 //}
-long FXRealSpinDialDial::onKey(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialDial::onKey(FXObject*o,FXSelector s,void*p) {
     if (target) return target->handle(o,s,p);
     return 0;
 }
-long FXRealSpinDialDial::onButtonPress(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialDial::onButtonPress(FXObject*o,FXSelector s,void*p) {
     grabKeyboard();
     return FXDial::onLeftBtnPress(o,s,p);
 }
-long FXRealSpinDialDial::onButtonRelease(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialDial::onButtonRelease(FXObject*o,FXSelector s,void*p) {
     ungrabKeyboard();
     return FXDial::onLeftBtnRelease(o,s,p);
 }
-long FXRealSpinDialDial::onRightButtonPress(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialDial::onRightButtonPress(FXObject*o,FXSelector s,void*p) {
     if (isEnabled()) {
         grab();
         grabKeyboard();
@@ -176,8 +170,7 @@ long FXRealSpinDialDial::onRightButtonPress(FXObject*o,FXSelector s,void*p)
     }
     return 1;
 }
-long FXRealSpinDialDial::onRightButtonRelease(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialDial::onRightButtonRelease(FXObject*o,FXSelector s,void*p) {
     ungrab();
     ungrabKeyboard();
     getApp()->removeTimeout(this,ID_AUTOSPIN);
@@ -187,8 +180,7 @@ long FXRealSpinDialDial::onRightButtonRelease(FXObject*o,FXSelector s,void*p)
     return 1;
 
 }
-long FXRealSpinDialDial::onAuto(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialDial::onAuto(FXObject*o,FXSelector s,void*p) {
     getApp()->addTimeout(this,ID_AUTOSPIN,getApp()->getScrollSpeed());
     setValue(getValue()+int((dragpoint-dragpos)/float(5)));
     int v = getValue();
@@ -196,8 +188,7 @@ long FXRealSpinDialDial::onAuto(FXObject*o,FXSelector s,void*p)
     return 1;
 }
 
-long FXRealSpinDialDial::onMotion(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialDial::onMotion(FXObject*o,FXSelector s,void*p) {
     if (!isEnabled()) return 0;
     if (target && target->handle(this,FXSEL(SEL_MOTION,message),p)) return 1;
 
@@ -238,10 +229,8 @@ long FXRealSpinDialDial::onMotion(FXObject*o,FXSelector s,void*p)
 /*******************************************************************************/
 /*  Custom FXArrowButton subclass                                              */
 /*******************************************************************************/
-namespace FX
-{
-class FXRealSpinDialBtn : public FXArrowButton
-{
+namespace FX {
+class FXRealSpinDialBtn : public FXArrowButton {
     FXDECLARE(FXRealSpinDialBtn)
 protected:
     FXRealSpinDialBtn() {}
@@ -287,18 +276,15 @@ FXIMPLEMENT(FXRealSpinDialBtn,FXArrowButton,FXSpinDialBtnMap,ARRAYNUMBER(FXSpinD
 //  if (target) return target->handle(o,s,p);
 //  return 0;
 //}
-long FXRealSpinDialBtn::onKey(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialBtn::onKey(FXObject*o,FXSelector s,void*p) {
     if (target) return target->handle(o,s,p);
     return 0;
 }
-long FXRealSpinDialBtn::onButtonPress(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialBtn::onButtonPress(FXObject*o,FXSelector s,void*p) {
     grabKeyboard();
     return FXArrowButton::onLeftBtnPress(o,s,p);
 }
-long FXRealSpinDialBtn::onButtonRelease(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDialBtn::onButtonRelease(FXObject*o,FXSelector s,void*p) {
     ungrabKeyboard();
     return FXArrowButton::onLeftBtnRelease(o,s,p);
 }
@@ -311,10 +297,8 @@ long FXRealSpinDialBtn::onButtonRelease(FXObject*o,FXSelector s,void*p)
 /*  FXTextField subclass                                                       */
 /*******************************************************************************/
 
-namespace FX
-{
-class FXRealSpinDialText : public FXTextField
-{
+namespace FX {
+class FXRealSpinDialText : public FXTextField {
     FXDECLARE(FXRealSpinDialText)
 protected:
     FXRealSpinDialText() {}
@@ -375,16 +359,14 @@ FXDEFMAP(FXRealSpinDialText) FXSpinDialTextMap[]={
 };
 FXIMPLEMENT(FXRealSpinDialText,FXTextField,FXSpinDialTextMap,ARRAYNUMBER(FXSpinDialTextMap))
 
-long FXRealSpinDialText::onMotion(FXObject*o,FXSelector s,void*ptr)
-{
+long FXRealSpinDialText::onMotion(FXObject*o,FXSelector s,void*ptr) {
     // Forward motion events so we can monitor key state.  We don't get the modifier
     // keys themselves if we aren't focused, so this seems the best we can do.
     if (!isEnabled()) return 0;
     if (target && target->handle(this,FXSEL(SEL_MOTION,message),ptr)) return 1;
     return FXTextField::onMotion(o,s,ptr);
 }
-long FXRealSpinDialText::onCmdSetRealValue(FXObject*o,FXSelector s,void*ptr)
-{
+long FXRealSpinDialText::onCmdSetRealValue(FXObject*o,FXSelector s,void*ptr) {
     //  setText(FXStringVal(*((FXdouble*)ptr)));
     if (flags & FLAG_FMTSTRING)
         setText(FXStringFormat(fmtString.text(),*((FXdouble*)ptr)));
@@ -400,8 +382,7 @@ long FXRealSpinDialText::onCmdSetRealValue(FXObject*o,FXSelector s,void*ptr)
 /*  FXRealSpinDial                                                          */
 /*******************************************************************************/
 
-namespace FX
-{
+namespace FX {
 
 //  Message map
 FXDEFMAP(FXRealSpinDial) FXRealSpinDialMap[]={
@@ -441,8 +422,7 @@ FXIMPLEMENT(FXRealSpinDial,FXPacker,FXRealSpinDialMap,ARRAYNUMBER(FXRealSpinDial
 
 
 // Construct spinner out of two buttons and a text field
-FXRealSpinDial::FXRealSpinDial()
-{
+FXRealSpinDial::FXRealSpinDial() {
     flags=(flags|FLAG_ENABLED|FLAG_SHOWN)&~FLAG_UPDATE;
     textField=(FXRealSpinDialText*)-1L;
     dial=(FXDial*)-1L;
@@ -460,8 +440,7 @@ FXRealSpinDial::FXRealSpinDial()
 
 // Construct spinner out of dial and a text field
 FXRealSpinDial::FXRealSpinDial(FXComposite *p,FXint cols,FXObject *tgt,FXSelector sel,FXuint opts,FXint x,FXint y,FXint w,FXint h,FXint pl,FXint pr,FXint pt,FXint pb):
-        FXPacker(p,opts&~(FRAME_RIDGE),x,y,w,h,0,0,0,0,0,0)
-{
+        FXPacker(p,opts&~(FRAME_RIDGE),x,y,w,h,0,0,0,0,0,0) {
     flags=(flags|FLAG_ENABLED|FLAG_SHOWN)&~FLAG_UPDATE;
     target=tgt;
     message=sel;
@@ -485,8 +464,7 @@ FXRealSpinDial::FXRealSpinDial(FXComposite *p,FXint cols,FXObject *tgt,FXSelecto
 
 
 // Get default width
-FXint FXRealSpinDial::getDefaultWidth()
-{
+FXint FXRealSpinDial::getDefaultWidth() {
     FXint tw=0;
     if (!(options&SPINDIAL_NOTEXT)) tw=textField->getDefaultWidth();
     return tw+DIALWIDTH+GAPWIDTH+(border<<1);
@@ -494,22 +472,19 @@ FXint FXRealSpinDial::getDefaultWidth()
 
 
 // Get default height
-FXint FXRealSpinDial::getDefaultHeight()
-{
+FXint FXRealSpinDial::getDefaultHeight() {
     return textField->getDefaultHeight()+(border<<1);
 }
 
 
 // Create window
-void FXRealSpinDial::create()
-{
+void FXRealSpinDial::create() {
     FXPacker::create();
 }
 
 
 // Enable the widget
-void FXRealSpinDial::enable()
-{
+void FXRealSpinDial::enable() {
     if (!(flags&FLAG_ENABLED)) {
         FXPacker::enable();
         textField->enable();
@@ -519,8 +494,7 @@ void FXRealSpinDial::enable()
 
 
 // Disable the widget
-void FXRealSpinDial::disable()
-{
+void FXRealSpinDial::disable() {
     if (flags&FLAG_ENABLED) {
         FXPacker::disable();
         textField->disable();
@@ -530,8 +504,7 @@ void FXRealSpinDial::disable()
 
 
 // Recompute layout
-void FXRealSpinDial::layout()
-{
+void FXRealSpinDial::layout() {
     FXint dialWidth,dialHeight,buttonWidth,buttonHeight,textHeight;
 
     textHeight=height-2*border;
@@ -584,8 +557,7 @@ void FXRealSpinDial::layout()
 
 
 // Respond to dial message
-long FXRealSpinDial::onUpdDial(FXObject* sender,FXSelector,void*)
-{
+long FXRealSpinDial::onUpdDial(FXObject* sender,FXSelector,void*) {
     if (isEnabled() && ((options&SPINDIAL_CYCLIC) || (pos<=range[1])))
         sender->handle(this,FXSEL(SEL_COMMAND,ID_ENABLE),NULL);
     else
@@ -595,8 +567,7 @@ long FXRealSpinDial::onUpdDial(FXObject* sender,FXSelector,void*)
 
 
 // Respond to dial message
-long FXRealSpinDial::onChgDial(FXObject*,FXSelector sel,void*)
-{
+long FXRealSpinDial::onChgDial(FXObject*,FXSelector sel,void*) {
     if (!isEnabled()) return 0;
     FXdouble newpos;
     FXdouble inc;
@@ -644,8 +615,7 @@ long FXRealSpinDial::onChgDial(FXObject*,FXSelector sel,void*)
 }
 
 // Respond to dial message
-long FXRealSpinDial::onCmdDial(FXObject*,FXSelector sel,void*)
-{
+long FXRealSpinDial::onCmdDial(FXObject*,FXSelector sel,void*) {
     if (!isEnabled()) return 0;
     // if(target) target->handle(this,FXSEL(SEL_COMMAND,message),(void*)&pos);
     dialpos = dial->getValue() % DIALINCR;
@@ -655,8 +625,7 @@ long FXRealSpinDial::onCmdDial(FXObject*,FXSelector sel,void*)
 
 
 // Respond to increment message
-long FXRealSpinDial::onUpdIncrement(FXObject* sender,FXSelector,void*)
-{
+long FXRealSpinDial::onUpdIncrement(FXObject* sender,FXSelector,void*) {
     if (isEnabled() && ((options&REALSPIN_CYCLIC) || (pos<range[1])))
         sender->handle(this,FXSEL(SEL_COMMAND,ID_ENABLE),NULL);
     else
@@ -666,8 +635,7 @@ long FXRealSpinDial::onUpdIncrement(FXObject* sender,FXSelector,void*)
 
 
 // Respond to increment message
-long FXRealSpinDial::onCmdIncrement(FXObject*,FXSelector,void*)
-{
+long FXRealSpinDial::onCmdIncrement(FXObject*,FXSelector,void*) {
     if (!isEnabled()) return 0;
     FXint mode;
     if (keystate&CONTROLMASK)    mode = SPINDIAL_INC_FINE;
@@ -680,8 +648,7 @@ long FXRealSpinDial::onCmdIncrement(FXObject*,FXSelector,void*)
 
 
 // Disable decrement if at low end already
-long FXRealSpinDial::onUpdDecrement(FXObject* sender,FXSelector,void*)
-{
+long FXRealSpinDial::onUpdDecrement(FXObject* sender,FXSelector,void*) {
     if (isEnabled() && ((options&REALSPIN_CYCLIC) || (range[0]<pos)))
         sender->handle(this,FXSEL(SEL_COMMAND,ID_ENABLE),NULL);
     else
@@ -691,8 +658,7 @@ long FXRealSpinDial::onUpdDecrement(FXObject* sender,FXSelector,void*)
 
 
 // Respond to decrement message
-long FXRealSpinDial::onCmdDecrement(FXObject*,FXSelector,void*)
-{
+long FXRealSpinDial::onCmdDecrement(FXObject*,FXSelector,void*) {
     if (!isEnabled()) return 0;
     FXint mode;
     if (keystate&CONTROLMASK)    mode = SPINDIAL_INC_FINE;
@@ -706,13 +672,11 @@ long FXRealSpinDial::onCmdDecrement(FXObject*,FXSelector,void*)
 
 
 // Update from text field
-long FXRealSpinDial::onUpdEntry(FXObject*,FXSelector,void*)
-{
+long FXRealSpinDial::onUpdEntry(FXObject*,FXSelector,void*) {
     return target && target->handle(this,FXSEL(SEL_UPDATE,message),NULL);
 }
 
-long FXRealSpinDial::onMouseWheel(FXObject*o,FXSelector s,void*p)
-{
+long FXRealSpinDial::onMouseWheel(FXObject*o,FXSelector s,void*p) {
     FXint mode;
     keystate = ((FXEvent*)p)->state;
     if (keystate&CONTROLMASK)    mode = SPINDIAL_INC_FINE;
@@ -725,8 +689,7 @@ long FXRealSpinDial::onMouseWheel(FXObject*o,FXSelector s,void*p)
 }
 
 // Text field changed
-long FXRealSpinDial::onChgEntry(FXObject*,FXSelector,void*)
-{
+long FXRealSpinDial::onChgEntry(FXObject*,FXSelector,void*) {
     register FXdouble value=FXDoubleVal(textField->getText());
     if (value<range[0]) value=range[0];
     if (value>range[1]) value=range[1];
@@ -739,8 +702,7 @@ long FXRealSpinDial::onChgEntry(FXObject*,FXSelector,void*)
 
 
 // Text field command
-long FXRealSpinDial::onCmdEntry(FXObject*,FXSelector,void*)
-{
+long FXRealSpinDial::onCmdEntry(FXObject*,FXSelector,void*) {
     textField->setText(FXStringVal(pos));       // Put back adjusted value
     if (target) target->handle(this,FXSEL(SEL_COMMAND,message),(void*)&pos);
     return 1;
@@ -748,8 +710,7 @@ long FXRealSpinDial::onCmdEntry(FXObject*,FXSelector,void*)
 
 
 // Keyboard press
-long FXRealSpinDial::onKeyPress(FXObject* sender,FXSelector sel,void* ptr)
-{
+long FXRealSpinDial::onKeyPress(FXObject* sender,FXSelector sel,void* ptr) {
     FXEvent* event=(FXEvent*)ptr;
     if (!isEnabled()) return 0;
     keystate=event->state;
@@ -777,8 +738,7 @@ long FXRealSpinDial::onKeyPress(FXObject* sender,FXSelector sel,void* ptr)
 
 
 // Keyboard release
-long FXRealSpinDial::onKeyRelease(FXObject* sender,FXSelector sel,void* ptr)
-{
+long FXRealSpinDial::onKeyRelease(FXObject* sender,FXSelector sel,void* ptr) {
     FXEvent* event=(FXEvent*)ptr;
     if (!isEnabled()) return 0;
     keystate=event->state;
@@ -796,40 +756,35 @@ long FXRealSpinDial::onKeyRelease(FXObject* sender,FXSelector sel,void* ptr)
 }
 
 // Mouse motion
-long FXRealSpinDial::onMotion(FXObject* sender,FXSelector sel,void* ptr)
-{
+long FXRealSpinDial::onMotion(FXObject* sender,FXSelector sel,void* ptr) {
     if (!isEnabled()) return 0;
     keystate=((FXEvent*)ptr)->state;
     return 0;
 }
 
 // Update value from a message
-long FXRealSpinDial::onCmdSetValue(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdSetValue(FXObject*,FXSelector,void* ptr) {
     setValue((FXdouble)(FXuval)ptr);
     return 1;
 }
 
 
 // Update value from a message
-long FXRealSpinDial::onCmdSetIntValue(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdSetIntValue(FXObject*,FXSelector,void* ptr) {
     setValue(FXdouble(*((FXint*)ptr)));
     return 1;
 }
 
 
 // Obtain value from spinner
-long FXRealSpinDial::onCmdGetIntValue(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdGetIntValue(FXObject*,FXSelector,void* ptr) {
     *((FXint*)ptr)=(FXint)getValue();
     return 1;
 }
 
 
 // Update range from a message
-long FXRealSpinDial::onCmdSetIntRange(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdSetIntRange(FXObject*,FXSelector,void* ptr) {
     FXdouble lo = (FXdouble)((FXint*)ptr)[0];
     FXdouble hi = (FXdouble)((FXint*)ptr)[1];
     setRange(lo,hi);
@@ -838,8 +793,7 @@ long FXRealSpinDial::onCmdSetIntRange(FXObject*,FXSelector,void* ptr)
 
 
 // Get range with a message
-long FXRealSpinDial::onCmdGetIntRange(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdGetIntRange(FXObject*,FXSelector,void* ptr) {
     ((FXdouble*)ptr)[0] = range[0];
     ((FXdouble*)ptr)[1] = range[1];
     return 1;
@@ -847,32 +801,28 @@ long FXRealSpinDial::onCmdGetIntRange(FXObject*,FXSelector,void* ptr)
 
 
 // Update value from a message
-long FXRealSpinDial::onCmdSetRealValue(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdSetRealValue(FXObject*,FXSelector,void* ptr) {
     setValue(*((FXdouble*)ptr));
     return 1;
 }
 
 
 // Obtain value from spinner
-long FXRealSpinDial::onCmdGetRealValue(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdGetRealValue(FXObject*,FXSelector,void* ptr) {
     *((FXdouble*)ptr)=getValue();
     return 1;
 }
 
 
 // Update range from a message
-long FXRealSpinDial::onCmdSetRealRange(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdSetRealRange(FXObject*,FXSelector,void* ptr) {
     setRange(((FXdouble*)ptr)[0],((FXdouble*)ptr)[1]);
     return 1;
 }
 
 
 // Get range with a message
-long FXRealSpinDial::onCmdGetRealRange(FXObject*,FXSelector,void* ptr)
-{
+long FXRealSpinDial::onCmdGetRealRange(FXObject*,FXSelector,void* ptr) {
     getRange(((FXdouble*)ptr)[0],((FXdouble*)ptr)[1]);
     return 1;
 }
@@ -880,8 +830,7 @@ long FXRealSpinDial::onCmdGetRealRange(FXObject*,FXSelector,void* ptr)
 
 
 // Increment spinner
-void FXRealSpinDial::increment(FXint incMode)
-{
+void FXRealSpinDial::increment(FXint incMode) {
     FXdouble inc = incr[incMode+1];
     FXdouble newpos;
     if (range[0]<range[1]) {
@@ -904,8 +853,7 @@ void FXRealSpinDial::increment(FXint incMode)
 
 
 // Decrement spinner
-void FXRealSpinDial::decrement(FXint incMode)
-{
+void FXRealSpinDial::decrement(FXint incMode) {
     FXdouble inc = incr[incMode+1];
     FXdouble newpos;
     if (range[0]<range[1]) {
@@ -928,23 +876,20 @@ void FXRealSpinDial::decrement(FXint incMode)
 }
 
 // True if spinner is cyclic
-FXbool FXRealSpinDial::isCyclic() const
-{
+FXbool FXRealSpinDial::isCyclic() const {
     return (options&SPINDIAL_CYCLIC)!=0;
 }
 
 
 // Set spinner cyclic mode
-void FXRealSpinDial::setCyclic(FXbool cyclic)
-{
+void FXRealSpinDial::setCyclic(FXbool cyclic) {
     if (cyclic) options|=SPINDIAL_CYCLIC;
     else options&=~SPINDIAL_CYCLIC;
 }
 
 
 // Set spinner range; this also revalidates the position,
-void FXRealSpinDial::setRange(FXdouble lo,FXdouble hi)
-{
+void FXRealSpinDial::setRange(FXdouble lo,FXdouble hi) {
     if (lo>hi) {
         fxerror("%s::setRange: trying to set negative range.\n",getClassName());
     }
@@ -957,8 +902,7 @@ void FXRealSpinDial::setRange(FXdouble lo,FXdouble hi)
 
 
 // Set new value
-void FXRealSpinDial::setValue(FXdouble value)
-{
+void FXRealSpinDial::setValue(FXdouble value) {
     if (value<range[0]) value=range[0];
     if (value>range[1]) value=range[1];
     if (pos!=value) {
@@ -969,29 +913,25 @@ void FXRealSpinDial::setValue(FXdouble value)
 
 
 // Change value increment
-void FXRealSpinDial::setIncrement(FXdouble inc)
-{
+void FXRealSpinDial::setIncrement(FXdouble inc) {
     if (inc<0) {
         fxerror("%s::setIncrement: negative or zero increment specified.\n",getClassName());
     }
     incr[1]=inc;
 }
-void FXRealSpinDial::setFineIncrement(FXdouble inc)
-{
+void FXRealSpinDial::setFineIncrement(FXdouble inc) {
     if (inc<0) {
         fxerror("%s::setIncrement: negative or zero increment specified.\n",getClassName());
     }
     incr[0]=inc;
 }
-void FXRealSpinDial::setCoarseIncrement(FXdouble inc)
-{
+void FXRealSpinDial::setCoarseIncrement(FXdouble inc) {
     if (inc<0) {
         fxerror("%s::setIncrement: negative or zero increment specified.\n",getClassName());
     }
     incr[2]=inc;
 }
-void FXRealSpinDial::setIncrements(FXdouble fine,FXdouble inc,FXdouble coarse)
-{
+void FXRealSpinDial::setIncrements(FXdouble fine,FXdouble inc,FXdouble coarse) {
     if (inc<0) {
         fxerror("%s::setIncrement: negative or zero increment specified.\n",getClassName());
     }
@@ -1002,15 +942,13 @@ void FXRealSpinDial::setIncrements(FXdouble fine,FXdouble inc,FXdouble coarse)
 
 
 // True if text supposed to be visible
-FXbool FXRealSpinDial::isTextVisible() const
-{
+FXbool FXRealSpinDial::isTextVisible() const {
     return textField->shown();
 }
 
 
 // Change text visibility
-void FXRealSpinDial::setTextVisible(FXbool shown)
-{
+void FXRealSpinDial::setTextVisible(FXbool shown) {
     FXuint opts=shown?(options&~SPINDIAL_NOTEXT):(options|SPINDIAL_NOTEXT);
     if (options!=opts) {
         options=opts;
@@ -1020,22 +958,19 @@ void FXRealSpinDial::setTextVisible(FXbool shown)
 
 
 // Set the font used in the text field|
-void FXRealSpinDial::setFont(FXFont *fnt)
-{
+void FXRealSpinDial::setFont(FXFont *fnt) {
     textField->setFont(fnt);
 }
 
 
 // Return the font used in the text field
-FXFont *FXRealSpinDial::getFont() const
-{
+FXFont *FXRealSpinDial::getFont() const {
     return textField->getFont();
 }
 
 
 // Set help text
-void FXRealSpinDial::setHelpText(const FXString&  text)
-{
+void FXRealSpinDial::setHelpText(const FXString&  text) {
     textField->setHelpText(text);
     dial->setHelpText(text);
     upButton->setHelpText(text);
@@ -1044,15 +979,13 @@ void FXRealSpinDial::setHelpText(const FXString&  text)
 
 
 // Get help text
-FXString FXRealSpinDial::getHelpText() const
-{
+FXString FXRealSpinDial::getHelpText() const {
     return textField->getHelpText();
 }
 
 
 // Set tip text
-void FXRealSpinDial::setTipText(const FXString&  text)
-{
+void FXRealSpinDial::setTipText(const FXString&  text) {
     textField->setTipText(text);
     dial->setTipText(text);
     upButton->setTipText(text);
@@ -1062,15 +995,13 @@ void FXRealSpinDial::setTipText(const FXString&  text)
 
 
 // Get tip text
-FXString FXRealSpinDial::getTipText() const
-{
+FXString FXRealSpinDial::getTipText() const {
     return textField->getTipText();
 }
 
 
 // Change spinner style
-void FXRealSpinDial::setSpinnerStyle(FXuint style)
-{
+void FXRealSpinDial::setSpinnerStyle(FXuint style) {
     FXuint opts=(options&~SPINDIAL_MASK) | (style&SPINDIAL_MASK);
     if (options!=opts) {
         if (opts&SPINDIAL_NOMIN) range[0]=-DBL_MAX;
@@ -1082,138 +1013,115 @@ void FXRealSpinDial::setSpinnerStyle(FXuint style)
 
 
 // Get spinner style
-FXuint FXRealSpinDial::getSpinnerStyle() const
-{
+FXuint FXRealSpinDial::getSpinnerStyle() const {
     return (options&SPINDIAL_MASK);
 }
 
 
 // Allow editing of the text field
-void FXRealSpinDial::setEditable(FXbool edit)
-{
+void FXRealSpinDial::setEditable(FXbool edit) {
     textField->setEditable(edit);
 }
 
 
 // Return TRUE if text field is editable
-FXbool FXRealSpinDial::isEditable() const
-{
+FXbool FXRealSpinDial::isEditable() const {
     return textField->isEditable();
 }
 
 // Change color of the dial
-void FXRealSpinDial::setDialColor(FXColor clr)
-{
+void FXRealSpinDial::setDialColor(FXColor clr) {
     dial->setBackColor(clr);
 }
 
 // Return color of the dial
-FXColor FXRealSpinDial::getDialColor() const
-{
+FXColor FXRealSpinDial::getDialColor() const {
     return dial->getBackColor();
 }
 
 // Change color of the up arrow
-void FXRealSpinDial::setUpArrowColor(FXColor clr)
-{
+void FXRealSpinDial::setUpArrowColor(FXColor clr) {
     upButton->setArrowColor(clr);
 }
 
 // Return color of the up arrow
-FXColor FXRealSpinDial::getUpArrowColor() const
-{
+FXColor FXRealSpinDial::getUpArrowColor() const {
     return upButton->getArrowColor();
 }
 
 // Change color of the down arrow
-void FXRealSpinDial::setDownArrowColor(FXColor clr)
-{
+void FXRealSpinDial::setDownArrowColor(FXColor clr) {
     downButton->setArrowColor(clr);
 }
 
 // Return color of the the down arrow
-FXColor FXRealSpinDial::getDownArrowColor() const
-{
+FXColor FXRealSpinDial::getDownArrowColor() const {
     return downButton->getArrowColor();
 }
 
 
 // Change text color
-void FXRealSpinDial::setTextColor(FXColor clr)
-{
+void FXRealSpinDial::setTextColor(FXColor clr) {
     textField->setTextColor(clr);
 }
 
 // Return text color
-FXColor FXRealSpinDial::getTextColor() const
-{
+FXColor FXRealSpinDial::getTextColor() const {
     return textField->getTextColor();
 }
 
 // Change selected background color
-void FXRealSpinDial::setSelBackColor(FXColor clr)
-{
+void FXRealSpinDial::setSelBackColor(FXColor clr) {
     textField->setSelBackColor(clr);
 }
 
 // Return selected background color
-FXColor FXRealSpinDial::getSelBackColor() const
-{
+FXColor FXRealSpinDial::getSelBackColor() const {
     return textField->getSelBackColor();
 }
 
 // Change selected text color
-void FXRealSpinDial::setSelTextColor(FXColor clr)
-{
+void FXRealSpinDial::setSelTextColor(FXColor clr) {
     textField->setSelTextColor(clr);
 }
 
 // Return selected text color
-FXColor FXRealSpinDial::getSelTextColor() const
-{
+FXColor FXRealSpinDial::getSelTextColor() const {
     return textField->getSelTextColor();
 }
 
 // Changes the cursor color
-void FXRealSpinDial::setCursorColor(FXColor clr)
-{
+void FXRealSpinDial::setCursorColor(FXColor clr) {
     textField->setCursorColor(clr);
 }
 
 // Return the cursor color
-FXColor FXRealSpinDial::getCursorColor() const
-{
+FXColor FXRealSpinDial::getCursorColor() const {
     return textField->getCursorColor();
 }
 
-void FXRealSpinDial::setNumberFormat(FXint  prec, FXbool  bExp)
-{
+void FXRealSpinDial::setNumberFormat(FXint  prec, FXbool  bExp) {
     textField->setNumberFormat(prec,bExp);
 }
 
-FXint FXRealSpinDial::getNumberFormatPrecision() const
-{
+FXint FXRealSpinDial::getNumberFormatPrecision() const {
     return textField->getNumberFormatPrecision();
 }
 
-FXbool FXRealSpinDial::getNumberFormatExponent() const
-{
+FXbool FXRealSpinDial::getNumberFormatExponent() const {
     return textField->getNumberFormatExponent();
 }
 
-void FXRealSpinDial::setFormatString(FXchar  *fmt)
-{
+void FXRealSpinDial::setFormatString(FXchar  *fmt) {
     textField->setFormatString(fmt);
 }
 
-FXString FXRealSpinDial::getNumberFormatString() const
-{
+FXString FXRealSpinDial::getNumberFormatString() const {
     return textField->getNumberFormatString();
 }
 
 // Save object to stream
-void FXRealSpinDial::save(FXStream& store) const
-{
+void FXRealSpinDial::save(FXStream& store) const {
     FXPacker::save(store);
     store << textField;
     store << dial;
@@ -1226,8 +1134,7 @@ void FXRealSpinDial::save(FXStream& store) const
 
 
 // Load object from stream
-void FXRealSpinDial::load(FXStream& store)
-{
+void FXRealSpinDial::load(FXStream& store) {
     FXPacker::load(store);
     store >> textField;
     store >> dial;
@@ -1240,8 +1147,7 @@ void FXRealSpinDial::load(FXStream& store)
 
 
 // Destruct spinner:- trash it!
-FXRealSpinDial::~FXRealSpinDial()
-{
+FXRealSpinDial::~FXRealSpinDial() {
     textField=(FXRealSpinDialText*)-1L;
     dial=(FXDial*)-1L;
     upButton=(FXRealSpinDialBtn*)-1L;
@@ -1252,16 +1158,14 @@ FXRealSpinDial::~FXRealSpinDial()
 
 
 void
-FXRealSpinDial::selectAll()
-{
+FXRealSpinDial::selectAll() {
     textField->selectAll();
 }
 
 
 
 const FXDial &
-FXRealSpinDial::getDial() const
-{
+FXRealSpinDial::getDial() const {
     return *dial;
 }
 

@@ -80,8 +80,7 @@ using namespace std;
 using namespace tcpip;
 
 
-namespace traci
-{
+namespace traci {
 
 // ===========================================================================
 // static member definitions
@@ -95,8 +94,7 @@ bool TraCIServer::closeConnection_ = false;
 
 /*****************************************************************************/
 
-TraCIServer::TraCIServer()
-{
+TraCIServer::TraCIServer() {
     OptionsCont &oc = OptionsCont::getOptions();
 
     targetTime_ = 0;
@@ -204,8 +202,7 @@ TraCIServer::TraCIServer()
 
 /*****************************************************************************/
 
-TraCIServer::~TraCIServer()
-{
+TraCIServer::~TraCIServer() {
     if (socket_ != NULL) delete socket_;
 
     if (netBoundary_ != NULL) delete netBoundary_;
@@ -214,8 +211,7 @@ TraCIServer::~TraCIServer()
 /*****************************************************************************/
 
 void
-TraCIServer::processCommandsUntilSimStep(SUMOTime step)
-{
+TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     try {
         if (instance_ == 0) {
             if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
@@ -274,8 +270,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
 }
 
 bool
-TraCIServer::wasClosed()
-{
+TraCIServer::wasClosed() {
     return closeConnection_;
 }
 
@@ -283,8 +278,7 @@ TraCIServer::wasClosed()
 
 int
 TraCIServer::dispatchCommand()
-throw(TraCIException, std::invalid_argument)
-{
+throw(TraCIException, std::invalid_argument) {
     int commandStart = myInputStorage.position();
     int commandLength = myInputStorage.readUnsignedByte();
 
@@ -381,8 +375,7 @@ throw(TraCIException, std::invalid_argument)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument)
-{
+TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument) {
     MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
     float maxspeed = myInputStorage.readFloat();
 
@@ -406,8 +399,7 @@ TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argumen
 /*****************************************************************************/
 
 void
-TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argument)
-{
+TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argument) {
     // Position representation
     int resType = myInputStorage.readUnsignedByte();
     if (resType != POSITION_NONE && resType != POSITION_2D && resType != POSITION_ROADMAP
@@ -551,8 +543,7 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
 /*****************************************************************************/
 
 bool
-TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
-{
+TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument) {
     //std::string roadID;
     //float lanePos;
     //unsigned char laneIndex;
@@ -580,15 +571,15 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
     case POSITION_2D:
     case POSITION_3D:
         // convert other position type to road map position
-        {
-            float x = myInputStorage.readFloat();
-            float y = myInputStorage.readFloat();
-            roadPos = convertCartesianToRoadMap(Position2D(x,y));
-        }
-        if (posType == POSITION_3D) {
-            myInputStorage.readFloat();	// z value is ignored
-        }
-        break;
+    {
+        float x = myInputStorage.readFloat();
+        float y = myInputStorage.readFloat();
+        roadPos = convertCartesianToRoadMap(Position2D(x,y));
+    }
+    if (posType == POSITION_3D) {
+        myInputStorage.readFloat();	// z value is ignored
+    }
+    break;
     default:
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "Not supported or unknown Position Format");
         return false;
@@ -659,8 +650,7 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument)
-{
+TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument) {
     // NodeId
     MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
     // Lane ID
@@ -691,8 +681,7 @@ TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument)
-{
+TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
     // NodeId
     int vehId = myInputStorage.readInt();
     MSVehicle* veh = getVehicleByExtId(vehId);   // external node id (equipped vehicle number)
@@ -720,8 +709,7 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument)
-{
+TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument) {
     // NodeId
     MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
     // EdgeId
@@ -758,8 +746,7 @@ TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandGetAllTLIds() throw(TraCIException)
-{
+TraCIServer::commandGetAllTLIds() throw(TraCIException) {
     tcpip::Storage tempMsg;
 
     // get the TLLogicControl
@@ -790,8 +777,7 @@ TraCIServer::commandGetAllTLIds() throw(TraCIException)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandGetTLStatus() throw(TraCIException)
-{
+TraCIServer::commandGetTLStatus() throw(TraCIException) {
     SUMOTime lookback = 60; // Time to look in history for recognizing yellowTimes
 
     tcpip::Storage tempMsg;
@@ -925,8 +911,7 @@ TraCIServer::commandGetTLStatus() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandSlowDown() throw(TraCIException)
-{
+TraCIServer::commandSlowDown() throw(TraCIException) {
     // NodeId
     MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
     // speed
@@ -960,8 +945,7 @@ TraCIServer::commandSlowDown() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandCloseConnection() throw(TraCIException)
-{
+TraCIServer::commandCloseConnection() throw(TraCIException) {
     closeConnection_ = true;
     // write answer
     writeStatusCmd(CMD_CLOSE, RTYPE_OK, "Goodbye");
@@ -971,8 +955,7 @@ TraCIServer::commandCloseConnection() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandSimulationParameter() throw(TraCIException)
-{
+TraCIServer::commandSimulationParameter() throw(TraCIException) {
     bool setParameter = (myInputStorage.readByte() != 0);
     string parameter = myInputStorage.readString();
 
@@ -1060,8 +1043,7 @@ TraCIServer::commandSimulationParameter() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandUpdateCalibrator() throw(TraCIException)
-{
+TraCIServer::commandUpdateCalibrator() throw(TraCIException) {
     myOutputStorage.reset();
 
     int countTime = myInputStorage.readInt();
@@ -1078,8 +1060,7 @@ TraCIServer::commandUpdateCalibrator() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandPositionConversion() throw(TraCIException)
-{
+TraCIServer::commandPositionConversion() throw(TraCIException) {
     tcpip::Storage tmpResult;
     RoadMapPos roadPos;
     Position2D cartesianPos;
@@ -1183,8 +1164,7 @@ TraCIServer::commandPositionConversion() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandScenario() throw(TraCIException)
-{
+TraCIServer::commandScenario() throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
 
@@ -1241,8 +1221,7 @@ TraCIServer::commandScenario() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandDistanceRequest() throw(TraCIException)
-{
+TraCIServer::commandDistanceRequest() throw(TraCIException) {
     Position2D pos1;
     Position2D pos2;
     RoadMapPos roadPos1;
@@ -1265,17 +1244,16 @@ TraCIServer::commandDistanceRequest() throw(TraCIException)
         break;
     case POSITION_2D:
     case POSITION_2_5D:
-    case POSITION_3D:
-        {
-            float p1x = myInputStorage.readFloat();
-            float p1y = myInputStorage.readFloat();
-            pos1.set(p1x, p1y);
-        }
-        if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
-            myInputStorage.readFloat();		// z value is ignored
-        }
-        roadPos1 = convertCartesianToRoadMap(pos1);
-        break;
+    case POSITION_3D: {
+        float p1x = myInputStorage.readFloat();
+        float p1y = myInputStorage.readFloat();
+        pos1.set(p1x, p1y);
+    }
+    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+        myInputStorage.readFloat();		// z value is ignored
+    }
+    roadPos1 = convertCartesianToRoadMap(pos1);
+    break;
     default:
         writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
         return false;
@@ -1297,17 +1275,16 @@ TraCIServer::commandDistanceRequest() throw(TraCIException)
         break;
     case POSITION_2D:
     case POSITION_2_5D:
-    case POSITION_3D:
-        {
-            float p2x = myInputStorage.readFloat();
-            float p2y = myInputStorage.readFloat();
-            pos2.set(p2x, p2y);
-        }
-        if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
-            myInputStorage.readFloat();		// z value is ignored
-        }
-        roadPos2 = convertCartesianToRoadMap(pos2);
-        break;
+    case POSITION_3D: {
+        float p2x = myInputStorage.readFloat();
+        float p2y = myInputStorage.readFloat();
+        pos2.set(p2x, p2y);
+    }
+    if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+        myInputStorage.readFloat();		// z value is ignored
+    }
+    roadPos2 = convertCartesianToRoadMap(pos2);
+    break;
     default:
         writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
         return false;
@@ -1352,8 +1329,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandSubscribeLifecycles() throw(TraCIException)
-{
+TraCIServer::commandSubscribeLifecycles() throw(TraCIException) {
     // domain
     int domain = myInputStorage.readUnsignedByte();
 
@@ -1378,8 +1354,7 @@ TraCIServer::commandSubscribeLifecycles() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandUnsubscribeLifecycles() throw(TraCIException)
-{
+TraCIServer::commandUnsubscribeLifecycles() throw(TraCIException) {
     // domain
     int domain = myInputStorage.readUnsignedByte();
 
@@ -1404,8 +1379,7 @@ TraCIServer::commandUnsubscribeLifecycles() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandSubscribeDomain() throw(TraCIException)
-{
+TraCIServer::commandSubscribeDomain() throw(TraCIException) {
     // domain
     int domainId = myInputStorage.readUnsignedByte();
 
@@ -1469,8 +1443,7 @@ TraCIServer::commandSubscribeDomain() throw(TraCIException)
 /*****************************************************************************/
 
 bool
-TraCIServer::commandUnsubscribeDomain() throw(TraCIException)
-{
+TraCIServer::commandUnsubscribeDomain() throw(TraCIException) {
     // domain
     int domain = myInputStorage.readUnsignedByte();
 
@@ -1490,8 +1463,7 @@ TraCIServer::commandUnsubscribeDomain() throw(TraCIException)
 /*****************************************************************************/
 
 void
-TraCIServer::writeStatusCmd(int commandId, int status, std::string description)
-{
+TraCIServer::writeStatusCmd(int commandId, int status, std::string description) {
     if (status == RTYPE_ERR) {
         MsgHandler::getErrorInstance()->inform("Answered with error to command " + toString(commandId) +
                                                ": " + description);
@@ -1515,8 +1487,7 @@ TraCIServer::writeStatusCmd(int commandId, int status, std::string description)
 /*****************************************************************************/
 
 void
-TraCIServer::convertExt2IntId(int extId, std::string& intId)
-{
+TraCIServer::convertExt2IntId(int extId, std::string& intId) {
     if (isMapChanged_) {
         isMapChanged_ = false;
         ext2intId.clear();
@@ -1536,8 +1507,7 @@ TraCIServer::convertExt2IntId(int extId, std::string& intId)
 /*****************************************************************************/
 
 MSVehicle*
-TraCIServer::getVehicleByExtId(int extId)
-{
+TraCIServer::getVehicleByExtId(int extId) {
     std::string intId;
     convertExt2IntId(extId, intId);
     return MSNet::getInstance()->getVehicleControl().getVehicle(intId);
@@ -1546,8 +1516,7 @@ TraCIServer::getVehicleByExtId(int extId)
 /*****************************************************************************/
 
 MSTrafficLightLogic*
-TraCIServer::getTLLogicByExtId(int extId)
-{
+TraCIServer::getTLLogicByExtId(int extId) {
     std::string intId = "";
     std::map<int, std::string>::iterator iter = trafficLightsExt2IntId.find(extId);
     if (iter != trafficLightsExt2IntId.end()) {
@@ -1560,8 +1529,7 @@ TraCIServer::getTLLogicByExtId(int extId)
 /*****************************************************************************/
 
 PointOfInterest*
-TraCIServer::getPoiByExtId(int extId)
-{
+TraCIServer::getPoiByExtId(int extId) {
     std::string intId = "";
     std::map<int, std::string>::iterator iter = poiExt2IntId.find(extId);
     if (iter != poiExt2IntId.end()) {
@@ -1582,8 +1550,7 @@ TraCIServer::getPoiByExtId(int extId)
 /*****************************************************************************/
 
 Polygon2D*
-TraCIServer::getPolygonByExtId(int extId)
-{
+TraCIServer::getPolygonByExtId(int extId) {
     std::string intId = "";
     map<int, std::string>::const_iterator it = ext2intId.find(extId);
     if (it != ext2intId.end()) {
@@ -1604,8 +1571,7 @@ TraCIServer::getPolygonByExtId(int extId)
 /*****************************************************************************/
 
 const Boundary&
-TraCIServer::getNetBoundary()
-{
+TraCIServer::getNetBoundary() {
     // If already calculated, just return the boundary
     if (netBoundary_ != NULL) return *netBoundary_;
 
@@ -1650,8 +1616,7 @@ TraCIServer::getNetBoundary()
 /*****************************************************************************/
 
 TraCIServer::RoadMapPos
-TraCIServer::convertCartesianToRoadMap(Position2D pos)
-{
+TraCIServer::convertCartesianToRoadMap(Position2D pos) {
     RoadMapPos result;
     std::vector<std::string> allEdgeIds;
     MSEdge* edge;
@@ -1732,8 +1697,7 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 
 Position2D
 TraCIServer::convertRoadMapToCartesian(traci::TraCIServer::RoadMapPos roadPos)
-throw(TraCIException)
-{
+throw(TraCIException) {
     if (roadPos.pos < 0) {
         throw TraCIException("Position on lane must not be negative");
     }
@@ -1758,8 +1722,7 @@ throw(TraCIException)
 
 std::string
 TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException)
-{
+throw(TraCIException) {
     string name = "";
     string warning = "";	// additional description for response
     DataTypeContainer dataCont;
@@ -1880,8 +1843,7 @@ throw(TraCIException)
 
 std::string
 TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException)
-{
+throw(TraCIException) {
     std::string name;
     int count = 0;
     MSVehicleControl* vehControl = NULL;
@@ -2243,8 +2205,7 @@ throw(TraCIException)
 
 std::string
 TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException)
-{
+throw(TraCIException) {
     int count = 0;
     std::string name;
     std::string warning = "";	// additional description for response
@@ -2464,8 +2425,7 @@ throw(TraCIException)
 
 std::string
 TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException)
-{
+throw(TraCIException) {
     std::string name;
     std::string warning = "";	// additional description for response
     DataTypeContainer dataCont;
@@ -2590,8 +2550,7 @@ throw(TraCIException)
 
 std::string
 TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response)
-throw(TraCIException)
-{
+throw(TraCIException) {
     std::string name;
     std::string warning = "";	// additional description for response
     DataTypeContainer dataCont;
@@ -2733,8 +2692,7 @@ throw(TraCIException)
 
 void
 TraCIServer::handleLifecycleSubscriptions()
-throw(TraCIException)
-{
+throw(TraCIException) {
 
     if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
 
@@ -2765,8 +2723,7 @@ throw(TraCIException)
 
 void
 TraCIServer::handleDomainSubscriptions(const SUMOTime& currentTime, const map<int, const MSVehicle*>& activeEquippedVehicles)
-throw(TraCIException)
-{
+throw(TraCIException) {
 
     if (myDomainSubscriptions.count(DOM_VEHICLE) != 0) {
 
@@ -2825,15 +2782,14 @@ throw(TraCIException)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
-{
+TraCIServer::commandGetInductionLoopVariable() throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
     int variable = myInputStorage.readUnsignedByte();
     string id = myInputStorage.readString();
     // check variable
-    if(variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+    if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
         writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
@@ -2844,14 +2800,14 @@ TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if(variable==ID_LIST) {
+    if (variable==ID_LIST) {
         std::vector<std::string> ids;
         MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
         MSInductLoop *il = MSNet::getInstance()->getDetectorControl().getInductLoops().get(id);
-        if(il==0) {
+        if (il==0) {
             writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Induction loop '" + id + "' is not known");
             return false;
         }
@@ -2866,17 +2822,16 @@ TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat((float) il->getCurrentSpeed());
             break;
-        case LAST_STEP_VEHICLE_ID_LIST:
-            {
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                vector<string> ids = il->getCurrentVehicleIDs();
-                tempMsg.writeStringList(ids);
-            }
-            break;
+        case LAST_STEP_VEHICLE_ID_LIST: {
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            vector<string> ids = il->getCurrentVehicleIDs();
+            tempMsg.writeStringList(ids);
+        }
+        break;
         default:
             break;
         }
-    } 
+    }
     writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, warning);
     // send response
     myOutputStorage.writeUnsignedByte(0); // command length -> extended
@@ -2887,15 +2842,14 @@ TraCIServer::commandGetInductionLoopVariable() throw(TraCIException)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
-{
+TraCIServer::commandGetArealDetectorVariable() throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
     int variable = myInputStorage.readUnsignedByte();
     string id = myInputStorage.readString();
     // check variable
-    if(variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+    if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
         writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
@@ -2905,14 +2859,14 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
     tempMsg.writeUnsignedByte(RESPONSE_GET_AREALDETECTOR_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    if(variable==ID_LIST) {
+    if (variable==ID_LIST) {
         std::vector<std::string> ids;
         MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
         MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
-        if(e3==0) {
+        if (e3==0) {
             writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known");
             return false;
         }
@@ -2927,17 +2881,16 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat((float) e3->getCurrentMeanSpeed());
             break;
-        case LAST_STEP_VEHICLE_ID_LIST:
-            {
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                vector<string> ids = e3->getCurrentVehicleIDs();
-                tempMsg.writeStringList(ids);
-            }
-            break;
+        case LAST_STEP_VEHICLE_ID_LIST: {
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            vector<string> ids = e3->getCurrentVehicleIDs();
+            tempMsg.writeStringList(ids);
+        }
+        break;
         default:
             break;
         }
-    } 
+    }
     writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_OK, warning);
     // send response
     myOutputStorage.writeUnsignedByte(0); // command length -> extended
@@ -2948,15 +2901,14 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
-{
+TraCIServer::commandGetTrafficLightVariable() throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
     int variable = myInputStorage.readUnsignedByte();
     string id = myInputStorage.readString();
     // check variable
-    if(variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE) {
+    if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE) {
         writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
@@ -2966,12 +2918,12 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
     tempMsg.writeUnsignedByte(RESPONSE_GET_TL_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
-    if(variable==ID_LIST) {
+    if (variable==ID_LIST) {
         std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
     } else {
-        if(!MSNet::getInstance()->getTLSControl().knows(id)) {
+        if (!MSNet::getInstance()->getTLSControl().knows(id)) {
             writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known");
             return false;
         }
@@ -2979,29 +2931,27 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
         switch (variable) {
         case ID_LIST:
             break;
-        case TL_RED_YELLOW_GREEN_STATE:
-            {
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                string state = vars.getActive()->buildStateList();
-                tempMsg.writeString(state);
-            }
-            break;
-        case TL_PHASE_BRAKE_YELLOW_STATE:
-            {
-                MSPhaseDefinition phase = vars.getActive()->getCurrentPhaseDef();
-                unsigned int linkNo = vars.getActive()->getLinks().size();
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                vector<string> phaseDef;
-                phaseDef.push_back(phase.getDriveMask().to_string().substr(64-linkNo, 64));
-                phaseDef.push_back(phase.getBreakMask().to_string().substr(64-linkNo, 64));
-                phaseDef.push_back(phase.getYellowMask().to_string().substr(64-linkNo, 64));
-                tempMsg.writeStringList(phaseDef);
-            }
-            break;
+        case TL_RED_YELLOW_GREEN_STATE: {
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            string state = vars.getActive()->buildStateList();
+            tempMsg.writeString(state);
+        }
+        break;
+        case TL_PHASE_BRAKE_YELLOW_STATE: {
+            MSPhaseDefinition phase = vars.getActive()->getCurrentPhaseDef();
+            unsigned int linkNo = vars.getActive()->getLinks().size();
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            vector<string> phaseDef;
+            phaseDef.push_back(phase.getDriveMask().to_string().substr(64-linkNo, 64));
+            phaseDef.push_back(phase.getBreakMask().to_string().substr(64-linkNo, 64));
+            phaseDef.push_back(phase.getYellowMask().to_string().substr(64-linkNo, 64));
+            tempMsg.writeStringList(phaseDef);
+        }
+        break;
         default:
             break;
         }
-    } 
+    }
     writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, warning);
     // send response
     myOutputStorage.writeUnsignedByte(0); // command length -> extended
@@ -3012,18 +2962,17 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException)
 
 /*****************************************************************************/
 bool
-TraCIServer::commandSetTrafficLightVariable() throw(TraCIException)
-{
+TraCIServer::commandSetTrafficLightVariable() throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
     int variable = myInputStorage.readUnsignedByte();
-    if(variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM&&variable!=TL_PHASE_DURATION) {
+    if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM&&variable!=TL_PHASE_DURATION) {
         writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
     string id = myInputStorage.readString();
-    if(!MSNet::getInstance()->getTLSControl().knows(id)) {
+    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
         writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known");
         return false;
     }
@@ -3032,74 +2981,70 @@ TraCIServer::commandSetTrafficLightVariable() throw(TraCIException)
     MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(id);
     int valueDataType = myInputStorage.readUnsignedByte();
     switch (variable) {
-    case TL_PHASE_BRAKE_YELLOW_STATE:
-        {
-            if(valueDataType!=TYPE_STRINGLIST) {
-                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
-                return false;
-            }
-            vector<string> defs = myInputStorage.readStringList();
-            if(defs.size()!=3) {
-                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
-                return false;
-            }
-            bitset<64> prios(defs[1]);
-            prios.flip();
-            // build only once...
-            MSPhaseDefinition *phase = new MSPhaseDefinition(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
-            vector<MSPhaseDefinition*> phases;
-            phases.push_back(phase);
-            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(*MSNet::getInstance(), tlsControl, id, "online", phases, 0, cTime+1);
-            if(!vars.addLogic("online", logic, true, true)) {
-                delete logic;
-                MSPhaseDefinition nphase(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
-                *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
-            }
+    case TL_PHASE_BRAKE_YELLOW_STATE: {
+        if (valueDataType!=TYPE_STRINGLIST) {
+            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
+            return false;
         }
-        break;
-    case TL_PHASE_INDEX:
-        {
-            if(valueDataType!=TYPE_INTEGER) {
-                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index must be given as an integer.");
-                return false;
-            }
-            int index = myInputStorage.readInt();
-            if(index<0||vars.getActive()->getPhaseNumber()<=index) {
-                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index is not in the allowed range.");
-                return false;
-            }
-            int duration = vars.getActive()->getPhaseFromStep(index).duration;
-            vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
+        vector<string> defs = myInputStorage.readStringList();
+        if (defs.size()!=3) {
+            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
+            return false;
         }
-        break;
-    case TL_PROGRAM:
-        {
-            if(valueDataType!=TYPE_STRING) {
-                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The program must be given as a string.");
-                return false;
-            }
-            string subID = myInputStorage.readString();
-            try {
-                vars.switchTo(tlsControl, subID);
-            } catch (ProcessError &e) {
-                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, e.what());
-                return false;
-            }
+        bitset<64> prios(defs[1]);
+        prios.flip();
+        // build only once...
+        MSPhaseDefinition *phase = new MSPhaseDefinition(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
+        vector<MSPhaseDefinition*> phases;
+        phases.push_back(phase);
+        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(*MSNet::getInstance(), tlsControl, id, "online", phases, 0, cTime+1);
+        if (!vars.addLogic("online", logic, true, true)) {
+            delete logic;
+            MSPhaseDefinition nphase(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
+            *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
         }
-        break;
-    case TL_PHASE_DURATION:
-        {
-            if(valueDataType!=TYPE_INTEGER) {
-                writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase duration must be given as an integer.");
-                return false;
-            }
-            int duration = myInputStorage.readInt();
-            int index = vars.getActive()->getCurrentPhaseIndex();
-            vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
+    }
+    break;
+    case TL_PHASE_INDEX: {
+        if (valueDataType!=TYPE_INTEGER) {
+            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index must be given as an integer.");
+            return false;
         }
+        int index = myInputStorage.readInt();
+        if (index<0||vars.getActive()->getPhaseNumber()<=index) {
+            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index is not in the allowed range.");
+            return false;
+        }
+        int duration = vars.getActive()->getPhaseFromStep(index).duration;
+        vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
+    }
+    break;
+    case TL_PROGRAM: {
+        if (valueDataType!=TYPE_STRING) {
+            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The program must be given as a string.");
+            return false;
+        }
+        string subID = myInputStorage.readString();
+        try {
+            vars.switchTo(tlsControl, subID);
+        } catch (ProcessError &e) {
+            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, e.what());
+            return false;
+        }
+    }
+    break;
+    case TL_PHASE_DURATION: {
+        if (valueDataType!=TYPE_INTEGER) {
+            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase duration must be given as an integer.");
+            return false;
+        }
+        int duration = myInputStorage.readInt();
+        int index = vars.getActive()->getCurrentPhaseIndex();
+        vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
+    }
     default:
         break;
-    } 
+    }
     writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_OK, warning);
     return true;
 }

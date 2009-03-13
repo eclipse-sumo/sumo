@@ -35,8 +35,7 @@
 #endif // CHECK_MEMORY_LEAKS
 
 void *
-MFXEventQue::top()
-{
+MFXEventQue::top() {
     assert(size()!=0);
     myMutex.lock();
     void *ret = *(myEvents.begin());
@@ -46,8 +45,7 @@ MFXEventQue::top()
 
 
 void
-MFXEventQue::pop()
-{
+MFXEventQue::pop() {
     myMutex.lock();
     myEvents.erase(myEvents.begin());
     myMutex.unlock();
@@ -55,8 +53,7 @@ MFXEventQue::pop()
 
 
 void
-MFXEventQue::add(void *what)
-{
+MFXEventQue::add(void *what) {
     myMutex.lock();
     myEvents.push_back(what);
     myMutex.unlock();
@@ -64,8 +61,7 @@ MFXEventQue::add(void *what)
 
 
 size_t
-MFXEventQue::size()
-{
+MFXEventQue::size() {
     myMutex.lock();
     size_t msize = myEvents.size();
     myMutex.unlock();
@@ -74,8 +70,7 @@ MFXEventQue::size()
 
 
 bool
-MFXEventQue::empty()
-{
+MFXEventQue::empty() {
     myMutex.lock();
     bool ret = size()==0;
     myMutex.unlock();

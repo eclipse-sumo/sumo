@@ -53,8 +53,7 @@ class Boundary;
  *  moving the mouse
  */
 class GUIDanielPerspectiveChanger :
-            public GUIPerspectiveChanger
-{
+            public GUIPerspectiveChanger {
 public:
     /// Constructor
     GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack);

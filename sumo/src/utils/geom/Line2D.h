@@ -45,8 +45,7 @@ class Position2DVector;
 /**
  *
  */
-class Line2D
-{
+class Line2D {
 public:
     Line2D();
     Line2D(const Position2D &p1, const Position2D &p2);

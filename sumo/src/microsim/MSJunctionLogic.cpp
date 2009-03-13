@@ -50,15 +50,13 @@ MSLogicJunction::LinkFoes MSJunctionLogic::myDummyFoes;
 // member method definitions
 // ===========================================================================
 unsigned int
-MSJunctionLogic::nLinks()
-{
+MSJunctionLogic::nLinks() {
     return myNLinks;
 }
 
 
 unsigned int
-MSJunctionLogic::nInLanes()
-{
+MSJunctionLogic::nInLanes() {
     return myNInLanes;
 }
 
@@ -66,12 +64,10 @@ MSJunctionLogic::nInLanes()
 MSJunctionLogic::MSJunctionLogic(unsigned int nLinks,
                                  unsigned int nInLanes) :
         myNLinks(nLinks),
-        myNInLanes(nInLanes)
-{}
+        myNInLanes(nInLanes) {}
 
 
-MSJunctionLogic::~MSJunctionLogic()
-{}
+MSJunctionLogic::~MSJunctionLogic() {}
 
 
 

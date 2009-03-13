@@ -58,21 +58,18 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
         const std::string &filename)
         : MSTriggeredReader(net),
         SUMOSAXHandler(filename),
-        myParser(0), myHaveMore(true)
-{
+        myParser(0), myHaveMore(true) {
     Command* c = new WrappingCommand< MSTriggeredReader >(this, &MSTriggeredReader::wrappedExecute);
     MSNet::getInstance()->getEmissionEvents().addEvent(
         c, net.getCurrentTimeStep(), MSEventControl::NO_CHANGE);
 }
 
 
-MSTriggeredXMLReader::~MSTriggeredXMLReader() throw()
-{}
+MSTriggeredXMLReader::~MSTriggeredXMLReader() throw() {}
 
 
 bool
-MSTriggeredXMLReader::readNextTriggered()
-{
+MSTriggeredXMLReader::readNextTriggered() {
     while (myHaveMore&&myParser->parseNext(myToken)) {
         if (nextRead()) {
             return true;
@@ -84,8 +81,7 @@ MSTriggeredXMLReader::readNextTriggered()
 
 
 void
-MSTriggeredXMLReader::myInit()
-{
+MSTriggeredXMLReader::myInit() {
     try {
         myParser = XMLSubSys::getSAXReader(*this);
         if (!myParser->parseFirst(getFileName().c_str(), myToken)) {

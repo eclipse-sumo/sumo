@@ -56,18 +56,15 @@ using namespace std;
 // ===========================================================================
 NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
         : SUMOSAXHandler("xml-types - file"),
-        myTypeCont(tc), myHaveReportedAboutFunctionDeprecation(false)
-{}
+        myTypeCont(tc), myHaveReportedAboutFunctionDeprecation(false) {}
 
 
-NIXMLTypesHandler::~NIXMLTypesHandler() throw()
-{}
+NIXMLTypesHandler::~NIXMLTypesHandler() throw() {}
 
 
 void
 NIXMLTypesHandler::myStartElement(SumoXMLTag element,
-                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_TYPE) {
         return;
     }

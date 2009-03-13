@@ -52,47 +52,41 @@ const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal)(3.2/2.+.1);
  * ----------------------------------------------------------------------- */
 template<typename T>
 inline T
-MIN2(T a, T b)
-{
+MIN2(T a, T b) {
     return a<b?a:b;
 }
 
 template<typename T>
 inline T
-MAX2(T a, T b)
-{
+MAX2(T a, T b) {
     return a>b?a:b;
 }
 
 
 template<typename T>
 inline T
-MIN3(T a, T b, T c)
-{
+MIN3(T a, T b, T c) {
     return MIN2(c, a<b?a:b);
 }
 
 
 template<typename T>
 inline T
-MAX3(T a, T b, T c)
-{
+MAX3(T a, T b, T c) {
     return MAX2(c, a>b?a:b);
 }
 
 
 template<typename T>
 inline T
-MIN4(T a, T b, T c, T d)
-{
+MIN4(T a, T b, T c, T d) {
     return MIN2(MIN2(a,b),MIN2(c,d));
 }
 
 
 template<typename T>
 inline T
-MAX4(T a, T b, T c, T d)
-{
+MAX4(T a, T b, T c, T d) {
     return MAX2(MAX2(a,b),MAX2(c,d));
 }
 

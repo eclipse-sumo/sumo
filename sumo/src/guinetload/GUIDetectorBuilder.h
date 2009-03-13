@@ -53,8 +53,7 @@ class MSDetectorControl;
  *
  * @see NLDetectorBuilder
  */
-class GUIDetectorBuilder : public NLDetectorBuilder
-{
+class GUIDetectorBuilder : public NLDetectorBuilder {
 public:
     /** @brief Constructor
      *

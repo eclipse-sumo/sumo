@@ -56,22 +56,18 @@ using namespace std;
 // ===========================================================================
 NBDistrict::NBDistrict(const std::string &id, const Position2D &pos) throw()
         : Named(StringUtils::convertUmlaute(id)),
-        myPosition(pos)
-{}
+        myPosition(pos) {}
 
 
 NBDistrict::NBDistrict(const std::string &id) throw()
-        : Named(id), myPosition(0, 0)
-{}
+        : Named(id), myPosition(0, 0) {}
 
 
-NBDistrict::~NBDistrict() throw()
-{}
+NBDistrict::~NBDistrict() throw() {}
 
 
 bool
-NBDistrict::addSource(NBEdge * const source, SUMOReal weight) throw()
-{
+NBDistrict::addSource(NBEdge * const source, SUMOReal weight) throw() {
     EdgeVector::iterator i = find(mySources.begin(), mySources.end(), source);
     if (i!=mySources.end()) {
         return false;
@@ -84,8 +80,7 @@ NBDistrict::addSource(NBEdge * const source, SUMOReal weight) throw()
 
 
 bool
-NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw()
-{
+NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw() {
     EdgeVector::iterator i = find(mySinks.begin(), mySinks.end(), sink);
     if (i!=mySinks.end()) {
         return false;
@@ -98,8 +93,7 @@ NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw()
 
 
 void
-NBDistrict::writeXML(OutputDevice &into) throw()
-{
+NBDistrict::writeXML(OutputDevice &into) throw() {
     VectorHelper<SUMOReal>::normalise(mySourceWeights, 1.0);
     VectorHelper<SUMOReal>::normalise(mySinkWeights, 1.0);
     // write the head and the id of the district
@@ -127,15 +121,13 @@ NBDistrict::writeXML(OutputDevice &into) throw()
 
 
 void
-NBDistrict::setCenter(const Position2D &pos) throw()
-{
+NBDistrict::setCenter(const Position2D &pos) throw() {
     myPosition = pos;
 }
 
 
 void
-NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge * const by) throw()
-{
+NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge * const by) throw() {
     // temporary structures
     EdgeVector newList;
     WeightsCont newWeights;
@@ -167,8 +159,7 @@ NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge * const by) throw()
 
 
 void
-NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) throw()
-{
+NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) throw() {
     // temporary structures
     EdgeVector newList;
     WeightsCont newWeights;
@@ -200,15 +191,13 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) throw()
 
 
 const Position2D &
-NBDistrict::getPosition() const throw()
-{
+NBDistrict::getPosition() const throw() {
     return myPosition;
 }
 
 
 void
-NBDistrict::removeFromSinksAndSources(NBEdge * const e) throw()
-{
+NBDistrict::removeFromSinksAndSources(NBEdge * const e) throw() {
     size_t i;
     for (i=0; i<mySinks.size(); ++i) {
         if (mySinks[i]==e) {
@@ -226,15 +215,13 @@ NBDistrict::removeFromSinksAndSources(NBEdge * const e) throw()
 
 
 void
-NBDistrict::addShape(const Position2DVector &p) throw()
-{
+NBDistrict::addShape(const Position2DVector &p) throw() {
     myShape = p;
 }
 
 
 void
-NBDistrict::normalisePositions() throw()
-{
+NBDistrict::normalisePositions() throw() {
     myPosition.add(GeoConvHelper::getOffset());
     myShape.resetBy(GeoConvHelper::getOffset());
 }

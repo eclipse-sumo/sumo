@@ -51,33 +51,28 @@ using namespace std;
 // ===========================================================================
 MSPhoneLA::MSPhoneLA(int pos_id, int d)
         : last_time(0), position_id(pos_id), dir(d),
-        sum_changes(0), quality_id(0), intervall(0)
-{}
+        sum_changes(0), quality_id(0), intervall(0) {}
 
 
-MSPhoneLA::~MSPhoneLA()
-{}
+MSPhoneLA::~MSPhoneLA() {}
 
 
 void
-MSPhoneLA::addCall()
-{
+MSPhoneLA::addCall() {
     assert(true);
     sum_changes++;
 }
 
 
 void
-MSPhoneLA::addCall(const std::string &id)
-{
+MSPhoneLA::addCall(const std::string &id) {
     myCalls[id] = 1;
     ++sum_changes;
 }
 
 
 void
-MSPhoneLA::remCall(const std::string &id)
-{
+MSPhoneLA::remCall(const std::string &id) {
     std::map<std::string, int>::iterator icalls = myCalls.find(id);
     if (icalls!=myCalls.end()) {
         myCalls.erase(icalls);
@@ -86,15 +81,13 @@ MSPhoneLA::remCall(const std::string &id)
 
 
 bool
-MSPhoneLA::hasCall(const std::string &id)
-{
+MSPhoneLA::hasCall(const std::string &id) {
     return myCalls.find(id)!=myCalls.end();
 }
 
 
 bool
-MSPhoneLA::operator ==(MSPhoneLA * other)
-{
+MSPhoneLA::operator ==(MSPhoneLA * other) {
     if (position_id==other->position_id && dir==other->dir) {
         return true;
     } else {
@@ -104,8 +97,7 @@ MSPhoneLA::operator ==(MSPhoneLA * other)
 
 
 bool
-MSPhoneLA::operator !=(MSPhoneLA * other)
-{
+MSPhoneLA::operator !=(MSPhoneLA * other) {
     if (position_id!=other->position_id || dir!=other->dir) {
         return true;
     } else {
@@ -115,8 +107,7 @@ MSPhoneLA::operator !=(MSPhoneLA * other)
 
 
 void
-MSPhoneLA::writeOutput(SUMOTime t)
-{
+MSPhoneLA::writeOutput(SUMOTime t) {
     intervall = t - last_time;
     if (OptionsCont::getOptions().isSet("ss2-la-output")) {
         std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");

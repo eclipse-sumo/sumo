@@ -53,17 +53,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node)
-        : myNode(node)
-{}
+        : myNode(node) {}
 
 
-NBNodeShapeComputer::~NBNodeShapeComputer()
-{}
+NBNodeShapeComputer::~NBNodeShapeComputer() {}
 
 
 Position2DVector
-NBNodeShapeComputer::compute()
-{
+NBNodeShapeComputer::compute() {
     Position2DVector ret;
     // check whether the node is a dead end node or a node where only turning is possible
     //  in this case, we will use "computeNodeShapeByCrosses"
@@ -79,27 +76,27 @@ NBNodeShapeComputer::compute()
     if (singleDirection) {
         return computeNodeShapeByCrosses();
     }
-    // check whether the node is a just something like a geometry 
+    // check whether the node is a just something like a geometry
     //  node (one in and one out or two in and two out, pair-wise continuations)
     // also in this case "computeNodeShapeByCrosses" is used
     bool geometryLike = myNode.isSimpleContinuation();
-    if(geometryLike) {
+    if (geometryLike) {
         // additionally, the angle between the edges must not be larger than 45 degrees
         //  (otherwise, we will try to compute the shape in a different way)
         const std::vector<NBEdge*> &incoming = myNode.getIncomingEdges();
         const std::vector<NBEdge*> &outgoing = myNode.getOutgoingEdges();
         SUMOReal maxAngle = SUMOReal(0);
-        for(std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
+        for (std::vector<NBEdge*>::const_iterator i=incoming.begin(); i!=incoming.end(); ++i) {
             SUMOReal ia = (*i)->getAngle(myNode);
-            for(std::vector<NBEdge*>::const_iterator j=outgoing.begin(); j!=outgoing.end(); ++j) {
+            for (std::vector<NBEdge*>::const_iterator j=outgoing.begin(); j!=outgoing.end(); ++j) {
                 SUMOReal oa = (*j)->getAngle(myNode);
                 SUMOReal ad = MIN2(GeomHelper::getCCWAngleDiff(ia, oa), GeomHelper::getCWAngleDiff(ia, oa));
-                if(22.5>=ad) {
+                if (22.5>=ad) {
                     maxAngle = MAX2(ad, maxAngle);
                 }
             }
         }
-        if(maxAngle>22.5) {
+        if (maxAngle>22.5) {
             return computeNodeShapeByCrosses();
         }
     }
@@ -123,8 +120,7 @@ NBNodeShapeComputer::compute()
 
 
 void
-computeSameEnd(Position2DVector& l1, Position2DVector &l2)
-{
+computeSameEnd(Position2DVector& l1, Position2DVector &l2) {
     Line2D sub(l1.lineAt(0).getPositionAtDistance(100), l1[1]);
     Line2D tmp(sub);
     tmp.rotateDegAtP1(90);
@@ -152,8 +148,7 @@ void
 NBNodeShapeComputer::replaceLastChecking(Position2DVector &g, bool decenter,
         Position2DVector counter,
         size_t counterLanes, SUMOReal counterDist,
-        int laneDiff)
-{
+        int laneDiff) {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
     Position2DVector t = g;
@@ -180,8 +175,7 @@ void
 NBNodeShapeComputer::replaceFirstChecking(Position2DVector &g, bool decenter,
         Position2DVector counter,
         size_t counterLanes, SUMOReal counterDist,
-        int laneDiff)
-{
+        int laneDiff) {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
     Position2DVector t = g;
@@ -206,8 +200,7 @@ NBNodeShapeComputer::replaceFirstChecking(Position2DVector &g, bool decenter,
 
 
 Position2DVector
-NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
-{
+NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
     // if we have less than two edges, we can not compute the node's shape this way
     if (myNode.myAllEdges.size()<2) {
         return Position2DVector();
@@ -338,67 +331,67 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             }
 
         } else {
-                if (ccad<cad) {
-                    if (!simpleContinuation) {
-                        if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                            distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
-                            if (*cwi!=*ccwi&&geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                                SUMOReal a1 = distances[*i];
-                                SUMOReal a2 = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
-                                if (ccad>(SUMOReal)((90.+45.)/180.*pi)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
-                                    SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
-                                    if (mmin>100) {
-                                        distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
-                                    }
-                                } else  if (a2>a1+POSITION_EPS&&a2-a1<(SUMOReal) 10) {
-                                    distances[*i] = a2;
+            if (ccad<cad) {
+                if (!simpleContinuation) {
+                    if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
+                        distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
+                        if (*cwi!=*ccwi&&geomsCW[*i].intersects(geomsCCW[*cwi])) {
+                            SUMOReal a1 = distances[*i];
+                            SUMOReal a2 = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
+                            if (ccad>(SUMOReal)((90.+45.)/180.*pi)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
+                                SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
+                                if (mmin>100) {
+                                    distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
                                 }
-                            }
-                        } else {
-                            if (*cwi!=*ccwi&&geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                                distances[*i] = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
-                            } else {
-                                distances[*i] = (SUMOReal)(100. + 1.5);
+                            } else  if (a2>a1+POSITION_EPS&&a2-a1<(SUMOReal) 10) {
+                                distances[*i] = a2;
                             }
                         }
                     } else {
-                        if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                            distances[*i] = geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
+                        if (*cwi!=*ccwi&&geomsCW[*i].intersects(geomsCCW[*cwi])) {
+                            distances[*i] = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
                         } else {
-                            distances[*i] = (SUMOReal) 100.;
+                            distances[*i] = (SUMOReal)(100. + 1.5);
                         }
                     }
                 } else {
-                    if (!simpleContinuation) {
-                        if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                            distances[*i] = (SUMOReal)(1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0]);
-                            if (*cwi!=*ccwi&&geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                                SUMOReal a1 = distances[*i];
-                                SUMOReal a2 = (SUMOReal)(1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0]);
-                                if (ccad>(SUMOReal)((90.+45.)/180.*pi)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
-                                    SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
-                                    if (mmin>100) {
-                                        distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
-                                    }
-                                } else if (a2>a1+POSITION_EPS&&a2-a1<(SUMOReal) 10) {
-                                    distances[*i] = a2;
+                    if (geomsCCW[*i].intersects(geomsCW[*ccwi])) {
+                        distances[*i] = geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
+                    } else {
+                        distances[*i] = (SUMOReal) 100.;
+                    }
+                }
+            } else {
+                if (!simpleContinuation) {
+                    if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
+                        distances[*i] = (SUMOReal)(1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0]);
+                        if (*cwi!=*ccwi&&geomsCCW[*i].intersects(geomsCW[*ccwi])) {
+                            SUMOReal a1 = distances[*i];
+                            SUMOReal a2 = (SUMOReal)(1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0]);
+                            if (ccad>(SUMOReal)((90.+45.)/180.*pi)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
+                                SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
+                                if (mmin>100) {
+                                    distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
                                 }
-                            }
-                        } else {
-                            if (*cwi!=*ccwi&&geomsCCW[*i].intersects(geomsCW[*ccwi])) {
-                                distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
-                            } else {
-                                distances[*i] = (SUMOReal)(100. + 1.5);
+                            } else if (a2>a1+POSITION_EPS&&a2-a1<(SUMOReal) 10) {
+                                distances[*i] = a2;
                             }
                         }
                     } else {
-                        if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
-                            distances[*i] = geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
+                        if (*cwi!=*ccwi&&geomsCCW[*i].intersects(geomsCW[*ccwi])) {
+                            distances[*i] = (SUMOReal) 1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0];
                         } else {
-                            distances[*i] = (SUMOReal) 100;
+                            distances[*i] = (SUMOReal)(100. + 1.5);
                         }
                     }
+                } else {
+                    if (geomsCW[*i].intersects(geomsCCW[*cwi])) {
+                        distances[*i] = geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
+                    } else {
+                        distances[*i] = (SUMOReal) 100;
+                    }
                 }
+            }
         }
     }
 
@@ -625,8 +618,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 void
 NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge*> > &same,
         std::map<NBEdge*, Position2DVector> &geomsCCW,
-        std::map<NBEdge*, Position2DVector> &geomsCW)
-{
+        std::map<NBEdge*, Position2DVector> &geomsCW) {
     EdgeVector::const_iterator i, j;
     for (i=myNode.myAllEdges.begin(); i!=myNode.myAllEdges.end()-1; i++) {
         // store current edge's boundary as current ccw/cw boundary
@@ -684,8 +676,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     std::map<NBEdge*, Position2DVector> &geomsCCW,
     std::map<NBEdge*, Position2DVector> &geomsCW,
     std::map<NBEdge*, NBEdge*> &ccwBoundary,
-    std::map<NBEdge*, NBEdge*> &cwBoundary)
-{
+    std::map<NBEdge*, NBEdge*> &cwBoundary) {
     std::vector<NBEdge*> newAll = myNode.myAllEdges;
     EdgeVector::const_iterator j;
     EdgeVector::iterator i2;
@@ -729,8 +720,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
 
 
 Position2DVector
-NBNodeShapeComputer::computeNodeShapeByCrosses()
-{
+NBNodeShapeComputer::computeNodeShapeByCrosses() {
     Position2DVector ret;
     EdgeVector::const_iterator i;
     for (i=myNode.myAllEdges.begin(); i!=myNode.myAllEdges.end(); i++) {

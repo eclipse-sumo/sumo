@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Verlustzeitmessungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Verlustzeitmessungsdefinition(NIVissimLoader &parent);

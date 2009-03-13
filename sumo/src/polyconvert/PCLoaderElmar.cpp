@@ -65,8 +65,7 @@ using namespace std;
 // ===========================================================================
 void
 PCLoaderElmar::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                         PCTypeMap &tm) throw(ProcessError)
-{
+                         PCTypeMap &tm) throw(ProcessError) {
     if (oc.isSet("elmar-poly-files")) {
         loadPolyFiles(oc, toFill, tm);
     }
@@ -78,8 +77,7 @@ PCLoaderElmar::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 
 void
 PCLoaderElmar::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                            PCTypeMap &tm) throw(ProcessError)
-{
+                            PCTypeMap &tm) throw(ProcessError) {
     vector<string> files = oc.getStringVector("elmar-poi-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
@@ -94,8 +92,7 @@ PCLoaderElmar::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
 
 void
 PCLoaderElmar::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
-                             PCTypeMap &tm) throw(ProcessError)
-{
+                             PCTypeMap &tm) throw(ProcessError) {
     vector<string> files = oc.getStringVector("elmar-poly-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
@@ -111,8 +108,7 @@ PCLoaderElmar::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
 void
 PCLoaderElmar::loadPOIFile(const std::string &file,
                            OptionsCont &oc, PCPolyContainer &toFill,
-                           PCTypeMap &tm) throw(ProcessError)
-{
+                           PCTypeMap &tm) throw(ProcessError) {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // attributes of the poi
@@ -173,7 +169,7 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
                 ignorePrunning = true;
             }
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-            if(!toFill.insert(name, poi, layer, ignorePrunning)) {
+            if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
                 delete poi;
             }
@@ -185,8 +181,7 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
 void
 PCLoaderElmar::loadPolyFile(const std::string &file,
                             OptionsCont &oc, PCPolyContainer &toFill,
-                            PCTypeMap &tm) throw(ProcessError)
-{
+                            PCTypeMap &tm) throw(ProcessError) {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // attributes of the poly
@@ -262,7 +257,7 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
         }
         if (!discard) {
             Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
-            if(!toFill.insert(name, poly, layer)) {
+            if (!toFill.insert(name, poly, layer)) {
                 MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
                 delete poly;
             }

@@ -60,12 +60,10 @@ GUIInternalLane::GUIInternalLane(const std::string &id,
                                  const Position2DVector &shape,
                                  const std::vector<SUMOVehicleClass> &allowed,
                                  const std::vector<SUMOVehicleClass> &disallowed) throw()
-        : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
-{}
+        : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed) {}
 
 
-GUIInternalLane::~GUIInternalLane() throw()
-{
+GUIInternalLane::~GUIInternalLane() throw() {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
@@ -75,8 +73,7 @@ GUIInternalLane::~GUIInternalLane() throw()
 
 bool
 GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
-                                   bool recheckNextLanes) throw()
-{
+                                   bool recheckNextLanes) throw() {
     myLock.lock();
     bool ret = MSInternalLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
     myLock.unlock();
@@ -85,8 +82,7 @@ GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal
 
 
 bool
-GUIInternalLane::moveNonCritical()
-{
+GUIInternalLane::moveNonCritical() {
     myLock.lock();
     try {
         bool ret = MSInternalLane::moveNonCritical();
@@ -100,8 +96,7 @@ GUIInternalLane::moveNonCritical()
 
 
 bool
-GUIInternalLane::moveCritical()
-{
+GUIInternalLane::moveCritical() {
     myLock.lock();
     try {
         bool ret = MSInternalLane::moveCritical();
@@ -115,8 +110,7 @@ GUIInternalLane::moveCritical()
 
 
 bool
-GUIInternalLane::setCritical(std::vector<MSLane*> &into)
-{
+GUIInternalLane::setCritical(std::vector<MSLane*> &into) {
     myLock.lock();
     try {
         bool ret = MSInternalLane::setCritical(into);
@@ -130,8 +124,7 @@ GUIInternalLane::setCritical(std::vector<MSLane*> &into)
 
 
 bool
-GUIInternalLane::push(MSVehicle* veh)
-{
+GUIInternalLane::push(MSVehicle* veh) {
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
@@ -154,8 +147,7 @@ GUIInternalLane::push(MSVehicle* veh)
 
 
 MSVehicle *
-GUIInternalLane::removeFirstVehicle()
-{
+GUIInternalLane::removeFirstVehicle() {
     myLock.lock();
     try {
         MSVehicle *ret = MSLane::removeFirstVehicle();
@@ -169,8 +161,7 @@ GUIInternalLane::removeFirstVehicle()
 
 
 MSVehicle *
-GUIInternalLane::removeVehicle(MSVehicle * remVehicle)
-{
+GUIInternalLane::removeVehicle(MSVehicle * remVehicle) {
     myLock.lock();
     try {
         MSVehicle *ret = MSLane::removeVehicle(remVehicle);
@@ -184,24 +175,21 @@ GUIInternalLane::removeVehicle(MSVehicle * remVehicle)
 
 
 void
-GUIInternalLane::releaseVehicles()
-{
+GUIInternalLane::releaseVehicles() {
     myLock.unlock();
 }
 
 
 
 const MSLane::VehCont &
-GUIInternalLane::getVehiclesSecure()
-{
+GUIInternalLane::getVehiclesSecure() {
     myLock.lock();
     return myVehicles;
 }
 
 
 void
-GUIInternalLane::swapAfterLaneChange()
-{
+GUIInternalLane::swapAfterLaneChange() {
     myLock.lock();
     try {
         MSLane::swapAfterLaneChange();
@@ -214,8 +202,7 @@ GUIInternalLane::swapAfterLaneChange()
 
 
 bool
-GUIInternalLane::integrateNewVehicle()
-{
+GUIInternalLane::integrateNewVehicle() {
     myLock.lock();
     try {
         bool ret = MSLane::integrateNewVehicle();
@@ -229,15 +216,13 @@ GUIInternalLane::integrateNewVehicle()
 
 
 GUILaneWrapper *
-GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
-{
+GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage) {
     return new GUILaneWrapper(idStorage, *this, myShape);
 }
 
 
 void
-GUIInternalLane::detectCollisions(SUMOTime timestep)
-{
+GUIInternalLane::detectCollisions(SUMOTime timestep) {
     myLock.lock();
     try {
         MSLane::detectCollisions(timestep);
@@ -250,8 +235,7 @@ GUIInternalLane::detectCollisions(SUMOTime timestep)
 
 
 MSVehicle*
-GUIInternalLane::pop()
-{
+GUIInternalLane::pop() {
     myLock.lock();
     try {
         MSVehicle *ret = MSLane::pop();

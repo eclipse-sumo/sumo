@@ -49,8 +49,7 @@ class NBDistrictCont;
 /**
  *
  */
-class NIVissimNodeCluster
-{
+class NIVissimNodeCluster {
 public:
     NIVissimNodeCluster(int id, int nodeid, int tlid,
                         const IntVector &connectors,

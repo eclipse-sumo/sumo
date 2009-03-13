@@ -45,8 +45,7 @@
  * other values (numerical/boolean) or into std::strings
  */
 template<class E>
-class TplConvert
-{
+class TplConvert {
 public:
     // conversion methods without a length
     /** converts a 0-terminated char-type array into std::string
@@ -308,7 +307,7 @@ public:
     /** duplicates the given string */
     static E *duplicate(const E * const s) {
         unsigned i=0;
-        for (;s[i]!=0; i++);
+        for (; s[i]!=0; i++);
         char *ret = new E[i+1];
         for (i=0; s[i]!=0; i++) {
             ret[i] = s[i];

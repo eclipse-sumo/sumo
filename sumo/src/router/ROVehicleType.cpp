@@ -43,12 +43,10 @@
 ROVehicleType::ROVehicleType(const std::string &id, const std::string &col,
                              SUMOReal length, SUMOVehicleClass vclass) throw()
         : ReferencedItem(), myID(id), myColor(col), myLength(length),
-        myClass(vclass)
-{}
+        myClass(vclass) {}
 
 
-ROVehicleType::~ROVehicleType() throw()
-{}
+ROVehicleType::~ROVehicleType() throw() {}
 
 
 /****************************************************************************/

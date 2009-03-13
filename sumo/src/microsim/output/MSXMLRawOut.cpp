@@ -55,8 +55,7 @@ using namespace std;
 // ===========================================================================
 void
 MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
-                   SUMOTime timestep) throw(IOError)
-{
+                   SUMOTime timestep) throw(IOError) {
     of.openTag("timestep") << " time=\"" << timestep << "\">\n";
     const MSEdgeControl::EdgeCont &ec1 = ec.getSingleLaneEdges();
     for (MSEdgeControl::EdgeCont::const_iterator edg1=ec1.begin(); edg1!=ec1.end(); ++edg1) {
@@ -72,8 +71,7 @@ MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
 
 
 void
-MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError)
-{
+MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
     //en
     bool dump = !MSGlobals::gOmitEmptyEdgesOnDump;
     if (!dump) {
@@ -114,9 +112,9 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError)
             }
         } else {
 #endif
-        for (MSEdge::LaneCont::const_iterator lane=edge.getLanes()->begin(); lane!=edge.getLanes()->end(); ++lane) {
-            writeLane(of, **lane);
-        }
+            for (MSEdge::LaneCont::const_iterator lane=edge.getLanes()->begin(); lane!=edge.getLanes()->end(); ++lane) {
+                writeLane(of, **lane);
+            }
 #ifdef HAVE_MESOSIM
         }
 #endif
@@ -126,8 +124,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError)
 
 
 void
-MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError)
-{
+MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError) {
     of.openTag("lane") << " id=\"" << lane.myID << "\"";
     if (lane.getVehicleNumber()!=0) {
         of << ">\n";
@@ -145,8 +142,7 @@ MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane) throw(IOError)
 
 
 void
-MSXMLRawOut::writeVehicle(OutputDevice &of, const SUMOVehicle &veh) throw(IOError)
-{
+MSXMLRawOut::writeVehicle(OutputDevice &of, const SUMOVehicle &veh) throw(IOError) {
     of.openTag("vehicle") << " id=\"" << veh.getID() << "\" pos=\""
     << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed() << "\"";
     of.closeTag(true);

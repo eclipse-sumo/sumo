@@ -43,8 +43,7 @@
  * Besides the inherited methods for adding/removing districts, this container
  *  allows to retrieve a random source or sink from a named district.
  */
-class ODDistrictCont : public NamedObjectCont<ODDistrict*>
-{
+class ODDistrictCont : public NamedObjectCont<ODDistrict*> {
 public:
     /// Constructor
     ODDistrictCont() throw();

@@ -53,8 +53,7 @@ class MSLane;
  *
  * @todo consider error-handling on write (using IOError)
  */
-class MSXMLRawOut
-{
+class MSXMLRawOut {
 public:
     /** @brief Writes the complete network state of the given edges into the given device
      *

@@ -67,20 +67,17 @@ GUIParam_PopupMenuInterface::GUIParam_PopupMenuInterface(GUIMainWindow &app,
         GUIGlObject &o, const std::string &varName,
         ValueSource<SUMOReal> *src)  throw()
         : FXMenuPane(&parentWindow), myObject(&o), myParentWindow(&parentWindow),
-        myApplication(&app), myVarName(varName), mySource(src)
-{
+        myApplication(&app), myVarName(varName), mySource(src) {
 }
 
 
-GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() throw()
-{
+GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() throw() {
     delete mySource;
 }
 
 
 long
-GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*)
-{
+GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*) {
     string trackerName = myVarName + " from " + myObject->getFullName();
     GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
             trackerName, *myObject, 0, 0);

@@ -65,8 +65,7 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
         mySpeedDev(speedDev), myVehicleClass(vclass),
         myCarFollowModel(cfModel), myLaneChangeModel(lcModel),
         myEmissionClass(emissionClass), myColor(c),
-        myWidth(guiWidth), myOffset(guiOffset), myShape(shape)
-{
+        myWidth(guiWidth), myOffset(guiOffset), myShape(shape) {
     assert(myLength > 0);
     assert(getMaxSpeed() > 0);
     assert(myAccel > 0);
@@ -77,13 +76,11 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
 }
 
 
-MSVehicleType::~MSVehicleType() throw()
-{}
+MSVehicleType::~MSVehicleType() throw() {}
 
 
 void
-MSVehicleType::saveState(std::ostream &os)
-{
+MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeString(os, myID);
     FileHelpers::writeFloat(os, myLength);
     FileHelpers::writeFloat(os, getMaxSpeed());

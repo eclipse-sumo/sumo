@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 GUIGlObjectStorage::GUIGlObjectStorage()
-        : myAktID(1)
-{}
+        : myAktID(1) {}
 
 
-GUIGlObjectStorage::~GUIGlObjectStorage()
-{}
+GUIGlObjectStorage::~GUIGlObjectStorage() {}
 
 
 void
-GUIGlObjectStorage::registerObject(GUIGlObject *object)
-{
+GUIGlObjectStorage::registerObject(GUIGlObject *object) {
     myLock.lock();
     object->setGlID(myAktID);
     myMap[myAktID++] = object;
@@ -77,8 +74,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object, GLuint id)
 */
 
 GLuint
-GUIGlObjectStorage::getUniqueID()
-{
+GUIGlObjectStorage::getUniqueID() {
     myLock.lock();
     GLuint ret = myAktID++;
     myLock.unlock();
@@ -87,8 +83,7 @@ GUIGlObjectStorage::getUniqueID()
 
 
 GUIGlObject *
-GUIGlObjectStorage::getObjectBlocking(GLuint id)
-{
+GUIGlObjectStorage::getObjectBlocking(GLuint id) {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
@@ -110,8 +105,7 @@ GUIGlObjectStorage::getObjectBlocking(GLuint id)
 
 
 bool
-GUIGlObjectStorage::remove(GLuint id)
-{
+GUIGlObjectStorage::remove(GLuint id) {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
@@ -131,8 +125,7 @@ GUIGlObjectStorage::remove(GLuint id)
 
 
 void
-GUIGlObjectStorage::clear()
-{
+GUIGlObjectStorage::clear() {
     myLock.lock();
     myMap.clear();
     myAktID = 0;
@@ -141,8 +134,7 @@ GUIGlObjectStorage::clear()
 
 
 void
-GUIGlObjectStorage::unblockObject(GLuint id)
-{
+GUIGlObjectStorage::unblockObject(GLuint id) {
     myLock.lock();
     ObjectMap::iterator i=myBlocked.find(id);
     if (i==myBlocked.end()) {

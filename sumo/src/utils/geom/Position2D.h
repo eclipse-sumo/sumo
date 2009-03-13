@@ -38,8 +38,7 @@
 /**
  *
  */
-class Position2D
-{
+class Position2D {
 public:
     /// default constructor
     Position2D() : myX(0.0), myY(0.0) { }

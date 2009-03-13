@@ -65,28 +65,24 @@ MSRightOfWayJunction::MSRightOfWayJunction(string id,
 #else
                          ),
 #endif
-        myLogic(logic)
-{}
+        myLogic(logic) {}
 
 
 bool
-MSRightOfWayJunction::clearRequests()
-{
+MSRightOfWayJunction::clearRequests() {
     myRequest.reset();
     myInnerState.reset();
     return true;
 }
 
 
-MSRightOfWayJunction::~MSRightOfWayJunction()
-{
+MSRightOfWayJunction::~MSRightOfWayJunction() {
     delete myLogic;
 }
 
 
 void
-MSRightOfWayJunction::postloadInit() throw(ProcessError)
-{
+MSRightOfWayJunction::postloadInit() throw(ProcessError) {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
     LaneCont::iterator i;
@@ -114,8 +110,7 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError)
 
 
 bool
-MSRightOfWayJunction::setAllowed()
-{
+MSRightOfWayJunction::setAllowed() {
 #ifdef HAVE_INTERNAL_LANES
     // lets reset the yield information on internal, split
     //  left-moving links
@@ -175,8 +170,7 @@ MSRightOfWayJunction::setAllowed()
 
 
 void
-MSRightOfWayJunction::deadlockKiller()
-{
+MSRightOfWayJunction::deadlockKiller() {
     if (myRequest.none()) {
         return;
     }
@@ -211,8 +205,7 @@ MSRightOfWayJunction::deadlockKiller()
 }
 
 
-bool areRealFoes(MSLink *l1, MSLink *l2)
-{
+bool areRealFoes(MSLink *l1, MSLink *l2) {
     if (l1->getLane()->getEdge()!=l2->getLane()->getEdge()) {
         return true;
     }

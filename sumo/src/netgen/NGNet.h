@@ -50,8 +50,7 @@ class NBNetBuilder;
  *  the generation of a network (using any type of generation algorithm).
  * These instances are later transformed into netbuild-structures using toNB().
  */
-class NGNet
-{
+class NGNet {
 public:
     /// @brief Constructor
     NGNet(NBNetBuilder &nb) throw();

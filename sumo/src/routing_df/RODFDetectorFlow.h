@@ -69,8 +69,7 @@ struct FlowDef {
  * @class RODFDetectorFlows
  * @brief A container for flows
  */
-class RODFDetectorFlows
-{
+class RODFDetectorFlows {
 public:
     RODFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
                       SUMOTime stepOffset);

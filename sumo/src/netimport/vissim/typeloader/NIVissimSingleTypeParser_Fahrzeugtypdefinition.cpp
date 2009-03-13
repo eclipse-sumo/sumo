@@ -51,17 +51,14 @@ using namespace std;
 NIVissimSingleTypeParser_Fahrzeugtypdefinition::NIVissimSingleTypeParser_Fahrzeugtypdefinition(
     NIVissimLoader &parent, NIVissimLoader::ColorMap &colorMap)
         : NIVissimLoader::VissimSingleTypeParser(parent),
-        myColorMap(colorMap)
-{}
+        myColorMap(colorMap) {}
 
 
-NIVissimSingleTypeParser_Fahrzeugtypdefinition::~NIVissimSingleTypeParser_Fahrzeugtypdefinition()
-{}
+NIVissimSingleTypeParser_Fahrzeugtypdefinition::~NIVissimSingleTypeParser_Fahrzeugtypdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from) {
     // id
     int id;
     from >> id; // type-checking is missing!

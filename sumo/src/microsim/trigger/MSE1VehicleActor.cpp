@@ -64,8 +64,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
                                    unsigned int type) throw()
         : MSMoveReminder(lane), MSTrigger(id), posM(positionInMeters),
         myLAId(laid), myAreaId(cellid), myActorType(type),
-        myPassedVehicleNo(0), myPassedCPhonesNo(0), myPassedConnectedCPhonesNo(0)
-{
+        myPassedVehicleNo(0), myPassedCPhonesNo(0), myPassedConnectedCPhonesNo(0) {
     assert(posM >= 0 && posM <= myLane->length());
     //eintragen in MSPhoneNet
 
@@ -82,8 +81,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
 }
 
 
-MSE1VehicleActor::~MSE1VehicleActor() throw()
-{}
+MSE1VehicleActor::~MSE1VehicleActor() throw() {}
 
 map<MSVehicle *, MSPhoneCell*> LastCells;
 
@@ -91,8 +89,7 @@ bool
 MSE1VehicleActor::isStillActive(MSVehicle& veh,
                                 SUMOReal oldPos,
                                 SUMOReal newPos,
-                                SUMOReal /*newSpeed*/) throw()
-{
+                                SUMOReal /*newSpeed*/) throw() {
     if (newPos < posM) {
         // detector not reached yet
         return true;
@@ -240,13 +237,11 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
 
 
 void
-MSE1VehicleActor::dismissByLaneChange(MSVehicle&) throw()
-{}
+MSE1VehicleActor::dismissByLaneChange(MSVehicle&) throw() {}
 
 
 bool
-MSE1VehicleActor::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
-{
+MSE1VehicleActor::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     if (veh.getPositionOnLane()-veh.getVehicleType().getLength() > posM) {
         // vehicle-end is beyond detector. Ignore
         return false;

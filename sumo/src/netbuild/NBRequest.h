@@ -60,8 +60,7 @@ class NBJunctionLogicCont;
  * regarding the relationships between the incoming and outgoing edges and
  * their priorities. The junction's logic is saved when it does not yet exist.
  */
-class NBRequest
-{
+class NBRequest {
 public:
     /** constructor
         The parameter are the logic's lists of edges (all, incoming only and
@@ -120,7 +119,7 @@ private:
     int writeLaneResponse(std::ostream &os, NBEdge *from, int lane,
                           int pos);
 
-    /** @brief Writes the response of a certain link 
+    /** @brief Writes the response of a certain link
      *
      * For the link (described by the connected edges and lanes), the response in dependence
      *  to all other links of this junction is computed. Herefor, the method

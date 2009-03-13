@@ -53,8 +53,7 @@ class findCompetitor;
  * "MSJunctionLogic" - structure.
  */
 #ifdef HAVE_INTERNAL_LANES
-class MSInternalJunction : public MSLogicJunction
-{
+class MSInternalJunction : public MSLogicJunction {
 public:
     /** Use this constructor only. */
     MSInternalJunction(std::string id, const Position2D &position,

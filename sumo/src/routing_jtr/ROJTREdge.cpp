@@ -49,12 +49,10 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROJTREdge::ROJTREdge(const std::string &id, unsigned int index) throw()
-        : ROEdge(id, index, false)
-{}
+        : ROEdge(id, index, false) {}
 
 
-ROJTREdge::~ROJTREdge() throw()
-{
+ROJTREdge::~ROJTREdge() throw() {
     for (FollowerUsageCont::iterator i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
         delete(*i).second;
     }
@@ -62,8 +60,7 @@ ROJTREdge::~ROJTREdge() throw()
 
 
 void
-ROJTREdge::addFollower(ROEdge *s) throw()
-{
+ROJTREdge::addFollower(ROEdge *s) throw() {
     ROEdge::addFollower(s);
     ROJTREdge *js = static_cast<ROJTREdge*>(s);
     if (myFollowingDefs.find(js)==myFollowingDefs.end()) {
@@ -74,8 +71,7 @@ ROJTREdge::addFollower(ROEdge *s) throw()
 
 void
 ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
-                                  SUMOTime endTime, SUMOReal probability)
-{
+                                  SUMOTime endTime, SUMOReal probability) {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
     if (i==myFollowingDefs.end()) {
         MsgHandler::getErrorInstance()->inform("The edges '" + getID() + "' and '" + follower->getID() + "' are not connected.");
@@ -86,8 +82,7 @@ ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
 
 
 ROJTREdge *
-ROJTREdge::chooseNext(const ROVehicle * const veh, SUMOTime time) const
-{
+ROJTREdge::chooseNext(const ROVehicle * const veh, SUMOTime time) const {
     // if no usable follower exist, return 0
     //  their probabilities are not yet regarded
     if (myFollowingEdges.size()==0 || (veh!=0 && allFollowersProhibit(veh))) {
@@ -122,8 +117,7 @@ ROJTREdge::chooseNext(const ROVehicle * const veh, SUMOTime time) const
 
 
 void
-ROJTREdge::setTurnDefaults(const std::vector<SUMOReal> &defs)
-{
+ROJTREdge::setTurnDefaults(const std::vector<SUMOReal> &defs) {
     // I hope, we'll find a less ridiculous solution for this
     std::vector<SUMOReal> tmp(defs.size()*myFollowingEdges.size(), 0);
     // store in less common multiple

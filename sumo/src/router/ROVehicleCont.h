@@ -49,8 +49,7 @@
  *  implemented in NamedObjectCont, this class stores vehicles sorted by their
  *  departure time.
  */
-class ROVehicleCont : public NamedObjectCont<ROVehicle*>
-{
+class ROVehicleCont : public NamedObjectCont<ROVehicle*> {
 public:
     /// @brief Constructor
     ROVehicleCont() throw();

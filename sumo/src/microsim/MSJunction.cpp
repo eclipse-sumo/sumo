@@ -50,36 +50,30 @@ using namespace std;
 // member method definition
 // ===========================================================================
 MSJunction::MSJunction(std::string id, const Position2D &position)
-        : myID(id), myPosition(position)
-{}
+        : myID(id), myPosition(position) {}
 
 
-MSJunction::~MSJunction()
-{}
+MSJunction::~MSJunction() {}
 
 
 const Position2D &
-MSJunction::getPosition() const
-{
+MSJunction::getPosition() const {
     return myPosition;
 }
 
 
 void
-MSJunction::postloadInit() throw(ProcessError)
-{}
+MSJunction::postloadInit() throw(ProcessError) {}
 
 
 const std::string &
-MSJunction::getID() const
-{
+MSJunction::getID() const {
     return myID;
 }
 
 
 GUIJunctionWrapper *
-MSJunction::buildJunctionWrapper(GUIGlObjectStorage &)
-{
+MSJunction::buildJunctionWrapper(GUIGlObjectStorage &) {
     return 0;//!!!
 }
 

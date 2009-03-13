@@ -50,12 +50,10 @@ using namespace std;
 Polygon2D::Polygon2D(const std::string name, const std::string type,
                      const RGBColor &color, const Position2DVector &Pos,
                      bool fill)
-        : myName(name),  myType(type), myColor(color), myPos(Pos), myFill(fill)
-{}
+        : myName(name),  myType(type), myColor(color), myPos(Pos), myFill(fill) {}
 
 
-Polygon2D::~Polygon2D()
-{}
+Polygon2D::~Polygon2D() {}
 
 
 //////////////////////////////////////////////////////////////////////
@@ -63,48 +61,42 @@ Polygon2D::~Polygon2D()
 //////////////////////////////////////////////////////////////////////
 // return the name of the Polygon
 const std::string &
-Polygon2D::getName() const
-{
+Polygon2D::getName() const {
     return myName;
 }
 
 
 // return the typ of the Polygon
 const std::string &
-Polygon2D::getType() const
-{
+Polygon2D::getType() const {
     return myType;
 }
 
 
 // return the Color of the polygon
 const RGBColor &
-Polygon2D::getColor() const
-{
+Polygon2D::getColor() const {
     return myColor;
 }
 
 
 // return the Positions Vector of the Polygon
 const Position2DVector &
-Polygon2D::getPosition2DVector() const
-{
+Polygon2D::getPosition2DVector() const {
     return myPos;
 }
 
 
 // add the Position2DVector to the polygon
 void
-Polygon2D::addPolyPosition(Position2DVector &myNewPos)
-{
+Polygon2D::addPolyPosition(Position2DVector &myNewPos) {
     myPos = myNewPos;
 
 }
 
 
 bool
-Polygon2D::fill() const
-{
+Polygon2D::fill() const {
     return myFill;
 }
 

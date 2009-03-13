@@ -44,8 +44,7 @@
  * @class RODFDetFlowLoader
  * @brief A loader for detector flows
  */
-class RODFDetFlowLoader
-{
+class RODFDetFlowLoader {
 public:
     /** @brief Constructor
      *

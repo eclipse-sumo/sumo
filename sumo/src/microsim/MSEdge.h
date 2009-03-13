@@ -59,8 +59,7 @@ class SUMOVehicle;
  * A single connection between two junctions.
  * Holds lanes which are reponsible for vehicle movements.
  */
-class MSEdge
-{
+class MSEdge {
 public:
     /**
      * @enum EdgeBasicFunction

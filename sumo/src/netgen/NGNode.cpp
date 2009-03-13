@@ -57,27 +57,22 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NGNode::NGNode() throw()
-        : xID(-1), yID(-1), myID(""), myAmCenter(false)
-{}
+        : xID(-1), yID(-1), myID(""), myAmCenter(false) {}
 
 
 NGNode::NGNode(const std::string &id) throw()
-        : xID(-1), yID(-1), myID(id), myAmCenter(false)
-{}
+        : xID(-1), yID(-1), myID(id), myAmCenter(false) {}
 
 
 NGNode::NGNode(const std::string &id, int xIDa, int yIDa) throw()
-        : xID(xIDa), yID(yIDa), myID(id), myAmCenter(false)
-{}
+        : xID(xIDa), yID(yIDa), myID(id), myAmCenter(false) {}
 
 
 NGNode::NGNode(const std::string &id, int xIDa, int yIDa, bool amCenter) throw()
-        : xID(xIDa), yID(yIDa), myID(id), myAmCenter(amCenter)
-{}
+        : xID(xIDa), yID(yIDa), myID(id), myAmCenter(amCenter) {}
 
 
-NGNode::~NGNode() throw()
-{
+NGNode::~NGNode() throw() {
     NGEdgeList::iterator li;
     while (LinkList.size() != 0) {
         li = LinkList.begin();
@@ -87,8 +82,7 @@ NGNode::~NGNode() throw()
 
 
 NBNode *
-NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError)
-{
+NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
     Position2D pos(myPosition);
     GeoConvHelper::x2cartesian(pos);
     // the center will have no logic!
@@ -117,22 +111,19 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError)
 
 
 void
-NGNode::addLink(NGEdge *link) throw()
-{
+NGNode::addLink(NGEdge *link) throw() {
     LinkList.push_back(link);
 }
 
 
 void
-NGNode::removeLink(NGEdge *link) throw()
-{
+NGNode::removeLink(NGEdge *link) throw() {
     LinkList.remove(link);
 }
 
 
 bool
-NGNode::connected(NGNode *node) const throw()
-{
+NGNode::connected(NGNode *node) const throw() {
     for (NGEdgeList::const_iterator i=LinkList.begin(); i!=LinkList.end(); i++) {
         if (find(node->LinkList.begin(), node->LinkList.end(), *i)!=node->LinkList.end()) {
             return true;

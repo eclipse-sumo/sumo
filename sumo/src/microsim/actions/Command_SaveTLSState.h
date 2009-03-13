@@ -49,8 +49,7 @@ class OutputDevice;
  * @class Command_SaveTLSState
  * @brief Writes the state of the tls to a file (in each second)
  */
-class Command_SaveTLSState : public Command
-{
+class Command_SaveTLSState : public Command {
 public:
     /** @brief Constructor
      *

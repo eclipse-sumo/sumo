@@ -63,8 +63,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-MSFrame::fillOptions()
-{
+MSFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml");
     oc.addCallExample("-c munich_config.cfg");
@@ -282,8 +281,7 @@ MSFrame::fillOptions()
 
 
 void
-MSFrame::buildStreams()
-{
+MSFrame::buildStreams() {
     // standard outputs
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("emissions-output", "emissions");
@@ -360,8 +358,7 @@ MSFrame::buildStreams()
 
 
 bool
-MSFrame::checkOptions()
-{
+MSFrame::checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     // check the existance of a name for simulation file
@@ -389,8 +386,7 @@ MSFrame::checkOptions()
 
 
 void
-MSFrame::setMSGlobals(OptionsCont &oc)
-{
+MSFrame::setMSGlobals(OptionsCont &oc) {
     // pre-initialise the network
     // set whether empty edges shall be printed on dump
     MSGlobals::gOmitEmptyEdgesOnDump = !oc.getBool("dump-empty-edges");

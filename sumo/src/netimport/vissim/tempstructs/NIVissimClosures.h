@@ -40,8 +40,7 @@
 /**
  *
  */
-class NIVissimClosures
-{
+class NIVissimClosures {
 public:
     NIVissimClosures(const std::string &id,
                      int from_node, int to_node,

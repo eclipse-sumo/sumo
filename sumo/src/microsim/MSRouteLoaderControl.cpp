@@ -46,8 +46,7 @@ MSRouteLoaderControl::MSRouteLoaderControl(MSNet &,
         myInAdvanceStepNo(inAdvanceStepNo),
         myRouteLoaders(loader),
         myVehCont(inAdvanceStepNo>0 ? inAdvanceStepNo : 10), // !!! einen schalueren Wert!
-        myAllLoaded(false)
-{
+        myAllLoaded(false) {
     myLoadAll = myInAdvanceStepNo<=0;
     myAllLoaded = false;
     myLastLoadTime = -1 * (int) myInAdvanceStepNo;
@@ -59,8 +58,7 @@ MSRouteLoaderControl::MSRouteLoaderControl(MSNet &,
 }
 
 
-MSRouteLoaderControl::~MSRouteLoaderControl()
-{
+MSRouteLoaderControl::~MSRouteLoaderControl() {
     for (LoaderVector::iterator i=myRouteLoaders.begin();
             i!=myRouteLoaders.end(); ++i) {
         delete(*i);
@@ -69,8 +67,7 @@ MSRouteLoaderControl::~MSRouteLoaderControl()
 
 
 MSVehicleContainer &
-MSRouteLoaderControl::loadNext(SUMOTime step)
-{
+MSRouteLoaderControl::loadNext(SUMOTime step) {
     // check whether new vehicles shall be loaded
     //  return if not
     if ((myLoadAll&&myAllLoaded) || (myLastLoadTime>=0&&myLastLoadTime/*+myInAdvanceStepNo*/>=step)) {

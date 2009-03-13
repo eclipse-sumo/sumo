@@ -54,8 +54,7 @@ struct GUIVisualizationSettings;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GUIGlObject
-{
+class GUIGlObject {
 public:
     /** @brief Constructor
      *
@@ -228,7 +227,7 @@ protected:
      * @param[in] addSeparator Whether a separator shall be added, too
      */
     void buildPositionCopyEntry(GUIGLObjectPopupMenu *ret,
-                                   bool addSeparator=true) throw();
+                                bool addSeparator=true) throw();
 
 
     /** @brief Builds an entry which allows to open the manipulator window

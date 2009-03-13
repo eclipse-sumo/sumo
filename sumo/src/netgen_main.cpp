@@ -66,8 +66,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool
-checkOptions()
-{
+checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // check whether exactly one type of a network to build was wished
     int no = 0;
@@ -106,8 +105,7 @@ checkOptions()
 
 /** build and retrieve the options (settings) */
 void
-fillOptions()
-{
+fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("--grid-net [grid-network options] -o <OUTPUTFILE>");
@@ -256,8 +254,7 @@ fillOptions()
 
 
 NGNet *
-buildNetwork(NBNetBuilder &nb)
-{
+buildNetwork(NBNetBuilder &nb) {
     OptionsCont &oc = OptionsCont::getOptions();
     // spider-net
     if (oc.getBool("spider-net")) {
@@ -352,8 +349,7 @@ buildNetwork(NBNetBuilder &nb)
 
 
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");

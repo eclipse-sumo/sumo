@@ -43,8 +43,7 @@
  * @class GUICompleteSchemeStorage
  * @brief This class contains all available visualization settings
  */
-class GUICompleteSchemeStorage
-{
+class GUICompleteSchemeStorage {
 public:
     /// Constructor
     GUICompleteSchemeStorage();

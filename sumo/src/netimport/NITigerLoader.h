@@ -49,8 +49,7 @@ class NBNode;
  * @class NITigerLoader
  * @brief Importer for TIGER networks
  */
-class NITigerLoader
-{
+class NITigerLoader {
 public:
     /** @brief Constructor
      * @param[in, filled] ec The edge control to insert loaded edges into

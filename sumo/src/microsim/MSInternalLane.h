@@ -72,8 +72,7 @@ class GUIGlObjectStorage;
  * @todo Complete work on pass position
  * @todo Join with MSLane
  */
-class MSInternalLane : public MSLane
-{
+class MSInternalLane : public MSLane {
 public:
     /** @brief Constructor
      *

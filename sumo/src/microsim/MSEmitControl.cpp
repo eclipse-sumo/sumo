@@ -50,31 +50,26 @@ using namespace std;
 // ===========================================================================
 MSEmitControl::MSEmitControl(MSVehicleControl &vc,
                              SUMOTime maxDepartDelay) throw()
-        : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay)
-{}
+        : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay) {}
 
 
-MSEmitControl::~MSEmitControl() throw()
-{}
+MSEmitControl::~MSEmitControl() throw() {}
 
 
 void
-MSEmitControl::add(MSVehicle *veh) throw()
-{
+MSEmitControl::add(MSVehicle *veh) throw() {
     myAllVeh.add(veh);
 }
 
 
 void
-MSEmitControl::moveFrom(MSVehicleContainer &cont) throw()
-{
+MSEmitControl::moveFrom(MSVehicleContainer &cont) throw() {
     myAllVeh.moveFrom(cont);
 }
 
 
 unsigned int
-MSEmitControl::emitVehicles(SUMOTime time) throw()
-{
+MSEmitControl::emitVehicles(SUMOTime time) throw() {
     checkPrevious(time);
     // check whether any vehicles shall be emitted within this time step
     if (!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.size()==0&&myRefusedEmits2.size()==0) {
@@ -137,8 +132,7 @@ MSEmitControl::emitVehicles(SUMOTime time) throw()
 
 unsigned int
 MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
-                       MSVehicleContainer::VehicleVector &refusedEmits) throw()
-{
+                       MSVehicleContainer::VehicleVector &refusedEmits) throw() {
     assert(veh->getDesiredDepart() <= time);
     const MSEdge &edge = veh->getDepartEdge();
     if (edge.getLastFailedEmissionTime()!=time && edge.emit(*veh, time)) {
@@ -170,8 +164,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
 
 
 void
-MSEmitControl::checkReemission(MSVehicle *veh) throw()
-{
+MSEmitControl::checkReemission(MSVehicle *veh) throw() {
     MSVehicle *nextPeriodical = veh->getNextPeriodical();
     if (nextPeriodical!=0) {
         myNewPeriodicalAdds.push_back(nextPeriodical);
@@ -181,8 +174,7 @@ MSEmitControl::checkReemission(MSVehicle *veh) throw()
 
 
 void
-MSEmitControl::checkPrevious(SUMOTime time) throw()
-{
+MSEmitControl::checkPrevious(SUMOTime time) throw() {
     // check to which list append to
     MSVehicleContainer::VehicleVector &previousRefused =
         myRefusedEmits2.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
@@ -195,8 +187,7 @@ MSEmitControl::checkPrevious(SUMOTime time) throw()
 
 
 unsigned int
-MSEmitControl::getWaitingVehicleNo() const throw()
-{
+MSEmitControl::getWaitingVehicleNo() const throw() {
     return (unsigned int)(myRefusedEmits1.size() + myRefusedEmits2.size());
 }
 

@@ -49,8 +49,7 @@ class GUIMainWindow;
  * @class GUIGLObjectPopupMenu
  * @brief The popup menu of a globject
  */
-class GUIGLObjectPopupMenu : public FXMenuPane
-{
+class GUIGLObjectPopupMenu : public FXMenuPane {
     // FOX-declarations
     FXDECLARE(GUIGLObjectPopupMenu)
 

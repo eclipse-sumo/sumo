@@ -56,8 +56,7 @@ class MSVehicle;
  *
  * This object is used as a singleton
  */
-class MSVehicleTransfer
-{
+class MSVehicleTransfer {
 public:
     // Default constructor
     MSVehicleTransfer();

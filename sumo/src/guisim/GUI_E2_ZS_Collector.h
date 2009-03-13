@@ -59,8 +59,7 @@ class GUI_E2_ZS_CollectorOverLanes;
  *  overridden to signalise that this detector is not used for simulation-
  *  -internal reasons, but is placed over the simulation by the user.
  */
-class GUI_E2_ZS_Collector : public MSE2Collector
-{
+class GUI_E2_ZS_Collector : public MSE2Collector {
 public:
     /** @brief Constructor
      *
@@ -101,8 +100,7 @@ public:
      * @class GUI_E2_ZS_Collector::MyWrapper
      * A GUI_E2_ZS_Collector-visualiser
      */
-    class MyWrapper : public GUIDetectorWrapper
-    {
+    class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
         MyWrapper(GUI_E2_ZS_Collector &detector,

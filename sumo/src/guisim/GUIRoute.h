@@ -49,8 +49,7 @@
  * @class GUIRoute
  * Just a MSRoute extended by a color
  */
-class GUIRoute : public MSRoute
-{
+class GUIRoute : public MSRoute {
 public:
     /// Constructor
     GUIRoute(const RGBColor &c,

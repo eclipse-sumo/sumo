@@ -48,17 +48,14 @@
 // ===========================================================================
 GUIGeomShapeBuilder::GUIGeomShapeBuilder(MSNet &net,
         GUIGlObjectStorage &idStorage) throw()
-        : NLGeomShapeBuilder(net), myIdStorage(idStorage)
-{}
+        : NLGeomShapeBuilder(net), myIdStorage(idStorage) {}
 
 
-GUIGeomShapeBuilder::~GUIGeomShapeBuilder() throw()
-{}
+GUIGeomShapeBuilder::~GUIGeomShapeBuilder() throw() {}
 
 
 void
-GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument)
-{
+GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument) {
     GUIPolygon2D *p =
         new GUIPolygon2D(myIdStorage, myCurrentLayer, myCurrentName, myCurrentType,
                          myCurrentColor, shape, myFillPoly);
@@ -73,8 +70,7 @@ void
 GUIGeomShapeBuilder::addPoint(const std::string &name, int layer,
                               const std::string &type, const RGBColor &c,
                               SUMOReal x, SUMOReal y,
-                              const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument)
-{
+                              const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument) {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     GUIPointOfInterest *p = new GUIPointOfInterest(myIdStorage, layer, name, type, pos, c);
     if (!myShapeContainer.add(layer, p)) {

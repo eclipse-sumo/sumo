@@ -36,8 +36,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class IncludeFileInputStream : public BinInputStream
-{
+class IncludeFileInputStream : public BinInputStream {
 public :
     // -----------------------------------------------------------------------
     //  Constructors and Destructor
@@ -90,8 +89,7 @@ private :
 // ---------------------------------------------------------------------------
 //  IncludeFileInputStream: Getter methods
 // ---------------------------------------------------------------------------
-inline bool IncludeFileInputStream::getIsOpen() const
-{
+inline bool IncludeFileInputStream::getIsOpen() const {
     return (fSource != (FileHandle) XERCES_Invalid_File_Handle);
 }
 

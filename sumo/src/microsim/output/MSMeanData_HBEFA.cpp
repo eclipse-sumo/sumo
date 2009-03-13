@@ -67,8 +67,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw()
-{
+MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw() {
     sampleSeconds = 0.;
     CO2 = 0;
     CO = 0;
@@ -80,8 +79,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw()
 
 
 bool
-MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw()
-{
+MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     bool ret = true;
     SUMOReal fraction = 1.;
     if (oldPos<0&&newSpeed!=0) {
@@ -104,14 +102,12 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw()
-{
+MSMeanData_HBEFA::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
 }
 
 
 bool
-MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
-{
+MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     SUMOReal fraction = 1.;
     SUMOReal l = veh.getVehicleType().getLength();
     if (veh.getPositionOnLane()+l>getLane()->length()) {
@@ -141,8 +137,7 @@ MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id,
                                    bool withEmptyEdges, bool withEmptyLanes) throw()
         : myID(id),
         myAmEdgeBased(!useLanes), myDumpBegins(dumpBegins), myDumpEnds(dumpEnds),
-        myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes)
-{
+        myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes) {
     // interval begin
     // edges
     MSEdgeControl::EdgeCont::const_iterator edg;
@@ -173,13 +168,11 @@ MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id,
 }
 
 
-MSMeanData_HBEFA::~MSMeanData_HBEFA() throw()
-{}
+MSMeanData_HBEFA::~MSMeanData_HBEFA() throw() {}
 
 
 void
-MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw()
-{
+MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw() {
     for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
         for (vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
             (*j)->reset();
@@ -190,8 +183,7 @@ MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw()
 
 void
 MSMeanData_HBEFA::write(OutputDevice &dev,
-                        SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                        SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
     bool found = myDumpBegins.size()==0;
     for (unsigned int i=0; i<myDumpBegins.size()&&!found; ++i) {
@@ -215,8 +207,7 @@ MSMeanData_HBEFA::write(OutputDevice &dev,
 void
 MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
                             const vector<MSLaneMeanDataValues*> &edgeValues,
-                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     vector<MSLaneMeanDataValues*>::const_iterator lane;
     if (!myAmEdgeBased) {
         bool writeCheck = myDumpEmptyEdges;
@@ -279,8 +270,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
 void
 MSMeanData_HBEFA::writeLane(OutputDevice &dev,
                             MSLaneMeanDataValues &laneValues,
-                            SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                            SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     if (myDumpEmptyLanes||laneValues.sampleSeconds>0) {
         // calculate mean data
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
@@ -305,8 +295,7 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
 
 void
 MSMeanData_HBEFA::writeXMLOutput(OutputDevice &dev,
-                                 SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                                 SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
     stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
     write(dev, startTime, stopTime);
@@ -315,8 +304,7 @@ MSMeanData_HBEFA::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSMeanData_HBEFA::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
-{
+MSMeanData_HBEFA::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
     dev.writeXMLHeader("netstats");
 }
 

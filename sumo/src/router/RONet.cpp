@@ -61,12 +61,10 @@ RONet::RONet() throw()
         : myVehicleTypes(),
         myRoutesOutput(0), myRouteAlternativesOutput(0),
         myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
-        myHaveRestrictions(false)
-{}
+        myHaveRestrictions(false) {}
 
 
-RONet::~RONet() throw()
-{
+RONet::~RONet() throw() {
     myNodes.clear();
     myEdges.clear();
     myVehicleTypes.clear();
@@ -76,8 +74,7 @@ RONet::~RONet() throw()
 
 
 void
-RONet::addEdge(ROEdge *edge) throw()
-{
+RONet::addEdge(ROEdge *edge) throw() {
     if (!myEdges.add(edge->getID(), edge)) {
         MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occures at least twice.");
         delete edge;
@@ -86,8 +83,7 @@ RONet::addEdge(ROEdge *edge) throw()
 
 
 void
-RONet::addNode(RONode *node) throw()
-{
+RONet::addNode(RONode *node) throw() {
     if (!myNodes.add(node->getID(), node)) {
         MsgHandler::getErrorInstance()->inform("The node '" + node->getID() + "' occures at least twice.");
         delete node;
@@ -96,15 +92,13 @@ RONet::addNode(RONode *node) throw()
 
 
 bool
-RONet::addRouteDef(RORouteDef *def) throw()
-{
+RONet::addRouteDef(RORouteDef *def) throw() {
     return myRoutes.add(def->getID(), def);
 }
 
 
 void
-RONet::openOutput(const std::string &filename, bool useAlternatives) throw(IOError)
-{
+RONet::openOutput(const std::string &filename, bool useAlternatives) throw(IOError) {
     myRoutesOutput = &OutputDevice::getDevice(filename);
     myRoutesOutput->writeXMLHeader("routes");
     if (useAlternatives) {
@@ -120,8 +114,7 @@ RONet::openOutput(const std::string &filename, bool useAlternatives) throw(IOErr
 
 
 void
-RONet::closeOutput() throw()
-{
+RONet::closeOutput() throw() {
     // end writing
     if (myRoutesOutput!= 0) {
         myRoutesOutput->close();
@@ -135,8 +128,7 @@ RONet::closeOutput() throw()
 
 
 ROVehicleType *
-RONet::getVehicleTypeSecure(const std::string &id) throw()
-{
+RONet::getVehicleTypeSecure(const std::string &id) throw() {
     // check whether the type was already known
     ROVehicleType *type = myVehicleTypes.get(id);
     if (type!=0) {
@@ -156,8 +148,7 @@ RONet::getVehicleTypeSecure(const std::string &id) throw()
 
 
 bool
-RONet::addVehicleType(ROVehicleType *type) throw()
-{
+RONet::addVehicleType(ROVehicleType *type) throw() {
     if (!myVehicleTypes.add(type->getID(), type)) {
         MsgHandler::getErrorInstance()->inform("The vehicle type '" + type->getID() + "' occures at least twice.");
         delete type;
@@ -168,8 +159,7 @@ RONet::addVehicleType(ROVehicleType *type) throw()
 
 
 bool
-RONet::addVehicle(const std::string &id, ROVehicle *veh) throw()
-{
+RONet::addVehicle(const std::string &id, ROVehicle *veh) throw() {
     if (myVehicles.add(id, veh)) {
         myReadRouteNo++;
         return true;
@@ -180,8 +170,7 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh) throw()
 
 bool
 RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                    const ROVehicle * const veh)
-{
+                    const ROVehicle * const veh) {
     MsgHandler *mh = MsgHandler::getErrorInstance();
     if (options.getBool("continue-on-unbuild")) {
         mh = MsgHandler::getWarningInstance();
@@ -226,8 +215,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
 
 void
 RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                                SUMOTime time)
-{
+                                SUMOTime time) {
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
     while (myVehicles.size()!=0) {
@@ -268,15 +256,13 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
 
 
 bool
-RONet::furtherStored()
-{
+RONet::furtherStored() {
     return myVehicles.size()>0;
 }
 
 
 ROEdge *
-RONet::getRandomSource()
-{
+RONet::getRandomSource() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (mySourceEdges.size()==0) {
@@ -290,8 +276,7 @@ RONet::getRandomSource()
 
 
 ROEdge *
-RONet::getRandomDestination()
-{
+RONet::getRandomDestination() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (myDestinationEdges.size()==0) {
@@ -303,8 +288,7 @@ RONet::getRandomDestination()
 
 
 void
-RONet::checkSourceAndDestinations()
-{
+RONet::checkSourceAndDestinations() {
     if (myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
         return;
     }
@@ -324,29 +308,25 @@ RONet::checkSourceAndDestinations()
 
 
 unsigned int
-RONet::getEdgeNo() const
-{
+RONet::getEdgeNo() const {
     return (unsigned int) myEdges.size();
 }
 
 
 const std::map<std::string, ROEdge*> &
-RONet::getEdgeMap() const
-{
+RONet::getEdgeMap() const {
     return myEdges.getMyMap();
 }
 
 
 bool
-RONet::hasRestrictions() const
-{
+RONet::hasRestrictions() const {
     return myHaveRestrictions;
 }
 
 
 void
-RONet::setRestrictionFound()
-{
+RONet::setRestrictionFound() {
     myHaveRestrictions = true;
 }
 

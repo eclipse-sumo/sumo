@@ -71,20 +71,17 @@ using namespace std;
 // ---------------------------------------------------------------------------
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::EdgeFloatTimeLineRetriever_EdgeWeight(
     RONet *net)
-        : myNet(net)
-{}
+        : myNet(net) {}
 
 
-ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::~EdgeFloatTimeLineRetriever_EdgeWeight()
-{}
+ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::~EdgeFloatTimeLineRetriever_EdgeWeight() {}
 
 
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
         SUMOReal val,
         SUMOTime beg,
-        SUMOTime end)
-{
+        SUMOTime end) {
     ROEdge *e = myNet->getEdge(id);
     if (e!=0) {
         e->addWeight(val, beg, end);
@@ -102,18 +99,15 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 // ---------------------------------------------------------------------------
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::SingleWeightRetriever(
     Type type, EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight *parent)
-        : myType(type), myParent(parent)
-{}
+        : myType(type), myParent(parent) {}
 
 
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::~SingleWeightRetriever()
-{}
+ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::~SingleWeightRetriever() {}
 
 
 void
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::addEdgeWeight(
-    const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end)
-{
+    const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end) {
     myParent->addTypedWeight(myType, id, val, beg, end);
 }
 
@@ -123,16 +117,14 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetrie
 // ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight - methods
 // ---------------------------------------------------------------------------
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight(RONet *net)
-        : myNet(net)
-{
+        : myNet(net) {
     myAbsoluteRetriever = new SingleWeightRetriever(ABSOLUTE, this);
     myAddRetriever = new SingleWeightRetriever(ADD, this);
     myMultRetriever = new SingleWeightRetriever(MULT, this);
 }
 
 
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::~EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight()
-{
+ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::~EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight() {
     std::map<ROEdge*, SuppWeights>::iterator i;
     for (i=myWeights.begin(); i!=myWeights.end(); ++i) {
         (*i).first->setSupplementaryWeights(
@@ -146,8 +138,7 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::~EdgeFloatTimeLine
 
 void
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::addTypedWeight(Type type, const std::string &id,
-        SUMOReal val, SUMOTime beg, SUMOTime end)
-{
+        SUMOReal val, SUMOTime beg, SUMOTime end) {
     ROEdge *e = myNet->getEdge(id);
     if (e==0) {
         MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
@@ -176,22 +167,19 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::addTypedWeight(Typ
 
 
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever &
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getAbsoluteRetriever()
-{
+ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getAbsoluteRetriever() {
     return *myAbsoluteRetriever;
 }
 
 
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever &
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getAddRetriever()
-{
+ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getAddRetriever() {
     return *myAddRetriever;
 }
 
 
 ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever &
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getMultRetriever()
-{
+ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getMultRetriever() {
     return *myMultRetriever;
 }
 
@@ -201,19 +189,16 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getMultRetriever()
 // ROLoader - methods
 // ---------------------------------------------------------------------------
 ROLoader::ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed) throw()
-        : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed)
-{}
+        : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed) {}
 
 
-ROLoader::~ROLoader()
-{
+ROLoader::~ROLoader() {
     destroyHandlers();
 }
 
 
 void
-ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb)
-{
+ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb) {
     std::string file = myOptions.getString("net-file");
     if (file=="") {
         throw ProcessError("Missing definition of network to load!");
@@ -234,8 +219,7 @@ ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb)
 
 
 unsigned int
-ROLoader::openRoutes(RONet &net)
-{
+ROLoader::openRoutes(RONet &net) {
     // build loader
     // load sumo-routes when wished
     bool ok = openTypedRoutes("sumo-input", net);
@@ -273,8 +257,7 @@ ROLoader::openRoutes(RONet &net)
 
 void
 ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
-                                RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router)
-{
+                                RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
     SUMOTime absNo = end - start;
     // skip routes that begin before the simulation's begin
     // loop till the end
@@ -304,8 +287,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
 
 
 bool
-ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router)
-{
+ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
     RouteLoaderCont::iterator i;
     // go through all handlers
     if (myHandler.size()!= 0) {
@@ -326,8 +308,7 @@ ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROV
 
 
 SUMOTime
-ROLoader::getMinTimeStep() const throw()
-{
+ROLoader::getMinTimeStep() const throw() {
     RouteLoaderCont::const_iterator i=myHandler.begin();
     SUMOTime ret = (*i)->getLastReadTimeStep();
     ++i;
@@ -344,8 +325,7 @@ ROLoader::getMinTimeStep() const throw()
 void
 ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
                            RONet &net,
-                           SUMOAbstractRouter<ROEdge,ROVehicle> &router)
-{
+                           SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
     long absNo = end - start;
     bool ok = true;
     for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
@@ -362,8 +342,7 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
 
 bool
 ROLoader::openTypedRoutes(const std::string &optionName,
-                          RONet &net) throw()
-{
+                          RONet &net) throw() {
     // check whether the current loader is known
     //  (not all routers import all route formats)
     if (!myOptions.exists(optionName)) {
@@ -394,8 +373,7 @@ ROLoader::openTypedRoutes(const std::string &optionName,
 ROAbstractRouteDefLoader*
 ROLoader::buildNamedHandler(const std::string &optionName,
                             const std::string &file,
-                            RONet &net) throw(ProcessError)
-{
+                            RONet &net) throw(ProcessError) {
     if (optionName=="sumo-input") {
         return new RORDLoader_SUMOBase(net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
@@ -426,8 +404,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
 
 bool
 ROLoader::loadWeights(RONet &net, const std::string &file,
-                      bool useLanes)
-{
+                      bool useLanes) {
     // check whether the file exists
     if (!FileHelpers::exists(file)) {
         MsgHandler::getErrorInstance()->inform("The weights file '" + file + "' does not exist!");
@@ -450,8 +427,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
 
 
 void
-ROLoader::loadSupplementaryWeights(RONet& net)
-{
+ROLoader::loadSupplementaryWeights(RONet& net) {
     string filename = myOptions.getString("supplementary-weights");
     if (! FileHelpers::exists(filename)) {
         throw ProcessError("Could not open the supplementary-weights file '" + filename + "'.");
@@ -473,8 +449,7 @@ ROLoader::loadSupplementaryWeights(RONet& net)
 
 
 void
-ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw()
-{
+ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw() {
     if (myOptions.getBool("verbose")) {
         SUMOReal perc = (SUMOReal)(time-start) / (SUMOReal) absNo;
         cout.setf(ios::fixed , ios::floatfield) ;    // use decimal format
@@ -487,8 +462,7 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw()
 
 
 void
-ROLoader::destroyHandlers() throw()
-{
+ROLoader::destroyHandlers() throw() {
     for (RouteLoaderCont::const_iterator i=myHandler.begin(); i!=myHandler.end(); ++i) {
         delete *i;
     }

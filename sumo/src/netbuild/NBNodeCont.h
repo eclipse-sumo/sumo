@@ -55,8 +55,7 @@ class OutputDevice;
  * @class NBNodeCont
  * @brief Container for nodes during the netbuilding process
  */
-class NBNodeCont
-{
+class NBNodeCont {
 public:
     /// @brief Constructor
     NBNodeCont() throw();

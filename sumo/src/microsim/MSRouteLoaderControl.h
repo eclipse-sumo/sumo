@@ -52,8 +52,7 @@ class MSRouteLoader;
  * The parameter myInAdvanceStepNo holds the number of time steps to read the
  * routes in forward. If it is 0 (default), all routes will be read at once.
  */
-class MSRouteLoaderControl
-{
+class MSRouteLoaderControl {
 public:
     /// definition of the loader vector
     typedef std::vector<MSRouteLoader*> LoaderVector;

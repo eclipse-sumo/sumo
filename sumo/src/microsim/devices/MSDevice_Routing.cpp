@@ -61,8 +61,7 @@ SUMOReal MSDevice_Routing::myAdaptationWeight;
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Routing::insertOptions() throw()
-{
+MSDevice_Routing::insertOptions() throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Routing");
 
@@ -88,8 +87,7 @@ MSDevice_Routing::insertOptions() throw()
 
 
 void
-MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw()
-{
+MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.getFloat("device.routing.probability")==0&&!oc.isSet("device.routing.knownveh")) {
         // no route computation is modelled
@@ -139,13 +137,11 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id,
                                    SUMOTime period) throw()
-        : MSDevice(holder, id), myPeriod(period), myRerouteCommand(0)
-{
+        : MSDevice(holder, id), myPeriod(period), myRerouteCommand(0) {
 }
 
 
-MSDevice_Routing::~MSDevice_Routing() throw()
-{
+MSDevice_Routing::~MSDevice_Routing() throw() {
     // make the rerouting command invalid if there is one
     if (myRerouteCommand!=0) {
         myRerouteCommand->deschedule();
@@ -154,8 +150,7 @@ MSDevice_Routing::~MSDevice_Routing() throw()
 
 
 void
-MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
-{
+MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
     SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
@@ -170,8 +165,7 @@ MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
 
 
 SUMOTime
-MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(ProcessError)
-{
+MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(ProcessError) {
     SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(currentTime, router);
@@ -180,16 +174,14 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(Proce
 
 
 SUMOReal
-MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const
-{
+MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const {
     assert(myEdgeEfforts.find(e)!=myEdgeEfforts.end());
     return MAX2(myEdgeEfforts.find(e)->second, (*e->getLanes())[0]->length()/v->getMaxSpeed());
 }
 
 
 SUMOTime
-MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError)
-{
+MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
     SUMOReal oldWeight = (SUMOReal) myAdaptationWeight;
     SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
     const MSEdgeControl::EdgeCont &me = MSNet::getInstance()->getEdgeControl().getMultiLaneEdges();

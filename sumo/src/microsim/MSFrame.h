@@ -52,8 +52,7 @@ class OutputDevice;
  *
  * @see MSGlobals
  */
-class MSFrame
-{
+class MSFrame {
 public:
     /** @brief Inserts options used by the simulation into the OptionsCont-singleton
      *

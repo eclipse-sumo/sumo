@@ -42,8 +42,7 @@
  *  (trivial) assumption, the number of lanes increases linear with the
  *  number of lanes.
  */
-class NBCapacity2Lanes
-{
+class NBCapacity2Lanes {
 public:
     /** @brief Donstructor
      *

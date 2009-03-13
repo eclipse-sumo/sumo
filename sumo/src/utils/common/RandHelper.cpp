@@ -47,8 +47,7 @@ MTRand RandHelper::myRandomNumberGenerator;
 // member method definitions
 // ===========================================================================
 void
-RandHelper::insertRandOptions()
-{
+RandHelper::insertRandOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     // registers random number options
     oc.addOptionSubTopic("Random Number");
@@ -62,8 +61,7 @@ RandHelper::insertRandOptions()
 
 
 void
-RandHelper::initRandGlobal()
-{
+RandHelper::initRandGlobal() {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.getBool("abs-rand")) {
         myRandomNumberGenerator.seed();

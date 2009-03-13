@@ -126,8 +126,7 @@ GUIIconSubSys *GUIIconSubSys::myInstance = 0;
 // ===========================================================================
 // member definitions
 // ===========================================================================
-GUIIconSubSys::GUIIconSubSys(FXApp *a)
-{
+GUIIconSubSys::GUIIconSubSys(FXApp *a) {
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
     myIcons[ICON_EMPTY] = new FXXPMIcon(a, empty_xpm);
@@ -212,8 +211,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
 }
 
 
-GUIIconSubSys::~GUIIconSubSys()
-{
+GUIIconSubSys::~GUIIconSubSys() {
     for (int i=0; i<ICON_MAX; i++) {
         delete myIcons[i];
     }
@@ -221,23 +219,20 @@ GUIIconSubSys::~GUIIconSubSys()
 
 
 void
-GUIIconSubSys::init(FXApp *a)
-{
+GUIIconSubSys::init(FXApp *a) {
     assert(myInstance==0);
     myInstance = new GUIIconSubSys(a);
 }
 
 
 FXIcon *
-GUIIconSubSys::getIcon(GUIIcon which)
-{
+GUIIconSubSys::getIcon(GUIIcon which) {
     return myInstance->myIcons[which];
 }
 
 
 void
-GUIIconSubSys::close()
-{
+GUIIconSubSys::close() {
     delete myInstance;
     myInstance = 0;
 }

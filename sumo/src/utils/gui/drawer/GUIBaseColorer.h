@@ -80,8 +80,7 @@ enum ColorSetType {
  *  a template what allows some further tweaks...
  * (!!! probably, this should be described better)
  */
-class GUIBaseColorerInterface
-{
+class GUIBaseColorerInterface {
 public:
     /// Constructor
     GUIBaseColorerInterface() { }
@@ -144,8 +143,7 @@ public:
  *  rid of it.
  */
 template<class T>
-class GUIBaseColorer : public GUIBaseColorerInterface
-{
+class GUIBaseColorer : public GUIBaseColorerInterface {
 public:
     /// Constructor
     GUIBaseColorer() { }

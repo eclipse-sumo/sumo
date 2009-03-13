@@ -50,8 +50,7 @@ class OptionsCont;
  *
  * Reads pois stored as XML definition as given by the OpenStreetMap-API.
  */
-class PCLoaderOSM : public SUMOSAXHandler
-{
+class PCLoaderOSM : public SUMOSAXHandler {
 public:
     /** @brief Loads pois/polygons assumed to be stored as OSM-XML
      *
@@ -106,8 +105,7 @@ protected:
      * @class NodesHandler
      * @brief A class which extracts OSM-nodes from a parsed OSM-file
      */
-    class NodesHandler : public SUMOSAXHandler
-    {
+    class NodesHandler : public SUMOSAXHandler {
     public:
         /** @brief Contructor
          * @param[in] toFill The nodes container to fill
@@ -169,8 +167,7 @@ protected:
      * @class EdgesHandler
      * @brief A class which extracts OSM-edges from a parsed OSM-file
      */
-    class EdgesHandler : public SUMOSAXHandler
-    {
+    class EdgesHandler : public SUMOSAXHandler {
     public:
         /** @brief Constructor
          *

@@ -17,8 +17,7 @@
 
 class MFXInterThreadEventClient;
 
-class FXSingleEventThread : public FXObject, public FXThread
-{
+class FXSingleEventThread : public FXObject, public FXThread {
     FXDECLARE(FXSingleEventThread)
 
 private:

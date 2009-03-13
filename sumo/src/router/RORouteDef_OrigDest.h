@@ -49,8 +49,7 @@ class RORoute;
  * A route definition where only the begin and the end edge are given.
  */
 class RORouteDef_OrigDest
-            : public RORouteDef
-{
+            : public RORouteDef {
 public:
     /// Constructor
     RORouteDef_OrigDest(const std::string &id, const RGBColor * const color,

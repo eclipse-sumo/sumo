@@ -51,8 +51,7 @@
  * @class MSOffTrafficLightLogic
  * @brief A traffic lights logic which represents a tls in an off-mode
  */
-class MSOffTrafficLightLogic : public MSTrafficLightLogic
-{
+class MSOffTrafficLightLogic : public MSTrafficLightLogic {
 public:
     /// definition of a list of phases, being the junction logic
     typedef std::vector<MSPhaseDefinition*> Phases;

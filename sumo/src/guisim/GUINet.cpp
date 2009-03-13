@@ -91,15 +91,13 @@ GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
         myGrid(new SUMORTree(&GUIGlObject::drawGL)),
         myWrapper(new GUINetWrapper(gIDStorage, *this)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
-        myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0)
-{
+        myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
 }
 
 
-GUINet::~GUINet() throw()
-{
+GUINet::~GUINet() throw() {
     gIDStorage.clear();
     // delete allocated wrappers
     //  of junctions
@@ -124,15 +122,13 @@ GUINet::~GUINet() throw()
 
 
 const Boundary &
-GUINet::getBoundary() const
-{
+GUINet::getBoundary() const {
     return myBoundary;
 }
 
 
 void
-GUINet::initDetectors()
-{
+GUINet::initDetectors() {
     // e2-detectors
     const map<string, MSE2Collector*> &e2 = myDetectorControl->getE2Detectors().getMyMap();
     for (map<string, MSE2Collector*>::const_iterator i2=e2.begin(); i2!=e2.end(); i2++) {
@@ -191,8 +187,7 @@ GUINet::initDetectors()
 
 
 void
-GUINet::initTLMap()
-{
+GUINet::initTLMap() {
     // get the list of loaded tl-logics
     const vector<MSTrafficLightLogic*> &logics = getTLSControl().getAllLogics();
     // allocate storage for the wrappers
@@ -223,38 +218,33 @@ GUINet::initTLMap()
 
 
 Position2D
-GUINet::getJunctionPosition(const std::string &name) const
-{
+GUINet::getJunctionPosition(const std::string &name) const {
     // !!! no check for existance!
     return myJunctions->get(name)->getPosition();
 }
 
 
 bool
-GUINet::vehicleExists(const std::string &name) const
-{
+GUINet::vehicleExists(const std::string &name) const {
     return myVehicleControl->getVehicle(name)!=0;
 }
 
 
 Boundary
-GUINet::getEdgeBoundary(const std::string &name) const
-{
+GUINet::getEdgeBoundary(const std::string &name) const {
     GUIEdge *edge = static_cast<GUIEdge*>(MSEdge::dictionary(name));
     return edge->getBoundary();
 }
 
 
 GUINetWrapper * const
-GUINet::getWrapper() const
-{
+    GUINet::getWrapper() const {
     return myWrapper;
 }
 
 
 unsigned int
-GUINet::getLinkTLID(MSLink *link) const
-{
+GUINet::getLinkTLID(MSLink *link) const {
     Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
     if (i==myLinks2Logic.end()) {
         return -1;
@@ -267,8 +257,7 @@ GUINet::getLinkTLID(MSLink *link) const
 
 
 int
-GUINet::getLinkTLIndex(MSLink *link) const
-{
+GUINet::getLinkTLIndex(MSLink *link) const {
     Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
     if (i==myLinks2Logic.end()) {
         return -1;
@@ -281,16 +270,14 @@ GUINet::getLinkTLIndex(MSLink *link) const
 
 
 void
-GUINet::guiSimulationStep()
-{
+GUINet::guiSimulationStep() {
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SUMOReal> > >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> > > >::getInstance()->updateAll();
 }
 
 
 std::vector<GLuint>
-GUINet::getJunctionIDs() const
-{
+GUINet::getJunctionIDs() const {
     std::vector<GLuint> ret;
     for (std::vector<GUIJunctionWrapper*>::const_iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         ret.push_back((*i)->getGlID());
@@ -300,8 +287,7 @@ GUINet::getJunctionIDs() const
 
 
 std::vector<GLuint>
-GUINet::getTLSIDs() const
-{
+GUINet::getTLSIDs() const {
     std::vector<GLuint> ret;
     std::vector<string> ids;
     for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
@@ -317,8 +303,7 @@ GUINet::getTLSIDs() const
 
 
 std::vector<GLuint>
-GUINet::getShapeIDs() const
-{
+GUINet::getShapeIDs() const {
     std::vector<GLuint> ret;
     if (myShapeContainer!=0) {
         int minLayer = myShapeContainer->getMinLayer();
@@ -339,8 +324,7 @@ GUINet::getShapeIDs() const
 
 
 void
-GUINet::initGUIStructures()
-{
+GUINet::initGUIStructures() {
     // initialise detector storage for gui
     initDetectors();
     // initialise the tl-map
@@ -405,15 +389,13 @@ GUINet::initGUIStructures()
 
 
 unsigned int
-GUINet::getWholeDuration() const throw()
-{
+GUINet::getWholeDuration() const throw() {
     return myLastSimDuration+/*myLastVisDuration+*/myLastIdleDuration;
 }
 
 
 unsigned int
-GUINet::getSimDuration() const throw()
-{
+GUINet::getSimDuration() const throw() {
     return myLastSimDuration;
 }
 
@@ -427,8 +409,7 @@ GUINet::getVisDuration() const
 
 
 SUMOReal
-GUINet::getRTFactor() const
-{
+GUINet::getRTFactor() const {
     if (myLastSimDuration==0) {
         return -1;
     }
@@ -437,8 +418,7 @@ GUINet::getRTFactor() const
 
 
 SUMOReal
-GUINet::getUPS() const
-{
+GUINet::getUPS() const {
     if (myLastSimDuration==0) {
         return -1;
     }
@@ -447,8 +427,7 @@ GUINet::getUPS() const
 
 
 SUMOReal
-GUINet::getMeanRTFactor(int duration) const
-{
+GUINet::getMeanRTFactor(int duration) const {
     if (myOverallSimDuration==0) {
         return -1;
     }
@@ -457,8 +436,7 @@ GUINet::getMeanRTFactor(int duration) const
 
 
 SUMOReal
-GUINet::getMeanUPS() const
-{
+GUINet::getMeanUPS() const {
     if (myOverallSimDuration==0) {
         return -1;
     }
@@ -467,15 +445,13 @@ GUINet::getMeanUPS() const
 
 
 unsigned int
-GUINet::getIdleDuration() const throw()
-{
+GUINet::getIdleDuration() const throw() {
     return myLastIdleDuration;
 }
 
 
 void
-GUINet::setSimDuration(int val)
-{
+GUINet::setSimDuration(int val) {
     myLastSimDuration = val;
     myOverallSimDuration += val;
     myLastVehicleMovementCount = getVehicleControl().getRunningVehicleNo();
@@ -491,15 +467,13 @@ GUINet::setVisDuration(int val)
 */
 
 void
-GUINet::setIdleDuration(int val)
-{
+GUINet::setIdleDuration(int val) {
     myLastIdleDuration = val;
 }
 
 
 MSRouteLoader *
-GUINet::buildRouteLoader(const std::string &file)
-{
+GUINet::buildRouteLoader(const std::string &file) {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly

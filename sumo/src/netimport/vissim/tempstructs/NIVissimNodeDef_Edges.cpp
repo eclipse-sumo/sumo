@@ -57,12 +57,10 @@ using namespace std;
 // ===========================================================================
 NIVissimNodeDef_Edges::NIVissimNodeDef_Edges(int id,
         const std::string &name, const NIVissimNodeParticipatingEdgeVector &edges)
-        : NIVissimNodeDef(id, name), myEdges(edges)
-{}
+        : NIVissimNodeDef(id, name), myEdges(edges) {}
 
 
-NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges()
-{
+NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges() {
     for (NIVissimNodeParticipatingEdgeVector::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         delete(*i);
     }
@@ -72,8 +70,7 @@ NIVissimNodeDef_Edges::~NIVissimNodeDef_Edges()
 
 bool
 NIVissimNodeDef_Edges::dictionary(int id, const std::string &name,
-                                  const NIVissimNodeParticipatingEdgeVector &edges)
-{
+                                  const NIVissimNodeParticipatingEdgeVector &edges) {
     NIVissimNodeDef_Edges *o = new NIVissimNodeDef_Edges(id, name, edges);
     if (!NIVissimNodeDef::dictionary(id, o)) {
         delete o;
@@ -84,8 +81,7 @@ NIVissimNodeDef_Edges::dictionary(int id, const std::string &name,
 
 
 void
-NIVissimNodeDef_Edges::searchAndSetConnections()
-{
+NIVissimNodeDef_Edges::searchAndSetConnections() {
     IntVector connections;
     IntVector edges;
     Boundary boundary;
@@ -118,8 +114,7 @@ NIVissimNodeDef_Edges::searchAndSetConnections()
 
 
 SUMOReal
-NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const
-{
+NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const {
     for (NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         NIVissimNodeParticipatingEdge *edge = *i;
         if (edge->getID()==edgeid) {

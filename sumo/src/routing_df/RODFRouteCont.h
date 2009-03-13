@@ -58,8 +58,7 @@ class OutputDevice;
  *
  * @see RODFRouteDesc
  */
-class RODFRouteCont
-{
+class RODFRouteCont {
 public:
     /// @brief Constructor
     RODFRouteCont() throw();
@@ -149,8 +148,7 @@ protected:
 
 
     /** @brief A class for sorting route descriptions by their length */
-    class by_distance_sorter
-    {
+    class by_distance_sorter {
     public:
         /// @brief Constructor
         explicit by_distance_sorter() { }
@@ -163,8 +161,7 @@ protected:
 
 
     /** @brief A class for finding a same route (one that passes the same edges) */
-    class route_finder
-    {
+    class route_finder {
     public:
         /** @brief onstructor
          * @param[in] desc The route description to which a same shall be found

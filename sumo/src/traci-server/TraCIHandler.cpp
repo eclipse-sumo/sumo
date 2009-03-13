@@ -41,24 +41,20 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-namespace traci
-{
+namespace traci {
 
 TraCIHandler::TraCIHandler(const std::string& file)
 throw()
         :SUMOSAXHandler(file),
         totalVehicleCount(0),
-        currentVehCount(0)
-{}
+        currentVehCount(0) {}
 
 TraCIHandler::~TraCIHandler()
-throw()
-{}
+throw() {}
 
 void
 TraCIHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes& attributes)
-throw(ProcessError)
-{
+throw(ProcessError) {
     if (element == SUMO_TAG_VEHICLE) {
         openVehicleTag(attributes);
     }
@@ -66,16 +62,14 @@ throw(ProcessError)
 
 void
 TraCIHandler::myEndElement(SumoXMLTag element)
-throw(ProcessError)
-{
+throw(ProcessError) {
     if (element == SUMO_TAG_VEHICLE) {
         totalVehicleCount += currentVehCount;
     }
 }
 
 void
-TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes)
-{
+TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes) {
     int repNo;
     int period;
     int depart;
@@ -125,14 +119,12 @@ TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes)
 }
 
 int
-TraCIHandler::getTotalVehicleCount()
-{
+TraCIHandler::getTotalVehicleCount() {
     return totalVehicleCount;
 }
 
 void
-TraCIHandler::resetTotalVehicleCount()
-{
+TraCIHandler::resetTotalVehicleCount() {
     totalVehicleCount = 0;
 }
 

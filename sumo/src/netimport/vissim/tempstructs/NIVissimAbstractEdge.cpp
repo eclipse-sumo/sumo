@@ -44,8 +44,7 @@ NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
 
 NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
         const Position2DVector &geom)
-        : myID(id), myNode(-1)
-{
+        : myID(id), myNode(-1) {
     // convert/publicate geometry
     std::deque<Position2D>::const_iterator i;
     const std::deque<Position2D> &geomC = geom.getCont();
@@ -59,13 +58,11 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
 }
 
 
-NIVissimAbstractEdge::~NIVissimAbstractEdge()
-{}
+NIVissimAbstractEdge::~NIVissimAbstractEdge() {}
 
 
 bool
-NIVissimAbstractEdge::dictionary(int id, NIVissimAbstractEdge *e)
-{
+NIVissimAbstractEdge::dictionary(int id, NIVissimAbstractEdge *e) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = e;
@@ -76,8 +73,7 @@ NIVissimAbstractEdge::dictionary(int id, NIVissimAbstractEdge *e)
 
 
 NIVissimAbstractEdge *
-NIVissimAbstractEdge::dictionary(int id)
-{
+NIVissimAbstractEdge::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -88,8 +84,7 @@ NIVissimAbstractEdge::dictionary(int id)
 
 
 Position2D
-NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
-{
+NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const {
     if (myGeom.length()>pos) {
         return myGeom.positionAtLengthPosition(pos);
     } else if (myGeom.length()==pos) {
@@ -106,8 +101,7 @@ NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
 
 
 void
-NIVissimAbstractEdge::splitAndAssignToNodes()
-{
+NIVissimAbstractEdge::splitAndAssignToNodes() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimAbstractEdge *e = (*i).second;
         e->splitAssigning();
@@ -115,31 +109,27 @@ NIVissimAbstractEdge::splitAndAssignToNodes()
 }
 
 void
-NIVissimAbstractEdge::splitAssigning()
-{}
+NIVissimAbstractEdge::splitAssigning() {}
 
 
 
 
 
 bool
-NIVissimAbstractEdge::crossesEdge(NIVissimAbstractEdge *c) const
-{
+NIVissimAbstractEdge::crossesEdge(NIVissimAbstractEdge *c) const {
     return myGeom.intersects(c->myGeom);
 }
 
 
 Position2D
-NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge *c) const
-{
+NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge *c) const {
     return myGeom.intersectsAtPoint(c->myGeom);
 }
 
 
 SUMOReal
 NIVissimAbstractEdge::crossesAtPoint(const Position2D &p1,
-                                     const Position2D &p2) const
-{
+                                     const Position2D &p2) const {
     // !!! not needed
     Position2D p = GeomHelper::intersection_position(
                        myGeom.getBegin(), myGeom.getEnd(), p1, p2);
@@ -150,8 +140,7 @@ NIVissimAbstractEdge::crossesAtPoint(const Position2D &p1,
 
 
 IntVector
-NIVissimAbstractEdge::getWithin(const AbstractPoly &p, SUMOReal offset)
-{
+NIVissimAbstractEdge::getWithin(const AbstractPoly &p, SUMOReal offset) {
     IntVector ret;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimAbstractEdge *e = (*i).second;
@@ -164,28 +153,24 @@ NIVissimAbstractEdge::getWithin(const AbstractPoly &p, SUMOReal offset)
 
 
 bool
-NIVissimAbstractEdge::overlapsWith(const AbstractPoly &p, SUMOReal offset) const
-{
+NIVissimAbstractEdge::overlapsWith(const AbstractPoly &p, SUMOReal offset) const {
     return myGeom.overlapsWith(p, offset);
 }
 
 
 bool
-NIVissimAbstractEdge::hasNodeCluster() const
-{
+NIVissimAbstractEdge::hasNodeCluster() const {
     return myNode!=-1;
 }
 
 
 int
-NIVissimAbstractEdge::getID() const
-{
+NIVissimAbstractEdge::getID() const {
     return myID;
 }
 
 void
-NIVissimAbstractEdge::clearDict()
-{
+NIVissimAbstractEdge::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }
@@ -194,22 +179,19 @@ NIVissimAbstractEdge::clearDict()
 
 
 const Position2DVector &
-NIVissimAbstractEdge::getGeometry() const
-{
+NIVissimAbstractEdge::getGeometry() const {
     return myGeom;
 }
 
 
 void
-NIVissimAbstractEdge::addDisturbance(int disturbance)
-{
+NIVissimAbstractEdge::addDisturbance(int disturbance) {
     myDisturbances.push_back(disturbance);
 }
 
 
 const IntVector &
-NIVissimAbstractEdge::getDisturbances() const
-{
+NIVissimAbstractEdge::getDisturbances() const {
     return myDisturbances;
 }
 

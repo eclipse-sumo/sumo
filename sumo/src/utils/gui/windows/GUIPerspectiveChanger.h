@@ -54,8 +54,7 @@ class Boundary;
  * user and the canvas are send to this class: mouse moving, mouse button
  * pressing and releasing.
  */
-class GUIPerspectiveChanger
-{
+class GUIPerspectiveChanger {
 public:
     enum MouseState {
         MOUSEBTN_NONE = 0,

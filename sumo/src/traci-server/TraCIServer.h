@@ -64,10 +64,8 @@
 /**
 * @class TraCIServer
 */
-namespace traci
-{
-class TraCIException
-{
+namespace traci {
+class TraCIException {
 private:
     std::string what_;
 
@@ -82,8 +80,7 @@ public:
 // TraCIServer
 // Allows communication of sumo with external program. The external
 // program will control sumo.
-class TraCIServer
-{
+class TraCIServer {
 public:
 
     struct RoadMapPos {
@@ -339,8 +336,7 @@ private:
 };
 
 // Helper class for reading different data type values out of a storage message
-class DataTypeContainer
-{
+class DataTypeContainer {
 private:
     int intValue;
     double realValue;

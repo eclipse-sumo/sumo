@@ -52,8 +52,7 @@ class BaseSchemeInfoSource;
  *
  * @todo Check whether saving/loading settings should be done via XML
  */
-class GUIDialog_ViewSettings : public FXDialogBox
-{
+class GUIDialog_ViewSettings : public FXDialogBox {
     // is a FOX-object with an own mapping
     FXDECLARE(GUIDialog_ViewSettings)
 public:
@@ -199,8 +198,7 @@ protected:
     /** @class SchemeLoader
      * @brief An XML-handler for visualisation schemes
      */
-    class SchemeLoader : public SUMOSAXHandler
-    {
+    class SchemeLoader : public SUMOSAXHandler {
     public:
         /** @brief Constructor
          * @param[in, out] s The settings to fill
@@ -237,8 +235,7 @@ protected:
     /** @class DecalsLoader
      * @brief An XML-handler for decals
      */
-    class DecalsLoader : public SUMOSAXHandler
-    {
+    class DecalsLoader : public SUMOSAXHandler {
     public:
         /** @brief Constructor
          * @param[in, out] s The decals list to fill

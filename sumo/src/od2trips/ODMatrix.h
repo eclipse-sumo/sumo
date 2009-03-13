@@ -67,8 +67,7 @@ class OutputDevice;
  * In addition of being a storage, the matrix is also responsible for writing
  *  the results and contains methods for splitting the entries over time.
  */
-class ODMatrix
-{
+class ODMatrix {
 public:
     /** @brief Constructor
      *
@@ -261,8 +260,7 @@ protected:
      * @class cell_by_begin_sorter
      * @brief Used for sorting the cells by the begin time they describe
      */
-    class cell_by_begin_sorter
-    {
+    class cell_by_begin_sorter {
     public:
         /// @brief constructor
         explicit cell_by_begin_sorter() { }
@@ -298,8 +296,7 @@ protected:
      * A reverse operator to what may be expected is used in order to allow
      *  prunning the sorted vector from its tail.
      */
-    class descending_departure_comperator
-    {
+    class descending_departure_comperator {
     public:
         /// @brief constructor
         descending_departure_comperator() { }

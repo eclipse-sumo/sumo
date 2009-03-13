@@ -52,16 +52,14 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSPhoneNet::MSPhoneNet()
-{
+MSPhoneNet::MSPhoneNet() {
     OptionsCont &oc = OptionsCont::getOptions();
     percentModus = oc.getBool("device.cell-phone.percent-of-activity");
     lastTime = 0;
 }
 
 
-MSPhoneNet::~MSPhoneNet()
-{
+MSPhoneNet::~MSPhoneNet() {
     // close outputs
     SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if (TMOD((currentTime-1),300)!=0) { // !!! compiles, but will fail with time being a real number due to inexact representation
@@ -91,8 +89,7 @@ MSPhoneNet::~MSPhoneNet()
 
 
 MSPhoneCell*
-MSPhoneNet::getMSPhoneCell(int id)
-{
+MSPhoneNet::getMSPhoneCell(int id) {
     if (myMMSPhoneCells.find(id) != myMMSPhoneCells.end()) {
         return myMMSPhoneCells[id];
     }
@@ -101,8 +98,7 @@ MSPhoneNet::getMSPhoneCell(int id)
 
 
 MSPhoneCell*
-MSPhoneNet::getCurrentVehicleCell(const std::string &id)
-{
+MSPhoneNet::getCurrentVehicleCell(const std::string &id) {
     MSPhoneCell * ret = 0;
     std::map< int, MSPhoneCell* >::iterator cit;
     for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end() ; cit++) {
@@ -116,8 +112,7 @@ MSPhoneNet::getCurrentVehicleCell(const std::string &id)
 
 
 MSPhoneLA*
-MSPhoneNet::getCurrentVehicleLA(const std::string &id)
-{
+MSPhoneNet::getCurrentVehicleLA(const std::string &id) {
     MSPhoneLA * ret = 0;
     std::map< int, MSPhoneLA* >::iterator lit;
     for (lit=myMMSPhoneLAs.begin(); lit!=myMMSPhoneLAs.end(); lit++) {
@@ -131,8 +126,7 @@ MSPhoneNet::getCurrentVehicleLA(const std::string &id)
 
 
 void
-MSPhoneNet::addMSPhoneCell(int id)
-{
+MSPhoneNet::addMSPhoneCell(int id) {
     std::map< int, MSPhoneCell* >::iterator cit = myMMSPhoneCells.find(id);
     if (cit == myMMSPhoneCells.end()) {
         MSPhoneCell* c = new MSPhoneCell(id);
@@ -142,8 +136,7 @@ MSPhoneNet::addMSPhoneCell(int id)
 
 
 void
-MSPhoneNet::addMSPhoneCell(int id, int la)
-{
+MSPhoneNet::addMSPhoneCell(int id, int la) {
     std::map< int, MSPhoneCell* >::iterator cit = myMMSPhoneCells.find(id);
     if (cit == myMMSPhoneCells.end()) {
         MSPhoneCell* c = new MSPhoneCell(id);
@@ -159,8 +152,7 @@ MSPhoneNet::addMSPhoneCell(int id, int la)
 
 
 void
-MSPhoneNet::connectLA2Cell(int cell_ID, int la_ID)
-{
+MSPhoneNet::connectLA2Cell(int cell_ID, int la_ID) {
     if (myMMSPhoneCells.find(cell_ID) != myMMSPhoneCells.end() && myMMSPhoneLAs.find(la_ID) != myMMSPhoneLAs.end()) {
         myMCell2LA[cell_ID] = la_ID;
     }
@@ -168,8 +160,7 @@ MSPhoneNet::connectLA2Cell(int cell_ID, int la_ID)
 
 
 void
-MSPhoneNet::remMSPhoneCell(int id)
-{
+MSPhoneNet::remMSPhoneCell(int id) {
     std::map< int, MSPhoneCell* >::iterator cit = myMMSPhoneCells.find(id);
     if (cit != myMMSPhoneCells.end()) {
         delete cit->second;
@@ -179,8 +170,7 @@ MSPhoneNet::remMSPhoneCell(int id)
 
 
 MSPhoneLA*
-MSPhoneNet::getMSPhoneLA(int id)
-{
+MSPhoneNet::getMSPhoneLA(int id) {
     std::map<int, int>::iterator it;
     it = myMCell2LA.find(id);
     assert(it!=myMCell2LA.end());
@@ -195,16 +185,14 @@ MSPhoneNet::getMSPhoneLA(int id)
 
 
 void
-MSPhoneNet::addMSPhoneLA(int id, int dir)
-{
+MSPhoneNet::addMSPhoneLA(int id, int dir) {
     MSPhoneLA* la = new MSPhoneLA(id, dir);
     myMMSPhoneLAs[id] = la;
 }
 
 
 void
-MSPhoneNet::remMSPhoneLA(int id)
-{
+MSPhoneNet::remMSPhoneLA(int id) {
     std::map< int, MSPhoneLA* >::iterator lit = myMMSPhoneLAs.find(id);
     if (lit != myMMSPhoneLAs.end()) {
         delete lit->second;
@@ -214,8 +202,7 @@ MSPhoneNet::remMSPhoneLA(int id)
 
 
 SUMOTime
-MSPhoneNet::writeCellOutput(SUMOTime t)
-{
+MSPhoneNet::writeCellOutput(SUMOTime t) {
     // cell output / sql cell output
     if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
         std::map< int, MSPhoneCell* >::iterator cit;
@@ -228,8 +215,7 @@ MSPhoneNet::writeCellOutput(SUMOTime t)
 
 
 SUMOTime
-MSPhoneNet::writeLAOutput(SUMOTime t)
-{
+MSPhoneNet::writeLAOutput(SUMOTime t) {
     // la output / sql la output
     /*OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
     OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
@@ -274,8 +260,7 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
 
 
 void
-MSPhoneNet::setDynamicCalls(SUMOTime time)
-{
+MSPhoneNet::setDynamicCalls(SUMOTime time) {
     std::map< int, MSPhoneCell* >::iterator cit;
     for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end(); cit++) {
         cit->second->setDynamicCalls(time);
@@ -283,8 +268,7 @@ MSPhoneNet::setDynamicCalls(SUMOTime time)
 }
 
 void
-MSPhoneNet::addLAChange(const std::string & pos_id)
-{
+MSPhoneNet::addLAChange(const std::string & pos_id) {
     std::map< std::string, int >::iterator it = myLAChanges.find(pos_id);
     if (it == myLAChanges.end()) {
         myLAChanges.insert(make_pair(pos_id, 1));

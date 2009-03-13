@@ -51,8 +51,7 @@
  * @todo Maybe some kind of a well-defined types should be used (so that they have a well-defined length)
  * @todo Maybe the byte-order should be defined
  */
-class BinaryInputDevice
-{
+class BinaryInputDevice {
 public:
     /** @brief Constructor
      *

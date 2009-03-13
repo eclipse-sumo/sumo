@@ -48,8 +48,7 @@ class PCTypeToDef;
  * @class PCTypeDefHandler
  * @brief A handler for loading polygon type maps
  */
-class PCTypeDefHandler : public SUMOSAXHandler
-{
+class PCTypeDefHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      * @param[in] oc The options used while loading the type map

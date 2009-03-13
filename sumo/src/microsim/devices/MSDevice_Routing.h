@@ -65,8 +65,7 @@ class MSLane;
  *  x time steps where x is the period. This is triggered by an event that executes
  *  "wrappedRerouteCommandExecute".
  */
-class MSDevice_Routing : public MSDevice
-{
+class MSDevice_Routing : public MSDevice {
 public:
     /** @brief Inserts MSDevice_Routing-options
      */

@@ -58,8 +58,7 @@ class NLDetectorBuilder;
  * step is stored within them, not within the logic.
  */
 class MSActuatedTrafficLightLogic :
-            public MSSimpleTrafficLightLogic
-{
+            public MSSimpleTrafficLightLogic {
 public:
     /// Definition of a map from lanes to induct loops lying on them
     typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;

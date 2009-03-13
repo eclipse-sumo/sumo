@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Signalgruppendefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Signalgruppendefinition(NIVissimLoader &parent);

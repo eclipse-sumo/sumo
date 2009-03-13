@@ -31,8 +31,7 @@
 
 
 
-class MFXInterThreadEventClient
-{
+class MFXInterThreadEventClient {
 public:
     MFXInterThreadEventClient() {}
     virtual ~MFXInterThreadEventClient() { }

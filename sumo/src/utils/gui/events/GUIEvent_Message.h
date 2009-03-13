@@ -42,8 +42,7 @@
  * Throw from GUIRunThread to GUIApplicationWindow and then further to all
  * displays after a step has been performed
  */
-class GUIEvent_Message : public GUIEvent
-{
+class GUIEvent_Message : public GUIEvent {
 public:
     /// constructor
     GUIEvent_Message(MsgHandler::MsgType type, const std::string &msg)

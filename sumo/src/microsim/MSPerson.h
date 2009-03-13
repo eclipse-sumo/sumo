@@ -53,15 +53,13 @@ class MSEdge;
   *
   * The class holds a simulated person together with her movement stages
   */
-class MSPerson
-{
+class MSPerson {
 public:
     /**
      * The "abstract" class for a single stage of a persons movement
      * Contains the destination of the curent movement step
      */
-    class MSPersonStage
-    {
+    class MSPersonStage {
     public:
         /// constructor
         MSPersonStage(const MSEdge &destination);
@@ -96,8 +94,7 @@ public:
      * The walking does not need any route as it is not simulated.
      * Only the duration is needed
      */
-    class MSPersonStage_Walking : MSPersonStage
-    {
+    class MSPersonStage_Walking : MSPersonStage {
     public:
         /// constructor
         MSPersonStage_Walking(const MSEdge &destination, SUMOTime walkingTime);
@@ -136,8 +133,7 @@ public:
      *  until the destination edge is reached. The travel time is computed
      *  by the simulation.
      */
-    class MSPersonStage_PublicVehicle : MSPersonStage
-    {
+    class MSPersonStage_PublicVehicle : MSPersonStage {
     public:
         /// constructor
         MSPersonStage_PublicVehicle(const MSEdge &destination, const std::string &lineId);
@@ -173,8 +169,7 @@ public:
      * A "real" stage performing the travelling by a private transport system
      * The given route will be chosen. The travel time is computed by the simulation
      */
-    class MSPersonStage_PrivateVehicle : MSPersonStage
-    {
+    class MSPersonStage_PrivateVehicle : MSPersonStage {
     public:
         /// constructor
         MSPersonStage_PrivateVehicle(const MSEdge &destination,
@@ -224,8 +219,7 @@ public:
      * A "real" stage performing a waiting over the specified time
      * The time is not being added to the travel time?
      */
-    class MSPersonStage_Waiting : MSPersonStage
-    {
+    class MSPersonStage_Waiting : MSPersonStage {
     public:
         /// constructor
         MSPersonStage_Waiting(const MSEdge &destination, SUMOTime waitingTime);

@@ -80,8 +80,7 @@ using namespace std;
  * weights which may be supplied in a separate file
  */
 void
-initNet(RONet &net, ROLoader &loader, OptionsCont &oc)
-{
+initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
     // load the net
     RODUAEdgeBuilder builder(oc.getBool("expand-weights"));
     loader.loadNet(net, builder);
@@ -103,8 +102,7 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc)
  * Computes the routes saving them
  */
 void
-computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc)
-{
+computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
@@ -147,8 +145,7 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc)
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");

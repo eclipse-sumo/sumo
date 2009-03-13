@@ -48,8 +48,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 SUMOReal
-NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS) throw(ProcessError)
-{
+NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS) throw(ProcessError) {
     try {
         int speedClass = TplConvert<char>::_2int(speedClassS.c_str());
         switch (speedClass) {
@@ -81,8 +80,7 @@ NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS) 
 
 
 unsigned int
-NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS, SUMOReal speed) throw(ProcessError)
-{
+NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS, SUMOReal speed) throw(ProcessError) {
     try {
         int nolanes = TplConvert<char>::_2int(laneNoS.c_str());
         if (nolanes<0) {
@@ -112,8 +110,7 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
 
 
 void
-NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw()
-{
+NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw() {
     string classS = "0000000000" + oclassS;
     classS = classS.substr(classS.length() - 10);
     // 0: allow all vehicle types
@@ -163,8 +160,7 @@ NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw()
 
 
 void
-NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c) throw()
-{
+NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c) throw() {
     for (unsigned int i=0; i<e.getNoLanes(); i++) {
         e.allowVehicleClass(i, c);
     }

@@ -54,8 +54,7 @@
 MSVehicleControl::MSVehicleControl() throw()
         : myLoadedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0),
-        myDefaultVTypeMayBeDeleted(true)
-{
+        myDefaultVTypeMayBeDeleted(true) {
     myVTypeDict[DEFAULT_VTYPE_ID] = new MSVehicleType(DEFAULT_VTYPE_ID, DEFAULT_VEH_LENGTH,
             DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A,
             DEFAULT_VEH_B, DEFAULT_VEH_SIGMA,
@@ -68,8 +67,7 @@ MSVehicleControl::MSVehicleControl() throw()
 }
 
 
-MSVehicleControl::~MSVehicleControl() throw()
-{
+MSVehicleControl::~MSVehicleControl() throw() {
     // delete vehicles
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         delete(*i).second;
@@ -91,16 +89,14 @@ MSVehicleControl::~MSVehicleControl() throw()
 MSVehicle *
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route,
-                               const MSVehicleType* type) throw()
-{
+                               const MSVehicleType* type) throw() {
     myLoadedVehNo++;
     return new MSVehicle(defs, route, type, myLoadedVehNo-1);
 }
 
 
 void
-MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
-{
+MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
     assert(myRunningVehNo>0);
     // check whether to generate the information about the vehicle's trip
     if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
@@ -172,7 +168,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         // compute device id list
         const std::vector<MSDevice*> &devices = v->getDevices();
         std::string deviceIDs;
-        if(devices.size()!=0) {
+        if (devices.size()!=0) {
             std::ostringstream str;
             bool addSem = false;
             for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
@@ -194,12 +190,12 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         od << "\">";
         // write device information
         bool hadOutput = false;
-        if(devices.size()!=0) {
+        if (devices.size()!=0) {
             for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
                 hadOutput |= (*i)->tripInfoOutput(od, "\n        ");
             }
         }
-        if(hadOutput) {
+        if (hadOutput) {
             od << "\n    ";
         }
         // close
@@ -259,8 +255,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
 
 
 SUMOReal
-MSVehicleControl::getMeanWaitingTime() const throw()
-{
+MSVehicleControl::getMeanWaitingTime() const throw() {
     if (getEmittedVehicleNo()==0) {
         return -1;
     }
@@ -269,8 +264,7 @@ MSVehicleControl::getMeanWaitingTime() const throw()
 
 
 SUMOReal
-MSVehicleControl::getMeanTravelTime() const throw()
-{
+MSVehicleControl::getMeanTravelTime() const throw() {
     if (myEndedVehNo==0) {
         return -1;
     }
@@ -279,8 +273,7 @@ MSVehicleControl::getMeanTravelTime() const throw()
 
 
 void
-MSVehicleControl::vehicleEmitted(const MSVehicle &v) throw()
-{
+MSVehicleControl::vehicleEmitted(const MSVehicle &v) throw() {
     ++myRunningVehNo;
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
         myAbsVehWaitingTime += (v.getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME) - v.getDesiredDepart());
@@ -290,8 +283,7 @@ MSVehicleControl::vehicleEmitted(const MSVehicle &v) throw()
 
 #ifdef HAVE_MESOSIM
 void
-MSVehicleControl::saveState(std::ostream &os) throw()
-{
+MSVehicleControl::saveState(std::ostream &os) throw() {
     FileHelpers::writeUInt(os, myRunningVehNo);
     FileHelpers::writeUInt(os, myEndedVehNo);
 
@@ -321,8 +313,7 @@ MSVehicleControl::saveState(std::ostream &os) throw()
 }
 
 void
-MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
-{
+MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
     bis >> myRunningVehNo;
     bis >> myEndedVehNo;
     myLoadedVehNo = myEndedVehNo;
@@ -368,14 +359,14 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
     }
     unsigned int numVTypeDists;
     bis >> numVTypeDists;
-    for (;numVTypeDists>0;numVTypeDists--) {
+    for (; numVTypeDists>0; numVTypeDists--) {
         std::string id;
         bis >> id;
         unsigned int no;
         bis >> no;
         if (getVType(id)==0) {
             RandomDistributor<MSVehicleType*> *dist = new RandomDistributor<MSVehicleType*>();
-            for (;no>0;no--) {
+            for (; no>0; no--) {
                 std::string vtypeID;
                 bis >> vtypeID;
                 MSVehicleType *t = getVType(vtypeID);
@@ -386,7 +377,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
             }
             addVTypeDistribution(id, dist);
         } else {
-            for (;no>0;no--) {
+            for (; no>0; no--) {
                 std::string vtypeID;
                 bis >> vtypeID;
                 SUMOReal prob;
@@ -467,8 +458,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
 
 
 bool
-MSVehicleControl::addVehicle(const std::string &id, MSVehicle *v) throw()
-{
+MSVehicleControl::addVehicle(const std::string &id, MSVehicle *v) throw() {
     VehicleDictType::iterator it = myVehicleDict.find(id);
     if (it == myVehicleDict.end()) {
         // id not in myVehicleDict.
@@ -480,8 +470,7 @@ MSVehicleControl::addVehicle(const std::string &id, MSVehicle *v) throw()
 
 
 MSVehicle *
-MSVehicleControl::getVehicle(const std::string &id) throw()
-{
+MSVehicleControl::getVehicle(const std::string &id) throw() {
     VehicleDictType::iterator it = myVehicleDict.find(id);
     if (it == myVehicleDict.end()) {
         // id not in myVehicleDict.
@@ -492,8 +481,7 @@ MSVehicleControl::getVehicle(const std::string &id) throw()
 
 
 void
-MSVehicleControl::deleteVehicle(MSVehicle *veh) throw()
-{
+MSVehicleControl::deleteVehicle(MSVehicle *veh) throw() {
     myEndedVehNo++;
     myVehicleDict.erase(veh->getID());
     delete veh;
@@ -501,22 +489,19 @@ MSVehicleControl::deleteVehicle(MSVehicle *veh) throw()
 
 
 MSVehicleControl::constVehIt
-MSVehicleControl::loadedVehBegin() const throw()
-{
+MSVehicleControl::loadedVehBegin() const throw() {
     return myVehicleDict.begin();
 }
 
 
 MSVehicleControl::constVehIt
-MSVehicleControl::loadedVehEnd() const throw()
-{
+MSVehicleControl::loadedVehEnd() const throw() {
     return myVehicleDict.end();
 }
 
 
 bool
-MSVehicleControl::checkVType(const std::string &id) throw()
-{
+MSVehicleControl::checkVType(const std::string &id) throw() {
     if (id == DEFAULT_VTYPE_ID) {
         if (myDefaultVTypeMayBeDeleted) {
             delete myVTypeDict[id];
@@ -533,8 +518,7 @@ MSVehicleControl::checkVType(const std::string &id) throw()
 }
 
 bool
-MSVehicleControl::addVType(MSVehicleType* vehType) throw()
-{
+MSVehicleControl::addVType(MSVehicleType* vehType) throw() {
     if (checkVType(vehType->getID())) {
         myVTypeDict[vehType->getID()] = vehType;
         return true;
@@ -544,8 +528,7 @@ MSVehicleControl::addVType(MSVehicleType* vehType) throw()
 
 
 bool
-MSVehicleControl::addVTypeDistribution(const std::string &id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) throw()
-{
+MSVehicleControl::addVTypeDistribution(const std::string &id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) throw() {
     if (checkVType(id)) {
         myVTypeDistDict[id] = vehTypeDistribution;
         return true;
@@ -555,8 +538,7 @@ MSVehicleControl::addVTypeDistribution(const std::string &id, RandomDistributor<
 
 
 MSVehicleType*
-MSVehicleControl::getVType(const std::string &id) throw()
-{
+MSVehicleControl::getVType(const std::string &id) throw() {
     VTypeDictType::iterator it = myVTypeDict.find(id);
     if (it == myVTypeDict.end()) {
         VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);

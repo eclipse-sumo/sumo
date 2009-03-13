@@ -41,8 +41,7 @@
 /**
  *
  */
-class GUIMainWindow : public FXMainWindow
-{
+class GUIMainWindow : public FXMainWindow {
 public:
     GUIMainWindow(FXApp* a, int glWidth, int glHeight);
     virtual ~GUIMainWindow();

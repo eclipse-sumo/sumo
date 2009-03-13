@@ -71,8 +71,7 @@ class NBEdge;
  *  each subsequently whether it was found and if so, the proper parse_XXX()
  *  method is called.
  */
-class NIVisumLoader
-{
+class NIVisumLoader {
 public:
     /** @brief constructor
      *

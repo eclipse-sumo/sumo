@@ -52,8 +52,7 @@ class GUIGlObjectStorage;
  *  and the ability to build a wrapper that displays this representation
  */
 class GUIRightOfWayJunction
-            : public MSRightOfWayJunction
-{
+            : public MSRightOfWayJunction {
 public:
     /** Use this constructor only. */
     GUIRightOfWayJunction(const std::string &id, const Position2D &position,

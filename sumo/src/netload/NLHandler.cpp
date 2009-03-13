@@ -81,18 +81,15 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         myShapeBuilder(shapeBuilder), mySucceedingLaneBuilder(junctionBuilder, myContinuations),
-        myAmInTLLogicMode(false), myCurrentIsBroken(false)
-{}
+        myAmInTLLogicMode(false), myCurrentIsBroken(false) {}
 
 
-NLHandler::~NLHandler() throw()
-{}
+NLHandler::~NLHandler() throw() {}
 
 
 void
 NLHandler::myStartElement(SumoXMLTag element,
-                          const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                          const SUMOSAXAttributes &attrs) throw(ProcessError) {
     try {
         switch (element) {
         case SUMO_TAG_EDGE:
@@ -222,8 +219,7 @@ NLHandler::myStartElement(SumoXMLTag element,
 
 void
 NLHandler::myCharacters(SumoXMLTag element,
-                        const std::string &chars) throw(ProcessError)
-{
+                        const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_POLY:
         addPolyPosition(chars);
@@ -278,8 +274,7 @@ NLHandler::myCharacters(SumoXMLTag element,
 
 
 void
-NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         closeEdge();
@@ -319,8 +314,7 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 // ---- the root/edge - element
 void
-NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs)
-{
+NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
     std::string id;
@@ -371,8 +365,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::closeEdge()
-{
+NLHandler::closeEdge() {
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
@@ -392,8 +385,7 @@ NLHandler::closeEdge()
 
 //             ---- the root/edge/lanes/lane - element
 void
-NLHandler::addLane(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addLane(const SUMOSAXAttributes &attrs) {
     myShape.clear();
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
@@ -425,8 +417,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addLaneShape(const std::string &chars)
-{
+NLHandler::addLaneShape(const std::string &chars) {
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
@@ -444,8 +435,7 @@ NLHandler::addLaneShape(const std::string &chars)
 
 
 void
-NLHandler::closeLane()
-{
+NLHandler::closeLane() {
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
@@ -474,8 +464,7 @@ NLHandler::closeLane()
 
 // ---- the root/junction - element
 void
-NLHandler::openJunction(const SUMOSAXAttributes &attrs)
-{
+NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
     std::string id;
@@ -503,8 +492,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::closeJunction()
-{
+NLHandler::closeJunction() {
     if (myCurrentIsBroken) {
         return;
     }
@@ -517,8 +505,7 @@ NLHandler::closeJunction()
 // ----
 
 void
-NLHandler::addParam(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addParam(const SUMOSAXAttributes &attrs) {
     std::string key, val;
     try {
         key = attrs.getString(SUMO_ATTR_KEY);
@@ -542,8 +529,7 @@ NLHandler::addParam(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::openWAUT(const SUMOSAXAttributes &attrs)
-{
+NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
     myCurrentIsBroken = false;
     SUMOTime t;
     // get the id, report an error if not given or empty...
@@ -578,8 +564,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
     SUMOTime t;
     std::string to;
     try {
@@ -609,8 +594,7 @@ NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs) {
     std::string wautID, junctionID, procedure;
     try {
         wautID = attrs.getString(SUMO_ATTR_WAUT_ID);
@@ -646,8 +630,7 @@ NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addPOI(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addPOI(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("poi", id)) {
@@ -675,8 +658,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addPoly(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("poly", id)) {
@@ -699,8 +681,7 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addLogicItem(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
     // parse the request
     int request = -1;
     try {
@@ -746,8 +727,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs)
-{
+NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     SUMOReal detectorOffset = -1;
     myJunctionControlBuilder.initIncomingLanes();
     try {
@@ -773,8 +753,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addPhase(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     // try to get the phase definition
     std::string phase;
     try {
@@ -846,8 +825,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs)
 
 #ifdef _MESSAGES
 void
-NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs)
-{
+NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
     std::string id;
     try {
         id = attrs.getString(SUMO_ATTR_ID);
@@ -882,8 +860,7 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs)
 
 
 void
-NLHandler::addDetector(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addDetector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("detector", id)) {
@@ -921,8 +898,7 @@ NLHandler::addDetector(const SUMOSAXAttributes &attrs)
 
 #ifdef _MESSAGES
 void
-NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
 #ifdef _DEBUG
     cout << "=====DEBUG OUTPUT=====" << endl << "Hier kommen die Detektoren rein..." << endl;
 #endif
@@ -978,8 +954,7 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addE1Detector(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("e1-detector", id)) {
@@ -1016,8 +991,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("vtypeprobe", id)) {
@@ -1048,8 +1022,7 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("routeprobe", id)) {
@@ -1082,8 +1055,7 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addE2Detector(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("e2-detector", id)) {
@@ -1167,8 +1139,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs)
-{
+NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("e3-detector", id)) {
@@ -1209,8 +1180,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addE3Entry(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addE3Entry(const SUMOSAXAttributes &attrs) {
     try {
         myDetectorBuilder.addE3Entry(
             attrs.getString(SUMO_ATTR_LANE),
@@ -1227,8 +1197,7 @@ NLHandler::addE3Entry(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addE3Exit(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addE3Exit(const SUMOSAXAttributes &attrs) {
     try {
         myDetectorBuilder.addE3Exit(
             attrs.getString(SUMO_ATTR_LANE),
@@ -1245,8 +1214,7 @@ NLHandler::addE3Exit(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("meandata_edge", id)) {
@@ -1277,8 +1245,7 @@ NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("meandata_lane", id)) {
@@ -1312,8 +1279,7 @@ NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addSource(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addSource(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("source", id)) {
@@ -1328,8 +1294,7 @@ NLHandler::addSource(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::addTrigger(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addTrigger(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("trigger", id)) {
@@ -1345,8 +1310,7 @@ NLHandler::addTrigger(const SUMOSAXAttributes &attrs)
 
 
 void
-NLHandler::openSucc(const SUMOSAXAttributes &attrs)
-{
+NLHandler::openSucc(const SUMOSAXAttributes &attrs) {
     try {
         std::string id = attrs.getString(SUMO_ATTR_LANE);
         if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
@@ -1361,8 +1325,7 @@ NLHandler::openSucc(const SUMOSAXAttributes &attrs)
 }
 
 void
-NLHandler::addSuccLane(const SUMOSAXAttributes &attrs)
-{
+NLHandler::addSuccLane(const SUMOSAXAttributes &attrs) {
     // do not process internal lanes if not wished
     if (myCurrentIsInternalToSkip) {
         return;
@@ -1407,8 +1370,7 @@ NLHandler::addSuccLane(const SUMOSAXAttributes &attrs)
 
 
 MSLink::LinkDirection
-NLHandler::parseLinkDir(char dir)
-{
+NLHandler::parseLinkDir(char dir) {
     switch (dir) {
     case 's':
         return MSLink::LINKDIR_STRAIGHT;
@@ -1429,8 +1391,7 @@ NLHandler::parseLinkDir(char dir)
 
 
 MSLink::LinkState
-NLHandler::parseLinkState(char state)
-{
+NLHandler::parseLinkState(char state) {
     switch (state) {
     case 't':
     case 'o':
@@ -1452,8 +1413,7 @@ NLHandler::parseLinkState(char state)
 
 // ----------------------------------
 void
-NLHandler::setRequestSize(const std::string &chars)
-{
+NLHandler::setRequestSize(const std::string &chars) {
     try {
         myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
@@ -1465,8 +1425,7 @@ NLHandler::setRequestSize(const std::string &chars)
 
 
 void
-NLHandler::setLaneNumber(const std::string &chars)
-{
+NLHandler::setLaneNumber(const std::string &chars) {
     try {
         myJunctionControlBuilder.setLaneNumber(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
@@ -1478,8 +1437,7 @@ NLHandler::setLaneNumber(const std::string &chars)
 
 
 void
-NLHandler::setKey(const std::string &chars)
-{
+NLHandler::setKey(const std::string &chars) {
     if (chars.length()==0) {
         MsgHandler::getErrorInstance()->inform("No key given for the current junction logic.");
         return;
@@ -1489,8 +1447,7 @@ NLHandler::setKey(const std::string &chars)
 
 
 void
-NLHandler::setSubKey(const std::string &chars)
-{
+NLHandler::setSubKey(const std::string &chars) {
     if (chars.length()==0) {
         MsgHandler::getErrorInstance()->inform("No subkey given for the current junction logic.");
         return;
@@ -1500,8 +1457,7 @@ NLHandler::setSubKey(const std::string &chars)
 
 
 void
-NLHandler::setOffset(const std::string &chars)
-{
+NLHandler::setOffset(const std::string &chars) {
     try {
         myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
     } catch (NumberFormatException &) {
@@ -1513,8 +1469,7 @@ NLHandler::setOffset(const std::string &chars)
 
 
 void
-NLHandler::setNetOffset(const std::string &chars)
-{
+NLHandler::setNetOffset(const std::string &chars) {
     try {
         Position2DVector s = GeomConvHelper::parseShape(chars);
         myNetworkOffset = s[0];
@@ -1529,8 +1484,7 @@ NLHandler::setNetOffset(const std::string &chars)
 
 
 void
-NLHandler::setNetConv(const std::string &chars)
-{
+NLHandler::setNetConv(const std::string &chars) {
     try {
         myConvBoundary = GeomConvHelper::parseBoundary(chars);
     } catch (EmptyData &) {
@@ -1544,8 +1498,7 @@ NLHandler::setNetConv(const std::string &chars)
 
 
 void
-NLHandler::setNetOrig(const std::string &chars)
-{
+NLHandler::setNetOrig(const std::string &chars) {
     try {
         myOrigBoundary = GeomConvHelper::parseBoundary(chars);
     } catch (EmptyData &) {
@@ -1560,8 +1513,7 @@ NLHandler::setNetOrig(const std::string &chars)
 
 
 void
-NLHandler::addIncomingLanes(const std::string &chars)
-{
+NLHandler::addIncomingLanes(const std::string &chars) {
     StringTokenizer st(chars);
     while (st.hasNext()) {
         std::string set = st.next();
@@ -1581,8 +1533,7 @@ NLHandler::addIncomingLanes(const std::string &chars)
 
 
 void
-NLHandler::addPolyPosition(const std::string &chars)
-{
+NLHandler::addPolyPosition(const std::string &chars) {
     try {
         myShapeBuilder.polygonEnd(GeomConvHelper::parseShape(chars));
     } catch (InvalidArgument &e) {
@@ -1593,8 +1544,7 @@ NLHandler::addPolyPosition(const std::string &chars)
 
 #ifdef HAVE_INTERNAL_LANES
 void
-NLHandler::addInternalLanes(const std::string &chars)
-{
+NLHandler::addInternalLanes(const std::string &chars) {
     // do not parse internal lanes if not wished
     if (!MSGlobals::gUsingInternalLanes) {
         return;
@@ -1621,8 +1571,7 @@ NLHandler::addInternalLanes(const std::string &chars)
 
 
 void
-NLHandler::closeSuccLane()
-{
+NLHandler::closeSuccLane() {
     // do not process internal lanes if not wished
     if (myCurrentIsInternalToSkip) {
         return;
@@ -1636,8 +1585,7 @@ NLHandler::closeSuccLane()
 
 
 void
-NLHandler::endDetector()
-{
+NLHandler::endDetector() {
     if (myCurrentDetectorType=="e3") {
         endE3Detector();
     }
@@ -1646,8 +1594,7 @@ NLHandler::endDetector()
 
 
 void
-NLHandler::endE3Detector()
-{
+NLHandler::endE3Detector() {
     try {
         myDetectorBuilder.endE3Detector();
     } catch (InvalidArgument &e) {
@@ -1657,8 +1604,7 @@ NLHandler::endE3Detector()
 
 
 void
-NLHandler::closeWAUT()
-{
+NLHandler::closeWAUT() {
     if (!myCurrentIsBroken) {
         try {
             myJunctionControlBuilder.getTLLogicControlToUse().closeWAUT(myCurrentWAUTID);
@@ -1672,8 +1618,7 @@ NLHandler::closeWAUT()
 
 
 const MSEdgeContinuations &
-NLHandler::getContinuations() const
-{
+NLHandler::getContinuations() const {
     return myContinuations;
 }
 

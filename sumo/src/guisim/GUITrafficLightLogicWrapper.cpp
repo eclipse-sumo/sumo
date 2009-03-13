@@ -80,19 +80,16 @@ FXIMPLEMENT(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu, G
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLightLogicWrapperPopupMenu(
     GUIMainWindow &app, GUISUMOAbstractView &parent,
     GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o)
-{}
+        : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
-GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu() throw ()
-{}
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu() throw() {}
 
 
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases(
-    FXObject*,FXSelector,void*)
-{
+    FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->begin2TrackPhases();
     return 1;
@@ -101,8 +98,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2Tr
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases(
-    FXObject*,FXSelector,void*)
-{
+    FXObject*,FXSelector,void*) {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->showPhases();
     return 1;
@@ -111,8 +107,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhas
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off(
-    FXObject*,FXSelector sel,void*)
-{
+    FXObject*,FXSelector sel,void*) {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(-1);
     return 1;
@@ -121,8 +116,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic(
-    FXObject*,FXSelector sel,void*)
-{
+    FXObject*,FXSelector sel,void*) {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(FXSELID(sel)-MID_SWITCH);
     return 1;
@@ -137,18 +131,15 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
     GUIGlObjectStorage &idStorage,
     MSTLLogicControl &control, MSTrafficLightLogic &tll) throw()
         : GUIGlObject(idStorage, "tl-logic:"+tll.getID()),
-        myTLLogicControl(control), myTLLogic(tll)
-{}
+        myTLLogicControl(control), myTLLogic(tll) {}
 
 
-GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() throw()
-{}
+GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent) throw()
-{
+        GUISUMOAbstractView &parent) throw() {
     myApp = &app;
     GUIGLObjectPopupMenu *ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -180,8 +171,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
 
 
 void
-GUITrafficLightLogicWrapper::begin2TrackPhases()
-{
+GUITrafficLightLogicWrapper::begin2TrackPhases() {
     GUITLLogicPhasesTrackerWindow *window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
                                           new FuncBinding_StringParam<MSTLLogicControl, std::pair<SUMOTime, MSPhaseDefinition> >
@@ -192,8 +182,7 @@ GUITrafficLightLogicWrapper::begin2TrackPhases()
 
 
 void
-GUITrafficLightLogicWrapper::showPhases()
-{
+GUITrafficLightLogicWrapper::showPhases() {
     GUITLLogicPhasesTrackerWindow *window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
                                           static_cast<MSSimpleTrafficLightLogic&>(myTLLogic).getPhases());
@@ -205,22 +194,19 @@ GUITrafficLightLogicWrapper::showPhases()
 
 GUIParameterTableWindow *
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
-        GUISUMOAbstractView &) throw()
-{
+        GUISUMOAbstractView &) throw() {
     return 0;
 }
 
 
 const std::string &
-GUITrafficLightLogicWrapper::getMicrosimID() const throw()
-{
+GUITrafficLightLogicWrapper::getMicrosimID() const throw() {
     return myTLLogic.getID();
 }
 
 
 Boundary
-GUITrafficLightLogicWrapper::getCenteringBoundary() const throw()
-{
+GUITrafficLightLogicWrapper::getCenteringBoundary() const throw() {
     Boundary ret;
     const MSTrafficLightLogic::LaneVectorVector &lanes = myTLLogic.getLanes();
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
@@ -235,8 +221,7 @@ GUITrafficLightLogicWrapper::getCenteringBoundary() const throw()
 
 
 void
-GUITrafficLightLogicWrapper::switchTLSLogic(int to)
-{
+GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
     if (to==-1) {
         myTLLogicControl.switchTo(myTLLogic.getID(), "off");
         return;
@@ -248,15 +233,13 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to)
 
 
 int
-GUITrafficLightLogicWrapper::getLinkIndex(MSLink *link) const
-{
+GUITrafficLightLogicWrapper::getLinkIndex(MSLink *link) const {
     return myTLLogic.getLinkIndex(link);
 }
 
 
 void
-GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
 }
 
 

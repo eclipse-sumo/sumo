@@ -51,22 +51,19 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSState::Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants &logics,
         OutputDevice &od) throw()
-        : myOutputDevice(od), myLogics(logics)
-{
+        : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-states");
 }
 
 
-Command_SaveTLSState::~Command_SaveTLSState() throw()
-{
+Command_SaveTLSState::~Command_SaveTLSState() throw() {
 }
 
 
 SUMOTime
-Command_SaveTLSState::execute(SUMOTime currentTime) throw(ProcessError)
-{
+Command_SaveTLSState::execute(SUMOTime currentTime) throw(ProcessError) {
     myOutputDevice << "    <tlsstate time=\"" << currentTime
     << "\" id=\"" << myLogics.getActive()->getID()
     << "\" subid=\"" << myLogics.getActive()->getSubID()

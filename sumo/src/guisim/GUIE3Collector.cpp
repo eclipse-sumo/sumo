@@ -60,8 +60,7 @@ using namespace std;
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
                                      GUIGlObjectStorage &idStorage) throw()
         : GUIDetectorWrapper(idStorage, "E3 detector:"+detector.getID()),
-        myDetector(detector)
-{
+        myDetector(detector) {
     const CrossSectionVector &entries = detector.getEntries();
     const CrossSectionVector &exits = detector.getExits();
     CrossSectionVectorConstIt i;
@@ -78,13 +77,11 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
 }
 
 
-GUIE3Collector::MyWrapper::~MyWrapper() throw()
-{}
+GUIE3Collector::MyWrapper::~MyWrapper() throw() {}
 
 
 GUIE3Collector::MyWrapper::SingleCrossingDefinition
-GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section)
-{
+GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section) {
     const MSLane *lane = section.myLane;
     SUMOReal pos = section.myPosition;
     const Position2DVector &v =
@@ -100,8 +97,7 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section)
 
 GUIParameterTableWindow *
 GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &) throw()
-{
+        GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
@@ -119,15 +115,13 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIE3Collector::MyWrapper::getMicrosimID() const throw()
-{
+GUIE3Collector::MyWrapper::getMicrosimID() const throw() {
     return myDetector.getID();
 }
 
 
 void
-GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -156,8 +150,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw
 
 void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
-        SUMOReal rot, SUMOReal upscale) const
-{
+        SUMOReal rot, SUMOReal upscale) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
@@ -183,8 +176,7 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
 
 
 Boundary
-GUIE3Collector::MyWrapper::getCenteringBoundary() const throw()
-{
+GUIE3Collector::MyWrapper::getCenteringBoundary() const throw() {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -192,8 +184,7 @@ GUIE3Collector::MyWrapper::getCenteringBoundary() const throw()
 
 
 GUIE3Collector &
-GUIE3Collector::MyWrapper::getDetector()
-{
+GUIE3Collector::MyWrapper::getDetector() {
     return myDetector;
 }
 
@@ -205,32 +196,27 @@ GUIE3Collector::GUIE3Collector(const std::string &id,
                                const CrossSectionVector &entries,  const CrossSectionVector &exits,
                                MetersPerSecond haltingSpeedThreshold,
                                SUMOTime haltingTimeThreshold) throw()
-        : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold)
-{}
+        : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold) {}
 
 
-GUIE3Collector::~GUIE3Collector() throw()
-{}
+GUIE3Collector::~GUIE3Collector() throw() {}
 
 
 const CrossSectionVector &
-GUIE3Collector::getEntries() const
-{
+GUIE3Collector::getEntries() const {
     return myEntries;
 }
 
 
 const CrossSectionVector &
-GUIE3Collector::getExits() const
-{
+GUIE3Collector::getExits() const {
     return myExits;
 }
 
 
 
 GUIDetectorWrapper *
-GUIE3Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage)
-{
+GUIE3Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage) {
     return new MyWrapper(*this, idStorage);
 }
 

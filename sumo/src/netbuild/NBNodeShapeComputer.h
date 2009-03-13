@@ -46,8 +46,7 @@ class NBEdge;
  * @class NBNodeShapeComputer
  * @brief This class computes shapes of junctions
  */
-class NBNodeShapeComputer
-{
+class NBNodeShapeComputer {
 public:
     /// Constructor
     NBNodeShapeComputer(const NBNode &node);

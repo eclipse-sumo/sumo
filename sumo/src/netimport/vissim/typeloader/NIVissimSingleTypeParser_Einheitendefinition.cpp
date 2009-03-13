@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Einheitendefinition::NIVissimSingleTypeParser_Einheitendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Einheitendefinition::~NIVissimSingleTypeParser_Einheitendefinition()
-{}
+NIVissimSingleTypeParser_Einheitendefinition::~NIVissimSingleTypeParser_Einheitendefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Einheitendefinition::parse(std::istream &)
-{
+NIVissimSingleTypeParser_Einheitendefinition::parse(std::istream &) {
     return true;
 }
 

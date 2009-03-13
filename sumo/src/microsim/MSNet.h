@@ -86,8 +86,7 @@ class MSMessageEmitter;
  *
  * The main simulation class.
  */
-class MSNet
-{
+class MSNet {
 public:
     /** Get a pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance.

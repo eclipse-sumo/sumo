@@ -40,8 +40,7 @@
 #include <GL/gl.h>
 
 template<class T, class D>
-class GUIColorer_ByDeviceNumber : public GUIBaseColorer<T>
-{
+class GUIColorer_ByDeviceNumber : public GUIBaseColorer<T> {
 public:
     /// Type of the function to execute.
     typedef bool(T::* HasOperation)(D) const;

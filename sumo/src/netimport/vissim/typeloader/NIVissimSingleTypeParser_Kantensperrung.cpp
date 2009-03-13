@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Kantensperrung::NIVissimSingleTypeParser_Kantensperrung(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Kantensperrung::~NIVissimSingleTypeParser_Kantensperrung()
-{}
+NIVissimSingleTypeParser_Kantensperrung::~NIVissimSingleTypeParser_Kantensperrung() {}
 
 
 bool
-NIVissimSingleTypeParser_Kantensperrung::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Kantensperrung::parse(std::istream &from) {
     string tag;
     from >> tag;
     //

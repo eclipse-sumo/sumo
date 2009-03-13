@@ -50,8 +50,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool
-OptionsParser::parse(int argc, char **argv) throw(InvalidArgument)
-{
+OptionsParser::parse(int argc, char **argv) throw(InvalidArgument) {
     bool ok = true;
     for (int i=1; i<argc;) {
         try {
@@ -74,8 +73,7 @@ OptionsParser::parse(int argc, char **argv) throw(InvalidArgument)
 
 
 int
-OptionsParser::check(char *arg1, bool &ok) throw(InvalidArgument)
-{
+OptionsParser::check(char *arg1, bool &ok) throw(InvalidArgument) {
     // the last stand-alone argument should be a switch
     if (!checkParameter(arg1)) return 1;
 
@@ -107,8 +105,7 @@ OptionsParser::check(char *arg1, bool &ok) throw(InvalidArgument)
 
 
 int
-OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument)
-{
+OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument) {
     // the first argument should be an option
     // (only the second may be a free string)
     if (!checkParameter(arg1)) {
@@ -177,8 +174,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument)
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw(InvalidArgument)
-{
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw(InvalidArgument) {
     if (arg[1]=='=') {
         if (strlen(arg)<3) {
             MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg).substr(0, 1) + "'.");
@@ -198,8 +194,7 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw(I
 
 
 bool
-OptionsParser::checkParameter(char *arg1) throw()
-{
+OptionsParser::checkParameter(char *arg1) throw() {
     if (arg1[0]!='-') {
         MsgHandler::getErrorInstance()->inform("The parameter '" + string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
@@ -209,23 +204,20 @@ OptionsParser::checkParameter(char *arg1) throw()
 
 
 bool
-OptionsParser::isAbbreviation(char *arg1) throw()
-{
+OptionsParser::isAbbreviation(char *arg1) throw() {
     return arg1[1]!='-';
 }
 
 
 string
-OptionsParser::convert(char *arg) throw()
-{
+OptionsParser::convert(char *arg) throw() {
     string s(arg);
     return s;
 }
 
 
 string
-OptionsParser::convert(char abbr) throw()
-{
+OptionsParser::convert(char abbr) throw() {
     char buf[2];
     buf[0] = abbr;
     buf[1] = 0;

@@ -45,8 +45,7 @@
  * @class PCPolyContainer
  * @brief A storage for loaded polygons and pois
  */
-class PCPolyContainer
-{
+class PCPolyContainer {
 public:
     /** @brief Constructor
      * @param[in] prune Whether added polygons/pois shall be prunned

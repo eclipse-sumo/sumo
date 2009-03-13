@@ -41,8 +41,7 @@
  * @class RONode
  * @brief Base class for nodes used by the router
  */
-class RONode : public Named
-{
+class RONode : public Named {
 public:
     /** @brief Constructor
      * @param[in] id The id of the node

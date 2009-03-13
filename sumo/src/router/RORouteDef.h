@@ -59,8 +59,7 @@ class OutputDevice;
  *  route through the network or even a route with alternatives depends on
  *  the derived class.
  */
-class RORouteDef : public ReferencedItem, public Named
-{
+class RORouteDef : public ReferencedItem, public Named {
 public:
     /** @brief Constructor
      *

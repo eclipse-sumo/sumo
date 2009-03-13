@@ -103,8 +103,7 @@ MSNet* MSNet::myInstance = 0;
 // member method definitions
 // ===========================================================================
 MSNet*
-MSNet::getInstance(void)
-{
+MSNet::getInstance(void) {
     if (myInstance != 0) {
         return myInstance;
     }
@@ -114,8 +113,7 @@ MSNet::getInstance(void)
 
 
 MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
-{
+             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) {
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     OptionsCont &oc = OptionsCont::getOptions();
@@ -155,8 +153,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc,
                      vector<int> stateDumpTimes,
-                     std::string stateDumpFiles)
-{
+                     std::string stateDumpFiles) {
     myEdges = edges;
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
@@ -169,14 +166,14 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
             myMSPhoneNet, &MSPhoneNet::writeCellOutput);
         getEndOfTimestepEvents().addEvent(
-            writeDate, (SUMOTime) (TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
+            writeDate, (SUMOTime)(TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
     }
     if (OptionsCont::getOptions().isSet("ss2-la-output")||OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
             myMSPhoneNet, &MSPhoneNet::writeLAOutput);
         getEndOfTimestepEvents().addEvent(
-            writeDate, (SUMOTime) (TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
+            writeDate, (SUMOTime)(TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
     }
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
@@ -189,8 +186,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 }
 
 
-MSNet::~MSNet()
-{
+MSNet::~MSNet() {
     // delete controls
     delete myJunctions;
     delete myDetectorControl;
@@ -228,8 +224,7 @@ MSNet::~MSNet()
 
 #ifdef _MESSAGES
 MSMessageEmitter*
-MSNet::getMsgEmitter(const std::string& whatemit)
-{
+MSNet::getMsgEmitter(const std::string& whatemit) {
     msgEmitVec.clear();
     msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
     MSMessageEmitter *msgEmitter = 0;
@@ -252,8 +247,7 @@ MSNet::createMsgEmitter(std::string& id,
                         bool reverse,
                         bool table,
                         bool xy,
-                        SUMOReal step)
-{
+                        SUMOReal step) {
     MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
     myMsgEmitter.add(id, msgEmitter);
 }
@@ -261,8 +255,7 @@ MSNet::createMsgEmitter(std::string& id,
 
 
 int
-MSNet::simulate(SUMOTime start, SUMOTime stop)
-{
+MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // the simulation loop
     string quitMessage = "";
     myStep = start;

@@ -73,8 +73,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
         myRunningVehicleNumber(0),
         myCurrentVTypeDistribution(0),
         myCurrentRouteDistribution(0),
-        myHaveWarned(false)
-{
+        myHaveWarned(false) {
     myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
     myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
     myAmUsingIncrementalDUA = (myIncrementalStage>0),
@@ -82,22 +81,19 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
 }
 
 
-MSRouteHandler::~MSRouteHandler() throw()
-{
+MSRouteHandler::~MSRouteHandler() throw() {
     delete myVehicleParameter;
 }
 
 
 SUMOTime
-MSRouteHandler::getLastDepart() const
-{
+MSRouteHandler::getLastDepart() const {
     return myLastDepart;
 }
 
 
 MSVehicle *
-MSRouteHandler::retrieveLastReadVehicle()
-{
+MSRouteHandler::retrieveLastReadVehicle() {
     MSVehicle *v = myLastReadVehicle;
     myLastReadVehicle = 0;
     return v;
@@ -106,8 +102,7 @@ MSRouteHandler::retrieveLastReadVehicle()
 
 void
 MSRouteHandler::myStartElement(SumoXMLTag element,
-                               const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                               const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_VEHICLE:
         delete myVehicleParameter;
@@ -220,8 +215,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 
 
 void
-MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
-{
+MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs) {
     string id;
     if (attrs.setIDFromAttributes("vtype", id)) {
         try {
@@ -267,8 +261,7 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 
 
 void
-MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs)
-{
+MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
     if (attrs.setIDFromAttributes("vtypeDistribution", myCurrentVTypeDistributionID)) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
         if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
@@ -288,8 +281,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs)
 
 
 void
-MSRouteHandler::closeVehicleTypeDistribution()
-{
+MSRouteHandler::closeVehicleTypeDistribution() {
     if (myCurrentVTypeDistribution != 0) {
         if (myCurrentVTypeDistribution->getOverallProb() == 0) {
             delete myCurrentVTypeDistribution;
@@ -304,8 +296,7 @@ MSRouteHandler::closeVehicleTypeDistribution()
 
 
 void
-MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
-{
+MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
     // get the id
     try {
         // check whether the id is really necessary
@@ -332,8 +323,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
 
 void
 MSRouteHandler::myCharacters(SumoXMLTag element,
-                             const std::string &chars) throw(ProcessError)
-{
+                             const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_ROUTE:
         if (!myHaveWarned) {
@@ -349,8 +339,7 @@ MSRouteHandler::myCharacters(SumoXMLTag element,
 
 
 void
-MSRouteHandler::addRouteElements(const std::string &chars)
-{
+MSRouteHandler::addRouteElements(const std::string &chars) {
     StringTokenizer st(chars);
     MSEdge *edge = 0;
     while (st.hasNext()) {
@@ -369,8 +358,7 @@ MSRouteHandler::addRouteElements(const std::string &chars)
 // ----------------------------------
 
 void
-MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element == SUMO_TAG_ROUTE) {
         closeRoute();
     } else if (element == SUMO_TAG_VEHICLE) {
@@ -386,14 +374,12 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 MSRoute*
-MSRouteHandler::buildRoute() throw()
-{
+MSRouteHandler::buildRoute() throw() {
     return new MSRoute(myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
 }
 
 void
-MSRouteHandler::closeRoute() throw(ProcessError)
-{
+MSRouteHandler::closeRoute() throw(ProcessError) {
     if (myActiveRoute.size()==0) {
         if (myVehicleParameter!=0) {
             throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
@@ -431,8 +417,7 @@ MSRouteHandler::closeRoute() throw(ProcessError)
 
 
 void
-MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs)
-{
+MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
     if (attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
         if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
@@ -452,8 +437,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs)
 
 
 void
-MSRouteHandler::closeRouteDistribution()
-{
+MSRouteHandler::closeRouteDistribution() {
     if (myCurrentRouteDistribution != 0) {
         if (myCurrentRouteDistribution->getOverallProb() == 0) {
             delete myCurrentRouteDistribution;
@@ -468,8 +452,7 @@ MSRouteHandler::closeRouteDistribution()
 
 
 bool
-MSRouteHandler::closeVehicle() throw(ProcessError)
-{
+MSRouteHandler::closeVehicle() throw(ProcessError) {
     myLastDepart = myVehicleParameter->depart;
     // let's check whether this vehicle had to be emitted before the simulation starts
     if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {

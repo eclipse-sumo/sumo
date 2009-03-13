@@ -50,22 +50,19 @@ using namespace std;
 // ===========================================================================
 MSRouteLoader::MSRouteLoader(MSNet &,
                              MSRouteHandler *handler)
-        : myParser(0), myMoreAvailable(true), myHandler(handler)
-{
+        : myParser(0), myMoreAvailable(true), myHandler(handler) {
     myParser = XMLSubSys::getSAXReader(*myHandler);
 }
 
 
-MSRouteLoader::~MSRouteLoader()
-{
+MSRouteLoader::~MSRouteLoader() {
     delete myParser;
     delete myHandler;
 }
 
 
 void
-MSRouteLoader::init()
-{
+MSRouteLoader::init() {
     myMoreAvailable = true;
     if (!myParser->parseFirst(myHandler->getFileName().c_str(), myToken)) {
         throw ProcessError("Can not read XML-file '" + myHandler->getFileName() + "'.");
@@ -74,8 +71,7 @@ MSRouteLoader::init()
 
 
 void
-MSRouteLoader::loadUntil(SUMOTime time, MSVehicleContainer &into)
-{
+MSRouteLoader::loadUntil(SUMOTime time, MSVehicleContainer &into) {
     // read only when further data is available, no error occured
     //  and vehicles may be found in the between the departure time of
     //  the last read vehicle and the time to read until
@@ -110,8 +106,7 @@ MSRouteLoader::loadUntil(SUMOTime time, MSVehicleContainer &into)
 
 
 bool
-MSRouteLoader::moreAvailable() const
-{
+MSRouteLoader::moreAvailable() const {
     return myMoreAvailable;
 }
 

@@ -47,20 +47,17 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * methods from GUIEventControl
  * ----------------------------------------------------------------------- */
-GUIEventControl::GUIEventControl() throw()
-{}
+GUIEventControl::GUIEventControl() throw() {}
 
 
-GUIEventControl::~GUIEventControl() throw()
-{
+GUIEventControl::~GUIEventControl() throw() {
 }
 
 
 SUMOTime
 GUIEventControl::addEvent(Command* operation,
                           SUMOTime execTimeStep,
-                          AdaptType type) throw()
-{
+                          AdaptType type) throw() {
     myLock.lock();
     SUMOTime ret = MSEventControl::addEvent(operation, execTimeStep, type);
     myLock.unlock();
@@ -69,8 +66,7 @@ GUIEventControl::addEvent(Command* operation,
 
 
 void
-GUIEventControl::execute(SUMOTime execTime) throw(ProcessError)
-{
+GUIEventControl::execute(SUMOTime execTime) throw(ProcessError) {
     myLock.lock();
     try {
         MSEventControl::execute(execTime);

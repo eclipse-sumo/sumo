@@ -63,8 +63,7 @@ class MEVehicle;
  * @todo check where mean data is stored in mesosim.
  * @todo consider error-handling on write (using IOError)
  */
-class MSMeanData_Net : public MSDetectorFileOutput
-{
+class MSMeanData_Net : public MSDetectorFileOutput {
 public:
     /**
      * @class MSLaneMeanDataValues
@@ -75,8 +74,7 @@ public:
      *
      * @todo Check whether the haltings-information is used and how
      */
-    class MSLaneMeanDataValues : public MSMoveReminder
-    {
+    class MSLaneMeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane * const lane) throw();

@@ -39,8 +39,7 @@
  * @class CastingFunctionBinding
  */
 template< class T, typename R, typename O  >
-class CastingFunctionBinding : public ValueSource<R>
-{
+class CastingFunctionBinding : public ValueSource<R> {
 public:
     /// Type of the function to execute.
     typedef O(T::* Operation)() const;

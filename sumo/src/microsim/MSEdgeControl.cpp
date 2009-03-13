@@ -52,8 +52,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane) throw()
         mySingleLaneEdges(singleLane),
         myMultiLaneEdges(multiLane),
         myLanes(MSLane::dictSize()),
-        myLastLaneChange(MSEdge::dictSize())
-{
+        myLastLaneChange(MSEdge::dictSize()) {
     // build the usage definitions for lanes
     // for lanes with no neighbors
     EdgeCont::iterator i;
@@ -93,16 +92,14 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane) throw()
 }
 
 
-MSEdgeControl::~MSEdgeControl() throw()
-{
+MSEdgeControl::~MSEdgeControl() throw() {
     delete mySingleLaneEdges;
     delete myMultiLaneEdges;
 }
 
 
 void
-MSEdgeControl::patchActiveLanes() throw()
-{
+MSEdgeControl::patchActiveLanes() throw() {
     for (set<MSLane*>::iterator i=myChangedStateLanes.begin(); i!=myChangedStateLanes.end(); ++i) {
         LaneUsage &lu = myLanes[(*i)->getNumericalID()];
         // if the lane was inactive but is now...
@@ -121,8 +118,7 @@ MSEdgeControl::patchActiveLanes() throw()
 
 
 void
-MSEdgeControl::moveNonCritical() throw()
-{
+MSEdgeControl::moveNonCritical() throw() {
     // move non-critical vehicles
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         if ((*i)->getVehicleNumber()==0 || (*i)->moveNonCritical()) {
@@ -136,8 +132,7 @@ MSEdgeControl::moveNonCritical() throw()
 
 
 void
-MSEdgeControl::moveCritical() throw()
-{
+MSEdgeControl::moveCritical() throw() {
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         if ((*i)->getVehicleNumber()==0 || (*i)->moveCritical()) {
             myLanes[(*i)->getNumericalID()].amActive = false;
@@ -150,8 +145,7 @@ MSEdgeControl::moveCritical() throw()
 
 
 void
-MSEdgeControl::moveFirst() throw()
-{
+MSEdgeControl::moveFirst() throw() {
     myWithVehicles2Integrate.clear();
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         if ((*i)->getVehicleNumber()==0 || (*i)->setCritical(myWithVehicles2Integrate)) {
@@ -178,8 +172,7 @@ MSEdgeControl::moveFirst() throw()
 
 
 void
-MSEdgeControl::changeLanes() throw()
-{
+MSEdgeControl::changeLanes() throw() {
     SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
     std::vector<MSLane*> toAdd;
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
@@ -216,8 +209,7 @@ MSEdgeControl::changeLanes() throw()
 
 
 void
-MSEdgeControl::detectCollisions(SUMOTime timestep) throw()
-{
+MSEdgeControl::detectCollisions(SUMOTime timestep) throw() {
     // Detections is made by the edge's lanes, therefore hand over.
     for (list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end(); ++i) {
         (*i)->detectCollisions(timestep);
@@ -226,22 +218,19 @@ MSEdgeControl::detectCollisions(SUMOTime timestep) throw()
 
 
 const MSEdgeControl::EdgeCont &
-MSEdgeControl::getSingleLaneEdges() const throw()
-{
+MSEdgeControl::getSingleLaneEdges() const throw() {
     return *mySingleLaneEdges;
 }
 
 
 const MSEdgeControl::EdgeCont &
-MSEdgeControl::getMultiLaneEdges() const throw()
-{
+MSEdgeControl::getMultiLaneEdges() const throw() {
     return *myMultiLaneEdges;
 }
 
 
 std::vector<std::string>
-MSEdgeControl::getEdgeNames() const throw()
-{
+MSEdgeControl::getEdgeNames() const throw() {
     std::vector<std::string> ret;
     EdgeCont::const_iterator i;
     for (i=mySingleLaneEdges->begin(); i!=mySingleLaneEdges->end(); ++i) {
@@ -255,8 +244,7 @@ MSEdgeControl::getEdgeNames() const throw()
 
 
 void
-MSEdgeControl::gotActive(MSLane *l) throw()
-{
+MSEdgeControl::gotActive(MSLane *l) throw() {
     myChangedStateLanes.insert(l);
 }
 

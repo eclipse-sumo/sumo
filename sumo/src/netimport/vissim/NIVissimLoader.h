@@ -48,8 +48,7 @@ class NBNetBuilder;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class NIVissimLoader
-{
+class NIVissimLoader {
 public:
     /// constructor
     NIVissimLoader(NBNetBuilder &nb, const std::string &file);
@@ -63,8 +62,7 @@ public:
     bool admitContinue(const std::string &tag);
 
 public:
-    class VissimSingleTypeParser
-    {
+    class VissimSingleTypeParser {
     public:
         /// Constructor
         VissimSingleTypeParser(NIVissimLoader &parent);

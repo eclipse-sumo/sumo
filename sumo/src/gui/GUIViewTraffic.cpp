@@ -96,8 +96,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
         : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis),
         myTrackedID(-1),
         myPointToMove(0),myIdToMove(0),
-        myLeftButtonPressed(false), myNet(&net)
-{
+        myLeftButtonPressed(false), myNet(&net) {
     init(net);
 }
 
@@ -110,35 +109,30 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
         : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis, share),
         myTrackedID(-1),
         myPointToMove(0),myIdToMove(0),
-        myNet(&net)
-{
+        myNet(&net) {
     init(net);
 }
 
 
 void
-GUIViewTraffic::init(GUINet &)
-{
+GUIViewTraffic::init(GUINet &) {
     // initialise default scheme
     myVisualizationSettings = &gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
 
 
-GUIViewTraffic::~GUIViewTraffic()
-{
+GUIViewTraffic::~GUIViewTraffic() {
 }
 
 
 void
-GUIViewTraffic::create()
-{
+GUIViewTraffic::create() {
     FXGLCanvas::create();
 }
 
 
 void
-GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
-{
+GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v) {
     // build coloring tools
     {
         const std::vector<std::string> &names = gSchemeStorage.getNames();
@@ -181,8 +175,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 
 
 void
-GUIViewTraffic::setColorScheme(char* data)
-{
+GUIViewTraffic::setColorScheme(char* data) {
     string name = (char*) data;
     if (myVisualizationChanger!=0) {
         if (myVisualizationChanger->getCurrentScheme()!=name) {
@@ -229,8 +222,7 @@ GUIViewTraffic::setColorScheme(char* data)
 
 
 int
-GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
-{
+GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -309,34 +301,29 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 
 
 void
-GUIViewTraffic::startTrack(int id)
-{
+GUIViewTraffic::startTrack(int id) {
     myTrackedID = id;
 }
 
 
 void
-GUIViewTraffic::stopTrack()
-{
+GUIViewTraffic::stopTrack() {
     myTrackedID = -1;
 }
 
 
 int
-GUIViewTraffic::getTrackedID() const
-{
+GUIViewTraffic::getTrackedID() const {
     return myTrackedID;
 }
 
 
 void
-GUIViewTraffic::doInit()
-{}
+GUIViewTraffic::doInit() {}
 
 
 void
-GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
-{
+GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken) {
     if (myUseToolTips) {
         glPushName(vo.vehicle->getGlID());
     }
@@ -360,8 +347,7 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
 
 
 void
-GUIViewTraffic::drawBestLanes(const VehicleOps &vo)
-{
+GUIViewTraffic::drawBestLanes(const VehicleOps &vo) {
     if (myUseToolTips) {
         glPushName(vo.vehicle->getGlID());
     }
@@ -403,8 +389,7 @@ GUIViewTraffic::drawBestLanes(const VehicleOps &vo)
 
 
 void
-GUIViewTraffic::draw(const MSRoute &r)
-{
+GUIViewTraffic::draw(const MSRoute &r) {
     MSRouteIterator i = r.begin();
     for (; i!=r.end(); ++i) {
         const MSEdge *e = *i;
@@ -416,8 +401,7 @@ GUIViewTraffic::draw(const MSRoute &r)
 
 
 void
-GUIViewTraffic::showRoute(GUIVehicle * v, int index) throw()
-{
+GUIViewTraffic::showRoute(GUIVehicle * v, int index) throw() {
     VehicleOps vo;
     vo.vehicle = v;
     vo.type = VO_SHOW_ROUTE;
@@ -428,8 +412,7 @@ GUIViewTraffic::showRoute(GUIVehicle * v, int index) throw()
 
 
 void
-GUIViewTraffic::showBestLanes(GUIVehicle *v)
-{
+GUIViewTraffic::showBestLanes(GUIVehicle *v) {
     VehicleOps vo;
     vo.vehicle = v;
     vo.type = VO_SHOW_BEST_LANES;
@@ -439,8 +422,7 @@ GUIViewTraffic::showBestLanes(GUIVehicle *v)
 
 
 void
-GUIViewTraffic::hideRoute(GUIVehicle * v, int index) throw()
-{
+GUIViewTraffic::hideRoute(GUIVehicle * v, int index) throw() {
     std::vector<VehicleOps>::iterator i =
         find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
     while (i!=myVehicleOps.end()) {
@@ -456,8 +438,7 @@ GUIViewTraffic::hideRoute(GUIVehicle * v, int index) throw()
 
 
 void
-GUIViewTraffic::hideBestLanes(GUIVehicle *v)
-{
+GUIViewTraffic::hideBestLanes(GUIVehicle *v) {
     std::vector<VehicleOps>::iterator i =
         find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
     while (i!=myVehicleOps.end()) {
@@ -473,8 +454,7 @@ GUIViewTraffic::hideBestLanes(GUIVehicle *v)
 
 
 bool
-GUIViewTraffic::amShowingRouteFor(GUIVehicle * v, int index) throw()
-{
+GUIViewTraffic::amShowingRouteFor(GUIVehicle * v, int index) throw() {
     std::vector<VehicleOps>::iterator i =
         find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
     while (i!=myVehicleOps.end()) {
@@ -488,8 +468,7 @@ GUIViewTraffic::amShowingRouteFor(GUIVehicle * v, int index) throw()
 
 
 bool
-GUIViewTraffic::amShowingBestLanesFor(GUIVehicle *v)
-{
+GUIViewTraffic::amShowingBestLanesFor(GUIVehicle *v) {
     std::vector<VehicleOps>::iterator i =
         find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
     while (i!=myVehicleOps.end()) {
@@ -504,8 +483,7 @@ GUIViewTraffic::amShowingBestLanesFor(GUIVehicle *v)
 
 
 void
-GUIViewTraffic::showViewschemeEditor()
-{
+GUIViewTraffic::showViewschemeEditor() {
     if (myVisualizationChanger==0) {
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
@@ -521,8 +499,7 @@ GUIViewTraffic::showViewschemeEditor()
 
 
 long
-GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
-{
+GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data) {
     FXEvent *e = (FXEvent*) data;
     myLeftButtonPressed=true;
     if (e->state&CAPSLOCKMASK) {
@@ -570,23 +547,20 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
 
 
 void
-GUIViewTraffic::setPointToMove(PointOfInterest *p)
-{
+GUIViewTraffic::setPointToMove(PointOfInterest *p) {
     myPointToMove = p;
 }
 
 
 void
-GUIViewTraffic::setIdToMove(unsigned int id)
-{
+GUIViewTraffic::setIdToMove(unsigned int id) {
     myIdToMove = id;
 }
 
 
 
 long
-GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
-{
+GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data) {
     long ret = GUISUMOAbstractView::onLeftBtnRelease(o, sel, data);
     FXEvent *e = (FXEvent*) data;
     if (myLeftButtonPressed && myFirstPoint!=0 && e->state&CAPSLOCKMASK) {
@@ -626,8 +600,7 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 
 
 long
-GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
-{
+GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data) {
     /*
     SUMOReal xpos = myChanger->getXPos();
     SUMOReal ypos = myChanger->getYPos();
@@ -654,8 +627,7 @@ GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
 }
 
 void
-GUIViewTraffic::rename(GUIGlObject *o)
-{
+GUIViewTraffic::rename(GUIGlObject *o) {
     std::string n= o->getFullName();
     std::string name = n.substr(n.find(":")+1,n.length());
 
@@ -692,8 +664,7 @@ GUIViewTraffic::rename(GUIGlObject *o)
 }
 
 void
-GUIViewTraffic::moveTo(GUIGlObject *)
-{
+GUIViewTraffic::moveTo(GUIGlObject *) {
     /*
     std::string n= o->getFullName();
     std::string name = n.substr(n.find(":")+1,n.length());
@@ -733,8 +704,7 @@ GUIViewTraffic::moveTo(GUIGlObject *)
 
 
 void
-GUIViewTraffic::changeCol(GUIGlObject *)
-{
+GUIViewTraffic::changeCol(GUIGlObject *) {
     /*
     std::string n= o->getFullName();
     std::string name = n.substr(n.find(":")+1,n.length());
@@ -756,8 +726,7 @@ GUIViewTraffic::changeCol(GUIGlObject *)
 }
 
 void
-GUIViewTraffic::changeTyp(GUIGlObject *)
-{
+GUIViewTraffic::changeTyp(GUIGlObject *) {
     /*
     std::string n= o->getFullName();
     std::string name = n.substr(n.find(":")+1,n.length());
@@ -798,8 +767,7 @@ GUIViewTraffic::changeTyp(GUIGlObject *)
 }
 
 void
-GUIViewTraffic::deleteObj(GUIGlObject *)
-{
+GUIViewTraffic::deleteObj(GUIGlObject *) {
     /*
     std::string n= o->getFullName();
     std::string name = n.substr(n.find(":")+1,n.length());
@@ -816,28 +784,24 @@ GUIViewTraffic::deleteObj(GUIGlObject *)
 }
 
 void
-GUIViewTraffic::setFirstPoint(PointOfInterest *p)
-{
+GUIViewTraffic::setFirstPoint(PointOfInterest *p) {
     myFirstPoint=p;
 }
 
 void
-GUIViewTraffic::setSecondPoint(PointOfInterest *p)
-{
+GUIViewTraffic::setSecondPoint(PointOfInterest *p) {
     mySecondPoint=p;
 }
 
 
 GUIColoringSchemesMap<GUIVehicle> &
-GUIViewTraffic::getVehiclesSchemesMap()
-{
+GUIViewTraffic::getVehiclesSchemesMap() {
     return myVehicleColoringSchemes;
 }
 
 
 GUIColoringSchemesMap<GUILaneWrapper> &
-GUIViewTraffic::getLaneSchemesMap()
-{
+GUIViewTraffic::getLaneSchemesMap() {
     return myLaneColoringSchemes;
 }
 

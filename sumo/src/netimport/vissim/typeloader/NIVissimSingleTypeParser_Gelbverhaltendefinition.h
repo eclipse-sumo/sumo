@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Gelbverhaltendefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Gelbverhaltendefinition(NIVissimLoader &parent);

@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Zeitenverteilungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Zeitenverteilungsdefinition(NIVissimLoader &parent);

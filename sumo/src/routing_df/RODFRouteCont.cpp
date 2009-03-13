@@ -50,18 +50,15 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFRouteCont::RODFRouteCont() throw()
-{}
+RODFRouteCont::RODFRouteCont() throw() {}
 
 
-RODFRouteCont::~RODFRouteCont() throw()
-{
+RODFRouteCont::~RODFRouteCont() throw() {
 }
 
 
 void
-RODFRouteCont::addRouteDesc(RODFRouteDesc &desc) throw()
-{
+RODFRouteCont::addRouteDesc(RODFRouteDesc &desc) throw() {
     // routes may be duplicate as in-between routes may have different starting points
     if (find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc))==myRoutes.end()) {
         // compute route id
@@ -77,8 +74,7 @@ RODFRouteCont::addRouteDesc(RODFRouteDesc &desc) throw()
 
 
 bool
-RODFRouteCont::removeRouteDesc(RODFRouteDesc &desc) throw()
-{
+RODFRouteCont::removeRouteDesc(RODFRouteDesc &desc) throw() {
     std::vector<RODFRouteDesc>::const_iterator j = find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
     if (j==myRoutes.end()) {
         return false;
@@ -89,8 +85,7 @@ RODFRouteCont::removeRouteDesc(RODFRouteDesc &desc) throw()
 
 bool
 RODFRouteCont::save(std::vector<std::string> &saved,
-                    const std::string &prependix, OutputDevice& out) throw(IOError)
-{
+                    const std::string &prependix, OutputDevice& out) throw(IOError) {
     bool haveSavedOneAtLeast = false;
     for (std::vector<RODFRouteDesc>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
         const RODFRouteDesc &desc = (*j);
@@ -114,15 +109,13 @@ RODFRouteCont::save(std::vector<std::string> &saved,
 
 
 void
-RODFRouteCont::sortByDistance() throw()
-{
+RODFRouteCont::sortByDistance() throw() {
     sort(myRoutes.begin(), myRoutes.end(), by_distance_sorter());
 }
 
 
 void
-RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) throw()
-{
+RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) throw() {
     for (std::vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end();) {
         RODFRouteDesc &desc = *i;
         bool remove = false;
@@ -147,8 +140,7 @@ RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
 
 
 void
-RODFRouteCont::addAllEndFollower() throw()
-{
+RODFRouteCont::addAllEndFollower() throw() {
     vector<RODFRouteDesc> newRoutes;
     for (vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
         RODFRouteDesc &desc = *i;
@@ -169,8 +161,7 @@ RODFRouteCont::addAllEndFollower() throw()
 
 
 void
-RODFRouteCont::setID(RODFRouteDesc &desc) const throw()
-{
+RODFRouteCont::setID(RODFRouteDesc &desc) const throw() {
     pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
     desc.routename = c.first->getID() + "_to_" + c.second->getID();
     if (myConnectionOccurences.find(c)==myConnectionOccurences.end()) {

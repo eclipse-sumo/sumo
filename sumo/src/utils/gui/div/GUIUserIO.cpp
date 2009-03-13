@@ -43,8 +43,7 @@
 // ===========================================================================
 #ifdef WIN32
 void
-GUIUserIO::copyToClipboard(const FXApp &app, const std::string &text) throw()
-{
+GUIUserIO::copyToClipboard(const FXApp &app, const std::string &text) throw() {
     OpenClipboard((HWND) app.getRootWindow()->getFirst()->id());
     ::EmptyClipboard();
     HGLOBAL clipBuffer = GlobalAlloc(GMEM_DDESHARE, text.length()+1);
@@ -58,8 +57,7 @@ GUIUserIO::copyToClipboard(const FXApp &app, const std::string &text) throw()
 #else
 
 void
-GUIUserIO::copyToClipboard(const FXApp &, const std::string &) throw()
-{}
+GUIUserIO::copyToClipboard(const FXApp &, const std::string &) throw() {}
 
 #endif
 

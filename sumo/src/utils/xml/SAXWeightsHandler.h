@@ -70,15 +70,13 @@ class ROEdge;
  *  method "addEdgeWeight" implemented. It wil be supplied with the current edge name,
  *  the interval the weight is valid for and the value.
  */
-class SAXWeightsHandler : public SUMOSAXHandler
-{
+class SAXWeightsHandler : public SUMOSAXHandler {
 public:
     /**
      * @class EdgeFloatTimeLineRetriever
      * @brief Interface for a class which obtains read weights for named edges
      */
-    class EdgeFloatTimeLineRetriever
-    {
+    class EdgeFloatTimeLineRetriever {
     public:
         /// Constructor
         EdgeFloatTimeLineRetriever() { }
@@ -96,8 +94,7 @@ public:
      * @class ToRetrieveDefinition
      * @brief Complete definition about what shall be retrieved and where to store it
      */
-    class ToRetrieveDefinition
-    {
+    class ToRetrieveDefinition {
     public:
         /// Constructor
         ToRetrieveDefinition(const std::string &attributeName, bool edgeBased,

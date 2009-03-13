@@ -48,8 +48,7 @@ class GUISUMOAbstractView;
  * @class GUIGLObjectToolTip
  * @brief The tooltip class for displaying information about gl-objects
  */
-class GUIGLObjectToolTip : public FXToolTip
-{
+class GUIGLObjectToolTip : public FXToolTip {
     FXDECLARE(GUIGLObjectToolTip)
 
 public:

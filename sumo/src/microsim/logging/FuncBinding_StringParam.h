@@ -39,8 +39,7 @@
  * @class FuncBinding_StringParam
  */
 template< class T, typename R  >
-class FuncBinding_StringParam : public ValueSource<R>
-{
+class FuncBinding_StringParam : public ValueSource<R> {
 public:
     /// Type of the function to execute.
     typedef R(T::* Operation)(const std::string &) const;

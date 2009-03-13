@@ -52,18 +52,15 @@ using namespace std;
 NIVissimNodeDef_Poly::NIVissimNodeDef_Poly(int id, const std::string &name,
         const Position2DVector &poly)
         : NIVissimNodeDef_Edges(id, name, NIVissimNodeParticipatingEdgeVector()),
-        myPoly(poly)
-{}
+        myPoly(poly) {}
 
 
-NIVissimNodeDef_Poly::~NIVissimNodeDef_Poly()
-{}
+NIVissimNodeDef_Poly::~NIVissimNodeDef_Poly() {}
 
 
 bool
 NIVissimNodeDef_Poly::dictionary(int id, const std::string &name,
-                                 const Position2DVector &poly)
-{
+                                 const Position2DVector &poly) {
     NIVissimNodeDef_Poly *o = new NIVissimNodeDef_Poly(id, name, poly);
     if (!NIVissimNodeDef::dictionary(id, o)) {
         delete o;
@@ -96,8 +93,7 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 
 
 void
-NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset)
-{
+NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset) {
     IntVector within = NIVissimAbstractEdge::getWithin(myPoly, offset);
     IntVector connections;
     IntVector edges;

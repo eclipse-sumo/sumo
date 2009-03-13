@@ -51,8 +51,7 @@
  *  "postWriteHook" is called.
  * @see postWriteHook
  */
-class OutputDevice_Network : public OutputDevice
-{
+class OutputDevice_Network : public OutputDevice {
 public:
     /** @brief Constructor
      *

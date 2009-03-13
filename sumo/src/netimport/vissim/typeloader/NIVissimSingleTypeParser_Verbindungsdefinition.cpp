@@ -49,17 +49,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Verbindungsdefinition::NIVissimSingleTypeParser_Verbindungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Verbindungsdefinition::~NIVissimSingleTypeParser_Verbindungsdefinition()
-{}
+NIVissimSingleTypeParser_Verbindungsdefinition::~NIVissimSingleTypeParser_Verbindungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
     int id;
     from >> id; // type-checking is missing!
     string tag;

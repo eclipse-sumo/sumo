@@ -54,18 +54,15 @@ using namespace std;
 // ===========================================================================
 PCTypeDefHandler::PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con) throw()
         : SUMOSAXHandler("Detector-Defintion"),
-        myOptions(oc),  myContainer(con)
-{}
+        myOptions(oc),  myContainer(con) {}
 
 
-PCTypeDefHandler::~PCTypeDefHandler() throw()
-{}
+PCTypeDefHandler::~PCTypeDefHandler() throw() {}
 
 
 void
 PCTypeDefHandler::myStartElement(SumoXMLTag element,
-                                 const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                 const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_POLYTYPE) {
         // get the id, report an error if not given or empty...
         string id;

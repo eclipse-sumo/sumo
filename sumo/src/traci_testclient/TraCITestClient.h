@@ -28,8 +28,7 @@
 
 #include <foreign/tcpip/socket.h>
 
-namespace testclient
-{
+namespace testclient {
 // ===========================================================================
 // Definitions
 // ===========================================================================
@@ -71,8 +70,7 @@ typedef std::vector<TLPhase> TLPhaseList;
 /**
  * @class TraCITestClient
  */
-class TraCITestClient
-{
+class TraCITestClient {
 
 public:
     TraCITestClient(std::string outputFileName = "testclient_result.out");
@@ -123,8 +121,8 @@ public:
 
     void commandGetTLStatus(int tlId, double intervalStart, double intervalEnd);
     void commandGetVariable(int domID, int varID, const std::string &objID);
-    void commandSetValue(int domID, int varID, const std::string &objID, const std::string &dataTypeS, 
-        const std::string &value, const std::vector<std::string> &slValue);
+    void commandSetValue(int domID, int varID, const std::string &objID, const std::string &dataTypeS,
+                         const std::string &value, const std::vector<std::string> &slValue);
 
     void commandClose();
 

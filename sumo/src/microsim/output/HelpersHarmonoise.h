@@ -56,8 +56,7 @@ class MSLane;
  * The stored values compute the recepted noise of either passenger or heavy
  *  duty vehicles for a distance of 10m from the noise source.
  */
-class HelpersHarmonoise
-{
+class HelpersHarmonoise {
 public:
     /** @brief Returns the noise produced by the a vehicle of the given type at the given speed
      *
@@ -75,13 +74,13 @@ public:
      * @return The resulting sum
      */
     inline static SUMOReal sum(SUMOReal val) throw() {
-        return SUMOReal(10. * log10( val ));
+        return SUMOReal(10. * log10(val));
     }
 
 
 private:
     /// @name vehicle class noise emission coefficients
-    /// @{ 
+    /// @{
 
     /// @brief rolling component, light vehicles, alpha
     static double myR_A_C1_Parameter[27];

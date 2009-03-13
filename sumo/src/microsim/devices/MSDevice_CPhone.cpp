@@ -171,8 +171,7 @@ SUMOReal tolDefaultProb = -1;
 // method definitions
 // ===========================================================================
 void
-MSDevice_CPhone::insertOptions() throw()
-{
+MSDevice_CPhone::insertOptions() throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("Cellular");
 
@@ -236,8 +235,7 @@ MSDevice_CPhone::insertOptions() throw()
 
 
 void
-MSDevice_CPhone::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw()
-{
+MSDevice_CPhone::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.getFloat("device.cell-phone.probability")==0&&!oc.isSet("device.cell-phone.knownveh")) {
         // no c2c communication is modelled
@@ -326,8 +324,7 @@ MSVehicle::initDevices(int vehicleIndex)
 */
 
 
-inline int getTrainDuration(void)
-{
+inline int getTrainDuration(void) {
     int duration=0;
     double randvalue1=0, randvalue2=0;
     randvalue2=0;
@@ -356,8 +353,7 @@ inline int getTrainDuration(void)
 
 
 MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id) throw()
-        : MSDevice(vehicle, id), myCommand(0)
-{
+        : MSDevice(vehicle, id), myCommand(0) {
     OptionsCont &oc = OptionsCont::getOptions();
     mycurrentCellId = -1;
     mycurrentLAId = -1;
@@ -375,8 +371,7 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id) thro
 }
 
 
-MSDevice_CPhone::~MSDevice_CPhone() throw()
-{
+MSDevice_CPhone::~MSDevice_CPhone() throw() {
     /*if registered to a cell then deregist from it*/
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
     if (pPhone != 0) {
@@ -406,15 +401,13 @@ MSDevice_CPhone::~MSDevice_CPhone() throw()
 
 
 MSDevice_CPhone::State
-MSDevice_CPhone::GetState() const
-{
+MSDevice_CPhone::GetState() const {
     return m_State;
 }
 
 
 int
-MSDevice_CPhone::SetState(int ActualState)
-{
+MSDevice_CPhone::SetState(int ActualState) {
     if (m_State != 0 && ActualState != 0) {
         m_State = (State)ActualState;
         return 0;
@@ -423,8 +416,7 @@ MSDevice_CPhone::SetState(int ActualState)
 }
 
 int
-MSDevice_CPhone::SetState(State s, int dur)
-{
+MSDevice_CPhone::SetState(State s, int dur) {
     if (dur<1) dur = 1;
     assert(mycurrentCellId != -1);
     /*wenn s == dynin oder dynout starte ein neues gespraech.*/
@@ -462,8 +454,7 @@ MSDevice_CPhone::SetState(State s, int dur)
 
 
 SUMOTime
-MSDevice_CPhone::stateChangeCommandExecution(SUMOTime) throw(ProcessError)
-{
+MSDevice_CPhone::stateChangeCommandExecution(SUMOTime) throw(ProcessError) {
     if (!notTriggeredByCell) {
         throw 1;
         assert(myCallId != -1);
@@ -621,8 +612,7 @@ MSDevice_CPhone::stateChangeCommandExecution(SUMOTime) throw(ProcessError)
 
 
 void
-MSDevice_CPhone::enterLaneAtEmit(MSLane* , const MSVehicle::State &)
-{
+MSDevice_CPhone::enterLaneAtEmit(MSLane* , const MSVehicle::State &) {
     /*wenn dieses handy nicht von einer zelle getriggert wird, dann setze ihn selber*/
     if (notTriggeredByCell) {
         m_State = STATE_IDLE;

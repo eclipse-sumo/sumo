@@ -37,13 +37,11 @@
 // ===========================================================================
 
 
-namespace ROHelper
-{
+namespace ROHelper {
 
 SUMOReal
 recomputeCosts(const std::vector<const ROEdge*> &edges,
-               const ROVehicle * const v, SUMOTime time) throw()
-{
+               const ROVehicle * const v, SUMOTime time) throw() {
     SUMOReal costs = 0;
     for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         costs += (*i)->getEffort(v, time + costs);
@@ -56,8 +54,7 @@ recomputeCosts(const std::vector<const ROEdge*> &edges,
 
 
 void
-recheckForLoops(std::vector<const ROEdge*> &edges) throw()
-{
+recheckForLoops(std::vector<const ROEdge*> &edges) throw() {
     RONode* start = edges[0]->getFromNode();
     unsigned lastStart = 0;
     for (unsigned i=1; i<edges.size(); i++) {
@@ -83,8 +80,7 @@ recheckForLoops(std::vector<const ROEdge*> &edges) throw()
 
 }
 
-std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev)
-{
+std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev) {
     for (std::vector<const ROEdge*>::const_iterator j=ev.begin(); j!=ev.end(); j++) {
         if (j!=ev.begin()) {
             os << ' ';

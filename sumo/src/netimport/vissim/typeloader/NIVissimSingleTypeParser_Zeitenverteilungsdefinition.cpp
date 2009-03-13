@@ -52,17 +52,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Zeitenverteilungsdefinition::NIVissimSingleTypeParser_Zeitenverteilungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Zeitenverteilungsdefinition::~NIVissimSingleTypeParser_Zeitenverteilungsdefinition()
-{}
+NIVissimSingleTypeParser_Zeitenverteilungsdefinition::~NIVissimSingleTypeParser_Zeitenverteilungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from) {
     // id
     string id;
     from >> id;

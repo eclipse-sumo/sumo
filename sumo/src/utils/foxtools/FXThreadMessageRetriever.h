@@ -31,8 +31,7 @@
 
 #include "FXBaseObject.h"
 
-class FXThreadMessageRetriever : public FXEX::FXBaseObject
-{
+class FXThreadMessageRetriever : public FXEX::FXBaseObject {
 public:
     FXThreadMessageRetriever() { }
     ~FXThreadMessageRetriever() { }

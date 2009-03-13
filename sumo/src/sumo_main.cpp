@@ -78,8 +78,7 @@ using namespace std;
  * loads the net, additional routes and the detectors
  */
 MSNet *
-load(OptionsCont &oc)
-{
+load(OptionsCont &oc) {
     MSFrame::setMSGlobals(oc);
     MSNet *net = new MSNet(new MSVehicleControl(), new MSEventControl(),
                            new MSEventControl(), new MSEventControl());
@@ -103,8 +102,7 @@ load(OptionsCont &oc)
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("A microscopic road traffic simulation.");

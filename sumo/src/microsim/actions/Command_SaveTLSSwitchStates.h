@@ -51,8 +51,7 @@ class OutputDevice;
  *
  * @todo Revalidate this - as tls are not seting the link information directly ater being switched, the computed information may be delayed
  */
-class Command_SaveTLSSwitchStates : public Command
-{
+class Command_SaveTLSSwitchStates : public Command {
 public:
     /** @brief Constructor
      *

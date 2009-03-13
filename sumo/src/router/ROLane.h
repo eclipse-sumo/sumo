@@ -46,8 +46,7 @@
  *  classes allowed on the according edge.
  * @see ROEdge
  */
-class ROLane : public Named
-{
+class ROLane : public Named {
 public:
     /** @brief Constructor
      *

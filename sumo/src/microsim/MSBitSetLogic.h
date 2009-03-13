@@ -45,8 +45,7 @@
  * N is sum of the number of links of the junction's inLanes.
  */
 template< size_t N >
-class MSBitSetLogic : public MSJunctionLogic
-{
+class MSBitSetLogic : public MSJunctionLogic {
 public:
     /** @brief Container that holds the right of way bitsets.
         Each link has it's own

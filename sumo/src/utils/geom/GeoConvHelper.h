@@ -46,8 +46,7 @@
  * @class GeoConvHelper
  * @brief static methods for processing the coordinates conversion for the current net
  */
-class GeoConvHelper
-{
+class GeoConvHelper {
 public:
     /// Initialises the subsystem using the given proj.4-definition and a network offset
     static bool init(const std::string &proj,

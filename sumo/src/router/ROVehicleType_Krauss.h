@@ -43,8 +43,7 @@
  *
  * @todo What about set/unset type parameter?
  */
-class ROVehicleType_Krauss : public ROVehicleType
-{
+class ROVehicleType_Krauss : public ROVehicleType {
 public:
     /** @brief Constructor
      *

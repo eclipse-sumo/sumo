@@ -114,8 +114,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         : GUIManipulator(app, name, 0, 0),
         myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
         mySpeed(o.getDefaultSpeed()), mySpeedTarget(mySpeed),
-        myObject(&o)
-{
+        myObject(&o) {
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
@@ -182,21 +181,18 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
 }
 
 
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::~GUIManip_LaneSpeedTrigger()
-{}
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::~GUIManip_LaneSpeedTrigger() {}
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdClose(FXObject*,FXSelector,void*)
-{
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdClose(FXObject*,FXSelector,void*) {
     destroy();
     return 1;
 }
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef(FXObject*,FXSelector,void*)
-{
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef(FXObject*,FXSelector,void*) {
     mySpeed = (SUMOReal)(myUserDefinedSpeed->getValue() / 3.6);
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
     myParent->updateChildren();
@@ -205,8 +201,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef(FXObject*,FXSelecto
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef(FXObject *sender,FXSelector,void*ptr)
-{
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef(FXObject *sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myChosenValue!=3 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -216,8 +211,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef(FXObject *sender,FX
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef(FXObject*,FXSelector,void*)
-{
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef(FXObject*,FXSelector,void*) {
     mySpeed = (SUMOReal)(SUMOReal)((myPredefinedValues->getCurrentItem() * 20 + 20)/3.6);
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
     myParent->updateChildren();
@@ -226,8 +220,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef(FXObject*,FXSelector
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef(FXObject *sender,FXSelector,void*ptr)
-{
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef(FXObject *sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myChosenValue!=2 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -237,8 +230,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef(FXObject *sender,FXS
 
 
 long
-GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSelector,void*)
-{
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSelector,void*) {
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(true);
     switch (myChosenValue) {
     case 0:
@@ -274,19 +266,16 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSe
 GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::GUILaneSpeedTriggerPopupMenu(
     GUIMainWindow &app, GUISUMOAbstractView &parent,
     GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o)
-{}
+        : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
-GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu() throw()
-{}
+GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::~GUILaneSpeedTriggerPopupMenu() throw() {}
 
 
 long
 GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
         FXSelector,
-        void*)
-{
+        void*) {
     static_cast<GUILaneSpeedTrigger*>(myObject)->openManipulator(
         *myApplication, *myParent);
     return 1;
@@ -301,8 +290,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
         const std::string &aXMLFilename) throw(ProcessError)
         : MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
         GUIGlObject_AbstractAdd(gIDStorage, "speedtrigger:" + id, GLO_TRIGGER),
-        myShowAsKMH(true), myLastValue(-1)
-{
+        myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());
     vector<MSLane*>::const_iterator i;
@@ -319,14 +307,12 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
 }
 
 
-GUILaneSpeedTrigger::~GUILaneSpeedTrigger() throw()
-{}
+GUILaneSpeedTrigger::~GUILaneSpeedTrigger() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
-                                  GUISUMOAbstractView &parent) throw()
-{
+                                  GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -341,8 +327,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &) throw()
-{
+                                        GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 1);
     // add items
@@ -355,15 +340,13 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUILaneSpeedTrigger::getMicrosimID() const throw()
-{
+GUILaneSpeedTrigger::getMicrosimID() const throw() {
     return getID();
 }
 
 
 void
-GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw() {
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -393,35 +376,35 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
             GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
             // draw the speed string
             // not if scale to low
-                // compute
-                SUMOReal value = (SUMOReal) getCurrentSpeed();
-                if (myShowAsKMH) {
-                    value *= 3.6f;
-                    if (((int) value+1)%10==0) {
-                        value = (SUMOReal)(((int) value+1) / 10 * 10);
-                    }
+            // compute
+            SUMOReal value = (SUMOReal) getCurrentSpeed();
+            if (myShowAsKMH) {
+                value *= 3.6f;
+                if (((int) value+1)%10==0) {
+                    value = (SUMOReal)(((int) value+1) / 10 * 10);
                 }
-                if (value!=myLastValue) {
-                    myLastValue = value;
-                    myLastValueString = toString<SUMOReal>(myLastValue);
-                    size_t idx = myLastValueString.find('.');
-                    if (idx!=string::npos) {
-                        if (idx>myLastValueString.length()) {
-                            idx = myLastValueString.length();
-                        }
-                        myLastValueString = myLastValueString.substr(0, idx);
+            }
+            if (value!=myLastValue) {
+                myLastValue = value;
+                myLastValueString = toString<SUMOReal>(myLastValue);
+                size_t idx = myLastValueString.find('.');
+                if (idx!=string::npos) {
+                    if (idx>myLastValueString.length()) {
+                        idx = myLastValueString.length();
                     }
+                    myLastValueString = myLastValueString.substr(0, idx);
                 }
-                //draw
-                glColor3f(1, 1, 0);
-                glPolygonOffset(0, -5);
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                pfSetPosition(0, 0);
-                pfSetScale(1.2f);
-                SUMOReal w = pfdkGetStringWidth(myLastValueString.c_str());
-                glRotated(180, 0, 1, 0);
-                glTranslated(-w/2., 0.3, 0);
-                pfDrawString(myLastValueString.c_str());
+            }
+            //draw
+            glColor3f(1, 1, 0);
+            glPolygonOffset(0, -5);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            pfSetPosition(0, 0);
+            pfSetScale(1.2f);
+            SUMOReal w = pfdkGetStringWidth(myLastValueString.c_str());
+            glRotated(180, 0, 1, 0);
+            glTranslated(-w/2., 0.3, 0);
+            pfDrawString(myLastValueString.c_str());
         }
         glPopMatrix();
     }
@@ -437,8 +420,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings &s) const throw()
 
 
 Boundary
-GUILaneSpeedTrigger::getCenteringBoundary() const throw()
-{
+GUILaneSpeedTrigger::getCenteringBoundary() const throw() {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -447,8 +429,7 @@ GUILaneSpeedTrigger::getCenteringBoundary() const throw()
 
 GUIManipulator *
 GUILaneSpeedTrigger::openManipulator(GUIMainWindow &app,
-                                     GUISUMOAbstractView &)
-{
+                                     GUISUMOAbstractView &) {
     GUIManip_LaneSpeedTrigger *gui =
         new GUIManip_LaneSpeedTrigger(app, getFullName(), *this, 0, 0);
     gui->create();

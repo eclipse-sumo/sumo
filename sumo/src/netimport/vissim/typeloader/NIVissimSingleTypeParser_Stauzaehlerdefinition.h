@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Stauzaehlerdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Stauzaehlerdefinition(NIVissimLoader &parent);

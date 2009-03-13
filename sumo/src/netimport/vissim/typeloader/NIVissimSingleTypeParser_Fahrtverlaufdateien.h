@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Fahrtverlaufdateien :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Fahrtverlaufdateien(NIVissimLoader &parent);

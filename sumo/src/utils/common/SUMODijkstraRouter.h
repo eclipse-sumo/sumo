@@ -94,8 +94,7 @@ public:
  *
  */
 template<class E, class V, class PF>
-class SUMODijkstraRouterBase : public SUMOAbstractRouter<E, V>, public PF
-{
+class SUMODijkstraRouterBase : public SUMOAbstractRouter<E, V>, public PF {
 public:
     /// Constructor
     SUMODijkstraRouterBase(size_t noE, bool unbuildIsWarningOnly)
@@ -110,8 +109,7 @@ public:
      * A definition about a route's edge with the effort needed to reach it and
      *  the information about the previous edge.
      */
-    class EdgeInfo
-    {
+    class EdgeInfo {
     public:
         /// Constructor
         EdgeInfo()
@@ -144,8 +142,7 @@ public:
      * @class EdgeInfoByEffortComperator
      * Class to compare (and so sort) nodes by their effort
      */
-    class EdgeInfoByEffortComperator
-    {
+    class EdgeInfoByEffortComperator {
     public:
         /// Constructor
         explicit EdgeInfoByEffortComperator() { }
@@ -257,8 +254,7 @@ public:
      * This class is used instead of the former saving of these values within
      *  the edges to allow parallel route computation in multithreading mode.
      */
-    class EdgeInfoCont
-    {
+    class EdgeInfoCont {
     public:
         /// Constructor
         EdgeInfoCont(size_t toAlloc)
@@ -333,8 +329,7 @@ protected:
 
 
 template<class E, class V, class PF, class EC>
-class SUMODijkstraRouter_ByProxi : public SUMODijkstraRouterBase<E, V, PF>
-{
+class SUMODijkstraRouter_ByProxi : public SUMODijkstraRouterBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
     typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOReal) const;
@@ -360,8 +355,7 @@ private:
 
 
 template<class E, class V, class PF>
-class SUMODijkstraRouter_Direct : public SUMODijkstraRouterBase<E, V, PF>
-{
+class SUMODijkstraRouter_Direct : public SUMODijkstraRouterBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
     typedef SUMOReal(E::* Operation)(const V * const, SUMOReal) const;

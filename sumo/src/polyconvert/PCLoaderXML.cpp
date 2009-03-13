@@ -64,8 +64,7 @@ using namespace std;
 // ---------------------------------------------------------------------------
 void
 PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                       PCTypeMap &tm) throw(ProcessError)
-{
+                       PCTypeMap &tm) throw(ProcessError) {
     if (!oc.isSet("xml")) {
         return;
     }
@@ -93,18 +92,15 @@ PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 PCLoaderXML::PCLoaderXML(PCPolyContainer &toFill,
                          PCTypeMap &tm, OptionsCont &oc) throw()
         : SUMOSAXHandler("xml-poi-definition"),
-        myCont(toFill), myTypeMap(tm), myOptions(oc)
-{}
+        myCont(toFill), myTypeMap(tm), myOptions(oc) {}
 
 
-PCLoaderXML::~PCLoaderXML() throw()
-{}
+PCLoaderXML::~PCLoaderXML() throw() {}
 
 
 void
 PCLoaderXML::myStartElement(SumoXMLTag element,
-                            const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                            const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_POI && element!=SUMO_TAG_POLY) {
         return;
     }
@@ -141,7 +137,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
                 ignorePrunning = true;
             }
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
-            if(!myCont.insert(id, poi, layer, ignorePrunning)) {
+            if (!myCont.insert(id, poi, layer, ignorePrunning)) {
                 MsgHandler::getErrorInstance()->inform("POI '" + id + "' could not been added.");
                 delete poi;
             }
@@ -182,8 +178,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
 
 void
 PCLoaderXML::myCharacters(SumoXMLTag element,
-                          const std::string &chars) throw(ProcessError)
-{
+                          const std::string &chars) throw(ProcessError) {
     if (element==SUMO_TAG_POLY) {
         Position2DVector pshape = GeomConvHelper::parseShape(chars);
         const Position2DVector::ContType &cont = pshape.getCont();
@@ -194,7 +189,7 @@ PCLoaderXML::myCharacters(SumoXMLTag element,
             shape.push_back(pos);
         }
         Polygon2D *poly = new Polygon2D(myCurrentID, myCurrentType, myCurrentColor, shape, false);
-        if(!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
+        if (!myCont.insert(myCurrentID, poly, myCurrentLayer, myCurrentIgnorePrunning)) {
             MsgHandler::getErrorInstance()->inform("Polygon '" + myCurrentID + "' could not been added.");
             delete poly;
         }

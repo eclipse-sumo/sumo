@@ -122,17 +122,14 @@ using namespace std;
  * NIVissimLoader::VissimSingleTypeParser-methods
  * ----------------------------------------------------------------------- */
 NIVissimLoader::VissimSingleTypeParser::VissimSingleTypeParser(NIVissimLoader &parent)
-        : myVissimParent(parent)
-{}
+        : myVissimParent(parent) {}
 
 
-NIVissimLoader::VissimSingleTypeParser::~VissimSingleTypeParser()
-{}
+NIVissimLoader::VissimSingleTypeParser::~VissimSingleTypeParser() {}
 
 
 std::string
-NIVissimLoader::VissimSingleTypeParser::myRead(std::istream &from)
-{
+NIVissimLoader::VissimSingleTypeParser::myRead(std::istream &from) {
     string tmp;
     from >> tmp;
     return StringUtils::to_lower_case(tmp);
@@ -142,8 +139,7 @@ NIVissimLoader::VissimSingleTypeParser::myRead(std::istream &from)
 
 std::string
 NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
-        const std::string &excl)
-{
+        const std::string &excl) {
     string myExcl = StringUtils::to_lower_case(excl);
     string tmp = myRead(from);
     if (tmp=="") {
@@ -161,8 +157,7 @@ NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
 
 std::string
 NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
-        const std::vector<std::string> &excl)
-{
+        const std::vector<std::string> &excl) {
     std::vector<std::string> myExcl;
     std::vector<std::string>::const_iterator i;
     for (i=excl.begin(); i!=excl.end(); i++) {
@@ -192,8 +187,7 @@ NIVissimLoader::VissimSingleTypeParser::readEndSecure(std::istream &from,
 
 std::string
 NIVissimLoader::VissimSingleTypeParser::overrideOptionalLabel(std::istream &from,
-        const std::string &tag)
-{
+        const std::string &tag) {
     string tmp;
     if (tag=="") {
         tmp = myRead(from);
@@ -213,8 +207,7 @@ NIVissimLoader::VissimSingleTypeParser::overrideOptionalLabel(std::istream &from
 
 
 Position2D
-NIVissimLoader::VissimSingleTypeParser::getPosition2D(std::istream &from)
-{
+NIVissimLoader::VissimSingleTypeParser::getPosition2D(std::istream &from) {
     SUMOReal x, y;
     from >> x; // type-checking is missing!
     from >> y; // type-checking is missing!
@@ -224,8 +217,7 @@ NIVissimLoader::VissimSingleTypeParser::getPosition2D(std::istream &from)
 
 IntVector
 NIVissimLoader::VissimSingleTypeParser::parseAssignedVehicleTypes(
-    std::istream &from, const std::string &next)
-{
+    std::istream &from, const std::string &next) {
     string tmp = readEndSecure(from);
     IntVector ret;
     if (tmp=="alle") {
@@ -242,8 +234,7 @@ NIVissimLoader::VissimSingleTypeParser::parseAssignedVehicleTypes(
 
 NIVissimExtendedEdgePoint
 NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
-    std::istream &from)
-{
+    std::istream &from) {
     string tag;
     from >> tag; // "Strecke"
     int edgeid;
@@ -265,8 +256,7 @@ NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
 
 
 std::string
-NIVissimLoader::VissimSingleTypeParser::readName(std::istream &from)
-{
+NIVissimLoader::VissimSingleTypeParser::readName(std::istream &from) {
     string name;
     from >> name;
     if (name[0]=='"') {
@@ -283,8 +273,7 @@ NIVissimLoader::VissimSingleTypeParser::readName(std::istream &from)
 
 void
 NIVissimLoader::VissimSingleTypeParser::readUntil(std::istream &from,
-        const std::string &name)
-{
+        const std::string &name) {
     string tag;
     while (tag!=name) {
         tag = myRead(from);
@@ -293,8 +282,7 @@ NIVissimLoader::VissimSingleTypeParser::readUntil(std::istream &from,
 
 bool
 NIVissimLoader::VissimSingleTypeParser::skipOverreading(std::istream &from,
-        const std::string &name)
-{
+        const std::string &name) {
     string tag;
     while (tag!=name) {
         tag = myRead(from);
@@ -311,8 +299,7 @@ NIVissimLoader::VissimSingleTypeParser::skipOverreading(std::istream &from,
  * NIVissimLoader-methods
  * ----------------------------------------------------------------------- */
 NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
-        : myNetBuilder(nb)
-{
+        : myNetBuilder(nb) {
     insertKnownElements();
     buildParsers();
     myColorMap["blau"] = RGBColor((SUMOReal) .3, (SUMOReal) 0.3, (SUMOReal) 1);
@@ -330,8 +317,7 @@ NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
 
 
 
-NIVissimLoader::~NIVissimLoader()
-{
+NIVissimLoader::~NIVissimLoader() {
     NIVissimAbstractEdge::clearDict();
     NIVissimClosures::clearDict();
     NIVissimDistrictConnection::clearDict();
@@ -356,8 +342,7 @@ NIVissimLoader::~NIVissimLoader()
 
 
 void
-NIVissimLoader::load(OptionsCont &options)
-{
+NIVissimLoader::load(OptionsCont &options) {
     // load file contents
     // try to open the file
     ifstream strm(options.getString("vissim").c_str());
@@ -373,8 +358,7 @@ NIVissimLoader::load(OptionsCont &options)
 
 
 bool
-NIVissimLoader::admitContinue(const std::string &tag)
-{
+NIVissimLoader::admitContinue(const std::string &tag) {
     ToElemIDMap::const_iterator i=myKnownElements.find(tag);
     if (i==myKnownElements.end()) {
         return true;
@@ -385,8 +369,7 @@ NIVissimLoader::admitContinue(const std::string &tag)
 
 
 bool
-NIVissimLoader::readContents(istream &strm)
-{
+NIVissimLoader::readContents(istream &strm) {
     // read contents
     bool ok = true;
     while (strm.good()&&ok) {
@@ -428,8 +411,7 @@ NIVissimLoader::readContents(istream &strm)
 
 
 void
-NIVissimLoader::postLoadBuild(SUMOReal offset)
-{
+NIVissimLoader::postLoadBuild(SUMOReal offset) {
     // close the loading process
     NIVissimBoundedClusterObject::closeLoading();
     NIVissimConnection::dict_assignToEdges();
@@ -489,8 +471,7 @@ NIVissimLoader::postLoadBuild(SUMOReal offset)
 
 
 void
-NIVissimLoader::insertKnownElements()
-{
+NIVissimLoader::insertKnownElements() {
     myKnownElements["kennung"] = VE_Kennungszeile;
     myKnownElements["zufallszahl"] = VE_Startzufallszahl;
     myKnownElements["simulationsdauer"] = VE_Simdauer;
@@ -562,8 +543,7 @@ NIVissimLoader::insertKnownElements()
 
 
 void
-NIVissimLoader::buildParsers()
-{
+NIVissimLoader::buildParsers() {
     myParsers[VE_Simdauer] =
         new NIVissimSingleTypeParser_Simdauer(*this);
     myParsers[VE_Startuhrzeit] =

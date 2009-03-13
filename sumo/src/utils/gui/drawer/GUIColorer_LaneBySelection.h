@@ -47,8 +47,7 @@
  *
  */
 template<class T>
-class GUIColorer_LaneBySelection : public GUIBaseColorer<T>
-{
+class GUIColorer_LaneBySelection : public GUIBaseColorer<T> {
 public:
     GUIColorer_LaneBySelection() { }
 

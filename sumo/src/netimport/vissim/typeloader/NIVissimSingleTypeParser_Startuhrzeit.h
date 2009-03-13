@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Startuhrzeit :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Startuhrzeit(NIVissimLoader &parent);

@@ -53,8 +53,7 @@ class MSVehicleType;
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
-class MSRouteHandler : public SUMOSAXHandler
-{
+class MSRouteHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
     MSRouteHandler(const std::string &file,

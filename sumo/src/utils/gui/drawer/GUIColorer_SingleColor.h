@@ -46,8 +46,7 @@
  * @brief Uses a single color for coloring
  */
 template<class T>
-class GUIColorer_SingleColor : public GUIBaseColorer<T>
-{
+class GUIColorer_SingleColor : public GUIBaseColorer<T> {
 public:
     /// Constructor
     GUIColorer_SingleColor(const RGBColor &c) : myColor(c) { }

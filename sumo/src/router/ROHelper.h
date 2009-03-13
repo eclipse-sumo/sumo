@@ -45,8 +45,7 @@
  * In the case two vehicles have the same departure time, they are sorted
  *  lexically.
  */
-class ROVehicleByDepartureComperator : public std::less<ROVehicle*>
-{
+class ROVehicleByDepartureComperator : public std::less<ROVehicle*> {
 public:
     /// @brief Constructor
     explicit ROVehicleByDepartureComperator() throw() { }
@@ -78,8 +77,7 @@ public:
  * @namespace ROHelper
  * @brief Some helping methods for router
  */
-namespace ROHelper
-{
+namespace ROHelper {
 /** @brief Computes the costs (travel time) for the given list of edges
  *
  * @param[in] edges The edges to pass

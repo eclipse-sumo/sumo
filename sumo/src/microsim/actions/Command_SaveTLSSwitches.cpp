@@ -53,22 +53,19 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSSwitches::Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants &logics,
         OutputDevice &od) throw()
-        : myOutputDevice(od), myLogics(logics)
-{
+        : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-switches");
 }
 
 
-Command_SaveTLSSwitches::~Command_SaveTLSSwitches() throw()
-{
+Command_SaveTLSSwitches::~Command_SaveTLSSwitches() throw() {
 }
 
 
 SUMOTime
-Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError)
-{
+Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
     MSTrafficLightLogic *light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();
     const std::bitset<64> &allowedLinks = light->getCurrentPhaseDef().getDriveMask();

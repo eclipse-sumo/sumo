@@ -47,17 +47,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Startuhrzeit::NIVissimSingleTypeParser_Startuhrzeit(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Startuhrzeit::~NIVissimSingleTypeParser_Startuhrzeit()
-{}
+NIVissimSingleTypeParser_Startuhrzeit::~NIVissimSingleTypeParser_Startuhrzeit() {}
 
 
 bool
-NIVissimSingleTypeParser_Startuhrzeit::parse(std::istream &)
-{
+NIVissimSingleTypeParser_Startuhrzeit::parse(std::istream &) {
     return true;
 }
 

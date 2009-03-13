@@ -44,8 +44,7 @@
  * that should be a number is not.
  */
 template<class E>
-class TplConvertSec
-{
+class TplConvertSec {
 public:
     // conversion methods not throwing an exeption without a length
     /** converts a 0-terminated char-type array into std::string

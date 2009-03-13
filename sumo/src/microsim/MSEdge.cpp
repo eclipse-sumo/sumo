@@ -76,8 +76,7 @@ MSEdge::MSEdge(const std::string &id, unsigned int numericalID) throw()
 {}
 
 
-MSEdge::~MSEdge() throw()
-{
+MSEdge::~MSEdge() throw() {
     delete myLaneChanger;
     for (AllowedLanesCont::iterator i1=myAllowed.begin(); i1!=myAllowed.end(); i1++) {
         delete(*i1).second;
@@ -101,8 +100,7 @@ MSEdge::~MSEdge() throw()
 void
 MSEdge::initialize(MSLane* departLane,
                    LaneCont* lanes, EdgeBasicFunction function,
-                   OutputDevice *lcOutput) throw()
-{
+                   OutputDevice *lcOutput) throw() {
     assert(lanes!=0);
     myDepartLane = departLane;
     myLanes = lanes;
@@ -113,8 +111,7 @@ MSEdge::initialize(MSLane* departLane,
 }
 
 void
-MSEdge::closeBuilding()
-{
+MSEdge::closeBuilding() {
     for (LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
         const MSLinkCont &lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
@@ -206,8 +203,7 @@ MSEdge::closeBuilding()
 
 
 const MSEdge::LaneCont*
-MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const throw()
-{
+MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const throw() {
     if (!myHaveClassConstraints||vclass==SVC_UNKNOWN||myClassedAllowed.find(vclass)==myClassedAllowed.end()) {
         AllowedLanesCont::const_iterator it = myAllowed.find(&destination);
         if (it!=myAllowed.end()) {
@@ -233,8 +229,7 @@ MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const t
 
 
 MSLane * const
-MSEdge::leftLane(const MSLane * const lane) const throw()
-{
+MSEdge::leftLane(const MSLane * const lane) const throw() {
     LaneCont::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->end()-1) {
         return 0;
@@ -244,8 +239,7 @@ MSEdge::leftLane(const MSLane * const lane) const throw()
 
 
 MSLane * const
-MSEdge::rightLane(const MSLane * const lane) const throw()
-{
+MSEdge::rightLane(const MSLane * const lane) const throw() {
     LaneCont::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->begin()) {
         return 0;
@@ -255,8 +249,7 @@ MSEdge::rightLane(const MSLane * const lane) const throw()
 
 
 const MSEdge * const
-MSEdge::getFollower(unsigned int n) const throw()
-{
+MSEdge::getFollower(unsigned int n) const throw() {
     AllowedLanesCont::const_iterator i = myAllowed.begin();
     while (n!=0) {
         ++i;
@@ -267,8 +260,7 @@ MSEdge::getFollower(unsigned int n) const throw()
 
 
 std::vector<MSEdge *>
-MSEdge::getFollowingEdges() const throw()
-{
+MSEdge::getFollowingEdges() const throw() {
     std::vector<MSEdge*> ret;
     for (AllowedLanesCont::const_iterator i=myAllowed.begin(); i!=myAllowed.end(); ++i) {
         ret.push_back((MSEdge*)(*i).first);
@@ -278,8 +270,7 @@ MSEdge::getFollowingEdges() const throw()
 
 
 std::vector<MSEdge*>
-MSEdge::getIncomingEdges() const throw()
-{
+MSEdge::getIncomingEdges() const throw() {
     std::vector<MSEdge*> ret;
     for (DictType::iterator edge = myDict.begin(); edge != myDict.end();
             ++edge) {
@@ -294,24 +285,21 @@ MSEdge::getIncomingEdges() const throw()
 
 
 SUMOTime
-MSEdge::incVaporization(SUMOTime) throw(ProcessError)
-{
+MSEdge::incVaporization(SUMOTime) throw(ProcessError) {
     ++myVaporizationRequests;
     return 0;
 }
 
 
 SUMOTime
-MSEdge::decVaporization(SUMOTime) throw(ProcessError)
-{
+MSEdge::decVaporization(SUMOTime) throw(ProcessError) {
     --myVaporizationRequests;
     return 0;
 }
 
 
 bool
-MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const throw()
-{
+MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const throw() {
     const LaneCont &lanes = v.getDepartLanes();
     // !!! what if the vehicle may not use any lane?
     int minI = 0;
@@ -332,8 +320,7 @@ MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const thro
 
 
 bool
-MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
-{
+MSEdge::emit(MSVehicle &v, SUMOTime time) const throw() {
     // when vaporizing, no vehicles are emitted...
     if (isVaporizing()) {
         return false;
@@ -387,8 +374,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
 
 
 void
-MSEdge::changeLanes() throw()
-{
+MSEdge::changeLanes() throw() {
     if (myFunction==EDGEFUNCTION_INTERNAL) {
         return;
     }
@@ -400,8 +386,7 @@ MSEdge::changeLanes() throw()
 
 #ifdef HAVE_INTERNAL_LANES
 const MSEdge *
-MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw()
-{
+MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw() {
     //@ to be optimized
     for (LaneCont::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
         MSLane *l = *i;
@@ -422,8 +407,7 @@ bool myHaveWarned; // !!!
 
 
 SUMOReal
-MSEdge::getEffort(SUMOReal forTime) const throw()
-{
+MSEdge::getEffort(SUMOReal forTime) const throw() {
     if (!myHaveLoadedWeights) {
         return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
     }
@@ -452,14 +436,13 @@ MSEdge::getEffort(SUMOReal forTime) const throw()
             }
         }
     }
-    unsigned int index = (unsigned int) ((t-myShortCutBegin)/myShortCutInterval);
+    unsigned int index = (unsigned int)((t-myShortCutBegin)/myShortCutInterval);
     return myPackedValueLine[index];
 }
 
 
 SUMOReal
-MSEdge::getCurrentEffort() const throw()
-{
+MSEdge::getCurrentEffort() const throw() {
     SUMOReal v = 0;
     for (LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
         v += (*i)->getMeanSpeed();
@@ -474,16 +457,14 @@ MSEdge::getCurrentEffort() const throw()
 
 
 void
-MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw()
-{
+MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() {
     myOwnValueLine.add(timeBegin, timeEnd, value);
     myHaveLoadedWeights = true;
 }
 
 
 SUMOReal
-MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOReal t) const throw()
-{
+MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOReal t) const throw() {
     SUMOReal teffort = v->getEffort(this, t);
     if (teffort>=0) {
         return teffort;
@@ -493,8 +474,7 @@ MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOReal t) const throw()
 
 
 bool
-MSEdge::dictionary(const string &id, MSEdge* ptr) throw()
-{
+MSEdge::dictionary(const string &id, MSEdge* ptr) throw() {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -510,8 +490,7 @@ MSEdge::dictionary(const string &id, MSEdge* ptr) throw()
 
 
 MSEdge*
-MSEdge::dictionary(const string &id) throw()
-{
+MSEdge::dictionary(const string &id) throw() {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -522,23 +501,20 @@ MSEdge::dictionary(const string &id) throw()
 
 
 MSEdge*
-MSEdge::dictionary(size_t id) throw()
-{
+MSEdge::dictionary(size_t id) throw() {
     assert(myEdges.size()>id);
     return myEdges[id];
 }
 
 
 size_t
-MSEdge::dictSize() throw()
-{
+MSEdge::dictSize() throw() {
     return myDict.size();
 }
 
 
 void
-MSEdge::clear() throw()
-{
+MSEdge::clear() throw() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         delete(*i).second;
     }

@@ -59,12 +59,10 @@ GUILane::GUILane(const std::string &id, SUMOReal maxSpeed, SUMOReal length,
                  const Position2DVector &shape,
                  const std::vector<SUMOVehicleClass> &allowed,
                  const std::vector<SUMOVehicleClass> &disallowed) throw()
-        : MSLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
-{}
+        : MSLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed) {}
 
 
-GUILane::~GUILane() throw()
-{
+GUILane::~GUILane() throw() {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
@@ -74,8 +72,7 @@ GUILane::~GUILane() throw()
 
 bool
 GUILane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
-                           bool recheckNextLanes) throw()
-{
+                           bool recheckNextLanes) throw() {
     myLock.lock();
     bool ret = MSLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
     myLock.unlock();
@@ -84,8 +81,7 @@ GUILane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
 
 
 bool
-GUILane::moveNonCritical()
-{
+GUILane::moveNonCritical() {
     myLock.lock();
     try {
         bool ret = MSLane::moveNonCritical();
@@ -99,8 +95,7 @@ GUILane::moveNonCritical()
 
 
 bool
-GUILane::moveCritical()
-{
+GUILane::moveCritical() {
     myLock.lock();
     try {
         bool ret = MSLane::moveCritical();
@@ -114,8 +109,7 @@ GUILane::moveCritical()
 
 
 bool
-GUILane::setCritical(std::vector<MSLane*> &into)
-{
+GUILane::setCritical(std::vector<MSLane*> &into) {
     myLock.lock();
     try {
         bool ret = MSLane::setCritical(into);
@@ -129,8 +123,7 @@ GUILane::setCritical(std::vector<MSLane*> &into)
 
 
 bool
-GUILane::push(MSVehicle* veh)
-{
+GUILane::push(MSVehicle* veh) {
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
@@ -161,8 +154,7 @@ GUILane::push(MSVehicle* veh)
 
 
 MSVehicle *
-GUILane::removeFirstVehicle()
-{
+GUILane::removeFirstVehicle() {
     myLock.lock();
     try {
         MSVehicle *ret = MSLane::removeFirstVehicle();
@@ -176,8 +168,7 @@ GUILane::removeFirstVehicle()
 
 
 MSVehicle *
-GUILane::removeVehicle(MSVehicle * remVehicle)
-{
+GUILane::removeVehicle(MSVehicle * remVehicle) {
     myLock.lock();
     try {
         MSVehicle *ret = MSLane::removeVehicle(remVehicle);
@@ -191,23 +182,20 @@ GUILane::removeVehicle(MSVehicle * remVehicle)
 
 
 void
-GUILane::releaseVehicles()
-{
+GUILane::releaseVehicles() {
     myLock.unlock();
 }
 
 
 const MSLane::VehCont &
-GUILane::getVehiclesSecure()
-{
+GUILane::getVehiclesSecure() {
     myLock.lock();
     return myVehicles;
 }
 
 
 void
-GUILane::swapAfterLaneChange()
-{
+GUILane::swapAfterLaneChange() {
     myLock.lock();
     try {
         MSLane::swapAfterLaneChange();
@@ -220,8 +208,7 @@ GUILane::swapAfterLaneChange()
 
 
 bool
-GUILane::integrateNewVehicle()
-{
+GUILane::integrateNewVehicle() {
     myLock.lock();
     try {
         bool ret = MSLane::integrateNewVehicle();
@@ -235,15 +222,13 @@ GUILane::integrateNewVehicle()
 
 
 GUILaneWrapper *
-GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
-{
+GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage) {
     return new GUILaneWrapper(idStorage, *this, myShape);
 }
 
 
 void
-GUILane::detectCollisions(SUMOTime timestep)
-{
+GUILane::detectCollisions(SUMOTime timestep) {
     myLock.lock();
     try {
         MSLane::detectCollisions(timestep);
@@ -256,8 +241,7 @@ GUILane::detectCollisions(SUMOTime timestep)
 
 
 MSVehicle*
-GUILane::pop()
-{
+GUILane::pop() {
     myLock.lock();
     try {
         MSVehicle *ret = MSLane::pop();

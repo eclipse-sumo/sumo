@@ -57,9 +57,8 @@ class GUIManipulator;
  * @brief Reroutes vehicles passing an edge
  */
 class GUITriggeredRerouter
-            : public MSTriggeredRerouter,
-            public GUIGlObject_AbstractAdd
-{
+        : public MSTriggeredRerouter,
+            public GUIGlObject_AbstractAdd {
 public:
     /** constructor */
     GUITriggeredRerouter(const std::string &id,
@@ -126,8 +125,7 @@ public:
                                     GUISUMOAbstractView &parent);
 
 public:
-    class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu
-    {
+    class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUITriggeredRerouterPopupMenu)
     public:
 
@@ -145,8 +143,7 @@ public:
     };
 
 
-    class GUIManip_TriggeredRerouter : public GUIManipulator
-    {
+    class GUIManip_TriggeredRerouter : public GUIManipulator {
         FXDECLARE(GUIManip_TriggeredRerouter)
     public:
         enum {

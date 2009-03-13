@@ -50,8 +50,7 @@ class Command;
  * @class MSEventControl
  * @brief Stores time-dependant events and executes them at the proper time
  */
-class MSEventControl
-{
+class MSEventControl {
 public:
     /// @brief Combination of an event and the time it shall be executed at
     typedef std::pair< Command*, SUMOTime > Event;
@@ -128,8 +127,7 @@ protected:
      *
      * Sorts events by their execution time
      */
-    class EventSortCrit
-    {
+    class EventSortCrit {
     public:
         /// @brief compares two events
         bool operator()(const Event& e1, const Event& e2) const {

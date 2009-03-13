@@ -53,8 +53,7 @@ class LineHandler;
  * @todo No checks are done so far during reading/setting position etc.
  * @todo Should not IOError be thrown if something fails?
  */
-class LineReader
-{
+class LineReader {
 public:
     /// @brief Constructor
     LineReader() throw();

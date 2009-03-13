@@ -45,8 +45,7 @@ class OptionsCont;
  *
  * Normally, these methods are called from another frame (ROJTRFrame, RODUAFrame)...
  */
-class ROFrame
-{
+class ROFrame {
 public:
     /** @brief Inserts options used by routing applications into the OptionsCont-singleton
      * @param[in] oc The options container to fill

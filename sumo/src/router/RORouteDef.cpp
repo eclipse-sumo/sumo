@@ -58,19 +58,16 @@ using namespace std;
 // ===========================================================================
 RORouteDef::RORouteDef(const std::string &id, const RGBColor * const color) throw()
         : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
-        myColor(color)
-{}
+        myColor(color) {}
 
 
-RORouteDef::~RORouteDef() throw()
-{
+RORouteDef::~RORouteDef() throw() {
     delete myColor;
 }
 
 
 const RGBColor * const
-RORouteDef::copyColorIfGiven() const throw()
-{
+RORouteDef::copyColorIfGiven() const throw() {
     if (myColor==0) {
         return 0;
     }

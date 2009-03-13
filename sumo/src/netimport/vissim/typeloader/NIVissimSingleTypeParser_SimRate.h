@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_SimRate :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_SimRate(NIVissimLoader &parent);

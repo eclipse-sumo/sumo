@@ -76,8 +76,7 @@ class OutputDevice;
  * @see GUIGlObjectType
  * @see GUIDialog_GLChosenEditor
  */
-class GUISelectedStorage
-{
+class GUISelectedStorage {
 public:
     /// @brief Constructor
     GUISelectedStorage() throw();
@@ -245,8 +244,7 @@ public:
      * @class SingleTypeSelections
      * @brief A container for ids of selected objects of a certain type.
      */
-    class SingleTypeSelections
-    {
+    class SingleTypeSelections {
     public:
         /// @brief Constructor
         SingleTypeSelections() throw();

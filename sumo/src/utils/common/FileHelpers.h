@@ -40,8 +40,7 @@
  * @class FileHelpers
  * @brief Functions for an easier usage of files and paths
  */
-class FileHelpers
-{
+class FileHelpers {
 public:
     /// @name file access functions
     //@{

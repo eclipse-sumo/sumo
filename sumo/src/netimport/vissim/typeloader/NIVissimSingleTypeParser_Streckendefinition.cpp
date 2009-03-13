@@ -52,17 +52,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Streckendefinition::~NIVissimSingleTypeParser_Streckendefinition()
-{}
+NIVissimSingleTypeParser_Streckendefinition::~NIVissimSingleTypeParser_Streckendefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
     // read in the id
     int id;
     from >> id;

@@ -49,8 +49,7 @@ class NBTrafficLightLogicCont;
 class NBLoadedTLDef;
 class NBEdgeCont;
 
-class NIVissimTL
-{
+class NIVissimTL {
 public:
     NIVissimTL(int id, const std::string &type, const std::string &name,
                SUMOTime absdur, SUMOTime offset);
@@ -80,8 +79,7 @@ public:
     /**
      *
      */
-    class NIVissimTLSignal
-    {
+    class NIVissimTLSignal {
     public:
         NIVissimTLSignal(int lsaid, int id, const std::string &name,
                          const IntVector &groupids, int edgeid, int laneno,
@@ -109,8 +107,7 @@ public:
         static SignalDictType myDict;
     };
 
-    class NIVissimTLSignalGroup
-    {
+    class NIVissimTLSignalGroup {
     public:
         NIVissimTLSignalGroup(int lsaid, int id, const std::string &name,
                               bool isGreenBegin, const DoubleVector &times,

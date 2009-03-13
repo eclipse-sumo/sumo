@@ -58,8 +58,7 @@ class OutputDevice;
  *  device within the corresponding vehicle methods. MSDevice brings already
  *  an empty (nothing doing) implementation of these.
  */
-class MSDevice
-{
+class MSDevice {
 public:
     /** @brief Constructor
      *

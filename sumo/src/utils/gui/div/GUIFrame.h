@@ -42,8 +42,7 @@
  *
  * @todo What about throw-declarations in methods?
  */
-class GUIFrame
-{
+class GUIFrame {
 public:
     /** @brief Fills the options container Singleton with gui-options
     */

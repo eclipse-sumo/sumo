@@ -37,8 +37,7 @@
  * @class RODFFrame
  * @brief Sets and checks options for df-routing
  */
-class RODFFrame
-{
+class RODFFrame {
 public:
     /** @brief Inserts options used by dfrouter into the OptionsCont-singleton
      */

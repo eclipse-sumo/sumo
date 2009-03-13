@@ -71,18 +71,15 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0), myHaveReportedAboutFunctionDeprecation(false)
-{}
+        myCurrentEdge(0), myHaveReportedAboutFunctionDeprecation(false) {}
 
 
-NIXMLEdgesHandler::~NIXMLEdgesHandler() throw()
-{}
+NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
 
 
 void
 NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
-                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE) {
         bool ok = true;
         // initialise the edge
@@ -367,8 +364,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
 
 
 bool
-NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs)
-{
+NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
     string begNodeID = attrs.getStringSecure(SUMO_ATTR_FROMNODE, "");
@@ -399,8 +395,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs)
 
 SUMOReal
 NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
-                                  const std::string &attrName)
-{
+                                  const std::string &attrName) {
     try {
         return attrs.getFloatSecure(attrID, SUMOXML_INVALID_POSITION);
     } catch (NumberFormatException &) {
@@ -412,8 +407,7 @@ NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr at
 
 NBNode *
 NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
-                                      const std::string &name, const std::string &dir)
-{
+                                      const std::string &name, const std::string &dir) {
     NBNode *ret = 0;
     if (name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
         MsgHandler::getErrorInstance()->inform("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
@@ -448,8 +442,7 @@ NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
 
 
 Position2DVector
-NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs)
-{
+NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) {
     if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         return Position2DVector();
     }
@@ -475,8 +468,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs)
 
 void
 NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
-                                const std::string &chars) throw(ProcessError)
-{
+                                const std::string &chars) throw(ProcessError) {
     if (element==SUMO_TAG_EXPANSION) {
         if (myExpansions.size()!=0) {
             Expansion &e = myExpansions.back();
@@ -499,8 +491,7 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
 
 
 void
-NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE && myCurrentEdge!=0) {
         try {
             if (!myEdgeCont.insert(myCurrentEdge)) {

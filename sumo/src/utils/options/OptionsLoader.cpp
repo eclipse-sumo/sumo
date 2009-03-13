@@ -55,24 +55,20 @@ using namespace std;
 // ===========================================================================
 OptionsLoader::OptionsLoader(const std::string &file) throw()
         : myError(false), myFile(file),
-        myOptions(OptionsCont::getOptions()), myItem()
-{}
+        myOptions(OptionsCont::getOptions()), myItem() {}
 
 
-OptionsLoader::~OptionsLoader() throw()
-{}
+OptionsLoader::~OptionsLoader() throw() {}
 
 
 void OptionsLoader::startElement(const XMLCh* const name,
-                                 AttributeList& /*attributes*/)
-{
+                                 AttributeList& /*attributes*/) {
     myItem = TplConvert<XMLCh>::_2str(name);
 }
 
 
 void OptionsLoader::characters(const XMLCh* const chars,
-                               const unsigned int length)
-{
+                               const unsigned int length) {
     if (myItem.length()==0) {
         return;
     }
@@ -126,8 +122,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
 
 bool
 OptionsLoader::setSecure(const std::string &name,
-                         bool value) const throw()
-{
+                         bool value) const throw() {
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
         return true;
@@ -138,8 +133,7 @@ OptionsLoader::setSecure(const std::string &name,
 
 bool
 OptionsLoader::setSecure(const std::string &name,
-                         const std::string &value) const throw()
-{
+                         const std::string &value) const throw() {
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
         return true;
@@ -149,15 +143,13 @@ OptionsLoader::setSecure(const std::string &name,
 
 
 void
-OptionsLoader::endElement(const XMLCh* const /*name*/)
-{
+OptionsLoader::endElement(const XMLCh* const /*name*/) {
     myItem = "";
 }
 
 
 void
-OptionsLoader::warning(const SAXParseException& exception)
-{
+OptionsLoader::warning(const SAXParseException& exception) {
     WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
     WRITE_WARNING(\
                   " (At line/column " \
@@ -168,8 +160,7 @@ OptionsLoader::warning(const SAXParseException& exception)
 
 
 void
-OptionsLoader::error(const SAXParseException& exception)
-{
+OptionsLoader::error(const SAXParseException& exception) {
     MsgHandler::getErrorInstance()->inform(
         TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
@@ -181,8 +172,7 @@ OptionsLoader::error(const SAXParseException& exception)
 
 
 void
-OptionsLoader::fatalError(const SAXParseException& exception)
-{
+OptionsLoader::fatalError(const SAXParseException& exception) {
     MsgHandler::getErrorInstance()->inform(
         TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
@@ -194,8 +184,7 @@ OptionsLoader::fatalError(const SAXParseException& exception)
 
 
 bool
-OptionsLoader::errorOccured() const throw()
-{
+OptionsLoader::errorOccured() const throw() {
     return myError;
 }
 

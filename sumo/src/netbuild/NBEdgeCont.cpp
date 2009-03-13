@@ -67,20 +67,17 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBEdgeCont::NBEdgeCont() throw()
-        : myEdgesSplit(0)
-{
+        : myEdgesSplit(0) {
 }
 
 
-NBEdgeCont::~NBEdgeCont() throw()
-{
+NBEdgeCont::~NBEdgeCont() throw() {
     clear();
 }
 
 
 void
-NBEdgeCont::applyOptions(OptionsCont &oc)
-{
+NBEdgeCont::applyOptions(OptionsCont &oc) {
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.isSet("edges-min-speed") ? oc.getFloat("edges-min-speed") : -1;
     myRemoveEdgesAfterJoining = OptionsCont::getOptions().getBool("keep-edges.postload");
@@ -123,8 +120,7 @@ NBEdgeCont::applyOptions(OptionsCont &oc)
 
 
 void
-NBEdgeCont::clear() throw()
-{
+NBEdgeCont::clear() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         delete((*i).second);
     }
@@ -135,8 +131,7 @@ NBEdgeCont::clear() throw()
 
 // ----- edge access methods
 bool
-NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw()
-{
+NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     EdgeCont::iterator i = myEdges.find(edge->getID());
     if (i!=myEdges.end()) {
         return false;
@@ -227,8 +222,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw()
 
 
 NBEdge *
-NBEdgeCont::retrieve(const string &id) const throw()
-{
+NBEdgeCont::retrieve(const string &id) const throw() {
     EdgeCont::const_iterator i = myEdges.find(id);
     if (i==myEdges.end()) return 0;
     return (*i).second;
@@ -238,8 +232,7 @@ NBEdgeCont::retrieve(const string &id) const throw()
 NBEdge *
 NBEdgeCont::retrievePossiblySplitted(const std::string &id,
                                      const std::string &hint,
-                                     bool incoming) const throw()
-{
+                                     bool incoming) const throw() {
     // try to retrieve using the given name (iterative)
     NBEdge *edge = retrieve(id);
     if (edge!=0) {
@@ -273,8 +266,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
 
 
 NBEdge *
-NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw()
-{
+NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw() {
     // check whether the edge was not split, yet
     NBEdge *edge = retrieve(id);
     if (edge!=0) {
@@ -319,8 +311,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const 
 
 
 void
-NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge) throw()
-{
+NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge) throw() {
     myEdges.erase(edge->getID());
     edge->myFrom->removeOutgoing(edge);
     edge->myTo->removeIncoming(edge);
@@ -332,8 +323,7 @@ NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge) throw()
 
 // ----- explicite edge manipulation methods
 bool
-NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError)
-{
+NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError) {
     return splitAt(dc, edge, node, edge->getID() + "[0]", edge->getID() + "[1]",
                    (unsigned int) edge->myLanes.size(), (unsigned int) edge->myLanes.size());
 }
@@ -343,8 +333,7 @@ bool
 NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
                     const std::string &firstEdgeName,
                     const std::string &secondEdgeName,
-                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError)
-{
+                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError) {
     SUMOReal pos;
     pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
     if (pos<=0) {
@@ -365,8 +354,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
                     NBEdge *edge, SUMOReal pos, NBNode *node,
                     const std::string &firstEdgeName,
                     const std::string &secondEdgeName,
-                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError)
-{
+                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError) {
     // build the new edges' geometries
     std::pair<Position2DVector, Position2DVector> geoms =
         edge->getGeometry().splitAt(pos);
@@ -430,8 +418,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
 
 // ----- container access methods
 std::vector<std::string>
-NBEdgeCont::getAllNames() const throw()
-{
+NBEdgeCont::getAllNames() const throw() {
     std::vector<std::string> ret;
     for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         ret.push_back((*i).first);
@@ -443,8 +430,7 @@ NBEdgeCont::getAllNames() const throw()
 
 // ----- processing methods
 void
-NBEdgeCont::computeTurningDirections() throw()
-{
+NBEdgeCont::computeTurningDirections() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeTurningDirections();
     }
@@ -452,8 +438,7 @@ NBEdgeCont::computeTurningDirections() throw()
 
 
 void
-NBEdgeCont::sortOutgoingLanesConnections() throw()
-{
+NBEdgeCont::sortOutgoingLanesConnections() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->sortOutgoingLanesConnections();
     }
@@ -461,8 +446,7 @@ NBEdgeCont::sortOutgoingLanesConnections() throw()
 
 
 void
-NBEdgeCont::computeEdge2Edges() throw()
-{
+NBEdgeCont::computeEdge2Edges() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdge2Edges();
     }
@@ -470,8 +454,7 @@ NBEdgeCont::computeEdge2Edges() throw()
 
 
 void
-NBEdgeCont::computeLanes2Edges() throw()
-{
+NBEdgeCont::computeLanes2Edges() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeLanes2Edges();
     }
@@ -479,8 +462,7 @@ NBEdgeCont::computeLanes2Edges() throw()
 
 
 void
-NBEdgeCont::recheckLanes() throw()
-{
+NBEdgeCont::recheckLanes() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->recheckLanes();
     }
@@ -488,8 +470,7 @@ NBEdgeCont::recheckLanes() throw()
 
 
 void
-NBEdgeCont::appendTurnarounds(bool noTLSControlled) throw()
-{
+NBEdgeCont::appendTurnarounds(bool noTLSControlled) throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->appendTurnaround(noTLSControlled);
     }
@@ -497,8 +478,7 @@ NBEdgeCont::appendTurnarounds(bool noTLSControlled) throw()
 
 
 void
-NBEdgeCont::normaliseEdgePositions() throw()
-{
+NBEdgeCont::normaliseEdgePositions() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->normalisePosition();
     }
@@ -506,8 +486,7 @@ NBEdgeCont::normaliseEdgePositions() throw()
 
 
 void
-NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw()
-{
+NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
     }
@@ -515,8 +494,7 @@ NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) thr
 
 
 void
-NBEdgeCont::computeEdgeShapes() throw()
-{
+NBEdgeCont::computeEdgeShapes() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdgeShape();
     }
@@ -524,8 +502,7 @@ NBEdgeCont::computeEdgeShapes() throw()
 
 
 void
-NBEdgeCont::recomputeLaneShapes() throw()
-{
+NBEdgeCont::recomputeLaneShapes() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         (*i).second->computeLaneShapes();
     }
@@ -533,8 +510,7 @@ NBEdgeCont::recomputeLaneShapes() throw()
 
 
 void
-NBEdgeCont::recheckEdgeGeomsForDoublePositions() throw()
-{
+NBEdgeCont::recheckEdgeGeomsForDoublePositions() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         (*i).second->recheckEdgeGeomForDoublePositions();
     }
@@ -544,8 +520,7 @@ NBEdgeCont::recheckEdgeGeomsForDoublePositions() throw()
 void
 NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
                                         NBTrafficLightLogicCont &tlc,
-                                        EdgeVector edges) throw()
-{
+                                        EdgeVector edges) throw() {
     // !!! Attention!
     //  No merging of the geometry to come is being done
     //  The connections are moved from one edge to another within
@@ -620,8 +595,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
 
 
 void
-NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw()
-{
+NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw() {
     std::vector<NBEdge*> toRemove;
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end();) {
         NBEdge *edge = (*i).second;
@@ -639,8 +613,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw()
 
 
 void
-NBEdgeCont::splitGeometry(NBNodeCont &nc) throw()
-{
+NBEdgeCont::splitGeometry(NBNodeCont &nc) throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         if ((*i).second->getGeometry().size()<3) {
             continue;
@@ -651,8 +624,7 @@ NBEdgeCont::splitGeometry(NBNodeCont &nc) throw()
 
 
 void
-NBEdgeCont::recheckLaneSpread() throw()
-{
+NBEdgeCont::recheckLaneSpread() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         string oppositeID;
         if ((*i).first[0]=='-') {
@@ -673,8 +645,7 @@ NBEdgeCont::recheckLaneSpread() throw()
 
 // ----- output methods
 void
-NBEdgeCont::writeXMLStep1(OutputDevice &into) throw(IOError)
-{
+NBEdgeCont::writeXMLStep1(OutputDevice &into) throw(IOError) {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->writeXMLStep1(into);
     }
@@ -683,8 +654,7 @@ NBEdgeCont::writeXMLStep1(OutputDevice &into) throw(IOError)
 
 
 void
-NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOError)
-{
+NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOError) {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->writeXMLStep2(into, includeInternal);
     }
@@ -694,8 +664,7 @@ NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOErro
 
 
 void
-NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(IOError)
-{
+NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(IOError) {
     OutputDevice& edevice = OutputDevice::getDevice(efile);
     edevice.writeXMLHeader("edges");
     OutputDevice& cdevice = OutputDevice::getDevice(cfile);
@@ -749,8 +718,7 @@ NBEdgeCont::savePlain(const std::string &efile, const std::string &cfile) throw(
 
 // ----- other
 EdgeVector
-NBEdgeCont::getGeneratedFrom(const std::string &id) const throw()
-{
+NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {
     size_t len = id.length();
     EdgeVector ret;
     for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {

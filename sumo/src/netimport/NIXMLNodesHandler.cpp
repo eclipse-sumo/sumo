@@ -65,18 +65,15 @@ NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
                                      OptionsCont &options)
         : SUMOSAXHandler("xml-nodes - file"),
         myOptions(options),
-        myNodeCont(nc), myTLLogicCont(tlc)
-{}
+        myNodeCont(nc), myTLLogicCont(tlc) {}
 
 
-NIXMLNodesHandler::~NIXMLNodesHandler() throw()
-{}
+NIXMLNodesHandler::~NIXMLNodesHandler() throw() {}
 
 
 void
 NIXMLNodesHandler::myStartElement(SumoXMLTag element,
-                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element!=SUMO_TAG_NODE) {
         return;
     }
@@ -119,8 +116,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
 
 
 bool
-NIXMLNodesHandler::setPosition(const SUMOSAXAttributes &attrs)
-{
+NIXMLNodesHandler::setPosition(const SUMOSAXAttributes &attrs) {
     // retrieve the positions
     try {
         SUMOReal x = attrs.getFloat(SUMO_ATTR_X);
@@ -144,8 +140,7 @@ NIXMLNodesHandler::setPosition(const SUMOSAXAttributes &attrs)
 
 void
 NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs,
-        NBNode *currentNode)
-{
+        NBNode *currentNode) {
     // try to get the tl-id
     // if a tl-id is given, we will look whether this tl already exists
     //  if so, we will add the node to it, otherwise allocate a new one with this id

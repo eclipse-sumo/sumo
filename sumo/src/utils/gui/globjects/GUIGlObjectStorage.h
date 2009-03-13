@@ -60,8 +60,7 @@ class GUIGlObject;
  * accessed at all, one for objects currently accessed and one for objects that
  * are accessed but shall be deleted.
  */
-class GUIGlObjectStorage
-{
+class GUIGlObjectStorage {
 public:
     /// Constructor
     GUIGlObjectStorage();

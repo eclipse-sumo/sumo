@@ -68,12 +68,10 @@ NIVissimDisturbance::NIVissimDisturbance(int id,
         SUMOReal timegap, SUMOReal waygap,
         SUMOReal vmax)
         : myID(id), myNode(-1), myName(name), myEdge(edge), myDisturbance(by),
-        myTimeGap(timegap), myWayGap(waygap), myVMax(vmax)
-{}
+        myTimeGap(timegap), myWayGap(waygap), myVMax(vmax) {}
 
 
-NIVissimDisturbance::~NIVissimDisturbance()
-{}
+NIVissimDisturbance::~NIVissimDisturbance() {}
 
 
 
@@ -82,8 +80,7 @@ NIVissimDisturbance::dictionary(int id,
                                 const std::string &name,
                                 const NIVissimExtendedEdgePoint &edge,
                                 const NIVissimExtendedEdgePoint &by,
-                                SUMOReal timegap, SUMOReal waygap, SUMOReal vmax)
-{
+                                SUMOReal timegap, SUMOReal waygap, SUMOReal vmax) {
     int nid = myRunningID++;
     NIVissimDisturbance *o =
         new NIVissimDisturbance(nid, name, edge, by, timegap, waygap, vmax);
@@ -95,8 +92,7 @@ NIVissimDisturbance::dictionary(int id,
 
 
 bool
-NIVissimDisturbance::dictionary(int id, NIVissimDisturbance *o)
-{
+NIVissimDisturbance::dictionary(int id, NIVissimDisturbance *o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -107,8 +103,7 @@ NIVissimDisturbance::dictionary(int id, NIVissimDisturbance *o)
 
 
 NIVissimDisturbance *
-NIVissimDisturbance::dictionary(int id)
-{
+NIVissimDisturbance::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -117,8 +112,7 @@ NIVissimDisturbance::dictionary(int id)
 }
 
 IntVector
-NIVissimDisturbance::getWithin(const AbstractPoly &poly)
-{
+NIVissimDisturbance::getWithin(const AbstractPoly &poly) {
     IntVector ret;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         if ((*i).second->crosses(poly)) {
@@ -130,8 +124,7 @@ NIVissimDisturbance::getWithin(const AbstractPoly &poly)
 
 
 void
-NIVissimDisturbance::computeBounding()
-{
+NIVissimDisturbance::computeBounding() {
     assert(myBoundary==0);
     Boundary *bound = new Boundary();
     if (NIVissimAbstractEdge::dictionary(myEdge.getEdgeID())!=0) {
@@ -148,8 +141,7 @@ NIVissimDisturbance::computeBounding()
 
 bool
 NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
-                               NBNodeCont &nc, NBEdgeCont &ec)
-{
+                               NBNodeCont &nc, NBEdgeCont &ec) {
     myNode = 0;
     NIVissimConnection *pc =
         NIVissimConnection::dictionary(myEdge.getEdgeID());
@@ -329,8 +321,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
 
 
 NBConnection
-NIVissimDisturbance::getConnection(NBNode *node, int aedgeid)
-{
+NIVissimDisturbance::getConnection(NBNode *node, int aedgeid) {
     if (NIVissimEdge::dictionary(myEdge.getEdgeID())==0) {
         NIVissimConnection *c = NIVissimConnection::dictionary(aedgeid);
         NBEdge *from =
@@ -350,8 +341,7 @@ NIVissimDisturbance::getConnection(NBNode *node, int aedgeid)
 }
 
 void
-NIVissimDisturbance::clearDict()
-{
+NIVissimDisturbance::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }
@@ -360,8 +350,7 @@ NIVissimDisturbance::clearDict()
 
 
 void
-NIVissimDisturbance::dict_SetDisturbances()
-{
+NIVissimDisturbance::dict_SetDisturbances() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimDisturbance *d = (*i).second;
         NIVissimAbstractEdge::dictionary(d->myEdge.getEdgeID())->addDisturbance((*i).first);
@@ -375,8 +364,7 @@ NIVissimDisturbance::dict_SetDisturbances()
 
 
 void
-NIVissimDisturbance::reportRefused()
-{
+NIVissimDisturbance::reportRefused() {
     if (refusedProhibits>0) {
         WRITE_WARNING("Could not build " + toString<size_t>(refusedProhibits)+ " of " + toString<size_t>(myDict.size())+ " disturbances.");
     }

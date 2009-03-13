@@ -61,23 +61,20 @@ using namespace std;
 // NGEdge-definitions
 // ---------------------------------------------------------------------------
 NGEdge::NGEdge(const std::string &id, NGNode *startNode, NGNode *endNode) throw()
-        : myID(id), myStartNode(startNode), myEndNode(endNode)
-{
+        : myID(id), myStartNode(startNode), myEndNode(endNode) {
     myStartNode->addLink(this);
     myEndNode->addLink(this);
 }
 
 
-NGEdge::~NGEdge() throw()
-{
+NGEdge::~NGEdge() throw() {
     myStartNode->removeLink(this);
     myEndNode->removeLink(this);
 }
 
 
 NBEdge *
-NGEdge::buildNBEdge(NBNetBuilder &nb) const throw(ProcessError)
-{
+NGEdge::buildNBEdge(NBNetBuilder &nb) const throw(ProcessError) {
     return new NBEdge(
                myID, // id
                nb.getNodeCont().retrieve(myStartNode->getID()), // from

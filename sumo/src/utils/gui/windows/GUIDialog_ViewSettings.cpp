@@ -92,20 +92,17 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // method definitions
 // ===========================================================================
 GUIDialog_ViewSettings::DecalsLoader::DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals) throw()
-        : myDecals(decals)
-{
+        : myDecals(decals) {
 }
 
 
-GUIDialog_ViewSettings::DecalsLoader::~DecalsLoader() throw()
-{
+GUIDialog_ViewSettings::DecalsLoader::~DecalsLoader() throw() {
 }
 
 
 void
 GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_VIEWSETTINGS_DECAL: {
         GUISUMOAbstractView::Decal d;
@@ -124,20 +121,17 @@ GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element,
 
 
 GUIDialog_ViewSettings::SchemeLoader::SchemeLoader(GUIVisualizationSettings &s) throw()
-        : mySettings(s)
-{
+        : mySettings(s) {
 }
 
 
-GUIDialog_ViewSettings::SchemeLoader::~SchemeLoader() throw()
-{
+GUIDialog_ViewSettings::SchemeLoader::~SchemeLoader() throw() {
 }
 
 
 void
 GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_VIEWSETTINGS_SCHEME:
         mySettings.name = attrs.getStringSecure("name", mySettings.name);
@@ -235,8 +229,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myParent(parent), mySettings(settings),
         myLaneColoringInfoSource(laneEdgeModeSource),
         myVehicleColoringInfoSource(vehicleModeSource),
-        myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0)
-{
+        myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0) {
     myBackup = (*mySettings);
 
     FXVerticalFrame *contentFrame =
@@ -270,7 +263,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     //
     FXTabBook *tabbook =
         new FXTabBook(contentFrame,0,0,TABBOOK_LEFTTABS|PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT,
-            0,0,0,0, 0,0,0,0);
+                      0,0,0,0, 0,0,0,0);
     {
         // tab for the background
         FXTabItem *tab1 = new FXTabItem(tabbook,"Background",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
@@ -665,15 +658,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
 }
 
 
-GUIDialog_ViewSettings::~GUIDialog_ViewSettings() throw()
-{
+GUIDialog_ViewSettings::~GUIDialog_ViewSettings() throw() {
     myParent->remove(this);
 }
 
 
 void
-GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings *settings) throw()
-{
+GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings *settings) throw() {
     mySettings = settings;
     myBackup = (*settings);
     onCmdNameChange(0, 0, 0);
@@ -681,16 +672,14 @@ GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings *settings) throw()
 
 
 long
-GUIDialog_ViewSettings::onCmdOk(FXObject*,FXSelector,void*)
-{
+GUIDialog_ViewSettings::onCmdOk(FXObject*,FXSelector,void*) {
     hide();
     return 1;
 }
 
 
 long
-GUIDialog_ViewSettings::onCmdCancel(FXObject*,FXSelector,void*)
-{
+GUIDialog_ViewSettings::onCmdCancel(FXObject*,FXSelector,void*) {
     hide();
     (*mySettings) = myBackup;
     return 1;
@@ -698,15 +687,13 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_ViewSettings::onChgNameChange(FXObject*,FXSelector,void*)
-{
+GUIDialog_ViewSettings::onChgNameChange(FXObject*,FXSelector,void*) {
     return 1;
 }
 
 
 long
-GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     if (data!=0) {
         FXString dataS = (char*) data; // !!!unicode
         // check whether this item has been added twice
@@ -810,8 +797,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
-{
+GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     GUIVisualizationSettings tmpSettings = *mySettings;
     int prevLaneMode = mySettings->laneEdgeMode;
     int prevVehicleMode = mySettings->vehicleMode;
@@ -953,8 +939,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
 
 
 void
-GUIDialog_ViewSettings::writeSettings() throw()
-{
+GUIDialog_ViewSettings::writeSettings() throw() {
     const std::map<std::string, GUIVisualizationSettings> &items = gSchemeStorage.getItems();
     const std::vector<std::string> &names = gSchemeStorage.getNames();
     getApp()->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-3);//!!!
@@ -1045,8 +1030,7 @@ GUIDialog_ViewSettings::writeSettings() throw()
 
 
 void
-GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
-{
+GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
     size_t index, k;
     std::map<int, std::vector<RGBColor> >::const_iterator j;
     try {
@@ -1122,8 +1106,7 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
 
 
 void
-GUIDialog_ViewSettings::loadSettings(const std::string &file) throw()
-{
+GUIDialog_ViewSettings::loadSettings(const std::string &file) throw() {
     GUIVisualizationSettings setting;
     SchemeLoader loader(setting);
     XMLSubSys::runParser(loader, file);
@@ -1138,8 +1121,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file) throw()
 
 
 void
-GUIDialog_ViewSettings::saveDecals(const std::string &file) throw()
-{
+GUIDialog_ViewSettings::saveDecals(const std::string &file) throw() {
     try {
         OutputDevice &dev = OutputDevice::getDevice(file);
         dev << "<decals>\n";
@@ -1163,8 +1145,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw()
 
 
 void
-GUIDialog_ViewSettings::loadDecals(const std::string &file) throw()
-{
+GUIDialog_ViewSettings::loadDecals(const std::string &file) throw() {
     myDecalsLock->lock();
     vector<GUISUMOAbstractView::Decal> decals;
     DecalsLoader loader(decals);
@@ -1177,8 +1158,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string &file) throw()
 
 
 long
-GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
     if (index<3) {
         return 1;
@@ -1228,8 +1208,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr)
-{
+GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    mySchemeName->getCurrentItem()<3
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -1239,8 +1218,7 @@ GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
     if (index<3) {
         return 1;
@@ -1255,8 +1233,7 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr)
-{
+GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    mySchemeName->getCurrentItem()<3
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -1266,8 +1243,7 @@ GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data) {
     FXFileDialog opendialog(this, "Export view settings");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -1284,8 +1260,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr)
-{
+GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    mySchemeName->getCurrentItem()<3
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -1295,8 +1270,7 @@ GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data) {
     FXFileDialog opendialog(this, "Import view settings");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -1313,8 +1287,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*data) {
     FXFileDialog opendialog(this, "Load Decals");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -1331,8 +1304,7 @@ GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*,FXSelector,void*data) {
     FXFileDialog opendialog(this, "Save Decals");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -1351,16 +1323,14 @@ GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*,FXSelector,void*data)
 
 
 long
-GUIDialog_ViewSettings::onUpdImportSetting(FXObject*sender,FXSelector,void*ptr)
-{
+GUIDialog_ViewSettings::onUpdImportSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this, FXSEL(SEL_COMMAND,ID_ENABLE), ptr);
     return 1;
 }
 
 
 RGBColor
-GUIDialog_ViewSettings::convert(const FXColor c) throw()
-{
+GUIDialog_ViewSettings::convert(const FXColor c) throw() {
     return RGBColor(
                (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
                (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
@@ -1369,15 +1339,13 @@ GUIDialog_ViewSettings::convert(const FXColor c) throw()
 
 
 FXColor
-GUIDialog_ViewSettings::convert(const RGBColor &c) throw()
-{
+GUIDialog_ViewSettings::convert(const RGBColor &c) throw() {
     return FXRGB(c.red()*255., c.green()*255., c.blue()*255.);
 }
 
 
 void
-GUIDialog_ViewSettings::rebuildList() throw()
-{
+GUIDialog_ViewSettings::rebuildList() throw() {
     myDecalsTable->clearItems();
 
     // set table attributes
@@ -1418,18 +1386,17 @@ GUIDialog_ViewSettings::rebuildList() throw()
 
 
 void
-GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw()
-{
+GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
     // decals
     delete myDecalsTable;
     myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE,
-        LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0,0, 470, 0);
+            LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0,0, 470, 0);
     myDecalsTable->setVisibleRows(5);
     myDecalsTable->setVisibleColumns(6);
     myDecalsTable->setTableSize(5,6);
     myDecalsTable->setBackColor(FXRGB(255,255,255));
     myDecalsTable->getRowHeader()->setWidth(0);
-    for(int i=1; i<5; ++i) {
+    for (int i=1; i<5; ++i) {
         myDecalsTable->setCellType(i, CT_REAL);
         myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
     }
@@ -1526,8 +1493,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw()
 
 
 long
-GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
-{
+GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
     string value = i->item->getText().text();
     // check whether the inserted value is empty
@@ -1553,7 +1519,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
 
     switch (i->col) {
     case 0:
-        if(d.initialised&&d.filename!=value) {
+        if (d.initialised&&d.filename!=value) {
             d.initialised = false;
         }
         d.filename = value;
@@ -1611,15 +1577,13 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
 
 
 std::string
-GUIDialog_ViewSettings::getCurrentScheme() const throw()
-{
+GUIDialog_ViewSettings::getCurrentScheme() const throw() {
     return mySchemeName->getItem(mySchemeName->getCurrentItem()).text();
 }
 
 
 void
-GUIDialog_ViewSettings::setCurrentScheme(const std::string &name) throw()
-{
+GUIDialog_ViewSettings::setCurrentScheme(const std::string &name) throw() {
     if (name.c_str()==mySchemeName->getItemText(mySchemeName->getCurrentItem())) {
         return;
     }

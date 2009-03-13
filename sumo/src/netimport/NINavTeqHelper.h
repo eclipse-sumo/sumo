@@ -51,8 +51,7 @@ class NBEdge;
  * Networks from NavTeq ofte use categories for speed limits and the number of lanes.
  * This class parses such categories and converts them into proper values.
  */
-class NINavTeqHelper
-{
+class NINavTeqHelper {
 public:
     /** @brief Returns the speed evaluating the given Navteq-description
      *

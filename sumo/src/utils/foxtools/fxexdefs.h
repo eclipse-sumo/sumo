@@ -62,8 +62,7 @@ using namespace FX;
  * FX_NO_GLOBAL_NAMESPACE, the FXEX namespace automatically imported when you #include
  * <fxex/fxex.h>.
  */
-namespace FXEX
-{
+namespace FXEX {
 
 // provide an extern mechanism
 #ifdef WIN32

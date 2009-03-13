@@ -63,17 +63,14 @@ NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
                              bool tryIgnoreNodePositions) throw()
         : myFileName(file),
         myEdgeCont(ec), myNodeCont(nc),
-        myTryIgnoreNodePositions(tryIgnoreNodePositions), myRunningNodeIndex(0)
-{}
+        myTryIgnoreNodePositions(tryIgnoreNodePositions), myRunningNodeIndex(0) {}
 
 
-NITigerLoader::~NITigerLoader() throw()
-{}
+NITigerLoader::~NITigerLoader() throw() {}
 
 
 void
-NITigerLoader::load(OptionsCont &) throw(ProcessError)
-{
+NITigerLoader::load(OptionsCont &) throw(ProcessError) {
     LineReader tgr1r((myFileName + ".rt1").c_str());
     LineReader tgr2r((myFileName + ".rt2").c_str());
     if (!tgr1r.good()) {
@@ -149,8 +146,7 @@ NITigerLoader::load(OptionsCont &) throw(ProcessError)
 
 
 Position2DVector
-NITigerLoader::convertShape(const std::vector<std::string> &sv) throw(ProcessError)
-{
+NITigerLoader::convertShape(const std::vector<std::string> &sv) throw(ProcessError) {
     Position2DVector ret;
     std::vector<std::string>::const_iterator i;
     for (i=sv.begin(); i!=sv.end(); ++i) {
@@ -183,8 +179,7 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv) throw(ProcessErr
 
 
 NBNode *
-NITigerLoader::getNode(const Position2D &p) const throw(ProcessError)
-{
+NITigerLoader::getNode(const Position2D &p) const throw(ProcessError) {
     NBNode *n = myNodeCont.retrieve(p);
     if (n==0) {
         n = new NBNode(toString<int>(myRunningNodeIndex++), p);
@@ -197,8 +192,7 @@ NITigerLoader::getNode(const Position2D &p) const throw(ProcessError)
 
 
 std::string
-NITigerLoader::getType(const std::vector<std::string> &sv) const throw(ProcessError)
-{
+NITigerLoader::getType(const std::vector<std::string> &sv) const throw(ProcessError) {
     for (std::vector<std::string>::const_iterator i=sv.begin(); i!=sv.end(); ++i) {
         std::string tc = *i;
         // some checks whether it's the type
@@ -223,8 +217,7 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const throw(ProcessEr
 
 
 SUMOReal
-NITigerLoader::getSpeed(const std::string &type) const throw(ProcessError)
-{
+NITigerLoader::getSpeed(const std::string &type) const throw(ProcessError) {
     switch (type[0]) {
     case 'A':
         switch (type[1]) {
@@ -267,8 +260,7 @@ NITigerLoader::getSpeed(const std::string &type) const throw(ProcessError)
 
 
 int
-NITigerLoader::getLaneNo(const std::string &type) const throw(ProcessError)
-{
+NITigerLoader::getLaneNo(const std::string &type) const throw(ProcessError) {
     switch (type[0]) {
     case 'A':
         switch (type[1]) {

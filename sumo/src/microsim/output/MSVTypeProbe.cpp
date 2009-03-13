@@ -51,26 +51,23 @@ using namespace std;
 // ===========================================================================
 MSVTypeProbe::MSVTypeProbe(const string &id,
                            const string &vType) throw()
-        : Named(id), myVType(vType)
-{
+        : Named(id), myVType(vType) {
 }
 
 
-MSVTypeProbe::~MSVTypeProbe() throw()
-{
+MSVTypeProbe::~MSVTypeProbe() throw() {
 }
 
 
 void
 MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
-                             SUMOTime startTime, SUMOTime) throw(IOError)
-{
+                             SUMOTime startTime, SUMOTime) throw(IOError) {
     const std::string indent("    ");
     dev << indent << "<timestep time=\"" << startTime << "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
     std::map<std::string, MSVehicle*>::const_iterator it = vc.loadedVehBegin();
     std::map<std::string, MSVehicle*>::const_iterator end = vc.loadedVehEnd();
-    for (;it != end; ++it) {
+    for (; it != end; ++it) {
         const MSVehicle *veh=(*it).second;
         if (myVType=="" || myVType==veh->getVehicleType().getID()) {
             if (!veh->isOnRoad()) {
@@ -99,8 +96,7 @@ MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSVTypeProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
-{
+MSVTypeProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
     dev.writeXMLHeader("vehicle-type-probes");
 }
 

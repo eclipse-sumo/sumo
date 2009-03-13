@@ -37,8 +37,7 @@
  *
  */
 template<typename T>
-class ValueSource
-{
+class ValueSource {
 public:
     ValueSource() { }
     virtual ~ValueSource() { }

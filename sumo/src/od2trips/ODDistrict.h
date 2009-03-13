@@ -47,8 +47,7 @@
  * Class representing a district which has some ingoing and outgoing connections
  *  to the road network which may be weighted.
  */
-class ODDistrict : public Named
-{
+class ODDistrict : public Named {
 public:
     /** @brief Constructor
      *

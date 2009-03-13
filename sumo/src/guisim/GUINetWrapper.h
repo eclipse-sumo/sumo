@@ -51,9 +51,8 @@ class GUINet;
  * @class GUINetWrapper
  */
 class GUINetWrapper :
-            public GUIGlObject,
-            public HaveBoundary
-{
+        public GUIGlObject,
+            public HaveBoundary {
 public:
     /// constructor
     GUINetWrapper(GUIGlObjectStorage &idStorage,

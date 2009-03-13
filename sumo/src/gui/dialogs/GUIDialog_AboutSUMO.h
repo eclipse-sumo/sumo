@@ -39,8 +39,7 @@
  * @class GUIDialog_AboutSUMO
  * @brief The application's "About" - dialog
  */
-class GUIDialog_AboutSUMO : public FXDialogBox
-{
+class GUIDialog_AboutSUMO : public FXDialogBox {
 public:
     /** @brief Constructor
      *

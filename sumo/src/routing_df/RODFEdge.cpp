@@ -47,24 +47,20 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RODFEdge::RODFEdge(const std::string &id, unsigned int index) throw()
-        : ROEdge(id, index, false)
-{}
+        : ROEdge(id, index, false) {}
 
 
-RODFEdge::~RODFEdge() throw()
-{}
+RODFEdge::~RODFEdge() throw() {}
 
 
 void
-RODFEdge::setFlows(const std::vector<FlowDef> &flows)
-{
+RODFEdge::setFlows(const std::vector<FlowDef> &flows) {
     myFlows = flows;
 }
 
 
 const std::vector<FlowDef> &
-RODFEdge::getFlows() const
-{
+RODFEdge::getFlows() const {
     return myFlows;
 }
 

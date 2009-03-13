@@ -48,8 +48,7 @@
  * @brief Does not set a color directly, but calls a function that does it
  */
 template<class T>
-class GUIColorer_ColorSettingFunction : public GUIBaseColorer<T>
-{
+class GUIColorer_ColorSettingFunction : public GUIBaseColorer<T> {
 public:
     /// Type of the function to execute.
     typedef void(T::* Operation)() const;

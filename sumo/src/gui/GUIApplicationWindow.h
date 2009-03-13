@@ -72,8 +72,7 @@ class GUIParameterTableWindow;
  * whether aggregated views are allowed is stored within this class, too.
  */
 class GUIApplicationWindow :
-            public GUIMainWindow, public MFXInterThreadEventClient
-{
+            public GUIMainWindow, public MFXInterThreadEventClient {
     // FOX-declarations
     FXDECLARE(GUIApplicationWindow)
 public:

@@ -54,8 +54,7 @@ typedef std::vector<MSLink*> MSLinkCont;
  * @class MSLinkContHelper
  * Some helping functions for dealing with links.
  */
-class MSLinkContHelper
-{
+class MSLinkContHelper {
 public:
 #ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the internal lane that must be passed in order to get to the desired edge

@@ -53,8 +53,7 @@ class MFXAddEditTypedTable;
  *  time steps where the simulation halts.
  * @todo Use a LineReader instead of >> while reading
  */
-class GUIDialog_Breakpoints : public FXMainWindow
-{
+class GUIDialog_Breakpoints : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
 public:

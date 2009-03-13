@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Stopschilddefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Stopschilddefinition(NIVissimLoader &parent);

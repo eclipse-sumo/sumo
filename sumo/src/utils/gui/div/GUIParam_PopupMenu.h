@@ -51,8 +51,7 @@ class GUIMainWindow;
  * @brief A popup-menu for dynamic patameter table entries
  *
  */
-class GUIParam_PopupMenuInterface : public FXMenuPane
-{
+class GUIParam_PopupMenuInterface : public FXMenuPane {
     FXDECLARE(GUIParam_PopupMenuInterface)
 public:
     /** @brief Constructor

@@ -54,57 +54,49 @@ RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
                  const std::vector<const ROEdge*> &route,
                  const RGBColor * const color) throw()
         : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
-        myProbability(prop), myRoute(route), myColor(color)
-{}
+        myProbability(prop), myRoute(route), myColor(color) {}
 
 
 RORoute::RORoute(const RORoute &src) throw()
         : Named(src.myID), myCosts(src.myCosts),
-        myProbability(src.myProbability), myRoute(src.myRoute), myColor(0)
-{
+        myProbability(src.myProbability), myRoute(src.myRoute), myColor(0) {
     if (src.myColor!=0) {
         myColor = new RGBColor(*src.myColor);
     }
 }
 
 
-RORoute::~RORoute() throw()
-{
+RORoute::~RORoute() throw() {
     delete myColor;
 }
 
 
 void
-RORoute::add(ROEdge *edge) throw()
-{
+RORoute::add(ROEdge *edge) throw() {
     myRoute.push_back(edge);
 }
 
 
 void
-RORoute::setCosts(SUMOReal costs) throw()
-{
+RORoute::setCosts(SUMOReal costs) throw() {
     myCosts = costs;
 }
 
 
 void
-RORoute::setProbability(SUMOReal prob) throw()
-{
+RORoute::setProbability(SUMOReal prob) throw() {
     myProbability = prob;
 }
 
 
 void
-RORoute::recheckForLoops() throw()
-{
+RORoute::recheckForLoops() throw() {
     ROHelper::recheckForLoops(myRoute);
 }
 
 
 OutputDevice &
-RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const
-{
+RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const {
     // (optional) alternatives header
     if (asAlternatives) {
         dev << "<routeDistribution last=\"0\">\n         ";

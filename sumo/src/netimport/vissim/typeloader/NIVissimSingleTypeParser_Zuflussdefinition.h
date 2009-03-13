@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Zuflussdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Zuflussdefinition(NIVissimLoader &parent);

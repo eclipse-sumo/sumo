@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Richtungspfeildefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Richtungspfeildefinition(NIVissimLoader &parent);

@@ -59,8 +59,7 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p,
                                    FXIcon* ic, FXPopup* /*pup*/,
                                    FXuint opts,FXint /*x*/,FXint /*y*/,FXint /*w*/,FXint /*h*/)
         : FXMDIChild(p, name, ic, mdimenu, opts, 10, 10, 300, 200),
-        myView(0)
-{
+        myView(0) {
     // Make MDI Window Menu
     setTracking();
     myContentFrame =
@@ -74,16 +73,14 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p,
 }
 
 
-GUIGlChildWindow::~GUIGlChildWindow()
-{
+GUIGlChildWindow::~GUIGlChildWindow() {
     delete myLocatorPopup;
     delete myNavigationToolBar;
 }
 
 
 void
-GUIGlChildWindow::create()
-{
+GUIGlChildWindow::create() {
     FXMDIChild::create();
     myNavigationToolBar->create();
     myLocatorPopup->create();
@@ -92,8 +89,7 @@ GUIGlChildWindow::create()
 
 
 void
-GUIGlChildWindow::buildNavigationToolBar()
-{
+GUIGlChildWindow::buildNavigationToolBar() {
     myNavigationToolBar = new FXToolBar(myContentFrame,LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
     // build the view settings
     // recenter view
@@ -121,8 +117,7 @@ GUIGlChildWindow::buildNavigationToolBar()
 
 
 void
-GUIGlChildWindow::buildColoringToolBar()
-{
+GUIGlChildWindow::buildColoringToolBar() {
     // in fact, we currently are not able to build another bar
     //  we just add somthing to the navigation bar
 //    myColoringToolBar = new FXToolBar(myContentFrame,LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
@@ -142,8 +137,7 @@ GUIGlChildWindow::buildColoringToolBar()
 
 
 void
-GUIGlChildWindow::buildScreenshotToolBar()
-{
+GUIGlChildWindow::buildScreenshotToolBar() {
     // in fact, we currently are not able to build another bar
     //  we just add somthing to the navigation bar
 //    myScreenshotToolBar = new FXToolBar(myContentFrame,LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
@@ -157,36 +151,31 @@ GUIGlChildWindow::buildScreenshotToolBar()
 
 
 FXGLCanvas *
-GUIGlChildWindow::getBuildGLCanvas() const
-{
+GUIGlChildWindow::getBuildGLCanvas() const {
     return myView;
 }
 
 
 FXToolBar &
-GUIGlChildWindow::getNavigationToolBar(GUISUMOAbstractView &)
-{
+GUIGlChildWindow::getNavigationToolBar(GUISUMOAbstractView &) {
     return *myNavigationToolBar;
 }
 
 
 FXPopup *
-GUIGlChildWindow::getLocatorPopup()
-{
+GUIGlChildWindow::getLocatorPopup() {
     return myLocatorPopup;
 }
 
 
 FXComboBox &
-GUIGlChildWindow::getColoringSchemesCombo()
-{
+GUIGlChildWindow::getColoringSchemesCombo() {
     return *myColoringSchemes;
 }
 
 
 long
-GUIGlChildWindow::onCmdRecenterView(FXObject*,FXSelector,void*)
-{
+GUIGlChildWindow::onCmdRecenterView(FXObject*,FXSelector,void*) {
     myView->recenterView();
     myView->update();
     return 1;
@@ -194,24 +183,21 @@ GUIGlChildWindow::onCmdRecenterView(FXObject*,FXSelector,void*)
 
 
 long
-GUIGlChildWindow::onCmdEditViewport(FXObject*,FXSelector,void*)
-{
+GUIGlChildWindow::onCmdEditViewport(FXObject*,FXSelector,void*) {
     myView->showViewportEditor();
     return 1;
 }
 
 
 long
-GUIGlChildWindow::onCmdEditViewScheme(FXObject*,FXSelector,void*)
-{
+GUIGlChildWindow::onCmdEditViewScheme(FXObject*,FXSelector,void*) {
     myView->showViewschemeEditor();
     return 1;
 }
 
 
 long
-GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
-{
+GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*) {
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
     myView->showToolTips(button->amChecked());
@@ -222,8 +208,7 @@ GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
 
 
 long
-GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data)
-{
+GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data) {
     myView->setColorScheme((char*) data);
     return 1;
 }

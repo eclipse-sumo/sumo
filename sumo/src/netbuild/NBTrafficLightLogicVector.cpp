@@ -50,12 +50,10 @@ using namespace std;
 // ===========================================================================
 NBTrafficLightLogicVector::NBTrafficLightLogicVector(
     const NBConnectionVector &inLanes, std::string type)
-        : myInLinks(inLanes), myType(type)
-{}
+        : myInLinks(inLanes), myType(type) {}
 
 
-NBTrafficLightLogicVector::~NBTrafficLightLogicVector()
-{
+NBTrafficLightLogicVector::~NBTrafficLightLogicVector() {
     for (LogicVector::iterator i=myCont.begin(); i!=myCont.end(); i++) {
         delete(*i);
     }
@@ -63,8 +61,7 @@ NBTrafficLightLogicVector::~NBTrafficLightLogicVector()
 
 
 void
-NBTrafficLightLogicVector::add(NBTrafficLightLogic *logic)
-{
+NBTrafficLightLogicVector::add(NBTrafficLightLogic *logic) {
     if (logic==0) {
         return;
     }
@@ -77,8 +74,7 @@ NBTrafficLightLogicVector::add(NBTrafficLightLogic *logic)
 
 
 void
-NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont)
-{
+NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont) {
     for (LogicVector::const_iterator i=cont.myCont.begin(); i!=cont.myCont.end(); i++) {
         if (!contains(*i)) {
             NBTrafficLightLogic *logic = *i;
@@ -89,8 +85,7 @@ NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont)
 
 
 void
-NBTrafficLightLogicVector::writeXML(OutputDevice &os) const
-{
+NBTrafficLightLogicVector::writeXML(OutputDevice &os) const {
     SUMOReal distance = 250;
     set<string> inLanes;
     for (NBConnectionVector::const_iterator j=myInLinks.begin(); j!=myInLinks.end(); j++) {
@@ -106,8 +101,7 @@ NBTrafficLightLogicVector::writeXML(OutputDevice &os) const
 }
 
 bool
-NBTrafficLightLogicVector::contains(NBTrafficLightLogic *logic) const
-{
+NBTrafficLightLogicVector::contains(NBTrafficLightLogic *logic) const {
     for (LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); i++) {
         if ((*i)->equals(*logic)) {
             return true;
@@ -118,8 +112,7 @@ NBTrafficLightLogicVector::contains(NBTrafficLightLogic *logic) const
 
 
 void
-NBTrafficLightLogicVector::setOffsetsToHalf()
-{
+NBTrafficLightLogicVector::setOffsetsToHalf() {
     for (LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); ++i) {
         SUMOTime T = (*i)->getDuration();
         (*i)->setOffset((SUMOTime)(T/2.));
@@ -128,8 +121,7 @@ NBTrafficLightLogicVector::setOffsetsToHalf()
 
 
 void
-NBTrafficLightLogicVector::setOffsetsToQuarter()
-{
+NBTrafficLightLogicVector::setOffsetsToQuarter() {
     for (LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); ++i) {
         SUMOTime T = (*i)->getDuration();
         (*i)->setOffset((SUMOTime)(T/4.));

@@ -52,17 +52,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::~NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition()
-{}
+NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::~NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::parse(std::istream &from) {
     // id
     string id;
     from >> id;

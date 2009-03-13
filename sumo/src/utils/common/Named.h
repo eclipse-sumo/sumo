@@ -39,8 +39,7 @@
  * @class Named
  * @brief Base class for objects which do have an id.
  */
-class Named
-{
+class Named {
 public:
     /** @brief Constructor
      *

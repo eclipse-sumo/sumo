@@ -56,13 +56,11 @@ IncludeFileInputStream::IncludeFileInputStream(const XMLCh* const fileName) :
 
         mySource(XMLPlatformUtils::openFile(fileName)),
         myBytesAvail(0),
-        myBufIndex(0)
-{
+        myBufIndex(0) {
 }
 
 
-IncludeFileInputStream::~IncludeFileInputStream()
-{
+IncludeFileInputStream::~IncludeFileInputStream() {
     if (getIsOpen())
         XMLPlatformUtils::closeFile(fSource);
 }
@@ -72,15 +70,13 @@ IncludeFileInputStream::~IncludeFileInputStream()
 //  IncludeFileInputStream: Implementation of the input stream interface
 // ---------------------------------------------------------------------------
 unsigned int
-IncludeFileInputStream::curPos() const
-{
+IncludeFileInputStream::curPos() const {
     return XMLPlatformUtils::curFilePos(fSource);
 }
 
 
 unsigned int
-IncludeFileInputStream::readBytes(XMLByte* const toFill, const unsigned int maxToRead)
-{
+IncludeFileInputStream::readBytes(XMLByte* const toFill, const unsigned int maxToRead) {
     const unsigned int bytesLeft = myBytesAvail - myBufIndex;
     if (bytesLeft < 500) {
         for (unsigned int index = 0; index < bytesLeft; index++) {

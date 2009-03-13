@@ -49,8 +49,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-SystemFrame::addConfigurationOptions(OptionsCont &oc)
-{
+SystemFrame::addConfigurationOptions(OptionsCont &oc) {
     oc.addOptionSubTopic("Configuration");
 
     oc.doRegister("configuration-file", 'c', new Option_FileName());
@@ -75,8 +74,7 @@ SystemFrame::addConfigurationOptions(OptionsCont &oc)
 
 
 void
-SystemFrame::close()
-{
+SystemFrame::close() {
     // close the xml-subsystem
     XMLSubSys::close();
     // delete build program options

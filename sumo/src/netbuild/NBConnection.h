@@ -45,8 +45,7 @@ class NBNode;
 /**
  * @class NBConnection
  */
-class NBConnection
-{
+class NBConnection {
 public:
     /// Constructor
     NBConnection(NBEdge *from, NBEdge *to);

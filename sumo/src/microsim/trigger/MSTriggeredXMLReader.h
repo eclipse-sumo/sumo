@@ -49,8 +49,7 @@ class MSNet;
  * Base class for triggered file readers which work with XML-files
  */
 class MSTriggeredXMLReader : public MSTriggeredReader,
-            public SUMOSAXHandler
-{
+            public SUMOSAXHandler {
 public:
     /// Destructor
     virtual ~MSTriggeredXMLReader() throw();

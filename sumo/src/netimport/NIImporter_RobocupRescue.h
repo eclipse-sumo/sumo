@@ -50,8 +50,7 @@ class OptionsCont;
  * @brief Importer for networks stored in SUMO format
  *
  */
-class NIImporter_RobocupRescue
-{
+class NIImporter_RobocupRescue {
 public:
     /** @brief Loads network definition from the assigned option and stores it in the given network builder
      *

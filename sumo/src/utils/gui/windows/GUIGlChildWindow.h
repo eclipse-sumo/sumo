@@ -43,8 +43,7 @@
 /**
  *
  */
-class GUIGlChildWindow : public FXMDIChild
-{
+class GUIGlChildWindow : public FXMDIChild {
     FXDECLARE(GUIGlChildWindow)
 public:
     GUIGlChildWindow(FXMDIClient* p, FXMDIMenu *mdimenu, const FXString& name,

@@ -48,8 +48,7 @@ using namespace std;
 // ===========================================================================
 bool
 SUMOSAXAttributes::setIDFromAttributes(const char * objecttype,
-                                       std::string &id, bool report) const throw()
-{
+                                       std::string &id, bool report) const throw() {
     id = "";
     if (hasAttribute(SUMO_ATTR_ID)) {
         id = getString(SUMO_ATTR_ID);
@@ -66,8 +65,7 @@ SUMOSAXAttributes::setIDFromAttributes(const char * objecttype,
 
 int
 SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
-                                   bool &ok, bool report) const throw()
-{
+                                   bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
             if (objectid!=0) {
@@ -105,8 +103,7 @@ SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, con
 
 SUMOReal
 SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
-                                        bool &ok, bool report) const throw()
-{
+                                        bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
             if (objectid!=0) {

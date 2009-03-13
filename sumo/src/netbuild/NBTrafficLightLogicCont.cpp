@@ -51,19 +51,16 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBTrafficLightLogicCont::NBTrafficLightLogicCont() throw()
-{}
+NBTrafficLightLogicCont::NBTrafficLightLogicCont() throw() {}
 
 
-NBTrafficLightLogicCont::~NBTrafficLightLogicCont() throw()
-{
+NBTrafficLightLogicCont::~NBTrafficLightLogicCont() throw() {
     clear();
 }
 
 
 void
-NBTrafficLightLogicCont::applyOptions(OptionsCont &oc)
-{
+NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) {
     // check whether any offsets shall be manipulated by setting
     //  them to half of the duration
     if (oc.isSet("tl-logics.half-offset")) {
@@ -78,8 +75,7 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont &oc)
 
 
 bool
-NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw()
-{
+NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw() {
     DefinitionContType::iterator i=myDefinitions.find(logic->getID());
     if (i!=myDefinitions.end()) {
         return false;
@@ -90,21 +86,19 @@ NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw()
 
 
 bool
-NBTrafficLightLogicCont::remove(const std::string &id) throw()
-{
+NBTrafficLightLogicCont::remove(const std::string &id) throw() {
     DefinitionContType::iterator i=myDefinitions.find(id);
     if (i==myDefinitions.end()) {
         return false;
     }
-    delete (*i).second;
+    delete(*i).second;
     myDefinitions.erase(i);
     return true;
 }
 
 
 void
-NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw()
-{
+NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() {
     unsigned int no = 0;
     for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         // build program
@@ -131,8 +125,7 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw()
 
 
 void
-NBTrafficLightLogicCont::writeXML(OutputDevice &into) throw(IOError)
-{
+NBTrafficLightLogicCont::writeXML(OutputDevice &into) throw(IOError) {
     for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); i++) {
         (*i).second->writeXML(into);
     }
@@ -141,8 +134,7 @@ NBTrafficLightLogicCont::writeXML(OutputDevice &into) throw(IOError)
 
 
 void
-NBTrafficLightLogicCont::clear() throw()
-{
+NBTrafficLightLogicCont::clear() throw() {
     for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); ++i) {
         delete(*i).second;
     }
@@ -156,8 +148,7 @@ NBTrafficLightLogicCont::clear() throw()
 
 void
 NBTrafficLightLogicCont::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
-                                      const EdgeVector &outgoing) throw()
-{
+                                      const EdgeVector &outgoing) throw() {
     for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         (*i).second->remapRemoved(removed, incoming, outgoing);
     }
@@ -166,8 +157,7 @@ NBTrafficLightLogicCont::remapRemoved(NBEdge *removed, const EdgeVector &incomin
 
 void
 NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, int removedLane,
-                                        NBEdge *by, int byLane) throw()
-{
+                                        NBEdge *by, int byLane) throw() {
     for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         (*i).second->replaceRemoved(removed, removedLane, by, byLane);
     }
@@ -175,8 +165,7 @@ NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, int removedLane,
 
 
 NBTrafficLightDefinition *
-NBTrafficLightLogicCont::getDefinition(const std::string &id) const throw()
-{
+NBTrafficLightLogicCont::getDefinition(const std::string &id) const throw() {
     DefinitionContType::const_iterator i=myDefinitions.find(id);
     if (i!=myDefinitions.end()) {
         return (*i).second;
@@ -186,8 +175,7 @@ NBTrafficLightLogicCont::getDefinition(const std::string &id) const throw()
 
 
 void
-NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw()
-{
+NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw() {
     DefinitionContType::iterator i;
     // set the information about all participants, first
     for (i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
@@ -202,8 +190,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw
 
 bool
 NBTrafficLightLogicCont::insert(const std::string &id,
-                                NBTrafficLightLogicVector *logics) throw()
-{
+                                NBTrafficLightLogicVector *logics) throw() {
     if (logics==0) {
         return false;
     }

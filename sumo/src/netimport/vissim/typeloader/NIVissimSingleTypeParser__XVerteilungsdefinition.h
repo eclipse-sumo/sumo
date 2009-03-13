@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser__XVerteilungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser__XVerteilungsdefinition(NIVissimLoader &parent);

@@ -48,8 +48,7 @@ class OutputDevice;
  * Helper calls to store information about what shall be computed
  *  (CORN == COmpute Or Not)
  */
-class MSCORN
-{
+class MSCORN {
 public:
     /**
      * @enum Function

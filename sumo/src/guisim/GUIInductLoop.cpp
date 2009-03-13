@@ -63,18 +63,15 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane * const lane,
                              SUMOReal position) throw()
-        : MSInductLoop(id, lane, position)
-{}
+        : MSInductLoop(id, lane, position) {}
 
 
-GUIInductLoop::~GUIInductLoop() throw()
-{}
+GUIInductLoop::~GUIInductLoop() throw() {}
 
 
 GUIDetectorWrapper *
 GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
-                                    GUILaneWrapper &wrapper)
-{
+                                    GUILaneWrapper &wrapper) {
     return new MyWrapper(*this, idStorage, wrapper, myPosition);
 }
 
@@ -86,8 +83,7 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUIGlObjectStorage &idStorage,
                                     GUILaneWrapper &wrapper, SUMOReal pos) throw()
         : GUIDetectorWrapper(idStorage, "induct loop:"+detector.getID()),
-        myDetector(detector), myPosition(pos)
-{
+        myDetector(detector), myPosition(pos) {
     const Position2DVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
     Line2D l(v.getBegin(), v.getEnd());
@@ -98,13 +94,11 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
 }
 
 
-GUIInductLoop::MyWrapper::~MyWrapper() throw()
-{}
+GUIInductLoop::MyWrapper::~MyWrapper() throw() {}
 
 
 Boundary
-GUIInductLoop::MyWrapper::getCenteringBoundary() const throw()
-{
+GUIInductLoop::MyWrapper::getCenteringBoundary() const throw() {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -114,8 +108,7 @@ GUIInductLoop::MyWrapper::getCenteringBoundary() const throw()
 
 GUIParameterTableWindow *
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/) throw()
-{
+        GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/) throw() {
     GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
     // parameter
@@ -139,16 +132,14 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIInductLoop::MyWrapper::getMicrosimID() const throw()
-{
+GUIInductLoop::MyWrapper::getMicrosimID() const throw() {
     return myDetector.getID();
 }
 
 
 
 void
-GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -210,8 +201,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
 
 
 GUIInductLoop &
-GUIInductLoop::MyWrapper::getLoop()
-{
+GUIInductLoop::MyWrapper::getLoop() {
     return myDetector;
 }
 

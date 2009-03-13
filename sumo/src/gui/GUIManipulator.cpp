@@ -50,12 +50,10 @@ FXIMPLEMENT(GUIManipulator, FXDialogBox, NULL, 0)
 GUIManipulator::GUIManipulator(GUIMainWindow &app,
                                const std::string &name,
                                int xpos, int ypos)
-        : FXDialogBox(&app, name.c_str(), DECOR_CLOSE|DECOR_TITLE, xpos, ypos, 0, 0)
-{}
+        : FXDialogBox(&app, name.c_str(), DECOR_CLOSE|DECOR_TITLE, xpos, ypos, 0, 0) {}
 
 
-GUIManipulator::~GUIManipulator()
-{}
+GUIManipulator::~GUIManipulator() {}
 
 
 

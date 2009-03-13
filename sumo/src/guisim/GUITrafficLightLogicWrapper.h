@@ -50,8 +50,7 @@ class GUIMainWindow;
  * This class is responsible for the visualisation of tl-logics and the
  *  interaction with them.
  */
-class GUITrafficLightLogicWrapper : public GUIGlObject
-{
+class GUITrafficLightLogicWrapper : public GUIGlObject {
 public:
     /// Constructor
     GUITrafficLightLogicWrapper(GUIGlObjectStorage &idStorage,
@@ -141,8 +140,7 @@ public:
      * The popup-menu for a TLS-logic. Adds the functionality to open a
      *  view on the tls-logic and to start tracking of the tls-logic.
      */
-    class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu
-    {
+    class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUITrafficLightLogicWrapperPopupMenu)
     public:
         /// Constructor
@@ -150,7 +148,7 @@ public:
                                              GUISUMOAbstractView &parent, GUIGlObject &o);
 
         /// Destructor
-        ~GUITrafficLightLogicWrapperPopupMenu() throw ();
+        ~GUITrafficLightLogicWrapperPopupMenu() throw();
 
         /// Called if the phases shall be shown
         long onCmdShowPhases(FXObject*,FXSelector,void*);

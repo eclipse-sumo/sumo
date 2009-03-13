@@ -59,9 +59,8 @@ class GUIManipulator;
  * This is the gui-version of the MSLaneSpeedTrigger-object
  */
 class GUILaneSpeedTrigger
-            : public MSLaneSpeedTrigger,
-            public GUIGlObject_AbstractAdd
-{
+        : public MSLaneSpeedTrigger,
+            public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      *
@@ -133,8 +132,7 @@ public:
                                     GUISUMOAbstractView &parent);
 
 public:
-    class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu
-    {
+    class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUILaneSpeedTriggerPopupMenu)
     public:
 
@@ -151,8 +149,7 @@ public:
 
     };
 
-    class GUIManip_LaneSpeedTrigger : public GUIManipulator
-    {
+    class GUIManip_LaneSpeedTrigger : public GUIManipulator {
         FXDECLARE(GUIManip_LaneSpeedTrigger)
     public:
         enum {

@@ -45,8 +45,7 @@
  * You may find an example for this class' usage in GUIRunThread.
  */
 template< class T >
-class MsgRetrievingFunction : public OutputDevice
-{
+class MsgRetrievingFunction : public OutputDevice {
 public:
     /// @brief Type of the function to execute.
     typedef void(T::* Operation)(const MsgHandler::MsgType, const std::string &);

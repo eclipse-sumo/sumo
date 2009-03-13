@@ -39,32 +39,27 @@
 // method definitions
 // ===========================================================================
 MSTriggeredReader::MSTriggeredReader(MSNet &)
-        : myOffset(0), myWasInitialised(false)
-{}
+        : myOffset(0), myWasInitialised(false) {}
 
 
-MSTriggeredReader::~MSTriggeredReader()
-{}
+MSTriggeredReader::~MSTriggeredReader() {}
 
 
 void
-MSTriggeredReader::init()
-{
+MSTriggeredReader::init() {
     myInit();
     myWasInitialised = true;
 }
 
 
 bool
-MSTriggeredReader::isInitialised() const
-{
+MSTriggeredReader::isInitialised() const {
     return myWasInitialised;
 }
 
 
 SUMOTime
-MSTriggeredReader::wrappedExecute(SUMOTime current) throw(ProcessError)
-{
+MSTriggeredReader::wrappedExecute(SUMOTime current) throw(ProcessError) {
     if (!isInitialised()) {
         init();
     }

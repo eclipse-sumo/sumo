@@ -46,8 +46,7 @@ class Position2D;
  * @class NBHelpers
  * Some mathmatical methods for the computation of angles
  */
-class NBHelpers
-{
+class NBHelpers {
 public:
     /** computes the angle of the straight which is described by the two
         coordinates */

@@ -70,8 +70,7 @@
 GUILoadThread::GUILoadThread(MFXInterThreadEventClient *mw,
                              MFXEventQue &eq, FXEX::FXThreadEvent &ev)
         : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
-        myEventThrow(ev)
-{
+        myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
             &GUILoadThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
@@ -82,8 +81,7 @@ GUILoadThread::GUILoadThread(MFXInterThreadEventClient *mw,
 }
 
 
-GUILoadThread::~GUILoadThread()
-{
+GUILoadThread::~GUILoadThread() {
     delete myErrorRetriever;
     delete myMessageRetriever;
     delete myWarningRetriever;
@@ -91,8 +89,7 @@ GUILoadThread::~GUILoadThread()
 
 
 FXint
-GUILoadThread::run()
-{
+GUILoadThread::run() {
     GUINet *net = 0;
     int simStartTime = 0;
     int simEndTime = 0;
@@ -180,8 +177,7 @@ GUILoadThread::run()
 void
 GUILoadThread::submitEndAndCleanup(GUINet *net,
                                    SUMOTime simStartTime,
-                                   SUMOTime simEndTime)
-{
+                                   SUMOTime simEndTime) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
@@ -194,8 +190,7 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
 
 
 bool
-GUILoadThread::initOptions()
-{
+GUILoadThread::initOptions() {
     try {
         OptionsCont &oc = OptionsCont::getOptions();
         oc.clear();
@@ -218,8 +213,7 @@ GUILoadThread::initOptions()
 
 
 void
-GUILoadThread::load(const std::string &file, bool isNet)
-{
+GUILoadThread::load(const std::string &file, bool isNet) {
     myFile = file;
     myLoadNet = isNet;
     start();
@@ -227,8 +221,7 @@ GUILoadThread::load(const std::string &file, bool isNet)
 
 
 void
-GUILoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg)
-{
+GUILoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg) {
     GUIEvent *e = new GUIEvent_Message(type, msg);
     myEventQue.add(e);
     myEventThrow.signal();
@@ -236,8 +229,7 @@ GUILoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string
 
 
 const std::string &
-GUILoadThread::getFileName() const
-{
+GUILoadThread::getFileName() const {
     return myFile;
 }
 

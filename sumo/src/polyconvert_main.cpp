@@ -69,8 +69,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-fillOptions() throw()
-{
+fillOptions() throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -202,8 +201,7 @@ fillOptions() throw()
 
 
 Boundary
-getNamedNetworkBoundary(const std::string &file, const std::string &name) throw(ProcessError)
-{
+getNamedNetworkBoundary(const std::string &file, const std::string &name) throw(ProcessError) {
     LineReader lr(file);
     if (!lr.good()) {
         throw ProcessError("Could not open net '" + file + "'.");
@@ -222,8 +220,7 @@ getNamedNetworkBoundary(const std::string &file, const std::string &name) throw(
 
 
 Boundary
-getNetworkOrigBoundary(const std::string &file) throw(ProcessError)
-{
+getNetworkOrigBoundary(const std::string &file) throw(ProcessError) {
     try {
         return getNamedNetworkBoundary(file, "orig-boundary");
     } catch (ProcessError &) {}
@@ -232,8 +229,7 @@ getNetworkOrigBoundary(const std::string &file) throw(ProcessError)
 
 
 Boundary
-getNetworkConvBoundary(const std::string &file) throw(ProcessError)
-{
+getNetworkConvBoundary(const std::string &file) throw(ProcessError) {
     try {
         return getNamedNetworkBoundary(file, "conv-boundary");
     } catch (ProcessError &) {}
@@ -242,8 +238,7 @@ getNetworkConvBoundary(const std::string &file) throw(ProcessError)
 
 
 Position2D
-getNetworkOffset(const std::string &file) throw(ProcessError)
-{
+getNetworkOffset(const std::string &file) throw(ProcessError) {
     LineReader lr(file);
     if (!lr.good()) {
         throw ProcessError("Could not open net '" + file + "'.");
@@ -262,8 +257,7 @@ getNetworkOffset(const std::string &file) throw(ProcessError)
 
 
 std::string
-getOrigProj(const std::string &file) throw(ProcessError)
-{
+getOrigProj(const std::string &file) throw(ProcessError) {
     LineReader lr(file);
     if (!lr.good()) {
         throw ProcessError("Could not open net '" + file + "'.");
@@ -281,8 +275,7 @@ getOrigProj(const std::string &file) throw(ProcessError)
 
 
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
 #ifdef WIN32

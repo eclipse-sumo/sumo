@@ -68,8 +68,7 @@ class SUMOSAXHandler;
  *
  * @todo make schema checking optional
  */
-class XMLSubSys
-{
+class XMLSubSys {
 public:
     /**
      * @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.

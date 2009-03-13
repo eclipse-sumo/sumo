@@ -51,8 +51,7 @@ class OGRFeature;
  *
  * @todo reinsert import via shapelib
  */
-class NIArcView_Loader
-{
+class NIArcView_Loader {
 public:
     /// Contructor
     NIArcView_Loader(OptionsCont &oc,

@@ -52,8 +52,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 SUMOReal
-NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
-{
+NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
     SUMOReal angle = (SUMOReal) atan2(x1-x2, y1-y2) * (SUMOReal) 180.0 / (SUMOReal) 3.14159265;
     if (angle<0) {
         angle = 360 + angle;
@@ -63,16 +62,14 @@ NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
 
 
 SUMOReal
-NBHelpers::relAngle(SUMOReal angle, SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
-{
+NBHelpers::relAngle(SUMOReal angle, SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
     SUMOReal sec_angle = NBHelpers::angle(x1, y1, x2, y2);
     return relAngle(angle, sec_angle);
 }
 
 
 SUMOReal
-NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2)
-{
+NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2) {
     angle2 -= angle1;
     if (angle2>180)
         angle2 = (360 - angle2) * -1;
@@ -83,8 +80,7 @@ NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2)
 
 
 SUMOReal
-NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2)
-{
+NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2) {
     SUMOReal rel = relAngle(angle1, angle2);
     if (rel<-170||rel>170)
         rel = -180;
@@ -93,8 +89,7 @@ NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2)
 
 
 std::string
-NBHelpers::normalIDRepresentation(const std::string &id)
-{
+NBHelpers::normalIDRepresentation(const std::string &id) {
     stringstream strm1(id);
     long numid;
     strm1 >> numid;
@@ -105,8 +100,7 @@ NBHelpers::normalIDRepresentation(const std::string &id)
 
 
 SUMOReal
-NBHelpers::distance(NBNode *node1, NBNode *node2)
-{
+NBHelpers::distance(NBNode *node1, NBNode *node2) {
     return GeomHelper::distance(node1->getPosition(), node2->getPosition());
 }
 

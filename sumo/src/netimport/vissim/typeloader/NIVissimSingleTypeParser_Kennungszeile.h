@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Kennungszeile :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Kennungszeile(NIVissimLoader &parent);

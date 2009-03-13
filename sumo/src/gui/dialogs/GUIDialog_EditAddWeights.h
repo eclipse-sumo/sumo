@@ -52,8 +52,7 @@ class MSEdge;
  * @class GUIDialog_EditAddWeights
  * @brief A dialog for editing additional weights
  */
-class GUIDialog_EditAddWeights : public FXMainWindow
-{
+class GUIDialog_EditAddWeights : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_EditAddWeights)
 public:
@@ -86,8 +85,7 @@ protected:
      * @class Retriever_AddWeights
      * @brief Obtains supplementary edge weights from a weights handler and stores them within the edges
      */
-    class Retriever_AddWeights
-    {
+    class Retriever_AddWeights {
     public:
         /**
          * enum WeightType
@@ -106,8 +104,7 @@ protected:
          * enum SingleWeightRetriever
          * @brief Retriever of one of the possible supplementary weights
          */
-        class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
-        {
+        class SingleWeightRetriever : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
         public:
             /// Constructor
             SingleWeightRetriever(WeightType type, Retriever_AddWeights *parent);
@@ -181,8 +178,7 @@ private:
      * @class time_sorter
      * @brief A comparison of GUIAddWeights by begin time
      */
-    class time_sorter
-    {
+    class time_sorter {
     public:
         /// constructor
         explicit time_sorter() { }

@@ -44,17 +44,14 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdgeBuilder::ROJTREdgeBuilder() throw()
-{}
+ROJTREdgeBuilder::ROJTREdgeBuilder() throw() {}
 
 
-ROJTREdgeBuilder::~ROJTREdgeBuilder() throw()
-{}
+ROJTREdgeBuilder::~ROJTREdgeBuilder() throw() {}
 
 
 ROEdge *
-ROJTREdgeBuilder::buildEdge(const std::string &name) throw()
-{
+ROJTREdgeBuilder::buildEdge(const std::string &name) throw() {
     return new ROJTREdge(name, getNextIndex());
 }
 

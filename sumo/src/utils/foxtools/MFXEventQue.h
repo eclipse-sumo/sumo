@@ -33,8 +33,7 @@
 #include <list>
 #include <utils/foxtools/MFXMutex.h>
 
-class MFXEventQue
-{
+class MFXEventQue {
 public:
     MFXEventQue() { }
     ~MFXEventQue() { }

@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser__XKurvedefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser__XKurvedefinition(NIVissimLoader &parent);

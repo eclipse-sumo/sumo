@@ -52,8 +52,7 @@ class OptionsCont;
  *  "...polygons.txt"/"...water_polygons.txt", applies the given projection
  *  and network offset and stores the so build pois/polys into the given map.
  */
-class PCLoaderElmar
-{
+class PCLoaderElmar {
 public:
     /** @brief Loads pois/polygons assumed to be stored as according Elmar-files
      *

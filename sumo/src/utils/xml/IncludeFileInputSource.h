@@ -50,8 +50,7 @@ class BinInputStream;
  *  If relative, it will be completed either relative to a passed base path
  *  or relative to the current working directory of the process.
  */
-class IncludeFileInputSource : public InputSource
-{
+class IncludeFileInputSource : public InputSource {
 public :
     // -----------------------------------------------------------------------
     //  Constructors and Destructor

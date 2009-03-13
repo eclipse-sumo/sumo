@@ -59,8 +59,7 @@ class OutputDevice;
  * The avoidance of collisions between the simulation execution and her
  * visualisation is done individually for every lane using mutexes
  */
-class GUIRunThread : public FXSingleEventThread
-{
+class GUIRunThread : public FXSingleEventThread {
 public:
     /// constructor
     GUIRunThread(MFXInterThreadEventClient *mw,

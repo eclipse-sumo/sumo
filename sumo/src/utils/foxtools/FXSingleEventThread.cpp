@@ -39,8 +39,7 @@ FXIMPLEMENT(FXSingleEventThread,FXObject,FXSingleEventThreadMap,ARRAYNUMBER(FXSi
 
 
 FXSingleEventThread::FXSingleEventThread(FXApp *a, MFXInterThreadEventClient *client)
-        : FXObject(), myClient(client)
-{
+        : FXObject(), myClient(client) {
     myApp = (a);
 #ifndef WIN32
     FXMALLOC(&event,FXThreadEventHandle,2);
@@ -55,8 +54,7 @@ FXSingleEventThread::FXSingleEventThread(FXApp *a, MFXInterThreadEventClient *cl
 }
 
 
-FXSingleEventThread::~FXSingleEventThread()
-{
+FXSingleEventThread::~FXSingleEventThread() {
 #ifndef WIN32
     myApp->removeInput(event[PIPE_READ],INPUT_READ);
     ::close(event[PIPE_READ]);
@@ -70,8 +68,7 @@ FXSingleEventThread::~FXSingleEventThread()
 
 
 void
-FXSingleEventThread::signal()
-{
+FXSingleEventThread::signal() {
     FXuint seltype=SEL_THREAD;
 #ifndef WIN32
     ::write(event[PIPE_WRITE],&seltype,sizeof(seltype));
@@ -82,8 +79,7 @@ FXSingleEventThread::signal()
 
 
 void
-FXSingleEventThread::signal(FXuint seltype)
-{
+FXSingleEventThread::signal(FXuint seltype) {
 #ifndef WIN32
     ::write(event[PIPE_WRITE],&seltype,sizeof(seltype));
 #else
@@ -93,8 +89,7 @@ FXSingleEventThread::signal(FXuint seltype)
 
 
 long
-FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*)
-{
+FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
     FXuint seltype=SEL_THREAD;
 #ifndef WIN32
     ::read(event[PIPE_READ],&seltype,sizeof(seltype));
@@ -108,8 +103,7 @@ FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*)
 
 
 long
-FXSingleEventThread::onThreadEvent(FXObject*,FXSelector ,void*)
-{
+FXSingleEventThread::onThreadEvent(FXObject*,FXSelector ,void*) {
     myClient->eventOccured();
     /*
     FXuint seltype1 = FXSELTYPE(SEL_THREAD);
@@ -123,8 +117,7 @@ FXSingleEventThread::onThreadEvent(FXObject*,FXSelector ,void*)
 
 
 void
-FXSingleEventThread::sleep(long ms)
-{
+FXSingleEventThread::sleep(long ms) {
 #ifdef WIN32
     Sleep(ms);
 #else

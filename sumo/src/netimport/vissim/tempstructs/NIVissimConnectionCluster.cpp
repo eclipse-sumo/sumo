@@ -69,27 +69,23 @@ int NIVissimConnectionCluster::myStaticBlaID = 0;
 // ---------------------------------------------------------------------------
 // NIVissimConnectionCluster::NodeSubCluster - methods
 // ---------------------------------------------------------------------------
-NIVissimConnectionCluster::NodeSubCluster::NodeSubCluster(NIVissimConnection *c)
-{
+NIVissimConnectionCluster::NodeSubCluster::NodeSubCluster(NIVissimConnection *c) {
     add(c);
 }
 
 
-NIVissimConnectionCluster::NodeSubCluster::~NodeSubCluster()
-{}
+NIVissimConnectionCluster::NodeSubCluster::~NodeSubCluster() {}
 
 
 void
-NIVissimConnectionCluster::NodeSubCluster::add(NIVissimConnection *c)
-{
+NIVissimConnectionCluster::NodeSubCluster::add(NIVissimConnection *c) {
     myBoundary.add(c->getBoundingBox());
     myConnections.push_back(c);
 }
 
 
 void
-NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::NodeSubCluster &c)
-{
+NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::NodeSubCluster &c) {
     for (ConnectionCont::const_iterator i=c.myConnections.begin(); i!=c.myConnections.end(); i++) {
         add(*i);
     }
@@ -97,15 +93,13 @@ NIVissimConnectionCluster::NodeSubCluster::add(const NIVissimConnectionCluster::
 
 
 size_t
-NIVissimConnectionCluster::NodeSubCluster::size() const
-{
+NIVissimConnectionCluster::NodeSubCluster::size() const {
     return myConnections.size();
 }
 
 
 IntVector
-NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const
-{
+NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const {
     IntVector ret;
     int id = NIVissimConnectionCluster::getNextFreeNodeID();
     for (ConnectionCont::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
@@ -119,8 +113,7 @@ NIVissimConnectionCluster::NodeSubCluster::getConnectionIDs() const
 bool
 NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
     const NIVissimConnectionCluster::NodeSubCluster &c,
-    SUMOReal offset)
-{
+    SUMOReal offset) {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     assert(c.myBoundary.xmax()>=c.myBoundary.xmin());
     return myBoundary.overlapsWith(c.myBoundary, offset);
@@ -134,8 +127,7 @@ NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
 NIVissimConnectionCluster::NIVissimConnectionCluster(
     const IntVector &connections, int nodeCluster, int edgeid)
         : myConnections(connections), myNodeCluster(nodeCluster),
-        myBlaID(myStaticBlaID++)
-{
+        myBlaID(myStaticBlaID++) {
     recomputeBoundary();
     myClusters.push_back(this);
     assert(edgeid>0);
@@ -159,8 +151,7 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
     const IntVector &connections, const Boundary &boundary,
     int nodeCluster, const IntVector &edges)
         : myConnections(connections), myBoundary(boundary),
-        myNodeCluster(nodeCluster), myEdges(edges)
-{
+        myNodeCluster(nodeCluster), myEdges(edges) {
     myClusters.push_back(this);
     recomputeBoundary();
     assert(myBoundary.xmax()>=myBoundary.xmin());
@@ -179,22 +170,19 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
 }
 
 
-NIVissimConnectionCluster::~NIVissimConnectionCluster()
-{}
+NIVissimConnectionCluster::~NIVissimConnectionCluster() {}
 
 
 
 int
-NIVissimConnectionCluster::getNextFreeNodeID()
-{
+NIVissimConnectionCluster::getNextFreeNodeID() {
     return myFirstFreeID++;
 }
 
 
 bool
 NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster *c,
-                                        SUMOReal offset) const
-{
+                                        SUMOReal offset) const {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     assert(c->myBoundary.xmax()>=c->myBoundary.xmin());
     return c->myBoundary.overlapsWith(myBoundary, offset);
@@ -202,8 +190,7 @@ NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster *c,
 
 
 void
-NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
-{
+NIVissimConnectionCluster::add(NIVissimConnectionCluster *c) {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     assert(c->myBoundary.xmax()>=c->myBoundary.xmin());
     myBoundary.add(c->myBoundary);
@@ -233,8 +220,7 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
 
 
 void
-NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
-{
+NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset) {
     // !!! ...
     // Further, we try to omit joining of overlaping nodes. This is done by holding
     //  the lists of incoming and outgoing edges and incrementally building the nodes
@@ -346,8 +332,7 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
 
 
 bool
-NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offset)
-{
+NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offset) {
     // join clusters which have at least one connection in common
     if (VectorHelper<int>::subSetExists(myConnections, c2->myConnections)) {
         return true;
@@ -404,8 +389,7 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offs
 
 
 bool
-NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2)
-{
+NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2) {
     if ((myIncomingEdges.size()==1&&myOutgoingEdges.size()==1)) {
         return false;
     }
@@ -452,8 +436,7 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
 
 
 bool
-NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2)
-{
+NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2) {
     //
     for (IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
@@ -489,8 +472,7 @@ NIVissimConnectionCluster::liesOnSameEdgesEnd(NIVissimConnectionCluster *cc2)
 
 IntVector
 NIVissimConnectionCluster::extendByToTreatAsSame(const IntVector &iv1,
-        const IntVector &iv2) const
-{
+        const IntVector &iv2) const {
     IntVector ret(iv1);
     for (IntVector::const_iterator i=iv1.begin(); i!=iv1.end(); i++) {
         NIVissimEdge *e = NIVissimEdge::dictionary(*i);
@@ -505,8 +487,7 @@ NIVissimConnectionCluster::extendByToTreatAsSame(const IntVector &iv1,
 }
 
 IntVector
-NIVissimConnectionCluster::getDisturbanceParticipators()
-{
+NIVissimConnectionCluster::getDisturbanceParticipators() {
     IntVector ret;
     for (IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         NIVissimConnection *c = NIVissimConnection::dictionary(*i);
@@ -522,8 +503,7 @@ NIVissimConnectionCluster::getDisturbanceParticipators()
 
 
 void
-NIVissimConnectionCluster::buildNodeClusters()
-{
+NIVissimConnectionCluster::buildNodeClusters() {
     for (ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
         IntVector disturbances;
         IntVector tls;
@@ -554,8 +534,7 @@ NIVissimConnectionCluster::buildNodeClusters()
 
 
 void
-NIVissimConnectionCluster::searchForConnection(int id)
-{
+NIVissimConnectionCluster::searchForConnection(int id) {
     int pos = 0;
     for (ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
         IntVector connections = (*i)->myConnections;
@@ -570,8 +549,7 @@ NIVissimConnectionCluster::searchForConnection(int id)
 
 
 void
-NIVissimConnectionCluster::_debugOut(std::ostream &into)
-{
+NIVissimConnectionCluster::_debugOut(std::ostream &into) {
     for (ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
         IntVector connections = (*i)->myConnections;
         for (IntVector::iterator j=connections.begin(); j!=connections.end(); j++) {
@@ -588,22 +566,19 @@ NIVissimConnectionCluster::_debugOut(std::ostream &into)
 
 
 bool
-NIVissimConnectionCluster::hasNodeCluster() const
-{
+NIVissimConnectionCluster::hasNodeCluster() const {
     return myNodeCluster != -1;
 }
 
 
 size_t
-NIVissimConnectionCluster::dictSize()
-{
+NIVissimConnectionCluster::dictSize() {
     return myClusters.size();
 }
 
 
 void
-NIVissimConnectionCluster::removeConnections(const NodeSubCluster &c)
-{
+NIVissimConnectionCluster::removeConnections(const NodeSubCluster &c) {
     for (NodeSubCluster::ConnectionCont::const_iterator i=c.myConnections.begin(); i!=c.myConnections.end(); i++) {
         NIVissimConnection *conn = *i;
         int connid = conn->getID();
@@ -617,8 +592,7 @@ NIVissimConnectionCluster::removeConnections(const NodeSubCluster &c)
 
 
 void
-NIVissimConnectionCluster::recomputeBoundary()
-{
+NIVissimConnectionCluster::recomputeBoundary() {
     myBoundary = Boundary();
     for (IntVector::iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
         NIVissimConnection *c = NIVissimConnection::dictionary(*i);
@@ -635,15 +609,13 @@ NIVissimConnectionCluster::recomputeBoundary()
 
 
 NBNode *
-NIVissimConnectionCluster::getNBNode() const
-{
+NIVissimConnectionCluster::getNBNode() const {
     return NIVissimNodeCluster::dictionary(myNodeCluster)->getNBNode();
 }
 
 
 bool
-NIVissimConnectionCluster::around(const Position2D &p, SUMOReal offset) const
-{
+NIVissimConnectionCluster::around(const Position2D &p, SUMOReal offset) const {
     assert(myBoundary.xmax()>=myBoundary.xmin());
     return myBoundary.around(p, offset);
 }
@@ -651,8 +623,7 @@ NIVissimConnectionCluster::around(const Position2D &p, SUMOReal offset) const
 
 
 void
-NIVissimConnectionCluster::recheckEdges()
-{
+NIVissimConnectionCluster::recheckEdges() {
     assert(myConnections.size()!=0);
     // remove the cluster from all edges at first
     IntVector::iterator i;
@@ -683,8 +654,7 @@ NIVissimConnectionCluster::recheckEdges()
 
 
 SUMOReal
-NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
-{
+NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     // return the middle of the connections when there are any
     if (myConnections.size()!=0) {
         SUMOReal sum = 0;
@@ -751,8 +721,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const
 
 
 void
-NIVissimConnectionCluster::clearDict()
-{
+NIVissimConnectionCluster::clearDict() {
     for (ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
         delete(*i);
     }
@@ -762,8 +731,7 @@ NIVissimConnectionCluster::clearDict()
 
 
 Position2DVector
-NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge *e) const
-{
+NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge *e) const {
     // collect connection where this edge is the incoming one
     std::vector<NIVissimConnection*> edgeIsIncoming;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
@@ -786,8 +754,7 @@ NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge *e) cons
 
 
 NIVissimConnection *
-NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge *e) const
-{
+NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge *e) const {
     // collect connection where this edge is the incoming one
     std::vector<NIVissimConnection*> edgeIsIncoming;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
@@ -809,8 +776,7 @@ NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge *e) const
 
 
 Position2DVector
-NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge *e) const
-{
+NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge *e) const {
     // collect connection where this edge is the outgoing one
     std::vector<NIVissimConnection*> edgeIsOutgoing;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
@@ -832,8 +798,7 @@ NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge *e) cons
 
 
 NIVissimConnection*
-NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge *e) const
-{
+NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge *e) const {
     // collect connection where this edge is the outgoing one
     std::vector<NIVissimConnection*> edgeIsOutgoing;
     for (IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {

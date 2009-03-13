@@ -55,8 +55,7 @@ class NBNetBuilder;
  *  on initialisation and removes this information from the nodes when being
  *  deleted. This implicates that nodes have to be deleted after the edges.
  */
-class NGEdge
-{
+class NGEdge {
 public:
     /** @brief Constructor
      *

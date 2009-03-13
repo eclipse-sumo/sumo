@@ -43,8 +43,7 @@ class NBNode;
  * @class NBOwnTLDef
  * @brief A traffic light logics which must be computed (only nodes/edges are given)
  */
-class NBOwnTLDef : public NBTrafficLightDefinition
-{
+class NBOwnTLDef : public NBTrafficLightDefinition {
 public:
     /// Constructor
     NBOwnTLDef(const std::string &id,
@@ -91,8 +90,7 @@ protected:
     /**
      * edge_by_incoming_priority_sorter
      */
-    class edge_by_incoming_priority_sorter
-    {
+    class edge_by_incoming_priority_sorter {
     public:
         /// comparing operator
         int operator()(NBEdge *e1, NBEdge *e2) const {

@@ -53,8 +53,7 @@ enum DetectorUsage {
  *
  * @see MSDetector2File
  */
-class MSDetectorFileOutput
-{
+class MSDetectorFileOutput {
 public:
     /// @brief Constructor
     MSDetectorFileOutput() throw() { }

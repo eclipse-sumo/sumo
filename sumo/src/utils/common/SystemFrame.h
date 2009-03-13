@@ -53,8 +53,7 @@ class OptionsCont;
  * Additionally, a closing method may be found, which closes all used
  *  subsystems.
  */
-class SystemFrame
-{
+class SystemFrame {
 public:
     /** @brief Adds configuration options to the given container
      *

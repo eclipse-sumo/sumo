@@ -36,8 +36,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GUIIconSubSys
-{
+class GUIIconSubSys {
 public:
     static void init(FXApp *a);
     static FXIcon *getIcon(GUIIcon which);

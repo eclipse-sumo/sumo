@@ -78,8 +78,7 @@ MSLane::DictType MSLane::myDict;
  * ----------------------------------------------------------------------- */
 MSLane::PosGreater::result_type
 MSLane::PosGreater::operator()(first_argument_type veh1,
-                               second_argument_type veh2) const
-{
+                               second_argument_type veh2) const {
     return veh1->getPositionOnLane() > veh2->getPositionOnLane();
 }
 
@@ -94,13 +93,11 @@ MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge
         : myLastState(10000, 10000), myShape(shape), myID(id), myNumericalID(numericalID),
         myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed),
         myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
-        myFirstUnsafe(0), myVehicleLengthSum(0)
-{
+        myFirstUnsafe(0), myVehicleLengthSum(0) {
 }
 
 
-MSLane::~MSLane() throw()
-{
+MSLane::~MSLane() throw() {
     for (MSLinkCont::iterator i=myLinks.begin(); i!=myLinks.end(); ++i) {
         delete *i;
     }
@@ -108,8 +105,7 @@ MSLane::~MSLane() throw()
 
 
 void
-MSLane::initialize(MSLinkCont* links)
-{
+MSLane::initialize(MSLinkCont* links) {
     myLinks = *links;
     delete links;
 }
@@ -117,8 +113,7 @@ MSLane::initialize(MSLinkCont* links)
 
 // ------ interaction with MSMoveReminder ------
 void
-MSLane::addMoveReminder(MSMoveReminder* rem) throw()
-{
+MSLane::addMoveReminder(MSMoveReminder* rem) throw() {
     myMoveReminders.push_back(rem);
 }
 
@@ -126,8 +121,7 @@ MSLane::addMoveReminder(MSMoveReminder* rem) throw()
 
 // ------ Vehicle emission ------
 bool
-MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw()
-{
+MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
     bool adaptableSpeed = true;
     if (myVehicles.size()==0) {
         if (isEmissionSuccess(&veh, mspeed, 0, adaptableSpeed)) {
@@ -188,8 +182,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw()
 
 
 bool
-MSLane::emit(MSVehicle& veh) throw()
-{
+MSLane::emit(MSVehicle& veh) throw() {
     SUMOReal pos = 0;
     SUMOReal speed = 0;
     bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
@@ -228,19 +221,18 @@ MSLane::emit(MSVehicle& veh) throw()
     case DEPART_POS_RANDOM:
         pos = RandHelper::rand(length());
         break;
-	case DEPART_POS_RANDOM_FREE:
-		{
-		unsigned int i=0;
-		// we will try many random positions ...
-		while (i <= 10)
-		{
-			pos = RandHelper::rand(length());
-			if ( isEmissionSuccess(&veh, speed, pos, patchSpeed) ) return true; else i++;
-		}
-		// ... and if that doesn't work, we put the vehicle to the free position
-		return freeEmit(veh, speed);
-		}
-		break;
+    case DEPART_POS_RANDOM_FREE: {
+        unsigned int i=0;
+        // we will try many random positions ...
+        while (i <= 10) {
+            pos = RandHelper::rand(length());
+            if (isEmissionSuccess(&veh, speed, pos, patchSpeed)) return true;
+            else i++;
+        }
+        // ... and if that doesn't work, we put the vehicle to the free position
+        return freeEmit(veh, speed);
+    }
+    break;
     case DEPART_POS_FREE:
         return freeEmit(veh, speed);
     case DEPART_POS_DEFAULT:
@@ -257,8 +249,7 @@ MSLane::emit(MSVehicle& veh) throw()
 bool
 MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                           SUMOReal speed, SUMOReal pos,
-                          bool patchSpeed) throw()
-{
+                          bool patchSpeed) throw() {
     //  and the speed is not too high (vehicle should decelerate)
     // try to get a leader on consecutive lanes
     //  we have to do this even if we have found a leader on our lane because it may
@@ -426,8 +417,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 
 
 bool
-MSLane::moveNonCritical()
-{
+MSLane::moveNonCritical() {
     assert(myVehicles.size()!=0);
     // Set the information about the last vehicle
     myLastState = (*myVehicles.begin())->getState();
@@ -494,14 +484,13 @@ MSLane::moveNonCritical()
 
 
 bool
-MSLane::moveCritical()
-{
+MSLane::moveCritical() {
     assert(myVehicles.size()!=0);
     vector<MSVehicle*> collisions;
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
     VehCont::iterator veh;
     // Move all next vehicles beside the first
-    for (veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;) {
+    for (veh=myVehicles.begin()+myFirstUnsafe; veh != lastBeforeEnd;) {
         myLeftVehLength -= (*veh)->getVehicleType().getLength();
         VehCont::const_iterator pred(veh + 1);
         if ((*veh)->moveRegardingCritical(this, *pred, 0, myLeftVehLength)) {
@@ -527,8 +516,7 @@ MSLane::moveCritical()
 
 
 void
-MSLane::detectCollisions(SUMOTime timestep)
-{
+MSLane::detectCollisions(SUMOTime timestep) {
     if (myVehicles.size() < 2) {
         return;
     }
@@ -568,8 +556,7 @@ MSLane::detectCollisions(SUMOTime timestep)
 
 
 SUMOReal
-getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos)
-{
+getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
     MSRouteIterator next = veh.getRoute().begin();
     MSLane *currentLane = (*(*next)->getLanes())[0];
     SUMOReal seen = currentLane->length() - pos;
@@ -587,8 +574,7 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos)
 
 
 bool
-MSLane::setCritical(std::vector<MSLane*> &into)
-{
+MSLane::setCritical(std::vector<MSLane*> &into) {
     // move critical vehicles
     int to_pop = 0;
     int to_pop2 = 0;
@@ -676,8 +662,7 @@ MSLane::setCritical(std::vector<MSLane*> &into)
 
 
 bool
-MSLane::dictionary(string id, MSLane* ptr)
-{
+MSLane::dictionary(string id, MSLane* ptr) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -689,8 +674,7 @@ MSLane::dictionary(string id, MSLane* ptr)
 
 
 MSLane*
-MSLane::dictionary(string id)
-{
+MSLane::dictionary(string id) {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -701,8 +685,7 @@ MSLane::dictionary(string id)
 
 
 void
-MSLane::clear()
-{
+MSLane::clear() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         delete(*i).second;
     }
@@ -711,8 +694,7 @@ MSLane::clear()
 
 
 bool
-MSLane::push(MSVehicle* veh)
-{
+MSLane::push(MSVehicle* veh) {
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
@@ -733,8 +715,7 @@ MSLane::push(MSVehicle* veh)
 
 
 MSVehicle*
-MSLane::pop()
-{
+MSLane::pop() {
     assert(! myVehicles.empty());
     MSVehicle* first = myVehicles.back();
     first->leaveLaneAtMove(SPEED2DIST(first->getSpeed())/* - first->pos()*/);
@@ -748,8 +729,7 @@ MSLane::pop()
 
 
 bool
-MSLane::appropriate(const MSVehicle *veh)
-{
+MSLane::appropriate(const MSVehicle *veh) {
     if (myEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
@@ -759,8 +739,7 @@ MSLane::appropriate(const MSVehicle *veh)
 
 
 bool
-MSLane::integrateNewVehicle()
-{
+MSLane::integrateNewVehicle() {
     bool wasInactive = myVehicles.size()==0;
     sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter());
     for (std::vector<MSVehicle*>::const_iterator i=myVehBuffer.begin(); i!=myVehBuffer.end(); ++i) {
@@ -774,22 +753,19 @@ MSLane::integrateNewVehicle()
 
 
 bool
-MSLane::isLinkEnd(MSLinkCont::const_iterator &i) const
-{
+MSLane::isLinkEnd(MSLinkCont::const_iterator &i) const {
     return i==myLinks.end();
 }
 
 
 bool
-MSLane::isLinkEnd(MSLinkCont::iterator &i)
-{
+MSLane::isLinkEnd(MSLinkCont::iterator &i) {
     return i==myLinks.end();
 }
 
 
 MSVehicle * const
-MSLane::getLastVehicle() const
-{
+    MSLane::getLastVehicle() const {
     if (myVehicles.size()==0) {
         return 0;
     }
@@ -798,8 +774,7 @@ MSLane::getLastVehicle() const
 
 
 const MSVehicle * const
-MSLane::getFirstVehicle() const
-{
+    MSLane::getFirstVehicle() const {
     if (myVehicles.size()==0) {
         return 0;
     }
@@ -809,8 +784,7 @@ MSLane::getFirstVehicle() const
 
 MSLinkCont::const_iterator
 MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
-                    const MSLane& succLinkSource, const std::vector<MSLane*> &conts) const
-{
+                    const MSLane& succLinkSource, const std::vector<MSLane*> &conts) const {
     const MSEdge* nRouteEdge = veh.succEdge(nRouteSuccs);
     // check whether the vehicle tried to look beyond its route
     if (nRouteEdge==0) {
@@ -875,34 +849,29 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
 
 
 const MSLinkCont &
-MSLane::getLinkCont() const
-{
+MSLane::getLinkCont() const {
     return myLinks;
 }
 
 
 const std::string &
-MSLane::getID() const
-{
+MSLane::getID() const {
     return myID;
 }
 
 
 void
-MSLane::releaseVehicles()
-{}
+MSLane::releaseVehicles() {}
 
 
 const MSLane::VehCont &
-MSLane::getVehiclesSecure()
-{
+MSLane::getVehiclesSecure() {
     throw 1;
 }
 
 
 void
-MSLane::swapAfterLaneChange()
-{
+MSLane::swapAfterLaneChange() {
     myVehicles = myTmpVehicles;
     myTmpVehicles.clear();
     if (myVehicles.size()==0) {
@@ -915,30 +884,26 @@ MSLane::swapAfterLaneChange()
 
 
 GUILaneWrapper *
-MSLane::buildLaneWrapper(GUIGlObjectStorage &)
-{
+MSLane::buildLaneWrapper(GUIGlObjectStorage &) {
     throw "Only within the gui-version";
 }
 
 
 void
-MSLane::init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdge::LaneCont::const_iterator lastNeigh)
-{
+MSLane::init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdge::LaneCont::const_iterator lastNeigh) {
     myFirstNeigh = firstNeigh;
     myLastNeigh = lastNeigh;
 }
 
 
 unsigned int
-MSLane::getVehicleNumber() const
-{
+MSLane::getVehicleNumber() const {
     return (unsigned int) myVehicles.size();
 }
 
 
 MSVehicle *
-MSLane::removeFirstVehicle()
-{
+MSLane::removeFirstVehicle() {
     MSVehicle *veh = *(myVehicles.end()-1);
     veh->leaveLaneAtLaneChange();
     myVehicles.erase(myVehicles.end()-1);
@@ -948,8 +913,7 @@ MSLane::removeFirstVehicle()
 
 
 MSVehicle *
-MSLane::removeVehicle(MSVehicle * remVehicle)
-{
+MSLane::removeVehicle(MSVehicle * remVehicle) {
     for (MSLane::VehCont::iterator it = myVehicles.begin();
             it < myVehicles.end();
             it++) {
@@ -965,57 +929,49 @@ MSLane::removeVehicle(MSVehicle * remVehicle)
 
 
 size_t
-MSLane::getNumericalID() const
-{
+MSLane::getNumericalID() const {
     return myNumericalID;
 }
 
 
 SUMOReal
-MSLane::getDensity() const
-{
+MSLane::getDensity() const {
     return myVehicleLengthSum / myLength;
 }
 
 
 SUMOReal
-MSLane::getVehLenSum() const
-{
+MSLane::getVehLenSum() const {
     return myVehicleLengthSum;
 }
 
 
 MSLane * const
-MSLane::getLeftLane() const
-{
+    MSLane::getLeftLane() const {
     return myEdge->leftLane(this);
 }
 
 
 MSLane * const
-MSLane::getRightLane() const
-{
+    MSLane::getRightLane() const {
     return myEdge->rightLane(this);
 }
 
 
 const std::vector<SUMOVehicleClass> &
-MSLane::getAllowedClasses() const
-{
+MSLane::getAllowedClasses() const {
     return myAllowedClasses;
 }
 
 
 const std::vector<SUMOVehicleClass> &
-MSLane::getNotAllowedClasses() const
-{
+MSLane::getNotAllowedClasses() const {
     return myNotAllowedClasses;
 }
 
 
 bool
-MSLane::allowsVehicleClass(SUMOVehicleClass vclass) const
-{
+MSLane::allowsVehicleClass(SUMOVehicleClass vclass) const {
     if (vclass==SVC_UNKNOWN) {
         return true;
     }
@@ -1036,8 +992,7 @@ MSLane::allowsVehicleClass(SUMOVehicleClass vclass) const
 
 
 void
-MSLane::addIncomingLane(MSLane *lane, MSLink *viaLink)
-{
+MSLane::addIncomingLane(MSLane *lane, MSLink *viaLink) {
     IncomingLaneInfo ili;
     ili.lane = lane;
     ili.viaLink = viaLink;
@@ -1045,8 +1000,7 @@ MSLane::addIncomingLane(MSLane *lane, MSLink *viaLink)
     myIncomingLanes.push_back(ili);
 }
 
-class by_second_sorter
-{
+class by_second_sorter {
 public:
     inline int operator()(const std::pair<const MSVehicle * , SUMOReal> &p1, const std::pair<const MSVehicle * , SUMOReal> &p2) const {
         return p1.second<p2.second;
@@ -1054,8 +1008,7 @@ public:
 };
 
 std::pair<MSVehicle * const, SUMOReal>
-MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed) const
-{
+MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed) const {
     // ok, a vehicle has not noticed the lane about itself;
     //  iterate as long as necessary to search for an approaching one
     set<MSLane*> visited;
@@ -1104,8 +1057,7 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
 
 std::pair<MSVehicle * const, SUMOReal>
 MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, const MSVehicle &veh,
-                               const std::vector<MSLane*> &bestLaneConts) const
-{
+                               const std::vector<MSLane*> &bestLaneConts) const {
     if (seen>dist) {
         return std::pair<MSVehicle * const, SUMOReal>(0, -1);
     }
@@ -1156,22 +1108,19 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
 
 
 void
-MSLane::leftByLaneChange(MSVehicle *v)
-{
+MSLane::leftByLaneChange(MSVehicle *v) {
     myVehicleLengthSum -= v->getVehicleType().getLength();
 }
 
 
 void
-MSLane::enteredByLaneChange(MSVehicle *v)
-{
+MSLane::enteredByLaneChange(MSVehicle *v) {
     myVehicleLengthSum += v->getVehicleType().getLength();
 }
 
 
 SUMOReal
-MSLane::getMeanSpeed() const
-{
+MSLane::getMeanSpeed() const {
     if (myVehicles.size()==0) {
         return myMaxSpeed;
     }

@@ -40,8 +40,7 @@
  * Throw from GUIRunThread to GUIApplicationWindow and then further to all
  * displays after a step has been performed
  */
-class GUIEvent_SimulationStep : public GUIEvent
-{
+class GUIEvent_SimulationStep : public GUIEvent {
 public:
     /// constructor
     GUIEvent_SimulationStep()

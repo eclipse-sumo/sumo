@@ -78,8 +78,7 @@ NIVissimDistrictConnection::NIVissimDistrictConnection(int id,
         const std::vector<std::pair<int, int> > &assignedVehicles)
         : myID(id), myName(name), myDistricts(districts),
         myEdgeID(edgeid), myPosition(position),
-        myAssignedVehicles(assignedVehicles)
-{
+        myAssignedVehicles(assignedVehicles) {
     IntVector::iterator i=myDistricts.begin();
     DoubleVector::const_iterator j=percentages.begin();
     while (i!=myDistricts.end()) {
@@ -90,8 +89,7 @@ NIVissimDistrictConnection::NIVissimDistrictConnection(int id,
 }
 
 
-NIVissimDistrictConnection::~NIVissimDistrictConnection()
-{}
+NIVissimDistrictConnection::~NIVissimDistrictConnection() {}
 
 
 
@@ -99,8 +97,7 @@ bool
 NIVissimDistrictConnection::dictionary(int id, const std::string &name,
                                        const IntVector &districts, const DoubleVector &percentages,
                                        int edgeid, SUMOReal position,
-                                       const std::vector<std::pair<int, int> > &assignedVehicles)
-{
+                                       const std::vector<std::pair<int, int> > &assignedVehicles) {
     NIVissimDistrictConnection *o =
         new NIVissimDistrictConnection(id, name, districts, percentages,
                                        edgeid, position, assignedVehicles);
@@ -113,8 +110,7 @@ NIVissimDistrictConnection::dictionary(int id, const std::string &name,
 
 
 bool
-NIVissimDistrictConnection::dictionary(int id, NIVissimDistrictConnection *o)
-{
+NIVissimDistrictConnection::dictionary(int id, NIVissimDistrictConnection *o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -125,8 +121,7 @@ NIVissimDistrictConnection::dictionary(int id, NIVissimDistrictConnection *o)
 
 
 NIVissimDistrictConnection *
-NIVissimDistrictConnection::dictionary(int id)
-{
+NIVissimDistrictConnection::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -135,8 +130,7 @@ NIVissimDistrictConnection::dictionary(int id)
 }
 
 void
-NIVissimDistrictConnection::dict_BuildDistrictConnections()
-{
+NIVissimDistrictConnection::dict_BuildDistrictConnections() {
     //  pre-assign connections to districts
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimDistrictConnection *c = (*i).second;
@@ -150,8 +144,7 @@ NIVissimDistrictConnection::dict_BuildDistrictConnections()
 
 
 void
-NIVissimDistrictConnection::dict_CheckEdgeEnds()
-{
+NIVissimDistrictConnection::dict_CheckEdgeEnds() {
     for (std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
         const IntVector &connections = (*k).second;
         for (IntVector::const_iterator j=connections.begin(); j!=connections.end(); j++) {
@@ -163,8 +156,7 @@ NIVissimDistrictConnection::dict_CheckEdgeEnds()
 
 
 void
-NIVissimDistrictConnection::checkEdgeEnd()
-{
+NIVissimDistrictConnection::checkEdgeEnd() {
     NIVissimEdge *edge = NIVissimEdge::dictionary(myEdgeID);
     assert(edge!=0);
     edge->checkDistrictConnectionExistanceAt(myPosition);
@@ -173,8 +165,7 @@ NIVissimDistrictConnection::checkEdgeEnd()
 
 void
 NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont &dc,
-        NBNodeCont &nc)
-{
+        NBNodeCont &nc) {
     for (std::map<int, IntVector>::iterator k=myDistrictsConnections.begin(); k!=myDistrictsConnections.end(); k++) {
         // get the connections
         const IntVector &connections = (*k).second;
@@ -207,8 +198,7 @@ void
 NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
         NBEdgeCont &ec,
         NBNodeCont &nc/*,
-                                                                                NBDistribution &distc*/)
-{
+                                                                                NBDistribution &distc*/) {
     // add the sources and sinks
     //  their normalised probability is computed within NBDistrict
     //   to avoid SUMOReal code writing and more securty within the converter
@@ -355,16 +345,14 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
 
 
 Position2D
-NIVissimDistrictConnection::geomPosition() const
-{
+NIVissimDistrictConnection::geomPosition() const {
     NIVissimAbstractEdge *e = NIVissimEdge::dictionary(myEdgeID);
     return e->getGeomPosition(myPosition);
 }
 
 
 NIVissimDistrictConnection *
-NIVissimDistrictConnection::dict_findForEdge(int edgeid)
-{
+NIVissimDistrictConnection::dict_findForEdge(int edgeid) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         if ((*i).second->myEdgeID==edgeid) {
             return (*i).second;
@@ -375,8 +363,7 @@ NIVissimDistrictConnection::dict_findForEdge(int edgeid)
 
 
 void
-NIVissimDistrictConnection::clearDict()
-{
+NIVissimDistrictConnection::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }
@@ -385,8 +372,7 @@ NIVissimDistrictConnection::clearDict()
 
 
 SUMOReal
-NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const
-{
+NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const {
     //assert(myAssignedVehicles.size()!=0);
     if (myAssignedVehicles.size()==0) {
         MsgHandler::getWarningInstance()->inform("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
@@ -402,8 +388,7 @@ NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const
 
 
 SUMOReal
-NIVissimDistrictConnection::getRealSpeed(/*NBDistribution &dc, */int distNo) const
-{
+NIVissimDistrictConnection::getRealSpeed(/*NBDistribution &dc, */int distNo) const {
     string id = toString<int>(distNo);
     Distribution *dist = NBDistribution::dictionary("speed", id);
     if (dist==0) {

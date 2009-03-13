@@ -60,22 +60,19 @@ using namespace std;
 // ===========================================================================
 NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb,
         MSEdgeContinuations &ec) throw()
-        : myJunctionControlBuilder(jb), myEdgeContinuations(ec)
-{
+        : myJunctionControlBuilder(jb), myEdgeContinuations(ec) {
     mySuccLanes = new MSLinkCont();
     mySuccLanes->reserve(10);
 }
 
 
-NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder() throw()
-{
+NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder() throw() {
     delete mySuccLanes;
 }
 
 
 void
-NLSucceedingLaneBuilder::openSuccLane(const string &laneId) throw()
-{
+NLSucceedingLaneBuilder::openSuccLane(const string &laneId) throw() {
     myCurrentLane = laneId;
 }
 
@@ -89,8 +86,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
                                      MSLink::LinkDirection dir,
                                      MSLink::LinkState state,
                                      bool internalEnd,
-                                     const std::string &tlid, size_t linkNo) throw(InvalidArgument)
-{
+                                     const std::string &tlid, size_t linkNo) throw(InvalidArgument) {
     // check whether the link is a dead link
     if (laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
@@ -173,8 +169,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 
 
 void
-NLSucceedingLaneBuilder::closeSuccLane() throw(InvalidArgument)
-{
+NLSucceedingLaneBuilder::closeSuccLane() throw(InvalidArgument) {
     MSLane *current = MSLane::dictionary(myCurrentLane);
     if (current==0) {
         throw InvalidArgument("Trying to close connections of an unknown lane ('" + myCurrentLane + "').");
@@ -188,8 +183,7 @@ NLSucceedingLaneBuilder::closeSuccLane() throw(InvalidArgument)
 
 
 const std::string &
-NLSucceedingLaneBuilder::getCurrentLaneName() const throw()
-{
+NLSucceedingLaneBuilder::getCurrentLaneName() const throw() {
     return myCurrentLane;
 }
 

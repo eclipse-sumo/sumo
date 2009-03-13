@@ -66,8 +66,7 @@ class NBTrafficLightLogicVector;
  * @see NBLoadedTLDef
  * @see NBOwnTLDef
  */
-class NBTrafficLightDefinition : public Named
-{
+class NBTrafficLightDefinition : public Named {
 public:
     /**
      * @enum TLColor

@@ -42,8 +42,7 @@ class GUISUMOAbstractView;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GUIDialog_EditViewport : public FXDialogBox
-{
+class GUIDialog_EditViewport : public FXDialogBox {
     // FOX-declarations
     FXDECLARE(GUIDialog_EditViewport)
 public:

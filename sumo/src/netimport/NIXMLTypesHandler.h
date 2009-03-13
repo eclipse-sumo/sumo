@@ -48,8 +48,7 @@ class NBTypeCont;
  * This SAX-handler parses edge type information and stores it in the given
  *  container.
  */
-class NIXMLTypesHandler : public SUMOSAXHandler
-{
+class NIXMLTypesHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *

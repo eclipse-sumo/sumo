@@ -59,8 +59,7 @@
 inline SUMOReal
 isLeft(const Position2D &P0,
        const Position2D &P1,
-       const Position2D &P2)
-{
+       const Position2D &P2) {
     return (P1.x() - P0.x())*(P2.y() - P0.y()) - (P2.x() - P0.x())*(P1.y() - P0.y());
 }
 

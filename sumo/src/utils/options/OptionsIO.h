@@ -49,8 +49,7 @@ class OptionsCont;
  * Any errors are reported by throwing a ProcessError exception which
  *  contains a description about the failure.
  */
-class OptionsIO
-{
+class OptionsIO {
 public:
     /** @brief Parses the command line arguments and loads the configuration optionally
      *

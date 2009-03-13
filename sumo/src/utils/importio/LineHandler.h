@@ -47,8 +47,7 @@
  *  which reads the lines from a file.
  * @see LineReader
  */
-class LineHandler
-{
+class LineHandler {
 public:
     /// @brief constructor
     LineHandler() throw() { }

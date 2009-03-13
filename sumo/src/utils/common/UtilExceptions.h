@@ -41,8 +41,7 @@
  * Thrown when an argument was not proper in the current context
  * A message will be supplied
  */
-class InvalidArgument : public std::runtime_error
-{
+class InvalidArgument : public std::runtime_error {
 public:
     /** constructor */
     InvalidArgument(const std::string &message)
@@ -57,8 +56,7 @@ public:
  * longer able to proceed due to any reason. The reason itself is mostly
  * reported before throwing the exception
  */
-class ProcessError : public std::runtime_error
-{
+class ProcessError : public std::runtime_error {
 public:
     /** constructor */
     ProcessError()
@@ -75,8 +73,7 @@ public:
  * EmptyData
  * Thrown when data required by a method is missing
  */
-class EmptyData : public std::runtime_error
-{
+class EmptyData : public std::runtime_error {
 public:
     /** constructor */
     EmptyData()
@@ -91,8 +88,7 @@ public:
  * numerical representation has any other characters then
  * digits and a dot
  */
-class NumberFormatException : public std::runtime_error
-{
+class NumberFormatException : public std::runtime_error {
 public:
     /** constructor */
     NumberFormatException()
@@ -106,8 +102,7 @@ public:
  * Thrown when the string that shall be converted into a
  * boolean does not match
  */
-class BoolFormatException : public std::runtime_error
-{
+class BoolFormatException : public std::runtime_error {
 public:
     /** constructor */
     BoolFormatException()
@@ -121,8 +116,7 @@ public:
  * Thrown when an array element out of the array's
  * bounderies is accessed
  */
-class OutOfBoundsException : public std::runtime_error
-{
+class OutOfBoundsException : public std::runtime_error {
 public:
     /** constructor */
     OutOfBoundsException()
@@ -136,8 +130,7 @@ public:
  * Thrown when a named element is tried to be accesed
  * which is not known to the container
  */
-class UnknownElement : public std::runtime_error
-{
+class UnknownElement : public std::runtime_error {
 public:
     /** constructor */
     UnknownElement()
@@ -150,8 +143,7 @@ public:
 };
 
 
-class IOError : public ProcessError
-{
+class IOError : public ProcessError {
 public:
     /** constructor */
     IOError(const std::string &message)

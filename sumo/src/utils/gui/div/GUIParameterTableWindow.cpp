@@ -70,8 +70,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
         : FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(),
                        NULL,NULL,DECOR_ALL,20,20,300,(FXint)(noRows*20+60)),
         myObject(&o),
-        myApplication(&app), myCurrentPos(0)
-{
+        myApplication(&app), myCurrentPos(0) {
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE|TABLE_ROW_SIZABLE|LAYOUT_FILL_X|LAYOUT_FILL_Y);
     myTable->setVisibleRows((FXint)(noRows+1));
     myTable->setVisibleColumns(3);
@@ -92,8 +91,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
 }
 
 
-GUIParameterTableWindow::~GUIParameterTableWindow() throw()
-{
+GUIParameterTableWindow::~GUIParameterTableWindow() throw() {
     myApplication->removeChild(this);
     for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); ++i) {
         delete(*i);
@@ -102,8 +100,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() throw()
 
 
 long
-GUIParameterTableWindow::onSimStep(FXObject*,FXSelector,void*)
-{
+GUIParameterTableWindow::onSimStep(FXObject*,FXSelector,void*) {
     updateTable();
     update();
     return 1;
@@ -111,15 +108,13 @@ GUIParameterTableWindow::onSimStep(FXObject*,FXSelector,void*)
 
 
 long
-GUIParameterTableWindow::onTableSelected(FXObject*,FXSelector,void*)
-{
+GUIParameterTableWindow::onTableSelected(FXObject*,FXSelector,void*) {
     return 1;
 }
 
 
 long
-GUIParameterTableWindow::onTableDeselected(FXObject*,FXSelector,void*)
-{
+GUIParameterTableWindow::onTableDeselected(FXObject*,FXSelector,void*) {
     return 1;
 }
 
@@ -127,8 +122,7 @@ GUIParameterTableWindow::onTableDeselected(FXObject*,FXSelector,void*)
 long
 GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
         FXSelector sel,
-        void*data)
-{
+        void*data) {
     // check which value entry was pressed
     myTable->onLeftBtnPress(sender, sel, data);
     int row = myTable->getCurrentRow();
@@ -157,8 +151,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                ValueSource<unsigned> *src) throw()
-{
+                                ValueSource<unsigned> *src) throw() {
     GUIParameterTableItemInterface *i = new GUIParameterTableItem<unsigned>(
         myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
@@ -167,8 +160,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                ValueSource<SUMOReal> *src) throw()
-{
+                                ValueSource<SUMOReal> *src) throw() {
     GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOReal>(
         myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
@@ -178,8 +170,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                ValueSource<SUMOTime> *src) throw()
-{
+                                ValueSource<SUMOTime> *src) throw() {
     GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOTime>(
         myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
@@ -189,8 +180,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                std::string value) throw()
-{
+                                std::string value) throw() {
     GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOReal>(
         myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
@@ -199,8 +189,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                SUMOReal value) throw()
-{
+                                SUMOReal value) throw() {
     GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOReal>(
         myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
@@ -209,8 +198,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                unsigned value) throw()
-{
+                                unsigned value) throw() {
     GUIParameterTableItemInterface *i = new GUIParameterTableItem<unsigned>(
         myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
@@ -220,8 +208,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 #ifndef HAVE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                SUMOTime value) throw()
-{
+                                SUMOTime value) throw() {
     GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOTime>(
         myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
@@ -230,8 +217,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 
 
 void
-GUIParameterTableWindow::updateTable() throw()
-{
+GUIParameterTableWindow::updateTable() throw() {
     for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); i++) {
         (*i)->update();
     }
@@ -239,8 +225,7 @@ GUIParameterTableWindow::updateTable() throw()
 
 
 void
-GUIParameterTableWindow::closeBuilding() throw()
-{
+GUIParameterTableWindow::closeBuilding() throw() {
     myApplication->addChild(this, true);
     create();
     show();

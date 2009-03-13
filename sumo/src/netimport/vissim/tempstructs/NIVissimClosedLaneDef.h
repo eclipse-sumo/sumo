@@ -38,8 +38,7 @@
 /**
  *
  */
-class NIVissimClosedLaneDef
-{
+class NIVissimClosedLaneDef {
 public:
     NIVissimClosedLaneDef(int lane, const IntVector &assignedVehicles);
     ~NIVissimClosedLaneDef();

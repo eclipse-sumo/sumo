@@ -50,8 +50,7 @@ using namespace std;
 ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
                          bool acceptAllDestinations)
         : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
-        myAcceptAllDestination(acceptAllDestinations)
-{
+        myAcceptAllDestination(acceptAllDestinations) {
     myMaxEdges = (int)(
                      ((SUMOReal) net.getEdgeNo()) *
                      OptionsCont::getOptions().getFloat("max-edges-factor"));
@@ -59,15 +58,13 @@ ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
 }
 
 
-ROJTRRouter::~ROJTRRouter()
-{}
+ROJTRRouter::~ROJTRRouter() {}
 
 
 void
 ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
                      const ROVehicle * const vehicle,
-                     SUMOTime time, std::vector<const ROEdge*> &into)
-{
+                     SUMOTime time, std::vector<const ROEdge*> &into) {
     const ROJTREdge *current = static_cast<const ROJTREdge*>(from);
     // route until a sinks has been found
     while (current!=0

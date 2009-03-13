@@ -39,19 +39,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-PCTypeMap::PCTypeMap() throw()
-{}
+PCTypeMap::PCTypeMap() throw() {}
 
 
-PCTypeMap::~PCTypeMap() throw()
-{}
+PCTypeMap::~PCTypeMap() throw() {}
 
 
 bool
 PCTypeMap::add(const std::string &id, const std::string &newid,
                const std::string &color, const std::string &prefix,
-               int layer, bool discard, bool allowFill) throw()
-{
+               int layer, bool discard, bool allowFill) throw() {
     if (has(id)) {
         return false;
     }
@@ -68,15 +65,13 @@ PCTypeMap::add(const std::string &id, const std::string &newid,
 
 
 const PCTypeMap::TypeDef &
-PCTypeMap::get(const std::string &id) throw()
-{
+PCTypeMap::get(const std::string &id) throw() {
     return myTypes.find(id)->second;
 }
 
 
 bool
-PCTypeMap::has(const std::string &id) throw()
-{
+PCTypeMap::has(const std::string &id) throw() {
     return myTypes.find(id)!=myTypes.end();
 }
 

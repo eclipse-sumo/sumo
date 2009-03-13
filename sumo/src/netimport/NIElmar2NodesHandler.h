@@ -44,8 +44,7 @@
  * and parses these information assuming they contain node definitions
  * in Elmar's unsplit format.
  */
-class NIElmar2NodesHandler : public LineHandler
-{
+class NIElmar2NodesHandler : public LineHandler {
 public:
     /** @brief Constructor
      * @param[in, filled] nc The node control to insert loaded nodes into

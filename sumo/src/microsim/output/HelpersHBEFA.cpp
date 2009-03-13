@@ -71,9 +71,8 @@ using namespace std;
 // ---------------------------------------------------------------------------
 // function parameter
 // ---------------------------------------------------------------------------
-double 
-HelpersHBEFA::myFunctionParameter[42][36] =
-{
+double
+HelpersHBEFA::myFunctionParameter[42][36] = {
     // HDV; 3 clusters
     //  vehicle class#1/3
     { 4245.223, 154.6451, 1.927562, 541.2383, -4.550742, 0.04188938, 28.93721, 0.2037537, -0.003240476, 0.4930771, 0.008678762, -0.000121619, 13.32557, 0.01322119, 0.000700762, 0.095335, 0.001058381, -1.49E-05, 1337.078, 48.70711, 0.6071061, 170.4687, -1.433304, 0.01319348, 57.36627, 1.608585, -0.01356748, 5.374104, -0.04497662, 0.000340619, 4.261253, 0.02554976, 0.000149429, 0.03476595, 0.000966905, -8.29E-06 },
@@ -176,9 +175,8 @@ HelpersHBEFA::myFunctionParameter[42][36] =
 // method definitions
 // ===========================================================================
 SUMOReal
-HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) throw()
-{
-    switch(c) {
+HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) throw() {
+    switch (c) {
     case SVE_ZERO_EMISSIONS:
         return 0;
     case SVE_UNKNOWN:
@@ -192,9 +190,8 @@ HelpersHBEFA::computeCO(SUMOEmissionClass c, double v, double a) throw()
 
 
 SUMOReal
-HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw()
-{
-    switch(c) {
+HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw() {
+    switch (c) {
     case SVE_ZERO_EMISSIONS:
         return 0;
     case SVE_UNKNOWN:
@@ -208,9 +205,8 @@ HelpersHBEFA::computeCO2(SUMOEmissionClass c, double v, double a) throw()
 
 
 SUMOReal
-HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) throw()
-{
-    switch(c) {
+HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) throw() {
+    switch (c) {
     case SVE_ZERO_EMISSIONS:
         return 0;
     case SVE_UNKNOWN:
@@ -224,9 +220,8 @@ HelpersHBEFA::computeHC(SUMOEmissionClass c, double v, double a) throw()
 
 
 SUMOReal
-HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw()
-{
-    switch(c) {
+HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw() {
+    switch (c) {
     case SVE_ZERO_EMISSIONS:
         return 0;
     case SVE_UNKNOWN:
@@ -240,9 +235,8 @@ HelpersHBEFA::computeNOx(SUMOEmissionClass c, double v, double a) throw()
 
 
 SUMOReal
-HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) throw()
-{
-    switch(c) {
+HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) throw() {
+    switch (c) {
     case SVE_ZERO_EMISSIONS:
         return 0;
     case SVE_UNKNOWN:
@@ -256,9 +250,8 @@ HelpersHBEFA::computePMx(SUMOEmissionClass c, double v, double a) throw()
 
 
 SUMOReal
-HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) throw()
-{
-    switch(c) {
+HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) throw() {
+    switch (c) {
     case SVE_ZERO_EMISSIONS:
         return 0;
     case SVE_UNKNOWN:
@@ -267,7 +260,7 @@ HelpersHBEFA::computeFuel(SUMOEmissionClass c, double v, double a) throw()
     default:
         break;
     }
-    return (SUMOReal) (computeUsing(getParameterForClass(c)+FUEL_OFFSET,v,a) / 790.);
+    return (SUMOReal)(computeUsing(getParameterForClass(c)+FUEL_OFFSET,v,a) / 790.);
 }
 
 

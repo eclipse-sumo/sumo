@@ -52,8 +52,7 @@ class GUIGlObjectStorage;
  *  the ability to build a wrapper that displays this representation
  */
 class GUINoLogicJunction
-            : public MSNoLogicJunction
-{
+            : public MSNoLogicJunction {
 public:
     /// Destructor.
     ~GUINoLogicJunction();

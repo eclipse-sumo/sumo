@@ -38,8 +38,7 @@ using namespace FX;
 #include <FXObject.h>
 using namespace FX;
 #endif
-namespace FXEX
-{
+namespace FXEX {
 
 /**
  * Define so that all types and all id's can go to a specific function.
@@ -60,8 +59,7 @@ namespace FXEX
  * This is a base class for ojects which can send messages to the application
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-            FXBaseObject : public FXObject
-{
+            FXBaseObject : public FXObject {
     FXDECLARE(FXBaseObject)
 
 protected:

@@ -64,8 +64,7 @@ using namespace std;
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
-{
+NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("robocup-net")) {
         return;
@@ -99,18 +98,15 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
 
 
 NIImporter_RobocupRescue::NIImporter_RobocupRescue(NBNodeCont &nc, NBEdgeCont &ec)
-        : myNodeCont(nc), myEdgeCont(ec)
-{}
+        : myNodeCont(nc), myEdgeCont(ec) {}
 
 
-NIImporter_RobocupRescue::~NIImporter_RobocupRescue() throw()
-{
+NIImporter_RobocupRescue::~NIImporter_RobocupRescue() throw() {
 }
 
 
 void
-NIImporter_RobocupRescue::loadNodes(const std::string &file)
-{
+NIImporter_RobocupRescue::loadNodes(const std::string &file) {
     BinaryInputDevice dev(file);
     unsigned int skip;
     dev >> skip; // the number in 19_s
@@ -144,8 +140,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file)
 
 
 void
-NIImporter_RobocupRescue::loadEdges(const std::string &file)
-{
+NIImporter_RobocupRescue::loadEdges(const std::string &file) {
     BinaryInputDevice dev(file);
     unsigned int skip;
     dev >> skip; // the number in 19_s

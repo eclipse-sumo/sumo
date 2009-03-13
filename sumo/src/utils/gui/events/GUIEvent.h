@@ -70,8 +70,7 @@ enum GUIEventType {
  * GUIEvent
  *
  */
-class GUIEvent
-{
+class GUIEvent {
 public:
     /// returns the event type
     GUIEventType getOwnType() const {

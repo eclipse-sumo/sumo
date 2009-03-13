@@ -54,8 +54,7 @@ class ROAbstractEdgeBuilder;
  * SAX2-Handler for SUMO-network loading. As this class is used for both
  *  the dua- and the jp-router, a reference to the edge builder is given.
  */
-class RONetHandler : public SUMOSAXHandler
-{
+class RONetHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *

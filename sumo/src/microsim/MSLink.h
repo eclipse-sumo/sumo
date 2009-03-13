@@ -65,8 +65,7 @@ class MSTrafficLightLogic;
  *
  * @todo Check whether links with via-lanes should be subclassed
  */
-class MSLink
-{
+class MSLink {
 public:
     /**
      * @enum LinkState

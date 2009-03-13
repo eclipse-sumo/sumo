@@ -80,8 +80,7 @@ GUIE1VehicleActor::GUIE1VehicleActor(const std::string& id, MSLane* lane,
                                      unsigned int laid, unsigned int cellid,
                                      unsigned int type) throw()
         : MSE1VehicleActor(id, lane, positionInMeters, laid, cellid, type),
-        GUIGlObject_AbstractAdd(gIDStorage, "actor:" + id, GLO_TRIGGER)
-{
+        GUIGlObject_AbstractAdd(gIDStorage, "actor:" + id, GLO_TRIGGER) {
     const Position2DVector &v = lane->getShape();
     myFGPosition = v.positionAtLengthPosition(positionInMeters);
     Line2D l(v.getBegin(), v.getEnd());
@@ -89,14 +88,12 @@ GUIE1VehicleActor::GUIE1VehicleActor(const std::string& id, MSLane* lane,
 }
 
 
-GUIE1VehicleActor::~GUIE1VehicleActor() throw()
-{}
+GUIE1VehicleActor::~GUIE1VehicleActor() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUIE1VehicleActor::getPopUpMenu(GUIMainWindow &app,
-                                GUISUMOAbstractView &parent) throw()
-{
+                                GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -110,8 +107,7 @@ GUIE1VehicleActor::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIE1VehicleActor::getParameterWindow(GUIMainWindow &app,
-                                      GUISUMOAbstractView &) throw()
-{
+                                      GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 9);
     // add items
@@ -131,15 +127,13 @@ GUIE1VehicleActor::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIE1VehicleActor::getMicrosimID() const throw()
-{
+GUIE1VehicleActor::getMicrosimID() const throw() {
     return getID();
 }
 
 
 void
-GUIE1VehicleActor::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIE1VehicleActor::drawGL(const GUIVisualizationSettings &s) const throw() {
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -215,8 +209,7 @@ GUIE1VehicleActor::drawGL(const GUIVisualizationSettings &s) const throw()
 
 
 Boundary
-GUIE1VehicleActor::getCenteringBoundary() const throw()
-{
+GUIE1VehicleActor::getCenteringBoundary() const throw() {
     Boundary b(myFGPosition.x(), myFGPosition.y(), myFGPosition.x(), myFGPosition.y());
     b.grow(20);
     return b;

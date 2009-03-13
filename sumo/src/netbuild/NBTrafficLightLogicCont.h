@@ -60,8 +60,7 @@ class OutputDevice;
  * @see NBTrafficLightDefinition
  * @see NBTrafficLightLogicVector
  */
-class NBTrafficLightLogicCont
-{
+class NBTrafficLightLogicCont {
 public:
     /// @brief Constructor
     NBTrafficLightLogicCont() throw();
@@ -95,7 +94,7 @@ public:
 
     /** @brief Removes a logic definition from the dictionary
      *
-     * "true" is returned if the logic if the logic existed in the dictionary, 
+     * "true" is returned if the logic if the logic existed in the dictionary,
      *  otherwise "false".
      *
      * @param[in] id The id of the logic to remove

@@ -57,8 +57,7 @@ class GUIManipulator;
  * @class GUIE1VehicleActor
  * This is the gui-version of the MSE1VehicleActor-object
  */
-class GUIE1VehicleActor : public MSE1VehicleActor, public GUIGlObject_AbstractAdd
-{
+class GUIE1VehicleActor : public MSE1VehicleActor, public GUIGlObject_AbstractAdd {
 public:
     /** constructor */
     GUIE1VehicleActor(const std::string& id, MSLane* lane,

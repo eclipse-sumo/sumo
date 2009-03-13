@@ -48,8 +48,7 @@ class ROEdge;
  * @class RORouteDef_Alternatives
  * @brief A route definition which has some alternatives, already.
  */
-class RORouteDef_Alternatives : public RORouteDef
-{
+class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
     RORouteDef_Alternatives(const std::string &id,

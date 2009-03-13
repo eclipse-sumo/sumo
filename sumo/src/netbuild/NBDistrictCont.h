@@ -55,8 +55,7 @@ class OutputDevice;
  *
  * @see NBDistrict
  */
-class NBDistrictCont
-{
+class NBDistrictCont {
 public:
     /// @brief Constructor
     NBDistrictCont() throw();

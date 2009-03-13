@@ -53,18 +53,15 @@ GUICompleteSchemeStorage gSchemeStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUICompleteSchemeStorage::GUICompleteSchemeStorage()
-{ }
+GUICompleteSchemeStorage::GUICompleteSchemeStorage() { }
 
 
-GUICompleteSchemeStorage::~GUICompleteSchemeStorage()
-{ }
+GUICompleteSchemeStorage::~GUICompleteSchemeStorage() { }
 
 
 
 void
-GUICompleteSchemeStorage::add(GUIVisualizationSettings &scheme)
-{
+GUICompleteSchemeStorage::add(GUIVisualizationSettings &scheme) {
     std::string name = scheme.name;
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
@@ -74,22 +71,19 @@ GUICompleteSchemeStorage::add(GUIVisualizationSettings &scheme)
 
 
 GUIVisualizationSettings &
-GUICompleteSchemeStorage::get(const std::string &name)
-{
+GUICompleteSchemeStorage::get(const std::string &name) {
     return mySettings.find(name)->second;
 }
 
 
 bool
-GUICompleteSchemeStorage::contains(const std::string &name) const
-{
+GUICompleteSchemeStorage::contains(const std::string &name) const {
     return mySettings.find(name)!=mySettings.end();
 }
 
 
 void
-GUICompleteSchemeStorage::remove(const std::string &name)
-{
+GUICompleteSchemeStorage::remove(const std::string &name) {
     if (!contains(name)) {
         return;
     }
@@ -99,22 +93,19 @@ GUICompleteSchemeStorage::remove(const std::string &name)
 
 
 const std::vector<std::string> &
-GUICompleteSchemeStorage::getNames() const
-{
+GUICompleteSchemeStorage::getNames() const {
     return mySortedSchemeNames;
 }
 
 
 const std::map<std::string, GUIVisualizationSettings> &
-GUICompleteSchemeStorage::getItems() const
-{
+GUICompleteSchemeStorage::getItems() const {
     return mySettings;
 }
 
 
 RGBColor
-convert(const FXColor c)
-{
+convert(const FXColor c) {
     return RGBColor(
                (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
                (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
@@ -126,8 +117,7 @@ void
 GUICompleteSchemeStorage::init(FXApp *app,
                                const map<int, vector<RGBColor> > &vehColMap,
                                const map<int, vector<RGBColor> > &laneColMap,
-                               const map<int, vector<RGBColor> > &edgeColMap)
-{
+                               const map<int, vector<RGBColor> > &edgeColMap) {
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";

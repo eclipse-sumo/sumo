@@ -48,8 +48,7 @@ class MSVehicle;
  * @class MSLaneChanger
  * @brief Performs lane changing of vehicles
  */
-class MSLaneChanger
-{
+class MSLaneChanger {
 public:
     /// Constructor
     MSLaneChanger(MSEdge::LaneCont* lanes, OutputDevice *output=0);

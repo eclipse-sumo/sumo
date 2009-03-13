@@ -56,8 +56,7 @@ class NIVissimEdge;
  * It still are not all of the node's connections, as other edges
  * may participate to this node, too.
  */
-class NIVissimConnectionCluster
-{
+class NIVissimConnectionCluster {
 public:
     /** @brief Constructor
         Build the boundary; The boundary includes both incoming and outgoing nodes */
@@ -114,8 +113,7 @@ public:
     static void clearDict();
 
 private:
-    class NodeSubCluster
-    {
+    class NodeSubCluster {
     public:
         NodeSubCluster(NIVissimConnection *c);
         ~NodeSubCluster();
@@ -131,8 +129,7 @@ private:
         ConnectionCont myConnections;
     };
 
-    class same_direction_sorter
-    {
+    class same_direction_sorter {
     private:
         SUMOReal myAngle;
 

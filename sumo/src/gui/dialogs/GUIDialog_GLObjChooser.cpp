@@ -85,8 +85,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         GUIGlObjectType type,
         GUIGlObjectStorage &glStorage)
         : FXMainWindow(gFXApp, "Instance Action Chooser", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-        myObjectType(type), myParent(parent), mySelected(0)
-{
+        myObjectType(type), myParent(parent), mySelected(0) {
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
                               0,0,0,0);
@@ -174,15 +173,13 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
 }
 
 
-GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser()
-{
+GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() {
     myParent->getParent()->removeChild(this);
 }
 
 
 long
-GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*) {
     int selected = myList->getCurrentItem();
     if (selected>=0) {
         mySelected = static_cast<GUIGlObject*>(myList->getItemData(selected));
@@ -195,16 +192,14 @@ GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLObjChooser::onCmdClose(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLObjChooser::onCmdClose(FXObject*,FXSelector,void*) {
     close(true);
     return 1;
 }
 
 
 long
-GUIDialog_GLObjChooser::onChgText(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLObjChooser::onChgText(FXObject*,FXSelector,void*) {
     int id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX);
     if (id<0) {
         return 1;
@@ -218,8 +213,7 @@ GUIDialog_GLObjChooser::onChgText(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*) {
     int selected = myList->getCurrentItem();
     if (selected>=0) {
         mySelected = static_cast<GUIGlObject*>(myList->getItemData(selected));
@@ -230,8 +224,7 @@ GUIDialog_GLObjChooser::onCmdText(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr)
-{
+GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr) {
     FXEvent* event=(FXEvent*)ptr;
     switch (event->code) {
     case KEY_Return: {
@@ -247,8 +240,7 @@ GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr)
 
 
 GUIGlObject *
-GUIDialog_GLObjChooser::getObject() const
-{
+GUIDialog_GLObjChooser::getObject() const {
     return static_cast<GUIGlObject*>(mySelected);
 }
 

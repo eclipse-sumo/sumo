@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Zusammensetzungsdefinition::NIVissimSingleTypeParser_Zusammensetzungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Zusammensetzungsdefinition::~NIVissimSingleTypeParser_Zusammensetzungsdefinition()
-{}
+NIVissimSingleTypeParser_Zusammensetzungsdefinition::~NIVissimSingleTypeParser_Zusammensetzungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Zusammensetzungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Zusammensetzungsdefinition::parse(std::istream &from) {
     string tag = myRead(from);
     while (tag!="fahrzeugtyp") {
         tag = readEndSecure(from, "fahrzeugtyp");

@@ -51,8 +51,7 @@ class MSLane;
  * The building methods may be overridden, to build guisim-instances of the triggers,
  *  for example.
  */
-class MSMessageEmitter
-{
+class MSMessageEmitter {
 public:
     MSMessageEmitter(std::string& file, const std::string& base, std::string& whatemit,
                      bool reverse = false, bool tableOut = true, bool xy = false, SUMOReal step = 1);

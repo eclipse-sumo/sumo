@@ -52,8 +52,7 @@ class OutputDevice;
  * @class NBTrafficLightLogic
  * @brief A SUMO-compliant built logic for a traffic light
  */
-class NBTrafficLightLogic : public Named
-{
+class NBTrafficLightLogic : public Named {
 public:
     /** @brief Constructor
      *
@@ -113,8 +112,7 @@ private:
      * @class PhaseDefinition
      * @brief The definition of a single phase of the logic
      */
-    class PhaseDefinition
-    {
+    class PhaseDefinition {
     public:
         /// @brief The duration of the phase in s
         SUMOTime duration;

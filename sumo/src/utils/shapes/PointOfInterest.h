@@ -35,8 +35,7 @@
 #include <utils/common/Named.h>
 
 class PointOfInterest :
-            public RGBColor, public Position2D, public Named
-{
+            public RGBColor, public Position2D, public Named {
 public:
     PointOfInterest(const std::string &id, const std::string &type,
                     const Position2D &p, const RGBColor &c) throw()

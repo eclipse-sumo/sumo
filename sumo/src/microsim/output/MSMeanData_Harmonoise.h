@@ -59,18 +59,16 @@ class MSLane;
  *
  * @todo consider error-handling on write (using IOError)
  */
-class MSMeanData_Harmonoise : public MSDetectorFileOutput
-{
+class MSMeanData_Harmonoise : public MSDetectorFileOutput {
 public:
     /**
      * @class MSLaneMeanDataValues
      * @brief Data structure for mean (aggregated) edge/lane values
      *
-     * Structure holding values that describe the noise aggregated over 
+     * Structure holding values that describe the noise aggregated over
      *  some seconds.
      */
-    class MSLaneMeanDataValues : public MSMoveReminder
-    {
+    class MSLaneMeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane * const lane) throw();
@@ -127,21 +125,21 @@ public:
 
         /** @brief Adds a single vehicle's noise
          *
-         * If the current step was the same step as the last one this function was
-         *  called at, the value is added to currentTimeN.
-         *
-         * Otherwise, the sum of noises collected so far (in the last seen step)
-         *  is built, and added to meanNTemp and currentTimeN is resetted.
-         *  Then the value is added to currentTimeN.
-         *
-         * In the case flushOnly is set, only the sum is computed, the given
-         *  values are not stored.
+         * The value is added to currentTimeN.
          *
          * @param[in] sn The sound to add
          * @param[in] fraction The amount of time the vehicle was on the lane
          * @param[in] flushOnly Whether this call shall only close the current step computation
          */
-        void add(SUMOReal sn, SUMOReal fraction, bool flushOnly=false) throw();
+        void add(SUMOReal sn, SUMOReal fraction) throw();
+
+
+        /** @brief Computes the noise in the last time step
+         *
+         * The sum of noises collected so far (in the last seen step)
+         *  is built, and added to meanNTemp; currentTimeN is resetted.
+         */
+        void flushStep() throw();
 
 
         /// @name Collected values
@@ -180,9 +178,9 @@ public:
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      */
     MSMeanData_Harmonoise(const std::string &id,
-                     MSEdgeControl &edges, const std::vector<SUMOTime> &dumpBegins,
-                     const std::vector<SUMOTime> &dumpEnds, bool useLanes,
-                     bool withEmptyEdges, bool withEmptyLanes) throw();
+                          MSEdgeControl &edges, const std::vector<SUMOTime> &dumpBegins,
+                          const std::vector<SUMOTime> &dumpEnds, bool useLanes,
+                          bool withEmptyEdges, bool withEmptyLanes) throw();
 
 
     /// @brief Destructor
@@ -215,6 +213,11 @@ public:
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
+
+
+    /** @brief Updates the detector
+     */
+    void update() throw();
 
 
 protected:

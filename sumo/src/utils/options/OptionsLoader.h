@@ -57,8 +57,7 @@ class OptionsCont;
  * @class OptionsLoader
  * @brief A SAX-Handler for loading options
  */
-class OptionsLoader : public HandlerBase
-{
+class OptionsLoader : public HandlerBase {
 public:
     /** @brief Constructor
      *

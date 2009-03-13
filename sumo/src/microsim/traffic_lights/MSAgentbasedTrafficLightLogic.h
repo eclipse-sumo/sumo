@@ -61,8 +61,7 @@ class NLDetectorBuilder;
  * step is stored within them, not within the logic.
  */
 class MSAgentbasedTrafficLightLogic :
-            public MSSimpleTrafficLightLogic
-{
+            public MSSimpleTrafficLightLogic {
 public:
     /// Definition of a map from lanes to lane state detectors lying on them
     typedef std::map<MSLane*, MS_E2_ZS_CollectorOverLanes*> E2DetectorMap;

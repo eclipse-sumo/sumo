@@ -47,8 +47,7 @@ class OptionsCont;
  * @class PCLoaderVisum
  * @brief A reader of pois and polygons stored in VISUM-format
  */
-class PCLoaderVisum
-{
+class PCLoaderVisum {
 public:
     /** @brief Loads pois/polygons assumed to be stored using VISUM-format
      *

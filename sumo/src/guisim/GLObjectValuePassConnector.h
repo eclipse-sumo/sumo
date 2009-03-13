@@ -52,8 +52,7 @@ class GUIGlObject;
  */
 template<typename T>
 class GLObjectValuePassConnector :
-            public MSUpdateEachTimestep<GLObjectValuePassConnector<T> >
-{
+            public MSUpdateEachTimestep<GLObjectValuePassConnector<T> > {
 public:
     /** @brief Constructor
      * @param[in] o The object to get the value from
@@ -71,7 +70,7 @@ public:
         delete mySource;
     }
 
-    
+
     /** @brief Passes the value to the retriever
      *
      * Retrieves the value from the object, in the case the object is active.

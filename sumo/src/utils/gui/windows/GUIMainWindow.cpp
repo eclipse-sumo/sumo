@@ -51,8 +51,7 @@ using namespace std;
 GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
         : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
         myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
-        myGLWidth(glWidth), myGLHeight(glHeight), myRunAtBegin(false)
-{
+        myGLWidth(glWidth), myGLHeight(glHeight), myRunAtBegin(false) {
 
     FXFontDesc fdesc;
     getApp()->getNormalFont()->getFontDesc(fdesc);
@@ -66,8 +65,7 @@ GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
 }
 
 
-GUIMainWindow::~GUIMainWindow()
-{
+GUIMainWindow::~GUIMainWindow() {
     delete myBoldFont;
     delete myTopDock;
     delete myBottomDock;
@@ -78,15 +76,13 @@ GUIMainWindow::~GUIMainWindow()
 
 
 void
-GUIMainWindow::addChild(FXMDIChild *child, bool /*updateOnSimStep !!!*/)
-{
+GUIMainWindow::addChild(FXMDIChild *child, bool /*updateOnSimStep !!!*/) {
     mySubWindows.push_back(child);
 }
 
 
 void
-GUIMainWindow::removeChild(FXMDIChild *child)
-{
+GUIMainWindow::removeChild(FXMDIChild *child) {
     std::vector<FXMDIChild*>::iterator i =
         std::find(mySubWindows.begin(), mySubWindows.end(), child);
     if (i!=mySubWindows.end()) {
@@ -96,8 +92,7 @@ GUIMainWindow::removeChild(FXMDIChild *child)
 
 
 void
-GUIMainWindow::addChild(FXMainWindow *child, bool /*updateOnSimStep !!!*/)
-{
+GUIMainWindow::addChild(FXMainWindow *child, bool /*updateOnSimStep !!!*/) {
     myTrackerLock.lock();
     myTrackerWindows.push_back(child);
     myTrackerLock.unlock();
@@ -105,8 +100,7 @@ GUIMainWindow::addChild(FXMainWindow *child, bool /*updateOnSimStep !!!*/)
 
 
 void
-GUIMainWindow::removeChild(FXMainWindow *child)
-{
+GUIMainWindow::removeChild(FXMainWindow *child) {
     myTrackerLock.lock();
     std::vector<FXMainWindow*>::iterator i =
         std::find(myTrackerWindows.begin(), myTrackerWindows.end(), child);
@@ -116,29 +110,25 @@ GUIMainWindow::removeChild(FXMainWindow *child)
 
 
 FXFont *
-GUIMainWindow::getBoldFont()
-{
+GUIMainWindow::getBoldFont() {
     return myBoldFont;
 }
 
 
 int
-GUIMainWindow::getMaxGLWidth() const
-{
+GUIMainWindow::getMaxGLWidth() const {
     return myGLWidth;
 }
 
 
 int
-GUIMainWindow::getMaxGLHeight() const
-{
+GUIMainWindow::getMaxGLHeight() const {
     return myGLHeight;
 }
 
 
 void
-GUIMainWindow::updateChildren()
-{
+GUIMainWindow::updateChildren() {
     // inform views
     myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
     // inform other windows
@@ -151,22 +141,19 @@ GUIMainWindow::updateChildren()
 
 
 FXGLVisual *
-GUIMainWindow::getGLVisual() const
-{
+GUIMainWindow::getGLVisual() const {
     return myGLVisual;
 }
 
 
 FXLabel &
-GUIMainWindow::getCartesianLabel()
-{
+GUIMainWindow::getCartesianLabel() {
     return *myCartesianCoordinate;
 }
 
 
 FXLabel &
-GUIMainWindow::getGeoLabel()
-{
+GUIMainWindow::getGeoLabel() {
     return *myGeoCoordinate;
 }
 

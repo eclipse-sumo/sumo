@@ -56,8 +56,7 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
                                    bool xy,
                                    SUMOReal step) : writeLCEvent(false), writeBEvent(false),
         writeHBEvent(false),
-        myDev(OutputDevice::getDevice(file, base))
-{
+        myDev(OutputDevice::getDevice(file, base)) {
 #ifdef _DEBUG
     cout << "constructing MSMessageEmitter with file '" + file + "'" << endl;
 #endif
@@ -71,21 +70,18 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
 }
 
 
-MSMessageEmitter::~MSMessageEmitter()
-{
+MSMessageEmitter::~MSMessageEmitter() {
 }
 
 
 void
-MSMessageEmitter::initXML()
-{
+MSMessageEmitter::initXML() {
     myDev.writeXMLHeader("emitter");
 }
 
 
 std::string
-MSMessageEmitter::trimmed(const std::string& str, const char* sepSet)
-{
+MSMessageEmitter::trimmed(const std::string& str, const char* sepSet) {
     std::string::size_type const first = str.find_first_not_of(sepSet);
     return (first==std::string::npos) ?
            std::string() :
@@ -97,8 +93,7 @@ void
 MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
                                        MSLane *oldlane, SUMOReal myPos,
                                        SUMOReal mySpeed, MSLane *newlane,
-                                       SUMOReal x, SUMOReal y)
-{
+                                       SUMOReal x, SUMOReal y) {
     //myDev << "LaneChangeEvent\n";
     if (tableOutput) {
         if (!reverseOrder) {
@@ -160,29 +155,25 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 
 
 bool
-MSMessageEmitter::getWriteLCEvent()
-{
+MSMessageEmitter::getWriteLCEvent() {
     return writeLCEvent;
 }
 
 
 bool
-MSMessageEmitter::getWriteBEvent()
-{
+MSMessageEmitter::getWriteBEvent() {
     return writeBEvent;
 }
 
 
 bool
-MSMessageEmitter::getWriteHBEvent()
-{
+MSMessageEmitter::getWriteHBEvent() {
     return writeHBEvent;
 }
 
 
 bool
-MSMessageEmitter::getEventsEnabled(const std::string& enabled)
-{
+MSMessageEmitter::getEventsEnabled(const std::string& enabled) {
     bool retVal = false;
     if (enabled == "lanechange" && writeLCEvent) {
         retVal = true;
@@ -197,8 +188,7 @@ MSMessageEmitter::getEventsEnabled(const std::string& enabled)
 
 void
 MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
-                                      SUMOReal speed, SUMOReal x, SUMOReal y)
-{
+                                      SUMOReal speed, SUMOReal x, SUMOReal y) {
     if (fmod(timeStep, myStep) == 0) {
         if (tableOutput) {
             if (!reverseOrder) {
@@ -260,8 +250,7 @@ MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLan
 
 void
 MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
-                                  SUMOReal speed, SUMOReal x, SUMOReal y)
-{
+                                  SUMOReal speed, SUMOReal x, SUMOReal y) {
     if (tableOutput) {
         if (!reverseOrder) {
             myDev << id + "\t\t";
@@ -320,8 +309,7 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 
 
 void
-MSMessageEmitter::setWriteEvents(std::string &events)
-{
+MSMessageEmitter::setWriteEvents(std::string &events) {
     std::string tmp;
     StringTokenizer st(events, ";");
     while (st.hasNext()) {
@@ -349,8 +337,7 @@ MSMessageEmitter::setWriteEvents(std::string &events)
 
 
 void
-MSMessageEmitter::setFile(const std::string& file)
-{
+MSMessageEmitter::setFile(const std::string& file) {
 #ifdef _DEBUG
     cout << "Filename: '" + file + "'." << endl;
 #endif

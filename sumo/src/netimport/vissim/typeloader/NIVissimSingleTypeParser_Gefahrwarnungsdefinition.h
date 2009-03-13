@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Gefahrwarnungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Gefahrwarnungsdefinition(NIVissimLoader &parent);

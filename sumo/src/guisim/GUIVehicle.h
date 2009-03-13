@@ -65,9 +65,8 @@ class GUIGLObjectPopupMenu;
  * easier recognition of done actions such as lane changing.
  */
 class GUIVehicle :
-            public MSVehicle,
-            public GUIGlObject
-{
+        public MSVehicle,
+            public GUIGlObject {
 public:
     /// destructor
     ~GUIVehicle() throw();
@@ -227,8 +226,7 @@ public:
      *  also allows to:
      * - show/hide the vehicle route
      */
-    class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
-    {
+    class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUIVehiclePopupMenu)
     public:
         /// Constructor

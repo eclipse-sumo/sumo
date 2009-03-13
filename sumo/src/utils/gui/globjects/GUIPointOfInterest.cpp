@@ -59,18 +59,15 @@ GUIPointOfInterest::GUIPointOfInterest(GUIGlObjectStorage &idStorage,
                                        const Position2D &p,
                                        const RGBColor &c) throw()
         : PointOfInterest(id, type, p, c),
-        GUIGlObject_AbstractAdd(idStorage, "poi:"+id, GLO_SHAPE), myLayer(layer)
-{}
+        GUIGlObject_AbstractAdd(idStorage, "poi:"+id, GLO_SHAPE), myLayer(layer) {}
 
 
-GUIPointOfInterest::~GUIPointOfInterest() throw()
-{}
+GUIPointOfInterest::~GUIPointOfInterest() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent) throw()
-{
+                                 GUISUMOAbstractView &parent) throw() {
 
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
@@ -95,22 +92,19 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIPointOfInterest::getParameterWindow(GUIMainWindow &,
-                                       GUISUMOAbstractView &) throw()
-{
+                                       GUISUMOAbstractView &) throw() {
     return 0;
 }
 
 
 const std::string &
-GUIPointOfInterest::getMicrosimID() const throw()
-{
+GUIPointOfInterest::getMicrosimID() const throw() {
     return getID();
 }
 
 
 Boundary
-GUIPointOfInterest::getCenteringBoundary() const throw()
-{
+GUIPointOfInterest::getCenteringBoundary() const throw() {
     Boundary b;
     b.add(x(), y());
     b.grow(10);
@@ -119,8 +113,7 @@ GUIPointOfInterest::getCenteringBoundary() const throw()
 
 
 void
-GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.scale*(1.3/3.0)<s.minPOISize) {
         return;
     }
@@ -158,8 +151,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw()
 
 
 int
-GUIPointOfInterest::getLayer() const
-{
+GUIPointOfInterest::getLayer() const {
     return myLayer;
 }
 

@@ -51,8 +51,7 @@ class ODDistrictCont;
  * This SUMOSAXHandler parses districts and their sinks and sources from
  *  and stores them into a the district container given at initialisation.
  */
-class ODDistrictHandler : public SUMOSAXHandler
-{
+class ODDistrictHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *

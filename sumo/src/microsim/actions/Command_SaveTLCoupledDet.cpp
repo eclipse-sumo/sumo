@@ -55,21 +55,18 @@ Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVar
         unsigned int begin,
         OutputDevice& device) throw()
         : myDevice(device), myLogics(tlls), myDetector(dtf),
-        myStartTime(begin)
-{
+        myStartTime(begin) {
     tlls.addSwitchCommand(this);
     dtf->writeXMLDetectorProlog(device);
 }
 
 
-Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() throw()
-{
+Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() throw() {
 }
 
 
 void
-Command_SaveTLCoupledDet::execute() throw()
-{
+Command_SaveTLCoupledDet::execute() throw() {
     // !!! we have to do this to have the correct information set
     myLogics.getActive()->maskRedLinks();
     SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();

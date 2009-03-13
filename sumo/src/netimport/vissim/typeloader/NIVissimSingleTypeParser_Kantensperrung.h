@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Kantensperrung :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Kantensperrung(NIVissimLoader &parent);

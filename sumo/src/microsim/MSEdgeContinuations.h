@@ -46,8 +46,7 @@ class MSEdge;
  * @class MSEdgeContinuations
  * @brief Stores predeccessor-successor-relations of MSEdges.
  */
-class MSEdgeContinuations
-{
+class MSEdgeContinuations {
 public:
     /// @brief Constructor
     MSEdgeContinuations() throw();

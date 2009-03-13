@@ -52,16 +52,14 @@
  *  derived from WAUTSwitchProcedure is initialised and is asked repeatedly
  *  whether a switch could be done until it returns true.
  */
-class MSTLLogicControl
-{
+class MSTLLogicControl {
 public:
     /**
      * @class OnSwitchAcion
      * @brief Base class for things to execute if a tls switches
      * @see Design Patterns, Gamma et al.
      */
-    class OnSwitchAcion
-    {
+    class OnSwitchAcion {
     public:
         /// @brief Destructor.
         virtual ~OnSwitchAcion() throw() {};
@@ -82,8 +80,7 @@ public:
      *
      * This class joins all programs of a single tls.
      */
-    class TLSLogicVariants
-    {
+    class TLSLogicVariants {
     public:
         /** @brief Constructor */
         TLSLogicVariants();
@@ -337,8 +334,7 @@ protected:
      * This command is reused. The index of the WAUT-switch is incremented at each
      *  call to the control.
      */
-    class SwitchInitCommand : public Command
-    {
+    class SwitchInitCommand : public Command {
     public:
         // / Constructor
         SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid, unsigned int index) throw()
@@ -455,8 +451,7 @@ protected:
      * @class WAUTSwitchProcedure
      * @brief This is the abstract base class for switching from one tls program to another.
      */
-    class WAUTSwitchProcedure
-    {
+    class WAUTSwitchProcedure {
     public:
         /// Constructor
         WAUTSwitchProcedure(MSTLLogicControl &control, WAUT &waut,
@@ -515,8 +510,7 @@ protected:
      * @class WAUTSwitchProcedure_JustSwitch
      * @brief This class simply switches to the next program
      */
-    class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure
-    {
+    class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure {
     public:
         /// Constructor
         WAUTSwitchProcedure_JustSwitch(MSTLLogicControl &control, WAUT &waut,
@@ -546,8 +540,7 @@ protected:
      * @class WAUTSwitchProcedure_GSP
      * @brief This class switches using the GSP algorithm.
      */
-    class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure
-    {
+    class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure {
     public:
         /// Constructor
         WAUTSwitchProcedure_GSP(MSTLLogicControl &control, WAUT &waut,
@@ -577,8 +570,7 @@ protected:
      * @class WAUTSwitchProcedure_Stretch
      * @brief This class switches using the Stretch algorithm.
      */
-    class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
-    {
+    class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure {
     public:
         /// Constructor
         WAUTSwitchProcedure_Stretch(MSTLLogicControl &control, WAUT &waut,

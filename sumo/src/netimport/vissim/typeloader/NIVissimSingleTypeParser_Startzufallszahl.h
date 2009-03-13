@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Startzufallszahl :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Startzufallszahl(NIVissimLoader &parent);

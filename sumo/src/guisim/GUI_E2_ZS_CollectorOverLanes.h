@@ -59,8 +59,7 @@ class GUILaneWrapper;
  *  overridden to signalise that this detector is not used for simulation-
  *  -internal reasons, but is placed over the simulation by the user.
  */
-class GUI_E2_ZS_CollectorOverLanes : public MS_E2_ZS_CollectorOverLanes
-{
+class GUI_E2_ZS_CollectorOverLanes : public MS_E2_ZS_CollectorOverLanes {
 public:
     typedef std::vector<GUI_E2_ZS_Collector*> CollectorVector;
 
@@ -93,8 +92,7 @@ public:
      * @class GUI_E2_ZS_CollectorOverLanes::MyWrapper
      * A GUI_E2_ZS_CollectorOverLanes-visualiser
      */
-    class MyWrapper : public GUIDetectorWrapper
-    {
+    class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
         MyWrapper(GUI_E2_ZS_CollectorOverLanes &detector,

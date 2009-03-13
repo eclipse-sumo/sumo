@@ -40,8 +40,7 @@
 /**
  *
  */
-class NIVissimVehicleType
-{
+class NIVissimVehicleType {
 public:
     NIVissimVehicleType(int id, const std::string &name,
                         const std::string &category, SUMOReal length, const RGBColor &color,

@@ -33,8 +33,7 @@
 #include <vector>
 #include <fx.h>
 
-class MFXImageHelper
-{
+class MFXImageHelper {
 public:
     static FXImage * loadimage(FXApp *a, const std::string& file);
     static FXbool saveimage(FXApp *a, const std::string& file,

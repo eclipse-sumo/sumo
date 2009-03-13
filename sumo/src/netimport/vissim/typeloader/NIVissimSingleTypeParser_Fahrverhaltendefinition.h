@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Fahrverhaltendefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Fahrverhaltendefinition(NIVissimLoader &parent);

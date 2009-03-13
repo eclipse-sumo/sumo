@@ -69,8 +69,7 @@ class MSRouteLoader;
  *  on the constructor call. An (empty) instance of the network must be
  *  supplied, too, and is filled during loading.
  */
-class NLBuilder
-{
+class NLBuilder {
 public:
     /** @brief Constructor
      *
@@ -123,8 +122,7 @@ protected:
      *
      * @todo Why is the network not a reference?
      */
-    class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
-    {
+    class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
         EdgeFloatTimeLineRetriever_EdgeWeight(MSNet *net);

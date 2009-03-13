@@ -54,8 +54,7 @@ class MSNet;
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex
  */
-class GUIInternalLane : public MSInternalLane
-{
+class GUIInternalLane : public MSInternalLane {
 public:
     /** @brief Constructor
      *

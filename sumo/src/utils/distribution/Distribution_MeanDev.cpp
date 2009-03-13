@@ -40,17 +40,14 @@
 // ===========================================================================
 Distribution_MeanDev::Distribution_MeanDev(const std::string &id,
         SUMOReal mean, SUMOReal deviation) throw()
-        : Distribution(id), myMeanValue(mean), myDeviation(deviation)
-{}
+        : Distribution(id), myMeanValue(mean), myDeviation(deviation) {}
 
 
-Distribution_MeanDev::~Distribution_MeanDev() throw()
-{}
+Distribution_MeanDev::~Distribution_MeanDev() throw() {}
 
 
 SUMOReal
-Distribution_MeanDev::getMax() const
-{
+Distribution_MeanDev::getMax() const {
     return myMeanValue + myDeviation;
 }
 

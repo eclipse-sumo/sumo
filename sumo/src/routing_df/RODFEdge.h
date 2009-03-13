@@ -49,8 +49,7 @@ class ROLane;
 /**
  * @class RODFEdge
  */
-class RODFEdge : public ROEdge
-{
+class RODFEdge : public ROEdge {
 public:
     /** @brief Constructor
      *

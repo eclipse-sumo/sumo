@@ -39,8 +39,7 @@
  * @class OutputDevice_COUT
  * @brief An output device that encapsulates cout
  */
-class OutputDevice_COUT : public OutputDevice
-{
+class OutputDevice_COUT : public OutputDevice {
 public:
     /** @brief Constructor
      * @exception IOError Should not be thrown by this implementation

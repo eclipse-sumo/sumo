@@ -80,8 +80,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent,
         GUISelectedStorage *str) throw()
         : FXMainWindow(gFXApp, "List of Selected Items", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-        myParent(parent), myStorage(str)
-{
+        myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
@@ -124,16 +123,14 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent,
 }
 
 
-GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor() throw()
-{
+GUIDialog_GLChosenEditor::~GUIDialog_GLChosenEditor() throw() {
     myStorage->remove2Update(this);
     myParent->removeChild(this);
 }
 
 
 void
-GUIDialog_GLChosenEditor::rebuildList() throw()
-{
+GUIDialog_GLChosenEditor::rebuildList() throw() {
     myList->clearItems();
     const std::vector<GLuint> &chosen = gSelected.getSelected();
     for (std::vector<GLuint>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
@@ -150,8 +147,7 @@ GUIDialog_GLChosenEditor::rebuildList() throw()
 
 
 long
-GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*) {
     // get the new file name
     FXFileDialog opendialog(this,"Open List of Selected Items");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
@@ -171,8 +167,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*) {
     FXString file = MFXUtils::getFilename2Write(this, "Save List of selected Items", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
     if (file=="") {
         return 1;
@@ -187,8 +182,7 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*) {
     FXint no = myList->getNumItems();
     FXint i;
     vector<GLuint> selected;
@@ -210,8 +204,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLChosenEditor::onCmdClear(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLChosenEditor::onCmdClear(FXObject*,FXSelector,void*) {
     myList->clearItems();
     gSelected.clear();
     myParent->updateChildren();
@@ -221,8 +214,7 @@ GUIDialog_GLChosenEditor::onCmdClear(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_GLChosenEditor::onCmdClose(FXObject*,FXSelector,void*)
-{
+GUIDialog_GLChosenEditor::onCmdClose(FXObject*,FXSelector,void*) {
     close(true);
     return 1;
 }

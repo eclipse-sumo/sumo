@@ -50,8 +50,7 @@ class MSJunction;
  * @class MSJunctionControl
  * @brief Container for junctions; performs operations on all stored junctions
  */
-class MSJunctionControl : public NamedObjectCont<MSJunction*>
-{
+class MSJunctionControl : public NamedObjectCont<MSJunction*> {
 public:
     /// @brief Constructor
     MSJunctionControl() throw();

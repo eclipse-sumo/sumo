@@ -44,19 +44,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUITriggerBuilder::GUITriggerBuilder() throw()
-{}
+GUITriggerBuilder::GUITriggerBuilder() throw() {}
 
 
-GUITriggerBuilder::~GUITriggerBuilder() throw()
-{}
+GUITriggerBuilder::~GUITriggerBuilder() throw() {}
 
 
 MSLaneSpeedTrigger*
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
         const std::string &id, const std::vector<MSLane*> &destLanes,
-        const std::string &file) throw(ProcessError)
-{
+        const std::string &file) throw(ProcessError) {
     return new GUILaneSpeedTrigger(id, destLanes, file);
 }
 
@@ -66,8 +63,7 @@ GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
                                         const std::string &id,
                                         MSLane *destLane,
                                         SUMOReal pos,
-                                        const std::string &file) throw()
-{
+                                        const std::string &file) throw() {
     new GUIEmitter(id, net, destLane, pos, file);
 }
 
@@ -75,8 +71,7 @@ GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
 void
 GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
                                  std::vector<MSEdge*> &edges,
-                                 SUMOReal prob, const std::string &file, bool off) throw()
-{
+                                 SUMOReal prob, const std::string &file, bool off) throw() {
     new GUITriggeredRerouter(id, edges, prob, file, off);
 }
 
@@ -84,8 +79,7 @@ GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 void
 GUITriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
                                      MSLane *lane, SUMOReal pos, unsigned int la,
-                                     unsigned int cell, unsigned int type) throw()
-{
+                                     unsigned int cell, unsigned int type) throw() {
     new GUIE1VehicleActor(id, lane, pos, la, cell, type);
 }
 
@@ -94,8 +88,7 @@ void
 GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                 const std::vector<std::string> &lines,
                                 MSLane *lane,
-                                SUMOReal frompos, SUMOReal topos) throw()
-{
+                                SUMOReal frompos, SUMOReal topos) throw() {
     net.addBusStop(new GUIBusStop(id, net, lines, *lane, frompos, topos));
 }
 

@@ -63,8 +63,7 @@ class PointOfInterest;
  * @class GUIViewTraffic
  * Microsocopic view at the simulation
  */
-class GUIViewTraffic : public GUISUMOAbstractView
-{
+class GUIViewTraffic : public GUISUMOAbstractView {
 public:
     /// constructor
     GUIViewTraffic(FXComposite *p, GUIMainWindow &app,

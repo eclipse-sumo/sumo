@@ -40,8 +40,7 @@
  * The definition of a color in the RGB-space.
  * The cube is meant to lie between (0, 0, 0) and (1, 1, 1)
  */
-class RGBColor
-{
+class RGBColor {
 public:
     /// Standard constructor
     RGBColor();

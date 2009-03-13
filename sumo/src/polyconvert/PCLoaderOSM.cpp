@@ -65,8 +65,7 @@ using namespace std;
 // ---------------------------------------------------------------------------
 void
 PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
-                       PCTypeMap &tm) throw(ProcessError)
-{
+                       PCTypeMap &tm) throw(ProcessError) {
     if (!oc.isSet("osm-files")) {
         return;
     }
@@ -147,7 +146,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                 type = e->myType;
             }
             Polygon2D *poly = new Polygon2D(name, type, color, vec, fill);
-            if(!toFill.insert(name, poly, layer)) {
+            if (!toFill.insert(name, poly, layer)) {
                 MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' could not been added.");
                 delete poly;
             }
@@ -196,7 +195,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             Position2D pos(n->lon, n->lat);
             GeoConvHelper::x2cartesian(pos);
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
-            if(!toFill.insert(name, poi, layer, ignorePrunning)) {
+            if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");
                 delete poi;
             }
@@ -220,17 +219,14 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 // definitions of PCLoaderOSM::NodesHandler-methods
 // ---------------------------------------------------------------------------
 PCLoaderOSM::NodesHandler::NodesHandler(std::map<int, PCOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1)
-{}
+        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
 
 
-PCLoaderOSM::NodesHandler::~NodesHandler() throw()
-{}
+PCLoaderOSM::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     if (element==SUMO_TAG_NODE) {
         bool ok = true;
@@ -299,8 +295,7 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
 
 
 void
-PCLoaderOSM::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+PCLoaderOSM::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_NODE) {
         myLastNodeID = -1;
     }
@@ -315,20 +310,17 @@ PCLoaderOSM::EdgesHandler::EdgesHandler(
     const std::map<int, PCOSMNode*> &osmNodes,
     std::map<std::string, PCOSMEdge*> &toFill) throw()
         : SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes), myEdgeMap(toFill)
-{
+        myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
 
 
-PCLoaderOSM::EdgesHandler::~EdgesHandler() throw()
-{
+PCLoaderOSM::EdgesHandler::~EdgesHandler() throw() {
 }
 
 
 void
 PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
@@ -384,8 +376,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element,
 
 
 void
-PCLoaderOSM::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+PCLoaderOSM::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
         if (myCurrentEdge->myIsAdditional) {

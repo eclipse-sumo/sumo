@@ -50,48 +50,41 @@ using namespace std;
 // method definitions
 // ===========================================================================
 BinaryInputDevice::BinaryInputDevice(const std::string &name) throw()
-        : myStream(name.c_str(), fstream::in|fstream::binary)
-{}
+        : myStream(name.c_str(), fstream::in|fstream::binary) {}
 
 
-BinaryInputDevice::~BinaryInputDevice() throw()
-{}
+BinaryInputDevice::~BinaryInputDevice() throw() {}
 
 
 bool
-BinaryInputDevice::good() const throw()
-{
+BinaryInputDevice::good() const throw() {
     return myStream.good();
 }
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, int &i) throw()
-{
+operator>>(BinaryInputDevice &os, int &i) throw() {
     os.myStream.read((char*) &i, sizeof(int));
     return os;
 }
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, unsigned int &i) throw()
-{
+operator>>(BinaryInputDevice &os, unsigned int &i) throw() {
     os.myStream.read((char*) &i, sizeof(unsigned int));
     return os;
 }
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, SUMOReal &f) throw()
-{
+operator>>(BinaryInputDevice &os, SUMOReal &f) throw() {
     os.myStream.read((char*) &f, sizeof(SUMOReal));
     return os;
 }
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, bool &b) throw()
-{
+operator>>(BinaryInputDevice &os, bool &b) throw() {
     b = 0;
     os.myStream.read((char*) &b, sizeof(char));
     return os;
@@ -99,8 +92,7 @@ operator>>(BinaryInputDevice &os, bool &b) throw()
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, std::string &s) throw()
-{
+operator>>(BinaryInputDevice &os, std::string &s) throw() {
     unsigned int size;
     os >> size;
     if (size<BUF_MAX) {
@@ -114,8 +106,7 @@ operator>>(BinaryInputDevice &os, std::string &s) throw()
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, long &l) throw()
-{
+operator>>(BinaryInputDevice &os, long &l) throw() {
     os.myStream.read((char*) &l, sizeof(long));
     return os;
 }

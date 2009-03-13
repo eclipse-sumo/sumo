@@ -54,8 +54,7 @@ std::string StringUtils::emptyString;
 // method definitions
 // ===========================================================================
 std::string
-StringUtils::prune(std::string str)
-{
+StringUtils::prune(std::string str) {
     size_t idx = str.find_first_not_of(" ");
     if (idx!=string::npos) {
         str = str.substr(idx);
@@ -69,8 +68,7 @@ StringUtils::prune(std::string str)
 
 
 std::string
-StringUtils::to_lower_case(std::string str)
-{
+StringUtils::to_lower_case(std::string str) {
     for (size_t i=0; i<str.length(); i++) {
         if (str[i]>='A'&&str[i]<='Z') {
             str[i] = str[i] + 'a' - 'A';
@@ -81,8 +79,7 @@ StringUtils::to_lower_case(std::string str)
 
 
 std::string
-StringUtils::version1(std::string str)
-{
+StringUtils::version1(std::string str) {
     size_t idx = str.rfind('_');
     if (idx!=string::npos&&idx<str.length()-1&&(str.substr(idx+1)!="+"&&str.substr(idx+1)!="-")) {
         try {
@@ -99,8 +96,7 @@ StringUtils::version1(std::string str)
 
 
 std::string
-StringUtils::convertUmlaute(std::string str)
-{
+StringUtils::convertUmlaute(std::string str) {
     str = replace(str, "ä", "ae");
     str = replace(str, "Ä", "Ae");
     str = replace(str, "ö", "oe");
@@ -119,8 +115,7 @@ StringUtils::convertUmlaute(std::string str)
 
 std::string
 StringUtils::replace(std::string str, const char *what,
-                     const char *by)
-{
+                     const char *by) {
     string what_tmp(what);
     string by_tmp(by);
     size_t idx = str.find(what);
@@ -135,8 +130,7 @@ StringUtils::replace(std::string str, const char *what,
 
 
 void
-StringUtils::upper(std::string &str)
-{
+StringUtils::upper(std::string &str) {
     for (size_t i=0; i<str.length(); i++) {
         if (str[i]>='a'&&str[i]<='z') {
             str[i] = str[i] - 'a' + 'A';
@@ -146,8 +140,7 @@ StringUtils::upper(std::string &str)
 
 
 std::string
-StringUtils::toTimeString(int time)
-{
+StringUtils::toTimeString(int time) {
     std::ostringstream oss;
     char buffer[4];
     sprintf(buffer, "%02i:",(time/3600));

@@ -77,8 +77,7 @@ using namespace XERCES_CPP_NAMESPACE;
  *  which knows all tags/attributes used by SUMO. It is still kept separate for
  *  an easier maintainability and later extensions.
  */
-class GenericSAXHandler : public DefaultHandler
-{
+class GenericSAXHandler : public DefaultHandler {
 public:
     /**
      * @struct Attr

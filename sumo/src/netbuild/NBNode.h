@@ -68,8 +68,7 @@ class OutputDevice;
  * @class NBNode
  * @brief Represents a single node (junction) during network building
  */
-class NBNode
-{
+class NBNode {
 public:
     /**
      * @class ApproachingDivider
@@ -82,8 +81,7 @@ public:
      * The lanes are spreaded from this middle position both to left and right
      *  but may also be transposed in full when there is not enough space.
      */
-    class ApproachingDivider : public Bresenham::BresenhamCallBack
-    {
+    class ApproachingDivider : public Bresenham::BresenhamCallBack {
     private:
         /// @brief The list of edges that approach the current edge
         std::vector<NBEdge*> *myApproaching;
@@ -146,14 +144,14 @@ public:
     static int myNoRightBeforeLeftJunctions;
 
 public:
-    /** @brief Constructor 
+    /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      */
     NBNode(const std::string &id, const Position2D &position);
 
 
-    /** @brief Constructor 
+    /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      * @param[in] type The type of the node
@@ -161,7 +159,7 @@ public:
     NBNode(const std::string &id, const Position2D &position, BasicNodeType type);
 
 
-    /** @brief Constructor 
+    /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      * @param[in] district The district this district node represents
@@ -177,7 +175,7 @@ public:
     /// @name Atomar getter methods
     /// @{
 
-    /** @brief Returns the id of the node 
+    /** @brief Returns the id of the node
      * @return The id of this node
      */
     const std::string &getID() const throw() {

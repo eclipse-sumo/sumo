@@ -60,25 +60,21 @@
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder() throw()
         : myHaveInformedAboutDeprecatedTriggerDefinition(false),
-        myHaveInformedAboutDeprecatedEmitter(false), myHandler(0)
-{}
+        myHaveInformedAboutDeprecatedEmitter(false), myHandler(0) {}
 
 
-NLTriggerBuilder::~NLTriggerBuilder() throw()
-{}
+NLTriggerBuilder::~NLTriggerBuilder() throw() {}
 
 void
-NLTriggerBuilder::setHandler(NLHandler *handler) throw()
-{
-	myHandler = handler;
+NLTriggerBuilder::setHandler(NLHandler *handler) throw() {
+    myHandler = handler;
 }
 
 
 void
 NLTriggerBuilder::buildTrigger(MSNet &net,
                                const SUMOSAXAttributes &attrs,
-                               const std::string &base) throw(InvalidArgument)
-{
+                               const std::string &base) throw(InvalidArgument) {
     std::string type = attrs.getString(SUMO_ATTR_OBJECTTYPE);
     std::string attr = attrs.getStringSecure(SUMO_ATTR_ATTR, "");
     // check which type of a trigger shall be build
@@ -130,8 +126,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 
 
 void
-NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw()
-{
+NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
     // get the id, throw if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("vaporizer", id, false)) {
@@ -177,8 +172,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw()
 
 void
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
-        const std::string &base) throw(InvalidArgument)
-{
+        const std::string &base) throw(InvalidArgument) {
     // get the id, throw if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("lane speed trigger", id, false)) {
@@ -220,8 +214,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
 
 void
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
-        const std::string &base) throw(InvalidArgument)
-{
+        const std::string &base) throw(InvalidArgument) {
     if (!myHaveInformedAboutDeprecatedEmitter) {
         myHaveInformedAboutDeprecatedEmitter = true;
         MsgHandler::getWarningInstance()->inform("Emitter are deprecated; use departpos/departspeed within routes instead.");
@@ -240,8 +233,7 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttribut
 
 
 void
-NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
-{
+NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument) {
     // get the id, throw if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("bus stop", id, false)) {
@@ -298,8 +290,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
 
 
 void
-NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
-{
+NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument) {
     // get the id, throw if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("vehicle actor", id, false)) {
@@ -316,8 +307,7 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes 
 
 void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
-        const std::string &base) throw(InvalidArgument)
-{
+        const std::string &base) throw(InvalidArgument) {
     // get the id, throw if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("calibrator", id, false)) {
@@ -346,8 +336,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
 
 void
 NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &attrs,
-                                        const std::string &base) throw(InvalidArgument)
-{
+                                        const std::string &base) throw(InvalidArgument) {
     // get the id, throw if not given or empty...
     std::string id;
     if (!attrs.setIDFromAttributes("rerouter", id, false)) {
@@ -393,8 +382,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
 MSLaneSpeedTrigger*
 NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
-                                        const std::string &file) throw(ProcessError)
-{
+                                        const std::string &file) throw(ProcessError) {
     return new MSLaneSpeedTrigger(id, destLanes, file);
 }
 
@@ -402,8 +390,7 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net, const std::string &id,
 void
 NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net, const std::string &id,
                                        MSLane *destLane, SUMOReal pos,
-                                       const std::string &file) throw()
-{
+                                       const std::string &file) throw() {
     new MSEmitter(id, net, destLane, pos, file);
 }
 
@@ -411,8 +398,7 @@ NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net, const std::string &id,
 void
 NLTriggerBuilder::buildLaneCalibrator(MSNet &net, const std::string &id,
                                       MSLane *destLane, SUMOReal pos,
-                                      const std::string &file) throw()
-{
+                                      const std::string &file) throw() {
     new MSCalibrator(id, net, destLane, pos, file);
 }
 
@@ -422,8 +408,7 @@ METriggeredCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
                                   const MSEdge *edge, SUMOReal pos,
                                   const std::string &file,
-                                  const std::string &outfile) throw()
-{
+                                  const std::string &outfile) throw() {
     return new METriggeredCalibrator(id, edge, pos, file, outfile);
 }
 #endif
@@ -432,8 +417,7 @@ NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
 void
 NLTriggerBuilder::buildRerouter(MSNet &, const std::string &id,
                                 std::vector<MSEdge*> &edges,
-                                SUMOReal prob, const std::string &file, bool off) throw()
-{
+                                SUMOReal prob, const std::string &file, bool off) throw() {
     new MSTriggeredRerouter(id, edges, prob, file, off);
 }
 
@@ -441,8 +425,7 @@ NLTriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 void
 NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                const std::vector<std::string> &lines,
-                               MSLane *lane, SUMOReal frompos, SUMOReal topos) throw()
-{
+                               MSLane *lane, SUMOReal frompos, SUMOReal topos) throw() {
     net.addBusStop(new MSBusStop(id, lines, *lane, frompos, topos));
 }
 
@@ -450,8 +433,7 @@ NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
 void
 NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
                                     MSLane *lane, SUMOReal pos, unsigned int la,
-                                    unsigned int cell, unsigned int type) throw()
-{
+                                    unsigned int cell, unsigned int type) throw() {
     new MSE1VehicleActor(id, lane, pos, la, cell, type);
 }
 
@@ -461,8 +443,7 @@ NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
 std::string
 NLTriggerBuilder::getFileName(const SUMOSAXAttributes &attrs,
                               const std::string &base,
-                              const bool allowEmpty) throw(InvalidArgument)
-{
+                              const bool allowEmpty) throw(InvalidArgument) {
     // get the file name to read further definitions from
     std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file == "") {
@@ -482,8 +463,7 @@ NLTriggerBuilder::getFileName(const SUMOSAXAttributes &attrs,
 MSLane *
 NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
                           const std::string &tt,
-                          const std::string &tid) throw(InvalidArgument)
-{
+                          const std::string &tid) throw(InvalidArgument) {
     std::string objectid;
     if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
         objectid = attrs.getString(SUMO_ATTR_LANE);
@@ -504,8 +484,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
 SUMOReal
 NLTriggerBuilder::getPosition(const SUMOSAXAttributes &attrs,
                               MSLane *lane,
-                              const std::string &tt, const std::string &tid) throw(InvalidArgument)
-{
+                              const std::string &tt, const std::string &tid) throw(InvalidArgument) {
 
     SUMOReal pos = attrs.getFloat(SUMO_ATTR_POSITION);
     bool friendly_pos = attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false);

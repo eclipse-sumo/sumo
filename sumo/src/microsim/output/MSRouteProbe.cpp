@@ -50,28 +50,24 @@
 // method definitions
 // ===========================================================================
 MSRouteProbe::EntryReminder::EntryReminder(MSLane * const lane, MSRouteProbe& collector) throw()
-        : MSMoveReminder(lane), myCollector(collector)
-{}
+        : MSMoveReminder(lane), myCollector(collector) {}
 
 
 bool
 MSRouteProbe::EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
-        SUMOReal newPos, SUMOReal newSpeed) throw()
-{
+        SUMOReal newPos, SUMOReal newSpeed) throw() {
     myCollector.addRoute(veh.getRoute());
     return false;
 }
 
 
 void
-MSRouteProbe::EntryReminder::dismissByLaneChange(MSVehicle&) throw()
-{
+MSRouteProbe::EntryReminder::dismissByLaneChange(MSVehicle&) throw() {
 }
 
 
 bool
-MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
-{
+MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     if (isEmit) {
         myCollector.addRoute(veh.getRoute());
     }
@@ -81,8 +77,7 @@ MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool 
 
 
 MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime begin) throw()
-        : Named(id), myCurrentRouteDistribution(0)
-{
+        : Named(id), myCurrentRouteDistribution(0) {
     const std::string distID = id + "_" + toString(begin);
     myCurrentRouteDistribution = MSRoute::distDictionary(distID);
     if (myCurrentRouteDistribution == 0) {
@@ -107,15 +102,13 @@ MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime b
 }
 
 
-MSRouteProbe::~MSRouteProbe() throw()
-{
+MSRouteProbe::~MSRouteProbe() throw() {
 }
 
 
 void
 MSRouteProbe::writeXMLOutput(OutputDevice &dev,
-                             SUMOTime startTime, SUMOTime stopTime) throw(IOError)
-{
+                             SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     if (myCurrentRouteDistribution->getOverallProb() > 0) {
         const std::string indent("    ");
         dev << indent << "<routeDistribution id=\"" << getID() + "_" + toString(startTime) << "\">\n";
@@ -139,15 +132,13 @@ MSRouteProbe::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSRouteProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
-{
+MSRouteProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
     dev.writeXMLHeader("route-probes");
 }
 
 
 void
-MSRouteProbe::addRoute(const MSRoute &route) const
-{
+MSRouteProbe::addRoute(const MSRoute &route) const {
     if (myCurrentRouteDistribution != 0) {
         const MSRoute* routep = &route;
         if (!route.inFurtherUse()) {

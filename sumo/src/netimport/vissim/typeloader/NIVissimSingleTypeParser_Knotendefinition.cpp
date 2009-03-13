@@ -54,17 +54,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Knotendefinition::NIVissimSingleTypeParser_Knotendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Knotendefinition::~NIVissimSingleTypeParser_Knotendefinition()
-{}
+NIVissimSingleTypeParser_Knotendefinition::~NIVissimSingleTypeParser_Knotendefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from) {
     //
     int id;
     from >> id;

@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Fahrzeugklassendefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Fahrzeugklassendefinition(NIVissimLoader &parent,

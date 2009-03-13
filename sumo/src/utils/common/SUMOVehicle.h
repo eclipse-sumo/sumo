@@ -49,8 +49,7 @@ typedef std::vector<const MSEdge*> MSEdgeVector;
  * @class SUMOVehicle
  * @brief Representation of a vehicle
  */
-class SUMOVehicle
-{
+class SUMOVehicle {
 public:
     /** @brief Get the vehicle's position along the lane
      * @return The position of the vehicle (in m from the lane's begin)

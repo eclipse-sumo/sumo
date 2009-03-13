@@ -46,8 +46,7 @@
  * according to the wrapped detectors' properties.
  */
 class GUIDetectorWrapper
-            : public GUIGlObject_AbstractAdd
-{
+            : public GUIGlObject_AbstractAdd {
 public:
     /// Constructor
     GUIDetectorWrapper(GUIGlObjectStorage &idStorage,

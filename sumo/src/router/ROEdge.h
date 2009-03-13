@@ -51,8 +51,7 @@ class ROVehicle;
  * @class ROEdge
  * @brief A basic edge for routing applications
  */
-class ROEdge
-{
+class ROEdge {
 public:
     /**
      * @enum EdgeType

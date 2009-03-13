@@ -38,8 +38,7 @@
 /**
  *
  */
-class NIVissimEdgePosMap
-{
+class NIVissimEdgePosMap {
 public:
     NIVissimEdgePosMap();
     ~NIVissimEdgePosMap();

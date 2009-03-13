@@ -55,14 +55,12 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NGNet::NGNet(NBNetBuilder &nb) throw()
-        : myNetBuilder(nb)
-{
+        : myNetBuilder(nb) {
     myLastID = 0;
 }
 
 
-NGNet::~NGNet() throw()
-{
+NGNet::~NGNet() throw() {
     for (NGEdgeList::iterator ni=myEdgeList.begin(); ni!=myEdgeList.end(); ++ni) {
         delete *ni;
     }
@@ -73,15 +71,13 @@ NGNet::~NGNet() throw()
 
 
 std::string
-NGNet::getNextFreeID() throw()
-{
+NGNet::getNextFreeID() throw() {
     return toString<int>(++myLastID);
 }
 
 
 NGNode*
-NGNet::findNode(int xID, int yID) throw()
-{
+NGNet::findNode(int xID, int yID) throw() {
     for (NGNodeList::iterator ni = myNodeList.begin(); ni!= myNodeList.end(); ++ni) {
         if ((*ni)->samePos(xID, yID)) {
             return *ni;
@@ -92,8 +88,7 @@ NGNet::findNode(int xID, int yID) throw()
 
 
 void
-NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength) throw()
-{
+NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength) throw() {
     for (int ix=0; ix<numX; ix++) {
         for (int iy=0; iy<numY; iy++) {
             // create Node
@@ -145,22 +140,19 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
 
 
 SUMOReal
-NGNet::radialToX(SUMOReal radius, SUMOReal phi) throw()
-{
+NGNet::radialToX(SUMOReal radius, SUMOReal phi) throw() {
     return cos(phi) * radius;
 }
 
 
 SUMOReal
-NGNet::radialToY(SUMOReal radius, SUMOReal phi) throw()
-{
+NGNet::radialToY(SUMOReal radius, SUMOReal phi) throw() {
     return sin(phi) * radius;
 }
 
 
 void
-NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter) throw()
-{
+NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter) throw() {
     if (numRadDiv < 3) numRadDiv = 3;
     if (numCircles < 1) numCircles = 1;
 
@@ -202,8 +194,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool ha
 
 
 void
-NGNet::connect(NGNode *node1, NGNode *node2) throw()
-{
+NGNet::connect(NGNode *node1, NGNode *node2) throw() {
     string id1 = node1->getID() + "to" + node2->getID();
     string id2 = node2->getID() + "to" + node1->getID();
     NGEdge *link1 = new NGEdge(id1, node1, node2);
@@ -214,8 +205,7 @@ NGNet::connect(NGNode *node1, NGNode *node2) throw()
 
 
 void
-NGNet::toNB() const throw(ProcessError)
-{
+NGNet::toNB() const throw(ProcessError) {
     for (NGNodeList::const_iterator i1=myNodeList.begin(); i1!=myNodeList.end(); i1++) {
         NBNode *node = (*i1)->buildNBNode(myNetBuilder);
         myNetBuilder.getNodeCont().insert(node);
@@ -228,22 +218,19 @@ NGNet::toNB() const throw(ProcessError)
 
 
 void
-NGNet::add(NGNode *node) throw()
-{
+NGNet::add(NGNode *node) throw() {
     myNodeList.push_back(node);
 }
 
 
 void
-NGNet::add(NGEdge *edge) throw()
-{
+NGNet::add(NGEdge *edge) throw() {
     myEdgeList.push_back(edge);
 }
 
 
 size_t
-NGNet::nodeNo() const throw()
-{
+NGNet::nodeNo() const throw() {
     return myNodeList.size();
 }
 

@@ -50,32 +50,27 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-LineReader::LineReader() throw()
-{}
+LineReader::LineReader() throw() {}
 
 
 LineReader::LineReader(const std::string &file) throw()
         : myFileName(file),
-        myRead(0)
-{
+        myRead(0) {
     reinit();
 }
 
 
-LineReader::~LineReader() throw()
-{}
+LineReader::~LineReader() throw() {}
 
 
 bool
-LineReader::hasMore() const throw()
-{
+LineReader::hasMore() const throw() {
     return myRread<myAvailable;
 }
 
 
 void
-LineReader::readAll(LineHandler &lh) throw(ProcessError)
-{
+LineReader::readAll(LineHandler &lh) throw(ProcessError) {
     while (myRread<myAvailable) {
         if (!readLine(lh)) {
             return;
@@ -85,8 +80,7 @@ LineReader::readAll(LineHandler &lh) throw(ProcessError)
 
 
 bool
-LineReader::readLine(LineHandler &lh) throw(ProcessError)
-{
+LineReader::readLine(LineHandler &lh) throw(ProcessError) {
     string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0) {
@@ -138,8 +132,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError)
 
 
 std::string
-LineReader::readLine() throw()
-{
+LineReader::readLine() throw() {
     string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0&&myStrm.good()) {
@@ -192,15 +185,13 @@ LineReader::readLine() throw()
 
 
 std::string
-LineReader::getFileName() const throw()
-{
+LineReader::getFileName() const throw() {
     return myFileName;
 }
 
 
 bool
-LineReader::setFile(const std::string &file) throw()
-{
+LineReader::setFile(const std::string &file) throw() {
     myFileName = file;
     reinit();
     return myStrm.good();
@@ -208,15 +199,13 @@ LineReader::setFile(const std::string &file) throw()
 
 
 unsigned long
-LineReader::getPosition() throw()
-{
+LineReader::getPosition() throw() {
     return myRread;
 }
 
 
 void
-LineReader::reinit() throw()
-{
+LineReader::reinit() throw() {
     if (myStrm.is_open()) {
         myStrm.close();
     }
@@ -232,8 +221,7 @@ LineReader::reinit() throw()
 
 
 void
-LineReader::setPos(unsigned long pos) throw()
-{
+LineReader::setPos(unsigned long pos) throw() {
     myStrm.seekg(pos, ios::beg);
     myRead = pos;
     myRread = pos;
@@ -242,8 +230,7 @@ LineReader::setPos(unsigned long pos) throw()
 
 
 bool
-LineReader::good() const throw()
-{
+LineReader::good() const throw() {
     return myStrm.good();
 }
 

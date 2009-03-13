@@ -49,8 +49,7 @@ class MELoop;
  * They are stored herein to allow a faster access than from the options
  *  container.
  */
-class MSGlobals
-{
+class MSGlobals {
 public:
     /// Information whether empty edges shall be written on dump
     static bool gOmitEmptyEdgesOnDump;

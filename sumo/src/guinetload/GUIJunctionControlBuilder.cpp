@@ -44,24 +44,20 @@
 // ===========================================================================
 GUIJunctionControlBuilder::GUIJunctionControlBuilder(MSNet &net,
         OptionsCont &oc) throw()
-        : NLJunctionControlBuilder(net, oc)
-{}
+        : NLJunctionControlBuilder(net, oc) {}
 
 
-GUIJunctionControlBuilder::~GUIJunctionControlBuilder() throw()
-{}
+GUIJunctionControlBuilder::~GUIJunctionControlBuilder() throw() {}
 
 
 void
-GUIJunctionControlBuilder::addJunctionShape(const Position2DVector &shape) throw()
-{
+GUIJunctionControlBuilder::addJunctionShape(const Position2DVector &shape) throw() {
     myShape = shape;
 }
 
 
 MSJunction *
-GUIJunctionControlBuilder::buildNoLogicJunction() throw()
-{
+GUIJunctionControlBuilder::buildNoLogicJunction() throw() {
     return new GUINoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
                                   myActiveInternalLanes,
@@ -72,8 +68,7 @@ GUIJunctionControlBuilder::buildNoLogicJunction() throw()
 
 
 MSJunction *
-GUIJunctionControlBuilder::buildLogicJunction() throw(InvalidArgument)
-{
+GUIJunctionControlBuilder::buildLogicJunction() throw(InvalidArgument) {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
     // build the junction
     return new GUIRightOfWayJunction(myActiveID, myPosition, myActiveIncomingLanes,

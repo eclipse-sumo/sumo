@@ -55,17 +55,14 @@ GUINoLogicJunction::GUINoLogicJunction(const std::string &id,
 #else
                             incoming),
 #endif
-        myShape(shape)
-{}
+        myShape(shape) {}
 
 
-GUINoLogicJunction::~GUINoLogicJunction()
-{}
+GUINoLogicJunction::~GUINoLogicJunction() {}
 
 
 GUIJunctionWrapper *
-GUINoLogicJunction::buildJunctionWrapper(GUIGlObjectStorage &idStorage)
-{
+GUINoLogicJunction::buildJunctionWrapper(GUIGlObjectStorage &idStorage) {
     return new GUIJunctionWrapper(idStorage, *this, myShape);
 }
 

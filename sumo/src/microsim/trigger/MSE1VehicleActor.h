@@ -64,8 +64,7 @@ extern std::map<MSVehicle *, MSPhoneCell*> LastCells;
 // ===========================================================================
 /**
  */
-class MSE1VehicleActor : public MSMoveReminder, public MSTrigger
-{
+class MSE1VehicleActor : public MSMoveReminder, public MSTrigger {
 public:
     /// Type of the dictionary where all MSE1VehicleActor are registered.
 

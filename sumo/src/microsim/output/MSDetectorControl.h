@@ -49,14 +49,19 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class MSMeanData_Harmonoise;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class MSDetectorControl
  * @brief Detectors container; responsible for string and output generation
  */
-class MSDetectorControl
-{
+class MSDetectorControl {
 public:
     /// @name Definitions of containers for different detector types
     /// @{
@@ -286,7 +291,7 @@ public:
     void add(MSE2Collector *e2) throw(ProcessError);
 
 
-    /** @brief Adds a e2ol-detector coupled to an extern output impulse giver
+    /** @brief Adds a e2ol-detector coupled to an external output impulse giver
      *
      * The detector is tried to be added into "myE2OverLanesDetectors". If the detector
      *  is already known (the id was already used for a similar detector),
@@ -298,6 +303,18 @@ public:
      * @exception ProcessError If the detector is already known
      */
     void add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError);
+
+
+    /** @brief Adds a harmonoise mean data object
+     *
+     * The detector is pushed into the internal list.
+     *
+     * Please note, that the detector control does NOT get responsible for the detector.
+     *
+     * @param[in] mn The mean noise-detector to add
+     */
+    void add(MSMeanData_Harmonoise *mn) throw();
+
     /// @}
 
 
@@ -354,6 +371,7 @@ public:
         return myE2OverLanesDetectors;
     }
     /// @}
+
 
 
     /** @brief Computes detector values
@@ -457,6 +475,9 @@ protected:
 
     /// @brief The map that holds the last call for each sample interval
     std::map<IntervalsKey, SUMOTime> myLastCalls;
+
+    /// @brief List of harmonoise detectors
+    std::vector<MSMeanData_Harmonoise*> myHarmonoiseDetectors;
 
 
 private:

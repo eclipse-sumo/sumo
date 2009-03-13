@@ -44,8 +44,7 @@
  * and parses these information assuming they contain edge definitions
  * in Elmar's unsplit format.
  */
-class NIElmar2EdgesHandler : public LineHandler
-{
+class NIElmar2EdgesHandler : public LineHandler {
 public:
     /** @brief Constructor
      * @param[in] nc The node control to retrieve nodes from

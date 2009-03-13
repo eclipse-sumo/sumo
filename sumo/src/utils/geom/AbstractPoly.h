@@ -38,8 +38,7 @@
 /**
  *
  */
-class AbstractPoly
-{
+class AbstractPoly {
 public:
     AbstractPoly() { }
     AbstractPoly(const AbstractPoly &) { }

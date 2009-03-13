@@ -58,8 +58,7 @@ class OutputDevice;
  *  one containing multi-lane-edges.
  * @todo Assignment of lanes is not really well. Should be reworked after shapes are given as params.
  */
-class NLEdgeControlBuilder
-{
+class NLEdgeControlBuilder {
 public:
     /// @brief definition of the used storage for edges
     typedef std::vector<MSEdge*> EdgeCont;

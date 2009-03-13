@@ -51,22 +51,19 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants &logics,
         OutputDevice &od) throw()
-        : myOutputDevice(od), myLogics(logics)
-{
+        : myOutputDevice(od), myLogics(logics) {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myOutputDevice.writeXMLHeader("tls-switch-states");
 }
 
 
-Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() throw()
-{
+Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() throw() {
 }
 
 
 SUMOTime
-Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw(ProcessError)
-{
+Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw(ProcessError) {
     string state = myLogics.getActive()->buildStateList();
     if (state!=myPreviousState||myLogics.getActive()->getSubID()!=myPreviousSubID) {
         myOutputDevice << "    <tlsstate time=\"" << currentTime

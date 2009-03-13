@@ -95,18 +95,15 @@ FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap,
 // ---------------------------------------------------------------------------
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::SingleWeightRetriever(
     WeightType type, Retriever_AddWeights *parent)
-        : myType(type), myParent(parent)
-{}
+        : myType(type), myParent(parent) {}
 
 
-GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::~SingleWeightRetriever()
-{}
+GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::~SingleWeightRetriever() {}
 
 
 void
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::addEdgeWeight(
-    const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end)
-{
+    const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end) {
     myParent->addTypedWeight(myType, id, val, beg, end);
 }
 
@@ -115,16 +112,14 @@ GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever::addEdgeWe
 // ---------------------------------------------------------------------------
 // GUIDialog_EditAddWeights::Retriever_AddWeights - methods
 // ---------------------------------------------------------------------------
-GUIDialog_EditAddWeights::Retriever_AddWeights::Retriever_AddWeights()
-{
+GUIDialog_EditAddWeights::Retriever_AddWeights::Retriever_AddWeights() {
     myAbsoluteRetriever = new SingleWeightRetriever(ABSOLUTE_WEIGHT, this);
     myAddRetriever = new SingleWeightRetriever(ADD_WEIGHT, this);
     myMultRetriever = new SingleWeightRetriever(MULT_WEIGHT, this);
 }
 
 
-GUIDialog_EditAddWeights::Retriever_AddWeights::~Retriever_AddWeights()
-{
+GUIDialog_EditAddWeights::Retriever_AddWeights::~Retriever_AddWeights() {
     delete myAbsoluteRetriever;
     delete myAddRetriever;
     delete myMultRetriever;
@@ -133,8 +128,7 @@ GUIDialog_EditAddWeights::Retriever_AddWeights::~Retriever_AddWeights()
 
 void
 GUIDialog_EditAddWeights::Retriever_AddWeights::addTypedWeight(WeightType type, const std::string &id,
-        SUMOReal val, SUMOTime beg, SUMOTime end)
-{
+        SUMOReal val, SUMOTime beg, SUMOTime end) {
     GUIAddWeight aw;
     aw.edgeID = id;
     aw.timeBeg = beg;
@@ -160,22 +154,19 @@ GUIDialog_EditAddWeights::Retriever_AddWeights::addTypedWeight(WeightType type, 
 
 
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever &
-GUIDialog_EditAddWeights::Retriever_AddWeights::getAbsoluteRetriever()
-{
+GUIDialog_EditAddWeights::Retriever_AddWeights::getAbsoluteRetriever() {
     return *myAbsoluteRetriever;
 }
 
 
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever &
-GUIDialog_EditAddWeights::Retriever_AddWeights::getAddRetriever()
-{
+GUIDialog_EditAddWeights::Retriever_AddWeights::getAddRetriever() {
     return *myAddRetriever;
 }
 
 
 GUIDialog_EditAddWeights::Retriever_AddWeights::SingleWeightRetriever &
-GUIDialog_EditAddWeights::Retriever_AddWeights::getMultRetriever()
-{
+GUIDialog_EditAddWeights::Retriever_AddWeights::getMultRetriever() {
     return *myMultRetriever;
 }
 
@@ -186,8 +177,7 @@ GUIDialog_EditAddWeights::Retriever_AddWeights::getMultRetriever()
 // ---------------------------------------------------------------------------
 GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
         : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,500, 300),
-        myParent(parent), myEntriesAreValid(false)
-{
+        myParent(parent), myEntriesAreValid(false) {
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
                               0,0,0,0);
@@ -255,15 +245,13 @@ GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
 }
 
 
-GUIDialog_EditAddWeights::~GUIDialog_EditAddWeights()
-{
+GUIDialog_EditAddWeights::~GUIDialog_EditAddWeights() {
     myParent->removeChild(this);
 }
 
 
 void
-GUIDialog_EditAddWeights::rebuildList()
-{
+GUIDialog_EditAddWeights::rebuildList() {
     myTable->clearItems();
     sort(gAddWeightsStorage.begin(), gAddWeightsStorage.end(), time_sorter());
 
@@ -335,8 +323,7 @@ GUIDialog_EditAddWeights::rebuildList()
 
 
 long
-GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
-{
+GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*) {
     FXFileDialog opendialog(this, "Save Additional Weights");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -361,8 +348,7 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
-{
+GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*) {
     FXString file = MFXUtils::getFilename2Write(this, "Save Additional Weights", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
     if (file!="") {
         string content = encode2XML();
@@ -379,8 +365,7 @@ GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
 
 
 std::string
-GUIDialog_EditAddWeights::encode2XML()
-{
+GUIDialog_EditAddWeights::encode2XML() {
     std::ostringstream strm;
     sort(gAddWeightsStorage.begin(), gAddWeightsStorage.end(), time_sorter());
     //
@@ -410,8 +395,7 @@ GUIDialog_EditAddWeights::encode2XML()
 
 
 long
-GUIDialog_EditAddWeights::onCmdClear(FXObject*,FXSelector,void*)
-{
+GUIDialog_EditAddWeights::onCmdClear(FXObject*,FXSelector,void*) {
     gAddWeightsStorage.clear();
     rebuildList();
     return 1;
@@ -420,16 +404,14 @@ GUIDialog_EditAddWeights::onCmdClear(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_EditAddWeights::onCmdClose(FXObject*,FXSelector,void*)
-{
+GUIDialog_EditAddWeights::onCmdClose(FXObject*,FXSelector,void*) {
     close(true);
     return 1;
 }
 
 
 long
-GUIDialog_EditAddWeights::onUpdSave(FXObject*sender,FXSelector,void*ptr)
-{
+GUIDialog_EditAddWeights::onUpdSave(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myEntriesAreValid?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -438,8 +420,7 @@ GUIDialog_EditAddWeights::onUpdSave(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
-{
+GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data) {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
     string value = i->item->getText().text();
     // check whether the inserted value is empty

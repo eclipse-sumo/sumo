@@ -50,8 +50,7 @@ class GUILaneWrapper;
  * Allows the building of a wrapper (also declared herein) which draws the
  * detector on the gl-canvas.
  */
-class GUIInductLoop : public MSInductLoop
-{
+class GUIInductLoop : public MSInductLoop {
 public:
     /**
      * @brief Constructor.
@@ -79,8 +78,7 @@ public:
      * @class GUIInductLoop::MyWrapper
      * A MSInductLoop-visualiser
      */
-    class MyWrapper : public GUIDetectorWrapper
-    {
+    class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
         MyWrapper(GUIInductLoop &detector,

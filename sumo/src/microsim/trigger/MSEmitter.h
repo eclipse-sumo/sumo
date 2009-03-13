@@ -56,8 +56,7 @@ class MSLane;
  *  emission on roads. An emitter is meant to be used to simulate the entry of a
  *  flow into an area at places where induction loops are located at in reality.
  */
-class MSEmitter : public MSTrigger
-{
+class MSEmitter : public MSTrigger {
 public:
     /** @brief Constructor
      *
@@ -82,8 +81,7 @@ public:
      * Classes which realise different schemes to emit vehicles (file-based,
      *  based on user entries on the gui, etc.) should subclass this class
      */
-    class MSEmitterChild
-    {
+    class MSEmitterChild {
     public:
         /// Constructor
         MSEmitterChild(MSEmitter &parent, MSVehicleControl &vc)
@@ -183,8 +181,7 @@ protected:
      * @brief An EmitterChild which uses information from a parsed file
      */
     class MSEmitter_FileTriggeredChild
-                : public MSTriggeredXMLReader, public MSEmitterChild, public Command
-    {
+                : public MSTriggeredXMLReader, public MSEmitterChild, public Command {
     public:
         /// Constructor
         MSEmitter_FileTriggeredChild(MSNet &net,

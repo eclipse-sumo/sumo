@@ -49,8 +49,7 @@
  * are sorted in the order in which they were inserted.
  */
 template<typename T>
-class ValueTimeLine
-{
+class ValueTimeLine {
 public:
     /// Definition of a time period
     typedef std::pair<SUMOTime, SUMOTime> TimeRange;
@@ -398,8 +397,7 @@ public:
 
 private:
     /// Searches for the range when a time point is given
-    class range_finder
-    {
+    class range_finder {
     public:
         /** constructor */
         explicit range_finder(SUMOTime time)
@@ -417,8 +415,7 @@ private:
 
     };
 
-    class min_finder
-    {
+    class min_finder {
     public:
         /** constructor */
         explicit min_finder(SUMOTime time)
@@ -436,8 +433,7 @@ private:
 
     };
 
-    class max_finder
-    {
+    class max_finder {
     public:
         /** constructor */
         explicit max_finder(SUMOTime time)
@@ -455,8 +451,7 @@ private:
 
     };
 
-    class time_sorter
-    {
+    class time_sorter {
     public:
         /// constructor
         explicit time_sorter() { }

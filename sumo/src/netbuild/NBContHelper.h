@@ -50,8 +50,7 @@
  * Some static helper methods that traverse a sorted list of edges in both
  * directions
  */
-class NBContHelper
-{
+class NBContHelper {
 public:
     /** Moves the given iterator clockwise within the given container
         of edges sorted clockwise */
@@ -74,8 +73,7 @@ public:
      * edge_by_angle_sorter
      * Class to sort edges by their angle
      */
-    class edge_by_junction_angle_sorter
-    {
+    class edge_by_junction_angle_sorter {
     public:
         /// constructor
         explicit edge_by_junction_angle_sorter(NBNode *n) : myNode(n) {}
@@ -101,8 +99,7 @@ public:
      * by their angle in relation to the using edge's angle (this angle
      * is the reference angle).
      */
-    class relative_edge_sorter
-    {
+    class relative_edge_sorter {
     public:
         /// constructor
         explicit relative_edge_sorter(NBEdge *e, NBNode *n)
@@ -135,8 +132,7 @@ public:
      * edge_by_priority_sorter
      * Class to sort edges by their priority
      */
-    class edge_by_priority_sorter
-    {
+    class edge_by_priority_sorter {
     public:
         /// comparing operator
         int operator()(NBEdge *e1, NBEdge *e2) const {
@@ -156,8 +152,7 @@ public:
      * The resulting list should have the edge in the most opposite direction
      * to the given edge as her first entry
      */
-    class edge_opposite_direction_sorter
-    {
+    class edge_opposite_direction_sorter {
     public:
         /// constructor
         explicit edge_opposite_direction_sorter(NBEdge *e)
@@ -197,8 +192,7 @@ public:
      * The resulting list should have the edge in the most similar direction
      * to the given edge as her first entry
      */
-    class edge_similar_direction_sorter
-    {
+    class edge_similar_direction_sorter {
     public:
         /// constructor
         explicit edge_similar_direction_sorter(NBEdge *e)
@@ -228,8 +222,7 @@ public:
     /**
      * @class node_with_incoming_finder
      */
-    class node_with_incoming_finder
-    {
+    class node_with_incoming_finder {
     public:
         /// constructor
         node_with_incoming_finder(NBEdge *e);
@@ -245,8 +238,7 @@ public:
     /**
      * @class node_with_outgoing_finder
      */
-    class node_with_outgoing_finder
-    {
+    class node_with_outgoing_finder {
     public:
         /// constructor
         node_with_outgoing_finder(NBEdge *e);
@@ -261,8 +253,7 @@ public:
 
 
 
-    class edge_with_destination_finder
-    {
+    class edge_with_destination_finder {
     public:
         /// constructor
         edge_with_destination_finder(NBNode *dest);
@@ -290,8 +281,7 @@ public:
      * The edges are sorted in dependence to edges connecting them. The
      * rightmost will be the first in the list; the leftmost the last one.
      */
-    class same_connection_edge_sorter
-    {
+    class same_connection_edge_sorter {
     public:
         /// constructor
         explicit same_connection_edge_sorter() { }
@@ -336,8 +326,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const EdgeVector &ev);
 
-    class opposite_finder
-    {
+    class opposite_finder {
     public:
         /// constructor
         opposite_finder(NBEdge *edge, const NBNode *n)

@@ -50,9 +50,8 @@ class NBEdgeCont;
 // class definitions
 // ===========================================================================
 class NIVissimConnection
-            : public NIVissimBoundedClusterObject,
-            public NIVissimAbstractEdge
-{
+        : public NIVissimBoundedClusterObject,
+            public NIVissimAbstractEdge {
 public:
     enum Direction {
         NIVC_DIR_RIGHT,

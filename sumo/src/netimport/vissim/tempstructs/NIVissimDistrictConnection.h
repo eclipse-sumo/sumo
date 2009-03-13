@@ -42,8 +42,7 @@ class NBEdgeCont;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class NIVissimDistrictConnection
-{
+class NIVissimDistrictConnection {
 public:
     /// Contructor
     NIVissimDistrictConnection(int id, const std::string &name,

@@ -64,8 +64,7 @@
 /**
  *
  */
-class StringTokenizer
-{
+class StringTokenizer {
 public:
     /** identifier for splitting the given string at all newline characters */
     static const int NEWLINE;

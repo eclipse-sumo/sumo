@@ -80,8 +80,7 @@ std::map<const MSVehicle*, MSDevice_C2C*> MSDevice_C2C::myVehiclesToDevicesMap;
 // static methods for look-up computation
 // ---------------------------------------------------------------------------
 void
-MSDevice_C2C::buildLookUpInformation()
-{
+MSDevice_C2C::buildLookUpInformation() {
     Boundary boundary = GeoConvHelper::getConvBoundary();
     myLookupXSize = (unsigned)((boundary.xmax()-boundary.xmin())/MSGlobals::gLANRange) + 1;
     myLookupYSize = (unsigned)((boundary.ymax()-boundary.ymin())/MSGlobals::gLANRange) + 1;
@@ -143,8 +142,7 @@ MSDevice_C2C::buildLookUpInformation()
 
 
 void
-MSDevice_C2C::computeEdgeCells(const MSEdge *edge)
-{
+MSDevice_C2C::computeEdgeCells(const MSEdge *edge) {
     myEdgeCells[edge] = vector<size_t>();
     const std::vector<MSLane*> *lanes = edge->getLanes();
     for (size_t i=0; i<lanes->size(); i++) {
@@ -155,8 +153,7 @@ MSDevice_C2C::computeEdgeCells(const MSEdge *edge)
 
 
 void
-MSDevice_C2C::computeLaneCells(const Position2DVector &lane, const MSEdge *edge)
-{
+MSDevice_C2C::computeLaneCells(const Position2DVector &lane, const MSEdge *edge) {
     // compute the outer and inner positions of the edge
     //  (meaning the real edge position and the position yielding from
     //  adding the offset of lanes)
@@ -225,8 +222,7 @@ MSDevice_C2C::computeLaneCells(const Position2DVector &lane, const MSEdge *edge)
 
 
 std::vector<MSDevice_C2C::Cell*>
-MSDevice_C2C::getNeighbors(size_t i)
-{
+MSDevice_C2C::getNeighbors(size_t i) {
     std::vector<Cell*> ret;
     ret.push_back(myCells[i]);
 
@@ -263,8 +259,7 @@ MSDevice_C2C::getNeighbors(size_t i)
 
 
 void
-MSDevice_C2C::writeNearEdges(OutputDevice &od)
-{
+MSDevice_C2C::writeNearEdges(OutputDevice &od) {
     size_t index = 0;
     for (vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i, ++index) {
         MSEdge *e = *i;
@@ -285,8 +280,7 @@ MSDevice_C2C::writeNearEdges(OutputDevice &od)
 // static methods for options i/o and device building
 // ---------------------------------------------------------------------------
 void
-MSDevice_C2C::insertOptions() throw()
-{
+MSDevice_C2C::insertOptions() throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addOptionSubTopic("C2C");
 
@@ -339,8 +333,7 @@ MSDevice_C2C::insertOptions() throw()
 
 
 void
-MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw()
-{
+MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw() {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.getFloat("device.c2x.probability")==0&&!oc.isSet("device.c2x.knownveh")) {
         // no c2c communication is modelled
@@ -379,8 +372,7 @@ MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) th
 // static methods for look-up computation
 // ---------------------------------------------------------------------------
 SUMOTime
-MSDevice_C2C::computeC2CExecute(SUMOTime t)
-{
+MSDevice_C2C::computeC2CExecute(SUMOTime t) {
     // clean up prior information
     myConnected.clear();
     myClusterHeaders.clear();
@@ -444,12 +436,12 @@ MSDevice_C2C::computeC2CExecute(SUMOTime t)
     }
 
     // send information
-    for (vector<MSDevice_C2C*>::iterator q = myClusterHeaders.begin();q!=myClusterHeaders.end();q++) {
+    for (vector<MSDevice_C2C*>::iterator q = myClusterHeaders.begin(); q!=myClusterHeaders.end(); q++) {
         (*q)->sendInfos(t);
     }
 
     // Rerouting?
-    for (vector<MSDevice_C2C*>::iterator q1 = myConnected.begin();q1!=myConnected.end();q1++) {
+    for (vector<MSDevice_C2C*>::iterator q1 = myConnected.begin(); q1!=myConnected.end(); q1++) {
         (*q1)->checkReroute(t);
     }
 
@@ -498,12 +490,10 @@ MSDevice_C2C::computeC2CExecute(SUMOTime t)
 
 
 MSDevice_C2C::MSDevice_C2C(MSVehicle &holder, const std::string &id) throw()
-        : MSDevice(holder, id), akt(0)
-{}
+        : MSDevice(holder, id), akt(0) {}
 
 
-MSDevice_C2C::~MSDevice_C2C() throw()
-{
+MSDevice_C2C::~MSDevice_C2C() throw() {
     //!!!myCells->remove(this);
     delete akt;
     for (ConnectionCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
@@ -522,8 +512,7 @@ MSDevice_C2C::~MSDevice_C2C() throw()
 
 
 void
-MSDevice_C2C::enterLaneAtMove(MSLane *lane, SUMOReal)
-{
+MSDevice_C2C::enterLaneAtMove(MSLane *lane, SUMOReal) {
     delete akt;
     akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
     const MSEdge * const edge = lane->getEdge();
@@ -535,8 +524,7 @@ MSDevice_C2C::enterLaneAtMove(MSLane *lane, SUMOReal)
 
 
 void
-MSDevice_C2C::enterLaneAtEmit(MSLane *lane, const MSVehicle::State &)
-{
+MSDevice_C2C::enterLaneAtEmit(MSLane *lane, const MSVehicle::State &) {
     delete akt;
     akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
     const MSEdge * const edge = lane->getEdge();
@@ -548,8 +536,7 @@ MSDevice_C2C::enterLaneAtEmit(MSLane *lane, const MSVehicle::State &)
 
 
 void
-MSDevice_C2C::leaveLaneAtMove(SUMOReal)
-{
+MSDevice_C2C::leaveLaneAtMove(SUMOReal) {
     // checke whether the vehicle needed longer than expected
     SUMOReal factor = getHolder().getEdge()->getVehicleEffort(&getHolder(), MSNet::getInstance()->getCurrentTimeStep());
     SUMOReal nt = (float)(MSNet::getInstance()->getCurrentTimeStep() - akt->time);
@@ -585,8 +572,7 @@ MSDevice_C2C::leaveLaneAtMove(SUMOReal)
 
 
 void
-MSDevice_C2C::onTripEnd()
-{
+MSDevice_C2C::onTripEnd() {
     for (ConnectionCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
         delete(*i).second;
     }
@@ -603,8 +589,7 @@ MSDevice_C2C::onTripEnd()
 
 
 void
-MSDevice_C2C::addNeighbors(vector<MSDevice_C2C*>* devices, SUMOTime time)
-{
+MSDevice_C2C::addNeighbors(vector<MSDevice_C2C*>* devices, SUMOTime time) {
     if (devices == 0 || &getHolder().getLane()==0) {
         // vehicle is being teleported
         return;
@@ -640,8 +625,7 @@ MSDevice_C2C::addNeighbors(vector<MSDevice_C2C*>* devices, SUMOTime time)
 
 
 void
-MSDevice_C2C::addVehNeighbors(MSDevice_C2C *device, SUMOTime time)
-{
+MSDevice_C2C::addVehNeighbors(MSDevice_C2C *device, SUMOTime time) {
     if (!device->getHolder().isOnRoad()) {
         // obviously, one of the vehicles is being teleported
         return;
@@ -681,8 +665,7 @@ MSDevice_C2C::addVehNeighbors(MSDevice_C2C *device, SUMOTime time)
 
 
 void
-MSDevice_C2C::cleanUpConnections(SUMOTime time)
-{
+MSDevice_C2C::cleanUpConnections(SUMOTime time) {
     std::vector<MSDevice_C2C *> toErase;
     std::map<MSDevice_C2C*, C2CConnection*>::iterator i;
     // recheck connections
@@ -706,8 +689,7 @@ MSDevice_C2C::cleanUpConnections(SUMOTime time)
 
 
 bool
-MSDevice_C2C::isInDistance(MSVehicle* veh1, MSVehicle* veh2)
-{
+MSDevice_C2C::isInDistance(MSVehicle* veh1, MSVehicle* veh2) {
     Position2D pos1 = veh1->getPosition();
     Position2D pos2 = veh2->getPosition();
     if (pos1.x()==-1000||pos2.x()==-1000) {
@@ -719,8 +701,7 @@ MSDevice_C2C::isInDistance(MSVehicle* veh1, MSVehicle* veh2)
 
 
 void
-MSDevice_C2C::updateInfos(SUMOTime time)
-{
+MSDevice_C2C::updateInfos(SUMOTime time) {
     // first, count how long the vehicle is waiting at the same position
     if (getHolder().getSpeed()<1.) {
         timeSinceStop++;
@@ -767,8 +748,7 @@ MSDevice_C2C::updateInfos(SUMOTime time)
 }
 
 void
-MSDevice_C2C::removeOnTripEnd(MSVehicle *veh) throw()
-{
+MSDevice_C2C::removeOnTripEnd(MSVehicle *veh) throw() {
     MSDevice_C2C *dev = myVehiclesToDevicesMap[veh];
     assert(myNeighbors.find(dev)!=myNeighbors.end());
     std::map<MSDevice_C2C *, C2CConnection*>::iterator i = myNeighbors.find(dev);
@@ -778,36 +758,31 @@ MSDevice_C2C::removeOnTripEnd(MSVehicle *veh) throw()
 
 
 bool
-MSDevice_C2C::knowsEdgeTest(MSEdge &edge) const
-{
+MSDevice_C2C::knowsEdgeTest(MSEdge &edge) const {
     return infoCont.find(&edge)!=infoCont.end();
 }
 
 
 const MSDevice_C2C::ConnectionCont &
-MSDevice_C2C::getConnections() const
-{
+MSDevice_C2C::getConnections() const {
     return myNeighbors;
 }
 
 
 void
-MSDevice_C2C::setClusterId(int Id)
-{
+MSDevice_C2C::setClusterId(int Id) {
     clusterId = Id;
 }
 
 
 int
-MSDevice_C2C::getClusterId(void) const
-{
+MSDevice_C2C::getClusterId(void) const {
     return clusterId;
 }
 
 
 int
-MSDevice_C2C::buildMyCluster(SUMOTime t, int clId)
-{
+MSDevice_C2C::buildMyCluster(SUMOTime t, int clId) {
     int count = 1;
     // build the cluster
     clusterId = clId;
@@ -852,8 +827,7 @@ MSDevice_C2C::buildMyCluster(SUMOTime t, int clId)
 
 
 void
-MSDevice_C2C::sendInfos(SUMOTime time)
-{
+MSDevice_C2C::sendInfos(SUMOTime time) {
     // the number of possible packets
     size_t numberOfSendingPos = (size_t) MSGlobals::gNumberOfSendingPos; // 732
     // the number of information per packet
@@ -906,8 +880,7 @@ MSDevice_C2C::sendInfos(SUMOTime time)
 
 
 size_t
-MSDevice_C2C::numOfInfos(MSDevice_C2C *veh1, MSDevice_C2C* veh2)
-{
+MSDevice_C2C::numOfInfos(MSDevice_C2C *veh1, MSDevice_C2C* veh2) {
     Position2D pos1 = veh1->getHolder().getPosition();
     Position2D pos2 = veh2->getHolder().getPosition();
     SUMOReal distance = sqrt(pow(pos1.x()-pos2.x(),2) + pow(pos1.y()-pos2.y(),2));
@@ -918,8 +891,7 @@ MSDevice_C2C::numOfInfos(MSDevice_C2C *veh1, MSDevice_C2C* veh2)
 
 void
 MSDevice_C2C::transferInformation(const std::string &senderID, const InfoCont &infos,
-                                  int NofP, SUMOTime currentTime)
-{
+                                  int NofP, SUMOTime currentTime) {
     if (NofP>0&&infos.size()>0) {
         myLastInfoTime = currentTime;
     }
@@ -953,8 +925,7 @@ MSDevice_C2C::transferInformation(const std::string &senderID, const InfoCont &i
 
 
 SUMOReal
-MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal t) const
-{
+MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal t) const {
     MSDevice_C2C * device = myVehiclesToDevicesMap.find(v)->second;
     InfoCont::iterator i = device->infoCont.find(e);
     if (i==device->infoCont.end()) {
@@ -964,8 +935,7 @@ MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOR
 }
 
 void
-MSDevice_C2C::checkReroute(SUMOTime t)
-{
+MSDevice_C2C::checkReroute(SUMOTime t) {
     // do not try to reroute when no new information is available
     if (myLastInfoTime!=t) {
         return;
@@ -985,22 +955,19 @@ MSDevice_C2C::checkReroute(SUMOTime t)
 
 
 size_t
-MSDevice_C2C::getNoGot() const
-{
+MSDevice_C2C::getNoGot() const {
     return myNoGot;
 }
 
 
 size_t
-MSDevice_C2C::getNoSent() const
-{
+MSDevice_C2C::getNoSent() const {
     return myNoSent;
 }
 
 
 size_t
-MSDevice_C2C::getNoGotRelevant() const
-{
+MSDevice_C2C::getNoGotRelevant() const {
     return myNoGotRelevant;
 }
 

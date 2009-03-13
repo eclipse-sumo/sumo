@@ -55,8 +55,7 @@ using namespace std;
 
 
 Position2DVector
-simpleHull_2D(const Position2DVector &V)
-{
+simpleHull_2D(const Position2DVector &V) {
     if (V.size()<3) {
         throw ProcessError();
     }

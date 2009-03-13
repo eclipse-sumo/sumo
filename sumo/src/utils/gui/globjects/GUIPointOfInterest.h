@@ -47,8 +47,7 @@ class GUIGlObjectStorage;
  * @class GUIPointOfInterest
  * @brief The GUI-version of a point of interest
  */
-class GUIPointOfInterest : public PointOfInterest, public GUIGlObject_AbstractAdd
-{
+class GUIPointOfInterest : public PointOfInterest, public GUIGlObject_AbstractAdd {
 public:
     GUIPointOfInterest(GUIGlObjectStorage &idStorage, int layer,
                        const std::string &id, const std::string &type,

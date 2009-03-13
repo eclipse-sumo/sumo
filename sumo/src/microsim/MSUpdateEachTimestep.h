@@ -40,8 +40,7 @@
  * @brief Base class for objects that shall be updated in each simulation step
  */
 template < class ToUpdate >
-class MSUpdateEachTimestep
-{
+class MSUpdateEachTimestep {
 public:
     /// @brief Counstructor
     MSUpdateEachTimestep() throw() {
@@ -58,7 +57,7 @@ public:
 
 
     /** @brief The update method
-     * 
+     *
      * Derived objects will be called in each time step using this method
      * @return discarded (unused)
      */

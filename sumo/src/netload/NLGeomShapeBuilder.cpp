@@ -54,12 +54,10 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLGeomShapeBuilder::NLGeomShapeBuilder(MSNet &net) throw()
-        : myShapeContainer(net.getShapeContainer())
-{}
+        : myShapeContainer(net.getShapeContainer()) {}
 
 
-NLGeomShapeBuilder::~NLGeomShapeBuilder() throw()
-{}
+NLGeomShapeBuilder::~NLGeomShapeBuilder() throw() {}
 
 
 void
@@ -67,8 +65,7 @@ NLGeomShapeBuilder::polygonBegin(const std::string &name,
                                  int layer,
                                  const std::string &type,
                                  const RGBColor &c,
-                                 bool fill) throw()
-{
+                                 bool fill) throw() {
     myCurrentName = name;
     myCurrentType = type;
     myCurrentColor = c;
@@ -78,8 +75,7 @@ NLGeomShapeBuilder::polygonBegin(const std::string &name,
 
 
 void
-NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument)
-{
+NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument) {
     Polygon2D *p =
         new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape, myFillPoly);
     if (!myShapeContainer.add(myCurrentLayer, p)) {
@@ -95,8 +91,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
                              const std::string &type,
                              const RGBColor &c,
                              SUMOReal x, SUMOReal y,
-                             const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument)
-{
+                             const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument) {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     PointOfInterest *p = new PointOfInterest(name, type, pos, c);
     if (!myShapeContainer.add(layer, p)) {
@@ -109,8 +104,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
 Position2D
 NLGeomShapeBuilder::getPointPosition(SUMOReal x, SUMOReal y,
                                      const std::string &laneID,
-                                     SUMOReal posOnLane) const throw(InvalidArgument)
-{
+                                     SUMOReal posOnLane) const throw(InvalidArgument) {
     if (x!=INVALID_POSITION&&y!=INVALID_POSITION) {
         return Position2D(x,y);
     }

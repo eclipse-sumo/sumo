@@ -49,8 +49,7 @@ class GUINet;
 /**
  * @class GUILoadThread
  */
-class GUILoadThread : public FXSingleEventThread
-{
+class GUILoadThread : public FXSingleEventThread {
 public:
     /// constructor
     GUILoadThread(MFXInterThreadEventClient *mw, MFXEventQue &eq,

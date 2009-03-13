@@ -55,8 +55,7 @@ class Position2DVector;
  * @class MSDevice_C2C
  * @brief C2C communication and rerouting device
  */
-class MSDevice_C2C : public MSDevice, public MSVehicleQuitReminded
-{
+class MSDevice_C2C : public MSDevice, public MSVehicleQuitReminded {
 public:
     /** @brief Inserts MSDevice_C2C-options
      */
@@ -85,8 +84,7 @@ public:
      * @class Information
      * @brief An (exchanged) information about an edge
      */
-    class Information
-    {
+    class Information {
     public:
         /// @brief Constructor
         Information(SUMOReal neededTime_, SUMOTime time_)
@@ -103,8 +101,7 @@ public:
      * @class C2CConnection
      * @brief Description of a connection to another vehicle
      */
-    class C2CConnection
-    {
+    class C2CConnection {
     public:
         /// @brief Constructor
         C2CConnection(MSDevice_C2C *connectedVeh_, SUMOTime lastTimeSeen_)

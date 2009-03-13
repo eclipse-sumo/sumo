@@ -84,8 +84,8 @@ enum DepartPosDefinition {
     DEPART_POS_RANDOM,
     /// @brief A free position is chosen
     DEPART_POS_FREE,
-	/// @brief The position is chosen randomly from all free positions on the lane
-	DEPART_POS_RANDOM_FREE
+    /// @brief The position is chosen randomly from all free positions on the lane
+    DEPART_POS_RANDOM_FREE
 };
 
 
@@ -119,8 +119,7 @@ enum DepartSpeedDefinition {
  * @see DepartPosDefinition
  * @see DepartSpeedDefinition
  */
-class SUMOVehicleParameter
-{
+class SUMOVehicleParameter {
 public:
     /** @brief Constructor
      *

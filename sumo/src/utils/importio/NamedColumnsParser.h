@@ -53,8 +53,7 @@
  *
  * @todo What happens if an uninitialised NamedColumnsParser is used? exceptions?
  */
-class NamedColumnsParser
-{
+class NamedColumnsParser {
 public:
     /** @brief Constructor
      *

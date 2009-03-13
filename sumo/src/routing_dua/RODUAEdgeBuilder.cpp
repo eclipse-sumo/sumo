@@ -39,17 +39,14 @@
 // method definitions
 // ===========================================================================
 RODUAEdgeBuilder::RODUAEdgeBuilder(bool useBoundariesOnOverride) throw()
-        : myUseBoundariesOnOverride(useBoundariesOnOverride)
-{}
+        : myUseBoundariesOnOverride(useBoundariesOnOverride) {}
 
 
-RODUAEdgeBuilder::~RODUAEdgeBuilder() throw()
-{}
+RODUAEdgeBuilder::~RODUAEdgeBuilder() throw() {}
 
 
 ROEdge *
-RODUAEdgeBuilder::buildEdge(const std::string &name) throw()
-{
+RODUAEdgeBuilder::buildEdge(const std::string &name) throw() {
     return new ROEdge(name, getNextIndex(), myUseBoundariesOnOverride);
 }
 

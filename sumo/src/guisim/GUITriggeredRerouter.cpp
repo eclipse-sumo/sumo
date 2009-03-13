@@ -111,8 +111,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
         : GUIManipulator(app, name, 0, 0), myParent(&app),
         myChosenValue(0), myChosenTarget(myChosenValue, this, MID_OPTION),
         myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
-        myObject(&o)
-{
+        myObject(&o) {
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
@@ -153,27 +152,24 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     myChosenValue = myObject->inUserMode()
                     ? myObject->getUserProbability()>0
                     ? 1 : 2
-                : 0;
+                    : 0;
     new FXButton(f1,"Close",NULL,this,MID_CLOSE,
                  BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
 }
 
 
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::~GUIManip_TriggeredRerouter()
-{}
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::~GUIManip_TriggeredRerouter() {}
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdClose(FXObject*,FXSelector,void*)
-{
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdClose(FXObject*,FXSelector,void*) {
     destroy();
     return 1;
 }
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*,FXSelector,void*)
-{
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*,FXSelector,void*) {
     myUsageProbability = (SUMOReal)(myUsageProbabilityDial->getValue());
     static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(myUsageProbability);
     static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
@@ -183,8 +179,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*,FXSelec
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject *sender,FXSelector,void*ptr)
-{
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject *sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myChosenValue!=1 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -194,8 +189,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onUpdUserDef(FXObject *sender,
 
 
 long
-GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption(FXObject*,FXSelector,void*)
-{
+GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption(FXObject*,FXSelector,void*) {
     static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(myUsageProbability);
     switch (myChosenValue) {
     case 0:
@@ -222,19 +216,16 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdChangeOption(FXObject*,FX
 GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::GUITriggeredRerouterPopupMenu(
     GUIMainWindow &app, GUISUMOAbstractView &parent,
     GUIGlObject &o)
-        : GUIGLObjectPopupMenu(app, parent, o)
-{}
+        : GUIGLObjectPopupMenu(app, parent, o) {}
 
 
-GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::~GUITriggeredRerouterPopupMenu() throw()
-{}
+GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::~GUITriggeredRerouterPopupMenu() throw() {}
 
 
 long
 GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
         FXSelector,
-        void*)
-{
+        void*) {
     static_cast<GUITriggeredRerouter*>(myObject)->openManipulator(
         *myApplication, *myParent);
     return 1;
@@ -248,8 +239,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
         const std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &aXMLFilename, bool off)
         : MSTriggeredRerouter(id, edges, prob, aXMLFilename, off),
-        GUIGlObject_AbstractAdd(gIDStorage, "rerouter:" + id, GLO_TRIGGER)
-{
+        GUIGlObject_AbstractAdd(gIDStorage, "rerouter:" + id, GLO_TRIGGER) {
     size_t k;
     size_t no = 0;
     for (k=0; k<edges.size(); k++) {
@@ -275,14 +265,12 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
 }
 
 
-GUITriggeredRerouter::~GUITriggeredRerouter() throw()
-{}
+GUITriggeredRerouter::~GUITriggeredRerouter() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
-                                   GUISUMOAbstractView &parent) throw()
-{
+                                   GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUITriggeredRerouterPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -296,22 +284,19 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUITriggeredRerouter::getParameterWindow(GUIMainWindow &,
-        GUISUMOAbstractView &) throw()
-{
+        GUISUMOAbstractView &) throw() {
     return 0;
 }
 
 
 const std::string &
-GUITriggeredRerouter::getMicrosimID() const throw()
-{
+GUITriggeredRerouter::getMicrosimID() const throw() {
     return getID();
 }
 
 
 void
-GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -414,8 +399,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw()
 
 
 Boundary
-GUITriggeredRerouter::getCenteringBoundary() const throw()
-{
+GUITriggeredRerouter::getCenteringBoundary() const throw() {
     Boundary b(myBoundary);
     b.grow(20);
     return b;
@@ -425,8 +409,7 @@ GUITriggeredRerouter::getCenteringBoundary() const throw()
 
 GUIManipulator *
 GUITriggeredRerouter::openManipulator(GUIMainWindow &app,
-                                      GUISUMOAbstractView &)
-{
+                                      GUISUMOAbstractView &) {
     GUIManip_TriggeredRerouter *gui =
         new GUIManip_TriggeredRerouter(app, getFullName(), *this, 0, 0);
     gui->create();

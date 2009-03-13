@@ -43,26 +43,22 @@
 // member method definitions
 // ===========================================================================
 GUIVehicleControl::GUIVehicleControl() throw()
-        : MSVehicleControl()
-{}
+        : MSVehicleControl() {}
 
 
-GUIVehicleControl::~GUIVehicleControl() throw()
-{}
+GUIVehicleControl::~GUIVehicleControl() throw() {}
 
 
 MSVehicle *
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                const MSRoute* route, const MSVehicleType* type) throw()
-{
+                                const MSRoute* route, const MSVehicleType* type) throw() {
     myLoadedVehNo++;
     return new GUIVehicle(gIDStorage, defs, route, type, myLoadedVehNo-1);
 }
 
 
 void
-GUIVehicleControl::deleteVehicle(MSVehicle *veh) throw()
-{
+GUIVehicleControl::deleteVehicle(MSVehicle *veh) throw() {
     static_cast<GUIVehicle*>(veh)->setRemoved();
     if (gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
         MSVehicleControl::deleteVehicle(veh);
@@ -71,8 +67,7 @@ GUIVehicleControl::deleteVehicle(MSVehicle *veh) throw()
 
 
 void
-GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw()
-{
+GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw() {
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         MSVehicle *veh = (*i).second;

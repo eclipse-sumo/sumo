@@ -66,31 +66,26 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter * const parent,
                                     MSLane * const lane) throw()
-        : MSMoveReminder(lane), myParent(parent)
-{}
+        : MSMoveReminder(lane), myParent(parent) {}
 
 
-MSTriggeredRerouter::Setter::~Setter() throw()
-{}
+MSTriggeredRerouter::Setter::~Setter() throw() {}
 
 
 bool
 MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
-        SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw()
-{
+        SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw() {
     myParent->reroute(veh, myLane->getEdge());
     return false;
 }
 
 
 void
-MSTriggeredRerouter::Setter::dismissByLaneChange(MSVehicle&) throw()
-{}
+MSTriggeredRerouter::Setter::dismissByLaneChange(MSVehicle&) throw() {}
 
 
 bool
-MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw()
-{
+MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     myParent->reroute(veh, myLane->getEdge());
     return false;
 }
@@ -103,8 +98,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         const std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &file, bool off)
         : MSTrigger(id), SUMOSAXHandler(file),
-        myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
-{
+        myProbability(prob), myUserProbability(prob), myAmInUserMode(false) {
     // read in the trigger description
     if (!XMLSubSys::runParser(*this, file)) {
         throw ProcessError();
@@ -135,8 +129,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
 }
 
 
-MSTriggeredRerouter::~MSTriggeredRerouter() throw()
-{
+MSTriggeredRerouter::~MSTriggeredRerouter() throw() {
     {
         std::vector<Setter*>::iterator i;
         for (i=mySetter.begin(); i!=mySetter.end(); ++i) {
@@ -148,8 +141,7 @@ MSTriggeredRerouter::~MSTriggeredRerouter() throw()
 // ------------ loading begin
 void
 MSTriggeredRerouter::myStartElement(SumoXMLTag element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
         myCurrentIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, -1);
         myCurrentIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, -1);
@@ -226,8 +218,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
 
 void
-MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
         RerouteInterval ri;
         ri.begin = myCurrentIntervalBegin;
@@ -247,8 +238,7 @@ MSTriggeredRerouter::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 bool
-MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const
-{
+MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     const MSRoute &route = veh.getRoute();
     while (i!=myIntervals.end()) {
@@ -264,8 +254,7 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const
 
 
 bool
-MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const
-{
+MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while (i!=myIntervals.end()) {
         if ((*i).begin<=time && (*i).end>=time) {
@@ -280,8 +269,7 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const
 
 
 const MSTriggeredRerouter::RerouteInterval &
-MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const
-{
+MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     const MSRoute &route = veh.getRoute();
     while (i!=myIntervals.end()) {
@@ -297,8 +285,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOVehicle &veh) const
 
 
 const MSTriggeredRerouter::RerouteInterval &
-MSTriggeredRerouter::getCurrentReroute(SUMOTime) const
-{
+MSTriggeredRerouter::getCurrentReroute(SUMOTime) const {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while (i!=myIntervals.end()) {
         if ((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0||(*i).closed.size()!=0) {
@@ -312,8 +299,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const
 
 
 void
-MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge *src)
-{
+MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge *src) {
     // check whether the vehicle shall be rerouted
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (!hasCurrentReroute(time, veh)) {
@@ -352,36 +338,31 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge *src)
 
 
 void
-MSTriggeredRerouter::setUserMode(bool val)
-{
+MSTriggeredRerouter::setUserMode(bool val) {
     myAmInUserMode = val;
 }
 
 
 void
-MSTriggeredRerouter::setUserUsageProbability(SUMOReal prob)
-{
+MSTriggeredRerouter::setUserUsageProbability(SUMOReal prob) {
     myUserProbability = prob;
 }
 
 
 bool
-MSTriggeredRerouter::inUserMode() const
-{
+MSTriggeredRerouter::inUserMode() const {
     return myAmInUserMode;
 }
 
 
 SUMOReal
-MSTriggeredRerouter::getProbability() const
-{
+MSTriggeredRerouter::getProbability() const {
     return myAmInUserMode ? myUserProbability : myProbability;
 }
 
 
 SUMOReal
-MSTriggeredRerouter::getUserProbability() const
-{
+MSTriggeredRerouter::getUserProbability() const {
     return myUserProbability;
 }
 

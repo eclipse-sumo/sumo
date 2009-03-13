@@ -59,8 +59,7 @@
  * @see GUIParameterTracker
  * @see GUIParameterTableItem
  */
-class GUIParameterTableItemInterface
-{
+class GUIParameterTableItemInterface {
 public:
     /// @brief Destructor
     virtual ~GUIParameterTableItemInterface()  throw() {}
@@ -116,8 +115,7 @@ public:
  * @see GUIParameterTableItemInterface
  */
 template<class T>
-class GUIParameterTableItem : public GUIParameterTableItemInterface
-{
+class GUIParameterTableItem : public GUIParameterTableItemInterface {
 public:
     /** @brief Constructor for changing (dynamic) values
      *

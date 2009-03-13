@@ -61,19 +61,16 @@ NIVissimNodeCluster::NIVissimNodeCluster(int id, int nodeid, int tlid,
         bool amEdgeSplitOnly)
         : myID(id), myNodeID(nodeid), myTLID(tlid),
         myConnectors(connectors), myDisturbances(disturbances),
-        myNBNode(0), myAmEdgeSplit(amEdgeSplitOnly)
-{}
+        myNBNode(0), myAmEdgeSplit(amEdgeSplitOnly) {}
 
 
-NIVissimNodeCluster::~NIVissimNodeCluster()
-{}
+NIVissimNodeCluster::~NIVissimNodeCluster() {}
 
 
 
 
 bool
-NIVissimNodeCluster::dictionary(int id, NIVissimNodeCluster *o)
-{
+NIVissimNodeCluster::dictionary(int id, NIVissimNodeCluster *o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -88,8 +85,7 @@ int
 NIVissimNodeCluster::dictionary(int nodeid, int tlid,
                                 const IntVector &connectors,
                                 const IntVector &disturbances,
-                                bool amEdgeSplitOnly)
-{
+                                bool amEdgeSplitOnly) {
     int id = nodeid;
     if (nodeid<0) {
         id = myCurrentID++;
@@ -102,8 +98,7 @@ NIVissimNodeCluster::dictionary(int nodeid, int tlid,
 
 
 NIVissimNodeCluster *
-NIVissimNodeCluster::dictionary(int id)
-{
+NIVissimNodeCluster::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -114,16 +109,14 @@ NIVissimNodeCluster::dictionary(int id)
 
 
 size_t
-NIVissimNodeCluster::contSize()
-{
+NIVissimNodeCluster::contSize() {
     return myDict.size();
 }
 
 
 
 std::string
-NIVissimNodeCluster::getNodeName() const
-{
+NIVissimNodeCluster::getNodeName() const {
     if (myTLID==-1) {
         return toString<int>(myID);
     } else {
@@ -133,8 +126,7 @@ NIVissimNodeCluster::getNodeName() const
 
 
 void
-NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
-{
+NIVissimNodeCluster::buildNBNode(NBNodeCont &nc) {
     if (myConnectors.size()==0) {
         return; // !!! Check, whether this can happen
     }
@@ -194,8 +186,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
 
 
 void
-NIVissimNodeCluster::buildNBNodes(NBNodeCont &nc)
-{
+NIVissimNodeCluster::buildNBNodes(NBNodeCont &nc) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         (*i).second->buildNBNode(nc);
     }
@@ -204,15 +195,13 @@ NIVissimNodeCluster::buildNBNodes(NBNodeCont &nc)
 
 
 void
-NIVissimNodeCluster::dict_recheckEdgeChanges()
-{
+NIVissimNodeCluster::dict_recheckEdgeChanges() {
     return;
 }
 
 
 int
-NIVissimNodeCluster::getFromNode(int edgeid)
-{
+NIVissimNodeCluster::getFromNode(int edgeid) {
     int ret = -1;
     bool mult = false;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -236,8 +225,7 @@ NIVissimNodeCluster::getFromNode(int edgeid)
 
 
 int
-NIVissimNodeCluster::getToNode(int edgeid)
-{
+NIVissimNodeCluster::getToNode(int edgeid) {
     int ret = -1;
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimNodeCluster *c = (*i).second;
@@ -260,8 +248,7 @@ NIVissimNodeCluster::getToNode(int edgeid)
 
 
 void
-NIVissimNodeCluster::_debugOut(std::ostream &into)
-{
+NIVissimNodeCluster::_debugOut(std::ostream &into) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimNodeCluster *c = (*i).second;
         into << endl << c->myID << ":";
@@ -278,23 +265,20 @@ NIVissimNodeCluster::_debugOut(std::ostream &into)
 
 
 NBNode *
-NIVissimNodeCluster::getNBNode() const
-{
+NIVissimNodeCluster::getNBNode() const {
     return myNBNode;
 }
 
 
 Position2D
-NIVissimNodeCluster::getPos() const
-{
+NIVissimNodeCluster::getPos() const {
     return myPosition;
 }
 
 
 void
 NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont &dc,
-        NBNodeCont &nc, NBEdgeCont &ec)
-{
+        NBNodeCont &nc, NBEdgeCont &ec) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         const IntVector &disturbances = (*i).second->myDisturbances;
         NBNode *node = nc.retrieve((*i).second->getNodeName());
@@ -308,8 +292,7 @@ NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont &dc,
 
 
 void
-NIVissimNodeCluster::clearDict()
-{
+NIVissimNodeCluster::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }
@@ -318,8 +301,7 @@ NIVissimNodeCluster::clearDict()
 
 
 void
-NIVissimNodeCluster::setCurrentVirtID(int id)
-{
+NIVissimNodeCluster::setCurrentVirtID(int id) {
     myCurrentID = id;
 }
 

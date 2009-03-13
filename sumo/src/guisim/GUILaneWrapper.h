@@ -63,8 +63,7 @@ class MSEdge;
  *  and simulation what may cause problems when vehicles disappear is
  *  implemented using a mutex.
  */
-class GUILaneWrapper : public GUIGlObject
-{
+class GUILaneWrapper : public GUIGlObject {
 public:
     /// constructor
     GUILaneWrapper(GUIGlObjectStorage &idStorage,

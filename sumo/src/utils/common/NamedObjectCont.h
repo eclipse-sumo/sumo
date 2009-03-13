@@ -48,8 +48,7 @@
  *  to true, indicating the list must be rebuild.
  */
 template<class T>
-class NamedObjectCont
-{
+class NamedObjectCont {
 public:
     /// @brief Constructor
     NamedObjectCont() throw() : myHaveChanged(false) { }

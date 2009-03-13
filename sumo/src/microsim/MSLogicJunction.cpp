@@ -59,19 +59,16 @@ MSLogicJunction::MSLogicJunction(string id, const Position2D &position,
 #ifdef HAVE_INTERNAL_LANES
         myInternalLanes(internal),
 #endif
-        myRequest(false), myInnerState(false), myRespond(false)
-{}
+        myRequest(false), myInnerState(false), myRespond(false) {}
 
 //-------------------------------------------------------------------------//
 
-MSLogicJunction::~MSLogicJunction()
-{}
+MSLogicJunction::~MSLogicJunction() {}
 
 //-------------------------------------------------------------------------//
 
 void
-MSLogicJunction::postloadInit() throw(ProcessError)
-{
+MSLogicJunction::postloadInit() throw(ProcessError) {
     /*
     if(getID()=="1565") {
         int bla = 0;

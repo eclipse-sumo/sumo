@@ -41,8 +41,7 @@
 #include "FXPacker.h"
 #endif
 
-namespace FX
-{
+namespace FX {
 
 
 // Spinner Options
@@ -68,8 +67,7 @@ class FXDial;
 
 
 /// Spinner control
-class /*FXAPI*/ FXRealSpinDial : public FXPacker
-{
+class /*FXAPI*/ FXRealSpinDial : public FXPacker {
     FXDECLARE(FXRealSpinDial)
 protected:
     FXRealSpinDialText *textField; // Text field

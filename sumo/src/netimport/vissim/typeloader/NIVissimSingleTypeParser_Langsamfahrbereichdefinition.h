@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Langsamfahrbereichdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Langsamfahrbereichdefinition(NIVissimLoader &parent);

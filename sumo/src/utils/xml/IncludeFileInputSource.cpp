@@ -88,8 +88,7 @@
 // ---------------------------------------------------------------------------
 IncludeFileInputSource::IncludeFileInputSource(const XMLCh* const basePath
         , const XMLCh* const relativePath)
-        : InputSource()
-{
+        : InputSource() {
     //
     //  If the relative part is really relative, then weave it together
     //  with the base path. If not, just take the relative path as the
@@ -109,8 +108,7 @@ IncludeFileInputSource::IncludeFileInputSource(const XMLCh* const basePath
 }
 
 IncludeFileInputSource::IncludeFileInputSource(const XMLCh* const filePath)
-        : InputSource()
-{
+        : InputSource() {
 
     //
     //  If the path is relative, then complete it acording to the current
@@ -147,16 +145,14 @@ IncludeFileInputSource::IncludeFileInputSource(const XMLCh* const filePath)
 
 }
 
-IncludeFileInputSource::~IncludeFileInputSource()
-{
+IncludeFileInputSource::~IncludeFileInputSource() {
 }
 
 
 // ---------------------------------------------------------------------------
 //  IncludeFileInputSource: InputSource interface implementation
 // ---------------------------------------------------------------------------
-BinInputStream* IncludeFileInputSource::makeStream() const
-{
+BinInputStream* IncludeFileInputSource::makeStream() const {
     BinFileInputStream* retStrm = new IncludeFileInputStream(getSystemId());
     if (!retStrm->getIsOpen()) {
         delete retStrm;

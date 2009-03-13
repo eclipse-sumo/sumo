@@ -47,8 +47,7 @@
  * @class GUIColorer_LaneByPurpose
  */
 template<class T>
-class GUIColorer_LaneByPurpose : public GUIBaseColorer<T>
-{
+class GUIColorer_LaneByPurpose : public GUIBaseColorer<T> {
 public:
     GUIColorer_LaneByPurpose() { }
 

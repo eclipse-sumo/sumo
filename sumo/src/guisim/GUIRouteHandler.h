@@ -41,8 +41,7 @@
  * @class GUIRouteHandler
  * @brief Parser and container for routes during their loading (gui-version)
  */
-class GUIRouteHandler : public MSRouteHandler
-{
+class GUIRouteHandler : public MSRouteHandler {
 public:
     /// standard constructor
     GUIRouteHandler(const std::string &file,

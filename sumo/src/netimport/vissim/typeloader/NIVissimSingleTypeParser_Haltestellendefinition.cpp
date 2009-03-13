@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Haltestellendefinition::NIVissimSingleTypeParser_Haltestellendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Haltestellendefinition::~NIVissimSingleTypeParser_Haltestellendefinition()
-{}
+NIVissimSingleTypeParser_Haltestellendefinition::~NIVissimSingleTypeParser_Haltestellendefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Haltestellendefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Haltestellendefinition::parse(std::istream &from) {
     string tag;
     while (tag!="strecke") {
         tag = myRead(from);

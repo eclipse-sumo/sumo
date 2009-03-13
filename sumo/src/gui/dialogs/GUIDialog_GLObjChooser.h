@@ -52,8 +52,7 @@ class GUIGlObject;
  * from a given artifact like vehicles, edges or junctions and allow
  * one of their items
  */
-class GUIDialog_GLObjChooser : public FXMainWindow
-{
+class GUIDialog_GLObjChooser : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_GLObjChooser)
 

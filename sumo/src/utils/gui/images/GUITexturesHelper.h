@@ -46,8 +46,7 @@
  * @class GUITexturesHelper
  * @brief Global storage for textures; manages and draws them
  */
-class GUITexturesHelper
-{
+class GUITexturesHelper {
 public:
     /// Initialises the textures-subsystem by setting the application
     static void init(FXApp *a);

@@ -60,8 +60,7 @@ class GUIParameterTableItemInterface;
  *
  * Each row is represented using an instance of GUIParameterTableItemInterface.
  */
-class GUIParameterTableWindow : public FXMainWindow
-{
+class GUIParameterTableWindow : public FXMainWindow {
     FXDECLARE(GUIParameterTableWindow)
 public:
     /** @brief Constructor

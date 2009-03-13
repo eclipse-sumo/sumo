@@ -17,8 +17,7 @@
 * This class behaves very much like the FXLabel class but it
 * points to some link which is started when clicked.
 */
-class FXLinkLabel : public FXLabel
-{
+class FXLinkLabel : public FXLabel {
 protected:
     // FOX stuff
     FXDECLARE(FXLinkLabel)

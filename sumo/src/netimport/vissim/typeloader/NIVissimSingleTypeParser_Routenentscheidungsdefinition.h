@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Routenentscheidungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Routenentscheidungsdefinition(NIVissimLoader &parent);

@@ -81,8 +81,7 @@ using namespace std;
  * data processing methods
  * ----------------------------------------------------------------------- */
 void
-readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet)
-{
+readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
     if (!oc.isSet("detector-files")) {
         throw ProcessError("No detector file given (use --detector-files <FILE>).");
     }
@@ -105,8 +104,7 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet)
 
 
 void
-readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc)
-{
+readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc) {
     if (!oc.isSet("detector-flow-files")) {
         // ok, not given, return an empty container
         return;
@@ -127,8 +125,7 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
 
 
 void
-startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &detectors, OptionsCont &oc)
-{
+startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &detectors, OptionsCont &oc) {
     if (oc.getBool("print-absolute-flows")) {
         flows.printAbsolute();
     }
@@ -250,8 +247,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");

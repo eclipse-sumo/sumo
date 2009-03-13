@@ -39,8 +39,7 @@
  * @class StringUtils
  * @brief Some static methods for string processing
  */
-class StringUtils
-{
+class StringUtils {
 public:
     /// Removes trailing and leading whitechars
     static std::string prune(std::string str);

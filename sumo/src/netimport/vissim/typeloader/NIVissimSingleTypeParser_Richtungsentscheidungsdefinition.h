@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Richtungsentscheidungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Richtungsentscheidungsdefinition(NIVissimLoader &parent);

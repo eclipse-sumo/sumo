@@ -55,8 +55,7 @@ class MSVehicle;
  * A vehicle has to be informed about a listener using "quitRemindedEnter". A
  *  listener may be removed from the vehicle using "quitRemindedLeft".
  */
-class MSVehicleQuitReminded
-{
+class MSVehicleQuitReminded {
 public:
     /// @brief (Virtual) destructor
     virtual ~MSVehicleQuitReminded() throw() {}

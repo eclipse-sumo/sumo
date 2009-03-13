@@ -47,8 +47,7 @@ class NBEdge;
 class NBDistrictCont;
 
 class NIVissimDisturbance
-            : public NIVissimBoundedClusterObject
-{
+            : public NIVissimBoundedClusterObject {
 public:
     NIVissimDisturbance(int id, const std::string &name,
                         const NIVissimExtendedEdgePoint &edge,

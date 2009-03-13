@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Verlustzeitmessungsdefinition::NIVissimSingleTypeParser_Verlustzeitmessungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Verlustzeitmessungsdefinition::~NIVissimSingleTypeParser_Verlustzeitmessungsdefinition()
-{}
+NIVissimSingleTypeParser_Verlustzeitmessungsdefinition::~NIVissimSingleTypeParser_Verlustzeitmessungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Verlustzeitmessungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Verlustzeitmessungsdefinition::parse(std::istream &from) {
     string tag = myRead(from);
     if (tag=="von") {
         while (tag!="DATAEND") {

@@ -43,8 +43,7 @@
 // method definitions
 // ===========================================================================
 Position2DVector
-GeomConvHelper::parseShape(const std::string &shpdef)
-{
+GeomConvHelper::parseShape(const std::string &shpdef) {
     StringTokenizer st(shpdef, " ");
     if (shpdef=="") {
         throw EmptyData();
@@ -61,8 +60,7 @@ GeomConvHelper::parseShape(const std::string &shpdef)
 
 
 Boundary
-GeomConvHelper::parseBoundary(const std::string &def)
-{
+GeomConvHelper::parseBoundary(const std::string &def) {
     StringTokenizer st(def, ",");
     if (st.size()!=4) {
         throw InvalidArgument("Could not parse '" + def + "' as boundary.");

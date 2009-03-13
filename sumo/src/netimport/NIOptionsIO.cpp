@@ -57,8 +57,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-NIOptionsIO::fillOptions()
-{
+NIOptionsIO::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
     oc.addCallExample("-n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml");
@@ -200,8 +199,7 @@ NIOptionsIO::fillOptions()
 
 
 bool
-NIOptionsIO::checkOptions()
-{
+NIOptionsIO::checkOptions() {
     return true;
 }
 

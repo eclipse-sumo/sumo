@@ -50,8 +50,7 @@ class OutputDevice;
  * The class may be used for saving the logic build by NBRequest under the
  * given key
  */
-class NBJunctionLogicCont
-{
+class NBJunctionLogicCont {
 public:
     NBJunctionLogicCont();
     ~NBJunctionLogicCont();

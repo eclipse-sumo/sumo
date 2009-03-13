@@ -44,8 +44,7 @@ class Boundary;
 /**
  *
  */
-class NIVissimBoundedClusterObject
-{
+class NIVissimBoundedClusterObject {
 public:
     NIVissimBoundedClusterObject();
     virtual ~NIVissimBoundedClusterObject();

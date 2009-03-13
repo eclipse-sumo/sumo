@@ -51,31 +51,26 @@ using namespace std;
 // method definitions
 // ===========================================================================
 SUMOSAXHandler::SUMOSAXHandler(const std::string &file) throw()
-        : GenericSAXHandler(sumotags, sumoattrs), myFileName(file)
-{}
+        : GenericSAXHandler(sumotags, sumoattrs), myFileName(file) {}
 
 
-SUMOSAXHandler::~SUMOSAXHandler() throw()
-{}
+SUMOSAXHandler::~SUMOSAXHandler() throw() {}
 
 
 void
-SUMOSAXHandler::setFileName(const std::string &name) throw()
-{
+SUMOSAXHandler::setFileName(const std::string &name) throw() {
     myFileName = name;
 }
 
 
 const std::string &
-SUMOSAXHandler::getFileName() const throw()
-{
+SUMOSAXHandler::getFileName() const throw() {
     return myFileName;
 }
 
 
 string
-SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
-{
+SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw() {
     ostringstream buf;
     char *pMsg = XMLString::transcode(exception.getMessage());
     buf << pMsg << endl;
@@ -88,22 +83,19 @@ SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
 
 
 void
-SUMOSAXHandler::warning(const SAXParseException& exception) throw()
-{
+SUMOSAXHandler::warning(const SAXParseException& exception) throw() {
     MsgHandler::getWarningInstance()->inform(buildErrorMessage(exception));
 }
 
 
 void
-SUMOSAXHandler::error(const SAXParseException& exception) throw(ProcessError)
-{
+SUMOSAXHandler::error(const SAXParseException& exception) throw(ProcessError) {
     throw ProcessError(buildErrorMessage(exception));
 }
 
 
 void
-SUMOSAXHandler::fatalError(const SAXParseException& exception) throw(ProcessError)
-{
+SUMOSAXHandler::fatalError(const SAXParseException& exception) throw(ProcessError) {
     throw ProcessError(buildErrorMessage(exception));
 }
 

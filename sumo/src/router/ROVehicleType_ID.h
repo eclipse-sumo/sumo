@@ -46,8 +46,7 @@
  *
  * @todo Check whether this rather should be realised by a boolean marker in ROVehicleType
  */
-class ROVehicleType_ID : public ROVehicleType
-{
+class ROVehicleType_ID : public ROVehicleType {
 public:
     /** @brief Constructor
      *

@@ -55,22 +55,19 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
-        : myNet(net)
-{
+        : myNet(net) {
     myActions["SaveTLSStates"] = EV_SAVETLSTATE;
     myActions["SaveTLSSwitchTimes"] = EV_SAVETLSWITCHES;
     myActions["SaveTLSSwitchStates"] = EV_SAVETLSWITCHSTATES;
 }
 
 
-NLDiscreteEventBuilder::~NLDiscreteEventBuilder()
-{}
+NLDiscreteEventBuilder::~NLDiscreteEventBuilder() {}
 
 
 void
 NLDiscreteEventBuilder::addAction(const SUMOSAXAttributes &attrs,
-                                  const std::string &basePath)
-{
+                                  const std::string &basePath) {
     string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     // check whether the type was given
     if (type=="") {
@@ -102,8 +99,7 @@ NLDiscreteEventBuilder::addAction(const SUMOSAXAttributes &attrs,
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes &attrs,
-        const std::string &basePath)
-{
+        const std::string &basePath) {
     // get the parameter
     string dest = attrs.getStringSecure(SUMO_ATTR_DEST, "");
     string source = attrs.getStringSecure(SUMO_ATTR_SOURCE, "*");
@@ -124,8 +120,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes &attrs,
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attrs,
-        const std::string &basePath)
-{
+        const std::string &basePath) {
     // get the parameter
     string dest = attrs.getStringSecure(SUMO_ATTR_DEST, "");
     string source = attrs.getStringSecure(SUMO_ATTR_SOURCE, "*");
@@ -146,8 +141,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attr
 
 Command *
 NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs,
-        const std::string &basePath)
-{
+        const std::string &basePath) {
     // get the parameter
     string dest = attrs.getStringSecure(SUMO_ATTR_DEST, "");
     string source = attrs.getStringSecure(SUMO_ATTR_SOURCE, "*");

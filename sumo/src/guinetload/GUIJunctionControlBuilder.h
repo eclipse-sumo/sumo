@@ -49,8 +49,7 @@ class Position2DVector;
  * @see NLJunctionControlBuilder
  */
 class GUIJunctionControlBuilder
-            : public NLJunctionControlBuilder
-{
+            : public NLJunctionControlBuilder {
 public:
     /** @brief Constructor
      * @param[in] net The network to fill

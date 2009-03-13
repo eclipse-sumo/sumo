@@ -52,23 +52,20 @@ using namespace testclient;
 TraCITestClient::TraCITestClient(std::string outputFileName)
         :socket(NULL),
         outputFileName(outputFileName),
-        answerLog("")
-{
+        answerLog("") {
     answerLog.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
     answerLog.setf(std::ios::showpoint);    // print decimal point
     answerLog << std::setprecision(2);
 }
 
 
-TraCITestClient::~TraCITestClient()
-{
+TraCITestClient::~TraCITestClient() {
     writeResult();
 }
 
 
 void
-TraCITestClient::writeResult()
-{
+TraCITestClient::writeResult() {
     time_t seconds;
     tm* locTime;
 
@@ -85,16 +82,14 @@ TraCITestClient::writeResult()
 
 
 void
-TraCITestClient::errorMsg(std::stringstream& msg)
-{
+TraCITestClient::errorMsg(std::stringstream& msg) {
     cerr << msg.str() << endl;
     answerLog << "----" << endl << msg.str() << endl;
 }
 
 
 bool
-TraCITestClient::connect(int port, std::string host)
-{
+TraCITestClient::connect(int port, std::string host) {
     std::stringstream msg;
     socket = new tcpip::Socket(host, port);
 
@@ -113,8 +108,7 @@ TraCITestClient::connect(int port, std::string host)
 
 
 bool
-TraCITestClient::close()
-{
+TraCITestClient::close() {
     if (socket != NULL) {
         socket->close();
     }
@@ -123,8 +117,7 @@ TraCITestClient::close()
 
 
 bool
-TraCITestClient::run(std::string fileName, int port, std::string host)
-{
+TraCITestClient::run(std::string fileName, int port, std::string host) {
     std::ifstream defFile;
     std::string fileContentStr;
     std::stringstream fileContent;
@@ -443,10 +436,10 @@ TraCITestClient::run(std::string fileName, int port, std::string host)
             string objID, dataType, value;
             vector<string> slValue;
             defFile >> domID >> varID >> objID >> dataType >> value;
-            if(dataType=="<string*>") {
+            if (dataType=="<string*>") {
                 int number = atoi(value.c_str());
                 value = "";
-                for(int i=0; i<number; ++i) {
+                for (int i=0; i<number; ++i) {
                     string tmp;
                     defFile >> tmp;
                     slValue.push_back(tmp);
@@ -474,8 +467,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host)
 
 
 bool
-TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command)
-{
+TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command) {
     int cmdLength;
     int cmdId;
     int resultType;
@@ -522,8 +514,7 @@ TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command)
 
 
 void
-TraCITestClient::commandSimulationStep(double time, int posFormat)
-{
+TraCITestClient::commandSimulationStep(double time, int posFormat) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -575,8 +566,7 @@ TraCITestClient::commandSimulationStep(double time, int posFormat)
 
 
 void
-TraCITestClient::commandSetMaximumSpeed(int nodeId, float speed)
-{
+TraCITestClient::commandSetMaximumSpeed(int nodeId, float speed) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -625,22 +615,19 @@ TraCITestClient::commandSetMaximumSpeed(int nodeId, float speed)
 
 
 void
-TraCITestClient::commandStopNode(int nodeId, testclient::Position2D pos, float radius, double waitTime)
-{
+TraCITestClient::commandStopNode(int nodeId, testclient::Position2D pos, float radius, double waitTime) {
     commandStopNode(nodeId, &pos, NULL, NULL, radius, waitTime);
 }
 
 
 void
-TraCITestClient::commandStopNode(int nodeId, testclient::Position3D pos, float radius, double waitTime)
-{
+TraCITestClient::commandStopNode(int nodeId, testclient::Position3D pos, float radius, double waitTime) {
     commandStopNode(nodeId, NULL, &pos, NULL, radius, waitTime);
 }
 
 
 void
-TraCITestClient::commandStopNode(int nodeId, testclient::PositionRoadMap pos, float radius, double waitTime)
-{
+TraCITestClient::commandStopNode(int nodeId, testclient::PositionRoadMap pos, float radius, double waitTime) {
     commandStopNode(nodeId, NULL, NULL, &pos, radius, waitTime);
 }
 
@@ -649,8 +636,7 @@ void
 TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
                                  testclient::Position3D* pos3D,
                                  testclient::PositionRoadMap* posRoad,
-                                 float radius, double waitTime)
-{
+                                 float radius, double waitTime) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     tcpip::Storage tempMsg;
@@ -732,8 +718,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
 
 
 void
-TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime)
-{
+TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -784,8 +769,7 @@ TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime)
 
 
 void
-TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval)
-{
+TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -836,8 +820,7 @@ TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval
 
 
 void
-TraCITestClient::commandChangeRoute(int nodeId, std::string roadId, double travelTime)
-{
+TraCITestClient::commandChangeRoute(int nodeId, std::string roadId, double travelTime) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -888,8 +871,7 @@ TraCITestClient::commandChangeRoute(int nodeId, std::string roadId, double trave
 
 
 void
-TraCITestClient::commandChangeTarget(int nodeId, std::string roadId)
-{
+TraCITestClient::commandChangeTarget(int nodeId, std::string roadId) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -938,22 +920,19 @@ TraCITestClient::commandChangeTarget(int nodeId, std::string roadId)
 
 
 void
-TraCITestClient::commandPositionConversion(testclient::Position2D pos, int posId)
-{
+TraCITestClient::commandPositionConversion(testclient::Position2D pos, int posId) {
     commandPositionConversion(&pos, NULL, NULL, posId);
 }
 
 
 void
-TraCITestClient::commandPositionConversion(testclient::Position3D pos, int posId)
-{
+TraCITestClient::commandPositionConversion(testclient::Position3D pos, int posId) {
     commandPositionConversion(NULL, &pos, NULL, posId);
 }
 
 
 void
-TraCITestClient::commandPositionConversion(testclient::PositionRoadMap pos, int posId)
-{
+TraCITestClient::commandPositionConversion(testclient::PositionRoadMap pos, int posId) {
     commandPositionConversion(NULL, NULL, &pos, posId);
 }
 
@@ -962,8 +941,7 @@ void
 TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
         testclient::Position3D* pos3D,
         testclient::PositionRoadMap* posRoad,
-        int posId)
-{
+        int posId) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     tcpip::Storage tempMsg;
@@ -1041,64 +1019,55 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::Position2D pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::Position2D pos2, int flag) {
     commandDistanceRequest(&pos1, NULL, NULL, &pos2, NULL, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::Position3D pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::Position3D pos2, int flag) {
     commandDistanceRequest(&pos1, NULL, NULL, NULL, &pos2, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::Position3D pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::Position3D pos2, int flag) {
     commandDistanceRequest(NULL, &pos1, NULL, NULL, &pos2, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::Position2D pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::Position2D pos2, int flag) {
     commandDistanceRequest(NULL, &pos1, NULL, &pos2, NULL, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position2D pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position2D pos2, int flag) {
     commandDistanceRequest(NULL, NULL, &pos1, &pos2, NULL, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position3D pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::Position3D pos2, int flag) {
     commandDistanceRequest(NULL, NULL, &pos1, NULL, &pos2, NULL, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::PositionRoadMap pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::PositionRoadMap pos1, testclient::PositionRoadMap pos2, int flag) {
     commandDistanceRequest(NULL, NULL, &pos1, NULL, NULL, &pos2, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::PositionRoadMap pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::Position2D pos1, testclient::PositionRoadMap pos2, int flag) {
     commandDistanceRequest(&pos1, NULL, NULL, NULL, NULL, &pos2, flag);
 }
 
 
 void
-TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::PositionRoadMap pos2, int flag)
-{
+TraCITestClient::commandDistanceRequest(testclient::Position3D pos1, testclient::PositionRoadMap pos2, int flag) {
     commandDistanceRequest(NULL, &pos1, NULL, NULL, NULL, &pos2, flag);
 }
 
@@ -1111,8 +1080,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
                                         testclient::Position2D* pos2_2D,
                                         testclient::Position3D* pos2_3D,
                                         testclient::PositionRoadMap* pos2_Road,
-                                        int flag)
-{
+                                        int flag) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     tcpip::Storage tempMsg;
@@ -1216,8 +1184,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
 
 
 void
-TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double intervalEnd)
-{
+TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double intervalEnd) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -1272,9 +1239,8 @@ TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double inter
 
 
 
-void 
-TraCITestClient::commandGetVariable(int domID, int varID, const std::string &objID)
-{
+void
+TraCITestClient::commandGetVariable(int domID, int varID, const std::string &objID) {
     tcpip::Storage outMsg, inMsg;
     std::stringstream msg;
     if (socket == NULL) {
@@ -1322,7 +1288,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         int cmdId = inMsg.readUnsignedByte();
         if (cmdId != (domID+0x10)) {
             answerLog << "#Error: received response with command id: " << cmdId
-                << "but expected: " << (int)(domID+0x10) << endl;
+            << "but expected: " << (int)(domID+0x10) << endl;
             return;
         }
         answerLog << "  CommandID=" << cmdId;
@@ -1339,11 +1305,10 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
 }
 
 
-void 
-TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID, 
+void
+TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
                                  const std::string &dataTypeS, const std::string &value,
-                                 const std::vector<std::string> &slValue)
-{
+                                 const std::vector<std::string> &slValue) {
     tcpip::Storage outMsg, inMsg;
     std::stringstream msg;
     if (socket == NULL) {
@@ -1353,18 +1318,18 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
     }
     int dataLength = 0;
     int dataType = 0;
-    if(dataTypeS=="<int>") {
+    if (dataTypeS=="<int>") {
         dataLength = 4;
         dataType = TYPE_INTEGER;
-    } else if(dataTypeS=="<float>") {
+    } else if (dataTypeS=="<float>") {
         dataLength = 4;
         dataType = TYPE_FLOAT;
-    } else if(dataTypeS=="<string>") {
+    } else if (dataTypeS=="<string>") {
         dataLength = 4 + value.length();
         dataType = TYPE_STRING;
-    } else if(dataTypeS=="<string*>") {
+    } else if (dataTypeS=="<string*>") {
         dataLength = 4 + 4 * slValue.size();
-        for(vector<string>::const_iterator i=slValue.begin(); i!=slValue.end(); ++i) {
+        for (vector<string>::const_iterator i=slValue.begin(); i!=slValue.end(); ++i) {
             dataLength += (*i).length();
         }
         dataType = TYPE_STRINGLIST;
@@ -1384,7 +1349,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
     // data type
     outMsg.writeUnsignedByte(dataType);
     // data
-    switch(dataType) {
+    switch (dataType) {
     case TYPE_INTEGER:
         outMsg.writeInt(atoi(value.c_str()));
         break;
@@ -1429,8 +1394,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
 
 
 void
-TraCITestClient::commandClose()
-{
+TraCITestClient::commandClose() {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     std::stringstream msg;
@@ -1474,32 +1438,28 @@ TraCITestClient::commandClose()
 
 
 void
-TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, int valueDataType)
-{
+TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, int valueDataType) {
     commandScenario(flag, domain, domainId, variable, valueDataType, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                     NULL, NULL, NULL, NULL);
 }
 
 
 void
-TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, std::string stringVal)
-{
+TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, std::string stringVal) {
     commandScenario(flag, domain, domainId, variable, 0, NULL, NULL, NULL, NULL, NULL, &stringVal,
                     NULL, NULL, NULL, NULL, NULL);
 }
 
 
 void
-TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, testclient::Position3D pos3dVal)
-{
+TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, testclient::Position3D pos3dVal) {
     commandScenario(flag, domain, domainId, variable, 0, NULL, NULL, NULL, NULL, NULL, NULL,
                     &pos3dVal, NULL, NULL, NULL, NULL);
 }
 
 
 void
-TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, testclient::PositionRoadMap roadPosVal)
-{
+TraCITestClient::commandScenario(int flag, int domain, int domainId, int variable, testclient::PositionRoadMap roadPosVal) {
     commandScenario(flag, domain, domainId, variable, 0, NULL, NULL, NULL, NULL, NULL, NULL,
                     NULL, &roadPosVal, NULL, NULL, NULL);
 }
@@ -1511,8 +1471,7 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
                                  float* floatVal, double* doubleVal, std::string* stringVal,
                                  testclient::Position3D* pos3dVal, testclient::PositionRoadMap* roadPosVal,
                                  testclient::BoundingBox* boxVal, testclient::Polygon* polyVal,
-                                 testclient::TLPhaseList* tlphaseVal)
-{
+                                 testclient::TLPhaseList* tlphaseVal) {
     tcpip::Storage outMsg;
     tcpip::Storage inMsg;
     tcpip::Storage tempMsg;
@@ -1648,8 +1607,7 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
 
 
 bool
-TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg)
-{
+TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
     int cmdId;
     int cmdLength;
     int nodeId;
@@ -1720,8 +1678,7 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg)
 
 
 bool
-TraCITestClient::validateStopNode(tcpip::Storage &inMsg)
-{
+TraCITestClient::validateStopNode(tcpip::Storage &inMsg) {
     int cmdId;
     int cmdLength;
     int rNodeId;
@@ -1777,8 +1734,7 @@ TraCITestClient::validateStopNode(tcpip::Storage &inMsg)
 
 
 bool
-TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg)
-{
+TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg) {
     int cmdId;
     int cmdLength;
     int posType;
@@ -1851,8 +1807,7 @@ TraCITestClient::validatePositionConversion(tcpip::Storage &inMsg)
 
 
 bool
-TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg)
-{
+TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg) {
     int cmdId;
     int cmdLength;
     int flag;
@@ -1925,8 +1880,7 @@ TraCITestClient::validateDistanceRequest(tcpip::Storage& inMsg)
 
 
 bool
-TraCITestClient::validateScenario(tcpip::Storage &inMsg)
-{
+TraCITestClient::validateScenario(tcpip::Storage &inMsg) {
     int cmdId;
     int cmdLength;
     int flag;
@@ -1964,7 +1918,7 @@ TraCITestClient::validateScenario(tcpip::Storage &inMsg)
         valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         // read value
-        if(!readAndReportTypeDependent(inMsg, valueDataType)) {
+        if (!readAndReportTypeDependent(inMsg, valueDataType)) {
             return false;
         }
         // check command length
@@ -1980,8 +1934,7 @@ TraCITestClient::validateScenario(tcpip::Storage &inMsg)
 }
 
 bool
-TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueDataType)
-{
+TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueDataType) {
     if (valueDataType == TYPE_UBYTE) {
         int ubyte = inMsg.readUnsignedByte();
         answerLog << " Unsigned Byte Value: " << ubyte << endl;
@@ -2004,8 +1957,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         box.upperRight.x = inMsg.readFloat();
         box.upperRight.y = inMsg.readFloat();
         answerLog << " BoundaryBoxValue: lowerLeft x="<< box.lowerLeft.x
-            << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
-            << " y=" << box.upperRight.y << endl;
+        << " y=" << box.lowerLeft.y << " upperRight x=" << box.upperRight.x
+        << " y=" << box.upperRight.y << endl;
     } else if (valueDataType == TYPE_POLYGON) {
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";
@@ -2021,14 +1974,14 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         float z = inMsg.readFloat();
         answerLog << " Position3DValue: " << std::endl;
         answerLog << " x: " << x << " y: " << y
-            << " z: " << z << std::endl;
+        << " z: " << z << std::endl;
     } else if (valueDataType == POSITION_ROADMAP) {
         std::string roadId = inMsg.readString();
         float pos = inMsg.readFloat();
         int laneId = inMsg.readUnsignedByte();
         answerLog << " RoadMapPositionValue: roadId=" << roadId
-            << " pos=" << pos
-            << " laneId=" << laneId << std::endl;
+        << " pos=" << pos
+        << " laneId=" << laneId << std::endl;
     } else if (valueDataType == TYPE_TLPHASELIST) {
         int length = inMsg.readUnsignedByte();
         answerLog << " TLPhaseListValue: length=" << length << endl;
@@ -2037,7 +1990,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
             string succ = inMsg.readString();
             int phase = inMsg.readUnsignedByte();
             answerLog << " precRoad=" << pred << " succRoad=" << succ
-                << " phase=";
+            << " phase=";
             switch (phase) {
             case TLPHASE_RED:
                 answerLog << "red" << endl;
@@ -2059,8 +2012,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
     } else if (valueDataType == TYPE_STRINGLIST) {
         vector<string> s = inMsg.readStringList();
         answerLog << " string list value: [ " << endl;
-        for(vector<string>::iterator i=s.begin(); i!=s.end(); ++i) {
-            if(i!=s.begin()) {
+        for (vector<string>::iterator i=s.begin(); i!=s.end(); ++i) {
+            if (i!=s.begin()) {
                 answerLog << ", ";
             }
             answerLog << '"' << *i << '"';
@@ -2075,8 +2028,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
 
 
 bool
-TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg)
-{
+TraCITestClient::validateGetTLStatus(tcpip::Storage &inMsg) {
     int cmdId;
     int cmdLength;
     int cmdStart;

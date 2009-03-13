@@ -78,58 +78,50 @@ GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent,
         GUIGlObject &o) throw()
         : FXMenuPane(&parent), myParent(&parent), myObject(&o),
-        myApplication(&app), myNetworkPosition(parent.getPositionInformation())
-{
+        myApplication(&app), myNetworkPosition(parent.getPositionInformation()) {
 }
 
 
-GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() throw()
-{}
+GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() throw() {}
 
 
 long
-GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*) {
     myParent->centerTo(myObject);
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdCopyName(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdCopyName(FXObject*,FXSelector,void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getMicrosimID());
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getFullName());
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*) {
     GUIUserIO::copyToClipboard(*myParent->getApp(), toString(myNetworkPosition));
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdShowPars(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdShowPars(FXObject*,FXSelector,void*) {
     myObject->getParameterWindow(*myApplication, *myParent); // !!! showParameetrWindow would be more appropriate
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*) {
     gSelected.select(myObject->getType(), myObject->getGlID());
     myParent->update();
     return 1;
@@ -137,8 +129,7 @@ GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*)
 
 
 long
-GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*) {
     gSelected.deselect(myObject->getType(), myObject->getGlID());
     myParent->update();
     return 1;
@@ -146,40 +137,35 @@ GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*)
 
 
 long
-GUIGLObjectPopupMenu::onCmdRename(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdRename(FXObject*,FXSelector,void*) {
     myParent->rename(myObject);
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdMoveTo(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdMoveTo(FXObject*,FXSelector,void*) {
     myParent->moveTo(myObject);
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdChangeCol(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdChangeCol(FXObject*,FXSelector,void*) {
     myParent->changeCol(myObject);
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdChangeTyp(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdChangeTyp(FXObject*,FXSelector,void*) {
     myParent->changeTyp(myObject);
     return 1;
 }
 
 
 long
-GUIGLObjectPopupMenu::onCmdDelete(FXObject*,FXSelector,void*)
-{
+GUIGLObjectPopupMenu::onCmdDelete(FXObject*,FXSelector,void*) {
     myParent->deleteObj(myObject);
     return 1;
 }

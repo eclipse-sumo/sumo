@@ -74,9 +74,8 @@ class GUILaneWrapper;
  * @see MSDetectorFileOutput
  */
 class MSMsgInductLoop
-            : public MSMoveReminder, public MSDetectorFileOutput,
-            public MSVehicleQuitReminded, public Named
-{
+        : public MSMoveReminder, public MSDetectorFileOutput,
+            public MSVehicleQuitReminded, public Named {
 public:
     /**
      * @brief Constructor.

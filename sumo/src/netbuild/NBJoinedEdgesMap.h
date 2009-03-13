@@ -47,8 +47,7 @@ class NBEdgeCont;
 /**
  * @class NBJoinedEdgesMap
  */
-class NBJoinedEdgesMap
-{
+class NBJoinedEdgesMap {
 public:
     /// Constructor
     NBJoinedEdgesMap();

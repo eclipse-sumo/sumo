@@ -54,8 +54,7 @@ typedef MSEdgeVector::const_iterator MSRouteIterator;
 /**
  * @class MSRoute
  */
-class MSRoute : public Named
-{
+class MSRoute : public Named {
 public:
     /// Constructor
     MSRoute(const std::string &id, const MSEdgeVector &edges,

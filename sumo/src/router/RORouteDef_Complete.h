@@ -51,8 +51,7 @@ class OutputDevice;
  * @brief A complete route description containing all edges the driver will pass.
  */
 class RORouteDef_Complete :
-            public RORouteDef
-{
+            public RORouteDef {
 public:
     /// Constructor
     RORouteDef_Complete(const std::string &id, const RGBColor * const color,

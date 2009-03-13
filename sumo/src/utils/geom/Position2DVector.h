@@ -47,8 +47,7 @@ class Line2D;
  * @brief A list of 2D-positions
  */
 class Position2DVector
-            : public AbstractPoly
-{
+            : public AbstractPoly {
 public:
     /// Definition of the list of points
     typedef std::deque<Position2D> ContType;
@@ -210,8 +209,7 @@ public:
 
     void insertAt(int index, const Position2D &p);
 
-    class as_poly_cw_sorter
-    {
+    class as_poly_cw_sorter {
     public:
         /// constructor
         explicit as_poly_cw_sorter(Position2D center);
@@ -226,8 +224,7 @@ public:
 
     };
 
-    class increasing_x_y_sorter
-    {
+    class increasing_x_y_sorter {
     public:
         /// constructor
         explicit increasing_x_y_sorter();

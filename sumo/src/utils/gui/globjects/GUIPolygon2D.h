@@ -41,8 +41,7 @@
  * @class GUIPolygon2D
  * @brief The GUI-version of a polygon
  */
-class GUIPolygon2D : public Polygon2D, public GUIGlObject_AbstractAdd
-{
+class GUIPolygon2D : public Polygon2D, public GUIGlObject_AbstractAdd {
 public:
     /// Constructor
     GUIPolygon2D(GUIGlObjectStorage &idStorage, int layer,

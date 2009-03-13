@@ -73,8 +73,7 @@ using namespace std;
 // functions
 // ===========================================================================
 void
-fillOptions()
-{
+fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -160,8 +159,7 @@ fillOptions()
 
 
 Distribution_Points
-parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours)
-{
+parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours) {
     bool interpolating = !timelineDayInHours;
     Position2DVector points;
     SUMOReal prob = 0;
@@ -191,8 +189,7 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours)
 
 
 bool
-checkOptions()
-{
+checkOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("net-file")) {
@@ -213,8 +210,7 @@ checkOptions()
 
 
 void
-loadDistricts(ODDistrictCont &districts, OptionsCont &oc)
-{
+loadDistricts(ODDistrictCont &districts, OptionsCont &oc) {
     // check whether the user gave a net filename
     if (!oc.isSet("net-file")) {
         MsgHandler::getErrorInstance()->inform("You must supply a network ('-n').");
@@ -237,8 +233,7 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc)
 
 
 string
-getNextNonCommentLine(LineReader &lr)
-{
+getNextNonCommentLine(LineReader &lr) {
     string line;
     do {
         line = lr.readLine();
@@ -251,8 +246,7 @@ getNextNonCommentLine(LineReader &lr)
 
 
 SUMOTime
-parseSingleTime(const std::string &time)
-{
+parseSingleTime(const std::string &time) {
     if (time.find('.')==string::npos) {
         throw OutOfBoundsException();
     }
@@ -263,8 +257,7 @@ parseSingleTime(const std::string &time)
 
 
 std::pair<SUMOTime, SUMOTime>
-readTime(LineReader &lr)
-{
+readTime(LineReader &lr) {
     string line = getNextNonCommentLine(lr);
     try {
         StringTokenizer st(line, StringTokenizer::WHITECHARS);
@@ -283,8 +276,7 @@ readTime(LineReader &lr)
 
 
 SUMOReal
-readFactor(LineReader &lr, SUMOReal scale)
-{
+readFactor(LineReader &lr, SUMOReal scale) {
     string line = getNextNonCommentLine(lr);
     SUMOReal factor = -1;
     try {
@@ -299,8 +291,7 @@ readFactor(LineReader &lr, SUMOReal scale)
 
 void
 readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
-      std::string vehType, bool matrixHasVehType)
-{
+      std::string vehType, bool matrixHasVehType) {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR...");
     // parse first defs
     string line;
@@ -365,8 +356,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
 
 void
 readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
-      std::string vehType, bool matrixHasVehType)
-{
+      std::string vehType, bool matrixHasVehType) {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as OR...");
     // parse first defs
     string line;
@@ -411,8 +401,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
 
 
 void
-loadMatrix(OptionsCont &oc, ODMatrix &into)
-{
+loadMatrix(OptionsCont &oc, ODMatrix &into) {
     std::vector<std::string> files = oc.getStringVector("od-files");
     //  check
     if (files.size()==0) {
@@ -453,8 +442,7 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");

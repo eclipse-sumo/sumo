@@ -47,17 +47,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Langsamfahrbereichdefinition::NIVissimSingleTypeParser_Langsamfahrbereichdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Langsamfahrbereichdefinition::~NIVissimSingleTypeParser_Langsamfahrbereichdefinition()
-{}
+NIVissimSingleTypeParser_Langsamfahrbereichdefinition::~NIVissimSingleTypeParser_Langsamfahrbereichdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Langsamfahrbereichdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Langsamfahrbereichdefinition::parse(std::istream &from) {
     string id;
     from >> id;
     readUntil(from, "fahrzeugklasse");

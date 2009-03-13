@@ -81,8 +81,7 @@ enum RODFDetectorType {
  * @class RODFDetector
  * @brief Class representing a detector within the DFROUTER
  */
-class RODFDetector
-{
+class RODFDetector {
 public:
     /** @brief Constructor
      *
@@ -232,8 +231,7 @@ private:
  * @class RODFDetectorCon
  * @brief A container for RODFDetectors
  */
-class RODFDetectorCon
-{
+class RODFDetectorCon {
 public:
     RODFDetectorCon();
     ~RODFDetectorCon();

@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Stauzaehlerdefinition::NIVissimSingleTypeParser_Stauzaehlerdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Stauzaehlerdefinition::~NIVissimSingleTypeParser_Stauzaehlerdefinition()
-{}
+NIVissimSingleTypeParser_Stauzaehlerdefinition::~NIVissimSingleTypeParser_Stauzaehlerdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Stauzaehlerdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Stauzaehlerdefinition::parse(std::istream &from) {
     return skipOverreading(from, "strecke");
 }
 

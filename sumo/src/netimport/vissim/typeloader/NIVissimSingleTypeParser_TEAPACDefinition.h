@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_TEAPACDefinition :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_TEAPACDefinition(NIVissimLoader &parent);

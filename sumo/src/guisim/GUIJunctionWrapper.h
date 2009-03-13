@@ -55,9 +55,8 @@ class MSJunction;
  *  abstract junction and to be used as a gl-object.
  */
 class GUIJunctionWrapper :
-            public GUIGlObject,
-            public HaveBoundary
-{
+        public GUIGlObject,
+            public HaveBoundary {
 public:
     /// constructor
     GUIJunctionWrapper(GUIGlObjectStorage &idStorage,

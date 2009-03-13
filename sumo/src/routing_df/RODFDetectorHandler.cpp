@@ -53,18 +53,15 @@ using namespace std;
 RODFDetectorHandler::RODFDetectorHandler(OptionsCont &oc, RODFDetectorCon &con,
         const std::string &file)
         : SUMOSAXHandler(file),
-        myOptions(oc),  myContainer(con)
-{}
+        myOptions(oc),  myContainer(con) {}
 
 
-RODFDetectorHandler::~RODFDetectorHandler() throw()
-{}
+RODFDetectorHandler::~RODFDetectorHandler() throw() {}
 
 
 void
 RODFDetectorHandler::myStartElement(SumoXMLTag element,
-                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_DETECTOR_DEFINITION) {
         // get the id, report an error if not given or empty...
         string id;

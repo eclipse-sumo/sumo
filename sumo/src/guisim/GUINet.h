@@ -82,8 +82,7 @@ class MSVehicleControl;
  * inserting the wrapped items into vectors and is needed to fasten the
  * network's drawing as only visible items are being drawn.
  */
-class GUINet : public MSNet
-{
+class GUINet : public MSNet {
 public:
     GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
            MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
@@ -108,7 +107,7 @@ public:
 
 
     /// @name functions for performace measurements
-    //{@ 
+    //{@
 
     /** @brief Returns the duration of the last step (sim+visualisation+idle) (in ms)
      * @return How long it took to compute and display the last step

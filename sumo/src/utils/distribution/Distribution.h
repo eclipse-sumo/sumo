@@ -40,8 +40,7 @@
  * The base class for distribution descriptions. Only an interface
  *  specification.
  */
-class Distribution : public Named
-{
+class Distribution : public Named {
 public:
     /// Constructor
     Distribution(const std::string &id) throw() : Named(id) { }

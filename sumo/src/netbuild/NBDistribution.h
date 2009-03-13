@@ -41,8 +41,7 @@
  * @class NBDistribution
  * @brief The base class for statistical distribution descriptions
  */
-class NBDistribution
-{
+class NBDistribution {
 public:
     static bool dictionary(const std::string &type, const std::string &id,
                            Distribution *d);

@@ -37,17 +37,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFEdgeBuilder::RODFEdgeBuilder() throw()
-{}
+RODFEdgeBuilder::RODFEdgeBuilder() throw() {}
 
 
-RODFEdgeBuilder::~RODFEdgeBuilder() throw()
-{}
+RODFEdgeBuilder::~RODFEdgeBuilder() throw() {}
 
 
 ROEdge *
-RODFEdgeBuilder::buildEdge(const std::string &name) throw()
-{
+RODFEdgeBuilder::buildEdge(const std::string &name) throw() {
     return new RODFEdge(name, getNextIndex());
 }
 

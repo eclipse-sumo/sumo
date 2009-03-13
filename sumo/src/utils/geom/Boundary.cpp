@@ -44,27 +44,23 @@
 Boundary::Boundary()
         : myXmin(10000000000.0), myXmax(-10000000000.0),
         myYmin(10000000000.0), myYmax(-10000000000.0),
-        myWasInitialised(false)
-{}
+        myWasInitialised(false) {}
 
 
 Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
         : myXmin(10000000000.0), myXmax(-10000000000.0),
         myYmin(10000000000.0), myYmax(-10000000000.0),
-        myWasInitialised(false)
-{
+        myWasInitialised(false) {
     add(x1, y1);
     add(x2, y2);
 }
 
 
-Boundary::~Boundary()
-{}
+Boundary::~Boundary() {}
 
 
 void
-Boundary::reset()
-{
+Boundary::reset() {
     myXmin = 10000000000.0;
     myXmax = -10000000000.0;
     myYmin = 10000000000.0;
@@ -74,8 +70,7 @@ Boundary::reset()
 
 
 void
-Boundary::add(SUMOReal x, SUMOReal y)
-{
+Boundary::add(SUMOReal x, SUMOReal y) {
     if (!myWasInitialised) {
         myYmin = y;
         myYmax = y;
@@ -92,72 +87,62 @@ Boundary::add(SUMOReal x, SUMOReal y)
 
 
 void
-Boundary::add(const Position2D &p)
-{
+Boundary::add(const Position2D &p) {
     add(p.x(), p.y());
 }
 
 
 void
-Boundary::add(const Boundary &p)
-{
+Boundary::add(const Boundary &p) {
     add(p.xmin(), p.ymin());
     add(p.xmax(), p.ymax());
 }
 
 
 Position2D
-Boundary::getCenter() const
-{
+Boundary::getCenter() const {
     return Position2D((myXmin+myXmax)/(SUMOReal) 2.0, (myYmin+myYmax)/(SUMOReal) 2.0);
 }
 
 
 SUMOReal
-Boundary::xmin() const
-{
+Boundary::xmin() const {
     return myXmin;
 }
 
 
 SUMOReal
-Boundary::xmax() const
-{
+Boundary::xmax() const {
     return myXmax;
 }
 
 
 SUMOReal
-Boundary::ymin() const
-{
+Boundary::ymin() const {
     return myYmin;
 }
 
 
 SUMOReal
-Boundary::ymax() const
-{
+Boundary::ymax() const {
     return myYmax;
 }
 
 
 SUMOReal
-Boundary::getWidth() const
-{
+Boundary::getWidth() const {
     return myXmax - myXmin;
 }
 
 
 SUMOReal
-Boundary::getHeight() const
-{
+Boundary::getHeight() const {
     return myYmax - myYmin;
 }
 
 
 bool
-Boundary::around(const Position2D &p, SUMOReal offset) const
-{
+Boundary::around(const Position2D &p, SUMOReal offset) const {
     return
         (p.x()<=myXmax+offset && p.x()>=myXmin-offset) &&
         (p.y()<=myYmax+offset && p.y()>=myYmin-offset);
@@ -165,8 +150,7 @@ Boundary::around(const Position2D &p, SUMOReal offset) const
 
 
 bool
-Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const
-{
+Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const {
     if (
         // check whether one of my points lies within the given poly
         partialWithin(p, offset) ||
@@ -187,8 +171,7 @@ Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const
 
 
 bool
-Boundary::crosses(const Position2D &p1, const Position2D &p2) const
-{
+Boundary::crosses(const Position2D &p1, const Position2D &p2) const {
     return
         GeomHelper::intersects(p1, p2, Position2D(myXmax, myYmax), Position2D(myXmin, myYmax))
         ||
@@ -201,8 +184,7 @@ Boundary::crosses(const Position2D &p1, const Position2D &p2) const
 
 
 bool
-Boundary::partialWithin(const AbstractPoly &poly, SUMOReal offset) const
-{
+Boundary::partialWithin(const AbstractPoly &poly, SUMOReal offset) const {
     return
         poly.around(Position2D(myXmax, myYmax), offset) ||
         poly.around(Position2D(myXmin, myYmax), offset) ||
@@ -212,8 +194,7 @@ Boundary::partialWithin(const AbstractPoly &poly, SUMOReal offset) const
 
 
 Boundary &
-Boundary::grow(SUMOReal by)
-{
+Boundary::grow(SUMOReal by) {
     myXmax += by;
     myYmax += by;
     myXmin -= by;
@@ -223,8 +204,7 @@ Boundary::grow(SUMOReal by)
 
 
 void
-Boundary::flipY()
-{
+Boundary::flipY() {
     myYmin *= -1.0;
     myYmax *= -1.0;
     SUMOReal tmp = myYmin;
@@ -235,16 +215,14 @@ Boundary::flipY()
 
 
 std::ostream &
-operator<<(std::ostream &os, const Boundary &b)
-{
+operator<<(std::ostream &os, const Boundary &b) {
     os << b.myXmin << "," << b.myYmin << "," << b.myXmax << "," << b.myYmax;
     return os;
 }
 
 
 void
-Boundary::set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax)
-{
+Boundary::set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax) {
     myXmin = xmin;
     myYmin = ymin;
     myXmax = xmax;
@@ -253,8 +231,7 @@ Boundary::set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax)
 
 
 void
-Boundary::moveby(SUMOReal x, SUMOReal y)
-{
+Boundary::moveby(SUMOReal x, SUMOReal y) {
     myXmin += x;
     myYmin += y;
     myXmax += x;

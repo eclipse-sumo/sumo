@@ -46,12 +46,10 @@ class NBTrafficLightLogicCont;
  * @class NIVisumTL
  * @brief Intermediate class for storing visum traffic lights during their import
  */
-class NIVisumTL
-{
+class NIVisumTL {
 public:
     /// Timeperiod with starttime and endtime
-    class TimePeriod
-    {
+    class TimePeriod {
     public:
         // constructor
         TimePeriod();
@@ -68,8 +66,7 @@ public:
     };
 
     // phase
-    class Phase : public TimePeriod
-    {
+    class Phase : public TimePeriod {
     public:
         Phase();
         Phase(SUMOTime StartTime, SUMOTime EndTime);
@@ -82,8 +79,7 @@ public:
 
     // SignalGroup
     // a Signal Group can be defined either by a time period or by phases
-    class SignalGroup : public TimePeriod
-    {
+    class SignalGroup : public TimePeriod {
     public:
         // constructor
         SignalGroup(const std::string &Name, SUMOTime StartTime, SUMOTime EndTime);

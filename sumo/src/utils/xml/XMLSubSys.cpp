@@ -53,8 +53,7 @@ bool XMLSubSys::myEnableValidation;
 // method definitions
 // ===========================================================================
 void
-XMLSubSys::init(bool enableValidation) throw(ProcessError)
-{
+XMLSubSys::init(bool enableValidation) throw(ProcessError) {
     myEnableValidation = enableValidation;
     try {
         XMLPlatformUtils::Initialize();
@@ -67,8 +66,7 @@ XMLSubSys::init(bool enableValidation) throw(ProcessError)
 
 
 void
-XMLSubSys::close() throw()
-{
+XMLSubSys::close() throw() {
     for (std::vector<SAX2XMLReader*>::iterator i=myReaders.begin(); i!=myReaders.end(); ++i) {
         delete *i;
     }
@@ -78,8 +76,7 @@ XMLSubSys::close() throw()
 
 
 SAX2XMLReader *
-XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw()
-{
+XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw() {
     SAX2XMLReader *reader = getSAXReader();
     if (reader==0) {
         return 0;
@@ -91,8 +88,7 @@ XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw()
 
 
 void
-XMLSubSys::setHandler(GenericSAXHandler &handler)
-{
+XMLSubSys::setHandler(GenericSAXHandler &handler) {
     myReaders[myNextFreeReader-1]->setContentHandler(&handler);
     myReaders[myNextFreeReader-1]->setErrorHandler(&handler);
 }
@@ -100,8 +96,7 @@ XMLSubSys::setHandler(GenericSAXHandler &handler)
 
 bool
 XMLSubSys::runParser(SUMOSAXHandler &handler,
-                     const std::string &file) throw()
-{
+                     const std::string &file) throw() {
     try {
         if (myNextFreeReader == myReaders.size()) {
             myReaders.push_back(getSAXReader());
@@ -124,8 +119,7 @@ XMLSubSys::runParser(SUMOSAXHandler &handler,
 
 
 SAX2XMLReader *
-XMLSubSys::getSAXReader() throw()
-{
+XMLSubSys::getSAXReader() throw() {
     SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
     if (reader==0) {
         MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
@@ -145,8 +139,7 @@ XMLSubSys::getSAXReader() throw()
 
 void
 XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
-                      const std::string &feature, bool value) throw()
-{
+                      const std::string &feature, bool value) throw() {
     XMLCh *xmlFeature = XMLString::transcode(feature.c_str());
     reader.setFeature(xmlFeature, value);
     XMLString::release(&xmlFeature);

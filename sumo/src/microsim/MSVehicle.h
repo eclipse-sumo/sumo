@@ -77,9 +77,9 @@ class MSMessageEmitter;
  */
 class MSVehicle : public MSVehicleQuitReminded
 #ifdef HAVE_MESOSIM
-            , public MEVehicle
+        , public MEVehicle
 #else
-            , public SUMOVehicle
+        , public SUMOVehicle
 #endif
 {
 public:
@@ -89,8 +89,7 @@ public:
 
     /** container that holds the vehicles driving state. May vary from
         model to model. here: SK, holds position and speed. */
-    class State
-    {
+    class State {
         /// vehicle sets states directly
         friend class MSVehicle;
         friend class MSLaneChanger;
@@ -345,8 +344,8 @@ public:
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      * @return Whether a collision occured (gap2pred(leader)<=0)
      */
-    bool moveRegardingCritical(const MSLane* const lane, const MSVehicle * const pred, 
-        const MSVehicle * const neigh, SUMOReal lengthsInFront) throw();
+    bool moveRegardingCritical(const MSLane* const lane, const MSVehicle * const pred,
+                               const MSVehicle * const neigh, SUMOReal lengthsInFront) throw();
 
 
     /// @name state setter/getter
@@ -386,7 +385,7 @@ public:
     }
 
     /** brief Returns the vehicle's acceleration before dawdling
-     * @return The acceleration before dawdling 
+     * @return The acceleration before dawdling
      */
     SUMOReal getPreDawdleAcceleration() const throw() {
         return myPreDawdleAcceleration;
@@ -995,8 +994,7 @@ private:
      *  the route was replaced at by a new one, the time this was done, and
      *  the previous route.
      */
-    class RouteReplaceInfo
-    {
+    class RouteReplaceInfo {
     public:
         /// Constructor
         RouteReplaceInfo(const MSEdge * const edge_, SUMOTime time_, MSRoute *route_)

@@ -57,8 +57,7 @@ class MsgHandler;
  * This SAX-handler parses edge information and stores it in the given
  *  container.
  */
-class NIXMLEdgesHandler : public SUMOSAXHandler
-{
+class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
      */
@@ -170,8 +169,7 @@ private:
 
     NBEdge *myCurrentEdge;
 
-    class expansions_sorter
-    {
+    class expansions_sorter {
     public:
         explicit expansions_sorter() { }
 
@@ -181,8 +179,7 @@ private:
         }
     };
 
-    class expansion_by_pos_finder
-    {
+    class expansion_by_pos_finder {
     public:
         /** constructor */
         explicit expansion_by_pos_finder(SUMOReal pos)

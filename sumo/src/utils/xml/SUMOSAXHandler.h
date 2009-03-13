@@ -47,8 +47,7 @@
  *  setting and reading the name of the currently processed file. Additionally,
  *  this class also implements methods for dealing with SAX-parser errors.
  */
-class SUMOSAXHandler : public GenericSAXHandler
-{
+class SUMOSAXHandler : public GenericSAXHandler {
 public:
     /**
      * @brief Constructor

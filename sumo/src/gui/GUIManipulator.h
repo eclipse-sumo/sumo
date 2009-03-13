@@ -45,8 +45,7 @@ class GUIMainWindow;
 /**
  * @class GUIManipulator
  */
-class GUIManipulator : public FXDialogBox
-{
+class GUIManipulator : public FXDialogBox {
     FXDECLARE(GUIManipulator)
 public:
     /// Constructor

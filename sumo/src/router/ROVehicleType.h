@@ -61,8 +61,7 @@ class OutputDevice;
  * @see ReferencedItem
  * @todo Check whether the color really has to be stored explicitely
  */
-class ROVehicleType : public ReferencedItem
-{
+class ROVehicleType : public ReferencedItem {
 public:
     /** @brief Constructor
      *

@@ -61,11 +61,9 @@ enum ChangeRequest {
 /**
  * @class MSAbstractLaneChangeModel
  */
-class MSAbstractLaneChangeModel
-{
+class MSAbstractLaneChangeModel {
 public:
-    class MSLCMessager
-    {
+    class MSLCMessager {
     public:
         MSLCMessager(MSVehicle *leader,  MSVehicle *neighLead,
                      MSVehicle *neighFollow)

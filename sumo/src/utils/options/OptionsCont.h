@@ -101,8 +101,7 @@
  *
  * @see http://sumo.sourceforge.net/wiki/index.php/OptionsSubSystem
  */
-class OptionsCont
-{
+class OptionsCont {
 public:
     /** @brief Retrieves the options */
     static OptionsCont &getOptions() throw();
@@ -652,8 +651,7 @@ private:
      * @class abbreviation_finder
      * @brief A class to find abbreviated option names (length=1)
      */
-    class abbreviation_finder
-    {
+    class abbreviation_finder {
     public:
         /** constructor */
         explicit abbreviation_finder() { }

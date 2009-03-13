@@ -49,8 +49,7 @@ class GUIGlObjectStorage;
 /**
  * @class MSJunction
  */
-class MSJunction
-{
+class MSJunction {
 public:
     /// Destructor.
     virtual ~MSJunction();

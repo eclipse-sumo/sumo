@@ -50,12 +50,10 @@ NIVissimTrafficDescription::DictType NIVissimTrafficDescription::myDict;
 NIVissimTrafficDescription::NIVissimTrafficDescription(
     int id, const std::string &name,
     const NIVissimVehicleClassVector &vehicleTypes)
-        : myID(id), myName(name), myVehicleTypes(vehicleTypes)
-{}
+        : myID(id), myName(name), myVehicleTypes(vehicleTypes) {}
 
 
-NIVissimTrafficDescription::~NIVissimTrafficDescription()
-{
+NIVissimTrafficDescription::~NIVissimTrafficDescription() {
     for (NIVissimVehicleClassVector::iterator i=myVehicleTypes.begin(); i!=myVehicleTypes.end(); i++) {
         delete *i;
     }
@@ -66,8 +64,7 @@ NIVissimTrafficDescription::~NIVissimTrafficDescription()
 bool
 NIVissimTrafficDescription::dictionary(int id,
                                        const std::string &name,
-                                       const NIVissimVehicleClassVector &vehicleTypes)
-{
+                                       const NIVissimVehicleClassVector &vehicleTypes) {
     NIVissimTrafficDescription *o = new NIVissimTrafficDescription(id, name, vehicleTypes);
     if (!dictionary(id, o)) {
         delete o;
@@ -78,8 +75,7 @@ NIVissimTrafficDescription::dictionary(int id,
 
 
 bool
-NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription *o)
-{
+NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription *o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -90,8 +86,7 @@ NIVissimTrafficDescription::dictionary(int id, NIVissimTrafficDescription *o)
 
 
 NIVissimTrafficDescription *
-NIVissimTrafficDescription::dictionary(int id)
-{
+NIVissimTrafficDescription::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -101,8 +96,7 @@ NIVissimTrafficDescription::dictionary(int id)
 
 
 void
-NIVissimTrafficDescription::clearDict()
-{
+NIVissimTrafficDescription::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }
@@ -113,8 +107,7 @@ NIVissimTrafficDescription::clearDict()
 
 
 SUMOReal
-NIVissimTrafficDescription::meanSpeed(int id)
-{
+NIVissimTrafficDescription::meanSpeed(int id) {
     NIVissimTrafficDescription *i = dictionary(id);
     assert(i!=0);
     return i->meanSpeed();
@@ -122,8 +115,7 @@ NIVissimTrafficDescription::meanSpeed(int id)
 
 
 SUMOReal
-NIVissimTrafficDescription::meanSpeed() const
-{
+NIVissimTrafficDescription::meanSpeed() const {
     SUMOReal speed = 0;
     for (NIVissimVehicleClassVector::const_iterator i=myVehicleTypes.begin(); i!=myVehicleTypes.end(); i++) {
         speed += (*i)->getSpeed();

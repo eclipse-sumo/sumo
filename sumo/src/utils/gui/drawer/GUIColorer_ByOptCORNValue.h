@@ -47,8 +47,7 @@
  *  retrieving it
  */
 template<class myT, class myD>
-class GUIColorer_ByOptCORNValue : public GUIBaseColorer<myT>
-{
+class GUIColorer_ByOptCORNValue : public GUIBaseColorer<myT> {
 public:
     /// Type of the function to execute to get the information whether a value is existing
     typedef bool(myT::* HasOperation)(myD) const;

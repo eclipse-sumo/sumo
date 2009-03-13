@@ -70,12 +70,10 @@ using namespace std;
 GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID,
                  GUIGlObjectStorage &idStorage) throw()
         : MSEdge(id, numericalID),
-        GUIGlObject(idStorage, "edge:" + id)
-{}
+        GUIGlObject(idStorage, "edge:" + id) {}
 
 
-GUIEdge::~GUIEdge() throw()
-{
+GUIEdge::~GUIEdge() throw() {
     for (LaneWrapperVector::iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
         delete(*i);
     }
@@ -83,8 +81,7 @@ GUIEdge::~GUIEdge() throw()
 
 
 void
-GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw()
-{
+GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw() {
     // don't do this twice
     if (myLaneGeoms.size()>0) {
         return;
@@ -98,24 +95,21 @@ GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw()
 
 
 MSLane &
-GUIEdge::getLane(size_t laneNo)
-{
+GUIEdge::getLane(size_t laneNo) {
     assert(laneNo<myLanes->size());
     return *((*myLanes)[laneNo]);
 }
 
 
 GUILaneWrapper &
-GUIEdge::getLaneGeometry(size_t laneNo) const
-{
+GUIEdge::getLaneGeometry(size_t laneNo) const {
     assert(laneNo<myLanes->size());
     return *(myLaneGeoms[laneNo]);
 }
 
 
 GUILaneWrapper &
-GUIEdge::getLaneGeometry(const MSLane *lane) const
-{
+GUIEdge::getLaneGeometry(const MSLane *lane) const {
     LaneWrapperVector::const_iterator i=
         find_if(myLaneGeoms.begin(), myLaneGeoms.end(), lane_wrapper_finder(*lane));
     assert(i!=myLaneGeoms.end());
@@ -124,8 +118,7 @@ GUIEdge::getLaneGeometry(const MSLane *lane) const
 
 
 std::vector<std::string>
-GUIEdge::getNames()
-{
+GUIEdge::getNames() {
     std::vector<std::string> ret;
     ret.reserve(MSEdge::myDict.size());
     for (MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); ++i) {
@@ -136,11 +129,10 @@ GUIEdge::getNames()
 
 
 std::vector<GLuint>
-GUIEdge::getIDs()
-{
+GUIEdge::getIDs() {
     std::vector<GLuint> ret;
     ret.reserve(MSEdge::myDict.size());
-    for (MSEdge::DictType::iterator i=MSEdge::myDict.begin();i!=MSEdge::myDict.end(); ++i) {
+    for (MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); ++i) {
         ret.push_back(static_cast<GUIEdge*>((*i).second)->getGlID());
     }
     return ret;
@@ -148,8 +140,7 @@ GUIEdge::getIDs()
 
 
 Boundary
-GUIEdge::getBoundary() const
-{
+GUIEdge::getBoundary() const {
     Boundary ret;
     for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
         const Position2DVector &g = (*i)->getShape();
@@ -163,8 +154,7 @@ GUIEdge::getBoundary() const
 
 
 void
-GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
-{
+GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers) {
     size_t size = MSEdge::dictSize();
     netsWrappers.reserve(size);
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
@@ -175,8 +165,7 @@ GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
 
 
 GUIGLObjectPopupMenu *
-GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw()
-{
+GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -194,8 +183,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw()
 
 GUIParameterTableWindow *
 GUIEdge::getParameterWindow(GUIMainWindow &app,
-                            GUISUMOAbstractView &) throw()
-{
+                            GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret = 0;
 #ifdef HAVE_MESOSIM
     ret = new GUIParameterTableWindow(app, *this, 5);
@@ -218,15 +206,13 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIEdge::getMicrosimID() const throw()
-{
+GUIEdge::getMicrosimID() const throw() {
     return getID();
 }
 
 
 Boundary
-GUIEdge::getCenteringBoundary() const throw()
-{
+GUIEdge::getCenteringBoundary() const throw() {
     Boundary b = getBoundary();
     b.grow(20);
     return b;
@@ -234,8 +220,7 @@ GUIEdge::getCenteringBoundary() const throw()
 
 
 void
-GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.hideConnectors&&myFunction==MSEdge::EDGEFUNCTION_CONNECTOR) {
         return;
     }
@@ -296,8 +281,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw()
 
 #ifdef HAVE_MESOSIM
 unsigned int
-GUIEdge::getVehicleNo() const
-{
+GUIEdge::getVehicleNo() const {
     MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
     assert(first!=0);
     unsigned int vehNo = 0;
@@ -310,8 +294,7 @@ GUIEdge::getVehicleNo() const
 
 
 SUMOReal
-GUIEdge::getFlow() const
-{
+GUIEdge::getFlow() const {
     MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
     assert(first!=0);
     SUMOReal flow = -1;
@@ -337,8 +320,7 @@ GUIEdge::getFlow() const
 
 
 SUMOReal
-GUIEdge::getDensity() const
-{
+GUIEdge::getDensity() const {
     MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
     assert(first!=0);
     SUMOReal occ = 0;
@@ -356,8 +338,7 @@ GUIEdge::getDensity() const
 
 
 SUMOReal
-GUIEdge::getRouteSpread() const
-{
+GUIEdge::getRouteSpread() const {
     MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
     assert(first!=0);
     SUMOReal occ = 0;
@@ -372,8 +353,7 @@ GUIEdge::getRouteSpread() const
 
 
 SUMOReal
-GUIEdge::getMeanSpeed() const
-{
+GUIEdge::getMeanSpeed() const {
     MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
     assert(first!=0);
     SUMOReal v = 0;
@@ -391,8 +371,7 @@ GUIEdge::getMeanSpeed() const
 
 
 SUMOReal
-GUIEdge::getAllowedSpeed() const
-{
+GUIEdge::getAllowedSpeed() const {
     return (*myLanes)[0]->maxSpeed();
 }
 

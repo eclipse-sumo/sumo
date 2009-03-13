@@ -52,8 +52,7 @@ class GUIGlObjectStorage;
  *
  * @see NLGeomShapeBuilder
  */
-class GUIGeomShapeBuilder : public NLGeomShapeBuilder
-{
+class GUIGeomShapeBuilder : public NLGeomShapeBuilder {
 public:
     /** @brief Constructor
      *

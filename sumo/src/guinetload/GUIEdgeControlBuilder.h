@@ -53,8 +53,7 @@ class MSJunction;
  *  builds GUIEdges and GUILanes.
  * @see NLEdgeControlBuilder
  */
-class GUIEdgeControlBuilder : public NLEdgeControlBuilder
-{
+class GUIEdgeControlBuilder : public NLEdgeControlBuilder {
 public:
     /** @brief Constructor
      *

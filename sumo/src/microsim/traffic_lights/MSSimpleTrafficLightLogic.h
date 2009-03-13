@@ -49,8 +49,7 @@
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.
  */
-class MSSimpleTrafficLightLogic : public MSTrafficLightLogic
-{
+class MSSimpleTrafficLightLogic : public MSTrafficLightLogic {
 public:
     /// definition of a list of phases, being the junction logic
     typedef std::vector<MSPhaseDefinition*> Phases;

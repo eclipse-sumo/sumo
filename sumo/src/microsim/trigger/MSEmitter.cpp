@@ -58,19 +58,16 @@ MSEmitter::MSEmitter_FileTriggeredChild::MSEmitter_FileTriggeredChild(
     MSNet &net, const std::string &aXMLFilename,
     MSEmitter &parent, MSVehicleControl &vc) throw()
         : MSTriggeredXMLReader(net, aXMLFilename), MSEmitterChild(parent, vc),
-        myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0)
-{
+        myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0) {
     myBeginTime = net.getCurrentTimeStep();
 }
 
 
-MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild() throw()
-{}
+MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild() throw() {}
 
 
 SUMOTime
-MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime) throw(ProcessError)
-{
+MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime) throw(ProcessError) {
     if (myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();
         return (SUMOTime) computeOffset(myFlow);
@@ -80,8 +77,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime) throw(ProcessError)
 
 
 bool
-MSEmitter::MSEmitter_FileTriggeredChild::processNextEntryReaderTriggered()
-{
+MSEmitter::MSEmitter_FileTriggeredChild::processNextEntryReaderTriggered() {
     if (myFlow>=0) {
         return true;
     }
@@ -97,8 +93,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::processNextEntryReaderTriggered()
 
 
 void
-MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
-{
+MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle() {
     SUMOVehicleParameter* pars = new SUMOVehicleParameter();
     pars->id = myParent.getID() + "_" + toString(myRunningID++);
     pars->depart = myOffset+1;
@@ -129,8 +124,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         // parse route distribution
         // check if route exists
@@ -293,22 +287,19 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
 
 
 bool
-MSEmitter::MSEmitter_FileTriggeredChild::nextRead()
-{
+MSEmitter::MSEmitter_FileTriggeredChild::nextRead() {
     return myHaveNext;
 }
 
 
 SUMOReal
-MSEmitter::MSEmitter_FileTriggeredChild::getLoadedFlow() const
-{
+MSEmitter::MSEmitter_FileTriggeredChild::getLoadedFlow() const {
     return myFlow;
 }
 
 
 void
-MSEmitter::MSEmitter_FileTriggeredChild::inputEndReached()
-{
+MSEmitter::MSEmitter_FileTriggeredChild::inputEndReached() {
     if (myFlow>0&&!myHaveInitialisedFlow) {
         buildAndScheduleFlowVehicle();
         MSNet::getInstance()->getEmissionEvents().addEvent(
@@ -328,8 +319,7 @@ MSEmitter::MSEmitter(const std::string &id,
                      MSLane* destLane, SUMOReal pos,
                      const std::string &aXMLFilename) throw()
         : MSTrigger(id), myNet(net),
-        myDestLane(destLane), myPos((SUMOReal) pos)
-{
+        myDestLane(destLane), myPos((SUMOReal) pos) {
     assert(myPos>=0);
     myActiveChild =
         new MSEmitter_FileTriggeredChild(net, aXMLFilename, *this, net.getVehicleControl());
@@ -337,8 +327,7 @@ MSEmitter::MSEmitter(const std::string &id,
 }
 
 
-MSEmitter::~MSEmitter() throw()
-{
+MSEmitter::~MSEmitter() throw() {
     delete myFileBasedEmitter;
     std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> >::iterator i;
     for (i=myToEmit.begin(); i!=myToEmit.end(); ++i) {
@@ -348,8 +337,7 @@ MSEmitter::~MSEmitter() throw()
 
 
 bool
-MSEmitter::childCheckEmit(MSEmitterChild *child)
-{
+MSEmitter::childCheckEmit(MSEmitterChild *child) {
     if (myToEmit.find(child)==myToEmit.end()) {
         // should not happen - a child is calling and should have a vehicle added
         throw 1;
@@ -416,23 +404,20 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
 
 void
 MSEmitter::schedule(MSEmitterChild *child,
-                    MSVehicle *v, SUMOReal speed)
-{
+                    MSVehicle *v, SUMOReal speed) {
     myToEmit[child] = make_pair(v, speed);
 }
 
 
 size_t
-MSEmitter::getActiveChildIndex() const
-{
+MSEmitter::getActiveChildIndex() const {
     return
         myFileBasedEmitter==myActiveChild ? 0 : 1;
 }
 
 
 void
-MSEmitter::setActiveChild(MSEmitterChild *c)
-{
+MSEmitter::setActiveChild(MSEmitterChild *c) {
     myActiveChild = c;
 }
 

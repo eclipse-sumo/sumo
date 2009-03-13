@@ -49,8 +49,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBJunctionTypesMatrix::NBJunctionTypesMatrix()
-{
+NBJunctionTypesMatrix::NBJunctionTypesMatrix() {
     myMap['t'] = NBNode::NODETYPE_TRAFFIC_LIGHT;
     myMap['x'] = NBNode::NODETYPE_NOJUNCTION;
     myMap['p'] = NBNode::NODETYPE_PRIORITY_JUNCTION;
@@ -73,13 +72,11 @@ NBJunctionTypesMatrix::NBJunctionTypesMatrix()
 }
 
 
-NBJunctionTypesMatrix::~NBJunctionTypesMatrix()
-{}
+NBJunctionTypesMatrix::~NBJunctionTypesMatrix() {}
 
 
 NBNode::BasicNodeType
-NBJunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const
-{
+NBJunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const {
     RangeCont::const_iterator p1 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed1));
     RangeCont::const_iterator p2 = find_if(myRanges.begin(), myRanges.end(), range_finder(speed2));
     char name = getNameAt(distance(myRanges.begin(), p1), distance(myRanges.begin(), p2));
@@ -88,8 +85,7 @@ NBJunctionTypesMatrix::getType(SUMOReal speed1, SUMOReal speed2) const
 
 
 char
-NBJunctionTypesMatrix::getNameAt(size_t pos1, size_t pos2) const
-{
+NBJunctionTypesMatrix::getNameAt(size_t pos1, size_t pos2) const {
     string str = myValues[pos1];
     if (str[pos2]==' ') {
         return getNameAt(pos2, pos1);

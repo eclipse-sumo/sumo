@@ -55,8 +55,7 @@
  * @see MSEventControl
  */
 template< class T  >
-class WrappingCommand : public Command
-{
+class WrappingCommand : public Command {
 public:
     /// @brief Type of the function to execute.
     typedef SUMOTime(T::* Operation)(SUMOTime);

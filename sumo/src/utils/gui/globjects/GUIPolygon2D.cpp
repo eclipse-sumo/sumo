@@ -65,19 +65,16 @@ GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
                            const Position2DVector &Pos,
                            bool fill) throw()
         : Polygon2D(name, type, color, Pos, fill),
-        GUIGlObject_AbstractAdd(idStorage, "poly:"+name, GLO_SHAPE), myLayer(layer)
-{}
+        GUIGlObject_AbstractAdd(idStorage, "poly:"+name, GLO_SHAPE), myLayer(layer) {}
 
 
-GUIPolygon2D::~GUIPolygon2D() throw()
-{}
+GUIPolygon2D::~GUIPolygon2D() throw() {}
 
 
 
 GUIGLObjectPopupMenu *
 GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
-                           GUISUMOAbstractView &parent) throw()
-{
+                           GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
     FXString t(myType.c_str());
@@ -93,22 +90,19 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIPolygon2D::getParameterWindow(GUIMainWindow &,
-                                 GUISUMOAbstractView &) throw()
-{
+                                 GUISUMOAbstractView &) throw() {
     return 0;
 }
 
 
 const std::string &
-GUIPolygon2D::getMicrosimID() const throw()
-{
+GUIPolygon2D::getMicrosimID() const throw() {
     return myName;
 }
 
 
 Boundary
-GUIPolygon2D::getCenteringBoundary() const throw()
-{
+GUIPolygon2D::getCenteringBoundary() const throw() {
     Boundary b;
     b.add(myPos.getBoxBoundary());
     b.grow(10);
@@ -116,13 +110,11 @@ GUIPolygon2D::getCenteringBoundary() const throw()
 }
 
 
-void APIENTRY beginCallback(GLenum which)
-{
+void APIENTRY beginCallback(GLenum which) {
     glBegin(which);
 }
 
-void APIENTRY errorCallback(GLenum errorCode)
-{
+void APIENTRY errorCallback(GLenum errorCode) {
     const GLubyte *estring;
 
     estring = gluErrorString(errorCode);
@@ -130,13 +122,11 @@ void APIENTRY errorCallback(GLenum errorCode)
     exit(0);
 }
 
-void APIENTRY endCallback(void)
-{
+void APIENTRY endCallback(void) {
     glEnd();
 }
 
-void APIENTRY vertexCallback(GLvoid *vertex)
-{
+void APIENTRY vertexCallback(GLvoid *vertex) {
     const GLdouble *pointer;
 
     pointer = (GLdouble *) vertex;
@@ -145,8 +135,7 @@ void APIENTRY vertexCallback(GLvoid *vertex)
 
 void APIENTRY combineCallback(GLdouble coords[3],
                               GLdouble *vertex_data[4],
-                              GLfloat weight[4], GLdouble **dataOut)
-{
+                              GLfloat weight[4], GLdouble **dataOut) {
     GLdouble *vertex;
 
     vertex = (GLdouble *) malloc(7 * sizeof(GLdouble));
@@ -159,8 +148,7 @@ void APIENTRY combineCallback(GLdouble coords[3],
 
 double glvert[6];
 void
-GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (fill()) {
         if (getPosition2DVector().size()<3) {
             return;
@@ -225,8 +213,7 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw()
 
 
 int
-GUIPolygon2D::getLayer() const
-{
+GUIPolygon2D::getLayer() const {
     return myLayer;
 }
 

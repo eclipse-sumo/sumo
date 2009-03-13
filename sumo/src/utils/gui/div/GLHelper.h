@@ -44,8 +44,7 @@
  *
  * This class offers some static methods for drawing primitives in openGL.
  */
-class GLHelper
-{
+class GLHelper {
 public:
     /** @brief Draws a filled polygon described by the list of points
      *

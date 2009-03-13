@@ -42,24 +42,20 @@
 GUIEvent_SimulationEnded::GUIEvent_SimulationEnded(EndReason reason,
         SUMOTime step)
         : GUIEvent(EVENT_SIMULATION_ENDED),
-        myReason(reason), myStep(step)
-{}
+        myReason(reason), myStep(step) {}
 
 
-GUIEvent_SimulationEnded::~GUIEvent_SimulationEnded()
-{}
+GUIEvent_SimulationEnded::~GUIEvent_SimulationEnded() {}
 
 
 SUMOTime
-GUIEvent_SimulationEnded::getTimeStep() const
-{
+GUIEvent_SimulationEnded::getTimeStep() const {
     return myStep;
 }
 
 
 GUIEvent_SimulationEnded::EndReason
-GUIEvent_SimulationEnded::getReason() const
-{
+GUIEvent_SimulationEnded::getReason() const {
     return myReason;
 }
 

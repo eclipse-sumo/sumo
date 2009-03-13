@@ -70,8 +70,7 @@
  * @see MSDetectorFileOutput
  * @see Command
  */
-class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput, public MSVehicleQuitReminded
-{
+class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput, public MSVehicleQuitReminded {
 public:
     /** @brief Constructor
      *
@@ -290,8 +289,7 @@ protected:
      *  be on a new lane) and we have to ask for the vehicle's position
      *  using this information.
      */
-    class by_vehicle_position_sorter
-    {
+    class by_vehicle_position_sorter {
     public:
         /** @brief constructor
          *

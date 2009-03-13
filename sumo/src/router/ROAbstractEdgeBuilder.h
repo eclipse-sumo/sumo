@@ -55,8 +55,7 @@ class ROEdge;
  *  number (index) is stored in "myCurrentIndex" and the next to use may
  *  be obtained via "getNextIndex".
  */
-class ROAbstractEdgeBuilder
-{
+class ROAbstractEdgeBuilder {
 public:
     /// @brief Constructor
     ROAbstractEdgeBuilder() throw() : myCurrentIndex(0) { }

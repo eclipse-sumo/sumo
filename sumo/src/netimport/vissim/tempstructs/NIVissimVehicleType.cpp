@@ -40,20 +40,17 @@ NIVissimVehicleType::NIVissimVehicleType(int id,
         const std::string &name, const std::string &category, SUMOReal length,
         const RGBColor &color, SUMOReal amax, SUMOReal dmax)
         : myID(id), myName(name), myCategory(category), myLength(length),
-        myColor(color), myAMax(amax), myDMax(dmax)
-{}
+        myColor(color), myAMax(amax), myDMax(dmax) {}
 
 
-NIVissimVehicleType::~NIVissimVehicleType()
-{}
+NIVissimVehicleType::~NIVissimVehicleType() {}
 
 
 
 bool
 NIVissimVehicleType::dictionary(int id,
                                 const std::string &name, const std::string &category, SUMOReal length,
-                                const RGBColor &color, SUMOReal amax, SUMOReal dmax)
-{
+                                const RGBColor &color, SUMOReal amax, SUMOReal dmax) {
     NIVissimVehicleType *o = new NIVissimVehicleType(id, name, category,
             length, color, amax, dmax);
     if (!dictionary(id, o)) {
@@ -65,8 +62,7 @@ NIVissimVehicleType::dictionary(int id,
 
 
 bool
-NIVissimVehicleType::dictionary(int id, NIVissimVehicleType *o)
-{
+NIVissimVehicleType::dictionary(int id, NIVissimVehicleType *o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -77,8 +73,7 @@ NIVissimVehicleType::dictionary(int id, NIVissimVehicleType *o)
 
 
 NIVissimVehicleType *
-NIVissimVehicleType::dictionary(int id)
-{
+NIVissimVehicleType::dictionary(int id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -87,8 +82,7 @@ NIVissimVehicleType::dictionary(int id)
 }
 
 void
-NIVissimVehicleType::clearDict()
-{
+NIVissimVehicleType::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }

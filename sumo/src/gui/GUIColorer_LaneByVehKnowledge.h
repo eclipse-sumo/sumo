@@ -49,8 +49,7 @@
  * @class GUIColorer_LaneByVehKnowledge
  */
 template<class T>
-class GUIColorer_LaneByVehKnowledge : public GUIBaseColorer<T>
-{
+class GUIColorer_LaneByVehKnowledge : public GUIBaseColorer<T> {
 public:
     GUIColorer_LaneByVehKnowledge(GUISUMOAbstractView *parent) : myParent(parent) { }
 

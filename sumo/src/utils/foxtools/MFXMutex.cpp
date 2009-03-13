@@ -45,8 +45,7 @@ using namespace FX;
 #endif // CHECK_MEMORY_LEAKS
 
 // MFXMutex constructor
-MFXMutex::MFXMutex() : lock_(0)
-{
+MFXMutex::MFXMutex() : lock_(0) {
 #ifndef WIN32
     FXint status=0;
     pthread_mutexattr_t attr;
@@ -67,8 +66,7 @@ MFXMutex::MFXMutex() : lock_(0)
 //       if you are causing the destructor to be executed while
 //       some other thread is accessing the mutexHandle, then you have
 //       a design flaw in your program, and so it should crash!
-MFXMutex::~MFXMutex()
-{
+MFXMutex::~MFXMutex() {
     if (lock_) fxerror("MFXMutex: mutex still locked\n");
 #if !defined(WIN32)
     pthread_mutex_destroy((pthread_mutex_t*)mutexHandle);
@@ -80,8 +78,7 @@ MFXMutex::~MFXMutex()
 
 // lock_ is safe because we dont increment it until we
 // have entered the locked state - cha-ching, correct
-void MFXMutex::lock()
-{
+void MFXMutex::lock() {
 #if !defined(WIN32)
     pthread_mutex_lock((pthread_mutex_t*)mutexHandle);
 #else
@@ -91,8 +88,7 @@ void MFXMutex::lock()
 }
 
 // lock_ is safe because we decrement it, before leaving the locked state
-void MFXMutex::unlock()
-{
+void MFXMutex::unlock() {
     lock_--;
 #if !defined(WIN32)
     pthread_mutex_unlock((pthread_mutex_t*)mutexHandle);

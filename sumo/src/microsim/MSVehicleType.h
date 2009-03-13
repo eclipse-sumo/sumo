@@ -62,8 +62,7 @@ class BinaryInputDevice;
  * You can think of it like of having a vehicle type for each VW Golf or
  *  Ford Mustang in your simulation while the car instances just refer to it.
  */
-class MSVehicleType
-{
+class MSVehicleType {
 public:
     /** @brief Constructor.
      *

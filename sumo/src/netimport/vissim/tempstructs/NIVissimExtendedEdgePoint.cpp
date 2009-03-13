@@ -44,46 +44,39 @@ NIVissimExtendedEdgePoint::NIVissimExtendedEdgePoint(
     int edgeid, const IntVector &lanes, SUMOReal position,
     const IntVector &assignedVehicles) throw()
         : myEdgeID(edgeid), myLanes(lanes), myPosition(position),
-        myAssignedVehicles(assignedVehicles)
-{}
+        myAssignedVehicles(assignedVehicles) {}
 
 
-NIVissimExtendedEdgePoint::~NIVissimExtendedEdgePoint()
-{}
+NIVissimExtendedEdgePoint::~NIVissimExtendedEdgePoint() {}
 
 
 int
-NIVissimExtendedEdgePoint::getEdgeID() const
-{
+NIVissimExtendedEdgePoint::getEdgeID() const {
     return myEdgeID;
 }
 
 
 SUMOReal
-NIVissimExtendedEdgePoint::getPosition() const
-{
+NIVissimExtendedEdgePoint::getPosition() const {
     return myPosition;
 }
 
 
 Position2D
-NIVissimExtendedEdgePoint::getGeomPosition() const
-{
+NIVissimExtendedEdgePoint::getGeomPosition() const {
     return
         NIVissimAbstractEdge::dictionary(myEdgeID)->getGeomPosition(myPosition);
 }
 
 
 const IntVector &
-NIVissimExtendedEdgePoint::getLanes() const
-{
+NIVissimExtendedEdgePoint::getLanes() const {
     return myLanes;
 }
 
 
 void
-NIVissimExtendedEdgePoint::recheckLanes(const NBEdge * const edge) throw()
-{
+NIVissimExtendedEdgePoint::recheckLanes(const NBEdge * const edge) throw() {
     // check whether an "all" indicator is there
     bool hadAll = false;
     for (IntVector::const_iterator i=myLanes.begin(); !hadAll&&i!=myLanes.end(); ++i) {

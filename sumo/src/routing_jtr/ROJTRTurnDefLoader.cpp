@@ -56,18 +56,15 @@ using namespace std;
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
         : SUMOSAXHandler("turn-definitions"), myNet(net),
-        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0)
-{}
+        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0) {}
 
 
-ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw()
-{}
+ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
 
 
 void
 ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
-                                   const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     bool ok = true;
     switch (element) {
     case SUMO_TAG_INTERVAL:
@@ -88,8 +85,7 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
 
 void
 ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
-                                 const std::string &chars) throw(ProcessError)
-{
+                                 const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_SINK: {
         ROEdge *edge = myNet.getEdge(chars);
@@ -114,8 +110,7 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
 
 
 void
-ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw()
-{
+ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw() {
     myEdge = 0;
     // get the id, report an error if not given or empty...
     string id;
@@ -132,8 +127,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw()
 
 
 void
-ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw()
-{
+ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw() {
     if (myEdge==0) {
         return;
     }

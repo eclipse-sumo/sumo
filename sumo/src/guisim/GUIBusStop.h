@@ -66,8 +66,7 @@ class GUIManipulator;
  * @see GUIGlObject_AbstractAdd
  * @see GUIGlObject
  */
-class GUIBusStop : public MSBusStop, public GUIGlObject_AbstractAdd
-{
+class GUIBusStop : public MSBusStop, public GUIGlObject_AbstractAdd {
 public:
     /** @brief Constructor
      *

@@ -49,8 +49,7 @@ class MSEdgeContinuations;
  * @brief Temporary storage for a lanes succeeding lanes while parsing them
  * @todo Consider moving this functionality to another class
  */
-class NLSucceedingLaneBuilder
-{
+class NLSucceedingLaneBuilder {
 public:
     /** @brief Constructor
      *

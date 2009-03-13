@@ -85,8 +85,7 @@ map<string, SUMOVehicleShape> gVehicleShapeName2ID;
 // ===========================================================================
 // ------------ Conversion of SUMOVehicleClass
 std::string
-getVehicleClassName(SUMOVehicleClass id) throw()
-{
+getVehicleClassName(SUMOVehicleClass id) throw() {
     std::string ret;
     if ((id&SVC_PRIVATE)!=0) {
         ret += ("|" + sSVC_PRIVATE);
@@ -156,8 +155,7 @@ getVehicleClassName(SUMOVehicleClass id) throw()
 
 
 SUMOVehicleClass
-getVehicleClassID(const std::string &name) throw()
-{
+getVehicleClassID(const std::string &name) throw() {
     SUMOVehicleClass ret = SVC_UNKNOWN;
     if (name.find(sSVC_PRIVATE)!=string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PRIVATE);
@@ -226,16 +224,14 @@ getVehicleClassID(const std::string &name) throw()
 
 // ------------ Conversion of SUMOVehicleShape
 void
-addToShapeNames(SUMOVehicleShape id, const string &name) throw()
-{
+addToShapeNames(SUMOVehicleShape id, const string &name) throw() {
     gVehicleShapeID2Name[id] = name;
     gVehicleShapeName2ID[name] = id;
 }
 
 
 void
-initGuiShapeNames() throw()
-{
+initGuiShapeNames() throw() {
     addToShapeNames(SVS_PEDESTRIAN, "pedestrian");
     addToShapeNames(SVS_BICYCLE, "bicycle");
     addToShapeNames(SVS_MOTORCYCLE, "motorcycle");
@@ -263,8 +259,7 @@ initGuiShapeNames() throw()
 
 
 std::string
-getVehicleShapeName(SUMOVehicleShape id) throw()
-{
+getVehicleShapeName(SUMOVehicleShape id) throw() {
     if (id==SVS_UNKNOWN) {
         return "";
     }
@@ -273,8 +268,7 @@ getVehicleShapeName(SUMOVehicleShape id) throw()
 
 
 SUMOVehicleShape
-getVehicleShapeID(const std::string &name) throw()
-{
+getVehicleShapeID(const std::string &name) throw() {
     if (name=="") {
         return SVS_UNKNOWN;
     }
@@ -289,23 +283,22 @@ getVehicleShapeID(const std::string &name) throw()
 
 // ------------ Conversion of SUMOEmissionClass
 SUMOEmissionClass
-getVehicleEmissionTypeID(const std::string &name) throw(ProcessError)
-{
+getVehicleEmissionTypeID(const std::string &name) throw(ProcessError) {
     try {
         if (name=="") {
             return SVE_UNKNOWN;
         } else if (name=="zero") {
             return SVE_ZERO_EMISSIONS;
         } else if (name.find("HDV_3_")==0) {
-            return (SUMOEmissionClass) (SVE_HDV_3_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_3_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("HDV_6_")==0) {
-            return (SUMOEmissionClass) (SVE_HDV_6_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_6_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("HDV_12_")==0) {
-            return (SUMOEmissionClass) (SVE_HDV_12_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
+            return (SUMOEmissionClass)(SVE_HDV_12_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("P_7_")==0) {
-            return (SUMOEmissionClass) (SVE_P_LDV_7_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
+            return (SUMOEmissionClass)(SVE_P_LDV_7_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         } else if (name.find("P_14_")==0) {
-            return (SUMOEmissionClass) (SVE_P_LDV_14_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
+            return (SUMOEmissionClass)(SVE_P_LDV_14_1 - 1 + TplConvert<char>::_2int(name.substr(name.rfind("_")+1).c_str()));
         }
     } catch (NumberFormatException &) {
         throw ProcessError("Unknown emission type '" + name + "'.");
@@ -315,22 +308,21 @@ getVehicleEmissionTypeID(const std::string &name) throw(ProcessError)
 
 
 std::string
-getVehicleClassName(SUMOEmissionClass id) throw()
-{
-    if(id==SVE_ZERO_EMISSIONS) {
+getVehicleClassName(SUMOEmissionClass id) throw() {
+    if (id==SVE_ZERO_EMISSIONS) {
         return "zero";
     }
-    if(id<0) {
+    if (id<0) {
         return "";
-    } else if(id<3) {
+    } else if (id<3) {
         return "HDV_3_" + toString(int(id));
-    } else if(id<3+6) {
+    } else if (id<3+6) {
         return "HDV_6_" + toString(int(id-3));
-    } else if(id<3+6+12) {
+    } else if (id<3+6+12) {
         return "HDV_12_" + toString(int(id-3-6));
-    } else if(id<3+6+12+7) {
+    } else if (id<3+6+12+7) {
         return "P_7_" + toString(int(id-3-6-12));
-    } else if(id<3+6+12+7+14) {
+    } else if (id<3+6+12+7+14) {
         return "P_14_" + toString(int(id-3-6-12-7));
     }
     return "";

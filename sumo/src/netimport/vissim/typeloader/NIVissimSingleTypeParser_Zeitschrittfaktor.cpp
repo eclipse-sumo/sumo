@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Zeitschrittfaktor::NIVissimSingleTypeParser_Zeitschrittfaktor(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Zeitschrittfaktor::~NIVissimSingleTypeParser_Zeitschrittfaktor()
-{}
+NIVissimSingleTypeParser_Zeitschrittfaktor::~NIVissimSingleTypeParser_Zeitschrittfaktor() {}
 
 
 bool
-NIVissimSingleTypeParser_Zeitschrittfaktor::parse(std::istream &)
-{
+NIVissimSingleTypeParser_Zeitschrittfaktor::parse(std::istream &) {
     return true;
 }
 

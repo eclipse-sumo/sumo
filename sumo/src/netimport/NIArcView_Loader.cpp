@@ -73,17 +73,14 @@ NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
         myNameAddition(0),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
         mySpeedInKMH(speedInKMH),
-        myRunningNodeID(0)
-{}
+        myRunningNodeID(0) {}
 
 
-NIArcView_Loader::~NIArcView_Loader()
-{}
+NIArcView_Loader::~NIArcView_Loader() {}
 
 
 bool
-NIArcView_Loader::load(OptionsCont &)
-{
+NIArcView_Loader::load(OptionsCont &) {
 #ifdef HAVE_GDAL
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading data from '" + mySHPName + "'...");
     OGRRegisterAll();
@@ -260,8 +257,7 @@ NIArcView_Loader::load(OptionsCont &)
 
 #ifdef HAVE_GDAL
 SUMOReal
-NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
-{
+NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
     if (myOptions.isSet("arcview.type-id")) {
         return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
     }
@@ -287,8 +283,7 @@ NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
 
 unsigned int
 NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
-                            SUMOReal speed)
-{
+                            SUMOReal speed) {
     if (myOptions.isSet("arcview.type-id")) {
         return (unsigned int) myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
     }
@@ -316,8 +311,7 @@ NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
 
 
 int
-NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &/*edgeid*/)
-{
+NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &/*edgeid*/) {
     if (myOptions.isSet("arcview.type-id")) {
         return myTypeCont.getPriority(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
     }

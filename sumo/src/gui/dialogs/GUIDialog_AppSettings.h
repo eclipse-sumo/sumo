@@ -39,8 +39,7 @@
  * @class GUIDialog_AppSettings
  * @brief The dialog to change the application (gui) settings.
  */
-class GUIDialog_AppSettings : public FXDialogBox
-{
+class GUIDialog_AppSettings : public FXDialogBox {
     // is a FOX-object with an own mapping
     FXDECLARE(GUIDialog_AppSettings)
 public:

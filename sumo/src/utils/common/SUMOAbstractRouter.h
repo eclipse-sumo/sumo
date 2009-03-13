@@ -42,15 +42,13 @@
  * The interface for routing the vehicles over the network.
  */
 template<class E, class V>
-class SUMOAbstractRouter
-{
+class SUMOAbstractRouter {
 public:
     /**
      * @class ROAbstractEdgeEffortRetriever
      * This interface has to be implemented in order to get the real efforts of edges
      */
-    class ROAbstractEdgeEffortRetriever
-    {
+    class ROAbstractEdgeEffortRetriever {
     public:
         /// Constructor
         ROAbstractEdgeEffortRetriever() { }

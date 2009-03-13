@@ -47,8 +47,7 @@ MSLink::MSLink(MSLane* succLane, bool yield,
         myLane(succLane),
         myPrio(!yield), myApproaching(0),
         myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-        myState(state), myDirection(dir),  myLength(length)
-{}
+        myState(state), myDirection(dir),  myLength(length) {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
                LinkDirection dir, LinkState state, bool internalEnd,
@@ -58,20 +57,17 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
         myPrio(!yield), myApproaching(0),
         myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
-        myJunctionInlane(via),myIsInternalEnd(internalEnd)
-{}
+        myJunctionInlane(via),myIsInternalEnd(internalEnd) {}
 #endif
 
 
-MSLink::~MSLink() throw()
-{}
+MSLink::~MSLink() throw() {}
 
 
 void
 MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
                               MSLogicJunction::Respond *respond, unsigned int respondIdx,
-                              const MSLogicJunction::LinkFoes &foes) throw()
-{
+                              const MSLogicJunction::LinkFoes &foes) throw() {
     assert(myRequest==0);
     assert(myRespond==0);
     myRequest = request;
@@ -83,8 +79,7 @@ MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int re
 
 
 void
-MSLink::setApproaching(MSVehicle *approaching) throw()
-{
+MSLink::setApproaching(MSVehicle *approaching) throw() {
     if (myRequest==0) {
         return;
     }
@@ -94,15 +89,13 @@ MSLink::setApproaching(MSVehicle *approaching) throw()
 
 
 void
-MSLink::setPriority(bool prio) throw()
-{
+MSLink::setPriority(bool prio) throw() {
     myPrio = prio;
 }
 
 
 bool
-MSLink::opened() const throw()
-{
+MSLink::opened() const throw() {
     if (myRespond==0) {
         // this is the case for internal lanes ending at a junction's end
         // (let the vehicle always leave the junction)
@@ -113,8 +106,7 @@ MSLink::opened() const throw()
 
 
 bool
-MSLink::hasApproachingFoe() const throw()
-{
+MSLink::hasApproachingFoe() const throw() {
     if (myRequest==0) {
         return false;
     }
@@ -123,8 +115,7 @@ MSLink::hasApproachingFoe() const throw()
 
 
 void
-MSLink::deleteRequest() throw()
-{
+MSLink::deleteRequest() throw() {
     if (myRequest!=0) {
         myRequest->reset(myRequestIdx);
     }
@@ -136,44 +127,38 @@ MSLink::deleteRequest() throw()
 
 
 MSLink::LinkState
-MSLink::getState() const throw()
-{
+MSLink::getState() const throw() {
     return myState;
 }
 
 
 MSLink::LinkDirection
-MSLink::getDirection() const throw()
-{
+MSLink::getDirection() const throw() {
     return myDirection;
 }
 
 
 void
-MSLink::setTLState(LinkState state) throw()
-{
+MSLink::setTLState(LinkState state) throw() {
     myState = state;
 }
 
 
 MSLane *
-MSLink::getLane() const throw()
-{
+MSLink::getLane() const throw() {
     return myLane;
 }
 
 
 bool
-MSLink::havePriority() const throw()
-{
+MSLink::havePriority() const throw() {
     return myPrio;
 }
 
 
 #ifdef HAVE_INTERNAL_LANES
 MSLane * const
-MSLink::getViaLane() const throw()
-{
+MSLink::getViaLane() const throw() {
     return myJunctionInlane;
 }
 #endif
@@ -181,8 +166,7 @@ MSLink::getViaLane() const throw()
 
 #ifdef HAVE_INTERNAL_LANES
 void
-MSLink::resetInternalPriority() throw()
-{
+MSLink::resetInternalPriority() throw() {
     myPrio = opened();
     if (myJunctionInlane!=0&&myLane!=0) {
         if (myState==MSLink::LINKSTATE_TL_GREEN) {
@@ -198,8 +182,7 @@ MSLink::resetInternalPriority() throw()
 
 
 unsigned int
-MSLink::getRespondIndex() const throw()
-{
+MSLink::getRespondIndex() const throw() {
     return myRespondIdx;
 }
 

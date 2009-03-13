@@ -38,8 +38,7 @@
 // method definitions
 // ===========================================================================
 void
-MFXUtils::deleteChildren(FXWindow *w) throw()
-{
+MFXUtils::deleteChildren(FXWindow *w) throw() {
     while (w->numChildren()!=0) {
         FXWindow *child = w->childAtIndex(0);
         delete child;
@@ -49,8 +48,7 @@ MFXUtils::deleteChildren(FXWindow *w) throw()
 
 FXbool
 MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
-        const FXString &file) throw()
-{
+        const FXString &file) throw() {
     if (!FXFile::exists(file)) {
         return TRUE;
     }
@@ -64,16 +62,14 @@ MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
 
 
 FXString
-MFXUtils::getDocumentName(const FXString &filename) throw()
-{
+MFXUtils::getDocumentName(const FXString &filename) throw() {
     FXString file = FXFile::name(filename);
     return file.before('.');
 }
 
 
 FXString
-MFXUtils::getTitleText(const FXString &appname, FXString filename) throw()
-{
+MFXUtils::getTitleText(const FXString &appname, FXString filename) throw() {
     if (filename.length()==0) {
         return appname;
     }
@@ -82,8 +78,7 @@ MFXUtils::getTitleText(const FXString &appname, FXString filename) throw()
 
 
 FXString
-MFXUtils::assureExtension(const FXString &filename, const FXString &defaultExtension) throw()
-{
+MFXUtils::assureExtension(const FXString &filename, const FXString &defaultExtension) throw() {
     FXString ext = FXFile::extension(filename);
     if (ext=="") {
         if (filename.rfind('.')==filename.length()-1) {
@@ -98,8 +93,7 @@ MFXUtils::assureExtension(const FXString &filename, const FXString &defaultExten
 FXString
 MFXUtils::getFilename2Write(FXWindow *parent,
                             const FXString &header, const FXString &extension,
-                            FXIcon *icon, FXString &currentFolder) throw()
-{
+                            FXIcon *icon, FXString &currentFolder) throw() {
     // get the new file name
     FXFileDialog opendialog(parent, header);
     opendialog.setIcon(icon);

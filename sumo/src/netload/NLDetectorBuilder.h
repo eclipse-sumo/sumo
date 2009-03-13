@@ -67,8 +67,7 @@ class MESegment;
  * The building methods may be overridden, to build guisim-instances of the triggers,
  *  for example.
  */
-class NLDetectorBuilder
-{
+class NLDetectorBuilder {
 public:
     /** @brief Constructor
      *
@@ -549,8 +548,7 @@ protected:
      * @class E3DetectorDefinition
      * @brief Holds the incoming definitions of an e3 detector unless the detector is build.
      */
-    class E3DetectorDefinition
-    {
+    class E3DetectorDefinition {
     public:
         /** @brief Constructor
          * @param[in] id The id the detector shall have

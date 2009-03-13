@@ -152,15 +152,13 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         : GUIMainWindow(a, glWidth, glHeight),
         myLoadThread(0), myRunThread(0),
         myAmLoading(false),
-        mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets("nets")
-{
+        mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets("nets") {
     GUIIconSubSys::init(a);
 }
 
 
 void
-GUIApplicationWindow::dependentBuild()
-{
+GUIApplicationWindow::dependentBuild() {
     // do this not twice
     if (hadDependentBuild) {
         return;
@@ -239,8 +237,7 @@ GUIApplicationWindow::dependentBuild()
 
 
 void
-GUIApplicationWindow::create()
-{
+GUIApplicationWindow::create() {
     if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0)==0) {
         setX(getApp()->reg().readIntEntry("SETTINGS", "x", 150));
         setY(getApp()->reg().readIntEntry("SETTINGS", "y", 150));
@@ -272,8 +269,7 @@ GUIApplicationWindow::create()
 
 
 
-GUIApplicationWindow::~GUIApplicationWindow()
-{
+GUIApplicationWindow::~GUIApplicationWindow() {
     myRunThread->prepareDestruction();
     closeAllWindows();
     //
@@ -304,8 +300,7 @@ GUIApplicationWindow::~GUIApplicationWindow()
 
 
 void
-GUIApplicationWindow::detach()
-{
+GUIApplicationWindow::detach() {
     FXMainWindow::detach();
     myMenuBarDrag->detach();
     myToolBarDrag1->detach();
@@ -313,8 +308,7 @@ GUIApplicationWindow::detach()
 
 
 void
-GUIApplicationWindow::fillMenuBar()
-{
+GUIApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar,"&File",NULL,myFileMenu);
@@ -451,8 +445,7 @@ GUIApplicationWindow::fillMenuBar()
 
 
 void
-GUIApplicationWindow::buildToolBars()
-{
+GUIApplicationWindow::buildToolBars() {
     // build tool bars
     {
         // file and simulation tool bar
@@ -549,8 +542,7 @@ GUIApplicationWindow::buildToolBars()
 
 
 long
-GUIApplicationWindow::onCmdQuit(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdQuit(FXObject*,FXSelector,void*) {
     getApp()->reg().writeIntEntry("SETTINGS", "x", getX());
     getApp()->reg().writeIntEntry("SETTINGS", "y", getY());
     getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
@@ -567,8 +559,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*) {
     GUIDialog_GLChosenEditor *chooser =
         new GUIDialog_GLChosenEditor(this, &gSelected);
     chooser->create();
@@ -578,8 +569,7 @@ GUIApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdEditBreakpoints(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdEditBreakpoints(FXObject*,FXSelector,void*) {
     GUIDialog_Breakpoints *chooser =
         new GUIDialog_Breakpoints(this);
     chooser->create();
@@ -589,8 +579,7 @@ GUIApplicationWindow::onCmdEditBreakpoints(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdEditAddWeights(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdEditAddWeights(FXObject*,FXSelector,void*) {
     GUIDialog_EditAddWeights *chooser =
         new GUIDialog_EditAddWeights(this);
     chooser->create();
@@ -600,8 +589,7 @@ GUIApplicationWindow::onCmdEditAddWeights(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*) {
     // get the new file name
     FXFileDialog opendialog(this,"Open Simulation Configuration");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
@@ -621,8 +609,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*) {
     // get the new file name
     FXFileDialog opendialog(this,"Open Network");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
@@ -642,16 +629,14 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdReload(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdReload(FXObject*,FXSelector,void*) {
     load("", false, true);
     return 1;
 }
 
 
 long
-GUIApplicationWindow::onCmdOpenRecent(FXObject*sender,FXSelector,void *data)
-{
+GUIApplicationWindow::onCmdOpenRecent(FXObject*sender,FXSelector,void *data) {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
@@ -663,16 +648,14 @@ GUIApplicationWindow::onCmdOpenRecent(FXObject*sender,FXSelector,void *data)
 
 
 long
-GUIApplicationWindow::onCmdClose(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdClose(FXObject*,FXSelector,void*) {
     closeAllWindows();
     return 1;
 }
 
 
 long
-GUIApplicationWindow::onUpdOpen(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdOpen(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myAmLoading?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -681,8 +664,7 @@ GUIApplicationWindow::onUpdOpen(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myAmLoading||myLoadThread->getFileName()==""
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -692,8 +674,7 @@ GUIApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myAmLoading?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
@@ -702,8 +683,7 @@ GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdAddMicro(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdAddMicro(FXObject*sender,FXSelector,void*ptr) {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         sender->handle(this, FXSEL(SEL_COMMAND,ID_DISABLE), ptr);
@@ -719,8 +699,7 @@ GUIApplicationWindow::onUpdAddMicro(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onCmdStart(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdStart(FXObject*,FXSelector,void*) {
     // check whether a net was loaded successfully
     if (!myRunThread->simulationAvailable()) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
@@ -737,16 +716,14 @@ GUIApplicationWindow::onCmdStart(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdStop(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdStop(FXObject*,FXSelector,void*) {
     myRunThread->stop();
     return 1;
 }
 
 
 long
-GUIApplicationWindow::onCmdStep(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdStep(FXObject*,FXSelector,void*) {
     // check whether a net was loaded successfully
     if (!myRunThread->simulationAvailable()) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
@@ -763,8 +740,7 @@ GUIApplicationWindow::onCmdStep(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*) {
     myMessageWindow->clear();
     return 1;
 }
@@ -772,8 +748,7 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*)
 
 #ifdef HAVE_MESOSIM
 long
-GUIApplicationWindow::onUpdAddMesoView(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdAddMesoView(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    myAmLoading||!myRunThread->simulationAvailable()||!MSGlobals::gUseMesoSim
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -784,8 +759,7 @@ GUIApplicationWindow::onUpdAddMesoView(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdStart(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdStart(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    !myRunThread->simulationIsStartable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -795,8 +769,7 @@ GUIApplicationWindow::onUpdStart(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdStop(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdStop(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    !myRunThread->simulationIsStopable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -806,8 +779,7 @@ GUIApplicationWindow::onUpdStop(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdStep(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdStep(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    !myRunThread->simulationIsStepable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -817,8 +789,7 @@ GUIApplicationWindow::onUpdStep(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr)
-{
+GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
                    !myRunThread->simulationAvailable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -828,8 +799,7 @@ GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr)
 
 
 long
-GUIApplicationWindow::onUpdEditAddWeights(FXObject *sender,FXSelector,void *ptr)
-{
+GUIApplicationWindow::onUpdEditAddWeights(FXObject *sender,FXSelector,void *ptr) {
     sender->handle(this,
                    !myRunThread->simulationAvailable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -839,8 +809,7 @@ GUIApplicationWindow::onUpdEditAddWeights(FXObject *sender,FXSelector,void *ptr)
 
 
 long
-GUIApplicationWindow::onUpdEditBreakpoints(FXObject *sender,FXSelector,void *ptr)
-{
+GUIApplicationWindow::onUpdEditBreakpoints(FXObject *sender,FXSelector,void *ptr) {
     sender->handle(this,
                    !myRunThread->simulationAvailable()||myAmLoading
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -850,8 +819,7 @@ GUIApplicationWindow::onUpdEditBreakpoints(FXObject *sender,FXSelector,void *ptr
 
 
 long
-GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*) {
     GUIDialog_AppSettings *d = new GUIDialog_AppSettings(this);
     d->create();
     d->show(PLACEMENT_OWNER);
@@ -860,8 +828,7 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdNewMicro(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdNewMicro(FXObject*,FXSelector,void*) {
     openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
     return 1;
 }
@@ -869,8 +836,7 @@ GUIApplicationWindow::onCmdNewMicro(FXObject*,FXSelector,void*)
 
 #ifdef HAVE_MESOSIM
 long
-GUIApplicationWindow::onCmdNewMesoView(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdNewMesoView(FXObject*,FXSelector,void*) {
     openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
     return 1;
 }
@@ -878,8 +844,7 @@ GUIApplicationWindow::onCmdNewMesoView(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onCmdAbout(FXObject*,FXSelector,void*)
-{
+GUIApplicationWindow::onCmdAbout(FXObject*,FXSelector,void*) {
     GUIDialog_AboutSUMO *about =
         new GUIDialog_AboutSUMO(this, "About SUMO", 0, 0);
     about->create();
@@ -889,24 +854,21 @@ GUIApplicationWindow::onCmdAbout(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onLoadThreadEvent(FXObject*, FXSelector, void*)
-{
+GUIApplicationWindow::onLoadThreadEvent(FXObject*, FXSelector, void*) {
     eventOccured();
     return 1;
 }
 
 
 long
-GUIApplicationWindow::onRunThreadEvent(FXObject*, FXSelector, void*)
-{
+GUIApplicationWindow::onRunThreadEvent(FXObject*, FXSelector, void*) {
     eventOccured();
     return 1;
 }
 
 
 void
-GUIApplicationWindow::eventOccured()
-{
+GUIApplicationWindow::eventOccured() {
     while (!myEvents.empty()) {
         // get the next event
         GUIEvent *e = static_cast<GUIEvent*>(myEvents.top());
@@ -938,8 +900,7 @@ GUIApplicationWindow::eventOccured()
 
 
 void
-GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
-{
+GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
     GUITexturesHelper::init(getApp());
     myAmLoading = false;
     GUIEvent_SimulationLoaded *ec =
@@ -990,8 +951,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
 
 
 void
-GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *)
-{
+GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
     updateChildren();
     ostringstream str;
     str << (int) myRunThread->getCurrentTimeStep();
@@ -1001,8 +961,7 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *)
 
 
 void
-GUIApplicationWindow::handleEvent_Message(GUIEvent *e)
-{
+GUIApplicationWindow::handleEvent_Message(GUIEvent *e) {
     GUIEvent_Message *ec =
         static_cast<GUIEvent_Message*>(e);
     myMessageWindow->appendText(ec->getOwnType(), ec->getMsg());
@@ -1010,8 +969,7 @@ GUIApplicationWindow::handleEvent_Message(GUIEvent *e)
 
 
 void
-GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
-{
+GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
     GUIEvent_SimulationEnded *ec =
         static_cast<GUIEvent_SimulationEnded*>(e);
     if (!gQuitOnEnd) {
@@ -1058,8 +1016,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
 
 
 void
-GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload)
-{
+GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload) {
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
@@ -1076,8 +1033,7 @@ GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload)
 
 
 void
-GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type)
-{
+GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type) {
     if (!myRunThread->simulationAvailable()) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return;
@@ -1107,8 +1063,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type)
 
 
 FXGLCanvas *
-GUIApplicationWindow::getBuildGLCanvas() const
-{
+GUIApplicationWindow::getBuildGLCanvas() const {
     if (myMDIClient->numChildren()==0) {
         return 0;
     }
@@ -1119,8 +1074,7 @@ GUIApplicationWindow::getBuildGLCanvas() const
 
 
 void
-GUIApplicationWindow::closeAllWindows()
-{
+GUIApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     myLCDLabel->setText("-----------");
     // remove trackers and other external windows
@@ -1159,29 +1113,25 @@ GUIApplicationWindow::closeAllWindows()
 
 
 FXCursor *
-GUIApplicationWindow::getDefaultCursor()
-{
+GUIApplicationWindow::getDefaultCursor() {
     return getApp()->getDefaultCursor(DEF_ARROW_CURSOR);
 }
 
 
 SUMOTime
-GUIApplicationWindow::getCurrentSimTime() const
-{
+GUIApplicationWindow::getCurrentSimTime() const {
     return myRunThread->getCurrentTimeStep();
 }
 
 
 void
-GUIApplicationWindow::loadSelection(const std::string &file) const
-{
+GUIApplicationWindow::loadSelection(const std::string &file) const {
     GUISelectionLoader::loadSelection(file);
 }
 
 
 void
-GUIApplicationWindow::loadOnStartup(const std::string &config, bool run)
-{
+GUIApplicationWindow::loadOnStartup(const std::string &config, bool run) {
     myRunAtBegin = run;
     load(config, false);
 }
@@ -1213,8 +1163,7 @@ GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
 
 
 void
-GUIApplicationWindow::setStatusBarText(const std::string &text)
-{
+GUIApplicationWindow::setStatusBarText(const std::string &text) {
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
 }

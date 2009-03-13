@@ -91,8 +91,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
         : FXMainWindow(gFXApp, "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-        myParent(parent)
-{
+        myParent(parent) {
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
                               0,0,0,0);
@@ -146,15 +145,13 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
 }
 
 
-GUIDialog_Breakpoints::~GUIDialog_Breakpoints()
-{
+GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
     myParent->removeChild(this);
 }
 
 
 void
-GUIDialog_Breakpoints::rebuildList()
-{
+GUIDialog_Breakpoints::rebuildList() {
     myTable->clearItems();
     sort(gBreakpoints.begin(), gBreakpoints.end());
 
@@ -183,8 +180,7 @@ GUIDialog_Breakpoints::rebuildList()
 
 
 long
-GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*)
-{
+GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*) {
     FXFileDialog opendialog(this, "Save Breakpoints");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
@@ -213,8 +209,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*)
-{
+GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*) {
     FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
     if (file=="") {
         return 1;
@@ -232,8 +227,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*)
 
 
 std::string
-GUIDialog_Breakpoints::encode2TXT()
-{
+GUIDialog_Breakpoints::encode2TXT() {
     std::ostringstream strm;
     sort(gBreakpoints.begin(), gBreakpoints.end());
     //
@@ -247,8 +241,7 @@ GUIDialog_Breakpoints::encode2TXT()
 
 
 long
-GUIDialog_Breakpoints::onCmdClear(FXObject*,FXSelector,void*)
-{
+GUIDialog_Breakpoints::onCmdClear(FXObject*,FXSelector,void*) {
     gBreakpoints.clear();
     rebuildList();
     return 1;
@@ -257,8 +250,7 @@ GUIDialog_Breakpoints::onCmdClear(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_Breakpoints::onCmdClose(FXObject*,FXSelector,void*)
-{
+GUIDialog_Breakpoints::onCmdClose(FXObject*,FXSelector,void*) {
     close(true);
     return 1;
 }
@@ -275,8 +267,7 @@ GUIDialog_Breakpoints::onUpdSave(FXObject*sender,FXSelector,void*ptr)
 
 */
 long
-GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data)
-{
+GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data) {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
     string value = i->item->getText().text();
     // check whether the inserted value is empty

@@ -61,18 +61,15 @@ using namespace std;
 // ===========================================================================
 GUINetWrapper::GUINetWrapper(GUIGlObjectStorage &idStorage, GUINet &net) throw()
         : GUIGlObject(idStorage, "network"),
-        myNet(net)
-{}
+        myNet(net) {}
 
 
-GUINetWrapper::~GUINetWrapper() throw()
-{}
+GUINetWrapper::~GUINetWrapper() throw() {}
 
 
 GUIGLObjectPopupMenu *
 GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
-                            GUISUMOAbstractView &parent) throw()
-{
+                            GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -84,8 +81,7 @@ GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUINetWrapper::getParameterWindow(GUIMainWindow &app,
-                                  GUISUMOAbstractView &) throw()
-{
+                                  GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items
@@ -136,32 +132,27 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUINetWrapper::getMicrosimID() const throw()
-{
+GUINetWrapper::getMicrosimID() const throw() {
     return StringUtils::emptyString;
 }
 
 
 Boundary
-GUINetWrapper::getBoundary() const
-{
+GUINetWrapper::getBoundary() const {
     return myNet.getBoundary();
 }
 
 void
-GUINetWrapper::drawGL(const GUIVisualizationSettings &s) const throw()
-{
+GUINetWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
 }
 
 GUINet &
-GUINetWrapper::getNet() const
-{
+GUINetWrapper::getNet() const {
     return myNet;
 }
 
 Boundary
-GUINetWrapper::getCenteringBoundary() const throw()
-{
+GUINetWrapper::getCenteringBoundary() const throw() {
     return getBoundary();
 }
 

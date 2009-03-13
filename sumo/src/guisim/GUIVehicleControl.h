@@ -53,8 +53,7 @@
  * @todo This is partially unsecure due to concurrent access...
  * @todo Recheck vehicle deletion
  */
-class GUIVehicleControl : public MSVehicleControl
-{
+class GUIVehicleControl : public MSVehicleControl {
 public:
     /// @brief Constructor
     GUIVehicleControl() throw();

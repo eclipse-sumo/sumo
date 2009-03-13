@@ -37,8 +37,7 @@
  * @class ROJTRFrame
  * @brief Sets and checks options for jtr-routing
  */
-class ROJTRFrame
-{
+class ROJTRFrame {
 public:
     /** @brief Inserts options used by jtrrouter into the OptionsCont-singleton
      *

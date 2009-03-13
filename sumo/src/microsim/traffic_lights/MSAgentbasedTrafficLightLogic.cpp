@@ -59,15 +59,13 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
         : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
         tDecide(decHorizon), tSinceLastDecision(0), stepOfLastDecision(0),
-        numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit(minDiff)
-{}
+        numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit(minDiff) {}
 
 
 void
 MSAgentbasedTrafficLightLogic::init(
     NLDetectorBuilder &nb,
-    const MSEdgeContinuations &edgeContinuations)
-{
+    const MSEdgeContinuations &edgeContinuations) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
@@ -122,13 +120,11 @@ MSAgentbasedTrafficLightLogic::init(
 }
 
 
-MSAgentbasedTrafficLightLogic::~MSAgentbasedTrafficLightLogic()
-{}
+MSAgentbasedTrafficLightLogic::~MSAgentbasedTrafficLightLogic() {}
 
 
 void
-MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
-{
+MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen) {
     typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
     GreenPhasesVector tmp_phases(myPhases.size());
@@ -168,8 +164,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
 
 
 void
-MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
-{
+MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut) {
     typedef std::pair <size_t, size_t> contentType;
     typedef vector< pair <size_t,size_t> > GreenPhasesVector;
     GreenPhasesVector tmp_phases(myPhases.size());
@@ -209,8 +204,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 
 
 SUMOTime
-MSAgentbasedTrafficLightLogic::trySwitch(bool)
-{
+MSAgentbasedTrafficLightLogic::trySwitch(bool) {
     assert(currentPhaseDef()->minDuration >=0);
     assert(currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
     if (isGreenPhase(myStep)) {
@@ -246,8 +240,7 @@ MSAgentbasedTrafficLightLogic::trySwitch(bool)
 
 
 size_t
-MSAgentbasedTrafficLightLogic::nextStep()
-{
+MSAgentbasedTrafficLightLogic::nextStep() {
     // increment the index to the current phase
     myStep++;
     assert(myStep<=myPhases.size());
@@ -263,8 +256,7 @@ MSAgentbasedTrafficLightLogic::nextStep()
 
 
 void
-MSAgentbasedTrafficLightLogic::collectData()
-{
+MSAgentbasedTrafficLightLogic::collectData() {
     //collects the traffic data
 
     // gets a copy of the driveMask
@@ -280,7 +272,7 @@ MSAgentbasedTrafficLightLogic::collectData()
                 break;
             }
             SUMOReal maxPerBit = 0;
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
+            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
                 if ((*j)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
@@ -315,8 +307,7 @@ MSAgentbasedTrafficLightLogic::collectData()
 
 
 void
-MSAgentbasedTrafficLightLogic::aggregateRawData()
-{
+MSAgentbasedTrafficLightLogic::aggregateRawData() {
     for (PhaseValueMap::const_iterator i = myRawDetectorData.begin(); i!=myRawDetectorData.end(); i++) {
         SUMOReal sum = 0;
         for (ValueType:: const_iterator it = myRawDetectorData[(*i).first].begin(); it != myRawDetectorData[(*i).first].end(); it ++) {
@@ -329,8 +320,7 @@ MSAgentbasedTrafficLightLogic::aggregateRawData()
 
 
 void
-MSAgentbasedTrafficLightLogic::calculateDuration()
-{
+MSAgentbasedTrafficLightLogic::calculateDuration() {
     aggregateRawData();
     size_t stepOfMaxValue = findStepOfMaxValue();
     if (stepOfMaxValue == myPhases.size())    {
@@ -356,8 +346,7 @@ MSAgentbasedTrafficLightLogic::calculateDuration()
 
 
 size_t
-MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
-{
+MSAgentbasedTrafficLightLogic::findStepOfMaxValue() {
     size_t StepOfMaxValue = myPhases.size();
     SUMOReal MaxValue = -1;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
@@ -379,8 +368,7 @@ MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
 
 
 size_t
-MSAgentbasedTrafficLightLogic::findStepOfMinValue()
-{
+MSAgentbasedTrafficLightLogic::findStepOfMinValue() {
     size_t StepOfMinValue = myPhases.size();
     SUMOReal MinValue = 9999;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
@@ -402,16 +390,14 @@ MSAgentbasedTrafficLightLogic::findStepOfMinValue()
 
 
 MSActuatedPhaseDefinition *
-MSAgentbasedTrafficLightLogic::currentPhaseDef() const
-{
+MSAgentbasedTrafficLightLogic::currentPhaseDef() const {
     assert(myPhases.size()>myStep);
     return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }
 
 
 bool
-MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const
-{
+MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const {
     assert(testStep<=myPhases.size());
     if (static_cast<MSActuatedPhaseDefinition*>(myPhases[testStep])->getDriveMask().none()) {
         return false;

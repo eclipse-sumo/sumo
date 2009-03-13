@@ -54,8 +54,7 @@
  *
  */
 template<class E>
-class TraCIDijkstraRouter : public SUMOAbstractRouter<E, MSVehicle>
-{
+class TraCIDijkstraRouter : public SUMOAbstractRouter<E, MSVehicle> {
 public:
     /// Constructor
     TraCIDijkstraRouter(size_t noE/*, bool unbuildIsWarningOnly*/)
@@ -69,8 +68,7 @@ public:
      * A definition about a route's edge with the effort needed to reach it and
      *  the information about the previous edge.
      */
-    class EdgeInfo
-    {
+    class EdgeInfo {
     public:
         /// Constructor
         EdgeInfo()
@@ -103,8 +101,7 @@ public:
      * @class EdgeInfoByEffortComperator
      * Class to compare (and so sort) nodes by their effort
      */
-    class EdgeInfoByEffortComperator
-    {
+    class EdgeInfoByEffortComperator {
     public:
         /// Constructor
         explicit EdgeInfoByEffortComperator() { }
@@ -217,8 +214,7 @@ public:
      * This class is used instead of the former saving of these values within
      *  the edges to allow parallel route computation in multithreading mode.
      */
-    class EdgeInfoCont
-    {
+    class EdgeInfoCont {
     public:
         /// Constructor
         EdgeInfoCont(size_t toAlloc)

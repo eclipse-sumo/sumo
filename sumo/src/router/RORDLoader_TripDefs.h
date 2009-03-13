@@ -47,8 +47,7 @@
  * destination edge only. Additionally, read vehicles may have information
  * about a certain position to leave from and a certain speed to leave with.
  */
-class RORDLoader_TripDefs : public ROTypedXMLRoutesLoader
-{
+class RORDLoader_TripDefs : public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
     RORDLoader_TripDefs(RONet &net, SUMOTime begin, SUMOTime end,

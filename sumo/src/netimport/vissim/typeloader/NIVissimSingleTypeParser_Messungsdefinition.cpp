@@ -48,17 +48,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Messungsdefinition::NIVissimSingleTypeParser_Messungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Messungsdefinition::~NIVissimSingleTypeParser_Messungsdefinition()
-{}
+NIVissimSingleTypeParser_Messungsdefinition::~NIVissimSingleTypeParser_Messungsdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Messungsdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Messungsdefinition::parse(std::istream &from) {
     return skipOverreading(from, "strecke");
 }
 

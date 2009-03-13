@@ -56,8 +56,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-RODFFrame::fillOptions()
-{
+RODFFrame::fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-c <CONFIGURATION>");
 
@@ -229,8 +228,7 @@ RODFFrame::fillOptions()
 
 
 bool
-RODFFrame::checkOptions()
-{
+RODFFrame::checkOptions() {
     return true;
 }
 

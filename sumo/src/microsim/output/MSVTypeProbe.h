@@ -54,8 +54,7 @@
  * @see Named
  */
 
-class MSVTypeProbe : public MSDetectorFileOutput, public Named
-{
+class MSVTypeProbe : public MSDetectorFileOutput, public Named {
 public:
     /** @brief Constructor
      *

@@ -48,8 +48,7 @@
  * Allows the building of a wrapper (also declared herein) which draws the
  * detector on the gl-canvas.
  */
-class GUIE3Collector : public MSE3Collector
-{
+class GUIE3Collector : public MSE3Collector {
 public:
     /// Constructor
     GUIE3Collector(const std::string &id,
@@ -74,8 +73,7 @@ public:
      * @class GUIE3Collector::MyWrapper
      * A GUIE3Collector-visualiser
      */
-    class MyWrapper : public GUIDetectorWrapper
-    {
+    class MyWrapper : public GUIDetectorWrapper {
     public:
         /// Constructor
         MyWrapper(GUIE3Collector &detector,

@@ -45,17 +45,14 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSEdgeContinuations::MSEdgeContinuations() throw()
-{}
+MSEdgeContinuations::MSEdgeContinuations() throw() {}
 
 
-MSEdgeContinuations::~MSEdgeContinuations() throw()
-{}
+MSEdgeContinuations::~MSEdgeContinuations() throw() {}
 
 
 void
-MSEdgeContinuations::add(const MSEdge *to, const MSEdge *from) throw()
-{
+MSEdgeContinuations::add(const MSEdge *to, const MSEdge *from) throw() {
     if (myContinuations.find(to)==myContinuations.end()) {
         myContinuations[to] = vector<const MSEdge *>();
     }
@@ -64,15 +61,13 @@ MSEdgeContinuations::add(const MSEdge *to, const MSEdge *from) throw()
 
 
 const std::vector<const MSEdge *> &
-MSEdgeContinuations::getInFrontOfEdge(const MSEdge &toEdge) const throw()
-{
+MSEdgeContinuations::getInFrontOfEdge(const MSEdge &toEdge) const throw() {
     return myContinuations.find(static_cast<MSEdge*>(& ((MSEdge&) toEdge)))->second;
 }
 
 
 bool
-MSEdgeContinuations::hasFurther(const MSEdge &toEdge) const throw()
-{
+MSEdgeContinuations::hasFurther(const MSEdge &toEdge) const throw() {
     return myContinuations.find(static_cast<MSEdge*>(& ((MSEdge&) toEdge)))!=myContinuations.end();
 }
 

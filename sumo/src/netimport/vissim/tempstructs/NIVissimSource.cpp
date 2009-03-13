@@ -44,19 +44,16 @@ NIVissimSource::NIVissimSource(const std::string &id, const std::string &name,
                                SUMOReal beg, SUMOReal end)
         : myID(id), myName(name), myEdgeID(edgeid), myQ(q), myExact(exact),
         myVehicleCombination(vehicle_combination),
-        myTimeBeg(beg), myTimeEnd(end)
-{}
+        myTimeBeg(beg), myTimeEnd(end) {}
 
 
-NIVissimSource::~NIVissimSource()
-{}
+NIVissimSource::~NIVissimSource() {}
 
 
 bool
 NIVissimSource::dictionary(const std::string &id, const std::string &name,
                            const std::string &edgeid, SUMOReal q, bool exact,
-                           int vehicle_combination, SUMOReal beg, SUMOReal end)
-{
+                           int vehicle_combination, SUMOReal beg, SUMOReal end) {
     NIVissimSource *o = new NIVissimSource(id, name, edgeid, q, exact,
                                            vehicle_combination, beg, end);
     if (!dictionary(id, o)) {
@@ -68,8 +65,7 @@ NIVissimSource::dictionary(const std::string &id, const std::string &name,
 
 
 bool
-NIVissimSource::dictionary(const std::string &id, NIVissimSource *o)
-{
+NIVissimSource::dictionary(const std::string &id, NIVissimSource *o) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         myDict[id] = o;
@@ -80,8 +76,7 @@ NIVissimSource::dictionary(const std::string &id, NIVissimSource *o)
 
 
 NIVissimSource *
-NIVissimSource::dictionary(const std::string &id)
-{
+NIVissimSource::dictionary(const std::string &id) {
     DictType::iterator i=myDict.find(id);
     if (i==myDict.end()) {
         return 0;
@@ -91,8 +86,7 @@ NIVissimSource::dictionary(const std::string &id)
 
 
 void
-NIVissimSource::clearDict()
-{
+NIVissimSource::clearDict() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete(*i).second;
     }

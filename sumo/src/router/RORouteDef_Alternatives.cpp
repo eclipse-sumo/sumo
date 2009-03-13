@@ -72,13 +72,11 @@ RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
         SUMOReal gawronA,
         int maxRoutes) throw()
         : RORouteDef(id, 0), myLastUsed((int) lastUsed),
-        myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRoutes)
-{
+        myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRoutes) {
 }
 
 
-RORouteDef_Alternatives::~RORouteDef_Alternatives() throw()
-{
+RORouteDef_Alternatives::~RORouteDef_Alternatives() throw() {
     for (AlternativesVector::iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         delete *i;
     }
@@ -86,8 +84,7 @@ RORouteDef_Alternatives::~RORouteDef_Alternatives() throw()
 
 
 void
-RORouteDef_Alternatives::addLoadedAlternative(RORoute *alt)
-{
+RORouteDef_Alternatives::addLoadedAlternative(RORoute *alt) {
     myAlternatives.push_back(alt);
 }
 
@@ -95,8 +92,7 @@ RORouteDef_Alternatives::addLoadedAlternative(RORoute *alt)
 
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-        SUMOTime begin, const ROVehicle &veh) const
-{
+        SUMOTime begin, const ROVehicle &veh) const {
     // recompute duration of the last route used
     // build a new route to test whether it is better
     std::vector<const ROEdge*> edges;
@@ -120,8 +116,7 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> 
 
 
 int
-RORouteDef_Alternatives::findRoute(RORoute *opt) const
-{
+RORouteDef_Alternatives::findRoute(RORoute *opt) const {
     for (unsigned int i=0; i<myAlternatives.size(); i++) {
         if (opt->getEdgeVector() == myAlternatives[i]->getEdgeVector()) {
             return (int) i;
@@ -132,8 +127,7 @@ RORouteDef_Alternatives::findRoute(RORoute *opt) const
 
 
 void
-RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
-{
+RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *current, SUMOTime begin) {
     // add the route when it's new
     if (myLastUsed<0) {
         myAlternatives.push_back(current);
@@ -214,8 +208,7 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
 
 
 SUMOReal
-RORouteDef_Alternatives::gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x)
-{
+RORouteDef_Alternatives::gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x) {
     if (((pdr*gawronG(myGawronA, x)+pds)==0)) {
         return std::numeric_limits<SUMOReal>::max();
     }
@@ -225,8 +218,7 @@ RORouteDef_Alternatives::gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x)
 
 
 SUMOReal
-RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x)
-{
+RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x) {
     if (((1.0-(x*x))==0)) {
         return std::numeric_limits<SUMOReal>::max();
     }
@@ -235,8 +227,7 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x)
 
 
 RORouteDef *
-RORouteDef_Alternatives::copy(const std::string &id) const
-{
+RORouteDef_Alternatives::copy(const std::string &id) const {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
             myLastUsed, myGawronBeta, myGawronA, myMaxRouteNumber);
     for (std::vector<RORoute*>::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
@@ -247,15 +238,13 @@ RORouteDef_Alternatives::copy(const std::string &id) const
 
 
 void
-RORouteDef_Alternatives::invalidateLast()
-{
+RORouteDef_Alternatives::invalidateLast() {
     myLastUsed = -1;
 }
 
 
 void
-RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
-{
+RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *current, SUMOTime begin) {
     myAlternatives.push_back(current);
     if (myMaxRouteNumber>=0) {
         while (myAlternatives.size()>(size_t) myMaxRouteNumber) {
@@ -326,8 +315,7 @@ RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *curre
 
 
 void
-RORouteDef_Alternatives::removeLast()
-{
+RORouteDef_Alternatives::removeLast() {
     assert(myAlternatives.size()>=2);
     myAlternatives.erase(myAlternatives.end()-1);
     myLastUsed = (int) myAlternatives.size() - 1;
@@ -337,8 +325,7 @@ RORouteDef_Alternatives::removeLast()
 
 OutputDevice &
 RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
-        bool asAlternatives, bool withExitTimes) const
-{
+        bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
         dev << "<routeDistribution last=\"" << myLastUsed << "\"";

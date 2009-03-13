@@ -41,8 +41,7 @@
  *
  */
 class NIVissimSingleTypeParser_Zeitschrittfaktor :
-            public NIVissimLoader::VissimSingleTypeParser
-{
+            public NIVissimLoader::VissimSingleTypeParser {
 public:
     /// Constructor
     NIVissimSingleTypeParser_Zeitschrittfaktor(NIVissimLoader &parent);

@@ -99,8 +99,7 @@ static const char* dlr_icon[] = {
 // ===========================================================================
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
         int x, int y)
-        : FXDialogBox(parent, name, DECOR_CLOSE|DECOR_TITLE, x, y, 0, 0)
-{
+        : FXDialogBox(parent, name, DECOR_CLOSE|DECOR_TITLE, x, y, 0, 0) {
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this,
                             LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X,
@@ -150,15 +149,13 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
 
 
 void
-GUIDialog_AboutSUMO::create()
-{
+GUIDialog_AboutSUMO::create() {
     FXDialogBox::create();
     myDLRIcon->create();
 }
 
 
-GUIDialog_AboutSUMO::~GUIDialog_AboutSUMO()
-{
+GUIDialog_AboutSUMO::~GUIDialog_AboutSUMO() {
     delete myDLRIcon;
 }
 

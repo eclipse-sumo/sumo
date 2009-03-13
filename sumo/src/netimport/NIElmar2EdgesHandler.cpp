@@ -60,17 +60,14 @@ NIElmar2EdgesHandler::NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         std::map<std::string,
         Position2DVector> &geoms, bool tryIgnoreNodePositions) throw()
         : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms),
-        myTryIgnoreNodePositions(tryIgnoreNodePositions)
-{}
+        myTryIgnoreNodePositions(tryIgnoreNodePositions) {}
 
 
-NIElmar2EdgesHandler::~NIElmar2EdgesHandler() throw()
-{}
+NIElmar2EdgesHandler::~NIElmar2EdgesHandler() throw() {}
 
 
 bool
-NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError)
-{
+NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError) {
 //	0: LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID
 //  4: length	vehicle_type	form_of_way	brunnel_type
 //  7: street_type	speed_category	number_of_lanes	average_speed

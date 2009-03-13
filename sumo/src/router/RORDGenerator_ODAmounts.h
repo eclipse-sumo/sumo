@@ -48,8 +48,7 @@
  *  definitions are parsed into the memory from a file and then consecutively
  *  build on demand.
  */
-class RORDGenerator_ODAmounts : public RORDLoader_TripDefs
-{
+class RORDGenerator_ODAmounts : public RORDLoader_TripDefs {
 public:
     /// Constructor
     RORDGenerator_ODAmounts(RONet &net,
@@ -115,8 +114,7 @@ protected:
      * @class FlowDef
      * The definition of a flow.
      */
-    class FlowDef
-    {
+    class FlowDef {
     public:
         /// Constructor
         FlowDef(ROVehicle *vehicle, ROVehicleType *type, RORouteDef *route,

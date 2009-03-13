@@ -48,8 +48,7 @@ using namespace std;
 // ===========================================================================
 SUMOVehicleParameter *
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
-        bool skipID, bool skipDepart)
-{
+        bool skipID, bool skipDepart) {
     string id;
     if (!skipID && !attrs.setIDFromAttributes("vehicle", id)) {
         throw ProcessError();
@@ -153,8 +152,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
 SUMOVehicleClass
 SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
         const std::string &type,
-        const std::string &id) throw()
-{
+        const std::string &id) throw() {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
         string vclassS = attrs.getStringSecure(SUMO_ATTR_VCLASS, "");
@@ -172,8 +170,7 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
 SUMOEmissionClass
 SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs,
         const std::string &type,
-        const std::string &id) throw()
-{
+        const std::string &id) throw() {
     SUMOEmissionClass vclass = SVE_UNKNOWN;
     try {
         string vclassS = attrs.getStringSecure(SUMO_ATTR_EMISSIONCLASS, "");
@@ -191,8 +188,7 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs,
 SUMOVehicleShape
 SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs,
                                        const std::string &type,
-                                       const std::string &id) throw()
-{
+                                       const std::string &id) throw() {
     SUMOVehicleShape vclass = SVS_UNKNOWN;
     try {
         string vclassS = attrs.getStringSecure(SUMO_ATTR_GUISHAPE, "");

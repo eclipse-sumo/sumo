@@ -37,8 +37,7 @@
  *
  */
 template<typename T>
-class ValueRetriever
-{
+class ValueRetriever {
 public:
     ValueRetriever() { }
     virtual ~ValueRetriever() { }

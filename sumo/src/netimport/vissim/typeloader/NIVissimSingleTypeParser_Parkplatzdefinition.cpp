@@ -56,17 +56,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Parkplatzdefinition::NIVissimSingleTypeParser_Parkplatzdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
+        : NIVissimLoader::VissimSingleTypeParser(parent) {}
 
 
-NIVissimSingleTypeParser_Parkplatzdefinition::~NIVissimSingleTypeParser_Parkplatzdefinition()
-{}
+NIVissimSingleTypeParser_Parkplatzdefinition::~NIVissimSingleTypeParser_Parkplatzdefinition() {}
 
 
 bool
-NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
-{
+NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from) {
     int id;
     from >> id;
 

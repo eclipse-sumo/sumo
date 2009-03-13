@@ -41,8 +41,7 @@
  * Throw from GUIRunThread to GUIApplicationWindow and then further to all
  * displays after a step has been performed
  */
-class GUIEvent_SimulationEnded : public GUIEvent
-{
+class GUIEvent_SimulationEnded : public GUIEvent {
 public:
     enum EndReason {
         /// the simulation has ended as all vehicles have left it

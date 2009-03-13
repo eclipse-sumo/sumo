@@ -49,8 +49,7 @@
  *
  * Each time a new message is passed, the window is reopened.
  */
-class GUIMessageWindow : public FXText
-{
+class GUIMessageWindow : public FXText {
 public:
     /** @brief Constructor
      *

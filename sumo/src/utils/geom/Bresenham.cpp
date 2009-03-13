@@ -45,8 +45,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-Bresenham::compute(BresenhamCallBack *callBack, SUMOReal val1, SUMOReal val2)
-{
+Bresenham::compute(BresenhamCallBack *callBack, SUMOReal val1, SUMOReal val2) {
     // case1: both numbers are equal
     if (val1==val2) {
         for (SUMOReal step=0; step<val1; step++) {

@@ -41,8 +41,7 @@
  * @class FunctionBinding
  */
 template< class T, typename R  >
-class FunctionBinding : public ValueSource<R>
-{
+class FunctionBinding : public ValueSource<R> {
 public:
     /// Type of the function to execute.
     typedef R(T::* Operation)() const;

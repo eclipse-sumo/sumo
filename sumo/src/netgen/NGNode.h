@@ -51,8 +51,7 @@ class NBNetBuilder;
  * @class NGNode
  * @brief A netgen-representation of a node
  */
-class NGNode
-{
+class NGNode {
 public:
     /// @brief Constructor
     NGNode() throw();

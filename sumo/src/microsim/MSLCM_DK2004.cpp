@@ -64,11 +64,9 @@ MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
         : MSAbstractLaneChangeModel(v),
         myChangeProbability(0),
         myVSafe(0), myBlockingLeader(0), myBlockingFollower(0),
-        myUrgency(0)
-{}
+        myUrgency(0) {}
 
-MSLCM_DK2004::~MSLCM_DK2004()
-{
+MSLCM_DK2004::~MSLCM_DK2004() {
     changed();
 }
 
@@ -86,8 +84,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  SUMOReal neighDist,
                                  SUMOReal currentDist,
                                  */
-                                 MSVehicle **lastBlocked)
-{
+                                 MSVehicle **lastBlocked) {
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -314,8 +311,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 SUMOReal neighDist,
                                 SUMOReal currentDist,
                                 */
-                                MSVehicle **lastBlocked)
-{
+                                MSVehicle **lastBlocked) {
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -521,8 +517,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
 
 SUMOReal
-MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/)
-{
+MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/) {
     SUMOReal vSafe = myVSafe;
     int state = myState;
     myState = 0;
@@ -607,8 +602,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
 
 
 void *
-MSLCM_DK2004::inform(void *info, MSVehicle * /*sender*/)
-{
+MSLCM_DK2004::inform(void *info, MSVehicle * /*sender*/) {
     Info *pinfo = (Info*) info;
     if (pinfo->second==LCA_UNBLOCK) {
         myState &= 0xffff00ff;
@@ -625,8 +619,7 @@ MSLCM_DK2004::inform(void *info, MSVehicle * /*sender*/)
 
 
 void
-MSLCM_DK2004::changed()
-{
+MSLCM_DK2004::changed() {
     myChangeProbability = 0;
     myState = 0;
 }
@@ -637,8 +630,7 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
                             int &blocked,
                             int dir,
                             const std::pair<MSVehicle*, SUMOReal> &neighLead,
-                            const std::pair<MSVehicle*, SUMOReal> &neighFollow)
-{
+                            const std::pair<MSVehicle*, SUMOReal> &neighFollow) {
     /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb = 0;
@@ -673,13 +665,11 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
 
 
 void
-MSLCM_DK2004::prepareStep()
-{}
+MSLCM_DK2004::prepareStep() {}
 
 
 SUMOReal
-MSLCM_DK2004::getProb() const
-{
+MSLCM_DK2004::getProb() const {
     return myChangeProbability;
 }
 

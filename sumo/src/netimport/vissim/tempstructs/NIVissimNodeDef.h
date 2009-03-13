@@ -37,8 +37,7 @@
 #include "NIVissimNodeCluster.h"
 
 
-class NIVissimNodeDef
-{
+class NIVissimNodeDef {
 public:
     NIVissimNodeDef(int id, const std::string &name);
     virtual ~NIVissimNodeDef();

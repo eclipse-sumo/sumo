@@ -52,27 +52,23 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBJunctionLogicCont::NBJunctionLogicCont()
-{}
+NBJunctionLogicCont::NBJunctionLogicCont() {}
 
 
-NBJunctionLogicCont::~NBJunctionLogicCont()
-{
+NBJunctionLogicCont::~NBJunctionLogicCont() {
     clear();
 }
 
 
 bool
-NBJunctionLogicCont::exists(const string &key)
-{
+NBJunctionLogicCont::exists(const string &key) {
     return myMap.find(key)!=myMap.end();
 }
 
 
 void
 NBJunctionLogicCont::add(const std::string &key,
-                         const std::string &xmlDescription)
-{
+                         const std::string &xmlDescription) {
     LogicMap::iterator i=myMap.find(key);
     if (i!=myMap.end()) {
         string tmp = (*i).second;
@@ -82,8 +78,7 @@ NBJunctionLogicCont::add(const std::string &key,
 
 
 void
-NBJunctionLogicCont::writeXML(OutputDevice &into)
-{
+NBJunctionLogicCont::writeXML(OutputDevice &into) {
     for (LogicMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
         into << (*i).second << "\n";
     }
@@ -92,8 +87,7 @@ NBJunctionLogicCont::writeXML(OutputDevice &into)
 
 
 void
-NBJunctionLogicCont::clear()
-{
+NBJunctionLogicCont::clear() {
     myMap.clear();
 }
 

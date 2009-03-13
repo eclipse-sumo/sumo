@@ -37,8 +37,7 @@
 /**
  * @class GUISelectionLoader
  */
-class GUISelectionLoader
-{
+class GUISelectionLoader {
 public:
     static void loadSelection(const std::string &file);
 

@@ -62,8 +62,7 @@ using namespace std;
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
-{
+NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
     if (!oc.isUsableFileList("sumo-net")) {
         return;
@@ -153,19 +152,16 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
 // ---------------------------------------------------------------------------
 NIImporter_SUMO::NIImporter_SUMO(NBNodeCont &nc)
         : SUMOSAXHandler("sumo-network"),
-        myNodeCont(nc), myCurrentEdge(0)
-{}
+        myNodeCont(nc), myCurrentEdge(0) {}
 
 
-NIImporter_SUMO::~NIImporter_SUMO() throw()
-{
+NIImporter_SUMO::~NIImporter_SUMO() throw() {
 }
 
 
 void
 NIImporter_SUMO::myStartElement(SumoXMLTag element,
-                                const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+                                const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         addEdge(attrs);
@@ -190,8 +186,7 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
 
 void
 NIImporter_SUMO::myCharacters(SumoXMLTag element,
-                              const std::string &chars) throw(ProcessError)
-{
+                              const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_LANE:
         if (myCurrentLane!=0) {
@@ -204,8 +199,7 @@ NIImporter_SUMO::myCharacters(SumoXMLTag element,
 
 
 void
-NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_EDGE:
         if (myEdges.find(myCurrentEdge->id)!=myEdges.end()) {
@@ -227,8 +221,7 @@ NIImporter_SUMO::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 void
-NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs)
-{
+NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     string id;
     if (!attrs.setIDFromAttributes("edge", id)) {
@@ -248,8 +241,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs)
 
 
 void
-NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs)
-{
+NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane = new LaneAttrs;
     myCurrentLane->depart = attrs.getBoolSecure(SUMO_ATTR_DEPART, false);
     myCurrentLane->vclasses = attrs.getStringSecure(SUMO_ATTR_VCLASSES, "");
@@ -258,8 +250,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs)
 
 
 void
-NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs)
-{
+NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     // get the id, report an error if not given or empty...
     string id;
     if (!attrs.setIDFromAttributes("junction", id)) {
@@ -287,8 +278,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs)
 
 
 void
-NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs)
-{
+NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
 //    string edge = attrs.getStringSecure(SUMO_ATTR_EDGE, ""); // !!! never used?
     string lane = attrs.getStringSecure(SUMO_ATTR_LANE, "");
     string edge = lane.substr(0, lane.find('_'));
@@ -310,8 +300,7 @@ NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs)
 
 
 void
-NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs)
-{
+NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
     if (myCurrentLane==0) {
         // had error
         return;

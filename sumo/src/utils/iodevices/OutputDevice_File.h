@@ -43,8 +43,7 @@
  * Please note that the device gots responsible for the stream and deletes
  *  it (it should not be deleted elsewhere).
  */
-class OutputDevice_File : public OutputDevice
-{
+class OutputDevice_File : public OutputDevice {
 public:
     /** @brief Constructor
      * @param[in] strm The output stream to used

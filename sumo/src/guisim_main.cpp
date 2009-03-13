@@ -92,8 +92,7 @@ using namespace std;
  * coloring schemes initialisation
  * ----------------------------------------------------------------------- */
 map<int, vector<RGBColor> >
-initVehicleColoringSchemes()
-{
+initVehicleColoringSchemes() {
     map<int, vector<RGBColor> > vehColMap;
     // insert possible vehicle coloring schemes
     GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap();
@@ -249,8 +248,7 @@ initVehicleColoringSchemes()
 
 
 map<int, vector<RGBColor> >
-initLaneColoringSchemes()
-{
+initLaneColoringSchemes() {
     map<int, vector<RGBColor> > laneColMap;
     // insert possible lane coloring schemes
     GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap();
@@ -346,8 +344,7 @@ initLaneColoringSchemes()
 
 #ifdef HAVE_MESOSIM
 map<int, vector<RGBColor> >
-initEdgeColoringSchemes()
-{
+initEdgeColoringSchemes() {
     map<int, vector<RGBColor> > edgeColMap;
     // insert possible lane coloring schemes
     GUIColoringSchemesMap<GUIEdge> &sm = GUIViewMesoEdges::getLaneSchemesMap();
@@ -402,8 +399,7 @@ initEdgeColoringSchemes()
 #endif
 
 void
-initColoringSchemes(FXApp *a)
-{
+initColoringSchemes(FXApp *a) {
     map<int, vector<RGBColor> > vehColMap = initVehicleColoringSchemes();
     map<int, vector<RGBColor> > laneColMap = initLaneColoringSchemes();
 #ifdef HAVE_MESOSIM
@@ -421,8 +417,7 @@ initColoringSchemes(FXApp *a)
 
 
 void
-deleteColoringSchemes()
-{
+deleteColoringSchemes() {
     delete &GUIViewTraffic::getVehiclesSchemesMap();
     delete &GUIViewTraffic::getLaneSchemesMap();
 #ifdef HAVE_MESOSIM
@@ -435,8 +430,7 @@ deleteColoringSchemes()
  * options initialisation
  * ----------------------------------------------------------------------- */
 void
-fillOptions()
-{
+fillOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("");
     oc.addCallExample("-c <CONFIGURATION>");
@@ -458,8 +452,7 @@ fillOptions()
  * main
  * ----------------------------------------------------------------------- */
 int
-main(int argc, char **argv)
-{
+main(int argc, char **argv) {
     // make the output aware of threading
     MFXMutex lock;
     MsgHandler::assignLock(&lock);

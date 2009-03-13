@@ -62,8 +62,7 @@ class MSEdgeContinuations;
  * @todo Refactor this class - it's too large
  * @todo Resort method by one of the topics.
  */
-class NLJunctionControlBuilder
-{
+class NLJunctionControlBuilder {
 private:
     /// @brief Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;

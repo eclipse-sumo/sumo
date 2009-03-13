@@ -31,8 +31,7 @@
 
 #include <fx.h>
 
-class MFXCheckableButton : public FXButton
-{
+class MFXCheckableButton : public FXButton {
     FXDECLARE(MFXCheckableButton)
 public:
     MFXCheckableButton(bool amChecked, FXComposite* p,const FXString& text,

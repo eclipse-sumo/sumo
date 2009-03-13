@@ -42,8 +42,7 @@
  * @class MSPhoneLA
  * @brief A location area of a cellular network (GSM)
  */
-class MSPhoneLA
-{
+class MSPhoneLA {
 public:
     /// Constructor
     MSPhoneLA(int pos_id, int dir);
