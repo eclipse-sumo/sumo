@@ -488,7 +488,7 @@ NBNode::setPriorityJunctionPriorities() {
         }
         for (j=i+1; j!=bestIncoming.end(); ++j) {
             NBEdge *t2 = *j;
-            SUMOReal angle2 = angle2 = t2->getAngle()+180;
+            SUMOReal angle2 = t2->getAngle()+180;
             if (angle2>=360) {
                 angle2 -= 360;
             }
