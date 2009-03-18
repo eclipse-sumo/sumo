@@ -1,0 +1,1 @@
+--no-internal-links -v --keep-edges.in-boundary -1000,0,1000,1000 --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml

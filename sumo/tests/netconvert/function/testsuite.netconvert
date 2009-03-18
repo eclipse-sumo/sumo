@@ -1,6 +1,10 @@
 # Tests for keeping edges (--keep-edges)
 keep_edges
 
+# Tests for keeping edges in a bounding box (--keep-edges.in-boundary)
+keep_edges_boundary
+
+
 # Tests for removing edges (--remove-edges)
 remove_edges
 
