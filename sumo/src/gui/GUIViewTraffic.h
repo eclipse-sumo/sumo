@@ -86,8 +86,6 @@ public:
     void stopTrack();
     int getTrackedID() const;
 
-    long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
-
     void setColorScheme(char* data);
 
 
