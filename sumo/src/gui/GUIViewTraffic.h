@@ -53,7 +53,6 @@ class GUINet;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
-class PointOfInterest;
 
 
 // ===========================================================================
@@ -88,16 +87,9 @@ public:
     int getTrackedID() const;
 
     long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
-    long onLeftBtnRelease(FXObject*,FXSelector,void*);
-    long onMouseMove(FXObject *o,FXSelector sel,void *data);
 
     void setColorScheme(char* data);
 
-    void rename(GUIGlObject *o);
-    void moveTo(GUIGlObject *o);
-    void changeCol(GUIGlObject *o);
-    void changeTyp(GUIGlObject *o);
-    void deleteObj(GUIGlObject *o);
 
     /** @brief Shows a vehicle's route(s)
      * @param[in] v The vehicle to show routes for
@@ -149,23 +141,13 @@ protected:
     void drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken);
     void drawBestLanes(const VehicleOps &vo);
 
-    void setPointToMove(PointOfInterest *p);
-    void setIdToMove(unsigned int id);
     void draw(const MSRoute &r);
-    void setFirstPoint(PointOfInterest *p);
-    void setSecondPoint(PointOfInterest *p);
 
 protected:
     /// The coloring scheme of junctions to use
     JunctionColoringScheme myJunctionColScheme;
 
     int myTrackedID;
-
-    PointOfInterest *myPointToMove;
-    PointOfInterest *mySecondPoint; // first's Line Point
-    PointOfInterest *myFirstPoint;  // second's Line Point
-    unsigned int myIdToMove;  // for deleting the myPointToMove also into gIDStorage
-    bool myLeftButtonPressed; // set to true if the left Button is pressed and keep pressed
 
     GUINet *myNet;
 

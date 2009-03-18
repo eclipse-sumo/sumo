@@ -55,8 +55,6 @@
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/foxtools/MFXImageHelper.h>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/div/GLHelper.h>
@@ -94,9 +92,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
         : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis),
-        myTrackedID(-1),
-        myPointToMove(0),myIdToMove(0),
-        myLeftButtonPressed(false), myNet(&net) {
+        myTrackedID(-1), myNet(&net) {
     init(net);
 }
 
@@ -107,9 +103,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
         : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis, share),
-        myTrackedID(-1),
-        myPointToMove(0),myIdToMove(0),
-        myNet(&net) {
+        myTrackedID(-1), myNet(&net) {
     init(net);
 }
 
@@ -296,6 +290,15 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
         }
     }
     glPopMatrix();
+    /*
+    // draw legends
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslated(1.-.2, 1.-.5, 0.);
+    glScaled(.2, .5, 1.);
+    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
+    sm.getColorer(myVisualizationSettings->laneEdgeMode)->drawLegend();
+    */
     return hits2;
 }
 
@@ -495,302 +498,6 @@ GUIViewTraffic::showViewschemeEditor() {
         myVisualizationChanger->setCurrent(myVisualizationSettings);
     }
     myVisualizationChanger->show();
-}
-
-
-long
-GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data) {
-    FXEvent *e = (FXEvent*) data;
-    myLeftButtonPressed=true;
-    if (e->state&CAPSLOCKMASK) {
-        if (makeCurrent()) {
-            unsigned int id = getObjectUnderCursor();
-            if (id!=0) {
-                GUIGlObject *o = gIDStorage.getObjectBlocking(id);
-                std::string n= o->getFullName();
-                std::string name = n.substr(n.find(":")+1,n.length());
-                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>(myNet->getShapeContainer().getPOICont(1).get(name));
-                setFirstPoint(p);
-            } else {
-                FXMessageBox::error(myApp,MBOX_OK,"Error Get Point","No Point at the Position","");
-            }
-            makeNonCurrent();
-        }
-    }
-
-    if ((e->state&SHIFTMASK)!=0) {
-        // try to get the object-id if so
-        if (makeCurrent()) {
-            unsigned int id = getObjectUnderCursor();
-            setIdToMove(id);
-            makeNonCurrent();
-            if (id!=0) {
-                GUIGlObject *o = gIDStorage.getObjectBlocking(id);
-                std::string n= o->getFullName();
-                std::string name = n.substr(n.find(":")+1,n.length());
-                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>
-                                       (myNet->getShapeContainer().getPOICont(1).get(name));
-                setPointToMove(p);
-            } else {
-                Position2D point = getPositionInformation();
-                std::string Id= toString(point.x()) +  "," + toString(point.y());
-                GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, 1, Id, "point",
-                        Position2D(point.x(), point.y()),RGBColor(0,0,0));
-                myNet->getShapeContainer().add(1, p);
-                update();
-            }
-        }
-        return 1;
-    }
-    return GUISUMOAbstractView::onLeftBtnPress(o, sel, data);
-}
-
-
-void
-GUIViewTraffic::setPointToMove(PointOfInterest *p) {
-    myPointToMove = p;
-}
-
-
-void
-GUIViewTraffic::setIdToMove(unsigned int id) {
-    myIdToMove = id;
-}
-
-
-
-long
-GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data) {
-    long ret = GUISUMOAbstractView::onLeftBtnRelease(o, sel, data);
-    FXEvent *e = (FXEvent*) data;
-    if (myLeftButtonPressed && myFirstPoint!=0 && e->state&CAPSLOCKMASK) {
-        if (makeCurrent()) {
-            unsigned int id = getObjectUnderCursor();
-            if (id==-1) {
-                GUIGlObject *o = gIDStorage.getObjectBlocking(id);
-                std::string n= o->getFullName();
-                std::string name = n.substr(n.find(":")+1,n.length());
-                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>(myNet->getShapeContainer().getPOICont(1).get(name));
-                setSecondPoint(p);
-//!!!				_net->getShapeContainer().addPair(myFirstPoint,_secondPoint);
-                update();
-            } else {
-                Position2D point = getPositionInformation();
-                std::string Id= toString(point.x())+toString(point.y());
-                GUIPointOfInterest *p =
-                    new GUIPointOfInterest(gIDStorage, 1, Id, "point", point, RGBColor(0,0,0));
-                myNet->getShapeContainer().add(1, p);
-                setSecondPoint(p);
-//!!!				_net->getShapeContainer().addPair(myFirstPoint,_secondPoint);
-                SUMOReal dist = (SUMOReal)(sqrt(pow((myFirstPoint->x() - mySecondPoint->x()),2) + pow((myFirstPoint->y() - mySecondPoint->y()),2)));
-                update();
-            }
-            myFirstPoint=0;
-            makeNonCurrent();
-        }
-
-    } else {
-        delete myPopup;
-        myPopup = 0;
-        ungrab();
-    }
-    myLeftButtonPressed=false;
-    return ret;
-}
-
-
-long
-GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data) {
-    /*
-    SUMOReal xpos = myChanger->getXPos();
-    SUMOReal ypos = myChanger->getYPos();
-    SUMOReal zoom = myChanger->getZoom();
-    */
-    FXEvent *e=(FXEvent*)data;
-
-    if (myPointToMove!=0 && e->state&SHIFTMASK) {
-        // Keep Color Informations
-        Position2D point = getPositionInformation(e->win_x, e->win_y);
-        myPointToMove->set(point.x(), point.y());
-        if (!myLeftButtonPressed) {
-            myPointToMove=0;
-        }
-        updatePositionInformation();
-        update();
-    } else {
-        if (myFirstPoint!=0 && e->state&CAPSLOCKMASK && myLeftButtonPressed) {
-            //do Nothing
-            return 1;
-        }
-    }
-    return GUISUMOAbstractView::onMouseMove(o, sel, data);
-}
-
-void
-GUIViewTraffic::rename(GUIGlObject *o) {
-    std::string n= o->getFullName();
-    std::string name = n.substr(n.find(":")+1,n.length());
-
-    FXInputDialog* dialog = new FXInputDialog(myApp,"Please Enter the new Name", n.c_str());
-    dialog->setText(name.c_str());
-    if (dialog->execute()) {
-        /*
-        FXString input = dialog->getText();
-        if(input.length() > 0){
-        PointOfInterest* p =_net->getShapeContainer().getPOICont(1).get(name);
-        RGBColor col(p->red(),p->green(),p->blue());
-        GUIPointOfInterest *p_new = new GUIPointOfInterest(gIDStorage, input.text(), "point",
-          Position2D(p->x(), p->y()),col);
-        myNet->getShapeContainer().add(1, p_new);
-
-        //!!!           const std::map<PointOfInterest*, PointOfInterest*> &pv = myNet->getShapeContainer().getPOIPairCont();
-        std::map<PointOfInterest*, PointOfInterest*>::const_iterator pi = pv.begin();
-        for(; pi!=pv.end(); ++pi) {
-        if((*pi).first->getID()==name){
-                   (*pi).first->setID(toString(input.text()));
-        }
-        if((*pi).second->getID()==name){
-                   (*pi).second->setID(toString(input.text()));
-        }
-        }
-
-        bool b=_net->getShapeContainer().getPOICont().erase(p->getID());
-        //gIDStorage.remove(id); ?? muss ich den Point daraus löschen??
-
-        }
-        */
-    }
-    delete dialog;
-}
-
-void
-GUIViewTraffic::moveTo(GUIGlObject *) {
-    /*
-    std::string n= o->getFullName();
-    std::string name = n.substr(n.find(":")+1,n.length());
-
-    FXDialogBox* dialog = new FXDialogBox(myApp,"Move to new Position",DECOR_TITLE|DECOR_BORDER|DECOR_RESIZE,0,0,300,100, 0,0,0,0, 4,4);
-
-    // Bottom buttons
-    FXHorizontalFrame* buttons=new FXHorizontalFrame(dialog,LAYOUT_SIDE_BOTTOM|FRAME_NONE|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0,40,40,20,20);
-
-    // Separator
-    new FXHorizontalSeparator(dialog,LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|SEPARATOR_GROOVE);
-    FXHorizontalFrame* contents=new FXHorizontalFrame(dialog,LAYOUT_SIDE_TOP|FRAME_NONE|LAYOUT_FILL_X|LAYOUT_FILL_Y|PACK_UNIFORM_WIDTH);
-
-    new FXLabel(contents,"Enter XPos",NULL,LAYOUT_LEFT);
-    FXTextField* textX =new FXTextField(contents,6,NULL,0,FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FILL_COLUMN,0,0,0,0, 2,2,2,2);
-    textX->setText((toString((myNet->getShapeContainer().getPOICont().get(name))->x())).c_str());
-
-    new FXLabel(contents,"Enter YPos",NULL,LAYOUT_LEFT);
-    FXTextField* textY =new FXTextField(contents,6,NULL,0,FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FILL_COLUMN,0,0,0,0, 2,2,2,2);
-    textY->setText((toString((myNet->getShapeContainer().getPOICont().get(name))->y())).c_str());
-
-    new FXButton(buttons,"&Accept",NULL,dialog,FXDialogBox::ID_ACCEPT,BUTTON_INITIAL|BUTTON_DEFAULT|LAYOUT_RIGHT|FRAME_RAISED|FRAME_THICK,0,0,0,0, 20,20);
-    new FXButton(buttons,"&Cancel",NULL,dialog,FXDialogBox::ID_CANCEL,BUTTON_DEFAULT|LAYOUT_RIGHT|FRAME_RAISED|FRAME_THICK,0,0,0,0, 20,20);
-
-    if(dialog->execute()){
-    FXString inputX = textX->getText();
-    FXString inputY = textX->getText();
-    if(inputX.length() > 0 && inputY.length() > 0){
-    SUMOReal x = TplConvert<char>::_2SUMOReal(textX->getText().text());
-    SUMOReal y = TplConvert<char>::_2SUMOReal(textY->getText().text());
-     myNet->getShapeContainer().getPOICont().get(name)->set(x,y);
-    }
-    }
-    delete dialog;
-    */
-}
-
-
-void
-GUIViewTraffic::changeCol(GUIGlObject *) {
-    /*
-    std::string n= o->getFullName();
-    std::string name = n.substr(n.find(":")+1,n.length());
-
-    FXColorDialog * dialog = new FXColorDialog(myApp,"Color");
-
-    RGBColor col = RGBColor(myNet->getShapeContainer().getPOICont().get(name)->myRed,
-    			_net->getShapeContainer().getPOICont().get(name)->myGreen,
-    			_net->getShapeContainer().getPOICont().get(name)->myBlue);
-    dialog->setRGBA(FXRGB(col.red()*255., col.green()*255., col.blue()*255.));
-    if(dialog->execute()){
-    FXColor c = dialog->getRGBA();
-    myNet->getShapeContainer().getPOICont().get(name)->myRed=(SUMOReal) FXREDVAL(c) / (SUMOReal) 255.;
-    myNet->getShapeContainer().getPOICont().get(name)->myGreen=(SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.;
-    myNet->getShapeContainer().getPOICont().get(name)->myBlue=(SUMOReal) FXBLUEVAL(c) / (SUMOReal) 255.;
-    }
-    delete dialog;
-    */
-}
-
-void
-GUIViewTraffic::changeTyp(GUIGlObject *) {
-    /*
-    std::string n= o->getFullName();
-    std::string name = n.substr(n.find(":")+1,n.length());
-
-    FXDialogBox* dialog = new FXDialogBox(myApp,"Change Type... ",DECOR_TITLE|DECOR_BORDER);
-
-    // Bottom buttons
-    FXHorizontalFrame* buttons=new FXHorizontalFrame(dialog,LAYOUT_SIDE_BOTTOM|FRAME_NONE|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0,40,40,20,20);
-
-    // Separator
-    new FXHorizontalSeparator(dialog,LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X|SEPARATOR_GROOVE);
-
-    FXHorizontalFrame* contents=new FXHorizontalFrame(dialog,LAYOUT_SIDE_TOP|FRAME_NONE|LAYOUT_FILL_X|LAYOUT_FILL_Y|PACK_UNIFORM_WIDTH);
-
-
-    FXListBox *lstb= new FXListBox (contents, NULL, 0, FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_X);
-    lstb->insertItem (0,"Point");
-    lstb->insertItem (1,"Vehicle");
-    lstb->insertItem (2,"Lane");
-    lstb->insertItem (3,"POI");
-    lstb->insertItem (4,"Polygon");
-    lstb->insertItem (5,"Building");
-
-    // Accept
-    new FXButton(buttons,"&Accept",NULL,dialog,FXDialogBox::ID_ACCEPT,BUTTON_DEFAULT|BUTTON_INITIAL|FRAME_RAISED|FRAME_THICK|LAYOUT_RIGHT|LAYOUT_CENTER_Y);
-    // Cancel
-    new FXButton(buttons,"&Cancel",NULL,dialog,FXDialogBox::ID_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_RIGHT|LAYOUT_CENTER_Y);
-
-    if(dialog->execute()){
-    (myNet->getShapeContainer().getPOICont().get(name))->setType((lstb->getItemText(lstb->getCurrentItem())).text());
-    }
-
-    delete buttons;
-    delete lstb;
-    delete contents;
-    delete dialog;
-    */
-}
-
-void
-GUIViewTraffic::deleteObj(GUIGlObject *) {
-    /*
-    std::string n= o->getFullName();
-    std::string name = n.substr(n.find(":")+1,n.length());
-
-    FXuint answer=FXMessageBox::question(myApp,MBOX_YES_NO_CANCEL,"Delete the Point","Do you want to delete the Point?");
-    if(answer==MBOX_CLICKED_YES){
-    gIDStorage.remove(getObjectUnderCursor());
-    bool b =_net->getShapeContainer().getPOICont().erase(name);
-    if(!b){
-     FXMessageBox::error(myApp,MBOX_OK,"Error by Delete ","Cannot delete the Point at the Position","");
-    }
-    }
-    */
-}
-
-void
-GUIViewTraffic::setFirstPoint(PointOfInterest *p) {
-    myFirstPoint=p;
-}
-
-void
-GUIViewTraffic::setSecondPoint(PointOfInterest *p) {
-    mySecondPoint=p;
 }
 
 
