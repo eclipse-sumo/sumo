@@ -220,6 +220,8 @@
 #define DOMVAR_NAME 0x0D
 // route, a car plans to drive
 #define DOMVAR_ROUTE 0x0E
+// maximum allowed speed of a node
+#define DOMVAR_ALLOWED_SPEED 0x0F
 // air distance from a certain object to a position
 #define DOMVAR_AIRDISTANCE 0x10
 // driving distance from a certain object to a position

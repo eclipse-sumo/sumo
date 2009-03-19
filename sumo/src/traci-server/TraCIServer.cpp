@@ -1406,6 +1406,8 @@ TraCIServer::commandSubscribeDomain() throw(TraCIException) {
                     ||
                     ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_SPEED) && (dataType == TYPE_FLOAT))
                     ||
+                    ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_ALLOWED_SPEED) && (dataType == TYPE_FLOAT))
+                    ||
                     ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_POSITION) && (dataType == POSITION_2D))
                     ||
                     ((domainId == DOM_VEHICLE) && (variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP))
@@ -1993,6 +1995,20 @@ throw(TraCIException) {
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
             response.writeFloat(veh->getSpeed());
+            // add a warning to the response if the requested data type was not correct
+            if (dataType != TYPE_FLOAT) {
+                warning = "Warning: requested data type could not be used; using float instead!";
+            }
+        } else {
+            throw TraCIException("Unable to retrieve node with given ID");
+        }
+        break;
+
+        // node maximum allowed speed
+    case DOMVAR_ALLOWED_SPEED:
+        if (veh != NULL) {
+            response.writeUnsignedByte(TYPE_FLOAT);
+            response.writeFloat(veh->getLane().maxSpeed());
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -2754,6 +2770,9 @@ throw(TraCIException) {
                 }
                 if ((variableId == DOMVAR_SPEED) && (dataType == TYPE_FLOAT)) {
                     tempMsg.writeFloat(vehicle->getSpeed());
+                }
+                if ((variableId == DOMVAR_ALLOWED_SPEED) && (dataType == TYPE_FLOAT)) {
+                    tempMsg.writeFloat(vehicle->getLane().maxSpeed());
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
                     Position2D pos = vehicle->getPosition();
