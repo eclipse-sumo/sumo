@@ -197,12 +197,17 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
             return;
         }
         // get the begin and the end lane
+        bool mayDefinitelyPass = false;
+        if(attrs.hasAttribute(SUMO_ATTR_PASS)) {
+            mayDefinitelyPass = attrs.getBool(SUMO_ATTR_PASS);
+        }
+        //
         int fromLane;
         int toLane;
         try {
             fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true)) {
+            if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {
                 NBEdge *nFrom = from;
                 bool toNext = true;
                 do {
@@ -219,7 +224,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
                         nFrom = t;
                     }
                 } while (toNext);
-                if (nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER)) {
+                if (nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, mayDefinitelyPass)) {
                     WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
                 } else {
                     from = nFrom;
