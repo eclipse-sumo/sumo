@@ -1,3 +1,7 @@
+%if 0%{?mandriva_version}
+  Substitute: libnetcdf-devel netcdf-devel
+  Substitute: hdf-devel HDF-devel
+%endif
 %if 0%{?suse_version} == 1020 || 0%{?fedora_version}
   Substitute: libnetcdf-devel netcdf
 %endif
