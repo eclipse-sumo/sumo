@@ -28,6 +28,7 @@
 #endif
 
 #include <string>
+#include <cstdio>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
