@@ -1,6 +1,17 @@
-sumo (0.9.10-1) stable; urgency=low  
+sumo (0.10.2-1) unstable; urgency=low  
+  
+  * New upstream release.  
+   
+ -- Michael Behrisch <behrisch@informatik.hu-berlin.de>  Mon, 16 Mar 2009 22:00:47 +0100
+
+sumo (0.10.1-1) unstable; urgency=low  
+ 
+  * Update
+
+ -- Michael Behrisch <behrisch@informatik.hu-berlin.de>  Sun, 15 Feb 2009 22:34:33 +0200
+
+sumo (0.9.10-1) unstable; urgency=low  
  
   * Initial Release
 
  -- Michael Behrisch <behrisch@informatik.hu-berlin.de>  Thu, 23 Oct 2008 23:04:33 +0200
-  
