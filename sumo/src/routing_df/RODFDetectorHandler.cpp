@@ -32,9 +32,11 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/TplConvertSec.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "RODFDetectorHandler.h"
+#include "RODFNet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -42,18 +44,12 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
-RODFDetectorHandler::RODFDetectorHandler(OptionsCont &oc, RODFDetectorCon &con,
+RODFDetectorHandler::RODFDetectorHandler(RODFNet *optNet, bool ignoreErrors, RODFDetectorCon &con,
         const std::string &file)
         : SUMOSAXHandler(file),
-        myOptions(oc),  myContainer(con) {}
+        myNet(optNet), myIgnoreErrors(ignoreErrors), myContainer(con) {}
 
 
 RODFDetectorHandler::~RODFDetectorHandler() throw() {}
@@ -63,38 +59,51 @@ void
 RODFDetectorHandler::myStartElement(SumoXMLTag element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_DETECTOR_DEFINITION) {
-        // get the id, report an error if not given or empty...
-        string id;
-        if (!attrs.setIDFromAttributes("detector_definition", id, false)) {
-            throw ProcessError("A detector_definition without an id occured within '" + getFileName() + ".");
-        }
-        string lane;
         try {
-            lane = attrs.getString(SUMO_ATTR_LANE);
-        } catch (EmptyData&) {
-            throw ProcessError("A detector without a lane information occured within '" + getFileName() + "' (detector id='" + id + ").");
-        }
-        SUMOReal pos;
-        try {
-            pos = attrs.getFloat(SUMO_ATTR_POSITION);
-        } catch (EmptyData&) {
-            throw ProcessError("A detector without a lane position occured within '" + getFileName() + "' (detector id='" + id + ").");
-        } catch (NumberFormatException&) {
-            throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + ").");
-        }
-        string mml_type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-        RODFDetectorType type = TYPE_NOT_DEFINED;
-        if (mml_type=="between") {
-            type = BETWEEN_DETECTOR;
-        } else if (mml_type=="source"||mml_type=="highway_source") { // !!! highway-source is legacy (removed accoring output on 06.08.2007)
-            type = SOURCE_DETECTOR;
-        } else if (mml_type=="sink") {
-            type = SINK_DETECTOR;
-        }
-        RODFDetector *detector = new RODFDetector(id, lane, pos, type);
-        if (!myContainer.addDetector(detector)) {
-            delete detector;
-            throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");
+            // get the id, report an error if not given or empty...
+            std::string id;
+            if (!attrs.setIDFromAttributes("detector_definition", id, false)) {
+                throw ProcessError("A detector_definition without an id occured within '" + getFileName() + "'.");
+            }
+            std::string lane;
+            try {
+                lane = attrs.getString(SUMO_ATTR_LANE);
+                ROEdge *edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
+                int laneIndex = TplConvertSec<char>::_2intSec(lane.substr(lane.rfind('_')+1).c_str(), INT_MAX);
+                if (edge == 0 || laneIndex >= edge->getLaneNo()) {
+                    throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
+                }
+            } catch (EmptyData&) {
+                throw ProcessError("A detector without a lane information occured within '" + getFileName() + "' (detector id='" + id + "').");
+            }
+            SUMOReal pos;
+            try {
+                pos = attrs.getFloat(SUMO_ATTR_POSITION);
+            } catch (EmptyData&) {
+                throw ProcessError("A detector without a lane position occured within '" + getFileName() + "' (detector id='" + id + "').");
+            } catch (NumberFormatException&) {
+                throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + "').");
+            }
+            std::string mml_type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+            RODFDetectorType type = TYPE_NOT_DEFINED;
+            if (mml_type=="between") {
+                type = BETWEEN_DETECTOR;
+            } else if (mml_type=="source"||mml_type=="highway_source") { // !!! highway-source is legacy (removed accoring output on 06.08.2007)
+                type = SOURCE_DETECTOR;
+            } else if (mml_type=="sink") {
+                type = SINK_DETECTOR;
+            }
+            RODFDetector *detector = new RODFDetector(id, lane, pos, type);
+            if (!myContainer.addDetector(detector)) {
+                delete detector;
+                throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");
+            }
+        } catch (ProcessError e) {
+            if (myIgnoreErrors) {
+                MsgHandler::getWarningInstance()->inform(e.what());
+            } else {
+                throw e;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r6538
+SUMO dfrouter Version dev-SVN-r6926
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -40,6 +40,7 @@ Usage: dfrouter.exe [OPTION]*
  Processing Options:
   --guess-empty-flows                
   -h, --highway-mode                 Switches to highway-mode
+  --ignore-invalid-detectors         Only warn about unparseable detectors
   --revalidate-detectors             Recomputes detector types even if given
   --revalidate-routes                Recomputes routes even if given
   --all-end-follower                 Continues routes till the first street

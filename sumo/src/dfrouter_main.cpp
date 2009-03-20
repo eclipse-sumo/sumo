@@ -92,7 +92,7 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
             throw ProcessError("Could not open detector file '" + *fileIt + "'");
         }
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
-        RODFDetectorHandler handler(oc, detectors, *fileIt);
+        RODFDetectorHandler handler(optNet, oc.getBool("ignore-invalid-detectors"), detectors, *fileIt);
         if (XMLSubSys::runParser(handler, *fileIt)) {
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         } else {

@@ -1,2 +1,2 @@
-Error: Edge '' used by detector 'MQ11Fs2' is not known.
+Error: Unknown lane '' for detector 'MQ11Fs2' in 'input_messstrecke.det.xml'.
 Quitting (on error).

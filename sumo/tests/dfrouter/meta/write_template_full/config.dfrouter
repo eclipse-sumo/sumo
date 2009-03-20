@@ -23,6 +23,7 @@
    <processing>
       <guess-empty-flows>false</guess-empty-flows>
       <highway-mode>false</highway-mode>
+      <ignore-invalid-detectors>false</ignore-invalid-detectors>
       <revalidate-detectors>false</revalidate-detectors>
       <revalidate-routes>false</revalidate-routes>
       <all-end-follower>false</all-end-follower>

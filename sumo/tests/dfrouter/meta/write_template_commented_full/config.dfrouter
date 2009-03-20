@@ -55,6 +55,9 @@
       <!-- Switches to highway-mode -->
       <highway-mode>false</highway-mode>
 
+      <!-- Only warn about unparseable detectors -->
+      <ignore-invalid-detectors>false</ignore-invalid-detectors>
+
       <!-- Recomputes detector types even if given -->
       <revalidate-detectors>false</revalidate-detectors>
 

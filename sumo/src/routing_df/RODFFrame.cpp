@@ -128,6 +128,10 @@ RODFFrame::fillOptions() {
     oc.doRegister("highway-mode", 'h', new Option_Bool(false)); // !!! describe
     oc.addDescription("highway-mode", "Processing", "Switches to highway-mode");
 
+    // for detector reading
+    oc.doRegister("ignore-invalid-detectors", new Option_Bool(false));
+    oc.addDescription("ignore-invalid-detectors", "Processing", "Only warn about unparseable detectors");
+
     // for detector type computation
     oc.doRegister("revalidate-detectors", new Option_Bool(false));
     oc.addDescription("revalidate-detectors", "Processing", "Recomputes detector types even if given");
