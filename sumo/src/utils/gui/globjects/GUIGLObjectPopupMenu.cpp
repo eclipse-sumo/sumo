@@ -59,12 +59,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION, GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_RENAME,         GUIGLObjectPopupMenu::onCmdRename),
-    FXMAPFUNC(SEL_COMMAND,  MID_MOVETO,         GUIGLObjectPopupMenu::onCmdMoveTo),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHANGECOL,      GUIGLObjectPopupMenu::onCmdChangeCol),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHANGETYPE,     GUIGLObjectPopupMenu::onCmdChangeTyp),
-    FXMAPFUNC(SEL_COMMAND,  MID_DELETE,         GUIGLObjectPopupMenu::onCmdDelete)
+    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected)
 };
 
 // Object implementation
@@ -134,42 +129,6 @@ GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*) {
     myParent->update();
     return 1;
 }
-
-
-long
-GUIGLObjectPopupMenu::onCmdRename(FXObject*,FXSelector,void*) {
-    myParent->rename(myObject);
-    return 1;
-}
-
-
-long
-GUIGLObjectPopupMenu::onCmdMoveTo(FXObject*,FXSelector,void*) {
-    myParent->moveTo(myObject);
-    return 1;
-}
-
-
-long
-GUIGLObjectPopupMenu::onCmdChangeCol(FXObject*,FXSelector,void*) {
-    myParent->changeCol(myObject);
-    return 1;
-}
-
-
-long
-GUIGLObjectPopupMenu::onCmdChangeTyp(FXObject*,FXSelector,void*) {
-    myParent->changeTyp(myObject);
-    return 1;
-}
-
-
-long
-GUIGLObjectPopupMenu::onCmdDelete(FXObject*,FXSelector,void*) {
-    myParent->deleteObj(myObject);
-    return 1;
-}
-
 
 
 /****************************************************************************/

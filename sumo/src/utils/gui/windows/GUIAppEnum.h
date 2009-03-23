@@ -232,16 +232,6 @@ enum {
     MID_START_TRACK,
     /// Stop to track a vehicle
     MID_STOP_TRACK,
-    /// Rename the object
-    MID_RENAME,
-    /// Move object to another position
-    MID_MOVETO,
-    /// Change the color of an object
-    MID_CHANGECOL,
-    /// Change the type of an object
-    MID_CHANGETYPE,
-    /// Delete an object
-    MID_DELETE,
     //@}
 
 

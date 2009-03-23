@@ -285,9 +285,6 @@ GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*) {
 }
 
 
-
-
-
 void
 GUISUMOViewParent::setView(GUIGlObject *o) {
     myView->centerTo(o);

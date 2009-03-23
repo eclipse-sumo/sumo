@@ -89,20 +89,6 @@ public:
     /// Called if the object shall be removed from the list of selected objects
     long onCmdRemoveSelected(FXObject*,FXSelector,void*);
 
-    /// Called if the assigned objects shall be centered
-    long onCmdRename(FXObject*,FXSelector,void*);
-
-    /// Called if the assigned objects shall be moved
-    long onCmdMoveTo(FXObject*,FXSelector,void*);
-
-    /// Called if the assigned objects shall be recolored
-    long onCmdChangeCol(FXObject*,FXSelector,void*);
-
-    /// Called if the assigned objects shall be changed in typ
-    long onCmdChangeTyp(FXObject*,FXSelector,void*);
-
-    /// Called if the assigned objects shall be deleted
-    long onCmdDelete(FXObject*,FXSelector,void*);
 
 
 protected:

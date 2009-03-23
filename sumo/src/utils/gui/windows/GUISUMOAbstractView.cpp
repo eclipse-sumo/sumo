@@ -952,7 +952,7 @@ GUISUMOAbstractView::showToolTips(bool val) {
 
 
 SUMOReal
-GUISUMOAbstractView::getGridWidth() const {
+GUISUMOAbstractView::getGridWidth() const { 
     return myGrid->getWidth();
 }
 
@@ -961,22 +961,6 @@ SUMOReal
 GUISUMOAbstractView::getGridHeight() const {
     return myGrid->getHeight();
 }
-
-
-void
-GUISUMOAbstractView::rename(GUIGlObject *) {}
-
-void
-GUISUMOAbstractView::moveTo(GUIGlObject *) {}
-
-void
-GUISUMOAbstractView::changeCol(GUIGlObject *) {}
-
-void
-GUISUMOAbstractView::changeTyp(GUIGlObject *) {}
-
-void
-GUISUMOAbstractView::deleteObj(GUIGlObject *) {}
 
 
 FXComboBox &
