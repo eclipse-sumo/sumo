@@ -1,7 +1,5 @@
-
 # Tests what happens if no detectors are given
 no_detector_files
-
 
 # The first used lane does not exist
 broken_detectors_file1a
@@ -39,8 +37,6 @@ broken_detectors_file1k
 # The second lane position is not given
 broken_detectors_file1l
 
-
-
 # Broken XML (element trailing closure missing)
 broken_detectors_file2a
 
@@ -49,8 +45,6 @@ broken_detectors_file2b
 
 # Broken XML (German Umlaut with no encoding)
 broken_detectors_file2c
-
-
 
 # Tests what happens if the given detector file does not exist
 false_detectors_file1
@@ -67,3 +61,5 @@ false_detectors_file2_deprecated
 # Same as false_detectors_file3 but with a deprecated divider (";")
 false_detectors_file3_deprecated
 
+# Only warn about wrong detector def
+broken_detectors_file_warn

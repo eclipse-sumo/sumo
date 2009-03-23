@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/23/09 09:42:21 by SUMO dfrouter Version dev-SVN-r6926
+<configuration>
+
+   <input>
+      <net-file>input_messstrecke.net.xml</net-file>
+      <detector-files>input_messstrecke.det.xml</detector-files>
+   </input>
+
+   <output>
+      <detectors-output>detectors_def.det.xml</detectors-output>
+   </output>
+
+   <processing>
+      <ignore-invalid-detectors>true</ignore-invalid-detectors>
+   </processing>
+
+</configuration>
+-->
+
+<detectors>
+   <detector_definition id="MQ11Fs2" lane="ErnstRuska2O_1" pos="5.00" type="sink"/>
+   <detector_definition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5.00" type="sink"/>
+   <detector_definition id="MQ12Fs2" lane="ErnstRuska2W_1" pos="-5.00" type="sink"/>
+</detectors>

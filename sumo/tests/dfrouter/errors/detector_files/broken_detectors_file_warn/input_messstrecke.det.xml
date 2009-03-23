@@ -1,0 +1,7 @@
+<a>
+   <detector_definition id="MQ11Fs1" lane="xxx_0" pos="5"/>
+   <detector_definition id="MQ11Fs2" lane="ErnstRuska2O_1" pos="5"/>
+   <detector_definition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5"/>
+   <detector_definition id="MQ12Fs2" lane="ErnstRuska2W_1" pos="-5"/>
+
+</a>
