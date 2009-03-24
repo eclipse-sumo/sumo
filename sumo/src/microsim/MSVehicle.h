@@ -948,8 +948,9 @@ private:
         MSLink *myLink;
         SUMOReal myVLinkPass;
         SUMOReal myVLinkWait;
-        DriveProcessItem(MSLink *link, SUMOReal vPass, SUMOReal vWait) :
-                myLink(link), myVLinkPass(vPass), myVLinkWait(vWait) { };
+        bool mySetRequest;
+        DriveProcessItem(MSLink *link, SUMOReal vPass, SUMOReal vWait, bool setRequest) :
+                myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest) { };
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;
