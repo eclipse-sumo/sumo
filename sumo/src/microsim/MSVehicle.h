@@ -203,9 +203,6 @@ public:
      */
     bool ends() const throw();
 
-    /// Moves vehicle one edge forward, returns true if the route has ended
-    bool proceedVirtualReturnWhetherEnded(const MSEdge *const to);
-
     /// Returns the current route
     const MSRoute &getRoute() const;
 

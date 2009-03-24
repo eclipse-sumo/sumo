@@ -30,6 +30,7 @@
 #include <iostream>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
+#include "MSNet.h"
 #include "MSLane.h"
 #include "MSVehicle.h"
 #include "MSVehicleControl.h"
@@ -56,7 +57,7 @@ MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
 // member method definitions
 // ===========================================================================
 void
-MSVehicleTransfer::addVeh(MSVehicle *veh) {
+MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
     WRITE_WARNING("Vehicle '" + veh->getID() + "' will be teleported; edge '" + e->getID() + "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
@@ -64,7 +65,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh) {
     veh->leaveLaneAtLaneChange();
     veh->onTripEnd(/*lane*/);
     MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*veh, MSNet::getInstance()->getCurrentTimeStep());
-    if (veh->proceedVirtualReturnWhetherEnded(MSEdge::dictionary(veh->succEdge(1)->getID()))) {
+    if (proceedVirtualReturnWhetherEnded(*veh, MSEdge::dictionary(veh->succEdge(1)->getID()))) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
@@ -76,7 +77,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh) {
 
 
 void
-MSVehicleTransfer::checkEmissions(SUMOTime time) {
+MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
     // go through vehicles
     for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         // get the vehicle information
@@ -96,15 +97,15 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) {
                 // get the one beyond the one the vehicle moved to
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->getID());
                 // let the vehicle move to the next edge
-                if (desc.myVeh->proceedVirtualReturnWhetherEnded(nextEdge)) {
+                if (proceedVirtualReturnWhetherEnded(*desc.myVeh, nextEdge)) {
                     WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                     i = myVehicles.erase(i);
                     continue;
                 }
                 // get the time the vehicle needs to pass the current edge
-                desc.myProceedTime = time + (SUMOTime)(tmp->length() / tmp->maxSpeed()
-                                                       * 2.0); // !!! maybe, the time should be compued in other ways
+                //  !!! maybe, the time should be compued in other ways
+                desc.myProceedTime = time + (SUMOTime)(tmp->length() / tmp->maxSpeed() * 2.0);
             }
             ++i;
         }
@@ -113,24 +114,29 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) {
 }
 
 
+bool
+MSVehicleTransfer::proceedVirtualReturnWhetherEnded(MSVehicle &veh, const MSEdge *const newEdge) throw() {
+    veh.destReached(newEdge);
+    veh.rebuildAllowedLanes();
+    MSRouteIterator destination = veh.getRoute().end() - 1;
+    return veh.getEdge() == *destination;
+}
+
+
 MSVehicleTransfer *
-MSVehicleTransfer::getInstance() {
+MSVehicleTransfer::getInstance() throw() {
+    if(myInstance==0) {
+        myInstance = new MSVehicleTransfer();
+    }
     return myInstance;
 }
 
 
-void
-MSVehicleTransfer::setInstance(MSVehicleTransfer *vt) {
-    assert(myInstance==0);
-    myInstance = vt;
-}
-
-
-MSVehicleTransfer::MSVehicleTransfer()
+MSVehicleTransfer::MSVehicleTransfer() throw()
         : myNoTransfered(0) {}
 
 
-MSVehicleTransfer::~MSVehicleTransfer() {
+MSVehicleTransfer::~MSVehicleTransfer() throw() {
     myInstance = 0;
 }
 

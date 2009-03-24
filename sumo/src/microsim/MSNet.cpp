@@ -115,7 +115,6 @@ MSNet::getInstance(void) {
 MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
              MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) {
     MSCORN::init();
-    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     OptionsCont &oc = OptionsCont::getOptions();
     myStep = (SUMOTime) oc.getInt("begin"); // !!! SUMOTime-option
     myLogExecutionTime = !oc.getBool("no-duration-log");

@@ -31,14 +31,13 @@
 
 #include <string>
 #include <vector>
-#include "MSNet.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSLane;
 class MSVehicle;
+class MSEdge;
 
 
 // ===========================================================================
@@ -47,67 +46,101 @@ class MSVehicle;
 /**
  * @class MSVehicleTransfer
  * This object (each simulation owns exactly one) is responsible for the
- * transfer of vehicles that got stocked within the network due to grid locks.
+ *  transfer of vehicles that got stocked within the network due to grid locks.
+ *
  * The method addVeh is called by a lane if a vehicle stood to long at this
- * lane's end. After being added to this transfer object and removed from the
- * lane, it is moved with a speed similar to the mean speed of the consecutive
- * lanes over them. On each edge, it is tried to insert the vehicle again. The
- * lanes are of course chosen by examining the vehicle's real route.
+ *  lane's end. After being added to this transfer object and removed from the
+ *  lane, it is moved over the consecutive edges. On each edge, it is tried to 
+ *  insert the vehicle again. The lanes are of course chosen by examining the 
+ *  vehicle's real route.
  *
  * This object is used as a singleton
  */
 class MSVehicleTransfer {
 public:
-    // Default constructor
-    MSVehicleTransfer();
+    /// @brief Destructor
+    virtual ~MSVehicleTransfer() throw();
 
-    /** @brief Adds a vehicle to this transfer object */
-    void addVeh(MSVehicle *veh);
 
-    /** @brief Checks whether one of the stored vehicles may be inserted back into the network
-        Otherwise, the vehicle may ove virtually to the next lane of it's route */
-    void checkEmissions(SUMOTime time);
+    /** @brief Adds a vehicle to this transfer object
+     * 
+     * The vehicle is removed from the network as it would end the trip.
+     * If the vehicle's next edge is his last one, the vehicle is also
+     *  removed from the vehicle control.
+     *
+     * @param[in] veh The vehicle to add
+     */
+    void addVeh(MSVehicle *veh) throw();
 
-    /// Returns the instance of this object
-    static MSVehicleTransfer *getInstance();
 
-    /// Sets the instance - necessary as a gui version exists
-    static void setInstance(MSVehicleTransfer *vt);
+    /** @brief Checks "movement" of stored vehicles
+     *
+     * Checks whether one of the stored vehicles may be inserted back into 
+     *  the network. If not, the vehicle may ove virtually to the next lane 
+     *  of it's route
+     *
+     * @param[in] time The current simulation time
+     */
+    void checkEmissions(SUMOTime time) throw();
 
-    /// destructor
-    virtual ~MSVehicleTransfer();
+
+    /** @brief Returns the instance of this object
+     * @return The singleton instance
+     */
+    static MSVehicleTransfer *getInstance() throw();
+
 
 private:
+    /// @brief Constructor
+    MSVehicleTransfer() throw();
+
+
+    /** @brief Moves the vehicle one edge further returning whether the destination is reached
+     *
+     * The vehicle is not inserted into the next edge, only internal variables
+     *  are adapted.
+     *
+     * @param[in, out] veh The vehicle to move
+     * @param[in] newEdge The next to move the vehicle to (virually)
+     * @return Whether the vehicle has reached his destination
+     * @todo The edges are compared by pointers only; this will not work if the seen edge occurs twice in the vehicle's route
+     */
+    bool proceedVirtualReturnWhetherEnded(MSVehicle &veh, const MSEdge *const newEdge) throw();
+
+
+protected:
     /**
      * @struct VehicleInformation
-     * Holds the information needed to move the vehicle over the network
+     * @brief Holds the information needed to move the vehicle over the network
      */
     struct VehicleInformation {
-        /// The vehicle itself
+        /// @brief The vehicle itself
         MSVehicle *myVeh;
-
-        /// The time the vehicle was inserted at
+        /// @brief The time the vehicle was inserted at
         SUMOTime myInsertTime;
-
-        /// The time the vehicle should be moved virtually one lane further
+        /// @brief The time the vehicle should be moved virtually one lane further
         SUMOTime myProceedTime;
 
-        /// Constructor
-        VehicleInformation(MSVehicle *veh, SUMOTime insertTime)
+        /** @brief Constructor
+         * @param[in] veh The teleported vehicle
+         * @param[in] insertTime The time the vehicle was inserted at
+         */
+        VehicleInformation(MSVehicle *veh, SUMOTime insertTime) throw()
                 : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime) { }
 
     };
 
-    /// Definition of a container for vehicle information
+
+    /// @brief Definition of a container for vehicle information
     typedef std::vector<VehicleInformation> VehicleInfVector;
 
-    /// The information about stored vehicles to move virtually
+    /// T@brief he information about stored vehicles to move virtually
     VehicleInfVector myVehicles;
 
-    /// A counter for vehicles that had to be moved virtually
-    size_t myNoTransfered;
+    /// @brief A counter for vehicles that had to be moved virtually
+    unsigned int myNoTransfered;
 
-    /// The static singleton-instance
+    /// @brief The static singleton-instance
     static MSVehicleTransfer *myInstance;
 
 };

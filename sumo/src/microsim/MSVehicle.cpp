@@ -1340,14 +1340,6 @@ MSVehicle::getWaitingTime() const {
 }
 
 
-bool
-MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge) {
-    bool myDestReached = destReached(newEdge);
-    rebuildAllowedLanes();
-    return myDestReached;
-}
-
-
 void
 MSVehicle::onTripEnd(const MSLane * const lane) {
     if (lane!=0) {
