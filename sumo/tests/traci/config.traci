@@ -26,3 +26,6 @@ vehroutes:xml version{->}-->
 net_state:xml version{->}-->
 output:port
 errors:Socket
+
+[floating_point_tolerance]
+testclient_out:0.0101
