@@ -1130,7 +1130,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         vLinkWait = MAX2(vLinkWait, myType->getSpeedAfterMaxDecel(myState.mySpeed));
 
         if ((*link)->getState()==MSLink::LINKSTATE_TL_YELLOW&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
-            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait));
+            myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false));
             checkRewindLinkLanes(lengthsInFront);
             return;
         }
