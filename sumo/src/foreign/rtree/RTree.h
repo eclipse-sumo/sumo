@@ -32,8 +32,12 @@
 #define RTREE_DONT_USE_MEMPOOLS // This version does not contain a fixed memory allocator, fill in lines with EXAMPLE to implement one.
 #define RTREE_USE_SPHERICAL_VOLUME // Better split classification, may be slower on some systems
 
+#undef RTREE_WANTS_IO
+
 // Fwd decl
+#ifdef RTREE_WANTS_IO
 class RTFileStream;  // File I/O helper class, look below for implementation and notes.
+#endif
 
 
 /// \class RTree
@@ -110,6 +114,7 @@ public:
   /// Count the data elements in this container.  This is slow as no internal counter is maintained.
   int Count();
 
+#ifdef RTREE_WANTS_IO
   /// Load tree contents from file
   bool Load(const char* a_fileName);
   /// Load tree contents from stream
@@ -120,6 +125,7 @@ public:
   bool Save(const char* a_fileName);
   /// Save tree contents to stream
   bool Save(RTFileStream& a_stream);
+#endif
 
   /// Iterator is not remove safe.
   class Iterator
@@ -345,15 +351,18 @@ protected:
   void Reset();
   void CountRec(Node* a_node, int& a_count);
 
+#ifdef RTREE_WANTS_IO
   bool SaveRec(Node* a_node, RTFileStream& a_stream);
   bool LoadRec(Node* a_node, RTFileStream& a_stream);
-  
+#endif
+
   Node* m_root;                                    ///< Root of tree
   ELEMTYPEREAL m_unitSphereVolume;                 ///< Unit sphere constant for required number of dimensions
   Operation myOperation;
 };
 
 
+#ifdef RTREE_WANTS_IO
 // Because there is not stream support, this is a quick and dirty file I/O helper.
 // Users will likely replace its usage with a Stream implementation from their favorite API.
 class RTFileStream
@@ -430,6 +439,7 @@ public:
     return fread((void*)a_array, sizeof(TYPE) * a_count, 1, m_file);
   }
 };
+#endif
 
 
 RTREE_TEMPLATE
@@ -572,6 +582,7 @@ void RTREE_QUAL::CountRec(Node* a_node, int& a_count)
 }
 
 
+#ifdef RTREE_WANTS_IO
 RTREE_TEMPLATE
 bool RTREE_QUAL::Load(const char* a_fileName)
 {
@@ -753,6 +764,7 @@ bool RTREE_QUAL::SaveRec(Node* a_node, RTFileStream& a_stream)
 
   return true; // Should do more error checking on I/O operations
 }
+#endif
 
 
 RTREE_TEMPLATE
