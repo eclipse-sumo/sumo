@@ -169,15 +169,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\scr\utils\common\StringTokenizerTest.cpp"
+				RelativePath="..\..\..\src\utils\common\StringTokenizerTest.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scr\utils\common\StringUtilsTest.cpp"
+				RelativePath="..\..\..\src\utils\common\StringUtilsTest.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scr\unittest_main.cpp"
+				RelativePath="..\..\..\src\unittest_main.cpp"
 				>
 			</File>
 		</Filter>
