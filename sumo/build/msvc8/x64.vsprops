@@ -9,8 +9,8 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="$(XERCES_64)\include,..\..\..\src"
-		PreprocessorDefinitions=""
+		AdditionalIncludeDirectories="$(XERCES_64)\include,$(PROJ_GDAL_64)\include,..\..\..\src"
+		PreprocessorDefinitions="HAVE_PROJ;HAVE_GDAL"
 	/>
 	<Tool
 		Name="VCLinkerTool"
@@ -26,11 +26,11 @@
 	/>
 	<UserMacro
 		Name="PROJ_LIB"
-		Value=""
+		Value="$(PROJ_GDAL_64)\lib\proj_i.lib"
 	/>
 	<UserMacro
 		Name="GDAL_LIB"
-		Value=""
+		Value="$(PROJ_GDAL_64)\lib\gdal_i.lib"
 	/>
 	<UserMacro
 		Name="FOX14_LIB"
