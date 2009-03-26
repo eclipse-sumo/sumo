@@ -1,4 +1,3 @@
-<<<<<<< .mine
 #!/usr/bin/env python
 """
 @file    odConnectionsCheck.py
