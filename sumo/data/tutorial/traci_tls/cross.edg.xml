@@ -1,0 +1,25 @@
+<edges>
+   <edge id="1i" fromnode="1" tonode="0" priority="78" nolanes="1" speed="19.444" />
+   <edge id="1o" fromnode="0" tonode="1" priority="46" nolanes="1" speed="11.111" />
+
+   <edge id="2i" fromnode="2" tonode="0" priority="78" nolanes="1" speed="19.444" />
+   <edge id="2o" fromnode="0" tonode="2" priority="46" nolanes="1" speed="11.111" />
+
+   <edge id="3i" fromnode="3" tonode="0" priority="78" nolanes="1" speed="19.444" />
+   <edge id="3o" fromnode="0" tonode="3" priority="46" nolanes="1" speed="11.111" />
+
+   <edge id="4i" fromnode="4" tonode="0" priority="78" nolanes="1" speed="19.444" />
+   <edge id="4o" fromnode="0" tonode="4" priority="46" nolanes="1" speed="11.111" />
+
+   <edge id="51i" fromnode="1" tonode="51" priority="78" nolanes="1" speed="19.444" />
+   <edge id="51o" fromnode="51" tonode="1" priority="46" nolanes="1" speed="11.111" />
+
+   <edge id="52i" fromnode="2" tonode="52" priority="78" nolanes="1" speed="19.444" />
+   <edge id="52o" fromnode="52" tonode="2" priority="46" nolanes="1" speed="11.111" />
+
+   <edge id="53i" fromnode="3" tonode="53" priority="78" nolanes="1" speed="19.444" />
+   <edge id="53o" fromnode="53" tonode="3" priority="46" nolanes="1" speed="11.111" />
+
+   <edge id="54i" fromnode="4" tonode="54" priority="78" nolanes="1" speed="19.444" />
+   <edge id="54o" fromnode="54" tonode="4" priority="46" nolanes="1" speed="11.111" />
+</edges>
