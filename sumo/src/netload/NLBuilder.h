@@ -32,10 +32,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <xercesc/parsers/SAXParser.hpp>
-#include <xercesc/framework/XMLFormatter.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/xml/SAXWeightsHandler.h>
 #include <microsim/MSNet.h>
 #include "NLGeomShapeBuilder.h"
