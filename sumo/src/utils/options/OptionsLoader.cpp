@@ -68,7 +68,7 @@ void OptionsLoader::startElement(const XMLCh* const name,
 
 
 void OptionsLoader::characters(const XMLCh* const chars,
-                               const unsigned int length) {
+                               const XERCES3_SIZE_t length) {
     if (myItem.length()==0) {
         return;
     }

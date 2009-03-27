@@ -145,7 +145,7 @@ GenericSAXHandler::registerParent(const SumoXMLTag tag, GenericSAXHandler* handl
 
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
-                              const unsigned int length) {
+                              const XERCES3_SIZE_t length) {
     myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
 }
 

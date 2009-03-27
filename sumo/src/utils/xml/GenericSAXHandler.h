@@ -151,7 +151,7 @@ public:
      * @todo recheck/describe what happens with characters when a new element is opened
      * @todo describe characters processing in the class' head
      */
-    void characters(const XMLCh* const chars, const unsigned int length);
+    void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
 
 
     /**

@@ -83,6 +83,12 @@ fi
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 
+dnl   ... for xerces 3.0
+PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
+		  [AC_DEFINE([XERCES3_SIZE_t],[XMLSize_t],[Define length for Xerces 3.])],
+		  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
+
+
 AM_CONDITIONAL(MESOSIM, test -d src/mesosim)
 m4_syscmd([test -d src/mesosim])
 m4_if(m4_sysval,[0],[
@@ -168,8 +174,6 @@ else
                    [AC_MSG_ERROR([xerces-includes not found in "$with_xerces_includes".])])
    CPPFLAGS=$save_cppflags
 fi
-
-
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for proj and gdal

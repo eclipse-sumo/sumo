@@ -89,7 +89,7 @@ public:
      * Tries to get the named option and to set it
      * @todo Describe better
      */
-    void characters(const XMLCh* const chars, const unsigned int length);
+    void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
 
 
     /** @brief Called on the end of an element

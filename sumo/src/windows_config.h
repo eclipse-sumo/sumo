@@ -59,6 +59,10 @@
 
 #define HAVE_INTERNAL_LANES 1
 
+/* Definition for the character function of Xerces  */
+//#define XERCES3_SIZE_t XMLSize_t //Xerces >= 3.0
+#define XERCES3_SIZE_t unsigned int //Xerces < 3.0
+
 /* Define in order to enable subsecond timesteps. */
 //#define HAVE_SUBSECOND_TIMESTEPS 1
 
