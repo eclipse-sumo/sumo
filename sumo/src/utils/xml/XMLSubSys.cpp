@@ -32,7 +32,6 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
 #include "SUMOSAXHandler.h"
 #include "XMLSubSys.h"
 
@@ -144,8 +143,6 @@ XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
     reader.setFeature(xmlFeature, value);
     XMLString::release(&xmlFeature);
 }
-
-
 
 
 /****************************************************************************/
