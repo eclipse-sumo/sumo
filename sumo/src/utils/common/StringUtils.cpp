@@ -156,6 +156,16 @@ StringUtils::toTimeString(int time) {
 }
 
 
+std::string
+StringUtils::escapeXML(const std::string &orig) throw() {
+    std::string result = replace(orig, "&", "&amp;");
+    result = replace(result, ">", "&gt;");
+    result = replace(result, "<", "&lt;");
+    result = replace(result, "\"", "&quot;");
+    return replace(result, "'", "&apos;");
+}
+
+
 
 /****************************************************************************/
 

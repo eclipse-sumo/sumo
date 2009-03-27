@@ -64,6 +64,16 @@ public:
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);
 
+    /**
+     * @brief Replaces the standard escapes by their XML entities.
+     *
+     * The strings &, <, >, ", and ' are replaced by &amp;, &lt;, &gt;, &quot;, and &apos;
+     *
+     * @param[in] orig The original string
+     * @return the string with the escaped sequences
+     */
+    static std::string escapeXML(const std::string &orig) throw();
+
     /// An empty string
     static std::string emptyString;
 

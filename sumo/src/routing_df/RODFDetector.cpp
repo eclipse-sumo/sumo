@@ -41,6 +41,7 @@
 #include <utils/geom/GeomHelper.h>
 #include "RODFNet.h"
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/StringUtils.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -456,7 +457,7 @@ RODFDetectorCon::save(const std::string &file) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("detectors");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        out << "   <detector_definition id=\"" << (*i)->getID()
+        out << "   <detector_definition id=\"" << StringUtils::escapeXML((*i)->getID())
         << "\" lane=\"" << (*i)->getLaneID()
         << "\" pos=\"" << (*i)->getPos();
         switch ((*i)->getType()) {
@@ -486,7 +487,7 @@ RODFDetectorCon::saveAsPOIs(const std::string &file) const {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("pois");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        out << "   <poi id=\"" << (*i)->getID();
+        out << "   <poi id=\"" << StringUtils::escapeXML((*i)->getID());
         switch ((*i)->getType()) {
         case BETWEEN_DETECTOR:
             out << "\" type=\"between_detector_position\" color=\"0,0,1\"";
@@ -589,13 +590,13 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         clearDists(dists);
         // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
-            out << "   <emitter id=\"source_" << det->getID()
+            out << "   <emitter id=\"source_" << StringUtils::escapeXML(det->getID())
             << "\" pos=\"" << det->getPos() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
             << "file=\"" << defFileName << "\"/>\n";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
-            out << "   <calirator id=\"calibrator_" << det->getID()
+            out << "   <calirator id=\"calibrator_" << StringUtils::escapeXML(det->getID())
             << "\" pos=\"" << det->getPos() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
@@ -620,7 +621,7 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
         col = (SUMOReal)(col / 2. + .5);
         SUMOReal r, g, b;
         r = g = b = 0;
-        out << "   <poi id=\"" << (*i)->getID() << ":" << flow;
+        out << "   <poi id=\"" << StringUtils::escapeXML((*i)->getID()) << ":" << flow;
         switch ((*i)->getType()) {
         case BETWEEN_DETECTOR:
             out << "\" type=\"between_detector_position\" color=\"0,0," << col << "\"";
@@ -730,7 +731,7 @@ RODFDetectorCon::writeSpeedTrigger(const RODFNet * const net,
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR&&flows.knows(det->getID())) {
             string filename = FileHelpers::getFilePath(file) + "vss_" + det->getID() + ".def.xml";
-            out << "   <variableSpeedSign id=\"vss_" << det->getID() << '\"'
+            out << "   <variableSpeedSign id=\"vss_" << StringUtils::escapeXML(det->getID()) << '\"'
             << " lanes=\"" << det->getLaneID() << '\"'
             << " file=\"" << filename << "\"/>\n";
             SUMOReal defaultSpeed = net!=0 ? net->getEdge(det->getEdgeID())->getSpeed() : (SUMOReal) 200.;
@@ -749,7 +750,7 @@ RODFDetectorCon::writeEndRerouterDetectors(const std::string &file) {
         RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR) {
-            out << "   <rerouter id=\"endrerouter_" << det->getID()
+            out << "   <rerouter id=\"endrerouter_" << StringUtils::escapeXML(det->getID())
             << "\" edges=\"" <<
             det->getLaneID() << "\" attr=\"reroute\" pos=\"0\" file=\"endrerouter_"
             << det->getID() << ".def.xml\"/>\n";
@@ -773,7 +774,7 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
             if (det->getType()==SOURCE_DETECTOR) {
                 pos += 1;
             }
-            out << "   <detector id=\"validation_" << det->getID() << "\" "
+            out << "   <detector id=\"validation_" << StringUtils::escapeXML(det->getID()) << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
             << "pos=\"" << pos << "\" "
             << "freq=\"60\" ";
@@ -781,7 +782,7 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
                 out << "friendly_pos=\"x\" ";
             }
             if (!singleFile) {
-                out << "file=\"validation_det_" << det->getID() << ".xml\"/>\n";
+                out << "file=\"validation_det_" << StringUtils::escapeXML(det->getID()) << ".xml\"/>\n";
             } else {
                 out << "file=\"validation_dets.xml\"/>\n";//!!!
             }
