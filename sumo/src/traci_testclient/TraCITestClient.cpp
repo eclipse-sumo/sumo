@@ -2019,6 +2019,15 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
             answerLog << '"' << *i << '"';
         }
         answerLog << " ]" << endl;
+    } else if (valueDataType == TYPE_COMPOUND) {
+        int no = inMsg.readInt();
+        answerLog << " compound value with " << no << " members: [ " << endl;
+        for(int i=0; i<no; ++i) {
+            int currentValueDataType = inMsg.readUnsignedByte();
+            answerLog << " valueDataType=" << currentValueDataType;
+            readAndReportTypeDependent(inMsg, currentValueDataType);
+        }
+        answerLog << " ]" << endl;
     } else {
         answerLog << "#Error: unknown valueDataType!" << endl;
         return false;

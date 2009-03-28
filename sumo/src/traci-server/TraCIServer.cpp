@@ -2927,7 +2927,7 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException) {
     int variable = myInputStorage.readUnsignedByte();
     string id = myInputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE) {
+    if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_COMPLETE_DEFINITION) {
         writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
@@ -2965,6 +2965,47 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException) {
             phaseDef.push_back(phase.getBreakMask().to_string().substr(64-linkNo, 64));
             phaseDef.push_back(phase.getYellowMask().to_string().substr(64-linkNo, 64));
             tempMsg.writeStringList(phaseDef);
+        }
+        break;
+        case TL_COMPLETE_DEFINITION: {
+            vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            Storage tempContent;
+            unsigned int cnt = 0;
+            tempContent.writeUnsignedByte(TYPE_INTEGER);
+            tempContent.writeInt((int) logics.size()); ++cnt;
+            for(unsigned int i=0; i<logics.size(); ++i) {
+                MSTrafficLightLogic *logic = logics[i];
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString(logic->getSubID()); ++cnt;
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt(0); ++cnt; // type (always 0 by now)
+                tempContent.writeUnsignedByte(TYPE_COMPOUND);
+                tempContent.writeInt(0); ++cnt; // subparameter (always 0 by now)
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt((int) logic->getCurrentPhaseIndex()); ++cnt;
+                unsigned int phaseNo = logic->getPhaseNumber();
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt((int) phaseNo); ++cnt;
+                for(unsigned int j=0; j<phaseNo; ++j) {
+                    MSPhaseDefinition phase = logic->getPhaseFromStep(j);
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt(phase.duration); ++cnt; 
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt(phase.duration); ++cnt; // not implemented
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt(phase.duration); ++cnt; // not implemented 
+                    unsigned int linkNo = vars.getActive()->getLinks().size();
+                    tempContent.writeUnsignedByte(TYPE_STRINGLIST);
+                    vector<string> phaseDef;
+                    phaseDef.push_back(phase.getDriveMask().to_string().substr(64-linkNo, 64));
+                    phaseDef.push_back(phase.getBreakMask().to_string().substr(64-linkNo, 64));
+                    phaseDef.push_back(phase.getYellowMask().to_string().substr(64-linkNo, 64));
+                    tempContent.writeStringList(phaseDef); ++cnt;
+                }
+            }
+            tempMsg.writeInt((int) cnt);
+            tempMsg.writeStorage(tempContent);
         }
         break;
         default:

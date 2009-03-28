@@ -160,6 +160,8 @@
 #define TYPE_TLPHASELIST 0x0D
 // list of strings
 #define TYPE_STRINGLIST 0x0E
+// compound object
+#define TYPE_COMPOUND 0x0F
 
 
 // ****************************************
@@ -302,6 +304,9 @@
 
 // phase duration (set: traffic lights)
 #define TL_PHASE_DURATION 0x24
+
+// complete definition (get: traffic lights)
+#define TL_COMPLETE_DEFINITION 0x25
 
 
 #endif
