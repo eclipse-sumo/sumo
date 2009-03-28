@@ -1,8 +1,8 @@
-TraCITestClient output file. Date: Thu Feb 19 15:44:37 2009
+TraCITestClient output file. Date: Sat Mar 28 21:02:18 2009
 
 
 -> Command sent: <SimulationStep>:
-  TargetTime=48 PosFormat=1
+  TargetTime=48.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <GetVariable>:
@@ -10,7 +10,7 @@ TraCITestClient output file. Date: Thu Feb 19 15:44:37 2009
 .. Answered with error to command (162), [description: Traffic light 'xxx' is not known]
 
 -> Command sent: <SimulationStep>:
-  TargetTime=49 PosFormat=1
+  TargetTime=49.00 PosFormat=1
 .. Command acknowledged (1), [description: ]
 
 -> Command sent: <Close>:
