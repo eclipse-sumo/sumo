@@ -4,4 +4,5 @@ InductionLoop
 # Tests retrieval of variables from areal detectors (0xa1)
 ArealDetector
 
-
+# Tests retrieval of variables from traffic lights (0xa2)
+TrafficLight
