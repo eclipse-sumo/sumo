@@ -7,6 +7,9 @@ TL_RYG_STATE
 # Tests TL_PHASE_BRAKE_YELLOW_STATE retrieval
 TL_PBY_STATE
 
+# Tests TL_COMPLETE_DEFINITION
+TL_COMPLETE
+
 # Testing error cases
 errors
 
