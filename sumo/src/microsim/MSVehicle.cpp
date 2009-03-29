@@ -829,11 +829,11 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (item.myLink==0) {
                 continue;
             }
-            if(approachedLane->getEdge()->getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+            if (approachedLane->getEdge()->getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
                 lastLinkToInternal = i;
             }
 
-            // 
+            //
 
             // get the next lane, determine whether it is an internal lane
             approachedLane = item.myLink->getViaLane();
@@ -848,7 +848,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (nextIsInternal) {
                 // the free place on internal lanes is not counted - vehicles must keep them free
                 seenSpace = seenSpace - approachedLane->getVehLenSum();
-                if(leader==0&&approachedLane->getLastVehicle()!=0) {
+                if (leader==0&&approachedLane->getLastVehicle()!=0) {
                     leader = approachedLane->getLastVehicle();
                     seenSpace += leader->getVehicleType().brakeGap(leader->getSpeed());
                 }
@@ -856,7 +856,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 // the free space on plain lanes is counted
                 // !!!: on longer lanes, only the place some meters in front... (next extension)
                 seenSpace = seenSpace + approachedLane->length() - approachedLane->getVehLenSum();
-                if(leader==0&&approachedLane->getLastVehicle()!=0) {
+                if (leader==0&&approachedLane->getLastVehicle()!=0) {
                     leader = approachedLane->getLastVehicle();
                     seenSpace += leader->getVehicleType().brakeGap(leader->getSpeed());
                 }
@@ -864,10 +864,10 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 // we also do not want the vehicle continue if there is not enough place
                 //  behind the last vehicle on the approached lane (and we are currently standing)
                 bool nextDisallows = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && approachedLane->getLastVehicle()->getSpeed()<.1;
-                if(nextDisallows) {
+                if (nextDisallows) {
                     nextDisallows &= approachedLane->getLastVehicle()->getPositionOnLane() < approachedLane->getLastVehicle()->getVehicleType().getLength();
                 }
-                if(nextDisallows&&lastLinkToInternal>=0) {
+                if (nextDisallows&&lastLinkToInternal>=0) {
                     removalBegin = lastLinkToInternal;
                 }
                 nextSeenNonInternal = approachedLane;
@@ -892,7 +892,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         }
     }
 #endif
-    for(DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
+    for (DriveItemVector::iterator i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end(); ++i) {
         if ((*i).myLink!=0&&(*i).mySetRequest) {
             (*i).myLink->setApproaching(this);
         }
@@ -1114,9 +1114,9 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         }
 #endif
 #ifdef DEBUG_VEHICLE_GUI_SELECTION
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
-        int bla = 0;
-    }
+        if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle*>(this)->getGlID())) {
+            int bla = 0;
+        }
 #endif
 
         // compute the velocity to use when the link may be used
@@ -1160,7 +1160,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         }
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest));
         if (vLinkPass>0&&dist-seen>0) {
-        } else if(hadNonInternal) {
+        } else if (hadNonInternal) {
             checkRewindLinkLanes(lengthsInFront);
             return;
         }

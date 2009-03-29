@@ -125,7 +125,7 @@ MSVehicleTransfer::proceedVirtualReturnWhetherEnded(MSVehicle &veh, const MSEdge
 
 MSVehicleTransfer *
 MSVehicleTransfer::getInstance() throw() {
-    if(myInstance==0) {
+    if (myInstance==0) {
         myInstance = new MSVehicleTransfer();
     }
     return myInstance;

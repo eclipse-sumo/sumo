@@ -952,7 +952,7 @@ GUISUMOAbstractView::showToolTips(bool val) {
 
 
 SUMOReal
-GUISUMOAbstractView::getGridWidth() const { 
+GUISUMOAbstractView::getGridWidth() const {
     return myGrid->getWidth();
 }
 

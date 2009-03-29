@@ -50,8 +50,8 @@ class MSEdge;
  *
  * The method addVeh is called by a lane if a vehicle stood to long at this
  *  lane's end. After being added to this transfer object and removed from the
- *  lane, it is moved over the consecutive edges. On each edge, it is tried to 
- *  insert the vehicle again. The lanes are of course chosen by examining the 
+ *  lane, it is moved over the consecutive edges. On each edge, it is tried to
+ *  insert the vehicle again. The lanes are of course chosen by examining the
  *  vehicle's real route.
  *
  * This object is used as a singleton
@@ -63,7 +63,7 @@ public:
 
 
     /** @brief Adds a vehicle to this transfer object
-     * 
+     *
      * The vehicle is removed from the network as it would end the trip.
      * If the vehicle's next edge is his last one, the vehicle is also
      *  removed from the vehicle control.
@@ -75,8 +75,8 @@ public:
 
     /** @brief Checks "movement" of stored vehicles
      *
-     * Checks whether one of the stored vehicles may be inserted back into 
-     *  the network. If not, the vehicle may ove virtually to the next lane 
+     * Checks whether one of the stored vehicles may be inserted back into
+     *  the network. If not, the vehicle may ove virtually to the next lane
      *  of it's route
      *
      * @param[in] time The current simulation time

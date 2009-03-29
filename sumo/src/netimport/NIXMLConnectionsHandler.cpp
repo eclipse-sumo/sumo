@@ -198,7 +198,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         }
         // get the begin and the end lane
         bool mayDefinitelyPass = false;
-        if(attrs.hasAttribute(SUMO_ATTR_PASS)) {
+        if (attrs.hasAttribute(SUMO_ATTR_PASS)) {
             mayDefinitelyPass = attrs.getBool(SUMO_ATTR_PASS);
         }
         //
