@@ -2,7 +2,7 @@
 PREFIX=$1
 export FILEPREFIX=$2
 export SMTP_SERVER=$3
-REMOTEDIR="behrisch,sumo@web.sourceforge.net:/home/groups/s/su/sumo/htdocs/daily/"
+REMOTEDIR=$4
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
