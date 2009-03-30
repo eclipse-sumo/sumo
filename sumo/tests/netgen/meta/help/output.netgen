@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r6854
+SUMO netgen Version dev-SVN-r6961
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -50,6 +50,8 @@ Usage: netgen.exe [OPTION]*
   -r, --random-net                     Forces NETGEN to build a random network
   --rand-iterations INT                Describes how many times an edge shall
                                          be added to the net
+  --rand-bidi-probability FLOAT        Defines the probability to build a
+                                         reverse edge
   --rand-max-distance FLOAT            
   --rand-min-distance FLOAT            
   --rand-min-angle FLOAT               

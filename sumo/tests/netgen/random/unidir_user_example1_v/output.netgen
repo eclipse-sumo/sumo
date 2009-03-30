@@ -1,6 +1,6 @@
  Generation done;
    200 nodes generated.
-   560 edges generated.
+   280 edges generated.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Normalising node positions
@@ -22,8 +22,8 @@ Computing step 16: Computing traffic light logics
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 200
-  Right-before-left junctions : 0
+  Priority junctions          : 199
+  Right-before-left junctions : 1
  Network boundaries:
   Original boundary  : -1263.68,-1880.98,1199.60,1596.45
   Applied offset     : 1263.68,1880.98

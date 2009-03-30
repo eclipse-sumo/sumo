@@ -52,6 +52,9 @@
       <!-- Describes how many times an edge shall be added to the net -->
       <rand-iterations>2000</rand-iterations>
 
+      <!-- Defines the probability to build a reverse edge -->
+      <rand-bidi-probability>1</rand-bidi-probability>
+
       <!--  -->
       <rand-max-distance>250</rand-max-distance>
 

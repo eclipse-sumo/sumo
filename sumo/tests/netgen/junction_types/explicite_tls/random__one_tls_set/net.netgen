@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:24:50 by SUMO netgen Version 0.9.7
+<!-- generated on 03/30/09 13:54:26 by SUMO netgen Version dev-SVN-r6961
 <configuration>
 
    <random_network>
       <random-net>true</random-net>
       <rand-iterations>10</rand-iterations>
+      <rand-bidi-probability>0</rand-bidi-probability>
    </random_network>
 
    <output>

@@ -1,1 +1,1 @@
---default-junction-type priority -v --random-net -o net.net.xml --rand-iterations=10
+--rand-bidi-probability 0 --default-junction-type priority -v --random-net -o net.net.xml --rand-iterations=10

@@ -1,0 +1,1 @@
+--rand-bidi-probability 0 --random-net -o net.net.xml --rand-iterations=200 --no-internal-links

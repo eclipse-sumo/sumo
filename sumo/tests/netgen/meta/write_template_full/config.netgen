@@ -22,6 +22,7 @@
    <random_network>
       <random-net>false</random-net>
       <rand-iterations>2000</rand-iterations>
+      <rand-bidi-probability>1</rand-bidi-probability>
       <rand-max-distance>250</rand-max-distance>
       <rand-min-distance>100</rand-min-distance>
       <rand-min-angle>0.785398</rand-min-angle>

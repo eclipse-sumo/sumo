@@ -6,3 +6,26 @@ user_example1_v
 
 # no internal lanes
 nointernal
+
+
+# Tests with no reverse direction
+# the random network example from the user documentation (and rand-bidi-probability=0)
+unidir_user_example1
+
+# the random network example from the user documentation (verbose, and rand-bidi-probability=0)
+unidir_user_example1_v
+
+# no internal lanes (and rand-bidi-probability=0)
+unidir_nointernal
+
+
+# Tests with for reverse direction probability
+# the random network example from the user documentation (and rand-bidi-probability=0.5)
+halfbidi_user_example1
+
+# the random network example from the user documentation (verbose, and rand-bidi-probability=0.5)
+halfbidi_user_example1_v
+
+# no internal lanes (and rand-bidi-probability=0.5)
+halfbidi_nointernal
+
