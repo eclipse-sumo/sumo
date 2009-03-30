@@ -7,14 +7,9 @@ junction_type_priority
 # junction type set to static traffic light
 junction_type_static_tls
 
-# junction type set to agentbasedtraffic light
-junction_type_agentbased_tls
-
-# junction type set to actuatedtraffic light
-junction_type_actuated_tls
-
 # setting tls explicite 
 explicite_tls
 
-# User errors when setting junction types
-error__unknown_junction_type
+
+# Tests for error handling
+errors
