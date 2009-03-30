@@ -5,4 +5,4 @@ junction_type_agentbased_tls
 junction_type_actuated_tls
 
 # (base) unknown junction type
-error__unknown_junction_type
+unknown_junction_type
