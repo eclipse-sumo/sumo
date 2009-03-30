@@ -86,10 +86,10 @@ checkOptions() {
         return false;
     }
     // check whether the junction type to use is properly set
-    if (!oc.isDefault("default-junction-type")) {
+    if (oc.isSet("default-junction-type")) {
         string type = oc.getString("default-junction-type");
-        if (type!="traffic_light"&&type!="priority"&&type!="actuated"&&type!="agentbased") {
-            MsgHandler::getErrorInstance()->inform("Only the following junction types are known: traffic_light, priority, actuated, agentbased");
+        if (type!="traffic_light"&&type!="priority"&&type!="right_before_left") {
+            MsgHandler::getErrorInstance()->inform("Only the following junction types are known: traffic_light, priority, right_before_left");
             return false;
         }
     }
@@ -247,9 +247,9 @@ fillOptions() {
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
     // register building options
-    oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
+    oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
-    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|actuated|agentbased] Determines the type of the build junctions");
+    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left] Determines the type of the build junctions");
 
 
     // add rand options
