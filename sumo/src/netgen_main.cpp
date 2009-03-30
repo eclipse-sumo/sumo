@@ -195,6 +195,10 @@ fillOptions() {
     oc.addSynonyme("rand-iterations", "iterations");
     oc.addDescription("rand-iterations", "Random Network", "Describes how many times an edge shall be added to the net");
 
+    oc.doRegister("rand-bidi-probability", new Option_Float(1));
+    oc.addSynonyme("rand-bidi-probability", "bidi");
+    oc.addDescription("rand-bidi-probability", "Random Network", "Defines the probability to build a reverse edge");
+
     oc.doRegister("rand-max-distance", new Option_Float(250));
     oc.addSynonyme("rand-max-distance", "max-dist");
     oc.addDescription("rand-max-distance", "Random Network", "");
