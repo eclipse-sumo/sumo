@@ -277,8 +277,8 @@
       <!-- The default priority of an edge -->
       <priority>-1</priority>
 
-      <!-- [traffic_light|priority|actuated|agentbased] Determines the type of the build junctions -->
-      <default-junction-type>priority</default-junction-type>
+      <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
+      <default-junction-type></default-junction-type>
 
    </building_defaults>
 

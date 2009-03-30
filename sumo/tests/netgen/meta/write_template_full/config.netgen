@@ -113,7 +113,7 @@
       <lanenumber>1</lanenumber>
       <speed>13.9</speed>
       <priority>-1</priority>
-      <default-junction-type>priority</default-junction-type>
+      <default-junction-type></default-junction-type>
    </building_defaults>
 
    <report>

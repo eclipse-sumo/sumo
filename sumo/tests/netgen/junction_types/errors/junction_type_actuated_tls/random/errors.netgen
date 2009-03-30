@@ -1,2 +1,2 @@
-Warning: The traffic light '1' has no incoming edges; it will not be build.
-Warning: Could not build traffic lights '1'
+Error: Only the following junction types are known: traffic_light, priority, right_before_left
+Quitting (on error).

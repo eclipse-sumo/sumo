@@ -149,7 +149,7 @@ Usage: netgen.exe [OPTION]*
   -L, --lanenumber INT                 The default number of lanes in an edge
   -S, --speed FLOAT                    The default speed on an edge (in m/s)
   -P, --priority INT                   The default priority of an edge
-  -j, --default-junction-type STR      [traffic_light|priority|actuated|agentbased] Determines the type of the build junctions
+  -j, --default-junction-type STR      [traffic_light|priority|right_before_left] Determines the type of the build junctions
 
  Report Options:
   -v, --verbose                        Switches to verbose output
