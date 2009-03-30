@@ -327,7 +327,8 @@ dnl   ... for includes
 fi
 AM_CONDITIONAL([WITH_GUI], [test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x])
 if test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x; then
-    AC_CHECK_HEADERS([GL/gl.h GL/glu.h])
+    AC_CHECK_HEADERS([GL/gl.h GL/glu.h],,
+                     [AC_MSG_ERROR([Fox was found but no GL includes. Please either disable Fox or install the GL headers.])])
     ac_enabled="$ac_enabled GUI"
 else
     ac_disabled="$ac_disabled GUI"
