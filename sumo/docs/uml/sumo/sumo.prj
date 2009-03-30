@@ -1,7 +1,7 @@
 format 55
 "sumo"
-  revision 1
-  modified_by 33 "Daniel"
+  revision 3
+  modified_by 17 "Daniel"
 
 
   
@@ -37,6 +37,8 @@ format 55
   mark_for_import
   
   ncouples 1
-  key "html dir" value "d:/projects/sumo/sumo/docs/uml/"
+  key "html dir" value "d:/projects/sumo/rbuild/sumo/docs/uml/"
   package_ref 128033 // polyconvert
+
+  package_ref 128048 // netgen
 end
