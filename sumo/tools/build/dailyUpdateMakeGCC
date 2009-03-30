@@ -27,7 +27,9 @@ fi
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --prefix=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make dist >> $MAKELOG 2>&1 || (echo "make dist failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-make doc >> $MAKELOG 2>&1 || (echo "make doc failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+make distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+make dist-doc >> $MAKELOG 2>&1 || (echo "make dist-doc failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+make dist-tests >> $MAKELOG 2>&1 || (echo "make dist-tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 make >> $MAKELOG 2>&1 || (echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG)
 make install >> $MAKELOG 2>&1 || (echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 echo `grep -c warning $MAKELOG` warnings >> $STATUSLOG
