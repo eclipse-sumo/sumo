@@ -134,7 +134,7 @@ protected:
     /// @brief Definition of a container for vehicle information
     typedef std::vector<VehicleInformation> VehicleInfVector;
 
-    /// T@brief he information about stored vehicles to move virtually
+    /// @brief The information about stored vehicles to move virtually
     VehicleInfVector myVehicles;
 
     /// @brief A counter for vehicles that had to be moved virtually
