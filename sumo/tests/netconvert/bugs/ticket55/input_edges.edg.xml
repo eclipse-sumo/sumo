@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!-- generated on Thu Mar 26 12:00:37 2009 by SUMO netgen Version dev-SVN-r6942
+<configuration>
+
+   <random_network>
+      <random-net>true</random-net>
+      <rand-iterations>20</rand-iterations>
+   </random_network>
+
+   <output>
+      <plain-output>rand</plain-output>
+   </output>
+
+   <projection>
+      <use-projection>true</use-projection>
+   </projection>
+
+   <random_number>
+      <abs-rand>true</abs-rand>
+   </random_number>
+
+</configuration>
+-->
+
+<edges>
+   <edge id="103" fromnode="26" tonode="102" nolanes="1" speed="13.90" shape="667.05,435.82 822.75,421.00"/>
+   <edge id="109" fromnode="28" tonode="108" nolanes="1" speed="13.90" shape="777.45,719.15 612.66,691.24"/>
+   <edge id="111" fromnode="28" tonode="110" nolanes="1" speed="13.90" shape="777.45,719.15 969.87,588.65"/>
+   <edge id="121" fromnode="28" tonode="120" nolanes="1" speed="13.90" shape="777.45,719.15 788.48,842.64"/>
+   <edge id="123" fromnode="37" tonode="122" nolanes="1" speed="13.90" shape="490.21,149.86 526.13,0.00"/>
+   <edge id="125" fromnode="37" tonode="124" nolanes="1" speed="13.90" shape="490.21,149.86 687.59,39.14"/>
+   <edge id="13" fromnode="1" tonode="12" nolanes="1" speed="13.90" shape="446.66,616.68 346.49,679.29"/>
+   <edge id="14" fromnode="2" tonode="6" nolanes="1" speed="13.90" shape="664.25,580.89 473.26,441.01"/>
+   <edge id="16" fromnode="2" tonode="15" nolanes="1" speed="13.90" shape="664.25,580.89 772.12,605.60"/>
+   <edge id="18" fromnode="6" tonode="17" nolanes="1" speed="13.90" shape="473.26,441.01 541.82,311.80"/>
+   <edge id="19" fromnode="6" tonode="8" nolanes="1" speed="13.90" shape="473.26,441.01 333.72,481.99"/>
+   <edge id="24" fromnode="12" tonode="23" nolanes="1" speed="13.90" shape="346.49,679.29 160.56,576.00"/>
+   <edge id="27" fromnode="15" tonode="26" nolanes="1" speed="13.90" shape="772.12,605.60 667.05,435.82"/>
+   <edge id="29" fromnode="15" tonode="28" nolanes="1" speed="13.90" shape="772.12,605.60 777.45,719.15"/>
+   <edge id="3" fromnode="1" tonode="2" nolanes="1" speed="13.90" shape="446.66,616.68 664.25,580.89"/>
+   <edge id="30" fromnode="17" tonode="26" nolanes="1" speed="13.90" shape="541.82,311.80 667.05,435.82"/>
+   <edge id="38" fromnode="17" tonode="37" nolanes="1" speed="13.90" shape="541.82,311.80 490.21,149.86"/>
+   <edge id="39" fromnode="8" tonode="23" nolanes="1" speed="13.90" shape="333.72,481.99 160.56,576.00"/>
+   <edge id="42" fromnode="23" tonode="41" nolanes="1" speed="13.90" shape="160.56,576.00 0.00,554.84"/>
+   <edge id="48" fromnode="23" tonode="47" nolanes="1" speed="13.90" shape="160.56,576.00 1.63,726.76"/>
+   <edge id="55" fromnode="26" tonode="54" nolanes="1" speed="13.90" shape="667.05,435.82 750.25,321.07"/>
+   <edge id="7" fromnode="1" tonode="6" nolanes="1" speed="13.90" shape="446.66,616.68 473.26,441.01"/>
+   <edge id="9" fromnode="1" tonode="8" nolanes="1" speed="13.90" shape="446.66,616.68 333.72,481.99"/>
+</edges>

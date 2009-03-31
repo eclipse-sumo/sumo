@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!-- generated on Thu Mar 26 12:00:37 2009 by SUMO netgen Version dev-SVN-r6942
+<configuration>
+
+   <random_network>
+      <random-net>true</random-net>
+      <rand-iterations>20</rand-iterations>
+   </random_network>
+
+   <output>
+      <plain-output>rand</plain-output>
+   </output>
+
+   <projection>
+      <use-projection>true</use-projection>
+   </projection>
+
+   <random_number>
+      <abs-rand>true</abs-rand>
+   </random_number>
+
+</configuration>
+-->
+
+<nodes>
+   <node id="1" x="446.66" y="616.68"/>
+   <node id="102" x="822.75" y="421.00"/>
+   <node id="108" x="612.66" y="691.24"/>
+   <node id="110" x="969.87" y="588.65"/>
+   <node id="12" x="346.49" y="679.29"/>
+   <node id="120" x="788.48" y="842.64"/>
+   <node id="122" x="526.13" y="0.00"/>
+   <node id="124" x="687.59" y="39.14"/>
+   <node id="15" x="772.12" y="605.60"/>
+   <node id="17" x="541.82" y="311.80"/>
+   <node id="2" x="664.25" y="580.89"/>
+   <node id="23" x="160.56" y="576.00"/>
+   <node id="26" x="667.05" y="435.82"/>
+   <node id="28" x="777.45" y="719.15"/>
+   <node id="37" x="490.21" y="149.86"/>
+   <node id="41" x="0.00" y="554.84"/>
+   <node id="47" x="1.63" y="726.76"/>
+   <node id="54" x="750.25" y="321.07"/>
+   <node id="6" x="473.26" y="441.01"/>
+   <node id="8" x="333.72" y="481.99"/>
+</nodes>

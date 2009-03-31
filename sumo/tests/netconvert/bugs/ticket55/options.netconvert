@@ -1,0 +1,2 @@
+--xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml -v -p --use-projection
+

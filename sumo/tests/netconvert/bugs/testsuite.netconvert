@@ -22,3 +22,6 @@
 
 # Test for #38 speed instead of length while importing XML
 ticket38
+
+# Test for #55 NETCONVERT breaks on cartesian networks and --use-projection
+ticket55
