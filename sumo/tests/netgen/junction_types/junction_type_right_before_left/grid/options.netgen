@@ -1,0 +1,1 @@
+--default-junction-type right_before_left --grid-net --grid-number=3 --grid-length=40 --output-file=net.net.xml -v
