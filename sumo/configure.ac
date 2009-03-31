@@ -334,6 +334,7 @@ else
     ac_disabled="$ac_disabled GUI"
 fi
 
+AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
 
