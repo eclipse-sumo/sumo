@@ -373,6 +373,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\SUMOVehicleParameter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\SystemFrame.cpp"
 				>
 			</File>
