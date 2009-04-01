@@ -25,6 +25,15 @@
       <dismiss-loading-errors>false</dismiss-loading-errors>
    </processing>
 
+   <defaults>
+      <departlane>free</departlane>
+      <departpos></departpos>
+      <departspeed>max</departspeed>
+      <arrivallane></arrivallane>
+      <arrivalpos></arrivalpos>
+      <arrivalspeed></arrivalspeed>
+   </defaults>
+
    <report>
       <verbose>false</verbose>
       <suppress-warnings>false</suppress-warnings>

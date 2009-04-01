@@ -1,4 +1,4 @@
-SUMO od2trips Version dev-SVN-r6538
+SUMO od2trips Version dev-SVN-r6978
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
@@ -38,6 +38,14 @@ Usage: od2trips.exe [OPTION]*
   --timeline STR                   Uses STR as a timeline definition
   --timeline.day-in-hours          Uses STR as a 24h-timeline definition
   --dismiss-loading-errors         Continue on broken input
+
+ Defaults Options:
+  --departlane STR                 Assigns a default depart lane
+  --departpos STR                  Assigns a default depart position
+  --departspeed STR                Assigns a default depart speed
+  --arrivallane STR                Assigns a default arrival lane
+  --arrivalpos STR                 Assigns a default arrival position
+  --arrivalspeed STR               Assigns a default arrival speed
 
  Report Options:
   -v, --verbose                    Switches to verbose output
