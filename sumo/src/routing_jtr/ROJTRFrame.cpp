@@ -64,6 +64,7 @@ ROJTRFrame::fillOptions() {
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Defaults");
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Report");
 

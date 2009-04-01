@@ -30,6 +30,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <string>
 #include <iostream>
@@ -57,93 +58,6 @@ ROVehicle::~ROVehicle() throw() {}
 
 
 void
-ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError) {
-    dev << "<vehicle id=\"" << myParameter.id << "\"";
-    if (myParameter.wasSet(VEHPARS_VTYPE_SET)) {
-        dev << " type=\"" << myType->getID() << "\"";
-    }
-    dev << " depart=\"" << myParameter.depart << "\"";
-
-    // optional parameter
-    // depart-values
-    // departlane
-    if (myParameter.wasSet(VEHPARS_DEPARTLANE_SET)) {
-        std::string val;
-        switch (myParameter.departLaneProcedure) {
-        case DEPART_LANE_GIVEN:
-            val = toString(myParameter.departLane);
-            break;
-        case DEPART_LANE_RANDOM:
-            val = "random";
-            break;
-        case DEPART_LANE_FREE:
-            val = "free";
-            break;
-        case DEPART_LANE_DEPARTLANE:
-            val = "departlane";
-            break;
-        case DEPART_LANE_DEFAULT:
-        default:
-            break;
-        }
-        dev << " departlane=\"" << val << "\"";
-    }
-    // departpos
-    if (myParameter.wasSet(VEHPARS_DEPARTPOS_SET)) {
-        std::string val;
-        switch (myParameter.departPosProcedure) {
-        case DEPART_POS_GIVEN:
-            val = toString(myParameter.departPos);
-            break;
-        case DEPART_POS_RANDOM:
-            val = "random";
-            break;
-        case DEPART_POS_RANDOM_FREE:
-            val = "random_free";
-            break;
-        case DEPART_POS_FREE:
-            val = "free";
-        case DEPART_POS_DEFAULT:
-        default:
-            break;
-        }
-        dev << " departpos=\"" << val << "\"";
-    }
-    // departspeed
-    if (myParameter.wasSet(VEHPARS_DEPARTSPEED_SET)) {
-        std::string val;
-        switch (myParameter.departSpeedProcedure) {
-        case DEPART_SPEED_GIVEN:
-            val = toString(myParameter.departSpeed);
-            break;
-        case DEPART_SPEED_RANDOM:
-            val = "random";
-            break;
-        case DEPART_SPEED_MAX:
-            val = "max";
-            break;
-        case DEPART_SPEED_DEFAULT:
-        default:
-            break;
-        }
-        dev << " departspeed=\"" << val << "\"";
-    }
-    // color
-    if (myParameter.wasSet(VEHPARS_COLOR_SET)) {
-        dev << " color=\"" << myParameter.color << "\"";
-    }
-    // repetition values
-    if (myParameter.wasSet(VEHPARS_PERIODNUM_SET)) {
-        dev << " repno=\"" << myParameter.repetitionNumber << "\"";
-    }
-    if (myParameter.wasSet(VEHPARS_PERIODFREQ_SET)) {
-        dev << " period=\"" << myParameter.repetitionOffset << "\"";
-    }
-    dev << ">\n";
-}
-
-
-void
 ROVehicle::saveAllAsXML(OutputDevice &os,
                         OutputDevice * const altos, bool withExitTimes) const throw(IOError) {
     // check whether the vehicle's type was saved before
@@ -158,10 +72,10 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
 
     // write the vehicle (new style, with included routes)
     os << "   ";
-    saveXMLVehicle(os);
+    myParameter.writeAs("vehicle", os, OptionsCont::getOptions());
     if (altos!=0) {
         (*altos) << "   ";
-        saveXMLVehicle(*altos);
+        myParameter.writeAs("vehicle", *altos, OptionsCont::getOptions());
     }
 
     // check whether the route shall be saved

@@ -119,8 +119,6 @@ public:
      * @param[in] os The routes - output device to store the vehicle's description into
      * @param[in] altos The route alternatives - output device to store the vehicle's description into
      * @param[in] route !!!describe
-     * @see saveXMLVehicle
-     *
      * @exception IOError If something fails (not yet implemented)
      * @todo What is the given route definition?
      */
@@ -137,15 +135,6 @@ public:
      * @todo Is this used? What for if everything is replaced?
      */
     virtual ROVehicle *copy(const std::string &id, unsigned int depTime, RORouteDef *newRoute) throw();
-
-
-protected:
-    /** @brief Saves the vehicle definition only into the given stream
-     *
-     * @param[in] dev The output device to store the vehicle definition into
-     * @exception IOError If something fails (not yet implemented)
-     */
-    void saveXMLVehicle(OutputDevice &dev) const throw(IOError);
 
 
 protected:

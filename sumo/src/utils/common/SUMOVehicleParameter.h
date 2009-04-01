@@ -36,6 +36,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
+class OptionsCont;
+
+// ===========================================================================
 // value definitions
 // ===========================================================================
 const int VEHPARS_COLOR_SET = 1;
@@ -46,6 +52,9 @@ const int VEHPARS_DEPARTSPEED_SET = 16;
 const int VEHPARS_PERIODNUM_SET = 32;
 const int VEHPARS_PERIODFREQ_SET = 64;
 const int VEHPARS_ROUTE_SET = 128;
+const int VEHPARS_ARRIVALLANE_SET = 256;
+const int VEHPARS_ARRIVALPOS_SET = 512;
+const int VEHPARS_ARRIVALSPEED_SET = 1024;
 
 
 // ===========================================================================
@@ -106,6 +115,53 @@ enum DepartSpeedDefinition {
 };
 
 
+/**
+ * @enum ArrivalLaneDefinition
+ * @brief Possible ways to choose the arrival lane
+ * @todo Recheck usage!!!
+ */
+enum ArrivalLaneDefinition {
+    /// @brief No information given; use default
+    ARRIVAL_LANE_DEFAULT,
+    /// @brief The speed is given
+    ARRIVAL_LANE_GIVEN,
+    /// @brief The current lane shall be used
+    ARRIVAL_LANE_CURRENT
+};
+
+
+/**
+ * @enum ArrivalPosDefinition
+ * @brief Possible ways to choose the arrival position
+ * @todo Recheck usage!!!
+ */
+enum ArrivalPosDefinition {
+    /// @brief No information given; use default
+    ARRIVAL_POS_DEFAULT,
+    /// @brief The speed is given
+    ARRIVAL_POS_GIVEN,
+    /// @brief The speed is chosen randomly
+    ARRIVAL_POS_RANDOM,
+    /// @brief The maximum speed is used
+    ARRIVAL_POS_MAX
+};
+
+
+/**
+ * @enum ArrivalSpeedDefinition
+ * @brief Possible ways to choose the arrival speed
+ * @todo Recheck usage!!!
+ */
+enum ArrivalSpeedDefinition {
+    /// @brief No information given; use default
+    ARRIVAL_SPEED_DEFAULT,
+    /// @brief The speed is given
+    ARRIVAL_SPEED_GIVEN,
+    /// @brief The current speed is used
+    ARRIVAL_SPEED_CURRENT
+};
+
+
 // ===========================================================================
 // struct definitions
 // ===========================================================================
@@ -125,13 +181,7 @@ public:
      *
      * Initialises the structure with default values
      */
-    SUMOVehicleParameter() throw()
-            : vtypeid(DEFAULT_VTYPE_ID), depart(-1), departLane(0),
-            departLaneProcedure(DEPART_LANE_DEFAULT),
-            departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
-            arrivalPos(0), arrivalSpeed(-1),
-            repetitionNumber(-1), repetitionOffset(-1), setParameter(0), color(RGBColor::DEFAULT_COLOR) {
-    }
+    SUMOVehicleParameter() throw();
 
 
     /** @brief Returns whether the given parameter was set
@@ -141,6 +191,26 @@ public:
     bool wasSet(int what) const throw() {
         return (setParameter&what)!=0;
     }
+
+
+    /** @brief Writes the parameters as a beginning element
+     *
+     * @param[in] xmlElem The name of the element to write
+     * @param[in, out] dev The device to write into
+     * @param[in] oc The options to get defaults from
+     * @exception IOError not yet implemented
+     */
+    void writeAs(const std::string &xmlElem, OutputDevice &dev, 
+        const OptionsCont &oc) const throw(IOError);
+
+
+    /** @brief Returns whether the defaults shall be used
+     * @param[in] oc The options to get the options from
+     * @param[in] optionName The name of the option to determine whether its value shall be used
+     * @return Whether the option is set and --defaults-override was set
+     */
+    bool defaultOptionOverrides(const OptionsCont &oc, const std::string &optionName) const throw();
+
 
 
     /// @brief The vehicle's id
@@ -179,10 +249,16 @@ public:
 
     /// @brief (optional) The lane the vehicle shall arrive on (not used yet)
     std::string arrivalLane;
+    /// @brief Information how the vehicle shall choose the lane to arrive on
+    ArrivalLaneDefinition arrivalLaneProcedure;
     /// @brief (optional) The position the vehicle shall arrive on
     SUMOReal arrivalPos;
+    /// @brief Information how the vehicle shall choose the arrival position
+    ArrivalPosDefinition arrivalPosProcedure;
     /// @brief (optional) The final speed of the vehicle (not used yet)
     SUMOReal arrivalSpeed;
+    /// @brief Information how the vehicle's end speed shall be chosen
+    ArrivalSpeedDefinition arrivalSpeedProcedure;
     /// @}
 
 

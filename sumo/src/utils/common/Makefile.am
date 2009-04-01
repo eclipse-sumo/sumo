@@ -3,7 +3,7 @@ noinst_LIBRARIES = libcommon.a
 EXTRA_DIST = StdDefs.h VectorHelper.h Command.h \
 NamedObjectCont.h PhysicalTypeDefs.h StaticCommand.h \
 RandomDistributor.h SUMOAbstractRouter.h SUMODijkstraRouter.h \
-SUMOVehicle.h SUMOVehicleParameter.h \
+SUMOVehicle.h \
 WrappingCommand.h ValueRetriever.h ValueSource.h
 
 libcommon_a_SOURCES = AbstractMutex.h \
@@ -16,6 +16,7 @@ MsgHandler.h MsgHandler.cpp \
 RGBColor.cpp RGBColor.h RandHelper.h RandHelper.cpp \
 SUMOTime.cpp SUMOTime.h \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
+SUMOVehicleParameter.cpp SUMOVehicleParameter.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
 ToString.h TplConvert.h TplConvertSec.h  \

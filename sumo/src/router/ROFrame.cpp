@@ -108,6 +108,29 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.addDescription("repair", "Processing", "Tries to correct a false route");
 
 
+    // register defaults options
+    oc.doRegister("departlane", new Option_String());
+    oc.addDescription("departlane", "Defaults", "Assigns a default depart lane");
+
+    oc.doRegister("departpos", new Option_String());
+    oc.addDescription("departpos", "Defaults", "Assigns a default depart position");
+
+    oc.doRegister("departspeed", new Option_String());
+    oc.addDescription("departspeed", "Defaults", "Assigns a default depart speed");
+
+    oc.doRegister("arrivallane", new Option_String());
+    oc.addDescription("arrivallane", "Defaults", "Assigns a default arrival lane");
+
+    oc.doRegister("arrivalpos", new Option_String());
+    oc.addDescription("arrivalpos", "Defaults", "Assigns a default arrival position");
+
+    oc.doRegister("arrivalspeed", new Option_String());
+    oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
+
+    oc.doRegister("defaults-override", new Option_Bool(false));
+    oc.addDescription("defaults-override", "Defaults", "Defaults will override given values");
+
+
     // register report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.addDescription("verbose", "Report", "Switches to verbose output");
@@ -129,7 +152,6 @@ ROFrame::fillOptions(OptionsCont &oc) {
 }
 
 
-
 bool
 ROFrame::checkOptions(OptionsCont &oc) {
     // check whether the output is valid and can be build
@@ -142,7 +164,7 @@ ROFrame::checkOptions(OptionsCont &oc) {
         MsgHandler::getErrorInstance()->inform("At least two alternatives should be enabled");
         return false;
     }
-    //
+    // check departure/arrival options
     return true;
 }
 

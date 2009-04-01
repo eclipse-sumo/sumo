@@ -118,10 +118,41 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         }
     }
 
-    ret->arrivalLane = attrs.getStringSecure(SUMO_ATTR_ARRIVALLANE, "");
-    ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, 0); //!!! specs have strings
-//    ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, HUGE_VAL); //!!! default for the new spec
-    ret->arrivalSpeed = attrs.getFloatSecure(SUMO_ATTR_ARRIVALSPEED, -1); //!!! specs have strings
+    // parse arrival lane information
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
+        ret->setParameter |= VEHPARS_ARRIVALLANE_SET;
+        string helper = attrs.getString(SUMO_ATTR_ARRIVALLANE);
+        if (helper=="current") {
+            ret->arrivalLaneProcedure = ARRIVAL_LANE_CURRENT;
+        } else {
+            ret->arrivalLaneProcedure = ARRIVAL_LANE_GIVEN;
+            ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());;
+        }
+    }
+    // parse arrival position information
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+        ret->setParameter |= VEHPARS_ARRIVALPOS_SET;
+        string helper = attrs.getString(SUMO_ATTR_ARRIVALPOS);
+        if (helper=="random") {
+            ret->arrivalPosProcedure = ARRIVAL_POS_RANDOM;
+        } else if (helper=="max") {
+            ret->arrivalPosProcedure = ARRIVAL_POS_MAX;
+        } else {
+            ret->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
+            ret->arrivalPos = TplConvert<char>::_2SUMOReal(helper.c_str());
+        }
+    }
+    // parse arrival position information
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
+        ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
+        string helper = attrs.getString(SUMO_ATTR_ARRIVALSPEED);
+        if (helper=="current") {
+            ret->arrivalSpeedProcedure = ARRIVAL_SPEED_CURRENT;
+        } else {
+            ret->arrivalSpeedProcedure = ARRIVAL_SPEED_GIVEN;
+            ret->arrivalSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
+        }
+    }
 
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
