@@ -137,6 +137,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
     if (myContainer.size()==0) {
         return;
     }
+    OptionsCont &oc = OptionsCont::getOptions();
     std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
     size_t vehName = 0;
     sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
@@ -188,7 +189,25 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if (!noVtype&&(*i).type.length()!=0) {
                 dev << " type=\"" << (*i).type << "\"";
             }
-            dev << " departlane=\"free\" departspeed=\"max\"/>\n";
+            if(oc.isSet("departlane") && oc.getString("departlane")!="default") {
+                dev << " departlane=\"" << oc.getString("departlane") << "\"";
+            }
+            if(oc.isSet("departpos")) {
+                dev << " departpos=\"" << oc.getString("departpos") << "\"";
+            }
+            if(oc.isSet("departspeed") && oc.getString("departspeed")!="default") {
+                dev << " departspeed=\"" << oc.getString("departspeed") << "\"";
+            }
+            if(oc.isSet("arrivallane")) {
+                dev << " arrivallane=\"" << oc.getString("arrivallane") << "\"";
+            }
+            if(oc.isSet("arrivalpos")) {
+                dev << " arrivalpos=\"" << oc.getString("arrivalpos") << "\"";
+            }
+            if(oc.isSet("arrivalspeed")) {
+                dev << " arrivalspeed=\"" << oc.getString("arrivalspeed") << "\"";
+            }
+            dev << "/>\n";
         }
         while (vehicles.size()!=0&&(*vehicles.rbegin()).depart==t) {
             vehicles.pop_back();
