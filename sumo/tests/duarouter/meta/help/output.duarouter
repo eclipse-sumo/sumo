@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r6538
+SUMO duarouter Version dev-SVN-r6978
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -45,6 +45,15 @@ Usage: duarouter.exe [OPTION]*
   -x, --scheme STR                    
   --gBeta FLOAT                       Use FLOAT as Gawron's beta
   --gA FLOAT                          Use FLOAT as Gawron's alpha
+
+ Defaults Options:
+  --departlane STR                    Assigns a default depart lane
+  --departpos STR                     Assigns a default depart position
+  --departspeed STR                   Assigns a default depart speed
+  --arrivallane STR                   Assigns a default arrival lane
+  --arrivalpos STR                    Assigns a default arrival position
+  --arrivalspeed STR                  Assigns a default arrival speed
+  --defaults-override                 Defaults will override given values
 
  Time Options:
   -b, --begin INT                     Defines the begin time;

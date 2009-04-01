@@ -31,6 +31,16 @@
       <dismiss-loading-errors>false</dismiss-loading-errors>
    </processing>
 
+   <defaults>
+      <departlane></departlane>
+      <departpos></departpos>
+      <departspeed></departspeed>
+      <arrivallane></arrivallane>
+      <arrivalpos></arrivalpos>
+      <arrivalspeed></arrivalspeed>
+      <defaults-override>false</defaults-override>
+   </defaults>
+
    <time>
       <begin>0</begin>
       <end>86400</end>

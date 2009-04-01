@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r6538
+SUMO jtrrouter Version dev-SVN-r6978
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -43,6 +43,15 @@ Usage: jtrrouter.exe [OPTION]*
   -A, --accept-all-destinations    
   -i, --ignore-classes             
   --dismiss-loading-errors         Continue on broken input
+
+ Defaults Options:
+  --departlane STR                 Assigns a default depart lane
+  --departpos STR                  Assigns a default depart position
+  --departspeed STR                Assigns a default depart speed
+  --arrivallane STR                Assigns a default arrival lane
+  --arrivalpos STR                 Assigns a default arrival position
+  --arrivalspeed STR               Assigns a default arrival speed
+  --defaults-override              Defaults will override given values
 
  Time Options:
   -b, --begin INT                  Defines the begin time;
