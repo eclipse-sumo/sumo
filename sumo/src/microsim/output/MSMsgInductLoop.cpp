@@ -61,7 +61,7 @@ MSMsgInductLoop::MSMsgInductLoop(const string& id, const string& msg,
         myCurrentID(""),
         myPosition(positionInMeters), myLastLeaveTimestep(0),
         myVehiclesOnDet(), myVehicleDataCont() {
-    assert(myPosition >= 0 && myPosition <= laneM->length());
+    assert(myPosition >= 0 && myPosition <= lane->length());
     reset();
     myLastLeaveTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
 }
