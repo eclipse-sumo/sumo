@@ -20,7 +20,17 @@
 	<tripdef depart="42" from="beg" to="rend" departspeed="max"/>
 	<tripdef depart="43" from="beg" to="rend" departspeed="random"/>
 
-	<tripdef depart="50" from="beg" to="rend" period="0" repno="0"/>
-	<tripdef depart="51" from="beg" to="rend" period="1" repno="1"/>
+	<tripdef depart="50" from="beg" to="rend" arrivallane="42"/>
+	<tripdef depart="51" from="beg" to="rend" arrivallane="current"/>
+
+	<tripdef depart="60" from="beg" to="rend" arrivalpos="42"/>
+	<tripdef depart="61" from="beg" to="rend" arrivalpos="max"/>
+	<tripdef depart="62" from="beg" to="rend" arrivalpos="random"/>
+
+	<tripdef depart="70" from="beg" to="rend" arrivalspeed="42"/>
+	<tripdef depart="71" from="beg" to="rend" arrivalspeed="current"/>
+
+	<tripdef depart="80" from="beg" to="rend" period="0" repno="0"/>
+	<tripdef depart="81" from="beg" to="rend" period="1" repno="1"/>
 
 </tripdefs>
