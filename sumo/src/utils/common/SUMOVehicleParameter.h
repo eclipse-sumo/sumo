@@ -248,7 +248,7 @@ public:
     /// @{
 
     /// @brief (optional) The lane the vehicle shall arrive on (not used yet)
-    std::string arrivalLane;
+    int arrivalLane;
     /// @brief Information how the vehicle shall choose the lane to arrive on
     ArrivalLaneDefinition arrivalLaneProcedure;
     /// @brief (optional) The position the vehicle shall arrive on

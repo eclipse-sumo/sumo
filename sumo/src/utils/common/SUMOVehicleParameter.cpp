@@ -143,7 +143,7 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
         std::string val;
         switch (arrivalLaneProcedure) {
         case ARRIVAL_LANE_GIVEN:
-            val = toString(departLane);
+            val = toString(arrivalLane);
             break;
         case ARRIVAL_LANE_CURRENT:
             val = "current";
@@ -161,7 +161,7 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
         std::string val;
         switch (arrivalPosProcedure) {
         case ARRIVAL_POS_GIVEN:
-            val = toString(departPos);
+            val = toString(arrivalPos);
             break;
         case ARRIVAL_POS_RANDOM:
             val = "random";
@@ -182,7 +182,7 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
         std::string val;
         switch (arrivalSpeedProcedure) {
         case ARRIVAL_SPEED_GIVEN:
-            val = toString(departSpeed);
+            val = toString(arrivalSpeed);
             break;
         case ARRIVAL_SPEED_CURRENT:
             val = "current";
