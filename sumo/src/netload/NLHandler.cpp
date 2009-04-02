@@ -838,11 +838,6 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
     if (file=="") {
         file = "-";
     }
-#ifdef _DEBUG
-    cout << "id: '"+ id + "'" << endl
-         << "file: '" + file + "'" << endl
-         << "getFileName(): '" + getFileName() + "'" << endl;
-#endif
     std::string whatemit;
     bool reverse = attrs.getBoolSecure(SUMO_ATTR_REVERSE, false);
     bool table = attrs.getBoolSecure(SUMO_ATTR_TABLE, true);
@@ -899,33 +894,21 @@ NLHandler::addDetector(const SUMOSAXAttributes &attrs) {
 #ifdef _MESSAGES
 void
 NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
-#ifdef _DEBUG
-    cout << "=====DEBUG OUTPUT=====" << endl << "Hier kommen die Detektoren rein..." << endl;
-#endif
     std::string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
     if (id=="") {
         MsgHandler::getErrorInstance()->inform("Missing id of a e4-detector-object.");
         return;
     }
-#ifdef _DEBUG
-    cout << "ID: " << id << endl;
-#endif
     std::string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
     if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }
-#ifdef _DEBUG
-    cout << "File: " << file << endl;
-#endif
     std::string msg = attrs.getStringSecure(SUMO_ATTR_MSG, "");
     if (msg=="") {
         MsgHandler::getErrorInstance()->inform("Missing message for detector '" + id + "'.");
         return;
     }
-#ifdef _DEBUG
-    cout << "Message: " << msg << endl;
-#endif
     try {
         myDetectorBuilder.buildMsgDetector(id,
                                            attrs.getString(SUMO_ATTR_LANE),
@@ -946,9 +929,6 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
     } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
-#ifdef _DEBUG
-    cout << "=====END DEBUG=====" << endl;
-#endif
 }
 #endif
 
