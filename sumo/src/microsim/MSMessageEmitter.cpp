@@ -90,7 +90,7 @@ MSMessageEmitter::trimmed(const std::string& str, const char* sepSet) {
 
 
 void
-MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
+MSMessageEmitter::writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep,
                                        MSLane *oldlane, SUMOReal myPos,
                                        SUMOReal mySpeed, MSLane *newlane,
                                        SUMOReal x, SUMOReal y) {
@@ -187,7 +187,7 @@ MSMessageEmitter::getEventsEnabled(const std::string& enabled) {
 
 
 void
-MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
+MSMessageEmitter::writeHeartBeatEvent(const std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
                                       SUMOReal speed, SUMOReal x, SUMOReal y) {
     if (fmod(timeStep, myStep) == 0) {
         if (tableOutput) {
@@ -249,7 +249,7 @@ MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLan
 
 
 void
-MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
+MSMessageEmitter::writeBreakEvent(const std::string& id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
                                   SUMOReal speed, SUMOReal x, SUMOReal y) {
     if (tableOutput) {
         if (!reverseOrder) {

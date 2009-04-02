@@ -58,13 +58,13 @@ public:
 
     virtual ~MSMessageEmitter();
 
-    void writeLaneChangeEvent(std::string& id, SUMOReal& timeStep, MSLane *oldlane, SUMOReal myPos,
+    void writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep, MSLane *oldlane, SUMOReal myPos,
                               SUMOReal mySpeed, MSLane *newlane, SUMOReal x, SUMOReal y);
 
-    void writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane *lane, SUMOReal myPos,
+    void writeBreakEvent(const std::string& id, SUMOReal& timeStep, MSLane *lane, SUMOReal myPos,
                          SUMOReal speed, SUMOReal x, SUMOReal y);
 
-    void writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
+    void writeHeartBeatEvent(const std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
                              SUMOReal speed, SUMOReal x, SUMOReal y);
 
     bool getWriteLCEvent();

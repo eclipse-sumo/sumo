@@ -574,7 +574,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     workOnMoveReminders(myState.myPos, myState.myPos + SPEED2DIST(vNext), vNext);
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
-        if (running()) {
+        if (isOnRoad()) {
             SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
             myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
         }
@@ -609,7 +609,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
                                  SUMOReal lengthsInFront) throw() {
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
-        if (running()) {
+        if (isOnRoad()) {
             SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
             myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
         }
@@ -733,7 +733,7 @@ MSVehicle::moveFirstChecked() {
 
 #ifdef _MESSAGES
     if (myHBMsgEmitter != 0) {
-        if (running()) {
+        if (isOnRoad()) {
             SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
             myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
         }

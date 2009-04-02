@@ -877,6 +877,7 @@ protected:
     /// The message emitters
     MSMessageEmitter *myLCMsgEmitter;
     MSMessageEmitter *myBMsgEmitter;
+    MSMessageEmitter *myHBMsgEmitter;
 #endif
 
     /// Vehicle's parameter.
