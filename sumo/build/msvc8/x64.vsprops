@@ -18,11 +18,11 @@
 	/>
 	<UserMacro
 		Name="XERCES_LIB"
-		Value="$(XERCES_64)\lib\xerces-c_2.lib"
+		Value="$(XERCES_64)\lib\xerces-c_3.lib"
 	/>
 	<UserMacro
 		Name="XERCES_DEBUG_LIB"
-		Value="$(XERCES_64)\lib\xerces-c_2D.lib"
+		Value="$(XERCES_64)\lib\xerces-c_3D.lib"
 	/>
 	<UserMacro
 		Name="PROJ_LIB"
