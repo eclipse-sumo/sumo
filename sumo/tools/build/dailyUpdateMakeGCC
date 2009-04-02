@@ -25,26 +25,27 @@ if test `wc -l < $MAKELOG` -le 5; then
   exit
 fi
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-./configure --prefix=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-make dist >> $MAKELOG 2>&1 || (echo "make dist failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-make distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-make dist-doc >> $MAKELOG 2>&1 || (echo "make dist-doc failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-make dist-tests >> $MAKELOG 2>&1 || (echo "make dist-tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-make >> $MAKELOG 2>&1 || (echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG)
-make install >> $MAKELOG 2>&1 || (echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+./configure --prefix=$PREFIX/sumo >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+if make >> $MAKELOG 2>&1; then
+  make install >> $MAKELOG 2>&1 || (echo "make install failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+  make distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+  make dist-complete >> $MAKELOG 2>&1 || (echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+else
+  echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG
+fi
 echo `grep -c warning $MAKELOG` warnings >> $STATUSLOG
 gzip -f $MAKELOG
 scp -q $MAKELOG.gz $REMOTEDIR
 
 echo "--" >> $STATUSLOG
-if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
+if test -e $PREFIX/sumo/bin/sumo -a $PREFIX/sumo/bin/sumo -nt $PREFIX/sumo/configure; then
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
   find $SUMO_BATCH_RESULT -mtime +20 -type f | xargs -r rm
   rm -rf $SUMO_REPORT/* $TEXTTEST_TMP/*
-  tests/runTests.sh $PREFIX/bin "texttest.py -b $FILEPREFIX" &> $TESTLOG
-  tests/runTests.sh $PREFIX/bin "texttest.py -b $FILEPREFIX -coll" >> $TESTLOG 2>&1
+  tests/runTests.sh $PREFIX/sumo/bin "texttest.py -b $FILEPREFIX" &> $TESTLOG
+  tests/runTests.sh $PREFIX/sumo/bin "texttest.py -b $FILEPREFIX -coll" >> $TESTLOG 2>&1
   find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
   scp -qr $SUMO_REPORT $REMOTEDIR
 
@@ -58,10 +59,15 @@ fi
 echo "--" >> $STATUSLOG
 echo `basename $MAKEALLLOG`.gz >> $STATUSLOG
 export CXXFLAGS="-Wall -W -Wfloat-equal -pedantic -Wno-long-long"
-./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
---with-proj-gdal=$PREFIX --enable-double-precision --enable-traci --enable-subsecond \
---enable-debug --enable-memcheck &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
-make clean all >> $MAKEALLLOG 2>&1 || (echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG)
+./configure --program-suffix=D --prefix=$PREFIX/sumo \
+  --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
+  --with-proj-gdal=$PREFIX --enable-double-precision --enable-traci --enable-subsecond \
+  --enable-debug --enable-memcheck --enable-messages &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
+if make >> $MAKEALLLOG 2>&1; then
+  make install >> $MAKEALLLOG 2>&1 || (echo "make install with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
+else
+  echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
+fi
 echo `grep -c warning $MAKEALLLOG` warnings >> $STATUSLOG
 gzip -f $MAKEALLLOG
 scp -q $MAKEALLLOG.gz $REMOTEDIR

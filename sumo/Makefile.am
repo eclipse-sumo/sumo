@@ -6,24 +6,26 @@ doc:
 	$(MAKE) -C docs $@
 
 dist-hook:
-	cd $(srcdir)
-	find build -regex ".*\.\(vcproj\|vsprops\|sln\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
-	find data -regex ".*\.\(cfg\|xml\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
-	find tools -regex ".*\.\(pl\|py\|java\|jar\|bat\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
-	cp tools/traceExporter/.classpath tools/traceExporter/.project tools/traceExporter/manifest.mf $(distdir)/tools/traceExporter
+	abs_distdir="`pwd`/$(distdir)" \
+	&& cd $(srcdir) \
+	&& for f in `find build data tools -name .svn -prune -o -type d`; do mkdir $$abs_distdir/$$f; done \
+	&& find build -regex ".*\.\(vcproj\|vsprops\|sln\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& find data -regex ".*\.\(cfg\|xml\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& find tools -regex ".*\.\(pl\|py\|java\|jar\|bat\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
+	&& cp tools/traceExporter/.classpath tools/traceExporter/.project tools/traceExporter/manifest.mf $$abs_distdir/tools/traceExporter
 
 dist-doc: doc
+	cd $(srcdir)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	cd $(srcdir)
 	cp --parents docs/*.pdf $(distdir)
 	tar -czf $(PACKAGE)-doc-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
 
 dist-tests:
+	cd $(srcdir)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	cd $(srcdir)
 	find tests -name .svn -prune -o -type f -print | xargs cp --parents -t $(distdir)
 	tar -czf $(PACKAGE)-tests-$(VERSION).tar.gz $(distdir)
 	$(am__remove_distdir)
