@@ -147,6 +147,7 @@ public:
     /// @brief Destructor
     ~MSLink() throw();
 
+
     /** @brief Sets the request information
      *
      * Because traffic lights and junction logics are loaded after links,
@@ -226,7 +227,9 @@ public:
      *
      * @return The current state of this link
      */
-    LinkState getState() const throw();
+    LinkState getState() const throw() {
+        return myState;
+    }
 
 
     /** @brief Returns the direction the vehicle passing this link take
@@ -261,7 +264,9 @@ public:
      *
      * @return Whether the link has a large priority
      */
-    bool havePriority() const throw();
+    bool havePriority() const throw() {
+        return myPrio;
+    }
 
 
     /** @brief Returns the length of this link

@@ -126,12 +126,6 @@ MSLink::deleteRequest() throw() {
 }
 
 
-MSLink::LinkState
-MSLink::getState() const throw() {
-    return myState;
-}
-
-
 MSLink::LinkDirection
 MSLink::getDirection() const throw() {
     return myDirection;
@@ -147,12 +141,6 @@ MSLink::setTLState(LinkState state) throw() {
 MSLane *
 MSLink::getLane() const throw() {
     return myLane;
-}
-
-
-bool
-MSLink::havePriority() const throw() {
-    return myPrio;
 }
 
 
