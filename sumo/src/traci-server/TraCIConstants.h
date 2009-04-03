@@ -101,24 +101,27 @@
 
 // command: get induction loop (e1) variable
 #define CMD_GET_INDUCTIONLOOP_VARIABLE 0xa0
-
 // response: get induction loop (e1) variable
 #define RESPONSE_GET_INDUCTIONLOOP_VARIABLE 0xb0
 
 // command: get areal detector (e3) variable
 #define CMD_GET_AREALDETECTOR_VARIABLE 0xa1
-
 // response: get areal detector (e3) variable
 #define RESPONSE_GET_AREALDETECTOR_VARIABLE 0xb1
 
 // command: get traffic lights variable
 #define CMD_GET_TL_VARIABLE 0xa2
-
 // response: get traffic lights variable
 #define RESPONSE_GET_TL_VARIABLE 0xb2
-
 // command: set traffic lights variable
 #define CMD_SET_TL_VARIABLE 0xc2
+
+// command: get lane variable
+#define CMD_GET_LANE_VARIABLE 0xa3
+// response: get lane variable
+#define RESPONSE_GET_LANE_VARIABLE 0xb3
+// command: set lane variable
+#define CMD_SET_LANE_VARIABLE 0xc3
 
 
 // ****************************************
@@ -281,6 +284,7 @@
 // list of instances' ids (get: induction loops, areal detector, traffic lights)
 #define ID_LIST 0x00
 
+
 // last step vehicle number (get: induction loops, areal detector)
 #define LAST_STEP_VEHICLE_NUMBER 0x10
 
@@ -289,6 +293,7 @@
 
 // last step vehicle number (get: induction loops)
 #define LAST_STEP_VEHICLE_ID_LIST 0x12
+
 
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 #define TL_RED_YELLOW_GREEN_STATE 0x20
@@ -307,6 +312,25 @@
 
 // complete definition (get: traffic lights)
 #define TL_COMPLETE_DEFINITION 0x25
+
+// complete definition (get: traffic lights)
+#define TL_CONTROLLED_LANES 0x26
+
+// complete definition (get: traffic lights)
+#define TL_CONTROLLED_LINKS 0x27
+
+
+// outgoing link number (get: lanes)
+#define LANE_LINK_NUMBER 0x30
+
+// outgoing link number (get: lanes)
+#define LANE_LENGTH 0x31
+
+// outgoing link number (get: lanes)
+#define LANE_MAXSPEED 0x32
+
+// outgoing link definitions (get: lanes)
+#define LANE_LINKS 0x33
 
 
 #endif
