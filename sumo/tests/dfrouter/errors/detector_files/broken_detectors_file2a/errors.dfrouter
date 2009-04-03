@@ -1,4 +1,4 @@
-Error: Expected end of tag 'detector_definition'
+Error: expected end of tag 'detector_definition'
  In file 'input_messstrecke.det.xml'
  At line/column 8/3.
 

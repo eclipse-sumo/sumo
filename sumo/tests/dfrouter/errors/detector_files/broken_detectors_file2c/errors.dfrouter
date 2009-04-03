@@ -1,4 +1,4 @@
-Error: An exception occurred! Type:UTFDataFormatException, Message:Exceede bytes limits ü, 6-byte sequence.
+Error: exceeded byte limit at byte 'ü' in a 6-byte sequence
  In file 'input_messstrecke.det.xml'
  At line/column 2/1.
 
