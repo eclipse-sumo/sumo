@@ -10,6 +10,14 @@ TL_PBY_STATE
 # Tests TL_COMPLETE_DEFINITION
 TL_COMPLETE
 
+# Tests TL_CONTROLLED_LANES
+TL_LANES
+
+# Tests TL_CONTROLLED_LINKS
+TL_LINKS
+
+
+
 # Testing error cases
 errors
 
