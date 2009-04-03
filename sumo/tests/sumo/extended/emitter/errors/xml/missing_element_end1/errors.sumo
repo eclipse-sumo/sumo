@@ -1,5 +1,5 @@
 Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: Expected end of tag 'routedistelem'
+Error: expected end of tag 'routedistelem'
  In file 'input_definition.def.xml'
  At line/column 18/3.
 

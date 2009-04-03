@@ -1,5 +1,5 @@
 Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: Expected comment or processing instruction
+Error: comment or processing instruction expected
  In file 'input_definition.def.xml'
  At line/column 4/2.
 

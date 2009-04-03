@@ -1,5 +1,5 @@
 Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: Expected end of tag 'emit'
+Error: expected end of tag 'emit'
  In file 'input_definition.def.xml'
  At line/column 18/3.
 

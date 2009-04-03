@@ -1,5 +1,5 @@
 Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: The attribute 'speed' is already used in element 'emit'
+Error: attribute 'speed' is already specified for element 'emit'
  In file 'input_definition.def.xml'
  At line/column 7/33.
 
