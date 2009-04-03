@@ -1,4 +1,4 @@
-Error: Expected comment or processing instruction
+Error: comment or processing instruction expected
  In file 'input_alts.rou.alt.xml'
  At line/column 5/4.
 

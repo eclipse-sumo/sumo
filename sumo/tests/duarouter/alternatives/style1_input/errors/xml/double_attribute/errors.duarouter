@@ -1,4 +1,4 @@
-Error: The attribute 'probability' is already used in element 'route'
+Error: attribute 'probability' is already specified for element 'route'
  In file 'input_alts.rou.alt.xml'
  At line/column 10/57.
 

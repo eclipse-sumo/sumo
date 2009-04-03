@@ -1,4 +1,4 @@
-Error: Expected end of tag 'routeDistribution'
+Error: expected end of tag 'routeDistribution'
  In file 'input_alts.rou.alt.xml'
  At line/column 14/6.
 

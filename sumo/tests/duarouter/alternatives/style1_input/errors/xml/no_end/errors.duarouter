@@ -1,4 +1,4 @@
-Error: The input ended before all started tags were ended. Last tag started was 'route-alternatives'
+Error: input ended before all started tags were ended; last tag started is 'route-alternatives'
  In file 'input_alts.rou.alt.xml'
  At line/column 14/1.
 
