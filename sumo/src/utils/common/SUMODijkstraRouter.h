@@ -156,7 +156,7 @@ public:
         }
     };
 
-    virtual SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) = 0;
+    virtual SUMOReal getEffort(const E * const e, const V * const v, SUMOTime t) = 0;
 
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
@@ -208,7 +208,7 @@ public:
                 return;
             }
             (*visited)[minEdge->getNumericalID()] = true;
-            SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, vehicle, time + minimumKnot->effort));
+            SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, vehicle, time + (SUMOTime)minimumKnot->effort));
             //+ (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
             // check all ways from the node with the minimal length
             unsigned int i = 0;
@@ -332,16 +332,15 @@ template<class E, class V, class PF, class EC>
 class SUMODijkstraRouter_ByProxi : public SUMODijkstraRouterBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOReal) const;
+    typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOTime) const;
 
     SUMODijkstraRouter_ByProxi(size_t noE, bool unbuildIsWarningOnly, EC* receiver, Operation operation)
             : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly),
             myReceiver(receiver), myOperation(operation) {}
 
-    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
+    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOTime t) {
         return (myReceiver->*myOperation)(e, v, t);
     }
-//                          + (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
 
 private:
     /// @brief The object the action is directed to.
@@ -358,12 +357,12 @@ template<class E, class V, class PF>
 class SUMODijkstraRouter_Direct : public SUMODijkstraRouterBase<E, V, PF> {
 public:
     /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(E::* Operation)(const V * const, SUMOReal) const;
+    typedef SUMOReal(E::* Operation)(const V * const, SUMOTime) const;
 
     SUMODijkstraRouter_Direct(size_t noE, bool unbuildIsWarningOnly, Operation operation)
             : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly), myOperation(operation) {}
 
-    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
+    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOTime t) {
         return (e->*myOperation)(v, t);
     }
 

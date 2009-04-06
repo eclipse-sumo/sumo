@@ -700,7 +700,7 @@ public:
     }
     bool knowsEdgeTest(MSEdge &edge) const;
 
-    SUMOReal getEffort(const MSEdge * const e, SUMOReal t) const;
+    SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const;
 
 
     /** @brief Returns this vehicle's devices

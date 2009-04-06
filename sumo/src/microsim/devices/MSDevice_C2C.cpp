@@ -841,7 +841,7 @@ MSDevice_C2C::sendInfos(SUMOTime time) {
             // !!! maybe it would be prettier to have computed this by the retriever
             size_t nofP = numOfInfos(this, (*i).first);
             if (nofP>numberOfInfo) {
-                nofP = (int) numberOfInfo;
+                nofP = numberOfInfo;
             }
             // send the computed number of information to the neighbor
             (*i).first->transferInformation(getID(), infoCont, nofP, time);
@@ -891,11 +891,11 @@ MSDevice_C2C::numOfInfos(MSDevice_C2C *veh1, MSDevice_C2C* veh2) {
 
 void
 MSDevice_C2C::transferInformation(const std::string &senderID, const InfoCont &infos,
-                                  int NofP, SUMOTime currentTime) {
+                                  size_t NofP, SUMOTime currentTime) {
     if (NofP>0&&infos.size()>0) {
         myLastInfoTime = currentTime;
     }
-    int count = 0;
+    size_t count = 0;
     std::map<const MSEdge * const, Information *>::const_iterator i;
     // go through the saved information
     for (i=infos.begin(); i!=infos.end() && count<NofP; ++i) {
@@ -925,7 +925,7 @@ MSDevice_C2C::transferInformation(const std::string &senderID, const InfoCont &i
 
 
 SUMOReal
-MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal t) const {
+MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOTime t) const {
     MSDevice_C2C * device = myVehiclesToDevicesMap.find(v)->second;
     InfoCont::iterator i = device->infoCont.find(e);
     if (i==device->infoCont.end()) {

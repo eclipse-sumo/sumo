@@ -289,7 +289,7 @@ public:
      * @param[in] forTime The (entry) time for which the effort shall be returned
      * @return The effort (travel time) to pass the edge for the given time
      */
-    SUMOReal getEffort(SUMOReal forTime) const throw();
+    SUMOReal getEffort(SUMOTime forTime) const throw();
 
 
     /** @brief Computes and returns the current effort (travel time) for this edge
@@ -316,7 +316,7 @@ public:
      * @see MSVehicle::getEffort
      * @deprecated This explicite combination is not variable enough; see determination in C2C-device
      */
-    SUMOReal getVehicleEffort(const SUMOVehicle * const v, SUMOReal t) const throw();
+    SUMOReal getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw();
 
 
     /** @brief Adds a loaded weight

@@ -139,8 +139,7 @@ ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() 
 
 
 SUMOReal
-ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const throw() {
-    SUMOTime time = (SUMOTime) t;
+ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
     // check whether an absolute value shalle be used

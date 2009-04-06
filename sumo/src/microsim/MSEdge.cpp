@@ -407,7 +407,7 @@ bool myHaveWarned; // !!!
 
 
 SUMOReal
-MSEdge::getEffort(SUMOReal forTime) const throw() {
+MSEdge::getEffort(SUMOTime forTime) const throw() {
     if (!myHaveLoadedWeights) {
         return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
     }
@@ -415,14 +415,13 @@ MSEdge::getEffort(SUMOReal forTime) const throw() {
         myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
         myHaveBuildShortCut = true;
     }
-    SUMOTime t = (SUMOTime) forTime;
-    if (myShortCutBegin>t||myShortCutEnd<t) {
+    if (myShortCutBegin>forTime||myShortCutEnd<forTime) {
         if (myUseBoundariesOnOverride) {
             if (!myHaveWarned) {
-                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using first/last entry.");
+                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(forTime)  + " in edge '" + getID() + "'.\n Using first/last entry.");
                 myHaveWarned = true;
             }
-            if (myShortCutBegin>t) {
+            if (myShortCutBegin>forTime) {
                 return myPackedValueLine[0];
             } else {
                 return myPackedValueLine[myLastPackedIndex];
@@ -431,12 +430,12 @@ MSEdge::getEffort(SUMOReal forTime) const throw() {
             // value is already set
             //  warn if wished
             if (!myHaveWarned) {
-                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using edge's length / edge's speed.");
+                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(forTime)  + " in edge '" + getID() + "'.\n Using edge's length / edge's speed.");
                 myHaveWarned = true;
             }
         }
     }
-    unsigned int index = (unsigned int)((t-myShortCutBegin)/myShortCutInterval);
+    unsigned int index = (unsigned int)((forTime-myShortCutBegin)/myShortCutInterval);
     return myPackedValueLine[index];
 }
 
@@ -464,7 +463,7 @@ MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() 
 
 
 SUMOReal
-MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOReal t) const throw() {
+MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw() {
     SUMOReal teffort = v->getEffort(this, t);
     if (teffort>=0) {
         return teffort;

@@ -253,7 +253,7 @@ public:
      * @todo Refactor weights usage
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
-    SUMOReal getEffort(const ROVehicle * const veh, SUMOReal time) const throw();
+    SUMOReal getEffort(const ROVehicle * const veh, SUMOTime time) const throw();
 
 
     /** @brief Sets additional weight information

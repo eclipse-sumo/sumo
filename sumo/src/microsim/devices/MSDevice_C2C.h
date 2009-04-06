@@ -201,7 +201,7 @@ public:
      * @return The effort (time to pass in this case) for an edge
      * @see SUMODijkstraRouter_ByProxi
      */
-    SUMOReal getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal t) const;
+    SUMOReal getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOTime t) const;
 
 
 private:
@@ -379,7 +379,7 @@ private:
     ConnectionCont myNeighbors;
     ClusterCont clusterCont;
     // transfert the N Information in infos into my own InformationsContainer
-    void transferInformation(const std::string &senderID, const InfoCont &infos, int N,
+    void transferInformation(const std::string &senderID, const InfoCont &infos, size_t N,
                              SUMOTime currentTime);
 
     //compute accordant the distance, the Number of Infos that can be transmit

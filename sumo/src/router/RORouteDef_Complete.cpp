@@ -121,7 +121,7 @@ RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * con
     }
     dev << " edges=\"" << myEdges;
     if (withExitTimes) {
-        SUMOReal time = veh->getDepartureTime();
+        SUMOTime time = veh->getDepartureTime();
         dev << "\" exitTimes=\"";
         std::vector<const ROEdge*>::const_iterator i = myEdges.begin();
         for (; i!=myEdges.end(); ++i) {

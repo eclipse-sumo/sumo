@@ -823,7 +823,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         int lastLinkToInternal = -1;
         MSVehicle *leader = 0;
 
-        for (int i=0; i<myLFLinkLanes.size()&&removalBegin<0; ++i) {
+        for (unsigned int i=0; i<myLFLinkLanes.size()&&removalBegin<0; ++i) {
             // skip unset links
             DriveProcessItem &item = myLFLinkLanes[i];
             if (item.myLink==0) {
@@ -886,7 +886,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
         if (removalBegin!=-1) {
             myLFLinkLanes[removalBegin].myVLinkPass = myLFLinkLanes[removalBegin].myVLinkWait;
             myLFLinkLanes[removalBegin].mySetRequest = false;
-            if (removalBegin+1<myLFLinkLanes.size()) {
+            if (removalBegin+1<(int)myLFLinkLanes.size()) {
                 myLFLinkLanes.erase(myLFLinkLanes.begin()+removalBegin+1, myLFLinkLanes.end());
             }
         }
@@ -1939,7 +1939,7 @@ MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) 
 }
 
 SUMOReal
-MSVehicle::getEffort(const MSEdge * const e, SUMOReal t) const {
+MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const {
 #ifndef NO_TRACI
     if (myTraciEdgeWeights.find(e)!=myTraciEdgeWeights.end()) {
         return myTraciEdgeWeights.find(e)->second;

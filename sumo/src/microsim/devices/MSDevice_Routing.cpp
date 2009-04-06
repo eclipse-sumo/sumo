@@ -174,7 +174,7 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(Proce
 
 
 SUMOReal
-MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOReal t) const {
+MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v, SUMOTime) const {
     assert(myEdgeEfforts.find(e)!=myEdgeEfforts.end());
     return MAX2(myEdgeEfforts.find(e)->second, (*e->getLanes())[0]->length()/v->getMaxSpeed());
 }

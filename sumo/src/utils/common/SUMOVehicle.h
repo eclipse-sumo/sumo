@@ -97,7 +97,7 @@ public:
     /// Replaces the current route by the given edges
     virtual bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) = 0;
 
-    virtual SUMOReal getEffort(const MSEdge * const e, SUMOReal t) const = 0;
+    virtual SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const = 0;
 };
 
 
