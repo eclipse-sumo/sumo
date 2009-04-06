@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="netconvert"
 	ProjectGUID="{4589198B-EBD4-4811-B778-8AE270AEE0CD}"
 	RootNamespace="netconvert"
@@ -116,7 +116,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(XERCES_DEBUG_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/netconvert64D.exe"
 			/>
 			<Tool
@@ -242,7 +242,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/netconvert64.exe"
 			/>
 			<Tool
