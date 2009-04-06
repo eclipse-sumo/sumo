@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32"
+				DisableSpecificWarnings="4786;4290"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -92,6 +93,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32"
+				DisableSpecificWarnings="4786;4290"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -144,6 +146,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32"
+				DisableSpecificWarnings="4786;4290"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -196,6 +199,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32"
+				DisableSpecificWarnings="4786;4290"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -250,6 +254,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32"
+				DisableSpecificWarnings="4786;4290"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -305,6 +310,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32"
+				DisableSpecificWarnings="4786;4290"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

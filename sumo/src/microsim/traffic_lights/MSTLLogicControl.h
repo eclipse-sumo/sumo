@@ -588,10 +588,10 @@ protected:
 
         // cuts (stauchen) the Logic to synchronize,
         // returns false if cutting was imposible
-        void cutLogic(SUMOTime step, size_t pos, size_t deltaToCut);
+        void cutLogic(SUMOTime step, unsigned int pos, size_t deltaToCut);
 
         // stretchs the logic to synchronize
-        void stretchLogic(SUMOTime step, size_t startPos, size_t deltaToStretch);
+        void stretchLogic(SUMOTime step, unsigned int startPos, size_t deltaToStretch);
 
     protected:
         /** @struct StretchBereichDef

@@ -263,7 +263,7 @@ MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const {
 void
 MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
         SUMOTime simStep,
-        int step,
+        unsigned int step,
         SUMOTime stepDuration) {
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this);

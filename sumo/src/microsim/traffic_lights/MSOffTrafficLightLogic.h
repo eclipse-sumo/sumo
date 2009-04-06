@@ -104,7 +104,7 @@ public:
     bool maskRedLinks() const;
     bool maskYellowLinks() const;
     MSPhaseDefinition getCurrentPhaseDef() const;
-    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, int step, SUMOTime stepDuration) {
+    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
     }
     std::string buildStateList() const;
 };

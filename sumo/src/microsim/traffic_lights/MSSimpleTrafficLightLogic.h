@@ -100,7 +100,7 @@ public:
     const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const;
 
     void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
-                               int step, SUMOTime stepDuration);
+                               unsigned int step, SUMOTime stepDuration);
 
     std::string buildStateList() const;
 

@@ -84,7 +84,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError) {
     string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0) {
-        size_t idx = myStrBuffer.find('\n');
+        unsigned int idx = (unsigned int)myStrBuffer.find('\n');
         if (idx==0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
@@ -114,7 +114,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError) {
         }
     }
     // remove trailing blanks
-    int idx = toReport.length()-1;
+    int idx = (int)toReport.length()-1;
     while (idx>=0&&toReport[idx]<32) {
         idx--;
     }
@@ -136,7 +136,7 @@ LineReader::readLine() throw() {
     string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0&&myStrm.good()) {
-        size_t idx = myStrBuffer.find('\n');
+        unsigned int idx = (unsigned int)myStrBuffer.find('\n');
         if (idx==0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
@@ -170,7 +170,7 @@ LineReader::readLine() throw() {
         return "";
     }
     // remove trailing blanks
-    int idx = toReport.length()-1;
+    int idx = (int)toReport.length()-1;
     while (idx>=0&&toReport[idx]<32) {
         idx--;
     }

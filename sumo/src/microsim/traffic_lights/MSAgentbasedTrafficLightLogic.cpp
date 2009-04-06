@@ -55,7 +55,7 @@ using namespace std;
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     MSNet &net, MSTLLogicControl &tlcontrol,
     const std::string &id, const std::string &subid,
-    const Phases &phases, size_t step, size_t delay,
+    const Phases &phases, size_t step, SUMOTime delay,
     int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
         : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
         tDecide(decHorizon), tSinceLastDecision(0), stepOfLastDecision(0),

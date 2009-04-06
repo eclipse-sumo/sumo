@@ -140,7 +140,7 @@ public:
     void addOverridingDuration(SUMOTime duration);
     void setCurrentDurationIncrement(SUMOTime delay);
     virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
-                                       SUMOTime simStep, int step, SUMOTime stepDuration) = 0;
+                                       SUMOTime simStep, unsigned int step, SUMOTime stepDuration) = 0;
 
     /// Returns the index of the given link
     int getLinkIndex(MSLink *link) const;
