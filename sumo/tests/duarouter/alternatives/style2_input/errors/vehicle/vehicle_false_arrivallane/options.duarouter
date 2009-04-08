@@ -1,0 +1,1 @@
+--net-file=input_net.net.xml --alternatives=input_alts.rou.alt.xml -o routes.rou.xml

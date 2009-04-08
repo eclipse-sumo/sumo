@@ -42,3 +42,7 @@ unsorted_time_typedefined
 
 # Test whether the vehicle class is processed
 increasing_time_typedefined_withclass
+
+
+# Tests false input
+errors

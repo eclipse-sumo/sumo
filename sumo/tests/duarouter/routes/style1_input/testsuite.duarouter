@@ -15,3 +15,7 @@ increasing_time_color
 
 # Cheks whether parameter passing works
 withparams
+
+
+# Tests for false user input
+errors

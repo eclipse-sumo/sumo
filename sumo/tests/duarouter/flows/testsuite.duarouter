@@ -40,3 +40,9 @@
 
 # Additional tests for distributing vehicles over time
 distribution_tests
+
+
+# Tests with false user input
+errors
+
+

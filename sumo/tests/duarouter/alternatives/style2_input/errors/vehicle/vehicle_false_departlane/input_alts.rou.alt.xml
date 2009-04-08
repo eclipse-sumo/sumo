@@ -1,0 +1,9 @@
+<route-alternatives>
+
+   <vehicle id="1" type="KRAUSS_DEFAULT" route="1" depart="0" departlane="xxx">
+   <routeDistribution last="0">
+      <route cost="125.126" probability="1">beg middle end rend</route>
+   </routeDistribution>
+   </vehicle>
+
+</route-alternatives>
