@@ -84,7 +84,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError) {
     string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0) {
-        unsigned int idx = (unsigned int)myStrBuffer.find('\n');
+        size_t idx = myStrBuffer.find('\n');
         if (idx==0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
@@ -136,7 +136,7 @@ LineReader::readLine() throw() {
     string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0&&myStrm.good()) {
-        unsigned int idx = (unsigned int)myStrBuffer.find('\n');
+        size_t idx = myStrBuffer.find('\n');
         if (idx==0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
