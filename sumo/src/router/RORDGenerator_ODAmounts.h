@@ -102,7 +102,7 @@ protected:
     void parseInterval(const SUMOSAXAttributes &attrs);
 
     /// Parses the trip amount definition
-    void parseFlowAmountDef(const SUMOSAXAttributes &attrs);
+    void parseFlowAmountDef(const SUMOSAXAttributes &attrs) throw(ProcessError);
 
     /// Closes the current embedding interval
     void myEndInterval();

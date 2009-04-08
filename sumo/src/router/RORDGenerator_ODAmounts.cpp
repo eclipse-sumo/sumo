@@ -36,6 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringUtils.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include "RORouteDef_OrigDest.h"
@@ -221,37 +222,37 @@ RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
 
 
 void
-RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) {
+RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) throw(ProcessError) {
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
     string id = getVehicleID(attrs);
     if (myKnownIDs.find(id)!=myKnownIDs.end()) {
-        MsgHandler::getErrorInstance()->inform("The id '" + id + "' appears twice within the flow descriptions.'");
-        return;
+        throw ProcessError("The id '" + id + "' appears twice within the flow descriptions.'");
     }
     myKnownIDs.insert(id); // !!! a local storage is not save
     myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, id, false);
     myEndEdge = getEdge(attrs, "destination",
                         SUMO_ATTR_TO, id, myEmptyDestinationsAllowed);
-    myParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true, true);
+    try {
+        myParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true, true);
+    } catch (ProcessError &e) {
+        throw ProcessError(StringUtils::replace(e.what(), "''", id.c_str()));
+    }
     myParameter->id = id;
     try {
         myIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, myUpperIntervalBegin);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("An interval begin is not numeric.");
-        return;
+        throw ProcessError("An interval begin is not numeric.");
     }
     try {
         myIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, myUpperIntervalEnd);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
-        return;
+        throw ProcessError("An interval end is not numeric.");
     }
     bool ok = true;
     myVehicle2EmitNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
     if (myIntervalEnd<=myIntervalBegin) {
-        MsgHandler::getErrorInstance()->inform("The interval must be larger than 0.\n The current values are: begin=" + toString<unsigned int>(myIntervalBegin) + " end=" + toString<unsigned int>(myIntervalEnd));
-        return;
+        throw ProcessError("The interval must be larger than 0.\n The current values are: begin=" + toString<unsigned int>(myIntervalBegin) + " end=" + toString<unsigned int>(myIntervalEnd));
     }
 }
 

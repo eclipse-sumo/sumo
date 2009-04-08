@@ -48,7 +48,7 @@ using namespace std;
 // ===========================================================================
 SUMOVehicleParameter *
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
-        bool skipID, bool skipDepart) {
+        bool skipID, bool skipDepart) throw(ProcessError) {
     string id;
     if (!skipID && !attrs.setIDFromAttributes("vehicle", id)) {
         throw ProcessError();
@@ -85,8 +85,12 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         } else if (helper=="free") {
             ret->departLaneProcedure = DEPART_LANE_FREE;
         } else {
-            ret->departLaneProcedure = DEPART_LANE_GIVEN;
-            ret->departLane = TplConvert<char>::_2int(helper.c_str());;
+            try {
+                ret->departLane = TplConvert<char>::_2int(helper.c_str());;
+                ret->departLaneProcedure = DEPART_LANE_GIVEN;
+            } catch(NumberFormatException &) {
+                throw ProcessError("Invalid departlane definition for vehicle '" + ret->id + "'");
+            }
         }
     }
     // parse depart position information
@@ -100,8 +104,12 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         } else if (helper=="free") {
             ret->departPosProcedure = DEPART_POS_FREE;
         } else {
-            ret->departPosProcedure = DEPART_POS_GIVEN;
-            ret->departPos = TplConvert<char>::_2SUMOReal(helper.c_str());
+            try {
+                ret->departPos = TplConvert<char>::_2SUMOReal(helper.c_str());
+                ret->departPosProcedure = DEPART_POS_GIVEN;
+            } catch(NumberFormatException &) {
+                throw ProcessError("Invalid departpos definition for vehicle '" + ret->id + "'");
+            }
         }
     }
     // parse depart position information
@@ -113,8 +121,12 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         } else if (helper=="max") {
             ret->departSpeedProcedure = DEPART_SPEED_MAX;
         } else {
-            ret->departSpeedProcedure = DEPART_SPEED_GIVEN;
-            ret->departSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
+            try {
+                ret->departSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
+                ret->departSpeedProcedure = DEPART_SPEED_GIVEN;
+            } catch(NumberFormatException &) {
+                throw ProcessError("Invalid departspeed definition for vehicle '" + ret->id + "'");
+            }
         }
     }
 
@@ -125,8 +137,12 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         if (helper=="current") {
             ret->arrivalLaneProcedure = ARRIVAL_LANE_CURRENT;
         } else {
-            ret->arrivalLaneProcedure = ARRIVAL_LANE_GIVEN;
-            ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());;
+            try {
+                ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());;
+                ret->arrivalLaneProcedure = ARRIVAL_LANE_GIVEN;
+            } catch(NumberFormatException &) {
+                throw ProcessError("Invalid arrivallane definition for vehicle '" + ret->id + "'");
+            }
         }
     }
     // parse arrival position information
@@ -138,8 +154,12 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         } else if (helper=="max") {
             ret->arrivalPosProcedure = ARRIVAL_POS_MAX;
         } else {
-            ret->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
-            ret->arrivalPos = TplConvert<char>::_2SUMOReal(helper.c_str());
+            try {
+                ret->arrivalPos = TplConvert<char>::_2SUMOReal(helper.c_str());
+                ret->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
+            } catch(NumberFormatException &) {
+                throw ProcessError("Invalid arrivalpos definition for vehicle '" + ret->id + "'");
+            }
         }
     }
     // parse arrival position information
@@ -149,8 +169,12 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         if (helper=="current") {
             ret->arrivalSpeedProcedure = ARRIVAL_SPEED_CURRENT;
         } else {
-            ret->arrivalSpeedProcedure = ARRIVAL_SPEED_GIVEN;
-            ret->arrivalSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
+            try {
+                ret->arrivalSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
+                ret->arrivalSpeedProcedure = ARRIVAL_SPEED_GIVEN;
+            } catch(NumberFormatException &) {
+                throw ProcessError("Invalid arrivalspeed definition for vehicle '" + ret->id + "'");
+            }
         }
     }
 

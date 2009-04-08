@@ -361,8 +361,15 @@ ROLoader::openTypedRoutes(const std::string &optionName,
             ROAbstractRouteDefLoader *instance =
                 buildNamedHandler(optionName, *fileIt, net);
             myHandler.push_back(instance);
-        } catch (ProcessError &) {
-            MsgHandler::getErrorInstance()->inform("The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised.");
+        } catch (ProcessError &e) {
+            string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
+            string reason = e.what();
+            if(reason!="Process Error"&&reason!="") {
+                msg = msg + "\n Reason: " + reason + ".";
+            } else {
+                msg = msg + "\n (unknown reason).";
+            }
+            MsgHandler::getErrorInstance()->inform(msg);
             ok = false;
         }
     }

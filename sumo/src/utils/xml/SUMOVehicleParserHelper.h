@@ -35,6 +35,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -57,9 +58,10 @@ public:
      * @param[in] skipID Whether parsing the id shall be skipped
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
      * @return The parsed attribute structure if no error occured, 0 otherwise
+     * @exception ProcessError If an attribute's value is invalid
      */
     static SUMOVehicleParameter *parseVehicleAttributes(const SUMOSAXAttributes &attrs,
-            bool skipID=false, bool skipDepart=false);
+            bool skipID=false, bool skipDepart=false) throw(ProcessError);
 
 
     /** @brief Parses the vehicle class
