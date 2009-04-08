@@ -1,0 +1,3 @@
+Error: Invalid arrivallane definition;
+ must be one of ("current", or int>0)
+Quitting (on error).

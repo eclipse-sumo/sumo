@@ -1,0 +1,3 @@
+Error: Invalid departlane definition;
+ must be one of ("departlane", "random", "free", or an int>0)
+Quitting (on error).

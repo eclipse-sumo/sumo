@@ -1,0 +1,3 @@
+Error: Invalid departspeed definition;
+ must be one of ("random", "max", or a float>0)
+Quitting (on error).

@@ -11,4 +11,22 @@ incomplete_districts
 incomplete_connections
 
 
+# Default departlane is false
+default_false_departlane
+
+# Default departpos is false
+default_false_departpos
+
+# Default departspeed is false
+default_false_departspeed
+
+# Default arrivallane is false
+default_false_arrivallane
+
+# Default arrivalpos is false
+default_false_arrivalpos
+
+# Default arrivalspeed is false
+default_false_arrivalspeed
+
 

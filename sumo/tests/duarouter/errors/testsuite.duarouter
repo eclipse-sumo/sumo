@@ -30,6 +30,24 @@ false_input_sumo
 false_input_trips
 
 
+# Default departlane is false
+default_departlane_false
+
+# Default departpos is false
+default_departpos_false
+
+# Default departspeed is false
+default_departspeed_false
+
+# Default arrivallane is false
+default_arrivallane_false
+
+# Default arrivalpos is false
+default_arrivalpos_false
+
+# Default arrivalspeed is false
+default_arrivalspeed_false
+
 
 # Tests for broken network description handling
 network

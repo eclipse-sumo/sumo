@@ -1,6 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Tests what happens if the net is not given
 no_net
 
@@ -25,5 +22,26 @@ straight_only_deprecated
 # Tests for checking false sink definitions
 sinks
 
+
+# Default departlane is false
+default_departlane_false
+
+# Default departpos is false
+default_departpos_false
+
+# Default departspeed is false
+default_departspeed_false
+
+# Default arrivallane is false
+default_arrivallane_false
+
+# Default arrivalpos is false
+default_arrivalpos_false
+
+# Default arrivalspeed is false
+default_arrivalspeed_false
+
+
+# Tests for broken network description handling
 network
 
