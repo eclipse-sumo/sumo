@@ -89,8 +89,8 @@ PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
 		  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
 
 
-AM_CONDITIONAL(MESOSIM, test -d src/mesosim)
-m4_syscmd([test -d src/mesosim])
+AM_CONDITIONAL(MESOSIM, test -d $srcdir/src/mesosim)
+m4_syscmd([test -d $srcdir/src/mesosim])
 m4_if(m4_sysval,[0],[
    AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
