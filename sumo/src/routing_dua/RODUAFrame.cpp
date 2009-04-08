@@ -39,6 +39,7 @@
 #include <router/ROFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/common/SUMOVehicleParameter.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -125,7 +126,15 @@ RODUAFrame::addDUAOptions() {
 
 bool
 RODUAFrame::checkOptions() {
-    return ROFrame::checkOptions(OptionsCont::getOptions());
+    OptionsCont &oc = OptionsCont::getOptions();
+    bool ok = ROFrame::checkOptions(oc);
+    ok &= (!oc.isSet("departlane") || SUMOVehicleParameter::departlaneValidate(oc.getString("departlane")));
+    ok &= (!oc.isSet("departpos") || SUMOVehicleParameter::departposValidate(oc.getString("departpos")));
+    ok &= (!oc.isSet("departspeed") || SUMOVehicleParameter::departspeedValidate(oc.getString("departspeed")));
+    ok &= (!oc.isSet("arrivallane") || SUMOVehicleParameter::arrivallaneValidate(oc.getString("arrivallane")));
+    ok &= (!oc.isSet("arrivalpos") || SUMOVehicleParameter::arrivalposValidate(oc.getString("arrivalpos")));
+    ok &= (!oc.isSet("arrivalspeed") || SUMOVehicleParameter::arrivalspeedValidate(oc.getString("arrivalspeed")));
+    return ok;
 }
 
 

@@ -29,6 +29,8 @@
 
 #include "SUMOVehicleParameter.h"
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 
@@ -208,6 +210,96 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
         dev << " period=\"" << repetitionOffset << "\"";
     }
     dev << ">\n";
+}
+
+
+bool 
+SUMOVehicleParameter::departlaneValidate(const std::string &val) throw(InvalidArgument)
+{
+    if (val!="departlane"&&val!="random"&&val!="free") {
+        try {
+            TplConvert<char>::_2int(val.c_str());;
+        } catch(NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", or an int>0)");
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool 
+SUMOVehicleParameter::departposValidate(const std::string &val) throw(InvalidArgument)
+{
+    if (val!="random"&&val!="random_free"&&val!="free") {
+        try {
+            TplConvert<char>::_2SUMOReal(val.c_str());;
+        } catch(NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", or a float)");
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool 
+SUMOVehicleParameter::departspeedValidate(const std::string &val) throw(InvalidArgument)
+{
+    if (val!="random"&&val!="max") {
+        try {
+            TplConvert<char>::_2SUMOReal(val.c_str());;
+        } catch(NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Invalid departspeed definition;\n must be one of (\"random\", \"max\", or a float>0)");
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool 
+SUMOVehicleParameter::arrivallaneValidate(const std::string &val) throw(InvalidArgument)
+{
+    if (val!="current") {
+        try {
+            TplConvert<char>::_2int(val.c_str());;
+        } catch(NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Invalid arrivallane definition;\n must be one of (\"current\", or int>0)");
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool 
+SUMOVehicleParameter::arrivalposValidate(const std::string &val) throw(InvalidArgument)
+{
+    if (val!="random"&&val!="max") {
+        try {
+            TplConvert<char>::_2SUMOReal(val.c_str());;
+        } catch(NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Invalid arrivalpos definition;\n must be one of (\"random\", \"max\", or a float)");
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool 
+SUMOVehicleParameter::arrivalspeedValidate(const std::string &val) throw(InvalidArgument)
+{
+    if (val!="current") {
+        try {
+            TplConvert<char>::_2SUMOReal(val.c_str());;
+        } catch(NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("Invalid arrivalspeed definition;\n must be one of (\"current\", or a float>0)");
+            return false;
+        }
+    }
+    return true;
 }
 
 

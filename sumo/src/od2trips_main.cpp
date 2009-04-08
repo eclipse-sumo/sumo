@@ -55,6 +55,8 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/SUMOVehicleParameter.h>
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -226,6 +228,12 @@ checkOptions() {
         ok = false;
     }
     //
+    ok &= (!oc.isSet("departlane") || SUMOVehicleParameter::departlaneValidate(oc.getString("departlane")));
+    ok &= (!oc.isSet("departpos") || SUMOVehicleParameter::departposValidate(oc.getString("departpos")));
+    ok &= (!oc.isSet("departspeed") || SUMOVehicleParameter::departspeedValidate(oc.getString("departspeed")));
+    ok &= (!oc.isSet("arrivallane") || SUMOVehicleParameter::arrivallaneValidate(oc.getString("arrivallane")));
+    ok &= (!oc.isSet("arrivalpos") || SUMOVehicleParameter::arrivalposValidate(oc.getString("arrivalpos")));
+    ok &= (!oc.isSet("arrivalspeed") || SUMOVehicleParameter::arrivalspeedValidate(oc.getString("arrivalspeed")));
     return ok;
 }
 
