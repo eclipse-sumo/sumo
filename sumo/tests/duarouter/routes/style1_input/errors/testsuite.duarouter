@@ -15,3 +15,23 @@ vehicle_false_arrivalpos
 
 # Vehicle's arrivalspeed is false
 vehicle_false_arrivalspeed
+
+
+# Vehicle's departlane is empty
+vehicle_empty_departlane
+
+# Vehicle's departpos is empty
+vehicle_empty_departpos
+
+# Vehicle's departspeed is empty
+vehicle_empty_departspeed
+
+# Vehicle's arrivallane is empty
+vehicle_empty_arrivallane
+
+# Vehicle's arrivalpos is empty
+vehicle_empty_arrivalpos
+
+# Vehicle's arrivalspeed is empty
+vehicle_empty_arrivalspeed
+
