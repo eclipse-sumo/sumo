@@ -1,4 +1,5 @@
 # Testing loop removal
 remove_loops
 
-
+# Testing setting depart/arrival defaults
+defaults
