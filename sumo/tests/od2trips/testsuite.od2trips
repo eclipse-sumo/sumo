@@ -11,6 +11,9 @@ errors
 # Tests for splitting matrices by time lines
 timelines
 
+# Tests for further functions
+function
+
 # bugs
 bugs
 
