@@ -214,92 +214,98 @@ SUMOVehicleParameter::writeAs(const std::string &xmlElem, OutputDevice &dev,
 
 
 bool 
-SUMOVehicleParameter::departlaneValidate(const std::string &val) throw(InvalidArgument)
+SUMOVehicleParameter::departlaneValidate(const std::string &val) throw()
 {
     if (val!="departlane"&&val!="random"&&val!="free") {
         try {
-            TplConvert<char>::_2int(val.c_str());;
+            TplConvert<char>::_2int(val.c_str());
+            return true;
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", or an int>0)");
-            return false;
+        } catch(EmptyData &) {
         }
     }
-    return true;
+    MsgHandler::getErrorInstance()->inform("Invalid departlane definition;\n must be one of (\"departlane\", \"random\", \"free\", or an int>0)");
+    return false;
 }
 
 
 bool 
-SUMOVehicleParameter::departposValidate(const std::string &val) throw(InvalidArgument)
+SUMOVehicleParameter::departposValidate(const std::string &val) throw()
 {
     if (val!="random"&&val!="random_free"&&val!="free") {
         try {
-            TplConvert<char>::_2SUMOReal(val.c_str());;
+            TplConvert<char>::_2SUMOReal(val.c_str());
+            return true;
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", or a float)");
-            return false;
+        } catch(EmptyData &) {
         }
     }
-    return true;
+    MsgHandler::getErrorInstance()->inform("Invalid departpos definition;\n must be one of (\"random\", \"random_free\", \"free\", or a float)");
+    return false;
 }
 
 
 bool 
-SUMOVehicleParameter::departspeedValidate(const std::string &val) throw(InvalidArgument)
+SUMOVehicleParameter::departspeedValidate(const std::string &val) throw()
 {
     if (val!="random"&&val!="max") {
         try {
-            TplConvert<char>::_2SUMOReal(val.c_str());;
+            TplConvert<char>::_2SUMOReal(val.c_str());
+            return true;
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Invalid departspeed definition;\n must be one of (\"random\", \"max\", or a float>0)");
-            return false;
+        } catch(EmptyData &) {
         }
     }
-    return true;
+    MsgHandler::getErrorInstance()->inform("Invalid departspeed definition;\n must be one of (\"random\", \"max\", or a float>0)");
+    return false;
 }
 
 
 bool 
-SUMOVehicleParameter::arrivallaneValidate(const std::string &val) throw(InvalidArgument)
+SUMOVehicleParameter::arrivallaneValidate(const std::string &val) throw()
 {
     if (val!="current") {
         try {
-            TplConvert<char>::_2int(val.c_str());;
+            TplConvert<char>::_2int(val.c_str());
+            return true;
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Invalid arrivallane definition;\n must be one of (\"current\", or int>0)");
-            return false;
+        } catch(EmptyData &) {
         }
     }
-    return true;
+    MsgHandler::getErrorInstance()->inform("Invalid arrivallane definition;\n must be one of (\"current\", or int>0)");
+    return false;
 }
 
 
 bool 
-SUMOVehicleParameter::arrivalposValidate(const std::string &val) throw(InvalidArgument)
+SUMOVehicleParameter::arrivalposValidate(const std::string &val) throw()
 {
     if (val!="random"&&val!="max") {
         try {
-            TplConvert<char>::_2SUMOReal(val.c_str());;
+            TplConvert<char>::_2SUMOReal(val.c_str());
+            return true;
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Invalid arrivalpos definition;\n must be one of (\"random\", \"max\", or a float)");
-            return false;
+        } catch(EmptyData &) {
         }
     }
-    return true;
+    MsgHandler::getErrorInstance()->inform("Invalid arrivalpos definition;\n must be one of (\"random\", \"max\", or a float)");
+    return false;
 }
 
 
 bool 
-SUMOVehicleParameter::arrivalspeedValidate(const std::string &val) throw(InvalidArgument)
+SUMOVehicleParameter::arrivalspeedValidate(const std::string &val) throw()
 {
     if (val!="current") {
         try {
-            TplConvert<char>::_2SUMOReal(val.c_str());;
+            TplConvert<char>::_2SUMOReal(val.c_str());
+            return true;
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Invalid arrivalspeed definition;\n must be one of (\"current\", or a float>0)");
-            return false;
+        } catch(EmptyData &) {
         }
     }
-    return true;
+    MsgHandler::getErrorInstance()->inform("Invalid arrivalspeed definition;\n must be one of (\"current\", or a float>0)");
+    return false;
 }
 
 

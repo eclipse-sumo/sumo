@@ -220,42 +220,42 @@ public:
      * @param[in] val The departlane value to validate
      * @return Whether the given value is a valid departlane definition
      */
-    static bool departlaneValidate(const std::string &val) throw(InvalidArgument);
+    static bool departlaneValidate(const std::string &val) throw();
 
 
     /** @brief Validates a given departpos value
      * @param[in] val The departpos value to validate
      * @return Whether the given value is a valid departpos definition
      */
-    static bool departposValidate(const std::string &val) throw(InvalidArgument);
+    static bool departposValidate(const std::string &val) throw();
 
 
     /** @brief Validates a given departspeed value
      * @param[in] val The departspeed value to validate
      * @return Whether the given value is a valid departspeed definition
      */
-    static bool departspeedValidate(const std::string &val) throw(InvalidArgument);
+    static bool departspeedValidate(const std::string &val) throw();
 
 
     /** @brief Validates a given arrivallane value
      * @param[in] val The arrivallane value to validate
      * @return Whether the given value is a valid arrivallane definition
      */
-    static bool arrivallaneValidate(const std::string &val) throw(InvalidArgument);
+    static bool arrivallaneValidate(const std::string &val) throw();
 
 
     /** @brief Validates a given arrivalpos value
      * @param[in] val The arrivalpos value to validate
      * @return Whether the given value is a valid arrivalpos definition
      */
-    static bool arrivalposValidate(const std::string &val) throw(InvalidArgument);
+    static bool arrivalposValidate(const std::string &val) throw();
 
 
     /** @brief Validates a given arrivalspeed value
      * @param[in] val The arrivalspeed value to validate
      * @return Whether the given value is a valid arrivalspeed definition
      */
-    static bool arrivalspeedValidate(const std::string &val) throw(InvalidArgument);
+    static bool arrivalspeedValidate(const std::string &val) throw();
     /// @}
 
 
