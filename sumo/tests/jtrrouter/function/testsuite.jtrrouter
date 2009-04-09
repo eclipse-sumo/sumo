@@ -6,3 +6,7 @@ turns
 
 # Tests for processing vehicle classes
 vclasses
+
+# Testing setting depart/arrival defaults
+defaults
+

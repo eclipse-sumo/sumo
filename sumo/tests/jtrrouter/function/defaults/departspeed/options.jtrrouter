@@ -1,0 +1,1 @@
+--sinks=end --turns=input_turns.turns.xml --net-file=input_net.net.xml --flows=input_flows.flows.xml -o routes.rou.xml --departspeed 0
