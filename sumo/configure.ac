@@ -90,23 +90,25 @@ PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
 
 
 AM_CONDITIONAL(MESOSIM, test -d $srcdir/src/mesosim)
-m4_syscmd([test -d $srcdir/src/mesosim])
+m4_syscmd([test -d src/mesosim])
 m4_if(m4_sysval,[0],[
-   AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
-   AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
-   MESO_DIRS=mesosim
-   AC_SUBST([MESO_DIRS])
-   MESOGUI_DIRS=mesogui
-   AC_SUBST([MESOGUI_DIRS])
+    AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
+    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
+    MESO_DIRS=mesosim
+    AC_SUBST([MESO_DIRS])
+    MESOGUI_DIRS=mesogui
+    AC_SUBST([MESOGUI_DIRS])
+    ac_enabled="$ac_enabled Meso"
+    program_transform_name="s,sumo,meso,; $program_transform_name"
 ])
 
 AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
 AM_CONDITIONAL(TRACI, test x$enable_traci != xno)
 if test x$enable_traci != xno; then
-   ac_enabled="$ac_enabled TRACI"
+    ac_enabled="$ac_enabled TRACI"
 else
-   AC_DEFINE(NO_TRACI, 1, [Define to 1 in order to disable TraCI Server.])
-   ac_disabled="$ac_disabled TRACI"
+    AC_DEFINE(NO_TRACI, 1, [Define to 1 in order to disable TraCI Server.])
+    ac_disabled="$ac_disabled TRACI"
 fi
 
 AM_CONDITIONAL([WITH_VERSION_H], test -f .svn/entries)	      
@@ -163,17 +165,19 @@ AC_SUBST(LIB_XERCES)
 
 dnl   ... for includes
 AC_ARG_WITH([xerces-includes], [AS_HELP_STRING([--with-xerces-includes=DIR],[where the Xerces-C includes are.])])
+save_cppflags=$CPPFLAGS
 if test x"$with_xerces_includes" = x; then
-   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [],
-                   [AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])])
+    CPPFLAGS="$CPPFLAGS -I/usr/local/include -I/usr/include"
+    export CPPFLAGS
+    AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                    [AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])])
 else
-   save_cppflags=$CPPFLAGS
-   CPPFLAGS="-I$with_xerces_includes"
-   export CPPFLAGS
-   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
-                   [AC_MSG_ERROR([xerces-includes not found in "$with_xerces_includes".])])
-   CPPFLAGS=$save_cppflags
+    CPPFLAGS="-I$with_xerces_includes"
+    export CPPFLAGS
+    AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                    [AC_MSG_ERROR([xerces-includes not found in "$with_xerces_includes".])])
 fi
+CPPFLAGS=$save_cppflags
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for proj and gdal
@@ -312,7 +316,7 @@ dnl   ... for includes
     AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
     save_cppflags=$CPPFLAGS
     if test x"$with_fox_includes" = x; then
-        CPPFLAGS="$CPPFLAGS -I/usr/local/include/fox-1.4 -I/usr/include/fox-1.4"
+        CPPFLAGS="$CPPFLAGS -I/usr/local/include/$fox_include_prefix -I/usr/include/$fox_include_prefix"
         export CPPFLAGS
         AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
                                     with_fox_includes=yes],
