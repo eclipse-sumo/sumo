@@ -25,7 +25,7 @@ FXint fxexecute(FXString link) {
         (int)ShellExecute(NULL,"open",quoted.text(),NULL,NULL,SW_SHOW) > 32;
     return ret;
 #else
-    FXString ext = FXFile::extension(link);
+    FXString ext = FXPath::extension(link);
     FXString list;
     if (comparecase(link.section(':',0), "http")==0 ||
             comparecase(link.section(':',0), "ftp")==0 ||
@@ -38,18 +38,18 @@ FXint fxexecute(FXString link) {
     if (list.length()) {
         FXString software;
         FXint index=0;
-        FXString path = FXFile::getExecPath();
+        FXString path = FXSystem::getExecPath();
 
         software = list.section("\t",index);
         while (!software.empty()) {
-            software = FXFile::search(path, software);
+            software = FXPath::search(path, software);
             if (software.length())
                 return system(FXString().format("%s \"%s\" >/dev/null 2>&1 & ",
                                                 software.text(),link.text()).text())>0?0:1;
             index++;
             software = list.section("\t",index);
         }
-    } else if (FXFile::isExecutable(link))
+    } else if (FXStat::isExecutable(link))
         return system((link + " >/dev/null 2>&1 & ").text()) > 0 ? 0:1;
     return 0;
 #endif
