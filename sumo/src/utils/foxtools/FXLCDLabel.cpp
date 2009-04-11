@@ -292,7 +292,7 @@ void FXLCDLabel::drawString(const FXString& lbl) {
         FXString txt = lbl;
         if (txt[0]=='-') {
             displayString.replace(0,'-');
-            txt.remove(0);
+            txt.erase(0);
             i=1;
         }
         for (; (i+txt.length())<nfigures; i++) {

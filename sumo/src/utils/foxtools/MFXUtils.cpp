@@ -49,7 +49,7 @@ MFXUtils::deleteChildren(FXWindow *w) throw() {
 FXbool
 MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
         const FXString &file) throw() {
-    if (!FXFile::exists(file)) {
+    if (!FXStat::exists(file)) {
         return TRUE;
     }
     int answer =
@@ -63,7 +63,7 @@ MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
 
 FXString
 MFXUtils::getDocumentName(const FXString &filename) throw() {
-    FXString file = FXFile::name(filename);
+    FXString file = FXPath::name(filename);
     return file.before('.');
 }
 
@@ -79,7 +79,7 @@ MFXUtils::getTitleText(const FXString &appname, FXString filename) throw() {
 
 FXString
 MFXUtils::assureExtension(const FXString &filename, const FXString &defaultExtension) throw() {
-    FXString ext = FXFile::extension(filename);
+    FXString ext = FXPath::extension(filename);
     if (ext=="") {
         if (filename.rfind('.')==filename.length()-1) {
             return filename + defaultExtension;

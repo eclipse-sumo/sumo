@@ -202,7 +202,7 @@ MFXAddEditTypedTable::getControlForItem(FXint r,FXint c) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
         return 0;
-        cells[r*ncols+c]=item=createItem(NULL,NULL,NULL);
+        cells[r*ncols+c]=item=createItem("",NULL,NULL);
         if (isItemSelected(r,c)) item->setSelected(FALSE);
     }
     delete editor;
@@ -322,7 +322,7 @@ void
 MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control) {
     register FXTableItem* item=cells[r*ncols+c];
     if (item==NULL) {
-        cells[r*ncols+c]=item=createItem(NULL,NULL,NULL);
+        cells[r*ncols+c]=item=createItem("",NULL,NULL);
         if (isItemSelected(r,c)) item->setSelected(FALSE);
     }
     switch (getCellType(c)) {

@@ -69,11 +69,6 @@
   - Dial warps the pointer at the edge of the screen so you don't run out of
     screen real estate.
 */
-#ifdef _WIN32
-// Hack to allow us to query key state
-extern FXuint fxmodifierkeys();
-#endif
-
 #define DIALINCR    160
 #define DIALMULT    40
 #define DIALWIDTH   12
@@ -567,15 +562,12 @@ long FXRealSpinDial::onUpdDial(FXObject* sender,FXSelector,void*) {
 
 
 // Respond to dial message
-long FXRealSpinDial::onChgDial(FXObject*,FXSelector sel,void*) {
+long FXRealSpinDial::onChgDial(FXObject*p,FXSelector sel,void*ptr) {
     if (!isEnabled()) return 0;
     FXdouble newpos;
     FXdouble inc;
-#ifdef _WIN32
-    keystate = fxmodifierkeys();
-#endif
-    if (keystate&CONTROLMASK)    inc = incr[0];
-    else if (keystate&SHIFTMASK) inc = incr[2];
+    if (FXApp::instance()->getKeyState(CONTROLMASK))    inc = incr[0];
+    else if (FXApp::instance()->getKeyState(SHIFTMASK)) inc = incr[2];
     else                         inc = incr[1];
     FXint dialdelta = dial->getValue()-dialpos;
     if (options&SPINDIAL_LOG) {

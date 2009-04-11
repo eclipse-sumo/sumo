@@ -20,7 +20,7 @@
 
 FXint fxexecute(FXString link) {
 #ifdef WIN32
-    FXString quoted = FXFile::enquote(link);
+    FXString quoted = FXPath::enquote(link);
     FXint ret =
         (int)ShellExecute(NULL,"open",quoted.text(),NULL,NULL,SW_SHOW) > 32;
     return ret;
