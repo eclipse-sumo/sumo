@@ -283,8 +283,8 @@ fi
 
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for fox
-fox_include_prefix="fox-1.4"
-AC_ARG_WITH([fox], [AS_HELP_STRING([--with-fox=DIR],[where Fox is installed (libraries in DIR/lib, headers in DIR/include/fox-1.4).])])
+fox_include_prefix="fox-1.6"
+AC_ARG_WITH([fox], [AS_HELP_STRING([--with-fox=DIR],[where Fox is installed (libraries in DIR/lib, headers in DIR/include/fox-1.6).])])
 if test x"$with_fox" != xno; then
     if test x"$with_fox" != x; then
        if test x"$with_fox_libraries" = x; then
@@ -296,7 +296,7 @@ if test x"$with_fox" != xno; then
     fi
 
 dnl   ... for libs
-    LIB_FOX="FOX-1.4"
+    LIB_FOX="FOX-1.6"
     AC_ARG_WITH([fox-libraries], [AS_HELP_STRING([--with-fox-libraries=DIR],[where the Fox library is installed.])])
     if test x"$with_fox_libraries" = x; then
         AC_CHECK_LIB([$LIB_FOX], [main], [with_fox_libraries=yes],
