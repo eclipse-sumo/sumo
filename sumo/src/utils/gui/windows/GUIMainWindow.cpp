@@ -55,7 +55,7 @@ GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
 
     FXFontDesc fdesc;
     getApp()->getNormalFont()->getFontDesc(fdesc);
-    fdesc.weight = FONTWEIGHT_BOLD;
+    fdesc.weight = FXFont::Bold;
     myBoldFont = new FXFont(getApp(), fdesc);
 
     myTopDock=new FXDockSite(this,LAYOUT_SIDE_TOP|LAYOUT_FILL_X);
