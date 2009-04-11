@@ -152,7 +152,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         : GUIMainWindow(a, glWidth, glHeight),
         myLoadThread(0), myRunThread(0),
         myAmLoading(false),
-        mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets("nets") {
+        mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets(a, "nets") {
     GUIIconSubSys::init(a);
 }
 
@@ -329,32 +329,32 @@ GUIApplicationWindow::fillMenuBar() {
     FXMenuSeparator* sep1=new FXMenuSeparator(myFileMenu);
     sep1->setTarget(&myRecentConfigs);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentConfigs,FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentConfigs,FXRecentFiles::ID_FILE_10);
     new FXMenuCommand(myFileMenu,"C&lear Recent Configurations",NULL,&myRecentConfigs,FXRecentFiles::ID_CLEAR);
     myRecentConfigs.setTarget(this);
     myRecentConfigs.setSelector(MID_RECENTFILE);
     FXMenuSeparator* sep2=new FXMenuSeparator(myFileMenu);
     sep2->setTarget(&myRecentNets);
     sep2->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myFileMenu,NULL,NULL,&myRecentNets,FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myFileMenu,"",0,&myRecentNets,FXRecentFiles::ID_FILE_10);
     new FXMenuCommand(myFileMenu,"Cl&ear Recent Networks",NULL,&myRecentNets,FXRecentFiles::ID_CLEAR);
     myRecentNets.setTarget(this);
     myRecentNets.setSelector(MID_RECENTFILE);
@@ -421,16 +421,11 @@ GUIApplicationWindow::fillMenuBar() {
     sep1=new FXMenuSeparator(myWindowsMenu);
     sep1->setTarget(myMDIClient);
     sep1->setSelector(FXMDIClient::ID_MDI_ANY);
-    new FXMenuCommand(myWindowsMenu,NULL,NULL,
-                      myMDIClient,FXMDIClient::ID_MDI_1);
-    new FXMenuCommand(myWindowsMenu,NULL,NULL,
-                      myMDIClient,FXMDIClient::ID_MDI_2);
-    new FXMenuCommand(myWindowsMenu,NULL,NULL,
-                      myMDIClient,FXMDIClient::ID_MDI_3);
-    new FXMenuCommand(myWindowsMenu,NULL,NULL,
-                      myMDIClient,FXMDIClient::ID_MDI_4);
-    new FXMenuCommand(myWindowsMenu,"&Others...",NULL,
-                      myMDIClient,FXMDIClient::ID_MDI_OVER_5);
+    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_1);
+    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_2);
+    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_3);
+    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_4);
+    new FXMenuCommand(myWindowsMenu,"&Others...",0,myMDIClient,FXMDIClient::ID_MDI_OVER_5);
     new FXMenuSeparator(myWindowsMenu);
     new FXMenuCommand(myWindowsMenu,
                       "Clear Message Window\t\tClear the message window.",

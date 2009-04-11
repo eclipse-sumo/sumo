@@ -9,7 +9,7 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,..\..\..\src"
+		AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX16)\include,$(XERCES)\include,..\..\..\src"
 		PreprocessorDefinitions="HAVE_PROJ;HAVE_GDAL"
 	/>
 	<UserMacro
@@ -29,11 +29,11 @@
 		Value="$(PROJ_GDAL)\lib\gdal_i.lib"
 	/>
 	<UserMacro
-		Name="FOX14_LIB"
-		Value="$(FOX14)\lib\FOXDLL-1.4.lib"
+		Name="FOX16_LIB"
+		Value="$(FOX16)\lib\FOXDLL-1.6.lib"
 	/>
 	<UserMacro
-		Name="FOX14_DEBUG_LIB"
-		Value="$(FOX14)\lib\FOXDLLD-1.4.lib"
+		Name="FOX16_DEBUG_LIB"
+		Value="$(FOX16)\lib\FOXDLLD-1.6.lib"
 	/>
 </VisualStudioPropertySheet>

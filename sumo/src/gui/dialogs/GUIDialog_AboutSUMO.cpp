@@ -114,7 +114,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
     // "SUMO <VERSION>"
     FXVerticalFrame *f4 =
         new FXVerticalFrame(f2, FRAME_NONE, 0,0,0,0,   20,0,0,0);
-    FXFont *fnt = new FXFont(gFXApp, "Arial", 18, FONTWEIGHT_BOLD);
+    FXFont *fnt = new FXFont(gFXApp, "Arial", 18, FXFont::Bold);
     FXLabel *l = new FXLabel(f4, (FXString)"SUMO " + VERSION_STRING, 0,
                              LAYOUT_CENTER_Y|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL,
                              0,0,0,0, 0,0,0,0);
