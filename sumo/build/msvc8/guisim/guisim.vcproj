@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="guisim"
 	ProjectGUID="{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
 	Keyword="MFCProj"
@@ -364,7 +364,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guimeso.exe"
+				OutputFile="$(OutDir)\guimeso64.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -488,7 +488,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guimesoD.exe"
+				OutputFile="$(OutDir)\guimeso64D.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
