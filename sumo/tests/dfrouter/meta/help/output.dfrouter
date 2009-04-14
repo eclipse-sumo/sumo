@@ -1,4 +1,4 @@
-SUMO dfrouter Version dev-SVN-r6978
+SUMO dfrouter Version dev-SVN-r7032
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -62,8 +62,6 @@ Usage: dfrouter.exe [OPTION]*
   --strict-sources                   
   --mesosim                          Joins detectors lying on same height
   --scale FLOAT                      Scale factor for flows
-
- Defaults Options:
 
  Time Options:
   -b, --begin INT                    Defines the begin time;
