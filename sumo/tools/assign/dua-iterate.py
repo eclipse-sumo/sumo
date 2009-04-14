@@ -111,22 +111,22 @@ optParser.add_option("-W", "--with-warnings", action="store_true", dest="withWar
 optParser.add_option("-n", "--net-file", dest="net",
                      help="SUMO network (mandatory)", metavar="FILE")
 optParser.add_option("-t", "--trips", dest="trips",
-                     help="trips in step 0", metavar="FILE")
+                     help="trips in step 0 (mandatory)", metavar="FILE")
 optParser.add_option("-+", "--additional", dest="additional",
                      default="", help="Additional files")
 
 optParser.add_option("-b", "--begin", dest="begin",
-                     type="int", default=0, help="Set simulation/routing begin")
+                     type="int", default=0, help="Set simulation/routing begin [default: %default]")
 optParser.add_option("-e", "--end", dest="end",
-                     type="int", default=86400, help="Set simulation/routing end")
+                     type="int", default=86400, help="Set simulation/routing end [default: %default]")
 optParser.add_option("-R", "--route-steps", dest="routeSteps",
-                     type="int", default=200, help="Set simulation route steps")
+                     type="int", default=200, help="Set simulation route steps [default: %default]")
 optParser.add_option("-a", "--aggregation", dest="aggregation",
-                     type="int", default=900, help="Set main weights aggregation period")
+                     type="int", default=900, help="Set main weights aggregation period [default: %default]")
 optParser.add_option("-A", "--gA", dest="gA",
-                     type="float", default=.5, help="Sets Gawron's Alpha")
+                     type="float", default=.5, help="Sets Gawron's Alpha [default: %default]")
 optParser.add_option("-B", "--gBeta", dest="gBeta",
-                     type="float", default=.9, help="Sets Gawron's Beta")
+                     type="float", default=.9, help="Sets Gawron's Beta [default: %default]")
 
 optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
                      default=False, help="No emissions are written by the simulation")
@@ -143,20 +143,22 @@ optParser.add_option("--time-inc", dest="timeInc",
 
 
 optParser.add_option("-f", "--first-step", dest="firstStep",
-                     type="int", default=0, help="First DUA step")
+                     type="int", default=0, help="First DUA step [default: %default]")
 optParser.add_option("-l", "--last-step", dest="lastStep",
-                     type="int", default=50, help="Last DUA step")
+                     type="int", default=50, help="Last DUA step [default: %default]")
 optParser.add_option("-p", "--path", dest="path",
-                     default=os.environ.get("SUMO", ""), help="Path to binaries")
+                     default=os.environ.get("SUMO", ""), help="Path to binaries [default: %default]")
 
 optParser.add_option("-d", "--detector-values", dest="detvals",
                      help="adapt to the flow on the given edges", metavar="FILE")
 optParser.add_option("-c", "--classpath", dest="classpath",
                      default=os.path.join(os.path.dirname(sys.argv[0]), "calibration", "src"),
-                     help="classpath for the calibrator")
+                     help="classpath for the calibrator [default: %default]")
 optParser.add_option("-s", "--first-calibration-step", dest="calibStep",
-                     type="int", default=10, help="step at which to start calibration")
+                     type="int", default=10, help="step at which to start calibration [default: %default]")
 (options, args) = optParser.parse_args()
+if not options.net or not options.trips:
+    optParser.error("At least --net-file and --trips have to be given!")
 
 
 if (sys.platform=="win32"):
@@ -171,7 +173,7 @@ else:
         sumoBinary = os.path.join(options.path, "meso")
     else:
         sumoBinary = os.path.join(options.path, "sumo")
-calibrator = "java -cp %s ch.epfl.transpor.calibration.interfaces.sumo.SumoControler" % options.classpath
+calibrator = "java -cp %s ch.epfl.transpor.calibration.interfaces.sumo.SumoController" % options.classpath
 log = open("dua-log.txt", "w")
 logQuiet = open("dua-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
@@ -185,7 +187,7 @@ for step in range(options.firstStep, options.lastStep):
     # calibration init
     doCalibration = options.detvals != None and step >= options.calibStep
     if options.detvals and step == options.calibStep: 
-        subprocess.call("%s INIT %s 100 071276 0.95 5 20 %s" % (calibrator, options.detvals, options.aggregation),
+        subprocess.call("%s INIT -measfile %s -stddev 10 -binsize %s" % (calibrator, options.detvals, options.aggregation),
                         shell=True, stdout=log, stderr=log)
     # router
     files = []
@@ -213,7 +215,7 @@ for step in range(options.firstStep, options.lastStep):
         print "<<"
         # calibration choice
         if doCalibration:
-            subprocess.call("%s CHOICE %s.alt.xml %s.cal.xml" % (calibrator, output[:-4], output[:-4]),
+            subprocess.call("%s CHOICE -choicesetfile %s.alt.xml -choicefile %s.cal.xml" % (calibrator, output[:-4], output[:-4]),
                             shell=True, stdout=log, stderr=log)
             output = output[:-4] + ".cal.xml"
         files.append(output)
@@ -236,7 +238,7 @@ for step in range(options.firstStep, options.lastStep):
     print "<<"
     # calibration update
     if doCalibration: 
-        subprocess.call("%s UPDATE dump_%s_%s.xml" % (calibrator, step, options.aggregation),
+        subprocess.call("%s UPDATE -netfile dump_%s_%s.xml" % (calibrator, step, options.aggregation),
                         shell=True, stdout=log, stderr=log)
     print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
     print "------------------\n"
