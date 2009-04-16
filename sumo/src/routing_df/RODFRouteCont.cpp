@@ -94,14 +94,14 @@ RODFRouteCont::save(std::vector<std::string> &saved,
         }
         saved.push_back((*j).routename);
         assert(desc.edges2Pass.size()>=1);
-        out << "   <route id=\"" << prependix << desc.routename << "\" multi_ref=\"x\">";
+        out << "   <route id=\"" << prependix << desc.routename << "\" edges=\"";
         for (std::vector<ROEdge*>::const_iterator k=desc.edges2Pass.begin(); k!=desc.edges2Pass.end(); k++) {
             if (k!=desc.edges2Pass.begin()) {
                 out << ' ';
             }
             out << (*k)->getID();
         }
-        out << "</route>\n";
+        out << "\"/>\n";
         haveSavedOneAtLeast = true;
     }
     return haveSavedOneAtLeast;
