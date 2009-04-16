@@ -45,7 +45,7 @@ texttest.py -b %SUMO_REPORT% -coll
 cd ..
 tools\build\status.py %MAKELOG% %MAKEALLLOG% %TEXTTEST_TMP% %SMTP_SERVER% > %STATUSLOG%
 
-WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%ROOTDIR%\key.ppk /command "option batch on" "option confirm off" "put tests\%SUMO_REPORT% %MAKELOG% %MAKEALLLOG% %STATUSLOG% %BINARY_ZIP% /home/groups/s/su/sumo/htdocs/daily/" "exit"
+WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%ROOTDIR%\key.ppk /command "option batch on" "option confirm off" "put %SUMO_REPORT% %MAKELOG% %MAKEALLLOG% %STATUSLOG% %BINARY_ZIP% /home/groups/s/su/sumo/htdocs/daily/" "exit"
 
 cd tools\build
 GOTO exit
