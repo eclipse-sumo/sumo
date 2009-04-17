@@ -27,6 +27,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
+
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
@@ -524,23 +528,36 @@ MSNet::getSimStepDurationInMillis() const {
 #ifdef HAVE_MESOSIM
 void
 MSNet::saveState(std::ostream &os) throw() {
+    FileHelpers::writeString(os, VERSION_STRING);
+    FileHelpers::writeUInt(os, sizeof(size_t));
+    FileHelpers::writeUInt(os, sizeof(SUMOReal));
     myVehicleControl->saveState(os);
-#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->saveState(os);
     }
-#endif
 }
 
 
 void
 MSNet::loadState(BinaryInputDevice &bis) throw() {
+    std::string version;
+    unsigned int sizeT, fpSize;
+    bis >> version;
+    bis >> sizeT;
+    bis >> fpSize;
+    if (version != VERSION_STRING) {
+        WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING +")!");
+    }
+    if (sizeT != sizeof(size_t)) {
+        WRITE_WARNING("State was written on a different platform (32bit vs. 64bit)!");
+    }
+    if (fpSize != sizeof(SUMOReal)) {
+        WRITE_WARNING("State was written with a different precision for SUMOReal!");
+    }
     myVehicleControl->loadState(bis);
-#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->loadState(bis, *myVehicleControl);
     }
-#endif
 }
 #endif
 
