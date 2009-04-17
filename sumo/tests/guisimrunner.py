@@ -7,6 +7,8 @@ guisimBinary = os.path.join(sumoDir, "bin", "guisim.exe")
 if os.name == 'posix':
     sumoBinary = os.path.join(sumoDir, "src", "sumo")
     guisimBinary = os.path.join(sumoDir, "src", "sumo-guisim")
+sumoBinary = os.environ.get("SUMO_BINARY", sumoBinary)
+guisimBinary = os.environ.get("GUISIM_BINARY", guisimBinary)
 
 #start sumo to generate config
 subprocess.call(sumoBinary + " --error-log guisim.stderr --save-configuration guisim.cfg " + " ".join(sys.argv[1:]), 

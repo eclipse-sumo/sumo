@@ -16,17 +16,19 @@ for arg in sys.argv[1:]:
         serverParams += [arg]
 clientParams = sys.argv[numParams:]
 
-sumoDir = 'bin'
+sumoDir = os.path.join(os.path.dirname(sys.argv[0]), '..', 'bin')
 if os.name == 'posix':
-    sumoDir = 'src'
+    sumoDir = sumoDir[:-3] + 'src'
     serverParams[0] = 'sumo'
     clientParams[0] = 'traci-testclient'
+if "SUMO_BINARY" in os.environ:
+    sumoDir, serverParams[0] = os.path.split(os.environ["SUMO_BINARY"])
 
 #start sumo as server    
-serverprocess = subprocess.Popen(os.path.join(os.path.dirname(sys.argv[0]), "..", sumoDir, " ".join(serverParams)), 
-                shell=True, stdout=sys.stdout, stderr=sys.stderr)       
+serverprocess = subprocess.Popen(os.path.join(sumoDir, " ".join(serverParams)), 
+                                 shell=True, stdout=sys.stdout, stderr=sys.stderr)       
 for retry in range(10):
-    returnCode = subprocess.call(os.path.join(os.path.dirname(sys.argv[0]), "..", sumoDir, " ".join(clientParams)),
+    returnCode = subprocess.call(os.path.join(sumoDir, " ".join(clientParams)),
                                  shell=True, stdout=sys.stdout, stderr=sys.stderr)
     if returnCode == 0:
         break
