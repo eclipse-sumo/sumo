@@ -31,6 +31,7 @@
 
 #include <fstream>
 #include <string>
+#include "SUMOTime.h"
 
 
 // ===========================================================================
@@ -123,13 +124,10 @@ public:
 
 
 
-    /// @name binary reading/writing functions
+    /// @name binary writing functions
     //@{
 
     /** @brief Writes an integer binary
-     *
-     * Issues:
-     * @arg An "int" is always assumed to be 4 bytes long
      *
      * @param[in, out] strm The stream to write into
      * @param[in] value The integer to write
@@ -140,9 +138,6 @@ public:
 
     /** @brief Writes an unsigned integer binary
      *
-     * Issues:
-     * @arg An "unsigned int" is always assumed to be 4 bytes long
-     *
      * @param[in, out] strm The stream to write into
      * @param[in] value The unsigned integer to write
      * @return Reference to the stream
@@ -152,8 +147,7 @@ public:
 
     /** @brief Writes a float binary
      *
-     * Issues:
-     * @arg A "float" is always assumed to be 4 bytes long
+     * This method behaves differently depending on the definition of SUMOReal at compile time.
      *
      * @param[in, out] strm The stream to write into
      * @param[in] value The float to write
@@ -183,6 +177,18 @@ public:
      */
     static std::ostream &writeString(std::ostream &strm, const std::string &value);
     //@}
+
+    /** @brief Writes a time description binary
+     *
+     * This method behaves differently depending on the definition of SUMOTime at compile time,
+     *  which in turn depends on the enabling of subsecond timesteps.
+     *
+     * @param[in, out] strm The stream to write into
+     * @param[in] value The time to write
+     * @return Reference to the stream
+     */
+    static std::ostream &writeTime(std::ostream &strm, SUMOTime value);
+
 
 };
 

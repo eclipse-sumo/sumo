@@ -287,8 +287,8 @@ MSVehicleControl::saveState(std::ostream &os) throw() {
     FileHelpers::writeUInt(os, myRunningVehNo);
     FileHelpers::writeUInt(os, myEndedVehNo);
 
-    FileHelpers::writeInt(os, myAbsVehWaitingTime);
-    FileHelpers::writeInt(os, myAbsVehTravelTime);
+    FileHelpers::writeTime(os, myAbsVehWaitingTime);
+    FileHelpers::writeTime(os, myAbsVehTravelTime);
     // save vehicle types
     FileHelpers::writeUInt(os, (unsigned) myVTypeDict.size());
     for (VTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {

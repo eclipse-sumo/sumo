@@ -184,5 +184,12 @@ FileHelpers::writeString(std::ostream &strm, const std::string &value) {
 }
 
 
+std::ostream &
+FileHelpers::writeTime(std::ostream &strm, SUMOTime value) {
+    strm.write((char*) &value, sizeof(SUMOTime));
+    return strm;
+}
+
+
 /****************************************************************************/
 

@@ -354,10 +354,10 @@ protected:
     /// @{
 
     /// @brief The aggregated time vehicles had to wait for departure
-    long myAbsVehWaitingTime;
+    SUMOTime myAbsVehWaitingTime;
 
     /// @brief The aggregated time vehicles needed to aacomplish their route
-    long myAbsVehTravelTime;
+    SUMOTime myAbsVehTravelTime;
     /// @}
 
 
