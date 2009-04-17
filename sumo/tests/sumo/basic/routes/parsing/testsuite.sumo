@@ -19,8 +19,11 @@ nested_ref
 # Tests whether giving the edge list as attribute works with nested routes
 edgeattr_nested
 
-# Tests whether giving the edge list as attribute works with nested routes
+# Tests whether giving the edge list as attribute works
 edgeattr
 
 # Test repeated vehicle creation
 repeat
+
+# Tests whether the include mechanism works
+include

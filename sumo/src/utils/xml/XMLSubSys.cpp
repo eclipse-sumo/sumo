@@ -94,7 +94,7 @@ XMLSubSys::setHandler(GenericSAXHandler &handler) {
 
 
 bool
-XMLSubSys::runParser(SUMOSAXHandler &handler,
+XMLSubSys::runParser(GenericSAXHandler &handler,
                      const std::string &file) throw() {
     try {
         if (myNextFreeReader == myReaders.size()) {

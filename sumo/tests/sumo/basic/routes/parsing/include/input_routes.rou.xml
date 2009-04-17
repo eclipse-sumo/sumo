@@ -1,0 +1,5 @@
+<routes>
+    <route id="blub" edges="beg middle end rend"/>
+    <vehicle id="0" depart="0" route="blub"/>
+    <include href="input_additional.add.xml"/>
+</routes>

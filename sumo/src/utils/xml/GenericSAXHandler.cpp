@@ -87,11 +87,13 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const Attributes& attrs) {
     std::string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
-    //myTagTree.push(element);
-    //_characters = "";
     myCharactersVector.clear();
     SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML);
-    myStartElement(element, na);
+    if (element == SUMO_TAG_INCLUDE) {
+        XMLSubSys::runParser(*this, na.getString(SUMO_ATTR_HREF));
+    } else {
+        myStartElement(element, na);
+    }
 }
 
 
@@ -126,11 +128,13 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
         }
         delete[] buf;
     }
-    myEndElement(element);
-    if (myParentHandler && myParentIndicator == element) {
-        XMLSubSys::setHandler(*myParentHandler);
-        myParentIndicator = SUMO_TAG_NOTHING;
-        myParentHandler = 0;
+    if (element != SUMO_TAG_INCLUDE) {
+        myEndElement(element);
+        if (myParentHandler && myParentIndicator == element) {
+            XMLSubSys::setHandler(*myParentHandler);
+            myParentIndicator = SUMO_TAG_NOTHING;
+            myParentHandler = 0;
+        }
     }
 }
 

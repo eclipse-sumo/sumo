@@ -136,7 +136,7 @@ public:
      * @param[in] file The file to run the parser at
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
-    static bool runParser(SUMOSAXHandler &handler,
+    static bool runParser(GenericSAXHandler &handler,
                           const std::string &file) throw();
 
 
