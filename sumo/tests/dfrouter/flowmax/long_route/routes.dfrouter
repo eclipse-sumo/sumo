@@ -1,5 +1,5 @@
 <routes>
 
-   <route id="in1_to_out4" multi_ref="x">in1 1to2 2to3 3to4 out4</route>
+   <route id="in1_to_out4" edges="in1 1to2 2to3 3to4 out4"/>
 
 </routes>

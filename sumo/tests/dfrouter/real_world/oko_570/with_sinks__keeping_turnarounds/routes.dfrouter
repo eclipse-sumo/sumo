@@ -33,7 +33,7 @@
 
 <routes>
 
-   <route id="a4_a5_to_20_10" multi_ref="x">a4_a5 a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_20 20_10</route>
-   <route id="a4_a5_to_51_61" multi_ref="x">a4_a5 a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_31 31_41 41_51 51_61</route>
+   <route id="a4_a5_to_20_10" edges="a4_a5 a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_20 20_10"/>
+   <route id="a4_a5_to_51_61" edges="a4_a5 a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_31 31_41 41_51 51_61"/>
 
 </routes>

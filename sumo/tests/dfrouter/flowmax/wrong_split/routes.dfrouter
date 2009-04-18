@@ -1,9 +1,9 @@
 <routes>
 
-   <route id="1to2_to_9to10" multi_ref="x">1to2 2to9split 9to10</route>
-   <route id="1to2_to_4to5" multi_ref="x">1to2 2to3 3to4 4to5</route>
+   <route id="1to2_to_9to10" edges="1to2 2to9split 9to10"/>
+   <route id="1to2_to_4to5" edges="1to2 2to3 3to4 4to5"/>
 
-   <route id="6to7_to_9to10" multi_ref="x">6to7 7to8 8to9 9to10</route>
+   <route id="6to7_to_9to10" edges="6to7 7to8 8to9 9to10"/>
 
 
 </routes>

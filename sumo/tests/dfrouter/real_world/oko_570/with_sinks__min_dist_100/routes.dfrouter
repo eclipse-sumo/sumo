@@ -33,13 +33,13 @@
 
 <routes>
 
-   <route id="11_21_to_51_61" multi_ref="x">11_21 21_31 31_41 41_51 51_61</route>
-   <route id="11_21_to_a4_a5" multi_ref="x">11_21 21_31 31_41 41_40 40_30 30_a0 a0_a2 a2_a3 a3_a4 a4_a5</route>
+   <route id="11_21_to_51_61" edges="11_21 21_31 31_41 41_51 51_61"/>
+   <route id="11_21_to_a4_a5" edges="11_21 21_31 31_41 41_40 40_30 30_a0 a0_a2 a2_a3 a3_a4 a4_a5"/>
 
-   <route id="60_50_to_20_10" multi_ref="x">60_50 50_40 40_30 30_20 20_10</route>
-   <route id="60_50_to_a4_a5" multi_ref="x">60_50 50_40 40_30 30_a0 a0_a2 a2_a3 a3_a4 a4_a5</route>
+   <route id="60_50_to_20_10" edges="60_50 50_40 40_30 30_20 20_10"/>
+   <route id="60_50_to_a4_a5" edges="60_50 50_40 40_30 30_a0 a0_a2 a2_a3 a3_a4 a4_a5"/>
 
-   <route id="a5_a4_to_20_10" multi_ref="x">a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_20 20_10</route>
-   <route id="a5_a4_to_51_61" multi_ref="x">a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_31 31_41 41_51 51_61</route>
+   <route id="a5_a4_to_20_10" edges="a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_20 20_10"/>
+   <route id="a5_a4_to_51_61" edges="a5_a4 a4_a3 a3_a2 a2_a1 a1_40 40_30 30_31 31_41 41_51 51_61"/>
 
 </routes>

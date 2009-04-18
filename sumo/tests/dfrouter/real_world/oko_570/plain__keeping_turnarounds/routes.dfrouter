@@ -32,10 +32,10 @@
 
 <routes>
 
-   <route id="11_21_to_20_10" multi_ref="x">11_21 21_20 20_10</route>
-   <route id="11_21_to_51_61" multi_ref="x">11_21 21_31 31_41 41_51 51_61</route>
+   <route id="11_21_to_20_10" edges="11_21 21_20 20_10"/>
+   <route id="11_21_to_51_61" edges="11_21 21_31 31_41 41_51 51_61"/>
 
-   <route id="60_50_to_51_61" multi_ref="x">60_50 50_51 51_61</route>
-   <route id="60_50_to_20_10" multi_ref="x">60_50 50_40 40_30 30_20 20_10</route>
+   <route id="60_50_to_51_61" edges="60_50 50_51 51_61"/>
+   <route id="60_50_to_20_10" edges="60_50 50_40 40_30 30_20 20_10"/>
 
 </routes>

@@ -21,12 +21,12 @@
 
 <routes>
 
-   <route id="beg_to_end" multi_ref="x">beg middle end</route>
-   <route id="beg_to_LtoL2c" multi_ref="x">beg 1toL L LtoL2c</route>
-   <route id="beg_to_LtoL2b" multi_ref="x">beg 1toL L LtoL2b</route>
-   <route id="beg_to_LtoL2a" multi_ref="x">beg 1toL L LtoL2a</route>
-   <route id="beg_to_RtoR2a" multi_ref="x">beg 1toR R RtoR2a</route>
-   <route id="beg_to_RtoR2b" multi_ref="x">beg 1toR R RtoR2b</route>
-   <route id="beg_to_RtoR2c" multi_ref="x">beg 1toR R RtoR2c</route>
+   <route id="beg_to_end" edges="beg middle end"/>
+   <route id="beg_to_LtoL2c" edges="beg 1toL L LtoL2c"/>
+   <route id="beg_to_LtoL2b" edges="beg 1toL L LtoL2b"/>
+   <route id="beg_to_LtoL2a" edges="beg 1toL L LtoL2a"/>
+   <route id="beg_to_RtoR2a" edges="beg 1toR R RtoR2a"/>
+   <route id="beg_to_RtoR2b" edges="beg 1toR R RtoR2b"/>
+   <route id="beg_to_RtoR2c" edges="beg 1toR R RtoR2c"/>
 
 </routes>

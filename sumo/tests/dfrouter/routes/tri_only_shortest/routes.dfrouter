@@ -17,6 +17,6 @@
 
 <routes>
 
-   <route id="beg_to_end" multi_ref="x">beg middle end</route>
+   <route id="beg_to_end" edges="beg middle end"/>
 
 </routes>
