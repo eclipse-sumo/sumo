@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- generated on 04/18/09 01:22:30 by SUMO sumo Version dev-SVN-r7032
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<routes>
+</routes>
