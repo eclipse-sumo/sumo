@@ -3,15 +3,16 @@
 IF "%1" == "" GOTO loop
 
 SET ROOTDIR=D:\Sumo
-SET FILEPREFIX=%ROOTDIR%\msvc8%1
-SET MAKELOG=%FILEPREFIX%buildRelease.log
-SET STATUSLOG=%FILEPREFIX%status.log
-SET MAKEALLLOG=%FILEPREFIX%buildDebug.log
-SET SUMO_BATCH_RESULT=%FILEPREFIX%batch_result
-SET SUMO_REPORT=%FILEPREFIX%report
+SET FILEPREFIX=msvc8%1
+SET MAKELOG=%ROOTDIR%\%FILEPREFIX%Release.log
+SET MAKEALLLOG=%ROOTDIR%\%FILEPREFIX%Debug.log
+SET STATUSLOG=%ROOTDIR%\%FILEPREFIX%status.log
+SET TESTLOG=%ROOTDIR%\%FILEPREFIX%test.log
+SET SUMO_BATCH_RESULT=%ROOTDIR%\%FILEPREFIX%batch_result
+SET SUMO_REPORT=%ROOTDIR%\%FILEPREFIX%report
 SET SMTP_SERVER=129.247.218.247
 SET NIGHTLY_DIR=N:\Daten\Sumo\Nightly
-SET BINARY_ZIP=%NIGHTLY_DIR%\sumo-msvc8%1-bin.zip
+SET BINARY_ZIP=%NIGHTLY_DIR%\sumo-%FILEPREFIX%-bin.zip
 
 cd ..\..
 del %MAKELOG% %MAKEALLLOG%
@@ -33,15 +34,15 @@ IF "%1" == "x64" zip -j %BINARY_ZIP% %PROJ_GDAL_64%\bin\proj.dll %PROJ_GDAL_64%\
 
 REM run tests
 cd tests
-SET TEXTTEST_TMP=%ROOTDIR%\texttesttmp
+SET TEXTTEST_TMP=%ROOTDIR%\%FILEPREFIX%texttesttmp
 rmdir /S /Q %TEXTTEST_TMP%
 rmdir /S /Q %SUMO_REPORT%
 mkdir %SUMO_REPORT%
 IF "%1" == "Win32" call testEnv.bat
 IF "%1" == "x64" call testEnv.bat 64
-runGuisimTests.py -b
-texttest.py -b %SUMO_REPORT%
-texttest.py -b %SUMO_REPORT% -coll
+runGuisimTests.py -b %FILEPREFIX% > %TESTLOG% 2>&1
+texttest.py -b %FILEPREFIX% >> %TESTLOG% 2>&1
+texttest.py -b %FILEPREFIX% -coll >> %TESTLOG% 2>&1
 cd ..
 tools\build\status.py %MAKELOG% %MAKEALLLOG% %TEXTTEST_TMP% %SMTP_SERVER% > %STATUSLOG%
 
