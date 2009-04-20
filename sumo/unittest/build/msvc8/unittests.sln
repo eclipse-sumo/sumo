@@ -1,22 +1,45 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utils", "utils\utils.vcproj", "{D17821AF-A6C4-4D9B-B10C-E6290B600DF4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common", "..\..\..\build\msvc8\z_libutils_common\z_libutils_common.vcproj", "{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common_test", "z_libutils_common_test\z_libutils_common_test.vcproj", "{7166B82A-8380-47D7-8EDC-96052A3EDB15}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Fastbuild|Win32 = Fastbuild|Win32
 		Release|Win32 = Release|Win32
+		Unittest|Win32 = Unittest|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D17821AF-A6C4-4D9B-B10C-E6290B600DF4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D17821AF-A6C4-4D9B-B10C-E6290B600DF4}.Debug|Win32.Build.0 = Debug|Win32
-		{D17821AF-A6C4-4D9B-B10C-E6290B600DF4}.Release|Win32.ActiveCfg = Release|Win32
-		{D17821AF-A6C4-4D9B-B10C-E6290B600DF4}.Release|Win32.Build.0 = Release|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Debug|Win32.ActiveCfg = Debug|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Debug|Win32.Build.0 = Debug|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Release|Win32.ActiveCfg = Release|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Release|Win32.Build.0 = Release|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Unittest|Win32.ActiveCfg = Unittest|Win32
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}.Unittest|Win32.Build.0 = Unittest|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Debug|Win32.Build.0 = Debug|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Fastbuild|Win32.ActiveCfg = Unittest|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Fastbuild|Win32.Build.0 = Unittest|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Release|Win32.ActiveCfg = Release|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Release|Win32.Build.0 = Release|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Unittest|Win32.ActiveCfg = Unittest|Win32
+		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Unittest|Win32.Build.0 = Unittest|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
