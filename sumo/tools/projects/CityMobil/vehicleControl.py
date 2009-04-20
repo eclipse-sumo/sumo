@@ -14,7 +14,7 @@ from optparse import OptionParser
 
 import statistics
 from constants import *
-from traciControl import initTraCI, simStep, stopObject, changeTarget, close
+from traciControl import initTraCI, cmdSimulationStep, cmdStopNode, cmdChangeTarget, cmdClose
 
 class Manager:
     def personArrived(self, vehicleID, edge, target):
@@ -79,7 +79,7 @@ def init(manager):
             doStep()
         statistics.evaluate()
     finally:
-        close()
+        cmdClose()
 
 def getCapacity():
     if setting.cyber:
@@ -99,16 +99,16 @@ def stopAt(vehicleID, edge, pos=None):
         pos = STOP_POS
         if edge.endswith("out") or edge.endswith("in"):
             pos = 90.
-    changeTarget(edge, vehicleID)
-    stopObject(edge, vehicleID, pos)
+    cmdChangeTarget(edge, vehicleID)
+    cmdStopNode(edge, vehicleID, pos)
     vehicleStatus[vehicleID].target = edge
     vehicleStatus[vehicleID].targetPos = pos
 
 def leaveStop(vehicleID, newTarget=None, delay=0.):
     v = vehicleStatus[vehicleID]
     if newTarget:
-        changeTarget(newTarget, vehicleID)
-    stopObject(v.target, vehicleID, v.targetPos, delay)
+        cmdChangeTarget(newTarget, vehicleID)
+    cmdStopNode(v.target, vehicleID, v.targetPos, delay)
     v.target = None
     v.targetPos = None
     v.parking = False
@@ -130,7 +130,7 @@ def _reroutePersons(edge):
             if not vehicleStatus[person].slot:
                 row = int(edge[4])
                 targetEdge = "footmain%sto%s" % (row, row+1)
-                stopObject(edge.replace("slot", "-foot"), person, 1., 0.)
+                cmdStopNode(edge.replace("slot", "-foot"), person, 1., 0.)
                 stopAt(person, targetEdge)
                 vehicleStatus[person].parking = False
                 vehicleStatus[person].slot = edge
@@ -148,7 +148,7 @@ def _checkInitialPositions(vehicleID, edge, pos):
         elif edge == "footfairin":
             stopAt(vehicleID, "footmainout")
         elif "foot" in edge:
-            stopObject("-"+edge, vehicleID)
+            cmdStopNode("-"+edge, vehicleID)
             parkEdge = edge.replace("foot", "slot")
             if not parkEdge in persons:
                 persons[parkEdge] = []
@@ -163,7 +163,7 @@ def doStep():
     setting.step += 1
     if setting.verbose:
         print "step", setting.step
-    moveNodes = simStep(setting.step)
+    moveNodes = cmdSimulationStep(setting.step)
     for vehicleID, edge, pos in moveNodes:
         _checkInitialPositions(vehicleID, edge, pos)
         vehicle = vehicleStatus[vehicleID]

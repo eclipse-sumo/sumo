@@ -1,5 +1,5 @@
 import subprocess, sys, socket, time, struct, random
-from traciControl import initTraCI, simStep, close, getVehNoOfIndLoop, setPhase
+from traciControl import initTraCI, cmdSimulationStep, cmdClose, cmdGetInductionLoopVariable_lastStepVehicleNumber, cmdChangeTrafficLightsVariable_statePBY
 
 PORT = 8813
 
@@ -58,12 +58,12 @@ programPointer = len(PROGRAM)-1
 veh = []
 step = 0
 while not (step > lastVeh and veh == []):
-    veh = simStep(1)
+    veh = cmdSimulationStep(1)
     programPointer = min(programPointer+1, len(PROGRAM)-1)
-    no = getVehNoOfIndLoop("0")
+    no = cmdGetInductionLoopVariable_lastStepVehicleNumber("0")
     if no > 0:
         programPointer = (0 if programPointer == len(PROGRAM)-1 else 3)
-    setPhase("0", PROGRAM[programPointer])
+    cmdChangeTrafficLightsVariable_statePBY("0", PROGRAM[programPointer])
     step += 1
     
-close()
+cmdClose()
