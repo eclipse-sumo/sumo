@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <utils/common/StringTokenizer.cpp>
+#include <utils/common/StringTokenizer.h>
 
 using namespace std;
 

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <utils/common/StringUtils.cpp>
+#include <utils/common/StringUtils.h>
 
 using namespace std;
 
