@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/30/08 00:02:15 by SUMO duarouter Version dev-SVN-r6504
+<!-- generated on 04/20/09 10:00:10 by SUMO duarouter Version dev-SVN-r7032
 <configuration>
 
    <input>
@@ -19,52 +19,52 @@
 <route-alternatives>
    <vehicle id="0" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="1" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="2" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="3" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="4" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="5" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="6" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="7" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="8" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
    <vehicle id="9" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17.93 89.19 107.13 124.88 "/>
+         <route cost="124.88" probability="1.00" edges="beg middle end rend" exitTimes="17 88 105 122 "/>
       </routeDistribution>
    </vehicle>
 </route-alternatives>
