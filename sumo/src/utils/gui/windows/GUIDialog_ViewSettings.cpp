@@ -47,6 +47,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <utils/common/MsgHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -238,10 +239,11 @@ GUIDialog_ViewSettings::SchemeLoader::makeSnapshot(GUISUMOAbstractView* parent) 
     if (mySnapshotFile != "") {
         FXColor *buf = parent->getSnapshot();
         try {
-            MFXImageHelper::saveimage(mySnapshotFile, parent->getWidth(), parent->getHeight(), buf);
-        } catch (...) {
-            string msg = "Could not save '" + mySnapshotFile + "'.\nMaybe the extension is unknown.";
-            FXMessageBox::error(parent, MBOX_OK, "Saving failed.", msg.c_str());
+            if (!MFXImageHelper::saveImage(mySnapshotFile, parent->getWidth(), parent->getHeight(), buf)) {
+                MsgHandler::getWarningInstance()->inform("Could not save '" + mySnapshotFile + "'.");
+            }
+        } catch (InvalidArgument e) {
+            MsgHandler::getWarningInstance()->inform("Could not save '" + mySnapshotFile + "'.\n" + e.what());
         }
         FXFREE(&buf);
     }

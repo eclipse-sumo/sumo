@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static variable definitions
 // ===========================================================================
 GUICompleteSchemeStorage gSchemeStorage;
@@ -115,9 +109,9 @@ convert(const FXColor c) {
 
 void
 GUICompleteSchemeStorage::init(FXApp *app,
-                               const map<int, vector<RGBColor> > &vehColMap,
-                               const map<int, vector<RGBColor> > &laneColMap,
-                               const map<int, vector<RGBColor> > &edgeColMap) {
+                               const std::map<int, std::vector<RGBColor> > &vehColMap,
+                               const std::map<int, std::vector<RGBColor> > &laneColMap,
+                               const std::map<int, std::vector<RGBColor> > &edgeColMap) {
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";
@@ -157,11 +151,11 @@ GUICompleteSchemeStorage::init(FXApp *app,
     }
     // add saved settings
     int noSaved = app->reg().readIntEntry("VisualizationSettings", "settingNo", 0);
-    string setting1 = app->reg().readStringEntry("VisualizationSettings", "visset#0", "");
+    std::string setting1 = app->reg().readStringEntry("VisualizationSettings", "visset#0", "");
 
     for (int i=0; i<noSaved; ++i) {
-        string name = "visset#" + toString(i);
-        string setting = app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
+        std::string name = "visset#" + toString(i);
+        std::string setting = app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
         if (setting!="") {
             size_t j, k;
             GUIVisualizationSettings vs;

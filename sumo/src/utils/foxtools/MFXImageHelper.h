@@ -4,7 +4,7 @@
 /// @date    2005-05-04
 /// @version $Id$
 ///
-// missing_desc
+// static helpers for loading and saving images in various formats
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -32,11 +32,13 @@
 #include <string>
 #include <vector>
 #include <fx.h>
+#include <utils/common/UtilExceptions.h>
 
 class MFXImageHelper {
 public:
-    static FXImage * loadimage(FXApp *a, const std::string& file);
-    static FXbool saveimage(const std::string& file,
+    static void checkSupported(FXString ext) throw(InvalidArgument);
+    static FXImage * loadImage(FXApp *a, const std::string& file);
+    static FXbool saveImage(const std::string& file,
                             int width, int height, FXColor *data);
 
 

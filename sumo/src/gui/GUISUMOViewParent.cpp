@@ -52,6 +52,7 @@
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <utils/common/UtilExceptions.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesogui/GUIViewMesoEdges.h>
@@ -61,34 +62,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-const FXchar patterns[]=
-    "\nGIF Image (*.gif)"
-    "\nBMP Image (*.bmp)"
-    "\nXPM Image (*.xpm)"
-    "\nPCX Image (*.pcx)"
-    "\nICO Image (*.ico)"
-    "\nRGB Image  (*.rgb)"
-    "\nXBM Image  (*.xbm)"
-    "\nTARGA Image  (*.tga)"
-#ifdef HAVE_PNG_H
-    "\nPNG Image  (*.png)"
-#endif
-#ifdef HAVE_JPEG_H
-    "\nJPEG Image (*.jpg)"
-#endif
-#ifdef HAVE_TIFF_H
-    "\nTIFF Image (*.tif)"
-#endif
-    "All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.tif)"
-    "All Files (*)"
-    ;
 
 // ===========================================================================
 // FOX callback mapping
@@ -189,7 +162,10 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
     FXFileDialog opendialog(this, "Save Snapshot");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList(patterns);
+    opendialog.setPatternList("All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.jpeg, *.tif, *.tiff)\n"
+                              "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
+                              "RGB Image (*.rgb)\nXBM Image (*.xbm)\nTARGA Image (*.tga)\nPNG Image  (*.png)\n"
+                              "JPEG Image (*.jpg, *.jpeg)\nTIFF Image (*.tif, *.tiff)\nAll Files (*)");
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -197,15 +173,14 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
         return 1;
     }
     gCurrentFolder = opendialog.getDirectory();
-    string file = opendialog.getFilename().text();
+    std::string file = opendialog.getFilename().text();
     FXColor *buf = myView->getSnapshot();
     // save
     try {
-        MFXImageHelper::saveimage(file, myView->getWidth(), myView->getHeight(), buf);
-    } catch (...) {
-        string msg = "Could not save '" + file + "'.\nMaybe the extension is unknown.";
-        FXMessageBox::error(this, MBOX_OK, "Saving failed.",
-                            msg.c_str());
+        MFXImageHelper::saveImage(file, myView->getWidth(), myView->getHeight(), buf);
+    } catch (InvalidArgument e) {
+        std::string msg = "Could not save '" + file + "'.\n" + e.what();
+        FXMessageBox::error(this, MBOX_OK, "Saving failed.", msg.c_str());
     }
     FXFREE(&buf);
     return 1;

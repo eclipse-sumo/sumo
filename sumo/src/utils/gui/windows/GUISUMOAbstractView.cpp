@@ -34,6 +34,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGLObjectToolTip.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include "GUIDanielPerspectiveChanger.h"
@@ -976,10 +977,12 @@ GUISUMOAbstractView::drawDecals() throw() {
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
         GUISUMOAbstractView::Decal &d = *l;
         if (!d.initialised) {
-            FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
-            if (i!=0) {
+            try {
+                FXImage *i = MFXImageHelper::loadImage(getApp(), d.filename);
                 d.glID = GUITexturesHelper::add(i);
                 d.initialised = true;
+            } catch (InvalidArgument e) {
+                MsgHandler::getWarningInstance()->inform("Could not load '" + d.filename + "'.\n" + e.what());
             }
         }
         glPushMatrix();
