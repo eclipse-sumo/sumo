@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<net>
+
+   <district id="131">
+      <dsource id="131" weight="1.00"/>
+   </district>	
+   <district id="204[1][1]">
+      <dsink id="204[1][1]" weight="1.00"/>
+   </district>
+
+</net>
