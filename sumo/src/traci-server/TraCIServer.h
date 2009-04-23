@@ -178,7 +178,7 @@ private:
 
     bool commandGetInductionLoopVariable() throw(TraCIException);
 
-    bool commandGetArealDetectorVariable() throw(TraCIException);
+    bool commandGetMultiEntryExitDetectorVariable() throw(TraCIException);
 
     bool commandGetTrafficLightVariable() throw(TraCIException);
     bool commandSetTrafficLightVariable() throw(TraCIException);

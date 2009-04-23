@@ -344,8 +344,8 @@ throw(TraCIException, std::invalid_argument) {
     case CMD_GET_INDUCTIONLOOP_VARIABLE:
         success = commandGetInductionLoopVariable();
         break;
-    case CMD_GET_AREALDETECTOR_VARIABLE:
-        success = commandGetArealDetectorVariable();
+    case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
+        success = commandGetMultiEntryExitDetectorVariable();
         break;
     case CMD_GET_TL_VARIABLE:
         success = commandGetTrafficLightVariable();
@@ -2864,7 +2864,7 @@ TraCIServer::commandGetInductionLoopVariable() throw(TraCIException) {
 
 /*****************************************************************************/
 bool
-TraCIServer::commandGetArealDetectorVariable() throw(TraCIException) {
+TraCIServer::commandGetMultiEntryExitDetectorVariable() throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
@@ -2872,13 +2872,13 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException) {
     string id = myInputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
-        writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
+        writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
     // begin response building
     Storage tempMsg;
     //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_AREALDETECTOR_VARIABLE);
+    tempMsg.writeUnsignedByte(RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE);
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     if (variable==ID_LIST) {
@@ -2889,7 +2889,7 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException) {
     } else {
         MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
         if (e3==0) {
-            writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known");
+            writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known");
             return false;
         }
         switch (variable) {
@@ -2913,7 +2913,7 @@ TraCIServer::commandGetArealDetectorVariable() throw(TraCIException) {
             break;
         }
     }
-    writeStatusCmd(CMD_GET_AREALDETECTOR_VARIABLE, RTYPE_OK, warning);
+    writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, warning);
     // send response
     myOutputStorage.writeUnsignedByte(0); // command length -> extended
     myOutputStorage.writeInt(1 + 4 + tempMsg.size());

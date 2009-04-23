@@ -104,10 +104,10 @@
 // response: get induction loop (e1) variable
 #define RESPONSE_GET_INDUCTIONLOOP_VARIABLE 0xb0
 
-// command: get areal detector (e3) variable
-#define CMD_GET_AREALDETECTOR_VARIABLE 0xa1
+// command: get multi-entry/multi-exit detector (e3) variable
+#define CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xa1
 // response: get areal detector (e3) variable
-#define RESPONSE_GET_AREALDETECTOR_VARIABLE 0xb1
+#define RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xb1
 
 // command: get traffic lights variable
 #define CMD_GET_TL_VARIABLE 0xa2
