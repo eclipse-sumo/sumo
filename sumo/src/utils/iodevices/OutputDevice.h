@@ -106,7 +106,7 @@ public:
     /** @brief Returns the device described by the option
      *
      * Returns the device named by the option. If the option is unknown, unset
-     * or the device was not created before, IllegalArgument is thrown.
+     * or the device was not created before, InvalidArgument is thrown.
      *
      * Please note, that we do not have to consider the "application base" herein.
      *
