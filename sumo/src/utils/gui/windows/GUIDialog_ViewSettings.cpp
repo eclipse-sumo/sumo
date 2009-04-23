@@ -64,7 +64,6 @@ using namespace std;
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[]= {
     FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onChgNameChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
@@ -150,12 +149,13 @@ GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
         mySettings.laneEdgeMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeMode", toString(mySettings.laneEdgeMode)).c_str());
         mySettings.laneShowBorders = TplConvert<char>::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
         mySettings.showLinkDecals = TplConvert<char>::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
-        mySettings.laneEdgeExaggMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeExaggMode", toString(mySettings.laneEdgeExaggMode)).c_str());
-        mySettings.minExagg = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minExagg", toString(mySettings.minExagg)).c_str());
-        mySettings.maxExagg = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("maxExagg", toString(mySettings.maxExagg)).c_str());
         mySettings.showRails = TplConvert<char>::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
+        mySettings.drawEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawEdgeName", toString(mySettings.drawEdgeName)).c_str());
         mySettings.edgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("edgeNameSize", toString(mySettings.edgeNameSize)).c_str());
         mySettings.edgeNameColor = RGBColor::parseColor(attrs.getStringSecure("edgeNameColor", toString(mySettings.edgeNameColor)));
+        mySettings.drawInternalEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawInternalEdgeName", toString(mySettings.drawInternalEdgeName)).c_str());
+        mySettings.internalEdgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("internalEdgeNameSize", toString(mySettings.internalEdgeNameSize)).c_str());
+        mySettings.internalEdgeNameColor = RGBColor::parseColor(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)));
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         break;
     case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM: {
@@ -370,6 +370,26 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                          0,0,0,0, 10,10,0,0, 5,5);
         new FXLabel(m222, "Color", 0, LAYOUT_CENTER_Y);
         myEdgeNameColor = new FXColorWell(m222, convert(settings->edgeNameColor),
+                                          this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                          LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                          0, 0, 100, 0,   0, 0, 0, 0);
+        myShowInternalEdgeName = new FXCheckButton(m22, "Show internal edge name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowInternalEdgeName->setCheck(mySettings->drawInternalEdgeName);
+        new FXLabel(m22, "");
+        FXMatrix *m223 =
+            new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m223, "Size", 0, LAYOUT_CENTER_Y);
+        myInternalEdgeNameSizeDialer =
+            new FXRealSpinDial(m223, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myInternalEdgeNameSizeDialer->setRange(10, 1000);
+        myInternalEdgeNameSizeDialer->setValue(mySettings->internalEdgeNameSize);
+        FXMatrix *m224 =
+            new FXMatrix(m22,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m224, "Color", 0, LAYOUT_CENTER_Y);
+        myInternalEdgeNameColor = new FXColorWell(m224, convert(settings->internalEdgeNameColor),
                                           this, MID_SIMPLE_VIEW_COLORCHANGE,
                                           LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                           0, 0, 100, 0,   0, 0, 0, 0);
@@ -687,12 +707,6 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*,FXSelector,void*) {
 
 
 long
-GUIDialog_ViewSettings::onChgNameChange(FXObject*,FXSelector,void*) {
-    return 1;
-}
-
-
-long
 GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     if (data!=0) {
         FXString dataS = (char*) data; // !!!unicode
@@ -718,6 +732,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     myShowEdgeName->setCheck(mySettings->drawEdgeName);
     myEdgeNameSizeDialer->setValue(mySettings->edgeNameSize);
     myEdgeNameColor->setRGBA(convert(mySettings->edgeNameColor));
+    myShowInternalEdgeName->setCheck(mySettings->drawInternalEdgeName);
+    myInternalEdgeNameSizeDialer->setValue(mySettings->internalEdgeNameSize);
+    myInternalEdgeNameColor->setRGBA(convert(mySettings->internalEdgeNameColor));
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
 
     myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
@@ -815,6 +832,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     tmpSettings.drawEdgeName = myShowEdgeName->getCheck()!=0;
     tmpSettings.edgeNameSize = (SUMOReal) myEdgeNameSizeDialer->getValue();
     tmpSettings.edgeNameColor = convert(myEdgeNameColor->getRGBA());
+    tmpSettings.drawInternalEdgeName = myShowInternalEdgeName->getCheck()!=0;
+    tmpSettings.internalEdgeNameSize = (SUMOReal) myInternalEdgeNameSizeDialer->getValue();
+    tmpSettings.internalEdgeNameColor = convert(myInternalEdgeNameColor->getRGBA());
     tmpSettings.hideConnectors = myHideMacroConnectors->getCheck()!=0;
 
     if (myVehicleColoringInfoSource!=0) {
@@ -966,9 +986,6 @@ GUIDialog_ViewSettings::writeSettings() throw() {
         getApp()->reg().writeIntEntry(sname.c_str(), "laneEdgeMode", item.laneEdgeMode);
         getApp()->reg().writeIntEntry(sname.c_str(), "laneShowBorders", item.laneShowBorders ? 1 : 0);
         getApp()->reg().writeIntEntry(sname.c_str(), "showLinkDecals", item.showLinkDecals ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "laneEdgeExaggMode", item.laneEdgeExaggMode);
-        getApp()->reg().writeRealEntry(sname.c_str(), "minExagg", item.minExagg);
-        getApp()->reg().writeRealEntry(sname.c_str(), "maxExagg", item.maxExagg);
         getApp()->reg().writeIntEntry(sname.c_str(), "showRails", item.showRails ? 1 : 0);
         getApp()->reg().writeRealEntry(sname.c_str(), "edgeNameSize", item.edgeNameSize);
         getApp()->reg().writeIntEntry(sname.c_str(), "edgeNameColor", convert(item.edgeNameColor));
@@ -1038,20 +1055,21 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
         dev << "<viewsettings>\n";
         dev << "    <scheme name=\"" << mySettings->name << "\">\n";
         dev << "        <opengl antialiase=\"" << mySettings->antialiase << "\" dither=\"" << mySettings->dither << "\"/>\n";
-        dev << "        <background backgroundColor=\"" << mySettings->backgroundColor
-        << "\" showGrid=\"" << mySettings->showGrid
-        << "\" gridXSize=\"" << mySettings->gridXSize << "\" gridYSize=\"" << mySettings->gridYSize << "\"/>\n";
+        dev << "        <background backgroundColor=\"" << mySettings->backgroundColor << "\"\n"
+            << "                    showGrid=\"" << mySettings->showGrid
+            << "\" gridXSize=\"" << mySettings->gridXSize << "\" gridYSize=\"" << mySettings->gridYSize << "\"/>\n";
         dev << "        <edges laneEdgeMode=\"" << mySettings->laneEdgeMode
-        << "\" laneShowBorders=\"" << mySettings->laneShowBorders
-        << "\" showLinkDecals=\"" << mySettings->showLinkDecals
-        << "\" laneEdgeExaggMode=\"" << mySettings->laneEdgeExaggMode
-        << "\" minExagg=\"" << mySettings->minExagg
-        << "\" maxExagg=\"" << mySettings->maxExagg
-        << "\" showRails=\"" << mySettings->showRails
-        << "\" edgeNameSize=\"" << mySettings->edgeNameSize
-        << "\" edgeNameColor=\"" << mySettings->edgeNameColor
-        << "\" hideConnectors=\"" << mySettings->hideConnectors
-        << "\">\n";
+            << "\" laneShowBorders=\"" << mySettings->laneShowBorders
+            << "\" showLinkDecals=\"" << mySettings->showLinkDecals
+            << "\" showRails=\"" << mySettings->showRails << "\"\n"
+            << "               drawEdgeName=\"" << mySettings->drawEdgeName
+            << "\" edgeNameSize=\"" << mySettings->edgeNameSize
+            << "\" edgeNameColor=\"" << mySettings->edgeNameColor << "\"\n"
+            << "               drawInternalEdgeName=\"" << mySettings->drawInternalEdgeName
+            << "\" internalEdgeNameSize=\"" << mySettings->internalEdgeNameSize
+            << "\" internalEdgeNameColor=\"" << mySettings->internalEdgeNameColor
+            << "\" hideConnectors=\"" << mySettings->hideConnectors
+            << "\">\n";
         for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
             for (k=0; k<(*j).second.size(); ++k) {
                 dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
@@ -1060,13 +1078,13 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
         dev << "        </edges>\n";
 
         dev << "        <vehicles vehicleMode=\"" << mySettings->vehicleMode
-        << "\" vehicleQuality=\"" << mySettings->vehicleQuality
-        << "\" minVehicleSize=\"" << mySettings->minVehicleSize
-        << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
-        << "\" showBlinker=\"" << mySettings->showBlinker
-        << "\" drawVehicleName=\"" << mySettings->drawVehicleName
-        << "\" vehicleNameSize=\"" << mySettings->vehicleNameSize
-        << "\" vehicleNameColor=\"" << mySettings->vehicleNameColor << "\">\n";
+            << "\" vehicleQuality=\"" << mySettings->vehicleQuality
+            << "\" minVehicleSize=\"" << mySettings->minVehicleSize
+            << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
+            << "\" showBlinker=\"" << mySettings->showBlinker << "\"\n"
+            << "                  drawVehicleName=\"" << mySettings->drawVehicleName
+            << "\" vehicleNameSize=\"" << mySettings->vehicleNameSize
+            << "\" vehicleNameColor=\"" << mySettings->vehicleNameColor << "\">\n";
         for (j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
             for (k=0; k<(*j).second.size(); ++k) {
                 dev << "            <nvcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
@@ -1075,26 +1093,26 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
         dev << "        </vehicles>\n";
 
         dev << "        <junctions junctionMode=\"" << mySettings->junctionMode
-        << "\" drawLinkTLIndex=\"" << mySettings->drawLinkTLIndex
-        << "\" drawLinkJunctionIndex=\"" << mySettings->drawLinkJunctionIndex
-        << "\" drawJunctionName=\"" << mySettings->drawJunctionName
-        << "\" junctionNameSize=\"" << mySettings->junctionNameSize
-        << "\" junctionNameColor=\"" << mySettings->junctionNameColor
-        << "\" showLane2Lane=\"" << mySettings->showLane2Lane << "\">\n";
+            << "\" drawLinkTLIndex=\"" << mySettings->drawLinkTLIndex
+            << "\" drawLinkJunctionIndex=\"" << mySettings->drawLinkJunctionIndex << "\"\n"
+            << "                   drawJunctionName=\"" << mySettings->drawJunctionName
+            << "\" junctionNameSize=\"" << mySettings->junctionNameSize
+            << "\" junctionNameColor=\"" << mySettings->junctionNameColor
+            << "\" showLane2Lane=\"" << mySettings->showLane2Lane << "\"/>\n";
 
         dev << "        <additionals addMode=\"" << mySettings->addMode
         << "\" minAddSize=\"" << mySettings->minAddSize
         << "\" addExaggeration=\"" << mySettings->addExaggeration
         << "\" drawAddName=\"" << mySettings->drawAddName
-        << "\" addNameSize=\"" << mySettings->addNameSize << "\">\n";
+        << "\" addNameSize=\"" << mySettings->addNameSize << "\"/>\n";
 
         dev << "        <pois poiExaggeration=\"" << mySettings->poiExaggeration
         << "\" minPOISize=\"" << mySettings->minPOISize
         << "\" drawPOIName=\"" << mySettings->drawPOIName
         << "\" poiNameSize=\"" << mySettings->poiNameSize
-        << "\" poiNameColor=\"" << mySettings->poiNameColor << "\">\n";
+        << "\" poiNameColor=\"" << mySettings->poiNameColor << "\"/>\n";
 
-        dev << "        <legend showSizeLegend=\"" << mySettings->showSizeLegend << "\">\n";
+        dev << "        <legend showSizeLegend=\"" << mySettings->showSizeLegend << "\"/>\n";
         dev << "    </scheme>\n";
         dev << "</viewsettings>\n";
 

@@ -39,10 +39,14 @@
 // class definitions
 // ===========================================================================
 /**
- * @struct GUIVisualizationSettings
+ * @class GUIVisualizationSettings
  * @brief Stores the information about how to visualize structures
  */
-struct GUIVisualizationSettings {
+class GUIVisualizationSettings {
+public:
+    /// @brief constructor
+    GUIVisualizationSettings() throw();
+
     /// @brief The name of this setting
     std::string name;
 
@@ -80,9 +84,6 @@ struct GUIVisualizationSettings {
     bool laneShowBorders;
     /// @brief Information whether link textures (arrows) shall be drawn
     bool showLinkDecals;
-    int laneEdgeExaggMode; // !!! unused
-    SUMOReal minExagg; // !!! unused
-    SUMOReal maxExagg; // !!! unused
     /// @brief Information whether rails shall be drawn
     bool showRails;
     /// @brief Information whether the edge's name shall be drawn
@@ -91,6 +92,12 @@ struct GUIVisualizationSettings {
     float edgeNameSize;
     /// @brief The color of edge names
     RGBColor edgeNameColor;
+    /// @brief Information whether the names of internal edges shall be drawn
+    bool drawInternalEdgeName;
+    /// @brief The size of the internal edge name
+    float internalEdgeNameSize;
+    /// @brief The color of internal edge names
+    RGBColor internalEdgeNameColor;
     /// @brief Whether macroscopic connectors shall be hidden
     bool hideConnectors;
     //@}

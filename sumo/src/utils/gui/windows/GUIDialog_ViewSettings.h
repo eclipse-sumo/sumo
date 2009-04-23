@@ -96,9 +96,6 @@ public:
     /// @brief Called if the decals-table was changed
     long onCmdEditTable(FXObject*,FXSelector,void*data);
 
-    /// @brief Called if another scheme was chosen
-    long onChgNameChange(FXObject*,FXSelector,void*);
-
     /// @brief Called if the name of the scheme was changed
     long onCmdNameChange(FXObject*,FXSelector,void*);
 
@@ -305,9 +302,11 @@ private:
     FXComboBox *myLaneEdgeColorMode;
     FXVerticalFrame *myLaneColorSettingFrame;
     FXColorWell *mySingleLaneColor, *myMinLaneColor, *myMaxLaneColor;
-    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName, *myHideMacroConnectors;
+    FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName, *myShowInternalEdgeName, *myHideMacroConnectors;
     FXRealSpinDial *myEdgeNameSizeDialer;
     FXColorWell *myEdgeNameColor;
+    FXRealSpinDial *myInternalEdgeNameSizeDialer;
+    FXColorWell *myInternalEdgeNameColor;
 
     FXComboBox *myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame *myVehicleColorSettingFrame;

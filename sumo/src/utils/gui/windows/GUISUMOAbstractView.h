@@ -60,7 +60,7 @@ class GUIGLObjectPopupMenu;
 class GUIGlObject;
 class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
-struct GUIVisualizationSettings;
+class GUIVisualizationSettings;
 
 
 

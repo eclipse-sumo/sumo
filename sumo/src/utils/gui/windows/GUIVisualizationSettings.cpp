@@ -35,14 +35,37 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
+GUIVisualizationSettings::GUIVisualizationSettings() throw()
+        : name(""), antialiase(false), dither(false), vehicleQuality(0),
+        backgroundColor(RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1)),
+        showGrid(false), gridXSize(100), gridYSize(100), laneEdgeMode(0),
+        laneColorings(),
+#ifdef HAVE_MESOSIM
+        edgeColorings(),
+#endif
+        laneShowBorders(false), showLinkDecals(true), showRails(true),
+        drawEdgeName(false), edgeNameSize(50),
+        edgeNameColor(RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0)),
+        drawInternalEdgeName(false), internalEdgeNameSize(25),
+        internalEdgeNameColor(RGBColor((SUMOReal) .5, (SUMOReal) .25, (SUMOReal) 0)),
+        hideConnectors(false), vehicleMode(0), vehicleColorings(),
+        minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
+        drawcC2CRadius(false), drawLaneChangePreference(false),
+        drawVehicleName(false), vehicleNameSize(50),
+        vehicleNameColor(RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0)),
+        junctionMode(0), drawLinkTLIndex(false), drawLinkJunctionIndex(false),
+        drawJunctionName(false), junctionNameSize(50),
+        junctionNameColor(RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5)),
+        showLane2Lane(false), addMode(0), minAddSize(1), addExaggeration(1),
+        drawAddName(false), addNameSize(50),
+        minPOISize(0), poiExaggeration(1), drawPOIName(false), poiNameSize(50),
+        poiNameColor(RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5)),
+        showSizeLegend(true)
+{}
+
+
 bool
 GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (antialiase!=v2.antialiase) return false;
@@ -57,13 +80,13 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (laneColorings!=v2.laneColorings) return false;
     if (laneShowBorders!=v2.laneShowBorders) return false;
     if (showLinkDecals!=v2.showLinkDecals) return false;
-    if (laneEdgeExaggMode!=v2.laneEdgeExaggMode) return false;
-    if (minExagg!=v2.minExagg) return false;
-    if (maxExagg!=v2.maxExagg) return false;
     if (showRails!=v2.showRails) return false;
     if (drawEdgeName!=v2.drawEdgeName) return false;
     if (edgeNameSize!=v2.edgeNameSize) return false;
     if (edgeNameColor!=v2.edgeNameColor) return false;
+    if (drawInternalEdgeName!=v2.drawInternalEdgeName) return false;
+    if (internalEdgeNameSize!=v2.internalEdgeNameSize) return false;
+    if (internalEdgeNameColor!=v2.internalEdgeNameColor) return false;
     if (hideConnectors!=v2.hideConnectors) return false;
 
     if (vehicleMode!=v2.vehicleMode) return false;

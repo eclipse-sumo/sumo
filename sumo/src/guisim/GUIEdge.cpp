@@ -252,8 +252,14 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         (*i)->drawGL(s);
     }
     // (optionally) draw the name
-    if (s.drawEdgeName) {
-        glColor3f(s.edgeNameColor.red(), s.edgeNameColor.green(), s.edgeNameColor.blue());
+    if ((s.drawEdgeName && myFunction == EDGEFUNCTION_NORMAL) || (s.drawInternalEdgeName && myFunction != EDGEFUNCTION_NORMAL)) {
+        float nameSize = s.edgeNameSize;
+        if (myFunction == EDGEFUNCTION_NORMAL) {
+            glColor3f(s.edgeNameColor.red(), s.edgeNameColor.green(), s.edgeNameColor.blue());
+        } else {
+            glColor3f(s.internalEdgeNameColor.red(), s.internalEdgeNameColor.green(), s.internalEdgeNameColor.blue());
+            nameSize = s.internalEdgeNameSize;
+        }
         glPolygonOffset(0, -6);
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
@@ -264,7 +270,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         glTranslated(p.x(), p.y(), 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
-        pfSetScale(s.edgeNameSize / s.scale);
+        pfSetScale(nameSize / s.scale);
         SUMOReal w = pfdkGetStringWidth(getMicrosimID().c_str());
         glRotated(180, 1, 0, 0);
         SUMOReal angle = lane1->getShape().rotationDegreeAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
@@ -273,7 +279,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
             angle -= 180;
         }
         glRotated(angle, 0, 0, 1);
-        glTranslated(-w/2., .2*s.edgeNameSize / s.scale, 0);
+        glTranslated(-w/2., .2*nameSize / s.scale, 0);
         pfDrawString(getMicrosimID().c_str());
         glPopMatrix();
     }

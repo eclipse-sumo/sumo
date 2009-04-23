@@ -121,204 +121,38 @@ GUICompleteSchemeStorage::init(FXApp *app,
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";
-
-        vs.antialiase = false;
-        vs.dither = false;
-        vs.vehicleQuality = 0;
-
-        vs.backgroundColor = RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1);
-        vs.showGrid = false;
-        vs.gridXSize = 100;
-        vs.gridYSize = 100;
-
-        vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
 #ifdef HAVE_MESOSIM
         vs.edgeColorings = edgeColMap;
 #endif
-        vs.laneShowBorders = false;
-        vs.showLinkDecals = true;
-        vs.laneEdgeExaggMode = 0; // !!! used?
-        vs.minExagg = 1; // !!! used?
-        vs.maxExagg = 1; // !!! used?
-        vs.showRails = true;
-        vs.drawEdgeName = false;
-        vs.edgeNameSize = 50;
-        vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
-        vs.hideConnectors = false;
-
-        vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
-        vs.minVehicleSize = 1;
-        vs.vehicleExaggeration = 1;
-        vs.showBlinker = true;
-        vs.drawcC2CRadius = false;
-        vs.drawLaneChangePreference = false;
-        vs.drawVehicleName = false;
-        vs.vehicleNameSize = 50;
-        vs.vehicleNameColor = RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0);
-
-        vs.junctionMode = 0;
-        vs.drawLinkTLIndex = false;
-        vs.drawLinkJunctionIndex = false;
-        vs.drawJunctionName = false;
-        vs.junctionNameSize = 50;
-        vs.junctionNameColor = RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5);
-
-        vs.showLane2Lane = false;
-
-        vs.addMode = 0;
-        vs.minAddSize = 1;
-        vs.addExaggeration = 1;
-        vs.drawAddName = false;
-        vs.addNameSize = 50;
-        //vs.addNameColor = RGBColor(0, .5, 1);
-
-        vs.minPOISize = 0;
-        vs.poiExaggeration = 1;
-        vs.drawPOIName = false;
-        vs.poiNameSize = 50;
-        vs.poiNameColor = RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5);
-
-        vs.showSizeLegend = true;
-
         gSchemeStorage.add(vs);
     }
     {
         GUIVisualizationSettings vs;
         vs.name = "faster standard";
-
-        vs.antialiase = false;
-        vs.dither = false;
-        vs.vehicleQuality = 0;
-
-        vs.backgroundColor = RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1);
-        vs.showGrid = false;
-        vs.gridXSize = 100;
-        vs.gridYSize = 100;
-
-        vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
 #ifdef HAVE_MESOSIM
         vs.edgeColorings = edgeColMap;
 #endif
-        vs.laneShowBorders = false;
         vs.showLinkDecals = false;
-        vs.laneEdgeExaggMode = 0; // !!! used?
-        vs.minExagg = 1; // !!! used?
-        vs.maxExagg = 1; // !!! used?
         vs.showRails = false;
-        vs.drawEdgeName = false;
-        vs.edgeNameSize = 50;
-        vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
-        vs.hideConnectors = false;
-
-        vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
-        vs.minVehicleSize = 1;
-        vs.vehicleExaggeration = 1;
-        vs.showBlinker = true;
-        vs.drawcC2CRadius = false;
-        vs.drawLaneChangePreference = false;
-        vs.drawVehicleName = false;
-        vs.vehicleNameSize = 50;
-        vs.vehicleNameColor = RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0);
-
-        vs.junctionMode = 0;
-        vs.drawLinkTLIndex = false;
-        vs.drawLinkJunctionIndex = false;
-        vs.drawJunctionName = false;
-        vs.junctionNameSize = 50;
-        vs.junctionNameColor = RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5);
-
-        vs.showLane2Lane = false;
-
-        vs.addMode = 0;
-        vs.minAddSize = 1;
-        vs.addExaggeration = 1;
-        vs.drawAddName = false;
-        vs.addNameSize = 50;
-        //vs.addNameColor = RGBColor(0, .5, 1);
-
-        vs.poiExaggeration = 1;
-        vs.minPOISize = 0;
-        vs.drawPOIName = false;
-        vs.poiNameSize = 50;
-        vs.poiNameColor = RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5);
-
-        vs.showSizeLegend = true;
-
         gSchemeStorage.add(vs);
     }
     {
         GUIVisualizationSettings vs;
         vs.name = "real world";
-
-        vs.antialiase = false;
-        vs.dither = false;
         vs.vehicleQuality = 2;
-
         vs.backgroundColor = RGBColor((SUMOReal) .2, (SUMOReal) .5, (SUMOReal) .2);
-        vs.showGrid = false;
-        vs.gridXSize = 100;
-        vs.gridYSize = 100;
-
-        vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
 #ifdef HAVE_MESOSIM
         vs.edgeColorings = edgeColMap;
 #endif
         vs.laneShowBorders = true;
-        vs.showLinkDecals = true;
-        vs.laneEdgeExaggMode = 0; // !!! used?
-        vs.minExagg = 1; // !!! used?
-        vs.maxExagg = 1; // !!! used?
-        vs.showRails = true;
-        vs.drawEdgeName = false;
-        vs.edgeNameSize = 50;
-        vs.edgeNameColor = RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0);
         vs.hideConnectors = true;
-
-        vs.vehicleMode = 0;
         vs.vehicleColorings = vehColMap;
         vs.minVehicleSize = 0;
-        vs.vehicleExaggeration = 1;
-        vs.minVehicleSize = 1;
-        /*
-        vs.minVehicleColor = RGBColor(1,0,0);
-        vs.maxVehicleColor = RGBColor(0,1,0);
-        */
-        vs.showBlinker = true;
-        vs.drawcC2CRadius = false;
-        vs.drawLaneChangePreference = false;
-        vs.drawVehicleName = false;
-        vs.vehicleNameSize = 50;
-        vs.vehicleNameColor = RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0);
-
-        vs.junctionMode = 0;
-        vs.drawLinkTLIndex = false;
-        vs.drawLinkJunctionIndex = false;
-        vs.drawJunctionName = false;
-        vs.junctionNameSize = 50;
-        vs.junctionNameColor = RGBColor((SUMOReal) 0, (SUMOReal) 1, (SUMOReal) .5);
-
-        vs.showLane2Lane = false;
-
-        vs.addMode = 0;
-        vs.minAddSize = 1;
-        vs.addExaggeration = 1;
-        vs.drawAddName = false;
-        vs.addNameSize = 50;
-        //vs.addNameColor = RGBColor(0, .5, 1);
-
-        vs.minPOISize = 0;
-        vs.poiExaggeration = 1;
-        vs.drawPOIName = false;
-        vs.poiNameSize = 50;
-        vs.poiNameColor = RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5);
-
-        vs.showSizeLegend = true;
-
         gSchemeStorage.add(vs);
     }
     // add saved settings
@@ -356,9 +190,6 @@ GUICompleteSchemeStorage::init(FXApp *app,
             }
             vs.laneShowBorders = app->reg().readIntEntry(name.c_str(), "laneShowBorders", 0)!=0 ? 1 : 0;
             vs.showLinkDecals = app->reg().readIntEntry(name.c_str(), "showLinkDecals", 0)!=0 ? 1 : 0;
-            vs.laneEdgeExaggMode = app->reg().readIntEntry(name.c_str(), "laneEdgeExaggMode", 0);
-            vs.minExagg = (SUMOReal) app->reg().readRealEntry(name.c_str(), "minExagg", 1);
-            vs.maxExagg = (SUMOReal) app->reg().readRealEntry(name.c_str(), "maxExagg", 1);
             vs.showRails = app->reg().readIntEntry(name.c_str(), "showRails", 0)!=0 ? 1 : 0;
             vs.drawEdgeName = app->reg().readIntEntry(name.c_str(), "drawEdgeName", 0)!=0 ? 1 : 0;
             vs.edgeNameSize = (SUMOReal) app->reg().readRealEntry(name.c_str(), "edgeNameSize", 50);

@@ -48,7 +48,7 @@ class GUIParameterTableWindow;
 class GUIMainWindow;
 class GUIGLObjectPopupMenu;
 class GUISUMOAbstractView;
-struct GUIVisualizationSettings;
+class GUIVisualizationSettings;
 
 
 // ===========================================================================
