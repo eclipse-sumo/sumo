@@ -281,7 +281,7 @@ parseSingleTime(const std::string &time) {
     }
     string hours = time.substr(0, time.find('.'));
     string minutes = time.substr(time.find('.')+1);
-    return (SUMOTime) TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str());
+    return (SUMOTime) TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str()) * 60;
 }
 
 
