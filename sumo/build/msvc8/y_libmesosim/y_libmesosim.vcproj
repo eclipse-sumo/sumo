@@ -51,7 +51,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libmesosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -61,7 +60,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=".\Debug/y_libmesosim.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -105,7 +103,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libmesosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -115,7 +112,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=".\Debug/y_libmesosim.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -159,7 +155,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libmesosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -169,7 +164,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=".\Release/y_libmesosim.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -213,7 +207,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libmesosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -223,7 +216,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=".\Release/y_libmesosim.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -269,7 +261,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libmesosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -279,7 +270,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=".\Fastbuild/y_libmesosim.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -326,7 +316,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libmesosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -336,7 +325,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				OutputFile=".\Fastbuild/y_libmesosim.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"

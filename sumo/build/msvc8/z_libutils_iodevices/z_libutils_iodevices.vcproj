@@ -52,7 +52,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libutils_iodevices.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -106,7 +105,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libutils_iodevices.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -160,7 +158,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libutils_iodevices.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -214,7 +211,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libutils_iodevices.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -270,7 +266,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\z_libutils_iodevices.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -327,7 +322,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\z_libutils_iodevices.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool

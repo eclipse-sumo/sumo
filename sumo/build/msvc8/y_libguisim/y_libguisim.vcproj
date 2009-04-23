@@ -52,7 +52,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libguisim.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -107,7 +106,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libguisim.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -162,7 +160,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libguisim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -216,7 +213,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libguisim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -270,7 +266,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libguisim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -324,7 +319,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libguisim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -378,7 +372,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libguisim.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -433,7 +426,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libguisim.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -490,7 +482,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libguisim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -547,7 +538,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libguisim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

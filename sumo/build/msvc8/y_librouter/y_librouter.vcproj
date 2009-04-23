@@ -51,7 +51,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_librouter.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -105,7 +104,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_librouter.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -159,7 +157,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_librouter.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -212,7 +209,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_librouter.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -267,7 +263,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_librouter.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -323,7 +318,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_librouter.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

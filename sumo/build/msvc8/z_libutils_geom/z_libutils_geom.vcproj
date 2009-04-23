@@ -52,7 +52,6 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="$(PROJ_LIB)"
-				OutputFile=".\Debug\z_libutils_geom.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -106,7 +105,6 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="$(PROJ_LIB)"
-				OutputFile=".\Debug\z_libutils_geom.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -160,7 +158,6 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="$(PROJ_LIB)"
-				OutputFile=".\Release\z_libutils_geom.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -214,7 +211,6 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="$(PROJ_LIB)"
-				OutputFile=".\Release\z_libutils_geom.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -270,7 +266,6 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="$(PROJ_LIB)"
-				OutputFile=".\Fastbuild\z_libutils_geom.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -327,7 +322,6 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="$(PROJ_LIB)"
-				OutputFile=".\Fastbuild\z_libutils_geom.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

@@ -52,7 +52,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libutils_options.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -107,7 +106,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libutils_options.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -213,7 +211,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libutils_options.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -323,7 +320,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\z_libutils_options.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

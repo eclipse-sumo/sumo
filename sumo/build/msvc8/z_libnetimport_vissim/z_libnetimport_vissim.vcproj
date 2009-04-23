@@ -51,7 +51,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libnetimport.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -104,7 +103,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libnetimport.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -159,7 +157,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libnetimport.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -212,7 +209,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libnetimport.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -265,7 +261,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libnetimport.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -321,7 +316,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libnetimport.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

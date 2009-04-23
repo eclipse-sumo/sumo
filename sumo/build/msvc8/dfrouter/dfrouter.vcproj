@@ -53,7 +53,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Debug/dfrouterD.exe"
+				OutputFile="$(OutDir)\$(ProjectName)D.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"

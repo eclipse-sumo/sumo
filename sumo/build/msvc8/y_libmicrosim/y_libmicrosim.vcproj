@@ -51,7 +51,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -104,7 +103,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -157,7 +155,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -210,7 +207,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -263,7 +259,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -316,7 +311,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -369,7 +363,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -422,7 +415,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -477,7 +469,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -533,7 +524,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libmicrosim.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

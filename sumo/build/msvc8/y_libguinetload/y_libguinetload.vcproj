@@ -52,7 +52,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libguinetload.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -107,7 +106,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libguinetload.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -162,7 +160,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libguinetload.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -216,7 +213,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\y_libguinetload.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -272,7 +268,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libguinetload.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -329,7 +324,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\y_libguinetload.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

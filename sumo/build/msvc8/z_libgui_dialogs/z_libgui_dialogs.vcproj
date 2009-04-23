@@ -52,7 +52,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -107,7 +106,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -162,7 +160,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -217,7 +214,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -272,7 +268,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -327,7 +322,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -382,7 +376,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -437,7 +430,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -494,7 +486,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
@@ -552,7 +543,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Fastbuild\z_libgui_dialogs.lib"
 				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
