@@ -2931,7 +2931,8 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException) {
     string id = myInputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE
-        &&variable!=TL_COMPLETE_DEFINITION&&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS) {
+        &&variable!=TL_COMPLETE_DEFINITION&&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
+        &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM) {
         writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
@@ -3077,6 +3078,16 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException) {
             }
             tempMsg.writeInt((int) cnt);
             tempMsg.writeStorage(tempContent);
+        }
+        break;
+        case TL_CURRENT_PHASE: {
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) vars.getActive()->getCurrentPhaseIndex());
+        }
+        break;
+        case TL_CURRENT_PROGRAM: {
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(vars.getActive()->getSubID());
         }
         break;
         default:

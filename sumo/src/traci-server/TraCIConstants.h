@@ -319,6 +319,12 @@
 // complete definition (get: traffic lights)
 #define TL_CONTROLLED_LINKS 0x27
 
+// index of the current phase (get: traffic lights)
+#define TL_CURRENT_PHASE 0x28
+
+// name of the current program (get: traffic lights)
+#define TL_CURRENT_PROGRAM 0x29
+
 
 // outgoing link number (get: lanes)
 #define LANE_LINK_NUMBER 0x30
