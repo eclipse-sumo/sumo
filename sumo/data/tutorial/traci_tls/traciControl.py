@@ -22,8 +22,8 @@ CMD_MOVENODE = 0x80
 # command: get induction loop (e1) variable
 CMD_GET_INDUCTIONLOOP_VARIABLE = 0xa0
 
-# command: get areal detector (e3) variable
-CMD_GET_AREALDETECTOR_VARIABLE = 0xa1
+# command: get multi-entry/multi-exit detector (e3) variable
+CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE = 0xa1
 
 # command: get traffic lights variable
 CMD_GET_TL_VARIABLE = 0xa2
@@ -78,11 +78,11 @@ TYPE_COMPOUND = 0x0F
 # ****************************************
 # VARIABLE TYPES (for CMD_GET_*_VARIABLE)
 # ****************************************
-# list of instances' ids (get: induction loops, areal detector, traffic lights)
+# list of instances' ids (get: induction loops, multi-entry/multi-exit detector, traffic lights)
 ID_LIST = 0x00
 
 
-# last step vehicle number (get: induction loops, areal detector)
+# last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
 LAST_STEP_VEHICLE_NUMBER = 0x10
 
 # last step vehicle number (get: induction loops)
@@ -236,7 +236,7 @@ def readHead(result):
     result.read("!B")     # Length
     result.read("!B")     # Identifier
     result.read("!B")     # Variable
-    result.readString()   # Induction Loop ID // Areal Detector ID // Traffic Light ID
+    result.readString()   # Induction Loop ID // Multi-Entry/Multi-Exit Detector ID // Traffic Light ID
     result.read("!B")     # Return type of the variable
     
 def initTraCI(port):
@@ -293,33 +293,33 @@ def cmdGetInductionLoopVariable_vehicleIds(IndLoopID):
   
 
 
-def cmdGetArealDetectorVariable_idList(ArealDetID):
-    _message.queue.append(CMD_GET_AREALDETECTOR_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(ArealDetID), CMD_GET_AREALDETECTOR_VARIABLE, ID_LIST, len(ArealDetID)) + ArealDetID
+def cmdGetMultiEntryExitDetectorVariable_idList(MultiEntryExitDetID):
+    _message.queue.append(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE)
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(MultiEntryExitDetID), CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, ID_LIST, len(MultiEntryExitDetID)) + MultiEntryExitDetID
 
     result = _sendExact()
     readHead(result)
     return result.readStringList()           # Variable value 
 
-def cmdGetArealDetectorVariable_lastStepVehicleNumber(ArealDetID):
-    _message.queue.append(CMD_GET_AREALDETECTOR_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(ArealDetID), CMD_GET_AREALDETECTOR_VARIABLE, LAST_STEP_VEHICLE_NUMBER, len(ArealDetID)) + ArealDetID
+def cmdGetMultiEntryExitDetectorVariable_lastStepVehicleNumber(MultiEntryExitDetID):
+    _message.queue.append(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE)
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(MultiEntryExitDetID), CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_NUMBER, len(MultiEntryExitDetID)) + MultiEntryExitDetID
 
     result = _sendExact()
     readHead(result)
     return result.read("!i")[0]    # Variable value
 
-def cmdGetArealDetectorVariable_lastStepMeanSpeed(ArealDetID):
-    _message.queue.append(CMD_GET_AREALDETECTOR_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(ArealDetID), CMD_GET_AREALDETECTOR_VARIABLE, LAST_STEP_MEAN_SPEED, len(ArealDetID)) + ArealDetID
+def cmdGetMultiEntryExitDetectorVariable_lastStepMeanSpeed(MultiEntryExitDetID):
+    _message.queue.append(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE)
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(MultiEntryExitDetID), CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_MEAN_SPEED, len(MultiEntryExitDetID)) + MultiEntryExitDetID
 
     result = _sendExact()
     readHead(result)
     return result.read("!f")[0]    # Variable value    
 
-def cmdGetArealDetectorVariable_vehicleIds(ArealDetID):
-    _message.queue.append(CMD_GET_AREALDETECTOR_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(ArealDetID), CMD_GET_AREALDETECTOR_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, len(ArealDetID)) + ArealDetID
+def cmdGetMultiEntryExitDetectorVariable_vehicleIds(MultiEntryExitDetID):
+    _message.queue.append(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE)
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(MultiEntryExitDetID), CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, len(MultiEntryExitDetID)) + MultiEntryExitDetID
 
     result = _sendExact()
     readHead(result)
