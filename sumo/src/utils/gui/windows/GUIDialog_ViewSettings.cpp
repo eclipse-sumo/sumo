@@ -46,6 +46,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/foxtools/MFXImageHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -120,7 +121,7 @@ GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element,
 
 
 GUIDialog_ViewSettings::SchemeLoader::SchemeLoader(GUIVisualizationSettings &s) throw()
-        : mySettings(s) {
+        : mySettings(s), myZoom(-1), myXPos(-1), myYPos(-1), mySnapshotFile("") {
 }
 
 
@@ -132,6 +133,14 @@ void
 GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
+    case SUMO_TAG_VIEWPORT:
+        myZoom = attrs.getFloatSecure(SUMO_ATTR_ZOOM, myZoom);
+        myXPos = attrs.getFloatSecure(SUMO_ATTR_X, myXPos);
+        myYPos = attrs.getFloatSecure(SUMO_ATTR_Y, myYPos);
+        break;
+    case SUMO_TAG_SNAPSHOT:
+        mySnapshotFile = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+        break;
     case SUMO_TAG_VIEWSETTINGS_SCHEME:
         mySettings.name = attrs.getStringSecure("name", mySettings.name);
         break;
@@ -212,6 +221,29 @@ GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
     case SUMO_TAG_VIEWSETTINGS_LEGEND:
         mySettings.showSizeLegend = TplConvert<char>::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());
         break;
+    }
+}
+
+
+void
+GUIDialog_ViewSettings::SchemeLoader::setViewport(GUISUMOAbstractView* parent) throw() {
+    if (myZoom > 0) {
+        parent->setViewport(myZoom, myXPos, myYPos);
+    }
+}
+
+
+void
+GUIDialog_ViewSettings::SchemeLoader::makeSnapshot(GUISUMOAbstractView* parent) throw() {
+    if (mySnapshotFile != "") {
+        FXColor *buf = parent->getSnapshot();
+        try {
+            MFXImageHelper::saveimage(mySnapshotFile, parent->getWidth(), parent->getHeight(), buf);
+        } catch (...) {
+            string msg = "Could not save '" + mySnapshotFile + "'.\nMaybe the extension is unknown.";
+            FXMessageBox::error(parent, MBOX_OK, "Saving failed.", msg.c_str());
+        }
+        FXFREE(&buf);
     }
 }
 
@@ -1134,6 +1166,8 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file) throw() {
     myParent->getColoringSchemesCombo().appendItem(setting.name.c_str());
     myParent->getColoringSchemesCombo().setCurrentItem(index);
     myParent->setColorScheme((char*) setting.name.c_str());
+    loader.setViewport(myParent);
+    loader.makeSnapshot(myParent);
     mySettings = &gSchemeStorage.get(setting.name);
 }
 

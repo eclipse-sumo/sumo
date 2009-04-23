@@ -29,6 +29,9 @@
 
 #include <string>
 #include <fx.h>
+#include <FXPNGImage.h>
+#include <FXJPGImage.h>
+#include <FXTIFImage.h>
 #include "MFXImageHelper.h"
 
 #include <cassert>
@@ -36,12 +39,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-
-using namespace std;
-
 
 FXImage *
 MFXImageHelper::loadimage(FXApp *a, const std::string& file) {
@@ -63,23 +60,13 @@ MFXImageHelper::loadimage(FXApp *a, const std::string& file) {
         img=new FXRGBImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
     } else if (comparecase(ext,"xbm")==0) {
         img=new FXXBMImage(a,NULL,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    }
-#ifdef HAVE_PNG_H
-    else if (comparecase(ext,"png")==0) {
+    } else if (comparecase(ext,"png")==0) {
         img=new FXPNGImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    }
-#endif
-#ifdef HAVE_JPEG_H
-    else if (comparecase(ext,"jpg")==0) {
+    } else if (comparecase(ext,"jpg")==0) {
         img=new FXJPGImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    }
-#endif
-#ifdef HAVE_TIFF_H
-    else if (comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0) {
+    } else if (comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0) {
         img=new FXTIFImage(a,NULL,IMAGE_KEEP|IMAGE_SHMI|IMAGE_SHMP);
-    }
-#endif
-    else {
+    } else {
         return img;//!!!throw UnknownExtensionException();
     }
 
@@ -107,7 +94,7 @@ MFXImageHelper::loadimage(FXApp *a, const std::string& file) {
 // smell: yellow (the save functions may have additional options, not regarded)
 // Save file
 FXbool
-MFXImageHelper::saveimage(FXApp *, const std::string& file,
+MFXImageHelper::saveimage(const std::string& file,
                           int width, int height, FXColor *data) {
     FXString ext=FXPath::extension(file.c_str());
     FXFileStream stream;
@@ -138,29 +125,16 @@ MFXImageHelper::saveimage(FXApp *, const std::string& file,
     } else if (comparecase(ext,"xbm")==0) {
         return fxsaveXBM(stream,
                          data, width, height);
-    }
-#ifdef HAVE_PNG_H
-    else if (comparecase(ext,"png")==0) {
+    } else if (comparecase(ext,"png")==0) {
         return fxsavePNG(stream,
                          data, width, height);
-    }
-#endif
-#ifdef HAVE_JPEG_H
-    else if (comparecase(ext,"jpg")==0) {
+    } else if (comparecase(ext,"jpg")==0) {
         return fxsaveJPG(stream,
-                         data, width, height);
-    }
-#endif
-#ifdef HAVE_TIFF_H
-    else if (comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0) {
+                         data, width, height, 75);
+    } else if (comparecase(ext,"tif")==0 || comparecase(ext,"tiff")==0) {
         return fxsaveTIF(stream,
-                         data, width, height);
+                         data, width, height, 0);
     }
-#endif
-    else {
-        throw 1;
-    }
-
     throw 1; // not yet implemented
 }
 

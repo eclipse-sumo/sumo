@@ -201,8 +201,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
     FXColor *buf = myView->getSnapshot();
     // save
     try {
-        MFXImageHelper::saveimage(getApp(), file,
-                                  myView->getWidth(), myView->getHeight(), buf);
+        MFXImageHelper::saveimage(file, myView->getWidth(), myView->getHeight(), buf);
     } catch (...) {
         string msg = "Could not save '" + file + "'.\nMaybe the extension is unknown.";
         FXMessageBox::error(this, MBOX_OK, "Saving failed.",

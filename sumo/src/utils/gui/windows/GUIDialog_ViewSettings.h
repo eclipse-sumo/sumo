@@ -220,10 +220,25 @@ protected:
         void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
         //@}
 
+        /** @brief Sets the viewport which has been parsed
+         *
+         * @param[in] parent the view for which the viewport has to be set
+         */
+        void setViewport(GUISUMOAbstractView* parent) throw();
+
+        /** @brief Makes a snapshot if it has been parsed
+         *
+         * @param[in] parent the view which needs to be shot
+         */
+        void makeSnapshot(GUISUMOAbstractView* parent) throw();
 
     protected:
         /// @brief The settings to fill
         GUIVisualizationSettings &mySettings;
+        /// @brief The viewport loaded
+        SUMOReal myZoom, myXPos, myYPos;
+        /// @brief The file to save an potential snapshot to
+        std::string mySnapshotFile;
 
     };
 

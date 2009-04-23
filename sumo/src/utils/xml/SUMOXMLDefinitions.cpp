@@ -144,6 +144,8 @@ GenericSAXHandler::Tag sumotags[] = {
     { "legend", SUMO_TAG_VIEWSETTINGS_LEGEND },
     { "include", SUMO_TAG_INCLUDE },
     { "xi:include", SUMO_TAG_INCLUDE },
+    { "viewport", SUMO_TAG_VIEWPORT },
+    { "snapshot", SUMO_TAG_SNAPSHOT },
 
     { "",                 SUMO_TAG_NOTHING }
 };
@@ -303,6 +305,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "v",              SUMO_ATTR_V },
     { "ref",            SUMO_ATTR_REF },
     { "href",           SUMO_ATTR_HREF },
+    { "zoom",           SUMO_ATTR_ZOOM },
 
 
     { "",               SUMO_ATTR_NOTHING }
