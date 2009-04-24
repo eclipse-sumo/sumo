@@ -322,9 +322,6 @@ GUIRunThread::prepareDestruction() {
 
 void
 GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string &msg) {
-    if (!mySimulationInProgress) {
-        return;
-    }
     GUIEvent *e = new GUIEvent_Message(type, msg);
     myEventQue.add(e);
     myEventThrow.signal();
