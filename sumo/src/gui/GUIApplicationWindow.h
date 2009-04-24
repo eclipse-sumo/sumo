@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Class for the main gui window
+// The main window of the SUMO-gui.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -60,8 +60,10 @@ class GUIParameterTableWindow;
 // ===========================================================================
 /**
  * @class GUIApplicationWindow
- * The main window of the SUMO-gui. Contains the file opening support and
- * a canvas to display the simulation representations in.
+ * @brief The main window of the SUMO-gui.
+ *
+ * Contains the file opening support and a canvas to display the simulation 
+ *  representations in.
  *
  * Beside views on the simulation, showed within a MDI-window, the main window
  * may also have some further views (children) assigned which are stored
@@ -77,19 +79,24 @@ class GUIApplicationWindow :
     FXDECLARE(GUIApplicationWindow)
 public:
 
-    /** constructor */
-    GUIApplicationWindow(FXApp* a,
-                         int glWidth, int glHeight, const std::string &configPattern);
+    /** @brief Constructor
+     * @param[in] a The FOX application
+     * @param[in] configPattern The pattern used for loading configurations
+     */
+    GUIApplicationWindow(FXApp* a, const std::string &configPattern);
 
-    /** destructor */
+
+    /// @brief Destructor
     virtual ~GUIApplicationWindow();
 
-    /** @brief Creates the main window
-        (required by FOX) */
+
+    /// @brief Creates the main window (required by FOX)
     virtual void create();
+
 
     /// Detaches the tool/menu bar
     virtual void detach();
+
 
     void loadSelection(const std::string &file) const;
 
@@ -100,19 +107,21 @@ public:
 
     void setStatusBarText(const std::string &);
 
-public:
-    /// Closes the log window
-    void showLog();
 
-public:
+    /// @name Inter-thread event handling
+    /// @{
+
     virtual void eventOccured();
     void handleEvent_SimulationLoaded(GUIEvent *e);
     void handleEvent_SimulationStep(GUIEvent *e);
     void handleEvent_Message(GUIEvent *e);
     void handleEvent_SimulationEnded(GUIEvent *e);
+    /// @}
 
 
-public:
+
+    /// @name FOX-callbacks
+    /// @{
     long onCmdOpenConfiguration(FXObject*,FXSelector,void*);
     long onCmdOpenNetwork(FXObject*,FXSelector,void*);
     long onCmdReload(FXObject*,FXSelector,void*);
@@ -158,6 +167,7 @@ public:
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
+    /// @}
 
     FXGLCanvas *getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;

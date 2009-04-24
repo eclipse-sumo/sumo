@@ -48,10 +48,10 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
+GUIMainWindow::GUIMainWindow(FXApp* a)
         : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
         myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
-        myGLWidth(glWidth), myGLHeight(glHeight), myRunAtBegin(false) {
+        myRunAtBegin(false) {
 
     FXFontDesc fdesc;
     getApp()->getNormalFont()->getFontDesc(fdesc);
@@ -112,18 +112,6 @@ GUIMainWindow::removeChild(FXMainWindow *child) {
 FXFont *
 GUIMainWindow::getBoldFont() {
     return myBoldFont;
-}
-
-
-int
-GUIMainWindow::getMaxGLWidth() const {
-    return myGLWidth;
-}
-
-
-int
-GUIMainWindow::getMaxGLHeight() const {
-    return myGLHeight;
 }
 
 

@@ -505,8 +505,7 @@ main(int argc, char **argv) {
 
         // build the main window
         GUIApplicationWindow * window =
-            new GUIApplicationWindow(&application,
-                                     oc.getInt("w"), oc.getInt("h"), "*.sumo.cfg");
+            new GUIApplicationWindow(&application, "*.sumo.cfg");
         window->dependentBuild();
         gGradients = new GUIGradientStorage(window);
         initColoringSchemes(&application);

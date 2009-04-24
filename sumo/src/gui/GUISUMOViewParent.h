@@ -111,12 +111,6 @@ public:
     /// information whether the canvas may be rotated
 //    bool allowRotation() const;
 
-    /// Returns the maximum width of gl-windows
-    int getMaxGLWidth() const;
-
-    /// Returns the maximum height of gl-windows
-    int getMaxGLHeight() const;
-
     GUIMainWindow *getParent() {
         return myParent;
     }
@@ -136,19 +130,9 @@ private:
     /// information whether the canvas may be rotated
     //  bool myAllowRotation;
 
-    FXGroupBox  *groupBox;
-    FXTextField *JunctionNameTextField;
-    FXTextField *xPosTextField;
-    FXTextField *yPosTextField;
-    FXTextField *LaneNameTextField;
-    FXTextField *LaneStartTextField;
-    FXTextField *LaneEndTextField;
-    FXTextField *MaxSpeedTextField;
-    FXTextField *LengthTextField;
     /// the artifact chooser
     GUIDialog_GLObjChooser *myChooser;
 
-//    FXVerticalFrame *myContentFrame;
 
 protected:
     GUISUMOViewParent() { }

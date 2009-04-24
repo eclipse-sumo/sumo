@@ -142,12 +142,6 @@ public:
     /// A method that updates the tooltip
     void updateToolTip();
 
-    /// Returns the maximum width of gl-windows
-    int getMaxGLWidth() const;
-
-    /// Returns the maximum height of gl-windows
-    int getMaxGLHeight() const;
-
     /// paints the area to a buffer
     FXColor *getSnapshot();
 

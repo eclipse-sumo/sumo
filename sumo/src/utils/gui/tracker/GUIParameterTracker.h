@@ -69,12 +69,6 @@ public:
     /// Creates the window
     void create();
 
-    /// Returns the information about the largest width allowed for openGL-windows
-    int getMaxGLWidth() const;
-
-    /// Returns the information about the largest height allowed for openGL-windows
-    int getMaxGLHeight() const;
-
     /// Adds a further time line to display
     void addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
                     TrackerValueDesc *newTracked);

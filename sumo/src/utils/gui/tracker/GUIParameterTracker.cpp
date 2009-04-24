@@ -144,18 +144,6 @@ GUIParameterTracker::addVariable(GUIGlObject *o, const std::string &name,
 }
 
 
-int
-GUIParameterTracker::getMaxGLWidth() const {
-    return myApplication->getMaxGLWidth();
-}
-
-
-int
-GUIParameterTracker::getMaxGLHeight() const {
-    return myApplication->getMaxGLHeight();
-}
-
-
 void
 GUIParameterTracker::buildToolBar() {
     myToolBarDrag = new FXToolBarShell(this,FRAME_NORMAL);
@@ -560,18 +548,20 @@ long
 GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
         FXSelector,void*) {
     if (makeCurrent()) {
-        myWidthInPixels = myParent->getMaxGLWidth();
-        myHeightInPixels = myParent->getMaxGLHeight();
-        glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
-        glClearColor(1.0, 1.0, 1.0, 1);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_LIGHTING);
-        glDisable(GL_LINE_SMOOTH);
-        glEnable(GL_BLEND);
-        glEnable(GL_ALPHA_TEST);
-        glDisable(GL_COLOR_MATERIAL);
-        glLineWidth(1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        myWidthInPixels = myParent->getWidth();
+        myHeightInPixels = myParent->getHeight();
+        if (myWidthInPixels!=0&&myHeightInPixels!=0) {
+            glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
+            glClearColor(1.0, 1.0, 1.0, 1);
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_LIGHTING);
+            glDisable(GL_LINE_SMOOTH);
+            glEnable(GL_BLEND);
+            glEnable(GL_ALPHA_TEST);
+            glDisable(GL_COLOR_MATERIAL);
+            glLineWidth(1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
         makeNonCurrent();
     }
     return 1;

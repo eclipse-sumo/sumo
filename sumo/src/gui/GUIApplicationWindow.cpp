@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Class for the main gui window
+// The main window of the SUMO-gui.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -147,9 +147,8 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
 // member method definitions
 // ===========================================================================
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
-        int glWidth, int glHeight,
         const std::string &configPattern)
-        : GUIMainWindow(a, glWidth, glHeight),
+        : GUIMainWindow(a),
         myLoadThread(0), myRunThread(0),
         myAmLoading(false),
         mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false), myRecentNets(a, "nets") {

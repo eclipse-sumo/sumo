@@ -43,7 +43,7 @@
  */
 class GUIMainWindow : public FXMainWindow {
 public:
-    GUIMainWindow(FXApp* a, int glWidth, int glHeight);
+    GUIMainWindow(FXApp* a);
     virtual ~GUIMainWindow();
     /// Adds a further child window to the list
     void addChild(FXMDIChild *child, bool updateOnSimStep=true);
@@ -56,12 +56,6 @@ public:
     void updateChildren();
 
     FXFont *getBoldFont();
-
-    /// Returns the maximum width of gl-windows
-    int getMaxGLWidth() const;
-
-    /// Returns the maximum height of gl-windows
-    int getMaxGLHeight() const;
 
     FXGLVisual *getGLVisual() const;
 
@@ -98,9 +92,6 @@ protected:
 
     /// The gl-visual used
     FXGLVisual *myGLVisual;
-
-    /// The openGL-maximum screen sizes
-    int myGLWidth, myGLHeight;
 
     FXDockSite *myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
 

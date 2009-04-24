@@ -43,12 +43,6 @@
 void
 GUIFrame::fillInitOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
-    oc.doRegister("max-gl-width", 'w', new Option_Integer(1280));
-    oc.addDescription("max-gl-width", "Open GL", ""); // !!!
-
-    oc.doRegister("max-gl-height", 'h', new Option_Integer(1024));
-    oc.addDescription("max-gl-height", "Open GL", ""); // !!!
-
 
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");

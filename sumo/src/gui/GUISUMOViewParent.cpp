@@ -265,18 +265,6 @@ GUISUMOViewParent::setView(GUIGlObject *o) {
 }
 
 
-int
-GUISUMOViewParent::getMaxGLWidth() const {
-    return myParent->getMaxGLWidth();
-}
-
-
-int
-GUISUMOViewParent::getMaxGLHeight() const {
-    return myParent->getMaxGLHeight();
-}
-
-
 long
 GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
     myView->update();

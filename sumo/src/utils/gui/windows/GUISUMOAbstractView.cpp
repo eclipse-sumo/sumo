@@ -641,17 +641,6 @@ GUISUMOAbstractView::makeCurrent() {
 
 
 
-int
-GUISUMOAbstractView::getMaxGLWidth() const {
-    return myApp->getMaxGLWidth();
-}
-
-int
-GUISUMOAbstractView::getMaxGLHeight() const {
-    return myApp->getMaxGLHeight();
-}
-
-
 long
 GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*) {
     if (makeCurrent()) {
