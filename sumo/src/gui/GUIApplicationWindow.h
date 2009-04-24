@@ -68,10 +68,6 @@ class GUIParameterTableWindow;
  * Beside views on the simulation, showed within a MDI-window, the main window
  * may also have some further views (children) assigned which are stored
  * within a separate list.
- *
- * As the aggregated visualisation is quite memory consuming and needs also
- * some cpu-time, it may be swichted of on gui-startup. The information
- * whether aggregated views are allowed is stored within this class, too.
  */
 class GUIApplicationWindow :
             public GUIMainWindow, public MFXInterThreadEventClient {
