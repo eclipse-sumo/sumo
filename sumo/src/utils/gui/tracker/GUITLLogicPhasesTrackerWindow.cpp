@@ -62,6 +62,89 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
+ * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-callbacks
+ * ----------------------------------------------------------------------- */
+FXDEFMAP(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel) GUITLLogicPhasesTrackerPanelMap[]={
+    FXMAPFUNC(SEL_CONFIGURE, 0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint),
+
+};
+
+// Macro for the GLTestApp class hierarchy implementation
+FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel,FXGLCanvas,GUITLLogicPhasesTrackerPanelMap,ARRAYNUMBER(GUITLLogicPhasesTrackerPanelMap))
+
+
+
+/* -------------------------------------------------------------------------
+ * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-methods
+ * ----------------------------------------------------------------------- */
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
+    FXComposite *c, GUIMainWindow &app,
+    GUITLLogicPhasesTrackerWindow &parent) throw()
+        : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
+        myParent(&parent), myApplication(&app) {}
+
+
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() throw() {}
+
+
+long
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
+    FXObject*,FXSelector,void*) {
+    if (makeCurrent()) {
+        int widthInPixels = getWidth();
+        int heightInPixels = getHeight();
+        if (widthInPixels!=0&&heightInPixels!=0) {
+            glViewport(0, 0, widthInPixels-1, heightInPixels-1);
+            glClearColor(0, 0, 0, 1);
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_LIGHTING);
+            glDisable(GL_LINE_SMOOTH);
+            glEnable(GL_BLEND);
+            glEnable(GL_ALPHA_TEST);
+            glDisable(GL_COLOR_MATERIAL);
+            glLineWidth(1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+    }
+    return 1;
+}
+
+
+long
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
+    FXObject*,FXSelector,void*) {
+    if (!isEnabled()) {
+        return 1;
+    }
+    if (makeCurrent()) {
+        int widthInPixels = getWidth();
+        int heightInPixels = getHeight();
+        if (widthInPixels!=0&&heightInPixels!=0) {
+            glViewport(0, 0, widthInPixels-1, heightInPixels-1);
+            glClearColor(0, 0, 0, 1);
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_LIGHTING);
+            glDisable(GL_LINE_SMOOTH);
+            glEnable(GL_BLEND);
+            glEnable(GL_ALPHA_TEST);
+            glDisable(GL_COLOR_MATERIAL);
+            glLineWidth(1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            // draw
+            glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+            myParent->drawValues(*this);
+            glFlush();
+            swapBuffers();
+        }
+        makeNonCurrent();
+    }
+    return 1;
+}
+
+
+
+/* -------------------------------------------------------------------------
  * GUITLLogicPhasesTrackerWindow - FOX callback mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUITLLogicPhasesTrackerWindow) GUITLLogicPhasesTrackerWindowMap[]={
@@ -80,7 +163,7 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow,FXMainWindow,GUITLLogicPhasesTrackerWi
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow &app,
     MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
-    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src)
+    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src) throw()
         : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
                        20,20,300,200),
         myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
@@ -117,7 +200,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow &app,
     MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &/*wrapper*/,
-    const MSSimpleTrafficLightLogic::Phases &/*phases*/)
+    const MSSimpleTrafficLightLogic::Phases &/*phases*/) throw()
         : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
                        20,20,300,200),
         myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
@@ -141,7 +224,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 }
 
 
-GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() {
+GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() throw() {
     myApplication->removeChild(this);
     delete myConnector;
     // just to quit cleanly on a failure
@@ -161,20 +244,8 @@ GUITLLogicPhasesTrackerWindow::create() {
 }
 
 
-int
-GUITLLogicPhasesTrackerWindow::getMaxGLWidth() const {
-    return myApplication->getMaxGLWidth();
-}
-
-
-int
-GUITLLogicPhasesTrackerWindow::getMaxGLHeight() const {
-    return myApplication->getMaxGLHeight();
-}
-
-
 void
-GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) {
+GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) throw() {
     // compute what shall be shown (what is visible)
     myFirstPhase2Show = 0;
     myFirstPhaseOffset = 0;
@@ -230,8 +301,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
     // compute some values needed more than once
-    SUMOReal height = (SUMOReal) caller.getHeightInPixels();
-    SUMOReal width = (SUMOReal) caller.getWidthInPixels();
+    SUMOReal height = (SUMOReal) caller.getHeight();
+    SUMOReal width = (SUMOReal) caller.getWidth();
     pfSetScaleXY((SUMOReal)(.08*300./width), (SUMOReal)(.08*300./height));
     SUMOReal h4 = ((SUMOReal) 4 / height);
     SUMOReal h10 = ((SUMOReal) 10 / height);
@@ -394,7 +465,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
 
 
 void
-GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition>  def) {
+GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> def) throw() {
     // do not draw while adding
     myLock.lock();
     // set the first time if not set before
@@ -442,99 +513,9 @@ GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
 
 
 void
-GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time) {
+GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time) throw() {
     myBeginTime = time;
 }
-
-
-/* -------------------------------------------------------------------------
- * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-methods
- * ----------------------------------------------------------------------- */
-FXDEFMAP(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel) GUITLLogicPhasesTrackerPanelMap[]={
-    FXMAPFUNC(SEL_CONFIGURE, 0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure),
-    FXMAPFUNC(SEL_PAINT,     0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint),
-
-};
-
-// Macro for the GLTestApp class hierarchy implementation
-FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel,FXGLCanvas,GUITLLogicPhasesTrackerPanelMap,ARRAYNUMBER(GUITLLogicPhasesTrackerPanelMap))
-
-
-
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
-    FXComposite *c, GUIMainWindow &app,
-    GUITLLogicPhasesTrackerWindow &parent)
-        : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
-        myParent(&parent), myApplication(&app) {}
-
-
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() {}
-
-
-size_t
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getHeightInPixels() const {
-    return myHeightInPixels;
-}
-
-
-size_t
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getWidthInPixels() const {
-    return myWidthInPixels;
-}
-
-
-long
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
-    FXObject*,FXSelector,void*) {
-    if (makeCurrent()) {
-        myWidthInPixels = myParent->getMaxGLWidth();
-        myHeightInPixels = myParent->getMaxGLHeight();
-        glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
-        glClearColor(0, 0, 0, 1);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_LIGHTING);
-        glDisable(GL_LINE_SMOOTH);
-        glEnable(GL_BLEND);
-        glEnable(GL_ALPHA_TEST);
-        glDisable(GL_COLOR_MATERIAL);
-        glLineWidth(1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-    return 1;
-}
-
-
-long
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
-    FXObject*,FXSelector,void*) {
-    if (!isEnabled()) {
-        return 1;
-    }
-    if (makeCurrent()) {
-        myWidthInPixels = getWidth();
-        myHeightInPixels = getHeight();
-        if (myWidthInPixels!=0&&myHeightInPixels!=0) {
-            glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
-            glClearColor(0, 0, 0, 1);
-            glDisable(GL_DEPTH_TEST);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_LINE_SMOOTH);
-            glEnable(GL_BLEND);
-            glEnable(GL_ALPHA_TEST);
-            glDisable(GL_COLOR_MATERIAL);
-            glLineWidth(1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            // draw
-            glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-            myParent->drawValues(*this);
-            glFlush();
-            swapBuffers();
-        }
-        makeNonCurrent();
-    }
-    return 1;
-}
-
 
 
 /****************************************************************************/
