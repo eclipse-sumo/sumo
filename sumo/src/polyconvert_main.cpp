@@ -280,7 +280,6 @@ main(int argc, char **argv) {
             return 0;
         }
         MsgHandler::initOutputOptions();
-        RandHelper::initRandGlobal();
         // build the projection
         Boundary origNetBoundary;
         Position2D netOffset;
