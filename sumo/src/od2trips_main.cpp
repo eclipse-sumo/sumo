@@ -86,7 +86,7 @@ fillOptions() {
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Defaults");
-    oc.addOptionSubTopic("Report");
+    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
     // register the file input options
@@ -160,17 +160,8 @@ fillOptions() {
 
 
     // register report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.addDescription("verbose", "Report", "Switches to verbose output");
-
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
-
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.addDescription("print-options", "Report", "Prints option values before processing");
-
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.addDescription("help", "Report", "Prints this screen");
 
     oc.doRegister("log-file", 'l', new Option_FileName());
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");

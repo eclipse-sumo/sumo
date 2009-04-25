@@ -346,10 +346,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\div\GUIFrame.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIGlobalSelection.cpp"
 				>
 			</File>
@@ -393,10 +389,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\div\GUIFrame.h"
 				>
 			</File>
 			<File

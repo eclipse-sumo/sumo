@@ -48,9 +48,9 @@
 
    <report>
       <verbose>false</verbose>
-      <suppress-warnings>false</suppress-warnings>
       <print-options>false</print-options>
       <help>false</help>
+      <suppress-warnings>false</suppress-warnings>
       <log-file></log-file>
       <stats-period>-1</stats-period>
    </report>

@@ -63,6 +63,14 @@ public:
     static void addConfigurationOptions(OptionsCont &oc);
 
 
+    /** @brief Adds reporting options to the given container
+     *
+     * @param[in] oc The options container to add the options to
+     * @todo let the container be retrieved
+     */
+    static void addReportOptions(OptionsCont &oc);
+
+
     /** @brief Closes all of an applications subsystems
      *
      * Closes (in this order)

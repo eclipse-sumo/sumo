@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r6787
+SUMO sumo Version dev-SVN-r7068
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -76,9 +76,9 @@ Usage: sumo.exe [OPTION]*
 
  Report Options:
   -v, --verbose                       Switches to verbose output
-  -W, --suppress-warnings             Disables output of warnings
   -p, --print-options                 Prints option values before processing
   -?, --help                          Prints this screen
+  -W, --suppress-warnings             Disables output of warnings
   -l, --log-file FILE                 Writes all messages to FILE
   --message-log FILE                  Writes all non-error messages to FILE
   --error-log FILE                    Writes all warnings and errors to FILE
@@ -112,11 +112,6 @@ Usage: sumo.exe [OPTION]*
   --device.routing.period INT         The period with which the vehicle shall
                                         be rerouted
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
-  --device.hbefa.probability FLOAT    The probability for a vehicle to have an
-                                        emission logging device
-  --device.hbefa.knownveh STR         Assign a device to named vehicles
-  --device.hbefa.deterministic        The devices are set deterministic using a
-                                        fraction of 1000
 
  Cellular Options:
   --device.cell-phone.percent-of-activity  
@@ -139,10 +134,18 @@ Usage: sumo.exe [OPTION]*
   --device.cell-phone.sql-date STR    Sets the date to use in sql-dumps
 
  Emissions Options:
+  --device.hbefa.probability FLOAT    The probability for a vehicle to have an
+                                        emission logging device
+  --device.hbefa.knownveh STR         Assign a device to named vehicles
+  --device.hbefa.deterministic        The devices are set deterministic using a
+                                        fraction of 1000
 
  Random Number Options:
   --srand INT                         Initialises the random number generator
                                         with the given value
   --abs-rand                          Initialises the random number generator
                                         with the current system time
+
+ GUI Only Options:
+  --gui-settings-file FILE            Load visualisation settings from FILE
 

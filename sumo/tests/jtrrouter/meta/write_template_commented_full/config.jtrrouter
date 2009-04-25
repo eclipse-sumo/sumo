@@ -112,14 +112,14 @@
       <!-- Switches to verbose output -->
       <verbose>false</verbose>
 
-      <!-- Disables output of warnings -->
-      <suppress-warnings>false</suppress-warnings>
-
       <!-- Prints option values before processing -->
       <print-options>false</print-options>
 
       <!-- Prints this screen -->
       <help>false</help>
+
+      <!-- Disables output of warnings -->
+      <suppress-warnings>false</suppress-warnings>
 
       <!-- Writes all messages to FILE -->
       <log-file></log-file>

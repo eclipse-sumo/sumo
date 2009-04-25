@@ -52,9 +52,9 @@
 
    <report>
       <verbose>false</verbose>
-      <suppress-warnings>false</suppress-warnings>
       <print-options>false</print-options>
       <help>false</help>
+      <suppress-warnings>false</suppress-warnings>
       <log-file></log-file>
       <message-log></message-log>
       <error-log></error-log>
@@ -86,9 +86,6 @@
       <device.routing.deterministic>false</device.routing.deterministic>
       <device.routing.period>0</device.routing.period>
       <device.routing.adaptation-weight>0.5</device.routing.adaptation-weight>
-      <device.hbefa.probability>0</device.hbefa.probability>
-      <device.hbefa.knownveh></device.hbefa.knownveh>
-      <device.hbefa.deterministic>false</device.hbefa.deterministic>
    </routing>
 
    <cellular>
@@ -112,9 +109,19 @@
       <device.cell-phone.sql-date>1970-01-01</device.cell-phone.sql-date>
    </cellular>
 
+   <emissions>
+      <device.hbefa.probability>0</device.hbefa.probability>
+      <device.hbefa.knownveh></device.hbefa.knownveh>
+      <device.hbefa.deterministic>false</device.hbefa.deterministic>
+   </emissions>
+
    <random_number>
       <srand>23423</srand>
       <abs-rand>false</abs-rand>
    </random_number>
+
+   <gui_only>
+      <gui-settings-file></gui-settings-file>
+   </gui_only>
 
 </configuration>

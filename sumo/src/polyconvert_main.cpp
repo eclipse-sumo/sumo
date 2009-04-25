@@ -51,7 +51,6 @@
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/common/RandHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -80,7 +79,7 @@ fillOptions() throw() {
     oc.addOptionSubTopic("Projection");
     oc.addOptionSubTopic("Prunning");
     oc.addOptionSubTopic("Building Defaults");
-    oc.addOptionSubTopic("Report");
+    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
     // register options
@@ -179,24 +178,11 @@ fillOptions() throw() {
 
 
     // register report options
-    oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.addDescription("verbose", "Report", "Switches to verbose output");
-
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
 
-    oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.addDescription("print-options", "Report", "Prints option values before processing");
-
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.addDescription("help", "Report", "Prints this screen");
-
     oc.doRegister("log-file", 'l', new Option_FileName());
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");
-
-
-    // random initialisation (not used!!!)
-    RandHelper::insertRandOptions();
 }
 
 

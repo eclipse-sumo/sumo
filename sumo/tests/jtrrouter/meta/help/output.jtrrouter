@@ -1,4 +1,4 @@
-SUMO jtrrouter Version dev-SVN-r6978
+SUMO jtrrouter Version dev-SVN-r7068
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -61,9 +61,9 @@ Usage: jtrrouter.exe [OPTION]*
 
  Report Options:
   -v, --verbose                    Switches to verbose output
-  -W, --suppress-warnings          Disables output of warnings
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
+  -W, --suppress-warnings          Disables output of warnings
   -l, --log-file FILE              Writes all messages to FILE
   --stats-period INT               Defines how often statistics shall be
                                      printed

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r6854
+SUMO netconvert Version dev-SVN-r7068
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -147,9 +147,9 @@ Usage: netconvert.exe [OPTION]*
 
  Report Options:
   -v, --verbose                        Switches to verbose output
-  -W, --suppress-warnings              Disables output of warnings
   -p, --print-options                  Prints option values before processing
   -?, --help                           Prints this screen
+  -W, --suppress-warnings              Disables output of warnings
   -l, --log-file FILE                  Writes all messages to FILE
 
  Random Number Options:

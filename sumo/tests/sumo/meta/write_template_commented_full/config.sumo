@@ -124,14 +124,14 @@
       <!-- Switches to verbose output -->
       <verbose>false</verbose>
 
-      <!-- Disables output of warnings -->
-      <suppress-warnings>false</suppress-warnings>
-
       <!-- Prints option values before processing -->
       <print-options>false</print-options>
 
       <!-- Prints this screen -->
       <help>false</help>
+
+      <!-- Disables output of warnings -->
+      <suppress-warnings>false</suppress-warnings>
 
       <!-- Writes all messages to FILE -->
       <log-file></log-file>
@@ -208,15 +208,6 @@
       <!-- The weight of prior edge weights. -->
       <device.routing.adaptation-weight>0.5</device.routing.adaptation-weight>
 
-      <!-- The probability for a vehicle to have an emission logging device -->
-      <device.hbefa.probability>0</device.hbefa.probability>
-
-      <!-- Assign a device to named vehicles -->
-      <device.hbefa.knownveh></device.hbefa.knownveh>
-
-      <!-- The devices are set deterministic using a fraction of 1000 -->
-      <device.hbefa.deterministic>false</device.hbefa.deterministic>
-
    </routing>
 
    <cellular>
@@ -276,6 +267,18 @@
 
    </cellular>
 
+   <emissions>
+      <!-- The probability for a vehicle to have an emission logging device -->
+      <device.hbefa.probability>0</device.hbefa.probability>
+
+      <!-- Assign a device to named vehicles -->
+      <device.hbefa.knownveh></device.hbefa.knownveh>
+
+      <!-- The devices are set deterministic using a fraction of 1000 -->
+      <device.hbefa.deterministic>false</device.hbefa.deterministic>
+
+   </emissions>
+
    <random_number>
       <!-- Initialises the random number generator with the given value -->
       <srand>23423</srand>
@@ -284,5 +287,11 @@
       <abs-rand>false</abs-rand>
 
    </random_number>
+
+   <gui_only>
+      <!-- Load visualisation settings from FILE -->
+      <gui-settings-file></gui-settings-file>
+
+   </gui_only>
 
 </configuration>

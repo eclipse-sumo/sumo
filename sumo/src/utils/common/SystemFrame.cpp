@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -70,6 +64,21 @@ SystemFrame::addConfigurationOptions(OptionsCont &oc) {
 
     oc.doRegister("save-template.commented", new Option_Bool(false));
     oc.addDescription("save-template.commented", "Configuration", "Adds comments to saved template");
+}
+
+
+void
+SystemFrame::addReportOptions(OptionsCont &oc) {
+    oc.addOptionSubTopic("Report");
+
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.addDescription("verbose", "Report", "Switches to verbose output");
+
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.addDescription("print-options", "Report", "Prints option values before processing");
+
+    oc.doRegister("help", '?', new Option_Bool(false));
+    oc.addDescription("help", "Report", "Prints this screen");
 }
 
 

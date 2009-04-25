@@ -2,7 +2,7 @@ noinst_LIBRARIES = libguiutilsdiv.a
 
 libguiutilsdiv_a_SOURCES = \
 GUIDialog_GLChosenEditor.cpp GUIDialog_GLChosenEditor.h \
-GUIFrame.cpp GUIFrame.h GUIGlobalSelection.cpp GUIGlobalSelection.h \
+GUIGlobalSelection.cpp GUIGlobalSelection.h \
 GUIIOGlobals.cpp GUIIOGlobals.h GUIMessageWindow.cpp GUIMessageWindow.h \
 GUIParam_PopupMenu.cpp GUIParam_PopupMenu.h \
 GUIParameterTableItem.h \

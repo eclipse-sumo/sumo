@@ -51,7 +51,6 @@
 #include <gui/GUIGlobals.h>
 #include <guisim/GUIEdge.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
@@ -439,12 +438,16 @@ fillOptions() {
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Process");
     oc.addOptionSubTopic("Visualisation");
-    oc.addOptionSubTopic("Open GL");
-    oc.addOptionSubTopic("Report");
+    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
+    oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
+    oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
 
-    // insert options
-    GUIFrame::fillInitOptions();
+    oc.doRegister("no-start", 'N', new Option_Bool(false));
+    oc.addDescription("no-start", "Process", "Does not start the simulation after loading");
+
+    oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
+    oc.addDescription("disable-textures", "Visualisation", "");
 }
 
 
@@ -479,7 +482,6 @@ main(int argc, char **argv) {
             SystemFrame::close();
             return 0;
         }
-        GUIFrame::checkInitOptions();
         // within gui-based applications, nothing is reported to the console
         MsgHandler::getErrorInstance()->report2cout(false);
         MsgHandler::getErrorInstance()->report2cerr(false);

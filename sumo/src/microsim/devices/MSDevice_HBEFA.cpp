@@ -64,13 +64,13 @@ MSDevice_HBEFA::insertOptions() throw() {
     oc.addOptionSubTopic("Emissions");
 
     oc.doRegister("device.hbefa.probability", new Option_Float(0.));//!!! describe
-    oc.addDescription("device.hbefa.probability", "Routing", "The probability for a vehicle to have an emission logging device");
+    oc.addDescription("device.hbefa.probability", "Emissions", "The probability for a vehicle to have an emission logging device");
 
     oc.doRegister("device.hbefa.knownveh", new Option_String());//!!! describe
-    oc.addDescription("device.hbefa.knownveh", "Routing", "Assign a device to named vehicles");
+    oc.addDescription("device.hbefa.knownveh", "Emissions", "Assign a device to named vehicles");
 
     oc.doRegister("device.hbefa.deterministic", new Option_Bool(false)); //!!! describe
-    oc.addDescription("device.hbefa.deterministic", "Routing", "The devices are set deterministic using a fraction of 1000");
+    oc.addDescription("device.hbefa.deterministic", "Emissions", "The devices are set deterministic using a fraction of 1000");
 
     myVehicleIndex = 0;
 }

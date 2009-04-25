@@ -67,7 +67,7 @@ RODUAFrame::fillOptions() {
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Defaults");
     oc.addOptionSubTopic("Time");
-    oc.addOptionSubTopic("Report");
+    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
     // insert options
     ROFrame::fillOptions(oc);

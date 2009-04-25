@@ -127,7 +127,7 @@ fillOptions() {
     oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
-    oc.addOptionSubTopic("Report");
+    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
     // register the options
