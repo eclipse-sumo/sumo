@@ -34,7 +34,6 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/foxtools/MFXMutex.h>
-#include <utils/xml/SUMOSAXHandler.h>
 
 
 // ===========================================================================
@@ -191,102 +190,15 @@ protected:
     void loadDecals(const std::string &file) throw();
 
 
-
-    /** @class SchemeLoader
-     * @brief An XML-handler for visualisation schemes
-     */
-    class SchemeLoader : public SUMOSAXHandler {
-    public:
-        /** @brief Constructor
-         * @param[in, out] s The settings to fill
-         */
-        SchemeLoader(GUIVisualizationSettings &s) throw();
-
-
-        /// @brief Destructor
-        ~SchemeLoader() throw();
-
-
-        /// @name inherited from GenericSAXHandler
-        //@{
-
-        /** @brief Called on the opening of a tag;
-         *
-         * @param[in] element ID of the currently opened element
-         * @param[in] attrs Attributes within the currently opened element
-         * @exception ProcessError If something fails
-         * @see GenericSAXHandler::myStartElement
-         */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
-        //@}
-
-        /** @brief Sets the viewport which has been parsed
-         *
-         * @param[in] parent the view for which the viewport has to be set
-         */
-        void setViewport(GUISUMOAbstractView* parent) throw();
-
-        /** @brief Makes a snapshot if it has been parsed
-         *
-         * @param[in] parent the view which needs to be shot
-         */
-        void makeSnapshot(GUISUMOAbstractView* parent) throw();
-
-    protected:
-        /// @brief The settings to fill
-        GUIVisualizationSettings &mySettings;
-        /// @brief The viewport loaded
-        SUMOReal myZoom, myXPos, myYPos;
-        /// @brief The file to save an potential snapshot to
-        std::string mySnapshotFile;
-
-    };
-
-
-
-    /** @class DecalsLoader
-     * @brief An XML-handler for decals
-     */
-    class DecalsLoader : public SUMOSAXHandler {
-    public:
-        /** @brief Constructor
-         * @param[in, out] s The decals list to fill
-         */
-        DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals) throw();
-
-
-        /// @brief Destructor
-        ~DecalsLoader() throw();
-
-
-        /// @name inherited from GenericSAXHandler
-        //@{
-
-        /** @brief Called on the opening of a tag;
-         *
-         * @param[in] element ID of the currently opened element
-         * @param[in] attrs Attributes within the currently opened element
-         * @exception ProcessError If something fails
-         * @see GenericSAXHandler::myStartElement
-         */
-        void myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError);
-        //@}
-
-
-    protected:
-        /// @brief The decals list to fill
-        std::vector<GUISUMOAbstractView::Decal> &myDecals;
-
-
-    };
-
-
 private:
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView *myParent;
 
     /// @brief The current settings
     GUIVisualizationSettings *mySettings;
+
+    /// @brief The number of settings which were present at startup
+    size_t myNumInitialSettings;
 
     /// @brief A backup of the settings (used if the "Cancel" button is pressed)
     GUIVisualizationSettings myBackup;

@@ -181,7 +181,7 @@ private:
     void closeAllWindows();
 
     /** opens a new simulation display */
-    void openNewView(GUISUMOViewParent::ViewType type);
+    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType type);
 
 protected:
     /// FOX needs this for static members

@@ -77,7 +77,7 @@ public:
                       FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
                      );
 
-    virtual void init(ViewType view, FXGLCanvas *share, GUINet &net);
+    virtual GUISUMOAbstractView* init(ViewType view, FXGLCanvas *share, GUINet &net);
 
 
     /// destructor

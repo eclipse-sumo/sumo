@@ -55,10 +55,11 @@ public:
     /// constructor
     GUIEvent_SimulationLoaded(GUINet *net,
                               SUMOTime startTime, SUMOTime endTime,
-                              const std::string &file)
+                              const std::string &file,
+                              const std::string &settingsFile)
             : GUIEvent(EVENT_SIMULATION_LOADED),
             myNet(net), myBegin(startTime), myEnd(endTime),
-            myFile(file) { }
+            myFile(file), mySettingsFile(settingsFile) { }
 
     /// destructor
     ~GUIEvent_SimulationLoaded() { }
@@ -75,6 +76,9 @@ public:
 
     /// the name of the loaded file
     std::string     myFile;
+
+    /// the name of the settings file to load
+    std::string     mySettingsFile;
 
 };
 

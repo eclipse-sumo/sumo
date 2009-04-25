@@ -499,9 +499,6 @@ main(int argc, char **argv) {
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
         gAllowTextures = !oc.getBool("disable-textures");
-        bool useConfig = oc.isSet("configuration-file");
-        string configFile = useConfig ? oc.getString("configuration-file") : "";
-        bool runAfterLoad = !oc.getBool("no-start");
 
         // build the main window
         GUIApplicationWindow * window =
@@ -511,14 +508,13 @@ main(int argc, char **argv) {
         initColoringSchemes(&application);
         // init simulation and visualization structures
         initGuiShapeNames();
-        // delete startup-options
-        OptionsCont::getOptions().clear();
         // Create app
         application.addSignal(SIGINT,window, MID_QUIT);
         application.create();
-        // Load configuration given oncommand line
-        if (useConfig) {
-            window->loadOnStartup(configFile, runAfterLoad);
+        // Load configuration given on command line
+        if (oc.isSet("configuration-file")) {
+            window->loadOnStartup(oc.getString("configuration-file"),
+                                  !oc.getBool("no-start"));
         }
         // Run
         ret = application.run();

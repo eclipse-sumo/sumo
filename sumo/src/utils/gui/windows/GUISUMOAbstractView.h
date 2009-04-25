@@ -148,7 +148,7 @@ public:
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
     void showToolTips(bool val);
-    virtual void setColorScheme(char*) { }
+    virtual void setColorScheme(const char*) { }
 
     void remove(GUIDialog_EditViewport *) {
         myViewportChooser = 0;
@@ -244,6 +244,10 @@ public:
     FXComboBox &getColoringSchemesCombo();
 
     Position2D getPositionInformation() const;
+
+    void addDecals(std::vector<Decal> &decals) {
+        myDecals.insert(myDecals.end(), decals.begin(), decals.end());
+    }
 
 
 protected:

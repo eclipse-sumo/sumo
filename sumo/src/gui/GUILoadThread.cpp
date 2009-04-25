@@ -95,7 +95,8 @@ GUILoadThread::run() {
     int simEndTime = 0;
 
     // remove old options
-    OptionsCont::getOptions().clear();
+    OptionsCont &oc = OptionsCont::getOptions();
+    oc.clear();
     // within gui-based applications, nothing is reported to the console
     MsgHandler::getErrorInstance()->report2cout(false);
     MsgHandler::getErrorInstance()->report2cerr(false);
@@ -121,11 +122,8 @@ GUILoadThread::run() {
         return 0;
     }
 
-
-
     RandHelper::initRandGlobal();
     // try to load
-    OptionsCont &oc = OptionsCont::getOptions();
     MSFrame::setMSGlobals(oc);
     net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
                      new GUIEventControl(), new GUIEventControl());
@@ -183,7 +181,8 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent *e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile);
+    GUIEvent *e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile,
+                                                OptionsCont::getOptions().getString("gui-settings-file"));
     myEventQue.add(e);
     myEventThrow.signal();
 }

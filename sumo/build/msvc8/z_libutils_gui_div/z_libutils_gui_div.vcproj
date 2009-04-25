@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="z_libutils_gui_div"
 	ProjectGUID="{E3AB9C37-6B5A-4D8C-88F3-DF750A493511}"
 	RootNamespace="z_libutils_gui_div"
@@ -374,6 +374,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\div\GUISettingsHandler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIUserIO.cpp"
 				>
 			</File>
@@ -421,6 +425,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUISelectedStorage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\div\GUISettingsHandler.h"
 				>
 			</File>
 			<File

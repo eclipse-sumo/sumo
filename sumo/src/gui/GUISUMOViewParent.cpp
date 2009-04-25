@@ -101,7 +101,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
 }
 
 
-void
+GUISUMOAbstractView*
 GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net) {
     /*
     // Make MDI Window Menu
@@ -141,6 +141,7 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net) {
 #endif
     }
     myView->buildViewToolBars(*this);
+    return myView;
 }
 
 

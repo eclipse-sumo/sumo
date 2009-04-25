@@ -45,9 +45,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/foxtools/MFXImageHelper.h>
-#include <utils/common/MsgHandler.h>
+#include <utils/gui/div/GUISettingsHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -92,166 +90,6 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ViewSettings::DecalsLoader::DecalsLoader(std::vector<GUISUMOAbstractView::Decal> &decals) throw()
-        : myDecals(decals) {
-}
-
-
-GUIDialog_ViewSettings::DecalsLoader::~DecalsLoader() throw() {
-}
-
-
-void
-GUIDialog_ViewSettings::DecalsLoader::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    switch (element) {
-    case SUMO_TAG_VIEWSETTINGS_DECAL: {
-        GUISUMOAbstractView::Decal d;
-        d.filename = attrs.getStringSecure("filename", d.filename);
-        d.centerX = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("centerX", toString(d.centerX)).c_str());
-        d.centerY = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("centerY", toString(d.centerY)).c_str());
-        d.width = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("width", toString(d.width)).c_str());
-        d.height = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("height", toString(d.height)).c_str());
-        d.rot = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
-        d.initialised = false;
-        myDecals.push_back(d);
-    }
-    break;
-    }
-}
-
-
-GUIDialog_ViewSettings::SchemeLoader::SchemeLoader(GUIVisualizationSettings &s) throw()
-        : mySettings(s), myZoom(-1), myXPos(-1), myYPos(-1), mySnapshotFile("") {
-}
-
-
-GUIDialog_ViewSettings::SchemeLoader::~SchemeLoader() throw() {
-}
-
-
-void
-GUIDialog_ViewSettings::SchemeLoader::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    switch (element) {
-    case SUMO_TAG_VIEWPORT:
-        myZoom = attrs.getFloatSecure(SUMO_ATTR_ZOOM, myZoom);
-        myXPos = attrs.getFloatSecure(SUMO_ATTR_X, myXPos);
-        myYPos = attrs.getFloatSecure(SUMO_ATTR_Y, myYPos);
-        break;
-    case SUMO_TAG_SNAPSHOT:
-        mySnapshotFile = attrs.getStringSecure(SUMO_ATTR_FILE, "");
-        break;
-    case SUMO_TAG_VIEWSETTINGS_SCHEME:
-        mySettings.name = attrs.getStringSecure("name", mySettings.name);
-        break;
-    case SUMO_TAG_VIEWSETTINGS_OPENGL:
-        mySettings.antialiase = TplConvert<char>::_2bool(attrs.getStringSecure("antialiase", toString(mySettings.antialiase)).c_str());
-        mySettings.dither = TplConvert<char>::_2bool(attrs.getStringSecure("dither", toString(mySettings.dither)).c_str());
-        break;
-    case SUMO_TAG_VIEWSETTINGS_BACKGROUND:
-        mySettings.backgroundColor = RGBColor::parseColor(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)));
-        mySettings.showGrid = TplConvert<char>::_2bool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)).c_str());
-        mySettings.gridXSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
-        mySettings.gridYSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
-        break;
-    case SUMO_TAG_VIEWSETTINGS_EDGES:
-        mySettings.laneEdgeMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeMode", toString(mySettings.laneEdgeMode)).c_str());
-        mySettings.laneShowBorders = TplConvert<char>::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
-        mySettings.showLinkDecals = TplConvert<char>::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
-        mySettings.showRails = TplConvert<char>::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
-        mySettings.drawEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawEdgeName", toString(mySettings.drawEdgeName)).c_str());
-        mySettings.edgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("edgeNameSize", toString(mySettings.edgeNameSize)).c_str());
-        mySettings.edgeNameColor = RGBColor::parseColor(attrs.getStringSecure("edgeNameColor", toString(mySettings.edgeNameColor)));
-        mySettings.drawInternalEdgeName = TplConvert<char>::_2bool(attrs.getStringSecure("drawInternalEdgeName", toString(mySettings.drawInternalEdgeName)).c_str());
-        mySettings.internalEdgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("internalEdgeNameSize", toString(mySettings.internalEdgeNameSize)).c_str());
-        mySettings.internalEdgeNameColor = RGBColor::parseColor(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)));
-        mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
-        break;
-    case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM: {
-        int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
-        RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
-        if (mySettings.laneColorings.find(index)==mySettings.laneColorings.end()) {
-            mySettings.laneColorings[index] = vector<RGBColor>();
-        }
-        mySettings.laneColorings[index].push_back(value);
-    }
-    break;
-    case SUMO_TAG_VIEWSETTINGS_VEHICLES:
-        mySettings.vehicleMode = TplConvert<char>::_2int(attrs.getStringSecure("vehicleMode", toString(mySettings.vehicleMode)).c_str());
-        mySettings.vehicleQuality = TplConvert<char>::_2int(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)).c_str());
-        mySettings.minVehicleSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minVehicleSize", toString(mySettings.minVehicleSize)).c_str());
-        mySettings.vehicleExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleExaggeration", toString(mySettings.vehicleExaggeration)).c_str());
-        mySettings.showBlinker = TplConvert<char>::_2bool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)).c_str());
-        mySettings.drawVehicleName = TplConvert<char>::_2bool(attrs.getStringSecure("drawVehicleName", toString(mySettings.drawVehicleName)).c_str());
-        mySettings.vehicleNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleNameSize", toString(mySettings.vehicleNameSize)).c_str());
-        mySettings.vehicleNameColor = RGBColor::parseColor(attrs.getStringSecure("vehicleNameColor", toString(mySettings.vehicleNameColor)));
-        break;
-    case SUMO_TAG_VIEWSETTINGS_VEHICLE_COLOR_ITEM: {
-        int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
-        RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
-        if (mySettings.vehicleColorings.find(index)==mySettings.vehicleColorings.end()) {
-            mySettings.vehicleColorings[index] = vector<RGBColor>();
-        }
-        mySettings.vehicleColorings[index].push_back(value);
-    }
-    break;
-    case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
-        mySettings.junctionMode = TplConvert<char>::_2int(attrs.getStringSecure("junctionMode", toString(mySettings.junctionMode)).c_str());
-        mySettings.drawLinkTLIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkTLIndex", toString(mySettings.drawLinkTLIndex)).c_str());
-        mySettings.drawLinkJunctionIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkJunctionIndex", toString(mySettings.drawLinkJunctionIndex)).c_str());
-        mySettings.drawJunctionName = TplConvert<char>::_2bool(attrs.getStringSecure("drawJunctionName", toString(mySettings.drawJunctionName)).c_str());
-        mySettings.junctionNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("junctionNameSize", toString(mySettings.junctionNameSize)).c_str());
-        mySettings.junctionNameColor = RGBColor::parseColor(attrs.getStringSecure("junctionNameColor", toString(mySettings.junctionNameColor)));
-        mySettings.showLane2Lane = TplConvert<char>::_2bool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)).c_str());
-        break;
-    case SUMO_TAG_VIEWSETTINGS_ADDITIONALS:
-        mySettings.addMode = TplConvert<char>::_2int(attrs.getStringSecure("addMode", toString(mySettings.addMode)).c_str());
-        mySettings.minAddSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minAddSize", toString(mySettings.minAddSize)).c_str());
-        mySettings.addExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("addExaggeration", toString(mySettings.addExaggeration)).c_str());
-        mySettings.drawAddName = TplConvert<char>::_2bool(attrs.getStringSecure("drawAddName", toString(mySettings.drawAddName)).c_str());
-        mySettings.addNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("addNameSize", toString(mySettings.addNameSize)).c_str());
-        break;
-    case SUMO_TAG_VIEWSETTINGS_POIS:
-        mySettings.poiExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("poiExaggeration", toString(mySettings.poiExaggeration)).c_str());
-        mySettings.minPOISize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minPOISize", toString(mySettings.minPOISize)).c_str());
-        mySettings.drawPOIName = TplConvert<char>::_2bool(attrs.getStringSecure("drawPOIName", toString(mySettings.drawPOIName)).c_str());
-        mySettings.poiNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("poiNameSize", toString(mySettings.poiNameSize)).c_str());
-        mySettings.poiNameColor = RGBColor::parseColor(attrs.getStringSecure("poiNameColor", toString(mySettings.poiNameColor)));
-        break;
-    case SUMO_TAG_VIEWSETTINGS_LEGEND:
-        mySettings.showSizeLegend = TplConvert<char>::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());
-        break;
-    }
-}
-
-
-void
-GUIDialog_ViewSettings::SchemeLoader::setViewport(GUISUMOAbstractView* parent) throw() {
-    if (myZoom > 0) {
-        parent->setViewport(myZoom, myXPos, myYPos);
-    }
-}
-
-
-void
-GUIDialog_ViewSettings::SchemeLoader::makeSnapshot(GUISUMOAbstractView* parent) throw() {
-    if (mySnapshotFile != "") {
-        FXColor *buf = parent->getSnapshot();
-        try {
-            if (!MFXImageHelper::saveImage(mySnapshotFile, parent->getWidth(), parent->getHeight(), buf)) {
-                MsgHandler::getWarningInstance()->inform("Could not save '" + mySnapshotFile + "'.");
-            }
-        } catch (InvalidArgument e) {
-            MsgHandler::getWarningInstance()->inform("Could not save '" + mySnapshotFile + "'.\n" + e.what());
-        }
-        FXFREE(&buf);
-    }
-}
-
-
-
-
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     GUISUMOAbstractView *parent,
     GUIVisualizationSettings *settings,
@@ -276,9 +114,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         mySchemeName = new FXComboBox(frame0, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, COMBOBOX_INSERT_LAST|FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_CENTER_Y|COMBOBOX_STATIC);
         const std::vector<std::string> &names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
-            mySchemeName->appendItem((*i).c_str());
+            size_t index = mySchemeName->appendItem((*i).c_str());
+            if ((*i) == mySettings->name) {
+                mySchemeName->setCurrentItem(index);
+            }
         }
         mySchemeName->setNumVisible(5);
+        myNumInitialSettings = names.size();
 
         new FXButton(frame0,"\t\tSave the setting to registry",
                      GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE,
@@ -839,7 +681,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
             break;
         }
     }
-    myParent->setColorScheme((char*) mySettings->name.c_str());
+    myParent->setColorScheme(mySettings->name.c_str());
     update();
     myParent->update();
     return 1;
@@ -969,17 +811,17 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     }
     gSchemeStorage.add(tmpSettings);
     int index = mySchemeName->getCurrentItem();
-    if (index<3) { // !!!!
+    if (index<myNumInitialSettings) {
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         gSchemeStorage.add(tmpSettings);
         mySchemeName->setCurrentItem(index);
         myParent->getColoringSchemesCombo().appendItem(tmpSettings.name.c_str());
         myParent->getColoringSchemesCombo().setCurrentItem(index);
-        myParent->setColorScheme((char*) tmpSettings.name.c_str());
+        myParent->setColorScheme(tmpSettings.name.c_str());
     } else {
         mySchemeName->setItemText(index, tmpSettings.name.c_str());
         myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
-        myParent->setColorScheme((char*) tmpSettings.name.c_str());
+        myParent->setColorScheme(tmpSettings.name.c_str());
     }
     mySettings = &gSchemeStorage.get(tmpSettings.name);
 
@@ -996,9 +838,9 @@ void
 GUIDialog_ViewSettings::writeSettings() throw() {
     const std::map<std::string, GUIVisualizationSettings> &items = gSchemeStorage.getItems();
     const std::vector<std::string> &names = gSchemeStorage.getNames();
-    getApp()->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-3);//!!!
+    getApp()->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-myNumInitialSettings);
     size_t gidx = 0;
-    for (std::vector<std::string>::const_iterator i=names.begin()+3; i!=names.end(); ++i, ++gidx) {
+    for (std::vector<std::string>::const_iterator i=names.begin()+myNumInitialSettings; i!=names.end(); ++i, ++gidx) {
         size_t k, index;
         std::map<int, std::vector<RGBColor> >::const_iterator j;
 
@@ -1159,18 +1001,13 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
 
 void
 GUIDialog_ViewSettings::loadSettings(const std::string &file) throw() {
-    GUIVisualizationSettings setting;
-    SchemeLoader loader(setting);
-    XMLSubSys::runParser(loader, file);
-    FXint index = mySchemeName->appendItem(setting.name.c_str());
-    gSchemeStorage.add(setting);
-    mySchemeName->setCurrentItem(index);
-    myParent->getColoringSchemesCombo().appendItem(setting.name.c_str());
-    myParent->getColoringSchemesCombo().setCurrentItem(index);
-    myParent->setColorScheme((char*) setting.name.c_str());
-    loader.setViewport(myParent);
-    loader.makeSnapshot(myParent);
-    mySettings = &gSchemeStorage.get(setting.name);
+    GUISettingsHandler handler(file);
+    std::string settingsName = handler.addSettings(myParent);
+    if (settingsName != "") {
+        FXint index = mySchemeName->appendItem(settingsName.c_str());
+        mySchemeName->setCurrentItem(index);
+        mySettings = &gSchemeStorage.get(settingsName);
+    }
 }
 
 
@@ -1201,10 +1038,10 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw() {
 void
 GUIDialog_ViewSettings::loadDecals(const std::string &file) throw() {
     myDecalsLock->lock();
-    vector<GUISUMOAbstractView::Decal> decals;
-    DecalsLoader loader(decals);
-    XMLSubSys::runParser(loader, file);
-    (*myDecals) = decals;
+    GUISettingsHandler handler(file);
+    if (handler.hasDecals()) {
+        (*myDecals) = handler.getDecals();
+    }
     rebuildList();
     myParent->update();
     myDecalsLock->unlock();
@@ -1214,7 +1051,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string &file) throw() {
 long
 GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
-    if (index<3) {
+    if (index<myNumInitialSettings) {
         return 1;
     }
     // get the name
@@ -1246,7 +1083,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
                 gSchemeStorage.add(tmpSettings);
                 mySchemeName->setItemText(index, tmpSettings.name.c_str());
                 myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
-                myParent->setColorScheme((char*) tmpSettings.name.c_str());
+                myParent->setColorScheme(tmpSettings.name.c_str());
                 mySettings = &gSchemeStorage.get(name);
                 myBackup = *mySettings;
                 writeSettings();
@@ -1264,7 +1101,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<3
+                   mySchemeName->getCurrentItem()<myNumInitialSettings
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;
@@ -1274,7 +1111,7 @@ GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
 long
 GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
-    if (index<3) {
+    if (index<myNumInitialSettings) {
         return 1;
     }
     string name = mySchemeName->getItem(index).text();
@@ -1289,7 +1126,7 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<3
+                   mySchemeName->getCurrentItem()<myNumInitialSettings
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;
@@ -1316,7 +1153,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<3
+                   mySchemeName->getCurrentItem()<myNumInitialSettings
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;

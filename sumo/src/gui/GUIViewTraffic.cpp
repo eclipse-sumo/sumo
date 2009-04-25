@@ -169,7 +169,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v) {
 
 
 void
-GUIViewTraffic::setColorScheme(char* data) {
+GUIViewTraffic::setColorScheme(const char* data) {
     string name = (char*) data;
     if (myVisualizationChanger!=0) {
         if (myVisualizationChanger->getCurrentScheme()!=name) {

@@ -18,3 +18,6 @@ errors
 
 # demonstration and regression tests for known bugs
 bugs
+
+# Tests for GUI features
+gui

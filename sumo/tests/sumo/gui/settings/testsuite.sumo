@@ -1,0 +1,5 @@
+# Loading a settings file at startup
+startup_load
+
+# Loading a settings file with decals at startup
+decals_load

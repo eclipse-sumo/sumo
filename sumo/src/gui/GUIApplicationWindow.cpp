@@ -72,6 +72,7 @@
 #include <guisim/GUINetWrapper.h>
 #include <guisim/GUISelectionLoader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUISettingsHandler.h>
 
 #ifdef HAVE_MESOSIM
 #include <microsim/MSGlobals.h>
@@ -918,15 +919,23 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         myWasStarted = false;
         // initialise views
         myViewNumber = 0;
+        GUISUMOAbstractView* view;
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
+            view = openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
         } else {
 #endif
-            openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
+            view = openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
 #ifdef HAVE_MESOSIM
         }
 #endif
+        if (view && ec->mySettingsFile != "") {
+            GUISettingsHandler settings(ec->mySettingsFile);
+            std::string settingsName = settings.addSettings(view);
+            view->addDecals(settings.getDecals());
+            settings.setViewport(view);
+            settings.makeSnapshot(view);
+        }
         // set simulation name on the caption
         string caption = "SUMO " + string(VERSION_STRING);
         setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
@@ -1026,25 +1035,26 @@ GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload) {
 
 
 
-void
+GUISUMOAbstractView*
 GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type) {
     if (!myRunThread->simulationAvailable()) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
-        return;
+        return 0;
     }
     string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = 0;
+    GUISUMOAbstractView* v = 0;
     if (myMDIClient->numChildren()==0) {
         w = new GUISUMOViewParent(myMDIClient, 0,
                                   myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
                                   this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
-        w->init(type, 0, myRunThread->getNet());
+        v = w->init(type, 0, myRunThread->getNet());
     } else {
         w = new GUISUMOViewParent(myMDIClient, getBuildGLCanvas(),
                                   myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
                                   this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
-        w->init(type, getBuildGLCanvas(), myRunThread->getNet());
+        v = w->init(type, getBuildGLCanvas(), myRunThread->getNet());
     }
     w->create();
     if (myMDIClient->numChildren()==1) {
@@ -1053,6 +1063,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type) {
         myMDIClient->vertical(true);
     }
     myMDIClient->setActiveChild(w);
+    return v;
 }
 
 

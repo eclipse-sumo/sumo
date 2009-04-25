@@ -8,5 +8,6 @@ GUIParam_PopupMenu.cpp GUIParam_PopupMenu.h \
 GUIParameterTableItem.h \
 GUIParameterTableWindow.cpp GUIParameterTableWindow.h \
 GUISelectedStorage.cpp GUISelectedStorage.h \
+GUISettingsHandler.cpp GUISettingsHandler.h \
 GUIUserIO.cpp GUIUserIO.h \
 GLHelper.cpp GLHelper.h

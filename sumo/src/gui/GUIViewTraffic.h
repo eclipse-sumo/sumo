@@ -86,7 +86,7 @@ public:
     void stopTrack();
     int getTrackedID() const;
 
-    void setColorScheme(char* data);
+    void setColorScheme(const char* data);
 
 
     /** @brief Shows a vehicle's route(s)
