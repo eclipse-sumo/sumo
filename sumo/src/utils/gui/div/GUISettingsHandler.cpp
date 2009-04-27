@@ -205,7 +205,7 @@ GUISettingsHandler::hasDecals() throw() {
 }
 
 
-std::vector<GUISUMOAbstractView::Decal>
+std::vector<GUISUMOAbstractView::Decal>&
 GUISettingsHandler::getDecals() throw() {
     return myDecals;
 }

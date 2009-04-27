@@ -93,7 +93,7 @@ public:
      *
      * @return the parsed decals
      */
-    std::vector<GUISUMOAbstractView::Decal> getDecals() throw();
+    std::vector<GUISUMOAbstractView::Decal>& getDecals() throw();
 
 private:
     /// @brief The settings to fill
