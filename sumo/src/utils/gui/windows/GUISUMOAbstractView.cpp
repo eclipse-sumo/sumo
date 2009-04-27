@@ -963,15 +963,20 @@ void
 GUISUMOAbstractView::drawDecals() throw() {
     glPolygonOffset(0, 10);
     myDecalsLock.lock();
-    for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
+    for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end();) {
         GUISUMOAbstractView::Decal &d = *l;
         if (!d.initialised) {
             try {
                 FXImage *i = MFXImageHelper::loadImage(getApp(), d.filename);
+                if (MFXImageHelper::scalePower2(i)) {
+                    MsgHandler::getWarningInstance()->inform("Scaling '" + d.filename + "'.");
+                }
                 d.glID = GUITexturesHelper::add(i);
                 d.initialised = true;
             } catch (InvalidArgument e) {
-                MsgHandler::getWarningInstance()->inform("Could not load '" + d.filename + "'.\n" + e.what());
+                MsgHandler::getErrorInstance()->inform("Could not load '" + d.filename + "'.\n" + e.what());
+                l = myDecals.erase(l);
+                continue;
             }
         }
         glPushMatrix();
@@ -982,6 +987,7 @@ GUISUMOAbstractView::drawDecals() throw() {
         SUMOReal halfHeight((d.height / 2.));
         GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
         glPopMatrix();
+        ++l;
     }
     myDecalsLock.unlock();
 }

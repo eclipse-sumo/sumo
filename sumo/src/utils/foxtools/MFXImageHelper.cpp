@@ -57,6 +57,7 @@ MFXImageHelper::checkSupported(FXString ext) throw(InvalidArgument) {
     }
  }
 
+
 FXImage *
 MFXImageHelper::loadImage(FXApp *a, const std::string& file) {
     FXString ext=FXPath::extension(file.c_str());
@@ -88,22 +89,44 @@ MFXImageHelper::loadImage(FXApp *a, const std::string& file) {
         throw InvalidArgument("Unknown file extension for image '" + file + "'!");
     }
 
-    // Perhaps failed
-    if (img==NULL) {
-        throw InvalidArgument("Loading failed!");
-    }
-
-    // Load it
     FXFileStream stream;
-    if (stream.open(file.c_str(), FXStreamLoad)) {
+    if (img != NULL && stream.open(file.c_str(), FXStreamLoad)) {
         a->beginWaitCursor();
         img->loadPixels(stream);
         stream.close();
 
         img->create();
         a->endWaitCursor();
+    } else {
+        throw InvalidArgument("Loading failed!");
     }
     return img;
+}
+
+
+FXbool
+MFXImageHelper::scalePower2(FXImage *image) {
+    FXint newHeight;
+    for (FXint exp = 30; exp >= 0; exp--) {
+        newHeight = 2 << exp;
+        if (image->getHeight() & newHeight) break;
+    }
+    if (2 * newHeight - image->getHeight() < image->getHeight() - newHeight) {
+        newHeight *= 2;
+    }
+    FXint newWidth;
+    for (FXint exp = 30; exp >= 0; exp--) {
+        newWidth = 2 << exp;
+        if (image->getWidth() & newWidth) break;
+    }
+    if (2 * newWidth - image->getWidth() < image->getWidth() - newWidth) {
+        newWidth *= 2;
+    }
+    if (newHeight == image->getHeight() && newWidth == image->getWidth()) {
+        return false;
+    }
+    image->scale(newWidth, newHeight);
+    return true;
 }
 
 

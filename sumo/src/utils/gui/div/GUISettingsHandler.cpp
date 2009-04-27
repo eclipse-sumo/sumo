@@ -32,6 +32,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/gui/windows/GUIVisualizationSettings.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXImageHelper.h>
@@ -46,7 +47,7 @@
 // method definitions
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(std::string file) throw()
-        : myZoom(-1), myXPos(-1), myYPos(-1), mySnapshotFile("") {
+        : SUMOSAXHandler(file), myZoom(-1), myXPos(-1), myYPos(-1), mySnapshotFile("") {
     XMLSubSys::runParser(*this, file);
 }
 
@@ -150,6 +151,9 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_VIEWSETTINGS_DECAL: {
         GUISUMOAbstractView::Decal d;
         d.filename = attrs.getStringSecure("filename", d.filename);
+        if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
+            d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
+        }
         d.centerX = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("centerX", toString(d.centerX)).c_str());
         d.centerY = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("centerY", toString(d.centerY)).c_str());
         d.width = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("width", toString(d.width)).c_str());
