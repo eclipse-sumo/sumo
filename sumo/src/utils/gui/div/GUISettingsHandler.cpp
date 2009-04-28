@@ -67,6 +67,9 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_SNAPSHOT:
         mySnapshotFile = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+        if (mySnapshotFile != "" && !FileHelpers::isAbsolute(mySnapshotFile)) {
+            mySnapshotFile = FileHelpers::getConfigurationRelative(getFileName(), mySnapshotFile);
+        }
         break;
     case SUMO_TAG_VIEWSETTINGS_SCHEME:
         mySettings.name = attrs.getStringSecure("name", mySettings.name);
