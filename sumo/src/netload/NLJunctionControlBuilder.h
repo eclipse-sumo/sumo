@@ -463,7 +463,7 @@ protected:
     Position2D myPosition;
 
     /// @brief The absolute duration of a tls-control loop
-    size_t myAbsDuration;
+    SUMOTime myAbsDuration;
 
     /// @brief A definition of junction initialisation
     struct TLInitInfo {
