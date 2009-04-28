@@ -117,13 +117,13 @@ MSOffTrafficLightLogic::getPhase(unsigned int givenstep) const throw() {
 
 // ------------ Dynamic Information Retrieval
 unsigned int
-MSOffTrafficLightLogic::getCurrentPhaseIndex() const {
+MSOffTrafficLightLogic::getCurrentPhaseIndex() const throw() {
     return 0;
 }
 
 
 MSPhaseDefinition
-MSOffTrafficLightLogic::getCurrentPhaseDef() const {
+MSOffTrafficLightLogic::getCurrentPhaseDef() const throw() {
     return *myPhaseDefinition[0];
 }
 

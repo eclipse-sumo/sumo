@@ -103,19 +103,19 @@ MSSimpleTrafficLightLogic::getPhaseNumber() const throw() {
 
 
 const MSSimpleTrafficLightLogic::Phases &
-MSSimpleTrafficLightLogic::getPhases() const {
+MSSimpleTrafficLightLogic::getPhases() const throw() {
     return myPhases;
 }
 
 
 MSSimpleTrafficLightLogic::Phases &
-MSSimpleTrafficLightLogic::getPhases() {
+MSSimpleTrafficLightLogic::getPhases() throw() {
     return myPhases;
 }
 
 
 const MSPhaseDefinition &
-MSSimpleTrafficLightLogic::getPhase(size_t givenStep) const throw() {
+MSSimpleTrafficLightLogic::getPhase(unsigned int givenStep) const throw() {
     assert(myPhases.size()>givenStep);
     return *myPhases[givenStep];
 }
@@ -123,13 +123,13 @@ MSSimpleTrafficLightLogic::getPhase(size_t givenStep) const throw() {
 
 // ------------ Dynamic Information Retrieval
 unsigned int
-MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const {
+MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const throw() {
     return myStep;
 }
 
 
 MSPhaseDefinition
-MSSimpleTrafficLightLogic::getCurrentPhaseDef() const {
+MSSimpleTrafficLightLogic::getCurrentPhaseDef() const throw() {
     return *myPhases[myStep];
 }
 
