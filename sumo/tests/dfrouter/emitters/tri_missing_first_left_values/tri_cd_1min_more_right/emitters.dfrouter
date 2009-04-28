@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/08 12:14:49 by SUMO dfrouter Version dev-SVN-r6310
+<!-- generated on 04/28/09 10:12:59 by SUMO dfrouter Version dev-SVN-r7072
 <configuration>
 
    <input>
@@ -24,8 +24,8 @@
    </time>
 
    <report>
-      <report-empty-detectors>true</report-empty-detectors>
       <verbose>true</verbose>
+      <report-empty-detectors>true</report-empty-detectors>
    </report>
 
 </configuration>
