@@ -822,12 +822,12 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
     // check every second of the given time interval for a switch in the traffic light's phases
     for (SUMOTime time = static_cast<SUMOTime>(timeFrom) - lookback; time <= static_cast<SUMOTime>(timeTo); time++) {
         if (time < 0) time = 0;
-        size_t position = tlLogic->getPosition(time);
-        size_t currentStep = tlLogic->getStepFromPos(position);
+        size_t position = tlLogic->getPhaseIndexAtTime(time);
+        size_t currentStep = tlLogic->getIndexFromOffset(position);
 
         if (currentStep != lastStep) {
             lastStep = currentStep;
-            phase = tlLogic->getPhaseFromStep(currentStep);
+            phase = tlLogic->getPhase(currentStep);
 
             // for every link of the tl's junction, compare the actual and the last red/green state
             // for each link with new red/green status, write a TLSWITCH command
@@ -2325,12 +2325,12 @@ throw(TraCIException) {
             size_t step = tlLogic->getCurrentPhaseIndex();
             if (variableId == DOMVAR_NEXTTLPHASE) {
                 size_t curStep = tlLogic->getCurrentPhaseIndex();
-                size_t pos = tlLogic->getPosition(MSNet::getInstance()->getCurrentTimeStep());
+                size_t pos = tlLogic->getPhaseIndexAtTime(MSNet::getInstance()->getCurrentTimeStep());
                 do {
                     pos++;
-                } while ((step=tlLogic->getStepFromPos(pos)) == curStep);
+                } while ((step=tlLogic->getIndexFromOffset(pos)) == curStep);
             }
-            MSPhaseDefinition phase = tlLogic->getPhaseFromStep(step);
+            MSPhaseDefinition phase = tlLogic->getPhase(step);
 
             // get the list of link vectors affected by that tl logic
             MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
@@ -3003,7 +3003,7 @@ TraCIServer::commandGetTrafficLightVariable() throw(TraCIException) {
                 tempContent.writeInt((int) phaseNo);
                 ++cnt;
                 for (unsigned int j=0; j<phaseNo; ++j) {
-                    MSPhaseDefinition phase = logic->getPhaseFromStep(j);
+                    MSPhaseDefinition phase = logic->getPhase(j);
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
                     tempContent.writeInt(phase.duration);
                     ++cnt;
@@ -3157,7 +3157,7 @@ TraCIServer::commandSetTrafficLightVariable() throw(TraCIException) {
             writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index is not in the allowed range.");
             return false;
         }
-        int duration = vars.getActive()->getPhaseFromStep(index).duration;
+        int duration = vars.getActive()->getPhase(index).duration;
         vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
     }
     break;
