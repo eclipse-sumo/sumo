@@ -99,12 +99,6 @@ public:
 
 private:
 
-    struct EdgeEffort {
-        SUMOReal getEffort(const MSEdge* const edge, const MSVehicle* const veh, SUMOReal time) const {
-            return edge->getEffort(time);
-        };
-    };
-
     // Constructor
     // Reads the needed parameters out of static OptionsCont
     TraCIServer();

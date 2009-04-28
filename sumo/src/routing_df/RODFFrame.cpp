@@ -212,12 +212,6 @@ RODFFrame::fillOptions() {
     oc.doRegister("print-absolute-flows", new Option_Bool(false));
     oc.addDescription("print-absolute-flows", "Report", "Prints aggregated detector flows");
 
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
-
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
-
     RandHelper::insertRandOptions();
 }
 

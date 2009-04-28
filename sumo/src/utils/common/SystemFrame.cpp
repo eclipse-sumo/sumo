@@ -79,6 +79,12 @@ SystemFrame::addReportOptions(OptionsCont &oc) {
 
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.addDescription("help", "Report", "Prints this screen");
+
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
+
+    oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
 }
 
 

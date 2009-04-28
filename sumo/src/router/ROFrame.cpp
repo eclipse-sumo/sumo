@@ -132,12 +132,6 @@ ROFrame::fillOptions(OptionsCont &oc) {
 
 
     // register report options
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
-
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
-
     oc.doRegister("stats-period", new Option_Integer(-1));
     oc.addDescription("stats-period", "Report", "Defines how often statistics shall be printed");
 }

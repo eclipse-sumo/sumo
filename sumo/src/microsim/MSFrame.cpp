@@ -235,12 +235,6 @@ MSFrame::fillOptions() {
 
 
     // register report options
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
-
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
-
     oc.doRegister("message-log", new Option_FileName());
     oc.addDescription("message-log", "Report", "Writes all non-error messages to FILE");
 

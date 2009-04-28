@@ -495,15 +495,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal)(100/3.6)));  // !!! not described
     oc.addDescription("obscure-ramps.min-highway-speed", "Ramp Guessing", "");
-
-
-    // register report options
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
-
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
-
 }
 
 /****************************************************************************/

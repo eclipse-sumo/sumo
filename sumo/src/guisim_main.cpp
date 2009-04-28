@@ -435,10 +435,12 @@ fillOptions() {
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Process");
     oc.addOptionSubTopic("Visualisation");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
+
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("configuration-file", "configuration");
+    oc.addDescription("configuration-file", "Process", "Loads the named config on startup");
 
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
