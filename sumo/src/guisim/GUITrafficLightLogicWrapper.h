@@ -131,7 +131,7 @@ public:
     void switchTLSLogic(int to);
 
     /// Returns the index of the given link within the according tls
-    int getLinkIndex(MSLink *link) const;
+    int getLinkIndex(const MSLink * const link) const;
 
 
 public:

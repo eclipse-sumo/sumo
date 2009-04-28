@@ -233,7 +233,7 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
 
 
 int
-GUITrafficLightLogicWrapper::getLinkIndex(MSLink *link) const {
+GUITrafficLightLogicWrapper::getLinkIndex(const MSLink * const link) const {
     return myTLLogic.getLinkIndex(link);
 }
 
