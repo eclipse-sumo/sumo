@@ -80,7 +80,7 @@ public:
     MSAgentbasedTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
                                   const std::string &id, const std::string &subid,
                                   const MSSimpleTrafficLightLogic::Phases &phases,
-                                  size_t step, SUMOTime delay, int learnHorizon, int decHorizon,
+                                  unsigned int step, SUMOTime delay, int learnHorizon, int decHorizon,
                                   SUMOReal minDiff, int tcycle);
 
     /// Initialises the tls with information about incoming lanes

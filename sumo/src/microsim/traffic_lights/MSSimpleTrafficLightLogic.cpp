@@ -49,7 +49,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet& /*net*/,
         const std::string &id,
         const std::string &subid,
         const Phases &phases,
-        size_t step,
+        unsigned int step,
         SUMOTime delay)
         : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
         myStep(step), myCycleTime(0) {
@@ -94,18 +94,99 @@ MSSimpleTrafficLightLogic::trySwitch(bool) {
 }
 
 
+
+// ------------ Static Information Retrieval
 unsigned int
-MSSimpleTrafficLightLogic::getPhaseNumber() const {
+MSSimpleTrafficLightLogic::getPhaseNumber() const throw() {
     return (unsigned int) myPhases.size();
 }
 
 
-size_t
+const MSSimpleTrafficLightLogic::Phases &
+MSSimpleTrafficLightLogic::getPhases() const {
+    return myPhases;
+}
+
+
+MSSimpleTrafficLightLogic::Phases &
+MSSimpleTrafficLightLogic::getPhases() {
+    return myPhases;
+}
+
+
+const MSPhaseDefinition &
+MSSimpleTrafficLightLogic::getPhase(size_t givenStep) const throw() {
+    assert(myPhases.size()>givenStep);
+    return *myPhases[givenStep];
+}
+
+
+// ------------ Dynamic Information Retrieval
+unsigned int
 MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const {
     return myStep;
 }
 
 
+MSPhaseDefinition
+MSSimpleTrafficLightLogic::getCurrentPhaseDef() const {
+    return *myPhases[myStep];
+}
+
+
+// ------------ Conversion between time and phase
+unsigned int
+MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
+    unsigned int position = 0;
+    if (myStep > 0)	{
+        for (unsigned int i=0; i < myStep; i++) {
+            position = position + getPhase(i).duration;
+        }
+    }
+    position = position + simStep - getPhase(myStep).myLastSwitch;
+    position = position % myCycleTime;
+    assert(position <= myCycleTime);
+    return position;
+}
+
+
+unsigned int 
+MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
+    assert(index < myPhases.size());
+    if (index == 0) {
+        return 0;
+    }
+    unsigned int pos = 0;
+    for (unsigned int i=0; i < index; i++)	{
+        pos += getPhase(i).duration;
+    }
+    return pos;
+}
+
+
+unsigned int
+MSSimpleTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw() {
+    assert(offset <= myCycleTime);
+    if (offset == myCycleTime) {
+        return 0;
+    }
+    unsigned int pos = offset;
+    unsigned int testPos = 0;
+    for (unsigned int i=0; i < myPhases.size(); i++)	{
+        testPos = testPos + getPhase(i).duration;
+        if (testPos > pos) {
+            return i;
+        }
+        if (testPos == pos) {
+            assert(myPhases.size() > (i+1));
+            return (i+1);
+        }
+    }
+    return 0;
+}
+
+
+// ------------ 
 void
 MSSimpleTrafficLightLogic::setLinkPriorities() const {
     const std::bitset<64> &linkPrios = myPhases[myStep]->getBreakMask();
@@ -175,12 +256,6 @@ MSSimpleTrafficLightLogic::maskYellowLinks() const {
 }
 
 
-MSPhaseDefinition
-MSSimpleTrafficLightLogic::getCurrentPhaseDef() const {
-    return *myPhases[myStep];
-}
-
-
 size_t
 MSSimpleTrafficLightLogic::getCycleTime() {
     myCycleTime = 0;
@@ -191,73 +266,7 @@ MSSimpleTrafficLightLogic::getCycleTime() {
 }
 
 
-size_t
-MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep) {
-    size_t position = 0;
-    if (myStep > 0)	{
-        for (size_t i=0; i < myStep; i++) {
-            position = position + getPhaseFromStep(i).duration;
-        }
-    }
-    position = position + simStep - getPhaseFromStep(myStep).myLastSwitch;
-    position = position % myCycleTime;
-    assert(position <= myCycleTime);
-    return position;
-}
 
-unsigned int
-MSSimpleTrafficLightLogic::getStepFromPos(unsigned int position) {
-    assert(position <= myCycleTime);
-    if (position == myCycleTime) {
-        return 0;
-    }
-    unsigned int pos = position;
-    unsigned int testPos = 0;
-    for (unsigned int i=0; i < myPhases.size(); i++)	{
-        testPos = testPos + getPhaseFromStep(i).duration;
-        if (testPos > pos) {
-            return i;
-        }
-        if (testPos == pos) {
-            assert(myPhases.size() > (i+1));
-            return (i+1);
-        }
-    }
-    return 0;
-}
-
-
-unsigned int
-MSSimpleTrafficLightLogic::getPosFromStep(unsigned int step) {
-    assert(step < myPhases.size());
-    if (step == 0) {
-        return 0;
-    }
-    unsigned int pos = 0;
-    for (size_t i=0; i < step; i++)	{
-        pos += getPhaseFromStep(i).duration;
-    }
-    return pos;
-}
-
-
-const MSSimpleTrafficLightLogic::Phases &
-MSSimpleTrafficLightLogic::getPhases() const {
-    return myPhases;
-}
-
-
-MSSimpleTrafficLightLogic::Phases &
-MSSimpleTrafficLightLogic::getPhases() {
-    return myPhases;
-}
-
-
-const MSPhaseDefinition &
-MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const {
-    assert(myPhases.size()>givenStep);
-    return *myPhases[givenStep];
-}
 
 
 void

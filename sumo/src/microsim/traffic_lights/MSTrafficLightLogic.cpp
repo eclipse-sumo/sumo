@@ -116,6 +116,13 @@ MSTrafficLightLogic::init(NLDetectorBuilder &, const MSEdgeContinuations &) {
 }
 
 
+void
+MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) {
+    myLinks = logic.myLinks;
+    myLanes = logic.myLanes;
+}
+
+
 MSTrafficLightLogic::~MSTrafficLightLogic() {
     mySwitchCommand->deschedule(this);
 }
@@ -138,52 +145,24 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos) {
 }
 
 
-const MSTrafficLightLogic::LaneVector &
-MSTrafficLightLogic::getLanesAt(size_t i) const {
-    return myLanes[i];
-}
-
-
-const MSTrafficLightLogic::LaneVectorVector &
-MSTrafficLightLogic::getLanes() const {
-    return myLanes;
-}
-
-
-const MSTrafficLightLogic::LinkVector &
-MSTrafficLightLogic::getLinksAt(size_t i) const {
-    return myLinks[i];
-}
-
-
-const std::string &
-MSTrafficLightLogic::getID() const {
-    return myID;
-}
-
-
-const std::string &
-MSTrafficLightLogic::getSubID() const {
-    return mySubID;
-}
-
-
-const MSTrafficLightLogic::LinkVectorVector &
-MSTrafficLightLogic::getLinks() const {
-    return myLinks;
-}
-
-
-void
-MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) {
-    myLinks = logic.myLinks;
-    myLanes = logic.myLanes;
-}
-
-
 void
 MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params) {
     myParameter = params;
+}
+
+
+int
+MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const throw() {
+    int index = 0;
+    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1, ++index) {
+        const LinkVector &l = (*i1);
+        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
+            if ((*i2)==link) {
+                return index;
+            }
+        }
+    }
+    return -1;
 }
 
 
@@ -205,21 +184,6 @@ MSTrafficLightLogic::addOverridingDuration(SUMOTime duration) {
 void
 MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
     myCurrentDurationIncrement = delay;
-}
-
-
-int
-MSTrafficLightLogic::getLinkIndex(MSLink *link) const {
-    int index = 0;
-    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1, ++index) {
-        const LinkVector &l = (*i1);
-        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
-            if ((*i2)==link) {
-                return index;
-            }
-        }
-    }
-    return -1;
 }
 
 

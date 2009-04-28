@@ -55,7 +55,7 @@ using namespace std;
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
     MSNet &net, MSTLLogicControl &tlcontrol,
     const std::string &id, const std::string &subid,
-    const Phases &phases, size_t step, SUMOTime delay,
+    const Phases &phases, unsigned int step, SUMOTime delay,
     int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
         : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
         tDecide(decHorizon), tSinceLastDecision(0), stepOfLastDecision(0),
@@ -263,7 +263,7 @@ MSAgentbasedTrafficLightLogic::collectData() {
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
     // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of one phase
     SUMOReal maxPerPhase = 0;
-    for (size_t i=0; i<isgreen.size(); i++)  {
+    for (unsigned int i=0; i<(unsigned int) isgreen.size(); i++)  {
         /* finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES
            of all lanes of a bit of the drivemask, that shows green */
         if (isgreen.test(i))  {

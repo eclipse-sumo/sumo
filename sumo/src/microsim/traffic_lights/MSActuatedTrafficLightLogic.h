@@ -68,7 +68,7 @@ public:
     MSActuatedTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
                                 const std::string &id, const std::string &subid,
                                 const MSSimpleTrafficLightLogic::Phases &phases,
-                                size_t step, SUMOTime delay,
+                                unsigned int step, SUMOTime delay,
                                 SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
 
     /// Initialises the tls with information about incoming lanes

@@ -56,6 +56,9 @@ class MSEdgeContinuations;
  */
 class MSTrafficLightLogic {
 public:
+    /// definition of a list of phases, being the junction logic
+    typedef std::vector<MSPhaseDefinition*> Phases;
+
     /// Definition of the list of links that participate in this tl-light
     typedef std::vector<MSLink*> LinkVector;
 
@@ -77,27 +80,147 @@ public:
     virtual void init(NLDetectorBuilder &nb,
                       const MSEdgeContinuations &edgeContinuations);
 
+
+    /** @brief Applies information about controlled links and lanes from the given logic
+     *
+     * If we load a logic after the network has been loaded, we do not get the information
+     *  about controlled links afterwards. We have to copy them from a previously loaded logic.
+     *
+     * @param[in] logic The logic to use the information about controlled links/lanes from
+     */
+    virtual void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
+
+
     /// Destructor
     virtual ~MSTrafficLightLogic();
+
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
     virtual SUMOTime trySwitch(bool isActive) = 0;
 
-    /// Returns the number of phases
-    virtual unsigned int getPhaseNumber() const = 0;
 
-    /// Returns the current step
-    virtual size_t getCurrentPhaseIndex() const = 0;
 
-    /// returns the position of the logic at the actual step of the simulation
-    virtual size_t getPosition(SUMOTime simStep) = 0;
+    /// @name Static Information Retrieval
+    /// @{
 
-    /// returns the step (the phasenumber) of a given position of the cycle
-    virtual unsigned int getStepFromPos(unsigned int position) = 0;
+    /** @brief Returns this tl-logic's id
+     * @return This tls' id
+     */
+    const std::string &getID() const throw() {
+        return myID;
+    }
 
-    /// Returns the phase of a given step
-    virtual const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const = 0;
+
+    /** @brief Returns this tl-logic's id
+     * @return This program's id
+     */
+    const std::string &getSubID() const throw() {
+        return mySubID;
+    }
+
+
+    /** @brief Returns the list of lists of all lanes controlled by this tls
+     * @return All lanes controlled by this tls, sorted by the signal index
+     */
+    const LaneVectorVector &getLanes() const throw() {
+        return myLanes;
+    }
+
+
+    /** @brief Returns the list of lanes that are controlled by the signals at the given position
+     * @param[in] i The index of the signal
+     * @return The lanes controlled by the signal at the given index
+     */
+    const LaneVector &getLanesAt(unsigned int i) const throw() {
+        return myLanes[i];
+    }
+
+
+    /** @brief Returns the list of lists of all affected links
+     * @return All links controlled by this tls, sorted by the signal index
+     */
+    const LinkVectorVector &getLinks() const throw() {
+        return myLinks;
+    }
+
+
+    /** @brief Returns the list of links that are controlled by the signals at the given position
+     * @param[in] i The index of the signal
+     * @return The links controlled by the signal at the given index
+     */
+    const LinkVector &getLinksAt(unsigned int i) const throw() {
+        return myLinks[i];
+    }
+
+
+    /** @brief Returns the index of the given link
+     * @param[in] link The link to retrieve the index for
+     * @return The index of the given link (-1 if it is not controlled by this tls)
+     */
+    int getLinkIndex(const MSLink * const link) const throw();
+
+
+    /** @brief Returns the number of phases
+     * @return The number of this tls program's phases
+     */
+    virtual unsigned int getPhaseNumber() const throw() = 0;
+
+
+    /** @brief Returns the phases of this tls program
+     * @return The phases of this tls program
+     */
+    virtual const Phases &getPhases() const throw() = 0;
+
+
+    /** @brief Returns the definition of the phase from the given position within the plan
+     * @param[in] givenstep The index of the pahse within the plan
+     * @return The definition of the phase at the given position
+     */
+    virtual const MSPhaseDefinition &getPhase(unsigned int givenstep) const throw() = 0;
+    /// @}
+
+
+
+    /// @name Dynamic Information Retrieval
+    /// @{
+
+    /** @brief Returns the current index within the program
+     * @return The index of the current phase within the tls
+     */
+    virtual unsigned int getCurrentPhaseIndex() const throw() = 0;
+
+
+    /** @brief Returns the definition of the current phase
+     * @return The current phase
+     */
+    virtual MSPhaseDefinition getCurrentPhaseDef() const throw() = 0;
+    /// @}
+
+
+
+    /// @name Conversion between time and phase
+    /// @{
+    /** @brief Returns the index of the logic at the given simulation step
+     * @return The (estimated) index of the tls at the given simulation time step
+     */
+    virtual unsigned int getPhaseIndexAtTime(SUMOTime simStep) const throw() = 0;
+
+
+    /** @brief Returns the position (start of a phase during a cycle) from of a given step
+     * @param[in] index The index of the phase to return the begin of
+     * @return The begin time of the phase
+     */
+    virtual unsigned int getOffsetFromIndex(unsigned int index) const throw() = 0;
+
+
+    /** @brief Returns the step (the phasenumber) of a given position of the cycle
+     * @param[in] offset The offset (time) for which the according phase shall be returned
+     * @return The according phase
+     */
+    virtual unsigned int getIndexFromOffset(unsigned int offset) const throw() = 0;
+    /// @}
+
 
 
     /** @brief Sets the priorities of incoming lanes
@@ -113,25 +236,8 @@ public:
     /// Builds a string that contains the states of the signals
     virtual std::string buildStateList() const = 0;
 
-    /// Returns the list of lanes that are controlled by the signals at the given position
-    const LaneVector &getLanesAt(size_t i) const;
 
-    /// Returns the list of lists of all lanes controlled by this tls
-    const LaneVectorVector &getLanes() const;
 
-    /// Returns the list of links that are controlled by the signals at the given position
-    const LinkVector &getLinksAt(size_t i) const;
-
-    /// Returns all affected links
-    const LinkVectorVector &getLinks() const;
-
-    /// Returns this tl-logic's id
-    const std::string &getID() const;
-
-    /// Returns this tl-logic's id
-    const std::string &getSubID() const;
-
-    void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
 
     void setParameter(const std::map<std::string, std::string> &params);
 
@@ -142,13 +248,10 @@ public:
     virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
                                        SUMOTime simStep, unsigned int step, SUMOTime stepDuration) = 0;
 
-    /// Returns the index of the given link
-    int getLinkIndex(MSLink *link) const;
 
     std::map<MSLink*, std::pair<MSLink::LinkState, bool> > collectLinkStates() const;
     void resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const;
 
-    virtual MSPhaseDefinition getCurrentPhaseDef() const = 0;
 
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);

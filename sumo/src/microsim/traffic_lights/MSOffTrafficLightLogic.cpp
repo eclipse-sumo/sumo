@@ -49,6 +49,24 @@ MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
 
 
 MSOffTrafficLightLogic::~MSOffTrafficLightLogic() {
+    for(MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
+        delete *i;
+    }
+}
+
+
+void 
+MSOffTrafficLightLogic::init(NLDetectorBuilder &nb, const MSEdgeContinuations &edgeContinuations)
+{
+    rebuildPhase();
+}
+
+
+void 
+MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic)
+{
+    MSTrafficLightLogic::adaptLinkInformationFrom(logic);
+    rebuildPhase();
 }
 
 
@@ -58,47 +76,84 @@ MSOffTrafficLightLogic::trySwitch(bool) {
 }
 
 
+void 
+MSOffTrafficLightLogic::rebuildPhase() throw()
+{
+    size_t no = getLinks().size();
+    std::bitset<64> driveMaskArg;
+    std::bitset<64> breakMaskArg;
+    std::bitset<64> yellowMaskArg;
+    for (size_t i=0; i<no; ++i) {
+        driveMaskArg[i] = true;
+        breakMaskArg[i] = false;
+        yellowMaskArg[i] = false;
+    }
+    for(MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
+        delete *i;
+    }
+    myPhaseDefinition.clear();
+    myPhaseDefinition.push_back(new MSPhaseDefinition(-1, driveMaskArg, breakMaskArg, yellowMaskArg));
+}
+
+
+// ------------ Static Information Retrieval
 unsigned int
-MSOffTrafficLightLogic::getPhaseNumber() const {
-    return 1;
-}
-
-
-size_t
-MSOffTrafficLightLogic::getCurrentPhaseIndex() const {
-    return 0;
-}
-
-size_t
-MSOffTrafficLightLogic::getCycleTime() {
-    return 0;
-}
-
-size_t
-MSOffTrafficLightLogic::getPosition(SUMOTime simStep) {
-    return 0;
-}
-
-unsigned int
-MSOffTrafficLightLogic::getStepFromPos(unsigned int position) {
-    return 0;
-}
-
-size_t
-MSOffTrafficLightLogic::getPosFromStep(size_t step) {
+MSOffTrafficLightLogic::getPhaseNumber() const throw() {
     return 0;
 }
 
 
 const MSOffTrafficLightLogic::Phases &
-MSOffTrafficLightLogic::getPhases() const {
-    throw 1;
+MSOffTrafficLightLogic::getPhases() const throw() {
+    return myPhaseDefinition;
 }
 
+
 const MSPhaseDefinition &
-MSOffTrafficLightLogic::getPhaseFromStep(size_t givenStep) const {
-    throw 1;
+MSOffTrafficLightLogic::getPhase(unsigned int givenstep) const throw() {
+    return *myPhaseDefinition[0];
 }
+
+
+// ------------ Dynamic Information Retrieval
+unsigned int
+MSOffTrafficLightLogic::getCurrentPhaseIndex() const {
+    return 0;
+}
+
+
+MSPhaseDefinition
+MSOffTrafficLightLogic::getCurrentPhaseDef() const {
+    return *myPhaseDefinition[0];
+}
+
+
+// ------------ Conversion between time and phase
+unsigned int
+MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
+    return 0;
+}
+
+
+unsigned int 
+MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
+    return 0;
+}
+
+
+unsigned int
+MSOffTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw() {
+    return 0;
+}
+
+
+// ------------ 
+size_t
+MSOffTrafficLightLogic::getCycleTime() {
+    return 0;
+}
+
+
 
 
 void
@@ -115,21 +170,6 @@ MSOffTrafficLightLogic::maskRedLinks() const {
 bool
 MSOffTrafficLightLogic::maskYellowLinks() const {
     return true;
-}
-
-
-MSPhaseDefinition
-MSOffTrafficLightLogic::getCurrentPhaseDef() const {
-    size_t no = getLinks().size();
-    std::bitset<64> driveMaskArg;
-    std::bitset<64> breakMaskArg;
-    std::bitset<64> yellowMaskArg;
-    for (size_t i=0; i<no; ++i) {
-        driveMaskArg[i] = true;
-        breakMaskArg[i] = false;
-        yellowMaskArg[i] = false;
-    }
-    return MSPhaseDefinition(-1, driveMaskArg, breakMaskArg, yellowMaskArg);
 }
 
 

@@ -51,7 +51,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
     MSNet &net, MSTLLogicControl &tlcontrol,
     const std::string &id, const std::string &subid,
     const Phases &phases,
-    size_t step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
+    unsigned int step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
     SUMOReal detectorGap)
         : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
         myContinue(false),
@@ -145,7 +145,7 @@ MSActuatedTrafficLightLogic::duration() const {
     // define the duration depending from the number of waiting vehicles of the actual phase
     int newduration = currentPhaseDef()->minDuration;
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
-    for (size_t i=0; i<isgreen.size(); i++)  {
+    for (unsigned int i=0; i<(unsigned int) isgreen.size(); i++)  {
         if (isgreen.test(i))  {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
@@ -235,7 +235,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 
     // now the gapcontrol starts
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
-    for (size_t i=0; i<isgreen.size(); i++)  {
+    for (unsigned int i=0; i<(unsigned int) isgreen.size(); i++)  {
         if (isgreen.test(i))  {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
