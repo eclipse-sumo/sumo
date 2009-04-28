@@ -69,7 +69,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
     MSTrafficLightLogic *light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();
     const std::bitset<64> &allowedLinks = light->getCurrentPhaseDef().getDriveMask();
-    for (size_t i=0; i<links.size(); i++) {
+    for (unsigned int i=0; i<(unsigned int) links.size(); i++) {
         if (!allowedLinks.test(i)) {
             const MSTrafficLightLogic::LinkVector &currLinks = links[i];
             const MSTrafficLightLogic::LaneVector &currLanes = light->getLanesAt(i);
