@@ -299,7 +299,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     while (quitMessage=="");
     WRITE_MESSAGE(quitMessage);
     // exit simulation loop
-    closeSimulation(start, stop);
+    closeSimulation(start, myStep);
     return 0;
 }
 
