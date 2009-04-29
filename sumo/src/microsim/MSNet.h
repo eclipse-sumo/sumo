@@ -207,7 +207,6 @@ public:
 
     virtual MSRouteLoader *buildRouteLoader(const std::string &file);
 
-    SUMOReal getTooSlowRTF() const;
 
 
     /// @name Retrieval of references to substructures
@@ -461,7 +460,6 @@ protected:
     std::vector<int> myStateDumpTimes;
     std::string myStateDumpFiles;
 
-    SUMOReal myTooSlowRTF;
     int myTooManyVehicles;
 
     /// @brief Bus stop dictionary type

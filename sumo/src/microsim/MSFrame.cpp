@@ -169,9 +169,6 @@ MSFrame::fillOptions() {
     oc.doRegister("check-accidents", new Option_Bool(false));
     oc.addDescription("check-accidents", "Processing", "Check whether accidents occure more deeply");
 
-    oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
-    oc.addDescription("too-slow-rtf", "Processing", "Quit simulation if the rtf gets too small");
-
     oc.doRegister("too-many-vehicles", new Option_Integer(-1));//!!! check, describe
     oc.addDescription("too-many-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
 

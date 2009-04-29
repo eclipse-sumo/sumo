@@ -123,7 +123,6 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myStep = (SUMOTime) oc.getInt("begin"); // !!! SUMOTime-option
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
-    myTooSlowRTF = oc.getFloat("too-slow-rtf");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
     myEmitter = new MSEmitControl(*vc, (SUMOTime) oc.getInt("max-depart-delay"));// !!! SUMOTime-option
     myVehicleControl = vc;
@@ -271,12 +270,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
             postSimStepOutput();
         }
         myStep += DELTA_T;
-        if (myLogExecutionTime && myTooSlowRTF>0) {
-            SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);
-            if (rtf<myTooSlowRTF) {
-                quitMessage = "Simulation End: The simulation got too slow.";
-            }
-        }
         if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
             quitMessage = "Simulation End: Too many vehicles.";
         }
@@ -570,12 +563,6 @@ MSNet::buildRouteLoader(const std::string &file) {
     //  b) not using colors
     // (overridden in GUINet)
     return new MSRouteLoader(*this, new MSRouteHandler(file, false));
-}
-
-
-SUMOReal
-MSNet::getTooSlowRTF() const {
-    return myTooSlowRTF;
 }
 
 

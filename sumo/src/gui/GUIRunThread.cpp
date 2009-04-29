@@ -215,18 +215,6 @@ GUIRunThread::makeStep() {
         myOk = false;
 #endif
     }
-    // check whether the simulation got too slow, halt then
-    if (myNet->logSimulationDuration() && myNet->getTooSlowRTF()>0) {
-        SUMOReal rtf =
-            ((SUMOReal) myNet->getVehicleControl().getRunningVehicleNo()/(SUMOReal) myNet->getSimStepDurationInMillis()*(SUMOReal) 1000.);
-        if (rtf<myNet->getTooSlowRTF()) {
-            myHalting = true;
-            e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-DELTA_T);
-            myEventQue.add(e);
-            myEventThrow.signal();
-        }
-    }
 }
 
 
