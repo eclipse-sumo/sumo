@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/16/09 11:09:36 by SUMO sumo Version dev-SVN-r6787
+<!-- generated on 04/29/09 13:27:28 by SUMO sumo Version dev-SVN-r7082
 <configuration>
 
    <input>
@@ -185,5 +185,7 @@
    <interval begin="950" end="974" id="dump_25">
    </interval>
    <interval begin="975" end="999" id="dump_25">
+   </interval>
+   <interval begin="1000" end="1000" id="dump_25">
    </interval>
 </netstats>
