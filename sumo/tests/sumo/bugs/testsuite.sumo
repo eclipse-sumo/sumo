@@ -10,3 +10,5 @@ lanechange
 # Tests for [ 2524031 ] sumo xml parser relies on sequence order instead IDs
 2524031
 
+# Tests for ticket#73 (false end step information in detectors output)
+ticket73
