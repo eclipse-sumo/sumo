@@ -145,22 +145,22 @@ fillOptions() throw() {
 
 
     // prunning options
-    oc.addOptionSubTopic("Prunning");
+    oc.addOptionSubTopic("Pruning");
 
     oc.doRegister("prune.on-net", new Option_Bool(false));
-    oc.addDescription("prune.on-net", "Prunning", "Enables prunning on net boundaries");
+    oc.addDescription("prune.on-net", "Pruning", "Enables pruning on net boundaries");
 
     oc.doRegister("prune.on-net.offsets", new Option_String("0;0;0;0"));
-    oc.addDescription("prune.on-net.offsets", "Prunning", "Uses STR as offset definition added to the net boundaries");
+    oc.addDescription("prune.on-net.offsets", "Pruning", "Uses STR as offset definition added to the net boundaries");
 
     oc.doRegister("prune.boundary", new Option_String());
-    oc.addDescription("prune.boundary", "Prunning", "Uses STR as prunning boundary");
+    oc.addDescription("prune.boundary", "Pruning", "Uses STR as pruning boundary");
 
     oc.doRegister("prune.ignore", new Option_String());
-    oc.addDescription("prune.ignore", "Prunning", "Items in STR will be kept though out of boundary");
+    oc.addDescription("prune.ignore", "Pruning", "Items in STR will be kept though out of boundary");
 
     oc.doRegister("remove", new Option_String(""));
-    oc.addDescription("remove", "Prunning", "Items with names in STR will be removed");
+    oc.addDescription("remove", "Pruning", "Items with names in STR will be removed");
 
 
     // building defaults options
@@ -175,14 +175,6 @@ fillOptions() throw() {
 
     oc.doRegister("layer", new Option_Integer(-1));
     oc.addDescription("layer", "Building Defaults", "Sets INT as default layer");
-
-
-    // register report options
-    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.addDescription("suppress-warnings", "Report", "Disables output of warnings");
-
-    oc.doRegister("log-file", 'l', new Option_FileName());
-    oc.addDescription("log-file", "Report", "Writes all messages to FILE");
 }
 
 

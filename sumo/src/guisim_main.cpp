@@ -480,10 +480,6 @@ main(int argc, char **argv) {
         XMLSubSys::init(false);
         fillOptions();
         OptionsIO::getOptions(false, argc, argv);
-        if (oc.processMetaOptions(false)) {
-            SystemFrame::close();
-            return 0;
-        }
         // within gui-based applications, nothing is reported to the console
         MsgHandler::getErrorInstance()->report2cout(false);
         MsgHandler::getErrorInstance()->report2cerr(false);
