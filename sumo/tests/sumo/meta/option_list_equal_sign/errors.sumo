@@ -1,3 +1,4 @@
-Error: File 'input_additional.add.xml' does not exist.
-Error: File 'input_additional2.add.xml' does not exist.
+Error: On processing option '-a=input_additional.add.xml,input_additional2.add.xml':
+ No option with the name '=' exists.
+Error: Could not parse commandline options.
 Quitting (on error).

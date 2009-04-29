@@ -58,9 +58,6 @@
       <!-- Check whether accidents occure more deeply -->
       <check-accidents>false</check-accidents>
 
-      <!-- Quit simulation if the rtf gets too small -->
-      <too-slow-rtf>-1</too-slow-rtf>
-
       <!-- Quit simulation if this number of vehicles is exceeded -->
       <too-many-vehicles>-1</too-many-vehicles>
 

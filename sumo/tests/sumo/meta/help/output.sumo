@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r7068
+SUMO sumo Version dev-SVN-r7082
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -46,7 +46,6 @@ Usage: sumo.exe [OPTION]*
                                         occures
   --check-accidents                   Check whether accidents occure more
                                         deeply
-  --too-slow-rtf FLOAT                Quit simulation if the rtf gets too small
   --too-many-vehicles INT             Quit simulation if this number of
                                         vehicles is exceeded
   --incremental-dua-step INT          Perform the simulation as a step in
