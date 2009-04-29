@@ -174,7 +174,7 @@ public:
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
-     * @param[in] givenstep The index of the pahse within the plan
+     * @param[in] givenstep The index of the phase within the plan
      * @return The definition of the phase at the given position
      */
     virtual const MSPhaseDefinition &getPhase(unsigned int givenstep) const throw() = 0;
