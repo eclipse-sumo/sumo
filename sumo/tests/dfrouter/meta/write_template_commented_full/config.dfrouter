@@ -133,17 +133,17 @@
       <!-- Prints this screen -->
       <help>false</help>
 
-      <!-- Lists detectors with no flow (enable -v) -->
-      <report-empty-detectors>false</report-empty-detectors>
-
-      <!-- Prints aggregated detector flows -->
-      <print-absolute-flows>false</print-absolute-flows>
-
       <!-- Disables output of warnings -->
       <suppress-warnings>false</suppress-warnings>
 
       <!-- Writes all messages to FILE -->
       <log-file></log-file>
+
+      <!-- Lists detectors with no flow (enable -v) -->
+      <report-empty-detectors>false</report-empty-detectors>
+
+      <!-- Prints aggregated detector flows -->
+      <print-absolute-flows>false</print-absolute-flows>
 
    </report>
 

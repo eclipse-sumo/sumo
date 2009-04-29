@@ -77,7 +77,7 @@ fillOptions() throw() {
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Projection");
-    oc.addOptionSubTopic("Prunning");
+    oc.addOptionSubTopic("Pruning");
     oc.addOptionSubTopic("Building Defaults");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
@@ -145,8 +145,6 @@ fillOptions() throw() {
 
 
     // prunning options
-    oc.addOptionSubTopic("Pruning");
-
     oc.doRegister("prune.on-net", new Option_Bool(false));
     oc.addDescription("prune.on-net", "Pruning", "Enables pruning on net boundaries");
 

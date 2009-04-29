@@ -53,10 +53,10 @@
       <verbose>false</verbose>
       <print-options>false</print-options>
       <help>false</help>
-      <report-empty-detectors>false</report-empty-detectors>
-      <print-absolute-flows>false</print-absolute-flows>
       <suppress-warnings>false</suppress-warnings>
       <log-file></log-file>
+      <report-empty-detectors>false</report-empty-detectors>
+      <print-absolute-flows>false</print-absolute-flows>
    </report>
 
    <random_number>
