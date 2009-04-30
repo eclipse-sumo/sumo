@@ -239,7 +239,7 @@ MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError) {
             // check whether at the end the output was already generated
             for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
                 MSDetectorFileOutput* det = it->first;
-                det->writeXMLOutput(*(it->second), startTime, step);
+                det->writeXMLOutput(*(it->second), startTime, step+DELTA_T);
             }
             myLastCalls[interval] = step + DELTA_T;
         }

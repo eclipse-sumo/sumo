@@ -227,7 +227,7 @@ MSMeanData_Net::write(OutputDevice &dev,
     // check whether this dump shall be written for the current time
     bool found = myDumpBegins.size()==0;
     for (unsigned int i=0; i<myDumpBegins.size()&&!found; ++i) {
-        if (!((myDumpBegins[i]>=0&&myDumpBegins[i]>stopTime)||(myDumpEnds[i]>=0&&myDumpEnds[i]<startTime))) {
+        if (!((myDumpBegins[i]>=0&&myDumpBegins[i]>=stopTime-DELTA_T)||(myDumpEnds[i]>=0&&myDumpEnds[i]<startTime))) {
             found = true;
         }
     }
@@ -273,7 +273,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             SUMOReal meanOccupancy = -46;
             MSLaneMeanDataValues& meanData = s->getDetectorData(this);
             s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime);
-            conv(meanData, (stopTime-startTime+1),
+            conv(meanData, (stopTime-startTime),
                  s->getLength(), s->getMaxSpeed(),
                  traveltime, meanSpeed, meanDensity, meanOccupancy);
             meanDensityS += meanDensity;
@@ -324,8 +324,8 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             "\" entered=\""<<noEnteredS<<
             "\" emitted=\""<<noEmissionsS<<
             "\" left=\""<<noLeftS<<
-            "\" flowMean=\""<<(flowMean*3600./((SUMOReal)(stopTime-startTime+1)))<<
-            "\" flow=\""<<(flowOut*3600./((SUMOReal)(stopTime-startTime+1)))<<
+            "\" flowMean=\""<<(flowMean*3600./((SUMOReal)(stopTime-startTime)))<<
+            "\" flow=\""<<(flowOut*3600./((SUMOReal)(stopTime-startTime)))<<
             "\"/>\n";
         }
     } else {
@@ -366,7 +366,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                 SUMOReal meanSpeed = -43;
                 SUMOReal meanDensity = -45;
                 SUMOReal meanOccupancy = -46;
-                conv(meanData, (stopTime-startTime+1),
+                conv(meanData, (stopTime-startTime),
                      (*lane)->getLane()->length(), (*lane)->getLane()->maxSpeed(),
                      traveltime, meanSpeed, meanDensity, meanOccupancy);
                 traveltimeS += traveltime;
@@ -410,7 +410,7 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
         SUMOReal meanSpeed = -43;
         SUMOReal meanDensity = -44;
         SUMOReal meanOccupancy = -45;
-        conv(laneValues, (stopTime-startTime+1),
+        conv(laneValues, (stopTime-startTime),
              laneValues.getLane()->length(), laneValues.getLane()->maxSpeed(),
              traveltime, meanSpeed, meanDensity, meanOccupancy);
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<

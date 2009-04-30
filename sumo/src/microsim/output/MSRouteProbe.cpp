@@ -126,7 +126,7 @@ MSRouteProbe::writeXMLOutput(OutputDevice &dev,
         }
         dev << indent << "</routeDistribution>\n";
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
-        MSRoute::dictionary(getID() + "_" + toString(stopTime+1), myCurrentRouteDistribution);
+        MSRoute::dictionary(getID() + "_" + toString(stopTime), myCurrentRouteDistribution);
     }
 }
 

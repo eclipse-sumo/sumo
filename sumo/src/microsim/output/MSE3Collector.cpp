@@ -250,8 +250,8 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     for (std::map<MSVehicle*, E3Values>::iterator i=myEnteredContainer.begin(); i!=myEnteredContainer.end(); ++i) {
         meanHaltsPerVehicleWithin += (SUMOReal)(*i).second.haltings;
         meanIntervalHaltsPerVehicleWithin += (SUMOReal)(*i).second.intervalHaltings;
-        SUMOReal steps = (SUMOReal) stopTime - (*i).second.entryTime + (SUMOReal) 1.;
-        SUMOReal stepsWithin = (*i).second.entryTime>startTime ? steps : (SUMOReal)(stopTime - startTime + 1.);
+        SUMOReal steps = (SUMOReal) stopTime - (*i).second.entryTime;
+        SUMOReal stepsWithin = (*i).second.entryTime>startTime ? steps : (SUMOReal)(stopTime - startTime);
         meanSpeedWithin += ((*i).second.speedSum / steps);
         meanIntervalSpeedWithin += ((*i).second.intervalSpeedSum / stepsWithin);
         meanDurationWithin += steps;
