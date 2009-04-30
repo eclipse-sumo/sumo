@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/28/09 10:27:34 by SUMO sumo Version dev-SVN-r6670
+<!-- generated on 04/29/09 15:32:06 by SUMO sumo Version dev-SVN-r7092
 <configuration>
 
    <input>
@@ -22,45 +22,45 @@
 -->
 
 <netstats>
-   <interval begin="0" end="59" id="dump_60">
+   <interval begin="0" end="60" id="dump_60">
       <edge id="3/1to2/1" traveltime="40.76" sampledSeconds="51.67" density="2.21" occupancy="1.10" noStops="0" speed="9.58" entered="2" emitted="0" left="0"/>
       <edge id="4/1to3/1" traveltime="41.22" sampledSeconds="63.33" density="2.70" occupancy="1.35" noStops="0" speed="9.47" entered="0" emitted="2" left="2"/>
    </interval>
-   <interval begin="60" end="119" id="dump_60">
+   <interval begin="60" end="120" id="dump_60">
       <edge id="1/1to0/1" traveltime="39.05" sampledSeconds="0.85" density="0.04" occupancy="0.02" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
       <edge id="2/1to1/1" traveltime="41.09" sampledSeconds="77.38" density="3.30" occupancy="1.65" noStops="0" speed="9.50" entered="2" emitted="0" left="1"/>
       <edge id="3/1to2/1" traveltime="42.01" sampledSeconds="30.77" density="1.31" occupancy="0.66" noStops="0" speed="9.30" entered="0" emitted="0" left="2"/>
    </interval>
-   <interval begin="120" end="179" id="dump_60">
+   <interval begin="120" end="180" id="dump_60">
       <edge id="1/1to0/1" traveltime="43.39" sampledSeconds="0.94" density="0.04" occupancy="0.02" noStops="0" speed="9.00" entered="1" emitted="0" left="0"/>
       <edge id="2/1to1/1" traveltime="43.39" sampledSeconds="5.06" density="0.22" occupancy="0.11" noStops="0" speed="9.00" entered="0" emitted="0" left="1"/>
    </interval>
-   <interval begin="180" end="239" id="dump_60">
+   <interval begin="180" end="240" id="dump_60">
    </interval>
-   <interval begin="240" end="299" id="dump_60">
+   <interval begin="240" end="300" id="dump_60">
    </interval>
-   <interval begin="300" end="359" id="dump_60">
+   <interval begin="300" end="360" id="dump_60">
    </interval>
-   <interval begin="360" end="419" id="dump_60">
+   <interval begin="360" end="420" id="dump_60">
    </interval>
-   <interval begin="420" end="479" id="dump_60">
+   <interval begin="420" end="480" id="dump_60">
    </interval>
-   <interval begin="480" end="539" id="dump_60">
+   <interval begin="480" end="540" id="dump_60">
    </interval>
-   <interval begin="540" end="599" id="dump_60">
+   <interval begin="540" end="600" id="dump_60">
    </interval>
-   <interval begin="600" end="659" id="dump_60">
+   <interval begin="600" end="660" id="dump_60">
    </interval>
-   <interval begin="660" end="719" id="dump_60">
+   <interval begin="660" end="720" id="dump_60">
    </interval>
-   <interval begin="720" end="779" id="dump_60">
+   <interval begin="720" end="780" id="dump_60">
    </interval>
-   <interval begin="780" end="839" id="dump_60">
+   <interval begin="780" end="840" id="dump_60">
    </interval>
-   <interval begin="840" end="899" id="dump_60">
+   <interval begin="840" end="900" id="dump_60">
    </interval>
-   <interval begin="900" end="959" id="dump_60">
+   <interval begin="900" end="960" id="dump_60">
    </interval>
-   <interval begin="960" end="1000" id="dump_60">
+   <interval begin="960" end="1001" id="dump_60">
    </interval>
 </netstats>

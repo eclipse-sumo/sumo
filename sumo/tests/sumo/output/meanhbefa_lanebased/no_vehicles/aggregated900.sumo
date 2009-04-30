@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/03/09 16:09:52 by SUMO sumo Version dev-SVN-r6717
+<!-- generated on 04/29/09 15:32:29 by SUMO sumo Version dev-SVN-r7092
 <configuration>
 
    <input>
@@ -23,7 +23,7 @@
 -->
 
 <netstats>
-   <interval begin="0" end="899" id="dump_900">
+   <interval begin="0" end="900" id="dump_900">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
@@ -157,7 +157,7 @@
          <lane id="4/2to4/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
    </interval>
-   <interval begin="900" end="1000" id="dump_900">
+   <interval begin="900" end="1001" id="dump_900">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/12/08 13:57:03 by SUMO sumo Version dev-SVN-r6410
+<!-- generated on 04/29/09 15:32:12 by SUMO sumo Version dev-SVN-r7092
 <configuration>
 
    <input>
@@ -23,7 +23,7 @@
 -->
 
 <netstats>
-   <interval begin="0" end="299" id="dump_300">
+   <interval begin="0" end="300" id="dump_300">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0" traveltime="39.20" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
       </edge>
@@ -157,7 +157,7 @@
          <lane id="4/2to4/1_0" traveltime="39.20" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
       </edge>
    </interval>
-   <interval begin="300" end="599" id="dump_300">
+   <interval begin="300" end="600" id="dump_300">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0" traveltime="39.20" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
       </edge>
@@ -291,7 +291,7 @@
          <lane id="4/2to4/1_0" traveltime="39.20" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
       </edge>
    </interval>
-   <interval begin="600" end="899" id="dump_300">
+   <interval begin="600" end="900" id="dump_300">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0" traveltime="39.20" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
       </edge>
@@ -425,7 +425,7 @@
          <lane id="4/2to4/1_0" traveltime="39.20" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
       </edge>
    </interval>
-   <interval begin="900" end="1000" id="dump_300">
+   <interval begin="900" end="1001" id="dump_300">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0" traveltime="39.20" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
       </edge>

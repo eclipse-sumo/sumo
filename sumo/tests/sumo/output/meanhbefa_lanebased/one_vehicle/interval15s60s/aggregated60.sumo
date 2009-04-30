@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/03/09 16:09:53 by SUMO sumo Version dev-SVN-r6717
+<!-- generated on 04/29/09 15:32:31 by SUMO sumo Version dev-SVN-r7092
 <configuration>
 
    <input>
@@ -22,7 +22,7 @@
 -->
 
 <netstats>
-   <interval begin="0" end="59" id="dump_60">
+   <interval begin="0" end="60" id="dump_60">
       <edge id="3/1to2/1">
          <lane id="3/1to2/1_0" sampledSeconds="29.95" CO_abs="0.00" CO2_abs="50.32" HC_abs="0.01" PMx_abs="0.00" NOx_abs="0.08" fuel_abs="0.02" CO_normed="0.00" CO2_normed="7731.33" HC_normed="1.35" PMx_normed="0.45" NOx_normed="12.27" fuel_normed="3.08"/>
       </edge>
@@ -30,7 +30,7 @@
          <lane id="4/1to3/1_0" sampledSeconds="30.05" CO_abs="0.00" CO2_abs="50.49" HC_abs="0.01" PMx_abs="0.00" NOx_abs="0.08" fuel_abs="0.02" CO_normed="0.00" CO2_normed="7757.15" HC_normed="1.36" PMx_normed="0.45" NOx_normed="12.31" fuel_normed="3.09"/>
       </edge>
    </interval>
-   <interval begin="60" end="119" id="dump_60">
+   <interval begin="60" end="120" id="dump_60">
       <edge id="1/1to0/1">
          <lane id="1/1to0/1_0" sampledSeconds="0.85" CO_abs="0.00" CO2_abs="1.43" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="219.42" HC_normed="0.04" PMx_normed="0.01" NOx_normed="0.35" fuel_normed="0.09"/>
       </edge>
@@ -41,34 +41,34 @@
          <lane id="3/1to2/1_0" sampledSeconds="9.10" CO_abs="0.00" CO2_abs="15.29" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.02" fuel_abs="0.01" CO_normed="0.00" CO2_normed="2349.09" HC_normed="0.41" PMx_normed="0.14" NOx_normed="3.73" fuel_normed="0.94"/>
       </edge>
    </interval>
-   <interval begin="120" end="179" id="dump_60">
+   <interval begin="120" end="180" id="dump_60">
    </interval>
-   <interval begin="180" end="239" id="dump_60">
+   <interval begin="180" end="240" id="dump_60">
    </interval>
-   <interval begin="240" end="299" id="dump_60">
+   <interval begin="240" end="300" id="dump_60">
    </interval>
-   <interval begin="300" end="359" id="dump_60">
+   <interval begin="300" end="360" id="dump_60">
    </interval>
-   <interval begin="360" end="419" id="dump_60">
+   <interval begin="360" end="420" id="dump_60">
    </interval>
-   <interval begin="420" end="479" id="dump_60">
+   <interval begin="420" end="480" id="dump_60">
    </interval>
-   <interval begin="480" end="539" id="dump_60">
+   <interval begin="480" end="540" id="dump_60">
    </interval>
-   <interval begin="540" end="599" id="dump_60">
+   <interval begin="540" end="600" id="dump_60">
    </interval>
-   <interval begin="600" end="659" id="dump_60">
+   <interval begin="600" end="660" id="dump_60">
    </interval>
-   <interval begin="660" end="719" id="dump_60">
+   <interval begin="660" end="720" id="dump_60">
    </interval>
-   <interval begin="720" end="779" id="dump_60">
+   <interval begin="720" end="780" id="dump_60">
    </interval>
-   <interval begin="780" end="839" id="dump_60">
+   <interval begin="780" end="840" id="dump_60">
    </interval>
-   <interval begin="840" end="899" id="dump_60">
+   <interval begin="840" end="900" id="dump_60">
    </interval>
-   <interval begin="900" end="959" id="dump_60">
+   <interval begin="900" end="960" id="dump_60">
    </interval>
-   <interval begin="960" end="1000" id="dump_60">
+   <interval begin="960" end="1001" id="dump_60">
    </interval>
 </netstats>

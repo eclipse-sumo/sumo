@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/03/09 16:09:51 by SUMO sumo Version dev-SVN-r6717
+<!-- generated on 04/30/09 08:37:01 by SUMO sumo Version dev-SVN-r7092
 <configuration>
 
    <input>
@@ -23,40 +23,40 @@
 -->
 
 <netstats>
-   <interval begin="0" end="59" id="dump_60">
+   <interval begin="0" end="60" id="dump_60">
    </interval>
-   <interval begin="60" end="119" id="dump_60">
+   <interval begin="60" end="120" id="dump_60">
    </interval>
-   <interval begin="120" end="179" id="dump_60">
+   <interval begin="120" end="180" id="dump_60">
    </interval>
-   <interval begin="180" end="239" id="dump_60">
+   <interval begin="180" end="240" id="dump_60">
    </interval>
-   <interval begin="240" end="299" id="dump_60">
+   <interval begin="240" end="300" id="dump_60">
    </interval>
-   <interval begin="300" end="359" id="dump_60">
+   <interval begin="300" end="360" id="dump_60">
    </interval>
-   <interval begin="360" end="419" id="dump_60">
+   <interval begin="360" end="420" id="dump_60">
    </interval>
-   <interval begin="420" end="479" id="dump_60">
+   <interval begin="420" end="480" id="dump_60">
    </interval>
-   <interval begin="480" end="539" id="dump_60">
+   <interval begin="480" end="540" id="dump_60">
    </interval>
-   <interval begin="540" end="599" id="dump_60">
+   <interval begin="540" end="600" id="dump_60">
    </interval>
-   <interval begin="600" end="659" id="dump_60">
+   <interval begin="600" end="660" id="dump_60">
       <edge id="3/1to2/1" sampledSeconds="3120.00" CO_abs="19.88" CO2_abs="1877.26" HC_abs="1.09" PMx_abs="0.07" NOx_abs="2.62" fuel_abs="0.75" CO_normed="3054.50" CO2_normed="288439.56" HC_normed="167.50" PMx_normed="10.19" NOx_normed="402.44" fuel_normed="115.00"/>
       <edge id="4/1to3/1" sampledSeconds="1560.00" CO_abs="9.94" CO2_abs="938.63" HC_abs="0.55" PMx_abs="0.03" NOx_abs="1.31" fuel_abs="0.37" CO_normed="1527.21" CO2_normed="144220.16" HC_normed="83.75" PMx_normed="5.10" NOx_normed="201.22" fuel_normed="57.50"/>
    </interval>
-   <interval begin="660" end="719" id="dump_60">
+   <interval begin="660" end="720" id="dump_60">
    </interval>
-   <interval begin="720" end="779" id="dump_60">
+   <interval begin="720" end="780" id="dump_60">
    </interval>
-   <interval begin="780" end="839" id="dump_60">
+   <interval begin="780" end="840" id="dump_60">
    </interval>
-   <interval begin="840" end="899" id="dump_60">
+   <interval begin="840" end="900" id="dump_60">
    </interval>
-   <interval begin="900" end="959" id="dump_60">
+   <interval begin="900" end="960" id="dump_60">
    </interval>
-   <interval begin="960" end="1000" id="dump_60">
+   <interval begin="960" end="1001" id="dump_60">
    </interval>
 </netstats>
