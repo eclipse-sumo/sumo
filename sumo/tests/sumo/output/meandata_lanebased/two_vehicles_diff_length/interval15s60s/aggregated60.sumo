@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/09 15:32:19 by SUMO sumo Version dev-SVN-r7092
+<!-- generated on 04/30/09 09:15:23 by SUMO sumo Version dev-SVN-r7092
 <configuration>
 
    <input>
@@ -10,7 +10,7 @@
 
    <time>
       <begin>0</begin>
-      <end>1000</end>
+      <end>150</end>
    </time>
 
    <processing>
@@ -41,34 +41,6 @@
          <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="23.20" density="0.99" occupancy="1.10" noStops="0" speed="10.00" entered="0" emitted="0" left="2"/>
       </edge>
    </interval>
-   <interval begin="120" end="180" id="dump_60">
-   </interval>
-   <interval begin="180" end="240" id="dump_60">
-   </interval>
-   <interval begin="240" end="300" id="dump_60">
-   </interval>
-   <interval begin="300" end="360" id="dump_60">
-   </interval>
-   <interval begin="360" end="420" id="dump_60">
-   </interval>
-   <interval begin="420" end="480" id="dump_60">
-   </interval>
-   <interval begin="480" end="540" id="dump_60">
-   </interval>
-   <interval begin="540" end="600" id="dump_60">
-   </interval>
-   <interval begin="600" end="660" id="dump_60">
-   </interval>
-   <interval begin="660" end="720" id="dump_60">
-   </interval>
-   <interval begin="720" end="780" id="dump_60">
-   </interval>
-   <interval begin="780" end="840" id="dump_60">
-   </interval>
-   <interval begin="840" end="900" id="dump_60">
-   </interval>
-   <interval begin="900" end="960" id="dump_60">
-   </interval>
-   <interval begin="960" end="1001" id="dump_60">
+   <interval begin="120" end="151" id="dump_60">
    </interval>
 </netstats>
