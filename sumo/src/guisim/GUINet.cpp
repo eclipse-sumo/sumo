@@ -86,7 +86,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-               MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
+               MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError)
         : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents),
         myGrid(new SUMORTree(&GUIGlObject::drawGL)),
         myWrapper(new GUINetWrapper(gIDStorage, *this)),

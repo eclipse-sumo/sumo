@@ -45,6 +45,7 @@
 #include <utils/common/SUMOTime.h>
 #include "MSPhoneNet.h"
 #include <microsim/trigger/MSBusStop.h>
+#include <utils/common/UtilExceptions.h>
 
 #ifdef _MESSAGES
 #include <utils/common/NamedObjectCont.h>
@@ -83,68 +84,77 @@ class MSMessageEmitter;
 /**
  * @class MSNet
  * @brief The simulated network and simulation perfomer
- *
- * The main simulation class.
  */
 class MSNet {
 public:
-    /** Get a pointer to the unique instance of MSNet (singleton).
-     * @return Pointer to the unique MSNet-instance.
+    /** @brief Returns the pointer to the unique instance of MSNet (singleton).
+     * @return Pointer to the unique MSNet-instance
+     * @exception ProcessError If a network was not yet constructed
      */
-    static MSNet* getInstance();
+    static MSNet* getInstance() throw(ProcessError);
 
+
+    /** @brief Constructor
+     * @param[in] vc The vehicle control to use
+     * @param[in] beginOfTimestepEvents The event control to use for simulation step begin events
+     * @param[in] endOfTimestepEvents The event control to use for simulation step end events
+     * @param[in] emissionEvents The event control to use for emission events
+     * @exception ProcessError If a network was already constructed
+     */
     MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
+          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError);
 
 
-    /// Destructor.
-    virtual ~MSNet();
+    /// @brief Destructor
+    virtual ~MSNet() throw();
 
-#ifdef _MESSAGES
-    /// @brief Map of MSMsgEmitter by ID
-    typedef NamedObjectCont< MSMessageEmitter* > MsgEmitterDict;
 
-    // TODO
-    /**
-     * @brief Returns the Message Emitter needed
-     *
-     * @param whatemit std::string defining the requested MSMessageEmitter.
-     * @return the first MessageEmitter found, which has the requested element enabled
+    /** @brief Closes the network's building process
+     * @param[in] edges The control of edges which belong to this network
+     * @param[in] junctions The control of junctions which belong to this network
+     * @param[in] routeLoaders The route loaders used
+     * @param[in] tlc The control of traffic lights which belong to this network
+     * @param[in] stateDumpTimes List of time steps at which state shall be written
+     * @param[in] stateDumpFiles Base name for states
+     * @todo Try to move all this to the constructor?
      */
-    MSMessageEmitter *getMsgEmitter(const std::string& whatemit);
+    void closeBuilding(MSEdgeControl *edges,
+        MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
+        MSTLLogicControl *tlc, std::vector<int> stateDumpTimes, std::string stateDumpFiles) throw();
 
-    /**
-     *
-     *
+
+    /** @brief Clears all dictionaries 
+     * @todo Try to move all this to the destructor
      */
-    void createMsgEmitter(std::string& id,
-                          std::string& file,
-                          const std::string& base,
-                          std::string& whatemit,
-                          bool reverse,
-                          bool table,
-                          bool xy,
-                          SUMOReal step);
-#endif
+    static void clearAll();
 
-    /** @brief Simulates from timestep start to stop.
-        start and stop in timesteps.
-        In each timestep we emit Vehicles, move Vehicles,
-        the Vehicles change Lanes.  The method returns true when the
-        simulation could be finished without errors, otherwise
-        false. */
+
+    /** @brief Simulates from timestep start to stop
+     * @param[in] start The begin time step of the simulation
+     * @param[in] stop The end time step of the simulation
+     * @return Returns always 0
+     * @todo Recheck return value
+     * @todo What exceptions may occure?
+     */
     int simulate(SUMOTime start, SUMOTime stop);
 
-    void initialiseSimulation();
 
-    void closeSimulation(SUMOTime start, SUMOTime stop);
-
-
-    /// performs a single simulation step
+    /** @brief Performs a single simulation step
+     * @todo What exceptions may occure?
+     */
     void simulationStep(SUMOTime start, SUMOTime step);
 
-    /** Clears all dictionaries */
-    static void clearAll();
+
+    /** @brief Closes the simulation (all files, connections, etc.)
+     *
+     * Writes also performance output
+     *
+     * @param[in] start The step the simulation was started with
+     * @todo What exceptions may occure?
+     */
+    void closeSimulation(SUMOTime start);
+
+
 
 
     long getSimStepDurationInMillis() const;
@@ -157,10 +167,6 @@ public:
 
     void writeOutput();
 
-    virtual void closeBuilding(MSEdgeControl *edges,
-                               MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
-                               MSTLLogicControl *tlc,
-                               std::vector<int> stateDumpTimes, std::string stateDumpFiles);
 
     bool logSimulationDuration() const {
         return myLogExecutionTime;
@@ -388,21 +394,41 @@ public:
     /// @}
 
 
-protected:
-    /** initialises the MeanData-container */
-    static void initMeanData(std::vector<int> dumpMeanDataIntervals,
-                             std::string baseNameDumpFiles);
+#ifdef _MESSAGES
+    /// @brief Map of MSMsgEmitter by ID
+    typedef NamedObjectCont< MSMessageEmitter* > MsgEmitterDict;
 
-    /// Unique instance of MSNet
+    // TODO
+    /**
+     * @brief Returns the Message Emitter needed
+     *
+     * @param whatemit std::string defining the requested MSMessageEmitter.
+     * @return the first MessageEmitter found, which has the requested element enabled
+     */
+    MSMessageEmitter *getMsgEmitter(const std::string& whatemit);
+
+    /**
+     *
+     *
+     */
+    void createMsgEmitter(std::string& id,
+                          std::string& file,
+                          const std::string& base,
+                          std::string& whatemit,
+                          bool reverse,
+                          bool table,
+                          bool xy,
+                          SUMOReal step);
+#endif
+
+protected:
+    /// @brief Unique instance of MSNet
     static MSNet* myInstance;
 
-    /// Unique ID.
-    std::string myID;
-
-    /** route loader for dynamic loading of routes */
+    /// @brief Route loader for dynamic loading of routes
     MSRouteLoaderControl *myRouteLoaders;
 
-    /// Current time step.
+    /// @brief Current time step.
     SUMOTime myStep;
 
 
@@ -439,8 +465,10 @@ protected:
     /// @}
 
 
+
     /// @name data needed for computing performance values
-    //{
+    /// @{
+
     /// @brief Information whether the simulation duration shall be logged
     bool myLogExecutionTime;
 
@@ -457,15 +485,35 @@ protected:
     long myVehiclesMoved;
     //}
 
-    std::vector<int> myStateDumpTimes;
-    std::string myStateDumpFiles;
 
+
+    /// @name State output variables
+    /// @{
+
+    /// @brief Times at which a state shall be written
+    std::vector<int> myStateDumpTimes;
+    /// @brief The base name for states
+    std::string myStateDumpFiles;
+    /// @}
+
+
+    /// @brief Storage for maximum vehicle number
     int myTooManyVehicles;
+
 
     /// @brief Bus stop dictionary type
     typedef std::map< std::string, MSBusStop* > BusStopDictType;
     /// @brief Dictionary of bus stops
     BusStopDictType myBusStopDict;
+
+
+#ifdef _MESSAGES
+    /// @brief The message emitter map
+    MsgEmitterDict myMsgEmitter;
+
+    /// @brief List of message emitters
+    std::vector<MSMessageEmitter*> msgEmitVec;
+#endif
 
 
 private:
@@ -475,12 +523,6 @@ private:
     /// @brief Invalidated assignment operator.
     MSNet& operator=(const MSNet&);
 
-#ifdef _MESSAGES
-    /// The message Emitter
-    MsgEmitterDict myMsgEmitter;
-
-    std::vector<MSMessageEmitter*> msgEmitVec;
-#endif
 
 };
 

@@ -277,7 +277,7 @@ GUIRunThread::deleteSim() {
     //
     mySimulationLock.lock();
     if (myNet!=0) {
-        myNet->closeSimulation(mySimStartTime, myNet->getCurrentTimeStep());
+        myNet->closeSimulation(mySimStartTime);
     }
     while (mySimulationInProgress);
     delete myNet;

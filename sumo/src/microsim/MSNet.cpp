@@ -107,17 +107,19 @@ MSNet* MSNet::myInstance = 0;
 // member method definitions
 // ===========================================================================
 MSNet*
-MSNet::getInstance(void) {
+MSNet::getInstance(void) throw(ProcessError) {
     if (myInstance != 0) {
         return myInstance;
     }
-    assert(false);
-    return 0;
+    throw ProcessError("A network was not yet constructed.");
 }
 
 
 MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) {
+             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError) {
+    if(myInstance!=0) {
+        throw ProcessError("A network was already constructed.");
+    }
     MSCORN::init();
     OptionsCont &oc = OptionsCont::getOptions();
     myStep = (SUMOTime) oc.getInt("begin"); // !!! SUMOTime-option
@@ -155,7 +157,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc,
                      vector<int> stateDumpTimes,
-                     std::string stateDumpFiles) {
+                     std::string stateDumpFiles) throw() {
     myEdges = edges;
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
@@ -184,11 +186,40 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     // set requests/responses
     myJunctions->postloadInitContainer();
     // initialise outputs
-    initialiseSimulation();
+    if (OptionsCont::getOptions().isSet("emissions-output")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
+    }
+    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
+    }
+    if (OptionsCont::getOptions().isSet("vehroute-output")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
+    }
+
+    //car2car
+    if (OptionsCont::getOptions().isSet("c2x.cluster-info")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
+    }
+    if (OptionsCont::getOptions().isSet("c2x.saved-info")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
+    }
+    if (OptionsCont::getOptions().isSet("c2x.saved-info-freq")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO_FREQ);
+    }
+    if (OptionsCont::getOptions().isSet("c2x.transmitted-info")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_TRANS_INFO);
+    }
+    if (OptionsCont::getOptions().isSet("c2x.vehicle-in-range")) {
+        MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
+    }
+    // initialise performance computation
+    if (myLogExecutionTime) {
+        mySimBeginMillis = SysUtils::getCurrentMillis();
+    }
 }
 
 
-MSNet::~MSNet() {
+MSNet::~MSNet() throw() {
     // delete controls
     delete myJunctions;
     delete myDetectorControl;
@@ -221,39 +252,8 @@ MSNet::~MSNet() {
     delete myEmissionEvents;
     clearAll();
     GeoConvHelper::close();
+    myInstance = 0;
 }
-
-
-#ifdef _MESSAGES
-MSMessageEmitter*
-MSNet::getMsgEmitter(const std::string& whatemit) {
-    msgEmitVec.clear();
-    msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
-    MSMessageEmitter *msgEmitter = 0;
-    for (int i = 0; i < msgEmitVec.size(); ++i) {
-        if (msgEmitVec.at(i)->getEventsEnabled(whatemit)) {
-            msgEmitter = msgEmitVec.at(i);
-            break;
-        }
-    }
-    // returns 0 if the requested MessageEmitter is not in the map
-    return msgEmitter;
-}
-
-
-void
-MSNet::createMsgEmitter(std::string& id,
-                        std::string& file,
-                        const std::string& base,
-                        std::string& whatemit,
-                        bool reverse,
-                        bool table,
-                        bool xy,
-                        SUMOReal step) {
-    MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
-    myMsgEmitter.add(id, msgEmitter);
-}
-#endif
 
 
 int
@@ -292,48 +292,13 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     while (quitMessage=="");
     WRITE_MESSAGE(quitMessage);
     // exit simulation loop
-    closeSimulation(start, myStep);
+    closeSimulation(start);
     return 0;
 }
 
 
 void
-MSNet::initialiseSimulation() {
-    if (OptionsCont::getOptions().isSet("emissions-output")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
-    }
-    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
-    }
-    if (OptionsCont::getOptions().isSet("vehroute-output")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
-    }
-
-    //car2car
-    if (OptionsCont::getOptions().isSet("c2x.cluster-info")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.saved-info")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.saved-info-freq")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO_FREQ);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.transmitted-info")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_TRANS_INFO);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.vehicle-in-range")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
-    }
-    // initialise performance computation
-    if (myLogExecutionTime) {
-        mySimBeginMillis = SysUtils::getCurrentMillis();
-    }
-}
-
-
-void
-MSNet::closeSimulation(SUMOTime start, SUMOTime stop) {
+MSNet::closeSimulation(SUMOTime start) {
     if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
         OutputDevice::getDeviceByOption("ss2-sql-output") << ";\n";
     }
@@ -342,7 +307,7 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop) {
         ostringstream msg;
         msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
         if (duration!=0) {
-            msg << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)duration) << "\n";
+            msg << " Real time factor: " << ((SUMOReal)(myStep-start)*1000./(SUMOReal)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
             msg.setf(std::ios::showpoint);    // print decimal point
             msg << " UPS: " << ((SUMOReal) myVehiclesMoved * 1000. / (SUMOReal) duration) << "\n";
@@ -353,7 +318,8 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop) {
         << " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
     }
-    myDetectorControl->close(stop);
+    myDetectorControl->close(myStep);
+    //traci::TraCIServer::close(myStep);
 }
 
 
@@ -608,6 +574,38 @@ MSNet::postSimStepOutput() const throw() {
     }
     cout << (char) 13;
 }
+
+
+#ifdef _MESSAGES
+MSMessageEmitter*
+MSNet::getMsgEmitter(const std::string& whatemit) {
+    msgEmitVec.clear();
+    msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
+    MSMessageEmitter *msgEmitter = 0;
+    for (int i = 0; i < msgEmitVec.size(); ++i) {
+        if (msgEmitVec.at(i)->getEventsEnabled(whatemit)) {
+            msgEmitter = msgEmitVec.at(i);
+            break;
+        }
+    }
+    // returns 0 if the requested MessageEmitter is not in the map
+    return msgEmitter;
+}
+
+
+void
+MSNet::createMsgEmitter(std::string& id,
+                        std::string& file,
+                        const std::string& base,
+                        std::string& whatemit,
+                        bool reverse,
+                        bool table,
+                        bool xy,
+                        SUMOReal step) {
+    MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
+    myMsgEmitter.add(id, msgEmitter);
+}
+#endif
 
 
 /****************************************************************************/

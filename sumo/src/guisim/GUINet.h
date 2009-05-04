@@ -73,7 +73,7 @@ class MSVehicleControl;
  *
  * This gui version of the network allows the retrieval of some more
  * information than the normal network version does. Due to this, not only
- * these retrival, but also some further initialisation methods must have
+ * these retrieval, but also some further initialisation methods must have
  * been implemented. Nonethenless, this class has almost the same functions
  * as the MSNet-class.
  *
@@ -84,11 +84,20 @@ class MSVehicleControl;
  */
 class GUINet : public MSNet {
 public:
+    /** @brief Constructor
+     * @param[in] vc The vehicle control to use
+     * @param[in] beginOfTimestepEvents The event control to use for simulation step begin events
+     * @param[in] endOfTimestepEvents The event control to use for simulation step end events
+     * @param[in] emissionEvents The event control to use for emission events
+     * @exception ProcessError If a network was already constructed
+     */
     GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-           MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
+           MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError);
 
-    /// destructor
+
+    /// @brief Destructor
     ~GUINet() throw();
+
 
     /// returns the bounder of the network
     const Boundary &getBoundary() const;
@@ -107,7 +116,7 @@ public:
 
 
     /// @name functions for performace measurements
-    //{@
+    /// @{
 
     /** @brief Returns the duration of the last step (sim+visualisation+idle) (in ms)
      * @return How long it took to compute and display the last step
