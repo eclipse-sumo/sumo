@@ -46,7 +46,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUISettingsHandler::GUISettingsHandler(std::string file) throw()
+GUISettingsHandler::GUISettingsHandler(const std::string &file) throw()
         : SUMOSAXHandler(file), myZoom(-1), myXPos(-1), myYPos(-1), mySnapshotFile("") {
     XMLSubSys::runParser(*this, file);
 }
@@ -73,6 +73,9 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_VIEWSETTINGS_SCHEME:
         mySettings.name = attrs.getStringSecure("name", mySettings.name);
+        if(gSchemeStorage.contains(mySettings.name)) {
+            mySettings = gSchemeStorage.get(mySettings.name);
+        }
         break;
     case SUMO_TAG_VIEWSETTINGS_OPENGL:
         mySettings.antialiase = TplConvert<char>::_2bool(attrs.getStringSecure("antialiase", toString(mySettings.antialiase)).c_str());

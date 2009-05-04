@@ -46,7 +46,7 @@ public:
      *
      * @param[in] file the file to parse
      */
-    GUISettingsHandler(std::string file) throw();
+    GUISettingsHandler(const std::string &file) throw();
 
     /// @brief Destructor
     ~GUISettingsHandler() throw();
