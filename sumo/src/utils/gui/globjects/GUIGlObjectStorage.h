@@ -4,7 +4,7 @@
 /// @date    Oct 2002
 /// @version $Id$
 ///
-// A storage for retrival of displayed object using a numerical id
+// A storage for retrieval of displayed object using a numerical id
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -51,6 +51,8 @@ class GUIGlObject;
 // ===========================================================================
 /**
  * @class GUIGlObjectStorage
+ * @brief A storage for retrieval of displayed object using a numerical id
+ *
  * This is a container for GUIGlObjects - objects, which may are displayed
  * and due to this may generate tooltips or be grapped in other ways.
  * As in case of vehicles (other, later implemented objects may have this
