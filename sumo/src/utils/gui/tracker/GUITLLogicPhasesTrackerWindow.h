@@ -229,7 +229,7 @@ private:
     /// @brief The last time a phase was added at
     SUMOTime myLastTime;
 
-    /// @brief The connector for retrival of further phases
+    /// @brief The connector for retrieval of further phases
     GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> > *myConnector;
 
     /// @brief Information whether the tracking mode is on
