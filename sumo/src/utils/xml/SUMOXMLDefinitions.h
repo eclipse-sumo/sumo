@@ -50,8 +50,6 @@ enum SumoXMLTag {
     SUMO_TAG_POI,
     /** begin/end of the description of a polygon */
     SUMO_TAG_POLY,
-    /** begin/end of the list of lane descriptions */
-    SUMO_TAG_LANES,
     /** begin/end of the description of a junction */
     SUMO_TAG_JUNCTION,
 #ifdef _MESSAGES

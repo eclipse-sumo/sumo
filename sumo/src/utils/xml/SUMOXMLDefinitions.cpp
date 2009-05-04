@@ -43,11 +43,8 @@ GenericSAXHandler::Tag sumotags[] = {
     { "lane",             SUMO_TAG_LANE },
     { "poi",              SUMO_TAG_POI },
     { "poly",             SUMO_TAG_POLY },
-    { "lanes",            SUMO_TAG_LANES },
     { "junction",         SUMO_TAG_JUNCTION },
-    /// @deprecated begins
     { "detector",         SUMO_TAG_DETECTOR },
-    /// @deprecated ends
     { "e1-detector",      SUMO_TAG_E1DETECTOR },
     { "e2-detector",      SUMO_TAG_E2DETECTOR },
     { "e3-detector",      SUMO_TAG_E3DETECTOR },
