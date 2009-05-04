@@ -70,7 +70,9 @@ public:
     virtual ~SUMOSAXAttributesImpl_Xerces() throw();
 
 
-    //{ methods for retrieving attribute values
+    /// @name methods for retrieving attribute values
+    /// @{
+
     /** @brief Returns the information whether the named (by its enum-value) attribute is within the current list
      *
      * @param[in] id The id of the searched attribute

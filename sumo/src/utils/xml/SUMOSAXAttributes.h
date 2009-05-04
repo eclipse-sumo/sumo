@@ -109,7 +109,9 @@ public:
 
 
 
-    //{ virtual methods for retrieving attribute values
+    /// @name virtual methods for retrieving attribute values
+    /// @{
+
     /** @brief Returns the information whether the named (by its enum-value) attribute is within the current list
      *
      * @param[in] id The id of the attribute to search for
