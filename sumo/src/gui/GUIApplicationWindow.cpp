@@ -898,8 +898,7 @@ void
 GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
     GUITexturesHelper::init(getApp());
     myAmLoading = false;
-    GUIEvent_SimulationLoaded *ec =
-        static_cast<GUIEvent_SimulationLoaded*>(e);
+    GUIEvent_SimulationLoaded *ec = static_cast<GUIEvent_SimulationLoaded*>(e);
     // check whether the loading was successfull
     if (ec->myNet==0) {
         // report failure
