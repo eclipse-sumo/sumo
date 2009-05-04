@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/09 13:27:26 by SUMO sumo Version dev-SVN-r7082
+<!-- generated on 04/29/09 15:33:21 by SUMO sumo Version dev-SVN-r7092
 <configuration>
 
    <input>
@@ -23,37 +23,37 @@
 -->
 
 <netstats>
-   <interval begin="0" end="24" id="dump_25">
+   <interval begin="0" end="25" id="dump_25">
       <edge id="beg" traveltime="37.23" sampledSeconds="136.00" density="10.91" occupancy="5.46" noStops="10" speed="13.39" entered="0" emitted="10" left="0"/>
    </interval>
-   <interval begin="25" end="49" id="dump_25">
+   <interval begin="25" end="50" id="dump_25">
       <edge id=":beg_0" traveltime="2.64" sampledSeconds="15.18" density="97.95" occupancy="48.97" noStops="0" speed="2.35" entered="6" emitted="0" left="5"/>
       <edge id="beg" traveltime="32.59" sampledSeconds="313.28" density="25.14" occupancy="12.57" noStops="10" speed="15.30" entered="0" emitted="10" left="6"/>
       <edge id="middle" traveltime="468.28" sampledSeconds="55.54" density="2.24" occupancy="1.12" noStops="0" speed="2.12" entered="5" emitted="0" left="0"/>
    </interval>
-   <interval begin="50" end="74" id="dump_25">
+   <interval begin="50" end="75" id="dump_25">
       <edge id=":beg_0" traveltime="3.06" sampledSeconds="19.10" density="123.21" occupancy="61.60" noStops="0" speed="2.03" entered="6" emitted="0" left="7"/>
       <edge id="beg" traveltime="41.89" sampledSeconds="400.58" density="32.14" occupancy="16.07" noStops="10" speed="11.90" entered="0" emitted="10" left="6"/>
       <edge id="middle" traveltime="467.47" sampledSeconds="209.32" density="8.45" occupancy="4.23" noStops="0" speed="2.12" entered="7" emitted="0" left="0"/>
    </interval>
-   <interval begin="75" end="99" id="dump_25">
+   <interval begin="75" end="100" id="dump_25">
       <edge id=":beg_0" traveltime="3.15" sampledSeconds="19.09" density="123.15" occupancy="61.58" noStops="0" speed="1.97" entered="7" emitted="0" left="6"/>
       <edge id="beg" traveltime="53.23" sampledSeconds="491.19" density="39.41" occupancy="19.70" noStops="10" speed="9.37" entered="0" emitted="10" left="7"/>
       <edge id="middle" traveltime="480.48" sampledSeconds="364.72" density="14.73" occupancy="7.36" noStops="0" speed="2.06" entered="6" emitted="0" left="0"/>
    </interval>
-   <interval begin="100" end="124" id="dump_25">
+   <interval begin="100" end="125" id="dump_25">
       <edge id=":beg_0" traveltime="2.46" sampledSeconds="18.39" density="118.66" occupancy="59.33" noStops="0" speed="2.52" entered="7" emitted="0" left="7"/>
       <edge id="beg" traveltime="61.60" sampledSeconds="579.36" density="46.48" occupancy="23.24" noStops="10" speed="8.09" entered="0" emitted="10" left="7"/>
       <edge id="middle" traveltime="105.23" sampledSeconds="531.25" density="21.45" occupancy="10.73" noStops="0" speed="9.41" entered="7" emitted="0" left="0"/>
    </interval>
-   <interval begin="125" end="149" id="dump_25">
+   <interval begin="125" end="150" id="dump_25">
       <edge id=":beg_0" traveltime="1.03" sampledSeconds="12.87" density="83.02" occupancy="41.51" noStops="0" speed="6.00" entered="12" emitted="0" left="12"/>
       <edge id=":end_1" traveltime="1.02" sampledSeconds="5.12" density="33.05" occupancy="16.53" noStops="0" speed="6.05" entered="5" emitted="0" left="5"/>
       <edge id="beg" traveltime="62.92" sampledSeconds="605.16" density="48.55" occupancy="24.28" noStops="10" speed="7.92" entered="0" emitted="10" left="12"/>
       <edge id="end" traveltime="36.34" sampledSeconds="26.35" density="2.11" occupancy="1.06" noStops="0" speed="13.72" entered="5" emitted="0" left="0"/>
       <edge id="middle" traveltime="44.82" sampledSeconds="730.49" density="29.50" occupancy="14.75" noStops="0" speed="22.10" entered="12" emitted="0" left="5"/>
    </interval>
-   <interval begin="150" end="174" id="dump_25">
+   <interval begin="150" end="175" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.02" density="7.35" occupancy="3.68" noStops="0" speed="27.20" entered="5" emitted="0" left="5"/>
       <edge id=":beg_0" traveltime="0.37" sampledSeconds="6.38" density="41.13" occupancy="20.57" noStops="0" speed="16.54" entered="17" emitted="0" left="18"/>
       <edge id=":end_1" traveltime="1.01" sampledSeconds="10.13" density="65.36" occupancy="32.68" noStops="0" speed="6.12" entered="10" emitted="0" left="10"/>
@@ -62,7 +62,7 @@
       <edge id="middle" traveltime="52.41" sampledSeconds="900.39" density="36.36" occupancy="18.18" noStops="0" speed="18.90" entered="18" emitted="0" left="10"/>
       <edge id="rend" traveltime="18.44" sampledSeconds="2.13" density="0.17" occupancy="0.09" noStops="0" speed="27.12" entered="5" emitted="0" left="0"/>
    </interval>
-   <interval begin="175" end="199" id="dump_25">
+   <interval begin="175" end="200" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.04" density="14.59" occupancy="7.30" noStops="0" speed="27.41" entered="10" emitted="0" left="10"/>
       <edge id=":beg_0" traveltime="0.31" sampledSeconds="4.27" density="27.55" occupancy="13.78" noStops="0" speed="20.32" entered="14" emitted="0" left="14"/>
       <edge id=":end_1" traveltime="1.05" sampledSeconds="10.35" density="66.80" occupancy="33.40" noStops="0" speed="5.89" entered="10" emitted="0" left="9"/>
@@ -71,7 +71,7 @@
       <edge id="middle" traveltime="69.15" sampledSeconds="1078.98" density="43.57" occupancy="21.79" noStops="0" speed="14.32" entered="14" emitted="0" left="10"/>
       <edge id="rend" traveltime="18.22" sampledSeconds="5.78" density="0.46" occupancy="0.23" noStops="0" speed="27.44" entered="10" emitted="0" left="0"/>
    </interval>
-   <interval begin="200" end="224" id="dump_25">
+   <interval begin="200" end="225" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.04" density="14.64" occupancy="7.32" noStops="0" speed="27.32" entered="10" emitted="0" left="10"/>
       <edge id=":beg_0" traveltime="0.31" sampledSeconds="3.36" density="21.69" occupancy="10.84" noStops="0" speed="20.29" entered="11" emitted="0" left="11"/>
       <edge id=":end_1" traveltime="1.03" sampledSeconds="9.70" density="62.58" occupancy="31.29" noStops="0" speed="6.00" entered="10" emitted="0" left="10"/>
@@ -80,7 +80,7 @@
       <edge id="middle" traveltime="101.82" sampledSeconds="1117.56" density="45.13" occupancy="22.57" noStops="0" speed="9.73" entered="11" emitted="0" left="10"/>
       <edge id="rend" traveltime="18.26" sampledSeconds="5.31" density="0.42" occupancy="0.21" noStops="0" speed="27.38" entered="10" emitted="0" left="0"/>
    </interval>
-   <interval begin="225" end="249" id="dump_25">
+   <interval begin="225" end="250" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.04" density="14.56" occupancy="7.28" noStops="0" speed="27.47" entered="10" emitted="0" left="10"/>
       <edge id=":beg_0" traveltime="0.30" sampledSeconds="2.72" density="17.57" occupancy="8.78" noStops="0" speed="20.49" entered="9" emitted="0" left="9"/>
       <edge id=":end_1" traveltime="1.04" sampledSeconds="10.15" density="65.48" occupancy="32.74" noStops="0" speed="5.97" entered="9" emitted="0" left="10"/>
@@ -89,7 +89,7 @@
       <edge id="middle" traveltime="112.00" sampledSeconds="1124.44" density="45.41" occupancy="22.70" noStops="0" speed="8.84" entered="9" emitted="0" left="9"/>
       <edge id="rend" traveltime="18.22" sampledSeconds="5.07" density="0.41" occupancy="0.20" noStops="0" speed="27.44" entered="10" emitted="0" left="0"/>
    </interval>
-   <interval begin="250" end="274" id="dump_25">
+   <interval begin="250" end="275" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.04" density="14.68" occupancy="7.34" noStops="0" speed="27.26" entered="10" emitted="0" left="10"/>
       <edge id=":beg_0" traveltime="0.30" sampledSeconds="3.03" density="19.57" occupancy="9.78" noStops="0" speed="20.44" entered="10" emitted="0" left="10"/>
       <edge id=":end_1" traveltime="1.08" sampledSeconds="10.77" density="69.46" occupancy="34.73" noStops="0" speed="5.76" entered="10" emitted="0" left="10"/>
@@ -98,7 +98,7 @@
       <edge id="middle" traveltime="115.40" sampledSeconds="1121.42" density="45.29" occupancy="22.64" noStops="0" speed="8.58" entered="10" emitted="0" left="10"/>
       <edge id="rend" traveltime="18.35" sampledSeconds="5.59" density="0.45" occupancy="0.22" noStops="0" speed="27.25" entered="10" emitted="0" left="0"/>
    </interval>
-   <interval begin="275" end="299" id="dump_25">
+   <interval begin="275" end="300" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.03" density="13.10" occupancy="6.55" noStops="0" speed="27.49" entered="9" emitted="0" left="9"/>
       <edge id=":beg_0" traveltime="0.30" sampledSeconds="0.60" density="3.89" occupancy="1.95" noStops="0" speed="20.55" entered="2" emitted="0" left="2"/>
       <edge id=":end_1" traveltime="0.96" sampledSeconds="9.61" density="61.99" occupancy="30.99" noStops="0" speed="6.45" entered="10" emitted="0" left="10"/>
@@ -107,85 +107,85 @@
       <edge id="middle" traveltime="135.52" sampledSeconds="1040.60" density="42.02" occupancy="21.01" noStops="0" speed="7.31" entered="2" emitted="0" left="10"/>
       <edge id="rend" traveltime="18.23" sampledSeconds="3.46" density="0.28" occupancy="0.14" noStops="0" speed="27.43" entered="9" emitted="0" left="0"/>
    </interval>
-   <interval begin="300" end="324" id="dump_25">
+   <interval begin="300" end="325" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.04" density="14.57" occupancy="7.28" noStops="0" speed="27.46" entered="10" emitted="0" left="10"/>
       <edge id=":end_1" traveltime="1.11" sampledSeconds="10.36" density="66.83" occupancy="33.41" noStops="0" speed="5.57" entered="10" emitted="0" left="9"/>
       <edge id="end" traveltime="23.07" sampledSeconds="214.70" density="17.23" occupancy="8.61" noStops="0" speed="21.61" entered="9" emitted="0" left="10"/>
       <edge id="middle" traveltime="246.11" sampledSeconds="808.84" density="32.66" occupancy="16.33" noStops="0" speed="4.02" entered="0" emitted="0" left="10"/>
       <edge id="rend" traveltime="18.21" sampledSeconds="5.07" density="0.41" occupancy="0.20" noStops="0" speed="27.46" entered="10" emitted="0" left="0"/>
    </interval>
-   <interval begin="325" end="349" id="dump_25">
+   <interval begin="325" end="350" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.04" density="14.57" occupancy="7.29" noStops="0" speed="27.45" entered="10" emitted="0" left="10"/>
       <edge id=":end_1" traveltime="1.04" sampledSeconds="10.05" density="64.82" occupancy="32.41" noStops="0" speed="5.99" entered="9" emitted="0" left="10"/>
       <edge id="end" traveltime="22.95" sampledSeconds="226.42" density="18.17" occupancy="9.08" noStops="0" speed="21.72" entered="10" emitted="0" left="10"/>
       <edge id="middle" traveltime="252.73" sampledSeconds="563.26" density="22.75" occupancy="11.37" noStops="0" speed="3.92" entered="0" emitted="0" left="9"/>
       <edge id="rend" traveltime="18.23" sampledSeconds="5.23" density="0.42" occupancy="0.21" noStops="0" speed="27.43" entered="10" emitted="0" left="0"/>
    </interval>
-   <interval begin="350" end="374" id="dump_25">
+   <interval begin="350" end="375" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.03" density="13.11" occupancy="6.56" noStops="0" speed="27.45" entered="9" emitted="0" left="9"/>
       <edge id=":end_1" traveltime="0.95" sampledSeconds="10.10" density="65.16" occupancy="32.58" noStops="0" speed="6.50" entered="11" emitted="0" left="10"/>
       <edge id="end" traveltime="23.00" sampledSeconds="231.24" density="18.55" occupancy="9.28" noStops="0" speed="21.68" entered="10" emitted="0" left="9"/>
       <edge id="middle" traveltime="235.33" sampledSeconds="312.35" density="12.61" occupancy="6.31" noStops="0" speed="4.21" entered="0" emitted="0" left="11"/>
       <edge id="rend" traveltime="18.18" sampledSeconds="4.28" density="0.34" occupancy="0.17" noStops="0" speed="27.51" entered="9" emitted="0" left="0"/>
    </interval>
-   <interval begin="375" end="399" id="dump_25">
+   <interval begin="375" end="400" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.04" density="16.07" occupancy="8.04" noStops="0" speed="27.37" entered="11" emitted="0" left="11"/>
       <edge id=":end_1" traveltime="1.02" sampledSeconds="7.55" density="48.71" occupancy="24.35" noStops="0" speed="6.09" entered="7" emitted="0" left="8"/>
       <edge id="end" traveltime="22.49" sampledSeconds="223.03" density="17.89" occupancy="8.95" noStops="0" speed="22.16" entered="8" emitted="0" left="11"/>
       <edge id="middle" traveltime="234.50" sampledSeconds="68.65" density="2.77" occupancy="1.39" noStops="0" speed="4.22" entered="0" emitted="0" left="7"/>
       <edge id="rend" traveltime="18.20" sampledSeconds="3.73" density="0.30" occupancy="0.15" noStops="0" speed="27.47" entered="11" emitted="0" left="0"/>
    </interval>
-   <interval begin="400" end="424" id="dump_25">
+   <interval begin="400" end="425" id="dump_25">
       <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.03" density="10.20" occupancy="5.10" noStops="0" speed="27.46" entered="7" emitted="0" left="7"/>
       <edge id="end" traveltime="18.63" sampledSeconds="61.44" density="4.93" occupancy="2.46" noStops="0" speed="26.76" entered="0" emitted="0" left="7"/>
       <edge id="rend" traveltime="18.29" sampledSeconds="3.54" density="0.28" occupancy="0.14" noStops="0" speed="27.34" entered="7" emitted="0" left="0"/>
    </interval>
-   <interval begin="425" end="449" id="dump_25">
+   <interval begin="425" end="450" id="dump_25">
    </interval>
-   <interval begin="450" end="474" id="dump_25">
+   <interval begin="450" end="475" id="dump_25">
    </interval>
-   <interval begin="475" end="499" id="dump_25">
+   <interval begin="475" end="500" id="dump_25">
    </interval>
-   <interval begin="500" end="524" id="dump_25">
+   <interval begin="500" end="525" id="dump_25">
    </interval>
-   <interval begin="525" end="549" id="dump_25">
+   <interval begin="525" end="550" id="dump_25">
    </interval>
-   <interval begin="550" end="574" id="dump_25">
+   <interval begin="550" end="575" id="dump_25">
    </interval>
-   <interval begin="575" end="599" id="dump_25">
+   <interval begin="575" end="600" id="dump_25">
    </interval>
-   <interval begin="600" end="624" id="dump_25">
+   <interval begin="600" end="625" id="dump_25">
    </interval>
-   <interval begin="625" end="649" id="dump_25">
+   <interval begin="625" end="650" id="dump_25">
    </interval>
-   <interval begin="650" end="674" id="dump_25">
+   <interval begin="650" end="675" id="dump_25">
    </interval>
-   <interval begin="675" end="699" id="dump_25">
+   <interval begin="675" end="700" id="dump_25">
    </interval>
-   <interval begin="700" end="724" id="dump_25">
+   <interval begin="700" end="725" id="dump_25">
    </interval>
-   <interval begin="725" end="749" id="dump_25">
+   <interval begin="725" end="750" id="dump_25">
    </interval>
-   <interval begin="750" end="774" id="dump_25">
+   <interval begin="750" end="775" id="dump_25">
    </interval>
-   <interval begin="775" end="799" id="dump_25">
+   <interval begin="775" end="800" id="dump_25">
    </interval>
-   <interval begin="800" end="824" id="dump_25">
+   <interval begin="800" end="825" id="dump_25">
    </interval>
-   <interval begin="825" end="849" id="dump_25">
+   <interval begin="825" end="850" id="dump_25">
    </interval>
-   <interval begin="850" end="874" id="dump_25">
+   <interval begin="850" end="875" id="dump_25">
    </interval>
-   <interval begin="875" end="899" id="dump_25">
+   <interval begin="875" end="900" id="dump_25">
    </interval>
-   <interval begin="900" end="924" id="dump_25">
+   <interval begin="900" end="925" id="dump_25">
    </interval>
-   <interval begin="925" end="949" id="dump_25">
+   <interval begin="925" end="950" id="dump_25">
    </interval>
-   <interval begin="950" end="974" id="dump_25">
+   <interval begin="950" end="975" id="dump_25">
    </interval>
-   <interval begin="975" end="999" id="dump_25">
+   <interval begin="975" end="1000" id="dump_25">
    </interval>
-   <interval begin="1000" end="1000" id="dump_25">
+   <interval begin="1000" end="1001" id="dump_25">
    </interval>
 </netstats>
