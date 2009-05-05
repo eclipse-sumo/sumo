@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A view on the simulation; this view is a microscopic one
+// Storage for geometrical objects, sorted by the layers they are in
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -59,15 +59,15 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ShapeContainer::ShapeContainer()
-        : myCurrentLayer(-10), myMinLayer(100), myMaxLayer(-100) {}
+ShapeContainer::ShapeContainer() throw()
+        : myMinLayer(100), myMaxLayer(-100) {}
 
 
-ShapeContainer::~ShapeContainer() {}
+ShapeContainer::~ShapeContainer() throw() {}
 
 
 bool
-ShapeContainer::add(int layer, Polygon2D *p) {
+ShapeContainer::add(int layer, Polygon2D *p) throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
         myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -78,7 +78,7 @@ ShapeContainer::add(int layer, Polygon2D *p) {
 
 
 bool
-ShapeContainer::add(int layer, PointOfInterest *p) {
+ShapeContainer::add(int layer, PointOfInterest *p) throw() {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -88,8 +88,8 @@ ShapeContainer::add(int layer, PointOfInterest *p) {
 }
 
 
-NamedObjectCont<Polygon2D*> &
-ShapeContainer::getPolygonCont(int layer) const {
+const NamedObjectCont<Polygon2D*> &
+ShapeContainer::getPolygonCont(int layer) const throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
         myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -99,8 +99,8 @@ ShapeContainer::getPolygonCont(int layer) const {
 }
 
 
-NamedObjectCont<PointOfInterest*> &
-ShapeContainer::getPOICont(int layer) const {
+const NamedObjectCont<PointOfInterest*> &
+ShapeContainer::getPOICont(int layer) const throw() {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
         myMinLayer = MIN2(layer, myMinLayer);
@@ -108,19 +108,6 @@ ShapeContainer::getPOICont(int layer) const {
     }
     return myPOILayers[layer];
 }
-
-
-int
-ShapeContainer::getMinLayer() const {
-    return myMinLayer;
-}
-
-
-int
-ShapeContainer::getMaxLayer() const {
-    return myMaxLayer;
-}
-
 
 
 /****************************************************************************/
