@@ -104,7 +104,7 @@ GUIPolygon2D::getMicrosimID() const throw() {
 Boundary
 GUIPolygon2D::getCenteringBoundary() const throw() {
     Boundary b;
-    b.add(myPos.getBoxBoundary());
+    b.add(myShape.getBoxBoundary());
     b.grow(10);
     return b;
 }
@@ -150,11 +150,11 @@ double glvert[6];
 void
 GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (fill()) {
-        if (getPosition2DVector().size()<3) {
+        if (myShape.size()<3) {
             return;
         }
     } else {
-        if (getPosition2DVector().size()<2) {
+        if (myShape.size()<2) {
             return;
         }
     }
@@ -173,7 +173,7 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
     RGBColor color = getColor();
     glColor3d(color.red(), color.green(), color.blue());
     if (fill()) {
-        double *points = new double[getPosition2DVector().size()*3];
+        double *points = new double[myShape.size()*3];
         GLUtesselator *tobj = gluNewTess();
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
         gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
@@ -183,12 +183,12 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, NULL);
         gluTessBeginContour(tobj);
-        for (size_t i=0; i!=getPosition2DVector().size(); ++i) {
-            points[3*i]  = getPosition2DVector()[(int) i].x();
-            points[3*i+1]  = getPosition2DVector()[(int) i].y();
+        for (size_t i=0; i!=myShape.size(); ++i) {
+            points[3*i]  = myShape[(int) i].x();
+            points[3*i+1]  = myShape[(int) i].y();
             points[3*i+2]  = 0;
-            glvert[0] = getPosition2DVector()[(int) i].x();
-            glvert[1] = getPosition2DVector()[(int) i].y();
+            glvert[0] = myShape[(int) i].x();
+            glvert[1] = myShape[(int) i].y();
             glvert[2] = 0;
             glvert[3] = 1;
             glvert[4] = 1;
@@ -201,8 +201,8 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
         gluDeleteTess(tobj);
         delete[] points;
     } else {
-        GLHelper::drawLine(getPosition2DVector());
-        GLHelper::drawBoxLines(getPosition2DVector(), 1.);
+        GLHelper::drawLine(myShape);
+        GLHelper::drawBoxLines(myShape, 1.);
     }
     // (optional) clear id
     if (s.needsGlID) {

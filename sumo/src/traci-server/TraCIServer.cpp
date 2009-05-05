@@ -141,8 +141,8 @@ TraCIServer::TraCIServer() {
         }
         std::vector<Polygon2D*> polyList = shapeCont.getPolygonCont(i).getTempVector();
         for (std::vector<Polygon2D*>::iterator it=polyList.begin(); it != polyList.end(); it++) {
-            polygonInt2ExtId[(*it)->getName()] = polyId;
-            polygonExt2IntId[polyId] = (*it)->getName();
+            polygonInt2ExtId[(*it)->getID()] = polyId;
+            polygonExt2IntId[polyId] = (*it)->getID();
             polyId++;
         }
     }
@@ -2610,7 +2610,7 @@ throw(TraCIException) {
         // name string of the object
     case DOMVAR_NAME:
         if (poly != NULL) {
-            name = poly->getName();
+            name = poly->getID();
             response.writeUnsignedByte(TYPE_STRING);
             response.writeString(name);
             if (dataType != TYPE_STRING) {
@@ -2655,8 +2655,8 @@ throw(TraCIException) {
             throw TraCIException("Unable to retrieve polygon with given id");
         } else {
             response.writeUnsignedByte(POSITION_3D);
-            response.writeFloat(poly->getPosition2DVector().getPolygonCenter().x());
-            response.writeFloat(poly->getPosition2DVector().getPolygonCenter().y());
+            response.writeFloat(poly->getShape().getPolygonCenter().x());
+            response.writeFloat(poly->getShape().getPolygonCenter().y());
             response.writeFloat(0);
         }
         // add a warning to the response if the requested data type was not correct
@@ -2685,10 +2685,10 @@ throw(TraCIException) {
             throw TraCIException("Unable to retrieve polygon with given id");
         } else {
             response.writeUnsignedByte(TYPE_POLYGON);
-            response.writeUnsignedByte(MIN2(static_cast<size_t>(255),poly->getPosition2DVector().size()));
-            for (int i=0; i < MIN2(static_cast<size_t>(255),poly->getPosition2DVector().size()); i++) {
-                response.writeFloat(poly->getPosition2DVector()[i].x());
-                response.writeFloat(poly->getPosition2DVector()[i].y());
+            response.writeUnsignedByte(MIN2(static_cast<size_t>(255),poly->getShape().size()));
+            for (int i=0; i < MIN2(static_cast<size_t>(255),poly->getShape().size()); i++) {
+                response.writeFloat(poly->getShape()[i].x());
+                response.writeFloat(poly->getShape()[i].y());
             }
         }
         // add a warning to the response if the requested data type was not correct

@@ -4,7 +4,7 @@
 /// @date    Jun 2004
 /// @version $Id$
 ///
-// }
+// A 2D-polygon
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -44,61 +44,13 @@ using namespace std;
 // ===========================================================================
 // member definitions
 // ===========================================================================
-//////////////////////////////////////////////////////////////////////
-// Constructor/Destructor
-//////////////////////////////////////////////////////////////////////
 Polygon2D::Polygon2D(const std::string name, const std::string type,
-                     const RGBColor &color, const Position2DVector &Pos,
-                     bool fill)
-        : myName(name),  myType(type), myColor(color), myPos(Pos), myFill(fill) {}
+                     const RGBColor &color, const Position2DVector &shape,
+                     bool fill) throw()
+        : myName(name),  myType(type), myColor(color), myShape(shape), myFill(fill) {}
 
 
-Polygon2D::~Polygon2D() {}
-
-
-//////////////////////////////////////////////////////////////////////
-// Definitions of the Methods
-//////////////////////////////////////////////////////////////////////
-// return the name of the Polygon
-const std::string &
-Polygon2D::getName() const {
-    return myName;
-}
-
-
-// return the typ of the Polygon
-const std::string &
-Polygon2D::getType() const {
-    return myType;
-}
-
-
-// return the Color of the polygon
-const RGBColor &
-Polygon2D::getColor() const {
-    return myColor;
-}
-
-
-// return the Positions Vector of the Polygon
-const Position2DVector &
-Polygon2D::getPosition2DVector() const {
-    return myPos;
-}
-
-
-// add the Position2DVector to the polygon
-void
-Polygon2D::addPolyPosition(Position2DVector &myNewPos) {
-    myPos = myNewPos;
-
-}
-
-
-bool
-Polygon2D::fill() const {
-    return myFill;
-}
+Polygon2D::~Polygon2D() throw() {}
 
 
 

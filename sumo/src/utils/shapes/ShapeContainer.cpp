@@ -73,7 +73,7 @@ ShapeContainer::add(int layer, Polygon2D *p) throw() {
         myMinLayer = MIN2(layer, myMinLayer);
         myMaxLayer = MAX2(layer, myMaxLayer);
     }
-    return myPolygonLayers[layer].add(p->getName(), p);
+    return myPolygonLayers[layer].add(p->getID(), p);
 }
 
 

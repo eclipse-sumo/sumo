@@ -4,7 +4,7 @@
 /// @date    Jun 2004
 /// @version $Id$
 ///
-// A 2d-polygon
+// A 2D-polygon
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -40,48 +40,85 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class Polygon2D
+ * @brief A 2D-polygon
+ */
 class Polygon2D {
-
-
 public:
-    /// Constructor
+    /** @brief Constructor
+     * @param[in] name The name of the polygon
+     * @param[in] type The (abstract) type of the polygon
+     * @param[in] color The color of the polygon
+     * @param[in] shape The shape of the poslygon
+     * @param[in] fill Whether the polygon shall be filled
+     */
     Polygon2D(const std::string name, const std::string type,
-              const RGBColor &color, const Position2DVector &Pos, bool fill);
+              const RGBColor &color, const Position2DVector &shape, bool fill) throw();
 
-    /// Destructor
-    virtual ~Polygon2D();
 
-    /// add the incoming Position to the Polygon2D
-    void addPolyPosition(Position2DVector &myNewPos);
+    /// @brief Destructor
+    virtual ~Polygon2D() throw();
 
-    // return the name of the Polygon
-    const std::string &getName() const;
+    
+    /// @name Getter
+    /// @{
 
-    // return the type of the Polygon
-    const std::string &getType() const;
+    /** @brief Returns the name of the polygon
+     * @return The polygon's id
+     */
+    const std::string &getID() const throw() {
+        return myName;
+    }
 
-    // return the Color of the polygon
-    const RGBColor &getColor() const;
 
-    // return the Positions Vector of the Polygon
-    const Position2DVector &getPosition2DVector(void) const;
+    /** @brief Returns the (abstract) type of the polygon
+     * @return The polygon's (abstract) type
+     */
+    const std::string &getType() const throw() {
+        return myType;
+    }
 
-    bool fill() const;
+
+    /** @brief Returns the color of the polygon
+     * @return The polygon's color
+     */
+    const RGBColor &getColor() const throw() {
+        return myColor;
+    }
+
+
+    /** @brief Returns the shape of the polygon
+     * @return The polygon's shape
+     */
+    const Position2DVector &getShape() const throw() {
+        return myShape;
+    }
+
+
+    /** @brief Returns whether the polygon is filled
+     * @return Whether the polygon is filled
+     */
+    bool fill() const throw() {
+        return myFill;
+    }
+    /// @}
+
 
 protected:
-    /// the name of the Polygon
+    /// @brief the name of the polygon
     std::string myName;
 
-    /// the type of the polygon
+    /// @brief the type of the polygon
     std::string myType;
 
-    /// the color of the Polygon
+    /// @brief the color of the polygon
     RGBColor myColor;
 
-    /// the positions of the Polygon
-    Position2DVector myPos;
+    /// @brief the positions of the polygon
+    Position2DVector myShape;
 
-    /// Information whether the polygon has to be filled
+    /// @brief Information whether the polygon has to be filled
     bool myFill;
 
 };

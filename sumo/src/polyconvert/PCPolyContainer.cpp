@@ -68,7 +68,7 @@ PCPolyContainer::insert(const std::string &id, Polygon2D *poly,
     // check whether the polygon lies within the wished area
     //  - if such an area was given
     if (myDoPrunne&&!ignorePrunning) {
-        Boundary b = poly->getPosition2DVector().getBoxBoundary();
+        Boundary b = poly->getShape().getBoxBoundary();
         if (!b.partialWithin(myPrunningBoundary)) {
             delete poly;
             return true;
@@ -153,12 +153,12 @@ PCPolyContainer::save(const std::string &file) throw(IOError) {
     out.writeXMLHeader("shapes");
     // write polygons
     for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
-        out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
+        out << "   <poly id=\"" << (*i).second->getID() << "\" type=\""
         << (*i).second->getType() << "\" color=\""
         << (*i).second->getColor() << "\" fill=\""
         << (*i).second->fill() << "\"";
         out << " layer=\"" << myPolyLayerMap[(*i).second] << "\"";
-        out << ">" << (*i).second->getPosition2DVector() << "</poly>\n";
+        out << ">" << (*i).second->getShape() << "</poly>\n";
     }
     // write pois
     for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
