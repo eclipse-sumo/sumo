@@ -565,13 +565,14 @@ RODFDetectorCon::writeEmitters(const std::string &file,
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         RODFDetector *det = *i;
         // get file name for values (emitter/calibrator definition)
+        string escapedID = StringUtils::escapeXML(det->getID());
         string defFileName;
         if (det->getType()==SOURCE_DETECTOR) {
-            defFileName = FileHelpers::getFilePath(file) + "emitter_" + det->getID() + ".def.xml";
+            defFileName = FileHelpers::getFilePath(file) + "emitter_" + escapedID + ".def.xml";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
-            defFileName = FileHelpers::getFilePath(file) + "calibrator_" + det->getID() + ".def.xml";
+            defFileName = FileHelpers::getFilePath(file) + "calibrator_" + escapedID + ".def.xml";
         } else {
-            defFileName = FileHelpers::getFilePath(file) + "other_" + det->getID() + ".def.xml";
+            defFileName = FileHelpers::getFilePath(file) + "other_" + escapedID + ".def.xml";
             continue;
         }
         // try to write the definition
@@ -590,13 +591,13 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         clearDists(dists);
         // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
-            out << "   <emitter id=\"source_" << StringUtils::escapeXML(det->getID())
+            out << "   <emitter id=\"source_" << escapedID
             << "\" pos=\"" << det->getPos() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
             << "file=\"" << defFileName << "\"/>\n";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
-            out << "   <calirator id=\"calibrator_" << StringUtils::escapeXML(det->getID())
+            out << "   <calibrator id=\"calibrator_" << escapedID
             << "\" pos=\"" << det->getPos() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
