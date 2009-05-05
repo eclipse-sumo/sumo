@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-// missing_desc
+// A point-of-interest (2D)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -34,20 +34,41 @@
 #include <utils/geom/Position2D.h>
 #include <utils/common/Named.h>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class PointOfInterest
+ * @brief A point-of-interest (2D)
+ */
 class PointOfInterest :
             public RGBColor, public Position2D, public Named {
 public:
+    /** @brief Constrcutor
+     * @param[in] id The id of the POI
+     * @param[in] type The (abstract) type of the poi
+     * @param[in] p The position of the poi
+     * @param[in] c The color of the poi
+     */
     PointOfInterest(const std::string &id, const std::string &type,
                     const Position2D &p, const RGBColor &c) throw()
             : RGBColor(c), Position2D(p), Named(id), myType(type) { }
 
+
+    /// @brief Destructor
     virtual ~PointOfInterest() throw() { }
 
-    const std::string &getType() const {
+
+    /** @brief Returns the (abstract) type of the poi
+     * @return The polygon's (abstract) type
+     */
+    const std::string &getType() const throw() {
         return myType;
     }
 
 protected:
+    /// @brief the type of the poi
     std::string myType;
 
 };
