@@ -66,6 +66,10 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane
         NOx(0), PMx(0), fuel(0) {}
 
 
+MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
+}
+
+
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw() {
     sampleSeconds = 0.;

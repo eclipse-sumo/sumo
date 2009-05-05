@@ -66,6 +66,10 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane) 
         emitted(0) {}
 
 
+MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
+}
+
+
 void
 MSMeanData_Net::MSLaneMeanDataValues::reset() throw() {
     sampleSeconds = 0.;

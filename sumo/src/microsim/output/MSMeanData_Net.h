@@ -79,6 +79,8 @@ public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane * const lane) throw();
 
+        /** @brief Destructor */
+        virtual ~MSLaneMeanDataValues() throw();
 
         /** @brief Resets values so they may be used for the next interval
          */

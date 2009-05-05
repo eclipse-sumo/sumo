@@ -67,6 +67,10 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const
         currentTimeN(0), meanNTemp(0), myLastTimeStep((SUMOTime) -1) {}
 
 
+MSMeanData_Harmonoise::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
+}
+
+
 void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::reset() throw() {
     sampleSeconds = 0;
