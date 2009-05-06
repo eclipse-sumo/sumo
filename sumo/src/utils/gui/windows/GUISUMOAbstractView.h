@@ -36,6 +36,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
@@ -130,9 +131,6 @@ public:
     virtual long onMouseMove(FXObject*,FXSelector,void*);
     virtual long onMouseLeft(FXObject*,FXSelector,void*);
 
-//    long onCmdShowGrid(FXObject*,FXSelector,void*);
-    long onSimStep(FXObject*sender,FXSelector,void*);
-
     long onKeyPress(FXObject *o,FXSelector sel,void *data);
     long onKeyRelease(FXObject *o,FXSelector sel,void *data);
 
@@ -142,8 +140,12 @@ public:
     /// A method that updates the tooltip
     void updateToolTip();
 
+    /// sets the snapshot time to file map
+    void setSnapshots(std::map<SUMOTime, std::string> snaps);
     /// paints the area to a buffer
     FXColor *getSnapshot();
+    /// checks whether it is time for a snapshot
+    void checkSnapshots();
 
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
@@ -357,6 +359,8 @@ protected:
     MFXMutex myDecalsLock;
     /// @}
 
+    std::map<SUMOTime, std::string> mySnapshots;
+    
     mutable MFXMutex myPolyDrawLock;
 
     enum VehicleOperationType {

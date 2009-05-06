@@ -47,7 +47,7 @@
 // method definitions
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string &file) throw()
-        : SUMOSAXHandler(file), myZoom(-1), myXPos(-1), myYPos(-1), mySnapshotFile("") {
+        : SUMOSAXHandler(file), myZoom(-1), myXPos(-1), myYPos(-1) {
     XMLSubSys::runParser(*this, file);
 }
 
@@ -65,11 +65,13 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         myXPos = attrs.getFloatSecure(SUMO_ATTR_X, myXPos);
         myYPos = attrs.getFloatSecure(SUMO_ATTR_Y, myYPos);
         break;
-    case SUMO_TAG_SNAPSHOT:
-        mySnapshotFile = attrs.getStringSecure(SUMO_ATTR_FILE, "");
-        if (mySnapshotFile != "" && !FileHelpers::isAbsolute(mySnapshotFile)) {
-            mySnapshotFile = FileHelpers::getConfigurationRelative(getFileName(), mySnapshotFile);
+    case SUMO_TAG_SNAPSHOT: {
+        std::string file = attrs.getString(SUMO_ATTR_FILE);
+        if (file != "" && !FileHelpers::isAbsolute(file)) {
+            file = FileHelpers::getConfigurationRelative(getFileName(), file);
         }
+        mySnapshots[attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_TIME, 1)] = file;
+                            }
         break;
     case SUMO_TAG_VIEWSETTINGS_SCHEME:
         mySettings.name = attrs.getStringSecure("name", mySettings.name);
@@ -194,17 +196,9 @@ GUISettingsHandler::setViewport(GUISUMOAbstractView* view) throw() {
 
 
 void
-GUISettingsHandler::makeSnapshot(GUISUMOAbstractView* view) throw() {
-    if (mySnapshotFile != "") {
-        FXColor *buf = view->getSnapshot();
-        try {
-            if (!MFXImageHelper::saveImage(mySnapshotFile, view->getWidth(), view->getHeight(), buf)) {
-                MsgHandler::getWarningInstance()->inform("Could not save '" + mySnapshotFile + "'.");
-            }
-        } catch (InvalidArgument e) {
-            MsgHandler::getWarningInstance()->inform("Could not save '" + mySnapshotFile + "'.\n" + e.what());
-        }
-        FXFREE(&buf);
+GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) throw() {
+    if (!mySnapshots.empty()) {
+        view->setSnapshots(mySnapshots);
     }
 }
 

@@ -933,7 +933,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
             std::string settingsName = settings.addSettings(view);
             view->addDecals(settings.getDecals());
             settings.setViewport(view);
-            settings.makeSnapshot(view);
+            settings.setSnapshots(view);
         }
         // set simulation name on the caption
         string caption = "SUMO " + string(VERSION_STRING);

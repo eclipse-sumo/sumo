@@ -269,6 +269,7 @@ GUISUMOViewParent::setView(GUIGlObject *o) {
 long
 GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*) {
     myView->update();
+    myView->checkSnapshots();
     return 1;
 }
 

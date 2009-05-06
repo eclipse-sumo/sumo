@@ -100,7 +100,6 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]= {
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,  0,                 GUISUMOAbstractView::onRightBtnRelease),
     FXMAPFUNC(SEL_MOTION,              0,                 GUISUMOAbstractView::onMouseMove),
     FXMAPFUNC(SEL_LEAVE,               0,                 GUISUMOAbstractView::onMouseLeft),
-    FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
     FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
 
@@ -835,10 +834,26 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data) {
 }
 
 
-long
-GUISUMOAbstractView::onSimStep(FXObject*,FXSelector,void*) {
-    update();
-    return 1;
+void
+GUISUMOAbstractView::checkSnapshots() {
+    std::map<SUMOTime, std::string>::iterator snapIt = mySnapshots.find(MSNet::getInstance()->getCurrentTimeStep());
+    if (snapIt != mySnapshots.end()) {
+        FXColor *buf = getSnapshot();
+        try {
+            if (!MFXImageHelper::saveImage(snapIt->second, getWidth(), getHeight(), buf)) {
+                MsgHandler::getWarningInstance()->inform("Could not save '" + snapIt->second + "'.");
+            }
+        } catch (InvalidArgument e) {
+            MsgHandler::getWarningInstance()->inform("Could not save '" + snapIt->second + "'.\n" + e.what());
+        }
+        FXFREE(&buf);
+    }
+}
+
+
+void
+GUISUMOAbstractView::setSnapshots(std::map<SUMOTime, std::string> snaps) {
+    mySnapshots.insert(snaps.begin(), snaps.end());
 }
 
 

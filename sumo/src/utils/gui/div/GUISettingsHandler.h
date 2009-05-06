@@ -81,7 +81,7 @@ public:
      *
      * @param[in] parent the view which needs to be shot
      */
-    void makeSnapshot(GUISUMOAbstractView* view) throw();
+    void setSnapshots(GUISUMOAbstractView* view) throw();
 
     /** @brief Returns whether any decals have been parsed
      *
@@ -100,8 +100,8 @@ private:
     GUIVisualizationSettings mySettings;
     /// @brief The viewport loaded
     SUMOReal myZoom, myXPos, myYPos;
-    /// @brief The file to save an potential snapshot to
-    std::string mySnapshotFile;
+    /// @brief mappig of time steps to filenames for potential snapshots
+    std::map<SUMOTime, std::string> mySnapshots;
     /// @brief The decals list to fill
     std::vector<GUISUMOAbstractView::Decal> myDecals;
 
