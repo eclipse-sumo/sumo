@@ -1,5 +1,11 @@
 # Loading a settings file at startup
 startup_load
 
+# Loading an incomplete settings file at startup
+incomplete
+
 # Loading a settings file with decals at startup
 decals_load
+
+# taking snapshots
+snapshot
