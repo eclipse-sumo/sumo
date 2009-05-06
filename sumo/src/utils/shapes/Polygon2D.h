@@ -53,7 +53,7 @@ public:
      * @param[in] shape The shape of the poslygon
      * @param[in] fill Whether the polygon shall be filled
      */
-    Polygon2D(const std::string name, const std::string type,
+    Polygon2D(const std::string &name, const std::string &type,
               const RGBColor &color, const Position2DVector &shape, bool fill) throw();
 
 

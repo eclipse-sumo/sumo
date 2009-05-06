@@ -44,7 +44,7 @@ using namespace std;
 // ===========================================================================
 // member definitions
 // ===========================================================================
-Polygon2D::Polygon2D(const std::string name, const std::string type,
+Polygon2D::Polygon2D(const std::string &name, const std::string &type,
                      const RGBColor &color, const Position2DVector &shape,
                      bool fill) throw()
         : myName(name),  myType(type), myColor(color), myShape(shape), myFill(fill) {}
