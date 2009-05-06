@@ -554,5 +554,18 @@ MSVehicleControl::getVType(const std::string &id) throw() {
 }
 
 
+void 
+MSVehicleControl::insertVTypeIDs(std::vector<std::string> &into) const throw()
+{
+    into.reserve(into.size()+myVTypeDict.size()+myVTypeDistDict.size());
+    for(VTypeDictType::const_iterator i=myVTypeDict.begin(); i!=myVTypeDict.end(); ++i) {
+        into.push_back((*i).first);
+    }
+    for(VTypeDistDictType::const_iterator i=myVTypeDistDict.begin(); i!=myVTypeDistDict.end(); ++i) {
+        into.push_back((*i).first);
+    }
+}
+
+
 /****************************************************************************/
 

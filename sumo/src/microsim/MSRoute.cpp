@@ -157,10 +157,24 @@ MSRoute::inFurtherUse() const {
 }
 
 
+void 
+MSRoute::insertIDs(std::vector<std::string> &into)
+{
+    into.reserve(myDict.size()+myDistDict.size()+into.size());
+    for(RouteDict::const_iterator i=myDict.begin(); i!=myDict.end(); ++i) {
+        into.push_back((*i).first);
+    }
+    for(RouteDistDict::const_iterator i=myDistDict.begin(); i!=myDistDict.end(); ++i) {
+        into.push_back((*i).first);
+    }
+}
+
+
 MSRouteIterator
 MSRoute::find(const MSEdge *e) const {
     return std::find(myEdges.begin(), myEdges.end(), e);
 }
+
 
 MSRouteIterator
 MSRoute::find(const MSEdge *e, const MSRouteIterator &startingAt) const {
@@ -328,24 +342,19 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
 
     for (MSRouteIterator it = find(fromEdge); it!=end(); ++it) {
         if ((*it) == toEdge && !isFirstIteration) {
-//            cerr << " lastEdge " << (*it)->getID() << ": +" << toPos;
             distance += toPos;
-//			cerr << "result: dist=" << distance << endl;
             break;
         } else {
             const MSEdge::LaneCont& lanes = *((*it)->getLanes());
             distance += lanes[0]->length();
-//			cerr << " edge " << (*it)->getID() << ": +" << lanes[0]->length();
 #ifdef HAVE_INTERNAL_LANES
             // add length of internal lanes to the result
             for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
                 const MSLinkCont& links = (*laneIt)->getLinkCont();
                 for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
-                    //if ((*linkIt)->getLane()->getEdge() == *(it+1)) {
                     std::string succLaneId = (*(*(it+1))->getLanes()->begin())->getID();
                     if ((*linkIt)->getLane()->getID().compare(succLaneId) == 0) {
                         distance += (*linkIt)->getLength();
-//						cerr << " link: + " << (*linkIt)->getLength();
                     }
                 }
             }

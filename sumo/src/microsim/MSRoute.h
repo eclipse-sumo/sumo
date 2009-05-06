@@ -150,6 +150,8 @@ public:
     /// Destroys the named route, removing it also from the dictionary
     static void erase(std::string id);
 
+    static void insertIDs(std::vector<std::string> &into);
+
     MSRouteIterator find(const MSEdge *e) const;
     MSRouteIterator find(const MSEdge *e, const MSRouteIterator &startingAt) const;
 

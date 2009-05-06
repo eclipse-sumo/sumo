@@ -162,7 +162,6 @@ public:
      * @return The end of the internal vehicle map
      */
     constVehIt loadedVehEnd() const throw();
-
     /// @}
 
 
@@ -297,6 +296,12 @@ public:
      * @return The named vehicle type, or 0 if no such type exists
      */
     MSVehicleType *getVType(const std::string &id=DEFAULT_VTYPE_ID) throw();
+
+
+    /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector
+     * @param[in] into The vector to fill with ids
+     */
+    void insertVTypeIDs(std::vector<std::string> &into) const throw();
     /// @}
 
 
