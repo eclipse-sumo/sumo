@@ -108,30 +108,17 @@ convert(const FXColor c) {
 
 
 void
-GUICompleteSchemeStorage::init(FXApp *app,
-                               const std::map<int, std::vector<RGBColor> > &vehColMap,
-                               const std::map<int, std::vector<RGBColor> > &laneColMap,
-                               const std::map<int, std::vector<RGBColor> > &edgeColMap) {
+GUICompleteSchemeStorage::init(FXApp *app) {
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";
-        vs.laneColorings = laneColMap;
-#ifdef HAVE_MESOSIM
-        vs.edgeColorings = edgeColMap;
-#endif
-        vs.vehicleColorings = vehColMap;
         gSchemeStorage.add(vs);
     }
     {
         GUIVisualizationSettings vs;
         vs.name = "faster standard";
-        vs.laneColorings = laneColMap;
-#ifdef HAVE_MESOSIM
-        vs.edgeColorings = edgeColMap;
-#endif
         vs.showLinkDecals = false;
         vs.showRails = false;
-        vs.vehicleColorings = vehColMap;
         gSchemeStorage.add(vs);
     }
     {
@@ -139,13 +126,8 @@ GUICompleteSchemeStorage::init(FXApp *app,
         vs.name = "real world";
         vs.vehicleQuality = 2;
         vs.backgroundColor = RGBColor((SUMOReal) .2, (SUMOReal) .5, (SUMOReal) .2);
-        vs.laneColorings = laneColMap;
-#ifdef HAVE_MESOSIM
-        vs.edgeColorings = edgeColMap;
-#endif
         vs.laneShowBorders = true;
         vs.hideConnectors = true;
-        vs.vehicleColorings = vehColMap;
         vs.minVehicleSize = 0;
         gSchemeStorage.add(vs);
     }

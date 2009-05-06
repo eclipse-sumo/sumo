@@ -90,9 +90,8 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * coloring schemes initialisation
  * ----------------------------------------------------------------------- */
-map<int, vector<RGBColor> >
+void
 initVehicleColoringSchemes() {
-    map<int, vector<RGBColor> > vehColMap;
     // insert possible vehicle coloring schemes
     GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap();
     // from read/assigned colors
@@ -222,37 +221,13 @@ initVehicleColoringSchemes() {
             (bool (GUIVehicle::*)() const) &GUIVehicle::getLastInfoTime));
             */
 #endif
-    // build the colors map
-    for (int i=0; i<(int) sm.size(); ++i) {
-        vehColMap[i] = vector<RGBColor>();
-        switch (sm.getColorSetType(i)) {
-        case CST_SINGLE:
-            vehColMap[i].push_back(sm.getColorer(i)->getSingleColor());
-            break;
-        case CST_MINMAX:
-            vehColMap[i].push_back(sm.getColorer(i)->getMinColor());
-            vehColMap[i].push_back(sm.getColorer(i)->getMaxColor());
-            break;
-        case CST_MINMAX_OPT:
-            vehColMap[i].push_back(sm.getColorer(i)->getMinColor());
-            vehColMap[i].push_back(sm.getColorer(i)->getMaxColor());
-            vehColMap[i].push_back(sm.getColorer(i)->getFallbackColor());
-            break;
-        default:
-            break;
-        }
-    }
-    return vehColMap;
 }
 
 
-map<int, vector<RGBColor> >
+void
 initLaneColoringSchemes() {
-    map<int, vector<RGBColor> > laneColMap;
     // insert possible lane coloring schemes
     GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap();
-    // insert possible lane coloring schemes
-    //
     sm.add("uniform",
            new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
     sm.add("by selection (lane-/streetwise)",
@@ -318,37 +293,13 @@ initLaneColoringSchemes() {
     sm.add("C2C: by edge neighborhood",
     new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
         */
-    // build the colors map
-    for (int i=0; i<(int) sm.size(); i++) {
-        laneColMap[i] = vector<RGBColor>();
-        switch (sm.getColorSetType(i)) {
-        case CST_SINGLE:
-            laneColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
-            break;
-        case CST_MINMAX:
-            laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-            laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-            break;
-        case CST_MINMAX_OPT:
-            laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-            laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-            laneColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
-            break;
-        default:
-            break;
-        }
-    }
-    return laneColMap;
 }
 
 #ifdef HAVE_MESOSIM
-map<int, vector<RGBColor> >
+void
 initEdgeColoringSchemes() {
-    map<int, vector<RGBColor> > edgeColMap;
-    // insert possible lane coloring schemes
+    // insert possible edge coloring schemes
     GUIColoringSchemesMap<GUIEdge> &sm = GUIViewMesoEdges::getLaneSchemesMap();
-    // insert possible lane coloring schemes
-    //
     sm.add("uniform",
            new GUIColorer_SingleColor<GUIEdge>(RGBColor(0, 0, 0)));
     sm.add("by selection (lanewise)",
@@ -373,45 +324,20 @@ initEdgeColoringSchemes() {
     sm.add("C2C: by edge neighborhood",
     new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
         */
-    // build the colors map
-    for (int i=0; i<sm.size(); i++) {
-        edgeColMap[i] = vector<RGBColor>();
-        switch (sm.getColorSetType(i)) {
-        case CST_SINGLE:
-            edgeColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
-            break;
-        case CST_MINMAX:
-            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-            break;
-        case CST_MINMAX_OPT:
-            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-            edgeColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
-            break;
-        default:
-            break;
-        }
-    }
-    return edgeColMap;
 }
 #endif
 
 void
 initColoringSchemes(FXApp *a) {
-    map<int, vector<RGBColor> > vehColMap = initVehicleColoringSchemes();
-    map<int, vector<RGBColor> > laneColMap = initLaneColoringSchemes();
+    initVehicleColoringSchemes();
+    initLaneColoringSchemes();
 #ifdef HAVE_MESOSIM
-    map<int, vector<RGBColor> > edgeColMap = initEdgeColoringSchemes();
+    initEdgeColoringSchemes();
 #endif
     // initialise gradients
     myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
     // initialise available coloring schemes
-#ifdef HAVE_MESOSIM
-    gSchemeStorage.init(a, vehColMap, laneColMap, edgeColMap);
-#else
-    gSchemeStorage.init(a, vehColMap, laneColMap, map<int, vector<RGBColor> >());
-#endif
+    gSchemeStorage.init(a);
 }
 
 

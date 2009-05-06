@@ -67,10 +67,7 @@ public:
     const std::vector<std::string> &getNames() const;
 
     /// initialises the storage with some default settings
-    void init(FXApp *app,
-              const std::map<int, std::vector<RGBColor> > &vehColMap,
-              const std::map<int, std::vector<RGBColor> > &laneColMap,
-              const std::map<int, std::vector<RGBColor> > &edgeColMap);
+    void init(FXApp *app);
 
     /// Returns all settings
     const std::map<std::string, GUIVisualizationSettings> &getItems() const;

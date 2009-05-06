@@ -45,6 +45,7 @@ public:
     virtual void fill(FXComboBox &cb) = 0;
     virtual ColorSetType getColorSetType(size_t index) const = 0;
     virtual GUIBaseColorerInterface *getColorerInterface(size_t index) const = 0;
+    virtual size_t size() const = 0;
 
 };
 

@@ -27,6 +27,13 @@
 #include <config.h>
 #endif
 
+#include <map>
+#include <vector>
+#include <gui/GUIViewTraffic.h>
+#ifdef HAVE_MESOSIM
+#include <mesogui/GUIViewMesoEdges.h>
+#endif
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include "GUIVisualizationSettings.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -63,7 +70,38 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         minPOISize(0), poiExaggeration(1), drawPOIName(false), poiNameSize(50),
         poiNameColor(RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5)),
         showSizeLegend(true)
-{}
+{
+    initColorMap(GUIViewTraffic::getLaneSchemesMap(), laneColorings);
+#ifdef HAVE_MESOSIM
+    initColorMap(GUIViewMesoEdges::getLaneSchemesMap(), edgeColorings);
+#endif
+    initColorMap(GUIViewTraffic::getVehiclesSchemesMap(), vehicleColorings);
+}
+
+
+void
+GUIVisualizationSettings::initColorMap(const BaseSchemeInfoSource &sm,
+                                       std::map<int, std::vector<RGBColor> > &colMap) {
+    for (int i=0; i<(int) sm.size(); ++i) {
+        colMap[i] = std::vector<RGBColor>();
+        switch (sm.getColorSetType(i)) {
+        case CST_SINGLE:
+            colMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
+            break;
+        case CST_MINMAX:
+            colMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+            colMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+            break;
+        case CST_MINMAX_OPT:
+            colMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+            colMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+            colMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
+            break;
+        default:
+            break;
+        }
+    }
+}
 
 
 bool

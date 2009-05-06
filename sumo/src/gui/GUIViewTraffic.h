@@ -53,6 +53,7 @@ class GUINet;
 class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
+class MSRoute;
 
 
 // ===========================================================================

@@ -36,6 +36,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class BaseSchemeInfoSource;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -197,6 +203,10 @@ public:
 
     /** @brief Assignment operator */
     bool operator==(const GUIVisualizationSettings &vs2);
+
+private:
+    void initColorMap(const BaseSchemeInfoSource &sm,
+                      std::map<int, std::vector<RGBColor> > &colMap);
 
 };
 
