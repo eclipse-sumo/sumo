@@ -70,7 +70,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         if (file != "" && !FileHelpers::isAbsolute(file)) {
             file = FileHelpers::getConfigurationRelative(getFileName(), file);
         }
-        mySnapshots[attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_TIME, 1)] = file;
+        mySnapshots[attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_TIME, 0)] = file;
                             }
         break;
     case SUMO_TAG_VIEWSETTINGS_SCHEME:

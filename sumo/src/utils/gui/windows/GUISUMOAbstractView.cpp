@@ -656,6 +656,7 @@ GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*) {
         doInit();
         myAmInitialised = true;
         makeNonCurrent();
+        checkSnapshots();
     }
     return 1;
 }
