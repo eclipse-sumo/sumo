@@ -152,7 +152,7 @@ $(PROJ_LIBS)
 if WITH_GUI
 sumo_guisim_SOURCES = guisim_main.cpp
 
-sumo_guisim_LDFLAGS = $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(X_LDFLAGS)
+sumo_guisim_LDFLAGS = $(FOX_LDFLAGS) $(sumo_LDFLAGS) $(X_LDFLAGS)
 
 sumo_guisim_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \

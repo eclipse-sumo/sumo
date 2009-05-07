@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="z_optional_libtraciserver"
 	ProjectGUID="{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}"
 	RootNamespace="z_optional_libtraciserver"
@@ -45,116 +45,6 @@
 				RuntimeLibrary="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
-				RuntimeLibrary="2"
-				Detect64BitPortabilityProblems="true"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Fastbuild|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
-				RuntimeLibrary="2"
-				Detect64BitPortabilityProblems="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -243,6 +133,61 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
+				RuntimeLibrary="2"
+				Detect64BitPortabilityProblems="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Release|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
@@ -263,6 +208,61 @@
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
+				RuntimeLibrary="2"
+				Detect64BitPortabilityProblems="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Fastbuild|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -371,6 +371,42 @@
 				RelativePath="..\..\..\src\traci-server\TraCIServer.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_POI.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Polygon.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Route.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_TLS.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Vehicle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPIHelper.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -391,6 +427,42 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_MeMeDetector.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_POI.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Polygon.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Route.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_TLS.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Vehicle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_VehicleType.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPIHelper.h"
 				>
 			</File>
 		</Filter>

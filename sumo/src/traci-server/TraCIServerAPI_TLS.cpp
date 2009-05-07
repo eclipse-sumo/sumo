@@ -94,9 +94,9 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             unsigned int linkNo = vars.getActive()->getLinks().size();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             vector<string> phaseDef;
-            phaseDef.push_back(phase.getDriveMask().to_string().substr(64-linkNo, 64));
-            phaseDef.push_back(phase.getBreakMask().to_string().substr(64-linkNo, 64));
-            phaseDef.push_back(phase.getYellowMask().to_string().substr(64-linkNo, 64));
+            phaseDef.push_back(toString(phase.getDriveMask()).substr(64-linkNo, 64));
+            phaseDef.push_back(toString(phase.getBreakMask()).substr(64-linkNo, 64));
+            phaseDef.push_back(toString(phase.getYellowMask()).substr(64-linkNo, 64));
             tempMsg.writeStringList(phaseDef);
         }
         break;
@@ -144,9 +144,9 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                     unsigned int linkNo = vars.getActive()->getLinks().size();
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
                     vector<string> phaseDef;
-                    phaseDef.push_back(phase.getDriveMask().to_string().substr(64-linkNo, 64));
-                    phaseDef.push_back(phase.getBreakMask().to_string().substr(64-linkNo, 64));
-                    phaseDef.push_back(phase.getYellowMask().to_string().substr(64-linkNo, 64));
+                    phaseDef.push_back(toString(phase.getDriveMask()).substr(64-linkNo, 64));
+                    phaseDef.push_back(toString(phase.getBreakMask()).substr(64-linkNo, 64));
+                    phaseDef.push_back(toString(phase.getYellowMask()).substr(64-linkNo, 64));
                     tempContent.writeStringList(phaseDef);
                     ++cnt;
                 }
