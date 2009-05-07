@@ -308,7 +308,7 @@ getVehicleEmissionTypeID(const std::string &name) throw(ProcessError) {
 
 
 std::string
-getVehicleClassName(SUMOEmissionClass id) throw() {
+getVehicleEmissionTypeName(SUMOEmissionClass id) throw() {
     if (id==SVE_ZERO_EMISSIONS) {
         return "zero";
     }
