@@ -50,9 +50,16 @@
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
-#include <microsim/output/MSDetectorControl.h>
-#include <microsim/output/MSInductLoop.h>
-#include <microsim/output/MSE3Collector.h>
+#include "TraCIServerAPI_InductionLoop.h"
+#include "TraCIServerAPI_MeMeDetector.h"
+#include "TraCIServerAPI_TLS.h"
+#include "TraCIServerAPI_Vehicle.h"
+#include "TraCIServerAPI_VehicleType.h"
+#include "TraCIServerAPI_Route.h"
+#include "TraCIServerAPI_POI.h"
+#include "TraCIServerAPI_Polygon.h"
+
+
 
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
@@ -342,19 +349,34 @@ throw(TraCIException, std::invalid_argument) {
         success = commandUnsubscribeDomain();
         break;
     case CMD_GET_INDUCTIONLOOP_VARIABLE:
-        success = commandGetInductionLoopVariable();
+        success = TraCIServerAPI_InductionLoop::processGet(myInputStorage, myOutputStorage);
         break;
     case CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
-        success = commandGetMultiEntryExitDetectorVariable();
+        success = TraCIServerAPI_MeMeDetector::processGet(myInputStorage, myOutputStorage);
         break;
     case CMD_GET_TL_VARIABLE:
-        success = commandGetTrafficLightVariable();
+        success = TraCIServerAPI_TLS::processGet(myInputStorage, myOutputStorage);
         break;
     case CMD_SET_TL_VARIABLE:
-        success = commandSetTrafficLightVariable();
+        success = TraCIServerAPI_TLS::processSet(myInputStorage, myOutputStorage);
         break;
     case CMD_GET_LANE_VARIABLE:
         success = commandGetLaneVariable();
+        break;
+    case CMD_GET_VEHICLE_VARIABLE:
+        success = TraCIServerAPI_Vehicle::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_GET_VEHICLETYPE_VARIABLE:
+        success = TraCIServerAPI_VehicleType::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_GET_ROUTE_VARIABLE:
+        success = TraCIServerAPI_Route::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_GET_POI_VARIABLE:
+        success = TraCIServerAPI_POI::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_GET_POLYGON_VARIABLE:
+        success = TraCIServerAPI_Polygon::processGet(myInputStorage, myOutputStorage);
         break;
     default:
         writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
@@ -2804,395 +2826,6 @@ throw(TraCIException) {
 
 /*****************************************************************************/
 bool
-TraCIServer::commandGetInductionLoopVariable() throw(TraCIException) {
-    Storage tmpResult;
-    string warning = "";	// additional description for response
-    // variable
-    int variable = myInputStorage.readUnsignedByte();
-    string id = myInputStorage.readString();
-    // check variable
-    if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
-        writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
-        return false;
-    }
-    // begin response building
-    Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_INDUCTIONLOOP_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
-    if (variable==ID_LIST) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getInductLoops().insertIDs(ids);
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    } else {
-        MSInductLoop *il = MSNet::getInstance()->getDetectorControl().getInductLoops().get(id);
-        if (il==0) {
-            writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Induction loop '" + id + "' is not known");
-            return false;
-        }
-        switch (variable) {
-        case ID_LIST:
-            break;
-        case LAST_STEP_VEHICLE_NUMBER:
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt(il->getCurrentPassedNumber());
-            break;
-        case LAST_STEP_MEAN_SPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) il->getCurrentSpeed());
-            break;
-        case LAST_STEP_VEHICLE_ID_LIST: {
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            vector<string> ids = il->getCurrentVehicleIDs();
-            tempMsg.writeStringList(ids);
-        }
-        break;
-        default:
-            break;
-        }
-    }
-    writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, warning);
-    // send response
-    myOutputStorage.writeUnsignedByte(0); // command length -> extended
-    myOutputStorage.writeInt(1 + 4 + tempMsg.size());
-    myOutputStorage.writeStorage(tempMsg);
-    return true;
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandGetMultiEntryExitDetectorVariable() throw(TraCIException) {
-    Storage tmpResult;
-    string warning = "";	// additional description for response
-    // variable
-    int variable = myInputStorage.readUnsignedByte();
-    string id = myInputStorage.readString();
-    // check variable
-    if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
-        writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
-        return false;
-    }
-    // begin response building
-    Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    if (variable==ID_LIST) {
-        std::vector<std::string> ids;
-        MSNet::getInstance()->getDetectorControl().getE3Detectors().insertIDs(ids);
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    } else {
-        MSE3Collector *e3 = MSNet::getInstance()->getDetectorControl().getE3Detectors().get(id);
-        if (e3==0) {
-            writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_ERR, "Areal detector '" + id + "' is not known");
-            return false;
-        }
-        switch (variable) {
-        case ID_LIST:
-            break;
-        case LAST_STEP_VEHICLE_NUMBER:
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((float) e3->getVehiclesWithin());
-            break;
-        case LAST_STEP_MEAN_SPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat((float) e3->getCurrentMeanSpeed());
-            break;
-        case LAST_STEP_VEHICLE_ID_LIST: {
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            vector<string> ids = e3->getCurrentVehicleIDs();
-            tempMsg.writeStringList(ids);
-        }
-        break;
-        default:
-            break;
-        }
-    }
-    writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, warning);
-    // send response
-    myOutputStorage.writeUnsignedByte(0); // command length -> extended
-    myOutputStorage.writeInt(1 + 4 + tempMsg.size());
-    myOutputStorage.writeStorage(tempMsg);
-    return true;
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandGetTrafficLightVariable() throw(TraCIException) {
-    Storage tmpResult;
-    string warning = "";	// additional description for response
-    // variable
-    int variable = myInputStorage.readUnsignedByte();
-    string id = myInputStorage.readString();
-    // check variable
-    if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE
-        &&variable!=TL_COMPLETE_DEFINITION&&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
-        &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM) {
-        writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
-        return false;
-    }
-    // begin response building
-    Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_TL_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    if (variable==ID_LIST) {
-        std::vector<std::string> ids = MSNet::getInstance()->getTLSControl().getAllTLIds();
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    } else {
-        if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-            writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known");
-            return false;
-        }
-        MSTLLogicControl::TLSLogicVariants &vars = MSNet::getInstance()->getTLSControl().get(id);
-        switch (variable) {
-        case ID_LIST:
-            break;
-        case TL_RED_YELLOW_GREEN_STATE: {
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            string state = vars.getActive()->buildStateList();
-            tempMsg.writeString(state);
-        }
-        break;
-        case TL_PHASE_BRAKE_YELLOW_STATE: {
-            MSPhaseDefinition phase = vars.getActive()->getCurrentPhaseDef();
-            unsigned int linkNo = vars.getActive()->getLinks().size();
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            vector<string> phaseDef;
-            phaseDef.push_back(toString(phase.getDriveMask()).substr(64-linkNo, 64));
-            phaseDef.push_back(toString(phase.getBreakMask()).substr(64-linkNo, 64));
-            phaseDef.push_back(toString(phase.getYellowMask()).substr(64-linkNo, 64));
-            tempMsg.writeStringList(phaseDef);
-        }
-        break;
-        case TL_COMPLETE_DEFINITION: {
-            vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            Storage tempContent;
-            unsigned int cnt = 0;
-            tempContent.writeUnsignedByte(TYPE_INTEGER);
-            tempContent.writeInt((int) logics.size());
-            ++cnt;
-            for (unsigned int i=0; i<logics.size(); ++i) {
-                MSTrafficLightLogic *logic = logics[i];
-                tempContent.writeUnsignedByte(TYPE_STRING);
-                tempContent.writeString(logic->getSubID());
-                ++cnt;
-                // type (always 0 by now)
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt(0);
-                ++cnt; 
-                // subparameter (always 0 by now)
-                tempContent.writeUnsignedByte(TYPE_COMPOUND);
-                tempContent.writeInt(0);
-                ++cnt; 
-                // (current) phase index
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt((int) logic->getCurrentPhaseIndex());
-                ++cnt;
-                // phase number
-                unsigned int phaseNo = logic->getPhaseNumber();
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                tempContent.writeInt((int) phaseNo);
-                ++cnt;
-                for (unsigned int j=0; j<phaseNo; ++j) {
-                    MSPhaseDefinition phase = logic->getPhase(j);
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
-                    ++cnt;
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
-                    ++cnt; // not implemented
-                    tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
-                    ++cnt; // not implemented
-                    unsigned int linkNo = vars.getActive()->getLinks().size();
-                    tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                    vector<string> phaseDef;
-                    phaseDef.push_back(toString(phase.getDriveMask()).substr(64-linkNo, 64));
-                    phaseDef.push_back(toString(phase.getBreakMask()).substr(64-linkNo, 64));
-                    phaseDef.push_back(toString(phase.getYellowMask()).substr(64-linkNo, 64));
-                    tempContent.writeStringList(phaseDef);
-                    ++cnt;
-                }
-            }
-            tempMsg.writeInt((int) cnt);
-            tempMsg.writeStorage(tempContent);
-        }
-        break;
-        case TL_CONTROLLED_LANES: {
-            const MSTrafficLightLogic::LaneVectorVector &lanes = vars.getActive()->getLanes();
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            vector<string> laneIDs;
-            for(MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-                const MSTrafficLightLogic::LaneVector &llanes = (*i);
-                for(MSTrafficLightLogic::LaneVector::const_iterator j=llanes.begin(); j!=llanes.end(); ++j) {
-                    laneIDs.push_back((*j)->getID());
-                }
-            }
-            tempMsg.writeStringList(laneIDs);
-        }
-        break;
-        case TL_CONTROLLED_LINKS: {
-            const MSTrafficLightLogic::LaneVectorVector &lanes = vars.getActive()->getLanes();
-            const MSTrafficLightLogic::LinkVectorVector &links = vars.getActive()->getLinks();
-            //
-            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-            Storage tempContent;
-            unsigned int cnt = 0;
-            tempContent.writeUnsignedByte(TYPE_INTEGER);
-            unsigned int no = (unsigned int) lanes.size();
-            tempContent.writeInt((int) no);
-            for(unsigned int i=0; i<no; ++i) {
-                const MSTrafficLightLogic::LaneVector &llanes = lanes[i];
-                const MSTrafficLightLogic::LinkVector &llinks = links[i];
-                // number of links controlled by this signal (signal i)
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                unsigned int no2 = (unsigned int) llanes.size();
-                tempContent.writeInt((int) no2);
-                ++cnt;
-                for(unsigned int j=0; j<no2; ++j) {
-                    MSLink *link = llinks[j];
-                    vector<string> def;
-                    // incoming lane
-                    def.push_back(llanes[j]->getID());
-                    // approached non-internal lane (if any)
-                    def.push_back(link->getLane()!=0 ? link->getLane()->getID() : "");
-                    // approached "via", internal lane (if any)
-#ifdef HAVE_INTERNAL_LANES
-                    def.push_back(link->getViaLane()!=0 ? link->getViaLane()->getID() : "");
-#else
-                    def.push_back("");
-#endif
-                    tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempContent.writeStringList(def);
-                    ++cnt;
-                }
-            }
-            tempMsg.writeInt((int) cnt);
-            tempMsg.writeStorage(tempContent);
-        }
-        break;
-        case TL_CURRENT_PHASE: {
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) vars.getActive()->getCurrentPhaseIndex());
-        }
-        break;
-        case TL_CURRENT_PROGRAM: {
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(vars.getActive()->getSubID());
-        }
-        break;
-        default:
-        break;
-        }
-    }
-    writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, warning);
-    // send response
-    myOutputStorage.writeUnsignedByte(0); // command length -> extended
-    myOutputStorage.writeInt(1 + 4 + tempMsg.size());
-    myOutputStorage.writeStorage(tempMsg);
-    return true;
-}
-
-/*****************************************************************************/
-bool
-TraCIServer::commandSetTrafficLightVariable() throw(TraCIException) {
-    Storage tmpResult;
-    string warning = "";	// additional description for response
-    // variable
-    int variable = myInputStorage.readUnsignedByte();
-    if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM&&variable!=TL_PHASE_DURATION) {
-        writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
-        return false;
-    }
-    string id = myInputStorage.readString();
-    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-        writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Traffic light '" + id + "' is not known");
-        return false;
-    }
-    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
-    SUMOTime cTime = MSNet::getInstance()->getCurrentTimeStep();
-    MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(id);
-    int valueDataType = myInputStorage.readUnsignedByte();
-    switch (variable) {
-    case TL_PHASE_BRAKE_YELLOW_STATE: {
-        if (valueDataType!=TYPE_STRINGLIST) {
-            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
-            return false;
-        }
-        vector<string> defs = myInputStorage.readStringList();
-        if (defs.size()!=3) {
-            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.");
-            return false;
-        }
-        bitset<64> prios(defs[1]);
-        prios.flip();
-        // build only once...
-        MSPhaseDefinition *phase = new MSPhaseDefinition(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
-        vector<MSPhaseDefinition*> phases;
-        phases.push_back(phase);
-        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(*MSNet::getInstance(), tlsControl, id, "online", phases, 0, cTime+1);
-        if (!vars.addLogic("online", logic, true, true)) {
-            delete logic;
-            MSPhaseDefinition nphase(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
-            *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
-        }
-    }
-    break;
-    case TL_PHASE_INDEX: {
-        if (valueDataType!=TYPE_INTEGER) {
-            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index must be given as an integer.");
-            return false;
-        }
-        int index = myInputStorage.readInt();
-        if (index<0||vars.getActive()->getPhaseNumber()<=index) {
-            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase index is not in the allowed range.");
-            return false;
-        }
-        int duration = vars.getActive()->getPhase(index).duration;
-        vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
-    }
-    break;
-    case TL_PROGRAM: {
-        if (valueDataType!=TYPE_STRING) {
-            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The program must be given as a string.");
-            return false;
-        }
-        string subID = myInputStorage.readString();
-        try {
-            vars.switchTo(tlsControl, subID);
-        } catch (ProcessError &e) {
-            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, e.what());
-            return false;
-        }
-    }
-    break;
-    case TL_PHASE_DURATION: {
-        if (valueDataType!=TYPE_INTEGER) {
-            writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase duration must be given as an integer.");
-            return false;
-        }
-        int duration = myInputStorage.readInt();
-        int index = vars.getActive()->getCurrentPhaseIndex();
-        vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
-    }
-    default:
-        break;
-    }
-    writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_OK, warning);
-    return true;
-}
-
-/*****************************************************************************/
-bool
 TraCIServer::commandGetLaneVariable() throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
@@ -3200,7 +2833,7 @@ TraCIServer::commandGetLaneVariable() throw(TraCIException) {
     int variable = myInputStorage.readUnsignedByte();
     string id = myInputStorage.readString();
     // check variable
-    if (variable!=LANE_LINK_NUMBER&&variable!=LANE_LENGTH&&variable!=LANE_MAXSPEED&&variable!=LANE_LINKS) {
+    if (variable!=LANE_LINK_NUMBER&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS) {
         writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
         return false;
     }
@@ -3224,11 +2857,11 @@ TraCIServer::commandGetLaneVariable() throw(TraCIException) {
             tempMsg.writeUnsignedByte(TYPE_UBYTE);
             tempMsg.writeUnsignedByte((int) lane->getLinkCont().size());
             break;
-        case LANE_LENGTH:
+        case VAR_LENGTH:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(lane->length());
             break;
-        case LANE_MAXSPEED:
+        case VAR_MAXSPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(lane->maxSpeed());
             break;
@@ -3293,8 +2926,6 @@ TraCIServer::commandGetLaneVariable() throw(TraCIException) {
     myOutputStorage.writeStorage(tempMsg);
     return true;
 }
-
-/*****************************************************************************/
 
 }
 

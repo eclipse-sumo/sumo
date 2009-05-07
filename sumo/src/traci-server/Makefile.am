@@ -1,4 +1,15 @@
 noinst_LIBRARIES = libtraciserver.a
 
-libtraciserver_a_SOURCES = TraCIConstants.h TraCIDijkstraRouter.h TraCIHandler.h TraCIHandler.cpp TraCIServer.h TraCIServer.cpp
+libtraciserver_a_SOURCES = TraCIConstants.h TraCIDijkstraRouter.h \
+TraCIException.h TraCIHandler.h TraCIHandler.cpp \
+TraCIServer.h TraCIServer.cpp \
+TraCIServerAPI_InductionLoop.h TraCIServerAPI_InductionLoop.cpp \
+TraCIServerAPI_MeMeDetector.h TraCIServerAPI_MeMeDetector.cpp \
+TraCIServerAPI_POI.h TraCIServerAPI_POI.cpp \
+TraCIServerAPI_Polygon.h TraCIServerAPI_Polygon.cpp \
+TraCIServerAPI_Route.h TraCIServerAPI_Route.cpp \
+TraCIServerAPI_TLS.h TraCIServerAPI_TLS.cpp \
+TraCIServerAPI_Vehicle.h TraCIServerAPI_Vehicle.cpp \
+TraCIServerAPI_VehicleType.h TraCIServerAPI_VehicleType.cpp \
+TraCIServerAPIHelper.h TraCIServerAPIHelper.cpp
 

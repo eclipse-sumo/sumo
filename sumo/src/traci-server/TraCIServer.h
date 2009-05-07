@@ -48,6 +48,7 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include "TraCiException.h"
 
 #include <map>
 #include <string>
@@ -61,18 +62,6 @@
 * @class TraCIServer
 */
 namespace traci {
-class TraCIException {
-private:
-    std::string what_;
-
-public:
-    TraCIException(std::string what)
-            : what_(what) {}
-    std::string what() const {
-        return what_;
-    }
-};
-
 // TraCIServer
 // Allows communication of sumo with external program. The external
 // program will control sumo.
@@ -166,12 +155,6 @@ private:
 
     bool commandUnsubscribeDomain() throw(TraCIException);
 
-    bool commandGetInductionLoopVariable() throw(TraCIException);
-
-    bool commandGetMultiEntryExitDetectorVariable() throw(TraCIException);
-
-    bool commandGetTrafficLightVariable() throw(TraCIException);
-    bool commandSetTrafficLightVariable() throw(TraCIException);
 
     bool commandGetLaneVariable() throw(TraCIException);
 

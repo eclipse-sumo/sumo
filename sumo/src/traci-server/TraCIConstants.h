@@ -123,6 +123,41 @@
 // command: set lane variable
 #define CMD_SET_LANE_VARIABLE 0xc3
 
+// command: get vehicle variable
+#define CMD_GET_VEHICLE_VARIABLE 0xa4
+// response: get vehicle variable
+#define RESPONSE_GET_VEHICLE_VARIABLE 0xb4
+// command: set vehicle variable
+#define CMD_SET_VEHICLE_VARIABLE 0xc4
+
+// command: get vehicle type variable
+#define CMD_GET_VEHICLETYPE_VARIABLE 0xa5
+// response: get vehicle type variable
+#define RESPONSE_GET_VEHICLETYPE_VARIABLE 0xb5
+// command: set vehicle type variable
+#define CMD_SET_VEHICLETYPE_VARIABLE 0xc5
+
+// command: get route variable
+#define CMD_GET_ROUTE_VARIABLE 0xa6
+// response: get route variable
+#define RESPONSE_GET_ROUTE_VARIABLE 0xb6
+// command: set route variable
+#define CMD_SET_ROUTE_VARIABLE 0xc6
+
+// command: get poi variable
+#define CMD_GET_POI_VARIABLE 0xa7
+// response: get poi variable
+#define RESPONSE_GET_POI_VARIABLE 0xb7
+// command: set poi variable
+#define CMD_SET_POI_VARIABLE 0xc7
+
+// command: get polygon variable
+#define CMD_GET_POLYGON_VARIABLE 0xa8
+// response: get polygon variable
+#define RESPONSE_GET_POLYGON_VARIABLE 0xb8
+// command: set polygon variable
+#define CMD_SET_POLYGON_VARIABLE 0xc8
+
 
 // ****************************************
 // POSITION REPRESENTATIONS
@@ -165,6 +200,10 @@
 #define TYPE_STRINGLIST 0x0E
 // compound object
 #define TYPE_COMPOUND 0x0F
+// 2D-position (two floats)
+#define TYPE_POSITION2D 0x10
+// color (four ubytes)
+#define TYPE_COLOR 0x11
 
 
 // ****************************************
@@ -284,14 +323,13 @@
 // list of instances' ids (get: induction loops, areal detector, traffic lights)
 #define ID_LIST 0x00
 
-
-// last step vehicle number (get: induction loops, areal detector)
+// last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
 #define LAST_STEP_VEHICLE_NUMBER 0x10
 
-// last step vehicle number (get: induction loops)
+// last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
 #define LAST_STEP_MEAN_SPEED 0x11
 
-// last step vehicle number (get: induction loops)
+// last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
 #define LAST_STEP_VEHICLE_ID_LIST 0x12
 
 
@@ -329,14 +367,77 @@
 // outgoing link number (get: lanes)
 #define LANE_LINK_NUMBER 0x30
 
-// outgoing link number (get: lanes)
-#define LANE_LENGTH 0x31
-
-// outgoing link number (get: lanes)
-#define LANE_MAXSPEED 0x32
-
 // outgoing link definitions (get: lanes)
 #define LANE_LINKS 0x33
+
+
+// speed (get: vehicle)
+#define VAR_SPEED 0x40
+
+// maximum allowed/possible speed (get: vehicle types, lanes)
+#define VAR_MAXSPEED 0x41
+
+// position (2D) (get: vehicle, poi)
+#define VAR_POSITION 0x42
+
+// angle (get: vehicle)
+#define VAR_ANGLE 0x43
+
+// angle (get: vehicle types, lanes)
+#define VAR_LENGTH 0x44
+
+// color (get: vehicles, vehicle types, polygons, pois)
+#define VAR_COLOR 0x45
+
+// max. acceleration (get: vehicle types)
+#define VAR_ACCEL 0x46
+
+// max. deceleration (get: vehicle types)
+#define VAR_DECEL 0x47
+
+// driver reaction time (get: vehicle types)
+#define VAR_TAU 0x48
+
+// vehicle class (get: vehicle types)
+#define VAR_VEHICLECLASS 0x49
+
+// emission class (get: vehicle types)
+#define VAR_EMISSIONCLASS 0x4a
+
+// shape class (get: vehicle types)
+#define VAR_SHAPECLASS 0x4b
+
+// offset (brake gap) (get: vehicle types)
+#define VAR_GUIOFFSET 0x4c
+
+// width (get: vehicle types)
+#define VAR_WIDTH 0x4d
+
+// shape (get: polygons)
+#define VAR_SHAPE 0x4e
+
+// type id (get: vehicles, polygons, pois)
+#define VAR_TYPE 0x4f
+
+// road id (get: vehicles)
+#define VAR_ROAD_ID 0x50
+
+// lane id (get: vehicles)
+#define VAR_LANE_ID 0x51
+
+// lane index (get: vehicles)
+#define VAR_LANE_INDEX 0x52
+
+// route id (get: vehicles)
+#define VAR_ROUTE 0x53
+
+// edges (get: routes)
+#define VAR_EDGES 0x54
+
+// filled? (get: polygons)
+#define VAR_FILL 0x55
+
+
 
 
 #endif
