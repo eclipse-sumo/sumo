@@ -6,3 +6,19 @@ MeMeDetector
 
 # Tests retrieval of variables from traffic lights (0xa2)
 TrafficLight
+
+# Tests retrieval of variables from vehicles (0xa4)
+Vehicle
+
+# Tests retrieval of variables from vehicle types (0xa5)
+VehicleType
+
+# Tests retrieval of variables from routes (0xa6)
+Route
+
+# Tests retrieval of variables from PoIs (0xa7)
+POI
+
+# Tests retrieval of variables from polygons (0xa8)
+Polygon
+

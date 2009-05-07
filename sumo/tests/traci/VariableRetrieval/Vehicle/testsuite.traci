@@ -1,0 +1,19 @@
+# Tests retrieval of vehicles in scenario (ID_LIST)
+ID_LIST
+
+# Variables Retrieval
+VAR_ANGLE
+VAR_COLOR
+VAR_LANE_ID
+VAR_POSITION
+VAR_ROAD_ID
+VAR_ROUTE
+VAR_SPEED
+VAR_TYPE
+
+
+# Testing error cases
+errors
+
+
+

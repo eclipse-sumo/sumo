@@ -1,0 +1,12 @@
+# Tests retrieval of routes in scenario (ID_LIST)
+ID_LIST
+
+# Variables Retrieval
+VAR_EDGES
+
+
+# Testing error cases
+errors
+
+
+

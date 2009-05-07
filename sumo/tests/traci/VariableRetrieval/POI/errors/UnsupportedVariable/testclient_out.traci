@@ -1,0 +1,21 @@
+TraCITestClient output file. Date: Thu May 07 08:33:52 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=5.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=5.00 2D-Position: x=1455.25 y=401.65
+
+-> Command sent: <GetVariable>:
+  domID=167 varID=255 objID=dummy
+.. Answered with error to command (167), [description: Unsupported variable specified]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=6.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=6.00 2D-Position: x=1445.25 y=401.65
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

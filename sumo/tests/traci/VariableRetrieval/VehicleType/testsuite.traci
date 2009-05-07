@@ -1,0 +1,22 @@
+# Tests retrieval of vehicle types in scenario (ID_LIST)
+ID_LIST
+
+# Variables Retrieval
+VAR_ACCEL
+VAR_COLOR
+VAR_DECEL
+VAR_EMISSIONCLASS
+VAR_GUIOFFSET
+VAR_LENGTH
+VAR_MAXSPEED
+VAR_SHAPECLASS
+VAR_TAU
+VAR_VEHICLECLASS
+VAR_WIDTH
+
+
+# Testing error cases
+errors
+
+
+

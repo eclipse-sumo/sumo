@@ -1,0 +1,14 @@
+# Tests retrieval of polygons in scenario (ID_LIST)
+ID_LIST
+
+# Variables Retrieval
+VAR_COLOR
+VAR_POSITION
+VAR_TYPE
+
+
+# Testing error cases
+errors
+
+
+

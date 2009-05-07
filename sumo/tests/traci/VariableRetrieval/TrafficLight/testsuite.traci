@@ -1,4 +1,4 @@
-# Tests retrieval of induction loops in scenario (ID_LIST)
+# Tests retrieval of traffic lights in scenario (ID_LIST)
 ID_LIST
 
 # Tests TL_RED_YELLOW_GREEN_STATE retrieval
