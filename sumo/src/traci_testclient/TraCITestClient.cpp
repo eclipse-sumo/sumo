@@ -2028,6 +2028,16 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
             readAndReportTypeDependent(inMsg, currentValueDataType);
         }
         answerLog << " ]" << endl;
+    } else if (valueDataType == TYPE_POSITION2D) {
+        float xv = inMsg.readFloat();
+        float yv = inMsg.readFloat();
+        answerLog << " position value: (" << xv << "," << yv << ")" << endl;
+    } else if (valueDataType == TYPE_COLOR) {
+        int r = inMsg.readUnsignedByte();
+        int g = inMsg.readUnsignedByte();
+        int b = inMsg.readUnsignedByte();
+        int a = inMsg.readUnsignedByte();
+        answerLog << " color value: (" << r << "," << g << "," << b << "," << a << ")" << endl;
     } else {
         answerLog << "#Error: unknown valueDataType!" << endl;
         return false;
