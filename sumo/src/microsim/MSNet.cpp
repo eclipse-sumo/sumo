@@ -285,7 +285,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
                 quitMessage = "Simulation End: All vehicles have left the simulation.";
             }
         }
-        if (myStep > stop) {
+        if (myStep >= stop) {
             quitMessage = "Simulation End: The final simulation step has been reached.";
         }
     }
