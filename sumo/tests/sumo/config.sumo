@@ -11,6 +11,7 @@ copy_test_path:input_definition2.def.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:sumo.sumo.cfg
 copy_test_path:settings.xml
+copy_test_path:dlr.gif
 
 [collate_file]
 detector:detector.xml
