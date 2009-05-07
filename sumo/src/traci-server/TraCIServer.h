@@ -48,7 +48,7 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "TraCiException.h"
+#include "TraCIException.h"
 
 #include <map>
 #include <string>
