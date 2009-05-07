@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/28/08 15:31:44 by SUMO sumo Version dev-SVN-r6499
+<!-- generated on 05/07/09 12:22:02 by SUMO sumo Version dev-SVN-r7121
 <configuration>
 
    <input>
@@ -223,5 +223,4 @@
     <tlsstate time="197" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
     <tlsstate time="198" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
     <tlsstate time="199" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
-    <tlsstate time="200" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
 </tls-states>

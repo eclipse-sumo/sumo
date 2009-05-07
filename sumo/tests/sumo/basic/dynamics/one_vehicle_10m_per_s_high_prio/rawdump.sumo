@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/28/09 10:26:47 by SUMO sumo Version dev-SVN-r6670
+<!-- generated on 05/07/09 12:21:20 by SUMO sumo Version dev-SVN-r7121
 <configuration>
 
    <input>
@@ -2565,7 +2565,5 @@
    <timestep time="998">
    </timestep>
    <timestep time="999">
-   </timestep>
-   <timestep time="1000">
    </timestep>
 </sumo-netstate>

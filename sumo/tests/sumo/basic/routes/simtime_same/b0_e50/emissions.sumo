@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/17/08 08:53:50 by SUMO sumo Version 0.9.7
+<!-- generated on 05/07/09 12:21:02 by SUMO sumo Version dev-SVN-r7121
 <configuration>
 
    <input>
@@ -76,5 +76,4 @@
     <emission-state time="47" loaded="4" emitted="3" running="3" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
     <emission-state time="48" loaded="4" emitted="3" running="3" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
     <emission-state time="49" loaded="4" emitted="3" running="3" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="50" loaded="4" emitted="3" running="3" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
 </emissions>

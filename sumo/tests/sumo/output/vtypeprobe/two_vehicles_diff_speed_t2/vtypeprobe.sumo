@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/29/09 13:03:49 by SUMO sumo Version dev-SVN-r7082
+<!-- generated on 05/07/09 12:22:09 by SUMO sumo Version dev-SVN-r7121
 <configuration>
 
    <input>
@@ -233,7 +233,5 @@
     <timestep time="980" id="test1" vtype="t2">
     </timestep>
     <timestep time="990" id="test1" vtype="t2">
-    </timestep>
-    <timestep time="1000" id="test1" vtype="t2">
     </timestep>
 </vehicle-type-probes>
