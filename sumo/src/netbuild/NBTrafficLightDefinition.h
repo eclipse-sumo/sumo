@@ -37,6 +37,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/UtilExceptions.h>
 #include "NBCont.h"
 #include "NBConnection.h"
 #include "NBConnectionDefs.h"

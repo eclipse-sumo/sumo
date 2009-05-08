@@ -143,7 +143,7 @@ NBTrafficLightDefinition::collectEdges() throw() {
 
 
 void
-NBTrafficLightDefinition::collectLinks() throw() {
+NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
