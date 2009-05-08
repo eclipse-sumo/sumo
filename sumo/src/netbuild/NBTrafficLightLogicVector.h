@@ -32,6 +32,7 @@
 #include <vector>
 #include "NBConnectionDefs.h"
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -50,8 +51,7 @@ class OutputDevice;
 class NBTrafficLightLogicVector {
 public:
     /// Constructor
-    NBTrafficLightLogicVector(const NBConnectionVector &inLanes,
-                              std::string type);
+    NBTrafficLightLogicVector(const NBConnectionVector &inLanes);
 
     /// Destructor
     ~NBTrafficLightLogicVector();
@@ -77,14 +77,6 @@ public:
     }
 
 
-    /** @brief Returns the type of this traffic light logic
-     * @return The type of this tls
-     */
-    const std::string &getType() const throw() {
-        return myType;
-    }
-
-
     void setOffsetsToHalf();
     void setOffsetsToQuarter();
 
@@ -97,9 +89,6 @@ private:
 
     /// Container type for the phaselist
     LogicVector myCont;
-
-    /// The type of the logic (traffic-light, actuated, agentbased)
-    std::string myType;
 
 };
 

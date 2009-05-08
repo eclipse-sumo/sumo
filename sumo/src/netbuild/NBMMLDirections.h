@@ -48,22 +48,16 @@
 enum NBMMLDirection {
     /// dead-end
     MMLDIR_NODIR,
-
     /// The link goes straight
     MMLDIR_STRAIGHT,
-
     /// The link is a turnaround link
     MMLDIR_TURN,
-
     /// The link turns left
     MMLDIR_LEFT,
-
     /// The link turns right
     MMLDIR_RIGHT,
-
     /// The link turns left, but not too much
     MMLDIR_PARTLEFT,
-
     /// The link turns right, but not too much
     MMLDIR_PARTRIGHT
 

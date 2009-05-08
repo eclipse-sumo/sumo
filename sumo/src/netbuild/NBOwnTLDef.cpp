@@ -70,25 +70,49 @@ NBOwnTLDef::NBOwnTLDef(const string &id) throw()
 NBOwnTLDef::~NBOwnTLDef() throw() {}
 
 
-
 int
-NBOwnTLDef::getToPrio(NBEdge *e) {
+NBOwnTLDef::getToPrio(NBEdge *e) throw() {
     return e->getJunctionPriority(e->getToNode());
 }
 
 
 SUMOReal
-NBOwnTLDef::computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2) {
+getDirectionalWeight(NBMMLDirection dir) throw()
+{
+    switch(dir) {
+    case MMLDIR_STRAIGHT:
+        return 2.;
+    case MMLDIR_LEFT:
+    case MMLDIR_PARTLEFT:
+        return .5;
+    case MMLDIR_RIGHT:
+    case MMLDIR_PARTRIGHT:
+        return 1;
+    case MMLDIR_NODIR:
+    case MMLDIR_TURN:
+        return 0;
+    }
+    return 0;
+}
+
+SUMOReal
+NBOwnTLDef::computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2) throw() {
     SUMOReal val = 0;
     for (unsigned int e1l=0; e1l<e1->getNoLanes(); e1l++) {
         vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
         for (unsigned int e2l=0; e2l<e2->getNoLanes(); e2l++) {
             vector<NBEdge::Connection> approached2 = e2->getConnectionsFromLane(e2l);
             for (vector<NBEdge::Connection>::iterator e1c=approached1.begin(); e1c!=approached1.end(); ++e1c) {
+                if(e1->getTurnDestination()==(*e1c).toEdge) {
+                    continue;
+                }
                 for (vector<NBEdge::Connection>::iterator e2c=approached2.begin(); e2c!=approached2.end(); ++e2c) {
+                    if(e2->getTurnDestination()==(*e2c).toEdge) {
+                        continue;
+                    }
                     if (!foes(e1, (*e1c).toEdge, e2, (*e2c).toEdge)) {
-                        val += e1->getToNode()->getMMLDirection(e1, (*e1c).toEdge)==MMLDIR_STRAIGHT ? 1 : SUMOReal(.5);
-                        val += e2->getToNode()->getMMLDirection(e2, (*e2c).toEdge)==MMLDIR_STRAIGHT ? 1 : SUMOReal(.5);
+                        val += getDirectionalWeight(e1->getToNode()->getMMLDirection(e1, (*e1c).toEdge));
+                        val += getDirectionalWeight(e2->getToNode()->getMMLDirection(e2, (*e2c).toEdge));
                     }
                 }
             }
@@ -99,7 +123,7 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2) {
 
 
 pair<NBEdge*, NBEdge*>
-NBOwnTLDef::getBestCombination(const vector<NBEdge*> &edges) {
+NBOwnTLDef::getBestCombination(const vector<NBEdge*> &edges) throw() {
     pair<NBEdge*, NBEdge*> bestPair(0,0);
     SUMOReal bestValue = -1;
     for (vector<NBEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
@@ -115,10 +139,8 @@ NBOwnTLDef::getBestCombination(const vector<NBEdge*> &edges) {
 }
 
 
-
-
 pair<NBEdge*, NBEdge*>
-NBOwnTLDef::getBestPair(vector<NBEdge*> &incoming) {
+NBOwnTLDef::getBestPair(vector<NBEdge*> &incoming) throw() {
     if (incoming.size()==1) {
         // only one there - return the one
         pair<NBEdge*, NBEdge*> ret(*incoming.begin(), 0);
@@ -148,7 +170,7 @@ NBOwnTLDef::getBestPair(vector<NBEdge*> &incoming) {
 
 NBTrafficLightLogicVector *
 NBOwnTLDef::myCompute(const NBEdgeCont &,
-                      size_t breakingTime, string type) {
+                      unsigned int breakingTime) throw() {
     // build complete lists first
     const EdgeVector &incoming = getIncomingEdges();
     vector<NBEdge*> fromEdges, toEdges;
@@ -185,13 +207,19 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         }
     }
 
-    NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), "0", type, noLinksAll);
+    NBTrafficLightLogic *logic = new NBTrafficLightLogic(getID(), "0", noLinksAll);
     vector<NBEdge*> toProc = incoming;
     // build all phases
     while (toProc.size()>0) {
-        pair<NBEdge*, NBEdge*> chosen = getBestPair(toProc);
-        size_t pos = 0;
-        size_t duration = 31;
+        pair<NBEdge*, NBEdge*> chosen;
+        if(incoming.size()==2) {
+            chosen = pair<NBEdge*, NBEdge*>(toProc[0], 0);
+            toProc.erase(toProc.begin());
+        } else {
+            chosen = getBestPair(toProc);
+        }
+        unsigned int pos = 0;
+        unsigned int duration = 31;
         if (OptionsCont::getOptions().isSet("traffic-light-green")) {
             duration = OptionsCont::getOptions().getInt("traffic-light-green");
         }
@@ -310,7 +338,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         }
     }
     if (logic->getDuration()>0) {
-        NBTrafficLightLogicVector *lv = new NBTrafficLightLogicVector(NBConnectionVector(), "static");
+        NBTrafficLightLogicVector *lv = new NBTrafficLightLogicVector(NBConnectionVector());
         lv->add(logic);
         return lv;
     } else {
@@ -321,11 +349,11 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
 
 
 void
-NBOwnTLDef::collectNodes() {}
+NBOwnTLDef::collectNodes() throw() {}
 
 
 void
-NBOwnTLDef::collectLinks() {
+NBOwnTLDef::collectLinks() throw(ProcessError) {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
@@ -337,7 +365,6 @@ NBOwnTLDef::collectLinks() {
                 if (el.toEdge!=0) {
                     if (el.toLane>=(int) el.toEdge->getNoLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
-
                     }
                     myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
                 }
@@ -348,7 +375,7 @@ NBOwnTLDef::collectLinks() {
 
 
 void
-NBOwnTLDef::setParticipantsInformation() {
+NBOwnTLDef::setParticipantsInformation() throw() {
     // assign participating nodes to the request
     collectNodes();
     // collect the information about participating edges and links
@@ -357,10 +384,10 @@ NBOwnTLDef::setParticipantsInformation() {
 }
 
 void
-NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const {
+NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const throw() {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    size_t pos = 0;
+    unsigned int pos = 0;
     for (NBConnectionVector::const_iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
@@ -375,12 +402,12 @@ NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const {
 
 void
 NBOwnTLDef::remapRemoved(NBEdge * /*removed*/, const EdgeVector &/*incoming*/,
-                         const EdgeVector &/*outgoing*/) {}
+                         const EdgeVector &/*outgoing*/) throw() {}
 
 
 void
 NBOwnTLDef::replaceRemoved(NBEdge * /*removed*/, int /*removedLane*/,
-                           NBEdge * /*by*/, int /*byLane*/) {}
+                           NBEdge * /*by*/, int /*byLane*/) throw() {}
 
 
 

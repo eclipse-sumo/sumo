@@ -33,6 +33,10 @@
 #include <set>
 #include "NBTrafficLightDefinition.h"
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBNode;
 
 
@@ -58,34 +62,33 @@ public:
     /// Destructor
     ~NBOwnTLDef() throw();
 
-    void setParticipantsInformation();
+    void setParticipantsInformation() throw();
 
 public:
     void remapRemoved(NBEdge *removed,
-                      const EdgeVector &incoming, const EdgeVector &outgoing);
+                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
 
 protected:
     /// Computes the traffic light logic
     NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
-                                         size_t breakingTime,
-                                         std::string type);
+                                         unsigned int breakingTime) throw();
 
     /// Collects the nodes participating in this traffic light
-    void collectNodes();
+    void collectNodes() throw();
 
-    void collectLinks();
+    void collectLinks() throw(ProcessError);
 
     void replaceRemoved(NBEdge *removed, int removedLane,
-                        NBEdge *by, int byLane);
+                        NBEdge *by, int byLane) throw();
 
-    void setTLControllingInformation(const NBEdgeCont &ec) const;
+    void setTLControllingInformation(const NBEdgeCont &ec) const throw();
 
 
 protected:
-    int getToPrio(NBEdge *e);
-    SUMOReal computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2);
-    std::pair<NBEdge*, NBEdge*> getBestCombination(const std::vector<NBEdge*> &edges);
-    std::pair<NBEdge*, NBEdge*> getBestPair(std::vector<NBEdge*> &incoming);
+    int getToPrio(NBEdge *e) throw();
+    SUMOReal computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2) throw();
+    std::pair<NBEdge*, NBEdge*> getBestCombination(const std::vector<NBEdge*> &edges) throw();
+    std::pair<NBEdge*, NBEdge*> getBestPair(std::vector<NBEdge*> &incoming) throw();
 
     /**
      * edge_by_incoming_priority_sorter

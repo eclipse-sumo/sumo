@@ -57,8 +57,7 @@ public:
     /** @brief Constructor
      *
      */
-    NBTrafficLightLogic(const std::string &id, const std::string &subid,
-                        const std::string &type, unsigned int noLinks) throw();
+    NBTrafficLightLogic(const std::string &id, const std::string &subid, unsigned int noLinks) throw();
 
 
     /// @brief Destructor
@@ -84,11 +83,10 @@ public:
      * @param[in] into The stream to write the definition into
      * @param[in] no Index (subid) of the program
      * @param[in] distance !!!unused
-     * @param[in] type The type of the tls
      * @param[in] inLanes !!!unused
      */
     void writeXML(OutputDevice &into, size_t no, SUMOReal distance,
-                  std::string type, const std::set<std::string> &inLanes) const throw();
+                  const std::set<std::string> &inLanes) const throw();
     // !!! the key should be given here, too, instead of storing it
 
     /// Information whether the given logic is equal to this
@@ -160,9 +158,6 @@ private:
 
     /// @brief The tls program's subid
     std::string mySubID;
-
-    /// @brief The tls program's type
-    std::string myType;
 
     /// @brief The tls program's offset
     SUMOTime myOffset;

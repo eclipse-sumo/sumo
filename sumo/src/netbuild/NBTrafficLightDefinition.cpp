@@ -57,7 +57,7 @@ using namespace std;
 // ===========================================================================
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
         const std::set<NBNode*> &junctions) throw()
-        : Named(id), myType("static"), myControlledNodes(junctions) {
+        : Named(id), myControlledNodes(junctions) {
     for (NodeCont::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
         (*i)->addTrafficLight(this);
     }
@@ -66,46 +66,46 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
         NBNode *junction) throw()
-        : Named(id), myType("static") {
+        : Named(id) {
     addNode(junction);
     junction->addTrafficLight(this);
 }
 
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id) throw()
-        : Named(id), myType("static") {}
+        : Named(id) {}
 
 
 NBTrafficLightDefinition::~NBTrafficLightDefinition() throw() {}
 
 
 NBTrafficLightLogicVector *
-NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) {
+NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw() {
     // it is not really a traffic light if no incoming edge exists
     if (myIncomingEdges.size()==0) {
         WRITE_WARNING("The traffic light '" + getID() + "' has no incoming edges; it will not be build.");
         return 0;
     }
     // compute the time needed to brake
-    size_t breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
+    unsigned int breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
     if (oc.isSet("traffic-light-yellow")) {
         breakingTime = oc.getInt("traffic-light-yellow");
     }
-    return myCompute(ec, breakingTime, myType);
+    return myCompute(ec, breakingTime);
 }
 
 
-size_t
-NBTrafficLightDefinition::computeBrakingTime(SUMOReal minDecel) const {
+unsigned int
+NBTrafficLightDefinition::computeBrakingTime(SUMOReal minDecel) const throw() {
     SUMOReal vmax = NBContHelper::maxSpeed(myIncomingEdges);
-    return (size_t)(vmax / minDecel);
+    return (unsigned int)(vmax / minDecel);
 }
 
 
 void
-NBTrafficLightDefinition::setParticipantsInformation() {
+NBTrafficLightDefinition::setParticipantsInformation() throw() {
     // collect the information about participating edges and links
     collectEdges();
     collectLinks();
@@ -113,7 +113,7 @@ NBTrafficLightDefinition::setParticipantsInformation() {
 
 
 void
-NBTrafficLightDefinition::collectEdges() {
+NBTrafficLightDefinition::collectEdges() throw() {
     EdgeVector myOutgoing;
     // collect the edges from the participating nodes
     for (NodeCont::iterator i=myControlledNodes.begin(); i!=myControlledNodes.end(); i++) {
@@ -125,7 +125,6 @@ NBTrafficLightDefinition::collectEdges() {
     // check which of the edges are completely within the junction
     //  remove these edges from the list of incoming edges
     //  add them to the list of edges lying within the node
-    size_t pos = 0;
     for (EdgeVector::iterator j=myIncomingEdges.begin(); j!=myIncomingEdges.end();) {
         NBEdge *edge = *j;
         // an edge lies within the logic if it is outgoing as well as incoming
@@ -144,7 +143,7 @@ NBTrafficLightDefinition::collectEdges() {
 
 
 void
-NBTrafficLightDefinition::collectLinks() {
+NBTrafficLightDefinition::collectLinks() throw() {
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
@@ -161,7 +160,7 @@ NBTrafficLightDefinition::collectLinks() {
     }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    size_t pos = 0;
+    unsigned int pos = 0;
     for (NBConnectionVector::iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
@@ -175,7 +174,7 @@ NBTrafficLightDefinition::collectLinks() {
 
 
 pair<unsigned int, unsigned int>
-NBTrafficLightDefinition::getSizes() const {
+NBTrafficLightDefinition::getSizes() const throw() {
     unsigned int noLanes = 0;
     unsigned int noLinks = 0;
     for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
@@ -186,12 +185,12 @@ NBTrafficLightDefinition::getSizes() const {
         }
         noLanes += noLanesEdge;
     }
-    return pair<size_t, size_t>(noLanes, noLinks);
+    return pair<unsigned int, unsigned int>(noLanes, noLinks);
 }
 
 
 bool
-NBTrafficLightDefinition::isLeftMover(NBEdge *from, NBEdge *to) const {
+NBTrafficLightDefinition::isLeftMover(NBEdge *from, NBEdge *to) const throw() {
     // the destination edge may be unused
     if (to==0) {
         return false;
@@ -207,7 +206,7 @@ NBTrafficLightDefinition::isLeftMover(NBEdge *from, NBEdge *to) const {
 
 
 bool
-NBTrafficLightDefinition::mustBrake(NBEdge *from, NBEdge *to) const {
+NBTrafficLightDefinition::mustBrake(NBEdge *from, NBEdge *to) const throw() {
     NodeCont::const_iterator i =
         find_if(myControlledNodes.begin(), myControlledNodes.end(),
                 NBContHelper::node_with_incoming_finder(from));
@@ -225,7 +224,7 @@ NBTrafficLightDefinition::mustBrake(NBEdge *possProhibitedFrom,
                                     NBEdge *possProhibitedTo,
                                     NBEdge *possProhibitorFrom,
                                     NBEdge *possProhibitorTo,
-                                    bool regardNonSignalisedLowerPriority) const {
+                                    bool regardNonSignalisedLowerPriority) const throw() {
     return forbids(possProhibitorFrom, possProhibitorTo,
                    possProhibitedFrom, possProhibitedTo,
                    regardNonSignalisedLowerPriority);
@@ -235,7 +234,7 @@ NBTrafficLightDefinition::mustBrake(NBEdge *possProhibitedFrom,
 bool
 NBTrafficLightDefinition::mustBrake(const NBConnection &possProhibited,
                                     const NBConnection &possProhibitor,
-                                    bool regardNonSignalisedLowerPriority) const {
+                                    bool regardNonSignalisedLowerPriority) const throw() {
     return forbids(possProhibitor.getFrom(), possProhibitor.getTo(),
                    possProhibited.getFrom(), possProhibited.getTo(),
                    regardNonSignalisedLowerPriority);
@@ -247,7 +246,7 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
                                   NBEdge *possProhibitorTo,
                                   NBEdge *possProhibitedFrom,
                                   NBEdge *possProhibitedTo,
-                                  bool regardNonSignalisedLowerPriority) const {
+                                  bool regardNonSignalisedLowerPriority) const throw() {
     if (possProhibitorFrom==0||possProhibitorTo==0||possProhibitedFrom==0||possProhibitedTo==0) {
         return false;
     }
@@ -321,7 +320,7 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
 
 bool
 NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
-                               NBEdge *from2, NBEdge *to2) const {
+                               NBEdge *from2, NBEdge *to2) const throw() {
     if (to1==0||to2==0) {
         return false;
     }
@@ -343,14 +342,14 @@ NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
 
 
 void
-NBTrafficLightDefinition::addNode(NBNode *node) {
+NBTrafficLightDefinition::addNode(NBNode *node) throw() {
     myControlledNodes.insert(node);
     node->addTrafficLight(this);
 }
 
 
 void
-NBTrafficLightDefinition::removeNode(NBNode *node) {
+NBTrafficLightDefinition::removeNode(NBNode *node) throw() {
     set<NBNode*>::iterator i=myControlledNodes.find(node);
     if (i!=myControlledNodes.end()) {
         myControlledNodes.erase(i);
@@ -360,13 +359,13 @@ NBTrafficLightDefinition::removeNode(NBNode *node) {
 
 
 void
-NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string> &edges) {
+NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string> &edges) throw() {
     copy(edges.begin(), edges.end(), back_inserter(myControlledInnerEdges));
 }
 
 
 const EdgeVector &
-NBTrafficLightDefinition::getIncomingEdges() const {
+NBTrafficLightDefinition::getIncomingEdges() const throw() {
     return myIncomingEdges;
 }
 

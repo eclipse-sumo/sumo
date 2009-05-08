@@ -56,9 +56,8 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id,
-        const std::string &subid, const std::string &type,
-        unsigned int noLinks) throw()
-        : Named(id), myNoLinks(noLinks), mySubID(subid), myType(type),
+        const std::string &subid, unsigned int noLinks) throw()
+        : Named(id), myNoLinks(noLinks), mySubID(subid), 
         myOffset(0) {}
 
 
@@ -76,9 +75,8 @@ NBTrafficLightLogic::addStep(SUMOTime duration,
 
 void
 NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance*/,
-                              std::string type,
                               const std::set<string> &/*inLanes*/) const throw() {
-    into << "   <tl-logic type=\"" << type << "\">\n";
+    into << "   <tl-logic type=\"static\">\n";
     into << "      <key>" << getID() << "</key>\n";
     into << "      <subkey>" << no << "</subkey>\n";
     into << "      <phaseno>" << myPhases.size() << "</phaseno>\n";

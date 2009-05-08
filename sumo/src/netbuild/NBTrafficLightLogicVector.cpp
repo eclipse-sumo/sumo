@@ -49,8 +49,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBTrafficLightLogicVector::NBTrafficLightLogicVector(
-    const NBConnectionVector &inLanes, std::string type)
-        : myInLinks(inLanes), myType(type) {}
+    const NBConnectionVector &inLanes)
+        : myInLinks(inLanes) {}
 
 
 NBTrafficLightLogicVector::~NBTrafficLightLogicVector() {
@@ -94,11 +94,9 @@ NBTrafficLightLogicVector::writeXML(OutputDevice &os) const {
         inLanes.insert(id);
     }
     size_t pos = 0;
-    (*(myCont.begin()))->writeXML(os, pos++, distance, myType, inLanes);
-//    for(LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); i++) {
-//        (*i)->writeXML(os, pos++, distance, myType, inLanes);
-//    }
+    (*(myCont.begin()))->writeXML(os, pos++, distance, inLanes);
 }
+
 
 bool
 NBTrafficLightLogicVector::contains(NBTrafficLightLogic *logic) const {

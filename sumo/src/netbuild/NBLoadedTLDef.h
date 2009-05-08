@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-// A lodeded (complete) traffic light logic
+// A loaded (complete) traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -42,42 +42,84 @@
 // ===========================================================================
 /**
  * @class NBLoadedTLDef
- * @brief A lodeded (complete) traffic light logic
+ * @brief A loaded (complete) traffic light logic
  */
 class NBLoadedTLDef : public NBTrafficLightDefinition {
 public:
+    /** @class SignalGroup
+     * @brief A single signal group, may control several connections
+     */
     class SignalGroup : public Named {
     public:
+        /** @brief Constructor
+         * @param[in] id The id of the signal group
+         */
         SignalGroup(const std::string &id) throw();
+
+        /// @brief Destructor
         ~SignalGroup() throw();
-        void addConnection(const NBConnection &c);
-        void addPhaseBegin(SUMOTime time, TLColor color);
-        void setYellowTimes(SUMOTime tRedYellowe, SUMOTime tYellow);
-        DoubleVector getTimes(SUMOTime cycleDuration) const;
-        void sortPhases();
-        size_t getLinkNo() const;
-        bool mayDrive(SUMOTime time) const;
-        bool hasYellow(SUMOTime time) const;
-//        bool mustBrake(SUMOReal time) const;
-        bool containsConnection(NBEdge *from, NBEdge *to) const;
-        bool containsIncoming(NBEdge *from) const;
-        void remapIncoming(NBEdge *which, const EdgeVector &by);
-        bool containsOutgoing(NBEdge *to) const;
-        void remapOutgoing(NBEdge *which, const EdgeVector &by);
-        const NBConnection &getConnection(size_t pos) const;
-        void patchTYellow(SUMOTime tyellow);
-//        void patchFalseGreenPhases(SUMOReal duration);
+
+        /** @brief Inserts a controlled connection
+         * @param[in] c The connection to be controlled by this signal group
+         */
+        void addConnection(const NBConnection &c) throw();
+
+        /** @brief Sets the begin of a phase
+         * @param[in] time The time at which the phase starts
+         * @param[in] color The color of this signal starting at the given time
+         */
+        void addPhaseBegin(SUMOTime time, TLColor color) throw();
+
+        /** @brief Sets the times for redyellow and yellow
+         * @param[in] tRedYellowe The duration of the redyellow phase
+         * @param[in] tYellow The duration of the yellow phase
+         */
+        void setYellowTimes(SUMOTime tRedYellowe, SUMOTime tYellow) throw();
+
+        /** @brief Returns the times at which the signal switches
+         * @param[in] cycleDuration The duration of the complete cycle
+         * @return The switch times of this signal
+         */
+        DoubleVector getTimes(SUMOTime cycleDuration) const throw();
+
+        /** @brief Sorts the phases */
+        void sortPhases() throw();
+
+        /** @brief Returns the number of links (connection) controlled by this signal
+         * @return The number of links controlled by this signal
+         */
+        unsigned int getLinkNo() const throw();
+
+        /** @brief Returns whether vehicles on controlled links may drive at the given time
+         * @param[in] time The regarded time
+         * @return Whether vehicles may drive at this time
+         */
+        bool mayDrive(SUMOTime time) const throw();
+
+        /** @brief Returns whether controlled links have yellow at the given time
+         * @param[in] time The regarded time
+         * @return Whether controlled links are yellow at this time
+         */
+        bool hasYellow(SUMOTime time) const throw();
+
+        bool containsConnection(NBEdge *from, NBEdge *to) const throw();
+        bool containsIncoming(NBEdge *from) const throw();
+        void remapIncoming(NBEdge *which, const EdgeVector &by) throw(ProcessError);
+        bool containsOutgoing(NBEdge *to) const throw();
+        void remapOutgoing(NBEdge *which, const EdgeVector &by) throw(ProcessError);
+        const NBConnection &getConnection(unsigned int pos) const throw();
+        void patchTYellow(SUMOTime tyellow) throw();
         void remap(NBEdge *removed, int removedLane,
-                   NBEdge *by, int byLane);
+                   NBEdge *by, int byLane) throw();
 
         friend class phase_by_time_sorter;
 
     private:
         class PhaseDef {
         public:
-            PhaseDef(SUMOTime time, TLColor color)
+            PhaseDef(SUMOTime time, TLColor color) throw()
                     : myTime(time), myColor(color) { }
-            PhaseDef(const PhaseDef &p)
+            PhaseDef(const PhaseDef &p) throw()
                     : myTime(p.myTime), myColor(p.myColor) { }
             SUMOTime myTime;
             TLColor myColor;
@@ -128,57 +170,57 @@ public:
     ~NBLoadedTLDef() throw();
 
     /// Returns the signal group which is responsible for the given connection
-    SignalGroup *findGroup(NBEdge *from, NBEdge *to) const;
+    SignalGroup *findGroup(NBEdge *from, NBEdge *to) const throw();
 
     /** @brief Sets the duration of a cycle
         valid only for loaded traffic lights */
-    void setCycleDuration(size_t cycleDur);
+    void setCycleDuration(unsigned int cycleDur) throw();
 
     /// Adds a signal group
-    void addSignalGroup(const std::string &id);
+    void addSignalGroup(const std::string &id) throw();
 
     /** @brief Adds a signal to a signal group
         The signal is described by the connection it is placed at */
     bool addToSignalGroup(const std::string &groupid,
-                          const NBConnection &connection);
+                          const NBConnection &connection) throw();
 
     /** @brief Adds a list of signals to a signal group
         Each signal is described by the connection it is placed at */
     bool addToSignalGroup(const std::string &groupid,
-                          const NBConnectionVector &connections);
+                          const NBConnectionVector &connections) throw();
 
     /** @brief Sets the information about the begin of a phase
         Valid for loaded traffic lights only */
     void addSignalGroupPhaseBegin(const std::string &groupid,
-                                  SUMOTime time, TLColor color);
+                                  SUMOTime time, TLColor color) throw();
 
     /// Sets the times the light is yellow or red/yellow
     void setSignalYellowTimes(const std::string &groupid,
-                              SUMOTime tRedYellowe, SUMOTime tYellow);
+                              SUMOTime tRedYellowe, SUMOTime tYellow) throw();
 
-    void setTLControllingInformation(const NBEdgeCont &ec) const;
+    void setTLControllingInformation(const NBEdgeCont &ec) const throw();
 
 public:
     void remapRemoved(NBEdge *removed,
-                      const EdgeVector &incoming, const EdgeVector &outgoing);
+                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
 
 protected:
     /// Computes the traffic light logic
     NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
-                                         size_t breakingTime, std::string type);
+                                         unsigned int breakingTime) throw();
 
     /// Collects the nodes participating in this traffic light
-    void collectNodes();
+    void collectNodes() throw();
 
-    void collectLinks();
+    void collectLinks() throw(ProcessError);
 
     bool mustBrake(const NBEdgeCont &ec,
                    const NBConnection &possProhibited,
                    const std::bitset<64> &green, const std::bitset<64> &yellow,
-                   size_t strmpos) const;
+                   unsigned int strmpos) const throw();
 
     void replaceRemoved(NBEdge *removed, int removedLane,
-                        NBEdge *by, int byLane);
+                        NBEdge *by, int byLane) throw();
 
 private:
     struct Masks {
@@ -189,7 +231,7 @@ private:
 
 private:
 
-    Masks buildPhaseMasks(const NBEdgeCont &ec, size_t time) const;
+    Masks buildPhaseMasks(const NBEdgeCont &ec, unsigned int time) const throw();
 
 private:
     SignalGroupCont mySignalGroups;
