@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/18/09 09:09:12 by SUMO netconvert Version dev-SVN-r6820
+<!-- generated on 05/08/09 14:46:00 by SUMO netconvert Version dev-SVN-r7129
 <configuration>
 
    <input>
@@ -2484,9 +2484,9 @@
       <subkey>0</subkey>
       <phaseno>4</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1111" brake="1100" yellow="0000"/>
-      <phase duration="7" phase="1100" brake="1111" yellow="0011"/>
-      <phase duration="6" phase="1100" brake="0011" yellow="0000"/>
+      <phase duration="31" phase="0011" brake="1100" yellow="0000"/>
+      <phase duration="7" phase="0000" brake="1111" yellow="0011"/>
+      <phase duration="31" phase="1100" brake="0011" yellow="0000"/>
       <phase duration="7" phase="0000" brake="1111" yellow="1100"/>
    </tl-logic>
 
@@ -2495,9 +2495,9 @@
       <subkey>0</subkey>
       <phaseno>4</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1111" brake="1100" yellow="0000"/>
-      <phase duration="7" phase="1100" brake="1111" yellow="0011"/>
-      <phase duration="6" phase="1100" brake="0011" yellow="0000"/>
+      <phase duration="31" phase="0011" brake="1100" yellow="0000"/>
+      <phase duration="7" phase="0000" brake="1111" yellow="0011"/>
+      <phase duration="31" phase="1100" brake="0011" yellow="0000"/>
       <phase duration="7" phase="0000" brake="1111" yellow="1100"/>
    </tl-logic>
 
