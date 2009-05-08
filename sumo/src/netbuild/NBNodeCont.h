@@ -65,27 +65,62 @@ public:
     ~NBNodeCont() throw();
 
 
-    /** inserts a node into the map */
+
+    /// @name Insertion/removal/retrieval of nodes
+    /// @{
+
+    /** @brief Inserts a node into the map 
+     * @param[in] id The node's id
+     * @param[in] position The node's position
+     * @param[in] A district assigned to the node
+     * @return Whether the node could be added (no other with the same id or position is stored)
+     */
     bool insert(const std::string &id, const Position2D &position,
-                NBDistrict *district);
+                NBDistrict *district) throw();
 
-    /** inserts a node into the map */
-    bool insert(const std::string &id, const Position2D &position);
 
-    /** inserts a node into the map */
-    Position2D insert(const std::string &id);
+    /** @brief Inserts a node into the map 
+     * @param[in] id The node's id
+     * @param[in] position The node's position
+     * @return Whether the node could be added (no other with the same id or position is stored)
+     */
+    bool insert(const std::string &id, const Position2D &position) throw();
 
-    /** inserts a node into the map */
-    bool insert(NBNode *node);
 
-    /// Removes the given node, deleting it
-    bool erase(NBNode *node);
+    /** @brief Inserts a node into the map 
+     * @param[in] id The node's id
+     * @return Whether the node could be added (no other with the same id is stored)
+     */
+    Position2D insert(const std::string &id) throw();
 
-    /** returns the node with the given name */
-    NBNode *retrieve(const std::string &id);
 
-    /** returns the node with the given coordinates */
-    NBNode *retrieve(const Position2D &position);
+    /** @brief Inserts a node into the map 
+     * @param[in] node The node to insert
+     * @return Whether the node could be added (no other with the same id or position is stored)
+     */
+    bool insert(NBNode *node) throw();
+
+
+    /** @brief Removes the given node, deleting it
+     * @param[in] node The node to delete and remove
+     * @return Whether the node could be removed (existed)
+     */
+    bool erase(NBNode *node) throw();
+
+
+    /** @brief Returns the node with the given name 
+     * @param[in] id The id of the node to retrieve
+     * @return The node with the given id, or 0 if no such node exists
+     */
+    NBNode *retrieve(const std::string &id) throw();
+
+
+    /** @brief Returns the node with the given coordinates 
+     * @param[in] position The position at which the node to retrieve lies
+     * @return The node at the given position, or 0 if no such node exists
+     */
+    NBNode *retrieve(const Position2D &position) throw();
+    /// @}
 
 
 
@@ -221,21 +256,24 @@ private:
 
 
 private:
-    /** the running internal id */
+    /// @brief The running internal id
     int myInternalID;
 
-    /** definition of the map of names to nodes */
+    /// @brief Definition of the map of names to nodes
     typedef std::map<std::string, NBNode*> NodeCont;
 
-    /** the map of names to nodes */
+    /// @brief The map of names to nodes
     NodeCont myNodes;
 
+
 private:
-    /** invalid copy constructor */
+    /// @brief invalidated copy constructor
     NBNodeCont(const NBNodeCont &s);
 
-    /** invalid assignment operator */
+    /// @brief invalidated assignment operator
     NBNodeCont &operator=(const NBNodeCont &s);
+
+
 };
 
 

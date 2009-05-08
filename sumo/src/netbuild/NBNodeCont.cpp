@@ -73,9 +73,10 @@ NBNodeCont::~NBNodeCont() throw() {
 }
 
 
+// ----------- Insertion/removal/retrieval of nodes
 bool
 NBNodeCont::insert(const std::string &id, const Position2D &position,
-                   NBDistrict *district) {
+                   NBDistrict *district) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
@@ -91,7 +92,7 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
 
 
 bool
-NBNodeCont::insert(const string &id, const Position2D &position) {
+NBNodeCont::insert(const string &id, const Position2D &position) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
@@ -107,7 +108,7 @@ NBNodeCont::insert(const string &id, const Position2D &position) {
 
 
 Position2D
-NBNodeCont::insert(const string &id) { // !!! really needed
+NBNodeCont::insert(const string &id) throw() { 
     pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
@@ -121,7 +122,7 @@ NBNodeCont::insert(const string &id) { // !!! really needed
 
 
 bool
-NBNodeCont::insert(NBNode *node) {
+NBNodeCont::insert(NBNode *node) throw() {
     string id = node->getID();
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
@@ -137,7 +138,7 @@ NBNodeCont::insert(NBNode *node) {
 
 
 NBNode *
-NBNodeCont::retrieve(const string &id) {
+NBNodeCont::retrieve(const string &id) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i==myNodes.end()) {
         return 0;
@@ -147,7 +148,7 @@ NBNodeCont::retrieve(const string &id) {
 
 
 NBNode *
-NBNodeCont::retrieve(const Position2D &position) {
+NBNodeCont::retrieve(const Position2D &position) throw() {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *node = (*i).second;
         if (fabs(node->getPosition().x()-position.x())<POSITION_EPS
@@ -162,7 +163,7 @@ NBNodeCont::retrieve(const Position2D &position) {
 
 
 bool
-NBNodeCont::erase(NBNode *node) {
+NBNodeCont::erase(NBNode *node) throw() {
     NodeCont::iterator i = myNodes.find(node->getID());
     if (i==myNodes.end()) {
         return false;
@@ -260,7 +261,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
         }
     }
 
-    // loop#1 checking whether the node shall tls controlled,
+    // loop#1 checking whether the node shall be tls controlled,
     //  because it is assigned to a district
     if (oc.getBool("tls-guess.district-nodes")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
