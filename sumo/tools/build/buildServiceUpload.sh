@@ -6,3 +6,8 @@ for f in $PREFIX/sumo/sumo*.tar.bz2; do
     curl -n -X PUT -T $PREFIX/sumo/`basename $f` https://api.opensuse.org/source/home:behrisch/sumo_nightly/`basename $f`
   fi
 done
+for f in $PREFIX/sumo/sumo-*.tar.* $PREFIX/sumo/sumo-*.zip; do
+  if test -e $PREFIX/sumo/configure -a $f -nt $PREFIX/sumo/configure; then
+    cp $f /misc/nas/Daten/Sumo/Nightly
+  fi
+done
