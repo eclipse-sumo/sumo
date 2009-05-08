@@ -1,3 +1,7 @@
 # Tests for building tls programs on single-node tls with three arms
 single_3arms
 
+# Tests for building tls programs on single-node tls with two incoming
+single_incoming2arms
+
+

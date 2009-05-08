@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+
+<!-- generated on 05/08/09 14:47:03 by SUMO netconvert Version dev-SVN-r7129
+<configuration>
+
+   <input>
+      <xml-node-files>input_nodes.nod.xml</xml-node-files>
+      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
+   </input>
+
+   <tls_building>
+      <explicite-tls>15030102</explicite-tls>
+   </tls_building>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>-16903.00,-20963.00</net-offset>
+   <conv-boundary>0.00,0.00,405.00,265.00</conv-boundary>
+   <orig-boundary>16903.00,20963.00,17308.00,21228.00</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edge id=":15030102_0" function="internal">
+      <lanes>
+         <lane id=":15030102_0_0" depart="0" maxspeed="13.89" length="9.49" >231.96,150.03 239.90,155.23</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":15030102_1" function="internal">
+      <lanes>
+         <lane id=":15030102_1_0" depart="0" maxspeed="13.89" length="9.50" >230.15,152.79 238.09,157.99</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":15030102_2" function="internal">
+      <lanes>
+         <lane id=":15030102_2_0" depart="0" maxspeed="13.19" length="7.86" >230.15,152.79 232.38,154.49 233.73,156.07 234.21,157.54 233.81,158.91</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":15030102_3" function="internal">
+      <lanes>
+         <lane id=":15030102_3_0" depart="0" maxspeed="13.19" length="3.04" >231.03,157.12 232.11,156.19 235.58,156.60</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":15030102_5" function="internal">
+      <lanes>
+         <lane id=":15030102_5_0" depart="0" maxspeed="13.19" length="4.83" >235.58,156.60 235.64,156.62 238.09,157.99</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":15030102_4" function="internal">
+      <lanes>
+         <lane id=":15030102_4_0" depart="0" maxspeed="12.50" length="0.10" >231.03,157.12 232.30,156.57</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":15030102_6" function="internal">
+      <lanes>
+         <lane id=":15030102_6_0" depart="0" maxspeed="12.50" length="4.72" >232.30,156.57 232.39,156.53 233.31,156.63 233.78,157.42 233.81,158.91</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":15034045_0" function="internal">
+      <lanes>
+         <lane id=":15034045_0_0" depart="0" maxspeed="12.50" length="4.82" >227.39,168.89 226.02,169.49 225.11,169.39 224.64,168.59 224.61,167.11</lane>
+      </lanes>
+   </edge>
+
+
+
+   <edge id="-152850000" from="15034045" to="15030102" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="-152850000_0" depart="1" vclasses="" maxspeed="12.50" length="11.87">224.61,167.11 231.03,157.12</lane>
+      </lanes>
+   </edge>
+
+   <edge id="152850000" from="15030102" to="15034045" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="152850000_0" depart="1" vclasses="" maxspeed="12.50" length="11.87">233.81,158.91 227.39,168.89</lane>
+      </lanes>
+   </edge>
+
+   <edge id="153120297" from="15031877" to="15030102" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="153120297_0" depart="1" vclasses="" maxspeed="13.89" length="276.24">0.90,-1.38 231.96,150.03</lane>
+         <lane id="153120297_1" depart="0" vclasses="" maxspeed="13.89" length="276.24">-0.90,1.38 230.15,152.79</lane>
+      </lanes>
+   </edge>
+
+   <edge id="153120299" from="15030102" to="15030099" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="153120299_0" depart="1" vclasses="" maxspeed="13.89" length="198.26">239.90,155.23 405.90,263.62</lane>
+         <lane id="153120299_1" depart="0" vclasses="" maxspeed="13.89" length="198.26">238.09,157.99 404.10,266.38</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>15030102</key>
+      <requestsize>5</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="00000" foes="01000" cont="0"/>
+         <logicitem request="1" response="00000" foes="01000" cont="0"/>
+         <logicitem request="2" response="00000" foes="11000" cont="0"/>
+         <logicitem request="3" response="00111" foes="00111" cont="1"/>
+         <logicitem request="4" response="00100" foes="00100" cont="1"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>15034045</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0" cont="0"/>
+      </logic>
+   </row-logic>
+
+
+   <tl-logic type="static">
+      <key>15030102</key>
+      <subkey>0</subkey>
+      <phaseno>4</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="00111" brake="11000" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="00111"/>
+      <phase duration="31" phase="11000" brake="00111" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="11000"/>
+   </tl-logic>
+
+
+   <junction id="15030099" type="DEAD_END" x="405.00" y="265.00">
+      <inclanes>153120299_0 153120299_1</inclanes>
+      <intlanes></intlanes>
+      <shape>406.78,262.28 403.22,267.72</shape>
+   </junction>
+
+   <junction id="15030102" type="priority" x="235.00" y="154.00">
+      <inclanes>153120297_0 153120297_1 -152850000_0</inclanes>
+      <intlanes>:15030102_0_0 :15030102_1_0 :15030102_2_0 :15030102_5_0 :15030102_6_0</intlanes>
+      <shape>237.22,159.33 240.77,153.89 232.83,148.69 229.27,154.13 229.69,156.26 235.15,159.77</shape>
+   </junction>
+
+   <junction id="15031877" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <intlanes></intlanes>
+      <shape>-1.78,2.72 1.78,-2.72</shape>
+   </junction>
+
+   <junction id="15034045" type="priority" x="226.00" y="168.00">
+      <inclanes>152850000_0</inclanes>
+      <intlanes>:15034045_0_0</intlanes>
+      <shape>225.96,167.97 223.27,166.24 228.73,169.76 226.04,168.03</shape>
+   </junction>
+
+
+   <junction id=":15030102_5_0" type="internal" x="233.71" y="156.04">
+      <inclanes>:15030102_3_0 153120297_0 153120297_1</inclanes>
+      <intlanes>:15030102_0_0 :15030102_1_0 :15030102_2_0</intlanes>
+      <shape></shape>
+   </junction>
+
+   <junction id=":15030102_6_0" type="internal" x="231.12" y="157.08">
+      <inclanes>:15030102_4_0 153120297_1</inclanes>
+      <intlanes>:15030102_2_0</intlanes>
+      <shape></shape>
+   </junction>
+
+
+   <succ edge="-152850000" lane="-152850000_0" junction="15030102">
+      <succlane lane="153120299_1" via=":15030102_3_0" tl="15030102" linkno="3" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="152850000_0" via=":15030102_4_0" tl="15030102" linkno="4" yield="1" dir="t" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="152850000" lane="152850000_0" junction="15034045">
+      <succlane lane="-152850000_0" via=":15034045_0_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="153120297" lane="153120297_0" junction="15030102">
+      <succlane lane="153120299_0" via=":15030102_0_0" tl="15030102" linkno="0" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="153120297" lane="153120297_1" junction="15030102">
+      <succlane lane="153120299_1" via=":15030102_1_0" tl="15030102" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="152850000_0" via=":15030102_2_0" tl="15030102" linkno="2" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="153120299" lane="153120299_0" junction="15030099">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="153120299" lane="153120299_1" junction="15030099">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+   <succ edge=":15030102_0" lane=":15030102_0_0" junction="15030102">
+      <succlane lane="153120299_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":15030102_1" lane=":15030102_1_0" junction="15030102">
+      <succlane lane="153120299_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":15030102_2" lane=":15030102_2_0" junction="15030102">
+      <succlane lane="152850000_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":15030102_3" lane=":15030102_3_0" junction="15030102">
+      <succlane lane="153120299_1" tl="" linkno="" yield="1" dir="s" state="M" via=":15030102_5_0"/>
+   </succ>
+   <succ edge=":15030102_5" lane=":15030102_5_0" junction=":15030102_5">
+      <succlane lane="153120299_1" tl="" linkno="0" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":15030102_4" lane=":15030102_4_0" junction="15030102">
+      <succlane lane="152850000_0" tl="" linkno="" yield="1" dir="s" state="M" via=":15030102_6_0"/>
+   </succ>
+   <succ edge=":15030102_6" lane=":15030102_6_0" junction=":15030102_6">
+      <succlane lane="152850000_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":15034045_0" lane=":15034045_0_0" junction="15034045">
+      <succlane lane="-152850000_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+
+</net>

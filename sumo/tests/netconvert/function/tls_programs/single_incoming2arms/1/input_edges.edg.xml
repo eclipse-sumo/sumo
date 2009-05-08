@@ -1,0 +1,6 @@
+<edges>
+   <edge id="-152850000" fromnode="15034045" tonode="15030102" speed="12.5" priority="-1" spread_type="center" nolanes="1" shape="17129.0,21131.0 17138.0,21117.0"/>
+   <edge id="153120297" fromnode="15031877" tonode="15030102" speed="13.89" priority="-1" spread_type="center" nolanes="2" shape="16903.0,20963.0 17138.0,21117.0"/>
+   <edge id="153120299" fromnode="15030102" tonode="15030099" speed="13.89" priority="-1" spread_type="center" nolanes="2" shape="17138.0,21117.0 17308.0,21228.0"/>
+   <edge id="152850000" fromnode="15030102" tonode="15034045" speed="12.5" priority="-1" spread_type="center" nolanes="1" shape="17138.0,21117.0 17129.0,21131.0"/>
+</edges>
