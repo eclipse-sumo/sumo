@@ -85,8 +85,8 @@ AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma 
 
 dnl   ... for xerces 3.0
 PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
-		  [AC_DEFINE([XERCES3_SIZE_t],[XMLSize_t],[Define length for Xerces 3.])],
-		  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
+                  [AC_DEFINE([XERCES3_SIZE_t],[XMLSize_t],[Define length for Xerces 3.])],
+                  [AC_DEFINE([XERCES3_SIZE_t],[unsigned int],[Define length for Xerces 2.])])
 
 
 AM_CONDITIONAL(MESOSIM, test -d $srcdir/src/mesosim)
@@ -111,7 +111,7 @@ else
     ac_disabled="$ac_disabled TRACI"
 fi
 
-AM_CONDITIONAL([WITH_VERSION_H], test -f .svn/entries)	      
+AM_CONDITIONAL([WITH_VERSION_H], test -f .svn/entries)
 if test -f .svn/entries; then
    AC_DEFINE([HAVE_VERSION_H], [1], [Define if auto-generated version.h should be used.])
 else
@@ -338,6 +338,39 @@ else
     ac_disabled="$ac_disabled GUI"
 fi
 
+
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for gtest
+AC_ARG_WITH([gtest], [AS_HELP_STRING([--with-gtest=DIR],[where googletest is installed (libraries in DIR/lib, headers in DIR/include).])])
+if test x"$with_gtest" == x; then
+    with_gtest=no
+fi
+if test x"$with_gtest" != xno; then
+    LIB_GTEST="gtest"
+    save_ldflags=$LDFLAGS
+    LDFLAGS="-L$with_gtest/lib"
+    export LDFLAGS
+    AC_CHECK_LIB([$LIB_GTEST], [main], [GTEST_LDFLAGS=$LDFLAGS],
+                 [AC_MSG_ERROR([gtest-lib not found in "$with_gtest/lib".])])
+    LDFLAGS=$save_ldflags
+    AC_SUBST(GTEST_LDFLAGS)
+    AC_SUBST(LIB_GTEST)
+    AM_CPPFLAGS="-I$with_gtest/include $AM_CPPFLAGS"
+#    save_cppflags=$CPPFLAGS
+#    CPPFLAGS="-I$with_gtest/include"
+#    export CPPFLAGS
+#    AC_CHECK_HEADER([gtest/gtest.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+#                    [AC_MSG_ERROR([gtest-includes not found in "$with_gtest/include".])])
+#    CPPFLAGS=$save_cppflags
+fi
+AM_CONDITIONAL([WITH_GTEST], [test x"$with_gtest" != xno])
+if test x"$with_gtest" != xno; then
+    ac_enabled="$ac_enabled UnitTests"
+else
+    ac_disabled="$ac_disabled UnitTests"
+fi
+
+
 AM_CPPFLAGS="-I$PWD/$srcdir/src $AM_CPPFLAGS"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
@@ -431,6 +464,10 @@ docs/docbook/gfx/Makefile
 docs/docbook/gfx/dev/Makefile
 docs/docbook/gfx/more/Makefile
 docs/docbook/gfx/user/Makefile
+unittest/Makefile
+unittest/src/Makefile
+unittest/src/utils/Makefile
+unittest/src/utils/common/Makefile
 Makefile])
 AC_OUTPUT
 

@@ -9,7 +9,7 @@ Testet die Klasse StringTokenizer
 
 /* Testet die Funktionweise bei einem WHITECHAR als Trenner.*/
 TEST(StringTokenizer, test_trenner_whitechar) {
-	StringTokenizer *strTok = new StringTokenizer("Hallo  Welt", StringTokenizer.WHITECHARS);
+	StringTokenizer *strTok = new StringTokenizer("Hallo  Welt", StringTokenizer::WHITECHARS);
 	EXPECT_TRUE(strTok->hasNext()) << "Es sollten noch weitere Tokens vorhanden sein.";
 	EXPECT_EQ("Hallo",strTok->next());
 	EXPECT_EQ("Welt",strTok->next());
@@ -18,7 +18,7 @@ TEST(StringTokenizer, test_trenner_whitechar) {
 
 /* Testet die Funktionweise bei einem NEWLINE als Trenner.*/
 TEST(StringTokenizer, test_trenner_newline) {
-	StringTokenizer *strTok = new StringTokenizer("Hallo\nWelt", StringTokenizer.NEWLINE);
+	StringTokenizer *strTok = new StringTokenizer("Hallo\nWelt", StringTokenizer::NEWLINE);
 	EXPECT_TRUE(strTok->hasNext()) << "Es sollten noch weitere Tokens vorhanden sein.";
 	EXPECT_EQ("Hallo",strTok->next());
 	EXPECT_EQ("Welt",strTok->next());
