@@ -206,7 +206,7 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
     // check whether the edge is within the prunning boundary
     if (myPrunningBoundary.size()!=0) {
         Position2D p;
-        if (!(edge->getGeometry().getBoxBoundary().grow(POSITION_EPS).overlapsWith(myPrunningBoundary))) {
+        if (!(edge->getGeometry().getBoxBoundary().grow((SUMOReal) POSITION_EPS).overlapsWith(myPrunningBoundary))) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
