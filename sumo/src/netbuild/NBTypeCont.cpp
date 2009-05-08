@@ -52,7 +52,7 @@ using namespace std;
 void
 NBTypeCont::setDefaults(int defaultNoLanes,
                         SUMOReal defaultSpeed,
-                        int defaultPriority) {
+                        int defaultPriority) throw() {
     myDefaultType.noLanes = defaultNoLanes;
     myDefaultType.speed = defaultSpeed;
     myDefaultType.priority = defaultPriority;
@@ -61,7 +61,7 @@ NBTypeCont::setDefaults(int defaultNoLanes,
 
 bool
 NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
-                   SUMOVehicleClass vClasses, bool oneWayIsDefault) {
+                   SUMOVehicleClass vClasses, bool oneWayIsDefault) throw() {
     TypesCont::iterator i = myTypes.find(id);
     if (i!=myTypes.end()) {
         return false;
@@ -76,9 +76,22 @@ NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int pr
 }
 
 
+bool
+NBTypeCont::knows(const std::string &type) const throw() {
+    return myTypes.find(type)!=myTypes.end();
+}
+
+
+NBNode::BasicNodeType
+NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw() {
+    return myJunctionTypes.getType(speed1, speed2);
+}
+
+
+// ------------ Type-dependant Retrieval methods
 int
-NBTypeCont::getNoLanes(const string &type) {
-    TypesCont::iterator i = myTypes.find(type);
+NBTypeCont::getNoLanes(const string &type) const throw() {
+    TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.noLanes;
     }
@@ -87,8 +100,8 @@ NBTypeCont::getNoLanes(const string &type) {
 
 
 SUMOReal
-NBTypeCont::getSpeed(const string &type) {
-    TypesCont::iterator i = myTypes.find(type);
+NBTypeCont::getSpeed(const string &type) const throw() {
+    TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.speed;
     }
@@ -97,8 +110,8 @@ NBTypeCont::getSpeed(const string &type) {
 
 
 int
-NBTypeCont::getPriority(const string &type) {
-    TypesCont::iterator i = myTypes.find(type);
+NBTypeCont::getPriority(const string &type) const throw() {
+    TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.priority;
     }
@@ -107,8 +120,8 @@ NBTypeCont::getPriority(const string &type) {
 
 
 bool
-NBTypeCont::getIsOneWay(const std::string &type) {
-    TypesCont::iterator i = myTypes.find(type);
+NBTypeCont::getIsOneWay(const std::string &type) const throw() {
+    TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.oneWay;
     }
@@ -117,8 +130,8 @@ NBTypeCont::getIsOneWay(const std::string &type) {
 
 
 const std::vector<SUMOVehicleClass> &
-NBTypeCont::getAllowedClasses(const std::string &type) {
-    TypesCont::iterator i = myTypes.find(type);
+NBTypeCont::getAllowedClasses(const std::string &type) const throw() {
+    TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.allowed;
     }
@@ -127,48 +140,12 @@ NBTypeCont::getAllowedClasses(const std::string &type) {
 
 
 const std::vector<SUMOVehicleClass> &
-NBTypeCont::getDisallowedClasses(const std::string &type) {
-    TypesCont::iterator i = myTypes.find(type);
+NBTypeCont::getDisallowedClasses(const std::string &type) const throw() {
+    TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return myDefaultType.notAllowed;
     }
     return (*i).second.notAllowed;
-}
-
-
-bool
-NBTypeCont::knows(const std::string &type) const {
-    return myTypes.find(type)!=myTypes.end();
-}
-
-
-int
-NBTypeCont::getDefaultNoLanes() {
-    return myDefaultType.noLanes;
-}
-
-
-int
-NBTypeCont::getDefaultPriority() {
-    return myDefaultType.priority;
-}
-
-
-SUMOReal
-NBTypeCont::getDefaultSpeed() {
-    return myDefaultType.speed;
-}
-
-
-size_t
-NBTypeCont::size() {
-    return myTypes.size();
-}
-
-
-NBNode::BasicNodeType
-NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const {
-    return myJunctionTypes.getType(speed1, speed2);
 }
 
 
