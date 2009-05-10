@@ -1,4 +1,4 @@
-SUBDIRS = src docs
+SUBDIRS = src docs unittest
 
 EXTRA_DIST = README ChangeLog AUTHORS COPYING INSTALL NEWS sumo.doxyconf
 
