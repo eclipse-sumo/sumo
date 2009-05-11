@@ -327,7 +327,6 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
         // start or destination not contained in route
         return std::numeric_limits<SUMOReal>::max();
     }
-
     if (fromEdge == toEdge) {
         if (fromPos <= toPos) {
             // destination position is on start edge
@@ -339,7 +338,6 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             }
         }
     }
-
     for (MSRouteIterator it = find(fromEdge); it!=end(); ++it) {
         if ((*it) == toEdge && !isFirstIteration) {
             distance += toPos;
@@ -352,6 +350,9 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
                 const MSLinkCont& links = (*laneIt)->getLinkCont();
                 for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
+                    if((*linkIt)==0||(*linkIt)->getLane()==0) {
+                        continue;
+                    }
                     std::string succLaneId = (*(*(it+1))->getLanes()->begin())->getID();
                     if ((*linkIt)->getLane()->getID().compare(succLaneId) == 0) {
                         distance += (*linkIt)->getLength();
@@ -362,7 +363,6 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
         }
         isFirstIteration = false;
     }
-
     return distance;
 }
 
