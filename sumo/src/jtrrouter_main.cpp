@@ -213,7 +213,7 @@ main(int argc, char **argv) {
             // build routes
             computeRoutes(*net, loader, oc);
         } catch (SAXParseException &e) {
-            MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));
+            MsgHandler::getErrorInstance()->inform(toString(e.getLineNumber()));
             ret = 1;
         } catch (SAXException &e) {
             MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
