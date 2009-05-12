@@ -64,12 +64,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -447,21 +441,21 @@ NLDetectorBuilder::buildRouteProbe(const std::string &id, const std::string &edg
 
 void
 NLDetectorBuilder::buildEdgeMeanData(const std::string &id, SUMOTime frequency,
-                                     const std::string &begins, const std::string &ends,
+                                     SUMOTime begin, SUMOTime end,
                                      const std::string &type,
                                      const std::string &edges, bool excludeEmpty,
                                      OutputDevice& device) throw(InvalidArgument) {
-    createEdgeMeanData(id, frequency, begins, ends, type, edges, excludeEmpty, device);
+    createEdgeLaneMeanData(id, frequency, begin, end, type, edges, excludeEmpty, device, false);
 }
 
 
 void
 NLDetectorBuilder::buildLaneMeanData(const std::string &id, SUMOTime frequency,
-                                     const std::string &begins, const std::string &ends,
+                                     SUMOTime begin, SUMOTime end,
                                      const std::string &type,
                                      const std::string &edges, bool excludeEmpty,
                                      OutputDevice& device) throw(InvalidArgument) {
-    createLaneMeanData(id, frequency, begins, ends, type, edges, excludeEmpty, device);
+    createEdgeLaneMeanData(id, frequency, begin, end, type, edges, excludeEmpty, device, true);
 }
 
 
@@ -594,95 +588,35 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendly
 
 
 void
-NLDetectorBuilder::createEdgeMeanData(const std::string &id, SUMOTime frequency,
-                                      const std::string &begins, const std::string &ends,
-                                      const std::string &type,
-                                      const std::string &edges, bool excludeEmpty,
-                                      OutputDevice& device) throw(InvalidArgument) {
-    pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-edge");
+NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime frequency,
+                                          SUMOTime begin, SUMOTime end,
+                                          const std::string &type,
+                                          const std::string &edges, bool excludeEmpty,
+                                          OutputDevice& device, bool isLanes) throw(InvalidArgument) {
+    if (begin < 0) {
+        throw InvalidArgument("Negative begin time for meandata dump '" + id + "'.");
+    }
+    if (end <= begin) {
+        throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
+    }
     MSDetectorFileOutput *det = 0;
     if (type==""||type=="performance"||type=="traffic") {
         det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(),
-                                 timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
+                                 begin, end, isLanes, !excludeEmpty, !excludeEmpty);
     } else if (type=="hbefa") {
         det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
-                                   timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
+                                   begin, end, isLanes, !excludeEmpty, !excludeEmpty);
     } else if (type=="harmonoise") {
         det = new MSMeanData_Harmonoise(id, MSNet::getInstance()->getEdgeControl(),
-                                        timeBounds.first, timeBounds.second, false, !excludeEmpty, !excludeEmpty);
+                                        begin, end, isLanes, !excludeEmpty, !excludeEmpty);
     }
     if (det!=0) {
+        if (frequency < 0) {
+            frequency = end - begin;
+        }
         MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
     }
 }
-
-
-void
-NLDetectorBuilder::createLaneMeanData(const std::string &id, SUMOTime frequency,
-                                      const std::string &begins, const std::string &ends,
-                                      const std::string &type,
-                                      const std::string &edges, bool excludeEmpty,
-                                      OutputDevice& device) throw(InvalidArgument) {
-    pair<vector<SUMOTime>, vector<SUMOTime> > timeBounds = getTimeBounds(begins, ends, id, "meandata-lane");
-    MSDetectorFileOutput *det = 0;
-    if (type==""||type=="performance"||type=="traffic") {
-        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(),
-                                 timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
-    } else if (type=="hbefa") {
-        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
-                                   timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
-    } else if (type=="harmonoise") {
-        det = new MSMeanData_Harmonoise(id, MSNet::getInstance()->getEdgeControl(),
-                                        timeBounds.first, timeBounds.second, true, !excludeEmpty, !excludeEmpty);
-    }
-    if (det!=0) {
-        MSNet::getInstance()->getDetectorControl().addDetectorAndInterval(det, &device, frequency);
-    }
-}
-
-
-std::vector<SUMOTime>
-NLDetectorBuilder::parseTimeList(const std::string &l) throw(EmptyData, NumberFormatException) {
-    std::vector<SUMOTime> ret;
-    if (l.length()!=0) {
-        StringTokenizer st(l, ",");
-        while (st.hasNext()) {
-            ret.push_back(TplConvert<char>::_2int(st.next().c_str()));
-        }
-    }
-    return ret;
-}
-
-std::pair<std::vector<SUMOTime>, std::vector<SUMOTime> >
-NLDetectorBuilder::getTimeBounds(const std::string &begins, const std::string &ends,
-                                 const std::string &id, const std::string &type) throw(InvalidArgument) {
-    vector<SUMOTime> dumpBegins, dumpEnds;
-    try {
-        dumpBegins = parseTimeList(begins);
-    } catch (NumberFormatException &) {
-        throw InvalidArgument("Not numeric 'begin' in definition of " + type + " '" + id + "'.");
-    } catch (EmptyData &) {
-        throw InvalidArgument("Empty 'begin' in definition of " + type + " '" + id + "'.");
-    }
-    try {
-        dumpEnds = parseTimeList(ends);
-    } catch (NumberFormatException &) {
-        throw InvalidArgument("Not numeric 'end' in definition of " + type + " '" + id + "'.");
-    } catch (EmptyData &) {
-        throw InvalidArgument("Empty 'end' in definition of " + type + " '" + id + "'.");
-    }
-    if (dumpBegins.size()!=dumpEnds.size()) {
-        throw InvalidArgument("The number of entries in 'begin' differs from the number in 'end' for " + type + " '" + id + "'.");
-    }
-    size_t noConstraints = dumpBegins.size();
-    for (size_t i=0; i<noConstraints; i++) {
-        if (dumpBegins[i]>=dumpEnds[i]) {
-            throw InvalidArgument("The 'begin' at position " + toString(i+1) + " is not smaller than the according 'end' for " + type + " '" + id + "'.");
-        }
-    }
-    return pair<vector<SUMOTime>, vector<SUMOTime> >(dumpBegins, dumpEnds);
-}
-
 
 /****************************************************************************/
 

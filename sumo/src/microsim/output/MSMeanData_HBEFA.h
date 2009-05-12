@@ -165,14 +165,14 @@ public:
      *
      * @param[in] id The id of the detector
      * @param[in] edges Control containing the edges to use
-     * @param[in] dumpBegins Begin times of dumps
-     * @param[in] dumpEnds End times of dumps
+     * @param[in] dumpBegin Begin time of dump
+     * @param[in] dumpEnd End time of dump
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      */
     MSMeanData_HBEFA(const std::string &id,
-                     MSEdgeControl &edges, const std::vector<SUMOTime> &dumpBegins,
-                     const std::vector<SUMOTime> &dumpEnds, bool useLanes,
+                     MSEdgeControl &edges, SUMOTime dumpBegin,
+                     SUMOTime dumpEnd, bool useLanes,
                      bool withEmptyEdges, bool withEmptyLanes) throw();
 
 
@@ -281,8 +281,8 @@ protected:
     /// @brief Information whether the output shall be edge-based (not lane-based)
     bool myAmEdgeBased;
 
-    /// @brief The first and the last time steps to write information (-1 indicates always)
-    std::vector<SUMOTime> myDumpBegins, myDumpEnds;
+    /// @brief The first and the last time step to write information (-1 indicates always)
+    SUMOTime myDumpBegin, myDumpEnd;
 
     /// @brief Whether empty lanes/edges shall be written
     bool myDumpEmptyEdges, myDumpEmptyLanes;

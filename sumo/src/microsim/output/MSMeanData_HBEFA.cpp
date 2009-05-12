@@ -135,12 +135,12 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id,
                                    MSEdgeControl &edges,
-                                   const std::vector<SUMOTime> &dumpBegins,
-                                   const std::vector<SUMOTime> &dumpEnds,
+                                   SUMOTime dumpBegin,
+                                   SUMOTime dumpEnd,
                                    bool useLanes,
                                    bool withEmptyEdges, bool withEmptyLanes) throw()
         : myID(id),
-        myAmEdgeBased(!useLanes), myDumpBegins(dumpBegins), myDumpEnds(dumpEnds),
+        myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
         myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes) {
     // interval begin
     // edges
@@ -189,21 +189,13 @@ void
 MSMeanData_HBEFA::write(OutputDevice &dev,
                         SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
-    bool found = myDumpBegins.size()==0;
-    for (unsigned int i=0; i<myDumpBegins.size()&&!found; ++i) {
-        if (!((myDumpBegins[i]>=0&&myDumpBegins[i]>=stopTime-DELTA_T)||(myDumpEnds[i]>=0&&myDumpEnds[i]<startTime))) {
-            found = true;
+    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
+        vector<MSEdge*>::iterator edge = myEdges.begin();
+        for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
+            writeEdge(dev, (*i), *edge, startTime, stopTime);
         }
-    }
-    if (!found) {
-        // no -> reset only
+    } else {
         resetOnly(stopTime);
-        return;
-    }
-    // yes -> write
-    vector<MSEdge*>::iterator edge = myEdges.begin();
-    for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
-        writeEdge(dev, (*i), *edge, startTime, stopTime);
     }
 }
 

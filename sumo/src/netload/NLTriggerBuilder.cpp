@@ -135,7 +135,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
     }
     MSEdge *e = MSEdge::dictionary(id);
     if (e==0) {
-        MsgHandler::getErrorInstance()->inform("Unknown edge referenced in a vaporizer ('" + id + "').");
+        MsgHandler::getErrorInstance()->inform("Unknown edge ('" + id + "') referenced in a vaporizer.");
         return;
     }
     bool ok = true;
@@ -145,19 +145,11 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
         return;
     }
     if (begin<0) {
-        MsgHandler::getErrorInstance()->inform("A vaporization begin is negative (edge id='" + id + "').");
+        MsgHandler::getErrorInstance()->inform("A vaporization begin time is negative (edge id='" + id + "').");
         return;
     }
-    if (end<0) {
-        MsgHandler::getErrorInstance()->inform("A vaporization end is negative (edge id='" + id + "').");
-        return;
-    }
-    if (begin>end) {
+    if (begin>=end) {
         MsgHandler::getErrorInstance()->inform("A vaporization ends before it starts (edge id='" + id + "').");
-        return;
-    }
-    if (begin==end) {
-        MsgHandler::getWarningInstance()->inform("A vaporization starts and ends at same time (edge id='" + id + "'); discarded.");
         return;
     }
     if (end>=OptionsCont::getOptions().getInt("begin")) {
