@@ -352,11 +352,9 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    // check is inner
-    bool isInner = attrs.getBoolSecure(SUMO_ATTR_INNER, false);
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, isInner);
+        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum);
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         myCurrentIsBroken = true;
@@ -756,6 +754,9 @@ void
 NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     // try to get the phase definition
     std::string phase;
+    std::string brakeMask;
+    std::string yellowMask;
+    bool haveNewDescription = true;
     try {
         phase = attrs.getString(SUMO_ATTR_PHASE);
     } catch (EmptyData &) {
@@ -763,20 +764,22 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
         return;
     }
     // try to get the break definition
-    std::string brakeMask;
-    try {
-        brakeMask = attrs.getString(SUMO_ATTR_BRAKE);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing break definition.");
-        return;
-    }
-    // try to get the yellow definition
-    std::string yellowMask;
-    try {
-        yellowMask = attrs.getString(SUMO_ATTR_YELLOW);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing yellow definition.");
-        return;
+    if(phase.find("0")!=std::string::npos||phase.find("1")!=std::string::npos) {
+        haveNewDescription = false;
+        // old description
+        try {
+            brakeMask = attrs.getString(SUMO_ATTR_BRAKE);
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Missing break definition.");
+            return;
+        }
+        // try to get the yellow definition
+        try {
+            yellowMask = attrs.getString(SUMO_ATTR_YELLOW);
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Missing yellow definition.");
+            return;
+        }
     }
     // try to get the phase duration
     int duration;
@@ -814,6 +817,19 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The phase maximum duration is not numeric.");
         return;
+    }
+    // convert new->old
+    if(haveNewDescription) {
+        // assure same string lengths...
+        std::string ophase = phase;
+        brakeMask = "";
+        yellowMask = "";
+        phase = "";
+        for(int i=(int) phase.size()-1; i>=0; --i) {
+            yellowMask[i] += (phase[i]=='y'||phase[i]=='Y') ? '1' : '0';
+            brakeMask[i] += (phase[i]>='a'&&phase[i]<='z') ? '1' : '0';
+            phase[i] += (phase[i]!='r'&&phase[i]!='R') ? '1' : '0';
+        }
     }
     // build the brake mask
     std::bitset<64> prios(brakeMask);

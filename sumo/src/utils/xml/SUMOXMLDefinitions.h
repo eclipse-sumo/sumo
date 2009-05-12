@@ -274,7 +274,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_PERIOD,
     /* source definitions */
     SUMO_ATTR_FUNCTION,
-    SUMO_ATTR_INNER,
     SUMO_ATTR_POSITION,
     SUMO_ATTR_FREQUENCY,
     SUMO_ATTR_STYLE,

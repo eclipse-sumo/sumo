@@ -209,7 +209,6 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "period",         SUMO_ATTR_PERIOD },
 
     { "function",       SUMO_ATTR_FUNCTION },
-    { "inner",          SUMO_ATTR_INNER },
     { "pos",            SUMO_ATTR_POSITION },
     { "freq",           SUMO_ATTR_FREQUENCY },
     { "style",          SUMO_ATTR_STYLE },

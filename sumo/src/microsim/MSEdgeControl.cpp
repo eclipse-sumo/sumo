@@ -177,12 +177,6 @@ MSEdgeControl::changeLanes() throw() {
     std::vector<MSLane*> toAdd;
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         LaneUsage &lu = myLanes[(*i)->getNumericalID()];
-        /*
-        if((*i)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INNERJUNCTION) {
-            ++i;
-            continue;
-        }
-        */
         if (lu.haveNeighbors) {
             const MSEdge * const edge = (*i)->getEdge();
             if (myLastLaneChange[edge->getNumericalID()]!=step) {

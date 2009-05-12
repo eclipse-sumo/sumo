@@ -81,12 +81,10 @@ public:
      * The given information is used to build the edge.
      * @param[in] id The id of the edge
      * @param[in] function The function of the edge
-     * @param[in] inner Whether the edge is an junction-inner edge
      * @exception InvalidArgument If an edge with the same name was already built
      */
     void beginEdgeParsing(const std::string &id,
-                          MSEdge::EdgeBasicFunction function,
-                          bool inner) throw(InvalidArgument);
+                          MSEdge::EdgeBasicFunction function) throw(InvalidArgument);
 
 
     /** @brief Adds a lane to the current edge;
@@ -159,9 +157,6 @@ protected:
 
     /// the function of the current edge
     MSEdge::EdgeBasicFunction m_Function;
-
-    //
-    bool myIsInner;
 
     OutputDevice *myEdgesLaneChangeOutputDevice;
 

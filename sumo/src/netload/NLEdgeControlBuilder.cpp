@@ -79,8 +79,7 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder() {
 
 void
 NLEdgeControlBuilder::beginEdgeParsing(const string &id,
-                                       MSEdge::EdgeBasicFunction function,
-                                       bool inner) throw(InvalidArgument) {
+                                       MSEdge::EdgeBasicFunction function) throw(InvalidArgument) {
     myActiveEdge = buildEdge(id);
     if (!MSEdge::dictionary(id, myActiveEdge)) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
@@ -88,10 +87,6 @@ NLEdgeControlBuilder::beginEdgeParsing(const string &id,
     myEdges.push_back(myActiveEdge);
     m_pDepartLane = (MSLane*) 0;
     m_Function = function;
-    if (inner) {
-        m_Function = MSEdge::EDGEFUNCTION_INNERJUNCTION;
-    }
-    myIsInner = inner;
 }
 
 
@@ -114,7 +109,6 @@ NLEdgeControlBuilder::addLane(const std::string &id,
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_CONNECTOR:
-    case MSEdge::EDGEFUNCTION_INNERJUNCTION:
         lane = new MSLane(id, maxSpeed, length, myActiveEdge,
                           myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;

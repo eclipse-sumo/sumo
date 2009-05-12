@@ -64,9 +64,6 @@ public:
         case MSEdge::EDGEFUNCTION_INTERNAL:
             glColor3f(0, 0, 1);
             return;
-        case MSEdge::EDGEFUNCTION_INNERJUNCTION:
-            glColor3f(0, 1, 1);
-            return;
         default:
             // hmmmm - should not happen
             glColor3f(1, 1, 0);
