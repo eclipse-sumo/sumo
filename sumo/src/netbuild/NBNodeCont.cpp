@@ -257,6 +257,11 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
             if (n==0) {
                 throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
             }
+            std::set<NBTrafficLightDefinition*> tls = n->getControllingTLS();
+            for(std::set<NBTrafficLightDefinition*>::const_iterator j=tls.begin(); j!=tls.end(); ++j) {
+                (*j)->removeNode(n);
+            }
+            n->removeTrafficLights();
             ncontrolled.push_back(n);
         }
     }
