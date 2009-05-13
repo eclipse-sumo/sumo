@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:22:31 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 05/13/09 14:03:46 by SUMO sumo Version dev-SVN-r7157
 <configuration>
 
    <input>
@@ -23,86 +23,6 @@
 -->
 
 <netstats>
-   <interval begin="0" end="15" id="dump_15">
-   </interval>
-   <interval begin="15" end="30" id="dump_15">
-   </interval>
-   <interval begin="30" end="45" id="dump_15">
-   </interval>
-   <interval begin="45" end="60" id="dump_15">
-   </interval>
-   <interval begin="60" end="75" id="dump_15">
-   </interval>
-   <interval begin="75" end="90" id="dump_15">
-   </interval>
-   <interval begin="90" end="105" id="dump_15">
-   </interval>
-   <interval begin="105" end="120" id="dump_15">
-   </interval>
-   <interval begin="120" end="135" id="dump_15">
-   </interval>
-   <interval begin="135" end="150" id="dump_15">
-   </interval>
-   <interval begin="150" end="165" id="dump_15">
-   </interval>
-   <interval begin="165" end="180" id="dump_15">
-   </interval>
-   <interval begin="180" end="195" id="dump_15">
-   </interval>
-   <interval begin="195" end="210" id="dump_15">
-   </interval>
-   <interval begin="210" end="225" id="dump_15">
-   </interval>
-   <interval begin="225" end="240" id="dump_15">
-   </interval>
-   <interval begin="240" end="255" id="dump_15">
-   </interval>
-   <interval begin="255" end="270" id="dump_15">
-   </interval>
-   <interval begin="270" end="285" id="dump_15">
-   </interval>
-   <interval begin="285" end="300" id="dump_15">
-   </interval>
-   <interval begin="300" end="315" id="dump_15">
-   </interval>
-   <interval begin="315" end="330" id="dump_15">
-   </interval>
-   <interval begin="330" end="345" id="dump_15">
-   </interval>
-   <interval begin="345" end="360" id="dump_15">
-   </interval>
-   <interval begin="360" end="375" id="dump_15">
-   </interval>
-   <interval begin="375" end="390" id="dump_15">
-   </interval>
-   <interval begin="390" end="405" id="dump_15">
-   </interval>
-   <interval begin="405" end="420" id="dump_15">
-   </interval>
-   <interval begin="420" end="435" id="dump_15">
-   </interval>
-   <interval begin="435" end="450" id="dump_15">
-   </interval>
-   <interval begin="450" end="465" id="dump_15">
-   </interval>
-   <interval begin="465" end="480" id="dump_15">
-   </interval>
-   <interval begin="480" end="495" id="dump_15">
-   </interval>
-   <interval begin="495" end="510" id="dump_15">
-   </interval>
-   <interval begin="510" end="525" id="dump_15">
-   </interval>
-   <interval begin="525" end="540" id="dump_15">
-   </interval>
-   <interval begin="540" end="555" id="dump_15">
-   </interval>
-   <interval begin="555" end="570" id="dump_15">
-   </interval>
-   <interval begin="570" end="585" id="dump_15">
-   </interval>
-   <interval begin="585" end="600" id="dump_15">
-   </interval>
    <interval begin="600" end="615" id="dump_15">
       <edge id="3/1to2/1">
          <lane id="3/1to2/1_0" sampledSeconds="780.00" CO_abs="4.97" CO2_abs="469.32" HC_abs="0.27" PMx_abs="0.02" NOx_abs="0.65" fuel_abs="0.19" CO_normed="3054.42" CO2_normed="288441.81" HC_normed="167.51" PMx_normed="10.19" NOx_normed="402.45" fuel_normed="115.00"/>
@@ -134,51 +54,5 @@
       <edge id="4/1to3/1">
          <lane id="4/1to3/1_0" sampledSeconds="390.00" CO_abs="2.48" CO2_abs="234.66" HC_abs="0.14" PMx_abs="0.01" NOx_abs="0.33" fuel_abs="0.09" CO_normed="1527.22" CO2_normed="144222.08" HC_normed="83.75" PMx_normed="5.10" NOx_normed="201.22" fuel_normed="57.50"/>
       </edge>
-   </interval>
-   <interval begin="660" end="675" id="dump_15">
-   </interval>
-   <interval begin="675" end="690" id="dump_15">
-   </interval>
-   <interval begin="690" end="705" id="dump_15">
-   </interval>
-   <interval begin="705" end="720" id="dump_15">
-   </interval>
-   <interval begin="720" end="735" id="dump_15">
-   </interval>
-   <interval begin="735" end="750" id="dump_15">
-   </interval>
-   <interval begin="750" end="765" id="dump_15">
-   </interval>
-   <interval begin="765" end="780" id="dump_15">
-   </interval>
-   <interval begin="780" end="795" id="dump_15">
-   </interval>
-   <interval begin="795" end="810" id="dump_15">
-   </interval>
-   <interval begin="810" end="825" id="dump_15">
-   </interval>
-   <interval begin="825" end="840" id="dump_15">
-   </interval>
-   <interval begin="840" end="855" id="dump_15">
-   </interval>
-   <interval begin="855" end="870" id="dump_15">
-   </interval>
-   <interval begin="870" end="885" id="dump_15">
-   </interval>
-   <interval begin="885" end="900" id="dump_15">
-   </interval>
-   <interval begin="900" end="915" id="dump_15">
-   </interval>
-   <interval begin="915" end="930" id="dump_15">
-   </interval>
-   <interval begin="930" end="945" id="dump_15">
-   </interval>
-   <interval begin="945" end="960" id="dump_15">
-   </interval>
-   <interval begin="960" end="975" id="dump_15">
-   </interval>
-   <interval begin="975" end="990" id="dump_15">
-   </interval>
-   <interval begin="990" end="1000" id="dump_15">
    </interval>
 </netstats>
