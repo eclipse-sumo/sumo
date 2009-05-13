@@ -550,10 +550,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSE1VehicleActor.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSEmitter.cpp"
 				>
 			</File>
@@ -585,10 +581,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSCalibrator.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSE1VehicleActor.h"
 				>
 			</File>
 			<File
