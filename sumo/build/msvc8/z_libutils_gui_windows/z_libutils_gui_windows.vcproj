@@ -619,10 +619,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\windows\GUIInterface_GridSpeedUp.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIMainWindow.h"
 				>
 			</File>
