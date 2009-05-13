@@ -319,8 +319,8 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
 
 
 bool
-NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
-                               NBEdge *from2, NBEdge *to2) const throw() {
+NBTrafficLightDefinition::foes(const NBEdge * const from1, const NBEdge * const to1,
+                               const NBEdge * const from2, const NBEdge * const to2) const throw() {
     if (to1==0||to2==0) {
         return false;
     }

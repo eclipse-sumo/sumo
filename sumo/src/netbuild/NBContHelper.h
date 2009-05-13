@@ -217,12 +217,12 @@ public:
     class node_with_incoming_finder {
     public:
         /// constructor
-        node_with_incoming_finder(NBEdge *e);
+        node_with_incoming_finder(const NBEdge * const e);
 
         bool operator()(const NBNode * const n) const;
 
     private:
-        NBEdge *myEdge;
+        const NBEdge * const myEdge;
 
     };
 
@@ -233,12 +233,12 @@ public:
     class node_with_outgoing_finder {
     public:
         /// constructor
-        node_with_outgoing_finder(NBEdge *e);
+        node_with_outgoing_finder(const NBEdge * const e);
 
         bool operator()(const NBNode * const n) const;
 
     private:
-        NBEdge *myEdge;
+        const NBEdge * const myEdge;
 
     };
 

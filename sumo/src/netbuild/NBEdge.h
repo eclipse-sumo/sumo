@@ -488,11 +488,24 @@ public:
     void computeTurningDirections();
 
 
-    /// sets the junction priority of the edge
-    void setJunctionPriority(NBNode *node, int prio);
+    /** @brief Sets the junction priority of the edge
+     * @param[in] node The node for which the edge's priority is given
+     * @param[in] prio The edge's new priority at this node
+     * @todo Maybe the edge priority whould be stored in the node
+     */
+    void setJunctionPriority(const NBNode * const node, int prio);
 
-    /// returns the junction priority (normalised for the node currently build)
-    int getJunctionPriority(NBNode *node);
+
+    /** @brief Returns the junction priority (normalised for the node currently build)
+     *
+     * If the given node is neither the edge's start nor the edge's ending node, the behaviour
+     *  is undefined.
+     *
+     * @param[in] node The node for which the edge's priority shall be returned
+     * @return The edge's priority at the given node
+     * @todo Maybe the edge priority whould be stored in the node
+     */
+    int getJunctionPriority(const NBNode * const node) const;
 
 
     /** writes the edge definition with lanes and connected edges
@@ -538,9 +551,12 @@ public:
     std::vector<int> getConnectionLanes(NBEdge *currentOutgoing) const;
 
 
-    /** returns the information whether the given edge is the opposite
-        direction to this edge */
-    bool isTurningDirectionAt(const NBNode *n, NBEdge *edge) const;
+    /** @brief Returns whether the given edge is the opposite direction to this edge 
+     * @param[in] n The node at which this may be turnaround direction
+     * @param[in] edge The edge which may be the turnaround direction
+     * @return Whether the given edge is this edge's turnaround direction
+     */
+    bool isTurningDirectionAt(const NBNode *n, const NBEdge * const edge) const throw();
 
 
 

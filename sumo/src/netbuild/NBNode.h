@@ -333,10 +333,24 @@ public:
                  NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
                  bool regardNonSignalisedLowerPriority) const;
 
-    bool foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const;
+
+    /** @brief Returns the information whether the given flows cross
+     * @param[in] from1 The starting edge of the first stream
+     * @param[in] to1 The ending edge of the first stream
+     * @param[in] from2 The starting edge of the second stream
+     * @param[in] to2 The ending edge of the second stream
+     * @return Whether both stream are foes (cross)
+     */
+    bool foes(const NBEdge * const from1, const NBEdge * const to1, 
+        const NBEdge * const from2, const NBEdge * const to2) const throw();
 
 
-    NBMMLDirection getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const;
+    /** @brief Returns the MML-representation of the described stream's direction
+     * @param[in] incoming The edge the stream starts at
+     * @param[in] outgoing The edge the stream ends at
+     * @return The direction of the stream
+     */
+    NBMMLDirection getMMLDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw();
 
     char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
 

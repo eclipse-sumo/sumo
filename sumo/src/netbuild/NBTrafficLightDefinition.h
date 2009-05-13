@@ -170,9 +170,16 @@ public:
                  NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
                  bool regardNonSignalisedLowerPriority) const throw();
 
-    /// Returns the information whether the given flows cross
-    bool foes(NBEdge *from1, NBEdge *to1,
-              NBEdge *from2, NBEdge *to2) const throw();
+
+    /** @brief Returns the information whether the given flows cross
+     * @param[in] from1 The starting edge of the first stream
+     * @param[in] to1 The ending edge of the first stream
+     * @param[in] from2 The starting edge of the second stream
+     * @param[in] to2 The ending edge of the second stream
+     * @return Whether both stream are foes (cross)
+     */
+    bool foes(const NBEdge * const from1, const NBEdge * const to1,
+              const NBEdge * const from2, const NBEdge * const to2) const throw();
 
     /// Inserts the information about being controlled by a tls into participating edges
     virtual void setTLControllingInformation(const NBEdgeCont &ec) const throw() = 0;

@@ -71,23 +71,22 @@ NBOwnTLDef::~NBOwnTLDef() throw() {}
 
 
 int
-NBOwnTLDef::getToPrio(NBEdge *e) throw() {
+NBOwnTLDef::getToPrio(const NBEdge * const e) throw() {
     return e->getJunctionPriority(e->getToNode());
 }
 
 
 SUMOReal
-getDirectionalWeight(NBMMLDirection dir) throw()
+NBOwnTLDef::getDirectionalWeight(NBMMLDirection dir) throw()
 {
     switch(dir) {
     case MMLDIR_STRAIGHT:
+    case MMLDIR_PARTLEFT:
+    case MMLDIR_PARTRIGHT:
         return 2.;
     case MMLDIR_LEFT:
-    case MMLDIR_PARTLEFT:
-        return .5;
     case MMLDIR_RIGHT:
-    case MMLDIR_PARTRIGHT:
-        return 1;
+        return .5;
     case MMLDIR_NODIR:
     case MMLDIR_TURN:
         return 0;
@@ -96,7 +95,7 @@ getDirectionalWeight(NBMMLDirection dir) throw()
 }
 
 SUMOReal
-NBOwnTLDef::computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2) throw() {
+NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const NBEdge * const e2) throw() {
     SUMOReal val = 0;
     for (unsigned int e1l=0; e1l<e1->getNoLanes(); e1l++) {
         vector<NBEdge::Connection> approached1 = e1->getConnectionsFromLane(e1l);
@@ -132,6 +131,12 @@ NBOwnTLDef::getBestCombination(const vector<NBEdge*> &edges) throw() {
             if (value>bestValue) {
                 bestValue = value;
                 bestPair = pair<NBEdge*, NBEdge*>(*i, *j);
+            } else if(value==bestValue) {
+                SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngle(*(*i)->getToNode()), (*j)->getAngle(*(*j)->getToNode()));
+                SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngle(*bestPair.first->getToNode()), bestPair.second->getAngle(*bestPair.second->getToNode()));
+                if(oa<ca) {
+                    bestPair = pair<NBEdge*, NBEdge*>(*i, *j);
+                }
             }
         }
     }

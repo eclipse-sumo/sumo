@@ -32,6 +32,7 @@
 #include <vector>
 #include <set>
 #include "NBTrafficLightDefinition.h"
+#include "NBMMLDirections.h"
 
 
 // ===========================================================================
@@ -85,10 +86,45 @@ protected:
 
 
 protected:
-    int getToPrio(NBEdge *e) throw();
-    SUMOReal computeUnblockedWeightedStreamNumber(NBEdge* e1, NBEdge *e2) throw();
+    /** @brief Returns the weight of a stream given its direction
+     * @param[in] dir The direction of the stream
+     * @return This stream's weight
+     * @todo There are several magic numbers; describe
+     */
+    SUMOReal getDirectionalWeight(NBMMLDirection dir) throw();
+
+
+    /** @brief Returns this edge's priority at the node it ends at
+     * @param[in] e The edge to ask for his priority
+     * @return The edge's priority at his destination node
+     */
+    int getToPrio(const NBEdge * const e) throw();
+
+
+    /** @brief Returns how many streams outgoing from the edges can pass the junction without being blocked
+     * @param[in] e1 The first edge
+     * @param[in] e2 The second edge
+     * @todo There are several magic numbers; describe
+     */
+    SUMOReal computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const NBEdge * const e2) throw();
+
+
+    /** @brief Returns the combination of two edges from the given which has most unblocked streams
+     * @param[in] edges The list of edges to include in the computation
+     * @return The two edges for which the weighted number of unblocked streams is the highest
+     */
     std::pair<NBEdge*, NBEdge*> getBestCombination(const std::vector<NBEdge*> &edges) throw();
+
+
+    /** @brief Returns the combination of two edges from the given which has most unblocked streams
+     *
+     * The chosen edges are removed from the given vector 
+     *
+     * @param[in, changed] incoming The list of edges which are participating in the logic
+     * @return The two edges for which the weighted number of unblocked streams is the highest
+     */
     std::pair<NBEdge*, NBEdge*> getBestPair(std::vector<NBEdge*> &incoming) throw();
+
 
     /**
      * edge_by_incoming_priority_sorter

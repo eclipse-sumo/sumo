@@ -1788,7 +1788,8 @@ NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
 
 
 bool
-NBNode::foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const {
+NBNode::foes(const NBEdge * const from1, const NBEdge * const to1, 
+             const NBEdge * const from2, const NBEdge * const to2) const throw() {
     return myRequest!=0&&myRequest->foes(from1, to1, from2, to2);
 }
 
@@ -1875,7 +1876,7 @@ NBNode::remapRemoved(NBTrafficLightLogicCont &tc,
 
 
 NBMMLDirection
-NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const {
+NBNode::getMMLDirection(const NBEdge * const incoming, const NBEdge * const outgoing) const throw() {
     // ok, no connection at all -> dead end
     if (outgoing==0) {
         return MMLDIR_NODIR;

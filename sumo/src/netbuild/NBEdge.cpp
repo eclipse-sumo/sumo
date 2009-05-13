@@ -482,7 +482,7 @@ NBEdge::getConnectionsFromLane(unsigned int lane) const throw() {
 
 
 int
-NBEdge::getJunctionPriority(NBNode *node) {
+NBEdge::getJunctionPriority(const NBNode * const node) const {
     if (node==myFrom) {
         return myFromJunctionPriority;
     } else {
@@ -492,7 +492,7 @@ NBEdge::getJunctionPriority(NBNode *node) {
 
 
 void
-NBEdge::setJunctionPriority(NBNode *node, int prio) {
+NBEdge::setJunctionPriority(const NBNode * const node, int prio) {
     if (node==myFrom) {
         myFromJunctionPriority = prio;
     } else {
@@ -1231,7 +1231,7 @@ NBEdge::sortOutgoingLanesConnections() {
 
 
 bool
-NBEdge::isTurningDirectionAt(const NBNode *n, NBEdge *edge) const {
+NBEdge::isTurningDirectionAt(const NBNode *n, const NBEdge * const edge) const throw() {
     // maybe it was already set as the turning direction
     if (edge == myTurnDestination) {
         return true;

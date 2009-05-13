@@ -427,8 +427,8 @@ NBRequest::getSizes() const {
 
 
 bool
-NBRequest::foes(NBEdge *from1, NBEdge *to1,
-                NBEdge *from2, NBEdge *to2) const {
+NBRequest::foes(const NBEdge * const from1, const NBEdge * const to1,
+                const NBEdge * const from2, const NBEdge * const to2) const throw() {
     // unconnected edges do not forbid other edges
     if (to1==0 || to2==0) {
         return false;

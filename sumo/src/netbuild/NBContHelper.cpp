@@ -141,7 +141,7 @@ NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const {
 /* -------------------------------------------------------------------------
  * methods from node_with_incoming_finder
  * ----------------------------------------------------------------------- */
-NBContHelper::node_with_incoming_finder::node_with_incoming_finder(NBEdge *e)
+NBContHelper::node_with_incoming_finder::node_with_incoming_finder(const NBEdge * const e)
         : myEdge(e) {}
 
 
@@ -156,7 +156,7 @@ NBContHelper::node_with_incoming_finder::operator()(const NBNode * const n) cons
 /* -------------------------------------------------------------------------
  * methods from node_with_outgoing_finder
  * ----------------------------------------------------------------------- */
-NBContHelper::node_with_outgoing_finder::node_with_outgoing_finder(NBEdge *e)
+NBContHelper::node_with_outgoing_finder::node_with_outgoing_finder(const NBEdge * const e)
         : myEdge(e) {}
 
 

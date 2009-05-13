@@ -89,10 +89,15 @@ public:
 
     bool mustBrake(NBEdge *from, NBEdge *to) const; // !!!
 
-    /** returns the information whether the connections from1->to1 and
-        from2->to2 are foes */
-    bool foes(NBEdge *from1, NBEdge *to1,
-              NBEdge *from2, NBEdge *to2) const;
+    /** @brief Returns the information whether the given flows cross
+     * @param[in] from1 The starting edge of the first stream
+     * @param[in] to1 The ending edge of the first stream
+     * @param[in] from2 The starting edge of the second stream
+     * @param[in] to2 The ending edge of the second stream
+     * @return Whether both stream are foes (cross)
+     */
+    bool foes(const NBEdge * const from1, const NBEdge * const to1,
+              const NBEdge * const from2, const NBEdge * const to2) const;
 
     bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
                  NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
