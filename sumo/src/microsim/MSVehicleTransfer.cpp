@@ -64,7 +64,6 @@ MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
     // let the vehicle be on the one
     veh->leaveLaneAtLaneChange();
     veh->onTripEnd(/*lane*/);
-    MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*veh, MSNet::getInstance()->getCurrentTimeStep());
     if (proceedVirtualReturnWhetherEnded(*veh, MSEdge::dictionary(veh->succEdge(1)->getID()))) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;

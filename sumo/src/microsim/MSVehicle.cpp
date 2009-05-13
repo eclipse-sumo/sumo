@@ -63,8 +63,6 @@
 #include "MSMessageEmitter.h"
 #endif
 
-#include "devices/MSDevice_CPhone.h"
-
 #ifdef HAVE_MESOSIM
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
@@ -244,7 +242,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init devices
     MSDevice_C2C::buildVehicleDevices(*this, myDevices);
-    MSDevice_CPhone::buildVehicleDevices(*this, myDevices);
     MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
     // init CORN containers
     if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {

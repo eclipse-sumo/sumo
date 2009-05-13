@@ -177,9 +177,6 @@ NLHandler::myStartElement(SumoXMLTag element,
         case SUMO_TAG_BUS_STOP:
             myTriggerBuilder.parseAndBuildBusStop(myNet, attrs);
             break;
-        case SUMO_TAG_VEHICLE_ACTOR:
-            myTriggerBuilder.parseAndBuildVehicleActor(myNet, attrs);
-            break;
         case SUMO_TAG_VTYPEPROBE:
             addVTypeProbeDetector(attrs);
             break;

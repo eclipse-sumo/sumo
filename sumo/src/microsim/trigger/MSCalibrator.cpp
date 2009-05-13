@@ -136,12 +136,9 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
                 } else {
                     veh->leaveLaneAtLaneChange();
                     veh->onTripEnd();
-                    MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*veh, MSNet::getInstance()->getCurrentTimeStep());
                     myDestLane->removeVehicle(veh);
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-
                     num_replacements++;
-
                     break;
                 }
             }

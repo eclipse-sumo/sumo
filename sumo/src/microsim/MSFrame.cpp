@@ -42,7 +42,6 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_C2C.h>
 #include <microsim/devices/MSDevice_Routing.h>
-#include <microsim/devices/MSDevice_CPhone.h>
 #include <microsim/devices/MSDevice_HBEFA.h>
 #include <utils/common/RandHelper.h>
 #include "MSFrame.h"
@@ -198,7 +197,6 @@ MSFrame::fillOptions() {
     // devices
     MSDevice_C2C::insertOptions();
     MSDevice_Routing::insertOptions();
-    MSDevice_CPhone::insertOptions();
     MSDevice_HBEFA::insertOptions();
 
 
@@ -274,73 +272,12 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("emissions-output", "emissions");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
     OutputDevice::createDeviceByOption("vehroute-output", "routes");
-    // TrafficOnline-outputs
-    OutputDevice::createDeviceByOption("ss2-output");
-    OutputDevice::createDeviceByOption("ss2-cell-output");
-    OutputDevice::createDeviceByOption("ss2-la-output");
-    OutputDevice::createDeviceByOption("ss2-sql-output");
-    OutputDevice::createDeviceByOption("ss2-sql-cell-output");
-    OutputDevice::createDeviceByOption("ss2-sql-la-output");
-    OutputDevice::createDeviceByOption("cellphone-dump");
     // c2x-outputs
     OutputDevice::createDeviceByOption("c2x.cluster-info", "clusterInfos");
     OutputDevice::createDeviceByOption("c2x.saved-info", "savedInfos");
     OutputDevice::createDeviceByOption("c2x.saved-info-freq", "savedInfosFreq");
     OutputDevice::createDeviceByOption("c2x.transmitted-info", "transmittedInfos");
     OutputDevice::createDeviceByOption("c2x.vehicle-in-range", "vehicleInRanges");
-
-    // initialise TrafficOnline-outputs
-    if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
-        OutputDevice::getDeviceByOption("ss2-sql-output")
-        << "CREATE TABLE `COLLECTORPOS` (\n"
-        << "`ID` int(11) NOT NULL auto_increment,\n"
-        << "`TID` varchar(20) NOT NULL default '',\n"
-        << "`DATE_TIME` datetime default NULL,\n"
-        << "`POSITION_ID` int(5) NOT NULL default '0',\n"
-        << "`CALL_ID` int(5) NOT NULL default '0',\n"
-        << "`QUALITY_ID` int(5) NOT NULL default '30',\n"
-        << "PRIMARY KEY  (`ID`)\n"
-        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n"
-
-        << "INSERT INTO `COLLECTORPOS` (`ID`,`TID`,`DATE_TIME`, `POSITION_ID`, `CALL_ID`, `QUALITY_ID`) VALUES "
-        << "\n";
-    }
-    if (OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
-        OutputDevice::getDeviceByOption("ss2-sql-cell-output")
-        << "CREATE TABLE `COLLECTORCS` ("
-        << "`ID` int(11) NOT NULL auto_increment,\n"
-        << "`TID` varchar(20) NOT NULL default '',\n"
-        << "`DATE_TIME` datetime default NULL,\n"
-        << "`CELL_ID` int(5) NOT NULL default '0',\n"
-        << "`STAT_CALLS_IN` int(5) NOT NULL default '0',\n"
-        << "`STAT_CALLS_OUT` int(5) NOT NULL default '0',\n"
-        << "`DYN_CALLS_IN` int(5) NOT NULL default '0',\n"
-        << "`DYN_CALLS_OUT` int(5) NOT NULL default '0',\n"
-        << "`SUM_CALLS` int(5) NOT NULL default '0',\n"
-        << "`INTERVALL` int(5) NOT NULL default '0',\n"
-        << "PRIMARY KEY  (`ID`,`TID`)\n"
-        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n"
-
-        << "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
-        << "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES \n";
-    }
-    if (OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
-        OutputDevice::getDeviceByOption("ss2-sql-la-output")
-        << "CREATE TABLE `COLLECTORLA` (\n"
-        << "`ID` int(11) NOT NULL auto_increment,\n"
-        << "`TID` varchar(20) NOT NULL default '',\n"
-        << "`DATE_TIME` datetime default NULL,\n"
-        << "`POSITION_ID` int(5) NOT NULL default '0',\n"
-        << "`DIR` int(1) NOT NULL default '0',\n"
-        << "`SUM_CHANGE` int(5) NOT NULL default '0',\n"
-        << "`QUALITY_ID` int(2) NOT NULL default '0',\n"
-        << "`INTERVALL` int(5) NOT NULL default '0',\n"
-        << "PRIMARY KEY  (`ID`,`TID`)\n"
-        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n"
-
-        << "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
-        << "`QUALITY_ID`,`INTERVALL`) VALUES \n";
-    }
 }
 
 

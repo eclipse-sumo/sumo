@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libguiutilsdrawer.a
 
 libguiutilsdrawer_a_SOURCES = GUIBaseColorer.h \
-GUIColorer_ByDeviceNumber.h GUIColorer_ByDeviceState.h \
+GUIColorer_ByDeviceNumber.h \
 GUIColorer_ByOptCORNValue.h \
 GUIColorer_ColorSettingFunction.h \
 GUIColorer_LaneBySelection.h GUIColorer_ShadeByFunctionValue.h \

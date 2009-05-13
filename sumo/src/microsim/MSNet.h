@@ -43,7 +43,6 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/common/SUMOTime.h>
-#include "MSPhoneNet.h"
 #include <microsim/trigger/MSBusStop.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -327,16 +326,6 @@ public:
     ShapeContainer &getShapeContainer() throw() {
         return *myShapeContainer;
     }
-
-
-    /** @brief Returns the GSM-network
-     * @return The GSM-network representation
-     * @deprecated MSPhoneNet should not be a part of MSNet
-     * @todo return a reference
-     */
-    MSPhoneNet * getMSPhoneNet() throw() {
-        return myMSPhoneNet;
-    }
     /// @}
 
 
@@ -458,10 +447,6 @@ protected:
     MSEventControl *myEmissionEvents;
     /** @brief A container for geometrical shapes; @see  ShapeContainer*/
     ShapeContainer *myShapeContainer; // could be a direct member
-    /** @brief A GSM-network representation
-     * @deprecated Should not be a member of MSNet
-     */
-    MSPhoneNet * myMSPhoneNet;
     /// @}
 
 

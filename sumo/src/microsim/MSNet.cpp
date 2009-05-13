@@ -134,7 +134,6 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myRouteLoaders = 0;
     myLogics = 0;
     myPersonControl = 0;
-    myMSPhoneNet = 0;
     myShapeContainer = new ShapeContainer();
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
@@ -162,23 +161,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
     myLogics = tlc;
-    myMSPhoneNet = new MSPhoneNet();
-    // intialise outputs
-    // tol
-    if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
-        // start old-data removal through MSEventControl
-        Command* writeDate = new WrappingCommand< MSPhoneNet >(
-            myMSPhoneNet, &MSPhoneNet::writeCellOutput);
-        getEndOfTimestepEvents().addEvent(
-            writeDate, (SUMOTime)(TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
-    }
-    if (OptionsCont::getOptions().isSet("ss2-la-output")||OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
-        // start old-data removal through MSEventControl
-        Command* writeDate = new WrappingCommand< MSPhoneNet >(
-            myMSPhoneNet, &MSPhoneNet::writeLAOutput);
-        getEndOfTimestepEvents().addEvent(
-            writeDate, (SUMOTime)(TMOD(myStep,300)+300), MSEventControl::NO_CHANGE);
-    }
     // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
     myStateDumpFiles = stateDumpFiles;
@@ -229,8 +211,6 @@ MSNet::~MSNet() throw() {
     delete myLogics;
     delete myRouteLoaders;
     delete myVehicleControl;
-    delete myMSPhoneNet;
-    myMSPhoneNet = 0;
     delete myShapeContainer;
 #ifdef _MESSAGES
 #ifdef _DEBUG
@@ -299,9 +279,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
 
 void
 MSNet::closeSimulation(SUMOTime start) {
-    if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
-        OutputDevice::getDeviceByOption("ss2-sql-output") << ";\n";
-    }
     if (myLogExecutionTime) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         ostringstream msg;
@@ -319,7 +296,6 @@ MSNet::closeSimulation(SUMOTime start) {
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);
-    //traci::TraCIServer::close(myStep);
 }
 
 
@@ -334,11 +310,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step) {
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
     myBeginOfTimestepEvents->execute(myStep);
-
-    if (myMSPhoneNet!=0) {
-        myMSPhoneNet->setDynamicCalls(myStep);
-    }
-
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);
     }

@@ -35,11 +35,10 @@
 #include <microsim/trigger/MSEmitter.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSBusStop.h>
-#include <microsim/trigger/MSE1VehicleActor.h>
-#include <microsim/MSPhoneCell.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/WrappingCommand.h>
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -86,37 +85,9 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         parseAndBuildRerouter(net, attrs, base);
     } else if (type=="bus_stop") {
         parseAndBuildBusStop(net, attrs);
-    } else if (type=="vehicle_actor") {
-        /*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
-        if (attrs.getInt(SUMO_ATTR_TYPE) == 3) {
-            unsigned int cell_id   = attrs.getInt(SUMO_ATTR_ID);
-            unsigned int interval  = attrs.getInt(SUMO_ATTR_LANE);
-            unsigned int statcount = attrs.getInt(SUMO_ATTR_POSITION);
-            MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
-            if (pPhone->getMSPhoneCell(cell_id) != 0)
-                pPhone->getMSPhoneCell(cell_id)->setStatParams(interval, statcount);
-        } else if (attrs.getInt(SUMO_ATTR_TYPE) == 4) {
-            /*this is the trigger for the duration for an interval for an hour*/
-            unsigned int cell_id   = attrs.getInt(SUMO_ATTR_ID);
-            unsigned int interval  = attrs.getInt(SUMO_ATTR_LANE);
-            unsigned int count = attrs.getInt(SUMO_ATTR_POSITION);
-            float duration = attrs.getFloat(SUMO_ATTR_TO);
-            float deviation  = attrs.getFloat(SUMO_ATTR_XTO);
-            unsigned int entering  = (unsigned int) attrs.getFloat(SUMO_ATTR_ENTERING);
-            //insert in MSPhoneNet
-            MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
-            if (pPhone->getMSPhoneCell(cell_id) != 0)
-                pPhone->getMSPhoneCell(cell_id)->setDynParams(interval, count, duration, deviation, entering);
-        } else {
-            /*check that the depending lane realy exist. if not just forget this VehicleActor. */
-            MSLane *tlane = MSLane::dictionary(attrs.getString(SUMO_ATTR_LANE));
-            if (tlane!=0)
-                parseAndBuildVehicleActor(net, attrs);
-        }
     } else if (type=="calibrator") {
         parseAndBuildCalibrator(net, attrs, base);
     }
-
     if (!myHaveInformedAboutDeprecatedTriggerDefinition) {
         MsgHandler::getWarningInstance()->inform("Defining '" + type + "' using a trigger definition is deprecated.");
         myHaveInformedAboutDeprecatedTriggerDefinition = true;
@@ -282,22 +253,6 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
 
 
 void
-NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument) {
-    // get the id, throw if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes("vehicle actor", id, false)) {
-        throw InvalidArgument("A vehicle actor does not contain an id");
-    }
-    MSLane *lane = getLane(attrs, "vehicle_actor", id);
-    SUMOReal pos = getPosition(attrs, lane, "vehicle_actor", id);
-    unsigned int cellid = attrs.getInt(SUMO_ATTR_TO);
-    unsigned int laid = attrs.getInt(SUMO_ATTR_XTO);
-    unsigned int type = attrs.getInt(SUMO_ATTR_TYPE);
-    buildVehicleActor(net, id, lane, pos, laid, cellid, type);
-}
-
-
-void
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument) {
     // get the id, throw if not given or empty...
@@ -419,14 +374,6 @@ NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                const std::vector<std::string> &lines,
                                MSLane *lane, SUMOReal frompos, SUMOReal topos) throw() {
     net.addBusStop(new MSBusStop(id, lines, *lane, frompos, topos));
-}
-
-
-void
-NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
-                                    MSLane *lane, SUMOReal pos, unsigned int la,
-                                    unsigned int cell, unsigned int type) throw() {
-    new MSE1VehicleActor(id, lane, pos, la, cell, type);
 }
 
 

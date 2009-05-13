@@ -98,10 +98,6 @@ public:
     static void setWished(Function f);
 
 public:
-    static void saveTOSS2_CalledPositionData(SUMOTime time,
-            int callID, const std::string &pos, int quality);
-
-
     //car2car
     static void saveClusterInfoData(SUMOTime step, int id,
                                     const std::string &headID,

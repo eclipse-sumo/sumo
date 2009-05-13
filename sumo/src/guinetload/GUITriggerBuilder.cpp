@@ -32,7 +32,6 @@
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIEmitter.h>
 #include <guisim/GUITriggeredRerouter.h>
-#include <guisim/GUIE1VehicleActor.h>
 #include <guisim/GUIBusStop.h>
 #include "GUITriggerBuilder.h"
 
@@ -73,14 +72,6 @@ GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
                                  std::vector<MSEdge*> &edges,
                                  SUMOReal prob, const std::string &file, bool off) throw() {
     new GUITriggeredRerouter(id, edges, prob, file, off);
-}
-
-
-void
-GUITriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
-                                     MSLane *lane, SUMOReal pos, unsigned int la,
-                                     unsigned int cell, unsigned int type) throw() {
-    new GUIE1VehicleActor(id, lane, pos, la, cell, type);
 }
 
 

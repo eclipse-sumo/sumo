@@ -32,12 +32,12 @@
 #include "MSVehicle.h"
 #include "MSGlobals.h"
 #include "MSLane.h"
+#include <microsim/devices/MSDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
-#include "devices/MSDevice_CPhone.h"
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>

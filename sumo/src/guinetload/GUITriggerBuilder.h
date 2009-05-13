@@ -112,22 +112,6 @@ protected:
                                SUMOReal prob, const std::string &file, bool off) throw();
 
 
-    /** @brief builds a vehicle actor
-     *
-     * Simply calls the GUIE1VehicleActor constructor.
-     *
-     * @param[in] net The net the actor belongs to
-     * @param[in] id The id of the actor
-     * @param[in] edges The edges the rerouter is placed at
-     * @param[in] prob The probability the rerouter reoutes vehicles with
-     * @param[in] file The file to read the reroute definitions from
-     * @todo Recheck usage of TOL-actors
-     */
-    virtual void buildVehicleActor(MSNet &, const std::string &id,
-                                   MSLane *lane, SUMOReal pos, unsigned int la,
-                                   unsigned int cell, unsigned int type) throw();
-
-
     /** @brief Builds a bus stop
      *
      * Simply calls the GUIBusStop constructor.

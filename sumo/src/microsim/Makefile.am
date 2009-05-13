@@ -18,8 +18,6 @@ MSLogicJunction.cpp MSLogicJunction.h MSMoveReminder.cpp MSMoveReminder.h \
 MSMessageEmitter.cpp MSMessageEmitter.h \
 MSNet.cpp MSNet.h MSNoLogicJunction.cpp MSNoLogicJunction.h \
 MSPerson.cpp MSPerson.h MSPersonControl.cpp MSPersonControl.h \
-MSPhoneCell.cpp MSPhoneCell.h MSPhoneLA.cpp MSPhoneLA.h \
-MSPhoneNet.cpp MSPhoneNet.h \
 MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
 MSRoute.cpp MSRoute.h MSRouteHandler.cpp MSRouteHandler.h \
 MSRouteLoader.cpp MSRouteLoader.h \

@@ -45,7 +45,6 @@ class MSTriggeredRerouter;
 class MSLane;
 class MSEdge;
 class MSBusStop;
-class MSE1VehicleActor;
 class MSCalibrator;
 
 #ifdef HAVE_MESOSIM
@@ -174,15 +173,6 @@ public:
     void parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 
 
-    /** @brief Parses his values and builds a vehicle actor
-     *
-     * @param[in] net The network the vehicle actor belongs to
-     * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
-     */
-    void parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument);
-
-
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -300,22 +290,6 @@ protected:
     virtual void buildRerouter(MSNet &net,
                                const std::string &id, std::vector<MSEdge*> &edges,
                                SUMOReal prob, const std::string &file, bool off) throw();
-
-
-    /** @brief builds a vehicle actor
-     *
-     * Simply calls the MSE1VehicleActor constructor.
-     *
-     * @param[in] net The net the actor belongs to
-     * @param[in] id The id of the actor
-     * @param[in] edges The edges the rerouter is placed at
-     * @param[in] prob The probability the rerouter reoutes vehicles with
-     * @param[in] file The file to read the reroute definitions from
-     * @todo Recheck usage of TOL-actors
-     */
-    virtual void buildVehicleActor(MSNet &net,
-                                   const std::string &id, MSLane *lane, SUMOReal pos,
-                                   unsigned int la, unsigned int cell, unsigned int type) throw();
     //@}
 
 
