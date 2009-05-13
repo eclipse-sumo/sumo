@@ -94,14 +94,6 @@ public:
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
-        /** @brief Nothing is done, here
-         *
-         * @param[in] veh The leaving vehicle.
-         * @see MSMoveReminder::dismissByLaneChange
-         */
-        void dismissByLaneChange(MSVehicle& veh) throw();
-
-
         /** @brief Returns whether the vehicle shall be aware of this entry
          *
          * Returns true if the vehicle is in front of the entry, so that it
@@ -167,14 +159,6 @@ public:
          * @see MSE3Collector::leave
          */
         bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
-
-
-        /** @brief Nothing is done, here
-         *
-         * @param[in] veh The leaving vehicle.
-         * @see MSMoveReminder::dismissByLaneChange
-         */
-        void dismissByLaneChange(MSVehicle& veh) throw();
 
 
         /** @brief Returns whether the vehicle shall be aware of this entry

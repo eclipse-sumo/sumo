@@ -50,12 +50,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -102,11 +96,6 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
     PMx += (fraction * HelpersHBEFA::computePMx(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
     fuel += (fraction * HelpersHBEFA::computeFuel(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
     return ret;
-}
-
-
-void
-MSMeanData_HBEFA::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
 }
 
 
@@ -177,8 +166,8 @@ MSMeanData_HBEFA::~MSMeanData_HBEFA() throw() {}
 
 void
 MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw() {
-    for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-        for (vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+    for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+        for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
             (*j)->reset();
         }
     }
@@ -186,25 +175,10 @@ MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw() {
 
 
 void
-MSMeanData_HBEFA::write(OutputDevice &dev,
-                        SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    // check whether this dump shall be written for the current time
-    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
-        vector<MSEdge*>::iterator edge = myEdges.begin();
-        for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
-            writeEdge(dev, (*i), *edge, startTime, stopTime);
-        }
-    } else {
-        resetOnly(stopTime);
-    }
-}
-
-
-void
 MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
-                            const vector<MSLaneMeanDataValues*> &edgeValues,
+                            const std::vector<MSLaneMeanDataValues*> &edgeValues,
                             MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    vector<MSLaneMeanDataValues*>::const_iterator lane;
+    std::vector<MSLaneMeanDataValues*>::const_iterator lane;
     if (!myAmEdgeBased) {
         bool writeCheck = myDumpEmptyEdges;
         if (!writeCheck) {
@@ -292,10 +266,18 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
 void
 MSMeanData_HBEFA::writeXMLOutput(OutputDevice &dev,
                                  SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-    stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
-    write(dev, startTime, stopTime);
-    dev<<"   </interval>\n";
+    // check whether this dump shall be written for the current time
+    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
+        dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+        stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
+        std::vector<MSEdge*>::iterator edge = myEdges.begin();
+        for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
+            writeEdge(dev, (*i), *edge, startTime, stopTime);
+        }
+        dev<<"   </interval>\n";
+    } else {
+        resetOnly(stopTime);
+    }
 }
 
 

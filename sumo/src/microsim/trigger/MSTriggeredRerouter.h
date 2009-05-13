@@ -119,14 +119,6 @@ public:
                            SUMOReal newSpeed) throw();
 
 
-        /** @brief Nothing is done here
-         *
-         * @param[in] veh The leaving vehicle.
-         * @see MSMoveReminder::dismissByLaneChange
-         */
-        void dismissByLaneChange(MSVehicle& veh) throw();
-
-
         /** @brief Tries to reroute the vehicle
          *
          * Calls parent's "reroute"-method with the vehicle as one of the

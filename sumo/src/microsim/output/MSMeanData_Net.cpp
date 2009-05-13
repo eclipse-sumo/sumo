@@ -49,12 +49,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -103,11 +97,6 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         haltSum++;
     }
     return ret;
-}
-
-
-void
-MSMeanData_Net::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
 }
 
 
@@ -203,10 +192,10 @@ void
 MSMeanData_Net::resetOnly(SUMOTime stopTime) throw() {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        vector<MSEdge*>::iterator edge = myEdges.begin();
-        for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
+        std::vector<MSEdge*>::iterator edge = myEdges.begin();
+        for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
             MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
-            for (vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+            for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
                 s->prepareMeanDataForWriting(*(*j), (SUMOReal) stopTime);
                 (*j)->reset();
                 s = s->getNextSegment();
@@ -214,8 +203,8 @@ MSMeanData_Net::resetOnly(SUMOTime stopTime) throw() {
         }
     } else {
 #endif
-        for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-            for (vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+        for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+            for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
                 (*j)->reset();
             }
         }
@@ -226,23 +215,8 @@ MSMeanData_Net::resetOnly(SUMOTime stopTime) throw() {
 
 
 void
-MSMeanData_Net::write(OutputDevice &dev,
-                      SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    // check whether this dump shall be written for the current time
-    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
-        vector<MSEdge*>::iterator edge = myEdges.begin();
-        for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
-            writeEdge(dev, (*i), *edge, startTime, stopTime);
-        }
-    } else {
-        resetOnly(stopTime);
-    }
-}
-
-
-void
 MSMeanData_Net::writeEdge(OutputDevice &dev,
-                          const vector<MSLaneMeanDataValues*> &edgeValues,
+                          const std::vector<MSLaneMeanDataValues*> &edgeValues,
                           MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -326,7 +300,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         }
     } else {
 #endif
-        vector<MSLaneMeanDataValues*>::const_iterator lane;
+        std::vector<MSLaneMeanDataValues*>::const_iterator lane;
         if (!myAmEdgeBased) {
             bool writeCheck = myDumpEmptyEdges;
             if (!writeCheck) {
@@ -428,10 +402,18 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
 void
 MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-    stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
-    write(dev, startTime, stopTime);
-    dev<<"   </interval>\n";
+    // check whether this dump shall be written for the current time
+    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
+        dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+        stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
+        std::vector<MSEdge*>::iterator edge = myEdges.begin();
+        for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
+            writeEdge(dev, (*i), *edge, startTime, stopTime);
+        }
+        dev<<"   </interval>\n";
+    } else {
+        resetOnly(stopTime);
+    }
 }
 
 

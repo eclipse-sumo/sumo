@@ -106,11 +106,12 @@ public:
 
     /** @brief Called if the vehicle leaves the reminder's lane
      *
-     *  Informs if vehicle leaves reminder by lanechange.
+     * Informs if vehicle leaves reminder by lanechange.
+     *  The default is to do nothing.
      *
      * @param veh The leaving vehicle.
      */
-    virtual void dismissByLaneChange(MSVehicle& veh) throw() = 0;
+    virtual void dismissByLaneChange(MSVehicle& veh) throw() {};
 
 
     /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change

@@ -36,12 +36,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -64,12 +58,6 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
                              ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed));
     myCollector.enter(veh, entryTimestep);
     return false;
-}
-
-
-void
-MSE3Collector::MSE3EntryReminder::dismissByLaneChange(MSVehicle&) throw() {
-    // nothing to do for E3
 }
 
 
@@ -101,12 +89,6 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed));
     myCollector.leave(veh, leaveTimestep);
     return false;
-}
-
-
-void
-MSE3Collector::MSE3LeaveReminder::dismissByLaneChange(MSVehicle&) throw() {
-    // nothing to do for E3
 }
 
 
@@ -144,10 +126,10 @@ MSE3Collector::~MSE3Collector() throw() {
     for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         pair->first->quitRemindedLeft(this);
     }
-    for (vector<MSE3EntryReminder*>::iterator i = myEntryReminders.begin(); i!=myEntryReminders.end(); ++i) {
+    for (std::vector<MSE3EntryReminder*>::iterator i = myEntryReminders.begin(); i!=myEntryReminders.end(); ++i) {
         delete *i;
     }
-    for (vector<MSE3LeaveReminder*>::iterator i = myLeaveReminders.begin(); i!=myLeaveReminders.end(); ++i) {
+    for (std::vector<MSE3LeaveReminder*>::iterator i = myLeaveReminders.begin(); i!=myLeaveReminders.end(); ++i) {
         delete *i;
     }
 }

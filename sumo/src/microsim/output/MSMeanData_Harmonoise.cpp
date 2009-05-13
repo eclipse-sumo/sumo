@@ -51,12 +51,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -109,11 +103,6 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
     SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a);
     add(sn, fraction);
     return ret;
-}
-
-
-void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
 }
 
 
@@ -180,8 +169,8 @@ MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
 
 void
 MSMeanData_Harmonoise::resetOnly(SUMOTime stopTime) throw() {
-    for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-        for (vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+    for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+        for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
             (*j)->reset();
         }
     }
@@ -189,25 +178,10 @@ MSMeanData_Harmonoise::resetOnly(SUMOTime stopTime) throw() {
 
 
 void
-MSMeanData_Harmonoise::write(OutputDevice &dev,
-                             SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    // check whether this dump shall be written for the current time
-    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
-        vector<MSEdge*>::iterator edge = myEdges.begin();
-        for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
-            writeEdge(dev, (*i), *edge, startTime, stopTime);
-        }
-    } else {
-        resetOnly(stopTime);
-    }
-}
-
-
-void
 MSMeanData_Harmonoise::writeEdge(OutputDevice &dev,
-                                 const vector<MSLaneMeanDataValues*> &edgeValues,
+                                 const std::vector<MSLaneMeanDataValues*> &edgeValues,
                                  MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    vector<MSLaneMeanDataValues*>::const_iterator lane;
+    std::vector<MSLaneMeanDataValues*>::const_iterator lane;
     if (!myAmEdgeBased) {
         bool writeCheck = myDumpEmptyEdges;
         if (!writeCheck) {
@@ -265,10 +239,18 @@ MSMeanData_Harmonoise::writeLane(OutputDevice &dev,
 void
 MSMeanData_Harmonoise::writeXMLOutput(OutputDevice &dev,
                                       SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-    stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
-    write(dev, startTime, stopTime);
-    dev<<"   </interval>\n";
+    // check whether this dump shall be written for the current time
+    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
+        dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+        stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
+        std::vector<MSEdge*>::iterator edge = myEdges.begin();
+        for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
+            writeEdge(dev, (*i), *edge, startTime, stopTime);
+        }
+        dev<<"   </interval>\n";
+    } else {
+        resetOnly(stopTime);
+    }
 }
 
 
@@ -280,8 +262,8 @@ MSMeanData_Harmonoise::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOE
 
 void
 MSMeanData_Harmonoise::update() throw() {
-    for (vector<vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-        const vector<MSLaneMeanDataValues*> &lm = *i;
+    for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
+        const std::vector<MSLaneMeanDataValues*> &lm = *i;
         for (std::vector<MSLaneMeanDataValues*>::const_iterator j=lm.begin(); j!=lm.end(); ++j) {
             (*j)->flushStep();
         }

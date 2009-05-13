@@ -103,14 +103,6 @@ public:
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
-        /** @brief Nothing is done here
-         *
-         * @param[in] veh The leaving vehicle.
-         * @see MSMoveReminder::dismissByLaneChange
-         */
-        virtual void dismissByLaneChange(MSVehicle& veh) throw();
-
-
         /** @brief Computes current emission values and adds them to their sums
          *
          * The fraction of time the vehicle is on the lane is computed and
@@ -195,8 +187,10 @@ public:
 
     /** @brief Writes collected values into the given stream
      *
-     * This method writes only the interval time into the stream. The interval's
-     *  contents are then written (if wanted) using write.
+     * At first, it is checked whether the values for the current interval shall be written.
+     *  If not, a reset is performed, only, using "resetOnly". Otherwise,
+     *  both the list of single-lane edges and the list of multi-lane edges
+     *  are gone through and each edge is written using "writeEdge".
      *
      * @param[in] dev The output device to write the data into
      * @param[in] startTime First time step the data were gathered
@@ -224,21 +218,6 @@ public:
 
 
 protected:
-    /** @brief Writes network values into the given stream
-     *
-     * At first, it is checked whether the values for the current interval shall be written.
-     *  If not, a reset is performed, only, using "resetOnly". Otherwise,
-     *  both the list of single-lane edges and the list of multi-lane edges
-     *  are gone through and each edge is written using "writeEdge".
-     *
-     * @param[in] dev The output device to write the data into
-     * @param[in] startTime First time step the data were gathered
-     * @param[in] stopTime Last time step the data were gathered
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
-     */
-    virtual void write(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
-
-
     /** @brief Writes edge values into the given stream
      *
      * microsim: It is checked whether the dump shall be generated edge-

@@ -61,11 +61,6 @@ MSRouteProbe::EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 }
 
 
-void
-MSRouteProbe::EntryReminder::dismissByLaneChange(MSVehicle&) throw() {
-}
-
-
 bool
 MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     if (isEmit) {
