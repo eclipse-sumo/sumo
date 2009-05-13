@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r7082
+SUMO sumo Version dev-SVN-r7152
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -111,26 +111,6 @@ Usage: sumo.exe [OPTION]*
   --device.routing.period INT         The period with which the vehicle shall
                                         be rerouted
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
-
- Cellular Options:
-  --device.cell-phone.percent-of-activity  
-  --device.cell-phone.knownveh STR    
-  --device.cell-phone.probability FLOAT  
-  --ss2-output FILE                   
-  --ss2-sql-output FILE               
-  --ss2-cell-output FILE              
-  --ss2-sql-cell-output FILE          
-  --ss2-la-output FILE                
-  --ss2-sql-la-output FILE            
-  --cellphone-dump FILE               
-  --cell-dynamic-callcount-scale-factor FLOAT  
-  --cell-static-callcount-scale-factor FLOAT  
-  --cell-dynamic-calldeviation-scale-factor FLOAT  
-  --cell-dynamic-callduration-scale-factor FLOAT  
-  --cell-def-prob FLOAT               
-  --device.cell-phone.amount.min FLOAT  
-  --device.cell-phone.amount.max FLOAT  
-  --device.cell-phone.sql-date STR    Sets the date to use in sql-dumps
 
  Emissions Options:
   --device.hbefa.probability FLOAT    The probability for a vehicle to have an

@@ -207,63 +207,6 @@
 
    </routing>
 
-   <cellular>
-      <!--  -->
-      <device.cell-phone.percent-of-activity>false</device.cell-phone.percent-of-activity>
-
-      <!--  -->
-      <device.cell-phone.knownveh></device.cell-phone.knownveh>
-
-      <!--  -->
-      <device.cell-phone.probability>0</device.cell-phone.probability>
-
-      <!--  -->
-      <ss2-output></ss2-output>
-
-      <!--  -->
-      <ss2-sql-output></ss2-sql-output>
-
-      <!--  -->
-      <ss2-cell-output></ss2-cell-output>
-
-      <!--  -->
-      <ss2-sql-cell-output></ss2-sql-cell-output>
-
-      <!--  -->
-      <ss2-la-output></ss2-la-output>
-
-      <!--  -->
-      <ss2-sql-la-output></ss2-sql-la-output>
-
-      <!--  -->
-      <cellphone-dump></cellphone-dump>
-
-      <!--  -->
-      <cell-dynamic-callcount-scale-factor>1</cell-dynamic-callcount-scale-factor>
-
-      <!--  -->
-      <cell-static-callcount-scale-factor>1</cell-static-callcount-scale-factor>
-
-      <!--  -->
-      <cell-dynamic-calldeviation-scale-factor>1</cell-dynamic-calldeviation-scale-factor>
-
-      <!--  -->
-      <cell-dynamic-callduration-scale-factor>1</cell-dynamic-callduration-scale-factor>
-
-      <!--  -->
-      <cell-def-prob>-1</cell-def-prob>
-
-      <!--  -->
-      <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
-
-      <!--  -->
-      <device.cell-phone.amount.max>1</device.cell-phone.amount.max>
-
-      <!-- Sets the date to use in sql-dumps -->
-      <device.cell-phone.sql-date>1970-01-01</device.cell-phone.sql-date>
-
-   </cellular>
-
    <emissions>
       <!-- The probability for a vehicle to have an emission logging device -->
       <device.hbefa.probability>0</device.hbefa.probability>
