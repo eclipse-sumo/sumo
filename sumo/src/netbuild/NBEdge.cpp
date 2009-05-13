@@ -294,7 +294,7 @@ NBEdge::computeEdgeShape() throw() {
         } else {
             Line2D lc(shape[0], shape[-1]);
             Line2D lo(old[0], old[-1]);
-            if (135<MIN2(GeomHelper::getCCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()), GeomHelper::getCWAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle()))) {
+            if (135<GeomHelper::getMinAngleDiff(lc.atan2DegreeAngle(), lo.atan2DegreeAngle())) {
                 shape = shape.reverse();
             }
         }
