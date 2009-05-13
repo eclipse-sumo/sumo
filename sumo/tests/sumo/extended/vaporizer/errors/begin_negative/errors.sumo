@@ -1,3 +1,3 @@
 Warning: Emitter are deprecated; use departpos/departspeed within routes instead.
-Error: A vaporization begin is negative (edge id='middle').
+Error: A vaporization begin time is negative (edge id='middle').
 Quitting (on error).
