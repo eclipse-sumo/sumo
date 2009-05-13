@@ -76,7 +76,7 @@ public:
         /// @brief The edge is a macroscopic connector (source/sink)
         EDGEFUNCTION_CONNECTOR = 1,
         /// @brief The edge is an internal edge
-        EDGEFUNCTION_INTERNAL = 2,
+        EDGEFUNCTION_INTERNAL = 2
     };
 
 
