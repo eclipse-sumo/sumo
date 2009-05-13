@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/30/09 13:54:24 by SUMO netgen Version dev-SVN-r6961
+<!-- generated on 05/12/09 09:31:28 by SUMO netgen Version dev-SVN-r7141
 <configuration>
 
    <random_network>
@@ -182,10 +182,10 @@
       <subkey>0</subkey>
       <phaseno>4</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="11" brake="01" yellow="00"/>
-      <phase duration="4" phase="01" brake="11" yellow="10"/>
-      <phase duration="6" phase="01" brake="10" yellow="00"/>
+      <phase duration="31" phase="01" brake="10" yellow="00"/>
       <phase duration="4" phase="00" brake="11" yellow="01"/>
+      <phase duration="31" phase="10" brake="01" yellow="00"/>
+      <phase duration="4" phase="00" brake="11" yellow="10"/>
    </tl-logic>
 
    <tl-logic type="static">

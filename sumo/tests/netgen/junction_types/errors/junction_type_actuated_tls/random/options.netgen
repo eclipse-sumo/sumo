@@ -1,1 +1,1 @@
---rand-bidi-probability 0 --default-junction-type actuated -v --random-net -o net.net.xml --rand-iterations=10
+--default-junction-type actuated -v --random-net -o net.net.xml --rand-iterations=10
