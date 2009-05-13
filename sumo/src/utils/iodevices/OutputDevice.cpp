@@ -204,21 +204,6 @@ void
 OutputDevice::postWriteHook() throw() {}
 
 
-bool
-OutputDevice::getBoolMarker(const std::string &name) const throw() {
-    if (myBoolMarkers.find(name)==myBoolMarkers.end()) {
-        return false;
-    }
-    return myBoolMarkers.find(name)->second;
-}
-
-
-void
-OutputDevice::setBoolMarker(const std::string &name, bool value) throw() {
-    myBoolMarkers[name] = value;
-}
-
-
 void
 OutputDevice::inform(const std::string &msg) {
     getOStream() << msg << '\n';

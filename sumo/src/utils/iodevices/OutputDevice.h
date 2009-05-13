@@ -30,8 +30,8 @@
 #endif
 
 #include <string>
-#include <map>
 #include <vector>
+#include <map>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -197,30 +197,6 @@ public:
     bool closeTag(bool abbreviated=false) throw();
 
 
-    /// @name methods for saving/reading an abstract state
-    //@{
-
-    /** @brief Returns the value of the named boolean marker
-     *
-     * If the boolean marker was not set before, false is returned.
-     *
-     * @param[in] name The name of the marker to retrieve the value of
-     * @return The value of the marker if it was set before, if it was not set, false
-     */
-    bool getBoolMarker(const std::string &name) const throw();
-
-
-    /** @brief Sets the named boolean marker to the given state
-     *
-     * The previous value will be overwritten.
-     *
-     * @param[in] name The name of the marker to set
-     * @param[in] value The new value to set
-     */
-    void setBoolMarker(const std::string &name, bool value) throw();
-    //@}
-
-
     /** @brief Retrieves a message to this device.
      *
      * Implementation of the MessageRetriever interface. Writes the given message to the output device.
@@ -270,9 +246,6 @@ private:
 
     /// @brief The stack of begun xml elements
     std::vector<std::string> myXMLStack;
-
-    /// @brief Map of boolean markers
-    std::map<std::string, bool> myBoolMarkers;
     /// @}
 
 };
