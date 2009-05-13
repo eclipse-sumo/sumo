@@ -492,7 +492,7 @@ NBNode::setPriorityJunctionPriorities() {
             if (angle2>=360) {
                 angle2 -= 360;
             }
-            SUMOReal angle = MIN2(GeomHelper::getCCWAngleDiff(angle1, angle2), GeomHelper::getCWAngleDiff(angle1, angle2));
+            SUMOReal angle = GeomHelper::getMinAngleDiff(angle1, angle2);
             if (!hadBest||angle>bestAngle) {
                 bestAngle = angle;
                 bestFirst = *i;
@@ -676,7 +676,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
             //
             SUMOReal angle1 = fromE->getLaneShape(fromL).getEndLine().atan2DegreeAngle();
             SUMOReal angle2 = toE->getLaneShape(toL).getBegLine().atan2DegreeAngle();
-            SUMOReal angle = MIN2(GeomHelper::getCCWAngleDiff(angle1, angle2), GeomHelper::getCWAngleDiff(angle1, angle2));
+            SUMOReal angle = GeomHelper::getMinAngleDiff(angle1, angle2);
             if (angle<45) {
                 // very low angle: almost straight
                 noInitialPoints = 4;

@@ -90,7 +90,7 @@ NBNodeShapeComputer::compute() {
             SUMOReal ia = (*i)->getAngle(myNode);
             for (std::vector<NBEdge*>::const_iterator j=outgoing.begin(); j!=outgoing.end(); ++j) {
                 SUMOReal oa = (*j)->getAngle(myNode);
-                SUMOReal ad = MIN2(GeomHelper::getCCWAngleDiff(ia, oa), GeomHelper::getCWAngleDiff(ia, oa));
+                SUMOReal ad = GeomHelper::getMinAngleDiff(ia, oa);
                 if (22.5>=ad) {
                     maxAngle = MAX2(ad, maxAngle);
                 }

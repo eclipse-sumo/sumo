@@ -174,7 +174,7 @@ public:
             if (d>=360) {
                 d -= 360;
             }
-            return MIN2(GeomHelper::getCCWAngleDiff(d, myAngle), GeomHelper::getCWAngleDiff(d, myAngle));
+            return GeomHelper::getMinAngleDiff(d, myAngle);
         }
 
     private:
@@ -200,17 +200,9 @@ public:
 
         /// comparing operation
         int operator()(NBEdge *e1, NBEdge *e2) const {
-            SUMOReal d1 = getDiff(e1);
-            SUMOReal d2 = getDiff(e2);
+            SUMOReal d1 = GeomHelper::getMinAngleDiff(e1->getAngle(), myAngle);
+            SUMOReal d2 = GeomHelper::getMinAngleDiff(e2->getAngle(), myAngle);
             return d1 < d2;
-        }
-
-        /** helping method for the computation of the absolut difference
-         * between the edges' angles
-         */
-        SUMOReal getDiff(NBEdge *e) const {
-            SUMOReal d = e->getAngle();
-            return MIN2(GeomHelper::getCCWAngleDiff(d, myAngle), GeomHelper::getCWAngleDiff(d, myAngle));
         }
 
     private:
