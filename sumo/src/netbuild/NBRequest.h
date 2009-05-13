@@ -97,7 +97,7 @@ public:
      * @return Whether both stream are foes (cross)
      */
     bool foes(const NBEdge * const from1, const NBEdge * const to1,
-              const NBEdge * const from2, const NBEdge * const to2) const;
+              const NBEdge * const from2, const NBEdge * const to2) const throw();
 
     bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
                  NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
