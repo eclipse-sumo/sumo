@@ -36,6 +36,7 @@ for root, dirs, files in os.walk(sumoRoot):
         if name == "config.sumo":
             src = open(oldPath)
             dest = open(newPath, "w")
+	    print >> dest, "use_case_record_mode:GUI"
             for l in src:
                 dest.write(l.replace('SUMO_BINARY', 'TEXTTEST_HOME/guisimrunner.py'))
             src.close()
