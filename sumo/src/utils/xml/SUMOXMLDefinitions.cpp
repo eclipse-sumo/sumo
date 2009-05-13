@@ -62,7 +62,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "calibrator",       SUMO_TAG_CALIBRATOR },
     { "rerouter",         SUMO_TAG_REROUTER },
     { "busStop",          SUMO_TAG_BUS_STOP },
-    { "vehicleActor",     SUMO_TAG_VEHICLE_ACTOR },
     { "vtypeprobe",       SUMO_TAG_VTYPEPROBE },
     { "routeprobe",       SUMO_TAG_ROUTEPROBE },
     { "vehicle",          SUMO_TAG_VEHICLE },

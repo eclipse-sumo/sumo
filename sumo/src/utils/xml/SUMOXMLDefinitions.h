@@ -86,8 +86,6 @@ enum SumoXMLTag {
     SUMO_TAG_REROUTER,
     /// @brief A bus stop
     SUMO_TAG_BUS_STOP,
-    /// @brief An vehicle actor (deprectaed)
-    SUMO_TAG_VEHICLE_ACTOR,
     /** a vtypeprobe detector */
     SUMO_TAG_VTYPEPROBE,
     /** a routeprobe detector */
