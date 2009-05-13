@@ -141,7 +141,7 @@ public:
     /** @brief Performs a single simulation step
      * @todo What exceptions may occure?
      */
-    void simulationStep(SUMOTime start, SUMOTime step);
+    void simulationStep();
 
 
     /** @brief Closes the simulation (all files, connections, etc.)

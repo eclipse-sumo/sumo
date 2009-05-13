@@ -940,7 +940,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
         ostringstream str;
         // set simulation step begin information
-        str << (int) myRunThread->getCurrentTimeStep();
+        str << (int) ec->myNet->getCurrentTimeStep();
         myLCDLabel->setText(str.str().c_str());
     }
     getApp()->endWaitCursor();
@@ -956,7 +956,7 @@ void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
     updateChildren();
     ostringstream str;
-    str << (int) myRunThread->getCurrentTimeStep();
+    str << (int) myRunThread->getNet().getCurrentTimeStep();
     myLCDLabel->setText(str.str().c_str());
     update();
 }
@@ -989,23 +989,13 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
         case GUIEvent_SimulationEnded::ER_ERROR_IN_SIM:
             text << "Reason: An error occured (see log).";
             break;
-        case GUIEvent_SimulationEnded::ER_TOO_SLOW:
-            text << "Reason: The simulation got too slow.";
-            break;
-        case GUIEvent_SimulationEnded::ER_FORCED:
-            gQuitOnEnd = true;
-            break;
         default:
             text << "Unknown reason!";
             break;
         }
-        //
         onCmdStop(0, 0, 0);
-        string tstr = text.str();
-        if (ec->getReason()!=GUIEvent_SimulationEnded::ER_FORCED) {
-            FXMessageBox::warning(this, MBOX_OK, "Simulation Ended",
-                                  tstr.c_str());
-        }
+        FXMessageBox::warning(this, MBOX_OK, "Simulation Ended",
+                              text.str().c_str());
     } else {
         onCmdStop(0, 0, 0);
     }
@@ -1124,7 +1114,7 @@ GUIApplicationWindow::getDefaultCursor() {
 
 SUMOTime
 GUIApplicationWindow::getCurrentSimTime() const {
-    return myRunThread->getCurrentTimeStep();
+    return myRunThread->getNet().getCurrentTimeStep();
 }
 
 

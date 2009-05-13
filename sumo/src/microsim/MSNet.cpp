@@ -245,11 +245,10 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         if (myLogStepNumber) {
             preSimStepOutput();
         }
-        simulationStep(start, myStep);
+        simulationStep();
         if (myLogStepNumber) {
             postSimStepOutput();
         }
-        myStep += DELTA_T;
         if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
             quitMessage = "Simulation End: Too many vehicles.";
         }
@@ -300,22 +299,21 @@ MSNet::closeSimulation(SUMOTime start) {
 
 
 void
-MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step) {
+MSNet::simulationStep() {
 #ifndef NO_TRACI
     traci::TraCIServer::processCommandsUntilSimStep(myStep);
 #endif
-    myStep = step;
     // execute beginOfTimestepEvents
     if (myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
     myBeginOfTimestepEvents->execute(myStep);
     if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(step);
+        myEdges->detectCollisions(myStep);
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->simulate(step);
+        MSGlobals::gMesoNet->simulate(myStep);
     } else {
 #endif
         myJunctions->resetRequests();
@@ -341,7 +339,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step) {
         //  (it is now known whether they may drive
         myEdges->moveFirst();
         if (MSGlobals::gCheck4Accidents) {
-            myEdges->detectCollisions(step);
+            myEdges->detectCollisions(myStep);
         }
 
         // Vehicles change Lanes (maybe)
@@ -351,17 +349,17 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step) {
         myLogics->check2Switch(myStep);
 
         if (MSGlobals::gCheck4Accidents) {
-            myEdges->detectCollisions(step);
+            myEdges->detectCollisions(myStep);
         }
 #ifdef HAVE_MESOSIM
     }
 #endif
     // load routes
-    myEmitter->moveFrom(myRouteLoaders->loadNext(step));
+    myEmitter->moveFrom(myRouteLoaders->loadNext(myStep));
     // emit Vehicles
     myEmitter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(step);
+        myEdges->detectCollisions(myStep);
     }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
     myEmissionEvents->execute(myStep);
@@ -392,6 +390,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step) {
         mySimStepDuration = mySimStepEnd - mySimStepBegin;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
+    myStep += DELTA_T;
 }
 
 
@@ -437,7 +436,7 @@ MSNet::writeOutput() {
         OutputDevice::getDeviceByOption("emissions-output") << "/>\n";
     }
     // write detector values
-    myDetectorControl->writeOutput(myStep, false);
+    myDetectorControl->writeOutput(myStep + DELTA_T, false);
 #ifdef HAVE_MESOSIM
     // netstate output
     if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
@@ -539,7 +538,7 @@ MSNet::postSimStepOutput() const throw() {
         << " ACT " << myVehicleControl->getRunningVehicleNo()
         << ")                                              ";
         msg = oss.str();
-        string prev = "Step #" + toString(myStep);
+        string prev = "Step #" + toString(myStep-DELTA_T);
         msg = msg.substr(0, 78 - prev.length());
         cout << msg;
     }

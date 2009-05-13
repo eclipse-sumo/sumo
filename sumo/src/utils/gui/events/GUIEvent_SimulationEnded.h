@@ -51,13 +51,7 @@ public:
         ER_END_STEP_REACHED,
 
         /// The simulation has ended due to an error
-        ER_ERROR_IN_SIM,
-
-        /// Someone else has forced the simulation to quit
-        ER_FORCED,
-
-        /// The simulation got too slow
-        ER_TOO_SLOW
+        ER_ERROR_IN_SIM
 
     };
 

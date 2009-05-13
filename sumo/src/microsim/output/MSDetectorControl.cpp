@@ -86,7 +86,7 @@ MSDetectorControl::~MSDetectorControl() throw() {
 void
 MSDetectorControl::close(SUMOTime step) throw(IOError) {
     // flush the last values
-    writeOutput(step-DELTA_T, true);
+    writeOutput(step, true);
     // [...] files are closed on another place [...]
     myIntervals.clear();
 }
@@ -233,15 +233,15 @@ void
 MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError) {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         IntervalsKey interval = (*i).first;
-        if (myLastCalls[interval]+interval.first-1<=step || (closing && myLastCalls[interval]<step + DELTA_T)) {
+        if (myLastCalls[interval] + interval.first <= step || (closing && myLastCalls[interval] < step)) {
             DetectorFileVec dfVec = (*i).second;
             SUMOTime startTime = myLastCalls[interval];
             // check whether at the end the output was already generated
             for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
                 MSDetectorFileOutput* det = it->first;
-                det->writeXMLOutput(*(it->second), startTime, step+DELTA_T);
+                det->writeXMLOutput(*(it->second), startTime, step);
             }
-            myLastCalls[interval] = step + DELTA_T;
+            myLastCalls[interval] = step;
         }
     }
 }

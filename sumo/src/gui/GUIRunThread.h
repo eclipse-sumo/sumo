@@ -98,9 +98,6 @@ public:
     /** deletes the existing simulation */
     virtual void deleteSim();
 
-    /** returns the simulation's current time step */
-    SUMOTime getCurrentTimeStep() const;
-
     /** returns the loaded network */
     GUINet &getNet() const;
 
@@ -122,9 +119,6 @@ protected:
 
     /// information whether the simulation is halting (is not being executed)
     bool                    myHalting;
-
-    /// the curent simulation step
-    SUMOTime             myStep;
 
     /** information whether the thread shall be stopped
     (if not, the thread stays in an endless loop) */
