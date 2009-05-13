@@ -31,6 +31,7 @@
 #include <algorithm>
 #include <iostream>
 #include "GeomHelper.h"
+#include <utils/common/StdDefs.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -532,7 +533,7 @@ GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
 
 
 SUMOReal
-GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
+GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
     if (angle1<0) {
         angle1 = 360 + angle1;
     }
@@ -545,8 +546,9 @@ GeomHelper::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
     return angle1 + 360 - angle2;
 }
 
+
 SUMOReal
-GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
+GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
     if (angle1<0) {
         angle1 = 360 + angle1;
     }
@@ -557,6 +559,18 @@ GeomHelper::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) {
         return angle2 - angle1;
     }
     return 360 - angle1 + angle2;
+}
+
+
+SUMOReal
+GeomHelper::getMinAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
+    return MIN2(getCWAngleDiff(angle1, angle2), getCCWAngleDiff(angle1, angle2));
+}
+
+
+SUMOReal
+GeomHelper::getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2) throw() {
+    return MAX2(getCWAngleDiff(angle1, angle2), getCCWAngleDiff(angle1, angle2));
 }
 
 

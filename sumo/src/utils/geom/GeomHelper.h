@@ -123,8 +123,37 @@ public:
     static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
             const Position2D &end, SUMOReal wanted_offset);
 
-    static SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
-    static SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2);
+    /** @brief Returns the distance of second angle from first angle counter-clockwise
+     * @param[in] angle1 The first angle
+     * @param[in] angle2 The second angle
+     * @return Angle (counter-clockwise) starting from first to second angle
+     */
+    static SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw();
+
+
+    /** @brief Returns the distance of second angle from first angle clockwise
+     * @param[in] angle1 The first angle
+     * @param[in] angle2 The second angle
+     * @return Angle (clockwise) starting from first to second angle
+     */
+    static SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) throw();
+
+
+    /** @brief Returns the minimum distance (clockwise/counter-clockwise) between both angles
+     * @param[in] angle1 The first angle
+     * @param[in] angle2 The second angle
+     * @return The minimum distance between both angles
+     */
+    static SUMOReal getMinAngleDiff(SUMOReal angle1, SUMOReal angle2) throw();
+
+
+    /** @brief Returns the maximum distance (clockwise/counter-clockwise) between both angles
+     * @param[in] angle1 The first angle
+     * @param[in] angle2 The second angle
+     * @return The maximum distance between both angles
+     */
+    static SUMOReal getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2) throw();
+
 
     /*
         static void sortAsPolyCWByAngle(Position2DVector &p);
