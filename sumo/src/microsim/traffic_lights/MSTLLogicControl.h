@@ -110,7 +110,6 @@ public:
         MSTrafficLightLogic* getActive() const;
         bool switchTo(MSTLLogicControl &tlc, const std::string &subid);
         bool maskRedLinks();
-        bool maskYellowLinks();
         MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc,
                 const std::string &subid);
         void executeOnSwitchActions() const;
@@ -168,11 +167,6 @@ public:
     /** @brief For all traffic lights, the requests are masked away if they have red light (not yellow)
      */
     void maskRedLinks();
-
-
-    /** @brief For all traffic lights, the requests are masked away if they have yellow light
-     */
-    void maskYellowLinks();
 
 
     /** @brief Returns a vector which contains all logics

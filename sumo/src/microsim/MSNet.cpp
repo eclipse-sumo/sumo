@@ -332,8 +332,6 @@ MSNet::simulationStep() {
         myLogics->maskRedLinks();
         // check the right-of-way for all junctions
         myJunctions->setAllowed();
-        // set information which vehicles should decelerate
-        myLogics->maskYellowLinks();
 
         // move vehicles which do interact with their lane's end
         //  (it is now known whether they may drive

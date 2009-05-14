@@ -220,26 +220,6 @@ MSSimpleTrafficLightLogic::maskRedLinks() const {
 }
 
 
-bool
-MSSimpleTrafficLightLogic::maskYellowLinks() const {
-    /*
-    // get the current traffic light signal combination
-    const std::bitset<64> &allowedLinks = myPhases[myStep]->getDriveMask();
-    // go through the links
-    for (size_t i=0; i<myLinks.size(); i++) {
-        // mark out links having red
-        if (!allowedLinks.test(i)) {
-            const LinkVector &currGroup = myLinks[i];
-            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                (*j)->deleteRequest();
-            }
-        }
-    }
-    */
-    return true;
-}
-
-
 size_t
 MSSimpleTrafficLightLogic::getCycleTime() {
     myCycleTime = 0;

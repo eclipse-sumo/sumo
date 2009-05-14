@@ -148,7 +148,6 @@ public:
 
     void setLinkPriorities() const;
     bool maskRedLinks() const;
-    bool maskYellowLinks() const;
 
     /// returns the cycletime
     size_t getCycleTime() ;

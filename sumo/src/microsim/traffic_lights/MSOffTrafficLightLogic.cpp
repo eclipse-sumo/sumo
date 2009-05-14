@@ -164,12 +164,6 @@ MSOffTrafficLightLogic::maskRedLinks() const {
 }
 
 
-bool
-MSOffTrafficLightLogic::maskYellowLinks() const {
-    return true;
-}
-
-
 
 /****************************************************************************/
 

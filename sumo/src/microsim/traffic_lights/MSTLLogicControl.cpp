@@ -189,13 +189,6 @@ MSTLLogicControl::TLSLogicVariants::maskRedLinks() {
 }
 
 
-bool
-MSTLLogicControl::TLSLogicVariants::maskYellowLinks() {
-    defaultTL->maskYellowLinks();
-    return true;
-}
-
-
 void
 MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
     for (std::vector<OnSwitchAcion*>::const_iterator i=onSwitchActions.begin(); i!=onSwitchActions.end();) {
@@ -594,14 +587,6 @@ void
 MSTLLogicControl::maskRedLinks() {
     for (std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
         (*i).second->maskRedLinks();
-    }
-}
-
-
-void
-MSTLLogicControl::maskYellowLinks() {
-    for (std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
-        (*i).second->maskYellowLinks();
     }
 }
 

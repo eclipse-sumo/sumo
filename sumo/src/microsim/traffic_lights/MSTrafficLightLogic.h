@@ -245,9 +245,6 @@ public:
     /// Clears all incoming vehicle information on links that have red
     virtual bool maskRedLinks() const = 0;
 
-    /// Clears all incoming vehicle information on links that have yellow
-    virtual bool maskYellowLinks() const = 0;
-
 
 
 
