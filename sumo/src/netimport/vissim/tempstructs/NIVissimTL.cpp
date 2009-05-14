@@ -395,7 +395,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
             MsgHandler::getErrorInstance()->inform("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
         }
-        def->setCycleDuration((size_t) tl->myAbsDuration);
+        def->setCycleDuration((unsigned int) tl->myAbsDuration);
 //        node->setType(NBTrafficLightDefinition::TYPE_SIMPLE_TRAFFIC_LIGHT);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
