@@ -51,12 +51,9 @@ public:
     SUMOTime maxDuration;
 
     /// constructor
-    MSActuatedPhaseDefinition(SUMOTime durationArg,
-                              const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
-                              const std::bitset<64> &yellowMaskArg,
+    MSActuatedPhaseDefinition(SUMOTime durationArg, const std::string &stateArg,
                               SUMOTime minDurationArg, SUMOTime maxDurationArg)
-            : MSPhaseDefinition(durationArg, driveMaskArg,
-                                breakMaskArg, yellowMaskArg),
+            : MSPhaseDefinition(durationArg, stateArg),
             minDuration(minDurationArg), maxDuration(maxDurationArg) {
         // defines minDuration
         SUMOTime minDurationDefault = 10;

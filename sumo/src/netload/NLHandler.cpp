@@ -750,34 +750,42 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     // try to get the phase definition
-    std::string phase;
-    std::string brakeMask;
-    std::string yellowMask;
-    bool haveNewDescription = true;
-    try {
-        phase = attrs.getString(SUMO_ATTR_PHASE);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing phase definition.");
-        return;
-    }
-    // try to get the break definition
-    if(phase.find("0")!=std::string::npos||phase.find("1")!=std::string::npos) {
-        haveNewDescription = false;
-        // old description
+    std::string state;
+        std::string phase;
+        std::string brakeMask;
+        std::string yellowMask;
+    if(attrs.hasAttribute(SUMO_ATTR_STATE)) {
+        // ok, doing it the new way
+    } else {
+        // old, deprecated definition
+        try {
+            phase = attrs.getString(SUMO_ATTR_PHASE);
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Missing phase definition.");
+            return;
+        }
         try {
             brakeMask = attrs.getString(SUMO_ATTR_BRAKE);
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing break definition.");
             return;
         }
-        // try to get the yellow definition
         try {
             yellowMask = attrs.getString(SUMO_ATTR_YELLOW);
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing yellow definition.");
             return;
         }
+        // check
+        if(phase.length()!=brakeMask.length()||phase.length()!=yellowMask.length()) {
+            MsgHandler::getErrorInstance()->inform("Definition of traffic light is broken - descriptions have different lengths.");
+            return;
+        }
+        // convert to new
+        //  color, first
+        state = MSPhaseDefinition::old2new(phase, brakeMask, yellowMask);
     }
+
     // try to get the phase duration
     int duration;
     try {
@@ -815,24 +823,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
         MsgHandler::getErrorInstance()->inform("The phase maximum duration is not numeric.");
         return;
     }
-    // convert new->old
-    if(haveNewDescription) {
-        // assure same string lengths...
-        std::string ophase = phase;
-        brakeMask = "";
-        yellowMask = "";
-        phase = "";
-        for(int i=(int) phase.size()-1; i>=0; --i) {
-            yellowMask[i] += (phase[i]=='y'||phase[i]=='Y') ? '1' : '0';
-            brakeMask[i] += (phase[i]>='a'&&phase[i]<='z') ? '1' : '0';
-            phase[i] += (phase[i]!='r'&&phase[i]!='R') ? '1' : '0';
-        }
-    }
-    // build the brake mask
-    std::bitset<64> prios(brakeMask);
-    prios.flip();
-    myJunctionControlBuilder.addPhase(duration, std::bitset<64>(phase),
-                                      prios, std::bitset<64>(yellowMask), min, max);
+    myJunctionControlBuilder.addPhase(duration, state, min, max);
 }
 
 

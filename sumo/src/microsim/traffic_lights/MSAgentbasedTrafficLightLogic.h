@@ -109,9 +109,6 @@ protected:
     /// Calculates the duration for all real phases except intergreen phases
     void calculateDuration();
 
-    /// Checkes wheter the tested phase is a neither a yellow nor a allred phase
-    bool isGreenPhase(const size_t testStep) const ;
-
     /// lenghtend the actual cycle by an given value
     void lengthenCycleTime(size_t toLenghten);
 

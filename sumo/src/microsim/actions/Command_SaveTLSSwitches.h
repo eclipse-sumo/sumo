@@ -94,11 +94,8 @@ private:
     /// @brief The traffic light logic to use
     const MSTLLogicControl::TLSLogicVariants &myLogics;
 
-    /** @brief Storage for prior states
-     *
-     * A map from the link to the time it switched to green and whether the state change was saved
-     */
-    std::map<MSLink*, std::pair<SUMOTime, bool> > myPreviousLinkStates;
+    /// @brief Storage for prior states; map from signal group to last green time begin
+    std::map<int, SUMOTime> myPreviousLinkStates;
 
 
 private:

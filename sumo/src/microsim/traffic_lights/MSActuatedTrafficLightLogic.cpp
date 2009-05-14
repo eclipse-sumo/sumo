@@ -139,16 +139,16 @@ MSActuatedTrafficLightLogic::duration() const {
         return 1;
     }
     assert(myPhases.size()>myStep);
-    if (!isGreenPhase()) {
+    if (!currentPhaseDef()->isGreenPhase()) {
         return currentPhaseDef()->duration;
     }
     // define the duration depending from the number of waiting vehicles of the actual phase
     int newduration = currentPhaseDef()->minDuration;
-    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
-    for (unsigned int i=0; i<(unsigned int) isgreen.size(); i++)  {
-        if (isgreen.test(i))  {
+    const std::string &state = currentPhaseDef()->getState();
+    for (unsigned int i=0; i<(unsigned int) state.size(); i++) {
+        if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
-            if (lanes.empty())    {
+            if (lanes.empty()) {
                 break;
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
@@ -204,23 +204,11 @@ MSActuatedTrafficLightLogic::trySwitch(bool) {
 }
 
 
-bool
-MSActuatedTrafficLightLogic::isGreenPhase() const {
-    if (currentPhaseDef()->getDriveMask().none()) {
-        return false;
-    }
-    if (currentPhaseDef()->getYellowMask().any()) {
-        return false;
-    }
-    return true;
-}
-
-
 void
 MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
-    if (!isGreenPhase()) {
+    if (!currentPhaseDef()->isGreenPhase()) {
         myContinue = false;
         return;
     }
@@ -234,9 +222,9 @@ MSActuatedTrafficLightLogic::gapControl() {
     }
 
     // now the gapcontrol starts
-    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
-    for (unsigned int i=0; i<(unsigned int) isgreen.size(); i++)  {
-        if (isgreen.test(i))  {
+    const std::string &state = currentPhaseDef()->getState();
+    for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
+        if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;

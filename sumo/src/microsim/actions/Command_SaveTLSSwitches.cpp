@@ -68,41 +68,34 @@ SUMOTime
 Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
     MSTrafficLightLogic *light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();
-    const std::bitset<64> &allowedLinks = light->getCurrentPhaseDef().getDriveMask();
+    const std::string &state = light->getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) links.size(); i++) {
-        if (!allowedLinks.test(i)) {
-            const MSTrafficLightLogic::LinkVector &currLinks = links[i];
-            const MSTrafficLightLogic::LaneVector &currLanes = light->getLanesAt(i);
-            for (int j=0; j<(int) currLinks.size(); j++) {
-                if (myPreviousLinkStates.find(currLinks[j])==myPreviousLinkStates.end()) {
-                    continue;
-                } else {
-                    MSLink *link = currLinks[j];
-                    SUMOTime lastOn = myPreviousLinkStates[link].first;
-                    bool saved = myPreviousLinkStates[link].second;
-                    if (!saved) {
-                        myOutputDevice << "   <tlsswitch tls=\"" << light->getID()
-                        << "\" subid=\"" << light->getSubID()
-                        << "\" fromLane=\"" << currLanes[j]->getID()
-                        << "\" toLane=\"" << link->getLane()->getID()
-                        << "\" begin=\"" << lastOn
-                        << "\" end=\"" << currentTime
-                        << "\" duration=\"" << (currentTime-lastOn)
-                        << "\"/>" << "\n";
-                        myPreviousLinkStates[link] = make_pair<SUMOTime, bool>(lastOn, true);
-                    }
-                }
+        if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
+            if(myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
+                // was not saved before
+                myPreviousLinkStates[i] = currentTime;
+                continue;
             }
         } else {
-            const MSTrafficLightLogic::LinkVector &currLinks = links[i];
-            for (MSTrafficLightLogic::LinkVector::const_iterator j=currLinks.begin(); j!=currLinks.end(); j++) {
-                if (myPreviousLinkStates.find(*j)!=myPreviousLinkStates.end()) {
-                    if (!myPreviousLinkStates[*j].second) {
-                        continue;
-                    }
-                }
-                myPreviousLinkStates[*j] = make_pair<SUMOTime, bool>(currentTime, false);
+            if(myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
+                // was not yet green
+                continue;
             }
+            const MSTrafficLightLogic::LinkVector &currLinks = links[i];
+            const MSTrafficLightLogic::LaneVector &currLanes = light->getLanesAt(i);
+            SUMOTime lastOn = myPreviousLinkStates[i];
+            for (int j=0; j<(int) currLinks.size(); j++) {
+                MSLink *link = currLinks[j];
+                myOutputDevice << "   <tlsswitch tls=\"" << light->getID()
+                    << "\" subid=\"" << light->getSubID()
+                    << "\" fromLane=\"" << currLanes[j]->getID()
+                    << "\" toLane=\"" << link->getLane()->getID()
+                    << "\" begin=\"" << lastOn
+                    << "\" end=\"" << currentTime
+                    << "\" duration=\"" << (currentTime-lastOn)
+                    << "\"/>" << "\n";
+            }
+            myPreviousLinkStates.erase(myPreviousLinkStates.find(i));
         }
     }
     return 1;

@@ -683,7 +683,8 @@ MSVehicle::moveFirstChecked() {
                 if (link->opened()) {
                     vSafe = (*i).myVLinkPass;
                 } else {
-                    if (vSafe<getSpeedAfterMaxDecel(myState.mySpeed)&&link->getState()==MSLink::LINKSTATE_TL_YELLOW) {
+                    bool yellow = link->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||link->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+                    if (vSafe<getSpeedAfterMaxDecel(myState.mySpeed)&&yellow) {
                         vSafe = (*i).myVLinkPass;
                     } else {
                         vSafe = (*i).myVLinkWait;
@@ -1126,7 +1127,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         vLinkWait = MIN3(vLinkPass, vLinkWait, myType->ffeS(myState.mySpeed, seen));
         vLinkWait = MAX2(vLinkWait, myType->getSpeedAfterMaxDecel(myState.mySpeed));
 
-        if ((*link)->getState()==MSLink::LINKSTATE_TL_YELLOW&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
+        bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
+        if (yellow&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false));
             checkRewindLinkLanes(lengthsInFront);
             return;

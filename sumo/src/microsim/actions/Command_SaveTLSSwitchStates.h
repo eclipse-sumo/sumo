@@ -69,10 +69,10 @@ public:
     /// @name Derived from Command
     /// @{
 
-    /** @brief Writes the output if a change occured
+    /** @brief Writes the state of the tls if a change occured
      *
-     * If the state or the active program has changed, the state is built
-     *  using "buildStateList" and writes it to the output device.
+     * If the state or the active program has changed, the state is written
+     *  to the output device.
      *
      * Returns always 1.
      *

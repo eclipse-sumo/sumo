@@ -157,7 +157,7 @@ void
 MSLink::resetInternalPriority() throw() {
     myPrio = opened();
     if (myJunctionInlane!=0&&myLane!=0) {
-        if (myState==MSLink::LINKSTATE_TL_GREEN) {
+        if (myState==MSLink::LINKSTATE_TL_GREEN_MAJOR||myState==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             if (myIsInternalEnd&&myJunctionInlane->getID()[0]==':') {
                 if (myRequest->test(myRequestIdx)) {
                     myRespond->set(myRespondIdx, true);

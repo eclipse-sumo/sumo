@@ -837,7 +837,7 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
 
     // save the current link states
     for (int i = 0; i < affectedLinks.size(); i++) {
-        linkStates.push_back(phase.getLinkState(i));
+        linkStates.push_back(phase.getSignalState(i));
         yellowTimes.push_back(-1);
     }
 
@@ -855,9 +855,9 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
             // for each link with new red/green status, write a TLSWITCH command
             std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
             for (int i = 0; i < linkStates.size(); i++) {
-                MSLink::LinkState nextLinkState = phase.getLinkState(i);
+                MSLink::LinkState nextLinkState = phase.getSignalState(i);
 
-                if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW) {
+                if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MAJOR || nextLinkState == MSLink::LINKSTATE_TL_YELLOW_MINOR) {
                     if (yellowTimes[i] < 0) yellowTimes[i] = time;
                 } else {
                     if (nextLinkState != linkStates[i] && time >= timeFrom) {
@@ -892,7 +892,8 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
                             tempMsg.writeString(succEdge->getID());
                             // new status
                             switch (nextLinkState) {
-                            case MSLink::LINKSTATE_TL_GREEN:
+                            case MSLink::LINKSTATE_TL_GREEN_MAJOR:
+                            case MSLink::LINKSTATE_TL_GREEN_MINOR:
                                 tempMsg.writeUnsignedByte(TLPHASE_GREEN);
                                 break;
                             case MSLink::LINKSTATE_TL_RED:
@@ -2369,7 +2370,7 @@ throw(TraCIException) {
                 // get the list of preceding lanes to that links
                 MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
                 // get status of the traffic light
-                MSLink::LinkState tlState = phase.getLinkState(i);
+                MSLink::LinkState tlState = phase.getSignalState(i);
 
 //				const MSEdge* precEdge = NULL;
 //				const MSEdge* succEdge = NULL;
@@ -2416,10 +2417,12 @@ throw(TraCIException) {
                     phaseList.writeString(succEdge->getID());
                     // write status of the traffic light
                     switch (tlState) {
-                    case MSLink::LINKSTATE_TL_GREEN:
+                    case MSLink::LINKSTATE_TL_GREEN_MAJOR:
+                    case MSLink::LINKSTATE_TL_GREEN_MINOR:
                         phaseList.writeUnsignedByte(TLPHASE_GREEN);
                         break;
-                    case MSLink::LINKSTATE_TL_YELLOW:
+                    case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
+                    case MSLink::LINKSTATE_TL_YELLOW_MINOR:
                         phaseList.writeUnsignedByte(TLPHASE_YELLOW);
                         break;
                     case MSLink::LINKSTATE_TL_RED:

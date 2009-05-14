@@ -181,7 +181,7 @@ public:
     size_t getLinkNumber() const;
 
     /// Returns the state of the numbered link
-    MSLink::LinkState getLinkState(size_t pos) const;
+    MSLink::LinkState getLinkState(unsigned int pos) const throw();
 
     /// Returns the direction of the numbered link
     MSLink::LinkDirection getLinkDirection(size_t pos) const;

@@ -89,9 +89,6 @@ protected:
     /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
     void gapControl();
 
-    // Checkes wheter the tested phase is a neither a yellow nor a allred phase
-    bool isGreenPhase() const ;
-
 protected:
     /// Returns the definition of the current phase
     MSActuatedPhaseDefinition * currentPhaseDef() const;

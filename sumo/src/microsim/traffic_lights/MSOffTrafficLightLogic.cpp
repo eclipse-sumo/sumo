@@ -80,19 +80,16 @@ void
 MSOffTrafficLightLogic::rebuildPhase() throw()
 {
     size_t no = getLinks().size();
-    std::bitset<64> driveMaskArg;
-    std::bitset<64> breakMaskArg;
-    std::bitset<64> yellowMaskArg;
-    for (size_t i=0; i<no; ++i) {
-        driveMaskArg[i] = true;
-        breakMaskArg[i] = false;
-        yellowMaskArg[i] = false;
+    std::string state;
+    for (unsigned int i=0; i<no; ++i) {
+        // !!! no brake mask!
+        state += 'o';
     }
     for(MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
         delete *i;
     }
     myPhaseDefinition.clear();
-    myPhaseDefinition.push_back(new MSPhaseDefinition(-1, driveMaskArg, breakMaskArg, yellowMaskArg));
+    myPhaseDefinition.push_back(new MSPhaseDefinition(1, state));
 }
 
 
@@ -122,7 +119,7 @@ MSOffTrafficLightLogic::getCurrentPhaseIndex() const throw() {
 }
 
 
-MSPhaseDefinition
+const MSPhaseDefinition &
 MSOffTrafficLightLogic::getCurrentPhaseDef() const throw() {
     return *myPhaseDefinition[0];
 }
@@ -170,17 +167,6 @@ MSOffTrafficLightLogic::maskRedLinks() const {
 bool
 MSOffTrafficLightLogic::maskYellowLinks() const {
     return true;
-}
-
-
-std::string
-MSOffTrafficLightLogic::buildStateList() const {
-    std::ostringstream strm;
-    size_t no = getLinks().size();
-    for (size_t i=0; i<no; ++i) {
-        strm << 'O';
-    }
-    return strm.str();
 }
 
 

@@ -76,24 +76,28 @@ public:
      *  holds the possible traffic light states.
      */
     enum LinkState {
-        /// The link has green light
-        LINKSTATE_TL_GREEN,
-        /// The link has red light
-        LINKSTATE_TL_RED,
-        /// The link has yellow light
-        LINKSTATE_TL_YELLOW,
-        /// The link is controlled by a tls which is off and blinks
-        LINKSTATE_TL_OFF_BLINKING,
-        /// The link is controlled by a tls which is off, not blinking
-        LINKSTATE_TL_OFF_NOSIGNAL,
-        /// This is an uncontrolled, major link
-        LINKSTATE_MAJOR,
-        /// This is an uncontrolled, minor link
-        LINKSTATE_MINOR,
-        /// This is an uncontrolled, right-before-left link
-        LINKSTATE_EQUAL,
-        /// This is a dead end link
-        LINKSTATE_DEADEND
+        /// @brief The link has green light, may pass
+        LINKSTATE_TL_GREEN_MAJOR = 'G',
+        /// @brief The link has green light, has to brake
+        LINKSTATE_TL_GREEN_MINOR = 'g',
+        /// @brief The link has red light (must brake)
+        LINKSTATE_TL_RED = 'r',
+        /// @brief The link has yellow light, may pass
+        LINKSTATE_TL_YELLOW_MAJOR = 'Y',
+        /// @brief The link has yellow light, has to brake anyway
+        LINKSTATE_TL_YELLOW_MINOR = 'y',
+        /// @brief The link is controlled by a tls which is off and blinks, has to brake
+        LINKSTATE_TL_OFF_BLINKING = 'b',
+        /// @brief The link is controlled by a tls which is off, not blinking, may pass
+        LINKSTATE_TL_OFF_NOSIGNAL = 'O',
+        /// @brief This is an uncontrolled, major link, may pass
+        LINKSTATE_MAJOR = 'M',
+        /// @brief This is an uncontrolled, minor link, has to brake
+        LINKSTATE_MINOR = 'm',
+        /// @brief This is an uncontrolled, right-before-left link
+        LINKSTATE_EQUAL = '=',
+        /// @brief This is a dead end link
+        LINKSTATE_DEADEND = '-'
     };
 
 

@@ -128,7 +128,7 @@ MSSimpleTrafficLightLogic::getCurrentPhaseIndex() const throw() {
 }
 
 
-MSPhaseDefinition
+const MSPhaseDefinition &
 MSSimpleTrafficLightLogic::getCurrentPhaseDef() const throw() {
     return *myPhases[myStep];
 }
@@ -189,11 +189,12 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw()
 // ------------ 
 void
 MSSimpleTrafficLightLogic::setLinkPriorities() const {
-    const std::bitset<64> &linkPrios = myPhases[myStep]->getBreakMask();
+    const std::string &state = myPhases[myStep]->getState();
     for (size_t i=0; i<myLinks.size(); i++) {
+        bool hasPriority = (state[i]>='A'&&state[i]<='Z');
         const LinkVector &currGroup = myLinks[i];
         for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-            (*j)->setPriority(linkPrios.test(i));
+            (*j)->setPriority(hasPriority);
         }
     }
 }
@@ -202,35 +203,16 @@ MSSimpleTrafficLightLogic::setLinkPriorities() const {
 bool
 MSSimpleTrafficLightLogic::maskRedLinks() const {
     // get the current traffic light signal combination
-    const std::bitset<64> &allowedLinks = myPhases[myStep]->getDriveMask();
-    const std::bitset<64> &yellowLinks = myPhases[myStep]->getYellowMask();
+    const std::string &state = myPhases[myStep]->getState();
     // go through the links
     for (size_t i=0; i<myLinks.size(); i++) {
-        // mark out links having red
-        if (!allowedLinks.test(i)&&!yellowLinks.test(i)) {
-            const LinkVector &currGroup = myLinks[i];
-            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+        const LinkVector &currGroup = myLinks[i];
+        MSLink::LinkState ls = (MSLink::LinkState) state[i];
+        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+            (*j)->setTLState(ls);
+            // mark out links having red
+            if (ls==MSLink::LINKSTATE_TL_RED) {
                 (*j)->deleteRequest();
-            }
-        }
-        // set the states for assigned links
-        // !!! one should let the links ask for it
-        if (!allowedLinks.test(i)) {
-            if (yellowLinks.test(i)) {
-                const LinkVector &currGroup = myLinks[i];
-                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                    (*j)->setTLState(MSLink::LINKSTATE_TL_YELLOW);
-                }
-            } else {
-                const LinkVector &currGroup = myLinks[i];
-                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                    (*j)->setTLState(MSLink::LINKSTATE_TL_RED);
-                }
-            }
-        } else {
-            const LinkVector &currGroup = myLinks[i];
-            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                (*j)->setTLState(MSLink::LINKSTATE_TL_GREEN);
             }
         }
     }
@@ -240,6 +222,7 @@ MSSimpleTrafficLightLogic::maskRedLinks() const {
 
 bool
 MSSimpleTrafficLightLogic::maskYellowLinks() const {
+    /*
     // get the current traffic light signal combination
     const std::bitset<64> &allowedLinks = myPhases[myStep]->getDriveMask();
     // go through the links
@@ -252,6 +235,7 @@ MSSimpleTrafficLightLogic::maskYellowLinks() const {
             }
         }
     }
+    */
     return true;
 }
 
@@ -281,28 +265,6 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
         mySwitchCommand, stepDuration+simStep,
         MSEventControl::ADAPT_AFTER_EXECUTION);
 }
-
-
-std::string
-MSSimpleTrafficLightLogic::buildStateList() const {
-    MSPhaseDefinition curr = getCurrentPhaseDef();
-    std::ostringstream strm;
-    const std::bitset<64> &allowedLinks = curr.getDriveMask();
-    const std::bitset<64> &yellowLinks = curr.getYellowMask();
-    for (size_t i=0; i<myLinks.size(); i++) {
-        if (yellowLinks.test(i)) {
-            strm << 'Y';
-        } else {
-            if (allowedLinks.test(i)) {
-                strm << 'G';
-            } else {
-                strm << 'R';
-            }
-        }
-    }
-    return strm.str();
-}
-
 
 
 /****************************************************************************/

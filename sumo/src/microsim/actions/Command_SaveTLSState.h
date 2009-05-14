@@ -67,10 +67,7 @@ public:
     /// @name Derived from Command
     /// @{
 
-    /** @brief Writes the output
-     *
-     * Builds the current state of the tls using "buildStateList" and writes
-     *  it to the output device.
+    /** @brief Writes the current state of the tls
      *
      * Returns always 1.
      *

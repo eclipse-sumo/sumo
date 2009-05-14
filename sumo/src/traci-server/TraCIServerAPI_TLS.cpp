@@ -85,18 +85,18 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             break;
         case TL_RED_YELLOW_GREEN_STATE: {
             tempMsg.writeUnsignedByte(TYPE_STRING);
-            string state = vars.getActive()->buildStateList();
+            string state = vars.getActive()->getCurrentPhaseDef().getState();
             tempMsg.writeString(state);
         }
         break;
         case TL_PHASE_BRAKE_YELLOW_STATE: {
-            MSPhaseDefinition phase = vars.getActive()->getCurrentPhaseDef();
+            const std::string &state = vars.getActive()->getCurrentPhaseDef().getState();
             unsigned int linkNo = vars.getActive()->getLinks().size();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             vector<string> phaseDef;
-            phaseDef.push_back(toString(phase.getDriveMask()).substr(64-linkNo, 64));
-            phaseDef.push_back(toString(phase.getBreakMask()).substr(64-linkNo, 64));
-            phaseDef.push_back(toString(phase.getYellowMask()).substr(64-linkNo, 64));
+            phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
+            phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
+            phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
             tempMsg.writeStringList(phaseDef);
         }
         break;
@@ -141,12 +141,13 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
                     tempContent.writeInt(phase.duration);
                     ++cnt; // not implemented
+                    const std::string &state = phase.getState();
                     unsigned int linkNo = vars.getActive()->getLinks().size();
                     tempContent.writeUnsignedByte(TYPE_STRINGLIST);
                     vector<string> phaseDef;
-                    phaseDef.push_back(toString(phase.getDriveMask()).substr(64-linkNo, 64));
-                    phaseDef.push_back(toString(phase.getBreakMask()).substr(64-linkNo, 64));
-                    phaseDef.push_back(toString(phase.getYellowMask()).substr(64-linkNo, 64));
+                    phaseDef.push_back(MSPhaseDefinition::new2driveMask(state));
+                    phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
+                    phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
                     tempContent.writeStringList(phaseDef);
                     ++cnt;
                 }
@@ -262,16 +263,15 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as three strings.", outputStorage);
             return false;
         }
-        bitset<64> prios(defs[1]);
-        prios.flip();
         // build only once...
-        MSPhaseDefinition *phase = new MSPhaseDefinition(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
+        std::string state = MSPhaseDefinition::old2new(defs[0], defs[1], defs[2]);
+        MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
         vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
         MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(*MSNet::getInstance(), tlsControl, id, "online", phases, 0, cTime+1);
         if (!vars.addLogic("online", logic, true, true)) {
             delete logic;
-            MSPhaseDefinition nphase(1, bitset<64>(defs[0]), prios, bitset<64>(defs[2]));
+            MSPhaseDefinition nphase(1, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
         }
     }

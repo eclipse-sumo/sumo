@@ -114,7 +114,7 @@ public:
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    MSPhaseDefinition getCurrentPhaseDef() const throw();
+    const MSPhaseDefinition &getCurrentPhaseDef() const throw();
     /// @}
 
 
@@ -157,7 +157,6 @@ public:
     void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
                                unsigned int step, SUMOTime stepDuration);
 
-    std::string buildStateList() const;
 
 protected:
     /// the list of phases this logic uses

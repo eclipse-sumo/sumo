@@ -191,16 +191,13 @@ public:
     /** @brief Adds a phase to the currently built traffic lights logic
      *
      * @param[in] duration The duration of the phase
-     * @param[in] phase The green lights definition of the phase
-     * @param[in] prios The priority (halting) definition of the phase
-     * @param[in] yellow The yellow lights definition of the phase
+     * @param[in] state The state of the tls
      * @param[in] min The minimum duration of the phase
      * @param[in] max The maximum duration of the phase
      * @todo min/max is used only by one junction type. Recheck
      * @todo min/max: maybe only one type of a phase definition should be built
      */
-    void addPhase(SUMOTime duration, const std::bitset<64> &phase,
-                  const std::bitset<64> &prios, const std::bitset<64> &yellow,
+    void addPhase(SUMOTime duration, const std::string &state,
                   int min, int max) throw();
 
 

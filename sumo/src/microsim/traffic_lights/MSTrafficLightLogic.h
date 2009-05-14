@@ -53,30 +53,45 @@ class MSEdgeContinuations;
 // ===========================================================================
 /**
  * @class MSTrafficLightLogic
+ * @brief The parent class for traffic light logics
  */
 class MSTrafficLightLogic {
 public:
-    /// definition of a list of phases, being the junction logic
+    /// @name Structure definitions
+    /// @{
+
+    /// @brief Definition of a list of phases, being the junction logic
     typedef std::vector<MSPhaseDefinition*> Phases;
 
-    /// Definition of the list of links that participate in this tl-light
+    /// @brief Definition of the list of links that participate in this tl-light
     typedef std::vector<MSLink*> LinkVector;
 
-    /// Definition of a list that holds lists of links that do have the same attribute
+    /// @brief Definition of a list that holds lists of links that do have the same attribute
     typedef std::vector<LinkVector> LinkVectorVector;
 
-    /// Definition of the list of links that participate in this tl-light
+    /// @brief Definition of the list of links that participate in this tl-light
     typedef std::vector<MSLane*> LaneVector;
 
-    /// Definition of a list that holds lists of links that do have the same attribute
+    /// @brief Definition of a list that holds lists of links that do have the same attribute
     typedef std::vector<LaneVector> LaneVectorVector;
+    /// @}
+
 
 public:
-    /// Constructor
+    /** @brief Constructor
+     * @param[in] tlcontrol The tls control responsible for this tls 
+     * @param[in] id This tls' id
+     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] delay The time to wait before the first switch
+     */
     MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
                         const std::string &id, const std::string &subid, SUMOTime delay);
 
-    /// Initialises the tls with information about incoming lanes
+
+    /** @brief Initialises the tls with information about incoming lanes
+     * @param[in] nb The detector builder
+     * @param[in] edgeContinuations Information about edge predecessors/successors
+     */
     virtual void init(NLDetectorBuilder &nb,
                       const MSEdgeContinuations &edgeContinuations);
 
@@ -91,7 +106,7 @@ public:
     virtual void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
 
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~MSTrafficLightLogic();
 
 
@@ -194,7 +209,7 @@ public:
     /** @brief Returns the definition of the current phase
      * @return The current phase
      */
-    virtual MSPhaseDefinition getCurrentPhaseDef() const throw() = 0;
+    virtual const MSPhaseDefinition &getCurrentPhaseDef() const throw() = 0;
     /// @}
 
 
@@ -232,9 +247,6 @@ public:
 
     /// Clears all incoming vehicle information on links that have yellow
     virtual bool maskYellowLinks() const = 0;
-
-    /// Builds a string that contains the states of the signals
-    virtual std::string buildStateList() const = 0;
 
 
 
@@ -296,32 +308,32 @@ protected:
     };
 
 protected:
-    /// given parameter
+    /// @brief Given parameter
     std::map<std::string, std::string> myParameter;
 
-    /// The id of the logic
+    /// @brief The id of the logic
     std::string myID, mySubID;
 
-    /// The list of links which do participate in this traffic light
+    /// @brief The list of links which do participate in this traffic light
     LinkVectorVector myLinks;
 
-    /// The list of links which do participate in this traffic light
+    /// @brief The list of links which do participate in this traffic light
     LaneVectorVector myLanes;
 
-    /// A list of duration overrides
+    /// @brief A list of duration overrides
     std::vector<SUMOTime> myOverridingTimes;
 
-    /// A value for enlarge the current duration
+    /// @brief A value for enlarge the current duration
     SUMOTime myCurrentDurationIncrement;
 
-    /// The current switch command
+    /// @brief The current switch command
     SwitchCommand *mySwitchCommand;
 
 private:
-    /// invalidated copy constructor
+    /// @brief invalidated copy constructor
     MSTrafficLightLogic(const MSTrafficLightLogic &s);
 
-    /// invalidated assignment operator
+    /// @brief invalidated assignment operator
     MSTrafficLightLogic& operator=(const MSTrafficLightLogic &s);
 
 };

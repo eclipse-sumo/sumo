@@ -30,6 +30,7 @@
 #endif
 
 #include <bitset>
+#include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSLink.h>
@@ -45,62 +46,167 @@
  */
 class MSPhaseDefinition {
 public:
-    /// the duration of the phase
+    /// @brief The duration of the phase
     SUMOTime duration;
 
-    /// stores the timestep of the last on-switched of the phase
+    /// @brief Stores the timestep of the last on-switched of the phase
     SUMOTime myLastSwitch;
 
-    /// constructor
-    MSPhaseDefinition(SUMOTime durationArg, const std::bitset<64> &driveMaskArg,
-                      const std::bitset<64> &breakMaskArg,
-                      const std::bitset<64> &yellowMaskArg)
-            : duration(durationArg), myLastSwitch(0), driveMask(driveMaskArg),
-            breakMask(breakMaskArg), yellowMask(yellowMaskArg) {
+public:
+    /** @brief Constructor
+     * @param[in] durationArg The duration of the phase
+     * @param[in] stateArg The state in the phase
+     */
+    MSPhaseDefinition(SUMOTime durationArg, const std::string &stateArg) throw()
+            : duration(durationArg), myLastSwitch(0), state(stateArg) {
         myLastSwitch = OptionsCont::getOptions().getInt("begin"); // SUMOTime-option
     }
 
-    /// destructor
-    virtual ~MSPhaseDefinition() { }
 
-    const std::bitset<64> &getDriveMask() const {
-        return driveMask;
+    /// @brief Destructor
+    virtual ~MSPhaseDefinition() throw() { }
+
+
+    /** @brief Returns the state within this phase
+     * @return The state in this phase
+     */
+    const std::string &getState() const throw() {
+        return state;
     }
 
-    const std::bitset<64> &getBreakMask() const {
-        return breakMask;
-    }
 
-    const std::bitset<64> &getYellowMask() const {
-        return yellowMask;
-    }
-
-    MSLink::LinkState getLinkState(size_t pos) const {
-        if (driveMask.test(pos)) {
-            return MSLink::LINKSTATE_TL_GREEN;
+    /** @brief Returns whether this phase is a pure "green" phase
+     *
+     * "pure green" means in this case that at least one stream has green
+     *  and no stream has yellow. Such phases are meant to be candidates
+     *  for being stretched by actuated or agentbased traffic light logics.
+     * @return Whether this phase is a "pure green" phase
+     */
+    bool isGreenPhase() const throw() {
+        if(state.find_first_of("gG")==std::string::npos) {
+            return false;
         }
-        if (yellowMask.test(pos)) {
-            return MSLink::LINKSTATE_TL_YELLOW;
+        if(state.find_first_of("yY")!=std::string::npos) {
+            return false;
         }
-        return MSLink::LINKSTATE_TL_RED;
+        return true;
     }
 
+
+    /** @brief Returns the state of the tls signal at the given position
+     * @param[in] pos The position of the signal to return the state for
+     * @return The state of the signal at the given position
+     */
+    MSLink::LinkState getSignalState(unsigned int pos) const throw() {
+        return (MSLink::LinkState) state[pos];
+    }
+
+
+    /** @brief Comparison operator
+     * 
+     * Note that only the state must differ, not the duration!
+     * @param[in] pd The phase definition to compare against
+     * @return Whether the given phase definition differs
+     */
     bool operator!=(const MSPhaseDefinition &pd) {
-        return driveMask!=pd.driveMask || breakMask!=pd.breakMask || yellowMask!=pd.yellowMask || duration!=pd.duration;
+        return state!=pd.state;
     }
+
+
+    /// @name Helper methods for converting between old and new representation
+    /// @{
+
+    /** @brief Helper method for converting old tls descriptions into new
+     * @param[in] driveMask Information which vehicles (links) may drive
+     * @param[in] brakeMask Information which vehicles (links) have to brake
+     * @param[in] yellowMask Information which vehicles (links) have yellow
+     * @return The new phase definition
+     */
+    static std::string old2new(const std::string &driveMask, const std::string &brakeMask, const std::string &yellowMask) throw() {
+        std::string state;
+        for(int i=(int) driveMask.length()-1; i>=0; --i) {
+            if(driveMask[i]=='1') {
+                state += 'g';
+            } else {
+                if(yellowMask[i]=='1') {
+                    state += 'y';
+                } else {
+                    state += 'r';
+                }
+            }
+        }
+        //  brake needs then
+        int j = 0;
+        for(int i=(int) driveMask.length()-1; i>=0; --i, ++j) {
+            if(brakeMask[i]=='0') {
+                if(state[j]=='g') {
+                    state[j] = 'G';
+                }
+                if(state[j]=='y') {
+                    state[j] = 'Y';
+                }
+            }
+        }
+        return state;
+    }
+
+
+    /** @brief Helper method for extracting the old "driveMask" from new tls definitions
+     * @param[in] state Definition of the phase
+     * @return The driveMask
+     */
+    static std::string new2driveMask(const std::string &state) throw() {
+        std::string mask;
+        for(int i=(int) state.length()-1; i>=0; --i) {
+            if(state[i]=='g'||state[i]=='G') {
+                mask += '1';
+            } else {
+                mask += '0';
+            }
+        }
+        return mask;
+    }
+
+
+    /** @brief Helper method for extracting the old "brakeMask" from new tls definitions
+     * @param[in] state Definition of the phase
+     * @return The brakeMask
+     */
+    static std::string new2brakeMask(const std::string &state) throw() {
+        std::string mask;
+        for(int i=(int) state.length()-1; i>=0; --i) {
+            if(state[i]>='a'&&state[i]<='z') {
+                mask += '0';
+            } else {
+                mask += '1';
+            }
+        }
+        return mask;
+    }
+
+
+    /** @brief Helper method for extracting the old "yellowMask" from new tls definitions
+     * @param[in] state Definition of the phase
+     * @return The yellowMask
+     */
+    static std::string new2yellowMask(const std::string &state) throw() {
+        std::string mask;
+        for(int i=(int) state.length()-1; i>=0; --i) {
+            if(state[i]=='y'||state[i]=='Y') {
+                mask += '1';
+            } else {
+                mask += '0';
+            }
+        }
+        return mask;
+    }
+
+    /// @}
+
 
 private:
-    /// invalidated standard constructor
-    MSPhaseDefinition();
-
-    /// the mask which links are allowed to drive within this phase (green light)
-    std::bitset<64>  driveMask;
-
-    /// the mask which links must not drive within this phase (red light)
-    std::bitset<64>  breakMask;
-
-    /// the mask which links have to decelerate(yellow light)
-    std::bitset<64>  yellowMask;
+    /// @brief The phase definition
+    std::string state;
 
 
 };

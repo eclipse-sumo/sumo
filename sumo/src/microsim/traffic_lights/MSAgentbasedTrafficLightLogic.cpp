@@ -99,7 +99,7 @@ MSAgentbasedTrafficLightLogic::init(
     for (size_t actStep = 0; actStep!=myPhases.size(); actStep++) {
         size_t dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[actStep])->duration;
         tCycleIst = tCycleIst + dur;
-        if (isGreenPhase(actStep)) {
+        if (myPhases[actStep]->isGreenPhase()) {
             size_t mindur = static_cast<MSActuatedPhaseDefinition*>(myPhases[actStep])->minDuration;
             tCycleMin = tCycleMin + mindur;
         } else {
@@ -136,7 +136,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen) {
        only phases with duration < maxDuration are written in the vector.
        sorts the vector after the difference. */
     for (size_t i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
-        if (isGreenPhase(i_Step)) {
+        if (myPhases[i_Step]->isGreenPhase()) {
             size_t dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->duration;
             size_t maxdur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->maxDuration;
             if (dur < maxdur) {
@@ -176,7 +176,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut) {
        only phases with duration > minDuration are written in the vector.
        sorts the vector after the difference. */
     for (size_t i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
-        if (isGreenPhase(i_Step)) {
+        if (myPhases[i_Step]->isGreenPhase()) {
             size_t dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->duration;
             size_t mindur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->minDuration;
             if (dur > mindur) {
@@ -207,7 +207,7 @@ SUMOTime
 MSAgentbasedTrafficLightLogic::trySwitch(bool) {
     assert(currentPhaseDef()->minDuration >=0);
     assert(currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
-    if (isGreenPhase(myStep)) {
+    if (myPhases[myStep]->isGreenPhase()) {
         // collects the data for the signal control
         collectData();
         // decides wheter greentime shall distributed between phases
@@ -260,13 +260,13 @@ MSAgentbasedTrafficLightLogic::collectData() {
     //collects the traffic data
 
     // gets a copy of the driveMask
-    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
+    const std::string &state = currentPhaseDef()->getState();
     // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of one phase
     SUMOReal maxPerPhase = 0;
-    for (unsigned int i=0; i<(unsigned int) isgreen.size(); i++)  {
+    for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
         /* finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES
            of all lanes of a bit of the drivemask, that shows green */
-        if (isgreen.test(i))  {
+        if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
             if (lanes.empty())    {
                 break;
@@ -395,18 +395,6 @@ MSAgentbasedTrafficLightLogic::currentPhaseDef() const {
     return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }
 
-
-bool
-MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const {
-    assert(testStep<=myPhases.size());
-    if (static_cast<MSActuatedPhaseDefinition*>(myPhases[testStep])->getDriveMask().none()) {
-        return false;
-    }
-    if (static_cast<MSActuatedPhaseDefinition*>(myPhases[testStep])->getYellowMask().any()) {
-        return false;
-    }
-    return true;
-}
 
 /*
 SUMOReal

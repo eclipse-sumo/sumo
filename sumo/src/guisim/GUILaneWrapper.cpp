@@ -264,9 +264,11 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
         MSLink::LinkState state = lane.getLinkState(i);
         if (showToolTips) {
             switch (state) {
-            case MSLink::LINKSTATE_TL_GREEN:
+            case MSLink::LINKSTATE_TL_GREEN_MAJOR:
+            case MSLink::LINKSTATE_TL_GREEN_MINOR:
             case MSLink::LINKSTATE_TL_RED:
-            case MSLink::LINKSTATE_TL_YELLOW:
+            case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
+            case MSLink::LINKSTATE_TL_YELLOW_MINOR:
             case MSLink::LINKSTATE_TL_OFF_BLINKING:
                 glPushName(lane.getLinkTLID(net, i));
                 break;
@@ -280,13 +282,15 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
             }
         }
         switch (state) {
-        case MSLink::LINKSTATE_TL_GREEN:
+        case MSLink::LINKSTATE_TL_GREEN_MAJOR:
+        case MSLink::LINKSTATE_TL_GREEN_MINOR:
             glColor3d(0, 1, 0);
             break;
         case MSLink::LINKSTATE_TL_RED:
             glColor3d(1, 0, 0);
             break;
-        case MSLink::LINKSTATE_TL_YELLOW:
+        case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
+        case MSLink::LINKSTATE_TL_YELLOW_MINOR:
             glColor3d(1, 1, 0);
             break;
         case MSLink::LINKSTATE_TL_OFF_BLINKING:
@@ -381,13 +385,15 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
             continue;
         }
         switch (state) {
-        case MSLink::LINKSTATE_TL_GREEN:
+        case MSLink::LINKSTATE_TL_GREEN_MAJOR:
+        case MSLink::LINKSTATE_TL_GREEN_MINOR:
             glColor3d(0, 1, 0);
             break;
         case MSLink::LINKSTATE_TL_RED:
             glColor3d(1, 0, 0);
             break;
-        case MSLink::LINKSTATE_TL_YELLOW:
+        case MSLink::LINKSTATE_TL_YELLOW_MAJOR:
+        case MSLink::LINKSTATE_TL_YELLOW_MINOR:
             glColor3d(1, 1, 0);
             break;
         case MSLink::LINKSTATE_TL_OFF_BLINKING:
@@ -596,7 +602,7 @@ GUILaneWrapper::getLinkNumber() const {
 
 
 MSLink::LinkState
-GUILaneWrapper::getLinkState(size_t pos) const {
+GUILaneWrapper::getLinkState(unsigned int pos) const throw() {
     return myLane.getLinkCont()[pos]->getState();
 }
 

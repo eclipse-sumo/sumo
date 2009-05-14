@@ -120,7 +120,7 @@ public:
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    MSPhaseDefinition getCurrentPhaseDef() const throw();
+    const MSPhaseDefinition &getCurrentPhaseDef() const throw();
     /// @}
 
 
@@ -156,9 +156,6 @@ public:
     /// Returns the priorities for all lanes for the current phase
     const std::bitset<64> &linkPriorities() const;
 
-    /// Returns a bitset where all links having yellow are set
-    const std::bitset<64> &yellowMask() const;
-
     const std::bitset<64> &allowed() const;
 
     /// returns the cycletime
@@ -169,7 +166,6 @@ public:
     bool maskYellowLinks() const;
     void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
     }
-    std::string buildStateList() const;
 
 
 private:
