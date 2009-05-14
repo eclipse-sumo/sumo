@@ -52,7 +52,7 @@ public:
 
     /// constructor
     MSActuatedPhaseDefinition(SUMOTime durationArg, const std::string &stateArg,
-                              SUMOTime minDurationArg, SUMOTime maxDurationArg)
+                              SUMOTime minDurationArg, SUMOTime maxDurationArg) throw()
             : MSPhaseDefinition(durationArg, stateArg),
             minDuration(minDurationArg), maxDuration(maxDurationArg) {
         // defines minDuration
@@ -80,7 +80,7 @@ public:
     }
 
     /// destructor
-    ~MSActuatedPhaseDefinition() { }
+    ~MSActuatedPhaseDefinition() throw() { }
 
 };
 
