@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/16/08 14:18:12 by SUMO sumo Version 0.9.7
+<!-- generated on 05/14/09 12:19:20 by SUMO sumo Version dev-SVN-r7168
 <configuration>
 
    <input>
@@ -23,6 +23,6 @@
 -->
 
 <tls-switch-states>
-    <tlsstate time="400" id="0" subid="S2" phase="0">RRRRGGGGRRRRGGGG</tlsstate>
-    <tlsstate time="500" id="0" subid="S4" phase="0">RRRRRRRRRRRRRRRR</tlsstate>
+    <tlsstate time="400" id="0" subid="S2" phase="0">rrrrGGggrrrrGGgg</tlsstate>
+    <tlsstate time="500" id="0" subid="S4" phase="0">rrrrrrrrrrrrrrrr</tlsstate>
 </tls-switch-states>

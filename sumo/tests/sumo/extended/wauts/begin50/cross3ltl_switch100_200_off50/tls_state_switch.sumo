@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/28/08 15:34:47 by SUMO sumo Version dev-SVN-r6499
+<!-- generated on 05/14/09 12:19:11 by SUMO sumo Version dev-SVN-r7168
 <configuration>
 
    <input>
@@ -23,11 +23,11 @@
 -->
 
 <tls-switch-states>
-    <tlsstate time="50" id="0" subid="0" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
-    <tlsstate time="76" id="0" subid="0" phase="5">RRRRYYGGRRRRYYGG</tlsstate>
-    <tlsstate time="80" id="0" subid="0" phase="6">RRRRRRGGRRRRRRGG</tlsstate>
-    <tlsstate time="86" id="0" subid="0" phase="7">RRRRRRYYRRRRRRYY</tlsstate>
-    <tlsstate time="90" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
-    <tlsstate time="100" id="0" subid="S1" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
-    <tlsstate time="200" id="0" subid="S2" phase="0">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="50" id="0" subid="0" phase="4">rrrrGGggrrrrGGgg</tlsstate>
+    <tlsstate time="76" id="0" subid="0" phase="5">rrrryyggrrrryygg</tlsstate>
+    <tlsstate time="80" id="0" subid="0" phase="6">rrrrrrGGrrrrrrGG</tlsstate>
+    <tlsstate time="86" id="0" subid="0" phase="7">rrrrrryyrrrrrryy</tlsstate>
+    <tlsstate time="90" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
+    <tlsstate time="100" id="0" subid="S1" phase="0">GGggrrrrGGggrrrr</tlsstate>
+    <tlsstate time="200" id="0" subid="S2" phase="0">rrrrGGggrrrrGGgg</tlsstate>
 </tls-switch-states>
