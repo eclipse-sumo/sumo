@@ -40,7 +40,7 @@ rmdir /S /Q %SUMO_REPORT%
 mkdir %SUMO_REPORT%
 IF "%1" == "Win32" call testEnv.bat
 IF "%1" == "x64" call testEnv.bat 64
-runGuisimTests.py -b %FILEPREFIX% > %TESTLOG% 2>&1
+runGuisimTests.py -b
 texttest.py -b %FILEPREFIX% >> %TESTLOG% 2>&1
 texttest.py -b %FILEPREFIX% -coll >> %TESTLOG% 2>&1
 cd ..

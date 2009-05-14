@@ -271,6 +271,7 @@ GUIApplicationWindow::create() {
 
 GUIApplicationWindow::~GUIApplicationWindow() {
     myRunThread->prepareDestruction();
+    myRunThread->join();
     closeAllWindows();
     //
     GUIIconSubSys::close();
