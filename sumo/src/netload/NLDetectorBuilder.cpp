@@ -87,9 +87,6 @@ NLDetectorBuilder::buildMsgDetector(const std::string &id,
                                     const std::string &lane, SUMOReal pos, int splInterval,
                                     const std::string &msg,
                                     OutputDevice& device, bool friendlyPos) throw(InvalidArgument) {
-#ifdef _DEBUG
-    cout << "building the e4-detector..." << endl;
-#endif
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in e4-detector '" + id + "').");
     }
