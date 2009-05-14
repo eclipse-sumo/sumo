@@ -455,13 +455,9 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             return false;
         }
     }
-
     defFile.close();
-
     commandClose();
-
     close();
-
     return true;
 }
 
