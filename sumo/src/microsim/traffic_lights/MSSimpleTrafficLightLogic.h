@@ -86,13 +86,13 @@ public:
      * @todo Check whether this can be integrated into "maskRedLinks"
      * @see MSTrafficLightLogic::setLinkPriorities
      */
-    void setLinkPriorities() const;
+    void setLinkPriorities() const throw();
 
 
     /** @brief Clears all incoming vehicle information on links that have red
      * @return Always true
      */
-    bool maskRedLinks() const;
+    bool maskRedLinks() const throw();
     /// @}
 
 

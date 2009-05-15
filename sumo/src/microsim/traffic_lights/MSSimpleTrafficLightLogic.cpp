@@ -94,7 +94,7 @@ MSSimpleTrafficLightLogic::trySwitch(bool) throw() {
 
 
 void
-MSSimpleTrafficLightLogic::setLinkPriorities() const {
+MSSimpleTrafficLightLogic::setLinkPriorities() const throw() {
     const std::string &state = myPhases[myStep]->getState();
     for (size_t i=0; i<myLinks.size(); i++) {
         bool hasPriority = (state[i]>='A'&&state[i]<='Z');
@@ -107,7 +107,7 @@ MSSimpleTrafficLightLogic::setLinkPriorities() const {
 
 
 bool
-MSSimpleTrafficLightLogic::maskRedLinks() const {
+MSSimpleTrafficLightLogic::maskRedLinks() const throw() {
     // get the current traffic light signal combination
     const std::string &state = myPhases[myStep]->getState();
     // go through the links
