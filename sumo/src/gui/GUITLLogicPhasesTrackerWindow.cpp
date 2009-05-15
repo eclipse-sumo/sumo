@@ -265,7 +265,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
             myLastTime += (*j)->duration;
         }
     } else {
-        myBeginTime = myLastTime - (size_t) myBeginOffset->getValue();
+        myBeginTime = myLastTime - (SUMOTime) myBeginOffset->getValue();
         myFirstTime2Show = myBeginTime;
         // check whether no phases are known at all
         if (myDurations.size()!=0) {
@@ -370,7 +370,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
         SUMOReal x2 = x + a;
 
         // go through the links
-        for (size_t j=0; j<myTLLogic->getLinks().size(); j++) {
+        for (unsigned int j=0; j<(unsigned int) myTLLogic->getLinks().size(); j++) {
             // determine the current link's color
             MSLink::LinkState state = (*pi).getSignalState(j);
             // draw the bar (red is drawn as a line)
@@ -459,7 +459,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
             glpos += a;
             SUMOReal a2 = (SUMOReal) tickDist;
             a2 *= (SUMOReal)(((width-31.0) / ((SUMOReal)(myLastTime - myBeginTime))));
-            pos += (size_t) a2;
+            pos += (int) a2;
             currTime += tickDist;
         }
     }

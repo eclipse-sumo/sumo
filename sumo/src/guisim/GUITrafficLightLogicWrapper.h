@@ -29,8 +29,8 @@
 #include <config.h>
 #endif
 
+#include <gui/GUITLLogicPhasesTrackerWindow.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 

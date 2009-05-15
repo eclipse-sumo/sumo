@@ -31,6 +31,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <gui/GUIApplicationWindow.h>
+#include <gui/GUITLLogicPhasesTrackerWindow.h>
 #include <microsim/MSLane.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -41,7 +42,6 @@
 #include <guisim/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
-#include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>
 #include "GUITrafficLightLogicWrapper.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 

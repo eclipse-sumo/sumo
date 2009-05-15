@@ -9,6 +9,7 @@ GUIManipulator.h GUIManipulator.cpp \
 GUILoadThread.cpp GUILoadThread.h \
 GUIRunThread.cpp GUIRunThread.h \
 GUISUMOViewParent.cpp GUISUMOViewParent.h \
+GUITLLogicPhasesTrackerWindow.cpp GUITLLogicPhasesTrackerWindow.h \
 GUIViewTraffic.cpp GUIViewTraffic.h
 
 SUBDIRS = dialogs
