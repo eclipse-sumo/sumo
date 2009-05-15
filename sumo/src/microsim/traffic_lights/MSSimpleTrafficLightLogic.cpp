@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic traffic light logic
+// A fixed traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -44,28 +44,27 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet& /*net*/,
-        MSTLLogicControl &tlcontrol,
-        const std::string &id,
-        const std::string &subid,
-        const Phases &phases,
-        unsigned int step,
-        SUMOTime delay)
+MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl &tlcontrol,
+        const std::string &id, const std::string &subid, const Phases &phases,
+        unsigned int step, SUMOTime delay) throw()
         : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
-        myStep(step), myCycleTime(0) {
-    myCycleTime=getCycleTime();
+        myStep(step) {
+    for (size_t i=0; i<myPhases.size(); i++) {
+        myDefaultCycleTime += myPhases[i]->duration;
+    }
 }
 
 
-MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() {
+MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic() throw() {
     for (size_t i=0; i<myPhases.size(); i++) {
         delete myPhases[i];
     }
 }
 
 
+// ------------ Switching and setting current rows
 SUMOTime
-MSSimpleTrafficLightLogic::trySwitch(bool) {
+MSSimpleTrafficLightLogic::trySwitch(bool) throw() {
     // check whether the current duration shall be increased
     if (myCurrentDurationIncrement>0) {
         SUMOTime delay = myCurrentDurationIncrement;
@@ -93,6 +92,38 @@ MSSimpleTrafficLightLogic::trySwitch(bool) {
     return myPhases[myStep]->duration;
 }
 
+
+void
+MSSimpleTrafficLightLogic::setLinkPriorities() const {
+    const std::string &state = myPhases[myStep]->getState();
+    for (size_t i=0; i<myLinks.size(); i++) {
+        bool hasPriority = (state[i]>='A'&&state[i]<='Z');
+        const LinkVector &currGroup = myLinks[i];
+        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+            (*j)->setPriority(hasPriority);
+        }
+    }
+}
+
+
+bool
+MSSimpleTrafficLightLogic::maskRedLinks() const {
+    // get the current traffic light signal combination
+    const std::string &state = myPhases[myStep]->getState();
+    // go through the links
+    for (size_t i=0; i<myLinks.size(); i++) {
+        const LinkVector &currGroup = myLinks[i];
+        MSLink::LinkState ls = (MSLink::LinkState) state[i];
+        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+            (*j)->setTLState(ls);
+            // mark out links having red
+            if (ls==MSLink::LINKSTATE_TL_RED) {
+                (*j)->deleteRequest();
+            }
+        }
+    }
+    return true;
+}
 
 
 // ------------ Static Information Retrieval
@@ -144,8 +175,8 @@ MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
         }
     }
     position = position + simStep - getPhase(myStep).myLastSwitch;
-    position = position % myCycleTime;
-    assert(position <= myCycleTime);
+    position = position % myDefaultCycleTime;
+    assert(position <= myDefaultCycleTime);
     return position;
 }
 
@@ -166,8 +197,8 @@ MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() 
 
 unsigned int
 MSSimpleTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw() {
-    assert(offset <= myCycleTime);
-    if (offset == myCycleTime) {
+    assert(offset <= myDefaultCycleTime);
+    if (offset == myDefaultCycleTime) {
         return 0;
     }
     unsigned int pos = offset;
@@ -186,58 +217,10 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw()
 }
 
 
-// ------------ 
-void
-MSSimpleTrafficLightLogic::setLinkPriorities() const {
-    const std::string &state = myPhases[myStep]->getState();
-    for (size_t i=0; i<myLinks.size(); i++) {
-        bool hasPriority = (state[i]>='A'&&state[i]<='Z');
-        const LinkVector &currGroup = myLinks[i];
-        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-            (*j)->setPriority(hasPriority);
-        }
-    }
-}
-
-
-bool
-MSSimpleTrafficLightLogic::maskRedLinks() const {
-    // get the current traffic light signal combination
-    const std::string &state = myPhases[myStep]->getState();
-    // go through the links
-    for (size_t i=0; i<myLinks.size(); i++) {
-        const LinkVector &currGroup = myLinks[i];
-        MSLink::LinkState ls = (MSLink::LinkState) state[i];
-        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-            (*j)->setTLState(ls);
-            // mark out links having red
-            if (ls==MSLink::LINKSTATE_TL_RED) {
-                (*j)->deleteRequest();
-            }
-        }
-    }
-    return true;
-}
-
-
-size_t
-MSSimpleTrafficLightLogic::getCycleTime() {
-    myCycleTime = 0;
-    for (size_t i=0; i<myPhases.size(); i++) {
-        myCycleTime = myCycleTime + myPhases[i]->duration;
-    }
-    return myCycleTime;
-}
-
-
-
-
-
+// ------------ Changing phases and phase durations
 void
 MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
-        SUMOTime simStep,
-        unsigned int step,
-        SUMOTime stepDuration) {
+        SUMOTime simStep, unsigned int step, SUMOTime stepDuration) throw() {
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
     myStep = step;

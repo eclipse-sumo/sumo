@@ -268,7 +268,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
         vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(*MSNet::getInstance(), tlsControl, id, "online", phases, 0, cTime+1);
+        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
         if (!vars.addLogic("online", logic, true, true)) {
             delete logic;
             MSPhaseDefinition nphase(1, state);

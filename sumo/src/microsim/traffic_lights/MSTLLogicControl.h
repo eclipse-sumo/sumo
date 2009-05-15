@@ -113,7 +113,7 @@ public:
         MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc,
                 const std::string &subid);
         void executeOnSwitchActions() const;
-        void addLink(MSLink *link, MSLane *lane, size_t pos);
+        void addLink(MSLink *link, MSLane *lane, unsigned int pos) throw();
 
 
 

@@ -85,15 +85,32 @@ public:
      * @param[in] delay The time to wait before the first switch
      */
     MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                        const std::string &id, const std::string &subid, SUMOTime delay);
+                        const std::string &id, const std::string &subid, SUMOTime delay) throw();
 
 
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
      * @param[in] edgeContinuations Information about edge predecessors/successors
+     * @exception ProcessError If something fails on initialisation
      */
     virtual void init(NLDetectorBuilder &nb,
-                      const MSEdgeContinuations &edgeContinuations);
+                      const MSEdgeContinuations &edgeContinuations) throw(ProcessError);
+
+
+    /// @brief Destructor
+    virtual ~MSTrafficLightLogic() throw();
+
+
+
+    /// @name Handling of controlled links
+    /// @{
+
+    /** @brief Adds a link on building
+     * @param[in] link The controlled link
+     * @param[in] lane The lane this link starts at
+     * @param[in] pos The link's index (signal group) within this program
+     */
+    void addLink(MSLink *link, MSLane *lane, unsigned int pos) throw();
 
 
     /** @brief Applies information about controlled links and lanes from the given logic
@@ -103,16 +120,44 @@ public:
      *
      * @param[in] logic The logic to use the information about controlled links/lanes from
      */
-    virtual void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
+    virtual void adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw();
 
 
-    /// @brief Destructor
-    virtual ~MSTrafficLightLogic();
+    /** @brief Returns the (uncontrolled) states of the controlled links
+     * @return The controlled link's states
+     */
+    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > collectLinkStates() const throw();
 
+
+    /** @brief Resets the states of controlled links
+     * @param[in] The state of controlled links to use
+     */
+    void resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const throw();
+    /// @}
+
+
+
+    /// @name Switching and setting current rows
+    /// @{
 
     /** @brief Switches to the next phase
-        Returns the time of the next switch */
-    virtual SUMOTime trySwitch(bool isActive) = 0;
+     * @param[in] isActive Whether this program is the currently used one
+     * @return The time of the next switch 
+     */
+    virtual SUMOTime trySwitch(bool isActive) throw() = 0;
+
+
+    /** @brief Applies the priorities resulting from the current phase to controlled links
+     * @todo Check whether this can be integrated into "maskRedLinks"
+     */
+    virtual void setLinkPriorities() const throw() = 0;
+
+
+    /** @brief Clears all incoming vehicle information on links that have red
+     * @return Always true
+     */
+    virtual bool maskRedLinks() const throw() = 0;
+    /// @}
 
 
 
@@ -210,12 +255,21 @@ public:
      * @return The current phase
      */
     virtual const MSPhaseDefinition &getCurrentPhaseDef() const throw() = 0;
+
+
+    /** @brief Returns the cycle time
+     * @return The (maybe changing) cycle time of this tls
+     */
+    unsigned int getDefaultCycleTime() const throw() {
+        return myDefaultCycleTime;
+    }
     /// @}
 
 
 
     /// @name Conversion between time and phase
     /// @{
+
     /** @brief Returns the index of the logic at the given simulation step
      * @return The (estimated) index of the tls at the given simulation time step
      */
@@ -238,61 +292,90 @@ public:
 
 
 
-    /** @brief Sets the priorities of incoming lanes
-        This must be done as they change when the light changes */
-    virtual void setLinkPriorities() const = 0;
+    /// @name Changing phases and phase durations
+    /// @{
 
-    /// Clears all incoming vehicle information on links that have red
-    virtual bool maskRedLinks() const = 0;
+    /** @brief Changes the duration of the next phase
+     * @param[in] duration The new duration
+     */
+    void addOverridingDuration(SUMOTime duration) throw();
 
 
+    /** @brief Delays current phase by the given delay
+     * @param[in] delay The time by which the current phase shall be delayed
+     */
+    void setCurrentDurationIncrement(SUMOTime delay) throw();
 
 
-    void setParameter(const std::map<std::string, std::string> &params);
-
-    std::string getParameterValue(const std::string &key) const;
-
-    void addOverridingDuration(SUMOTime duration);
-    void setCurrentDurationIncrement(SUMOTime delay);
+    /** @brief Changes the current phase and her duration
+     * @param[in] tlcontrol The responsible traffic lights control
+     * @param[in] simStep The current simulation step
+     * @param[in] step Index of the phase to use
+     * @param[in] stepDuration The left duration of the phase
+     */
     virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
-                                       SUMOTime simStep, unsigned int step, SUMOTime stepDuration) = 0;
+                                       SUMOTime simStep, unsigned int step, SUMOTime stepDuration) throw() = 0;
+
+    /// @}
 
 
-    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > collectLinkStates() const;
-    void resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const;
+
+    /// @name Algorithm parameter handling
+    /// @{
+
+    /** @brief Inserts read parameter
+     * @param[in] params The parameter to use
+     */
+    void setParameter(const std::map<std::string, std::string> &params) throw();
 
 
-    /// Adds a link on building
-    void addLink(MSLink *link, MSLane *lane, size_t pos);
+    /** @brief Returns a named parameter
+     * @param[in] key The name of the parameter
+     * @return The value of the parameter, "" if the parameter is not known
+     */
+    std::string getParameterValue(const std::string &key) const throw();
+    /// @}
+
 
 protected:
-
     /**
      * @class SwitchCommand
-     * Class realising the switch between the traffic light states (phases
+     * @brief Class realising the switch between the traffic light phases
      */
     class SwitchCommand : public Command {
     public:
-        /// Constructor
+        /** @brief Constructor
+         * @param[in] tlcontrol The responsible traffic lights control
+         * @param[in] tlLogic The controlled tls logic
+         */
         SwitchCommand(MSTLLogicControl &tlcontrol,
                       MSTrafficLightLogic *tlLogic) throw();
 
-        /// Destructor
+        /// @brief Destructor
         ~SwitchCommand() throw();
 
-        /** @brief Executes this event
-            Executes the regarded junction's "trySwitch"- method */
+        /** @brief EExecutes the regarded junction's "trySwitch"- method 
+         * @param[in] currentTime The current simulation time
+         * @return The time after which the command shall be executed again (the time of next switch)
+         * @exception ProcessError Should not been thrown here
+         */
         SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
-        void deschedule(MSTrafficLightLogic *tlLogic);
+
+        /** @brief Marks this swicth as invalid (if the phase duration has changed, f.e.)
+         * @param[in] tlLogic The controlled tls logic
+         */
+        void deschedule(MSTrafficLightLogic *tlLogic) throw();
+
 
     private:
+        /// @brief The responsible traffic lights control
         MSTLLogicControl &myTLControl;
 
-        /// The logic to be executed on a switch
+        /// @brief The logic to be executed on a switch
         MSTrafficLightLogic *myTLLogic;
 
-        /// Information whether this switch command is still valid
+        /// @brief Information whether this switch command is still valid
         bool myAmValid;
 
     private:
@@ -325,6 +408,10 @@ protected:
 
     /// @brief The current switch command
     SwitchCommand *mySwitchCommand;
+
+    /// @brief The cycle time (without changes)
+    unsigned int myDefaultCycleTime;
+
 
 private:
     /// @brief invalidated copy constructor

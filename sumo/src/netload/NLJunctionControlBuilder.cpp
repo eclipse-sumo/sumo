@@ -247,21 +247,21 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument) {
     if (myLogicType=="actuated") {
         // build an actuated logic
         tlLogic =
-            new MSActuatedTrafficLightLogic(myNet, getTLLogicControlToUse(),
+            new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                                             myActiveKey, myActiveSubKey,
                                             myActivePhases, step, firstEventOffset, myStdActuatedMaxGap,
                                             myStdActuatedPassingTime, myStdActuatedDetectorGap);
     } else if (myLogicType=="agentbased") {
         // build an agentbased logic
         tlLogic =
-            new MSAgentbasedTrafficLightLogic(myNet, getTLLogicControlToUse(),
+            new MSAgentbasedTrafficLightLogic(getTLLogicControlToUse(),
                                               myActiveKey, myActiveSubKey,
                                               myActivePhases, step, firstEventOffset, myStdLearnHorizon,
                                               myStdDecisionHorizon, myStdDeltaLimit, myStdTCycle);
     } else {
-        // build an uncontrolled (fix) tls-logic
+        // build a fixed tls-logic
         tlLogic =
-            new MSSimpleTrafficLightLogic(myNet, getTLLogicControlToUse(),
+            new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
                                           myActiveKey, myActiveSubKey,
                                           myActivePhases, step, firstEventOffset);
         tlLogic->setParameter(myAdditionalParameter);

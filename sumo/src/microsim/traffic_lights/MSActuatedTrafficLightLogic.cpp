@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic traffic light logic
+// An actuated (adaptive) traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -47,27 +47,22 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
-    MSNet &net, MSTLLogicControl &tlcontrol,
-    const std::string &id, const std::string &subid,
-    const Phases &phases,
+MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcontrol,
+                                                         const std::string &id, const std::string &subid,
+                                                         const Phases &phases,
     unsigned int step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
-    SUMOReal detectorGap)
-        : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
+    SUMOReal detectorGap) throw()
+        : MSSimpleTrafficLightLogic(tlcontrol, id, subid, phases, step, delay),
         myContinue(false),
         myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap) {}
 
 
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
-                                  const MSEdgeContinuations &/*edgeContinuations*/) {
+                                  const MSEdgeContinuations &/*edgeContinuations*/) throw(ProcessError) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //
-    // as the laneStateDetector shall end at the end of the lane, the position
-    // is calculated, not given
-    //!!!SUMOTime laneStateDetectorInterval = 1; //
-
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the induct loops
@@ -99,42 +94,43 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
             if (lslen>length) {
                 lslen = length;
             }
-            /*!!!!
-            SUMOReal lspos = length - lslen;
-            // Build the lane state detetcor and set it into the container
-            std::string id = "TLS" + myID + "_" + mySubID + "_LaneStateOff_" + lane->getID();
-
-            if(myLaneStates.find(lane)==myLaneStates.end()) {
-            MSLaneState* loop =
-                new MSLaneState( id, lane, lspos, lslen,
-                    laneStateDetectorInterval );
-            myLaneStates[lane] = loop;
-            }
-            */
         }
     }
 }
 
 
-
-MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() {
-    {
-        for (InductLoopMap::iterator i=myInductLoops.begin(); i!=myInductLoops.end(); ++i) {
-            delete(*i).second;
-        }
+MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() throw() {
+    for (InductLoopMap::iterator i=myInductLoops.begin(); i!=myInductLoops.end(); ++i) {
+        delete(*i).second;
     }
-    /*!!!!
-    {
-        for(LaneStateMap::iterator i=myLaneStates.begin(); i!=myLaneStates.end(); ++i) {
-            delete (*i).second;
-        }
-    }
-    */
 }
 
 
+// ------------ Switching and setting current rows
 SUMOTime
-MSActuatedTrafficLightLogic::duration() const {
+MSActuatedTrafficLightLogic::trySwitch(bool) throw() {
+    // checks if the actual phase should be continued
+    gapControl();
+    if (myContinue) {
+        return duration();
+    }
+    // increment the index to the current phase
+    myStep++;
+    assert(myStep<=myPhases.size());
+    if (myStep==myPhases.size()) {
+        myStep = 0;
+    }
+    //stores the time the phase started
+    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch =
+        MSNet::getInstance()->getCurrentTimeStep();
+    // set the next event
+    return duration();
+}
+
+
+// ------------ "actuated" algorithm methods
+SUMOTime
+MSActuatedTrafficLightLogic::duration() const throw() {
     if (myContinue) {
         return 1;
     }
@@ -162,50 +158,15 @@ MSActuatedTrafficLightLogic::duration() const {
                 if (newduration > (int) currentPhaseDef()->maxDuration)  {
                     return currentPhaseDef()->maxDuration;
                 }
-
-                /*!!!!
-                LaneStateMap::const_iterator k = myLaneStates.find(*j);
-                SUMOReal waiting =  (SUMOReal) (*k).second->getCurrentNumberOfWaiting();
-                SUMOReal tmpdur =  myPassingTime * waiting;
-                if (tmpdur > newduration) {
-                    // here we cut the decimal places, because we have to return an integer
-                    newduration = (int) tmpdur;
-                }
-                if (newduration > (int) currentPhaseDef()->maxDuration)  {
-                    return currentPhaseDef()->maxDuration;
-                }
-                */
             }
         }
     }
-//    currentPhaseDef()->duration = newduration;
     return newduration;
 }
 
 
-SUMOTime
-MSActuatedTrafficLightLogic::trySwitch(bool) {
-    // checks if the actual phase should be continued
-    gapControl();
-    if (myContinue) {
-        return duration();
-    }
-    // increment the index to the current phase
-    myStep++;
-    assert(myStep<=myPhases.size());
-    if (myStep==myPhases.size()) {
-        myStep = 0;
-    }
-    //stores the time the phase started
-    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch =
-        MSNet::getInstance()->getCurrentTimeStep();
-    // set the next event
-    return duration();
-}
-
-
 void
-MSActuatedTrafficLightLogic::gapControl() {
+MSActuatedTrafficLightLogic::gapControl() throw() {
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
     if (!currentPhaseDef()->isGreenPhase()) {
@@ -247,7 +208,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 
 
 MSActuatedPhaseDefinition *
-MSActuatedTrafficLightLogic::currentPhaseDef() const {
+MSActuatedTrafficLightLogic::currentPhaseDef() const throw() {
     assert(myPhases.size()>myStep);
     return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }

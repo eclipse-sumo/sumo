@@ -89,7 +89,7 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw(ProcessError) {
 
 
 void
-MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) {
+MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) throw() {
     if (tlLogic==myTLLogic) {
         myAmValid = false;
     }
@@ -99,12 +99,11 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) {
 /* -------------------------------------------------------------------------
  * member method definitions
  * ----------------------------------------------------------------------- */
-MSTrafficLightLogic::MSTrafficLightLogic(
-    MSTLLogicControl &tlcontrol,
-    const std::string &id,
-    const std::string &subid,
-    SUMOTime delay)
-        : myID(id), mySubID(subid), myCurrentDurationIncrement(-1) {
+MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
+                                         const std::string &id, const std::string &subid,
+                                         SUMOTime delay) throw()
+        : myID(id), mySubID(subid), myCurrentDurationIncrement(-1), 
+        myDefaultCycleTime(0) {
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         mySwitchCommand, delay, MSEventControl::NO_CHANGE);
@@ -112,24 +111,18 @@ MSTrafficLightLogic::MSTrafficLightLogic(
 
 
 void
-MSTrafficLightLogic::init(NLDetectorBuilder &, const MSEdgeContinuations &) {
+MSTrafficLightLogic::init(NLDetectorBuilder &, const MSEdgeContinuations &) throw(ProcessError) {
 }
 
 
-void
-MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) {
-    myLinks = logic.myLinks;
-    myLanes = logic.myLanes;
-}
-
-
-MSTrafficLightLogic::~MSTrafficLightLogic() {
+MSTrafficLightLogic::~MSTrafficLightLogic() throw() {
     mySwitchCommand->deschedule(this);
 }
 
 
+// ----------- Handling of controlled links
 void
-MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos) {
+MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, unsigned int pos) throw() {
     // !!! should be done within the loader (checking necessary)
     myLinks.reserve(pos+1);
     while (myLinks.size()<=pos) {
@@ -146,11 +139,40 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos) {
 
 
 void
-MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params) {
-    myParameter = params;
+MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw() {
+    myLinks = logic.myLinks;
+    myLanes = logic.myLanes;
 }
 
 
+std::map<MSLink*, std::pair<MSLink::LinkState, bool> >
+MSTrafficLightLogic::collectLinkStates() const throw() {
+    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > ret;
+    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
+        const LinkVector &l = (*i1);
+        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
+            ret[*i2] = make_pair((*i2)->getState(), (*i2)->havePriority());
+        }
+    }
+    return ret;
+}
+
+
+void
+MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const throw() {
+    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
+        const LinkVector &l = (*i1);
+        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
+            assert(vals.find(*i2)!=vals.end());
+            const std::pair<MSLink::LinkState, bool> &lvals = vals.find(*i2)->second;
+            (*i2)->setTLState(lvals.first);
+            (*i2)->setPriority(lvals.second);
+        }
+    }
+}
+
+
+// ----------- Static Information Retrieval
 int
 MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const throw() {
     int index = 0;
@@ -166,52 +188,37 @@ MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const throw() {
 }
 
 
+
+// ----------- Changing phases and phase durations
+void
+MSTrafficLightLogic::addOverridingDuration(SUMOTime duration) throw() {
+    myOverridingTimes.push_back(duration);
+}
+
+
+void
+MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) throw() {
+    myCurrentDurationIncrement = delay;
+}
+
+
+
+
+// ----------- Algorithm parameter handling
+void
+MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params) throw() {
+    myParameter = params;
+}
+
+
 std::string
-MSTrafficLightLogic::getParameterValue(const std::string &key) const {
+MSTrafficLightLogic::getParameterValue(const std::string &key) const throw() {
     if (myParameter.find(key)==myParameter.end()) {
         return "";
     }
     return myParameter.find(key)->second;
 }
 
-
-void
-MSTrafficLightLogic::addOverridingDuration(SUMOTime duration) {
-    myOverridingTimes.push_back(duration);
-}
-
-
-void
-MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
-    myCurrentDurationIncrement = delay;
-}
-
-
-std::map<MSLink*, std::pair<MSLink::LinkState, bool> >
-MSTrafficLightLogic::collectLinkStates() const {
-    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > ret;
-    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
-        const LinkVector &l = (*i1);
-        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
-            ret[*i2] = make_pair((*i2)->getState(), (*i2)->havePriority());
-        }
-    }
-    return ret;
-}
-
-
-void
-MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const {
-    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
-        const LinkVector &l = (*i1);
-        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
-            assert(vals.find(*i2)!=vals.end());
-            const std::pair<MSLink::LinkState, bool> &lvals = vals.find(*i2)->second;
-            (*i2)->setTLState(lvals.first);
-            (*i2)->setPriority(lvals.second);
-        }
-    }
-}
 
 /****************************************************************************/
 

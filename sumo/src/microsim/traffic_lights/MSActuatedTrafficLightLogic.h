@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic traffic light logic
+// An actuated (adaptive) traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -51,47 +51,81 @@ class NLDetectorBuilder;
 // ===========================================================================
 /**
  * @class MSActuatedTrafficLightLogic
- * The implementation of a simple traffic light which only switches between
- * it's phases and sets the lights to red in between.
- * Some functions are called with an information about the current step. This
- * is needed as a single logic may be used by many junctions and so the current
- * step is stored within them, not within the logic.
+ * @brief An actuated (adaptive) traffic light logic
  */
 class MSActuatedTrafficLightLogic :
             public MSSimpleTrafficLightLogic {
 public:
-    /// Definition of a map from lanes to induct loops lying on them
+    /// @brief Definition of a map from lanes to induct loops lying on them
     typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;
 
 public:
-    /// constructor
-    MSActuatedTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
+    /** @brief Constructor
+     * @param[in] tlcontrol The tls control responsible for this tls 
+     * @param[in] id This tls' id
+     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] phases Definitions of the phases
+     * @param[in] step The initial phase index
+     * @param[in] delay The time to wait before the first switch
+     * @param[in] maxGap !!!
+     * @param[in] passingTime !!!
+     * @param[in] detectorGap !!!
+     */
+    MSActuatedTrafficLightLogic(MSTLLogicControl &tlcontrol,
                                 const std::string &id, const std::string &subid,
                                 const MSSimpleTrafficLightLogic::Phases &phases,
                                 unsigned int step, SUMOTime delay,
-                                SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
+                                SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap) throw();
 
-    /// Initialises the tls with information about incoming lanes
+
+    /** @brief Initialises the tls with information about incoming lanes
+     * @param[in] nb The detector builder
+     * @param[in] edgeContinuations Information about edge predecessors/successors
+     * @exception ProcessError If something fails on initialisation
+     */
     void init(NLDetectorBuilder &nb,
-              const MSEdgeContinuations &edgeContinuations);
+              const MSEdgeContinuations &edgeContinuations) throw(ProcessError);
 
-    /// destructor
-    ~MSActuatedTrafficLightLogic();
+
+    /// @brief Destructor
+    ~MSActuatedTrafficLightLogic() throw();
+
+
+
+    /// @name Switching and setting current rows
+    /// @{
 
     /** @brief Switches to the next phase
-        Returns the time of the next switch */
-    SUMOTime trySwitch(bool isActive);
+     * @param[in] isActive Whether this program is the currently used one
+     * @return The time of the next switch 
+     * @see MSTrafficLightLogic::trySwitch
+     */
+    SUMOTime trySwitch(bool isActive) throw();
+    /// @}
+
 
 protected:
-    /// Returns the duration of the given step
-    SUMOTime duration() const;
+    /// @name "actuated" algorithm methods
+    /// @{
 
-    /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
-    void gapControl();
+    /** @brief Returns the duration of the given step
+     * @return The wanted duration of the current step
+     */
+    SUMOTime duration() const throw();
 
-protected:
-    /// Returns the definition of the current phase
-    MSActuatedPhaseDefinition * currentPhaseDef() const;
+
+    /** @brief Decides, whether a phase should be continued by checking the gaps of vehicles having green
+     */
+    void gapControl() throw();
+
+
+    /** @brief Returns the definition of the current phase
+     * @return The current phase definition
+     * @todo consolidate
+     */
+    MSActuatedPhaseDefinition * currentPhaseDef() const throw();
+    /// @}
+
 
 protected:
     /// A map from lanes to induct loops lying on them

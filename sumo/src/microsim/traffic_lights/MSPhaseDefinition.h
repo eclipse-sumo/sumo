@@ -41,8 +41,7 @@
 // ===========================================================================
 /**
  * @class MSPhaseDefinition
- *
- * The definition of a single phase
+ * @brief The definition of a single phase of a tls logic
  */
 class MSPhaseDefinition {
 public:

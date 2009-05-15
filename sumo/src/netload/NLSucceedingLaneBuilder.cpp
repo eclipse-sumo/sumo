@@ -86,7 +86,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
                                      MSLink::LinkDirection dir,
                                      MSLink::LinkState state,
                                      bool internalEnd,
-                                     const std::string &tlid, size_t linkNo) throw(InvalidArgument) {
+                                     const std::string &tlid, unsigned int linkNo) throw(InvalidArgument) {
     // check whether the link is a dead link
     if (laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container

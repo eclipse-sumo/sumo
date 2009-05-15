@@ -18,12 +18,6 @@
 /****************************************************************************/
 #ifndef MSOffTrafficLightLogic_h
 #define MSOffTrafficLightLogic_h
-// ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#endif
 
 
 // ===========================================================================
@@ -53,29 +47,71 @@
  */
 class MSOffTrafficLightLogic : public MSTrafficLightLogic {
 public:
-    /// constructor
+    /** @brief Constructor
+     * @param[in] tlcontrol The tls control responsible for this tls 
+     * @param[in] id This tls' id
+     * The sub-id is always "off".
+     */
     MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                           const std::string &id);
+                           const std::string &id) throw();
 
 
-    /// Initialises the tls with information about incoming lanes
+    /** @brief Initialises the tls with information about incoming lanes
+     * @param[in] nb The detector builder
+     * @param[in] edgeContinuations Information about edge predecessors/successors
+     * @exception ProcessError If something fails on initialisation
+     */
     virtual void init(NLDetectorBuilder &nb,
-                      const MSEdgeContinuations &edgeContinuations);
+                      const MSEdgeContinuations &edgeContinuations) throw(ProcessError);
 
+
+    /// @brief Destructor
+    ~MSOffTrafficLightLogic() throw();
+
+
+    /// @name Handling of controlled links
+    /// @{
 
     /** @brief Applies information about controlled links and lanes from the given logic
      * @param[in] logic The logic to use the information about controlled links/lanes from
      * @see MSTrafficLightLogic::adaptLinkInformationFrom
      */
-    void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
+    void adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw();
+    /// @}
 
 
-    /// destructor
-    ~MSOffTrafficLightLogic();
+
+    /// @name Switching and setting current rows
+    /// @{
 
     /** @brief Switches to the next phase
-        Returns the time of the next switch */
-    SUMOTime trySwitch(bool isActive);
+     * @param[in] isActive Whether this program is the currently used one
+     * @return The time of the next switch (always 120)
+     * @see MSTrafficLightLogic::trySwitch
+     */
+    SUMOTime trySwitch(bool isActive) throw() {
+        return 120;
+    }
+
+
+    /** @brief Applies the priorities resulting from the current phase to controlled links
+     *
+     * This method is overridded, as in off-state, a tls does not change rows. 
+     *
+     * @todo Check whether this can be integrated into "maskRedLinks"
+     * @see MSTrafficLightLogic::setLinkPriorities
+     */
+    void setLinkPriorities() const throw() { }
+
+
+    /** @brief Clears all incoming vehicle information on links that have red
+     * @return Always true
+     * @see MSTrafficLightLogic::maskRedLinks
+     */
+    bool maskRedLinks() const throw() {
+        return true;
+    }
+    /// @}
 
 
 
@@ -153,18 +189,19 @@ public:
 
 
 
-    /// Returns the priorities for all lanes for the current phase
-    const std::bitset<64> &linkPriorities() const;
+    /// @name Changing phases and phase durations
+    /// @{
 
-    const std::bitset<64> &allowed() const;
-
-    /// returns the cycletime
-    size_t getCycleTime() ;
-
-    void setLinkPriorities() const;
-    bool maskRedLinks() const;
-    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) {
+    /** @brief Changes the current phase and her duration
+     * @param[in] tlcontrol The responsible traffic lights control
+     * @param[in] simStep The current simulation step
+     * @param[in] step Index of the phase to use
+     * @param[in] stepDuration The left duration of the phase
+     * @see MSTrafficLightLogic::changeStepAndDuration
+     */
+    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep, unsigned int step, SUMOTime stepDuration) throw() {
     }
+    /// @}
 
 
 private:

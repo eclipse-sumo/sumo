@@ -199,7 +199,7 @@ MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
 
 
 void
-MSTLLogicControl::TLSLogicVariants::addLink(MSLink *link, MSLane *lane, size_t pos) {
+MSTLLogicControl::TLSLogicVariants::addLink(MSLink *link, MSLane *lane, unsigned int pos) throw() {
     for (std::map<std::string, MSTrafficLightLogic *>::iterator i=ltVariants.begin(); i!=ltVariants.end(); ++i) {
         (*i).second->addLink(link, lane, pos);
     }
@@ -223,7 +223,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(MSTrafficLightLogic *from) co
 bool
 MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime step, MSSimpleTrafficLightLogic *testLogic) {
     MSSimpleTrafficLightLogic *givenLogic = (MSSimpleTrafficLightLogic*) testLogic;
-    size_t CycleTime = givenLogic->getCycleTime();
+    size_t CycleTime = givenLogic->getDefaultCycleTime();
     SUMOReal gspFrom = getGSPValue(givenLogic);
     ///get the position of the given signalprogramm at the actual simulationsecond
     size_t posFrom = givenLogic -> getPhaseIndexAtTime(step);
@@ -322,7 +322,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) {
     MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
     SUMOReal gspTo = getGSPValue(myTo);
     unsigned int stepTo = LogicTo->getIndexFromOffset((unsigned int) gspTo);
-    size_t cycleTimeTo = LogicTo->getCycleTime();
+    size_t cycleTimeTo = LogicTo->getDefaultCycleTime();
     // gets the actual position from the myToLogic
     size_t actPosTo = LogicTo->getPhaseIndexAtTime(simStep);
     size_t deltaToStretch= 0;
@@ -379,7 +379,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::trySwitch(SUMOTime step) {
 void
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step, SUMOReal position) {
     MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
-    size_t cycleTime = LogicTo->getCycleTime();
+    size_t cycleTime = LogicTo->getDefaultCycleTime();
     // the position, in which the logic has to be switched
     unsigned int startPos = (unsigned int) position;
     // this is the position, where the Logic have to be after synchronisation

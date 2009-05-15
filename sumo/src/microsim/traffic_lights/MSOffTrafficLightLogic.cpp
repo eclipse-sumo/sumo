@@ -43,12 +43,13 @@
 // member method definitions
 // ===========================================================================
 MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
-        const std::string &id)
+        const std::string &id) throw()
         : MSTrafficLightLogic(tlcontrol, id, "off", 0) {
+    myDefaultCycleTime = 120;
 }
 
 
-MSOffTrafficLightLogic::~MSOffTrafficLightLogic() {
+MSOffTrafficLightLogic::~MSOffTrafficLightLogic() throw() {
     for(MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
         delete *i;
     }
@@ -56,23 +57,18 @@ MSOffTrafficLightLogic::~MSOffTrafficLightLogic() {
 
 
 void 
-MSOffTrafficLightLogic::init(NLDetectorBuilder &nb, const MSEdgeContinuations &edgeContinuations)
+MSOffTrafficLightLogic::init(NLDetectorBuilder &nb, const MSEdgeContinuations &edgeContinuations) throw(ProcessError)
 {
     rebuildPhase();
 }
 
 
+// ----------- Handling of controlled links
 void 
-MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic)
+MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw()
 {
     MSTrafficLightLogic::adaptLinkInformationFrom(logic);
     rebuildPhase();
-}
-
-
-SUMOTime
-MSOffTrafficLightLogic::trySwitch(bool) {
-    return 0;
 }
 
 
@@ -141,26 +137,6 @@ MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
 unsigned int
 MSOffTrafficLightLogic::getIndexFromOffset(unsigned int offset) const throw() {
     return 0;
-}
-
-
-// ------------ 
-size_t
-MSOffTrafficLightLogic::getCycleTime() {
-    return 0;
-}
-
-
-
-
-void
-MSOffTrafficLightLogic::setLinkPriorities() const {
-}
-
-
-bool
-MSOffTrafficLightLogic::maskRedLinks() const {
-    return true;
 }
 
 

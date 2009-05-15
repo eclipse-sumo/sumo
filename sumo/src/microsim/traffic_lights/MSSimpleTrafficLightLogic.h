@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic traffic light logic
+// A fixed traffic light logic
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -43,6 +43,8 @@
 // ===========================================================================
 /**
  * @class MSSimpleTrafficLightLogic
+ * @brief A fixed traffic light logic
+ *
  * The implementation of a simple traffic light which only switches between
  * it's phases and sets the lights to red in between.
  * Some functions are called with an information about the current step. This
@@ -51,17 +53,47 @@
  */
 class MSSimpleTrafficLightLogic : public MSTrafficLightLogic {
 public:
-    /// constructor
-    MSSimpleTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
+    /** @brief Constructor
+     * @param[in] tlcontrol The tls control responsible for this tls 
+     * @param[in] id This tls' id
+     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] phases Definitions of the phases
+     * @param[in] step The initial phase index
+     * @param[in] delay The time to wait before the first switch
+     */
+    MSSimpleTrafficLightLogic(MSTLLogicControl &tlcontrol,
                               const std::string &id, const std::string &subid,
-                              const Phases &phases, unsigned int step, SUMOTime delay);
+                              const Phases &phases, unsigned int step, SUMOTime delay) throw();
 
-    /// destructor
-    ~MSSimpleTrafficLightLogic();
+
+    /// @brief Destructor
+    ~MSSimpleTrafficLightLogic() throw();
+
+
+
+    /// @name Switching and setting current rows
+    /// @{
 
     /** @brief Switches to the next phase
-        Returns the time of the next switch */
-    SUMOTime trySwitch(bool isActive);
+     * @param[in] isActive Whether this program is the currently used one
+     * @return The time of the next switch 
+     * @see MSTrafficLightLogic::trySwitch
+     */
+    SUMOTime trySwitch(bool isActive) throw();
+
+
+    /** @brief Applies the priorities resulting from the current phase to controlled links
+     * @todo Check whether this can be integrated into "maskRedLinks"
+     * @see MSTrafficLightLogic::setLinkPriorities
+     */
+    void setLinkPriorities() const;
+
+
+    /** @brief Clears all incoming vehicle information on links that have red
+     * @return Always true
+     */
+    bool maskRedLinks() const;
+    /// @}
 
 
 
@@ -95,7 +127,6 @@ public:
      * @see MSTrafficLightLogic::getPhase
      */
     const MSPhaseDefinition &getPhase(unsigned int givenstep) const throw();
-
     /// @}
 
 
@@ -146,26 +177,29 @@ public:
     /// @}
 
 
-    void setLinkPriorities() const;
-    bool maskRedLinks() const;
 
-    /// returns the cycletime
-    size_t getCycleTime() ;
+    /// @name Changing phases and phase durations
+    /// @{
 
-
+    /** @brief Changes the current phase and her duration
+     * @param[in] tlcontrol The responsible traffic lights control
+     * @param[in] simStep The current simulation step
+     * @param[in] step Index of the phase to use
+     * @param[in] stepDuration The left duration of the phase
+     * @see MSTrafficLightLogic::changeStepAndDuration
+     */
     void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
-                               unsigned int step, SUMOTime stepDuration);
+                               unsigned int step, SUMOTime stepDuration) throw();
+    /// @}
 
 
 protected:
-    /// the list of phases this logic uses
+    /// @brief The list of phases this logic uses
     Phases myPhases;
 
-    /// The current step
+    /// @brief The current step
     unsigned int myStep;
 
-    /// the cycletime
-    size_t myCycleTime;
 
 };
 
