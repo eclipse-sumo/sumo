@@ -169,6 +169,7 @@ $(MESOGUI_LIBS) \
 $(sumo_LDADD) \
 ./foreign/polyfonts/libpolyfonts.a \
 ./gui/GUIManipulator.o \
+./gui/GUITLLogicPhasesTrackerWindow.o \
 -l$(LIB_FOX)
 endif
 
