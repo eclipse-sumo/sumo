@@ -46,7 +46,9 @@ extern "C"
 #endif
 
     int     pfSetFont(pffont *f);
+#ifdef POLYFONTS_WANTS_IO
     pffont *pfLoadFont(char *fileName);
+#endif
     void    pfUnloadFont(pffont *f);
     char   *pfGetFontName();
     pffont *pfGetCurrentFont();

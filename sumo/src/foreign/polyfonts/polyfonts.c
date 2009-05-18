@@ -297,6 +297,7 @@ void pfUnloadFont(pffont *font)
 
 /*-----------------------------------------------*/
 
+#ifdef POLYFONTS_WANTS_IO
 pffont *pfLoadFont(char *fileName)
 {
   FILE *f = NULL;
@@ -453,6 +454,7 @@ pffont *pfLoadFont(char *fileName)
   fclose(f);
   return fontinfo;
 }
+#endif
 
 /*-----------------------------------------------*/
 
