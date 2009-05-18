@@ -756,6 +756,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
         std::string yellowMask;
     if(attrs.hasAttribute(SUMO_ATTR_STATE)) {
         // ok, doing it the new way
+        state = attrs.getString(SUMO_ATTR_STATE);
     } else {
         // old, deprecated definition
         try {
