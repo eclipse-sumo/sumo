@@ -170,10 +170,6 @@ public:
 
     void drawBordersGL(const GUIVisualizationSettings &s) const throw();
 
-    const MSLane::VehCont &getVehiclesSecure();
-    void releaseVehicles();
-
-
     /// @name access to a lane's links
     //@{
 
@@ -203,12 +199,6 @@ public:
     const MSEdge * const getMSEdge() const;
 
     SUMOReal getEdgeLaneNumber() const;
-
-    void selectSucessors();
-
-    const MSLane &getLane() const {
-        return myLane;
-    }
 
 protected:
     /** the visualisation length; As sources and sinks may be shorter/longer

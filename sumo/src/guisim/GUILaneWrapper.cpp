@@ -62,12 +62,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member definitions
 // ===========================================================================
 SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
@@ -637,18 +631,6 @@ GUILaneWrapper::getShapeLengths() const {
 }
 
 
-const MSLane::VehCont &
-GUILaneWrapper::getVehiclesSecure() {
-    return myLane.getVehiclesSecure();
-}
-
-
-void
-GUILaneWrapper::releaseVehicles() {
-    myLane.releaseVehicles();
-}
-
-
 unsigned int
 GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const {
     return net.getLinkTLID(myLane.getLinkCont()[pos]);
@@ -666,61 +648,6 @@ const MSEdge * const
     return myLane.getEdge();
 }
 
-
-
-#include <guisim/GUILaneWrapper.h>
-#include <guisim/GUIEdge.h>
-
-void
-GUILaneWrapper::selectSucessors() {
-    SUMOReal maxDist = 2000;
-    SUMOReal minDist = 1000;
-    SUMOReal maxSpeed = 55.0;
-
-    std::vector<GUILaneWrapper*> selected;
-    selected.push_back(this);
-    std::vector<std::pair<GUILaneWrapper*, SUMOReal> > toProc;
-    toProc.push_back(std::pair<GUILaneWrapper*, SUMOReal>(this, 0));
-
-    while (!toProc.empty()) {
-        std::pair<GUILaneWrapper*, SUMOReal> laneAndDist =
-            toProc.back();
-        toProc.pop_back();
-        if (laneAndDist.second<minDist||
-                (laneAndDist.second<maxDist&&laneAndDist.first->maxSpeed()<maxSpeed)) {
-            selected.push_back(laneAndDist.first);
-
-            const GUIEdge * const e = static_cast<const GUIEdge * const>(laneAndDist.first->getMSEdge());
-            std::vector<MSEdge*> followingEdges = e->getFollowingEdges();
-            std::vector<MSEdge*> incomingEdges = e->getIncomingEdges();
-            copy(incomingEdges.begin(), incomingEdges.end(), back_inserter(followingEdges));
-            for (std::vector<MSEdge*>::iterator i=followingEdges.begin(); i!=followingEdges.end(); ++i) {
-                const std::vector<MSLane*> * const lanes = (*i)->getLanes();
-                for (std::vector<MSLane*>::const_iterator j=lanes->begin(); j!=lanes->end(); ++j) {
-                    if (find(selected.begin(), selected.end(), &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j))==selected.end()) {
-                        toProc.push_back(std::pair<GUILaneWrapper*, SUMOReal>(
-                                             &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j),
-                                             laneAndDist.second+laneAndDist.first->getLength()));
-                    }
-                }
-            }
-        }
-    }
-
-    for (std::vector<GUILaneWrapper*>::iterator k=selected.begin(); k!=selected.end(); ++k) {
-        gSelected.select((*k)->getType(), (*k)->getGlID());
-    }
-
-    const Position2DVector &shape = getShape();
-    Position2D initPos = shape.positionAtLengthPosition(getLength()/(SUMOReal) 2.0);
-    Position2DVector poly;
-    for (SUMOReal i=0; i<360; i += 40) {
-        SUMOReal random1 = RandHelper::rand();
-        Position2D p = initPos;
-        p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);
-        poly.push_back(p);
-    }
-}
 
 
 SUMOReal
