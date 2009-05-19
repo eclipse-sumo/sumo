@@ -102,7 +102,10 @@ XMLSubSys::runParser(GenericSAXHandler &handler,
         }
         myNextFreeReader++;
         setHandler(handler);
+        std::string prevFile = handler.getFileName();
+        handler.setFileName(file);
         myReaders[myNextFreeReader-1]->parse(file.c_str());
+        handler.setFileName(prevFile);
         myNextFreeReader--;
     } catch (ProcessError &e) {
         if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {

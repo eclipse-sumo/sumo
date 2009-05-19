@@ -116,10 +116,11 @@ public:
      *
      * @param[in] tags The list of known tags
      * @param[in] attrs The list of known attributes
+     * @param[in] file The name of the processed file
      *
      * @todo Why are both lists non-const and given as pointers?
      */
-    GenericSAXHandler(Tag *tags, Attr *attrs) throw();
+    GenericSAXHandler(Tag *tags, Attr *attrs, const std::string &file) throw();
 
 
     /** @brief Destructor */
@@ -174,6 +175,24 @@ public:
      * @brief Assigning a parent handler which is enabled when the specified tag is closed
      */
     void registerParent(const SumoXMLTag tag, GenericSAXHandler* handler);
+
+
+    /**
+     * @brief Sets the current file name
+     *
+     * @param[in] name The name of the currently processed file
+     *
+     * @todo Hmmm - this is as unsafe as having a direct access to the variable; recheck
+     */
+    void setFileName(const std::string &name) throw();
+
+
+    /**
+     * @brief returns the current file name
+     *
+     * @return The name of the currently processed file
+     */
+    const std::string &getFileName() const throw();
 
 
 protected:
@@ -259,6 +278,9 @@ private:
 
     /// A list of character strings obtained so far to build the complete characters string at the end
     std::vector<std::string> myCharactersVector;
+
+    /// @brief The name of the currently parsed file
+    std::string myFileName;
 
     GenericSAXHandler* myParentHandler;
     SumoXMLTag myParentIndicator;

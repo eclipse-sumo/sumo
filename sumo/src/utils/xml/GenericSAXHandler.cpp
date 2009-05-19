@@ -31,6 +31,7 @@
 #include "GenericSAXHandler.h"
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
+#include <utils/common/FileHelpers.h>
 #include "SUMOSAXAttributesImpl_Xerces.h"
 #include "XMLSubSys.h"
 
@@ -43,8 +44,8 @@
 // class definitions
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(GenericSAXHandler::Tag *tags,
-                                     GenericSAXHandler::Attr *attrs) throw()
-        : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING) {
+                                     GenericSAXHandler::Attr *attrs, const std::string &file) throw()
+        : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
         myTagMap.insert(TagMap::value_type(tags[i].name, tags[i].key));
@@ -64,6 +65,18 @@ GenericSAXHandler::~GenericSAXHandler() throw() {
     for (AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
         delete[](*i1).second;
     }
+}
+
+
+void
+GenericSAXHandler::setFileName(const std::string &name) throw() {
+    myFileName = name;
+}
+
+
+const std::string &
+GenericSAXHandler::getFileName() const throw() {
+    return myFileName;
 }
 
 
@@ -90,7 +103,11 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
     myCharactersVector.clear();
     SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML);
     if (element == SUMO_TAG_INCLUDE) {
-        XMLSubSys::runParser(*this, na.getString(SUMO_ATTR_HREF));
+        std::string file = na.getString(SUMO_ATTR_HREF);
+        if (!FileHelpers::isAbsolute(file)) {
+            file = FileHelpers::getConfigurationRelative(getFileName(), file);
+        }
+        XMLSubSys::runParser(*this, file);
     } else {
         myStartElement(element, na);
     }

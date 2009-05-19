@@ -43,9 +43,8 @@
  * This class is a GenericSAXHandler which knows all tags SUMO uses, so all
  *  SUMO-XML - loading classes should be derived from it.
  *
- * Besides the functionality of GenericSAXHandler it offers interfaces for
- *  setting and reading the name of the currently processed file. Additionally,
- *  this class also implements methods for dealing with SAX-parser errors.
+ * Besides the functionality of GenericSAXHandler it 
+ *  implements methods for dealing with SAX-parser errors.
  */
 class SUMOSAXHandler : public GenericSAXHandler {
 public:
@@ -100,24 +99,6 @@ public:
 
 
 
-    /**
-     * @brief Sets the current file name
-     *
-     * @param[in] name The name of the currently processed file
-     *
-     * @todo Hmmm - this is as unsafe as having a direct access to the variable; recheck
-     */
-    void setFileName(const std::string &name) throw();
-
-
-    /**
-     * @brief returns the current file name
-     *
-     * @return The name of the currently processed file
-     */
-    const std::string &getFileName() const throw();
-
-
 protected:
     /**
      * @brief Builds an error message
@@ -132,9 +113,6 @@ protected:
 
 
 private:
-    /// @brief The name of the currently parsed file
-    std::string myFileName;
-
 
 private:
     /// @brief invalidated copy constructor
