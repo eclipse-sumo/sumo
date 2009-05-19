@@ -596,8 +596,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(cross.first) << "\" "
-                    << ">"
+                    << toString<SUMOReal>(cross.first) << "\">"
                     << split.first
                     << "</lane>\n";
                     into << "      </lanes>\n";
@@ -610,8 +609,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length-cross.first) << "\" "
-                    << ">"
+                    << toString<SUMOReal>(length-cross.first) << "\">"
                     << split.second
                     << "</lane>\n";
                     into << "      </lanes>\n";
@@ -623,8 +621,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length) << "\" "
-                    << ">"
+                    << toString<SUMOReal>(length) << "\">"
                     << shape
                     << "</lane>\n";
                     into << "      </lanes>\n";
@@ -931,10 +928,10 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into) {
                 if (cross.first>=0) {
                     into << "      <succlane lane=\""
                     //<< sid << "_" << 0 ()
-                    << (*k).toEdge->getID() << "_" << (*k).toLane
-                    << "\" tl=\"" << "" << "\" linkno=\""
-                    << "" << "\" yield=\"1\" dir=\"s\" state=\"M\"" // !!! yield or not depends on whether it is tls controlled or not
-                    << " via=\"" << sid << "_" << 0 << "\"";
+                    << (*k).toEdge->getID() << "_" << (*k).toLane << "\""
+                    << " via=\"" << sid << "_" << 0 << "\""
+                    << " tl=\"" << "" << "\" linkno=\""
+                    << "" << "\" yield=\"1\" dir=\"s\" state=\"M\""; // !!! yield or not depends on whether it is tls controlled or not
                 } else {
                     into << "      <succlane lane=\""
                     << (*k).toEdge->getID() << "_" << (*k).toLane
