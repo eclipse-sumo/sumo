@@ -28,31 +28,31 @@
 
    <edge id=":dl_0" function="internal">
       <lanes>
-         <lane id=":dl_0_0" depart="0" maxspeed="13.90" length="3.42" >498.50,-1.65 501.50,0.00</lane>
+         <lane id=":dl_0_0" depart="0" maxspeed="13.90" length="3.42">498.50,-1.65 501.50,0.00</lane>
       </lanes>
    </edge>
 
    <edge id=":dl_1" function="internal">
       <lanes>
-         <lane id=":dl_1_0" depart="0" maxspeed="13.90" length="3.96" >498.50,-2.59 501.50,0.00</lane>
+         <lane id=":dl_1_0" depart="0" maxspeed="13.90" length="3.96">498.50,-2.59 501.50,0.00</lane>
       </lanes>
    </edge>
 
    <edge id=":dr_0" function="internal">
       <lanes>
-         <lane id=":dr_0_0" depart="0" maxspeed="13.90" length="0.42" >1710.96,0.00 1711.37,0.05</lane>
+         <lane id=":dr_0_0" depart="0" maxspeed="13.90" length="0.42">1710.96,0.00 1711.37,0.05</lane>
       </lanes>
    </edge>
 
    <edge id=":tl_0" function="internal">
       <lanes>
-         <lane id=":tl_0_0" depart="0" maxspeed="13.90" length="0.42" >489.06,190.99 488.64,190.94</lane>
+         <lane id=":tl_0_0" depart="0" maxspeed="13.90" length="0.42">489.06,190.99 488.64,190.94</lane>
       </lanes>
    </edge>
 
    <edge id=":tr_0" function="internal">
       <lanes>
-         <lane id=":tr_0_0" depart="0" maxspeed="13.90" length="0.42" >1711.36,190.94 1710.94,190.99</lane>
+         <lane id=":tr_0_0" depart="0" maxspeed="13.90" length="0.42">1711.36,190.94 1710.94,190.99</lane>
       </lanes>
    </edge>
 

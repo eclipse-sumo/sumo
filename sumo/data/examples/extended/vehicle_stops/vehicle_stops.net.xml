@@ -28,49 +28,49 @@
 
    <edge id=":absEnd_0" function="internal">
       <lanes>
-         <lane id=":absEnd_0_0" depart="0" maxspeed="27.80" length="0.10" >2000.00,15.05 2000.00,15.05</lane>
+         <lane id=":absEnd_0_0" depart="0" maxspeed="27.80" length="0.10">2000.00,15.05 2000.00,15.05</lane>
       </lanes>
    </edge>
 
    <edge id=":absEnd_1" function="internal">
       <lanes>
-         <lane id=":absEnd_1_0" depart="0" maxspeed="27.80" length="0.10" >2000.00,18.35 2000.00,18.35</lane>
+         <lane id=":absEnd_1_0" depart="0" maxspeed="27.80" length="0.10">2000.00,18.35 2000.00,18.35</lane>
       </lanes>
    </edge>
 
    <edge id=":beg_0" function="internal">
       <lanes>
-         <lane id=":beg_0_0" depart="0" maxspeed="20.85" length="7.02" >498.55,15.05 504.75,18.35</lane>
+         <lane id=":beg_0_0" depart="0" maxspeed="20.85" length="7.02">498.55,15.05 504.75,18.35</lane>
       </lanes>
    </edge>
 
    <edge id=":beg_1" function="internal">
       <lanes>
-         <lane id=":beg_1_0" depart="0" maxspeed="27.80" length="5.00" >498.55,18.35 499.91,18.54 500.88,19.13 501.46,20.09 501.65,21.45</lane>
+         <lane id=":beg_1_0" depart="0" maxspeed="27.80" length="5.00">498.55,18.35 499.91,18.54 500.88,19.13 501.46,20.09 501.65,21.45</lane>
       </lanes>
    </edge>
 
    <edge id=":begleft_0" function="internal">
       <lanes>
-         <lane id=":begleft_0_0" depart="0" maxspeed="27.80" length="2.58" >501.65,516.75 501.75,517.45 502.05,517.95 502.55,518.25 503.25,518.35</lane>
+         <lane id=":begleft_0_0" depart="0" maxspeed="27.80" length="2.58">501.65,516.75 501.75,517.45 502.05,517.95 502.55,518.25 503.25,518.35</lane>
       </lanes>
    </edge>
 
    <edge id=":end_0" function="internal">
       <lanes>
-         <lane id=":end_0_0" depart="0" maxspeed="27.80" length="5.00" >1498.35,21.45 1498.54,20.09 1499.13,19.13 1500.09,18.54 1501.45,18.35</lane>
+         <lane id=":end_0_0" depart="0" maxspeed="27.80" length="5.00">1498.35,21.45 1498.54,20.09 1499.13,19.13 1500.09,18.54 1501.45,18.35</lane>
       </lanes>
    </edge>
 
    <edge id=":end_1" function="internal">
       <lanes>
-         <lane id=":end_1_0" depart="0" maxspeed="20.85" length="7.02" >1495.25,18.35 1501.45,15.05</lane>
+         <lane id=":end_1_0" depart="0" maxspeed="20.85" length="7.02">1495.25,18.35 1501.45,15.05</lane>
       </lanes>
    </edge>
 
    <edge id=":endleft_0" function="internal">
       <lanes>
-         <lane id=":endleft_0_0" depart="0" maxspeed="27.80" length="2.58" >1496.75,518.35 1497.45,518.25 1497.95,517.95 1498.25,517.45 1498.35,516.75</lane>
+         <lane id=":endleft_0_0" depart="0" maxspeed="27.80" length="2.58">1496.75,518.35 1497.45,518.25 1497.95,517.95 1498.25,517.45 1498.35,516.75</lane>
       </lanes>
    </edge>
 
