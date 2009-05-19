@@ -281,6 +281,14 @@ public:
         return myLength;
     }
 
+    /** @brief Returns whether this link has any foes
+     *
+     * @return Whether any other link is a foe to this
+     */
+    bool hasAnyFoes() const throw() {
+        return myFoes.any();
+    }
+
 
 #ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the following inner lane

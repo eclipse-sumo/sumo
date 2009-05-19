@@ -842,6 +842,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             }
             MSEdge::EdgeBasicFunction ef = approachedLane->getEdge()->getPurpose();
             hadVehicle |= approachedLane->getVehicleNumber()!=0;
+            nextIsInternal &= item.myLink->hasAnyFoes();
             //
             if (nextIsInternal) {
                 // the free place on internal lanes is not counted - vehicles must keep them free
