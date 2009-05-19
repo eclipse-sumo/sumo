@@ -102,12 +102,12 @@ NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const throw() {
     // within the phase container, we should have the green and red phases
     //  add their times
     DoubleVector ret; // !!! time vector
-    for (GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
+    for (std::vector<PhaseDef>::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         ret.push_back((SUMOReal)(*i).myTime);
     }
     // further, we possibly should set the yellow phases
     if (myTYellow>0) {
-        for (GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
+        for (std::vector<PhaseDef>::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
             if ((*i).myColor==TLCOLOR_RED) {
                 SUMOTime time = (SUMOTime)(*i).myTime + myTYellow;
                 if (time>cycleDuration) {
@@ -130,7 +130,7 @@ NBLoadedTLDef::SignalGroup::getLinkNo() const throw() {
 bool
 NBLoadedTLDef::SignalGroup::mayDrive(SUMOTime time) const throw() {
     assert(myPhases.size()!=0);
-    for (GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
+    for (std::vector<PhaseDef>::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
         SUMOTime nextTime = (*i).myTime;
         if (time>=nextTime) {
             return (*i).myColor==TLCOLOR_GREEN;
@@ -264,18 +264,6 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
 }
 
 
-
-/* -------------------------------------------------------------------------
- * NBLoadedTLDef::Phase-methods
- * ----------------------------------------------------------------------- */
-NBLoadedTLDef::Phase::Phase(const std::string &id, SUMOTime begin, SUMOTime end) throw()
-        : Named(id), myBegin(begin), myEnd(end) {}
-
-
-NBLoadedTLDef::Phase::~Phase() throw() {}
-
-
-
 /* -------------------------------------------------------------------------
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
@@ -300,7 +288,7 @@ NBLoadedTLDef::~NBLoadedTLDef() throw() {
 
 
 NBTrafficLightLogicVector *
-NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int breakingTime) throw() {
+NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw() {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
     // compute the switching times
@@ -311,7 +299,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int breakingTime) throw(
         group->sortPhases();
         // patch the yellow time for this group
         if (OptionsCont::getOptions().getBool("patch-small-tyellow")) {
-            group->patchTYellow(breakingTime);
+            group->patchTYellow(brakingTime);
         }
         // copy the now valid times into the container
         //  both the given red and green phases are added and also the
@@ -322,8 +310,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int breakingTime) throw(
         }
     }
     std::vector<SUMOReal> switchTimes;
-    copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(),
-         back_inserter(switchTimes));
+    copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(), back_inserter(switchTimes));
     sort(switchTimes.begin(), switchTimes.end());
 
     // count the signals
@@ -374,9 +361,7 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const throw() {
             NBConnection tst(conn);
             if (tst.check(ec)) {
                 NBEdge *edge = conn.getFrom();
-                if (edge->setControllingTLInformation(
-                            conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                            getID(), pos)) {
+                if (edge->setControllingTLInformation( conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
                     pos++;
                 }
             } else {
@@ -411,7 +396,7 @@ NBLoadedTLDef::buildPhaseMasks(const NBEdgeCont &ec, unsigned int time) const th
             }
         }
     }
-    // set the breaking mask
+    // set the braking mask
     pos = 0;
     for (i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;

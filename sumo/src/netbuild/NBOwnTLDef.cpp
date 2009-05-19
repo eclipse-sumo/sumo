@@ -175,7 +175,7 @@ NBOwnTLDef::getBestPair(vector<NBEdge*> &incoming) throw() {
 
 NBTrafficLightLogicVector *
 NBOwnTLDef::myCompute(const NBEdgeCont &,
-                      unsigned int breakingTime) throw() {
+                      unsigned int brakingTime) throw() {
     // build complete lists first
     const EdgeVector &incoming = getIncomingEdges();
     vector<NBEdge*> fromEdges, toEdges;
@@ -290,9 +290,9 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         // add step
         logic->addStep(duration, driveMask, brakeMask, yellowMask);
 
-        if (breakingTime>0) {
+        if (brakingTime>0) {
             // build yellow (straight)
-            duration = breakingTime;
+            duration = brakingTime;
             for (unsigned int i1=0; i1<pos; ++i1) {
                 if (!driveMask.test(i1)) {
                     continue;
@@ -327,8 +327,8 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             logic->addStep(duration, driveMask, brakeMask, yellowMask);
 
             // build left yellow
-            if (breakingTime>0) {
-                duration = breakingTime;
+            if (brakingTime>0) {
+                duration = brakingTime;
                 for (unsigned int i1=0; i1<pos; ++i1) {
                     if (!driveMask.test(i1)) {
                         continue;

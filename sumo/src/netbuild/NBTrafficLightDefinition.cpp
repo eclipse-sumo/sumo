@@ -87,13 +87,13 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw()
         return 0;
     }
     // compute the time needed to brake
-    unsigned int breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
+    unsigned int brakingTime = computeBrakingTime(oc.getFloat("min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
     if (oc.isSet("traffic-light-yellow")) {
-        breakingTime = oc.getInt("traffic-light-yellow");
+        brakingTime = oc.getInt("traffic-light-yellow");
     }
-    return myCompute(ec, breakingTime);
+    return myCompute(ec, brakingTime);
 }
 
 

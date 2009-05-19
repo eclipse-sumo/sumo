@@ -89,7 +89,7 @@ NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance
         into << "      <phase duration=\"" << (*i).duration
         << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
         // by now, only the vehicles that are not allowed to drive are
-        //  breaking; later the right-arrow - rule should be concerned
+        //  braking; later the right-arrow - rule should be concerned
         stringstream tmp2;
         mask = (*i).brakeMask;
         tmp2 << mask;

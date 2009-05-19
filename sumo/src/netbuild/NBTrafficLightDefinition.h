@@ -184,13 +184,20 @@ public:
     /// Inserts the information about being controlled by a tls into participating edges
     virtual void setTLControllingInformation(const NBEdgeCont &ec) const throw() = 0;
 
-    /// Builds the list of participating edges/links
+
+    /** @brief Builds the list of participating nodes/edges/links
+     */
     virtual void setParticipantsInformation() throw();
 
     /// Adds the given ids into the list of edges not controlled by the tls
     void addControlledInnerEdges(const std::vector<std::string> &edges) throw();
 
-    /// Remaps loaded information in the case an edge was removed
+
+    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+     * @param[in] removed The removed edge
+     * @param[in] incoming The edges to use instead if an incoming edge was removed
+     * @param[in] outgoing The edges to use instead if an outgoing edge was removed
+     */
     virtual void remapRemoved(NBEdge *removed,
                               const EdgeVector &incoming, const EdgeVector &outgoing) throw() = 0;
 
@@ -205,9 +212,13 @@ public:
     const EdgeVector &getIncomingEdges() const throw();
 
 protected:
-    /// Computes the traffic light logic finally in dependence to the type
+    /** @brief Computes the traffic light logic finally in dependence to the type
+     * @param[in] ec The edge container
+     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
+     * @return The computed logics
+     */
     virtual NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
-            unsigned int breakingTime) throw() = 0;
+            unsigned int brakingTime) throw() = 0;
 
     /// Returns a pair of <number participating lanes, number participating links>
     std::pair<unsigned int, unsigned int> getSizes() const throw();
@@ -227,22 +238,22 @@ protected:
     unsigned int computeBrakingTime(SUMOReal minDecel) const throw();
 
 protected:
-    /// Definition of the container type for participating nodes
+    /// @brief Definition of the container type for participating nodes
     typedef std::set<NBNode*> NodeCont;
 
-    /// The container with participating nodes
+    /// @brief The container with participating nodes
     NodeCont myControlledNodes;
 
-    /// The list of incoming edges
+    /// @brief The list of incoming edges
     EdgeVector myIncomingEdges;
 
-    /// The list of edges within the area controlled by the tls
+    /// @brief The list of edges within the area controlled by the tls
     EdgeVector myEdgesWithin;
 
-    /// The list of controlled links
+    /// @brief The list of controlled links
     NBConnectionVector myControlledLinks;
 
-    /// List of inner edges that shall be controlled, though
+    /// @brief List of inner edges that shall be controlled, though
     std::vector<std::string> myControlledInnerEdges;
 
 };

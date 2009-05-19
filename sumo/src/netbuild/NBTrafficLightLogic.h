@@ -55,7 +55,9 @@ class OutputDevice;
 class NBTrafficLightLogic : public Named {
 public:
     /** @brief Constructor
-     *
+     * @param[in] id The id of the traffic light
+     * @param[in] subid The id of the program
+     * @param[in] noLinks Number of links that are controlled by this tls
      */
     NBTrafficLightLogic(const std::string &id, const std::string &subid, unsigned int noLinks) throw();
 

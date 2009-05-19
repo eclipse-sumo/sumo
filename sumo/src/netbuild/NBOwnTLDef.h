@@ -50,39 +50,94 @@ class NBNode;
  */
 class NBOwnTLDef : public NBTrafficLightDefinition {
 public:
-    /// Constructor
+    /** @brief Constructor
+     * @param[in] id The id of the tls
+     * @param[in] junctions Junctions controlled by this tls
+     */
     NBOwnTLDef(const std::string &id,
                const std::set<NBNode*> &junctions) throw();
 
-    /// Constructor
+
+    /** @brief Constructor
+     * @param[in] id The id of the tls
+     * @param[in] junction The junction controlled by this tls
+     */
     NBOwnTLDef(const std::string &id, NBNode *junction) throw();
 
-    /// Constructor
+
+    /** @brief Constructor
+     * @param[in] id The id of the tls
+     */
     NBOwnTLDef(const std::string &id) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~NBOwnTLDef() throw();
 
+
+    /** @brief Builds the list of participating nodes/edges/links
+     * @see NBTrafficLightDefinition::setParticipantsInformation
+     */
     void setParticipantsInformation() throw();
 
-public:
+
+    /// @name Public methods from NBTrafficLightDefinition-interface
+    /// @{
+
+    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+     * @param[in] removed The removed edge
+     * @param[in] incoming The edges to use instead if an incoming edge was removed
+     * @param[in] outgoing The edges to use instead if an outgoing edge was removed
+     * @see NBTrafficLightDefinition::remapRemoved
+     */
     void remapRemoved(NBEdge *removed,
                       const EdgeVector &incoming, const EdgeVector &outgoing) throw();
 
-protected:
-    /// Computes the traffic light logic
-    NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
-                                         unsigned int breakingTime) throw();
 
-    /// Collects the nodes participating in this traffic light
+    /** @brief Informs edges about being controlled by a tls
+     * @param[in] ec The container of edges
+     * @see NBTrafficLightDefinition::setTLControllingInformation
+     */
+    void setTLControllingInformation(const NBEdgeCont &ec) const throw();
+    /// @}
+
+
+protected:
+    /// @name Protected methods from NBTrafficLightDefinition-interface
+    /// @{
+
+    /** @brief Computes the traffic light logic finally in dependence to the type
+     * @param[in] ec The edge container
+     * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
+     * @return The computed logics
+     * @see NBTrafficLightDefinition::myCompute
+     */
+    NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
+                                         unsigned int brakingTime) throw();
+
+
+    /** @brief Collects the nodes participating in this traffic light
+     * @see NBTrafficLightDefinition::collectNodes
+     */
     void collectNodes() throw();
 
+
+    /** @brief Collects the links participating in this traffic light
+     * @exception ProcessError If a link could not be found
+     * @see NBTrafficLightDefinition::collectLinks
+     */
     void collectLinks() throw(ProcessError);
 
+
+    /** @brief Replaces a removed edge/lane
+     * @param[in] removed The edge to replace
+     * @param[in] removedLane The lane of this edge to replace
+     * @param[in] by The edge to insert instead
+     * @param[in] byLane This edge's lane to insert instead
+     */
     void replaceRemoved(NBEdge *removed, int removedLane,
                         NBEdge *by, int byLane) throw();
-
-    void setTLControllingInformation(const NBEdgeCont &ec) const throw();
+    /// @}
 
 
 protected:
@@ -126,13 +181,16 @@ protected:
     std::pair<NBEdge*, NBEdge*> getBestPair(std::vector<NBEdge*> &incoming) throw();
 
 
-    /**
-     * edge_by_incoming_priority_sorter
+    /** @class edge_by_incoming_priority_sorter
+     * @brief Sorts edges by their priority within the node they end at
      */
     class edge_by_incoming_priority_sorter {
     public:
-        /// comparing operator
-        int operator()(NBEdge *e1, NBEdge *e2) const {
+        /** @brief comparing operator
+         * @param[in] e1 an edge
+         * @param[in] e2 an edge
+         */
+        int operator()(const NBEdge * const e1, const NBEdge * const e2) const {
             if (e1->getJunctionPriority(e1->getToNode())!=e2->getJunctionPriority(e2->getToNode())) {
                 return e1->getJunctionPriority(e1->getToNode())> e2->getJunctionPriority(e2->getToNode());
             }
