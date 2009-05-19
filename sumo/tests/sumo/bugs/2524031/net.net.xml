@@ -23,25 +23,25 @@
 
    <edge id=":SUMOGenerated1_0" function="internal">
       <lanes>
-         <lane id=":SUMOGenerated1_0_0" depart="0" maxspeed="13.90" length="0.10" >10.00,-1.65 10.00,-1.65</lane>
+         <lane id=":SUMOGenerated1_0_0" depart="0" maxspeed="13.90" length="0.10">10.00,-1.65 10.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id=":SUMOGenerated3_0" function="internal">
       <lanes>
-         <lane id=":SUMOGenerated3_0_0" depart="0" maxspeed="13.90" length="0.10" >410.00,2.65 410.00,2.65</lane>
+         <lane id=":SUMOGenerated3_0_0" depart="0" maxspeed="13.90" length="0.10">410.00,2.65 410.00,2.65</lane>
       </lanes>
    </edge>
 
    <edge id=":SUMOGenerated4_0" function="internal">
       <lanes>
-         <lane id=":SUMOGenerated4_0_0" depart="0" maxspeed="13.90" length="0.10" >410.00,-1.65 410.00,-1.65</lane>
+         <lane id=":SUMOGenerated4_0_0" depart="0" maxspeed="13.90" length="0.10">410.00,-1.65 410.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id=":SUMOGenerated5_0" function="internal">
       <lanes>
-         <lane id=":SUMOGenerated5_0_0" depart="0" maxspeed="13.90" length="0.10" >10.00,2.65 10.00,2.65</lane>
+         <lane id=":SUMOGenerated5_0_0" depart="0" maxspeed="13.90" length="0.10">10.00,2.65 10.00,2.65</lane>
       </lanes>
    </edge>
 

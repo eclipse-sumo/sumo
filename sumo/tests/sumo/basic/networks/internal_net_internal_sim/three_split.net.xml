@@ -28,67 +28,67 @@
 
    <edge id=":absEnd_0" function="internal">
       <lanes>
-         <lane id=":absEnd_0_0" depart="0" maxspeed="27.80" length="0.10" >2000.00,498.35 2000.00,498.35</lane>
+         <lane id=":absEnd_0_0" depart="0" maxspeed="27.80" length="0.10">2000.00,498.35 2000.00,498.35</lane>
       </lanes>
    </edge>
 
    <edge id=":beg_0" function="internal">
       <lanes>
-         <lane id=":beg_0_0" depart="0" maxspeed="20.85" length="5.00" >495.25,498.35 496.61,498.16 497.57,497.58 498.16,496.61 498.35,495.25</lane>
+         <lane id=":beg_0_0" depart="0" maxspeed="20.85" length="5.00">495.25,498.35 496.61,498.16 497.57,497.58 498.16,496.61 498.35,495.25</lane>
       </lanes>
    </edge>
 
    <edge id=":beg_1" function="internal">
       <lanes>
-         <lane id=":beg_1_0" depart="0" maxspeed="27.80" length="9.50" >495.25,498.35 504.75,498.35</lane>
+         <lane id=":beg_1_0" depart="0" maxspeed="27.80" length="9.50">495.25,498.35 504.75,498.35</lane>
       </lanes>
    </edge>
 
    <edge id=":beg_2" function="internal">
       <lanes>
-         <lane id=":beg_2_0" depart="0" maxspeed="20.85" length="7.85" >495.25,498.35 498.05,498.54 500.05,499.13 501.25,500.09 501.65,501.45</lane>
+         <lane id=":beg_2_0" depart="0" maxspeed="20.85" length="7.85">495.25,498.35 498.05,498.54 500.05,499.13 501.25,500.09 501.65,501.45</lane>
       </lanes>
    </edge>
 
    <edge id=":begleft_0" function="internal">
       <lanes>
-         <lane id=":begleft_0_0" depart="0" maxspeed="13.90" length="2.58" >501.65,996.75 501.75,997.45 502.05,997.95 502.55,998.25 503.25,998.35</lane>
+         <lane id=":begleft_0_0" depart="0" maxspeed="13.90" length="2.58">501.65,996.75 501.75,997.45 502.05,997.95 502.55,998.25 503.25,998.35</lane>
       </lanes>
    </edge>
 
    <edge id=":begright_0" function="internal">
       <lanes>
-         <lane id=":begright_0_0" depart="0" maxspeed="13.90" length="2.58" >498.35,-0.05 498.45,-0.75 498.75,-1.25 499.25,-1.55 499.95,-1.65</lane>
+         <lane id=":begright_0_0" depart="0" maxspeed="13.90" length="2.58">498.35,-0.05 498.45,-0.75 498.75,-1.25 499.25,-1.55 499.95,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id=":end_0" function="internal">
       <lanes>
-         <lane id=":end_0_0" depart="0" maxspeed="20.85" length="7.85" >1498.35,501.45 1498.75,500.09 1499.95,499.13 1501.95,498.54 1504.75,498.35</lane>
+         <lane id=":end_0_0" depart="0" maxspeed="20.85" length="7.85">1498.35,501.45 1498.75,500.09 1499.95,499.13 1501.95,498.54 1504.75,498.35</lane>
       </lanes>
    </edge>
 
    <edge id=":end_1" function="internal">
       <lanes>
-         <lane id=":end_1_0" depart="0" maxspeed="20.85" length="5.00" >1501.65,495.25 1501.84,496.61 1502.43,497.57 1503.39,498.16 1504.75,498.35</lane>
+         <lane id=":end_1_0" depart="0" maxspeed="20.85" length="5.00">1501.65,495.25 1501.84,496.61 1502.43,497.57 1503.39,498.16 1504.75,498.35</lane>
       </lanes>
    </edge>
 
    <edge id=":end_2" function="internal">
       <lanes>
-         <lane id=":end_2_0" depart="0" maxspeed="27.80" length="9.50" >1495.25,498.35 1504.75,498.35</lane>
+         <lane id=":end_2_0" depart="0" maxspeed="27.80" length="9.50">1495.25,498.35 1504.75,498.35</lane>
       </lanes>
    </edge>
 
    <edge id=":endleft_0" function="internal">
       <lanes>
-         <lane id=":endleft_0_0" depart="0" maxspeed="13.90" length="2.58" >1496.75,998.35 1497.45,998.25 1497.95,997.95 1498.25,997.45 1498.35,996.75</lane>
+         <lane id=":endleft_0_0" depart="0" maxspeed="13.90" length="2.58">1496.75,998.35 1497.45,998.25 1497.95,997.95 1498.25,997.45 1498.35,996.75</lane>
       </lanes>
    </edge>
 
    <edge id=":endright_0" function="internal">
       <lanes>
-         <lane id=":endright_0_0" depart="0" maxspeed="13.90" length="2.58" >1500.05,-1.65 1500.75,-1.55 1501.25,-1.25 1501.55,-0.75 1501.65,-0.05</lane>
+         <lane id=":endright_0_0" depart="0" maxspeed="13.90" length="2.58">1500.05,-1.65 1500.75,-1.55 1501.25,-1.25 1501.55,-0.75 1501.65,-0.05</lane>
       </lanes>
    </edge>
 
