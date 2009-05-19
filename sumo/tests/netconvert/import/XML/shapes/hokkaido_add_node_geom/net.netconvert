@@ -29,25 +29,25 @@
 
    <edge id=":dl_0" function="internal">
       <lanes>
-         <lane id=":dl_0_0" depart="0" maxspeed="13.90" length="0.14" >95.42,0.01 95.56,0.00</lane>
+         <lane id=":dl_0_0" depart="0" maxspeed="13.90" length="0.14">95.42,0.01 95.56,0.00</lane>
       </lanes>
    </edge>
 
    <edge id=":dr_0" function="internal">
       <lanes>
-         <lane id=":dr_0_0" depart="0" maxspeed="13.90" length="0.14" >1295.42,0.00 1295.56,0.01</lane>
+         <lane id=":dr_0_0" depart="0" maxspeed="13.90" length="0.14">1295.42,0.00 1295.56,0.01</lane>
       </lanes>
    </edge>
 
    <edge id=":tl_0" function="internal">
       <lanes>
-         <lane id=":tl_0_0" depart="0" maxspeed="13.90" length="0.14" >95.56,190.99 95.42,190.98</lane>
+         <lane id=":tl_0_0" depart="0" maxspeed="13.90" length="0.14">95.56,190.99 95.42,190.98</lane>
       </lanes>
    </edge>
 
    <edge id=":tr_0" function="internal">
       <lanes>
-         <lane id=":tr_0_0" depart="0" maxspeed="13.90" length="0.14" >1295.56,190.98 1295.42,190.99</lane>
+         <lane id=":tr_0_0" depart="0" maxspeed="13.90" length="0.14">1295.56,190.98 1295.42,190.99</lane>
       </lanes>
    </edge>
 

@@ -28,13 +28,13 @@
 
    <edge id=":15030043_0" function="internal">
       <lanes>
-         <lane id=":15030043_0_0" depart="0" maxspeed="13.19" length="5.01" >124.04,66.71 122.67,66.59 121.59,66.94 120.81,67.76 120.32,69.04</lane>
+         <lane id=":15030043_0_0" depart="0" maxspeed="13.19" length="5.01">124.04,66.71 122.67,66.59 121.59,66.94 120.81,67.76 120.32,69.04</lane>
       </lanes>
    </edge>
 
    <edge id=":15030043_1" function="internal">
       <lanes>
-         <lane id=":15030043_1_0" depart="0" maxspeed="13.89" length="6.18" >121.64,63.00 120.32,69.04</lane>
+         <lane id=":15030043_1_0" depart="0" maxspeed="13.89" length="6.18">121.64,63.00 120.32,69.04</lane>
       </lanes>
    </edge>
 

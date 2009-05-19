@@ -24,49 +24,49 @@
 
    <edge id=":0_0" function="internal">
       <lanes>
-         <lane id=":0_0_0" depart="0" maxspeed="12.50" length="5.00" >48.35,58.05 48.16,56.69 47.58,55.73 46.61,55.14 45.25,54.95</lane>
+         <lane id=":0_0_0" depart="0" maxspeed="12.50" length="5.00">48.35,58.05 48.16,56.69 47.58,55.73 46.61,55.14 45.25,54.95</lane>
       </lanes>
    </edge>
 
    <edge id=":0_1" function="internal">
       <lanes>
-         <lane id=":0_1_0" depart="0" maxspeed="15.28" length="9.50" >48.35,58.05 48.35,48.55</lane>
+         <lane id=":0_1_0" depart="0" maxspeed="15.28" length="9.50">48.35,58.05 48.35,48.55</lane>
       </lanes>
    </edge>
 
    <edge id=":0_2" function="internal">
       <lanes>
-         <lane id=":0_2_0" depart="0" maxspeed="15.28" length="4.82" >48.35,58.05 49.18,56.81 50.00,56.40 50.83,56.81 51.65,58.05</lane>
+         <lane id=":0_2_0" depart="0" maxspeed="15.28" length="4.82">48.35,58.05 49.18,56.81 50.00,56.40 50.83,56.81 51.65,58.05</lane>
       </lanes>
    </edge>
 
    <edge id=":0_3" function="internal">
       <lanes>
-         <lane id=":0_3_0" depart="0" maxspeed="15.28" length="9.50" >51.65,48.55 51.65,58.05</lane>
+         <lane id=":0_3_0" depart="0" maxspeed="15.28" length="9.50">51.65,48.55 51.65,58.05</lane>
       </lanes>
    </edge>
 
    <edge id=":0_4" function="internal">
       <lanes>
-         <lane id=":0_4_0" depart="0" maxspeed="12.50" length="7.85" >51.65,48.55 51.25,49.91 50.05,50.88 48.05,51.46 45.25,51.65</lane>
+         <lane id=":0_4_0" depart="0" maxspeed="12.50" length="7.85">51.65,48.55 51.25,49.91 50.05,50.88 48.05,51.46 45.25,51.65</lane>
       </lanes>
    </edge>
 
    <edge id=":0_5" function="internal">
       <lanes>
-         <lane id=":0_5_0" depart="0" maxspeed="15.28" length="4.82" >51.65,48.55 50.82,49.79 50.00,50.20 49.17,49.79 48.35,48.55</lane>
+         <lane id=":0_5_0" depart="0" maxspeed="15.28" length="4.82">51.65,48.55 50.82,49.79 50.00,50.20 49.17,49.79 48.35,48.55</lane>
       </lanes>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="15.28" length="4.82" >48.35,0.00 49.18,-1.24 50.00,-1.65 50.83,-1.24 51.65,0.00</lane>
+         <lane id=":3_0_0" depart="0" maxspeed="15.28" length="4.82">48.35,0.00 49.18,-1.24 50.00,-1.65 50.83,-1.24 51.65,0.00</lane>
       </lanes>
    </edge>
 
    <edge id=":4_0" function="internal">
       <lanes>
-         <lane id=":4_0_0" depart="0" maxspeed="15.28" length="4.82" >51.65,100.00 50.82,101.24 50.00,101.65 49.17,101.24 48.35,100.00</lane>
+         <lane id=":4_0_0" depart="0" maxspeed="15.28" length="4.82">51.65,100.00 50.82,101.24 50.00,101.65 49.17,101.24 48.35,100.00</lane>
       </lanes>
    </edge>
 

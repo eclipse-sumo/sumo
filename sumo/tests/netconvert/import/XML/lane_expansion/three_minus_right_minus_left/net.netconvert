@@ -23,31 +23,31 @@
 
    <edge id=":1/30_0" function="internal">
       <lanes>
-         <lane id=":1/30_0_0" depart="0" maxspeed="28.00" length="4.46" >68.50,-4.95 71.50,-8.25</lane>
+         <lane id=":1/30_0_0" depart="0" maxspeed="28.00" length="4.46">68.50,-4.95 71.50,-8.25</lane>
       </lanes>
    </edge>
 
    <edge id=":1/30_1" function="internal">
       <lanes>
-         <lane id=":1/30_1_0" depart="0" maxspeed="28.00" length="3.00" >68.50,-4.95 71.50,-4.95</lane>
+         <lane id=":1/30_1_0" depart="0" maxspeed="28.00" length="3.00">68.50,-4.95 71.50,-4.95</lane>
       </lanes>
    </edge>
 
    <edge id=":1/30_2" function="internal">
       <lanes>
-         <lane id=":1/30_2_0" depart="0" maxspeed="28.00" length="3.00" >68.50,-1.65 71.50,-1.65</lane>
+         <lane id=":1/30_2_0" depart="0" maxspeed="28.00" length="3.00">68.50,-1.65 71.50,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id=":1/70_0" function="internal">
       <lanes>
-         <lane id=":1/70_0_0" depart="0" maxspeed="28.00" length="4.46" >28.50,-1.65 31.50,-4.95</lane>
+         <lane id=":1/70_0_0" depart="0" maxspeed="28.00" length="4.46">28.50,-1.65 31.50,-4.95</lane>
       </lanes>
    </edge>
 
    <edge id=":1/70_1" function="internal">
       <lanes>
-         <lane id=":1/70_1_0" depart="0" maxspeed="28.00" length="3.00" >28.50,-1.65 31.50,-1.65</lane>
+         <lane id=":1/70_1_0" depart="0" maxspeed="28.00" length="3.00">28.50,-1.65 31.50,-1.65</lane>
       </lanes>
    </edge>
 

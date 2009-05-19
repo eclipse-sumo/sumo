@@ -28,49 +28,49 @@
 
    <edge id=":15030102_0" function="internal">
       <lanes>
-         <lane id=":15030102_0_0" depart="0" maxspeed="13.89" length="9.49" >231.96,150.03 239.90,155.23</lane>
+         <lane id=":15030102_0_0" depart="0" maxspeed="13.89" length="9.49">231.96,150.03 239.90,155.23</lane>
       </lanes>
    </edge>
 
    <edge id=":15030102_1" function="internal">
       <lanes>
-         <lane id=":15030102_1_0" depart="0" maxspeed="13.89" length="9.50" >230.15,152.79 238.09,157.99</lane>
+         <lane id=":15030102_1_0" depart="0" maxspeed="13.89" length="9.50">230.15,152.79 238.09,157.99</lane>
       </lanes>
    </edge>
 
    <edge id=":15030102_2" function="internal">
       <lanes>
-         <lane id=":15030102_2_0" depart="0" maxspeed="13.19" length="7.86" >230.15,152.79 232.38,154.49 233.73,156.07 234.21,157.54 233.81,158.91</lane>
+         <lane id=":15030102_2_0" depart="0" maxspeed="13.19" length="7.86">230.15,152.79 232.38,154.49 233.73,156.07 234.21,157.54 233.81,158.91</lane>
       </lanes>
    </edge>
 
    <edge id=":15030102_3" function="internal">
       <lanes>
-         <lane id=":15030102_3_0" depart="0" maxspeed="13.19" length="3.04" >231.03,157.12 232.11,156.19 235.58,156.60</lane>
+         <lane id=":15030102_3_0" depart="0" maxspeed="13.19" length="3.04">231.03,157.12 232.11,156.19 235.58,156.60</lane>
       </lanes>
    </edge>
 
    <edge id=":15030102_5" function="internal">
       <lanes>
-         <lane id=":15030102_5_0" depart="0" maxspeed="13.19" length="4.83" >235.58,156.60 235.64,156.62 238.09,157.99</lane>
+         <lane id=":15030102_5_0" depart="0" maxspeed="13.19" length="4.83">235.58,156.60 235.64,156.62 238.09,157.99</lane>
       </lanes>
    </edge>
 
    <edge id=":15030102_4" function="internal">
       <lanes>
-         <lane id=":15030102_4_0" depart="0" maxspeed="12.50" length="0.10" >231.03,157.12 232.30,156.57</lane>
+         <lane id=":15030102_4_0" depart="0" maxspeed="12.50" length="0.10">231.03,157.12 232.30,156.57</lane>
       </lanes>
    </edge>
 
    <edge id=":15030102_6" function="internal">
       <lanes>
-         <lane id=":15030102_6_0" depart="0" maxspeed="12.50" length="4.72" >232.30,156.57 232.39,156.53 233.31,156.63 233.78,157.42 233.81,158.91</lane>
+         <lane id=":15030102_6_0" depart="0" maxspeed="12.50" length="4.72">232.30,156.57 232.39,156.53 233.31,156.63 233.78,157.42 233.81,158.91</lane>
       </lanes>
    </edge>
 
    <edge id=":15034045_0" function="internal">
       <lanes>
-         <lane id=":15034045_0_0" depart="0" maxspeed="12.50" length="4.82" >227.39,168.89 226.02,169.49 225.11,169.39 224.64,168.59 224.61,167.11</lane>
+         <lane id=":15034045_0_0" depart="0" maxspeed="12.50" length="4.82">227.39,168.89 226.02,169.49 225.11,169.39 224.64,168.59 224.61,167.11</lane>
       </lanes>
    </edge>
 
@@ -213,13 +213,13 @@
       <succlane lane="152850000_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":15030102_3" lane=":15030102_3_0" junction="15030102">
-      <succlane lane="153120299_1" tl="" linkno="" yield="1" dir="s" state="M" via=":15030102_5_0"/>
+      <succlane lane="153120299_1" via=":15030102_5_0" tl="" linkno="" yield="1" dir="s" state="M"/>
    </succ>
    <succ edge=":15030102_5" lane=":15030102_5_0" junction=":15030102_5">
       <succlane lane="153120299_1" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":15030102_4" lane=":15030102_4_0" junction="15030102">
-      <succlane lane="152850000_0" tl="" linkno="" yield="1" dir="s" state="M" via=":15030102_6_0"/>
+      <succlane lane="152850000_0" via=":15030102_6_0" tl="" linkno="" yield="1" dir="s" state="M"/>
    </succ>
    <succ edge=":15030102_6" lane=":15030102_6_0" junction=":15030102_6">
       <succlane lane="152850000_0" tl="" linkno="0" yield="0" dir="s" state="M"/>

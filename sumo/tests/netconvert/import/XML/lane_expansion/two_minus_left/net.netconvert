@@ -23,13 +23,13 @@
 
    <edge id=":1/50_0" function="internal">
       <lanes>
-         <lane id=":1/50_0_0" depart="0" maxspeed="28.00" length="4.46" >48.50,-1.65 51.50,-4.95</lane>
+         <lane id=":1/50_0_0" depart="0" maxspeed="28.00" length="4.46">48.50,-1.65 51.50,-4.95</lane>
       </lanes>
    </edge>
 
    <edge id=":1/50_1" function="internal">
       <lanes>
-         <lane id=":1/50_1_0" depart="0" maxspeed="28.00" length="3.00" >48.50,-1.65 51.50,-1.65</lane>
+         <lane id=":1/50_1_0" depart="0" maxspeed="28.00" length="3.00">48.50,-1.65 51.50,-1.65</lane>
       </lanes>
    </edge>
 
