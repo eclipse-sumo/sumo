@@ -3,111 +3,111 @@
    <node_count>8</node_count>
 
 
-   <edge id="-beg" Length="193.60" Speed="36.00" Name="-beg" NoLanes="1" Xfrom="50.00" Yfrom="200.00" Xto="50.00" Yto="0.00" from="beg" to="absBeg" Priority="1" Angle="0.00" Type="19" function="normal">
+   <edge id="-beg" from="beg" to="absBeg" function="normal">
       <lanes>
-         <lane id="-beg_0" depart="1" vclasses="" maxspeed="36.00" length="193.60" changeurge="0">48.35,195.25 48.35,1.65</lane>
+         <lane id="-beg_0" depart="1" vclasses="" maxspeed="36.00" length="193.60">48.35,195.25 48.35,1.65</lane>
       </lanes>
    </edge>
 
-   <edge id="-beg2left" Length="42.00" Speed="36.00" Name="-beg2left" NoLanes="1" Xfrom="0.00" Yfrom="200.00" Xto="50.00" Yto="200.00" from="begleft" to="beg" Priority="1" Angle="270.00" Type="19" function="normal">
+   <edge id="-beg2left" from="begleft" to="beg" function="normal">
       <lanes>
-         <lane id="-beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">3.25,198.35 45.25,198.35</lane>
+         <lane id="-beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">3.25,198.35 45.25,198.35</lane>
       </lanes>
    </edge>
 
-   <edge id="-beg2right" Length="42.00" Speed="36.00" Name="-beg2right" NoLanes="1" Xfrom="100.00" Yfrom="200.00" Xto="50.00" Yto="200.00" from="begright" to="beg" Priority="1" Angle="90.00" Type="19" function="normal">
+   <edge id="-beg2right" from="begright" to="beg" function="normal">
       <lanes>
-         <lane id="-beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">96.75,201.65 54.75,201.65</lane>
+         <lane id="-beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">96.75,201.65 54.75,201.65</lane>
       </lanes>
    </edge>
 
-   <edge id="-end" Length="196.90" Speed="36.00" Name="-end" NoLanes="1" Xfrom="50.00" Yfrom="800.00" Xto="50.00" Yto="600.00" from="absEnd" to="end" Priority="1" Angle="0.00" Type="19" function="normal">
+   <edge id="-end" from="absEnd" to="end" function="normal">
       <lanes>
-         <lane id="-end_0" depart="1" vclasses="" maxspeed="36.00" length="196.90" changeurge="0">48.35,801.65 48.35,604.75</lane>
+         <lane id="-end_0" depart="1" vclasses="" maxspeed="36.00" length="196.90">48.35,801.65 48.35,604.75</lane>
       </lanes>
    </edge>
 
-   <edge id="-left" Length="393.50" Speed="36.00" Name="-left" NoLanes="1" Xfrom="0.00" Yfrom="600.00" Xto="0.00" Yto="200.00" from="endleft" to="begleft" Priority="1" Angle="0.00" Type="19" function="normal">
+   <edge id="-left" from="endleft" to="begleft" function="normal">
       <lanes>
-         <lane id="-left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50" changeurge="0">-1.65,596.75 -1.65,203.25</lane>
+         <lane id="-left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">-1.65,596.75 -1.65,203.25</lane>
       </lanes>
    </edge>
 
-   <edge id="-left2end" Length="42.00" Speed="36.00" Name="-left2end" NoLanes="1" Xfrom="50.00" Yfrom="600.00" Xto="0.00" Yto="600.00" from="end" to="endleft" Priority="1" Angle="90.00" Type="19" function="normal">
+   <edge id="-left2end" from="end" to="endleft" function="normal">
       <lanes>
-         <lane id="-left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">45.25,601.65 3.25,601.65</lane>
+         <lane id="-left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">45.25,601.65 3.25,601.65</lane>
       </lanes>
    </edge>
 
-   <edge id="-middle" Length="390.50" Speed="36.00" Name="-middle" NoLanes="1" Xfrom="50.00" Yfrom="600.00" Xto="50.00" Yto="200.00" from="end" to="beg" Priority="1" Angle="0.00" Type="19" function="normal">
+   <edge id="-middle" from="end" to="beg" function="normal">
       <lanes>
-         <lane id="-middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50" changeurge="0">48.35,595.25 48.35,204.75</lane>
+         <lane id="-middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">48.35,595.25 48.35,204.75</lane>
       </lanes>
    </edge>
 
-   <edge id="-right" Length="393.50" Speed="36.00" Name="-right" NoLanes="1" Xfrom="100.00" Yfrom="600.00" Xto="100.00" Yto="200.00" from="endright" to="begright" Priority="1" Angle="0.00" Type="19" function="normal">
+   <edge id="-right" from="endright" to="begright" function="normal">
       <lanes>
-         <lane id="-right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50" changeurge="0">98.35,596.75 98.35,203.25</lane>
+         <lane id="-right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">98.35,596.75 98.35,203.25</lane>
       </lanes>
    </edge>
 
-   <edge id="-right2end" Length="42.00" Speed="36.00" Name="-right2end" NoLanes="1" Xfrom="50.00" Yfrom="600.00" Xto="100.00" Yto="600.00" from="end" to="endright" Priority="1" Angle="270.00" Type="19" function="normal">
+   <edge id="-right2end" from="end" to="endright" function="normal">
       <lanes>
-         <lane id="-right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">54.75,598.35 96.75,598.35</lane>
+         <lane id="-right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">54.75,598.35 96.75,598.35</lane>
       </lanes>
    </edge>
 
-   <edge id="beg" Length="196.90" Speed="36.00" Name="beg" NoLanes="1" Xfrom="50.00" Yfrom="0.00" Xto="50.00" Yto="200.00" from="absBeg" to="beg" Priority="1" Angle="180.00" Type="19" function="normal">
+   <edge id="beg" from="absBeg" to="beg" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" vclasses="" maxspeed="36.00" length="196.90" changeurge="0">51.65,-1.65 51.65,195.25</lane>
+         <lane id="beg_0" depart="1" vclasses="" maxspeed="36.00" length="196.90">51.65,-1.65 51.65,195.25</lane>
       </lanes>
    </edge>
 
-   <edge id="beg2left" Length="42.00" Speed="36.00" Name="beg2left" NoLanes="1" Xfrom="50.00" Yfrom="200.00" Xto="0.00" Yto="200.00" from="beg" to="begleft" Priority="1" Angle="90.00" Type="19" function="normal">
+   <edge id="beg2left" from="beg" to="begleft" function="normal">
       <lanes>
-         <lane id="beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">45.25,201.65 3.25,201.65</lane>
+         <lane id="beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">45.25,201.65 3.25,201.65</lane>
       </lanes>
    </edge>
 
-   <edge id="beg2right" Length="42.00" Speed="36.00" Name="beg2right" NoLanes="1" Xfrom="50.00" Yfrom="200.00" Xto="100.00" Yto="200.00" from="beg" to="begright" Priority="1" Angle="270.00" Type="19" function="normal">
+   <edge id="beg2right" from="beg" to="begright" function="normal">
       <lanes>
-         <lane id="beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">54.75,198.35 96.75,198.35</lane>
+         <lane id="beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">54.75,198.35 96.75,198.35</lane>
       </lanes>
    </edge>
 
-   <edge id="end" Length="193.60" Speed="36.00" Name="end" NoLanes="1" Xfrom="50.00" Yfrom="600.00" Xto="50.00" Yto="800.00" from="end" to="absEnd" Priority="1" Angle="180.00" Type="19" function="normal">
+   <edge id="end" from="end" to="absEnd" function="normal">
       <lanes>
-         <lane id="end_0" depart="1" vclasses="" maxspeed="36.00" length="193.60" changeurge="0">51.65,604.75 51.65,798.35</lane>
+         <lane id="end_0" depart="1" vclasses="" maxspeed="36.00" length="193.60">51.65,604.75 51.65,798.35</lane>
       </lanes>
    </edge>
 
-   <edge id="left" Length="393.50" Speed="36.00" Name="left" NoLanes="1" Xfrom="0.00" Yfrom="200.00" Xto="0.00" Yto="600.00" from="begleft" to="endleft" Priority="1" Angle="180.00" Type="19" function="normal">
+   <edge id="left" from="begleft" to="endleft" function="normal">
       <lanes>
-         <lane id="left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50" changeurge="0">1.65,203.25 1.65,596.75</lane>
+         <lane id="left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">1.65,203.25 1.65,596.75</lane>
       </lanes>
    </edge>
 
-   <edge id="left2end" Length="42.00" Speed="36.00" Name="left2end" NoLanes="1" Xfrom="0.00" Yfrom="600.00" Xto="50.00" Yto="600.00" from="endleft" to="end" Priority="1" Angle="270.00" Type="19" function="normal">
+   <edge id="left2end" from="endleft" to="end" function="normal">
       <lanes>
-         <lane id="left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">3.25,598.35 45.25,598.35</lane>
+         <lane id="left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">3.25,598.35 45.25,598.35</lane>
       </lanes>
    </edge>
 
-   <edge id="middle" Length="390.50" Speed="36.00" Name="middle" NoLanes="1" Xfrom="50.00" Yfrom="200.00" Xto="50.00" Yto="600.00" from="beg" to="end" Priority="1" Angle="180.00" Type="19" function="normal">
+   <edge id="middle" from="beg" to="end" function="normal">
       <lanes>
-         <lane id="middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50" changeurge="0">51.65,204.75 51.65,595.25</lane>
+         <lane id="middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">51.65,204.75 51.65,595.25</lane>
       </lanes>
    </edge>
 
-   <edge id="right" Length="393.50" Speed="36.00" Name="right" NoLanes="1" Xfrom="100.00" Yfrom="200.00" Xto="100.00" Yto="600.00" from="begright" to="endright" Priority="1" Angle="180.00" Type="19" function="normal">
+   <edge id="right" from="begright" to="endright" function="normal">
       <lanes>
-         <lane id="right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50" changeurge="0">101.65,203.25 101.65,596.75</lane>
+         <lane id="right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">101.65,203.25 101.65,596.75</lane>
       </lanes>
    </edge>
 
-   <edge id="right2end" Length="42.00" Speed="36.00" Name="right2end" NoLanes="1" Xfrom="100.00" Yfrom="600.00" Xto="50.00" Yto="600.00" from="endright" to="end" Priority="1" Angle="90.00" Type="19" function="normal">
+   <edge id="right2end" from="endright" to="end" function="normal">
       <lanes>
-         <lane id="right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00" changeurge="0">96.75,601.65 54.75,601.65</lane>
+         <lane id="right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">96.75,601.65 54.75,601.65</lane>
       </lanes>
    </edge>
 
