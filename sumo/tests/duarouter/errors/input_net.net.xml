@@ -3,48 +3,48 @@
    <node_count>10</node_count>
 
 
-   <edge id="beg" Length="502.25" Speed="27.80" Name="beg" NoLanes="2" Xfrom="0.00" Yfrom="20.00" Xto="500.00" Yto="20.00" from="absBeg" to="beg" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="beg" from="absBeg" to="beg" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" maxspeed="27.80" length="502.25" changeurge="0">-5.25,14.75 498.75,14.75</lane>
-         <lane id="beg_1" depart="0" maxspeed="27.80" length="502.25" changeurge="0">-1.75,18.25 498.75,18.25</lane>
+         <lane id="beg_0" depart="1" maxspeed="27.80" length="502.25">-5.25,14.75 498.75,14.75</lane>
+         <lane id="beg_1" depart="0" maxspeed="27.80" length="502.25">-1.75,18.25 498.75,18.25</lane>
       </lanes>
    </edge>
 
-   <edge id="beg2left" Length="495.50" Speed="27.80" Name="beg2left" NoLanes="1" Xfrom="500.00" Yfrom="20.00" Xto="500.00" Yto="520.00" from="beg" to="begleft" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="beg2left" from="beg" to="begleft" function="normal">
       <lanes>
-         <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.50" changeurge="0">501.75,21.25 501.75,516.75</lane>
+         <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.50">501.75,21.25 501.75,516.75</lane>
       </lanes>
    </edge>
 
-   <edge id="end" Length="498.75" Speed="27.80" Name="end" NoLanes="2" Xfrom="1500.00" Yfrom="20.00" Xto="2000.00" Yto="20.00" from="end" to="absEnd" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="end" from="end" to="absEnd" function="normal">
       <lanes>
-         <lane id="end_0" depart="1" maxspeed="27.80" length="498.75" changeurge="0">1501.25,14.75 2000.00,14.75</lane>
-         <lane id="end_1" depart="0" maxspeed="27.80" length="498.75" changeurge="0">1501.25,18.25 2000.00,18.25</lane>
+         <lane id="end_0" depart="1" maxspeed="27.80" length="498.75">1501.25,14.75 2000.00,14.75</lane>
+         <lane id="end_1" depart="0" maxspeed="27.80" length="498.75">1501.25,18.25 2000.00,18.25</lane>
       </lanes>
    </edge>
 
-   <edge id="left" Length="993.50" Speed="27.80" Name="left" NoLanes="1" Xfrom="500.00" Yfrom="520.00" Xto="1500.00" Yto="520.00" from="begleft" to="endleft" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="left" from="begleft" to="endleft" function="normal">
       <lanes>
-         <lane id="left_0" depart="1" maxspeed="27.80" length="993.50" changeurge="0">503.25,518.25 1496.75,518.25</lane>
+         <lane id="left_0" depart="1" maxspeed="27.80" length="993.50">503.25,518.25 1496.75,518.25</lane>
       </lanes>
    </edge>
 
-   <edge id="left2end" Length="495.50" Speed="27.80" Name="left2end" NoLanes="1" Xfrom="1500.00" Yfrom="520.00" Xto="1500.00" Yto="20.00" from="endleft" to="end" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="left2end" from="endleft" to="end" function="normal">
       <lanes>
-         <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.50" changeurge="0">1498.25,516.75 1498.25,21.25</lane>
+         <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.50">1498.25,516.75 1498.25,21.25</lane>
       </lanes>
    </edge>
 
-   <edge id="middle" Length="990.50" Speed="13.90" Name="middle" NoLanes="1" Xfrom="500.00" Yfrom="20.00" Xto="1500.00" Yto="20.00" from="beg" to="end" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="middle" from="beg" to="end" function="normal">
       <lanes>
-         <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50" changeurge="0">504.75,18.25 1495.25,18.25</lane>
+         <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50">504.75,18.25 1495.25,18.25</lane>
       </lanes>
    </edge>
 
-   <edge id="rend" Length="496.50" Speed="27.80" Name="rend" NoLanes="2" Xfrom="2000.00" Yfrom="20.00" Xto="2500.00" Yto="20.00" from="absEnd" to="rabsEnd" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="rend" from="absEnd" to="rabsEnd" function="normal">
       <lanes>
-         <lane id="rend_0" depart="1" maxspeed="27.80" length="496.50" changeurge="0">2000.00,14.75 2494.75,14.75</lane>
-         <lane id="rend_1" depart="0" maxspeed="27.80" length="496.50" changeurge="0">2000.00,18.25 2498.25,18.25</lane>
+         <lane id="rend_0" depart="1" maxspeed="27.80" length="496.50">2000.00,14.75 2494.75,14.75</lane>
+         <lane id="rend_1" depart="0" maxspeed="27.80" length="496.50">2000.00,18.25 2498.25,18.25</lane>
       </lanes>
    </edge>
 
