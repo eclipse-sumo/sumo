@@ -37,3 +37,6 @@ VariableRetrieval
 # Tests for changing TL values
 ChangeTLValue
 
+# Tests the Simulation End command
+SimEnd
+
