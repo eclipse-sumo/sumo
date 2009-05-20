@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    TraCIServerAPI_Vehicle.h
+/// @file    TraCIServerAPI_Lane.h
 /// @author  Daniel Krajzewicz
 /// @date    07.05.2009
-/// @version $Id: TraCIServerAPI_Vehicle.h 6907 2009-03-13 12:13:38Z dkrajzew $
+/// @version $Id: TraCIServerAPI_Lane.h 6907 2009-03-13 12:13:38Z dkrajzew $
 ///
-// APIs for getting/setting vehicle values via TraCI
+// APIs for getting/setting lane values via TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef TraCIServerAPI_Vehicle_h
-#define TraCIServerAPI_Vehicle_h
+#ifndef TraCIServerAPI_Lane_h
+#define TraCIServerAPI_Lane_h
 
 
 // ===========================================================================
@@ -37,12 +37,12 @@
 // class definitions
 // ===========================================================================
 /**
- * @class TraCIServerAPI_Vehicle
- * @brief APIs for getting/setting vehicle values via TraCI
+ * @class TraCIServerAPI_Lane
+ * @brief APIs for getting/setting lane values via TraCI
  */
-class TraCIServerAPI_Vehicle {
+class TraCIServerAPI_Lane {
 public:
-    /** @brief Processes a get value command (Command 0xa4: Get Vehicle Variable)
+    /** @brief Processes a get value command (Command 0xa3: Get Lane Variable)
      *
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
@@ -50,20 +50,12 @@ public:
     static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
 
 
-    /** @brief Processes a set value command (Command 0xc4: Change Vehicle State)
-     *
-     * @param[in] inputStorage The storage to read the command from
-     * @param[out] outputStorage The storage to write the result to
-     */
-    static bool processSet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
-
-
 private:
     /// @brief invalidated copy constructor
-    TraCIServerAPI_Vehicle(const TraCIServerAPI_Vehicle &s);
+    TraCIServerAPI_Lane(const TraCIServerAPI_Lane &s);
 
     /// @brief invalidated assignment operator
-    TraCIServerAPI_Vehicle &operator=(const TraCIServerAPI_Vehicle &s);
+    TraCIServerAPI_Lane &operator=(const TraCIServerAPI_Lane &s);
 
 
 };

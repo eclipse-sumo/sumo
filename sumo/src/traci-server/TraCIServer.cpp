@@ -51,6 +51,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include "TraCIServerAPI_InductionLoop.h"
+#include "TraCIServerAPI_Lane.h"
 #include "TraCIServerAPI_MeMeDetector.h"
 #include "TraCIServerAPI_TLS.h"
 #include "TraCIServerAPI_Vehicle.h"
@@ -361,7 +362,7 @@ throw(TraCIException, std::invalid_argument) {
         success = TraCIServerAPI_TLS::processSet(myInputStorage, myOutputStorage);
         break;
     case CMD_GET_LANE_VARIABLE:
-        success = commandGetLaneVariable();
+        success = TraCIServerAPI_Lane::processGet(myInputStorage, myOutputStorage);
         break;
     case CMD_GET_VEHICLE_VARIABLE:
         success = TraCIServerAPI_Vehicle::processGet(myInputStorage, myOutputStorage);
@@ -2814,10 +2815,8 @@ throw(TraCIException) {
                     tempMsg.writeFloat(vehicle->getLane().getShape().rotationDegreeAtLengthPosition(vehicle->getPositionOnLane()));
                 }
             }
-
             // send command length
             myOutputStorage.writeUnsignedByte(tempMsg.size()+1);
-
             // send command
             myOutputStorage.writeStorage(tempMsg);
         }
@@ -2827,108 +2826,6 @@ throw(TraCIException) {
 
 }
 
-/*****************************************************************************/
-bool
-TraCIServer::commandGetLaneVariable() throw(TraCIException) {
-    Storage tmpResult;
-    string warning = "";	// additional description for response
-    // variable
-    int variable = myInputStorage.readUnsignedByte();
-    string id = myInputStorage.readString();
-    // check variable
-    if (variable!=LANE_LINK_NUMBER&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS) {
-        writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified");
-        return false;
-    }
-    // begin response building
-    Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_LANE_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    if (variable==ID_LIST) {
-    } else {
-        if (!MSLane::dictionary(id)==0) {
-            writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known");
-            return false;
-        }
-        MSLane *lane = MSLane::dictionary(id);
-        switch (variable) {
-        case ID_LIST:
-            break;
-        case LANE_LINK_NUMBER:
-            tempMsg.writeUnsignedByte(TYPE_UBYTE);
-            tempMsg.writeUnsignedByte((int) lane->getLinkCont().size());
-            break;
-        case VAR_LENGTH:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->length());
-            break;
-        case VAR_MAXSPEED:
-            tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(lane->maxSpeed());
-            break;
-        case LANE_LINKS: {
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                Storage tempContent;
-                unsigned int cnt = 0;
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                const MSLinkCont &links = lane->getLinkCont();
-                tempContent.writeInt((int) links.size()); ++cnt;
-                for(MSLinkCont::const_iterator i=links.begin(); i!=links.end(); ++i) {
-                    MSLink *link = (*i);
-                    // approached non-internal lane (if any)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(link->getLane()!=0 ? link->getLane()->getID() : "");
-                    ++cnt;
-                    // approached "via", internal lane (if any)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-#ifdef HAVE_INTERNAL_LANES
-                    tempContent.writeString(link->getViaLane()!=0 ? link->getViaLane()->getID() : "");
-#else
-                    tempContent.writeString("");
-#endif
-                    ++cnt;
-                    // priority
-                    tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->havePriority() ? 1 : 0);
-                    ++cnt;
-                    // opened
-                    tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->opened() ? 1 : 0);
-                    ++cnt;
-                    // approaching foe
-                    tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->hasApproachingFoe() ? 1 : 0);
-                    ++cnt;
-                    // state (not implemented, yet)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString("");
-                    ++cnt;
-                    // direction (not implemented, yet)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString("");
-                    ++cnt;
-                    // length
-                    tempContent.writeUnsignedByte(TYPE_FLOAT);
-                    tempContent.writeFloat(link->getLength());
-                    ++cnt;
-                }
-                tempMsg.writeInt((int) cnt);
-                tempMsg.writeStorage(tempContent);
-            }
-            break;
-        default:
-            break;
-        }
-    }
-    writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning);
-    // send response
-    myOutputStorage.writeUnsignedByte(0); // command length -> extended
-    myOutputStorage.writeInt(1 + 4 + tempMsg.size());
-    myOutputStorage.writeStorage(tempMsg);
-    return true;
-}
 
 }
 

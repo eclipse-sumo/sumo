@@ -156,8 +156,6 @@ private:
     bool commandUnsubscribeDomain() throw(TraCIException);
 
 
-    bool commandGetLaneVariable() throw(TraCIException);
-
     void writeStatusCmd(int commandId, int status, std::string description);
 
     /**

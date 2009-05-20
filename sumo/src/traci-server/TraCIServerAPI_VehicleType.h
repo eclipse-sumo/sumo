@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    TraCIServerAPI_VehicleType.h
 /// @author  Daniel Krajzewicz
-/// @date    Sept 2002
+/// @date    07.05.2009
 /// @version $Id: TraCIServerAPI_VehicleType.h 6907 2009-03-13 12:13:38Z dkrajzew $
 ///
 // APIs for getting/setting vehicle type values via TraCI
