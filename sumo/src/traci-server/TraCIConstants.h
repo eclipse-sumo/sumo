@@ -158,6 +158,13 @@
 // command: set polygon variable
 #define CMD_SET_POLYGON_VARIABLE 0xc8
 
+// command: get junction variable
+#define CMD_GET_JUNCTION_VARIABLE 0xa9
+// response: get junction variable
+#define RESPONSE_GET_JUNCTION_VARIABLE 0xb9
+// command: set junction variable
+#define CMD_SET_JUNCTION_VARIABLE 0xc9
+
 
 // ****************************************
 // POSITION REPRESENTATIONS
@@ -351,10 +358,10 @@
 // complete definition (get: traffic lights)
 #define TL_COMPLETE_DEFINITION 0x25
 
-// complete definition (get: traffic lights)
+// controlled lanes (get: traffic lights)
 #define TL_CONTROLLED_LANES 0x26
 
-// complete definition (get: traffic lights)
+// controlled links (get: traffic lights)
 #define TL_CONTROLLED_LINKS 0x27
 
 // index of the current phase (get: traffic lights)
@@ -362,6 +369,9 @@
 
 // name of the current program (get: traffic lights)
 #define TL_CURRENT_PROGRAM 0x29
+
+// controlled junctions (get: traffic lights)
+#define TL_CONTROLLED_JUNCTIONS 0x2a
 
 
 // outgoing link number (get: lanes)

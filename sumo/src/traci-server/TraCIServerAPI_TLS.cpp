@@ -209,15 +209,17 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeStorage(tempContent);
         }
         break;
-        case TL_CURRENT_PHASE: {
+        case TL_CURRENT_PHASE:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt((int) vars.getActive()->getCurrentPhaseIndex());
-        }
         break;
-        case TL_CURRENT_PROGRAM: {
+        case TL_CURRENT_PROGRAM:
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(vars.getActive()->getSubID());
-        }
+        break;
+        case TL_CONTROLLED_JUNCTIONS: 
+            {
+            }
         break;
         default:
         break;

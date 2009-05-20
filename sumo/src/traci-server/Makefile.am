@@ -4,6 +4,7 @@ libtraciserver_a_SOURCES = TraCIConstants.h TraCIDijkstraRouter.h \
 TraCIException.h TraCIHandler.h TraCIHandler.cpp \
 TraCIServer.h TraCIServer.cpp \
 TraCIServerAPI_InductionLoop.h TraCIServerAPI_InductionLoop.cpp \
+TraCIServerAPI_Junction.h TraCIServerAPI_Junction.cpp \
 TraCIServerAPI_Lane.h TraCIServerAPI_Lane.cpp \
 TraCIServerAPI_MeMeDetector.h TraCIServerAPI_MeMeDetector.cpp \
 TraCIServerAPI_POI.h TraCIServerAPI_POI.cpp \

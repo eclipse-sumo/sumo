@@ -376,6 +376,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Junction.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Lane.cpp"
 				>
 			</File>
@@ -435,6 +439,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_InductionLoop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Junction.h"
 				>
 			</File>
 			<File

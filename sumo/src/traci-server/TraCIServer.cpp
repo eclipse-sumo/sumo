@@ -51,6 +51,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include "TraCIServerAPI_InductionLoop.h"
+#include "TraCIServerAPI_Junction.h"
 #include "TraCIServerAPI_Lane.h"
 #include "TraCIServerAPI_MeMeDetector.h"
 #include "TraCIServerAPI_TLS.h"
@@ -95,6 +96,7 @@ namespace traci {
 // ===========================================================================
 TraCIServer* TraCIServer::instance_ = 0;
 bool TraCIServer::closeConnection_ = false;
+
 
 // ===========================================================================
 // method definitions
@@ -378,6 +380,9 @@ throw(TraCIException, std::invalid_argument) {
         break;
     case CMD_GET_POLYGON_VARIABLE:
         success = TraCIServerAPI_Polygon::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_GET_JUNCTION_VARIABLE:
+        success = TraCIServerAPI_Junction::processGet(myInputStorage, myOutputStorage);
         break;
     default:
         writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");

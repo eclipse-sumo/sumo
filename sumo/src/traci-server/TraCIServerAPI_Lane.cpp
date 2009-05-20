@@ -28,8 +28,7 @@
 #endif
 
 #include "TraCIConstants.h"
-#include <microsim/output/MSDetectorControl.h>
-#include <microsim/output/MSE3Collector.h>
+#include <microsim/MSLane.h>
 #include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Lane.h"
 
