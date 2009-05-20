@@ -49,7 +49,7 @@
 // ===========================================================================
 class NBNode;
 class OptionsCont;
-class NBTrafficLightLogicVector;
+class NBTrafficLightLogic;
 
 
 // ===========================================================================
@@ -122,7 +122,7 @@ public:
      * @param[in] oc The options container holding options needed during the building
      * @return The built logic (may be 0)
      */
-    NBTrafficLightLogicVector *compute(const NBEdgeCont &ec,
+    NBTrafficLightLogic *compute(const NBEdgeCont &ec,
                                        OptionsCont &oc) throw();
 
 
@@ -215,9 +215,9 @@ protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
-     * @return The computed logics
+     * @return The computed logic
      */
-    virtual NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
+    virtual NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
             unsigned int brakingTime) throw() = 0;
 
     /// Returns a pair of <number participating lanes, number participating links>

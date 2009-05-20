@@ -34,7 +34,6 @@
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightDefinition.h"
-#include "NBTrafficLightLogicVector.h"
 #include "NBLoadedTLDef.h"
 #include "NBNode.h"
 
@@ -287,7 +286,7 @@ NBLoadedTLDef::~NBLoadedTLDef() throw() {
 }
 
 
-NBTrafficLightLogicVector *
+NBTrafficLightLogic *
 NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw() {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
@@ -339,10 +338,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw()
         WRITE_WARNING("During computation of traffic light '" + getID() + "'.");
     }
     logic->closeBuilding();
-    // returns the build logic
-    NBTrafficLightLogicVector *ret = new NBTrafficLightLogicVector(myControlledLinks);
-    ret->add(logic);
-    return ret;
+    return logic;
 }
 
 

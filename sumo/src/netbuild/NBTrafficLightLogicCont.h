@@ -31,7 +31,6 @@
 
 #include <map>
 #include <string>
-#include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightDefinition.h"
 
 
@@ -58,7 +57,7 @@ class OutputDevice;
  *  their building and written to the network file at the end.
  *
  * @see NBTrafficLightDefinition
- * @see NBTrafficLightLogicVector
+ * @see NBTrafficLightLogic
  */
 class NBTrafficLightLogicCont {
 public:
@@ -77,7 +76,7 @@ public:
      * @param[in] oc The options container to read options from
      * @todo Recheck exceptions
      */
-    void applyOptions(OptionsCont &oc);
+    void applyOptions(OptionsCont &oc) throw();
 
 
     /** @brief Adds a logic definition to the dictionary
@@ -117,11 +116,11 @@ public:
 
     /** @brief Saves all known logics into the given stream
      *
-     * Calls "writeXML" for each of the stored NBTrafficLightLogicVector.
+     * Calls "writeXML" for each of the stored NBTrafficLightLogics.
      *
      * @param[in] into The stream to write the logics into
      * @exception IOError (not yet implemented)
-     * @see NBTrafficLightLogicVector::writeXML
+     * @see NBTrafficLightLogic::writeXML
      */
     void writeXML(OutputDevice &into) throw(IOError);
 
@@ -175,15 +174,8 @@ public:
 
 
 private:
-    /** @brief Inserts a built logic into the container
-     */
-    bool insert(const std::string &id,
-                NBTrafficLightLogicVector *logics) throw();
-
-
-private:
     /// @brief Definition of the container type for tl-ids to previously computed logics
-    typedef std::map<std::string, NBTrafficLightLogicVector*> ComputedContType;
+    typedef std::map<std::string, NBTrafficLightLogic*> ComputedContType;
 
     /// @brief The container for previously computed tl-logics
     ComputedContType myComputed;

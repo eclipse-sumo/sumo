@@ -14,7 +14,6 @@ NBRequest.cpp NBRequest.h \
 NBTrafficLightDefinition.cpp NBTrafficLightDefinition.h \
 NBTrafficLightLogic.cpp NBTrafficLightLogic.h \
 NBTrafficLightLogicCont.cpp NBTrafficLightLogicCont.h \
-NBTrafficLightLogicVector.cpp NBTrafficLightLogicVector.h \
 NBTypeCont.cpp NBTypeCont.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \

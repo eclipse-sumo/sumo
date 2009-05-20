@@ -34,7 +34,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
-#include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightLogicCont.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -60,7 +59,7 @@ NBTrafficLightLogicCont::~NBTrafficLightLogicCont() throw() {
 
 
 void
-NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) {
+NBTrafficLightLogicCont::applyOptions(OptionsCont &oc) throw() {
     // check whether any offsets shall be manipulated by setting
     //  them to half of the duration
     if (oc.isSet("tl-logics.half-offset")) {
@@ -101,24 +100,29 @@ void
 NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() {
     unsigned int no = 0;
     for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
+        string id = (*i).first;
+        if(myComputed.find(id)!=myComputed.end()) {
+            WRITE_WARNING("Traffic light '" + id + "' was already built.");
+            continue;
+        }
         // build program
         NBTrafficLightDefinition *def = (*i).second;
-        NBTrafficLightLogicVector *built = def->compute(ec, oc);
+        NBTrafficLightLogic *built = def->compute(ec, oc);
+        if(built==0) {
+            WRITE_WARNING("Could not build traffic lights '" + id + "'");
+            continue;
+        }
         // compute offset
-        string id = (*i).first;
+        SUMOTime T = built->getDuration();
         if (find(myHalfOffsetTLS.begin(), myHalfOffsetTLS.end(), id)!=myHalfOffsetTLS.end()) {
-            built->setOffsetsToHalf();
+            built->setOffset((SUMOTime)(T/2.));
         }
         if (find(myQuarterOffsetTLS.begin(), myQuarterOffsetTLS.end(), id)!=myQuarterOffsetTLS.end()) {
-            built->setOffsetsToQuarter();
+            built->setOffset((SUMOTime)(T/4.));
         }
         // and insert the result after computation
-        if (!insert((*i).first, built)) {
-            // should not happen
-            WRITE_WARNING("Could not build traffic lights '" + def->getID()+ "'");
-        } else {
-            no++;
-        }
+        myComputed[(*i).first] = built;
+        no++;
     }
     WRITE_MESSAGE(toString<int>(no) + " traffic light(s) computed.");
 }
@@ -186,22 +190,6 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw
         (*i).second->setTLControllingInformation(ec);
     }
 }
-
-
-bool
-NBTrafficLightLogicCont::insert(const std::string &id,
-                                NBTrafficLightLogicVector *logics) throw() {
-    if (logics==0) {
-        return false;
-    }
-    ComputedContType::iterator i=myComputed.find(id);
-    if (i!=myComputed.end()) {
-        myComputed[id]->add(*logics);
-    }
-    myComputed[id] = logics;
-    return true;
-}
-
 
 
 

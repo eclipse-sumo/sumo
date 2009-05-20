@@ -35,7 +35,6 @@
 #include <utils/common/ToString.h>
 #include "NBTrafficLightDefinition.h"
 #include <utils/options/OptionsCont.h>
-#include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightDefinition.h"
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightLogic.h"
@@ -79,7 +78,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id) throw(
 NBTrafficLightDefinition::~NBTrafficLightDefinition() throw() {}
 
 
-NBTrafficLightLogicVector *
+NBTrafficLightLogic *
 NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc) throw() {
     // it is not really a traffic light if no incoming edge exists
     if (myIncomingEdges.size()==0) {

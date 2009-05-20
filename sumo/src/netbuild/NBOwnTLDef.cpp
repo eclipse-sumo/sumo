@@ -30,7 +30,6 @@
 #include <vector>
 #include <cassert>
 #include "NBTrafficLightDefinition.h"
-#include "NBTrafficLightLogicVector.h"
 #include "NBNode.h"
 #include "NBOwnTLDef.h"
 #include "NBTrafficLightLogic.h"
@@ -173,7 +172,7 @@ NBOwnTLDef::getBestPair(vector<NBEdge*> &incoming) throw() {
 }
 
 
-NBTrafficLightLogicVector *
+NBTrafficLightLogic *
 NBOwnTLDef::myCompute(const NBEdgeCont &,
                       unsigned int brakingTime) throw() {
     // build complete lists first
@@ -327,10 +326,9 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         }
     }
     if (logic->getDuration()>0) {
-        NBTrafficLightLogicVector *lv = new NBTrafficLightLogicVector(NBConnectionVector());
-        lv->add(logic);
-        return lv;
+        return logic;
     } else {
+        delete logic;
         return 0;
     }
 

@@ -309,10 +309,10 @@ protected:
     /** @brief Computes the traffic light logic finally in dependence to the type
      * @param[in] ec The edge container
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
-     * @return The computed logics
+     * @return The computed logic
      * @see NBTrafficLightDefinition::myCompute
      */
-    NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
+    NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
                                          unsigned int brakingTime) throw();
 
 

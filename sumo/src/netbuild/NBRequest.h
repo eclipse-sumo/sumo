@@ -33,7 +33,6 @@
 #include <vector>
 #include <map>
 #include <bitset>
-#include "NBTrafficLightLogicVector.h"
 #include "NBConnectionDefs.h"
 #include "NBContHelper.h"
 #include <utils/common/UtilExceptions.h>
