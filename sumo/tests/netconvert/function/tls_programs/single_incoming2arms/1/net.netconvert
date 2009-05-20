@@ -131,10 +131,10 @@
       <subkey>0</subkey>
       <phaseno>4</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="00111" brake="11000" yellow="00000"/>
-      <phase duration="4" phase="00000" brake="11111" yellow="00111"/>
-      <phase duration="31" phase="11000" brake="00111" yellow="00000"/>
-      <phase duration="4" phase="00000" brake="11111" yellow="11000"/>
+      <phase duration="31" state="GGGrr"/>
+      <phase duration="4" state="yyyrr"/>
+      <phase duration="31" state="rrrGG"/>
+      <phase duration="4" state="rrryy"/>
    </tl-logic>
 
 

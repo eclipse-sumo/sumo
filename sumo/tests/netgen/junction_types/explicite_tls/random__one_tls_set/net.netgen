@@ -173,8 +173,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="111" brake="000" yellow="000"/>
-      <phase duration="4" phase="000" brake="111" yellow="111"/>
+      <phase duration="31" state="GGG"/>
+      <phase duration="4" state="yyy"/>
    </tl-logic>
 
 

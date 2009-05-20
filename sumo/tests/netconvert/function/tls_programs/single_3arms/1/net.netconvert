@@ -217,12 +217,12 @@
       <subkey>0</subkey>
       <phaseno>6</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="111111000" brake="110100111" yellow="000000000"/>
-      <phase duration="4" phase="110100000" brake="111111111" yellow="001011000"/>
-      <phase duration="6" phase="110100000" brake="001011111" yellow="000000000"/>
-      <phase duration="4" phase="000000000" brake="111111111" yellow="110100000"/>
-      <phase duration="31" phase="000001111" brake="111110100" yellow="000000000"/>
-      <phase duration="4" phase="000000000" brake="111111111" yellow="000001111"/>
+      <phase duration="31" state="rrrGGgGgg"/>
+      <phase duration="4" state="rrryygygg"/>
+      <phase duration="6" state="rrrrrGrGG"/>
+      <phase duration="4" state="rrrrryryy"/>
+      <phase duration="31" state="GGgGrrrrr"/>
+      <phase duration="4" state="yyyyrrrrr"/>
    </tl-logic>
 
 

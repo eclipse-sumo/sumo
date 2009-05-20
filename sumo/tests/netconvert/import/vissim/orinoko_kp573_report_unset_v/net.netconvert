@@ -1022,20 +1022,20 @@
       <subkey>0</subkey>
       <phaseno>14</phaseno>
       <offset>0</offset>
-      <phase duration="10" phase="1000000000000000" brake="0111111111111111" yellow="0000001111000011"/>
-      <phase duration="1" phase="1000000000000000" brake="0111111111111111" yellow="0000000000000000"/>
-      <phase duration="7" phase="1111110000000000" brake="0001111111111111" yellow="0000000000000000"/>
-      <phase duration="4" phase="1001110000000000" brake="0110001111111111" yellow="0000000000000000"/>
-      <phase duration="5" phase="1000000000000000" brake="0111111111111111" yellow="0111110000000000"/>
-      <phase duration="1" phase="1000000000011100" brake="0111111111111011" yellow="0111110000000000"/>
-      <phase duration="2" phase="1000000000011100" brake="0111111111111011" yellow="0001110000000000"/>
-      <phase duration="2" phase="1000000000111100" brake="0111111111011011" yellow="0001110000000000"/>
-      <phase duration="2" phase="1000000000111100" brake="0111111111011011" yellow="0000000000000000"/>
-      <phase duration="10" phase="0000000000111100" brake="1111111111000011" yellow="1000000000000000"/>
-      <phase duration="1" phase="0000000000111100" brake="1111111111000011" yellow="0000000000000000"/>
-      <phase duration="10" phase="0000000000000000" brake="1111111111111111" yellow="0000000000111100"/>
-      <phase duration="2" phase="0000001111000011" brake="1111111111111100" yellow="0000000000000000"/>
-      <phase duration="18" phase="1000001111000011" brake="1111111111111100" yellow="0000000000000000"/>
+      <phase duration="10" state="yyrrrryyyyrrrrrG"/>
+      <phase duration="1" state="rrrrrrrrrrrrrrrG"/>
+      <phase duration="7" state="rrrrrrrrrrgggGGG"/>
+      <phase duration="4" state="rrrrrrrrrrGGGrrG"/>
+      <phase duration="5" state="rrrrrrrrrryyyyyG"/>
+      <phase duration="1" state="rrGggrrrrryyyyyG"/>
+      <phase duration="2" state="rrGggrrrrryyyrrG"/>
+      <phase duration="2" state="rrGggGrrrryyyrrG"/>
+      <phase duration="2" state="rrGggGrrrrrrrrrG"/>
+      <phase duration="10" state="rrGGGGrrrrrrrrry"/>
+      <phase duration="1" state="rrGGGGrrrrrrrrrr"/>
+      <phase duration="10" state="rryyyyrrrrrrrrrr"/>
+      <phase duration="2" state="GGrrrrggggrrrrrr"/>
+      <phase duration="18" state="GGrrrrggggrrrrrg"/>
    </tl-logic>
 
 

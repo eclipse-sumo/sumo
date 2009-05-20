@@ -173,8 +173,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1" brake="0" yellow="0"/>
-      <phase duration="4" phase="0" brake="1" yellow="1"/>
+      <phase duration="31" state="G"/>
+      <phase duration="4" state="y"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -182,10 +182,10 @@
       <subkey>0</subkey>
       <phaseno>4</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="01" brake="10" yellow="00"/>
-      <phase duration="4" phase="00" brake="11" yellow="01"/>
-      <phase duration="31" phase="10" brake="01" yellow="00"/>
-      <phase duration="4" phase="00" brake="11" yellow="10"/>
+      <phase duration="31" state="Gr"/>
+      <phase duration="4" state="yr"/>
+      <phase duration="31" state="rG"/>
+      <phase duration="4" state="ry"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -193,8 +193,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1" brake="0" yellow="0"/>
-      <phase duration="4" phase="0" brake="1" yellow="1"/>
+      <phase duration="31" state="G"/>
+      <phase duration="4" state="y"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -202,8 +202,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1" brake="0" yellow="0"/>
-      <phase duration="4" phase="0" brake="1" yellow="1"/>
+      <phase duration="31" state="G"/>
+      <phase duration="4" state="y"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -211,8 +211,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="11" brake="00" yellow="00"/>
-      <phase duration="4" phase="00" brake="11" yellow="11"/>
+      <phase duration="31" state="GG"/>
+      <phase duration="4" state="yy"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -220,8 +220,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1" brake="0" yellow="0"/>
-      <phase duration="4" phase="0" brake="1" yellow="1"/>
+      <phase duration="31" state="G"/>
+      <phase duration="4" state="y"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -229,8 +229,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1" brake="0" yellow="0"/>
-      <phase duration="4" phase="0" brake="1" yellow="1"/>
+      <phase duration="31" state="G"/>
+      <phase duration="4" state="y"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -238,8 +238,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="1" brake="0" yellow="0"/>
-      <phase duration="4" phase="0" brake="1" yellow="1"/>
+      <phase duration="31" state="G"/>
+      <phase duration="4" state="y"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -247,8 +247,8 @@
       <subkey>0</subkey>
       <phaseno>2</phaseno>
       <offset>0</offset>
-      <phase duration="31" phase="111" brake="000" yellow="000"/>
-      <phase duration="4" phase="000" brake="111" yellow="111"/>
+      <phase duration="31" state="GGG"/>
+      <phase duration="4" state="yyy"/>
    </tl-logic>
 
 

@@ -233,14 +233,14 @@
       <phaseno>8</phaseno>
       <offset>0</offset>
       <inclanes>-end_0 left2end_0 middle_0 right2end_0</inclanes>
-      <phase duration="20" phase="0001111100001111" brake="1110110011111110" yellow="0000000000000000"/>
-      <phase duration="12" phase="0000110000001110" brake="1111111111111111" yellow="0001001100000001"/>
-      <phase duration="3" phase="0000110000001110" brake="1111001111110001" yellow="0000000000000000"/>
-      <phase duration="12" phase="0000000000000000" brake="1111111111111111" yellow="0000110000001110"/>
-      <phase duration="20" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/>
-      <phase duration="12" phase="1100000011000000" brake="1111111111111111" yellow="0011000000110000"/>
-      <phase duration="3" phase="1100000011000000" brake="0011111100111111" yellow="0000000000000000"/>
-      <phase duration="12" phase="0000000000000000" brake="1111111111111111" yellow="1100000011000000"/>
+      <phase duration="20" state="GgggrrrrGGggGrrr"/>
+      <phase duration="12" state="ygggrrrryyggyrrr"/>
+      <phase duration="3" state="rGGGrrrrrrGGrrrr"/>
+      <phase duration="12" state="ryyyrrrrrryyrrrr"/>
+      <phase duration="20" state="rrrrGGggrrrrGGgg"/>
+      <phase duration="12" state="rrrryyggrrrryygg"/>
+      <phase duration="3" state="rrrrrrGGrrrrrrGG"/>
+      <phase duration="12" state="rrrrrryyrrrrrryy"/>
    </tl-logic>
 
 

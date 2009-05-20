@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/18/09 09:08:13 by SUMO netconvert Version dev-SVN-r6820
+<!-- generated on 05/19/09 15:51:07 by SUMO netconvert Version dev-SVN-r7195
 <configuration>
 
    <input>
@@ -858,20 +858,20 @@
       <subkey>0</subkey>
       <phaseno>14</phaseno>
       <offset>0</offset>
-      <phase duration="10" phase="100000000000" brake="011111111111" yellow="000011100011"/>
-      <phase duration="1" phase="100000000000" brake="011111111111" yellow="000000000000"/>
-      <phase duration="7" phase="111100000000" brake="000011111111" yellow="000000000000"/>
-      <phase duration="4" phase="101100000000" brake="010011111111" yellow="000000000000"/>
-      <phase duration="5" phase="100000000000" brake="011111111111" yellow="011100000000"/>
-      <phase duration="1" phase="100000001100" brake="011111111011" yellow="011100000000"/>
-      <phase duration="2" phase="100000001100" brake="011111111011" yellow="001100000000"/>
-      <phase duration="2" phase="100000011100" brake="011111101011" yellow="001100000000"/>
-      <phase duration="2" phase="100000011100" brake="011111101011" yellow="000000000000"/>
-      <phase duration="10" phase="000000011100" brake="111111100011" yellow="100000000000"/>
-      <phase duration="1" phase="000000011100" brake="111111100011" yellow="000000000000"/>
-      <phase duration="10" phase="000000000000" brake="111111111111" yellow="000000011100"/>
-      <phase duration="2" phase="000011100011" brake="111101011101" yellow="000000000000"/>
-      <phase duration="18" phase="100011100011" brake="011101011101" yellow="000000000000"/>
+      <phase duration="10" state="yyrrryyyrrrG"/>
+      <phase duration="1" state="rrrrrrrrrrrG"/>
+      <phase duration="7" state="rrrrrrrrGGGG"/>
+      <phase duration="4" state="rrrrrrrrGGrG"/>
+      <phase duration="5" state="rrrrrrrryyyG"/>
+      <phase duration="1" state="rrGgrrrryyyG"/>
+      <phase duration="2" state="rrGgrrrryyrG"/>
+      <phase duration="2" state="rrGgGrrryyrG"/>
+      <phase duration="2" state="rrGgGrrrrrrG"/>
+      <phase duration="10" state="rrGGGrrrrrry"/>
+      <phase duration="1" state="rrGGGrrrrrrr"/>
+      <phase duration="10" state="rryyyrrrrrrr"/>
+      <phase duration="2" state="gGrrrGgGrrrr"/>
+      <phase duration="18" state="gGrrrGgGrrrG"/>
    </tl-logic>
 
 

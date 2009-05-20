@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/18/09 09:08:17 by SUMO netconvert Version dev-SVN-r6820
+<!-- generated on 05/19/09 15:51:08 by SUMO netconvert Version dev-SVN-r7195
 <configuration>
 
    <input>
@@ -1384,14 +1384,14 @@
       <subkey>0</subkey>
       <phaseno>8</phaseno>
       <offset>0</offset>
-      <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
-      <phase duration="15" phase="111000111000" brake="001111010111" yellow="000000000000"/>
-      <phase duration="5" phase="000000000000" brake="111111111111" yellow="111000111000"/>
-      <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
-      <phase duration="13" phase="000111000111" brake="111100111001" yellow="000000000000"/>
-      <phase duration="4" phase="000111000000" brake="111000111111" yellow="000000000111"/>
-      <phase duration="1" phase="000000000000" brake="111111111111" yellow="000111000111"/>
-      <phase duration="4" phase="000000000000" brake="111111111111" yellow="000111000000"/>
+      <phase duration="4" state="rrrrrrrrrrrr"/>
+      <phase duration="15" state="rrrGgGrrrgGG"/>
+      <phase duration="5" state="rrryyyrrryyy"/>
+      <phase duration="4" state="rrrrrrrrrrrr"/>
+      <phase duration="13" state="gGGrrrGGgrrr"/>
+      <phase duration="4" state="yyyrrrGGGrrr"/>
+      <phase duration="1" state="yyyrrryyyrrr"/>
+      <phase duration="4" state="rrrrrryyyrrr"/>
    </tl-logic>
 
 

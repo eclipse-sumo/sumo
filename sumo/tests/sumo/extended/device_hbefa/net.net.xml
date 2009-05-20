@@ -123,12 +123,12 @@
       <phaseno>6</phaseno>
       <offset>0</offset>
       <inclanes>left2end_0 middle_0 right2end_0</inclanes>
-      <phase duration="20" phase="001" brake="110" yellow="000"/>
-      <phase duration="12" phase="000" brake="111" yellow="001"/>
-      <phase duration="20" phase="010" brake="101" yellow="000"/>
-      <phase duration="12" phase="000" brake="111" yellow="010"/>
-      <phase duration="20" phase="100" brake="011" yellow="000"/>
-      <phase duration="12" phase="000" brake="111" yellow="100"/>
+      <phase duration="20" state="Grr"/>
+      <phase duration="12" state="yrr"/>
+      <phase duration="20" state="rGr"/>
+      <phase duration="12" state="ryr"/>
+      <phase duration="20" state="rrG"/>
+      <phase duration="12" state="rry"/>
    </tl-logic>
 
 

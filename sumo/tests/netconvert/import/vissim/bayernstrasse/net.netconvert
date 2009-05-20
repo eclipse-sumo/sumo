@@ -1959,25 +1959,25 @@
       <subkey>0</subkey>
       <phaseno>19</phaseno>
       <offset>0</offset>
-      <phase duration="2" phase="0000000000000000111111" brake="1111111111111111000000" yellow="0000000000000000000000"/>
-      <phase duration="2" phase="0000000000000000001111" brake="1111111111111111110000" yellow="0000000000000000000000"/>
-      <phase duration="2" phase="0000000000000000001000" brake="1111111111111111110111" yellow="0000000000000000000111"/>
-      <phase duration="1" phase="0000000000000000000000" brake="1111111111111111111111" yellow="0000000000000000000111"/>
-      <phase duration="1" phase="0000000000000000000000" brake="1111111111111111111111" yellow="0000000000000000000000"/>
-      <phase duration="17" phase="0000111111111111000000" brake="1111000000000000111111" yellow="0000000000000000000000"/>
-      <phase duration="4" phase="0100111111111111000000" brake="1111110111011101111111" yellow="0000000000000000000000"/>
-      <phase duration="3" phase="0100000000000000000000" brake="1011111111111111111111" yellow="0000111111111111000000"/>
-      <phase duration="1" phase="0111000000000000000000" brake="1000111111111111111111" yellow="0000111111111111000000"/>
-      <phase duration="10" phase="0111000000000000000000" brake="1000111111111111111111" yellow="0000000000000000000000"/>
-      <phase duration="12" phase="0011000000000000000000" brake="1100111111111111111111" yellow="0000000000000000000000"/>
-      <phase duration="2" phase="0000000000000000000000" brake="1111111111111111111111" yellow="0011000000000000000000"/>
-      <phase duration="1" phase="1000000000000000000000" brake="0111111111111111111111" yellow="0011000000000000000000"/>
-      <phase duration="1" phase="1100000000000000000000" brake="0011111111111111111111" yellow="0011000000000000000000"/>
-      <phase duration="1" phase="1100000000000000000000" brake="0011111111111111111111" yellow="0000000000000000000000"/>
-      <phase duration="2" phase="1100000000000000110000" brake="0011111111111111001111" yellow="0000000000000000000000"/>
-      <phase duration="4" phase="1100000000000000111000" brake="0011111111111111000111" yellow="0000000000000000000000"/>
-      <phase duration="2" phase="1100000000000000111111" brake="0011111111111111000000" yellow="0000000000000000000000"/>
-      <phase duration="7" phase="1000000000000000111111" brake="0111111111111111000000" yellow="0000000000000000000000"/>
+      <phase duration="2" state="GGGGGGrrrrrrrrrrrrrrrr"/>
+      <phase duration="2" state="GGGGrrrrrrrrrrrrrrrrrr"/>
+      <phase duration="2" state="yyyGrrrrrrrrrrrrrrrrrr"/>
+      <phase duration="1" state="yyyrrrrrrrrrrrrrrrrrrr"/>
+      <phase duration="1" state="rrrrrrrrrrrrrrrrrrrrrr"/>
+      <phase duration="17" state="rrrrrrGGGGGGGGGGGGrrrr"/>
+      <phase duration="4" state="rrrrrrgGgggGgggGggrrgr"/>
+      <phase duration="3" state="rrrrrryyyyyyyyyyyyrrGr"/>
+      <phase duration="1" state="rrrrrryyyyyyyyyyyyGGGr"/>
+      <phase duration="10" state="rrrrrrrrrrrrrrrrrrGGGr"/>
+      <phase duration="12" state="rrrrrrrrrrrrrrrrrrGGrr"/>
+      <phase duration="2" state="rrrrrrrrrrrrrrrrrryyrr"/>
+      <phase duration="1" state="rrrrrrrrrrrrrrrrrryyrG"/>
+      <phase duration="1" state="rrrrrrrrrrrrrrrrrryyGG"/>
+      <phase duration="1" state="rrrrrrrrrrrrrrrrrrrrGG"/>
+      <phase duration="2" state="rrrrGGrrrrrrrrrrrrrrGG"/>
+      <phase duration="4" state="rrrGGGrrrrrrrrrrrrrrGG"/>
+      <phase duration="2" state="GGGGGGrrrrrrrrrrrrrrGG"/>
+      <phase duration="7" state="GGGGGGrrrrrrrrrrrrrrrG"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -1985,21 +1985,21 @@
       <subkey>0</subkey>
       <phaseno>15</phaseno>
       <offset>0</offset>
-      <phase duration="23" phase="0000111111100" brake="1111000000011" yellow="0000000000000"/>
-      <phase duration="2" phase="0000000000100" brake="1111111111011" yellow="0000111111000"/>
-      <phase duration="3" phase="0000000000000" brake="1111111111111" yellow="0000111111100"/>
-      <phase duration="2" phase="0000000000000" brake="1111111111111" yellow="0000000000100"/>
-      <phase duration="9" phase="0000000000000" brake="1111111111111" yellow="0000000000000"/>
-      <phase duration="10" phase="1100000000000" brake="0011111111111" yellow="0000000000000"/>
-      <phase duration="2" phase="0000000000000" brake="1111111111111" yellow="1100000000000"/>
-      <phase duration="1" phase="0000000000011" brake="1111111111100" yellow="1100000000000"/>
-      <phase duration="2" phase="0011000000011" brake="1100111111100" yellow="0000000000000"/>
-      <phase duration="7" phase="0011111111011" brake="1100000000100" yellow="0000000000000"/>
-      <phase duration="5" phase="0000111111011" brake="1111000000100" yellow="0011000000000"/>
-      <phase duration="2" phase="0000111111011" brake="1111000000100" yellow="0000000000000"/>
-      <phase duration="2" phase="0000111111000" brake="1111000000111" yellow="0000000000011"/>
-      <phase duration="1" phase="0000111111100" brake="1111000000011" yellow="0000000000011"/>
-      <phase duration="4" phase="0000111111100" brake="1111000000011" yellow="0000000000000"/>
+      <phase duration="23" state="rrGGGGGGGrrrr"/>
+      <phase duration="2" state="rrGyyyyyyrrrr"/>
+      <phase duration="3" state="rryyyyyyyrrrr"/>
+      <phase duration="2" state="rryrrrrrrrrrr"/>
+      <phase duration="9" state="rrrrrrrrrrrrr"/>
+      <phase duration="10" state="rrrrrrrrrrrGG"/>
+      <phase duration="2" state="rrrrrrrrrrryy"/>
+      <phase duration="1" state="GGrrrrrrrrryy"/>
+      <phase duration="2" state="GGrrrrrrrGGrr"/>
+      <phase duration="7" state="GGrGGGGGGGGrr"/>
+      <phase duration="5" state="GGrGGGGGGyyrr"/>
+      <phase duration="2" state="GGrGGGGGGrrrr"/>
+      <phase duration="2" state="yyrGGGGGGrrrr"/>
+      <phase duration="1" state="yyGGGGGGGrrrr"/>
+      <phase duration="4" state="rrGGGGGGGrrrr"/>
    </tl-logic>
 
    <tl-logic type="static">
@@ -2007,14 +2007,14 @@
       <subkey>0</subkey>
       <phaseno>8</phaseno>
       <offset>0</offset>
-      <phase duration="5" phase="0000" brake="1111" yellow="0011"/>
-      <phase duration="11" phase="0000" brake="1111" yellow="0000"/>
-      <phase duration="7" phase="1100" brake="0111" yellow="0000"/>
-      <phase duration="3" phase="0100" brake="1011" yellow="1000"/>
-      <phase duration="4" phase="0100" brake="1011" yellow="0000"/>
-      <phase duration="3" phase="0000" brake="1111" yellow="0100"/>
-      <phase duration="6" phase="0000" brake="1111" yellow="0000"/>
-      <phase duration="36" phase="0011" brake="1100" yellow="0000"/>
+      <phase duration="5" state="yyrr"/>
+      <phase duration="11" state="rrrr"/>
+      <phase duration="7" state="rrgG"/>
+      <phase duration="3" state="rrGy"/>
+      <phase duration="4" state="rrGr"/>
+      <phase duration="3" state="rryr"/>
+      <phase duration="6" state="rrrr"/>
+      <phase duration="36" state="GGrr"/>
    </tl-logic>
 
 
