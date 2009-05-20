@@ -169,7 +169,7 @@ public:
     void recheckForLoops() throw();
 
     OutputDevice &
-    writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const;
+    writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
 
 
 private:

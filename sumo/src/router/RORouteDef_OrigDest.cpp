@@ -99,7 +99,7 @@ RORouteDef_OrigDest::copy(const std::string &id) const {
 
 OutputDevice &
 RORouteDef_OrigDest::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
-    return myCurrent->writeXMLDefinition(dev, asAlternatives);
+    return myCurrent->writeXMLDefinition(dev, veh, asAlternatives, withExitTimes);
 }
 
 

@@ -96,7 +96,7 @@ RORoute::recheckForLoops() throw() {
 
 
 OutputDevice &
-RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const {
+RORoute::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
         dev << "<routeDistribution last=\"0\">\n         ";
@@ -110,7 +110,17 @@ RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const {
     if (myColor!=0) {
         dev << " color=\"" << *myColor << "\"";
     }
-    dev << " edges=\"" << myRoute << "\"/>\n";
+    dev << " edges=\"" << myRoute;
+    if (withExitTimes) {
+        SUMOTime time = veh->getDepartureTime();
+        dev << "\" exitTimes=\"";
+        std::vector<const ROEdge*>::const_iterator i = myRoute.begin();
+        for (; i!=myRoute.end(); ++i) {
+            time += (*i)->getEffort(veh, time);
+            dev << time << " ";
+        }
+    }
+    dev << "\"/>\n";
     // (optional) alternatives end
     if (asAlternatives) {
         dev << "      </routeDistribution>\n";

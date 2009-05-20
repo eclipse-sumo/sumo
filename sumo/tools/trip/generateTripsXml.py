@@ -39,11 +39,13 @@ class Trip:
     """
     This class is to store trip attributes.
     """
-    def __init__(self, num, depart, source, sink):
+    def __init__(self, num, depart, source, sink, sourceD, sinkD):
         self.label = "%s" % num
         self.depart = depart
         self.sourceEdge = source
         self.sinkEdge = sink
+        self.sourceDistrict = sourceD
+        self.sinkDistrict = sinkD
         
     def __repr__(self):
         return self.label
@@ -248,7 +250,7 @@ def addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, trip
     if len(odConnMap[startVertex.label][endVertex.label]) > 0:
         connIndex = random.randint(0, len(odConnMap[startVertex.label][endVertex.label])-1)
         connPair = odConnMap[startVertex.label][endVertex.label][connIndex]
-        veh = Trip(vehID, depart, connPair[0], connPair[1])
+        veh = Trip(vehID, depart, connPair[0], connPair[1], startVertex.label, endVertex.label)
         tripList.append(veh)
     
     return counts, vehID, tripList    
@@ -300,6 +302,10 @@ def main(options):
     """ % datetime.datetime.now()
     fouttrips.write("<tripdefs>\n")
     
+    for start in range(len(startVertices)):
+        for end in range(len(endVertices)):
+            matrixPshort[start][end] *= options.scale
+
     for start, startVertex in enumerate(startVertices):
         for end, endVertex in enumerate(endVertices):
             if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
@@ -320,8 +326,8 @@ def main(options):
         print 'total demand:', matrixSum           
         print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
-    for trip in tripList:            
-        fouttrips.write('   <tripdef id="%s" depart="%s" from="%s" to="%s" departlane="free" departspeed="max"/>\n' %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge))
+    for trip in tripList:
+        fouttrips.write('   <tripdef id="%s" depart="%s" from="%s" to="%s" fromtaz="%s" totaz="%s" departlane="free" departspeed="max"/>\n' %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge, trip.sourceDistrict, trip.sinkDistrict))
     fouttrips.write("</tripdefs>")
     fouttrips.close()
     
@@ -343,10 +349,11 @@ if __name__ == "__main__":
                          default= "trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-x", "--odestimation", action="store_true", dest="odestimation",
                          default=False, help="generate trips for OD estimation")
-    optParser.add_option("-b", "--debug", action="store_true", dest="debug",
+    optParser.add_option("-b", "--debug", action="store_true",
                          default=False, help="debug the program")
-    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+    optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
+    optParser.add_option("-s", "--scale", type="float", default=1., help="scale demand by ")
                                         
     (options, args) = optParser.parse_args()
     

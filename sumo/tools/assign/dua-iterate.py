@@ -156,6 +156,10 @@ optParser.add_option("-c", "--classpath", dest="classpath",
                      help="classpath for the calibrator [default: %default]")
 optParser.add_option("-s", "--first-calibration-step", dest="calibStep",
                      type="int", default=10, help="step at which to start calibration [default: %default]")
+
+optParser.add_option("-S", "--demandscale", type="float", default=1., help="scaled demand [default: %default]")
+optParser.add_option("-o", "--od-matrix", dest="odmatrix",
+                     help="sent estimated O-D matrix to", metavar="FILE")
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
     optParser.error("At least --net-file and --trips have to be given!")
@@ -186,9 +190,14 @@ for step in range(options.firstStep, options.lastStep):
 
     # calibration init
     doCalibration = options.detvals != None and step >= options.calibStep
-    if options.detvals and step == options.calibStep: 
-        subprocess.call("%s INIT -measfile %s -stddev 10 -binsize %s" % (calibrator, options.detvals, options.aggregation),
-                        shell=True, stdout=log, stderr=log)
+    if options.detvals and step == options.calibStep:
+        if options.odmatrix:
+            subprocess.call("%s INIT -measfile %s -binsize %s -odmatrix %s -demandscale %s"\
+                            % (calibrator, options.detvals, options.aggregation, options.odmatrix, options.demandscale),
+                            shell=True, stdout=log, stderr=log)
+        else:
+            subprocess.call("%s INIT -measfile %s -binsize %s " % (calibrator, options.detvals, options.aggregation),
+                            shell=True, stdout=log, stderr=log)
     # router
     files = []
     for tripFile in tripFiles:
@@ -215,7 +224,12 @@ for step in range(options.firstStep, options.lastStep):
         print "<<"
         # calibration choice
         if doCalibration:
-            subprocess.call("%s CHOICE -choicesetfile %s.alt.xml -choicefile %s.cal.xml" % (calibrator, output[:-4], output[:-4]),
+            alts = output[:-4] + ".alt.xml"
+            if options.odmatrix:
+                subprocess.call("addTaz.py -t %s -r %s > %s.taz.xml" % (tripFile, alts, output[:-4]),
+                                shell=True, stdout=log, stderr=log)
+                alts = output[:-4] + ".taz.xml"
+            subprocess.call("%s CHOICE -choicesetfile %s -choicefile %s.cal.xml" % (calibrator, alts, output[:-4]),
                             shell=True, stdout=log, stderr=log)
             output = output[:-4] + ".cal.xml"
         files.append(output)

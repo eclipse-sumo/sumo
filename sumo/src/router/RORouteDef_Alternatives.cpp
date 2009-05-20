@@ -354,7 +354,7 @@ RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle *
         dev << "      </routeDistribution>\n";
         return dev;
     } else {
-        return myAlternatives[myLastUsed]->writeXMLDefinition(dev, asAlternatives);
+        return myAlternatives[myLastUsed]->writeXMLDefinition(dev, veh, asAlternatives, withExitTimes);
     }
 }
 
