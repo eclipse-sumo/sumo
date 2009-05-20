@@ -34,6 +34,24 @@ def getBegin(file):
 	fd.close()
 	return ""
 
+def patchPhase(attrs):
+    state = ""
+    for i in range(0, len(attrs['phase'])):
+        c = 'g'
+        if attrs['phase'][i]=='0':
+            if attrs['yellow'][i]=='1':
+                c = 'y'
+            else:
+                c = 'r'
+        if attrs['brake'][i]=='0':
+            if c=='y':
+                c = 'Y'
+            if c=='g':
+                c = 'G'
+        state = c + state
+    return state
+
+
 class NetConverter(handler.ContentHandler):
     def __init__(self, outFileName, begin):
         self._out = open(outFileName, "w")
@@ -45,13 +63,22 @@ class NetConverter(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         self._out.write("<" + name)
-        if name not in a:
+        if name=="phase" and attrs.has_key('phase'):
+            # patch phase definition
+            state = patchPhase(attrs)
             for key in attrs.getNames():
-                self._out.write(' ' + key + '="' + attrs[key] + '"')
-        else:
-            for key in a[name]:
-                if attrs.has_key(key):
+                 if key=='phase':
+                    self._out.write(' state="' + state + '"')
+                 elif key!='yellow' and key!='brake':
                     self._out.write(' ' + key + '="' + attrs[key] + '"')
+        else:
+            if name not in a:
+                for key in attrs.getNames():
+                    self._out.write(' ' + key + '="' + attrs[key] + '"')
+            else:
+                for key in a[name]:
+                    if attrs.has_key(key):
+                        self._out.write(' ' + key + '="' + attrs[key] + '"')
         if name in c:
             self._out.write("/")
         self._out.write(">")
