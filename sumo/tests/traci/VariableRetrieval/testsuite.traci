@@ -25,3 +25,7 @@ POI
 # Tests retrieval of variables from polygons (0xa8)
 Polygon
 
+# Tests retrieval of variables from junctions (0xa9)
+Junction
+
+

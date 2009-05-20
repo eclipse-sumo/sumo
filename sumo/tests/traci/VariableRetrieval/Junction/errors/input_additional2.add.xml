@@ -1,0 +1,49 @@
+<additional>
+
+
+   <tl-logic type="traffic_light">
+      <key>0/1</key>
+      <subkey>t1</subkey>
+      <phaseno>2</phaseno>
+      <offset>0</offset>
+      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
+      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
+   </tl-logic>
+
+   <tl-logic type="traffic_light">
+      <key>1/1</key>
+      <subkey>t1</subkey>
+      <phaseno>2</phaseno>
+      <offset>0</offset>
+      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+   </tl-logic>
+
+   <tl-logic type="traffic_light">
+      <key>2/1</key>
+      <subkey>t1</subkey>
+      <phaseno>2</phaseno>
+      <offset>0</offset>
+      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+   </tl-logic>
+
+   <tl-logic type="traffic_light">
+      <key>3/1</key>
+      <subkey>t1</subkey>
+      <phaseno>2</phaseno>
+      <offset>0</offset>
+      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+   </tl-logic>
+
+   <tl-logic type="traffic_light">
+      <key>4/1</key>
+      <subkey>t1</subkey>
+      <phaseno>2</phaseno>
+      <offset>0</offset>
+      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
+      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
+   </tl-logic>
+
+</additional>
