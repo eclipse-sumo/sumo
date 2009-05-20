@@ -229,7 +229,7 @@ public:
 
     /** @brief Returns the signal group which is responsible for the given connection
      * @param[in] from The connection's start edge
-     * @param[in] from The connection's end edge
+     * @param[in] to The connection's end edge
      * @return The signal group which controls the given connection
      */
     SignalGroup *findGroup(NBEdge *from, NBEdge *to) const throw();
@@ -347,6 +347,7 @@ protected:
      * @param[in] removedLane The lane of this edge to replace
      * @param[in] by The edge to insert instead
      * @param[in] byLane This edge's lane to insert instead
+     * @see NBTrafficLightDefinition::replaceRemoved
      */
     void replaceRemoved(NBEdge *removed, int removedLane,
                         NBEdge *by, int byLane) throw();

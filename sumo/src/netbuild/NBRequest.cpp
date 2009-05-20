@@ -445,9 +445,9 @@ NBRequest::foes(const NBEdge * const from1, const NBEdge * const to1,
 
 
 bool
-NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-                   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
-                   bool regardNonSignalisedLowerPriority) const {
+NBRequest::forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
+                   const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo,
+                   bool regardNonSignalisedLowerPriority) const throw() {
     // unconnected edges do not forbid other edges
     if (possProhibitorTo==0 || possProhibitedTo==0) {
         return false;
@@ -603,7 +603,7 @@ operator<<(std::ostream &os, const NBRequest &r) {
 
 
 bool
-NBRequest::mustBrake(NBEdge *from, NBEdge *to) const {
+NBRequest::mustBrake(const NBEdge * const from, const NBEdge * const to) const throw() {
     // vehicles which do not have a following lane must always decelerate to the end
     if (to==0) {
         return true;
@@ -627,10 +627,11 @@ NBRequest::mustBrake(NBEdge *from, NBEdge *to) const {
 
 
 bool
-NBRequest::mustBrake(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const {
+NBRequest::mustBrake(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo, 
+                     const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo) const throw() {
     // get the indices
-    int idx1 = getIndex(from1, to1);
-    int idx2 = getIndex(from2, to2);
+    int idx1 = getIndex(possProhibitorFrom, possProhibitorTo);
+    int idx2 = getIndex(possProhibitedFrom, possProhibitedTo);
     return (myForbids[idx2][idx1]);
 }
 

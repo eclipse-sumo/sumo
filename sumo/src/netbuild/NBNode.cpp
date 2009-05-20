@@ -1529,18 +1529,14 @@ NBNode::removeDoubleEdges() {
 
 
 bool
-NBNode::hasOutgoing(NBEdge *e) const {
-    return find(myOutgoingEdges->begin(), myOutgoingEdges->end(), e)
-           !=
-           myOutgoingEdges->end();
+NBNode::hasIncoming(const NBEdge * const e) const throw() {
+    return find(myIncomingEdges->begin(), myIncomingEdges->end(), e)!=myIncomingEdges->end();
 }
 
 
 bool
-NBNode::hasIncoming(NBEdge *e) const {
-    return find(myIncomingEdges->begin(), myIncomingEdges->end(), e)
-           !=
-           myIncomingEdges->end();
+NBNode::hasOutgoing(const NBEdge * const e) const throw() {
+    return find(myOutgoingEdges->begin(), myOutgoingEdges->end(), e)!=myOutgoingEdges->end();
 }
 
 
@@ -1717,7 +1713,7 @@ NBNode::invalidateOutgoingConnections() {
 
 
 bool
-NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const {
+NBNode::mustBrake(const NBEdge * const from, const NBEdge * const to, int toLane) const throw() {
     // check whether it is participant to a traffic light
     //  - controlled links are set by the traffic lights, not the normal
     //    right-of-way rules
@@ -1775,9 +1771,9 @@ NBNode::isLeftMover(const NBEdge * const from, const NBEdge * const to) const th
 
 
 bool
-NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-                NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
-                bool regardNonSignalisedLowerPriority) const {
+NBNode::forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
+                const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo,
+                bool regardNonSignalisedLowerPriority) const throw() {
     return myRequest!=0&&myRequest->forbids(possProhibitorFrom, possProhibitorTo,
                                             possProhibitedFrom, possProhibitedTo,
                                             regardNonSignalisedLowerPriority);

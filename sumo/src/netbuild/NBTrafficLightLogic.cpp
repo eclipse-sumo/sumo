@@ -85,22 +85,6 @@ NBTrafficLightLogic::writeXML(OutputDevice &into) const throw() {
 }
 
 
-bool
-NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const throw() {
-    if (myPhases.size()!=logic.myPhases.size()) {
-        return false;
-    }
-    PhaseDefinitionVector::const_iterator i, j;
-    for (i=myPhases.begin(), j=logic.myPhases.begin();
-            i!=myPhases.end(); i++, j++) {
-        if ((*i)!=(*j)) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
 SUMOTime
 NBTrafficLightLogic::getDuration() const throw() {
     SUMOTime duration = 0;
@@ -121,17 +105,6 @@ NBTrafficLightLogic::closeBuilding() throw() {
         myPhases[i].duration += myPhases[i+1].duration;
         myPhases.erase(myPhases.begin()+i+1);
     }
-}
-
-
-
-SUMOTime
-NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const throw() {
-    SUMOTime dur = 0;
-    for (size_t i=0; i<myPhases.size(); ++i) {
-        dur += myPhases[i].duration;
-    }
-    return (SUMOTime)((SUMOReal) dur * offsetMult);
 }
 
 

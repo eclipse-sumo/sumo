@@ -83,10 +83,23 @@ public:
         of the junction's links in respect */
     std::pair<unsigned int, unsigned int> getSizes() const;
 
-    bool mustBrake(NBEdge *from1, NBEdge *to1,
-                   NBEdge *from2, NBEdge *to2) const;
+    /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
+     * @param[in] possProhibitorFrom The maybe prohibiting connection's begin
+     * @param[in] possProhibitorTo The maybe prohibiting connection's end
+     * @param[in] possProhibitedFrom The maybe prohibited connection's begin
+     * @param[in] possProhibitedTo The maybe prohibited connection's end
+     * @return Whether the first flow prohibits the second one
+     */
+    bool mustBrake(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
+                   const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo) const throw();
 
-    bool mustBrake(NBEdge *from, NBEdge *to) const; // !!!
+
+    /** @brief Returns the information whether the described flow must let any other flow pass
+     * @param[in] from The connection's start edge
+     * @param[in] to The connection's end edge
+     * @return Whether the described connection must brake (has higher priorised foes)
+     */
+    bool mustBrake(const NBEdge * const from, const NBEdge * const to) const throw(); // !!!
 
     /** @brief Returns the information whether the given flows cross
      * @param[in] from1 The starting edge of the first stream
@@ -98,9 +111,18 @@ public:
     bool foes(const NBEdge * const from1, const NBEdge * const to1,
               const NBEdge * const from2, const NBEdge * const to2) const throw();
 
-    bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-                 NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
-                 bool regardNonSignalisedLowerPriority) const;
+
+    /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
+     * @param[in] possProhibitorFrom The maybe prohibiting connection's begin
+     * @param[in] possProhibitorTo The maybe prohibiting connection's end
+     * @param[in] possProhibitedFrom The maybe prohibited connection's begin
+     * @param[in] possProhibitedTo The maybe prohibited connection's end
+     * @param[in] regardNonSignalisedLowerPriority Whether the right of way rules without traffic lights shall be regarded
+     * @return Whether the first flow prohibits the second one
+     */
+    bool forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
+                 const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo,
+                 bool regardNonSignalisedLowerPriority) const throw();
 
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);

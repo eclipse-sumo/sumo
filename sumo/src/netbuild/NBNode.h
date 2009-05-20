@@ -287,8 +287,21 @@ public:
         Should only be used to add source or sink nodes */
     Position2D getEmptyDir() const;
 
-    bool hasOutgoing(NBEdge *e) const;
-    bool hasIncoming(NBEdge *e) const;
+
+    /** @brief Returns whether the given edge ends at this node
+     * @param[in] e The edge
+     * @return Whether the given edge is one of this node's incoming edges
+     */
+    bool hasIncoming(const NBEdge * const e) const throw();
+
+
+    /** @brief Returns whether the given edge starts at this node
+     * @param[in] e The edge
+     * @return Whether the given edge is one of this node's outgoing edges
+     */
+    bool hasOutgoing(const NBEdge * const e) const throw();
+
+
     NBEdge *getOppositeIncoming(NBEdge *e) const;
     void invalidateIncomingConnections();
     void invalidateOutgoingConnections();
@@ -327,11 +340,26 @@ public:
     bool isLeftMover(const NBEdge * const from, const NBEdge * const to) const throw();
 
 
-    bool mustBrake(NBEdge *from, NBEdge *to, int toLane) const;
+    /** @brief Returns the information whether the described flow must let any other flow pass
+     * @param[in] from The connection's start edge
+     * @param[in] to The connection's end edge
+     * @param[in] toLane The lane the connection ends at
+     * @return Whether the described connection must brake (has higher priorised foes)
+     */
+    bool mustBrake(const NBEdge * const from, const NBEdge * const to, int toLane) const throw();
 
-    bool forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-                 NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
-                 bool regardNonSignalisedLowerPriority) const;
+
+    /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
+     * @param[in] possProhibitedFrom The maybe prohibited connection's begin
+     * @param[in] possProhibitedTo The maybe prohibited connection's end
+     * @param[in] possProhibitorFrom The maybe prohibiting connection's begin
+     * @param[in] possProhibitorTo The maybe prohibiting connection's end
+     * @param[in] regardNonSignalisedLowerPriority Whether the right of way rules without traffic lights shall be regarded
+     * @return Whether the second flow prohibits the first one
+     */
+    bool forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
+                 const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo,
+                 bool regardNonSignalisedLowerPriority) const throw();
 
 
     /** @brief Returns the information whether the given flows cross

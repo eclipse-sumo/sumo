@@ -82,20 +82,25 @@ public:
     void writeXML(OutputDevice &into) const throw();
 
 
-    /// Information whether the given logic is equal to this
-    bool equals(const NBTrafficLightLogic &logic) const throw();
-
-    /// closes the building process (joins equal steps)
+    /** @brief closes the building process 
+     *
+     * Joins equal steps.
+     */
     void closeBuilding() throw();
 
+
+    /** @brief Returns the duration of the complete cycle
+     * @return The duration of this logic's cycle
+     */
     SUMOTime getDuration() const throw();
+
+
+    /** @brief Sets the offset of this tls
+     * @param[in] offset The offset of this cycle
+     */
     void setOffset(SUMOTime offset) throw() {
         myOffset = offset;
     }
-
-
-private:
-    SUMOTime computeOffsetFor(SUMOReal offsetMult) const throw();
 
 
 private:

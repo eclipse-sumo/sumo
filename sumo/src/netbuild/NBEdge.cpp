@@ -1615,7 +1615,7 @@ NBEdge::append(NBEdge *e) {
 
 
 bool
-NBEdge::hasSignalisedConnectionTo(NBEdge *e) const {
+NBEdge::hasSignalisedConnectionTo(const NBEdge * const e) const throw() {
     for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
         if ((*i).toEdge==e && (*i).tlID!="") {
             return true;

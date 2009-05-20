@@ -189,7 +189,7 @@ NBTrafficLightDefinition::getSizes() const throw() {
 
 
 bool
-NBTrafficLightDefinition::isLeftMover(NBEdge *from, NBEdge *to) const throw() {
+NBTrafficLightDefinition::isLeftMover(const NBEdge * const from,const NBEdge * const to) const throw() {
     // the destination edge may be unused
     if (to==0) {
         return false;
@@ -205,7 +205,7 @@ NBTrafficLightDefinition::isLeftMover(NBEdge *from, NBEdge *to) const throw() {
 
 
 bool
-NBTrafficLightDefinition::mustBrake(NBEdge *from, NBEdge *to) const throw() {
+NBTrafficLightDefinition::mustBrake(const NBEdge * const from, const NBEdge * const to) const throw() {
     NodeCont::const_iterator i =
         find_if(myControlledNodes.begin(), myControlledNodes.end(),
                 NBContHelper::node_with_incoming_finder(from));
@@ -219,10 +219,10 @@ NBTrafficLightDefinition::mustBrake(NBEdge *from, NBEdge *to) const throw() {
 
 
 bool
-NBTrafficLightDefinition::mustBrake(NBEdge *possProhibitedFrom,
-                                    NBEdge *possProhibitedTo,
-                                    NBEdge *possProhibitorFrom,
-                                    NBEdge *possProhibitorTo,
+NBTrafficLightDefinition::mustBrake(const NBEdge * const possProhibitedFrom,
+                                    const NBEdge * const possProhibitedTo,
+                                    const NBEdge * const possProhibitorFrom,
+                                    const NBEdge * const possProhibitorTo,
                                     bool regardNonSignalisedLowerPriority) const throw() {
     return forbids(possProhibitorFrom, possProhibitorTo,
                    possProhibitedFrom, possProhibitedTo,
@@ -241,10 +241,10 @@ NBTrafficLightDefinition::mustBrake(const NBConnection &possProhibited,
 
 
 bool
-NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
-                                  NBEdge *possProhibitorTo,
-                                  NBEdge *possProhibitedFrom,
-                                  NBEdge *possProhibitedTo,
+NBTrafficLightDefinition::forbids(const NBEdge * const possProhibitorFrom,
+                                  const NBEdge * const possProhibitorTo,
+                                  const NBEdge * const possProhibitedFrom,
+                                  const NBEdge * const possProhibitedTo,
                                   bool regardNonSignalisedLowerPriority) const throw() {
     if (possProhibitorFrom==0||possProhibitorTo==0||possProhibitedFrom==0||possProhibitedTo==0) {
         return false;

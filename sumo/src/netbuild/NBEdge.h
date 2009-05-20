@@ -614,7 +614,7 @@ public:
     void append(NBEdge *continuation);
     SUMOReal getNormedAngle() const;
 
-    bool hasSignalisedConnectionTo(NBEdge *e) const;
+    bool hasSignalisedConnectionTo(const NBEdge * const e) const throw();
 
 
     /** friend class used for the computation of connections to

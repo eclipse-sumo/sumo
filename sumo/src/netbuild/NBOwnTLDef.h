@@ -134,6 +134,7 @@ protected:
      * @param[in] removedLane The lane of this edge to replace
      * @param[in] by The edge to insert instead
      * @param[in] byLane This edge's lane to insert instead
+     * @see NBTrafficLightDefinition::replaceRemoved
      */
     void replaceRemoved(NBEdge *removed, int removedLane,
                         NBEdge *by, int byLane) throw();
