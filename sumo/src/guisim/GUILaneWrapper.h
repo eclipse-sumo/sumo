@@ -38,6 +38,7 @@
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 
 
 // ===========================================================================
@@ -200,6 +201,12 @@ public:
 
     SUMOReal getEdgeLaneNumber() const;
 
+    /// Returns the list of available lane coloring schemes
+    static GUIColoringSchemesMap<GUILaneWrapper> &getSchemesMap();
+
+    /// Initializes the list of available lane coloring schemes
+    static void initColoringSchemes();
+
 protected:
     /** the visualisation length; As sources and sinks may be shorter/longer
         as their visualisation length, a second length information is necessary */
@@ -226,6 +233,9 @@ private:
 
     /// @brief Invalidated assignment operator.
     GUILaneWrapper& operator=(const GUILaneWrapper&);
+
+    /** @brief The list of coloring schemes that may be used */
+    static GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
 
 };
 

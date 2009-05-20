@@ -44,6 +44,7 @@
 #include "GUIRoute.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 
 
 // ===========================================================================
@@ -64,10 +65,14 @@ class GUIGLObjectPopupMenu;
  * color of the vehicle which is available in different forms allowing an
  * easier recognition of done actions such as lane changing.
  */
-class GUIVehicle :
-        public MSVehicle,
-            public GUIGlObject {
+class GUIVehicle : public MSVehicle, public GUIGlObject {
 public:
+    /// Use this constructor only.
+    GUIVehicle(GUIGlObjectStorage &idStorage,
+               SUMOVehicleParameter* pars, const MSRoute* route,
+               const MSVehicleType* type,
+               int vehicleIndex) throw();
+
     /// destructor
     ~GUIVehicle() throw();
 
@@ -205,8 +210,6 @@ public:
         with each timestep */
     SUMOReal getTimeSinceLastLaneChangeAsReal() const;
 
-    friend class GUIVehicleControl;
-
     void setRemoved();
 
     unsigned int getLastLaneChangeOffset() const;
@@ -219,6 +222,12 @@ public:
      * @see MSVehicle::getBestLanes
      */
     const std::vector<LaneQ> &getBestLanes() const throw();
+
+    /// Returns the list of available vehicle coloring schemes
+    static GUIColoringSchemesMap<GUIVehicle> &getSchemesMap();
+
+    /// Initializes the list of available vehicle coloring schemes
+    static void initColoringSchemes();
 
     /**
      * @class GUIVehiclePopupMenu
@@ -267,17 +276,14 @@ public:
 
 
 protected:
-    /// Use this constructor only.
-    GUIVehicle(GUIGlObjectStorage &idStorage,
-               SUMOVehicleParameter* pars, const MSRoute* route,
-               const MSVehicleType* type,
-               int vehicleIndex) throw();
-
     void setBlinkerInformation();
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
+
+    /** @brief The list of vehicle coloring schemes that may be used */
+    static GUIColoringSchemesMap<GUIVehicle> myVehicleColoringSchemes;
 
 };
 

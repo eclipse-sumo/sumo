@@ -181,7 +181,7 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) throw() {
         gSchemeStorage.add(mySettings);
         size_t index = view->getColoringSchemesCombo().appendItem(mySettings.name.c_str());
         view->getColoringSchemesCombo().setCurrentItem(index);
-        view->setColorScheme(mySettings.name.c_str());
+        view->setColorScheme(mySettings.name);
     }
     return mySettings.name;
 }

@@ -37,7 +37,6 @@
 #include <utils/shapes/Polygon2D.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 
 #ifdef _WIN32
@@ -87,7 +86,7 @@ public:
     void stopTrack();
     int getTrackedID() const;
 
-    void setColorScheme(const char* data);
+    void setColorScheme(const std::string &name);
 
 
     /** @brief Shows a vehicle's route(s)
@@ -125,12 +124,6 @@ public:
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingBestLanesFor(GUIVehicle *v);
 
-    /// Returns the list of available vehicle coloring schemes
-    static GUIColoringSchemesMap<GUIVehicle> &getVehiclesSchemesMap();
-
-    /// Returns the list of available lane coloring schemes
-    static GUIColoringSchemesMap<GUILaneWrapper> &getLaneSchemesMap();
-
 
 protected:
     int doPaintGL(int mode, SUMOReal scale);
@@ -149,12 +142,6 @@ protected:
     int myTrackedID;
 
     GUINet *myNet;
-
-    /** @brief The list of vehicle coloring schemes that may be used */
-    static GUIColoringSchemesMap<GUIVehicle> myVehicleColoringSchemes;
-
-    /** @brief The list of coloring schemes that may be used */
-    static GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
 
 protected:
     GUIViewTraffic() { }

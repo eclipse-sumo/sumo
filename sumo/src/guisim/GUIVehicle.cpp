@@ -51,17 +51,16 @@
 #include <foreign/polyfonts/polyfonts.h>
 #include <microsim/output/HelpersHBEFA.h>
 #include <microsim/output/HelpersHarmonoise.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
+#include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
+#include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
+#include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -81,6 +80,12 @@ FXDEFMAP(GUIVehicle::GUIVehiclePopupMenu) GUIVehiclePopupMenuMap[]= {
 // Object implementation
 FXIMPLEMENT(GUIVehicle::GUIVehiclePopupMenu, GUIGLObjectPopupMenu, GUIVehiclePopupMenuMap, ARRAYNUMBER(GUIVehiclePopupMenuMap))
 
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+GUIColoringSchemesMap<GUIVehicle> GUIVehicle::myVehicleColoringSchemes;
 
 
 // ===========================================================================
@@ -844,8 +849,7 @@ void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPolygonOffset(0, -4);
     // set lane color
-    GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap(); //!!!
-    sm.getColorer(s.vehicleMode)->setGlColor(*this);
+    myVehicleColoringSchemes.getColorer(s.vehicleMode)->setGlColor(*this);
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -1030,6 +1034,89 @@ GUIVehicle::getHBEFA_FuelConsumption() const throw() {
 SUMOReal
 GUIVehicle::getHarmonoise_NoiseEmissions() const throw() {
     return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+GUIColoringSchemesMap<GUIVehicle> &
+GUIVehicle::getSchemesMap() {
+    return myVehicleColoringSchemes;
+}
+
+
+void
+GUIVehicle::initColoringSchemes() {
+    // insert possible vehicle coloring schemes
+    // from read/assigned colors
+    myVehicleColoringSchemes.add("given/assigned vehicle color",
+           new GUIColorer_ColorSettingFunction<GUIVehicle>(
+               (void(GUIVehicle::*)() const) &GUIVehicle::setOwnDefinedColor));
+    myVehicleColoringSchemes.add("given/assigned type color",
+           new GUIColorer_ColorSettingFunction<GUIVehicle>(
+               (void(GUIVehicle::*)() const) &GUIVehicle::setOwnTypeColor));
+    myVehicleColoringSchemes.add("given/assigned route color",
+           new GUIColorer_ColorSettingFunction<GUIVehicle>(
+               (void(GUIVehicle::*)() const) &GUIVehicle::setOwnRouteColor));
+    // from a vehicle's standard values
+    myVehicleColoringSchemes.add("by speed",
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getSpeed));
+    /*
+    myVehicleColoringSchemes.add("by acceleration",
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, (SUMOReal)(5.), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getPreDawdleAcceleration));
+               */
+    myVehicleColoringSchemes.add("by waiting time",
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
+               0, (SUMOReal)(5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
+               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getWaitingTime));
+    myVehicleColoringSchemes.add("by time since last lanechange",
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
+               0, (SUMOReal)(5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
+               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getLastLaneChangeOffset));
+    myVehicleColoringSchemes.add("by max speed",
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
+    // ... emissions ...
+    myVehicleColoringSchemes.add("by CO2 emissions (HBEFA)", // "good": 0g/s; bad: >10g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(10./2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_CO2Emissions));
+    myVehicleColoringSchemes.add("by CO emissions (HBEFA)", // "good": 0g/s; bad: >.05g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(0.05), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_COEmissions));
+    myVehicleColoringSchemes.add("by PMx emissions (HBEFA)", // "good": 0g/s; bad: >.005g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_PMxEmissions));
+    myVehicleColoringSchemes.add("by NOx emissions (HBEFA)", // "good": 0g/s; bad: >.125g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(.125), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_NOxEmissions));
+    myVehicleColoringSchemes.add("by HC emissions (HBEFA)", // "good": 0g/s; bad: >0.02g/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(.02), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_HCEmissions));
+    myVehicleColoringSchemes.add("by fuel consumption (HBEFA)", // "good": 0l/s; bad: >.005l/s
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_FuelConsumption));
+    myVehicleColoringSchemes.add("by noise emissions (Harmonoise)", // "good": 0dB; bad: >100dB
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
+               0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHarmonoise_NoiseEmissions));
+
+    // ... and some not always used values
+    myVehicleColoringSchemes.add("by reroute number",
+           new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
+               (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
+               (int(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
+               true, 1, 10,
+               RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
+               MSCORN::CORN_VEH_NUMBERROUTE));
 }
 
 

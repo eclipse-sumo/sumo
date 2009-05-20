@@ -53,6 +53,15 @@
 #include <guisim/GUIVehicle.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <microsim/output/HelpersHarmonoise.h>
+#include <gui/GUIColorer_LaneByPurpose.h>
+#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
+#include <gui/GUIColorer_LaneByVehKnowledge.h>
+#include <gui/GUIColorer_LaneNeighEdges.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
+#include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
+#include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
+#include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
 
 
 
@@ -64,6 +73,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+GUIColoringSchemesMap<GUILaneWrapper> GUILaneWrapper::myLaneColoringSchemes;
 SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 
 
@@ -424,8 +434,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
 void
 GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     // set lane color
-    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
-    sm.getColorer(s.laneEdgeMode)->setGlColor(*this);
+    myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -511,8 +520,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
 
 void
 GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw() {
-    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap(); //!!!
-    sm.getColorer(s.laneEdgeMode)->setGlColor(*this);
+    myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
     // check whether lane boundaries shall be drawn
     int e = (int) myShape.size() - 1;
     for (int i=0; i<e; i++) {
@@ -752,6 +760,76 @@ GUILaneWrapper::getHarmonoise_NoiseEmissions() const {
     }
     myLane.releaseVehicles();
     return HelpersHarmonoise::sum(ret);
+}
+
+
+GUIColoringSchemesMap<GUILaneWrapper> &
+GUILaneWrapper::getSchemesMap() {
+    return myLaneColoringSchemes;
+}
+
+
+void
+GUILaneWrapper::initColoringSchemes() {
+    // insert possible lane coloring schemes
+    myLaneColoringSchemes.add("uniform",
+           new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
+    myLaneColoringSchemes.add("by selection (lane-/streetwise)",
+           new GUIColorer_LaneBySelection<GUILaneWrapper>());
+    /*
+    myLaneColoringSchemes.add("by purpose (lanewise)",
+           new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+           */
+    // from a lane's standard values
+    myLaneColoringSchemes.add("by allowed speed (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, (SUMOReal)(150.0/3.6),
+               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
+    myLaneColoringSchemes.add("by current density (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, (SUMOReal) .95,
+               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
+    myLaneColoringSchemes.add("by first vehicle waiting time (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, 200,
+               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
+    myLaneColoringSchemes.add("by lane number (streetwise)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, (SUMOReal) 5,
+               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
+    // ... emissions ...
+    myLaneColoringSchemes.add("by CO2 emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(10./7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
+    myLaneColoringSchemes.add("by CO emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(0.05/7.5/2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_COEmissions));
+    myLaneColoringSchemes.add("by PMx emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(.005/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_PMxEmissions));
+    myLaneColoringSchemes.add("by NOx emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(.125/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_NOxEmissions));
+    myLaneColoringSchemes.add("by HC emissions (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(.02/7.5/4.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_HCEmissions));
+    myLaneColoringSchemes.add("by fuel consumption (HBEFA)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(.005/7.5*100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
+    myLaneColoringSchemes.add("by noise emissions (Harmonoise)",
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+               0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHarmonoise_NoiseEmissions));
 }
 
 

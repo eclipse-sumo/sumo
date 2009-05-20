@@ -681,7 +681,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
             break;
         }
     }
-    myParent->setColorScheme(mySettings->name.c_str());
+    myParent->setColorScheme(mySettings->name);
     update();
     myParent->update();
     return 1;
@@ -817,11 +817,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
         mySchemeName->setCurrentItem(index);
         myParent->getColoringSchemesCombo().appendItem(tmpSettings.name.c_str());
         myParent->getColoringSchemesCombo().setCurrentItem(index);
-        myParent->setColorScheme(tmpSettings.name.c_str());
+        myParent->setColorScheme(tmpSettings.name);
     } else {
         mySchemeName->setItemText(index, tmpSettings.name.c_str());
         myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
-        myParent->setColorScheme(tmpSettings.name.c_str());
+        myParent->setColorScheme(tmpSettings.name);
     }
     mySettings = &gSchemeStorage.get(tmpSettings.name);
 
@@ -1083,7 +1083,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
                 gSchemeStorage.add(tmpSettings);
                 mySchemeName->setItemText(index, tmpSettings.name.c_str());
                 myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
-                myParent->setColorScheme(tmpSettings.name.c_str());
+                myParent->setColorScheme(tmpSettings.name);
                 mySettings = &gSchemeStorage.get(name);
                 myBackup = *mySettings;
                 writeSettings();

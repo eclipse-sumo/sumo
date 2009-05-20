@@ -29,10 +29,9 @@
 
 #include <map>
 #include <vector>
-#include <gui/GUIViewTraffic.h>
-#ifdef HAVE_MESOSIM
-#include <mesogui/GUIViewMesoEdges.h>
-#endif
+#include <guisim/GUILaneWrapper.h>
+#include <guisim/GUIEdge.h>
+#include <guisim/GUIVehicle.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include "GUIVisualizationSettings.h"
 
@@ -71,11 +70,11 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         poiNameColor(RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5)),
         showSizeLegend(true)
 {
-    initColorMap(GUIViewTraffic::getLaneSchemesMap(), laneColorings);
+    initColorMap(GUILaneWrapper::getSchemesMap(), laneColorings);
 #ifdef HAVE_MESOSIM
-    initColorMap(GUIViewMesoEdges::getLaneSchemesMap(), edgeColorings);
+    initColorMap(GUIEdge::getSchemesMap(), edgeColorings);
 #endif
-    initColorMap(GUIViewTraffic::getVehiclesSchemesMap(), vehicleColorings);
+    initColorMap(GUIVehicle::getSchemesMap(), vehicleColorings);
 }
 
 

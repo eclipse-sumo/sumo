@@ -37,8 +37,9 @@
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
+#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 
-#ifdef _WIN32
+#ifdef WIN32
 #include <windows.h>
 #endif
 
@@ -182,6 +183,13 @@ public:
     SUMOReal getMeanSpeed() const;
     SUMOReal getAllowedSpeed() const;
     SUMOReal getFlow() const;
+
+    /// Returns the list of available lane coloring schemes
+    static GUIColoringSchemesMap<GUIEdge> &getSchemesMap();
+
+    /// Initializes the list of available vehicle coloring schemes
+    static void initColoringSchemes();
+
 #endif
 
 private:
@@ -210,6 +218,11 @@ private:
         const MSLane &myLane;
 
     };
+
+#ifdef HAVE_MESOSIM
+    /** @brief The list of coloring schemes that may be used */
+    static GUIColoringSchemesMap<GUIEdge> myLaneColoringSchemes;
+#endif
 
 
 private:

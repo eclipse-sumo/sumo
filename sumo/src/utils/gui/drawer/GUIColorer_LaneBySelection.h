@@ -38,6 +38,7 @@
 
 #include <GL/gl.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <guisim/GUIEdge.h>
 
 
 // ===========================================================================

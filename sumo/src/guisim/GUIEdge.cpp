@@ -51,6 +51,15 @@
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <microsim/MSGlobals.h>
+#include <gui/GUIColorer_LaneByPurpose.h>
+#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
+#include <gui/GUIColorer_LaneByVehKnowledge.h>
+#include <gui/GUIColorer_LaneNeighEdges.h>
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
+#include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
+#include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
+#include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -59,9 +68,11 @@
 
 
 // ===========================================================================
-// used namespaces
+// static member definitions
 // ===========================================================================
-using namespace std;
+#ifdef HAVE_MESOSIM
+GUIColoringSchemesMap<GUIEdge> GUIEdge::myLaneColoringSchemes;
+#endif
 
 
 // ===========================================================================
@@ -381,8 +392,36 @@ GUIEdge::getAllowedSpeed() const {
     return (*myLanes)[0]->maxSpeed();
 }
 
-#endif
 
+GUIColoringSchemesMap<GUIEdge> &
+GUIEdge::getSchemesMap() {
+    return myLaneColoringSchemes;
+}
+
+
+void
+GUIEdge::initColoringSchemes() {
+    // insert possible edge coloring schemes
+    myLaneColoringSchemes.add("uniform",
+           new GUIColorer_SingleColor<GUIEdge>(RGBColor(0, 0, 0)));
+    myLaneColoringSchemes.add("by selection (lanewise)",
+           new GUIColorer_LaneBySelection<GUIEdge>());
+    myLaneColoringSchemes.add("by purpose (lanewise)",
+           new GUIColorer_LaneByPurpose<GUIEdge>());
+    // from a lane's standard values
+    myLaneColoringSchemes.add("by allowed speed (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
+               0, (SUMOReal)(150.0/3.6),
+               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getAllowedSpeed));
+    myLaneColoringSchemes.add("by current density (lanewise)",
+           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
+               0, (SUMOReal) .95,
+               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
+}
+
+#endif
 
 /****************************************************************************/
 

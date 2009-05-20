@@ -62,15 +62,6 @@
 #include <mesogui/GUIViewMesoEdges.h>
 #endif
 
-#include <gui/GUIColorer_LaneByPurpose.h>
-#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
-#include <gui/GUIColorer_LaneByVehKnowledge.h>
-#include <gui/GUIColorer_LaneNeighEdges.h>
-#include <utils/gui/drawer/GUIColorer_SingleColor.h>
-#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
-#include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
-#include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
-#include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
 #include <guisim/GUIVehicle.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -91,248 +82,11 @@ using namespace std;
  * coloring schemes initialisation
  * ----------------------------------------------------------------------- */
 void
-initVehicleColoringSchemes() {
-    // insert possible vehicle coloring schemes
-    GUIColoringSchemesMap<GUIVehicle> &sm = GUIViewTraffic::getVehiclesSchemesMap();
-    // from read/assigned colors
-    sm.add("given/assigned vehicle color",
-           new GUIColorer_ColorSettingFunction<GUIVehicle>(
-               (void(GUIVehicle::*)() const) &GUIVehicle::setOwnDefinedColor));
-    sm.add("given/assigned type color",
-           new GUIColorer_ColorSettingFunction<GUIVehicle>(
-               (void(GUIVehicle::*)() const) &GUIVehicle::setOwnTypeColor));
-    sm.add("given/assigned route color",
-           new GUIColorer_ColorSettingFunction<GUIVehicle>(
-               (void(GUIVehicle::*)() const) &GUIVehicle::setOwnRouteColor));
-    // from a vehicle's standard values
-    sm.add("by speed",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getSpeed));
-    /*
-    sm.add("by acceleration",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, (SUMOReal)(5.), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getPreDawdleAcceleration));
-               */
-    sm.add("by waiting time",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
-               0, (SUMOReal)(5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
-               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getWaitingTime));
-    sm.add("by time since last lanechange",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
-               0, (SUMOReal)(5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
-               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getLastLaneChangeOffset));
-    sm.add("by max speed",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
-    // ... emissions ...
-    sm.add("by CO2 emissions (HBEFA)", // "good": 0g/s; bad: >10g/s
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, SUMOReal(10./2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_CO2Emissions));
-    sm.add("by CO emissions (HBEFA)", // "good": 0g/s; bad: >.05g/s
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, SUMOReal(0.05), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_COEmissions));
-    sm.add("by PMx emissions (HBEFA)", // "good": 0g/s; bad: >.005g/s
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_PMxEmissions));
-    sm.add("by NOx emissions (HBEFA)", // "good": 0g/s; bad: >.125g/s
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, SUMOReal(.125), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_NOxEmissions));
-    sm.add("by HC emissions (HBEFA)", // "good": 0g/s; bad: >0.02g/s
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, SUMOReal(.02), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_HCEmissions));
-    sm.add("by fuel consumption (HBEFA)", // "good": 0l/s; bad: >.005l/s
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, SUMOReal(.005), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHBEFA_FuelConsumption));
-    sm.add("by noise emissions (Harmonoise)", // "good": 0dB; bad: >100dB
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
-               0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getHarmonoise_NoiseEmissions));
-
-    // ... and some not always used values
-    sm.add("by reroute number",
-           new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
-               (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
-               (int(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
-               true, 1, 10,
-               RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
-               MSCORN::CORN_VEH_NUMBERROUTE));
-    /*
-    sm.add("by time since last reroute",
-        new GUIColorer_ByDeviceNumber<GUIVehicle, MSCORN::Function>(
-            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
-            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
-            true, 1, 10,
-            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
-            MSCORN::CORN_VEH_NUMBERROUTE));
-            */
-    // using TOL-extensions
-    /*
-    sm.add("TOL: by device number",
-           new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
-               (bool(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNIntValue,
-               (int(GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNIntValue,
-               true, 1, 10,
-               RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
-               MSCORN::CORN_VEH_DEV_NO_CPHONE));
-    /
-    sm.add("by device state",
-        new GUIColorer_ByOptCORNValue<GUIVehicle, MSCORN::Function>(
-            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
-            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
-            true, 1, 10,
-            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
-            MSCORN::CORN_VEH_DEV_NO_CPHONE));
-            */
-    // using C2C extensions
-#ifdef HAVE_BOYOM_C2C
-    sm.add("C2C: by having a device",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
-               0, 1, RGBColor((SUMOReal) .8, (SUMOReal) .8, (SUMOReal) .8), RGBColor(1, 1, 0),
-               (bool(GUIVehicle::*)() const) &GUIVehicle::isEquipped));
-    sm.add("C2C: by number of all information",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, int>(
-               0, (SUMOReal)(10), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (int(GUIVehicle::*)() const) &GUIVehicle::getTotalInformationNumber));  // !!!
-    sm.add("C2C: by information number",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
-               0, (SUMOReal)(200), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getInformationNumber));
-    sm.add("C2C: by connections number",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
-               0, (SUMOReal)(3), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getConnectionsNumber));
-    sm.add("C2C: by having a route information",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
-               0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
-               (bool(GUIVehicle::*)() const) &GUIVehicle::hasRouteInformation));
-    /*
-    sm.add("C2C: by last information time",
-        new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
-            0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
-            (bool (GUIVehicle::*)() const) &GUIVehicle::getLastInfoTime));
-            */
-#endif
-}
-
-
-void
-initLaneColoringSchemes() {
-    // insert possible lane coloring schemes
-    GUIColoringSchemesMap<GUILaneWrapper> &sm = GUIViewTraffic::getLaneSchemesMap();
-    sm.add("uniform",
-           new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
-    sm.add("by selection (lane-/streetwise)",
-           new GUIColorer_LaneBySelection<GUILaneWrapper>());
-    /*
-    sm.add("by purpose (lanewise)",
-           new GUIColorer_LaneByPurpose<GUILaneWrapper>());
-           */
-    // from a lane's standard values
-    sm.add("by allowed speed (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal)(150.0/3.6),
-               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
-    sm.add("by current density (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal) .95,
-               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
-    sm.add("by first vehicle waiting time (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, 200,
-               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
-    sm.add("by lane number (streetwise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal) 5,
-               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
-    // ... emissions ...
-    sm.add("by CO2 emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(10./7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
-    sm.add("by CO emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(0.05/7.5/2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_COEmissions));
-    sm.add("by PMx emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.005/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_PMxEmissions));
-    sm.add("by NOx emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.125/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_NOxEmissions));
-    sm.add("by HC emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.02/7.5/4.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_HCEmissions));
-    sm.add("by fuel consumption (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.005/7.5*100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
-    sm.add("by noise emissions (Harmonoise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHarmonoise_NoiseEmissions));
-    // using C2C extensions
-    /*
-    sm.add("C2C: by vehicle knowledge",
-    new GUIColorer_LaneByVehKnowledge<GUILaneWrapper>(this));
-    sm.add("C2C: by edge neighborhood",
-    new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
-        */
-}
-
-#ifdef HAVE_MESOSIM
-void
-initEdgeColoringSchemes() {
-    // insert possible edge coloring schemes
-    GUIColoringSchemesMap<GUIEdge> &sm = GUIViewMesoEdges::getLaneSchemesMap();
-    sm.add("uniform",
-           new GUIColorer_SingleColor<GUIEdge>(RGBColor(0, 0, 0)));
-    sm.add("by selection (lanewise)",
-           new GUIColorer_LaneBySelection<GUIEdge>());
-    sm.add("by purpose (lanewise)",
-           new GUIColorer_LaneByPurpose<GUIEdge>());
-    // from a lane's standard values
-    sm.add("by allowed speed (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
-               0, (SUMOReal)(150.0/3.6),
-               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getAllowedSpeed));
-    sm.add("by current density (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
-               0, (SUMOReal) .95,
-               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
-    // using C2C extensions
-    /*
-    sm.add("C2C: by vehicle knowledge",
-    new GUIColorer_LaneByVehKnowledge<GUILaneWrapper>(this));
-    sm.add("C2C: by edge neighborhood",
-    new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
-        */
-}
-#endif
-
-void
 initColoringSchemes(FXApp *a) {
-    initVehicleColoringSchemes();
-    initLaneColoringSchemes();
+    GUIVehicle::initColoringSchemes();
+    GUILaneWrapper::initColoringSchemes();
 #ifdef HAVE_MESOSIM
-    initEdgeColoringSchemes();
+    GUIEdge::initColoringSchemes();
 #endif
     // initialise gradients
     myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
@@ -343,10 +97,10 @@ initColoringSchemes(FXApp *a) {
 
 void
 deleteColoringSchemes() {
-    delete &GUIViewTraffic::getVehiclesSchemesMap();
-    delete &GUIViewTraffic::getLaneSchemesMap();
+    delete &GUIVehicle::getSchemesMap();
+    delete &GUILaneWrapper::getSchemesMap();
 #ifdef HAVE_MESOSIM
-    delete &GUIViewMesoEdges::getLaneSchemesMap();
+    delete &GUIEdge::getSchemesMap();
 #endif
 }
 
@@ -452,6 +206,7 @@ main(int argc, char **argv) {
 #else
     }
 #endif
+    deleteColoringSchemes();
     SystemFrame::close();
     return ret;
 }

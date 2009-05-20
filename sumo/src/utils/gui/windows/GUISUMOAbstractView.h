@@ -150,7 +150,7 @@ public:
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
     void showToolTips(bool val);
-    virtual void setColorScheme(const char*) { }
+    virtual void setColorScheme(const std::string &) { }
 
     void remove(GUIDialog_EditViewport *) {
         myViewportChooser = 0;
