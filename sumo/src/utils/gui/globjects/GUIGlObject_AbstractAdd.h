@@ -78,7 +78,7 @@ public:
     /// Returns the list of all additional objects
     static const std::vector<GUIGlObject_AbstractAdd*> &getObjectList();
 
-    /// Retusn the list of gl-ids of all additional objects
+    /// Returns the list of gl-ids of all additional objects
     static std::vector<GLuint> getIDList();
 
 protected:

@@ -338,7 +338,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                                                  LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                                  0, 0, 100, 0,   0, 0, 0, 0);
             /*
-            FXCheckButton *tmpc = new FXCheckButton(m33, "Show breaking lights", 0 ,0);
+            FXCheckButton *tmpc = new FXCheckButton(m33, "Show braking lights", 0 ,0);
             tmpc->disable();
             tmpc = new FXCheckButton(m33, "Show needed headway", 0 ,0);
             tmpc->disable();
