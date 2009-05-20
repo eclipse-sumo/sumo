@@ -3,7 +3,7 @@ LANE_LINK_NUMBER
 LANE_LINKS
 VAR_LENGTH
 VAR_MAXSPEED
-
+VAR_SHAPE
 
 # Testing error cases
 errors
