@@ -59,7 +59,8 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
     int variable = inputStorage.readUnsignedByte();
     string id = inputStorage.readString();
     // check variable
-    if (variable!=LANE_LINK_NUMBER&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS) {
+    if (variable!=LANE_LINK_NUMBER&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS
+        &&variable!=VAR_SHAPE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -139,6 +140,14 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
                 }
                 tempMsg.writeInt((int) cnt);
                 tempMsg.writeStorage(tempContent);
+            }
+            break;
+        case VAR_SHAPE:
+            tempMsg.writeUnsignedByte(TYPE_POLYGON);
+            tempMsg.writeUnsignedByte(MIN2(static_cast<size_t>(255),lane->getShape().size()));
+            for (int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),lane->getShape().size()); ++iPoint) {
+                tempMsg.writeFloat(lane->getShape()[iPoint].x());
+                tempMsg.writeFloat(lane->getShape()[iPoint].y());
             }
             break;
         default:
