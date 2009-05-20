@@ -41,32 +41,13 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-
-// ===========================================================================
-// constants definitions
-// ===========================================================================
-#define BUF_MAX 1000
-
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-char gBuf[BUF_MAX];
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
 // file access functions
 // ---------------------------------------------------------------------------
 bool
-FileHelpers::exists(string path) {
+FileHelpers::exists(std::string path) {
     if (path.length()==0) {
         return false;
     }
@@ -88,7 +69,7 @@ FileHelpers::exists(string path) {
 std::string
 FileHelpers::getFilePath(const std::string &path) {
     size_t beg = path.find_last_of("\\/");
-    if (beg==string::npos||beg==0) {
+    if (beg==std::string::npos||beg==0) {
         return "";
     }
     return path.substr(0, beg+1);
@@ -98,7 +79,7 @@ FileHelpers::getFilePath(const std::string &path) {
 std::string
 FileHelpers::getConfigurationRelative(const std::string &configPath,
                                       const std::string &path) {
-    string retPath = getFilePath(configPath);
+    std::string retPath = getFilePath(configPath);
     return retPath + path;
 }
 
@@ -106,7 +87,7 @@ FileHelpers::getConfigurationRelative(const std::string &configPath,
 bool
 FileHelpers::isSocket(const std::string &name) {
     size_t colonPos = name.find(":");
-    return (colonPos != string::npos) && (colonPos > 1);
+    return (colonPos != std::string::npos) && (colonPos > 1);
 }
 
 
