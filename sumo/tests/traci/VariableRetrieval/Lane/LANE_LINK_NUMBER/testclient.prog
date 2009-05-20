@@ -1,0 +1,3 @@
+simstep 5 1
+getvariable 163 48 2/1to2/0_0
+simstep 6 1

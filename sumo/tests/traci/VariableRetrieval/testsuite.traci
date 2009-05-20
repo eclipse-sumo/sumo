@@ -7,6 +7,9 @@ MeMeDetector
 # Tests retrieval of variables from traffic lights (0xa2)
 TrafficLight
 
+# Tests retrieval of variables from lanes (0xa3)
+Lane
+
 # Tests retrieval of variables from vehicles (0xa4)
 Vehicle
 

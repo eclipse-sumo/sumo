@@ -1,0 +1,12 @@
+# Variables Retrieval
+LANE_LINK_NUMBER
+LANE_LINKS
+VAR_LENGTH
+VAR_MAXSPEED
+
+
+# Testing error cases
+errors
+
+
+
