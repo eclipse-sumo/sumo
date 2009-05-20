@@ -123,7 +123,7 @@ NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const throw() {
 
 unsigned int
 NBLoadedTLDef::SignalGroup::getLinkNo() const throw() {
-    return myConnections.size();
+    return (unsigned int) myConnections.size();
 }
 
 
@@ -332,9 +332,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, unsigned int brakingTime) throw()
         }
         // no information about yellow times will be generated
         assert((*l)>=0);
-        Masks masks = buildPhaseMasks(ec, (unsigned int)(*l));
-        logic->addStep(duration,
-                       masks.driveMask, masks.brakeMask, masks.yellowMask);
+        logic->addStep(duration, buildPhaseState(ec, (unsigned int)(*l)));
     }
     // check whether any warnings were printed
     if (MsgHandler::getWarningInstance()->wasInformed()) {
@@ -371,59 +369,68 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const throw() {
     }
 }
 
-NBLoadedTLDef::Masks
-NBLoadedTLDef::buildPhaseMasks(const NBEdgeCont &ec, unsigned int time) const throw() {
-    // set the masks
-    Masks masks;
+
+std::string
+NBLoadedTLDef::buildPhaseState(const NBEdgeCont &ec, unsigned int time) const throw() {
     unsigned int pos = 0;
-    SignalGroupCont::const_iterator i;
+    std::string state;
     // set the green and yellow information first;
     //  the information whether other have to break needs those masks
     //  completely filled
-    for (i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
+    for (SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
         unsigned int linkNo = group->getLinkNo();
         bool mayDrive = group->mayDrive(time);
         bool hasYellow = group->hasYellow(time);
+        char c = 'r';
+        if(mayDrive) {
+            c = 'g';
+        }
+        if(hasYellow) {
+            c = 'y';
+        }
         for (unsigned int j=0; j<linkNo; j++) {
-            masks.driveMask[pos] = mayDrive;
-            masks.yellowMask[pos] = hasYellow;
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
             // assert that the connection really exists
             if (assConn.check(ec)) {
-                pos++;
+                state = state + c;
+                ++pos;
             }
         }
     }
     // set the braking mask
     pos = 0;
-    for (i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
+    for (SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
         unsigned int linkNo = group->getLinkNo();
         for (unsigned int j=0; j<linkNo; j++) {
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
             if (assConn.check(ec)) {
-                masks.brakeMask[pos] =
-                    mustBrake(ec, assConn,
-                              masks.driveMask, masks.yellowMask, pos);
+                if(!mustBrake(ec, assConn, state, pos)) {
+                    if(state[pos]=='g') {
+                        state[pos] = 'G';
+                    }
+                    if(state[pos]=='y') {
+                        state[pos] = 'Y';
+                    }
+                }
                 pos++;
             }
         }
     }
-    return masks;
+    return state;
 }
 
 
 bool
 NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
                          const NBConnection &possProhibited,
-                         const std::bitset<64> &green,
-                         const std::bitset<64> &/*yellow*/,
+                         const std::string &state,
                          unsigned int strmpos) const throw() {
     // check whether the stream has red
-    if (!green.test(strmpos)) {
+    if (state[strmpos]!='g'&&state[strmpos]!='G') {
         return true;
     }
 
@@ -445,7 +452,7 @@ NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
                     pos++;
                     continue;
                 }
-                if (green.test(pos)) {
+                if (state[pos]=='g'||state[pos]=='G') {
                     if (NBTrafficLightDefinition::mustBrake(possProhibited, possProhibitor, true)) {
                         return true;
                     }

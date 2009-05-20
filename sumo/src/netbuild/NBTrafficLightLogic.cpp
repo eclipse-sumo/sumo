@@ -65,42 +65,21 @@ NBTrafficLightLogic::~NBTrafficLightLogic() throw() {}
 
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration,
-                             std::bitset<64> driveMask,
-                             std::bitset<64> brakeMask,
-                             std::bitset<64> yellowMask) throw() {
-    myPhases.push_back(PhaseDefinition(duration, driveMask, brakeMask, yellowMask));
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string &state) throw() {
+    myPhases.push_back(PhaseDefinition(duration, state));
 }
 
 
 void
-NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance*/,
-                              const std::set<string> &/*inLanes*/) const throw() {
+NBTrafficLightLogic::writeXML(OutputDevice &into) const throw() {
     into << "   <tl-logic type=\"static\">\n";
     into << "      <key>" << getID() << "</key>\n";
-    into << "      <subkey>" << no << "</subkey>\n";
+    into << "      <subkey>" << mySubID << "</subkey>\n";
     into << "      <phaseno>" << myPhases.size() << "</phaseno>\n";
     into << "      <offset>" << myOffset << "</offset>\n";
     // write the phases
     for (PhaseDefinitionVector::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
-        std::bitset<64> mask = (*i).driveMask;
-        stringstream tmp1;
-        tmp1 << mask;
-        into << "      <phase duration=\"" << (*i).duration
-        << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
-        // by now, only the vehicles that are not allowed to drive are
-        //  braking; later the right-arrow - rule should be concerned
-        stringstream tmp2;
-        mask = (*i).brakeMask;
-        tmp2 << mask;
-        into << " brake=\"" << tmp2.str().substr(64-myNoLinks) << "\"";
-        // write the information which link have a yellow light
-        stringstream tmp3;
-        mask = (*i).yellowMask;
-        tmp3 << mask;
-        into << " yellow=\"" << tmp3.str().substr(64-myNoLinks) << "\"";
-        // close phase information
-        into << "/>\n";
+        into << "      <phase duration=\"" << (*i).duration << "\" state=\"" << (*i).state << "\"/>\n";
     }
     into << "   </tl-logic>\n\n";
 }
@@ -134,17 +113,11 @@ NBTrafficLightLogic::getDuration() const throw() {
 
 void
 NBTrafficLightLogic::closeBuilding() throw() {
-    for (size_t i=0; i<myPhases.size()-1;) {
-        if (myPhases[i].driveMask!=myPhases[i+1].driveMask
-                ||
-                myPhases[i].brakeMask!=myPhases[i+1].brakeMask
-                ||
-                myPhases[i].yellowMask!=myPhases[i+1].yellowMask) {
-
-            i++;
+    for (unsigned int i=0; i<myPhases.size()-1;) {
+        if (myPhases[i].state!=myPhases[i+1].state) {
+            ++i;
             continue;
         }
-
         myPhases[i].duration += myPhases[i+1].duration;
         myPhases.erase(myPhases.begin()+i+1);
     }

@@ -228,26 +228,19 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         if (OptionsCont::getOptions().isSet("traffic-light-green")) {
             duration = OptionsCont::getOptions().getInt("traffic-light-green");
         }
-        std::bitset<64> driveMask(0);
-        std::bitset<64> brakeMask(0);
-        std::bitset<64> yellowMask(0);
+        std::string state((size_t) noLinksAll, 'o');
         // plain straight movers
-        for (unsigned int i1=0; i1<(unsigned int) incoming.size(); i1++) {
+        for (unsigned int i1=0; i1<(unsigned int) incoming.size(); ++i1) {
             NBEdge *fromEdge = incoming[i1];
             bool inChosen = fromEdge==chosen.first||fromEdge==chosen.second;//chosen.find(fromEdge)!=chosen.end();
             unsigned int noLanes = fromEdge->getNoLanes();
             for (unsigned int i2=0; i2<noLanes; i2++) {
                 vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
-                noLinksAll += (unsigned int) approached.size();
-                for (unsigned int i3=0; i3<approached.size(); i3++) {
+                for (unsigned int i3=0; i3<approached.size(); ++i3) {
                     if (inChosen) {
-                        driveMask.set(pos, true);
-                        brakeMask.set(pos, false);
-                        yellowMask.set(pos, false);
+                        state[pos] = 'G';
                     } else {
-                        driveMask.set(pos, false);
-                        brakeMask.set(pos, true);
-                        yellowMask.set(pos, false);
+                        state[pos] = 'r';
                     }
                     ++pos;
                 }
@@ -255,31 +248,29 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         }
         // correct behaviour for those that are not in chosen, but may drive, though
         for (unsigned int i1=0; i1<pos; ++i1) {
-            if (driveMask.test(i1)) {
+            if (state[i1]=='G') {
                 continue;
             }
             bool isForbidden = false;
             for (unsigned int i2=0; i2<pos&&!isForbidden; ++i2) {
-                if (driveMask.test(i2)&&!isTurnaround[i2]&&
+                if (state[i2]=='G'&&!isTurnaround[i2]&&
                         (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true)||forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
                     isForbidden = true;
                 }
             }
             if (!isForbidden) {
-                driveMask.set(i1, true);
-                brakeMask.set(i1, false);
-                yellowMask.set(i1, false);
+                state[i1] = 'G';
             }
         }
         // correct behaviour for those that have to wait (mainly left-mover)
         bool haveForbiddenLeftMover = false;
         for (unsigned int i1=0; i1<pos; ++i1) {
-            if (!driveMask.test(i1)) {
+            if (state[i1]!='G') {
                 continue;
             }
             for (unsigned int i2=0; i2<pos; ++i2) {
-                if (driveMask.test(i2)&&forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true)) {
-                    brakeMask.set(i1, true);
+                if ((state[i2]=='G'||state[i2]=='g')&&forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true)) {
+                    state[i1] = 'g';
                     if (!isTurnaround[i1]) {
                         haveForbiddenLeftMover = true;
                     }
@@ -288,57 +279,50 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
         }
 
         // add step
-        logic->addStep(duration, driveMask, brakeMask, yellowMask);
+        logic->addStep(duration, state);
 
         if (brakingTime>0) {
             // build yellow (straight)
             duration = brakingTime;
             for (unsigned int i1=0; i1<pos; ++i1) {
-                if (!driveMask.test(i1)) {
+                if (state[i1]!='G'&&state[i1]!='g') {
                     continue;
                 }
-                if (brakeMask.test(i1)&&haveForbiddenLeftMover) {
+                if ((state[i1]>='a'&&state[i1]<='z')&&haveForbiddenLeftMover) {
                     continue;
                 }
-                driveMask.set(i1, false);
-                brakeMask.set(i1, true);
-                yellowMask.set(i1, true);
+                state[i1] = 'y';
             }
             // add step
-            logic->addStep(duration, driveMask, brakeMask, yellowMask);
+            logic->addStep(duration, state);
         }
 
         if (haveForbiddenLeftMover) {
-
             // build left green
             duration = 6;
             for (unsigned int i1=0; i1<pos; ++i1) {
-                if (yellowMask.test(i1)) {
-                    driveMask.set(i1, false);
-                    brakeMask.set(i1, true);
-                    yellowMask.set(i1, false);
+                if (state[i1]=='Y'||state[i1]=='y') {
+                    state[i1] = 'r';
                     continue;
                 }
-                if (driveMask.test(i1)) {
-                    brakeMask.set(i1, false);
+                if (state[i1]=='g') {
+                    state[i1] = 'G';
                 }
             }
             // add step
-            logic->addStep(duration, driveMask, brakeMask, yellowMask);
+            logic->addStep(duration, state);
 
             // build left yellow
             if (brakingTime>0) {
                 duration = brakingTime;
                 for (unsigned int i1=0; i1<pos; ++i1) {
-                    if (!driveMask.test(i1)) {
+                    if (state[i1]!='G'&&state[i1]!='g') {
                         continue;
                     }
-                    driveMask.set(i1, false);
-                    brakeMask.set(i1, true);
-                    yellowMask.set(i1, true);
+                    state[i1] = 'y';
                 }
                 // add step
-                logic->addStep(duration, driveMask, brakeMask, yellowMask);
+                logic->addStep(duration, state);
             }
         }
     }

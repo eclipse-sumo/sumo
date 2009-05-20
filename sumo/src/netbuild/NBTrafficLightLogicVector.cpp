@@ -93,8 +93,7 @@ NBTrafficLightLogicVector::writeXML(OutputDevice &os) const {
         string id = (*j).getFrom()->getID() + "_" + toString<int>((*j).getFromLane());
         inLanes.insert(id);
     }
-    size_t pos = 0;
-    (*(myCont.begin()))->writeXML(os, pos++, distance, inLanes);
+    (*(myCont.begin()))->writeXML(os);
 }
 
 

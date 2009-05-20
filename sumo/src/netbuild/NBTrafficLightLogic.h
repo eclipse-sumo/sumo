@@ -69,27 +69,18 @@ public:
     /** @brief Adds a phase to the logic
      *
      * This is done during the building; the new phase is inserted at the end of
-     * the list of already added phases
-     *
+     *  the list of already added phases
      * @param[in] duration The duration of the phase to add
-     * @param[in] driveMask Information which links may drive during the phase to add
-     * @param[in] brakeMask Information which links have to decelerate during the phase to add
-     * @param[in] yellowMask Information which links have yellow during the phase to add
+     * @param[in] state The state definition of a tls phase
      */
-    void addStep(SUMOTime duration, std::bitset<64> driveMask,
-                 std::bitset<64> brakeMask, std::bitset<64> yellowMask) throw();
+    void addStep(SUMOTime duration, const std::string &state) throw();
 
 
     /** @brief Writes the traffic light logic into the given stream in it's XML-representation
-     *
      * @param[in] into The stream to write the definition into
-     * @param[in] no Index (subid) of the program
-     * @param[in] distance !!!unused
-     * @param[in] inLanes !!!unused
      */
-    void writeXML(OutputDevice &into, size_t no, SUMOReal distance,
-                  const std::set<std::string> &inLanes) const throw();
-    // !!! the key should be given here, too, instead of storing it
+    void writeXML(OutputDevice &into) const throw();
+
 
     /// Information whether the given logic is equal to this
     bool equals(const NBTrafficLightLogic &logic) const throw();
@@ -117,25 +108,17 @@ private:
         /// @brief The duration of the phase in s
         SUMOTime duration;
 
-        /// @brief The information which links may drive within this phase
-        std::bitset<64> driveMask;
-
-        /// @brief The information which links have to brake within this phase
-        std::bitset<64> brakeMask;
-
-        /// @brief The information which links have yellow within this phase
-        std::bitset<64> yellowMask;
+        /// @brief The state definition
+        std::string state;
 
         /** @brief Constructor
          * @param[in] durationArg The duration of the phase
-         * @param[in] driveMaskArg Information which links may drive during the phase
+         * @param[in] stateArg Information which links may drive during the phase
          * @param[in] brakeMaskArg Information which links have to decelerate during the phase
          * @param[in] yellowMaskArg Information which links have yellow during the phase
          */
-        PhaseDefinition(SUMOTime durationArg, std::bitset<64> driveMaskArg,
-                        std::bitset<64> brakeMaskArg, std::bitset<64> yellowMaskArg) throw()
-                : duration(durationArg), driveMask(driveMaskArg),
-                brakeMask(brakeMaskArg), yellowMask(yellowMaskArg) { }
+        PhaseDefinition(SUMOTime durationArg, const std::string &stateArg) throw()
+                : duration(durationArg), state(stateArg) { }
 
         /// @brief Destructor
         ~PhaseDefinition() throw() { }
@@ -145,10 +128,7 @@ private:
          * @return Whether this and the given phases are same
          */
         bool operator!=(const PhaseDefinition &pd) const throw() {
-            return pd.duration != duration ||
-                   pd.driveMask != driveMask ||
-                   pd.brakeMask != brakeMask ||
-                   pd.yellowMask != yellowMask;
+            return pd.duration != duration || pd.state != state;
         }
 
     };

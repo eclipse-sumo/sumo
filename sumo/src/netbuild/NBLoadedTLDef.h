@@ -332,14 +332,13 @@ protected:
     /** @brief Returns the information whether a connection must brake, given a phase
      * @param[in] ec The edge control to retrieve edges from
      * @param[in] possProhibited The connection to investigate
-     * @param[in] green The green mask
-     * @param[in] yellow The yellow mask
+     * @param[in] state The state
      * @param[in] strmpos The index of this connection within the masks
      * @return Whether the given connection must brake
      */
     bool mustBrake(const NBEdgeCont &ec,
                    const NBConnection &possProhibited,
-                   const std::bitset<64> &green, const std::bitset<64> &yellow,
+                   const std::string &state,
                    unsigned int strmpos) const throw();
 
 
@@ -354,18 +353,12 @@ protected:
     /// @}
 
 private:
-    struct Masks {
-        std::bitset<64> driveMask;
-        std::bitset<64> brakeMask;
-        std::bitset<64> yellowMask;
-    };
-
     /** @brief Builds the phase for a given time
      * @param[in] ec The edge control to use
      * @param[in] time The time to build the phase for
      * @return The phase of this tls for the given time
      */
-    Masks buildPhaseMasks(const NBEdgeCont &ec, unsigned int time) const throw();
+    std::string buildPhaseState(const NBEdgeCont &ec, unsigned int time) const throw();
 
 
 private:
