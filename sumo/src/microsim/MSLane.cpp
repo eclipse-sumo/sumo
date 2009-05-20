@@ -383,7 +383,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     } else {
         // check approaching vehicle (consecutive follower)
         SUMOReal speed = maxSpeed();
-        // in order to look back, we'd need the minimum breaking ability of vehicles in the net...
+        // in order to look back, we'd need the minimum braking ability of vehicles in the net...
         //  we'll assume it to be 4m/s^2
         //   !!!revisit
         SUMOReal dist = speed * speed * SUMOReal(1./2.*4.) + SPEED2DIST(speed);
