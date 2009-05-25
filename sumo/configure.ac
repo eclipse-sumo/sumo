@@ -182,6 +182,7 @@ CPPFLAGS=$save_cppflags
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for proj and gdal
 AC_ARG_WITH([proj-gdal], [AS_HELP_STRING([--with-proj-gdal=DIR],[where PROJ and GDAL are installed (libraries in DIR/lib, headers in DIR/include).])])
+if test x"$with_proj_gdal" != xno; then
 if test x"$with_proj_gdal" != x; then
    if test x"$with_proj_libraries" = x; then
       with_proj_libraries=$with_proj_gdal/lib
@@ -228,6 +229,7 @@ else
                    [AC_MSG_ERROR([proj-includes not found in "$with_proj_includes".])])
    CPPFLAGS=$save_cppflags
 fi
+fi
 AM_CONDITIONAL([WITH_PROJ], [test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x])
 if test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x; then
    AC_DEFINE([HAVE_PROJ], [1], [defined if PROJ is available])
@@ -240,6 +242,7 @@ fi
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for gdal
 dnl   ... for libs
+if test x"$with_proj_gdal" != xno; then
 LIB_GDAL="gdal"
 AC_ARG_WITH([gdal-libraries], [AS_HELP_STRING([--with-gdal-libraries=DIR],[where the GDAL library is installed (overrides previous settings).])])
 if test x"$with_gdal_libraries" = x; then
@@ -272,6 +275,7 @@ else
                     [AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])])
 fi
 CPPFLAGS=$save_cppflags
+fi
 AM_CONDITIONAL([WITH_GDAL], [test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x])
 if test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x; then
    AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
