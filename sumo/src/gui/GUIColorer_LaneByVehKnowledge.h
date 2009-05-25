@@ -41,6 +41,7 @@
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIVehicle.h>
 #include <GL/gl.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 // ===========================================================================
 // class definitions
