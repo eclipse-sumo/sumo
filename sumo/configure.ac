@@ -472,6 +472,7 @@ unittest/Makefile
 unittest/src/Makefile
 unittest/src/utils/Makefile
 unittest/src/utils/common/Makefile
+unittest/src/utils/geom/Makefile
 Makefile])
 AC_OUTPUT
 

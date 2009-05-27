@@ -16,6 +16,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common_test", "z
 		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom", "..\..\..\build\msvc8\z_libutils_geom\z_libutils_geom.vcproj", "{334DF447-D0B3-4CEA-9693-F755EB11C18F}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom_test", "z_libutils_geom_test\z_libutils_geom_test.vcproj", "{53EF61D5-AF33-4364-8AF3-947E26A71B4A}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F} = {334DF447-D0B3-4CEA-9693-F755EB11C18F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -40,6 +55,22 @@ Global
 		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Release|Win32.Build.0 = Release|Win32
 		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Unittest|Win32.ActiveCfg = Unittest|Win32
 		{7166B82A-8380-47D7-8EDC-96052A3EDB15}.Unittest|Win32.Build.0 = Unittest|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Debug|Win32.Build.0 = Debug|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Release|Win32.ActiveCfg = Release|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Release|Win32.Build.0 = Release|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Unittest|Win32.ActiveCfg = Unittest|Win32
+		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Unittest|Win32.Build.0 = Unittest|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Debug|Win32.Build.0 = Debug|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Fastbuild|Win32.ActiveCfg = Release|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Fastbuild|Win32.Build.0 = Release|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Release|Win32.ActiveCfg = Release|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Release|Win32.Build.0 = Release|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Unittest|Win32.ActiveCfg = Unittest|Win32
+		{53EF61D5-AF33-4364-8AF3-947E26A71B4A}.Unittest|Win32.Build.0 = Unittest|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

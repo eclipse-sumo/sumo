@@ -1,1 +1,1 @@
-SUBDIRS = common
+SUBDIRS = common geom
