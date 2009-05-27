@@ -178,7 +178,7 @@ else:
     else:
         sumoBinary = os.path.join(options.path, "sumo")
 calibrator = "java -cp %s ch.epfl.transpor.calibration.interfaces.sumo.SumoController" % options.classpath
-log = open("dua-log.txt", "w")
+log = open("dua-log.txt", "w+")
 logQuiet = open("dua-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
 sys.stderr = TeeFile(sys.stderr, logQuiet)
@@ -212,9 +212,12 @@ for step in range(options.firstStep, options.lastStep):
         writeRouteConf(step, options, file, output, doCalibration)
         if options.verbose:
             print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
+            logPos = log.tell()
             subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
-                            shell=True, stdout=TeeFile(sys.__stdout__, log),
-                            stderr=TeeFile(sys.__stderr__, log))
+                            shell=True, stdout=log, stderr=log)
+            log.seek(logPos)
+            for l in log:
+                print l,
         else:
             subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
                             shell=True, stdout=log, stderr=log)
@@ -239,10 +242,13 @@ for step in range(options.firstStep, options.lastStep):
     print ">>> Begin time %s" % btime
     writeSUMOConf(step, options, ",".join(files))
     if options.verbose:
+        logPos = log.tell()
         print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
         subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
-                        shell=True, stdout=TeeFile(sys.__stdout__, log),
-                        stderr=TeeFile(sys.__stderr__, log))
+                        shell=True, stdout=log, stderr=log)
+        log.seek(logPos)
+        for l in log:
+            print l,
     else:
         subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
                         shell=True, stdout=log, stderr=log)
