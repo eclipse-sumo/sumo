@@ -302,9 +302,10 @@ def main(options):
     """ % datetime.datetime.now()
     fouttrips.write("<tripdefs>\n")
     
-    for start in range(len(startVertices)):
-        for end in range(len(endVertices)):
-            matrixPshort[start][end] *= options.scale
+    if hasattr(options, "scale"):
+        for start in range(len(startVertices)):
+            for end in range(len(endVertices)):
+                matrixPshort[start][end] *= options.scale
 
     for start, startVertex in enumerate(startVertices):
         for end, endVertex in enumerate(endVertices):
