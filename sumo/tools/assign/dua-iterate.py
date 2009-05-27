@@ -23,6 +23,10 @@ class TeeFile:
         """Writes the text to all files"""
         for fp in self.files:
             fp.write(txt)
+    def flush(self):
+        """Flush all files"""
+        for fp in self.files:
+            fp.flush()
 
 def writeRouteConf(step, options, file, output, withExitTimes):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
@@ -52,7 +56,7 @@ def writeRouteConf(step, options, file, output, withExitTimes):
       <verbose>%s</verbose>
       <suppress-warnings>%s</suppress-warnings>
    </report>
-</configuration>""" % (options.begin, options.end,
+</configuration>""" % (options.begin, options.end if options.end else sys.maxint,
                        options.verbose, not options.withWarnings)
     fd.close()
 
@@ -74,7 +78,8 @@ def writeSUMOConf(step, options, files):
     fd.write("   <process>\n")
     fd.write("      <begin>" + str(options.begin) + "</begin>\n")
     if not options.timeInc:
-        fd.write("      <end>" + str(options.end) + "</end>\n")
+        if options.end:
+            fd.write("      <end>" + str(options.end) + "</end>\n")
     else:
         endTime = int(options.timeInc * (step + 1))
         fd.write("      <end>" + str(endTime) + "</end>\n")
@@ -118,7 +123,7 @@ optParser.add_option("-+", "--additional", dest="additional",
 optParser.add_option("-b", "--begin", dest="begin",
                      type="int", default=0, help="Set simulation/routing begin [default: %default]")
 optParser.add_option("-e", "--end", dest="end",
-                     type="int", default=86400, help="Set simulation/routing end [default: %default]")
+                     type="int", help="Set simulation/routing end [default: %default]")
 optParser.add_option("-R", "--route-steps", dest="routeSteps",
                      type="int", default=200, help="Set simulation route steps [default: %default]")
 optParser.add_option("-a", "--aggregation", dest="aggregation",
@@ -212,12 +217,11 @@ for step in range(options.firstStep, options.lastStep):
         writeRouteConf(step, options, file, output, doCalibration)
         if options.verbose:
             print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
-            logPos = log.tell()
-            subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
-                            shell=True, stdout=log, stderr=log)
-            log.seek(logPos)
-            for l in log:
-                print l,
+            p = subprocess.Popen("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
+                                 shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            for l in p.communicate()[0]:
+                log.write(l)
+                sys.__stdout__.write(l)
         else:
             subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
                             shell=True, stdout=log, stderr=log)
@@ -229,9 +233,11 @@ for step in range(options.firstStep, options.lastStep):
         if doCalibration:
             alts = output[:-4] + ".alt.xml"
             if options.odmatrix:
-                subprocess.call("addTaz.py -t %s -r %s > %s.taz.xml" % (tripFile, alts, output[:-4]),
-                                shell=True, stdout=log, stderr=log)
-                alts = output[:-4] + ".taz.xml"
+                import addTaz
+                fd = open(output[:-4] + ".taz.xml", 'w')
+                addTaz.parse(tripFile, alts, fd)
+                fd.close()
+                alts = fd.name
             subprocess.call("%s CHOICE -choicesetfile %s -choicefile %s.cal.xml" % (calibrator, alts, output[:-4]),
                             shell=True, stdout=log, stderr=log)
             output = output[:-4] + ".cal.xml"
@@ -242,13 +248,12 @@ for step in range(options.firstStep, options.lastStep):
     print ">>> Begin time %s" % btime
     writeSUMOConf(step, options, ",".join(files))
     if options.verbose:
-        logPos = log.tell()
         print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
-        subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
-                        shell=True, stdout=log, stderr=log)
-        log.seek(logPos)
-        for l in log:
-            print l,
+        p = subprocess.Popen("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
+                             shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for l in p.communicate()[0]:
+            log.write(l)
+            sys.__stdout__.write(l)
     else:
         subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
                         shell=True, stdout=log, stderr=log)
@@ -262,6 +267,7 @@ for step in range(options.firstStep, options.lastStep):
                         shell=True, stdout=log, stderr=log)
     print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
     print "------------------\n"
+    sys.stdout.flush()
 print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
 
 log.close()
