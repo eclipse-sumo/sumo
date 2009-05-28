@@ -1,3 +1,7 @@
+if CHECK_MEMORY_LEAKS
+MEM_LIBS = ../../src/foreign/nvwa/libnvwa.a
+endif
+
 if WITH_GTEST
 bin_PROGRAMS = sumo-unittest
 
@@ -11,6 +15,7 @@ sumo_unittest_LDADD   = ../../src/utils/common/libcommon.a \
 ./utils/common/StringTokenizerTest.o \
 ./utils/common/RGBColorTest.o \
 ./utils/geom/BoundaryTest.o \
+$(MEM_LIBS) \
 -lgtest
 
 SUBDIRS = utils
