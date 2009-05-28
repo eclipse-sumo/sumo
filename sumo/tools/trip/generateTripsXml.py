@@ -306,6 +306,7 @@ def main(options):
         for start in range(len(startVertices)):
             for end in range(len(endVertices)):
                 matrixPshort[start][end] *= options.scale
+                print 'demand:', matrixPshort[start][end]
 
     for start, startVertex in enumerate(startVertices):
         for end, endVertex in enumerate(endVertices):
@@ -328,7 +329,8 @@ def main(options):
         print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
     for trip in tripList:
-        fouttrips.write('   <tripdef id="%s" depart="%s" from="%s" to="%s" fromtaz="%s" totaz="%s" departlane="free" departspeed="max"/>\n' %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge, trip.sourceDistrict, trip.sinkDistrict))
+        fouttrips.write('   <tripdef id="%s" depart="%s" from="%s" to="%s" fromtaz="%s" totaz="%s" departlane="free" departpos="%s" departspeed="max"/>\n' \
+                            %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge, trip.sourceDistrict, trip.sinkDistrict, options.departpos))
     fouttrips.write("</tripdefs>")
     fouttrips.close()
     
@@ -355,7 +357,9 @@ if __name__ == "__main__":
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     optParser.add_option("-s", "--scale", type="float", default=1., help="scale demand by ")
-                                        
+    optParser.add_option("-D", "--depart-pos", dest="departpos", type="choice",
+                     choices=('random', 'free', 'random_free'),
+                     default = 'free', help="choose departure position: random, free, random_free")
     (options, args) = optParser.parse_args()
     
     if not options.netfile or not options.mtxfile or not options.districtfile:
