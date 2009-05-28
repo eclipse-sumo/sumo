@@ -48,6 +48,10 @@ def writeRouteConf(step, options, file, output, withExitTimes):
       <gBeta>%s</gBeta>
       <gA>%s</gA>
    </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
+    if options.absrand:
+        print >> fd, """   <random_number>
+        <abs-rand>true</abs-rand>
+   </random_number>"""
     print >> fd, """   <time>
       <begin>%s</begin>
       <end>%s</end>
@@ -96,6 +100,11 @@ def writeSUMOConf(step, options, files):
     if not options.withWarnings:
         fd.write("      <suppress-warnings>x</suppress-warnings>\n")
     fd.write("   </reports>\n")
+    if options.absrand:
+        fd.write("   <random_number>\n")
+        fd.write("""      <abs-rand>true</abs-rand>\n""")
+        fd.write("   </random_number>\n")
+    
     fd.write("</configuration>\n")
     fd.close()
     fd = open("dua_dump_%s.add.xml" % step, "w")
@@ -165,6 +174,10 @@ optParser.add_option("-s", "--first-calibration-step", dest="calibStep",
 optParser.add_option("-S", "--demandscale", type="float", default=1., help="scaled demand [default: %default]")
 optParser.add_option("-o", "--od-matrix", dest="odmatrix",
                      help="sent estimated O-D matrix to", metavar="FILE")
+                     
+optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
+                     default= False, help="use current time to generate random number")
+                     
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
     optParser.error("At least --net-file and --trips have to be given!")
