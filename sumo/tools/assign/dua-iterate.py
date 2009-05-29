@@ -97,6 +97,8 @@ def writeSUMOConf(step, options, files):
     fd.write("   <reports>\n")
     if options.verbose:
         fd.write("      <verbose>x</verbose>\n")
+    else:
+        fd.write("      <no-step-log>x</no-step-log>\n")
     if not options.withWarnings:
         fd.write("      <suppress-warnings>x</suppress-warnings>\n")
     fd.write("   </reports>\n")
