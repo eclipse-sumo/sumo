@@ -7,7 +7,7 @@
    </routeDistribution>
    </vehicle>
 
-   <vehicle id="1" type="KRAUSS_DEFAULT" route="1" depart="10">
+   <vehicle type="KRAUSS_DEFAULT" route="1" depart="10">
    <routeDistribution last="0">
       <route cost="125.126" probability="1">beg middle end rend</route>
    </routeDistribution>

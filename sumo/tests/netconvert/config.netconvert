@@ -10,7 +10,6 @@ copy_test_path:visum.net
 copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
 copy_test_path:osm.xml
-floating_point_tolerance:0.0101
 
 [collate_file]
 net:net.net.xml
@@ -26,3 +25,6 @@ plain_nodes:Version
 plain_edges:Version
 plain_connections:Version
 net:Version
+
+[floating_point_tolerance]
+net:0.0101
