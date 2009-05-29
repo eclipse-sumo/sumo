@@ -206,7 +206,7 @@ main(int argc, char **argv) {
 #else
     }
 #endif
-    deleteColoringSchemes();
+//    deleteColoringSchemes();
     SystemFrame::close();
     return ret;
 }
