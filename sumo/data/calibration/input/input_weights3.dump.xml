@@ -1,0 +1,6 @@
+<netstats>
+   <interval begin="25200" end="28800">
+      <edge id="D1" entered="800"/>
+      <edge id="D2" entered="200"/>
+   </interval>
+</netstats>
