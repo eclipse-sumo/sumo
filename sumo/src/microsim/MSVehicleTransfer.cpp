@@ -60,7 +60,6 @@ void
 MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
-    WRITE_WARNING("Vehicle '" + veh->getID() + "' will be teleported; edge '" + e->getID() + "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
     // let the vehicle be on the one
     veh->leaveLaneAtLaneChange();
     veh->onTripEnd(/*lane*/);

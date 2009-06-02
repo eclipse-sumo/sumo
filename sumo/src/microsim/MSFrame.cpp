@@ -321,11 +321,8 @@ MSFrame::setMSGlobals(OptionsCont &oc) {
     MSGlobals::gUsingInternalLanes = false;
 #endif
     // set the grid lock time
-    MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0
-                                 ? 0
-                                 : oc.getInt("time-to-teleport");
-    MSGlobals::gMinLaneChangeSight = oc.isSet("lanechange.min-sight")
-                                     ? oc.getFloat("lanechange.min-sight") : 3000.f;
+    MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0 ? 0 : oc.getInt("time-to-teleport");
+    MSGlobals::gMinLaneChangeSight = oc.isSet("lanechange.min-sight") ? oc.getFloat("lanechange.min-sight") : 3000.f;
     MSGlobals::gMinLaneChangeSightEdges = oc.getInt("lanechange.min-sight-edges");
     //
     MSGlobals::gCheck4Accidents = oc.getBool("check-accidents");

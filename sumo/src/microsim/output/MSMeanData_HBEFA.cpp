@@ -87,6 +87,9 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
         fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
         ret = false;
     }
+    if(fraction<0) {
+        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
+    }
     sampleSeconds += fraction;
     SUMOReal a = veh.getPreDawdleAcceleration();
     CO += (fraction * HelpersHBEFA::computeCO(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a));
@@ -105,6 +108,9 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
     SUMOReal l = veh.getVehicleType().getLength();
     if (veh.getPositionOnLane()+l>getLane()->length()) {
         fraction = l - (getLane()->length()-veh.getPositionOnLane());
+    }
+    if(fraction<0) {
+        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
     }
     sampleSeconds += fraction;
     SUMOReal a = veh.getPreDawdleAcceleration();
