@@ -628,18 +628,18 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                 continue;
             }
             if (!hadOne) {
-                os << "   <" << subtopic << ">" << endl;
+                os << "    <" << subtopic << endl;
             }
             // add the comment if wished
             if (addComments) {
-                os << "      <!-- " << o->getDescription() << " -->" << endl;
+                os << "        <!-- " << o->getDescription() << " -->" << endl;
             }
             // write the option and the value (if given)
-            os << "      <" << *j << ">";
+            os << "        " << *j << "=\"";
             if (o->isSet()) {
                 os << o->getValueString();
             }
-            os << "</" << *j << ">" << endl;
+            os << "\"" << endl;
             // append an endline if a comment was printed
             if (addComments) {
                 os << endl;
@@ -647,7 +647,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
             hadOne = true;
         }
         if (hadOne) {
-            os << "   </" << subtopic << ">" << endl << endl;
+            os << "    />" << endl << endl;
         }
     }
     os << "</configuration>" << endl;

@@ -62,8 +62,13 @@ OptionsLoader::~OptionsLoader() throw() {}
 
 
 void OptionsLoader::startElement(const XMLCh* const name,
-                                 AttributeList& /*attributes*/) {
+                                 AttributeList& attributes) {
     myItem = TplConvert<XMLCh>::_2str(name);
+    for (int i = 0; i < attributes.getLength(); i++) {
+        myItem = TplConvert<XMLCh>::_2str(attributes.getName(i));
+        const XMLCh* const value = attributes.getValue(i);
+        characters(value, XMLString::stringLen(value));
+    }
 }
 
 
