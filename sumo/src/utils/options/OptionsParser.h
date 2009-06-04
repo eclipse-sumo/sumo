@@ -63,20 +63,10 @@ public:
     static bool parse(int argc, char **argv) throw(InvalidArgument);
 
 private:
-    /** @brief parses the last argument
-     *
-     * @param[in] arg1 The token to parse
-     * @param[in, out] ok Whether the parsing was successfull
-     * @return Number of read tokens (always 1)
-     * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
-     */
-    static int check(char *arg1, bool &ok) throw(InvalidArgument);
-
-
     /** @brief parses the previous arguments
      *
      * @param[in] arg1 The first token to parse
-     * @param[in] arg2 The second token to parse
+     * @param[in] arg2 The second token to parse, 0 if there is none
      * @param[in, out] ok Whether the parsing was successfull
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)

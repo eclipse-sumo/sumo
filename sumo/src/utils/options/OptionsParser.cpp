@@ -59,7 +59,7 @@ OptionsParser::parse(int argc, char **argv) throw(InvalidArgument) {
             if (i<argc-1) {
                 add = check(argv[i], argv[i+1], ok);
             } else {
-                add = check(argv[i], ok);
+                add = check(argv[i], 0, ok);
             }
             i += add;
         } catch (InvalidArgument &e) {
@@ -69,38 +69,6 @@ OptionsParser::parse(int argc, char **argv) throw(InvalidArgument) {
         }
     }
     return ok;
-}
-
-
-int
-OptionsParser::check(char *arg1, bool &ok) throw(InvalidArgument) {
-    // the last stand-alone argument should be a switch
-    if (!checkParameter(arg1)) return 1;
-
-    OptionsCont &oc = OptionsCont::getOptions();
-    // check switch
-    if (isAbbreviation(arg1)) {
-        // set all switches when abbreviated
-        for (int i=1; arg1[i]!=0; i++) {
-            if (oc.isBool(convert(arg1[i]))) {
-                // process boolean switches
-                ok &= oc.set(convert(arg1[i]), true);
-            } else {
-                // process non-boolean switches
-                ok &= processNonBooleanSingleSwitch(oc, arg1+i);
-            }
-        }
-    } else {
-        string tmp(arg1+2);
-        size_t idx1 = tmp.find('=');
-        // check whether a parameter was submitted
-        if (idx1!=string::npos) {
-            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1));
-        } else {
-            ok &= oc.set(convert(arg1+2), true);
-        }
-    }
-    return 1;
 }
 
 
@@ -120,56 +88,39 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument) {
         size_t idx1 = tmp.find('=');
         // check whether a parameter was submitted
         if (idx1!=string::npos) {
-            if (!oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1))) {
-                ok = false;
-            }
-            return 1;
+            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1));
         } else {
-            if (oc.isBool(convert(arg1+2))) {
-                if (!oc.set(convert(arg1+2), true)) {
-                    ok = false;
-                }
-                return 1;
+            if (arg2==0||oc.isBool(convert(arg1+2))) {
+                ok &= oc.set(convert(arg1+2), true);
             } else {
-                if (!oc.set(convert(arg1+2), convert(arg2))) {
-                    ok = false;
-                }
+                ok &= oc.set(convert(arg1+2), convert(arg2));
+                return 2;
+            }
+        }
+        return 1;
+    }
+    // go through the abbreviated switches
+    for (int i=1; arg1[i]!=0; i++) {
+        // set boolean switches
+        if (oc.isBool(convert(arg1[i]))) {
+            ok &= oc.set(convert(arg1[i]), true);
+            // set non-boolean switches
+        } else {
+            // check whether the parameter comes directly after the switch
+            //  and process if so
+            if (arg2==0||arg1[i+1]!=0) {
+                ok &= processNonBooleanSingleSwitch(oc, arg1+i);
+                return 1;
+                // process parameter following after a space
+            } else {
+                ok &= oc.set(convert(arg1[i]), convert(arg2));
+                // option name and attribute were in two arguments
                 return 2;
             }
         }
     }
-    // process abbreviated switches
-    else {
-        // go through the abbreviated switches
-        for (int i=1; arg1[i]!=0; i++) {
-            // set boolean switches
-            if (oc.isBool(convert(arg1[i]))) {
-                ok &= oc.set(convert(arg1[i]), true);
-                // set non-boolean switches
-            } else {
-                // check whether the parameter comes directly after the switch
-                //  and process if so
-                if (arg1[i+1]!=0&&arg1[i+1]!='=') {
-                    ok &= processNonBooleanSingleSwitch(oc, arg1+i);
-                    // process parameter following after a space
-                } else {
-                    if (arg1[i+1]=='=') {
-                        string val = arg1;
-                        val = val.substr(i+2);
-                        ok &= oc.set(convert(arg1[i]), val);
-                        // option name and attribute were in one argument
-                        return 1;
-                    } else {
-                        ok &= oc.set(convert(arg1[i]), convert(arg2));
-                        // option name and attribute were in two arguments
-                        return 2;
-                    }
-                }
-            }
-        }
-        // all switches within the current argument were boolean switches
-        return 1;
-    }
+    // all switches within the current argument were boolean switches
+    return 1;
 }
 
 
