@@ -1,63 +1,63 @@
 <configuration>
 
-   <input>
-      <net-file></net-file>
-      <alternatives></alternatives>
-      <weights></weights>
-      <lane-weights></lane-weights>
-      <flow-definition></flow-definition>
-      <turn-definition></turn-definition>
-   </input>
+    <input
+        net-file=""
+        alternatives=""
+        weights=""
+        lane-weights=""
+        flow-definition=""
+        turn-definition=""
+    />
 
-   <output>
-      <output-file></output-file>
-      <exit-times>false</exit-times>
-   </output>
+    <output
+        output-file=""
+        exit-times="false"
+    />
 
-   <processing>
-      <continue-on-unbuild>false</continue-on-unbuild>
-      <unsorted>false</unsorted>
-      <randomize-flows>false</randomize-flows>
-      <max-alternatives>5</max-alternatives>
-      <random-per-second></random-per-second>
-      <prune-random>false</prune-random>
-      <remove-loops>false</remove-loops>
-      <repair>false</repair>
-      <max-edges-factor>2</max-edges-factor>
-      <turn-defaults>30,50,20</turn-defaults>
-      <sinks></sinks>
-      <accept-all-destinations>false</accept-all-destinations>
-      <ignore-classes>false</ignore-classes>
-      <dismiss-loading-errors>false</dismiss-loading-errors>
-   </processing>
+    <processing
+        continue-on-unbuild="false"
+        unsorted="false"
+        randomize-flows="false"
+        max-alternatives="5"
+        random-per-second=""
+        prune-random="false"
+        remove-loops="false"
+        repair="false"
+        max-edges-factor="2"
+        turn-defaults="30,50,20"
+        sinks=""
+        accept-all-destinations="false"
+        ignore-classes="false"
+        dismiss-loading-errors="false"
+    />
 
-   <defaults>
-      <departlane></departlane>
-      <departpos></departpos>
-      <departspeed></departspeed>
-      <arrivallane></arrivallane>
-      <arrivalpos></arrivalpos>
-      <arrivalspeed></arrivalspeed>
-      <defaults-override>false</defaults-override>
-   </defaults>
+    <defaults
+        departlane=""
+        departpos=""
+        departspeed=""
+        arrivallane=""
+        arrivalpos=""
+        arrivalspeed=""
+        defaults-override="false"
+    />
 
-   <time>
-      <begin>0</begin>
-      <end>86400</end>
-   </time>
+    <time
+        begin="0"
+        end="86400"
+    />
 
-   <report>
-      <verbose>false</verbose>
-      <print-options>false</print-options>
-      <help>false</help>
-      <suppress-warnings>false</suppress-warnings>
-      <log-file></log-file>
-      <stats-period>-1</stats-period>
-   </report>
+    <report
+        verbose="false"
+        print-options="false"
+        help="false"
+        suppress-warnings="false"
+        log-file=""
+        stats-period="-1"
+    />
 
-   <random_number>
-      <srand>23423</srand>
-      <abs-rand>false</abs-rand>
-   </random_number>
+    <random_number
+        srand="23423"
+        abs-rand="false"
+    />
 
 </configuration>
