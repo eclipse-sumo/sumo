@@ -1,312 +1,312 @@
 <configuration>
 
-   <grid_network>
-      <!-- Forces NETGEN to build a grid-like network -->
-      <grid-net>false</grid-net>
+    <grid_network
+        <!-- Forces NETGEN to build a grid-like network -->
+        grid-net="false"
 
-      <!-- The number of junctions in both dirs -->
-      <grid-number>5</grid-number>
+        <!-- The number of junctions in both dirs -->
+        grid-number="5"
 
-      <!-- The length of streets in both dirs -->
-      <grid-length>100</grid-length>
+        <!-- The length of streets in both dirs -->
+        grid-length="100"
 
-      <!-- The number of junctions in x-dir; Overrides --grid-number -->
-      <grid-x-number>5</grid-x-number>
+        <!-- The number of junctions in x-dir; Overrides --grid-number -->
+        grid-x-number="5"
 
-      <!-- The number of junctions in y-dir; Overrides --grid-number -->
-      <grid-y-number>5</grid-y-number>
+        <!-- The number of junctions in y-dir; Overrides --grid-number -->
+        grid-y-number="5"
 
-      <!-- The length of horizontal streets; Overrides --grid-length -->
-      <grid-x-length>100</grid-x-length>
+        <!-- The length of horizontal streets; Overrides --grid-length -->
+        grid-x-length="100"
 
-      <!-- The length of vertical streets; Overrides --grid-length -->
-      <grid-y-length>100</grid-y-length>
+        <!-- The length of vertical streets; Overrides --grid-length -->
+        grid-y-length="100"
 
-      <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
-      <attach-length>0</attach-length>
+        <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
+        attach-length="0"
 
-   </grid_network>
+    />
 
-   <spider_network>
-      <!-- Forces NETGEN to build a spider-net-like network -->
-      <spider-net>false</spider-net>
+    <spider_network
+        <!-- Forces NETGEN to build a spider-net-like network -->
+        spider-net="false"
 
-      <!-- The number of axes within the net -->
-      <spider-arm-number>13</spider-arm-number>
+        <!-- The number of axes within the net -->
+        spider-arm-number="13"
 
-      <!-- The number of circles of the net -->
-      <spider-circle-number>20</spider-circle-number>
+        <!-- The number of circles of the net -->
+        spider-circle-number="20"
 
-      <!-- The distances between the circles -->
-      <spider-space-rad>100</spider-space-rad>
+        <!-- The distances between the circles -->
+        spider-space-rad="100"
 
-      <!-- Omit the central node of the network -->
-      <spider-omit-center>false</spider-omit-center>
+        <!-- Omit the central node of the network -->
+        spider-omit-center="false"
 
-   </spider_network>
+    />
 
-   <random_network>
-      <!-- Forces NETGEN to build a random network -->
-      <random-net>false</random-net>
+    <random_network
+        <!-- Forces NETGEN to build a random network -->
+        random-net="false"
 
-      <!-- Describes how many times an edge shall be added to the net -->
-      <rand-iterations>2000</rand-iterations>
+        <!-- Describes how many times an edge shall be added to the net -->
+        rand-iterations="2000"
 
-      <!-- Defines the probability to build a reverse edge -->
-      <rand-bidi-probability>1</rand-bidi-probability>
+        <!-- Defines the probability to build a reverse edge -->
+        rand-bidi-probability="1"
 
-      <!--  -->
-      <rand-max-distance>250</rand-max-distance>
+        <!--  -->
+        rand-max-distance="250"
 
-      <!--  -->
-      <rand-min-distance>100</rand-min-distance>
+        <!--  -->
+        rand-min-distance="100"
 
-      <!--  -->
-      <rand-min-angle>0.785398</rand-min-angle>
+        <!--  -->
+        rand-min-angle="0.785398"
 
-      <!--  -->
-      <rand-num-tries>50</rand-num-tries>
+        <!--  -->
+        rand-num-tries="50"
 
-      <!--  -->
-      <rand-connectivity>0.95</rand-connectivity>
+        <!--  -->
+        rand-connectivity="0.95"
 
-      <!--  -->
-      <rand-neighbor-dist1>0</rand-neighbor-dist1>
+        <!--  -->
+        rand-neighbor-dist1="0"
 
-      <!--  -->
-      <rand-neighbor-dist2>0</rand-neighbor-dist2>
+        <!--  -->
+        rand-neighbor-dist2="0"
 
-      <!--  -->
-      <rand-neighbor-dist3>10</rand-neighbor-dist3>
+        <!--  -->
+        rand-neighbor-dist3="10"
 
-      <!--  -->
-      <rand-neighbor-dist4>10</rand-neighbor-dist4>
+        <!--  -->
+        rand-neighbor-dist4="10"
 
-      <!--  -->
-      <rand-neighbor-dist5>2</rand-neighbor-dist5>
+        <!--  -->
+        rand-neighbor-dist5="2"
 
-      <!--  -->
-      <rand-neighbor-dist6>1</rand-neighbor-dist6>
+        <!--  -->
+        rand-neighbor-dist6="1"
 
-   </random_network>
+    />
 
-   <output>
-      <!-- The generated net will be written to FILE -->
-      <output-file>net.net.xml</output-file>
+    <output
+        <!-- The generated net will be written to FILE -->
+        output-file="net.net.xml"
 
-      <!-- Prefix of files to write nodes and edges to -->
-      <plain-output></plain-output>
+        <!-- Prefix of files to write nodes and edges to -->
+        plain-output=""
 
-      <!-- Writes node corner positions to FILE -->
-      <node-geometry-dump></node-geometry-dump>
+        <!-- Writes node corner positions to FILE -->
+        node-geometry-dump=""
 
-      <!-- Writes joined edges information to FILE -->
-      <map-output></map-output>
+        <!-- Writes joined edges information to FILE -->
+        map-output=""
 
-      <!-- Writes pois of tls positions to FILE -->
-      <tls-poi-output></tls-poi-output>
+        <!-- Writes pois of tls positions to FILE -->
+        tls-poi-output=""
 
-      <!-- Writes pois of node types to FILE -->
-      <node-type-output></node-type-output>
+        <!-- Writes pois of node types to FILE -->
+        node-type-output=""
 
-   </output>
+    />
 
-   <projection>
-      <!-- Enables reprojection from geo to cartesian -->
-      <use-projection>false</use-projection>
+    <projection
+        <!-- Enables reprojection from geo to cartesian -->
+        use-projection="false"
 
-      <!-- Uses a simple method for projection -->
-      <proj.simple>false</proj.simple>
+        <!-- Uses a simple method for projection -->
+        proj.simple="false"
 
-      <!-- Uses STR as proj.4 definition for projection -->
-      <proj>+proj=utm +ellps=bessel +units=m</proj>
+        <!-- Uses STR as proj.4 definition for projection -->
+        proj="+proj=utm +ellps=bessel +units=m"
 
-      <!-- Inverses projection -->
-      <proj.inverse>false</proj.inverse>
+        <!-- Inverses projection -->
+        proj.inverse="false"
 
-   </projection>
+    />
 
-   <tls_building>
-      <!-- Interprets STR as list of junctions to be controlled by TLS -->
-      <explicite-tls></explicite-tls>
+    <tls_building
+        <!-- Interprets STR as list of junctions to be controlled by TLS -->
+        explicite-tls=""
 
-      <!-- Interprets STR as list of junctions to be not controlled by TLS -->
-      <explicite-no-tls></explicite-no-tls>
+        <!-- Interprets STR as list of junctions to be not controlled by TLS -->
+        explicite-no-tls=""
 
-      <!-- Turns on TLS guessing -->
-      <guess-tls>false</guess-tls>
+        <!-- Turns on TLS guessing -->
+        guess-tls="false"
 
-      <!-- Sets district nodes as tls-controlled -->
-      <tls-guess.district-nodes>false</tls-guess.district-nodes>
+        <!-- Sets district nodes as tls-controlled -->
+        tls-guess.district-nodes="false"
 
-      <!-- Includes node clusters into guess -->
-      <tls-guess.joining>false</tls-guess.joining>
+        <!-- Includes node clusters into guess -->
+        tls-guess.joining="false"
 
-      <!-- Tries to cluster tls-controlled nodes -->
-      <try-join-tls>false</try-join-tls>
+        <!-- Tries to cluster tls-controlled nodes -->
+        try-join-tls="false"
 
-      <!-- Defines smallest vehicle deceleration -->
-      <min-decel>3</min-decel>
+        <!-- Defines smallest vehicle deceleration -->
+        min-decel="3"
 
-      <!-- Given yellow times are patched even if being too short -->
-      <patch-small-tyellow>false</patch-small-tyellow>
+        <!-- Given yellow times are patched even if being too short -->
+        patch-small-tyellow="false"
 
-      <!-- Use INT as green phase duration -->
-      <traffic-light-green></traffic-light-green>
+        <!-- Use INT as green phase duration -->
+        traffic-light-green=""
 
-      <!-- Set INT as fixed time for yellow phase durations -->
-      <traffic-light-yellow></traffic-light-yellow>
+        <!-- Set INT as fixed time for yellow phase durations -->
+        traffic-light-yellow=""
 
-      <!-- TLSs in STR will be shifted by half-phase -->
-      <tl-logics.half-offset></tl-logics.half-offset>
+        <!-- TLSs in STR will be shifted by half-phase -->
+        tl-logics.half-offset=""
 
-      <!-- TLSs in STR will be shifted by quarter-phase -->
-      <tl-logics.quarter-offset></tl-logics.quarter-offset>
+        <!-- TLSs in STR will be shifted by quarter-phase -->
+        tl-logics.quarter-offset=""
 
-   </tls_building>
+    />
 
-   <ramp_guessing>
-      <!-- Enable ramp-guessing -->
-      <guess-ramps>false</guess-ramps>
+    <ramp_guessing
+        <!-- Enable ramp-guessing -->
+        guess-ramps="false"
 
-      <!-- Treat edges with speed > FLOAT as no ramps -->
-      <ramp-guess.max-ramp-speed>-1</ramp-guess.max-ramp-speed>
+        <!-- Treat edges with speed > FLOAT as no ramps -->
+        ramp-guess.max-ramp-speed="-1"
 
-      <!-- Treat edges with speed < FLOAT as no highways -->
-      <ramp-guess.min-highway-speed>21.9444</ramp-guess.min-highway-speed>
+        <!-- Treat edges with speed < FLOAT as no highways -->
+        ramp-guess.min-highway-speed="21.9444"
 
-      <!-- Use FLOAT as ramp-length -->
-      <ramp-guess.ramp-length>100</ramp-guess.ramp-length>
+        <!-- Use FLOAT as ramp-length -->
+        ramp-guess.ramp-length="100"
 
-      <!--  -->
-      <guess-obscure-ramps>false</guess-obscure-ramps>
+        <!--  -->
+        guess-obscure-ramps="false"
 
-      <!--  -->
-      <obscure-ramps.add-ramp>false</obscure-ramps.add-ramp>
+        <!--  -->
+        obscure-ramps.add-ramp="false"
 
-      <!--  -->
-      <obscure-ramps.min-highway-speed>27.7778</obscure-ramps.min-highway-speed>
+        <!--  -->
+        obscure-ramps.min-highway-speed="27.7778"
 
-   </ramp_guessing>
+    />
 
-   <edge_removal>
-      <!-- Remove edges with speed < FLOAT -->
-      <edges-min-speed></edges-min-speed>
+    <edge_removal
+        <!-- Remove edges with speed < FLOAT -->
+        edges-min-speed=""
 
-      <!-- Remove edges in STR -->
-      <remove-edges></remove-edges>
+        <!-- Remove edges in STR -->
+        remove-edges=""
 
-      <!-- Remove edges not in STR -->
-      <keep-edges></keep-edges>
+        <!-- Remove edges not in STR -->
+        keep-edges=""
 
-      <!-- Removed edges not in FILE -->
-      <keep-edges.input-file></keep-edges.input-file>
+        <!-- Removed edges not in FILE -->
+        keep-edges.input-file=""
 
-      <!-- Remove edges after joining -->
-      <keep-edges.postload>false</keep-edges.postload>
+        <!-- Remove edges after joining -->
+        keep-edges.postload="false"
 
-      <!-- Keeps edges which are located within the given boundary -->
-      <keep-edges.in-boundary></keep-edges.in-boundary>
+        <!-- Keeps edges which are located within the given boundary -->
+        keep-edges.in-boundary=""
 
-      <!-- Remove edges where vclass def is not in STR -->
-      <remove-edges.by-vclass></remove-edges.by-vclass>
+        <!-- Remove edges where vclass def is not in STR -->
+        remove-edges.by-vclass=""
 
-   </edge_removal>
+    />
 
-   <unregulated_nodes>
-      <!-- All nodes will be not regulated -->
-      <keep-unregulated>false</keep-unregulated>
+    <unregulated_nodes
+        <!-- All nodes will be not regulated -->
+        keep-unregulated="false"
 
-      <!-- Do not regulate nodes in STR -->
-      <keep-unregulated.nodes></keep-unregulated.nodes>
+        <!-- Do not regulate nodes in STR -->
+        keep-unregulated.nodes=""
 
-      <!-- Do not regulate district nodes -->
-      <keep-unregulated.district-nodes>false</keep-unregulated.district-nodes>
+        <!-- Do not regulate district nodes -->
+        keep-unregulated.district-nodes="false"
 
-   </unregulated_nodes>
+    />
 
-   <processing>
-      <!-- Flips the y-coordinate along zero -->
-      <flip-y>false</flip-y>
+    <processing
+        <!-- Flips the y-coordinate along zero -->
+        flip-y="false"
 
-      <!--  -->
-      <dismiss-vclasses>false</dismiss-vclasses>
+        <!--  -->
+        dismiss-vclasses="false"
 
-      <!-- Removes geometry information from edges -->
-      <remove-geometry>false</remove-geometry>
+        <!-- Removes geometry information from edges -->
+        remove-geometry="false"
 
-      <!-- Adds node positions to edge geometries -->
-      <add-node-positions>false</add-node-positions>
+        <!-- Adds node positions to edge geometries -->
+        add-node-positions="false"
 
-      <!-- Disables building turnarounds -->
-      <no-turnarounds>false</no-turnarounds>
+        <!-- Disables building turnarounds -->
+        no-turnarounds="false"
 
-      <!-- Disables building turnarounds at tls-controlled junctions -->
-      <no-tls-turnarounds>false</no-tls-turnarounds>
+        <!-- Disables building turnarounds at tls-controlled junctions -->
+        no-tls-turnarounds="false"
 
-      <!-- Omits internal links -->
-      <no-internal-links>false</no-internal-links>
+        <!-- Omits internal links -->
+        no-internal-links="false"
 
-      <!-- Splits edges across geometry nodes -->
-      <split-geometry>false</split-geometry>
+        <!-- Splits edges across geometry nodes -->
+        split-geometry="false"
 
-      <!-- Turn off normalizing node positions -->
-      <disable-normalize-node-positions>false</disable-normalize-node-positions>
+        <!-- Turn off normalizing node positions -->
+        disable-normalize-node-positions="false"
 
-      <!-- Adds FLOAT to net x-positions -->
-      <x-offset-to-apply>0</x-offset-to-apply>
+        <!-- Adds FLOAT to net x-positions -->
+        x-offset-to-apply="0"
 
-      <!-- Adds FLOAT to net y-positions -->
-      <y-offset-to-apply>0</y-offset-to-apply>
+        <!-- Adds FLOAT to net y-positions -->
+        y-offset-to-apply="0"
 
-      <!-- Rotates net around FLOAT degrees -->
-      <rotation-to-apply>0</rotation-to-apply>
+        <!-- Rotates net around FLOAT degrees -->
+        rotation-to-apply="0"
 
-   </processing>
+    />
 
-   <building_defaults>
-      <!-- The default name for an edges type -->
-      <type>Unknown</type>
+    <building_defaults
+        <!-- The default name for an edges type -->
+        type="Unknown"
 
-      <!-- The default number of lanes in an edge -->
-      <lanenumber>1</lanenumber>
+        <!-- The default number of lanes in an edge -->
+        lanenumber="1"
 
-      <!-- The default speed on an edge (in m/s) -->
-      <speed>13.9</speed>
+        <!-- The default speed on an edge (in m/s) -->
+        speed="13.9"
 
-      <!-- The default priority of an edge -->
-      <priority>-1</priority>
+        <!-- The default priority of an edge -->
+        priority="-1"
 
-      <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
-      <default-junction-type></default-junction-type>
+        <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
+        default-junction-type=""
 
-   </building_defaults>
+    />
 
-   <report>
-      <!-- Switches to verbose output -->
-      <verbose>false</verbose>
+    <report
+        <!-- Switches to verbose output -->
+        verbose="false"
 
-      <!-- Prints option values before processing -->
-      <print-options>false</print-options>
+        <!-- Prints option values before processing -->
+        print-options="false"
 
-      <!-- Prints this screen -->
-      <help>false</help>
+        <!-- Prints this screen -->
+        help="false"
 
-      <!-- Disables output of warnings -->
-      <suppress-warnings>false</suppress-warnings>
+        <!-- Disables output of warnings -->
+        suppress-warnings="false"
 
-      <!-- Writes all messages to FILE -->
-      <log-file></log-file>
+        <!-- Writes all messages to FILE -->
+        log-file=""
 
-   </report>
+    />
 
-   <random_number>
-      <!-- Initialises the random number generator with the given value -->
-      <srand>23423</srand>
+    <random_number
+        <!-- Initialises the random number generator with the given value -->
+        srand="23423"
 
-      <!-- Initialises the random number generator with the current system time -->
-      <abs-rand>false</abs-rand>
+        <!-- Initialises the random number generator with the current system time -->
+        abs-rand="false"
 
-   </random_number>
+    />
 
 </configuration>
