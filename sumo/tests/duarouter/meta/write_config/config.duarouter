@@ -1,12 +1,12 @@
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <alternatives>input_alts.rou.alt.xml</alternatives>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        alternatives="input_alts.rou.alt.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
 </configuration>
