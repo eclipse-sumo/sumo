@@ -21,9 +21,9 @@ log:log.txt
 
 [run_dependent_text]
 output:dfrouter.exe{REPLACE sumo-dfrouter}
-detector_defs:Version
-routes:Version
-pois:Version
-emitters:Version
-emitter_*:Version
+detector_defs:version{->}-->
+routes:version{->}-->
+pois:version{->}-->
+emitters:version{->}-->
+emitter_*:version{->}-->
 

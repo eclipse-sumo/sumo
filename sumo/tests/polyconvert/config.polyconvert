@@ -11,4 +11,4 @@ log:log.txt
 
 [run_dependent_text]
 output:polyconvert.exe{REPLACE sumo-polyconvert}
-pois:Version
+pois:version{->}-->

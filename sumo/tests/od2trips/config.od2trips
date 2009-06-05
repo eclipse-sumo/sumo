@@ -13,6 +13,4 @@ log:log.txt
 
 [run_dependent_text]
 output:od2trips.exe{REPLACE sumo-od2trips}
-trips:Version
-
-
+trips:version{->}-->

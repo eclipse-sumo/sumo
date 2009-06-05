@@ -21,10 +21,10 @@ log:log.txt
 
 [run_dependent_text]
 output:netconvert.exe{REPLACE sumo-netconvert}
-plain_nodes:Version
-plain_edges:Version
-plain_connections:Version
-net:Version
+plain_nodes:version{->}-->
+plain_edges:version{->}-->
+plain_connections:version{->}-->
+net:version{->}-->
 
 [floating_point_tolerance]
 net:0.0101

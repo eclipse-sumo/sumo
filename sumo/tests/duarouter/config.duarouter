@@ -16,6 +16,6 @@ log:log.txt
 
 [run_dependent_text]
 output:duarouter.exe{REPLACE sumo-duarouter}
-routes:Version
-alts:Version
+routes:version{->}-->
+alts:version{->}-->
 

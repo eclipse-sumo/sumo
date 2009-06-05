@@ -13,5 +13,4 @@ log:log.txt
 
 [run_dependent_text]
 output:jtrrouter.exe{REPLACE sumo-jtrrouter}
-routes:Version
-
+routes:version{->}-->

@@ -9,7 +9,7 @@ log:log.txt
 
 [run_dependent_text]
 output:netgen.exe{REPLACE sumo-netgen}
-net:Version
+net:version{->}-->
 
 [floating_point_tolerance]
 net:0.0101
