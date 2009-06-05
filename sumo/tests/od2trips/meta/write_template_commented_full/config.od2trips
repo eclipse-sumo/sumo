@@ -1,102 +1,102 @@
 <configuration>
 
-   <input>
-      <!-- Loads network (districts) from FILE -->
-      <net-file></net-file>
+    <input
+        <!-- Loads network (districts) from FILE -->
+        net-file=""
 
-      <!-- Loads O/D-files from FILE(s) -->
-      <od-files></od-files>
+        <!-- Loads O/D-files from FILE(s) -->
+        od-files=""
 
-   </input>
+    />
 
-   <output>
-      <!-- Writes trip definitions into FILE -->
-      <output-file></output-file>
+    <output
+        <!-- Writes trip definitions into FILE -->
+        output-file=""
 
-      <!-- Does not save vtype information -->
-      <no-vtype>false</no-vtype>
+        <!-- Does not save vtype information -->
+        no-vtype="false"
 
-   </output>
+    />
 
-   <time>
-      <!-- Defines the begin time; Previous trips will be discarded -->
-      <begin>0</begin>
+    <time
+        <!-- Defines the begin time; Previous trips will be discarded -->
+        begin="0"
 
-      <!-- Defines the end time; Later trips will be discarded -->
-      <end>86400</end>
+        <!-- Defines the end time; Later trips will be discarded -->
+        end="86400"
 
-   </time>
+    />
 
-   <processing>
-      <!-- Scales the loaded flows by FLOAT -->
-      <scale>1</scale>
+    <processing
+        <!-- Scales the loaded flows by FLOAT -->
+        scale="1"
 
-      <!-- Spreads trips uniformly over each time period -->
-      <spread.uniform>false</spread.uniform>
+        <!-- Spreads trips uniformly over each time period -->
+        spread.uniform="false"
 
-      <!-- Defines the name of the vehicle type to use -->
-      <vtype></vtype>
+        <!-- Defines the name of the vehicle type to use -->
+        vtype=""
 
-      <!-- Defines the prefix for vehicle names -->
-      <prefix></prefix>
+        <!-- Defines the prefix for vehicle names -->
+        prefix=""
 
-      <!-- Uses STR as a timeline definition -->
-      <timeline></timeline>
+        <!-- Uses STR as a timeline definition -->
+        timeline=""
 
-      <!-- Uses STR as a 24h-timeline definition -->
-      <timeline.day-in-hours>false</timeline.day-in-hours>
+        <!-- Uses STR as a 24h-timeline definition -->
+        timeline.day-in-hours="false"
 
-      <!-- Continue on broken input -->
-      <dismiss-loading-errors>false</dismiss-loading-errors>
+        <!-- Continue on broken input -->
+        dismiss-loading-errors="false"
 
-   </processing>
+    />
 
-   <defaults>
-      <!-- Assigns a default depart lane -->
-      <departlane>free</departlane>
+    <defaults
+        <!-- Assigns a default depart lane -->
+        departlane="free"
 
-      <!-- Assigns a default depart position -->
-      <departpos></departpos>
+        <!-- Assigns a default depart position -->
+        departpos=""
 
-      <!-- Assigns a default depart speed -->
-      <departspeed>max</departspeed>
+        <!-- Assigns a default depart speed -->
+        departspeed="max"
 
-      <!-- Assigns a default arrival lane -->
-      <arrivallane></arrivallane>
+        <!-- Assigns a default arrival lane -->
+        arrivallane=""
 
-      <!-- Assigns a default arrival position -->
-      <arrivalpos></arrivalpos>
+        <!-- Assigns a default arrival position -->
+        arrivalpos=""
 
-      <!-- Assigns a default arrival speed -->
-      <arrivalspeed></arrivalspeed>
+        <!-- Assigns a default arrival speed -->
+        arrivalspeed=""
 
-   </defaults>
+    />
 
-   <report>
-      <!-- Switches to verbose output -->
-      <verbose>false</verbose>
+    <report
+        <!-- Switches to verbose output -->
+        verbose="false"
 
-      <!-- Prints option values before processing -->
-      <print-options>false</print-options>
+        <!-- Prints option values before processing -->
+        print-options="false"
 
-      <!-- Prints this screen -->
-      <help>false</help>
+        <!-- Prints this screen -->
+        help="false"
 
-      <!-- Disables output of warnings -->
-      <suppress-warnings>false</suppress-warnings>
+        <!-- Disables output of warnings -->
+        suppress-warnings="false"
 
-      <!-- Writes all messages to FILE -->
-      <log-file></log-file>
+        <!-- Writes all messages to FILE -->
+        log-file=""
 
-   </report>
+    />
 
-   <random_number>
-      <!-- Initialises the random number generator with the given value -->
-      <srand>23423</srand>
+    <random_number
+        <!-- Initialises the random number generator with the given value -->
+        srand="23423"
 
-      <!-- Initialises the random number generator with the current system time -->
-      <abs-rand>false</abs-rand>
+        <!-- Initialises the random number generator with the current system time -->
+        abs-rand="false"
 
-   </random_number>
+    />
 
 </configuration>

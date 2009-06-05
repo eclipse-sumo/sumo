@@ -1,12 +1,12 @@
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <od-files>input_od_o.fma</od-files>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        od-files="input_od_o.fma"
+    />
 
-   <output>
-      <output-file>trips.trips.xml</output-file>
-   </output>
+    <output
+        output-file="trips.trips.xml"
+    />
 
 </configuration>
