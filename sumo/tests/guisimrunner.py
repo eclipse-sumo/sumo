@@ -13,10 +13,11 @@ guisimBinary = os.environ.get("GUISIM_BINARY", guisimBinary)
 #start sumo to generate config
 subprocess.call(sumoBinary + " --error-log guisim.stderr --save-configuration guisim.cfg " + " ".join(sys.argv[1:]), 
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
-subprocess.call(guisimBinary + " -Q -c guisim.cfg", 
+ret = subprocess.call(guisimBinary + " -Q -c guisim.cfg", 
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
 if os.path.exists("guisim.stderr"):
     f = open("guisim.stderr")
     shutil.copyfileobj(f, sys.stderr)
     f.close()
     os.remove("guisim.stderr")
+sys.exit(ret)

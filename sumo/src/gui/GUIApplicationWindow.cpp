@@ -906,7 +906,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         setStatusBarText("Loading of '" + ec->myFile + "' failed!");
         if (gQuitOnEnd) {
             closeAllWindows();
-            getApp()->exit(0);
+            getApp()->exit(1);
         }
     } else {
         // initialise global information
