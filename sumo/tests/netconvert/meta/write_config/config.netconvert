@@ -1,18 +1,18 @@
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-      <xml-connection-files>input_connections.con.xml</xml-connection-files>
-   </input>
+    <input
+        xml-node-files="input_nodes.nod.xml"
+        xml-edge-files="input_edges.edg.xml"
+        xml-connection-files="input_connections.con.xml"
+    />
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output
+        output-file="net.net.xml"
+    />
 
-   <processing>
-      <speed-in-kmh>true</speed-in-kmh>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing
+        speed-in-kmh="true"
+        no-internal-links="true"
+    />
 
 </configuration>
