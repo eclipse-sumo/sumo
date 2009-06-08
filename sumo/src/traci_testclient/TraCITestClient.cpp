@@ -672,7 +672,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
     // waittime
     tempMsg.writeDouble(waitTime);
     // command length
-    outMsg.writeUnsignedByte(1 + tempMsg.size());
+    outMsg.writeUnsignedByte(1 + (int) tempMsg.size());
     outMsg.writeStorage(tempMsg);
 
     // send request message
@@ -828,7 +828,7 @@ TraCITestClient::commandChangeRoute(int nodeId, std::string roadId, double trave
     }
 
     // command length
-    outMsg.writeUnsignedByte(1 + 1 + 4 + (4+roadId.length()) + 8);
+    outMsg.writeUnsignedByte(1 + 1 + 4 + (4+(int) roadId.length()) + 8);
     // command id
     outMsg.writeUnsignedByte(CMD_CHANGEROUTE);
     // node id
@@ -879,7 +879,7 @@ TraCITestClient::commandChangeTarget(int nodeId, std::string roadId) {
     }
 
     // command length
-    outMsg.writeUnsignedByte(1 + 1 + 4 + (4+roadId.length()));
+    outMsg.writeUnsignedByte(1 + 1 + 4 + (4+(int) roadId.length()));
     // command id
     outMsg.writeUnsignedByte(CMD_CHANGETARGET);
     // node id
@@ -973,7 +973,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
     // destination position id
     tempMsg.writeUnsignedByte(posId);
     // command length
-    outMsg.writeUnsignedByte(1 + tempMsg.size());
+    outMsg.writeUnsignedByte(1 + (int) tempMsg.size());
     outMsg.writeStorage(tempMsg);
 
     // send request message
@@ -1131,7 +1131,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     // flag
     tempMsg.writeUnsignedByte(flag);
     // command length
-    outMsg.writeUnsignedByte(1 + tempMsg.size());
+    outMsg.writeUnsignedByte(1 + (int) tempMsg.size());
     outMsg.writeStorage(tempMsg);
 
     // send request message
@@ -1245,7 +1245,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         return;
     }
     // command length
-    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + objID.length());
+    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length());
     // command id
     outMsg.writeUnsignedByte(domID);
     // variable id
@@ -1321,12 +1321,12 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
         dataLength = 4;
         dataType = TYPE_FLOAT;
     } else if (dataTypeS=="<string>") {
-        dataLength = 4 + value.length();
+        dataLength = 4 + (int) value.length();
         dataType = TYPE_STRING;
     } else if (dataTypeS=="<string*>") {
-        dataLength = 4 + 4 * slValue.size();
+        dataLength = 4 + 4 * (int) slValue.size();
         for (vector<string>::const_iterator i=slValue.begin(); i!=slValue.end(); ++i) {
-            dataLength += (*i).length();
+            dataLength += (int) (*i).length();
         }
         dataType = TYPE_STRINGLIST;
     } else {
@@ -1335,7 +1335,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
         return;
     }
     // command length (domID, varID, objID, dataType, data)
-    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + objID.length() + 1 + dataLength);
+    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + 1 + dataLength);
     // command id
     outMsg.writeUnsignedByte(domID);
     // variable id
@@ -1539,7 +1539,7 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
         << "upperRight x=" << boxVal->upperRight.x << " y=" << boxVal->upperRight.y;
     } else if (polyVal != NULL) {
         tempMsg.writeUnsignedByte(TYPE_POLYGON);
-        tempMsg.writeUnsignedByte(polyVal->size());
+        tempMsg.writeUnsignedByte((int) polyVal->size());
         valueString << std::endl << " PolygonValue: " << std::endl;
         for (testclient::Polygon::iterator it = polyVal->begin(); it != polyVal->end(); it++) {
             tempMsg.writeFloat(it->x);
@@ -1548,7 +1548,7 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
         }
     } else if (tlphaseVal != NULL) {
         tempMsg.writeUnsignedByte(TYPE_TLPHASELIST);
-        tempMsg.writeUnsignedByte(tlphaseVal->size());
+        tempMsg.writeUnsignedByte((int) tlphaseVal->size());
         valueString << std::endl << " TLPhaseListValue: " << std::endl;
         for (testclient::TLPhaseList::iterator it = tlphaseVal->begin(); it != tlphaseVal->end(); it++) {
             tempMsg.writeString(it->precRoadId);
@@ -1564,7 +1564,7 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
     }
 
     // command length
-    outMsg.writeUnsignedByte(1 + tempMsg.size());
+    outMsg.writeUnsignedByte(1 + (int) tempMsg.size());
     // whole message
     outMsg.writeStorage(tempMsg);
 
