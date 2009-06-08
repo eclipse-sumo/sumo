@@ -241,7 +241,8 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
     string warning = "";	// additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM&&variable!=TL_PHASE_DURATION) {
+    if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
+        &&variable!=TL_PHASE_DURATION&&variable!=TL_RED_YELLOW_GREEN_STATE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -315,6 +316,24 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         int index = vars.getActive()->getCurrentPhaseIndex();
         vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
     }
+    case TL_RED_YELLOW_GREEN_STATE: {
+        if (valueDataType!=TYPE_STRING) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as a string.", outputStorage);
+            return false;
+        }
+        // build only once...
+        string state = inputStorage.readString();
+        MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
+        vector<MSPhaseDefinition*> phases;
+        phases.push_back(phase);
+        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
+        if (!vars.addLogic("online", logic, true, true)) {
+            delete logic;
+            MSPhaseDefinition nphase(1, state);
+            *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
+        }
+    }
+    break;
     default:
         break;
     }
