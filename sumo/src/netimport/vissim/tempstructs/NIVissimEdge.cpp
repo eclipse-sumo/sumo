@@ -285,7 +285,7 @@ NIVissimEdge::dict_propagateSpeeds(/* NBDistribution &dc */) {
 
 void
 NIVissimEdge::checkUnconnectedLaneSpeeds(/* NBDistribution &dc */) {
-    for (size_t i=0; i<myLaneSpeeds.size(); i++) {
+    for (int i=0; i<(int) myLaneSpeeds.size(); i++) {
         if (myLaneSpeeds[i]==-1) {
             SUMOReal speed = -1;
             int j1 = i - 1; // !!! recheck - j1 may become negative?
@@ -322,7 +322,7 @@ NIVissimEdge::checkUnconnectedLaneSpeeds(/* NBDistribution &dc */) {
 
 void
 NIVissimEdge::propagateOwn(/* NBDistribution &dc */) {
-    for (size_t i=0; i<myLaneSpeeds.size(); i++) {
+    for (int i=0; i<(int) myLaneSpeeds.size(); i++) {
         if (myLaneSpeeds[i]==-1) {
             continue;
         }
@@ -342,7 +342,7 @@ NIVissimEdge::propagateSpeed(/* NBDistribution &dc */ SUMOReal speed, IntVector 
     // if no lane is given, all set be set
     if (forLanes.size()==0) {
         for (size_t i=0; i<myNoLanes; i++) {
-            forLanes.push_back(i);
+            forLanes.push_back((int) i);
         }
     }
     // for the case of a first call
@@ -392,7 +392,7 @@ NIVissimEdge::setDistrictSpeed(/* NBDistribution &dc */) {
                 if (speed==-1) {
                     return;
                 }
-                for (size_t i=0; i<myNoLanes; i++) {
+                for (unsigned int i=0; i<myNoLanes; i++) {
                     myLaneSpeeds[i] = speed;
                     // propagate the speed further
                     // get the list of connected edges

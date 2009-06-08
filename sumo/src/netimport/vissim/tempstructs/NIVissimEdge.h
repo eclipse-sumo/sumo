@@ -264,7 +264,7 @@ private:
     std::string myType;
 
     /// The number of lanes the edge has
-    size_t myNoLanes;
+    unsigned int myNoLanes;
 
     /// Additional load values for this edge
     SUMOReal myZuschlag1, myZuschlag2;
