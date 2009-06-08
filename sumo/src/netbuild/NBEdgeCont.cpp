@@ -39,6 +39,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
+#include "NBNetBuilder.h"
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
 #include "NBHelpers.h"
@@ -66,8 +67,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBEdgeCont::NBEdgeCont() throw()
-        : myEdgesSplit(0) {
+NBEdgeCont::NBEdgeCont(NBNetBuilder &tc) throw()
+        : myNetBuilder(tc), myEdgesSplit(0) {
 }
 
 
@@ -213,6 +214,13 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
             return true;
         }
     }
+    if(myNetBuilder.getTypeCont().knows(edge->getTypeID())&&myNetBuilder.getTypeCont().getShallBeDiscarded(edge->getTypeID())) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            delete edge;
+            return true;
+    }
+
     if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
         edge->dismissVehicleClassInformation();
     }
@@ -505,14 +513,6 @@ void
 NBEdgeCont::recomputeLaneShapes() throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         (*i).second->computeLaneShapes();
-    }
-}
-
-
-void
-NBEdgeCont::recheckEdgeGeomsForDoublePositions() throw() {
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        (*i).second->recheckEdgeGeomForDoublePositions();
     }
 }
 

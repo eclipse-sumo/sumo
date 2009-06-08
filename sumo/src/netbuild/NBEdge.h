@@ -521,7 +521,9 @@ public:
     void dismissVehicleClassInformation();
 
 
-
+    const std::string &getTypeID() const throw() {
+        return myType;
+    }
 
 
     /// computes the edge (step1: computation of approached edges)
@@ -565,7 +567,7 @@ public:
         The epsilon is a static member of NBEdge, should be setable via program options */
     NBNode *tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance=5.0) const;
 
-    void replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff);
+    void replaceInConnections(NBEdge *which, NBEdge *by, unsigned int laneOff);
 
     SUMOReal getMaxLaneOffset();
 
@@ -600,7 +602,7 @@ public:
 
     /// Returns if the link could be set as to be controlled
     bool setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
-                                     const std::string &tlID, size_t tlPos);
+                                     const std::string &tlID, unsigned int tlPos);
 
     void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge *o,
             Position2DVector &into);
@@ -623,11 +625,11 @@ public:
 
     friend class NBEdgeCont;
 
-    void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff);
+    void moveOutgoingConnectionsFrom(NBEdge *e, unsigned int laneOff);
 
     NBEdge *getTurnDestination() const;
 
-    std::string getLaneID(size_t lane);
+    std::string getLaneID(unsigned int lane);
 
     void setLaneSpeed(unsigned int lane, SUMOReal speed);
 
@@ -655,7 +657,6 @@ public:
 
     void disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane);
 
-    void recheckEdgeGeomForDoublePositions();
 
     int getMinConnectedLane(NBEdge *of) const;
     int getMaxConnectedLane(NBEdge *of) const;
@@ -679,7 +680,7 @@ private:
     class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack {
     private:
         /// map of edges to this edge's lanes that reach them
-        std::map<NBEdge*, std::vector<size_t> > myConnections;
+        std::map<NBEdge*, std::vector<unsigned int> > myConnections;
 
         /// the transition from the virtual lane to the edge it belongs to
         const std::vector<NBEdge*> &myTransitions;
@@ -695,7 +696,7 @@ private:
         /// executes a bresenham - step
         void execute(SUMOReal lane, SUMOReal virtEdge) throw();
 
-        const std::map<NBEdge*, std::vector<size_t> > &getBuiltConnections() const throw() {
+        const std::map<NBEdge*, std::vector<unsigned int> > &getBuiltConnections() const throw() {
             return myConnections;
         }
 
@@ -751,11 +752,11 @@ private:
     };
 
     /// Computes the shape for the given lane
-    Position2DVector computeLaneShape(size_t lane) throw(InvalidArgument);
+    Position2DVector computeLaneShape(unsigned int lane) throw(InvalidArgument);
 
     /// Computes the offset from the edge shape on the current segment
     std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
-            const Position2D &to, SUMOReal lanewidth, size_t lane) throw(InvalidArgument);
+            const Position2D &to, SUMOReal lanewidth, unsigned int lane) throw(InvalidArgument);
 
     void computeLaneShapes() throw();
 
@@ -788,26 +789,26 @@ private:
 
     /** recomputes the priorities and manipulates them for a distribution
         of lanes on edges which is more like in real-life */
-    std::vector<size_t> *preparePriorities(
+    std::vector<unsigned int> *preparePriorities(
         const std::vector<NBEdge*> *outgoing);
 
     /** computes teh sum of the given list's entries (sic!) */
-    size_t computePrioritySum(std::vector<size_t> *priorities);
+    unsigned int computePrioritySum(std::vector<unsigned int> *priorities);
 
     /** moves a connection one place to the left;
         Attention! no checking for field validity */
-    void moveConnectionToLeft(size_t lane);
+    void moveConnectionToLeft(unsigned int lane);
 
     /** moves a connection one place to the right;
         Attention! no checking for field validity */
-    void moveConnectionToRight(size_t lane);
+    void moveConnectionToRight(unsigned int lane);
 
 
     /** writes information about the described lane into the given stream */
     void writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) const;
 
     // !!! describe
-    void writeSucceeding(OutputDevice &into, size_t lane,
+    void writeSucceeding(OutputDevice &into, unsigned int lane,
                          bool includeInternal);
 
 

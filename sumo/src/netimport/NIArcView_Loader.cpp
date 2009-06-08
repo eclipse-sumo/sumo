@@ -161,8 +161,6 @@ NIArcView_Loader::load(OptionsCont &) {
             speed = speed / (SUMOReal) 3.6;
         }
 
-        NBNode *from = 0;
-        NBNode *to = 0;
 
         // read in the geometry
         OGRGeometry *poGeometry = poFeature->GetGeometryRef();
@@ -182,22 +180,32 @@ NIArcView_Loader::load(OptionsCont &) {
         }
 
         // build from-node
-        Position2D from_pos = shape[0];
-        if (!myNodeCont.insert(from_node, from_pos)) {
-            from = new NBNode(from_node + "___" + toString<int>(myNameAddition++),
-                              from_pos);
-            myNodeCont.insert(from);
-        } else {
-            from = myNodeCont.retrieve(from_pos);
+        NBNode *from = myNodeCont.retrieve(from_node);
+        if(from==0) {
+            Position2D from_pos = shape[0];
+            from = myNodeCont.retrieve(from_pos, SUMOReal(.1));
+            if (from==0) {
+                from = new NBNode(from_node, from_pos);
+                if(!myNodeCont.insert(from)) {
+                    MsgHandler::getErrorInstance()->inform("Node '" + from_node + "' could not been added");
+                    delete from;
+                    continue;
+                }
+            }
         }
         // build to-node
-        Position2D to_pos = shape[-1];
-        if (!myNodeCont.insert(to_node, to_pos)) {
-            to = new NBNode(to_node + "___" + toString<int>(myNameAddition++),
-                            to_pos);
-            myNodeCont.insert(to);
-        } else {
-            to = myNodeCont.retrieve(to_pos);
+        NBNode *to = myNodeCont.retrieve(to_node);
+        if(to==0) {
+            Position2D to_pos = shape[-1];
+            to = myNodeCont.retrieve(to_pos, SUMOReal(.1));
+            if (to==0) {
+                to = new NBNode(to_node, to_pos);
+                if(!myNodeCont.insert(to)) {
+                    MsgHandler::getErrorInstance()->inform("Node '" + to_node + "' could not been added");
+                    delete to;
+                    continue;
+                }
+            }
         }
 
         if (from==0||to==0) {
@@ -207,10 +215,6 @@ NIArcView_Loader::load(OptionsCont &) {
 
         if (from==to) {
             WRITE_WARNING("Edge '" + id + "' connects same nodes; skipping.");
-            continue;
-        }
-        if (from->getPosition().almostSame(to->getPosition())) {
-            WRITE_WARNING("Edge '" + id + "' is too short; skipping.");
             continue;
         }
 

@@ -101,6 +101,12 @@ public:
     bool knows(const std::string &type) const throw();
 
 
+    /** @brief Marks a type as to be discarded
+     * @param[in] id The id of the type
+     */
+    bool markAsToDiscard(const std::string &id) throw();
+
+
 
     /// @name Type-dependant Retrieval methods
     /// @{
@@ -140,6 +146,14 @@ public:
      * @todo There is no default for one-way!?
      */
     bool getIsOneWay(const std::string &type) const throw();
+
+    
+    /** @brief Returns the information whether edges of this type shall be discarded.
+     * 
+     * Returns false if the type is not known.
+     * @return Whether edges of this type shall be discarded.
+     */
+    bool getShallBeDiscarded(const std::string &type) const throw();
 
 
     /** @brief Returns allowed vehicle classes for the given type
@@ -194,11 +208,11 @@ private:
     struct TypeDefinition {
         /// @brief Constructor
         TypeDefinition()
-                : noLanes(1), speed((SUMOReal) 13.9), priority(-1), oneWay(true) { }
+                : noLanes(1), speed((SUMOReal) 13.9), priority(-1), oneWay(true), discard(false) { }
 
         /// @brief Destructor
         TypeDefinition(int _noLanes, SUMOReal _speed, int _priority)
-                : noLanes(_noLanes), speed(_speed), priority(_priority), oneWay(true) { }
+                : noLanes(_noLanes), speed(_speed), priority(_priority), oneWay(true), discard(false) { }
 
         /// @brief The number of lanes of an edge
         int noLanes;
@@ -212,6 +226,8 @@ private:
         std::vector<SUMOVehicleClass> notAllowed;
         /// @brief Whether one-way traffic is mostly common for this type (mostly unused)
         bool oneWay;
+        /// @brief Whether edges of this type shall be discarded
+        bool discard;
 
     };
 

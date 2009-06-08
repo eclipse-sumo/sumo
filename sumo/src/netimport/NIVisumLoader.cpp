@@ -189,8 +189,6 @@ NIVisumLoader::load() throw(ProcessError) {
     for (NIVisumTL_Map::iterator j=myNIVisumTLs.begin(); j!=myNIVisumTLs.end(); j++) {
         j->second->build(myNetBuilder.getTLLogicCont());
     }
-    // recheck all edge shapes
-    myNetBuilder.getEdgeCont().recheckEdgeGeomsForDoublePositions();
     // build district shapes
     for (map<NBDistrict*, Position2DVector>::const_iterator k=myDistrictShapes.begin(); k!=myDistrictShapes.end(); ++k) {
         (*k).first->addShape((*k).second);
@@ -221,9 +219,7 @@ NIVisumLoader::parse_Types() {
     SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
     int nolanes = myCapacity2Lanes.get(cap);
     // insert the type
-    if (!myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed/(SUMOReal) 3.6, priority)) {
-        MsgHandler::getErrorInstance()->inform("Duplicate type occured ('" + myCurrentID + "').");
-    }
+    myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed/(SUMOReal) 3.6, priority);
 }
 
 
@@ -351,7 +347,7 @@ NIVisumLoader::parse_Edges() {
     }
     // add the edge
     int prio = myUseVisumPrio ? myNetBuilder.getTypeCont().getPriority(type) : -1;
-    if (nolanes!=0) {
+    if (nolanes!=0&&speed!=0) {
         NBEdge::LaneSpreadFunction lsf = oneway_checked
                                          ? NBEdge::LANESPREAD_CENTER
                                          : NBEdge::LANESPREAD_RIGHT;
@@ -368,7 +364,7 @@ NIVisumLoader::parse_Edges() {
     }
     // add the opposite edge
     myCurrentID = '-' + myCurrentID;
-    if (nolanes!=0) {
+    if (nolanes!=0&&speed!=0) {
         NBEdge::LaneSpreadFunction lsf = oneway_checked
                                          ? NBEdge::LANESPREAD_CENTER
                                          : NBEdge::LANESPREAD_RIGHT;

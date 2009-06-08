@@ -391,10 +391,10 @@ public:
 
     const Position2DVector &getShape() const;
 
-    size_t countInternalLanes(bool includeSplits);
+    unsigned int countInternalLanes(bool includeSplits);
 
-    std::string getInternalLaneID(NBEdge *from, size_t fromlane,
-                                  NBEdge *to, size_t tolane) const;
+    std::string getInternalLaneID(NBEdge *from, unsigned int fromlane,
+                                  NBEdge *to, unsigned int tolane) const;
 
 
     bool checkIsRemovable() const;
@@ -410,16 +410,16 @@ public:
     bool isDistrict() const;
 
 
-    std::pair<SUMOReal, std::vector<size_t> > getCrossingPosition(NBEdge *fromE, size_t fromL,
-            NBEdge *toE, size_t toL);
-    std::string getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
-            NBEdge *toE, size_t toL);
-    std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
-            NBEdge *toE, size_t toL);
+    std::pair<SUMOReal, std::vector<unsigned int> > getCrossingPosition(NBEdge *fromE, unsigned int fromL,
+            NBEdge *toE, unsigned int toL);
+    std::string getCrossingNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
+            NBEdge *toE, unsigned int toL);
+    std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, unsigned int fromL,
+            NBEdge *toE, unsigned int toL);
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */
-    void replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff);
+    void replaceIncoming(NBEdge *which, NBEdge *by, unsigned int laneOff);
 
     /** @brief Replaces occurences of every edge from the given list within the list of incoming by the second
         Connections are remapped, too */
@@ -427,7 +427,7 @@ public:
 
     /** @brief Replaces occurences of the first edge within the list of outgoing by the second
         Connections are remapped, too */
-    void replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff);
+    void replaceOutgoing(NBEdge *which, NBEdge *by, unsigned int laneOff);
 
     /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
         Connections are remapped, too */
@@ -473,14 +473,14 @@ private:
 
 
     void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
-                                         size_t whichLaneOff, size_t byLaneOff);
+                                         unsigned int whichLaneOff, unsigned int byLaneOff);
 
 
     void remapRemoved(NBTrafficLightLogicCont &tc,
                       NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
 
     Position2DVector computeInternalLaneShape(NBEdge *fromE,
-            size_t fromL, NBEdge *toE, size_t toL);
+            int fromL, NBEdge *toE, int toL);
 
     void writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id);
 

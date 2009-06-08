@@ -93,7 +93,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
     NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
     if (myType=="priority") {
         type = NBNode::NODETYPE_PRIORITY_JUNCTION;
-    } else if (myType=="right_before_left"||myType=="right_for_left") {
+    } else if (myType=="right_before_left") {
         type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
     } else if (myType=="traffic_light") {
         type = NBNode::NODETYPE_TRAFFIC_LIGHT;

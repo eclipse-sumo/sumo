@@ -93,8 +93,7 @@ NITigerLoader::load(OptionsCont &) throw(ProcessError) {
         poses.push_back(values1[values1.size()-2]);
         // check whether any additional information exists
         if (values2.size()!=0&&values2[1]==eid) {
-            copy(values2.begin()+3, values2.end(),
-                 back_inserter(poses));
+            copy(values2.begin()+3, values2.end(), back_inserter(poses));
             if (tgr2r.good()&&tgr2r.hasMore()) {
                 line2 = tgr2r.readLine();
                 StringTokenizer st2(line2, StringTokenizer::WHITECHARS);
@@ -110,11 +109,9 @@ NITigerLoader::load(OptionsCont &) throw(ProcessError) {
         if (from==0||to==0) {
             if (from==0) {
                 throw ProcessError("Could not find start node of edge '" + eid + "'.");
-
             }
             if (to==0) {
                 throw ProcessError("Could not find end node of edge '" + eid + "'.");
-
             }
         }
         // !!!
@@ -124,21 +121,16 @@ NITigerLoader::load(OptionsCont &) throw(ProcessError) {
         SUMOReal length = cposes.length();
         if (nolanes!=-1&&length>0) {
             int priority = -1;
-            NBEdge *e =
-                new NBEdge(eid, from, to, type, speed, nolanes,
-                           priority, cposes, myTryIgnoreNodePositions);
+            NBEdge *e = new NBEdge(eid, from, to, type, speed, nolanes, priority, cposes, myTryIgnoreNodePositions);
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");
             }
             eid = "-" + eid;
-            e =
-                new NBEdge(eid, to, from, type, speed, nolanes,
-                           priority, cposes.reverse(), myTryIgnoreNodePositions);
+            e = new NBEdge(eid, to, from, type, speed, nolanes, priority, cposes.reverse(), myTryIgnoreNodePositions);
             if (!myEdgeCont.insert(e)) {
                 delete e;
                 throw ProcessError("Could not insert edge '" + eid + "'.");
-
             }
         }
     }
@@ -154,19 +146,12 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv) throw(ProcessErr
         size_t b1 = info.find_first_of("+-");
         assert(b1!=string::npos);
         size_t b2 = info.find_first_of("+-", b1+1);
-        size_t b3 =
-            b2==string::npos
-            ? string::npos
-            : info.find_first_of("+-", b2+1);
+        size_t b3 = b2==string::npos ? string::npos : info.find_first_of("+-", b2+1);
         string p1 = info.substr(0, b2);
-        string p2 =
-            b3==string::npos
-            ? info.substr(b2)
-            : info.substr(b2, b3-b2);
+        string p2 = b3==string::npos ? info.substr(b2) : info.substr(b2, b3-b2);
         try {
             SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
-
             Position2D pos(x, y);
             GeoConvHelper::x2cartesian(pos);
             ret.push_back(pos);

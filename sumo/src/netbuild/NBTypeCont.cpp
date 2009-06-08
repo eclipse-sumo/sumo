@@ -88,6 +88,18 @@ NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw() {
 }
 
 
+bool 
+NBTypeCont::markAsToDiscard(const std::string &id) throw()
+{
+    TypesCont::iterator i = myTypes.find(id);
+    if (i==myTypes.end()) {
+        return false;
+    }
+    (*i).second.discard = true;
+    return true;
+}
+
+
 // ------------ Type-dependant Retrieval methods
 int
 NBTypeCont::getNoLanes(const string &type) const throw() {
@@ -126,6 +138,17 @@ NBTypeCont::getIsOneWay(const std::string &type) const throw() {
         return myDefaultType.oneWay;
     }
     return (*i).second.oneWay;
+}
+
+
+bool 
+NBTypeCont::getShallBeDiscarded(const std::string &type) const throw()
+{
+    TypesCont::const_iterator i = myTypes.find(type);
+    if (i==myTypes.end()) {
+        return false;
+    }
+    return (*i).second.discard;
 }
 
 

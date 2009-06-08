@@ -114,7 +114,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             // earlier errors
             continue;
         }
-        for (size_t j=0; j<ed->lanes.size(); ++j) {
+        for (unsigned int j=0; j<(unsigned int) ed->lanes.size(); ++j) {
             const vector<EdgeLane> &connections = ed->lanes[j]->connections;
             for (std::vector<EdgeLane>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
                 if ((*k).lane!="SUMO_NO_DESTINATION") {

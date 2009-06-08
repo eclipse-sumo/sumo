@@ -200,7 +200,7 @@ NIVisumTL::build(NBTrafficLightLogicCont &tlc) {
         NBNode *Node = (*ni);
         NBLoadedTLDef *def = new NBLoadedTLDef(Node->getID(), Node);
         tlc.insert(def);
-        def->setCycleDuration((size_t) myCycleTime);
+        def->setCycleDuration((unsigned int) myCycleTime);
         // signalgroups
         for (SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++) {
             std::string GroupName = (*gi).first;

@@ -559,7 +559,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         }
                         // add to the left?
                         if (off+exp.lanes.size()<ne->getNoLanes()) {
-                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, off+exp.lanes.size(), NBEdge::L2L_VALIDATED, false);
+                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, (unsigned int) (off+exp.lanes.size()), NBEdge::L2L_VALIDATED, false);
                         }
                         // move to next
                         e = pe;

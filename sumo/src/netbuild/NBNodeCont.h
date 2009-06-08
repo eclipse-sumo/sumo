@@ -117,9 +117,10 @@ public:
 
     /** @brief Returns the node with the given coordinates 
      * @param[in] position The position at which the node to retrieve lies
+     * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode *retrieve(const Position2D &position) throw();
+    NBNode *retrieve(const Position2D &position, SUMOReal offset=0.) throw();
     /// @}
 
 

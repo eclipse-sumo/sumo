@@ -62,7 +62,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() throw()
-        : myTypeCont() {}
+        : myEdgeCont(*this) {}
 
 
 NBNetBuilder::~NBNetBuilder() throw() {}

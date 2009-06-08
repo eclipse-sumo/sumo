@@ -44,6 +44,7 @@
 // class declarations
 // ===========================================================================
 class NBNodeCont;
+class NBNetBuilder;
 class NBEdge;
 class NBNode;
 class OptionsCont;
@@ -61,8 +62,10 @@ class OutputDevice;
  */
 class NBEdgeCont {
 public:
-    /// @brief Constructor
-    NBEdgeCont() throw();
+    /** @brief Constructor
+     * @param[in] tc The net builded; used to obtain types
+     */
+    NBEdgeCont(NBNetBuilder &tc) throw();
 
 
     /// @brief Destructor
@@ -353,17 +356,6 @@ public:
     void recomputeLaneShapes() throw();
 
 
-    /** @brief Removes double occurences of the same position in all edge geomeries
-     *
-     * Calls "NBEdge::recheckEdgeGeomForDoublePositions" for all edges within the container.
-     *
-     * @todo Recheck whether a visitor-pattern should be used herefor
-     * @todo Recheck usage
-     * @see NBEdge::recheckEdgeGeomForDoublePositions
-     */
-    void recheckEdgeGeomsForDoublePositions() throw();
-
-
     /** @brief Joins the given edges because they connect the same nodes
      *
      * @param[in] dc The district container needed to remove edges
@@ -482,6 +474,11 @@ private:
     Position2DVector myPrunningBoundary;
 
     /// @}
+
+
+    /// @brief The network builder; used to obtain type information
+    NBNetBuilder &myNetBuilder;
+
 
 private:
     /// @brief invalidated copy constructor

@@ -139,26 +139,6 @@ private:
                            NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError);
 
 
-    /** @brief Inserts the given type into the type container if not known
-     *
-     * The type name is built from the given major/minor class of the type to add.
-     *
-     * @param[in, out] tc The type container to add the type to
-     * @param[in] mClass The major class of this type
-     * @param[in] sClass The minor class of this type
-     * @param[in] noLanes The number of lanes streets of this type should have
-     * @param[in] maxSpeed The maximum speed allowed on edges of this type
-     * @param[in] prio The priority of edges of this type
-     * @param[in] vClasses Vehicle classes allowed on edges of this type
-     * @param[in] oneWayIsDefault Whether edges of this type are per default one-way streets
-     */
-    static void addTypeSecure(NBTypeCont &tc, const std::string &mClass, const std::string &sClass,
-                              int noLanes, SUMOReal maxSpeed, int prio, SUMOVehicleClass vClasses=SVC_UNKNOWN,
-                              bool oneWayIsDefault=false) throw();
-
-
-
-
 
     /**
      * @class NodesHandler

@@ -100,10 +100,13 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Not numeric value for Speed (at tag ID='" + id + "').");
     }
+    bool discard = attrs.getBoolSecure(SUMO_ATTR_DISCARD, false);
     // build the type
-    if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        if (!myTypeCont.insert(id, noLanes, speed, priority)) {
-            MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
+    if (!myTypeCont.insert(id, noLanes, speed, priority)) {
+        MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
+    } else {
+        if(discard) {
+            myTypeCont.markAsToDiscard(id);
         }
     }
 }

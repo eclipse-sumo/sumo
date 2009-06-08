@@ -336,8 +336,8 @@ NBRequest::bitsetToXML(string key) {
     os << "      <logic>" << endl;
     EdgeVector::const_iterator i;
     for (i=myIncoming->begin(); i!=myIncoming->end(); i++) {
-        size_t noLanes = (*i)->getNoLanes();
-        for (size_t k=0; k<noLanes; k++) {
+        unsigned int noLanes = (*i)->getNoLanes();
+        for (unsigned int k=0; k<noLanes; k++) {
             pos = writeLaneResponse(os, *i, k, pos);
         }
     }
@@ -580,7 +580,7 @@ NBRequest::getIndex(const NBEdge * const from, const NBEdge * const to) const th
         return -1;
     }
     // compute the index
-    return distance(myIncoming->begin(), fp) * myOutgoing->size() + distance(myOutgoing->begin(), tp);
+    return (int) (distance(myIncoming->begin(), fp) * myOutgoing->size() + distance(myOutgoing->begin(), tp));
 }
 
 
@@ -640,7 +640,7 @@ void
 NBRequest::reportWarnings() {
     // check if any errors occured on build the link prohibitions
     if (myNotBuild!=0) {
-        WRITE_WARNING(toString<int>(myNotBuild) + " of " + toString<int>(myNotBuild+myGoodBuilds)+ " prohibitions were not build.");
+        WRITE_WARNING(toString(myNotBuild) + " of " + toString(myNotBuild+myGoodBuilds)+ " prohibitions were not build.");
     }
 }
 

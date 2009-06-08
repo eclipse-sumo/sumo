@@ -79,10 +79,6 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
                    NBDistrict *district) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
-        if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
-                fabs((*i).second->getPosition().y()-position.y())<POSITION_EPS) {
-            return true;
-        }
         return false;
     }
     NBNode *node = new NBNode(id, position, district);
@@ -95,10 +91,6 @@ bool
 NBNodeCont::insert(const string &id, const Position2D &position) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
-        if (fabs((*i).second->getPosition().x()-position.x())<POSITION_EPS &&
-                fabs((*i).second->getPosition().y()-position.y())<POSITION_EPS) {
-            return true;
-        }
         return false;
     }
     NBNode *node = new NBNode(id, position);
@@ -126,10 +118,6 @@ NBNodeCont::insert(NBNode *node) throw() {
     string id = node->getID();
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
-        if (fabs((*i).second->getPosition().x()-node->getPosition().x())<POSITION_EPS &&
-                fabs((*i).second->getPosition().y()-node->getPosition().y())<POSITION_EPS) {
-            return true;
-        }
         return false;
     }
     myNodes[id] = node;
@@ -148,13 +136,12 @@ NBNodeCont::retrieve(const string &id) throw() {
 
 
 NBNode *
-NBNodeCont::retrieve(const Position2D &position) throw() {
+NBNodeCont::retrieve(const Position2D &position, SUMOReal offset) throw() {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *node = (*i).second;
-        if (fabs(node->getPosition().x()-position.x())<POSITION_EPS
+        if (fabs(node->getPosition().x()-position.x())<offset
                 &&
-                fabs(node->getPosition().y()-position.y())<POSITION_EPS) {
-
+                fabs(node->getPosition().y()-position.y())<offset) {
             return node;
         }
     }
