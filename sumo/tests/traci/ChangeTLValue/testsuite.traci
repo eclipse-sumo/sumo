@@ -1,3 +1,6 @@
+# Tests for setting a phase definition (rRgGyYoO tuple)
+TL_STATE
+
 # Tests for setting a phase definition (phase/brake/yellow)
 TL_PBY_STATE
 
