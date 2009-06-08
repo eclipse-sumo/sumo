@@ -134,7 +134,7 @@ private:
     /** @brief Computes the emitted pollutant amount using the given values
      *
      * As the functions are defining emissions/hour, the function's result is normed
-     *  by 3600. (seconds in an hour).
+     *  by 3600 (seconds in an hour) yielding in <measure>/s.
      *
      * @param[in] f Pointer to the function parameters to use
      * @param[in] v The vehicle's current velocity
@@ -145,7 +145,7 @@ private:
             return 0.;
         }
         v = v * 3.6;
-        double alpha = asin((a/180.*PI)/9.81);
+        double alpha = asin(a/9.81)*180./PI;
         return MAX2(((f[0] + f[1]*alpha*v + f[2]*alpha*alpha*v + f[3]*v + f[4]*v*v + f[5]*v*v*v) / 3600.), 0.);
     }
 
