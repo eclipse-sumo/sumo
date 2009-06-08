@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/08/09 14:46:00 by SUMO netconvert Version dev-SVN-r7129
+<!-- generated on 06/08/09 13:05:21 by SUMO netconvert Version dev-SVN-r7259
 <configuration>
 
-   <input>
-      <osm-files>osm.xml</osm-files>
-   </input>
+    <input
+        osm-files="osm.xml"
+    />
 
-   <projection>
-      <use-projection>true</use-projection>
-   </projection>
+    <projection
+        use-projection="true"
+    />
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing
+        no-internal-links="true"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->

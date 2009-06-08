@@ -1,11 +1,9 @@
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
-26843038 4 1215019.875000,5860584.500000 1215019.875000,5860584.500000
-26843133 4 1214676.125000,5860337.500000 1214676.125000,5860337.500000
  Import done;
    88 nodes loaded.
    30 types loaded.
-   201 edges loaded.
+   203 edges loaded.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Normalising node positions

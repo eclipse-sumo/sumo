@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/18/09 09:08:29 by SUMO netconvert Version dev-SVN-r6820
+<!-- generated on 06/08/09 11:05:59 by SUMO netconvert Version dev-SVN-r7258
 <configuration>
 
-   <input>
-      <vissim-file>vissim.inp</vissim-file>
-   </input>
+    <input
+        vissim-file="vissim.inp"
+    />
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output
+        output-file="net.net.xml"
+    />
 
-   <tls_building>
-      <patch-small-tyellow>true</patch-small-tyellow>
-   </tls_building>
+    <tls_building
+        patch-small-tyellow="true"
+    />
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing
+        no-internal-links="true"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
@@ -1047,7 +1047,7 @@
 
    <edge id="85[1][1][0]" from="38" to="39" priority="-1" type="5" function="normal">
       <lanes>
-         <lane id="85[1][1][0]_0" depart="1" vclasses="" maxspeed="13.89" length="2.91">1688.12,1804.77 1690.17,1806.84</lane>
+         <lane id="85[1][1][0]_0" depart="1" vclasses="" maxspeed="13.89" length="3.47">1687.76,1804.40 1690.20,1806.87</lane>
       </lanes>
    </edge>
 
