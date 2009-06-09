@@ -77,61 +77,61 @@
 
    <edge id="11" from="1" to="10" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="11_0" depart="1" vclasses="" maxspeed="13.90" length="165.16">158.23,365.76 0.49,414.71</lane>
+         <lane id="11_0" depart="1" maxspeed="13.90" length="165.16">158.23,365.76 0.49,414.71</lane>
       </lanes>
    </edge>
 
    <edge id="13" from="2" to="12" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="13_0" depart="1" vclasses="" maxspeed="13.90" length="129.35">109.65,134.56 229.84,182.37</lane>
+         <lane id="13_0" depart="1" maxspeed="13.90" length="129.35">109.65,134.56 229.84,182.37</lane>
       </lanes>
    </edge>
 
    <edge id="15" from="2" to="14" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="15_0" depart="1" vclasses="" maxspeed="13.90" length="144.70">104.77,132.96 46.14,0.67</lane>
+         <lane id="15_0" depart="1" maxspeed="13.90" length="144.70">104.77,132.96 46.14,0.67</lane>
       </lanes>
    </edge>
 
    <edge id="17" from="8" to="12" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="17_0" depart="1" vclasses="" maxspeed="13.90" length="224.28">367.64,365.14 233.90,185.09</lane>
+         <lane id="17_0" depart="1" maxspeed="13.90" length="224.28">367.64,365.14 233.90,185.09</lane>
       </lanes>
    </edge>
 
    <edge id="19" from="8" to="18" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="19_0" depart="1" vclasses="" maxspeed="13.90" length="190.22">377.74,367.47 554.18,296.38</lane>
+         <lane id="19_0" depart="1" maxspeed="13.90" length="190.22">377.74,367.47 554.18,296.38</lane>
       </lanes>
    </edge>
 
    <edge id="25" from="8" to="24" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="25_0" depart="1" vclasses="" maxspeed="13.90" length="212.61">376.41,371.65 491.34,550.51</lane>
+         <lane id="25_0" depart="1" maxspeed="13.90" length="212.61">376.41,371.65 491.34,550.51</lane>
       </lanes>
    </edge>
 
    <edge id="3" from="1" to="2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" vclasses="" maxspeed="13.90" length="226.97">159.54,358.40 106.55,137.71</lane>
+         <lane id="3_0" depart="1" maxspeed="13.90" length="226.97">159.54,358.40 106.55,137.71</lane>
       </lanes>
    </edge>
 
    <edge id="38" from="12" to="37" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="38_0" depart="1" vclasses="" maxspeed="13.90" length="180.51">232.78,179.47 168.03,10.97</lane>
+         <lane id="38_0" depart="1" maxspeed="13.90" length="180.51">232.78,179.47 168.03,10.97</lane>
       </lanes>
    </edge>
 
    <edge id="7" from="1" to="6" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="7_0" depart="1" vclasses="" maxspeed="13.90" length="206.62">164.02,367.62 167.26,574.21</lane>
+         <lane id="7_0" depart="1" maxspeed="13.90" length="206.62">164.02,367.62 167.26,574.21</lane>
       </lanes>
    </edge>
 
    <edge id="9" from="1" to="8" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="9_0" depart="1" vclasses="" maxspeed="13.90" length="198.74">167.10,361.30 365.69,368.84</lane>
+         <lane id="9_0" depart="1" maxspeed="13.90" length="198.74">167.10,361.30 365.69,368.84</lane>
       </lanes>
    </edge>
 

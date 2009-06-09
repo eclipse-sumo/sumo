@@ -1,7 +1,7 @@
 <edges>
 
    <edge id="absBeg" fromnode="absBeg" tonode="beg" speed="27.8" nolanes="2">
-	<lane id="0" allow="bus;passenger"/>
+	<lane id="0" allow="bus passenger"/>
    </edge>
 
    <edge id="beg2left" fromnode="beg" tonode="begleft" nolanes="1" speed="27.8">
@@ -21,10 +21,10 @@
    </edge>
 
    <edge id="end" fromnode="end" tonode="absEnd" speed="27.8" nolanes="2">
-	<lane id="0" allow="bus;passenger"/>
+	<lane id="0" allow="bus passenger"/>
    </edge>
    <edge id="absEnd" fromnode="absEnd" tonode="rabsEnd" speed="27.8" nolanes="2">
-	<lane id="0" allow="bus;passenger"/>
+	<lane id="0" allow="bus passenger"/>
    </edge>
 
 </edges>

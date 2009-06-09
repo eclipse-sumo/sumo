@@ -74,32 +74,32 @@
 
    <edge id="1o" from="0" to="1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1o_0" depart="1" vclasses="" maxspeed="9.73" length="45.25">45.25,54.95 0.00,54.95</lane>
-         <lane id="1o_1" depart="0" vclasses="" maxspeed="9.73" length="45.25">45.25,51.65 0.00,51.65</lane>
+         <lane id="1o_0" depart="1" maxspeed="9.73" length="45.25">45.25,54.95 0.00,54.95</lane>
+         <lane id="1o_1" depart="0" maxspeed="9.73" length="45.25">45.25,51.65 0.00,51.65</lane>
       </lanes>
    </edge>
 
    <edge id="3i" from="3" to="0" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="3i_0" depart="1" vclasses="" maxspeed="15.28" length="48.55">51.65,0.00 51.65,48.55</lane>
+         <lane id="3i_0" depart="1" maxspeed="15.28" length="48.55">51.65,0.00 51.65,48.55</lane>
       </lanes>
    </edge>
 
    <edge id="3o" from="0" to="3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="3o_0" depart="1" vclasses="" maxspeed="15.28" length="48.55">48.35,48.55 48.35,0.00</lane>
+         <lane id="3o_0" depart="1" maxspeed="15.28" length="48.55">48.35,48.55 48.35,0.00</lane>
       </lanes>
    </edge>
 
    <edge id="4i" from="4" to="0" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="4i_0" depart="1" vclasses="" maxspeed="15.28" length="41.95">48.35,100.00 48.35,58.05</lane>
+         <lane id="4i_0" depart="1" maxspeed="15.28" length="41.95">48.35,100.00 48.35,58.05</lane>
       </lanes>
    </edge>
 
    <edge id="4o" from="0" to="4" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="4o_0" depart="1" vclasses="" maxspeed="15.28" length="41.95">51.65,58.05 51.65,100.00</lane>
+         <lane id="4o_0" depart="1" maxspeed="15.28" length="41.95">51.65,58.05 51.65,100.00</lane>
       </lanes>
    </edge>
 

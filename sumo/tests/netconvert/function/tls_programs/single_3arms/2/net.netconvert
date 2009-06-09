@@ -132,37 +132,37 @@
 
    <edge id="e10" from="n5" to="n3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="e10_0" depart="1" vclasses="" maxspeed="13.89" length="127.90">126.10,205.53 0.30,228.62</lane>
+         <lane id="e10_0" depart="1" maxspeed="13.89" length="127.90">126.10,205.53 0.30,228.62</lane>
       </lanes>
    </edge>
 
    <edge id="e11" from="n3" to="n5" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="e11_0" depart="1" vclasses="" maxspeed="13.89" length="127.90">-0.30,225.38 125.50,202.29</lane>
+         <lane id="e11_0" depart="1" maxspeed="13.89" length="127.90">-0.30,225.38 125.50,202.29</lane>
       </lanes>
    </edge>
 
    <edge id="e13" from="n5" to="n1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="e13_0" depart="1" vclasses="" maxspeed="13.89" length="205.32">127.84,198.57 74.03,0.43</lane>
+         <lane id="e13_0" depart="1" maxspeed="13.89" length="205.32">127.84,198.57 74.03,0.43</lane>
       </lanes>
    </edge>
 
    <edge id="e16" from="n1" to="n5" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="e16_0" depart="1" vclasses="" maxspeed="13.89" length="205.32">77.21,-0.43 131.02,197.71</lane>
+         <lane id="e16_0" depart="1" maxspeed="13.89" length="205.32">77.21,-0.43 131.02,197.71</lane>
       </lanes>
    </edge>
 
    <edge id="e21" from="n13" to="n5" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="e21_0" depart="1" vclasses="" maxspeed="13.89" length="124.28">256.21,173.10 135.70,203.45</lane>
+         <lane id="e21_0" depart="1" maxspeed="13.89" length="124.28">256.21,173.10 135.70,203.45</lane>
       </lanes>
    </edge>
 
    <edge id="e22" from="n5" to="n13" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="e22_0" depart="1" vclasses="" maxspeed="13.89" length="124.28">134.90,200.25 255.41,169.90</lane>
+         <lane id="e22_0" depart="1" maxspeed="13.89" length="124.28">134.90,200.25 255.41,169.90</lane>
       </lanes>
    </edge>
 

@@ -67,25 +67,25 @@
 
    <edge id="1" from="SUMOGenerated0" to="1/70" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" vclasses="" maxspeed="28.00" length="28.50">0.00,-4.95 28.50,-4.95</lane>
-         <lane id="1_1" depart="0" vclasses="" maxspeed="28.00" length="28.50">0.00,-1.65 28.50,-1.65</lane>
+         <lane id="1_0" depart="1" maxspeed="28.00" length="28.50">0.00,-4.95 28.50,-4.95</lane>
+         <lane id="1_1" depart="0" maxspeed="28.00" length="28.50">0.00,-1.65 28.50,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="1/30" from="1/30" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1/30_0" depart="1" vclasses="" maxspeed="28.00" length="28.50">71.50,-11.55 100.00,-11.55</lane>
-         <lane id="1/30_1" depart="0" vclasses="" maxspeed="28.00" length="28.50">71.50,-8.25 100.00,-8.25</lane>
-         <lane id="1/30_2" depart="0" vclasses="" maxspeed="28.00" length="28.50">71.50,-4.95 100.00,-4.95</lane>
-         <lane id="1/30_3" depart="0" vclasses="" maxspeed="28.00" length="28.50">71.50,-1.65 100.00,-1.65</lane>
+         <lane id="1/30_0" depart="1" maxspeed="28.00" length="28.50">71.50,-11.55 100.00,-11.55</lane>
+         <lane id="1/30_1" depart="0" maxspeed="28.00" length="28.50">71.50,-8.25 100.00,-8.25</lane>
+         <lane id="1/30_2" depart="0" maxspeed="28.00" length="28.50">71.50,-4.95 100.00,-4.95</lane>
+         <lane id="1/30_3" depart="0" maxspeed="28.00" length="28.50">71.50,-1.65 100.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="1/70" from="1/70" to="1/30" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1/70_0" depart="1" vclasses="" maxspeed="28.00" length="37.00">31.50,-8.25 68.50,-8.25</lane>
-         <lane id="1/70_1" depart="0" vclasses="" maxspeed="28.00" length="37.00">31.50,-4.95 68.50,-4.95</lane>
-         <lane id="1/70_2" depart="0" vclasses="" maxspeed="28.00" length="37.00">31.50,-1.65 68.50,-1.65</lane>
+         <lane id="1/70_0" depart="1" maxspeed="28.00" length="37.00">31.50,-8.25 68.50,-8.25</lane>
+         <lane id="1/70_1" depart="0" maxspeed="28.00" length="37.00">31.50,-4.95 68.50,-4.95</lane>
+         <lane id="1/70_2" depart="0" maxspeed="28.00" length="37.00">31.50,-1.65 68.50,-1.65</lane>
       </lanes>
    </edge>
 

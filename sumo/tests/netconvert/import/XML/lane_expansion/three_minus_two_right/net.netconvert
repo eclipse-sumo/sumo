@@ -37,15 +37,15 @@
 
    <edge id="1" from="SUMOGenerated0" to="1/50" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" vclasses="" maxspeed="28.00" length="48.50">0.00,-1.65 48.50,-1.65</lane>
+         <lane id="1_0" depart="1" maxspeed="28.00" length="48.50">0.00,-1.65 48.50,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="1/50" from="1/50" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1/50_0" depart="1" vclasses="" maxspeed="28.00" length="48.50">51.50,-8.25 100.00,-8.25</lane>
-         <lane id="1/50_1" depart="0" vclasses="" maxspeed="28.00" length="48.50">51.50,-4.95 100.00,-4.95</lane>
-         <lane id="1/50_2" depart="0" vclasses="" maxspeed="28.00" length="48.50">51.50,-1.65 100.00,-1.65</lane>
+         <lane id="1/50_0" depart="1" maxspeed="28.00" length="48.50">51.50,-8.25 100.00,-8.25</lane>
+         <lane id="1/50_1" depart="0" maxspeed="28.00" length="48.50">51.50,-4.95 100.00,-4.95</lane>
+         <lane id="1/50_2" depart="0" maxspeed="28.00" length="48.50">51.50,-1.65 100.00,-1.65</lane>
       </lanes>
    </edge>
 

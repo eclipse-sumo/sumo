@@ -24,13 +24,13 @@
 
    <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="1000.00">0.00,-1.65 1000.00,-1.65</lane>
+         <lane id="1to2_0" depart="1" maxspeed="13.90" length="1000.00">0.00,-1.65 1000.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="out" from="SUMOGenerated1" to="SUMOGenerated2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="11.00">1000.00,-1.65 1011.00,-1.65</lane>
+         <lane id="out_0" depart="1" maxspeed="13.90" length="11.00">1000.00,-1.65 1011.00,-1.65</lane>
       </lanes>
    </edge>
 

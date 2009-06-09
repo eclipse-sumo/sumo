@@ -42,19 +42,19 @@
 
    <edge id="15030608" from="15030238" to="15030043" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15030608_0" depart="1" vclasses="" maxspeed="12.50" length="136.60">257.00,98.00 124.04,66.71</lane>
+         <lane id="15030608_0" depart="1" maxspeed="12.50" length="136.60">257.00,98.00 124.04,66.71</lane>
       </lanes>
    </edge>
 
    <edge id="15030858" from="15030435" to="15030043" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15030858_0" depart="1" vclasses="" maxspeed="13.89" length="64.40">135.00,0.00 121.64,63.00</lane>
+         <lane id="15030858_0" depart="1" maxspeed="13.89" length="64.40">135.00,0.00 121.64,63.00</lane>
       </lanes>
    </edge>
 
    <edge id="153122148" from="15030043" to="15031475" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="153122148_0" depart="1" vclasses="" maxspeed="13.89" length="552.22">120.32,69.04 0.00,608.00</lane>
+         <lane id="153122148_0" depart="1" maxspeed="13.89" length="552.22">120.32,69.04 0.00,608.00</lane>
       </lanes>
    </edge>
 

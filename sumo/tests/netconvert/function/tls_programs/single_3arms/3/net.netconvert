@@ -132,37 +132,37 @@
 
    <edge id="-15033077" from="15031754" to="15031750" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-15033077_0" depart="1" vclasses="" maxspeed="13.89" length="215.77">0.46,-1.59 207.81,58.08</lane>
+         <lane id="-15033077_0" depart="1" maxspeed="13.89" length="215.77">0.46,-1.59 207.81,58.08</lane>
       </lanes>
    </edge>
 
    <edge id="-15033109" from="15031788" to="15031750" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-15033109_0" depart="1" vclasses="" maxspeed="13.89" length="40.21">254.52,75.58 216.04,63.94</lane>
+         <lane id="-15033109_0" depart="1" maxspeed="13.89" length="40.21">254.52,75.58 216.04,63.94</lane>
       </lanes>
    </edge>
 
    <edge id="-15033110" from="15031789" to="15031750" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-15033110_0" depart="1" vclasses="" maxspeed="13.89" length="31.86">199.43,95.51 208.98,65.11</lane>
+         <lane id="-15033110_0" depart="1" maxspeed="13.89" length="31.86">199.43,95.51 208.98,65.11</lane>
       </lanes>
    </edge>
 
    <edge id="15033077" from="15031750" to="15031754" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15033077_0" depart="1" vclasses="" maxspeed="13.89" length="215.77">206.90,61.25 -0.46,1.59</lane>
+         <lane id="15033077_0" depart="1" maxspeed="13.89" length="215.77">206.90,61.25 -0.46,1.59</lane>
       </lanes>
    </edge>
 
    <edge id="15033109" from="15031750" to="15031788" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15033109_0" depart="1" vclasses="" maxspeed="13.89" length="40.21">216.99,60.78 255.48,72.42</lane>
+         <lane id="15033109_0" depart="1" maxspeed="13.89" length="40.21">216.99,60.78 255.48,72.42</lane>
       </lanes>
    </edge>
 
    <edge id="15033110" from="15031750" to="15031789" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15033110_0" depart="1" vclasses="" maxspeed="13.89" length="31.86">212.13,66.10 202.57,96.49</lane>
+         <lane id="15033110_0" depart="1" maxspeed="13.89" length="31.86">212.13,66.10 202.57,96.49</lane>
       </lanes>
    </edge>
 

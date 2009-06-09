@@ -33,48 +33,48 @@
 
    <edge id="on" from="4a" to="4" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="on_0" depart="1" vclasses="" maxspeed="30.00" length="340.22">1799.08,201.37 1516.00,12.65</lane>
+         <lane id="on_0" depart="1" maxspeed="30.00" length="340.22">1799.08,201.37 1516.00,12.65</lane>
       </lanes>
    </edge>
 
    <edge id="s1" from="5" to="4" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s1_0" depart="1" vclasses="" maxspeed="30.00" length="483.82">2000.00,8.25 1516.18,8.25</lane>
-         <lane id="s1_1" depart="0" vclasses="" maxspeed="30.00" length="483.82">2000.00,4.95 1516.18,4.95</lane>
-         <lane id="s1_2" depart="0" vclasses="" maxspeed="30.00" length="483.82">2000.00,1.65 1516.18,1.65</lane>
+         <lane id="s1_0" depart="1" maxspeed="30.00" length="483.82">2000.00,8.25 1516.18,8.25</lane>
+         <lane id="s1_1" depart="0" maxspeed="30.00" length="483.82">2000.00,4.95 1516.18,4.95</lane>
+         <lane id="s1_2" depart="0" maxspeed="30.00" length="483.82">2000.00,1.65 1516.18,1.65</lane>
       </lanes>
    </edge>
 
    <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s2_0" depart="1" vclasses="" maxspeed="30.00" length="398.50">1398.50,8.25 1000.00,8.25</lane>
-         <lane id="s2_1" depart="0" vclasses="" maxspeed="30.00" length="398.50">1398.50,4.95 1000.00,4.95</lane>
-         <lane id="s2_2" depart="0" vclasses="" maxspeed="30.00" length="398.50">1398.50,1.65 1000.00,1.65</lane>
+         <lane id="s2_0" depart="1" maxspeed="30.00" length="398.50">1398.50,8.25 1000.00,8.25</lane>
+         <lane id="s2_1" depart="0" maxspeed="30.00" length="398.50">1398.50,4.95 1000.00,4.95</lane>
+         <lane id="s2_2" depart="0" maxspeed="30.00" length="398.50">1398.50,1.65 1000.00,1.65</lane>
       </lanes>
    </edge>
 
    <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s2-AddedOnRampEdge_0" depart="1" vclasses="" maxspeed="30.00" length="110.87">1512.37,11.55 1401.50,11.55</lane>
-         <lane id="s2-AddedOnRampEdge_1" depart="0" vclasses="" maxspeed="30.00" length="110.87">1512.37,8.25 1401.50,8.25</lane>
-         <lane id="s2-AddedOnRampEdge_2" depart="0" vclasses="" maxspeed="30.00" length="110.87">1512.37,4.95 1401.50,4.95</lane>
-         <lane id="s2-AddedOnRampEdge_3" depart="0" vclasses="" maxspeed="30.00" length="110.87">1512.37,1.65 1401.50,1.65</lane>
+         <lane id="s2-AddedOnRampEdge_0" depart="1" maxspeed="30.00" length="110.87">1512.37,11.55 1401.50,11.55</lane>
+         <lane id="s2-AddedOnRampEdge_1" depart="0" maxspeed="30.00" length="110.87">1512.37,8.25 1401.50,8.25</lane>
+         <lane id="s2-AddedOnRampEdge_2" depart="0" maxspeed="30.00" length="110.87">1512.37,4.95 1401.50,4.95</lane>
+         <lane id="s2-AddedOnRampEdge_3" depart="0" maxspeed="30.00" length="110.87">1512.37,1.65 1401.50,1.65</lane>
       </lanes>
    </edge>
 
    <edge id="s3" from="3" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s3_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">1000.00,8.25 500.00,8.25</lane>
-         <lane id="s3_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">1000.00,4.95 500.00,4.95</lane>
-         <lane id="s3_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">1000.00,1.65 500.00,1.65</lane>
+         <lane id="s3_0" depart="1" maxspeed="30.00" length="500.00">1000.00,8.25 500.00,8.25</lane>
+         <lane id="s3_1" depart="0" maxspeed="30.00" length="500.00">1000.00,4.95 500.00,4.95</lane>
+         <lane id="s3_2" depart="0" maxspeed="30.00" length="500.00">1000.00,1.65 500.00,1.65</lane>
       </lanes>
    </edge>
 
    <edge id="s4" from="2" to="1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s4_0" depart="1" vclasses="" maxspeed="30.00" length="500.00">500.00,8.25 0.00,8.25</lane>
-         <lane id="s4_1" depart="0" vclasses="" maxspeed="30.00" length="500.00">500.00,4.95 0.00,4.95</lane>
-         <lane id="s4_2" depart="0" vclasses="" maxspeed="30.00" length="500.00">500.00,1.65 0.00,1.65</lane>
+         <lane id="s4_0" depart="1" maxspeed="30.00" length="500.00">500.00,8.25 0.00,8.25</lane>
+         <lane id="s4_1" depart="0" maxspeed="30.00" length="500.00">500.00,4.95 0.00,4.95</lane>
+         <lane id="s4_2" depart="0" maxspeed="30.00" length="500.00">500.00,1.65 0.00,1.65</lane>
       </lanes>
    </edge>
 
