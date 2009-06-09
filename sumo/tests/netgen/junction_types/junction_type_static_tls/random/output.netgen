@@ -21,8 +21,8 @@ Computing step 16: Computing traffic light logics
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 0
-  Priority junctions          : 10
+  Unregulated junctions       : 7
+  Priority junctions          : 3
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -162.29,-362.77,392.51,211.46
