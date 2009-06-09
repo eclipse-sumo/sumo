@@ -396,7 +396,6 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
             continue;
         }
         def->setCycleDuration((unsigned int) tl->myAbsDuration);
-//        node->setType(NBTrafficLightDefinition::TYPE_SIMPLE_TRAFFIC_LIGHT);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for (SGroupDictType::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
