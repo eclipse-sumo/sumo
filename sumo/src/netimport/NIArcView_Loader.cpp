@@ -183,7 +183,7 @@ NIArcView_Loader::load(OptionsCont &) {
         NBNode *from = myNodeCont.retrieve(from_node);
         if(from==0) {
             Position2D from_pos = shape[0];
-            from = myNodeCont.retrieve(from_pos, SUMOReal(.1));
+            from = myNodeCont.retrieve(from_pos);
             if (from==0) {
                 from = new NBNode(from_node, from_pos);
                 if(!myNodeCont.insert(from)) {
@@ -197,7 +197,7 @@ NIArcView_Loader::load(OptionsCont &) {
         NBNode *to = myNodeCont.retrieve(to_node);
         if(to==0) {
             Position2D to_pos = shape[-1];
-            to = myNodeCont.retrieve(to_pos, SUMOReal(.1));
+            to = myNodeCont.retrieve(to_pos);
             if (to==0) {
                 to = new NBNode(to_node, to_pos);
                 if(!myNodeCont.insert(to)) {
