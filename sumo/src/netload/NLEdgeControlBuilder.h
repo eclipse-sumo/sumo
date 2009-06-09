@@ -95,7 +95,8 @@ public:
      */
     virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed,
                             SUMOReal length, bool isDepart, const Position2DVector &shape,
-                            const std::string &vclasses);
+                            const std::vector<SUMOVehicleClass> &allowed,
+                            const std::vector<SUMOVehicleClass> &disallowed);
 
 
     /** @brief Closes the building of an edge;
@@ -115,18 +116,6 @@ protected:
      * @param[in] id The id of the edge to build
      */
     virtual MSEdge *buildEdge(const std::string &id) throw();
-
-
-    /** @brief Parses the given definition of allwed/disallowed vehicle classes into the given container
-     *
-     * @param[in] allowedS Definition which classes are allowed
-     * @param[out] allowed The vector of allowed vehicle classes to fill
-     * @param[out] disallowed The vector of disallowed vehicle classes to fill
-     */
-    void parseVehicleClasses(const std::string &allowedS,
-                             std::vector<SUMOVehicleClass> &allowed,
-                             std::vector<SUMOVehicleClass> &disallowed) throw();
-
 
 
 

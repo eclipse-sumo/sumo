@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -253,6 +254,21 @@ extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
 extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
 
 
+/** @brief Parses the given definition of allowed/disallowed vehicle classes into the given containers
+ *
+ * @param[in] classesS Definition which classes are (dis-)allowed (old "vclasses" style)
+ * @param[in] allowedS Definition which classes are allowed
+ * @param[in] disallowedS Definition which classes are not allowed
+ * @param[out] allowed The vector of allowed vehicle classes to fill
+ * @param[out] disallowed The vector of disallowed vehicle classes to fill
+ */
+extern void parseVehicleClasses(const std::string &classesS,
+                                const std::string &allowedS,
+                                const std::string &disallowedS,
+                                std::vector<SUMOVehicleClass> &allowed,
+                                std::vector<SUMOVehicleClass> &disallowed) throw();
+
+
 // ---------------------------------------------------------------------------
 // vehicle shape class
 // ---------------------------------------------------------------------------
@@ -285,7 +301,6 @@ extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
  * @return The internal representation of this class
  */
 extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw(ProcessError);
-
 
 // ===========================================================================
 // default vehicle type parameter

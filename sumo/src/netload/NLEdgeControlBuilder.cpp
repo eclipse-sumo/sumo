@@ -94,13 +94,12 @@ MSLane *
 NLEdgeControlBuilder::addLane(const std::string &id,
                               SUMOReal maxSpeed, SUMOReal length, bool isDepart,
                               const Position2DVector &shape,
-                              const std::string &vclasses) {
+                              const std::vector<SUMOVehicleClass> &allowed,
+                              const std::vector<SUMOVehicleClass> &disallowed) {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
         throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");
     }
-    std::vector<SUMOVehicleClass> allowed, disallowed;
-    parseVehicleClasses(vclasses, allowed, disallowed);
     MSLane *lane = 0;
     switch (m_Function) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
@@ -161,24 +160,6 @@ NLEdgeControlBuilder::build() {
 MSEdge *
 NLEdgeControlBuilder::buildEdge(const std::string &id) throw() {
     return new MSEdge(id, myCurrentNumericalEdgeID++);
-}
-
-
-void
-NLEdgeControlBuilder::parseVehicleClasses(const std::string &allowedS,
-        std::vector<SUMOVehicleClass> &allowed,
-        std::vector<SUMOVehicleClass> &disallowed) throw() {
-    if (allowedS.length()!=0) {
-        StringTokenizer st(allowedS, ";");
-        while (st.hasNext()) {
-            string next = st.next();
-            if (next[0]=='-') {
-                disallowed.push_back(getVehicleClassID(next.substr(1)));
-            } else {
-                allowed.push_back(getVehicleClassID(next));
-            }
-        }
-    }
 }
 
 

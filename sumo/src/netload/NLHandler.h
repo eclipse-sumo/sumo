@@ -373,8 +373,11 @@ protected:
     /// The length of the current lane
     SUMOReal myCurrentLength;
 
-    /// Vehicle classes allowed/disallowed on the current lane
-    std::string myVehicleClasses;
+    /// Vehicle classes allowed on the current lane
+    std::vector<SUMOVehicleClass> myAllowedClasses;
+
+    /// Vehicle classes disallowed on the current lane
+    std::vector<SUMOVehicleClass> myDisallowedClasses;
 
     /// The shape of the current lane
     Position2DVector myShape;

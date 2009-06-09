@@ -32,6 +32,8 @@
 #include "SUMOVehicleClass.h"
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -218,6 +220,35 @@ getVehicleClassID(const std::string &name) throw() {
     }
 
     return ret;
+}
+
+
+void
+parseVehicleClasses(const std::string &classesS,
+                    const std::string &allowedS,
+                    const std::string &disallowedS,
+                    std::vector<SUMOVehicleClass> &allowed,
+                    std::vector<SUMOVehicleClass> &disallowed) throw() {
+    if (classesS.length()!=0) {
+        MsgHandler::getWarningInstance()->inform("The vclasses attribute is deprecated. Please rebuilt your network.");
+        StringTokenizer st(classesS, ";");
+        while (st.hasNext()) {
+            string next = st.next();
+            if (next[0]=='-') {
+                disallowed.push_back(getVehicleClassID(next.substr(1)));
+            } else {
+                allowed.push_back(getVehicleClassID(next));
+            }
+        }
+    }
+    StringTokenizer sta(allowedS, " ");
+    while (sta.hasNext()) {
+        allowed.push_back(getVehicleClassID(sta.next()));
+    }
+    StringTokenizer std(disallowedS, " ");
+    while (std.hasNext()) {
+        disallowed.push_back(getVehicleClassID(std.next()));
+    }
 }
 
 

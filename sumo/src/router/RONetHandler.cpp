@@ -203,19 +203,12 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     // get the vehicle classes
-    string allowedS = attrs.getStringSecure(SUMO_ATTR_VCLASSES , "");
-    if (allowedS.length()!=0) {
-        StringTokenizer st(allowedS, ";");
-        while (st.hasNext()) {
-            string next = st.next();
-            if (next[0]=='-') {
-                disallowed.push_back(getVehicleClassID(next.substr(1)));
-                myNet.setRestrictionFound();
-            } else {
-                allowed.push_back(getVehicleClassID(next));
-                myNet.setRestrictionFound();
-            }
-        }
+    parseVehicleClasses(attrs.getStringSecure(SUMO_ATTR_VCLASSES , ""),
+                        attrs.getStringSecure(SUMO_ATTR_ALLOW , ""),
+                        attrs.getStringSecure(SUMO_ATTR_DISALLOW , ""),
+                        allowed, disallowed);
+    if (allowed.size()!=0 || disallowed.size() != 0) {
+        myNet.setRestrictionFound();
     }
     // add when both values are valid
     if (maxSpeed>0&&length>0&&id.length()>0) {

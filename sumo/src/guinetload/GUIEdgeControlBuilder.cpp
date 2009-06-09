@@ -75,23 +75,22 @@ MSLane *
 GUIEdgeControlBuilder::addLane(const std::string &id,
                                SUMOReal maxSpeed, SUMOReal length, bool isDepart,
                                const Position2DVector &shape,
-                               const std::string &vclasses) {
+                               const std::vector<SUMOVehicleClass> &allowed,
+                               const std::vector<SUMOVehicleClass> &disallowed) {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
         throw InvalidArgument("Lane's '" + id + "' edge already has a depart lane.");
     }
-    std::vector<SUMOVehicleClass> allowed, disallowed;
-    parseVehicleClasses(vclasses, allowed, disallowed);
     MSLane *lane = 0;
     switch (m_Function) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
-        lane = new GUIInternalLane(/*net, */id, maxSpeed, length, myActiveEdge,
-                                            myCurrentNumericalLaneID++, shape, allowed, disallowed);
+        lane = new GUIInternalLane(id, maxSpeed, length, myActiveEdge,
+                                   myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_CONNECTOR:
-        lane = new GUILane(/*net, */id, maxSpeed, length, myActiveEdge,
-                                    myCurrentNumericalLaneID++, shape, allowed, disallowed);
+        lane = new GUILane(id, maxSpeed, length, myActiveEdge,
+                           myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
         throw InvalidArgument("A lane with an unknown type occured (" + toString(m_Function) + ")");

@@ -126,6 +126,8 @@ public:
         std::vector<SUMOVehicleClass> allowed;
         /// @brief List of vehicle types that are not allowed on this lane
         std::vector<SUMOVehicleClass> notAllowed;
+        /// @brief List of vehicle types that are preferred on this lane
+        std::vector<SUMOVehicleClass> preferred;
     };
 
 
@@ -688,6 +690,7 @@ public:
 
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
+    void preferVehicleClass(int lane, SUMOVehicleClass vclass);
     std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
     void setVehicleClasses(const std::vector<SUMOVehicleClass> &allowed, const std::vector<SUMOVehicleClass> &disallowed, int lane=-1);
 

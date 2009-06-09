@@ -675,24 +675,42 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
         into << " depart=\"0\"";
     }
     // write the list of allowed/disallowed vehicle classes
-    into << " vclasses=\"";
     vector<SUMOVehicleClass>::const_iterator i;
     bool hadOne = false;
-    for (i=lane.allowed.begin(); i!=lane.allowed.end(); ++i) {
-        if (hadOne) {
-            into << ';';
+    if (lane.allowed.size() > 0) {
+        into << " allow=\"";
+        for (i=lane.allowed.begin(); i!=lane.allowed.end(); ++i) {
+            if (hadOne) {
+                into << ' ';
+            }
+            into << getVehicleClassName(*i);
+            hadOne = true;
         }
-        into << getVehicleClassName(*i);
-        hadOne = true;
+        into << '\"';
     }
-    for (i=lane.notAllowed.begin(); i!=lane.notAllowed.end(); ++i) {
-        if (hadOne) {
-            into << ';';
+    if (lane.notAllowed.size() > 0) {
+        hadOne = false;
+        into << " disallow=\"";
+        for (i=lane.notAllowed.begin(); i!=lane.notAllowed.end(); ++i) {
+            if (hadOne) {
+                into << ' ';
+            }
+            into << getVehicleClassName(*i);
+            hadOne = true;
         }
-        into << '-' << getVehicleClassName(*i);
-        hadOne = true;
     }
-    into << '\"';
+    if (lane.preferred.size() > 0) {
+        hadOne = false;
+        into << "\" prefer=\"";
+        for (i=lane.preferred.begin(); i!=lane.preferred.end(); ++i) {
+            if (hadOne) {
+                into << ' ';
+            }
+            into << getVehicleClassName(*i);
+            hadOne = true;
+        }
+        into << '\"';
+    }
     // some further information
     if (lane.speed==0) {
         WRITE_WARNING("Lane #" + toString(index) + " of edge '" + myID + "' has a maximum velocity of 0.");
@@ -1847,6 +1865,27 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
     // add it only if not already done
     if (find(myLanes[lane].notAllowed.begin(), myLanes[lane].notAllowed.end(), vclass)==myLanes[lane].notAllowed.end()) {
         myLanes[lane].notAllowed.push_back(vclass);
+    }
+}
+
+
+void
+NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
+    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
+        return;
+    }
+    if (lane<0) {
+        // if all lanes are meant...
+        for (unsigned int i=0; i<myLanes.size(); i++) {
+            // ... do it for each lane
+            preferVehicleClass((int) i, vclass);
+        }
+        return;
+    }
+    assert(lane<(int) myLanes.size());
+    // add it only if not already done
+    if (find(myLanes[lane].preferred.begin(), myLanes[lane].preferred.end(), vclass)==myLanes[lane].preferred.end()) {
+        myLanes[lane].preferred.push_back(vclass);
     }
 }
 

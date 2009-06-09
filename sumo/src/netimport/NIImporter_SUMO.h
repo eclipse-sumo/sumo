@@ -174,8 +174,6 @@ private:
     struct LaneAttrs {
         /// @brief Whether this is the edge's depart lane
         bool depart;
-        /// @brief The vehicle classes allowed on this lane
-        std::string vclasses;
         /// @brief The maximum velocity allowed on this lane
         SUMOReal maxSpeed;
         /// @brief This lane's shape

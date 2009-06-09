@@ -24,15 +24,15 @@ a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'yield', 'dir', 'state', 'int_e
 c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink' )
 
 def getBegin(file):
-	fd = open(file)
-	content = "";
-	for line in fd:
-		if line.find("<net>")>=0:
-			fd.close()
-			return content
-		content = content + line
-	fd.close()
-	return ""
+    fd = open(file)
+    content = "";
+    for line in fd:
+        if line.find("<net>")>=0:
+            fd.close()
+            return content
+        content = content + line
+    fd.close()
+    return ""
 
 def patchPhase(attrs):
     state = ""
@@ -67,9 +67,26 @@ class NetConverter(handler.ContentHandler):
             # patch phase definition
             state = patchPhase(attrs)
             for key in attrs.getNames():
-                 if key=='phase':
+                if key=='phase':
                     self._out.write(' state="' + state + '"')
-                 elif key!='yellow' and key!='brake':
+                elif key!='yellow' and key!='brake':
+                    self._out.write(' ' + key + '="' + attrs[key] + '"')
+        elif name=='lane' and attrs.has_key('vclasses'):
+            for key in a['lane']:
+                if key == 'vclasses':
+                    allowed = []
+                    disallowed = []
+                    for clazz in attrs['vclasses'].split(";"):
+                    	if clazz:
+	                        if clazz[0] == '-':
+	                            disallowed.append(clazz[1:])
+	                        else:
+	                            allowed.append(clazz)
+                    if allowed:
+                     	self._out.write(' allow="%s"' % (" ".join(allowed)))
+                    if disallowed:
+                     	self._out.write(' disallow="%s"' % (" ".join(disallowed)))
+                elif attrs.has_key(key):
                     self._out.write(' ' + key + '="' + attrs[key] + '"')
         else:
             if name not in a:
@@ -111,5 +128,4 @@ parser = make_parser()
 net = NetConverter(sys.argv[1]+".chg", beg)
 parser.setContentHandler(net)
 parser.parse(sys.argv[1])
-
 

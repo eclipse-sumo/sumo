@@ -244,7 +244,6 @@ void
 NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane = new LaneAttrs;
     myCurrentLane->depart = attrs.getBoolSecure(SUMO_ATTR_DEPART, false);
-    myCurrentLane->vclasses = attrs.getStringSecure(SUMO_ATTR_VCLASSES, "");
     myCurrentLane->maxSpeed = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, -1);
 }
 

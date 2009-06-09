@@ -397,7 +397,12 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         myLaneIsDepart = attrs.getBool(SUMO_ATTR_DEPART);
         myCurrentMaxSpeed = attrs.getFloat(SUMO_ATTR_MAXSPEED);
         myCurrentLength = attrs.getFloat(SUMO_ATTR_LENGTH);
-        myVehicleClasses = attrs.getStringSecure(SUMO_ATTR_VCLASSES, "");
+        myAllowedClasses.clear();
+        myDisallowedClasses.clear();
+        parseVehicleClasses(attrs.getStringSecure(SUMO_ATTR_VCLASSES , ""),
+                            attrs.getStringSecure(SUMO_ATTR_ALLOW , ""),
+                            attrs.getStringSecure(SUMO_ATTR_DISALLOW , ""),
+                            myAllowedClasses, myDisallowedClasses);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing attribute in a lane-object (id='" + id + "').\n Can not build according edge.");
         myCurrentIsBroken = true;
@@ -444,7 +449,7 @@ NLHandler::closeLane() {
     // build
     try {
         MSLane *lane =
-            myEdgeControlBuilder.addLane(myCurrentLaneID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myVehicleClasses);
+            myEdgeControlBuilder.addLane(myCurrentLaneID, myCurrentMaxSpeed, myCurrentLength, myLaneIsDepart, myShape, myAllowedClasses, myDisallowedClasses);
         // insert the lane into the lane-dictionary, checking
         if (!MSLane::dictionary(myCurrentLaneID, lane)) {
             delete lane;

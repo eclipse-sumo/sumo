@@ -199,24 +199,29 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // check whether this lane exists
-        // set information about allwed / disallowed vehicle classes
+        // set information about allowed / disallowed vehicle classes
         string disallowed = attrs.getStringSecure(SUMO_ATTR_DISALLOW, "");
         string allowed = attrs.getStringSecure(SUMO_ATTR_ALLOW, "");
+        string preferred = attrs.getStringSecure(SUMO_ATTR_PREFER, "");
+        if (disallowed.find(";") != string::npos || allowed.find(";") != string::npos || preferred.find(";") != string::npos) {
+            MsgHandler::getWarningInstance()->inform("Using ';' as a list separator is deprecated, use ' ' instead (edge '" + myCurrentID + "').");
+        }
         if (disallowed!="") {
-            StringTokenizer st(disallowed, ";");
+            StringTokenizer st(disallowed, "; ", true);
             while (st.hasNext()) {
                 myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(st.next()));
             }
         }
         if (allowed!="") {
-            StringTokenizer st(allowed, ";");
+            StringTokenizer st(allowed, "; ", true);
             while (st.hasNext()) {
-                string next = st.next();
-                if (next[0]=='-') {
-                    myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(next.substr(1)));
-                } else {
-                    myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(next));
-                }
+                myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(st.next()));
+            }
+        }
+        if (preferred!="") {
+            StringTokenizer st(preferred, "; ", true);
+            while (st.hasNext()) {
+                myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(st.next()));
             }
         }
 
