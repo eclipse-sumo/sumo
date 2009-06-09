@@ -1,0 +1,19 @@
+# Tests for replacing the junction type
+type_prio_by_prio
+type_prio_by_rbl
+type_prio_by_tls
+type_rbl_by_prio
+type_rbl_by_rbl
+type_rbl_by_tls
+type_tls_by_prio
+type_tls_by_rbl
+type_tls_by_tls
+type_unknown_by_prio
+type_unknown_by_rbl
+type_unknown_by_tls
+
+# Tests for replacing the position
+position
+
+
+

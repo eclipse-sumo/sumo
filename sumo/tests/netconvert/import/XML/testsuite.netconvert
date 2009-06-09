@@ -19,6 +19,12 @@ lane_expansion
 # tests whether vclass import works
 vclasses
 
+# tests whether overwriting earlier loaded node attributes works
+node_overwrite
+
+# tests whether overwriting earlier loaded edge attributes works
+edge_overwrite
+
 
 # testing error input and handling
 errors
