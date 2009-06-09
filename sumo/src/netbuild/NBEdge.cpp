@@ -698,6 +698,7 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
             into << getVehicleClassName(*i);
             hadOne = true;
         }
+        into << '\"';
     }
     if (lane.preferred.size() > 0) {
         hadOne = false;

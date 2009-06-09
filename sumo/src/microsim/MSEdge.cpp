@@ -216,12 +216,12 @@ MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const t
     AllowedLanesCont::const_iterator it;
     if (myClassedAllowed.find(vclass)!=myClassedAllowed.end()) {
         it = myClassedAllowed.find(vclass)->second.find(&destination);
-        if (it==myAllowed.end()) {
+        if (it==myClassedAllowed.find(vclass)->second.end()) {
             it = myAllowed.find(&destination);
+            if (it==myAllowed.end()) {
+                return 0;
+            }
         }
-    }
-    if (it==myAllowed.end()) {
-        return 0;
     }
     // !!! missing: what happens to prohibited classes?
     return it->second;
