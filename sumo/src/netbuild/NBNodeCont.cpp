@@ -1117,6 +1117,41 @@ NBNodeCont::writeTLSasPOIs(OutputDevice &device) throw(IOError) {
 }
 
 
+void 
+NBNodeCont::printBuiltNodesStatistics() const throw()
+{
+    int noDistricts = 0;
+    int noUnregulatedJunctions = 0;
+    int noPriorityJunctions = 0;
+    int noRightBeforeLeftJunctions = 0;
+    for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        switch((*i).second->getType()) {
+        case NBNode::NODETYPE_NOJUNCTION:
+            ++noUnregulatedJunctions;
+            break;
+        case NBNode::NODETYPE_PRIORITY_JUNCTION:
+        case NBNode::NODETYPE_TRAFFIC_LIGHT:
+            ++noPriorityJunctions;
+            break;
+        case NBNode::NODETYPE_RIGHT_BEFORE_LEFT:
+            ++noRightBeforeLeftJunctions;
+            break;
+        case NBNode::NODETYPE_DISTRICT:
+            ++noRightBeforeLeftJunctions;
+            break;
+        case NBNode::NODETYPE_UNKNOWN:
+            break;
+        default:
+            break;
+        }
+    }
+    WRITE_MESSAGE(" Node type statistics:");
+    WRITE_MESSAGE("  Unregulated junctions       : " + toString(noUnregulatedJunctions));
+    WRITE_MESSAGE("  Priority junctions          : " + toString(noPriorityJunctions));
+    WRITE_MESSAGE("  Right-before-left junctions : " + toString(noRightBeforeLeftJunctions));
+}
+
+
 
 /****************************************************************************/
 

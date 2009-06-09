@@ -79,15 +79,6 @@ using namespace std;
 
 
 // ===========================================================================
-// static variable definitions
-// ===========================================================================
-int NBNode::myNoDistricts = 0;
-int NBNode::myNoUnregulatedJunctions = 0;
-int NBNode::myNoPriorityJunctions = 0;
-int NBNode::myNoRightBeforeLeftJunctions = 0;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -207,7 +198,7 @@ NBNode::ApproachingDivider::spread(const vector<int> &approachingLanes,
 /* -------------------------------------------------------------------------
  * NBNode-methods
  * ----------------------------------------------------------------------- */
-NBNode::NBNode(const string &id, const Position2D &position)
+NBNode::NBNode(const string &id, const Position2D &position) throw()
         : myID(StringUtils::convertUmlaute(id)), myPosition(position),
         myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0) {
     myIncomingEdges = new EdgeVector();
@@ -216,7 +207,7 @@ NBNode::NBNode(const string &id, const Position2D &position)
 
 
 NBNode::NBNode(const string &id, const Position2D &position,
-               BasicNodeType type)
+               BasicNodeType type) throw()
         : myID(StringUtils::convertUmlaute(id)), myPosition(position),
         myType(type), myDistrict(0), myRequest(0) {
     myIncomingEdges = new EdgeVector();
@@ -224,7 +215,7 @@ NBNode::NBNode(const string &id, const Position2D &position,
 }
 
 
-NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *district)
+NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *district) throw()
         : myID(StringUtils::convertUmlaute(id)), myPosition(position),
         myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0) {
     myIncomingEdges = new EdgeVector();
@@ -232,11 +223,24 @@ NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *distric
 }
 
 
-NBNode::~NBNode() {
+NBNode::~NBNode() throw() {
     delete myIncomingEdges;
     delete myOutgoingEdges;
     delete myRequest;
 }
+
+
+void 
+NBNode::reinit(const Position2D &position, BasicNodeType type) throw()
+{
+    myPosition = position;
+    // patch type
+    myType = type;
+    if(myType!=NODETYPE_TRAFFIC_LIGHT) {
+        removeTrafficLights();
+    }
+}
+
 
 
 // -----------  Methods for dealing with assigned traffic lights
@@ -248,6 +252,9 @@ NBNode::addTrafficLight(NBTrafficLightDefinition *tld) throw() {
 
 void
 NBNode::removeTrafficLights() throw() {
+    for (set<NBTrafficLightDefinition*>::const_iterator i=myTrafficLights.begin(); i!=myTrafficLights.end(); ++i) {
+        (*i)->removeNode(this);
+    }
     myTrafficLights.clear();
 }
 
@@ -1135,51 +1142,6 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
 
 
 void
-NBNode::setType(BasicNodeType type) {
-    switch (type) {
-    case NODETYPE_NOJUNCTION:
-        myNoUnregulatedJunctions++;
-        break;
-    case NODETYPE_PRIORITY_JUNCTION:
-    case NODETYPE_TRAFFIC_LIGHT:
-        myNoPriorityJunctions++;
-        break;
-    case NODETYPE_RIGHT_BEFORE_LEFT:
-        myNoRightBeforeLeftJunctions++;
-        break;
-    case NODETYPE_DISTRICT:
-        myNoRightBeforeLeftJunctions++;
-        break;
-    default:
-        throw exception();
-    }
-    myType = type;
-}
-
-
-NBNode::BasicNodeType
-NBNode::getType() const {
-    return myType;
-}
-
-
-void
-NBNode::reportBuild() {
-    WRITE_MESSAGE("-----------------------------------------------------");
-    WRITE_MESSAGE("Summary:");
-    WRITE_MESSAGE(" Node type statistics:");
-    WRITE_MESSAGE("  Unregulated junctions       : " + toString<int>(myNoUnregulatedJunctions));
-    WRITE_MESSAGE("  Priority junctions          : " + toString<int>(myNoPriorityJunctions));
-    WRITE_MESSAGE("  Right-before-left junctions : " + toString<int>(myNoRightBeforeLeftJunctions));
-    WRITE_MESSAGE(" Network boundaries:");
-    WRITE_MESSAGE("  Original boundary  : " + toString(GeoConvHelper::getOrigBoundary()));
-    WRITE_MESSAGE("  Applied offset     : " + toString(GeoConvHelper::getOffset()));
-    WRITE_MESSAGE("  Converted boundary : " + toString(GeoConvHelper::getConvBoundary()));
-    WRITE_MESSAGE("-----------------------------------------------------");
-}
-
-
-void
 NBNode::sortNodesEdges(const NBTypeCont &tc) {
     // sort the edges
     sort(myAllEdges.begin(), myAllEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
@@ -1196,11 +1158,14 @@ NBNode::sortNodesEdges(const NBTypeCont &tc) {
     if (myAllEdges.size()>1 && i!=myAllEdges.end()) {
         swapWhenReversed(myAllEdges.end()-1, myAllEdges.begin());
     }
-    NBNode::BasicNodeType type = computeType(tc);
+    if(myType==NODETYPE_UNKNOWN) {
+        myType = computeType(tc);
+    }
+    setPriorities();
     // write if wished
     if (OptionsCont::getOptions().isSet("node-type-output")) {
         string col;
-        switch (type) {
+        switch (myType) {
         case NODETYPE_NOJUNCTION:
             col = ".5,.5,.5";
             break;
@@ -1221,8 +1186,6 @@ NBNode::sortNodesEdges(const NBTypeCont &tc) {
         << "\" type=\"node_type\" color=\"" << col << "\""
         << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>\n";
     }
-    setType(type);
-    setPriorities();
 }
 
 

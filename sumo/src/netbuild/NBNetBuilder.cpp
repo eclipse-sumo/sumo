@@ -242,8 +242,17 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
         myNodeCont.reshiftNodePositions(xoff, yoff, rot);
         myEdgeCont.reshiftEdgePositions(xoff, yoff, rot);
     }
-    //
-    NBNode::reportBuild();
+    // report
+    WRITE_MESSAGE("-----------------------------------------------------");
+    WRITE_MESSAGE("Summary:");
+    if(!gSuppressMessages) { 
+        myNodeCont.printBuiltNodesStatistics();
+    }
+    WRITE_MESSAGE(" Network boundaries:");
+    WRITE_MESSAGE("  Original boundary  : " + toString(GeoConvHelper::getOrigBoundary()));
+    WRITE_MESSAGE("  Applied offset     : " + toString(GeoConvHelper::getOffset()));
+    WRITE_MESSAGE("  Converted boundary : " + toString(GeoConvHelper::getConvBoundary()));
+    WRITE_MESSAGE("-----------------------------------------------------");
     NBRequest::reportWarnings();
 }
 

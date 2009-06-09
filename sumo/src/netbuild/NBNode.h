@@ -131,24 +131,13 @@ public:
         NODETYPE_DEAD_END
     };
 
-    /** a counter for the no-junctions build */
-    static int myNoDistricts;
-
-    /** a counter for the no-junctions build */
-    static int myNoUnregulatedJunctions;
-
-    /** a counter for priority-junctions build */
-    static int myNoPriorityJunctions;
-
-    /** a counter for right-before-left-junctions build */
-    static int myNoRightBeforeLeftJunctions;
 
 public:
     /** @brief Constructor
      * @param[in] id The id of the node
      * @param[in] position The position of the node
      */
-    NBNode(const std::string &id, const Position2D &position);
+    NBNode(const std::string &id, const Position2D &position) throw();
 
 
     /** @brief Constructor
@@ -156,7 +145,7 @@ public:
      * @param[in] position The position of the node
      * @param[in] type The type of the node
      */
-    NBNode(const std::string &id, const Position2D &position, BasicNodeType type);
+    NBNode(const std::string &id, const Position2D &position, BasicNodeType type) throw();
 
 
     /** @brief Constructor
@@ -164,12 +153,18 @@ public:
      * @param[in] position The position of the node
      * @param[in] district The district this district node represents
      */
-    NBNode(const std::string &id, const Position2D &position, NBDistrict *district);
+    NBNode(const std::string &id, const Position2D &position, NBDistrict *district) throw();
 
 
     /// @brief Destructor
-    ~NBNode();
+    ~NBNode() throw();
 
+
+    /** @brief Resets initial values
+     * @param[in] position The position of the node
+     * @param[in] type The type of the node
+     */
+    void reinit(const Position2D &position, BasicNodeType type) throw();
 
 
     /// @name Atomar getter methods
@@ -212,6 +207,15 @@ public:
      */
     const EdgeVector &getEdges() const throw() {
         return myAllEdges;
+    }
+
+
+    /** @brief Returns the type of this node
+     * @return The type of this node
+     * @see BasicNodeType
+     */
+    BasicNodeType getType() const throw() {
+        return myType;
     }
     /// @}
 
@@ -280,9 +284,6 @@ public:
     /** initialises the list of all edges and sorts all edges */
     void sortNodesEdges(const NBTypeCont &tc);
 
-    /** reports about the build junctions */
-    static void reportBuild();
-
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */
     Position2D getEmptyDir() const;
@@ -321,12 +322,6 @@ public:
 
     void removeOutgoing(NBEdge *edge);
     void removeIncoming(NBEdge *edge);
-
-    /** sets the type of the junction */
-    void setType(BasicNodeType type);
-
-    BasicNodeType getType() const;
-
 
     /** @brief Computes whether the given connection is a left mover across the junction
      *

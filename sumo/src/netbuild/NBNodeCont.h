@@ -170,7 +170,6 @@ public:
     void writeXMLInternalSuccInfos(OutputDevice &into);
     void writeXMLInternalNodes(OutputDevice &into);
 
-
     /// writes the nodes into the given ostream
     void writeXML(OutputDevice &into);
 
@@ -223,6 +222,15 @@ public:
      * @exception IOError (not yet implemented)
      */
     void writeTLSasPOIs(OutputDevice &device) throw(IOError);
+
+
+    /** @brief Prints statistics about built nodes
+     *
+     * Goes through stored nodes, computes the numbers of unregulated, priority and right-before-left
+     *  junctions and prints them.
+     */
+    void printBuiltNodesStatistics() const throw();
+
 
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
