@@ -94,17 +94,6 @@ protected:
 
 
 private:
-    /** @brief Sets the position of the node
-     *
-     * Returns false when the information about the node's position was not valid,
-     *  an error message is generated in this case.
-     *
-     * @param[in] attrs Attributes within the currently opened node
-     * @return Whether the node's position information was valid
-     */
-    bool setPosition(const SUMOSAXAttributes &attrs);
-
-
     /** @brief Builds the defined traffic light or adds a node to it
      *
      * @param[in] attrs Attributes within the currently opened node
@@ -123,9 +112,6 @@ private:
 
     /// @brief The position of the currently parsed node
     Position2D myPosition;
-
-    /// @brief The (optional) type of the node currently parsed
-    std::string myType;
 
     /// @brief The node container to add built nodes to
     NBNodeCont &myNodeCont;

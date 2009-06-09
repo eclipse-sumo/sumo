@@ -82,59 +82,86 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         WRITE_WARNING("No node id given... Skipping.");
         return;
     }
-    // retrieve the name of the node
-    string name = attrs.getStringSecure(SUMO_ATTR_NAME, myID);
+    NBNode *node = myNodeCont.retrieve(myID);
     // retrieve the position of the node
-    if (!setPosition(attrs)) {
-        return;
+    bool xOk = false;
+    bool yOk = false;
+    if(node!=0) {
+        myPosition = node->getPosition();
+        xOk = yOk = true;
     }
-    // get the type
-    myType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-    NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
-    if (myType=="priority") {
-        type = NBNode::NODETYPE_PRIORITY_JUNCTION;
-    } else if (myType=="right_before_left") {
-        type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
-    } else if (myType=="traffic_light") {
-        type = NBNode::NODETYPE_TRAFFIC_LIGHT;
-    }
-    // check whether there is a traffic light to assign this node to
-    // build the node
-    NBNode *node = new NBNode(myID, myPosition, type);
-    // insert the node
-    if (!myNodeCont.insert(node)) {
-        if (myNodeCont.retrieve(myPosition)!=0) {
-            MsgHandler::getErrorInstance()->inform("Duplicate node occured. ID='" + myID + "'");
-        }
-    }
-    // process traffic light definition
-    if (type==NBNode::NODETYPE_TRAFFIC_LIGHT) {
-        processTrafficLightDefinitions(attrs, node);
-    }
-}
-
-
-
-bool
-NIXMLNodesHandler::setPosition(const SUMOSAXAttributes &attrs) {
-    // retrieve the positions
     try {
-        SUMOReal x = attrs.getFloat(SUMO_ATTR_X);
-        SUMOReal y = attrs.getFloat(SUMO_ATTR_Y);
-        myPosition.set(x, y);
-        GeoConvHelper::x2cartesian(myPosition);
+        if(attrs.hasAttribute(SUMO_ATTR_X)) {
+            myPosition.set(attrs.getFloat(SUMO_ATTR_X), myPosition.y());
+            xOk = true;
+        }
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Not numeric value for position (at node ID='" + myID + "').");
-        return false;
+        return;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Node position (at node ID='" + myID + "') is not given.");
-        return false;
+        return;
+    }
+    try {
+        if(attrs.hasAttribute(SUMO_ATTR_Y)) {
+            myPosition.set(myPosition.x(), attrs.getFloat(SUMO_ATTR_Y));
+            yOk = true;
+        }
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Not numeric value for position (at node ID='" + myID + "').");
+        return;
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Node position (at node ID='" + myID + "') is not given.");
+        return;
+    }
+    if(xOk&&yOk) {
+        GeoConvHelper::x2cartesian(myPosition);
+    } else {
+        MsgHandler::getErrorInstance()->inform("Missing position (at node ID='" + myID + "').");
     }
     // check whether the y-axis shall be flipped
     if (myOptions.getBool("flip-y")) {
         myPosition.mul(1.0, -1.0);
     }
-    return true;
+    // get the type
+    NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
+    if(node!=0) {
+        type = node->getType();
+    }
+    if(attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+        string typeS = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        if (typeS=="priority") {
+            type = NBNode::NODETYPE_PRIORITY_JUNCTION;
+        } else if (typeS=="right_before_left") {
+            type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
+        } else if (typeS=="traffic_light") {
+            type = NBNode::NODETYPE_TRAFFIC_LIGHT;
+        }
+    }
+    // check whether a prior node shall be modified
+    if(node==0) {
+        node = new NBNode(myID, myPosition, type);
+        if(!myNodeCont.insert(node)) {
+            throw ProcessError("Could not insert node though checked this before (id='" + myID + "').");
+        }
+    } else {
+        //if(type!=NBNode::NODETYPE_TRAFFIC_LIGHT) {
+            // remove previously set tls if this node is not controlled by a tls
+            std::set<NBTrafficLightDefinition*> tls = node->getControllingTLS();
+            node->removeTrafficLights();
+            for(set<NBTrafficLightDefinition*>::iterator i=tls.begin(); i!=tls.end(); ++i) {
+                if((*i)->getNodes().size()==0) {
+                    myTLLogicCont.remove((*i)->getID());
+                }
+            }
+        //}
+        // patch information
+        node->reinit(myPosition, type);
+    }
+    // process traffic light definition
+    if (type==NBNode::NODETYPE_TRAFFIC_LIGHT) {
+        processTrafficLightDefinitions(attrs, node);
+    }
 }
 
 
@@ -157,7 +184,6 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
                 // actually, nothing should fail here
                 delete tlDef;
                 throw ProcessError("Could not allocate tls '" + tlID + "'.");
-
             }
         } else {
             tlDef->addNode(currentNode);
@@ -170,7 +196,6 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError("Could not allocate tls '" + myID + "'.");
-
         }
     }
 
