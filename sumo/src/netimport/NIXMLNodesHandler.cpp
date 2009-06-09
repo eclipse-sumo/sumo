@@ -145,7 +145,6 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
             throw ProcessError("Could not insert node though checked this before (id='" + myID + "').");
         }
     } else {
-        //if(type!=NBNode::NODETYPE_TRAFFIC_LIGHT) {
             // remove previously set tls if this node is not controlled by a tls
             std::set<NBTrafficLightDefinition*> tls = node->getControllingTLS();
             node->removeTrafficLights();
@@ -154,7 +153,6 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
                     myTLLogicCont.remove((*i)->getID());
                 }
             }
-        //}
         // patch information
         node->reinit(myPosition, type);
     }

@@ -125,6 +125,10 @@ public:
     NBTrafficLightLogic *compute(const NBEdgeCont &ec, OptionsCont &oc) throw();
 
 
+
+    /// @name Access to controlled nodes
+    /// @{
+
     /** @brief Adds a node to the traffic light logic
      * @param[in] node A further node that shall be controlled by the tls
      */
@@ -135,6 +139,15 @@ public:
      * @param[in] node The node that shall not be controlled by the tls any more
      */
     void removeNode(NBNode *node) throw();
+
+
+    /** @brief Returns the list of controlled nodes
+     * @return Controlled nodes
+     */
+    const std::set<NBNode*> &getNodes() const throw() {
+        return myControlledNodes;
+    }
+    /// @}
 
 
     /** @brief Returns the information whether the described flow must let any other flow pass

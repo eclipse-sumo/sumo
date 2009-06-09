@@ -210,6 +210,16 @@ public:
     ~NBEdge() throw();
 
 
+    /** @brief Resets initial values
+     * @param[in] position The position of the node
+     * @param[in] type The type of the node
+     */
+    void reinit(NBNode *from, NBNode *to, std::string type,
+           SUMOReal speed, unsigned int nolanes, int priority,
+           Position2DVector geom, bool tryIgnoreNodePositions,
+           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+
+
 
     /// @name Atomar getter methods
     //@{
@@ -475,13 +485,39 @@ public:
     /// @}
 
 
+
+    /// @name Setting/getting special types
+    /// @{
+
+    /** @brief Marks this edge as a macroscopic connector
+     */
     void setAsMacroscopicConnector() throw() {
         myAmMacroscopicConnector = true;
     }
 
+
+    /** @brief Returns whether this edge was marked as a macroscopic connector
+     * @return Whether this edge was marked as a macroscopic connector
+     */
     bool isMacroscopicConnector() throw() {
         return myAmMacroscopicConnector;
     }
+
+
+    /** @brief Marks this edge being within an intersection
+     */
+    void setIsInnerEdge() throw() {
+        myAmInnerEdge = true;
+    }
+
+
+    /** @brief Returns whether this edge was marked as being within an intersection
+     * @return Whether this edge was marked as being within an intersection
+     */
+    bool isInnerEdge() const throw() {
+        return myAmInnerEdge;
+    }
+    /// @}
 
 
     /// computes which edge shall be the turn-around one, if any
@@ -662,14 +698,6 @@ public:
     int getMaxConnectedLane(NBEdge *of) const;
 
     void setTurningDestination(NBEdge *e);
-
-    void setIsInnerEdge() {
-        myAmInnerEdge = true;
-    }
-
-    bool isInnerEdge() const {
-        return myAmInnerEdge;
-    }
 
 private:
     /**

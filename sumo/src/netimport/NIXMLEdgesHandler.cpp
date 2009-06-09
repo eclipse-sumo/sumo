@@ -67,7 +67,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
                                      NBEdgeCont &ec,
                                      NBTypeCont &tc,
                                      NBDistrictCont &dc,
-                                     OptionsCont &options)
+                                     OptionsCont &options) throw()
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
@@ -81,6 +81,7 @@ void
 NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE) {
+        myIsUpdate = false;
         bool ok = true;
         // initialise the edge
         myCurrentEdge = 0;
@@ -89,6 +90,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         if (!attrs.setIDFromAttributes("edge", myCurrentID)) {
             return;
         }
+        myCurrentEdge = myEdgeCont.retrieve(myCurrentID);
         // check deprecated (unused) attributes
         if (!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
             MsgHandler::getWarningInstance()->inform("While parsing edge '" + myCurrentID + "': 'function' is deprecated.\n All occurences are ignored.");
@@ -98,6 +100,18 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         myCurrentSpeed = myTypeCont.getDefaultSpeed();
         myCurrentPriority = myTypeCont.getDefaultPriority();
         myCurrentLaneNo = myTypeCont.getDefaultNoLanes();
+        // use values from the edge to overwrite if existing, then
+        if(myCurrentEdge!=0) {
+            myIsUpdate = true;
+            if(!myHaveReportedAboutOverwriting) {
+                MsgHandler::getMessageInstance()->inform("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
+                myHaveReportedAboutOverwriting = true;
+            }
+            myCurrentSpeed = myCurrentEdge->getSpeed();
+            myCurrentPriority = myCurrentEdge->getPriority();
+            myCurrentLaneNo = myCurrentEdge->getNoLanes();
+            myCurrentType = myCurrentEdge->getTypeID();
+        }
         // check whether a type's values shall be used
         myCurrentType = "";
         if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
@@ -151,25 +165,24 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myLength = 0;
         }
         /// insert the parsed edge into the edges map
-        myCurrentEdge = 0;
         if (!ok) {
             return;
         }
-        // the edge must be allocated in dependence to whether a shape
-        //  is given
-        if (myShape.size()==0) {
-            myCurrentEdge = new NBEdge(myCurrentID,
-                                       myFromNode, myToNode,
-                                       myCurrentType, myCurrentSpeed,
-                                       myCurrentLaneNo, myCurrentPriority, myLanesSpread);
-            myCurrentEdge->setLoadedLength(myLength);
+        // check whether a previously defined edge shall be overwritten
+        if(myCurrentEdge!=0) {
+            myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
+                    myLanesSpread);
         } else {
-            myCurrentEdge = new NBEdge(myCurrentID,
-                                       myFromNode, myToNode,
-                                       myCurrentType, myCurrentSpeed,
-                                       myCurrentLaneNo, myCurrentPriority,
-                                       myShape, !myOptions.getBool("add-node-positions"),
-                                       myLanesSpread);
+            // the edge must be allocated in dependence to whether a shape is given
+            if (myShape.size()==0) {
+                myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myCurrentPriority, myLanesSpread);
+            } else {
+                myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
+                    myLanesSpread);
+            }
             myCurrentEdge->setLoadedLength(myLength);
         }
     }
@@ -257,8 +270,10 @@ bool
 NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
-    string begNodeID = attrs.getStringSecure(SUMO_ATTR_FROMNODE, "");
-    string endNodeID = attrs.getStringSecure(SUMO_ATTR_TONODE, "");
+    string begNodeID = myIsUpdate ? myCurrentEdge->getFromNode()->getID() : "";
+    string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
+    begNodeID = attrs.hasAttribute(SUMO_ATTR_FROMNODE) ? attrs.getStringSecure(SUMO_ATTR_FROMNODE, "") : begNodeID;
+    endNodeID = attrs.hasAttribute(SUMO_ATTR_TONODE) ? attrs.getStringSecure(SUMO_ATTR_TONODE, "") : endNodeID;
     // or their positions
     SUMOReal begNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
     SUMOReal begNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
@@ -332,7 +347,7 @@ NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
 
 
 Position2DVector
-NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) {
+NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     if (!attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         return Position2DVector();
     }
@@ -383,16 +398,18 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
 void
 NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE && myCurrentEdge!=0) {
-        try {
-            if (!myEdgeCont.insert(myCurrentEdge)) {
-                MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
-                delete myCurrentEdge;
+        if(!myIsUpdate) {
+            try {
+                if (!myEdgeCont.insert(myCurrentEdge)) {
+                    MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
+                    delete myCurrentEdge;
+                }
+            } catch (InvalidArgument &e) {
+                MsgHandler::getErrorInstance()->inform(e.what());
+                throw;
+            } catch (...) {
+                MsgHandler::getErrorInstance()->inform("An important information is missing in edge '" + myCurrentID + "'.");
             }
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-            throw;
-        } catch (...) {
-            MsgHandler::getErrorInstance()->inform("An important information is missing in edge '" + myCurrentID + "'.");
         }
         if (myExpansions.size()!=0) {
             std::vector<Expansion>::iterator i, i2;

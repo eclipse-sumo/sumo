@@ -44,7 +44,6 @@ class NBNodeCont;
 class NBEdgeCont;
 class NBTypeCont;
 class NBDistrictCont;
-class MsgHandler;
 
 
 // ===========================================================================
@@ -60,12 +59,19 @@ class MsgHandler;
 class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
     /** @brief Constructor
+     * @param[in] nc The nodes container (for retrieval of referenced nodes)
+     * @param[in] ec The edges container (for insertion of build edges)
+     * @param[in] tc The types container (for retrieval of type defaults)
+     * @param[in] dc The districts container (needed if an edge must be split)
+     * @param[in] options The options to use while building edges
      */
     NIXMLEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                      NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options);
+                      NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options) throw();
+
 
     /// @brief Destructor
     ~NIXMLEdgesHandler() throw();
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -103,9 +109,14 @@ protected:
     //@}
 
 private:
-
-    /// tries to parse the shape definition
-    Position2DVector tryGetShape(const SUMOSAXAttributes &attrs);
+    /** @brief Tries to parse the shape definition
+     *
+     * Returns the edge's geometry (may be empty if no one was defined).
+     * Writes an error message if an error occured.
+     * @param[in] attrs The attributes to read the shape from
+     * @return The edge's shape
+     */
+    Position2DVector tryGetShape(const SUMOSAXAttributes &attrs) throw();
 
     /// Tries to set information needed by the nodes
     bool setNodes(const SUMOSAXAttributes &attrs);
@@ -120,54 +131,72 @@ private:
 
 
 private:
-    /// A reference to the program's options
+    /// @brief A reference to the program's options
     OptionsCont &myOptions;
 
-    /// The current edge's id
+    /// @brief The current edge's id
     std::string myCurrentID;
 
-    /// The current edge's maximum speed
+    /// @brief The current edge's maximum speed
     SUMOReal myCurrentSpeed;
 
-    /// The current edge's priority
+    /// @brief The current edge's priority
     int myCurrentPriority;
 
-    /// The current edge's number of lanes
+    /// @brief The current edge's number of lanes
     int myCurrentLaneNo;
 
-    /// The current edge's type
+    /// @brief The current edge's type
     std::string myCurrentType;
 
-    /// The nodes
+    /// @brief The nodes the edge starts and ends at
     NBNode *myFromNode, *myToNode;
 
-    /// The current edge's length
+    /// @brief The current edge's length
     SUMOReal myLength;
 
-    /// The shape of the edge
+    /// @brief The shape of the edge
     Position2DVector myShape;
 
-    /// Information about how to spread the lanes
+    /// @brief Information about how to spread the lanes
     NBEdge::LaneSpreadFunction myLanesSpread;
 
+    /// @brief The nodes container (for retrieval of referenced nodes)
     NBNodeCont &myNodeCont;
 
+    /// @brief The edges container (for insertion of build edges)
     NBEdgeCont &myEdgeCont;
 
+    /// @brief The types container (for retrieval of type defaults)
     NBTypeCont &myTypeCont;
 
+    /// @brief The districts container (needed if an edge must be split)
     NBDistrictCont &myDistrictCont;
 
+    /// @brief Whether this edge definition is an update of a previously inserted edge
+    bool myIsUpdate;
+
+    /// @brief The currently processed edge
+    NBEdge *myCurrentEdge;
+
+
+    /** @struct Expansion
+     * @brief A structure which describes changes of lane number along the road
+     */
     struct Expansion {
+        /// @brief The lanes until this change
         std::vector<int> lanes;
+        /// @brief The position of this change
         SUMOReal pos;
+        /// @brief A numerical id
         int nameid;
+        /// @brief A 2D-position (for the node to insert at this place)
         Position2D gpos;
     };
 
+    /// @brief The list of this edge's expansions
     std::vector<Expansion> myExpansions;
 
-    NBEdge *myCurrentEdge;
 
     class expansions_sorter {
     public:
@@ -198,6 +227,9 @@ private:
 
     /// @brief Information whether one edge with a function-attribute occured and was reported
     bool myHaveReportedAboutFunctionDeprecation;
+
+    /// @brief Information whether at least one edge's attributes were overwritten
+    bool myHaveReportedAboutOverwriting;
 
 
 private:

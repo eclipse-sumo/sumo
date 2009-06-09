@@ -192,6 +192,34 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
 }
 
 
+void 
+NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
+               SUMOReal speed, unsigned int nolanes, int priority,
+               Position2DVector geom, bool tryIgnoreNodePositions,
+               LaneSpreadFunction spread) throw(ProcessError)
+{
+    if(myFrom!=from) {
+        myFrom->removeOutgoing(this);
+    }
+    if(myTo!=to) {
+        myTo->removeIncoming(this);
+    }
+    myType = StringUtils::convertUmlaute(type);
+    myFrom = from;
+    myTo = to;
+    myPriority = priority;
+    mySpeed = speed;
+    //?myTurnDestination(0),
+    //?myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myGeom = geom;
+    myLaneSpreadFunction = spread;
+    myLoadedLength = -1;
+    //?, myAmTurningWithAngle(0), myAmTurningOf(0),
+    //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
+    init(nolanes, tryIgnoreNodePositions);
+}
+
+
 void
 NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessError) {
     if (noLanes==0) {
@@ -231,6 +259,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
     // prepare container
     myLength = GeomHelper::distance(myFrom->getPosition(), myTo->getPosition());
     assert(myGeom.size()>=2);
+    myLanes.clear();
     for (unsigned int i=0; i<noLanes; i++) {
         Lane l;
         l.speed = mySpeed;
