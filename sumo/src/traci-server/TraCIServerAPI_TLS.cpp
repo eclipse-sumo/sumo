@@ -316,6 +316,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         int index = vars.getActive()->getCurrentPhaseIndex();
         vars.getActive()->changeStepAndDuration(tlsControl, cTime, index, duration);
     }
+    break;
     case TL_RED_YELLOW_GREEN_STATE: {
         if (valueDataType!=TYPE_STRING) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "The phase must be given as a string.", outputStorage);
