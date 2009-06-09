@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/02/09 23:27:21 by SUMO netconvert Version 0.9.7
+<!-- generated on 06/09/09 09:17:42 by SUMO netconvert Version dev-SVN-r7268
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input
+        xml-node-files="input_nodes.nod.xml"
+        xml-edge-files="input_edges.edg.xml"
+    />
 
-   <processing>
-      <remove-geometry>true</remove-geometry>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing
+        remove-geometry="true"
+        no-internal-links="true"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->

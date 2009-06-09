@@ -1,6 +1,6 @@
 <edges>
-<edge id="1" xfrom="289.999" yfrom="2104.88" xto="11.5948" yto="2104.88" priority="75" nolanes="2" speed="15"/>
-<edge id="2" xfrom="301.135" yfrom="2015.79" xto="11.5948" yto="2015.79" priority="75" nolanes="2" speed="15"/>
-<edge id="3" xfrom="11.5948" yfrom="2015.79" xto="11.5948" yto="1937.83" priority="75" nolanes="2" speed="15"/>
-<edge id="4" xfrom="11.5948" yfrom="2104.88" xto="11.5948" yto="2015.79" priority="75" nolanes="2" speed="15"/>
+<edge id="1" fromnode="node104" tonode="node124" priority="75" nolanes="2" speed="15"/>
+<edge id="2" fromnode="node103" tonode="node123" priority="75" nolanes="2" speed="15"/>
+<edge id="3" fromnode="node123" tonode="node125" priority="75" nolanes="2" speed="15"/>
+<edge id="4" fromnode="node124" tonode="node123" priority="75" nolanes="2" speed="15"/>
 </edges>
