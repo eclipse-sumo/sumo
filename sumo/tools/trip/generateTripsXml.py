@@ -328,9 +328,13 @@ def main(options):
         print 'total demand:', matrixSum           
         print vehID, 'trips generated' 
     tripList.sort(key=operator.attrgetter('depart'))
+    
+    departpos = "free"
+    if __name__ == "__main__":
+        departpos = options.departpos
     for trip in tripList:
         fouttrips.write('   <tripdef id="%s" depart="%s" from="%s" to="%s" fromtaz="%s" totaz="%s" departlane="free" departpos="%s" departspeed="max"/>\n' \
-                            %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge, trip.sourceDistrict, trip.sinkDistrict, options.departpos))
+                            %(trip.label, trip.depart, trip.sourceEdge, trip.sinkEdge, trip.sourceDistrict, trip.sinkDistrict, departpos))
     fouttrips.write("</tripdefs>")
     fouttrips.close()
     
