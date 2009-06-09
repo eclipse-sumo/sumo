@@ -1,9 +1,3 @@
-# Duplicate edge id (first edge)
-edge#id__duplicate1
-
-# Duplicate edge id (fourth edge)
-edge#id__duplicate4
-
 # Empty edge id (first edge)
 edge#id__empty1
 
