@@ -15,7 +15,7 @@ from xml.sax import saxutils, make_parser, handler
 
 a = {}
 a['edge'] = ( 'id', 'from', 'to', 'priority', 'type', 'function', 'inner' )
-a['lane'] = ( 'id', 'depart', 'vclasses', 'maxspeed', 'length' )
+a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length' )
 a['junction'] = ( 'id', 'type', 'x', 'y' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
