@@ -396,14 +396,8 @@ public:
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw();
 #endif
 
-    /// @todo recheck usage
-    virtual bool prohibits(const SUMOVehicle *) const throw() {
-        return false;
-    }
-
-
-
-
+    /// @brief Returns whether the vehicle (class) is not allowed on the edge
+    bool prohibits(const SUMOVehicle * const vehicle) const throw();
 
 
 

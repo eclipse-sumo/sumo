@@ -153,50 +153,14 @@ MSEdge::closeBuilding() {
         // - ok, this is still not the complete truth as a lane may be used
         //   differently for different vehicles classes, should be
         //   revisited one day
-        AllowedLanesCont nallowed;
-        AllowedLanesCont::iterator i1;
-        for (i1=myAllowed.begin(); i1!=myAllowed.end(); ++i1) {
-            LaneCont *nc = new LaneCont(*((*i1).second));
-            nallowed[(*i1).first] = nc;
-        }
-        // now go through the lists of lanes
-        // remove a lane if
-        // a) this vehicle class is disallowed on this lane
-        bool isAllowedSomewhere = false;
-        bool wasRemoved = false;
-        for (i1=nallowed.begin(); i1!=nallowed.end(); ++i1) {
-            for (LaneCont::iterator i2=(*i1).second->begin(); i2!=(*i1).second->end();) {
-                // ... for later actions ...
-                const std::vector<SUMOVehicleClass> &allowed = (*i2)->getAllowedClasses();
-                if (find(allowed.begin(), allowed.end(), *j)!=allowed.end()) {
-                    isAllowedSomewhere = true;
-                }
-                // remove in to remove
-                const std::vector<SUMOVehicleClass> &disallowed = (*i2)->getNotAllowedClasses();
-                if (find(disallowed.begin(), disallowed.end(), *j)!=disallowed.end()) {
-                    wasRemoved = true;
-                    assert(find((*i1).second->begin(), (*i1).second->end(), (*i2))!=(*i1).second->end());
-                    i2 = (*i1).second->erase(find((*i1).second->begin(), (*i1).second->end(), (*i2)));
-                } else {
-                    ++i2;
+        for (AllowedLanesCont::iterator i1=myAllowed.begin(); i1!=myAllowed.end(); ++i1) {
+            myClassedAllowed[*j][(*i1).first] = new LaneCont();
+            for (LaneCont::iterator i2=(*i1).second->begin(); i2!=(*i1).second->end(); ++i2) {
+                if ((*i2)->allowsVehicleClass(*j)) {
+                    myClassedAllowed[*j][(*i1).first]->push_back(*i2);
                 }
             }
         }
-        // b) is allowed on all other but not on this
-        if (isAllowedSomewhere) {
-            for (i1=nallowed.begin(); i1!=nallowed.end(); ++i1) {
-                for (LaneCont::iterator i2=(*i1).second->begin(); i2!=(*i1).second->end();) {
-                    // ... for later actions ...
-                    const std::vector<SUMOVehicleClass> &allowed = (*i2)->getAllowedClasses();
-                    if (find(allowed.begin(), allowed.end(), *j)==allowed.end()) {
-                        i2 = (*i1).second->erase(find((*i1).second->begin(), (*i1).second->end(), (*i2)));
-                    } else {
-                        ++i2;
-                    }
-                }
-            }
-        }
-        myClassedAllowed[*j] = nallowed;
         myHaveClassConstraints = true;
     }
 }
@@ -469,6 +433,21 @@ MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw() 
         return teffort;
     }
     return MAX2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort(t));
+}
+
+
+bool
+MSEdge::prohibits(const SUMOVehicle * const vehicle) const throw() {
+    if (!myHaveClassConstraints) {
+        return false;
+    }
+    SUMOVehicleClass vclass = vehicle->getVehicleType().getVehicleClass();
+    for (LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+        if ((*i)->allowsVehicleClass(vclass)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
