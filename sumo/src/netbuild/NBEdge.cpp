@@ -947,7 +947,7 @@ NBEdge::writeLanesPlain(OutputDevice &into) {
             vector<SUMOVehicleClass>::const_iterator i;
             for (i=lane.allowed.begin(); i!=lane.allowed.end(); ++i) {
                 if (hadOne) {
-                    into << ';';
+                    into << ' ';
                 }
                 into << getVehicleClassName(*i);
                 hadOne = true;
@@ -960,7 +960,7 @@ NBEdge::writeLanesPlain(OutputDevice &into) {
             vector<SUMOVehicleClass>::const_iterator i;
             for (i=lane.notAllowed.begin(); i!=lane.notAllowed.end(); ++i) {
                 if (hadOne) {
-                    into << ';';
+                    into << ' ';
                 }
                 into << getVehicleClassName(*i);
                 hadOne = true;
@@ -1851,9 +1851,6 @@ NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass) {
 
 void
 NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
-    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
-        return;
-    }
     if (lane<0) {
         // if all lanes are meant...
         for (unsigned int i=0; i<myLanes.size(); i++) {
@@ -1872,9 +1869,6 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
 
 void
 NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
-    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
-        return;
-    }
     if (lane<0) {
         // if all lanes are meant...
         for (unsigned int i=0; i<myLanes.size(); i++) {
@@ -1954,6 +1948,7 @@ NBEdge::dismissVehicleClassInformation() {
     for (vector<Lane>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         (*i).allowed.clear();
         (*i).notAllowed.clear();
+        (*i).preferred.clear();
     }
 }
 

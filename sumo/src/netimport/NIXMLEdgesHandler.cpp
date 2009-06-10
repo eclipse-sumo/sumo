@@ -199,6 +199,10 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // check whether this lane exists
+        if (lane>=myCurrentEdge->getNoLanes()) {
+            MsgHandler::getErrorInstance()->inform("Lane-id is larger than number of lanes (edge '" + myCurrentID + "').");
+            return;
+        }
         // set information about allowed / disallowed vehicle classes
         string disallowed = attrs.getStringSecure(SUMO_ATTR_DISALLOW, "");
         string allowed = attrs.getStringSecure(SUMO_ATTR_ALLOW, "");
