@@ -207,18 +207,22 @@ NLBuilder::load(const std::string &mmlWhat) {
     if (!OptionsCont::getOptions().isUsableFileList(mmlWhat)) {
         return false;
     }
-    long before = SysUtils::getCurrentMillis();
     std::vector<std::string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-        WRITE_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'...");
+        if (!gSuppressMessages) {
+            MsgHandler::getMessageInstance()->beginProcessMsg("Loading " + mmlWhat + " from '" + *fileIt + "' ...");
+        }
+        long before = SysUtils::getCurrentMillis();
         myXMLHandler.setFileName(*fileIt);
         XMLSubSys::runParser(myXMLHandler, *fileIt);
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;
         }
+        if (!gSuppressMessages) {
+            MsgHandler::getMessageInstance()->endProcessMsg(" done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
+        }
     }
-    WRITE_MESSAGE("Loading of " + mmlWhat + " done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
     return true;
 }
 
