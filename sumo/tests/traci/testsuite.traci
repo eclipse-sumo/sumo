@@ -38,5 +38,4 @@ VariableRetrieval
 ChangeTLValue
 
 # Tests the Simulation End command
-SimEnd
-
+#SimEnd
