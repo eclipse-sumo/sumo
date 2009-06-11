@@ -51,6 +51,9 @@ output:\r{REPLACE \n}
 output:sumo.exe{REPLACE sumo}
 output:\([1-9][0-9]*ms\){REPLACE (TIME)}
 log:\([1-9][0-9]*ms\){REPLACE (TIME)}
+errors:expected end of tag{REPLACE Expected end of tag}
+errors:comment or processing instruction expected{REPLACE Expected comment or processing instruction}
+errors:input ended before all started tags were ended; last tag started is{REPLACE The input ended before all started tags were ended. Last tag started was}
 detector:xml version{->}-->
 emissions:xml version{->}-->
 aggregated1:xml version{->}-->

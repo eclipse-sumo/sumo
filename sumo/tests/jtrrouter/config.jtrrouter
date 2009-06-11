@@ -13,4 +13,7 @@ log:log.txt
 
 [run_dependent_text]
 output:jtrrouter.exe{REPLACE sumo-jtrrouter}
+errors:expected end of tag{REPLACE Expected end of tag}
+errors:comment or processing instruction expected{REPLACE Expected comment or processing instruction}
+errors:input ended before all started tags were ended; last tag started is{REPLACE The input ended before all started tags were ended. Last tag started was}
 routes:version{->}-->
