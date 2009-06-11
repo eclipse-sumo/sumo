@@ -286,7 +286,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
                 assert(r!=0);
                 SUMOReal prob;
                 bis >> prob;
-                dist->add(prob, r);
+                dist->add(prob, r, false);
             }
             dictionary(id, dist);
         } else {

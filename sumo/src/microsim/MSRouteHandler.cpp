@@ -429,7 +429,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
                     throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID
                                        + "'.");
                 }
-                myCurrentRouteDistribution->add(1., route);
+                myCurrentRouteDistribution->add(1., route, false);
             }
         }
     }

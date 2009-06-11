@@ -59,21 +59,23 @@ public:
 
     /** @brief Adds a value with an assigned probability to the distribution.
      *
-     * If the value is already member of the distribution the given probability
-     * is added to the current.
+     * If the value is already member of the distribution and checkDuplicates is
+     * true (the default) the given probability is added to the current.
      * The probability has to be non-negative but values larger than one are
      * allowed (and scaled accordingly when an element is drawn).
      *
      * @param[in] prob The probability assigned to the value
      * @param[in] val The value to add to the distribution
      */
-    void add(SUMOReal prob, T val) {
+    void add(SUMOReal prob, T val, bool checkDuplicates=true) {
         assert(prob>=0);
         myProb += prob;
-        for (size_t i=0; i<myVals.size(); i++) {
-            if (val==myVals[i]) {
-                myProbs[i] += prob;
-                return;
+        if (checkDuplicates) {
+            for (size_t i=0; i<myVals.size(); i++) {
+                if (val==myVals[i]) {
+                    myProbs[i] += prob;
+                    return;
+                }
             }
         }
         myVals.push_back(val);
