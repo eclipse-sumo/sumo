@@ -616,7 +616,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
-        SUMOReal vWish = myType->ffeS(myState.mySpeed, myLane->length()-myState.myPos);
+        SUMOReal vWish = MIN2(myType->ffeS(myState.mySpeed, myLane->length()-myState.myPos), myLane->maxSpeed());
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
             if (MSGlobals::gCheck4Accidents && gap<0) {
