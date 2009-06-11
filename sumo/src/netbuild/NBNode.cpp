@@ -716,10 +716,15 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                 noInitialPoints = 3;
                 init.push_back(beg);
                 Line2D begL = fromE->getLaneShape(fromL).getEndLine();
-                begL.extrapolateSecondBy(100);
                 Line2D endL = toE->getLaneShape(toL).getBegLine();
-                endL.extrapolateFirstBy(100);
-                if (!begL.intersects(endL)) {
+                bool check = !begL.p1().almostSame(begL.p2()) && !endL.p1().almostSame(endL.p2());
+                if(check) {
+                    begL.extrapolateSecondBy(100);
+                    endL.extrapolateFirstBy(100);
+                } else {
+                    MsgHandler::getWarningInstance()->inform("Could not use edge geometry for internal lane, node '" + getID() + "'.");
+                }
+                if (!check||!begL.intersects(endL)) {
                     noSpline = true;
                 } else {
                     init.push_back(begL.intersectsAt(endL));
