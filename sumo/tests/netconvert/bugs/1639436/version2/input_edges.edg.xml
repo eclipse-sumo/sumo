@@ -1,6 +1,0 @@
-<edges>
-	<edge id="1" fromnode="1" tonode="2"/>
-	<edge id="2" fromnode="2" tonode="3"/>
-	<edge id="3" fromnode="3" tonode="4"/>
-	<edge id="4" fromnode="4" tonode="1"/>
-</edges>

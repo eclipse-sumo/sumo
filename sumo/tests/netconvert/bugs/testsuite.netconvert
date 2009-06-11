@@ -8,9 +8,6 @@
 # testing bug 1821668 (false link direction computation)
 1821668
 
-# testing bug 1639436 (Zero length edges give strange error)
-1639436
-
 # testing bug 2392943 (netconvert fails when removing edges and guessing ramps)
 2392943
 
