@@ -224,7 +224,13 @@
         vissim.report-unset-speeds="false"
 
         <!-- Uses priorities from types -->
-        visum.use-net-prio="false"
+        visum.use-type-priority="false"
+
+        <!-- Uses lane numbers from types -->
+        visum.use-type-laneno="false"
+
+        <!-- Uses speeds from types -->
+        visum.use-type-speed="false"
 
         <!-- Sets connector speed -->
         visum.connector-speeds="100"
