@@ -723,6 +723,9 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
     if (myLoadedLength>0) {
         length = myLoadedLength;
     }
+    if(length<=0) {
+        length = (SUMOReal) .1;
+    }
     into << " maxspeed=\"" << lane.speed << "\" length=\"" << length << "\">";
     // the lane's shape
     into << lane.shape;
