@@ -6,3 +6,7 @@
 
 # Test for #11 different route costs in duarouter
 11_different_costs
+
+# Tests for ticket99 (correct duarouter report behaviour)
+ticket99
+

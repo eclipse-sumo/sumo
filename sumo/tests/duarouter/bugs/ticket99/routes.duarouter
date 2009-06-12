@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!-- generated on 06/12/09 15:25:47 by SUMO duarouter Version dev-SVN-r7307
+<configuration>
+
+    <input
+        net-file="input_net.net.xml"
+        trip-defs="input_trips.trips.xml"
+    />
+
+    <output
+        output-file="routes.rou.xml"
+    />
+
+</configuration>
+-->
+
+<routes>
+</routes>
