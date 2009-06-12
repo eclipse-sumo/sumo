@@ -293,16 +293,17 @@ NIVisumLoader::parse_Edges() {
     // get the type
     string type = myLineParser.know("Typ") ? myLineParser.get("Typ") : myLineParser.get("TypNr");
     // get the speed
-    SUMOReal speed = 0;
-    try {
-        speed = myLineParser.know("v0-IV")
-                ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
-                : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
-    } catch (OutOfBoundsException) {}
+    SUMOReal speed = myNetBuilder.getTypeCont().getSpeed(type);;
+    if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
+        try {
+            speed = myLineParser.know("v0-IV")
+                    ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
+                    : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
+            speed = speed / (SUMOReal) 3.6;
+        } catch (OutOfBoundsException) {}
+    }
     if (speed<=0) {
         speed = myNetBuilder.getTypeCont().getSpeed(type);
-    } else {
-        speed = speed / (SUMOReal) 3.6;
     }
 
     // get the information whether the edge is a one-way
@@ -310,14 +311,15 @@ NIVisumLoader::parse_Edges() {
                   ? TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str())
                   : true;
     // get the number of lanes
-    int nolanes = 0;
+    int nolanes = myNetBuilder.getTypeCont().getNoLanes(type);
     if (!OptionsCont::getOptions().getBool("visum.recompute-laneno")) {
         try {
-            nolanes = myLineParser.know("Fahrstreifen")
-                      ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
-                      : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
+            if (!OptionsCont::getOptions().getBool("visum.use-type-laneno")) {
+                nolanes = myLineParser.know("Fahrstreifen")
+                          ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
+                          : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
+            }
         } catch (UnknownElement) {
-            nolanes = myNetBuilder.getTypeCont().getNoLanes(type);
         }
     } else {
         SUMOReal cap = myLineParser.know("KAPIV")

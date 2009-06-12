@@ -213,7 +213,7 @@ NILoader::loadVisum(OptionsCont &oc) {
     // load the visum network
     NIVisumLoader loader(myNetBuilder, oc.getString("visum"),
                          NBCapacity2Lanes(oc.getFloat("capacity-norm")),
-                         oc.getBool("visum.use-net-prio"));
+                         oc.getBool("visum.use-type-priority"));
     loader.load();
 }
 

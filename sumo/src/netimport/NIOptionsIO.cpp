@@ -174,8 +174,14 @@ NIOptionsIO::fillOptions() {
     oc.addDescription("vissim.report-unset-speeds", "Processing", "Writes lanes without an explicite speed set.");
 
     // register further visum-options
-    oc.doRegister("visum.use-net-prio", new Option_Bool(false));
-    oc.addDescription("visum.use-net-prio", "Processing", "Uses priorities from types");
+    oc.doRegister("visum.use-type-priority", new Option_Bool(false));
+    oc.addDescription("visum.use-type-priority", "Processing", "Uses priorities from types");
+
+    oc.doRegister("visum.use-type-laneno", new Option_Bool(false));
+    oc.addDescription("visum.use-type-laneno", "Processing", "Uses lane numbers from types");
+
+    oc.doRegister("visum.use-type-speed", new Option_Bool(false));
+    oc.addDescription("visum.use-type-speed", "Processing", "Uses speeds from types");
 
     oc.doRegister("visum.connector-speeds", new Option_Float(100.));
     oc.addDescription("visum.connector-speeds", "Processing", "Sets connector speed");
