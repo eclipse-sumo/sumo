@@ -166,6 +166,9 @@ protected:
     /// @brief The object used to build of edges of the desired type
     ROAbstractEdgeBuilder &myEdgeBuilder;
 
+    /// @brief Whether deprecated usage of the "vclass" attribute was reported already
+    bool myHaveWarnedAboutDeprecatedVClass;
+
 
 private:
     /// @brief Invalidated copy constructor

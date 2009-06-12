@@ -59,7 +59,7 @@ RONetHandler::RONetHandler(RONet &net,
                            ROAbstractEdgeBuilder &eb)
         : SUMOSAXHandler("sumo-network"),
         myNet(net), myCurrentName(),
-        myCurrentEdge(0), myEdgeBuilder(eb) {}
+        myCurrentEdge(0), myEdgeBuilder(eb), myHaveWarnedAboutDeprecatedVClass(false) {}
 
 
 RONetHandler::~RONetHandler() throw() {}
@@ -206,7 +206,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
     parseVehicleClasses(attrs.getStringSecure(SUMO_ATTR_VCLASSES , ""),
                         attrs.getStringSecure(SUMO_ATTR_ALLOW , ""),
                         attrs.getStringSecure(SUMO_ATTR_DISALLOW , ""),
-                        allowed, disallowed);
+                        allowed, disallowed, myHaveWarnedAboutDeprecatedVClass);
     if (allowed.size()!=0 || disallowed.size() != 0) {
         myNet.setRestrictionFound();
     }
