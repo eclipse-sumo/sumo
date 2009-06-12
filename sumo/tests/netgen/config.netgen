@@ -13,3 +13,4 @@ net:version{->}-->
 
 [floating_point_tolerance]
 net:0.0101
+output:0.0101
