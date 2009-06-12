@@ -1,0 +1,393 @@
+<net>
+
+   <node_count>8</node_count>
+
+
+   <edge id="-beg" from="beg" to="absBeg" function="normal">
+      <lanes>
+         <lane id="-beg_0" depart="1" vclasses="" maxspeed="36.00" length="193.60">48.35,195.25 48.35,1.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-beg2left" from="begleft" to="beg" function="normal">
+      <lanes>
+         <lane id="-beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">3.25,198.35 45.25,198.35</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-beg2right" from="begright" to="beg" function="normal">
+      <lanes>
+         <lane id="-beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">96.75,201.65 54.75,201.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-end" from="absEnd" to="end" function="normal">
+      <lanes>
+         <lane id="-end_0" depart="1" vclasses="" maxspeed="36.00" length="196.90">48.35,801.65 48.35,604.75</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-left" from="endleft" to="begleft" function="normal">
+      <lanes>
+         <lane id="-left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">-1.65,596.75 -1.65,203.25</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-left2end" from="end" to="endleft" function="normal">
+      <lanes>
+         <lane id="-left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">45.25,601.65 3.25,601.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-middle" from="end" to="beg" function="normal">
+      <lanes>
+         <lane id="-middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">48.35,595.25 48.35,204.75</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-right" from="endright" to="begright" function="normal">
+      <lanes>
+         <lane id="-right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">98.35,596.75 98.35,203.25</lane>
+      </lanes>
+   </edge>
+
+   <edge id="-right2end" from="end" to="endright" function="normal">
+      <lanes>
+         <lane id="-right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">54.75,598.35 96.75,598.35</lane>
+      </lanes>
+   </edge>
+
+   <edge id="beg" from="absBeg" to="beg" function="normal">
+      <lanes>
+         <lane id="beg_0" depart="1" vclasses="" maxspeed="36.00" length="196.90">51.65,-1.65 51.65,195.25</lane>
+      </lanes>
+   </edge>
+
+   <edge id="beg2left" from="beg" to="begleft" function="normal">
+      <lanes>
+         <lane id="beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">45.25,201.65 3.25,201.65</lane>
+      </lanes>
+   </edge>
+
+   <edge id="beg2right" from="beg" to="begright" function="normal">
+      <lanes>
+         <lane id="beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">54.75,198.35 96.75,198.35</lane>
+      </lanes>
+   </edge>
+
+   <edge id="end" from="end" to="absEnd" function="normal">
+      <lanes>
+         <lane id="end_0" depart="1" vclasses="" maxspeed="36.00" length="193.60">51.65,604.75 51.65,798.35</lane>
+      </lanes>
+   </edge>
+
+   <edge id="left" from="begleft" to="endleft" function="normal">
+      <lanes>
+         <lane id="left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">1.65,203.25 1.65,596.75</lane>
+      </lanes>
+   </edge>
+
+   <edge id="left2end" from="endleft" to="end" function="normal">
+      <lanes>
+         <lane id="left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">3.25,598.35 45.25,598.35</lane>
+      </lanes>
+   </edge>
+
+   <edge id="middle" from="beg" to="end" function="normal">
+      <lanes>
+         <lane id="middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">51.65,204.75 51.65,595.25</lane>
+      </lanes>
+   </edge>
+
+   <edge id="right" from="begright" to="endright" function="normal">
+      <lanes>
+         <lane id="right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">101.65,203.25 101.65,596.75</lane>
+      </lanes>
+   </edge>
+
+   <edge id="right2end" from="endright" to="end" function="normal">
+      <lanes>
+         <lane id="right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">96.75,601.65 54.75,601.65</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>absBeg</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>absEnd</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>beg</key>
+      <requestsize>16</requestsize>
+      <lanenumber>4</lanenumber>
+      <logic>
+         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+         <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
+         <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
+         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+         <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
+         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+         <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
+         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+         <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
+         <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
+         <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
+         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>begleft</key>
+      <requestsize>4</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="0000" foes="1000"/>
+         <logicitem request="1" response="0100" foes="0100"/>
+         <logicitem request="2" response="0000" foes="0010"/>
+         <logicitem request="3" response="0001" foes="0001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>begright</key>
+      <requestsize>4</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="0000" foes="1000"/>
+         <logicitem request="1" response="0100" foes="0100"/>
+         <logicitem request="2" response="0000" foes="0010"/>
+         <logicitem request="3" response="0001" foes="0001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>end</key>
+      <requestsize>16</requestsize>
+      <lanenumber>4</lanenumber>
+      <logic>
+         <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
+         <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
+         <logicitem request="2" response="0110001100000000" foes="0110001111100000"/>
+         <logicitem request="3" response="0100001000010000" foes="0100001000010000"/>
+         <logicitem request="4" response="0000000000000000" foes="0100001000001000"/>
+         <logicitem request="5" response="0000000000000111" foes="1100011000000111"/>
+         <logicitem request="6" response="0011000000000110" foes="0011111000000110"/>
+         <logicitem request="7" response="0010000100000100" foes="0010000100000100"/>
+         <logicitem request="8" response="0000000000000000" foes="0010000010000100"/>
+         <logicitem request="9" response="0000000001110000" foes="0110000001111100"/>
+         <logicitem request="10" response="0000000001100011" foes="1110000001100011"/>
+         <logicitem request="11" response="0001000001000010" foes="0001000001000010"/>
+         <logicitem request="12" response="0000000000000000" foes="0000100001000010"/>
+         <logicitem request="13" response="0000011100000000" foes="0000011111000110"/>
+         <logicitem request="14" response="0000011000110000" foes="0000011000111110"/>
+         <logicitem request="15" response="0000010000100001" foes="0000010000100001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>endleft</key>
+      <requestsize>4</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="0000" foes="1000"/>
+         <logicitem request="1" response="0100" foes="0100"/>
+         <logicitem request="2" response="0000" foes="0010"/>
+         <logicitem request="3" response="0001" foes="0001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>endright</key>
+      <requestsize>4</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="0000" foes="1000"/>
+         <logicitem request="1" response="0100" foes="0100"/>
+         <logicitem request="2" response="0000" foes="0010"/>
+         <logicitem request="3" response="0001" foes="0001"/>
+      </logic>
+   </row-logic>
+
+
+   <tl-logic type="static">
+      <key>end</key>
+      <logicno>0</logicno>
+      <phaseno>8</phaseno>
+      <offset>0</offset>
+      <inclanes>-end_0 left2end_0 middle_0 right2end_0</inclanes>
+      <phase duration="20" state="GgggrrrrGGggGrrr"/>
+      <phase duration="12" state="ygggrrrryyggyrrr"/>
+      <phase duration="3" state="rGGGrrrrrrGGrrrr"/>
+      <phase duration="12" state="ryyyrrrrrryyrrrr"/>
+      <phase duration="20" state="rrrrGGggrrrrGGgg"/>
+      <phase duration="12" state="rrrryyggrrrryygg"/>
+      <phase duration="3" state="rrrrrrGGrrrrrrGG"/>
+      <phase duration="12" state="rrrrrryyrrrrrryy"/>
+   </tl-logic>
+
+
+   <junction id="absBeg" type="priority" x="50.00" y="0.00">
+      <inclanes>-beg_0</inclanes>
+      <shape>50.05,-0.05 53.25,-3.25 46.75,3.25 49.95,0.05</shape>
+   </junction>
+
+   <junction id="absEnd" type="priority" x="50.00" y="800.00">
+      <inclanes>end_0</inclanes>
+      <shape>49.95,800.05 46.75,803.25 53.25,796.75 50.05,799.95</shape>
+   </junction>
+
+   <junction id="beg" type="priority" x="50.00" y="200.00">
+      <inclanes>-middle_0 -beg2right_0 beg_0 -beg2left_0</inclanes>
+      <shape>46.75,204.75 53.25,204.75 54.75,203.25 54.75,196.75 53.25,195.25 46.75,195.25 45.25,196.75 45.25,203.25</shape>
+   </junction>
+
+   <junction id="begleft" type="priority" x="0.00" y="200.00">
+      <inclanes>-left_0 beg2left_0</inclanes>
+      <shape>-3.25,203.25 3.25,203.25 3.25,196.75</shape>
+   </junction>
+
+   <junction id="begright" type="priority" x="100.00" y="200.00">
+      <inclanes>-right_0 beg2right_0</inclanes>
+      <shape>96.75,203.25 103.25,203.25 96.75,196.75 96.75,203.25</shape>
+   </junction>
+
+   <junction id="end" type="priority" x="50.00" y="600.00">
+      <inclanes>-end_0 right2end_0 middle_0 left2end_0</inclanes>
+      <shape>46.75,604.75 53.25,604.75 54.75,603.25 54.75,596.75 53.25,595.25 46.75,595.25 45.25,596.75 45.25,603.25</shape>
+   </junction>
+
+   <junction id="endleft" type="priority" x="0.00" y="600.00">
+      <inclanes>-left2end_0 left_0</inclanes>
+      <shape>3.25,603.25 3.25,596.75 -3.25,596.75</shape>
+   </junction>
+
+   <junction id="endright" type="priority" x="100.00" y="600.00">
+      <inclanes>right_0 -right2end_0</inclanes>
+      <shape>103.25,596.75 96.75,596.75 96.75,603.25</shape>
+   </junction>
+
+
+   <succ edge="-beg" lane="-beg_0" junction="absBeg">
+      <succlane lane="beg_0" via=":absBeg_0_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="-beg2left" lane="-beg2left_0" junction="beg">
+      <succlane lane="-beg_0" via=":beg_12_0" yield="0" dir="r" state="M"/>
+      <succlane lane="beg2right_0" via=":beg_13_0" yield="1" dir="s" state="m"/>
+      <succlane lane="middle_0" via=":beg_14_0" yield="1" dir="l" state="m"/>
+      <succlane lane="beg2left_0" via=":beg_15_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="-beg2right" lane="-beg2right_0" junction="beg">
+      <succlane lane="middle_0" via=":beg_4_0" yield="0" dir="r" state="M"/>
+      <succlane lane="beg2left_0" via=":beg_5_0" yield="1" dir="s" state="m"/>
+      <succlane lane="-beg_0" via=":beg_6_0" yield="1" dir="l" state="m"/>
+      <succlane lane="beg2right_0" via=":beg_7_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="-end" lane="-end_0" junction="end">
+      <succlane lane="-left2end_0" via=":end_0_0" tl="end" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="-middle_0" via=":end_1_0" tl="end" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="-right2end_0" via=":end_2_0" tl="end" linkno="2" yield="1" dir="l" state="t"/>
+      <succlane lane="end_0" via=":end_3_0" tl="end" linkno="3" yield="1" dir="t" state="t"/>
+   </succ>
+
+   <succ edge="-left" lane="-left_0" junction="begleft">
+      <succlane lane="-beg2left_0" via=":begleft_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="left_0" via=":begleft_1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="-left2end" lane="-left2end_0" junction="endleft">
+      <succlane lane="-left_0" via=":endleft_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="left2end_0" via=":endleft_1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="-middle" lane="-middle_0" junction="beg">
+      <succlane lane="beg2left_0" via=":beg_0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="-beg_0" via=":beg_1_0" yield="1" dir="s" state="m"/>
+      <succlane lane="beg2right_0" via=":beg_2_0" yield="1" dir="l" state="m"/>
+      <succlane lane="middle_0" via=":beg_3_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="-right" lane="-right_0" junction="begright">
+      <succlane lane="-beg2right_0" via=":begright_0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="right_0" via=":begright_1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="-right2end" lane="-right2end_0" junction="endright">
+      <succlane lane="-right_0" via=":endright_2_0" yield="0" dir="r" state="M"/>
+      <succlane lane="right2end_0" via=":endright_3_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="beg" lane="beg_0" junction="beg">
+      <succlane lane="beg2right_0" via=":beg_8_0" yield="0" dir="r" state="M"/>
+      <succlane lane="middle_0" via=":beg_9_0" yield="1" dir="s" state="m"/>
+      <succlane lane="beg2left_0" via=":beg_10_0" yield="1" dir="l" state="m"/>
+      <succlane lane="-beg_0" via=":beg_11_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="beg2left" lane="beg2left_0" junction="begleft">
+      <succlane lane="left_0" via=":begleft_2_0" yield="0" dir="r" state="M"/>
+      <succlane lane="-beg2left_0" via=":begleft_3_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="beg2right" lane="beg2right_0" junction="begright">
+      <succlane lane="right_0" via=":begright_2_0" yield="0" dir="l" state="M"/>
+      <succlane lane="-beg2right_0" via=":begright_3_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="end" lane="end_0" junction="absEnd">
+      <succlane lane="-end_0" via=":absEnd_0_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="left" lane="left_0" junction="endleft">
+      <succlane lane="left2end_0" via=":endleft_2_0" yield="0" dir="r" state="M"/>
+      <succlane lane="-left_0" via=":endleft_3_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="left2end" lane="left2end_0" junction="end">
+      <succlane lane="-middle_0" via=":end_12_0" tl="end" linkno="12" yield="1" dir="r" state="t"/>
+      <succlane lane="-right2end_0" via=":end_13_0" tl="end" linkno="13" yield="1" dir="s" state="t"/>
+      <succlane lane="end_0" via=":end_14_0" tl="end" linkno="14" yield="1" dir="l" state="t"/>
+      <succlane lane="-left2end_0" via=":end_15_0" tl="end" linkno="15" yield="1" dir="t" state="t"/>
+   </succ>
+
+   <succ edge="middle" lane="middle_0" junction="end">
+      <succlane lane="-right2end_0" via=":end_8_0" tl="end" linkno="8" yield="1" dir="r" state="t"/>
+      <succlane lane="end_0" via=":end_9_0" tl="end" linkno="9" yield="1" dir="s" state="t"/>
+      <succlane lane="-left2end_0" via=":end_10_0" tl="end" linkno="10" yield="1" dir="l" state="t"/>
+      <succlane lane="-middle_0" via=":end_11_0" tl="end" linkno="11" yield="1" dir="t" state="t"/>
+   </succ>
+
+   <succ edge="right" lane="right_0" junction="endright">
+      <succlane lane="right2end_0" via=":endright_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="-right_0" via=":endright_1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="right2end" lane="right2end_0" junction="end">
+      <succlane lane="end_0" via=":end_4_0" tl="end" linkno="4" yield="1" dir="r" state="t"/>
+      <succlane lane="-left2end_0" via=":end_5_0" tl="end" linkno="5" yield="1" dir="s" state="t"/>
+      <succlane lane="-middle_0" via=":end_6_0" tl="end" linkno="6" yield="1" dir="l" state="t"/>
+      <succlane lane="-right2end_0" via=":end_7_0" tl="end" linkno="7" yield="1" dir="t" state="t"/>
+   </succ>
+
+
+</net>

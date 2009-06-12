@@ -4,3 +4,6 @@
 # Test for [ 2468327 ] log files together with input errors let sumo crash (should not make problems, was a SUMO issue only)
 2468327
 
+# Tests for ticket99 (correct duarouter report behaviour)
+ticket99
+
