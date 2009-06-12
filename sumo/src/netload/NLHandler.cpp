@@ -81,7 +81,9 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         myShapeBuilder(shapeBuilder), mySucceedingLaneBuilder(junctionBuilder, myContinuations),
-        myAmInTLLogicMode(false), myCurrentIsBroken(false) {}
+        myAmInTLLogicMode(false), myCurrentIsBroken(false),
+        myHaveWarnedAboutDeprecatedVClass(false)
+{}
 
 
 NLHandler::~NLHandler() throw() {}
@@ -402,7 +404,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         parseVehicleClasses(attrs.getStringSecure(SUMO_ATTR_VCLASSES , ""),
                             attrs.getStringSecure(SUMO_ATTR_ALLOW , ""),
                             attrs.getStringSecure(SUMO_ATTR_DISALLOW , ""),
-                            myAllowedClasses, myDisallowedClasses);
+                            myAllowedClasses, myDisallowedClasses, myHaveWarnedAboutDeprecatedVClass);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing attribute in a lane-object (id='" + id + "').\n Can not build according edge.");
         myCurrentIsBroken = true;

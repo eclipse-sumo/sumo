@@ -400,6 +400,9 @@ protected:
 
     bool myCurrentIsBroken;
 
+    /// @brief Whether deprecated usage of the "vclass" attribute was reported already
+    bool myHaveWarnedAboutDeprecatedVClass;
+
 private:
     /** invalid copy constructor */
     NLHandler(const NLHandler &s);

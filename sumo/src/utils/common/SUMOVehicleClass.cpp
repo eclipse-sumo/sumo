@@ -228,9 +228,13 @@ parseVehicleClasses(const std::string &classesS,
                     const std::string &allowedS,
                     const std::string &disallowedS,
                     std::vector<SUMOVehicleClass> &allowed,
-                    std::vector<SUMOVehicleClass> &disallowed) throw() {
+                    std::vector<SUMOVehicleClass> &disallowed,
+                    bool &warnedAboutDeprecatedVClass) throw() {
     if (classesS.length()!=0) {
-        MsgHandler::getWarningInstance()->inform("The vclasses attribute is deprecated. Please rebuilt your network.");
+        if(!warnedAboutDeprecatedVClass) {
+            MsgHandler::getWarningInstance()->inform("The vclasses attribute is deprecated. Please rebuilt your network.");
+            warnedAboutDeprecatedVClass = true;
+        }
         StringTokenizer st(classesS, ";");
         while (st.hasNext()) {
             string next = st.next();

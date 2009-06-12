@@ -261,12 +261,14 @@ extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
  * @param[in] disallowedS Definition which classes are not allowed
  * @param[out] allowed The vector of allowed vehicle classes to fill
  * @param[out] disallowed The vector of disallowed vehicle classes to fill
+ * @param[in, out] warnedAboutDeprecatedVClass Whether a warning about having used the deprecated definition was printed once
  */
 extern void parseVehicleClasses(const std::string &classesS,
                                 const std::string &allowedS,
                                 const std::string &disallowedS,
                                 std::vector<SUMOVehicleClass> &allowed,
-                                std::vector<SUMOVehicleClass> &disallowed) throw();
+                                std::vector<SUMOVehicleClass> &disallowed,
+                                bool &warnedAboutDeprecatedVClass) throw();
 
 
 // ---------------------------------------------------------------------------
