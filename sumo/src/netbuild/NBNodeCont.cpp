@@ -349,11 +349,11 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
             continue;
         }
         for (set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
-            const set<NBTrafficLightDefinition*> &tls = (*j)->getControllingTLS();
-            for (set<NBTrafficLightDefinition*>::const_iterator k=tls.begin(); k!=tls.end(); ++k) {
+            set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
+            (*j)->removeTrafficLights();
+            for (set<NBTrafficLightDefinition*>::iterator k=tls.begin(); k!=tls.end(); ++k) {
                 tlc.remove((*j)->getID());
             }
-            (*j)->removeTrafficLights();
         }
         string id = "joinedS_" + toString(index++);
         NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, c);
