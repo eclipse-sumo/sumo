@@ -181,6 +181,9 @@ main(int argc, char **argv) {
             MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
+        if(MsgHandler::getErrorInstance()->wasInformed()||ret!=0) {
+            throw ProcessError();
+        }
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
