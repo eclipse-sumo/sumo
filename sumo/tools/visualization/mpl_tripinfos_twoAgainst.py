@@ -164,12 +164,12 @@ if options.yticks!="":
     yticks(arange(yb, ye, yd), size = ys)
 if options.xlim!="":
     (xb, xe) = options.xlim.split(",")
-    xlim(xb, xe)
+    xlim(int(xb), int(xe))
 else:
     xlim(min, max)
 if options.ylim!="":
     (yb, ye) = options.ylim.split(",")
-    ylim(yb, ye)
+    ylim(int(yb), int(ye))
 else:
     ylim(min, max)
 # show/save

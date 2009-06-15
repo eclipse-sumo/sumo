@@ -221,12 +221,12 @@ class NetReader(handler.ContentHandler):
            yticks(arange(yb, ye, yd), size = ys)
         if options.xlim!="":
            (xb, xe) = options.xlim.split(",")
-           xlim(xb, xe)
+           xlim(int(xb), int(xe))
         else:
            xlim(xmin, xmax)
         if options.ylim!="":
            (yb, ye) = options.ylim.split(",")
-           ylim(yb, ye)
+           ylim(int(yb), int(ye))
         else:
            ylim(ymin, ymax)
 
