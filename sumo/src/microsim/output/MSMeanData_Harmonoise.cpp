@@ -101,6 +101,10 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
     }
     if(fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
+        return false;
+    }
+    if(fraction==0) {
+        return false;
     }
     SUMOReal a = veh.getPreDawdleAcceleration();
     SUMOReal sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(), (double) newSpeed, (double) a);
@@ -118,6 +122,10 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVeh
     }
     if(fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
+        return false;
+    }
+    if(fraction==0) {
+        return false;
     }
     SUMOReal a = veh.getPreDawdleAcceleration();
     SUMOReal sn = (fraction * HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(), (double) veh.getSpeed(), (double) a));
