@@ -1002,7 +1002,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
     }
     if (gQuitOnEnd) {
         closeAllWindows();
-        getApp()->exit(0);
+        getApp()->exit(ec->getReason() == GUIEvent_SimulationEnded::ER_ERROR_IN_SIM);
     }
 }
 
