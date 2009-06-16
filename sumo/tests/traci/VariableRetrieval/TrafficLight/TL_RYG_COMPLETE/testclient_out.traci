@@ -1,0 +1,58 @@
+TraCITestClient output file. Date: Tue Jun 16 09:41:11 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=10.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=162 varID=43 objID=0
+.. Command acknowledged (162), [description: ]
+  CommandID=178  VariableID=43  ObjectID=0 valueDataType=15 compound value with 38 members: [ 
+ valueDataType=9 Int value: 1
+ valueDataType=12 string value: 0
+ valueDataType=9 Int value: 0
+ valueDataType=15 compound value with 0 members: [ 
+ ]
+ valueDataType=9 Int value: 0
+ valueDataType=9 Int value: 8
+ valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31
+ valueDataType=12 string value: GGggrrrrGGggrrrr
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=12 string value: yyggrrrryyggrrrr
+ valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6
+ valueDataType=12 string value: rrGGrrrrrrGGrrrr
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=12 string value: rryyrrrrrryyrrrr
+ valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31
+ valueDataType=9 Int value: 31
+ valueDataType=12 string value: rrrrGGggrrrrGGgg
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=12 string value: rrrryyggrrrryygg
+ valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6
+ valueDataType=9 Int value: 6
+ valueDataType=12 string value: rrrrrrGGrrrrrrGG
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=9 Int value: 4
+ valueDataType=12 string value: rrrrrryyrrrrrryy
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=20.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
