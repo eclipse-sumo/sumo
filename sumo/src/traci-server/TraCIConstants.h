@@ -356,7 +356,7 @@
 #define TL_PHASE_DURATION 0x24
 
 // complete definition (get: traffic lights)
-#define TL_COMPLETE_DEFINITION 0x25
+#define TL_COMPLETE_DEFINITION_PBY 0x25
 
 // controlled lanes (get: traffic lights)
 #define TL_CONTROLLED_LANES 0x26
@@ -372,6 +372,9 @@
 
 // controlled junctions (get: traffic lights)
 #define TL_CONTROLLED_JUNCTIONS 0x2a
+
+// complete definition (get: traffic lights)
+#define TL_COMPLETE_DEFINITION_RYG 0x2b
 
 
 

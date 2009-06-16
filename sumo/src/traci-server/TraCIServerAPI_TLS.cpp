@@ -59,7 +59,8 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE
-        &&variable!=TL_COMPLETE_DEFINITION&&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
+        &&variable!=TL_COMPLETE_DEFINITION_PBY&&variable!=TL_COMPLETE_DEFINITION_RYG
+        &&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
         &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
@@ -100,7 +101,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeStringList(phaseDef);
         }
         break;
-        case TL_COMPLETE_DEFINITION: {
+        case TL_COMPLETE_DEFINITION_PBY: {
             vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
             tempMsg.writeUnsignedByte(TYPE_COMPOUND);
             Storage tempContent;
@@ -149,6 +150,58 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                     phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
                     phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
                     tempContent.writeStringList(phaseDef);
+                    ++cnt;
+                }
+            }
+            tempMsg.writeInt((int) cnt);
+            tempMsg.writeStorage(tempContent);
+        }
+        break;
+        case TL_COMPLETE_DEFINITION_RYG: {
+            vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            Storage tempContent;
+            unsigned int cnt = 0;
+            tempContent.writeUnsignedByte(TYPE_INTEGER);
+            tempContent.writeInt((int) logics.size());
+            ++cnt;
+            for (unsigned int i=0; i<logics.size(); ++i) {
+                MSTrafficLightLogic *logic = logics[i];
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString(logic->getSubID());
+                ++cnt;
+                // type (always 0 by now)
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt(0);
+                ++cnt; 
+                // subparameter (always 0 by now)
+                tempContent.writeUnsignedByte(TYPE_COMPOUND);
+                tempContent.writeInt(0);
+                ++cnt; 
+                // (current) phase index
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt((int) logic->getCurrentPhaseIndex());
+                ++cnt;
+                // phase number
+                unsigned int phaseNo = logic->getPhaseNumber();
+                tempContent.writeUnsignedByte(TYPE_INTEGER);
+                tempContent.writeInt((int) phaseNo);
+                ++cnt;
+                for (unsigned int j=0; j<phaseNo; ++j) {
+                    MSPhaseDefinition phase = logic->getPhase(j);
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt(phase.duration);
+                    ++cnt;
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt(phase.duration);
+                    ++cnt; // not implemented
+                    tempContent.writeUnsignedByte(TYPE_INTEGER);
+                    tempContent.writeInt(phase.duration);
+                    ++cnt; // not implemented
+                    const std::string &state = phase.getState();
+                    unsigned int linkNo = vars.getActive()->getLinks().size();
+                    tempContent.writeUnsignedByte(TYPE_STRING);
+                    tempContent.writeString(state);
                     ++cnt;
                 }
             }
