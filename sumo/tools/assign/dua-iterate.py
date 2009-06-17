@@ -31,37 +31,36 @@ class TeeFile:
 def writeRouteConf(step, options, file, output, withExitTimes):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
     print >> fd, """<configuration>
-   <input>
-      <net-file>%s</net-file>""" % options.net
+    <input
+        net-file="%s" """ % options.net
     if(step==0):
-        print >> fd, "      <trip-defs>%s</trip-defs>" % file
+        print >> fd, '        trip-defs="%s"' % file
     else:
-        print >> fd, "      <alternatives>%s</alternatives>" % file
-        print >> fd, "      <weights>dump_%s_%s.xml</weights>" % (step-1, options.aggregation)
-    print >> fd, """   </input>
-   <output>
-      <output-file>%s</output-file>
-      <exit-times>%s</exit-times>
-   </output>""" % (output, withExitTimes)
-    print >> fd, """   <processing>
-      <continue-on-unbuild>%s</continue-on-unbuild>
-      <gBeta>%s</gBeta>
-      <gA>%s</gA>
-   </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
+        print >> fd, '        alternatives="%s"' % file
+        print >> fd, '        weights="dump_%s_%s.xml"' % (step-1, options.aggregation)
+    print >> fd, """    />
+    <output
+        output-file="%s"
+        exit-times="%s"
+    />""" % (output, withExitTimes)
+    print >> fd, """    <processing
+        continue-on-unbuild="%s"
+        gBeta="%s"
+        gA="%s"
+    />""" % (options.continueOnUnbuild, options.gBeta, options.gA)
     if options.absrand:
-        print >> fd, """   <random_number>
-        <abs-rand>true</abs-rand>
-   </random_number>"""
-    print >> fd, """   <time>
-      <begin>%s</begin>
-      <end>%s</end>
-   </time>
-   <report>
-      <verbose>%s</verbose>
-      <suppress-warnings>%s</suppress-warnings>
-   </report>
-</configuration>""" % (options.begin, options.end if options.end else sys.maxint,
-                       options.verbose, not options.withWarnings)
+        print >> fd, """    <random_number
+        abs-rand="True"
+    />"""
+    print >> fd, '    <time begin="%s"' % options.begin,
+    if options.end:
+        print >> fd, 'end="%s"' % options.end,
+    print >> fd, """/>
+    <report
+        verbose="%s"
+        suppress-warnings="%s"
+    />
+</configuration>""" % (options.verbose, not options.withWarnings)
     fd.close()
 
 def writeSUMOConf(step, options, files):
