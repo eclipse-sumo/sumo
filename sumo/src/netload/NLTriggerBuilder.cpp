@@ -263,11 +263,12 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     // get the file name to read further definitions from
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
+    SUMOTime freq = attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, 1);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         std::string file = getFileName(attrs, base, true);
         std::string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
-        METriggeredCalibrator* trigger = buildCalibrator(net, id, lane->getEdge(), pos, file, outfile);
+        METriggeredCalibrator* trigger = buildCalibrator(net, id, lane->getEdge(), pos, file, outfile, freq);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
@@ -355,8 +356,9 @@ METriggeredCalibrator*
 NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
                                   const MSEdge *edge, SUMOReal pos,
                                   const std::string &file,
-                                  const std::string &outfile) throw() {
-    return new METriggeredCalibrator(id, edge, pos, file, outfile);
+                                  const std::string &outfile,
+                                  const SUMOTime freq) throw() {
+    return new METriggeredCalibrator(id, edge, pos, file, outfile, freq);
 }
 #endif
 

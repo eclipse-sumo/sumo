@@ -271,9 +271,10 @@ protected:
      * @param[in] file The file to read the flows from
      * @todo Is the position correct/needed
      */
-    virtual METriggeredCalibrator* buildCalibrator(MSNet &net,
+    METriggeredCalibrator* buildCalibrator(MSNet &net,
             const std::string &id, const MSEdge *edge, SUMOReal pos,
-            const std::string &file, const std::string &outfile) throw();
+            const std::string &file, const std::string &outfile,
+            const SUMOTime freq) throw();
 #endif
 
 
