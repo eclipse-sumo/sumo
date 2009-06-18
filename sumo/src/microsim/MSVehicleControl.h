@@ -324,13 +324,6 @@ public:
 
 
 private:
-    /** @brief Deletes the named vehicle
-     *
-     * Removed the vehicle from the internal dictionary
-     * @param[in] id The id of the vehicle to delete
-     */
-    void deleteVehicle(const std::string &id) throw();
-
     /** @brief Checks whether the vehicle type (distribution) may be added
      *
      * Removed the vehicle from the internal dictionary
