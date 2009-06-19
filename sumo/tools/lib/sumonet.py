@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    netmatching.py
 @author  Daniel.Krajzewicz@dlr.de
@@ -48,7 +49,7 @@ class NetEdge:
         self._speed = None
         self._length = None
         self._incoming = []
-        self._outgoing = []
+        self._outgoing = {}
         self._shape = None
 
     def addLane(self, lane):
@@ -56,9 +57,10 @@ class NetEdge:
         self._speed = lane.getSpeed()
         self._length = lane.getLength()
 
-    def addOutgoing(self, edge):
+    def addOutgoing(self, edge, fromlane, tolane, tls, tllink):
         if edge not in self._outgoing:
-            self._outgoing.append(edge)
+            self._outgoing[edge] = []
+        self._outgoing[edge].append( [fromlane, tolane, tls, tllink ] )
 
     def addIncoming(self, edge):
         if edge not in self._incoming:
@@ -103,12 +105,25 @@ class NetNode:
     def addIncoming(self, edge):
         self._incoming.append(edge)
 
+
+class NetTLS:
+    def __init__(self, id):
+        self._id = id
+        self._connections = []
+
+    def addConnection(self, inEdge, outEdge):
+        self._connections.append( [inEdge, outEdge] )
+
+
+
 class Net:
     def __init__(self):
         self._id2node = {}
         self._id2edge = {}
+        self._id2tls = {}
         self._nodes = []
         self._edges = []
+        self._tlss = []
         self._ranges = [ [10000, -10000], [10000, -10000] ]
 
     def addNode(self, id, coord=None):
@@ -140,6 +155,17 @@ class Net:
     def getEdge(self, id):
         return self._id2edge[id]
 
+    def addTLS(self, tlid, inEdge, outEdge):
+        if tlid in self._id2tls:
+            tls = self._id2tls[tlid]
+        else:
+            tls = NetTLS(tlid)
+            self._id2tls[tlid] = tls
+            self._tlss.append(tls)
+        tls.addConnection(inEdge, outEdge)
+
+
+
 
 class NetReader(handler.ContentHandler):
     """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
@@ -169,11 +195,22 @@ class NetReader(handler.ContentHandler):
         if name == 'succ':
             if attrs['edge'][0]!=':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
+                self._currentLane = attrs['lane']
+                self._currentLane = int(self._currentLane[self._currentLane.rfind('_')+1:])
         if name == 'succlane':
             lid = attrs['lane']
             if lid[0]!=':' and lid!="SUMO_NO_DESTINATION":
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
-                self._currentEdge.addOutgoing(connected)
+                tolane = int(lid[lid.rfind('_')+1:])
+                if attrs.has_key('tl') and attrs['tl']!="":
+                    tl = attrs['tl']
+                    tllink = int(attrs['linkno'])
+                    tlid = attrs['tl']
+                    self._net.addTLS(tlid, self._currentEdge, connected)
+                else:
+                    tl = ""
+                    tllink = -1
+                self._currentEdge.addOutgoing(connected, self._currentLane, tolane, tl, tllink)
                 connected.addIncoming(self._currentEdge)
 
     def characters(self, content):
