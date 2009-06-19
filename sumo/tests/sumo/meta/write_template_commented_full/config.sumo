@@ -76,12 +76,6 @@
         <!--  -->
         lanechange.min-sight-edges="8"
 
-        <!-- Disable performance reports for individual simulation steps -->
-        no-duration-log="false"
-
-        <!-- Disable console output of current simulation step -->
-        no-step-log="false"
-
         <!-- How long vehicles wait for departure before being skipped -->
         max-depart-delay="-1"
 
@@ -132,6 +126,12 @@
 
         <!-- Writes all messages to FILE -->
         log-file=""
+
+        <!-- Disable performance reports for individual simulation steps -->
+        no-duration-log="false"
+
+        <!-- Disable console output of current simulation step -->
+        no-step-log="false"
 
         <!-- Writes all non-error messages to FILE -->
         message-log=""

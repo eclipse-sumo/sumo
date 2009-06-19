@@ -32,8 +32,6 @@
         time-to-teleport="300"
         lanechange.min-sight=""
         lanechange.min-sight-edges="8"
-        no-duration-log="false"
-        no-step-log="false"
         max-depart-delay="-1"
     />
 
@@ -55,6 +53,8 @@
         help="false"
         suppress-warnings="false"
         log-file=""
+        no-duration-log="false"
+        no-step-log="false"
         message-log=""
         error-log=""
     />

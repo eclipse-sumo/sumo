@@ -184,12 +184,6 @@ MSFrame::fillOptions() {
     oc.doRegister("lanechange.min-sight-edges", new Option_Integer(8));//!!! check, describe
     oc.addDescription("lanechange.min-sight-edges", "Processing", "");
 
-    oc.doRegister("no-duration-log", new Option_Bool(false));
-    oc.addDescription("no-duration-log", "Processing", "Disable performance reports for individual simulation steps");
-
-    oc.doRegister("no-step-log", new Option_Bool(false));
-    oc.addDescription("no-step-log", "Processing", "Disable console output of current simulation step");
-
     oc.doRegister("max-depart-delay", new Option_Integer(-1));
     oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped");
 
@@ -230,6 +224,12 @@ MSFrame::fillOptions() {
 
 
     // register report options
+    oc.doRegister("no-duration-log", new Option_Bool(false));
+    oc.addDescription("no-duration-log", "Report", "Disable performance reports for individual simulation steps");
+
+    oc.doRegister("no-step-log", new Option_Bool(false));
+    oc.addDescription("no-step-log", "Report", "Disable console output of current simulation step");
+
     oc.doRegister("message-log", new Option_FileName());
     oc.addDescription("message-log", "Report", "Writes all non-error messages to FILE");
 

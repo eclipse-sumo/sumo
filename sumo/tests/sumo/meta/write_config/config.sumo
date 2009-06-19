@@ -10,7 +10,7 @@
         end="100"
     />
 
-    <processing
+    <report
         no-duration-log="true"
     />
 
