@@ -111,12 +111,17 @@ MSDevice_HBEFA::MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw()
 
 MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
     // make the rerouting command invalid
-    myComputeAndCollectCommand->deschedule();
+    if(myComputeAndCollectCommand!=0) {
+        myComputeAndCollectCommand->deschedule();
+    }
 }
 
 
 void
 MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
+    if(myComputeAndCollectCommand!=0) {
+        return;
+    }
     myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
         myComputeAndCollectCommand, MSNet::getInstance()->getCurrentTimeStep(),
@@ -126,6 +131,9 @@ MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
 
 SUMOTime
 MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(ProcessError) {
+    if(!getHolder().isOnRoad()) {
+        return 1;
+    }
     SUMOEmissionClass c = getHolder().getVehicleType().getEmissionClass();
     SUMOReal v = getHolder().getSpeed();
     SUMOReal a = getHolder().getPreDawdleAcceleration();
