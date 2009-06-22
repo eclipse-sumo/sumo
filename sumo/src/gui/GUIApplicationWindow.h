@@ -94,8 +94,6 @@ public:
     virtual void detach();
 
 
-    void loadSelection(const std::string &file) const;
-
     void loadOnStartup(const std::string &config, bool run);
 
 

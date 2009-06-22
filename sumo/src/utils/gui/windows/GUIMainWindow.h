@@ -63,8 +63,6 @@ public:
 
     virtual SUMOTime getCurrentSimTime() const = 0;
 
-    virtual void loadSelection(const std::string &file) const = 0;
-
     virtual void setStatusBarText(const std::string &) { }
 
     FXLabel &getCartesianLabel();

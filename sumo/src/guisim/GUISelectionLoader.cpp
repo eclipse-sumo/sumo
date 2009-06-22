@@ -4,7 +4,7 @@
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
-//  »missingDescription«
+// Helper for loading selections
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -41,14 +41,14 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
+
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-void
-GUISelectionLoader::loadSelection(const std::string &file) {
+bool
+GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) throw() {
     // ok, load all
     std::map<std::string, int> typeMap;
     typeMap["edge"] = GLO_EDGE;
@@ -59,19 +59,23 @@ GUISelectionLoader::loadSelection(const std::string &file) {
     typeMap["tl-logic"] = GLO_TLLOGIC;
     typeMap["vehicle"] = GLO_VEHICLE;
     ifstream strm(file.c_str());
+    if(!strm.good()) {
+        msg = "Could not open '" + file + "'.";
+        return false;
+    }
     while (strm.good()) {
-        string name;
-        strm >> name;
-        if (name.length()==0) {
+        string line;
+        strm >> line;
+        if (line.length()==0) {
             continue;
         }
-        size_t idx = name.find(':');
+        size_t idx = line.find(':');
         if (idx!=string::npos) {
-            string type = name.substr(0, idx);
-            name = name.substr(idx+1);
+            string type = line.substr(0, idx);
+            string name = line.substr(idx+1);
             if (typeMap.find(type)==typeMap.end()) {
-                // !!! inform user or something - the info does not fit to the pattern
-                throw 1;
+                msg = "Unknown type '" + type + "' occured.";
+                return false;
             }
             int itype = typeMap[type];
             int oid = -1;
@@ -106,21 +110,16 @@ GUISelectionLoader::loadSelection(const std::string &file) {
             if (oid>=0) {
                 gSelected.select(itype, oid, false);
             } else {
-                // !!! inform user or something - the object was not found
+                msg = "Item '" + line + "' not found";
+                return false;
             }
         } else {
-            // !!! inform user or something - the info does not fit to the pattern
-            throw 1;
+            msg = "Could not parse entry while loading selection.";
+            return false;
         }
     }
+    return true;
 }
-
-
-GUISelectionLoader::GUISelectionLoader() {}
-
-
-GUISelectionLoader::~GUISelectionLoader() {}
-
 
 
 /****************************************************************************/

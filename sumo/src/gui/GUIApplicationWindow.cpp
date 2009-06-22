@@ -70,7 +70,6 @@
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <guisim/GUINetWrapper.h>
-#include <guisim/GUISelectionLoader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUISettingsHandler.h>
 
@@ -1116,12 +1115,6 @@ GUIApplicationWindow::getDefaultCursor() {
 SUMOTime
 GUIApplicationWindow::getCurrentSimTime() const {
     return myRunThread->getNet().getCurrentTimeStep();
-}
-
-
-void
-GUIApplicationWindow::loadSelection(const std::string &file) const {
-    GUISelectionLoader::loadSelection(file);
 }
 
 

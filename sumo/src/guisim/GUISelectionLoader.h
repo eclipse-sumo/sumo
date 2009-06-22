@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//	»missingDescription«
+// Helper for loading selections
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -36,16 +36,25 @@
 // ===========================================================================
 /**
  * @class GUISelectionLoader
+ * @brief Helper for loading selections
  */
 class GUISelectionLoader {
 public:
-    static void loadSelection(const std::string &file);
+    /** @brief Loads a selection from a given file
+     * @param[in] file The file to load the selection from
+     * @param[out] msg The error message
+     * @return Whether the selection could be loaded (fills the error message if not)
+     */
+    static bool loadSelection(const std::string &file, std::string &msg) throw();
+
 
 protected:
-    /// Constructor
-    GUISelectionLoader();
-    /// Destructor
-    ~GUISelectionLoader();
+    /// @brief invalidated constructor
+    GUISelectionLoader() throw() {}
+
+    /// @brief invalidated destructor
+    ~GUISelectionLoader() throw() {}
+
 };
 
 
