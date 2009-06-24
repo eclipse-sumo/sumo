@@ -7,6 +7,12 @@ one_vehicle
 # two vehicles are moving which have same properties
 two_same_vehicles
 
+
+# Testing begin/end attributes usage
+begin_end
+
+
+
 # Testing error cases
 errors
 

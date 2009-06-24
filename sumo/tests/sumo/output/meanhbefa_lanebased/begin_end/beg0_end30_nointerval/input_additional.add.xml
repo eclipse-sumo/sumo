@@ -1,0 +1,5 @@
+<add>
+
+	<meandata-lane id="dump_15" type="hbefa" file="aggregated_15.xml" excludeEmpty="true" begin="0" end="30"/>
+
+</add>
