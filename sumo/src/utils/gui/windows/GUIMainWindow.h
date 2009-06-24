@@ -68,6 +68,14 @@ public:
     FXLabel &getCartesianLabel();
     FXLabel &getGeoLabel();
 
+    /** @brief Loads a selection from a given file
+     * @param[in] file The file to load the selection from
+     * @param[out] msg The error message
+     * @return Whether the selection could be loaded (fills the error message if not)
+     */
+    virtual bool loadSelection(const std::string &file, std::string &msg) throw() = 0;
+
+
 protected:
     std::vector<FXMDIChild*> mySubWindows;
     std::vector<FXMainWindow*> myTrackerWindows;

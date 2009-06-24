@@ -72,6 +72,7 @@
 #include <guisim/GUINetWrapper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUISettingsHandler.h>
+#include <guisim/GUISelectionLoader.h>
 
 #ifdef HAVE_MESOSIM
 #include <microsim/MSGlobals.h>
@@ -1156,6 +1157,11 @@ GUIApplicationWindow::setStatusBarText(const std::string &text) {
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
 }
 
+
+bool
+GUIApplicationWindow::loadSelection(const std::string &file, std::string &msg) throw() {
+    return GUISelectionLoader::loadSelection(file, msg);
+}
 
 
 /****************************************************************************/

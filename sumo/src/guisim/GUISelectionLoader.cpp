@@ -75,7 +75,7 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
             string name = line.substr(idx+1);
             if (typeMap.find(type)==typeMap.end()) {
                 msg = "Unknown type '" + type + "' occured.";
-                return false;
+                continue;
             }
             int itype = typeMap[type];
             int oid = -1;
@@ -111,11 +111,11 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
                 gSelected.select(itype, oid, false);
             } else {
                 msg = "Item '" + line + "' not found";
-                return false;
+                continue;
             }
         } else {
             msg = "Could not parse entry while loading selection.";
-            return false;
+            continue;
         }
     }
     return true;

@@ -168,6 +168,14 @@ public:
 
     FXCursor *getDefaultCursor();
 
+    /** @brief Loads a selection from a given file
+     * @param[in] file The file to load the selection from
+     * @param[out] msg The error message
+     * @return Whether the selection could be loaded (fills the error message if not)
+     * @see GUIMainWindow::loadSelection
+     */
+    bool loadSelection(const std::string &file, std::string &msg) throw();
+
 protected:
     virtual void addToWindowsMenu(FXMenuPane *) { }
 

@@ -42,7 +42,6 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <guisim/GUISelectionLoader.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -161,7 +160,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*) {
         gCurrentFolder = opendialog.getDirectory();
         string file = opendialog.getFilename().text();
         string msg;
-        if(!GUISelectionLoader::loadSelection(file, msg)) {
+        if(!myParent->loadSelection(file, msg)) {
             FXMessageBox::error(this, MBOX_OK, "Loading failed.", msg.c_str());
         }
         rebuildList();
