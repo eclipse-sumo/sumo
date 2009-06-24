@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<!-- generated on 05/07/09 12:22:33 by SUMO sumo Version dev-SVN-r7121
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>150</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="15" id="dump_15">
+      <edge id="4/1to3/1" sampledSeconds="25.00" noise="63.99"/>
+   </interval>
+   <interval begin="15" end="30" id="dump_15">
+      <edge id="4/1to3/1" sampledSeconds="30.00" noise="64.79"/>
+   </interval>
+   <interval begin="30" end="45" id="dump_15">
+      <edge id="3/1to2/1" sampledSeconds="24.90" noise="63.99"/>
+      <edge id="4/1to3/1" sampledSeconds="5.10" noise="58.46"/>
+   </interval>
+   <interval begin="45" end="60" id="dump_15">
+      <edge id="3/1to2/1" sampledSeconds="30.00" noise="64.79"/>
+   </interval>
+   <interval begin="60" end="75" id="dump_15">
+      <edge id="2/1to1/1" sampledSeconds="6.80" noise="58.46"/>
+      <edge id="3/1to2/1" sampledSeconds="23.20" noise="63.99"/>
+   </interval>
+   <interval begin="75" end="90" id="dump_15">
+      <edge id="2/1to1/1" sampledSeconds="30.00" noise="64.79"/>
+   </interval>
+   <interval begin="90" end="105" id="dump_15">
+      <edge id="2/1to1/1" sampledSeconds="30.00" noise="64.79"/>
+   </interval>
+   <interval begin="105" end="120" id="dump_15">
+      <edge id="1/1to0/1" sampledSeconds="1.70" noise="53.02"/>
+      <edge id="2/1to1/1" sampledSeconds="11.30" noise="61.15"/>
+   </interval>
+   <interval begin="120" end="135" id="dump_15">
+   </interval>
+   <interval begin="135" end="150" id="dump_15">
+   </interval>
+</netstats>
