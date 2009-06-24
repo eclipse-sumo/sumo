@@ -33,7 +33,7 @@
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOAbstractRouter.h>
-#include <utils/common/FloatValueTimeLine.h>
+#include <utils/common/ValueTimeLine.h>
 #include <utils/xml/SAXWeightsHandler.h>
 
 
@@ -229,11 +229,11 @@ protected:
          */
         struct SuppWeights {
             /// The absolute time line
-            FloatValueTimeLine *absolute;
+            ValueTimeLine<SUMOReal> *absolute;
             /// The additive time line
-            FloatValueTimeLine *add;
+            ValueTimeLine<SUMOReal> *add;
             /// The multiplicative time line
-            FloatValueTimeLine *mult;
+            ValueTimeLine<SUMOReal> *mult;
         };
 
         /// A map from edges to supplementary weights

@@ -84,6 +84,7 @@ public:
     void add(SUMOTime begin, SUMOTime end, T value) {
         assert(value>=0);
         assert(begin<=end);
+        end = end - 1;
         // check whether this is the first entry
         if (myValues.size()==0) {
             // ... simply append it in this case and leave
@@ -130,139 +131,7 @@ public:
         assert(!hasOverlaps());
         return;
 
-        /*
-
-        // check whether the item to insert is beyond the current end
-        if(myValues.end()==endP) {
-        	// remove the tail in this case
-        	if(begP!=myValues.end()-1) {
-        		begP = myValues.erase(begP+1, myValues.end()) - 1;
-        	}
-        	// check whether the found begin shall be prunned
-        	if(begP->first.second>begin) {
-        		beg->first.second = begin;
-        	}
-        	myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
-        	assert(!hasOverlaps());
-        	return;
-        }
-        endP--;
-        if(endP==myValues.begin()||begP==endP) {
-        	assert(begP==endP);
-        	T oldVal = begP->second;
-        	unsigned int oldend = begP->first.second;
-        	if(begP->first.first<begin&&begP->first.second>end) {
-        		// insert within
-        		begP->first.second = begin;
-        		begP = myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
-        		myValues.insert(begP+1, ValuedTimeRange(TimeRange(end, oldend), oldVal));
-        		assert(!hasOverlaps());
-        		return;
-        	} else if(begP->first.first<begin) {
-        		// insert leaving information in front
-        		begP->first.second = second;
-        		myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
-        		assert(!hasOverlaps());
-        		return;
-        	} else if(begP->first.second>end) {
-        		// insert leaving information behind
-        		begP->first.first = end;
-        		myValues.insert(begP, ValuedTimeRange(TimeRange(begin, end), value));
-        		assert(!hasOverlaps());
-        		return;
-        	}
-        	assert(begP->first.first==begin&&begP->first.second==end);
-        	begP->second = value;
-        	assert(!hasOverlaps());
-        	return;
-        }
-        if(begP->first.first<begin) {
-        	// insert leaving information in front
-        	begP->first.second = second;
-        	myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
-
-        /		// check whether the new item is partially behind the end
-        if(endP==myValues.end()) {
-        	// crop the old item (which will be the end-2 item)
-        	if(begP->first.second>begin) {
-        		begP->first.second = begin;
-        		begP++;
-        	}
-        	if(begP!=myValues.end()-1) {
-        		myValues.erase(begP, myValues.end());
-        	}
-        	myValues.push_back(ValuedTimeRange(TimeRange(begin, end), value));
-        	return;
-        } else {*/
-        // check whether the item to insert lies within another range
-        /*
-        if(begP==endP) {
-        		// store temporary the real end of the larger range
-        		ValuedTimeRange tmp(TimeRange(end, begP->first.second), begP->second);
-        		begP->first.first = begin;
-        		begP->first.second = end;
-        		begP->second = value;
-        		myValues.insert(begP+1, tmp);
-        		assert(!hasOverlaps());
-        	} else if(begP->first.second<=end) {
-        		// store temporary the real end of the larger range
-        		ValuedTimeRange tmp(TimeRange(end, begP->first.second), begP->second);
-        		begP->first.first = begin;
-        		begP->first.second = end;
-        		begP->second = value;
-        		myValues.insert(begP+1, tmp);
-        		assert(!hasOverlaps());
-        	} else {
-        		// store temporary the real end of the larger range
-        		ValuedTimeRange tmp(TimeRange(end, begP->first.second), begP->second);
-        		begP->first.second = begin;
-        		begP = myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
-        		myValues.insert(begP+1, tmp);
-        		assert(!hasOverlaps());
-        	}
-        }
-        // crop the old item in front if needed
-        if(begP->first.second>begin) {
-        	begP->first.second = begin;
-        	begP++;
-        }
-        // ... and the one behind
-        if(myValues.end()!=endP&&endP->first.first<end) {
-        	endP->first.first = end;
-        	endP--;
-        }
-        begP = myValues.erase(begP, endP);
-
-        /
-        	if(begP!=myValues.end()-1) {
-        		myValues.erase(begP, endP);
-        	}
-        	*/
-        // ... ok, the new item is somewhere in between
-        /*		myValues.insert(begP+1, ValuedTimeRange(TimeRange(begin, end), value));
-                assert(!hasOverlaps());
-        		*/
-//		}
-        // hmmm, any other case?
-//		throw 1;
     }
-
-    /// Adds a ValuedTimeRange into the classes container. The
-    /// container is sorted after the begin of the TimeRange.
-    ///
-    /// @param range TimeRange. Assure that begin < end.
-    /// @param value Value to store.
-    ///
-    /*
-    void addValue(TimeRange range, T value)
-    {
-        assert( range.first < range.second );
-        unsigned intervalStart = range.first;
-        TVVIt insertPos = std::upper_bound( myValues.begin(), myValues.end(),
-                                            intervalStart, TimeRangeLess() );
-        myValues.insert( insertPos, std::make_pair( range, value ) );
-    }
-    */
 
     /// Returns the value for the given time
     T getValue(SUMOTime time) const {
@@ -273,70 +142,6 @@ public:
             i = myValues.end() - 1;
         }
         return (*i).second;
-    }
-
-    /// Searches for a TimeRange in it's TimedValueVector myValues
-    /// that contains the parameter time. If there are several
-    /// possible TimeRanges, one of them will be returned, depending on
-    /// the boundary conditions. But in this case, fix the input!
-    ///
-    /// @param time Search parameter.
-    ///
-    /// @return A pair SearchResult, indicating if the search was
-    /// successful (first). In this case the associated value is
-    /// returned as "second". In the other case, the value of the last
-    /// element is returned.
-    ///
-    SearchResult getSearchStateAndValue(SUMOTime time) const {
-        if (myValues.size() == 0) {
-            return std::make_pair(false, T());
-        }
-        CTVVIt retIt = find_if(myValues.begin(), myValues.end(), min_finder(time));
-        // use the last one if no matching range was found
-        if (retIt==myValues.end()) {
-            return std::make_pair(false, (--retIt)->second);
-        }
-        // check whether it's within a range
-        if (retIt->first.first<=time) {
-            return std::make_pair(true, (retIt)->second);
-        } else {
-            // no, it's within the next range
-            if (retIt==myValues.begin()) {
-                // use the first one if no other previous exist
-                return std::make_pair(false, (retIt)->second);
-            }
-            // use the previous one otherwise
-            return std::make_pair(false, (--retIt)->second);
-        }
-        throw 1; // any other case?
-        /*
-                 if ( time < retIt->first.first ) {
-                     if ( retIt == myValues.begin() ) {
-                         return std::make_pair( false, retIt->second );
-                     }
-                     --retIt;
-                 }
-                 if ( time <= retIt->first.second ) {
-                     return std::make_pair( true, retIt->second );
-                 }
-                 if ( retIt == myValues.end() &&
-                      time <= (--retIt)->first.second ) {
-                     return std::make_pair( true, retIt->second );
-                 }
-                 retIt = myValues.end() - 1;
-                 return std::make_pair( false, retIt->second );
-        */
-    }
-
-    /// Returns the number of known periods
-    size_t noDefinitions() const {
-        return myValues.size();
-    }
-
-    /// Returns the time period description at the given position
-    const TimeRange &getRangeAtPosition(size_t pos) const {
-        assert(pos < myValues.size());
-        return myValues[pos].first;
     }
 
     /// returns the information wehther the values for the given time are known
@@ -362,21 +167,10 @@ public:
         }
         return false;
     }
-    /*
-        void sort() {
-            std::sort(myValues.begin(), myValues.end(), time_sorter());
-            assert(!hasOverlaps());
-        }
-    */
+
     bool empty() const {
         return myValues.size()==0;
     }
-
-    const ValuedTimeRange &getLastRange() const {
-        assert(!empty());
-        return *(myValues.end()-1);
-    }
-
 
     T *buildShortCut(SUMOTime &begin, SUMOTime &end, size_t &maxIndex, SUMOTime &interval) const {
         T *ret;
@@ -384,7 +178,7 @@ public:
         //  in this case!
         assert(myValues.size()!=0);
         assert(!hasOverlaps());
-        interval = myValues.begin()->first.second-myValues.begin()->first.first+1;
+        interval = myValues.begin()->first.second-myValues.begin()->first.first;
         ret = new T[myValues.size()];
         begin = myValues.begin()->first.first;
         end = (myValues.end()-1)->first.second;//begin + myValues.size() * interval;
@@ -458,24 +252,6 @@ private:
 
         int operator()(const ValuedTimeRange &p1, const ValuedTimeRange &p2) {
             return p1.first.first<p2.first.first;
-        }
-    };
-
-    /// Predicates for (binary) ordering and searching in a
-    /// TimedValueVector. The first value of TimeRange is used for
-    /// ordering and searching. If necessary, check for the second
-    /// one yourself.
-    struct TimeRangeLess :
-                std::binary_function< unsigned, ValuedTimeRange, bool > {
-        /// predicate to use with upper_bound.
-        bool operator()(const unsigned searchTime,
-                        const ValuedTimeRange& valuedRange) const {
-            return searchTime < valuedRange.first.first;
-        }
-        /// predicate to use with lower_bound
-        bool operator()(const ValuedTimeRange& valuedRange,
-                        const unsigned searchTime) const {
-            return searchTime > valuedRange.first.first;
         }
     };
 

@@ -32,7 +32,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/common/FloatValueTimeLine.h>
+#include <utils/common/ValueTimeLine.h>
 #include <router/ROEdge.h>
 
 
@@ -99,7 +99,7 @@ public:
 
 private:
     /// Definition of a map that stores the probabilities of using a certain follower over time
-    typedef std::map<ROJTREdge*, FloatValueTimeLine*> FollowerUsageCont;
+    typedef std::map<ROJTREdge*, ValueTimeLine<SUMOReal>*> FollowerUsageCont;
 
     /// Storage for the probabilities of using a certain follower over time
     FollowerUsageCont myFollowingDefs;

@@ -34,6 +34,7 @@
 #include <fx.h>
 #include <gui/GUIAddWeightsStorage.h>
 #include <utils/xml/SAXWeightsHandler.h>
+#include <utils/common/ValueTimeLine.h>
 
 
 // ===========================================================================
@@ -41,7 +42,6 @@
 // ===========================================================================
 class GUIApplicationWindow;
 class MFXAddEditTypedTable;
-class FloatValueTimeLine;
 class MSEdge;
 
 
@@ -150,11 +150,11 @@ protected:
          */
         struct SuppWeights {
             /// The absolute time line
-            FloatValueTimeLine *absolute;
+            ValueTimeLine<SUMOReal> *absolute;
             /// The additive time line
-            FloatValueTimeLine *add;
+            ValueTimeLine<SUMOReal> *add;
             /// The multiplicative time line
-            FloatValueTimeLine *mult;
+            ValueTimeLine<SUMOReal> *mult;
         };
 
         /// A map from edges to supplementary weights

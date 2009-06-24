@@ -36,7 +36,7 @@
 #include "MSLinkCont.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/FloatValueTimeLine.h>
+#include <utils/common/ValueTimeLine.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -488,7 +488,7 @@ protected:
     /// @name Edge weights container
     /// @deprecated
     /// @{
-    FloatValueTimeLine myOwnValueLine;
+    ValueTimeLine<SUMOReal> myOwnValueLine;
     mutable bool myHaveBuildShortCut;
     bool myHaveLoadedWeights;
     mutable SUMOReal *myPackedValueLine;

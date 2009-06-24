@@ -146,9 +146,9 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::addTypedWeight(Typ
     }
     if (myWeights.find(e)==myWeights.end()) {
         SuppWeights weights;
-        weights.absolute = new FloatValueTimeLine();
-        weights.add = new FloatValueTimeLine();
-        weights.mult = new FloatValueTimeLine();
+        weights.absolute = new ValueTimeLine<SUMOReal>();
+        weights.add = new ValueTimeLine<SUMOReal>();
+        weights.mult = new ValueTimeLine<SUMOReal>();
     }
     switch (type) {
     case ABSOLUTE:

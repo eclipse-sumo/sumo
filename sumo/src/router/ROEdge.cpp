@@ -140,11 +140,11 @@ ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() 
 
 SUMOReal
 ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
-    FloatValueTimeLine::SearchResult searchResult;
-    FloatValueTimeLine::SearchResult supplementarySearchResult;
+    ValueTimeLine<SUMOReal>::SearchResult searchResult;
+    ValueTimeLine<SUMOReal>::SearchResult supplementarySearchResult;
     // check whether an absolute value shalle be used
     if (myHasSupplementaryWeights) {
-        searchResult = mySupplementaryWeightAbsolut->getSearchStateAndValue(time);
+//        searchResult = mySupplementaryWeightAbsolut->getSearchStateAndValue(time);
         if (searchResult.first) {
             // ok, we have an absolute value for this time step, return it
             return searchResult.second;
@@ -187,12 +187,12 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
     // check for additional values
     if (myHasSupplementaryWeights == true) {
         // for factors
-        supplementarySearchResult = mySupplementaryWeightMult->getSearchStateAndValue(time);
+//        supplementarySearchResult = mySupplementaryWeightMult->getSearchStateAndValue(time);
         if (supplementarySearchResult.first) {
             value *= supplementarySearchResult.second;
         }
         // for a value to add
-        supplementarySearchResult = mySupplementaryWeightAdd->getSearchStateAndValue(time);
+//        supplementarySearchResult = mySupplementaryWeightAdd->getSearchStateAndValue(time);
         if (supplementarySearchResult.first) {
             value += supplementarySearchResult.second;
         }
@@ -218,9 +218,9 @@ ROEdge::setType(ROEdge::EdgeType type) throw() {
 
 
 void
-ROEdge::setSupplementaryWeights(FloatValueTimeLine* absolut,
-                                FloatValueTimeLine* add,
-                                FloatValueTimeLine* mult) {
+ROEdge::setSupplementaryWeights(ValueTimeLine<SUMOReal>* absolut,
+                                ValueTimeLine<SUMOReal>* add,
+                                ValueTimeLine<SUMOReal>* mult) {
     mySupplementaryWeightAbsolut = absolut;
     mySupplementaryWeightAdd     = add;
     mySupplementaryWeightMult    = mult;

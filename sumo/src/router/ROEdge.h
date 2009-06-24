@@ -32,7 +32,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/common/FloatValueTimeLine.h>
+#include <utils/common/ValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "RONode.h"
 
@@ -258,18 +258,18 @@ public:
 
     /** @brief Sets additional weight information
      *
-     * Takes pointers to FloatValueTimeLines and assigns them to the classes
-     *  supplementary weights. You must provide all three FloatValueTimeLines
+     * Takes pointers to ValueTimeLines and assigns them to the classes
+     *  supplementary weights. You must provide all three ValueTimeLines
      *  and they must be valid objects. These objects will be deleted on deletion
      *  of this ROEdge. The flag hasSupplementaryWeights will be set to true and
      *  getMyEffort() will use this supplementary weights in subsequent calls.
-     * @param[in] absolut Pointer to the absolut-FloatValueTimeLine.
-     * @param[in] add Pointer to the add-FloatValueTimeLine.
-     * @param[in] mult Pointer to the mult-FloatValueTimeLine.
+     * @param[in] absolut Pointer to the absolut-ValueTimeLine.
+     * @param[in] add Pointer to the add-ValueTimeLine.
+     * @param[in] mult Pointer to the mult-ValueTimeLine.
      */
-    void setSupplementaryWeights(FloatValueTimeLine* absolut,
-                                 FloatValueTimeLine* add,
-                                 FloatValueTimeLine* mult);
+    void setSupplementaryWeights(ValueTimeLine<SUMOReal>* absolut,
+                                 ValueTimeLine<SUMOReal>* add,
+                                 ValueTimeLine<SUMOReal>* mult);
     //@}
 
 
@@ -283,14 +283,14 @@ protected:
 
 
     /// @brief Container storing passing time varying over time for the edge
-    FloatValueTimeLine myOwnValueLine;
+    ValueTimeLine<SUMOReal> myOwnValueLine;
 
     /// @brief "Absolut" supplementary weights.
-    FloatValueTimeLine* mySupplementaryWeightAbsolut;
+    ValueTimeLine<SUMOReal>* mySupplementaryWeightAbsolut;
     /// @brief "Add" supplementary weights.
-    FloatValueTimeLine* mySupplementaryWeightAdd;
+    ValueTimeLine<SUMOReal>* mySupplementaryWeightAdd;
     /// @brief "Multiplication" supplementary weights.
-    FloatValueTimeLine* mySupplementaryWeightMult;
+    ValueTimeLine<SUMOReal>* mySupplementaryWeightMult;
     /// @brief Flag that indicates, if the supplementary weights have been set. Initially false.
     bool myHasSupplementaryWeights;
 

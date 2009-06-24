@@ -64,7 +64,7 @@ ROJTREdge::addFollower(ROEdge *s) throw() {
     ROEdge::addFollower(s);
     ROJTREdge *js = static_cast<ROJTREdge*>(s);
     if (myFollowingDefs.find(js)==myFollowingDefs.end()) {
-        myFollowingDefs[js] = new FloatValueTimeLine();
+        myFollowingDefs[js] = new ValueTimeLine<SUMOReal>();
     }
 }
 
