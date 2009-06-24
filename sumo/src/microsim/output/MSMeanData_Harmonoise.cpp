@@ -254,7 +254,7 @@ void
 MSMeanData_Harmonoise::writeXMLOutput(OutputDevice &dev,
                                       SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
-    if (myDumpBegin < stopTime && myDumpEnd >= startTime) {
+    if (myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime) {
         dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
         stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
