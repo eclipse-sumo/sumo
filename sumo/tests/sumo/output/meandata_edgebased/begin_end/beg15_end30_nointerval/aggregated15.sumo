@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 06/24/09 14:49:43 by SUMO sumo Version dev-SVN-r7339
+<configuration>
+
+    <input
+        net-file="net.net.xml"
+        additional-files="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"
+    />
+
+    <time
+        begin="0"
+        end="150"
+    />
+
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="15" end="30" id="dump_15">
+      <edge id="4/1to3/1" traveltime="39.05" sampledSeconds="30.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+   </interval>
+</netstats>
