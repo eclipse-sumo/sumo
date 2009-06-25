@@ -375,7 +375,7 @@ protected:
         /// @brief Number of times the vehicle was touched when being within the container
         unsigned samples;
         /// @brief Begin time of last halt begin
-        SUMOTime haltingBegin;
+        SUMOReal haltingBegin;
         /// @brief The sum of registered speeds the vehicle has/had inside the area during the current interval
         SUMOReal intervalSpeedSum;
         /// @brief The sum of haltings the vehicle has/had within the area during the current interval

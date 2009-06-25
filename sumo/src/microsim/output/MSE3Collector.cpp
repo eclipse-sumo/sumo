@@ -149,15 +149,23 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw() {
         return;
     }
     veh.quitRemindedEntered(this);
+    SUMOReal entryTimestepFraction = (SUMOReal)((int) entryTimestep) + DELTA_T - entryTimestep;
+    SUMOReal speedFraction = (veh.getSpeed() * entryTimestepFraction);
     E3Values v;
     v.entryTime = entryTimestep;
     v.leaveTime = 0;
-    v.speedSum = 0;
-    v.haltings = 0;
+    v.speedSum = speedFraction;
     v.samples = 0;
-    v.haltingBegin = -1;
-    v.intervalSpeedSum = 0;
+    v.haltingBegin = veh.getSpeed() < myHaltingSpeedThreshold ? entryTimestep : -1;
+    v.intervalSpeedSum = speedFraction;
+    v.haltings = 0;
     v.intervalHaltings = 0;
+    if (veh.getSpeed() < myHaltingSpeedThreshold) {
+        if (1.-entryTimestepFraction>myHaltingTimeThreshold) {
+            v.haltings++;
+            v.intervalHaltings++;
+        }
+    }
     myEnteredContainer[&veh] = v;
 }
 
@@ -170,12 +178,18 @@ MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw() {
         E3Values values = myEnteredContainer[&veh];
         values.leaveTime = leaveTimestep;
         SUMOReal leaveTimestepFraction = leaveTimestep - (SUMOReal)((int) leaveTimestep);
-        SUMOReal speedFraction = (veh.getSpeed() * leaveTimestepFraction);
-        values.speedSum += speedFraction;
-        values.intervalSpeedSum += speedFraction;
-        if (veh.getSpeed() < myHaltingSpeedThreshold && values.haltingBegin!=-1 && leaveTimestep-values.haltingBegin>myHaltingTimeThreshold) {
-            values.haltings++;
-            values.intervalHaltings++;
+        if(values.leaveTime-DELTA_T>values.entryTime) {
+            SUMOReal speedFraction = (veh.getSpeed() * leaveTimestepFraction);
+            values.speedSum += speedFraction;
+            values.intervalSpeedSum += speedFraction;
+            if (veh.getSpeed() < myHaltingSpeedThreshold && values.haltingBegin!=-1 && leaveTimestep-values.haltingBegin>myHaltingTimeThreshold) {
+                values.haltings++;
+                values.intervalHaltings++;
+            }
+        } else {
+            SUMOReal speedFraction = (veh.getSpeed() * SUMOReal(1. - leaveTimestepFraction));
+            values.speedSum -= speedFraction;
+            values.intervalSpeedSum -= speedFraction;
         }
         myEnteredContainer.erase(&veh);
         myLeftContainer[&veh] = values;
@@ -280,18 +294,20 @@ MSE3Collector::update(SUMOTime execTime) throw() {
     for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         MSVehicle* veh = pair->first;
         E3Values& values = pair->second;
-        if (values.samples!=0) {
+        if(values.entryTime>=execTime) {
+            // vehicle entered at this time step
+            SUMOReal fraction = execTime + DELTA_T - values.entryTime;
+            myCurrentMeanSpeed += fraction * veh->getSpeed();
+            myCurrentTouchedVehicles += fraction;
+            if(values.haltingBegin>=0) {
+                myCurrentHaltingsNumber++;
+            }
+            continue;
+        }
             values.speedSum += veh->getSpeed();
             values.intervalSpeedSum += veh->getSpeed();
             myCurrentMeanSpeed += veh->getSpeed();
             myCurrentTouchedVehicles += 1;
-        } else {
-            SUMOReal entryTimestepFraction = (SUMOReal)((int) values.entryTime) + 1 - values.entryTime;
-            values.speedSum += (veh->getSpeed() * entryTimestepFraction);
-            values.intervalSpeedSum += (veh->getSpeed() * entryTimestepFraction);
-            myCurrentMeanSpeed += (veh->getSpeed() * entryTimestepFraction);
-            myCurrentTouchedVehicles += entryTimestepFraction;
-        }
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
             if (values.haltingBegin==-1) {
                 values.haltingBegin = execTime;

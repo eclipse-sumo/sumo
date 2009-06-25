@@ -223,6 +223,7 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw() {
     }
     // induct loops do not need to be updated...
     // vtypeprobes do not need to be updated...
+    // ... but harmonoise
     for (vector<MSMeanData_Harmonoise*>::const_iterator i=myHarmonoiseDetectors.begin(); i!=myHarmonoiseDetectors.end(); ++i) {
         (*i)->update();
     }
