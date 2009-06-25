@@ -95,97 +95,6 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
 
 
 // ---------------------------------------------------------------------------
-// ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever - methods
-// ---------------------------------------------------------------------------
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::SingleWeightRetriever(
-    Type type, EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight *parent)
-        : myType(type), myParent(parent) {}
-
-
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::~SingleWeightRetriever() {}
-
-
-void
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever::addEdgeWeight(
-    const std::string &id, SUMOReal val, SUMOTime beg, SUMOTime end) {
-    myParent->addTypedWeight(myType, id, val, beg, end);
-}
-
-
-
-// ---------------------------------------------------------------------------
-// ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight - methods
-// ---------------------------------------------------------------------------
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight(RONet *net)
-        : myNet(net) {
-    myAbsoluteRetriever = new SingleWeightRetriever(ABSOLUTE, this);
-    myAddRetriever = new SingleWeightRetriever(ADD, this);
-    myMultRetriever = new SingleWeightRetriever(MULT, this);
-}
-
-
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::~EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight() {
-    std::map<ROEdge*, SuppWeights>::iterator i;
-    for (i=myWeights.begin(); i!=myWeights.end(); ++i) {
-        (*i).first->setSupplementaryWeights(
-            (*i).second.absolute, (*i).second.add, (*i).second.mult);
-    }
-    delete myAbsoluteRetriever;
-    delete myAddRetriever;
-    delete myMultRetriever;
-}
-
-
-void
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::addTypedWeight(Type type, const std::string &id,
-        SUMOReal val, SUMOTime beg, SUMOTime end) {
-    ROEdge *e = myNet->getEdge(id);
-    if (e==0) {
-        MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
-        return;
-    }
-    if (myWeights.find(e)==myWeights.end()) {
-        SuppWeights weights;
-        weights.absolute = new ValueTimeLine<SUMOReal>();
-        weights.add = new ValueTimeLine<SUMOReal>();
-        weights.mult = new ValueTimeLine<SUMOReal>();
-    }
-    switch (type) {
-    case ABSOLUTE:
-        myWeights[e].absolute->add(beg, end, val);
-        break;
-    case ADD:
-        myWeights[e].add->add(beg, end, val);
-        break;
-    case MULT:
-        myWeights[e].mult->add(beg, end, val);
-        break;
-    default:
-        break;
-    }
-}
-
-
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever &
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getAbsoluteRetriever() {
-    return *myAbsoluteRetriever;
-}
-
-
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever &
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getAddRetriever() {
-    return *myAddRetriever;
-}
-
-
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::SingleWeightRetriever &
-ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getMultRetriever() {
-    return *myMultRetriever;
-}
-
-
-
-// ---------------------------------------------------------------------------
 // ROLoader - methods
 // ---------------------------------------------------------------------------
 ROLoader::ROLoader(OptionsCont &oc, bool emptyDestinationsAllowed) throw()
@@ -411,7 +320,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
 
 bool
 ROLoader::loadWeights(RONet &net, const std::string &file,
-                      bool useLanes) {
+                      const std::string &measure, bool useLanes) {
     // check whether the file exists
     if (!FileHelpers::exists(file)) {
         MsgHandler::getErrorInstance()->inform("The weights file '" + file + "' does not exist!");
@@ -419,7 +328,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     }
     // build and prepare the weights handler
     EdgeFloatTimeLineRetriever_EdgeWeight retriever(&net);
-    SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", !useLanes, retriever);
+    SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition(measure, !useLanes, retriever);
     SAXWeightsHandler handler(def, file);
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights...");
     // build and prepare the parser
@@ -429,28 +338,6 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         return false;
-    }
-}
-
-
-void
-ROLoader::loadSupplementaryWeights(RONet& net) {
-    string filename = myOptions.getString("supplementary-weights");
-    if (! FileHelpers::exists(filename)) {
-        throw ProcessError("Could not open the supplementary-weights file '" + filename + "'.");
-    }
-    EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight retriever(&net);
-    std::vector<SAXWeightsHandler::ToRetrieveDefinition*> defs;
-    defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("absolute", true, retriever.getAbsoluteRetriever()));
-    defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("summand", true, retriever.getAddRetriever()));
-    defs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("factor", true, retriever.getMultRetriever()));
-    SAXWeightsHandler handler(defs, filename);
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights.");
-    if (XMLSubSys::runParser(handler, filename)) {
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    } else {
-        throw ProcessError("failed.");
-
     }
 }
 

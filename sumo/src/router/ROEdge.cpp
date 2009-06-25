@@ -59,23 +59,14 @@ bool ROEdge::myHaveWarned = false;
 // ===========================================================================
 ROEdge::ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw()
         : myID(id), mySpeed(-1),
-        mySupplementaryWeightAbsolut(0),
-        mySupplementaryWeightAdd(0),
-        mySupplementaryWeightMult(0),
         myUsingTimeLine(false),
-        myIndex(index), myLength(-1), myHasSupplementaryWeights(false),
-        myUseBoundariesOnOverride(useBoundariesOnOverride),
-        myHaveBuildShortCut(false), myPackedValueLine(0) {}
+        myIndex(index), myLength(-1), myHaveGapsFilled(false) {}
 
 
 ROEdge::~ROEdge() throw() {
     for (std::vector<ROLane*>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         delete(*i);
     }
-    delete mySupplementaryWeightAbsolut;
-    delete mySupplementaryWeightAdd;
-    delete mySupplementaryWeightMult;
-    delete[] myPackedValueLine;
 }
 
 
@@ -140,64 +131,20 @@ ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() 
 
 SUMOReal
 ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
-    ValueTimeLine<SUMOReal>::SearchResult searchResult;
-    ValueTimeLine<SUMOReal>::SearchResult supplementarySearchResult;
-    // check whether an absolute value shalle be used
-    if (myHasSupplementaryWeights) {
-//        searchResult = mySupplementaryWeightAbsolut->getSearchStateAndValue(time);
-        if (searchResult.first) {
-            // ok, we have an absolute value for this time step, return it
-            return searchResult.second;
-        }
-    }
-
     // ok, no absolute value was found, use the normal value (without)
     //  weight as default
     SUMOReal value = (SUMOReal)(myLength / mySpeed);
     if (myUsingTimeLine) {
-        if (!myHaveBuildShortCut) {
-            myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
-            myHaveBuildShortCut = true;
+        if (!myHaveGapsFilled) {
+            myOwnValueLine.fillGaps(value);
+            myHaveGapsFilled = true;
         }
-        if (myShortCutBegin>time||myShortCutEnd<time) {
-            if (myUseBoundariesOnOverride) {
-                if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using first/last entry.");
-                    myHaveWarned = true;
-                }
-                if (myShortCutBegin>time) {
-                    value = myPackedValueLine[0];
-                } else {
-                    value = myPackedValueLine[myLastPackedIndex];
-                }
-            } else {
-                // value is already set
-                //  warn if wished
-                if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
-                    myHaveWarned = true;
-                }
-            }
-        } else {
-            unsigned int index = (unsigned int)((time-myShortCutBegin)/myShortCutInterval);
-            return myPackedValueLine[index];
+        if (!myHaveWarned && !myOwnValueLine.describesTime(time)) {
+            WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using first/last entry.");
+            myHaveWarned = true;
         }
+        return myOwnValueLine.getValue(time);
     }
-
-    // check for additional values
-    if (myHasSupplementaryWeights == true) {
-        // for factors
-//        supplementarySearchResult = mySupplementaryWeightMult->getSearchStateAndValue(time);
-        if (supplementarySearchResult.first) {
-            value *= supplementarySearchResult.second;
-        }
-        // for a value to add
-//        supplementarySearchResult = mySupplementaryWeightAdd->getSearchStateAndValue(time);
-        if (supplementarySearchResult.first) {
-            value += supplementarySearchResult.second;
-        }
-    }
-    // return final value
     return value;
 }
 
@@ -214,20 +161,6 @@ ROEdge::getNoFollowing() const throw() {
 void
 ROEdge::setType(ROEdge::EdgeType type) throw() {
     myType = type;
-}
-
-
-void
-ROEdge::setSupplementaryWeights(ValueTimeLine<SUMOReal>* absolut,
-                                ValueTimeLine<SUMOReal>* add,
-                                ValueTimeLine<SUMOReal>* mult) {
-    mySupplementaryWeightAbsolut = absolut;
-    mySupplementaryWeightAdd     = add;
-    mySupplementaryWeightMult    = mult;
-    assert(mySupplementaryWeightAbsolut != 0 &&
-           mySupplementaryWeightAdd     != 0 &&
-           mySupplementaryWeightMult    != 0);
-    myHasSupplementaryWeights = true;
 }
 
 

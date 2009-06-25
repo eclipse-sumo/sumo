@@ -71,8 +71,7 @@ std::vector<MSEdge*> MSEdge::myEdges;
 MSEdge::MSEdge(const std::string &id, unsigned int numericalID) throw()
         : myID(id), myNumericalID(numericalID), myLanes(0),
         myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1),
-        myHaveLoadedWeights(false), myHaveBuildShortCut(false),
-        myPackedValueLine(0), myUseBoundariesOnOverride(true)//!!!
+        myHaveLoadedWeights(false), myHaveGapsFilled(false)//!!!
 {}
 
 
@@ -375,32 +374,11 @@ MSEdge::getEffort(SUMOTime forTime) const throw() {
     if (!myHaveLoadedWeights) {
         return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
     }
-    if (!myHaveBuildShortCut) {
-        myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
-        myHaveBuildShortCut = true;
+    if (!myHaveGapsFilled) {
+        myOwnValueLine.fillGaps((*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed());
+        myHaveGapsFilled = true;
     }
-    if (myShortCutBegin>forTime||myShortCutEnd<forTime) {
-        if (myUseBoundariesOnOverride) {
-            if (!myHaveWarned) {
-                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(forTime)  + " in edge '" + getID() + "'.\n Using first/last entry.");
-                myHaveWarned = true;
-            }
-            if (myShortCutBegin>forTime) {
-                return myPackedValueLine[0];
-            } else {
-                return myPackedValueLine[myLastPackedIndex];
-            }
-        } else {
-            // value is already set
-            //  warn if wished
-            if (!myHaveWarned) {
-                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(forTime)  + " in edge '" + getID() + "'.\n Using edge's length / edge's speed.");
-                myHaveWarned = true;
-            }
-        }
-    }
-    unsigned int index = (unsigned int)((forTime-myShortCutBegin)/myShortCutInterval);
-    return myPackedValueLine[index];
+    return myOwnValueLine.getValue(forTime);
 }
 
 

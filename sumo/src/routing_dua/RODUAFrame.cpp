@@ -47,12 +47,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -104,14 +98,6 @@ RODUAFrame::addImportOptions() {
 void
 RODUAFrame::addDUAOptions() {
     OptionsCont &oc = OptionsCont::getOptions();
-    // register additional options
-    oc.doRegister("supplementary-weights", 'S', new Option_FileName());
-    oc.addSynonyme("supplementary-weights", "add");
-    oc.addDescription("supplementary-weights", "Input", "Read additional weights from FILE");
-
-    oc.doRegister("scheme", 'x', new Option_String("traveltime"));
-    oc.addDescription("scheme", "Processing", "");
-
     // register Gawron's DUE-settings
     oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
     oc.addDescription("gBeta", "Processing", "Use FLOAT as Gawron's beta");

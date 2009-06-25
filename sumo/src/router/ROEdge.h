@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "RONode.h"
@@ -254,22 +255,6 @@ public:
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
     SUMOReal getEffort(const ROVehicle * const veh, SUMOTime time) const throw();
-
-
-    /** @brief Sets additional weight information
-     *
-     * Takes pointers to ValueTimeLines and assigns them to the classes
-     *  supplementary weights. You must provide all three ValueTimeLines
-     *  and they must be valid objects. These objects will be deleted on deletion
-     *  of this ROEdge. The flag hasSupplementaryWeights will be set to true and
-     *  getMyEffort() will use this supplementary weights in subsequent calls.
-     * @param[in] absolut Pointer to the absolut-ValueTimeLine.
-     * @param[in] add Pointer to the add-ValueTimeLine.
-     * @param[in] mult Pointer to the mult-ValueTimeLine.
-     */
-    void setSupplementaryWeights(ValueTimeLine<SUMOReal>* absolut,
-                                 ValueTimeLine<SUMOReal>* add,
-                                 ValueTimeLine<SUMOReal>* mult);
     //@}
 
 
@@ -283,29 +268,11 @@ protected:
 
 
     /// @brief Container storing passing time varying over time for the edge
-    ValueTimeLine<SUMOReal> myOwnValueLine;
-
-    /// @brief "Absolut" supplementary weights.
-    ValueTimeLine<SUMOReal>* mySupplementaryWeightAbsolut;
-    /// @brief "Add" supplementary weights.
-    ValueTimeLine<SUMOReal>* mySupplementaryWeightAdd;
-    /// @brief "Multiplication" supplementary weights.
-    ValueTimeLine<SUMOReal>* mySupplementaryWeightMult;
-    /// @brief Flag that indicates, if the supplementary weights have been set. Initially false.
-    bool myHasSupplementaryWeights;
-
+    mutable ValueTimeLine<SUMOReal> myOwnValueLine;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTimeLine;
-    /// @brief Whether overriding weight boundaries shall be reported
-    bool myUseBoundariesOnOverride;
-    /// @brief Whether overriding weight shortcur has been built
-    mutable bool myHaveBuildShortCut;
-    /// @brief The weight shortcut
-    mutable SUMOReal *myPackedValueLine;
-    /// @brief The weight shortcut's parameter
-    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
-    /// @brief Index of the last weights shortcut
-    mutable size_t myLastPackedIndex;
+    /// @brief Whether gaps in the timeline have been filled
+    mutable bool myHaveGapsFilled;
 
     /// @brief Information whether the edge has reported missing weights
     static bool myHaveWarned;

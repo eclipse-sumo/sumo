@@ -65,12 +65,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // functions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -88,27 +82,27 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
     ROJTREdgeBuilder builder;
     loader.loadNet(net, builder);
     // set the turn defaults
-    const map<std::string, ROEdge*> &edges = net.getEdgeMap();
-    for (map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+    const std::map<std::string, ROEdge*> &edges = net.getEdgeMap();
+    for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
         static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
     }
     // load the weights when wished/available
     if (oc.isSet("weights")) {
-        loader.loadWeights(net, oc.getString("weights"), false);
+        loader.loadWeights(net, oc.getString("weights"), oc.getString("measure"), false);
     }
     if (oc.isSet("lane-weights")) {
-        loader.loadWeights(net, oc.getString("lane-weights"), true);
+        loader.loadWeights(net, oc.getString("lane-weights"), oc.getString("measure"), true);
     }
 }
 
 std::vector<SUMOReal>
 getTurningDefaults(OptionsCont &oc) {
     std::vector<SUMOReal> ret;
-    vector<string> defs = oc.getStringVector("turn-defaults");
+    std::vector<std::string> defs = oc.getStringVector("turn-defaults");
     if (defs.size()<2) {
         throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
     }
-    for (vector<string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
         try {
             SUMOReal val = TplConvert<char>::_2SUMOReal((*i).c_str());
             ret.push_back(val);
@@ -134,8 +128,8 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc) {
     }
     // parse sink edges specified at the input/within the configuration
     if (oc.isSet("sinks")) {
-        vector<string> edges = oc.getStringVector("sinks");
-        for (vector<string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        std::vector<std::string> edges = oc.getStringVector("sinks");
+        for (std::vector<std::string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(*i));
             if (edge==0) {
                 throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
@@ -184,9 +178,9 @@ main(int argc, char **argv) {
     // give some application descriptions
     oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");
 #ifdef WIN32
-    oc.setApplicationName("jtrrouter.exe", "SUMO jtrrouter Version " + (string)VERSION_STRING);
+    oc.setApplicationName("jtrrouter.exe", "SUMO jtrrouter Version " + (std::string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-jtrrouter", "SUMO jtrrouter Version " + (string)VERSION_STRING);
+    oc.setApplicationName("sumo-jtrrouter", "SUMO jtrrouter Version " + (std::string)VERSION_STRING);
 #endif
     int ret = 0;
     RONet *net = 0;
@@ -223,7 +217,7 @@ main(int argc, char **argv) {
             throw ProcessError();
         }
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -238,7 +232,7 @@ main(int argc, char **argv) {
     OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
-        cout << "Success." << endl;
+        std::cout << "Success." << std::endl;
     }
     return ret;
 }

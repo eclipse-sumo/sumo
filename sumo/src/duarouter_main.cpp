@@ -63,12 +63,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // functions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -86,13 +80,10 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
     loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weights")) {
-        loader.loadWeights(net, oc.getString("weights"), false);
+        loader.loadWeights(net, oc.getString("weights"), oc.getString("measure"), false);
     }
     if (oc.isSet("lane-weights")) {
-        loader.loadWeights(net, oc.getString("lane-weights"), true);
-    }
-    if (oc.isSet("S")) {
-        loader.loadSupplementaryWeights(net);
+        loader.loadWeights(net, oc.getString("lane-weights"), oc.getString("measure"), true);
     }
 }
 
@@ -150,9 +141,9 @@ main(int argc, char **argv) {
     // give some application descriptions
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("duarouter.exe", "SUMO duarouter Version " + (string)VERSION_STRING);
+    oc.setApplicationName("duarouter.exe", "SUMO duarouter Version " + (std::string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-duarouter", "SUMO duarouter Version " + (string)VERSION_STRING);
+    oc.setApplicationName("sumo-duarouter", "SUMO duarouter Version " + (std::string)VERSION_STRING);
 #endif
     int ret = 0;
     RONet *net = 0;
@@ -185,7 +176,7 @@ main(int argc, char **argv) {
             throw ProcessError();
         }
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -200,7 +191,7 @@ main(int argc, char **argv) {
     OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
-        cout << "Success." << endl;
+        std::cout << "Success." << std::endl;
     }
     return ret;
 }

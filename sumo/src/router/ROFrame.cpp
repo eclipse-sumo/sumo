@@ -73,6 +73,8 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.doRegister("lane-weights", new Option_FileName());
     oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE");
 
+    oc.doRegister("measure", 'x', new Option_String("traveltime"));
+    oc.addDescription("measure", "Input", "Name of the xml attribute which gives the edge weight");
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_Integer(0));

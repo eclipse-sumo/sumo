@@ -488,13 +488,9 @@ protected:
     /// @name Edge weights container
     /// @deprecated
     /// @{
-    ValueTimeLine<SUMOReal> myOwnValueLine;
-    mutable bool myHaveBuildShortCut;
+    mutable ValueTimeLine<SUMOReal> myOwnValueLine;
+    mutable bool myHaveGapsFilled;
     bool myHaveLoadedWeights;
-    mutable SUMOReal *myPackedValueLine;
-    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
-    mutable size_t myLastPackedIndex;
-    bool myUseBoundariesOnOverride;
     /// @}
 
 

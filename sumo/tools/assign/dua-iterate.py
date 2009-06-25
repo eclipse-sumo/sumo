@@ -48,10 +48,7 @@ def writeRouteConf(step, options, file, output, withExitTimes):
         gBeta="%s"
         gA="%s"
     />""" % (options.continueOnUnbuild, options.gBeta, options.gA)
-    if options.absrand:
-        print >> fd, """    <random_number
-        abs-rand="True"
-    />"""
+    print >> fd, '    <random_number abs-rand="%s"/>' % options.absrand
     print >> fd, '    <time begin="%s"' % options.begin,
     if options.end:
         print >> fd, 'end="%s"' % options.end,
@@ -60,57 +57,51 @@ def writeRouteConf(step, options, file, output, withExitTimes):
         verbose="%s"
         suppress-warnings="%s"
     />
-</configuration>""" % (options.verbose, not options.withWarnings)
+</configuration>""" % (options.verbose, options.noWarnings)
     fd.close()
 
 def writeSUMOConf(step, options, files):
     fd = open("iteration_" + str(step) + ".sumo.cfg", "w")
-    fd.write("<configuration>\n")
-    fd.write("   <files>\n")
-    fd.write("      <net-file>" + options.net + "</net-file>\n")
-    fd.write("      <route-files>" + files + "</route-files>\n")
+    add = ""
+    if options.additional != "":
+        add = "," + options.additional
+    print >> fd, """<configuration>
+    <input
+        net-file="%s"
+        route-files="%s"
+        additional-files="dua_dump_%s.add.xml%s"
+    />
+    <output""" % (options.net, files, step, add)
     if not options.noEmissions:
-        fd.write("      <emissions>emissions_" + str(step) + ".xml</emissions>\n")
+        print >> fd, '        emissions-output="emissions_%s.xml"' % step
     if not options.noTripinfo:
-        fd.write("      <tripinfo>tripinfo_" + str(step) + ".xml</tripinfo>\n")
-    fd.write("      <additional-files>dua_dump_" + str(step) + ".add.xml" + options.additional)
-    if options.additional!="":
-        fd.write("," + options.additional)
-    fd.write("</additional-files>\n")
-    fd.write("   </files>\n")
-    fd.write("   <process>\n")
-    fd.write("      <begin>" + str(options.begin) + "</begin>\n")
-    if not options.timeInc:
-        if options.end:
-            fd.write("      <end>" + str(options.end) + "</end>\n")
-    else:
-        endTime = int(options.timeInc * (step + 1))
-        fd.write("      <end>" + str(endTime) + "</end>\n")
-    fd.write("      <route-steps>" + str(options.routeSteps) + "</route-steps>\n")
+        print >> fd, '        tripinfo-output="tripinfo_%s.xml"' % step
+    print >> fd, "    />"
+    print >> fd, '    <random_number abs-rand="%s"/>' % options.absrand
+    print >> fd, '    <time begin="%s"' % options.begin,
+    if options.timeInc:
+        print >> fd, 'end="%s"' % int(options.timeInc * (step + 1)),
+    elif options.end:
+        print >> fd, 'end="%s"' % options.end,
+    print >> fd, """/>
+    <processing
+        route-steps="%s" """ % options.routeSteps
     if options.incBase>0:
-        fd.write("      <incremental-dua-base>" + str(options.incBase) + "</incremental-dua-base>\n")
-        fd.write("      <incremental-dua-step>" + str(options.incValue*(step+1)) + "</incremental-dua-step>\n")
+        print >> fd, """        incremental-dua-step="%s"
+        incremental-dua-base="%s" """ % (options.incValue*(step+1), options.incBase)
     if options.mesosim:
-        fd.write("      <mesosim>x</mesosim>\n")
-    fd.write("   </process>\n")
-    fd.write("   <reports>\n")
-    if options.verbose:
-        fd.write("      <verbose>x</verbose>\n")
-    else:
-        fd.write("      <no-step-log>x</no-step-log>\n")
-    if not options.withWarnings:
-        fd.write("      <suppress-warnings>x</suppress-warnings>\n")
-    fd.write("   </reports>\n")
-    if options.absrand:
-        fd.write("   <random_number>\n")
-        fd.write("""      <abs-rand>true</abs-rand>\n""")
-        fd.write("   </random_number>\n")
-    
-    fd.write("</configuration>\n")
+        print >> fd, '        mesosim="True"'
+    print >> fd, """/>
+    <report
+        verbose="%s"
+        suppress-warnings="%s"
+        no-step-log="%s"
+    />
+</configuration>""" % (options.verbose, options.noWarnings, not options.verbose)
     fd.close()
     fd = open("dua_dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
-    <meandata-edge id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
+    <meandata-edge id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml"/>
 </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation)
     fd.close()
 
@@ -120,8 +111,8 @@ optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                      default=False, help="continues on unbuild routes")
-optParser.add_option("-W", "--with-warnings", action="store_true", dest="withWarnings",
-                     default=False, help="enables warnings")
+optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWarnings",
+                     default=False, help="disables warnings")
 
 optParser.add_option("-n", "--net-file", dest="net",
                      help="SUMO network (mandatory)", metavar="FILE")
