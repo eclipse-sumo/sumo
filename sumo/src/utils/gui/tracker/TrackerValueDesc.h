@@ -85,7 +85,7 @@ public:
         the method "unlockValues" will be called */
     const std::vector<SUMOReal> &getAggregatedValues();
 
-    /// Retunrs the name of the value
+    /// Returns the name of the value
     const std::string &getName() const;
 
     /// Adds a new value to the list
