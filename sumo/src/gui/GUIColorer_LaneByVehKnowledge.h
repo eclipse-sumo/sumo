@@ -31,7 +31,7 @@
 
 #include <utils/gui/drawer/GUIBaseColorer.h>
 #include <utils/common/RGBColor.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -59,7 +59,7 @@ public:
     void setGlColor(const T& i) const {
         int id = myParent->getTrackedID();
         if (id>0) {
-            GUIVehicle *o = static_cast<GUIVehicle*>(gIDStorage.getObjectBlocking(id));
+            GUIVehicle *o = static_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
             if (o==0) {
                 glColor3d(0,0,0);
                 return;

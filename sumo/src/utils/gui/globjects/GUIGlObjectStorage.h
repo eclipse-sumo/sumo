@@ -143,6 +143,10 @@ public:
     }
 
 
+    /** @brief A single static instance of this class
+     */
+    static GUIGlObjectStorage gIDStorage;
+
 private:
     /// @brief Definition of a container from numerical ids to objects
     typedef std::map<size_t, GUIGlObject *> ObjectMap;

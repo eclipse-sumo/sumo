@@ -53,7 +53,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/WrappingCommand.h>
 
@@ -304,7 +304,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
                        MSNet &net, MSLane *destLanes, SUMOReal pos,
                        const std::string &file) throw()
         : MSEmitter(id, net, destLanes, pos, file),
-        GUIGlObject_AbstractAdd(gIDStorage,
+        GUIGlObject_AbstractAdd(GUIGlObjectStorage::gIDStorage,
                                 "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false) {
     const GUIEdge * const edge = static_cast<const GUIEdge * const>(destLanes->getEdge());
     const Position2DVector &v =

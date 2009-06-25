@@ -39,7 +39,7 @@
 #include <netload/NLBuilder.h>
 #include "GUIEdgeControlBuilder.h"
 #include <gui/GUIGlobals.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -66,7 +66,7 @@ GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw() {}
 MSEdge *
 GUIEdgeControlBuilder::closeEdge() {
     MSEdge *ret = NLEdgeControlBuilder::closeEdge();
-    static_cast<GUIEdge*>(ret)->initGeometry(gIDStorage);
+    static_cast<GUIEdge*>(ret)->initGeometry(GUIGlObjectStorage::gIDStorage);
     return ret;
 }
 

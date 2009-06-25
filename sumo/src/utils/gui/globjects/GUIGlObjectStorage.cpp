@@ -45,6 +45,12 @@ using namespace std;
 
 
 // ===========================================================================
+// static variables (instances in this case)
+// ===========================================================================
+GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 GUIGlObjectStorage::GUIGlObjectStorage() throw()

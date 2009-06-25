@@ -55,7 +55,7 @@
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/foxtools/MFXImageHelper.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/div/GLHelper.h>
 

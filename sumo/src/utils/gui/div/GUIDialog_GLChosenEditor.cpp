@@ -38,7 +38,7 @@
 #include <utils/foxtools/MFXUtils.h>
 #include "GUIDialog_GLChosenEditor.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -134,12 +134,12 @@ GUIDialog_GLChosenEditor::rebuildList() throw() {
     myList->clearItems();
     const std::vector<GLuint> &chosen = gSelected.getSelected();
     for (std::vector<GLuint>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
-        GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
+        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
             FXListItem *item = myList->getItem(myList->appendItem(name.c_str()));
             item->setData((void*) *i);
-            gIDStorage.unblockObject(*i);
+            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
         }
     }
     update();

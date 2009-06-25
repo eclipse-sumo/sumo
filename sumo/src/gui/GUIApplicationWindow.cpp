@@ -68,7 +68,7 @@
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/drawer/GUIGradients.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUISettingsHandler.h>
 #include <guisim/GUISelectionLoader.h>

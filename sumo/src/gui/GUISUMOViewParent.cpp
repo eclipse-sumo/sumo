@@ -49,7 +49,7 @@
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/common/UtilExceptions.h>
@@ -205,7 +205,7 @@ GUISUMOViewParent::showLocator(GUIGlObjectType type) {
     myLocatorButton->killFocus();
     myLocatorPopup->update();
     GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, type, gIDStorage);
+        new GUIDialog_GLObjChooser(this, type, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
 }
@@ -253,7 +253,7 @@ GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*) {
     myLocatorPopup->update();
     static_cast<FXButton*>(sender)->getParent()->hide();
     GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_SHAPE, gIDStorage);
+        new GUIDialog_GLObjChooser(this, GLO_SHAPE, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
     return 1;

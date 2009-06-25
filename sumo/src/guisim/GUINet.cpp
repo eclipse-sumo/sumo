@@ -66,7 +66,7 @@
 #include <microsim/MSRouteLoader.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -90,18 +90,18 @@ using namespace std;
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
                MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError)
         : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents),
-        GUIGlObject(gIDStorage, "network"),
+        GUIGlObject(GUIGlObjectStorage::gIDStorage, "network"),
         myGrid(new SUMORTree(&GUIGlObject::drawGL)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
         myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
-    gIDStorage.setNetObject(this);
+    GUIGlObjectStorage::gIDStorage.setNetObject(this);
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
 }
 
 
 GUINet::~GUINet() throw() {
-    gIDStorage.clear();
+    GUIGlObjectStorage::gIDStorage.clear();
     // delete allocated wrappers
     //  of junctions
     for (std::vector<GUIJunctionWrapper*>::iterator i1=myJunctionWrapper.begin(); i1!=myJunctionWrapper.end(); i1++) {
@@ -146,7 +146,7 @@ GUINet::initDetectors() {
             */
         GUIDetectorWrapper *wrapper =
             static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(
-                gIDStorage, edge->getLaneGeometry(lane));
+                GUIGlObjectStorage::gIDStorage, edge->getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
@@ -157,7 +157,7 @@ GUINet::initDetectors() {
         // build the wrapper
         GUIDetectorWrapper *wrapper =
             static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper(
-                gIDStorage);
+                GUIGlObjectStorage::gIDStorage);
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
@@ -170,7 +170,7 @@ GUINet::initDetectors() {
         // build the wrapper
         GUIDetectorWrapper *wrapper =
             static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(
-                gIDStorage, edge->getLaneGeometry(lane));
+                GUIGlObjectStorage::gIDStorage, edge->getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
@@ -180,7 +180,7 @@ GUINet::initDetectors() {
         MSE3Collector *const e3i = (*i2).second;
         // build the wrapper
         GUIDetectorWrapper *wrapper =
-            static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(gIDStorage);
+            static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage);
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
@@ -204,7 +204,7 @@ GUINet::initTLMap() {
         }
         // build the wrapper
         GUITrafficLightLogicWrapper *tllw =
-            new GUITrafficLightLogicWrapper(gIDStorage, *myLogics, *tll);
+            new GUITrafficLightLogicWrapper(GUIGlObjectStorage::gIDStorage, *myLogics, *tll);
         // build the association link->wrapper
         MSTrafficLightLogic::LinkVectorVector::const_iterator j;
         for (j=links.begin(); j!=links.end(); j++) {
@@ -331,7 +331,7 @@ GUINet::initGUIStructures() {
     myJunctionWrapper.reserve(size);
     const std::map<std::string, MSJunction*> &junctions = myJunctions->getMyMap();
     for (std::map<std::string, MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
-        GUIJunctionWrapper *wrapper = ((*i).second)->buildJunctionWrapper(gIDStorage);
+        GUIJunctionWrapper *wrapper = ((*i).second)->buildJunctionWrapper(GUIGlObjectStorage::gIDStorage);
         if (wrapper!=0) {
             myJunctionWrapper.push_back(wrapper);
         }

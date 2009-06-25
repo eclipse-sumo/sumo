@@ -30,7 +30,7 @@
 #include <vector>
 #include <algorithm>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GUISelectedStorage.h"
 #include "GUIDialog_GLChosenEditor.h"
 #include <utils/iodevices/OutputDevice.h>
@@ -104,11 +104,11 @@ void
 GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) throw(IOError) {
     OutputDevice &dev = OutputDevice::getDevice(filename);
     for (std::vector<GLuint>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
-        GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
+        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
             dev << name << "\n";
-            gIDStorage.unblockObject(*i);
+            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
         }
     }
     dev.close();
@@ -135,10 +135,10 @@ bool
 GUISelectedStorage::isSelected(int type, GLuint id) throw(ProcessError) {
     if (type==-1) {
         GUIGlObject *object =
-            gIDStorage.getObjectBlocking(id);
+            GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (object!=0) {
             type = object->getType();
-            gIDStorage.unblockObject(id);
+            GUIGlObjectStorage::gIDStorage.unblockObject(id);
         } else {
             throw ProcessError("Unkown object in GUISelectedStorage::isSelected (id=" + toString(id) + ").");
         }
@@ -179,10 +179,10 @@ void
 GUISelectedStorage::select(int type, GLuint id, bool update) throw(ProcessError) {
     if (type==-1) {
         GUIGlObject *object =
-            gIDStorage.getObjectBlocking(id);
+            GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (object!=0) {
             type = object->getType();
-            gIDStorage.unblockObject(id);
+            GUIGlObjectStorage::gIDStorage.unblockObject(id);
         } else {
             throw ProcessError("Unkown object in GUISelectedStorage::select (id=" + toString(id) + ").");
         }
@@ -233,10 +233,10 @@ void
 GUISelectedStorage::deselect(int type, GLuint id) throw(ProcessError) {
     if (type==-1) {
         GUIGlObject *object =
-            gIDStorage.getObjectBlocking(id);
+            GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (object!=0) {
             type = object->getType();
-            gIDStorage.unblockObject(id);
+            GUIGlObjectStorage::gIDStorage.unblockObject(id);
         } else {
             throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
         }
@@ -286,7 +286,7 @@ GUISelectedStorage::deselect(int type, GLuint id) throw(ProcessError) {
 void
 GUISelectedStorage::toggleSelection(GLuint id) throw(ProcessError) {
     GUIGlObject *o =
-        gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (o==0) {
         throw ProcessError("Unkown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
     }
@@ -296,7 +296,7 @@ GUISelectedStorage::toggleSelection(GLuint id) throw(ProcessError) {
     } else {
         deselect(o->getType(), id);
     }
-    gIDStorage.unblockObject(id);
+    GUIGlObjectStorage::gIDStorage.unblockObject(id);
 }
 
 
@@ -430,11 +430,11 @@ GUISelectedStorage::save(int type, const std::string &filename) throw(IOError) {
     // ok, save all
     OutputDevice &dev = OutputDevice::getDevice(filename);
     for (std::vector<GLuint>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
-        GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
+        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
             dev << name << '\n';
-            gIDStorage.unblockObject(*i);
+            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
         }
     }
     dev.close();

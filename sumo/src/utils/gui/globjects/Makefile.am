@@ -4,7 +4,6 @@ libguiutilsglobjects_a_SOURCES = \
 GUIGLObjectPopupMenu.cpp GUIGLObjectPopupMenu.h \
 GUIGLObjectToolTip.cpp GUIGLObjectToolTip.h \
 GUIGlObject.cpp GUIGlObject.h \
-GUIGlObjectGlobals.cpp GUIGlObjectGlobals.h \
 GUIGlObjectStorage.cpp GUIGlObjectStorage.h \
 GUIGlObjectTypes.h \
 GUIGlObject_AbstractAdd.cpp GUIGlObject_AbstractAdd.h \

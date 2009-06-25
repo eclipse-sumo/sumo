@@ -32,7 +32,7 @@
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include <gui/GUIGlobals.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -53,14 +53,14 @@ MSVehicle *
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type) throw() {
     myLoadedVehNo++;
-    return new GUIVehicle(gIDStorage, defs, route, type, myLoadedVehNo-1);
+    return new GUIVehicle(GUIGlObjectStorage::gIDStorage, defs, route, type, myLoadedVehNo-1);
 }
 
 
 void
 GUIVehicleControl::deleteVehicle(MSVehicle *veh) throw() {
     static_cast<GUIVehicle*>(veh)->setRemoved();
-    if (gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
+    if (GUIGlObjectStorage::gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
         MSVehicleControl::deleteVehicle(veh);
     }
 }

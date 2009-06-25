@@ -48,7 +48,7 @@
 #include "GUIGlChildWindow.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GUIDialog_EditViewport.h"
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/shapes/PointOfInterest.h>
@@ -250,7 +250,7 @@ GUISUMOAbstractView::paintGL() {
     }
 
     if (getTrackedID()>0) {
-        GUIGlObject *o = gIDStorage.getObjectBlocking(getTrackedID());
+        GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(getTrackedID());
         if (o!=0) {
             Boundary b = o->getCenteringBoundary();
             myChanger->centerTo(*myGrid, b, false);
@@ -344,7 +344,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
     for (int i=0; i<nb_hits; ++i) {
         assert(i*4+3<NB_HITS_MAX);
         unsigned int id = hits[i*4+3];
-        GUIGlObject *o = gIDStorage.getObjectBlocking(id);
+        GUIGlObject *o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o==0) {
             continue;
         }
@@ -381,7 +381,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
                 prevLayer = clayer;
             }
         }
-        gIDStorage.unblockObject(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
         assert(i*4+3<NB_HITS_MAX);
     }
     applyChanges(1, 0, 0);
@@ -392,13 +392,13 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 void
 GUISUMOAbstractView::showToolTipFor(unsigned int id) {
     if (id!=0) {
-        GUIGlObject *object = gIDStorage.getObjectBlocking(id);
+        GUIGlObject *object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         int x, y;
         FXuint b;
         myApp->getCursorPosition(x, y, b);
         myToolTip->setObjectTip(object, x + myApp->getX(), y + myApp->getY());
         if (object!=0) {
-            gIDStorage.unblockObject(id);
+            GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
     } else {
         myToolTip->hide();
@@ -775,9 +775,9 @@ GUISUMOAbstractView::openObjectDialog() {
         unsigned int id = getObjectUnderCursor();
         GUIGlObject *o = 0;
         if (id!=0) {
-            o = gIDStorage.getObjectBlocking(id);
+            o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         } else {
-            o = gIDStorage.getNetObject();
+            o = GUIGlObjectStorage::gIDStorage.getNetObject();
         }
         if (o!=0) {
             myPopup = o->getPopUpMenu(*myApp, *this);

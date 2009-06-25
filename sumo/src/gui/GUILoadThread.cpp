@@ -54,7 +54,7 @@
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/common/RandHelper.h>
 #include <ctime>
@@ -127,10 +127,10 @@ GUILoadThread::run() {
     MSFrame::setMSGlobals(oc);
     net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
                      new GUIEventControl(), new GUIEventControl());
-    GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(gIDStorage);
+    GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(GUIGlObjectStorage::gIDStorage);
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
-    GUIGeomShapeBuilder sb(*net, gIDStorage);
+    GUIGeomShapeBuilder sb(*net, GUIGlObjectStorage::gIDStorage);
     GUITriggerBuilder tb;
     GUIHandler handler("", *net, db, tb, *eb, jb, sb);
     tb.setHandler(&handler);
