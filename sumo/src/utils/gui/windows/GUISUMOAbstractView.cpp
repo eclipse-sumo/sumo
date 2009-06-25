@@ -777,7 +777,7 @@ GUISUMOAbstractView::openObjectDialog() {
         if (id!=0) {
             o = gIDStorage.getObjectBlocking(id);
         } else {
-            o = gNetWrapper;
+            o = gIDStorage.getNetObject();
         }
         if (o!=0) {
             myPopup = o->getPopUpMenu(*myApp, *this);

@@ -43,9 +43,5 @@
 GUIGlObjectStorage gIDStorage;
 
 
-GUIGlObject *gNetWrapper;
-
-
-
 /****************************************************************************/
 

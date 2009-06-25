@@ -40,9 +40,6 @@
 extern GUIGlObjectStorage gIDStorage;
 
 
-extern GUIGlObject *gNetWrapper;
-
-
 #endif
 
 /****************************************************************************/

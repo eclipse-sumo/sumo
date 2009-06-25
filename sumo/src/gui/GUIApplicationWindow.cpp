@@ -69,7 +69,6 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
-#include <guisim/GUINetWrapper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUISettingsHandler.h>
 #include <guisim/GUISelectionLoader.h>
@@ -911,7 +910,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
     } else {
         // initialise global information
         gSimInfo = new GUISimInfo(*(ec->myNet));
-        gNetWrapper = ec->myNet->getWrapper();
+        //gNetWrapper = ec->myNet->getWrapper();
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
         // initialise simulation thread

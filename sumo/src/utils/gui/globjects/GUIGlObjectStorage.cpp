@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A storage for retrieval of displayed object using a numerical id
+// A storage for of displayed objects via their numerical id
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -47,34 +47,24 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObjectStorage::GUIGlObjectStorage()
+GUIGlObjectStorage::GUIGlObjectStorage() throw()
         : myAktID(1) {}
 
 
-GUIGlObjectStorage::~GUIGlObjectStorage() {}
+GUIGlObjectStorage::~GUIGlObjectStorage() throw() {}
 
 
 void
-GUIGlObjectStorage::registerObject(GUIGlObject *object) {
+GUIGlObjectStorage::registerObject(GUIGlObject *object) throw() {
     myLock.lock();
     object->setGlID(myAktID);
     myMap[myAktID++] = object;
     myLock.unlock();
 }
 
-/*
-void
-GUIGlObjectStorage::registerObject(GUIGlObject *object, GLuint id)
-{
-    myLock.lock();
-    object->setGlID(id);
-    myMap[id] = object;
-    myLock.unlock();
-}
-*/
 
 GLuint
-GUIGlObjectStorage::getUniqueID() {
+GUIGlObjectStorage::getUniqueID() throw() {
     myLock.lock();
     GLuint ret = myAktID++;
     myLock.unlock();
@@ -83,7 +73,7 @@ GUIGlObjectStorage::getUniqueID() {
 
 
 GUIGlObject *
-GUIGlObjectStorage::getObjectBlocking(GLuint id) {
+GUIGlObjectStorage::getObjectBlocking(GLuint id) throw() {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
@@ -105,7 +95,7 @@ GUIGlObjectStorage::getObjectBlocking(GLuint id) {
 
 
 bool
-GUIGlObjectStorage::remove(GLuint id) {
+GUIGlObjectStorage::remove(GLuint id) throw() {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
@@ -125,7 +115,7 @@ GUIGlObjectStorage::remove(GLuint id) {
 
 
 void
-GUIGlObjectStorage::clear() {
+GUIGlObjectStorage::clear() throw() {
     myLock.lock();
     myMap.clear();
     myAktID = 0;
@@ -134,7 +124,7 @@ GUIGlObjectStorage::clear() {
 
 
 void
-GUIGlObjectStorage::unblockObject(GLuint id) {
+GUIGlObjectStorage::unblockObject(GLuint id) throw() {
     myLock.lock();
     ObjectMap::iterator i=myBlocked.find(id);
     if (i==myBlocked.end()) {
@@ -146,7 +136,6 @@ GUIGlObjectStorage::unblockObject(GLuint id) {
     myMap[id] = o;
     myLock.unlock();
 }
-
 
 
 /****************************************************************************/

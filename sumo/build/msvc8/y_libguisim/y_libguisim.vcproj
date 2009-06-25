@@ -624,10 +624,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUINetWrapper.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUINoLogicJunction.cpp"
 				>
 			</File>
@@ -730,10 +726,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUINet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUINetWrapper.h"
 				>
 			</File>
 			<File

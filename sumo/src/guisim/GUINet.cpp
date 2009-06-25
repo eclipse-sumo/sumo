@@ -49,7 +49,6 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/common/RGBColor.h>
-#include "GUINetWrapper.h"
 #include <guisim/GLObjectValuePassConnector.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneSpeedTrigger.h>
@@ -70,6 +69,9 @@
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/common/StringUtils.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -88,10 +90,11 @@ using namespace std;
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
                MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError)
         : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents),
+        GUIGlObject(gIDStorage, "network"),
         myGrid(new SUMORTree(&GUIGlObject::drawGL)),
-        myWrapper(new GUINetWrapper(gIDStorage, *this)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
         myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
+    gIDStorage.setNetObject(this);
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
 }
@@ -116,8 +119,6 @@ GUINet::~GUINet() throw() {
     }
     // the visualization tree
     delete myGrid;
-    // of the network itself
-    delete myWrapper;
 }
 
 
@@ -234,12 +235,6 @@ Boundary
 GUINet::getEdgeBoundary(const std::string &name) const {
     GUIEdge *edge = static_cast<GUIEdge*>(MSEdge::dictionary(name));
     return edge->getBoundary();
-}
-
-
-GUINetWrapper * const
-    GUINet::getWrapper() const {
-    return myWrapper;
 }
 
 
@@ -482,6 +477,75 @@ GUINet::buildRouteLoader(const std::string &file) {
 }
 
 
+GUIGLObjectPopupMenu *
+GUINet::getPopUpMenu(GUIMainWindow &app,
+                            GUISUMOAbstractView &parent) throw() {
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildShowParamsPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
+    return ret;
+}
+
+
+GUIParameterTableWindow *
+GUINet::getParameterWindow(GUIMainWindow &app,
+                                  GUISUMOAbstractView &) throw() {
+    GUIParameterTableWindow *ret =
+        new GUIParameterTableWindow(app, *this, 13);
+    // add items
+    ret->mkItem("vehicles running [#]", true,
+                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getRunningVehicleNo));
+    ret->mkItem("vehicles ended [#]", true,
+                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getEndedVehicleNo));
+    ret->mkItem("vehicles emitted [#]", true,
+                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getEmittedVehicleNo));
+    ret->mkItem("vehicles loaded [#]", true,
+                new FunctionBinding<MSVehicleControl, unsigned int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
+    ret->mkItem("vehicles waiting [#]", true,
+                new FunctionBinding<MSEmitControl, unsigned int>(&getEmitControl(), &MSEmitControl::getWaitingVehicleNo));
+    ret->mkItem("end time [s]", false, (SUMOTime) OptionsCont::getOptions().getInt("end"));
+    ret->mkItem("begin time [s]", false, (SUMOTime) OptionsCont::getOptions().getInt("begin"));
+    ret->mkItem("time step [s]", true, new FunctionBinding<GUINet, SUMOTime>(this, &GUINet::getCurrentTimeStep));
+    if (logSimulationDuration()) {
+        ret->mkItem("step duration [ms]", true, new FunctionBinding<GUINet, unsigned int>(this, &GUINet::getWholeDuration));
+        ret->mkItem("simulation duration [ms]", true, new FunctionBinding<GUINet, unsigned int>(this, &GUINet::getSimDuration));
+        /*
+        ret->mkItem("visualisation duration [ms]", true,
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(
+                &(getNet()), &GUINet::getVisDuration));
+        */
+        ret->mkItem("idle duration [ms]", true, new FunctionBinding<GUINet, unsigned int>(this, &GUINet::getIdleDuration));
+        ret->mkItem("duration factor []", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getRTFactor));
+        /*
+        ret->mkItem("mean duration factor []", true,
+            new FuncBinding_IntParam<GUINet, SUMOReal>(
+                &(getNet()), &GUINet::getMeanRTFactor), 1);
+                */
+        ret->mkItem("ups [#]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getUPS));
+        ret->mkItem("mean ups [#]", true, new FunctionBinding<GUINet, SUMOReal>(this, &GUINet::getMeanUPS));
+    }
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
+
+const std::string &
+GUINet::getMicrosimID() const throw() {
+    return StringUtils::emptyString;
+}
+
+
+void
+GUINet::drawGL(const GUIVisualizationSettings &s) const throw() {
+}
+
+Boundary
+GUINet::getCenteringBoundary() const throw() {
+    return getBoundary();
+}
 
 
 /****************************************************************************/

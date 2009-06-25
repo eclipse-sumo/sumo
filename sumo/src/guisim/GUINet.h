@@ -35,6 +35,11 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <foreign/rtree/SUMORTree.h>
+#include <utils/geom/Position2DVector.h>
+#include <utils/geom/HaveBoundary.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -55,7 +60,6 @@ class MSTrafficLightLogic;
 class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
-class GUINetWrapper;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
 class GUIEdge;
@@ -82,7 +86,7 @@ class MSVehicleControl;
  * inserting the wrapped items into vectors and is needed to fasten the
  * network's drawing as only visible items are being drawn.
  */
-class GUINet : public MSNet {
+class GUINet : public MSNet, public GUIGlObject {
 public:
     /** @brief Constructor
      * @param[in] vc The vehicle control to use
@@ -97,6 +101,66 @@ public:
 
     /// @brief Destructor
     ~GUINet() throw();
+
+
+
+    /// @name inherited from GUIGlObject
+    //@{
+
+    /** @brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
+                                       GUISUMOAbstractView &parent) throw();
+
+
+    /** @brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
+    GUIParameterTableWindow *getParameterWindow(
+        GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+
+
+    /** @brief Returns the id of the object as known to microsim
+     *
+     * @return An empty string (net has no id)
+     * @see GUIGlObject::getMicrosimID
+     */
+    const std::string &getMicrosimID() const throw();
+
+
+    /** @brief Returns the type of the object as coded in GUIGlObjectType
+     *
+     * @return GLO_NETWORK (is the network)
+     * @see GUIGlObject::getType
+     * @see GUIGlObjectType
+     */
+    GUIGlObjectType getType() const throw() {
+        return GLO_NETWORK;
+    }
+
+    /** @brief Returns the boundary to which the view shall be centered in order to show the object
+     *
+     * @return The boundary the object is within
+     * @see GUIGlObject::getCenteringBoundary
+     */
+    Boundary getCenteringBoundary() const throw();
+
+
+    /** @brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings &s) const throw();
+    //@}
 
 
     /// returns the bounder of the network
@@ -159,9 +223,6 @@ public:
     //}
 
 
-    /// Returns the gui network wrapper
-    GUINetWrapper * const getWrapper() const;
-
     /** Returns the gl-id of the traffic light that controls the given link
      * valid only if the link is controlled by a tls */
     unsigned int getLinkTLID(MSLink *link) const;
@@ -211,9 +272,6 @@ protected:
 
     /// the networks boundary
     Boundary myBoundary;
-
-    /// The wrapper for the network
-    GUINetWrapper *myWrapper;
 
     /// Wrapped MS-edges
     std::vector<GUIEdge*> myEdgeWrapper;
