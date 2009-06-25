@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r7068
+SUMO duarouter Version dev-SVN-r7351
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -10,69 +10,67 @@ Usage: duarouter.exe [OPTION]*
   duarouter.exe -c <CONFIGURATION>
  
  Configuration Options:
-  -c, --configuration-file FILE       Loads the named config on startup
-  --save-configuration FILE           Saves current configuration into FILE
-  --save-template FILE                Saves a configuration template (empty)
-                                        into FILE
-  --save-template.commented           Adds comments to saved template
+  -c, --configuration-file FILE    Loads the named config on startup
+  --save-configuration FILE        Saves current configuration into FILE
+  --save-template FILE             Saves a configuration template (empty) into
+                                     FILE
+  --save-template.commented        Adds comments to saved template
 
  Input Options:
-  -n, --net-file FILE                 Use FILE as SUMO-network to route on
-  -a, --alternatives FILE             Read alternatives from FILE
-  -w, --weights FILE                  Read network weights from FILE
-  --lane-weights FILE                 Read lane-weights from FILE
-  -t, --trip-defs FILE                Read trip-definitions from FILE
-  -f, --flow-definition FILE          Read flow-definitions from FILE
-  -s, --sumo-input FILE               Read sumo-routes from FILE
-  -S, --supplementary-weights FILE    Read additional weights from FILE
+  -n, --net-file FILE              Use FILE as SUMO-network to route on
+  -a, --alternatives FILE          Read alternatives from FILE
+  -w, --weights FILE               Read network weights from FILE
+  --lane-weights FILE              Read lane-weights from FILE
+  -x, --measure STR                Name of the xml attribute which gives the
+                                     edge weight
+  -t, --trip-defs FILE             Read trip-definitions from FILE
+  -f, --flow-definition FILE       Read flow-definitions from FILE
+  -s, --sumo-input FILE            Read sumo-routes from FILE
 
  Output Options:
-  -o, --output-file FILE              Write generated routes to FILE
-  --exit-times                        Write exit times (weights) for each edge
+  -o, --output-file FILE           Write generated routes to FILE
+  --exit-times                     Write exit times (weights) for each edge
 
  Processing Options:
-  --continue-on-unbuild               Continue if a route could not be build
-  --unsorted                          Assume input is unsorted
-  --randomize-flows                   
-  --max-alternatives INT              Prune the number of alternatives to INT
-  -R, --random-per-second FLOAT       Emit FLOAT random vehicles per second
-  --prune-random                      
-  --remove-loops                      Remove loops at start and end of the
-                                        route
-  --repair                            Tries to correct a false route
-  --expand-weights                    Expand weights behind the simulation's
-                                        end
-  -x, --scheme STR                    
-  --gBeta FLOAT                       Use FLOAT as Gawron's beta
-  --gA FLOAT                          Use FLOAT as Gawron's alpha
+  --continue-on-unbuild            Continue if a route could not be build
+  --unsorted                       Assume input is unsorted
+  --randomize-flows                
+  --max-alternatives INT           Prune the number of alternatives to INT
+  -R, --random-per-second FLOAT    Emit FLOAT random vehicles per second
+  --prune-random                   
+  --remove-loops                   Remove loops at start and end of the route
+  --repair                         Tries to correct a false route
+  --expand-weights                 Expand weights behind the simulation's end
+  --gBeta FLOAT                    Use FLOAT as Gawron's beta
+  --gA FLOAT                       Use FLOAT as Gawron's alpha
 
  Defaults Options:
-  --departlane STR                    Assigns a default depart lane
-  --departpos STR                     Assigns a default depart position
-  --departspeed STR                   Assigns a default depart speed
-  --arrivallane STR                   Assigns a default arrival lane
-  --arrivalpos STR                    Assigns a default arrival position
-  --arrivalspeed STR                  Assigns a default arrival speed
-  --defaults-override                 Defaults will override given values
+  --departlane STR                 Assigns a default depart lane
+  --departpos STR                  Assigns a default depart position
+  --departspeed STR                Assigns a default depart speed
+  --arrivallane STR                Assigns a default arrival lane
+  --arrivalpos STR                 Assigns a default arrival position
+  --arrivalspeed STR               Assigns a default arrival speed
+  --defaults-override              Defaults will override given values
 
  Time Options:
-  -b, --begin INT                     Defines the begin time;
-                                        Previous trips will be discarded
-  -e, --end INT                       Defines the end time;
-                                        Later trips will be discarded
+  -b, --begin INT                  Defines the begin time;
+                                     Previous trips will be discarded
+  -e, --end INT                    Defines the end time;
+                                     Later trips will be discarded
 
  Report Options:
-  -v, --verbose                       Switches to verbose output
-  -p, --print-options                 Prints option values before processing
-  -?, --help                          Prints this screen
-  -W, --suppress-warnings             Disables output of warnings
-  -l, --log-file FILE                 Writes all messages to FILE
-  --stats-period INT                  Defines how often statistics shall be
-                                        printed
+  -v, --verbose                    Switches to verbose output
+  -p, --print-options              Prints option values before processing
+  -?, --help                       Prints this screen
+  -W, --suppress-warnings          Disables output of warnings
+  -l, --log-file FILE              Writes all messages to FILE
+  --stats-period INT               Defines how often statistics shall be
+                                     printed
 
  Random Number Options:
-  --srand INT                         Initialises the random number generator
-                                        with the given value
-  --abs-rand                          Initialises the random number generator
-                                        with the current system time
+  --srand INT                      Initialises the random number generator with
+                                     the given value
+  --abs-rand                       Initialises the random number generator with
+                                     the current system time
 

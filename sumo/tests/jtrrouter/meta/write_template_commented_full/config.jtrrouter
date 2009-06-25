@@ -13,6 +13,9 @@
         <!-- Read lane-weights from FILE -->
         lane-weights=""
 
+        <!-- Name of the xml attribute which gives the edge weight -->
+        measure="traveltime"
+
         <!-- Read flow-definitions from FILE -->
         flow-definition=""
 

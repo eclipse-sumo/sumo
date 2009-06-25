@@ -5,6 +5,7 @@
         alternatives=""
         weights=""
         lane-weights=""
+        measure="traveltime"
         flow-definition=""
         turn-definition=""
     />

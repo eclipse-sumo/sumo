@@ -27,7 +27,7 @@
   If noVehContrib==0 then density is set to 0.
 -->
 <netstats>
-<interval begin="0" end="299" >
+<interval begin="0" end="300" >
       <edge id="beg" traveltime="21.6326" noVehContrib="2022" density="0.17575" noStops="0" speed="8.86393"/>
       <edge id="beg2left" traveltime="2.891" noVehContrib="250" density="0.0905797" noStops="0" speed="15.9114"/>
       <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>

@@ -5,10 +5,10 @@
         alternatives=""
         weights=""
         lane-weights=""
+        measure="traveltime"
         trip-defs=""
         flow-definition=""
         sumo-input=""
-        supplementary-weights=""
     />
 
     <output
@@ -26,7 +26,6 @@
         remove-loops="false"
         repair="false"
         expand-weights="false"
-        scheme="traveltime"
         gBeta="0.3"
         gA="0.05"
     />

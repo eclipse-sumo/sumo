@@ -27,7 +27,7 @@
   If noVehContrib==0 then density is set to 0.
 -->
 <netstats>
-<interval begin="0" end="299" >
+<interval begin="0" end="300" >
       <edge id="beg" traveltime="57.5756" noVehContrib="5096" density="0.442938" noStops="1227" speed="3.3304"/>
       <edge id="beg2left" traveltime="1.27778" noVehContrib="0" density="0" noStops="0" speed="36"/>
       <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
@@ -38,7 +38,7 @@
       <edge id="right" traveltime="11.1111" noVehContrib="0" density="0" noStops="0" speed="36"/>
       <edge id="right2end" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
 </interval>
-<interval begin="300" end="599" >
+<interval begin="300" end="600" >
       <edge id="beg" traveltime="210.62" noVehContrib="2682" density="0.233116" noStops="1023" speed="0.910408"/>
       <edge id="beg2left" traveltime="1.27778" noVehContrib="0" density="0" noStops="0" speed="36"/>
       <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
@@ -49,7 +49,7 @@
       <edge id="right" traveltime="11.1111" noVehContrib="0" density="0" noStops="0" speed="36"/>
       <edge id="right2end" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
 </interval>
-<interval begin="600" end="899" >
+<interval begin="600" end="900" >
       <edge id="beg" traveltime="5.32639" noVehContrib="0" density="0" noStops="0" speed="36"/>
       <edge id="beg2left" traveltime="1.27778" noVehContrib="0" density="0" noStops="0" speed="36"/>
       <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>

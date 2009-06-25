@@ -13,6 +13,9 @@
         <!-- Read lane-weights from FILE -->
         lane-weights=""
 
+        <!-- Name of the xml attribute which gives the edge weight -->
+        measure="traveltime"
+
         <!-- Read trip-definitions from FILE -->
         trip-defs=""
 
@@ -21,9 +24,6 @@
 
         <!-- Read sumo-routes from FILE -->
         sumo-input=""
-
-        <!-- Read additional weights from FILE -->
-        supplementary-weights=""
 
     />
 
@@ -63,9 +63,6 @@
 
         <!-- Expand weights behind the simulation's end -->
         expand-weights="false"
-
-        <!--  -->
-        scheme="traveltime"
 
         <!-- Use FLOAT as Gawron's beta -->
         gBeta="0.3"
