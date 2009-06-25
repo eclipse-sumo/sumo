@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member definitions
 // ===========================================================================
 bool ROEdge::myHaveWarned = false;
@@ -140,7 +134,7 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
             myHaveGapsFilled = true;
         }
         if (!myHaveWarned && !myOwnValueLine.describesTime(time)) {
-            WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using first/last entry.");
+            WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveWarned = true;
         }
         return myOwnValueLine.getValue(time);

@@ -58,12 +58,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -263,16 +257,16 @@ ROLoader::openTypedRoutes(const std::string &optionName,
         return !myOptions.isSet(optionName);
     }
     bool ok = true;
-    vector<string> files = myOptions.getStringVector(optionName);
-    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    std::vector<std::string> files = myOptions.getStringVector(optionName);
+    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         // build the instance when everything's all right
         try {
             ROAbstractRouteDefLoader *instance =
                 buildNamedHandler(optionName, *fileIt, net);
             myHandler.push_back(instance);
         } catch (ProcessError &e) {
-            string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
-            string reason = e.what();
+            std::string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
+            std::string reason = e.what();
             if(reason!="Process Error"&&reason!="") {
                 msg = msg + "\n Reason: " + reason + ".";
             } else {
@@ -346,9 +340,9 @@ void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw() {
     if (myOptions.getBool("verbose")) {
         SUMOReal perc = (SUMOReal)(time-start) / (SUMOReal) absNo;
-        cout.setf(ios::fixed , ios::floatfield) ;    // use decimal format
-        cout.setf(ios::showpoint) ;    // print decimal point
-        cout << setprecision(OUTPUT_ACCURACY);
+        std::cout.setf(std::ios::fixed, std::ios::floatfield) ;    // use decimal format
+        std::cout.setf(std::ios::showpoint) ;    // print decimal point
+        std::cout << std::setprecision(OUTPUT_ACCURACY);
         MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + toString(time) + "  (" + toString(time-start) + "/" + toString(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }
 }

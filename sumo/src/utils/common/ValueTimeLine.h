@@ -75,15 +75,15 @@ public:
         // inserting strictly before the first or after the last interval (includes empty case)
         if (myValues.upper_bound(begin) == myValues.end() ||
             myValues.upper_bound(end) == myValues.begin()) {
-            myValues[begin] = make_pair(true, value);
-            myValues[end] = make_pair(false, value);
+            myValues[begin] = std::make_pair(true, value);
+            myValues[end] = std::make_pair(false, value);
             return;
         }
         // our end already has a value
         TimedValueMap::iterator endIt = myValues.find(end);
         if (endIt != myValues.end()) {
             myValues.erase(myValues.upper_bound(begin), endIt);
-            myValues[begin] = make_pair(true, value);
+            myValues[begin] = std::make_pair(true, value);
             return;
         }
         // we have at least one entry strictly before our end
@@ -91,7 +91,7 @@ public:
         --endIt;
         ValidValue oldEndValue = endIt->second;
         myValues.erase(myValues.upper_bound(begin), myValues.lower_bound(end));
-        myValues[begin] = make_pair(true, value);
+        myValues[begin] = std::make_pair(true, value);
         myValues[end] = oldEndValue;
     }
 
@@ -121,7 +121,7 @@ public:
                 it->second.second = value;
             }
         }
-        myValues[-1] = make_pair(true, value);
+        myValues[-1] = std::make_pair(true, value);
     }
 
 private:
