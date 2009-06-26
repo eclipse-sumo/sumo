@@ -80,7 +80,7 @@ public:
             return;
         }
         // our end already has a value
-        TimedValueMap::iterator endIt = myValues.find(end);
+        typename TimedValueMap::iterator endIt = myValues.find(end);
         if (endIt != myValues.end()) {
             myValues.erase(myValues.upper_bound(begin), endIt);
             myValues[begin] = std::make_pair(true, value);
@@ -98,7 +98,7 @@ public:
     /// Returns the value for the given time
     T getValue(SUMOTime time) const {
         assert(myValues.size()!=0);
-        TimedValueMap::const_iterator it = myValues.upper_bound(time);
+        typename TimedValueMap::const_iterator it = myValues.upper_bound(time);
         assert(it != myValues.begin());
         --it;
         return it->second.second;
@@ -106,7 +106,7 @@ public:
 
     /// returns the information whether the values for the given time are known
     bool describesTime(SUMOTime time) const {
-        TimedValueMap::const_iterator afterIt = myValues.upper_bound(time);
+        typename TimedValueMap::const_iterator afterIt = myValues.upper_bound(time);
         if (afterIt == myValues.begin()) {
             return false;
         }
@@ -116,7 +116,7 @@ public:
 
     /// fills all intervals where no value is set with the given one
     void fillGaps(T value) {
-        for (TimedValueMap::iterator it = myValues.begin(); it != myValues.end(); ++it) {
+        for (typename TimedValueMap::iterator it = myValues.begin(); it != myValues.end(); ++it) {
             if (!it->second.first) {
                 it->second.second = value;
             }
