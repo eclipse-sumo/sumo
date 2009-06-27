@@ -179,7 +179,6 @@ public:
 #ifdef HAVE_MESOSIM
     unsigned int getVehicleNo() const;
     SUMOReal getDensity() const;
-    SUMOReal getRouteSpread() const;
     SUMOReal getMeanSpeed() const;
     SUMOReal getAllowedSpeed() const;
     SUMOReal getFlow() const;

@@ -355,21 +355,6 @@ GUIEdge::getDensity() const {
 
 
 SUMOReal
-GUIEdge::getRouteSpread() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
-    assert(first!=0);
-    SUMOReal occ = 0;
-    int no = 0;
-    do {
-        occ += first->getRouteSpread();
-        no++;
-        first = first->getNextSegment();
-    } while (first!=0);
-    return occ/(SUMOReal) no;
-}
-
-
-SUMOReal
 GUIEdge::getMeanSpeed() const {
     MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
     assert(first!=0);
