@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r7351
+SUMO duarouter Version dev-SVN-r7360
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -19,8 +19,8 @@ Usage: duarouter.exe [OPTION]*
  Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to route on
   -a, --alternatives FILE          Read alternatives from FILE
-  -w, --weights FILE               Read network weights from FILE
-  --lane-weights FILE              Read lane-weights from FILE
+  -w, --weights FILE               Read network weights from FILE(s)
+  --lane-weights FILE              Read lane-weights from FILE(s)
   -x, --measure STR                Name of the xml attribute which gives the
                                      edge weight
   -t, --trip-defs FILE             Read trip-definitions from FILE
