@@ -69,6 +69,15 @@ public:
                       SUMOTime timestep) throw(IOError);
 
 
+    /** @brief Writes the dump of the given vehicle into the given device
+     *
+     * @param[in] of The output device to use
+     * @param[in] veh The vehicle to dump
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     */
+    static void writeVehicle(OutputDevice &of, const SUMOVehicle &veh) throw(IOError);
+
+
 private:
     /** @brief Writes the dump of the given edge into the given device
      *
@@ -93,15 +102,6 @@ private:
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     static void writeLane(OutputDevice &of, const MSLane &lane) throw(IOError);
-
-
-    /** @brief Writes the dump of the given vehicle into the given device
-     *
-     * @param[in] of The output device to use
-     * @param[in] veh The vehicle to dump
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
-     */
-    static void writeVehicle(OutputDevice &of, const SUMOVehicle &veh) throw(IOError);
 
 
 private:

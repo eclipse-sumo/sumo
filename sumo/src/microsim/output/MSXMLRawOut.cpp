@@ -104,10 +104,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
         if (MSGlobals::gUseMesoSim) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
             while (seg != 0) {
-                std::vector<MEVehicle*> vehs = seg->getVehicles();
-                for (vector<MEVehicle*>::const_iterator veh = vehs.begin(); veh != vehs.end(); ++veh) {
-                    writeVehicle(of, *(*veh));
-                }
+                seg->writeVehicles(of);
                 seg = seg->getNextSegment();
             }
         } else {
