@@ -41,34 +41,35 @@
 /**
  * @class ValueTimeLine
  *
- * A time line being a sorted container of time-ranges with assigned
- * values. The container is sorted by the first value of the
- * time-range while being filled. Ranges with equivalent first values
- * are sorted in the order in which they were inserted.
+ * A time line being a sorted container of non-overlapping time-ranges
+ * with assigned values. The container is sorted by the first value of the
+ * time-range while being filled. Every new inserted time range
+ * may overwrite or split one or mutliple earlier intervals.
  */
 template<typename T>
 class ValueTimeLine {
 public:
-    /// Value of time line, indicating validity.
+    /// @brief Value of time line, indicating validity.
     typedef std::pair<bool, T> ValidValue;
 
-    /// Sorted map from start of intervals to values.
+    /// @brief Sorted map from start of intervals to values.
     typedef std::map<SUMOTime, ValidValue> TimedValueMap;
 
 public:
-    /// Constructor
+    /// @brief Constructor
     ValueTimeLine() { }
 
-    /// Destructor
+    /// @brief Destructor
     ~ValueTimeLine() { }
 
-    /// Adds a value for a time interval into the container. Make
-    /// sure that begin >= 0 and begin < end.
-    ///
-    /// @param begin Begin of TimeRange.
-    /// @param end End of TimeRange.
-    /// @param value Value to store.
-    ///
+    /** @brief Adds a value for a time interval into the container.
+     *
+     * Make sure that begin >= 0 and begin < end.
+     *
+     * @param[in] begin the start time of the time range (inclusive)
+     * @param[in] end the end time of the time range (exclusive)
+     * @param[in] value the value to store
+     */
     void add(SUMOTime begin, SUMOTime end, T value) {
         assert(begin>=0);
         assert(begin<end);
@@ -95,7 +96,14 @@ public:
         myValues[end] = oldEndValue;
     }
 
-    /// Returns the value for the given time
+    /** @brief Returns the value for the given time.
+     *
+     * There is no bounds checking applied! If there was no value
+     *  set, the return value is undefined, the method may even segfault.
+     *
+     * @param[in] the time for which the value should be retrieved
+     * @return the value for the time
+     */
     T getValue(SUMOTime time) const {
         assert(myValues.size()!=0);
         typename TimedValueMap::const_iterator it = myValues.upper_bound(time);
@@ -104,7 +112,16 @@ public:
         return it->second.second;
     }
 
-    /// returns the information whether the values for the given time are known
+    /** @brief Returns whether a value for the given time is known.
+     *
+     * This method implements the bounds checking. It returns true
+     *  if and only if an explicit value was set for the given time
+     *  using add. Default values stemming from fillGaps are not
+     *  considered valid.
+     *
+     * @param[in] the time for which the value should be retrieved
+     * @return whether a valid value was set
+     */
     bool describesTime(SUMOTime time) const {
         typename TimedValueMap::const_iterator afterIt = myValues.upper_bound(time);
         if (afterIt == myValues.begin()) {
@@ -114,14 +131,25 @@ public:
         return afterIt->second.first;
     }
 
-    /// fills all intervals where no value is set with the given one
-    void fillGaps(T value) {
+    /** @brief Sets a default value for all unset intervals.
+     *
+     * @param[in] value the value to store
+     * @param[in] extendOverBoundaries whether the first/last value should be valid for later / earlier tiems as well
+     */
+    void fillGaps(T value, bool extendOverBoundaries=false) {
         for (typename TimedValueMap::iterator it = myValues.begin(); it != myValues.end(); ++it) {
             if (!it->second.first) {
                 it->second.second = value;
             }
         }
-        myValues[-1] = std::make_pair(true, value);
+        if (extendOverBoundaries && !myValues.empty()) {
+            typename TimedValueMap::iterator it = --myValues.end();
+            if (!it->second.first) {
+                myValues.erase(it, myValues.end());
+            }
+            value = myValues.begin()->second.second;
+        }
+        myValues[-1] = std::make_pair(false, value);
     }
 
 private:

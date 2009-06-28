@@ -62,10 +62,10 @@ ROFrame::fillOptions(OptionsCont &oc) {
 
     oc.doRegister("weights", 'w', new Option_FileName());
     oc.addSynonyme("weights", "weight-files");
-    oc.addDescription("weights", "Input", "Read network weights from FILE");
+    oc.addDescription("weights", "Input", "Read network weights from FILE(s)");
 
     oc.doRegister("lane-weights", new Option_FileName());
-    oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE");
+    oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE(s)");
 
     oc.doRegister("measure", 'x', new Option_String("traveltime"));
     oc.addDescription("measure", "Input", "Name of the xml attribute which gives the edge weight");

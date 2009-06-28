@@ -80,10 +80,10 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
     loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weights")) {
-        loader.loadWeights(net, oc.getString("weights"), oc.getString("measure"), false);
+        loader.loadWeights(net, "weights", oc.getString("measure"), false);
     }
     if (oc.isSet("lane-weights")) {
-        loader.loadWeights(net, oc.getString("lane-weights"), oc.getString("measure"), true);
+        loader.loadWeights(net, "lane-weights", oc.getString("measure"), true);
     }
 }
 

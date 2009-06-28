@@ -77,7 +77,7 @@ public:
     virtual void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb);
 
     /// Loads the net weights
-    bool loadWeights(RONet &net, const std::string &file,
+    bool loadWeights(RONet &net, const std::string &optionName,
                      const std::string &measure, bool useLanes);
 
     /** @brief Builds and opens all route loaders

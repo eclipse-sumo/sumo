@@ -313,26 +313,27 @@ ROLoader::buildNamedHandler(const std::string &optionName,
 
 
 bool
-ROLoader::loadWeights(RONet &net, const std::string &file,
+ROLoader::loadWeights(RONet &net, const std::string &optionName,
                       const std::string &measure, bool useLanes) {
     // check whether the file exists
-    if (!FileHelpers::exists(file)) {
-        MsgHandler::getErrorInstance()->inform("The weights file '" + file + "' does not exist!");
+    if (!myOptions.isUsableFileList(optionName)) {
         return false;
     }
     // build and prepare the weights handler
     EdgeFloatTimeLineRetriever_EdgeWeight retriever(&net);
     SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition(measure, !useLanes, retriever);
     SAXWeightsHandler handler(def, file);
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights...");
-    // build and prepare the parser
-    if (XMLSubSys::runParser(handler, file)) {
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
-        return true;
-    } else {
-        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-        return false;
+    std::vector<std::string> files = myOptions.getStringVector(optionName);
+    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights from '" + *fileIt + "' ...");
+        if (XMLSubSys::runParser(handler, *fileIt)) {
+            MsgHandler::getMessageInstance()->endProcessMsg(" done.");
+        } else {
+            WRITE_MESSAGE("failed.");
+            return false;
+        }
     }
+    return true;
 }
 
 

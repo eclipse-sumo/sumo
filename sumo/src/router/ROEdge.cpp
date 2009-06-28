@@ -54,7 +54,9 @@ bool ROEdge::myHaveWarned = false;
 ROEdge::ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw()
         : myID(id), mySpeed(-1),
         myUsingTimeLine(false),
-        myIndex(index), myLength(-1), myHaveGapsFilled(false) {}
+        myIndex(index), myLength(-1),
+        myUseBoundariesOnOverride(useBoundariesOnOverride),
+        myHaveGapsFilled(false) {}
 
 
 ROEdge::~ROEdge() throw() {
@@ -130,7 +132,7 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
     SUMOReal value = (SUMOReal)(myLength / mySpeed);
     if (myUsingTimeLine) {
         if (!myHaveGapsFilled) {
-            myOwnValueLine.fillGaps(value);
+            myOwnValueLine.fillGaps(value, myUseBoundariesOnOverride);
             myHaveGapsFilled = true;
         }
         if (!myHaveWarned && !myOwnValueLine.describesTime(time)) {

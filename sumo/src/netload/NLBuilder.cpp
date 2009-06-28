@@ -213,9 +213,7 @@ NLBuilder::load(const std::string &mmlWhat) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading " + mmlWhat + " from '" + *fileIt + "' ...");
         }
         long before = SysUtils::getCurrentMillis();
-        myXMLHandler.setFileName(*fileIt);
-        XMLSubSys::runParser(myXMLHandler, *fileIt);
-        if (MsgHandler::getErrorInstance()->wasInformed()) {
+        if (!XMLSubSys::runParser(myXMLHandler, *fileIt)) {
             WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;
         }

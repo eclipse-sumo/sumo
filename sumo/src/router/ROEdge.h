@@ -271,6 +271,8 @@ protected:
     mutable ValueTimeLine<SUMOReal> myOwnValueLine;
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTimeLine;
+    /// @brief Whether overriding weight boundaries shall be reported
+    bool myUseBoundariesOnOverride;
     /// @brief Whether gaps in the timeline have been filled
     mutable bool myHaveGapsFilled;
 
