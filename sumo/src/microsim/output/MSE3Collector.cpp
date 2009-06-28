@@ -26,6 +26,8 @@
 #include <config.h>
 #endif
 
+#include <algorithm>
+
 #include "MSE3Collector.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
