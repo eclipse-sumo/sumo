@@ -7,10 +7,10 @@
         <!-- Read alternatives from FILE -->
         alternatives=""
 
-        <!-- Read network weights from FILE -->
+        <!-- Read network weights from FILE(s) -->
         weights=""
 
-        <!-- Read lane-weights from FILE -->
+        <!-- Read lane-weights from FILE(s) -->
         lane-weights=""
 
         <!-- Name of the xml attribute which gives the edge weight -->
