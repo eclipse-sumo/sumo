@@ -322,7 +322,7 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
     // build and prepare the weights handler
     EdgeFloatTimeLineRetriever_EdgeWeight retriever(&net);
     SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition(measure, !useLanes, retriever);
-    SAXWeightsHandler handler(def, file);
+    SAXWeightsHandler handler(def, "");
     std::vector<std::string> files = myOptions.getStringVector(optionName);
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights from '" + *fileIt + "' ...");
