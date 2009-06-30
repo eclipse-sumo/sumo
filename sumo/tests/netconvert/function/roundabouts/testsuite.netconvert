@@ -1,0 +1,8 @@
+# Tests for cases in which roundabouts should be built
+y1
+y2
+y3
+
+# Same as y1, but with no roundabouts
+disabled_y1
+
