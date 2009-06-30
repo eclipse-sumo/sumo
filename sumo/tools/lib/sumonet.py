@@ -38,7 +38,7 @@ class NetLane:
 
 
 class NetEdge:
-    def __init__(self, id, fromN, toN, prio):
+    def __init__(self, id, fromN, toN, prio, function):
         self._id = id
         self._from = fromN
         self._to = toN
@@ -51,6 +51,7 @@ class NetEdge:
         self._incoming = []
         self._outgoing = {}
         self._shape = None
+        self._function = function
 
     def addLane(self, lane):
         self._lanes.append(lane)
@@ -88,6 +89,27 @@ class NetEdge:
 
     def getLaneNumber(self):
         return len(self._lanes)
+
+    def rebuildShape(self):
+        noShapes = len(self._lanes)
+        if noShapes%2 == 1:
+            self.setShape(self._lanes[int(noShapes/2)]._shape)
+        else:
+            shape = []
+            minLen = -1
+            for l in self._lanes:
+                if minLen==-1 or minLen>len(l.getShape()):
+                    minLen = len(l._shape)
+            for i in range(0, minLen):
+                x = 0.
+                y = 0.
+                for j in range(0, len(self._lanes)):
+                    x = x + self._lanes[j]._shape[i][0]
+                    y = y + self._lanes[j]._shape[i][1]
+                x = x / float(len(self._lanes))
+                y = y / float(len(self._lanes))
+                shape.append( [ x, y ] )
+            self.setShape(shape)
 
          
 
@@ -139,11 +161,11 @@ class Net:
             self._ranges[1][1] = max(self._ranges[1][1], coord[1])
         return self._id2node[id]
 
-    def addEdge(self, id, fromID, toID, prio):
+    def addEdge(self, id, fromID, toID, prio, function):
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
             toN = self.addNode(toID)
-            edge = NetEdge(id, fromN, toN, prio)
+            edge = NetEdge(id, fromN, toN, prio, function)
             self._edges.append(edge)
             self._id2edge[id] = edge
         return self._id2edge[id]
@@ -154,6 +176,9 @@ class Net:
 
     def getEdge(self, id):
         return self._id2edge[id]
+
+    def getNode(self, id):
+        return self._id2node[id]
 
     def addTLS(self, tlid, inEdge, outEdge):
         if tlid in self._id2tls:
@@ -183,7 +208,7 @@ class NetReader(handler.ContentHandler):
                 prio = -1
                 if attrs.has_key('priority'):
                     prio = int(attrs['priority'])
-                self._currentEdge = self._net.addEdge(attrs['id'], attrs['from'], attrs['to'], prio)
+                self._currentEdge = self._net.addEdge(attrs['id'], attrs['from'], attrs['to'], prio, attrs['function'])
             else:
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
@@ -228,25 +253,7 @@ class NetReader(handler.ContentHandler):
             self._currentLane = None
             self._currentShape = ""
         if name == 'edge' and self._currentEdge:
-            noShapes = len(self._currentEdge._lanes)
-            if noShapes%2 == 1:
-                self._currentEdge.setShape(self._currentEdge._lanes[int(noShapes/2)]._shape)
-            else:
-                shape = []
-                minLen = -1
-                for l in self._currentEdge._lanes:
-                    if minLen==-1 or minLen>len(l.getShape()):
-                        minLen = len(l._shape)
-                for i in range(0, minLen):
-                    x = 0.
-                    y = 0.
-                    for j in range(0, len(self._currentEdge._lanes)):
-                        x = x + self._currentEdge._lanes[j]._shape[i][0]
-                        y = y + self._currentEdge._lanes[j]._shape[i][1]
-                    x = x / float(len(self._currentEdge._lanes))
-                    y = y / float(len(self._currentEdge._lanes))
-                    shape.append( [ x, y ] )
-                self._currentEdge.setShape(shape)
+            self._currentEdge.rebuildShape();
         if name == 'edge':
             self._currentEdge = None
 
