@@ -108,6 +108,7 @@
         x-offset-to-apply="0"
         y-offset-to-apply="0"
         rotation-to-apply="0"
+        guess-roundabouts="false"
     />
 
     <building_defaults

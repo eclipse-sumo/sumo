@@ -280,6 +280,9 @@
         <!-- Rotates net around FLOAT degrees -->
         rotation-to-apply="0"
 
+        <!-- Enable roundabout-guessing -->
+        guess-roundabouts="false"
+
     />
 
     <building_defaults
