@@ -31,6 +31,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <set>
 #include "NBEdgeCont.h"
 #include "NBTypeCont.h"
 #include "NBNodeCont.h"
@@ -184,7 +186,6 @@ protected:
      * @see NBNodeCont::writeXMLInternalSuccInfos
      */
     void save(OutputDevice &device, OptionsCont &oc) throw(IOError);
-
     /// @}
 
 
@@ -206,6 +207,9 @@ protected:
 
     /// @brief The used container for districts
     NBDistrictCont myDistrictCont;
+
+    /// @brief Edges marked as belonging to a roundabout (each set is a roundabout)
+    std::vector<std::set<NBEdge*> > myRoundabouts;
 
 
 private:

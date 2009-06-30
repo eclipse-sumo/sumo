@@ -721,7 +721,7 @@ EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {
     size_t len = id.length();
     EdgeVector ret;
-    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         string curr = (*i).first;
         // the next check makes it possibly faster - we don not have
         //  to compare the names
@@ -756,6 +756,67 @@ NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {
         ret.push_back((*i).second);
     }
     return ret;
+}
+
+
+void 
+NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw()
+{
+    // step 1: keep only those edges which have no turnarounds
+    std::set<NBEdge*> candidates;
+    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        NBEdge *e = (*i).second;
+        NBNode * const to = e->getToNode();
+        if(e->getTurnDestination()==0&&to->getConnectionTo(e->getFromNode())==0) {
+            candidates.insert(e);
+        }
+    }
+    // step 2: 
+    std::set<NBEdge*> visited;
+    for (std::set<NBEdge*>::const_iterator i=candidates.begin(); i!=candidates.end(); ++i) {
+        std::set<NBEdge*> loopEdges;
+        // start with a random edge, keep it as "begin"
+        NBEdge *begin = (*i);
+        if(find(visited.begin(), visited.end(), begin)!=visited.end()) {
+            // already seen
+            continue;
+        }
+        NBEdge *e = (*i);
+        // loop over connected edges (using always the leftmost one)
+        bool noLoop = false;
+        do {
+            visited.insert(e);
+            vector<NBEdge*> edges = e->getToNode()->getEdges();
+            if(edges.size()<2) {
+                noLoop = true;
+                break;
+            }
+            sort(edges.begin(), edges.end(), NBContHelper::edge_by_junction_angle_sorter(e->getToNode()));
+            vector<NBEdge*>::iterator me = find(edges.begin(), edges.end(), e);
+            NBContHelper::nextCW(&edges, me);
+            NBEdge *left = *me;
+            loopEdges.insert(left);
+            if(left==begin) {
+                break;
+            }
+            if(find(candidates.begin(), candidates.end(), left)==candidates.end()) {
+                noLoop = true;
+                break;
+            }
+            if(find(visited.begin(), visited.end(), left)!=visited.end()) {
+                noLoop = true;
+                break;
+            }
+            e = left;
+        } while(true);
+        // mark collected edges in the case a loop (roundabout) was found
+        if(!noLoop) {
+            for (std::set<NBEdge*>::const_iterator i=loopEdges.begin(); i!=loopEdges.end(); ++i) {
+                (*i)->setJunctionPriority((*i)->getToNode(), 1000);
+            }
+            marked.push_back(loopEdges);
+        }
+    }
 }
 
 

@@ -195,6 +195,11 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     inform(step, "Sorting nodes' edges");
     myNodeCont.sortNodesEdges(myTypeCont);
     //
+    if (oc.getBool("guess-roundabouts")) {
+        inform(step, "Guessing and setting roundabouts");
+        myEdgeCont.guessRoundabouts(myRoundabouts);
+    }
+    //
     inform(step, "Computing Approached Edges");
     myEdgeCont.computeEdge2Edges();
     //
@@ -312,6 +317,25 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     if (!oc.getBool("no-internal-links")) {
         myNodeCont.writeXMLInternalSuccInfos(device);
     }
+    // write roundabout information
+    for(std::vector<std::set<NBEdge*> >::iterator i=myRoundabouts.begin(); i!=myRoundabouts.end(); ++i) {
+        std::set<NBNode*> nodes;
+        for(set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+            nodes.insert((*j)->getToNode());
+        }
+        device << "   <roundabout nodes=\"";
+        int k = 0;
+        for(set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j, ++k) {
+            if(k!=0) {
+                device << ' ';
+            }
+            device << (*j)->getID();
+        }
+        device << "\"/>\n";
+    }
+    if(myRoundabouts.size()!=0) {
+        device << "\n";
+    }
     device.close();
 }
 
@@ -405,6 +429,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("rotation-to-apply", new Option_Float(0));
     oc.addDescription("rotation-to-apply", "Processing", "Rotates net around FLOAT degrees");
+
+    oc.doRegister("guess-roundabouts", new Option_Bool(false));
+    oc.addDescription("guess-roundabouts", "Processing", "Enable roundabout-guessing");
 
 
     // tls setting options
@@ -504,6 +531,8 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal)(100/3.6)));  // !!! not described
     oc.addDescription("obscure-ramps.min-highway-speed", "Ramp Guessing", "");
+
+    
 }
 
 /****************************************************************************/

@@ -428,6 +428,13 @@ public:
     /// @}
 
 
+
+    /** @brief Determines which edges belong to roundabouts and increases their priority
+     * @param[out] marked Edges which belong to a roundabout are stored here
+     */
+    void guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw();
+
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
@@ -472,7 +479,6 @@ private:
 
     /// @brief Boundary within which an edge must be located in order to be kept
     Position2DVector myPrunningBoundary;
-
     /// @}
 
 
