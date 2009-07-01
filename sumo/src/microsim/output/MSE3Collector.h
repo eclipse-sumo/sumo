@@ -380,6 +380,8 @@ protected:
         SUMOReal intervalSpeedSum;
         /// @brief The sum of haltings the vehicle has/had within the area during the current interval
         unsigned intervalHaltings;
+        /// @brief An internal information whether the update step was performed
+        bool hadUpdate;
     };
 
     /// @brief Container for vehicles that have entered the area

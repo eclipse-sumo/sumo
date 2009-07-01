@@ -168,6 +168,7 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw() {
             v.intervalHaltings++;
         }
     }
+    v.hadUpdate = false;
     myEnteredContainer[&veh] = v;
 }
 
@@ -180,7 +181,7 @@ MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw() {
         E3Values values = myEnteredContainer[&veh];
         values.leaveTime = leaveTimestep;
         SUMOReal leaveTimestepFraction = leaveTimestep - (SUMOReal)((int) leaveTimestep);
-        if(values.leaveTime-DELTA_T>values.entryTime) {
+        if(values.hadUpdate) {
             SUMOReal speedFraction = (veh.getSpeed() * leaveTimestepFraction);
             values.speedSum += speedFraction;
             values.intervalSpeedSum += speedFraction;
@@ -296,6 +297,7 @@ MSE3Collector::update(SUMOTime execTime) throw() {
     for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         MSVehicle* veh = pair->first;
         E3Values& values = pair->second;
+        values.hadUpdate = true;
         if(values.entryTime>=execTime) {
             // vehicle entered at this time step
             SUMOReal fraction = execTime + DELTA_T - values.entryTime;
