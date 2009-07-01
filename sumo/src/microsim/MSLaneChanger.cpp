@@ -52,8 +52,7 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChanger::MSLaneChanger(MSEdge::LaneCont* lanes, OutputDevice *output)
-        : myOutput(output) {
+MSLaneChanger::MSLaneChanger(MSEdge::LaneCont* lanes) {
     assert(lanes->size() > 1);
 
     // Fill the changer with the lane-data.
@@ -114,45 +113,6 @@ MSLaneChanger::initChanger() {
     }
 }
 
-void
-MSLaneChanger::writeOutput(const MSVehicle * const vehicle, int state,
-                           const std::pair<MSVehicle * const, SUMOReal> &lead,
-                           const std::pair<MSVehicle * const, SUMOReal> &follow,
-                           int dir, const MSVehicle * const swapped) {
-    (*myOutput) << "    <lane_change time=\"" << MSNet::getInstance()->getCurrentTimeStep()
-    << "\" id=\"" << vehicle->getID()
-    << "\" dir=\"" << dir
-    << "\" state=\"" << state
-    << "\" source=\"" << myCandi->lane->getID()
-    << "\" dest=\"" << (myCandi + dir)->lane->getID()
-    << "\" pos=\"" << vehicle->getPositionOnLane()
-    << "\" speed=\"" << vehicle->getSpeed();
-    if (lead.first!=0) {
-        (*myOutput)
-        << "\" leader=\"" << lead.first->getID()
-        << "\" leadergap=\"" << lead.second;
-    } else {
-        (*myOutput)
-        << "\" leader=\""
-        << "\" leadergap=\"";
-    }
-    if (follow.first!=0) {
-        (*myOutput)
-        << "\" follower=\"" << follow.first->getID()
-        << "\" followergap=\"" << follow.second;
-    } else {
-        (*myOutput)
-        << "\" follower=\""
-        << "\" followergap=\"";
-    }
-    if (swapped!=0) {
-        (*myOutput) << "\" swapped=\"" << swapped->getID() ;
-    } else {
-        (*myOutput) << "\" swapped=\"";
-    }
-    (*myOutput) << "\"/>\n";
-}
-
 
 bool
 MSLaneChanger::change() {
@@ -200,9 +160,6 @@ MSLaneChanger::change() {
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getVehicleType().getLength();
-        if (myOutput!=0) {
-            writeOutput(vehicle, state1, rLead, rFollow, -1);
-        }
         return true;
     }
     if ((state1&LCA_RIGHT)!=0&&(state1&LCA_URGENT)!=0) {
@@ -234,9 +191,6 @@ MSLaneChanger::change() {
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getVehicleType().getLength();
-        if (myOutput!=0) {
-            writeOutput(vehicle, state2, lLead, lFollow, 1);
-        }
         return true;
     }
     if ((state2&LCA_LEFT)!=0&&(state2&LCA_URGENT)!=0) {
@@ -322,13 +276,6 @@ MSLaneChanger::change() {
                     prohibitor->myLastLaneChangeOffset = 0;
                     (myCandi)->dens += prohibitor->getVehicleType().getLength();
                     (target)->dens += vehicle->getVehicleType().getLength();
-                    if (myOutput!=0) {
-                        if (dir>0) {
-                            writeOutput(vehicle, state2, lLead, lFollow, dir, prohibitor);
-                        } else {
-                            writeOutput(vehicle, state1, rLead, rFollow, dir, prohibitor);
-                        }
-                    }
                     return true;
                 }
             }

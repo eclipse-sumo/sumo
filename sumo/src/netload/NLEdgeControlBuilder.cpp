@@ -57,18 +57,11 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder()
-        : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0),
-        myEdgesLaneChangeOutputDevice(0) {
+        : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0) {
     myActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();
     m_pDepartLane = (MSLane*) 0;
     m_iNoSingle = m_iNoMulti = 0;
-    if (OptionsCont::getOptions().isSet("lanechange-output")) {
-        if (!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
-            throw 1;
-        }
-        myEdgesLaneChangeOutputDevice = &OutputDevice::getDeviceByOption("lanechange-output");
-    }
 }
 
 
@@ -133,8 +126,7 @@ NLEdgeControlBuilder::closeEdge() {
         m_iNoMulti++;
     }
     m_pLaneStorage->clear();
-    myActiveEdge->initialize(m_pDepartLane,
-                             lanes, m_Function, myEdgesLaneChangeOutputDevice);
+    myActiveEdge->initialize(m_pDepartLane, lanes, m_Function);
     return myActiveEdge;
 }
 

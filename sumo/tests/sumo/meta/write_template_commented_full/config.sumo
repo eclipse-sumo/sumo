@@ -31,9 +31,6 @@
         <!-- Save single vehicle route inf. into FILE -->
         vehroute-output=""
 
-        <!-- Write lane change information -->
-        lanechange-output=""
-
     />
 
     <time
@@ -66,12 +63,6 @@
 
         <!-- Specify how long a vehicle may wait until being teleported -->
         time-to-teleport="300"
-
-        <!--  -->
-        lanechange.min-sight=""
-
-        <!--  -->
-        lanechange.min-sight-edges="8"
 
         <!-- How long vehicles wait for departure before being skipped -->
         max-depart-delay="-1"

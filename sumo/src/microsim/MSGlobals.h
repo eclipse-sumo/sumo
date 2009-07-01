@@ -61,9 +61,6 @@ public:
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
 
-    static SUMOReal gMinLaneChangeSight;
-    static int gMinLaneChangeSightEdges;
-
     /** information whether the network shall check for collisions */
     static bool gCheck4Accidents;
 

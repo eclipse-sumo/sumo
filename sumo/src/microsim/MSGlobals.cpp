@@ -49,9 +49,6 @@ bool MSGlobals::gCheck4Accidents;
 bool MSGlobals::gStateLoaded;
 #endif
 
-SUMOReal MSGlobals::gMinLaneChangeSight;
-int MSGlobals::gMinLaneChangeSightEdges;
-
 bool MSGlobals::gUsingC2C = false;
 
 SUMOReal MSGlobals::gLANRange = 100;

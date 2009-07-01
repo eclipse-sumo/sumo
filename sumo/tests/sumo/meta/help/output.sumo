@@ -31,7 +31,6 @@ Usage: sumo.exe [OPTION]*
                                         into FILE
   --tripinfo-output FILE              Save single vehicle trip inf. into FILE
   --vehroute-output FILE              Save single vehicle route inf. into FILE
-  --lanechange-output FILE            Write lane change information
 
  Time Options:
   -b, --begin INT                     Defines the begin time;
@@ -51,8 +50,6 @@ Usage: sumo.exe [OPTION]*
   --incremental-dua-base INT          Base value for incremental DUA
   --time-to-teleport INT              Specify how long a vehicle may wait until
                                         being teleported
-  --lanechange.min-sight FLOAT        
-  --lanechange.min-sight-edges INT    
   --max-depart-delay INT              How long vehicles wait for departure
                                         before being skipped
 

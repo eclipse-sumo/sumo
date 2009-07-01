@@ -147,8 +147,6 @@ protected:
     /// the function of the current edge
     MSEdge::EdgeBasicFunction m_Function;
 
-    OutputDevice *myEdgesLaneChangeOutputDevice;
-
 private:
     /// @brief invalidated copy constructor
     NLEdgeControlBuilder(const NLEdgeControlBuilder &s);

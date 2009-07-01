@@ -13,7 +13,6 @@
         emissions-output=""
         tripinfo-output=""
         vehroute-output=""
-        lanechange-output=""
     />
 
     <time
@@ -29,8 +28,6 @@
         incremental-dua-step="-1"
         incremental-dua-base="10"
         time-to-teleport="300"
-        lanechange.min-sight=""
-        lanechange.min-sight-edges="8"
         max-depart-delay="-1"
     />
 

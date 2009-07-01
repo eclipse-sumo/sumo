@@ -129,10 +129,6 @@ MSFrame::fillOptions() {
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", "Save single vehicle route inf. into FILE");
 
-    oc.doRegister("lanechange-output", new Option_FileName());
-    oc.addSynonyme("lanechange-output", "lanechanges");
-    oc.addDescription("lanechange-output", "Output", "Write lane change information");
-
 #ifdef HAVE_MESOSIM
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
@@ -175,11 +171,6 @@ MSFrame::fillOptions() {
 
     oc.doRegister("time-to-teleport", new Option_Integer(300));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported");
-
-    oc.doRegister("lanechange.min-sight", new Option_Float());//!!! check, describe
-    oc.addDescription("lanechange.min-sight", "Processing", "");
-    oc.doRegister("lanechange.min-sight-edges", new Option_Integer(8));//!!! check, describe
-    oc.addDescription("lanechange.min-sight-edges", "Processing", "");
 
     oc.doRegister("max-depart-delay", new Option_Integer(-1));
     oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped");
@@ -319,8 +310,6 @@ MSFrame::setMSGlobals(OptionsCont &oc) {
 #endif
     // set the grid lock time
     MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0 ? 0 : oc.getInt("time-to-teleport");
-    MSGlobals::gMinLaneChangeSight = oc.isSet("lanechange.min-sight") ? oc.getFloat("lanechange.min-sight") : 3000.f;
-    MSGlobals::gMinLaneChangeSightEdges = oc.getInt("lanechange.min-sight-edges");
     //
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
 #ifdef HAVE_MESOSIM

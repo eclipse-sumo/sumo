@@ -113,14 +113,13 @@ public:
      * @param[in] departLane The default departure lane (may be 0)
      * @param[in] lanes List of this edge's lanes
      * @param[in] function A basic type of the edge
-     * @param[in] lcOutput The iodevice to write lane change events to (0 if not used)
      */
-    void initialize(
-        MSLane* departLane, LaneCont* lanes,
-        EdgeBasicFunction function, OutputDevice *lcOutput) throw();
+    void initialize(MSLane* departLane, LaneCont* lanes, EdgeBasicFunction function) throw();
+
 
     /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
     void closeBuilding();
+
 
     /** @brief Get the allowed lanes to reach the destination-edge.
      *

@@ -98,14 +98,13 @@ MSEdge::~MSEdge() throw() {
 
 void
 MSEdge::initialize(MSLane* departLane,
-                   LaneCont* lanes, EdgeBasicFunction function,
-                   OutputDevice *lcOutput) throw() {
+                   LaneCont* lanes, EdgeBasicFunction function) throw() {
     assert(lanes!=0);
     myDepartLane = departLane;
     myLanes = lanes;
     myFunction = function;
     if (myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
-        myLaneChanger = new MSLaneChanger(myLanes, lcOutput);
+        myLaneChanger = new MSLaneChanger(myLanes);
     }
 }
 
