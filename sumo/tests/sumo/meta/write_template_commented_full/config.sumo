@@ -52,11 +52,8 @@
         <!-- Disable (junction) internal links -->
         no-internal-links="false"
 
-        <!-- Quit (with an error) if an accident occures -->
-        quit-on-accident="false"
-
-        <!-- Check whether accidents occure more deeply -->
-        check-accidents="false"
+        <!-- Do not check whether accidents occure more deeply -->
+        ignore-accidents="false"
 
         <!-- Quit simulation if this number of vehicles is exceeded -->
         too-many-vehicles="-1"

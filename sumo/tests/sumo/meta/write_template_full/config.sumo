@@ -24,8 +24,7 @@
     <processing
         route-steps="200"
         no-internal-links="false"
-        quit-on-accident="false"
-        check-accidents="false"
+        ignore-accidents="false"
         too-many-vehicles="-1"
         incremental-dua-step="-1"
         incremental-dua-base="10"

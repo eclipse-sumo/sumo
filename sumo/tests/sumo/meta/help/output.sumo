@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r7335
+SUMO sumo Version dev-SVN-r7379
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -42,10 +42,8 @@ Usage: sumo.exe [OPTION]*
  Processing Options:
   -s, --route-steps INT               Load routes for the next INT steps ahead
   --no-internal-links                 Disable (junction) internal links
-  --quit-on-accident                  Quit (with an error) if an accident
-                                        occures
-  --check-accidents                   Check whether accidents occure more
-                                        deeply
+  --ignore-accidents                  Do not check whether accidents occure
+                                        more deeply
   --too-many-vehicles INT             Quit simulation if this number of
                                         vehicles is exceeded
   --incremental-dua-step INT          Perform the simulation as a step in
