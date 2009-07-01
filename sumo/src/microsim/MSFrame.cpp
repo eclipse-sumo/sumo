@@ -162,11 +162,8 @@ MSFrame::fillOptions() {
     oc.addDescription("no-internal-links", "Processing", "Disable (junction) internal links");
 #endif
 
-    oc.doRegister("quit-on-accident", new Option_Bool(false));
-    oc.addDescription("quit-on-accident", "Processing", "Quit (with an error) if an accident occures");
-
-    oc.doRegister("check-accidents", new Option_Bool(false));
-    oc.addDescription("check-accidents", "Processing", "Check whether accidents occure more deeply");
+    oc.doRegister("ignore-accidents", new Option_Bool(false));
+    oc.addDescription("ignore-accidents", "Processing", "Do not check whether accidents occure more deeply");
 
     oc.doRegister("too-many-vehicles", new Option_Integer(-1));//!!! check, describe
     oc.addDescription("too-many-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
