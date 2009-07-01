@@ -1,0 +1,125 @@
+TraCITestClient output file. Date: Thu Jun 25 17:03:34 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=16 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=17 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=18 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=15.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=16 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=17 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=18 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=30.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=16 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=16  ObjectID=4/1to3/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=17 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=17  ObjectID=4/1to3/1 valueDataType=10 float value: -1.00
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=18 objID=4/1to3/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=16 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=17 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=18 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=50.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=16 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=17 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=18 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=80.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=16 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=16  ObjectID=3/1to2/1 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=17 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=17  ObjectID=3/1to2/1 valueDataType=10 float value: -1.00
+
+-> Command sent: <GetVariable>:
+  domID=161 varID=18 objID=3/1to2/1
+.. Command acknowledged (161), [description: ]
+  CommandID=177  VariableID=18  ObjectID=3/1to2/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=90.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

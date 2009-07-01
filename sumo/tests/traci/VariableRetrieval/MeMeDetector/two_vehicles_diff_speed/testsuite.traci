@@ -10,3 +10,6 @@ two1s_1vehicle_10m_s
 two10s_1vehicle_10m_s
 
 
+# Tests for very near detectors
+two1s_10m_s_near
+two10s_10m_s_near
