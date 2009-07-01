@@ -322,7 +322,7 @@ MSFrame::setMSGlobals(OptionsCont &oc) {
     MSGlobals::gMinLaneChangeSight = oc.isSet("lanechange.min-sight") ? oc.getFloat("lanechange.min-sight") : 3000.f;
     MSGlobals::gMinLaneChangeSightEdges = oc.getInt("lanechange.min-sight-edges");
     //
-    MSGlobals::gCheck4Accidents = oc.getBool("check-accidents");
+    MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
 #ifdef HAVE_MESOSIM
     MSGlobals::gStateLoaded = oc.isSet("load-state");
 #endif
