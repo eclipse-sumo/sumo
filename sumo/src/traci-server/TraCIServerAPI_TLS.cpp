@@ -329,6 +329,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             delete logic;
             MSPhaseDefinition nphase(1, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
+            vars.getActive()->setLinkPriorities();
         }
     }
     break;
@@ -385,6 +386,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             delete logic;
             MSPhaseDefinition nphase(1, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
+            vars.getActive()->setLinkPriorities();
         }
     }
     break;

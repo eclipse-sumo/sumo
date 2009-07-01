@@ -107,6 +107,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
     }
     // add to the list of logic
     ltVariants[subID] = logic;
+    logic->setLinkPriorities();
     return true;
 }
 
