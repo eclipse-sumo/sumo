@@ -23,7 +23,7 @@ env["SMTP_SERVER"]="129.247.218.247"
 nightlyDir="N:\\Daten\\Sumo\\Nightly"
 compiler="D:\\Programme\\Microsoft Visual Studio 8\\Common7\\IDE\\devenv.exe"
 for platform in ["Win32", "x64"]:
-    env["FILEPREFIX"]="msvc8" + platform + options.suffix
+    env["FILEPREFIX"]="msvc8" + options.suffix + platform
     makeLog=options.rootDir+"\\"+env["FILEPREFIX"]+"Release.log"
     makeAllLog=options.rootDir+"\\"+env["FILEPREFIX"]+"Debug.log"
     statusLog=options.rootDir+"\\"+env["FILEPREFIX"]+"status.log"
@@ -80,6 +80,12 @@ for platform in ["Win32", "x64"]:
     log.close()
     if options.remoteDir:
         for path in (env["SUMO_REPORT"], makeLog, makeAllLog, statusLog, binaryZip):
+            dst = os.path.join(options.remoteDir, os.path.basename(path))
+            if os.path.exists(dst):
+                if os.path.isdir(dst):
+                    shutil.rmtree(dst)
+                else:
+                    os.unlink(dst)
             shutil.move(path, options.remoteDir)
     else:
         subprocess.call('WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%s\\key.ppk /command "option batch on" "option confirm off" "put %s %s %s %s %s /home/groups/s/su/sumo/htdocs/daily/" "exit"' % (options.rootDir, env["SUMO_REPORT"], makeLog, makeAllLog, statusLog, binaryZip))
