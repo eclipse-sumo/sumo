@@ -149,7 +149,7 @@ RODFRouteCont::addAllEndFollower() throw() {
             newRoutes.push_back(desc);
             continue;
         }
-        for (int j=0; j<last->getNoFollowing(); ++j) {
+        for (unsigned int j=0; j<last->getNoFollowing(); ++j) {
             RODFRouteDesc ndesc(desc);
             ndesc.edges2Pass.push_back(last->getFollower(j));
             setID(ndesc);

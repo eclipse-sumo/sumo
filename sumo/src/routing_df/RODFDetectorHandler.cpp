@@ -69,7 +69,7 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
             try {
                 lane = attrs.getString(SUMO_ATTR_LANE);
                 ROEdge *edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
-                int laneIndex = TplConvertSec<char>::_2intSec(lane.substr(lane.rfind('_')+1).c_str(), INT_MAX);
+                unsigned int laneIndex = TplConvertSec<char>::_2intSec(lane.substr(lane.rfind('_')+1).c_str(), INT_MAX);
                 if (edge == 0 || laneIndex >= edge->getLaneNo()) {
                     throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
                 }
