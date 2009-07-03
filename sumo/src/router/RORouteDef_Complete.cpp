@@ -38,6 +38,7 @@
 #include "RORouteDef_Complete.h"
 #include "ROHelper.h"
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -62,8 +63,13 @@ RORoute *
 RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                        SUMOTime begin, const ROVehicle &veh) const {
     if (myTryRepair) {
-        std::vector<const ROEdge*> newEdges;
         const std::vector<const ROEdge*> &oldEdges = myEdges;
+        if(oldEdges.size()==0) {
+            MsgHandler *m = OptionsCont::getOptions().getBool("continue-on-unbuild") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+            m->inform("Could not repair empty route of vehicle '" + veh.getID() + "'.");
+            return new RORoute(myID, 0, 1, std::vector<const ROEdge*>(), copyColorIfGiven());
+        }
+        std::vector<const ROEdge*> newEdges;
         newEdges.push_back(*(oldEdges.begin()));
         for (std::vector<const ROEdge*>::const_iterator i=oldEdges.begin()+1; i!=oldEdges.end(); ++i) {
             if ((*(i-1))->isConnectedTo(*i)) {
@@ -82,7 +88,7 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
         }
         myEdges = newEdges;
     }
-    SUMOReal costs = ROHelper::recomputeCosts(myEdges, &veh, begin);
+    SUMOReal costs = router.recomputeCosts(myEdges, &veh, begin);
     if (costs<0) {
         throw ProcessError("Route '" + getID() + "' (vehicle '" + veh.getID() + "') is not valid.");
     }
@@ -91,7 +97,8 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
 
 
 void
-RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin) {
+RORouteDef_Complete::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &, 
+                                    const ROVehicle *const, RORoute *current, SUMOTime begin) {
     myStartTime = begin;
     delete current;
 }
@@ -104,7 +111,8 @@ RORouteDef_Complete::copy(const std::string &id) const {
 
 
 OutputDevice &
-RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
+RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+                                        OutputDevice &dev, const ROVehicle * const veh,
                                         bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
@@ -113,7 +121,7 @@ RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * con
     // the route
     dev << "<route";
     if (asAlternatives) {
-        dev << " cost=\"" << ROHelper::recomputeCosts(myEdges, veh, veh->getDepartureTime());
+        dev << " cost=\"" << router.recomputeCosts(myEdges, veh, veh->getDepartureTime());
         dev << "\" probability=\"1.00\"";
     }
     if (myColor!=0) {
@@ -125,7 +133,7 @@ RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * con
         dev << "\" exitTimes=\"";
         std::vector<const ROEdge*>::const_iterator i = myEdges.begin();
         for (; i!=myEdges.end(); ++i) {
-            time += (*i)->getEffort(veh, time);
+            time += (*i)->getTravelTime(veh, time);
             dev << time << " ";
         }
     }

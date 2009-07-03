@@ -96,7 +96,8 @@ RORoute::recheckForLoops() throw() {
 
 
 OutputDevice &
-RORoute::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
+RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+                            OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {
         dev << "<routeDistribution last=\"0\">\n         ";
@@ -116,7 +117,7 @@ RORoute::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool
         dev << "\" exitTimes=\"";
         std::vector<const ROEdge*>::const_iterator i = myRoute.begin();
         for (; i!=myRoute.end(); ++i) {
-            time += (*i)->getEffort(veh, time);
+            time += (*i)->getTravelTime(veh, time);
             dev << time << " ";
         }
     }

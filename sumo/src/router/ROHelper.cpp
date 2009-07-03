@@ -38,20 +38,21 @@
 
 
 namespace ROHelper {
-
+/*
 SUMOReal
-recomputeCosts(const std::vector<const ROEdge*> &edges,
+recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+               const std::vector<const ROEdge*> &edges,
                const ROVehicle * const v, SUMOTime time) throw() {
     SUMOReal costs = 0;
     for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
-        costs += (*i)->getEffort(v, time + costs);
+        costs += router.getEffort(v, time + costs, *i);
         if ((*i)->prohibits(v)) {
             return -1;
         }
     }
     return costs;
 }
-
+*/
 
 void
 recheckForLoops(std::vector<const ROEdge*> &edges) throw() {

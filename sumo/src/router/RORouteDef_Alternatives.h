@@ -66,18 +66,18 @@ public:
                                const ROVehicle &veh) const;
 
     /// Adds a build alternative
-    void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);
+    void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+        const ROVehicle *const, RORoute *current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
     void invalidateLast();
 
-    void addExplicite(const ROVehicle *const veh, RORoute *current, SUMOTime begin);
-
     void removeLast();
 
-    virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh,
+    virtual OutputDevice &writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+        OutputDevice &dev, const ROVehicle * const veh,
             bool asAlternatives, bool withExitTimes) const;
 
 private:

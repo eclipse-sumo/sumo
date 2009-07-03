@@ -32,6 +32,7 @@
 #include <string>
 #include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -169,7 +170,7 @@ public:
     void recheckForLoops() throw();
 
     OutputDevice &
-    writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
+    writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
 
 
 private:

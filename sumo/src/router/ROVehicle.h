@@ -35,6 +35,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleParameter.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -43,6 +44,7 @@
 class ROVehicleType;
 class RORouteDef;
 class OutputDevice;
+class ROEdge;
 
 
 // ===========================================================================
@@ -122,7 +124,8 @@ public:
      * @exception IOError If something fails (not yet implemented)
      * @todo What is the given route definition?
      */
-    void saveAllAsXML(OutputDevice &os, OutputDevice * const altos, bool withExitTimes) const throw(IOError);
+    void saveAllAsXML(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+        OutputDevice &os, OutputDevice * const altos, bool withExitTimes) const throw(IOError);
 
 
     /** @brief Returns a copy of the vehicle using a new id, departure time and route

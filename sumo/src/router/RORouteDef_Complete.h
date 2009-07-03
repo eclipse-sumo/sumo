@@ -69,12 +69,14 @@ public:
     *
      * Here, as in most cases, the alternative is the route that was build
      * as last and will stay the only route known */
-    void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);
+    void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+        const ROVehicle *const, RORoute *current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
-    virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
+    virtual OutputDevice &writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+        OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
 
 protected:
     /// The list of edges the driver passes

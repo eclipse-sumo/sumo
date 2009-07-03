@@ -45,7 +45,8 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-bool ROEdge::myHaveWarned = false;
+bool ROEdge::myHaveTTWarned = false;
+bool ROEdge::myHaveEWarned = false;
 
 
 // ===========================================================================
@@ -53,10 +54,11 @@ bool ROEdge::myHaveWarned = false;
 // ===========================================================================
 ROEdge::ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw()
         : myID(id), mySpeed(-1),
-        myUsingTimeLine(false),
         myIndex(index), myLength(-1),
-        myUseBoundariesOnOverride(useBoundariesOnOverride),
-        myHaveGapsFilled(false) {}
+        myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
+        myHaveTTGapsFilled(false),
+        myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
+        myHaveEGapsFilled(false) {}
 
 
 ROEdge::~ROEdge() throw() {
@@ -119,9 +121,16 @@ ROEdge::addFollower(ROEdge *s) throw() {
 
 
 void
-ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() {
-    myOwnValueLine.add(timeBegin, timeEnd, value);
-    myUsingTimeLine = true;
+ROEdge::addEffort(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() {
+    myEfforts.add(timeBegin, timeEnd, value);
+    myUsingETimeLine = true;
+}
+
+
+void
+ROEdge::addTravelTime(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() {
+    myTravelTimes.add(timeBegin, timeEnd, value);
+    myUsingTTTimeLine = true;
 }
 
 
@@ -130,16 +139,36 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
     // ok, no absolute value was found, use the normal value (without)
     //  weight as default
     SUMOReal value = (SUMOReal)(myLength / mySpeed);
-    if (myUsingTimeLine) {
-        if (!myHaveGapsFilled) {
-            myOwnValueLine.fillGaps(value, myUseBoundariesOnOverride);
-            myHaveGapsFilled = true;
+    if (myUsingETimeLine) {
+        if (!myHaveEGapsFilled) {
+            myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
+            myHaveEGapsFilled = true;
         }
-        if (!myHaveWarned && !myOwnValueLine.describesTime(time)) {
+        if (!myHaveEWarned && !myEfforts.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
-            myHaveWarned = true;
+            myHaveEWarned = true;
         }
-        return myOwnValueLine.getValue(time);
+        return myEfforts.getValue(time);
+    }
+    return value;
+}
+
+
+SUMOReal
+ROEdge::getTravelTime(const ROVehicle *const, SUMOTime time) const throw() {
+    // ok, no absolute value was found, use the normal value (without)
+    //  weight as default
+    SUMOReal value = (SUMOReal)(myLength / mySpeed);
+    if (myUsingTTTimeLine) {
+        if (!myHaveTTGapsFilled) {
+            myTravelTimes.fillGaps(value, myUseBoundariesOnOverrideTT);
+            myHaveTTGapsFilled = true;
+        }
+        if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
+            WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+            myHaveTTWarned = true;
+        }
+        return myTravelTimes.getValue(time);
     }
     return value;
 }

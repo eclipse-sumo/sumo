@@ -61,24 +61,16 @@
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
-// ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight - methods
+// ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime - methods
 // ---------------------------------------------------------------------------
-ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::EdgeFloatTimeLineRetriever_EdgeWeight(
-    RONet *net)
-        : myNet(net) {}
-
-
-ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::~EdgeFloatTimeLineRetriever_EdgeWeight() {}
-
-
 void
-ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
+ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
         SUMOReal val,
         SUMOTime beg,
         SUMOTime end) {
     ROEdge *e = myNet->getEdge(id);
     if (e!=0) {
-        e->addWeight(val, beg, end);
+        e->addTravelTime(val, beg, end);
     } else {
         if (id[0]!=':') {
             MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
@@ -86,6 +78,24 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
     }
 }
 
+
+// ---------------------------------------------------------------------------
+// ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight - methods
+// ---------------------------------------------------------------------------
+void
+ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
+        SUMOReal val,
+        SUMOTime beg,
+        SUMOTime end) {
+    ROEdge *e = myNet->getEdge(id);
+    if (e!=0) {
+        e->addEffort(val, beg, end);
+    } else {
+        if (id[0]!=':') {
+            MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
+        }
+    }
+}
 
 
 // ---------------------------------------------------------------------------
@@ -227,8 +237,7 @@ ROLoader::getMinTimeStep() const throw() {
 
 void
 ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
-                           RONet &net,
-                           SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
+                           RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router) {
     long absNo = end - start;
     bool ok = true;
     for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
@@ -261,8 +270,7 @@ ROLoader::openTypedRoutes(const std::string &optionName,
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         // build the instance when everything's all right
         try {
-            ROAbstractRouteDefLoader *instance =
-                buildNamedHandler(optionName, *fileIt, net);
+            ROAbstractRouteDefLoader *instance = buildNamedHandler(optionName, *fileIt, net);
             myHandler.push_back(instance);
         } catch (ProcessError &e) {
             std::string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
@@ -320,9 +328,18 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
         return false;
     }
     // build and prepare the weights handler
-    EdgeFloatTimeLineRetriever_EdgeWeight retriever(&net);
-    SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition(measure, !useLanes, retriever);
-    SAXWeightsHandler handler(def, "");
+    std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
+    //  travel time, first (always used)
+    EdgeFloatTimeLineRetriever_EdgeTravelTime ttRetriever(&net);
+    retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("traveltime", !useLanes, ttRetriever));
+    //  the measure to use, then
+    EdgeFloatTimeLineRetriever_EdgeWeight eRetriever(&net);
+    if(measure!="traveltime") {
+        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(measure, !useLanes, eRetriever));
+    }
+    //  set up handler
+    SAXWeightsHandler handler(retrieverDefs, "");
+    // go through files
     std::vector<std::string> files = myOptions.getStringVector(optionName);
     for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights from '" + *fileIt + "' ...");

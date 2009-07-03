@@ -208,7 +208,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
         return false;
     }
     // add built route
-    routeDef->addAlternative(veh, current, veh->getDepartureTime());
+    routeDef->addAlternative(router, veh, current, veh->getDepartureTime());
     return true;
 }
 
@@ -238,7 +238,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
         // ok, compute the route (try it)
         if (computeRoute(options, router, veh)) {
             // write the route
-            veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, options.getBool("exit-times"));
+            veh->saveAllAsXML(router, *myRoutesOutput, myRouteAlternativesOutput, options.getBool("exit-times"));
             myWrittenRouteNo++;
             // remove the route if it is not longer used
             /*

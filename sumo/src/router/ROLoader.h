@@ -141,10 +141,33 @@ protected:
     class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// Constructor
-        EdgeFloatTimeLineRetriever_EdgeWeight(RONet *net);
+        EdgeFloatTimeLineRetriever_EdgeWeight(RONet *net) throw() : myNet(net) {}
 
         /// Destructor
-        ~EdgeFloatTimeLineRetriever_EdgeWeight();
+        ~EdgeFloatTimeLineRetriever_EdgeWeight() throw() { }
+
+        /// Sets the given value as the edge weight for the given period
+        void addEdgeWeight(const std::string &id,
+                           SUMOReal val, SUMOTime beg, SUMOTime end);
+
+    private:
+        /// The network edges shall be obtained from
+        RONet *myNet;
+
+    };
+
+
+    /**
+     * @class EdgeFloatTimeLineRetriever_EdgeTravelTime
+     * @brief Obtains edge travel times from a weights handler and stores them within the edges
+     */
+    class EdgeFloatTimeLineRetriever_EdgeTravelTime : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
+    public:
+        /// Constructor
+        EdgeFloatTimeLineRetriever_EdgeTravelTime(RONet *net) throw() : myNet(net) {}
+
+        /// Destructor
+        ~EdgeFloatTimeLineRetriever_EdgeTravelTime() throw() {}
 
         /// Sets the given value as the edge weight for the given period
         void addEdgeWeight(const std::string &id,

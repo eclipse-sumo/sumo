@@ -214,17 +214,25 @@ public:
 
 
 
-    /// @name Methods for getting/setting travel cost information
+    /// @name Methods for getting/setting travel time and cost information
     //@{
 
-    /** @brief Adds a weight definition
+    /** @brief Adds a weight value
      *
      * @param[in] value The value to add
      * @param[in] timeBegin The begin time of the interval the given value is valid for
      * @param[in] timeEnd The end time of the interval the given value is valid for
-     * @todo Refactor weights usage
      */
-    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
+    void addEffort(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
+
+
+    /** @brief Adds a travel time value
+     *
+     * @param[in] value The value to add
+     * @param[in] timeBegin The begin time of the interval the given value is valid for
+     * @param[in] timeEnd The end time of the interval the given value is valid for
+     */
+    void addTravelTime(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -246,15 +254,24 @@ public:
     }
 
 
-    /** @brief Returns the effort (normally the travel time) for this edge
+    /** @brief Returns the effort for this edge
      *
      * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
      * @param[in] time The tim for which the effort shall be returned
      * @return The effort needed by the given vehicle to pass the edge at the given time
-     * @todo Refactor weights usage
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
     SUMOReal getEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+
+
+    /** @brief Returns the travel time for this edge
+     *
+     * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
+     * @param[in] time The tim for which the effort shall be returned
+     * @return The effort needed by the given vehicle to pass the edge at the given time
+     * @todo Recheck whether the vehicle's maximum speed is considered
+     */
+    SUMOReal getTravelTime(const ROVehicle * const veh, SUMOTime time) const throw();
     //@}
 
 
@@ -266,18 +283,35 @@ protected:
     /// @brief The maximum speed allowed on this edge
     SUMOReal mySpeed;
 
+    /// @brief The index (numeric id) of the edge
+    unsigned int myIndex;
+
+    /// @brief The length of the edge
+    SUMOReal myLength;
+
 
     /// @brief Container storing passing time varying over time for the edge
-    mutable ValueTimeLine<SUMOReal> myOwnValueLine;
+    mutable ValueTimeLine<SUMOReal> myTravelTimes;
     /// @brief Information whether the time line shall be used instead of the length value
-    bool myUsingTimeLine;
+    bool myUsingTTTimeLine;
     /// @brief Whether overriding weight boundaries shall be reported
-    bool myUseBoundariesOnOverride;
+    bool myUseBoundariesOnOverrideTT;
     /// @brief Whether gaps in the timeline have been filled
-    mutable bool myHaveGapsFilled;
-
+    mutable bool myHaveTTGapsFilled;
     /// @brief Information whether the edge has reported missing weights
-    static bool myHaveWarned;
+    static bool myHaveTTWarned;
+
+    /// @brief Container storing passing time varying over time for the edge
+    mutable ValueTimeLine<SUMOReal> myEfforts;
+    /// @brief Information whether the time line shall be used instead of the length value
+    bool myUsingETimeLine;
+    /// @brief Whether overriding weight boundaries shall be reported
+    bool myUseBoundariesOnOverrideE;
+    /// @brief Whether gaps in the timeline have been filled
+    mutable bool myHaveEGapsFilled;
+    /// @brief Information whether the edge has reported missing weights
+    static bool myHaveEWarned;
+
 
 
     /// @brief List of edges that may be approached from this edge
@@ -285,12 +319,6 @@ protected:
 
     /// @brief The type of the edge
     EdgeType myType;
-
-    /// @brief The index (numeric id) of the edge
-    unsigned int myIndex;
-
-    /// @brief The length of the edge
-    SUMOReal myLength;
 
     /// @brief This edge's lanes
     std::vector<ROLane*> myLanes;
