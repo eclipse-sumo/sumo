@@ -78,7 +78,40 @@ public:
     virtual void compute(const E *from, const E *to, const V * const vehicle,
                          SUMOTime time, std::vector<const E*> &into) = 0;
 
+    virtual SUMOReal recomputeCosts(const std::vector<const E*> &edges,
+                        const V * const v, SUMOTime time) throw() = 0;
+
 };
+
+
+template<class E, class V>
+struct prohibited_withRestrictions {
+public:
+    inline bool operator()(const E *edge, const V *vehicle) {
+        if (std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
+            return true;
+        }
+        return edge->prohibits(vehicle);
+    }
+
+    void prohibit(const std::vector<E*> &toProhibit) {
+        myProhibited = toProhibit;
+    }
+
+protected:
+    std::vector<E*> myProhibited;
+
+};
+
+template<class E, class V>
+struct prohibited_noRestrictions {
+public:
+    inline bool operator()(const E *, const V *) {
+        return false;
+    }
+};
+
+
 
 
 #endif
