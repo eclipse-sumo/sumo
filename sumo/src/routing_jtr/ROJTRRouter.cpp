@@ -74,7 +74,7 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
             (int) into.size()<myMaxEdges) {
 
         into.push_back(current);
-        time += (SUMOTime) current->getEffort(vehicle, time);
+        time += (SUMOTime) current->getTravelTime(vehicle, time);
         current = current->chooseNext(myIgnoreClasses ? 0 : vehicle, time);
         assert(myIgnoreClasses||current==0||!current->prohibits(vehicle));
     }
@@ -96,6 +96,21 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
     if (current!=0) {
         into.push_back(current);
     }
+}
+
+
+SUMOReal 
+ROJTRRouter::recomputeCosts(const std::vector<const ROEdge*> &edges, const ROVehicle * const v, SUMOTime time) throw() {
+    SUMOReal costs = 0;
+    for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
+        /*
+        if (PF::operator()(*i, v)) {
+            return -1;
+        }
+        */
+        costs += (*i)->getTravelTime(v, time);
+    }
+    return costs;
 }
 
 

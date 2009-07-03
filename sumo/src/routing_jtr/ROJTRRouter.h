@@ -61,6 +61,9 @@ public:
     void compute(const ROEdge *from, const ROEdge *to, const ROVehicle * const vehicle,
                  SUMOTime time, std::vector<const ROEdge*> &into);
 
+    SUMOReal recomputeCosts(const std::vector<const ROEdge*> &edges, const ROVehicle * const v, SUMOTime time) throw();
+
+
 private:
     /// The network to use
     RONet &myNet;
