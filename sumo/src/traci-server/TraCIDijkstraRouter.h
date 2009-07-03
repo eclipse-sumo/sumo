@@ -31,7 +31,7 @@
 
 #ifndef NO_TRACI
 
-#include "utils/common/SUMODijkstraRouter.h"
+#include "utils/common/DijkstraRouterTT.h"
 
 
 // ===========================================================================
