@@ -511,6 +511,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\DijkstraRouterEffort.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\DijkstraRouterTT.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\FileHelpers.h"
 				>
 			</File>
@@ -564,10 +572,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\SUMOAbstractRouter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\SUMODijkstraRouter.h"
 				>
 			</File>
 			<File
