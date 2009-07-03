@@ -35,7 +35,7 @@
 #include <microsim/MSRoute.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/common/SUMODijkstraRouter.h>
+#include <utils/common/DijkstraRouterTT.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -947,7 +947,7 @@ MSDevice_C2C::checkReroute(SUMOTime t) {
     // try to reroute
     if (!myHolder.hasStops()) {
         myHaveRouteInfo = false;
-        SUMODijkstraRouter_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
+        DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
         router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
         myHolder.reroute(t, router);
     }

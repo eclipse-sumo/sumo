@@ -40,7 +40,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/TplConvert.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/common/SUMODijkstraRouter.h>
+#include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/RandHelper.h>
 
 #ifdef HAVE_MESOSIM
@@ -325,7 +325,7 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge *src) {
     }
 
     // we have a new destination, let's replace the vehicle route
-    SUMODijkstraRouter_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+    DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
     router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
     router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);

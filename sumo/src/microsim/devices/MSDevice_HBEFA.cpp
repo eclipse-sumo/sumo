@@ -32,7 +32,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
-#include <utils/common/SUMODijkstraRouter.h>
 #include <microsim/output/HelpersHBEFA.h>
 
 #ifdef CHECK_MEMORY_LEAKS

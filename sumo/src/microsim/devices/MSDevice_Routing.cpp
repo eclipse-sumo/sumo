@@ -32,7 +32,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
-#include <utils/common/SUMODijkstraRouter.h>
+#include <utils/common/DijkstraRouterTT.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -124,7 +124,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
         }
         // the following is just to give the vehicle a valid route before the route is checked at init
-        SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
         router(MSEdge::dictSize(), true, device, &MSDevice_Routing::getEffort);
         v.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
@@ -151,7 +151,7 @@ MSDevice_Routing::~MSDevice_Routing() throw() {
 
 void
 MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
-    SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     // build repetition trigger if routing shall be done more often
@@ -166,7 +166,7 @@ MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
 
 SUMOTime
 MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(ProcessError) {
-    SUMODijkstraRouter_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
+    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
     router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(currentTime, router);
     return myPeriod;

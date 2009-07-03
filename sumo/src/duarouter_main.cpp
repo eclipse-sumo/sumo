@@ -42,7 +42,7 @@
 #include <router/RONet.h>
 #include <router/ROEdge.h>
 #include <router/ROVehicleType_Krauss.h>
-#include <utils/common/SUMODijkstraRouter.h>
+#include <utils/common/DijkstraRouterTT.h>
 #include <routing_dua/RODUAEdgeBuilder.h>
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
@@ -105,10 +105,10 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     if (net.hasRestrictions()) {
-        router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+        router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
             net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     } else {
-        router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+        router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
             net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     }
     // process route definitions

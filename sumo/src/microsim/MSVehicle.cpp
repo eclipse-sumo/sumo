@@ -52,7 +52,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "trigger/MSBusStop.h"
-#include <utils/common/SUMODijkstraRouter.h>
+#include <utils/common/DijkstraRouterTT.h>
 #include "MSPerson.h"
 #include <utils/common/RandHelper.h>
 #include "devices/MSDevice_C2C.h"
@@ -2021,7 +2021,7 @@ MSVehicle::checkReroute(SUMOTime t) {
 #endif
     if (myNeedReroute && myStops.size()==0) {
         myNeedReroute = false;
-        SUMODijkstraRouter_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
+        DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
         router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
         reroute(t, router);
     }

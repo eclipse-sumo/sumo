@@ -199,7 +199,7 @@ public:
      * @param[in] v The vehicle that is rerouted
      * @param[in] t The time for which the effort shall be returned
      * @return The effort (time to pass in this case) for an edge
-     * @see SUMODijkstraRouter_ByProxi
+     * @see DijkstraRouterTT_ByProxi
      */
     SUMOReal getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOTime t) const;
 
