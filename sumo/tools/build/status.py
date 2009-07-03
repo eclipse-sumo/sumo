@@ -4,69 +4,71 @@ import os, sys, smtplib
 from os.path import basename, join, expandvars, exists, commonprefix
 from datetime import datetime
 
-failed = ""
-makelog = sys.argv[1]
-makealllog = sys.argv[2]
-build = commonprefix([basename(makelog), basename(makealllog)])
-print build,
-print datetime.now().ctime()
-print "--"
-print basename(makelog)
-warnings = 0
-errors = 0
-svnLocked = False
-for l in file(makelog):
-    if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
-        svnLocked = True
-        failed += l
-    if "warning " in l.lower():
-        warnings += 1
-    if "error " in l.lower():
-        errors += 1
-        failed += l
-if svnLocked:
-    failed += "svn up failed\n\n"
-print warnings, "warnings"
-if errors:
-    print errors, "errors"
-    failed += "make failed\n\n"
-print "--"
-if len(sys.argv) > 3:
-    texttesttmp = sys.argv[3]
-    for root, dirs, files in os.walk(texttesttmp):
-        for f in files:
-            if f.startswith("batchreport"):
-                b = open(join(root, f))
-                l = b.readline()
-                if l.startswith("FAILED") or l.startswith("succeeded"):
-                	print f, l,
-                b.close()
-print "--"
-print basename(makealllog)
-warnings = 0
-errors = 0
-for l in file(makealllog):
-    if "warning " in l.lower():
-        warnings += 1
-    if "error " in l.lower():
-        errors += 1
-        failed += l
-print warnings, "warnings"
-if errors:
-    print errors, "errors"
-    failed += "make debug failed\n\n"
-print "--"
+def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
+    failed = ""
+    build = commonprefix([basename(makeLog), basename(makeAllLog)])
+    print >> out, build,
+    print >> out, datetime.now().ctime()
+    print >> out, "--"
+    print >> out, basename(makeLog)
+    warnings = 0
+    errors = 0
+    svnLocked = False
+    for l in file(makeLog):
+        if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
+            svnLocked = True
+            failed += l
+        if "warning " in l.lower():
+            warnings += 1
+        if "error " in l.lower():
+            errors += 1
+            failed += l
+    if svnLocked:
+        failed += "svn up failed\n\n"
+    print >> out, warnings, "warnings"
+    if errors:
+        print >> out, errors, "errors"
+        failed += "make failed\n\n"
+    print >> out, "--"
+    if len(sys.argv) > 3:
+        textTestTmp = sys.argv[3]
+        for root, dirs, files in os.walk(textTestTmp):
+            for f in files:
+                if f.startswith("batchreport"):
+                    b = open(join(root, f))
+                    l = b.readline()
+                    if l.startswith("FAILED") or l.startswith("succeeded"):
+                    	print >> out, f, l,
+                    b.close()
+    print >> out, "--"
+    print >> out, basename(makeAllLog)
+    warnings = 0
+    errors = 0
+    for l in file(makeAllLog):
+        if "warning " in l.lower():
+            warnings += 1
+        if "error " in l.lower():
+            errors += 1
+            failed += l
+    print >> out, warnings, "warnings"
+    if errors:
+        print >> out, errors, "errors"
+        failed += "make debug failed\n\n"
+    print >> out, "--"
+    
+    if failed and len(sys.argv) > 4:
+        fromAddr = "michael.behrisch@dlr.de"
+        toAddr = "delphi-dev@dlr.de"
+        message = """\
+    From: "%s" <%s>
+    To: %s
+    Subject: Error occured while building SUMO.
+    
+    %s
+    """ % (build, fromAddr, toAddr, failed)
+        server = smtplib.SMTP(smtpServer)        
+        server.sendmail(fromAddr, toAddr, message)
+        server.quit()
 
-if failed and len(sys.argv) > 4:
-    fromAddr = "michael.behrisch@dlr.de"
-    toAddr = "delphi-dev@dlr.de"
-    message = """\
-From: "%s" <%s>
-To: %s
-Subject: Error occured while building SUMO.
-
-%s
-""" % (build, fromAddr, toAddr, failed)
-    server = smtplib.SMTP(sys.argv[4])        
-    server.sendmail(fromAddr, toAddr, message)
-    server.quit()
+if __name__ == "__main__":
+    printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.stdout)
