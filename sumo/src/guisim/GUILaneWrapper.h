@@ -175,25 +175,25 @@ public:
     //@{
 
     /// Returns the number of links
-    size_t getLinkNumber() const;
+    unsigned int getLinkNumber() const;
 
     /// Returns the state of the numbered link
     MSLink::LinkState getLinkState(unsigned int pos) const throw();
 
     /// Returns the direction of the numbered link
-    MSLink::LinkDirection getLinkDirection(size_t pos) const;
+    MSLink::LinkDirection getLinkDirection(unsigned int pos) const;
 
     /// Returns the lane approached by the numbered link
-    MSLane *getLinkLane(size_t pos) const;
+    MSLane *getLinkLane(unsigned int pos) const;
 
     /// Returns the numbered link's respond (junction) index
-    int getLinkRespondIndex(size_t pos) const;
+    int getLinkRespondIndex(unsigned int pos) const;
 
     /// Returns the tl-logic's gl-id the numbered link is controlled by
-    unsigned int getLinkTLID(const GUINet &net, size_t pos) const;
+    unsigned int getLinkTLID(const GUINet &net, unsigned int pos) const;
 
     /// Returns the numbered link's tls index
-    int getLinkTLIndex(const GUINet &net, size_t pos) const;
+    int getLinkTLIndex(const GUINet &net, unsigned int pos) const;
     //@}
 
 

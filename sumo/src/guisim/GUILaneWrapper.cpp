@@ -150,7 +150,7 @@ GUILaneWrapper::forLane(const MSLane &lane) const {
 
 void
 ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
-    size_t noLinks = lane.getLinkNumber();
+    unsigned int noLinks = lane.getLinkNumber();
     if (noLinks==0) {
         return;
     }
@@ -167,7 +167,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; ++i) {
+    for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         int linkNo = lane.getLinkRespondIndex(i);
         glPushMatrix();
@@ -188,7 +188,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
 
 void
 ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
-    size_t noLinks = lane.getLinkNumber();
+    unsigned int noLinks = lane.getLinkNumber();
     if (noLinks==0) {
         return;
     }
@@ -205,7 +205,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; ++i) {
+    for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         int linkNo = lane.getLinkTLIndex(net, i);
         if (linkNo<0) {
@@ -230,7 +230,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
 void
 ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
                             bool showToolTips) {
-    size_t noLinks = lane.getLinkNumber();
+    unsigned int noLinks = lane.getLinkNumber();
     const Position2DVector &g = lane.getShape();
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
@@ -263,7 +263,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
     glPushMatrix();
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; ++i) {
+    for (unsigned int i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
         if (showToolTips) {
@@ -334,7 +334,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
 
 void
 ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
-    size_t noLinks = lane.getLinkNumber();
+    unsigned int noLinks = lane.getLinkNumber();
     if (noLinks==0) {
         return;
     }
@@ -362,7 +362,7 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
 
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; ++i) {
+    for (unsigned int i=0; i<noLinks; ++i) {
         MSLink::LinkDirection dir = lane.getLinkDirection(i);
         MSLink::LinkState state = lane.getLinkState(i);
         if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
@@ -381,8 +381,8 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
 
 void
 ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
-    size_t noLinks = lane.getLinkNumber();
-    for (size_t i=0; i<noLinks; ++i) {
+    unsigned int noLinks = lane.getLinkNumber();
+    for (unsigned int i=0; i<noLinks; ++i) {
         MSLink::LinkState state = lane.getLinkState(i);
         const MSLane *connected = lane.getLinkLane(i);
         if (connected==0) {
@@ -597,9 +597,9 @@ GUILaneWrapper::getShape() const {
 }
 
 
-size_t
+unsigned int
 GUILaneWrapper::getLinkNumber() const {
-    return myLane.getLinkCont().size();
+    return (unsigned int) myLane.getLinkCont().size();
 }
 
 
@@ -610,19 +610,19 @@ GUILaneWrapper::getLinkState(unsigned int pos) const throw() {
 
 
 MSLink::LinkDirection
-GUILaneWrapper::getLinkDirection(size_t pos) const {
+GUILaneWrapper::getLinkDirection(unsigned int pos) const {
     return myLane.getLinkCont()[pos]->getDirection();
 }
 
 
 MSLane *
-GUILaneWrapper::getLinkLane(size_t pos) const {
+GUILaneWrapper::getLinkLane(unsigned int pos) const {
     return myLane.getLinkCont()[pos]->getLane();
 }
 
 
 int
-GUILaneWrapper::getLinkRespondIndex(size_t pos) const {
+GUILaneWrapper::getLinkRespondIndex(unsigned int pos) const {
     return myLane.getLinkCont()[pos]->getRespondIndex();
 }
 
@@ -640,13 +640,13 @@ GUILaneWrapper::getShapeLengths() const {
 
 
 unsigned int
-GUILaneWrapper::getLinkTLID(const GUINet &net, size_t pos) const {
+GUILaneWrapper::getLinkTLID(const GUINet &net, unsigned int pos) const {
     return net.getLinkTLID(myLane.getLinkCont()[pos]);
 }
 
 
 int
-GUILaneWrapper::getLinkTLIndex(const GUINet &net, size_t pos) const {
+GUILaneWrapper::getLinkTLIndex(const GUINet &net, unsigned int pos) const {
     return net.getLinkTLIndex(myLane.getLinkCont()[pos]);
 }
 
