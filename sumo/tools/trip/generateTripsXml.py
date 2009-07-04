@@ -10,7 +10,7 @@ This script generate a trip file as input data in sumo
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import os, string, sys, operator, math, datetime, random
+import os, string, sys, operator, math, datetime, random, bz2, StringIO
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
@@ -257,17 +257,29 @@ def addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, trip
        
 def main(options):
     parser = make_parser()
+    isBZ2= False
     dataDir = options.datadir
     districts = os.path.join(dataDir, options.districtfile)
     matrix = os.path.join(dataDir, options.mtxfile)
     netfile = os.path.join(dataDir, options.netfile)
+    print 'test'
+    print 'generate Trip file:', netfile
     
+    if "bz2" in netfile:
+        netfile = bz2.BZ2File(netfile)
+        isBZ2 = True
+     
     matrixSum = 0.
     tripList = []
     net = Net()
     odConnMap = {}
+    
     parser.setContentHandler(NetworkReader(net))
-    parser.parse(netfile)    
+    if isBZ2:
+        parser.parse(StringIO.StringIO(netfile.read()))
+        netfile.close()
+    else:
+        parser.parse(netfile)    
 
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
