@@ -31,6 +31,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <utils/common/SUMOTime.h>
 
 
