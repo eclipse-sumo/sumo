@@ -86,6 +86,6 @@ for platform in ["Win32", "x64"]:
                     shutil.rmtree(dst)
                 else:
                     os.unlink(dst)
-            shutil.move(path, options.remoteDir)
+            shutil.move(path, dst)
     else:
         subprocess.call('WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%s\\key.ppk /command "option batch on" "option confirm off" "put %s %s %s %s %s /home/groups/s/su/sumo/htdocs/daily/" "exit"' % (options.rootDir, env["SUMO_REPORT"], makeLog, makeAllLog, statusLog, binaryZip))
