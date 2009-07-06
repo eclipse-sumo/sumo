@@ -199,27 +199,31 @@ for period in range(5, 50, 5):
     routes.close()
 
     config = open("%s%02i.sumo.cfg" % (PREFIX, period), "w")
-    print >> config, """<c>
-        <net-file>%s.net.xml</net-file>
-        <route-files>%s.rou.xml,%s_demand%02i.rou.xml</route-files>
-        <additional-files>%s.add.xml</additional-files>
-        <no-step-log>x</no-step-log>
-        <time-to-teleport>0</time-to-teleport>
-        <remote-port>%s</remote-port>
-    </c>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX, PORT)
+    print >> config, """<configuration>
+    <c
+        net-file="%s.net.xml"
+        route-files="%s.rou.xml,%s_demand%02i.rou.xml"
+        additional-files="%s.add.xml"
+        no-step-log="True"
+        time-to-teleport="0"
+        remote-port="%s"
+    />
+</configuration>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX, PORT)
     config.close()
     print >> bat, "simpleManager.py -d %s" % period
     print >> breakbat, "simpleManager.py -b 120 -d %s" % period
-    
+
     config = open("%s%02i_cyber.sumo.cfg" % (PREFIX, period), "w")
-    print >> config, """<c>
-        <net-file>%s.net.xml</net-file>
-        <route-files>%s.rou.xml,%s_cyber.rou.xml,%s_demand%02i.rou.xml</route-files>
-        <additional-files>%s.add.xml</additional-files>
-        <no-step-log>x</no-step-log>
-        <time-to-teleport>0</time-to-teleport>
-        <remote-port>%s</remote-port>
-    </c>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX, PORT)
+    print >> config, """<configuration>
+    <c
+        net-file="%s.net.xml"
+        route-files="%s.rou.xml,%s_cyber.rou.xml,%s_demand%02i.rou.xml"
+        additional-files="%s.add.xml"
+        no-step-log="True"
+        time-to-teleport="0"
+        remote-port="%s"
+    />
+</configuration>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX, PORT)
     config.close()
     print >> bat, "agentManager.py -c -d %s" % period
     print >> breakbat, "agentManager.py -c -b 120 -d %s" % period
