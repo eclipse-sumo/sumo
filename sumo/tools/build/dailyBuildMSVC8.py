@@ -24,13 +24,16 @@ nightlyDir="N:\\Daten\\Sumo\\Nightly"
 compiler="D:\\Programme\\Microsoft Visual Studio 8\\Common7\\IDE\\devenv.exe"
 for platform in ["Win32", "x64"]:
     env["FILEPREFIX"]="msvc8" + options.suffix + platform
-    makeLog=options.rootDir+"\\"+env["FILEPREFIX"]+"Release.log"
-    makeAllLog=options.rootDir+"\\"+env["FILEPREFIX"]+"Debug.log"
-    statusLog=options.rootDir+"\\"+env["FILEPREFIX"]+"status.log"
-    testLog=options.rootDir+"\\"+env["FILEPREFIX"]+"test.log"
-    env["SUMO_BATCH_RESULT"]=options.rootDir+"\\"+env["FILEPREFIX"]+"batch_result"
-    env["SUMO_REPORT"]=options.rootDir+"\\"+env["FILEPREFIX"]+"report"
-    binaryZip=nightlyDir+"\\sumo-"+env["FILEPREFIX"]+"-bin.zip"
+    prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
+    if options.remoteDir:
+        prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
+    makeLog = prefix + "Release.log"
+    makeAllLog = prefix + "Debug.log"
+    statusLog = prefix + "status.log"
+    testLog = prefix + "test.log"
+    env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, env["FILEPREFIX"]+"batch_result")
+    env["SUMO_REPORT"] = prefix + "report"
+    binaryZip = os.path.join(nightlyDir, "sumo-%s-bin.zip" % env["FILEPREFIX"])
 
     for f in [makeLog, makeAllLog, binaryZip] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
         try:
@@ -38,8 +41,8 @@ for platform in ["Win32", "x64"]:
         except WindowsError:
             pass
     log = open(makeLog, 'w')
-    subprocess.call("svn.exe up %s\\trunk" % options.rootDir , stdout=log, stderr=subprocess.STDOUT)
-    log.close()    
+    subprocess.call("svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
+    log.close()
     subprocess.call(compiler+" /rebuild Release|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeLog))
     programSuffix = envSuffix = ""
     if platform == "x64":
@@ -78,14 +81,5 @@ for platform in ["Win32", "x64"]:
     log = open(statusLog, 'w')
     status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log)
     log.close()
-    if options.remoteDir:
-        for path in (env["SUMO_REPORT"], makeLog, makeAllLog, statusLog, binaryZip):
-            dst = os.path.join(options.remoteDir, os.path.basename(path))
-            if os.path.exists(dst):
-                if os.path.isdir(dst):
-                    shutil.rmtree(dst)
-                else:
-                    os.unlink(dst)
-            shutil.move(path, dst)
-    else:
+    if not options.remoteDir:
         subprocess.call('WinSCP3.com behrisch,sumo@web.sourceforge.net /privatekey=%s\\key.ppk /command "option batch on" "option confirm off" "put %s %s %s %s %s /home/groups/s/su/sumo/htdocs/daily/" "exit"' % (options.rootDir, env["SUMO_REPORT"], makeLog, makeAllLog, statusLog, binaryZip))
