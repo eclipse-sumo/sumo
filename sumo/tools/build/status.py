@@ -30,16 +30,14 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
         print >> out, errors, "errors"
         failed += "make failed\n\n"
     print >> out, "--"
-    if len(sys.argv) > 3:
-        textTestTmp = sys.argv[3]
-        for root, dirs, files in os.walk(textTestTmp):
-            for f in files:
-                if f.startswith("batchreport"):
-                    b = open(join(root, f))
-                    l = b.readline()
-                    if l.startswith("FAILED") or l.startswith("succeeded"):
-                    	print >> out, f, l,
-                    b.close()
+    for root, dirs, files in os.walk(textTestTmp):
+        for f in files:
+            if f.startswith("batchreport"):
+                b = open(join(root, f))
+                l = b.readline()
+                if l.startswith("FAILED") or l.startswith("succeeded"):
+                	print >> out, f, l,
+                b.close()
     print >> out, "--"
     print >> out, basename(makeAllLog)
     warnings = 0
@@ -56,7 +54,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
         failed += "make debug failed\n\n"
     print >> out, "--"
     
-    if failed and len(sys.argv) > 4:
+    if failed:
         fromAddr = "michael.behrisch@dlr.de"
         toAddr = "delphi-dev@dlr.de"
         message = """\
