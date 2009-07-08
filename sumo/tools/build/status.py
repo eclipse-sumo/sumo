@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os, sys, smtplib
-from os.path import basename, join, expandvars, exists, commonprefix
+from os.path import basename, join, commonprefix
 from datetime import datetime
 
 def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):

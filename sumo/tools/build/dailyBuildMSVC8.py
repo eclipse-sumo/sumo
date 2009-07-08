@@ -1,4 +1,4 @@
-import optparse, os, glob, subprocess, zipfile, shutil, datetime
+import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
 
 import status
 
@@ -40,9 +40,13 @@ for platform in ["Win32", "x64"]:
             os.remove(f)
         except WindowsError:
             pass
-    log = open(makeLog, 'w')
-    subprocess.call("svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
-    log.close()
+    if platform == "Win32":
+        log = open(makeLog, 'w')
+        subprocess.call("svn.exe up %s\\trunk" % options.rootDir, stdout=log, stderr=subprocess.STDOUT)
+        log.close()
+        if len(open(makeLog).readlines()) <= 5:
+            print "No changes since last update, skipping build and test"
+            sys.exit()
     subprocess.call(compiler+" /rebuild Release|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeLog))
     programSuffix = envSuffix = ""
     if platform == "x64":
