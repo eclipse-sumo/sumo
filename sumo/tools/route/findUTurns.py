@@ -14,7 +14,7 @@ modified routes.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import os, sys, re
+import os, sys
 
 from xml.sax import make_parser, handler
 from optparse import OptionParser
@@ -35,6 +35,8 @@ class RouteReader(handler.ContentHandler):
             self._vehAttrs = attrs
         elif name == 'route':
             self._routeString = ''
+            if attrs.has_key("edges"):
+                self._routeString = attrs['edges']
         elif name == 'routes':
             if options.repair:
                 print '<routes>'
@@ -80,7 +82,7 @@ class RouteReader(handler.ContentHandler):
                     for key in self._vehAttrs.keys():
                         print '%s="%s"' % (key, self._vehAttrs[key]),
                     print '>'
-                    print '   <route>%s</route>' % ' '.join(route[routeStart:routeEnd])
+                    print '   <route edges="%s"/>' % ' '.join(route[routeStart:routeEnd])
                     print '</vehicle>'
         elif name == 'routes':
             if options.repair:
@@ -95,9 +97,8 @@ optParser.add_option("-r", "--repair", action="store_true", dest="repair",
                      default=False, help="remove U turns at start and end of the route")
 (options, args) = optParser.parse_args()
 if len(args) == 0:
-    optParser.print_help()
-    sys.exit()
+    optParser.error("Please give at least one route file!")
+parser = make_parser()
 for f in args:
-    parser = make_parser()
     parser.setContentHandler(RouteReader())
     parser.parse(f)
