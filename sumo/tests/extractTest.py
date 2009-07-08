@@ -7,7 +7,7 @@
 
 Extract all files for a test case into a new dir.
 It may copy more files than needed because it copies everything
-that is mentioned in the config under copy test_path.
+that is mentioned in the config under copy_test_path.
 
 Copyright (C) 2009 DLR/TS, Germany
 All rights reserved
@@ -27,14 +27,13 @@ for leaf in args:
 		print >> sys.stderr, "Not a unique options file in %s." % dir
 		continue
 	app = optionsFiles[0].split('.')[1]
-	potentials = set()
+	potentials = {}
 	dir = leaf
 	while True:
 		for f in os.listdir(dir):
 			path = join(dir, f)
-			if not os.path.isdir(path):
-				potentials.add(path)
-		potentials -= set(glob.glob(join(dir, "*."+app)))
+			if not os.path.isdir(path) and not f in potentials:
+				potentials[f] = path
 		if dir == os.path.dirname(dir) or os.path.exists(join(dir, "config."+app)):
 			break
 		dir = os.path.dirname(dir)
@@ -42,20 +41,19 @@ for leaf in args:
 	if not os.path.exists(config):
 		print >> sys.stderr, "Config not found for %s." % dir
 		continue
-	fileNames = set()
-	for line in open(config):
-		entry = line.strip().split(':')
-		if entry and entry[0] == "copy_test_path":
-			fileNames.add(entry[1])
 	testPath = leaf[len(os.path.commonprefix([dir, leaf])):]
 	testPath = join(options.output, testPath.replace(os.sep, '_'))
 	if not os.path.exists(testPath):
 		os.makedirs(testPath)
-	for pot in potentials:
-		if os.path.basename(pot) in fileNames:
-			shutil.copy2(pot, testPath)
+	for line in open(config):
+		entry = line.strip().split(':')
+		if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
+			shutil.copy2(potentials[entry[1]], testPath)
 	options = open(optionsFiles[0]).read().split() + ['--save-configuration', 'test.%s.cfg' % app]
 	oldWorkDir = os.getcwd()
 	os.chdir(testPath)
-	subprocess.call([app] + options)
+	if os.name == "posix" and app != "sumo":
+		subprocess.call(["sumo-" + app] + options)
+	else:
+		subprocess.call([app] + options)
 	os.chdir(oldWorkDir)
