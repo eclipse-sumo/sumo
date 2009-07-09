@@ -234,8 +234,6 @@
 		</Configuration>
 		<Configuration
 			Name="Fastbuild|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\Win32.vsprops;..\Fastbuild.vsprops"
 			>
@@ -506,8 +504,6 @@
 		</Configuration>
 		<Configuration
 			Name="Fastbuild|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\x64.vsprops;..\Fastbuild.vsprops"
 			>
