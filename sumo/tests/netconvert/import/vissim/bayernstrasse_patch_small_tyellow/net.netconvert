@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/08/09 11:05:59 by SUMO netconvert Version dev-SVN-r7258
+<!-- generated on 07/10/09 10:45:15 by SUMO netconvert Version dev-SVN-r7409
 <configuration>
 
     <input
@@ -1041,19 +1041,19 @@
 
    <edge id="85[1][0]" from="40" to="38" priority="-1" type="5" function="normal">
       <lanes>
-         <lane id="85[1][0]_0" depart="1" maxspeed="13.89" length="13.92">1704.43,1797.64 1701.03,1798.91 1691.82,1803.50</lane>
+         <lane id="85[1][0]_0" depart="1" maxspeed="13.89" length="15.66">1704.43,1797.64 1701.03,1798.91 1690.27,1804.27</lane>
       </lanes>
    </edge>
 
    <edge id="85[1][1][0]" from="38" to="39" priority="-1" type="5" function="normal">
       <lanes>
-         <lane id="85[1][1][0]_0" depart="1" maxspeed="13.89" length="3.47">1687.76,1804.40 1690.20,1806.87</lane>
+         <lane id="85[1][1][0]_0" depart="1" maxspeed="13.89" length="3.85">1686.32,1805.29 1689.02,1808.03</lane>
       </lanes>
    </edge>
 
    <edge id="85[1][1][1][0]" from="39" to="37" priority="-1" type="5" function="normal">
       <lanes>
-         <lane id="85[1][1][1][0]_0" depart="1" maxspeed="13.89" length="137.96">1683.00,1810.58 1585.30,1881.70 1570.99,1891.09</lane>
+         <lane id="85[1][1][1][0]_0" depart="1" maxspeed="13.89" length="139.64">1684.36,1809.59 1585.30,1881.70 1570.99,1891.09</lane>
       </lanes>
    </edge>
 
@@ -1145,7 +1145,7 @@
 
    <edge id="93[1]" from="39" to="38" priority="-1" type="5" function="normal">
       <lanes>
-         <lane id="93[1]_0" depart="1" maxspeed="13.89" length="4.70">1687.91,1809.24 1684.45,1806.07</lane>
+         <lane id="93[1]_0" depart="1" maxspeed="13.89" length="3.97">1689.02,1808.03 1686.10,1805.35</lane>
       </lanes>
    </edge>
 
@@ -2512,12 +2512,12 @@
 
    <junction id="38" type="priority" x="1686.95" y="1805.93">
       <inclanes>93[1]_0 85[1][0]_0</inclanes>
-      <shape>1686.79,1810.40 1691.31,1805.72 1692.53,1804.93 1691.11,1802.07</shape>
+      <shape>1687.91,1809.18 1690.13,1806.88 1690.98,1805.71 1689.55,1802.84</shape>
    </junction>
 
    <junction id="39" type="priority" x="1688.99" y="1808.00">
       <inclanes>93[0]_0 85[1][1][0]_0</inclanes>
-      <shape>1689.50,1810.67 1691.68,1808.33 1689.26,1803.64 1682.92,1806.83 1682.81,1808.73 1683.18,1812.42</shape>
+      <shape>1689.50,1810.67 1691.68,1808.33 1688.09,1804.80 1684.28,1805.84 1684.17,1807.74 1684.54,1811.43</shape>
    </junction>
 
    <junction id="39-end" type="DEAD_END" x="1543.16" y="1692.66">
