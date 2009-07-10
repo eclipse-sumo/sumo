@@ -569,36 +569,20 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
 bool
 MSLane::setCritical(std::vector<MSLane*> &into) {
     // move critical vehicles
-    int to_pop = 0;
-    int to_pop2 = 0;
-    int running = 1;
-    bool lastPopped = false;
+    int first2pop = -1;
+    int curr = myFirstUnsafe;
     bool hadProblem = false;
-    bool hadPopped = false;
     VehCont::iterator i;
-    for (i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end();) {
+    for (i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); ++i, ++curr) {
         (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
-        if (target!=this) {
-            hadPopped = true;
-            if (!(to_pop==0||lastPopped)) {
-                hadProblem = true;
-            }
-            lastPopped = true;
-            to_pop++;
-            to_pop2 = running;//++;
-        } else {
-            lastPopped = false;
-        }
-        ++i;
-        if (hadPopped) {
-            ++running;
+        if (target!=this&&first2pop<0) {
+            first2pop = curr;
         }
     }
-    if (to_pop!=to_pop2) {
-        hadProblem = true;
-    }
-    for (int j = 0; j<to_pop2; j++) {
+    if(first2pop>=0) {
+    int remove = myVehicles.size() - first2pop;
+    for (int j = 0; j<remove; ++j) {
         MSVehicle *v = *(myVehicles.end() - 1);
         MSVehicle *p = pop();
         assert(v==p);
@@ -619,6 +603,7 @@ MSLane::setCritical(std::vector<MSLane*> &into) {
         if (target!=0&&p->isOnRoad()) {
             target->push(p);
             into.push_back(target);
+        }
         }
     }
     // check whether the lane is free
