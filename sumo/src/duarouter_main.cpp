@@ -104,12 +104,22 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     }
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
-    if (net.hasRestrictions()) {
-        router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-            net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+    if(oc.getString("measure")=="traveltime") {
+        if (net.hasRestrictions()) {
+            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
+        } else {
+            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
+        }
     } else {
-        router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-            net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+        if (net.hasRestrictions()) {
+            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+        } else {
+            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+        }
     }
     // process route definitions
     try {
