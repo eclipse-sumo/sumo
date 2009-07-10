@@ -280,12 +280,6 @@ NBNode::addIncomingEdge(NBEdge *edge) {
     if (find(myIncomingEdges->begin(), myIncomingEdges->end(), edge)==myIncomingEdges->end()) {
         myIncomingEdges->push_back(edge);
         myAllEdges.push_back(edge);
-        for (std::vector<NBEdge*>::iterator i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); ++i) {
-            if ((*i)->getToNode()==edge->getFromNode()) {
-                (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
-                edge->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
-            }
-        }
     }
 }
 
@@ -296,12 +290,6 @@ NBNode::addOutgoingEdge(NBEdge *edge) {
     if (find(myOutgoingEdges->begin(), myOutgoingEdges->end(), edge)==myOutgoingEdges->end()) {
         myOutgoingEdges->push_back(edge);
         myAllEdges.push_back(edge);
-        for (std::vector<NBEdge*>::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); ++i) {
-            if ((*i)->getFromNode()==edge->getToNode()) {
-                (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
-                edge->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
-            }
-        }
     }
 }
 
@@ -591,13 +579,31 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                 string id = ":" + myID + "_" + toString(lno);
                 Position2D end = (*k).toEdge->getLaneShape((*k).toLane).getBegin();
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
+
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
+                if(shape.size()==1) {
+                    shape.push_back(shape[0]);
+                }
                 SUMOReal length = MAX2(shape.length(), (SUMOReal) .1);
 
                 // get internal splits if any
                 std::pair<SUMOReal, std::vector<unsigned int> > cross = getCrossingPosition(*i, j, (*k).toEdge, (*k).toLane);
                 if (cross.first>=0) {
-                    std::pair<Position2DVector, Position2DVector> split = shape.splitAt(cross.first);
+                    std::pair<Position2DVector, Position2DVector> split;
+                    // as usual, a problem...
+                    //  if the one edge starts exactly where the other one ends (think of a
+                    //  turnaround edges lying over the other one) we have a shape with length=0
+                    if(shape.length()!=0) {
+                        split = shape.splitAt(cross.first);
+                    } else {
+                        split = std::pair<Position2DVector, Position2DVector>(shape, shape);
+                    }
+                    if(split.first.size()==1) {
+                        split.first.push_back(split.first[0]);
+                    }
+                    if(split.second.size()==1) {
+                        split.second.push_back(split.second[0]);
+                    }
 
                     into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
                     into << "      <lanes>\n";
