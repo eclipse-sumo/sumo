@@ -42,11 +42,6 @@
 // ===========================================================================
 bool gQuitOnEnd;
 
-GUISimInfo *gSimInfo = 0;
-
-
-GUIAddWeightsStorage gAddWeightsStorage;
-
 std::vector<int> gBreakpoints;
 
 

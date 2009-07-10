@@ -32,7 +32,6 @@
 #include <string>
 #include <vector>
 #include <fx.h>
-#include <gui/GUIAddWeightsStorage.h>
 
 
 // ===========================================================================

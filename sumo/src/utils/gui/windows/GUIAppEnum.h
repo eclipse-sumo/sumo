@@ -122,8 +122,6 @@ enum {
 
     /// Open chosen editor - ID
     MID_EDITCHOSEN,
-    /// Edit additional weights - ID
-    MID_EDIT_ADD_WEIGHTS,
     /// Edit simulation breakpoints
     MID_EDIT_BREAKPOINTS,
     //@}

@@ -64,7 +64,6 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include "dialogs/GUIDialog_AboutSUMO.h"
 #include "dialogs/GUIDialog_AppSettings.h"
-#include "dialogs/GUIDialog_EditAddWeights.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/drawer/GUIGradients.h>
@@ -104,7 +103,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,            GUIApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,             GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,        GUIApplicationWindow::onCmdEditChosen),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDIT_ADD_WEIGHTS,  GUIApplicationWindow::onCmdEditAddWeights),
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onCmdEditBreakpoints),
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
@@ -127,7 +125,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
     FXMAPFUNC(SEL_UPDATE,   MID_STOP,              GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdEditChosen),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDIT_ADD_WEIGHTS,  GUIApplicationWindow::onUpdEditAddWeights),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdEditBreakpoints),
 #ifdef HAVE_MESOSIM
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MESOVIEW,     GUIApplicationWindow::onUpdAddMesoView),
@@ -371,10 +368,6 @@ GUIApplicationWindow::fillMenuBar() {
                       GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Edit Additional Weights...\t\tOpens a Dialog for editing additional Weights.",
-                      0, this, MID_EDIT_ADD_WEIGHTS);
-    new FXMenuSeparator(myEditMenu);
-    new FXMenuCommand(myEditMenu,
                       "Edit Breakpoints...\t\tOpens a Dialog for editing breakpoints.",
                       0, this, MID_EDIT_BREAKPOINTS);
 
@@ -567,16 +560,6 @@ long
 GUIApplicationWindow::onCmdEditBreakpoints(FXObject*,FXSelector,void*) {
     GUIDialog_Breakpoints *chooser =
         new GUIDialog_Breakpoints(this);
-    chooser->create();
-    chooser->show();
-    return 1;
-}
-
-
-long
-GUIApplicationWindow::onCmdEditAddWeights(FXObject*,FXSelector,void*) {
-    GUIDialog_EditAddWeights *chooser =
-        new GUIDialog_EditAddWeights(this);
     chooser->create();
     chooser->show();
     return 1;
@@ -794,16 +777,6 @@ GUIApplicationWindow::onUpdEditChosen(FXObject*sender,FXSelector,void*ptr) {
 
 
 long
-GUIApplicationWindow::onUpdEditAddWeights(FXObject *sender,FXSelector,void *ptr) {
-    sender->handle(this,
-                   !myRunThread->simulationAvailable()||myAmLoading
-                   ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
-                   ptr);
-    return 1;
-}
-
-
-long
 GUIApplicationWindow::onUpdEditBreakpoints(FXObject *sender,FXSelector,void *ptr) {
     sender->handle(this,
                    !myRunThread->simulationAvailable()||myAmLoading
@@ -908,8 +881,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
             getApp()->exit(1);
         }
     } else {
-        // initialise global information
-        gSimInfo = new GUISimInfo(*(ec->myNet));
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
         // initialise simulation thread
@@ -1080,8 +1051,6 @@ GUIApplicationWindow::closeAllWindows() {
     }
     // delete the simulation
     myRunThread->deleteSim();
-    delete gSimInfo;
-    gSimInfo = 0;
     // reset the caption
     setTitle(MFXUtils::getTitleText(("SUMO " + string(VERSION_STRING)).c_str()));
     // delete other children

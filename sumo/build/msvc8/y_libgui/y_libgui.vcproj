@@ -603,10 +603,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\gui\GUIAddWeightsStorage.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIApplicationWindow.h"
 				>
 			</File>

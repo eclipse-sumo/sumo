@@ -128,7 +128,6 @@ public:
     long onCmdQuit(FXObject*,FXSelector,void*);
 
     long onCmdEditChosen(FXObject*,FXSelector,void*);
-    virtual long onCmdEditAddWeights(FXObject*,FXSelector,void*);
     long onCmdEditBreakpoints(FXObject*,FXSelector,void*);
 
     /// Opens the application settings menu
@@ -155,7 +154,6 @@ public:
     long onUpdStop(FXObject*,FXSelector,void*);
     long onUpdStep(FXObject*,FXSelector,void*);
     long onUpdEditChosen(FXObject*sender,FXSelector,void*ptr);
-    virtual long onUpdEditAddWeights(FXObject*,FXSelector,void*);
     virtual long onUpdEditBreakpoints(FXObject*,FXSelector,void*);
     long onCmdClearMsgWindow(FXObject*,FXSelector,void*);
 

@@ -32,7 +32,6 @@
 #include <vector>
 #include <fx.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <gui/GUIAddWeightsStorage.h>
 
 
 // ===========================================================================
@@ -42,35 +41,10 @@ class GUINet;
 
 
 // ===========================================================================
-// class definitions
-// ===========================================================================
-/**
- * @class GUIGlobals
- */
-struct GUISimInfo {
-    GUISimInfo(GUINet &netArg) : net(netArg) { }
-    GUINet &net;
-private:
-    /// @brief Invalidated copy constructor.
-    GUISimInfo(const GUISimInfo&);
-
-    /// @brief Invalidated assignment operator.
-    GUISimInfo& operator=(const GUISimInfo&);
-
-};
-
-
-// ===========================================================================
 // global variables declarations
 // ===========================================================================
 /// the window shall be closed when the simulation has ended
 extern bool gQuitOnEnd;
-
-/// Structure holding the used network
-extern GUISimInfo *gSimInfo;
-
-/// Storage for additional weights
-extern GUIAddWeightsStorage gAddWeightsStorage;
 
 /// List of breakpoint
 extern std::vector<int> gBreakpoints;

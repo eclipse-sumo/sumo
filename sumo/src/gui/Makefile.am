@@ -1,8 +1,8 @@
 noinst_LIBRARIES = libgui.a
 
-libgui_a_SOURCES = GUIAddWeightsStorage.h \
-GUIApplicationWindow.cpp GUIApplicationWindow.h \
-GUIColorer_LaneByPurpose.h GUIColorer_LaneByVehKnowledge.h GUIColorer_LaneNeighEdges.h \
+libgui_a_SOURCES = GUIApplicationWindow.cpp GUIApplicationWindow.h \
+GUIColorer_LaneByPurpose.h GUIColorer_LaneByVehKnowledge.h \
+GUIColorer_LaneNeighEdges.h \
 GUIEvent_SimulationLoaded.h \
 GUIGlobals.cpp GUIGlobals.h \
 GUIManipulator.h GUIManipulator.cpp \
