@@ -1,0 +1,20 @@
+Warning: Teleporting vehicle '0_13'; collision, lane='1/1to2/1_0', time=1074.
+Warning: Vehicle '0_13' ends teleporting on edge '2/1to3/1', simulation time 1074.
+Warning: Teleporting vehicle '0_30'; collision, lane='1/1to2/1_0', time=1126.
+Warning: Vehicle '0_30' ends teleporting on edge '2/1to3/1', simulation time 1126.
+Warning: Teleporting vehicle '0_84'; collision, lane='1/1to2/1_0', time=1799.
+Warning: Vehicle '0_84' ends teleporting on edge '2/1to3/1', simulation time 1799.
+Warning: Teleporting vehicle '0_171'; collision, lane='1/1to2/1_0', time=2060.
+Warning: Vehicle '0_171' ends teleporting on edge '2/1to3/1', simulation time 2060.
+Warning: Teleporting vehicle '0_61'; collision, lane='1/1to2/1_0', time=2759.
+Warning: Vehicle '0_61' ends teleporting on edge '2/1to3/1', simulation time 2760.
+Warning: Teleporting vehicle '0_78'; collision, lane='1/1to2/1_0', time=2810.
+Warning: Vehicle '0_78' ends teleporting on edge '2/1to3/1', simulation time 2810.
+Warning: Teleporting vehicle '0_214'; collision, lane='1/1to2/1_0', time=3277.
+Warning: Vehicle '0_214' ends teleporting on edge '3/1to4/1', simulation time 3279.
+Warning: Teleporting vehicle '0_58'; collision, lane='1/1to2/1_0', time=3778.
+Warning: Vehicle '0_58' ends teleporting on edge '3/1to4/1', simulation time 3790.
+Warning: Teleporting vehicle '0_50'; collision, lane='1/1to2/1_0', time=4781.
+Warning: Vehicle '0_50' ends teleporting on edge '3/1to4/1', simulation time 4881.
+Warning: Teleporting vehicle '0_166'; collision, lane='1/1to2/1_0', time=5642.
+Warning: Vehicle '0_166' ends teleporting on edge '3/1to4/1', simulation time 5728.

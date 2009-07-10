@@ -19,5 +19,8 @@ errors
 # demonstration and regression tests for known bugs
 bugs
 
+# model properties
+model
+
 # Tests for GUI features
 gui
