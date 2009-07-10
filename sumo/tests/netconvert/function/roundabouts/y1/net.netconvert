@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/10/09 10:46:09 by SUMO netconvert Version dev-SVN-r7409
+<!-- generated on 07/10/09 12:22:53 by SUMO netconvert Version dev-SVN-r7409
 <configuration>
 
     <input
@@ -222,6 +222,6 @@
    </succ>
 
 
-   <roundabout nodes="-9890 -9891 -9892"/>
+   <roundabout nodes="10708 17199 17200"/>
 
 </net>
