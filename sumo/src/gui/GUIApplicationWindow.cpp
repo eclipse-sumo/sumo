@@ -910,7 +910,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
     } else {
         // initialise global information
         gSimInfo = new GUISimInfo(*(ec->myNet));
-        //gNetWrapper = ec->myNet->getWrapper();
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
         // initialise simulation thread
