@@ -93,7 +93,7 @@ public:
 
 protected:
     /// @brief The parent window
-    GUISUMOAbstractView *myParent; // !!! needed?
+    GUISUMOAbstractView *myParent;
 
     /// @brief The object that belongs to this popup-menu
     GUIGlObject *myObject;
