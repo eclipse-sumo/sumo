@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/08/09 14:34:26 by SUMO netconvert Version dev-SVN-r7129
+<!-- generated on 07/10/09 11:45:22 by SUMO netconvert Version dev-SVN-r7409
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input
+        xml-node-files="input_nodes.nod.xml"
+        xml-edge-files="input_edges.edg.xml"
+    />
 
-   <tls_building>
-      <explicite-tls>15030043</explicite-tls>
-   </tls_building>
+    <tls_building
+        explicite-tls="15030043"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
@@ -28,13 +28,13 @@
 
    <edge id=":15030043_0" function="internal">
       <lanes>
-         <lane id=":15030043_0_0" depart="0" maxspeed="13.19" length="5.01">124.04,66.71 122.67,66.59 121.59,66.94 120.81,67.76 120.32,69.04</lane>
+         <lane id=":15030043_0_0" depart="0" maxspeed="13.19" length="5.01">125.28,68.70 123.91,68.58 122.84,68.93 122.05,69.75 121.57,71.03</lane>
       </lanes>
    </edge>
 
    <edge id=":15030043_1" function="internal">
       <lanes>
-         <lane id=":15030043_1_0" depart="0" maxspeed="13.89" length="6.18">121.64,63.00 120.32,69.04</lane>
+         <lane id=":15030043_1_0" depart="0" maxspeed="13.89" length="6.30">122.93,64.88 121.57,71.03</lane>
       </lanes>
    </edge>
 
@@ -42,19 +42,19 @@
 
    <edge id="15030608" from="15030238" to="15030043" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15030608_0" depart="1" maxspeed="12.50" length="136.60">257.00,98.00 124.04,66.71</lane>
+         <lane id="15030608_0" depart="1" maxspeed="12.50" length="134.93">256.62,99.61 125.28,68.70</lane>
       </lanes>
    </edge>
 
    <edge id="15030858" from="15030435" to="15030043" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15030858_0" depart="1" maxspeed="13.89" length="64.40">135.00,0.00 121.64,63.00</lane>
+         <lane id="15030858_0" depart="1" maxspeed="13.89" length="65.97">136.61,0.34 122.93,64.88</lane>
       </lanes>
    </edge>
 
    <edge id="153122148" from="15030043" to="15031475" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="153122148_0" depart="1" maxspeed="13.89" length="552.22">120.32,69.04 0.00,608.00</lane>
+         <lane id="153122148_0" depart="1" maxspeed="13.89" length="550.55">121.57,71.03 1.61,608.36</lane>
       </lanes>
    </edge>
 
@@ -85,25 +85,25 @@
    <junction id="15030043" type="priority" x="121.00" y="66.00">
       <inclanes>15030608_0 15030858_0</inclanes>
       <intlanes>:15030043_0_0 :15030043_1_0</intlanes>
-      <shape>123.67,68.27 124.40,65.16 123.20,63.33 120.07,62.67 118.76,68.69 121.88,69.39</shape>
+      <shape>124.92,70.26 125.65,67.15 124.49,65.21 121.36,64.54 120.01,70.68 123.13,71.38</shape>
    </junction>
 
    <junction id="15030238" type="DEAD_END" x="257.00" y="98.00">
       <inclanes></inclanes>
       <intlanes></intlanes>
-      <shape>257.37,96.44 256.63,99.56</shape>
+      <shape>256.99,98.05 256.26,101.16</shape>
    </junction>
 
    <junction id="15030435" type="DEAD_END" x="135.00" y="0.00">
       <inclanes></inclanes>
       <intlanes></intlanes>
-      <shape>133.43,-0.33 136.57,0.33</shape>
+      <shape>135.05,0.01 138.18,0.67</shape>
    </junction>
 
    <junction id="15031475" type="DEAD_END" x="0.00" y="608.00">
       <inclanes>153122148_0</inclanes>
       <intlanes></intlanes>
-      <shape>1.56,608.35 -1.56,607.65</shape>
+      <shape>3.17,608.71 0.05,608.01</shape>
    </junction>
 
 

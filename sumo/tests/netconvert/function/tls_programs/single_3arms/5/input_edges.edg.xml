@@ -1,8 +1,8 @@
 <edges>
-   <edge id="15032465" fromnode="15031747" tonode="15031812" speed="13.89" priority="-1" spread_type="center" nolanes="1" shape="19203.0,25882.0 19239.0,25894.0"/>
-   <edge id="-153119827" fromnode="15031747" tonode="15031330" speed="13.89" priority="-1" spread_type="center" nolanes="2" shape="19203.0,25882.0 19035.0,25849.0"/>
-   <edge id="-15032465" fromnode="15031812" tonode="15031747" speed="13.89" priority="-1" spread_type="center" nolanes="1" shape="19239.0,25894.0 19203.0,25882.0"/>
-   <edge id="153119827" fromnode="15031330" tonode="15031747" speed="13.89" priority="-1" spread_type="center" nolanes="1" shape="19035.0,25849.0 19203.0,25882.0"/>
-   <edge id="15033074" fromnode="15031077" tonode="15031747" speed="13.89" priority="-1" spread_type="center" nolanes="1" shape="19187.0,25662.0 19203.0,25882.0"/>
-   <edge id="15033072" fromnode="15031747" tonode="15031746" speed="13.89" priority="-1" spread_type="center" nolanes="2" shape="19203.0,25882.0 19202.0,25907.0"/>
+   <edge id="15032465" fromnode="15031747" tonode="15031812" speed="13.89" priority="-1" nolanes="1" shape="19203.0,25882.0 19239.0,25894.0"/>
+   <edge id="-153119827" fromnode="15031747" tonode="15031330" speed="13.89" priority="-1" nolanes="2" shape="19203.0,25882.0 19035.0,25849.0"/>
+   <edge id="-15032465" fromnode="15031812" tonode="15031747" speed="13.89" priority="-1" nolanes="1" shape="19239.0,25894.0 19203.0,25882.0"/>
+   <edge id="153119827" fromnode="15031330" tonode="15031747" speed="13.89" priority="-1" nolanes="1" shape="19035.0,25849.0 19203.0,25882.0"/>
+   <edge id="15033074" fromnode="15031077" tonode="15031747" speed="13.89" priority="-1" nolanes="1" shape="19187.0,25662.0 19203.0,25882.0"/>
+   <edge id="15033072" fromnode="15031747" tonode="15031746" speed="13.89" priority="-1" nolanes="2" shape="19203.0,25882.0 19202.0,25907.0"/>
 </edges>

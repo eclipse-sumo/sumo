@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/08/09 16:12:29 by SUMO netconvert Version dev-SVN-r7129
+<!-- generated on 07/10/09 11:45:21 by SUMO netconvert Version dev-SVN-r7409
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input
+        xml-node-files="input_nodes.nod.xml"
+        xml-edge-files="input_edges.edg.xml"
+    />
 
-   <tls_building>
-      <explicite-tls>15031669</explicite-tls>
-   </tls_building>
+    <tls_building
+        explicite-tls="15031669"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
@@ -28,79 +28,79 @@
 
    <edge id=":15031669_0" function="internal">
       <lanes>
-         <lane id=":15031669_0_0" depart="0" maxspeed="12.50" length="7.37">141.24,61.34 138.68,60.97 136.79,61.16 135.58,61.93 135.05,63.28</lane>
+         <lane id=":15031669_0_0" depart="0" maxspeed="12.50" length="7.30">140.78,64.62 138.25,64.25 136.38,64.46 135.19,65.23 134.67,66.58</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_1" function="internal">
       <lanes>
-         <lane id=":15031669_1_0" depart="0" maxspeed="16.67" length="17.26">141.24,61.34 136.26,60.16 132.90,59.17 129.62,57.90 124.92,55.87</lane>
+         <lane id=":15031669_1_0" depart="0" maxspeed="16.67" length="17.24">140.78,64.62 135.80,63.46 132.42,62.50 129.14,61.27 124.44,59.26</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_2" function="internal">
       <lanes>
-         <lane id=":15031669_2_0" depart="0" maxspeed="16.67" length="16.65">141.98,58.12 137.17,56.98 133.93,56.03 130.77,54.80 126.23,52.84</lane>
+         <lane id=":15031669_2_0" depart="0" maxspeed="16.67" length="16.63">141.51,61.40 136.70,60.28 133.45,59.36 130.29,58.17 125.75,56.23</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_3" function="internal">
       <lanes>
-         <lane id=":15031669_3_0" depart="0" maxspeed="12.50" length="9.97">141.98,58.12 137.87,57.30 134.90,56.97 133.06,57.12 132.37,57.77</lane>
+         <lane id=":15031669_3_0" depart="0" maxspeed="12.50" length="12.07">141.51,61.40 137.46,60.18 134.66,58.63 133.11,56.76 132.82,54.56</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_4" function="internal">
       <lanes>
-         <lane id=":15031669_4_0" depart="0" maxspeed="8.33" length="5.98">138.90,58.70 135.05,63.28</lane>
+         <lane id=":15031669_4_0" depart="0" maxspeed="8.33" length="12.15">139.36,55.50 138.35,59.04 136.91,61.41 135.52,63.59 134.67,66.58</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_5" function="internal">
       <lanes>
-         <lane id=":15031669_5_0" depart="0" maxspeed="12.50" length="1.72">135.63,58.23 134.00,56.69</lane>
+         <lane id=":15031669_5_0" depart="0" maxspeed="12.50" length="3.68">136.09,55.03 134.41,57.44</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_10" function="internal">
       <lanes>
-         <lane id=":15031669_10_0" depart="0" maxspeed="12.50" length="9.25">134.00,56.69 133.37,56.26 130.41,54.73 126.23,52.84</lane>
+         <lane id=":15031669_10_0" depart="0" maxspeed="12.50" length="8.46">134.41,57.44 133.12,58.00 129.99,57.71 125.75,56.23</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_6" function="internal">
       <lanes>
-         <lane id=":15031669_6_0" depart="0" maxspeed="8.33" length="0.10">135.63,58.23 134.71,59.27</lane>
+         <lane id=":15031669_6_0" depart="0" maxspeed="8.33" length="0.10">136.09,55.03 135.17,56.06</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_11" function="internal">
       <lanes>
-         <lane id=":15031669_11_0" depart="0" maxspeed="8.33" length="4.72">134.71,59.27 134.64,59.34 133.77,59.63 133.01,59.11 132.37,57.77</lane>
+         <lane id=":15031669_11_0" depart="0" maxspeed="8.33" length="4.72">135.17,56.06 135.10,56.14 134.22,56.43 133.47,55.90 132.82,54.56</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_7" function="internal">
       <lanes>
-         <lane id=":15031669_7_0" depart="0" maxspeed="12.50" length="10.43">131.77,62.90 131.51,61.01 130.28,59.21 128.09,57.49 124.92,55.87</lane>
+         <lane id=":15031669_7_0" depart="0" maxspeed="12.50" length="10.42">131.39,66.20 131.12,64.36 129.87,62.59 127.64,60.89 124.44,59.26</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_8" function="internal">
       <lanes>
-         <lane id=":15031669_8_0" depart="0" maxspeed="8.33" length="6.20">131.77,62.90 129.10,57.30</lane>
+         <lane id=":15031669_8_0" depart="0" maxspeed="8.33" length="12.37">131.39,66.20 131.22,63.06 130.36,60.56 129.56,57.84 129.56,54.10</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_9" function="internal">
       <lanes>
-         <lane id=":15031669_9_0" depart="0" maxspeed="8.33" length="0.10">131.77,62.90 132.67,61.84</lane>
+         <lane id=":15031669_9_0" depart="0" maxspeed="8.33" length="0.10">131.39,66.20 132.29,65.14</lane>
       </lanes>
    </edge>
 
    <edge id=":15031669_12" function="internal">
       <lanes>
-         <lane id=":15031669_12_0" depart="0" maxspeed="8.33" length="4.72">132.67,61.84 132.73,61.77 133.60,61.45 134.37,61.96 135.05,63.28</lane>
+         <lane id=":15031669_12_0" depart="0" maxspeed="8.33" length="4.72">132.29,65.14 132.35,65.06 133.22,64.75 133.99,65.25 134.67,66.58</lane>
       </lanes>
    </edge>
 
@@ -120,41 +120,41 @@
 
    <edge id="-15035564" from="15031670" to="15031669" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-15035564_0" depart="1" maxspeed="8.33" length="7.07">139.90,51.70 138.90,58.70</lane>
-         <lane id="-15035564_1" depart="0" maxspeed="8.33" length="7.07">136.63,51.23 135.63,58.23</lane>
+         <lane id="-15035564_0" depart="1" maxspeed="8.33" length="3.83">139.90,51.70 139.36,55.50</lane>
+         <lane id="-15035564_1" depart="0" maxspeed="8.33" length="3.83">136.63,51.23 136.09,55.03</lane>
       </lanes>
    </edge>
 
    <edge id="-900000001" from="915660425" to="15031669" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-900000001_0" depart="1" maxspeed="8.33" length="90.51">121.36,152.81 131.77,62.90</lane>
+         <lane id="-900000001_0" depart="1" maxspeed="8.33" length="87.19">121.36,152.81 131.39,66.20</lane>
       </lanes>
    </edge>
 
    <edge id="15031630" from="15034028" to="15031669" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15031630_0" depart="1" maxspeed="16.67" length="244.49">379.63,115.61 141.24,61.34</lane>
-         <lane id="15031630_1" depart="0" maxspeed="16.67" length="244.49">380.37,112.39 141.98,58.12</lane>
+         <lane id="15031630_0" depart="1" maxspeed="16.67" length="244.22">378.90,118.83 140.78,64.62</lane>
+         <lane id="15031630_1" depart="0" maxspeed="16.67" length="244.22">379.63,115.61 141.51,61.40</lane>
       </lanes>
    </edge>
 
    <edge id="15032917" from="15031669" to="15031635" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15032917_0" depart="1" maxspeed="16.67" length="136.84">124.92,55.87 -0.66,1.51</lane>
-         <lane id="15032917_1" depart="0" maxspeed="16.67" length="136.84">126.23,52.84 0.66,-1.51</lane>
+         <lane id="15032917_0" depart="1" maxspeed="16.67" length="137.74">124.44,59.26 -1.97,4.54</lane>
+         <lane id="15032917_1" depart="0" maxspeed="16.67" length="137.74">125.75,56.23 -0.66,1.51</lane>
       </lanes>
    </edge>
 
    <edge id="15035564" from="15031669" to="15031670" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="15035564_0" depart="1" maxspeed="8.33" length="7.07">129.10,57.30 130.10,50.30</lane>
-         <lane id="15035564_1" depart="0" maxspeed="8.33" length="7.07">132.37,57.77 133.37,50.77</lane>
+         <lane id="15035564_0" depart="1" maxspeed="8.33" length="3.83">129.56,54.10 130.10,50.30</lane>
+         <lane id="15035564_1" depart="0" maxspeed="8.33" length="3.83">132.82,54.56 133.37,50.77</lane>
       </lanes>
    </edge>
 
    <edge id="900000001" from="15031669" to="915660425" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="900000001_0" depart="1" maxspeed="8.33" length="90.51">135.05,63.28 124.64,153.19</lane>
+         <lane id="900000001_0" depart="1" maxspeed="8.33" length="87.19">134.67,66.58 124.64,153.19</lane>
       </lanes>
    </edge>
 
@@ -214,13 +214,13 @@
    <junction id="15031635" type="DEAD_END" x="0.00" y="0.00">
       <inclanes>15032917_0 15032917_1</inclanes>
       <intlanes></intlanes>
-      <shape>-1.29,2.98 1.29,-2.98</shape>
+      <shape>-2.60,6.01 -0.02,0.05</shape>
    </junction>
 
    <junction id="15031669" type="priority" x="134.00" y="58.00">
       <inclanes>15031630_0 15031630_1 -15035564_0 -15035564_1 -900000001_0</inclanes>
       <intlanes>:15031669_0_0 :15031669_1_0 :15031669_2_0 :15031669_3_0 :15031669_4_0 :15031669_10_0 :15031669_11_0 :15031669_7_0 :15031669_8_0 :15031669_12_0</intlanes>
-      <shape>140.89,62.90 142.33,56.56 141.43,52.34 128.46,50.48 126.87,51.37 124.29,57.34 130.18,62.72 136.64,63.46</shape>
+      <shape>140.42,66.18 141.86,59.84 140.94,55.72 127.97,53.87 126.38,54.76 123.80,60.72 129.80,66.01 136.26,66.76</shape>
    </junction>
 
    <junction id="15031670" type="priority" x="135.00" y="51.00">
@@ -232,7 +232,7 @@
    <junction id="15034028" type="DEAD_END" x="380.00" y="114.00">
       <inclanes></inclanes>
       <intlanes></intlanes>
-      <shape>380.72,110.83 379.28,117.17</shape>
+      <shape>379.99,114.05 378.55,120.39</shape>
    </junction>
 
    <junction id="915660425" type="priority" x="123.00" y="153.00">
@@ -242,19 +242,19 @@
    </junction>
 
 
-   <junction id=":15031669_10_0" type="internal" x="134.48" y="57.00">
+   <junction id=":15031669_10_0" type="internal" x="133.87" y="57.67">
       <inclanes>:15031669_5_0 -900000001_0</inclanes>
       <intlanes>:15031669_7_0 :15031669_8_0</intlanes>
       <shape></shape>
    </junction>
 
-   <junction id=":15031669_11_0" type="internal" x="135.57" y="58.31">
+   <junction id=":15031669_11_0" type="internal" x="136.02" y="55.10">
       <inclanes>:15031669_6_0 -900000001_0</inclanes>
       <intlanes>:15031669_8_0</intlanes>
       <shape></shape>
    </junction>
 
-   <junction id=":15031669_12_0" type="internal" x="131.84" y="62.82">
+   <junction id=":15031669_12_0" type="internal" x="131.45" y="66.12">
       <inclanes>:15031669_9_0 -15035564_0</inclanes>
       <intlanes>:15031669_4_0</intlanes>
       <shape></shape>

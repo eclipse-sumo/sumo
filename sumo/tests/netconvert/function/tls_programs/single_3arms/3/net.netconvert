@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/08/09 15:53:47 by SUMO netconvert Version dev-SVN-r7129
+<!-- generated on 07/10/09 11:45:21 by SUMO netconvert Version dev-SVN-r7409
 <configuration>
 
-   <input>
-      <xml-node-files>input_nodes.nod.xml</xml-node-files>
-      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
-   </input>
+    <input
+        xml-node-files="input_nodes.nod.xml"
+        xml-edge-files="input_edges.edg.xml"
+    />
 
-   <tls_building>
-      <explicite-tls>15031750</explicite-tls>
-   </tls_building>
+    <tls_building
+        explicite-tls="15031750"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
