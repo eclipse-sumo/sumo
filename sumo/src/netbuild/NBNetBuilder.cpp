@@ -319,13 +319,17 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     }
     // write roundabout information
     for(std::vector<std::set<NBEdge*> >::iterator i=myRoundabouts.begin(); i!=myRoundabouts.end(); ++i) {
-        std::set<NBNode*> nodes;
+        std::vector<NBNode*> nodes;
         for(set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j) {
-            nodes.insert((*j)->getToNode());
+            NBNode *n = (*j)->getToNode();
+            if(find(nodes.begin(), nodes.end(), n)==nodes.end()) {
+                nodes.push_back(n);
+            }
         }
+        sort(nodes.begin(), nodes.end(), by_id_sorter());
         device << "   <roundabout nodes=\"";
         int k = 0;
-        for(set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j, ++k) {
+        for(vector<NBNode*>::iterator j=nodes.begin(); j!=nodes.end(); ++j, ++k) {
             if(k!=0) {
                 device << ' ';
             }

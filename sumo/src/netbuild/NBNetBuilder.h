@@ -36,6 +36,7 @@
 #include "NBEdgeCont.h"
 #include "NBTypeCont.h"
 #include "NBNodeCont.h"
+#include "NBNode.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBDistrictCont.h"
@@ -188,6 +189,22 @@ protected:
     void save(OutputDevice &device, OptionsCont &oc) throw(IOError);
     /// @}
 
+
+
+    /**
+     * @class by_id_sorter
+     * @brief Sorts nodes by their ids
+     */
+    class by_id_sorter {
+    public:
+        /// @brief constructor
+        explicit by_id_sorter() { }
+
+        int operator()(const NBNode *n1, const NBNode *n2) const {
+            return n1->getID()<n2->getID();
+        }
+
+    };
 
 protected:
     /// @brief The used container for edges
