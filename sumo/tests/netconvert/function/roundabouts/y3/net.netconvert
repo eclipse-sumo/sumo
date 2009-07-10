@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/30/09 14:20:37 by SUMO netconvert Version dev-SVN-r7370
+<!-- generated on 07/10/09 10:46:11 by SUMO netconvert Version dev-SVN-r7409
 <configuration>
 
     <input
@@ -12,12 +12,9 @@
         output-file="net.net.xml"
     />
 
-    <ramp_guessing
-        guess-roundabouts="true"
-    />
-
     <processing
         no-internal-links="true"
+        guess-roundabouts="true"
     />
 
 </configuration>
@@ -33,55 +30,55 @@
 
    <edge id="-10397" from="16910" to="17391" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-10397_0" depart="1" maxspeed="13.90" length="41.72">2.93,-1.53 9.81,11.65 30.38,28.90</lane>
+         <lane id="-10397_0" depart="1" maxspeed="13.90" length="42.25">1.46,-0.76 8.50,12.70 29.23,30.09</lane>
       </lanes>
    </edge>
 
    <edge id="-10400" from="17393" to="10724" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-10400_0" depart="1" maxspeed="13.90" length="36.09">76.23,55.86 76.22,57.35 74.37,64.82 69.93,72.37 63.00,78.44 55.80,81.31 54.63,81.46</lane>
+         <lane id="-10400_0" depart="1" maxspeed="13.90" length="39.46">76.25,54.14 76.22,57.35 74.37,64.82 69.93,72.37 63.00,78.44 55.80,81.31 52.99,81.68</lane>
       </lanes>
    </edge>
 
    <edge id="-10403" from="13442" to="17393" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-10403_0" depart="1" maxspeed="13.90" length="82.08">159.29,46.36 151.23,42.99 140.29,40.17 130.96,40.05 121.18,40.92 111.22,43.34 107.85,44.15 79.79,52.16</lane>
+         <lane id="-10403_0" depart="1" maxspeed="13.90" length="83.08">159.93,44.84 151.87,41.47 140.51,38.52 130.98,38.40 121.03,39.28 110.83,41.74 107.46,42.55 79.45,50.54</lane>
       </lanes>
    </edge>
 
    <edge id="-10575" from="17446" to="10724" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="-10575_0" depart="1" maxspeed="13.90" length="213.28">92.86,291.43 91.66,280.68 80.32,224.76 58.62,169.59 45.76,125.95 44.66,114.96 44.28,103.62 45.62,89.06 45.31,85.46</lane>
+         <lane id="-10575_0" depart="1" maxspeed="13.90" length="213.17">94.50,291.25 93.30,280.50 81.91,224.29 60.16,168.99 47.38,125.63 46.30,114.80 45.93,103.56 47.28,89.06 46.96,85.39</lane>
       </lanes>
    </edge>
 
    <edge id="10396" from="10724" to="17391" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10396_0" depart="1" maxspeed="13.90" length="53.94">42.31,81.24 34.88,78.78 29.55,74.34 25.75,69.17 23.14,64.04 21.61,58.57 21.48,51.75 22.73,46.90 24.60,42.04 26.76,38.33</lane>
+         <lane id="10396_0" depart="1" maxspeed="13.90" length="57.30">43.98,81.57 42.54,81.32 34.88,78.78 29.55,74.34 25.75,69.17 23.14,64.04 21.61,58.57 21.48,51.75 22.73,46.90 24.60,42.04 27.15,37.66 27.66,36.95</lane>
       </lanes>
    </edge>
 
    <edge id="10397" from="17391" to="16910" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10397_0" depart="1" maxspeed="13.90" length="44.33">26.15,33.95 4.57,15.86 -2.92,1.53</lane>
+         <lane id="10397_0" depart="1" maxspeed="13.90" length="43.55">27.12,32.61 5.88,14.80 -1.46,0.76</lane>
       </lanes>
    </edge>
 
    <edge id="10402" from="17391" to="17393" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10402_0" depart="1" maxspeed="13.90" length="46.00">35.63,30.12 36.08,29.87 40.77,27.95 45.95,27.18 52.18,26.98 58.22,28.45 65.14,31.97 69.08,36.12 73.48,42.10 74.09,43.81</lane>
+         <lane id="10402_0" depart="1" maxspeed="13.90" length="49.42">34.09,30.99 36.08,29.87 40.77,27.95 45.95,27.18 52.18,26.98 58.22,28.45 65.14,31.97 69.08,36.12 73.48,42.10 74.65,45.37</lane>
       </lanes>
    </edge>
 
    <edge id="10403" from="17393" to="13442" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10403_0" depart="1" maxspeed="13.90" length="86.50">77.98,45.81 106.17,37.78 109.67,36.92 120.12,34.42 130.72,33.47 141.20,33.58 153.34,36.76 161.83,40.24</lane>
+         <lane id="10403_0" depart="1" maxspeed="13.90" length="85.30">78.54,47.37 106.62,39.36 110.06,38.53 120.50,36.03 130.86,35.11 140.98,35.23 152.92,38.35 161.20,41.78</lane>
       </lanes>
    </edge>
 
    <edge id="10575" from="10724" to="17446" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="10575_0" depart="1" maxspeed="13.90" length="213.13">51.89,84.88 52.26,89.08 50.86,103.82 51.24,114.53 52.26,124.67 64.86,167.46 86.68,222.87 98.18,279.65 99.42,290.69</lane>
+         <lane id="10575_0" depart="1" maxspeed="13.90" length="213.10">50.25,85.10 50.60,89.07 49.22,103.66 49.59,114.58 50.63,124.99 63.28,167.92 85.09,223.34 96.56,279.98 97.78,290.88</lane>
       </lanes>
    </edge>
 
@@ -153,32 +150,32 @@
 
    <junction id="10724" type="priority" x="48.19" y="80.63">
       <inclanes>-10575_0 -10400_0</inclanes>
-      <shape>43.72,85.60 53.48,84.74 54.84,83.05 54.42,79.88 42.59,79.65 42.03,82.83</shape>
+      <shape>45.37,85.53 51.84,84.96 53.20,83.27 52.78,80.09 44.26,80.00 43.70,83.15</shape>
    </junction>
 
    <junction id="13442" type="priority" x="160.57" y="43.31">
       <inclanes>10403_0</inclanes>
-      <shape>159.91,44.88 158.68,47.84 162.44,38.77 161.22,41.73</shape>
+      <shape>160.55,43.36 159.31,46.31 161.82,40.30 160.59,43.26</shape>
    </junction>
 
    <junction id="16910" type="priority" x="0.00" y="0.00">
       <inclanes>10397_0</inclanes>
-      <shape>1.51,-0.79 4.34,-2.27 -4.34,2.27 -1.50,0.79</shape>
+      <shape>0.04,-0.02 2.88,-1.51 -2.88,1.50 -0.04,0.02</shape>
    </junction>
 
    <junction id="17391" type="priority" x="31.64" y="34.25">
       <inclanes>-10397_0 10396_0</inclanes>
-      <shape>36.41,31.52 34.85,28.73 31.41,27.68 25.12,35.18 25.45,37.39 28.06,39.27</shape>
+      <shape>34.87,32.38 33.31,29.59 30.26,28.86 26.09,33.83 26.36,36.01 28.96,37.88</shape>
    </junction>
 
    <junction id="17393" type="priority" x="74.64" y="50.20">
       <inclanes>-10403_0 10402_0</inclanes>
-      <shape>80.23,53.70 77.55,44.27 75.60,43.27 72.59,44.35 74.63,55.85 77.83,55.88</shape>
+      <shape>79.89,52.08 78.10,45.83 76.16,44.83 73.14,45.90 74.65,54.13 77.85,54.16</shape>
    </junction>
 
    <junction id="17446" type="priority" x="96.14" y="291.06">
       <inclanes>10575_0</inclanes>
-      <shape>94.45,291.25 91.27,291.60 101.01,290.51 97.83,290.87</shape>
+      <shape>96.09,291.07 92.91,291.42 99.37,290.70 96.19,291.06</shape>
    </junction>
 
 
