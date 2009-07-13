@@ -51,6 +51,11 @@ class ROVehicle;
 /**
  * @class ROEdge
  * @brief A basic edge for routing applications
+ *
+ * The edge contains two time lines, one for the travel time and one for a second
+ *  measure which may be used for computing the costs of a route. After loading
+ *  the weights, it is needed to call "buildTimeLines" in order to initialise
+ *  these time lines.
  */
 class ROEdge {
 public:
@@ -117,6 +122,13 @@ public:
      * @param[in] to The node this edge ends at
      */
     void setNodes(RONode *from, RONode *to) throw();
+
+
+    /** @brief Builds the internal representation of the travel time/effort
+     *
+     * Should be called after weights / travel times have been loaded
+     */
+    void buildTimeLines() throw();
     //@}
 
 
@@ -296,8 +308,6 @@ protected:
     bool myUsingTTTimeLine;
     /// @brief Whether overriding weight boundaries shall be reported
     bool myUseBoundariesOnOverrideTT;
-    /// @brief Whether gaps in the timeline have been filled
-    mutable bool myHaveTTGapsFilled;
     /// @brief Information whether the edge has reported missing weights
     static bool myHaveTTWarned;
 
@@ -307,8 +317,6 @@ protected:
     bool myUsingETimeLine;
     /// @brief Whether overriding weight boundaries shall be reported
     bool myUseBoundariesOnOverrideE;
-    /// @brief Whether gaps in the timeline have been filled
-    mutable bool myHaveEGapsFilled;
     /// @brief Information whether the edge has reported missing weights
     static bool myHaveEWarned;
 

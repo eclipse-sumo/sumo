@@ -56,9 +56,7 @@ ROEdge::ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOv
         : myID(id), mySpeed(-1),
         myIndex(index), myLength(-1),
         myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
-        myHaveTTGapsFilled(false),
-        myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
-        myHaveEGapsFilled(false) {}
+        myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride) {}
 
 
 ROEdge::~ROEdge() throw() {
@@ -140,10 +138,6 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
     //  weight as default
     SUMOReal value = (SUMOReal)(myLength / mySpeed);
     if (myUsingETimeLine) {
-        if (!myHaveEGapsFilled) {
-            myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
-            myHaveEGapsFilled = true;
-        }
         if (!myHaveEWarned && !myEfforts.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveEWarned = true;
@@ -160,10 +154,6 @@ ROEdge::getTravelTime(const ROVehicle *const, SUMOTime time) const throw() {
     //  weight as default
     SUMOReal value = (SUMOReal)(myLength / mySpeed);
     if (myUsingTTTimeLine) {
-        if (!myHaveTTGapsFilled) {
-            myTravelTimes.fillGaps(value, myUseBoundariesOnOverrideTT);
-            myHaveTTGapsFilled = true;
-        }
         if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveTTWarned = true;
@@ -218,6 +208,20 @@ void
 ROEdge::setNodes(RONode *from, RONode *to) throw() {
     myFromNode = from;
     myToNode = to;
+}
+
+
+void 
+ROEdge::buildTimeLines() throw()
+{
+    if (myUsingETimeLine) {
+        SUMOReal value = (SUMOReal)(myLength / mySpeed);
+        myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
+    }
+    if (myUsingTTTimeLine) {
+        SUMOReal value = (SUMOReal)(myLength / mySpeed);
+        myTravelTimes.fillGaps(value, myUseBoundariesOnOverrideTT);
+    }
 }
 
 
