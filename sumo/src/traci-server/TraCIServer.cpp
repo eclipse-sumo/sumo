@@ -1624,26 +1624,14 @@ TraCIServer::getNetBoundary() {
     }
     */
     // Get all edges
-    MSEdgeControl& edges = MSNet::getInstance()->getEdgeControl();
+    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
 
     // Get Boundary of Single ...
-    for (MSEdgeControl::EdgeCont::const_iterator edgeIt = edges.getSingleLaneEdges().begin();
-            edgeIt != edges.getSingleLaneEdges().end(); ++edgeIt) {
-        for (MSEdge::LaneCont::const_iterator laneIt = (*edgeIt)->getLanes()->begin();
-                laneIt != (*edgeIt)->getLanes()->end(); ++laneIt) {
+    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+        for (MSEdge::LaneCont::const_iterator laneIt = (*e)->getLanes()->begin(); laneIt != (*e)->getLanes()->end(); ++laneIt) {
             netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
         }
     }
-
-    // ... and MultiLaneEdges
-    for (MSEdgeControl::EdgeCont::const_iterator edgeIt = edges.getMultiLaneEdges().begin();
-            edgeIt != edges.getMultiLaneEdges().end(); ++edgeIt) {
-        for (MSEdge::LaneCont::const_iterator laneIt = (*edgeIt)->getLanes()->begin();
-                laneIt != (*edgeIt)->getLanes()->end(); ++laneIt) {
-            netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
-        }
-    }
-
     return *netBoundary_;
 }
 

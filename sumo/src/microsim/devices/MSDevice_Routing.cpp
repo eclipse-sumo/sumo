@@ -107,12 +107,8 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
         into.push_back(device);
         // initialise edge efforts if not done before
         if (myEdgeEfforts.size()==0) {
-            const MSEdgeControl::EdgeCont &me = MSNet::getInstance()->getEdgeControl().getMultiLaneEdges();
-            for (MSEdgeControl::EdgeCont::const_iterator i=me.begin(); i!=me.end(); ++i) {
-                myEdgeEfforts[*i] = (*i)->getCurrentEffort();
-            }
-            const MSEdgeControl::EdgeCont &se = MSNet::getInstance()->getEdgeControl().getSingleLaneEdges();
-            for (MSEdgeControl::EdgeCont::const_iterator i=se.begin(); i!=se.end(); ++i) {
+            const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+            for (std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
                 myEdgeEfforts[*i] = (*i)->getCurrentEffort();
             }
         }
@@ -184,12 +180,8 @@ SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
     SUMOReal oldWeight = (SUMOReal) myAdaptationWeight;
     SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
-    const MSEdgeControl::EdgeCont &me = MSNet::getInstance()->getEdgeControl().getMultiLaneEdges();
-    for (MSEdgeControl::EdgeCont::const_iterator i=me.begin(); i!=me.end(); ++i) {
-        myEdgeEfforts[*i] = myEdgeEfforts[*i] * oldWeight + (*i)->getCurrentEffort() * newWeight;
-    }
-    const MSEdgeControl::EdgeCont &se = MSNet::getInstance()->getEdgeControl().getSingleLaneEdges();
-    for (MSEdgeControl::EdgeCont::const_iterator i=se.begin(); i!=se.end(); ++i) {
+    const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
+    for (std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
         myEdgeEfforts[*i] = myEdgeEfforts[*i] * oldWeight + (*i)->getCurrentEffort() * newWeight;
     }
     return 1;

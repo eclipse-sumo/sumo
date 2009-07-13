@@ -72,11 +72,10 @@ public:
      *
      * Builds LaneUsage information for each lane and assigns them to lanes.
      *
-     * @param[in] singleLane Container of single lane edge
-     * @param[in] multiLane Container of multi lane edge
+     * @param[in] edges The loaded edges
      * @todo Assure both containers are not 0
      */
-    MSEdgeControl(EdgeCont *singleLane, EdgeCont *multiLane) throw();
+    MSEdgeControl(const std::vector< MSEdge* > &edges) throw();
 
 
     /// @brief Destructor.
@@ -169,20 +168,14 @@ public:
     void detectCollisions(SUMOTime timestep) throw();
 
 
-    /** @brief Returns edges with only one lane
+    /** @brief Returns loaded edges
      *
      * @return the container storing one-lane edges
      * @todo Check: Is this secure?
      */
-    const EdgeCont &getSingleLaneEdges() const throw();
-
-
-    /** @brief Returns edges with more than one lane
-     *
-     * @return the container storing multi-lane edges
-     * @todo Check: Is this secure?
-     */
-    const EdgeCont &getMultiLaneEdges() const throw();
+    const std::vector<MSEdge*> &getEdges() const throw() {
+        return myEdges;
+    }
 
 
     /** @brief Returns the list of names of all known edges
@@ -226,19 +219,9 @@ public:
     };
 
 private:
-    /// @brief Single lane edges.
-    EdgeCont* mySingleLaneEdges;
+    /// @brief Loaded edges
+    std::vector<MSEdge*> myEdges;
 
-    /// @brief Multi lane edges.
-    EdgeCont* myMultiLaneEdges;
-
-    /// @brief Copy constructor.
-    MSEdgeControl(const MSEdgeControl&);
-
-    /// @brief Assignment operator.
-    MSEdgeControl& operator=(const MSEdgeControl&);
-
-private:
     /// @brief Definition of a container about a lane's number of vehicles and neighbors
     typedef std::vector<LaneUsage> LaneUsageVector;
 
@@ -256,6 +239,13 @@ private:
 
     /// @brief The list of active (not empty) lanes
     std::vector<SUMOTime> myLastLaneChange;
+
+private:
+    /// @brief Copy constructor.
+    MSEdgeControl(const MSEdgeControl&);
+
+    /// @brief Assignment operator.
+    MSEdgeControl& operator=(const MSEdgeControl&);
 
 };
 

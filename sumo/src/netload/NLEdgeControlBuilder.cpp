@@ -133,19 +133,10 @@ NLEdgeControlBuilder::closeEdge() {
 
 MSEdgeControl *
 NLEdgeControlBuilder::build() {
-    MSEdgeControl::EdgeCont *singleLanes = new MSEdgeControl::EdgeCont();
-    MSEdgeControl::EdgeCont *multiLanes = new MSEdgeControl::EdgeCont();
-    singleLanes->reserve(m_iNoSingle);
-    multiLanes->reserve(m_iNoMulti);
     for (EdgeCont::iterator i1=myEdges.begin(); i1!=myEdges.end(); i1++) {
         (*i1)->closeBuilding();
-        if ((*i1)->nLanes()==1) {
-            singleLanes->push_back(*i1);
-        } else {
-            multiLanes->push_back(*i1);
-        }
     }
-    return new MSEdgeControl(singleLanes, multiLanes);
+    return new MSEdgeControl(myEdges);
 }
 
 

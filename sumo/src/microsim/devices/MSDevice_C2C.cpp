@@ -352,9 +352,7 @@ MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) th
         into.push_back(device);
         myVehiclesToDevicesMap[&v] = device;
         if (myCells.size()==0) {
-            myAllEdges = MSNet::getInstance()->getEdgeControl().getSingleLaneEdges();
-            const std::vector<MSEdge*> &add = MSNet::getInstance()->getEdgeControl().getMultiLaneEdges();
-            copy(add.begin(), add.end(), back_inserter(myAllEdges));
+            myAllEdges = MSNet::getInstance()->getEdgeControl().getEdges();
             buildLookUpInformation();
         }
         // make the weights be updated

@@ -47,41 +47,30 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane) throw()
-        :
-        mySingleLaneEdges(singleLane),
-        myMultiLaneEdges(multiLane),
+MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* > &edges) throw()
+        : myEdges(edges),
         myLanes(MSLane::dictSize()),
         myLastLaneChange(MSEdge::dictSize()) {
     // build the usage definitions for lanes
-    // for lanes with no neighbors
-    EdgeCont::iterator i;
-    for (i=singleLane->begin(); i!=singleLane->end(); ++i) {
-        // build lane information
+    for (std::vector< MSEdge* >::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         const MSEdge::LaneCont * const lanes = (*i)->getLanes();
-        size_t pos = (*lanes->begin())->getNumericalID();
-        myLanes[pos].lane = *(lanes->begin());
-        myLanes[pos].firstNeigh = lanes->end();
-        myLanes[pos].lastNeigh = lanes->end();
-        myLanes[pos].amActive = false;
-        myLanes[pos].haveNeighbors = false;
-        // build edge information
-        pos = (*i)->getNumericalID();
-        myLastLaneChange[pos] = -1;
-    }
-    // for lanes with neighbors
-    for (i=multiLane->begin(); i!=multiLane->end(); ++i) {
-        // build lane information
-        const MSEdge::LaneCont * const lanes = (*i)->getLanes();
-        for (MSEdge::LaneCont::const_iterator j=lanes->begin(); j!=lanes->end(); j++) {
-            size_t pos = (*j)->getNumericalID();
-            myLanes[pos].lane = *j;
-            myLanes[pos].firstNeigh = (j+1);
+        if(lanes->size()==1) {
+            size_t pos = (*lanes->begin())->getNumericalID();
+            myLanes[pos].lane = *(lanes->begin());
+            myLanes[pos].firstNeigh = lanes->end();
             myLanes[pos].lastNeigh = lanes->end();
             myLanes[pos].amActive = false;
-            myLanes[pos].haveNeighbors = true;
+            myLanes[pos].haveNeighbors = false;
+        } else {
+            for (MSEdge::LaneCont::const_iterator j=lanes->begin(); j!=lanes->end(); j++) {
+                size_t pos = (*j)->getNumericalID();
+                myLanes[pos].lane = *j;
+                myLanes[pos].firstNeigh = (j+1);
+                myLanes[pos].lastNeigh = lanes->end();
+                myLanes[pos].amActive = false;
+                myLanes[pos].haveNeighbors = true;
+            }
         }
-        // build edge information
         size_t pos = (*i)->getNumericalID();
         myLastLaneChange[pos] = -1;
     }
@@ -93,8 +82,6 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane) throw()
 
 
 MSEdgeControl::~MSEdgeControl() throw() {
-    delete mySingleLaneEdges;
-    delete myMultiLaneEdges;
 }
 
 
@@ -211,26 +198,10 @@ MSEdgeControl::detectCollisions(SUMOTime timestep) throw() {
 }
 
 
-const MSEdgeControl::EdgeCont &
-MSEdgeControl::getSingleLaneEdges() const throw() {
-    return *mySingleLaneEdges;
-}
-
-
-const MSEdgeControl::EdgeCont &
-MSEdgeControl::getMultiLaneEdges() const throw() {
-    return *myMultiLaneEdges;
-}
-
-
 std::vector<std::string>
 MSEdgeControl::getEdgeNames() const throw() {
     std::vector<std::string> ret;
-    EdgeCont::const_iterator i;
-    for (i=mySingleLaneEdges->begin(); i!=mySingleLaneEdges->end(); ++i) {
-        ret.push_back((*i)->getID());
-    }
-    for (i=myMultiLaneEdges->begin(); i!=myMultiLaneEdges->end(); ++i) {
+    for (std::vector<MSEdge*>::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         ret.push_back((*i)->getID());
     }
     return ret;

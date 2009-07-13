@@ -57,14 +57,9 @@ void
 MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
                    SUMOTime timestep) throw(IOError) {
     of.openTag("timestep") << " time=\"" << timestep << "\">\n";
-    const MSEdgeControl::EdgeCont &ec1 = ec.getSingleLaneEdges();
-    for (MSEdgeControl::EdgeCont::const_iterator edg1=ec1.begin(); edg1!=ec1.end(); ++edg1) {
-        writeEdge(of, **edg1);
-    }
-    // multi lane edges
-    const MSEdgeControl::EdgeCont &ec2 = ec.getMultiLaneEdges();
-    for (MSEdgeControl::EdgeCont::const_iterator edg2=ec2.begin(); edg2!=ec2.end(); ++edg2) {
-        writeEdge(of, **edg2);
+    const std::vector<MSEdge*> &edges = ec.getEdges();
+    for (std::vector<MSEdge*>::const_iterator e=edges.begin(); e!=edges.end(); ++e) {
+        writeEdge(of, **e);
     }
     of.closeTag();
 }
