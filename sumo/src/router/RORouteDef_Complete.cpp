@@ -129,11 +129,11 @@ RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &ro
     }
     dev << " edges=\"" << myEdges;
     if (withExitTimes) {
-        SUMOTime time = veh->getDepartureTime();
+        SUMOReal time = (SUMOReal) veh->getDepartureTime();
         dev << "\" exitTimes=\"";
         std::vector<const ROEdge*>::const_iterator i = myEdges.begin();
         for (; i!=myEdges.end(); ++i) {
-            time += (*i)->getTravelTime(veh, time);
+            time += (*i)->getTravelTime(veh, (SUMOTime) time);
             dev << time << " ";
         }
     }
