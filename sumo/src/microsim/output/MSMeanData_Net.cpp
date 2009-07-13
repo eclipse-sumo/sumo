@@ -150,7 +150,7 @@ MSMeanData_Net::MSMeanData_Net(const std::string &id,
         std::vector<MSLaneMeanDataValues*> v;
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edg);
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*e);
             while (s!=0) {
                 v.push_back(s->addDetector(this));
                 s = s->getNextSegment();
