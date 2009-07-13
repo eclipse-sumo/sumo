@@ -46,8 +46,8 @@ RODUAEdgeBuilder::~RODUAEdgeBuilder() throw() {}
 
 
 ROEdge *
-RODUAEdgeBuilder::buildEdge(const std::string &name) throw() {
-    return new ROEdge(name, getNextIndex(), myUseBoundariesOnOverride);
+RODUAEdgeBuilder::buildEdge(const std::string &name, RONode *from, RONode *to) throw() {
+    return new ROEdge(name, from, to, getNextIndex(), myUseBoundariesOnOverride);
 }
 
 

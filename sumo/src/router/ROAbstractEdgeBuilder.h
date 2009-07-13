@@ -36,6 +36,7 @@
 // class declarations
 // ===========================================================================
 class ROEdge;
+class RONode;
 
 
 // ===========================================================================
@@ -71,9 +72,11 @@ public:
     /** @brief Builds an edge with the given name
      *
      * @param[in] name The name of the edge
+     * @param[in] from The node the edge begins at
+     * @param[in] to The node the edge ends at
      * @return A proper instance of the named edge
      */
-    virtual ROEdge *buildEdge(const std::string &name) throw() = 0;
+    virtual ROEdge *buildEdge(const std::string &name, RONode *from, RONode *to) throw() = 0;
     /// @}
 
 

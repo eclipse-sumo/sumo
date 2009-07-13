@@ -52,11 +52,13 @@ bool ROEdge::myHaveEWarned = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw()
+ROEdge::ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int index, bool useBoundariesOnOverride) throw()
         : myID(id), mySpeed(-1),
         myIndex(index), myLength(-1),
         myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
-        myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride) {}
+        myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
+        myFromNode(from), myToNode(to)
+{}
 
 
 ROEdge::~ROEdge() throw() {
@@ -201,13 +203,6 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const throw() {
     // ok, we have a set of allowed vehicle classes, but this vehicle's class
     //  is not among them
     return true;
-}
-
-
-void
-ROEdge::setNodes(RONode *from, RONode *to) throw() {
-    myFromNode = from;
-    myToNode = to;
 }
 
 

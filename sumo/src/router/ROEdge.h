@@ -76,11 +76,13 @@ public:
     /** @brief Constructor
      *
      * @param[in] id The id of the edge
+     * @param[in] from The node the edge begins at
+     * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      * @param[in] useBoundariesOnOverride Whether the edge shall use a boundary value if the requested is beyond known time scale
      * @todo useBoundariesOnOverride should not be a member of the edge
      */
-    ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw();
+    ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int index, bool useBoundariesOnOverride) throw();
 
 
     /// Destructor
@@ -115,13 +117,6 @@ public:
      * @param[in] type The new type for the edge
      */
     void setType(EdgeType type) throw();
-
-
-    /** @brief Sets the information which nodes this edge connects
-     * @param[in] from The node this edge starts at
-     * @param[in] to The node this edge ends at
-     */
-    void setNodes(RONode *from, RONode *to) throw();
 
 
     /** @brief Builds the internal representation of the travel time/effort

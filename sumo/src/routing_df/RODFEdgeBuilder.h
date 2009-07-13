@@ -68,10 +68,12 @@ public:
      * This implementation builds a RODFEdge.
      *
      * @param[in] name The name of the edge
+     * @param[in] from The node the edge begins at
+     * @param[in] to The node the edge ends at
      * @return A proper instance of the named edge
      * @see RODFEdge
      */
-    ROEdge *buildEdge(const std::string &name) throw();
+    ROEdge *buildEdge(const std::string &name, RONode *from, RONode *to) throw();
     /// @}
 
 

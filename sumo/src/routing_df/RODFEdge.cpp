@@ -46,8 +46,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFEdge::RODFEdge(const std::string &id, unsigned int index) throw()
-        : ROEdge(id, index, false) {}
+RODFEdge::RODFEdge(const std::string &id, RONode *from, RONode *to, unsigned int index) throw()
+        : ROEdge(id, from, to, index, false) {}
 
 
 RODFEdge::~RODFEdge() throw() {}

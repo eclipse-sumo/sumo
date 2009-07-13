@@ -44,8 +44,8 @@ RODFEdgeBuilder::~RODFEdgeBuilder() throw() {}
 
 
 ROEdge *
-RODFEdgeBuilder::buildEdge(const std::string &name) throw() {
-    return new RODFEdge(name, getNextIndex());
+RODFEdgeBuilder::buildEdge(const std::string &name, RONode *from, RONode *to) throw() {
+    return new RODFEdge(name, from, to, getNextIndex());
 }
 
 

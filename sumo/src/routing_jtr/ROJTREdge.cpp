@@ -48,8 +48,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdge::ROJTREdge(const std::string &id, unsigned int index) throw()
-        : ROEdge(id, index, false) {}
+ROJTREdge::ROJTREdge(const std::string &id, RONode *from, RONode *to, unsigned int index) throw()
+        : ROEdge(id, from, to, index, false) {}
 
 
 ROJTREdge::~ROJTREdge() throw() {
