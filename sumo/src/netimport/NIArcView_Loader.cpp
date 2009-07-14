@@ -84,9 +84,7 @@ NIArcView_Loader::load(OptionsCont &) {
 #ifdef HAVE_GDAL
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading data from '" + mySHPName + "'...");
     OGRRegisterAll();
-    OGRDataSource       *poDS;
-
-    poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
+    OGRDataSource *poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
     if (poDS == NULL) {
         MsgHandler::getErrorInstance()->inform("Could not open shape description '" + mySHPName + "'.");
         return false;
@@ -123,6 +121,10 @@ NIArcView_Loader::load(OptionsCont &) {
             ? poFeature->GetFieldAsString((char*)(myOptions.getString("arcview.street-id").c_str()))
             : poFeature->GetFieldAsString("LINK_ID");
         id = StringUtils::prune(id);
+        if(id=="") {
+            MsgHandler::getErrorInstance()->inform("Could not obtain edge id.");
+            return false;
+        }
         string name =
             myOptions.isSet("arcview.street-id")
             ? poFeature->GetFieldAsString((char*) myOptions.getString("arcview.street-id").c_str())
@@ -234,6 +236,7 @@ NIArcView_Loader::load(OptionsCont &) {
                 NBEdge *edge = new NBEdge(id, from, to, type, speed, nolanes,
                                           priority, shape, !myOptions.getBool("add-node-positions"), spread);
                 myEdgeCont.insert(edge);
+                checkSpread(edge);
             }
         }
         // add negative direction if wanted
@@ -247,8 +250,10 @@ NIArcView_Loader::load(OptionsCont &) {
                 NBEdge *edge = new NBEdge(id, to, from, type, speed, nolanes,
                                           priority, shape.reverse(), !myOptions.getBool("add-node-positions"), spread);
                 myEdgeCont.insert(edge);
+                checkSpread(edge);
             }
         }
+        //
         OGRFeature::DestroyFeature(poFeature);
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
@@ -336,6 +341,18 @@ NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &/*edgeid
     }
     return 0;
 }
+
+void 
+NIArcView_Loader::checkSpread(NBEdge *e)
+{
+    NBEdge *ret = e->getToNode()->getConnectionTo(e->getFromNode());
+    if(ret!=0) {
+        e->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+        ret->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+    }
+}
+
+
 #endif
 
 

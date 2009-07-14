@@ -76,6 +76,8 @@ private:
 
     /// parses the priority of the edge currently processed
     int getPriority(OGRFeature &f, const std::string &edgeid);
+
+    void checkSpread(NBEdge *e);
 #endif
 
 private:
