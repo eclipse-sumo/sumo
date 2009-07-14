@@ -260,6 +260,10 @@
 				RelativePath="..\..\..\src\unittest_main.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\ValueTimeLineTest.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
