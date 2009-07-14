@@ -51,6 +51,21 @@ class NBNode;
  */
 class NITigerLoader {
 public:
+    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+     *
+     * If the option "tiger" is set, the file stored therein is read and
+     *  the network definition stored therein is stored within the given network
+     *  builder.
+     *
+     * If the option "tiger" is not set, this method simply returns.
+     *
+     * @param[in] oc The options to use
+     * @param[in] nb The network builder to fill
+     */
+    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+
+
+protected:
     /** @brief Constructor
      * @param[in, filled] ec The edge control to insert loaded edges into
      * @param[in, filled] nc The node control to insert loaded nodes into
@@ -68,7 +83,7 @@ public:
     /** @brief Parses the description
      * @exception ProcessError if somethng fails
      */
-    void load(OptionsCont &options) throw(ProcessError);
+    void load() throw(ProcessError);
 
 protected:
     /** @brief Converts the given shape

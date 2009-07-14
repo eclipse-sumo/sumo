@@ -82,20 +82,8 @@ private:
     bool useLineReader(LineReader &lr, const std::string &file,
                        LineHandler &lh);
 
-    /** loads data from visum-input-file */
-    void loadVisum(OptionsCont &oc);
-
-    /** loads data from arcview-files */
-    void loadArcView(OptionsCont &oc);
-
-    /** loads data from vissim-input-file */
-    void loadVissim(OptionsCont &oc);
-
     /// loads Elmar's data parsed from GDF
     void loadElmar(OptionsCont &oc);
-
-    void loadTiger(OptionsCont &oc);
-
 
 private:
     /// @brief The network builder to fill with loaded data

@@ -53,6 +53,23 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// static methods (interface in this case)
+// ---------------------------------------------------------------------------
+void
+NIVisumLoader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    // check whether the option is set (properly)
+    if (!oc.isSet("visum")) {
+        return;
+    }
+    // build the handler
+    NIVisumLoader loader(nb, oc.getString("visum"),
+                         NBCapacity2Lanes(oc.getFloat("capacity-norm")),
+                         oc.getBool("visum.use-type-priority"));
+    loader.load();
+}
+
+
 NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
                              const std::string &file,
                              NBCapacity2Lanes capacity2Lanes,

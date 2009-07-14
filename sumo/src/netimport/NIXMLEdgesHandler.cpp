@@ -199,7 +199,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // check whether this lane exists
-        if (lane>=myCurrentEdge->getNoLanes()) {
+        if (lane>=(int) myCurrentEdge->getNoLanes()) {
             MsgHandler::getErrorInstance()->inform("Lane-id is larger than number of lanes (edge '" + myCurrentID + "').");
             return;
         }

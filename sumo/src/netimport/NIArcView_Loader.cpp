@@ -34,6 +34,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
+#include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -43,6 +44,7 @@
 #include "NIArcView_Loader.h"
 #include <netimport/NINavTeqHelper.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/common/FileHelpers.h>
 
 #ifdef HAVE_GDAL
 #include <ogrsf_frmts.h>
@@ -62,7 +64,41 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
+// ---------------------------------------------------------------------------
+// static methods (interface in this case)
+// ---------------------------------------------------------------------------
+void
+NIArcView_Loader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    if (!oc.isSet("arcview")) {
+        return;
+    }
+    // check whether the correct set of entries is given
+    //  and compute both file names
+    string dbf_file = oc.getString("arcview") + ".dbf";
+    string shp_file = oc.getString("arcview") + ".shp";
+    string shx_file = oc.getString("arcview") + ".shx";
+    // check whether the files do exist
+    if (!FileHelpers::exists(dbf_file)) {
+        MsgHandler::getErrorInstance()->inform("File not found: " + dbf_file);
+    }
+    if (!FileHelpers::exists(shp_file)) {
+        MsgHandler::getErrorInstance()->inform("File not found: " + shp_file);
+    }
+    if (!FileHelpers::exists(shx_file)) {
+        MsgHandler::getErrorInstance()->inform("File not found: " + shx_file);
+    }
+    if (MsgHandler::getErrorInstance()->wasInformed()) {
+        return;
+    }
+    // load the arcview files
+    NIArcView_Loader loader(oc,
+                            nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
+                            dbf_file, shp_file, oc.getBool("speed-in-kmh"));
+    loader.load();
+}
+
+
+NIArcView_Loader::NIArcView_Loader(const OptionsCont &oc,
                                    NBNodeCont &nc,
                                    NBEdgeCont &ec,
                                    NBTypeCont &tc,
@@ -80,7 +116,7 @@ NIArcView_Loader::~NIArcView_Loader() {}
 
 
 bool
-NIArcView_Loader::load(OptionsCont &) {
+NIArcView_Loader::load() {
 #ifdef HAVE_GDAL
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading data from '" + mySHPName + "'...");
     OGRRegisterAll();

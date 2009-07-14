@@ -53,8 +53,23 @@ class OGRFeature;
  */
 class NIArcView_Loader {
 public:
+    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+     *
+     * If the option "arcview" is set, the file stored therein is read and
+     *  the network definition stored therein is stored within the given network
+     *  builder.
+     *
+     * If the option "arcview" is not set, this method simply returns.
+     *
+     * @param[in] oc The options to use
+     * @param[in] nb The network builder to fill
+     */
+    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+
+
+protected:
     /// Contructor
-    NIArcView_Loader(OptionsCont &oc,
+    NIArcView_Loader(const OptionsCont &oc,
                      NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
                      const std::string &dbf_name, const std::string &shp_name,
                      bool speedInKMH);
@@ -63,7 +78,7 @@ public:
     ~NIArcView_Loader();
 
     /// loads the navtech-data
-    bool load(OptionsCont &options);
+    bool load();
 
 private:
 #ifdef HAVE_GDAL
@@ -81,7 +96,7 @@ private:
 #endif
 
 private:
-    OptionsCont &myOptions;
+    const OptionsCont &myOptions;
 
     std::string mySHPName;
     int myNameAddition;

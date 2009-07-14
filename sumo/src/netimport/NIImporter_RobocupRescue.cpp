@@ -128,6 +128,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         entrySize -= 4;
         do {
             dev >> skip;
+            cout << entrySize << " " << skip << endl;
             --entrySize;
         } while (entrySize!=0);
         Position2D pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));

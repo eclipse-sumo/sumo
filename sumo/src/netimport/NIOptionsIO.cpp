@@ -122,6 +122,7 @@ NIOptionsIO::fillOptions() {
     oc.addDescription("vissim-file", "Input", "Read VISSIM-net from FILE");
 
     oc.doRegister("robocup-net", new Option_FileName());
+    oc.addSynonyme("robocup-net", "robocup");
     oc.addDescription("robocup-net", "Input", "Read RoboCup-net from DIR");
 
 

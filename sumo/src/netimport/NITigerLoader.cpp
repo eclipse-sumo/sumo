@@ -36,6 +36,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/importio/LineReader.h>
 #include <utils/options/OptionsCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -58,6 +59,20 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// static methods (interface in this case)
+// ---------------------------------------------------------------------------
+void
+NITigerLoader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    if (!oc.isSet("tiger")) {
+        return;
+    }
+    NITigerLoader l(nb.getEdgeCont(), nb.getNodeCont(),
+                    oc.getString("tiger"), !oc.getBool("add-node-positions"));
+    l.load();
+}
+
+
 NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
                              const std::string &file,
                              bool tryIgnoreNodePositions) throw()
@@ -70,7 +85,7 @@ NITigerLoader::~NITigerLoader() throw() {}
 
 
 void
-NITigerLoader::load(OptionsCont &) throw(ProcessError) {
+NITigerLoader::load() throw(ProcessError) {
     LineReader tgr1r((myFileName + ".rt1").c_str());
     LineReader tgr2r((myFileName + ".rt2").c_str());
     if (!tgr1r.good()) {

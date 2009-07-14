@@ -111,11 +111,29 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
+
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+// ---------------------------------------------------------------------------
+// static methods (interface in this case)
+// ---------------------------------------------------------------------------
+void
+NIVissimLoader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    if (!oc.isSet("vissim")) {
+        return;
+    }
+    // load the visum network
+    NIVissimLoader loader(nb, oc.getString("vissim"));
+    loader.load(oc);
+}
 
 
 /* -------------------------------------------------------------------------
@@ -342,7 +360,7 @@ NIVissimLoader::~NIVissimLoader() {
 
 
 void
-NIVissimLoader::load(OptionsCont &options) {
+NIVissimLoader::load(const OptionsCont &options) {
     // load file contents
     // try to open the file
     ifstream strm(options.getString("vissim").c_str());

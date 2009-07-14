@@ -50,6 +50,21 @@ class NBNetBuilder;
 // ===========================================================================
 class NIVissimLoader {
 public:
+    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+     *
+     * If the option "vissim" is set, the file stored therein is read and
+     *  the network definition stored therein is stored within the given network
+     *  builder.
+     *
+     * If the option "vissim" is not set, this method simply returns.
+     *
+     * @param[in] oc The options to use
+     * @param[in] nb The network builder to fill
+     */
+    static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+
+
+protected:
     /// constructor
     NIVissimLoader(NBNetBuilder &nb, const std::string &file);
 
@@ -57,7 +72,7 @@ public:
     ~NIVissimLoader();
 
     /// loads the vissim file
-    void load(OptionsCont &options);
+    void load(const OptionsCont &options);
 
     bool admitContinue(const std::string &tag);
 

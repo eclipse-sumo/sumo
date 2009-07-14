@@ -106,11 +106,11 @@ NILoader::load(OptionsCont &oc) {
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
     NIImporter_RobocupRescue::loadNetwork(oc, myNetBuilder);
     NIImporter_OpenStreetMap::loadNetwork(oc, myNetBuilder);
-    loadVisum(oc);
-    loadArcView(oc);
-    loadVissim(oc);
+    NIVisumLoader::loadNetwork(oc, myNetBuilder);
+    NIArcView_Loader::loadNetwork(oc, myNetBuilder);
+    NIVissimLoader::loadNetwork(oc, myNetBuilder);
     loadElmar(oc);
-    loadTiger(oc);
+    NITigerLoader::loadNetwork(oc, myNetBuilder);
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
@@ -206,61 +206,6 @@ NILoader::useLineReader(LineReader &lr, const std::string &file,
 
 
 void
-NILoader::loadVisum(OptionsCont &oc) {
-    if (!oc.isSet("visum")) {
-        return;
-    }
-    // load the visum network
-    NIVisumLoader loader(myNetBuilder, oc.getString("visum"),
-                         NBCapacity2Lanes(oc.getFloat("capacity-norm")),
-                         oc.getBool("visum.use-type-priority"));
-    loader.load();
-}
-
-
-void
-NILoader::loadArcView(OptionsCont &oc) {
-    if (!oc.isSet("arcview")) {
-        return;
-    }
-    // check whether the correct set of entries is given
-    //  and compute both file names
-    string dbf_file = oc.getString("arcview") + ".dbf";
-    string shp_file = oc.getString("arcview") + ".shp";
-    string shx_file = oc.getString("arcview") + ".shx";
-    // check whether the files do exist
-    if (!FileHelpers::exists(dbf_file)) {
-        MsgHandler::getErrorInstance()->inform("File not found: " + dbf_file);
-    }
-    if (!FileHelpers::exists(shp_file)) {
-        MsgHandler::getErrorInstance()->inform("File not found: " + shp_file);
-    }
-    if (!FileHelpers::exists(shx_file)) {
-        MsgHandler::getErrorInstance()->inform("File not found: " + shx_file);
-    }
-    if (MsgHandler::getErrorInstance()->wasInformed()) {
-        return;
-    }
-    // load the arcview files
-    NIArcView_Loader loader(oc,
-                            myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), myNetBuilder.getTypeCont(),
-                            dbf_file, shp_file, oc.getBool("speed-in-kmh"));
-    loader.load(oc);
-}
-
-
-void
-NILoader::loadVissim(OptionsCont &oc) {
-    if (!oc.isSet("vissim")) {
-        return;
-    }
-    // load the visum network
-    NIVissimLoader loader(myNetBuilder, oc.getString("vissim"));
-    loader.load(oc);
-}
-
-
-void
 NILoader::loadElmar(OptionsCont &oc) {
     if (!oc.isSet("elmar")&&!oc.isSet("elmar2")) {
         return;
@@ -317,17 +262,6 @@ NILoader::loadElmar(OptionsCont &oc) {
     }
     myNetBuilder.getEdgeCont().recheckLaneSpread();
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
-}
-
-
-void
-NILoader::loadTiger(OptionsCont &oc) {
-    if (!oc.isSet("tiger")) {
-        return;
-    }
-    NITigerLoader l(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont(),
-                    oc.getString("tiger"), !oc.getBool("add-node-positions"));
-    l.load(oc);
 }
 
 
