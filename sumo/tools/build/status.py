@@ -56,7 +56,7 @@ def printStatus(makeLog, makeAllLog, textTestTmp, smtpServer, out):
     
     if failed:
         fromAddr = "michael.behrisch@dlr.de"
-        toAddr = "delphi-dev@dlr.de"
+        toAddr = "michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de"
         message = """From: "%s" <%s>
 To: %s
 Subject: Error occurred while building
