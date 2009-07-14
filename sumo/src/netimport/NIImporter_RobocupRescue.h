@@ -4,7 +4,7 @@
 /// @date    Mon, 14.04.2008
 /// @version $Id$
 ///
-// Importer for networks stored in SUMO format
+// Importer for networks stored in robocup rescue league format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -47,7 +47,7 @@ class OptionsCont;
 // ===========================================================================
 /**
  * @class NIImporter_RobocupRescue
- * @brief Importer for networks stored in SUMO format
+ * @brief Importer for networks stored in robocup rescue league format
  *
  */
 class NIImporter_RobocupRescue {
