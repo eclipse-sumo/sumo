@@ -134,7 +134,7 @@ public:
     /** @brief Sets a default value for all unset intervals.
      *
      * @param[in] value the value to store
-     * @param[in] extendOverBoundaries whether the first/last value should be valid for later / earlier tiems as well
+     * @param[in] extendOverBoundaries whether the first/last value should be valid for later / earlier times as well
      */
     void fillGaps(T value, bool extendOverBoundaries=false) {
         for (typename TimedValueMap::iterator it = myValues.begin(); it != myValues.end(); ++it) {
