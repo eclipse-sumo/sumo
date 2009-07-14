@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimVehicleClass.h"
 #include "../tempstructs/NIVissimVehicleClassVector.h"
 #include "../tempstructs/NIVissimTrafficDescription.h"
@@ -49,8 +49,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::~NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition() {}

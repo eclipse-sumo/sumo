@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,10 +41,10 @@
  *
  */
 class NIVissimSingleTypeParser__XVerteilungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser__XVerteilungsdefinition(NIVissimLoader &parent);
+    NIVissimSingleTypeParser__XVerteilungsdefinition(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser__XVerteilungsdefinition();

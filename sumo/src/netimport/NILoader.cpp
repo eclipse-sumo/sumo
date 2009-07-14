@@ -53,12 +53,12 @@
 #include <netimport/NIElmarEdgesHandler.h>
 #include <netimport/NIElmar2NodesHandler.h>
 #include <netimport/NIElmar2EdgesHandler.h>
-#include <netimport/NIVisumLoader.h>
-#include <netimport/vissim/NIVissimLoader.h>
-#include <netimport/NIArcView_Loader.h>
+#include <netimport/NIImporter_VISUM.h>
+#include <netimport/vissim/NIImporter_Vissim.h>
+#include <netimport/NIImporter_ArcView.h>
 #include <netimport/NIImporter_SUMO.h>
 #include <netimport/NIImporter_RobocupRescue.h>
-#include <netimport/NITigerLoader.h>
+#include <netimport/NIImporter_TIGER.h>
 #include <netimport/NIImporter_OpenStreetMap.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
@@ -106,11 +106,11 @@ NILoader::load(OptionsCont &oc) {
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
     NIImporter_RobocupRescue::loadNetwork(oc, myNetBuilder);
     NIImporter_OpenStreetMap::loadNetwork(oc, myNetBuilder);
-    NIVisumLoader::loadNetwork(oc, myNetBuilder);
-    NIArcView_Loader::loadNetwork(oc, myNetBuilder);
-    NIVissimLoader::loadNetwork(oc, myNetBuilder);
+    NIImporter_VISUM::loadNetwork(oc, myNetBuilder);
+    NIImporter_ArcView::loadNetwork(oc, myNetBuilder);
+    NIImporter_Vissim::loadNetwork(oc, myNetBuilder);
     loadElmar(oc);
-    NITigerLoader::loadNetwork(oc, myNetBuilder);
+    NIImporter_TIGER::loadNetwork(oc, myNetBuilder);
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {

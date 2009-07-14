@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimSource.h"
 #include "NIVissimSingleTypeParser_Auswertungsdefinition.h"
 
@@ -47,8 +47,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Auswertungsdefinition::NIVissimSingleTypeParser_Auswertungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Auswertungsdefinition::NIVissimSingleTypeParser_Auswertungsdefinition(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Auswertungsdefinition::~NIVissimSingleTypeParser_Auswertungsdefinition() {}

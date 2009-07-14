@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimClosures.h"
 #include "NIVissimSingleTypeParser_Kantensperrung.h"
 
@@ -47,8 +47,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Kantensperrung::NIVissimSingleTypeParser_Kantensperrung(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Kantensperrung::NIVissimSingleTypeParser_Kantensperrung(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Kantensperrung::~NIVissimSingleTypeParser_Kantensperrung() {}

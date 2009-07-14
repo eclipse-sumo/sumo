@@ -31,7 +31,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimNodeParticipatingEdge.h"
 #include "../tempstructs/NIVissimNodeParticipatingEdgeVector.h"
 #include "../tempstructs/NIVissimNodeDef_Edges.h"
@@ -53,8 +53,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Knotendefinition::NIVissimSingleTypeParser_Knotendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Knotendefinition::NIVissimSingleTypeParser_Knotendefinition(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Knotendefinition::~NIVissimSingleTypeParser_Knotendefinition() {}

@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimSource.h"
 #include "NIVissimSingleTypeParser_Stauparameterdefinition.h"
 
@@ -47,8 +47,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Stauparameterdefinition::NIVissimSingleTypeParser_Stauparameterdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Stauparameterdefinition::NIVissimSingleTypeParser_Stauparameterdefinition(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Stauparameterdefinition::~NIVissimSingleTypeParser_Stauparameterdefinition() {}

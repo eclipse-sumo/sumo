@@ -30,7 +30,7 @@
 #include <iostream>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/Position2DVector.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include <utils/distribution/Distribution_Points.h>
 #include <netbuild/NBDistribution.h>
 #include "NIVissimSingleTypeParser_Laengenverteilungsdefinition.h"
@@ -49,8 +49,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Laengenverteilungsdefinition::NIVissimSingleTypeParser_Laengenverteilungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Laengenverteilungsdefinition::NIVissimSingleTypeParser_Laengenverteilungsdefinition(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Laengenverteilungsdefinition::~NIVissimSingleTypeParser_Laengenverteilungsdefinition() {}

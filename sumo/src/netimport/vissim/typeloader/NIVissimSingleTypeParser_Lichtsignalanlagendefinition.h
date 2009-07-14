@@ -31,7 +31,7 @@
 
 #include <iostream>
 #include <string>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -42,10 +42,10 @@
  *
  */
 class NIVissimSingleTypeParser_Lichtsignalanlagendefinition :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Lichtsignalanlagendefinition(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_Lichtsignalanlagendefinition(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Lichtsignalanlagendefinition();

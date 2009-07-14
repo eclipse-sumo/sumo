@@ -34,7 +34,7 @@
 #include <utils/common/ToString.h>
 #include <netbuild/NBDistribution.h>
 #include <utils/distribution/Distribution_Points.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -51,8 +51,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition::~NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition() {}

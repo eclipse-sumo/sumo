@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,10 +41,10 @@
  *
  */
 class NIVissimSingleTypeParser_Netzobjektdefinition :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Netzobjektdefinition(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_Netzobjektdefinition(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Netzobjektdefinition();

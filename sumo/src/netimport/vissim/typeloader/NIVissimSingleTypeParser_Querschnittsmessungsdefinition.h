@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,10 +41,10 @@
  *
  */
 class NIVissimSingleTypeParser_Querschnittsmessungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Querschnittsmessungsdefinition(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_Querschnittsmessungsdefinition(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Querschnittsmessungsdefinition();

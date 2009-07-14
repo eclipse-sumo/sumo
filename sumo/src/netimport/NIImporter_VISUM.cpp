@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NIVisumLoader.cpp
+/// @file    NIImporter_VISUM.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
 /// @version $Id$
@@ -37,7 +37,7 @@
 #include <utils/common/TplConvertSec.h>
 
 #include <netbuild/NBNetBuilder.h>
-#include "NIVisumLoader.h"
+#include "NIImporter_VISUM.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -57,20 +57,20 @@ using namespace std;
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIVisumLoader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_VISUM::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("visum")) {
         return;
     }
     // build the handler
-    NIVisumLoader loader(nb, oc.getString("visum"),
+    NIImporter_VISUM loader(nb, oc.getString("visum"),
                          NBCapacity2Lanes(oc.getFloat("capacity-norm")),
                          oc.getBool("visum.use-type-priority"));
     loader.load();
 }
 
 
-NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
+NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder &nb,
                              const std::string &file,
                              NBCapacity2Lanes capacity2Lanes,
                              bool useVisumPrio) throw()
@@ -78,57 +78,57 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
         myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio) {
     // the order of process is important!
     // set1
-    addParser("VSYS", &NIVisumLoader::parse_VSysTypes);
-    addParser("STRECKENTYP", &NIVisumLoader::parse_Types);
-    addParser("KNOTEN", &NIVisumLoader::parse_Nodes);
-    addParser("BEZIRK", &NIVisumLoader::parse_Districts);
-    addParser("PUNKT", &NIVisumLoader::parse_Point);
+    addParser("VSYS", &NIImporter_VISUM::parse_VSysTypes);
+    addParser("STRECKENTYP", &NIImporter_VISUM::parse_Types);
+    addParser("KNOTEN", &NIImporter_VISUM::parse_Nodes);
+    addParser("BEZIRK", &NIImporter_VISUM::parse_Districts);
+    addParser("PUNKT", &NIImporter_VISUM::parse_Point);
 
 
     // set2
     // two types of "strecke"
-    addParser("STRECKE", &NIVisumLoader::parse_Edges);
-    addParser("STRECKEN", &NIVisumLoader::parse_Edges);
-    addParser("KANTE", &NIVisumLoader::parse_Kante);
+    addParser("STRECKE", &NIImporter_VISUM::parse_Edges);
+    addParser("STRECKEN", &NIImporter_VISUM::parse_Edges);
+    addParser("KANTE", &NIImporter_VISUM::parse_Kante);
 
 
     // set3
-    addParser("ANBINDUNG", &NIVisumLoader::parse_Connectors);
+    addParser("ANBINDUNG", &NIImporter_VISUM::parse_Connectors);
     // two types of "abbieger"
-    addParser("ABBIEGEBEZIEHUNG", &NIVisumLoader::parse_Turns);
-    addParser("ABBIEGER", &NIVisumLoader::parse_Turns);
+    addParser("ABBIEGEBEZIEHUNG", &NIImporter_VISUM::parse_Turns);
+    addParser("ABBIEGER", &NIImporter_VISUM::parse_Turns);
 
-    addParser("STRECKENPOLY", &NIVisumLoader::parse_EdgePolys);
-    addParser("FAHRSTREIFEN", &NIVisumLoader::parse_Lanes);
-    addParser("FLAECHENELEMENT", &NIVisumLoader::parse_PartOfArea);
+    addParser("STRECKENPOLY", &NIImporter_VISUM::parse_EdgePolys);
+    addParser("FAHRSTREIFEN", &NIImporter_VISUM::parse_Lanes);
+    addParser("FLAECHENELEMENT", &NIImporter_VISUM::parse_PartOfArea);
 
 
     // set4
     // two types of lsa
-    addParser("LSA", &NIVisumLoader::parse_TrafficLights);
-    addParser("SIGNALANLAGE", &NIVisumLoader::parse_TrafficLights);
+    addParser("LSA", &NIImporter_VISUM::parse_TrafficLights);
+    addParser("SIGNALANLAGE", &NIImporter_VISUM::parse_TrafficLights);
     // two types of knotenzulsa
-    addParser("KNOTENZULSA", &NIVisumLoader::parse_NodesToTrafficLights);
-    addParser("SIGNALANLAGEZUKNOTEN", &NIVisumLoader::parse_NodesToTrafficLights);
+    addParser("KNOTENZULSA", &NIImporter_VISUM::parse_NodesToTrafficLights);
+    addParser("SIGNALANLAGEZUKNOTEN", &NIImporter_VISUM::parse_NodesToTrafficLights);
     // two types of signalgruppe
-    addParser("LSASIGNALGRUPPE", &NIVisumLoader::parse_SignalGroups);
-    addParser("SIGNALGRUPPE", &NIVisumLoader::parse_SignalGroups);
+    addParser("LSASIGNALGRUPPE", &NIImporter_VISUM::parse_SignalGroups);
+    addParser("SIGNALGRUPPE", &NIImporter_VISUM::parse_SignalGroups);
     // two types of ABBZULSASIGNALGRUPPE
-    addParser("ABBZULSASIGNALGRUPPE", &NIVisumLoader::parse_TurnsToSignalGroups);
-    addParser("SIGNALGRUPPEZUABBIEGER", &NIVisumLoader::parse_TurnsToSignalGroups);
+    addParser("ABBZULSASIGNALGRUPPE", &NIImporter_VISUM::parse_TurnsToSignalGroups);
+    addParser("SIGNALGRUPPEZUABBIEGER", &NIImporter_VISUM::parse_TurnsToSignalGroups);
 
-    addParser("TEILFLAECHENELEMENT", &NIVisumLoader::parse_AreaSubPartElement);
+    addParser("TEILFLAECHENELEMENT", &NIImporter_VISUM::parse_AreaSubPartElement);
 
     // two types of LSAPHASE
-    addParser("LSAPHASE", &NIVisumLoader::parse_Phases);
-    addParser("PHASE", &NIVisumLoader::parse_Phases);
+    addParser("LSAPHASE", &NIImporter_VISUM::parse_Phases);
+    addParser("PHASE", &NIImporter_VISUM::parse_Phases);
 
-    addParser("LSASIGNALGRUPPEZULSAPHASE", &NIVisumLoader::parse_SignalGroupsToPhases);
-    addParser("FAHRSTREIFENABBIEGER", &NIVisumLoader::parse_LanesConnections);
+    addParser("LSASIGNALGRUPPEZULSAPHASE", &NIImporter_VISUM::parse_SignalGroupsToPhases);
+    addParser("FAHRSTREIFENABBIEGER", &NIImporter_VISUM::parse_LanesConnections);
 }
 
 
-NIVisumLoader::~NIVisumLoader() throw() {
+NIImporter_VISUM::~NIImporter_VISUM() throw() {
     for (NIVisumTL_Map::iterator j=myNIVisumTLs.begin(); j!=myNIVisumTLs.end(); j++) {
         delete j->second;
     }
@@ -136,7 +136,7 @@ NIVisumLoader::~NIVisumLoader() throw() {
 
 
 void
-NIVisumLoader::addParser(const std::string &name, ParsingFunction function) throw() {
+NIImporter_VISUM::addParser(const std::string &name, ParsingFunction function) throw() {
     TypeParser p;
     p.name = name;
     p.function = function;
@@ -146,7 +146,7 @@ NIVisumLoader::addParser(const std::string &name, ParsingFunction function) thro
 
 
 void
-NIVisumLoader::load() throw(ProcessError) {
+NIImporter_VISUM::load() throw(ProcessError) {
     // open the file
     if (!myLineReader.setFile(myFileName)) {
         throw ProcessError("Can not open visum-file '" + myFileName + "'.");
@@ -217,7 +217,7 @@ NIVisumLoader::load() throw(ProcessError) {
 
 
 void
-NIVisumLoader::parse_VSysTypes() {
+NIImporter_VISUM::parse_VSysTypes() {
     string name = myLineParser.know("VSysCode") ? myLineParser.get("VSysCode").c_str() : myLineParser.get("CODE").c_str();
     string type = myLineParser.know("VSysMode") ? myLineParser.get("VSysMode").c_str() : myLineParser.get("Typ").c_str();
     myVSysTypes[name] = type;
@@ -225,7 +225,7 @@ NIVisumLoader::parse_VSysTypes() {
 
 
 void
-NIVisumLoader::parse_Types() {
+NIImporter_VISUM::parse_Types() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the maximum speed
@@ -241,7 +241,7 @@ NIVisumLoader::parse_Types() {
 
 
 void
-NIVisumLoader::parse_Nodes() {
+NIImporter_VISUM::parse_Nodes() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the position
@@ -257,7 +257,7 @@ NIVisumLoader::parse_Nodes() {
 
 
 void
-NIVisumLoader::parse_Districts() {
+NIImporter_VISUM::parse_Districts() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the information whether the source and the destination
@@ -283,7 +283,7 @@ NIVisumLoader::parse_Districts() {
 
 
 void
-NIVisumLoader::parse_Point() {
+NIImporter_VISUM::parse_Point() {
     long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
     SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKOORD").c_str());
     SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKOORD").c_str());
@@ -294,7 +294,7 @@ NIVisumLoader::parse_Point() {
 
 
 void
-NIVisumLoader::parse_Edges() {
+NIImporter_VISUM::parse_Edges() {
     if (myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
         // no vehicle allowed; don't add
         return;
@@ -398,7 +398,7 @@ NIVisumLoader::parse_Edges() {
 
 
 void
-NIVisumLoader::parse_Kante() {
+NIImporter_VISUM::parse_Kante() {
     long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
     long from = TplConvert<char>::_2long(myLineParser.get("VONPUNKTID").c_str());
     long to = TplConvert<char>::_2long(myLineParser.get("NACHPUNKTID").c_str());
@@ -407,7 +407,7 @@ NIVisumLoader::parse_Kante() {
 
 
 void
-NIVisumLoader::parse_PartOfArea() {
+NIImporter_VISUM::parse_PartOfArea() {
     long flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
     long flaechePartID = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
     if (mySubPartsAreas.find(flaechePartID)==mySubPartsAreas.end()) {
@@ -418,7 +418,7 @@ NIVisumLoader::parse_PartOfArea() {
 
 
 void
-NIVisumLoader::parse_Connectors() {
+NIImporter_VISUM::parse_Connectors() {
     if (OptionsCont::getOptions().getBool("visum.no-connectors")) {
         // do nothing, if connectors shall not be imported
         return;
@@ -519,7 +519,7 @@ NIVisumLoader::parse_Connectors() {
 
 
 void
-NIVisumLoader::parse_Turns() {
+NIImporter_VISUM::parse_Turns() {
     if (myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET")=="") {
         // no vehicle allowed; don't add
         return;
@@ -569,7 +569,7 @@ NIVisumLoader::parse_Turns() {
 
 
 void
-NIVisumLoader::parse_EdgePolys() {
+NIImporter_VISUM::parse_EdgePolys() {
     // get the from- & to-node and validate them
     NBNode *from = getNamedNode("VonKnot", "VonKnotNr");
     NBNode *to = getNamedNode("NachKnot", "NachKnotNr");
@@ -615,7 +615,7 @@ NIVisumLoader::parse_EdgePolys() {
 
 
 void
-NIVisumLoader::parse_Lanes() {
+NIImporter_VISUM::parse_Lanes() {
     // get the node
     NBNode *node = getNamedNode("KNOTNR");
     // get the edge
@@ -745,7 +745,7 @@ NIVisumLoader::parse_Lanes() {
 
 
 void
-NIVisumLoader::parse_TrafficLights() {
+NIImporter_VISUM::parse_TrafficLights() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // cycle time
@@ -762,7 +762,7 @@ NIVisumLoader::parse_TrafficLights() {
 
 
 void
-NIVisumLoader::parse_NodesToTrafficLights() {
+NIImporter_VISUM::parse_NodesToTrafficLights() {
     string Node = myLineParser.get("KnotNr").c_str();
     string TrafficLight = myLineParser.get("LsaNr").c_str();
     // add to the list
@@ -771,7 +771,7 @@ NIVisumLoader::parse_NodesToTrafficLights() {
 
 
 void
-NIVisumLoader::parse_SignalGroups() {
+NIImporter_VISUM::parse_SignalGroups() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
@@ -785,7 +785,7 @@ NIVisumLoader::parse_SignalGroups() {
 
 
 void
-NIVisumLoader::parse_TurnsToSignalGroups() {
+NIImporter_VISUM::parse_TurnsToSignalGroups() {
     // get the id
     string SGid = getNamedString("SGNR", "SIGNALGRUPPENNR");
     string LSAid = getNamedString("LsaNr");
@@ -837,7 +837,7 @@ NIVisumLoader::parse_TurnsToSignalGroups() {
 
 
 void
-NIVisumLoader::parse_AreaSubPartElement() {
+NIImporter_VISUM::parse_AreaSubPartElement() {
     long id = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
     long edgeid = TplConvert<char>::_2long(myLineParser.get("KANTEID").c_str());
     if (myEdges.find(edgeid)==myEdges.end()) {
@@ -885,7 +885,7 @@ NIVisumLoader::parse_AreaSubPartElement() {
 
 
 void
-NIVisumLoader::parse_Phases() {
+NIImporter_VISUM::parse_Phases() {
     // get the id
     string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
@@ -898,7 +898,7 @@ NIVisumLoader::parse_Phases() {
 }
 
 
-void NIVisumLoader::parse_SignalGroupsToPhases() {
+void NIImporter_VISUM::parse_SignalGroupsToPhases() {
     // get the id
     string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("PsNr"));
     string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
@@ -914,7 +914,7 @@ void NIVisumLoader::parse_SignalGroupsToPhases() {
 }
 
 
-void NIVisumLoader::parse_LanesConnections() {
+void NIImporter_VISUM::parse_LanesConnections() {
     // get the node
     NBNode *node = getNamedNode("KNOTNR", "KNOT");
     if (node==0) {
@@ -1010,7 +1010,7 @@ void NIVisumLoader::parse_LanesConnections() {
 
 
 SUMOReal
-NIVisumLoader::getWeightedFloat(const std::string &name) throw() {
+NIImporter_VISUM::getWeightedFloat(const std::string &name) throw() {
     try {
         return TplConvert<char>::_2SUMOReal(myLineParser.get(name).c_str());
     } catch (...) {}
@@ -1022,7 +1022,7 @@ NIVisumLoader::getWeightedFloat(const std::string &name) throw() {
 
 
 bool
-NIVisumLoader::getWeightedBool(const std::string &name) throw() {
+NIImporter_VISUM::getWeightedBool(const std::string &name) throw() {
     try {
         return TplConvert<char>::_2bool(myLineParser.get(name).c_str());
     } catch (...) {}
@@ -1034,7 +1034,7 @@ NIVisumLoader::getWeightedBool(const std::string &name) throw() {
 
 
 NBNode *
-NIVisumLoader::getNamedNode(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedNode(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBNode *node = myNetBuilder.getNodeCont().retrieve(nodeS);
     if (node==0) {
@@ -1045,7 +1045,7 @@ NIVisumLoader::getNamedNode(const std::string &fieldName) throw(OutOfBoundsExcep
 
 
 NBNode *
-NIVisumLoader::getNamedNode(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedNode(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     if (myLineParser.know(fieldName1)) {
         return getNamedNode(fieldName1);
     } else {
@@ -1055,7 +1055,7 @@ NIVisumLoader::getNamedNode(const std::string &fieldName1, const std::string &fi
 
 
 NBEdge *
-NIVisumLoader::getNamedEdge(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedEdge(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
@@ -1066,7 +1066,7 @@ NIVisumLoader::getNamedEdge(const std::string &fieldName) throw(OutOfBoundsExcep
 
 
 NBEdge *
-NIVisumLoader::getNamedEdge(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedEdge(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     if (myLineParser.know(fieldName1)) {
         return getNamedEdge(fieldName1);
     } else {
@@ -1077,7 +1077,7 @@ NIVisumLoader::getNamedEdge(const std::string &fieldName1, const std::string &fi
 
 
 NBEdge *
-NIVisumLoader::getReversedContinuating(NBEdge *edge, NBNode *node) throw() {
+NIImporter_VISUM::getReversedContinuating(NBEdge *edge, NBNode *node) throw() {
     string sid;
     if (edge->getID()[0]=='-') {
         sid = edge->getID().substr(1);
@@ -1092,7 +1092,7 @@ NIVisumLoader::getReversedContinuating(NBEdge *edge, NBNode *node) throw() {
 
 
 NBEdge *
-NIVisumLoader::getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw() {
+NIImporter_VISUM::getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw() {
     NBEdge *ret = begin;
     string edgeID = ret->getID();
     // hangle forward
@@ -1150,7 +1150,7 @@ NIVisumLoader::getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw() {
 
 
 NBEdge *
-NIVisumLoader::getNamedEdgeContinuating(const std::string &fieldName, NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedEdgeContinuating(const std::string &fieldName, NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge *edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge==0) {
@@ -1161,7 +1161,7 @@ NIVisumLoader::getNamedEdgeContinuating(const std::string &fieldName, NBNode *no
 
 
 NBEdge *
-NIVisumLoader::getNamedEdgeContinuating(const std::string &fieldName1, const std::string &fieldName2,
+NIImporter_VISUM::getNamedEdgeContinuating(const std::string &fieldName1, const std::string &fieldName2,
                                         NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     if (myLineParser.know(fieldName1)) {
         return getNamedEdgeContinuating(fieldName1, node);
@@ -1172,7 +1172,7 @@ NIVisumLoader::getNamedEdgeContinuating(const std::string &fieldName1, const std
 
 
 NBEdge *
-NIVisumLoader::getEdge(NBNode *FromNode, NBNode *ToNode) throw() {
+NIImporter_VISUM::getEdge(NBNode *FromNode, NBNode *ToNode) throw() {
     EdgeVector::const_iterator i;
     for (i = FromNode->getOutgoingEdges().begin(); i != FromNode->getOutgoingEdges().end(); i++) {
         if (ToNode == (*i)->getToNode()) {
@@ -1185,14 +1185,14 @@ NIVisumLoader::getEdge(NBNode *FromNode, NBNode *ToNode) throw() {
 
 
 SUMOReal
-NIVisumLoader::getNamedFloat(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedFloat(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     return TplConvert<char>::_2SUMOReal(valS.c_str());
 }
 
 
 SUMOReal
-NIVisumLoader::getNamedFloat(const std::string &fieldName, SUMOReal defaultValue) throw() {
+NIImporter_VISUM::getNamedFloat(const std::string &fieldName, SUMOReal defaultValue) throw() {
     try {
         string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
         return TplConvert<char>::_2SUMOReal(valS.c_str());
@@ -1203,7 +1203,7 @@ NIVisumLoader::getNamedFloat(const std::string &fieldName, SUMOReal defaultValue
 
 
 SUMOReal
-NIVisumLoader::getNamedFloat(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedFloat(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     if (myLineParser.know(fieldName1)) {
         return getNamedFloat(fieldName1);
     } else {
@@ -1213,7 +1213,7 @@ NIVisumLoader::getNamedFloat(const std::string &fieldName1, const std::string &f
 
 
 SUMOReal
-NIVisumLoader::getNamedFloat(const std::string &fieldName1, const std::string &fieldName2,
+NIImporter_VISUM::getNamedFloat(const std::string &fieldName1, const std::string &fieldName2,
                              SUMOReal defaultValue) throw() {
     if (myLineParser.know(fieldName1)) {
         return getNamedFloat(fieldName1, defaultValue);
@@ -1224,13 +1224,13 @@ NIVisumLoader::getNamedFloat(const std::string &fieldName1, const std::string &f
 
 
 std::string
-NIVisumLoader::getNamedString(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+NIImporter_VISUM::getNamedString(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     return NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
 }
 
 
 std::string
-NIVisumLoader::getNamedString(const std::string &fieldName1,
+NIImporter_VISUM::getNamedString(const std::string &fieldName1,
                               const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     if (myLineParser.know(fieldName1)) {
         return getNamedString(fieldName1);
@@ -1245,7 +1245,7 @@ NIVisumLoader::getNamedString(const std::string &fieldName1,
 
 
 NBNode *
-NIVisumLoader::buildDistrictNode(const std::string &id, NBNode *dest,
+NIImporter_VISUM::buildDistrictNode(const std::string &id, NBNode *dest,
                                  bool isSource) throw() {
     // get the district
     NBDistrict *dist = myNetBuilder.getDistrictCont().retrieve(id);
@@ -1268,7 +1268,7 @@ NIVisumLoader::buildDistrictNode(const std::string &id, NBNode *dest,
 
 
 bool
-NIVisumLoader::checkNodes(NBNode *from, NBNode *to)  throw() {
+NIImporter_VISUM::checkNodes(NBNode *from, NBNode *to)  throw() {
     if (from==0) {
         MsgHandler::getErrorInstance()->inform(" The from-node was not found within the net");
     }

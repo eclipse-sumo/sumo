@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NIVisumLoader.h
+/// @file    NIImporter_VISUM.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef NIVisumLoader_h
-#define NIVisumLoader_h
+#ifndef NIImporter_VISUM_h
+#define NIImporter_VISUM_h
 
 
 // ===========================================================================
@@ -54,7 +54,7 @@ class NBEdge;
 // class declaration
 // ===========================================================================
 /**
- * @class NIVisumLoader
+ * @class NIImporter_VISUM
  * @brief A VISUM network importer
  *
  * This class build an internal list of those VISUM-db entries which are
@@ -71,7 +71,7 @@ class NBEdge;
  *  each subsequently whether it was found and if so, the proper parse_XXX()
  *  method is called.
  */
-class NIVisumLoader {
+class NIImporter_VISUM {
 public:
     /** @brief Loads network definition from the assigned option and stores it in the given network builder
      *
@@ -98,12 +98,12 @@ protected:
      * @param[in] capacity2Lanes The converter from flow to lanes
      * @param[in] useVisumPrio Information whether the VISUM type's priority shall be used
      */
-    NIVisumLoader(NBNetBuilder &nb, const std::string &file,
+    NIImporter_VISUM(NBNetBuilder &nb, const std::string &file,
                   NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) throw();
 
 
     /// @brief destructor
-    ~NIVisumLoader() throw();
+    ~NIImporter_VISUM() throw();
 
 
     /** @brief Parses the VISUM-network file storing the parsed structures within myNetBuilder
@@ -353,7 +353,7 @@ private:
      * This function may assume that both the LineParser is initialised
      *  with the current line.
      */
-    typedef void (NIVisumLoader::*ParsingFunction)();
+    typedef void (NIImporter_VISUM::*ParsingFunction)();
 
     /**
      * @struct TypeParser

@@ -338,10 +338,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\netimport\NIArcView_Loader.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netimport\NIElmar2EdgesHandler.cpp"
 				>
 			</File>
@@ -358,6 +354,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_ArcView.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_OpenStreetMap.cpp"
 				>
 			</File>
@@ -370,6 +370,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_TIGER.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_VISUM.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NILoader.cpp"
 				>
 			</File>
@@ -379,14 +387,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOptionsIO.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NITigerLoader.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIVisumLoader.cpp"
 				>
 			</File>
 			<File
@@ -415,10 +415,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\netimport\NIArcView_Loader.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netimport\NIElmar2EdgesHandler.h"
 				>
 			</File>
@@ -435,6 +431,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_ArcView.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_OpenStreetMap.h"
 				>
 			</File>
@@ -447,6 +447,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_TIGER.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_VISUM.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NILoader.h"
 				>
 			</File>
@@ -456,14 +464,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOptionsIO.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NITigerLoader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIVisumLoader.h"
 				>
 			</File>
 			<File

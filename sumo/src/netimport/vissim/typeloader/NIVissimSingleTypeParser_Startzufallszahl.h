@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,10 +41,10 @@
  *
  */
 class NIVissimSingleTypeParser_Startzufallszahl :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Startzufallszahl(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_Startzufallszahl(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Startzufallszahl();

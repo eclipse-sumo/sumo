@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NITigerLoader.h
+/// @file    NIImporter_TIGER.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29 Jun 2004
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef NITigerLoader_h
-#define NITigerLoader_h
+#ifndef NIImporter_TIGER_h
+#define NIImporter_TIGER_h
 
 
 // ===========================================================================
@@ -46,10 +46,10 @@ class NBNode;
 // class declaration
 // ===========================================================================
 /**
- * @class NITigerLoader
+ * @class NIImporter_TIGER
  * @brief Importer for TIGER networks
  */
-class NITigerLoader {
+class NIImporter_TIGER {
 public:
     /** @brief Loads network definition from the assigned option and stores it in the given network builder
      *
@@ -72,13 +72,13 @@ protected:
      * @param[in] file The name of the parsed file
      * @param[in] tryIgnoreNodePositions Whether node positions shall not be added to the geometry
      */
-    NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
+    NIImporter_TIGER(NBEdgeCont &ec, NBNodeCont &nc,
                   const std::string &file,
                   bool tryIgnoreNodePositions) throw();
 
 
     /// @brief Destructor
-    ~NITigerLoader() throw();
+    ~NIImporter_TIGER() throw();
 
     /** @brief Parses the description
      * @exception ProcessError if somethng fails
@@ -153,10 +153,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    NITigerLoader(const NITigerLoader&);
+    NIImporter_TIGER(const NIImporter_TIGER&);
 
     /// @brief Invalidated assignment operator.
-    NITigerLoader& operator=(const NITigerLoader&);
+    NIImporter_TIGER& operator=(const NIImporter_TIGER&);
 
 };
 

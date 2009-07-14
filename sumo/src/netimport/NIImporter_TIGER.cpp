@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NITigerLoader.cpp
+/// @file    NIImporter_TIGER.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29 Jun 2004
 /// @version $Id$
@@ -43,7 +43,7 @@
 #include <netbuild/NBNodeCont.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeoConvHelper.h>
-#include "NITigerLoader.h"
+#include "NIImporter_TIGER.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -63,17 +63,17 @@ using namespace std;
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NITigerLoader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_TIGER::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     if (!oc.isSet("tiger")) {
         return;
     }
-    NITigerLoader l(nb.getEdgeCont(), nb.getNodeCont(),
+    NIImporter_TIGER l(nb.getEdgeCont(), nb.getNodeCont(),
                     oc.getString("tiger"), !oc.getBool("add-node-positions"));
     l.load();
 }
 
 
-NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
+NIImporter_TIGER::NIImporter_TIGER(NBEdgeCont &ec, NBNodeCont &nc,
                              const std::string &file,
                              bool tryIgnoreNodePositions) throw()
         : myFileName(file),
@@ -81,11 +81,11 @@ NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
         myTryIgnoreNodePositions(tryIgnoreNodePositions), myRunningNodeIndex(0) {}
 
 
-NITigerLoader::~NITigerLoader() throw() {}
+NIImporter_TIGER::~NIImporter_TIGER() throw() {}
 
 
 void
-NITigerLoader::load() throw(ProcessError) {
+NIImporter_TIGER::load() throw(ProcessError) {
     LineReader tgr1r((myFileName + ".rt1").c_str());
     LineReader tgr2r((myFileName + ".rt2").c_str());
     if (!tgr1r.good()) {
@@ -153,7 +153,7 @@ NITigerLoader::load() throw(ProcessError) {
 
 
 Position2DVector
-NITigerLoader::convertShape(const std::vector<std::string> &sv) throw(ProcessError) {
+NIImporter_TIGER::convertShape(const std::vector<std::string> &sv) throw(ProcessError) {
     Position2DVector ret;
     std::vector<std::string>::const_iterator i;
     for (i=sv.begin(); i!=sv.end(); ++i) {
@@ -179,7 +179,7 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv) throw(ProcessErr
 
 
 NBNode *
-NITigerLoader::getNode(const Position2D &p) const throw(ProcessError) {
+NIImporter_TIGER::getNode(const Position2D &p) const throw(ProcessError) {
     NBNode *n = myNodeCont.retrieve(p);
     if (n==0) {
         n = new NBNode(toString<int>(myRunningNodeIndex++), p);
@@ -192,7 +192,7 @@ NITigerLoader::getNode(const Position2D &p) const throw(ProcessError) {
 
 
 std::string
-NITigerLoader::getType(const std::vector<std::string> &sv) const throw(ProcessError) {
+NIImporter_TIGER::getType(const std::vector<std::string> &sv) const throw(ProcessError) {
     for (std::vector<std::string>::const_iterator i=sv.begin(); i!=sv.end(); ++i) {
         std::string tc = *i;
         // some checks whether it's the type
@@ -217,7 +217,7 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const throw(ProcessEr
 
 
 SUMOReal
-NITigerLoader::getSpeed(const std::string &type) const throw(ProcessError) {
+NIImporter_TIGER::getSpeed(const std::string &type) const throw(ProcessError) {
     switch (type[0]) {
     case 'A':
         switch (type[1]) {
@@ -260,7 +260,7 @@ NITigerLoader::getSpeed(const std::string &type) const throw(ProcessError) {
 
 
 int
-NITigerLoader::getLaneNo(const std::string &type) const throw(ProcessError) {
+NIImporter_TIGER::getLaneNo(const std::string &type) const throw(ProcessError) {
     switch (type[0]) {
     case 'A':
         switch (type[1]) {

@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NIArcView_Loader.h
+/// @file    NIImporter_ArcView.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
 /// @version $Id$
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef NIArcView_Loader_h
-#define NIArcView_Loader_h
+#ifndef NIImporter_ArcView_h
+#define NIImporter_ArcView_h
 
 
 // ===========================================================================
@@ -43,7 +43,7 @@ class OGRFeature;
 // class definitions
 // ===========================================================================
 /**
- * @class NIArcView_Loader
+ * @class NIImporter_ArcView
  * @brief Importer for networks stored in ArcView-shape format
  *
  * The current importer works only if SUMO was compiled with GDAL-support.
@@ -51,7 +51,7 @@ class OGRFeature;
  *
  * @todo reinsert import via shapelib
  */
-class NIArcView_Loader {
+class NIImporter_ArcView {
 public:
     /** @brief Loads network definition from the assigned option and stores it in the given network builder
      *
@@ -69,13 +69,13 @@ public:
 
 protected:
     /// Contructor
-    NIArcView_Loader(const OptionsCont &oc,
+    NIImporter_ArcView(const OptionsCont &oc,
                      NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
                      const std::string &dbf_name, const std::string &shp_name,
                      bool speedInKMH);
 
     /// Destructor
-    ~NIArcView_Loader();
+    ~NIImporter_ArcView();
 
     /// loads the navtech-data
     bool load();
@@ -108,10 +108,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    NIArcView_Loader(const NIArcView_Loader&);
+    NIImporter_ArcView(const NIImporter_ArcView&);
 
     /// @brief Invalidated assignment operator.
-    NIArcView_Loader& operator=(const NIArcView_Loader&);
+    NIImporter_ArcView& operator=(const NIImporter_ArcView&);
 
 };
 

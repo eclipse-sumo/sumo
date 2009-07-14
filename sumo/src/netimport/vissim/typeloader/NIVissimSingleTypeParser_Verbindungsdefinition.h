@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimExtendedEdgePoint.h"
 
 
@@ -42,10 +42,10 @@
  *
  */
 class NIVissimSingleTypeParser_Verbindungsdefinition :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Verbindungsdefinition(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_Verbindungsdefinition(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Verbindungsdefinition();

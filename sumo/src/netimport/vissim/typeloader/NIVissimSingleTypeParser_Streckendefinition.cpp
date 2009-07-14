@@ -31,7 +31,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2DVector.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimEdge.h"
 #include "../tempstructs/NIVissimClosedLaneDef.h"
 #include "../tempstructs/NIVissimClosedLanesVector.h"
@@ -51,8 +51,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Streckendefinition::~NIVissimSingleTypeParser_Streckendefinition() {}

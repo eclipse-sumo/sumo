@@ -342,6 +342,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\src\netimport\vissim\NIImporter_Vissim.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp"
 				>
 			</File>
@@ -383,10 +387,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePoint.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\vissim\NIVissimLoader.cpp"
 				>
 			</File>
 			<File
@@ -659,6 +659,10 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath="..\..\..\src\netimport\vissim\NIImporter_Vissim.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.h"
 				>
 			</File>
@@ -712,10 +716,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\vissim\tempstructs\NIVissimExtendedEdgePointVector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\vissim\NIVissimLoader.h"
 				>
 			</File>
 			<File

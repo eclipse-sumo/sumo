@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,11 +41,11 @@
  *
  */
 class NIVissimSingleTypeParser_Fahrzeugklassendefinition :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Fahrzeugklassendefinition(NIVissimLoader &parent,
-            NIVissimLoader::ColorMap &colorMap);
+    NIVissimSingleTypeParser_Fahrzeugklassendefinition(NIImporter_Vissim &parent,
+            NIImporter_Vissim::ColorMap &colorMap);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Fahrzeugklassendefinition();
@@ -55,7 +55,7 @@ public:
 
 private:
     /// color definitions
-    NIVissimLoader::ColorMap &myColorMap;
+    NIImporter_Vissim::ColorMap &myColorMap;
 
 };
 

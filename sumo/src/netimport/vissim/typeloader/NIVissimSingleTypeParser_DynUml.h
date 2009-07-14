@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,10 +41,10 @@
  *
  */
 class NIVissimSingleTypeParser_DynUml :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_DynUml(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_DynUml(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_DynUml();

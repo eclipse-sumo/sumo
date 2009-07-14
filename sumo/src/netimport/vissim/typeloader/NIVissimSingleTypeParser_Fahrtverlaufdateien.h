@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,10 +41,10 @@
  *
  */
 class NIVissimSingleTypeParser_Fahrtverlaufdateien :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Fahrtverlaufdateien(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_Fahrtverlaufdateien(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Fahrtverlaufdateien();

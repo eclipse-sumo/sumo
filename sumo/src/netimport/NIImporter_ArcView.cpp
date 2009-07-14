@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    NIArcView_Loader.cpp
+/// @file    NIImporter_ArcView.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
 /// @version $Id$
@@ -41,7 +41,7 @@
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
-#include "NIArcView_Loader.h"
+#include "NIImporter_ArcView.h"
 #include <netimport/NINavTeqHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/FileHelpers.h>
@@ -68,7 +68,7 @@ using namespace std;
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
 void
-NIArcView_Loader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     if (!oc.isSet("arcview")) {
         return;
     }
@@ -91,14 +91,14 @@ NIArcView_Loader::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         return;
     }
     // load the arcview files
-    NIArcView_Loader loader(oc,
+    NIImporter_ArcView loader(oc,
                             nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
                             dbf_file, shp_file, oc.getBool("speed-in-kmh"));
     loader.load();
 }
 
 
-NIArcView_Loader::NIArcView_Loader(const OptionsCont &oc,
+NIImporter_ArcView::NIImporter_ArcView(const OptionsCont &oc,
                                    NBNodeCont &nc,
                                    NBEdgeCont &ec,
                                    NBTypeCont &tc,
@@ -112,11 +112,11 @@ NIArcView_Loader::NIArcView_Loader(const OptionsCont &oc,
         myRunningNodeID(0) {}
 
 
-NIArcView_Loader::~NIArcView_Loader() {}
+NIImporter_ArcView::~NIImporter_ArcView() {}
 
 
 bool
-NIArcView_Loader::load() {
+NIImporter_ArcView::load() {
 #ifdef HAVE_GDAL
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading data from '" + mySHPName + "'...");
     OGRRegisterAll();
@@ -302,7 +302,7 @@ NIArcView_Loader::load() {
 
 #ifdef HAVE_GDAL
 SUMOReal
-NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
+NIImporter_ArcView::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
     if (myOptions.isSet("arcview.type-id")) {
         return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
     }
@@ -327,7 +327,7 @@ NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
 
 
 unsigned int
-NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
+NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
                             SUMOReal speed) {
     if (myOptions.isSet("arcview.type-id")) {
         return (unsigned int) myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
@@ -356,7 +356,7 @@ NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
 
 
 int
-NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &/*edgeid*/) {
+NIImporter_ArcView::getPriority(OGRFeature &poFeature, const std::string &/*edgeid*/) {
     if (myOptions.isSet("arcview.type-id")) {
         return myTypeCont.getPriority(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
     }
@@ -379,7 +379,7 @@ NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &/*edgeid
 }
 
 void 
-NIArcView_Loader::checkSpread(NBEdge *e)
+NIImporter_ArcView::checkSpread(NBEdge *e)
 {
     NBEdge *ret = e->getToNode()->getConnectionTo(e->getFromNode());
     if(ret!=0) {

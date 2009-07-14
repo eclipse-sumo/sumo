@@ -30,7 +30,7 @@
 #include <iostream>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Simdauer.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -47,8 +47,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Simdauer::NIVissimSingleTypeParser_Simdauer(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent) {}
+NIVissimSingleTypeParser_Simdauer::NIVissimSingleTypeParser_Simdauer(NIImporter_Vissim &parent)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent) {}
 
 
 NIVissimSingleTypeParser_Simdauer::~NIVissimSingleTypeParser_Simdauer() {}

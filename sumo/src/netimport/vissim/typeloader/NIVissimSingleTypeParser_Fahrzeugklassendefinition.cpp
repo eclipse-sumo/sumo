@@ -31,7 +31,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/VectorHelper.h>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimVehTypeClass.h"
 #include "NIVissimSingleTypeParser_Fahrzeugklassendefinition.h"
 
@@ -50,8 +50,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIVissimSingleTypeParser_Fahrzeugklassendefinition::NIVissimSingleTypeParser_Fahrzeugklassendefinition(
-    NIVissimLoader &parent, NIVissimLoader::ColorMap &colorMap)
-        : NIVissimLoader::VissimSingleTypeParser(parent),
+    NIImporter_Vissim &parent, NIImporter_Vissim::ColorMap &colorMap)
+        : NIImporter_Vissim::VissimSingleTypeParser(parent),
         myColorMap(colorMap) {}
 
 
@@ -71,7 +71,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream &from) {
     from >> tag;
     string colorName = myRead(from);
     RGBColor color;
-    NIVissimLoader::ColorMap::iterator i=myColorMap.find(colorName);
+    NIImporter_Vissim::ColorMap::iterator i=myColorMap.find(colorName);
     if (i!=myColorMap.end()) {
         color = (*i).second;
     } else {

@@ -30,7 +30,7 @@
 #endif
 
 #include <iostream>
-#include "../NIVissimLoader.h"
+#include "../NIImporter_Vissim.h"
 
 
 // ===========================================================================
@@ -41,10 +41,10 @@
  *
  */
 class NIVissimSingleTypeParser_Kennungszeile :
-            public NIVissimLoader::VissimSingleTypeParser {
+            public NIImporter_Vissim::VissimSingleTypeParser {
 public:
     /// Constructor
-    NIVissimSingleTypeParser_Kennungszeile(NIVissimLoader &parent);
+    NIVissimSingleTypeParser_Kennungszeile(NIImporter_Vissim &parent);
 
     /// Destructor
     ~NIVissimSingleTypeParser_Kennungszeile();

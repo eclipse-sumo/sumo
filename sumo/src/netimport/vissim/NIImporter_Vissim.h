@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    NIVissimLoader.h
+/// @file    NIImporter_Vissim.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// -------------------
+// Importer for networks stored in Vissim format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef NIVissimLoader_h
-#define NIVissimLoader_h
+#ifndef NIImporter_Vissim_h
+#define NIImporter_Vissim_h
 
 
 // ===========================================================================
@@ -48,7 +48,11 @@ class NBNetBuilder;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class NIVissimLoader {
+/**
+ * @class NIImporter_Vissim
+ * @brief Importer for networks stored in Vissim format
+ */
+class NIImporter_Vissim {
 public:
     /** @brief Loads network definition from the assigned option and stores it in the given network builder
      *
@@ -66,10 +70,10 @@ public:
 
 protected:
     /// constructor
-    NIVissimLoader(NBNetBuilder &nb, const std::string &file);
+    NIImporter_Vissim(NBNetBuilder &nb, const std::string &file);
 
     /// destructor
-    ~NIVissimLoader();
+    ~NIImporter_Vissim();
 
     /// loads the vissim file
     void load(const OptionsCont &options);
@@ -80,7 +84,7 @@ public:
     class VissimSingleTypeParser {
     public:
         /// Constructor
-        VissimSingleTypeParser(NIVissimLoader &parent);
+        VissimSingleTypeParser(NIImporter_Vissim &parent);
 
         /// Destructor
         virtual ~VissimSingleTypeParser();
@@ -127,7 +131,7 @@ public:
         void readUntil(std::istream &from, const std::string &name);
 
     private:
-        NIVissimLoader &myVissimParent;
+        NIImporter_Vissim &myVissimParent;
 
     };
 
@@ -168,10 +172,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    NIVissimLoader(const NIVissimLoader&);
+    NIImporter_Vissim(const NIImporter_Vissim&);
 
     /// @brief Invalidated assignment operator.
-    NIVissimLoader& operator=(const NIVissimLoader&);
+    NIImporter_Vissim& operator=(const NIImporter_Vissim&);
 
 };
 
