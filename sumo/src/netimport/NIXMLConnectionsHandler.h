@@ -44,7 +44,7 @@ class NBEdgeCont;
 // class definitions
 // ===========================================================================
 /**
- * @class NIArcView_Loader
+ * @class NIXMLConnectionsHandler
  * @brief Importer for edge connections stored in XML
  *
  * This importer parses connections, and prohibitions, and is able

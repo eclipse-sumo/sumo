@@ -50,7 +50,7 @@ class NBDistrictCont;
 // class definitions
 // ===========================================================================
 /**
- * @class NIArcView_Loader
+ * @class NIXMLEdgesHandler
  * @brief Importer for network edges stored in XML
  *
  * This SAX-handler parses edge information and stores it in the given

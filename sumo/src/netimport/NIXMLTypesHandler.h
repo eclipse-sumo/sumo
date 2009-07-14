@@ -42,7 +42,7 @@ class NBTypeCont;
 // class definitions
 // ===========================================================================
 /**
- * @class NIArcView_Loader
+ * @class NIXMLTypesHandler
  * @brief Importer for edge type information stored in XML
  *
  * This SAX-handler parses edge type information and stores it in the given
