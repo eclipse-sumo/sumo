@@ -77,38 +77,14 @@
 GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUIMainWindow &app,
                                GUISUMOViewParent *parent,
-                               GUINet &net, FXGLVisual *glVis)
-        : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis),
-        myTrackedID(-1), myNet(&net) {
-    init(net);
-}
-
-
-GUIViewTraffic::GUIViewTraffic(FXComposite *p,
-                               GUIMainWindow &app,
-                               GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
         : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis, share),
         myTrackedID(-1), myNet(&net) {
-    init(net);
-}
-
-
-void
-GUIViewTraffic::init(GUINet &) {
-    // initialise default scheme
-    myVisualizationSettings = &gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
 
 
 GUIViewTraffic::~GUIViewTraffic() {
-}
-
-
-void
-GUIViewTraffic::create() {
-    FXGLCanvas::create();
 }
 
 
@@ -305,10 +281,6 @@ int
 GUIViewTraffic::getTrackedID() const {
     return myTrackedID;
 }
-
-
-void
-GUIViewTraffic::doInit() {}
 
 
 void

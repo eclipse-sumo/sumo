@@ -80,11 +80,6 @@ public:
     /// constructor
     GUISUMOAbstractView(FXComposite *p, GUIMainWindow &app,
                         GUIGlChildWindow *parent, const SUMORTree &grid,
-                        FXGLVisual *glVis);
-
-    /// constructor
-    GUISUMOAbstractView(FXComposite *p, GUIMainWindow &app,
-                        GUIGlChildWindow *parent, const SUMORTree &grid,
                         FXGLVisual *glVis, FXGLCanvas *share);
 
     /// destructor

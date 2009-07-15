@@ -66,16 +66,8 @@ class GUIViewTraffic : public GUISUMOAbstractView {
 public:
     /// constructor
     GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
-                   GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis);
-
-    /// constructor
-    GUIViewTraffic(FXComposite *p, GUIMainWindow &app,
                    GUISUMOViewParent *parent, GUINet &net, FXGLVisual *glVis,
                    FXGLCanvas *share);
-    void init(GUINet &net) ;
-
-    void create();
-
     /// destructor
     virtual ~GUIViewTraffic();
 
@@ -128,17 +120,12 @@ public:
 protected:
     int doPaintGL(int mode, SUMOReal scale);
 
-    void doInit();
-
     void drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken);
     void drawBestLanes(const VehicleOps &vo);
 
     void draw(const MSRoute &r);
 
 protected:
-    /// The coloring scheme of junctions to use
-    JunctionColoringScheme myJunctionColScheme;
-
     int myTrackedID;
 
     GUINet *myNet;

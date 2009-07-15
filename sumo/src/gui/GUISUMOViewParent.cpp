@@ -116,27 +116,13 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net) {
     switch (view) {
     default:
     case MICROSCOPIC_VIEW:
-        if (share!=0) {
-            myView =
-                new GUIViewTraffic(myContentFrame, *myParent, this, net,
-                                   myParent->getGLVisual(), share);
-        } else {
-            myView =
-                new GUIViewTraffic(myContentFrame, *myParent, this, net,
-                                   myParent->getGLVisual());
-        }
+        myView = new GUIViewTraffic(myContentFrame, *myParent, this, net,
+                                    myParent->getGLVisual(), share);
         break;
 #ifdef HAVE_MESOSIM
     case EDGE_MESO_VIEW:
-        if (share!=0) {
-            myView =
-                new GUIViewMesoEdges(myContentFrame, *myParent, this,
-                                     net, myParent->getGLVisual(), share);
-        } else {
-            myView =
-                new GUIViewMesoEdges(myContentFrame, *myParent, this,
-                                     net, myParent->getGLVisual());
-        }
+        myView = new GUIViewMesoEdges(myContentFrame, *myParent, this,
+                                      net, myParent->getGLVisual(), share);
         break;
 #endif
     }

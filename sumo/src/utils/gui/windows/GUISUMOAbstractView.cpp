@@ -58,6 +58,7 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/windows/GUIVisualizationSettings.h>
+#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <fxkeys.h>
 #include <utils/foxtools/MFXImageHelper.h>
 
@@ -116,39 +117,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         GUIMainWindow &app,
         GUIGlChildWindow *parent,
         const SUMORTree &grid,
-        FXGLVisual *glVis)
-        : FXGLCanvas(p, glVis, p,
-                     MID_GLCANVAS, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-                     0, 0, 300, 200),
-        myApp(&app),
-        myParent(parent),
-        myGrid(&((SUMORTree&)grid)),
-        myChanger(0),
-        myMouseHotspotX(app.getDefaultCursor()->getHotX()),
-        myMouseHotspotY(app.getDefaultCursor()->getHotY()),
-        myPopup(0),
-        myAmInitialised(false),
-        myViewportChooser(0), myVisualizationChanger(0),
-        myUseToolTips(false) {
-    setTarget(this);
-    enable();
-    flags|=FLAG_ENABLED;
-    myInEditMode=false;
-    // compute the net scale
-    SUMOReal nw = myGrid->getWidth();
-    SUMOReal nh = myGrid->getHeight();
-    myNetScale = (nw < nh ? nh : nw);
-    // show the middle at the beginning
-    myChanger = new GUIDanielPerspectiveChanger(*this);
-    myChanger->setNetSizes((size_t) nw, (size_t) nh);
-    myToolTip = new GUIGLObjectToolTip(myApp);
-}
-
-
-GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
-        GUIMainWindow &app,
-        GUIGlChildWindow *parent,
-        const SUMORTree &grid,
         FXGLVisual *glVis, FXGLCanvas *share)
         : FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
                      LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
@@ -174,6 +142,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     myChanger = new GUIDanielPerspectiveChanger(*this);
     myChanger->setNetSizes((size_t) nw, (size_t) nh);
     myToolTip = new GUIGLObjectToolTip(myApp);
+    myVisualizationSettings = &gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
 
 
