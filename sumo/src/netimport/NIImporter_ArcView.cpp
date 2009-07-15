@@ -98,6 +98,10 @@ NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
+
+// ---------------------------------------------------------------------------
+// loader methods
+// ---------------------------------------------------------------------------
 NIImporter_ArcView::NIImporter_ArcView(const OptionsCont &oc,
                                    NBNodeCont &nc,
                                    NBEdgeCont &ec,
@@ -115,7 +119,7 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont &oc,
 NIImporter_ArcView::~NIImporter_ArcView() {}
 
 
-bool
+void
 NIImporter_ArcView::load() {
 #ifdef HAVE_GDAL
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading data from '" + mySHPName + "'...");
@@ -123,7 +127,7 @@ NIImporter_ArcView::load() {
     OGRDataSource *poDS = OGRSFDriverRegistrar::Open(mySHPName.c_str(), FALSE);
     if (poDS == NULL) {
         MsgHandler::getErrorInstance()->inform("Could not open shape description '" + mySHPName + "'.");
-        return false;
+        return;
     }
 
     // begin file parsing
@@ -159,7 +163,7 @@ NIImporter_ArcView::load() {
         id = StringUtils::prune(id);
         if(id=="") {
             MsgHandler::getErrorInstance()->inform("Could not obtain edge id.");
-            return false;
+            return;
         }
         string name =
             myOptions.isSet("arcview.street-id")
@@ -192,7 +196,7 @@ NIImporter_ArcView::load() {
             } else {
                 OGRFeature::DestroyFeature(poFeature);
                 MsgHandler::getErrorInstance()->inform("The description seems to be invalid;Please recheck usage of types.");
-                return false;
+                return;
             }
         }
         if (mySpeedInKMH) {
@@ -293,10 +297,8 @@ NIImporter_ArcView::load() {
         OGRFeature::DestroyFeature(poFeature);
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    return !MsgHandler::getErrorInstance()->wasInformed();
 #else
     MsgHandler::getErrorInstance()->inform("SUMO was compiled without GDAL support.");
-    return false;
 #endif
 }
 

@@ -148,7 +148,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 
 // ---------------------------------------------------------------------------
-// member methods
+// loader methods
 // ---------------------------------------------------------------------------
 NIImporter_SUMO::NIImporter_SUMO(NBNodeCont &nc)
         : SUMOSAXHandler("sumo-network"),

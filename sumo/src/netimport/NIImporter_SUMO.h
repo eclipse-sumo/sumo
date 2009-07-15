@@ -52,7 +52,7 @@ class OptionsCont;
  */
 class NIImporter_SUMO : public SUMOSAXHandler {
 public:
-    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+    /** @brief Loads content of the optionally given SUMO file
      *
      * If the option "sumo-net" is set, the file stored therein is read and
      *  the network definition stored therein is stored within the given network
@@ -72,7 +72,6 @@ public:
 
 protected:
     /** @brief Constructor
-     *
      * @param[in] nc The node control to fill
      */
     NIImporter_SUMO(NBNodeCont &nc);

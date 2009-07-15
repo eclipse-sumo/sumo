@@ -52,7 +52,7 @@ class OptionsCont;
  */
 class NIImporter_RobocupRescue {
 public:
-    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+    /** @brief Loads content of the optionally given RoboCup Rescue League files
      *
      * If the option "robocup-net" is set, the file stored therein is read and
      *  the network definition stored therein is stored within the given network
@@ -78,8 +78,16 @@ protected:
     /// @brief Destructor
     ~NIImporter_RobocupRescue() throw();
 
-
+    
+    /** @brief Loads nodes from the given file
+     * @param[in] file The file to read nodes from
+     */
     void loadNodes(const std::string &file);
+
+
+    /** @brief Loads edges from the given file
+     * @param[in] file The file to read edges from
+     */
     void loadEdges(const std::string &file);
 
 

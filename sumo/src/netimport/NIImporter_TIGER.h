@@ -51,7 +51,7 @@ class NBNode;
  */
 class NIImporter_TIGER {
 public:
-    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+    /** @brief Loads content of the optionally given TIGER file
      *
      * If the option "tiger" is set, the file stored therein is read and
      *  the network definition stored therein is stored within the given network

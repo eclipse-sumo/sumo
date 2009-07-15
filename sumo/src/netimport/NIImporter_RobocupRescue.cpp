@@ -97,6 +97,10 @@ NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
+
+// ---------------------------------------------------------------------------
+// loader methods
+// ---------------------------------------------------------------------------
 NIImporter_RobocupRescue::NIImporter_RobocupRescue(NBNodeCont &nc, NBEdgeCont &ec)
         : myNodeCont(nc), myEdgeCont(ec) {}
 
@@ -120,6 +124,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         cout << "  left " << (noNodes) << endl;
         unsigned int entrySize, id, posX, posY;
         dev >> entrySize;
+        entrySize /= 4;
         dev >> id;
         dev >> posX;
         dev >> posY;
@@ -128,7 +133,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         entrySize -= 4;
         do {
             dev >> skip;
-            cout << entrySize << " " << skip << endl;
+            //cout << entrySize << " " << skip << endl;
             --entrySize;
         } while (entrySize!=0);
         Position2D pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
@@ -155,14 +160,16 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file) {
         cout << "  left " << (noEdges) << endl;
         unsigned int entrySize, id, begNode, endNode;
         dev >> entrySize;
+        entrySize /= 4;
         dev >> id;
         dev >> begNode;
         dev >> endNode;
         cout << "  " << id << ": " << begNode << ", " << endNode << endl;
         // !!! currently skipping next
-        entrySize -= 4;
+        entrySize -= 3;
         do {
             dev >> skip;
+            //cout << entrySize << " " << skip << endl;
             --entrySize;
         } while (entrySize!=0);
         NBNode *fromNode = myNodeCont.retrieve(toString(begNode));

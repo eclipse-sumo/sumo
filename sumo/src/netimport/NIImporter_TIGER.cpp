@@ -73,6 +73,10 @@ NIImporter_TIGER::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
+
+// ---------------------------------------------------------------------------
+// loader methods
+// ---------------------------------------------------------------------------
 NIImporter_TIGER::NIImporter_TIGER(NBEdgeCont &ec, NBNodeCont &nc,
                              const std::string &file,
                              bool tryIgnoreNodePositions) throw()

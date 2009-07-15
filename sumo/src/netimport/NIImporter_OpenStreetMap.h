@@ -53,7 +53,7 @@ class OptionsCont;
  */
 class NIImporter_OpenStreetMap {
 public:
-    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+    /** @brief Loads content of the optionally given OSM file
      *
      * If the option "osm-files" is set, the file(s) stored therein is read and
      *  the network definition stored therein is stored within the given network

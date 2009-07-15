@@ -70,6 +70,10 @@ NIImporter_VISUM::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 }
 
 
+
+// ---------------------------------------------------------------------------
+// loader methods
+// ---------------------------------------------------------------------------
 NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder &nb,
                              const std::string &file,
                              NBCapacity2Lanes capacity2Lanes,

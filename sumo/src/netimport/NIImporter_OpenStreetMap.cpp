@@ -62,7 +62,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
-// static methods (interface in this case)
+// static methods
 // ---------------------------------------------------------------------------
 void
 NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {

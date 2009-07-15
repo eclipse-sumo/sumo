@@ -53,7 +53,7 @@ class OGRFeature;
  */
 class NIImporter_ArcView {
 public:
-    /** @brief Loads network definition from the assigned option and stores it in the given network builder
+    /** @brief Loads content of the optionally given ArcView Shape files
      *
      * If the option "arcview" is set, the file stored therein is read and
      *  the network definition stored therein is stored within the given network
@@ -68,43 +68,88 @@ public:
 
 
 protected:
-    /// Contructor
+    /** @brief Constructor
+     * @param[in] oc Options container to read options from
+     * @param[in] nc The node container to store nodes into
+     * @param[in] ec The edge container to store edges into
+     * @param[in] tc The type container to get edge types from
+     * @param[in] dbf_name The name of the according database file
+     * @param[in] shp_name The name of the according shape file
+     * @param[in] speedInKMH Whether the speed shall be assumed to be given in km/h
+     */
     NIImporter_ArcView(const OptionsCont &oc,
                      NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
                      const std::string &dbf_name, const std::string &shp_name,
                      bool speedInKMH);
 
-    /// Destructor
+    /// @brief Destructor
     ~NIImporter_ArcView();
 
-    /// loads the navtech-data
-    bool load();
+
+    /** @brief Loads the shape files
+     */
+    void load();
+
 
 private:
 #ifdef HAVE_GDAL
-    /// parses the maximum speed allowed on the edge currently processed
+    /** @brief Parses the maximum speed allowed on the edge currently processed
+     * @param[in] f The entry to read the speed from
+     * @param[in] edgeid The id of the edge for error output
+     */
     SUMOReal getSpeed(OGRFeature &f, const std::string &edgeid);
 
-    /// parses the number of lanes of the edge currently processed
+
+    /** @brief Parses the number of lanes of the edge currently processed
+     * @param[in] f The entry to read the lane number from
+     * @param[in] edgeid The id of the edge for error output
+     * @param[in] speed The edge's speed used to help determinig the edge's lane number
+     */
     unsigned int getLaneNo(OGRFeature &f,
                            const std::string &edgeid, SUMOReal speed);
 
-    /// parses the priority of the edge currently processed
+    /** @brief Parses the priority of the edge currently processed
+     * @param[in] f The entry to read the priority from
+     * @param[in] edgeid The id of the edge for error output
+     */
     int getPriority(OGRFeature &f, const std::string &edgeid);
 
+
+    /** @brief Checks whether the lane spread shall be changed
+     *
+     * If for the given edge an edge into the vice direction is already
+     *  stored, both edges' lane spread functions are set to LANESPREAD_RIGHT.
+     *
+     * @param[in] e The edge to check
+     */
     void checkSpread(NBEdge *e);
 #endif
 
 private:
+    /// @brief The options to use
     const OptionsCont &myOptions;
 
+    /// @brief The name of the shape file
     std::string mySHPName;
+
+    /// @brief A running number to assure unique edge ids
     int myNameAddition;
+
+    /// @brief The container to add nodes to
     NBNodeCont &myNodeCont;
+
+    /// @brief The container to add edges to
     NBEdgeCont &myEdgeCont;
+
+    /// @brief The container to get the types from
     NBTypeCont &myTypeCont;
+
+    /// @brief Whether the speed is given in km/h
     bool mySpeedInKMH;
+
+    /// @brief A running number to assure unique node ids
     int myRunningNodeID;
+
 
 private:
     /// @brief Invalidated copy constructor.
