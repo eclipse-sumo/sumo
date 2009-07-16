@@ -341,10 +341,6 @@
 				RelativePath="..\..\..\src\mesogui\GUIMEInductLoop.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\mesogui\GUIViewMesoEdges.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -352,10 +348,6 @@
 			>
 			<File
 				RelativePath="..\..\..\src\mesogui\GUIMEInductLoop.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\mesogui\GUIViewMesoEdges.h"
 				>
 			</File>
 		</Filter>

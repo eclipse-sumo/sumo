@@ -235,33 +235,75 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.hideConnectors&&myFunction==MSEdge::EDGEFUNCTION_CONNECTOR) {
         return;
     }
-    // check whether lane boundaries shall be drawn
-    if (s.scale>1.&&s.laneShowBorders&&myFunction!=MSEdge::EDGEFUNCTION_INTERNAL) {
-        glPolygonOffset(0, 2);
-        glColor3d(1,1,1);
-        // (optional) set invalid id
-        if (s.needsGlID) {
-            glPushName(0);
-        }
-        // draw white boundings
-        size_t k;
-        for (k=0; k<myLanes->size(); k++) {
-            GUILaneWrapper *lane = myLaneGeoms[k];
-            GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), SUMO_const_halfLaneAndOffset);
-        }
-        glPolygonOffset(0, 1);
-        for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
-            (*i)->drawBordersGL(s);
-        }
-        // (optional) clear id
-        if (s.needsGlID) {
-            glPopName();
-        }
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
     }
+#endif
     // draw the lanes
     for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
         (*i)->drawGL(s);
     }
+    // check whether lane boundaries shall be drawn
+    if (s.scale>1.&&s.laneShowBorders&&myFunction!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        glPolygonOffset(0, 1);
+        for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
+            (*i)->drawBordersGL(s);
+        }
+        // draw white boundings
+        glPolygonOffset(0, 2);
+        glColor3d(1,1,1);
+        for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
+            GLHelper::drawBoxLines((*i)->getShape(), (*i)->getShapeRotations(), (*i)->getShapeLengths(), SUMO_const_halfLaneAndOffset);
+        }
+    }
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        const Position2DVector& shape = myLaneGeoms[0]->getShape();
+        const DoubleVector& shapeRotations = myLaneGeoms[0]->getShapeRotations();
+        const DoubleVector& shapeLengths = myLaneGeoms[0]->getShapeLengths();
+        const Position2D &laneBeg = shape[0];
+
+        glColor3d(1,1,0);
+        glPushMatrix();
+        glTranslated(laneBeg.x(), laneBeg.y(), 0);
+        glRotated(shapeRotations[0], 0, 0, 1);
+        // go through the vehicles
+        int shapePos = 0;
+        SUMOReal positionOffset = 0;
+        SUMOReal position = 0;
+        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
+        do {
+            const size_t numCars = first->getCarNumber();
+            const SUMOReal occupancy = first->occupancy();
+            for (int i = 0; i < numCars; i++) {
+                SUMOReal vehiclePosition = position + i * occupancy / numCars;
+                while (shapePos<(int)shapeRotations.size()-1 && vehiclePosition>positionOffset+shapeLengths[shapePos]) {
+                    glPopMatrix();
+                    positionOffset += shapeLengths[shapePos];
+                    shapePos++;
+                    glPushMatrix();
+                    glTranslated(shape[shapePos].x(), shape[shapePos].y(), 0);
+                    glRotated(shapeRotations[shapePos], 0, 0, 1);
+                }
+                glPushMatrix();
+                glTranslated(0, -(vehiclePosition-positionOffset), 0);
+                glPushMatrix();
+                glScaled(1, occupancy / numCars, 1);
+                glBegin(GL_TRIANGLES);
+                glVertex2d(0, 0);
+                glVertex2d(0-1.25, 1);
+                glVertex2d(0+1.25, 1);
+                glEnd();
+                glPopMatrix();
+                glPopMatrix();
+            }
+            position += first->getLength();
+            first = first->getNextSegment();
+        } while (first!=0);
+        glPopMatrix();
+    }
+#endif
     // (optionally) draw the name
     if ((s.drawEdgeName && myFunction == EDGEFUNCTION_NORMAL) || (s.drawInternalEdgeName && myFunction != EDGEFUNCTION_NORMAL)) {
         float nameSize = s.edgeNameSize;
@@ -338,7 +380,7 @@ GUIEdge::getFlow() const {
 
 SUMOReal
 GUIEdge::getDensity() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
     assert(first!=0);
     SUMOReal occ = 0;
     int no = 0;
@@ -356,7 +398,7 @@ GUIEdge::getDensity() const {
 
 SUMOReal
 GUIEdge::getMeanSpeed() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
     assert(first!=0);
     SUMOReal v = 0;
     int no = 0;

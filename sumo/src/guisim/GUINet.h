@@ -254,9 +254,6 @@ public:
 
 
     friend class GUIViewTraffic; // !!!
-    friend class GUIOSGBuilder; // !!!
-    friend class GUISUMOAbstractView; // !!!
-    friend class GUIViewMesoEdges; // !!!
 
 
 private:

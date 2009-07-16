@@ -843,8 +843,6 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh) {
 #endif
 
 
-#include <gui/GUIViewTraffic.h>
-
 void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glPolygonOffset(0, -4);

@@ -82,10 +82,6 @@ public:
     int laneEdgeMode;
     /// @brief The map if used colors (scheme->used colors)
     std::map<int, std::vector<RGBColor> > laneColorings;
-#ifdef HAVE_MESOSIM
-    /// @brief The map if used colors (scheme->used colors)
-    std::map<int, std::vector<RGBColor> > edgeColorings;
-#endif
     /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
     /// @brief Information whether link textures (arrows) shall be drawn

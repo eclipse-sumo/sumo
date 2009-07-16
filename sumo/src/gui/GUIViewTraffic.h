@@ -74,8 +74,21 @@ public:
     /// builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow &);
 
+
+    /** @brief Starts vehicle tracking
+     * @param[in] id The glID of the vehicle to track
+     */
     void startTrack(int id);
+
+
+    /** @brief Stops vehicle tracking
+     */
     void stopTrack();
+
+
+    /** @brief Returns the id of the tracked vehicle (-1 if none)
+     * @return The glID of the vehicle to track
+     */
     int getTrackedID() const;
 
     void setColorScheme(const std::string &name);
@@ -125,7 +138,7 @@ protected:
 
     void draw(const MSRoute &r);
 
-protected:
+private:
     int myTrackedID;
 
     GUINet *myNet;

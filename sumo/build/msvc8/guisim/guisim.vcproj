@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="guisim"
 	ProjectGUID="{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
 	Keyword="MFCProj"

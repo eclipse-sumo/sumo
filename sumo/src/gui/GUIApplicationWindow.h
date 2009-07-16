@@ -140,11 +140,7 @@ public:
     long onCmdStop(FXObject*,FXSelector,void*);
     long onCmdStep(FXObject*,FXSelector,void*);
 
-    long onCmdNewMicro(FXObject*,FXSelector,void*);
-#ifdef HAVE_MESOSIM
-    long onCmdNewMesoView(FXObject*,FXSelector,void*);
-    long onUpdAddMesoView(FXObject*,FXSelector,void*);
-#endif
+    long onCmdNewView(FXObject*,FXSelector,void*);
 
     long onUpdOpen(FXObject*,FXSelector,void*);
     long onUpdReload(FXObject*,FXSelector,void*);
@@ -185,7 +181,7 @@ private:
     void closeAllWindows();
 
     /** opens a new simulation display */
-    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType type);
+    GUISUMOAbstractView* openNewView();
 
 protected:
     /// FOX needs this for static members

@@ -54,10 +54,6 @@
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/common/UtilExceptions.h>
 
-#ifdef HAVE_MESOSIM
-#include <mesogui/GUIViewMesoEdges.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -90,7 +86,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
                                      FXGLCanvas * /*share!!!*/,FXMDIMenu *mdimenu,
                                      const FXString& name, GUINet &/*net!!!*/,
                                      GUIMainWindow *parentWindow,
-                                     ViewType /*view!!!*/, FXIcon* ic, FXPopup* /*pup!!!*/,
+                                     FXIcon* ic, FXPopup* /*pup!!!*/,
                                      FXuint opts,
                                      FXint /*x!!!*/, FXint /*y!!!*/, FXint /*w!!!*/, FXint /*h!!!*/)
         : GUIGlChildWindow(p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200),
@@ -102,30 +98,9 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
 
 
 GUISUMOAbstractView*
-GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net) {
-    /*
-    // Make MDI Window Menu
-    setTracking();
-    FXVerticalFrame *glcanvasFrame =
-        new FXVerticalFrame(this,
-                            FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
-                            0,0,0,0,0,0,0,0);
-    // build the tool bar
-    buildToolBar(glcanvasFrame);
-    */
-    switch (view) {
-    default:
-    case MICROSCOPIC_VIEW:
-        myView = new GUIViewTraffic(myContentFrame, *myParent, this, net,
-                                    myParent->getGLVisual(), share);
-        break;
-#ifdef HAVE_MESOSIM
-    case EDGE_MESO_VIEW:
-        myView = new GUIViewMesoEdges(myContentFrame, *myParent, this,
-                                      net, myParent->getGLVisual(), share);
-        break;
-#endif
-    }
+GUISUMOViewParent::init(FXGLCanvas *share, GUINet &net) {
+    myView = new GUIViewTraffic(myContentFrame, *myParent, this, net,
+                                myParent->getGLVisual(), share);
     myView->buildViewToolBars(*this);
     return myView;
 }

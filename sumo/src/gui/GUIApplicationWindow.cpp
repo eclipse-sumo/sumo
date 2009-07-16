@@ -72,20 +72,9 @@
 #include <utils/gui/div/GUISettingsHandler.h>
 #include <guisim/GUISelectionLoader.h>
 
-#ifdef HAVE_MESOSIM
-#include <microsim/MSGlobals.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-using namespace FXEX;
 
 
 // ===========================================================================
@@ -107,14 +96,11 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewMicro),
+    FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewView),
     FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_STOP,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_STEP,               GUIApplicationWindow::onCmdStep),
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GUIApplicationWindow::onCmdClearMsgWindow),
-#ifdef HAVE_MESOSIM
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_MESOVIEW,       GUIApplicationWindow::onCmdNewMesoView),
-#endif
 
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,       GUIApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,      GUIApplicationWindow::onUpdOpen),
@@ -126,15 +112,11 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdEditChosen),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdEditBreakpoints),
-#ifdef HAVE_MESOSIM
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_MESOVIEW,     GUIApplicationWindow::onUpdAddMesoView),
-#endif
 
-
-    FXMAPFUNC(SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT, GUIApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,  GUIApplicationWindow::onRunThreadEvent),
-    FXMAPFUNC(SEL_THREAD, ID_LOADTHREAD_EVENT,       GUIApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(SEL_THREAD, ID_RUNTHREAD_EVENT,        GUIApplicationWindow::onRunThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT, GUIApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,  GUIApplicationWindow::onRunThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD, ID_LOADTHREAD_EVENT,       GUIApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD, ID_RUNTHREAD_EVENT,        GUIApplicationWindow::onRunThreadEvent),
 };
 
 // Object implementation
@@ -221,7 +203,7 @@ GUIApplicationWindow::dependentBuild() {
         new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
     */
     // set the caption
-    setTitle(MFXUtils::getTitleText(("SUMO " + string(VERSION_STRING)).c_str()));
+    setTitle(MFXUtils::getTitleText(("SUMO " + std::string(VERSION_STRING)).c_str()));
 
     // start the simulation-thread
     //  (it will loop until the application ends deciding by itself whether
@@ -484,8 +466,8 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
                           TOOLBARGRIP_DOUBLE);
         new FXLabel(myToolBar3, "Next Step:", 0, LAYOUT_CENTER_Y);
-        myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
-                                    LCDLABEL_LEADING_ZEROS);
+        myLCDLabel = new FXEX::FXLCDLabel(myToolBar3, 6, 0, 0,
+                                          FXEX::LCDLABEL_LEADING_ZEROS);
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
         myLCDLabel->setThickness(2);
@@ -519,12 +501,6 @@ GUIApplicationWindow::buildToolBars() {
         new FXButton(myToolBar5,"\t\tOpen a new microscopic view.",
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-#ifdef HAVE_MESOSIM
-        new FXButton(myToolBar5,
-                     "\t\tOpen a new edge meso view.",
-                     GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_MESOVIEW,
-                     ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-#endif
     }
 }
 
@@ -578,7 +554,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*) {
     }
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
-        string file = opendialog.getFilename().text();
+        std::string file = opendialog.getFilename().text();
         load(file, false);
         myRecentConfigs.appendFile(file.c_str());
     }
@@ -598,7 +574,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*) {
     }
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
-        string file = opendialog.getFilename().text();
+        std::string file = opendialog.getFilename().text();
         load(file, true);
         myRecentNets.appendFile(file.c_str());
     }
@@ -619,7 +595,7 @@ GUIApplicationWindow::onCmdOpenRecent(FXObject*sender,FXSelector,void *data) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
     }
-    string file = string((const char*)data);
+    std::string file((const char*)data);
     load(file, sender == &myRecentNets);
     return 1;
 }
@@ -662,12 +638,6 @@ GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr) {
 
 long
 GUIApplicationWindow::onUpdAddMicro(FXObject*sender,FXSelector,void*ptr) {
-#ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        sender->handle(this, FXSEL(SEL_COMMAND,ID_DISABLE), ptr);
-        return 1;
-    }
-#endif
     sender->handle(this,
                    myAmLoading||!myRunThread->simulationAvailable()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -722,18 +692,6 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*) {
     myMessageWindow->clear();
     return 1;
 }
-
-
-#ifdef HAVE_MESOSIM
-long
-GUIApplicationWindow::onUpdAddMesoView(FXObject*sender,FXSelector,void*ptr) {
-    sender->handle(this,
-                   myAmLoading||!myRunThread->simulationAvailable()||!MSGlobals::gUseMesoSim
-                   ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
-                   ptr);
-    return 1;
-}
-#endif
 
 
 long
@@ -796,19 +754,10 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*) {
 
 
 long
-GUIApplicationWindow::onCmdNewMicro(FXObject*,FXSelector,void*) {
-    openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
+GUIApplicationWindow::onCmdNewView(FXObject*,FXSelector,void*) {
+    openNewView();
     return 1;
 }
-
-
-#ifdef HAVE_MESOSIM
-long
-GUIApplicationWindow::onCmdNewMesoView(FXObject*,FXSelector,void*) {
-    openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
-    return 1;
-}
-#endif
 
 
 long
@@ -888,16 +837,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
         myWasStarted = false;
         // initialise views
         myViewNumber = 0;
-        GUISUMOAbstractView* view;
-#ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            view = openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
-        } else {
-#endif
-            view = openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
-#ifdef HAVE_MESOSIM
-        }
-#endif
+        GUISUMOAbstractView* view = openNewView();
         if (view && ec->mySettingsFile != "") {
             GUISettingsHandler settings(ec->mySettingsFile);
             std::string settingsName = settings.addSettings(view);
@@ -906,9 +846,9 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
             settings.setSnapshots(view);
         }
         // set simulation name on the caption
-        string caption = "SUMO " + string(VERSION_STRING);
+        std::string caption = "SUMO " + std::string(VERSION_STRING);
         setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
-        ostringstream str;
+        std::ostringstream str;
         // set simulation step begin information
         str << (int) ec->myNet->getCurrentTimeStep();
         myLCDLabel->setText(str.str().c_str());
@@ -925,7 +865,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e) {
 void
 GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
     updateChildren();
-    ostringstream str;
+    std::ostringstream str;
     str << (int) myRunThread->getNet().getCurrentTimeStep();
     myLCDLabel->setText(str.str().c_str());
     update();
@@ -946,9 +886,9 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
         static_cast<GUIEvent_SimulationEnded*>(e);
     if (!gQuitOnEnd) {
         // build the text
-        stringstream text;
+        std::stringstream text;
         text << "The simulation has ended at time step "
-        << ec->getTimeStep() << "." << endl;
+        << ec->getTimeStep() << ".\n";
         switch (ec->getReason()) {
         case GUIEvent_SimulationEnded::ER_NO_VEHICLES:
             text << "Reason: All vehicles have left the simulation.";
@@ -995,25 +935,25 @@ GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload) {
 
 
 GUISUMOAbstractView*
-GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type) {
+GUIApplicationWindow::openNewView() {
     if (!myRunThread->simulationAvailable()) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return 0;
     }
-    string caption = "View #" + toString(myViewNumber++);
+    std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = 0;
     GUISUMOAbstractView* v = 0;
     if (myMDIClient->numChildren()==0) {
         w = new GUISUMOViewParent(myMDIClient, 0,
                                   myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
-                                  this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
-        v = w->init(type, 0, myRunThread->getNet());
+                                  this, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
+        v = w->init(0, myRunThread->getNet());
     } else {
         w = new GUISUMOViewParent(myMDIClient, getBuildGLCanvas(),
                                   myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
-                                  this, type, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
-        v = w->init(type, getBuildGLCanvas(), myRunThread->getNet());
+                                  this, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
+        v = w->init(getBuildGLCanvas(), myRunThread->getNet());
     }
     w->create();
     if (myMDIClient->numChildren()==1) {
@@ -1052,7 +992,7 @@ GUIApplicationWindow::closeAllWindows() {
     // delete the simulation
     myRunThread->deleteSim();
     // reset the caption
-    setTitle(MFXUtils::getTitleText(("SUMO " + string(VERSION_STRING)).c_str()));
+    setTitle(MFXUtils::getTitleText(("SUMO " + std::string(VERSION_STRING)).c_str()));
     // delete other children
     while (myTrackerWindows.size()!=0) {
         delete myTrackerWindows[0];

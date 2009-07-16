@@ -434,7 +434,10 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane) {
 void
 GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     // set lane color
-    myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
+#ifdef HAVE_MESOSIM
+    if (!MSGlobals::gUseMesoSim)
+#endif
+        myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
     // (optional) set id
     if (s.needsGlID) {
         glPushName(getGlID());
@@ -488,14 +491,13 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         const MSLane::VehCont &vehicles = myLane.getVehiclesSecure();
         const Position2D &laneBeg = myShape[0];
 
-        MSLane::VehCont::const_iterator v;
         glPushMatrix();
         glTranslated(laneBeg.x(), laneBeg.y(), 0);
         glRotated(myShapeRotations[0], 0, 0, 1);
         // go through the vehicles
         int shapePos = 0;
         SUMOReal positionOffset = 0;
-        for (v=vehicles.begin(); v!=vehicles.end(); v++) {
+        for (MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); ++v) {
             const GUIVehicle * const veh = static_cast<const GUIVehicle*const>(*v);
             SUMOReal vehiclePosition = veh->getPositionOnLane();
             while (shapePos<(int)myShapeRotations.size()-1 && vehiclePosition>positionOffset+myShapeLengths[shapePos]) {
@@ -520,7 +522,10 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
 
 void
 GUILaneWrapper::drawBordersGL(const GUIVisualizationSettings &s) const throw() {
-    myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
+#ifdef HAVE_MESOSIM
+    if (!MSGlobals::gUseMesoSim)
+#endif
+        myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
     // check whether lane boundaries shall be drawn
     int e = (int) myShape.size() - 1;
     for (int i=0; i<e; i++) {

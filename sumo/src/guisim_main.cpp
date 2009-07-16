@@ -57,11 +57,6 @@
 #include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <gui/GUIViewTraffic.h>
-
-#ifdef HAVE_MESOSIM
-#include <mesogui/GUIViewMesoEdges.h>
-#endif
-
 #include <guisim/GUIVehicle.h>
 
 #ifdef CHECK_MEMORY_LEAKS

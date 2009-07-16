@@ -63,21 +63,14 @@ class GUISUMOViewParent : public GUIGlChildWindow {
     // FOX-declarations
     FXDECLARE(GUISUMOViewParent)
 public:
-    enum ViewType {
-        MICROSCOPIC_VIEW
-#ifdef HAVE_MESOSIM
-        ,EDGE_MESO_VIEW
-#endif
-    };
-
     /// constructor
     GUISUMOViewParent(FXMDIClient* p, FXGLCanvas *share,
                       FXMDIMenu *mdimenu, const FXString& name,
-                      GUINet &net, GUIMainWindow *parentWindow, ViewType view,
+                      GUINet &net, GUIMainWindow *parentWindow,
                       FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
                      );
 
-    virtual GUISUMOAbstractView* init(ViewType view, FXGLCanvas *share, GUINet &net);
+    virtual GUISUMOAbstractView* init(FXGLCanvas *share, GUINet &net);
 
 
     /// destructor

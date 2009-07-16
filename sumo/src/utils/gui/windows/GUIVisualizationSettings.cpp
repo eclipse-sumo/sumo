@@ -48,9 +48,6 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         backgroundColor(RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1)),
         showGrid(false), gridXSize(100), gridYSize(100), laneEdgeMode(0),
         laneColorings(),
-#ifdef HAVE_MESOSIM
-        edgeColorings(),
-#endif
         laneShowBorders(false), showLinkDecals(true), showRails(true),
         drawEdgeName(false), edgeNameSize(50),
         edgeNameColor(RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0)),
@@ -70,9 +67,14 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         poiNameColor(RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5)),
         showSizeLegend(true)
 {
-    initColorMap(GUILaneWrapper::getSchemesMap(), laneColorings);
 #ifdef HAVE_MESOSIM
-    initColorMap(GUIEdge::getSchemesMap(), edgeColorings);
+    if (MSGlobals::gUseMesoSim) {
+        initColorMap(GUIEdge::getSchemesMap(), laneColorings);
+    } else {
+#endif
+        initColorMap(GUILaneWrapper::getSchemesMap(), laneColorings);
+#ifdef HAVE_MESOSIM
+    }
 #endif
     initColorMap(GUIVehicle::getSchemesMap(), vehicleColorings);
 }

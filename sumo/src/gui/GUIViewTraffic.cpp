@@ -140,13 +140,19 @@ GUIViewTraffic::setColorScheme(const std::string &name) {
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
     // lanes
-    switch (GUILaneWrapper::getSchemesMap().getColorSetType(myVisualizationSettings->laneEdgeMode)) {
+    BaseSchemeInfoSource& laneSchemes = GUILaneWrapper::getSchemesMap();
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        laneSchemes = GUIEdge::getSchemesMap();
+    }
+#endif
+    switch (laneSchemes.getColorSetType(myVisualizationSettings->laneEdgeMode)) {
     case CST_SINGLE:
-        GUILaneWrapper::getSchemesMap().getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
+        laneSchemes.getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
             myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][0]);
         break;
     case CST_MINMAX:
-        GUILaneWrapper::getSchemesMap().getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
+        laneSchemes.getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
             myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][0],
             myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][1]);
         break;
@@ -446,10 +452,16 @@ GUIViewTraffic::amShowingBestLanesFor(GUIVehicle *v) {
 void
 GUIViewTraffic::showViewschemeEditor() {
     if (myVisualizationChanger==0) {
+        BaseSchemeInfoSource* laneSchemes = &GUILaneWrapper::getSchemesMap();
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            laneSchemes = &GUIEdge::getSchemesMap();
+        }
+#endif
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
             this, myVisualizationSettings,
-            &GUILaneWrapper::getSchemesMap(), &GUIVehicle::getSchemesMap(),
+            laneSchemes, &GUIVehicle::getSchemesMap(),
             &myDecals, &myDecalsLock);
         myVisualizationChanger->create();
     } else {
