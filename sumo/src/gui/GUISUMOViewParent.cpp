@@ -82,15 +82,13 @@ FXIMPLEMENT(GUISUMOViewParent, GUIGlChildWindow, GUISUMOViewParentMap, ARRAYNUMB
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
-                                     FXGLCanvas * /*share!!!*/,FXMDIMenu *mdimenu,
-                                     const FXString& name, GUINet &/*net!!!*/,
+GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu *mdimenu,
+                                     const FXString& name,
                                      GUIMainWindow *parentWindow,
-                                     FXIcon* ic, FXPopup* /*pup!!!*/,
-                                     FXuint opts,
-                                     FXint /*x!!!*/, FXint /*y!!!*/, FXint /*w!!!*/, FXint /*h!!!*/)
-        : GUIGlChildWindow(p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200),
-        myParent(parentWindow), myChooser(0)
+                                     FXIcon* ic, FXuint opts,
+                                     FXint x, FXint y, FXint w, FXint h)
+        : GUIGlChildWindow(p, mdimenu, name, ic, opts, x, y, w, h),
+        myParent(parentWindow)
 
 {
     myParent->addChild(this, false);
@@ -147,18 +145,6 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
     FXFREE(&buf);
     return 1;
 }
-
-/*
-long
-GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
-{
-    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
-    button->setChecked(!button->amChecked());
-    myAllowRotation = button->amChecked();
-    return 1;
-}
-*/
-
 
 void
 GUISUMOViewParent::showLocator(GUIGlObjectType type) {

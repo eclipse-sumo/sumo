@@ -942,19 +942,11 @@ GUIApplicationWindow::openNewView() {
     }
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
-    GUISUMOViewParent* w = 0;
-    GUISUMOAbstractView* v = 0;
-    if (myMDIClient->numChildren()==0) {
-        w = new GUISUMOViewParent(myMDIClient, 0,
-                                  myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
-                                  this, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
-        v = w->init(0, myRunThread->getNet());
-    } else {
-        w = new GUISUMOViewParent(myMDIClient, getBuildGLCanvas(),
-                                  myMDIMenu, FXString(caption.c_str()), myRunThread->getNet(),
-                                  this, GUIIconSubSys::getIcon(ICON_APP), 0, opts);
-        v = w->init(getBuildGLCanvas(), myRunThread->getNet());
-    }
+    GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient,
+                                  myMDIMenu, FXString(caption.c_str()),
+                                  this, GUIIconSubSys::getIcon(ICON_APP),
+                                  opts, 10, 10, 300, 200);
+    GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet());
     w->create();
     if (myMDIClient->numChildren()==1) {
         w->maximize();

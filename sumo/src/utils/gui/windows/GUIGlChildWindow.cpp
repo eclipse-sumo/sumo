@@ -56,9 +56,9 @@ FXIMPLEMENT(GUIGlChildWindow,FXMDIChild,GUIGlChildWindowMap,ARRAYNUMBER(GUIGlChi
 // ===========================================================================
 GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p,
                                    FXMDIMenu *mdimenu, const FXString& name,
-                                   FXIcon* ic, FXPopup* /*pup*/,
-                                   FXuint opts,FXint /*x*/,FXint /*y*/,FXint /*w*/,FXint /*h*/)
-        : FXMDIChild(p, name, ic, mdimenu, opts, 10, 10, 300, 200),
+                                   FXIcon* ic,
+                                   FXuint opts,FXint x, FXint y, FXint w, FXint h)
+        : FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
         myView(0) {
     // Make MDI Window Menu
     setTracking();

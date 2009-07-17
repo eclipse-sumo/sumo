@@ -64,10 +64,9 @@ class GUISUMOViewParent : public GUIGlChildWindow {
     FXDECLARE(GUISUMOViewParent)
 public:
     /// constructor
-    GUISUMOViewParent(FXMDIClient* p, FXGLCanvas *share,
-                      FXMDIMenu *mdimenu, const FXString& name,
-                      GUINet &net, GUIMainWindow *parentWindow,
-                      FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
+    GUISUMOViewParent(FXMDIClient* p, FXMDIMenu *mdimenu,
+                      const FXString& name, GUIMainWindow *parentWindow,
+                      FXIcon* ic=NULL, FXuint opts=0,FXint x=0,FXint y=0,FXint w=0,FXint h=0
                      );
 
     virtual GUISUMOAbstractView* init(FXGLCanvas *share, GUINet &net);
@@ -101,9 +100,6 @@ public:
     /// centers the view onto the given artifact
     void setView(GUIGlObject *o);
 
-    /// information whether the canvas may be rotated
-//    bool allowRotation() const;
-
     GUIMainWindow *getParent() {
         return myParent;
     }
@@ -118,14 +114,6 @@ protected:
 protected:
     /// The parent window
     GUIMainWindow *myParent;
-
-private:
-    /// information whether the canvas may be rotated
-    //  bool myAllowRotation;
-
-    /// the artifact chooser
-    GUIDialog_GLObjChooser *myChooser;
-
 
 protected:
     GUISUMOViewParent() { }

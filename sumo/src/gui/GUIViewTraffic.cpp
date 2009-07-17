@@ -80,7 +80,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
         : GUISUMOAbstractView(p, app, parent, *net.myGrid, glVis, share),
-        myTrackedID(-1), myNet(&net) {
+        myTrackedID(-1) {
 }
 
 
@@ -193,14 +193,6 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
-    // get the viewport settings
-    const Boundary &nb = myNet->getBoundary();
-    SUMOReal width = nb.getWidth();
-    SUMOReal height = nb.getHeight();
-    SUMOReal mzoom = myChanger->getZoom();
-    SUMOReal cy = myChanger->getYPos();
-    SUMOReal cx = myChanger->getXPos();
-
 
     GLdouble sxmin = myCX - myX1;
     GLdouble sxmax = myCX + myX1;

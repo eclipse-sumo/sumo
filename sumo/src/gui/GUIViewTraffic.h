@@ -141,8 +141,6 @@ protected:
 private:
     int myTrackedID;
 
-    GUINet *myNet;
-
 protected:
     GUIViewTraffic() { }
 
