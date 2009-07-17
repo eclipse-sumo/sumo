@@ -300,22 +300,27 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw() {
             }
             break;
         case DEPART_POS_RANDOM:
+        case DEPART_POS_RANDOM_FREE:
             pos = RandHelper::rand((*getLanes())[0]->length());
             break;
         default:
             break;
         }
-        v.setSegment(MSGlobals::gMesoNet->getSegmentForEdge(this, pos));
-        v.setEventTime((SUMOReal) time);
+        bool result = false;
         bool insertToNet = false;
-        if (v.getSegment()->initialise(&v, 0, time, insertToNet)) {
-            if (insertToNet) {
-                MSGlobals::gMesoNet->addCar(&v);
+        MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(this, pos);
+        if (pars.departPosProcedure == DEPART_POS_FREE) {
+            while (segment != 0 && !result) {
+                result = segment->initialise(&v, time, insertToNet);
+                segment = segment->getNextSegment();
             }
-            return true;
         } else {
-            return false;
+            result = segment->initialise(&v, time, insertToNet);
         }
+        if (insertToNet) {
+            MSGlobals::gMesoNet->addCar(&v);
+        }
+        return result;
     }
 #endif
     switch (pars.departLaneProcedure) {
