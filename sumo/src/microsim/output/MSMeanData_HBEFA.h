@@ -103,6 +103,16 @@ public:
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
+        /** @brief Called if the vehicle leaves the reminder's lane
+         *
+         * @param veh The leaving vehicle.
+         * @see MSMoveReminder
+         * @see MSMoveReminder::dismissByLaneChange
+         * @see HelpersHBEFA
+         */
+        virtual void dismissByLaneChange(MSVehicle& veh) throw();
+
+
         /** @brief Computes current emission values and adds them to their sums
          *
          * The fraction of time the vehicle is on the lane is computed and
@@ -124,24 +134,20 @@ public:
 
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;
-
         /// @brief Sum of CO2 emissions
         SUMOReal CO2;
-
         /// @brief Sum of CO emissions
         SUMOReal CO;
-
         /// @brief Sum of HC emissions
         SUMOReal HC;
-
         /// @brief Sum of NOx emissions
         SUMOReal NOx;
-
         /// @brief Sum of PMx emissions
         SUMOReal PMx;
-
         /// @brief  Sum of consumed fuel
         SUMOReal fuel;
+        /// @brief The number of vehicles that participated
+        SUMOReal vehicleNo;
         //@}
 
 
@@ -249,9 +255,31 @@ protected:
      * @param[in] len The length of the edge
      * @todo Check subseconds simulation
      */
-    inline SUMOReal norm(SUMOReal val, SUMOReal dur, SUMOReal len) const throw() {
+    inline SUMOReal normKMH(SUMOReal val, SUMOReal dur, SUMOReal len) const throw() {
         return SUMOReal(val * 3600. * 1000. / dur / len);
     }
+
+
+    /** @brief Norms the values by the given vehicle number
+     *
+     * @param[in] val The initial value
+     * @param[in] dur The aggregation duration in s
+     * @param[in] len The length of the edge
+     * @todo Check subseconds simulation
+     */
+    inline SUMOReal normPerVeh(SUMOReal val, SUMOReal samples, SUMOReal vehicleNo) const throw() {
+        if(samples==0) {
+            // no vehicle on the lane/edge
+            return 0;
+        }
+        if(vehicleNo==0) {
+            // vehicle(s) did not move
+            //  return a large value
+            return (SUMOReal) 1000000;
+        }
+        return val / vehicleNo;
+    }
+
 
 protected:
     /// @brief The id of the detector

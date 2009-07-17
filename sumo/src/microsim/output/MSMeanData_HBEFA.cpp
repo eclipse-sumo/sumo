@@ -82,6 +82,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
     SUMOReal fraction = 1.;
     if (oldPos<0&&newSpeed!=0) {
         fraction = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+        ++vehicleNo;
     }
     if (oldPos+SPEED2DIST(newSpeed)>getLane()->length()&&newSpeed!=0) {
         fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
@@ -106,13 +107,28 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 }
 
 
+void
+MSMeanData_HBEFA::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
+    SUMOReal pos = veh.getPositionOnLane();
+    vehicleNo -= ((myLane->length()-pos) / myLane->length());
+}
+
+
 bool
 MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     SUMOReal fraction = 1.;
     SUMOReal l = veh.getVehicleType().getLength();
+    SUMOReal pos = veh.getPositionOnLane();
     if (veh.getPositionOnLane()+l>getLane()->length()) {
-        fraction = l - (getLane()->length()-veh.getPositionOnLane());
+        fraction = l - (getLane()->length()-pos);
     }
+    if(isEmit) {
+        pos -= veh.getSpeed();
+        if(pos<0) {
+            pos = 0;
+        }
+    }
+    vehicleNo += ((myLane->length()-pos) / myLane->length());
     if(fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
@@ -166,6 +182,15 @@ void
 MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw() {
     for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
         for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+            SUMOReal nVehNo = 0.;
+            SUMOReal laneLength = (*j)->getLane()->length();
+            const MSLane::VehCont &vehs = (*j)->getLane()->getVehiclesSecure();
+            for(MSLane::VehCont::const_iterator k=vehs.begin(); k!=vehs.end(); ++k) {
+                SUMOReal pos = (*k)->getPositionOnLane();
+                nVehNo += ((laneLength-pos) / laneLength);
+            }
+            (*j)->vehicleNo = nVehNo;
+            (*j)->getLane()->releaseVehicles();
             (*j)->reset();
         }
     }
@@ -195,41 +220,63 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             dev<<"      </edge>\n";
         }
     } else {
-        SUMOReal coS = 0;
-        SUMOReal co2S = 0;
-        SUMOReal hc2S = 0;
-        SUMOReal pmxS = 0;
-        SUMOReal noxS = 0;
-        SUMOReal fuelS = 0;
-        SUMOReal nVehS = 0;
+        SUMOReal coS = 0.;
+        SUMOReal co2S = 0.;
+        SUMOReal hcS = 0.;
+        SUMOReal pmxS = 0.;
+        SUMOReal noxS = 0.;
+        SUMOReal fuelS = 0.;
+        SUMOReal samplesS = 0.;
+        SUMOReal vehicleNoS = 0.;
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MSLaneMeanDataValues& meanData = *(*lane);
             // calculate mean data
             coS += meanData.CO;
             co2S += meanData.CO2;
-            hc2S += meanData.HC;
+            hcS += meanData.HC;
             pmxS += meanData.PMx;
             noxS += meanData.NOx;
             fuelS += meanData.fuel;
-            nVehS += meanData.sampleSeconds;
+            samplesS += meanData.sampleSeconds;
+            SUMOReal oVehNo = meanData.vehicleNo;
+            SUMOReal nVehNo = 0.;
+            SUMOReal laneLength = meanData.getLane()->length();
+            const MSLane::VehCont &vehs = meanData.getLane()->getVehiclesSecure();
+            for(MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+                SUMOReal pos = (*i)->getPositionOnLane();
+                oVehNo -= (laneLength-pos) / laneLength;
+                nVehNo += (laneLength-pos) / laneLength;
+            }
+            vehicleNoS += oVehNo;
+            meanData.vehicleNo = nVehNo;
+            meanData.getLane()->releaseVehicles();
             meanData.reset();
         }
-        if (myDumpEmptyEdges||nVehS>0) {
+        if (myDumpEmptyEdges||samplesS>0) {
+            SUMOReal length = (*edge->getLanes())[0]->length();
             dev<<"      <edge id=\""<<edge->getID()<<
-            "\" sampledSeconds=\""<< nVehS <<
-            "\" CO_abs=\""<< coS <<
-            "\" CO2_abs=\""<<co2S<<
-            "\" HC_abs=\""<<hc2S<<
-            "\" PMx_abs=\""<<pmxS<<
-            "\" NOx_abs=\""<<noxS<<
-            "\" fuel_abs=\""<<fuelS<<
-            "\" CO_normed=\""<<norm(coS, (SUMOReal)(stopTime-startTime), (*edge->getLanes())[0]->length()) <<
-            "\" CO2_normed=\""<<norm(co2S, (SUMOReal)(stopTime-startTime), (*edge->getLanes())[0]->length())<<
-            "\" HC_normed=\""<<norm(hc2S, (SUMOReal)(stopTime-startTime), (*edge->getLanes())[0]->length())<<
-            "\" PMx_normed=\""<<norm(pmxS, (SUMOReal)(stopTime-startTime), (*edge->getLanes())[0]->length())<<
-            "\" NOx_normed=\""<<norm(noxS, (SUMOReal)(stopTime-startTime), (*edge->getLanes())[0]->length())<<
-            "\" fuel_normed=\""<<norm(fuelS, (SUMOReal)(stopTime-startTime), (*edge->getLanes())[0]->length())<<
-            "\"/>\n";
+            "\" sampledSeconds=\""<< samplesS <<
+            "\" CO_abs=\""<< SUMOReal(coS*1000.) <<
+            "\" CO2_abs=\""<<SUMOReal(co2S*1000.) <<
+            "\" HC_abs=\""<<SUMOReal(hcS*1000.) <<
+            "\" PMx_abs=\""<<SUMOReal(pmxS*1000.) <<
+            "\" NOx_abs=\""<<SUMOReal(noxS*1000.) <<
+            "\" fuel_abs=\""<<SUMOReal(fuelS*1000.) <<
+            "\" CO_normed=\""<<normKMH(coS, (SUMOReal)(stopTime-startTime), length) <<
+            "\" CO2_normed=\""<<normKMH(co2S, (SUMOReal)(stopTime-startTime), length)<<
+            "\" HC_normed=\""<<normKMH(hcS, (SUMOReal)(stopTime-startTime), length)<<
+            "\" PMx_normed=\""<<normKMH(pmxS, (SUMOReal)(stopTime-startTime), length)<<
+            "\" NOx_normed=\""<<normKMH(noxS, (SUMOReal)(stopTime-startTime), length)<<
+            "\" fuel_normed=\""<<normKMH(fuelS, (SUMOReal)(stopTime-startTime), length);
+            if(samplesS!=0) {
+                dev<<"\" CO_perVeh=\""<<SUMOReal(normPerVeh(coS, samplesS, vehicleNoS)*1000.) <<
+                "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(co2S, samplesS, vehicleNoS)*1000.)<<
+                "\" HC_perVeh=\""<<SUMOReal(normPerVeh(hcS, samplesS, vehicleNoS)*1000.)<<
+                "\" PMx_perVeh=\""<<SUMOReal(normPerVeh(pmxS, samplesS, vehicleNoS)*1000.)<<
+                "\" NOx_perVeh=\""<<SUMOReal(normPerVeh(noxS, samplesS, vehicleNoS)*1000.)<<
+                "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(fuelS, samplesS, vehicleNoS)*1000.);
+            }
+            dev<<"\"/>\n";
         }
     }
 }
@@ -240,22 +287,40 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
                             MSLaneMeanDataValues &laneValues,
                             SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     if (myDumpEmptyLanes||laneValues.sampleSeconds>0) {
-        // calculate mean data
+        const MSLane::VehCont &vehs = laneValues.getLane()->getVehiclesSecure();
+        SUMOReal oVehNo = laneValues.vehicleNo;
+        SUMOReal nVehNo = 0;
+        for(MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+            SUMOReal pos = (*i)->getPositionOnLane();
+            oVehNo -= ((laneValues.getLane()->length()-pos) / laneValues.getLane()->length());
+            nVehNo += ((laneValues.getLane()->length()-pos) / laneValues.getLane()->length());
+        }
+        laneValues.getLane()->releaseVehicles();
+        SUMOReal length = laneValues.getLane()->length();
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
         "\" sampledSeconds=\""<< laneValues.sampleSeconds <<
-        "\" CO_abs=\""<< laneValues.CO <<
-        "\" CO2_abs=\""<<laneValues.CO2<<
-        "\" HC_abs=\""<<laneValues.HC<<
-        "\" PMx_abs=\""<<laneValues.PMx<<
-        "\" NOx_abs=\""<<laneValues.NOx<<
-        "\" fuel_abs=\""<<laneValues.fuel<<
-        "\" CO_normed=\""<<norm(laneValues.CO, (SUMOReal)(stopTime-startTime), laneValues.getLane()->length()) <<
-        "\" CO2_normed=\""<<norm(laneValues.CO2, (SUMOReal)(stopTime-startTime), laneValues.getLane()->length())<<
-        "\" HC_normed=\""<<norm(laneValues.HC, (SUMOReal)(stopTime-startTime), laneValues.getLane()->length())<<
-        "\" PMx_normed=\""<<norm(laneValues.PMx, (SUMOReal)(stopTime-startTime), laneValues.getLane()->length())<<
-        "\" NOx_normed=\""<<norm(laneValues.NOx, (SUMOReal)(stopTime-startTime), laneValues.getLane()->length())<<
-        "\" fuel_normed=\""<<norm(laneValues.fuel, (SUMOReal)(stopTime-startTime), laneValues.getLane()->length())<<
-        "\"/>\n";
+        "\" CO_abs=\""<<SUMOReal(laneValues.CO*1000.) <<
+        "\" CO2_abs=\""<<SUMOReal(laneValues.CO2*1000.) <<
+        "\" HC_abs=\""<<SUMOReal(laneValues.HC*1000.) <<
+        "\" PMx_abs=\""<<SUMOReal(laneValues.PMx*1000.) <<
+        "\" NOx_abs=\""<<SUMOReal(laneValues.NOx*1000.) <<
+        "\" fuel_abs=\""<<SUMOReal(laneValues.fuel*1000.) <<
+        "\" CO_normed=\""<<normKMH(laneValues.CO, (SUMOReal)(stopTime-startTime), length) <<
+        "\" CO2_normed=\""<<normKMH(laneValues.CO2, (SUMOReal)(stopTime-startTime), length)<<
+        "\" HC_normed=\""<<normKMH(laneValues.HC, (SUMOReal)(stopTime-startTime), length)<<
+        "\" PMx_normed=\""<<normKMH(laneValues.PMx, (SUMOReal)(stopTime-startTime), length)<<
+        "\" NOx_normed=\""<<normKMH(laneValues.NOx, (SUMOReal)(stopTime-startTime), length)<<
+        "\" fuel_normed=\""<<normKMH(laneValues.fuel, (SUMOReal)(stopTime-startTime), length);
+        if(laneValues.sampleSeconds!=0) {
+            dev<<"\" CO_perVeh=\""<<SUMOReal(normPerVeh(laneValues.CO, laneValues.sampleSeconds, oVehNo)*1000.)<<
+            "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(laneValues.CO2, laneValues.sampleSeconds, oVehNo)*1000.)<<
+            "\" HC_perVeh=\""<<SUMOReal(normPerVeh(laneValues.HC, laneValues.sampleSeconds, oVehNo)*1000.)<<
+            "\" PMx_perVeh=\""<<SUMOReal(normPerVeh(laneValues.PMx, laneValues.sampleSeconds, oVehNo)*1000.)<<
+            "\" NOx_perVeh=\""<<SUMOReal(normPerVeh(laneValues.NOx, laneValues.sampleSeconds, oVehNo)*1000.)<<
+            "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(laneValues.fuel, laneValues.sampleSeconds, oVehNo)*1000.);
+        }
+        dev<<"\"/>\n";
+        laneValues.vehicleNo = nVehNo;
     }
     laneValues.reset();
 }
