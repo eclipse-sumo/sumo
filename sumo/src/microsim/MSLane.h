@@ -208,7 +208,36 @@ public:
      * @return Whether the vehicle could be emitted
      */
     bool freeEmit(MSVehicle& veh, SUMOReal speed) throw();
-    ///@}
+    /// @}
+
+
+
+    /// @name Access to vehicles
+    /// @{
+    
+    /** @brief Returns the number of vehicles on this lane
+     * @return The number of vehicles on this lane
+     */
+    unsigned int getVehicleNumber() const throw() {
+        return (unsigned int) myVehicles.size();
+    }
+
+
+    /** @brief Returns the vehicles container; locks it for microsimulation
+     *
+     * Please note that it is necessary to release the vehicles container
+     *  afterwards using "releaseVehicles".
+     * @return The vehicles on this lane
+     */
+    virtual const std::deque< MSVehicle* > &getVehiclesSecure() const throw() {
+        return myVehicles;
+    }
+
+
+    /** @brief Allows to use the container for microsimulation again
+     */
+    virtual void releaseVehicles() const throw() { }
+    /// @}
 
 
 
@@ -317,16 +346,6 @@ public:
 
 
     void init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdge::LaneCont::const_iterator lastNeigh);
-
-
-    /** does nothing; needed for GUI-versions where vehicles are locked
-        when being displayed */
-    virtual void releaseVehicles();
-
-    /// returns the vehicles
-    virtual const VehCont &getVehiclesSecure();
-
-    unsigned int getVehicleNumber() const;
 
 
 

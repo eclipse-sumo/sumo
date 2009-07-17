@@ -71,6 +71,7 @@ GUIInternalLane::~GUIInternalLane() throw() {
 }
 
 
+// ------ Vehicle emission ------
 bool
 GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
                                    bool recheckNextLanes) throw() {
@@ -79,6 +80,21 @@ GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal
     myLock.unlock();
     return ret;
 }
+
+
+// ------ Access to vehicles ------
+const MSLane::VehCont &
+GUIInternalLane::getVehiclesSecure() const throw() {
+    myLock.lock();
+    return myVehicles;
+}
+
+
+void
+GUIInternalLane::releaseVehicles() const throw() {
+    myLock.unlock();
+}
+
 
 
 bool
@@ -171,20 +187,6 @@ GUIInternalLane::removeVehicle(MSVehicle * remVehicle) {
         myLock.unlock();
         throw;
     }
-}
-
-
-void
-GUIInternalLane::releaseVehicles() {
-    myLock.unlock();
-}
-
-
-
-const MSLane::VehCont &
-GUIInternalLane::getVehiclesSecure() {
-    myLock.lock();
-    return myVehicles;
 }
 
 

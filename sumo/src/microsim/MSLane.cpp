@@ -851,16 +851,6 @@ MSLane::getID() const {
 
 
 void
-MSLane::releaseVehicles() {}
-
-
-const MSLane::VehCont &
-MSLane::getVehiclesSecure() {
-    throw 1;
-}
-
-
-void
 MSLane::swapAfterLaneChange() {
     myVehicles = myTmpVehicles;
     myTmpVehicles.clear();
@@ -883,12 +873,6 @@ void
 MSLane::init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdge::LaneCont::const_iterator lastNeigh) {
     myFirstNeigh = firstNeigh;
     myLastNeigh = lastNeigh;
-}
-
-
-unsigned int
-MSLane::getVehicleNumber() const {
-    return (unsigned int) myVehicles.size();
 }
 
 

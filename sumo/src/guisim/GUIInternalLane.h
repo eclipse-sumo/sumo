@@ -102,6 +102,31 @@ public:
 
 
 
+    /// @name Access to vehicles
+    /// @{
+
+    /** @brief Returns the vehicles container; locks it for microsimulation
+     *
+     * Locks "myLock" preventing usage by microsimulation.
+     *
+     * Please note that it is necessary to release the vehicles container
+     *  afterwards using "releaseVehicles".
+     * @return The vehicles on this lane
+     * @see MSLane::getVehiclesSecure
+     */
+    const VehCont &getVehiclesSecure() const throw();
+
+
+    /** @brief Allows to use the container for microsimulation again
+     *
+     * Unlocks "myLock" preventing usage by microsimulation.
+     * @see MSLane::releaseVehicles
+     */
+    void releaseVehicles() const throw();
+    /// @}
+
+
+
     /// @name Vehicle movement (longitudinal)
     /// @{
 
@@ -121,12 +146,6 @@ public:
         first; the access will be granted at the end of this method */
     bool integrateNewVehicle();
     ///@}
-
-    /// allows the processing of vehicles for threads
-    void releaseVehicles();
-
-    /// returns the vehicles closing their processing for other threads
-    const VehCont &getVehiclesSecure();
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
