@@ -1316,12 +1316,12 @@ MSVehicle::leaveLaneAtLaneChange(void) {
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors
     vector< MSMoveReminder* >::iterator rem;
     for (rem=myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {
-        (*rem)->dismissByLaneChange(*this);
+        (*rem)->dismissOnLeavingLane(*this);
     }
     std::vector<SUMOReal>::iterator off = myOldLaneMoveReminderOffsets.begin();
     for (rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end(); ++rem, ++off) {
         myState.myPos += (*off);
-        (*rem)->dismissByLaneChange(*this);
+        (*rem)->dismissOnLeavingLane(*this);
         myState.myPos -= (*off);
     }
     myState.myPos = savePos; // have to do this due to SUMOReal-precision errors

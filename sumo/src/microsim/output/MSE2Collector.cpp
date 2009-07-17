@@ -95,7 +95,7 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSE2Collector::dismissByLaneChange(MSVehicle& veh) throw() {
+MSE2Collector::dismissOnLeavingLane(MSVehicle& veh) throw() {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {

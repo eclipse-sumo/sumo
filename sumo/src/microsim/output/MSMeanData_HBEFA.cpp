@@ -108,7 +108,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::dismissByLaneChange(MSVehicle& veh) throw() {
+MSMeanData_HBEFA::MSLaneMeanDataValues::dismissOnLeavingLane(MSVehicle& veh) throw() {
     SUMOReal pos = veh.getPositionOnLane();
     vehicleNo -= ((myLane->length()-pos) / myLane->length());
 }

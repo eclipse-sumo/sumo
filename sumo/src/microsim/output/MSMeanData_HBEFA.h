@@ -107,10 +107,10 @@ public:
          *
          * @param veh The leaving vehicle.
          * @see MSMoveReminder
-         * @see MSMoveReminder::dismissByLaneChange
+         * @see MSMoveReminder::dismissOnLeavingLane
          * @see HelpersHBEFA
          */
-        virtual void dismissByLaneChange(MSVehicle& veh) throw();
+        virtual void dismissOnLeavingLane(MSVehicle& veh) throw();
 
 
         /** @brief Computes current emission values and adds them to their sums

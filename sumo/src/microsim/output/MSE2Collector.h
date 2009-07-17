@@ -133,9 +133,9 @@ public:
      *  vehicles to regard (myKnownVehicles).
      *
      * @param[in] veh The leaving vehicle.
-     * @see MSMoveReminder::dismissByLaneChange
+     * @see MSMoveReminder::dismissOnLeavingLane
      */
-    void dismissByLaneChange(MSVehicle& veh) throw();
+    void dismissOnLeavingLane(MSVehicle& veh) throw();
 
 
     /** @brief Adds the vehicle to known vehicles if not beyond the dector

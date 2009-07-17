@@ -133,9 +133,9 @@ public:
      * @param veh The leaving vehicle.
      * @see leaveDetectorByLaneChange
      * @see MSMoveReminder
-     * @see MSMoveReminder::dismissByLaneChange
+     * @see MSMoveReminder::dismissOnLeavingLane
      */
-    void dismissByLaneChange(MSVehicle& veh) throw();
+    void dismissOnLeavingLane(MSVehicle& veh) throw();
 
 
     /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement

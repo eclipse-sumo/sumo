@@ -121,7 +121,7 @@ MSMsgInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSMsgInductLoop::dismissByLaneChange(MSVehicle& veh) throw() {
+MSMsgInductLoop::dismissOnLeavingLane(MSVehicle& veh) throw() {
     if (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getLength() <= myPosition) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
