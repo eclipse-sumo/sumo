@@ -73,8 +73,8 @@
 #include <string>
 #include <map>
 #include <iostream>
-#include <microsim/output/HelpersHBEFA.h>
-#include <microsim/output/HelpersHarmonoise.h>
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/common/HelpersHarmonoise.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
