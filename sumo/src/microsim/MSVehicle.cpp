@@ -1428,6 +1428,7 @@ MSVehicle::onTripEnd(const MSLane * const lane) {
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->onTripEnd();
     }
+    leaveLaneAtLaneChange();
 }
 
 
