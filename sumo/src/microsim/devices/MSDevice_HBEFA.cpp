@@ -32,7 +32,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
-#include <microsim/output/HelpersHBEFA.h>
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

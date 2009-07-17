@@ -31,19 +31,9 @@
 
 #include <vector>
 #include <cassert>
-#include <microsim/output/MSDetectorFileOutput.h>
-#include <microsim/MSMoveReminder.h>
-#include <utils/common/StdDefs.h>
+#include "StdDefs.h"
+#include "SUMOVehicleClass.h"
 #include <limits>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class OutputDevice;
-class MSEdgeControl;
-class MSEdge;
-class MSLane;
 
 
 // ===========================================================================

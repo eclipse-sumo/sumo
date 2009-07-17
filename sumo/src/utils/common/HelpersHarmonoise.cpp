@@ -27,13 +27,6 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSEdgeControl.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
-#include <microsim/MSVehicle.h>
-#include <utils/common/SUMOTime.h>
-#include <utils/common/ToString.h>
-#include <utils/iodevices/OutputDevice.h>
 #include "HelpersHarmonoise.h"
 #include <limits>
 

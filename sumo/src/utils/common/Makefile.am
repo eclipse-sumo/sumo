@@ -9,6 +9,8 @@ WrappingCommand.h ValueRetriever.h ValueSource.h
 
 libcommon_a_SOURCES = AbstractMutex.h \
 FileHelpers.cpp FileHelpers.h \
+HelpersHarmonoise.cpp HelpersHarmonoise.h \
+HelpersHBEFA.cpp HelpersHBEFA.h MSCrossSection.h \
 InstancePool.h \
 IDSupplier.h IDSupplier.cpp \
 Named.h StringTokenizer.cpp StringTokenizer.h \

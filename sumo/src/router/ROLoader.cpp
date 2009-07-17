@@ -335,7 +335,11 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
     //  the measure to use, then
     EdgeFloatTimeLineRetriever_EdgeWeight eRetriever(&net);
     if(measure!="traveltime") {
-        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(measure, !useLanes, eRetriever));
+        std::string umeasure = measure;
+        if(measure=="CO"||measure=="CO2"||measure=="HC"||measure=="PMx"||measure=="NOx"||measure=="fuel") {
+            umeasure = measure + "_perVeh";
+        }
+        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(umeasure, !useLanes, eRetriever));
     }
     //  set up handler
     SAXWeightsHandler handler(retrieverDefs, "");
@@ -353,7 +357,7 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
     // build edge-internal time lines
     const std::map<std::string, ROEdge*> &edges = net.getEdgeMap();
     for(std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-        (*i).second->buildTimeLines();
+        (*i).second->buildTimeLines(measure);
     }
     return true;
 }
@@ -363,8 +367,8 @@ void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw() {
     if (myOptions.getBool("verbose")) {
         SUMOReal perc = (SUMOReal)(time-start) / (SUMOReal) absNo;
-        std::cout.setf(std::ios::fixed, std::ios::floatfield) ;    // use decimal format
-        std::cout.setf(std::ios::showpoint) ;    // print decimal point
+        std::cout.setf(std::ios::fixed, std::ios::floatfield); // use decimal format
+        std::cout.setf(std::ios::showpoint); // print decimal point
         std::cout << std::setprecision(OUTPUT_ACCURACY);
         MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + toString(time) + "  (" + toString(time-start) + "/" + toString(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }

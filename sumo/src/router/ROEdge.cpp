@@ -36,6 +36,8 @@
 #include "ROEdge.h"
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/common/HelpersHarmonoise.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -207,10 +209,28 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const throw() {
 
 
 void 
-ROEdge::buildTimeLines() throw()
+ROEdge::buildTimeLines(const std::string &measure) throw()
 {
     if (myUsingETimeLine) {
         SUMOReal value = (SUMOReal)(myLength / mySpeed);
+        if(measure=="CO") {
+            value = HelpersHBEFA::computeCO(SVE_UNKNOWN, mySpeed, 0) * value;
+        }
+        if(measure=="CO2") {
+            value = HelpersHBEFA::computeCO2(SVE_UNKNOWN, mySpeed, 0) * value;
+        }
+        if(measure=="HC") {
+            value = HelpersHBEFA::computeHC(SVE_UNKNOWN, mySpeed, 0) * value;
+        }
+        if(measure=="PMx") {
+            value = HelpersHBEFA::computePMx(SVE_UNKNOWN, mySpeed, 0) * value;
+        }
+        if(measure=="NOx") {
+            value = HelpersHBEFA::computeNOx(SVE_UNKNOWN, mySpeed, 0) * value;
+        }
+        if(measure=="fuel") {
+            value = HelpersHBEFA::computeFuel(SVE_UNKNOWN, mySpeed, 0) * value;
+        }
         myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);
     }
     if (myUsingTTTimeLine) {

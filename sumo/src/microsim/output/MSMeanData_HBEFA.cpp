@@ -35,7 +35,7 @@
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_HBEFA.h"
-#include "HelpersHBEFA.h"
+#include <utils/common/HelpersHBEFA.h>
 #include <limits>
 
 #ifdef HAVE_MESOSIM

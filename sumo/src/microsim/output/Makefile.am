@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libmicrosimoutput.a
 
-libmicrosimoutput_a_SOURCES = HelpersHarmonoise.cpp HelpersHarmonoise.h \
-HelpersHBEFA.cpp HelpersHBEFA.h MSCrossSection.h \
+libmicrosimoutput_a_SOURCES = \
+MSCrossSection.h \
 MSDetectorControl.cpp MSDetectorControl.h \
 MSDetectorFileOutput.h \
 MSE2Collector.cpp MSE2Collector.h \

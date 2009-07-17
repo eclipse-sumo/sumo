@@ -36,7 +36,7 @@
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Harmonoise.h"
-#include "HelpersHarmonoise.h"
+#include <utils/common/HelpersHarmonoise.h>
 #include <limits>
 
 #ifdef HAVE_MESOSIM

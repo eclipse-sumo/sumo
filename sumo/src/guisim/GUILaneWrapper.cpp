@@ -52,7 +52,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <guisim/GUIVehicle.h>
 #include <foreign/polyfonts/polyfonts.h>
-#include <microsim/output/HelpersHarmonoise.h>
+#include <utils/common/HelpersHarmonoise.h>
 #include <gui/GUIColorer_LaneByPurpose.h>
 #include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
 #include <gui/GUIColorer_LaneByVehKnowledge.h>

@@ -49,8 +49,8 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
-#include <microsim/output/HelpersHBEFA.h>
-#include <microsim/output/HelpersHarmonoise.h>
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/common/HelpersHarmonoise.h>
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
