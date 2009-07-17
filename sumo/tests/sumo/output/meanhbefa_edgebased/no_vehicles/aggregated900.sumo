@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:22:24 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 07/17/09 14:40:47 by SUMO sumo Version dev-SVN-r7443
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-      <additional-files>input_additional.add.xml</additional-files>
-   </input>
+    <input
+        net-file="net.net.xml"
+        route-files="input_routes.rou.xml"
+        additional-files="input_additional.add.xml"
+    />
 
-   <time>
-      <begin>0</begin>
-      <end>150</end>
-   </time>
+    <time
+        begin="0"
+        end="150"
+    />
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
 
 </configuration>
 -->
