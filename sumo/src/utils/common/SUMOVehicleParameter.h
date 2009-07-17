@@ -82,7 +82,6 @@ enum DepartLaneDefinition {
 /**
  * @enum DepartPosDefinition
  * @brief Possible ways to choose the departure position
- * @todo Recheck usage!!!
  */
 enum DepartPosDefinition {
     /// @brief No information given; use default
@@ -93,7 +92,7 @@ enum DepartPosDefinition {
     DEPART_POS_RANDOM,
     /// @brief A free position is chosen
     DEPART_POS_FREE,
-    /// @brief The position is chosen randomly from all free positions on the lane
+    /// @brief If a fixed number of random choices fails, a free position is chosen
     DEPART_POS_RANDOM_FREE
 };
 
