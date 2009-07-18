@@ -304,19 +304,6 @@ public:
     }
 
 
-    /** duplicates the given string */
-    static E *duplicate(const E * const s) {
-        unsigned i=0;
-        for (; s[i]!=0; i++);
-        char *ret = new E[i+1];
-        for (i=0; s[i]!=0; i++) {
-            ret[i] = s[i];
-        }
-        ret[i] = 0;
-        return ret;
-    }
-
-
     /** returns the length of the string (the position of the 0-character) */
     static unsigned getLength(const E * const data) {
         if (data==0) {
