@@ -29,6 +29,7 @@
 
 #include "HelpersHBEFA.h"
 #include <limits>
+#include <cmath>
 
 #ifdef HAVE_MESOSIM
 #include <microsim/MSGlobals.h>

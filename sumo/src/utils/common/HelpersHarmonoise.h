@@ -34,6 +34,7 @@
 #include "StdDefs.h"
 #include "SUMOVehicleClass.h"
 #include <limits>
+#include <cmath>
 
 
 // ===========================================================================
