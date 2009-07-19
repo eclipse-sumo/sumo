@@ -7,8 +7,9 @@ batch_mail_on_failure_only:true
 
 [batch_recipients]
 default:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
-msvc8mesox64:delphi-dev@dlr.de
-msvc8mesoWin32:delphi-dev@dlr.de
+meso:michael.behrisch@dlr.de,matthias.wagner@dlr.de
+msvc8mesox64:michael.behrisch@dlr.de,matthias.wagner@dlr.de
+msvc8mesoWin32:michael.behrisch@dlr.de,matthias.wagner@dlr.de
 
 [batch_sender]
 default:"$FILEPREFIX" <michael.behrisch@dlr.de>
