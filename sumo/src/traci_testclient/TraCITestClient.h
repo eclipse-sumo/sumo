@@ -121,8 +121,7 @@ public:
 
     void commandGetTLStatus(int tlId, double intervalStart, double intervalEnd);
     void commandGetVariable(int domID, int varID, const std::string &objID);
-    void commandSetValue(int domID, int varID, const std::string &objID, const std::string &dataTypeS,
-                         const std::string &value, const std::vector<std::string> &slValue);
+    void commandSetValue(int domID, int varID, const std::string &objID, std::ifstream &defFile);
 
     void commandClose();
 
@@ -172,6 +171,17 @@ private:
     bool validateGetTLStatus(tcpip::Storage& inMsg);
 
     bool readAndReportTypeDependent(tcpip::Storage &inMsg, int valueDataType);
+
+
+    /** @brief Parses the next value type / value pair from the stream and inserts it into the storage
+     *
+     * @param[out] into The storage to add the value type and the value into
+     * @param[in] defFile The file to read the values from
+     * @param[out] msg If any error occurs, this should be filled
+     * @return The number of written bytes
+     */
+    int setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg);
+
 
 
 private:

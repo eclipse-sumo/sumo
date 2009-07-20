@@ -433,19 +433,9 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         } else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
-            string objID, dataType, value;
-            vector<string> slValue;
-            defFile >> domID >> varID >> objID >> dataType >> value;
-            if (dataType=="<string*>") {
-                int number = atoi(value.c_str());
-                value = "";
-                for (int i=0; i<number; ++i) {
-                    string tmp;
-                    defFile >> tmp;
-                    slValue.push_back(tmp);
-                }
-            }
-            commandSetValue(domID, varID, objID, dataType, value, slValue);
+            string objID;
+            defFile >> domID >> varID >> objID;
+            commandSetValue(domID, varID, objID, defFile);
         } else {
             msg << "Error in definition file: " << lineCommand
             << " is not a valid command";
@@ -1301,41 +1291,66 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
 }
 
 
+int
+TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg)
+{
+    string dataTypeS, valueS;
+    defFile >> dataTypeS >> valueS;
+    if (dataTypeS=="<int>") {
+        into.writeUnsignedByte(TYPE_INTEGER);
+        into.writeInt(atoi(valueS.c_str()));
+        return 4 + 1;
+    } else if (dataTypeS=="<float>") {
+        into.writeUnsignedByte(TYPE_FLOAT);
+        into.writeFloat(atof(valueS.c_str()));
+        return 4 + 1;
+    } else if (dataTypeS=="<string>") {
+        into.writeUnsignedByte(TYPE_STRING);
+        into.writeString(valueS);
+        return 4 + 1 + (int) valueS.length();
+    } else if (dataTypeS=="<string*>") {
+        vector<string> slValue;
+        int number = atoi(valueS.c_str());
+        int length = 1 + 4;
+        for (int i=0; i<number; ++i) {
+            string tmp;
+            defFile >> tmp;
+            slValue.push_back(tmp);
+            length += 4 + tmp.length();
+        }
+        into.writeUnsignedByte(TYPE_STRINGLIST);
+        into.writeStringList(slValue);
+        return length;
+    } else if (dataTypeS=="<compound>") {
+        into.writeUnsignedByte(TYPE_COMPOUND);
+        int number = atoi(valueS.c_str());
+        into.writeInt(number);
+        int length = 1 + 4;
+        for (int i=0; i<number; ++i) {
+            length += setValueTypeDependant(into, defFile, msg);
+        }
+        return length;
+    }
+    msg << "## Unknown data type: " << dataTypeS;
+    return 0;
+}
+
 void
-TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
-                                 const std::string &dataTypeS, const std::string &value,
-                                 const std::vector<std::string> &slValue) {
-    tcpip::Storage outMsg, inMsg;
+TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID, std::ifstream &defFile) {
     std::stringstream msg;
     if (socket == NULL) {
         msg << "#Error while sending command: no connection to server" ;
         errorMsg(msg);
         return;
     }
-    int dataLength = 0;
-    int dataType = 0;
-    if (dataTypeS=="<int>") {
-        dataLength = 4;
-        dataType = TYPE_INTEGER;
-    } else if (dataTypeS=="<float>") {
-        dataLength = 4;
-        dataType = TYPE_FLOAT;
-    } else if (dataTypeS=="<string>") {
-        dataLength = 4 + (int) value.length();
-        dataType = TYPE_STRING;
-    } else if (dataTypeS=="<string*>") {
-        dataLength = 4 + 4 * (int) slValue.size();
-        for (vector<string>::const_iterator i=slValue.begin(); i!=slValue.end(); ++i) {
-            dataLength += (int) (*i).length();
-        }
-        dataType = TYPE_STRINGLIST;
-    } else {
-        msg << "## Unknown data type: " << dataType;
+    tcpip::Storage outMsg, inMsg, tmp;
+    int dataLength = setValueTypeDependant(tmp, defFile, msg);
+    string msgS = msg.str();
+    if(msgS!="") {
         errorMsg(msg);
-        return;
     }
     // command length (domID, varID, objID, dataType, data)
-    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + 1 + dataLength);
+    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + dataLength);
     // command id
     outMsg.writeUnsignedByte(domID);
     // variable id
@@ -1343,24 +1358,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
     // object id
     outMsg.writeString(objID);
     // data type
-    outMsg.writeUnsignedByte(dataType);
-    // data
-    switch (dataType) {
-    case TYPE_INTEGER:
-        outMsg.writeInt(atoi(value.c_str()));
-        break;
-    case TYPE_FLOAT:
-        outMsg.writeFloat(atof(value.c_str()));
-        break;
-    case TYPE_STRING:
-        outMsg.writeString(value);
-        break;
-    case TYPE_STRINGLIST:
-        outMsg.writeStringList(slValue);
-        break;
-    default:
-        break;
-    }
+    outMsg.writeStorage(tmp);
     // send request message
     try {
         socket->sendExact(outMsg);
