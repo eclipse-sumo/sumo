@@ -376,6 +376,9 @@
 // complete definition (get: traffic lights)
 #define TL_COMPLETE_DEFINITION_RYG 0x2b
 
+// complete program (set: traffic lights)
+#define TL_COMPLETE_PROGRAM_RYG 0x2c
+
 
 
 // outgoing link number (get: lanes)

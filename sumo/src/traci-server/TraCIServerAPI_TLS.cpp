@@ -295,7 +295,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
-        &&variable!=TL_PHASE_DURATION&&variable!=TL_RED_YELLOW_GREEN_STATE) {
+        &&variable!=TL_PHASE_DURATION&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_COMPLETE_PROGRAM_RYG) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -381,11 +381,79 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
         vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
-        if (!vars.addLogic("online", logic, true, true)) {
-            delete logic;
+        if(vars.getLogic("online")==0) {
+            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
+            vars.addLogic("online", logic, true, true);
+            vars.getActive()->setLinkPriorities();
+        } else {
             MSPhaseDefinition nphase(1, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
+            vars.getActive()->setLinkPriorities();
+        }
+    }
+    break;
+    case TL_COMPLETE_PROGRAM_RYG: {
+        if (valueDataType!=TYPE_COMPOUND) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new program.", outputStorage);
+            return false;
+        }
+        unsigned int itemNo = inputStorage.readInt();
+        if(inputStorage.readUnsignedByte()!=TYPE_STRING) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 1. parameter (subid) must be a string.", outputStorage);
+            return false;
+        }
+        std::string subid = inputStorage.readString();
+        if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 2. parameter (type) must be an int.", outputStorage);
+            return false;
+        }
+        int type = inputStorage.readInt();
+        if(inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 3. parameter (subparams) must be a compound object.", outputStorage);
+            return false;
+        }
+        int sublength = inputStorage.readInt();
+        if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 4. parameter (index) must be an int.", outputStorage);
+            return false;
+        }
+        int index = inputStorage.readInt();
+        if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 5. parameter (phase number) must be an int.", outputStorage);
+            return false;
+        }
+        int phaseNo = inputStorage.readInt();
+        vector<MSPhaseDefinition*> phases;
+        for (unsigned int j=0; j<phaseNo; ++j) {
+            if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.1. parameter (duration) must be an int.", outputStorage);
+                return false;
+            }
+            int duration = inputStorage.readInt();
+            if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.2. parameter (duration2) must be an int.", outputStorage);
+                return false;
+            }
+            inputStorage.readInt();
+            if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.3. parameter (duration3) must be an int.", outputStorage);
+                return false;
+            }
+            inputStorage.readInt();
+            if(inputStorage.readUnsignedByte()!=TYPE_STRING) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
+                return false;
+            }
+            string state = inputStorage.readString();
+            MSPhaseDefinition *phase = new MSPhaseDefinition(duration, state);
+            phases.push_back(phase);
+        }
+        if(vars.getLogic(subid)==0) {
+            MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
+            vars.addLogic(subid, logic, true, true);
+            vars.getActive()->setLinkPriorities();
+        } else {
+            static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(subid))->getPhases() = phases;
             vars.getActive()->setLinkPriorities();
         }
     }
