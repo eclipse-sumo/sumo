@@ -1,0 +1,7 @@
+simstep 10 1
+%                                  subid          type    subelems     index   phaseno duration1 duration2  duration3   phase                 duration1  duration2 duration3  phase %
+setvalue 194 44 1/1 <compound> 13 <string> prog1 <int> 0 <compound> 0 <int> 0 <int> 2 <int> 10  <int> 0    <int> 0 <string> rrrrrrrrrrrrrrrr <int> 10   <int> 0    <int> 0   <string> yyyyyyyyyyyyyyyy 
+simstep 31 1    
+%                                  subid          type    subelems     index   phaseno duration1  duration2  duration3   phase                 duration1 duration2 duration3 phase %
+setvalue 194 44 1/1 <compound> 13 <string> prog1 <int> 0 <compound> 0 <int> 0 <int> 2 <int> 5    <int> 0    <int> 0 <string> rrrrrrrrrrrrrrrr <int> 5   <int> 0   <int> 0   <string> yyyyyyyyyyyyyyyy 
+simstep 51 1

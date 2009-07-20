@@ -1,0 +1,9 @@
+# Two programs are set; the second replaces the first (same subid)
+basic_replaceAdded
+
+# Two programs are set; the second has a different subid
+basic_addTwo
+
+# Two programs are set; both replace the original (same subid)
+basic_replace
+

@@ -13,6 +13,10 @@ TL_PROGRAM
 # Tests for setting a phase duration
 TL_PHASE_DURATION
 
+# Tests for inserting a new program
+TL_COMPLETE_PROGRAM
+
+
 
 # Tests for error handling
 errors
