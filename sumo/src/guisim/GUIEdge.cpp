@@ -448,6 +448,26 @@ GUIEdge::initColoringSchemes() {
                (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
 }
 
+GUIColorer<GUIEdge>*
+GUIEdge::createColorer() {
+    return new GUIEdge::Colorer();
+}
+
+GUIEdge::Colorer::Colorer() {
+    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0)));
+}
+
+SUMOReal
+GUIEdge::Colorer::getColorValue(const GUIEdge& edge) const {
+    switch (myActiveScheme) {
+        case 0:
+            return 0;
+        case 1:
+            return gSelected.isSelected(edge.getType(), edge.getGlID());
+    }
+    return 0;
+}
+
 #endif
 
 /****************************************************************************/

@@ -38,6 +38,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
+#include <utils/gui/drawer/GUIColorer.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -188,6 +189,15 @@ public:
 
     /// Initializes the list of available vehicle coloring schemes
     static void initColoringSchemes();
+
+    static GUIColorer<GUIEdge>* createColorer();
+
+private:
+    class Colorer : public GUIColorer<GUIEdge> {
+    public:
+        Colorer();
+        SUMOReal getColorValue(const GUIEdge& edge) const;
+    };
 
 #endif
 
