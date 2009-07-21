@@ -1,24 +1,60 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/21/09 10:47:22 by SUMO netconvert Version dev-SVN-r7459
+<configuration>
+
+    <input
+        xml-node-files="./dfrouter\errors\network\two_edge.nod.xml"
+        xml-edge-files="./dfrouter\errors\network\two_edge.edg.xml"
+    />
+
+    <output
+        output-file="./dfrouter\errors\network\net.net.xml"
+    />
+
+    <processing
+        no-turnarounds="true"
+    />
+
+    <report
+        verbose="true"
+    />
+
+</configuration>
+-->
+
 <net>
 
-   <net-offset>100.000000,0.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,200.000000,0.000000</conv-boundary>
-   <orig-boundary>-100.000000,0.000000,100.000000,0.000000</orig-boundary>
+   <net-offset>100.00,0.00</net-offset>
+   <conv-boundary>0.00,0.00,200.00,0.00</conv-boundary>
+   <orig-boundary>-100.00,0.00,100.00,0.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <node_count>3</node_count>
+   <edge id=":2_0" function="internal">
+      <lanes>
+         <lane id=":2_0_0" depart="0" maxspeed="19.00" length="0.10">100.00,-4.95 100.00,-4.95</lane>
+      </lanes>
+   </edge>
+
+   <edge id=":2_1" function="internal">
+      <lanes>
+         <lane id=":2_1_0" depart="0" maxspeed="19.00" length="0.10">100.00,-1.65 100.00,-1.65</lane>
+      </lanes>
+   </edge>
+
 
 
    <edge id="1" from="1" to="2" priority="1" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" vclasses="" maxspeed="19.00" length="100.00">0.00,-4.95 100.00,-4.95</lane>
-         <lane id="1_1" depart="0" vclasses="" maxspeed="19.00" length="100.00">0.00,-1.65 100.00,-1.65</lane>
+         <lane id="1_0" depart="1" maxspeed="19.00" length="100.00">0.00,-4.95 100.00,-4.95</lane>
+         <lane id="1_1" depart="0" maxspeed="19.00" length="100.00">0.00,-1.65 100.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="2" from="2" to="3" priority="1" type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" vclasses="" maxspeed="19.00" length="100.00">100.00,-4.95 200.00,-4.95</lane>
-         <lane id="2_1" depart="0" vclasses="" maxspeed="19.00" length="100.00">100.00,-1.65 200.00,-1.65</lane>
+         <lane id="2_0" depart="1" maxspeed="19.00" length="100.00">100.00,-4.95 200.00,-4.95</lane>
+         <lane id="2_1" depart="0" maxspeed="19.00" length="100.00">100.00,-1.65 200.00,-1.65</lane>
       </lanes>
    </edge>
 
@@ -28,8 +64,8 @@
       <requestsize>2</requestsize>
       <lanenumber>2</lanenumber>
       <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
+         <logicitem request="0" response="00" foes="00" cont="0"/>
+         <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
 
@@ -37,26 +73,30 @@
 
    <junction id="1" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
+      <intlanes></intlanes>
       <shape>-0.00,-0.05 -0.00,-6.55</shape>
    </junction>
 
    <junction id="2" type="priority" x="100.00" y="0.00">
       <inclanes>1_0 1_1</inclanes>
+      <intlanes>:2_0_0 :2_1_0</intlanes>
       <shape>100.00,-0.05 100.00,-6.55 100.00,-0.05</shape>
    </junction>
 
    <junction id="3" type="DEAD_END" x="200.00" y="0.00">
       <inclanes>2_0 2_1</inclanes>
+      <intlanes></intlanes>
       <shape>200.00,-6.55 200.00,-0.05</shape>
    </junction>
 
 
+
    <succ edge="1" lane="1_0" junction="2">
-      <succlane lane="2_0" yield="0" dir="s" state="M"/>
+      <succlane lane="2_0" via=":2_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="1" lane="1_1" junction="2">
-      <succlane lane="2_1" yield="0" dir="s" state="M"/>
+      <succlane lane="2_1" via=":2_1_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="3">
@@ -67,5 +107,12 @@
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
 
+
+   <succ edge=":2_0" lane=":2_0_0" junction="2">
+      <succlane lane="2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":2_1" lane=":2_1_0" junction="2">
+      <succlane lane="2_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
 
 </net>
