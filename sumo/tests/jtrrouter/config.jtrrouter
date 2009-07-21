@@ -1,6 +1,8 @@
 import_config_file:../config_all
 binary:$JTRROUTER_BINARY
 copy_test_path:input_net.net.xml
+copy_test_path:bi.net.xml
+copy_test_path:tri.net.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.turns.xml
 copy_test_path:net.net.xml

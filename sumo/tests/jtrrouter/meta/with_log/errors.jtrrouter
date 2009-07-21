@@ -1,2 +1,2 @@
-Error: The network file 'input_net.net.xml' could not be found.
+Error: File 'input_flows.flows.xml' does not exist.
 Quitting (on error).
