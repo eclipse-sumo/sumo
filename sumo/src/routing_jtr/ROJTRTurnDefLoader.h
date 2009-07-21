@@ -136,6 +136,9 @@ private:
     /// @brief The current incoming edge the turning probabilities are set into
     ROJTREdge *myEdge;
 
+    /// @brief Whether the loader has warned about deprecated usage of characters
+    bool myHaveWarnedAboutDeprecatedSources, myHaveWarnedAboutDeprecatedSinks;
+
 };
 
 

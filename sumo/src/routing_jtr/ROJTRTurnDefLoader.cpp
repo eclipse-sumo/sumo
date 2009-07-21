@@ -56,7 +56,9 @@ using namespace std;
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
         : SUMOSAXHandler("turn-definitions"), myNet(net),
-        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0) {}
+        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0), 
+        myHaveWarnedAboutDeprecatedSources(false), 
+        myHaveWarnedAboutDeprecatedSinks(false) {}
 
 
 ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw() {}
@@ -77,6 +79,34 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
     case SUMO_TAG_TOEDGE:
         addToEdge(attrs);
         break;
+    case SUMO_TAG_SINK:
+        if(attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+            std::string edges = attrs.getString(SUMO_ATTR_EDGES);
+            StringTokenizer st(edges, StringTokenizer::WHITECHARS);
+            while(st.hasNext()) {
+                std::string id = st.next();
+                ROEdge *edge = myNet.getEdge(id);
+                if (edge==0) {
+                    throw ProcessError("The edge '" + id + "' declared as a sink is not known.");
+                }
+                edge->setType(ROEdge::ET_SINK);
+            }
+        }
+        break;
+    case SUMO_TAG_SOURCE:
+        if(attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+            std::string edges = attrs.getString(SUMO_ATTR_EDGES);
+            StringTokenizer st(edges, StringTokenizer::WHITECHARS);
+            while(st.hasNext()) {
+                std::string id = st.next();
+                ROEdge *edge = myNet.getEdge(id);
+                if (edge==0) {
+                    throw ProcessError("The edge '" + id + "' declared as a source is not known.");
+                }
+                edge->setType(ROEdge::ET_SOURCE);
+            }
+        }
+        break;
     default:
         break;
     }
@@ -92,6 +122,10 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
         if (edge==0) {
             throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
         }
+        if(!myHaveWarnedAboutDeprecatedSinks) {
+            myHaveWarnedAboutDeprecatedSinks = true;
+            MsgHandler::getWarningInstance()->inform("Using characters for sinks is deprecated; use attribute 'edges' instead.");
+        }
         edge->setType(ROEdge::ET_SINK);
     }
     break;
@@ -99,6 +133,10 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
         ROEdge *edge = myNet.getEdge(chars);
         if (edge==0) {
             throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
+        }
+        if(!myHaveWarnedAboutDeprecatedSources) {
+            myHaveWarnedAboutDeprecatedSources = true;
+            MsgHandler::getWarningInstance()->inform("Using characters for sources is deprecated; use attribute 'edges' instead.");
         }
         edge->setType(ROEdge::ET_SOURCE);
     }
