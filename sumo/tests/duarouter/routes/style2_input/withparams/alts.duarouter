@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/02/09 16:55:19 by SUMO duarouter Version dev-SVN-r6993
+<!-- generated on 07/21/09 11:26:32 by SUMO duarouter Version dev-SVN-r7459
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <sumo-input>input_routes.rou.xml</sumo-input>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        sumo-input="input_routes.rou.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
 </configuration>
 -->
@@ -18,127 +18,127 @@
 <route-alternatives>
    <vehicle id="0" type="0" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="10" type="0" depart="10" color="0.00,0.00,0.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="11" type="0" depart="11" color="1.00,0.00,1.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="20" type="0" depart="20" departpos="0.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="21" type="0" depart="21" departpos="10.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="22" type="0" depart="22" departpos="free">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="23" type="0" depart="23" departpos="random">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="30" type="0" depart="30" departlane="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="31" type="0" depart="31" departlane="1">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="32" type="0" depart="32" departlane="random">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="33" type="0" depart="33" departlane="free">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="34" type="0" depart="34" departlane="departlane">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="40" type="0" depart="40" departspeed="0.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="41" type="0" depart="41" departspeed="1.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="42" type="0" depart="42" departspeed="max">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="43" type="0" depart="43" departspeed="random">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="50" type="0" depart="50" arrivallane="42">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="51" type="0" depart="51" arrivallane="current">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="60" type="0" depart="60" arrivalpos="42.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="61" type="0" depart="61" arrivalpos="max">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="62" type="0" depart="62" arrivalpos="random">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="70" type="0" depart="70" arrivalspeed="42.00">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="71" type="0" depart="71" arrivalspeed="current">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="80" type="0" depart="80" repno="0" period="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="81" type="0" depart="81" repno="1" period="1">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
 </route-alternatives>

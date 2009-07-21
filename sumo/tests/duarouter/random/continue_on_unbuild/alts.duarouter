@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/10/08 12:40:33 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/21/09 11:27:16 by SUMO duarouter Version dev-SVN-r7459
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
-   <processing>
-      <continue-on-unbuild>true</continue-on-unbuild>
-      <random-per-second>1</random-per-second>
-   </processing>
+    <processing
+        continue-on-unbuild="true"
+        random-per-second="1"
+    />
 
-   <time>
-      <begin>0</begin>
-      <end>10</end>
-   </time>
+    <time
+        begin="0"
+        end="10"
+    />
 
 </configuration>
 -->
@@ -32,7 +32,7 @@
    </vehicle>
    <vehicle id="Rand3" depart="3">
       <routeDistribution last="0">
-         <route cost="53.50" probability="1.00" edges="left2end end rend"/>
+         <route cost="53.74" probability="1.00" edges="left2end end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="Rand6" depart="6">

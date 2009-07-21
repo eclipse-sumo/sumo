@@ -1,55 +1,78 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/21/09 11:25:28 by SUMO netconvert Version dev-SVN-r7459
+<configuration>
+
+    <input
+        xml-node-files="./duarouter\input_dua2s.nod.xml"
+        xml-edge-files="./duarouter\input_dua2s.edg.xml"
+    />
+
+    <output
+        output-file="./duarouter\input_net.net.xml"
+    />
+
+    <processing
+        no-internal-links="true"
+    />
+
+    <report
+        verbose="true"
+    />
+
+</configuration>
+-->
+
 <net>
 
-   <net-offset>500.000000,0.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,2500.000000,500.000000</conv-boundary>
-   <orig-boundary>-500.000000,0.000000,2000.000000,500.000000</orig-boundary>
+   <net-offset>500.00,0.00</net-offset>
+   <conv-boundary>0.00,0.00,2500.00,500.00</conv-boundary>
+   <orig-boundary>-500.00,0.00,2000.00,500.00</orig-boundary>
    <orig-proj>!</orig-proj>
-
-   <node_count>7</node_count>
 
 
    <edge id="beg" from="absBeg" to="beg" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" vclasses="" maxspeed="27.80" length="498.55">0.00,-4.95 498.55,-4.95</lane>
-         <lane id="beg_1" depart="0" vclasses="" maxspeed="27.80" length="498.55">0.00,-1.65 498.55,-1.65</lane>
+         <lane id="beg_0" depart="1" maxspeed="27.80" length="498.55">0.00,-4.95 498.55,-4.95</lane>
+         <lane id="beg_1" depart="0" maxspeed="27.80" length="498.55">0.00,-1.65 498.55,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="beg2left" from="beg" to="begleft" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="beg2left_0" depart="1" vclasses="" maxspeed="27.80" length="495.30">501.65,1.45 501.65,496.75</lane>
+         <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.30">501.65,1.45 501.65,496.75</lane>
       </lanes>
    </edge>
 
    <edge id="end" from="end" to="absEnd" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="end_0" depart="1" vclasses="" maxspeed="27.80" length="498.55">1501.45,-4.95 2000.00,-4.95</lane>
-         <lane id="end_1" depart="0" vclasses="" maxspeed="27.80" length="498.55">1501.45,-1.65 2000.00,-1.65</lane>
+         <lane id="end_0" depart="1" maxspeed="27.80" length="498.55">1501.45,-4.95 2000.00,-4.95</lane>
+         <lane id="end_1" depart="0" maxspeed="27.80" length="498.55">1501.45,-1.65 2000.00,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="left" from="begleft" to="endleft" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="left_0" depart="1" vclasses="" maxspeed="27.80" length="993.50">503.25,498.35 1496.75,498.35</lane>
+         <lane id="left_0" depart="1" maxspeed="27.80" length="993.50">503.25,498.35 1496.75,498.35</lane>
       </lanes>
    </edge>
 
    <edge id="left2end" from="endleft" to="end" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="left2end_0" depart="1" vclasses="" maxspeed="27.80" length="495.30">1498.35,496.75 1498.35,1.45</lane>
+         <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.30">1498.35,496.75 1498.35,1.45</lane>
       </lanes>
    </edge>
 
    <edge id="middle" from="beg" to="end" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="middle_0" depart="1" vclasses="" maxspeed="13.90" length="990.50">504.75,-1.65 1495.25,-1.65</lane>
+         <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50">504.75,-1.65 1495.25,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="rend" from="absEnd" to="rabsEnd" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="rend_0" depart="1" vclasses="" maxspeed="27.80" length="493.45">2000.00,-4.95 2493.45,-4.95</lane>
-         <lane id="rend_1" depart="0" vclasses="" maxspeed="27.80" length="493.45">2000.00,-1.65 2493.45,-1.65</lane>
+         <lane id="rend_0" depart="1" maxspeed="27.80" length="500.00">2000.00,-4.95 2500.00,-4.95</lane>
+         <lane id="rend_1" depart="0" maxspeed="27.80" length="500.00">2000.00,-1.65 2500.00,-1.65</lane>
       </lanes>
    </edge>
 
@@ -106,7 +129,7 @@
 
    <junction id="absBeg" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>-0.05,-0.05</shape>
+      <shape>-0.00,-0.05 -0.00,-6.55</shape>
    </junction>
 
    <junction id="absEnd" type="priority" x="2000.00" y="0.00">
@@ -136,7 +159,7 @@
 
    <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="0.00">
       <inclanes>rend_0 rend_1</inclanes>
-      <shape>2493.45,-6.55 2493.45,-0.05</shape>
+      <shape>2500.00,-6.55 2500.00,-0.05</shape>
    </junction>
 
 
@@ -169,7 +192,7 @@
    </succ>
 
    <succ edge="middle" lane="middle_0" junction="end">
-      <succlane lane="end_0" yield="1" dir="s" state="m"/>
+      <succlane lane="end_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="rend" lane="rend_0" junction="rabsEnd">

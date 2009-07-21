@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/11/08 10:05:27 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/21/09 11:26:32 by SUMO duarouter Version dev-SVN-r7459
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <sumo-input>input_routes.rou.xml</sumo-input>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        sumo-input="input_routes.rou.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
 </configuration>
 -->
@@ -19,23 +19,23 @@
    <vtype model="SUMO_KRAUSS" id="0" accel="2.00" decel="4.00" sigma="0.90" length="5.50" maxspeed="70.00" tau="1.00"/>
    <vehicle id="0" type="0" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vtype model="SUMO_KRAUSS" id="1" accel="2.00" decel="4.00" sigma="0.90" length="5.50" maxspeed="70.00" tau="1.00"/>
    <vehicle id="1" type="1" depart="0">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="10" type="0" depart="10">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="11" type="1" depart="10">
       <routeDistribution last="0">
-         <route cost="124.88" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
 </route-alternatives>
