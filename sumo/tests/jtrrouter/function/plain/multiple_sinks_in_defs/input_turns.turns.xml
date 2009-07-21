@@ -1,5 +1,5 @@
 <turns>
-	<sink>end</sink>
-	<sink>right2end</sink>
-	<sink>left2end</sink>
+	<sink edges="end"/>
+	<sink edges="right2end"/>
+	<sink edges="left2end"/>
 </turns>

@@ -1,6 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Plain test
 plain
 
@@ -22,3 +19,9 @@ multiple_sinks
 # Test for multiple sinks which are defined in defs
 multiple_sinks_in_defs
 
+# Same as multiple_sinks_in_defs but using a single xml-element
+multiple_sinks_in_defs__single
+
+
+# Tests deprecated definition of sinks / sourced
+_deprecated_

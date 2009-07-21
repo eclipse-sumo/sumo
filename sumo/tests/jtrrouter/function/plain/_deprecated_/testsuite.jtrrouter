@@ -1,0 +1,6 @@
+# straight only with sinks which are defined in defs
+straight_only_sinks_in_defs
+
+# Test for multiple sinks which are defined in defs
+multiple_sinks_in_defs
+

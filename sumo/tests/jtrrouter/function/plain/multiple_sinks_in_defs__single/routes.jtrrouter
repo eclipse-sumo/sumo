@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/12/07 09:55:49 by SUMO jtrrouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <flow-definition>input_flows.flows.xml</flow-definition>
+      <turn-definition>input_turns.turns.xml</turn-definition>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <continue-on-unbuild>true</continue-on-unbuild>
+      <turn-defaults>50,50,0,0</turn-defaults>
+   </processing>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="0_0" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_1" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_10" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_11" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_12" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_13" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_14" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_15" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_16" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_17" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_18" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_19" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_2" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_20" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_21" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_22" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_23" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_24" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_25" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_26" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_27" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_28" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_29" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_3" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_30" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_31" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_32" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_33" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_34" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_35" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_36" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_37" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_38" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_39" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_4" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_40" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_41" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_42" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_43" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_44" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_45" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right middle end"/>
+   </vehicle>
+   <vehicle id="0_46" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_47" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_48" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_49" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_5" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_50" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_51" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_52" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_53" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_54" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_55" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_56" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_57" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle end"/>
+   </vehicle>
+   <vehicle id="0_58" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_59" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_6" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right middle end"/>
+   </vehicle>
+   <vehicle id="0_60" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_61" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_62" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_63" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle end"/>
+   </vehicle>
+   <vehicle id="0_64" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_65" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_66" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_67" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_68" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_69" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_7" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_70" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle -right2end -right -beg2right middle -right2end -right -beg2right middle end"/>
+   </vehicle>
+   <vehicle id="0_71" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_72" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_73" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_74" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_75" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_76" depart="0">
+      <route edges="beg middle -right2end -right -beg2right middle end"/>
+   </vehicle>
+   <vehicle id="0_77" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_78" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_79" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_8" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_80" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_81" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_82" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_83" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_84" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_85" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_86" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_87" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_88" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_89" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_9" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_90" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_91" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_92" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_93" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_94" depart="0">
+      <route edges="beg middle end"/>
+   </vehicle>
+   <vehicle id="0_95" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_96" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_97" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+   <vehicle id="0_98" depart="0">
+      <route edges="beg beg2right right right2end"/>
+   </vehicle>
+   <vehicle id="0_99" depart="0">
+      <route edges="beg middle -right2end -right -beg2right beg2left left left2end"/>
+   </vehicle>
+</routes>
