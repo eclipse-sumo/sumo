@@ -77,7 +77,7 @@ MSInternalJunction::postloadInit() throw(ProcessError) {
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
                                         &myRespond, requestPos,
-                                        MSLogicJunction::LinkFoes());
+                                        MSLogicJunction::LinkFoes(), true);
             requestPos++;
         }
     }

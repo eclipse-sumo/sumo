@@ -56,13 +56,19 @@ public:
     unsigned int nInLanes();
 
     /// Returns the foes of the given link
-    virtual const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const {
+    virtual const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
         return myDummyFoes;
     }
 
     unsigned int getLogicSize() const throw() {
         return myNLinks;
     }
+
+    virtual bool isCrossing() const throw() {
+        return false;
+    }
+
+
 
 
 protected:

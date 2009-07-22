@@ -109,8 +109,17 @@ public:
     }
 
     /// Returns the foes of the given link
-    const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const {
+    const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const throw() {
         return (*myLogic)[linkIndex];
+    }
+
+    virtual bool isCrossing() const throw() {
+        for(Foes::const_iterator i=myLogic->begin(); i!=myLogic->end(); ++i) {
+            if((*i).any()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 private:

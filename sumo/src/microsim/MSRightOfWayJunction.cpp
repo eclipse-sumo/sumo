@@ -87,6 +87,7 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
     unsigned int requestPos = 0;
     LaneCont::iterator i;
     // going through the incoming lanes...
+    bool isCrossing = myLogic->isCrossing();
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();
         // ... set information for every link
@@ -94,7 +95,7 @@ MSRightOfWayJunction::postloadInit() throw(ProcessError) {
             if (myLogic->getLogicSize()<=requestPos) {
                 throw ProcessError("Found invalid logic position of a link (network error)");
             }
-            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, myLogic->getFoesFor(requestPos));
+            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, myLogic->getFoesFor(requestPos), isCrossing);
             requestPos++;
         }
     }

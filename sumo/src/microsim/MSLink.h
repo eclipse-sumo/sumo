@@ -168,7 +168,7 @@ public:
     void setRequestInformation(
         MSLogicJunction::Request *request, unsigned int requestIdx,
         MSLogicJunction::Respond *respond, unsigned int respondIdx,
-        const MSLogicJunction::LinkFoes &foes) throw();
+        const MSLogicJunction::LinkFoes &foes, bool isCrossing) throw();
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -281,12 +281,12 @@ public:
         return myLength;
     }
 
-    /** @brief Returns whether this link has any foes
+    /** @brief Returns whether this link belongs to a junction where more than one edge is incoming
      *
-     * @return Whether any other link is a foe to this
+     * @return Whether any foe links exist
      */
-    bool hasAnyFoes() const throw() {
-        return myFoes.any();
+    bool isCrossing() const throw() {
+        return myIsCrossing;
     }
 
 
@@ -341,6 +341,9 @@ private:
 
     /// @brief This links foes
     MSLogicJunction::LinkFoes myFoes;
+
+    /// @brief Whether any foe links exist
+    bool myIsCrossing;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used

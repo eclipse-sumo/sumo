@@ -842,7 +842,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             }
             MSEdge::EdgeBasicFunction ef = approachedLane->getEdge()->getPurpose();
             hadVehicle |= approachedLane->getVehicleNumber()!=0;
-            nextIsInternal &= item.myLink->hasAnyFoes();
+            nextIsInternal &= item.myLink->isCrossing();
             //
             if (nextIsInternal) {
                 // the free place on internal lanes is not counted - vehicles must keep them free
@@ -852,6 +852,10 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                     seenSpace += leader->getVehicleType().brakeGap(leader->getSpeed());
                 }
             } else {
+                bool nextDisallows1 = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && seenSpace<.1;
+                if (nextDisallows1) {
+                    nextDisallows1 &= approachedLane->getLastVehicle()->getPositionOnLane() < approachedLane->getLastVehicle()->getVehicleType().getLength();
+                }
                 // the free space on plain lanes is counted
                 // !!!: on longer lanes, only the place some meters in front... (next extension)
                 seenSpace = seenSpace + approachedLane->length() - approachedLane->getVehLenSum();
@@ -862,11 +866,11 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 seenLanes += approachedLane->length();
                 // we also do not want the vehicle continue if there is not enough place
                 //  behind the last vehicle on the approached lane (and we are currently standing)
-                bool nextDisallows = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && approachedLane->getLastVehicle()->getSpeed()<.1;
-                if (nextDisallows) {
-                    nextDisallows &= approachedLane->getLastVehicle()->getPositionOnLane() < approachedLane->getLastVehicle()->getVehicleType().getLength();
+                bool nextDisallows2 = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && approachedLane->getLastVehicle()->getSpeed()<.1;
+                if (nextDisallows2) {
+                    nextDisallows2 &= approachedLane->getLastVehicle()->getPositionOnLane() < approachedLane->getLastVehicle()->getVehicleType().getLength();
                 }
-                if (nextDisallows&&lastLinkToInternal>=0) {
+                if ((nextDisallows1||nextDisallows2)&&lastLinkToInternal>=0) {
                     removalBegin = lastLinkToInternal;
                 }
                 nextSeenNonInternal = approachedLane;

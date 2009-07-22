@@ -67,7 +67,7 @@ MSLink::~MSLink() throw() {}
 void
 MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
                               MSLogicJunction::Respond *respond, unsigned int respondIdx,
-                              const MSLogicJunction::LinkFoes &foes) throw() {
+                              const MSLogicJunction::LinkFoes &foes, bool isCrossing) throw() {
     assert(myRequest==0);
     assert(myRespond==0);
     myRequest = request;
@@ -75,6 +75,7 @@ MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int re
     myRespond = respond;
     myRespondIdx = respondIdx;
     myFoes = foes;
+    myIsCrossing = isCrossing;
 }
 
 
