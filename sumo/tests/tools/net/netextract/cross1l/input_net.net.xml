@@ -1,33 +1,29 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/21/08 09:24:55 by SUMO netconvert Version 0.9.7
+<!-- generated on 07/22/09 13:58:02 by SUMO netconvert Version dev-SVN-r7470
 <configuration>
 
-   <input>
-      <xml-node-files>../data/examples\simple_nets\cross\cross1l\cross1l.nod.xml</xml-node-files>
-      <xml-edge-files>../data/examples\simple_nets\cross\cross1l\cross1l.edg.xml</xml-edge-files>
-   </input>
+    <input
+        xml-node-files="tools\net\netextract\cross1l\cross1l.nod.xml"
+        xml-edge-files="tools\net\netextract\cross1l\cross1l.edg.xml"
+    />
 
-   <output>
-      <output-file>../data/examples\simple_nets\cross\cross1l\cross1l.net.xml</output-file>
-   </output>
+    <output
+        output-file="tools\net\netextract\cross1l\input_net.net.xml"
+    />
 
-   <processing>
-      <add-internal-links>true</add-internal-links>
-   </processing>
-
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
 
 <net>
 
-   <net-offset>500.000000,500.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,1000.000000,1000.000000</conv-boundary>
-   <orig-boundary>-500.000000,-500.000000,500.000000,500.000000</orig-boundary>
+   <net-offset>500.00,500.00</net-offset>
+   <conv-boundary>0.00,0.00,1000.00,1000.00</conv-boundary>
+   <orig-boundary>-500.00,-500.00,500.00,500.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edge id=":0_0" function="internal">
@@ -151,54 +147,52 @@
    </edge>
 
 
-   <node_count>5</node_count>
-
 
    <edge id="1i" from="1" to="0" priority="78" type="" function="normal">
       <lanes>
-         <lane id="1i_0" depart="1" vclasses="" maxspeed="19.44" length="495.25">0.00,498.35 495.25,498.35</lane>
+         <lane id="1i_0" depart="1" maxspeed="19.44" length="495.25">0.00,498.35 495.25,498.35</lane>
       </lanes>
    </edge>
 
    <edge id="1o" from="0" to="1" priority="46" type="" function="normal">
       <lanes>
-         <lane id="1o_0" depart="1" vclasses="" maxspeed="11.11" length="495.25">495.25,501.65 0.00,501.65</lane>
+         <lane id="1o_0" depart="1" maxspeed="11.11" length="495.25">495.25,501.65 0.00,501.65</lane>
       </lanes>
    </edge>
 
    <edge id="2i" from="2" to="0" priority="78" type="" function="normal">
       <lanes>
-         <lane id="2i_0" depart="1" vclasses="" maxspeed="19.44" length="495.25">1000.00,501.65 504.75,501.65</lane>
+         <lane id="2i_0" depart="1" maxspeed="19.44" length="495.25">1000.00,501.65 504.75,501.65</lane>
       </lanes>
    </edge>
 
    <edge id="2o" from="0" to="2" priority="46" type="" function="normal">
       <lanes>
-         <lane id="2o_0" depart="1" vclasses="" maxspeed="11.11" length="495.25">504.75,498.35 1000.00,498.35</lane>
+         <lane id="2o_0" depart="1" maxspeed="11.11" length="495.25">504.75,498.35 1000.00,498.35</lane>
       </lanes>
    </edge>
 
    <edge id="3i" from="3" to="0" priority="78" type="" function="normal">
       <lanes>
-         <lane id="3i_0" depart="1" vclasses="" maxspeed="19.44" length="495.25">501.65,0.00 501.65,495.25</lane>
+         <lane id="3i_0" depart="1" maxspeed="19.44" length="495.25">501.65,0.00 501.65,495.25</lane>
       </lanes>
    </edge>
 
    <edge id="3o" from="0" to="3" priority="46" type="" function="normal">
       <lanes>
-         <lane id="3o_0" depart="1" vclasses="" maxspeed="11.11" length="495.25">498.35,495.25 498.35,0.00</lane>
+         <lane id="3o_0" depart="1" maxspeed="11.11" length="495.25">498.35,495.25 498.35,0.00</lane>
       </lanes>
    </edge>
 
    <edge id="4i" from="4" to="0" priority="78" type="" function="normal">
       <lanes>
-         <lane id="4i_0" depart="1" vclasses="" maxspeed="19.44" length="495.25">498.35,1000.00 498.35,504.75</lane>
+         <lane id="4i_0" depart="1" maxspeed="19.44" length="495.25">498.35,1000.00 498.35,504.75</lane>
       </lanes>
    </edge>
 
    <edge id="4o" from="0" to="4" priority="46" type="" function="normal">
       <lanes>
-         <lane id="4o_0" depart="1" vclasses="" maxspeed="11.11" length="495.25">501.65,504.75 501.65,1000.00</lane>
+         <lane id="4o_0" depart="1" maxspeed="11.11" length="495.25">501.65,504.75 501.65,1000.00</lane>
       </lanes>
    </edge>
 

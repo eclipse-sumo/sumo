@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/20/09 14:03:45 by SUMO netconvert Version 0.9.7
+<!-- generated on 07/22/09 13:58:03 by SUMO netconvert Version dev-SVN-r7470
 <configuration>
 
-   <input>
-      <xml-node-files>vss1.nod.xml</xml-node-files>
-      <xml-edge-files>vss1.edg.xml</xml-edge-files>
-   </input>
+    <input
+        xml-node-files="tools\traceExporter\vss1.nod.xml"
+        xml-edge-files="tools\traceExporter\vss1.edg.xml"
+    />
 
-   <output>
-      <output-file>input_net.net.xml</output-file>
-   </output>
+    <output
+        output-file="tools\traceExporter\input_net.net.xml"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
@@ -78,46 +78,46 @@
 
    <edge id="beg" from="absBeg" to="beg" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" vclasses="" maxspeed="27.80" length="498.55">0.00,15.05 498.55,15.05</lane>
-         <lane id="beg_1" depart="0" vclasses="" maxspeed="27.80" length="498.55">0.00,18.35 498.55,18.35</lane>
+         <lane id="beg_0" depart="1" maxspeed="27.80" length="498.55">0.00,15.05 498.55,15.05</lane>
+         <lane id="beg_1" depart="0" maxspeed="27.80" length="498.55">0.00,18.35 498.55,18.35</lane>
       </lanes>
    </edge>
 
    <edge id="beg2left" from="beg" to="begleft" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="beg2left_0" depart="1" vclasses="" maxspeed="27.80" length="495.30">501.65,21.45 501.65,516.75</lane>
+         <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.30">501.65,21.45 501.65,516.75</lane>
       </lanes>
    </edge>
 
    <edge id="end" from="end" to="absEnd" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="end_0" depart="1" vclasses="" maxspeed="27.80" length="498.55">1501.45,15.05 2000.00,15.05</lane>
-         <lane id="end_1" depart="0" vclasses="" maxspeed="27.80" length="498.55">1501.45,18.35 2000.00,18.35</lane>
+         <lane id="end_0" depart="1" maxspeed="27.80" length="498.55">1501.45,15.05 2000.00,15.05</lane>
+         <lane id="end_1" depart="0" maxspeed="27.80" length="498.55">1501.45,18.35 2000.00,18.35</lane>
       </lanes>
    </edge>
 
    <edge id="left" from="begleft" to="endleft" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="left_0" depart="1" vclasses="" maxspeed="27.80" length="993.50">503.25,518.35 1496.75,518.35</lane>
+         <lane id="left_0" depart="1" maxspeed="27.80" length="993.50">503.25,518.35 1496.75,518.35</lane>
       </lanes>
    </edge>
 
    <edge id="left2end" from="endleft" to="end" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="left2end_0" depart="1" vclasses="" maxspeed="27.80" length="495.30">1498.35,516.75 1498.35,21.45</lane>
+         <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.30">1498.35,516.75 1498.35,21.45</lane>
       </lanes>
    </edge>
 
    <edge id="middle" from="beg" to="end" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="middle_0" depart="1" vclasses="" maxspeed="13.90" length="990.50">504.75,18.35 1495.25,18.35</lane>
+         <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50">504.75,18.35 1495.25,18.35</lane>
       </lanes>
    </edge>
 
    <edge id="rend" from="absEnd" to="rabsEnd" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="rend_0" depart="1" vclasses="" maxspeed="27.80" length="500.00">2000.00,15.05 2500.00,15.05</lane>
-         <lane id="rend_1" depart="0" vclasses="" maxspeed="27.80" length="500.00">2000.00,18.35 2500.00,18.35</lane>
+         <lane id="rend_0" depart="1" maxspeed="27.80" length="500.00">2000.00,15.05 2500.00,15.05</lane>
+         <lane id="rend_1" depart="0" maxspeed="27.80" length="500.00">2000.00,18.35 2500.00,18.35</lane>
       </lanes>
    </edge>
 
@@ -157,7 +157,7 @@
       <lanenumber>2</lanenumber>
       <logic>
          <logicitem request="0" response="00" foes="10" cont="0"/>
-         <logicitem request="1" response="01" foes="01" cont="0"/>
+         <logicitem request="1" response="00" foes="01" cont="0"/>
       </logic>
    </row-logic>
 
@@ -263,7 +263,7 @@
    </succ>
 
    <succ edge="middle" lane="middle_0" junction="end">
-      <succlane lane="end_0" via=":end_1_0" yield="1" dir="s" state="m"/>
+      <succlane lane="end_0" via=":end_1_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="rend" lane="rend_0" junction="rabsEnd">
