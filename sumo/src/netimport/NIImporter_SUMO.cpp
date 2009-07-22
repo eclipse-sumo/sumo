@@ -189,7 +189,8 @@ NIImporter_SUMO::myCharacters(SumoXMLTag element,
                               const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_LANE:
-        if (myCurrentLane!=0) {
+        // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
+        if (myCurrentLane!=0&&chars.length()!=0) {
             myCurrentLane->shape = GeomConvHelper::parseShape(chars);
         }
         break;
@@ -245,6 +246,10 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane = new LaneAttrs;
     myCurrentLane->depart = attrs.getBoolSecure(SUMO_ATTR_DEPART, false);
     myCurrentLane->maxSpeed = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, -1);
+    if(attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+        // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
+        myCurrentLane->shape = GeomConvHelper::parseShape(attrs.getString(SUMO_ATTR_SHAPE));
+    }
 }
 
 
