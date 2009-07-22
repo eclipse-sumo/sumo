@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/19/09 15:28:31 by SUMO netgen Version dev-SVN-r6824
+<!-- generated on 07/22/09 14:16:32 by SUMO netgen Version dev-SVN-r7470
 <configuration>
 
-   <grid_network>
-      <grid-net>true</grid-net>
-      <grid-number>3</grid-number>
-      <grid-length>40</grid-length>
-   </grid_network>
+    <grid_network
+        grid-net="true"
+        grid-number="3"
+        grid-length="40"
+    />
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output
+        output-file="traci\VariableRetrieval\TrafficLight\ID_LIST\one_tl\net.net.xml"
+    />
 
-   <tls_building>
-      <explicite-tls>0/0</explicite-tls>
-   </tls_building>
+    <tls_building
+        explicite-tls="0/0"
+    />
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing
+        no-internal-links="true"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
@@ -38,145 +38,145 @@
 
    <edge id="0/0to0/1" from="0/0" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/0to0/1_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">1.65,3.25 1.65,35.25</lane>
+         <lane id="0/0to0/1_0" depart="1" maxspeed="13.90" length="32.00">1.65,3.25 1.65,35.25</lane>
       </lanes>
    </edge>
 
    <edge id="0/0to1/0" from="0/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/0to1/0_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">3.25,-1.65 35.25,-1.65</lane>
+         <lane id="0/0to1/0_0" depart="1" maxspeed="13.90" length="32.00">3.25,-1.65 35.25,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="0/1to0/0" from="0/1" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/1to0/0_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">-1.65,35.25 -1.65,3.25</lane>
+         <lane id="0/1to0/0_0" depart="1" maxspeed="13.90" length="32.00">-1.65,35.25 -1.65,3.25</lane>
       </lanes>
    </edge>
 
    <edge id="0/1to0/2" from="0/1" to="0/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/1to0/2_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">1.65,44.75 1.65,76.75</lane>
+         <lane id="0/1to0/2_0" depart="1" maxspeed="13.90" length="32.00">1.65,44.75 1.65,76.75</lane>
       </lanes>
    </edge>
 
    <edge id="0/1to1/1" from="0/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/1to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">4.75,38.35 35.25,38.35</lane>
+         <lane id="0/1to1/1_0" depart="1" maxspeed="13.90" length="30.50">4.75,38.35 35.25,38.35</lane>
       </lanes>
    </edge>
 
    <edge id="0/2to0/1" from="0/2" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/2to0/1_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">-1.65,76.75 -1.65,44.75</lane>
+         <lane id="0/2to0/1_0" depart="1" maxspeed="13.90" length="32.00">-1.65,76.75 -1.65,44.75</lane>
       </lanes>
    </edge>
 
    <edge id="0/2to1/2" from="0/2" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/2to1/2_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">3.25,78.35 35.25,78.35</lane>
+         <lane id="0/2to1/2_0" depart="1" maxspeed="13.90" length="32.00">3.25,78.35 35.25,78.35</lane>
       </lanes>
    </edge>
 
    <edge id="1/0to0/0" from="1/0" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/0to0/0_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">35.25,1.65 3.25,1.65</lane>
+         <lane id="1/0to0/0_0" depart="1" maxspeed="13.90" length="32.00">35.25,1.65 3.25,1.65</lane>
       </lanes>
    </edge>
 
    <edge id="1/0to1/1" from="1/0" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/0to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">41.65,4.75 41.65,35.25</lane>
+         <lane id="1/0to1/1_0" depart="1" maxspeed="13.90" length="30.50">41.65,4.75 41.65,35.25</lane>
       </lanes>
    </edge>
 
    <edge id="1/0to2/0" from="1/0" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/0to2/0_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">44.75,-1.65 76.75,-1.65</lane>
+         <lane id="1/0to2/0_0" depart="1" maxspeed="13.90" length="32.00">44.75,-1.65 76.75,-1.65</lane>
       </lanes>
    </edge>
 
    <edge id="1/1to0/1" from="1/1" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to0/1_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">35.25,41.65 4.75,41.65</lane>
+         <lane id="1/1to0/1_0" depart="1" maxspeed="13.90" length="30.50">35.25,41.65 4.75,41.65</lane>
       </lanes>
    </edge>
 
    <edge id="1/1to1/0" from="1/1" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to1/0_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">38.35,35.25 38.35,4.75</lane>
+         <lane id="1/1to1/0_0" depart="1" maxspeed="13.90" length="30.50">38.35,35.25 38.35,4.75</lane>
       </lanes>
    </edge>
 
    <edge id="1/1to1/2" from="1/1" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to1/2_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">41.65,44.75 41.65,75.25</lane>
+         <lane id="1/1to1/2_0" depart="1" maxspeed="13.90" length="30.50">41.65,44.75 41.65,75.25</lane>
       </lanes>
    </edge>
 
    <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">44.75,38.35 75.25,38.35</lane>
+         <lane id="1/1to2/1_0" depart="1" maxspeed="13.90" length="30.50">44.75,38.35 75.25,38.35</lane>
       </lanes>
    </edge>
 
    <edge id="1/2to0/2" from="1/2" to="0/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/2to0/2_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">35.25,81.65 3.25,81.65</lane>
+         <lane id="1/2to0/2_0" depart="1" maxspeed="13.90" length="32.00">35.25,81.65 3.25,81.65</lane>
       </lanes>
    </edge>
 
    <edge id="1/2to1/1" from="1/2" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/2to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">38.35,75.25 38.35,44.75</lane>
+         <lane id="1/2to1/1_0" depart="1" maxspeed="13.90" length="30.50">38.35,75.25 38.35,44.75</lane>
       </lanes>
    </edge>
 
    <edge id="1/2to2/2" from="1/2" to="2/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/2to2/2_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">44.75,78.35 76.75,78.35</lane>
+         <lane id="1/2to2/2_0" depart="1" maxspeed="13.90" length="32.00">44.75,78.35 76.75,78.35</lane>
       </lanes>
    </edge>
 
    <edge id="2/0to1/0" from="2/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/0to1/0_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">76.75,1.65 44.75,1.65</lane>
+         <lane id="2/0to1/0_0" depart="1" maxspeed="13.90" length="32.00">76.75,1.65 44.75,1.65</lane>
       </lanes>
    </edge>
 
    <edge id="2/0to2/1" from="2/0" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/0to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">81.65,3.25 81.65,35.25</lane>
+         <lane id="2/0to2/1_0" depart="1" maxspeed="13.90" length="32.00">81.65,3.25 81.65,35.25</lane>
       </lanes>
    </edge>
 
    <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="30.50">75.25,41.65 44.75,41.65</lane>
+         <lane id="2/1to1/1_0" depart="1" maxspeed="13.90" length="30.50">75.25,41.65 44.75,41.65</lane>
       </lanes>
    </edge>
 
    <edge id="2/1to2/0" from="2/1" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to2/0_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">78.35,35.25 78.35,3.25</lane>
+         <lane id="2/1to2/0_0" depart="1" maxspeed="13.90" length="32.00">78.35,35.25 78.35,3.25</lane>
       </lanes>
    </edge>
 
    <edge id="2/1to2/2" from="2/1" to="2/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to2/2_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">81.65,44.75 81.65,76.75</lane>
+         <lane id="2/1to2/2_0" depart="1" maxspeed="13.90" length="32.00">81.65,44.75 81.65,76.75</lane>
       </lanes>
    </edge>
 
    <edge id="2/2to1/2" from="2/2" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/2to1/2_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">76.75,81.65 44.75,81.65</lane>
+         <lane id="2/2to1/2_0" depart="1" maxspeed="13.90" length="32.00">76.75,81.65 44.75,81.65</lane>
       </lanes>
    </edge>
 
    <edge id="2/2to2/1" from="2/2" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/2to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="32.00">78.35,76.75 78.35,44.75</lane>
+         <lane id="2/2to2/1_0" depart="1" maxspeed="13.90" length="32.00">78.35,76.75 78.35,44.75</lane>
       </lanes>
    </edge>
 
@@ -325,10 +325,12 @@
    <tl-logic type="static">
       <key>0/0</key>
       <subkey>0</subkey>
-      <phaseno>2</phaseno>
+      <phaseno>4</phaseno>
       <offset>0</offset>
-      <phase duration="31" state="GgGg"/>
-      <phase duration="4" state="yyyy"/>
+      <phase duration="31" state="GgGr"/>
+      <phase duration="4" state="yyyr"/>
+      <phase duration="31" state="GrGg"/>
+      <phase duration="4" state="yryy"/>
    </tl-logic>
 
 
