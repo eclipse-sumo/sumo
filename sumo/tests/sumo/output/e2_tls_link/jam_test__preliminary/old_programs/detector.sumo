@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/28/09 11:24:28 by SUMO sumo Version dev-SVN-r6670
+<!-- generated on 07/22/09 07:50:51 by SUMO sumo Version dev-SVN-r7459
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
-   </input>
+    <input
+        net-file="net.net.xml"
+        additional-files="input_routes.rou.xml,input_additional.add.xml"
+    />
 
-   <time>
-      <begin>0</begin>
-      <end>1000</end>
-   </time>
+    <time
+        begin="0"
+        end="1000"
+    />
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
 
 </configuration>
 -->
 
 <detector>
    <interval begin="0" end="43" id="3/1to2/1" nSamples="0" meanSpeed="-1.00" meanOccupancy="0.00" maxOccupancy="0.00" meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0" haltingDurationSum="0" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0" intervalHaltingDurationSum="0" startedHalts="0.00" meanVehicleNumber="0.00" maxVehicleNumber="0" />
-   <interval begin="74" end="129" id="3/1to2/1" nSamples="372" meanSpeed="1.90" meanOccupancy="37.26" maxOccupancy="55.25" meanMaxJamLengthInVehicles="5.00" meanMaxJamLengthInMeters="25.02" maxJamLengthInVehicles="10" maxJamLengthInMeters="50.05" jamLengthInVehiclesSum="275" jamLengthInMetersSum="1376.02" meanHaltingDuration="40.66" maxHaltingDuration="34" haltingDurationSum="275" meanIntervalHaltingDuration="40.66" maxIntervalHaltingDuration="34" intervalHaltingDurationSum="275" startedHalts="10.00" meanVehicleNumber="6.76" maxVehicleNumber="10" />
+   <interval begin="74" end="129" id="3/1to2/1" nSamples="372" meanSpeed="1.91" meanOccupancy="37.22" maxOccupancy="55.25" meanMaxJamLengthInVehicles="5.00" meanMaxJamLengthInMeters="25.02" maxJamLengthInVehicles="10" maxJamLengthInMeters="50.05" jamLengthInVehiclesSum="275" jamLengthInMetersSum="1376.04" meanHaltingDuration="40.66" maxHaltingDuration="34" haltingDurationSum="275" meanIntervalHaltingDuration="40.66" maxIntervalHaltingDuration="34" intervalHaltingDurationSum="275" startedHalts="10.00" meanVehicleNumber="6.76" maxVehicleNumber="10" />
    <interval begin="160" end="215" id="3/1to2/1" nSamples="0" meanSpeed="-1.00" meanOccupancy="0.00" maxOccupancy="0.00" meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0" haltingDurationSum="0" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0" intervalHaltingDurationSum="0" startedHalts="0.00" meanVehicleNumber="0.00" maxVehicleNumber="0" />
    <interval begin="246" end="301" id="3/1to2/1" nSamples="0" meanSpeed="-1.00" meanOccupancy="0.00" maxOccupancy="0.00" meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0" haltingDurationSum="0" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0" intervalHaltingDurationSum="0" startedHalts="0.00" meanVehicleNumber="0.00" maxVehicleNumber="0" />
    <interval begin="332" end="387" id="3/1to2/1" nSamples="0" meanSpeed="-1.00" meanOccupancy="0.00" maxOccupancy="0.00" meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0" haltingDurationSum="0" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0" intervalHaltingDurationSum="0" startedHalts="0.00" meanVehicleNumber="0.00" maxVehicleNumber="0" />

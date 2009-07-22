@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/03/08 13:38:37 by SUMO sumo Version dev-SVN-r6273
+<!-- generated on 07/21/09 12:29:35 by SUMO sumo Version dev-SVN-r7459
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-   </input>
+    <input
+        net-file="net.net.xml"
+        route-files="input_routes.rou.xml"
+    />
 
-   <output>
-      <netstate-dump>rawdump.xml</netstate-dump>
-   </output>
+    <output
+        netstate-dump="rawdump.xml"
+    />
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
 
 </configuration>
 -->
@@ -240,7 +240,7 @@
    <timestep time="24">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="10.59" speed="27.80"/>
+            <vehicle id="1" pos="10.49" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -249,7 +249,7 @@
    <timestep time="25">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="39.95" speed="29.37"/>
+            <vehicle id="1" pos="38.29" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -258,7 +258,7 @@
    <timestep time="26">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="70.83" speed="30.88"/>
+            <vehicle id="1" pos="66.09" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -267,7 +267,7 @@
    <timestep time="27">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="103.16" speed="32.33"/>
+            <vehicle id="1" pos="93.89" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -276,7 +276,7 @@
    <timestep time="28">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="136.89" speed="33.73"/>
+            <vehicle id="1" pos="121.69" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -285,7 +285,7 @@
    <timestep time="29">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="171.96" speed="35.08"/>
+            <vehicle id="1" pos="149.49" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -294,7 +294,7 @@
    <timestep time="30">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="208.34" speed="36.37"/>
+            <vehicle id="1" pos="177.29" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -303,7 +303,7 @@
    <timestep time="31">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="245.96" speed="37.62"/>
+            <vehicle id="1" pos="205.09" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -312,7 +312,7 @@
    <timestep time="32">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="284.79" speed="38.82"/>
+            <vehicle id="1" pos="232.89" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -321,7 +321,7 @@
    <timestep time="33">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="324.53" speed="39.74"/>
+            <vehicle id="1" pos="260.69" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -330,7 +330,7 @@
    <timestep time="34">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="360.02" speed="35.49"/>
+            <vehicle id="1" pos="288.49" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -339,7 +339,7 @@
    <timestep time="35">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="391.30" speed="31.28"/>
+            <vehicle id="1" pos="316.29" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -348,7 +348,7 @@
    <timestep time="36">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="418.40" speed="27.10"/>
+            <vehicle id="1" pos="344.09" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -357,7 +357,7 @@
    <timestep time="37">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="441.37" speed="22.97"/>
+            <vehicle id="1" pos="371.89" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -366,7 +366,7 @@
    <timestep time="38">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="460.28" speed="18.91"/>
+            <vehicle id="1" pos="399.69" speed="27.80"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -375,7 +375,7 @@
    <timestep time="39">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="475.21" speed="14.94"/>
+            <vehicle id="1" pos="425.57" speed="25.88"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
@@ -384,12 +384,39 @@
    <timestep time="40">
       <edge id="end">
          <lane id="end_0">
-            <vehicle id="1" pos="486.31" speed="11.10"/>
+            <vehicle id="1" pos="447.34" speed="21.77"/>
          </lane>
          <lane id="end_1"/>
          <lane id="end_2"/>
       </edge>
    </timestep>
    <timestep time="41">
+      <edge id="end">
+         <lane id="end_0">
+            <vehicle id="1" pos="465.07" speed="17.73"/>
+         </lane>
+         <lane id="end_1"/>
+         <lane id="end_2"/>
+      </edge>
+   </timestep>
+   <timestep time="42">
+      <edge id="end">
+         <lane id="end_0">
+            <vehicle id="1" pos="478.86" speed="13.79"/>
+         </lane>
+         <lane id="end_1"/>
+         <lane id="end_2"/>
+      </edge>
+   </timestep>
+   <timestep time="43">
+      <edge id="end">
+         <lane id="end_0">
+            <vehicle id="1" pos="488.87" speed="10.01"/>
+         </lane>
+         <lane id="end_1"/>
+         <lane id="end_2"/>
+      </edge>
+   </timestep>
+   <timestep time="44">
    </timestep>
 </sumo-netstate>

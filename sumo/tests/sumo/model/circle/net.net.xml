@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/08/09 15:31:48 by SUMO netgen Version dev-SVN-r7401
+<!-- generated on 07/22/09 08:19:38 by SUMO netgen Version dev-SVN-r7459
 <configuration>
 
     <spider_network
@@ -12,7 +12,7 @@
     />
 
     <output
-        output-file="net.net.xml"
+        output-file="sumo\model\circle\net.net.xml"
     />
 
     <processing
@@ -21,6 +21,10 @@
 
     <building_defaults
         speed="19.6"
+    />
+
+    <report
+        verbose="true"
     />
 
 </configuration>

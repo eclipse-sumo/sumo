@@ -1,61 +1,64 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/18/09 01:22:30 by SUMO sumo Version dev-SVN-r7032
+<!-- generated on 07/22/09 07:37:01 by SUMO sumo Version dev-SVN-r7459
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-   </input>
+    <input
+        net-file="net.net.xml"
+        route-files="input_routes.rou.xml"
+    />
 
-   <output>
-      <tripinfo-output>tripinfos.xml</tripinfo-output>
-      <vehroute-output>vehroutes.xml</vehroute-output>
-   </output>
+    <output
+        tripinfo-output="tripinfos.xml"
+        vehroute-output="vehroutes.xml"
+    />
 
-   <processing>
-      <route-steps>1</route-steps>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <processing
+        route-steps="1"
+    />
+
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0" depart="0" arrival="128">
+   <vehicle id="0" depart="0" arrival="122">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="1" depart="3" arrival="131">
+   <vehicle id="1" depart="3" arrival="125">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="2" depart="5" arrival="133">
+   <vehicle id="2" depart="5" arrival="127">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="3" depart="7" arrival="138">
+   <vehicle id="3" depart="7" arrival="131">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="4" depart="10" arrival="139">
+   <vehicle id="4" depart="10" arrival="133">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="5" depart="13" arrival="142">
+   <vehicle id="5" depart="13" arrival="134">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="6" depart="15" arrival="145">
+   <vehicle id="6" depart="15" arrival="138">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="7" depart="700" arrival="827">
+   <vehicle id="7" depart="700" arrival="822">
       <route edges="beg middle end rend"/>
    </vehicle>
 
-   <vehicle id="0" depart="800" arrival="928">
+   <vehicle id="0" depart="800" arrival="922">
       <route edges="beg middle end rend"/>
    </vehicle>
 

@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/31/09 14:27:05 by SUMO sumo Version dev-SVN-r6688
+<!-- generated on 07/22/09 08:09:48 by SUMO sumo Version dev-SVN-r7459
 <configuration>
 
-   <input>
-      <net-file>three_split.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
-   </input>
+    <input
+        net-file="three_split.net.xml"
+        additional-files="input_routes.rou.xml,input_additional.add.xml"
+    />
 
-   <output>
-      <tripinfo-output>tripinfos.xml</tripinfo-output>
-   </output>
+    <output
+        tripinfo-output="tripinfos.xml"
+    />
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
 
 </configuration>
 -->
 
 <tripinfos>
     <tripinfo id="vehicle1" depart="0" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="0" arrival="74" arrivalLane="end_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1905.34" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="foo1" depart="2" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="1" arrival="77" arrivalLane="end_0" arrivalPos="21.84" arrivalSpeed="27.80" duration="75" routeLength="1907.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="foo1" depart="2" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="1" arrival="77" arrivalLane="end_0" arrivalPos="13.48" arrivalSpeed="27.80" duration="75" routeLength="1899.23" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
     <tripinfo id="bar1" depart="5" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="3" arrival="79" arrivalLane="end_0" arrivalPos="0.55" arrivalSpeed="27.80" duration="74" routeLength="1886.30" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
     <tripinfo id="bar2" depart="8" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="5" arrival="82" arrivalLane="end_0" arrivalPos="18.44" arrivalSpeed="27.80" duration="74" routeLength="1904.19" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
     <tripinfo id="emitter_4_0" depart="11" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="7" arrival="85" arrivalLane="end_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1905.34" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
