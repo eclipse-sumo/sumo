@@ -119,23 +119,55 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
     //
     unsigned int noNodes;
     dev >> noNodes;
-    cout << "Expected node number: " << noNodes << endl;
+    MsgHandler::getMessageInstance()->inform("Expected node number: " + toString(noNodes));
     do {
-        cout << "  left " << (noNodes) << endl;
-        unsigned int entrySize, id, posX, posY;
+        //cout << "  left " << (noNodes) << endl;
+        unsigned int entrySize, id, posX, posY, numEdges;
         dev >> entrySize;
         entrySize /= 4;
         dev >> id;
         dev >> posX;
         dev >> posY;
-        cout << "  " << id << ": " << posX << ", " << posY << endl;
-        // !!! currently skipping next
-        entrySize -= 4;
-        do {
-            dev >> skip;
-            //cout << entrySize << " " << skip << endl;
-            --entrySize;
-        } while (entrySize!=0);
+        dev >> numEdges;
+
+        vector<int> edges;
+        for (int j=0;j<numEdges;++j) {
+            unsigned int edge;
+            dev >> edge;
+            edges.push_back(edge);
+        }
+
+        unsigned int signal;
+        dev >> signal;
+
+        vector<int> turns;
+        for (int j=0;j<numEdges;++j) {
+            unsigned int turn;
+            dev >> turn;
+            turns.push_back(turn);
+        }
+
+        vector<pair<int, int> > conns;
+        for (int j=0;j<numEdges;++j) {
+            unsigned int connF, connT;
+            dev >> connF;
+            dev >> connT;
+            conns.push_back(pair<int, int>(connF, connT));
+        }
+
+        vector<vector<int> > times;
+        for (int j=0;j<numEdges;++j) {
+            unsigned int t1, t2, t3;
+            dev >> t1;
+            dev >> t2;
+            dev >> t3;
+            vector<int> time;
+            time.push_back(t1);
+            time.push_back(t2);
+            time.push_back(t3);
+            times.push_back(time);
+        }
+
         Position2D pos((SUMOReal)(posX / 1000.), -(SUMOReal)(posY / 1000.));
         GeoConvHelper::x2cartesian(pos);
         NBNode *node = new NBNode(toString(id), pos);
@@ -158,20 +190,12 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file) {
     cout << "Expected edge number: " << noEdges << endl;
     do {
         cout << "  left " << (noEdges) << endl;
-        unsigned int entrySize, id, begNode, endNode;
-        dev >> entrySize;
-        entrySize /= 4;
-        dev >> id;
-        dev >> begNode;
-        dev >> endNode;
-        cout << "  " << id << ": " << begNode << ", " << endNode << endl;
-        // !!! currently skipping next
-        entrySize -= 3;
-        do {
-            dev >> skip;
-            //cout << entrySize << " " << skip << endl;
-            --entrySize;
-        } while (entrySize!=0);
+        unsigned int entrySize, id, begNode, endNode, length, roadKind, carsToHead,
+            carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
+            linesToHead, linesToTail, widthForWalkers;
+        dev >> entrySize >> id >> begNode >> endNode >> length >> roadKind >> carsToHead 
+            >> carsToTail >> humansToHead >> humansToTail >> width >> block >> repairCost
+            >> median >> linesToHead >> linesToTail >> widthForWalkers;
         NBNode *fromNode = myNodeCont.retrieve(toString(begNode));
         NBNode *toNode = myNodeCont.retrieve(toString(endNode));
         SUMOReal speed = (SUMOReal)(50. / 3.6);
