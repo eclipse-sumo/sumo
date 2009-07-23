@@ -87,7 +87,8 @@ void
 NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &key,
                                        const std::string &type,
-                                       SUMOReal x, SUMOReal y) throw(InvalidArgument) {
+                                       SUMOReal x, SUMOReal y,
+                                       const Position2DVector &shape) throw(InvalidArgument) {
 #ifdef HAVE_INTERNAL_LANES
     myActiveInternalLanes.clear();
 #endif
@@ -107,9 +108,10 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
         myType = TYPE_NOJUNCTION;
     }
     if (myType==TYPE_UNKNOWN) {
-        throw InvalidArgument("An unknown or invalid junction type occured: '" + type + "' on junction '" + id + "'.");
+        throw InvalidArgument("An unknown or invalid junction type '" + type + "' occured in junction '" + id + "'.");
     }
     myPosition.set(x, y);
+    myShape = shape;
 }
 
 
@@ -124,6 +126,13 @@ NLJunctionControlBuilder::addInternalLane(MSLane *lane) throw() {
 void
 NLJunctionControlBuilder::addIncomingLane(MSLane *lane) throw() {
     myActiveIncomingLanes.push_back(lane);
+}
+
+
+void
+NLJunctionControlBuilder::addJunctionShape(const Position2DVector &shape) throw() {
+    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
+    myShape = shape;
 }
 
 
@@ -172,7 +181,7 @@ NLJunctionControlBuilder::build() const throw() {
 
 MSJunction *
 NLJunctionControlBuilder::buildNoLogicJunction() throw() {
-    return new MSNoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes
+    return new MSNoLogicJunction(myActiveID, myPosition, myShape, myActiveIncomingLanes
 #ifdef HAVE_INTERNAL_LANES
                                  , myActiveInternalLanes
 #endif
@@ -184,7 +193,7 @@ MSJunction *
 NLJunctionControlBuilder::buildLogicJunction() throw(InvalidArgument) {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
     // build the junction
-    return new MSRightOfWayJunction(myActiveID, myPosition, myActiveIncomingLanes,
+    return new MSRightOfWayJunction(myActiveID, myPosition, myShape, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
                                     myActiveInternalLanes,
 #endif
@@ -196,7 +205,7 @@ NLJunctionControlBuilder::buildLogicJunction() throw(InvalidArgument) {
 MSJunction *
 NLJunctionControlBuilder::buildInternalJunction() throw() {
     // build the junction
-    return new MSInternalJunction(myActiveID, myPosition, myActiveIncomingLanes,
+    return new MSInternalJunction(myActiveID, myPosition, myShape, myActiveIncomingLanes,
                                   myActiveInternalLanes);
 }
 #endif
@@ -282,16 +291,20 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument) {
 
 
 void
-NLJunctionControlBuilder::initJunctionLogic() throw() {
-    myActiveKey = "";
+NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSize, int laneNumber) throw() {
+    myActiveKey = id;
     myActiveSubKey = "";
     myActiveLogic = new MSBitsetLogic::Logic();
     myActiveFoes = new MSBitsetLogic::Foes();
     myActiveConts.reset(false);
-    myRequestSize = -1;
-    myLaneNumber = -1;
+    myRequestSize = requestSize;
+    myLaneNumber = laneNumber;
     myRequestItemNumber = 0;
     myCurrentHasError = false;
+    if(myRequestSize>0) {
+        myActiveLogic->resize(myRequestSize);
+        myActiveFoes->resize(myRequestSize);
+    }
 }
 
 
@@ -328,16 +341,17 @@ NLJunctionControlBuilder::addLogicItem(int request,
 
 
 void
-NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
-        SUMOReal detectorOffset) throw() {
-    myActiveKey = "";
-    myActiveSubKey = "";
+NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std::string &programID,
+        const std::string &type, int offset, SUMOReal detectorOffset) throw() {
+    myActiveKey = id;
+    myActiveSubKey = programID;
     myActivePhases.clear();
     myAbsDuration = 0;
     myRequestSize = -1;
     initIncomingLanes();
     myLogicType = type;
     myDetectorOffset = detectorOffset;
+    myOffset = offset;
     myAdditionalParameter.clear();
     if (myDetectorOffset==-1) {
         // agentbased
@@ -370,6 +384,7 @@ NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string &state,
 
 void
 NLJunctionControlBuilder::setRequestSize(int size) throw() {
+    // @deprecated: assuming a net could still use characters for the request size
     myRequestSize = size;
     myActiveLogic->resize(myRequestSize);
     myActiveFoes->resize(myRequestSize);
@@ -379,24 +394,28 @@ NLJunctionControlBuilder::setRequestSize(int size) throw() {
 
 void
 NLJunctionControlBuilder::setLaneNumber(int val) throw() {
+    // @deprecated: assuming a net could still use characters for the lane number
     myLaneNumber = val;
 }
 
 
 void
 NLJunctionControlBuilder::setOffset(int val) throw() {
+    // @deprecated: assuming a net could still use characters for the offset
     myOffset = val;
 }
 
 
 void
 NLJunctionControlBuilder::setKey(const std::string &key) throw() {
+    // @deprecated: assuming a net could still use characters for the id
     myActiveKey = key;
 }
 
 
 void
 NLJunctionControlBuilder::setSubKey(const std::string &subkey) throw() {
+    // @deprecated: assuming a net could still use characters for the sub id
     myActiveSubKey = subkey;
 }
 

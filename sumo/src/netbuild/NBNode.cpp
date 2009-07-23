@@ -1006,20 +1006,16 @@ NBNode::writeXMLInternalNodes(OutputDevice &into) {
                 into << "   <junction id=\"" << sid << '\"';
                 into << " type=\"" << "internal\"";
                 into << " x=\"" << pos.x() << "\" y=\"" << pos.y() << "\"";
-                into <<  ">\n";
-                // write the incoming and the internal lanes
+                into << " incLanes=\"";
                 string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane);
                 if (furtherIncoming.length()!=0) {
-                    into << "      <inclanes>" << iid << " " << furtherIncoming << "</inclanes>\n";
+                    into << iid << " " << furtherIncoming;
                 } else {
-                    into << "      <inclanes>" << iid << "</inclanes>\n";
+                    into << iid;
                 }
-                into << "      <intlanes>"
-                << getCrossingNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane)
-                << "</intlanes>\n";
-                into << "      <shape></shape>\n";
-                // close writing
-                into << "   </junction>\n\n";
+                into << "\"";
+                into << " intLanes=\"" << getCrossingNames_dividedBySpace(*i, j, (*k).toEdge, (*k).toLane) << "\"";
+                into << " shape=\"\"/>\n\n";
                 splitNo++;
                 lno++;
             }
@@ -1083,10 +1079,10 @@ NBNode::writeXML(OutputDevice &into) {
     } else {
         into << " type=\"DEAD_END\"";
     }
-    into << " x=\"" << myPosition.x() << "\" y=\"" << myPosition.y() << "\">\n";
+    into << " x=\"" << myPosition.x() << "\" y=\"" << myPosition.y() << "\"";
+    into << " incLanes=\"";
     // write the incoming lanes
     EdgeVector::iterator i;
-    into << "      <inclanes>";
     for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         unsigned int noLanes = (*i)->getNoLanes();
         string id = (*i)->getID();
@@ -1097,18 +1093,15 @@ NBNode::writeXML(OutputDevice &into) {
             }
         }
     }
-    into << "</inclanes>\n";
+    into << "\"";
     // write the internal lanes
+    into << " intLanes=\"";
     if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-        into << "      <intlanes>";
         writeinternal(myIncomingEdges, into, myID);
-        into << "</intlanes>\n";
     }
-
-    // write the shape
-    into << "      <shape>" << myPoly << "</shape>\n";
+    into << "\"";
     // close writing
-    into << "   </junction>\n\n";
+    into << " shape=\"" << myPoly << "\"/>\n\n";
 }
 
 

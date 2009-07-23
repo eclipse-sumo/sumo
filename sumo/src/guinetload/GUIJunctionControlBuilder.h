@@ -64,13 +64,6 @@ public:
     ~GUIJunctionControlBuilder() throw();
 
 
-    /** @brief Stores the information about the current junction's shape
-     *
-     * @param[in] shape The shape of the current junction
-     */
-    void addJunctionShape(const Position2DVector &shape) throw();
-
-
 protected:
     /// @name Factory methods, overwrite NLJunctionControlBuilder methods
     /// @{
@@ -94,11 +87,6 @@ protected:
      */
     virtual MSJunction *buildLogicJunction() throw(InvalidArgument);
     /// @}
-
-
-private:
-    /// @brief The shape of the current junction
-    Position2DVector myShape;
 
 
 private:

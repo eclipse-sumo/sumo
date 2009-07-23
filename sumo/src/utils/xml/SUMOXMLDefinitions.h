@@ -231,8 +231,14 @@ enum SumoXMLAttr {
     SUMO_ATTR_Y,
     /* sumo-junction attributes */
     SUMO_ATTR_KEY,
+    SUMO_ATTR_REQUESTSIZE,
+    SUMO_ATTR_LANENUMBER,
     SUMO_ATTR_REQUEST,
     SUMO_ATTR_RESPONSE,
+    SUMO_ATTR_PROGRAMID,
+    SUMO_ATTR_OFFSET,
+    SUMO_ATTR_INCLANES,
+    SUMO_ATTR_INTLANES,
     /// the weight of a district's source or sink
     SUMO_ATTR_WEIGHT,
     SUMO_ATTR_EDGE,

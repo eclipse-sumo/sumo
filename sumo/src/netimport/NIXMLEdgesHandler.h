@@ -129,6 +129,7 @@ private:
     NBNode * insertNodeChecking(const Position2D &pos,
                                 const std::string &name, const std::string &dir);
 
+    void parseExpansionLanes(const std::string &val) throw(ProcessError);
 
 private:
     /// @brief A reference to the program's options
@@ -227,6 +228,9 @@ private:
 
     /// @brief Information whether one edge with a function-attribute occured and was reported
     bool myHaveReportedAboutFunctionDeprecation;
+
+    /// @brief Information whether one edge with a function-attribute occured and was reported
+    bool myHaveReportedAboutExpansionCharactersDeprecation;
 
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;

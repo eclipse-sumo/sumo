@@ -56,13 +56,21 @@ class findCompetitor;
  */
 class MSRightOfWayJunction : public MSLogicJunction {
 public:
-    /** Use this constructor only. */
-    MSRightOfWayJunction(std::string id, const Position2D &position,
-                         LaneCont incoming,
+    /** @brief Constructor
+     * @param[in] id The id of the junction
+     * @param[in] position The position of the junction
+     * @param[in] shape The shape of the junction
+     * @param[in] incoming The incoming lanes
+     * @param[in] internal The internal lanes
+     * @param[in] logic The logic of this junction
+     */
+    MSRightOfWayJunction(const std::string &id, const Position2D &position,
+        const Position2DVector &shape, 
+        LaneCont incoming,
 #ifdef HAVE_INTERNAL_LANES
-                         LaneCont internal,
+        LaneCont internal,
 #endif
-                         MSJunctionLogic* logic);
+        MSJunctionLogic* logic) throw();
 
     /// Destructor.
     virtual ~MSRightOfWayJunction();

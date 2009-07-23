@@ -60,8 +60,7 @@ class GUIJunctionWrapper :
 public:
     /// constructor
     GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
-                       MSJunction &junction,
-                       const Position2DVector &shape) throw();
+                       MSJunction &junction) throw();
 
     /// destructor
     virtual ~GUIJunctionWrapper() throw();
@@ -127,9 +126,6 @@ public:
     void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
-    /// returns the shape of the junction
-    const Position2DVector &getShape() const;
-
     /// Returns the boundary of the junction
     Boundary getBoundary() const;
 
@@ -141,9 +137,6 @@ protected:
 
     /// A reference to the real junction
     MSJunction &myJunction;
-
-    /// The junction's shape
-    Position2DVector myShape;
 
     SUMOReal myMaxSize;
 

@@ -65,29 +65,11 @@ public:
     ~GUIHandler() throw();
 
 protected:
-    /// @name inherited from GenericSAXHandler
-    //@{
-
-    /** @brief Called when characters occure
-     *
-     * @param[in] element ID of the last opened element
-     * @param[in] chars The read characters (complete)
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myCharacters
-     */
-    void myCharacters(SumoXMLTag element,
-                      const std::string &chars) throw(ProcessError);
-    //@}
-
     /// Builds the route by calling the constructor
     MSRoute* buildRoute() throw();
 
     /// Starts route processing
     void openRoute(const SUMOSAXAttributes &attrs);
-
-private:
-    /// parses the shape of a junction
-    void addJunctionShape(const std::string &chars);
 
 private:
     /// The currently parsed route's color

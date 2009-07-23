@@ -31,8 +31,8 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIEventControl.h>
 #include <netload/NLBuilder.h>
+#include <netload/NLJunctionControlBuilder.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
-#include <guinetload/GUIJunctionControlBuilder.h>
 #include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUITriggerBuilder.h>
 #include <guinetload/GUIGeomShapeBuilder.h>
@@ -128,7 +128,7 @@ GUILoadThread::run() {
     net = new GUINet(new GUIVehicleControl(), new GUIEventControl(),
                      new GUIEventControl(), new GUIEventControl());
     GUIEdgeControlBuilder *eb = new GUIEdgeControlBuilder(GUIGlObjectStorage::gIDStorage);
-    GUIJunctionControlBuilder jb(*net, oc);
+    NLJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, GUIGlObjectStorage::gIDStorage);
     GUITriggerBuilder tb;

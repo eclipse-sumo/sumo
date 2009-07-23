@@ -78,13 +78,20 @@ public:
     virtual void postloadInit() throw(ProcessError);
 
 protected:
-    /// constructor; this class is virtual
-    MSLogicJunction(std::string id, const Position2D &position,
-                    LaneCont incoming
+    /** @brief Constructor
+     * @param[in] id The id of the junction
+     * @param[in] position The position of the junction
+     * @param[in] shape The shape of the junction
+     * @param[in] incoming The incoming lanes
+     * @param[in] internal The internal lanes
+     */
+    MSLogicJunction(const std::string &id, const Position2D &position,
+        const Position2DVector &shape, 
+        LaneCont incoming
 #ifdef HAVE_INTERNAL_LANES
-                    , LaneCont internal
+        , LaneCont internal
 #endif
-                   );
+        ) throw();
 
 protected:
     /// list of incoming lanes

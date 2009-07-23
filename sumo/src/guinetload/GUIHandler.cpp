@@ -46,7 +46,6 @@
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include "GUIEdgeControlBuilder.h"
-#include "GUIJunctionControlBuilder.h"
 #include "GUIDetectorBuilder.h"
 #include "GUIHandler.h"
 #include <guisim/GUIVehicle.h>
@@ -75,35 +74,6 @@ GUIHandler::GUIHandler(const std::string &file,
 
 
 GUIHandler::~GUIHandler() throw() {}
-
-
-void
-GUIHandler::myCharacters(SumoXMLTag element,
-                         const std::string &chars) throw(ProcessError) {
-    NLHandler::myCharacters(element, chars);
-    switch (element) {
-    case SUMO_TAG_SHAPE:
-        addJunctionShape(chars);
-        break;
-    default:
-        break;
-    }
-}
-
-
-void
-GUIHandler::addJunctionShape(const std::string &chars) {
-    try {
-        Position2DVector shape = GeomConvHelper::parseShape(chars);
-        static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
-        return;
-    } catch (OutOfBoundsException &) {
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
-        return;
-    }
-    MsgHandler::getErrorInstance()->inform("Could not parse shape of junction '" + myJunctionControlBuilder.getActiveID() + "'.");
-}
 
 
 MSRoute*

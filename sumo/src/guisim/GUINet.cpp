@@ -331,10 +331,7 @@ GUINet::initGUIStructures() {
     myJunctionWrapper.reserve(size);
     const std::map<std::string, MSJunction*> &junctions = myJunctions->getMyMap();
     for (std::map<std::string, MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
-        GUIJunctionWrapper *wrapper = ((*i).second)->buildJunctionWrapper(GUIGlObjectStorage::gIDStorage);
-        if (wrapper!=0) {
-            myJunctionWrapper.push_back(wrapper);
-        }
+        myJunctionWrapper.push_back(new GUIJunctionWrapper(GUIGlObjectStorage::gIDStorage, *(*i).second));
     }
     // build the visualization tree
     float *cmin = new float[2];
@@ -356,8 +353,8 @@ GUINet::initGUIStructures() {
     }
     for (vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         GUIJunctionWrapper *junction = *i;
-        if (junction->getShape().size()>0) {
-            Boundary b = junction->getShape().getBoxBoundary();
+        if (junction->getJunction().getShape().size()>0) {
+            Boundary b = junction->getJunction().getShape().getBoxBoundary();
             b.grow(2.);
             cmin[0] = b.xmin();
             cmin[1] = b.ymin();

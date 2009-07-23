@@ -4,7 +4,7 @@
 /// @date    Wed, 12 Dez 2001
 /// @version $Id$
 ///
-// junctions.
+// The base class for an intersection
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -33,6 +33,7 @@
 #include <vector>
 #include <map>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/Position2DVector.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -48,14 +49,20 @@ class GUIGlObjectStorage;
 // ===========================================================================
 /**
  * @class MSJunction
+ * @brief The base class for an intersection
  */
 class MSJunction {
 public:
-    /// Destructor.
+    /// @brief Destructor.
     virtual ~MSJunction();
 
-    /** Use this constructor only. */
-    MSJunction(std::string id, const Position2D &position);
+    /** @brief Constructor
+     * @param[in] id The id of the junction
+     * @param[in] position The position of the junction
+     * @param[in] shape The shape of the junction
+     */
+    MSJunction(const std::string &id, const Position2D &position,
+        const Position2DVector &shape) throw();
 
     /** performs some initialisation after the loading
         (e.g., link map computation) */
@@ -74,22 +81,26 @@ public:
     /// Returns the id of the junction
     const std::string &getID() const;
 
-    // valid for gui-version only
-    virtual GUIJunctionWrapper *buildJunctionWrapper(
-        GUIGlObjectStorage &idStorage);
+    /** @brief Returns this junction's shape
+     * @return The shape of this junction
+     */
+    const Position2DVector &getShape() const throw() {
+        return myShape;
+    }
 
 
 protected:
-    /// unique ID
+    /// @brief The id of the junction
     std::string myID;
 
-    /** the position */
+    /// @brief The position of the junction
     Position2D myPosition;
 
-private:
-    /// Default constructor.
-    MSJunction();
+    /// @brief The shape of the junction
+    Position2DVector myShape;
 
+
+private:
     /// @brief Invalidated copy constructor.
     MSJunction(const MSJunction&);
 

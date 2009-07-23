@@ -50,12 +50,6 @@ GUIJunctionControlBuilder::GUIJunctionControlBuilder(MSNet &net,
 GUIJunctionControlBuilder::~GUIJunctionControlBuilder() throw() {}
 
 
-void
-GUIJunctionControlBuilder::addJunctionShape(const Position2DVector &shape) throw() {
-    myShape = shape;
-}
-
-
 MSJunction *
 GUIJunctionControlBuilder::buildNoLogicJunction() throw() {
     return new GUINoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes,

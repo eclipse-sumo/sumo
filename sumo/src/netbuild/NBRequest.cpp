@@ -327,10 +327,8 @@ NBRequest::bitsetToXML(string key) {
     size_t absNoLinks = sizes.second;
     size_t absNoLanes = sizes.first;
     assert(absNoLinks>=absNoLanes);
-    os << "   <row-logic>" << endl;
-    os << "      <key>" << key << "</key>" << endl;
-    os << "      <requestsize>" << absNoLinks << "</requestsize>" << endl;
-    os << "      <lanenumber>" << absNoLanes << "</lanenumber>" << endl;
+    os << "   <row-logic id=\"" << key << "\" requestSize=\"" << absNoLinks
+        << "\" laneNumber=\"" << absNoLanes << "\">" << endl;
     int pos = 0;
     // save the logic
     os << "      <logic>" << endl;

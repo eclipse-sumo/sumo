@@ -55,10 +55,16 @@ class findCompetitor;
 #ifdef HAVE_INTERNAL_LANES
 class MSInternalJunction : public MSLogicJunction {
 public:
-    /** Use this constructor only. */
-    MSInternalJunction(std::string id, const Position2D &position,
-                       LaneCont incoming,
-                       LaneCont internal);
+    /** @brief Constructor
+     * @param[in] id The id of the junction
+     * @param[in] position The position of the junction
+     * @param[in] shape The shape of the junction
+     * @param[in] incoming The incoming lanes
+     * @param[in] internal The internal lanes
+     */
+    MSInternalJunction(const std::string &id, const Position2D &position,
+        const Position2DVector &shape, 
+        LaneCont incoming, LaneCont internal) throw();
 
     /// Destructor.
     virtual ~MSInternalJunction();

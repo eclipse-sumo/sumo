@@ -97,7 +97,11 @@ NBDistrict::writeXML(OutputDevice &into) throw() {
     VectorHelper<SUMOReal>::normalise(mySourceWeights, 1.0);
     VectorHelper<SUMOReal>::normalise(mySinkWeights, 1.0);
     // write the head and the id of the district
-    into << "   <district id=\"" << myID << "\">\n";
+    into << "   <district id=\"" << myID << "\"";
+    if (myShape.size()>0) {
+        into << " shape=\"" << myShape << "\"";
+    }
+    into << ">\n";
     size_t i;
     // write all sources
     for (i=0; i<mySources.size(); i++) {
@@ -110,10 +114,6 @@ NBDistrict::writeXML(OutputDevice &into) throw() {
         // write the head and the id of the sink
         assert(i<mySinks.size());
         into << "      <dsink id=\"" << mySinks[i]->getID() << "\" weight=\"" << mySinkWeights[i] << "\"/>\n";
-    }
-    // write the shape if given
-    if (myShape.size()>0) {
-        into << "      <shape>" << myShape << "</shape>\n";
     }
     // write the tail
     into << "   </district>\n\n";

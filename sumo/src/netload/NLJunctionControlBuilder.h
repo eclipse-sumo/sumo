@@ -35,6 +35,7 @@
 #include <microsim/MSRightOfWayJunction.h>
 #include <microsim/MSJunctionControl.h>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/Position2DVector.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
@@ -95,11 +96,13 @@ public:
      * @param[in] type The type of the junction
      * @param[in] x x-position of the junction
      * @param[in] y y-position of the junction
+     * @param[in] shape The shape of the junction
      * @exception InvalidArgument If the junction type is not known
      * @todo Check why "key" is given
      */
     void openJunction(const std::string &id, const std::string &key,
-                      const std::string &type, SUMOReal x, SUMOReal y) throw(InvalidArgument);
+                      const std::string &type, SUMOReal x, SUMOReal y,
+                      const Position2DVector &shape) throw(InvalidArgument);
 
 
     /** @brief Adds an incoming lane to the previously chosen junction
@@ -116,6 +119,13 @@ public:
      */
     void addInternalLane(MSLane *lane) throw();
 #endif
+
+
+    /** @brief Stores the information about the current junction's shape
+     *
+     * @param[in] shape The shape of the current junction
+     */
+    void addJunctionShape(const Position2DVector &shape) throw();
 
 
     /** @brief Closes (ends) the processing of the current junction
@@ -151,11 +161,11 @@ public:
 
 
     /** @brief Initialises a junction logic
-     *
-     * Resets all internal values that describe a junction logic to allow resetting them from
-     *  read values.
+     * @param[in] id The id of the row-logic
+     * @param[in] requestSize The number of links participating in this row-logic
+     * @param[in] laneNumber The number of lanes participating in this row-logic
      */
-    void initJunctionLogic() throw();
+    void initJunctionLogic(const std::string &id, int requestSize, int laneNumber) throw();
 
 
     /** @brief Adds a logic item
@@ -175,17 +185,17 @@ public:
 
     /** @brief Begins the reading of a traffic lights logic
      *
-     * Resets all internal values that describe a traffic lights logic to allow
-     *  resetting them from read values.
-     *
+     * @param[in] id The id of the tls
+     * @param[in] programID The id of the currently loaded program
      * @param[in] type The type of the tls
+     * @param[in] offset The offset to start with
      * @param[in] detectorOffset The offset of the detectors to build
      * @todo Why is the type not verified?
      * @todo Recheck, describe usage of detectorOffset (where does the information come from?)
      * @todo detectorOffset is used only by one junction type. Is it not possible, to remove this from the call?
      */
-    void initTrafficLightLogic(const std::string &type,
-                               SUMOReal detectorOffset) throw();
+    void initTrafficLightLogic(const std::string &id, const std::string &programID,
+        const std::string &type, int offset, SUMOReal detectorOffset) throw();
 
 
     /** @brief Adds a phase to the currently built traffic lights logic
@@ -461,6 +471,10 @@ protected:
 
     /// @brief The absolute duration of a tls-control loop
     SUMOTime myAbsDuration;
+
+    /// @brief The shape of the current junction
+    Position2DVector myShape;
+
 
     /// @brief A definition of junction initialisation
     struct TLInitInfo {

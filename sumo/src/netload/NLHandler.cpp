@@ -82,7 +82,8 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         myShapeBuilder(shapeBuilder), mySucceedingLaneBuilder(junctionBuilder, myContinuations),
         myAmInTLLogicMode(false), myCurrentIsBroken(false),
-        myHaveWarnedAboutDeprecatedVClass(false)
+        myHaveWarnedAboutDeprecatedVClass(false), 
+        myHaveWarnedAboutDeprecatedJunctionShape(false)
 {}
 
 
@@ -119,7 +120,7 @@ NLHandler::myStartElement(SumoXMLTag element,
             addSuccLane(attrs);
             break;
         case SUMO_TAG_ROWLOGIC:
-            myJunctionControlBuilder.initJunctionLogic();
+            initJunctionLogic(attrs);
             break;
         case SUMO_TAG_TLLOGIC:
             initTrafficLightLogic(attrs);
@@ -264,6 +265,9 @@ NLHandler::myCharacters(SumoXMLTag element,
         break;
     case SUMO_TAG_ORIG_PROJ:
         GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
+        break;
+    case SUMO_TAG_SHAPE:
+        addJunctionShape(chars);
         break;
     default:
         break;
@@ -474,12 +478,23 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
         return;
     }
+    Position2DVector shape;
+    if(attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+        // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
+        try {
+            shape = GeomConvHelper::parseShape(attrs.getString(SUMO_ATTR_SHAPE));
+        } catch (OutOfBoundsException &) {
+        } catch (NumberFormatException &) {
+        } catch (EmptyData &) {
+        }
+    }
     try {
         myJunctionControlBuilder.openJunction(id,
                                               attrs.getStringSecure(SUMO_ATTR_KEY, ""),
                                               attrs.getString(SUMO_ATTR_TYPE),
                                               attrs.getFloat(SUMO_ATTR_X),
-                                              attrs.getFloat(SUMO_ATTR_Y));
+                                              attrs.getFloat(SUMO_ATTR_Y),
+                                              shape);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing attribute in junction '" + id + "'.\n Can not build according junction.");
         myCurrentIsBroken = true;
@@ -490,6 +505,15 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
         MsgHandler::getErrorInstance()->inform("Position of junction '" + id + "' is not numeric.\n Can not build according junction.");
         myCurrentIsBroken = true;
     }
+    //
+    if(!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INCLANES)) {
+        addIncomingLanes(attrs.getString(SUMO_ATTR_INCLANES));
+    }
+#ifdef HAVE_INTERNAL_LANES
+    if(!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INTLANES)) {
+        addInternalLanes(attrs.getString(SUMO_ATTR_INTLANES));
+    }
+#endif
 }
 
 
@@ -727,25 +751,78 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
     }
 }
 
+            
+void
+NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
+    if(!attrs.hasAttribute(SUMO_ATTR_ID)) {
+        // @deprecated: assuming a net could still use characters for the id
+        myJunctionControlBuilder.initJunctionLogic("", -1, -1);
+        return;
+    }
+    // get the id, report an error if not given or empty...
+    std::string id;
+    if (!attrs.setIDFromAttributes("row-logic", id)) {
+        return;
+    }
+    int requestSize = -1;
+    try {
+        requestSize = attrs.getInt(SUMO_ATTR_REQUESTSIZE);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Missing request size in row-logic '" + id + "'.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Request size in row-logic '" + id + "' is not numeric.");
+    }
+    int laneNumber = -1;
+    try {
+        laneNumber = attrs.getInt(SUMO_ATTR_LANENUMBER);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Missing lane number in row-logic '" + id + "'.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Lane number in row-logic '" + id + "' is not numeric.");
+    }
+    if(requestSize!=-1&&laneNumber!=-1) {
+        myJunctionControlBuilder.initJunctionLogic(id, requestSize, laneNumber);
+    }
+}
+
 
 void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
     SUMOReal detectorOffset = -1;
-    myJunctionControlBuilder.initIncomingLanes();
+    myJunctionControlBuilder.initIncomingLanes(); // @deprecated (is this still used?)
     try {
         std::string type = attrs.getString(SUMO_ATTR_TYPE);
         // get the detector offset
-        {
-            try {
-                detectorOffset = attrs.getFloatSecure(SUMO_ATTR_DET_OFFSET, -1);
-            } catch (EmptyData&) {
-                MsgHandler::getErrorInstance()->inform("A detector offset of a traffic light logic is empty.");
-            } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform("A detector offset of a traffic light logic is not numeric.");
-                return;
-            }
+        try {
+            detectorOffset = attrs.getFloatSecure(SUMO_ATTR_DET_OFFSET, -1);
+        } catch (EmptyData&) {
+            MsgHandler::getErrorInstance()->inform("A detector offset of a traffic light logic is empty.");
+        } catch (NumberFormatException&) {
+            MsgHandler::getErrorInstance()->inform("A detector offset of a traffic light logic is not numeric.");
+            return;
         }
-        myJunctionControlBuilder.initTrafficLightLogic(type, detectorOffset);
+        //
+        if(!attrs.hasAttribute(SUMO_ATTR_ID)) {
+            // @deprecated: assuming a net could still use characters for the id
+            myJunctionControlBuilder.initTrafficLightLogic("", "", type, 0, detectorOffset);
+            return;
+        }
+        std::string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        if (id.length()==0) {
+            MsgHandler::getErrorInstance()->inform("No id given for a tls.");
+            return;
+        }
+        int offset = 0;
+        try {
+            offset = attrs.getFloatSecure(SUMO_ATTR_OFFSET, 0);
+        } catch (EmptyData&) {
+            MsgHandler::getErrorInstance()->inform("Offset of tls '" + id + "' is empty.");
+        } catch (NumberFormatException&) {
+            MsgHandler::getErrorInstance()->inform("Offset of tls '" + id + "' is not numeric.");
+            return;
+        }
+        std::string programID = attrs.getStringSecure(SUMO_ATTR_PROGRAMID, "<unknown>");
+        myJunctionControlBuilder.initTrafficLightLogic(id, programID, type, offset, detectorOffset);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
         return;
@@ -1408,6 +1485,7 @@ NLHandler::parseLinkState(char state) {
 // ----------------------------------
 void
 NLHandler::setRequestSize(const std::string &chars) {
+    // @deprecated: assuming a net could still use characters for the request size
     try {
         myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
@@ -1420,6 +1498,7 @@ NLHandler::setRequestSize(const std::string &chars) {
 
 void
 NLHandler::setLaneNumber(const std::string &chars) {
+    // @deprecated: assuming a net could still use characters for the lane number
     try {
         myJunctionControlBuilder.setLaneNumber(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
@@ -1432,6 +1511,7 @@ NLHandler::setLaneNumber(const std::string &chars) {
 
 void
 NLHandler::setKey(const std::string &chars) {
+    // @deprecated: assuming a net could still use characters for the id
     if (chars.length()==0) {
         MsgHandler::getErrorInstance()->inform("No key given for the current junction logic.");
         return;
@@ -1442,6 +1522,7 @@ NLHandler::setKey(const std::string &chars) {
 
 void
 NLHandler::setSubKey(const std::string &chars) {
+    // @deprecated: assuming a net could still use characters for the sub id
     if (chars.length()==0) {
         MsgHandler::getErrorInstance()->inform("No subkey given for the current junction logic.");
         return;
@@ -1452,6 +1533,7 @@ NLHandler::setSubKey(const std::string &chars) {
 
 void
 NLHandler::setOffset(const std::string &chars) {
+    // @deprecated: assuming a net could still use characters for the offset
     try {
         myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
     } catch (NumberFormatException &) {
@@ -1459,6 +1541,29 @@ NLHandler::setOffset(const std::string &chars) {
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The offset for a junction is not empty.");
     } // !!! can chars have length 0?
+}
+
+
+void
+NLHandler::addJunctionShape(const std::string &chars) {
+    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
+    if(chars.length()==0) {
+        return;
+    }
+    if(!myHaveWarnedAboutDeprecatedJunctionShape) {
+        myHaveWarnedAboutDeprecatedJunctionShape = true;
+        MsgHandler::getWarningInstance()->inform("Your network uses a deprecated junction shape description; please rebuild.");
+    }
+    try {
+        Position2DVector shape = GeomConvHelper::parseShape(chars);
+        myJunctionControlBuilder.addJunctionShape(shape);
+        return;
+    } catch (OutOfBoundsException &) {
+    } catch (NumberFormatException &) {
+    } catch (EmptyData &) {
+        return;
+    }
+    MsgHandler::getErrorInstance()->inform("Could not parse shape of junction '" + myJunctionControlBuilder.getActiveID() + "'.");
 }
 
 
@@ -1508,6 +1613,7 @@ NLHandler::setNetOrig(const std::string &chars) {
 
 void
 NLHandler::addIncomingLanes(const std::string &chars) {
+    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
     StringTokenizer st(chars);
     while (st.hasNext()) {
         std::string set = st.next();
@@ -1523,8 +1629,6 @@ NLHandler::addIncomingLanes(const std::string &chars) {
     }
 }
 
-//-----------------------------------------------------------------------------------
-
 
 void
 NLHandler::addPolyPosition(const std::string &chars) {
@@ -1539,6 +1643,7 @@ NLHandler::addPolyPosition(const std::string &chars) {
 #ifdef HAVE_INTERNAL_LANES
 void
 NLHandler::addInternalLanes(const std::string &chars) {
+    // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
     // do not parse internal lanes if not wished
     if (!MSGlobals::gUsingInternalLanes) {
         return;

@@ -168,8 +168,14 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "y",              SUMO_ATTR_Y },
 
     { "key",            SUMO_ATTR_KEY },
+    { "requestSize",    SUMO_ATTR_REQUESTSIZE },
+    { "laneNumber",     SUMO_ATTR_LANENUMBER },
     { "request",        SUMO_ATTR_REQUEST },
     { "response",       SUMO_ATTR_RESPONSE },
+    { "programID",      SUMO_ATTR_PROGRAMID },
+    { "offset",         SUMO_ATTR_OFFSET },
+    { "incLanes",       SUMO_ATTR_INCLANES },
+    { "intLanes",       SUMO_ATTR_INTLANES },
 
     { "weight",         SUMO_ATTR_WEIGHT },
     { "edge",           SUMO_ATTR_EDGE },

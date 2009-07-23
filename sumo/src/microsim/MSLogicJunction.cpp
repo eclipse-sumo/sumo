@@ -48,24 +48,24 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
-MSLogicJunction::MSLogicJunction(string id, const Position2D &position,
+MSLogicJunction::MSLogicJunction(const std::string &id, 
+                                 const Position2D &position,
+                                 const Position2DVector &shape, 
                                  LaneCont incoming
 #ifdef HAVE_INTERNAL_LANES
                                  , LaneCont internal
 #endif
-                                )
-        : MSJunction(id, position),
+                                ) throw()
+        : MSJunction(id, position, shape),
         myIncomingLanes(incoming),
 #ifdef HAVE_INTERNAL_LANES
         myInternalLanes(internal),
 #endif
         myRequest(false), myInnerState(false), myRespond(false) {}
 
-//-------------------------------------------------------------------------//
 
 MSLogicJunction::~MSLogicJunction() {}
 
-//-------------------------------------------------------------------------//
 
 void
 MSLogicJunction::postloadInit() throw(ProcessError) {

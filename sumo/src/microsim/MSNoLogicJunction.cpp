@@ -55,13 +55,15 @@ std::bitset<64> MSNoLogicJunction::myDump((unsigned long) 0xffffffff);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSNoLogicJunction::MSNoLogicJunction(string id, const Position2D &position,
-                                     LaneCont incoming
+MSNoLogicJunction::MSNoLogicJunction(const std::string &id, 
+                                 const Position2D &position,
+                                 const Position2DVector &shape, 
+                                 LaneCont incoming
 #ifdef HAVE_INTERNAL_LANES
-                                     , LaneCont internal
+                                 , LaneCont internal
 #endif
-                                    )
-        : MSJunction(id, position),
+                                ) throw()
+        : MSJunction(id, position, shape),
         myIncomingLanes(incoming)
 #ifdef HAVE_INTERNAL_LANES
         , myInternalLanes(internal)

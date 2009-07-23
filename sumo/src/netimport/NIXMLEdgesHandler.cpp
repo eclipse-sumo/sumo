@@ -71,7 +71,9 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0), myHaveReportedAboutFunctionDeprecation(false) {}
+        myCurrentEdge(0), 
+        myHaveReportedAboutExpansionCharactersDeprecation(false),
+        myHaveReportedAboutFunctionDeprecation(false) {}
 
 
 NIXMLEdgesHandler::~NIXMLEdgesHandler() throw() {}
@@ -270,6 +272,9 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                 e.pos = myCurrentEdge->getGeometry().length() + e.pos;
             }
             myExpansions.push_back(e);
+            if(attrs.hasAttribute(SUMO_ATTR_LANES)) {
+                parseExpansionLanes(attrs.getString(SUMO_ATTR_LANES));
+            }
         }
     }
 }
@@ -383,23 +388,33 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
 void
 NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
                                 const std::string &chars) throw(ProcessError) {
-    if (element==SUMO_TAG_EXPANSION) {
-        if (myExpansions.size()!=0) {
-            Expansion &e = myExpansions.back();
-            StringTokenizer st(chars, ";");
-            while (st.hasNext()) {
-                try {
-                    int lane = TplConvert<char>::_2int(st.next().c_str());
-                    e.lanes.push_back(lane);
-                } catch (NumberFormatException &) {
-                    MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
-                } catch (EmptyData &) {
-                    MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
-                }
-            }
-        } else {
-            MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
+    if (element==SUMO_TAG_EXPANSION&&chars.length()!=0) {
+        if(!myHaveReportedAboutExpansionCharactersDeprecation) {
+            myHaveReportedAboutExpansionCharactersDeprecation = true;
+            MsgHandler::getWarningInstance()->inform("Defining edge expansion lanes in characters is deprecated; use attribute 'lanes' instead.");
         }
+        parseExpansionLanes(chars);
+    }
+}
+
+
+void
+NIXMLEdgesHandler::parseExpansionLanes(const std::string &val) throw(ProcessError) {
+    if (myExpansions.size()!=0) {
+        Expansion &e = myExpansions.back();
+        StringTokenizer st(val, ";");
+        while (st.hasNext()) {
+            try {
+                int lane = TplConvert<char>::_2int(st.next().c_str());
+                e.lanes.push_back(lane);
+            } catch (NumberFormatException &) {
+                MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
+            } catch (EmptyData &) {
+                MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
+            }
+        }
+    } else {
+        MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
     }
 }
 

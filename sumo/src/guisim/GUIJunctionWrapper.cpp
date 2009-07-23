@@ -58,11 +58,10 @@ using namespace std;
 // method definitions
 // ===========================================================================
 GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
-                                       MSJunction &junction,
-                                       const Position2DVector &shape) throw()
+                                       MSJunction &junction) throw()
         : GUIGlObject(idStorage, "junction:"+junction.getID()),
-        myJunction(junction), myShape(shape) {
-    Boundary b = myShape.getBoxBoundary();
+        myJunction(junction) {
+    Boundary b = myJunction.getShape().getBoxBoundary();
     myMaxSize = MAX2(b.getWidth(), b.getHeight());
 }
 
@@ -98,19 +97,7 @@ GUIJunctionWrapper::getMicrosimID() const throw() {
 
 Boundary
 GUIJunctionWrapper::getBoundary() const {
-    Boundary boundary;
-    int shapeLength = (int) myShape.size();
-    for (int i=0; i<shapeLength; ++i) {
-        const Position2D &pos = myShape[i];
-        boundary.add(pos.x(), pos.y());
-    }
-    return boundary;
-}
-
-
-const Position2DVector &
-GUIJunctionWrapper::getShape() const {
-    return myShape;
+    return myJunction.getShape().getBoxBoundary();
 }
 
 
@@ -138,7 +125,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
     glColor3f(0, 0, 0);
     glPolygonOffset(0, 1);
-    GLHelper::drawFilledPoly(getShape(), true);
+    GLHelper::drawFilledPoly(myJunction.getShape(), true);
     // (optional) draw name
     if (s.drawJunctionName) {
         glPolygonOffset(0, -6);

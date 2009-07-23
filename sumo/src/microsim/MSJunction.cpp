@@ -4,7 +4,7 @@
 /// @date    Wed, 12 Dez 2001
 /// @version $Id$
 ///
-// junctions.
+// The base class for an intersection
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -49,8 +49,9 @@ using namespace std;
 // ===========================================================================
 // member method definition
 // ===========================================================================
-MSJunction::MSJunction(std::string id, const Position2D &position)
-        : myID(id), myPosition(position) {}
+MSJunction::MSJunction(const std::string &id, const Position2D &position,
+                       const Position2DVector &shape) throw()
+        : myID(id), myPosition(position), myShape(shape) {}
 
 
 MSJunction::~MSJunction() {}
@@ -69,12 +70,6 @@ MSJunction::postloadInit() throw(ProcessError) {}
 const std::string &
 MSJunction::getID() const {
     return myID;
-}
-
-
-GUIJunctionWrapper *
-MSJunction::buildJunctionWrapper(GUIGlObjectStorage &) {
-    return 0;//!!!
 }
 
 

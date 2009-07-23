@@ -242,6 +242,9 @@ private:
     /// adds a logic item to the current logic
     void addLogicItem(const SUMOSAXAttributes &attrs);
 
+    /// begins the reading of a junction row logic
+    void initJunctionLogic(const SUMOSAXAttributes &attrs);
+
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const SUMOSAXAttributes &attrs);
 
@@ -280,6 +283,9 @@ private:
     /// adds the internal lanes
     void addInternalLanes(const std::string &chars);
 #endif
+
+    /// parses the shape of a junction
+    void addJunctionShape(const std::string &chars);
 
 
     virtual void openWAUT(const SUMOSAXAttributes &attrs);
@@ -402,6 +408,9 @@ protected:
 
     /// @brief Whether deprecated usage of the "vclass" attribute was reported already
     bool myHaveWarnedAboutDeprecatedVClass;
+
+    /// @brief Whether deprecated definition of a junction shape in characters was reported already
+    bool myHaveWarnedAboutDeprecatedJunctionShape;
 
 private:
     /** invalid copy constructor */

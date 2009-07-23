@@ -124,10 +124,9 @@ public:
      * The district writes itself into the stream in XML-format.
      * The format looks as following:
      * @code
-     *    <district id="<ID>">
+     *    <district id="<ID>" shape="<SHAPE>">
      *        [<dsource id="<EDGE_ID>" weight="<WEIGHT>"/>]*
      *        [<dsink id="<EDGE_ID>" weight="<WEIGHT>"/>]*
-     *        <shape><THE_SHAPE></shape>
      *    </district>
      *
      * @param[in] into The device to write the xml-representation into
