@@ -38,15 +38,9 @@
 
 
 
-   <junction id="1" type="DEAD_END" x="500.00" y="0.00">
-      <inclanes></inclanes>
-      <shape>500.00,0.05 500.00,9.85</shape>
-   </junction>
+   <junction id="1" type="DEAD_END" x="500.00" y="0.00" incLanes="" intLanes="" shape="500.00,0.05 500.00,9.85"/>
 
-   <junction id="2" type="DEAD_END" x="0.00" y="0.00">
-      <inclanes>1_0 1_1 1_2</inclanes>
-      <shape>0.00,9.85 0.00,0.05</shape>
-   </junction>
+   <junction id="2" type="DEAD_END" x="0.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>
 
 
    <succ edge="1" lane="1_0" junction="2">

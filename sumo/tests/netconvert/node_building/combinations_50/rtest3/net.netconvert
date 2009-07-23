@@ -68,10 +68,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>0</key>
-      <requestsize>3</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="0" requestSize="3" laneNumber="2">
       <logic>
          <logicitem request="0" response="100" foes="100" cont="0"/>
          <logicitem request="1" response="000" foes="000" cont="0"/>
@@ -79,10 +76,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="2" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="1" foes="0" cont="0"/>
       </logic>
@@ -90,35 +84,15 @@
 
 
 
-   <junction id="0" type="priority" x="50.00" y="50.00">
-      <inclanes>2i_0 3i_0</inclanes>
-      <intlanes>:0_0_0 :0_1_0 :0_2_0</intlanes>
-      <shape>50.05,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 50.05,45.25</shape>
-   </junction>
+   <junction id="0" type="priority" x="50.00" y="50.00" incLanes="2i_0 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0" shape="50.05,54.75 53.25,54.75 54.75,53.25 54.75,46.75 53.25,45.25 50.05,45.25"/>
 
-   <junction id="1" type="DEAD_END" x="0.00" y="50.00">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape></shape>
-   </junction>
+   <junction id="1" type="DEAD_END" x="0.00" y="50.00" incLanes="" intLanes="" shape=""/>
 
-   <junction id="2" type="priority" x="100.00" y="50.00">
-      <inclanes>2o_0</inclanes>
-      <intlanes></intlanes>
-      <shape>100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95</shape>
-   </junction>
+   <junction id="2" type="priority" x="100.00" y="50.00" incLanes="2o_0" intLanes="" shape="100.00,50.05 100.00,53.25 100.00,46.75 100.00,49.95"/>
 
-   <junction id="3" type="DEAD_END" x="50.00" y="0.00">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape>50.05,-0.00 53.25,-0.00</shape>
-   </junction>
+   <junction id="3" type="DEAD_END" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.05,-0.00 53.25,-0.00"/>
 
-   <junction id="4" type="DEAD_END" x="50.00" y="100.00">
-      <inclanes>4o_0</inclanes>
-      <intlanes></intlanes>
-      <shape>53.25,100.00 50.05,100.00</shape>
-   </junction>
+   <junction id="4" type="DEAD_END" x="50.00" y="100.00" incLanes="4o_0" intLanes="" shape="53.25,100.00 50.05,100.00"/>
 
 
 

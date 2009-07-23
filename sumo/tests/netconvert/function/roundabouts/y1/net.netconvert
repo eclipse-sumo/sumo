@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/10/09 12:22:53 by SUMO netconvert Version dev-SVN-r7409
+<!-- generated on 07/23/09 09:39:31 by SUMO netconvert Version dev-SVN-r7470
 <configuration>
 
     <input
@@ -83,10 +83,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>10708</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="10708" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="1000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -95,37 +92,25 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>13448</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="13448" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>14304</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="14304" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>14305</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="14305" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>17199</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="17199" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="1000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -134,10 +119,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>17200</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="17200" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="1000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -148,35 +130,17 @@
 
 
 
-   <junction id="10708" type="priority" x="76.82" y="162.11">
-      <inclanes>5634_0 -9892_0</inclanes>
-      <shape>79.48,165.31 82.12,163.49 82.42,161.10 77.83,156.51 75.62,156.61 73.57,159.07</shape>
-   </junction>
+   <junction id="10708" type="priority" x="76.82" y="162.11" incLanes="5634_0 -9892_0" intLanes="" shape="79.48,165.31 82.12,163.49 82.42,161.10 77.83,156.51 75.62,156.61 73.57,159.07"/>
 
-   <junction id="13448" type="priority" x="83.75" y="0.00">
-      <inclanes>-5634_0</inclanes>
-      <shape>83.81,-0.01 86.96,-0.58 80.56,0.58 83.71,0.01</shape>
-   </junction>
+   <junction id="13448" type="priority" x="83.75" y="0.00" incLanes="-5634_0" intLanes="" shape="83.81,-0.01 86.96,-0.58 80.56,0.58 83.71,0.01"/>
 
-   <junction id="14304" type="priority" x="0.89" y="132.75">
-      <inclanes>9887_0</inclanes>
-      <shape>0.92,132.71 3.02,130.30 -1.24,135.20 0.86,132.79</shape>
-   </junction>
+   <junction id="14304" type="priority" x="0.89" y="132.75" incLanes="9887_0" intLanes="" shape="0.92,132.71 3.02,130.30 -1.24,135.20 0.86,132.79"/>
 
-   <junction id="14305" type="priority" x="141.64" y="275.05">
-      <inclanes>9889_0</inclanes>
-      <shape>141.60,275.09 139.28,277.29 144.00,272.82 141.68,275.02</shape>
-   </junction>
+   <junction id="14305" type="priority" x="141.64" y="275.05" incLanes="9889_0" intLanes="" shape="141.60,275.09 139.28,277.29 144.00,272.82 141.68,275.02"/>
 
-   <junction id="17199" type="priority" x="32.32" y="161.93">
-      <inclanes>-9887_0 -9890_0</inclanes>
-      <shape>35.49,159.15 33.66,156.52 31.38,156.31 26.72,160.83 27.10,163.32 29.78,165.07</shape>
-   </junction>
+   <junction id="17199" type="priority" x="32.32" y="161.93" incLanes="-9887_0 -9890_0" intLanes="" shape="35.49,159.15 33.66,156.52 31.38,156.31 26.72,160.83 27.10,163.32 29.78,165.07"/>
 
-   <junction id="17200" type="priority" x="75.82" y="205.61">
-      <inclanes>-9889_0 -9891_0</inclanes>
-      <shape>76.70,211.25 81.41,206.79 81.15,204.37 78.56,202.50 72.65,208.32 74.42,210.99</shape>
-   </junction>
+   <junction id="17200" type="priority" x="75.82" y="205.61" incLanes="-9889_0 -9891_0" intLanes="" shape="76.70,211.25 81.41,206.79 81.15,204.37 78.56,202.50 72.65,208.32 74.42,210.99"/>
 
 
    <succ edge="-5634" lane="-5634_0" junction="13448">

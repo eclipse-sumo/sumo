@@ -159,10 +159,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>15031669</key>
-      <requestsize>10</requestsize>
-      <lanenumber>5</lanenumber>
+   <row-logic id="15031669" requestSize="10" laneNumber="5">
       <logic>
          <logicitem request="0" response="0000000000" foes="1000010000" cont="0"/>
          <logicitem request="1" response="0000000000" foes="0110110000" cont="0"/>
@@ -177,31 +174,21 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>15031670</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="15031670" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>915660425</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="915660425" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
 
-   <tl-logic type="static">
-      <key>15031669</key>
-      <subkey>0</subkey>
-      <phaseno>6</phaseno>
-      <offset>0</offset>
+   <tl-logic id="15031669" type="static" programID="0" offset="0">
       <phase duration="31" state="rrrrGggGGg"/>
       <phase duration="5" state="rrrryggyyg"/>
       <phase duration="6" state="rrrrrGGrrG"/>
@@ -211,54 +198,22 @@
    </tl-logic>
 
 
-   <junction id="15031635" type="DEAD_END" x="0.00" y="0.00">
-      <inclanes>15032917_0 15032917_1</inclanes>
-      <intlanes></intlanes>
-      <shape>-2.60,6.01 -0.02,0.05</shape>
-   </junction>
+   <junction id="15031635" type="DEAD_END" x="0.00" y="0.00" incLanes="15032917_0 15032917_1" intLanes="" shape="-2.60,6.01 -0.02,0.05"/>
 
-   <junction id="15031669" type="priority" x="134.00" y="58.00">
-      <inclanes>15031630_0 15031630_1 -15035564_0 -15035564_1 -900000001_0</inclanes>
-      <intlanes>:15031669_0_0 :15031669_1_0 :15031669_2_0 :15031669_3_0 :15031669_4_0 :15031669_10_0 :15031669_11_0 :15031669_7_0 :15031669_8_0 :15031669_12_0</intlanes>
-      <shape>140.42,66.18 141.86,59.84 140.94,55.72 127.97,53.87 126.38,54.76 123.80,60.72 129.80,66.01 136.26,66.76</shape>
-   </junction>
+   <junction id="15031669" type="priority" x="134.00" y="58.00" incLanes="15031630_0 15031630_1 -15035564_0 -15035564_1 -900000001_0" intLanes=":15031669_0_0 :15031669_1_0 :15031669_2_0 :15031669_3_0 :15031669_4_0 :15031669_10_0 :15031669_11_0 :15031669_7_0 :15031669_8_0 :15031669_12_0" shape="140.42,66.18 141.86,59.84 140.94,55.72 127.97,53.87 126.38,54.76 123.80,60.72 129.80,66.01 136.26,66.76"/>
 
-   <junction id="15031670" type="priority" x="135.00" y="51.00">
-      <inclanes>15035564_0 15035564_1</inclanes>
-      <intlanes>:15031670_0_0</intlanes>
-      <shape>135.05,51.01 141.48,51.93 128.52,50.07 134.95,50.99</shape>
-   </junction>
+   <junction id="15031670" type="priority" x="135.00" y="51.00" incLanes="15035564_0 15035564_1" intLanes=":15031670_0_0" shape="135.05,51.01 141.48,51.93 128.52,50.07 134.95,50.99"/>
 
-   <junction id="15034028" type="DEAD_END" x="380.00" y="114.00">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape>379.99,114.05 378.55,120.39</shape>
-   </junction>
+   <junction id="15034028" type="DEAD_END" x="380.00" y="114.00" incLanes="" intLanes="" shape="379.99,114.05 378.55,120.39"/>
 
-   <junction id="915660425" type="priority" x="123.00" y="153.00">
-      <inclanes>900000001_0</inclanes>
-      <intlanes>:915660425_0_0</intlanes>
-      <shape>122.95,152.99 119.77,152.63 126.23,153.37 123.05,153.01</shape>
-   </junction>
+   <junction id="915660425" type="priority" x="123.00" y="153.00" incLanes="900000001_0" intLanes=":915660425_0_0" shape="122.95,152.99 119.77,152.63 126.23,153.37 123.05,153.01"/>
 
 
-   <junction id=":15031669_10_0" type="internal" x="133.87" y="57.67">
-      <inclanes>:15031669_5_0 -900000001_0</inclanes>
-      <intlanes>:15031669_7_0 :15031669_8_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":15031669_10_0" type="internal" x="133.87" y="57.67" incLanes=":15031669_5_0 -900000001_0" intLanes=":15031669_7_0 :15031669_8_0" shape=""/>
 
-   <junction id=":15031669_11_0" type="internal" x="136.02" y="55.10">
-      <inclanes>:15031669_6_0 -900000001_0</inclanes>
-      <intlanes>:15031669_8_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":15031669_11_0" type="internal" x="136.02" y="55.10" incLanes=":15031669_6_0 -900000001_0" intLanes=":15031669_8_0" shape=""/>
 
-   <junction id=":15031669_12_0" type="internal" x="131.45" y="66.12">
-      <inclanes>:15031669_9_0 -15035564_0</inclanes>
-      <intlanes>:15031669_4_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":15031669_12_0" type="internal" x="131.45" y="66.12" incLanes=":15031669_9_0 -15035564_0" intLanes=":15031669_4_0" shape=""/>
 
 
    <succ edge="-15035564" lane="-15035564_0" junction="15031669">

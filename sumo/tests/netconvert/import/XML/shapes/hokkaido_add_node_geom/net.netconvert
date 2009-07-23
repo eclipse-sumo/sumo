@@ -78,37 +78,25 @@
    </edge>
 
 
-   <row-logic>
-      <key>dl</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="dl" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>dr</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="dr" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>tl</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="tl" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>tr</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="tr" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
@@ -116,29 +104,13 @@
 
 
 
-   <junction id="dl" type="priority" x="95.49" y="0.00">
-      <inclanes>4_0</inclanes>
-      <intlanes>:dl_0_0</intlanes>
-      <shape>95.56,1.60 95.56,-1.60 95.28,-1.59 95.56,1.60</shape>
-   </junction>
+   <junction id="dl" type="priority" x="95.49" y="0.00" incLanes="4_0" intLanes=":dl_0_0" shape="95.56,1.60 95.56,-1.60 95.28,-1.59 95.56,1.60"/>
 
-   <junction id="dr" type="priority" x="1295.49" y="0.00">
-      <inclanes>1_0</inclanes>
-      <intlanes>:dr_0_0</intlanes>
-      <shape>1295.42,1.60 1295.70,-1.59 1295.42,-1.60 1295.42,1.60</shape>
-   </junction>
+   <junction id="dr" type="priority" x="1295.49" y="0.00" incLanes="1_0" intLanes=":dr_0_0" shape="1295.42,1.60 1295.70,-1.59 1295.42,-1.60 1295.42,1.60"/>
 
-   <junction id="tl" type="priority" x="95.49" y="190.99">
-      <inclanes>3_0</inclanes>
-      <intlanes>:tl_0_0</intlanes>
-      <shape>95.56,192.59 95.56,189.39 95.28,192.58</shape>
-   </junction>
+   <junction id="tl" type="priority" x="95.49" y="190.99" incLanes="3_0" intLanes=":tl_0_0" shape="95.56,192.59 95.56,189.39 95.28,192.58"/>
 
-   <junction id="tr" type="priority" x="1295.49" y="190.99">
-      <inclanes>2_0</inclanes>
-      <intlanes>:tr_0_0</intlanes>
-      <shape>1295.70,192.58 1295.42,189.39 1295.42,192.59</shape>
-   </junction>
+   <junction id="tr" type="priority" x="1295.49" y="190.99" incLanes="2_0" intLanes=":tr_0_0" shape="1295.70,192.58 1295.42,189.39 1295.42,192.59"/>
 
 
 

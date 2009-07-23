@@ -94,10 +94,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>2</key>
-      <requestsize>4</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="2" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000" foes="0000"/>
          <logicitem request="1" response="0000" foes="0000"/>
@@ -106,10 +103,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>3</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="3" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -117,10 +111,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>4</key>
-      <requestsize>4</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="4" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000" foes="1110"/>
          <logicitem request="1" response="0000" foes="0001"/>
@@ -129,10 +120,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>s2-AddedOnRampNode</key>
-      <requestsize>4</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="s2-AddedOnRampNode" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="1111" foes="0000"/>
          <logicitem request="1" response="0000" foes="0000"/>
@@ -141,10 +129,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>s3-AddedOffRampNode</key>
-      <requestsize>4</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="s3-AddedOffRampNode" requestSize="4" laneNumber="3">
       <logic>
          <logicitem request="0" response="0000" foes="0000"/>
          <logicitem request="1" response="0000" foes="0000"/>
@@ -155,50 +140,23 @@
 
 
 
-   <junction id="1" type="DEAD_END" x="0.00" y="0.00">
-      <inclanes>s4_0 s4_1 s4_2</inclanes>
-      <shape>0.00,9.85 0.00,0.05</shape>
-   </junction>
+   <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.85 0.00,0.05"/>
 
-   <junction id="2" type="priority" x="500.00" y="0.00">
-      <inclanes>s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3</inclanes>
-      <shape>487.63,13.15 487.63,0.05 483.82,0.05 483.82,9.85 483.11,11.32 484.89,13.98</shape>
-   </junction>
+   <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3" intLanes="" shape="487.63,13.15 487.63,0.05 483.82,0.05 483.82,9.85 483.11,11.32 484.89,13.98"/>
 
-   <junction id="2a" type="DEAD_END" x="200.00" y="200.00">
-      <inclanes>off_0</inclanes>
-      <shape>201.80,202.70 200.03,200.04</shape>
-   </junction>
+   <junction id="2a" type="DEAD_END" x="200.00" y="200.00" incLanes="off_0" intLanes="" shape="201.80,202.70 200.03,200.04"/>
 
-   <junction id="3" type="priority" x="1000.00" y="0.00">
-      <inclanes>s2_0 s2_1 s2_2</inclanes>
-      <shape>1000.00,9.85 1000.00,0.05 1000.00,9.85</shape>
-   </junction>
+   <junction id="3" type="priority" x="1000.00" y="0.00" incLanes="s2_0 s2_1 s2_2" intLanes="" shape="1000.00,9.85 1000.00,0.05 1000.00,9.85"/>
 
-   <junction id="4" type="priority" x="1500.00" y="0.00">
-      <inclanes>on_0 s1_0 s1_1 s1_2</inclanes>
-      <shape>1515.11,13.98 1516.89,11.32 1516.18,9.85 1516.18,0.05 1512.37,0.05 1512.37,13.15</shape>
-   </junction>
+   <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1515.11,13.98 1516.89,11.32 1516.18,9.85 1516.18,0.05 1512.37,0.05 1512.37,13.15"/>
 
-   <junction id="4a" type="DEAD_END" x="1800.00" y="200.00">
-      <inclanes></inclanes>
-      <shape>1799.97,200.04 1798.20,202.70</shape>
-   </junction>
+   <junction id="4a" type="DEAD_END" x="1800.00" y="200.00" incLanes="" intLanes="" shape="1799.97,200.04 1798.20,202.70"/>
 
-   <junction id="5" type="DEAD_END" x="2000.00" y="0.00">
-      <inclanes></inclanes>
-      <shape>2000.00,0.05 2000.00,9.85</shape>
-   </junction>
+   <junction id="5" type="DEAD_END" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
 
-   <junction id="s2-AddedOnRampNode" type="priority" x="1400.00" y="0.00">
-      <inclanes>s2-AddedOnRampEdge_0 s2-AddedOnRampEdge_1 s2-AddedOnRampEdge_2 s2-AddedOnRampEdge_3</inclanes>
-      <shape>1401.50,13.15 1401.50,0.05 1398.50,0.05 1398.50,9.85</shape>
-   </junction>
+   <junction id="s2-AddedOnRampNode" type="priority" x="1400.00" y="0.00" incLanes="s2-AddedOnRampEdge_0 s2-AddedOnRampEdge_1 s2-AddedOnRampEdge_2 s2-AddedOnRampEdge_3" intLanes="" shape="1401.50,13.15 1401.50,0.05 1398.50,0.05 1398.50,9.85"/>
 
-   <junction id="s3-AddedOffRampNode" type="priority" x="600.00" y="0.00">
-      <inclanes>s3_0 s3_1 s3_2</inclanes>
-      <shape>601.50,9.85 601.50,0.05 598.50,0.05 598.50,13.15</shape>
-   </junction>
+   <junction id="s3-AddedOffRampNode" type="priority" x="600.00" y="0.00" incLanes="s3_0 s3_1 s3_2" intLanes="" shape="601.50,9.85 601.50,0.05 598.50,0.05 598.50,13.15"/>
 
 
    <succ edge="off" lane="off_0" junction="2a">

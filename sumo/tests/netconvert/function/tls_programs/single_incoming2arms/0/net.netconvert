@@ -59,10 +59,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>15030043</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="15030043" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="10" foes="10" cont="0"/>
          <logicitem request="1" response="00" foes="01" cont="0"/>
@@ -70,11 +67,7 @@
    </row-logic>
 
 
-   <tl-logic type="static">
-      <key>15030043</key>
-      <subkey>0</subkey>
-      <phaseno>4</phaseno>
-      <offset>0</offset>
+   <tl-logic id="15030043" type="static" programID="0" offset="0">
       <phase duration="31" state="Gr"/>
       <phase duration="4" state="yr"/>
       <phase duration="31" state="rG"/>
@@ -82,29 +75,13 @@
    </tl-logic>
 
 
-   <junction id="15030043" type="priority" x="121.00" y="66.00">
-      <inclanes>15030608_0 15030858_0</inclanes>
-      <intlanes>:15030043_0_0 :15030043_1_0</intlanes>
-      <shape>124.92,70.26 125.65,67.15 124.49,65.21 121.36,64.54 120.01,70.68 123.13,71.38</shape>
-   </junction>
+   <junction id="15030043" type="priority" x="121.00" y="66.00" incLanes="15030608_0 15030858_0" intLanes=":15030043_0_0 :15030043_1_0" shape="124.92,70.26 125.65,67.15 124.49,65.21 121.36,64.54 120.01,70.68 123.13,71.38"/>
 
-   <junction id="15030238" type="DEAD_END" x="257.00" y="98.00">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape>256.99,98.05 256.26,101.16</shape>
-   </junction>
+   <junction id="15030238" type="DEAD_END" x="257.00" y="98.00" incLanes="" intLanes="" shape="256.99,98.05 256.26,101.16"/>
 
-   <junction id="15030435" type="DEAD_END" x="135.00" y="0.00">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape>135.05,0.01 138.18,0.67</shape>
-   </junction>
+   <junction id="15030435" type="DEAD_END" x="135.00" y="0.00" incLanes="" intLanes="" shape="135.05,0.01 138.18,0.67"/>
 
-   <junction id="15031475" type="DEAD_END" x="0.00" y="608.00">
-      <inclanes>153122148_0</inclanes>
-      <intlanes></intlanes>
-      <shape>3.17,608.71 0.05,608.01</shape>
-   </junction>
+   <junction id="15031475" type="DEAD_END" x="0.00" y="608.00" incLanes="153122148_0" intLanes="" shape="3.17,608.71 0.05,608.01"/>
 
 
 

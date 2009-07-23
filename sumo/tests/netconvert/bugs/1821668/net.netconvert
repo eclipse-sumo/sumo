@@ -50,10 +50,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>node123</key>
-      <requestsize>4</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="node123" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000" foes="1100"/>
          <logicitem request="1" response="0000" foes="1100"/>
@@ -64,25 +61,13 @@
 
 
 
-   <junction id="node103" type="DEAD_END" x="289.54" y="77.96">
-      <inclanes></inclanes>
-      <shape>289.54,78.01 289.54,84.51</shape>
-   </junction>
+   <junction id="node103" type="DEAD_END" x="289.54" y="77.96" incLanes="" intLanes="" shape="289.54,78.01 289.54,84.51"/>
 
-   <junction id="node104" type="DEAD_END" x="278.40" y="167.05">
-      <inclanes></inclanes>
-      <shape>278.40,167.10 278.40,173.60</shape>
-   </junction>
+   <junction id="node104" type="DEAD_END" x="278.40" y="167.05" incLanes="" intLanes="" shape="278.40,167.10 278.40,173.60"/>
 
-   <junction id="node123" type="priority" x="0.00" y="77.96">
-      <inclanes>1_0 1_1 2_0 2_1</inclanes>
-      <shape>-6.55,86.58 -0.05,86.58 1.45,84.51 1.45,78.01 -0.05,76.51 -6.55,76.51</shape>
-   </junction>
+   <junction id="node123" type="priority" x="0.00" y="77.96" incLanes="1_0 1_1 2_0 2_1" intLanes="" shape="-6.55,86.58 -0.05,86.58 1.45,84.51 1.45,78.01 -0.05,76.51 -6.55,76.51"/>
 
-   <junction id="node125" type="DEAD_END" x="0.00" y="0.00">
-      <inclanes>3_0 3_1</inclanes>
-      <shape>-6.55,0.00 -0.05,0.00</shape>
-   </junction>
+   <junction id="node125" type="DEAD_END" x="0.00" y="0.00" incLanes="3_0 3_1" intLanes="" shape="-6.55,0.00 -0.05,0.00"/>
 
 
    <succ edge="1" lane="1_0" junction="node123">

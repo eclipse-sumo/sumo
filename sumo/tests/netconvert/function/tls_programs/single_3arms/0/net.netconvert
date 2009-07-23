@@ -167,37 +167,25 @@
    </edge>
 
 
-   <row-logic>
-      <key>n1</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="n1" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>n11</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="n11" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>n12</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="n12" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>n6</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="n6" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="1"/>
@@ -212,11 +200,7 @@
    </row-logic>
 
 
-   <tl-logic type="static">
-      <key>n6</key>
-      <subkey>0</subkey>
-      <phaseno>6</phaseno>
-      <offset>0</offset>
+   <tl-logic id="n6" type="static" programID="0" offset="0">
       <phase duration="31" state="GggrrrGGg"/>
       <phase duration="4" state="yggrrryyg"/>
       <phase duration="6" state="rGGrrrrrG"/>
@@ -226,60 +210,24 @@
    </tl-logic>
 
 
-   <junction id="n1" type="priority" x="0.00" y="266.00">
-      <inclanes>e14_0</inclanes>
-      <intlanes>:n1_0_0</intlanes>
-      <shape>-0.02,265.96 -1.54,263.14 1.54,268.86 0.02,266.04</shape>
-   </junction>
+   <junction id="n1" type="priority" x="0.00" y="266.00" incLanes="e14_0" intLanes=":n1_0_0" shape="-0.02,265.96 -1.54,263.14 1.54,268.86 0.02,266.04"/>
 
-   <junction id="n11" type="priority" x="65.06" y="0.00">
-      <inclanes>e19_0</inclanes>
-      <intlanes>:n11_0_0</intlanes>
-      <shape>65.11,-0.02 68.15,-1.00 61.97,1.00 65.01,0.02</shape>
-   </junction>
+   <junction id="n11" type="priority" x="65.06" y="0.00" incLanes="e19_0" intLanes=":n11_0_0" shape="65.11,-0.02 68.15,-1.00 61.97,1.00 65.01,0.02"/>
 
-   <junction id="n12" type="priority" x="226.38" y="157.50">
-      <inclanes>e20_0</inclanes>
-      <intlanes>:n12_0_0</intlanes>
-      <shape>226.40,157.55 227.60,160.51 225.16,154.49 226.36,157.45</shape>
-   </junction>
+   <junction id="n12" type="priority" x="226.38" y="157.50" incLanes="e20_0" intLanes=":n12_0_0" shape="226.40,157.55 227.60,160.51 225.16,154.49 226.36,157.45"/>
 
-   <junction id="n6" type="priority" x="128.56" y="197.00">
-      <inclanes>e18_0 e17_0 e15_0</inclanes>
-      <intlanes>:n6_0_0 :n6_9_0 :n6_10_0 :n6_3_0 :n6_11_0 :n6_12_0 :n6_6_0 :n6_7_0 :n6_13_0</intlanes>
-      <shape>134.41,198.14 131.97,192.12 130.12,191.25 123.93,193.25 123.31,196.13 126.39,201.85</shape>
-   </junction>
+   <junction id="n6" type="priority" x="128.56" y="197.00" incLanes="e18_0 e17_0 e15_0" intLanes=":n6_0_0 :n6_9_0 :n6_10_0 :n6_3_0 :n6_11_0 :n6_12_0 :n6_6_0 :n6_7_0 :n6_13_0" shape="134.41,198.14 131.97,192.12 130.12,191.25 123.93,193.25 123.31,196.13 126.39,201.85"/>
 
 
-   <junction id=":n6_9_0" type="internal" x="127.43" y="195.98">
-      <inclanes>:n6_1_0 e15_0</inclanes>
-      <intlanes>:n6_6_0 :n6_7_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":n6_9_0" type="internal" x="127.43" y="195.98" incLanes=":n6_1_0 e15_0" intLanes=":n6_6_0 :n6_7_0" shape=""/>
 
-   <junction id=":n6_10_0" type="internal" x="133.71" y="196.64">
-      <inclanes>:n6_2_0 e15_0</inclanes>
-      <intlanes>:n6_7_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":n6_10_0" type="internal" x="133.71" y="196.64" incLanes=":n6_2_0 e15_0" intLanes=":n6_7_0" shape=""/>
 
-   <junction id=":n6_11_0" type="internal" x="129.06" y="195.23">
-      <inclanes>:n6_4_0 e15_0</inclanes>
-      <intlanes>:n6_7_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":n6_11_0" type="internal" x="129.06" y="195.23" incLanes=":n6_4_0 e15_0" intLanes=":n6_7_0" shape=""/>
 
-   <junction id=":n6_12_0" type="internal" x="128.57" y="191.84">
-      <inclanes>:n6_5_0 e15_0</inclanes>
-      <intlanes>:n6_6_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":n6_12_0" type="internal" x="128.57" y="191.84" incLanes=":n6_5_0 e15_0" intLanes=":n6_6_0" shape=""/>
 
-   <junction id=":n6_13_0" type="internal" x="124.17" y="197.55">
-      <inclanes>:n6_8_0 e18_0</inclanes>
-      <intlanes>:n6_0_0</intlanes>
-      <shape></shape>
-   </junction>
+   <junction id=":n6_13_0" type="internal" x="124.17" y="197.55" incLanes=":n6_8_0 e18_0" intLanes=":n6_0_0" shape=""/>
 
 
    <succ edge="e14" lane="e14_0" junction="n1">

@@ -75,10 +75,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>1/30</key>
-      <requestsize>3</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1/30" requestSize="3" laneNumber="2">
       <logic>
          <logicitem request="0" response="000" foes="000" cont="0"/>
          <logicitem request="1" response="000" foes="000" cont="0"/>
@@ -86,10 +83,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1/70</key>
-      <requestsize>2</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="1/70" requestSize="2" laneNumber="1">
       <logic>
          <logicitem request="0" response="00" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
@@ -98,29 +92,13 @@
 
 
 
-   <junction id="1/30" type="priority" x="70.00" y="0.00">
-      <inclanes>1/70_0 1/70_1</inclanes>
-      <intlanes>:1/30_0_0 :1/30_1_0 :1/30_2_0</intlanes>
-      <shape>71.50,-0.05 71.50,-9.85 68.50,-6.55 68.50,-0.05</shape>
-   </junction>
+   <junction id="1/30" type="priority" x="70.00" y="0.00" incLanes="1/70_0 1/70_1" intLanes=":1/30_0_0 :1/30_1_0 :1/30_2_0" shape="71.50,-0.05 71.50,-9.85 68.50,-6.55 68.50,-0.05"/>
 
-   <junction id="1/70" type="priority" x="30.00" y="0.00">
-      <inclanes>1_0</inclanes>
-      <intlanes>:1/70_0_0 :1/70_1_0</intlanes>
-      <shape>31.50,-0.05 31.50,-6.55 28.50,-3.25 28.50,-0.05</shape>
-   </junction>
+   <junction id="1/70" type="priority" x="30.00" y="0.00" incLanes="1_0" intLanes=":1/70_0_0 :1/70_1_0" shape="31.50,-0.05 31.50,-6.55 28.50,-3.25 28.50,-0.05"/>
 
-   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape>-0.00,-0.05 -0.00,-3.25</shape>
-   </junction>
+   <junction id="SUMOGenerated0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-3.25"/>
 
-   <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00">
-      <inclanes>1/30_0 1/30_1 1/30_2</inclanes>
-      <intlanes></intlanes>
-      <shape>100.00,-9.85 100.00,-0.05</shape>
-   </junction>
+   <junction id="SUMOGenerated1" type="DEAD_END" x="100.00" y="0.00" incLanes="1/30_0 1/30_1 1/30_2" intLanes="" shape="100.00,-9.85 100.00,-0.05"/>
 
 
 

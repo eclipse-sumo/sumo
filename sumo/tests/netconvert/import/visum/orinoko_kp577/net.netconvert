@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/19/09 15:51:08 by SUMO netconvert Version dev-SVN-r7195
+<!-- generated on 07/23/09 09:38:54 by SUMO netconvert Version dev-SVN-r7470
 <configuration>
 
-   <input>
-      <visum-file>visum.net</visum-file>
-   </input>
+    <input
+        visum-file="visum.net"
+    />
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output
+        output-file="net.net.xml"
+    />
 
-   <processing>
-      <no-internal-links>true</no-internal-links>
-   </processing>
+    <processing
+        no-internal-links="true"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
@@ -47,72 +47,55 @@
    <district id="1562612841">
    </district>
 
-   <district id="956400334">
-      <shape>1129.50,2801.50 1129.50,2801.50</shape>
+   <district id="956400334" shape="1129.50,2801.50 1129.50,2801.50">
    </district>
 
-   <district id="956400350">
-      <shape>2191.00,3163.50 2191.00,3163.50</shape>
+   <district id="956400350" shape="2191.00,3163.50 2191.00,3163.50">
    </district>
 
-   <district id="956400351">
-      <shape>3169.50,2694.00 3169.50,2694.00</shape>
+   <district id="956400351" shape="3169.50,2694.00 3169.50,2694.00">
    </district>
 
-   <district id="956400352">
-      <shape>3159.00,2683.50 3159.00,2683.50</shape>
+   <district id="956400352" shape="3159.00,2683.50 3159.00,2683.50">
    </district>
 
-   <district id="956400353">
-      <shape>2648.50,2003.50 2648.50,2003.50</shape>
+   <district id="956400353" shape="2648.50,2003.50 2648.50,2003.50">
    </district>
 
-   <district id="956400360">
-      <shape>1129.50,2801.50 1129.50,2801.50</shape>
+   <district id="956400360" shape="1129.50,2801.50 1129.50,2801.50">
    </district>
 
-   <district id="956400361">
-      <shape>1576.50,1727.50 1576.50,1727.50</shape>
+   <district id="956400361" shape="1576.50,1727.50 1576.50,1727.50">
    </district>
 
-   <district id="956400363">
-      <shape>1576.50,1727.50 1576.50,1727.50</shape>
+   <district id="956400363" shape="1576.50,1727.50 1576.50,1727.50">
    </district>
 
-   <district id="956400364">
-      <shape>1645.50,1265.50 1645.50,1265.50</shape>
+   <district id="956400364" shape="1645.50,1265.50 1645.50,1265.50">
    </district>
 
-   <district id="956400366">
-      <shape>2096.50,3.00 2096.50,3.00</shape>
+   <district id="956400366" shape="2096.50,3.00 2096.50,3.00">
    </district>
 
-   <district id="956400372">
-      <shape>562.00,506.00 562.00,506.00</shape>
+   <district id="956400372" shape="562.00,506.00 562.00,506.00">
    </district>
 
-   <district id="956400373">
-      <shape>562.00,506.00 562.00,506.00</shape>
+   <district id="956400373" shape="562.00,506.00 562.00,506.00">
    </district>
 
-   <district id="956400375">
-      <shape>143.50,321.00 143.50,321.00</shape>
+   <district id="956400375" shape="143.50,321.00 143.50,321.00">
    </district>
 
-   <district id="956400380">
-      <shape>3377.50,289.50 3377.50,289.50</shape>
+   <district id="956400380" shape="3377.50,289.50 3377.50,289.50">
    </district>
 
-   <district id="956400381">
-      <shape>3526.00,1149.00 3526.00,1149.00</shape>
+   <district id="956400381" shape="3526.00,1149.00 3526.00,1149.00">
    </district>
 
-   <district id="956400382">
-      <shape>3324.50,1304.00 3324.50,1304.00</shape>
+   <district id="956400382" shape="3324.50,1304.00 3324.50,1304.00">
    </district>
 
-   <district id="956400960">
-      <shape>3686.50,2813.00 3686.50,2813.00</shape>
+   <district id="956400960" shape="3686.50,2813.00 3686.50,2813.00">
    </district>
 
    <district id="957613262">
@@ -751,10 +734,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>100667780</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100667780" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -763,10 +743,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100667830</key>
-      <requestsize>6</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="100667830" requestSize="6" laneNumber="4">
       <logic>
          <logicitem request="0" response="000000" foes="100000"/>
          <logicitem request="1" response="000000" foes="100000"/>
@@ -777,10 +754,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100667891</key>
-      <requestsize>6</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="100667891" requestSize="6" laneNumber="4">
       <logic>
          <logicitem request="0" response="000000" foes="100000"/>
          <logicitem request="1" response="000000" foes="100000"/>
@@ -791,10 +765,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100667898</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="100667898" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="000000000" foes="011110000"/>
@@ -808,10 +779,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100668229</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100668229" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -820,10 +788,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100668282</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100668282" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -832,10 +797,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100668287</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="100668287" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -849,10 +811,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100668295</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100668295" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -861,10 +820,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100668332</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100668332" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -873,10 +829,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100668353</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100668353" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -885,10 +838,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100668362</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100668362" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -897,10 +847,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100674626</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100674626" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -909,10 +856,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100674627</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100674627" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -921,10 +865,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100674916</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100674916" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -933,10 +874,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100674947</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100674947" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -945,10 +883,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>100674949</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="100674949" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -957,28 +892,19 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1507</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="1507" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1555</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="1555" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1556</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1556" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -987,10 +913,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1558</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1558" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -999,10 +922,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1559</key>
-      <requestsize>5</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1559" requestSize="5" laneNumber="2">
       <logic>
          <logicitem request="0" response="00000" foes="10000"/>
          <logicitem request="1" response="01100" foes="01100"/>
@@ -1012,10 +932,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1560</key>
-      <requestsize>13</requestsize>
-      <lanenumber>8</lanenumber>
+   <row-logic id="1560" requestSize="13" laneNumber="8">
       <logic>
          <logicitem request="0" response="0000000000000" foes="0000100010000"/>
          <logicitem request="1" response="0000000000000" foes="1111100110000"/>
@@ -1033,10 +950,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1561</key>
-      <requestsize>5</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1561" requestSize="5" laneNumber="2">
       <logic>
          <logicitem request="0" response="00000" foes="10000"/>
          <logicitem request="1" response="00000" foes="10000"/>
@@ -1046,10 +960,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1562</key>
-      <requestsize>5</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1562" requestSize="5" laneNumber="2">
       <logic>
          <logicitem request="0" response="00000" foes="10000"/>
          <logicitem request="1" response="01100" foes="01100"/>
@@ -1059,10 +970,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1563</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1563" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1071,10 +979,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1564</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1564" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1083,10 +988,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1565</key>
-      <requestsize>11</requestsize>
-      <lanenumber>5</lanenumber>
+   <row-logic id="1565" requestSize="11" laneNumber="5">
       <logic>
          <logicitem request="0" response="00000000000" foes="10000100000"/>
          <logicitem request="1" response="00000000000" foes="10000100000"/>
@@ -1102,10 +1004,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1566</key>
-      <requestsize>6</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="1566" requestSize="6" laneNumber="4">
       <logic>
          <logicitem request="0" response="000000" foes="100000"/>
          <logicitem request="1" response="000000" foes="100000"/>
@@ -1116,20 +1015,14 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1567</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1567" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00"/>
          <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1610</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="1610" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="000000000" foes="011110000"/>
@@ -1143,19 +1036,13 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1612</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="1612" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1649</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1649" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1164,19 +1051,13 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1659</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="1659" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1661</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="1661" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="000000000" foes="011110000"/>
@@ -1190,10 +1071,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1662</key>
-      <requestsize>5</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1662" requestSize="5" laneNumber="2">
       <logic>
          <logicitem request="0" response="00000" foes="10000"/>
          <logicitem request="1" response="00000" foes="10000"/>
@@ -1203,10 +1081,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1663</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1663" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1215,10 +1090,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1664</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1664" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1227,10 +1099,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1665</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1665" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1239,10 +1108,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1666</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1666" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1251,10 +1117,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1668</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1668" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1263,10 +1126,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1669</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1669" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1275,10 +1135,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1670</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1670" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1287,10 +1144,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1671</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1671" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1299,10 +1153,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1672</key>
-      <requestsize>11</requestsize>
-      <lanenumber>5</lanenumber>
+   <row-logic id="1672" requestSize="11" laneNumber="5">
       <logic>
          <logicitem request="0" response="00000000000" foes="10000100000"/>
          <logicitem request="1" response="00000000000" foes="10000100000"/>
@@ -1318,28 +1169,19 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1678</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="1678" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>261</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="261" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>605000010</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="605000010" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -1353,10 +1195,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>605001135</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="605001135" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -1365,10 +1204,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>814</key>
-      <requestsize>5</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="814" requestSize="5" laneNumber="3">
       <logic>
          <logicitem request="0" response="00000" foes="10000"/>
          <logicitem request="1" response="00000" foes="10000"/>
@@ -1379,11 +1215,7 @@
    </row-logic>
 
 
-   <tl-logic type="static">
-      <key>1560</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="1560" type="static" programID="0" offset="0">
       <phase duration="4" state="rrrrrrrrrrrr"/>
       <phase duration="15" state="rrrGgGrrrgGG"/>
       <phase duration="5" state="rrryyyrrryyy"/>
@@ -1395,250 +1227,103 @@
    </tl-logic>
 
 
-   <junction id="100667780" type="priority" x="1057.00" y="1056.00">
-      <inclanes>-53091570_0 53091573_0</inclanes>
-      <shape>1059.52,1058.05 1054.46,1053.97 1059.58,1057.98</shape>
-   </junction>
+   <junction id="100667780" type="priority" x="1057.00" y="1056.00" incLanes="-53091570_0 53091573_0" intLanes="" shape="1059.52,1058.05 1054.46,1053.97 1059.58,1057.98"/>
 
-   <junction id="100667830" type="priority" x="362.00" y="1844.00">
-      <inclanes>905002541_0 905002541_1 53091482_0 53091482_1</inclanes>
-      <shape>358.61,1849.63 366.23,1838.97 364.47,1837.91 358.61,1849.63</shape>
-   </junction>
+   <junction id="100667830" type="priority" x="362.00" y="1844.00" incLanes="905002541_0 905002541_1 53091482_0 53091482_1" intLanes="" shape="358.61,1849.63 366.23,1838.97 364.47,1837.91 358.61,1849.63"/>
 
-   <junction id="100667891" type="priority" x="1054.00" y="2472.00">
-      <inclanes>905002551_0 905002551_1 53091559_0 53091559_1</inclanes>
-      <shape>1049.49,2476.75 1058.51,2467.25 1049.44,2476.70</shape>
-   </junction>
+   <junction id="100667891" type="priority" x="1054.00" y="2472.00" incLanes="905002551_0 905002551_1 53091559_0 53091559_1" intLanes="" shape="1049.49,2476.75 1058.51,2467.25 1049.44,2476.70"/>
 
-   <junction id="100667898" type="priority" x="1170.00" y="916.00">
-      <inclanes>545285142_0 905001136_0 53091570_0</inclanes>
-      <shape>1171.80,921.33 1175.62,916.07 1168.06,910.48 1164.16,915.68 1164.41,917.75 1169.47,921.83</shape>
-   </junction>
+   <junction id="100667898" type="priority" x="1170.00" y="916.00" incLanes="545285142_0 905001136_0 53091570_0" intLanes="" shape="1171.80,921.33 1175.62,916.07 1168.06,910.48 1164.16,915.68 1164.41,917.75 1169.47,921.83"/>
 
-   <junction id="100668229" type="priority" x="3023.00" y="350.00">
-      <inclanes>-59394061_0 -905002586_0</inclanes>
-      <shape>3025.57,351.99 3020.43,348.01 3025.59,351.97</shape>
-   </junction>
+   <junction id="100668229" type="priority" x="3023.00" y="350.00" incLanes="-59394061_0 -905002586_0" intLanes="" shape="3025.57,351.99 3020.43,348.01 3025.59,351.97"/>
 
-   <junction id="100668282" type="priority" x="3539.00" y="1147.00">
-      <inclanes>905002243_0 905006041_0</inclanes>
-      <shape>3536.37,1148.91 3541.74,1145.25 3536.16,1148.59</shape>
-   </junction>
+   <junction id="100668282" type="priority" x="3539.00" y="1147.00" incLanes="905002243_0 905006041_0" intLanes="" shape="3536.37,1148.91 3541.74,1145.25 3536.16,1148.59"/>
 
-   <junction id="100668287" type="priority" x="2951.00" y="2261.00">
-      <inclanes>53092310_0 -53092869_0 905005623_0</inclanes>
-      <shape>2952.45,2266.71 2956.82,2261.90 2956.77,2259.83 2952.17,2255.23 2949.71,2255.57 2945.45,2260.48</shape>
-   </junction>
+   <junction id="100668287" type="priority" x="2951.00" y="2261.00" incLanes="53092310_0 -53092869_0 905005623_0" intLanes="" shape="2952.45,2266.71 2956.82,2261.90 2956.77,2259.83 2952.17,2255.23 2949.71,2255.57 2945.45,2260.48"/>
 
-   <junction id="100668295" type="priority" x="3399.00" y="1940.00">
-      <inclanes>905006038_0 905001592_0</inclanes>
-      <shape>3403.20,1938.86 3397.39,1935.95 3395.16,1942.05</shape>
-   </junction>
+   <junction id="100668295" type="priority" x="3399.00" y="1940.00" incLanes="905006038_0 905001592_0" intLanes="" shape="3403.20,1938.86 3397.39,1935.95 3395.16,1942.05"/>
 
-   <junction id="100668332" type="priority" x="2964.00" y="2248.00">
-      <inclanes>905001580_0 53092869_0</inclanes>
-      <shape>2966.60,2249.95 2961.59,2245.81 2966.19,2250.41</shape>
-   </junction>
+   <junction id="100668332" type="priority" x="2964.00" y="2248.00" incLanes="905001580_0 53092869_0" intLanes="" shape="2966.60,2249.95 2961.59,2245.81 2966.19,2250.41"/>
 
-   <junction id="100668353" type="priority" x="3051.00" y="2609.00">
-      <inclanes>905002241_0 905002247_0</inclanes>
-      <shape>3050.69,2604.69 3046.76,2609.87 3052.41,2613.09</shape>
-   </junction>
+   <junction id="100668353" type="priority" x="3051.00" y="2609.00" incLanes="905002241_0 905002247_0" intLanes="" shape="3050.69,2604.69 3046.76,2609.87 3052.41,2613.09"/>
 
-   <junction id="100668362" type="priority" x="3605.00" y="2823.00">
-      <inclanes>-545279727_0 -905006790_0</inclanes>
-      <shape>3602.88,2825.46 3607.12,2820.54 3602.88,2825.47</shape>
-   </junction>
+   <junction id="100668362" type="priority" x="3605.00" y="2823.00" incLanes="-545279727_0 -905006790_0" intLanes="" shape="3602.88,2825.46 3607.12,2820.54 3602.88,2825.47"/>
 
-   <junction id="100674626" type="priority" x="3235.00" y="77.00">
-      <inclanes>-59394070_0 59394061_0</inclanes>
-      <shape>3237.30,79.34 3233.40,74.14 3232.17,75.35 3237.30,79.34</shape>
-   </junction>
+   <junction id="100674626" type="priority" x="3235.00" y="77.00" incLanes="-59394070_0 59394061_0" intLanes="" shape="3237.30,79.34 3233.40,74.14 3232.17,75.35 3237.30,79.34"/>
 
-   <junction id="100674627" type="priority" x="3271.00" y="50.00">
-      <inclanes>-545279717_0 59394070_0</inclanes>
-      <shape>3272.73,52.76 3269.75,46.99 3268.83,47.56 3272.73,52.76</shape>
-   </junction>
+   <junction id="100674627" type="priority" x="3271.00" y="50.00" incLanes="-545279717_0 59394070_0" intLanes="" shape="3272.73,52.76 3269.75,46.99 3268.83,47.56 3272.73,52.76"/>
 
-   <junction id="100674916" type="priority" x="3930.00" y="3109.00">
-      <inclanes>905006117_0 545279727_0</inclanes>
-      <shape>3927.70,3111.31 3932.51,3106.93 3932.06,3106.48 3927.70,3111.31</shape>
-   </junction>
+   <junction id="100674916" type="priority" x="3930.00" y="3109.00" incLanes="905006117_0 545279727_0" intLanes="" shape="3927.70,3111.31 3932.51,3106.93 3932.06,3106.48 3927.70,3111.31"/>
 
-   <junction id="100674947" type="priority" x="3449.00" y="15.00">
-      <inclanes>83535600_0 -83535603_0</inclanes>
-      <shape>3452.06,17.63 3450.60,11.30 3445.58,17.13 3452.06,17.63</shape>
-   </junction>
+   <junction id="100674947" type="priority" x="3449.00" y="15.00" incLanes="83535600_0 -83535603_0" intLanes="" shape="3452.06,17.63 3450.60,11.30 3445.58,17.13 3452.06,17.63"/>
 
-   <junction id="100674949" type="priority" x="3425.00" y="20.00">
-      <inclanes>83535603_0 545279717_0</inclanes>
-      <shape>3423.01,23.28 3428.82,20.38 3422.90,16.78 3423.01,23.28</shape>
-   </junction>
+   <junction id="100674949" type="priority" x="3425.00" y="20.00" incLanes="83535603_0 545279717_0" intLanes="" shape="3423.01,23.28 3428.82,20.38 3422.90,16.78 3423.01,23.28"/>
 
-   <junction id="1507" type="priority" x="1040.00" y="1078.00">
-      <inclanes>-53091573_0</inclanes>
-      <shape>1039.96,1077.97 1037.43,1076.01 1042.57,1079.99 1040.04,1078.03</shape>
-   </junction>
+   <junction id="1507" type="priority" x="1040.00" y="1078.00" incLanes="-53091573_0" intLanes="" shape="1039.96,1077.97 1037.43,1076.01 1042.57,1079.99 1040.04,1078.03"/>
 
-   <junction id="1555" type="priority" x="0.00" y="588.00">
-      <inclanes>-53091382_0</inclanes>
-      <shape>-0.03,587.96 -2.02,585.46 2.02,590.54 0.03,588.04</shape>
-   </junction>
+   <junction id="1555" type="priority" x="0.00" y="588.00" incLanes="-53091382_0" intLanes="" shape="-0.03,587.96 -2.02,585.46 2.02,590.54 0.03,588.04"/>
 
-   <junction id="1556" type="priority" x="560.00" y="508.00">
-      <inclanes>-905001136_0 53091382_0</inclanes>
-      <shape>559.10,511.14 561.60,505.15 560.16,504.73 559.10,511.14</shape>
-   </junction>
+   <junction id="1556" type="priority" x="560.00" y="508.00" incLanes="-905001136_0 53091382_0" intLanes="" shape="559.10,511.14 561.60,505.15 560.16,504.73 559.10,511.14"/>
 
-   <junction id="1558" type="priority" x="1420.00" y="1128.00">
-      <inclanes>-905006119_0 -545285142_0</inclanes>
-      <shape>1418.49,1130.89 1421.94,1125.38 1417.68,1130.29</shape>
-   </junction>
+   <junction id="1558" type="priority" x="1420.00" y="1128.00" incLanes="-905006119_0 -545285142_0" intLanes="" shape="1418.49,1130.89 1421.94,1125.38 1417.68,1130.29"/>
 
-   <junction id="1559" type="priority" x="1700.00" y="1338.00">
-      <inclanes>-905006120_0 905006119_0</inclanes>
-      <shape>1695.16,1339.90 1698.07,1330.54 1695.57,1329.04 1691.00,1333.66</shape>
-   </junction>
+   <junction id="1559" type="priority" x="1700.00" y="1338.00" incLanes="-905006120_0 905006119_0" intLanes="" shape="1695.16,1339.90 1698.07,1330.54 1695.57,1329.04 1691.00,1333.66"/>
 
-   <junction id="1560" type="priority" x="2080.00" y="1608.00">
-      <inclanes>-545285126_0 -545285126_1 -905006042_0 -905006042_1 905006120_0 905006120_1 -53091615_0 -53091615_1</inclanes>
-      <shape>2081.30,1618.06 2087.91,1610.83 2090.11,1605.36 2082.23,1599.53 2077.67,1597.86 2071.63,1605.58 2069.71,1610.39 2077.37,1616.50</shape>
-   </junction>
+   <junction id="1560" type="priority" x="2080.00" y="1608.00" incLanes="-545285126_0 -545285126_1 -905006042_0 -905006042_1 905006120_0 905006120_1 -53091615_0 -53091615_1" intLanes="" shape="2081.30,1618.06 2087.91,1610.83 2090.11,1605.36 2082.23,1599.53 2077.67,1597.86 2071.63,1605.58 2069.71,1610.39 2077.37,1616.50"/>
 
-   <junction id="1561" type="priority" x="2480.00" y="1068.00">
-      <inclanes>-905005617_0 905006042_0</inclanes>
-      <shape>2483.50,1068.75 2478.30,1064.85 2476.50,1067.27 2484.37,1073.10</shape>
-   </junction>
+   <junction id="1561" type="priority" x="2480.00" y="1068.00" incLanes="-905005617_0 905006042_0" intLanes="" shape="2483.50,1068.75 2478.30,1064.85 2476.50,1067.27 2484.37,1073.10"/>
 
-   <junction id="1562" type="priority" x="1977.00" y="1737.00">
-      <inclanes>53091615_0 -545285124_0</inclanes>
-      <shape>1980.47,1737.86 1972.82,1731.74 1973.52,1736.16 1978.63,1740.18</shape>
-   </junction>
+   <junction id="1562" type="priority" x="1977.00" y="1737.00" incLanes="53091615_0 -545285124_0" intLanes="" shape="1980.47,1737.86 1972.82,1731.74 1973.52,1736.16 1978.63,1740.18"/>
 
-   <junction id="1563" type="priority" x="1760.00" y="2038.00">
-      <inclanes>545285124_0 -53091628_0</inclanes>
-      <shape>1762.86,2039.57 1757.43,2035.99 1762.21,2040.40</shape>
-   </junction>
+   <junction id="1563" type="priority" x="1760.00" y="2038.00" incLanes="545285124_0 -53091628_0" intLanes="" shape="1762.86,2039.57 1757.43,2035.99 1762.21,2040.40"/>
 
-   <junction id="1564" type="priority" x="1520.00" y="2298.00">
-      <inclanes>53091628_0 -905002550_0</inclanes>
-      <shape>1522.75,2299.81 1517.98,2295.40 1516.81,2297.17 1522.75,2299.81</shape>
-   </junction>
+   <junction id="1564" type="priority" x="1520.00" y="2298.00" incLanes="53091628_0 -905002550_0" intLanes="" shape="1522.75,2299.81 1517.98,2295.40 1516.81,2297.17 1522.75,2299.81"/>
 
-   <junction id="1565" type="priority" x="1250.00" y="2668.00">
-      <inclanes>-53091655_0 -53091655_1 905002550_0 -905002551_0 -905002551_1</inclanes>
-      <shape>1249.07,2676.14 1258.08,2666.63 1259.01,2663.59 1254.41,2658.99 1252.68,2658.71 1240.96,2664.57</shape>
-   </junction>
+   <junction id="1565" type="priority" x="1250.00" y="2668.00" incLanes="-53091655_0 -53091655_1 905002550_0 -905002551_0 -905002551_1" intLanes="" shape="1249.07,2676.14 1258.08,2666.63 1259.01,2663.59 1254.41,2658.99 1252.68,2658.71 1240.96,2664.57"/>
 
-   <junction id="1566" type="priority" x="798.00" y="2223.00">
-      <inclanes>-53091559_0 -53091559_1 -905002541_0 -905002541_1</inclanes>
-      <shape>793.43,2227.70 802.57,2218.30 793.41,2227.67</shape>
-   </junction>
+   <junction id="1566" type="priority" x="798.00" y="2223.00" incLanes="-53091559_0 -53091559_1 -905002541_0 -905002541_1" intLanes="" shape="793.43,2227.70 802.57,2218.30 793.41,2227.67"/>
 
-   <junction id="1567" type="priority" x="330.00" y="1828.00">
-      <inclanes>-53091482_0 -53091482_1</inclanes>
-      <shape>330.02,1827.96 332.93,1822.14 327.07,1833.86 329.98,1828.04</shape>
-   </junction>
+   <junction id="1567" type="priority" x="330.00" y="1828.00" incLanes="-53091482_0 -53091482_1" intLanes="" shape="330.02,1827.96 332.93,1822.14 327.07,1833.86 329.98,1828.04"/>
 
-   <junction id="1610" type="priority" x="3412.00" y="2687.00">
-      <inclanes>-53092407_0 -905002245_0 -905005462_0</inclanes>
-      <shape>3415.92,2692.68 3418.90,2686.91 3418.66,2685.19 3414.21,2680.46 3407.28,2691.13 3413.48,2693.09</shape>
-   </junction>
+   <junction id="1610" type="priority" x="3412.00" y="2687.00" incLanes="-53092407_0 -905002245_0 -905005462_0" intLanes="" shape="3415.92,2692.68 3418.90,2686.91 3418.66,2685.19 3414.21,2680.46 3407.28,2691.13 3413.48,2693.09"/>
 
-   <junction id="1612" type="priority" x="3380.00" y="2788.00">
-      <inclanes>905005462_0</inclanes>
-      <shape>3379.95,2787.99 3376.90,2787.02 3383.10,2788.98 3380.05,2788.02</shape>
-   </junction>
+   <junction id="1612" type="priority" x="3380.00" y="2788.00" incLanes="905005462_0" intLanes="" shape="3379.95,2787.99 3376.90,2787.02 3383.10,2788.98 3380.05,2788.02"/>
 
-   <junction id="1649" type="priority" x="3200.00" y="2488.00">
-      <inclanes>905002245_0 -905005621_0</inclanes>
-      <shape>3198.66,2491.02 3202.32,2485.65 3197.00,2489.38</shape>
-   </junction>
+   <junction id="1649" type="priority" x="3200.00" y="2488.00" incLanes="905002245_0 -905005621_0" intLanes="" shape="3198.66,2491.02 3202.32,2485.65 3197.00,2489.38"/>
 
-   <junction id="1659" type="priority" x="4020.00" y="3208.00">
-      <inclanes>-905006117_0</inclanes>
-      <shape>4019.96,3208.03 4017.60,3210.19 4022.40,3205.81 4020.04,3207.97</shape>
-   </junction>
+   <junction id="1659" type="priority" x="4020.00" y="3208.00" incLanes="-905006117_0" intLanes="" shape="4019.96,3208.03 4017.60,3210.19 4022.40,3205.81 4020.04,3207.97"/>
 
-   <junction id="1661" type="priority" x="2984.00" y="2291.00">
-      <inclanes>905005621_0 -53092310_0 -53092402_0</inclanes>
-      <shape>2985.64,2296.60 2989.81,2291.61 2982.84,2285.55 2978.47,2290.36 2978.45,2292.81 2983.56,2296.82</shape>
-   </junction>
+   <junction id="1661" type="priority" x="2984.00" y="2291.00" incLanes="905005621_0 -53092310_0 -53092402_0" intLanes="" shape="2985.64,2296.60 2989.81,2291.61 2982.84,2285.55 2978.47,2290.36 2978.45,2292.81 2983.56,2296.82"/>
 
-   <junction id="1662" type="priority" x="2620.00" y="2018.00">
-      <inclanes>-905005623_0 545285126_0</inclanes>
-      <shape>2619.47,2021.54 2623.05,2016.12 2620.47,2014.46 2615.24,2022.74</shape>
-   </junction>
+   <junction id="1662" type="priority" x="2620.00" y="2018.00" incLanes="-905005623_0 545285126_0" intLanes="" shape="2619.47,2021.54 2623.05,2016.12 2620.47,2014.46 2615.24,2022.74"/>
 
-   <junction id="1663" type="priority" x="3020.00" y="798.00">
-      <inclanes>-905006040_0 -905006039_0</inclanes>
-      <shape>3019.68,801.24 3020.63,794.81 3019.07,801.12</shape>
-   </junction>
+   <junction id="1663" type="priority" x="3020.00" y="798.00" incLanes="-905006040_0 -905006039_0" intLanes="" shape="3019.68,801.24 3020.63,794.81 3019.07,801.12"/>
 
-   <junction id="1664" type="priority" x="3360.00" y="848.00">
-      <inclanes>-905006041_0 905006040_0</inclanes>
-      <shape>3358.00,850.99 3363.58,847.65 3358.95,844.56 3358.00,850.99</shape>
-   </junction>
+   <junction id="1664" type="priority" x="3360.00" y="848.00" incLanes="-905006041_0 905006040_0" intLanes="" shape="3358.00,850.99 3363.58,847.65 3358.95,844.56 3358.00,850.99"/>
 
-   <junction id="1665" type="priority" x="3640.00" y="1288.00">
-      <inclanes>-905002246_0 -905002243_0</inclanes>
-      <shape>3637.41,1289.98 3642.79,1286.33 3642.35,1285.75 3637.41,1289.98</shape>
-   </junction>
+   <junction id="1665" type="priority" x="3640.00" y="1288.00" incLanes="-905002246_0 -905002243_0" intLanes="" shape="3637.41,1289.98 3642.79,1286.33 3642.35,1285.75 3637.41,1289.98"/>
 
-   <junction id="1666" type="priority" x="3466.00" y="1708.00">
-      <inclanes>905002246_0 -905006038_0</inclanes>
-      <shape>3468.89,1709.55 3463.63,1705.73 3462.80,1707.29 3468.89,1709.55</shape>
-   </junction>
+   <junction id="1666" type="priority" x="3466.00" y="1708.00" incLanes="905002246_0 -905006038_0" intLanes="" shape="3468.89,1709.55 3463.63,1705.73 3462.80,1707.29 3468.89,1709.55"/>
 
-   <junction id="1668" type="priority" x="3157.00" y="1859.00">
-      <inclanes>-905001592_0 -905001580_0</inclanes>
-      <shape>3158.73,1862.92 3160.61,1856.70 3152.87,1860.11 3158.73,1862.92</shape>
-   </junction>
+   <junction id="1668" type="priority" x="3157.00" y="1859.00" incLanes="-905001592_0 -905001580_0" intLanes="" shape="3158.73,1862.92 3160.61,1856.70 3152.87,1860.11 3158.73,1862.92"/>
 
-   <junction id="1669" type="priority" x="2853.00" y="2458.00">
-      <inclanes>-905002241_0 53092402_0</inclanes>
-      <shape>2853.57,2462.57 2857.57,2457.44 2852.46,2453.43</shape>
-   </junction>
+   <junction id="1669" type="priority" x="2853.00" y="2458.00" incLanes="-905002241_0 53092402_0" intLanes="" shape="2853.57,2462.57 2857.57,2457.44 2852.46,2453.43"/>
 
-   <junction id="1670" type="priority" x="2820.00" y="2828.00">
-      <inclanes>-905006036_0 -905002247_0</inclanes>
-      <shape>2817.94,2831.41 2823.90,2828.81 2819.46,2824.06</shape>
-   </junction>
+   <junction id="1670" type="priority" x="2820.00" y="2828.00" incLanes="-905006036_0 -905002247_0" intLanes="" shape="2817.94,2831.41 2823.90,2828.81 2819.46,2824.06"/>
 
-   <junction id="1671" type="priority" x="2240.00" y="2808.00">
-      <inclanes>905006036_0 545285123_0</inclanes>
-      <shape>2239.15,2811.37 2242.87,2806.04 2238.41,2804.91 2239.15,2811.37</shape>
-   </junction>
+   <junction id="1671" type="priority" x="2240.00" y="2808.00" incLanes="905006036_0 545285123_0" intLanes="" shape="2239.15,2811.37 2242.87,2806.04 2238.41,2804.91 2239.15,2811.37"/>
 
-   <junction id="1672" type="priority" x="1501.00" y="2906.00">
-      <inclanes>905005626_0 905005626_1 905006352_0 53091655_0 53091655_1</inclanes>
-      <shape>1499.84,2913.76 1508.59,2904.01 1508.73,2901.40 1503.61,2897.39 1501.60,2897.54 1492.59,2907.05</shape>
-   </junction>
+   <junction id="1672" type="priority" x="1501.00" y="2906.00" incLanes="905005626_0 905005626_1 905006352_0 53091655_0 53091655_1" intLanes="" shape="1499.84,2913.76 1508.59,2904.01 1508.73,2901.40 1503.61,2897.39 1501.60,2897.54 1492.59,2907.05"/>
 
-   <junction id="1678" type="priority" x="3616.00" y="2.00">
-      <inclanes>-83535600_0</inclanes>
-      <shape>3616.00,2.05 3615.94,5.25 3616.06,-1.25 3616.00,1.95</shape>
-   </junction>
+   <junction id="1678" type="priority" x="3616.00" y="2.00" incLanes="-83535600_0" intLanes="" shape="3616.00,2.05 3615.94,5.25 3616.06,-1.25 3616.00,1.95"/>
 
-   <junction id="261" type="priority" x="1566.00" y="2823.00">
-      <inclanes>-905006352_0</inclanes>
-      <shape>1566.04,2823.03 1568.56,2825.00 1563.44,2821.00 1565.96,2822.97</shape>
-   </junction>
+   <junction id="261" type="priority" x="1566.00" y="2823.00" incLanes="-905006352_0" intLanes="" shape="1566.04,2823.03 1568.56,2825.00 1563.44,2821.00 1565.96,2822.97"/>
 
-   <junction id="605000010" type="priority" x="2735.00" y="728.00">
-      <inclanes>905006039_0 905002586_0 905005617_0</inclanes>
-      <shape>2740.50,732.70 2742.05,726.38 2741.50,724.83 2736.33,720.89 2730.21,728.97 2735.41,732.87</shape>
-   </junction>
+   <junction id="605000010" type="priority" x="2735.00" y="728.00" incLanes="905006039_0 905002586_0 905005617_0" intLanes="" shape="2740.50,732.70 2742.05,726.38 2741.50,724.83 2736.33,720.89 2730.21,728.97 2735.41,732.87"/>
 
-   <junction id="605001135" type="priority" x="3499.00" y="2732.00">
-      <inclanes>905006790_0 53092407_0</inclanes>
-      <shape>3497.17,2734.71 3501.41,2729.78 3500.16,2728.94 3497.17,2734.71</shape>
-   </junction>
+   <junction id="605001135" type="priority" x="3499.00" y="2732.00" incLanes="905006790_0 53092407_0" intLanes="" shape="3497.17,2734.71 3501.41,2729.78 3500.16,2728.94 3497.17,2734.71"/>
 
-   <junction id="814" type="priority" x="1881.00" y="3058.00">
-      <inclanes>-545285123_0 -905005626_0 -905005626_1</inclanes>
-      <shape>1887.08,3052.32 1881.14,3049.68 1879.09,3050.63 1875.46,3063.22</shape>
-   </junction>
+   <junction id="814" type="priority" x="1881.00" y="3058.00" incLanes="-545285123_0 -905005626_0 -905005626_1" intLanes="" shape="1887.08,3052.32 1881.14,3049.68 1879.09,3050.63 1875.46,3063.22"/>
 
 
    <succ edge="-53091382" lane="-53091382_0" junction="1555">
