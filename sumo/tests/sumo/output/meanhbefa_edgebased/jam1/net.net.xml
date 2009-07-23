@@ -36,7 +36,7 @@
 
    <edge id="0/0to0/1" from="0/0" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/0to0/1_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1.65,3.25 1.65,395.25</lane>
+         <lane id="0/0to0/1_0" depart="1" maxspeed="10.00" length="392.00">1.65,3.25 1.65,395.25</lane>
       </lanes>
       <cedge id="0/1to1/1">0/0to0/1_0</cedge>
       <cedge id="0/1to0/2">0/0to0/1_0</cedge>
@@ -45,7 +45,7 @@
 
    <edge id="0/0to1/0" from="0/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/0to1/0_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">3.25,-1.65 395.25,-1.65</lane>
+         <lane id="0/0to1/0_0" depart="1" maxspeed="10.00" length="392.00">3.25,-1.65 395.25,-1.65</lane>
       </lanes>
       <cedge id="1/0to2/0">0/0to1/0_0</cedge>
       <cedge id="1/0to1/1">0/0to1/0_0</cedge>
@@ -54,7 +54,7 @@
 
    <edge id="0/1to0/0" from="0/1" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/1to0/0_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">-1.65,395.25 -1.65,3.25</lane>
+         <lane id="0/1to0/0_0" depart="1" maxspeed="10.00" length="392.00">-1.65,395.25 -1.65,3.25</lane>
       </lanes>
       <cedge id="0/0to1/0">0/1to0/0_0</cedge>
       <cedge id="0/0to0/1">0/1to0/0_0</cedge>
@@ -62,7 +62,7 @@
 
    <edge id="0/1to0/2" from="0/1" to="0/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/1to0/2_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1.65,404.75 1.65,796.75</lane>
+         <lane id="0/1to0/2_0" depart="1" maxspeed="10.00" length="392.00">1.65,404.75 1.65,796.75</lane>
       </lanes>
       <cedge id="0/2to1/2">0/1to0/2_0</cedge>
       <cedge id="0/2to0/1">0/1to0/2_0</cedge>
@@ -70,7 +70,7 @@
 
    <edge id="0/1to1/1" from="0/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/1to1/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">4.75,398.35 395.25,398.35</lane>
+         <lane id="0/1to1/1_0" depart="1" maxspeed="10.00" length="390.50">4.75,398.35 395.25,398.35</lane>
       </lanes>
       <cedge id="1/1to1/0">0/1to1/1_0</cedge>
       <cedge id="1/1to2/1">0/1to1/1_0</cedge>
@@ -80,7 +80,7 @@
 
    <edge id="0/2to0/1" from="0/2" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/2to0/1_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">-1.65,796.75 -1.65,404.75</lane>
+         <lane id="0/2to0/1_0" depart="1" maxspeed="10.00" length="392.00">-1.65,796.75 -1.65,404.75</lane>
       </lanes>
       <cedge id="0/1to0/0">0/2to0/1_0</cedge>
       <cedge id="0/1to1/1">0/2to0/1_0</cedge>
@@ -89,7 +89,7 @@
 
    <edge id="0/2to1/2" from="0/2" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="0/2to1/2_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">3.25,798.35 395.25,798.35</lane>
+         <lane id="0/2to1/2_0" depart="1" maxspeed="10.00" length="392.00">3.25,798.35 395.25,798.35</lane>
       </lanes>
       <cedge id="1/2to1/1">0/2to1/2_0</cedge>
       <cedge id="1/2to2/2">0/2to1/2_0</cedge>
@@ -98,7 +98,7 @@
 
    <edge id="1/0to0/0" from="1/0" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/0to0/0_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">395.25,1.65 3.25,1.65</lane>
+         <lane id="1/0to0/0_0" depart="1" maxspeed="10.00" length="392.00">395.25,1.65 3.25,1.65</lane>
       </lanes>
       <cedge id="0/0to0/1">1/0to0/0_0</cedge>
       <cedge id="0/0to1/0">1/0to0/0_0</cedge>
@@ -106,7 +106,7 @@
 
    <edge id="1/0to1/1" from="1/0" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/0to1/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">401.65,4.75 401.65,395.25</lane>
+         <lane id="1/0to1/1_0" depart="1" maxspeed="10.00" length="390.50">401.65,4.75 401.65,395.25</lane>
       </lanes>
       <cedge id="1/1to2/1">1/0to1/1_0</cedge>
       <cedge id="1/1to1/2">1/0to1/1_0</cedge>
@@ -116,7 +116,7 @@
 
    <edge id="1/0to2/0" from="1/0" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/0to2/0_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">404.75,-1.65 795.25,-1.65</lane>
+         <lane id="1/0to2/0_0" depart="1" maxspeed="10.00" length="390.50">404.75,-1.65 795.25,-1.65</lane>
       </lanes>
       <cedge id="2/0to3/0">1/0to2/0_0</cedge>
       <cedge id="2/0to2/1">1/0to2/0_0</cedge>
@@ -125,7 +125,7 @@
 
    <edge id="1/1to0/1" from="1/1" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to0/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">395.25,401.65 4.75,401.65</lane>
+         <lane id="1/1to0/1_0" depart="1" maxspeed="10.00" length="390.50">395.25,401.65 4.75,401.65</lane>
       </lanes>
       <cedge id="0/1to0/2">1/1to0/1_0</cedge>
       <cedge id="0/1to0/0">1/1to0/1_0</cedge>
@@ -134,7 +134,7 @@
 
    <edge id="1/1to1/0" from="1/1" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to1/0_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">398.35,395.25 398.35,4.75</lane>
+         <lane id="1/1to1/0_0" depart="1" maxspeed="10.00" length="390.50">398.35,395.25 398.35,4.75</lane>
       </lanes>
       <cedge id="1/0to0/0">1/1to1/0_0</cedge>
       <cedge id="1/0to2/0">1/1to1/0_0</cedge>
@@ -143,7 +143,7 @@
 
    <edge id="1/1to1/2" from="1/1" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to1/2_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">401.65,404.75 401.65,795.25</lane>
+         <lane id="1/1to1/2_0" depart="1" maxspeed="10.00" length="390.50">401.65,404.75 401.65,795.25</lane>
       </lanes>
       <cedge id="1/2to2/2">1/1to1/2_0</cedge>
       <cedge id="1/2to0/2">1/1to1/2_0</cedge>
@@ -152,7 +152,7 @@
 
    <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to2/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">404.75,398.35 795.25,398.35</lane>
+         <lane id="1/1to2/1_0" depart="1" maxspeed="10.00" length="390.50">404.75,398.35 795.25,398.35</lane>
       </lanes>
       <cedge id="2/1to2/0">1/1to2/1_0</cedge>
       <cedge id="2/1to3/1">1/1to2/1_0</cedge>
@@ -162,7 +162,7 @@
 
    <edge id="1/2to0/2" from="1/2" to="0/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/2to0/2_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">395.25,801.65 3.25,801.65</lane>
+         <lane id="1/2to0/2_0" depart="1" maxspeed="10.00" length="392.00">395.25,801.65 3.25,801.65</lane>
       </lanes>
       <cedge id="0/2to0/1">1/2to0/2_0</cedge>
       <cedge id="0/2to1/2">1/2to0/2_0</cedge>
@@ -170,7 +170,7 @@
 
    <edge id="1/2to1/1" from="1/2" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/2to1/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">398.35,795.25 398.35,404.75</lane>
+         <lane id="1/2to1/1_0" depart="1" maxspeed="10.00" length="390.50">398.35,795.25 398.35,404.75</lane>
       </lanes>
       <cedge id="1/1to0/1">1/2to1/1_0</cedge>
       <cedge id="1/1to1/0">1/2to1/1_0</cedge>
@@ -180,7 +180,7 @@
 
    <edge id="1/2to2/2" from="1/2" to="2/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/2to2/2_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">404.75,798.35 795.25,798.35</lane>
+         <lane id="1/2to2/2_0" depart="1" maxspeed="10.00" length="390.50">404.75,798.35 795.25,798.35</lane>
       </lanes>
       <cedge id="2/2to2/1">1/2to2/2_0</cedge>
       <cedge id="2/2to3/2">1/2to2/2_0</cedge>
@@ -189,7 +189,7 @@
 
    <edge id="2/0to1/0" from="2/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/0to1/0_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">795.25,1.65 404.75,1.65</lane>
+         <lane id="2/0to1/0_0" depart="1" maxspeed="10.00" length="390.50">795.25,1.65 404.75,1.65</lane>
       </lanes>
       <cedge id="1/0to1/1">2/0to1/0_0</cedge>
       <cedge id="1/0to0/0">2/0to1/0_0</cedge>
@@ -198,7 +198,7 @@
 
    <edge id="2/0to2/1" from="2/0" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/0to2/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">801.65,4.75 801.65,395.25</lane>
+         <lane id="2/0to2/1_0" depart="1" maxspeed="10.00" length="390.50">801.65,4.75 801.65,395.25</lane>
       </lanes>
       <cedge id="2/1to3/1">2/0to2/1_0</cedge>
       <cedge id="2/1to2/2">2/0to2/1_0</cedge>
@@ -208,7 +208,7 @@
 
    <edge id="2/0to3/0" from="2/0" to="3/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/0to3/0_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">804.75,-1.65 1195.25,-1.65</lane>
+         <lane id="2/0to3/0_0" depart="1" maxspeed="10.00" length="390.50">804.75,-1.65 1195.25,-1.65</lane>
       </lanes>
       <cedge id="3/0to4/0">2/0to3/0_0</cedge>
       <cedge id="3/0to3/1">2/0to3/0_0</cedge>
@@ -217,7 +217,7 @@
 
    <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to1/1_0" depart="1" vclasses="" maxspeed="0.00" length="390.50">795.25,401.65 404.75,401.65</lane>
+         <lane id="2/1to1/1_0" depart="1" maxspeed="0.00" length="390.50">795.25,401.65 404.75,401.65</lane>
       </lanes>
       <cedge id="1/1to1/2">2/1to1/1_0</cedge>
       <cedge id="1/1to0/1">2/1to1/1_0</cedge>
@@ -227,7 +227,7 @@
 
    <edge id="2/1to2/0" from="2/1" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to2/0_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">798.35,395.25 798.35,4.75</lane>
+         <lane id="2/1to2/0_0" depart="1" maxspeed="10.00" length="390.50">798.35,395.25 798.35,4.75</lane>
       </lanes>
       <cedge id="2/0to1/0">2/1to2/0_0</cedge>
       <cedge id="2/0to3/0">2/1to2/0_0</cedge>
@@ -236,7 +236,7 @@
 
    <edge id="2/1to2/2" from="2/1" to="2/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to2/2_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">801.65,404.75 801.65,795.25</lane>
+         <lane id="2/1to2/2_0" depart="1" maxspeed="10.00" length="390.50">801.65,404.75 801.65,795.25</lane>
       </lanes>
       <cedge id="2/2to3/2">2/1to2/2_0</cedge>
       <cedge id="2/2to1/2">2/1to2/2_0</cedge>
@@ -245,7 +245,7 @@
 
    <edge id="2/1to3/1" from="2/1" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to3/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">804.75,398.35 1195.25,398.35</lane>
+         <lane id="2/1to3/1_0" depart="1" maxspeed="10.00" length="390.50">804.75,398.35 1195.25,398.35</lane>
       </lanes>
       <cedge id="3/1to3/0">2/1to3/1_0</cedge>
       <cedge id="3/1to4/1">2/1to3/1_0</cedge>
@@ -255,7 +255,7 @@
 
    <edge id="2/2to1/2" from="2/2" to="1/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/2to1/2_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">795.25,801.65 404.75,801.65</lane>
+         <lane id="2/2to1/2_0" depart="1" maxspeed="10.00" length="390.50">795.25,801.65 404.75,801.65</lane>
       </lanes>
       <cedge id="1/2to0/2">2/2to1/2_0</cedge>
       <cedge id="1/2to1/1">2/2to1/2_0</cedge>
@@ -264,7 +264,7 @@
 
    <edge id="2/2to2/1" from="2/2" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/2to2/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">798.35,795.25 798.35,404.75</lane>
+         <lane id="2/2to2/1_0" depart="1" maxspeed="10.00" length="390.50">798.35,795.25 798.35,404.75</lane>
       </lanes>
       <cedge id="2/1to1/1">2/2to2/1_0</cedge>
       <cedge id="2/1to2/0">2/2to2/1_0</cedge>
@@ -274,7 +274,7 @@
 
    <edge id="2/2to3/2" from="2/2" to="3/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/2to3/2_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">804.75,798.35 1195.25,798.35</lane>
+         <lane id="2/2to3/2_0" depart="1" maxspeed="10.00" length="390.50">804.75,798.35 1195.25,798.35</lane>
       </lanes>
       <cedge id="3/2to3/1">2/2to3/2_0</cedge>
       <cedge id="3/2to4/2">2/2to3/2_0</cedge>
@@ -283,7 +283,7 @@
 
    <edge id="3/0to2/0" from="3/0" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/0to2/0_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1195.25,1.65 804.75,1.65</lane>
+         <lane id="3/0to2/0_0" depart="1" maxspeed="10.00" length="390.50">1195.25,1.65 804.75,1.65</lane>
       </lanes>
       <cedge id="2/0to2/1">3/0to2/0_0</cedge>
       <cedge id="2/0to1/0">3/0to2/0_0</cedge>
@@ -292,7 +292,7 @@
 
    <edge id="3/0to3/1" from="3/0" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/0to3/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1201.65,4.75 1201.65,395.25</lane>
+         <lane id="3/0to3/1_0" depart="1" maxspeed="10.00" length="390.50">1201.65,4.75 1201.65,395.25</lane>
       </lanes>
       <cedge id="3/1to4/1">3/0to3/1_0</cedge>
       <cedge id="3/1to3/2">3/0to3/1_0</cedge>
@@ -302,7 +302,7 @@
 
    <edge id="3/0to4/0" from="3/0" to="4/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/0to4/0_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1204.75,-1.65 1596.75,-1.65</lane>
+         <lane id="3/0to4/0_0" depart="1" maxspeed="10.00" length="392.00">1204.75,-1.65 1596.75,-1.65</lane>
       </lanes>
       <cedge id="4/0to4/1">3/0to4/0_0</cedge>
       <cedge id="4/0to3/0">3/0to4/0_0</cedge>
@@ -310,7 +310,7 @@
 
    <edge id="3/1to2/1" from="3/1" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/1to2/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1195.25,401.65 804.75,401.65</lane>
+         <lane id="3/1to2/1_0" depart="1" maxspeed="10.00" length="390.50">1195.25,401.65 804.75,401.65</lane>
       </lanes>
       <cedge id="2/1to2/2">3/1to2/1_0</cedge>
       <cedge id="2/1to1/1">3/1to2/1_0</cedge>
@@ -320,7 +320,7 @@
 
    <edge id="3/1to3/0" from="3/1" to="3/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/1to3/0_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1198.35,395.25 1198.35,4.75</lane>
+         <lane id="3/1to3/0_0" depart="1" maxspeed="10.00" length="390.50">1198.35,395.25 1198.35,4.75</lane>
       </lanes>
       <cedge id="3/0to2/0">3/1to3/0_0</cedge>
       <cedge id="3/0to4/0">3/1to3/0_0</cedge>
@@ -329,7 +329,7 @@
 
    <edge id="3/1to3/2" from="3/1" to="3/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/1to3/2_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1201.65,404.75 1201.65,795.25</lane>
+         <lane id="3/1to3/2_0" depart="1" maxspeed="10.00" length="390.50">1201.65,404.75 1201.65,795.25</lane>
       </lanes>
       <cedge id="3/2to4/2">3/1to3/2_0</cedge>
       <cedge id="3/2to2/2">3/1to3/2_0</cedge>
@@ -338,7 +338,7 @@
 
    <edge id="3/1to4/1" from="3/1" to="4/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/1to4/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1204.75,398.35 1595.25,398.35</lane>
+         <lane id="3/1to4/1_0" depart="1" maxspeed="10.00" length="390.50">1204.75,398.35 1595.25,398.35</lane>
       </lanes>
       <cedge id="4/1to4/0">3/1to4/1_0</cedge>
       <cedge id="4/1to4/2">3/1to4/1_0</cedge>
@@ -347,7 +347,7 @@
 
    <edge id="3/2to2/2" from="3/2" to="2/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/2to2/2_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1195.25,801.65 804.75,801.65</lane>
+         <lane id="3/2to2/2_0" depart="1" maxspeed="10.00" length="390.50">1195.25,801.65 804.75,801.65</lane>
       </lanes>
       <cedge id="2/2to1/2">3/2to2/2_0</cedge>
       <cedge id="2/2to2/1">3/2to2/2_0</cedge>
@@ -356,7 +356,7 @@
 
    <edge id="3/2to3/1" from="3/2" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/2to3/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1198.35,795.25 1198.35,404.75</lane>
+         <lane id="3/2to3/1_0" depart="1" maxspeed="10.00" length="390.50">1198.35,795.25 1198.35,404.75</lane>
       </lanes>
       <cedge id="3/1to2/1">3/2to3/1_0</cedge>
       <cedge id="3/1to3/0">3/2to3/1_0</cedge>
@@ -366,7 +366,7 @@
 
    <edge id="3/2to4/2" from="3/2" to="4/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="3/2to4/2_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1204.75,798.35 1596.75,798.35</lane>
+         <lane id="3/2to4/2_0" depart="1" maxspeed="10.00" length="392.00">1204.75,798.35 1596.75,798.35</lane>
       </lanes>
       <cedge id="4/2to4/1">3/2to4/2_0</cedge>
       <cedge id="4/2to3/2">3/2to4/2_0</cedge>
@@ -374,7 +374,7 @@
 
    <edge id="4/0to3/0" from="4/0" to="3/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4/0to3/0_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1596.75,1.65 1204.75,1.65</lane>
+         <lane id="4/0to3/0_0" depart="1" maxspeed="10.00" length="392.00">1596.75,1.65 1204.75,1.65</lane>
       </lanes>
       <cedge id="3/0to3/1">4/0to3/0_0</cedge>
       <cedge id="3/0to2/0">4/0to3/0_0</cedge>
@@ -383,7 +383,7 @@
 
    <edge id="4/0to4/1" from="4/0" to="4/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4/0to4/1_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1601.65,3.25 1601.65,395.25</lane>
+         <lane id="4/0to4/1_0" depart="1" maxspeed="10.00" length="392.00">1601.65,3.25 1601.65,395.25</lane>
       </lanes>
       <cedge id="4/1to4/2">4/0to4/1_0</cedge>
       <cedge id="4/1to3/1">4/0to4/1_0</cedge>
@@ -392,7 +392,7 @@
 
    <edge id="4/1to3/1" from="4/1" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4/1to3/1_0" depart="1" vclasses="" maxspeed="10.00" length="390.50">1595.25,401.65 1204.75,401.65</lane>
+         <lane id="4/1to3/1_0" depart="1" maxspeed="10.00" length="390.50">1595.25,401.65 1204.75,401.65</lane>
       </lanes>
       <cedge id="3/1to3/2">4/1to3/1_0</cedge>
       <cedge id="3/1to2/1">4/1to3/1_0</cedge>
@@ -402,7 +402,7 @@
 
    <edge id="4/1to4/0" from="4/1" to="4/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4/1to4/0_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1598.35,395.25 1598.35,3.25</lane>
+         <lane id="4/1to4/0_0" depart="1" maxspeed="10.00" length="392.00">1598.35,395.25 1598.35,3.25</lane>
       </lanes>
       <cedge id="4/0to3/0">4/1to4/0_0</cedge>
       <cedge id="4/0to4/1">4/1to4/0_0</cedge>
@@ -410,7 +410,7 @@
 
    <edge id="4/1to4/2" from="4/1" to="4/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4/1to4/2_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1601.65,404.75 1601.65,796.75</lane>
+         <lane id="4/1to4/2_0" depart="1" maxspeed="10.00" length="392.00">1601.65,404.75 1601.65,796.75</lane>
       </lanes>
       <cedge id="4/2to3/2">4/1to4/2_0</cedge>
       <cedge id="4/2to4/1">4/1to4/2_0</cedge>
@@ -418,7 +418,7 @@
 
    <edge id="4/2to3/2" from="4/2" to="3/2" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4/2to3/2_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1596.75,801.65 1204.75,801.65</lane>
+         <lane id="4/2to3/2_0" depart="1" maxspeed="10.00" length="392.00">1596.75,801.65 1204.75,801.65</lane>
       </lanes>
       <cedge id="3/2to2/2">4/2to3/2_0</cedge>
       <cedge id="3/2to3/1">4/2to3/2_0</cedge>
@@ -427,7 +427,7 @@
 
    <edge id="4/2to4/1" from="4/2" to="4/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="4/2to4/1_0" depart="1" vclasses="" maxspeed="10.00" length="392.00">1598.35,796.75 1598.35,404.75</lane>
+         <lane id="4/2to4/1_0" depart="1" maxspeed="10.00" length="392.00">1598.35,796.75 1598.35,404.75</lane>
       </lanes>
       <cedge id="4/1to3/1">4/2to4/1_0</cedge>
       <cedge id="4/1to4/0">4/2to4/1_0</cedge>
@@ -435,10 +435,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>0/0</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="0/0" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -447,10 +444,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>0/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="0/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -464,10 +458,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>0/2</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="0/2" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -476,10 +467,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1/0</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="1/0" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -493,10 +481,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1/1</key>
-      <requestsize>16</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="1/1" requestSize="16" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
          <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
@@ -517,10 +502,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>1/2</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="1/2" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -534,10 +516,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2/0</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="2/0" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -551,10 +530,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2/1</key>
-      <requestsize>16</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="2/1" requestSize="16" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
          <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
@@ -575,10 +551,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2/2</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="2/2" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -592,10 +565,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>3/0</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="3/0" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -609,10 +579,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>3/1</key>
-      <requestsize>16</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="3/1" requestSize="16" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000000000000000" foes="1000010000100000"/>
          <logicitem request="1" response="0111000000000000" foes="0111110001100000"/>
@@ -633,10 +600,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>3/2</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="3/2" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -650,10 +614,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>4/0</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="4/0" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -662,10 +623,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>4/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="4/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000"/>
          <logicitem request="1" response="011000000" foes="011110000"/>
@@ -679,10 +637,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>4/2</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="4/2" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000"/>
          <logicitem request="1" response="0100" foes="0100"/>
@@ -692,22 +647,14 @@
    </row-logic>
 
 
-   <tl-logic type="traffic_light">
-      <key>0/0</key>
-      <subkey>0</subkey>
-      <phaseno>4</phaseno>
-      <offset>0</offset>
+   <tl-logic id="0/0" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GgGg"/>
       <phase duration="3" state="ygyg"/>
       <phase duration="6" state="rGrG"/>
       <phase duration="3" state="ryry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>0/1</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="0/1" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GggGggGrr"/>
       <phase duration="3" state="yggyggyrr"/>
       <phase duration="6" state="rGGrGGrrr"/>
@@ -718,22 +665,14 @@
       <phase duration="3" state="ryyrrrrry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>0/2</key>
-      <subkey>0</subkey>
-      <phaseno>4</phaseno>
-      <offset>0</offset>
+   <tl-logic id="0/2" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GgGg"/>
       <phase duration="3" state="ygyg"/>
       <phase duration="6" state="rGrG"/>
       <phase duration="3" state="ryry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>1/0</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="1/0" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GGgGrrrrr"/>
       <phase duration="3" state="yygyrrrrr"/>
       <phase duration="6" state="rrGrrrrrr"/>
@@ -744,11 +683,7 @@
       <phase duration="3" state="rrrrryryy"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>1/1</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="1/1" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GGggrrrrGGggrrrr"/>
       <phase duration="3" state="yyggrrrryyggrrrr"/>
       <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
@@ -759,11 +694,7 @@
       <phase duration="3" state="rrrrrryyrrrrrryy"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>1/2</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="1/2" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GggGggGrr"/>
       <phase duration="3" state="yggyggyrr"/>
       <phase duration="6" state="rGGrGGrrr"/>
@@ -774,11 +705,7 @@
       <phase duration="3" state="ryyrrrrry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>2/0</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="2/0" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GGgGrrrrr"/>
       <phase duration="3" state="yygyrrrrr"/>
       <phase duration="6" state="rrGrrrrrr"/>
@@ -789,11 +716,7 @@
       <phase duration="3" state="rrrrryryy"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>2/1</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="2/1" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GGggrrrrGGggrrrr"/>
       <phase duration="3" state="yyggrrrryyggrrrr"/>
       <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
@@ -804,11 +727,7 @@
       <phase duration="3" state="rrrrrryyrrrrrryy"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>2/2</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="2/2" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GggGggGrr"/>
       <phase duration="3" state="yggyggyrr"/>
       <phase duration="6" state="rGGrGGrrr"/>
@@ -819,11 +738,7 @@
       <phase duration="3" state="ryyrrrrry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>3/0</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="3/0" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GGgGrrrrr"/>
       <phase duration="3" state="yygyrrrrr"/>
       <phase duration="6" state="rrGrrrrrr"/>
@@ -834,11 +749,7 @@
       <phase duration="3" state="rrrrryryy"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>3/1</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="3/1" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GGggrrrrGGggrrrr"/>
       <phase duration="3" state="yyggrrrryyggrrrr"/>
       <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
@@ -849,11 +760,7 @@
       <phase duration="3" state="rrrrrryyrrrrrryy"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>3/2</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="3/2" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GggGggGrr"/>
       <phase duration="3" state="yggyggyrr"/>
       <phase duration="6" state="rGGrGGrrr"/>
@@ -864,22 +771,14 @@
       <phase duration="3" state="ryyrrrrry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>4/0</key>
-      <subkey>0</subkey>
-      <phaseno>4</phaseno>
-      <offset>0</offset>
+   <tl-logic id="4/0" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GgGg"/>
       <phase duration="3" state="ygyg"/>
       <phase duration="6" state="rGrG"/>
       <phase duration="3" state="ryry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>4/1</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
+   <tl-logic id="4/1" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GGgGggrrr"/>
       <phase duration="3" state="yygyggrrr"/>
       <phase duration="6" state="rrGrGGrrr"/>
@@ -890,11 +789,7 @@
       <phase duration="3" state="rrrrrrrry"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>4/2</key>
-      <subkey>0</subkey>
-      <phaseno>4</phaseno>
-      <offset>0</offset>
+   <tl-logic id="4/2" type="traffic_light" programID="0" offset="0">
       <phase duration="31" state="GgGg"/>
       <phase duration="3" state="ygyg"/>
       <phase duration="6" state="rGrG"/>
@@ -902,80 +797,35 @@
    </tl-logic>
 
 
-   <junction id="0/0" type="priority" x="0.00" y="0.00">
-      <inclanes>0/1to0/0_0 1/0to0/0_0</inclanes>
-      <shape>-3.25,3.25 3.25,3.25 3.25,-3.25</shape>
-   </junction>
+   <junction id="0/0" type="priority" x="0.00" y="0.00" incLanes="0/1to0/0_0 1/0to0/0_0" intLanes="" shape="-3.25,3.25 3.25,3.25 3.25,-3.25"/>
 
-   <junction id="0/1" type="right_before_left" x="0.00" y="400.00">
-      <inclanes>0/2to0/1_0 1/1to0/1_0 0/0to0/1_0</inclanes>
-      <shape>-3.25,404.75 3.25,404.75 4.75,403.25 4.75,396.75 3.25,395.25 -3.25,395.25</shape>
-   </junction>
+   <junction id="0/1" type="right_before_left" x="0.00" y="400.00" incLanes="0/2to0/1_0 1/1to0/1_0 0/0to0/1_0" intLanes="" shape="-3.25,404.75 3.25,404.75 4.75,403.25 4.75,396.75 3.25,395.25 -3.25,395.25"/>
 
-   <junction id="0/2" type="priority" x="0.00" y="800.00">
-      <inclanes>1/2to0/2_0 0/1to0/2_0</inclanes>
-      <shape>3.25,803.25 3.25,796.75 -3.25,796.75</shape>
-   </junction>
+   <junction id="0/2" type="priority" x="0.00" y="800.00" incLanes="1/2to0/2_0 0/1to0/2_0" intLanes="" shape="3.25,803.25 3.25,796.75 -3.25,796.75"/>
 
-   <junction id="1/0" type="right_before_left" x="400.00" y="0.00">
-      <inclanes>1/1to1/0_0 2/0to1/0_0 0/0to1/0_0</inclanes>
-      <shape>396.75,4.75 403.25,4.75 404.75,3.25 404.75,-3.25 395.25,-3.25 395.25,3.25</shape>
-   </junction>
+   <junction id="1/0" type="right_before_left" x="400.00" y="0.00" incLanes="1/1to1/0_0 2/0to1/0_0 0/0to1/0_0" intLanes="" shape="396.75,4.75 403.25,4.75 404.75,3.25 404.75,-3.25 395.25,-3.25 395.25,3.25"/>
 
-   <junction id="1/1" type="right_before_left" x="400.00" y="400.00">
-      <inclanes>1/2to1/1_0 2/1to1/1_0 1/0to1/1_0 0/1to1/1_0</inclanes>
-      <shape>396.75,404.75 403.25,404.75 404.75,403.25 404.75,396.75 403.25,395.25 396.75,395.25 395.25,396.75 395.25,403.25</shape>
-   </junction>
+   <junction id="1/1" type="right_before_left" x="400.00" y="400.00" incLanes="1/2to1/1_0 2/1to1/1_0 1/0to1/1_0 0/1to1/1_0" intLanes="" shape="396.75,404.75 403.25,404.75 404.75,403.25 404.75,396.75 403.25,395.25 396.75,395.25 395.25,396.75 395.25,403.25"/>
 
-   <junction id="1/2" type="right_before_left" x="400.00" y="800.00">
-      <inclanes>2/2to1/2_0 1/1to1/2_0 0/2to1/2_0</inclanes>
-      <shape>404.75,803.25 404.75,796.75 403.25,795.25 396.75,795.25 395.25,796.75 395.25,803.25</shape>
-   </junction>
+   <junction id="1/2" type="right_before_left" x="400.00" y="800.00" incLanes="2/2to1/2_0 1/1to1/2_0 0/2to1/2_0" intLanes="" shape="404.75,803.25 404.75,796.75 403.25,795.25 396.75,795.25 395.25,796.75 395.25,803.25"/>
 
-   <junction id="2/0" type="right_before_left" x="800.00" y="0.00">
-      <inclanes>2/1to2/0_0 3/0to2/0_0 1/0to2/0_0</inclanes>
-      <shape>796.75,4.75 803.25,4.75 804.75,3.25 804.75,-3.25 795.25,-3.25 795.25,3.25</shape>
-   </junction>
+   <junction id="2/0" type="right_before_left" x="800.00" y="0.00" incLanes="2/1to2/0_0 3/0to2/0_0 1/0to2/0_0" intLanes="" shape="796.75,4.75 803.25,4.75 804.75,3.25 804.75,-3.25 795.25,-3.25 795.25,3.25"/>
 
-   <junction id="2/1" type="right_before_left" x="800.00" y="400.00">
-      <inclanes>2/2to2/1_0 3/1to2/1_0 2/0to2/1_0 1/1to2/1_0</inclanes>
-      <shape>796.75,404.75 803.25,404.75 804.75,403.25 804.75,396.75 803.25,395.25 796.75,395.25 795.25,396.75 795.25,403.25</shape>
-   </junction>
+   <junction id="2/1" type="right_before_left" x="800.00" y="400.00" incLanes="2/2to2/1_0 3/1to2/1_0 2/0to2/1_0 1/1to2/1_0" intLanes="" shape="796.75,404.75 803.25,404.75 804.75,403.25 804.75,396.75 803.25,395.25 796.75,395.25 795.25,396.75 795.25,403.25"/>
 
-   <junction id="2/2" type="right_before_left" x="800.00" y="800.00">
-      <inclanes>3/2to2/2_0 2/1to2/2_0 1/2to2/2_0</inclanes>
-      <shape>804.75,803.25 804.75,796.75 803.25,795.25 796.75,795.25 795.25,796.75 795.25,803.25</shape>
-   </junction>
+   <junction id="2/2" type="right_before_left" x="800.00" y="800.00" incLanes="3/2to2/2_0 2/1to2/2_0 1/2to2/2_0" intLanes="" shape="804.75,803.25 804.75,796.75 803.25,795.25 796.75,795.25 795.25,796.75 795.25,803.25"/>
 
-   <junction id="3/0" type="right_before_left" x="1200.00" y="0.00">
-      <inclanes>3/1to3/0_0 4/0to3/0_0 2/0to3/0_0</inclanes>
-      <shape>1196.75,4.75 1203.25,4.75 1204.75,3.25 1204.75,-3.25 1195.25,-3.25 1195.25,3.25</shape>
-   </junction>
+   <junction id="3/0" type="right_before_left" x="1200.00" y="0.00" incLanes="3/1to3/0_0 4/0to3/0_0 2/0to3/0_0" intLanes="" shape="1196.75,4.75 1203.25,4.75 1204.75,3.25 1204.75,-3.25 1195.25,-3.25 1195.25,3.25"/>
 
-   <junction id="3/1" type="right_before_left" x="1200.00" y="400.00">
-      <inclanes>3/2to3/1_0 4/1to3/1_0 3/0to3/1_0 2/1to3/1_0</inclanes>
-      <shape>1196.75,404.75 1203.25,404.75 1204.75,403.25 1204.75,396.75 1203.25,395.25 1196.75,395.25 1195.25,396.75 1195.25,403.25</shape>
-   </junction>
+   <junction id="3/1" type="right_before_left" x="1200.00" y="400.00" incLanes="3/2to3/1_0 4/1to3/1_0 3/0to3/1_0 2/1to3/1_0" intLanes="" shape="1196.75,404.75 1203.25,404.75 1204.75,403.25 1204.75,396.75 1203.25,395.25 1196.75,395.25 1195.25,396.75 1195.25,403.25"/>
 
-   <junction id="3/2" type="right_before_left" x="1200.00" y="800.00">
-      <inclanes>4/2to3/2_0 3/1to3/2_0 2/2to3/2_0</inclanes>
-      <shape>1204.75,803.25 1204.75,796.75 1203.25,795.25 1196.75,795.25 1195.25,796.75 1195.25,803.25</shape>
-   </junction>
+   <junction id="3/2" type="right_before_left" x="1200.00" y="800.00" incLanes="4/2to3/2_0 3/1to3/2_0 2/2to3/2_0" intLanes="" shape="1204.75,803.25 1204.75,796.75 1203.25,795.25 1196.75,795.25 1195.25,796.75 1195.25,803.25"/>
 
-   <junction id="4/0" type="priority" x="1600.00" y="0.00">
-      <inclanes>4/1to4/0_0 3/0to4/0_0</inclanes>
-      <shape>1596.75,3.25 1603.25,3.25 1596.75,-3.25 1596.75,3.25</shape>
-   </junction>
+   <junction id="4/0" type="priority" x="1600.00" y="0.00" incLanes="4/1to4/0_0 3/0to4/0_0" intLanes="" shape="1596.75,3.25 1603.25,3.25 1596.75,-3.25 1596.75,3.25"/>
 
-   <junction id="4/1" type="right_before_left" x="1600.00" y="400.00">
-      <inclanes>4/2to4/1_0 4/0to4/1_0 3/1to4/1_0</inclanes>
-      <shape>1596.75,404.75 1603.25,404.75 1603.25,395.25 1596.75,395.25 1595.25,396.75 1595.25,403.25</shape>
-   </junction>
+   <junction id="4/1" type="right_before_left" x="1600.00" y="400.00" incLanes="4/2to4/1_0 4/0to4/1_0 3/1to4/1_0" intLanes="" shape="1596.75,404.75 1603.25,404.75 1603.25,395.25 1596.75,395.25 1595.25,396.75 1595.25,403.25"/>
 
-   <junction id="4/2" type="priority" x="1600.00" y="800.00">
-      <inclanes>4/1to4/2_0 3/2to4/2_0</inclanes>
-      <shape>1603.25,796.75 1596.75,796.75 1596.75,803.25</shape>
-   </junction>
+   <junction id="4/2" type="priority" x="1600.00" y="800.00" incLanes="4/1to4/2_0 3/2to4/2_0" intLanes="" shape="1603.25,796.75 1596.75,796.75 1596.75,803.25"/>
 
 
    <succ edge="0/0to0/1" lane="0/0to0/1_0" junction="0/1">

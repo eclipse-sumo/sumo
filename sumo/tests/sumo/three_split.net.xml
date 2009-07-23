@@ -92,19 +92,13 @@
    </edge>
 
 
-   <row-logic>
-      <key>absEnd</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="absEnd" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>beg</key>
-      <requestsize>3</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="beg" requestSize="3" laneNumber="1">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -112,28 +106,19 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>begleft</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="begleft" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>begright</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="begright" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>end</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="end" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="110" foes="110"/>
          <logicitem request="1" response="100" foes="101"/>
@@ -141,19 +126,13 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>endleft</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="endleft" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>endright</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="endright" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
       </logic>
@@ -161,50 +140,23 @@
 
 
 
-   <junction id="absBeg" type="DEAD_END" x="0.00" y="500.00">
-      <inclanes></inclanes>
-      <shape>-0.00,499.95 -0.00,496.75</shape>
-   </junction>
+   <junction id="absBeg" type="DEAD_END" x="0.00" y="500.00" incLanes="" intLanes="" shape="-0.00,499.95 -0.00,496.75"/>
 
-   <junction id="absEnd" type="priority" x="2000.00" y="500.00">
-      <inclanes>end_0</inclanes>
-      <shape>2000.00,499.95 2000.00,496.75 2000.00,499.95</shape>
-   </junction>
+   <junction id="absEnd" type="priority" x="2000.00" y="500.00" incLanes="end_0" intLanes="" shape="2000.00,499.95 2000.00,496.75 2000.00,499.95"/>
 
-   <junction id="beg" type="priority" x="500.00" y="500.00">
-      <inclanes>beg_0</inclanes>
-      <shape>500.05,501.45 503.25,501.45 504.75,499.95 504.75,496.75 499.95,495.25 496.75,495.25 495.25,496.75 495.25,499.95</shape>
-   </junction>
+   <junction id="beg" type="priority" x="500.00" y="500.00" incLanes="beg_0" intLanes="" shape="500.05,501.45 503.25,501.45 504.75,499.95 504.75,496.75 499.95,495.25 496.75,495.25 495.25,496.75 495.25,499.95"/>
 
-   <junction id="begleft" type="priority" x="500.00" y="1000.00">
-      <inclanes>beg2left_0</inclanes>
-      <shape>503.25,999.95 503.25,996.75 500.05,996.75</shape>
-   </junction>
+   <junction id="begleft" type="priority" x="500.00" y="1000.00" incLanes="beg2left_0" intLanes="" shape="503.25,999.95 503.25,996.75 500.05,996.75"/>
 
-   <junction id="begright" type="priority" x="500.00" y="0.00">
-      <inclanes>beg2right_0</inclanes>
-      <shape>496.75,-0.05 499.95,-0.05 499.95,-3.25</shape>
-   </junction>
+   <junction id="begright" type="priority" x="500.00" y="0.00" incLanes="beg2right_0" intLanes="" shape="496.75,-0.05 499.95,-0.05 499.95,-3.25"/>
 
-   <junction id="end" type="priority" x="1500.00" y="500.00">
-      <inclanes>left2end_0 right2end_0 middle_0</inclanes>
-      <shape>1496.75,501.45 1499.95,501.45 1504.75,499.95 1504.75,496.75 1503.25,495.25 1500.05,495.25 1495.25,496.75 1495.25,499.95</shape>
-   </junction>
+   <junction id="end" type="priority" x="1500.00" y="500.00" incLanes="left2end_0 right2end_0 middle_0" intLanes="" shape="1496.75,501.45 1499.95,501.45 1504.75,499.95 1504.75,496.75 1503.25,495.25 1500.05,495.25 1495.25,496.75 1495.25,499.95"/>
 
-   <junction id="endleft" type="priority" x="1500.00" y="1000.00">
-      <inclanes>left_0</inclanes>
-      <shape>1499.95,996.75 1496.75,996.75 1496.75,999.95</shape>
-   </junction>
+   <junction id="endleft" type="priority" x="1500.00" y="1000.00" incLanes="left_0" intLanes="" shape="1499.95,996.75 1496.75,996.75 1496.75,999.95"/>
 
-   <junction id="endright" type="priority" x="1500.00" y="0.00">
-      <inclanes>right_0</inclanes>
-      <shape>1500.05,-0.05 1503.25,-0.05 1500.05,-3.25 1500.05,-0.05</shape>
-   </junction>
+   <junction id="endright" type="priority" x="1500.00" y="0.00" incLanes="right_0" intLanes="" shape="1500.05,-0.05 1503.25,-0.05 1500.05,-3.25 1500.05,-0.05"/>
 
-   <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="500.00">
-      <inclanes>rend_0</inclanes>
-      <shape>2500.00,496.75 2500.00,499.95</shape>
-   </junction>
+   <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="500.00" incLanes="rend_0" intLanes="" shape="2500.00,496.75 2500.00,499.95"/>
 
 
    <succ edge="beg" lane="beg_0" junction="beg">
