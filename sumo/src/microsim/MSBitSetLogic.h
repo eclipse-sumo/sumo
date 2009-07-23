@@ -114,7 +114,7 @@ public:
     }
 
     virtual bool isCrossing() const throw() {
-        for(Foes::const_iterator i=myLogic->begin(); i!=myLogic->end(); ++i) {
+        for(typedef std::vector< std::bitset< N > >::const_iterator i=myLogic->begin(); i!=myLogic->end(); ++i) {
             if((*i).any()) {
                 return true;
             }
