@@ -16,21 +16,18 @@
 
 <net>
 
-   <net-offset>500.00,0.00</net-offset>
-   <conv-boundary>0.00,0.00,1011.00,0.00</conv-boundary>
-   <orig-boundary>-500.00,0.00,511.00,0.00</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1011.00,0.00" origBoundary="-500.00,0.00,511.00,0.00" projParameter="!"/>
 
 
    <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to2_0" depart="1" maxspeed="13.90" length="1000.00">0.00,-1.65 1000.00,-1.65</lane>
+         <lane id="1to2_0" depart="1" maxspeed="13.90" length="1000.00" shape="0.00,-1.65 1000.00,-1.65"/>
       </lanes>
    </edge>
 
    <edge id="out" from="SUMOGenerated2" to="SUMOGenerated3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="out_0" depart="1" maxspeed="13.90" length="10.91">1000.09,-1.65 1011.00,-1.65</lane>
+         <lane id="out_0" depart="1" maxspeed="13.90" length="10.91" shape="1000.09,-1.65 1011.00,-1.65"/>
       </lanes>
    </edge>
 

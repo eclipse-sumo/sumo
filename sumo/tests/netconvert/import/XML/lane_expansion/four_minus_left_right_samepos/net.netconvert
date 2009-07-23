@@ -16,32 +16,29 @@
 
 <net>
 
-   <net-offset>0.00,0.00</net-offset>
-   <conv-boundary>0.00,0.00,100.00,0.00</conv-boundary>
-   <orig-boundary>0.00,0.00,100.00,0.00</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
    <edge id=":1/50_0" function="internal">
       <lanes>
-         <lane id=":1/50_0_0" depart="0" maxspeed="28.00" length="7.25">48.50,-4.95 51.50,-11.55</lane>
+         <lane id=":1/50_0_0" depart="0" maxspeed="28.00" length="7.25" shape="48.50,-4.95 51.50,-11.55"/>
       </lanes>
    </edge>
 
    <edge id=":1/50_1" function="internal">
       <lanes>
-         <lane id=":1/50_1_0" depart="0" maxspeed="28.00" length="4.46">48.50,-4.95 51.50,-8.25</lane>
+         <lane id=":1/50_1_0" depart="0" maxspeed="28.00" length="4.46" shape="48.50,-4.95 51.50,-8.25"/>
       </lanes>
    </edge>
 
    <edge id=":1/50_2" function="internal">
       <lanes>
-         <lane id=":1/50_2_0" depart="0" maxspeed="28.00" length="4.46">48.50,-1.65 51.50,-4.95</lane>
+         <lane id=":1/50_2_0" depart="0" maxspeed="28.00" length="4.46" shape="48.50,-1.65 51.50,-4.95"/>
       </lanes>
    </edge>
 
    <edge id=":1/50_3" function="internal">
       <lanes>
-         <lane id=":1/50_3_0" depart="0" maxspeed="28.00" length="3.00">48.50,-1.65 51.50,-1.65</lane>
+         <lane id=":1/50_3_0" depart="0" maxspeed="28.00" length="3.00" shape="48.50,-1.65 51.50,-1.65"/>
       </lanes>
    </edge>
 
@@ -49,17 +46,17 @@
 
    <edge id="1" from="SUMOGenerated0" to="1/50" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="28.00" length="48.50">0.00,-4.95 48.50,-4.95</lane>
-         <lane id="1_1" depart="0" maxspeed="28.00" length="48.50">0.00,-1.65 48.50,-1.65</lane>
+         <lane id="1_0" depart="1" maxspeed="28.00" length="48.50" shape="0.00,-4.95 48.50,-4.95"/>
+         <lane id="1_1" depart="0" maxspeed="28.00" length="48.50" shape="0.00,-1.65 48.50,-1.65"/>
       </lanes>
    </edge>
 
    <edge id="1/50" from="1/50" to="SUMOGenerated1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1/50_0" depart="1" maxspeed="28.00" length="48.50">51.50,-11.55 100.00,-11.55</lane>
-         <lane id="1/50_1" depart="0" maxspeed="28.00" length="48.50">51.50,-8.25 100.00,-8.25</lane>
-         <lane id="1/50_2" depart="0" maxspeed="28.00" length="48.50">51.50,-4.95 100.00,-4.95</lane>
-         <lane id="1/50_3" depart="0" maxspeed="28.00" length="48.50">51.50,-1.65 100.00,-1.65</lane>
+         <lane id="1/50_0" depart="1" maxspeed="28.00" length="48.50" shape="51.50,-11.55 100.00,-11.55"/>
+         <lane id="1/50_1" depart="0" maxspeed="28.00" length="48.50" shape="51.50,-8.25 100.00,-8.25"/>
+         <lane id="1/50_2" depart="0" maxspeed="28.00" length="48.50" shape="51.50,-4.95 100.00,-4.95"/>
+         <lane id="1/50_3" depart="0" maxspeed="28.00" length="48.50" shape="51.50,-1.65 100.00,-1.65"/>
       </lanes>
    </edge>
 

@@ -25,55 +25,52 @@
 
 <net>
 
-   <net-offset>1000.00,0.00</net-offset>
-   <conv-boundary>0.00,0.00,2000.00,200.00</conv-boundary>
-   <orig-boundary>-1000.00,0.00,1000.00,200.00</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
 
 
    <edge id="off" from="2" to="2a" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="off_0" depart="1" maxspeed="30.00" length="774.22">948.50,2.11 200.43,201.59</lane>
+         <lane id="off_0" depart="1" maxspeed="30.00" length="774.22" shape="948.50,2.11 200.43,201.59"/>
       </lanes>
    </edge>
 
    <edge id="on" from="4a" to="4" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="on_0" depart="1" maxspeed="30.00" length="735.86">1799.57,201.59 1088.56,11.99</lane>
+         <lane id="on_0" depart="1" maxspeed="30.00" length="735.86" shape="1799.57,201.59 1088.56,11.99"/>
       </lanes>
    </edge>
 
    <edge id="s1" from="5" to="4" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s1_0" depart="1" maxspeed="30.00" length="913.02">2000.00,8.25 1088.18,8.25</lane>
-         <lane id="s1_1" depart="0" maxspeed="30.00" length="913.02">2000.00,4.95 1086.98,4.95</lane>
-         <lane id="s1_2" depart="0" maxspeed="30.00" length="913.02">2000.00,1.65 1085.78,1.65</lane>
+         <lane id="s1_0" depart="1" maxspeed="30.00" length="913.02" shape="2000.00,8.25 1088.18,8.25"/>
+         <lane id="s1_1" depart="0" maxspeed="30.00" length="913.02" shape="2000.00,4.95 1086.98,4.95"/>
+         <lane id="s1_2" depart="0" maxspeed="30.00" length="913.02" shape="2000.00,1.65 1085.78,1.65"/>
       </lanes>
    </edge>
 
    <edge id="s2" from="4" to="3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s2_0" depart="1" maxspeed="30.00" length="85.20">1085.20,11.55 1000.00,11.55</lane>
-         <lane id="s2_1" depart="0" maxspeed="30.00" length="85.20">1085.20,8.25 1000.00,8.25</lane>
-         <lane id="s2_2" depart="0" maxspeed="30.00" length="85.20">1085.20,4.95 1000.00,4.95</lane>
-         <lane id="s2_3" depart="0" maxspeed="30.00" length="85.20">1085.20,1.65 1000.00,1.65</lane>
+         <lane id="s2_0" depart="1" maxspeed="30.00" length="85.20" shape="1085.20,11.55 1000.00,11.55"/>
+         <lane id="s2_1" depart="0" maxspeed="30.00" length="85.20" shape="1085.20,8.25 1000.00,8.25"/>
+         <lane id="s2_2" depart="0" maxspeed="30.00" length="85.20" shape="1085.20,4.95 1000.00,4.95"/>
+         <lane id="s2_3" depart="0" maxspeed="30.00" length="85.20" shape="1085.20,1.65 1000.00,1.65"/>
       </lanes>
    </edge>
 
    <edge id="s3" from="3" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s3_0" depart="1" maxspeed="30.00" length="48.50">1000.00,11.55 951.50,11.55</lane>
-         <lane id="s3_1" depart="0" maxspeed="30.00" length="48.50">1000.00,8.25 951.50,8.25</lane>
-         <lane id="s3_2" depart="0" maxspeed="30.00" length="48.50">1000.00,4.95 951.50,4.95</lane>
-         <lane id="s3_3" depart="0" maxspeed="30.00" length="48.50">1000.00,1.65 951.50,1.65</lane>
+         <lane id="s3_0" depart="1" maxspeed="30.00" length="48.50" shape="1000.00,11.55 951.50,11.55"/>
+         <lane id="s3_1" depart="0" maxspeed="30.00" length="48.50" shape="1000.00,8.25 951.50,8.25"/>
+         <lane id="s3_2" depart="0" maxspeed="30.00" length="48.50" shape="1000.00,4.95 951.50,4.95"/>
+         <lane id="s3_3" depart="0" maxspeed="30.00" length="48.50" shape="1000.00,1.65 951.50,1.65"/>
       </lanes>
    </edge>
 
    <edge id="s4" from="2" to="1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="s4_0" depart="1" maxspeed="30.00" length="948.50">948.50,8.25 0.00,8.25</lane>
-         <lane id="s4_1" depart="0" maxspeed="30.00" length="948.50">948.50,4.95 0.00,4.95</lane>
-         <lane id="s4_2" depart="0" maxspeed="30.00" length="948.50">948.50,1.65 0.00,1.65</lane>
+         <lane id="s4_0" depart="1" maxspeed="30.00" length="948.50" shape="948.50,8.25 0.00,8.25"/>
+         <lane id="s4_1" depart="0" maxspeed="30.00" length="948.50" shape="948.50,4.95 0.00,4.95"/>
+         <lane id="s4_2" depart="0" maxspeed="30.00" length="948.50" shape="948.50,1.65 0.00,1.65"/>
       </lanes>
    </edge>
 

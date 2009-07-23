@@ -22,48 +22,45 @@
 
 <net>
 
-   <net-offset>500.00,0.00</net-offset>
-   <conv-boundary>0.00,0.00,2200.00,190.99</conv-boundary>
-   <orig-boundary>-500.00,0.00,1700.00,190.99</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="500.00,0.00" convBoundary="0.00,0.00,2200.00,190.99" origBoundary="-500.00,0.00,1700.00,190.99" projParameter="!"/>
 
 
    <edge id="1" from="dl" to="dr" priority="2" type="normal" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="28.00" length="1207.96">501.50,0.00 1709.46,0.00</lane>
+         <lane id="1_0" depart="1" maxspeed="28.00" length="1207.96" shape="501.50,0.00 1709.46,0.00"/>
       </lanes>
    </edge>
 
    <edge id="2" from="dr" to="tr" priority="2" type="normal" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" maxspeed="28.00" length="275.63">1712.82,0.44 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.07 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1711.36,190.94</lane>
+         <lane id="2_0" depart="1" maxspeed="28.00" length="275.63" shape="1712.82,0.44 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.07 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1711.36,190.94"/>
       </lanes>
    </edge>
 
    <edge id="3" from="tr" to="tl" priority="2" type="normal" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" maxspeed="28.00" length="1221.88">1710.94,190.99 489.06,190.99</lane>
+         <lane id="3_0" depart="1" maxspeed="28.00" length="1221.88" shape="1710.94,190.99 489.06,190.99"/>
       </lanes>
    </edge>
 
    <edge id="4" from="tl" to="dl" priority="2" type="normal" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" maxspeed="28.00" length="287.35">488.64,190.94 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 498.50,-2.59</lane>
+         <lane id="4_0" depart="1" maxspeed="28.00" length="287.35" shape="488.64,190.94 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 498.50,-2.59"/>
       </lanes>
    </edge>
 
    <edge id="sink" from="dr" to="sink" priority="1" type="sink" function="normal">
       <lanes>
-         <lane id="sink_0" depart="1" maxspeed="30.00" length="500.00">1700.00,-8.25 2200.00,-8.25</lane>
-         <lane id="sink_1" depart="0" maxspeed="30.00" length="500.00">1700.00,-4.95 2200.00,-4.95</lane>
-         <lane id="sink_2" depart="0" maxspeed="30.00" length="500.00">1700.00,-1.65 2200.00,-1.65</lane>
+         <lane id="sink_0" depart="1" maxspeed="30.00" length="500.00" shape="1700.00,-8.25 2200.00,-8.25"/>
+         <lane id="sink_1" depart="0" maxspeed="30.00" length="500.00" shape="1700.00,-4.95 2200.00,-4.95"/>
+         <lane id="sink_2" depart="0" maxspeed="30.00" length="500.00" shape="1700.00,-1.65 2200.00,-1.65"/>
       </lanes>
    </edge>
 
    <edge id="source" from="source" to="dl" priority="1" type="source" function="normal">
       <lanes>
-         <lane id="source_0" depart="1" maxspeed="40.00" length="498.50">0.00,-4.95 498.50,-4.95</lane>
-         <lane id="source_1" depart="0" maxspeed="40.00" length="498.50">0.00,-1.65 498.50,-1.65</lane>
+         <lane id="source_0" depart="1" maxspeed="40.00" length="498.50" shape="0.00,-4.95 498.50,-4.95"/>
+         <lane id="source_1" depart="0" maxspeed="40.00" length="498.50" shape="0.00,-1.65 498.50,-1.65"/>
       </lanes>
    </edge>
 
