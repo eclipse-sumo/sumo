@@ -135,7 +135,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits) throw() {
     assert(veh->getDesiredDepart() <= time);
     const MSEdge &edge = veh->getDepartEdge();
-    if (edge.getLastFailedEmissionTime()!=time && edge.emit(*veh, time)) {
+    if (/*edge.getLastFailedEmissionTime()!=time && */edge.emit(*veh, time)) {
         // Successful emission.
         veh->onDepart();
         // Check whether another vehicle with the same parameter shall be emitted
