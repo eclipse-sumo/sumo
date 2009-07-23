@@ -276,10 +276,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>AltglienickerBreit</key>
-      <requestsize>3</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="AltglienickerBreit" requestSize="3" laneNumber="2">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -287,48 +284,33 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>AltglienickerEnd</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="AltglienickerEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="00" foes="00"/>
          <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>AltglienickerSinkEnd</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="AltglienickerSinkEnd" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="1" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>EinsteinEnd</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="EinsteinEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="00" foes="00"/>
          <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>EinsteinSinkEnd</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="EinsteinSinkEnd" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="1" foes="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaAltglienicker</key>
-      <requestsize>8</requestsize>
-      <lanenumber>7</lanenumber>
+   <row-logic id="ErnstRuskaAltglienicker" requestSize="8" laneNumber="7">
       <logic>
          <logicitem request="0" response="00000000" foes="00010000"/>
          <logicitem request="1" response="00000000" foes="00010000"/>
@@ -341,10 +323,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaEinstein</key>
-      <requestsize>8</requestsize>
-      <lanenumber>5</lanenumber>
+   <row-logic id="ErnstRuskaEinstein" requestSize="8" laneNumber="5">
       <logic>
          <logicitem request="0" response="00011000" foes="00011000"/>
          <logicitem request="1" response="11111000" foes="11111000"/>
@@ -357,10 +336,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaEnd1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="ErnstRuskaEnd1" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000" foes="0000"/>
          <logicitem request="1" response="0000" foes="0000"/>
@@ -369,10 +345,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaEnd2</key>
-      <requestsize>5</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="ErnstRuskaEnd2" requestSize="5" laneNumber="4">
       <logic>
          <logicitem request="0" response="00000" foes="00000"/>
          <logicitem request="1" response="00000" foes="00000"/>
@@ -382,10 +355,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaHavestadt</key>
-      <requestsize>9</requestsize>
-      <lanenumber>7</lanenumber>
+   <row-logic id="ErnstRuskaHavestadt" requestSize="9" laneNumber="7">
       <logic>
          <logicitem request="0" response="000000000" foes="000110000"/>
          <logicitem request="1" response="111000000" foes="111110000"/>
@@ -399,10 +369,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaHavestadtDiv1</key>
-      <requestsize>5</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="ErnstRuskaHavestadtDiv1" requestSize="5" laneNumber="4">
       <logic>
          <logicitem request="0" response="00000" foes="00000"/>
          <logicitem request="1" response="00000" foes="00000"/>
@@ -412,10 +379,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaHavestadtDiv2</key>
-      <requestsize>5</requestsize>
-      <lanenumber>5</lanenumber>
+   <row-logic id="ErnstRuskaHavestadtDiv2" requestSize="5" laneNumber="5">
       <logic>
          <logicitem request="0" response="00000" foes="00000"/>
          <logicitem request="1" response="00000" foes="00000"/>
@@ -425,30 +389,21 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaSink1</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="ErnstRuskaSink1" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00"/>
          <logicitem request="1" response="11" foes="00"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaSink2</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="ErnstRuskaSink2" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00"/>
          <logicitem request="1" response="11" foes="00"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>ErnstRuskaVolmer</key>
-      <requestsize>8</requestsize>
-      <lanenumber>5</lanenumber>
+   <row-logic id="ErnstRuskaVolmer" requestSize="8" laneNumber="5">
       <logic>
          <logicitem request="0" response="00011000" foes="00011000"/>
          <logicitem request="1" response="11111000" foes="11111000"/>
@@ -461,10 +416,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>HavestadtEnd</key>
-      <requestsize>4</requestsize>
-      <lanenumber>4</lanenumber>
+   <row-logic id="HavestadtEnd" requestSize="4" laneNumber="4">
       <logic>
          <logicitem request="0" response="0000" foes="0000"/>
          <logicitem request="1" response="0000" foes="0000"/>
@@ -473,41 +425,28 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>HavestadtSinkEnd</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="HavestadtSinkEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="11" foes="00"/>
          <logicitem request="1" response="11" foes="00"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>VolmerEnd</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="VolmerEnd" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="00" foes="00"/>
          <logicitem request="1" response="00" foes="00"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>VolmerSinkEnd</key>
-      <requestsize>1</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="VolmerSinkEnd" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="1" foes="0"/>
       </logic>
    </row-logic>
 
 
-   <tl-logic type="static">
-      <key>ErnstRuskaAltglienicker</key>
-      <subkey>0</subkey>
-      <phaseno>6</phaseno>
-      <offset>0</offset>
+   <tl-logic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
       <phase duration="31" state="GGGrrggg"/>
       <phase duration="6" state="yyyrrggg"/>
       <phase duration="6" state="rrrrrGGG"/>
@@ -517,100 +456,43 @@
    </tl-logic>
 
 
-   <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00">
-      <inclanes>AltglienickerBreitS_0 AltglienickerN_0</inclanes>
-      <shape>1905.22,181.50 1915.02,181.50 1911.72,178.50 1905.22,178.50</shape>
-   </junction>
+   <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes="" shape="1905.22,181.50 1915.02,181.50 1911.72,178.50 1905.22,178.50"/>
 
-   <junction id="AltglienickerEnd" type="priority" x="1908.47" y="100.00">
-      <inclanes>AltglienickerS_0 AltglienickerSinkN_0</inclanes>
-      <shape>1905.22,100.00 1911.72,100.00 1905.22,100.00</shape>
-   </junction>
+   <junction id="AltglienickerEnd" type="priority" x="1908.47" y="100.00" incLanes="AltglienickerS_0 AltglienickerSinkN_0" intLanes="" shape="1905.22,100.00 1911.72,100.00 1905.22,100.00"/>
 
-   <junction id="AltglienickerSinkEnd" type="priority" x="1908.47" y="0.00">
-      <inclanes>AltglienickerSinkS_0</inclanes>
-      <shape>1908.52,-0.00 1911.72,-0.00 1905.22,0.00 1908.42,0.00</shape>
-   </junction>
+   <junction id="AltglienickerSinkEnd" type="priority" x="1908.47" y="0.00" incLanes="AltglienickerSinkS_0" intLanes="" shape="1908.52,-0.00 1911.72,-0.00 1905.22,0.00 1908.42,0.00"/>
 
-   <junction id="EinsteinEnd" type="priority" x="294.91" y="300.00">
-      <inclanes>EinsteinSinkS_0 EinsteinN_0</inclanes>
-      <shape>291.66,300.00 298.16,300.00 291.66,300.00</shape>
-   </junction>
+   <junction id="EinsteinEnd" type="priority" x="294.91" y="300.00" incLanes="EinsteinSinkS_0 EinsteinN_0" intLanes="" shape="291.66,300.00 298.16,300.00 291.66,300.00"/>
 
-   <junction id="EinsteinSinkEnd" type="priority" x="294.91" y="400.00">
-      <inclanes>EinsteinSinkN_0</inclanes>
-      <shape>294.86,400.00 291.66,400.00 298.16,400.00 294.96,400.00</shape>
-   </junction>
+   <junction id="EinsteinSinkEnd" type="priority" x="294.91" y="400.00" incLanes="EinsteinSinkN_0" intLanes="" shape="294.86,400.00 291.66,400.00 298.16,400.00 294.96,400.00"/>
 
-   <junction id="ErnstRuskaAltglienicker" type="priority" x="1908.47" y="200.00">
-      <inclanes>ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1</inclanes>
-      <shape>1916.52,209.85 1916.52,193.45 1915.02,191.95 1905.22,191.95 1903.72,193.45 1903.72,206.55</shape>
-   </junction>
+   <junction id="ErnstRuskaAltglienicker" type="priority" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes="" shape="1916.52,209.85 1916.52,193.45 1915.02,191.95 1905.22,191.95 1903.72,193.45 1903.72,206.55"/>
 
-   <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00">
-      <inclanes>EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1</inclanes>
-      <shape>291.66,208.05 298.16,208.05 299.66,206.55 299.66,193.45 290.16,193.45 290.16,206.55</shape>
-   </junction>
+   <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes="" shape="291.66,208.05 298.16,208.05 299.66,206.55 299.66,193.45 290.16,193.45 290.16,206.55"/>
 
-   <junction id="ErnstRuskaEnd1" type="priority" x="100.00" y="200.00">
-      <inclanes>ErnstRuska1W_0 ErnstRuska1W_1 ErnstRuskaSink1O_0 ErnstRuskaSink1O_1</inclanes>
-      <shape>100.00,206.55 100.00,193.45 100.00,206.55</shape>
-   </junction>
+   <junction id="ErnstRuskaEnd1" type="priority" x="100.00" y="200.00" incLanes="ErnstRuska1W_0 ErnstRuska1W_1 ErnstRuskaSink1O_0 ErnstRuskaSink1O_1" intLanes="" shape="100.00,206.55 100.00,193.45 100.00,206.55"/>
 
-   <junction id="ErnstRuskaEnd2" type="priority" x="2025.42" y="200.00">
-      <inclanes>ErnstRuskaSink5W_0 ErnstRuskaSink5W_1 ErnstRuska5O_0 ErnstRuska5O_1</inclanes>
-      <shape>2026.92,206.55 2026.92,193.45 2023.92,193.45 2023.92,209.85</shape>
-   </junction>
+   <junction id="ErnstRuskaEnd2" type="priority" x="2025.42" y="200.00" incLanes="ErnstRuskaSink5W_0 ErnstRuskaSink5W_1 ErnstRuska5O_0 ErnstRuska5O_1" intLanes="" shape="2026.92,206.55 2026.92,193.45 2023.92,193.45 2023.92,209.85"/>
 
-   <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00">
-      <inclanes>HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2</inclanes>
-      <shape>1008.70,208.05 1021.80,208.05 1023.30,206.55 1023.30,190.15 1007.20,190.15 1007.20,206.55</shape>
-   </junction>
+   <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes="" shape="1008.70,208.05 1021.80,208.05 1023.30,206.55 1023.30,190.15 1007.20,190.15 1007.20,206.55"/>
 
-   <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00">
-      <inclanes>ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1</inclanes>
-      <shape>986.75,206.55 986.75,190.15 983.75,193.45 983.75,206.55</shape>
-   </junction>
+   <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes="" shape="986.75,206.55 986.75,190.15 983.75,193.45 983.75,206.55"/>
 
-   <junction id="ErnstRuskaHavestadtDiv2" type="priority" x="1045.25" y="200.00">
-      <inclanes>ErnstRuska3W_0 ErnstRuska3W_1 ErnstRuska232O_0 ErnstRuska232O_1 ErnstRuska232O_2</inclanes>
-      <shape>1046.75,206.55 1046.75,193.45 1043.75,190.15 1043.75,206.55</shape>
-   </junction>
+   <junction id="ErnstRuskaHavestadtDiv2" type="priority" x="1045.25" y="200.00" incLanes="ErnstRuska3W_0 ErnstRuska3W_1 ErnstRuska232O_0 ErnstRuska232O_1 ErnstRuska232O_2" intLanes="" shape="1046.75,206.55 1046.75,193.45 1043.75,190.15 1043.75,206.55"/>
 
-   <junction id="ErnstRuskaSink1" type="priority" x="0.00" y="200.00">
-      <inclanes>ErnstRuskaSink1W_0 ErnstRuskaSink1W_1</inclanes>
-      <shape>-0.00,199.95 -0.00,193.45 0.00,206.55 0.00,200.05</shape>
-   </junction>
+   <junction id="ErnstRuskaSink1" type="priority" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="-0.00,199.95 -0.00,193.45 0.00,206.55 0.00,200.05"/>
 
-   <junction id="ErnstRuskaSink2" type="priority" x="2125.42" y="200.00">
-      <inclanes>ErnstRuskaSink5O_0 ErnstRuskaSink5O_1</inclanes>
-      <shape>2125.42,200.05 2125.42,206.55 2125.42,193.45 2125.42,199.95</shape>
-   </junction>
+   <junction id="ErnstRuskaSink2" type="priority" x="2125.42" y="200.00" incLanes="ErnstRuskaSink5O_0 ErnstRuskaSink5O_1" intLanes="" shape="2125.42,200.05 2125.42,206.55 2125.42,193.45 2125.42,199.95"/>
 
-   <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00">
-      <inclanes>VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1</inclanes>
-      <shape>1581.50,208.05 1588.00,208.05 1589.50,206.55 1589.50,193.45 1580.00,193.45 1580.00,206.55</shape>
-   </junction>
+   <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes="" shape="1581.50,208.05 1588.00,208.05 1589.50,206.55 1589.50,193.45 1580.00,193.45 1580.00,206.55"/>
 
-   <junction id="HavestadtEnd" type="priority" x="1015.25" y="300.00">
-      <inclanes>HavestadtSinkS_0 HavestadtSinkS_1 HavestadtN_0 HavestadtN_1</inclanes>
-      <shape>1008.70,300.00 1021.80,300.00 1008.70,300.00</shape>
-   </junction>
+   <junction id="HavestadtEnd" type="priority" x="1015.25" y="300.00" incLanes="HavestadtSinkS_0 HavestadtSinkS_1 HavestadtN_0 HavestadtN_1" intLanes="" shape="1008.70,300.00 1021.80,300.00 1008.70,300.00"/>
 
-   <junction id="HavestadtSinkEnd" type="priority" x="1015.25" y="400.00">
-      <inclanes>HavestadtSinkN_0 HavestadtSinkN_1</inclanes>
-      <shape>1015.20,400.00 1008.70,400.00 1021.80,400.00 1015.30,400.00</shape>
-   </junction>
+   <junction id="HavestadtSinkEnd" type="priority" x="1015.25" y="400.00" incLanes="HavestadtSinkN_0 HavestadtSinkN_1" intLanes="" shape="1015.20,400.00 1008.70,400.00 1021.80,400.00 1015.30,400.00"/>
 
-   <junction id="VolmerEnd" type="priority" x="1584.75" y="300.00">
-      <inclanes>VolmerSinkS_0 VolmerN_0</inclanes>
-      <shape>1581.50,300.00 1588.00,300.00 1581.50,300.00</shape>
-   </junction>
+   <junction id="VolmerEnd" type="priority" x="1584.75" y="300.00" incLanes="VolmerSinkS_0 VolmerN_0" intLanes="" shape="1581.50,300.00 1588.00,300.00 1581.50,300.00"/>
 
-   <junction id="VolmerSinkEnd" type="priority" x="1584.75" y="400.00">
-      <inclanes>VolmerSinkN_0</inclanes>
-      <shape>1584.70,400.00 1581.50,400.00 1588.00,400.00 1584.80,400.00</shape>
-   </junction>
+   <junction id="VolmerSinkEnd" type="priority" x="1584.75" y="400.00" incLanes="VolmerSinkN_0" intLanes="" shape="1584.70,400.00 1581.50,400.00 1588.00,400.00 1584.80,400.00"/>
 
 
    <succ edge="AltglienickerBreitN" lane="AltglienickerBreitN_0" junction="ErnstRuskaAltglienicker">
