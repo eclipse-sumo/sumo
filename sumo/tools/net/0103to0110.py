@@ -13,15 +13,33 @@ All rights reserved
 import os, string, sys, StringIO
 from xml.sax import saxutils, make_parser, handler
 
+# attributes sorting lists
 a = {}
 a['edge'] = ( 'id', 'from', 'to', 'priority', 'type', 'function', 'inner' )
 a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length' )
-a['junction'] = ( 'id', 'type', 'x', 'y' )
+a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
 a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'yield', 'dir', 'state', 'int_end' )
+a['row-logic'] = ( 'id', 'requestSize', 'laneNumber' )
+a['tl-logic'] = ( 'id', 'type', 'programID', 'offset' )
 
-c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink' )
+# elements which are single (not using opening/closing tag)
+c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'roundabout' )
+
+# delay output till this point
+d = {}
+d['junction'] = None
+d['row-logic'] = 'logic'
+d['tl-logic'] = 'phase'
+
+# subelements to use as attributes
+i = {}
+i['junction'] = ( ( 'inclanes', 'incLanes' ), ( 'intlanes', 'intLanes' ), ( 'shape', 'shape' ) )
+i['row-logic'] = ( ( 'key', 'id' ), ( 'requestsize', 'requestSize' ), ( 'lanenumber', 'laneNumber' ) )
+i['tl-logic'] = ( ( 'key', 'id' ), ( 'subkey', 'programID' ), ( 'phaseno', 'phaseNo' ), ( 'offset', 'offset' ), ( 'logicno', 'programID' ), ( 'inclanes', 'inclanes' )  )
+
+
 
 def getBegin(file):
     fd = open(file)
@@ -56,21 +74,81 @@ class NetConverter(handler.ContentHandler):
     def __init__(self, outFileName, begin):
         self._out = open(outFileName, "w")
         self._out.write(begin)
+        self._collect = False
+        self._tree = []
+        self._attributes = {}
+
+    def beginCollect(self):
+        self._collect = True
+
+    def endCollect(self):
+        self._collect = False
+        self.checkWrite(self._buffer)
+        self._buffer = ""
+
+    def checkWrite(self, what, isCharacters=False):
+        cp = None
+        if len(self._tree)>2:
+            if self._tree[-2] in i:
+                for p in i[self._tree[-2]]:
+                    if self._tree[-1]==p[0]:
+                        cp = p
+                if cp and isCharacters:
+                    if cp[1] in self._attributes:
+                        self._attributes[cp[1]] = self._attributes[cp[1]] + what
+                    else:
+                        self._attributes[cp[1]] = what
+        if len(self._tree)>1:
+            if self._tree[-1] in d:
+                cp = 1
+        if not cp:
+            self._out.write(what)
+            self._attributes = {}
+#        if self._collect:
+ #           self._buffer = self._buffer + what
+  #      else:
+   #         self._out.write(what)
+
+
+    def flushStored(self, name):
+        if len(self._attributes)==0:
+            return
+        self._out.write("<" + name)
+        for key in a[name]:
+            if key in self._attributes:
+                self._out.write(' ' + key + '="' + self._attributes[key] + '"')
+            else:
+                self._out.write(' ' + key + '=""')
+        self._attributes = {}
+        if name in c:
+            self._out.write("/>")
+        else:
+            self._out.write(">")
+
+
 
     def endDocument(self):
-        self._out.write("\n")
+        self.checkWrite("\n")
         self._out.close()
 
     def startElement(self, name, attrs):
-        self._out.write("<" + name)
-        if name=="phase" and attrs.has_key('phase'):
+        if len(self._tree)>0 and self._tree[-1] in d and d[self._tree[-1]]==name:
+            self.flushStored(self._tree[-1])
+            self._out.write("\n" + self._lastChars)
+        self._tree.append(name)
+        self.checkWrite("<" + name)
+        if name in d:
+            self._attributes = {}
+            for key in attrs.getNames():
+                self._attributes[key] = attrs[key]
+        elif name=="phase" and attrs.has_key('phase'):
             # patch phase definition
             state = patchPhase(attrs)
             for key in attrs.getNames():
                 if key=='phase':
-                    self._out.write(' state="' + state + '"')
+                    self.checkWrite(' state="' + state + '"')
                 elif key!='yellow' and key!='brake':
-                    self._out.write(' ' + key + '="' + attrs[key] + '"')
+                    self.checkWrite(' ' + key + '="' + attrs[key] + '"')
         elif name=='lane' and attrs.has_key('vclasses'):
             for key in a['lane']:
                 if key == 'vclasses':
@@ -83,39 +161,46 @@ class NetConverter(handler.ContentHandler):
 	                        else:
 	                            allowed.append(clazz)
                     if allowed:
-                     	self._out.write(' allow="%s"' % (" ".join(allowed)))
+                     	self.checkWrite(' allow="%s"' % (" ".join(allowed)))
                     if disallowed:
-                     	self._out.write(' disallow="%s"' % (" ".join(disallowed)))
+                     	self.checkWrite(' disallow="%s"' % (" ".join(disallowed)))
                 elif attrs.has_key(key):
-                    self._out.write(' ' + key + '="' + attrs[key] + '"')
+                    self.checkWrite(' ' + key + '="' + attrs[key] + '"')
         else:
             if name not in a:
                 for key in attrs.getNames():
-                    self._out.write(' ' + key + '="' + attrs[key] + '"')
+                    self.checkWrite(' ' + key + '="' + attrs[key] + '"')
             else:
                 for key in a[name]:
                     if attrs.has_key(key):
-                        self._out.write(' ' + key + '="' + attrs[key] + '"')
+                        self.checkWrite(' ' + key + '="' + attrs[key] + '"')
         if name in c:
-            self._out.write("/")
-        self._out.write(">")
+            self.checkWrite("/")
+        self.checkWrite(">")
 
     def endElement(self, name):
-        if name not in c:
-            self._out.write("</" + name)
-            self._out.write(">")
+        if name in d:
+            if not d[name]:
+                self.flushStored(name)
+            else:
+                self._out.write("\n" + self._lastChars + "</" + name + ">")
+        elif name not in c:
+            self.checkWrite("</" + name)
+            self.checkWrite(">")
+        self._tree.pop()
 
     def characters(self, content):
-        self._out.write(content)
+        self._lastChars = content
+        self.checkWrite(content, True)
                     
     def ignorableWhitespace(self, content):
-        self._out.write(content)
+        self.checkWrite(content)
         
     def skippedEntity(self, content):
-        self._out.write(content)
+        self.checkWrite(content)
         
     def processingInstruction(self, target, data):
-        self._out.write('<?%s %s?>' % (target, data))
+        self.checkWrite('<?%s %s?>' % (target, data))
 
 
 
