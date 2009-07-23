@@ -8,6 +8,7 @@ copy_test_path:tracefile.xml
 copy_test_path:input_weights.dump.xml
 
 [collate_file]
+changednet:input_net.net.xml.chg
 edges:edges.xml
 nodes:nodes.xml
 fixed:routes.rou.xml.fixed
