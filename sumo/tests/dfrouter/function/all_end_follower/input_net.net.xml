@@ -21,80 +21,77 @@
 
 <net>
 
-   <net-offset>0.00,250.00</net-offset>
-   <conv-boundary>0.00,0.00,1200.00,500.00</conv-boundary>
-   <orig-boundary>0.00,-250.00,1200.00,250.00</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="0.00,250.00" convBoundary="0.00,0.00,1200.00,500.00" origBoundary="0.00,-250.00,1200.00,250.00" projParameter="!"/>
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="19.44" length="5.00">95.25,248.35 96.61,248.16 97.58,247.58 98.16,246.61 98.35,245.25</lane>
+         <lane id=":1_0_0" depart="0" maxspeed="19.44" length="5.00" shape="95.25,248.35 96.61,248.16 97.58,247.58 98.16,246.61 98.35,245.25"/>
       </lanes>
    </edge>
 
    <edge id=":1_1" function="internal">
       <lanes>
-         <lane id=":1_1_0" depart="0" maxspeed="19.44" length="9.50">95.25,248.35 104.75,248.35</lane>
+         <lane id=":1_1_0" depart="0" maxspeed="19.44" length="9.50" shape="95.25,248.35 104.75,248.35"/>
       </lanes>
    </edge>
 
    <edge id=":1_2" function="internal">
       <lanes>
-         <lane id=":1_2_0" depart="0" maxspeed="19.44" length="7.85">95.25,248.35 98.05,248.54 100.05,249.13 101.25,250.09 101.65,251.45</lane>
+         <lane id=":1_2_0" depart="0" maxspeed="19.44" length="7.85" shape="95.25,248.35 98.05,248.54 100.05,249.13 101.25,250.09 101.65,251.45"/>
       </lanes>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="19.44" length="0.10">1100.00,248.35 1100.00,248.35</lane>
+         <lane id=":2_0_0" depart="0" maxspeed="19.44" length="0.10" shape="1100.00,248.35 1100.00,248.35"/>
       </lanes>
    </edge>
 
    <edge id=":L1_0" function="internal">
       <lanes>
-         <lane id=":L1_0_0" depart="0" maxspeed="19.44" length="2.58">101.65,446.75 101.75,447.45 102.05,447.95 102.55,448.25 103.25,448.35</lane>
+         <lane id=":L1_0_0" depart="0" maxspeed="19.44" length="2.58" shape="101.65,446.75 101.75,447.45 102.05,447.95 102.55,448.25 103.25,448.35"/>
       </lanes>
    </edge>
 
    <edge id=":L2_0" function="internal">
       <lanes>
-         <lane id=":L2_0_0" depart="0" maxspeed="19.44" length="5.54">1102.89,448.35 1107.01,444.65</lane>
+         <lane id=":L2_0_0" depart="0" maxspeed="19.44" length="5.54" shape="1102.89,448.35 1107.01,444.65"/>
       </lanes>
    </edge>
 
    <edge id=":L2_1" function="internal">
       <lanes>
-         <lane id=":L2_1_0" depart="0" maxspeed="19.44" length="5.78">1102.89,448.35 1108.67,448.35</lane>
+         <lane id=":L2_1_0" depart="0" maxspeed="19.44" length="5.78" shape="1102.89,448.35 1108.67,448.35"/>
       </lanes>
    </edge>
 
    <edge id=":L2_2" function="internal">
       <lanes>
-         <lane id=":L2_2_0" depart="0" maxspeed="19.44" length="6.15">1102.89,448.35 1107.79,452.05</lane>
+         <lane id=":L2_2_0" depart="0" maxspeed="19.44" length="6.15" shape="1102.89,448.35 1107.79,452.05"/>
       </lanes>
    </edge>
 
    <edge id=":R1_0" function="internal">
       <lanes>
-         <lane id=":R1_0_0" depart="0" maxspeed="19.44" length="2.58">98.35,49.95 98.45,49.25 98.75,48.75 99.25,48.45 99.95,48.35</lane>
+         <lane id=":R1_0_0" depart="0" maxspeed="19.44" length="2.58" shape="98.35,49.95 98.45,49.25 98.75,48.75 99.25,48.45 99.95,48.35"/>
       </lanes>
    </edge>
 
    <edge id=":R2_0" function="internal">
       <lanes>
-         <lane id=":R2_0_0" depart="0" maxspeed="19.44" length="5.54">1102.89,48.35 1107.01,44.65</lane>
+         <lane id=":R2_0_0" depart="0" maxspeed="19.44" length="5.54" shape="1102.89,48.35 1107.01,44.65"/>
       </lanes>
    </edge>
 
    <edge id=":R2_1" function="internal">
       <lanes>
-         <lane id=":R2_1_0" depart="0" maxspeed="19.44" length="5.78">1102.89,48.35 1108.67,48.35</lane>
+         <lane id=":R2_1_0" depart="0" maxspeed="19.44" length="5.78" shape="1102.89,48.35 1108.67,48.35"/>
       </lanes>
    </edge>
 
    <edge id=":R2_2" function="internal">
       <lanes>
-         <lane id=":R2_2_0" depart="0" maxspeed="19.44" length="6.15">1102.89,48.35 1107.79,52.05</lane>
+         <lane id=":R2_2_0" depart="0" maxspeed="19.44" length="6.15" shape="1102.89,48.35 1107.79,52.05"/>
       </lanes>
    </edge>
 
@@ -102,79 +99,79 @@
 
    <edge id="1toL" from="1" to="L1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1toL_0" depart="1" maxspeed="19.44" length="195.30">101.65,251.45 101.65,446.75</lane>
+         <lane id="1toL_0" depart="1" maxspeed="19.44" length="195.30" shape="101.65,251.45 101.65,446.75"/>
       </lanes>
    </edge>
 
    <edge id="1toR" from="1" to="R1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1toR_0" depart="1" maxspeed="19.44" length="195.30">98.35,245.25 98.35,49.95</lane>
+         <lane id="1toR_0" depart="1" maxspeed="19.44" length="195.30" shape="98.35,245.25 98.35,49.95"/>
       </lanes>
    </edge>
 
    <edge id="L" from="L1" to="L2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="L_0" depart="1" maxspeed="19.44" length="999.64">103.25,448.35 1102.89,448.35</lane>
+         <lane id="L_0" depart="1" maxspeed="19.44" length="999.64" shape="103.25,448.35 1102.89,448.35"/>
       </lanes>
    </edge>
 
    <edge id="LtoL2a" from="L2" to="L2a" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="LtoL2a_0" depart="1" maxspeed="19.44" length="103.92">1107.79,452.05 1200.74,498.52</lane>
+         <lane id="LtoL2a_0" depart="1" maxspeed="19.44" length="103.92" shape="1107.79,452.05 1200.74,498.52"/>
       </lanes>
    </edge>
 
    <edge id="LtoL2b" from="L2" to="L2b" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="LtoL2b_0" depart="1" maxspeed="19.44" length="91.33">1108.67,448.35 1200.00,448.35</lane>
+         <lane id="LtoL2b_0" depart="1" maxspeed="19.44" length="91.33" shape="1108.67,448.35 1200.00,448.35"/>
       </lanes>
    </edge>
 
    <edge id="LtoL2c" from="L2" to="L2c" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="LtoL2c_0" depart="1" maxspeed="19.44" length="103.14">1107.01,444.65 1199.26,398.52</lane>
+         <lane id="LtoL2c_0" depart="1" maxspeed="19.44" length="103.14" shape="1107.01,444.65 1199.26,398.52"/>
       </lanes>
    </edge>
 
    <edge id="R" from="R1" to="R2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="R_0" depart="1" maxspeed="19.44" length="1002.94">99.95,48.35 1102.89,48.35</lane>
+         <lane id="R_0" depart="1" maxspeed="19.44" length="1002.94" shape="99.95,48.35 1102.89,48.35"/>
       </lanes>
    </edge>
 
    <edge id="RtoR2a" from="R2" to="R2a" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="RtoR2a_0" depart="1" maxspeed="19.44" length="103.14">1107.01,44.65 1199.26,-1.48</lane>
+         <lane id="RtoR2a_0" depart="1" maxspeed="19.44" length="103.14" shape="1107.01,44.65 1199.26,-1.48"/>
       </lanes>
    </edge>
 
    <edge id="RtoR2b" from="R2" to="R2b" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="RtoR2b_0" depart="1" maxspeed="19.44" length="91.33">1108.67,48.35 1200.00,48.35</lane>
+         <lane id="RtoR2b_0" depart="1" maxspeed="19.44" length="91.33" shape="1108.67,48.35 1200.00,48.35"/>
       </lanes>
    </edge>
 
    <edge id="RtoR2c" from="R2" to="R2c" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="RtoR2c_0" depart="1" maxspeed="19.44" length="103.92">1107.79,52.05 1200.74,98.52</lane>
+         <lane id="RtoR2c_0" depart="1" maxspeed="19.44" length="103.92" shape="1107.79,52.05 1200.74,98.52"/>
       </lanes>
    </edge>
 
    <edge id="beg" from="beg" to="1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" maxspeed="19.44" length="95.25">0.00,248.35 95.25,248.35</lane>
+         <lane id="beg_0" depart="1" maxspeed="19.44" length="95.25" shape="0.00,248.35 95.25,248.35"/>
       </lanes>
    </edge>
 
    <edge id="end" from="2" to="end" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="end_0" depart="1" maxspeed="19.44" length="100.00">1100.00,248.35 1200.00,248.35</lane>
+         <lane id="end_0" depart="1" maxspeed="19.44" length="100.00" shape="1100.00,248.35 1200.00,248.35"/>
       </lanes>
    </edge>
 
    <edge id="middle" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="middle_0" depart="1" maxspeed="19.44" length="995.25">104.75,248.35 1100.00,248.35</lane>
+         <lane id="middle_0" depart="1" maxspeed="19.44" length="995.25" shape="104.75,248.35 1100.00,248.35"/>
       </lanes>
    </edge>
 
