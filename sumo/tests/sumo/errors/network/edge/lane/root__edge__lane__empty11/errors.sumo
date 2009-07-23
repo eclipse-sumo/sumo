@@ -1,4 +1,4 @@
-Error: Shape of lane '1_0' is broken.
+Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').

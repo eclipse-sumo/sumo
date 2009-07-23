@@ -21,26 +21,23 @@
 
 <net>
 
-   <net-offset>-500.00,0.00</net-offset>
-   <conv-boundary>0.00,0.00,1000.00,0.00</conv-boundary>
-   <orig-boundary>500.00,0.00,1500.00,0.00</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="-500.00,0.00" convBoundary="0.00,0.00,1000.00,0.00" origBoundary="500.00,0.00,1500.00,0.00" projParameter="!"/>
 
    <edge id=":center_0" function="internal">
       <lanes>
-         <lane id=":center_0_0" depart="0" maxspeed="27.80" length="0.10">500.00,-8.25 500.00,-8.25</lane>
+         <lane id=":center_0_0" depart="0" maxspeed="27.80" length="0.10" shape="500.00,-8.25 500.00,-8.25"/>
       </lanes>
    </edge>
 
    <edge id=":center_1" function="internal">
       <lanes>
-         <lane id=":center_1_0" depart="0" maxspeed="27.80" length="0.10">500.00,-4.95 500.00,-4.95</lane>
+         <lane id=":center_1_0" depart="0" maxspeed="27.80" length="0.10" shape="500.00,-4.95 500.00,-4.95"/>
       </lanes>
    </edge>
 
    <edge id=":center_2" function="internal">
       <lanes>
-         <lane id=":center_2_0" depart="0" maxspeed="27.80" length="0.10">500.00,-1.65 500.00,-1.65</lane>
+         <lane id=":center_2_0" depart="0" maxspeed="27.80" length="0.10" shape="500.00,-1.65 500.00,-1.65"/>
       </lanes>
    </edge>
 
@@ -48,17 +45,17 @@
 
    <edge id="beg" from="beg" to="center" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" maxspeed="27.80" length="500.00">0.00,-8.25 500.00,-8.25</lane>
-         <lane id="beg_1" depart="0" maxspeed="27.80" length="500.00">0.00,-4.95 500.00,-4.95</lane>
-         <lane id="beg_2" depart="0" maxspeed="27.80" length="500.00">0.00,-1.65 500.00,-1.65</lane>
+         <lane id="beg_0" depart="1" maxspeed="27.80" length="500.00" shape="0.00,-8.25 500.00,-8.25"/>
+         <lane id="beg_1" depart="0" maxspeed="27.80" length="500.00" shape="0.00,-4.95 500.00,-4.95"/>
+         <lane id="beg_2" depart="0" maxspeed="27.80" length="500.00" shape="0.00,-1.65 500.00,-1.65"/>
       </lanes>
    </edge>
 
    <edge id="end" from="center" to="end" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="end_0" depart="1" maxspeed="27.80" length="500.00">500.00,-8.25 1000.00,-8.25</lane>
-         <lane id="end_1" depart="0" maxspeed="27.80" length="500.00">500.00,-4.95 1000.00,-4.95</lane>
-         <lane id="end_2" depart="0" maxspeed="27.80" length="500.00">500.00,-1.65 1000.00,-1.65</lane>
+         <lane id="end_0" depart="1" maxspeed="27.80" length="500.00" shape="500.00,-8.25 1000.00,-8.25"/>
+         <lane id="end_1" depart="0" maxspeed="27.80" length="500.00" shape="500.00,-4.95 1000.00,-4.95"/>
+         <lane id="end_2" depart="0" maxspeed="27.80" length="500.00" shape="500.00,-1.65 1000.00,-1.65"/>
       </lanes>
    </edge>
 

@@ -17,23 +17,20 @@
 
 <net>
 
-   <net-offset>0.000000,0.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,6.000000,0.000000</conv-boundary>
-   <orig-boundary>0.000000,0.000000,6.000000,0.000000</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="0.000000,0.000000" convBoundary="0.000000,0.000000,6.000000,0.000000" origBoundary="0.000000,0.000000,6.000000,0.000000" projParameter="!"/>
 
    <node_count>3</node_count>
 
 
    <edge id="1to2" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to2_0" depart="1" maxspeed="13.90" length="5.00">0.00,-1.65 5.00,-1.65</lane>
+         <lane id="1to2_0" depart="1" maxspeed="13.90" length="5.00" shape="0.00,-1.65 5.00,-1.65"/>
       </lanes>
    </edge>
 
    <edge id="out" from="2" to="3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="out_0" depart="1" maxspeed="13.90" length="1.00">5.00,-1.65 6.00,-1.65</lane>
+         <lane id="out_0" depart="1" maxspeed="13.90" length="1.00" shape="5.00,-1.65 6.00,-1.65"/>
       </lanes>
    </edge>
 

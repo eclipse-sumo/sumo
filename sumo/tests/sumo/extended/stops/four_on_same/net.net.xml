@@ -17,27 +17,24 @@
 
 <net>
 
-   <net-offset>-500.000000,0.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,1000.000000,0.000000</conv-boundary>
-   <orig-boundary>500.000000,0.000000,1500.000000,0.000000</orig-boundary>
-   <orig-proj>!</orig-proj>
+   <location netOffset="-500.000000,0.000000" convBoundary="0.000000,0.000000,1000.000000,0.000000" origBoundary="500.000000,0.000000,1500.000000,0.000000" projParameter="!"/>
 
    <node_count>3</node_count>
 
 
    <edge id="beg" from="beg" to="center" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="beg_0" depart="1" maxspeed="27.80" length="500.00">0.00,-8.25 500.00,-8.25</lane>
-         <lane id="beg_1" depart="0" maxspeed="27.80" length="500.00">0.00,-4.95 500.00,-4.95</lane>
-         <lane id="beg_2" depart="0" maxspeed="27.80" length="500.00">0.00,-1.65 500.00,-1.65</lane>
+         <lane id="beg_0" depart="1" maxspeed="27.80" length="500.00" shape="0.00,-8.25 500.00,-8.25"/>
+         <lane id="beg_1" depart="0" maxspeed="27.80" length="500.00" shape="0.00,-4.95 500.00,-4.95"/>
+         <lane id="beg_2" depart="0" maxspeed="27.80" length="500.00" shape="0.00,-1.65 500.00,-1.65"/>
       </lanes>
    </edge>
 
    <edge id="end" from="center" to="end" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="end_0" depart="1" maxspeed="27.80" length="500.00">500.00,-8.25 1000.00,-8.25</lane>
-         <lane id="end_1" depart="0" maxspeed="27.80" length="500.00">500.00,-4.95 1000.00,-4.95</lane>
-         <lane id="end_2" depart="0" maxspeed="27.80" length="500.00">500.00,-1.65 1000.00,-1.65</lane>
+         <lane id="end_0" depart="1" maxspeed="27.80" length="500.00" shape="500.00,-8.25 1000.00,-8.25"/>
+         <lane id="end_1" depart="0" maxspeed="27.80" length="500.00" shape="500.00,-4.95 1000.00,-4.95"/>
+         <lane id="end_2" depart="0" maxspeed="27.80" length="500.00" shape="500.00,-1.65 1000.00,-1.65"/>
       </lanes>
    </edge>
 
