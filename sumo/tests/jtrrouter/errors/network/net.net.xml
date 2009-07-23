@@ -59,10 +59,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>2</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="2" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="00" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
@@ -71,23 +68,11 @@
 
 
 
-   <junction id="1" type="DEAD_END" x="0.00" y="0.00">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape>-0.00,-0.05 -0.00,-6.55</shape>
-   </junction>
+   <junction id="1" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.05 -0.00,-6.55"/>
 
-   <junction id="2" type="priority" x="100.00" y="0.00">
-      <inclanes>1_0 1_1</inclanes>
-      <intlanes>:2_0_0 :2_1_0</intlanes>
-      <shape>100.00,-0.05 100.00,-6.55 100.00,-0.05</shape>
-   </junction>
+   <junction id="2" type="priority" x="100.00" y="0.00" incLanes="1_0 1_1" intLanes=":2_0_0 :2_1_0" shape="100.00,-0.05 100.00,-6.55 100.00,-0.05"/>
 
-   <junction id="3" type="DEAD_END" x="200.00" y="0.00">
-      <inclanes>2_0 2_1</inclanes>
-      <intlanes></intlanes>
-      <shape>200.00,-6.55 200.00,-0.05</shape>
-   </junction>
+   <junction id="3" type="DEAD_END" x="200.00" y="0.00" incLanes="2_0 2_1" intLanes="" shape="200.00,-6.55 200.00,-0.05"/>
 
 
 
