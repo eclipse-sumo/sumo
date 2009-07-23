@@ -136,30 +136,21 @@
    </edge>
 
 
-   <row-logic>
-      <key>12</key>
-      <requestsize>2</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="12" requestSize="2" laneNumber="2">
       <logic>
          <logicitem request="0" response="10" foes="10" cont="0"/>
          <logicitem request="1" response="00" foes="01" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2</key>
-      <requestsize>2</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="2" requestSize="2" laneNumber="1">
       <logic>
          <logicitem request="0" response="00" foes="00" cont="0"/>
          <logicitem request="1" response="00" foes="00" cont="0"/>
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>8</key>
-      <requestsize>3</requestsize>
-      <lanenumber>1</lanenumber>
+   <row-logic id="8" requestSize="3" laneNumber="1">
       <logic>
          <logicitem request="0" response="000" foes="000" cont="0"/>
          <logicitem request="1" response="000" foes="000" cont="0"/>
@@ -169,65 +160,25 @@
 
 
 
-   <junction id="1" type="DEAD_END" x="162.29" y="362.77">
-      <inclanes></inclanes>
-      <intlanes></intlanes>
-      <shape>162.42,367.64 165.62,367.59 167.04,362.90 167.16,359.70 161.10,358.03 157.99,358.77 157.76,364.23 158.71,367.29</shape>
-   </junction>
+   <junction id="1" type="DEAD_END" x="162.29" y="362.77" incLanes="" intLanes="" shape="162.42,367.64 165.62,367.59 167.04,362.90 167.16,359.70 161.10,358.03 157.99,358.77 157.76,364.23 158.71,367.29"/>
 
-   <junction id="10" type="DEAD_END" x="0.00" y="413.13">
-      <inclanes>11_0</inclanes>
-      <intlanes></intlanes>
-      <shape>0.96,416.24 0.01,413.18</shape>
-   </junction>
+   <junction id="10" type="DEAD_END" x="0.00" y="413.13" incLanes="11_0" intLanes="" shape="0.96,416.24 0.01,413.18"/>
 
-   <junction id="12" type="priority" x="237.52" y="187.21">
-      <inclanes>17_0 13_0</inclanes>
-      <intlanes>:12_0_0 :12_1_0</intlanes>
-      <shape>232.61,186.05 235.18,184.14 234.27,178.89 231.29,180.04 230.43,180.89 229.25,183.86</shape>
-   </junction>
+   <junction id="12" type="priority" x="237.52" y="187.21" incLanes="17_0 13_0" intLanes=":12_0_0 :12_1_0" shape="232.61,186.05 235.18,184.14 234.27,178.89 231.29,180.04 230.43,180.89 229.25,183.86"/>
 
-   <junction id="14" type="DEAD_END" x="47.65" y="0.00">
-      <inclanes>15_0</inclanes>
-      <intlanes></intlanes>
-      <shape>44.68,1.32 47.61,0.02</shape>
-   </junction>
+   <junction id="14" type="DEAD_END" x="47.65" y="0.00" incLanes="15_0" intLanes="" shape="44.68,1.32 47.61,0.02"/>
 
-   <junction id="18" type="DEAD_END" x="554.80" y="297.91">
-      <inclanes>19_0</inclanes>
-      <intlanes></intlanes>
-      <shape>553.58,294.90 554.78,297.87</shape>
-   </junction>
+   <junction id="18" type="DEAD_END" x="554.80" y="297.91" incLanes="19_0" intLanes="" shape="553.58,294.90 554.78,297.87"/>
 
-   <junction id="2" type="priority" x="107.74" y="135.58">
-      <inclanes>3_0</inclanes>
-      <intlanes>:2_0_0 :2_1_0</intlanes>
-      <shape>105.00,138.08 108.11,137.33 109.06,136.05 110.24,133.08 106.23,132.31 103.31,133.61</shape>
-   </junction>
+   <junction id="2" type="priority" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.00,138.08 108.11,137.33 109.06,136.05 110.24,133.08 106.23,132.31 103.31,133.61"/>
 
-   <junction id="24" type="DEAD_END" x="489.95" y="551.41">
-      <inclanes>25_0</inclanes>
-      <intlanes></intlanes>
-      <shape>492.68,549.65 489.99,551.38</shape>
-   </junction>
+   <junction id="24" type="DEAD_END" x="489.95" y="551.41" incLanes="25_0" intLanes="" shape="492.68,549.65 489.99,551.38"/>
 
-   <junction id="37" type="DEAD_END" x="169.57" y="10.38">
-      <inclanes>38_0</inclanes>
-      <intlanes></intlanes>
-      <shape>166.54,11.54 169.52,10.40</shape>
-   </junction>
+   <junction id="37" type="DEAD_END" x="169.57" y="10.38" incLanes="38_0" intLanes="" shape="166.54,11.54 169.52,10.40"/>
 
-   <junction id="6" type="DEAD_END" x="165.61" y="574.23">
-      <inclanes>7_0</inclanes>
-      <intlanes></intlanes>
-      <shape>168.86,574.18 165.66,574.23</shape>
-   </junction>
+   <junction id="6" type="DEAD_END" x="165.61" y="574.23" incLanes="7_0" intLanes="" shape="168.86,574.18 165.66,574.23"/>
 
-   <junction id="8" type="priority" x="373.91" y="370.80">
-      <inclanes>9_0</inclanes>
-      <intlanes>:8_0_0 :8_1_0 :8_2_0</intlanes>
-      <shape>375.07,372.51 377.76,370.78 378.34,368.96 377.14,365.99 368.93,364.18 366.36,366.09 365.76,367.24 365.63,370.43</shape>
-   </junction>
+   <junction id="8" type="priority" x="373.91" y="370.80" incLanes="9_0" intLanes=":8_0_0 :8_1_0 :8_2_0" shape="375.07,372.51 377.76,370.78 378.34,368.96 377.14,365.99 368.93,364.18 366.36,366.09 365.76,367.24 365.63,370.43"/>
 
 
 

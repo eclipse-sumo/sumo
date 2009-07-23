@@ -315,10 +315,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>1/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="1/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
@@ -332,10 +329,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="2/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
@@ -349,10 +343,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>3/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="3/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
@@ -368,29 +359,13 @@
 
 
 
-   <junction id="1" type="unregulated" x="5.00" y="8.66">
-      <inclanes>1/1to1_0 3/1to1_0 2/1to1_0</inclanes>
-      <intlanes>:1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0</intlanes>
-      <shape>8.38,11.91 8.38,5.41 6.13,4.11 0.50,7.36 0.50,9.96 6.13,13.21</shape>
-   </junction>
+   <junction id="1" type="unregulated" x="5.00" y="8.66" incLanes="1/1to1_0 3/1to1_0 2/1to1_0" intLanes=":1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0" shape="8.38,11.91 8.38,5.41 6.13,4.11 0.50,7.36 0.50,9.96 6.13,13.21"/>
 
-   <junction id="1/1" type="priority" x="15.00" y="8.66">
-      <inclanes>3/1to1/1_0 1to1/1_0 2/1to1/1_0</inclanes>
-      <intlanes>:1/1_0_0 :1/1_1_0 :1/1_2_0 :1/1_3_0 :1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0 :1/1_8_0</intlanes>
-      <shape>20.20,7.91 16.95,13.54 13.50,5.41 13.50,11.91 16.95,3.78 20.20,9.41</shape>
-   </junction>
+   <junction id="1/1" type="priority" x="15.00" y="8.66" incLanes="3/1to1/1_0 1to1/1_0 2/1to1/1_0" intLanes=":1/1_0_0 :1/1_1_0 :1/1_2_0 :1/1_3_0 :1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0 :1/1_8_0" shape="20.20,7.91 16.95,13.54 13.50,5.41 13.50,11.91 16.95,3.78 20.20,9.41"/>
 
-   <junction id="2/1" type="priority" x="0.00" y="17.32">
-      <inclanes>1/1to2/1_0 1to2/1_0 3/1to2/1_0</inclanes>
-      <intlanes>:2/1_0_0 :2/1_1_0 :2/1_2_0 :2/1_3_0 :2/1_4_0 :2/1_5_0 :2/1_6_0 :2/1_7_0 :2/1_8_0</intlanes>
-      <shape>-1.95,22.20 -5.20,16.57 3.56,17.65 -2.06,14.40 3.25,21.45 -3.25,21.45</shape>
-   </junction>
+   <junction id="2/1" type="priority" x="0.00" y="17.32" incLanes="1/1to2/1_0 1to2/1_0 3/1to2/1_0" intLanes=":2/1_0_0 :2/1_1_0 :2/1_2_0 :2/1_3_0 :2/1_4_0 :2/1_5_0 :2/1_6_0 :2/1_7_0 :2/1_8_0" shape="-1.95,22.20 -5.20,16.57 3.56,17.65 -2.06,14.40 3.25,21.45 -3.25,21.45"/>
 
-   <junction id="3/1" type="priority" x="0.00" y="0.00">
-      <inclanes>2/1to3/1_0 1to3/1_0 1/1to3/1_0</inclanes>
-      <intlanes>:3/1_0_0 :3/1_1_0 :3/1_2_0 :3/1_3_0 :3/1_4_0 :3/1_5_0 :3/1_6_0 :3/1_7_0 :3/1_8_0</intlanes>
-      <shape>-3.25,-4.13 3.25,-4.13 -2.06,2.92 3.56,-0.33 -5.20,0.75 -1.95,-4.88</shape>
-   </junction>
+   <junction id="3/1" type="priority" x="0.00" y="0.00" incLanes="2/1to3/1_0 1to3/1_0 1/1to3/1_0" intLanes=":3/1_0_0 :3/1_1_0 :3/1_2_0 :3/1_3_0 :3/1_4_0 :3/1_5_0 :3/1_6_0 :3/1_7_0 :3/1_8_0" shape="-3.25,-4.13 3.25,-4.13 -2.06,2.92 3.56,-0.33 -5.20,0.75 -1.95,-4.88"/>
 
 
 

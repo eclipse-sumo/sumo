@@ -443,10 +443,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>1/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="1/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
@@ -460,10 +457,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="2/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
@@ -477,10 +471,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>3/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="3/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
@@ -494,10 +485,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>4/1</key>
-      <requestsize>9</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="4/1" requestSize="9" laneNumber="3">
       <logic>
          <logicitem request="0" response="000000000" foes="100010000" cont="0"/>
          <logicitem request="1" response="011000000" foes="011110000" cont="0"/>
@@ -513,35 +501,15 @@
 
 
 
-   <junction id="1" type="unregulated" x="100.00" y="100.00">
-      <inclanes>2/1to1_0 1/1to1_0 4/1to1_0 3/1to1_0</inclanes>
-      <intlanes>:1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0 :1_9_0 :1_10_0 :1_11_0 :1_12_0 :1_13_0 :1_14_0 :1_15_0</intlanes>
-      <shape>96.75,104.75 103.25,104.75 104.75,103.25 104.75,96.75 103.25,95.25 96.75,95.25 95.25,96.75 95.25,103.25</shape>
-   </junction>
+   <junction id="1" type="unregulated" x="100.00" y="100.00" incLanes="2/1to1_0 1/1to1_0 4/1to1_0 3/1to1_0" intLanes=":1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0 :1_9_0 :1_10_0 :1_11_0 :1_12_0 :1_13_0 :1_14_0 :1_15_0" shape="96.75,104.75 103.25,104.75 104.75,103.25 104.75,96.75 103.25,95.25 96.75,95.25 95.25,96.75 95.25,103.25"/>
 
-   <junction id="1/1" type="right_before_left" x="200.00" y="100.00">
-      <inclanes>4/1to1/1_0 1to1/1_0 2/1to1/1_0</inclanes>
-      <intlanes>:1/1_0_0 :1/1_1_0 :1/1_2_0 :1/1_3_0 :1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0 :1/1_8_0</intlanes>
-      <shape>195.69,91.09 191.09,95.69 190.65,96.75 190.65,103.25 191.09,104.31 195.69,108.91</shape>
-   </junction>
+   <junction id="1/1" type="right_before_left" x="200.00" y="100.00" incLanes="4/1to1/1_0 1to1/1_0 2/1to1/1_0" intLanes=":1/1_0_0 :1/1_1_0 :1/1_2_0 :1/1_3_0 :1/1_4_0 :1/1_5_0 :1/1_6_0 :1/1_7_0 :1/1_8_0" shape="195.69,91.09 191.09,95.69 190.65,96.75 190.65,103.25 191.09,104.31 195.69,108.91"/>
 
-   <junction id="2/1" type="right_before_left" x="100.00" y="200.00">
-      <inclanes>1/1to2/1_0 1to2/1_0 3/1to2/1_0</inclanes>
-      <intlanes>:2/1_0_0 :2/1_1_0 :2/1_2_0 :2/1_3_0 :2/1_4_0 :2/1_5_0 :2/1_6_0 :2/1_7_0 :2/1_8_0</intlanes>
-      <shape>108.91,195.69 104.31,191.09 103.25,190.65 96.75,190.65 95.69,191.09 91.09,195.69</shape>
-   </junction>
+   <junction id="2/1" type="right_before_left" x="100.00" y="200.00" incLanes="1/1to2/1_0 1to2/1_0 3/1to2/1_0" intLanes=":2/1_0_0 :2/1_1_0 :2/1_2_0 :2/1_3_0 :2/1_4_0 :2/1_5_0 :2/1_6_0 :2/1_7_0 :2/1_8_0" shape="108.91,195.69 104.31,191.09 103.25,190.65 96.75,190.65 95.69,191.09 91.09,195.69"/>
 
-   <junction id="3/1" type="right_before_left" x="0.00" y="100.00">
-      <inclanes>2/1to3/1_0 1to3/1_0 4/1to3/1_0</inclanes>
-      <intlanes>:3/1_0_0 :3/1_1_0 :3/1_2_0 :3/1_3_0 :3/1_4_0 :3/1_5_0 :3/1_6_0 :3/1_7_0 :3/1_8_0</intlanes>
-      <shape>4.31,108.91 8.91,104.31 9.35,103.25 9.35,96.75 8.91,95.69 4.31,91.09</shape>
-   </junction>
+   <junction id="3/1" type="right_before_left" x="0.00" y="100.00" incLanes="2/1to3/1_0 1to3/1_0 4/1to3/1_0" intLanes=":3/1_0_0 :3/1_1_0 :3/1_2_0 :3/1_3_0 :3/1_4_0 :3/1_5_0 :3/1_6_0 :3/1_7_0 :3/1_8_0" shape="4.31,108.91 8.91,104.31 9.35,103.25 9.35,96.75 8.91,95.69 4.31,91.09"/>
 
-   <junction id="4/1" type="right_before_left" x="100.00" y="0.00">
-      <inclanes>1to4/1_0 1/1to4/1_0 3/1to4/1_0</inclanes>
-      <intlanes>:4/1_0_0 :4/1_1_0 :4/1_2_0 :4/1_3_0 :4/1_4_0 :4/1_5_0 :4/1_6_0 :4/1_7_0 :4/1_8_0</intlanes>
-      <shape>96.75,9.35 103.25,9.35 104.31,8.91 108.91,4.31 91.09,4.31 95.69,8.91</shape>
-   </junction>
+   <junction id="4/1" type="right_before_left" x="100.00" y="0.00" incLanes="1to4/1_0 1/1to4/1_0 3/1to4/1_0" intLanes=":4/1_0_0 :4/1_1_0 :4/1_2_0 :4/1_3_0 :4/1_4_0 :4/1_5_0 :4/1_6_0 :4/1_7_0 :4/1_8_0" shape="96.75,9.35 103.25,9.35 104.31,8.91 108.91,4.31 91.09,4.31 95.69,8.91"/>
 
 
 

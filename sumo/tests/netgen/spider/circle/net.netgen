@@ -494,10 +494,7 @@
    </edge>
 
 
-   <row-logic>
-      <key>1/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="1/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -506,10 +503,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>10/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="10/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -518,10 +512,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>11/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="11/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -530,10 +521,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>12/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="12/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -542,10 +530,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>13/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="13/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -554,10 +539,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>2/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="2/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -566,10 +548,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>3/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="3/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -578,10 +557,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>4/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="4/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -590,10 +566,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>5/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="5/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -602,10 +575,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>6/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="6/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -614,10 +584,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>7/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="7/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -626,10 +593,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>8/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="8/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -638,10 +602,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>9/1</key>
-      <requestsize>4</requestsize>
-      <lanenumber>2</lanenumber>
+   <row-logic id="9/1" requestSize="4" laneNumber="2">
       <logic>
          <logicitem request="0" response="0000" foes="1000" cont="0"/>
          <logicitem request="1" response="0100" foes="0100" cont="0"/>
@@ -652,83 +613,31 @@
 
 
 
-   <junction id="1/1" type="priority" x="197.09" y="99.27">
-      <inclanes>13/1to1/1_0 2/1to1/1_0</inclanes>
-      <intlanes>:1/1_0_0 :1/1_1_0 :1/1_2_0 :1/1_3_0</intlanes>
-      <shape>200.06,97.72 193.75,99.27 200.06,100.83</shape>
-   </junction>
+   <junction id="1/1" type="priority" x="197.09" y="99.27" incLanes="13/1to1/1_0 2/1to1/1_0" intLanes=":1/1_0_0 :1/1_1_0 :1/1_2_0 :1/1_3_0" shape="200.06,97.72 193.75,99.27 200.06,100.83"/>
 
-   <junction id="10/1" type="priority" x="61.63" y="5.77">
-      <inclanes>11/1to10/1_0 9/1to10/1_0</inclanes>
-      <intlanes>:10/1_0_0 :10/1_1_0 :10/1_2_0 :10/1_3_0</intlanes>
-      <shape>62.82,8.90 62.04,2.45 59.13,3.55 62.82,8.90</shape>
-   </junction>
+   <junction id="10/1" type="priority" x="61.63" y="5.77" incLanes="11/1to10/1_0 9/1to10/1_0" intLanes=":10/1_0_0 :10/1_1_0 :10/1_2_0 :10/1_3_0" shape="62.82,8.90 62.04,2.45 59.13,3.55 62.82,8.90"/>
 
-   <junction id="11/1" type="priority" x="109.15" y="0.00">
-      <inclanes>12/1to11/1_0 10/1to11/1_0</inclanes>
-      <intlanes>:11/1_0_0 :11/1_1_0 :11/1_2_0 :11/1_3_0</intlanes>
-      <shape>108.74,3.32 111.05,-2.75 107.96,-3.13 108.74,3.32</shape>
-   </junction>
+   <junction id="11/1" type="priority" x="109.15" y="0.00" incLanes="12/1to11/1_0 10/1to11/1_0" intLanes=":11/1_0_0 :11/1_1_0 :11/1_2_0 :11/1_3_0" shape="108.74,3.32 111.05,-2.75 107.96,-3.13 108.74,3.32"/>
 
-   <junction id="12/1" type="priority" x="153.90" y="16.97">
-      <inclanes>13/1to12/1_0 11/1to12/1_0</inclanes>
-      <intlanes>:12/1_0_0 :12/1_1_0 :12/1_2_0 :12/1_3_0</intlanes>
-      <shape>152.00,19.73 156.86,15.42 154.30,13.65 152.00,19.73</shape>
-   </junction>
+   <junction id="12/1" type="priority" x="153.90" y="16.97" incLanes="13/1to12/1_0 11/1to12/1_0" intLanes=":12/1_0_0 :12/1_1_0 :12/1_2_0 :12/1_3_0" shape="152.00,19.73 156.86,15.42 154.30,13.65 152.00,19.73"/>
 
-   <junction id="13/1" type="priority" x="185.64" y="52.80">
-      <inclanes>1/1to13/1_0 12/1to13/1_0</inclanes>
-      <intlanes>:13/1_0_0 :13/1_1_0 :13/1_2_0 :13/1_3_0</intlanes>
-      <shape>182.68,54.35 188.99,52.80 187.54,50.04 182.68,54.35</shape>
-   </junction>
+   <junction id="13/1" type="priority" x="185.64" y="52.80" incLanes="1/1to13/1_0 12/1to13/1_0" intLanes=":13/1_0_0 :13/1_1_0 :13/1_2_0 :13/1_3_0" shape="182.68,54.35 188.99,52.80 187.54,50.04 182.68,54.35"/>
 
-   <junction id="2/1" type="priority" x="185.64" y="145.74">
-      <inclanes>1/1to2/1_0 3/1to2/1_0</inclanes>
-      <intlanes>:2/1_0_0 :2/1_1_0 :2/1_2_0 :2/1_3_0</intlanes>
-      <shape>188.99,145.74 182.68,144.19 187.54,148.50</shape>
-   </junction>
+   <junction id="2/1" type="priority" x="185.64" y="145.74" incLanes="1/1to2/1_0 3/1to2/1_0" intLanes=":2/1_0_0 :2/1_1_0 :2/1_2_0 :2/1_3_0" shape="188.99,145.74 182.68,144.19 187.54,148.50"/>
 
-   <junction id="3/1" type="priority" x="153.90" y="181.57">
-      <inclanes>2/1to3/1_0 4/1to3/1_0</inclanes>
-      <intlanes>:3/1_0_0 :3/1_1_0 :3/1_2_0 :3/1_3_0</intlanes>
-      <shape>156.86,183.12 152.00,178.81 154.30,184.89</shape>
-   </junction>
+   <junction id="3/1" type="priority" x="153.90" y="181.57" incLanes="2/1to3/1_0 4/1to3/1_0" intLanes=":3/1_0_0 :3/1_1_0 :3/1_2_0 :3/1_3_0" shape="156.86,183.12 152.00,178.81 154.30,184.89"/>
 
-   <junction id="4/1" type="priority" x="109.15" y="198.54">
-      <inclanes>3/1to4/1_0 5/1to4/1_0</inclanes>
-      <intlanes>:4/1_0_0 :4/1_1_0 :4/1_2_0 :4/1_3_0</intlanes>
-      <shape>111.05,201.30 108.74,195.22 107.96,201.67</shape>
-   </junction>
+   <junction id="4/1" type="priority" x="109.15" y="198.54" incLanes="3/1to4/1_0 5/1to4/1_0" intLanes=":4/1_0_0 :4/1_1_0 :4/1_2_0 :4/1_3_0" shape="111.05,201.30 108.74,195.22 107.96,201.67"/>
 
-   <junction id="5/1" type="priority" x="61.63" y="192.77">
-      <inclanes>4/1to5/1_0 6/1to5/1_0</inclanes>
-      <intlanes>:5/1_0_0 :5/1_1_0 :5/1_2_0 :5/1_3_0</intlanes>
-      <shape>62.04,196.10 62.82,189.64 59.13,194.99</shape>
-   </junction>
+   <junction id="5/1" type="priority" x="61.63" y="192.77" incLanes="4/1to5/1_0 6/1to5/1_0" intLanes=":5/1_0_0 :5/1_1_0 :5/1_2_0 :5/1_3_0" shape="62.04,196.10 62.82,189.64 59.13,194.99"/>
 
-   <junction id="6/1" type="priority" x="22.24" y="165.58">
-      <inclanes>5/1to6/1_0 7/1to6/1_0</inclanes>
-      <intlanes>:6/1_0_0 :6/1_1_0 :6/1_2_0 :6/1_3_0</intlanes>
-      <shape>21.06,168.71 24.75,163.36 18.99,166.38</shape>
-   </junction>
+   <junction id="6/1" type="priority" x="22.24" y="165.58" incLanes="5/1to6/1_0 7/1to6/1_0" intLanes=":6/1_0_0 :6/1_1_0 :6/1_2_0 :6/1_3_0" shape="21.06,168.71 24.75,163.36 18.99,166.38"/>
 
-   <junction id="7/1" type="priority" x="0.00" y="123.20">
-      <inclanes>6/1to7/1_0 8/1to7/1_0</inclanes>
-      <intlanes>:7/1_0_0 :7/1_1_0 :7/1_2_0 :7/1_3_0</intlanes>
-      <shape>-2.51,125.42 3.25,122.40 -3.25,122.40</shape>
-   </junction>
+   <junction id="7/1" type="priority" x="0.00" y="123.20" incLanes="6/1to7/1_0 8/1to7/1_0" intLanes=":7/1_0_0 :7/1_1_0 :7/1_2_0 :7/1_3_0" shape="-2.51,125.42 3.25,122.40 -3.25,122.40"/>
 
-   <junction id="8/1" type="priority" x="0.00" y="75.34">
-      <inclanes>7/1to8/1_0 9/1to8/1_0</inclanes>
-      <intlanes>:8/1_0_0 :8/1_1_0 :8/1_2_0 :8/1_3_0</intlanes>
-      <shape>-3.25,76.14 3.25,76.14 -2.51,73.12</shape>
-   </junction>
+   <junction id="8/1" type="priority" x="0.00" y="75.34" incLanes="7/1to8/1_0 9/1to8/1_0" intLanes=":8/1_0_0 :8/1_1_0 :8/1_2_0 :8/1_3_0" shape="-3.25,76.14 3.25,76.14 -2.51,73.12"/>
 
-   <junction id="9/1" type="priority" x="22.24" y="32.96">
-      <inclanes>10/1to9/1_0 8/1to9/1_0</inclanes>
-      <intlanes>:9/1_0_0 :9/1_1_0 :9/1_2_0 :9/1_3_0</intlanes>
-      <shape>24.75,35.18 21.06,29.83 18.99,32.16 24.75,35.18</shape>
-   </junction>
+   <junction id="9/1" type="priority" x="22.24" y="32.96" incLanes="10/1to9/1_0 8/1to9/1_0" intLanes=":9/1_0_0 :9/1_1_0 :9/1_2_0 :9/1_3_0" shape="24.75,35.18 21.06,29.83 18.99,32.16 24.75,35.18"/>
 
 
 
