@@ -11,8 +11,6 @@ GUILane.cpp GUILane.h \
 GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
 GUILaneWrapper.cpp GUILaneWrapper.h \
 GUINet.cpp GUINet.h \
-GUINoLogicJunction.cpp GUINoLogicJunction.h \
-GUIRightOfWayJunction.cpp GUIRightOfWayJunction.h \
 GUIRoute.cpp GUIRoute.h GUIRouteHandler.cpp GUIRouteHandler.h \
 GUISelectionLoader.cpp GUISelectionLoader.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \

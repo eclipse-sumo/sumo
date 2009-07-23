@@ -620,14 +620,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUINoLogicJunction.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIRightOfWayJunction.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUIRoute.cpp"
 				>
 			</File>
@@ -722,14 +714,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUINet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUINoLogicJunction.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIRightOfWayJunction.h"
 				>
 			</File>
 			<File
