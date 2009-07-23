@@ -292,6 +292,10 @@ private:
     void addWAUTSwitch(const SUMOSAXAttributes &attrs);
     void addWAUTJunction(const SUMOSAXAttributes &attrs);
 
+    /// Parses network location description
+    void setLocation(const SUMOSAXAttributes &attrs);
+
+
 
     /// adds the route elements
     void addRouteElements(const std::string &name, const std::string &chars);
@@ -310,7 +314,6 @@ private:
 
     /// Sets the offset a tl-logic shall be fired the first time after
     void setOffset(const std::string &chars);
-
 
     void setNetOffset(const std::string &chars);
     void setNetConv(const std::string &chars);
@@ -411,6 +414,15 @@ protected:
 
     /// @brief Whether deprecated definition of a junction shape in characters was reported already
     bool myHaveWarnedAboutDeprecatedJunctionShape;
+
+    /// @brief Whether deprecated definition of a lane shape in characters was reported already
+    bool myHaveWarnedAboutDeprecatedLaneShape;
+
+    /// @brief Whether deprecated definition of a polygon shape in characters was reported already
+    bool myHaveWarnedAboutDeprecatedPolyShape;
+
+    /// @brief Whether deprecated definition of network boundaries/projection
+    bool myHaveWarnedAboutDeprecatedLocation;
 
 private:
     /** invalid copy constructor */

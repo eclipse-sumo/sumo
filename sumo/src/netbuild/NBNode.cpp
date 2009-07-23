@@ -609,11 +609,10 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(cross.first) << "\">"
-                    << split.first
-                    << "</lane>\n";
-                    into << "      </lanes>\n";
-                    into << "   </edge>\n\n";
+                    << toString<SUMOReal>(cross.first) << "\""
+                    << " shape=\"" << split.first << "\"/>\n"
+                    << "      </lanes>\n"
+                    << "   </edge>\n\n";
                     lno++;
 
                     string id = ":" + myID + "_" + toString(splitNo+noInternalNoSplits);
@@ -622,11 +621,10 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length-cross.first) << "\">"
-                    << split.second
-                    << "</lane>\n";
-                    into << "      </lanes>\n";
-                    into << "   </edge>\n\n";
+                    << toString<SUMOReal>(length-cross.first) << "\""
+                    << " shape=\"" << split.second << "\"/>\n"
+                    << "      </lanes>\n"
+                    << "   </edge>\n\n";
                     splitNo++;
                 } else {
                     into << "   <edge id=\"" << id
@@ -634,11 +632,10 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<SUMOReal>(length) << "\">"
-                    << shape
-                    << "</lane>\n";
-                    into << "      </lanes>\n";
-                    into << "   </edge>\n\n";
+                    << toString<SUMOReal>(length) << "\""
+                    << " shape=\"" << shape << "\"/>\n"
+                    << "      </lanes>\n"
+                    << "   </edge>\n\n";
                     lno++;
                 }
             }

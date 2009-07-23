@@ -158,7 +158,7 @@ PCPolyContainer::save(const std::string &file) throw(IOError) {
         << (*i).second->getColor() << "\" fill=\""
         << (*i).second->fill() << "\"";
         out << " layer=\"" << myPolyLayerMap[(*i).second] << "\"";
-        out << ">" << (*i).second->getShape() << "</poly>\n";
+        out << " shape=\"" << (*i).second->getShape() << "\"/>\n";
     }
     // write pois
     for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {

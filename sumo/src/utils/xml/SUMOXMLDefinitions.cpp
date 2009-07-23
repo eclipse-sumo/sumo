@@ -142,6 +142,8 @@ GenericSAXHandler::Tag sumotags[] = {
     { "xi:include", SUMO_TAG_INCLUDE },
     { "viewport", SUMO_TAG_VIEWPORT },
     { "snapshot", SUMO_TAG_SNAPSHOT },
+    { "location", SUMO_TAG_LOCATION },
+    
 
     { "",                 SUMO_TAG_NOTHING }
 };
@@ -309,6 +311,10 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "href",           SUMO_ATTR_HREF },
     { "zoom",           SUMO_ATTR_ZOOM },
 
+    { "netOffset",      SUMO_ATTR_NET_OFFSET },
+    { "convBoundary",   SUMO_ATTR_CONV_BOUNDARY },
+    { "origBoundary",   SUMO_ATTR_ORIG_BOUNDARY },
+    { "projParameter",  SUMO_ATTR_ORIG_PROJ },
 
     { "",               SUMO_ATTR_NOTHING }
 };
