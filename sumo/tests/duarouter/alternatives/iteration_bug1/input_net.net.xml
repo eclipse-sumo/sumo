@@ -10,265 +10,262 @@
 
    <edge id="L1" from="91" to="11" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L1_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">0.00,1991.75 300.00,1991.75</lane>
-         <lane id="L1_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,1995.05 300.00,1995.05</lane>
-         <lane id="L1_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,1998.35 300.00,1998.35</lane>
+         <lane id="L1_0" depart="1" maxspeed="11.11" length="300.00">0.00,1991.75 300.00,1991.75</lane>
+         <lane id="L1_1" depart="0" maxspeed="11.11" length="300.00">0.00,1995.05 300.00,1995.05</lane>
+         <lane id="L1_2" depart="0" maxspeed="11.11" length="300.00">0.00,1998.35 300.00,1998.35</lane>
       </lanes>
    </edge>
 
    <edge id="L10" from="12" to="21" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L10_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">300.00,991.75 988.65,991.75</lane>
-         <lane id="L10_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,995.05 988.65,995.05</lane>
-         <lane id="L10_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,998.35 988.65,998.35</lane>
+         <lane id="L10_0" depart="1" maxspeed="13.89" length="688.65">300.00,991.75 988.65,991.75</lane>
+         <lane id="L10_1" depart="0" maxspeed="13.89" length="688.65">300.00,995.05 988.65,995.05</lane>
+         <lane id="L10_2" depart="0" maxspeed="13.89" length="688.65">300.00,998.35 988.65,998.35</lane>
       </lanes>
    </edge>
 
    <edge id="L11" from="13" to="21" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L11_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">1008.25,300.00 1008.25,988.65</lane>
-         <lane id="L11_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">1004.95,300.00 1004.95,988.65</lane>
-         <lane id="L11_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">1001.65,300.00 1001.65,988.65</lane>
+         <lane id="L11_0" depart="1" maxspeed="13.89" length="688.65">1008.25,300.00 1008.25,988.65</lane>
+         <lane id="L11_1" depart="0" maxspeed="13.89" length="688.65">1004.95,300.00 1004.95,988.65</lane>
+         <lane id="L11_2" depart="0" maxspeed="13.89" length="688.65">1001.65,300.00 1001.65,988.65</lane>
       </lanes>
    </edge>
 
    <edge id="L12" from="14" to="22" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L12_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">2008.25,300.00 2008.25,988.65</lane>
-         <lane id="L12_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">2004.95,300.00 2004.95,988.65</lane>
-         <lane id="L12_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">2001.65,300.00 2001.65,988.65</lane>
+         <lane id="L12_0" depart="1" maxspeed="13.89" length="688.65">2008.25,300.00 2008.25,988.65</lane>
+         <lane id="L12_1" depart="0" maxspeed="13.89" length="688.65">2004.95,300.00 2004.95,988.65</lane>
+         <lane id="L12_2" depart="0" maxspeed="13.89" length="688.65">2001.65,300.00 2001.65,988.65</lane>
       </lanes>
    </edge>
 
    <edge id="L13" from="15" to="22" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L13_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">2700.00,1008.25 2011.35,1008.25</lane>
-         <lane id="L13_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,1004.95 2011.35,1004.95</lane>
-         <lane id="L13_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,1001.65 2011.35,1001.65</lane>
+         <lane id="L13_0" depart="1" maxspeed="13.89" length="688.65">2700.00,1008.25 2011.35,1008.25</lane>
+         <lane id="L13_1" depart="0" maxspeed="13.89" length="688.65">2700.00,1004.95 2011.35,1004.95</lane>
+         <lane id="L13_2" depart="0" maxspeed="13.89" length="688.65">2700.00,1001.65 2011.35,1001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L14" from="16" to="23" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L14_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">2700.00,2008.25 2011.35,2008.25</lane>
-         <lane id="L14_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,2004.95 2011.35,2004.95</lane>
-         <lane id="L14_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,2001.65 2011.35,2001.65</lane>
+         <lane id="L14_0" depart="1" maxspeed="13.89" length="688.65">2700.00,2008.25 2011.35,2008.25</lane>
+         <lane id="L14_1" depart="0" maxspeed="13.89" length="688.65">2700.00,2004.95 2011.35,2004.95</lane>
+         <lane id="L14_2" depart="0" maxspeed="13.89" length="688.65">2700.00,2001.65 2011.35,2001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L15" from="17" to="23" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L15_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">1991.75,2700.00 1991.75,2011.35</lane>
-         <lane id="L15_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">1995.05,2700.00 1995.05,2011.35</lane>
-         <lane id="L15_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">1998.35,2700.00 1998.35,2011.35</lane>
+         <lane id="L15_0" depart="1" maxspeed="13.89" length="688.65">1991.75,2700.00 1991.75,2011.35</lane>
+         <lane id="L15_1" depart="0" maxspeed="13.89" length="688.65">1995.05,2700.00 1995.05,2011.35</lane>
+         <lane id="L15_2" depart="0" maxspeed="13.89" length="688.65">1998.35,2700.00 1998.35,2011.35</lane>
       </lanes>
    </edge>
 
    <edge id="L16" from="18" to="20" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L16_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">991.75,2700.00 991.75,2011.35</lane>
-         <lane id="L16_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">995.05,2700.00 995.05,2011.35</lane>
-         <lane id="L16_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">998.35,2700.00 998.35,2011.35</lane>
+         <lane id="L16_0" depart="1" maxspeed="13.89" length="688.65">991.75,2700.00 991.75,2011.35</lane>
+         <lane id="L16_1" depart="0" maxspeed="13.89" length="688.65">995.05,2700.00 995.05,2011.35</lane>
+         <lane id="L16_2" depart="0" maxspeed="13.89" length="688.65">998.35,2700.00 998.35,2011.35</lane>
       </lanes>
    </edge>
 
    <edge id="L17" from="20" to="21" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L17_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">991.75,1988.65 991.75,1011.35</lane>
-         <lane id="L17_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">995.05,1988.65 995.05,1011.35</lane>
-         <lane id="L17_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">998.35,1988.65 998.35,1011.35</lane>
+         <lane id="L17_0" depart="1" maxspeed="13.89" length="977.30">991.75,1988.65 991.75,1011.35</lane>
+         <lane id="L17_1" depart="0" maxspeed="13.89" length="977.30">995.05,1988.65 995.05,1011.35</lane>
+         <lane id="L17_2" depart="0" maxspeed="13.89" length="977.30">998.35,1988.65 998.35,1011.35</lane>
       </lanes>
    </edge>
 
    <edge id="L18" from="21" to="20" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L18_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">1008.25,1011.35 1008.25,1988.65</lane>
-         <lane id="L18_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1004.95,1011.35 1004.95,1988.65</lane>
-         <lane id="L18_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1001.65,1011.35 1001.65,1988.65</lane>
+         <lane id="L18_0" depart="1" maxspeed="13.89" length="977.30">1008.25,1011.35 1008.25,1988.65</lane>
+         <lane id="L18_1" depart="0" maxspeed="13.89" length="977.30">1004.95,1011.35 1004.95,1988.65</lane>
+         <lane id="L18_2" depart="0" maxspeed="13.89" length="977.30">1001.65,1011.35 1001.65,1988.65</lane>
       </lanes>
    </edge>
 
    <edge id="L19" from="21" to="22" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L19_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">1011.35,991.75 1988.65,991.75</lane>
-         <lane id="L19_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,995.05 1988.65,995.05</lane>
-         <lane id="L19_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,998.35 1988.65,998.35</lane>
+         <lane id="L19_0" depart="1" maxspeed="13.89" length="977.30">1011.35,991.75 1988.65,991.75</lane>
+         <lane id="L19_1" depart="0" maxspeed="13.89" length="977.30">1011.35,995.05 1988.65,995.05</lane>
+         <lane id="L19_2" depart="0" maxspeed="13.89" length="977.30">1011.35,998.35 1988.65,998.35</lane>
       </lanes>
    </edge>
 
    <edge id="L2" from="92" to="12" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L2_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">0.00,991.75 300.00,991.75</lane>
-         <lane id="L2_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,995.05 300.00,995.05</lane>
-         <lane id="L2_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,998.35 300.00,998.35</lane>
+         <lane id="L2_0" depart="1" maxspeed="11.11" length="300.00">0.00,991.75 300.00,991.75</lane>
+         <lane id="L2_1" depart="0" maxspeed="11.11" length="300.00">0.00,995.05 300.00,995.05</lane>
+         <lane id="L2_2" depart="0" maxspeed="11.11" length="300.00">0.00,998.35 300.00,998.35</lane>
       </lanes>
    </edge>
 
    <edge id="L20" from="22" to="21" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L20_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">1988.65,1008.25 1011.35,1008.25</lane>
-         <lane id="L20_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,1004.95 1011.35,1004.95</lane>
-         <lane id="L20_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,1001.65 1011.35,1001.65</lane>
+         <lane id="L20_0" depart="1" maxspeed="13.89" length="977.30">1988.65,1008.25 1011.35,1008.25</lane>
+         <lane id="L20_1" depart="0" maxspeed="13.89" length="977.30">1988.65,1004.95 1011.35,1004.95</lane>
+         <lane id="L20_2" depart="0" maxspeed="13.89" length="977.30">1988.65,1001.65 1011.35,1001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L21" from="22" to="23" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L21_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">2008.25,1011.35 2008.25,1988.65</lane>
-         <lane id="L21_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">2004.95,1011.35 2004.95,1988.65</lane>
-         <lane id="L21_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">2001.65,1011.35 2001.65,1988.65</lane>
+         <lane id="L21_0" depart="1" maxspeed="13.89" length="977.30">2008.25,1011.35 2008.25,1988.65</lane>
+         <lane id="L21_1" depart="0" maxspeed="13.89" length="977.30">2004.95,1011.35 2004.95,1988.65</lane>
+         <lane id="L21_2" depart="0" maxspeed="13.89" length="977.30">2001.65,1011.35 2001.65,1988.65</lane>
       </lanes>
    </edge>
 
    <edge id="L22" from="23" to="22" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L22_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">1991.75,1988.65 1991.75,1011.35</lane>
-         <lane id="L22_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1995.05,1988.65 1995.05,1011.35</lane>
-         <lane id="L22_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1998.35,1988.65 1998.35,1011.35</lane>
+         <lane id="L22_0" depart="1" maxspeed="13.89" length="977.30">1991.75,1988.65 1991.75,1011.35</lane>
+         <lane id="L22_1" depart="0" maxspeed="13.89" length="977.30">1995.05,1988.65 1995.05,1011.35</lane>
+         <lane id="L22_2" depart="0" maxspeed="13.89" length="977.30">1998.35,1988.65 1998.35,1011.35</lane>
       </lanes>
    </edge>
 
    <edge id="L23" from="23" to="20" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L23_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">1988.65,2008.25 1011.35,2008.25</lane>
-         <lane id="L23_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,2004.95 1011.35,2004.95</lane>
-         <lane id="L23_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,2001.65 1011.35,2001.65</lane>
+         <lane id="L23_0" depart="1" maxspeed="13.89" length="977.30">1988.65,2008.25 1011.35,2008.25</lane>
+         <lane id="L23_1" depart="0" maxspeed="13.89" length="977.30">1988.65,2004.95 1011.35,2004.95</lane>
+         <lane id="L23_2" depart="0" maxspeed="13.89" length="977.30">1988.65,2001.65 1011.35,2001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L24" from="20" to="23" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L24_0" depart="1" vclasses="" maxspeed="13.89" length="977.30">1011.35,1991.75 1988.65,1991.75</lane>
-         <lane id="L24_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,1995.05 1988.65,1995.05</lane>
-         <lane id="L24_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,1998.35 1988.65,1998.35</lane>
+         <lane id="L24_0" depart="1" maxspeed="13.89" length="977.30">1011.35,1991.75 1988.65,1991.75</lane>
+         <lane id="L24_1" depart="0" maxspeed="13.89" length="977.30">1011.35,1995.05 1988.65,1995.05</lane>
+         <lane id="L24_2" depart="0" maxspeed="13.89" length="977.30">1011.35,1998.35 1988.65,1998.35</lane>
       </lanes>
    </edge>
 
    <edge id="L25" from="20" to="91" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L25_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">988.65,2008.25 0.00,2008.25</lane>
-         <lane id="L25_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,2004.95 0.00,2004.95</lane>
-         <lane id="L25_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,2001.65 0.00,2001.65</lane>
+         <lane id="L25_0" depart="1" maxspeed="13.89" length="988.65">988.65,2008.25 0.00,2008.25</lane>
+         <lane id="L25_1" depart="0" maxspeed="13.89" length="988.65">988.65,2004.95 0.00,2004.95</lane>
+         <lane id="L25_2" depart="0" maxspeed="13.89" length="988.65">988.65,2001.65 0.00,2001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L26" from="21" to="92" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L26_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">988.65,1008.25 0.00,1008.25</lane>
-         <lane id="L26_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,1004.95 0.00,1004.95</lane>
-         <lane id="L26_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,1001.65 0.00,1001.65</lane>
+         <lane id="L26_0" depart="1" maxspeed="13.89" length="988.65">988.65,1008.25 0.00,1008.25</lane>
+         <lane id="L26_1" depart="0" maxspeed="13.89" length="988.65">988.65,1004.95 0.00,1004.95</lane>
+         <lane id="L26_2" depart="0" maxspeed="13.89" length="988.65">988.65,1001.65 0.00,1001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L27" from="21" to="93" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L27_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">991.75,988.65 991.75,0.00</lane>
-         <lane id="L27_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">995.05,988.65 995.05,0.00</lane>
-         <lane id="L27_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">998.35,988.65 998.35,0.00</lane>
+         <lane id="L27_0" depart="1" maxspeed="13.89" length="988.65">991.75,988.65 991.75,0.00</lane>
+         <lane id="L27_1" depart="0" maxspeed="13.89" length="988.65">995.05,988.65 995.05,0.00</lane>
+         <lane id="L27_2" depart="0" maxspeed="13.89" length="988.65">998.35,988.65 998.35,0.00</lane>
       </lanes>
    </edge>
 
    <edge id="L28" from="22" to="94" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L28_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">1991.75,988.65 1991.75,0.00</lane>
-         <lane id="L28_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">1995.05,988.65 1995.05,0.00</lane>
-         <lane id="L28_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">1998.35,988.65 1998.35,0.00</lane>
+         <lane id="L28_0" depart="1" maxspeed="13.89" length="988.65">1991.75,988.65 1991.75,0.00</lane>
+         <lane id="L28_1" depart="0" maxspeed="13.89" length="988.65">1995.05,988.65 1995.05,0.00</lane>
+         <lane id="L28_2" depart="0" maxspeed="13.89" length="988.65">1998.35,988.65 1998.35,0.00</lane>
       </lanes>
    </edge>
 
    <edge id="L29" from="22" to="95" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L29_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">2011.35,991.75 3000.00,991.75</lane>
-         <lane id="L29_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,995.05 3000.00,995.05</lane>
-         <lane id="L29_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,998.35 3000.00,998.35</lane>
+         <lane id="L29_0" depart="1" maxspeed="13.89" length="988.65">2011.35,991.75 3000.00,991.75</lane>
+         <lane id="L29_1" depart="0" maxspeed="13.89" length="988.65">2011.35,995.05 3000.00,995.05</lane>
+         <lane id="L29_2" depart="0" maxspeed="13.89" length="988.65">2011.35,998.35 3000.00,998.35</lane>
       </lanes>
    </edge>
 
    <edge id="L3" from="93" to="13" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L3_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">1008.25,0.00 1008.25,300.00</lane>
-         <lane id="L3_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">1004.95,0.00 1004.95,300.00</lane>
-         <lane id="L3_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">1001.65,0.00 1001.65,300.00</lane>
+         <lane id="L3_0" depart="1" maxspeed="11.11" length="300.00">1008.25,0.00 1008.25,300.00</lane>
+         <lane id="L3_1" depart="0" maxspeed="11.11" length="300.00">1004.95,0.00 1004.95,300.00</lane>
+         <lane id="L3_2" depart="0" maxspeed="11.11" length="300.00">1001.65,0.00 1001.65,300.00</lane>
       </lanes>
    </edge>
 
    <edge id="L30" from="23" to="96" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L30_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">2011.35,1991.75 3000.00,1991.75</lane>
-         <lane id="L30_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,1995.05 3000.00,1995.05</lane>
-         <lane id="L30_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,1998.35 3000.00,1998.35</lane>
+         <lane id="L30_0" depart="1" maxspeed="13.89" length="988.65">2011.35,1991.75 3000.00,1991.75</lane>
+         <lane id="L30_1" depart="0" maxspeed="13.89" length="988.65">2011.35,1995.05 3000.00,1995.05</lane>
+         <lane id="L30_2" depart="0" maxspeed="13.89" length="988.65">2011.35,1998.35 3000.00,1998.35</lane>
       </lanes>
    </edge>
 
    <edge id="L31" from="23" to="97" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L31_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">2008.25,2011.35 2008.25,3000.00</lane>
-         <lane id="L31_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">2004.95,2011.35 2004.95,3000.00</lane>
-         <lane id="L31_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">2001.65,2011.35 2001.65,3000.00</lane>
+         <lane id="L31_0" depart="1" maxspeed="13.89" length="988.65">2008.25,2011.35 2008.25,3000.00</lane>
+         <lane id="L31_1" depart="0" maxspeed="13.89" length="988.65">2004.95,2011.35 2004.95,3000.00</lane>
+         <lane id="L31_2" depart="0" maxspeed="13.89" length="988.65">2001.65,2011.35 2001.65,3000.00</lane>
       </lanes>
    </edge>
 
    <edge id="L32" from="20" to="98" priority="1" type="c" function="normal">
       <lanes>
-         <lane id="L32_0" depart="1" vclasses="" maxspeed="13.89" length="988.65">1008.25,2011.35 1008.25,3000.00</lane>
-         <lane id="L32_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">1004.95,2011.35 1004.95,3000.00</lane>
-         <lane id="L32_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">1001.65,2011.35 1001.65,3000.00</lane>
+         <lane id="L32_0" depart="1" maxspeed="13.89" length="988.65">1008.25,2011.35 1008.25,3000.00</lane>
+         <lane id="L32_1" depart="0" maxspeed="13.89" length="988.65">1004.95,2011.35 1004.95,3000.00</lane>
+         <lane id="L32_2" depart="0" maxspeed="13.89" length="988.65">1001.65,2011.35 1001.65,3000.00</lane>
       </lanes>
    </edge>
 
    <edge id="L4" from="94" to="14" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L4_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">2008.25,0.00 2008.25,300.00</lane>
-         <lane id="L4_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">2004.95,0.00 2004.95,300.00</lane>
-         <lane id="L4_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">2001.65,0.00 2001.65,300.00</lane>
+         <lane id="L4_0" depart="1" maxspeed="11.11" length="300.00">2008.25,0.00 2008.25,300.00</lane>
+         <lane id="L4_1" depart="0" maxspeed="11.11" length="300.00">2004.95,0.00 2004.95,300.00</lane>
+         <lane id="L4_2" depart="0" maxspeed="11.11" length="300.00">2001.65,0.00 2001.65,300.00</lane>
       </lanes>
    </edge>
 
    <edge id="L5" from="95" to="15" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L5_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">3000.00,1008.25 2700.00,1008.25</lane>
-         <lane id="L5_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,1004.95 2700.00,1004.95</lane>
-         <lane id="L5_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,1001.65 2700.00,1001.65</lane>
+         <lane id="L5_0" depart="1" maxspeed="11.11" length="300.00">3000.00,1008.25 2700.00,1008.25</lane>
+         <lane id="L5_1" depart="0" maxspeed="11.11" length="300.00">3000.00,1004.95 2700.00,1004.95</lane>
+         <lane id="L5_2" depart="0" maxspeed="11.11" length="300.00">3000.00,1001.65 2700.00,1001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L6" from="96" to="16" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L6_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">3000.00,2008.25 2700.00,2008.25</lane>
-         <lane id="L6_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,2004.95 2700.00,2004.95</lane>
-         <lane id="L6_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,2001.65 2700.00,2001.65</lane>
+         <lane id="L6_0" depart="1" maxspeed="11.11" length="300.00">3000.00,2008.25 2700.00,2008.25</lane>
+         <lane id="L6_1" depart="0" maxspeed="11.11" length="300.00">3000.00,2004.95 2700.00,2004.95</lane>
+         <lane id="L6_2" depart="0" maxspeed="11.11" length="300.00">3000.00,2001.65 2700.00,2001.65</lane>
       </lanes>
    </edge>
 
    <edge id="L7" from="97" to="17" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L7_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">1991.75,3000.00 1991.75,2700.00</lane>
-         <lane id="L7_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">1995.05,3000.00 1995.05,2700.00</lane>
-         <lane id="L7_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">1998.35,3000.00 1998.35,2700.00</lane>
+         <lane id="L7_0" depart="1" maxspeed="11.11" length="300.00">1991.75,3000.00 1991.75,2700.00</lane>
+         <lane id="L7_1" depart="0" maxspeed="11.11" length="300.00">1995.05,3000.00 1995.05,2700.00</lane>
+         <lane id="L7_2" depart="0" maxspeed="11.11" length="300.00">1998.35,3000.00 1998.35,2700.00</lane>
       </lanes>
    </edge>
 
    <edge id="L8" from="98" to="18" priority="2" type="b" function="normal">
       <lanes>
-         <lane id="L8_0" depart="1" vclasses="" maxspeed="11.11" length="300.00">991.75,3000.00 991.75,2700.00</lane>
-         <lane id="L8_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">995.05,3000.00 995.05,2700.00</lane>
-         <lane id="L8_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">998.35,3000.00 998.35,2700.00</lane>
+         <lane id="L8_0" depart="1" maxspeed="11.11" length="300.00">991.75,3000.00 991.75,2700.00</lane>
+         <lane id="L8_1" depart="0" maxspeed="11.11" length="300.00">995.05,3000.00 995.05,2700.00</lane>
+         <lane id="L8_2" depart="0" maxspeed="11.11" length="300.00">998.35,3000.00 998.35,2700.00</lane>
       </lanes>
    </edge>
 
    <edge id="L9" from="11" to="20" priority="3" type="a" function="normal">
       <lanes>
-         <lane id="L9_0" depart="1" vclasses="" maxspeed="13.89" length="688.65">300.00,1991.75 988.65,1991.75</lane>
-         <lane id="L9_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,1995.05 988.65,1995.05</lane>
-         <lane id="L9_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,1998.35 988.65,1998.35</lane>
+         <lane id="L9_0" depart="1" maxspeed="13.89" length="688.65">300.00,1991.75 988.65,1991.75</lane>
+         <lane id="L9_1" depart="0" maxspeed="13.89" length="688.65">300.00,1995.05 988.65,1995.05</lane>
+         <lane id="L9_2" depart="0" maxspeed="13.89" length="688.65">300.00,1998.35 988.65,1998.35</lane>
       </lanes>
    </edge>
 
 
-   <row-logic>
-      <key>11</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="11" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -276,10 +273,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>12</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="12" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -287,10 +281,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>13</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="13" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -298,10 +289,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>14</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="14" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -309,10 +297,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>15</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="15" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -320,10 +305,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>16</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="16" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -331,10 +313,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>17</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="17" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -342,10 +321,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>18</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="18" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="000" foes="000"/>
          <logicitem request="1" response="000" foes="000"/>
@@ -353,10 +329,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>20</key>
-      <requestsize>21</requestsize>
-      <lanenumber>12</lanenumber>
+   <row-logic id="20" requestSize="21" laneNumber="12">
       <logic>
          <logicitem request="0" response="000000000000000000000" foes="100000100000011000000"/>
          <logicitem request="1" response="000000000000000000000" foes="011111100001111000000"/>
@@ -382,10 +355,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>21</key>
-      <requestsize>21</requestsize>
-      <lanenumber>12</lanenumber>
+   <row-logic id="21" requestSize="21" laneNumber="12">
       <logic>
          <logicitem request="0" response="000000000000000000000" foes="100000100000100000000"/>
          <logicitem request="1" response="000000000000000000000" foes="011111100001100000000"/>
@@ -411,10 +381,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>22</key>
-      <requestsize>21</requestsize>
-      <lanenumber>12</lanenumber>
+   <row-logic id="22" requestSize="21" laneNumber="12">
       <logic>
          <logicitem request="0" response="000000000000000000000" foes="100000010000011000000"/>
          <logicitem request="1" response="000000000000000000000" foes="100000010000011000000"/>
@@ -440,10 +407,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>23</key>
-      <requestsize>21</requestsize>
-      <lanenumber>12</lanenumber>
+   <row-logic id="23" requestSize="21" laneNumber="12">
       <logic>
          <logicitem request="0" response="000000000000000000000" foes="100000110000011000000"/>
          <logicitem request="1" response="000000000000000000000" foes="011111110000111000000"/>
@@ -469,10 +433,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>91</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="91" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -480,10 +441,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>92</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="92" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -491,10 +449,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>93</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="93" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -502,10 +457,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>94</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="94" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -513,10 +465,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>95</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="95" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -524,10 +473,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>96</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="96" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -535,10 +481,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>97</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="97" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -546,10 +489,7 @@
       </logic>
    </row-logic>
 
-   <row-logic>
-      <key>98</key>
-      <requestsize>3</requestsize>
-      <lanenumber>3</lanenumber>
+   <row-logic id="98" requestSize="3" laneNumber="3">
       <logic>
          <logicitem request="0" response="111" foes="000"/>
          <logicitem request="1" response="111" foes="000"/>
@@ -559,105 +499,45 @@
 
 
 
-   <junction id="11" type="priority" x="300.00" y="2000.00">
-      <inclanes>L1_0 L1_1 L1_2</inclanes>
-      <shape>300.00,1999.95 300.00,1990.15 300.00,1999.95</shape>
-   </junction>
+   <junction id="11" type="priority" x="300.00" y="2000.00" incLanes="L1_0 L1_1 L1_2" intLanes="" shape="300.00,1999.95 300.00,1990.15 300.00,1999.95"/>
 
-   <junction id="12" type="priority" x="300.00" y="1000.00">
-      <inclanes>L2_0 L2_1 L2_2</inclanes>
-      <shape>300.00,999.95 300.00,990.15 300.00,999.95</shape>
-   </junction>
+   <junction id="12" type="priority" x="300.00" y="1000.00" incLanes="L2_0 L2_1 L2_2" intLanes="" shape="300.00,999.95 300.00,990.15 300.00,999.95"/>
 
-   <junction id="13" type="priority" x="1000.00" y="300.00">
-      <inclanes>L3_0 L3_1 L3_2</inclanes>
-      <shape>1000.05,300.00 1009.85,300.00 1000.05,300.00</shape>
-   </junction>
+   <junction id="13" type="priority" x="1000.00" y="300.00" incLanes="L3_0 L3_1 L3_2" intLanes="" shape="1000.05,300.00 1009.85,300.00 1000.05,300.00"/>
 
-   <junction id="14" type="priority" x="2000.00" y="300.00">
-      <inclanes>L4_0 L4_1 L4_2</inclanes>
-      <shape>2000.05,300.00 2009.85,300.00 2000.05,300.00</shape>
-   </junction>
+   <junction id="14" type="priority" x="2000.00" y="300.00" incLanes="L4_0 L4_1 L4_2" intLanes="" shape="2000.05,300.00 2009.85,300.00 2000.05,300.00"/>
 
-   <junction id="15" type="priority" x="2700.00" y="1000.00">
-      <inclanes>L5_0 L5_1 L5_2</inclanes>
-      <shape>2700.00,1009.85 2700.00,1000.05 2700.00,1009.85</shape>
-   </junction>
+   <junction id="15" type="priority" x="2700.00" y="1000.00" incLanes="L5_0 L5_1 L5_2" intLanes="" shape="2700.00,1009.85 2700.00,1000.05 2700.00,1009.85"/>
 
-   <junction id="16" type="priority" x="2700.00" y="2000.00">
-      <inclanes>L6_0 L6_1 L6_2</inclanes>
-      <shape>2700.00,2009.85 2700.00,2000.05 2700.00,2009.85</shape>
-   </junction>
+   <junction id="16" type="priority" x="2700.00" y="2000.00" incLanes="L6_0 L6_1 L6_2" intLanes="" shape="2700.00,2009.85 2700.00,2000.05 2700.00,2009.85"/>
 
-   <junction id="17" type="priority" x="2000.00" y="2700.00">
-      <inclanes>L7_0 L7_1 L7_2</inclanes>
-      <shape>1990.15,2700.00 1999.95,2700.00 1990.15,2700.00</shape>
-   </junction>
+   <junction id="17" type="priority" x="2000.00" y="2700.00" incLanes="L7_0 L7_1 L7_2" intLanes="" shape="1990.15,2700.00 1999.95,2700.00 1990.15,2700.00"/>
 
-   <junction id="18" type="priority" x="1000.00" y="2700.00">
-      <inclanes>L8_0 L8_1 L8_2</inclanes>
-      <shape>990.15,2700.00 999.95,2700.00 990.15,2700.00</shape>
-   </junction>
+   <junction id="18" type="priority" x="1000.00" y="2700.00" incLanes="L8_0 L8_1 L8_2" intLanes="" shape="990.15,2700.00 999.95,2700.00 990.15,2700.00"/>
 
-   <junction id="20" type="priority" x="1000.00" y="2000.00">
-      <inclanes>L16_0 L16_1 L16_2 L23_0 L23_1 L23_2 L18_0 L18_1 L18_2 L9_0 L9_1 L9_2</inclanes>
-      <shape>990.15,2011.35 1009.85,2011.35 1011.35,2009.85 1011.35,1990.15 1009.85,1988.65 990.15,1988.65 988.65,1990.15 988.65,2009.85</shape>
-   </junction>
+   <junction id="20" type="priority" x="1000.00" y="2000.00" incLanes="L16_0 L16_1 L16_2 L23_0 L23_1 L23_2 L18_0 L18_1 L18_2 L9_0 L9_1 L9_2" intLanes="" shape="990.15,2011.35 1009.85,2011.35 1011.35,2009.85 1011.35,1990.15 1009.85,1988.65 990.15,1988.65 988.65,1990.15 988.65,2009.85"/>
 
-   <junction id="21" type="priority" x="1000.00" y="1000.00">
-      <inclanes>L17_0 L17_1 L17_2 L20_0 L20_1 L20_2 L11_0 L11_1 L11_2 L10_0 L10_1 L10_2</inclanes>
-      <shape>990.15,1011.35 1009.85,1011.35 1011.35,1009.85 1011.35,990.15 1009.85,988.65 990.15,988.65 988.65,990.15 988.65,1009.85</shape>
-   </junction>
+   <junction id="21" type="priority" x="1000.00" y="1000.00" incLanes="L17_0 L17_1 L17_2 L20_0 L20_1 L20_2 L11_0 L11_1 L11_2 L10_0 L10_1 L10_2" intLanes="" shape="990.15,1011.35 1009.85,1011.35 1011.35,1009.85 1011.35,990.15 1009.85,988.65 990.15,988.65 988.65,990.15 988.65,1009.85"/>
 
-   <junction id="22" type="priority" x="2000.00" y="1000.00">
-      <inclanes>L22_0 L22_1 L22_2 L13_0 L13_1 L13_2 L12_0 L12_1 L12_2 L19_0 L19_1 L19_2</inclanes>
-      <shape>1990.15,1011.35 2009.85,1011.35 2011.35,1009.85 2011.35,990.15 2009.85,988.65 1990.15,988.65 1988.65,990.15 1988.65,1009.85</shape>
-   </junction>
+   <junction id="22" type="priority" x="2000.00" y="1000.00" incLanes="L22_0 L22_1 L22_2 L13_0 L13_1 L13_2 L12_0 L12_1 L12_2 L19_0 L19_1 L19_2" intLanes="" shape="1990.15,1011.35 2009.85,1011.35 2011.35,1009.85 2011.35,990.15 2009.85,988.65 1990.15,988.65 1988.65,990.15 1988.65,1009.85"/>
 
-   <junction id="23" type="priority" x="2000.00" y="2000.00">
-      <inclanes>L15_0 L15_1 L15_2 L14_0 L14_1 L14_2 L21_0 L21_1 L21_2 L24_0 L24_1 L24_2</inclanes>
-      <shape>1990.15,2011.35 2009.85,2011.35 2011.35,2009.85 2011.35,1990.15 2009.85,1988.65 1990.15,1988.65 1988.65,1990.15 1988.65,2009.85</shape>
-   </junction>
+   <junction id="23" type="priority" x="2000.00" y="2000.00" incLanes="L15_0 L15_1 L15_2 L14_0 L14_1 L14_2 L21_0 L21_1 L21_2 L24_0 L24_1 L24_2" intLanes="" shape="1990.15,2011.35 2009.85,2011.35 2011.35,2009.85 2011.35,1990.15 2009.85,1988.65 1990.15,1988.65 1988.65,1990.15 1988.65,2009.85"/>
 
-   <junction id="91" type="priority" x="0.00" y="2000.00">
-      <inclanes>L25_0 L25_1 L25_2</inclanes>
-      <shape>-0.00,1999.95 -0.00,1990.15 0.00,2009.85 0.00,2000.05</shape>
-   </junction>
+   <junction id="91" type="priority" x="0.00" y="2000.00" incLanes="L25_0 L25_1 L25_2" intLanes="" shape="-0.00,1999.95 -0.00,1990.15 0.00,2009.85 0.00,2000.05"/>
 
-   <junction id="92" type="priority" x="0.00" y="1000.00">
-      <inclanes>L26_0 L26_1 L26_2</inclanes>
-      <shape>-0.00,999.95 -0.00,990.15 0.00,1009.85 0.00,1000.05</shape>
-   </junction>
+   <junction id="92" type="priority" x="0.00" y="1000.00" incLanes="L26_0 L26_1 L26_2" intLanes="" shape="-0.00,999.95 -0.00,990.15 0.00,1009.85 0.00,1000.05"/>
 
-   <junction id="93" type="priority" x="1000.00" y="0.00">
-      <inclanes>L27_0 L27_1 L27_2</inclanes>
-      <shape>1000.05,-0.00 1009.85,-0.00 990.15,0.00 999.95,0.00</shape>
-   </junction>
+   <junction id="93" type="priority" x="1000.00" y="0.00" incLanes="L27_0 L27_1 L27_2" intLanes="" shape="1000.05,-0.00 1009.85,-0.00 990.15,0.00 999.95,0.00"/>
 
-   <junction id="94" type="priority" x="2000.00" y="0.00">
-      <inclanes>L28_0 L28_1 L28_2</inclanes>
-      <shape>2000.05,-0.00 2009.85,-0.00 1990.15,0.00 1999.95,0.00</shape>
-   </junction>
+   <junction id="94" type="priority" x="2000.00" y="0.00" incLanes="L28_0 L28_1 L28_2" intLanes="" shape="2000.05,-0.00 2009.85,-0.00 1990.15,0.00 1999.95,0.00"/>
 
-   <junction id="95" type="priority" x="3000.00" y="1000.00">
-      <inclanes>L29_0 L29_1 L29_2</inclanes>
-      <shape>3000.00,1000.05 3000.00,1009.85 3000.00,990.15 3000.00,999.95</shape>
-   </junction>
+   <junction id="95" type="priority" x="3000.00" y="1000.00" incLanes="L29_0 L29_1 L29_2" intLanes="" shape="3000.00,1000.05 3000.00,1009.85 3000.00,990.15 3000.00,999.95"/>
 
-   <junction id="96" type="priority" x="3000.00" y="2000.00">
-      <inclanes>L30_0 L30_1 L30_2</inclanes>
-      <shape>3000.00,2000.05 3000.00,2009.85 3000.00,1990.15 3000.00,1999.95</shape>
-   </junction>
+   <junction id="96" type="priority" x="3000.00" y="2000.00" incLanes="L30_0 L30_1 L30_2" intLanes="" shape="3000.00,2000.05 3000.00,2009.85 3000.00,1990.15 3000.00,1999.95"/>
 
-   <junction id="97" type="priority" x="2000.00" y="3000.00">
-      <inclanes>L31_0 L31_1 L31_2</inclanes>
-      <shape>1999.95,3000.00 1990.15,3000.00 2009.85,3000.00 2000.05,3000.00</shape>
-   </junction>
+   <junction id="97" type="priority" x="2000.00" y="3000.00" incLanes="L31_0 L31_1 L31_2" intLanes="" shape="1999.95,3000.00 1990.15,3000.00 2009.85,3000.00 2000.05,3000.00"/>
 
-   <junction id="98" type="priority" x="1000.00" y="3000.00">
-      <inclanes>L32_0 L32_1 L32_2</inclanes>
-      <shape>999.95,3000.00 990.15,3000.00 1009.85,3000.00 1000.05,3000.00</shape>
-   </junction>
+   <junction id="98" type="priority" x="1000.00" y="3000.00" incLanes="L32_0 L32_1 L32_2" intLanes="" shape="999.95,3000.00 990.15,3000.00 1009.85,3000.00 1000.05,3000.00"/>
 
 
    <succ edge="L1" lane="L1_0" junction="11">
