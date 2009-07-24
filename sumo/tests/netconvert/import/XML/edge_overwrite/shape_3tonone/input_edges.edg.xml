@@ -1,0 +1,14 @@
+<edges>
+   <edge id="1fi" fromnode="1" tonode="0" nolanes="2" speed="16" shape="-500,0 -250,-100 0,0"/>
+   <edge id="1o" fromnode="0" tonode="1" nolanes="1" speed="16" />
+
+   <edge id="2fi" fromnode="2" tonode="0" nolanes="2" speed="16" />
+   <edge id="2o" fromnode="0" tonode="2" nolanes="1" speed="16" />
+
+   <edge id="3fi" fromnode="3" tonode="0" nolanes="2" speed="16" />
+   <edge id="3o" fromnode="0" tonode="3" nolanes="1" speed="16" />
+
+   <edge id="4fi" fromnode="4" tonode="0" nolanes="2" speed="16" />
+   <edge id="4o" fromnode="0" tonode="4" nolanes="1" speed="16" />
+
+</edges>
