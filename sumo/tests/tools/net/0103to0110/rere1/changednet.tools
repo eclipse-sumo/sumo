@@ -112,7 +112,7 @@
 
 
    <succ edge="1" lane="1_0" junction="dr">
-      <succlane lane="2_0" via=":dr_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="2_0" via=":dr_0_0" yield="0" dir="s" state="M"/>"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="tr">

@@ -473,7 +473,7 @@
 
 
    <succ edge="1fi" lane="1fi_0" junction="m1">
-      <succlane lane="1si_0" via=":m1_0_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1si_0" via=":m1_0_0" yield="0" dir="s" state="M"/>"/>
       <succlane lane="1si_1" via=":m1_1_0" yield="0" dir="s" state="M"/>
       <succlane lane="1si_2" via=":m1_2_0" yield="0" dir="s" state="M"/>
    </succ>
