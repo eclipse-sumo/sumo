@@ -16,16 +16,17 @@ from xml.sax import saxutils, make_parser, handler
 # attributes sorting lists
 a = {}
 a['edge'] = ( 'id', 'from', 'to', 'priority', 'type', 'function', 'inner' )
-a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length' )
+a['lane'] = ( 'id', 'depart', 'vclasses', 'allow', 'disallow', 'maxspeed', 'length', 'shape' )
 a['junction'] = ( 'id', 'type', 'x', 'y', 'incLanes', 'intLanes', 'shape' )
 a['logicitem'] = ( 'request', 'response', 'foes', 'cont' )
 a['succ'] = ( 'edge', 'lane', 'junction' )
 a['succlane'] = ( 'lane', 'via', 'tl', 'linkno', 'yield', 'dir', 'state', 'int_end' )
 a['row-logic'] = ( 'id', 'requestSize', 'laneNumber' )
 a['tl-logic'] = ( 'id', 'type', 'programID', 'offset' )
+a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
 
 # elements which are single (not using opening/closing tag)
-c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'roundabout' )
+c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'roundabout', 'location', 'lane' )
 
 # delay output till this point
 d = {}
@@ -39,6 +40,8 @@ i['junction'] = ( ( 'inclanes', 'incLanes' ), ( 'intlanes', 'intLanes' ), ( 'sha
 i['row-logic'] = ( ( 'key', 'id' ), ( 'requestsize', 'requestSize' ), ( 'lanenumber', 'laneNumber' ) )
 i['tl-logic'] = ( ( 'key', 'id' ), ( 'subkey', 'programID' ), ( 'phaseno', 'phaseNo' ), ( 'offset', 'offset' ), ( 'logicno', 'programID' ), ( 'inclanes', 'inclanes' )  )
 
+# join these
+j = ( 'net-offset', 'conv-boundary', 'orig-boundary', 'orig-proj' )
 
 
 def getBegin(file):
@@ -77,6 +80,9 @@ class NetConverter(handler.ContentHandler):
         self._collect = False
         self._tree = []
         self._attributes = {}
+        self._shapePatch = False
+        self._skipping = False
+        self._hadShape = False
 
     def beginCollect(self):
         self._collect = True
@@ -103,7 +109,8 @@ class NetConverter(handler.ContentHandler):
                 cp = 1
         if not cp:
             self._out.write(what)
-            self._attributes = {}
+            if not self._skipping:
+                self._attributes = {}
 #        if self._collect:
  #           self._buffer = self._buffer + what
   #      else:
@@ -136,6 +143,9 @@ class NetConverter(handler.ContentHandler):
             self.flushStored(self._tree[-1])
             self._out.write("\n" + self._lastChars)
         self._tree.append(name)
+        if name in j:
+            self._skipping = True
+            return
         self.checkWrite("<" + name)
         if name in d:
             self._attributes = {}
@@ -174,9 +184,14 @@ class NetConverter(handler.ContentHandler):
                 for key in a[name]:
                     if attrs.has_key(key):
                         self.checkWrite(' ' + key + '="' + attrs[key] + '"')
-        if name in c:
-            self.checkWrite("/")
-        self.checkWrite(">")
+        if (name!="lane" and name!="poly") or attrs.has_key("shape"):
+            if name in c:
+                self.checkWrite("/")
+            self.checkWrite(">")
+        else:
+            self.checkWrite(" shape=\"")
+            self._shapePatch = True
+
 
     def endElement(self, name):
         if name in d:
@@ -184,12 +199,33 @@ class NetConverter(handler.ContentHandler):
                 self.flushStored(name)
             else:
                 self._out.write("\n" + self._lastChars + "</" + name + ">")
+        elif name=="orig-proj":
+            self._out.write("<location netOffset=\"" + self._attributes["net-offset"])
+            self._out.write("\" convBoundary=\"" + self._attributes["conv-boundary"])
+            self._out.write("\" origBoundary=\"" + self._attributes["orig-boundary"])
+            self._out.write("\" projParameter=\"" + self._attributes["orig-proj"])
+            self._out.write("\"/>")
+            self._attributes = {}
+            self._skipping = False
+        elif name in j:
+            name = ""
+        elif self._shapePatch:
+            self.checkWrite("\"/>")
+            self._shapePatch = False
         elif name not in c:
             self.checkWrite("</" + name)
             self.checkWrite(">")
         self._tree.pop()
 
     def characters(self, content):
+        if self._skipping:
+            if content.strip()!="":
+                e = self._tree[-1]
+                if e in self._attributes:
+                    self._attributes[e] = self._attributes[e] + content
+                else:
+                    self._attributes[e] = content
+            return
         self._lastChars = content
         self.checkWrite(content, True)
                     
