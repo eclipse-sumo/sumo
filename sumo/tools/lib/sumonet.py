@@ -213,7 +213,10 @@ class NetReader(handler.ContentHandler):
                 self._currentEdge = None
         if name == 'lane' and self._currentEdge!=None:
             self._currentLane = self._net.addLane(self._currentEdge, float(attrs['maxspeed']), float(attrs['length']))
-            self._currentShape = ""
+            if attrs.has_key('shape'):
+                self._currentShape = attrs['shape'] # deprecated: at some time, this is mandatory
+            else:
+                self._currentShape = ""
         if name == 'junction':
             if attrs['id'][0]!=':':
                 self._currentNode = self._net.addNode(attrs['id'], [ float(attrs['x']), float(attrs['y']) ] )
