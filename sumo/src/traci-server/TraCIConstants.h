@@ -23,7 +23,6 @@
 // ****************************************
 // COMMANDS
 // ****************************************
-
 // command: simulation step
 #define CMD_SIMSTEP 0x01
 
@@ -82,7 +81,7 @@
 #define CMD_MOVENODE 0x80
 
 // command: close sumo
-#define CMD_CLOSE   0x7F
+#define CMD_CLOSE 0x7F
 
 // command:
 #define CMD_UPDATECALIBRATOR 0x50
@@ -166,25 +165,26 @@
 #define CMD_SET_JUNCTION_VARIABLE 0xc9
 
 
+
 // ****************************************
 // POSITION REPRESENTATIONS
 // ****************************************
-
 // Omit position
-#define POSITION_NONE    0x00
+#define POSITION_NONE 0x00
 // 2D cartesian coordinates
-#define POSITION_2D      0x01
+#define POSITION_2D 0x01
 // 2.5D cartesian coordinates
-#define POSITION_2_5D    0x02
+#define POSITION_2_5D 0x02
 // 3D cartesian coordinates
-#define POSITION_3D      0x03
+#define POSITION_3D 0x03
 // Position on road map
 #define POSITION_ROADMAP 0x04
+
+
 
 // ****************************************
 // DATA TYPES
 // ****************************************
-
 // Boundary Box
 #define TYPE_BOUNDINGBOX 0x05
 // Polygon
@@ -213,21 +213,22 @@
 #define TYPE_COLOR 0x11
 
 
+
 // ****************************************
 // RESULT TYPES
 // ****************************************
-
 // result type: Ok
-#define RTYPE_OK    0x00
+#define RTYPE_OK 0x00
 // result type: not implemented
-#define RTYPE_NOTIMPLEMENTED  0x01
+#define RTYPE_NOTIMPLEMENTED 0x01
 // result type: error
-#define RTYPE_ERR   0xFF
+#define RTYPE_ERR 0xFF
+
+
 
 // ****************************************
 // DOMAIN IDs (FOR SCENARIO COMMAND)
 // ****************************************
-
 // road map domain
 #define DOM_ROADMAP 0x00
 // vehicle domain
@@ -239,10 +240,11 @@
 // polygon domain
 #define DOM_POLYGON 0x04
 
+
+
 // ****************************************
 // VARIABLE IDs (FOR SCENARIO COMMAND)
 // ****************************************
-
 // count of domain objects
 #define DOMVAR_COUNT 0x01
 // position of a domain object
@@ -299,10 +301,10 @@
 #define DOMVAR_NOISEEMISSION 0x26
 
 
+
 // ****************************************
 // TRAFFIC LIGHT PHASES
 // ****************************************
-
 // red phase
 #define TLPHASE_RED 0x01
 // yellow phase
@@ -314,14 +316,16 @@
 // tl is off and not blinking
 #define TLPHASE_NOSIGNAL 0x05
 
+
+
 // ****************************************
 // DIFFERENT DISTANCE REQUESTS
 // ****************************************
-
 // air distance
 #define REQUEST_AIRDIST 0x00
 // driving distance
 #define REQUEST_DRIVINGDIST 0x01
+
 
 
 // ****************************************
