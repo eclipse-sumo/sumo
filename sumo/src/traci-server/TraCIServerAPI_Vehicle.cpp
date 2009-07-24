@@ -62,7 +62,8 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
         &&variable!=VAR_ROAD_ID&&variable!=VAR_LANE_ID&&variable!=VAR_LANE_INDEX
-        &&variable!=VAR_TYPE&&variable!=VAR_ROUTE&&variable!=VAR_COLOR) {
+        &&variable!=VAR_TYPE&&variable!=VAR_ROUTE&&variable!=VAR_COLOR
+        &&variable!=VAR_LANEPOSITION) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -129,6 +130,10 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeUnsignedByte((int) (v->getParameter().color.green()*255.));
             tempMsg.writeUnsignedByte((int) (v->getParameter().color.blue()*255.));
             tempMsg.writeUnsignedByte(255);
+            break;
+        case VAR_LANEPOSITION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(v->getPositionOnLane());
             break;
         default:
         break;

@@ -458,6 +458,9 @@
 // filled? (get: polygons)
 #define VAR_FILL 0x55
 
+// position (1D along lane) (get: vehicle)
+#define VAR_LANEPOSITION 0x56
+
 
 
 
