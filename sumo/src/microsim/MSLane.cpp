@@ -382,12 +382,12 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         }
     } else {
         // check approaching vehicle (consecutive follower)
-        SUMOReal speed = maxSpeed();
+        SUMOReal lspeed = maxSpeed();
         // in order to look back, we'd need the minimum braking ability of vehicles in the net...
         //  we'll assume it to be 4m/s^2
         //   !!!revisit
-        SUMOReal dist = speed * speed * SUMOReal(1./2.*4.) + SPEED2DIST(speed);
-        std::pair<const MSVehicle * const, SUMOReal> approaching = getFollowerOnConsecutive(dist, 0, speed);
+        SUMOReal dist = lspeed * lspeed * SUMOReal(1./2.*4.) + SPEED2DIST(lspeed);
+        std::pair<const MSVehicle * const, SUMOReal> approaching = getFollowerOnConsecutive(dist, 0, speed, pos - aVehicle->getVehicleType().getLength());
         if (approaching.first!=0) {
             const MSVehicle *const follower = approaching.first;
             SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, *aVehicle);
@@ -982,7 +982,7 @@ public:
 };
 
 std::pair<MSVehicle * const, SUMOReal>
-MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed) const {
+MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed, SUMOReal backOffset) const {
     // ok, a vehicle has not noticed the lane about itself;
     //  iterate as long as necessary to search for an approaching one
     set<MSLane*> visited;
@@ -998,8 +998,8 @@ MSLane::getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal leaderSp
             MSLane *next = (*i).lane;
             if (next->getFirstVehicle()!=0) {
                 MSVehicle * v = (MSVehicle*) next->getFirstVehicle();
-                SUMOReal igap = v->interactionGap(v->getSpeed(), myMaxSpeed, leaderSpeed);
-                if (igap>(*i).length-v->getPositionOnLane()+seen) {
+                SUMOReal agap = (*i).length - v->getPositionOnLane() + backOffset;
+                if (!v->hasSafeGap(v->maxNextSpeed(v->getSpeed()), agap, leaderSpeed, v->getLane().maxSpeed())) {
                     possible.push_back(make_pair(v, (*i).length-v->getPositionOnLane()+seen));
                 }
             } else {

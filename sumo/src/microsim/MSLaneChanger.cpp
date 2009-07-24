@@ -395,7 +395,7 @@ MSLaneChanger::getRealFollower(const ChangerIt &target) const throw() {
         dist = MIN2(dist, (SUMOReal) 500.);
         MSVehicle *candi = veh(myCandi);
         SUMOReal seen = candi->getPositionOnLane()-candi->getVehicleType().getLength();
-        return target->lane->getFollowerOnConsecutive(dist, seen, candi->getSpeed());
+        return target->lane->getFollowerOnConsecutive(dist, seen, candi->getSpeed(), candi->getPositionOnLane() - candi->getVehicleType().getLength());
     } else {
         MSVehicle *candi = veh(myCandi);
         return std::pair<MSVehicle * const, SUMOReal>(neighFollow,

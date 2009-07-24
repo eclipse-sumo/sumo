@@ -267,7 +267,7 @@ public:
         SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
         return (vNext>=getSpeedAfterMaxDecel(speed)
                 &&
-                gap   >= timeHeadWayGap(predSpeed));
+                gap   >= timeHeadWayGap(speed));
     }
 
     /** Returns the minimum gap between this driving vehicle and a
