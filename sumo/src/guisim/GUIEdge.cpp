@@ -237,7 +237,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        myLaneColoringSchemes.getColorer(s.laneEdgeMode)->setGlColor(*this);
+        s.edgeColorer.setGlColor(*this);
     }
 #endif
     // draw the lanes
@@ -448,22 +448,32 @@ GUIEdge::initColoringSchemes() {
                (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
 }
 
-GUIColorer<GUIEdge>*
-GUIEdge::createColorer() {
-    return new GUIEdge::Colorer();
-}
-
 GUIEdge::Colorer::Colorer() {
     mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0)));
+    mySchemes.push_back(GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f)));
+    mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1);
+    mySchemes.push_back(GUIColorScheme("by purpose (streetwise)", RGBColor(0,0,0)));
+    mySchemes.back().addColor(RGBColor(.5, 0, .5), 1);
+    mySchemes.back().addColor(RGBColor(0, 0, 1), 2);
+    mySchemes.push_back(GUIColorScheme("by allowed speed (streetwise)", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    mySchemes.back().setInterpolated(true);
+    mySchemes.push_back(GUIColorScheme("by current density (streetwise)", RGBColor(0,0,1)));
+    mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
+    mySchemes.back().setInterpolated(true);
 }
 
 SUMOReal
 GUIEdge::Colorer::getColorValue(const GUIEdge& edge) const {
     switch (myActiveScheme) {
-        case 0:
-            return 0;
         case 1:
             return gSelected.isSelected(edge.getType(), edge.getGlID());
+        case 2:
+            return edge.getPurpose();
+        case 3:
+            return edge.getAllowedSpeed();
+        case 4:
+            return edge.getDensity();
     }
     return 0;
 }

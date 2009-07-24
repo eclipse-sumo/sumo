@@ -115,6 +115,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (gridXSize!=v2.gridXSize) return false;
     if (gridYSize!=v2.gridYSize) return false;
 
+#ifdef HAVE_MESOSIM
+    if (!(edgeColorer==v2.edgeColorer)) return false;
+#endif
     if (laneEdgeMode!=v2.laneEdgeMode) return false;
     if (laneColorings!=v2.laneColorings) return false;
     if (laneShowBorders!=v2.laneShowBorders) return false;

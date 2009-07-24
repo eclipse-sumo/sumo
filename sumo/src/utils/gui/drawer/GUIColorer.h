@@ -30,6 +30,8 @@
 #endif
 
 #include <vector>
+#include <fx.h>
+#include <utils/foxtools/FXRealSpinDial.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -56,21 +58,23 @@ public:
         addColor(baseColor, -1);
     }
 
-    void setColor(const size_t pos, const RGBColor& color, const SUMOReal threshold) {
-        assert(pos < myColors.size());
-        myColors[pos] = color;
-        myThresholds[pos] = threshold;
+    unsigned int setColor(const size_t pos, const RGBColor& color, const SUMOReal threshold) {
+        removeColor(pos);
+        return addColor(color, threshold);
     }
 
-    void addColor(const RGBColor& color, const SUMOReal threshold) {
+    unsigned int addColor(const RGBColor& color, const SUMOReal threshold) {
         std::vector<RGBColor>::iterator colIt = myColors.begin();
         std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
+        unsigned int pos = 0;
         while (threshIt != myThresholds.end() && (*threshIt) < threshold) {
-            threshIt++;
-            colIt++;
+            ++threshIt;
+            ++colIt;
+            pos++;
         }
         myColors.insert(colIt, color);
         myThresholds.insert(threshIt, threshold);
+        return pos;
     }
 
     void removeColor(const size_t pos) {
@@ -79,28 +83,51 @@ public:
         myThresholds.erase(myThresholds.begin()+pos);
     }
 
-    RGBColor getColor(const SUMOReal value) {
-        std::vector<RGBColor>::iterator colIt = myColors.begin();
-        std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
+    const RGBColor getColor(const SUMOReal value) const {
+        if (myColors.size() == 1 || value <= myThresholds.front()) {
+            return myColors.front();
+        }
+        std::vector<RGBColor>::const_iterator colIt = myColors.begin()+1;
+        std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin()+1;
         while (threshIt != myThresholds.end() && (*threshIt) < value) {
-            threshIt++;
-            colIt++;
-        }
-        if (!myIsInterpolated) {
-            return (*colIt);
-        }
-        if (threshIt == myThresholds.begin()) {
-            return (*colIt);
+            ++threshIt;
+            ++colIt;
         }
         if (threshIt == myThresholds.end()) {
             return myColors.back();
+        }
+        if (!myIsInterpolated) {
+            return *(colIt-1);
         }
         SUMOReal lowVal = *(threshIt-1);
         return RGBColor::interpolate(*(colIt-1), *colIt, (value-lowVal)/((*threshIt)-lowVal));
     }
 
-    void setInterpolated(const bool interpolate) {
+    void setInterpolated(const bool interpolate, SUMOReal interpolationStart=0.f) {
         myIsInterpolated = interpolate;
+        if (interpolate) {
+            myThresholds[0] = interpolationStart;
+        }
+    }
+
+    const std::string &getName() const {
+        return myName;
+    }
+
+    const std::vector<RGBColor> &getColors() const {
+        return myColors;
+    }
+
+    const std::vector<SUMOReal> &getThresholds() const {
+        return myThresholds;
+    }
+
+    const bool isInterpolated() const {
+        return myIsInterpolated;
+    }
+
+    bool operator==(const GUIColorScheme &c) const {
+        return myName == c.myName && myColors == c.myColors && myThresholds == c.myThresholds && myIsInterpolated == c.myIsInterpolated;
     }
 
 private:
@@ -123,19 +150,44 @@ private:
 template<class T>
 class GUIColorer {
 public:
-    /// Constructor
-    GUIColorer() { }
+    /// @brief Constructor
+    GUIColorer() : myActiveScheme(0) { }
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~GUIColorer() { }
 
-    /// Sets the color using a value from the given instance of T
+    /// @brief Sets the color using a value from the given instance of T
     virtual SUMOReal getColorValue(const T& i) const = 0;
 
-    /// Sets the color using a value from the given instance of T
+    /// @brief Sets the color using a value from the given instance of T
     void setGlColor(const T& i) const {
-        RGBColor& c = mySchemes[myActiveScheme].getColor(getColorValue(i));
+        const RGBColor& c = mySchemes[myActiveScheme].getColor(getColorValue(i));
         glColor3d(c.red(), c.green(), c.blue());
+    }
+
+    /// @brief Fills the given combobox with the names of available colorings
+    void fill(FXComboBox &cb) {
+        typename std::vector<GUIColorScheme>::iterator i;
+        for (i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
+            cb.appendItem((*i).getName().c_str());
+        }
+        cb.setCurrentItem(myActiveScheme);
+    }
+
+    void setActive(size_t scheme) {
+        myActiveScheme = scheme;
+    }
+
+    const size_t getActive() const {
+        return myActiveScheme;
+    }
+
+    GUIColorScheme& getScheme() {
+        return mySchemes[myActiveScheme];
+    }
+
+    bool operator==(const GUIColorer &c) const {
+        return myActiveScheme == c.myActiveScheme && mySchemes == c.mySchemes;
     }
 
 protected:

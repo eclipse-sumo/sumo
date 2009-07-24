@@ -142,7 +142,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                       0,0,0,0, 0,0,0,0);
     {
         // tab for the background
-        FXTabItem *tab1 = new FXTabItem(tabbook,"Background",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        new FXTabItem(tabbook,"Background",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame1 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -195,7 +195,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     }
     {
         // tab for the streets
-        FXTabItem *tab2 = new FXTabItem(tabbook,"Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        new FXTabItem(tabbook,"Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -270,9 +270,29 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                                           LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                           0, 0, 100, 0,   0, 0, 0, 0);
     }
+#ifdef HAVE_MESOSIM
+    {
+        // new tab for the streets
+        new FXTabItem(tabbook,"new Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        FXVerticalFrame *frame2a =
+            new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+
+        FXMatrix *m21a =
+            new FXMatrix(frame2a,3,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,2, 5,5);
+        new FXLabel(m21a, "Color by", 0, LAYOUT_CENTER_Y);
+        myLaneEdgeColorModea = new FXComboBox(m21a, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
+        mySettings->edgeColorer.fill(*myLaneEdgeColorModea);
+        myLaneEdgeColorModea->setNumVisible(10);
+        myLaneColorInterpolation = new FXCheckButton(m21a, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+
+        myLaneColorSettingFramea =
+            new FXVerticalFrame(frame2a, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
+    }
+#endif
     {
         if (myVehicleColoringInfoSource!=0) {
-            FXTabItem *tab3 = new FXTabItem(tabbook,"Vehicles",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+            new FXTabItem(tabbook,"Vehicles",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
             FXVerticalFrame *frame3 =
                 new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -369,7 +389,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         }
     }
     {
-        FXTabItem *tab4 = new FXTabItem(tabbook,"Nodes",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        new FXTabItem(tabbook,"Nodes",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame4 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -408,7 +428,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                                               0, 0, 100, 0,   0, 0, 0, 0);
     }
     {
-        FXTabItem *tab5 = new FXTabItem(tabbook,"Detectors/Trigger",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        new FXTabItem(tabbook,"Detectors/Trigger",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame5 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -466,7 +486,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                             */
     }
     {
-        FXTabItem *tab6 = new FXTabItem(tabbook,"POIs",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        new FXTabItem(tabbook,"POIs",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame6 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -520,7 +540,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
 
     }
     {
-        FXTabItem *tab7 = new FXTabItem(tabbook,"Legend",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        new FXTabItem(tabbook,"Legend",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame7 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -532,7 +552,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         new FXLabel(m72, "");
     }
     {
-        FXTabItem *tab8 = new FXTabItem(tabbook,"openGL",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        new FXTabItem(tabbook,"openGL",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame8 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
@@ -694,6 +714,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     GUIVisualizationSettings tmpSettings = *mySettings;
     int prevLaneMode = mySettings->laneEdgeMode;
     int prevVehicleMode = mySettings->vehicleMode;
+#ifdef HAVE_MESOSIM
+    size_t prevEdgeScheme = mySettings->edgeColorer.getActive();
+#endif
+    bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
     tmpSettings.backgroundColor = convert(myBackgroundColor->getRGBA());
@@ -701,6 +725,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     tmpSettings.gridXSize = (SUMOReal) myGridXSizeDialer->getValue();
     tmpSettings.gridYSize = (SUMOReal) myGridYSizeDialer->getValue();
 
+#ifdef HAVE_MESOSIM
+    tmpSettings.edgeColorer.setActive(myLaneEdgeColorModea->getCurrentItem());
+#endif
     tmpSettings.laneEdgeMode = myLaneEdgeColorMode->getCurrentItem();
     tmpSettings.laneShowBorders = myShowLaneBorders->getCheck()!=0;
     tmpSettings.showLinkDecals = myShowLaneDecals->getCheck()!=0;
@@ -776,6 +803,41 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
             break;
         }
     }
+#ifdef HAVE_MESOSIM
+    if (prevEdgeScheme == tmpSettings.edgeColorer.getActive()) {
+        std::vector<FXColorWell*>::const_iterator colIt = myLaneColors.begin();
+        std::vector<FXRealSpinDial*>::const_iterator threshIt = myLaneThresholds.begin();
+        std::vector<FXButton*>::const_iterator buttonIt = myLaneButtons.begin();
+        size_t pos = 0;
+        while (threshIt != myLaneThresholds.end()) {
+            if (sender == *threshIt || sender == *colIt) {
+                if (pos != tmpSettings.edgeColorer.getScheme().setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
+                    doRebuildColorMatrices = true;
+                }
+                break;
+            }
+            if (sender == *buttonIt) {
+                if (pos == 0) {
+                    tmpSettings.edgeColorer.getScheme().addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
+                } else {
+                    tmpSettings.edgeColorer.getScheme().removeColor(pos);
+                }
+                doRebuildColorMatrices = true;
+                break;
+            }
+            ++threshIt;
+            ++colIt;
+            ++buttonIt;
+            pos++;
+        }
+        if (sender == myLaneColorInterpolation) {
+            tmpSettings.edgeColorer.getScheme().setInterpolated(myLaneColorInterpolation->getCheck());
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
+    }
+#endif
     // vehicles
     if (myVehicleColoringInfoSource!=0&&tmpSettings.vehicleMode==prevVehicleMode) {
         switch (myVehicleColoringInfoSource->getColorSetType(tmpSettings.vehicleMode)) {
@@ -825,7 +887,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     }
     mySettings = &gSchemeStorage.get(tmpSettings.name);
 
-    if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode) {
+    if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode||doRebuildColorMatrices) {
         rebuildColorMatrices(true);
     }
     myParent->forceRefresh();
@@ -1337,6 +1399,54 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
             m->create();
         }
     }
+#ifdef HAVE_MESOSIM
+    {
+        // new lane
+        MFXUtils::deleteChildren(myLaneColorSettingFramea);
+        FXMatrix *m = new FXMatrix(myLaneColorSettingFramea,3,
+                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
+                                   0,0,0,80,10,10,0,0, 5,3);
+        myLaneColors.clear();
+        myLaneThresholds.clear();
+        myLaneButtons.clear();
+        const std::vector<RGBColor> &colors = mySettings->edgeColorer.getScheme().getColors();
+        const std::vector<SUMOReal> &thresholds = mySettings->edgeColorer.getScheme().getThresholds();
+        bool interpolate = mySettings->edgeColorer.getScheme().isInterpolated();
+        std::vector<RGBColor>::const_iterator colIt = colors.begin();
+        std::vector<SUMOReal>::const_iterator threshIt = thresholds.begin();
+        FX::FXString buttonText = "Add";
+        while (threshIt != thresholds.end()) {
+            myLaneColors.push_back(new FXColorWell(m , convert(*colIt),
+                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                0, 0, 100, 0,   0, 0, 0, 0));
+            FXRealSpinDial* threshDialer =
+                new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                   LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+            threshDialer->setValue(*threshIt);
+            myLaneThresholds.push_back(threshDialer);
+            myLaneButtons.push_back(new FXButton(m,buttonText,NULL,this,MID_SIMPLE_VIEW_COLORCHANGE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4));
+            buttonText = "Remove";
+            threshIt++;
+            colIt++;
+        }
+        myLaneColorInterpolation->setCheck(mySettings->edgeColorer.getScheme().isInterpolated());
+        if (colors.size() > 1) {
+            myLaneColorInterpolation->enable();
+            if (myLaneColorInterpolation->getCheck()) {
+                myLaneThresholds.front()->enable();
+            } else {
+                myLaneThresholds.front()->disable();
+            }
+        } else {
+            myLaneColorInterpolation->disable();
+            myLaneThresholds.front()->disable();
+        }
+        if (doCreate) {
+            m->create();
+        }
+    }
+#endif
     {
         if (myVehicleColoringInfoSource!=0) {
             // vehicles

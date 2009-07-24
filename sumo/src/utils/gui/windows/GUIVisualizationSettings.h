@@ -33,6 +33,7 @@
 #include <vector>
 #include <map>
 #include <utils/common/RGBColor.h>
+#include <guisim/GUIEdge.h>
 
 
 // ===========================================================================
@@ -78,6 +79,10 @@ public:
     /// @name lane visualization settings
     //@{
 
+#ifdef HAVE_MESOSIM 
+    /// @brief The lane or edge colorer
+    GUIEdge::Colorer edgeColorer;
+#endif
     /// @brief The lane visualization (color assignment) scheme
     int laneEdgeMode;
     /// @brief The map if used colors (scheme->used colors)

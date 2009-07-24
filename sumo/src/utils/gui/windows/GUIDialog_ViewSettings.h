@@ -229,6 +229,13 @@ private:
     FXComboBox *myLaneEdgeColorMode;
     FXVerticalFrame *myLaneColorSettingFrame;
     FXColorWell *mySingleLaneColor, *myMinLaneColor, *myMaxLaneColor;
+    FXComboBox *myLaneEdgeColorModea;
+    FXVerticalFrame *myLaneColorSettingFramea;
+    std::vector<FXColorWell *> myLaneColors;
+    std::vector<FXRealSpinDial *> myLaneThresholds;
+    std::vector<FXButton *> myLaneButtons;
+    FXCheckButton *myLaneColorInterpolation;
+
     FXCheckButton *myShowLaneBorders, *myShowLaneDecals, *myShowRails, *myShowEdgeName, *myShowInternalEdgeName, *myHideMacroConnectors;
     FXRealSpinDial *myEdgeNameSizeDialer;
     FXColorWell *myEdgeNameColor;

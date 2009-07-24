@@ -190,9 +190,6 @@ public:
     /// Initializes the list of available vehicle coloring schemes
     static void initColoringSchemes();
 
-    static GUIColorer<GUIEdge>* createColorer();
-
-private:
     class Colorer : public GUIColorer<GUIEdge> {
     public:
         Colorer();
