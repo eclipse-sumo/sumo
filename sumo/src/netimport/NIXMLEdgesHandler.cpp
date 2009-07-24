@@ -368,6 +368,9 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     // try to build shape
     try {
         string shpdef = attrs.getStringSecure(SUMO_ATTR_SHAPE, "");
+        if(shpdef=="") {
+            return Position2DVector();
+        }
         Position2DVector shape1 = GeomConvHelper::parseShape(shpdef);
         Position2DVector shape;
         for (int i=0; i<(int) shape1.size(); ++i) {
