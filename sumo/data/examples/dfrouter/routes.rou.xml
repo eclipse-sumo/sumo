@@ -1,8 +1,0 @@
-<routes>
-
-   <route id="beg_to_end" multi_ref="x" edges="beg middle end"/>
-   <route id="beg_to_end_1" multi_ref="x" edges="beg 1toL L Lto2 end"/>
-   <route id="beg_to_end_2" multi_ref="x" edges="beg 1toR R Rto2 end"/>
-
-
-</routes>

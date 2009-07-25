@@ -17,43 +17,54 @@ from os.path import join
 
 optParser = optparse.OptionParser(usage="%prog <options> <test directory>")
 optParser.add_option("-o", "--output", default=".", help="send output to directory")
+optParser.add_option("-f", "--file", help="read list of source and target dirs from")
 options, args = optParser.parse_args()
-if len(args) == 0:
-	optParser.error("No test directory given")
-
-for leaf in args:	
-	optionsFiles = glob.glob(join(leaf, "options.[0-9a-z]*"))
-	if len(optionsFiles) != 1:
-		print >> sys.stderr, "Not a unique options file in %s." % dir
-		continue
-	app = optionsFiles[0].split('.')[1]
-	potentials = {}
-	dir = leaf
-	while True:
-		for f in os.listdir(dir):
-			path = join(dir, f)
-			if not os.path.isdir(path) and not f in potentials:
-				potentials[f] = path
-		if dir == os.path.dirname(dir) or os.path.exists(join(dir, "config."+app)):
-			break
-		dir = os.path.dirname(dir)
-	config = join(dir, "config."+app)
-	if not os.path.exists(config):
-		print >> sys.stderr, "Config not found for %s." % dir
-		continue
-	testPath = leaf[len(os.path.commonprefix([dir, leaf])):]
-	testPath = join(options.output, testPath.replace(os.sep, '_'))
-	if not os.path.exists(testPath):
-		os.makedirs(testPath)
-	for line in open(config):
-		entry = line.strip().split(':')
-		if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
-			shutil.copy2(potentials[entry[1]], testPath)
-	options = open(optionsFiles[0]).read().split() + ['--save-configuration', 'test.%s.cfg' % app]
-	oldWorkDir = os.getcwd()
-	os.chdir(testPath)
-	if os.name == "posix" and app != "sumo":
-		subprocess.call(["sumo-" + app] + options)
-	else:
-		subprocess.call([app] + options)
-	os.chdir(oldWorkDir)
+if not options.file and len(args) == 0:
+    optParser.print_help()
+    sys.exit(1)
+targets = {}
+if options.file:
+    for line in open(options.file):
+        line = line.strip()
+        if line and line[0] != '#':
+            key, value = line.split(':')
+            targets[key] = value
+for val in args:
+    targets[val] = ""
+for source, target in targets.iteritems():
+    optionsFiles = glob.glob(join(source, "options.[0-9a-z]*"))
+    if len(optionsFiles) != 1:
+        print >> sys.stderr, "Not a unique options file in %s." % source
+        continue
+    app = optionsFiles[0].split('.')[1]
+    potentials = {}
+    curDir = source
+    while True:
+        for f in os.listdir(curDir):
+            path = join(curDir, f)
+            if not os.path.isdir(path) and not f in potentials:
+                potentials[f] = path
+        if curDir == os.path.dirname(curDir) or os.path.exists(join(curDir, "config."+app)):
+            break
+        curDir = os.path.dirname(curDir)
+    config = join(curDir, "config."+app)
+    if not os.path.exists(config):
+        print >> sys.stderr, "Config not found for %s." % curDir
+        continue
+    if target == "":
+        target = source[len(os.path.commonprefix([curDir, source])):].replace(os.sep, '_')
+    testPath = join(options.output, target)
+    if not os.path.exists(testPath):
+        os.makedirs(testPath)
+    for line in open(config):
+        entry = line.strip().split(':')
+        if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
+            shutil.copy2(potentials[entry[1]], testPath)
+    appOptions = open(optionsFiles[0]).read().split() + ['--save-configuration', 'test.%s.cfg' % app[:4]]
+    oldWorkDir = os.getcwd()
+    os.chdir(testPath)
+    if os.name == "posix" and app != "sumo":
+        subprocess.call(["sumo-" + app] + appOptions)
+    else:
+        subprocess.call([app] + appOptions)
+    os.chdir(oldWorkDir)
