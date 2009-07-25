@@ -1,10 +1,10 @@
 dfrouter/emitters/tri_completely_defined/tri_cd_1min_more_left:../examples/dfrouter
-duarouter/flows2routes:../examples/duarouter/flows2routes
-duarouter/flows2routes_100s_interval:../examples/duarouter/flows2routes_100s_interval
-duarouter/flows2routes_100s_interval_ext:../examples/duarouter/flows2routes_100s_interval_ext
-duarouter/flows2routes_200s_interval:../examples/duarouter/flows2routes_200s_interval
-duarouter/trips2routes:../examples/duarouter/trips2routes
-duarouter/trips2routes_repetition:../examples/duarouter/trips2routes_repetition
+duarouter/flows/1s_interval:../examples/duarouter/flows2routes
+duarouter/flows/100s_interval:../examples/duarouter/flows2routes_100s_interval
+duarouter/flows/100s_interval_ext:../examples/duarouter/flows2routes_100s_interval_ext
+duarouter/flows/200s_interval:../examples/duarouter/flows2routes_200s_interval
+duarouter/trips/one_time_notype:../examples/duarouter/trips2routes
+duarouter/trips/repetition:../examples/duarouter/trips2routes_repetition
 sumo/basic/hokkaido:../examples/sumo/hokkaido
 netconvert/import/XML/shapes/hokkaido:../examples/netconvert/hokkaido
 netconvert/import/XML/shapes/messstrecke:../examples/netconvert/dlr-testtrack

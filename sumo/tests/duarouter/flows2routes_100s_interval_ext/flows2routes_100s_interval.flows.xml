@@ -1,7 +1,0 @@
-<flowdefs>
-
-	<interval begin="0" end="100">
-		<flow id="0" from="beg" to="rend" no="100"/>
-	</interval>
-
-</flowdefs>
