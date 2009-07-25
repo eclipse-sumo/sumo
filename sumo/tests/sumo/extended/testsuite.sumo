@@ -25,10 +25,11 @@ simulation_routing
 # vehicle removal via vaporizer
 vaporizer
 
-
 # Tests for HBEFA-based per-vehicle emissions
 device_hbefa
 
-
 # Tests for HBEFA-based emission computation
 hbefa
+
+# Tests for bus stops
+busses
