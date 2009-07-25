@@ -8,3 +8,5 @@ duarouter/trips/repetition:../examples/duarouter/trips2routes_repetition
 sumo/basic/hokkaido:../examples/sumo/hokkaido
 netconvert/import/XML/shapes/hokkaido:../examples/netconvert/hokkaido
 netconvert/import/XML/shapes/messstrecke:../examples/netconvert/dlr-testtrack
+jtrrouter/function/turns/definite_xml:../examples/jtrrouter/turns
+jtrrouter/function/plain/straight_only_sinks:../examples/jtrrouter/straight_only_sinks

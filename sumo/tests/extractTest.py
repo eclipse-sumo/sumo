@@ -24,11 +24,12 @@ if not options.file and len(args) == 0:
     sys.exit(1)
 targets = {}
 if options.file:
+    dirname = os.path.dirname(options.file)
     for line in open(options.file):
         line = line.strip()
         if line and line[0] != '#':
             key, value = line.split(':')
-            targets[key] = value
+            targets[join(dirname, key)] = join(dirname, value)
 for val in args:
     targets[val] = ""
 for source, target in targets.iteritems():
