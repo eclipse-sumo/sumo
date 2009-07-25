@@ -22,3 +22,4 @@ sumo/basic/hokkaido:../examples/sumo/hokkaido
 sumo/extended/variable_speed_signs/b0_offset_100:../examples/sumo/variable_speed_signs
 sumo/extended/stops/simple_stop:../examples/sumo/vehicle_stops
 sumo/extended/busses/three_busses:../examples/sumo/busses
+sumo/gui/visualization/parade:../examples/sumo/visualization/parade

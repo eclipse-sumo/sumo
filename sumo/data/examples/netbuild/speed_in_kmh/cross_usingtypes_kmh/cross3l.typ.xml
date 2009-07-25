@@ -1,5 +1,0 @@
-<types>
-	<type id="a" priority="3" nolanes="3" speed="50"/>
-	<type id="b" priority="2" nolanes="2" speed="40"/>
-	<type id="c" priority="1" nolanes="1" speed="40"/>
-</types>
