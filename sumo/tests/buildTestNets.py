@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Builds all example networks
-# $Id:
+# $Id$
 
 import os, sys
 
