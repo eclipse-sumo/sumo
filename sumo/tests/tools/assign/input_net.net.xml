@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 13:58:02 by SUMO netconvert Version dev-SVN-r7470
+<!-- generated on Sun Jul 26 12:00:51 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="tools\assign\input_dua2s.nod.xml"
-        xml-edge-files="tools\assign\input_dua2s.edg.xml"
+        xml-node-files="./tools/assign/input_dua2s.nod.xml"
+        xml-edge-files="./tools/assign/input_dua2s.edg.xml"
     />
 
     <output
-        output-file="tools\assign\input_net.net.xml"
+        output-file="./tools/assign/input_net.net.xml"
     />
 
     <processing

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 14:16:32 by SUMO netconvert Version dev-SVN-r7470
+<!-- generated on Sun Jul 26 12:00:47 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="traci\StopNode\net.nod.xml"
-        xml-edge-files="traci\StopNode\net.edg.xml"
+        xml-node-files="./traci/StopNode/net.nod.xml"
+        xml-edge-files="./traci/StopNode/net.edg.xml"
     />
 
     <output
-        output-file="traci\StopNode\net.net.xml"
+        output-file="./traci/StopNode/net.net.xml"
     />
 
     <processing

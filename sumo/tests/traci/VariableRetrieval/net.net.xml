@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 14:16:32 by SUMO netgen Version dev-SVN-r7470
+<!-- generated on Sun Jul 26 12:00:46 2009 by SUMO netgen Version dev-SVN-r7516
 <configuration>
 
     <grid_network
@@ -11,7 +11,7 @@
     />
 
     <output
-        output-file="traci\VariableRetrieval\net.net.xml"
+        output-file="./traci/VariableRetrieval/net.net.xml"
     />
 
     <processing

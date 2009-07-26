@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/21/09 10:47:22 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:51 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="./dfrouter\bugs\2149069_internal_edges\nodes.nod.xml"
-        xml-edge-files="./dfrouter\bugs\2149069_internal_edges\edges.edg.xml"
+        xml-node-files="./dfrouter/bugs/2149069_internal_edges/nodes.nod.xml"
+        xml-edge-files="./dfrouter/bugs/2149069_internal_edges/edges.edg.xml"
     />
 
     <output
-        output-file="./dfrouter\bugs\2149069_internal_edges\input_net.net.xml"
+        output-file="./dfrouter/bugs/2149069_internal_edges/input_net.net.xml"
     />
 
     <report
@@ -61,7 +61,7 @@
 
    <edge id=":21_0" function="internal">
       <lanes>
-         <lane id=":21_0_0" depart="0" maxspeed="13.90" length="7.85" shape="298.35,501.45 298.75,500.09 299.95,499.13 301.95,498.54 304.75,498.35"/>
+         <lane id=":21_0_0" depart="0" maxspeed="13.90" length="7.85" shape="298.35,501.45 298.75,500.09 299.95,499.12 301.95,498.54 304.75,498.35"/>
       </lanes>
    </edge>
 
@@ -79,7 +79,7 @@
 
    <edge id=":21_3" function="internal">
       <lanes>
-         <lane id=":21_3_0" depart="0" maxspeed="13.90" length="7.85" shape="295.25,498.35 298.05,498.54 300.05,499.13 301.25,500.09 301.65,501.45"/>
+         <lane id=":21_3_0" depart="0" maxspeed="13.90" length="7.85" shape="295.25,498.35 298.05,498.54 300.05,499.12 301.25,500.09 301.65,501.45"/>
       </lanes>
    </edge>
 
@@ -91,19 +91,19 @@
 
    <edge id=":30_1" function="internal">
       <lanes>
-         <lane id=":30_1_0" depart="0" maxspeed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.13,510.88 498.54,509.91 498.35,508.55"/>
+         <lane id=":30_1_0" depart="0" maxspeed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.12,510.88 498.54,509.91 498.35,508.55"/>
       </lanes>
    </edge>
 
    <edge id=":30_2" function="internal">
       <lanes>
-         <lane id=":30_2_0" depart="0" maxspeed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.13,510.88 498.54,509.91 498.35,508.55"/>
+         <lane id=":30_2_0" depart="0" maxspeed="13.90" length="5.00" shape="501.45,511.65 500.09,511.46 499.12,510.88 498.54,509.91 498.35,508.55"/>
       </lanes>
    </edge>
 
    <edge id=":31_0" function="internal">
       <lanes>
-         <lane id=":31_0_0" depart="0" maxspeed="13.90" length="5.00" shape="498.35,501.45 498.54,500.09 499.13,499.13 500.09,498.54 501.45,498.35"/>
+         <lane id=":31_0_0" depart="0" maxspeed="13.90" length="5.00" shape="498.35,501.45 498.54,500.09 499.12,499.12 500.09,498.54 501.45,498.35"/>
       </lanes>
    </edge>
 
@@ -139,7 +139,7 @@
 
    <edge id=":41_1" function="internal">
       <lanes>
-         <lane id=":41_1_0" depart="0" maxspeed="13.90" length="5.00" shape="508.55,498.35 509.91,498.54 510.88,499.13 511.46,500.09 511.65,501.45"/>
+         <lane id=":41_1_0" depart="0" maxspeed="13.90" length="5.00" shape="508.55,498.35 509.91,498.54 510.88,499.12 511.46,500.09 511.65,501.45"/>
       </lanes>
    </edge>
 
@@ -169,7 +169,7 @@
 
    <edge id=":51_0" function="internal">
       <lanes>
-         <lane id=":51_0_0" depart="0" maxspeed="13.90" length="7.85" shape="708.35,501.45 708.75,500.09 709.95,499.13 711.95,498.54 714.75,498.35"/>
+         <lane id=":51_0_0" depart="0" maxspeed="13.90" length="7.85" shape="708.35,501.45 708.75,500.09 709.95,499.12 711.95,498.54 714.75,498.35"/>
       </lanes>
    </edge>
 
@@ -187,7 +187,7 @@
 
    <edge id=":51_3" function="internal">
       <lanes>
-         <lane id=":51_3_0" depart="0" maxspeed="13.90" length="7.85" shape="705.25,498.35 708.05,498.54 710.05,499.13 711.25,500.09 711.65,501.45"/>
+         <lane id=":51_3_0" depart="0" maxspeed="13.90" length="7.85" shape="705.25,498.35 708.05,498.54 710.05,499.12 711.25,500.09 711.65,501.45"/>
       </lanes>
    </edge>
 
@@ -223,7 +223,7 @@
 
    <edge id=":a2_1" function="internal">
       <lanes>
-         <lane id=":a2_1_0" depart="0" maxspeed="13.90" length="4.82" shape="511.65,299.84 510.83,301.08 510.00,301.49 509.18,301.08 508.35,299.84"/>
+         <lane id=":a2_1_0" depart="0" maxspeed="13.90" length="4.82" shape="511.65,299.84 510.83,301.07 510.00,301.49 509.18,301.07 508.35,299.84"/>
       </lanes>
    </edge>
 

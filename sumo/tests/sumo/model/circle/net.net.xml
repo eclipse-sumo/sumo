@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 08:19:38 by SUMO netgen Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:50 2009 by SUMO netgen Version dev-SVN-r7516
 <configuration>
 
     <spider_network
@@ -12,7 +12,7 @@
     />
 
     <output
-        output-file="sumo\model\circle\net.net.xml"
+        output-file="./sumo/model/circle/net.net.xml"
     />
 
     <processing
@@ -60,13 +60,13 @@
 
    <edge id=":2/1_0" function="internal">
       <lanes>
-         <lane id=":2/1_0_0" depart="0" maxspeed="19.60" length="3.03" shape="2876.42,2444.72 2874.64,2447.17"/>
+         <lane id=":2/1_0_0" depart="0" maxspeed="19.60" length="3.03" shape="2876.42,2444.73 2874.64,2447.18"/>
       </lanes>
    </edge>
 
    <edge id=":2/1_1" function="internal">
       <lanes>
-         <lane id=":2/1_1_0" depart="0" maxspeed="19.60" length="0.99" shape="2872.70,2444.51 2873.29,2443.70"/>
+         <lane id=":2/1_1_0" depart="0" maxspeed="19.60" length="0.99" shape="2872.70,2444.51 2873.29,2443.71"/>
       </lanes>
    </edge>
 
@@ -102,7 +102,7 @@
 
    <edge id=":5/1_1" function="internal">
       <lanes>
-         <lane id=":5/1_1_0" depart="0" maxspeed="19.60" length="0.99" shape="304.71,2443.70 305.30,2444.51"/>
+         <lane id=":5/1_1_0" depart="0" maxspeed="19.60" length="0.99" shape="304.71,2443.70 305.30,2444.50"/>
       </lanes>
    </edge>
 
@@ -164,7 +164,7 @@
 
    <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="1/1to2/1_0" depart="1" maxspeed="19.60" length="979.94" shape="3179.24,1512.74 2876.42,2444.72"/>
+         <lane id="1/1to2/1_0" depart="1" maxspeed="19.60" length="979.94" shape="3179.24,1512.74 2876.42,2444.73"/>
       </lanes>
    </edge>
 
@@ -182,13 +182,13 @@
 
    <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to1/1_0" depart="1" maxspeed="19.60" length="979.94" shape="2873.29,2443.70 3176.10,1511.72"/>
+         <lane id="2/1to1/1_0" depart="1" maxspeed="19.60" length="979.94" shape="2873.29,2443.71 3176.10,1511.72"/>
       </lanes>
    </edge>
 
    <edge id="2/1to3/1" from="2/1" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="2/1to3/1_0" depart="1" maxspeed="19.60" length="979.94" shape="2874.64,2447.17 2081.85,3023.17"/>
+         <lane id="2/1to3/1_0" depart="1" maxspeed="19.60" length="979.94" shape="2874.64,2447.18 2081.85,3023.17"/>
       </lanes>
    </edge>
 
@@ -218,7 +218,7 @@
 
    <edge id="5/1to4/1" from="5/1" to="4/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
-         <lane id="5/1to4/1_0" depart="1" maxspeed="19.60" length="979.94" shape="305.30,2444.51 1098.09,3020.50"/>
+         <lane id="5/1to4/1_0" depart="1" maxspeed="19.60" length="979.94" shape="305.30,2444.50 1098.09,3020.50"/>
       </lanes>
    </edge>
 

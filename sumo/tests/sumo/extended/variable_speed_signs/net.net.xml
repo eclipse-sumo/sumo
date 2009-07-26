@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 08:19:38 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:48 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="sumo\extended\variable_speed_signs\bi.nod.xml"
-        xml-edge-files="sumo\extended\variable_speed_signs\bi.edg.xml"
+        xml-node-files="./sumo/extended/variable_speed_signs/bi.nod.xml"
+        xml-edge-files="./sumo/extended/variable_speed_signs/bi.edg.xml"
     />
 
     <output
-        output-file="sumo\extended\variable_speed_signs\net.net.xml"
+        output-file="./sumo/extended/variable_speed_signs/net.net.xml"
     />
 
     <report
@@ -37,7 +37,7 @@
 
    <edge id=":beg_1" function="internal">
       <lanes>
-         <lane id=":beg_1_0" depart="0" maxspeed="27.80" length="5.00" shape="498.55,-1.65 499.91,-1.46 500.88,-0.87 501.46,0.09 501.65,1.45"/>
+         <lane id=":beg_1_0" depart="0" maxspeed="27.80" length="5.00" shape="498.55,-1.65 499.91,-1.46 500.88,-0.88 501.46,0.09 501.65,1.45"/>
       </lanes>
    </edge>
 
@@ -49,7 +49,7 @@
 
    <edge id=":end_0" function="internal">
       <lanes>
-         <lane id=":end_0_0" depart="0" maxspeed="27.80" length="5.00" shape="1498.35,1.45 1498.54,0.09 1499.13,-0.87 1500.09,-1.46 1501.45,-1.65"/>
+         <lane id=":end_0_0" depart="0" maxspeed="27.80" length="5.00" shape="1498.35,1.45 1498.54,0.09 1499.12,-0.87 1500.09,-1.46 1501.45,-1.65"/>
       </lanes>
    </edge>
 

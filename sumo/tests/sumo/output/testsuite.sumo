@@ -55,5 +55,5 @@ meannoise_edgebased
 # Tests for lane-based mean noise output (aka "mean harmonoise lane dump")
 meannoise_lanebased
 
-
-
+# Tests which serve as examples
+examples

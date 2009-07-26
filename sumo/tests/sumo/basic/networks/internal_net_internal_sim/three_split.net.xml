@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 08:19:36 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:50 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="sumo\basic\networks\internal_net_internal_sim\../three_split.nod.xml"
-        xml-edge-files="sumo\basic\networks\internal_net_internal_sim\../three_split.edg.xml"
+        xml-node-files="./sumo/basic/networks/internal_net_internal_sim/../three_split.nod.xml"
+        xml-edge-files="./sumo/basic/networks/internal_net_internal_sim/../three_split.edg.xml"
     />
 
     <output
-        output-file="sumo\basic\networks\internal_net_internal_sim\three_split.net.xml"
+        output-file="./sumo/basic/networks/internal_net_internal_sim/three_split.net.xml"
     />
 
     <report
@@ -43,7 +43,7 @@
 
    <edge id=":beg_2" function="internal">
       <lanes>
-         <lane id=":beg_2_0" depart="0" maxspeed="20.85" length="7.85" shape="495.25,498.35 498.05,498.54 500.05,499.13 501.25,500.09 501.65,501.45"/>
+         <lane id=":beg_2_0" depart="0" maxspeed="20.85" length="7.85" shape="495.25,498.35 498.05,498.54 500.05,499.12 501.25,500.09 501.65,501.45"/>
       </lanes>
    </edge>
 
@@ -61,7 +61,7 @@
 
    <edge id=":end_0" function="internal">
       <lanes>
-         <lane id=":end_0_0" depart="0" maxspeed="20.85" length="7.85" shape="1498.35,501.45 1498.75,500.09 1499.95,499.13 1501.95,498.54 1504.75,498.35"/>
+         <lane id=":end_0_0" depart="0" maxspeed="20.85" length="7.85" shape="1498.35,501.45 1498.75,500.09 1499.95,499.12 1501.95,498.54 1504.75,498.35"/>
       </lanes>
    </edge>
 

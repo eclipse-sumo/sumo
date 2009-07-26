@@ -8,9 +8,8 @@ doc:
 dist-hook:
 	abs_distdir="`pwd`/$(distdir)" \
 	&& cd $(srcdir) \
-	&& for f in `find build data tools -name .svn -prune -o -type d -print`; do mkdir $$abs_distdir/$$f; done \
+	&& for f in `find build tools -name .svn -prune -o -type d -print`; do mkdir $$abs_distdir/$$f; done \
 	&& find build -regex ".*\.\(vcproj\|vsprops\|sln\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
-	&& find data -regex ".*\.\(cfg\|xml\|py\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
 	&& find tools -regex ".*\.\(pl\|py\|java\|jar\|bat\)" -print0 | xargs -0 cp --parents --target-directory $$abs_distdir \
 	&& cp tools/traceExporter/.classpath tools/traceExporter/.project tools/traceExporter/manifest.mf $$abs_distdir/tools/traceExporter
 
@@ -33,6 +32,9 @@ dist-tests:
 dist-complete: dist dist-doc dist-tests
 	mv $(PACKAGE)-$(VERSION).tar.gz $(PACKAGE)-src-$(VERSION).tar.gz
 	mv $(PACKAGE)-$(VERSION).zip $(PACKAGE)-src-$(VERSION).zip
+
+examples:
+	tests/extractTest.py -f tests/examples.txt
 
 sumo$(EXEEXT) sumo-netconvert$(EXEEXT) \
         sumo-netgen$(EXEEXT) sumo-duarouter$(EXEEXT) \

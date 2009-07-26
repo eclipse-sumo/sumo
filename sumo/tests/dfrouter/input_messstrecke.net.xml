@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/21/09 10:47:23 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:51 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="./dfrouter\messstrecke.nod.xml"
-        xml-edge-files="./dfrouter\messstrecke.edg.xml"
-        xml-connection-files="./dfrouter\messstrecke.con.xml"
+        xml-node-files="./dfrouter/messstrecke.nod.xml"
+        xml-edge-files="./dfrouter/messstrecke.edg.xml"
+        xml-connection-files="./dfrouter/messstrecke.con.xml"
     />
 
     <output
-        output-file="./dfrouter\input_messstrecke.net.xml"
+        output-file="./dfrouter/input_messstrecke.net.xml"
     />
 
     <processing

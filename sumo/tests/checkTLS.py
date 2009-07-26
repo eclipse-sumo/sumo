@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from xml.sax import saxutils
 from xml.sax import make_parser
 from xml.sax.handler import feature_namespaces

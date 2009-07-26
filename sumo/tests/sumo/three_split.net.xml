@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 08:19:36 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:47 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="sumo\three_split.nod.xml"
-        xml-edge-files="sumo\three_split.edg.xml"
+        xml-node-files="./sumo/three_split.nod.xml"
+        xml-edge-files="./sumo/three_split.edg.xml"
     />
 
     <output
-        output-file="sumo\three_split.net.xml"
+        output-file="./sumo/three_split.net.xml"
     />
 
     <processing

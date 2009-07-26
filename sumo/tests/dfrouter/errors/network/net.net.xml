@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/21/09 10:47:22 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:52 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="./dfrouter\errors\network\two_edge.nod.xml"
-        xml-edge-files="./dfrouter\errors\network\two_edge.edg.xml"
+        xml-node-files="./dfrouter/errors/network/two_edge.nod.xml"
+        xml-edge-files="./dfrouter/errors/network/two_edge.edg.xml"
     />
 
     <output
-        output-file="./dfrouter\errors\network\net.net.xml"
+        output-file="./dfrouter/errors/network/net.net.xml"
     />
 
     <processing

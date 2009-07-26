@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 08:19:37 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:49 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="sumo\basic\routes\parsing\bi.nod.xml"
-        xml-edge-files="sumo\basic\routes\parsing\bi.edg.xml"
+        xml-node-files="./sumo/basic/routes/parsing/bi.nod.xml"
+        xml-edge-files="./sumo/basic/routes/parsing/bi.edg.xml"
     />
 
     <output
-        output-file="sumo\basic\routes\parsing\net.net.xml"
+        output-file="./sumo/basic/routes/parsing/net.net.xml"
     />
 
     <processing

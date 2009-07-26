@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/21/09 10:47:22 by SUMO netconvert Version dev-SVN-r7459
+<!-- generated on Sun Jul 26 12:00:51 2009 by SUMO netconvert Version dev-SVN-r7516
 <configuration>
 
     <input
-        xml-node-files="./dfrouter\flowmax\long_route\long.nod.xml"
-        xml-edge-files="./dfrouter\flowmax\long_route\long.edg.xml"
+        xml-node-files="./dfrouter/flowmax/long_route/long.nod.xml"
+        xml-edge-files="./dfrouter/flowmax/long_route/long.edg.xml"
     />
 
     <output
-        output-file="./dfrouter\flowmax\long_route\input_net.net.xml"
+        output-file="./dfrouter/flowmax/long_route/input_net.net.xml"
     />
 
     <report
@@ -61,7 +61,7 @@
 
    <edge id=":r3_1" function="internal">
       <lanes>
-         <lane id=":r3_1_0" depart="0" maxspeed="13.90" length="5.00" shape="198.55,98.35 199.91,98.54 200.88,99.13 201.46,100.09 201.65,101.45"/>
+         <lane id=":r3_1_0" depart="0" maxspeed="13.90" length="5.00" shape="198.55,98.35 199.91,98.54 200.88,99.12 201.46,100.09 201.65,101.45"/>
       </lanes>
    </edge>
 
