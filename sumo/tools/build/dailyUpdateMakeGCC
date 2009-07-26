@@ -4,7 +4,6 @@ export FILEPREFIX=$2
 export SMTP_SERVER=$3
 REMOTEDIR=$4
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
-RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
 STATUSLOG=$PREFIX/${FILEPREFIX}status.log
 TESTLOG=$PREFIX/${FILEPREFIX}test.log
@@ -51,12 +50,6 @@ if test -e $PREFIX/sumo/bin/sumo -a $PREFIX/sumo/bin/sumo -nt $PREFIX/sumo/confi
   tests/runTests.sh $PREFIX/sumo/bin "texttest.py -b $FILEPREFIX -coll" >> $TESTLOG 2>&1
   find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
   scp -qr $SUMO_REPORT $REMOTEDIR
-
-  # run examples
-  find data/examples -name "*.sumo.cfg" -exec src/sumo -c '{}' -l '{}'.log \; &> /dev/null
-  find data/examples/ -newer $MAKELOG.gz -type f > /tmp/sumo_examples 2> /dev/null
-  tar -czf $RUNLOG -T /tmp/sumo_examples --remove-files &> /dev/null
-  scp -q $RUNLOG $REMOTEDIR
 fi
 
 echo "--" >> $STATUSLOG
