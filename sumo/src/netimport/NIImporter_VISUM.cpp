@@ -483,7 +483,10 @@ NIImporter_VISUM::parse_Connectors() {
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
-            } else {
+                return;
+            }
+            edge = myNetBuilder.getEdgeCont().retrieve(id);
+            if(edge!=0) {
                 myNetBuilder.getDistrictCont().addSource(bez, edge, proz);
             }
         }
@@ -514,7 +517,10 @@ NIImporter_VISUM::parse_Connectors() {
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 MsgHandler::getErrorInstance()->inform("A duplicate edge id occured (ID='" + id + "').");
-            } else {
+                return;
+            }
+            edge = myNetBuilder.getEdgeCont().retrieve(id);
+            if(edge!=0) {
                 myNetBuilder.getDistrictCont().addSink(bez, edge, proz);
             }
         }
