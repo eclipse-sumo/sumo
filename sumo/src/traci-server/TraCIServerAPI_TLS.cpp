@@ -291,7 +291,7 @@ bool
 TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage, 
                                          tcpip::Storage &outputStorage) throw(TraCIException)
 {
-    string warning = "";	// additional description for response
+    string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
