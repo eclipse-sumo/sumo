@@ -50,6 +50,7 @@
 #include <polyconvert/PCLoaderArcView.h>
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
+#include <polyconvert/PCNetProjectionLoader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeoConvHelper.h>
 
@@ -176,80 +177,6 @@ fillOptions() throw() {
 }
 
 
-Boundary
-getNamedNetworkBoundary(const std::string &file, const std::string &name) throw(ProcessError) {
-    LineReader lr(file);
-    if (!lr.good()) {
-        throw ProcessError("Could not open net '" + file + "'.");
-    }
-    while (lr.hasMore()) {
-        string line = lr.readLine();
-        if (line.find("<" + name + ">")!=string::npos) {
-            size_t beg = line.find('>');
-            size_t end = line.find('<', beg);
-            string my = line.substr(beg+1, end-beg-1);
-            return GeomConvHelper::parseBoundary(my);
-        }
-    }
-    throw ProcessError();
-}
-
-
-Boundary
-getNetworkOrigBoundary(const std::string &file) throw(ProcessError) {
-    try {
-        return getNamedNetworkBoundary(file, "orig-boundary");
-    } catch (ProcessError &) {}
-    throw ProcessError("Could not find the original boundary in net.");
-}
-
-
-Boundary
-getNetworkConvBoundary(const std::string &file) throw(ProcessError) {
-    try {
-        return getNamedNetworkBoundary(file, "conv-boundary");
-    } catch (ProcessError &) {}
-    throw ProcessError("Could not find the converted boundary in net.");
-}
-
-
-Position2D
-getNetworkOffset(const std::string &file) throw(ProcessError) {
-    LineReader lr(file);
-    if (!lr.good()) {
-        throw ProcessError("Could not open net '" + file + "'.");
-    }
-    while (lr.hasMore()) {
-        string line = lr.readLine();
-        if (line.find("<net-offset>")!=string::npos) {
-            size_t beg = line.find('>');
-            size_t end = line.find('<', beg);
-            string my = line.substr(beg+1, end-beg-1);
-            return GeomConvHelper::parseShape(my)[0];
-        }
-    }
-    throw ProcessError("Could not find projection description in net.");
-}
-
-
-std::string
-getOrigProj(const std::string &file) throw(ProcessError) {
-    LineReader lr(file);
-    if (!lr.good()) {
-        throw ProcessError("Could not open net '" + file + "'.");
-    }
-    while (lr.hasMore()) {
-        string line = lr.readLine();
-        if (line.find("<orig-proj>")!=string::npos) {
-            size_t beg = line.find('>');
-            size_t end = line.find('<', beg);
-            return line.substr(beg+1, end-beg-1);
-        }
-    }
-    throw ProcessError("Could not find projection description in net.");
-}
-
-
 int
 main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
@@ -271,35 +198,28 @@ main(int argc, char **argv) {
         }
         MsgHandler::initOutputOptions();
         // build the projection
-        Boundary origNetBoundary;
+        Boundary origNetBoundary, prunningBoundary;
         Position2D netOffset;
         string proj;
         if (!oc.getBool("use-projection")) {
             GeoConvHelper::init("!", Position2D());
         } else if (oc.getBool("proj.simple")) {
             GeoConvHelper::init("-", Position2D());
-        } else {
-            if (oc.isSet("net")) {
-                origNetBoundary = getNetworkOrigBoundary(oc.getString("net"));
-                netOffset = getNetworkOffset(oc.getString("net"));
-                proj = getOrigProj(oc.getString("net"));
-            }
-            if (oc.isSet("proj")) {
-                proj = oc.getString("proj");
-            }
-            if (!GeoConvHelper::init(proj, netOffset, oc.getBool("proj.inverse"))) {
-                throw ProcessError("Could not build projection!");
-            }
+        } else if (oc.isSet("proj")) {
+            proj = oc.getString("proj");
+        }
+        PCNetProjectionLoader::loadIfSet(oc, netOffset, origNetBoundary, prunningBoundary, proj);
+        if (!GeoConvHelper::init(proj, netOffset, oc.getBool("proj.inverse"))) {
+            throw ProcessError("Could not build projection!");
         }
 
         // check whether the input shall be prunned
         bool prune = false;
-        Boundary prunningBoundary;
         if (oc.getBool("prune.on-net")) {
             if (!oc.isSet("net")) {
                 throw ProcessError("In order to prune the input on the net, you have to supply a network.");
             }
-            prunningBoundary = getNetworkConvBoundary(oc.getString("net"));
+            //prunningBoundary = getNetworkConvBoundary(oc.getString("net"));
             Boundary offsets = GeomConvHelper::parseBoundary(oc.getString("prune.on-net.offsets"));
             prunningBoundary = Boundary(
                                    prunningBoundary.xmin()+offsets.xmin(),

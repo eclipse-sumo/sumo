@@ -5,6 +5,7 @@ PCLoaderElmar.cpp PCLoaderElmar.h \
 PCLoaderVisum.cpp PCLoaderVisum.h \
 PCLoaderOSM.cpp PCLoaderOSM.h \
 PCLoaderXML.cpp PCLoaderXML.h \
+PCNetProjectionLoader.cpp PCNetProjectionLoader.h \
 PCPolyContainer.cpp PCPolyContainer.h \
 PCTypeDefHandler.cpp PCTypeDefHandler.h \
 PCTypeMap.cpp PCTypeMap.h 
