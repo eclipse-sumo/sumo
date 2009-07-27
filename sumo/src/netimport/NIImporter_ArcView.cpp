@@ -92,8 +92,8 @@ NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // load the arcview files
     NIImporter_ArcView loader(oc,
-                            nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
-                            dbf_file, shp_file, oc.getBool("speed-in-kmh"));
+                              nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
+                              dbf_file, shp_file, oc.getBool("speed-in-kmh"));
     loader.load();
 }
 
@@ -103,12 +103,12 @@ NIImporter_ArcView::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // loader methods
 // ---------------------------------------------------------------------------
 NIImporter_ArcView::NIImporter_ArcView(const OptionsCont &oc,
-                                   NBNodeCont &nc,
-                                   NBEdgeCont &ec,
-                                   NBTypeCont &tc,
-                                   const std::string &dbf_name,
-                                   const std::string &shp_name,
-                                   bool speedInKMH)
+                                       NBNodeCont &nc,
+                                       NBEdgeCont &ec,
+                                       NBTypeCont &tc,
+                                       const std::string &dbf_name,
+                                       const std::string &shp_name,
+                                       bool speedInKMH)
         : myOptions(oc), mySHPName(shp_name),
         myNameAddition(0),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
@@ -161,7 +161,7 @@ NIImporter_ArcView::load() {
             ? poFeature->GetFieldAsString((char*)(myOptions.getString("arcview.street-id").c_str()))
             : poFeature->GetFieldAsString("LINK_ID");
         id = StringUtils::prune(id);
-        if(id=="") {
+        if (id=="") {
             MsgHandler::getErrorInstance()->inform("Could not obtain edge id.");
             return;
         }
@@ -223,12 +223,12 @@ NIImporter_ArcView::load() {
 
         // build from-node
         NBNode *from = myNodeCont.retrieve(from_node);
-        if(from==0) {
+        if (from==0) {
             Position2D from_pos = shape[0];
             from = myNodeCont.retrieve(from_pos);
             if (from==0) {
                 from = new NBNode(from_node, from_pos);
-                if(!myNodeCont.insert(from)) {
+                if (!myNodeCont.insert(from)) {
                     MsgHandler::getErrorInstance()->inform("Node '" + from_node + "' could not been added");
                     delete from;
                     continue;
@@ -237,12 +237,12 @@ NIImporter_ArcView::load() {
         }
         // build to-node
         NBNode *to = myNodeCont.retrieve(to_node);
-        if(to==0) {
+        if (to==0) {
             Position2D to_pos = shape[-1];
             to = myNodeCont.retrieve(to_pos);
             if (to==0) {
                 to = new NBNode(to_node, to_pos);
-                if(!myNodeCont.insert(to)) {
+                if (!myNodeCont.insert(to)) {
                     MsgHandler::getErrorInstance()->inform("Node '" + to_node + "' could not been added");
                     delete to;
                     continue;
@@ -330,7 +330,7 @@ NIImporter_ArcView::getSpeed(OGRFeature &poFeature, const std::string &edgeid) {
 
 unsigned int
 NIImporter_ArcView::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
-                            SUMOReal speed) {
+                              SUMOReal speed) {
     if (myOptions.isSet("arcview.type-id")) {
         return (unsigned int) myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
     }
@@ -380,11 +380,10 @@ NIImporter_ArcView::getPriority(OGRFeature &poFeature, const std::string &/*edge
     return 0;
 }
 
-void 
-NIImporter_ArcView::checkSpread(NBEdge *e)
-{
+void
+NIImporter_ArcView::checkSpread(NBEdge *e) {
     NBEdge *ret = e->getToNode()->getConnectionTo(e->getFromNode());
-    if(ret!=0) {
+    if (ret!=0) {
         e->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
         ret->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
     }

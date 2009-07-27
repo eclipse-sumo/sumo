@@ -86,12 +86,12 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
     // retrieve the position of the node
     bool xOk = false;
     bool yOk = false;
-    if(node!=0) {
+    if (node!=0) {
         myPosition = node->getPosition();
         xOk = yOk = true;
     }
     try {
-        if(attrs.hasAttribute(SUMO_ATTR_X)) {
+        if (attrs.hasAttribute(SUMO_ATTR_X)) {
             myPosition.set(attrs.getFloat(SUMO_ATTR_X), myPosition.y());
             xOk = true;
         }
@@ -103,7 +103,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         return;
     }
     try {
-        if(attrs.hasAttribute(SUMO_ATTR_Y)) {
+        if (attrs.hasAttribute(SUMO_ATTR_Y)) {
             myPosition.set(myPosition.x(), attrs.getFloat(SUMO_ATTR_Y));
             yOk = true;
         }
@@ -114,7 +114,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         MsgHandler::getErrorInstance()->inform("Node position (at node ID='" + myID + "') is not given.");
         return;
     }
-    if(xOk&&yOk) {
+    if (xOk&&yOk) {
         GeoConvHelper::x2cartesian(myPosition);
     } else {
         MsgHandler::getErrorInstance()->inform("Missing position (at node ID='" + myID + "').");
@@ -125,10 +125,10 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
     }
     // get the type
     NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
-    if(node!=0) {
+    if (node!=0) {
         type = node->getType();
     }
-    if(attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+    if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         string typeS = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
         if (typeS=="priority") {
             type = NBNode::NODETYPE_PRIORITY_JUNCTION;
@@ -139,20 +139,20 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         }
     }
     // check whether a prior node shall be modified
-    if(node==0) {
+    if (node==0) {
         node = new NBNode(myID, myPosition, type);
-        if(!myNodeCont.insert(node)) {
+        if (!myNodeCont.insert(node)) {
             throw ProcessError("Could not insert node though checked this before (id='" + myID + "').");
         }
     } else {
-            // remove previously set tls if this node is not controlled by a tls
-            std::set<NBTrafficLightDefinition*> tls = node->getControllingTLS();
-            node->removeTrafficLights();
-            for(set<NBTrafficLightDefinition*>::iterator i=tls.begin(); i!=tls.end(); ++i) {
-                if((*i)->getNodes().size()==0) {
-                    myTLLogicCont.remove((*i)->getID());
-                }
+        // remove previously set tls if this node is not controlled by a tls
+        std::set<NBTrafficLightDefinition*> tls = node->getControllingTLS();
+        node->removeTrafficLights();
+        for (set<NBTrafficLightDefinition*>::iterator i=tls.begin(); i!=tls.end(); ++i) {
+            if ((*i)->getNodes().size()==0) {
+                myTLLogicCont.remove((*i)->getID());
             }
+        }
         // patch information
         node->reinit(myPosition, type);
     }

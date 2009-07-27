@@ -355,7 +355,7 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const throw() {
             NBConnection tst(conn);
             if (tst.check(ec)) {
                 NBEdge *edge = conn.getFrom();
-                if (edge->setControllingTLInformation( conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
+                if (edge->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
                     pos++;
                 }
             } else {
@@ -379,10 +379,10 @@ NBLoadedTLDef::buildPhaseState(const NBEdgeCont &ec, unsigned int time) const th
         bool mayDrive = group->mayDrive(time);
         bool hasYellow = group->hasYellow(time);
         char c = 'r';
-        if(mayDrive) {
+        if (mayDrive) {
             c = 'g';
         }
-        if(hasYellow) {
+        if (hasYellow) {
             c = 'y';
         }
         for (unsigned int j=0; j<linkNo; j++) {
@@ -404,11 +404,11 @@ NBLoadedTLDef::buildPhaseState(const NBEdgeCont &ec, unsigned int time) const th
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
             if (assConn.check(ec)) {
-                if(!mustBrake(ec, assConn, state, pos)) {
-                    if(state[pos]=='g') {
+                if (!mustBrake(ec, assConn, state, pos)) {
+                    if (state[pos]=='g') {
                         state[pos] = 'G';
                     }
-                    if(state[pos]=='y') {
+                    if (state[pos]=='y') {
                         state[pos] = 'Y';
                     }
                 }

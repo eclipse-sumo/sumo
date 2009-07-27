@@ -88,9 +88,8 @@ NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const throw() {
 }
 
 
-bool 
-NBTypeCont::markAsToDiscard(const std::string &id) throw()
-{
+bool
+NBTypeCont::markAsToDiscard(const std::string &id) throw() {
     TypesCont::iterator i = myTypes.find(id);
     if (i==myTypes.end()) {
         return false;
@@ -141,9 +140,8 @@ NBTypeCont::getIsOneWay(const std::string &type) const throw() {
 }
 
 
-bool 
-NBTypeCont::getShallBeDiscarded(const std::string &type) const throw()
-{
+bool
+NBTypeCont::getShallBeDiscarded(const std::string &type) const throw() {
     TypesCont::const_iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
         return false;

@@ -99,7 +99,7 @@ protected:
      * @param[in] useVisumPrio Information whether the VISUM type's priority shall be used
      */
     NIImporter_VISUM(NBNetBuilder &nb, const std::string &file,
-                  NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) throw();
+                     NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) throw();
 
 
     /// @brief destructor

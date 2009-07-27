@@ -78,7 +78,7 @@ protected:
     /// @brief Destructor
     ~NIImporter_RobocupRescue() throw();
 
-    
+
     /** @brief Loads nodes from the given file
      * @param[in] file The file to read nodes from
      */

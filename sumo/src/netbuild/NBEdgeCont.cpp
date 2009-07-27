@@ -214,11 +214,11 @@ NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
             return true;
         }
     }
-    if(myNetBuilder.getTypeCont().knows(edge->getTypeID())&&myNetBuilder.getTypeCont().getShallBeDiscarded(edge->getTypeID())) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            return true;
+    if (myNetBuilder.getTypeCont().knows(edge->getTypeID())&&myNetBuilder.getTypeCont().getShallBeDiscarded(edge->getTypeID())) {
+        edge->getFromNode()->removeOutgoing(edge);
+        edge->getToNode()->removeIncoming(edge);
+        delete edge;
+        return true;
     }
 
     if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
@@ -759,25 +759,24 @@ NBEdgeCont::getGeneratedFrom(const std::string &id) const throw() {
 }
 
 
-void 
-NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw()
-{
+void
+NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw() {
     // step 1: keep only those edges which have no turnarounds
     std::set<NBEdge*> candidates;
     for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         NBEdge *e = (*i).second;
         NBNode * const to = e->getToNode();
-        if(e->getTurnDestination()==0&&to->getConnectionTo(e->getFromNode())==0) {
+        if (e->getTurnDestination()==0&&to->getConnectionTo(e->getFromNode())==0) {
             candidates.insert(e);
         }
     }
-    // step 2: 
+    // step 2:
     std::set<NBEdge*> visited;
     for (std::set<NBEdge*>::const_iterator i=candidates.begin(); i!=candidates.end(); ++i) {
         std::set<NBEdge*> loopEdges;
         // start with a random edge, keep it as "begin"
         NBEdge *begin = (*i);
-        if(find(visited.begin(), visited.end(), begin)!=visited.end()) {
+        if (find(visited.begin(), visited.end(), begin)!=visited.end()) {
             // already seen
             continue;
         }
@@ -787,7 +786,7 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw()
         do {
             visited.insert(e);
             vector<NBEdge*> edges = e->getToNode()->getEdges();
-            if(edges.size()<2) {
+            if (edges.size()<2) {
                 noLoop = true;
                 break;
             }
@@ -796,21 +795,21 @@ NBEdgeCont::guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw()
             NBContHelper::nextCW(&edges, me);
             NBEdge *left = *me;
             loopEdges.insert(left);
-            if(left==begin) {
+            if (left==begin) {
                 break;
             }
-            if(find(candidates.begin(), candidates.end(), left)==candidates.end()) {
+            if (find(candidates.begin(), candidates.end(), left)==candidates.end()) {
                 noLoop = true;
                 break;
             }
-            if(find(visited.begin(), visited.end(), left)!=visited.end()) {
+            if (find(visited.begin(), visited.end(), left)!=visited.end()) {
                 noLoop = true;
                 break;
             }
             e = left;
-        } while(true);
+        } while (true);
         // mark collected edges in the case a loop (roundabout) was found
-        if(!noLoop) {
+        if (!noLoop) {
             for (std::set<NBEdge*>::const_iterator i=loopEdges.begin(); i!=loopEdges.end(); ++i) {
                 (*i)->setJunctionPriority((*i)->getToNode(), 1000);
             }

@@ -69,7 +69,7 @@ public:
     /// @name Insertion/removal/retrieval of nodes
     /// @{
 
-    /** @brief Inserts a node into the map 
+    /** @brief Inserts a node into the map
      * @param[in] id The node's id
      * @param[in] position The node's position
      * @param[in] A district assigned to the node
@@ -79,7 +79,7 @@ public:
                 NBDistrict *district) throw();
 
 
-    /** @brief Inserts a node into the map 
+    /** @brief Inserts a node into the map
      * @param[in] id The node's id
      * @param[in] position The node's position
      * @return Whether the node could be added (no other with the same id or position is stored)
@@ -87,14 +87,14 @@ public:
     bool insert(const std::string &id, const Position2D &position) throw();
 
 
-    /** @brief Inserts a node into the map 
+    /** @brief Inserts a node into the map
      * @param[in] id The node's id
      * @return Whether the node could be added (no other with the same id is stored)
      */
     Position2D insert(const std::string &id) throw();
 
 
-    /** @brief Inserts a node into the map 
+    /** @brief Inserts a node into the map
      * @param[in] node The node to insert
      * @return Whether the node could be added (no other with the same id or position is stored)
      */
@@ -108,14 +108,14 @@ public:
     bool erase(NBNode *node) throw();
 
 
-    /** @brief Returns the node with the given name 
+    /** @brief Returns the node with the given name
      * @param[in] id The id of the node to retrieve
      * @return The node with the given id, or 0 if no such node exists
      */
     NBNode *retrieve(const std::string &id) throw();
 
 
-    /** @brief Returns the node with the given coordinates 
+    /** @brief Returns the node with the given coordinates
      * @param[in] position The position at which the node to retrieve lies
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists

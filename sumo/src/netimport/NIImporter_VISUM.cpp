@@ -64,8 +64,8 @@ NIImporter_VISUM::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     // build the handler
     NIImporter_VISUM loader(nb, oc.getString("visum"),
-                         NBCapacity2Lanes(oc.getFloat("capacity-norm")),
-                         oc.getBool("visum.use-type-priority"));
+                            NBCapacity2Lanes(oc.getFloat("capacity-norm")),
+                            oc.getBool("visum.use-type-priority"));
     loader.load();
 }
 
@@ -75,9 +75,9 @@ NIImporter_VISUM::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // loader methods
 // ---------------------------------------------------------------------------
 NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder &nb,
-                             const std::string &file,
-                             NBCapacity2Lanes capacity2Lanes,
-                             bool useVisumPrio) throw()
+                                   const std::string &file,
+                                   NBCapacity2Lanes capacity2Lanes,
+                                   bool useVisumPrio) throw()
         : myNetBuilder(nb), myFileName(file),
         myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio) {
     // the order of process is important!
@@ -486,7 +486,7 @@ NIImporter_VISUM::parse_Connectors() {
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);
-            if(edge!=0) {
+            if (edge!=0) {
                 myNetBuilder.getDistrictCont().addSource(bez, edge, proz);
             }
         }
@@ -520,7 +520,7 @@ NIImporter_VISUM::parse_Connectors() {
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);
-            if(edge!=0) {
+            if (edge!=0) {
                 myNetBuilder.getDistrictCont().addSink(bez, edge, proz);
             }
         }
@@ -1172,7 +1172,7 @@ NIImporter_VISUM::getNamedEdgeContinuating(const std::string &fieldName, NBNode 
 
 NBEdge *
 NIImporter_VISUM::getNamedEdgeContinuating(const std::string &fieldName1, const std::string &fieldName2,
-                                        NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+        NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     if (myLineParser.know(fieldName1)) {
         return getNamedEdgeContinuating(fieldName1, node);
     } else {
@@ -1224,7 +1224,7 @@ NIImporter_VISUM::getNamedFloat(const std::string &fieldName1, const std::string
 
 SUMOReal
 NIImporter_VISUM::getNamedFloat(const std::string &fieldName1, const std::string &fieldName2,
-                             SUMOReal defaultValue) throw() {
+                                SUMOReal defaultValue) throw() {
     if (myLineParser.know(fieldName1)) {
         return getNamedFloat(fieldName1, defaultValue);
     } else {
@@ -1241,7 +1241,7 @@ NIImporter_VISUM::getNamedString(const std::string &fieldName) throw(OutOfBounds
 
 std::string
 NIImporter_VISUM::getNamedString(const std::string &fieldName1,
-                              const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
+                                 const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement) {
     if (myLineParser.know(fieldName1)) {
         return getNamedString(fieldName1);
     } else {
@@ -1256,7 +1256,7 @@ NIImporter_VISUM::getNamedString(const std::string &fieldName1,
 
 NBNode *
 NIImporter_VISUM::buildDistrictNode(const std::string &id, NBNode *dest,
-                                 bool isSource) throw() {
+                                    bool isSource) throw() {
     // get the district
     NBDistrict *dist = myNetBuilder.getDistrictCont().retrieve(id);
     if (dist==0) {

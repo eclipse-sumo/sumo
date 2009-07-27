@@ -192,16 +192,15 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
 }
 
 
-void 
+void
 NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
                SUMOReal speed, unsigned int nolanes, int priority,
                Position2DVector geom, bool tryIgnoreNodePositions,
-               LaneSpreadFunction spread) throw(ProcessError)
-{
-    if(myFrom!=from) {
+               LaneSpreadFunction spread) throw(ProcessError) {
+    if (myFrom!=from) {
         myFrom->removeOutgoing(this);
     }
-    if(myTo!=to) {
+    if (myTo!=to) {
         myTo->removeIncoming(this);
     }
     myType = StringUtils::convertUmlaute(type);
@@ -233,7 +232,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
     //  and in dome cases, the node positions must be added
     myGeom.removeDoublePoints();
     if (!tryIgnoreNodePositions||myGeom.size()<2) {
-        if(myGeom.size()==0) {
+        if (myGeom.size()==0) {
             myGeom.push_back(myTo->getPosition());
             myGeom.push_front(myFrom->getPosition());
         } else {
@@ -241,7 +240,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
             v = myGeom;
             v.push_back_noDoublePos(myTo->getPosition());
             v.push_front_noDoublePos(myFrom->getPosition());
-            if(v.size()<2) {
+            if (v.size()<2) {
                 myGeom.push_back(myTo->getPosition());
                 myGeom.push_front(myFrom->getPosition());
             } else {
@@ -723,7 +722,7 @@ NBEdge::writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) co
     if (myLoadedLength>0) {
         length = myLoadedLength;
     }
-    if(length<=0) {
+    if (length<=0) {
         length = (SUMOReal) .1;
     }
     into << " maxspeed=\"" << lane.speed << "\" length=\"" << length << "\"";
@@ -769,14 +768,14 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
         if (i==0) {
             Position2D from = myGeom[i];
             Position2D to = myGeom[i+1];
-            pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, SUMO_const_laneWidthAndOffset, (unsigned int) (myLanes.size()-1-lane));
+            pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, SUMO_const_laneWidthAndOffset, (unsigned int)(myLanes.size()-1-lane));
             shape.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(from.x()-offsets.first, from.y()-offsets.second));
         } else if (i==myGeom.size()-1) {
             Position2D from = myGeom[i-1];
             Position2D to = myGeom[i];
-            pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, SUMO_const_laneWidthAndOffset, (unsigned int) (myLanes.size()-1-lane));
+            pair<SUMOReal, SUMOReal> offsets = laneOffset(from, to, SUMO_const_laneWidthAndOffset, (unsigned int)(myLanes.size()-1-lane));
             shape.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(to.x()-offsets.first, to.y()-offsets.second));
@@ -784,8 +783,8 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
             Position2D from = myGeom[i-1];
             Position2D me = myGeom[i];
             Position2D to = myGeom[i+1];
-            pair<SUMOReal, SUMOReal> offsets = laneOffset(from, me, SUMO_const_laneWidthAndOffset, (unsigned int) (myLanes.size()-1-lane));
-            pair<SUMOReal, SUMOReal> offsets2 = laneOffset(me, to, SUMO_const_laneWidthAndOffset, (unsigned int) (myLanes.size()-1-lane));
+            pair<SUMOReal, SUMOReal> offsets = laneOffset(from, me, SUMO_const_laneWidthAndOffset, (unsigned int)(myLanes.size()-1-lane));
+            pair<SUMOReal, SUMOReal> offsets2 = laneOffset(me, to, SUMO_const_laneWidthAndOffset, (unsigned int)(myLanes.size()-1-lane));
             Line2D l1(
                 Position2D(from.x()-offsets.first, from.y()-offsets.second),
                 Position2D(me.x()-offsets.first, me.y()-offsets.second));
@@ -1279,7 +1278,7 @@ NBEdge::appendTurnaround(bool noTLSControlled) throw() {
     if (noTLSControlled&&myTo->isTLControlled()) {
         return;
     }
-    setConnection((unsigned int) (myLanes.size()-1), myTurnDestination, myTurnDestination->getNoLanes()-1, L2L_VALIDATED);
+    setConnection((unsigned int)(myLanes.size()-1), myTurnDestination, myTurnDestination->getNoLanes()-1, L2L_VALIDATED);
 }
 
 

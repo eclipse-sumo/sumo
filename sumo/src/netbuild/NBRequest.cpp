@@ -328,7 +328,7 @@ NBRequest::bitsetToXML(string key) {
     size_t absNoLanes = sizes.first;
     assert(absNoLinks>=absNoLanes);
     os << "   <row-logic id=\"" << key << "\" requestSize=\"" << absNoLinks
-        << "\" laneNumber=\"" << absNoLanes << "\">" << endl;
+    << "\" laneNumber=\"" << absNoLanes << "\">" << endl;
     int pos = 0;
     // save the logic
     os << "      <logic>" << endl;
@@ -578,7 +578,7 @@ NBRequest::getIndex(const NBEdge * const from, const NBEdge * const to) const th
         return -1;
     }
     // compute the index
-    return (int) (distance(myIncoming->begin(), fp) * myOutgoing->size() + distance(myOutgoing->begin(), tp));
+    return (int)(distance(myIncoming->begin(), fp) * myOutgoing->size() + distance(myOutgoing->begin(), tp));
 }
 
 
@@ -625,7 +625,7 @@ NBRequest::mustBrake(const NBEdge * const from, const NBEdge * const to) const t
 
 
 bool
-NBRequest::mustBrake(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo, 
+NBRequest::mustBrake(const NBEdge * const possProhibitorFrom, const NBEdge * const possProhibitorTo,
                      const NBEdge * const possProhibitedFrom, const NBEdge * const possProhibitedTo) const throw() {
     // get the indices
     int idx1 = getIndex(possProhibitorFrom, possProhibitorTo);

@@ -68,7 +68,7 @@ NIImporter_TIGER::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         return;
     }
     NIImporter_TIGER l(nb.getEdgeCont(), nb.getNodeCont(),
-                    oc.getString("tiger"), !oc.getBool("add-node-positions"));
+                       oc.getString("tiger"), !oc.getBool("add-node-positions"));
     l.load();
 }
 
@@ -78,8 +78,8 @@ NIImporter_TIGER::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 // loader methods
 // ---------------------------------------------------------------------------
 NIImporter_TIGER::NIImporter_TIGER(NBEdgeCont &ec, NBNodeCont &nc,
-                             const std::string &file,
-                             bool tryIgnoreNodePositions) throw()
+                                   const std::string &file,
+                                   bool tryIgnoreNodePositions) throw()
         : myFileName(file),
         myEdgeCont(ec), myNodeCont(nc),
         myTryIgnoreNodePositions(tryIgnoreNodePositions), myRunningNodeIndex(0) {}

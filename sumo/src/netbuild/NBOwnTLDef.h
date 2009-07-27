@@ -113,7 +113,7 @@ protected:
      * @see NBTrafficLightDefinition::myCompute
      */
     NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
-                                         unsigned int brakingTime) throw();
+                                   unsigned int brakingTime) throw();
 
 
     /** @brief Collects the nodes participating in this traffic light
@@ -174,7 +174,7 @@ protected:
 
     /** @brief Returns the combination of two edges from the given which has most unblocked streams
      *
-     * The chosen edges are removed from the given vector 
+     * The chosen edges are removed from the given vector
      *
      * @param[in, changed] incoming The list of edges which are participating in the logic
      * @return The two edges for which the weighted number of unblocked streams is the highest

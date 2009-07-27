@@ -73,8 +73,8 @@ protected:
      * @param[in] tryIgnoreNodePositions Whether node positions shall not be added to the geometry
      */
     NIImporter_TIGER(NBEdgeCont &ec, NBNodeCont &nc,
-                  const std::string &file,
-                  bool tryIgnoreNodePositions) throw();
+                     const std::string &file,
+                     bool tryIgnoreNodePositions) throw();
 
 
     /// @brief Destructor

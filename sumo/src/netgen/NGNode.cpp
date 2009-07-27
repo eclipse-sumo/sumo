@@ -92,14 +92,14 @@ NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError) {
     //
     // check whether it is a traffic light junction
     string nodeType = OptionsCont::getOptions().isSet("default-junction-type")
-        ? OptionsCont::getOptions().getString("default-junction-type")
-        : "";
+                      ? OptionsCont::getOptions().getString("default-junction-type")
+                      : "";
     NBNode *node = 0;
-    if(nodeType=="") {
+    if (nodeType=="") {
         node = new NBNode(myID, pos);
-    } else if(nodeType=="priority") {
+    } else if (nodeType=="priority") {
         node = new NBNode(myID, pos, NBNode::NODETYPE_PRIORITY_JUNCTION);
-    } else if(nodeType=="right_before_left") {
+    } else if (nodeType=="right_before_left") {
         node = new NBNode(myID, pos, NBNode::NODETYPE_RIGHT_BEFORE_LEFT);
     } else if (nodeType=="traffic_light") {
         node = new NBNode(myID, pos, NBNode::NODETYPE_PRIORITY_JUNCTION);

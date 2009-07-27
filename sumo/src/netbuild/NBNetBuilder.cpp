@@ -250,7 +250,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
     WRITE_MESSAGE("Summary:");
-    if(!gSuppressMessages) { 
+    if (!gSuppressMessages) {
         myNodeCont.printBuiltNodesStatistics();
     }
     WRITE_MESSAGE(" Network boundaries:");
@@ -277,7 +277,7 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     device << "\n";
     // write network offsets
     device << "   <location netOffset=\"" << GeoConvHelper::getOffset() << "\""
-        << " convBoundary=\"" << GeoConvHelper::getConvBoundary() << "\"";
+    << " convBoundary=\"" << GeoConvHelper::getConvBoundary() << "\"";
     if (oc.getBool("use-projection")) {
         device.setPrecision(6);
         device << " origBoundary=\"" << GeoConvHelper::getOrigBoundary() << "\"";
@@ -318,26 +318,26 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
         myNodeCont.writeXMLInternalSuccInfos(device);
     }
     // write roundabout information
-    for(std::vector<std::set<NBEdge*> >::iterator i=myRoundabouts.begin(); i!=myRoundabouts.end(); ++i) {
+    for (std::vector<std::set<NBEdge*> >::iterator i=myRoundabouts.begin(); i!=myRoundabouts.end(); ++i) {
         std::vector<NBNode*> nodes;
-        for(set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+        for (set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j) {
             NBNode *n = (*j)->getToNode();
-            if(find(nodes.begin(), nodes.end(), n)==nodes.end()) {
+            if (find(nodes.begin(), nodes.end(), n)==nodes.end()) {
                 nodes.push_back(n);
             }
         }
         sort(nodes.begin(), nodes.end(), by_id_sorter());
         device << "   <roundabout nodes=\"";
         int k = 0;
-        for(vector<NBNode*>::iterator j=nodes.begin(); j!=nodes.end(); ++j, ++k) {
-            if(k!=0) {
+        for (vector<NBNode*>::iterator j=nodes.begin(); j!=nodes.end(); ++j, ++k) {
+            if (k!=0) {
                 device << ' ';
             }
             device << (*j)->getID();
         }
         device << "\"/>\n";
     }
-    if(myRoundabouts.size()!=0) {
+    if (myRoundabouts.size()!=0) {
         device << "\n";
     }
     device.close();
@@ -536,7 +536,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
     oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal)(100/3.6)));  // !!! not described
     oc.addDescription("obscure-ramps.min-highway-speed", "Ramp Guessing", "");
 
-    
+
 }
 
 /****************************************************************************/

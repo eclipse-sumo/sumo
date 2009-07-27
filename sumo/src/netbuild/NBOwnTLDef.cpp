@@ -76,9 +76,8 @@ NBOwnTLDef::getToPrio(const NBEdge * const e) throw() {
 
 
 SUMOReal
-NBOwnTLDef::getDirectionalWeight(NBMMLDirection dir) throw()
-{
-    switch(dir) {
+NBOwnTLDef::getDirectionalWeight(NBMMLDirection dir) throw() {
+    switch (dir) {
     case MMLDIR_STRAIGHT:
     case MMLDIR_PARTLEFT:
     case MMLDIR_PARTRIGHT:
@@ -101,11 +100,11 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge * const e1, const 
         for (unsigned int e2l=0; e2l<e2->getNoLanes(); e2l++) {
             vector<NBEdge::Connection> approached2 = e2->getConnectionsFromLane(e2l);
             for (vector<NBEdge::Connection>::iterator e1c=approached1.begin(); e1c!=approached1.end(); ++e1c) {
-                if(e1->getTurnDestination()==(*e1c).toEdge) {
+                if (e1->getTurnDestination()==(*e1c).toEdge) {
                     continue;
                 }
                 for (vector<NBEdge::Connection>::iterator e2c=approached2.begin(); e2c!=approached2.end(); ++e2c) {
-                    if(e2->getTurnDestination()==(*e2c).toEdge) {
+                    if (e2->getTurnDestination()==(*e2c).toEdge) {
                         continue;
                     }
                     if (!foes(e1, (*e1c).toEdge, e2, (*e2c).toEdge)) {
@@ -130,10 +129,10 @@ NBOwnTLDef::getBestCombination(const vector<NBEdge*> &edges) throw() {
             if (value>bestValue) {
                 bestValue = value;
                 bestPair = pair<NBEdge*, NBEdge*>(*i, *j);
-            } else if(value==bestValue) {
+            } else if (value==bestValue) {
                 SUMOReal ca = GeomHelper::getMinAngleDiff((*i)->getAngle(*(*i)->getToNode()), (*j)->getAngle(*(*j)->getToNode()));
                 SUMOReal oa = GeomHelper::getMinAngleDiff(bestPair.first->getAngle(*bestPair.first->getToNode()), bestPair.second->getAngle(*bestPair.second->getToNode()));
-                if(oa<ca) {
+                if (oa<ca) {
                     bestPair = pair<NBEdge*, NBEdge*>(*i, *j);
                 }
             }
@@ -216,7 +215,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     // build all phases
     while (toProc.size()>0) {
         pair<NBEdge*, NBEdge*> chosen;
-        if(incoming.size()==2) {
+        if (incoming.size()==2) {
             chosen = pair<NBEdge*, NBEdge*>(toProc[0], 0);
             toProc.erase(toProc.begin());
         } else {

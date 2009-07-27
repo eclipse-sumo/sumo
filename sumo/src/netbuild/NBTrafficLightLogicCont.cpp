@@ -101,14 +101,14 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw() 
     unsigned int no = 0;
     for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         string id = (*i).first;
-        if(myComputed.find(id)!=myComputed.end()) {
+        if (myComputed.find(id)!=myComputed.end()) {
             WRITE_WARNING("Traffic light '" + id + "' was already built.");
             continue;
         }
         // build program
         NBTrafficLightDefinition *def = (*i).second;
         NBTrafficLightLogic *built = def->compute(ec, oc);
-        if(built==0) {
+        if (built==0) {
             WRITE_WARNING("Could not build traffic lights '" + id + "'");
             continue;
         }

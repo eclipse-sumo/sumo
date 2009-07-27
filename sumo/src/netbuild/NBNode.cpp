@@ -129,7 +129,7 @@ NBNode::ApproachingDivider::spread(const vector<int> &approachingLanes,
     //  is assigned more to the left or right lane
     if (noLanes==1) {
         if ((int)(dest+0.5)>dest) {
-            ret->push_back((int) (dest+1));
+            ret->push_back((int)(dest+1));
         } else {
             ret->push_back((int) dest);
         }
@@ -230,13 +230,12 @@ NBNode::~NBNode() throw() {
 }
 
 
-void 
-NBNode::reinit(const Position2D &position, BasicNodeType type) throw()
-{
+void
+NBNode::reinit(const Position2D &position, BasicNodeType type) throw() {
     myPosition = position;
     // patch type
     myType = type;
-    if(myType!=NODETYPE_TRAFFIC_LIGHT) {
+    if (myType!=NODETYPE_TRAFFIC_LIGHT) {
         removeTrafficLights();
     }
 }
@@ -581,7 +580,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
 
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).toEdge, (*k).toLane);
-                if(shape.size()==1) {
+                if (shape.size()==1) {
                     shape.push_back(shape[0]);
                 }
                 SUMOReal length = MAX2(shape.length(), (SUMOReal) .1);
@@ -593,15 +592,15 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                     // as usual, a problem...
                     //  if the one edge starts exactly where the other one ends (think of a
                     //  turnaround edges lying over the other one) we have a shape with length=0
-                    if(shape.length()!=0) {
+                    if (shape.length()!=0) {
                         split = shape.splitAt(cross.first);
                     } else {
                         split = std::pair<Position2DVector, Position2DVector>(shape, shape);
                     }
-                    if(split.first.size()==1) {
+                    if (split.first.size()==1) {
                         split.first.push_back(split.first[0]);
                     }
-                    if(split.second.size()==1) {
+                    if (split.second.size()==1) {
                         split.second.push_back(split.second[0]);
                     }
 
@@ -721,7 +720,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                 Line2D begL = fromE->getLaneShape(fromL).getEndLine();
                 Line2D endL = toE->getLaneShape(toL).getBegLine();
                 bool check = !begL.p1().almostSame(begL.p2()) && !endL.p1().almostSame(endL.p2());
-                if(check) {
+                if (check) {
                     begL.extrapolateSecondBy(100);
                     endL.extrapolateFirstBy(100);
                 } else {
@@ -1159,7 +1158,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc) {
     if (myAllEdges.size()>1 && i!=myAllEdges.end()) {
         swapWhenReversed(myAllEdges.end()-1, myAllEdges.begin());
     }
-    if(myType==NODETYPE_UNKNOWN) {
+    if (myType==NODETYPE_UNKNOWN) {
         myType = computeType(tc);
     }
     setPriorities();
@@ -1744,7 +1743,7 @@ NBNode::forbids(const NBEdge * const possProhibitorFrom, const NBEdge * const po
 
 
 bool
-NBNode::foes(const NBEdge * const from1, const NBEdge * const to1, 
+NBNode::foes(const NBEdge * const from1, const NBEdge * const to1,
              const NBEdge * const from2, const NBEdge * const to2) const throw() {
     return myRequest!=0&&myRequest->foes(from1, to1, from2, to2);
 }

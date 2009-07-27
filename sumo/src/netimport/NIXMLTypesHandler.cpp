@@ -105,7 +105,7 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     if (!myTypeCont.insert(id, noLanes, speed, priority)) {
         MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
     } else {
-        if(discard) {
+        if (discard) {
             myTypeCont.markAsToDiscard(id);
         }
     }

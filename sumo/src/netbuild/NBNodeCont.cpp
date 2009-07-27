@@ -100,7 +100,7 @@ NBNodeCont::insert(const string &id, const Position2D &position) throw() {
 
 
 Position2D
-NBNodeCont::insert(const string &id) throw() { 
+NBNodeCont::insert(const string &id) throw() {
     pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
@@ -245,7 +245,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
                 throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
             }
             std::set<NBTrafficLightDefinition*> tls = n->getControllingTLS();
-            for(std::set<NBTrafficLightDefinition*>::const_iterator j=tls.begin(); j!=tls.end(); ++j) {
+            for (std::set<NBTrafficLightDefinition*>::const_iterator j=tls.begin(); j!=tls.end(); ++j) {
                 (*j)->removeNode(n);
             }
             n->removeTrafficLights();
@@ -1117,15 +1117,14 @@ NBNodeCont::writeTLSasPOIs(OutputDevice &device) throw(IOError) {
 }
 
 
-void 
-NBNodeCont::printBuiltNodesStatistics() const throw()
-{
+void
+NBNodeCont::printBuiltNodesStatistics() const throw() {
     int noDistricts = 0;
     int noUnregulatedJunctions = 0;
     int noPriorityJunctions = 0;
     int noRightBeforeLeftJunctions = 0;
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        switch((*i).second->getType()) {
+        switch ((*i).second->getType()) {
         case NBNode::NODETYPE_NOJUNCTION:
             ++noUnregulatedJunctions;
             break;

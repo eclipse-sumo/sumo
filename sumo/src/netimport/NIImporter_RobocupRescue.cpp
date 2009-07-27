@@ -131,7 +131,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         dev >> numEdges;
 
         vector<int> edges;
-        for (int j=0;j<numEdges;++j) {
+        for (int j=0; j<numEdges; ++j) {
             unsigned int edge;
             dev >> edge;
             edges.push_back(edge);
@@ -141,14 +141,14 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         dev >> signal;
 
         vector<int> turns;
-        for (int j=0;j<numEdges;++j) {
+        for (int j=0; j<numEdges; ++j) {
             unsigned int turn;
             dev >> turn;
             turns.push_back(turn);
         }
 
         vector<pair<int, int> > conns;
-        for (int j=0;j<numEdges;++j) {
+        for (int j=0; j<numEdges; ++j) {
             unsigned int connF, connT;
             dev >> connF;
             dev >> connT;
@@ -156,7 +156,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file) {
         }
 
         vector<vector<int> > times;
-        for (int j=0;j<numEdges;++j) {
+        for (int j=0; j<numEdges; ++j) {
             unsigned int t1, t2, t3;
             dev >> t1;
             dev >> t2;
@@ -191,11 +191,11 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file) {
     do {
         cout << "  left " << (noEdges) << endl;
         unsigned int entrySize, id, begNode, endNode, length, roadKind, carsToHead,
-            carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
-            linesToHead, linesToTail, widthForWalkers;
-        dev >> entrySize >> id >> begNode >> endNode >> length >> roadKind >> carsToHead 
-            >> carsToTail >> humansToHead >> humansToTail >> width >> block >> repairCost
-            >> median >> linesToHead >> linesToTail >> widthForWalkers;
+        carsToTail, humansToHead, humansToTail, width, block, repairCost, median,
+        linesToHead, linesToTail, widthForWalkers;
+        dev >> entrySize >> id >> begNode >> endNode >> length >> roadKind >> carsToHead
+        >> carsToTail >> humansToHead >> humansToTail >> width >> block >> repairCost
+        >> median >> linesToHead >> linesToTail >> widthForWalkers;
         NBNode *fromNode = myNodeCont.retrieve(toString(begNode));
         NBNode *toNode = myNodeCont.retrieve(toString(endNode));
         SUMOReal speed = (SUMOReal)(50. / 3.6);

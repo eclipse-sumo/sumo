@@ -220,15 +220,15 @@ NGNet::toNB() const throw(ProcessError) {
     }
     // now, let's append the reverse directions...
     SUMOReal bidiProb = OptionsCont::getOptions().getFloat("rand-bidi-probability");
-    for(std::vector<NBNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
+    for (std::vector<NBNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
         NBNode *node = *i;
         EdgeVector incoming = node->getIncomingEdges();
-        for(EdgeVector::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
-            if(node->getConnectionTo((*j)->getFromNode())==0 && RandHelper::rand()<=bidiProb) {
+        for (EdgeVector::const_iterator j=incoming.begin(); j!=incoming.end(); ++j) {
+            if (node->getConnectionTo((*j)->getFromNode())==0 && RandHelper::rand()<=bidiProb) {
                 NBEdge *back = new NBEdge("-" + (*j)->getID(), node, (*j)->getFromNode(),
-                    "netgen-default", myNetBuilder.getTypeCont().getDefaultSpeed(),
-                    myNetBuilder.getTypeCont().getDefaultNoLanes(),
-                    myNetBuilder.getTypeCont().getDefaultPriority());
+                                          "netgen-default", myNetBuilder.getTypeCont().getDefaultSpeed(),
+                                          myNetBuilder.getTypeCont().getDefaultNoLanes(),
+                                          myNetBuilder.getTypeCont().getDefaultPriority());
                 myNetBuilder.getEdgeCont().insert(back);
             }
         }

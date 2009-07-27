@@ -364,8 +364,8 @@ public:
      * @param[in] to2 The ending edge of the second stream
      * @return Whether both stream are foes (cross)
      */
-    bool foes(const NBEdge * const from1, const NBEdge * const to1, 
-        const NBEdge * const from2, const NBEdge * const to2) const throw();
+    bool foes(const NBEdge * const from1, const NBEdge * const to1,
+              const NBEdge * const from2, const NBEdge * const to2) const throw();
 
 
     /** @brief Returns the MML-representation of the described stream's direction

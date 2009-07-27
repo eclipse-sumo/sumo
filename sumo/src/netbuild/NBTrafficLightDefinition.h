@@ -270,7 +270,7 @@ protected:
      * @return The computed logic
      */
     virtual NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
-            unsigned int brakingTime) throw() = 0;
+                                           unsigned int brakingTime) throw() = 0;
 
 
     /** @brief Returns a pair of <number participating lanes, number participating links>

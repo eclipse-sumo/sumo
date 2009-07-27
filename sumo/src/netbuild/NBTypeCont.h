@@ -43,7 +43,7 @@
  * @class NBTypeCont
  * @brief A storage for available types of edges
  *
- * NBTypeCont stores properties of edge-types of edges. Additionally, a default 
+ * NBTypeCont stores properties of edge-types of edges. Additionally, a default
  *  type is stored which is used if no type information is given.
  *
  * This structure also contains a structure for determining node types using edge
@@ -68,7 +68,7 @@ public:
                      SUMOReal defaultSpeed, int defaultPriority) throw();
 
 
-    /** @brief Adds a type into the list 
+    /** @brief Adds a type into the list
      * @param[in] id The id of the type
      * @param[in] noLanes The number of lanes an edge of this type has
      * @param[in] maxSpeed The speed allowed on an edge of this type
@@ -112,7 +112,7 @@ public:
     /// @{
 
     /** @brief Returns the number of lanes for the given type
-     * 
+     *
      * If the named type is not known, the default is returned
      * @param[in] type The name of the type to return the lane number for
      * @return The number of lanes an edge of this type has
@@ -147,9 +147,9 @@ public:
      */
     bool getIsOneWay(const std::string &type) const throw();
 
-    
+
     /** @brief Returns the information whether edges of this type shall be discarded.
-     * 
+     *
      * Returns false if the type is not known.
      * @return Whether edges of this type shall be discarded.
      */
@@ -196,7 +196,7 @@ public:
 
 
     /** @brief Returns the default priority of an edge
-     * @return The default priority of an edge 
+     * @return The default priority of an edge
      */
     int getDefaultPriority() throw() {
         return myDefaultType.priority;

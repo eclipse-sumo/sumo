@@ -246,7 +246,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane = new LaneAttrs;
     myCurrentLane->depart = attrs.getBoolSecure(SUMO_ATTR_DEPART, false);
     myCurrentLane->maxSpeed = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, -1);
-    if(attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
         myCurrentLane->shape = GeomConvHelper::parseShape(attrs.getString(SUMO_ATTR_SHAPE));
     }

@@ -82,7 +82,7 @@ public:
     void writeXML(OutputDevice &into) const throw();
 
 
-    /** @brief closes the building process 
+    /** @brief closes the building process
      *
      * Joins equal steps.
      */

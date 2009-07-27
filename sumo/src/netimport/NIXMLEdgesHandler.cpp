@@ -71,7 +71,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0), 
+        myCurrentEdge(0),
         myHaveReportedAboutExpansionCharactersDeprecation(false),
         myHaveReportedAboutFunctionDeprecation(false) {}
 
@@ -103,9 +103,9 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         myCurrentPriority = myTypeCont.getDefaultPriority();
         myCurrentLaneNo = myTypeCont.getDefaultNoLanes();
         // use values from the edge to overwrite if existing, then
-        if(myCurrentEdge!=0) {
+        if (myCurrentEdge!=0) {
             myIsUpdate = true;
-            if(!myHaveReportedAboutOverwriting) {
+            if (!myHaveReportedAboutOverwriting) {
                 MsgHandler::getMessageInstance()->inform("Duplicate edge id occured ('" + myCurrentID + "'); assuming overwriting is wished.");
                 myHaveReportedAboutOverwriting = true;
             }
@@ -171,19 +171,19 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // check whether a previously defined edge shall be overwritten
-        if(myCurrentEdge!=0) {
+        if (myCurrentEdge!=0) {
             myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
-                    myLanesSpread);
+                                  myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
+                                  myLanesSpread);
         } else {
             // the edge must be allocated in dependence to whether a shape is given
             if (myShape.size()==0) {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myCurrentPriority, myLanesSpread);
+                                           myCurrentLaneNo, myCurrentPriority, myLanesSpread);
             } else {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
-                    myLanesSpread);
+                                           myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
+                                           myLanesSpread);
             }
             myCurrentEdge->setLoadedLength(myLength);
         }
@@ -272,7 +272,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                 e.pos = myCurrentEdge->getGeometry().length() + e.pos;
             }
             myExpansions.push_back(e);
-            if(attrs.hasAttribute(SUMO_ATTR_LANES)) {
+            if (attrs.hasAttribute(SUMO_ATTR_LANES)) {
                 parseExpansionLanes(attrs.getString(SUMO_ATTR_LANES));
             }
         }
@@ -368,7 +368,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     // try to build shape
     try {
         string shpdef = attrs.getStringSecure(SUMO_ATTR_SHAPE, "");
-        if(shpdef=="") {
+        if (shpdef=="") {
             return Position2DVector();
         }
         Position2DVector shape1 = GeomConvHelper::parseShape(shpdef);
@@ -392,7 +392,7 @@ void
 NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
                                 const std::string &chars) throw(ProcessError) {
     if (element==SUMO_TAG_EXPANSION&&chars.length()!=0) {
-        if(!myHaveReportedAboutExpansionCharactersDeprecation) {
+        if (!myHaveReportedAboutExpansionCharactersDeprecation) {
             myHaveReportedAboutExpansionCharactersDeprecation = true;
             MsgHandler::getWarningInstance()->inform("Defining edge expansion lanes in characters is deprecated; use attribute 'lanes' instead.");
         }
@@ -425,7 +425,7 @@ NIXMLEdgesHandler::parseExpansionLanes(const std::string &val) throw(ProcessErro
 void
 NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_EDGE && myCurrentEdge!=0) {
-        if(!myIsUpdate) {
+        if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {
                     MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
@@ -493,7 +493,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         }
                         // add to the left?
                         if (off+exp.lanes.size()<ne->getNoLanes()) {
-                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, (unsigned int) (off+exp.lanes.size()), NBEdge::L2L_VALIDATED, false);
+                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, (unsigned int)(off+exp.lanes.size()), NBEdge::L2L_VALIDATED, false);
                         }
                         // move to next
                         e = pe;

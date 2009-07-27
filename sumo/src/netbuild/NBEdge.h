@@ -217,9 +217,9 @@ public:
      * @param[in] type The type of the node
      */
     void reinit(NBNode *from, NBNode *to, std::string type,
-           SUMOReal speed, unsigned int nolanes, int priority,
-           Position2DVector geom, bool tryIgnoreNodePositions,
-           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+                SUMOReal speed, unsigned int nolanes, int priority,
+                Position2DVector geom, bool tryIgnoreNodePositions,
+                LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
 
@@ -591,7 +591,7 @@ public:
     std::vector<int> getConnectionLanes(NBEdge *currentOutgoing) const;
 
 
-    /** @brief Returns whether the given edge is the opposite direction to this edge 
+    /** @brief Returns whether the given edge is the opposite direction to this edge
      * @param[in] n The node at which this may be turnaround direction
      * @param[in] edge The edge which may be the turnaround direction
      * @return Whether the given edge is this edge's turnaround direction

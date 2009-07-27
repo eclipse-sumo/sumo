@@ -132,7 +132,7 @@ public:
          * @param[in] by The replacements
          */
         void remapOutgoing(NBEdge *which, const EdgeVector &by) throw(ProcessError);
-        
+
         /** @brief Returns the connection at the given index
          * @param[in] pos The position within this signal
          * @return The connection at the given index
@@ -235,7 +235,7 @@ public:
     SignalGroup *findGroup(NBEdge *from, NBEdge *to) const throw();
 
 
-    /** @brief Sets the duration of a cycle 
+    /** @brief Sets the duration of a cycle
      * @param[in] cycleDur The duration of the cycle
      */
     void setCycleDuration(unsigned int cycleDur) throw();
@@ -313,7 +313,7 @@ protected:
      * @see NBTrafficLightDefinition::myCompute
      */
     NBTrafficLightLogic *myCompute(const NBEdgeCont &ec,
-                                         unsigned int brakingTime) throw();
+                                   unsigned int brakingTime) throw();
 
 
     /** @brief Collects the nodes participating in this traffic light

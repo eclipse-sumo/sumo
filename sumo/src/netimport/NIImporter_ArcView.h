@@ -78,9 +78,9 @@ protected:
      * @param[in] speedInKMH Whether the speed shall be assumed to be given in km/h
      */
     NIImporter_ArcView(const OptionsCont &oc,
-                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
-                     const std::string &dbf_name, const std::string &shp_name,
-                     bool speedInKMH);
+                       NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
+                       const std::string &dbf_name, const std::string &shp_name,
+                       bool speedInKMH);
 
     /// @brief Destructor
     ~NIImporter_ArcView();
