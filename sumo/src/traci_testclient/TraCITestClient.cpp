@@ -1300,6 +1300,10 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         into.writeUnsignedByte(TYPE_INTEGER);
         into.writeInt(atoi(valueS.c_str()));
         return 4 + 1;
+    } else if (dataTypeS=="<byte>") {
+        into.writeUnsignedByte(TYPE_BYTE);
+        into.writeByte(atoi(valueS.c_str()));
+        return 1 + 1;
     } else if (dataTypeS=="<float>") {
         into.writeUnsignedByte(TYPE_FLOAT);
         into.writeFloat(atof(valueS.c_str()));
