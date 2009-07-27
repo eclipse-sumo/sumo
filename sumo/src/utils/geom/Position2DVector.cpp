@@ -842,7 +842,7 @@ Position2DVector::move2side(SUMOReal amount) {
             Position2D to = myCont[i+1];
             std::pair<SUMOReal, SUMOReal> offsets =
                 offset(from, to, amount);
-            shape.push_back_noDoublePos(//.push_back(
+            shape.push_back(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(from.x()-offsets.first, from.y()-offsets.second));
         } else if (i==myCont.size()-1) {
@@ -850,7 +850,7 @@ Position2DVector::move2side(SUMOReal amount) {
             Position2D to = myCont[i];
             std::pair<SUMOReal, SUMOReal> offsets =
                 offset(from, to, amount);
-            shape.push_back_noDoublePos(//.push_back(
+            shape.push_back(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(to.x()-offsets.first, to.y()-offsets.second));
         } else {
@@ -870,7 +870,7 @@ Position2DVector::move2side(SUMOReal amount) {
                 Position2D(to.x()-offsets2.first, to.y()-offsets2.second));
             l2.extrapolateBy(100);
             if (l1.intersects(l2)) {
-                shape.push_back_noDoublePos(//.push_back(
+                shape.push_back(//.push_back(
                     // (methode umbenennen; was heisst hier "-")
                     l1.intersectsAt(l2));
             } else {
