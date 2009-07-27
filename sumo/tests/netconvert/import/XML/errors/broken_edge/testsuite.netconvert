@@ -76,12 +76,6 @@ edge#priority__false1
 # Invalid priority (fourth edge)
 edge#priority__false4
 
-# Empty shape (first edge)
-edge#shape__empty1
-
-# Empty shape (fourth edge)
-edge#shape__empty4
-
 # Broken shape (first edge)
 edge#shape__false1a
 
