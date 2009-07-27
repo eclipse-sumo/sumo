@@ -182,7 +182,7 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
     GUIEvent *e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile,
-                                                OptionsCont::getOptions().getString("gui-settings-file"));
+            OptionsCont::getOptions().getString("gui-settings-file"));
     myEventQue.add(e);
     myEventThrow.signal();
 }

@@ -430,22 +430,22 @@ void
 GUIEdge::initColoringSchemes() {
     // insert possible edge coloring schemes
     myLaneColoringSchemes.add("uniform",
-           new GUIColorer_SingleColor<GUIEdge>(RGBColor(0, 0, 0)));
+                              new GUIColorer_SingleColor<GUIEdge>(RGBColor(0, 0, 0)));
     myLaneColoringSchemes.add("by selection (lanewise)",
-           new GUIColorer_LaneBySelection<GUIEdge>());
+                              new GUIColorer_LaneBySelection<GUIEdge>());
     myLaneColoringSchemes.add("by purpose (lanewise)",
-           new GUIColorer_LaneByPurpose<GUIEdge>());
+                              new GUIColorer_LaneByPurpose<GUIEdge>());
     // from a lane's standard values
     myLaneColoringSchemes.add("by allowed speed (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
-               0, (SUMOReal)(150.0/3.6),
-               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getAllowedSpeed));
+                              new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
+                                  0, (SUMOReal)(150.0/3.6),
+                                  RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+                                  (SUMOReal(GUIEdge::*)() const) &GUIEdge::getAllowedSpeed));
     myLaneColoringSchemes.add("by current density (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
-               0, (SUMOReal) .95,
-               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
+                              new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
+                                  0, (SUMOReal) .95,
+                                  RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
 }
 
 GUIEdge::Colorer::Colorer() {
@@ -466,14 +466,14 @@ GUIEdge::Colorer::Colorer() {
 SUMOReal
 GUIEdge::Colorer::getColorValue(const GUIEdge& edge) const {
     switch (myActiveScheme) {
-        case 1:
-            return gSelected.isSelected(edge.getType(), edge.getGlID());
-        case 2:
-            return edge.getPurpose();
-        case 3:
-            return edge.getAllowedSpeed();
-        case 4:
-            return edge.getDensity();
+    case 1:
+        return gSelected.isSelected(edge.getType(), edge.getGlID());
+    case 2:
+        return edge.getPurpose();
+    case 3:
+        return edge.getAllowedSpeed();
+    case 4:
+        return edge.getDensity();
     }
     return 0;
 }

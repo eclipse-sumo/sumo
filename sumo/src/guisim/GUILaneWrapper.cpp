@@ -778,63 +778,63 @@ void
 GUILaneWrapper::initColoringSchemes() {
     // insert possible lane coloring schemes
     myLaneColoringSchemes.add("uniform",
-           new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
+                              new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
     myLaneColoringSchemes.add("by selection (lane-/streetwise)",
-           new GUIColorer_LaneBySelection<GUILaneWrapper>());
+                              new GUIColorer_LaneBySelection<GUILaneWrapper>());
     /*
     myLaneColoringSchemes.add("by purpose (lanewise)",
            new GUIColorer_LaneByPurpose<GUILaneWrapper>());
            */
     // from a lane's standard values
     myLaneColoringSchemes.add("by allowed speed (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal)(150.0/3.6),
-               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, (SUMOReal)(150.0/3.6),
+                                  RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
     myLaneColoringSchemes.add("by current density (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal) .95,
-               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, (SUMOReal) .95,
+                                  RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
     myLaneColoringSchemes.add("by first vehicle waiting time (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, 200,
-               RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, 200,
+                                  RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
     myLaneColoringSchemes.add("by lane number (streetwise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, (SUMOReal) 5,
-               RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, (SUMOReal) 5,
+                                  RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
     // ... emissions ...
     myLaneColoringSchemes.add("by CO2 emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(10./7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, SUMOReal(10./7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
     myLaneColoringSchemes.add("by CO emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(0.05/7.5/2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_COEmissions));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, SUMOReal(0.05/7.5/2.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_COEmissions));
     myLaneColoringSchemes.add("by PMx emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.005/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_PMxEmissions));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, SUMOReal(.005/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_PMxEmissions));
     myLaneColoringSchemes.add("by NOx emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.125/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_NOxEmissions));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, SUMOReal(.125/7.5/5.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_NOxEmissions));
     myLaneColoringSchemes.add("by HC emissions (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.02/7.5/4.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_HCEmissions));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, SUMOReal(.02/7.5/4.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_HCEmissions));
     myLaneColoringSchemes.add("by fuel consumption (HBEFA)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(.005/7.5*100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, SUMOReal(.005/7.5*100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHBEFA_CO2Emissions));
     myLaneColoringSchemes.add("by noise emissions (Harmonoise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
-               0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-               (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHarmonoise_NoiseEmissions));
+                              new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
+                                  0, SUMOReal(100.), RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+                                  (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getHarmonoise_NoiseEmissions));
 }
 
 

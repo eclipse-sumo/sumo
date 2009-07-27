@@ -943,9 +943,9 @@ GUIApplicationWindow::openNewView() {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient,
-                                  myMDIMenu, FXString(caption.c_str()),
-                                  this, GUIIconSubSys::getIcon(ICON_APP),
-                                  opts, 10, 10, 300, 200);
+            myMDIMenu, FXString(caption.c_str()),
+            this, GUIIconSubSys::getIcon(ICON_APP),
+            opts, 10, 10, 300, 200);
     GUISUMOAbstractView* v = w->init(getBuildGLCanvas(), myRunThread->getNet());
     w->create();
     if (myMDIClient->numChildren()==1) {

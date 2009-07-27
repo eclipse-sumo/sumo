@@ -476,7 +476,7 @@ GUINet::buildRouteLoader(const std::string &file) {
 
 GUIGLObjectPopupMenu *
 GUINet::getPopUpMenu(GUIMainWindow &app,
-                            GUISUMOAbstractView &parent) throw() {
+                     GUISUMOAbstractView &parent) throw() {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -488,7 +488,7 @@ GUINet::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUINet::getParameterWindow(GUIMainWindow &app,
-                                  GUISUMOAbstractView &) throw() {
+                           GUISUMOAbstractView &) throw() {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items

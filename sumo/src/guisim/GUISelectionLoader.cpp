@@ -59,7 +59,7 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
     typeMap["tl-logic"] = GLO_TLLOGIC;
     typeMap["vehicle"] = GLO_VEHICLE;
     ifstream strm(file.c_str());
-    if(!strm.good()) {
+    if (!strm.good()) {
         msg = "Could not open '" + file + "'.";
         return false;
     }

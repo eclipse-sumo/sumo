@@ -62,7 +62,7 @@ class GUIParameterTableWindow;
  * @class GUIApplicationWindow
  * @brief The main window of the SUMO-gui.
  *
- * Contains the file opening support and a canvas to display the simulation 
+ * Contains the file opening support and a canvas to display the simulation
  *  representations in.
  *
  * Beside views on the simulation, showed within a MDI-window, the main window
