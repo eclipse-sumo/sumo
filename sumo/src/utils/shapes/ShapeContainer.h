@@ -84,7 +84,7 @@ public:
     const NamedObjectCont<PointOfInterest*> &getPOICont(int layer) const throw();
 
 
-    /** @brief Returns the lowest layer 
+    /** @brief Returns the lowest layer
      * @return The lowest layer
      */
     int getMinLayer() const throw() {
@@ -92,7 +92,7 @@ public:
     }
 
 
-    /** @brief Returns the highest layer 
+    /** @brief Returns the highest layer
      * @return The highest layer
      */
     int getMaxLayer() const throw() {

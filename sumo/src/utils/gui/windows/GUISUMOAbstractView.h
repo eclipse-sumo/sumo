@@ -355,7 +355,7 @@ protected:
     /// @}
 
     std::map<SUMOTime, std::string> mySnapshots;
-    
+
     mutable MFXMutex myPolyDrawLock;
 
     enum VehicleOperationType {

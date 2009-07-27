@@ -143,7 +143,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "viewport", SUMO_TAG_VIEWPORT },
     { "snapshot", SUMO_TAG_SNAPSHOT },
     { "location", SUMO_TAG_LOCATION },
-    
+
 
     { "",                 SUMO_TAG_NOTHING }
 };

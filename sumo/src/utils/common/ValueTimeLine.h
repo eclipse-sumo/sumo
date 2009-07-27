@@ -75,7 +75,7 @@ public:
         assert(begin<end);
         // inserting strictly before the first or after the last interval (includes empty case)
         if (myValues.upper_bound(begin) == myValues.end() ||
-            myValues.upper_bound(end) == myValues.begin()) {
+                myValues.upper_bound(end) == myValues.begin()) {
             myValues[begin] = std::make_pair(true, value);
             myValues[end] = std::make_pair(false, value);
             return;

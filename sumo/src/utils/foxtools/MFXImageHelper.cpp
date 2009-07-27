@@ -55,7 +55,7 @@ MFXImageHelper::checkSupported(FXString ext) throw(InvalidArgument) {
             throw InvalidArgument("Fox was compiled without tif support!");
         }
     }
- }
+}
 
 
 FXImage *

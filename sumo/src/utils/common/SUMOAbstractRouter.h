@@ -80,7 +80,7 @@ public:
                          SUMOTime time, std::vector<const E*> &into) = 0;
 
     virtual SUMOReal recomputeCosts(const std::vector<const E*> &edges,
-                        const V * const v, SUMOTime time) throw() = 0;
+                                    const V * const v, SUMOTime time) throw() = 0;
 
 };
 

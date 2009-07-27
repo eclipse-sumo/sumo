@@ -199,8 +199,8 @@ public:
      * @param[in] oc The options to get defaults from
      * @exception IOError not yet implemented
      */
-    void writeAs(const std::string &xmlElem, OutputDevice &dev, 
-        const OptionsCont &oc) const throw(IOError);
+    void writeAs(const std::string &xmlElem, OutputDevice &dev,
+                 const OptionsCont &oc) const throw(IOError);
 
 
     /** @brief Returns whether the defaults shall be used

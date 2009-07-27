@@ -160,7 +160,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*) {
         gCurrentFolder = opendialog.getDirectory();
         string file = opendialog.getFilename().text();
         string msg;
-        if(!myParent->loadSelection(file, msg)) {
+        if (!myParent->loadSelection(file, msg)) {
             FXMessageBox::error(this, MBOX_OK, "Loading failed.", msg.c_str());
         }
         rebuildList();

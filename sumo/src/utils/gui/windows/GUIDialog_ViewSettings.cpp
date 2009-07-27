@@ -266,9 +266,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                          0,0,0,0, 10,10,0,0, 5,5);
         new FXLabel(m224, "Color", 0, LAYOUT_CENTER_Y);
         myInternalEdgeNameColor = new FXColorWell(m224, convert(settings->internalEdgeNameColor),
-                                          this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                          LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                          0, 0, 100, 0,   0, 0, 0, 0);
+                this, MID_SIMPLE_VIEW_COLORCHANGE,
+                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                0, 0, 100, 0,   0, 0, 0, 0);
     }
 #ifdef HAVE_MESOSIM
     {
@@ -387,8 +387,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
             myVehicleUpscaleDialer->setRange(1, 100);
             myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
         }
-    }
-    {
+    } {
         new FXTabItem(tabbook,"Nodes",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame4 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
@@ -426,8 +425,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                                               this, MID_SIMPLE_VIEW_COLORCHANGE,
                                               LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                               0, 0, 100, 0,   0, 0, 0, 0);
-    }
-    {
+    } {
         new FXTabItem(tabbook,"Detectors/Trigger",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame5 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
@@ -484,8 +482,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                             0, 0, 100, 0,   0, 0, 0, 0);
                             */
-    }
-    {
+    } {
         new FXTabItem(tabbook,"POIs",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame6 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
@@ -538,8 +535,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
 
 
-    }
-    {
+    } {
         new FXTabItem(tabbook,"Legend",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame7 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
@@ -550,8 +546,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myShowSizeLegend = new FXCheckButton(m72, "Show Size Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowSizeLegend->setCheck(mySettings->showSizeLegend);
         new FXLabel(m72, "");
-    }
-    {
+    } {
         new FXTabItem(tabbook,"openGL",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame8 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
@@ -994,20 +989,20 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
         dev << "    <scheme name=\"" << mySettings->name << "\">\n";
         dev << "        <opengl antialiase=\"" << mySettings->antialiase << "\" dither=\"" << mySettings->dither << "\"/>\n";
         dev << "        <background backgroundColor=\"" << mySettings->backgroundColor << "\"\n"
-            << "                    showGrid=\"" << mySettings->showGrid
-            << "\" gridXSize=\"" << mySettings->gridXSize << "\" gridYSize=\"" << mySettings->gridYSize << "\"/>\n";
+        << "                    showGrid=\"" << mySettings->showGrid
+        << "\" gridXSize=\"" << mySettings->gridXSize << "\" gridYSize=\"" << mySettings->gridYSize << "\"/>\n";
         dev << "        <edges laneEdgeMode=\"" << mySettings->laneEdgeMode
-            << "\" laneShowBorders=\"" << mySettings->laneShowBorders
-            << "\" showLinkDecals=\"" << mySettings->showLinkDecals
-            << "\" showRails=\"" << mySettings->showRails << "\"\n"
-            << "               drawEdgeName=\"" << mySettings->drawEdgeName
-            << "\" edgeNameSize=\"" << mySettings->edgeNameSize
-            << "\" edgeNameColor=\"" << mySettings->edgeNameColor << "\"\n"
-            << "               drawInternalEdgeName=\"" << mySettings->drawInternalEdgeName
-            << "\" internalEdgeNameSize=\"" << mySettings->internalEdgeNameSize
-            << "\" internalEdgeNameColor=\"" << mySettings->internalEdgeNameColor
-            << "\" hideConnectors=\"" << mySettings->hideConnectors
-            << "\">\n";
+        << "\" laneShowBorders=\"" << mySettings->laneShowBorders
+        << "\" showLinkDecals=\"" << mySettings->showLinkDecals
+        << "\" showRails=\"" << mySettings->showRails << "\"\n"
+        << "               drawEdgeName=\"" << mySettings->drawEdgeName
+        << "\" edgeNameSize=\"" << mySettings->edgeNameSize
+        << "\" edgeNameColor=\"" << mySettings->edgeNameColor << "\"\n"
+        << "               drawInternalEdgeName=\"" << mySettings->drawInternalEdgeName
+        << "\" internalEdgeNameSize=\"" << mySettings->internalEdgeNameSize
+        << "\" internalEdgeNameColor=\"" << mySettings->internalEdgeNameColor
+        << "\" hideConnectors=\"" << mySettings->hideConnectors
+        << "\">\n";
         for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
             for (k=0; k<(*j).second.size(); ++k) {
                 dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
@@ -1016,13 +1011,13 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
         dev << "        </edges>\n";
 
         dev << "        <vehicles vehicleMode=\"" << mySettings->vehicleMode
-            << "\" vehicleQuality=\"" << mySettings->vehicleQuality
-            << "\" minVehicleSize=\"" << mySettings->minVehicleSize
-            << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
-            << "\" showBlinker=\"" << mySettings->showBlinker << "\"\n"
-            << "                  drawVehicleName=\"" << mySettings->drawVehicleName
-            << "\" vehicleNameSize=\"" << mySettings->vehicleNameSize
-            << "\" vehicleNameColor=\"" << mySettings->vehicleNameColor << "\">\n";
+        << "\" vehicleQuality=\"" << mySettings->vehicleQuality
+        << "\" minVehicleSize=\"" << mySettings->minVehicleSize
+        << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
+        << "\" showBlinker=\"" << mySettings->showBlinker << "\"\n"
+        << "                  drawVehicleName=\"" << mySettings->drawVehicleName
+        << "\" vehicleNameSize=\"" << mySettings->vehicleNameSize
+        << "\" vehicleNameColor=\"" << mySettings->vehicleNameColor << "\">\n";
         for (j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
             for (k=0; k<(*j).second.size(); ++k) {
                 dev << "            <nvcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
@@ -1031,12 +1026,12 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
         dev << "        </vehicles>\n";
 
         dev << "        <junctions junctionMode=\"" << mySettings->junctionMode
-            << "\" drawLinkTLIndex=\"" << mySettings->drawLinkTLIndex
-            << "\" drawLinkJunctionIndex=\"" << mySettings->drawLinkJunctionIndex << "\"\n"
-            << "                   drawJunctionName=\"" << mySettings->drawJunctionName
-            << "\" junctionNameSize=\"" << mySettings->junctionNameSize
-            << "\" junctionNameColor=\"" << mySettings->junctionNameColor
-            << "\" showLane2Lane=\"" << mySettings->showLane2Lane << "\"/>\n";
+        << "\" drawLinkTLIndex=\"" << mySettings->drawLinkTLIndex
+        << "\" drawLinkJunctionIndex=\"" << mySettings->drawLinkJunctionIndex << "\"\n"
+        << "                   drawJunctionName=\"" << mySettings->drawJunctionName
+        << "\" junctionNameSize=\"" << mySettings->junctionNameSize
+        << "\" junctionNameColor=\"" << mySettings->junctionNameColor
+        << "\" showLane2Lane=\"" << mySettings->showLane2Lane << "\"/>\n";
 
         dev << "        <additionals addMode=\"" << mySettings->addMode
         << "\" minAddSize=\"" << mySettings->minAddSize
@@ -1417,9 +1412,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         FX::FXString buttonText = "Add";
         while (threshIt != thresholds.end()) {
             myLaneColors.push_back(new FXColorWell(m , convert(*colIt),
-                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                0, 0, 100, 0,   0, 0, 0, 0));
+                                                   this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                   LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                   0, 0, 100, 0,   0, 0, 0, 0));
             FXRealSpinDial* threshDialer =
                 new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                    LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);

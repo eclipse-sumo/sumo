@@ -199,7 +199,7 @@ public:
             if (PF::operator()(*i, v)) {
                 return -1;
             }
-            costs += getEffort(*i, v, (SUMOTime) (time + costs));
+            costs += getEffort(*i, v, (SUMOTime)(time + costs));
         }
         return costs;
     }

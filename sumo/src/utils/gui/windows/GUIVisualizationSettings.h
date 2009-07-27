@@ -79,7 +79,7 @@ public:
     /// @name lane visualization settings
     //@{
 
-#ifdef HAVE_MESOSIM 
+#ifdef HAVE_MESOSIM
     /// @brief The lane or edge colorer
     GUIEdge::Colorer edgeColorer;
 #endif

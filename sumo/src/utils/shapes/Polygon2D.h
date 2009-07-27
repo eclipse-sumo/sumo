@@ -60,7 +60,7 @@ public:
     /// @brief Destructor
     virtual ~Polygon2D() throw();
 
-    
+
     /// @name Getter
     /// @{
 

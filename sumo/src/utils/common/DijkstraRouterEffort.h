@@ -305,7 +305,7 @@ public:
     }
 
     inline SUMOTime getTravelTime(const E * const e, const V * const v, SUMOTime t) {
-        return (SUMOTime) (myReceiver->*myOperation)(e, v, t);
+        return (SUMOTime)(myReceiver->*myOperation)(e, v, t);
     }
 
 private:
@@ -333,7 +333,7 @@ public:
     }
 
     inline SUMOTime getTravelTime(const E * const e, const V * const v, SUMOTime t) {
-        return (SUMOTime) (e->*myOperation)(v, t);
+        return (SUMOTime)(e->*myOperation)(v, t);
     }
 
 private:

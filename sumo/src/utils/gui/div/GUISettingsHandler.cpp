@@ -58,7 +58,7 @@ GUISettingsHandler::~GUISettingsHandler() throw() {
 
 void
 GUISettingsHandler::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+                                   const SUMOSAXAttributes &attrs) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_VIEWPORT:
         myZoom = attrs.getFloatSecure(SUMO_ATTR_ZOOM, myZoom);
@@ -71,11 +71,11 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
             file = FileHelpers::getConfigurationRelative(getFileName(), file);
         }
         mySnapshots[attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_TIME, 0)] = file;
-                            }
-        break;
+    }
+    break;
     case SUMO_TAG_VIEWSETTINGS_SCHEME:
         mySettings.name = attrs.getStringSecure("name", mySettings.name);
-        if(gSchemeStorage.contains(mySettings.name)) {
+        if (gSchemeStorage.contains(mySettings.name)) {
             mySettings = gSchemeStorage.get(mySettings.name);
         }
         break;

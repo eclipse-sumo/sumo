@@ -231,7 +231,7 @@ parseVehicleClasses(const std::string &classesS,
                     std::vector<SUMOVehicleClass> &disallowed,
                     bool &warnedAboutDeprecatedVClass) throw() {
     if (classesS.length()!=0) {
-        if(!warnedAboutDeprecatedVClass) {
+        if (!warnedAboutDeprecatedVClass) {
             MsgHandler::getWarningInstance()->inform("The vclasses attribute is deprecated. Please rebuilt your network.");
             warnedAboutDeprecatedVClass = true;
         }

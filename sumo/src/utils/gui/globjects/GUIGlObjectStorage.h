@@ -103,7 +103,7 @@ public:
     /** @brief Removes the named object from this container
      *
      * This function returns true if the object may be deleted;
-     *  otherwise it's kept in an internal storage (for visualisation etc.) 
+     *  otherwise it's kept in an internal storage (for visualisation etc.)
      *  and will be removed by this class
      *
      * @param[in] id The id of the object to remove
@@ -120,7 +120,7 @@ public:
 
 
     /** @brief Marks an object as unblocked
-     * 
+     *
      * The object is moved from "myBlocked" to "myMap".
      * @param[in] id The id of the object to unblock
      */

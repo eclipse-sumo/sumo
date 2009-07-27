@@ -47,14 +47,14 @@
  * ----------------------------------------------------------------------- */
 /**
  * @class GUIColorScheme
- * @brief 
+ * @brief
  */
 class GUIColorScheme {
 public:
     /// Constructor
     GUIColorScheme(const std::string& name, const RGBColor& baseColor,
                    const bool interpolate=false)
-                   : myName(name), myIsInterpolated(interpolate) {
+            : myName(name), myIsInterpolated(interpolate) {
         addColor(baseColor, -1);
     }
 
