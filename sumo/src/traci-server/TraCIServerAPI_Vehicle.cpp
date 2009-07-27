@@ -186,7 +186,16 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         break;
     case CMD_STOP: {
+            if (valueDataType!=TYPE_COMPOUND) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Stop needs a compound object description.", outputStorage);
+                return false;
+            }
+            if(inputStorage.readInt()!=4) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Stop needs a compound object description of four items.", outputStorage);
+                return false;
+            }
             // read road map position
+            valueDataType = inputStorage.readUnsignedByte();
             if (valueDataType!=TYPE_STRING) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first stop parameter must be the edge id given as a string.", outputStorage);
                 return false;
@@ -213,29 +222,38 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             SUMOReal waitTime = inputStorage.readFloat();
             // check
             if (pos < 0) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_STOP, RTYPE_ERR, "Position on lane must not be negative", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Position on lane must not be negative", outputStorage);
                 return false;
             }
             // get the actual lane that is referenced by laneIndex
             MSEdge* road = MSEdge::dictionary(roadId);
             if (road == 0) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unable to retrieve road with given id", outputStorage);
                 return false;
             }
             const MSEdge::LaneCont* const allLanes = road->getLanes();
             if (laneIndex >= allLanes->size()) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with such id on the given road", outputStorage);
                 return false;
             }
             // Forward command to vehicle
             if (!v->addTraciStop((*allLanes)[laneIndex], pos, 0, waitTime)) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_STOP, RTYPE_ERR, "Vehicle is too close or behind the stop on " + (*allLanes)[laneIndex]->getID(), outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle is too close or behind the stop on " + (*allLanes)[laneIndex]->getID(), outputStorage);
                 return false;
             }     
         }
         break;
     case CMD_CHANGELANE: {
+            if (valueDataType!=TYPE_COMPOUND) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Lane change needs a compound object description.", outputStorage);
+                return false;
+            }
+            if(inputStorage.readInt()!=2) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Lane change needs a compound object description of two items.", outputStorage);
+                return false;
+            }
             // Lane ID
+            valueDataType = inputStorage.readUnsignedByte();
             if (valueDataType!=TYPE_BYTE) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first lane change parameter must be the lane index given as a byte.", outputStorage);
                 return false;
@@ -249,7 +267,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             }
             SUMOReal stickyTime = inputStorage.readFloat();
             if ((laneIndex < 0) || (laneIndex >= v->getEdge()->getLanes()->size())) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with given id on the current road", outputStorage);
                 return false;
             }
             // Forward command to vehicle
@@ -257,6 +275,15 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         break;
     case CMD_SLOWDOWN: {
+            if (valueDataType!=TYPE_COMPOUND) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Slow down needs a compound object description.", outputStorage);
+                return false;
+            }
+            if(inputStorage.readInt()!=2) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Slow down needs a compound object description of two items.", outputStorage);
+                return false;
+            }
+            valueDataType = inputStorage.readUnsignedByte();
             if (valueDataType!=TYPE_FLOAT) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The first slow down parameter must be the speed given as a float.", outputStorage);
                 return false;
@@ -270,11 +297,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             // time interval
             SUMOReal duration = inputStorage.readFloat(); 
             if (duration <= 0) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Invalid time interval", outputStorage);
                 return false;
             }
             if (!v->startSpeedAdaption(newSpeed, static_cast<SUMOTime>(duration), MSNet::getInstance()->getCurrentTimeStep())) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Could not slow down", outputStorage);
                 return false;
             }
         }
@@ -299,7 +326,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             router.compute(currentEdge, destEdge, (const MSVehicle* const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
             // replace the vehicle's route by the new one
             if (!v->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
                 return false;
             }
         }
