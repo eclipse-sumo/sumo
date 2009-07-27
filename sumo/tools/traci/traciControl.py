@@ -316,7 +316,7 @@ def cmdChangeTrafficLightsVariable_statePBY(TLID, state):
 def cmdChangeTrafficLightsVariable_stateRYG(TLID, state):
     [phase, brake, yellow] = state
     _message.queue.append(CMD_SET_TL_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(TLID)+1+4+len(state)), CMD_SET_TL_VARIABLE, TL_RED_YELLOW_GREEN_STATE, len(TLID)) + TLID
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(TLID)+1+4+len(state), CMD_SET_TL_VARIABLE, TL_RED_YELLOW_GREEN_STATE, len(TLID)) + TLID
     _message.string += struct.pack("!Bi", TYPE_STRINGLIST, 3)
     _message.string += struct.pack("!i", len(state)) + state
     _sendExact()
