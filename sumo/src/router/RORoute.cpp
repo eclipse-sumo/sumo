@@ -96,7 +96,7 @@ RORoute::recheckForLoops() throw() {
 
 
 OutputDevice &
-RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                             OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {

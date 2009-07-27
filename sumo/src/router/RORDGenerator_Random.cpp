@@ -114,7 +114,7 @@ RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw
         myCurrentTime = time+1;
     } else {
         // compute into the future
-        myCurrentTime = time + (size_t) ((1.0-myCurrentProgress) / myWishedPerSecond);
+        myCurrentTime = time + (size_t)((1.0-myCurrentProgress) / myWishedPerSecond);
     }
     return true;
 }

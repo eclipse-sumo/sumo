@@ -104,7 +104,7 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     }
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
-    if(oc.getString("measure")=="traveltime") {
+    if (oc.getString("measure")=="traveltime") {
         if (net.hasRestrictions()) {
             router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
@@ -182,7 +182,7 @@ main(int argc, char **argv) {
             MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
-        if(MsgHandler::getErrorInstance()->wasInformed()||ret!=0) {
+        if (MsgHandler::getErrorInstance()->wasInformed()||ret!=0) {
             throw ProcessError();
         }
     } catch (ProcessError &e) {

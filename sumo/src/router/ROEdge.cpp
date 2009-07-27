@@ -59,8 +59,7 @@ ROEdge::ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int ind
         myIndex(index), myLength(-1),
         myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
         myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
-        myFromNode(from), myToNode(to)
-{}
+        myFromNode(from), myToNode(to) {}
 
 
 ROEdge::~ROEdge() throw() {
@@ -208,27 +207,26 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const throw() {
 }
 
 
-void 
-ROEdge::buildTimeLines(const std::string &measure) throw()
-{
+void
+ROEdge::buildTimeLines(const std::string &measure) throw() {
     if (myUsingETimeLine) {
         SUMOReal value = (SUMOReal)(myLength / mySpeed);
-        if(measure=="CO") {
+        if (measure=="CO") {
             value = HelpersHBEFA::computeCO(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if(measure=="CO2") {
+        if (measure=="CO2") {
             value = HelpersHBEFA::computeCO2(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if(measure=="HC") {
+        if (measure=="HC") {
             value = HelpersHBEFA::computeHC(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if(measure=="PMx") {
+        if (measure=="PMx") {
             value = HelpersHBEFA::computePMx(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if(measure=="NOx") {
+        if (measure=="NOx") {
             value = HelpersHBEFA::computeNOx(SVE_UNKNOWN, mySpeed, 0) * value;
         }
-        if(measure=="fuel") {
+        if (measure=="fuel") {
             value = HelpersHBEFA::computeFuel(SVE_UNKNOWN, mySpeed, 0) * value;
         }
         myEfforts.fillGaps(value, myUseBoundariesOnOverrideE);

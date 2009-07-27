@@ -65,14 +65,14 @@ public:
     /** @brief Adds the build route to the container
     *
      * Here, the currently new route is added */
-    void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
-        const ROVehicle *const, RORoute *current, SUMOTime begin);
+    void addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+                        const ROVehicle *const, RORoute *current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
-    virtual OutputDevice &writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
-        OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
+    virtual OutputDevice &writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+            OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const;
 
 protected:
     /// The origin and the destination edge of the route

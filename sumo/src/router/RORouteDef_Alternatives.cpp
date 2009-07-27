@@ -127,7 +127,7 @@ RORouteDef_Alternatives::findRoute(RORoute *opt) const {
 
 
 void
-RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+RORouteDef_Alternatives::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                         const ROVehicle *const veh, RORoute *current, SUMOTime begin) {
     // add the route when it's new
     if (myLastUsed<0) {
@@ -254,8 +254,8 @@ RORouteDef_Alternatives::removeLast() {
 
 
 OutputDevice &
-RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
-                                            OutputDevice &dev, const ROVehicle * const veh,
+RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
+        OutputDevice &dev, const ROVehicle * const veh,
         bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
     if (asAlternatives) {

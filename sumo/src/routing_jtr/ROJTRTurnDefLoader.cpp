@@ -56,8 +56,8 @@ using namespace std;
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
         : SUMOSAXHandler("turn-definitions"), myNet(net),
-        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0), 
-        myHaveWarnedAboutDeprecatedSources(false), 
+        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0),
+        myHaveWarnedAboutDeprecatedSources(false),
         myHaveWarnedAboutDeprecatedSinks(false) {}
 
 
@@ -80,10 +80,10 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
         addToEdge(attrs);
         break;
     case SUMO_TAG_SINK:
-        if(attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::string edges = attrs.getString(SUMO_ATTR_EDGES);
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
-            while(st.hasNext()) {
+            while (st.hasNext()) {
                 std::string id = st.next();
                 ROEdge *edge = myNet.getEdge(id);
                 if (edge==0) {
@@ -94,10 +94,10 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
         }
         break;
     case SUMO_TAG_SOURCE:
-        if(attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::string edges = attrs.getString(SUMO_ATTR_EDGES);
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
-            while(st.hasNext()) {
+            while (st.hasNext()) {
                 std::string id = st.next();
                 ROEdge *edge = myNet.getEdge(id);
                 if (edge==0) {
@@ -122,7 +122,7 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
         if (edge==0) {
             throw ProcessError("The edge '" + chars + "' declared as a sink is not known.");
         }
-        if(!myHaveWarnedAboutDeprecatedSinks) {
+        if (!myHaveWarnedAboutDeprecatedSinks) {
             myHaveWarnedAboutDeprecatedSinks = true;
             MsgHandler::getWarningInstance()->inform("Using characters for sinks is deprecated; use attribute 'edges' instead.");
         }
@@ -134,7 +134,7 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
         if (edge==0) {
             throw ProcessError("The edge '" + chars + "' declared as a source is not known.");
         }
-        if(!myHaveWarnedAboutDeprecatedSources) {
+        if (!myHaveWarnedAboutDeprecatedSources) {
             myHaveWarnedAboutDeprecatedSources = true;
             MsgHandler::getWarningInstance()->inform("Using characters for sources is deprecated; use attribute 'edges' instead.");
         }

@@ -86,10 +86,10 @@ namespace ROHelper {
  * @return The time needed by the vehicle to pass the edges (completely)
  * @todo Check whether vehicle's max speed is considered
  */
-    /*
+/*
 SUMOReal recomputeCosts(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                        const std::vector<const ROEdge*> &edges,
-                        const ROVehicle * const v, SUMOTime time) throw();
+                    const std::vector<const ROEdge*> &edges,
+                    const ROVehicle * const v, SUMOTime time) throw();
 */
 
 /** @brief Checks whether the given edge list contains loops and removes them

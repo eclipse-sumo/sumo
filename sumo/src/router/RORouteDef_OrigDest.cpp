@@ -83,7 +83,7 @@ RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
 
 
 void
-RORouteDef_OrigDest::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+RORouteDef_OrigDest::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                     const ROVehicle *const veh, RORoute *current, SUMOTime begin) {
     myCurrent = current;
     myStartTime = begin;
@@ -99,7 +99,7 @@ RORouteDef_OrigDest::copy(const std::string &id) const {
 
 
 OutputDevice &
-RORouteDef_OrigDest::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+RORouteDef_OrigDest::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                         OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives, bool withExitTimes) const {
     return myCurrent->writeXMLDefinition(router, dev, veh, asAlternatives, withExitTimes);
 }

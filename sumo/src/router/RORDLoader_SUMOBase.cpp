@@ -201,7 +201,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     if (!myAltIsValid) {
         return;
     }
-    if(myCurrentRoute!=0) {
+    if (myCurrentRoute!=0) {
         return;
     }
     // check whether the costs and the probability are valid
@@ -219,7 +219,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
         if (edge!=0) {
             list->push_back(edge);
         } else {
-            if(!myTryRepair) {
+            if (!myTryRepair) {
                 std::string rid = myCurrentAlternatives!=0 ? myCurrentAlternatives->getID() : myCurrentRouteName;
                 MsgHandler::getErrorInstance()->inform("The route '" + rid + "' contains the unknown edge '" + id + "'.");
                 myCurrentIsOk = false;

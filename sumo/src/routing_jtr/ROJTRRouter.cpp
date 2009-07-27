@@ -99,7 +99,7 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
 }
 
 
-SUMOReal 
+SUMOReal
 ROJTRRouter::recomputeCosts(const std::vector<const ROEdge*> &edges, const ROVehicle * const v, SUMOTime time) throw() {
     SUMOReal costs = 0;
     for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {

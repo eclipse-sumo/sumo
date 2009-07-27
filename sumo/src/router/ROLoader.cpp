@@ -275,7 +275,7 @@ ROLoader::openTypedRoutes(const std::string &optionName,
         } catch (ProcessError &e) {
             std::string msg = "The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised;";
             std::string reason = e.what();
-            if(reason!="Process Error"&&reason!="") {
+            if (reason!="Process Error"&&reason!="") {
                 msg = msg + "\n Reason: " + reason + ".";
             } else {
                 msg = msg + "\n (unknown reason).";
@@ -334,9 +334,9 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
     retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("traveltime", !useLanes, ttRetriever));
     //  the measure to use, then
     EdgeFloatTimeLineRetriever_EdgeWeight eRetriever(&net);
-    if(measure!="traveltime") {
+    if (measure!="traveltime") {
         std::string umeasure = measure;
-        if(measure=="CO"||measure=="CO2"||measure=="HC"||measure=="PMx"||measure=="NOx"||measure=="fuel") {
+        if (measure=="CO"||measure=="CO2"||measure=="HC"||measure=="PMx"||measure=="NOx"||measure=="fuel") {
             umeasure = measure + "_perVeh";
         }
         retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(umeasure, !useLanes, eRetriever));
@@ -356,7 +356,7 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
     }
     // build edge-internal time lines
     const std::map<std::string, ROEdge*> &edges = net.getEdgeMap();
-    for(std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+    for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
         (*i).second->buildTimeLines(measure);
     }
     return true;

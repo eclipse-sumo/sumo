@@ -64,7 +64,7 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
                                        SUMOTime begin, const ROVehicle &veh) const {
     if (myTryRepair) {
         const std::vector<const ROEdge*> &oldEdges = myEdges;
-        if(oldEdges.size()==0) {
+        if (oldEdges.size()==0) {
             MsgHandler *m = OptionsCont::getOptions().getBool("continue-on-unbuild") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
             m->inform("Could not repair empty route of vehicle '" + veh.getID() + "'.");
             return new RORoute(myID, 0, 1, std::vector<const ROEdge*>(), copyColorIfGiven());
@@ -97,7 +97,7 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
 
 
 void
-RORouteDef_Complete::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &, 
+RORouteDef_Complete::addAlternative(SUMOAbstractRouter<ROEdge,ROVehicle> &,
                                     const ROVehicle *const, RORoute *current, SUMOTime begin) {
     myStartTime = begin;
     delete current;
@@ -111,7 +111,7 @@ RORouteDef_Complete::copy(const std::string &id) const {
 
 
 OutputDevice &
-RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router, 
+RORouteDef_Complete::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                         OutputDevice &dev, const ROVehicle * const veh,
                                         bool asAlternatives, bool withExitTimes) const {
     // (optional) alternatives header
