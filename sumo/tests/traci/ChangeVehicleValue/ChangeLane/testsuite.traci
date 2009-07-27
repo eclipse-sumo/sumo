@@ -1,0 +1,14 @@
+# tests basic lane changing
+Basic
+
+# test that lane is not changed, when interferring with vehicle's route
+RouteDisallows
+
+# test that constraint is removed if lane does not exist anymore
+PassingJunction
+
+# Test error in specifying an invalid node id
+InvalidNode
+
+# Test error in specifiying an invalid lane id
+InvalidLaneId

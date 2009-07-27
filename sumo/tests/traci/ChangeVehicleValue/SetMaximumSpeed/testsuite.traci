@@ -1,0 +1,10 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+# test setting a maximum speed for a vehicle
+SetMaxSpeed
+
+# test unsetting of a previously set maximum speed
+UnsetMaxSpeed
+
+# Test error on specifying an invalid node id
+InvalidNodeId

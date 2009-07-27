@@ -1,0 +1,3 @@
+simstep 1 1
+setvalue 196 20 xxx <compound> 2 <float> 0 <float> 10
+simstep 1 1

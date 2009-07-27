@@ -1,0 +1,3 @@
+simstep 1 1
+setvalue 196 20 veh0 <compound> 2 <float> 0 <float> -1
+simstep 1 1

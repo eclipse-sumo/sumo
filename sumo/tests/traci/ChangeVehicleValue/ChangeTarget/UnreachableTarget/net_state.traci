@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/03/09 22:52:43 by SUMO sumo Version dev-SVN-r6713
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <netstate-dump>netstate_dump.xml</netstate-dump>
+   </output>
+
+   <processing>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+   <traci_server>
+      <remote-port>8816</remote-port>
+      <penetration>1</penetration>
+   </traci_server>
+
+</configuration>
+-->
+
+<sumo-netstate>
+   <timestep time="0">
+      <edge id="e_m5">
+         <lane id="e_m5_0">
+            <vehicle id="veh0" pos="0.00" speed="0.00"/>
+         </lane>
+         <lane id="e_m5_1"/>
+         <lane id="e_m5_2"/>
+      </edge>
+   </timestep>
+   <timestep time="1">
+      <edge id="e_m5">
+         <lane id="e_m5_0">
+            <vehicle id="veh0" pos="0.45" speed="0.45"/>
+         </lane>
+         <lane id="e_m5_1"/>
+         <lane id="e_m5_2"/>
+      </edge>
+   </timestep>
+   <timestep time="2">
+      <edge id="e_m5">
+         <lane id="e_m5_0">
+            <vehicle id="veh0" pos="1.41" speed="0.96"/>
+         </lane>
+         <lane id="e_m5_1"/>
+         <lane id="e_m5_2"/>
+      </edge>
+   </timestep>
+</sumo-netstate>

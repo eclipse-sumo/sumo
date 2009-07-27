@@ -1,0 +1,3 @@
+simstep 1 1
+setvalue 196 49 veh0 <string> e_bla
+simstep 2 1

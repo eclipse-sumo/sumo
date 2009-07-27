@@ -1,0 +1,8 @@
+# Test basic functionality of <SlowDown>
+Basic
+
+# Test error in specifying an invalid node id
+InvalidNode
+
+# Test error on specifying an invalid time interval
+InvalidTimeInterval

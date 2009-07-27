@@ -1,0 +1,3 @@
+simstep 1 1
+setvalue 196 49 xxx <string> e_vo0
+simstep 1 1

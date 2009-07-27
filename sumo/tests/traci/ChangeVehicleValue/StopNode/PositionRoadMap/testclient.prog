@@ -1,0 +1,5 @@
+simstep 1 1
+
+setvalue 196 18 veh0 <compound> 4 <string> 1fi <float> 200 <byte> 0 <float> 5
+
+simstep_repeat 2 50 1 1

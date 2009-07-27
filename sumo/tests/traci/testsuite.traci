@@ -37,5 +37,6 @@ VariableRetrieval
 # Tests for changing TL values
 ChangeTLValue
 
-# Tests the Simulation End command
-#SimEnd
+# Tests for changing vehicle values
+ChangeVehicleValue
+
