@@ -49,10 +49,9 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool 
-TraCIServerAPI_MeMeDetector::processGet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_MeMeDetector::processGet(tcpip::Storage &inputStorage,
+                                        tcpip::Storage &outputStorage) throw(TraCIException) {
     string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();

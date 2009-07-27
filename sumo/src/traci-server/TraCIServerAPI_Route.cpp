@@ -50,10 +50,9 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool 
-TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage,
+                                 tcpip::Storage &outputStorage) throw(TraCIException) {
     string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -77,7 +76,7 @@ TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage,
         tempMsg.writeStringList(ids);
     } else {
         const MSRoute *r = MSRoute::dictionary(id);
-        if(r==0) {
+        if (r==0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_ERR, "Route '" + id + "' is not known", outputStorage);
             return false;
         }
@@ -85,12 +84,12 @@ TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage,
         case VAR_EDGES:
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeInt(r->size());
-            for(MSRouteIterator i=r->begin(); i!=r->end(); ++i) {
+            for (MSRouteIterator i=r->begin(); i!=r->end(); ++i) {
                 tempMsg.writeString((*i)->getID());
             }
             break;
         default:
-        break;
+            break;
         }
     }
     TraCIServerAPIHelper::writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_OK, warning, outputStorage);
@@ -102,10 +101,9 @@ TraCIServerAPI_Route::processGet(tcpip::Storage &inputStorage,
 }
 
 
-bool 
-TraCIServerAPI_Route::processSet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_Route::processSet(tcpip::Storage &inputStorage,
+                                 tcpip::Storage &outputStorage) throw(TraCIException) {
     return true;
 }
 

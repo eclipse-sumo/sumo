@@ -50,10 +50,9 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool 
-TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
+                                    tcpip::Storage &outputStorage) throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable

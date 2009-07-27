@@ -194,7 +194,7 @@ public:
     SUMOReal recomputeCosts(const std::vector<const E*> &edges, const MSVehicle * const v, SUMOTime time) throw() {
         SUMOReal costs = 0;
         for (typename std::vector<const E*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
-            costs += getEffort(*i, (SUMOTime) (time + costs));
+            costs += getEffort(*i, (SUMOTime)(time + costs));
         }
         return costs;
     }

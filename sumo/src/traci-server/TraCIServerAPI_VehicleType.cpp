@@ -49,18 +49,17 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool 
-TraCIServerAPI_VehicleType::processGet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_VehicleType::processGet(tcpip::Storage &inputStorage,
+                                       tcpip::Storage &outputStorage) throw(TraCIException) {
     string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
     string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=VAR_ACCEL&&variable!=VAR_DECEL
-        &&variable!=VAR_TAU&&variable!=VAR_VEHICLECLASS&&variable!=VAR_EMISSIONCLASS&&variable!=VAR_SHAPECLASS
-        &&variable!=VAR_GUIOFFSET&&variable!=VAR_WIDTH&&variable!=VAR_COLOR) {
+            &&variable!=VAR_TAU&&variable!=VAR_VEHICLECLASS&&variable!=VAR_EMISSIONCLASS&&variable!=VAR_SHAPECLASS
+            &&variable!=VAR_GUIOFFSET&&variable!=VAR_WIDTH&&variable!=VAR_COLOR) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -78,7 +77,7 @@ TraCIServerAPI_VehicleType::processGet(tcpip::Storage &inputStorage,
         tempMsg.writeStringList(ids);
     } else {
         MSVehicleType *v = MSNet::getInstance()->getVehicleControl().getVType(id);
-        if(v==0) {
+        if (v==0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_ERR, "Vehicle type '" + id + "' is not known", outputStorage);
             return false;
         }
@@ -125,13 +124,13 @@ TraCIServerAPI_VehicleType::processGet(tcpip::Storage &inputStorage,
             break;
         case VAR_COLOR:
             tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte((int) (v->getColor().red()*255.));
-            tempMsg.writeUnsignedByte((int) (v->getColor().green()*255.));
-            tempMsg.writeUnsignedByte((int) (v->getColor().blue()*255.));
+            tempMsg.writeUnsignedByte((int)(v->getColor().red()*255.));
+            tempMsg.writeUnsignedByte((int)(v->getColor().green()*255.));
+            tempMsg.writeUnsignedByte((int)(v->getColor().blue()*255.));
             tempMsg.writeUnsignedByte(255);
             break;
         default:
-        break;
+            break;
         }
     }
     TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
@@ -143,10 +142,9 @@ TraCIServerAPI_VehicleType::processGet(tcpip::Storage &inputStorage,
 }
 
 
-bool 
-TraCIServerAPI_VehicleType::processSet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_VehicleType::processSet(tcpip::Storage &inputStorage,
+                                       tcpip::Storage &outputStorage) throw(TraCIException) {
     return true;
 }
 

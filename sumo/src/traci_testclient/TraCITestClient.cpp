@@ -1292,8 +1292,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
 
 
 int
-TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg)
-{
+TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg) {
     string dataTypeS, valueS;
     defFile >> dataTypeS >> valueS;
     if (dataTypeS=="<int>") {
@@ -1350,7 +1349,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
     tcpip::Storage outMsg, inMsg, tmp;
     int dataLength = setValueTypeDependant(tmp, defFile, msg);
     string msgS = msg.str();
-    if(msgS!="") {
+    if (msgS!="") {
         errorMsg(msg);
     }
     // command length (domID, varID, objID, dataType, data)

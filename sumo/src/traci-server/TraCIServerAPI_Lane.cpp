@@ -48,10 +48,9 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool 
-TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
+                                tcpip::Storage &outputStorage) throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
@@ -59,7 +58,7 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     // check variable
     if (variable!=LANE_LINK_NUMBER&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS
-        &&variable!=VAR_SHAPE) {
+            &&variable!=VAR_SHAPE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -92,55 +91,56 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeFloat(lane->maxSpeed());
             break;
         case LANE_LINKS: {
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                Storage tempContent;
-                unsigned int cnt = 0;
-                tempContent.writeUnsignedByte(TYPE_INTEGER);
-                const MSLinkCont &links = lane->getLinkCont();
-                tempContent.writeInt((int) links.size()); ++cnt;
-                for(MSLinkCont::const_iterator i=links.begin(); i!=links.end(); ++i) {
-                    MSLink *link = (*i);
-                    // approached non-internal lane (if any)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString(link->getLane()!=0 ? link->getLane()->getID() : "");
-                    ++cnt;
-                    // approached "via", internal lane (if any)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+            Storage tempContent;
+            unsigned int cnt = 0;
+            tempContent.writeUnsignedByte(TYPE_INTEGER);
+            const MSLinkCont &links = lane->getLinkCont();
+            tempContent.writeInt((int) links.size());
+            ++cnt;
+            for (MSLinkCont::const_iterator i=links.begin(); i!=links.end(); ++i) {
+                MSLink *link = (*i);
+                // approached non-internal lane (if any)
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString(link->getLane()!=0 ? link->getLane()->getID() : "");
+                ++cnt;
+                // approached "via", internal lane (if any)
+                tempContent.writeUnsignedByte(TYPE_STRING);
 #ifdef HAVE_INTERNAL_LANES
-                    tempContent.writeString(link->getViaLane()!=0 ? link->getViaLane()->getID() : "");
+                tempContent.writeString(link->getViaLane()!=0 ? link->getViaLane()->getID() : "");
 #else
-                    tempContent.writeString("");
+                tempContent.writeString("");
 #endif
-                    ++cnt;
-                    // priority
-                    tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->havePriority() ? 1 : 0);
-                    ++cnt;
-                    // opened
-                    tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->opened() ? 1 : 0);
-                    ++cnt;
-                    // approaching foe
-                    tempContent.writeUnsignedByte(TYPE_UBYTE);
-                    tempContent.writeUnsignedByte(link->hasApproachingFoe() ? 1 : 0);
-                    ++cnt;
-                    // state (not implemented, yet)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString("");
-                    ++cnt;
-                    // direction (not implemented, yet)
-                    tempContent.writeUnsignedByte(TYPE_STRING);
-                    tempContent.writeString("");
-                    ++cnt;
-                    // length
-                    tempContent.writeUnsignedByte(TYPE_FLOAT);
-                    tempContent.writeFloat(link->getLength());
-                    ++cnt;
-                }
-                tempMsg.writeInt((int) cnt);
-                tempMsg.writeStorage(tempContent);
+                ++cnt;
+                // priority
+                tempContent.writeUnsignedByte(TYPE_UBYTE);
+                tempContent.writeUnsignedByte(link->havePriority() ? 1 : 0);
+                ++cnt;
+                // opened
+                tempContent.writeUnsignedByte(TYPE_UBYTE);
+                tempContent.writeUnsignedByte(link->opened() ? 1 : 0);
+                ++cnt;
+                // approaching foe
+                tempContent.writeUnsignedByte(TYPE_UBYTE);
+                tempContent.writeUnsignedByte(link->hasApproachingFoe() ? 1 : 0);
+                ++cnt;
+                // state (not implemented, yet)
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString("");
+                ++cnt;
+                // direction (not implemented, yet)
+                tempContent.writeUnsignedByte(TYPE_STRING);
+                tempContent.writeString("");
+                ++cnt;
+                // length
+                tempContent.writeUnsignedByte(TYPE_FLOAT);
+                tempContent.writeFloat(link->getLength());
+                ++cnt;
             }
-            break;
+            tempMsg.writeInt((int) cnt);
+            tempMsg.writeStorage(tempContent);
+        }
+        break;
         case VAR_SHAPE:
             tempMsg.writeUnsignedByte(TYPE_POLYGON);
             tempMsg.writeUnsignedByte(MIN2(static_cast<size_t>(255),lane->getShape().size()));

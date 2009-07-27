@@ -49,19 +49,18 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool 
-TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
+                               tcpip::Storage &outputStorage) throw(TraCIException) {
     string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
     string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE
-        &&variable!=TL_COMPLETE_DEFINITION_PBY&&variable!=TL_COMPLETE_DEFINITION_RYG
-        &&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
-        &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM) {
+            &&variable!=TL_COMPLETE_DEFINITION_PBY&&variable!=TL_COMPLETE_DEFINITION_RYG
+            &&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
+            &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -117,11 +116,11 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                 // type (always 0 by now)
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt(0);
-                ++cnt; 
+                ++cnt;
                 // subparameter (always 0 by now)
                 tempContent.writeUnsignedByte(TYPE_COMPOUND);
                 tempContent.writeInt(0);
-                ++cnt; 
+                ++cnt;
                 // (current) phase index
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int) logic->getCurrentPhaseIndex());
@@ -173,11 +172,11 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                 // type (always 0 by now)
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt(0);
-                ++cnt; 
+                ++cnt;
                 // subparameter (always 0 by now)
                 tempContent.writeUnsignedByte(TYPE_COMPOUND);
                 tempContent.writeInt(0);
-                ++cnt; 
+                ++cnt;
                 // (current) phase index
                 tempContent.writeUnsignedByte(TYPE_INTEGER);
                 tempContent.writeInt((int) logic->getCurrentPhaseIndex());
@@ -213,9 +212,9 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             const MSTrafficLightLogic::LaneVectorVector &lanes = vars.getActive()->getLanes();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             vector<string> laneIDs;
-            for(MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+            for (MSTrafficLightLogic::LaneVectorVector::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
                 const MSTrafficLightLogic::LaneVector &llanes = (*i);
-                for(MSTrafficLightLogic::LaneVector::const_iterator j=llanes.begin(); j!=llanes.end(); ++j) {
+                for (MSTrafficLightLogic::LaneVector::const_iterator j=llanes.begin(); j!=llanes.end(); ++j) {
                     laneIDs.push_back((*j)->getID());
                 }
             }
@@ -232,7 +231,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             tempContent.writeUnsignedByte(TYPE_INTEGER);
             unsigned int no = (unsigned int) lanes.size();
             tempContent.writeInt((int) no);
-            for(unsigned int i=0; i<no; ++i) {
+            for (unsigned int i=0; i<no; ++i) {
                 const MSTrafficLightLogic::LaneVector &llanes = lanes[i];
                 const MSTrafficLightLogic::LinkVector &llinks = links[i];
                 // number of links controlled by this signal (signal i)
@@ -240,7 +239,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                 unsigned int no2 = (unsigned int) llanes.size();
                 tempContent.writeInt((int) no2);
                 ++cnt;
-                for(unsigned int j=0; j<no2; ++j) {
+                for (unsigned int j=0; j<no2; ++j) {
                     MSLink *link = llinks[j];
                     vector<string> def;
                     // incoming lane
@@ -265,17 +264,16 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
         case TL_CURRENT_PHASE:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt((int) vars.getActive()->getCurrentPhaseIndex());
-        break;
+            break;
         case TL_CURRENT_PROGRAM:
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(vars.getActive()->getSubID());
-        break;
-        case TL_CONTROLLED_JUNCTIONS: 
-            {
-            }
+            break;
+        case TL_CONTROLLED_JUNCTIONS: {
+        }
         break;
         default:
-        break;
+            break;
         }
     }
     TraCIServerAPIHelper::writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_OK, warning, outputStorage);
@@ -287,15 +285,14 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
 }
 
 
-bool 
-TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
+                               tcpip::Storage &outputStorage) throw(TraCIException) {
     string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=TL_PHASE_BRAKE_YELLOW_STATE&&variable!=TL_PHASE_INDEX&&variable!=TL_PROGRAM
-        &&variable!=TL_PHASE_DURATION&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_COMPLETE_PROGRAM_RYG) {
+            &&variable!=TL_PHASE_DURATION&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_COMPLETE_PROGRAM_RYG) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -381,7 +378,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
         MSPhaseDefinition *phase = new MSPhaseDefinition(1, state);
         vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        if(vars.getLogic("online")==0) {
+        if (vars.getLogic("online")==0) {
             MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, "online", phases, 0, cTime+1);
             vars.addLogic("online", logic, true, true);
             vars.getActive()->setLinkPriorities();
@@ -398,49 +395,49 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             return false;
         }
         unsigned int itemNo = inputStorage.readInt();
-        if(inputStorage.readUnsignedByte()!=TYPE_STRING) {
+        if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 1. parameter (subid) must be a string.", outputStorage);
             return false;
         }
         std::string subid = inputStorage.readString();
-        if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 2. parameter (type) must be an int.", outputStorage);
             return false;
         }
         int type = inputStorage.readInt();
-        if(inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
+        if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 3. parameter (subparams) must be a compound object.", outputStorage);
             return false;
         }
         int sublength = inputStorage.readInt();
-        if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 4. parameter (index) must be an int.", outputStorage);
             return false;
         }
         int index = inputStorage.readInt();
-        if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 5. parameter (phase number) must be an int.", outputStorage);
             return false;
         }
         int phaseNo = inputStorage.readInt();
         vector<MSPhaseDefinition*> phases;
         for (unsigned int j=0; j<phaseNo; ++j) {
-            if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.1. parameter (duration) must be an int.", outputStorage);
                 return false;
             }
             int duration = inputStorage.readInt();
-            if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.2. parameter (duration2) must be an int.", outputStorage);
                 return false;
             }
             inputStorage.readInt();
-            if(inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.3. parameter (duration3) must be an int.", outputStorage);
                 return false;
             }
             inputStorage.readInt();
-            if(inputStorage.readUnsignedByte()!=TYPE_STRING) {
+            if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
                 return false;
             }
@@ -448,7 +445,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             MSPhaseDefinition *phase = new MSPhaseDefinition(duration, state);
             phases.push_back(phase);
         }
-        if(vars.getLogic(subid)==0) {
+        if (vars.getLogic(subid)==0) {
             MSTrafficLightLogic *logic = new MSSimpleTrafficLightLogic(tlsControl, id, subid, phases, index, 0);
             vars.addLogic(subid, logic, true, true);
             vars.getActive()->setLinkPriorities();

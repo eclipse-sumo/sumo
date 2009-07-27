@@ -51,10 +51,9 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-bool 
-TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
+                                   tcpip::Storage &outputStorage) throw(TraCIException) {
     string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -85,7 +84,7 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; i++) {
             p = shapeCont.getPolygonCont(i).get(id);
         }
-        if(p==0) {
+        if (p==0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
             return false;
         }
@@ -96,9 +95,9 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
             break;
         case VAR_COLOR:
             tempMsg.writeUnsignedByte(TYPE_COLOR);
-            tempMsg.writeUnsignedByte((int) (p->getColor().red()*255.));
-            tempMsg.writeUnsignedByte((int) (p->getColor().green()*255.));
-            tempMsg.writeUnsignedByte((int) (p->getColor().blue()*255.));
+            tempMsg.writeUnsignedByte((int)(p->getColor().red()*255.));
+            tempMsg.writeUnsignedByte((int)(p->getColor().green()*255.));
+            tempMsg.writeUnsignedByte((int)(p->getColor().blue()*255.));
             tempMsg.writeUnsignedByte(255);
             break;
         case VAR_SHAPE:
@@ -114,7 +113,7 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeUnsignedByte(p->fill() ? 1 : 0);
             break;
         default:
-        break;
+            break;
         }
     }
     TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
@@ -126,10 +125,9 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
 }
 
 
-bool 
-TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage, 
-                                         tcpip::Storage &outputStorage) throw(TraCIException)
-{
+bool
+TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
+                                   tcpip::Storage &outputStorage) throw(TraCIException) {
     return true;
 }
 

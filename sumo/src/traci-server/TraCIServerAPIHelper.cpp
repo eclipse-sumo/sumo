@@ -49,7 +49,7 @@ using namespace tcpip;
 // method definitions
 // ===========================================================================
 void
-TraCIServerAPIHelper::writeStatusCmd(int commandId, int status, 
+TraCIServerAPIHelper::writeStatusCmd(int commandId, int status,
                                      const std::string &description, tcpip::Storage &outputStorage) {
     if (status == RTYPE_ERR) {
         MsgHandler::getErrorInstance()->inform("Answered with error to command " + toString(commandId) +
