@@ -48,10 +48,10 @@
 // method definitions
 // ===========================================================================
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                                                         const std::string &id, const std::string &subid,
-                                                         const Phases &phases,
-    unsigned int step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
-    SUMOReal detectorGap) throw()
+        const std::string &id, const std::string &subid,
+        const Phases &phases,
+        unsigned int step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
+        SUMOReal detectorGap) throw()
         : MSSimpleTrafficLightLogic(tlcontrol, id, subid, phases, step, delay),
         myContinue(false),
         myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap) {}

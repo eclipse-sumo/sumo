@@ -62,7 +62,7 @@ public:
      * @param[in] shape The shape of the junction
      */
     MSJunction(const std::string &id, const Position2D &position,
-        const Position2DVector &shape) throw();
+               const Position2DVector &shape) throw();
 
     /** performs some initialisation after the loading
         (e.g., link map computation) */

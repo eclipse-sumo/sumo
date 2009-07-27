@@ -82,10 +82,10 @@ public:
      * @return Whether this phase is a "pure green" phase
      */
     bool isGreenPhase() const throw() {
-        if(state.find_first_of("gG")==std::string::npos) {
+        if (state.find_first_of("gG")==std::string::npos) {
             return false;
         }
-        if(state.find_first_of("yY")!=std::string::npos) {
+        if (state.find_first_of("yY")!=std::string::npos) {
             return false;
         }
         return true;
@@ -102,7 +102,7 @@ public:
 
 
     /** @brief Comparison operator
-     * 
+     *
      * Note that only the state must differ, not the duration!
      * @param[in] pd The phase definition to compare against
      * @return Whether the given phase definition differs
@@ -123,11 +123,11 @@ public:
      */
     static std::string old2new(const std::string &driveMask, const std::string &brakeMask, const std::string &yellowMask) throw() {
         std::string state;
-        for(int i=(int) driveMask.length()-1; i>=0; --i) {
-            if(driveMask[i]=='1') {
+        for (int i=(int) driveMask.length()-1; i>=0; --i) {
+            if (driveMask[i]=='1') {
                 state += 'g';
             } else {
-                if(yellowMask[i]=='1') {
+                if (yellowMask[i]=='1') {
                     state += 'y';
                 } else {
                     state += 'r';
@@ -136,12 +136,12 @@ public:
         }
         //  brake needs then
         int j = 0;
-        for(int i=(int) driveMask.length()-1; i>=0; --i, ++j) {
-            if(brakeMask[i]=='0') {
-                if(state[j]=='g') {
+        for (int i=(int) driveMask.length()-1; i>=0; --i, ++j) {
+            if (brakeMask[i]=='0') {
+                if (state[j]=='g') {
                     state[j] = 'G';
                 }
-                if(state[j]=='y') {
+                if (state[j]=='y') {
                     state[j] = 'Y';
                 }
             }
@@ -156,8 +156,8 @@ public:
      */
     static std::string new2driveMask(const std::string &state) throw() {
         std::string mask;
-        for(int i=(int) state.length()-1; i>=0; --i) {
-            if(state[i]=='g'||state[i]=='G') {
+        for (int i=(int) state.length()-1; i>=0; --i) {
+            if (state[i]=='g'||state[i]=='G') {
                 mask += '1';
             } else {
                 mask += '0';
@@ -173,8 +173,8 @@ public:
      */
     static std::string new2brakeMask(const std::string &state) throw() {
         std::string mask;
-        for(int i=(int) state.length()-1; i>=0; --i) {
-            if(state[i]>='a'&&state[i]<='z') {
+        for (int i=(int) state.length()-1; i>=0; --i) {
+            if (state[i]>='a'&&state[i]<='z') {
                 mask += '0';
             } else {
                 mask += '1';
@@ -190,8 +190,8 @@ public:
      */
     static std::string new2yellowMask(const std::string &state) throw() {
         std::string mask;
-        for(int i=(int) state.length()-1; i>=0; --i) {
-            if(state[i]=='y'||state[i]=='Y') {
+        for (int i=(int) state.length()-1; i>=0; --i) {
+            if (state[i]=='y'||state[i]=='Y') {
                 mask += '1';
             } else {
                 mask += '0';

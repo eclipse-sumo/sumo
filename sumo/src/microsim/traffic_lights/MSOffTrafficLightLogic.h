@@ -48,7 +48,7 @@
 class MSOffTrafficLightLogic : public MSTrafficLightLogic {
 public:
     /** @brief Constructor
-     * @param[in] tlcontrol The tls control responsible for this tls 
+     * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
      * The sub-id is always "off".
      */
@@ -96,7 +96,7 @@ public:
 
     /** @brief Applies the priorities resulting from the current phase to controlled links
      *
-     * This method is overridded, as in off-state, a tls does not change rows. 
+     * This method is overridded, as in off-state, a tls does not change rows.
      *
      * @todo Check whether this can be integrated into "maskRedLinks"
      * @see MSTrafficLightLogic::setLinkPriorities

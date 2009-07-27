@@ -48,9 +48,9 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
-MSLogicJunction::MSLogicJunction(const std::string &id, 
+MSLogicJunction::MSLogicJunction(const std::string &id,
                                  const Position2D &position,
-                                 const Position2DVector &shape, 
+                                 const Position2DVector &shape,
                                  LaneCont incoming
 #ifdef HAVE_INTERNAL_LANES
                                  , LaneCont internal

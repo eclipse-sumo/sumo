@@ -214,7 +214,7 @@ public:
 
     /// @name Access to vehicles
     /// @{
-    
+
     /** @brief Returns the number of vehicles on this lane
      * @return The number of vehicles on this lane
      */

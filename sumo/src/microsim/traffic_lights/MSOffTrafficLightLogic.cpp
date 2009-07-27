@@ -50,38 +50,35 @@ MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl &tlcontrol,
 
 
 MSOffTrafficLightLogic::~MSOffTrafficLightLogic() throw() {
-    for(MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
+    for (MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
         delete *i;
     }
 }
 
 
-void 
-MSOffTrafficLightLogic::init(NLDetectorBuilder &nb, const MSEdgeContinuations &edgeContinuations) throw(ProcessError)
-{
+void
+MSOffTrafficLightLogic::init(NLDetectorBuilder &nb, const MSEdgeContinuations &edgeContinuations) throw(ProcessError) {
     rebuildPhase();
 }
 
 
 // ----------- Handling of controlled links
-void 
-MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw()
-{
+void
+MSOffTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic) throw() {
     MSTrafficLightLogic::adaptLinkInformationFrom(logic);
     rebuildPhase();
 }
 
 
-void 
-MSOffTrafficLightLogic::rebuildPhase() throw()
-{
+void
+MSOffTrafficLightLogic::rebuildPhase() throw() {
     size_t no = getLinks().size();
     std::string state;
     for (unsigned int i=0; i<no; ++i) {
         // !!! no brake mask!
         state += 'o';
     }
-    for(MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
+    for (MSTrafficLightLogic::Phases::const_iterator i=myPhaseDefinition.begin(); i!=myPhaseDefinition.end(); ++i) {
         delete *i;
     }
     myPhaseDefinition.clear();
@@ -128,7 +125,7 @@ MSOffTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
 }
 
 
-unsigned int 
+unsigned int
 MSOffTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
     return 0;
 }

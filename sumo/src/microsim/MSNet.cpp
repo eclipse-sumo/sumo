@@ -117,7 +117,7 @@ MSNet::getInstance(void) throw(ProcessError) {
 
 MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
              MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError) {
-    if(myInstance!=0) {
+    if (myInstance!=0) {
         throw ProcessError("A network was already constructed.");
     }
     MSCORN::init();

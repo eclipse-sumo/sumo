@@ -63,7 +63,7 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
 
 
 void
-MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb, 
+MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb,
                                     const MSEdgeContinuations &edgeContinuations) throw(ProcessError) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     LaneVectorVector::const_iterator i2;

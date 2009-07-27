@@ -118,11 +118,11 @@ public:
      * @todo Try to move all this to the constructor?
      */
     void closeBuilding(MSEdgeControl *edges,
-        MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
-        MSTLLogicControl *tlc, std::vector<int> stateDumpTimes, std::string stateDumpFiles) throw();
+                       MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
+                       MSTLLogicControl *tlc, std::vector<int> stateDumpTimes, std::string stateDumpFiles) throw();
 
 
-    /** @brief Clears all dictionaries 
+    /** @brief Clears all dictionaries
      * @todo Try to move all this to the destructor
      */
     static void clearAll();

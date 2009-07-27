@@ -111,7 +111,7 @@ MSDevice_HBEFA::MSDevice_HBEFA(MSVehicle &holder, const std::string &id) throw()
 
 MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
     // make the rerouting command invalid
-    if(myComputeAndCollectCommand!=0) {
+    if (myComputeAndCollectCommand!=0) {
         myComputeAndCollectCommand->deschedule();
     }
 }
@@ -119,7 +119,7 @@ MSDevice_HBEFA::~MSDevice_HBEFA() throw() {
 
 void
 MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
-    if(myComputeAndCollectCommand!=0) {
+    if (myComputeAndCollectCommand!=0) {
         return;
     }
     myComputeAndCollectCommand = new WrappingCommand< MSDevice_HBEFA >(this, &MSDevice_HBEFA::wrappedComputeCommandExecute);
@@ -131,7 +131,7 @@ MSDevice_HBEFA::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &) {
 
 SUMOTime
 MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(ProcessError) {
-    if(!getHolder().isOnRoad()) {
+    if (!getHolder().isOnRoad()) {
         return 1;
     }
     SUMOEmissionClass c = getHolder().getVehicleType().getEmissionClass();

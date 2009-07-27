@@ -181,7 +181,7 @@ MSSimpleTrafficLightLogic::getPhaseIndexAtTime(SUMOTime simStep) const throw() {
 }
 
 
-unsigned int 
+unsigned int
 MSSimpleTrafficLightLogic::getOffsetFromIndex(unsigned int index) const throw() {
     assert(index < myPhases.size());
     if (index == 0) {

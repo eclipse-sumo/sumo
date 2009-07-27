@@ -268,11 +268,11 @@ protected:
      * @todo Check subseconds simulation
      */
     inline SUMOReal normPerVeh(SUMOReal val, SUMOReal samples, SUMOReal vehicleNo) const throw() {
-        if(samples==0) {
+        if (samples==0) {
             // no vehicle on the lane/edge
             return 0;
         }
-        if(vehicleNo==0) {
+        if (vehicleNo==0) {
             // vehicle(s) did not move
             //  return a large value
             return (SUMOReal) 1000000;

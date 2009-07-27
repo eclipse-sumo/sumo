@@ -580,30 +580,30 @@ MSLane::setCritical(std::vector<MSLane*> &into) {
             first2pop = curr;
         }
     }
-    if(first2pop>=0) {
-    int remove = myVehicles.size() - first2pop;
-    for (int j = 0; j<remove; ++j) {
-        MSVehicle *v = *(myVehicles.end() - 1);
-        MSVehicle *p = pop();
-        assert(v==p);
-        MSLane *target = p->getTargetLane();
-        if(p->getPositionOnLane()>target->length()||target==this) {
-            if (target==this) {
-                MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; false leaving order, targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+    if (first2pop>=0) {
+        int remove = myVehicles.size() - first2pop;
+        for (int j = 0; j<remove; ++j) {
+            MSVehicle *v = *(myVehicles.end() - 1);
+            MSVehicle *p = pop();
+            assert(v==p);
+            MSLane *target = p->getTargetLane();
+            if (p->getPositionOnLane()>target->length()||target==this) {
+                if (target==this) {
+                    MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; false leaving order, targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                }
+                if (p->getPositionOnLane()>target->length()) {
+                    MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; beyond lane (1), targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                }
+                v->leaveLaneAtLaneChange();
+                v->onTripEnd();
+                MSVehicleTransfer::getInstance()->addVeh(v);
+                hadProblem = true;
+                continue;
             }
-            if (p->getPositionOnLane()>target->length()) {
-                MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; beyond lane (1), targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            if (target!=0&&p->isOnRoad()) {
+                target->push(p);
+                into.push_back(target);
             }
-            v->leaveLaneAtLaneChange();
-            v->onTripEnd();
-            MSVehicleTransfer::getInstance()->addVeh(v);
-            hadProblem = true;
-            continue;
-        }
-        if (target!=0&&p->isOnRoad()) {
-            target->push(p);
-            into.push_back(target);
-        }
         }
     }
     // check whether the lane is free

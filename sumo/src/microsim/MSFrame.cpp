@@ -246,7 +246,7 @@ MSFrame::fillOptions() {
     // add rand options
     RandHelper::insertRandOptions();
 
-    oc.addOptionSubTopic("GUI Only");    
+    oc.addOptionSubTopic("GUI Only");
     oc.doRegister("gui-settings-file", new Option_FileName(""));
     oc.addDescription("gui-settings-file", "GUI Only", "Load visualisation settings from FILE");
 

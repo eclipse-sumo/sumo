@@ -54,7 +54,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* > &edges) throw()
     // build the usage definitions for lanes
     for (std::vector< MSEdge* >::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         const MSEdge::LaneCont * const lanes = (*i)->getLanes();
-        if(lanes->size()==1) {
+        if (lanes->size()==1) {
             size_t pos = (*lanes->begin())->getNumericalID();
             myLanes[pos].lane = *(lanes->begin());
             myLanes[pos].firstNeigh = lanes->end();

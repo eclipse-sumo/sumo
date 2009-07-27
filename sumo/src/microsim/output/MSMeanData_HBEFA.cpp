@@ -88,11 +88,11 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
         fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
         ret = false;
     }
-    if(fraction<0) {
+    if (fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
     }
-    if(fraction==0) {
+    if (fraction==0) {
         return false;
     }
     sampleSeconds += fraction;
@@ -122,18 +122,18 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
     if (veh.getPositionOnLane()+l>getLane()->length()) {
         fraction = l - (getLane()->length()-pos);
     }
-    if(isEmit) {
+    if (isEmit) {
         pos -= veh.getSpeed();
-        if(pos<0) {
+        if (pos<0) {
             pos = 0;
         }
     }
     vehicleNo += ((myLane->length()-pos) / myLane->length());
-    if(fraction<0) {
+    if (fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
     }
-    if(fraction==0) {
+    if (fraction==0) {
         return false;
     }
     sampleSeconds += fraction;
@@ -185,7 +185,7 @@ MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw() {
             SUMOReal nVehNo = 0.;
             SUMOReal laneLength = (*j)->getLane()->length();
             const MSLane::VehCont &vehs = (*j)->getLane()->getVehiclesSecure();
-            for(MSLane::VehCont::const_iterator k=vehs.begin(); k!=vehs.end(); ++k) {
+            for (MSLane::VehCont::const_iterator k=vehs.begin(); k!=vehs.end(); ++k) {
                 SUMOReal pos = (*k)->getPositionOnLane();
                 nVehNo += ((laneLength-pos) / laneLength);
             }
@@ -242,7 +242,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             SUMOReal nVehNo = 0.;
             SUMOReal laneLength = meanData.getLane()->length();
             const MSLane::VehCont &vehs = meanData.getLane()->getVehiclesSecure();
-            for(MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+            for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
                 SUMOReal pos = (*i)->getPositionOnLane();
                 oVehNo -= (laneLength-pos) / laneLength;
                 nVehNo += (laneLength-pos) / laneLength;
@@ -268,7 +268,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             "\" PMx_normed=\""<<normKMH(pmxS, (SUMOReal)(stopTime-startTime), length)<<
             "\" NOx_normed=\""<<normKMH(noxS, (SUMOReal)(stopTime-startTime), length)<<
             "\" fuel_normed=\""<<normKMH(fuelS, (SUMOReal)(stopTime-startTime), length);
-            if(samplesS!=0) {
+            if (samplesS!=0) {
                 dev<<"\" CO_perVeh=\""<<SUMOReal(normPerVeh(coS, samplesS, vehicleNoS)*1000.) <<
                 "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(co2S, samplesS, vehicleNoS)*1000.)<<
                 "\" HC_perVeh=\""<<SUMOReal(normPerVeh(hcS, samplesS, vehicleNoS)*1000.)<<
@@ -290,7 +290,7 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
         const MSLane::VehCont &vehs = laneValues.getLane()->getVehiclesSecure();
         SUMOReal oVehNo = laneValues.vehicleNo;
         SUMOReal nVehNo = 0;
-        for(MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
             SUMOReal pos = (*i)->getPositionOnLane();
             oVehNo -= ((laneValues.getLane()->length()-pos) / laneValues.getLane()->length());
             nVehNo += ((laneValues.getLane()->length()-pos) / laneValues.getLane()->length());
@@ -311,7 +311,7 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
         "\" PMx_normed=\""<<normKMH(laneValues.PMx, (SUMOReal)(stopTime-startTime), length)<<
         "\" NOx_normed=\""<<normKMH(laneValues.NOx, (SUMOReal)(stopTime-startTime), length)<<
         "\" fuel_normed=\""<<normKMH(laneValues.fuel, (SUMOReal)(stopTime-startTime), length);
-        if(laneValues.sampleSeconds!=0) {
+        if (laneValues.sampleSeconds!=0) {
             dev<<"\" CO_perVeh=\""<<SUMOReal(normPerVeh(laneValues.CO, laneValues.sampleSeconds, oVehNo)*1000.)<<
             "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(laneValues.CO2, laneValues.sampleSeconds, oVehNo)*1000.)<<
             "\" HC_perVeh=\""<<SUMOReal(normPerVeh(laneValues.HC, laneValues.sampleSeconds, oVehNo)*1000.)<<

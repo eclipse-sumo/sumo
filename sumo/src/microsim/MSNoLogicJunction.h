@@ -65,12 +65,12 @@ public:
      * @param[in] internal The internal lanes
      */
     MSNoLogicJunction(const std::string &id, const Position2D &position,
-        const Position2DVector &shape, 
-        LaneCont incoming
+                      const Position2DVector &shape,
+                      LaneCont incoming
 #ifdef HAVE_INTERNAL_LANES
-        , LaneCont internal
+                      , LaneCont internal
 #endif
-        ) throw();
+                     ) throw();
 
     /** Here, do nothing. */
     bool clearRequests();

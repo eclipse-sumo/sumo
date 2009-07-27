@@ -157,14 +157,13 @@ MSRoute::inFurtherUse() const {
 }
 
 
-void 
-MSRoute::insertIDs(std::vector<std::string> &into)
-{
+void
+MSRoute::insertIDs(std::vector<std::string> &into) {
     into.reserve(myDict.size()+myDistDict.size()+into.size());
-    for(RouteDict::const_iterator i=myDict.begin(); i!=myDict.end(); ++i) {
+    for (RouteDict::const_iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         into.push_back((*i).first);
     }
-    for(RouteDistDict::const_iterator i=myDistDict.begin(); i!=myDistDict.end(); ++i) {
+    for (RouteDistDict::const_iterator i=myDistDict.begin(); i!=myDistDict.end(); ++i) {
         into.push_back((*i).first);
     }
 }
@@ -350,7 +349,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
                 const MSLinkCont& links = (*laneIt)->getLinkCont();
                 for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
-                    if((*linkIt)==0||(*linkIt)->getLane()==0) {
+                    if ((*linkIt)==0||(*linkIt)->getLane()==0) {
                         continue;
                     }
                     std::string succLaneId = (*(*(it+1))->getLanes()->begin())->getID();

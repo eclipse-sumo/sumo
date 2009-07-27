@@ -1589,7 +1589,7 @@ MSVehicle::rebuildAllowedLanes(bool reinit) {
     // compute next allowed lanes up to 1000m into the future
     SUMOReal MIN_DIST = 1000;
     if (dist<MIN_DIST) {
-        unsigned int pos = (unsigned int) (distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size());
+        unsigned int pos = (unsigned int)(distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size());
         if (pos>=myRoute->size()-1) {
             return;
         }

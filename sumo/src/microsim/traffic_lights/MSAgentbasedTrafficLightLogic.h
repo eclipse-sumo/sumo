@@ -73,7 +73,7 @@ public:
 
 public:
     /** @brief Constructor
-     * @param[in] tlcontrol The tls control responsible for this tls 
+     * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
      * @param[in] subid This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
@@ -110,7 +110,7 @@ public:
 
     /** @brief Switches to the next phase
      * @param[in] isActive Whether this program is the currently used one
-     * @return The time of the next switch 
+     * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
     SUMOTime trySwitch(bool isActive) throw();
@@ -134,12 +134,12 @@ protected:
      */
     void collectData() throw();
 
-   
+
     /** @brief Aggregates the data of one phase, collected during different cycles
      */
     void aggregateRawData() throw();
 
-    
+
     /** @brief Calculates the duration for all real phases except intergreen phases
      */
     void calculateDuration() throw();
@@ -150,7 +150,7 @@ protected:
      */
     void lengthenCycleTime(unsigned int toLenghten) throw();
 
-    
+
     /** @brief cuts the actual cycle by an given value
      * @param[in] toCut The time decrease
      */

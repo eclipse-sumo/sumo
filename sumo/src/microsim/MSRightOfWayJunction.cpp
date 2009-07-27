@@ -52,14 +52,14 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRightOfWayJunction::MSRightOfWayJunction(const std::string &id, 
-                                 const Position2D &position,
-                                 const Position2DVector &shape, 
-                                 LaneCont incoming,
+MSRightOfWayJunction::MSRightOfWayJunction(const std::string &id,
+        const Position2D &position,
+        const Position2DVector &shape,
+        LaneCont incoming,
 #ifdef HAVE_INTERNAL_LANES
-                                 LaneCont internal,
+        LaneCont internal,
 #endif
-                                 MSJunctionLogic* logic) throw()
+        MSJunctionLogic* logic) throw()
         : MSLogicJunction(id, position, shape, incoming
 #ifdef HAVE_INTERNAL_LANES
                           , internal),

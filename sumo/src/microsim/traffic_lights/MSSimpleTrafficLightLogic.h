@@ -54,7 +54,7 @@
 class MSSimpleTrafficLightLogic : public MSTrafficLightLogic {
 public:
     /** @brief Constructor
-     * @param[in] tlcontrol The tls control responsible for this tls 
+     * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
      * @param[in] subid This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
@@ -76,7 +76,7 @@ public:
 
     /** @brief Switches to the next phase
      * @param[in] isActive Whether this program is the currently used one
-     * @return The time of the next switch 
+     * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
     SUMOTime trySwitch(bool isActive) throw();

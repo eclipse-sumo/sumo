@@ -50,9 +50,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 #ifdef HAVE_INTERNAL_LANES
-MSInternalJunction::MSInternalJunction(const std::string &id, 
+MSInternalJunction::MSInternalJunction(const std::string &id,
                                        const Position2D &position,
-                                       const Position2DVector &shape, 
+                                       const Position2DVector &shape,
                                        LaneCont incoming, LaneCont internal) throw()
         : MSLogicJunction(id, position, shape, incoming, internal) {}
 

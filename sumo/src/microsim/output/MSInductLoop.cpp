@@ -92,8 +92,8 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     if (myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end()) {
         // entered the detector by move
         SUMOReal entryTimestep = newSpeed!=0
-            ? (SUMOReal) ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed))
-            : (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+                                 ? (SUMOReal)((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed))
+                                 : (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
         if (newPos - veh.getVehicleType().getLength() > myPosition) {
             // entered and passed detector in a single timestep
             SUMOReal leaveTimestep = (SUMOReal)

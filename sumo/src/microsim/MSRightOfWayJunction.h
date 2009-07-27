@@ -65,12 +65,12 @@ public:
      * @param[in] logic The logic of this junction
      */
     MSRightOfWayJunction(const std::string &id, const Position2D &position,
-        const Position2DVector &shape, 
-        LaneCont incoming,
+                         const Position2DVector &shape,
+                         LaneCont incoming,
 #ifdef HAVE_INTERNAL_LANES
-        LaneCont internal,
+                         LaneCont internal,
 #endif
-        MSJunctionLogic* logic) throw();
+                         MSJunctionLogic* logic) throw();
 
     /// Destructor.
     virtual ~MSRightOfWayJunction();

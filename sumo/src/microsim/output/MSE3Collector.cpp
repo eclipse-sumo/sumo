@@ -181,7 +181,7 @@ MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw() {
         E3Values values = myEnteredContainer[&veh];
         values.leaveTime = leaveTimestep;
         SUMOReal leaveTimestepFraction = leaveTimestep - (SUMOReal)((int) leaveTimestep);
-        if(values.hadUpdate) {
+        if (values.hadUpdate) {
             SUMOReal speedFraction = (veh.getSpeed() * leaveTimestepFraction);
             values.speedSum += speedFraction;
             values.intervalSpeedSum += speedFraction;
@@ -298,20 +298,20 @@ MSE3Collector::update(SUMOTime execTime) throw() {
         MSVehicle* veh = pair->first;
         E3Values& values = pair->second;
         values.hadUpdate = true;
-        if(values.entryTime>=execTime) {
+        if (values.entryTime>=execTime) {
             // vehicle entered at this time step
             SUMOReal fraction = execTime + DELTA_T - values.entryTime;
             myCurrentMeanSpeed += fraction * veh->getSpeed();
             myCurrentTouchedVehicles += fraction;
-            if(values.haltingBegin>=0) {
+            if (values.haltingBegin>=0) {
                 myCurrentHaltingsNumber++;
             }
             continue;
         }
-            values.speedSum += veh->getSpeed();
-            values.intervalSpeedSum += veh->getSpeed();
-            myCurrentMeanSpeed += veh->getSpeed();
-            myCurrentTouchedVehicles += 1;
+        values.speedSum += veh->getSpeed();
+        values.intervalSpeedSum += veh->getSpeed();
+        myCurrentMeanSpeed += veh->getSpeed();
+        myCurrentTouchedVehicles += 1;
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
             if (values.haltingBegin==-1) {
                 values.haltingBegin = execTime;

@@ -90,11 +90,11 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         ++nVehLeftLane;
         ret = false;
     }
-    if(fraction<0) {
+    if (fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
     }
-    if(fraction==0) {
+    if (fraction==0) {
         return false;
     }
     sampleSeconds += fraction;
@@ -115,11 +115,11 @@ MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& v
     if (veh.getPositionOnLane()+l>getLane()->length()) {
         fraction = l - (getLane()->length()-veh.getPositionOnLane());
     }
-    if(fraction<0) {
+    if (fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
     }
-    if(fraction==0) {
+    if (fraction==0) {
         return false;
     }
     sampleSeconds += fraction;

@@ -63,8 +63,8 @@ public:
      * @param[in] internal The internal lanes
      */
     MSInternalJunction(const std::string &id, const Position2D &position,
-        const Position2DVector &shape, 
-        LaneCont incoming, LaneCont internal) throw();
+                       const Position2DVector &shape,
+                       LaneCont incoming, LaneCont internal) throw();
 
     /// Destructor.
     virtual ~MSInternalJunction();

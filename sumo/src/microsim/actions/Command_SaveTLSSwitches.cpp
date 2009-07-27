@@ -71,13 +71,13 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
     const std::string &state = light->getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) links.size(); i++) {
         if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
-            if(myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
+            if (myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
                 // was not saved before
                 myPreviousLinkStates[i] = currentTime;
                 continue;
             }
         } else {
-            if(myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
+            if (myPreviousLinkStates.find(i)==myPreviousLinkStates.end()) {
                 // was not yet green
                 continue;
             }
@@ -87,13 +87,13 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
             for (int j=0; j<(int) currLinks.size(); j++) {
                 MSLink *link = currLinks[j];
                 myOutputDevice << "   <tlsswitch tls=\"" << light->getID()
-                    << "\" subid=\"" << light->getSubID()
-                    << "\" fromLane=\"" << currLanes[j]->getID()
-                    << "\" toLane=\"" << link->getLane()->getID()
-                    << "\" begin=\"" << lastOn
-                    << "\" end=\"" << currentTime
-                    << "\" duration=\"" << (currentTime-lastOn)
-                    << "\"/>" << "\n";
+                << "\" subid=\"" << light->getSubID()
+                << "\" fromLane=\"" << currLanes[j]->getID()
+                << "\" toLane=\"" << link->getLane()->getID()
+                << "\" begin=\"" << lastOn
+                << "\" end=\"" << currentTime
+                << "\" duration=\"" << (currentTime-lastOn)
+                << "\"/>" << "\n";
             }
             myPreviousLinkStates.erase(myPreviousLinkStates.find(i));
         }
