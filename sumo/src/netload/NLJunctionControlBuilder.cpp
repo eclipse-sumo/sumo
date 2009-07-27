@@ -301,7 +301,7 @@ NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSi
     myLaneNumber = laneNumber;
     myRequestItemNumber = 0;
     myCurrentHasError = false;
-    if(myRequestSize>0) {
+    if (myRequestSize>0) {
         myActiveLogic->resize(myRequestSize);
         myActiveFoes->resize(myRequestSize);
     }

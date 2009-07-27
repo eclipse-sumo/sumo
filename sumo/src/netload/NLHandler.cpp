@@ -82,12 +82,11 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
         myShapeBuilder(shapeBuilder), mySucceedingLaneBuilder(junctionBuilder, myContinuations),
         myAmInTLLogicMode(false), myCurrentIsBroken(false),
-        myHaveWarnedAboutDeprecatedVClass(false), 
+        myHaveWarnedAboutDeprecatedVClass(false),
         myHaveWarnedAboutDeprecatedJunctionShape(false),
         myHaveWarnedAboutDeprecatedLaneShape(false),
         myHaveWarnedAboutDeprecatedPolyShape(false),
-        myHaveWarnedAboutDeprecatedLocation(false)
-{}
+        myHaveWarnedAboutDeprecatedLocation(false) {}
 
 
 NLHandler::~NLHandler() throw() {}
@@ -228,7 +227,7 @@ NLHandler::myCharacters(SumoXMLTag element,
                         const std::string &chars) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_POLY:
-        if(chars.length()!=0) {
+        if (chars.length()!=0) {
             addPolyPosition(chars);
         }
         break;
@@ -241,7 +240,7 @@ NLHandler::myCharacters(SumoXMLTag element,
         break;
 #endif
     case SUMO_TAG_LANE:
-        if(chars.length()!=0) {
+        if (chars.length()!=0) {
             addLaneShape(chars);
         }
         break;
@@ -277,7 +276,7 @@ NLHandler::myCharacters(SumoXMLTag element,
         GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
         break;
     case SUMO_TAG_SHAPE:
-        if(chars.length()!=0) {
+        if (chars.length()!=0) {
             addJunctionShape(chars);
         }
         break;
@@ -431,10 +430,10 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         MsgHandler::getErrorInstance()->inform("Value of depart definition of lane '" + id + "' is invalid.\n Can not build according edge.");
         myCurrentIsBroken = true;
     }
-    if(!myCurrentIsBroken) {
-        if(attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+    if (!myCurrentIsBroken) {
+        if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
             addLaneShape(attrs.getString(SUMO_ATTR_SHAPE));
-        } else if(!myHaveWarnedAboutDeprecatedLaneShape) {
+        } else if (!myHaveWarnedAboutDeprecatedLaneShape) {
             myHaveWarnedAboutDeprecatedLaneShape = true;
             MsgHandler::getWarningInstance()->inform("Your network uses a deprecated lane shape description; please rebuild.");
         }
@@ -499,7 +498,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
         return;
     }
     Position2DVector shape;
-    if(attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
         try {
             shape = GeomConvHelper::parseShape(attrs.getString(SUMO_ATTR_SHAPE));
@@ -526,11 +525,11 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
     }
     //
-    if(!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INCLANES)) {
+    if (!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INCLANES)) {
         addIncomingLanes(attrs.getString(SUMO_ATTR_INCLANES));
     }
 #ifdef HAVE_INTERNAL_LANES
-    if(!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INTLANES)) {
+    if (!myCurrentIsBroken&&attrs.hasAttribute(SUMO_ATTR_INTLANES)) {
         addInternalLanes(attrs.getString(SUMO_ATTR_INTLANES));
     }
 #endif
@@ -723,10 +722,10 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' misses an attribute.");
     }
-    if(attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+    if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated; at some time, this is mandatory (no character usage)
         addPolyPosition(attrs.getString(SUMO_ATTR_SHAPE));
-    } else if(!myHaveWarnedAboutDeprecatedPolyShape) {
+    } else if (!myHaveWarnedAboutDeprecatedPolyShape) {
         myHaveWarnedAboutDeprecatedPolyShape = true;
         MsgHandler::getWarningInstance()->inform("You use a deprecated polygon shape description; use attribute 'shape' instead.");
     }
@@ -778,10 +777,10 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
     }
 }
 
-            
+
 void
 NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
-    if(!attrs.hasAttribute(SUMO_ATTR_ID)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_ID)) {
         // @deprecated: assuming a net could still use characters for the id
         myJunctionControlBuilder.initJunctionLogic("", -1, -1);
         return;
@@ -807,7 +806,7 @@ NLHandler::initJunctionLogic(const SUMOSAXAttributes &attrs) {
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Lane number in row-logic '" + id + "' is not numeric.");
     }
-    if(requestSize!=-1&&laneNumber!=-1) {
+    if (requestSize!=-1&&laneNumber!=-1) {
         myJunctionControlBuilder.initJunctionLogic(id, requestSize, laneNumber);
     }
 }
@@ -829,7 +828,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs) {
             return;
         }
         //
-        if(!attrs.hasAttribute(SUMO_ATTR_ID)) {
+        if (!attrs.hasAttribute(SUMO_ATTR_ID)) {
             // @deprecated: assuming a net could still use characters for the id
             myJunctionControlBuilder.initTrafficLightLogic("", "", type, 0, detectorOffset);
             return;
@@ -862,10 +861,10 @@ void
 NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     // try to get the phase definition
     std::string state;
-        std::string phase;
-        std::string brakeMask;
-        std::string yellowMask;
-    if(attrs.hasAttribute(SUMO_ATTR_STATE)) {
+    std::string phase;
+    std::string brakeMask;
+    std::string yellowMask;
+    if (attrs.hasAttribute(SUMO_ATTR_STATE)) {
         // ok, doing it the new way
         state = attrs.getString(SUMO_ATTR_STATE);
     } else {
@@ -889,7 +888,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
             return;
         }
         // check
-        if(phase.length()!=brakeMask.length()||phase.length()!=yellowMask.length()) {
+        if (phase.length()!=brakeMask.length()||phase.length()!=yellowMask.length()) {
             MsgHandler::getErrorInstance()->inform("Definition of traffic light is broken - descriptions have different lengths.");
             return;
         }
@@ -1574,7 +1573,7 @@ NLHandler::setOffset(const std::string &chars) {
 void
 NLHandler::addJunctionShape(const std::string &chars) {
     // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
-    if(!myHaveWarnedAboutDeprecatedJunctionShape) {
+    if (!myHaveWarnedAboutDeprecatedJunctionShape) {
         myHaveWarnedAboutDeprecatedJunctionShape = true;
         MsgHandler::getWarningInstance()->inform("Your network uses a deprecated junction shape description; please rebuild.");
     }
@@ -1633,7 +1632,7 @@ NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
 
 void
 NLHandler::setNetOffset(const std::string &chars) {
-    if(!myHaveWarnedAboutDeprecatedLocation) {
+    if (!myHaveWarnedAboutDeprecatedLocation) {
         myHaveWarnedAboutDeprecatedLocation = true;
         MsgHandler::getWarningInstance()->inform("Your network uses a deprecated network offset/projection definition.");
     }

@@ -189,22 +189,22 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if (!noVtype&&(*i).type.length()!=0) {
                 dev << " type=\"" << (*i).type << "\"";
             }
-            if(oc.isSet("departlane") && oc.getString("departlane")!="default") {
+            if (oc.isSet("departlane") && oc.getString("departlane")!="default") {
                 dev << " departlane=\"" << oc.getString("departlane") << "\"";
             }
-            if(oc.isSet("departpos")) {
+            if (oc.isSet("departpos")) {
                 dev << " departpos=\"" << oc.getString("departpos") << "\"";
             }
-            if(oc.isSet("departspeed") && oc.getString("departspeed")!="default") {
+            if (oc.isSet("departspeed") && oc.getString("departspeed")!="default") {
                 dev << " departspeed=\"" << oc.getString("departspeed") << "\"";
             }
-            if(oc.isSet("arrivallane")) {
+            if (oc.isSet("arrivallane")) {
                 dev << " arrivallane=\"" << oc.getString("arrivallane") << "\"";
             }
-            if(oc.isSet("arrivalpos")) {
+            if (oc.isSet("arrivalpos")) {
                 dev << " arrivalpos=\"" << oc.getString("arrivalpos") << "\"";
             }
-            if(oc.isSet("arrivalspeed")) {
+            if (oc.isSet("arrivalspeed")) {
                 dev << " arrivalspeed=\"" << oc.getString("arrivalspeed") << "\"";
             }
             dev << "/>\n";

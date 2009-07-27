@@ -586,10 +586,10 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendly
 
 void
 NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime frequency,
-                                          SUMOTime begin, SUMOTime end,
-                                          const std::string &type,
-                                          const std::string &edges, bool excludeEmpty,
-                                          OutputDevice& device, bool isLanes) throw(InvalidArgument) {
+        SUMOTime begin, SUMOTime end,
+        const std::string &type,
+        const std::string &edges, bool excludeEmpty,
+        OutputDevice& device, bool isLanes) throw(InvalidArgument) {
     if (begin < 0) {
         throw InvalidArgument("Negative begin time for meandata dump '" + id + "'.");
     }

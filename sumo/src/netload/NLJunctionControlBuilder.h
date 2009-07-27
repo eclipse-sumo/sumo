@@ -195,7 +195,7 @@ public:
      * @todo detectorOffset is used only by one junction type. Is it not possible, to remove this from the call?
      */
     void initTrafficLightLogic(const std::string &id, const std::string &programID,
-        const std::string &type, int offset, SUMOReal detectorOffset) throw();
+                               const std::string &type, int offset, SUMOReal detectorOffset) throw();
 
 
     /** @brief Adds a phase to the currently built traffic lights logic

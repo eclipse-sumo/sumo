@@ -63,8 +63,8 @@ public:
      * @param[out] projParameter The projection parameter to fill from values read from the network
      * @exception ProcessError if something fails
      */
-    static void loadIfSet(OptionsCont &oc, Position2D &netOffset, Boundary &origNetBoundary, 
-        Boundary &convNetBoundary, std::string &projParameter) throw(ProcessError);
+    static void loadIfSet(OptionsCont &oc, Position2D &netOffset, Boundary &origNetBoundary,
+                          Boundary &convNetBoundary, std::string &projParameter) throw(ProcessError);
 
 
 protected:
@@ -74,8 +74,8 @@ protected:
      * @param[out] convNetBoundary The converted network boundary to fill from values read from the network
      * @param[out] projParameter The projection parameter to fill from values read from the network
      */
-    PCNetProjectionLoader(Position2D &netOffset, 
-        Boundary &origNetBoundary, Boundary &convNetBoundary, std::string &projParameter) throw();
+    PCNetProjectionLoader(Position2D &netOffset,
+                          Boundary &origNetBoundary, Boundary &convNetBoundary, std::string &projParameter) throw();
 
 
     /// @brief Destructor

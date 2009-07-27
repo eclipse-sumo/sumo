@@ -272,9 +272,9 @@ protected:
      * @todo Is the position correct/needed
      */
     METriggeredCalibrator* buildCalibrator(MSNet &net,
-            const std::string &id, const MSEdge *edge, SUMOReal pos,
-            const std::string &file, const std::string &outfile,
-            const SUMOTime freq) throw();
+                                           const std::string &id, const MSEdge *edge, SUMOReal pos,
+                                           const std::string &file, const std::string &outfile,
+                                           const SUMOTime freq) throw();
 #endif
 
 

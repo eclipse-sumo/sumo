@@ -171,7 +171,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
             myCurrentColor = color;
             myCurrentIgnorePrunning = ignorePrunning;
             myCurrentLayer = layer;
-            if(attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
+            if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
                 // @deprecated At some time, no shape definition using characters will be allowed
                 myCharacters(element, attrs.getString(SUMO_ATTR_SHAPE));
             }
