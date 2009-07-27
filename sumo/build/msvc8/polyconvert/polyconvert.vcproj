@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="polyconvert"
 	ProjectGUID="{CEBAFD4D-0E92-4DEB-9CC9-BBCF78EBE1B5}"
 	>
@@ -53,69 +53,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_DEBUG_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/polyconvertD.exe"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Debug|x64"
-			ConfigurationType="1"
-			InheritedPropertySheets="..\x64.vsprops;..\exe.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				Culture="1031"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) $(XERCES_DEBUG_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Debug/polyconvert64D.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -206,69 +143,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|x64"
-			ConfigurationType="1"
-			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops;..\exe.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				Culture="1031"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Release/polyconvert64.exe"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Fastbuild|Win32"
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
@@ -307,6 +181,132 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Fastbuild/polyconvertF.exe"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			ConfigurationType="1"
+			InheritedPropertySheets="..\x64.vsprops;..\exe.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1031"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="$(PROJ_LIB) $(XERCES_DEBUG_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
+				OutputFile=".\Debug/polyconvert64D.exe"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			ConfigurationType="1"
+			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops;..\exe.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1031"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
+				OutputFile=".\Release/polyconvert64.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -429,6 +429,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\polyconvert\PCNetProjectionLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\polyconvert\PCPolyContainer.cpp"
 				>
 			</File>
@@ -467,6 +471,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\polyconvert\PCLoaderXML.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\polyconvert\PCNetProjectionLoader.h"
 				>
 			</File>
 			<File
