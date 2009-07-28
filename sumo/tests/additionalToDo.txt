@@ -1,7 +1,0 @@
-- netconvert
- - TLS
-  - check whether the green/yellow/red cycle is computed correctly for all signal groups
-
-- sumo
- - emissions
-  - check the order of vehicle emissions
