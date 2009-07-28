@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
 
 import status

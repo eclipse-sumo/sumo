@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 """
 @file    apply_astyle.py
 @author  Michael.Behrisch@dlr.de
