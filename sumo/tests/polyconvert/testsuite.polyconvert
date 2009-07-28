@@ -3,3 +3,6 @@ meta
 
 # testing previous bugs
 bugs
+
+# tests typemap usage
+typemap
