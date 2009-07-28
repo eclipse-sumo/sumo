@@ -63,6 +63,7 @@ public class NetReader {
                     	float yfrom    = 0;
                     	float yto      = 0;
                         float length   = 0;
+                        boolean hadShape = false;
                     	// parse attributes of element
                         for (int attr=0; attr < parser.getAttributeCount(); attr++) {
                             String attrName = parser.getAttributeLocalName(attr);
@@ -71,15 +72,25 @@ public class NetReader {
     							id = value;
     						}
                             if ("length".equals(attrName)) {
-    							length =    Float.parseFloat(value);
+    							length = Float.parseFloat(value);
     						}
+                            if ("shape".equals(attrName)) {
+        						String[] vals = value.split("[,\\ ]"); // separate by delimiters "," and " "
+        	                    xfrom = Float.parseFloat(vals[0]);
+        	                    yfrom = Float.parseFloat(vals[1]);
+        	                    xto   = Float.parseFloat(vals[2]);
+        	                    yto   = Float.parseFloat(vals[3]);
+        	                    hadShape = true;
+                            }
                         }
-                    	String text   = parser.getElementText();
-                    	String[] vals = text.split("[,\\ ]"); // separate by delimiters "," and " "
-                    	xfrom = Float.parseFloat(vals[0]);
-                    	yfrom = Float.parseFloat(vals[1]);
-                    	xto   = Float.parseFloat(vals[2]);
-                    	yto   = Float.parseFloat(vals[3]);
+                        if(!hadShape) {
+                        	String text   = parser.getElementText();
+                        	String[] vals = text.split("[,\\ ]"); // separate by delimiters "," and " "
+                        	xfrom = Float.parseFloat(vals[0]);
+                        	yfrom = Float.parseFloat(vals[1]);
+                        	xto   = Float.parseFloat(vals[2]);
+                        	yto   = Float.parseFloat(vals[3]);
+                        }
                 		edge.lanes.put(id, new Lane(id, xfrom, xto, yfrom, yto, length));
                     }
                     if (parser.getLocalName().equals("junction")) {
