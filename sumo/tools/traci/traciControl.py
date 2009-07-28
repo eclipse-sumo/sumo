@@ -271,12 +271,12 @@ def cmdGetTrafficLightsVariable_completeDefinitionPBY(TLID):
 # ! not tested yet !
 def cmdGetTrafficLightsVariable_controlledLanes(TLID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LANES, TLID)
-    return result.readStringList()           # Variable value 
+    return result.readStringList() # Variable value 
 
 # ! not tested yet !
 def cmdGetTrafficLightsVariable_controlledLinks(TLID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LINKS, TLID)
-    nbSignals = result.read("!i")     # Length
+    nbSignals = result.read("!i")[0] # Length
     signals = []
     for i in range(nbSignals):
         result.read("!B")                           # Type of Number of Controlled Links
@@ -379,7 +379,7 @@ def cmdChangeVehicleVariable_stop(vehID, edgeID, pos, laneIndex, duration):
     _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
     _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+len(edgeID)+1+4+1+1+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_STOP, len(vehID)) + vehID
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
-    _message.string += struct.pack("!BiBfBBBf", TYPE_COMPOUND, 4, TYPE_FLOAT, speed, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
+    _message.string += struct.pack("!BiBfBBBf", TYPE_COMPOUND, 4, TYPE_FLOAT, pos, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_changeLane(vehID, laneIndex, duration):
