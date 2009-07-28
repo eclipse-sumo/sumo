@@ -45,16 +45,10 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 OptionsLoader::OptionsLoader(const std::string &file) throw()
-        : myError(false), myFile(file),
+        : myHaveWarned(false), myError(false), myFile(file),
         myOptions(OptionsCont::getOptions()), myItem() {}
 
 
@@ -65,56 +59,47 @@ void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& attributes) {
     myItem = TplConvert<XMLCh>::_2str(name);
     for (int i = 0; i < attributes.getLength(); i++) {
-        myItem = TplConvert<XMLCh>::_2str(attributes.getName(i));
-        const XMLCh* const value = attributes.getValue(i);
-        characters(value, XMLString::stringLen(value));
+        setValue(TplConvert<XMLCh>::_2str(attributes.getName(i)),
+                 TplConvert<XMLCh>::_2str(attributes.getValue(i)));
     }
 }
 
 
-void OptionsLoader::characters(const XMLCh* const chars,
-                               const XERCES3_SIZE_t length) {
-    if (myItem.length()==0) {
-        return;
-    }
-    string value = TplConvert<XMLCh>::_2str(chars, length);
-    size_t index = value.find_first_not_of("\n\t \a");
-    if (index==string::npos) {
-        return;
-    }
+void OptionsLoader::setValue(const std::string key,
+                             std::string value) {
     if (value.length()>0) {
         try {
             bool isWriteable;
-            if (myOptions.isBool(myItem)) {
-                std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+            if (myOptions.isBool(key)) {
+                std::transform(value.begin(), value.end(), value.begin(), tolower);
                 if (value=="1"||value=="yes"||value=="true"||value=="on"||value=="x") {
-                    isWriteable = setSecure(myItem, true);
+                    isWriteable = setSecure(key, true);
                 } else if (value=="0"||value=="no"||value=="false"||value=="off") {
-                    isWriteable = setSecure(myItem, false);
+                    isWriteable = setSecure(key, false);
                 } else {
-                    throw InvalidArgument("Invalid boolean value for option '" + myItem + "'.");
+                    throw InvalidArgument("Invalid boolean value for option '" + key + "'.");
                 }
             } else {
-                if (myOptions.isFileName(myItem)) {
+                if (myOptions.isFileName(key)) {
                     StringTokenizer st(value, ";,", true);
-                    string conv;
+                    std::string conv;
                     while (st.hasNext()) {
                         if (conv.length()!=0) {
                             conv += ',';
                         }
-                        string tmp = st.next();
+                        std::string tmp = st.next();
                         if (!FileHelpers::isAbsolute(tmp)) {
                             tmp = FileHelpers::getConfigurationRelative(myFile, tmp);
                         }
                         conv += tmp;
                     }
-                    isWriteable = setSecure(myItem, conv);
+                    isWriteable = setSecure(key, conv);
                 } else {
-                    isWriteable = setSecure(myItem, value);
+                    isWriteable = setSecure(key, value);
                 }
             }
             if (!isWriteable) {
-                MsgHandler::getErrorInstance()->inform("Could not set option '" + myItem + "' (probably defined twice).");
+                MsgHandler::getErrorInstance()->inform("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
         } catch (InvalidArgument e) {
@@ -122,6 +107,23 @@ void OptionsLoader::characters(const XMLCh* const chars,
             myError = true;
         }
     }
+}
+
+
+void OptionsLoader::characters(const XMLCh* const chars,
+                               const XERCES3_SIZE_t length) {
+    if (myItem.length()==0 || length==0) {
+        return;
+    }
+    std::string value = TplConvert<XMLCh>::_2str(chars, length);
+    if (value.find_first_not_of("\n\t \a")==std::string::npos) {
+        return;
+    }
+    if (!myHaveWarned) {
+        WRITE_WARNING("Configuration uses a deprecated format. Please transform it using tools/10to11.py.");
+        myHaveWarned = true;
+    }
+    setValue(myItem, value);
 }
 
 
@@ -156,8 +158,7 @@ OptionsLoader::endElement(const XMLCh* const /*name*/) {
 void
 OptionsLoader::warning(const SAXParseException& exception) {
     WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
-    WRITE_WARNING(\
-                  " (At line/column " \
+    WRITE_WARNING(" (At line/column " \
                   + toString<int>(exception.getLineNumber()+1) + '/' \
                   + toString<int>(exception.getColumnNumber()) + ").");
     myError = true;

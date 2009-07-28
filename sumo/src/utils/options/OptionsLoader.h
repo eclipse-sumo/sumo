@@ -84,9 +84,11 @@ public:
                               AttributeList& attributes);
 
 
-    /** @brief Called on the occurence of the beginning of a tag
+    /** @brief Called on the occurence of character data
      *
-     * Tries to get the named option and to set it
+     * If this occures inside a single tag it sets the option named
+     *  by the tag to the value given by the character data.
+     *  This is considered deprecated in favor of attributes.
      * @todo Describe better
      */
     void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
@@ -133,13 +135,24 @@ public:
 
 
 private:
+    /** @brief Tries to set the named option to the given value 
+     *
+     * Also evaluates whether it is a boolean or a filename option and
+     *  does the relevant checks / modifications.
+     *
+     * @param[in] key The name of the option to set
+     * @param[in] value The new value for the option
+     */
+    void setValue(const std::string key, std::string value);
+
+
     /** @brief Tries to set the named option to the given value (for bool-Options)
      *
      * Checks the item whether it was default before setting it.
      * Returns the information whether the item was set before (was not a default value)
      *
-     * @param[in] The name of the option to set
-     * @param The new value for the option
+     * @param[in] name The name of the option to set
+     * @param[in] value The new value for the option
      * @return Whether the option could be set
      */
     bool setSecure(const std::string &name, bool value) const throw();
@@ -150,8 +163,8 @@ private:
      * Checks the item whether it was default before setting it.
      * Returns the information whether the item was set before (was not a default value)
      *
-     * @param[in] The name of the option to set
-     * @param The new value for the option
+     * @param[in] name The name of the option to set
+     * @param[in] value The new value for the option
      * @return Whether the option could be set
      */
     bool setSecure(const std::string &name, const std::string &value) const throw();
@@ -167,6 +180,9 @@ private:
 
 
 private:
+    /** the information whether a deprecation warning was emitted */
+    bool  myHaveWarned;
+
     /** the information whether an error occured */
     bool  myError;
 
