@@ -1,1 +1,1 @@
---vehroute-output=vehroutes.xml --net-file=net.net.xml -r input_routes.rou.xml -b 0 -e 1000
+--no-step-log --no-duration-log --vehroute-output=vehroutes.xml --net-file=net.net.xml -r input_routes.rou.xml -b 0 -e 1000
