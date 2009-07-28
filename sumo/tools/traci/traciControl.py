@@ -285,6 +285,7 @@ def cmdGetTrafficLightsVariable_controlledLanes(TLID):
 # ! not tested yet !
 def cmdGetTrafficLightsVariable_controlledLinks(TLID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LINKS, TLID)
+    result.read("!iB")
     nbSignals = result.read("!i")[0] # Length
     signals = []
     for i in range(nbSignals):
