@@ -13,7 +13,7 @@ netconvert/import/XML/connections/cross3l_no_turnarounds:../examples/netconvert/
 netconvert/import/XML/connections/cross3l_prohibitions:../examples/netconvert/connections/cross3l_prohibitions
 netconvert/import/XML/connections/cross3l_unconstrained:../examples/netconvert/connections/cross3l_unconstrained
 netconvert/import/XML/shapes/hokkaido:../examples/netconvert/hokkaido
-netconvert/import/XML/shapes/messstrecke:../examples/netconvert/dlr-testtrack
+netconvert/examples/messstrecke:../examples/netconvert/dlr-testtrack
 netconvert/import/XML/speed_in_kmh/cross_notypes_kmh:../examples/netconvert/speed_in_kmh/cross_notypes_kmh
 netconvert/import/XML/speed_in_kmh/cross_usingtypes_kmh:../examples/netconvert/speed_in_kmh/cross_usingtypes_kmh
 netconvert/import/XML/types/cross_notypes:../examples/netconvert/types/cross_notypes
