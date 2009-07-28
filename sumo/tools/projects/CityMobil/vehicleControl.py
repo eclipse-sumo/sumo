@@ -9,9 +9,10 @@ Control the CityMobil parking lot via TraCI.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import subprocess, random, sys
+import subprocess, random, sys, os
 from optparse import OptionParser
 
+sys.path.append(os.path.join("..", "..", "traci"))
 import statistics
 from constants import *
 from traciControl import initTraCI, cmdSimulationStep, cmdStopNode, cmdChangeTarget, cmdClose

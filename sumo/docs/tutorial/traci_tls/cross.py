@@ -1,4 +1,20 @@
-import subprocess, sys, socket, time, struct, random
+#!/usr/bin/env python
+"""
+@file    cross.py
+@author  Lena Kalleske
+@date    2009-03-26
+@version $Id$
+
+Tutorial for traffic light control via the TraCI interface.
+
+Copyright (C) 2009 DLR/TS, Germany
+All rights reserved
+"""
+
+import os, subprocess, sys, socket, time, struct, random
+sys.path.append(os.path.join("..", "..", "..", "tools", "traci"))
+if "SUMO" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO"], "tools", "traci"))
 from traciControl import initTraCI, cmdSimulationStep, cmdClose, cmdGetInductionLoopVariable_lastStepVehicleNumber, cmdChangeTrafficLightsVariable_statePBY
 
 PORT = 8813
@@ -18,27 +34,27 @@ pEW = 1./11
 pNS = 1./30
 
 routes = open("cross.rou.xml", "w")
-print >> routes, '<routes>'
-print >> routes, '  <vtype id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>'
-print >> routes, '  <vtype id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="20" maxspeed="25"/>'
-print >> routes, ""
-print >> routes, '  <route id="right" edges="51o 1i 2o 52i" />'
-print >> routes, '  <route id="left" edges="52o 2i 1o 51i" />'
-print >> routes, '  <route id="down" edges="54o 4i 3o 53i" />'
-print >> routes, ""
+print >> routes, """<routes>
+    <vtype id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
+    <vtype id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="20" maxspeed="25"/>
+
+    <route id="right" edges="51o 1i 2o 52i" />
+    <route id="left" edges="52o 2i 1o 51i" />
+    <route id="down" edges="54o 4i 3o 53i" />
+"""
 lastVeh = 0
 vehNr = 0
 for i in range(N):
     if random.uniform(0,1) < pWE:
-        print >> routes, '  <vehicle id="%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i)
+        print >> routes, '    <vehicle id="%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i)
         vehNr += 1
         lastVeh = i
     if random.uniform(0,1) < pEW:
-        print >> routes, '  <vehicle id="%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i)
+        print >> routes, '    <vehicle id="%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i)
         vehNr += 1
         lastVeh = i
     if random.uniform(0,1) < pNS:
-        print >> routes, '  <vehicle id="%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i)
+        print >> routes, '    <vehicle id="%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i)
         vehNr += 1
         lastVeh = i
 

@@ -1,7 +1,16 @@
+"""
+@file    traciControl.py
+@author  Michael.Behrisch@dlr.de, Lena Kalleske
+@date    2008-10-09
+@version $Id$
+
+Python implementation of the TraCI interface.
+
+Copyright (C) 2008, 2009 DLR/TS, Germany
+All rights reserved
+"""
 import socket, time, struct
 from traciconstants import *
-
-
 
 RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
