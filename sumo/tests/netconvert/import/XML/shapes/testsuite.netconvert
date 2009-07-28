@@ -4,5 +4,3 @@ hokkaido
 # same as hokkaido, but with node geometries regarded
 hokkaido_add_node_geom
 
-# the DLR test track
-messstrecke

@@ -4,6 +4,9 @@ node_building
 # Tests for building inner lanes
 inner_lanes
 
+# example networks
+examples
+
 # testing import
 import
 
@@ -18,3 +21,4 @@ errors
 
 # testing previous bugs
 bugs
+
