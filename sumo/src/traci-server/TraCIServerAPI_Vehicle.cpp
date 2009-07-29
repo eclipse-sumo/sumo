@@ -113,9 +113,11 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(v->getLane().getID());
             break;
-        case VAR_LANE_INDEX:
-            // !!!
-            throw 1;
+        case VAR_LANE_INDEX: {
+                const MSEdge::LaneCont *lanes = v->getLane().getEdge()->getLanes();
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt((int) (std::distance(lanes->begin(), std::find(lanes->begin(), lanes->end(), &v->getLane()))));
+            }
             break;
         case VAR_TYPE:
             tempMsg.writeUnsignedByte(TYPE_STRING);
