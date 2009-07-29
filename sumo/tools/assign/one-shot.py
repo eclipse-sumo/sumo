@@ -25,36 +25,34 @@ class TeeFile:
 
 def writeSUMOConf(step, options, files):
     fd = open("one_shot_" + str(step) + ".sumo.cfg", "w")
-    fd.write("<configuration>\n")
-    fd.write("   <files>\n")
-    fd.write("      <net-file>" + options.net + "</net-file>\n")
-    fd.write("      <route-files>" + files + "</route-files>\n")
-    fd.write("      <vehroutes>vehroutes_" + str(step) + ".xml</vehroutes>\n")
+    print >> fd, """<configuration>
+    <files
+        net-file="%s"
+        route-files="%s"
+        vehroutes="vehroutes_%s.xml" """ % (options.net, files, step)
     if not options.noEmissions:
-        fd.write("      <emissions>emissions_" + str(step) + ".xml</emissions>\n")
+        print >> fd, '        emissions="emissions_%s.xml"' % step
     if not options.noTripinfo:
-        fd.write("      <tripinfo>tripinfo_" + str(step) + ".xml</tripinfo>\n")
-    fd.write("      <additional-files>dump_" + str(step) + ".add.xml" + options.additional)
-    if options.additional!="":
-        fd.write("," + options.additional)
-    fd.write("</additional-files>\n")
-    fd.write("   </files>\n")
-    fd.write("   <process>\n")
-    fd.write("      <begin>" + str(options.begin) + "</begin>\n")
-    fd.write("      <end>" + str(options.end) + "</end>\n")
-    fd.write("      <route-steps>" + str(options.routeSteps) + "</route-steps>\n")
+        print >> fd, '        tripinfo="tripinfo_%s.xml"' % step
+    add = 'dump_%s.add.xml' % step
+    if options.additional:
+        add += "," + options.additional
+    print >> fd, """        additional-files="%s"
+    />
+    <process
+        begin="%s"
+        end="%s"
+        route-steps="%s" """ % (add, options.begin, options.end, options.routeSteps)
     if options.mesosim:
-        fd.write("      <mesosim>x</mesosim>\n")
-    fd.write("      <device.routing.probability>1</device.routing.probability>\n")
-    fd.write("      <device.routing.period>" + str(step) + "</device.routing.period>\n")
-    fd.write("   </process>\n")
-    fd.write("   <reports>\n")
-    if options.verbose:
-        fd.write("      <verbose>x</verbose>\n")
-    if not options.withWarnings:
-        fd.write("      <suppress-warnings>x</suppress-warnings>\n")
-    fd.write("   </reports>\n")
-    fd.write("</configuration>\n")
+        print >> fd, '        mesosim="x"'
+    print >> fd, """        device.routing.probability="1"
+        device.routing.period="%s"
+    />
+    <reports
+        verbose="%s"
+        suppress-warnings="%s"
+    />
+</configuration>""" % (step, options.verbose, not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
@@ -122,9 +120,11 @@ for step in options.frequencies.split(","):
     writeSUMOConf(step, options, options.trips)
     if options.verbose:
         print "> Call: %s -c one_shot_%s.sumo.cfg" % (sumoBinary, step)
-        subprocess.call("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step),
-                        shell=True, stdout=TeeFile(sys.__stdout__, log),
-                        stderr=TeeFile(sys.__stderr__, log))
+        p = subprocess.Popen("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step),
+                             shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for l in p.communicate()[0]:
+            log.write(l)
+            sys.__stdout__.write(l)
     else:
         subprocess.call("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step),
                         shell=True, stdout=log, stderr=log)
