@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r7379
+SUMO sumo Version dev-SVN-r7551
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -77,10 +77,6 @@ Usage: sumo.exe [OPTION]*
   --message-log FILE                  Writes all non-error messages to FILE
   --error-log FILE                    Writes all warnings and errors to FILE
 
- TraCI Server Options:
-  --remote-port INT                   Enables TraCI Server if set
-  --penetration FLOAT                 Value in 0..1 [default: 1]
-
  C2C Options:
   --device.c2x.probability FLOAT      The probability for a vehicle to have c2c
   --device.c2x.knownveh STR           Assign a device to named vehicles
@@ -113,6 +109,10 @@ Usage: sumo.exe [OPTION]*
   --device.hbefa.knownveh STR         Assign a device to named vehicles
   --device.hbefa.deterministic        The devices are set deterministic using a
                                         fraction of 1000
+
+ TraCI Server Options:
+  --remote-port INT                   Enables TraCI Server if set
+  --penetration FLOAT                 Value in 0..1 [default: 1]
 
  Random Number Options:
   --srand INT                         Initialises the random number generator

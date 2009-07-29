@@ -55,11 +55,6 @@
         error-log=""
     />
 
-    <traci_server
-        remote-port="0"
-        penetration="1"
-    />
-
     <c2c
         device.c2x.probability="0"
         device.c2x.knownveh=""
@@ -87,6 +82,11 @@
         device.hbefa.probability="0"
         device.hbefa.knownveh=""
         device.hbefa.deterministic="false"
+    />
+
+    <traci_server
+        remote-port="0"
+        penetration="1"
     />
 
     <random_number

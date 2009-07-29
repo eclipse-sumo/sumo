@@ -129,15 +129,6 @@
 
     />
 
-    <traci_server
-        <!-- Enables TraCI Server if set -->
-        remote-port="0"
-
-        <!-- Value in 0..1 [default: 1] -->
-        penetration="1"
-
-    />
-
     <c2c
         <!-- The probability for a vehicle to have c2c -->
         device.c2x.probability="0"
@@ -204,6 +195,15 @@
 
         <!-- The devices are set deterministic using a fraction of 1000 -->
         device.hbefa.deterministic="false"
+
+    />
+
+    <traci_server
+        <!-- Enables TraCI Server if set -->
+        remote-port="0"
+
+        <!-- Value in 0..1 [default: 1] -->
+        penetration="1"
 
     />
 
