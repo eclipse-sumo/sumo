@@ -326,8 +326,8 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
     SUMOReal meanJamLengthInMeters = myTimeSamples!=0 ? myMeanMaxJamInMeters / (SUMOReal) myTimeSamples : 0;
     SUMOReal meanJamLengthInVehicles = myTimeSamples!=0 ? myMeanMaxJamInVehicles / (SUMOReal) myTimeSamples : 0;
     SUMOReal meanVehicleNumber = myTimeSamples!=0 ? (SUMOReal) myMeanVehicleNumber / (SUMOReal) myTimeSamples : 0;
-    SUMOReal meanHaltingDuration = meanVehicleNumber!=0 ? myHaltingDurationSum / (SUMOReal) meanVehicleNumber : 0;
-    SUMOReal meanIntervalHaltingDuration = meanVehicleNumber!=0 ? myIntervalHaltingDurationSum / (SUMOReal) meanVehicleNumber : 0;
+    SUMOReal meanHaltingDuration = meanVehicleNumber!=0 ? myHaltingDurationSum / (SUMOReal) myVehicleSamples : 0;
+    SUMOReal meanIntervalHaltingDuration = meanVehicleNumber!=0 ? myIntervalHaltingDurationSum / (SUMOReal) myVehicleSamples : 0;
     dev << "nSamples=\"" << myVehicleSamples << "\" "
     << "meanSpeed=\"" << meanSpeed << "\" "
     << "meanOccupancy=\"" << meanOccupancy << "\" "
