@@ -324,10 +324,9 @@ def cmdChangeTrafficLightsVariable_statePBY(TLID, state):
     
 
 def cmdChangeTrafficLightsVariable_stateRYG(TLID, state):
-    [phase, brake, yellow] = state
     _message.queue.append(CMD_SET_TL_VARIABLE)
     _message.string += struct.pack("!BBBi", 1+1+1+4+len(TLID)+1+4+len(state), CMD_SET_TL_VARIABLE, TL_RED_YELLOW_GREEN_STATE, len(TLID)) + TLID
-    _message.string += struct.pack("!Bi", TYPE_STRINGLIST, 3)
+    _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(state)) + state
     _sendExact()
     
@@ -387,20 +386,21 @@ def cmdChangeVehicleVariable_maxSpeed(vehID, speed):
 
 def cmdChangeVehicleVariable_stop(vehID, edgeID, pos, laneIndex, duration):
     _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+len(edgeID)+1+4+1+1+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_STOP, len(vehID)) + vehID
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+4+len(edgeID)+1+4+1+1+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_STOP, len(vehID)) + vehID
+    _message.string += struct.pack("!Bi", TYPE_COMPOUND, 4)
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
-    _message.string += struct.pack("!BiBfBBBf", TYPE_COMPOUND, 4, TYPE_FLOAT, pos, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
+    _message.string += struct.pack("!BfBBBf", TYPE_FLOAT, pos, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_changeLane(vehID, laneIndex, duration):
     _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_CHANGELANE, len(vehID)) + vehID
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+1+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_CHANGELANE, len(vehID)) + vehID
     _message.string += struct.pack("!BiBBBf", TYPE_COMPOUND, 2, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_slowDown(vehID, speed, duration):
     _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_SLOWDOWN, len(vehID)) + vehID
+    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+4+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_SLOWDOWN, len(vehID)) + vehID
     _message.string += struct.pack("!BiBfBf", TYPE_COMPOUND, 2, TYPE_FLOAT, speed, TYPE_FLOAT, duration)
     _sendExact()
 
