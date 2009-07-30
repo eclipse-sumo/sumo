@@ -368,15 +368,9 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &id, const std
 
 void
 NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string &state,
-                                   int min, int max) throw() {
+                                   int minDuration, int maxDuration) throw() {
     // build and add the phase definition to the list
-    if (myLogicType=="actuated"||myLogicType=="agentbased") {
-        // for a controlled tls-logic
-        myActivePhases.push_back(new MSActuatedPhaseDefinition(duration, state, min, max));
-    } else {
-        // for an controlled tls-logic
-        myActivePhases.push_back(new MSPhaseDefinition(duration, state));
-    }
+    myActivePhases.push_back(new MSPhaseDefinition(duration, minDuration, maxDuration, state));
     // add phase duration to the absolute duration
     myAbsDuration += duration;
 }

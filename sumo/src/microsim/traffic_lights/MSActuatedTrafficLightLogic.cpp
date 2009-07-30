@@ -121,8 +121,7 @@ MSActuatedTrafficLightLogic::trySwitch(bool) throw() {
         myStep = 0;
     }
     //stores the time the phase started
-    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch =
-        MSNet::getInstance()->getCurrentTimeStep();
+    myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
     // set the next event
     return duration();
 }
@@ -135,12 +134,12 @@ MSActuatedTrafficLightLogic::duration() const throw() {
         return 1;
     }
     assert(myPhases.size()>myStep);
-    if (!currentPhaseDef()->isGreenPhase()) {
-        return currentPhaseDef()->duration;
+    if (!getCurrentPhaseDef().isGreenPhase()) {
+        return getCurrentPhaseDef().duration;
     }
     // define the duration depending from the number of waiting vehicles of the actual phase
-    int newduration = currentPhaseDef()->minDuration;
-    const std::string &state = currentPhaseDef()->getState();
+    int newduration = getCurrentPhaseDef().minDuration;
+    const std::string &state = getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) state.size(); i++) {
         if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
@@ -155,8 +154,8 @@ MSActuatedTrafficLightLogic::duration() const throw() {
                     // here we cut the decimal places, because we have to return an integer
                     newduration = (int) tmpdur;
                 }
-                if (newduration > (int) currentPhaseDef()->maxDuration)  {
-                    return currentPhaseDef()->maxDuration;
+                if (newduration > (int) getCurrentPhaseDef().maxDuration)  {
+                    return getCurrentPhaseDef().maxDuration;
                 }
             }
         }
@@ -169,21 +168,20 @@ void
 MSActuatedTrafficLightLogic::gapControl() throw() {
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
-    if (!currentPhaseDef()->isGreenPhase()) {
+    if (!getCurrentPhaseDef().isGreenPhase()) {
         myContinue = false;
         return;
     }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
-    SUMOTime actDuration =
-        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch;
-    if (actDuration >= currentPhaseDef()->maxDuration) {
+    SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
+    if (actDuration >= getCurrentPhaseDef().maxDuration) {
         myContinue = false;
         return;
     }
 
     // now the gapcontrol starts
-    const std::string &state = currentPhaseDef()->getState();
+    const std::string &state = getCurrentPhaseDef().getState();
     for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
         if (state[i]==MSLink::LINKSTATE_TL_GREEN_MAJOR||state[i]==MSLink::LINKSTATE_TL_GREEN_MINOR) {
             const std::vector<MSLane*> &lanes = getLanesAt(i);
@@ -204,13 +202,6 @@ MSActuatedTrafficLightLogic::gapControl() throw() {
         }
     }
     myContinue = false;
-}
-
-
-MSActuatedPhaseDefinition *
-MSActuatedTrafficLightLogic::currentPhaseDef() const throw() {
-    assert(myPhases.size()>myStep);
-    return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }
 
 

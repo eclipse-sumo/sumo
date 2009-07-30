@@ -96,10 +96,10 @@ MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb,
 
     /// Calculation of starting values
     for (unsigned int actStep = 0; actStep!=myPhases.size(); actStep++) {
-        unsigned int dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[actStep])->duration;
+        unsigned int dur = myPhases[actStep]->duration;
         tCycleIst = tCycleIst + dur;
         if (myPhases[actStep]->isGreenPhase()) {
-            unsigned int mindur = static_cast<MSActuatedPhaseDefinition*>(myPhases[actStep])->minDuration;
+            unsigned int mindur = myPhases[actStep]->minDuration;
             tCycleMin = tCycleMin + mindur;
         } else {
             tCycleMin = tCycleMin + dur;
@@ -125,8 +125,8 @@ MSAgentbasedTrafficLightLogic::~MSAgentbasedTrafficLightLogic() throw() {}
 // ------------ Switching and setting current rows
 SUMOTime
 MSAgentbasedTrafficLightLogic::trySwitch(bool) throw() {
-    assert(currentPhaseDef()->minDuration >=0);
-    assert(currentPhaseDef()->minDuration <= currentPhaseDef()->duration);
+    assert(getCurrentPhaseDef().minDuration >=0);
+    assert(getCurrentPhaseDef().minDuration <= getCurrentPhaseDef().duration);
     if (myPhases[myStep]->isGreenPhase()) {
         // collects the data for the signal control
         collectData();
@@ -138,11 +138,11 @@ MSAgentbasedTrafficLightLogic::trySwitch(bool) throw() {
     // increment the index to the current phase
     nextStep();
     // set the next event
-    while (currentPhaseDef()->duration==0) {
+    while (getCurrentPhaseDef().duration==0) {
         nextStep();
     }
     assert(myPhases.size()>myStep);
-    return currentPhaseDef()->duration;
+    return getCurrentPhaseDef().duration;
 }
 
 
@@ -168,7 +168,7 @@ MSAgentbasedTrafficLightLogic::collectData() throw() {
     //collects the traffic data
 
     // gets a copy of the driveMask
-    const std::string &state = currentPhaseDef()->getState();
+    const std::string &state = getCurrentPhaseDef().getState();
     // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of one phase
     SUMOReal maxPerPhase = 0;
     for (unsigned int i=0; i<(unsigned int) state.size(); i++)  {
@@ -266,8 +266,8 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(unsigned int toLengthen) throw(
        sorts the vector after the difference. */
     for (unsigned int i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
         if (myPhases[i_Step]->isGreenPhase()) {
-            unsigned int dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->duration;
-            unsigned int maxdur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->maxDuration;
+            unsigned int dur = myPhases[i_Step]->duration;
+            unsigned int maxdur = myPhases[i_Step]->maxDuration;
             if (dur < maxdur) {
                 contentType tmp;
                 tmp.second = i_Step;
@@ -285,8 +285,8 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(unsigned int toLengthen) throw(
         toLengthenPerPhase = static_cast<SUMOTime>(tmpdb);
         toLengthen = toLengthen - toLengthenPerPhase;
         maxLengthen = maxLengthen - (*i).first;
-        SUMOTime newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration + toLengthenPerPhase;
-        static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration = newDur;
+        SUMOTime newDur = myPhases[(*i).second]->duration + toLengthenPerPhase;
+        myPhases[(*i).second]->duration = newDur;
     }
 }
 
@@ -305,8 +305,8 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(unsigned int toCut) throw() {
        sorts the vector after the difference. */
     for (unsigned i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
         if (myPhases[i_Step]->isGreenPhase()) {
-            unsigned int dur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->duration;
-            unsigned int mindur = static_cast<MSActuatedPhaseDefinition*>(myPhases[i_Step])->minDuration;
+            unsigned int dur = myPhases[i_Step]->duration;
+            unsigned int mindur = myPhases[i_Step]->minDuration;
             if (dur > mindur) {
                 contentType tmp;
                 tmp.second = i_Step;
@@ -324,8 +324,8 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(unsigned int toCut) throw() {
         toCutPerPhase = static_cast<SUMOTime>(tmpdb);
         toCut = toCut - toCutPerPhase;
         maxCut = maxCut - (*i).first;
-        SUMOTime newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration - toCutPerPhase;
-        static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration = newDur;
+        SUMOTime newDur = myPhases[(*i).second]->duration - toCutPerPhase;
+        myPhases[(*i).second]->duration = newDur;
     }
 }
 
@@ -337,8 +337,8 @@ MSAgentbasedTrafficLightLogic::findStepOfMaxValue() const throw() {
     for (MeanDataMap::const_iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
         // checks whether the actual duruation is shorter than maxduration
         // otherwise the phase can't be lenghten
-        unsigned int maxDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->maxDuration;
-        unsigned int actDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->duration;
+        unsigned int maxDur = myPhases[(*it).first]->maxDuration;
+        unsigned int actDur = myPhases[(*it).first]->duration;
         if (actDur >= maxDur) {
             continue;
         }
@@ -358,8 +358,8 @@ MSAgentbasedTrafficLightLogic::findStepOfMinValue() const throw() {
     for (MeanDataMap::const_iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++) {
         // checks whether the actual duruation is longer than minduration
         // otherwise the phase can't be cut
-        unsigned int minDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->minDuration;
-        unsigned int actDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*it).first])->duration;
+        unsigned int minDur = myPhases[(*it).first]->minDuration;
+        unsigned int actDur = myPhases[(*it).first]->duration;
         if (actDur <= minDur) {
             continue;
         }
@@ -369,13 +369,6 @@ MSAgentbasedTrafficLightLogic::findStepOfMinValue() const throw() {
         }
     }
     return StepOfMinValue;
-}
-
-
-MSActuatedPhaseDefinition *
-MSAgentbasedTrafficLightLogic::currentPhaseDef() const {
-    assert(myPhases.size()>myStep);
-    return static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep]);
 }
 
 

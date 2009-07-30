@@ -35,7 +35,6 @@
 #include <map>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "MSActuatedPhaseDefinition.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include <microsim/output/MSInductLoop.h>
 
@@ -117,13 +116,6 @@ protected:
     /** @brief Decides, whether a phase should be continued by checking the gaps of vehicles having green
      */
     void gapControl() throw();
-
-
-    /** @brief Returns the definition of the current phase
-     * @return The current phase definition
-     * @todo consolidate
-     */
-    MSActuatedPhaseDefinition * currentPhaseDef() const throw();
     /// @}
 
 

@@ -914,10 +914,10 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    int min = duration;
-    int max = duration;
+    int minDuration = duration;
+    int maxDuration = duration;
     try {
-        min = attrs.getIntSecure(SUMO_ATTR_MINDURATION, -1);
+        minDuration = attrs.getIntSecure(SUMO_ATTR_MINDURATION, -1);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The phase minimum duration is empty.");
         return;
@@ -926,7 +926,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
         return;
     }
     try {
-        max = attrs.getIntSecure(SUMO_ATTR_MAXDURATION, -1);
+        maxDuration = attrs.getIntSecure(SUMO_ATTR_MAXDURATION, -1);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The phase maximum duration is empty.");
         return;
@@ -934,7 +934,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
         MsgHandler::getErrorInstance()->inform("The phase maximum duration is not numeric.");
         return;
     }
-    myJunctionControlBuilder.addPhase(duration, state, min, max);
+    myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 
 
