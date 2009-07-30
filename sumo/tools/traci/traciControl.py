@@ -338,7 +338,7 @@ def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
     for p in tls._phases:
         length = length + 1+4 + 1+4 + 1+4 + 1+4+len(p._phaseDef)
         itemNo = itemNo + 4
-    _message.string += struct.pack("!BBBi", length, CMD_SET_TL_VARIABLE, TL_PHASE_BRAKE_YELLOW_STATE, len(TLID)) + TLID
+    _message.string += struct.pack("!BBBi", length, CMD_SET_TL_VARIABLE, TL_COMPLETE_PROGRAM_RYG, len(TLID)) + TLID
     _message.string += struct.pack("!Bi", TYPE_COMPOUND, itemNo) # itemNo
     _message.string += struct.pack("!Bi", TYPE_STRING, len(tls._subID)) + tls._subID # programID
     _message.string += struct.pack("!Bi", TYPE_INTEGER, 0) # type
@@ -409,6 +409,7 @@ def cmdChangeVehicleVariable_stop(vehID, edgeID, pos, laneIndex, duration):
     _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
     _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+4+len(edgeID)+1+4+1+1+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_STOP, len(vehID)) + vehID
     _message.string += struct.pack("!Bi", TYPE_COMPOUND, 4)
+    _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
     _message.string += struct.pack("!BfBBBf", TYPE_FLOAT, pos, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
     _sendExact()
@@ -428,6 +429,7 @@ def cmdChangeVehicleVariable_slowDown(vehID, speed, duration):
 def cmdChangeVehicleVariable_changeTarget(vehID, edgeID):
     _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
     _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+len(edgeID), CMD_SET_VEHICLE_VARIABLE, CMD_CHANGETARGET, len(vehID)) + vehID
+    _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
     _sendExact()
 
