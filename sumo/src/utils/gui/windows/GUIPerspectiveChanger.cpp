@@ -97,6 +97,10 @@ GUIPerspectiveChanger::onRightBtnRelease(void*) {
 
 
 void
+GUIPerspectiveChanger::onMouseWheel(void *) {}
+
+
+void
 GUIPerspectiveChanger::onMouseMove(void *) {}
 
 

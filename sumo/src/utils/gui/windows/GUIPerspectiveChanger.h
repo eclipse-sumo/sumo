@@ -73,6 +73,7 @@ public:
     virtual void onLeftBtnRelease(void *data);
     virtual void onRightBtnPress(void *data);
     virtual bool onRightBtnRelease(void *data);
+    virtual void onMouseWheel(void *data);
     virtual void onMouseMove(void *data);
 
     /// Returns the rotation of the canvas stored in this changer

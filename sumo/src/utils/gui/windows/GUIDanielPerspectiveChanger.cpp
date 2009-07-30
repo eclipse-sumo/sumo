@@ -204,6 +204,23 @@ GUIDanielPerspectiveChanger::onRightBtnRelease(void*data) {
 
 
 void
+GUIDanielPerspectiveChanger::onMouseWheel(void*data) {
+    FXEvent* e = (FXEvent*) data;
+    int diff = 10;
+    if (e->state&CONTROLMASK) {
+        diff = 5;
+    } else if (e->state&SHIFTMASK) {
+        diff = 20;
+    }
+    if (e->code < 0) {
+        diff = -diff;
+    }
+    zoom(diff);
+    myCallback.updateToolTip();
+}
+
+
+void
 GUIDanielPerspectiveChanger::onMouseMove(void*data) {
     FXEvent* e = (FXEvent*) data;
     myCallback.setWindowCursorPosition(e->win_x, e->win_y);

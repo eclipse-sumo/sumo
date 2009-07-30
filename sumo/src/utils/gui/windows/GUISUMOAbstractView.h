@@ -123,6 +123,7 @@ public:
     virtual long onLeftBtnRelease(FXObject*,FXSelector,void*);
     virtual long onRightBtnPress(FXObject*,FXSelector,void*);
     virtual long onRightBtnRelease(FXObject*,FXSelector,void*);
+    virtual long onMouseWheel(FXObject*,FXSelector,void*);
     virtual long onMouseMove(FXObject*,FXSelector,void*);
     virtual long onMouseLeft(FXObject*,FXSelector,void*);
 

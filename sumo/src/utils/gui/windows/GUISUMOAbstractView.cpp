@@ -99,6 +99,7 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]= {
     FXMAPFUNC(SEL_LEFTBUTTONRELEASE,   0,                 GUISUMOAbstractView::onLeftBtnRelease),
     FXMAPFUNC(SEL_RIGHTBUTTONPRESS,    0,                 GUISUMOAbstractView::onRightBtnPress),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,  0,                 GUISUMOAbstractView::onRightBtnRelease),
+    FXMAPFUNC(SEL_MOUSEWHEEL,          0,                 GUISUMOAbstractView::onMouseWheel),
     FXMAPFUNC(SEL_MOTION,              0,                 GUISUMOAbstractView::onMouseMove),
     FXMAPFUNC(SEL_LEAVE,               0,                 GUISUMOAbstractView::onMouseLeft),
     FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
@@ -699,6 +700,13 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data) {
         openObjectDialog();
     }
     ungrab();
+    return 1;
+}
+
+
+long
+GUISUMOAbstractView::onMouseWheel(FXObject *,FXSelector ,void *data) {
+    myChanger->onMouseWheel(data);
     return 1;
 }
 

@@ -65,6 +65,7 @@ public:
     void onLeftBtnRelease(void *data);
     void onRightBtnPress(void *data);
     bool onRightBtnRelease(void *data);
+    void onMouseWheel(void *data);
     void onMouseMove(void *data);
 
     /// Returns the rotation of the canvas stored in this changer
