@@ -13,8 +13,12 @@ def getBasicStats(net, lanesInfo, T):
   #      mWaitTime = []
         nbStops = []
         tWaitTime = []
+        seenLanes = set()
         for conn in tl._connections:
             lane = conn[0]
+            if lane in seenLanes:
+                continue
+            seenLanes.add(lane)
             mQueueLenInfo = sum(lanesInfo[lane.getID()]['mQueueLen'])
             mQueueLen.append(mQueueLenInfo)
   #              mWaitTimeInfo = mean(lanesInfo[lane.getID()]['mWaitTime'])
@@ -58,7 +62,7 @@ class E2OutputReader(handler.ContentHandler):
                 self._lanes[laneID]['nbStops'] = []
                 self._lanes[laneID]['tWaitTime'] = []
             if float(attrs['end']) < 100000000:
-                self._lanes[laneID]['mQueueLen'].append(float(attrs['jamLengthInVehiclesSum']))
+                self._lanes[laneID]['mQueueLen'].append(float(attrs['jamLengthInMetersSum']))
  #               self._lanes[laneID]['mWaitTime'].append(float(attrs['meanHaltingDuration']))
                 self._lanes[laneID]['nbStops'].append(float(attrs['startedHalts']))
                 self._lanes[laneID]['tWaitTime'].append(float(attrs['haltingDurationSum']))
@@ -70,7 +74,7 @@ optParser = OptionParser()
 optParser.add_option("-n", "--netfile", dest="netfile",
                      help="name of the netfile (f.e. 'inputs\\pasubio\\a_costa.net.xml')", metavar="<FILE>", type="string")
 optParser.add_option("-p", "--path", dest="path",
-                     help="name of folder to work with (f.e. 'inputs\\a_costa\\')", metavar="<FOLDER>", type="string")
+                     help="name of folder to work with (f.e. 'inputs\\a_costa\\')", metavar="<FOLDER>", type="string", default="./")
 
 optParser.set_usage('\n-n inputs\\pasubio\\pasubio.net.xml -p inputs\\pasubio\\')
 # parse options
@@ -80,9 +84,8 @@ if not options.netfile:
     optParser.print_help()
     exit()
 
-path = options.path
 netfile = options.netfile
-e2OutputFile = path + 'e2_output.xml'
+e2OutputFile = os.path.join(options.path, 'e2_output.xml')
 
 net = sumonet.NetReader()
 parser = make_parser()
@@ -94,6 +97,6 @@ e2Output = E2OutputReader()
 parser.setContentHandler(e2Output)
 parser.parse(e2OutputFile)
 tlsInfo = getBasicStats(net, e2Output._lanes, e2Output._maxT)
-getStatisticsOutput(tlsInfo, path + "intersection_metrics_summary.txt")
+getStatisticsOutput(tlsInfo, os.path.join(options.path, "intersection_metrics_summary.txt"))
 
 print 'The calculation is done!'
