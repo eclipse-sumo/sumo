@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/30/09 14:20:43 by SUMO guisim Version dev-SVN-r7577
+<configuration>
+
+    <input
+        net-file="D:\projects\sumo\rbuild\sumo\tests\tools\output\generateE2Detectors\cross1ltl\input_net.net.xml"
+        additional-files="D:\projects\sumo\rbuild\sumo\tests\tools\output\generateE2Detectors\cross1ltl\detectors.tools"
+    />
+
+</configuration>
+-->
+
+<detector>
+</detector>

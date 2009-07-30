@@ -1,0 +1,16 @@
+Missing arguments
+Usage: 
+generateE2Detectors.py -n inputs\pasubio\pasubio.net.xml -l 250 -d .1 -f 60
+
+Options:
+  -h, --help            show this help message and exit
+  -n NETFILE, --net-file=NETFILE
+                        Net-File to work with
+  -l DETECTORLENGTH, --detector-length=DETECTORLENGTH
+                        length of the detector in meters (-1 for maximal
+                        length)
+  -d DISTANCETOTLS, --distance-to-TLS=DISTANCETOTLS
+                        distance of the detector to the traffic light in
+                        meters
+  -f FREQUENCY, --frequency=FREQUENCY
+                        frequency

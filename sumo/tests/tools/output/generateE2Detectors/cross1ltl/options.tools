@@ -1,0 +1,3 @@
+output/generateE2Detectors.py -n input_net.net.xml
+
+
