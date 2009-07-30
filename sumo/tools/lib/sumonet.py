@@ -35,6 +35,8 @@ class NetLane:
     def getShape(self):
         return self._shape 
 
+    def getID(self):
+        return self._edge._id + "_" + str(self._edge._lanes.index(self))
 
 
 class NetEdge:
@@ -120,6 +122,7 @@ class NetNode:
         self._coord = coord
         self._incoming = []
         self._outgoing = []
+        self._foes = {}
 
     def addOutgoing(self, edge):
         self._outgoing.append(edge)
@@ -127,14 +130,20 @@ class NetNode:
     def addIncoming(self, edge):
         self._incoming.append(edge)
 
+    def setFoes(self, index, foes):
+        self._foes[index] = foes
+
 
 class NetTLS:
     def __init__(self, id):
         self._id = id
         self._connections = []
+        self._maxConnectionNo = -1
 
-    def addConnection(self, inEdge, outEdge):
-        self._connections.append( [inEdge, outEdge] )
+    def addConnection(self, inLane, outLane, linkNo):
+        self._connections.append( [inLane, outLane, linkNo] )
+        if linkNo>self._maxConnectionNo:
+            self._maxConnectionNo = linkNo
 
 
 
@@ -180,14 +189,17 @@ class Net:
     def getNode(self, id):
         return self._id2node[id]
 
-    def addTLS(self, tlid, inEdge, outEdge):
+    def addTLS(self, tlid, inLane, outLane, linkNo):
         if tlid in self._id2tls:
             tls = self._id2tls[tlid]
         else:
             tls = NetTLS(tlid)
             self._id2tls[tlid] = tls
             self._tlss.append(tls)
-        tls.addConnection(inEdge, outEdge)
+        tls.addConnection(inLane, outLane, linkNo)
+
+    def setFoes(self, junctionID, index, foes):
+        self._id2node[junctionID].setFoes(index, foes)
 
 
 
@@ -234,11 +246,15 @@ class NetReader(handler.ContentHandler):
                     tl = attrs['tl']
                     tllink = int(attrs['linkno'])
                     tlid = attrs['tl']
-                    self._net.addTLS(tlid, self._currentEdge, connected)
+                    toEdge = self._net.getEdge(lid[:lid.rfind('_')])
+                    tolane2 = toEdge._lanes[tolane]
+                    self._net.addTLS(tlid, self._currentEdge._lanes[self._currentLane], tolane2, tllink)
                 else:
                     tl = ""
                     tllink = -1
-                self._currentEdge.addOutgoing(connected, self._currentLane, tolane, tl, tllink)
+                toEdge = self._net.getEdge(lid[:lid.rfind('_')])
+                tolane = toEdge._lanes[tolane]
+                self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, tl, tllink)
                 connected.addIncoming(self._currentEdge)
 
     def characters(self, content):
@@ -259,6 +275,8 @@ class NetReader(handler.ContentHandler):
             self._currentEdge.rebuildShape();
         if name == 'edge':
             self._currentEdge = None
+        if name == 'row-logic':
+            self._haveROWLogic = False
 
     def getNet(self):
         return self._net
