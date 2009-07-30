@@ -1,0 +1,11 @@
+Missing arguments
+Usage: 
+-n inputs\pasubio\pasubio.net.xml -p inputs\pasubio\
+
+Options:
+  -h, --help            show this help message and exit
+  -n <FILE>, --netfile=<FILE>
+                        name of the netfile (f.e.
+                        'inputs\pasubio\a_costa.net.xml')
+  -p <FOLDER>, --path=<FOLDER>
+                        name of folder to work with (f.e. 'inputs\a_costa\')
