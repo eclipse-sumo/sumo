@@ -44,8 +44,6 @@ net = net.getNet()
 lanes_ready = {}
 for tls in net._tlss:
     for conn in tls._connections:
-        print conn
-
         lane = conn[0]
         length = lane.getLength()
         id = lane.getID()
