@@ -322,13 +322,34 @@ def cmdChangeTrafficLightsVariable_statePBY(TLID, state):
     _message.string += struct.pack("!i", len(yellow)) + yellow
     _sendExact()
     
-
 def cmdChangeTrafficLightsVariable_stateRYG(TLID, state):
     _message.queue.append(CMD_SET_TL_VARIABLE)
     _message.string += struct.pack("!BBBi", 1+1+1+4+len(TLID)+1+4+len(state), CMD_SET_TL_VARIABLE, TL_RED_YELLOW_GREEN_STATE, len(TLID)) + TLID
     _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(state)) + state
     _sendExact()
+
+def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
+    _message.queue.append(CMD_SET_TL_VARIABLE)
+    length = 1+1+1+4+len(TLID) # basic
+    itemNo = 0
+    length = length + 1+4 + 1+4+len(tls._subID) + 1+4 + 1+4 + 1+4 + 1+4 # tls parameter
+    itemNo = 1+1+1+1+1
+    for p in tls._phases:
+        length = length + 1+4 + 1+4 + 1+4 + 1+4+len(p._phaseDef)
+        itemNo = itemNo + 4
+    _message.string += struct.pack("!BBBi", length, CMD_SET_TL_VARIABLE, TL_PHASE_BRAKE_YELLOW_STATE, len(TLID)) + TLID
+    _message.string += struct.pack("!Bi", TYPE_COMPOUND, itemNo) # itemNo
+    _message.string += struct.pack("!Bi", TYPE_STRING, len(tls._subID)) + tls._subID # programID
+    _message.string += struct.pack("!Bi", TYPE_INTEGER, 0) # type
+    _message.string += struct.pack("!Bi", TYPE_COMPOUND, 0) # subitems
+    _message.string += struct.pack("!Bi", TYPE_INTEGER, tls._currentPhaseIndex) # index
+    _message.string += struct.pack("!Bi", TYPE_INTEGER, len(tls._phases)) # phaseNo
+    for p in tls._phases:
+        _message.string += struct.pack("!BiBiBi", TYPE_INTEGER, p._duration, TYPE_INTEGER, p._duration1, TYPE_INTEGER, p._duration2)
+        _message.string += struct.pack("!Bi", TYPE_STRING, len(p._phaseDef)) + p._phaseDef
+    _sendExact()
+    
     
 
 
