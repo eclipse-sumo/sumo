@@ -76,12 +76,6 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("TLS Defaults");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
-#ifndef NO_TRACI
-    oc.addOptionSubTopic("TraCI Server");
-#endif // TRACI
-#ifdef HAVE_MESOSIM
-    oc.addOptionSubTopic("Mesoscopic");
-#endif
 
 
     // register configuration options
@@ -225,9 +219,9 @@ MSFrame::fillOptions() {
     oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");
 
 
-    // TraCI server
 #ifndef NO_TRACI
     //remote port 0 if not used
+    oc.addOptionSubTopic("TraCI Server");
     oc.doRegister("remote-port", new Option_Integer(0));
     oc.addDescription("remote-port", "TraCI Server", "Enables TraCI Server if set");
     oc.doRegister("penetration", new Option_Float(1.0f));
@@ -235,12 +229,25 @@ MSFrame::fillOptions() {
 #endif
     //
 #ifdef HAVE_MESOSIM
+    oc.addOptionSubTopic("Mesoscopic");
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
-    oc.doRegister("mesosim-edgelength", new Option_Float(98.0f));
-    oc.addDescription("mesosim-edgelength", "Mesoscopic", "Length of an edge segment in mesoscopic simulation");
+    oc.doRegister("meso-edgelength", new Option_Float(98.0f));
+    oc.addDescription("meso-edgelength", "Mesoscopic", "Length of an edge segment in mesoscopic simulation");
     oc.doRegister("meso-lanescale", new Option_Float(1.0f));
     oc.addDescription("meso-lanescale", "Mesoscopic", "Factor for calculating number of lanes");
+    oc.doRegister("meso-tauff", new Option_Float(1.4f));
+    oc.addDescription("meso-tauff", "Mesoscopic", "Factor for calculating the free-free headway time");
+    oc.doRegister("meso-taufj", new Option_Float(1.4f));
+    oc.addDescription("meso-taufj", "Mesoscopic", "Factor for calculating the free-jam headway time");
+    oc.doRegister("meso-taujf", new Option_Float(2.0f));
+    oc.addDescription("meso-taujf", "Mesoscopic", "Factor for calculating the jam-free headway time");
+    oc.doRegister("meso-taujj", new Option_Float(2.0f));
+    oc.addDescription("meso-taujj", "Mesoscopic", "Factor for calculating the jam-jam headway time");
+    oc.doRegister("meso-jam-threshold", new Option_Float(0.29f));
+    oc.addDescription("meso-jam-threshold", "Mesoscopic", "Minimum percentage of occupied space to consider a segment jammed");
+    oc.doRegister("meso-multi-queue", new Option_Bool(false));
+    oc.addDescription("meso-multi-queue", "Mesoscopic", "Enable multiple queues at edge ends");
 #endif
 
     // add rand options
