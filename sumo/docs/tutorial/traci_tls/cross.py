@@ -15,14 +15,14 @@ import os, subprocess, sys, socket, time, struct, random
 sys.path.append(os.path.join("..", "..", "..", "tools", "traci"))
 if "SUMO" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO"], "tools", "traci"))
-from traciControl import initTraCI, cmdSimulationStep, cmdClose, cmdGetInductionLoopVariable_lastStepVehicleNumber, cmdChangeTrafficLightsVariable_statePBY
+from traciControl import initTraCI, cmdSimulationStep, cmdClose, cmdGetInductionLoopVariable_lastStepVehicleNumber, cmdChangeTrafficLightsVariable_stateRYG
 
 PORT = 8813
 
-NSGREEN = ["0101", "0101", "0000"]
-NSYELLOW = ["0000", "0000", "0101"]
-WEGREEN = ["1010", "1010", "0000"]
-WEYELLOW = ["0000", "0000", "1010"]
+NSGREEN = "GrGr" 
+NSYELLOW = "yryr"
+WEGREEN = "rGrG" 
+WEYELLOW = "ryry"
 
 PROGRAM = [WEYELLOW,WEYELLOW,WEYELLOW,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSGREEN,NSYELLOW,NSYELLOW,WEGREEN]
 
@@ -35,8 +35,8 @@ pNS = 1./30
 
 routes = open("cross.rou.xml", "w")
 print >> routes, """<routes>
-    <vtype id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67"/>
-    <vtype id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="20" maxspeed="25"/>
+    <vtype id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="7.5" maxspeed="16.67" guiShape="passenger"/>
+    <vtype id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="20" maxspeed="25" guiShape="bus"/>
 
     <route id="right" edges="51o 1i 2o 52i" />
     <route id="left" edges="52o 2i 1o 51i" />
@@ -64,6 +64,8 @@ routes.close()
 
 
 sumoExe = "guisim"
+if "SUMO" in os.environ:
+    sumoExe = os.path.join(os.environ["SUMO"], "guisim")
 sumoConfig = "cross.sumo.cfg"
 sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True, stdout=sys.stdout)
 
@@ -79,7 +81,7 @@ while not (step > lastVeh and veh == []):
     no = cmdGetInductionLoopVariable_lastStepVehicleNumber("0")
     if no > 0:
         programPointer = (0 if programPointer == len(PROGRAM)-1 else 3)
-    cmdChangeTrafficLightsVariable_statePBY("0", PROGRAM[programPointer])
+    cmdChangeTrafficLightsVariable_stateRYG("0", PROGRAM[programPointer])
     step += 1
     
 cmdClose()
