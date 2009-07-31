@@ -88,9 +88,6 @@ public:
     void initGeometry(GUIGlObjectStorage &idStorage) throw();
 
 
-    /** Returns the list of all known junctions as their names */
-    static std::vector<std::string> getNames();
-
     /** Returns the list of all known junctions as their ids */
     static std::vector<GLuint> getIDs();
 

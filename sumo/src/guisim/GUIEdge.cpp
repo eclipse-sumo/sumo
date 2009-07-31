@@ -128,17 +128,6 @@ GUIEdge::getLaneGeometry(const MSLane *lane) const {
 }
 
 
-std::vector<std::string>
-GUIEdge::getNames() {
-    std::vector<std::string> ret;
-    ret.reserve(MSEdge::myDict.size());
-    for (MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); ++i) {
-        ret.push_back((*i).first);
-    }
-    return ret;
-}
-
-
 std::vector<GLuint>
 GUIEdge::getIDs() {
     std::vector<GLuint> ret;

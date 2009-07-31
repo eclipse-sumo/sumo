@@ -480,7 +480,6 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff) {
     }
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    myChanger->applied();
 }
 
 
@@ -580,7 +579,6 @@ GUISUMOAbstractView::recenterView() {
 void
 GUISUMOAbstractView::centerTo(GUIGlObject *o) {
     centerTo(o->getCenteringBoundary());
-    myChanger->otherChange();
     update();
 }
 
@@ -925,7 +923,6 @@ GUISUMOAbstractView::showViewportEditor() {
 void
 GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos) {
     myChanger->setViewport(zoom, xPos, yPos);
-    myChanger->otherChange();
     update();
 }
 

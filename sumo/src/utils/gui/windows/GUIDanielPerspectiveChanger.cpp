@@ -59,7 +59,6 @@ GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
 void
 GUIDanielPerspectiveChanger::move(int xdiff, int ydiff) {
     myViewCenter.add((SUMOReal) -myCallback.p2m((SUMOReal) xdiff), (SUMOReal) myCallback.p2m((SUMOReal) ydiff));
-    myHaveChanged = true;
     myCallback.update();
 }
 
@@ -70,7 +69,6 @@ GUIDanielPerspectiveChanger::zoom(int diff) {
                     + (SUMOReal) diff /(SUMOReal)  100.0 * (SUMOReal) myZoom;
     if (zoom>0.01&&zoom<10000000.0) {
         myZoom = zoom;
-        myHaveChanged = true;
         myCallback.update();
     }
 }
@@ -80,7 +78,6 @@ void
 GUIDanielPerspectiveChanger::rotate(int diff) {
     if (false) {//myCallback.allowRotation()) {
         myRotation += (SUMOReal) diff / (SUMOReal) 10.0;
-        myHaveChanged = true;
         myCallback.update();
     }
 }
@@ -115,7 +112,6 @@ GUIDanielPerspectiveChanger::recenterView() {
     myRotation = 0;
     myViewCenter.set(0, 0);
     myZoom = 100;
-    myHaveChanged = true;
 }
 
 
@@ -133,7 +129,6 @@ GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
             (SUMOReal) 25.0 * (SUMOReal) netBoundary.getWidth() / radius :
             (SUMOReal) 25.0 * (SUMOReal) netBoundary.getHeight() / radius;
     }
-    myHaveChanged = true;
 }
 
 
@@ -150,7 +145,6 @@ GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
             (SUMOReal) 100.0 * (SUMOReal) netBoundary.getWidth() / (SUMOReal) bound.getWidth() :
             (SUMOReal) 100.0 * (SUMOReal) netBoundary.getHeight() / (SUMOReal) bound.getHeight();
     }
-    myHaveChanged = true;
 }
 
 

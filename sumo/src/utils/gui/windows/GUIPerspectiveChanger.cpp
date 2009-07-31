@@ -39,28 +39,10 @@
 // method definitions
 // ===========================================================================
 GUIPerspectiveChanger::GUIPerspectiveChanger(GUISUMOAbstractView &callBack)
-        : myCallback(callBack), myHaveChanged(true) {}
+        : myCallback(callBack) {}
 
 
 GUIPerspectiveChanger::~GUIPerspectiveChanger() {}
-
-
-bool
-GUIPerspectiveChanger::changed() const {
-    return myHaveChanged;
-}
-
-
-void
-GUIPerspectiveChanger::otherChange() {
-    myHaveChanged = true;
-}
-
-
-void
-GUIPerspectiveChanger::applied() {
-    myHaveChanged = false;
-}
 
 
 void
@@ -74,7 +56,6 @@ void
 GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height) {
     myCanvasWidth = width;
     myCanvasHeight = height;
-    otherChange();
 }
 
 

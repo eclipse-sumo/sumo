@@ -88,18 +88,8 @@ public:
     /// Returns the zoom factor computed stored in this changer
     virtual SUMOReal getZoom() const = 0;
 
-    /// Returns the information whether the view has chnaged
-    bool changed() const;
-
-    /** @brief Informs the changer about other chnages (window scaling etc.)
-        This only resets the information that "change" has to return true */
-    void otherChange();
-
     /// recenters the view to display the whole network
     virtual void recenterView() = 0;
-
-    /// Informs the changer that the view has beend adapted to changes
-    void applied();
 
     /** @brief Centers the view to the given position,
         setting it to a size that covers the radius.
@@ -131,9 +121,6 @@ public:
 protected:
     /// The parent window (canvas to scale)
     GUISUMOAbstractView &myCallback;
-
-    /// Information whether the view has changed
-    bool myHaveChanged;
 
     /// The sizes of the network
     size_t myNetWidth, myNetHeight;
