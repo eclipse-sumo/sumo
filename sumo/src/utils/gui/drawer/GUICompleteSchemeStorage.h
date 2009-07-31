@@ -57,11 +57,17 @@ public:
     /// Returns the named setting
     GUIVisualizationSettings &get(const std::string &name);
 
+    /// Returns the named setting
+    GUIVisualizationSettings &getDefault();
+
     /// Returns the information whether a setting with the given name is stored
     bool contains(const std::string &name) const;
 
-    /// Returns the information whether a setting with the given name is stored
+    /// Removes the setting with the given name
     void remove(const std::string &name);
+
+    /// Makes the setting with the given name the default
+    void setDefault(const std::string &name);
 
     /// Returns a list of stored settings names
     const std::vector<std::string> &getNames() const;
@@ -72,12 +78,27 @@ public:
     /// Returns all settings
     const std::map<std::string, GUIVisualizationSettings> &getItems() const;
 
+    /// Makes the given viewport the default
+    void saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom);
+
+    /** @brief Sets the default viewport
+     *
+     * @param[in] parent the view for which the viewport has to be set
+     */
+    void setViewport(GUISUMOAbstractView* view) throw();
+
 protected:
     /// A map of settings referenced by their names
     std::map<std::string, GUIVisualizationSettings> mySettings;
 
     /// List of known setting names
     std::vector<std::string> mySortedSchemeNames;
+
+    /// Name of the default setting
+    std::string myDefaultSettingName;
+
+    /// The default viewport
+    SUMOReal myX, myY, myZoom;
 
 };
 

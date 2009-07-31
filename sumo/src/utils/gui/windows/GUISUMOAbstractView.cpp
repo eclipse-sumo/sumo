@@ -142,12 +142,15 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     // show the middle at the beginning
     myChanger = new GUIDanielPerspectiveChanger(*this);
     myChanger->setNetSizes((size_t) nw, (size_t) nh);
+    gSchemeStorage.setViewport(this);
     myToolTip = new GUIGLObjectToolTip(myApp);
-    myVisualizationSettings = &gSchemeStorage.get(gSchemeStorage.getNames()[0]);
+    myVisualizationSettings = &gSchemeStorage.getDefault();
 }
 
 
 GUISUMOAbstractView::~GUISUMOAbstractView() {
+    gSchemeStorage.setDefault(myVisualizationSettings->name);
+    gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZoom());
     delete myChanger;
     delete myToolTip;
     delete myViewportChooser;

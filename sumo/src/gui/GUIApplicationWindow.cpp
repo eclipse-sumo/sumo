@@ -67,6 +67,7 @@
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/drawer/GUIGradients.h>
+#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUISettingsHandler.h>
@@ -926,6 +927,7 @@ GUIApplicationWindow::load(const std::string &file, bool isNet, bool isReload) {
         myLoadThread->start();
         setStatusBarText("Reloading.");
     } else {
+        gSchemeStorage.saveViewport(0, 0, 100);
         myLoadThread->load(file, isNet);
         setStatusBarText("Loading '" + file + "'.");
     }

@@ -70,6 +70,12 @@ GUICompleteSchemeStorage::get(const std::string &name) {
 }
 
 
+GUIVisualizationSettings &
+GUICompleteSchemeStorage::getDefault() {
+    return mySettings.find(myDefaultSettingName)->second;
+}
+
+
 bool
 GUICompleteSchemeStorage::contains(const std::string &name) const {
     return mySettings.find(name)!=mySettings.end();
@@ -83,6 +89,15 @@ GUICompleteSchemeStorage::remove(const std::string &name) {
     }
     mySortedSchemeNames.erase(find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name));
     mySettings.erase(mySettings.find(name));
+}
+
+
+void
+GUICompleteSchemeStorage::setDefault(const std::string &name) {
+    if (!contains(name)) {
+        return;
+    }
+    myDefaultSettingName = name;
 }
 
 
@@ -220,8 +235,25 @@ GUICompleteSchemeStorage::init(FXApp *app) {
             gSchemeStorage.add(vs);
         }
     }
+    myDefaultSettingName = mySortedSchemeNames[0];
+    myX = myY = myZoom = 0;
 }
 
+
+void
+GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) {
+    myX = x;
+    myY = y;
+    myZoom = zoom;
+}
+
+
+void
+GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) throw() {
+    if (myZoom > 0) {
+        view->setViewport(myZoom, myX, myY);
+    }
+}
 
 
 /****************************************************************************/
