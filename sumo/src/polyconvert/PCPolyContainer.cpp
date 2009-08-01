@@ -35,16 +35,11 @@
 #include "PCPolyContainer.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/StringUtils.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -153,7 +148,7 @@ PCPolyContainer::save(const std::string &file) throw(IOError) {
     out.writeXMLHeader("shapes");
     // write polygons
     for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
-        out << "   <poly id=\"" << (*i).second->getID() << "\" type=\""
+        out << "    <poly id=\"" << StringUtils::escapeXML((*i).second->getID()) << "\" type=\""
         << (*i).second->getType() << "\" color=\""
         << (*i).second->getColor() << "\" fill=\""
         << (*i).second->fill() << "\"";
@@ -162,7 +157,7 @@ PCPolyContainer::save(const std::string &file) throw(IOError) {
     }
     // write pois
     for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
-        out << "   <poi id=\"" << (*i).second->getID() << "\" type=\""
+        out << "    <poi id=\"" << StringUtils::escapeXML((*i).second->getID()) << "\" type=\""
         << (*i).second->getType() << "\" color=\""
         << *static_cast<RGBColor*>((*i).second) << '"';
         out << " layer=\"" << myPOILayerMap[(*i).second] << "\"";

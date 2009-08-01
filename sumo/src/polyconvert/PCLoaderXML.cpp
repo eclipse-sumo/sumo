@@ -73,9 +73,8 @@ PCLoaderXML::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     vector<string> files = oc.getStringVector("xml");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
-            throw ProcessError("Could not open osm-file '" + *file + "'.");
+            throw ProcessError("Could not open xml-file '" + *file + "'.");
         }
-        handler.setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing XML from '" + *file + "'...");
         if (!XMLSubSys::runParser(handler, *file)) {
             throw ProcessError();
@@ -113,7 +112,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
         string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
         SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
         SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
-        Position2D pos(y, x); // !!! reverse!
+        Position2D pos(x, y);
         GeoConvHelper::x2cartesian(pos);
         // patch the values
         bool discard = false;

@@ -80,7 +80,6 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             MsgHandler::getErrorInstance()->inform("Could not open osm-file '" + *file + "'.");
             return;
         }
-        nodesHandler.setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing nodes from osm-file '" + *file + "'...");
         if (!XMLSubSys::runParser(nodesHandler, *file)) {
             throw ProcessError();
@@ -92,7 +91,6 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
     EdgesHandler edgesHandler(nodes, edges);
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         // edges
-        edgesHandler.setFileName(*file);
         MsgHandler::getMessageInstance()->beginProcessMsg("Parsing edges from osm-file '" + *file + "'...");
         XMLSubSys::runParser(edgesHandler, *file);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
