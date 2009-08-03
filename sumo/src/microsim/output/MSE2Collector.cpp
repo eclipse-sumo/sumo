@@ -46,8 +46,7 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
         myJamHaltingSpeedThreshold(haltingSpeedThreshold),
         myJamHaltingTimeThreshold(haltingTimeThreshold),
         myJamDistanceThreshold(jamDistThreshold),
-        myStartPos(startPos),
-        myEndPos(startPos + detLength),
+        myStartPos(startPos), myEndPos(startPos + detLength), 
         myUsage(usage),
         myCurrentOccupancy(0), myCurrentMeanSpeed(-1), myCurrentJamNo(0),
         myCurrentMaxJamLengthInMeters(0), myCurrentMaxJamLengthInVehicles(0),
@@ -126,16 +125,12 @@ MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw(
 void
 MSE2Collector::reset() throw() {
     mySpeedSum = 0;
-    myMaxHaltingDuration = 0;
-    myIntervalMaxHaltingDuration = 0;
     myStartedHalts = 0;
     myJamLengthInMetersSum = 0;
     myJamLengthInVehiclesSum = 0;
     myVehicleSamples = 0;
     myOccupancySum = 0;
     myMaxOccupancy = 0;
-    myHaltingDurationSum = 0;
-    myIntervalHaltingDurationSum = 0;
     myMeanMaxJamInVehicles = 0;
     myMeanMaxJamInMeters = 0;
     myMaxJamInVehicles = 0;
@@ -144,9 +139,11 @@ MSE2Collector::reset() throw() {
     myTimeSamples = 0;
     myMeanVehicleNumber = 0;
     myMaxVehicleNumber = 0;
-    for (std::map<MSVehicle*, SUMOTime>::iterator i=myIntervalHaltingVehicleDurations.begin(); i!=myIntervalHaltingVehicleDurations.end(); ++i) {
+    for (std::map<MSVehicle*, SUMOReal>::iterator i=myIntervalHaltingVehicleDurations.begin(); i!=myIntervalHaltingVehicleDurations.end(); ++i) {
         (*i).second = 0;
     }
+    myPastStandingDurations.clear();
+    myPastIntervalStandingDurations.clear();
 }
 
 
@@ -154,13 +151,11 @@ MSE2Collector::reset() throw() {
 void
 MSE2Collector::update(SUMOTime) throw() {
     JamInfo *currentJam = 0;
-    std::map<MSVehicle*, SUMOTime> haltingVehicles;
-    std::map<MSVehicle*, SUMOTime> intervalHaltingVehicles;
+    std::map<MSVehicle*, SUMOReal> haltingVehicles;
+    std::map<MSVehicle*, SUMOReal> intervalHaltingVehicles;
     std::vector<JamInfo*> jams;
 
     SUMOReal lengthSum = 0;
-    SUMOTime haltingDurationSum = 0;
-    SUMOTime intervalHaltingDurationSum = 0;
     myCurrentMeanSpeed = 0;
     myCurrentMeanLength = 0;
     myCurrentStartedHalts = 0;
@@ -207,21 +202,25 @@ MSE2Collector::update(SUMOTime) throw() {
             } else {
                 haltingVehicles[veh] = 1;
                 intervalHaltingVehicles[veh] = 1;
+                myCurrentStartedHalts++;
+                myStartedHalts++;
             }
             // we now check whether the halting time is large enough
             if (haltingVehicles[veh]>myJamHaltingTimeThreshold) {
                 // yep --> the vehicle is a part of a jam
                 isInJam = true;
-                // save the halting duration for further statistics
-                ++haltingDurationSum;
-                ++intervalHaltingDurationSum;
-                myMaxHaltingDuration = MAX2(myMaxHaltingDuration, haltingVehicles[veh]);
-                myIntervalMaxHaltingDuration = MAX2(myIntervalMaxHaltingDuration, intervalHaltingVehicles[veh]);
-                // now, we have to check whether it has started this time...
-                if (haltingVehicles[veh]-1<=myJamHaltingTimeThreshold) {
-                    myCurrentStartedHalts++;
-                    myStartedHalts++;
-                }
+            }
+        } else {
+            // is not standing anymore; keep duration information
+            std::map<MSVehicle*, SUMOReal>::iterator v = myHaltingVehicleDurations.find(veh);
+            if(v!=myHaltingVehicleDurations.end()) {
+                myPastStandingDurations.push_back((*v).second);
+                myHaltingVehicleDurations.erase(v);
+            }
+            v = myIntervalHaltingVehicleDurations.find(veh);
+            if(v!=myIntervalHaltingVehicleDurations.end()) {
+                myPastIntervalStandingDurations.push_back((*v).second);
+                myIntervalHaltingVehicleDurations.erase(v);
             }
         }
 
@@ -282,7 +281,6 @@ MSE2Collector::update(SUMOTime) throw() {
     }
     myCurrentJamNo = (unsigned) jams.size();
 
-
     unsigned noVehicles = (unsigned) myKnownVehicles.size();
     myVehicleSamples += noVehicles;
     myTimeSamples += 1;
@@ -291,9 +289,6 @@ MSE2Collector::update(SUMOTime) throw() {
     myCurrentOccupancy = currentOccupancy;
     myOccupancySum += currentOccupancy;
     myMaxOccupancy = MAX2(myMaxOccupancy, currentOccupancy);
-    // compute halting duration values
-    myHaltingDurationSum += haltingDurationSum;
-    myIntervalHaltingDurationSum += intervalHaltingDurationSum;
     // compute jam values
     myMeanMaxJamInVehicles += myCurrentMaxJamLengthInVehicles;
     myMeanMaxJamInMeters += myCurrentMaxJamLengthInMeters;
@@ -326,8 +321,37 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
     SUMOReal meanJamLengthInMeters = myTimeSamples!=0 ? myMeanMaxJamInMeters / (SUMOReal) myTimeSamples : 0;
     SUMOReal meanJamLengthInVehicles = myTimeSamples!=0 ? myMeanMaxJamInVehicles / (SUMOReal) myTimeSamples : 0;
     SUMOReal meanVehicleNumber = myTimeSamples!=0 ? (SUMOReal) myMeanVehicleNumber / (SUMOReal) myTimeSamples : 0;
-    SUMOReal meanHaltingDuration = meanVehicleNumber!=0 ? myHaltingDurationSum / (SUMOReal) myVehicleSamples : 0;
-    SUMOReal meanIntervalHaltingDuration = meanVehicleNumber!=0 ? myIntervalHaltingDurationSum / (SUMOReal) myVehicleSamples : 0;
+
+    SUMOReal haltingDurationSum = 0;
+    SUMOReal maxHaltingDuration = 0;
+    SUMOReal haltingNo = 0;
+    for(std::vector<SUMOReal>::iterator i=myPastStandingDurations.begin(); i!=myPastStandingDurations.end(); ++i) {
+        haltingDurationSum += (*i);
+        maxHaltingDuration = MAX2(maxHaltingDuration, (*i));
+        haltingNo = haltingNo + 1;
+    }
+    for(std::map<MSVehicle*, SUMOReal> ::iterator i=myHaltingVehicleDurations.begin(); i!=myHaltingVehicleDurations.end(); ++i) {
+        haltingDurationSum += (*i).second;
+        maxHaltingDuration = MAX2(maxHaltingDuration, (*i).second);
+        haltingNo = haltingNo + 1;
+    }
+    SUMOReal meanHaltingDuration = haltingNo!=0 ? haltingDurationSum / (SUMOReal) haltingNo : 0;
+
+    SUMOReal intervalHaltingDurationSum = 0;
+    SUMOReal intervalMaxHaltingDuration = 0;
+    SUMOReal intervalHaltingNo = 0;
+    for(std::vector<SUMOReal>::iterator i=myPastIntervalStandingDurations.begin(); i!=myPastIntervalStandingDurations.end(); ++i) {
+        intervalHaltingDurationSum += (*i);
+        intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i));
+        intervalHaltingNo = intervalHaltingNo + 1;
+    }
+    for(std::map<MSVehicle*, SUMOReal> ::iterator i=myIntervalHaltingVehicleDurations.begin(); i!=myIntervalHaltingVehicleDurations.end(); ++i) {
+        intervalHaltingDurationSum += (*i).second;
+        intervalMaxHaltingDuration = MAX2(intervalMaxHaltingDuration, (*i).second);
+        intervalHaltingNo = intervalHaltingNo + 1;
+    }
+    SUMOReal intervalMeanHaltingDuration = intervalHaltingNo!=0 ? intervalHaltingDurationSum / (SUMOReal) intervalHaltingNo : 0;
+
     dev << "nSamples=\"" << myVehicleSamples << "\" "
     << "meanSpeed=\"" << meanSpeed << "\" "
     << "meanOccupancy=\"" << meanOccupancy << "\" "
@@ -339,11 +363,11 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
     << "jamLengthInVehiclesSum=\"" << myJamLengthInVehiclesSum << "\" "
     << "jamLengthInMetersSum=\"" << myJamLengthInMetersSum << "\" "
     << "meanHaltingDuration=\"" << meanHaltingDuration << "\" "
-    << "maxHaltingDuration=\"" << myMaxHaltingDuration << "\" "
-    << "haltingDurationSum=\"" << myHaltingDurationSum << "\" "
-    << "meanIntervalHaltingDuration=\"" << meanIntervalHaltingDuration << "\" "
-    << "maxIntervalHaltingDuration=\"" << myIntervalMaxHaltingDuration << "\" "
-    << "intervalHaltingDurationSum=\"" << myIntervalHaltingDurationSum << "\" "
+    << "maxHaltingDuration=\"" << maxHaltingDuration << "\" "
+    << "haltingDurationSum=\"" << haltingDurationSum << "\" "
+    << "meanIntervalHaltingDuration=\"" << intervalMeanHaltingDuration << "\" "
+    << "maxIntervalHaltingDuration=\"" << intervalMaxHaltingDuration << "\" "
+    << "intervalHaltingDurationSum=\"" << intervalHaltingDurationSum << "\" "
     << "startedHalts=\"" << myStartedHalts << "\" "
     << "meanVehicleNumber=\"" << meanVehicleNumber << "\" "
     << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "

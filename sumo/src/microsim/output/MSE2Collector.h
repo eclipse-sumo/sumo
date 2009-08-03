@@ -346,10 +346,16 @@ private:
     std::list<MSVehicle*> myKnownVehicles;
 
     /// @brief Storage for halting durations of known vehicles (for halting vehicles)
-    std::map<MSVehicle*, SUMOTime> myHaltingVehicleDurations;
+    std::map<MSVehicle*, SUMOReal> myHaltingVehicleDurations;
 
     /// @brief Storage for halting durations of known vehicles (current interval)
-    std::map<MSVehicle*, SUMOTime> myIntervalHaltingVehicleDurations;
+    std::map<MSVehicle*, SUMOReal> myIntervalHaltingVehicleDurations;
+
+    /// @brief Halting durations of ended halts [s]
+    std::vector<SUMOReal> myPastStandingDurations;
+
+    /// @brief Halting durations of ended halts for the current interval [s]
+    std::vector<SUMOReal> myPastIntervalStandingDurations;
 
 
     /// @name Values generated for aggregated file output
@@ -357,10 +363,6 @@ private:
 
     /// @brief The sum of collected vehicle speeds [m/s]
     SUMOReal mySpeedSum;
-    /// @brief The maximum halting duration of a vehicle on detector [s]
-    SUMOTime myMaxHaltingDuration;
-    /// @brief The maximum halting duration (current interval) [s]
-    SUMOTime myIntervalMaxHaltingDuration;
     /// @brief The number of started halts [#]
     SUMOReal myStartedHalts;
     /// @brief The sum of jam lengths [m]
@@ -375,10 +377,6 @@ private:
     SUMOReal myOccupancySum;
     /// @brief The maximum occupancy [%]
     SUMOReal myMaxOccupancy;
-    /// @brief The sum of halting durations [s]
-    SUMOTime myHaltingDurationSum;
-    /// @brief The sum of halting durations (current interval) [s]
-    SUMOTime myIntervalHaltingDurationSum;
     /// @brief The mean jam length [#veh]
     unsigned myMeanMaxJamInVehicles;
     /// @brief The mean jam length [m]
