@@ -56,6 +56,10 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         // crossSection not yet reached
         return true;
     }
+    if (oldPos > myPosition) {
+        // crossSection was not passed
+        return false;
+    }
     SUMOReal entryTimestep = (SUMOReal)
                              ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed));
     myCollector.enter(veh, entryTimestep);
@@ -85,6 +89,10 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     if (newPos <= myPosition) {
         // crossSection not yet reached
         return true;
+    }
+    if (oldPos > myPosition) {
+        // crossSection was not passed
+        return false;
     }
     // crossSection left
     SUMOReal leaveTimestep =
