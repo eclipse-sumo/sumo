@@ -122,11 +122,21 @@ def readHead(result):
 
 def buildSendReadNew1StringParamCmd(domainID, cmdID, objID):
     _message.queue.append(domainID)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(objID), domainID, cmdID, len(objID)) + objID
+    length = 1+1+1+4+len(objID)
+    if length<=255:
+        _message.string += struct.pack("!BBBi", length, domainID, cmdID, len(objID)) + objID
+    else:
+        _message.string += struct.pack("!BiBBi", 0, length+4, domainID, cmdID, len(objID)) + objID
     result = _sendExact()
     readHead(result)
     return result
 
+def beginChangeMessage(domainID, length, cmdID, objID):
+    _message.queue.append(domainID)
+    if length<=255:
+        _message.string += struct.pack("!BBBi", length, domainID, cmdID, len(objID)) + objID
+    else:
+        _message.string += struct.pack("!BiBBi", 0, length+4, domainID, cmdID, len(objID)) + objID
 
 def initTraCI(port):
     for wait in range(10):
@@ -277,12 +287,10 @@ def cmdGetTrafficLightsVariable_completeDefinitionPBY(TLID):
     return logics
 
 
-# ! not tested yet !
 def cmdGetTrafficLightsVariable_controlledLanes(TLID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LANES, TLID)
     return result.readStringList() # Variable value 
 
-# ! not tested yet !
 def cmdGetTrafficLightsVariable_controlledLinks(TLID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LINKS, TLID)
     result.read("!iB")
@@ -314,8 +322,7 @@ def cmdGetTrafficLightsVariable_phase(TLID):
 # ---------------------------------------------------
 def cmdChangeTrafficLightsVariable_statePBY(TLID, state):
     [phase, brake, yellow] = state
-    _message.queue.append(CMD_SET_TL_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(TLID)+1+4+4+len(phase)+4+len(brake)+4+len(yellow), CMD_SET_TL_VARIABLE, TL_PHASE_BRAKE_YELLOW_STATE, len(TLID)) + TLID
+    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+4+len(phase)+4+len(brake)+4+len(yellow), TL_PHASE_BRAKE_YELLOW_STATE, TLID)
     _message.string += struct.pack("!Bi", TYPE_STRINGLIST, 3)
     _message.string += struct.pack("!i", len(phase)) + phase
     _message.string += struct.pack("!i", len(brake)) + brake
@@ -323,14 +330,12 @@ def cmdChangeTrafficLightsVariable_statePBY(TLID, state):
     _sendExact()
     
 def cmdChangeTrafficLightsVariable_stateRYG(TLID, state):
-    _message.queue.append(CMD_SET_TL_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(TLID)+1+4+len(state), CMD_SET_TL_VARIABLE, TL_RED_YELLOW_GREEN_STATE, len(TLID)) + TLID
+    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+len(state), TL_RED_YELLOW_GREEN_STATE, TLID)
     _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(state)) + state
     _sendExact()
 
 def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
-    _message.queue.append(CMD_SET_TL_VARIABLE)
     length = 1+1+1+4+len(TLID) # basic
     itemNo = 0
     length = length + 1+4 + 1+4+len(tls._subID) + 1+4 + 1+4 + 1+4 + 1+4 # tls parameter
@@ -338,7 +343,7 @@ def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
     for p in tls._phases:
         length = length + 1+4 + 1+4 + 1+4 + 1+4+len(p._phaseDef)
         itemNo = itemNo + 4
-    _message.string += struct.pack("!BBBi", length, CMD_SET_TL_VARIABLE, TL_COMPLETE_PROGRAM_RYG, len(TLID)) + TLID
+    beginChangeMessage(CMD_SET_TL_VARIABLE, length, TL_COMPLETE_PROGRAM_RYG, TLID)
     _message.string += struct.pack("!Bi", TYPE_COMPOUND, itemNo) # itemNo
     _message.string += struct.pack("!Bi", TYPE_STRING, len(tls._subID)) + tls._subID # programID
     _message.string += struct.pack("!Bi", TYPE_INTEGER, 0) # type
@@ -400,14 +405,12 @@ def cmdGetVehicleVariable_lanePosition(vehID):
 # change state
 # ---------------------------------------------------
 def cmdChangeVehicleVariable_maxSpeed(vehID, speed):
-    _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_SETMAXSPEED, len(vehID)) + vehID
+    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4, CMD_SETMAXSPEED, vehID)
     _message.string += struct.pack("!Bf", TYPE_FLOAT, speed)
     _sendExact()
 
 def cmdChangeVehicleVariable_stop(vehID, edgeID, pos, laneIndex, duration):
-    _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+4+len(edgeID)+1+4+1+1+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_STOP, len(vehID)) + vehID
+    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+len(edgeID)+1+4+1+1+1+4, CMD_STOP, vehID)
     _message.string += struct.pack("!Bi", TYPE_COMPOUND, 4)
     _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
@@ -415,20 +418,17 @@ def cmdChangeVehicleVariable_stop(vehID, edgeID, pos, laneIndex, duration):
     _sendExact()
 
 def cmdChangeVehicleVariable_changeLane(vehID, laneIndex, duration):
-    _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+1+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_CHANGELANE, len(vehID)) + vehID
+    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+1+1+4, CMD_CHANGELANE, vehID)
     _message.string += struct.pack("!BiBBBf", TYPE_COMPOUND, 2, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_slowDown(vehID, speed, duration):
-    _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+1+4+1+4, CMD_SET_VEHICLE_VARIABLE, CMD_SLOWDOWN, len(vehID)) + vehID
+    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+1+4, CMD_SLOWDOWN, vehID)
     _message.string += struct.pack("!BiBfBf", TYPE_COMPOUND, 2, TYPE_FLOAT, speed, TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_changeTarget(vehID, edgeID):
-    _message.queue.append(CMD_SET_VEHICLE_VARIABLE)
-    _message.string += struct.pack("!BBBi", 1+1+1+4+len(vehID)+1+4+len(edgeID), CMD_SET_VEHICLE_VARIABLE, CMD_CHANGETARGET, len(vehID)) + vehID
+    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+len(edgeID), CMD_CHANGETARGET, vehID)
     _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
     _sendExact()

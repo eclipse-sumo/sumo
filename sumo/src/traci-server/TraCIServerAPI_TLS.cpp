@@ -136,10 +136,10 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                     tempContent.writeInt(phase.duration);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
+                    tempContent.writeInt(phase.minDuration);
                     ++cnt; // not implemented
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
+                    tempContent.writeInt(phase.maxDuration);
                     ++cnt; // not implemented
                     const std::string &state = phase.getState();
                     unsigned int linkNo = vars.getActive()->getLinks().size();
@@ -192,10 +192,10 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
                     tempContent.writeInt(phase.duration);
                     ++cnt;
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
+                    tempContent.writeInt(phase.minDuration);
                     ++cnt; // not implemented
                     tempContent.writeUnsignedByte(TYPE_INTEGER);
-                    tempContent.writeInt(phase.duration);
+                    tempContent.writeInt(phase.maxDuration);
                     ++cnt; // not implemented
                     const std::string &state = phase.getState();
                     unsigned int linkNo = vars.getActive()->getLinks().size();
@@ -428,21 +428,21 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             }
             int duration = inputStorage.readInt();
             if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.2. parameter (duration2) must be an int.", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.2. parameter (min duration) must be an int.", outputStorage);
                 return false;
             }
-            inputStorage.readInt();
+            int minDuration = inputStorage.readInt();
             if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.3. parameter (duration3) must be an int.", outputStorage);
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.3. parameter (max duration) must be an int.", outputStorage);
                 return false;
             }
-            inputStorage.readInt();
+            int maxDuration = inputStorage.readInt();
             if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_TL_VARIABLE, RTYPE_ERR, "set program: 6.4. parameter (phase) must be a string.", outputStorage);
                 return false;
             }
             string state = inputStorage.readString();
-            MSPhaseDefinition *phase = new MSPhaseDefinition(duration, state);
+            MSPhaseDefinition *phase = new MSPhaseDefinition(duration, minDuration, maxDuration, state);
             phases.push_back(phase);
         }
         if (vars.getLogic(subid)==0) {
