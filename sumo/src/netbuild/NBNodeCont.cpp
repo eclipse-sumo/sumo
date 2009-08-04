@@ -1070,6 +1070,25 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             }
         }
     }
+    // check whether on-off ramps shall be guessed
+    if (oc.isSet("ramp-guess.explicite")) {
+        std::vector<std::string> edges = oc.getStringVector("ramp-guess.explicite");
+        for(std::vector<std::string>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+            NBEdge *e = ec.retrieve(*i);
+            if(e==0) {
+                MsgHandler::getWarningInstance()->inform("Can not build ramp on edge '" + *i + "' - the edge is not known.");
+                continue;
+            }
+            NBNode *from = e->getFromNode();
+            if(from->getIncomingEdges().size()==2&&from->getOutgoingEdges().size()==1) {
+                buildOnRamp(oc, from, ec, dc, incremented);
+            }
+            NBNode *to = e->getToNode();
+            if(to->getIncomingEdges().size()==1&&to->getOutgoingEdges().size()==2) {
+                buildOffRamp(oc, to, ec, dc, incremented);
+            }
+        }
+    }
 }
 
 

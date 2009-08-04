@@ -165,7 +165,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     //
     myEdgeCont.recomputeLaneShapes();
     //
-    if (oc.getBool("guess-ramps")||oc.getBool("guess-obscure-ramps")) {
+    if (oc.getBool("guess-ramps")||oc.getBool("guess-obscure-ramps")||oc.isSet("ramp-guess.explicite")) {
         inform(step, "Guessing and setting on-/off-ramps");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
     }
@@ -526,6 +526,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("ramp-guess.ramp-length", new Option_Float(100));
     oc.addDescription("ramp-guess.ramp-length", "Ramp Guessing", "Use FLOAT as ramp-length");
+
+    oc.doRegister("ramp-guess.explicite", new Option_String());
+    oc.addDescription("ramp-guess.explicite", "Ramp Guessing", "Tries to handle the given edges as ramps");
 
     oc.doRegister("guess-obscure-ramps", new Option_Bool(false)); // !!! not described
     oc.addDescription("guess-obscure-ramps", "Ramp Guessing", "");
