@@ -375,7 +375,6 @@ main(int argc, char **argv) {
         MsgHandler::initOutputOptions();
         if (!checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
-        GeoConvHelper::init("!", Position2D());
         NBNetBuilder nb;
         nb.applyOptions(oc);
         // build the netgen-network description
@@ -390,7 +389,6 @@ main(int argc, char **argv) {
         WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         nb.buildLoaded();
-        GeoConvHelper::close();
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());

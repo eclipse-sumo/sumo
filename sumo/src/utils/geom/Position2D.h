@@ -109,19 +109,15 @@ public:
         myY -= pos.myY;
     }
 
-    SUMOReal scalar() const {
-        return sqrt(myX*myX + myY*myY);
-    }
-
     void norm() {
-        SUMOReal val = scalar();
+        SUMOReal val = sqrt(myX*myX + myY*myY);
         myX = myX / val;
         myY = myY / val;
     }
 
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
         SUMOReal x = myX * cos(rot) -myY * sin(rot) + xoff;
-        SUMOReal y =myX * sin(rot) + yoff + myY * cos(rot);
+        SUMOReal y = myX * sin(rot) + yoff + myY * cos(rot);
         myX = x;
         myY = y;
     }
@@ -133,21 +129,17 @@ public:
         return os;
     }
 
-    friend bool operator==(const Position2D &p1, const Position2D &p2) {
-        return p1.x()==p2.x() && p1.y()==p2.y();
+    bool operator==(const Position2D &p2) const {
+        return myX==p2.myX && myY==p2.myY;
     }
 
-    friend bool operator!=(const Position2D &p1, const Position2D &p2) {
-        return p1.x()!=p2.x() || p1.y()!=p2.y();
+    bool operator!=(const Position2D &p2) const {
+        return myX!=p2.myX || myY!=p2.myY;
     }
 
 
     bool almostSame(const Position2D &p2, SUMOReal maxDiv=POSITION_EPS) const {
         return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv;
-    }
-
-    float euclidDistance(const float& x, const float& y) {
-        return sqrtf((myX-x)*(myX-x) + (myY-y)*(myY-y));
     }
 
 

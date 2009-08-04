@@ -83,9 +83,9 @@ MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
             << "\" y=\"" << pos.y();
             if (GeoConvHelper::usingGeoProjection()) {
                 GeoConvHelper::cartesian2geo(pos);
-                dev << "\" lat=\"" << pos.y()*100000.0 << "\" lon=\"" << pos.x()*100000.0;
-            } else {
-                dev << "\" lat=\"\" lon=\"";
+                dev.setPrecision(GEO_OUTPUT_ACCURACY);
+                dev << "\" lat=\"" << pos.y() << "\" lon=\"" << pos.x();
+                dev.setPrecision();
             }
             dev << "\" speed=\"" << veh->getSpeed() << "\"/>" << "\n";
         }

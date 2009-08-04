@@ -198,19 +198,16 @@ GUISUMOAbstractView::getPositionInformation(int mx, int my) const {
 
 void
 GUISUMOAbstractView::updatePositionInformation() const {
-    if (true) {
-        string text;
-        Position2D pos = getPositionInformation();
-        text = "x:" + toString(pos.x(), 3) + ", y:" + toString(pos.y(), 3);
-        myApp->getCartesianLabel().setText(text.c_str());
-        GeoConvHelper::cartesian2geo(pos);
-        if (GeoConvHelper::usingGeoProjection()) {
-            text = "lat:" + toString(pos.y(), 5) + ", lon:" + toString(pos.x(), 5);
-        } else {
-            text = "x:" + toString(pos.x(), 3) + ", y:" + toString(pos.y(), 3);
-        }
-        myApp->getGeoLabel().setText(text.c_str());
+    Position2D pos = getPositionInformation();
+    string text = "x:" + toString(pos.x(), OUTPUT_ACCURACY) + ", y:" + toString(pos.y(), OUTPUT_ACCURACY);
+    myApp->getCartesianLabel().setText(text.c_str());
+    GeoConvHelper::cartesian2geo(pos);
+    if (GeoConvHelper::usingGeoProjection()) {
+        text = "lat:" + toString(pos.y(), GEO_OUTPUT_ACCURACY) + ", lon:" + toString(pos.x(), GEO_OUTPUT_ACCURACY);
+    } else {
+        text = "x:" + toString(pos.x(), OUTPUT_ACCURACY) + ", y:" + toString(pos.y(), OUTPUT_ACCURACY);
     }
+    myApp->getGeoLabel().setText(text.c_str());
 }
 
 

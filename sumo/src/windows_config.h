@@ -49,6 +49,9 @@
 /* defines the number of digits after the comma in output */
 #define OUTPUT_ACCURACY 2
 
+/* defines the number of digits after the comma in output of geo-coordinates */
+#define GEO_OUTPUT_ACCURACY 6
+
 /* Define if auto-generated version.h should be used. */
 #define HAVE_VERSION_H 1
 

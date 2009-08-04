@@ -279,7 +279,7 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     device << "   <location netOffset=\"" << GeoConvHelper::getOffset() << "\""
     << " convBoundary=\"" << GeoConvHelper::getConvBoundary() << "\"";
     if (oc.getBool("use-projection")) {
-        device.setPrecision(6);
+        device.setPrecision(GEO_OUTPUT_ACCURACY);
         device << " origBoundary=\"" << GeoConvHelper::getOrigBoundary() << "\"";
         device.setPrecision();
         if (oc.getBool("proj.simple")) {
