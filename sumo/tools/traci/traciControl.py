@@ -178,6 +178,10 @@ def cmdGetInductionLoopVariable_vehicleIds(IndLoopID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, IndLoopID)
     return result.readStringList() # Variable value
   
+def cmdGetInductionLoopVariable_lastStepOccupancy(IndLoopID):
+    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_OCCUPANCY, IndLoopID)
+    return result.read("!f")[0] # Variable value
+  
   
 
 # ===================================================
@@ -207,8 +211,8 @@ def cmdGetMultiEntryExitDetectorVariable_vehicleIds(MultiEntryExitDetID):
 # ---------------------------------------------------
 # get state
 # ---------------------------------------------------
-def cmdGetTrafficLightsVariable_idList(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, ID_LIST, TLID)
+def cmdGetTrafficLightsVariable_idList():
+    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, ID_LIST, "-")
     return result.readStringList()  # Variable value 
 
 def cmdGetTrafficLightsVariable_stateRYG(TLID):
@@ -333,6 +337,21 @@ def cmdChangeTrafficLightsVariable_stateRYG(TLID, state):
     beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+len(state), TL_RED_YELLOW_GREEN_STATE, TLID)
     _message.string += struct.pack("!B", TYPE_STRING)
     _message.string += struct.pack("!i", len(state)) + state
+    _sendExact()
+
+def cmdChangeTrafficLightsVariable_phaseIndex(TLID, index):
+    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4, TL_PHASE_INDEX, TLID)
+    _message.string += struct.pack("!Bi", TYPE_INTEGER, index)
+    _sendExact()
+
+def cmdChangeTrafficLightsVariable_programID(TLID, programID):
+    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+len(programID), TL_PROGRAM, TLID)
+    _message.string += struct.pack("!Bi", TYPE_STRING, len(programID)) + programID
+    _sendExact()
+
+def cmdChangeTrafficLightsVariable_phaseDuration(TLID, phaseDuration):
+    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4, TL_PHASE_DURATION, TLID)
+    _message.string += struct.pack("!Bi", TYPE_INTEGER, phaseDuration)
     _sendExact()
 
 def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
