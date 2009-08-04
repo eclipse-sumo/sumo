@@ -4,12 +4,18 @@ on_noramp
 # network with an on-ramp, guessing enabled
 on_ramp
 
+# network with an on-ramp, explicite set
+on_ramp_explicite
+
 
 # network with an off-ramp, no guessing
 off_noramp
 
 # network with an off-ramp, guessing enabled
 off_ramp
+
+# network with an off-ramp, explicite set
+off_ramp_explicite
 
 
 # network with an both ramps, no guessing
@@ -20,6 +26,15 @@ both_ramp
 
 # network with an both ramps, guessing enabled, near nodes (joined into one ramp)
 both_near
+
+# network with an both ramps, explicite set
+both_ramp_explicite
+
+# network with an both ramps, explicite set, near nodes (joined into one ramp)
+both_near_explicite
+
+
+
 
 
 
