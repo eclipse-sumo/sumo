@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r7370
+SUMO netgen Version dev-SVN-r7601
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -109,6 +109,7 @@ Usage: netgen.exe [OPTION]*
   --ramp-guess.min-highway-speed FLOAT  Treat edges with speed < FLOAT as no
                                          highways
   --ramp-guess.ramp-length FLOAT       Use FLOAT as ramp-length
+  --ramp-guess.explicite STR           Tries to handle the given edges as ramps
   --guess-obscure-ramps                
   --obscure-ramps.add-ramp             
   --obscure-ramps.min-highway-speed FLOAT  

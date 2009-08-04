@@ -52,6 +52,7 @@
         ramp-guess.max-ramp-speed="-1"
         ramp-guess.min-highway-speed="21.9444"
         ramp-guess.ramp-length="100"
+        ramp-guess.explicite=""
         guess-obscure-ramps="false"
         obscure-ramps.add-ramp="false"
         obscure-ramps.min-highway-speed="27.7778"

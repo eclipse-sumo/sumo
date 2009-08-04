@@ -178,6 +178,9 @@
         <!-- Use FLOAT as ramp-length -->
         ramp-guess.ramp-length="100"
 
+        <!-- Tries to handle the given edges as ramps -->
+        ramp-guess.explicite=""
+
         <!--  -->
         guess-obscure-ramps="false"
 
