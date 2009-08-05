@@ -247,13 +247,12 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         assert(geomsCCW.find(*i)!=geomsCCW.end());
         assert(geomsCW.find(*ccwi)!=geomsCW.end());
         assert(geomsCW.find(*cwi)!=geomsCW.end());
-        SUMOReal twoPI = (SUMOReal)(2.*3.1415926535897);
-        SUMOReal pi = (SUMOReal) 3.1415926535897;
         SUMOReal angleI = geomsCCW[*i].lineAt(0).atan2PositiveAngle();
         SUMOReal angleCCW = geomsCW[*ccwi].lineAt(0).atan2PositiveAngle();
         SUMOReal angleCW = geomsCW[*cwi].lineAt(0).atan2PositiveAngle();
         SUMOReal ccad;
         SUMOReal cad;
+        SUMOReal twoPI = (SUMOReal)(2*PI);
         if (angleI>angleCCW) {
             ccad = angleI - angleCCW;
         } else {
@@ -265,18 +264,17 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         } else {
             cad = angleCW - angleI;
         }
-
         if (ccad<0) {
-            ccad = (SUMOReal) 3.1415926535897 * (SUMOReal) 2.0 + ccad;
+            ccad += twoPI;
         }
-        if (ccad>(SUMOReal)(2.*3.1415926535897)) {
-            ccad -= (SUMOReal)(2.*3.1415926535897);
+        if (ccad>twoPI) {
+            ccad -= twoPI;
         }
         if (cad<0) {
-            cad = (SUMOReal) 3.1415926535897 * (SUMOReal) 2.0 + cad;
+            cad += twoPI;
         }
-        if (cad>(SUMOReal)(2.*3.1415926535897)) {
-            cad -= (SUMOReal)(2.*3.1415926535897);
+        if (cad>twoPI) {
+            cad -= twoPI;
         }
 
         if (simpleContinuation&&ccad<(SUMOReal)(45./180.*PI)) {
@@ -338,7 +336,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                         if (*cwi!=*ccwi&&geomsCW[*i].intersects(geomsCCW[*cwi])) {
                             SUMOReal a1 = distances[*i];
                             SUMOReal a2 = (SUMOReal) 1.5 + geomsCW[*i].intersectsAtLengths(geomsCCW[*cwi])[0];
-                            if (ccad>(SUMOReal)((90.+45.)/180.*pi)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
+                            if (ccad>(SUMOReal)((90.+45.)/180.*PI)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
                                 SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                                 if (mmin>100) {
                                     distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
@@ -368,7 +366,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
                         if (*cwi!=*ccwi&&geomsCCW[*i].intersects(geomsCW[*ccwi])) {
                             SUMOReal a1 = distances[*i];
                             SUMOReal a2 = (SUMOReal)(1.5 + geomsCCW[*i].intersectsAtLengths(geomsCW[*ccwi])[0]);
-                            if (ccad>(SUMOReal)((90.+45.)/180.*pi)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
+                            if (ccad>(SUMOReal)((90.+45.)/180.*PI)&&cad>(SUMOReal)((90.+45.)/180.*PI)) {
                                 SUMOReal mmin = MIN2(distances[*cwi], distances[*ccwi]);
                                 if (mmin>100) {
                                     distances[*i] = (SUMOReal) 5. + (SUMOReal) 100. - (SUMOReal)(mmin-100);  //100 + 1.5;
@@ -426,7 +424,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         SUMOReal angleCW = geomsCW[*cwi].lineAt(0).atan2PositiveAngle();
         SUMOReal ccad;
         SUMOReal cad;
-        SUMOReal twoPI = (SUMOReal)(2.*3.1415926535897);
+        SUMOReal twoPI = (SUMOReal)(2*PI);
         if (angleI>angleCCW) {
             ccad = angleI - angleCCW;
         } else {
@@ -440,16 +438,16 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation) {
         }
 
         if (ccad<0) {
-            ccad = (SUMOReal) 3.1415926535897 * (SUMOReal) 2.0 + ccad;
+            ccad += twoPI;
         }
-        if (ccad>2.*3.1415926535897) {
-            ccad -= (SUMOReal)(2.*3.1415926535897);
+        if (ccad>twoPI) {
+            ccad -= twoPI;
         }
         if (cad<0) {
-            cad = (SUMOReal) 3.1415926535897 * (SUMOReal) 2.0 + cad;
+            cad += twoPI;
         }
-        if (cad>2.*3.1415926535897) {
-            cad -= (SUMOReal)(2.*3.1415926535897);
+        if (cad>twoPI) {
+            cad -= twoPI;
         }
         SUMOReal offset = 0;
         int laneDiff = (*i)->getNoLanes() - (*ccwi)->getNoLanes();
@@ -725,22 +723,20 @@ NBNodeShapeComputer::computeNodeShapeByCrosses() {
     EdgeVector::const_iterator i;
     for (i=myNode.myAllEdges.begin(); i!=myNode.myAllEdges.end(); i++) {
         // compute crossing with normal
-        {
-            Line2D edgebound1 = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
-            Line2D edgebound2 = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
-            Line2D cross(edgebound1);
-            cross.sub(cross.p1().x(), cross.p1().y());
-            cross.rotateAround(Position2D(0, 0), (SUMOReal)(90/180.*3.1415926535897932384626433832795));
-            cross.add(myNode.getPosition());
-            cross.extrapolateBy(500);
-            edgebound1.extrapolateBy(500);
-            edgebound2.extrapolateBy(500);
-            if (cross.intersects(edgebound1)) {
-                ret.push_back_noDoublePos(cross.intersectsAt(edgebound1));
-            }
-            if (cross.intersects(edgebound2)) {
-                ret.push_back_noDoublePos(cross.intersectsAt(edgebound2));
-            }
+        Line2D edgebound1 = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
+        Line2D edgebound2 = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);
+        Line2D cross(edgebound1);
+        cross.sub(cross.p1().x(), cross.p1().y());
+        cross.rotateAround(Position2D(0, 0), (SUMOReal)(90/180.*PI));
+        cross.add(myNode.getPosition());
+        cross.extrapolateBy(500);
+        edgebound1.extrapolateBy(500);
+        edgebound2.extrapolateBy(500);
+        if (cross.intersects(edgebound1)) {
+            ret.push_back_noDoublePos(cross.intersectsAt(edgebound1));
+        }
+        if (cross.intersects(edgebound2)) {
+            ret.push_back_noDoublePos(cross.intersectsAt(edgebound2));
         }
     }
     if (OptionsCont::getOptions().isSet("node-geometry-dump")) {

@@ -53,7 +53,7 @@ using namespace std;
 // ===========================================================================
 SUMOReal
 NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
-    SUMOReal angle = (SUMOReal) atan2(x1-x2, y1-y2) * (SUMOReal) 180.0 / (SUMOReal) 3.14159265;
+    SUMOReal angle = (SUMOReal) atan2(x1-x2, y1-y2) * (SUMOReal) 180.0 / (SUMOReal) PI;
     if (angle<0) {
         angle = 360 + angle;
     }
