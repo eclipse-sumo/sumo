@@ -82,6 +82,7 @@ fi
 
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
+AC_DEFINE([GEO_OUTPUT_ACCURACY], [6], [defines the number of digits after the comma in geo-coordinates output])
 
 dnl   ... for xerces 3.0
 PKG_CHECK_MODULES([XERCES], [xerces-c >= 3.0],
