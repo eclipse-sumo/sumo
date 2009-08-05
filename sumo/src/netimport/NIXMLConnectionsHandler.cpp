@@ -186,62 +186,64 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         return;
     }
     string laneConn = attrs.getStringSecure(SUMO_ATTR_LANE, "");
-    if (laneConn.length()==0) {
-        MsgHandler::getErrorInstance()->inform("Not specified lane to lane connection");
+    // split the information
+    StringTokenizer st(laneConn, ':');
+    if (st.size()!=2) {
+        MsgHandler::getErrorInstance()->inform("Invalid lane to lane connection from '" +
+                                               from->getID() + "' to '" + to->getID() + "'.");
         return;
-    } else {
-        // split the information
-        StringTokenizer st(laneConn, ':');
-        if (st.size()!=2) {
-            MsgHandler::getErrorInstance()->inform("False lane to lane connection occured.");
+    }
+    // get the begin and the end lane
+    bool mayDefinitelyPass = false;
+    if (attrs.hasAttribute(SUMO_ATTR_PASS)) {
+        mayDefinitelyPass = attrs.getBool(SUMO_ATTR_PASS);
+    }
+    //
+    int fromLane;
+    int toLane;
+    try {
+        fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+        toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+        if (fromLane<0 || fromLane>=from->getNoLanes() ||
+            toLane<0 || toLane>=to->getNoLanes()) {
+            MsgHandler::getErrorInstance()->inform("False lane index in connection from '" +
+                                                   from->getID() + "' to '" + to->getID() + "'.");
             return;
         }
-        // get the begin and the end lane
-        bool mayDefinitelyPass = false;
-        if (attrs.hasAttribute(SUMO_ATTR_PASS)) {
-            mayDefinitelyPass = attrs.getBool(SUMO_ATTR_PASS);
-        }
-        //
-        int fromLane;
-        int toLane;
-        try {
-            fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {
-                NBEdge *nFrom = from;
-                bool toNext = true;
-                do {
-                    if (nFrom->getToNode()->getOutgoingEdges().size()!=1) {
-                        toNext = false;
-                        break;
-                    }
-                    NBEdge *t = nFrom->getToNode()->getOutgoingEdges()[0];
-                    if (t->getID().substr(0, t->getID().find('/'))!=nFrom->getID().substr(0, nFrom->getID().find('/'))) {
-                        toNext = false;
-                        break;
-                    }
-                    if (toNext) {
-                        nFrom = t;
-                    }
-                } while (toNext);
-                if (nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, mayDefinitelyPass)) {
-                    WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
-                } else {
-                    from = nFrom;
+        if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {
+            NBEdge *nFrom = from;
+            bool toNext = true;
+            do {
+                if (nFrom->getToNode()->getOutgoingEdges().size()!=1) {
+                    toNext = false;
+                    break;
                 }
+                NBEdge *t = nFrom->getToNode()->getOutgoingEdges()[0];
+                if (t->getID().substr(0, t->getID().find('/'))!=nFrom->getID().substr(0, nFrom->getID().find('/'))) {
+                    toNext = false;
+                    break;
+                }
+                if (toNext) {
+                    nFrom = t;
+                }
+            } while (toNext);
+            if (nFrom==0||!nFrom->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, mayDefinitelyPass)) {
+                WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
+            } else {
+                from = nFrom;
             }
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("At least one of the defined lanes was not numeric");
         }
-        //
-        try {
-            bool keepUncontrolled = attrs.getBoolSecure(SUMO_ATTR_UNCONTROLLED, false);
-            if (keepUncontrolled) {
-                from->disableConnection4TLS(fromLane, to, toLane);
-            }
-        } catch (BoolFormatException &) {
-            MsgHandler::getErrorInstance()->inform("The definition about being (un)controlled is not a valid bool.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("At least one of the defined lanes was not numeric");
+    }
+    //
+    try {
+        bool keepUncontrolled = attrs.getBoolSecure(SUMO_ATTR_UNCONTROLLED, false);
+        if (keepUncontrolled) {
+            from->disableConnection4TLS(fromLane, to, toLane);
         }
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The definition about being (un)controlled is not a valid bool.");
     }
 }
 
