@@ -10,8 +10,11 @@ cross3l_edge2edge_conns
 # Same as cross3l_edge2edge_conns, but with additional turn edges connected
 cross3l_edge2edge_turn
 
-# Test for edge2edge connections
+# Test for lane2lane connections
 cross3l_lane2lane_conns
+
+# Test for invalid lane index
+cross3l_lane2lane_invalid
 
 # Test for not appending turnarounds
 cross3l_no_turnarounds
@@ -24,4 +27,3 @@ cross3l_prohibitions
 
 # Same ascross3l_prohibitions, but with additional turn edges connected
 cross3l_prohibitions_turns
-
