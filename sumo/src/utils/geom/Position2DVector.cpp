@@ -105,7 +105,7 @@ Position2DVector::around(const Position2D &p, SUMOReal offset) const {
         (*(myCont.begin())).x() - p.x(),
         (*(myCont.begin())).y() - p.y());
     angle += GeomHelper::Angle2D(p1.x(), p1.y(), p2.x(), p2.y());
-    return (!(fabs(angle) < 3.1415926535897932384626433832795));
+    return (!(fabs(angle) < PI));
 }
 
 
@@ -223,7 +223,6 @@ Position2DVector::positionAtLengthPosition(SUMOReal pos) const {
         seenLength += nextLength;
     } while (++i!=myCont.end()-1);
     return myCont[myCont.size()-1];
-    assert(false);
 //    return positionAtLengthPosition(*(myCont.end()-1),
 //        *(myCont.begin()), pos-seenLength);
 }

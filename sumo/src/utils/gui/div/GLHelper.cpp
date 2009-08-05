@@ -136,7 +136,7 @@ GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width) throw() {
         const Position2D &f = geom[i];
         const Position2D &s = geom[i+1];
         drawBoxLine(f,
-                    (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265,
+                    (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI,
                     GeomHelper::distance(f, s),
                     width);
     }

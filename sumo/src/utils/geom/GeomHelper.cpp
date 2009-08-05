@@ -226,10 +226,10 @@ GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
     theta1 = atan2(y1,x1);
     theta2 = atan2(y2,x2);
     dtheta = theta2 - theta1;
-    while (dtheta > (SUMOReal) 3.1415926535897932384626433832795)
-        dtheta -= (SUMOReal)(2.0*3.1415926535897932384626433832795);
-    while (dtheta < (SUMOReal) -3.1415926535897932384626433832795)
-        dtheta += (SUMOReal)(2.0*3.1415926535897932384626433832795);
+    while (dtheta > (SUMOReal) PI)
+        dtheta -= (SUMOReal)(2.0*PI);
+    while (dtheta < (SUMOReal) -PI)
+        dtheta += (SUMOReal)(2.0*PI);
 
     return(dtheta);
 }

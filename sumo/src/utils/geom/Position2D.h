@@ -36,7 +36,8 @@
 // class definitions
 // ===========================================================================
 /**
- *
+ * @class Position2D
+ * @brief A point in 2D with translation and scaling methods.
  */
 class Position2D {
 public:

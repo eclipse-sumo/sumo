@@ -131,7 +131,7 @@ Line2D::atan2Angle() const {
 
 SUMOReal
 Line2D::atan2DegreeAngle() const {
-    return (SUMOReal) atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y()) *(SUMOReal) 180.0 / (SUMOReal) 3.1415926535897932384626433832795;
+    return (SUMOReal) atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y()) *(SUMOReal) 180.0 / (SUMOReal) PI;
 }
 
 
@@ -243,7 +243,7 @@ void
 Line2D::rotateDegAtP1(double degs) {
     Position2D p = myP2;
     p.sub(myP1);
-    p.reshiftRotate(0, 0, (SUMOReal)(degs*3.1415926535897932384626433832795/180.));
+    p.reshiftRotate(0, 0, (SUMOReal)(degs*PI/180.));
     p.add(myP1);
     myP2 = p;
 }
