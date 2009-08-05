@@ -89,7 +89,7 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
         const Position2D &f = myFGShape[i];
         const Position2D &s = myFGShape[i+1];
         myFGShapeLengths.push_back(GeomHelper::distance(f, s));
-        myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
+        myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
     Position2DVector tmp = myFGShape;
     tmp.move2side(1.5);

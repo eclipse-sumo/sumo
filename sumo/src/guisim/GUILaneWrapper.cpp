@@ -103,7 +103,7 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
         const Position2D &f = myShape[i];
         const Position2D &s = myShape[i+1];
         myShapeLengths.push_back(GeomHelper::distance(f, s));
-        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
+        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
 }
 
@@ -164,7 +164,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
     const Position2D &s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
@@ -202,7 +202,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
     const Position2D &s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     for (unsigned int i=0; i<noLinks; ++i) {
@@ -235,7 +235,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
     const Position2D &end = g.getEnd();
     const Position2D &f = g[-2];
     const Position2D &s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     if (noLinks==0) {
         if (showToolTips) {
             glPushName(lane.getGlID());
@@ -342,7 +342,7 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
     const Position2D &end = lane.getShape().getEnd();
     const Position2D &f = lane.getShape()[-2];
     const Position2D &s = end;
-    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI;
     glPushMatrix();
     if (showToolTips) {
         glPushName(0);

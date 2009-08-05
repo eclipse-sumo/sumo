@@ -124,7 +124,7 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
         const Position2D &f = myFullGeometry[i];
         const Position2D &s = myFullGeometry[i+1];
         myShapeLengths.push_back(GeomHelper::distance(f, s));
-        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
+        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
     //
     myBoundary = myFullGeometry.getBoxBoundary();
