@@ -280,10 +280,25 @@ operator<<(ostream& os, const OptionsCont& oc) {
 }
 
 
-bool
-OptionsCont::isFileName(const std::string &name) const throw(InvalidArgument) {
-    Option *o = getSecure(name);
-    return o->isFileName();
+void
+OptionsCont::relocateFiles(const std::string &configuration) const throw() {
+    for (ItemAddressContType::const_iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
+        if ((*i)->isFileName() && (*i)->isSet()) {
+            StringTokenizer st((*i)->getString(), ";,", true);
+            std::string conv;
+            while (st.hasNext()) {
+                if (conv.length()!=0) {
+                    conv += ',';
+                }
+                std::string tmp = st.next();
+                if (!FileHelpers::isAbsolute(tmp)) {
+                    tmp = FileHelpers::getConfigurationRelative(configuration, tmp);
+                }
+                conv += tmp;
+            }
+            (*i)->set(conv);
+        }
+    }
 }
 
 

@@ -328,17 +328,14 @@ public:
     bool isUsableFileList(const std::string &name) const throw(InvalidArgument);
 
 
-    /** @brief Returns the information whether the named item is a file name
+    /** @brief Modifies file name options according to the configuration path
      *
-     * The method throws an InvalidArgument if the named option does not exits.
-     *  Otherwise the value returned by the option's method isFileName
-     *  is returned.
+     * If the configuration path given is a relative one all filenames inside
+     *  are adapted such that they refer to the correct location.
      *
-     * @param[in] name The name of the option to check
-     * @return Whether the option is a filename-option
-     * @exception InvalidArgument If the option does not exist
+     * @param[in] configuration The path to the configuration file
      */
-    bool isFileName(const std::string &name) const throw(InvalidArgument);
+    void relocateFiles(const std::string &configuration) const throw();
 
 
     /** @brief Returns the synonymes of an option name

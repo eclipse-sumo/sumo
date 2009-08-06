@@ -47,8 +47,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OptionsLoader::OptionsLoader(const std::string &file) throw()
-        : myHaveWarned(false), myError(false), myFile(file),
+OptionsLoader::OptionsLoader() throw()
+        : myHaveWarned(false), myError(false),
         myOptions(OptionsCont::getOptions()), myItem() {}
 
 
@@ -80,23 +80,7 @@ void OptionsLoader::setValue(const std::string key,
                     throw InvalidArgument("Invalid boolean value for option '" + key + "'.");
                 }
             } else {
-                if (myOptions.isFileName(key)) {
-                    StringTokenizer st(value, ";,", true);
-                    std::string conv;
-                    while (st.hasNext()) {
-                        if (conv.length()!=0) {
-                            conv += ',';
-                        }
-                        std::string tmp = st.next();
-                        if (!FileHelpers::isAbsolute(tmp)) {
-                            tmp = FileHelpers::getConfigurationRelative(myFile, tmp);
-                        }
-                        conv += tmp;
-                    }
-                    isWriteable = setSecure(key, conv);
-                } else {
-                    isWriteable = setSecure(key, value);
-                }
+                isWriteable = setSecure(key, value);
             }
             if (!isWriteable) {
                 MsgHandler::getErrorInstance()->inform("Could not set option '" + key + "' (probably defined twice).");

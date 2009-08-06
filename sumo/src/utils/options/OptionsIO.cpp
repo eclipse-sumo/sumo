@@ -96,7 +96,7 @@ OptionsIO::loadConfiguration() throw(ProcessError) {
     parser.setDoNamespaces(false);
     parser.setDoSchema(false);
     // start the parsing
-    OptionsLoader handler(path.c_str());
+    OptionsLoader handler;
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
@@ -107,6 +107,7 @@ OptionsIO::loadConfiguration() throw(ProcessError) {
     } catch (const XMLException &e) {
         throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
+    oc.relocateFiles(path);
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
 

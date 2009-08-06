@@ -60,11 +60,8 @@ class OptionsCont;
 class OptionsLoader : public HandlerBase {
 public:
     /** @brief Constructor
-     *
-     * @param[in] file The name of the file to parse
-     * @param[in] verbose Whether the parsing shall been done verbose
      */
-    OptionsLoader(const std::string &file) throw();
+    OptionsLoader() throw();
 
 
     /** destructor */
@@ -185,9 +182,6 @@ private:
 
     /** the information whether an error occured */
     bool  myError;
-
-    /** the parsed file */
-    const std::string myFile;
 
     /** the options to fill */
     OptionsCont &myOptions;
