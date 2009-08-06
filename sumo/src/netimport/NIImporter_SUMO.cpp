@@ -270,7 +270,10 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         return;
     }
     Position2D pos(x, y);
-    GeoConvHelper::x2cartesian(pos);
+    if (!GeoConvHelper::x2cartesian(pos)) {
+        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for junction " + id + ".");
+        return;
+    }
     string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     NBNode *node = new NBNode(id, pos/* !!!, type */);
     if (!myNodeCont.insert(node)) {

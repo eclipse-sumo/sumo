@@ -252,7 +252,10 @@ NIImporter_VISUM::parse_Nodes() {
     SUMOReal x = getNamedFloat("XKoord");
     SUMOReal y = getNamedFloat("YKoord");
     Position2D pos(x, y);
-    GeoConvHelper::x2cartesian(pos);
+    if (!GeoConvHelper::x2cartesian(pos)) {
+        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + myCurrentID + ".");
+        return;
+    }
     // add to the list
     if (!myNetBuilder.getNodeCont().insert(myCurrentID, pos)) {
         MsgHandler::getErrorInstance()->inform("Duplicate node occured ('" + myCurrentID + "').");
@@ -272,12 +275,16 @@ NIImporter_VISUM::parse_Districts() {
     SUMOReal x = getNamedFloat("XKoord");
     SUMOReal y = getNamedFloat("YKoord");
     Position2D pos(x, y);
-    GeoConvHelper::x2cartesian(pos, false);
+    if (!GeoConvHelper::x2cartesian(pos, false)) {
+        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for district " + myCurrentID + ".");
+        return;
+    }
     // build the district
     NBDistrict *district = new NBDistrict(myCurrentID, pos);
     if (!myNetBuilder.getDistrictCont().insert(district)) {
         MsgHandler::getErrorInstance()->inform("Duplicate district occured ('" + myCurrentID + "').");
         delete district;
+        return;
     }
     if (myLineParser.know("FLAECHEID")) {
         long flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
@@ -292,7 +299,10 @@ NIImporter_VISUM::parse_Point() {
     SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKOORD").c_str());
     SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKOORD").c_str());
     Position2D pos(x, y);
-    GeoConvHelper::x2cartesian(pos, false);
+    if (!GeoConvHelper::x2cartesian(pos, false)) {
+        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for point " + toString(id) + ".");
+        return;
+    }
     myPoints[id] = pos;
 }
 
@@ -598,7 +608,10 @@ NIImporter_VISUM::parse_EdgePolys() {
         return;
     }
     Position2D pos(x, y);
-    GeoConvHelper::x2cartesian(pos);
+    if (!GeoConvHelper::x2cartesian(pos)) {
+        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + from->getID() + "'.");
+        return;
+    }
     NBEdge *e = from->getConnectionTo(to);
     if (e!=0) {
         e->addGeometryPoint(index, pos);

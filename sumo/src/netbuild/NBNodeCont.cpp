@@ -1102,7 +1102,13 @@ NBNodeCont::savePlain(const std::string &file) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *n = (*i).second;
         device << "   <node id=\"" << n->getID() << "\" ";
-        device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
+        if (GeoConvHelper::usingInverseGeoProjection()) {
+            device.setPrecision(GEO_OUTPUT_ACCURACY);
+            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
+            device.setPrecision();
+        } else {
+            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"";
+        }
         if (n->isTLControlled()) {
             device << " type=\"traffic_light\" tl=\"";
             const set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();

@@ -243,7 +243,6 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
         SUMOReal xoff = oc.getFloat("x-offset-to-apply");
         SUMOReal yoff = oc.getFloat("y-offset-to-apply");
         SUMOReal rot = oc.getFloat("rotation-to-apply");
-        inform(step, "Normalising node positions");
         myNodeCont.reshiftNodePositions(xoff, yoff, rot);
         myEdgeCont.reshiftEdgePositions(xoff, yoff, rot);
     }
@@ -278,20 +277,14 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     // write network offsets
     device << "   <location netOffset=\"" << GeoConvHelper::getOffset() << "\""
     << " convBoundary=\"" << GeoConvHelper::getConvBoundary() << "\"";
-    if (oc.getBool("use-projection")) {
+    if (GeoConvHelper::usingGeoProjection()) {
         device.setPrecision(GEO_OUTPUT_ACCURACY);
         device << " origBoundary=\"" << GeoConvHelper::getOrigBoundary() << "\"";
         device.setPrecision();
-        if (oc.getBool("proj.simple")) {
-            device << " projParameter=\"-\"";
-        } else {
-            device << " projParameter=\"" << oc.getString("proj") << "\"";
-        }
     } else {
         device << " origBoundary=\"" << GeoConvHelper::getOrigBoundary() << "\"";
-        device << " projParameter=\"!\"";
     }
-    device << "/>\n\n";
+    device << " projParameter=\"" << GeoConvHelper::getProjString() << "\"/>\n\n";
 
     // write the numbers of some elements
     // edges
@@ -382,20 +375,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("priority", 'P', new Option_Integer(-1));
     oc.addDescription("priority", "Building Defaults", "The default priority of an edge");
-
-
-    // projection options
-    oc.doRegister("use-projection", new Option_Bool(false));
-    oc.addDescription("use-projection", "Projection", "Enables reprojection from geo to cartesian");
-
-    oc.doRegister("proj.simple", new Option_Bool(false));
-    oc.addDescription("proj.simple", "Projection", "Uses a simple method for projection");
-
-    oc.doRegister("proj", new Option_String("+proj=utm +ellps=bessel +units=m"));
-    oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
-
-    oc.doRegister("proj.inverse", new Option_Bool(false));
-    oc.addDescription("proj.inverse", "Projection", "Inverses projection");
 
 
     // register the data processing options

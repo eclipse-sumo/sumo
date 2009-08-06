@@ -200,7 +200,11 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
     if (from==0) {
         NIOSMNode *n = osmNodes.find(id)->second;
         Position2D pos(n->lon, n->lat);
-        GeoConvHelper::x2cartesian(pos);
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + toString(id) + ".");
+            delete from;
+            return 0;
+        }
         from = new NBNode(toString(id), pos);
         if (!nc.insert(from)) {
             MsgHandler::getErrorInstance()->inform("Could not insert node '" + toString(id) + "').");
@@ -236,7 +240,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     for (std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
         NIOSMNode *n = osmNodes.find(*i)->second;
         Position2D pos(n->lon, n->lat);
-        GeoConvHelper::x2cartesian(pos);
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            throw ProcessError("Unable to project coordinates for edge " + id + ".");
+        }
         shape.push_back_noDoublePos(pos);
     }
     if (!tc.knows(e->myHighWayType)) {

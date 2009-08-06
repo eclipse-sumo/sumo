@@ -57,12 +57,6 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
@@ -72,9 +66,9 @@ main(int argc, char **argv) {
     // give some application descriptions
     oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (string)VERSION_STRING);
+    oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (std::string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (string)VERSION_STRING);
+    oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (std::string)VERSION_STRING);
 #endif
     int ret = 0;
     try {
@@ -102,7 +96,7 @@ main(int argc, char **argv) {
         }
         nb.buildLoaded();
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -118,7 +112,7 @@ main(int argc, char **argv) {
     SystemFrame::close();
     // report about ending
     if (ret==0) {
-        cout << "Success." << endl;
+        std::cout << "Success." << std::endl;
     }
     return ret;
 }

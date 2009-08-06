@@ -82,13 +82,13 @@ NIElmar2NodesHandler::report(const std::string &result) throw(ProcessError) {
     try {
         intermediate = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
-        throw ProcessError("Non-numerical value for internmediate y/n occured.");
+        throw ProcessError("Non-numerical value for intermediate status in node " + id + ".");
     }
     // number of geometrical information
     try {
         no_geoms = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
-        throw ProcessError("Non-numerical value for number of nodes occured.");
+        throw ProcessError("Non-numerical value for number of geometries in node " + id + ".");
     }
     // geometrical information
     Position2DVector geoms;
@@ -96,16 +96,18 @@ NIElmar2NodesHandler::report(const std::string &result) throw(ProcessError) {
         try {
             x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
-            throw ProcessError("Non-numerical value for node-x-position occured.");
+            throw ProcessError("Non-numerical value for x-position in node " + id + ".");
         }
         try {
             y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
-            throw ProcessError("Non-numerical value for node-y-position occured.");
+            throw ProcessError("Non-numerical value for y-position in node " + id + ".");
         }
 
         Position2D pos(x, y);
-        GeoConvHelper::x2cartesian(pos);
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            throw ProcessError("Unable to project coordinates for node " + id + ".");
+        }
         geoms.push_back(pos);
     }
 

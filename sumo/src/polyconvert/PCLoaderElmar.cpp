@@ -141,10 +141,12 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
         SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
         SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
         Position2D pos(x, y);
-        GeoConvHelper::x2cartesian(pos);
         // check the poi
         if (name=="") {
             throw ProcessError("The name of a poi is missing.");
+        }
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            throw ProcessError("Unable to project coordinates for POI '" + name + "'.");
         }
 
         // patch the values
@@ -218,7 +220,9 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position2D pos(x, y);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+            }
             vec.push_back(pos);
         }
 

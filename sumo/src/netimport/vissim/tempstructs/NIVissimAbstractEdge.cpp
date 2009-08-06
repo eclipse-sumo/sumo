@@ -30,6 +30,8 @@
 
 #include <map>
 #include <cassert>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -50,7 +52,9 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
     const std::deque<Position2D> &geomC = geom.getCont();
     for (i=geomC.begin(); i!=geomC.end(); ++i) {
         Position2D p = *i;
-        GeoConvHelper::x2cartesian(p);
+        if (!GeoConvHelper::x2cartesian(p)) {
+            MsgHandler::getWarningInstance()->inform("Unable to project coordinates for edge '" + toString(id) + "'.");
+        }
         myGeom.push_back_noDoublePos(p);
     }
     //

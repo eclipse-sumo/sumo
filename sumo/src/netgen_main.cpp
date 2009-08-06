@@ -120,7 +120,6 @@ fillOptions() {
     oc.addOptionSubTopic("Spider Network");
     oc.addOptionSubTopic("Random Network");
     oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("Projection"); // !!! in netgen?
     oc.addOptionSubTopic("TLS Building");
     oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");

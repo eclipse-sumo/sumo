@@ -40,6 +40,7 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/importio/LineReader.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/Boundary.h>
@@ -60,12 +61,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -77,8 +72,9 @@ fillOptions() throw() {
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("Projection");
+    GeoConvHelper::addProjectionOptions(oc);
     oc.addOptionSubTopic("Pruning");
+    oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
@@ -131,20 +127,6 @@ fillOptions() throw() {
     oc.addDescription("output", "Output", "Write generated polygons/pois to FILE");
 
 
-    // projection options
-    oc.doRegister("use-projection", new Option_Bool(false));
-    oc.addDescription("use-projection", "Projection", "Enables reprojection from geo to cartesian");
-
-    oc.doRegister("proj.simple", new Option_Bool(false));
-    oc.addDescription("proj.simple", "Projection", "Uses a simple method for projection");
-
-    oc.doRegister("proj", new Option_String());
-    oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
-
-    oc.doRegister("proj.inverse", new Option_Bool(false));
-    oc.addDescription("proj.inverse", "Projection", "Inverses projection");
-
-
     // prunning options
     oc.doRegister("prune.on-net", new Option_Bool(false));
     oc.addDescription("prune.on-net", "Pruning", "Enables pruning on net boundaries");
@@ -160,6 +142,13 @@ fillOptions() throw() {
 
     oc.doRegister("remove", new Option_String(""));
     oc.addDescription("remove", "Pruning", "Items with names in STR will be removed");
+
+
+    oc.doRegister("x-offset-to-apply", new Option_Float(0));
+    oc.addDescription("x-offset-to-apply", "Processing", "Adds FLOAT to net x-positions");
+
+    oc.doRegister("y-offset-to-apply", new Option_Float(0));
+    oc.addDescription("y-offset-to-apply", "Processing", "Adds FLOAT to net y-positions");
 
 
     // building defaults options
@@ -182,9 +171,9 @@ main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.setApplicationDescription("Importer of polygons and POIs for the road traffic simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("polyconvert.exe", "SUMO polyconvert Version " + (string)VERSION_STRING);
+    oc.setApplicationName("polyconvert.exe", "SUMO polyconvert Version " + (std::string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-polyconvert", "SUMO polyconvert Version " + (string)VERSION_STRING);
+    oc.setApplicationName("sumo-polyconvert", "SUMO polyconvert Version " + (std::string)VERSION_STRING);
 #endif
     int ret = 0;
     try {
@@ -200,16 +189,20 @@ main(int argc, char **argv) {
         // build the projection
         Boundary origNetBoundary, prunningBoundary;
         Position2D netOffset;
-        string proj;
-        if (!oc.getBool("use-projection")) {
-            GeoConvHelper::init("!", Position2D());
-        } else if (oc.getBool("proj.simple")) {
-            GeoConvHelper::init("-", Position2D());
-        } else if (oc.isSet("proj")) {
-            proj = oc.getString("proj");
-        }
+        std::string proj;
         PCNetProjectionLoader::loadIfSet(oc, netOffset, origNetBoundary, prunningBoundary, proj);
-        if (!GeoConvHelper::init(proj, netOffset, oc.getBool("proj.inverse"))) {
+        if (proj != "") {
+            if (oc.isDefault("proj")) {
+                oc.set("proj", proj);
+            }
+            if (oc.isDefault("x-offset-to-apply")) {
+                oc.set("x-offset-to-apply", toString(netOffset.x()));
+            }
+            if (oc.isDefault("y-offset-to-apply")) {
+                oc.set("y-offset-to-apply", toString(netOffset.y()));
+            }
+        }
+        if (!GeoConvHelper::init(oc)) {
             throw ProcessError("Could not build projection!");
         }
 
@@ -219,7 +212,6 @@ main(int argc, char **argv) {
             if (!oc.isSet("net")) {
                 throw ProcessError("In order to prune the input on the net, you have to supply a network.");
             }
-            //prunningBoundary = getNetworkConvBoundary(oc.getString("net"));
             Boundary offsets = GeomConvHelper::parseBoundary(oc.getString("prune.on-net.offsets"));
             prunningBoundary = Boundary(
                                    prunningBoundary.xmin()+offsets.xmin(),
@@ -259,7 +251,7 @@ main(int argc, char **argv) {
             throw ProcessError();
         }
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -273,7 +265,7 @@ main(int argc, char **argv) {
     SystemFrame::close();
     // report about ending
     if (ret==0) {
-        cout << "Success." << endl;
+        std::cout << "Success." << std::endl;
     }
     return ret;
 }

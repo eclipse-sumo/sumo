@@ -108,7 +108,9 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
         for (vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             PCOSMNode *n = nodes.find(*j)->second;
             Position2D pos(n->lon, n->lat);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + e->id + "'.");
+            }
             vec.push_back_noDoublePos(pos);
         }
         // set type etc.
@@ -150,7 +152,7 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
             }
         }
     }
-    // instatiate pois
+    // instantiate pois
     for (map<int, PCOSMNode*>::iterator i=nodes.begin(); i!=nodes.end(); ++i) {
         PCOSMNode *n = (*i).second;
         if (!n->myIsAdditional) {
@@ -191,7 +193,9 @@ PCLoaderOSM::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                 ignorePrunning = true;
             }
             Position2D pos(n->lon, n->lat);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + name + "'.");
+            }
             PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
             if (!toFill.insert(name, poi, layer, ignorePrunning)) {
                 MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");

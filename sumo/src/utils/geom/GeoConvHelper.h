@@ -40,6 +40,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class OptionsCont;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -48,17 +54,26 @@
  */
 class GeoConvHelper {
 public:
+    /** @brief Adds projection options to the given container
+     *
+     * @param[in] oc The options container to add the options to
+     * @todo let the container be retrieved
+     */
+    static void addProjectionOptions(OptionsCont &oc);
+
+    /// Initialises the subsystem using the given options
+    static bool init(OptionsCont &oc);
+
     /// Initialises the subsystem using the given proj.4-definition and a network offset
     static bool init(const std::string &proj,
-                     const Position2D &offset,
+                     const SUMOReal scale=1.0f,
                      bool inverse=false);
 
     /// Initialises the subsystem using the given proj.4-definition and complete network parameter
     static bool init(const std::string &proj,
                      const Position2D &offset,
                      const Boundary &orig,
-                     const Boundary &conv,
-                     bool inverse=false);
+                     const Boundary &conv);
 
     /// Closes the subsystem
     static void close();
@@ -67,10 +82,13 @@ public:
     static void cartesian2geo(Position2D &cartesian);
 
     /// Converts the given coordinate into a cartesian using the previous initialisation
-    static void x2cartesian(Position2D &from, bool includeInBoundary=true);
+    static bool x2cartesian(Position2D &from, bool includeInBoundary=true);
 
-    /// Returns the information whether the subsystem was initialised
+    /// Returns whether a transformation from geo to metric coordinates will be performed
     static bool usingGeoProjection();
+
+    /// Returns the information whether an inverse transformation will happen
+    static bool usingInverseGeoProjection();
 
     /// Shifts the converted boundary by the given amounts
     static void moveConvertedBy(SUMOReal x, SUMOReal y);
@@ -84,23 +102,43 @@ public:
     /// Returns the network offset
     static const Position2D &getOffset();
 
+    /// Returns the network offset
+    static const std::string &getProjString();
+
 private:
+    enum ProjectionMethod {
+        NONE,
+        SIMPLE,
+        UTM,
+        DHDN,
+        PROJ
+    };
+
+    /// A proj options string describing the proj.4-projection to use
+    static std::string myProjString;
+
 #ifdef HAVE_PROJ
-    /// The proj.4-projectsion to use
+    /// The proj.4-projection to use
     static projPJ myProjection;
 #endif
 
     /// The offset to apply
     static Position2D myOffset;
 
+    /// The scaling to apply to geo-coordinates
+    static SUMOReal myGeoScale;
+
     /// Information whether no projection shall be done
-    static bool myDisableProjection;
+    static ProjectionMethod myProjectionMethod;
 
     /// Information whether inverse projection shall be used
     static bool myUseInverseProjection;
 
+    /// Information whether the first node conversion was done
+    static bool myBaseFound;
+
     /// The initial x/y-coordinates for a very simple geocoordinates conversion
-    static SUMOReal myInitX, myInitY;
+    static Position2D myBase;
 
     /// The boundary before conversion (x2cartesian)
     static Boundary myOrigBoundary;

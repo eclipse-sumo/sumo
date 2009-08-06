@@ -288,7 +288,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) {
     string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
     begNodeID = attrs.hasAttribute(SUMO_ATTR_FROMNODE) ? attrs.getStringSecure(SUMO_ATTR_FROMNODE, "") : begNodeID;
     endNodeID = attrs.hasAttribute(SUMO_ATTR_TONODE) ? attrs.getStringSecure(SUMO_ATTR_TONODE, "") : endNodeID;
-    // or their positions
+    // or their positions !!! deprecated
     SUMOReal begNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
     SUMOReal begNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
     SUMOReal endNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
@@ -375,7 +375,9 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
         Position2DVector shape;
         for (int i=0; i<(int) shape1.size(); ++i) {
             Position2D pos(shape1[i]);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getErrorInstance()->inform("Unable to project coordinates for edge '" + myCurrentID + "'.");
+            }
             shape.push_back(pos);
         }
         return shape;

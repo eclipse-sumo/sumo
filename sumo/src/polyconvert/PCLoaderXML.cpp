@@ -113,7 +113,9 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
         SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
         SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
         Position2D pos(x, y);
-        GeoConvHelper::x2cartesian(pos);
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
+        }
         // patch the values
         bool discard = false;
         int layer = myOptions.getInt("layer");
@@ -188,7 +190,9 @@ PCLoaderXML::myCharacters(SumoXMLTag element,
         Position2DVector shape;
         for (Position2DVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {
             Position2D pos((*i));
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + myCurrentID + "'.");
+            }
             shape.push_back(pos);
         }
         Polygon2D *poly = new Polygon2D(myCurrentID, myCurrentType, myCurrentColor, shape, false);

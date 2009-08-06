@@ -89,14 +89,8 @@ NILoader::~NILoader() throw() {}
 void
 NILoader::load(OptionsCont &oc) {
     // build the projection
-    if (!oc.getBool("use-projection")) {
-        GeoConvHelper::init("!", Position2D());
-    } else if (oc.getBool("proj.simple")) {
-        GeoConvHelper::init("-", Position2D());
-    } else {
-        if (!GeoConvHelper::init(oc.getString("proj"), Position2D(), oc.getBool("proj.inverse"))) {
-            throw ProcessError("Could not build projection!");
-        }
+    if (!GeoConvHelper::init(oc)) {
+        throw ProcessError("Could not build projection!");
     }
     // load types first
     NIXMLTypesHandler *handler =

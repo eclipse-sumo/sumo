@@ -79,16 +79,18 @@ NIElmarNodesHandler::report(const std::string &result) throw(ProcessError) {
     try {
         x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        throw ProcessError("Non-numerical value for node-x-position occured.");
+        throw ProcessError("Non-numerical value for x-position in node " + id + ".");
     }
     try {
         y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        throw ProcessError("Non-numerical value for node-y-position occured.");
+        throw ProcessError("Non-numerical value for y-position in node " + id + ".");
     }
     // geo->metric
     Position2D pos(x, y);
-    GeoConvHelper::x2cartesian(pos);
+    if (!GeoConvHelper::x2cartesian(pos)) {
+        throw ProcessError("Unable to project coordinates for node " + id + ".");
+    }
     NBNode *n = new NBNode(id, pos);
     if (!myNodeCont.insert(n)) {
         delete n;

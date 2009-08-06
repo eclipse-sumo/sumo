@@ -107,7 +107,9 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position2D pos(x, y);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for point '" + toString(id) + "'.");
+            }
             punkte[id] = pos;
             continue;
         } else if (what=="$KANTE") {
@@ -127,7 +129,9 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             SUMOReal x = TplConvert<char>::_2SUMOReal(lineParser.get("XKOORD").c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(lineParser.get("YKOORD").c_str());
             Position2D pos(x, y);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for edge '" + toString(id) + "'.");
+            }
             kanten[id].insertAt(index, pos);
             continue;
         } else if (what=="$TEILFLAECHENELEMENT") {
@@ -231,7 +235,9 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position2D pos(x, y);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + num + "'.");
+            }
             string type = typemap[catid];
             // check the poi
             name = num;
@@ -298,7 +304,9 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
             string xpos = st.next();
             string ypos = st.next();
             Position2D pos2D((SUMOReal) atof(xpos.c_str()), (SUMOReal) atof(ypos.c_str()));
-            GeoConvHelper::x2cartesian(pos2D);
+            if (!GeoConvHelper::x2cartesian(pos2D)) {
+                MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+            }
             vec.push_back(pos2D);
         }
 
@@ -342,7 +350,9 @@ PCLoaderVisum::load(const string &file, OptionsCont &oc, PCPolyContainer &toFill
                     SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
                     SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
                     Position2D pos(x, y);
-                    GeoConvHelper::x2cartesian(pos);
+                    if (!GeoConvHelper::x2cartesian(pos)) {
+                        MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + name + "'.");
+                    }
                     PointOfInterest *poi = new PointOfInterest(name, type, pos, color);
                     if (!toFill.insert(name, poi, layer)) {
                         MsgHandler::getErrorInstance()->inform("POI '" + name + "' could not been added.");

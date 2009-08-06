@@ -195,7 +195,7 @@ NIImporter_ArcView::load() {
                 speed = myTypeCont.getDefaultSpeed();
             } else {
                 OGRFeature::DestroyFeature(poFeature);
-                MsgHandler::getErrorInstance()->inform("The description seems to be invalid;Please recheck usage of types.");
+                MsgHandler::getErrorInstance()->inform("The description seems to be invalid. Please recheck usage of types.");
                 return;
             }
         }
@@ -217,7 +217,9 @@ NIImporter_ArcView::load() {
         Position2DVector shape;
         for (int j=0; j<cgeom->getNumPoints(); j++) {
             Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
+            }
             shape.push_back_noDoublePos(pos);
         }
 
@@ -229,7 +231,7 @@ NIImporter_ArcView::load() {
             if (from==0) {
                 from = new NBNode(from_node, from_pos);
                 if (!myNodeCont.insert(from)) {
-                    MsgHandler::getErrorInstance()->inform("Node '" + from_node + "' could not been added");
+                    MsgHandler::getErrorInstance()->inform("Node '" + from_node + "' could not be added");
                     delete from;
                     continue;
                 }
@@ -243,20 +245,15 @@ NIImporter_ArcView::load() {
             if (to==0) {
                 to = new NBNode(to_node, to_pos);
                 if (!myNodeCont.insert(to)) {
-                    MsgHandler::getErrorInstance()->inform("Node '" + to_node + "' could not been added");
+                    MsgHandler::getErrorInstance()->inform("Node '" + to_node + "' could not be added");
                     delete to;
                     continue;
                 }
             }
         }
 
-        if (from==0||to==0) {
-            WRITE_WARNING("Could not insert one of the nodes edge '" + id + "' shall connect; skipping.");
-            continue;
-        }
-
         if (from==to) {
-            WRITE_WARNING("Edge '" + id + "' connects same nodes; skipping.");
+            WRITE_WARNING("Edge '" + id + "' connects identical nodes, skipping.");
             continue;
         }
 

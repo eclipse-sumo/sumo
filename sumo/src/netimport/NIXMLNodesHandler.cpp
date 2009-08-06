@@ -115,7 +115,9 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         return;
     }
     if (xOk&&yOk) {
-        GeoConvHelper::x2cartesian(myPosition);
+        if (!GeoConvHelper::x2cartesian(myPosition)) {
+            MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + myID + "'.");
+        }
     } else {
         MsgHandler::getErrorInstance()->inform("Missing position (at node ID='" + myID + "').");
     }

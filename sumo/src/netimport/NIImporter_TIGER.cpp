@@ -172,7 +172,9 @@ NIImporter_TIGER::convertShape(const std::vector<std::string> &sv) throw(Process
             SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
             Position2D pos(x, y);
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                throw NumberFormatException();
+            }
             ret.push_back(pos);
         } catch (NumberFormatException &) {
             throw ProcessError("Could not convert position '" + p1 + "/" + p2 + "'.");

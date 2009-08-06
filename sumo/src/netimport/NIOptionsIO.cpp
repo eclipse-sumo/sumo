@@ -41,6 +41,7 @@
 #include <utils/common/RandHelper.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -67,7 +68,7 @@ NIOptionsIO::fillOptions() {
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("Projection");
+    GeoConvHelper::addProjectionOptions(oc);
     oc.addOptionSubTopic("TLS Building");
     oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");

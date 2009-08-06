@@ -133,7 +133,9 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
         case wkbPoint: {
             OGRPoint *cgeom = (OGRPoint*) poGeometry;
             Position2D pos((SUMOReal) cgeom->getX(), (SUMOReal) cgeom->getY());
-            GeoConvHelper::x2cartesian(pos);
+            if (!GeoConvHelper::x2cartesian(pos)) {
+                MsgHandler::getErrorInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
+            }
             PointOfInterest *poi = new PointOfInterest(id, type, pos, color);
             if (!toFill.insert(id, poi, layer)) {
                 MsgHandler::getErrorInstance()->inform("POI '" + id + "' could not been added.");
@@ -146,7 +148,9 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             Position2DVector shape;
             for (int j=0; j<cgeom->getNumPoints(); j++) {
                 Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-                GeoConvHelper::x2cartesian(pos);
+                if (!GeoConvHelper::x2cartesian(pos)) {
+                    MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+                }
                 shape.push_back_noDoublePos(pos);
             }
             Polygon2D *poly = new Polygon2D(id, type, color, shape, false);
@@ -161,7 +165,9 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             Position2DVector shape;
             for (int j=0; j<cgeom->getNumPoints(); j++) {
                 Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-                GeoConvHelper::x2cartesian(pos);
+                if (!GeoConvHelper::x2cartesian(pos)) {
+                    MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
+                }
                 shape.push_back_noDoublePos(pos);
             }
             Polygon2D *poly = new Polygon2D(id, type, color, shape, true);
@@ -176,8 +182,10 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRPoint *cgeom2 = (OGRPoint*) cgeom->getGeometryRef(i);
                 Position2D pos((SUMOReal) cgeom2->getX(), (SUMOReal) cgeom2->getY());
-                GeoConvHelper::x2cartesian(pos);
                 string tid = id + "#" + toString(i);
+                if (!GeoConvHelper::x2cartesian(pos)) {
+                    MsgHandler::getErrorInstance()->inform("Unable to project coordinates for POI '" + tid + "'.");
+                }
                 PointOfInterest *poi = new PointOfInterest(tid, type, pos, color);
                 if (!toFill.insert(tid, poi, layer)) {
                     MsgHandler::getErrorInstance()->inform("POI '" + tid + "' could not been added.");
@@ -191,12 +199,14 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRLineString *cgeom2 = (OGRLineString*) cgeom->getGeometryRef(i);
                 Position2DVector shape;
+                string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                    GeoConvHelper::x2cartesian(pos);
+                    if (!GeoConvHelper::x2cartesian(pos)) {
+                        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + tid + "'.");
+                    }
                     shape.push_back_noDoublePos(pos);
                 }
-                string tid = id + "#" + toString(i);
                 Polygon2D *poly = new Polygon2D(tid, type, color, shape, false);
                 if (!toFill.insert(tid, poly, layer)) {
                     MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
@@ -210,12 +220,14 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
             for (int i=0; i<cgeom->getNumGeometries(); ++i) {
                 OGRLinearRing *cgeom2 = ((OGRPolygon*) cgeom->getGeometryRef(i))->getExteriorRing();
                 Position2DVector shape;
+                string tid = id + "#" + toString(i);
                 for (int j=0; j<cgeom2->getNumPoints(); j++) {
                     Position2D pos((SUMOReal) cgeom2->getX(j), (SUMOReal) cgeom2->getY(j));
-                    GeoConvHelper::x2cartesian(pos);
+                    if (!GeoConvHelper::x2cartesian(pos)) {
+                        MsgHandler::getErrorInstance()->inform("Unable to project coordinates for polygon '" + tid + "'.");
+                    }
                     shape.push_back_noDoublePos(pos);
                 }
-                string tid = id + "#" + toString(i);
                 Polygon2D *poly = new Polygon2D(tid, type, color, shape, true);
                 if (!toFill.insert(tid, poly, layer)) {
                     MsgHandler::getErrorInstance()->inform("Polygon '" + tid + "' could not been added.");
