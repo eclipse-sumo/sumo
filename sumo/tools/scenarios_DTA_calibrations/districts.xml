@@ -1,0 +1,11 @@
+<districts>
+   <district id="91">
+      <dsource id="D1" weight="100.0000"/>
+   </district>
+   <district id="92">
+      <dsource id="D2" weight="100.0000"/>
+   </district>
+   <district id="93">
+      <dsink id="D3" weight="100.0000"/>
+   </district>
+</districts>
