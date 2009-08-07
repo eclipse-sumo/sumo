@@ -64,14 +64,20 @@
     />
 
     <projection
-        <!-- Enables reprojection from geo to cartesian -->
-        use-projection="false"
-
         <!-- Uses a simple method for projection -->
         proj.simple="false"
 
+        <!-- Scale to apply to geo-coordinates -->
+        proj.scale="1"
+
+        <!-- Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid) -->
+        proj.utm="false"
+
+        <!-- Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid) -->
+        proj.dhdn="false"
+
         <!-- Uses STR as proj.4 definition for projection -->
-        proj="+proj=utm +ellps=bessel +units=m"
+        proj="!"
 
         <!-- Inverses projection -->
         proj.inverse="false"

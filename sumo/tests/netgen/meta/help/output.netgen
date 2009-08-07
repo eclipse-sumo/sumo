@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r7601
+SUMO netgen Version dev-SVN-r7607
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -73,14 +73,6 @@ Usage: netgen.exe [OPTION]*
   -M, --map-output FILE                Writes joined edges information to FILE
   --tls-poi-output FILE                Writes pois of tls positions to FILE
   --node-type-output FILE              Writes pois of node types to FILE
-
- Projection Options:
-  --use-projection                     Enables reprojection from geo to
-                                         cartesian
-  --proj.simple                        Uses a simple method for projection
-  --proj STR                           Uses STR as proj.4 definition for
-                                         projection
-  --proj.inverse                       Inverses projection
 
  TLS Building Options:
   --explicite-tls STR                  Interprets STR as list of junctions to

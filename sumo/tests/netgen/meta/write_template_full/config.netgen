@@ -45,13 +45,6 @@
         node-type-output=""
     />
 
-    <projection
-        use-projection="false"
-        proj.simple="false"
-        proj="+proj=utm +ellps=bessel +units=m"
-        proj.inverse="false"
-    />
-
     <tls_building
         explicite-tls=""
         explicite-no-tls=""

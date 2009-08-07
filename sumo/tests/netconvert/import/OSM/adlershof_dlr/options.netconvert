@@ -1,1 +1,1 @@
---no-internal-links --osm osm.xml -v --use-projection
+--no-internal-links --osm osm.xml -v --proj.utm

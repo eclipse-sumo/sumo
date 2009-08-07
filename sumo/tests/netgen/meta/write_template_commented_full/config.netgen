@@ -111,21 +111,6 @@
 
     />
 
-    <projection
-        <!-- Enables reprojection from geo to cartesian -->
-        use-projection="false"
-
-        <!-- Uses a simple method for projection -->
-        proj.simple="false"
-
-        <!-- Uses STR as proj.4 definition for projection -->
-        proj="+proj=utm +ellps=bessel +units=m"
-
-        <!-- Inverses projection -->
-        proj.inverse="false"
-
-    />
-
     <tls_building
         <!-- Interprets STR as list of junctions to be controlled by TLS -->
         explicite-tls=""

@@ -26,9 +26,11 @@
     />
 
     <projection
-        use-projection="false"
         proj.simple="false"
-        proj="+proj=utm +ellps=bessel +units=m"
+        proj.scale="1"
+        proj.utm="false"
+        proj.dhdn="false"
+        proj="!"
         proj.inverse="false"
     />
 
