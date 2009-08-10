@@ -170,6 +170,11 @@ optParser.add_option("-o", "--od-matrix", dest="odmatrix",
 optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
                      default= False, help="use current time to generate random number")
                      
+optParser.add_option("-F", "--freezeit",  dest="freezeit",
+                     type="int", default=1000, help="define the number of iterations for stablizing the results in the DTA-calibration")
+optParser.add_option("-V", "--varscale",  dest="varscale",
+                     type="float", default=1., help="define variance of the measured traffi flows for the DTA-calibration")
+                     
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
     optParser.error("At least --net-file and --trips have to be given!")
@@ -202,11 +207,12 @@ for step in range(options.firstStep, options.lastStep):
     doCalibration = options.detvals != None and step >= options.calibStep
     if options.detvals and step == options.calibStep:
         if options.odmatrix:
-            subprocess.call("%s INIT -measfile %s -binsize %s -odmatrix %s -demandscale %s"\
-                            % (calibrator, options.detvals, options.aggregation, options.odmatrix, options.demandscale),
+            subprocess.call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s -odmatrix %s -demandscale %s"\
+                            % (calibrator, options.varscale, options.freezeit, options.detvals, options.aggregation, options.odmatrix, options.demandscale),
                             shell=True, stdout=log, stderr=log)
         else:
-            subprocess.call("%s INIT -measfile %s -binsize %s " % (calibrator, options.detvals, options.aggregation),
+            subprocess.call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s " \
+                            % (calibrator, options.varscale, options.freezeit, options.detvals, options.aggregation),
                             shell=True, stdout=log, stderr=log)
     # router
     files = []
