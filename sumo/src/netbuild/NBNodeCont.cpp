@@ -687,15 +687,17 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
     }
     return false;
 }
-
-
-void
+//R. Ebendt
+//void
+bool
 NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                         NBEdgeCont &ec, NBDistrictCont &dc,
                         std::vector<NBEdge*> &incremented) {
     NBEdge *pot_highway = cur->getIncomingEdges()[0];
     NBEdge *pot_ramp = cur->getIncomingEdges()[1];
     NBEdge *cont = cur->getOutgoingEdges()[0];
+	bool bEdgeDeleted = false;//R. Ebendt
+
     // assign highway/ramp properly
     if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
         swap(pot_highway, pot_ramp);
@@ -709,9 +711,9 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
     // compute the number of lanes to append
     int toAdd = (pot_ramp->getNoLanes() + pot_highway->getNoLanes()) - cont->getNoLanes();
     if (toAdd<=0) {
-        return;
+        return false;//R.Ebendt
     }
-
+  
     //
     if (cont->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramp-guess.ramp-length")) {
         // the edge is shorter than the wished ramp
@@ -749,6 +751,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         p.push_back(cont->getFromNode()->getPosition());
         pot_ramp->setGeometry(p);
     } else {
+		bEdgeDeleted=true; //R.Ebendt
         // there is enough place to build a ramp; do it
         NBNode *rn =
             new NBNode(cont->getID() + "-AddedOnRampNode",
@@ -763,7 +766,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                              cont->getNoLanes()+toAdd, cont->getNoLanes());
         if (!ok) {
             MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
-            return;
+            return true;//R.Ebendt
         } else {
             NBEdge *added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
             NBEdge *added = ec.retrieve(name);
@@ -802,6 +805,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             pot_ramp->setGeometry(p);
         }
     }
+	return bEdgeDeleted;//R.Ebendt
 }
 
 
@@ -981,7 +985,8 @@ void
 NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                        NBDistrictCont &dc) {
     std::vector<NBEdge*> incremented;
-    // check whether obsure highway connections shall be checked
+	bool bEdgeDeleted=false;  //R. Ebendt
+	// check whether obsure highway connections shall be checked
     if (oc.getBool("guess-obscure-ramps")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
             NBNode *cur = (*i).second;
@@ -1080,10 +1085,13 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                 continue;
             }
             NBNode *from = e->getFromNode();
+			//std::cout << "1. Versuch: ID der Kante, deren toNode der Verbrecher ist: " << e->getID() << std::endl;
             if(from->getIncomingEdges().size()==2&&from->getOutgoingEdges().size()==1) {
-                buildOnRamp(oc, from, ec, dc, incremented);
+                bEdgeDeleted = buildOnRamp(oc, from, ec, dc, incremented);//R. Ebendt
             }
+			if(bEdgeDeleted) continue;//R.Ebendt
             NBNode *to = e->getToNode();
+			//std::cout << "2. Versuch: ID der Kante, deren toNode der Verbrecher ist: " << e->getID() << std::endl;
             if(to->getIncomingEdges().size()==1&&to->getOutgoingEdges().size()==2) {
                 buildOffRamp(oc, to, ec, dc, incremented);
             }
