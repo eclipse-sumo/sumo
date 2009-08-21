@@ -262,8 +262,8 @@ def main(options):
     districts = os.path.join(dataDir, options.districtfile)
     matrix = os.path.join(dataDir, options.mtxfile)
     netfile = os.path.join(dataDir, options.netfile)
-    print 'test'
-    print 'generate Trip file:', netfile
+    
+    print 'generate Trip file for:', netfile
     
     if "bz2" in netfile:
         netfile = bz2.BZ2File(netfile)
