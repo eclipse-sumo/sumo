@@ -1081,7 +1081,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
         for(std::vector<std::string>::iterator i=edges.begin(); i!=edges.end(); ++i) {
             NBEdge *e = ec.retrieve(*i);
             if(e==0) {
-                MsgHandler::getWarningInstance()->inform("Can not build ramp on edge '" + *i + "' - the edge is not known.");
+                MsgHandler::getWarningInstance()->inform("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
             NBNode *from = e->getFromNode();
@@ -1089,7 +1089,13 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             if(from->getIncomingEdges().size()==2&&from->getOutgoingEdges().size()==1) {
                 bEdgeDeleted = buildOnRamp(oc, from, ec, dc, incremented);//R. Ebendt
             }
-			if(bEdgeDeleted) continue;//R.Ebendt
+            // By Gabriel: load edge again to check offramps
+            // if(bEdgeDeleted) continue;//R.Ebendt
+            e = ec.retrieve(*i);
+            if(e==0) {
+                MsgHandler::getWarningInstance()->inform("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
+                continue;
+            }
             NBNode *to = e->getToNode();
 			//std::cout << "2. Versuch: ID der Kante, deren toNode der Verbrecher ist: " << e->getID() << std::endl;
             if(to->getIncomingEdges().size()==1&&to->getOutgoingEdges().size()==2) {
