@@ -190,7 +190,6 @@ public:
      * @return The edges which yield in this node
      */
     const EdgeVector &getIncomingEdges() const throw() {
-		//std::cout << "Knoten-ID des Verbrechers: " << this->getID() << std::endl;
         return *myIncomingEdges;
     }
 

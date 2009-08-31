@@ -235,9 +235,6 @@ public:
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
     bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;
-	//R. Ebendt
-    //void buildOnRamp(OptionsCont &oc, NBNode *cur,
-    //                 NBEdgeCont &ec, NBDistrictCont &dc, std::vector<NBEdge*> &incremented);
 	bool buildOnRamp(OptionsCont &oc, NBNode *cur,
                      NBEdgeCont &ec, NBDistrictCont &dc, std::vector<NBEdge*> &incremented);
 
