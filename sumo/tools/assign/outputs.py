@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    outputs.py
 @author  Yun-Pang.Wang@dlr.de

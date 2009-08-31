@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    getHourlyMatrix.py
 @author  Yun-Pang.Wang@dlr.de
