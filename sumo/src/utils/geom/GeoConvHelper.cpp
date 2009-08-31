@@ -225,24 +225,25 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
             return false;
         }
 #ifdef HAVE_PROJ
-        if (myProjectionMethod == UTM) {
-            int zone = (int) (from.x() + 180) / 6 + 1;
-            myProjString = "+proj=utm +zone=" + toString(zone) +
-                           " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
-            myProjection = pj_init_plus(myProjString.c_str());
-        }
-        if (myProjectionMethod == DHDN) {
-            int zone = (int) (from.x() / 3);
-            if (zone < 1 || zone > 5) {
-                return false;
+        if (myProjection==0) {
+            if (myProjectionMethod == UTM) {
+                int zone = (int) (from.x() + 180) / 6 + 1;
+                myProjString = "+proj=utm +zone=" + toString(zone) +
+                               " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+                myProjection = pj_init_plus(myProjString.c_str());
+                //!!! check pj_errno
             }
-            myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3*zone) +
-                           " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
-                           " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
-            myProjection = pj_init_plus(myProjString.c_str());
-        }
-        if (myProjectionMethod != SIMPLE && myProjection == 0) {
-            return false;
+            if (myProjectionMethod == DHDN) {
+                int zone = (int) (from.x() / 3);
+                if (zone < 1 || zone > 5) {
+                    return false;
+                }
+                myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3*zone) +
+                               " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
+                               " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+                myProjection = pj_init_plus(myProjString.c_str());
+                //!!! check pj_errno
+            }
         }
         if (myProjection!=0) {
             projUV p;

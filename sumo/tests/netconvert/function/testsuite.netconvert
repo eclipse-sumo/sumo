@@ -4,7 +4,6 @@ keep_edges
 # Tests for keeping edges in a bounding box (--keep-edges.in-boundary)
 keep_edges_boundary
 
-
 # Tests for removing edges (--remove-edges)
 remove_edges
 
@@ -16,3 +15,6 @@ ramps
 
 # Tests for guessing roundabouts
 roundabouts
+
+# Tests for geocoordinate projection
+projection
