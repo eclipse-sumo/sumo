@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    inputs.py
 @author  Yun-Pang.Wang@dlr.de
