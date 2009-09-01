@@ -41,8 +41,8 @@ def writeRouteConf(step, options, file, output):
     print >> fd, """    />
     <output
         output-file="%s"
-        exit-times="%s"
-    />""" % (output, withExitTimes)
+        exit-times="True"
+    />""" % output
     print >> fd, """    <processing
         continue-on-unbuild="%s"
         gBeta="%s"
@@ -72,6 +72,7 @@ class RouteReader(handler.ContentHandler):
                 if not edge in self._edgeWeights:
                     self._edgeWeights[edge] = 0
                 self._edgeWeights[edge] += 1
+        elif name == 'vehicle':
             if int(attrs['depart']) > self._maxDepart:
                 self._maxDepart = int(attrs['depart'])
 
@@ -81,20 +82,33 @@ class RouteReader(handler.ContentHandler):
     def getMaxDepart(self):
         return self._maxDepart
 
+class NetReader(handler.ContentHandler):
 
-def generateWeights(step, options, edges, routeFiles):
-    reader = RouteReader()
-    parser = make_parser()
-    parser.setContentHandler(reader)
-    for f in routeFiles;
-        parser.parse(f)
+    def __init__(self):
+        self._edges = []
+
+    def startElement(self, name, attrs):
+        if name == 'edge':
+            if attrs['function'] == 'normal':
+                self._edges.append(attrs['id'])
+
+    def getEdges(self):
+        return self._edges
+
+def identity(edge, weight):
+    if weight == 0:
+        return None
+    return weight
+
+def generateWeights(step, options, edges, weights, costFunction):
     fd = open("dump_%s_%s.xml" % (step, options.aggregation), "w")
     print >> fd, '<?xml version="1.0"?>\n<netstats>'
-    for time in range(0, reader.getMaxdepart(), options.aggregation):
+    for time in range(0, reader.getMaxDepart(), options.aggregation):
         print >> fd, '    <interval begin="%s" end="%s" id="dump_%s">' % (time, time + options.aggregation, options.aggregation)
         for edge in edges:
-            cost = costFunction(edge, reader.getWeight(edge))
-            print >> fd, '        <edge id="%s" traveltime="%s"/>' % (edge, cost)
+            cost = costFunction(edge, weights.getWeight(edge))
+            if cost != None:
+                print >> fd, '        <edge id="%s" traveltime="%s"/>' % (edge, cost)
         print >> fd, '    </interval>'
     print >> fd, '</netstats>'
     fd.close()
@@ -135,7 +149,9 @@ optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO", ""), help="Path to binaries [default: %default]")
 
 optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
-                     default= False, help="use current time to generate random number")
+                     default=False, help="use current time to generate random number")
+optParser.add_option("-c", "--cost-function", dest="costfunc",
+                     default="identity", help="(python) function to use as cost function")
 (options, args) = optParser.parse_args()
 if not options.net or not options.trips:
     optParser.error("At least --net-file and --trips have to be given!")
@@ -149,6 +165,21 @@ log = open("dua-log.txt", "w+")
 logQuiet = open("dua-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
 sys.stderr = TeeFile(sys.stderr, logQuiet)
+
+parser = make_parser()
+reader = NetReader()
+parser.setContentHandler(reader)
+parser.parse(options.net)
+edges = reader.getEdges()
+
+if "." in options.costfunc:
+    idx = options.costfunc.rfind(".")
+    module = options.costfunc[:idx]
+    func = options.costfunc[idx+1:]
+    exec("from %s import %s as costFunction" % (module, func))
+else:
+    exec("costFunction = %s" % options.costfunc)
+
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
 for step in range(options.firstStep, options.lastStep):
@@ -166,7 +197,7 @@ for step in range(options.firstStep, options.lastStep):
         print ">> Running router with " + file
         btime = datetime.now()
         print ">>> Begin time %s" % btime
-        writeRouteConf(step, options, file, output, doCalibration)
+        writeRouteConf(step, options, file, output)
         if options.verbose:
             print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
             p = subprocess.Popen("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
@@ -184,7 +215,11 @@ for step in range(options.firstStep, options.lastStep):
         files.append(output)
     # generating weights file
     print ">> Generating weights"
-    generateWeights(step, options, files)
+    reader = RouteReader()
+    parser.setContentHandler(reader)
+    for f in files:
+        parser.parse(f)
+    generateWeights(step, options, edges, reader, costFunction)
     print "<<"
     print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
     print "------------------\n"
