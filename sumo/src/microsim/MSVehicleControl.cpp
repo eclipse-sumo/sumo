@@ -173,7 +173,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
             bool addSem = false;
             for (std::vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
                 if (addSem) {
-                    str << ';';
+                    str << ' ';
                 }
                 addSem = true;
                 str << (*i)->getID();
@@ -185,7 +185,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         << "\" vtype=\"" << v->getVehicleType().getID()
         << "\" vaporized=\"";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_VAPORIZED)) {
-            od << 1 << ";" << v->getCORNIntValue(MSCORN::CORN_VEH_VAPORIZED);
+            od << v->getCORNIntValue(MSCORN::CORN_VEH_VAPORIZED);
         }
         od << "\">";
         // write device information
