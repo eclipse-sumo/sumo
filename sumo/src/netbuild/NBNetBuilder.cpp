@@ -80,7 +80,7 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
         bool first = true;
         while (strm.good()) {
             if (!first) {
-                oss << ';';
+                oss << ',';
             }
             string name;
             strm >> name;
