@@ -206,29 +206,18 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // set information about allowed / disallowed vehicle classes
-        string disallowed = attrs.getStringSecure(SUMO_ATTR_DISALLOW, "");
-        string allowed = attrs.getStringSecure(SUMO_ATTR_ALLOW, "");
-        string preferred = attrs.getStringSecure(SUMO_ATTR_PREFER, "");
-        if (disallowed.find(";") != string::npos || allowed.find(";") != string::npos || preferred.find(";") != string::npos) {
-            MsgHandler::getWarningInstance()->inform("Using ';' as a list separator is deprecated, use ' ' instead (edge '" + myCurrentID + "').");
+        std::vector<std::string> disallowed, allowed, preferred;
+        SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_DISALLOW, ""), disallowed);
+        SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_ALLOW, ""), allowed);
+        SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_PREFER, ""), preferred);
+        for(std::vector<std::string>::iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+            myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(*i));
         }
-        if (disallowed!="") {
-            StringTokenizer st(disallowed, "; ", true);
-            while (st.hasNext()) {
-                myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(st.next()));
-            }
+        for(std::vector<std::string>::iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+            myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(*i));
         }
-        if (allowed!="") {
-            StringTokenizer st(allowed, "; ", true);
-            while (st.hasNext()) {
-                myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(st.next()));
-            }
-        }
-        if (preferred!="") {
-            StringTokenizer st(preferred, "; ", true);
-            while (st.hasNext()) {
-                myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(st.next()));
-            }
+        for(std::vector<std::string>::iterator i=preferred.begin(); i!=preferred.end(); ++i) {
+            myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(*i));
         }
 
         // set information about later beginning lanes
