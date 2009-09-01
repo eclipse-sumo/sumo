@@ -17,9 +17,6 @@ three_minus_left
 # beginning with three lanes, two left lanes are removed
 three_minus_two_left
 
-# beginning with three lanes, the left and the right are removed (same position)
-three_minus_left_right_samepos
-
 # beginning with three lanes, at first the left lane is removed, then the right
 three_minus_left_minus_right
 
@@ -39,13 +36,13 @@ four_minus_left
 # beginning with four lanes, two left lanes are removed
 four_minus_two_left
 
-# beginning with four lanes, the left and the right are removed (same position)
-four_minus_left_right_samepos
-
 # beginning with four lanes, at first the left lane is removed, then the right
 four_minus_left_minus_right
 
 # beginning with four lanes, at first the right lane is removed, then the left
 four_minus_right_minus_left
 
+
+deprecated
+errors
 

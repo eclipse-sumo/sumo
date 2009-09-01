@@ -1,8 +1,8 @@
 <edges>
 
 	<edge id="1" xfrom="0" yfrom="0" xto="100" yto="0" nolanes="3" speed="28.">
-		<lane id="0" forceLength="30"/>
-		<lane id="2" forceLength="70"/>
+		<expansion pos="30" lanes="1 2"/>
+		<expansion pos="70" lanes="1"/>
 	</edge>
 
 </edges>
