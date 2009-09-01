@@ -24,7 +24,8 @@ if test `wc -l < $MAKELOG` -le 5; then
   exit
 fi
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-./configure --prefix=$PREFIX/sumo --with-fox=$PREFIX --with-gtest=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+./configure --prefix=$PREFIX/sumo --with-fox=$PREFIX --with-proj-gdal=$PREFIX \
+ --with-gtest=$PREFIX >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make >> $MAKELOG 2>&1; then
   if make install >> $MAKELOG 2>&1; then
     make distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
