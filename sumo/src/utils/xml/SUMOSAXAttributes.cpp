@@ -30,6 +30,7 @@
 #include <string>
 #include "SUMOSAXAttributes.h"
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <iostream>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -41,6 +42,12 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
+
+
+// ===========================================================================
+// static members
+// ===========================================================================
+bool SUMOSAXAttributes::myHaveInformedAboutDeprecatedDivider = false;
 
 
 // ===========================================================================
@@ -139,6 +146,20 @@ SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype
 }
 
 
+void 
+SUMOSAXAttributes::parseStringVector(const std::string &def, std::vector<std::string> &into) throw()
+{
+    if (def.find(';')!=string::npos||def.find(',')!=string::npos) {
+        if(!myHaveInformedAboutDeprecatedDivider) {
+            MsgHandler::getWarningInstance()->inform("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
+            myHaveInformedAboutDeprecatedDivider = true;
+        }
+    }
+    StringTokenizer st(def, ";, ", true);
+    while (st.hasNext()) {
+        into.push_back(st.next());
+    }
+}
 
 
 /****************************************************************************/

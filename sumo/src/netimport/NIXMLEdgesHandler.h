@@ -205,7 +205,7 @@ private:
 
         /// comparing operator
         int operator()(const Expansion &e1, const Expansion &e2) const {
-            return e1.pos > e2.pos;
+            return e1.pos < e2.pos;
         }
     };
 

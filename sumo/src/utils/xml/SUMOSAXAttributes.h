@@ -30,6 +30,7 @@
 #endif
 
 #include <string>
+#include <vector>
 #include <utils/common/SUMOTime.h>
 #include "SUMOXMLDefinitions.h"
 #include <utils/common/UtilExceptions.h>
@@ -307,6 +308,21 @@ public:
      */
     virtual std::string getName(SumoXMLAttr attr) const throw() = 0;
 
+
+    /** @brief Splits the given string
+     *
+     * Spaces, ",", and ";" are assumed to be separator characters.
+     * Though, in the case a "," or a ";" occures, a warning is generated (once).
+     *
+     * @param[in] def The string to split
+     * @param[out] into The vector to fill
+     */
+    static void parseStringVector(const std::string &def, std::vector<std::string> &into) throw();
+
+
+private:
+    /// @brief Information whether the usage of a deprecated divider was reported
+    static bool myHaveInformedAboutDeprecatedDivider;
 
 private:
     /// @brief Invalidated copy constructor.
