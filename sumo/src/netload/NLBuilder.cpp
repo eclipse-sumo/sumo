@@ -141,22 +141,21 @@ NLBuilder::build() throw(ProcessError) {
             return false;
         }
         // start parsing; for each file in the list
-        StringTokenizer st(myOptions.getString("weight-files"), ';');
-        while (st.hasNext()) {
-            std::string tmp = st.next();
+        std::vector<std::string> files = myOptions.getStringVector("weight-files");
+        for(std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
             // report about loading when wished
-            WRITE_MESSAGE("Loading weights from '" + tmp + "'...");
+            WRITE_MESSAGE("Loading weights from '" + *i + "'...");
             // check whether the file exists
-            if (!FileHelpers::exists(tmp)) {
+            if (!FileHelpers::exists(*i)) {
                 // report error if not
-                MsgHandler::getErrorInstance()->inform("The weights file '" + tmp + "' does not exist!");
+                MsgHandler::getErrorInstance()->inform("The weights file '" + *i + "' does not exist!");
                 return false;
             } else {
                 EdgeFloatTimeLineRetriever_EdgeWeight retriever(&myNet);
                 SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
-                SAXWeightsHandler wh(def, tmp);
+                SAXWeightsHandler wh(def, *i);
                 // parse the file
-                if (!XMLSubSys::runParser(wh, tmp)) {
+                if (!XMLSubSys::runParser(wh, *i)) {
                     return false;
                 }
             }

@@ -153,9 +153,10 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
         }
     }
     std::vector<MSLane*> lanes;
-    StringTokenizer st(objectid, ";");
-    while (st.hasNext()) {
-        MSLane *lane = MSLane::dictionary(st.next());
+    std::vector<std::string> laneIDs;
+    SUMOSAXAttributes::parseStringVector(objectid, laneIDs);
+    for(std::vector<std::string>::iterator i=laneIDs.begin(); i!=laneIDs.end(); ++i) {
+        MSLane *lane = MSLane::dictionary(*i);
         if (lane==0) {
             throw InvalidArgument("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
         }
@@ -241,12 +242,8 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
         throw InvalidArgument("Bus stop's '" + id + "' end is in front of its begin.");
     }
     // get the lines
-    std::string lineStr = attrs.getStringSecure(SUMO_ATTR_LINES, "");
     std::vector<std::string> lines;
-    if (lineStr.length()!=0) {
-        StringTokenizer st(lineStr, ";");
-        lines = st.getVector();
-    }
+    SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_LINES, ""), lines);
     // build the bus stop
     buildBusStop(net, id, lines, lane, frompos, topos);
 }
@@ -302,9 +299,10 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
         }
     }
     std::vector<MSEdge*> edges;
-    StringTokenizer st(objectid, ";");
-    while (st.hasNext()) {
-        MSEdge *edge = MSEdge::dictionary(st.next());
+    std::vector<std::string> edgeIDs;
+    SUMOSAXAttributes::parseStringVector(objectid, edgeIDs);
+    for(std::vector<std::string>::iterator i=edgeIDs.begin(); i!=edgeIDs.end(); ++i) {
+        MSEdge *edge = MSEdge::dictionary(*i);
         if (edge==0) {
             throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
         }
