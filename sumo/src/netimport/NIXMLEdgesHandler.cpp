@@ -256,7 +256,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         if(e.pos<0) {
-            e.pos = myCurrentEdge - e.pos;
+            e.pos = myCurrentEdge->getGeometry().length() - e.pos;
         }
         e.nameid = e.pos;
         if (ok) {
