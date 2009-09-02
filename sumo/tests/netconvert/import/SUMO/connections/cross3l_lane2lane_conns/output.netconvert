@@ -1,5 +1,5 @@
 Parsing sumo-net from 'input_net.net.xml'... done.
- Import done;
+ Import done:
    9 nodes loaded.
    12 edges loaded.
 Computing step 1: Removing dummy edges

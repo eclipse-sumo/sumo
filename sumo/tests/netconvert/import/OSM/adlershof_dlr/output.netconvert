@@ -1,9 +1,10 @@
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
- Import done;
+ Import done:
    88 nodes loaded.
    30 types loaded.
    203 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Normalising node positions

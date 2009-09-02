@@ -328,6 +328,19 @@ public:
     bool isUsableFileList(const std::string &name) const throw(InvalidArgument);
 
 
+    /** @brief Checks whether an option is set, which has options with a prefix depending on it.
+     *
+     * The method returns true, if the named option is set or no option dependoing on it is set.
+     * Throws an InvalidArgument exception if the option is not known.
+     *
+     * @param[in] name The name of the option to check
+     * @param[in] prefix The prefix of depending options
+     * @return Whether the dependencies are fulfilled
+     * @exception InvalidArgument If the option does not exist
+     */
+    bool checkDependingSuboptions(const std::string &name, const std::string &prefix) const throw(InvalidArgument);
+
+
     /** @brief Modifies file name options according to the configuration path
      *
      * If the configuration path given is a relative one all filenames inside

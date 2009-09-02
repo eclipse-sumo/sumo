@@ -100,7 +100,7 @@ NILoader::load(OptionsCont &oc) {
         throw ProcessError("No edges loaded.");
     }
     // report loaded structures
-    WRITE_MESSAGE(" Import done;");
+    WRITE_MESSAGE(" Import done:");
     if (myNetBuilder.getDistrictCont().size()>0) {
         WRITE_MESSAGE("   " + toString(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
     }
@@ -111,6 +111,9 @@ NILoader::load(OptionsCont &oc) {
     WRITE_MESSAGE("   " + toString(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
     if (myNetBuilder.getEdgeCont().getNoEdgeSplits()>0) {
         WRITE_MESSAGE("The split of edges was performed "+ toString(myNetBuilder.getEdgeCont().getNoEdgeSplits()) + " times.");
+    }
+    if (GeoConvHelper::usingGeoProjection()) {
+        WRITE_MESSAGE("Proj projection parameters used: '" + GeoConvHelper::getProjString() + "'.");
     }
 }
 

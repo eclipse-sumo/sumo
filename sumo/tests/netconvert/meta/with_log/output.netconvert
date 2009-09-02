@@ -1,7 +1,7 @@
 Parsing nodes from 'input_nodes.nod.xml'... done.
 Parsing edges from 'input_edges.edg.xml'... done.
 Parsing connections from 'input_connections.con.xml'... done.
- Import done;
+ Import done:
    9 nodes loaded.
    12 edges loaded.
 Computing step 1: Removing dummy edges

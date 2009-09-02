@@ -331,6 +331,23 @@ OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgume
 }
 
 
+bool
+OptionsCont::checkDependingSuboptions(const std::string &name, const std::string &prefix) const throw(InvalidArgument) {
+    Option *o = getSecure(name);
+    if (o->isSet()) {
+        return true;
+    }
+    bool ok = true;
+    for (KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
+        if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {
+            MsgHandler::getErrorInstance()->inform("Option '" + (*i).first + "' needs option '" + name + "'.");
+            ok = false;
+        }
+    }
+    return ok;
+}
+
+
 void
 OptionsCont::reportDoubleSetting(const string &arg) const throw() {
     vector<string> synonymes = getSynonymes(arg);

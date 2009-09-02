@@ -34,7 +34,7 @@ Parsing SIGNALGRUPPEZUABBIEGER... done.
 Parsing TEILFLAECHENELEMENT... done.
 Parsing PHASE... done.
 Parsing FAHRSTREIFENABBIEGER... done.
- Import done;
+ Import done:
    29 districts loaded.
    49 nodes loaded.
    100 types loaded.

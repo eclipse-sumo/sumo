@@ -207,7 +207,20 @@ NIOptionsIO::fillOptions() {
 
 bool
 NIOptionsIO::checkOptions() {
-    return true;
+    OptionsCont &oc = OptionsCont::getOptions();
+    bool ok = oc.checkDependingSuboptions("shapefile", "shapefile.");
+    ok &= oc.checkDependingSuboptions("visum-file", "visum.");
+    ok &= oc.checkDependingSuboptions("vissim-file", "vissim.");
+#ifdef HAVE_PROJ
+    unsigned numProjections = oc.getBool("proj.simple") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+    if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq")) && numProjections == 0) {
+        oc.set("proj.utm", true);
+    }
+    if (oc.isSet("dlr-navteq") && oc.isDefault("proj.scale")) {
+        oc.set("proj.scale", std::string("0.00001"));
+    }
+#endif
+    return ok;
 }
 
 

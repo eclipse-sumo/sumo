@@ -7,8 +7,8 @@ visum
 # Vissim import tests
 vissim
 
-# Tests for elmar(2)-import
-elmar
+# Tests for DLR Navteq (elmar2) import
+dlr_navteq
 
 # testing SUMO-import
 SUMO
