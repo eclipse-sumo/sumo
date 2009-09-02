@@ -455,17 +455,16 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                 currLanes.push_back(l);
             }
             std::string edgeid = e->getID();
-            int lastRightLane = 0;
             SUMOReal seen = 0;
             for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 const Expansion &exp = *i;
                 assert(exp.lanes.size()!=0);
                 if (exp.pos>0 && e->getGeometry().length()+seen>exp.pos) {
-                    string nid = edgeid + "/" +  toString(exp.nameid);
+                    string nid = edgeid + "." +  toString(exp.nameid);
                     NBNode *rn = new NBNode(nid, exp.gpos);
                     if (myNodeCont.insert(rn)) {
                         //  split the edge
-                        string nid = myCurrentID + "/" +  toString(exp.nameid);
+                        string nid = myCurrentID + "." +  toString(exp.nameid);
                         string pid = e->getID();
                         myEdgeCont.splitAt(myDistrictCont, e, exp.pos-seen, rn,
                                            pid, nid, e->getNoLanes(), (unsigned int) exp.lanes.size());
@@ -508,6 +507,23 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                     currLanes = exp.lanes;
                 } else {
                     MsgHandler::getWarningInstance()->inform("Expansion at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
+                }
+            }
+            // patch lane offsets
+            e = myEdgeCont.retrieve(edgeid);
+            i = i=myExpansions.begin();
+            if((*i).pos!=0) {
+                e = e->getToNode()->getOutgoingEdges()[0];
+            }
+            for (; i!=myExpansions.end(); ++i) {
+                unsigned int maxLeft = (*i).lanes[(*i).lanes.size()-1];
+                if(maxLeft<noLanesMax) {
+                    Position2DVector g = e->getGeometry();
+                    g.move2side(SUMO_const_laneWidthAndOffset*(noLanesMax-1-maxLeft));
+                    e->setGeometry(g);
+                }
+                if(e->getToNode()->getOutgoingEdges().size()!=0) {
+                    e = e->getToNode()->getOutgoingEdges()[0];
                 }
             }
         }
