@@ -43,6 +43,26 @@ four_minus_left_minus_right
 four_minus_right_minus_left
 
 
+# beginning with two lanes, adding one to the left
+two_plus_left
+
+# beginning with two lanes, adding one to the right
+two_plus_right
+
+# beginning with two lanes, adding two to the left
+two_plus_two_left
+
+# beginning with two lanes, adding two to the left
+two_plus_two_right
+
+# beginning with two lanes, adding one to the left and one to the right (same position)
+two_plus_left_right
+
+# beginning with two lanes, adding one to the right, later one to the left
+two_plus_right_plus_left
+
+
+
 deprecated
 errors
 
