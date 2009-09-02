@@ -255,6 +255,9 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has already an expansion at position " + toString(e.pos) + ".");
             return;
         }
+        if(e.pos<0) {
+            e.pos = myCurrentEdge - e.pos;
+        }
         e.nameid = e.pos;
         if (ok) {
             if (myCurrentEdge==0) {
