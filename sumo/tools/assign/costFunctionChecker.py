@@ -96,8 +96,6 @@ class NetReader(handler.ContentHandler):
         return self._edges
 
 def identity(edge, weight):
-    if weight == 0:
-        return None
     return weight
 
 def generateWeights(step, options, edges, weights, costFunction):
