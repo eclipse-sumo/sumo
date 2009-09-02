@@ -380,10 +380,10 @@ NBEdge::normalisePosition() throw() {
 
 
 void
-NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw() {
-    myGeom.reshiftRotate(xoff, yoff, rot);
+NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw() {
+    myGeom.reshiftRotate(xoff, yoff, 0);
     for (unsigned int i=0; i<myLanes.size(); i++) {
-        myLanes[i].shape.reshiftRotate(xoff, yoff, rot);
+        myLanes[i].shape.reshiftRotate(xoff, yoff, 0);
     }
 }
 

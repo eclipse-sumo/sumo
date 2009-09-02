@@ -53,12 +53,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBNetBuilder::NBNetBuilder() throw()
@@ -72,7 +66,7 @@ void
 NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
     // we possibly have to load the edges to keep
     if (oc.isSet("keep-edges.input-file")) {
-        ifstream strm(oc.getString("keep-edges.input-file").c_str());
+        std::ifstream strm(oc.getString("keep-edges.input-file").c_str());
         if (!strm.good()) {
             throw ProcessError("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
         }
@@ -82,7 +76,7 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError) {
             if (!first) {
                 oss << ',';
             }
-            string name;
+            std::string name;
             strm >> name;
             oss << name;
             first = false;
@@ -172,8 +166,8 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     //
     inform(step, "Guessing and setting TLs");
     if (oc.isSet("explicite-tls")) {
-        vector<string> tlControlledNodes = oc.getStringVector("explicite-tls");
-        for (vector<string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
+        std::vector<std::string> tlControlledNodes = oc.getStringVector("explicite-tls");
+        for (std::vector<std::string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
             NBNode *node = myNodeCont.retrieve(*i);
             if (node==0) {
                 WRITE_WARNING("Building a tl-logic for node '" + *i + "' is not possible." + "\n The node '" + *i + "' is not known.");
@@ -242,9 +236,8 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
         inform(step, "Transposing network");
         SUMOReal xoff = oc.getFloat("x-offset-to-apply");
         SUMOReal yoff = oc.getFloat("y-offset-to-apply");
-        SUMOReal rot = oc.getFloat("rotation-to-apply");
-        myNodeCont.reshiftNodePositions(xoff, yoff, rot);
-        myEdgeCont.reshiftEdgePositions(xoff, yoff, rot);
+        myNodeCont.reshiftNodePositions(xoff, yoff);
+        myEdgeCont.reshiftEdgePositions(xoff, yoff);
     }
     // report
     WRITE_MESSAGE("-----------------------------------------------------");
@@ -313,7 +306,7 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     // write roundabout information
     for (std::vector<std::set<NBEdge*> >::iterator i=myRoundabouts.begin(); i!=myRoundabouts.end(); ++i) {
         std::vector<NBNode*> nodes;
-        for (set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j) {
+        for (std::set<NBEdge*>::iterator j=(*i).begin(); j!=(*i).end(); ++j) {
             NBNode *n = (*j)->getToNode();
             if (find(nodes.begin(), nodes.end(), n)==nodes.end()) {
                 nodes.push_back(n);
@@ -322,7 +315,7 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
         sort(nodes.begin(), nodes.end(), by_id_sorter());
         device << "   <roundabout nodes=\"";
         int k = 0;
-        for (vector<NBNode*>::iterator j=nodes.begin(); j!=nodes.end(); ++j, ++k) {
+        for (std::vector<NBNode*>::iterator j=nodes.begin(); j!=nodes.end(); ++j, ++k) {
             if (k!=0) {
                 device << ' ';
             }
@@ -409,9 +402,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("y-offset-to-apply", new Option_Float(0));
     oc.addDescription("y-offset-to-apply", "Processing", "Adds FLOAT to net y-positions");
-
-    oc.doRegister("rotation-to-apply", new Option_Float(0));
-    oc.addDescription("rotation-to-apply", "Processing", "Rotates net around FLOAT degrees");
 
     oc.doRegister("guess-roundabouts", new Option_Bool(false));
     oc.addDescription("guess-roundabouts", "Processing", "Enable roundabout-guessing");

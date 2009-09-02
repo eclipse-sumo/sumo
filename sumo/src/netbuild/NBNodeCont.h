@@ -154,7 +154,7 @@ public:
 
     /// resets the node positions in a way that they begin from (0, 0)
     void normaliseNodePositions();
-    void reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
+    void reshiftNodePositions(SUMOReal xoff, SUMOReal yoff);
 
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();

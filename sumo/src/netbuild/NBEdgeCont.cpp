@@ -494,9 +494,9 @@ NBEdgeCont::normaliseEdgePositions() throw() {
 
 
 void
-NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw() {
+NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff) throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->reshiftPosition(xoff, yoff, rot);
+        (*i).second->reshiftPosition(xoff, yoff);
     }
 }
 

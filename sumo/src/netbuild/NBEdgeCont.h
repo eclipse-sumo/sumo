@@ -331,7 +331,7 @@ public:
      * @todo Recheck usage
      * @see NBEdge::reshiftPosition
      */
-    void reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw();
+    void reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff) throw();
 
 
     /** @brief Computes the shapes of all edges stored in the container

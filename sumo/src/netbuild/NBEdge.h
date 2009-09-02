@@ -385,9 +385,8 @@ public:
     /** @brief Applies an additional offset and rotation on the network
      * @param[in] xoff The x-offset to apply
      * @param[in] yoff The y-offset to apply
-     * @param[in] rot The rotation to apply
      */
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw();
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw();
     //@}
 
 

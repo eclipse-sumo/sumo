@@ -56,12 +56,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NBNodeCont::NBNodeCont() throw()
@@ -88,7 +82,7 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
 
 
 bool
-NBNodeCont::insert(const string &id, const Position2D &position) throw() {
+NBNodeCont::insert(const std::string &id, const Position2D &position) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return false;
@@ -100,8 +94,8 @@ NBNodeCont::insert(const string &id, const Position2D &position) throw() {
 
 
 Position2D
-NBNodeCont::insert(const string &id) throw() {
-    pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
+NBNodeCont::insert(const std::string &id) throw() {
+    std::pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return (*i).second->getPosition();
@@ -115,7 +109,7 @@ NBNodeCont::insert(const string &id) throw() {
 
 bool
 NBNodeCont::insert(NBNode *node) throw() {
-    string id = node->getID();
+    std::string id = node->getID();
     NodeCont::iterator i = myNodes.find(id);
     if (i!=myNodes.end()) {
         return false;
@@ -126,7 +120,7 @@ NBNodeCont::insert(NBNode *node) throw() {
 
 
 NBNode *
-NBNodeCont::retrieve(const string &id) throw() {
+NBNodeCont::retrieve(const std::string &id) throw() {
     NodeCont::iterator i = myNodes.find(id);
     if (i==myNodes.end()) {
         return 0;
@@ -163,15 +157,15 @@ NBNodeCont::erase(NBNode *node) throw() {
 
 // ----------- (Helper) methods for guessing/computing traffic lights
 void
-NBNodeCont::generateNodeClusters(SUMOReal maxDist, vector<set<NBNode*> >&into) const throw() {
-    set<NBNode*> visited;
+NBNodeCont::generateNodeClusters(SUMOReal maxDist, std::vector<std::set<NBNode*> >&into) const throw() {
+    std::set<NBNode*> visited;
     for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        vector<NBNode*> toProc;
+        std::vector<NBNode*> toProc;
         if (visited.find((*i).second)!=visited.end()) {
             continue;
         }
         toProc.push_back((*i).second);
-        set<NBNode*> c;
+        std::set<NBNode*> c;
         while (!toProc.empty()) {
             NBNode *n = toProc.back();
             toProc.pop_back();
@@ -211,8 +205,8 @@ NBNodeCont::shouldBeTLSControlled(const std::set<NBNode*> &c) const throw() {
     unsigned int noOutgoing = 0;
     bool tooFast = false;
     SUMOReal f = 0;
-    set<NBEdge*> seen;
-    for (set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
+    std::set<NBEdge*> seen;
+    for (std::set<NBNode*>::const_iterator j=c.begin(); j!=c.end(); ++j) {
         const EdgeVector &edges = (*j)->getEdges();
         for (EdgeVector::const_iterator k=edges.begin(); k!=edges.end(); ++k) {
             if (c.find((*k)->getFromNode())!=c.end()&&c.find((*k)->getToNode())!=c.end()) {
@@ -238,8 +232,8 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
     // build list of definitely not tls-controlled junctions
     std::vector<NBNode*> ncontrolled;
     if (oc.isSet("explicite-no-tls")) {
-        vector<string> notTLControlledNodes = oc.getStringVector("explicite-no-tls");
-        for (vector<string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
+        std::vector<std::string> notTLControlledNodes = oc.getStringVector("explicite-no-tls");
+        for (std::vector<std::string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
             NBNode *n = NBNodeCont::retrieve(*i);
             if (n==0) {
                 throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
@@ -273,14 +267,14 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
     if (oc.getBool("tls-guess.joining")) {
         // get node clusters
         SUMOReal MAXDIST = 25;
-        vector<set<NBNode*> > cands;
+        std::vector<std::set<NBNode*> > cands;
         generateNodeClusters(MAXDIST, cands);
         // check these candidates (clusters) whether they should be controlled by a tls
-        for (vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end();) {
-            set<NBNode*> &c = (*i);
+        for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end();) {
+            std::set<NBNode*> &c = (*i);
             // regard only junctions which are not yet controlled and are not
             //  forbidden to be controlled
-            for (set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
+            for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
                 if ((*j)->isTLControlled()||find(ncontrolled.begin(), ncontrolled.end(), *j)!=ncontrolled.end()) {
                     c.erase(j++);
                 } else {
@@ -296,9 +290,9 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
         }
         // cands now only contain sets of junctions that shall be joined into being tls-controlled
         unsigned int index = 0;
-        for (vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
-            set<NBNode*> &near = (*i);
-            string id = "joinedG_" + toString(index++);
+        for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+            std::set<NBNode*> &near = (*i);
+            std::string id = "joinedG_" + toString(index++);
             NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, near);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
@@ -320,7 +314,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
         if (find(ncontrolled.begin(), ncontrolled.end(), cur)!=ncontrolled.end()) {
             continue;
         }
-        set<NBNode*> c;
+        std::set<NBNode*> c;
         c.insert(cur);
         if (!shouldBeTLSControlled(c)||cur->getIncomingEdges().size()<3) {
             continue;
@@ -333,12 +327,12 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
 void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
     SUMOReal MAXDIST = 25;
-    vector<set<NBNode*> > cands;
+    std::vector<std::set<NBNode*> > cands;
     generateNodeClusters(MAXDIST, cands);
     unsigned int index = 0;
-    for (vector<set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
-        set<NBNode*> &c = (*i);
-        for (set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
+    for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
+        std::set<NBNode*> &c = (*i);
+        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end();) {
             if (!(*j)->isTLControlled()) {
                 c.erase(j++);
             } else {
@@ -348,14 +342,14 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
         if (c.size()<2) {
             continue;
         }
-        for (set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
-            set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
+        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end(); ++j) {
+            std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
             (*j)->removeTrafficLights();
-            for (set<NBTrafficLightDefinition*>::iterator k=tls.begin(); k!=tls.end(); ++k) {
+            for (std::set<NBTrafficLightDefinition*>::iterator k=tls.begin(); k!=tls.end(); ++k) {
                 tlc.remove((*j)->getID());
             }
         }
-        string id = "joinedS_" + toString(index++);
+        std::string id = "joinedS_" + toString(index++);
         NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, c);
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
@@ -400,11 +394,11 @@ NBNodeCont::normaliseNodePositions() {
 
 
 void
-NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
+NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->reshiftPosition(xoff, yoff, rot);
+        (*i).second->reshiftPosition(xoff, yoff);
     }
-    GeoConvHelper::moveConvertedBy(xoff, yoff); // !!! rotation
+    GeoConvHelper::moveConvertedBy(xoff, yoff);
 }
 
 
@@ -629,8 +623,8 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
     }
     // erase
     for (std::vector<NBNode*>::iterator j=toRemove.begin(); j!=toRemove.end(); j++) {
-        const set<NBTrafficLightDefinition*> &tls = (*j)->getControllingTLS();
-        for (set<NBTrafficLightDefinition*>::const_iterator i=tls.begin(); i!=tls.end(); ++i) {
+        const std::set<NBTrafficLightDefinition*> &tls = (*j)->getControllingTLS();
+        for (std::set<NBTrafficLightDefinition*>::const_iterator i=tls.begin(); i!=tls.end(); ++i) {
             (*i)->removeNode(*j);
         }
         erase(*j);
@@ -660,12 +654,12 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const {
 
         // assign highway/ramp properly
         if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
-            swap(pot_highway, pot_ramp);
+            std::swap(pot_highway, pot_ramp);
         } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                    &&
                    pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
 
-            swap(pot_highway, pot_ramp);
+            std::swap(pot_highway, pot_ramp);
         }
 
         // check conditions
@@ -700,12 +694,12 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
 
     // assign highway/ramp properly
     if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
-        swap(pot_highway, pot_ramp);
+        std::swap(pot_highway, pot_ramp);
     } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                &&
                pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
 
-        swap(pot_highway, pot_ramp);
+        std::swap(pot_highway, pot_ramp);
     }
 
     // compute the number of lanes to append
@@ -760,7 +754,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         if (!insert(rn)) {
             throw ProcessError("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
         }
-        string name = cont->getID();
+        std::string name = cont->getID();
         bool ok = ec.splitAt(dc, cont, rn,
                              cont->getID()+"-AddedOnRampEdge", cont->getID(),
                              cont->getNoLanes()+toAdd, cont->getNoLanes());
@@ -818,12 +812,12 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
     NBEdge *prev = cur->getIncomingEdges()[0];
     // assign highway/ramp properly
     if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
-        swap(pot_highway, pot_ramp);
+        std::swap(pot_highway, pot_ramp);
     } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                &&
                pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
 
-        swap(pot_highway, pot_ramp);
+        std::swap(pot_highway, pot_ramp);
     }
     // compute the number of lanes to append
     int toAdd = (pot_ramp->getNoLanes() + pot_highway->getNoLanes()) - prev->getNoLanes();
@@ -871,7 +865,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             throw ProcessError("Ups - could not build off-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
 
         }
-        string name = prev->getID();
+        std::string name = prev->getID();
         bool ok = ec.splitAt(dc, prev, rn,
                              prev->getID(), prev->getID()+"-AddedOffRampEdge",
                              prev->getNoLanes(), prev->getNoLanes()+toAdd);
@@ -940,12 +934,12 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const {
 
         // assign highway/ramp properly
         if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
-            swap(pot_highway, pot_ramp);
+            std::swap(pot_highway, pot_ramp);
         } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                    &&
                    pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
 
-            swap(pot_highway, pot_ramp);
+            std::swap(pot_highway, pot_ramp);
         }
 
         // check conditions
@@ -971,12 +965,12 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const {
 void
 NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp) {
     if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
-        swap(pot_highway, pot_ramp);
+        std::swap(pot_highway, pot_ramp);
     } else if (pot_highway->getSpeed()==pot_ramp->getSpeed()
                &&
                pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
 
-        swap(pot_highway, pot_ramp);
+        std::swap(pot_highway, pot_ramp);
     }
 }
 
@@ -1048,7 +1042,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                 throw ProcessError("Ups - could not build anti-obscure node '" + inc_highway->getID() + "'!");
 
             }
-            string name = inc_highway->getID();
+            std::string name = inc_highway->getID();
             bool ok = ec.splitAt(dc, inc_highway, rn,
                                  inc_highway->getID(), inc_highway->getID()+"-AddedInBetweenEdge",
                                  inc_highway->getNoLanes(), inc_highway->getNoLanes());
@@ -1122,8 +1116,8 @@ NBNodeCont::savePlain(const std::string &file) {
         }
         if (n->isTLControlled()) {
             device << " type=\"traffic_light\" tl=\"";
-            const set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
-            for (set<NBTrafficLightDefinition*>::const_iterator t=tlss.begin(); t!=tlss.end(); ++t) {
+            const std::set<NBTrafficLightDefinition*> &tlss = n->getControllingTLS();
+            for (std::set<NBTrafficLightDefinition*>::const_iterator t=tlss.begin(); t!=tlss.end(); ++t) {
                 if (t!=tlss.begin()) {
                     device << ",";
                 }

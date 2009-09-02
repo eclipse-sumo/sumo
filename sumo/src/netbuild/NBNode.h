@@ -463,7 +463,7 @@ private:
     /// resets the position by the given amount
     void resetby(SUMOReal xoffset, SUMOReal yoffset);
 
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
 
 
 
