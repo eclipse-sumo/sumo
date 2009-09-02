@@ -449,32 +449,9 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                 sort((*i).lanes.begin(), (*i).lanes.end());
                 noLanesMax = MAX2(noLanesMax, (unsigned int) (*i).lanes.size());
             }
-            // patch lane information
-            /*
-            //  !!! hack: normally, all lanes to remove should always be supplied
-            for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
-                vector<int>::iterator k;
-                vector<int> lanes;
-                for (unsigned int l=0; l<e->getNoLanes(); ++l) {
-                    if (find((*i).lanes.begin(), (*i).lanes.end(), l)==(*i).lanes.end()) {
-                        lanes.push_back((int) l);
-                    }
-                }
-                cout << lanes.size() << endl;
-                /
-                for (i2=i+1; i2!=myExpansions.end(); ++i2) {
-                    for (vector<int>::iterator k=lanes.begin(); k!=lanes.end(); ++k) {
-                        if (find((*i2).lanes.begin(), (*i2).lanes.end(), *k)!=(*i2).lanes.end()) {
-                            (*i2).lanes.erase(find((*i2).lanes.begin(), (*i2).lanes.end(), *k));
-                        }
-                    }
-                }
-                /
-            }
-            */
             // split the edge
             std::vector<int> currLanes;
-            for(int l=0; l<noLanesMax; ++l) {
+            for(unsigned int l=0; l<noLanesMax; ++l) {
                 currLanes.push_back(l);
             }
             std::string edgeid = e->getID();
@@ -491,7 +468,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         string nid = myCurrentID + "/" +  toString(exp.nameid);
                         string pid = e->getID();
                         myEdgeCont.splitAt(myDistrictCont, e, exp.pos-seen, rn,
-                                           pid, nid, e->getNoLanes(), exp.lanes.size());
+                                           pid, nid, e->getNoLanes(), (unsigned int) exp.lanes.size());
                         seen = exp.pos;
                         std::vector<int> newLanes = exp.lanes;
                         NBEdge *pe = myEdgeCont.retrieve(pid);
@@ -499,16 +476,16 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         // reconnect lanes
                         pe->invalidateConnections(true);
                         //  new on right
-                        int rightMostP = currLanes[0];
-                        int rightMostN = newLanes[0];
-                        if(rightMostN<rightMostP) {
-                            pe->addLane2LaneConnections(0, ne, 0, rightMostP-rightMostN, NBEdge::L2L_VALIDATED, true);
+                        unsigned int rightMostP = currLanes[0];
+                        unsigned int rightMostN = newLanes[0];
+                        for(int l=0; l<(int) rightMostP-(int) rightMostN; ++l) {
+                            pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
                         }
                         //  new on left
-                        int leftMostP = currLanes[currLanes.size()-1];
-                        int leftMostN = newLanes[newLanes.size()-1];
-                        if(leftMostN>leftMostP) {
-                            pe->addLane2LaneConnections(leftMostP, ne, leftMostN-leftMostP, leftMostN-leftMostP, NBEdge::L2L_VALIDATED, true);
+                        unsigned int leftMostP = currLanes[currLanes.size()-1];
+                        unsigned int leftMostN = newLanes[newLanes.size()-1];
+                        for(int l=0; l<(int) leftMostN-(int) leftMostP; ++l) {
+                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, leftMostN-l, NBEdge::L2L_VALIDATED, true);
                         }
                         //  all other connected
                         for(unsigned int l=0; l<noLanesMax; ++l) {
@@ -523,9 +500,12 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         // move to next
                         e = ne;
                         currLanes = newLanes;
-                    } else {
+                    }else {
                         MsgHandler::getWarningInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
                     }
+                }  else if(exp.pos==0) {
+                    e->decLaneNo(e->getNoLanes()-exp.lanes.size());
+                    currLanes = exp.lanes;
                 } else {
                     MsgHandler::getWarningInstance()->inform("Expansion at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
                 }
