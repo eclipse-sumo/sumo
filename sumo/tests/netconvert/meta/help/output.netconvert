@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r7607
+SUMO netconvert Version dev-SVN-r7645
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -22,13 +22,11 @@ Usage: netconvert.exe [OPTION]*
   -e, --xml-edge-files FILE            Read XML-edge defs from FILE
   -x, --xml-connection-files FILE      Read XML-connection defs from FILE
   -t, --xml-type-files FILE            Read XML-type defs from FILE
-  --arcview FILE                       Read ARCVIEW-net from files starting
-                                         with 'FILE'
-  --elmar FILE                         Read splitted Elmar-network from path
+  --shapefile FILE                     Read shapefiles (ArcView, Tiger, ...)
+                                         from files starting with 'FILE'
+  --dlr-navteq FILE                    Read converted Navteq GDF data
+                                         (unsplitted Elmar-network) from path
                                          'FILE'
-  --elmar2 FILE                        Read unsplitted Elmar-network from path
-                                         'FILE'
-  --tiger FILE                         Read Tiger-network from path 'FILE'
   --osm-files FILE                     Read OSM-network from path 'FILE(s)'
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
@@ -109,21 +107,17 @@ Usage: netconvert.exe [OPTION]*
   --dismiss-loading-errors             Continue on broken input
   --capacity-norm FLOAT                The factor for flow to no. lanes conv
   --speed-in-kmh                       vmax is parsed as given in km/h (some)
-  --arcview.street-id STR              Read edge ids from column STR (ArcView)
-  --arcview.from-id STR                Read from-node ids from column STR
-                                         (ArcView)
-  --arcview.to-id STR                  Read to-node ids from column STR
-                                         (ArcView)
-  --arcview.type-id STR                Read type ids from column STR (ArcView)
-  --arcview.use-defaults-on-failure    Uses edge type defaults on problems
-                                         (ArcView)
-  --arcview.all-bidi                   Insert edges in both directions
-                                         (ArcView)
-  --arcview.utm INT                    Use INT as UTM zone (ArcView)
-  --arcview.guess-projection           Guess the proper projection (ArcView)
-  --vissim.offset FLOAT                Structure join offset (VISSIM)
-  --vissim.default-speed FLOAT         Use FLOAT as default speed (VISSIM)
-  --vissim.speed-norm FLOAT            Factor for edge velocity (VISSIM)
+  --shapefile.street-id STR            Read edge ids from column STR
+  --shapefile.from-id STR              Read from-node ids from column STR
+  --shapefile.to-id STR                Read to-node ids from column STR
+  --shapefile.type-id STR              Read type ids from column STR
+  --shapefile.use-defaults-on-failure  Uses edge type defaults on problems
+  --shapefile.all-bidi                 Insert edges in both directions
+  --shapefile.utm INT                  Use INT as UTM zone
+  --shapefile.guess-projection         Guess the proper projection
+  --vissim.offset FLOAT                Structure join offset
+  --vissim.default-speed FLOAT         Use FLOAT as default speed
+  --vissim.speed-norm FLOAT            Factor for edge velocity
   --vissim.report-unset-speeds         Writes lanes without an explicite speed
                                          set.
   --visum.use-type-priority            Uses priorities from types
@@ -145,7 +139,6 @@ Usage: netconvert.exe [OPTION]*
   --disable-normalize-node-positions   Turn off normalizing node positions
   --x-offset-to-apply FLOAT            Adds FLOAT to net x-positions
   --y-offset-to-apply FLOAT            Adds FLOAT to net y-positions
-  --rotation-to-apply FLOAT            Rotates net around FLOAT degrees
   --guess-roundabouts                  Enable roundabout-guessing
 
  Building Defaults Options:

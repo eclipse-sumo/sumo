@@ -82,8 +82,8 @@ private:
     bool useLineReader(LineReader &lr, const std::string &file,
                        LineHandler &lh);
 
-    /// loads Elmar's data parsed from GDF
-    void loadElmar(OptionsCont &oc);
+    /// loads Elmar's data parsed from Navteq GDF
+    void loadDlrNavteq(OptionsCont &oc);
 
 private:
     /// @brief The network builder to fill with loaded data

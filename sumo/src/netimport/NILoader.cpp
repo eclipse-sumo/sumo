@@ -28,10 +28,6 @@
 #endif
 
 #include <string>
-#include <xercesc/parsers/SAXParser.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xercesc/util/TransService.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
@@ -49,8 +45,6 @@
 #include <netimport/NIXMLNodesHandler.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>
-#include <netimport/NIElmarNodesHandler.h>
-#include <netimport/NIElmarEdgesHandler.h>
 #include <netimport/NIElmar2NodesHandler.h>
 #include <netimport/NIElmar2EdgesHandler.h>
 #include <netimport/NIImporter_VISUM.h>
@@ -58,7 +52,6 @@
 #include <netimport/NIImporter_ArcView.h>
 #include <netimport/NIImporter_SUMO.h>
 #include <netimport/NIImporter_RobocupRescue.h>
-#include <netimport/NIImporter_TIGER.h>
 #include <netimport/NIImporter_OpenStreetMap.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
@@ -68,12 +61,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -103,8 +90,7 @@ NILoader::load(OptionsCont &oc) {
     NIImporter_VISUM::loadNetwork(oc, myNetBuilder);
     NIImporter_ArcView::loadNetwork(oc, myNetBuilder);
     NIImporter_Vissim::loadNetwork(oc, myNetBuilder);
-    loadElmar(oc);
-    NIImporter_TIGER::loadNetwork(oc, myNetBuilder);
+    loadDlrNavteq(oc);
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
@@ -152,14 +138,14 @@ NILoader::loadXML(OptionsCont &oc) {
 
 /** loads a single user-specified file */
 void
-NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
-                      const string &type) {
+NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &files,
+                      const std::string &type) {
     // build parser
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(*handler);
-    string exceptMsg = "";
+    std::string exceptMsg = "";
     // start the parsing
     try {
-        for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
+        for (std::vector<std::string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
             if (!FileHelpers::exists(*file)) {
                 MsgHandler::getErrorInstance()->inform("Could not open " + type + "-file '" + *file + "'.");
                 exceptMsg = "Process Error";
@@ -174,7 +160,7 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
         exceptMsg = TplConvert<XMLCh>::_2str(toCatch.getMessage())
                     + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     } catch (const ProcessError& toCatch) {
-        exceptMsg = string(toCatch.what()) + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
+        exceptMsg = std::string(toCatch.what()) + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     } catch (...) {
         exceptMsg = "The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     }
@@ -200,59 +186,30 @@ NILoader::useLineReader(LineReader &lr, const std::string &file,
 
 
 void
-NILoader::loadElmar(OptionsCont &oc) {
-    if (!oc.isSet("elmar")&&!oc.isSet("elmar2")) {
+NILoader::loadDlrNavteq(OptionsCont &oc) {
+    if (!oc.isSet("dlr-navteq")) {
         return;
     }
-    // check which one to use
-    std::string opt;
-    bool unsplitted;
-    if (oc.isSet("elmar")) {
-        opt = "elmar";
-        unsplitted = false;
-    } else {
-        opt = "elmar2";
-        unsplitted = true;
-    }
-
     LineReader lr;
     // load nodes
     std::map<std::string, Position2DVector> myGeoms;
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
-    if (!unsplitted) {
-        string file = oc.getString(opt) + "_nodes.txt";
-        NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file);
-        if (!useLineReader(lr, file, handler1)) {
-            throw ProcessError();
-        }
-    } else {
-        string file = oc.getString(opt) + "_nodes_unsplitted.txt";
-        NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file, myGeoms);
-        if (!useLineReader(lr, file, handler1)) {
-            throw ProcessError();
-        }
+    std::string file = oc.getString("dlr-navteq") + "_nodes_unsplitted.txt";
+    NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file, myGeoms);
+    if (!useLineReader(lr, file, handler1)) {
+        throw ProcessError();
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 
     // load edges
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
-    if (!unsplitted) {
-        std::string file = oc.getString(opt) + "_links.txt";
-        // parse the file
-        NIElmarEdgesHandler handler2(myNetBuilder.getNodeCont(),
-                                     myNetBuilder.getEdgeCont(), file);
-        if (!useLineReader(lr, file, handler2)) {
-            throw ProcessError();
-        }
-    } else {
-        std::string file = oc.getString(opt) + "_links_unsplitted.txt";
-        // parse the file
-        NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
-                                      myNetBuilder.getEdgeCont(), file, myGeoms,
-                                      !oc.getBool("add-node-positions"));
-        if (!useLineReader(lr, file, handler2)) {
-            throw ProcessError();
-        }
+    file = oc.getString("dlr-navteq") + "_links_unsplitted.txt";
+    // parse the file
+    NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
+                                  myNetBuilder.getEdgeCont(), file, myGeoms,
+                                  !oc.getBool("add-node-positions"));
+    if (!useLineReader(lr, file, handler2)) {
+        throw ProcessError();
     }
     myNetBuilder.getEdgeCont().recheckLaneSpread();
     MsgHandler::getMessageInstance()->endProcessMsg("done.");

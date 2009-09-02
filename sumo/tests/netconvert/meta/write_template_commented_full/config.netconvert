@@ -16,17 +16,11 @@
         <!-- Read XML-type defs from FILE -->
         xml-type-files=""
 
-        <!-- Read ARCVIEW-net from files starting with 'FILE' -->
-        arcview=""
+        <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE' -->
+        shapefile=""
 
-        <!-- Read splitted Elmar-network from path 'FILE' -->
-        elmar=""
-
-        <!-- Read unsplitted Elmar-network from path 'FILE' -->
-        elmar2=""
-
-        <!-- Read Tiger-network from path 'FILE' -->
-        tiger=""
+        <!-- Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE' -->
+        dlr-navteq=""
 
         <!-- Read OSM-network from path 'FILE(s)' -->
         osm-files=""
@@ -196,37 +190,37 @@
         <!-- vmax is parsed as given in km/h (some) -->
         speed-in-kmh="false"
 
-        <!-- Read edge ids from column STR (ArcView) -->
-        arcview.street-id=""
+        <!-- Read edge ids from column STR -->
+        shapefile.street-id=""
 
-        <!-- Read from-node ids from column STR (ArcView) -->
-        arcview.from-id=""
+        <!-- Read from-node ids from column STR -->
+        shapefile.from-id=""
 
-        <!-- Read to-node ids from column STR (ArcView) -->
-        arcview.to-id=""
+        <!-- Read to-node ids from column STR -->
+        shapefile.to-id=""
 
-        <!-- Read type ids from column STR (ArcView) -->
-        arcview.type-id=""
+        <!-- Read type ids from column STR -->
+        shapefile.type-id=""
 
-        <!-- Uses edge type defaults on problems (ArcView) -->
-        arcview.use-defaults-on-failure="false"
+        <!-- Uses edge type defaults on problems -->
+        shapefile.use-defaults-on-failure="false"
 
-        <!-- Insert edges in both directions (ArcView) -->
-        arcview.all-bidi="false"
+        <!-- Insert edges in both directions -->
+        shapefile.all-bidi="false"
 
-        <!-- Use INT as UTM zone (ArcView) -->
-        arcview.utm="32"
+        <!-- Use INT as UTM zone -->
+        shapefile.utm="32"
 
-        <!-- Guess the proper projection (ArcView) -->
-        arcview.guess-projection="false"
+        <!-- Guess the proper projection -->
+        shapefile.guess-projection="false"
 
-        <!-- Structure join offset (VISSIM) -->
+        <!-- Structure join offset -->
         vissim.offset="5"
 
-        <!-- Use FLOAT as default speed (VISSIM) -->
+        <!-- Use FLOAT as default speed -->
         vissim.default-speed="50"
 
-        <!-- Factor for edge velocity (VISSIM) -->
+        <!-- Factor for edge velocity -->
         vissim.speed-norm="1"
 
         <!-- Writes lanes without an explicite speed set. -->
@@ -285,9 +279,6 @@
 
         <!-- Adds FLOAT to net y-positions -->
         y-offset-to-apply="0"
-
-        <!-- Rotates net around FLOAT degrees -->
-        rotation-to-apply="0"
 
         <!-- Enable roundabout-guessing -->
         guess-roundabouts="false"

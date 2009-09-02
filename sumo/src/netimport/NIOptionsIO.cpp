@@ -49,12 +49,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -98,17 +92,14 @@ NIOptionsIO::fillOptions() {
     oc.addSynonyme("xml-type-files", "xml-types");
     oc.addDescription("xml-type-files", "Input", "Read XML-type defs from FILE");
 
-    oc.doRegister("arcview", new Option_FileName());
-    oc.addDescription("arcview", "Input", "Read ARCVIEW-net from files starting with 'FILE'");
+    oc.doRegister("shapefile", new Option_FileName());
+    oc.addSynonyme("shapefile", "arcview");
+    oc.addSynonyme("shapefile", "tiger");
+    oc.addDescription("shapefile", "Input", "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'");
 
-    oc.doRegister("elmar", new Option_FileName());
-    oc.addDescription("elmar", "Input", "Read splitted Elmar-network from path 'FILE'");
-
-    oc.doRegister("elmar2", new Option_FileName());
-    oc.addDescription("elmar2", "Input", "Read unsplitted Elmar-network from path 'FILE'");
-
-    oc.doRegister("tiger", new Option_FileName());
-    oc.addDescription("tiger", "Input", "Read Tiger-network from path 'FILE'");
+    oc.doRegister("dlr-navteq", new Option_FileName());
+    oc.addSynonyme("dlr-navteq", "elmar2");
+    oc.addDescription("dlr-navteq", "Input", "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'");
 
     oc.doRegister("osm-files", new Option_FileName());
     oc.addSynonyme("osm-files", "osm");
@@ -138,39 +129,47 @@ NIOptionsIO::fillOptions() {
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
 
 
-    oc.doRegister("arcview.street-id", new Option_String());
-    oc.addDescription("arcview.street-id", "Processing", "Read edge ids from column STR (ArcView)");
+    oc.doRegister("shapefile.street-id", new Option_String());
+    oc.addSynonyme("shapefile.street-id", "arcview.street-id");
+    oc.addDescription("shapefile.street-id", "Processing", "Read edge ids from column STR");
 
-    oc.doRegister("arcview.from-id", new Option_String());
-    oc.addDescription("arcview.from-id", "Processing", "Read from-node ids from column STR (ArcView)");
+    oc.doRegister("shapefile.from-id", new Option_String());
+    oc.addSynonyme("shapefile.from-id", "arcview.from-id");
+    oc.addDescription("shapefile.from-id", "Processing", "Read from-node ids from column STR");
 
-    oc.doRegister("arcview.to-id", new Option_String());
-    oc.addDescription("arcview.to-id", "Processing", "Read to-node ids from column STR (ArcView)");
+    oc.doRegister("shapefile.to-id", new Option_String());
+    oc.addSynonyme("shapefile.to-id", "arcview.to-id");
+    oc.addDescription("shapefile.to-id", "Processing", "Read to-node ids from column STR");
 
-    oc.doRegister("arcview.type-id", new Option_String());
-    oc.addDescription("arcview.type-id", "Processing", "Read type ids from column STR (ArcView)");
+    oc.doRegister("shapefile.type-id", new Option_String());
+    oc.addSynonyme("shapefile.type-id", "arcview.type-id");
+    oc.addDescription("shapefile.type-id", "Processing", "Read type ids from column STR");
 
-    oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false));
-    oc.addDescription("arcview.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems (ArcView)");
+    oc.doRegister("shapefile.use-defaults-on-failure", new Option_Bool(false));
+    oc.addSynonyme("shapefile.use-defaults-on-failure", "arcview.use-defaults-on-failure");
+    oc.addDescription("shapefile.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems");
 
-    oc.doRegister("arcview.all-bidi", new Option_Bool(false));
-    oc.addDescription("arcview.all-bidi", "Processing", "Insert edges in both directions (ArcView)");
+    oc.doRegister("shapefile.all-bidi", new Option_Bool(false));
+    oc.addSynonyme("shapefile.all-bidi", "arcview.all-bidi");
+    oc.addDescription("shapefile.all-bidi", "Processing", "Insert edges in both directions");
 
-    oc.doRegister("arcview.utm", new Option_Integer(32));
-    oc.addDescription("arcview.utm", "Processing", "Use INT as UTM zone (ArcView)");
+    oc.doRegister("shapefile.utm", new Option_Integer(32));
+    oc.addSynonyme("shapefile.utm", "arcview.utm");
+    oc.addDescription("shapefile.utm", "Processing", "Use INT as UTM zone");
 
-    oc.doRegister("arcview.guess-projection", new Option_Bool(false));
-    oc.addDescription("arcview.guess-projection", "Processing", "Guess the proper projection (ArcView)");
+    oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
+    oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection");
+    oc.addDescription("shapefile.guess-projection", "Processing", "Guess the proper projection");
 
     // register further vissim-options
     oc.doRegister("vissim.offset", new Option_Float(5.0f));
-    oc.addDescription("vissim.offset", "Processing", "Structure join offset (VISSIM)");
+    oc.addDescription("vissim.offset", "Processing", "Structure join offset");
 
     oc.doRegister("vissim.default-speed", new Option_Float(50.0f));
-    oc.addDescription("vissim.default-speed", "Processing", "Use FLOAT as default speed (VISSIM)");
+    oc.addDescription("vissim.default-speed", "Processing", "Use FLOAT as default speed");
 
     oc.doRegister("vissim.speed-norm", new Option_Float(1.0f));
-    oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity (VISSIM)");
+    oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity");
 
     oc.doRegister("vissim.report-unset-speeds", new Option_Bool(false));
     oc.addDescription("vissim.report-unset-speeds", "Processing", "Writes lanes without an explicite speed set.");

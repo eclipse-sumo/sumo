@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 SUMOReal
@@ -111,7 +105,7 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
 
 void
 NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw() {
-    string classS = "0000000000" + oclassS;
+    std::string classS = "0000000000" + oclassS;
     classS = classS.substr(classS.length() - 10);
     // 0: allow all vehicle types
     if (classS[0]=='1') {

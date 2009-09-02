@@ -69,110 +69,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				Culture="1031"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Fastbuild|Win32"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\Win32.vsprops;..\Fastbuild.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				Culture="1031"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Debug|x64"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\x64.vsprops"
@@ -225,9 +121,113 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Release|Win32"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1031"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Release|x64"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1031"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Fastbuild|Win32"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\Win32.vsprops;..\Fastbuild.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -346,14 +346,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netimport\NIElmarEdgesHandler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIElmarNodesHandler.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_ArcView.cpp"
 				>
 			</File>
@@ -367,10 +359,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_SUMO.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIImporter_TIGER.cpp"
 				>
 			</File>
 			<File
@@ -423,14 +411,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netimport\NIElmarEdgesHandler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIElmarNodesHandler.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_ArcView.h"
 				>
 			</File>
@@ -444,10 +424,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_SUMO.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIImporter_TIGER.h"
 				>
 			</File>
 			<File
