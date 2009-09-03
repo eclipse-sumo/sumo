@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r7607
+SUMO netgen Version dev-SVN-r7645
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -135,7 +135,6 @@ Usage: netgen.exe [OPTION]*
   --disable-normalize-node-positions   Turn off normalizing node positions
   --x-offset-to-apply FLOAT            Adds FLOAT to net x-positions
   --y-offset-to-apply FLOAT            Adds FLOAT to net y-positions
-  --rotation-to-apply FLOAT            Rotates net around FLOAT degrees
   --guess-roundabouts                  Enable roundabout-guessing
 
  Building Defaults Options:

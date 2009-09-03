@@ -247,9 +247,6 @@
         <!-- Adds FLOAT to net y-positions -->
         y-offset-to-apply="0"
 
-        <!-- Rotates net around FLOAT degrees -->
-        rotation-to-apply="0"
-
         <!-- Enable roundabout-guessing -->
         guess-roundabouts="false"
 
