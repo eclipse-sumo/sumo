@@ -55,6 +55,7 @@ class NBDistrictCont;
  *
  * This SAX-handler parses edge information and stores it in the given
  *  container.
+ * @todo revalidate node retrieval
  */
 class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
@@ -88,17 +89,6 @@ protected:
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
-    /** @brief Called when characters occure
-     *
-     * @param[in] element ID of the last opened element
-     * @param[in] chars The read characters (complete)
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myCharacters
-     */
-    void myCharacters(SumoXMLTag element,
-                      const std::string &chars) throw(ProcessError);
-
-
     /** @brief Called when a closing tag occures
      *
      * @param[in] element ID of the currently opened element
@@ -107,6 +97,7 @@ protected:
      */
     void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
+
 
 private:
     /** @brief Tries to parse the shape definition
@@ -118,18 +109,33 @@ private:
      */
     Position2DVector tryGetShape(const SUMOSAXAttributes &attrs) throw();
 
-    /// Tries to set information needed by the nodes
-    bool setNodes(const SUMOSAXAttributes &attrs);
+
+    /** @brief Sets from/to node information of the currently parsed edge
+     *
+     * If the nodes could be retrieved/built, they are set in myFromNode/myToNode,
+     *  respectively, and true is returned. If not, false is returned.
+     * @param[in] attrs The SAX-attributes to parse the nodes from
+     * @return Whether valid nodes exist
+     */
+    bool setNodes(const SUMOSAXAttributes &attrs) throw();
+
 
     /** @brief tries to parse one of the node's positions
         Which position has to be parsed is defined by the given call variables */
     SUMOReal tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
                             const std::string &attrName);
 
+
     NBNode * insertNodeChecking(const Position2D &pos,
                                 const std::string &name, const std::string &dir);
 
-    void parseExpansionLanes(const std::string &val) throw(ProcessError);
+
+    /** @brief Parses the given string as lanes to keep, storing them
+     * @param[in] val The definition of lanes to keep
+     * @exception ProcessError If the description is malicious
+     */
+    void parseSplitLanes(const std::string &val) throw(ProcessError);
+
 
 private:
     /// @brief A reference to the program's options
@@ -181,10 +187,10 @@ private:
     NBEdge *myCurrentEdge;
 
 
-    /** @struct Expansion
+    /** @struct Split
      * @brief A structure which describes changes of lane number along the road
      */
-    struct Expansion {
+    struct Split {
         /// @brief The lanes until this change
         std::vector<int> lanes;
         /// @brief The position of this change
@@ -195,42 +201,48 @@ private:
         Position2D gpos;
     };
 
-    /// @brief The list of this edge's expansions
-    std::vector<Expansion> myExpansions;
+    /// @brief The list of this edge's splits
+    std::vector<Split> mySplits;
 
 
-    class expansions_sorter {
+    /** @class split_sorter
+     * @brief Sorts splits by their position (increasing)
+     */
+    class split_sorter {
     public:
-        explicit expansions_sorter() { }
+        /// @brief Constructor
+        explicit split_sorter() { }
 
-        /// comparing operator
-        int operator()(const Expansion &e1, const Expansion &e2) const {
+        /// @brief Comparing operator
+        int operator()(const Split &e1, const Split &e2) const {
             return e1.pos < e2.pos;
         }
     };
 
-    class expansion_by_pos_finder {
+
+    /** @class split_by_pos_finder
+     * @brief Finds a split at the given position
+     */
+    class split_by_pos_finder {
     public:
-        /** constructor */
-        explicit expansion_by_pos_finder(SUMOReal pos)
+        /// @brief Constructor
+        explicit split_by_pos_finder(SUMOReal pos)
                 : myPosition(pos) { }
 
-        /** the comparing function */
-        bool operator()(const Expansion &e) {
+        /// @brief Comparing operator
+        bool operator()(const Split &e) {
             return e.pos==myPosition;
         }
 
     private:
-        /// The position to search for
+        /// @brief The position to search for
         SUMOReal myPosition;
 
     };
 
-    /// @brief Information whether one edge with a function-attribute occured and was reported
-    bool myHaveReportedAboutFunctionDeprecation;
 
-    /// @brief Information whether one edge with a function-attribute occured and was reported
-    bool myHaveReportedAboutExpansionCharactersDeprecation;
+    /// @brief Information whether at least one edge with a function-attribute occured and was reported
+    bool myHaveReportedAboutFunctionDeprecation;
 
     /// @brief Information whether at least one edge's attributes were overwritten
     bool myHaveReportedAboutOverwriting;

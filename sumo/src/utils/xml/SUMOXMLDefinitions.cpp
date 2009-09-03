@@ -114,7 +114,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "polytype",         SUMO_TAG_POLYTYPE },
     { "connection",       SUMO_TAG_CONNECTION },
     { "prohibition",      SUMO_TAG_PROHIBITION },
-    { "expansion",        SUMO_TAG_EXPANSION },
+    { "split",            SUMO_TAG_SPLIT },
     { "node",             SUMO_TAG_NODE },
     { "type",             SUMO_TAG_TYPE },
     { "detector_definition", SUMO_TAG_DETECTOR_DEFINITION },
