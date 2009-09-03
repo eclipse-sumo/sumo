@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+"""
+@file    generateITetrisNetworkMetrics.py 
+@author  Daniel.Krajzewicz@dlr.de
+@date    2007-10-25
+@version $Id$
+
+Copyright (C) 2009 DLR/TS, Germany
+All rights reserved
+"""
 from optparse import OptionParser
 import os
 from pylab import *

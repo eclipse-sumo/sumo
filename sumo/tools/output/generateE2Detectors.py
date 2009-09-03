@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+"""
+@file    generateE2Detectors.py 
+@author  Daniel.Krajzewicz@dlr.de
+@date    2007-10-25
+@version $Id$
+
+Copyright (C) 2009 DLR/TS, Germany
+All rights reserved
+"""
 import sys, os
 from xml.sax import saxutils, make_parser, handler
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))

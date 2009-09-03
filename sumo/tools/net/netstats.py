@@ -3,7 +3,7 @@
 @file    netstats.py
 @author  Daniel.Krajzewicz@dlr.de 
 @date    2008-08-13
-@version $Id: netstats.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 Prints some information about a given network
 

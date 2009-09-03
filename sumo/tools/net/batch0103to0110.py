@@ -3,7 +3,7 @@
 @file    batch0103to0110.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007
-@version $Id: 0103to0110.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 Applies the transformation on all nets in the given folder or 
  - if no folder is given - in the base folder (../..).
