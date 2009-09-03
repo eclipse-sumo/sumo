@@ -14,4 +14,8 @@
         no-duration-log="true"
     />
 
+    <gui_only
+        gui-settings-file=""
+    />
+
 </configuration>
