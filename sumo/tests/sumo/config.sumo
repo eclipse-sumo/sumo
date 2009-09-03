@@ -73,3 +73,13 @@ c2x_transmitted_info:xml version{->}-->
 c2x_vehicle_in_range:xml version{->}-->
 c2x_saved_info_freq:xml version{->}-->
 c2x_edge_near_info:xml version{->}-->
+
+[floating_point_tolerance]
+detector:0.0101
+aggregated1:0.0101
+aggregated15:0.0101
+aggregated25:0.0101
+aggregated60:0.0101
+aggregated300:0.0101
+aggregated900:0.0101
+
