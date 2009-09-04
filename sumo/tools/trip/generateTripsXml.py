@@ -143,7 +143,7 @@ class Net:
                         if P[vertex].kind == "real":
                             length += P[vertex].length
                         vertex = P[vertex].source
-                odConnMap[startVertex.label][endVertex.label].append((source.outEdges[0].label, link.label, length))
+                odConnMap[startVertex.label][endVertex.label].append([source.outEdges[0].label, link.label, length])
              
         if options.limitlength and len(odConnMap[startVertex.label][endVertex.label]) > 0:
             for count, item in enumerate(odConnMap[startVertex.label][endVertex.label]):
@@ -303,6 +303,7 @@ def main(options):
                     if endVertex.label not in odConnMap[startVertex.label]:
                         odConnMap[startVertex.label][endVertex.label]= []
                     net.checkRoute(startVertex, endVertex, start, end, P, odConnMap, source, options)
+
     # output trips
     vehID = 0
     subVehID = 0
