@@ -1,0 +1,10 @@
+# Test basic functionality of <ChangeTarget>
+Basic
+
+# Test behaviour when the vehicle is not on the route's starting edge
+FalseEdge
+
+# Test error on specifying an invalid node (vehicle) id
+InvalidNodeId
+
+

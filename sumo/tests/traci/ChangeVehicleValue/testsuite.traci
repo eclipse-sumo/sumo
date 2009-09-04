@@ -13,3 +13,9 @@ ChangeLane
 # Test command <ChangeTarget>
 ChangeTarget
 
+# VAR_ROUTE
+ChangeRoute
+
+# VAR_ROUTE_ID
+ChangeRouteByID
+

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/04/09 14:12:20 by SUMO sumo Version dev-SVN-r7668
+<configuration>
+
+    <input
+        net-file="net.net.xml"
+        route-files="routes.rou.xml"
+    />
+
+    <output
+        netstate-dump="netstate_dump.xml"
+        vehroute-output="vehroutes.xml"
+    />
+
+    <report
+        no-step-log="true"
+    />
+
+    <traci_server
+        remote-port="8815"
+        penetration="1"
+    />
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="veh0" depart="0" arrival="61">
+      <replaced_route replacedOnEdge="e_m5"  replacedAtTime="30" edges="e_m5 e_m6 e_shape1"/>
+
+      <route edges="e_m5 e_m6 e_shape0"/>
+   </vehicle>
+
+</routes>
