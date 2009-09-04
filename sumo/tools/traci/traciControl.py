@@ -412,7 +412,7 @@ def cmdGetVehicleVariable_typeID(vehID):
     return result.readString() # Variable value
 
 def cmdGetVehicleVariable_routeID(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE, vehID)
+    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_ID, vehID)
     return result.readString() # Variable value
 
 def cmdGetVehicleVariable_lanePosition(vehID):
