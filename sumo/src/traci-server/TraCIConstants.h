@@ -343,6 +343,9 @@
 // last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
 #define LAST_STEP_VEHICLE_ID_LIST 0x12
 
+// last step occupancy (get: induction loops)
+#define LAST_STEP_OCCUPANCY 0x13
+
 
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 #define TL_RED_YELLOW_GREEN_STATE 0x20
@@ -464,6 +467,27 @@
 // route (set: vehicles)
 #define VAR_ROUTE 0x57
 
+
+// current CO2 emission of a node (get: vehicle)
+#define VAR_CO2EMISSION 0x60
+
+// current CO emission of a node (get: vehicle)
+#define VAR_COEMISSION 0x61
+
+// current HC emission of a node (get: vehicle)
+#define VAR_HCEMISSION 0x62
+
+// current PMx emission of a node (get: vehicle)
+#define VAR_PMXEMISSION 0x63
+
+// current NOx emission of a node (get: vehicle)
+#define VAR_NOXEMISSION 0x64
+
+// current fuel consumption of a node (get: vehicle)
+#define VAR_FUELCONSUMPTION 0x65
+
+// current noise emission of a node (get: vehicle)
+#define VAR_NOISEEMISSION 0x66
 
 
 
