@@ -420,6 +420,28 @@ public:
     static void clear() throw();
 
 
+    /** @brief Parses the given string assuming it contains a list of edge ids divided by spaces
+     * 
+     * Splits the string at spaces, uses polymorph method to generate edge vector.
+     * @param[in] desc The string containing space-separated edge ids
+     * @param[out] into The vector to fill
+     * @param[in] rid The id of the route these description belongs to; used for error message generation
+     * @exception ProcessError If one of the strings contained is not a known edge id
+     */
+    static void parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into,
+        const std::string &rid) throw(ProcessError);
+
+
+    /** @brief Parses the given string vector assuming it edge ids
+     * @param[in] desc The string vector containing edge ids
+     * @param[out] into The vector to fill
+     * @param[in] rid The id of the route these description belongs to; used for error message generation
+     * @exception ProcessError If one of the strings contained is not a known edge id
+     */
+    static void parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
+        const std::string &rid) throw(ProcessError);
+
+
 protected:
     /// @brief Unique ID.
     std::string myID;

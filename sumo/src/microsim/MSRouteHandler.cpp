@@ -124,8 +124,8 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_TRIPDEF:
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         myActiveRouteID = "!" + myVehicleParameter->id;
-        addRouteElements(attrs.getString(SUMO_ATTR_FROM));
-        addRouteElements(attrs.getString(SUMO_ATTR_TO));
+        MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_FROM), myActiveRoute, myActiveRouteID);
+        MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_TO), myActiveRoute, myActiveRouteID);
         closeRoute();
         closeVehicle();
         break;
@@ -312,7 +312,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         return;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        addRouteElements(attrs.getString(SUMO_ATTR_EDGES));
+        MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_EDGES), myActiveRoute, myActiveRouteID);
     }
     myActiveRouteProbability = attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB);
 }
@@ -330,27 +330,10 @@ MSRouteHandler::myCharacters(SumoXMLTag element,
             MsgHandler::getWarningInstance()->inform("Defining routes as a nested string is deprecated, use the edges attribute instead.");
             myHaveWarned = true;
         }
-        addRouteElements(chars);
+        MSEdge::parseEdgesList(chars, myActiveRoute, myActiveRouteID);
         break;
     default:
         break;
-    }
-}
-
-
-void
-MSRouteHandler::addRouteElements(const std::string &chars) {
-    StringTokenizer st(chars);
-    MSEdge *edge = 0;
-    while (st.hasNext()) {
-        string set = st.next();
-        edge = MSEdge::dictionary(set);
-        // check whether the edge exists
-        if (edge==0) {
-            throw ProcessError("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known."
-                               + "\n The route can not be build.");
-        }
-        myActiveRoute.push_back(edge);
     }
 }
 

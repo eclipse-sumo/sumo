@@ -296,10 +296,6 @@ private:
     void setLocation(const SUMOSAXAttributes &attrs);
 
 
-
-    /// adds the route elements
-    void addRouteElements(const std::string &name, const std::string &chars);
-
     /// sets the request size of the current junction logic
     void setRequestSize(const std::string &chars);
 

@@ -42,6 +42,7 @@
 #include <iostream>
 #include <cassert>
 #include "MSVehicle.h"
+#include <utils/common/StringTokenizer.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
@@ -479,6 +480,29 @@ MSEdge::clear() throw() {
         delete(*i).second;
     }
     myDict.clear();
+}
+
+
+void 
+MSEdge::parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into,
+                       const std::string &rid) throw(ProcessError) {
+    StringTokenizer st(desc);
+    parseEdgesList(st.getVector(), into, rid);
+}
+
+
+void 
+MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
+                       const std::string &rid) throw(ProcessError) {
+    for(std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
+        const MSEdge *edge = MSEdge::dictionary(*i);
+        // check whether the edge exists
+        if (edge==0) {
+            throw ProcessError("The edge '" + *i + "' within route '" + rid + "' is not known."
+                               + "\n The route can not be build.");
+        }
+        into.push_back(edge);
+    }
 }
 
 

@@ -126,9 +126,6 @@ protected:
         b) another route with the same id already exists */
     void closeRoute() throw(ProcessError);
 
-    /** reads the route elements */
-    void addRouteElements(const std::string &chars);
-
     /** opens a route distribution for reading */
     void openRouteDistribution(const SUMOSAXAttributes &attrs);
 

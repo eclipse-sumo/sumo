@@ -449,8 +449,8 @@
 // lane index (get: vehicles)
 #define VAR_LANE_INDEX 0x52
 
-// route id (get: vehicles)
-#define VAR_ROUTE 0x53
+// route id (get & set: vehicles)
+#define VAR_ROUTE_ID 0x53
 
 // edges (get: routes)
 #define VAR_EDGES 0x54
@@ -461,6 +461,8 @@
 // position (1D along lane) (get: vehicle)
 #define VAR_LANEPOSITION 0x56
 
+// route (set: vehicles)
+#define VAR_ROUTE 0x57
 
 
 

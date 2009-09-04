@@ -63,7 +63,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_SPEED&&variable!=VAR_POSITION&&variable!=VAR_ANGLE
             &&variable!=VAR_ROAD_ID&&variable!=VAR_LANE_ID&&variable!=VAR_LANE_INDEX
-            &&variable!=VAR_TYPE&&variable!=VAR_ROUTE&&variable!=VAR_COLOR
+            &&variable!=VAR_TYPE&&variable!=VAR_ROUTE_ID&&variable!=VAR_COLOR
             &&variable!=VAR_LANEPOSITION) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
@@ -123,7 +123,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(v->getVehicleType().getID());
             break;
-        case VAR_ROUTE:
+        case VAR_ROUTE_ID:
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(v->getRoute().getID());
             break;
@@ -158,7 +158,8 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=CMD_SETMAXSPEED&&variable!=CMD_STOP&&variable!=CMD_CHANGELANE
-            &&variable!=CMD_SLOWDOWN&&/*variable!=CMD_CHANGEROUTE&&*/variable!=CMD_CHANGETARGET) {
+            &&variable!=CMD_SLOWDOWN&&/*variable!=CMD_CHANGEROUTE&&*/variable!=CMD_CHANGETARGET
+            &&variable!=VAR_ROUTE_ID&&variable!=VAR_ROUTE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -326,6 +327,37 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         router.compute(currentEdge, destEdge, (const MSVehicle* const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
         // replace the vehicle's route by the new one
         if (!v->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
+            return false;
+        }
+    }
+    break;
+    case VAR_ROUTE_ID: {
+        if (valueDataType!=TYPE_STRING) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The route id must be given as a string.", outputStorage);
+            return false;
+        }
+        std::string rid = inputStorage.readString();
+        const MSRoute *r = MSRoute::dictionary(rid);
+        if(r==0) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The route '" + rid + "' is not known.", outputStorage);
+            return false;
+        }
+        if (!v->replaceRoute(r->getEdges(), MSNet::getInstance()->getCurrentTimeStep())) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
+            return false;
+        }
+    }
+    break;
+    case VAR_ROUTE: {
+        if (valueDataType!=TYPE_STRINGLIST) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "A route must be defined as a list of edge ids.", outputStorage);
+            return false;
+        }
+        std::vector<std::string> edgeIDs = inputStorage.readStringList();
+        std::vector<const MSEdge*> edges;
+        MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
+        if (!v->replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep())) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Route replacement failed for " + v->getID(), outputStorage);
             return false;
         }
