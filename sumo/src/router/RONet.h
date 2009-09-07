@@ -240,11 +240,41 @@ public:
 
 
 
-    /// Returns a random edge which may be used as a starting point
-    ROEdge *getRandomSource();
+    /** @brief Returns a random edge which may be used as a starting point
+     *
+     * If the list of possible source (roads with no predecessor, "mySourceEdges") is empty, 
+     *  it is tried to be built, first.
+     * @return A random edge from the list of edges with no predecessor
+     */
+    ROEdge *getRandomSource() throw();
 
-    /// Returns a random edge which may be used as the end of a route
-    ROEdge *getRandomDestination();
+
+    /** @brief Returns a random edge which may be used as a starting point
+     *
+     * If the list of possible sources (roads with no predecessor, "mySourceEdges") is empty, 
+     *  it is tried to be built, first.
+     * @return A random edge from the list of edges with no predecessor
+     */
+    const ROEdge *getRandomSource() const throw();
+
+
+    /** @brief Returns a random edge which may be used as an ending point
+     *
+     * If the list of possible destinations (roads with no successor, "myDestinationEdges") is empty, 
+     *  it is tried to be built, first.
+     * @return A random edge from the list of edges with no successor
+     */
+    ROEdge *getRandomDestination() throw();
+
+
+    /** @brief Returns a random edge which may be used as an ending point
+     *
+     * If the list of possible destinations (roads with no successor, "myDestinationEdges") is empty, 
+     *  it is tried to be built, first.
+     * @return A random edge from the list of edges with no successor
+     */
+    const ROEdge *getRandomDestination() const throw();
+
 
     /// Returns the number of edges thenetwork contains
     unsigned int getEdgeNo() const;
@@ -260,7 +290,7 @@ protected:
                       SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle * const veh);
 
     /// Initialises the lists of source and destination edges
-    void checkSourceAndDestinations();
+    void checkSourceAndDestinations() const;
 
 protected:
     /// Container for known vehicle ids
@@ -285,10 +315,10 @@ protected:
     ROVehicleCont myVehicles;
 
     /// List of source edges
-    std::vector<ROEdge*> mySourceEdges;
+    mutable std::vector<ROEdge*> mySourceEdges;
 
     /// List of destination edges
-    std::vector<ROEdge*> myDestinationEdges;
+    mutable std::vector<ROEdge*> myDestinationEdges;
 
     /// The file to write the computed routes into
     OutputDevice *myRoutesOutput;
@@ -296,16 +326,18 @@ protected:
     /// The file to write the computed route alternatives into
     OutputDevice *myRouteAlternativesOutput;
 
-    /// number of read routes
-    size_t myReadRouteNo;
+    /// @brief The number of read routes
+    unsigned int myReadRouteNo;
 
-    /// number of discarded routes
-    size_t myDiscardedRouteNo;
+    /// @brief The number of discarded routes
+    unsigned int myDiscardedRouteNo;
 
-    /// number of written routes
-    size_t myWrittenRouteNo;
+    /// @brief The number of written routes
+    unsigned int myWrittenRouteNo;
 
+    /// @brief Whether the network contains edges which not all vehicles may pass
     bool myHaveRestrictions;
+
 
 private:
     /// @brief Invalidated copy constructor

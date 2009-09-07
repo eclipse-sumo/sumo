@@ -262,7 +262,19 @@ RONet::furtherStored() {
 
 
 ROEdge *
-RONet::getRandomSource() {
+RONet::getRandomSource() throw() {
+    // check whether an edge may be returned
+    checkSourceAndDestinations();
+    if (mySourceEdges.size()==0) {
+        return 0;
+    }
+    // choose a random edge
+    return RandHelper::getRandomFrom(mySourceEdges);
+}
+
+
+const ROEdge *
+RONet::getRandomSource() const throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (mySourceEdges.size()==0) {
@@ -274,9 +286,20 @@ RONet::getRandomSource() {
 
 
 
-
 ROEdge *
-RONet::getRandomDestination() {
+RONet::getRandomDestination() throw() {
+    // check whether an edge may be returned
+    checkSourceAndDestinations();
+    if (myDestinationEdges.size()==0) {
+        return 0;
+    }
+    // choose a random edge
+    return RandHelper::getRandomFrom(myDestinationEdges);
+}
+
+
+const ROEdge *
+RONet::getRandomDestination() const throw() {
     // check whether an edge may be returned
     checkSourceAndDestinations();
     if (myDestinationEdges.size()==0) {
@@ -288,7 +311,7 @@ RONet::getRandomDestination() {
 
 
 void
-RONet::checkSourceAndDestinations() {
+RONet::checkSourceAndDestinations() const {
     if (myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
         return;
     }
