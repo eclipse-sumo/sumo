@@ -1,0 +1,2 @@
+--net-file=input_tri.net.xml --detector-files=input_tri.det.xml --detectors-output detectors_def.det.xml --detector-flow-files input_flows.txt
+
