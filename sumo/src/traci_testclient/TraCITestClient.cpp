@@ -53,8 +53,8 @@ TraCITestClient::TraCITestClient(std::string outputFileName)
         :socket(NULL),
         outputFileName(outputFileName),
         answerLog("") {
-    answerLog.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
-    answerLog.setf(std::ios::showpoint);    // print decimal point
+    answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
+    answerLog.setf(std::ios::showpoint); // print decimal point
     answerLog << std::setprecision(2);
 }
 
@@ -1943,7 +1943,13 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         answerLog << " Int value: " << integer << endl;
     } else if (valueDataType == TYPE_FLOAT) {
         float floatv = inMsg.readFloat();
+        if(floatv<0.1&&floatv>0) {
+            answerLog.setf(std::ios::scientific, std::ios::floatfield);
+        }
         answerLog << " float value: " << floatv << endl;
+        answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
+        answerLog.setf(std::ios::showpoint); // print decimal point
+        answerLog << std::setprecision(2);
     } else if (valueDataType == TYPE_DOUBLE) {
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << endl;
