@@ -96,6 +96,9 @@ private:
     /// @brief Container holding known detectors
     const RODFDetectorCon &myDetectorContainer;
 
+    /// @brief Whether a warning about overriding boundaries was already written
+    bool myHaveWarnedAboutOverridingBoundaries;
+
 
 private:
     /// @brief Invalidated copy constructor

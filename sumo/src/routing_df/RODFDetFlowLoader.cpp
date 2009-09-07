@@ -66,7 +66,9 @@ RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon &dets,
                                      SUMOTime startTime, SUMOTime endTime,
                                      int timeOffset) throw()
         : myStorage(into), myTimeOffset(timeOffset),
-        myStartTime(startTime), myEndTime(endTime), myDetectorContainer(dets) {}
+        myStartTime(startTime/60), myEndTime((endTime+59)/60), myDetectorContainer(dets),
+        myHaveWarnedAboutOverridingBoundaries(false)
+{}
 
 
 
@@ -81,6 +83,9 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
     // parse values
     while (lr.hasMore()) {
         string line = lr.readLine();
+        if(line.find(';')==string::npos) {
+            continue;
+        }
         myLineHandler.parseLine(line);
         try {
             string detName = myLineHandler.get("detector");
@@ -90,6 +95,10 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError) {
             int time = TplConvert<char>::_2int((myLineHandler.get("time").c_str()));
             time -= myTimeOffset;
             if (time<myStartTime||time>myEndTime) {
+                if(!myHaveWarnedAboutOverridingBoundaries) {
+                    myHaveWarnedAboutOverridingBoundaries = true;
+                    MsgHandler::getWarningInstance()->inform("At least one value lies beyond given time boundaries.");
+                }
                 continue;
             }
             FlowDef fd;
