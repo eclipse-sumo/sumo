@@ -132,7 +132,7 @@ class Net:
                    target.add(end)
         return target
         
-    def checkRoute(self, startVertex, endVertex, start, end, P, odConnMap, source, options):
+    def checkRoute(self, startVertex, endVertex, start, end, P, odConnTable, source, options):
         for node in endVertex.sinkConnNodes:
             length = 0.
             vertex = node
@@ -143,19 +143,19 @@ class Net:
                         if P[vertex].kind == "real":
                             length += P[vertex].length
                         vertex = P[vertex].source
-                odConnMap[startVertex.label][endVertex.label].append([source.outEdges[0].label, link.label, length])
+                odConnTable[startVertex.label][endVertex.label].append([source.outEdges[0].label, link.label, length])
              
-        if options.limitlength and len(odConnMap[startVertex.label][endVertex.label]) > 0:
-            for count, item in enumerate(odConnMap[startVertex.label][endVertex.label]):
+        if options.limitlength and len(odConnTable[startVertex.label][endVertex.label]) > 0:
+            for count, item in enumerate(odConnTable[startVertex.label][endVertex.label]):
                 if count == 0:
                     minLength = item[2]
                 else:
                     if item[2] < minLength:
                         minLength = item[2]
             minLength *= 1.6
-            for item in odConnMap[startVertex.label][endVertex.label]:
+            for item in odConnTable[startVertex.label][endVertex.label]:
                 if item[2] > minLength:
-                    odConnMap[startVertex.label][endVertex.label].remove(item)
+                    odConnTable[startVertex.label][endVertex.label].remove(item)
                     
 # The class is for parsing the XML input file (network file). The data parsed is written into the net.
 class NetworkReader(handler.ContentHandler):
@@ -243,13 +243,13 @@ class DistrictsReader(handler.ContentHandler):
         if name == 'district':
             self._district = ''
     
-def addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList):
+def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList):
     counts += 1.
     vehID += 1
     depart = random.randint(begin*3600, (begin + period)*3600)
-    if len(odConnMap[startVertex.label][endVertex.label]) > 0:
-        connIndex = random.randint(0, len(odConnMap[startVertex.label][endVertex.label])-1)
-        connPair = odConnMap[startVertex.label][endVertex.label][connIndex]
+    if len(odConnTable[startVertex.label][endVertex.label]) > 0:
+        connIndex = random.randint(0, len(odConnTable[startVertex.label][endVertex.label])-1)
+        connPair = odConnTable[startVertex.label][endVertex.label][connIndex]
         veh = Trip(vehID, depart, connPair[0], connPair[1], startVertex.label, endVertex.label)
         tripList.append(veh)
     
@@ -272,7 +272,7 @@ def main(options):
     matrixSum = 0.
     tripList = []
     net = Net()
-    odConnMap = {}
+    odConnTable = {}
     
     parser.setContentHandler(NetworkReader(net))
     if isBZ2:
@@ -291,20 +291,30 @@ def main(options):
         print len(net._startVertices), "start vertices read"
         print len(net._endVertices), "target vertices read"
         print 'currentMatrixSum:', currentMatrixSum
-         
-    for start, startVertex in enumerate(startVertices):
-        if startVertex.label not in odConnMap:
-            odConnMap[startVertex.label] = {}
-        for source in startVertex.sourceConnNodes:
-            targets = net.getTargets()
-            D, P = dijkstraPlain(source, targets)
-            for end, endVertex in enumerate(endVertices):
-                if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
-                    if endVertex.label not in odConnMap[startVertex.label]:
-                        odConnMap[startVertex.label][endVertex.label]= []
-                    net.checkRoute(startVertex, endVertex, start, end, P, odConnMap, source, options)
-
+        
+    if options.getconns:
+        if options.debug:
+            print 'generate odConnTable'
+        for start, startVertex in enumerate(startVertices):
+            if startVertex.label not in odConnTable:
+                odConnTable[startVertex.label] = {}
+            for source in startVertex.sourceConnNodes:
+                targets = net.getTargets()
+                D, P = dijkstraPlain(source, targets)
+                for end, endVertex in enumerate(endVertices):
+                    if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
+                        if endVertex.label not in odConnTable[startVertex.label]:
+                            odConnTable[startVertex.label][endVertex.label]= []
+                        net.checkRoute(startVertex, endVertex, start, end, P, odConnTable, source, options)
+    else:
+        if options.debug:
+            print 'import and use the given odConnTable'
+        sys.path.append(options.datadir)
+        from odConnTables import odConnTable
+        
     # output trips
+    if options.verbose:
+        print 'output the trip file'
     vehID = 0
     subVehID = 0
     random.seed(42)
@@ -327,16 +337,16 @@ def main(options):
                 counts = 0.
                 if options.odestimation:
                     if matrixPshort[start][end] < 1.:
-                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
+                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList)
                     else:
                         matrixSum += matrixPshort[start][end]
                         while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(subVehID) < matrixSum)or float(subVehID) < matrixSum:
-                            counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
+                            counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList)
                             subVehID += 1
                 else:
                     matrixSum += matrixPshort[start][end]
                     while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
-                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnMap, startVertex, endVertex, tripList)
+                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList)
     if options.debug:
         print 'total demand:', matrixSum           
         print vehID, 'trips generated' 
@@ -351,7 +361,7 @@ def main(options):
     fouttrips.write("</tripdefs>")
     fouttrips.close()
     
-    return odConnMap
+    return odConnTable
 
 if __name__ == "__main__":    
     optParser = OptionParser()
@@ -377,6 +387,8 @@ if __name__ == "__main__":
     optParser.add_option("-D", "--depart-pos", dest="departpos", type="choice",
                      choices=('random', 'free', 'random_free'),
                      default = 'free', help="choose departure position: random, free, random_free")
+    optParser.add_option("-C", "--get-connections", action="store_true", dest="getconns",   
+                     default= True, help="generate the OD connection directory, if set as False, a odConnTables.py should be available in the defined data directory")
     (options, args) = optParser.parse_args()
     
     if not options.netfile or not options.mtxfile or not options.districtfile:
