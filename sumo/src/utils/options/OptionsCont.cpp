@@ -284,7 +284,7 @@ void
 OptionsCont::relocateFiles(const std::string &configuration) const throw() {
     for (ItemAddressContType::const_iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         if ((*i)->isFileName() && (*i)->isSet()) {
-            StringTokenizer st((*i)->getString(), ";,", true);
+            StringTokenizer st((*i)->getString(), ";, ", true);
             std::string conv;
             while (st.hasNext()) {
                 if (conv.length()!=0) {
@@ -711,11 +711,8 @@ OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgumen
         MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         myHaveInformedAboutDeprecatedDivider = true;
     }
-    StringTokenizer st(def, ";,", true);
-    while (st.hasNext()) {
-        ret.push_back(st.next());
-    }
-    return ret;
+    StringTokenizer st(def, ";, ", true);
+    return st.getVector();
 }
 
 
