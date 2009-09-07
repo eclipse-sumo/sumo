@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/07/09 13:56:45 by SUMO sumo Version dev-SVN-r7675
+<configuration>
+
+    <input
+        net-file="net.net.xml"
+        route-files="input_routes.rou.xml"
+        additional-files="input_additional.add.xml"
+    />
+
+    <time
+        begin="0"
+        end="200"
+    />
+
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
+
+</configuration>
+-->
+
+<tls-switch-states>
+</tls-switch-states>

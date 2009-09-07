@@ -13,3 +13,7 @@ begin50
 # Simulation starts at 100
 begin100
 
+
+
+# Tests for error handling
+errors
