@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/17/09 14:43:34 by SUMO sumo Version dev-SVN-r7443
+<!-- generated on 09/08/09 09:27:37 by SUMO sumo Version dev-SVN-r7683
 <configuration>
 
     <input
@@ -25,136 +25,180 @@
 <netstats>
    <interval begin="0" end="150" id="dump_900">
       <edge id="0/0to0/1">
-         <lane id="0/0to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="0/0to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="0/0to1/0">
-         <lane id="0/0to1/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="0/0to1/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="0/1to0/0">
-         <lane id="0/1to0/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="0/1to0/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="0/1to0/2">
-         <lane id="0/1to0/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="0/1to0/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="0/1to1/1">
-         <lane id="0/1to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="0/1to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="0/2to0/1">
-         <lane id="0/2to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="0/2to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="0/2to1/2">
-         <lane id="0/2to1/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="0/2to1/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/0to0/0">
-         <lane id="1/0to0/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/0to0/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/0to1/1">
-         <lane id="1/0to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/0to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/0to2/0">
-         <lane id="1/0to2/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/0to2/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/1to0/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/1to1/0">
-         <lane id="1/1to1/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/1to1/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/1to1/2">
-         <lane id="1/1to1/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/1to1/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/1to2/1">
-         <lane id="1/1to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/1to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/2to0/2">
-         <lane id="1/2to0/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/2to0/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/2to1/1">
-         <lane id="1/2to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/2to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="1/2to2/2">
-         <lane id="1/2to2/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="1/2to2/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/0to1/0">
-         <lane id="2/0to1/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/0to1/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/0to2/1">
-         <lane id="2/0to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/0to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/0to3/0">
-         <lane id="2/0to3/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/0to3/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/1to1/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/1to2/0">
-         <lane id="2/1to2/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/1to2/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/1to2/2">
-         <lane id="2/1to2/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/1to2/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/1to3/1">
-         <lane id="2/1to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/1to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/2to1/2">
-         <lane id="2/2to1/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/2to1/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/2to2/1">
-         <lane id="2/2to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/2to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="2/2to3/2">
-         <lane id="2/2to3/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="2/2to3/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/0to2/0">
-         <lane id="3/0to2/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/0to2/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/0to3/1">
-         <lane id="3/0to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/0to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/0to4/0">
-         <lane id="3/0to4/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/0to4/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/1to2/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/1to3/0">
-         <lane id="3/1to3/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/1to3/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/1to3/2">
-         <lane id="3/1to3/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/1to3/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/1to4/1">
-         <lane id="3/1to4/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/1to4/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/2to2/2">
-         <lane id="3/2to2/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/2to2/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/2to3/1">
-         <lane id="3/2to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/2to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="3/2to4/2">
-         <lane id="3/2to4/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="3/2to4/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="4/0to3/0">
-         <lane id="4/0to3/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="4/0to3/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="4/0to4/1">
-         <lane id="4/0to4/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="4/0to4/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="4/1to3/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="4/1to4/0">
-         <lane id="4/1to4/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="4/1to4/0_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="4/1to4/2">
-         <lane id="4/1to4/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="4/1to4/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="4/2to3/2">
-         <lane id="4/2to3/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="4/2to3/2_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
       <edge id="4/2to4/1">
-         <lane id="4/2to4/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00" CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
+         <lane id="4/2to4/1_0" sampledSeconds="0.00" CO_abs="0.00" CO2_abs="0.00" HC_abs="0.00" PMx_abs="0.00" NOx_abs="0.00" fuel_abs="0.00"
+            CO_normed="0.00" CO2_normed="0.00" HC_normed="0.00" PMx_normed="0.00" NOx_normed="0.00" fuel_normed="0.00"/>
       </edge>
    </interval>
 </netstats>

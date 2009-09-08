@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/17/09 14:59:54 by SUMO sumo Version dev-SVN-r7443
+<!-- generated on 09/08/09 09:27:46 by SUMO sumo Version dev-SVN-r7683
 <configuration>
 
     <input
@@ -28,10 +28,14 @@
 <netstats>
    <interval begin="600" end="660" id="dump_60">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="3120.00" CO_abs="19879.68" CO2_abs="1877260.75" HC_abs="1090.17" PMx_abs="66.33" NOx_abs="2619.21" fuel_abs="748.46" CO_normed="3054.50" CO2_normed="288439.56" HC_normed="167.50" PMx_normed="10.19" NOx_normed="402.44" fuel_normed="115.00" CO_perVeh="5697651712.00" CO2_perVeh="538035650560.00" HC_perVeh="312449568.00" PMx_perVeh="19011998.00" NOx_perVeh="750683008.00" fuel_perVeh="214512800.00"/>
+         <lane id="3/1to2/1_0" sampledSeconds="3120.00" CO_abs="19879.68" CO2_abs="1877260.75" HC_abs="1090.17" PMx_abs="66.33" NOx_abs="2619.21" fuel_abs="748.46"
+            CO_normed="3054.50" CO2_normed="288439.56" HC_normed="167.50" PMx_normed="10.19" NOx_normed="402.44" fuel_normed="115.00"
+            CO_perVeh="5697651712.00" CO2_perVeh="538035650560.00" HC_perVeh="312449568.00" PMx_perVeh="19011998.00" NOx_perVeh="750683008.00" fuel_perVeh="214512800.00"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="1560.00" CO_abs="9939.57" CO2_abs="938632.81" HC_abs="545.10" PMx_abs="33.17" NOx_abs="1309.63" fuel_abs="374.21" CO_normed="1527.21" CO2_normed="144220.16" HC_normed="83.75" PMx_normed="5.10" NOx_normed="201.22" fuel_normed="57.50" CO_perVeh="-21999722496.00" CO2_perVeh="-2077521477632.00" HC_perVeh="-1206496896.00" PMx_perVeh="-73412680.00" NOx_perVeh="-2898673408.00" fuel_perVeh="-828268032.00"/>
+         <lane id="4/1to3/1_0" sampledSeconds="1560.00" CO_abs="9939.57" CO2_abs="938632.81" HC_abs="545.10" PMx_abs="33.17" NOx_abs="1309.63" fuel_abs="374.21"
+            CO_normed="1527.21" CO2_normed="144220.16" HC_normed="83.75" PMx_normed="5.10" NOx_normed="201.22" fuel_normed="57.50"
+            CO_perVeh="-21999722496.00" CO2_perVeh="-2077521477632.00" HC_perVeh="-1206496896.00" PMx_perVeh="-73412680.00" NOx_perVeh="-2898673408.00" fuel_perVeh="-828268032.00"/>
       </edge>
    </interval>
 </netstats>
