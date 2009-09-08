@@ -19,5 +19,6 @@ ROTypedXMLRoutesLoader.cpp ROTypedXMLRoutesLoader.h \
 ROVehicle.cpp ROVehicle.h \
 ROVehicleCont.cpp ROVehicleCont.h \
 ROVehicleType.cpp ROVehicleType.h \
-ROVehicleType_ID.cpp ROVehicleType_ID.h ROVehicleType_Krauss.cpp ROVehicleType_Krauss.h
+ROVehicleType_ID.cpp ROVehicleType_ID.h ROVehicleType_Krauss.cpp \
+ROVehicleType_Krauss.h ROVehicleType_IDM.cpp ROVehicleType_IDM.h
 

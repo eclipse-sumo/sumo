@@ -71,7 +71,7 @@ public:
      * @param[in] vclass The vehicle class of vehicles of this type
      */
     ROVehicleType(const std::string &id, const std::string &col,
-                  SUMOReal length, SUMOVehicleClass vclass) throw();
+                  SUMOReal length, SUMOReal maxSpeed, SUMOVehicleClass vclass) throw();
 
 
     /// @brief Destructor
@@ -106,6 +106,13 @@ public:
         return myLength;
     }
 
+    /** @brief Returns the maximum speed the vehicles of this type have
+     *
+     * @return the maximum speed of vehicles of this type
+     */
+    SUMOReal getMaxSpeed() const throw() {
+        return myMaxSpeed;
+    }
 
     /** @brief Returns the class of the vehicle
      *
@@ -125,6 +132,9 @@ protected:
 
     /// @brief The length of vehicles of this type
     SUMOReal myLength;
+
+    /// @brief The maximum velocity of vehicles of this type
+    SUMOReal myMaxSpeed;
 
     /// @brief The class of vehicles of this type
     SUMOVehicleClass myClass;

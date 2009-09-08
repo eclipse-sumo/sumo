@@ -1,10 +1,11 @@
+
 /****************************************************************************/
-/// @file    ROVehicleType_Krauss.cpp
-/// @author  Daniel Krajzewicz
-/// @date    Sept 2002
+/// @file    ROVehicleType_IDM.cpp
+/// @author  Tobias Mayer
+/// @date    Jun 2009
 /// @version $Id$
 ///
-// A Krauss vehicle type
+// A IDM vehicle type
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -30,7 +31,7 @@
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
-#include "ROVehicleType_Krauss.h"
+#include "ROVehicleType_IDM.h"
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -47,28 +48,42 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
+ROVehicleType_IDM::ROVehicleType_IDM(const std::string &id,
+        const std::string &col, SUMOReal length, SUMOVehicleClass vclass,
+        SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed)
+        throw()
+        : ROVehicleType(id, col, length, maxSpeed, vclass), myA(a), myB(b), myEps(eps)
+        {
+             myDelta = 4.0;
+             myMinBtoBDistance = 33.0;
+             myTimeHeadWay = 1.5;
+        }
+
+ROVehicleType_IDM::ROVehicleType_IDM(const std::string &id,
         const std::string &col, SUMOReal length, SUMOVehicleClass vclass,
         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
-        SUMOReal tau) throw()
+        SUMOReal timeHeadWay, SUMOReal minBtoBDistance, SUMOReal delta) throw()
         : ROVehicleType(id, col, length, maxSpeed, vclass), myA(a), myB(b), myEps(eps),
-        myTau(tau) {}
+        myTimeHeadWay(timeHeadWay), myMinBtoBDistance(minBtoBDistance),
+        myDelta(delta) {}
 
 
-ROVehicleType_Krauss::~ROVehicleType_Krauss() throw() {}
+ROVehicleType_IDM::~ROVehicleType_IDM() throw() {}
 
 
 OutputDevice &
-ROVehicleType_Krauss::writeXMLDefinition(OutputDevice &dev) const {
+ROVehicleType_IDM::writeXMLDefinition(OutputDevice &dev) const {
     dev << "   ";
-    dev << "<vtype model=\"SUMO_KRAUSS\""
+    dev << "<vtype model=\"SUMO_IDM\""
     << " id=\"" << myID << "\""
     << " accel=\"" << myA << "\""
     << " decel=\"" << myB << "\""
     << " sigma=\"" << myEps << "\""
     << " length=\"" << myLength << "\""
     << " maxspeed=\"" << myMaxSpeed << "\""
-    << " tau=\"" << myTau << "\"";
+    << " minBtoBDistance=\"" << myMinBtoBDistance << "\""
+    << " timeHeadWay=\"" << myTimeHeadWay << "\""
+    << " delta=\"" << myDelta << "\"";
     if (myColor!="") {
         dev << " color=\"" << myColor << "\"";
     }

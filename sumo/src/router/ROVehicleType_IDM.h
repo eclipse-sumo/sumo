@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    ROVehicleType_Krauss.h
-/// @author  Daniel Krajzewicz
-/// @date    Sept 2002
+/// @file    ROVehicleType_IDM.h
+/// @author  Tobias Mayer
+/// @date    Jun 2009
 /// @version $Id$
 ///
-// A Krauss vehicle type
+// An IDM vehicle type
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef ROVehicleType_Krauss_h
-#define ROVehicleType_Krauss_h
+#ifndef ROVehicleType_IDM_h
+#define ROVehicleType_IDM_h
 
 
 // ===========================================================================
@@ -38,12 +38,11 @@
 // class definitions
 // ===========================================================================
 /**
- * @class ROVehicleType_Krauss
- * @brief A Krauss vehicle type
+ * @class ROVehicleType_IDM
+ * @brief An IDM vehicle type
  *
- * @todo What about set/unset type parameter?
  */
-class ROVehicleType_Krauss : public ROVehicleType {
+class ROVehicleType_IDM : public ROVehicleType {
 public:
     /** @brief Constructor
      *
@@ -57,14 +56,19 @@ public:
      * @param[in] maxSpeed The type's maximum velocity
      * @param[in] tau The type's driver reaction time
      */
-    ROVehicleType_Krauss(const std::string &id, const std::string &col,
+    ROVehicleType_IDM(const std::string &id, const std::string &col,
+                         SUMOReal length, SUMOVehicleClass vclass,
+                         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed)
+                         throw();
+
+    ROVehicleType_IDM(const std::string &id, const std::string &col,
                          SUMOReal length, SUMOVehicleClass vclass,
                          SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
-                         SUMOReal tau) throw();
+                         SUMOReal timeHeadWay, SUMOReal minBtoBDistance, SUMOReal delta) throw();
 
 
     /// @brief Destructor
-    ~ROVehicleType_Krauss() throw();
+    ~ROVehicleType_IDM() throw();
 
 
     /// @name inherited from ROVehicleType
@@ -82,16 +86,16 @@ public:
     //@}
 
 private:
-    /// @brief Krauss-parameter
-    SUMOReal myA, myB, myEps, myTau;
-
+    /// @brief IDM-parameter
+    SUMOReal myA, myB, myEps, myMinBtoBDistance, myTimeHeadWay, myDelta;
+    
 
 private:
     /// @brief Invalidated copy constructor
-    ROVehicleType_Krauss(const ROVehicleType_Krauss &src);
+    ROVehicleType_IDM(const ROVehicleType_IDM &src);
 
     /// @brief Invalidated assignment operator
-    ROVehicleType_Krauss &operator=(const ROVehicleType_Krauss &src);
+    ROVehicleType_IDM &operator=(const ROVehicleType_IDM &src);
 
 };
 
