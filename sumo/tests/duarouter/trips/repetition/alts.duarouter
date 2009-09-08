@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/03/09 15:23:50 by SUMO duarouter Version dev-SVN-r7657
+<!-- generated on 09/08/09 09:46:41 by SUMO duarouter Version dev-SVN-r7683
 <configuration>
 
     <input
@@ -18,7 +18,7 @@
 <route-alternatives>
    <vehicle id="0" depart="0" repno="9" period="1">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
 </route-alternatives>

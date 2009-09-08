@@ -106,7 +106,9 @@ RORoute::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
     dev << "<route";
     if (asAlternatives) {
         dev << " cost=\"" << myCosts;
+        dev.setPrecision(8);
         dev << "\" probability=\"" << myProbability << "\"";
+        dev.setPrecision();
     }
     if (myColor!=0) {
         dev << " color=\"" << *myColor << "\"";

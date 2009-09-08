@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/21/09 11:26:06 by SUMO duarouter Version dev-SVN-r7459
+<!-- generated on 09/08/09 09:46:45 by SUMO duarouter Version dev-SVN-r7683
 <configuration>
 
     <input
@@ -19,52 +19,52 @@
    <vtype model="SUMO_KRAUSS" id="0" accel="1.60" decel="5.50" sigma="0.90" length="7.00" maxspeed="30.00" tau="1.00" color="1,0,0"/>
    <vehicle id="0" type="0" depart="0">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="1" type="0" depart="10">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="2" type="0" depart="20">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="3" type="0" depart="30">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="4" type="0" depart="40">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="5" type="0" depart="50">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="6" type="0" depart="60">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="7" type="0" depart="70">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="8" type="0" depart="80">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
    <vehicle id="9" type="0" depart="90">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="beg middle end rend"/>
+         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>
    </vehicle>
 </route-alternatives>

@@ -264,7 +264,9 @@ RORouteDef_Alternatives::writeXMLDefinition(SUMOAbstractRouter<ROEdge,ROVehicle>
         for (size_t i=0; i!=myAlternatives.size(); i++) {
             const RORoute &alt = *(myAlternatives[i]);
             dev << "         <route cost=\"" << alt.getCosts();
+            dev.setPrecision(8);
             dev << "\" probability=\"" << alt.getProbability();
+            dev.setPrecision();
             if (alt.getColor()!=0) {
                 dev << "\" color=\"" << *alt.getColor();
             } else if (myColor!=0) {

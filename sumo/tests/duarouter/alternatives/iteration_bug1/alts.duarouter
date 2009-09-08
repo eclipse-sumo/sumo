@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/10/08 14:28:25 by SUMO duarouter Version 0.9.7
+<!-- generated on 09/08/09 09:47:30 by SUMO duarouter Version dev-SVN-r7683
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <alternatives>input_alts.rou.alt.xml</alternatives>
-      <weights>input_weights.dump.xml</weights>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        alternatives="input_alts.rou.alt.xml"
+        weights="input_weights.dump.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
-   <processing>
-      <continue-on-unbuild>true</continue-on-unbuild>
-   </processing>
+    <processing
+        continue-on-unbuild="true"
+    />
 
-   <time>
-      <begin>0</begin>
-      <end>86400</end>
-   </time>
+    <time
+        begin="0"
+        end="86400"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
@@ -33,7 +33,7 @@
    <vtype model="SUMO_KRAUSS" id="CarA" accel="2.00" decel="6.00" sigma="0.00" length="2.00" maxspeed="180.00" tau="1.00"/>
    <vehicle id="veh0" type="CarA" depart="1" color="1.00,0.00,0.00">
       <routeDistribution last="0">
-         <route cost="223.22" probability="1.00" color="1.00,0.00,0.00" edges="L1 L9 L17 L26"/>
+         <route cost="223.22" probability="1.00000000" color="1.00,0.00,0.00" edges="L1 L9 L17 L26"/>
       </routeDistribution>
    </vehicle>
 </route-alternatives>

@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/16/08 09:50:20 by SUMO duarouter Version dev-SVN-r6410
+<!-- generated on 09/08/09 09:47:38 by SUMO duarouter Version dev-SVN-r7683
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <trip-defs>input_trips.trips.xml</trip-defs>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        trip-defs="input_trips.trips.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
 </configuration>
 -->
@@ -19,7 +19,7 @@
    <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="7.50" maxspeed="70.00" tau="1.00"/>
    <vehicle id="0" type="0" depart="0">
       <routeDistribution last="0">
-         <route cost="125.11" probability="1.00" edges="absBeg middle end absEnd"/>
+         <route cost="125.11" probability="1.00000000" edges="absBeg middle end absEnd"/>
       </routeDistribution>
    </vehicle>
 </route-alternatives>
