@@ -1,0 +1,1 @@
+assign/costFunctionChecker.py -n input_net.net.xml -t input_trips.trips.xml -c costFunction.w

@@ -1,2 +1,5 @@
 # DUA iteration tests
 dua-iterate
+
+# DUA cost function tests
+costFunctionChecker

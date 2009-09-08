@@ -6,6 +6,7 @@ copy_test_path:input_net.net.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:tracefile.xml
 copy_test_path:input_weights.dump.xml
+copy_test_path:costFunction.py
 
 [collate_file]
 detectors:input_nete2.det.xml

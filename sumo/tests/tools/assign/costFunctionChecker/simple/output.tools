@@ -1,0 +1,551 @@
+> Executing step 0
+>> Running router with input_trips.trips.xml
+>>> Begin time 2009-09-08 22:53:27.266880
+>>> End time 2009-09-08 22:53:27.282061
+>>> Duration 0:00:00.015181
+<<
+>> Generating weights
+<<
+< Step 0 ended (duration: 0:00:00.016479)
+------------------
+
+> Executing step 1
+>> Running router with input_trips_0.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.283597
+>>> End time 2009-09-08 22:53:27.299445
+>>> Duration 0:00:00.015848
+<<
+>> Generating weights
+<<
+< Step 1 ended (duration: 0:00:00.017167)
+------------------
+
+> Executing step 2
+>> Running router with input_trips_1.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.300787
+>>> End time 2009-09-08 22:53:27.316816
+>>> Duration 0:00:00.016029
+<<
+>> Generating weights
+<<
+< Step 2 ended (duration: 0:00:00.017280)
+------------------
+
+> Executing step 3
+>> Running router with input_trips_2.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.318123
+>>> End time 2009-09-08 22:53:27.337947
+>>> Duration 0:00:00.019824
+<<
+>> Generating weights
+<<
+< Step 3 ended (duration: 0:00:00.021069)
+------------------
+
+> Executing step 4
+>> Running router with input_trips_3.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.339252
+>>> End time 2009-09-08 22:53:27.355605
+>>> Duration 0:00:00.016353
+<<
+>> Generating weights
+<<
+< Step 4 ended (duration: 0:00:00.017626)
+------------------
+
+> Executing step 5
+>> Running router with input_trips_4.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.356937
+>>> End time 2009-09-08 22:53:27.372996
+>>> Duration 0:00:00.016059
+<<
+>> Generating weights
+<<
+< Step 5 ended (duration: 0:00:00.017316)
+------------------
+
+> Executing step 6
+>> Running router with input_trips_5.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.374311
+>>> End time 2009-09-08 22:53:27.413853
+>>> Duration 0:00:00.039542
+<<
+>> Generating weights
+<<
+< Step 6 ended (duration: 0:00:00.040840)
+------------------
+
+> Executing step 7
+>> Running router with input_trips_6.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.415215
+>>> End time 2009-09-08 22:53:27.431255
+>>> Duration 0:00:00.016040
+<<
+>> Generating weights
+<<
+< Step 7 ended (duration: 0:00:00.017316)
+------------------
+
+> Executing step 8
+>> Running router with input_trips_7.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.432620
+>>> End time 2009-09-08 22:53:27.448767
+>>> Duration 0:00:00.016147
+<<
+>> Generating weights
+<<
+< Step 8 ended (duration: 0:00:00.017450)
+------------------
+
+> Executing step 9
+>> Running router with input_trips_8.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.450098
+>>> End time 2009-09-08 22:53:27.466676
+>>> Duration 0:00:00.016578
+<<
+>> Generating weights
+<<
+< Step 9 ended (duration: 0:00:00.017879)
+------------------
+
+> Executing step 10
+>> Running router with input_trips_9.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.468034
+>>> End time 2009-09-08 22:53:27.484349
+>>> Duration 0:00:00.016315
+<<
+>> Generating weights
+<<
+< Step 10 ended (duration: 0:00:00.017579)
+------------------
+
+> Executing step 11
+>> Running router with input_trips_10.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.485709
+>>> End time 2009-09-08 22:53:27.501843
+>>> Duration 0:00:00.016134
+<<
+>> Generating weights
+<<
+< Step 11 ended (duration: 0:00:00.017466)
+------------------
+
+> Executing step 12
+>> Running router with input_trips_11.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.503234
+>>> End time 2009-09-08 22:53:27.519872
+>>> Duration 0:00:00.016638
+<<
+>> Generating weights
+<<
+< Step 12 ended (duration: 0:00:00.017890)
+------------------
+
+> Executing step 13
+>> Running router with input_trips_12.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.521179
+>>> End time 2009-09-08 22:53:27.537252
+>>> Duration 0:00:00.016073
+<<
+>> Generating weights
+<<
+< Step 13 ended (duration: 0:00:00.017324)
+------------------
+
+> Executing step 14
+>> Running router with input_trips_13.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.538593
+>>> End time 2009-09-08 22:53:27.554853
+>>> Duration 0:00:00.016260
+<<
+>> Generating weights
+<<
+< Step 14 ended (duration: 0:00:00.017690)
+------------------
+
+> Executing step 15
+>> Running router with input_trips_14.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.556345
+>>> End time 2009-09-08 22:53:27.572442
+>>> Duration 0:00:00.016097
+<<
+>> Generating weights
+<<
+< Step 15 ended (duration: 0:00:00.017382)
+------------------
+
+> Executing step 16
+>> Running router with input_trips_15.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.573810
+>>> End time 2009-09-08 22:53:27.590271
+>>> Duration 0:00:00.016461
+<<
+>> Generating weights
+<<
+< Step 16 ended (duration: 0:00:00.017747)
+------------------
+
+> Executing step 17
+>> Running router with input_trips_16.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.591616
+>>> End time 2009-09-08 22:53:27.607883
+>>> Duration 0:00:00.016267
+<<
+>> Generating weights
+<<
+< Step 17 ended (duration: 0:00:00.017519)
+------------------
+
+> Executing step 18
+>> Running router with input_trips_17.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.609192
+>>> End time 2009-09-08 22:53:27.625178
+>>> Duration 0:00:00.015986
+<<
+>> Generating weights
+<<
+< Step 18 ended (duration: 0:00:00.017263)
+------------------
+
+> Executing step 19
+>> Running router with input_trips_18.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.626544
+>>> End time 2009-09-08 22:53:27.642564
+>>> Duration 0:00:00.016020
+<<
+>> Generating weights
+<<
+< Step 19 ended (duration: 0:00:00.017317)
+------------------
+
+> Executing step 20
+>> Running router with input_trips_19.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.643891
+>>> End time 2009-09-08 22:53:27.660167
+>>> Duration 0:00:00.016276
+<<
+>> Generating weights
+<<
+< Step 20 ended (duration: 0:00:00.017531)
+------------------
+
+> Executing step 21
+>> Running router with input_trips_20.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.661479
+>>> End time 2009-09-08 22:53:27.677666
+>>> Duration 0:00:00.016187
+<<
+>> Generating weights
+<<
+< Step 21 ended (duration: 0:00:00.017493)
+------------------
+
+> Executing step 22
+>> Running router with input_trips_21.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.679032
+>>> End time 2009-09-08 22:53:27.695168
+>>> Duration 0:00:00.016136
+<<
+>> Generating weights
+<<
+< Step 22 ended (duration: 0:00:00.017445)
+------------------
+
+> Executing step 23
+>> Running router with input_trips_22.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.696574
+>>> End time 2009-09-08 22:53:27.712741
+>>> Duration 0:00:00.016167
+<<
+>> Generating weights
+<<
+< Step 23 ended (duration: 0:00:00.017423)
+------------------
+
+> Executing step 24
+>> Running router with input_trips_23.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.714054
+>>> End time 2009-09-08 22:53:27.730202
+>>> Duration 0:00:00.016148
+<<
+>> Generating weights
+<<
+< Step 24 ended (duration: 0:00:00.017443)
+------------------
+
+> Executing step 25
+>> Running router with input_trips_24.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.731587
+>>> End time 2009-09-08 22:53:27.747905
+>>> Duration 0:00:00.016318
+<<
+>> Generating weights
+<<
+< Step 25 ended (duration: 0:00:00.017627)
+------------------
+
+> Executing step 26
+>> Running router with input_trips_25.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.749243
+>>> End time 2009-09-08 22:53:27.765634
+>>> Duration 0:00:00.016391
+<<
+>> Generating weights
+<<
+< Step 26 ended (duration: 0:00:00.017694)
+------------------
+
+> Executing step 27
+>> Running router with input_trips_26.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.766996
+>>> End time 2009-09-08 22:53:27.783655
+>>> Duration 0:00:00.016659
+<<
+>> Generating weights
+<<
+< Step 27 ended (duration: 0:00:00.017961)
+------------------
+
+> Executing step 28
+>> Running router with input_trips_27.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.785017
+>>> End time 2009-09-08 22:53:27.801106
+>>> Duration 0:00:00.016089
+<<
+>> Generating weights
+<<
+< Step 28 ended (duration: 0:00:00.017390)
+------------------
+
+> Executing step 29
+>> Running router with input_trips_28.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.802468
+>>> End time 2009-09-08 22:53:27.818584
+>>> Duration 0:00:00.016116
+<<
+>> Generating weights
+<<
+< Step 29 ended (duration: 0:00:00.017459)
+------------------
+
+> Executing step 30
+>> Running router with input_trips_29.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.819988
+>>> End time 2009-09-08 22:53:27.836089
+>>> Duration 0:00:00.016101
+<<
+>> Generating weights
+<<
+< Step 30 ended (duration: 0:00:00.017446)
+------------------
+
+> Executing step 31
+>> Running router with input_trips_30.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.837519
+>>> End time 2009-09-08 22:53:27.853748
+>>> Duration 0:00:00.016229
+<<
+>> Generating weights
+<<
+< Step 31 ended (duration: 0:00:00.017496)
+------------------
+
+> Executing step 32
+>> Running router with input_trips_31.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.855073
+>>> End time 2009-09-08 22:53:27.871613
+>>> Duration 0:00:00.016540
+<<
+>> Generating weights
+<<
+< Step 32 ended (duration: 0:00:00.017787)
+------------------
+
+> Executing step 33
+>> Running router with input_trips_32.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.872916
+>>> End time 2009-09-08 22:53:27.889265
+>>> Duration 0:00:00.016349
+<<
+>> Generating weights
+<<
+< Step 33 ended (duration: 0:00:00.017633)
+------------------
+
+> Executing step 34
+>> Running router with input_trips_33.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.890608
+>>> End time 2009-09-08 22:53:27.906825
+>>> Duration 0:00:00.016217
+<<
+>> Generating weights
+<<
+< Step 34 ended (duration: 0:00:00.017530)
+------------------
+
+> Executing step 35
+>> Running router with input_trips_34.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.908200
+>>> End time 2009-09-08 22:53:27.924414
+>>> Duration 0:00:00.016214
+<<
+>> Generating weights
+<<
+< Step 35 ended (duration: 0:00:00.017494)
+------------------
+
+> Executing step 36
+>> Running router with input_trips_35.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.925751
+>>> End time 2009-09-08 22:53:27.941843
+>>> Duration 0:00:00.016092
+<<
+>> Generating weights
+<<
+< Step 36 ended (duration: 0:00:00.017364)
+------------------
+
+> Executing step 37
+>> Running router with input_trips_36.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.943176
+>>> End time 2009-09-08 22:53:27.959507
+>>> Duration 0:00:00.016331
+<<
+>> Generating weights
+<<
+< Step 37 ended (duration: 0:00:00.017622)
+------------------
+
+> Executing step 38
+>> Running router with input_trips_37.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.960856
+>>> End time 2009-09-08 22:53:27.976913
+>>> Duration 0:00:00.016057
+<<
+>> Generating weights
+<<
+< Step 38 ended (duration: 0:00:00.017347)
+------------------
+
+> Executing step 39
+>> Running router with input_trips_38.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.978262
+>>> End time 2009-09-08 22:53:27.994593
+>>> Duration 0:00:00.016331
+<<
+>> Generating weights
+<<
+< Step 39 ended (duration: 0:00:00.017655)
+------------------
+
+> Executing step 40
+>> Running router with input_trips_39.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:27.995979
+>>> End time 2009-09-08 22:53:28.012456
+>>> Duration 0:00:00.016477
+<<
+>> Generating weights
+<<
+< Step 40 ended (duration: 0:00:00.017749)
+------------------
+
+> Executing step 41
+>> Running router with input_trips_40.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.013791
+>>> End time 2009-09-08 22:53:28.030040
+>>> Duration 0:00:00.016249
+<<
+>> Generating weights
+<<
+< Step 41 ended (duration: 0:00:00.017508)
+------------------
+
+> Executing step 42
+>> Running router with input_trips_41.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.031383
+>>> End time 2009-09-08 22:53:28.047650
+>>> Duration 0:00:00.016267
+<<
+>> Generating weights
+<<
+< Step 42 ended (duration: 0:00:00.017552)
+------------------
+
+> Executing step 43
+>> Running router with input_trips_42.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.048965
+>>> End time 2009-09-08 22:53:28.065224
+>>> Duration 0:00:00.016259
+<<
+>> Generating weights
+<<
+< Step 43 ended (duration: 0:00:00.017514)
+------------------
+
+> Executing step 44
+>> Running router with input_trips_43.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.066538
+>>> End time 2009-09-08 22:53:28.082656
+>>> Duration 0:00:00.016118
+<<
+>> Generating weights
+<<
+< Step 44 ended (duration: 0:00:00.017553)
+------------------
+
+> Executing step 45
+>> Running router with input_trips_44.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.084157
+>>> End time 2009-09-08 22:53:28.100487
+>>> Duration 0:00:00.016330
+<<
+>> Generating weights
+<<
+< Step 45 ended (duration: 0:00:00.017617)
+------------------
+
+> Executing step 46
+>> Running router with input_trips_45.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.101859
+>>> End time 2009-09-08 22:53:28.117920
+>>> Duration 0:00:00.016061
+<<
+>> Generating weights
+<<
+< Step 46 ended (duration: 0:00:00.017329)
+------------------
+
+> Executing step 47
+>> Running router with input_trips_46.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.119246
+>>> End time 2009-09-08 22:53:28.135532
+>>> Duration 0:00:00.016286
+<<
+>> Generating weights
+<<
+< Step 47 ended (duration: 0:00:00.017640)
+------------------
+
+> Executing step 48
+>> Running router with input_trips_47.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.136945
+>>> End time 2009-09-08 22:53:28.153039
+>>> Duration 0:00:00.016094
+<<
+>> Generating weights
+<<
+< Step 48 ended (duration: 0:00:00.017355)
+------------------
+
+> Executing step 49
+>> Running router with input_trips_48.rou.alt.xml
+>>> Begin time 2009-09-08 22:53:28.154360
+>>> End time 2009-09-08 22:53:28.170728
+>>> Duration 0:00:00.016368
+<<
+>> Generating weights
+<<
+< Step 49 ended (duration: 0:00:00.017644)
+------------------
+
+dua-iterate ended (duration: 0:00:00.905236)
