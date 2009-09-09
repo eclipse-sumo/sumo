@@ -41,10 +41,11 @@ def writeSUMOConf(step, options, files):
     />
     <process
         begin="%s"
-        end="%s"
-        route-steps="%s" """ % (add, options.begin, options.end, options.routeSteps)
+        route-steps="%s" """ % (add, options.begin, options.routeSteps)
+    if options.end:
+        print >> fd, '        end="%s"' % options.end
     if options.mesosim:
-        print >> fd, '        mesosim="x"'
+        print >> fd, '        mesosim="True"'
     print >> fd, """        device.routing.probability="1"
         device.routing.period="%s"
     />
@@ -74,7 +75,7 @@ optParser.add_option("-t", "--trips", dest="trips",
 optParser.add_option("-b", "--begin", dest="begin",
                      type="int", default=0, help="Set simulation/routing begin")
 optParser.add_option("-e", "--end", dest="end",
-                     type="int", default=86400, help="Set simulation/routing end")
+                     type="int", help="Set simulation/routing end")
 optParser.add_option("-R", "--route-steps", dest="routeSteps",
                      type="int", default=200, help="Set simulation route steps")
 optParser.add_option("-a", "--aggregation", dest="aggregation",
