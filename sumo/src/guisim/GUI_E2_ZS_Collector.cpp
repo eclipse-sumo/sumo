@@ -123,7 +123,7 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
     for (int i=0; i<e; ++i) {
         const Position2D &f = myFullGeometry[i];
         const Position2D &s = myFullGeometry[i+1];
-        myShapeLengths.push_back(GeomHelper::distance(f, s));
+        myShapeLengths.push_back(f.distanceTo(s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) PI);
     }
     //

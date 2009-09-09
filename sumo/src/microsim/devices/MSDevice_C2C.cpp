@@ -159,7 +159,7 @@ MSDevice_C2C::computeLaneCells(const Position2DVector &lane, const MSEdge *edge)
     //  adding the offset of lanes)
     const Position2D &beg = lane.getBegin();
     const Position2D &end = lane.getEnd();
-    SUMOReal length = GeomHelper::distance(beg, end);
+    SUMOReal length = beg.distanceTo(end);
     std::pair<SUMOReal, SUMOReal> offsets(0, 0);
     if (length!=0) {
         offsets = GeomHelper::getNormal90D_CW(beg, end, length, 3.5 / 2.0);

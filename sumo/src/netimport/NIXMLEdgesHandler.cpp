@@ -172,7 +172,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // check whether a previously defined edge shall be overwritten
         if (myCurrentEdge!=0) {
             myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                  myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
+                                  myCurrentLaneNo, myCurrentPriority, myShape,
                                   myLanesSpread);
         } else {
             // the edge must be allocated in dependence to whether a shape is given
@@ -181,7 +181,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                                            myCurrentLaneNo, myCurrentPriority, myLanesSpread);
             } else {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
-                                           myCurrentLaneNo, myCurrentPriority, myShape, !myOptions.getBool("add-node-positions"),
+                                           myCurrentLaneNo, myCurrentPriority, myShape,
                                            myLanesSpread);
             }
             myCurrentEdge->setLoadedLength(myLength);

@@ -146,8 +146,7 @@ public:
 
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-                                  NBEdgeCont &ec, SUMOReal offset,
-                                  bool tryIgnoreNodePositions);
+                                  NBEdgeCont &ec, SUMOReal offset);
 
     static void dict_propagateSpeeds(/* NBDistribution &dc */);
 
@@ -176,11 +175,10 @@ private:
      * @param[in] nc The node container used for (optionally) building this edge's nodes
      * @param[in] ec The edge control to add this edge to
      * @param[in] sameNodesOffset Offset used to discriminate nodes
-     * @param[in] tryIgnoreNodePositions Whether node positions shall not be added to the edge's geomatry
      * @exception ProcessError If one of the built nodes or edges could not be added to the according container
      */
     void buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc,
-                     NBEdgeCont &ec, SUMOReal sameNodesOffset, bool tryIgnoreNodePositions) throw(ProcessError);
+                     NBEdgeCont &ec, SUMOReal sameNodesOffset) throw(ProcessError);
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>

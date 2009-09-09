@@ -209,8 +209,7 @@ NILoader::loadDlrNavteq(OptionsCont &oc) {
     file = oc.getString("dlr-navteq") + "_links_unsplitted.txt";
     // parse the file
     NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
-                                  myNetBuilder.getEdgeCont(), file, myGeoms,
-                                  !oc.getBool("add-node-positions"));
+                                  myNetBuilder.getEdgeCont(), file, myGeoms);
     if (!useLineReader(lr, file, handler2)) {
         throw ProcessError();
     }

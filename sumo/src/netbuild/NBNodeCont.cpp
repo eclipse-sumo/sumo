@@ -186,7 +186,7 @@ NBNodeCont::generateNodeClusters(SUMOReal maxDist, std::vector<std::set<NBNode*>
                 if (visited.find(s)!=visited.end()) {
                     continue;
                 }
-                if (GeomHelper::distance(n->getPosition(), s->getPosition())<maxDist) {
+                if (n->getPosition().distanceTo(s->getPosition())<maxDist) {
                     toProc.push_back(s);
                 }
             }
@@ -1024,7 +1024,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             checkHighwayRampOrder(inc_highway, inc_ramp);
             checkHighwayRampOrder(out_highway, out_ramp);
 
-            if (100>GeomHelper::distance(inc_highway->getToNode()->getPosition(), inc_ramp->getGeometry()[-1])) {
+            if (100>inc_highway->getToNode()->getPosition().distanceTo(inc_ramp->getGeometry()[-1])) {
                 Position2DVector tmp = inc_ramp->getGeometry();
                 tmp.eraseAt(-1);
                 inc_ramp->setGeometry(tmp);

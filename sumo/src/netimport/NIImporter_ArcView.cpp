@@ -271,7 +271,7 @@ NIImporter_ArcView::load() {
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, from, to, type, speed, nolanes,
-                                          priority, shape, !myOptions.getBool("add-node-positions"), spread);
+                                          priority, shape, spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
@@ -285,7 +285,7 @@ NIImporter_ArcView::load() {
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, to, from, type, speed, nolanes,
-                                          priority, shape.reverse(), !myOptions.getBool("add-node-positions"), spread);
+                                          priority, shape.reverse(), spread);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }

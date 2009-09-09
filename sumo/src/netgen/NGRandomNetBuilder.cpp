@@ -143,7 +143,7 @@ NGRandomNetBuilder::canConnect(NGNode *baseNode, NGNode *newNode) throw() {
 
     // check for range between Basenode and Newnode
     if (connectable) {
-        SUMOReal dist = GeomHelper::distance(n1, n2);
+        SUMOReal dist = n1.distanceTo(n2);
         if ((dist < myMinDistance) || (dist > myMaxDistance)) {
             connectable = false;
         }
@@ -169,7 +169,7 @@ NGRandomNetBuilder::canConnect(NGNode *baseNode, NGNode *newNode) throw() {
             // check NewNode-To-Links distance only, if NewNode isn't part of link
             if ((connectable) &&
                     (newNode != (*li)->getStartNode()) && (newNode != (*li)->getEndNode())) {
-                SUMOReal dist = GeomHelper::DistancePointLine(n2, p1, p2);
+                SUMOReal dist = GeomHelper::distancePointLine(n2, p1, p2);
                 if ((dist < myMinDistance) && (dist > -1))
                     connectable = false;
             }

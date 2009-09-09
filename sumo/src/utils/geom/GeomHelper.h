@@ -52,31 +52,10 @@ public:
     static bool intersects(const Position2D &p11, const Position2D &p12,
                            const Position2D &p21, const Position2D &p22);
 
-    /// Returns the distance between both points
-    static SUMOReal distance(const Position2D &p1, const Position2D &p2);
-    /*
-        static Position2DVector::const_iterator
-            find_intersecting_line(const Position2D &p1, const Position2D &p2,
-            const Position2DVector &poly, Position2DVector::const_iterator beg);
-    */
-    /*
-    static Position2D intersection_position(const Position2D &p1,
-        const Position2D &p2, const Position2DVector &poly,
-        Position2DVector::const_iterator at);
-        */
     static Position2D intersection_position(const Position2D &p11,
                                             const Position2D &p12, const Position2D &p21, const Position2D &p22);
 
-//    static bool isWithin(const Position2DVector &poly, const Position2D &p);
     static SUMOReal Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
-    /*
-        static Position2D position_at_length_position(
-            const Position2DVector &poly, SUMOReal pos);
-            */
-    /*
-        static Position2D position_at_length_position(const Position2D &p1,
-            const Position2D &p2, SUMOReal pos);
-    */
 
     static Position2D interpolate(const Position2D &p1,
                                   const Position2D &p2, SUMOReal length);
@@ -92,18 +71,15 @@ public:
         const Position2D &p);
 
     /** by Damian Coventry */
-    static SUMOReal Magnitude(const Position2D &Point1,
-                              const Position2D &Point2);
-    /** by Damian Coventry */
-    static SUMOReal DistancePointLine(const Position2D &Point,
-                                      const Position2D &LineStart, const Position2D &LineEnd);
+    static SUMOReal distancePointLine(const Position2D &point,
+                                      const Position2D &lineStart, const Position2D &lineEnd);
 
     /**
      * Return the distance from point to line as well as the intersection point.
      * If intersection does not lie within the line segment, the  start or end point of the segment is returned
      */
-    static SUMOReal closestDistancePointLine(const Position2D &Point,
-            const Position2D &LineStart, const Position2D &LineEnd,
+    static SUMOReal closestDistancePointLine(const Position2D &point,
+            const Position2D &lineStart, const Position2D &lineEnd,
             Position2D& outIntersection);
 
     static Position2D transfer_to_side(Position2D &p,
@@ -113,9 +89,6 @@ public:
 
     static Position2D crossPoint(const Boundary &b,
                                  const Position2DVector &v);
-
-    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(SUMOReal x1, SUMOReal y1,
-            SUMOReal x2, SUMOReal y2, SUMOReal length, SUMOReal wanted_offset) throw(InvalidArgument);
 
     static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
             const Position2D &end, SUMOReal length, SUMOReal wanted_offset);
@@ -153,26 +126,6 @@ public:
      * @return The maximum distance between both angles
      */
     static SUMOReal getMaxAngleDiff(SUMOReal angle1, SUMOReal angle2) throw();
-
-
-    /*
-        static void sortAsPolyCWByAngle(Position2DVector &p);
-
-        class as_poly_cw_sorter {
-        public:
-            /// constructor
-            explicit as_poly_cw_sorter(Position2D center);
-
-        public:
-            /// comparing operation
-            int operator() (const Position2D &p1, const Position2D &p2) const;
-
-        private:
-            /// the edge to compute the relative angle of
-            Position2D myCenter;
-
-        };
-    */
 
 
 };

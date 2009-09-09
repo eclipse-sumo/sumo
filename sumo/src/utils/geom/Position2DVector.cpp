@@ -216,7 +216,7 @@ Position2DVector::positionAtLengthPosition(SUMOReal pos) const {
     ContType::const_iterator i=myCont.begin();
     SUMOReal seenLength = 0;
     do {
-        SUMOReal nextLength = GeomHelper::distance(*i, *(i+1));
+        SUMOReal nextLength = (*i).distanceTo(*(i+1));
         if (seenLength+nextLength>pos) {
             return positionAtLengthPosition(*i, *(i+1), pos-seenLength);
         }
@@ -233,7 +233,7 @@ Position2DVector::rotationDegreeAtLengthPosition(SUMOReal pos) const {
     ContType::const_iterator i=myCont.begin();
     SUMOReal seenLength = 0;
     do {
-        SUMOReal nextLength = GeomHelper::distance(*i, *(i+1));
+        SUMOReal nextLength = (*i).distanceTo(*(i+1));
         if (seenLength+nextLength>pos) {
             Line2D l(*i, *(i+1));
             return l.atan2DegreeAngle();
@@ -251,7 +251,7 @@ Position2D
 Position2DVector::positionAtLengthPosition(const Position2D &p1,
         const Position2D &p2,
         SUMOReal pos) {
-    SUMOReal dist = GeomHelper::distance(p1, p2);
+    SUMOReal dist = p1.distanceTo(p2);
     if (dist<pos) {
         return Position2D(-1, -1);
     }
@@ -296,7 +296,7 @@ SUMOReal
 Position2DVector::length() const {
     SUMOReal len = 0;
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
-        len += GeomHelper::distance(*i, *(i+1));
+        len += (*i).distanceTo(*(i+1));
     }
     return len;
 }
@@ -348,7 +348,7 @@ Position2DVector::splitAt(SUMOReal where) const {
     do {
         last = curr;
         curr = *i;
-        currdist = GeomHelper::distance(last, curr);
+        currdist = last.distanceTo(curr);
         if (seen+currdist<where&&i!=myCont.begin()+1) {
             one.push_back(last);
         }
@@ -505,12 +505,12 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
 
 int
 Position2DVector::appendWithCrossingPoint(const Position2DVector &v) {
-    if (GeomHelper::distance(myCont[myCont.size()-1], v.myCont[0])<2) { // !!! heuristic
+    if (myCont.back().distanceTo(v.myCont[0])<2) { // !!! heuristic
         copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
         return 1;
     }
     //
-    Line2D l1(myCont[myCont.size()-2], myCont[myCont.size()-1]);
+    Line2D l1(myCont[myCont.size()-2], myCont.back());
     l1.extrapolateBy(100);
     Line2D l2(v.myCont[0], v.myCont[1]);
     l2.extrapolateBy(100);
@@ -541,14 +541,14 @@ Position2DVector::getSubpart(SUMOReal begin, SUMOReal end) const {
     // skip previous segments
     while ((i+1)!=myCont.end()
             &&
-            seen+GeomHelper::distance((*i), *(i+1))<begin) {
-        seen += GeomHelper::distance((*i), *(i+1));
+            seen+(*i).distanceTo(*(i+1))<begin) {
+        seen += (*i).distanceTo(*(i+1));
         i++;
     }
     // append segments in between
     while ((i+1)!=myCont.end()
             &&
-            seen+GeomHelper::distance((*i), *(i+1))<end) {
+            seen+(*i).distanceTo(*(i+1))<end) {
 
         ret.push_back_noDoublePos(*(i+1));
         /*
@@ -556,7 +556,7 @@ Position2DVector::getSubpart(SUMOReal begin, SUMOReal end) const {
             ret.push_back(*(i+1));
         }
         */
-        seen += GeomHelper::distance((*i), *(i+1));
+        seen += (*i).distanceTo(*(i+1));
         i++;
     }
     // append end
@@ -571,7 +571,7 @@ Position2DVector::pruneFromBeginAt(const Position2D &p) {
     size_t pos = 0;
     SUMOReal dist = 1000000;
     size_t currPos = 0;
-    SUMOReal currDist = GeomHelper::DistancePointLine(p,
+    SUMOReal currDist = GeomHelper::distancePointLine(p,
                         GeomHelper::extrapolate_first(*(myCont.begin()), *(myCont.begin()+1), 100),
                         *(myCont.begin()+1));
 //    assert(currDist>=0);
@@ -581,7 +581,7 @@ Position2DVector::pruneFromBeginAt(const Position2D &p) {
     }
 
     for (ContType::iterator i=myCont.begin(); i!=myCont.end()-1; i++, currPos++) {
-        SUMOReal currDist = GeomHelper::DistancePointLine(p, *i, *(i+1));
+        SUMOReal currDist = GeomHelper::distancePointLine(p, *i, *(i+1));
         if (currDist>=0&&currDist<dist) {
             dist = currDist;
             pos = currPos;
@@ -615,7 +615,7 @@ Position2DVector::pruneFromEndAt(const Position2D &p) {
     size_t pos = 0;
     SUMOReal dist = 1000000;
     size_t currPos = 0;
-    SUMOReal currDist = GeomHelper::DistancePointLine(p,
+    SUMOReal currDist = GeomHelper::distancePointLine(p,
                         *(myCont.end()-1),
                         GeomHelper::extrapolate_second(*(myCont.end()-2), *(myCont.end()-1), 100));
 //    assert(currDist>=0);
@@ -625,7 +625,7 @@ Position2DVector::pruneFromEndAt(const Position2D &p) {
     }
 
     for (ContType::reverse_iterator i=myCont.rbegin(); i!=myCont.rend()-1; i++, currPos++) {
-        SUMOReal currDist = GeomHelper::DistancePointLine(p, *(i), *(i+1));
+        SUMOReal currDist = GeomHelper::distancePointLine(p, *(i), *(i+1));
         if (currDist>=0&&currDist<dist) {
             dist = currDist;
             pos = currPos;
@@ -681,13 +681,13 @@ Position2DVector::nearest_position_on_line_to_point(const Position2D &p) const {
         SUMOReal pos =
             GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
         SUMOReal dist =
-            pos < 0 ? -1 : GeomHelper::distance(p, positionAtLengthPosition(pos+seen));
+            pos < 0 ? -1 : p.distanceTo(positionAtLengthPosition(pos+seen));
         //
         if (dist>=0&&(shortestDist<0||shortestDist>dist)) {
             nearestPos = pos+seen;
             shortestDist = dist;
         }
-        seen += GeomHelper::distance(*i, *(i+1));
+        seen += (*i).distanceTo(*(i+1));
         //
     }
     return nearestPos;
@@ -702,8 +702,7 @@ Position2DVector::distance(const Position2D &p) const {
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         SUMOReal pos = seen +
                        GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
-        SUMOReal dist =
-            GeomHelper::distance(p, positionAtLengthPosition(pos));
+        SUMOReal dist = p.distanceTo(positionAtLengthPosition(pos));
         //
         if (shortestDist>dist) {
             nearestPos = pos;
@@ -742,7 +741,7 @@ Position2DVector::intersectsAtLengths(const Line2D &s) const {
         if (GeomHelper::intersects(l.p1(), l.p2(), s.p1(), s.p2())) {
             Position2D p =
                 GeomHelper::intersection_position(l.p1(), l.p2(), s.p1(), s.p2());
-            SUMOReal atLength = GeomHelper::distance(l.p1(), p);
+            SUMOReal atLength = p.distanceTo(l.p1());
             ret.push_back(atLength+pos);
         }
         pos += l.length();
@@ -776,21 +775,6 @@ Position2DVector::reverse() const {
 }
 
 
-std::pair<SUMOReal, SUMOReal>
-offset(const Position2D &from, const Position2D &to,
-       SUMOReal width) {
-    SUMOReal x1 = from.x();
-    SUMOReal y1 = from.y();
-    SUMOReal x2 = to.x();
-    SUMOReal y2 = to.y();
-    assert(x1!=x2||y1!=y2);
-    SUMOReal length = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
-    std::pair<SUMOReal, SUMOReal> offsets =
-        GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, width);
-    return offsets;
-}
-
-
 void
 Position2DVector::move2side(SUMOReal amount, int index) {
     if (index<0) {
@@ -799,19 +783,19 @@ Position2DVector::move2side(SUMOReal amount, int index) {
     if (/*i==myGeom.size()-2||*/index==0) {
         Position2D from = myCont[index];
         Position2D to = myCont[index+1];
-        std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
+        std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, to, amount);
         myCont[index] = Position2D(from.x()-offsets.first, from.y()-offsets.second);
     } else if (index==(int) myCont.size()-1) {
         Position2D from = myCont[index-1];
         Position2D to = myCont[index];
-        std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
+        std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, to, amount);
         myCont[index] = Position2D(to.x()-offsets.first, to.y()-offsets.second);
     } else {
         Position2D from = myCont[index-1];
         Position2D me = myCont[index];
         Position2D to = myCont[index+1];
-        std::pair<SUMOReal, SUMOReal> offsets = offset(from, me, amount);
-        std::pair<SUMOReal, SUMOReal> offsets2 = offset(me, to, amount);
+        std::pair<SUMOReal, SUMOReal> offsets = GeomHelper::getNormal90D_CW(from, me, amount);
+        std::pair<SUMOReal, SUMOReal> offsets2 = GeomHelper::getNormal90D_CW(me, to, amount);
         Line2D l1(
             Position2D(from.x()-offsets.first, from.y()-offsets.second),
             Position2D(me.x()-offsets.first, me.y()-offsets.second));
@@ -840,7 +824,7 @@ Position2DVector::move2side(SUMOReal amount) {
             Position2D from = myCont[i];
             Position2D to = myCont[i+1];
             std::pair<SUMOReal, SUMOReal> offsets =
-                offset(from, to, amount);
+                GeomHelper::getNormal90D_CW(from, to, amount);
             shape.push_back(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(from.x()-offsets.first, from.y()-offsets.second));
@@ -848,7 +832,7 @@ Position2DVector::move2side(SUMOReal amount) {
             Position2D from = myCont[i-1];
             Position2D to = myCont[i];
             std::pair<SUMOReal, SUMOReal> offsets =
-                offset(from, to, amount);
+                GeomHelper::getNormal90D_CW(from, to, amount);
             shape.push_back(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(to.x()-offsets.first, to.y()-offsets.second));
@@ -857,9 +841,9 @@ Position2DVector::move2side(SUMOReal amount) {
             Position2D me = myCont[i];
             Position2D to = myCont[i+1];
             std::pair<SUMOReal, SUMOReal> offsets =
-                offset(from, me, amount);
+                GeomHelper::getNormal90D_CW(from, me, amount);
             std::pair<SUMOReal, SUMOReal> offsets2 =
-                offset(me, to, amount);
+                GeomHelper::getNormal90D_CW(me, to, amount);
             Line2D l1(
                 Position2D(from.x()-offsets.first, from.y()-offsets.second),
                 Position2D(me.x()-offsets.first, me.y()-offsets.second));
@@ -1012,27 +996,17 @@ Position2DVector::insertAt(int index, const Position2D &p) {
 
 
 void
-Position2DVector::push_back_noDoublePos(const Position2D &p, SUMOReal eps) {
-    if (size()==0) {
+Position2DVector::push_back_noDoublePos(const Position2D &p) {
+    if (size()==0 || !p.almostSame(myCont.back())) {
         myCont.push_back(p);
-    } else {
-        const Position2D &pp = myCont[myCont.size()-1];
-        if (fabs(pp.x()-p.x())>eps||fabs(pp.y()-p.y())>eps) {
-            myCont.push_back(p);
-        }
     }
 }
 
 
 void
-Position2DVector::push_front_noDoublePos(const Position2D &p, SUMOReal eps) {
-    if (size()==0) {
+Position2DVector::push_front_noDoublePos(const Position2D &p) {
+    if (size()==0 || !p.almostSame(myCont.front())) {
         myCont.push_front(p);
-    } else {
-        const Position2D &pp = myCont[0];
-        if (fabs(pp.x()-p.x())>eps||fabs(pp.y()-p.y())>eps) {
-            myCont.push_front(p);
-        }
     }
 }
 
@@ -1052,12 +1026,33 @@ Position2DVector::isClosed() const {
 
 void
 Position2DVector::removeDoublePoints() {
-    //@ to be optimized
-    Position2DVector newCont;
-    for (ContType::iterator i=myCont.begin(); i!=myCont.end(); ++i) {
-        newCont.push_back_noDoublePos(*i);
+    if (myCont.size() > 1) {
+        ContType::iterator last = myCont.begin();
+        for (ContType::iterator i=myCont.begin()+1; i!=myCont.end();) {
+            if (last->almostSame(*i)) {
+                i = myCont.erase(i);
+            } else {
+                last = i;
+                ++i;
+            }
+        }
     }
-    myCont = newCont.myCont;
+}
+
+
+void
+Position2DVector::removeColinearPoints() {
+    if (myCont.size() > 2) {
+        Position2D& last = myCont.front();
+        for (ContType::iterator i=myCont.begin()+1; i!=myCont.end()-1;) {
+            if (GeomHelper::distancePointLine(*i, last, *(i+1)) < 0.001) {
+                i = myCont.erase(i);
+            } else {
+                last = *i;
+                ++i;
+            }
+        }
+    }
 }
 
 

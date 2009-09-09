@@ -1351,7 +1351,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
         // compute air distance (default)
         // correct the distance type in case it was not valid
         distType = REQUEST_AIRDIST;
-        distance = static_cast<float>(GeomHelper::distance(pos1, pos2));
+        distance = static_cast<float>(pos1.distanceTo(pos2));
     }
 
     // acknowledge distance request
@@ -1703,9 +1703,9 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos) {
                         while ((tmpLane =tmpLane->getRightLane()) != NULL) {
                             result.laneId++;
                         }
-                        result.pos = GeomHelper::distance(lineStart, intersection);
+                        result.pos = lineStart.distanceTo(intersection);
                         for (int j = 0; j < i; j++) {
-                            result.pos += GeomHelper::distance(shape[j], shape[j+1]);
+                            result.pos += shape[j].distanceTo(shape[j+1]);
                         }
 
 //						cerr << "Saved new pos: " << result.pos << ", intersec at (" << intersection.x() << "," << intersection.y()
@@ -2131,7 +2131,7 @@ throw(TraCIException) {
 
             // compute the distance to destination position
             if (variableId == DOMVAR_AIRDISTANCE) {
-                distance = static_cast<float>(GeomHelper::distance(veh->getPosition(), destPos));
+                distance = static_cast<float>(veh->getPosition().distanceTo(destPos));
             } else {
                 distance = static_cast<float>(veh->getDistanceToPosition(destRoadPos.pos, MSEdge::dictionary(destRoadPos.roadId)));
             }

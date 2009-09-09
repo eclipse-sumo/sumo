@@ -84,8 +84,7 @@ RODFDetector::setType(RODFDetectorType type) {
 
 SUMOReal
 RODFDetector::computeDistanceFactor(const RODFRouteDesc &rd) const {
-    SUMOReal distance = GeomHelper::distance(
-                            rd.edges2Pass[0]->getFromNode()->getPosition(),
+    SUMOReal distance = rd.edges2Pass[0]->getFromNode()->getPosition().distanceTo(
                             rd.edges2Pass[rd.edges2Pass.size()-1]->getToNode()->getPosition());
     SUMOReal length = 0;
     for (std::vector<ROEdge*>::const_iterator i=rd.edges2Pass.begin(); i!=rd.edges2Pass.end(); ++i) {

@@ -562,8 +562,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into) {
                 // compute the maximum speed allowed
                 //  see !!! for an explanation (with a_lat_mean ~0.3)
                 SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
-                                GeomHelper::distance(
-                                    (*i)->getLaneShape(j).getEnd(),
+                                (*i)->getLaneShape(j).getEnd().distanceTo(
                                     (*k).toEdge->getLaneShape((*k).toLane).getBegin())
                                 / (SUMOReal) 2.0 / (SUMOReal) PI;
                 vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).toEdge->getSpeed())/(SUMOReal) 2.0));
@@ -685,7 +684,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
                 begL.extrapolateSecondBy(100);
                 Line2D endL = toE->getLaneShape(toL).getBegLine();
                 endL.extrapolateFirstBy(100);
-                SUMOReal distance = GeomHelper::distance(beg, end);
+                SUMOReal distance = beg.distanceTo(end);
                 if (distance>10) {
                     {
                         SUMOReal off1 = fromE->getLaneShape(fromL).getEndLine().length() + (SUMOReal) 5. * (SUMOReal) fromE->getNoLanes();

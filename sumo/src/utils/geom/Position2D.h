@@ -144,6 +144,16 @@ public:
     }
 
 
+    inline SUMOReal distanceTo(const Position2D &p2) const {
+        return sqrt(distanceSquaredTo(p2));
+    }
+
+
+    inline SUMOReal distanceSquaredTo(const Position2D &p2) const {
+        return (myX-p2.myX)*(myX-p2.myX) + (myY-p2.myY)*(myY-p2.myY);
+    }
+
+
 private:
     /// The x-position
     SUMOReal myX;

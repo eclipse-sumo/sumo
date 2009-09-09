@@ -176,9 +176,8 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
 
 NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
                string type, SUMOReal speed, unsigned int nolanes,
-               int priority,
-               Position2DVector geom, bool tryIgnoreNodePositions,
-               LaneSpreadFunction spread) throw(ProcessError) :
+               int priority, Position2DVector geom,
+               LaneSpreadFunction spread, bool tryIgnoreNodePositions) throw(ProcessError) :
         myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myFrom(from), myTo(to), myAngle(0),
@@ -195,8 +194,7 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
 void
 NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
                SUMOReal speed, unsigned int nolanes, int priority,
-               Position2DVector geom, bool tryIgnoreNodePositions,
-               LaneSpreadFunction spread) throw(ProcessError) {
+               Position2DVector geom, LaneSpreadFunction spread) throw(ProcessError) {
     if (myFrom!=from) {
         myFrom->removeOutgoing(this);
     }
@@ -215,7 +213,7 @@ NBEdge::reinit(NBNode *from, NBNode *to, std::string type,
     myLoadedLength = -1;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
     //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
-    init(nolanes, tryIgnoreNodePositions);
+    init(nolanes, false);
 }
 
 
@@ -256,7 +254,7 @@ NBEdge::init(unsigned int noLanes, bool tryIgnoreNodePositions) throw(ProcessErr
     myFrom->addOutgoingEdge(this);
     myTo->addIncomingEdge(this);
     // prepare container
-    myLength = GeomHelper::distance(myFrom->getPosition(), myTo->getPosition());
+    myLength = myFrom->getPosition().distanceTo(myTo->getPosition());
     assert(myGeom.size()>=2);
     myLanes.clear();
     for (unsigned int i=0; i<noLanes; i++) {
@@ -752,8 +750,8 @@ NBEdge::computeLaneShapes() throw() {
     for (unsigned int i=0; i<myLanes.size(); i++) {
         try {
             myLanes[i].shape = computeLaneShape(i);
-        } catch (InvalidArgument &) {
-            MsgHandler::getWarningInstance()->inform("In edge '" + getID() + "': lane shape could not been determined");
+        } catch (InvalidArgument &e) {
+            MsgHandler::getWarningInstance()->inform("In edge '" + getID() + "': lane shape could not been determined (" + e.what() + ")");
             myLanes[i].shape = myGeom;
         }
     }
@@ -817,13 +815,8 @@ NBEdge::computeLaneShape(unsigned int lane) throw(InvalidArgument) {
 pair<SUMOReal, SUMOReal>
 NBEdge::laneOffset(const Position2D &from, const Position2D &to,
                    SUMOReal lanewidth, unsigned int lane) throw(InvalidArgument) {
-    SUMOReal x1 = from.x();
-    SUMOReal y1 = from.y();
-    SUMOReal x2 = to.x();
-    SUMOReal y2 = to.y();
-    SUMOReal length = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     pair<SUMOReal, SUMOReal> offsets =
-        GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, lanewidth);
+        GeomHelper::getNormal90D_CW(from, to, lanewidth);
     SUMOReal xoff = offsets.first / (SUMOReal) 2.0;
     SUMOReal yoff = offsets.second / (SUMOReal) 2.0;
     if (myLaneSpreadFunction==LANESPREAD_RIGHT) {

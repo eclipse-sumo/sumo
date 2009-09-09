@@ -279,14 +279,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
             WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
         }
         NBEdge::LaneSpreadFunction lsf = addSecond ? NBEdge::LANESPREAD_RIGHT : NBEdge::LANESPREAD_CENTER;
-        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, false, lsf);
+        NBEdge *nbe = new NBEdge(id, from, to, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape, lsf);
         nbe->setVehicleClasses(allowedClasses, disallowedClasses);
         if (!ec.insert(nbe)) {
             delete nbe;
             throw ProcessError("Could not add edge '" + id + "'.");
         }
         if (addSecond) {
-            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape.reverse(), false, lsf);
+            nbe = new NBEdge("-" + id, to, from, e->myHighWayType, speed, noLanes, tc.getPriority(e->myHighWayType), shape.reverse(), lsf);
             nbe->setVehicleClasses(allowedClasses, disallowedClasses);
             if (!ec.insert(nbe)) {
                 delete nbe;

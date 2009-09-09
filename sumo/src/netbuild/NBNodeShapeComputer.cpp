@@ -157,7 +157,7 @@ NBNodeShapeComputer::replaceLastChecking(Position2DVector &g, bool decenter,
     if (p>=0) {
         counterPos = t.positionAtLengthPosition(p);
     }
-    if (GeomHelper::distance(g[-1], counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
+    if (g[-1].distanceTo(counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
         g.replaceAt(g.size()-1, counterPos);
     } else {
         g.push_back_noDoublePos(counterPos);
@@ -184,7 +184,7 @@ NBNodeShapeComputer::replaceFirstChecking(Position2DVector &g, bool decenter,
     if (p>=0) {
         counterPos = t.positionAtLengthPosition(p);
     }
-    if (GeomHelper::distance(g[0], counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
+    if (g[0].distanceTo(counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
         g.replaceAt(0, counterPos);
     } else {
         g.push_front_noDoublePos(counterPos);

@@ -123,7 +123,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 
     // build the link
     SUMOReal length = orig!=0&&lane!=0
-                      ? GeomHelper::distance(orig->getShape()[-1], lane->getShape()[0])
+                      ? orig->getShape()[-1].distanceTo(lane->getShape()[0])
                       : 0;
 #ifdef HAVE_INTERNAL_LANES
     if (via!=0) {

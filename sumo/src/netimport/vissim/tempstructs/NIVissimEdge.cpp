@@ -250,11 +250,10 @@ NIVissimEdge::buildConnectionClusters() throw() {
 
 void
 NIVissimEdge::dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-                                NBEdgeCont &ec, SUMOReal offset,
-                                bool tryIgnoreNodePositions) {
+                                NBEdgeCont &ec, SUMOReal offset) {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimEdge *edge = (*i).second;
-        edge->buildNBEdge(dc, nc, ec, offset, tryIgnoreNodePositions);
+        edge->buildNBEdge(dc, nc, ec, offset);
     }
 }
 
@@ -430,7 +429,7 @@ NIVissimEdge::getOutgoingConnected(int lane) const {
 
 void
 NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
-                          SUMOReal sameNodesOffset, bool tryIgnoreNodePositions) throw(ProcessError) {
+                          SUMOReal sameNodesOffset) throw(ProcessError) {
     // build the edge
     std::pair<NIVissimConnectionCluster*, NBNode *> fromInf, toInf;
     NBNode *fromNode, *toNode;
@@ -509,7 +508,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), fromNode, toNode, myType,
         avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, myGeom,
-        tryIgnoreNodePositions, NBEdge::LANESPREAD_CENTER);
+        NBEdge::LANESPREAD_CENTER, true);
     for (i=0; i<(int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
             buildEdge->setLaneSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed")/(SUMOReal) 3.6);
@@ -673,9 +672,9 @@ NIVissimEdge::remapOneOfNodes(NBNodeCont &nc,
                               NIVissimDistrictConnection *d,
                               NBNode *fromNode, NBNode *toNode) {
     string nid = "ParkingPlace" + toString<int>(d->getID());
-    if (GeomHelper::distance(d->geomPosition(), fromNode->getPosition())
+    if (d->geomPosition().distanceTo(fromNode->getPosition())
             <
-            GeomHelper::distance(d->geomPosition(), toNode->getPosition())) {
+            d->geomPosition().distanceTo(toNode->getPosition())) {
 
         NBNode *newNode = new NBNode(nid,
                                      fromNode->getPosition(),
@@ -919,7 +918,7 @@ NIVissimEdge::dict_checkEdges2Join() {
             // check whether the same node is approached
             //  (the distance between the ends should not be too large)
             //  !!! the usage of an explicite value is not very fine
-            if (GeomHelper::distance(l1.p2(), l2.p2())>10) {
+            if (l1.p2().distanceTo(l2.p2())>10) {
                 // continue if the lines do not end at the same length
                 continue;
             }

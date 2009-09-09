@@ -68,9 +68,7 @@ public:
     void add(SUMOReal x, SUMOReal y);
     void add(const Position2D &p);
     void sub(SUMOReal x, SUMOReal y);
-    SUMOReal distanceTo(const Position2D &p) const;
     Line2D &reverse();
-    SUMOReal nearestPositionTo(const Position2D &p);
     void rotateDegAtP1(double degs);
     void rotateAround(const Position2D &at, SUMOReal rot);
 

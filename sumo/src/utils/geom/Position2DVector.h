@@ -258,14 +258,16 @@ public:
 
     SUMOReal distance(const Position2D &p) const;
 
-    void push_back_noDoublePos(const Position2D &p, SUMOReal eps=POSITION_EPS);
-    void push_front_noDoublePos(const Position2D &p, SUMOReal eps=POSITION_EPS);
+    void push_back_noDoublePos(const Position2D &p);
+    void push_front_noDoublePos(const Position2D &p);
 
     void replaceAt(size_t index, const Position2D &by);
 
     bool isClosed() const;
 
     void removeDoublePoints();
+
+    void removeColinearPoints();
 
 private:
 

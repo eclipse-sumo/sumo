@@ -101,7 +101,7 @@ NBHelpers::normalIDRepresentation(const std::string &id) {
 
 SUMOReal
 NBHelpers::distance(NBNode *node1, NBNode *node2) {
-    return GeomHelper::distance(node1->getPosition(), node2->getPosition());
+    return node1->getPosition().distanceTo(node2->getPosition());
 }
 
 

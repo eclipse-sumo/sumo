@@ -54,7 +54,7 @@ Line2D::~Line2D() {}
 
 void
 Line2D::extrapolateBy(SUMOReal length) {
-    SUMOReal oldlen = GeomHelper::distance(myP1, myP2);
+    SUMOReal oldlen = myP1.distanceTo(myP2);
     SUMOReal x1 = myP1.x() - (myP2.x() - myP1.x()) * (length) / oldlen;
     SUMOReal y1 = myP1.y() - (myP2.y() - myP1.y()) * (length) / oldlen;
     SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x()) * (length) / oldlen;
@@ -89,7 +89,7 @@ Line2D::p2() const {
 
 Position2D
 Line2D::getPositionAtDistance(SUMOReal offset) const {
-    SUMOReal length = GeomHelper::distance(myP1, myP2);
+    SUMOReal length = myP1.distanceTo(myP2);
     if (length==0) {
         if (offset!=0) {
             throw 1;
@@ -117,7 +117,7 @@ Line2D::intersectsAtLengths(const Position2DVector &v) {
     Position2DVector p = v.intersectsAtPoints(myP1, myP2);
     DoubleVector ret;
     for (size_t i=0; i<p.size(); i++) {
-        ret.push_back(GeomHelper::distance(myP1, p[(int) i]));
+        ret.push_back(myP1.distanceTo(p[i]));
     }
     return ret;
 }
@@ -187,35 +187,6 @@ Line2D::sub(SUMOReal x, SUMOReal y) {
 
 
 
-
-SUMOReal
-Line2D::distanceTo(const Position2D &p) const {
-    SUMOReal LineMag;
-    SUMOReal U;
-
-    LineMag = GeomHelper::Magnitude(myP2, myP1);
-
-    U = (((p.x() - myP1.x()) * (myP2.x() - myP1.x())) +
-         ((p.y() - myP1.y()) * (myP2.y() - myP1.y())) /*+
-                                            ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
-        )
-        /
-        (LineMag * LineMag);
-
-    if (U < 0.0f || U > 1.0f)
-        return -1;   // closest point does not fall within the line segment
-
-    Position2D Intersection(
-        myP1.x() + U *(myP2.x() - myP1.x()),
-        myP1.y() + U *(myP2.y() - myP1.y()));
-//    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
-
-    SUMOReal Distance = GeomHelper::Magnitude(p, Intersection);
-
-    return Distance;
-}
-
-
 Line2D &
 Line2D::reverse() {
     Position2D tmp(myP1);
@@ -226,16 +197,10 @@ Line2D::reverse() {
 
 
 SUMOReal
-Line2D::nearestPositionTo(const Position2D &p) {
-    return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, p);
-}
-
-
-SUMOReal
 Line2D::intersectsAtLength(const Line2D &v) {
     Position2D pos =
         GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
-    return nearestPositionTo(pos);
+    return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, pos);
 }
 
 

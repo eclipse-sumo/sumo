@@ -32,6 +32,7 @@
 #include <iostream>
 #include "GeomHelper.h"
 #include <utils/common/StdDefs.h>
+#include <utils/common/ToString.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -102,62 +103,6 @@ GeomHelper::intersects(const Position2D &p11, const Position2D &p12,
                       p21.x(), p21.y(), p22.x(), p22.y());
 }
 
-
-
-/*
-bool
-GeomHelper::intersects(const Position2DVector &v1,
-                       const Position2DVector &v2)
-{
-    for(Position2DVector::const_iterator i=v1.begin(); i!=v1.end()-1; i++) {
-        if(intersects(*i, *(i+1), v2)) {
-            return true;
-        }
-    }
-    return intersects(*(v1.end()-1), *(v1.begin()), v2);
-}
-*/
-
-
-SUMOReal
-GeomHelper::distance(const Position2D &p1, const Position2D &p2) {
-    return sqrt(
-               (p1.x()-p2.x())*(p1.x()-p2.x())
-               +
-               (p1.y()-p2.y())*(p1.y()-p2.y()));
-}
-
-/*
-Position2DVector::const_iterator
-GeomHelper::find_intersecting_line(const Position2D &p1, const Position2D &p2,
-                                   const Position2DVector &poly,
-                                   Position2DVector::const_iterator beg)
-{
-    for(Position2DVector::const_iterator i=beg; i!=poly.end()-1; i++) {
-        if(intersects(p1, p2, *(i), *(i+1))) {
-            return i;
-        }
-    }
-    if(intersects(p1, p2, *(poly.end()-1), *(poly.begin()))) {
-        return poly.end()-1;
-    }
-    return poly.end();
-}
-*/
-/*
-Position2D
-GeomHelper::intersection_position(const Position2D &p1,
-                                  const Position2D &p2,
-                                  const Position2DVector &poly,
-                                  Position2DVector::const_iterator at)
-{
-    if(at==poly.end()-1) {
-        return intersection_position(p1, p2, *(poly.end()-1), *(poly.begin()));
-    } else {
-        return intersection_position(p1, p2, *(at), *(at+1));
-    }
-}
-*/
 
 Position2D
 GeomHelper::intersection_position(const Position2D &p11,
@@ -234,42 +179,11 @@ GeomHelper::Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2) {
     return(dtheta);
 }
 
-/*
-Position2D
-GeomHelper::position_at_length_position(const Position2DVector &poly,
-                                        SUMOReal pos)
-{
-    Position2DVector::const_iterator i=poly.begin();
-    SUMOReal seenLength = 0;
-    do {
-        SUMOReal nextLength = distance(*i, *(i+1));
-        if(seenLength+nextLength>pos) {
-            return position_at_length_position(*i, *(i+1), pos-seenLength);
-        }
-        seenLength += nextLength;
-    } while(++i!=poly.end()-1);
-    return position_at_length_position(*(poly.end()-1),
-        *(poly.begin()), pos-seenLength);
-}
-*/
-/*
-Position2D
-GeomHelper::position_at_length_position(const Position2D &p1,
-                                        const Position2D &p2,
-                                        SUMOReal pos)
-{
-    SUMOReal dist = distance(p1, p2);
-    SUMOReal x = p1.x() + (p2.x() - p1.x()) / dist * pos;
-    SUMOReal y = p1.y() + (p2.y() - p1.y()) / dist * pos;
-    return Position2D(x, y);
-}
-*/
-
 
 Position2D
 GeomHelper::interpolate(const Position2D &p1,
                         const Position2D &p2, SUMOReal length) {
-    SUMOReal oldlen = distance(p1, p2);
+    SUMOReal oldlen = p1.distanceTo(p2);
     SUMOReal x = p1.x() + (p2.x() - p1.x()) * length / oldlen;
     SUMOReal y = p1.y() + (p2.y() - p1.y()) * length / oldlen;
     return Position2D(x, y);
@@ -279,7 +193,7 @@ GeomHelper::interpolate(const Position2D &p1,
 Position2D
 GeomHelper::extrapolate_first(const Position2D &p1,
                               const Position2D &p2, SUMOReal length) {
-    SUMOReal oldlen = distance(p1, p2);
+    SUMOReal oldlen = p1.distanceTo(p2);
     SUMOReal x = p1.x() - (p2.x() - p1.x()) * (length) / oldlen;
     SUMOReal y = p1.y() - (p2.y() - p1.y()) * (length) / oldlen;
     return Position2D(x, y);
@@ -289,7 +203,7 @@ GeomHelper::extrapolate_first(const Position2D &p1,
 Position2D
 GeomHelper::extrapolate_second(const Position2D &p1,
                                const Position2D &p2, SUMOReal length) {
-    SUMOReal oldlen = distance(p1, p2);
+    SUMOReal oldlen = p1.distanceTo(p2);
     SUMOReal x = p2.x() - (p1.x() - p2.x()) * (length) / oldlen;
     SUMOReal y = p2.y() - (p1.y() - p2.y()) * (length) / oldlen;
     return Position2D(x, y);
@@ -300,107 +214,59 @@ SUMOReal
 GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
         const Position2D &LineEnd,
         const Position2D &Point) {
-    SUMOReal LineMag;
-    SUMOReal U;
-
-    LineMag = Magnitude(LineEnd, LineStart);
-
-    U = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
-         ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y())) /*+
-                                            ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
-        )
-        /
-        (LineMag * LineMag);
-
-    if (U < 0.0f || U > 1.0f)
+    SUMOReal u = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
+                  ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y()))
+                 ) / LineStart.distanceSquaredTo(LineEnd);
+    if (u < 0.0f || u > 1.0f)
         return -1;   // closest point does not fall within the line segment
-
-    return U * distance(LineStart, LineEnd);
+    return u * LineStart.distanceTo(LineEnd);
 }
 
 
 SUMOReal
-GeomHelper::Magnitude(const Position2D &Point1,
-                      const Position2D &Point2) {
-    SUMOReal x = Point2.x() - Point1.x();
-    SUMOReal y = Point2.y() - Point1.y();
-    return sqrt(x*x + y*y);
-}
-
-
-SUMOReal
-GeomHelper::DistancePointLine(const Position2D &Point,
-                              const Position2D &LineStart,
-                              const Position2D &LineEnd) {
-    SUMOReal LineMag;
-    SUMOReal U;
-
-    LineMag = Magnitude(LineEnd, LineStart);
-
-    U = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
-         ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y())) /*+
-                                            ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
-        )
-        /
-        (LineMag * LineMag);
-
-    if (U < 0.0f || U > 1.0f)
+GeomHelper::distancePointLine(const Position2D &point,
+                              const Position2D &lineStart,
+                              const Position2D &lineEnd) {
+    SUMOReal u = (((point.x() - lineStart.x()) * (lineEnd.x() - lineStart.x())) +
+                  ((point.y() - lineStart.y()) * (lineEnd.y() - lineStart.y()))
+                 ) / lineStart.distanceSquaredTo(lineEnd);
+    if (u < 0.0f || u > 1.0f)
         return -1;   // closest point does not fall within the line segment
-
-    Position2D Intersection(
-        LineStart.x() + U *(LineEnd.x() - LineStart.x()),
-        LineStart.y() + U *(LineEnd.y() - LineStart.y()));
-//    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
-
-    SUMOReal Distance = Magnitude(Point, Intersection);
-
-    return Distance;
+    Position2D intersection(
+        lineStart.x() + u *(lineEnd.x() - lineStart.x()),
+        lineStart.y() + u *(lineEnd.y() - lineStart.y()));
+    return point.distanceTo(intersection);
 }
 
 
 
 SUMOReal
-GeomHelper::closestDistancePointLine(const Position2D &Point,
-                                     const Position2D &LineStart,
-                                     const Position2D &LineEnd,
+GeomHelper::closestDistancePointLine(const Position2D &point,
+                                     const Position2D &lineStart,
+                                     const Position2D &lineEnd,
                                      Position2D& outIntersection) {
-    Position2D directVec;
-    SUMOReal sProduct;
-    SUMOReal U;
-
-    directVec.set(LineEnd.x()-LineStart.x(), LineEnd.y()-LineStart.y());
-    sProduct = (directVec.x() * directVec.x() +
-                directVec.y() * directVec.y());
-
-    U = (((Point.x() - LineStart.x()) * directVec.x()) +
-         ((Point.y() - LineStart.y()) * directVec.y())
-        )
-        /
-        sProduct;
+    Position2D directVec(lineEnd.x()-lineStart.x(), lineEnd.y()-lineStart.y());
+    SUMOReal u = (((point.x() - lineStart.x()) * directVec.x()) +
+                  ((point.y() - lineStart.y()) * directVec.y())) /
+                 (directVec.x() * directVec.x() +
+                  directVec.y() * directVec.y());
 
     // if closest point does not fall within the line segment
     // return line start or line end
 
-    if (U >= 0.0f && U <= 1.0f) {
+    if (u >= 0.0f && u <= 1.0f) {
         outIntersection.set(
-            LineStart.x() + U * directVec.x(),
-            LineStart.y() + U * directVec.y());
+            lineStart.x() + u * directVec.x(),
+            lineStart.y() + u * directVec.y());
     } else {
-        if (U < 0.0f) {
-            outIntersection = LineStart;
+        if (u < 0.0f) {
+            outIntersection = lineStart;
         }
-        if (U > 1.0f) {
-            outIntersection = LineEnd;
+        if (u > 1.0f) {
+            outIntersection = lineEnd;
         }
     }
-
-//	std::cerr << std::endl <<  "........" << std::endl << "directVec = (" << directVec.x() << "," << directVec.y()
-//		<< "), " << "U = " << U << ", Intersec = (" << outIntersection.x() << ","
-//		<< outIntersection.y() << std::endl << "........" << std::endl;
-
-    SUMOReal Distance = Magnitude(Point, outIntersection);
-
-    return Distance;
+    return point.distanceTo(outIntersection);
 }
 
 
@@ -476,8 +342,7 @@ GeomHelper::getNormal90D_CW(const Position2D &beg,
                             const Position2D &end,
                             SUMOReal wanted_offset) {
     SUMOReal length = sqrt((beg.x()-end.x())*(beg.x()-end.x()) + (beg.y()-end.y())*(beg.y()-end.y()));
-    return getNormal90D_CW(beg.x(), beg.y(), end.x(), end.y(),
-                           length, wanted_offset);
+    return getNormal90D_CW(beg, end, length, wanted_offset);
 }
 
 
@@ -485,50 +350,11 @@ std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(const Position2D &beg,
                             const Position2D &end,
                             SUMOReal length, SUMOReal wanted_offset) {
-    return getNormal90D_CW(beg.x(), beg.y(), end.x(), end.y(),
-                           length, wanted_offset);
-}
-
-
-std::pair<SUMOReal, SUMOReal>
-GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
-                            SUMOReal x2, SUMOReal y2,
-                            SUMOReal length, SUMOReal wanted_offset) throw(InvalidArgument) {
-    SUMOReal dx = x1 - x2;
-    SUMOReal dy = y1 - y2;
-    if (dx<0) { // fromX<toX -> to right
-        if (dy>0) { // to up right -> lanes to down right (+, +)
-            return std::pair<SUMOReal, SUMOReal>
-                   (dy*wanted_offset/length, -dx*wanted_offset/length);
-        } else if (dy<0) { // to down right -> lanes to down left (-, +)
-            return std::pair<SUMOReal, SUMOReal>
-                   (dy*wanted_offset/length, -dx*wanted_offset/length);
-        } else { // to right -> lanes to down (0, +)
-            return std::pair<SUMOReal, SUMOReal>
-                   (0, -dx*wanted_offset/length);
-        }
-    } else if (dx>0) { // fromX>toX -> to left
-        if (dy>0) { // to up left -> lanes to up right (+, -)
-            return std::pair<SUMOReal, SUMOReal>
-                   (dy*wanted_offset/length, -dx*wanted_offset/length);
-        } else if (dy<0) { // to down left -> lanes to up left (-, -)
-            return std::pair<SUMOReal, SUMOReal>
-                   (dy*wanted_offset/length, -dx*wanted_offset/length);
-        } else { // to left -> lanes to up (0, -)
-            return std::pair<SUMOReal, SUMOReal>
-                   (0, -dx*wanted_offset/length);
-        }
-    } else { // fromX==toX
-        if (dy>0) { // to up -> lanes to right (+, 0)
-            return std::pair<SUMOReal, SUMOReal>
-                   (dy*wanted_offset/length, 0);
-        } else if (dy<0) { // to down -> lanes to left (-, 0)
-            return std::pair<SUMOReal, SUMOReal>
-                   (dy*wanted_offset/length, 0);
-        } else { // zero !
-            throw InvalidArgument("same points");
-        }
+    if (beg == end) {
+        throw InvalidArgument("same points at " + toString(beg));
     }
+    return std::pair<SUMOReal, SUMOReal>
+           ((beg.y()-end.y())*wanted_offset/length, (end.x()-beg.x())*wanted_offset/length);
 }
 
 

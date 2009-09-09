@@ -100,7 +100,6 @@
         flip-y="false"
         dismiss-vclasses="false"
         remove-geometry="false"
-        add-node-positions="false"
         no-turnarounds="false"
         no-tls-turnarounds="false"
         no-internal-links="false"

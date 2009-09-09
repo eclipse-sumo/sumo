@@ -58,9 +58,8 @@ using namespace std;
 NIElmar2EdgesHandler::NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
-        Position2DVector> &geoms, bool tryIgnoreNodePositions) throw()
-        : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms),
-        myTryIgnoreNodePositions(tryIgnoreNodePositions) {}
+        Position2DVector> &geoms) throw()
+        : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {}
 
 
 NIElmar2EdgesHandler::~NIElmar2EdgesHandler() throw() {}
@@ -71,9 +70,10 @@ NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError) {
 //	0: LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID
 //  4: length	vehicle_type	form_of_way	brunnel_type
 //  7: street_type	speed_category	number_of_lanes	average_speed
-//  10: NAME_ID1	NAME_ID2	housenumebrs_right	housenumbers_left
+//  10: NAME_ID1	NAME_ID2	housenumbers_right	housenumbers_left
 //  ZIP_CODE	AREA_ID	SUBAREA_ID	through_traffic	special_restrictions
-//  connection
+//  extended_number_of_lanes  isRamp    (these two only exist in networks extracted since 05/2009)
+//  connection (this may be omitted)
 
     if (result[0]=='#') {
         return true;
@@ -110,21 +110,19 @@ NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError) {
     speed = NINavTeqHelper::getSpeed(id, st.next());
     // number of lanes
     nolanes = NINavTeqHelper::getLaneNumber(id, st.next(), speed);
-    // skip some
-    st.next(); // average_speed
-    st.next(); // NAME_ID1
-    st.next(); // NAME_ID2
-    st.next(); // housenumebrs_right
-    st.next(); // housenumbers_left
-    st.next(); // ZIP_CODE
-    st.next(); // AREA_ID
-    st.next(); // SUBAREA_ID
-    st.next(); // through_traffic
-    st.next(); // special_restrictions
-
-    bool connection = !st.hasNext()
-                      ? 0
-                      : st.next()[0] == '1';
+    std::vector<std::string> theRest = st.getVector();
+    bool connection = (theRest.size() == 11) && (theRest[10] == "1");
+    if (theRest.size() > 11) {
+        // post 05/2009 network
+        if (theRest[11] != "-1") {
+            try {
+                nolanes = TplConvert<char>::_2int(theRest[11].c_str());
+            } catch (NumberFormatException &) {
+                throw ProcessError("Non-numerical value for the extended number of lanes (edge '" + id + "'.");
+            }
+        }
+        connection = (theRest.size() == 13) && (theRest[12] == "1");
+    }
     // try to get the nodes
     NBNode *from = myNodeCont.retrieve(fromID);
     NBNode *to = myNodeCont.retrieve(toID);
@@ -144,11 +142,11 @@ NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError) {
             geoms = geoms.reverse();
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, myTryIgnoreNodePositions, NBEdge::LANESPREAD_CENTER);
+            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, NBEdge::LANESPREAD_CENTER);
         } else {
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
-            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, myTryIgnoreNodePositions, NBEdge::LANESPREAD_CENTER);
+            e = new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, geoms, NBEdge::LANESPREAD_CENTER);
         }
     }
     // add vehicle type information to the edge

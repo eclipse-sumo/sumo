@@ -51,11 +51,10 @@ public:
      * @param[in, filled] ec The edge control to insert loaded edges into
      * @param[in] file The name of the parsed file
      * @param[in] geoms The previously read edge geometries
-     * @param[in] tryIgnoreNodePositions Whether node positions shall not be added to the geometry
      */
     NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                          const std::string &file, std::map<std::string,
-                         Position2DVector> &geoms, bool tryIgnoreNodePositions) throw();
+                         Position2DVector> &geoms) throw();
 
 
     /// @brief Destructor

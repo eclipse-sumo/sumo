@@ -195,16 +195,17 @@ public:
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] geom The edge's geomatry
-     * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      * @see init
      * @see LaneSpreadFunction
      */
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           Position2DVector geom, bool tryIgnoreNodePositions,
-           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
+           Position2DVector geom,
+           LaneSpreadFunction spread=LANESPREAD_RIGHT,
+           bool tryIgnoreNodePositions=false) throw(ProcessError);
 
 
     /** @brief Destructor
@@ -218,7 +219,7 @@ public:
      */
     void reinit(NBNode *from, NBNode *to, std::string type,
                 SUMOReal speed, unsigned int nolanes, int priority,
-                Position2DVector geom, bool tryIgnoreNodePositions,
+                Position2DVector geom,
                 LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
