@@ -30,6 +30,7 @@
 #endif
 
 #include <cassert>
+#include <string>
 //#include "MSVehicle.h"
 //#include "MSVehicleType.h"
 #include <utils/common/FileHelpers.h>
@@ -129,6 +130,10 @@ public:
 
     /// Saves the states of a vehicle
     virtual void saveState(std::ostream &os);
+
+
+    virtual std::string getModelName() const throw() = 0;
+
  protected:
     const MSVehicleType* myType;
 

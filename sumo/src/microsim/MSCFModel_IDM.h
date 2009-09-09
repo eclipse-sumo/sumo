@@ -63,6 +63,11 @@ public:
     SUMOReal dawdle(SUMOReal speed) const;
 
     SUMOReal decelAbility() const;
+
+    std::string getModelName() const throw() {
+        return "idm";
+    }
+
 private:
     SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const;
 

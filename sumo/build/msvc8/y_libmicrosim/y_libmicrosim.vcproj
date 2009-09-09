@@ -546,6 +546,18 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\src\microsim\MSCFModel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCFModel_IDM.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCFModel_Krauss.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSCORN.cpp"
 				>
 			</File>
@@ -703,6 +715,18 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSBitSetLogic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCFModel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCFModel_IDM.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSCFModel_Krauss.h"
 				>
 			</File>
 			<File

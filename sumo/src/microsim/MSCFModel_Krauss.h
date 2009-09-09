@@ -60,6 +60,12 @@ public:
     SUMOReal dawdle(SUMOReal speed) const;
 
     SUMOReal decelAbility() const;
+
+    std::string getModelName() const throw() {
+        return "krauss";
+    }
+
+
 private:
     SUMOReal _vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const;
 
