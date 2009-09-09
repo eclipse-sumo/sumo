@@ -391,11 +391,11 @@ public:
 
 
     SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
-        return myType->interactionGap(vF, laneMaxSpeed, vL);
+        return myType->getCarFollowModel()->interactionGap(vF, laneMaxSpeed, vL);
     }
 
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const {
-        return myType->hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
+        return myType->getCarFollowModel()->hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
     }
 
     /**
@@ -408,20 +408,20 @@ public:
         return resGap;
     }
 
-    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-        return myType->ffeV(speed, gap2pred, predSpeed);
-    }
+/*    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
+        return myType->getCarFollowModel()->ffeV(this, speed, gap2pred, predSpeed);
+    }*/
 
     SUMOReal getLength() const throw() {
         return myType->getLength();
     }
 
     SUMOReal decelAbility() const throw() {
-        return myType->decelAbility(); // !!! really the speed?
+        return myType->getCarFollowModel()->decelAbility(); // !!! really the speed?
     }
 
     SUMOReal maxNextSpeed(SUMOReal v) const throw() {
-        return myType->maxNextSpeed(v);
+        return myType->getCarFollowModel()->maxNextSpeed(v);
     }
 
     SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {

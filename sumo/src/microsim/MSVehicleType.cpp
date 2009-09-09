@@ -29,6 +29,8 @@
 
 #include "MSVehicleType.h"
 #include "MSNet.h"
+#include "MSCFModel_Krauss.h"
+#include "MSCFModel_IDM.h"
 #include <cassert>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>
@@ -63,7 +65,7 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
         myDecel(decel), myDawdle(dawdle), myTau(tau),
         myDefaultProbability(prob), mySpeedFactor(speedFactor),
         mySpeedDev(speedDev), myVehicleClass(vclass),
-        myCarFollowModel(cfModel), myLaneChangeModel(lcModel),
+        myLaneChangeModel(lcModel),
         myEmissionClass(emissionClass), myColor(c),
         myWidth(guiWidth), myOffset(guiOffset), myShape(shape) {
     assert(myLength > 0);
@@ -71,6 +73,16 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
     assert(myAccel > 0);
     assert(myDecel > 0);
     assert(myDawdle >= 0 && myDawdle <= 1);
+    if(cfModel.compare("Krauss") == 0)
+        myCarFollowModel = new MSCFModel_Krauss(this, dawdle, tau);
+    else if(cfModel.compare("IDM") == 0) {
+        SUMOReal timeheadway = 1.5;
+        SUMOReal mingap = 5;
+        myCarFollowModel = new MSCFModel_IDM(this, dawdle, timeheadway, mingap);
+    }
+    else
+        myCarFollowModel = new MSCFModel_Krauss(this, myDawdle, myTau);
+    
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * myDecel);
     myTauDecel = myDecel * myTau;
 }
@@ -101,6 +113,7 @@ MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeFloat(os, myColor.blue());
     FileHelpers::writeString(os, myCarFollowModel);
     FileHelpers::writeString(os, myLaneChangeModel);
+    //myCarFollowModel->saveState(os);
 }
 
 

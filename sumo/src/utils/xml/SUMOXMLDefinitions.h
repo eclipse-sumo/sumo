@@ -94,6 +94,8 @@ enum SumoXMLTag {
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */
     SUMO_TAG_VTYPE,
+    /** description of a car following model */
+    SUMO_TAG_CFMODEL,
     /** begin/end of the description of a route */
     SUMO_TAG_ROUTE,
     /** begin/end of the description of succeeding lanes */
@@ -257,14 +259,17 @@ enum SumoXMLAttr {
     SUMO_ATTR_MAXSPEED,
     SUMO_ATTR_ACCEL,
     SUMO_ATTR_DECEL,
-    SUMO_ATTR_SIGMA,
-    SUMO_ATTR_TAU,
     SUMO_ATTR_VCLASS,
     SUMO_ATTR_REPNUMBER,
     SUMO_ATTR_SPEEDFACTOR,
     SUMO_ATTR_SPEEDDEV,
     SUMO_ATTR_CAR_FOLLOW_MODEL,
     SUMO_ATTR_LANE_CHANGE_MODEL,
+    /* Car following model attributes */
+    SUMO_ATTR_SIGMA,    // used by: Krauss
+    SUMO_ATTR_TAU,      // Krauss
+    SUMO_ATTR_MINIMUM_DISTANCE, // IDM
+    SUMO_ATTR_TIME_HEADWAY_GAP, // IDM
     /* route alternatives / distribution attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,

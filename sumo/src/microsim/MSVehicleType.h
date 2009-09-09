@@ -32,6 +32,7 @@
 #include <cassert>
 #include <map>
 #include <string>
+#include "MSCFModel.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -44,7 +45,7 @@
 // ===========================================================================
 class MSLane;
 class BinaryInputDevice;
-
+class MSCFModel;
 
 // ===========================================================================
 // class definitions
@@ -115,12 +116,19 @@ public:
         return myLength;
     }
 
+    MSCFModel* getCarFollowModel() const throw() {
+        return myCarFollowModel;
+    }
 
     /** @brief Get vehicle's maximum speed [m/s].
      * @return The maximum speed (in m/s) of vehicles of this class
      */
     SUMOReal getMaxSpeed() const throw() {
         return myMaxSpeed;
+    }
+
+    SUMOReal getMaxAccel() const throw() {
+        return myAccel;
     }
 
 
@@ -227,108 +235,9 @@ public:
     /// @}
 
 
-
-    /** @brief Returns the brake gap of vehicles of this class, given a speed, assuming a reaction time
-     * @param[in] speed The current speed
-     * @return How far a vehicle drives when stopping from the given speed (including reaction time)
-     */
-    virtual SUMOReal brakeGap(SUMOReal speed) const throw() {
-        return speed * speed * myInverseTwoDecel + speed * myTau;
-    }
-
-
-    /** @brief Returns the brake gap of vehicles of this class, given a speed, assuming no reaction time
-     * @param[in] speed The current speed
-     * @return How far a vehicle drives when stopping from the given speed (excluding reaction time)
-     */
-    virtual SUMOReal approachingBrakeGap(SUMOReal speed) const throw() {
-        return speed * speed * myInverseTwoDecel;
-    }
-
-
-
-    /** */
-    virtual SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
-        // Resolve the vsafe equation to gap. Assume predecessor has
-        // speed != 0 and that vsafe will be the current speed plus acceleration,
-        // i.e that with this gap there will be no interaction.
-        SUMOReal vNext = MIN2(maxNextSpeed(vF), laneMaxSpeed);
-        SUMOReal gap = (vNext - vL) *
-                       ((vF + vL) * myInverseTwoDecel + myTau) +
-                       vL * myTau;
-
-        // Don't allow timeHeadWay < deltaT situations.
-        return MAX2(gap, timeHeadWayGap(vNext));
-    }
-
-    /**  */
-    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const {
-        SUMOReal vSafe = ffeV(speed, gap, predSpeed);
-        SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
-        return (vNext>=getSpeedAfterMaxDecel(speed)
-                &&
-                gap   >= timeHeadWayGap(speed));
-    }
-
-    /** Returns the minimum gap between this driving vehicle and a
-     * possibly emitted vehicle with speed 0. */
-    SUMOReal safeEmitGap(SUMOReal speed) const {
-        SUMOReal vNextMin = getSpeedAfterMaxDecel(speed); // ok, minimum next speed
-        SUMOReal safeGap  = vNextMin * (speed * myInverseTwoDecel + myTau);
-        return MAX2(safeGap, timeHeadWayGap(speed)) + ACCEL2DIST(getMaxAccel(speed));
-    }
-
-
-    /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
-    SUMOReal dawdle(SUMOReal speed) const {
-        // generate random number out of [0,1]
-        SUMOReal random = RandHelper::rand();
-        // Dawdle.
-        if (speed<getMaxAccel(0)) {
-            // we should not prevent vehicles from driving just due to dawdling
-            //  if someone is starting, he should definitely start
-            // (but what about slow-to-start?)!!!
-            speed -= ACCEL2SPEED(myDawdle * speed * random);
-        } else {
-            speed -= ACCEL2SPEED(myDawdle * getMaxAccel(speed) * random);
-        }
-        return MAX2(SUMOReal(0), speed);
-    }
-
     SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
         return MAX2((SUMOReal) 0, v - (SUMOReal) ACCEL2SPEED(myDecel));
     }
-
-    SUMOReal maxNextSpeed(SUMOReal v) const {
-        return MIN2(v + (SUMOReal) ACCEL2SPEED(getMaxAccel(v)), myMaxSpeed);
-    }
-
-    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
-        return MIN2(_vsafe(gap2pred, predSpeed), maxNextSpeed(speed));
-    }
-
-    SUMOReal ffeS(SUMOReal speed, SUMOReal gap2pred) const {
-        return MIN2(_vsafe(gap2pred, 0), maxNextSpeed(speed));
-    }
-
-    SUMOReal decelAbility() const {
-        return ACCEL2SPEED(myDecel); // !!! really the speed?
-    }
-
-
-    /** */
-    SUMOReal timeHeadWayGap(SUMOReal speed) const {
-        assert(speed >= 0);
-        return SPEED2DIST(speed);
-    }
-
-
-
-
-
-
-
-
 
 
 
@@ -343,6 +252,7 @@ public:
 
 
 protected:
+
     /** Returns the SK-vsafe. */
     SUMOReal _vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const {
         if (predSpeed==0&&gap2pred<0.01) {
@@ -359,6 +269,8 @@ protected:
         assert(vsafe >= 0);
         return vsafe;
     }
+
+
 
 
 private:
@@ -396,7 +308,7 @@ private:
     SUMOReal mySpeedDev;
 
     /// @brief ID of the car following model.
-    std::string myCarFollowModel;
+    MSCFModel* myCarFollowModel;
 
     /// @brief ID of the lane change model.
     std::string myLaneChangeModel;
@@ -435,6 +347,9 @@ private:
 
 
 private:
+    /// Helper function to bulid CFModel
+    void consCfModel(std::string cfModel);
+
     /// Invalidated copy constructor
     MSVehicleType(const MSVehicleType&);
 

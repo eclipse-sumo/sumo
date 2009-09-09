@@ -137,7 +137,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         }
         SUMOReal frontGapNeeded = veh.getSecureGap(speed, leader->getSpeed(), *leader);
         if (leaderPos-frontGapNeeded>=0) {
-            SUMOReal tspeed = MIN2(veh.getVehicleType().ffeV(mspeed, frontGapNeeded, leader->getSpeed()), mspeed);
+            SUMOReal tspeed = MIN2(veh.getVehicleType().getCarFollowModel()->ffeV(&veh, mspeed, frontGapNeeded, leader->getSpeed()), mspeed);
             // check whether we can emit in behind the last vehicle on the lane
             if (isEmissionSuccess(&veh, tspeed, 0, adaptableSpeed)) {
                 return true;
@@ -258,7 +258,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
     SUMOReal seen = length() - pos;
-    SUMOReal dist = aVehicle->getVehicleType().brakeGap(speed);
+    SUMOReal dist = aVehicle->getVehicleType().getCarFollowModel()->brakeGap(speed);
     const MSRoute &r = aVehicle->getRoute();
     MSRouteIterator ce = r.begin();
     MSLane *currentLane = this;
@@ -287,11 +287,11 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             // check leader on next lane
             MSVehicle * leader = nextLane->getLastVehicle();
             if (leader!=0) {
-                SUMOReal nspeed = aVehicle->ffeV(speed, seen+leader->getPositionOnLane()-leader->getVehicleType().getLength(), leader->getSpeed());
+                SUMOReal nspeed = aVehicle->getVehicleType().getCarFollowModel()->ffeV(aVehicle, speed, seen+leader->getPositionOnLane()-leader->getVehicleType().getLength(), leader->getSpeed());
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
-                        dist = aVehicle->getVehicleType().brakeGap(speed);
+                        dist = aVehicle->getVehicleType().getCarFollowModel()->brakeGap(speed);
                     } else {
                         // we may not drive with the given velocity - we crash into the leader
                         return false;
@@ -303,8 +303,8 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             if (nspeed<speed) {
                 // patch speed if needed
                 if (patchSpeed) {
-                    speed = MIN2(aVehicle->getVehicleType().ffeV(speed, seen, nspeed), speed);
-                    dist = aVehicle->getVehicleType().brakeGap(speed);
+                    speed = MIN2(aVehicle->getVehicleType().getCarFollowModel()->ffeV(aVehicle, speed, seen, nspeed), speed);
+                    dist = aVehicle->getVehicleType().getCarFollowModel()->brakeGap(speed);
                 } else {
                     // we may not drive with the given velocity - we would be too fast on the next lane
                     return false;
@@ -312,11 +312,11 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             }
             // check traffic on next junctions
             if ((*link)->hasApproachingFoe()) {
-                SUMOReal nspeed = aVehicle->ffeV(speed, seen, 0);
+                SUMOReal nspeed = aVehicle->getVehicleType().getCarFollowModel()->ffeV(aVehicle, speed, seen, 0);
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
-                        dist = aVehicle->getVehicleType().brakeGap(speed);
+                        dist = aVehicle->getVehicleType().getCarFollowModel()->brakeGap(speed);
                     } else {
                         // we may not drive with the given velocity - we crash into the leader
                         return false;
@@ -324,11 +324,11 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                 }
             } else {
                 // we can only drive to the end of the current lane...
-                SUMOReal nspeed = aVehicle->ffeV(speed, seen, 0);
+                SUMOReal nspeed = aVehicle->getVehicleType().getCarFollowModel()->ffeV(aVehicle, speed, seen, 0);
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
-                        dist = aVehicle->getVehicleType().brakeGap(speed);
+                        dist = aVehicle->getVehicleType().getCarFollowModel()->brakeGap(speed);
                     } else {
                         // we may not drive with the given velocity - we crash into the leader
                         return false;
@@ -342,11 +342,11 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         }
     }
     if (seen<dist) {
-        SUMOReal nspeed = aVehicle->ffeV(speed, seen, 0);
+        SUMOReal nspeed = aVehicle->getVehicleType().getCarFollowModel()->ffeV(aVehicle, speed, seen, 0);
         if (nspeed<speed) {
             if (patchSpeed) {
                 speed = MIN2(nspeed, speed);
-                dist = aVehicle->getVehicleType().brakeGap(speed);
+                dist = aVehicle->getVehicleType().getCarFollowModel()->brakeGap(speed);
             } else {
                 // we may not drive with the given velocity - we crash into the leader
                 MsgHandler::getErrorInstance()->inform("Vehicle '" + aVehicle->getID() + "' will not be able to emit using given velocity!");
@@ -553,13 +553,13 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
     MSRouteIterator next = veh.getRoute().begin();
     MSLane *currentLane = (*(*next)->getLanes())[0];
     SUMOReal seen = currentLane->length() - pos;
-    SUMOReal dist = SPEED2DIST(speed) + veh.getVehicleType().brakeGap(speed);
+    SUMOReal dist = SPEED2DIST(speed) + veh.getVehicleType().getCarFollowModel()->brakeGap(speed);
     SUMOReal tspeed = speed;
     while (seen<dist&&next!=veh.getRoute().end()-1) {
         ++next;
         MSLane *nextLane = (*(*next)->getLanes())[0];
-        tspeed = MIN2(veh.getVehicleType().ffeV(tspeed, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
-        dist = SPEED2DIST(tspeed) + veh.getVehicleType().brakeGap(tspeed);
+        tspeed = MIN2(veh.getVehicleType().getCarFollowModel()->ffeV(&veh, tspeed, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
+        dist = SPEED2DIST(tspeed) + veh.getVehicleType().getCarFollowModel()->brakeGap(tspeed);
         seen += nextLane->maxSpeed();
     }
     return tspeed;
@@ -1064,7 +1064,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             return std::pair<MSVehicle * const, SUMOReal>(leader, seen+leader->getPositionOnLane()-leader->getVehicleType().getLength());
         }
         if (nextLane->maxSpeed()<speed) {
-            dist = veh.getVehicleType().brakeGap(nextLane->maxSpeed());
+            dist = veh.getVehicleType().getCarFollowModel()->brakeGap(nextLane->maxSpeed());
         }
         seen += nextLane->length();
         if (seen>dist) {

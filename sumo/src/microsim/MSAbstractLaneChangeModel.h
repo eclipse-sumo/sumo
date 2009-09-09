@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//	»missingDescription«
+//	ï¿½missingDescriptionï¿½
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -30,6 +30,7 @@
 #endif
 
 #include "MSLaneChanger.h"
+#include "MSCFModel.h"
 
 // ===========================================================================
 // used enumeration
@@ -99,7 +100,9 @@ public:
 #ifndef NO_TRACI
             ,myChangeRequest(REQUEST_NONE)
 #endif
-    { }
+    {
+        myCarFollowModel = v.getVehicleType().getCarFollowModel();
+    }
 
     virtual ~MSAbstractLaneChangeModel() { }
 
@@ -203,6 +206,7 @@ protected:
 
 protected:
     MSVehicle &myVehicle;
+    MSCFModel *myCarFollowModel;
     int myState;
 #ifndef NO_TRACI
     ChangeRequest myChangeRequest;
