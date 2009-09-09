@@ -96,13 +96,15 @@ optParser.add_option("-p", "--path", dest="path",
                      default=os.environ.get("SUMO", ""), help="Path to binaries")
 (options, args) = optParser.parse_args()
 
-
-if options.path.endswith(".exe"):
+sumo = "sumo"
+if options.mesosim:
+    sumo = "meso"
+if os.path.isfile(options.path):
     sumoBinary = options.path
 elif (sys.platform=="win32"):        
-    sumoBinary = os.path.join(options.path, "sumo.exe")
+    sumoBinary = os.path.join(options.path, sumo+".exe")
 else:
-    sumoBinary = os.path.join(options.path, "sumo")
+    sumoBinary = os.path.join(options.path, sumo)
 log = open("one_shot-log.txt", "w")
 logQuiet = open("one_shot-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
