@@ -54,7 +54,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const string &id,
-                       const set<NBNode*> &junctions) throw()
+                       const vector<NBNode*> &junctions) throw()
         : NBTrafficLightDefinition(id, junctions) {}
 
 

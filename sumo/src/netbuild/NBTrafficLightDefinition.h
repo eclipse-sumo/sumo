@@ -92,7 +92,7 @@ public:
      * @param[in] junctions List of junctions controlled by this tls
      */
     NBTrafficLightDefinition(const std::string &id,
-                             const std::set<NBNode*> &junctions) throw();
+                             const std::vector<NBNode*> &junctions) throw();
 
 
     /** @brief Constructor
@@ -144,7 +144,7 @@ public:
     /** @brief Returns the list of controlled nodes
      * @return Controlled nodes
      */
-    const std::set<NBNode*> &getNodes() const throw() {
+    const std::vector<NBNode*> &getNodes() const throw() {
         return myControlledNodes;
     }
     /// @}
@@ -299,11 +299,8 @@ protected:
 
 
 protected:
-    /// @brief Definition of the container type for participating nodes
-    typedef std::set<NBNode*> NodeCont;
-
     /// @brief The container with participating nodes
-    NodeCont myControlledNodes;
+    std::vector<NBNode*> myControlledNodes;
 
     /// @brief The list of incoming edges
     EdgeVector myIncomingEdges;

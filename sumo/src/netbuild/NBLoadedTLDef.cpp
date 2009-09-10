@@ -267,7 +267,7 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id,
-                             const std::set<NBNode*> &junctions) throw()
+                             const std::vector<NBNode*> &junctions) throw()
         : NBTrafficLightDefinition(id, junctions) {}
 
 
@@ -471,9 +471,10 @@ NBLoadedTLDef::collectNodes() throw() {
             const NBConnection &conn = group->getConnection(j);
             NBEdge *edge = conn.getFrom();
             NBNode *node = edge->getToNode();
-            myControlledNodes.insert(node);
+            myControlledNodes.push_back(node);
         }
     }
+    std::sort(myControlledNodes.begin(), myControlledNodes.end(), NBNode::nodes_by_id_sorter());
 }
 
 

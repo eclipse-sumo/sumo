@@ -291,9 +291,12 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc) {
         // cands now only contain sets of junctions that shall be joined into being tls-controlled
         unsigned int index = 0;
         for (std::vector<std::set<NBNode*> >::iterator i=cands.begin(); i!=cands.end(); ++i) {
-            std::set<NBNode*> &near = (*i);
+            std::vector<NBNode*> nodes;
+            for (std::set<NBNode*>::iterator j=(*i).begin(); j!=(*i).end(); j++) {
+                nodes.push_back(*j);
+            }
             std::string id = "joinedG_" + toString(index++);
-            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, near);
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
                 WRITE_WARNING("Could not build guessed, joined tls");
@@ -350,7 +353,11 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont &tlc) {
             }
         }
         std::string id = "joinedS_" + toString(index++);
-        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, c);
+        std::vector<NBNode*> nodes;
+        for (std::set<NBNode*>::iterator j=c.begin(); j!=c.end(); j++) {
+            nodes.push_back(*j);
+        }
+        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, nodes);
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
             WRITE_WARNING("Could not build a joined tls.");

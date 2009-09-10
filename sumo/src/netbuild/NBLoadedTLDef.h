@@ -207,7 +207,7 @@ public:
      * @param[in] junctions Junctions controlled by this tls
      */
     NBLoadedTLDef(const std::string &id,
-                  const std::set<NBNode*> &junctions) throw();
+                  const std::vector<NBNode*> &junctions) throw();
 
 
     /** @brief Constructor

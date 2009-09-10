@@ -428,6 +428,24 @@ public:
         Connections are remapped, too */
     void replaceOutgoing(const EdgeVector &which, NBEdge *by);
 
+
+    /**
+     * @class nodes_by_id_sorter
+     * @brief Used for sorting the cells by the begin time they describe
+     */
+    class nodes_by_id_sorter {
+    public:
+        /// @brief Constructor
+        explicit nodes_by_id_sorter() { }
+
+        /** @brief Comparing operator
+         */
+        int operator()(NBNode *n1, NBNode *n2) const {
+            return n1->getID()<n2->getID();
+        }
+
+    };
+
 private:
     /// build the logic using the NBRequest
     void buildBitfieldLogic();
