@@ -187,6 +187,15 @@ public:
     void recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                       NBEdgeCont &ec);
 
+    /** @brief Removes sequences of edges that are not connected with a junction.
+     * Simple roads without junctions sometimes remain when converting from OpenStreetMake,
+     * but they make no sense. Remaining empty nodes are also deleted.
+     *
+     * @param[in] dc The district container needed if edges shall be removed
+     * @param[in] ec The container with the edge to be tested
+     */
+    void removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc);
+
     /// Removes dummy edges (edges lying completely within a node)
     void removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
                           NBTrafficLightLogicCont &tc);
@@ -264,8 +273,6 @@ private:
     bool shouldBeTLSControlled(const std::set<NBNode*> &c) const throw();
     /// @}
 
-
-private:
     /// @brief The running internal id
     int myInternalID;
 
@@ -275,15 +282,11 @@ private:
     /// @brief The map of names to nodes
     NodeCont myNodes;
 
-
-private:
     /// @brief invalidated copy constructor
     NBNodeCont(const NBNodeCont &s);
 
     /// @brief invalidated assignment operator
     NBNodeCont &operator=(const NBNodeCont &s);
-
-
 };
 
 
