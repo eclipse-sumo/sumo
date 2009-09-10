@@ -243,7 +243,7 @@ class DistrictsReader(handler.ContentHandler):
         if name == 'district':
             self._district = ''
     
-def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList):
+def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap):
     counts += 1.
     vehID += 1
     depart = random.randint(begin*3600, (begin + period)*3600)
@@ -251,9 +251,10 @@ def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tr
         connIndex = random.randint(0, len(odConnTable[startVertex.label][endVertex.label])-1)
         connPair = odConnTable[startVertex.label][endVertex.label][connIndex]
         veh = Trip(vehID, depart, connPair[0], connPair[1], startVertex.label, endVertex.label)
+        vehIDtoODMap[str(vehID)] = [startVertex.label, endVertex.label]
         tripList.append(veh)
     
-    return counts, vehID, tripList    
+    return counts, vehID, tripList, vehIDtoODMap
        
 def main(options):
     parser = make_parser()
@@ -273,6 +274,7 @@ def main(options):
     tripList = []
     net = Net()
     odConnTable = {}
+    vehIDtoODMap = {}
     
     parser.setContentHandler(NetworkReader(net))
     if isBZ2:
@@ -337,16 +339,16 @@ def main(options):
                 counts = 0.
                 if options.odestimation:
                     if matrixPshort[start][end] < 1.:
-                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList)
+                        counts, vehID, tripList, vehIDtoODMap = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
                     else:
                         matrixSum += matrixPshort[start][end]
                         while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(subVehID) < matrixSum)or float(subVehID) < matrixSum:
-                            counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList)
+                            counts, vehID, tripList, vehIDtoODMap = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
                             subVehID += 1
                 else:
                     matrixSum += matrixPshort[start][end]
                     while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
-                        counts, vehID, tripList = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList)
+                        counts, vehID, tripList, vehIDtoODMap = addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
     if options.debug:
         print 'total demand:', matrixSum           
         print vehID, 'trips generated' 
@@ -361,7 +363,7 @@ def main(options):
     fouttrips.write("</tripdefs>")
     fouttrips.close()
     
-    return odConnTable
+    return odConnTable, vehIDtoODMap
 
 if __name__ == "__main__":    
     optParser = OptionParser()
