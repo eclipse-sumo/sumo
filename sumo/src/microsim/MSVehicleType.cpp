@@ -111,7 +111,7 @@ MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeFloat(os, myColor.red());
     FileHelpers::writeFloat(os, myColor.green());
     FileHelpers::writeFloat(os, myColor.blue());
-	FileHelpers::writeString(os, myCarFollowModel->getModelName());
+    FileHelpers::writeString(os, myCarFollowModel->getModelName());
     FileHelpers::writeString(os, myLaneChangeModel);
     //myCarFollowModel->saveState(os);
 }
