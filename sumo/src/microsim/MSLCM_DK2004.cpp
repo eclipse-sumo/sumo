@@ -131,11 +131,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
             if (myVehicle.getSpeed()<myVehicle.decelAbility()) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
-                    myVSafe = myCarFollowModel->ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myCarFollowModel.ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
-                    myVSafe = myCarFollowModel->ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myCarFollowModel.ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 }
             }
@@ -165,7 +165,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     if (fabs(best.length-curr.length)>MIN2((SUMOReal) .1, best.lane->length()) && bestLaneOffset<0&&currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if (neighLead.second>0&&neighLead.second>leader.second) {
-            myVSafe = myCarFollowModel->ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed())
+            myVSafe = myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed())
                       - (SUMOReal) 0.5;
         }
         myBlockingLeader = neighLead.first;
@@ -237,19 +237,19 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal neighLaneVSafe, thisLaneVSafe;
     if (neighLead.first == 0) {
         neighLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, neighLane.length() - myVehicle.getPositionOnLane(), 0);
+            myCarFollowModel.ffeV(&myVehicle, neighLane.length() - myVehicle.getPositionOnLane(), 0);
     } else {
         assert(neighLead.second>=0);
         neighLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed());
+            myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed());
     }
     if (leader.first==0) {
         thisLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
+            myCarFollowModel.ffeV(&myVehicle, myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
     } else {
         assert(leader.second>=0);
         thisLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, leader.second, leader.first->getSpeed());
+            myCarFollowModel.ffeV(&myVehicle, leader.second, leader.first->getSpeed());
     }
 
     thisLaneVSafe =
@@ -358,11 +358,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
             if (myVehicle.getSpeed()<myVehicle.decelAbility()) {
                 if ((*lastBlocked)->getSpeed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
-                    myVSafe = myCarFollowModel->ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myCarFollowModel.ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
-                    myVSafe = myCarFollowModel->ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
+                    myVSafe = myCarFollowModel.ffeV(&myVehicle, (SUMOReal)(gap-0.1), (*lastBlocked)->getSpeed());
                     (*lastBlocked) = 0;
                 }
             }
@@ -395,7 +395,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
             currentDistDisallows(tdist/*currentDist*/, bestLaneOffset, lv)) {
         informBlocker(msgPass, blocked, LCA_MLEFT, neighLead, neighFollow);
         if (neighLead.second>0&&neighLead.second>leader.second) {
-            myVSafe = myCarFollowModel->ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed()) - (SUMOReal) 0.5;
+            myVSafe = myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed()) - (SUMOReal) 0.5;
         }
         myBlockingLeader = neighLead.first;
         myBlockingFollower = neighFollow.first;
@@ -471,19 +471,19 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal neighLaneVSafe, thisLaneVSafe;
     if (neighLead.first == 0) {
         neighLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, neighLane.length() - myVehicle.getPositionOnLane(), 0); // !!! warum nicht die Folgesgeschw.?
+            myCarFollowModel.ffeV(&myVehicle, neighLane.length() - myVehicle.getPositionOnLane(), 0); // !!! warum nicht die Folgesgeschw.?
     } else {
         assert(neighLead.second>=0);
         neighLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed());
+            myCarFollowModel.ffeV(&myVehicle, neighLead.second, neighLead.first->getSpeed());
     }
     if (leader.first==0) {
         thisLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
+            myCarFollowModel.ffeV(&myVehicle, myVehicle.getLane().length() - myVehicle.getPositionOnLane(), 0);
     } else {
         assert(leader.second>=0);
         thisLaneVSafe =
-            myCarFollowModel->ffeV(&myVehicle, leader.second, leader.first->getSpeed());
+            myCarFollowModel.ffeV(&myVehicle, leader.second, leader.first->getSpeed());
     }
     thisLaneVSafe =
         MIN3(thisLaneVSafe, myVehicle.getLane().maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
@@ -644,13 +644,13 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
             + SPEED2DIST(myVehicle.getSpeed()) * (SUMOReal) 2.0
             - MAX2(nv->getSpeed() - (SUMOReal) ACCEL2SPEED(nv->decelAbility()) * (SUMOReal) 2.0, (SUMOReal) 0);
         if (neighFollow.second>0&&decelGap>0&&nv->hasSafeGap(nv->getSpeed(), decelGap, myVehicle.getSpeed(), nv->getLane().maxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
-            SUMOReal vsafe = myCarFollowModel->ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
+            SUMOReal vsafe = myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(
                 (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
             SUMOReal vsafe = neighFollow.second<=0
                              ? 0
-                             : myCarFollowModel->ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
+                             : myCarFollowModel.ffeV(&myVehicle, neighFollow.second, neighFollow.first->getSpeed());
             msgPass.informNeighFollower(
                 (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE), &myVehicle);
         }

@@ -116,9 +116,14 @@ public:
         return myLength;
     }
 
-    MSCFModel* getCarFollowModel() const throw() {
-        return myCarFollowModel;
+
+    /** @brief Returns the vehicle type's car following model definition
+     * @return The vehicle type's car following model definition
+     */
+    inline const MSCFModel &getCarFollowModel() const throw() {
+        return *myCarFollowModel;
     }
+
 
     /** @brief Get vehicle's maximum speed [m/s].
      * @return The maximum speed (in m/s) of vehicles of this class

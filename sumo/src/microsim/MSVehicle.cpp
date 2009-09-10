@@ -407,7 +407,7 @@ MSVehicle::ends() const throw() {
 bool
 MSVehicle::addStop(const Stop &stop) throw() {
     MSRouteIterator stopEdge = myRoute->find(stop.lane->getEdge(), myCurrEdge);
-    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos - myType->getCarFollowModel()->brakeGap(myState.mySpeed))) {
+    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos - getCarFollowModel().brakeGap(myState.mySpeed))) {
         // do not add the stop if the vehicle is already behind it or cannot break
         return false;
     }
@@ -500,7 +500,7 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
             }
             // decelerate
             // !!! should not v be 0 when we have reached the stop?
-            return myType->getCarFollowModel()->ffeS(this, endPos-myState.pos());
+            return getCarFollowModel().ffeS(this, endPos-myState.pos());
         }
     }
     return currentVelocity;
@@ -524,23 +524,23 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
         gap = 0;
     }
     //
-    SUMOReal vSafe  = myType->getCarFollowModel()->ffeV(this, gap, pred->getSpeed());
+    SUMOReal vSafe  = getCarFollowModel().ffeV(this, gap, pred->getSpeed());
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
-        SUMOReal nVSafe = myType->getCarFollowModel()->ffeV(this, mgap, pred->getSpeed());
+        SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, pred->getSpeed());
         vSafe = MIN2(vSafe, nVSafe);
     }
     // take stops into account
     vSafe = MIN2(vSafe, processNextStop(vSafe));
 
-    SUMOReal maxNextSpeed = myType->getCarFollowModel()->maxNextSpeed(myState.mySpeed);
+    SUMOReal maxNextSpeed = getCarFollowModel().maxNextSpeed(myState.mySpeed);
     // we need the acceleration for emission computation;
     //  in this case, we neglect dawdling, nonetheless, using
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     myPreDawdleAcceleration = SPEED2ACCEL(vSafe-oldV);
 
-    SUMOReal vNext = myType->getCarFollowModel()->dawdle(MIN3(lane->maxSpeed(), myType->getCarFollowModel()->maxNextSpeed(myState.mySpeed), vSafe));
+    SUMOReal vNext = getCarFollowModel().dawdle(MIN3(lane->maxSpeed(), getCarFollowModel().maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
         myLaneChangeModel->patchSpeed(
             MAX2((SUMOReal) 0, myState.mySpeed-(SUMOReal)ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
@@ -550,7 +550,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     vNext = MIN4(vNext, vSafe, myLane->maxSpeed(), maxNextSpeed);//vaccel(myState.mySpeed, myLane->maxSpeed()));
 
     SUMOReal predDec = pred->getSpeedAfterMaxDecel(pred->getSpeed()); //!!!!q//-decelAbility() /* !!! decelAbility of leader! */);
-    if (myType->getCarFollowModel()->brakeGap(vNext)+vNext*myType->getTau() > myType->getCarFollowModel()->brakeGap(predDec) + gap) {
+    if (getCarFollowModel().brakeGap(vNext)+vNext*myType->getTau() > getCarFollowModel().brakeGap(predDec) + gap) {
 
         vNext = MIN2(vNext, (SUMOReal) DIST2SPEED(gap));
     }
@@ -616,33 +616,33 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
-        SUMOReal vWish = MIN2(myType->getCarFollowModel()->ffeS(this, myLane->length()-myState.myPos), myLane->maxSpeed());
+        SUMOReal vWish = MIN2(getCarFollowModel().ffeS(this, myLane->length()-myState.myPos), myLane->maxSpeed());
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
             if (MSGlobals::gCheck4Accidents && gap<0) {
                 // collision occured!
                 return true;
             }
-            vWish = MIN2(vWish, myType->getCarFollowModel()->ffeV(this, pred));
+            vWish = MIN2(vWish, getCarFollowModel().ffeV(this, pred));
         }
         // !!! check whether the vehicle wants to stop somewhere
         if (!myStops.empty()&&myStops.begin()->lane->getEdge()==lane->getEdge()) {
             SUMOReal seen = lane->length() - myState.pos();
-            SUMOReal vsafeStop = myType->getCarFollowModel()->ffeS(this, seen-(lane->length()-myStops.begin()->pos));
+            SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(lane->length()-myStops.begin()->pos));
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
         myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false));
     } else {
         // compute other values as in move
-        SUMOReal vBeg = MIN2(myType->getCarFollowModel()->maxNextSpeed(myState.mySpeed), lane->maxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
+        SUMOReal vBeg = MIN2(getCarFollowModel().maxNextSpeed(myState.mySpeed), lane->maxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
             if (MSGlobals::gCheck4Accidents && gap<0) {
                 // collision occured!
                 return true;
             }
-            SUMOReal vSafe = myType->getCarFollowModel()->ffeV(this, gap, pred->getSpeed());
+            SUMOReal vSafe = getCarFollowModel().ffeV(this, gap, pred->getSpeed());
             //  the vehicle is bound by the lane speed and must not drive faster
             //  than vsafe to the next vehicle
             vBeg = MIN2(vBeg, vSafe);
@@ -707,12 +707,12 @@ MSVehicle::moveFirstChecked() {
     //  on lane changing
     myPreDawdleAcceleration = SPEED2ACCEL(vSafe-oldV);
     // compute vNext in considering dawdling
-    SUMOReal vNext = myType->getCarFollowModel()->dawdle(vSafe);
+    SUMOReal vNext = getCarFollowModel().dawdle(vSafe);
     vNext =
         myLaneChangeModel->patchSpeed(
             getSpeedAfterMaxDecel(myState.mySpeed),
             vNext,
-            MIN3(vSafe, myType->getCarFollowModel()->maxNextSpeed(myState.mySpeed), myLane->maxSpeed()), //vaccel(myState.mySpeed, myLane->maxSpeed())),
+            MIN3(vSafe, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->maxSpeed()), //vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
     vNext = MAX3(vNext, myType->getSpeedAfterMaxDecel(oldV), (SUMOReal) 0.);
     // visit waiting time
@@ -756,7 +756,7 @@ MSVehicle::moveFirstChecked() {
         myState.myPos>approachedLane->length()
         ? approachedLane->length() - pos
         : myState.myPos - pos;
-    SUMOReal tmpPos = approachedLane->length() + myType->getCarFollowModel()->brakeGap(myState.mySpeed);
+    SUMOReal tmpPos = approachedLane->length() + getCarFollowModel().brakeGap(myState.mySpeed);
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()
             &&
             myState.myPos>approachedLane->length();
@@ -849,7 +849,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 seenSpace = seenSpace - approachedLane->getVehLenSum();
                 if (leader==0&&approachedLane->getLastVehicle()!=0) {
                     leader = approachedLane->getLastVehicle();
-                    seenSpace += leader->getVehicleType().getCarFollowModel()->brakeGap(leader->getSpeed());
+                    seenSpace += leader->getCarFollowModel().brakeGap(leader->getSpeed());
                 }
             } else {
                 bool nextDisallows1 = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && seenSpace<.1;
@@ -861,7 +861,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 seenSpace = seenSpace + approachedLane->length() - approachedLane->getVehLenSum();
                 if (leader==0&&approachedLane->getLastVehicle()!=0) {
                     leader = approachedLane->getLastVehicle();
-                    seenSpace += leader->getVehicleType().getCarFollowModel()->brakeGap(leader->getSpeed());
+                    seenSpace += leader->getCarFollowModel().brakeGap(leader->getSpeed());
                 }
                 seenLanes += approachedLane->length();
                 // we also do not want the vehicle continue if there is not enough place
@@ -917,8 +917,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
     MSLane *nextLane = myLane;
     // compute the way the vehicle would drive if it would use the current speed and then
     //  decelerate
-    SUMOReal maxV = myType->getCarFollowModel()->maxNextSpeed(myState.mySpeed);
-    SUMOReal dist = SPEED2DIST(maxV) + myType->getCarFollowModel()->brakeGap(maxV);//myState.mySpeed);
+    SUMOReal maxV = getCarFollowModel().maxNextSpeed(myState.mySpeed);
+    SUMOReal dist = SPEED2DIST(maxV) + getCarFollowModel().brakeGap(maxV);//myState.mySpeed);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
     const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
@@ -931,7 +931,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
     while (true) {
         // process stops
         if (!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
-            SUMOReal vsafeStop = myType->getCarFollowModel()->ffeS(this, seen-(nextLane->length()-myStops.begin()->pos));
+            SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(nextLane->length()-myStops.begin()->pos));
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -945,7 +945,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         //  (should be valid only on further loop iterations
         if (nextLane->isLinkEnd(link)) {
             // the vehicle will not drive further
-            SUMOReal laneEndVSafe = myType->getCarFollowModel()->ffeS(this, seen);
+            SUMOReal laneEndVSafe = getCarFollowModel().ffeS(this, seen);
             myLFLinkLanes.push_back(
                 DriveProcessItem(0, MIN2(vLinkPass, laneEndVSafe), MIN2(vLinkPass, laneEndVSafe), false));
             checkRewindLinkLanes(lengthsInFront);
@@ -976,7 +976,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         // compute the velocity to use when the link is not blocked by oter vehicles
         // the vehicle shall be not fastern when reaching the next lane than allowed
         SUMOReal vmaxNextLane =
-            MAX2(myType->getCarFollowModel()->ffeV(this, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
+            MAX2(getCarFollowModel().ffeV(this, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
 
         // the vehicle shall keep a secure distance to its predecessor
         //  (or approach the lane end if the predeccessor is too near)
@@ -1017,16 +1017,16 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
                 if (dist2Pred>=0) {
                     // leading vehicle is not overlapping
                     vsafePredNextLane =
-                        MIN2(vsafePredNextLane, myType->getCarFollowModel()->ffeV(this, dist2Pred, nextLanePred.speed()));
-                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-(SUMOReal)ACCEL2SPEED(myType->getCarFollowModel()->decelAbility()) /* !!! decelAbility of leader! */);
-                    if (myType->getCarFollowModel()->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->getCarFollowModel()->brakeGap(predDec) + dist2Pred) {
+                        MIN2(vsafePredNextLane, getCarFollowModel().ffeV(this, dist2Pred, nextLanePred.speed()));
+                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-(SUMOReal)ACCEL2SPEED(getCarFollowModel().decelAbility()) /* !!! decelAbility of leader! */);
+                    if (getCarFollowModel().brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > getCarFollowModel().brakeGap(predDec) + dist2Pred) {
 
                         vsafePredNextLane = MIN2(vsafePredNextLane, (SUMOReal)DIST2SPEED(dist2Pred));
                         // !!! break? next vehicle was already seen!
                     }
                 } else {
                     // leading vehicle is overlapping (stands within the junction)
-                    vsafePredNextLane = MIN2(vsafePredNextLane, myType->getCarFollowModel()->ffeV(this, 0, 0)); // ==0?
+                    vsafePredNextLane = MIN2(vsafePredNextLane, getCarFollowModel().ffeV(this, 0, 0)); // ==0?
                     // we have to wait in any case
                     break;
                 }
@@ -1054,15 +1054,15 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
                     if (dist2Pred2>=0) {
                         // leading vehicle is not overlapping
                         vsafePredNextLane =
-                            MIN2(vsafePredNextLane, myType->getCarFollowModel()->ffeV(this, dist2Pred2, nextLanePred2.speed()));
-                        SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred2.speed()-myType->getCarFollowModel()->decelAbility() /* !!! decelAbility of leader! */);
-                        if (myType->getCarFollowModel()->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->getCarFollowModel()->brakeGap(predDec) + dist2Pred2) {
+                            MIN2(vsafePredNextLane, getCarFollowModel().ffeV(this, dist2Pred2, nextLanePred2.speed()));
+                        SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred2.speed()-getCarFollowModel().decelAbility() /* !!! decelAbility of leader! */);
+                        if (getCarFollowModel().brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > getCarFollowModel().brakeGap(predDec) + dist2Pred2) {
 
                             vsafePredNextLane = MIN2(vsafePredNextLane, (SUMOReal)DIST2SPEED(dist2Pred2));
                         }
                     } else {
                         // leading vehicle is overlapping (stands within the junction)
-                        vsafePredNextLane = MIN2(vsafePredNextLane, myType->getCarFollowModel()->ffeV(this, 0, 0)); // ==0?
+                        vsafePredNextLane = MIN2(vsafePredNextLane, getCarFollowModel().ffeV(this, 0, 0)); // ==0?
                         break;
                     }
                 }
@@ -1103,15 +1103,15 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             if (dist2Pred>=0) {
                 // leading vehicle is not overlapping
                 vsafePredNextLane =
-                    MIN2(vsafePredNextLane, myType->getCarFollowModel()->ffeV(this, dist2Pred, nextLanePred.speed()));
-                SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->getCarFollowModel()->decelAbility() /* !!! decelAbility of leader! */);
-                if (myType->getCarFollowModel()->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->getCarFollowModel()->brakeGap(predDec) + dist2Pred) {
+                    MIN2(vsafePredNextLane, getCarFollowModel().ffeV(this, dist2Pred, nextLanePred.speed()));
+                SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-getCarFollowModel().decelAbility() /* !!! decelAbility of leader! */);
+                if (getCarFollowModel().brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > getCarFollowModel().brakeGap(predDec) + dist2Pred) {
 
                     vsafePredNextLane = MIN2(vsafePredNextLane, (SUMOReal)DIST2SPEED(dist2Pred));
                 }
             } else {
                 // leading vehicle is overlapping (stands within the junction)
-                vsafePredNextLane = MIN2(vsafePredNextLane, myType->getCarFollowModel()->ffeV(this, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+                vsafePredNextLane = MIN2(vsafePredNextLane, getCarFollowModel().ffeV(this, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
             }
 #ifdef HAVE_INTERNAL_LANES
         }
@@ -1129,7 +1129,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
 
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
-        vLinkWait = MIN3(vLinkPass, vLinkWait, myType->getCarFollowModel()->ffeS(this, seen));
+        vLinkWait = MIN3(vLinkPass, vLinkWait, getCarFollowModel().ffeS(this, seen));
         vLinkWait = MAX2(vLinkWait, myType->getSpeedAfterMaxDecel(myState.mySpeed));
 
         bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
@@ -1145,8 +1145,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             //  and when the distance to the vehicle on the next lane allows moving
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
-            if ((myState.mySpeed<ACCEL2SPEED(myType->getMaxDecel())||seen<myType->getCarFollowModel()->approachingBrakeGap(myState.mySpeed))&&r_dist2Pred>0) {
-                vLinkPass = MIN3(vLinkPass, myType->getCarFollowModel()->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());
+            if ((myState.mySpeed<ACCEL2SPEED(myType->getMaxDecel())||seen<getCarFollowModel().approachingBrakeGap(myState.mySpeed))&&r_dist2Pred>0) {
+                vLinkPass = MIN3(vLinkPass, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->maxSpeed());
                 setRequest = true;
             } else {
                 // let it wait in the other cases
@@ -1155,7 +1155,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         }
         // process stops
         if (!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
-            SUMOReal vsafeStop = myType->getCarFollowModel()->ffeS(this, seen+myStops.begin()->pos);
+            SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen+myStops.begin()->pos);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
             setRequest = false;
@@ -1344,7 +1344,7 @@ const MSEdge * const
 bool
 MSVehicle::reachingCritical(SUMOReal laneLength) const {
     // check whether the vehicle will run over the lane when accelerating
-    return (laneLength - myState.myPos - myType->getCarFollowModel()->brakeGap(myState.mySpeed)) <= 0;
+    return (laneLength - myState.myPos - getCarFollowModel().brakeGap(myState.mySpeed)) <= 0;
 }
 
 
@@ -1567,12 +1567,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) {
     }
     rebuildAllowedLanes();
     return true;
-}
-
-
-const MSVehicleType &
-MSVehicle::getVehicleType() const {
-    return *myType;
 }
 
 

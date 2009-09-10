@@ -96,12 +96,12 @@ public:
 
 
     MSAbstractLaneChangeModel(MSVehicle &v)
-            : myVehicle(v), myState(0)
+            : myVehicle(v), myState(0),
 #ifndef NO_TRACI
-            ,myChangeRequest(REQUEST_NONE)
+            myChangeRequest(REQUEST_NONE),
 #endif
+            myCarFollowModel(v.getCarFollowModel())
     {
-        myCarFollowModel = v.getVehicleType().getCarFollowModel();
     }
 
     virtual ~MSAbstractLaneChangeModel() { }
@@ -206,7 +206,9 @@ protected:
 
 protected:
     MSVehicle &myVehicle;
-    MSCFModel *myCarFollowModel;
+
+    /// @brief The vehicle's car following model
+    const MSCFModel &myCarFollowModel;
     int myState;
 #ifndef NO_TRACI
     ChangeRequest myChangeRequest;

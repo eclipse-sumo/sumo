@@ -391,11 +391,11 @@ public:
 
 
     SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
-        return myType->getCarFollowModel()->interactionGap(vF, laneMaxSpeed, vL);
+        return getCarFollowModel().interactionGap(vF, laneMaxSpeed, vL);
     }
 
     bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const {
-        return myType->getCarFollowModel()->hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
+        return getCarFollowModel().hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
     }
 
     /**
@@ -409,7 +409,7 @@ public:
     }
 
 /*    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-        return myType->getCarFollowModel()->ffeV(this, speed, gap2pred, predSpeed);
+        return getCarFollowModel().ffeV(this, speed, gap2pred, predSpeed);
     }*/
 
     SUMOReal getLength() const throw() {
@@ -417,11 +417,11 @@ public:
     }
 
     SUMOReal decelAbility() const throw() {
-        return myType->getCarFollowModel()->decelAbility(); // !!! really the speed?
+        return getCarFollowModel().decelAbility(); // !!! really the speed?
     }
 
     SUMOReal maxNextSpeed(SUMOReal v) const throw() {
-        return myType->getCarFollowModel()->maxNextSpeed(v);
+        return getCarFollowModel().maxNextSpeed(v);
     }
 
     SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
@@ -641,7 +641,26 @@ public:
         return SPEED2DIST(myState.mySpeed);
     }
 
-    const MSVehicleType &getVehicleType() const;
+
+    /** @brief Returns the vehicle's type definition
+     * @return The vehicle's type definition
+     */
+    inline const MSVehicleType &getVehicleType() const throw() {
+        return *myType;
+    }
+    
+
+    /** @brief Returns the vehicle's car following model definition
+     *
+     * This is simply a wrapper around the vehicle type's car-following
+     *  model retrieval for a shorter access.
+     *
+     * @return The vehicle's car following model definition
+     */
+    inline const MSCFModel &getCarFollowModel() const throw() {
+        return myType->getCarFollowModel();
+    }
+    
 
 
     void onDepart();

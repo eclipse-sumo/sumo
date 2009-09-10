@@ -339,7 +339,7 @@ MSLaneChanger::getRealLeader(const ChangerIt &target) const throw() {
         const std::vector<MSLane*> &bestLaneConts = veh(myCandi)->getBestLanesContinuation(myCandi->lane);
         SUMOReal seen = myCandi->lane->length() - veh(myCandi)->getPositionOnLane();
         SUMOReal speed = veh(myCandi)->getSpeed();
-        SUMOReal dist = veh(myCandi)->getVehicleType().getCarFollowModel()->brakeGap(speed);
+        SUMOReal dist = veh(myCandi)->getCarFollowModel().brakeGap(speed);
         if (seen>dist) {
             return std::pair<MSVehicle * const, SUMOReal>(0, -1);
         }
