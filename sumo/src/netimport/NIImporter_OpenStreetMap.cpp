@@ -26,7 +26,9 @@
 #else
 #include <config.h>
 #endif
-#include <string>
+#include "NIImporter_OpenStreetMap.h"
+#include <algorithm>
+#include <functional>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
@@ -39,7 +41,6 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "NIImporter_OpenStreetMap.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/options/OptionsCont.h>
@@ -56,6 +57,91 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
+
+
+
+// ===========================================================================
+// Private classes
+// ===========================================================================
+
+/** @brief Functor which compares two NIOSMNodes according
+ * to their coordinates
+ *
+ * Both nodes are given as pointers in the second element of two pairs.
+ * This functor is helpful for example in the find_if algorithm.
+ */
+class NIImporter_OpenStreetMap::CompareNodesInPairs: public std::unary_function<
+		std::pair<int, NIOSMNode*>, bool> {
+public:
+	/** @brief Initializes the functor with the fixed comparison partner
+	 *
+	 * @param[in] p0 A pair with the NIOSMNode all other nodes
+	 *               should be compared with.
+	 */
+
+	CompareNodesInPairs(const std::pair<int, NIOSMNode*>& p0) :
+		myP0(p0) {
+	}
+	/** @brief Compares the NIOSMNode (p1.second) with the node given
+	 * in the constructor for equality
+	 *
+	 * The geo coordinates (lat and lon) are compared to test the equality.
+	 *
+	 * @param[in] p1 A pair with the node to compare.
+	 * @return true if both nodes are equal; otherwise false.
+	 */
+	bool operator()(const std::pair<int, NIOSMNode*>& p1) const {
+		return (p1.second->lat == myP0.second->lat) && (p1.second->lon
+				== myP0.second->lon);
+	}
+
+private:
+	std::pair<int, NIOSMNode*> myP0;
+};
+
+/** @brief A functor to substitute a node in the node list of an Edge
+ */
+class NIImporter_OpenStreetMap::SubstituteNode: public std::unary_function<
+		std::pair<std::string, Edge*>, void> {
+public:
+	/** @brief Initializes the functor with the node to substitute
+	 * and the node with that the node in the first argument
+	 * is substituted
+	 *
+	 * @param[in] toSubstitute Every occurrence of this node should
+	 *                         substituted
+	 * @param[in] substituteWith This node is overwrites
+	 *                           the occurrences of toSubstitute
+	 */
+	SubstituteNode(const NIOSMNode* const toSubstitute,
+			const NIOSMNode* const substituteWith) :
+		myToSubstitute(toSubstitute), mySubstituteWith(substituteWith) {
+	}
+	/** @brief Substitutes the nodes in the edge of the given pair
+	 *
+	 * In the node list, all occurrences of toSubstitute are substituted
+	 * with substituteWith. The final list has no equal adjacent nodes.
+	 *
+	 * @param[in] p A pair with the edge in which the nodes are
+	 *              substituted
+	 */
+	void operator()(const std::pair<std::string, Edge*>& p) const {
+		std::vector<int>& edgeNodes = p.second->myCurrentNodes;
+		// Substitute nodes
+		std::replace_if(edgeNodes.begin(), edgeNodes.end(), std::bind2nd(
+				std::equal_to<int>(), myToSubstitute->id), mySubstituteWith->id);
+
+		// Remove adjacent duplicates
+		std::vector<int>::iterator newEnd = std::unique(edgeNodes.begin(),
+				edgeNodes.end());
+		edgeNodes.erase(newEnd, edgeNodes.end());
+	}
+
+private:
+	const NIOSMNode * const myToSubstitute, * const mySubstituteWith;
+};
+
+
 
 
 // ===========================================================================
@@ -136,6 +222,32 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         XMLSubSys::runParser(edgesHandler, *file);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
+
+    // remove duplicate nodes with the same geo coordinates
+	MsgHandler::getMessageInstance()->beginProcessMsg(
+			"Removing duplicate nodes...");
+	if (nodes.size() > 1) {
+		// The algorithm compares a node (it) with the remaining part
+		// of the list ( [itnext; end()[ ).
+		for (map<int, NIOSMNode*>::iterator it = nodes.begin(), itnext =
+				++nodes.begin(); itnext != nodes.end(); ++it, ++itnext) {
+
+			map<int, NIOSMNode*>::iterator dupNode = find_if(itnext,
+					nodes.end(), CompareNodesInPairs(*it));
+
+			if (dupNode != nodes.end()) {
+				MsgHandler *mh = MsgHandler::getMessageInstance();
+				mh->inform("Found duplicate nodes. Substitute " + toString(
+						dupNode->second->id) + " with " + toString(
+						it->second->id));
+
+				for_each(edges.begin(), edges.end(), SubstituteNode(
+						dupNode->second, it->second));
+			}
+		}
+	}
+	MsgHandler::getMessageInstance()->endProcessMsg("...done.");
+
     // build all
     std::map<int, int> nodeUsage;
     // mark which nodes are used
@@ -483,6 +595,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(P
         myCurrentEdge = 0;
     }
 }
+
+
 
 
 /****************************************************************************/

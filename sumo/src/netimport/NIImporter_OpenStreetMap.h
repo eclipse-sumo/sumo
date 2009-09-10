@@ -38,8 +38,13 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBNetBuilder;
 class NBEdge;
+class NBEdgeCont;
+class NBNetBuilder;
+class NBNode;
+class NBNodeCont;
+class NBTrafficLightLogicCont;
+class NBTypeCont;
 class OptionsCont;
 
 
@@ -103,6 +108,9 @@ protected:
 
 
 private:
+	class CompareNodesInPairs;
+	class SubstituteNode;
+
     /** @brief Builds an NBNode
      *
      * If a node with the given id is already known, nothing is done.
