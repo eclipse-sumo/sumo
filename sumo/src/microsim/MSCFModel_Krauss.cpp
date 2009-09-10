@@ -4,7 +4,7 @@
 /// @date    Mon, 04 Aug 2009
 /// @version $Id$
 ///
-// The car-following model and parameter
+// The Krauss car-following model and parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -47,35 +47,37 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, 
     myTauDecel = vtype->getMaxDecel() * myTau;
 }
 
-SUMOReal MSCFModel_Krauss::ffeV(MSVehicle *veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
+MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
+
+SUMOReal MSCFModel_Krauss::ffeV(MSVehicle *veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     return MIN2(_vsafe(gap2pred, predSpeed), maxNextSpeed(speed));
 }
 
-SUMOReal MSCFModel_Krauss::ffeV(MSVehicle *veh, SUMOReal gap2pred, SUMOReal predSpeed) const {
+SUMOReal MSCFModel_Krauss::ffeV(MSVehicle *veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     return MIN2(_vsafe(gap2pred, predSpeed), maxNextSpeed(veh->getSpeed()));
 }
 
-SUMOReal MSCFModel_Krauss::ffeV(MSVehicle *veh, const MSVehicle *pred) const {
+SUMOReal MSCFModel_Krauss::ffeV(MSVehicle *veh, const MSVehicle *pred) const throw() {
     return MIN2(_vsafe(veh->gap2pred(*pred), pred->getSpeed()), maxNextSpeed(veh->getSpeed()));
 }
 
-SUMOReal MSCFModel_Krauss::ffeS(MSVehicle *veh, SUMOReal gap2pred) const {
+SUMOReal MSCFModel_Krauss::ffeS(MSVehicle *veh, SUMOReal gap2pred) const throw() {
     return MIN2(_vsafe(gap2pred, 0), maxNextSpeed(veh->getSpeed()));
 }
 
-SUMOReal MSCFModel_Krauss::maxNextSpeed(SUMOReal speed) const {
+SUMOReal MSCFModel_Krauss::maxNextSpeed(SUMOReal speed) const throw() {
     return MIN2(speed + (SUMOReal) ACCEL2SPEED(myType->getMaxAccel(speed)), myType->getMaxSpeed());
 }
 
-SUMOReal MSCFModel_Krauss::brakeGap(SUMOReal speed) const {
+SUMOReal MSCFModel_Krauss::brakeGap(SUMOReal speed) const throw() {
     return speed * speed * myInverseTwoDecel + speed * myTau;
 }
     
-SUMOReal MSCFModel_Krauss::approachingBrakeGap(SUMOReal speed) const {
+SUMOReal MSCFModel_Krauss::approachingBrakeGap(SUMOReal speed) const throw() {
     return speed * speed * myInverseTwoDecel;
 }
 
-SUMOReal MSCFModel_Krauss::interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
+SUMOReal MSCFModel_Krauss::interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const throw() {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
@@ -88,7 +90,7 @@ SUMOReal MSCFModel_Krauss::interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SU
     return MAX2(gap, timeHeadWayGap(vNext));
 }
 
-bool MSCFModel_Krauss::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const {
+bool MSCFModel_Krauss::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
     SUMOReal vSafe = MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
     SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
     return (vNext>=myType->getSpeedAfterMaxDecel(speed)
@@ -96,13 +98,13 @@ bool MSCFModel_Krauss::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpe
             gap   >= timeHeadWayGap(speed));
 }
 
-SUMOReal MSCFModel_Krauss::safeEmitGap(SUMOReal speed) const {
+SUMOReal MSCFModel_Krauss::safeEmitGap(SUMOReal speed) const throw() {
     SUMOReal vNextMin = myType->getSpeedAfterMaxDecel(speed); // ok, minimum next speed
     SUMOReal safeGap  = vNextMin * (speed * myInverseTwoDecel + myTau);
     return MAX2(safeGap, timeHeadWayGap(speed)) + ACCEL2DIST(myType->getMaxAccel(speed));
 }
 
-SUMOReal MSCFModel_Krauss::dawdle(SUMOReal speed) const {
+SUMOReal MSCFModel_Krauss::dawdle(SUMOReal speed) const throw() {
     // generate random number out of [0,1]
     SUMOReal random = RandHelper::rand();
     // Dawdle.
@@ -117,16 +119,14 @@ SUMOReal MSCFModel_Krauss::dawdle(SUMOReal speed) const {
     return MAX2(SUMOReal(0), speed);
 }
 
-SUMOReal MSCFModel_Krauss::decelAbility() const {
+SUMOReal MSCFModel_Krauss::decelAbility() const throw() {
     return ACCEL2SPEED(myType->getMaxDecel());
 }
 
 
 
-MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
-
 /** Returns the SK-vsafe. */
-SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const {
+SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     if (predSpeed==0&&gap2pred<0.01) {
         return 0;
     }

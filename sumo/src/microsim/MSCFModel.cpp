@@ -4,7 +4,7 @@
 /// @date    Mon, 27 Jul 2009
 /// @version $Id$
 ///
-// The car-following model and parameter
+// The car-following model abstraction
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -28,7 +28,7 @@
 #endif
 
 #include "MSCFModel.h"
-//#include "MSVehicleType.h"
+
 
 // ===========================================================================
 // used namespaces
@@ -41,6 +41,7 @@ using namespace std;
 // ===========================================================================
 MSCFModel::MSCFModel(const MSVehicleType* vtype) throw()
     : myType(vtype) {}
+
 
 MSCFModel::~MSCFModel() throw() {}
 

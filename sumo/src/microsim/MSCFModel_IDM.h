@@ -31,47 +31,171 @@
 
 #include "MSCFModel.h"
 
-#define DELTA_IDM 4.0
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/** @class MSCFModel_IDM
+ * @brief The IDM car-following model and parameter
+ * @see MSCFModel
+ */
 class MSCFModel_IDM : public MSCFModel {
 public:
+    /** @brief Constructor
+     *  @param[in] dawdle  
+     *  @param[in] timeHeadWay  
+     *  @param[in] mingap 
+     */
     MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
                   SUMOReal timeHeadWay, SUMOReal mingap) throw();
 
+
+    /// @brief Destructor
     ~MSCFModel_IDM() throw();
 
-    SUMOReal ffeV(MSVehicle *veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const;
 
-    SUMOReal ffeV(MSVehicle *veh, SUMOReal gap2pred, SUMOReal predSpeed) const;
+    
+    /// @name Implementations of the MSCFModel interface
+    /// @{
 
-    SUMOReal ffeV(MSVehicle *veh, MSVehicle *pred) const;
+    /** @brief Computes the vehicle's safe speed (no dawdling)
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] predSpeed The speed of LEADER
+     * @return EGO's safe speed
+     * @see MSCFModel::ffeV
+     */
+    SUMOReal ffeV(MSVehicle *veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
 
-    SUMOReal ffeS(MSVehicle *veh, SUMOReal gap2pred) const;
 
-    SUMOReal maxNextSpeed(SUMOReal speed) const;
+    /** @brief Computes the vehicle's safe speed (no dawdling)
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] predSpeed The speed of LEADER
+     * @return EGO's safe speed
+     * @see MSCFModel::ffeV
+     * @todo used by MSLCM_DK2004, allows hypothetic values of gap2pred and predSpeed
+     */
+    SUMOReal ffeV(MSVehicle *veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
 
-    SUMOReal brakeGap(SUMOReal speed) const;
 
-    SUMOReal approachingBrakeGap(SUMOReal speed) const;
+    /** @brief Computes the vehicle's safe speed (no dawdling)
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] pred The LEADER
+     * @return EGO's safe speed
+     * @see MSCFModel::ffeV
+     * @todo generic Interface, models can call for the values they need
+     */
+    SUMOReal ffeV(MSVehicle *veh, const MSVehicle * const pred) const throw();
 
-    SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const;
 
-    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const;
+    /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] gap2pred The (netto) distance to the the obstacle
+     * @return EGO's safe speed for approaching a non-moving obstacle
+     * @see MSCFModel::ffeS
+     * @todo generic Interface, models can call for the values they need
+     */
+    SUMOReal ffeS(MSVehicle *veh, SUMOReal gap2pred) const throw();
 
-    SUMOReal safeEmitGap(SUMOReal speed) const;
 
-    SUMOReal dawdle(SUMOReal speed) const;
+    /** @brief Returns the maximum speed given the current speed
+     *
+     * The implementation of this method must take into account the time step
+     *  duration.
+     *
+     * Justification: Due to air brake or other influences, the vehicle's next maximum
+     *  speed depends on his current speed (given).
+     *
+     * @param[in] speed The vehicle's current speed
+     * @return The maximum possible speed for the next step
+     * @see MSCFModel::maxNextSpeed
+     */
+    SUMOReal maxNextSpeed(SUMOReal speed) const throw();
 
-    SUMOReal decelAbility() const;
 
+    /** @brief Returns the distance the vehicle needs to halt including driver's reaction time
+     * @param[in] speed The vehicle's current speed
+     * @return The distance needed to halt
+     * @see MSCFModel::brakeGap
+     */
+    SUMOReal brakeGap(SUMOReal speed) const throw();
+
+
+    /** @brief Returns the distance the vehicle needs to halt excluding driver's reaction time
+     * @param[in] speed The vehicle's current speed
+     * @return The distance needed to halt
+     * @see MSCFModel::approachingBrakeGap
+     */
+    SUMOReal approachingBrakeGap(SUMOReal speed) const throw();
+
+
+    /** @brief Returns the maximum gap at which an interaction between both vehicles occures
+     *
+     * "interaction" means that the LEADER influences EGO's speed.
+     * @param[in] vF EGO's speed
+     * @param[in] laneMaxSpeed The maximum speed allowed on the lane
+     * @param[in] vL LEADER's speed
+     * @return The interaction gap
+     * @todo evaluate signature
+     * @see MSCFModel::interactionGap
+     */
+    SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const throw();
+
+
+    /** @brief Returns whether the given gap is safe
+     *
+     * "safe" means that no collision occur when using the gap, given other values.
+     * @param[in] speed EGO's speed
+     * @param[in] gap The (netto) gap between LEADER and EGO
+     * @param[in] predSpeed LEADER's speed
+     * @param[in] laneMaxSpeed The maximum velocity allowed on the lane
+     * @return Whether the given gap is safe
+     * @todo evaluate signature
+     * @see MSCFModel::hasSafeGap
+     */
+    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw();
+
+
+    /** @brief Returns the gap needed to allow a safe emission
+     * @param[in] speed The assumed speed
+     * @return The gap needed for allowing an emission
+     * @see MSCFModel::safeEmitGap
+     */
+    SUMOReal safeEmitGap(SUMOReal speed) const throw();
+
+
+    /** @brief Applies driver imperfection (sawdling / sigma)
+     * @param[in] speed The speed with no dawdling
+     * @return The speed after dawdling
+     * @todo must exist until MSVehicle::move() is updated
+     * @see MSCFModel::dawdle
+     */
+    SUMOReal dawdle(SUMOReal speed) const throw();
+
+
+    /** @brief Returns the vehicle's maximum deceleration ability
+     * @return The vehicle's maximum deceleration ability
+     * @see MSCFModel::decelAbility
+     */
+    SUMOReal decelAbility() const throw();
+
+
+    /** @brief Returns the model's name
+     * @return The model's name
+     * @see MSCFModel::getModelName
+     */
     std::string getModelName() const throw() {
         return "idm";
     }
+    /// @}
+
 
 private:
-    SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const;
+    SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw();
 
-    SUMOReal desiredSpeed(MSVehicle *veh) const;
+    SUMOReal desiredSpeed(MSVehicle *veh) const throw();
 
     /// @todo needs to be removed
     // Dawdling is not part of IDM, but needs to exist here until
