@@ -1,4 +1,4 @@
-SUMO netgen Version dev-SVN-r7645
+SUMO netgen Version dev-SVN-r7696
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
@@ -126,7 +126,6 @@ Usage: netgen.exe [OPTION]*
   --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   
   -R, --remove-geometry                Removes geometry information from edges
-  --add-node-positions                 Adds node positions to edge geometries
   --no-turnarounds                     Disables building turnarounds
   --no-tls-turnarounds                 Disables building turnarounds at
                                          tls-controlled junctions

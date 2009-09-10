@@ -223,9 +223,6 @@
         <!-- Removes geometry information from edges -->
         remove-geometry="false"
 
-        <!-- Adds node positions to edge geometries -->
-        add-node-positions="false"
-
         <!-- Disables building turnarounds -->
         no-turnarounds="false"
 
