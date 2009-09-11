@@ -395,6 +395,9 @@
 // complete program (set: traffic lights)
 #define TL_COMPLETE_PROGRAM_RYG 0x2c
 
+// assumed time to next switch (get: traffic lights)
+#define TL_NEXT_SWITCH 0x2d
+
 
 
 // outgoing link number (get: lanes)

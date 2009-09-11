@@ -60,7 +60,8 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
     if (variable!=ID_LIST&&variable!=TL_RED_YELLOW_GREEN_STATE&&variable!=TL_PHASE_BRAKE_YELLOW_STATE
             &&variable!=TL_COMPLETE_DEFINITION_PBY&&variable!=TL_COMPLETE_DEFINITION_RYG
             &&variable!=TL_CONTROLLED_LANES&&variable!=TL_CONTROLLED_LINKS
-            &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM) {
+            &&variable!=TL_CURRENT_PHASE&&variable!=TL_CURRENT_PROGRAM
+            &&variable!=TL_NEXT_SWITCH&&variable!=TL_PHASE_DURATION) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_TL_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -268,6 +269,14 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
         case TL_CURRENT_PROGRAM:
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(vars.getActive()->getSubID());
+            break;
+        case TL_PHASE_DURATION:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int) vars.getActive()->getCurrentPhaseDef().duration);
+            break;
+        case TL_NEXT_SWITCH:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat((float) vars.getActive()->getNextSwitchTime());
             break;
         case TL_CONTROLLED_JUNCTIONS: {
         }

@@ -222,7 +222,7 @@ void
 MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
         SUMOTime simStep, unsigned int step, SUMOTime stepDuration) throw() {
     mySwitchCommand->deschedule(this);
-    mySwitchCommand = new SwitchCommand(tlcontrol, this);
+    mySwitchCommand = new SwitchCommand(tlcontrol, this, stepDuration+simStep);
     myStep = step;
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         mySwitchCommand, stepDuration+simStep,

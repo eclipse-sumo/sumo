@@ -55,8 +55,9 @@ using namespace std;
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl &tlcontrol,
-        MSTrafficLightLogic *tlLogic) throw()
-        : myTLControl(tlcontrol), myTLLogic(tlLogic), myAmValid(true) {}
+        MSTrafficLightLogic *tlLogic, SUMOTime nextSwitch) throw()
+        : myTLControl(tlcontrol), myTLLogic(tlLogic), 
+        myAssumedNextSwitch(nextSwitch), myAmValid(true) {}
 
 
 MSTrafficLightLogic::SwitchCommand::~SwitchCommand() throw() {}
@@ -84,6 +85,7 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw(ProcessError) {
             vars.executeOnSwitchActions();
         }
     }
+    myAssumedNextSwitch += next;
     return next;
 }
 
@@ -92,6 +94,7 @@ void
 MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic) throw() {
     if (tlLogic==myTLLogic) {
         myAmValid = false;
+        myAssumedNextSwitch = -1;
     }
 }
 
@@ -104,7 +107,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
         SUMOTime delay) throw()
         : myID(id), mySubID(subid), myCurrentDurationIncrement(-1),
         myDefaultCycleTime(0) {
-    mySwitchCommand = new SwitchCommand(tlcontrol, this);
+    mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         mySwitchCommand, delay, MSEventControl::NO_CHANGE);
 }
@@ -187,6 +190,14 @@ MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const throw() {
     return -1;
 }
 
+
+
+// ----------- Dynamic Information Retrieval
+SUMOTime 
+MSTrafficLightLogic::getNextSwitchTime() const throw()
+{
+    return mySwitchCommand!=0 ? mySwitchCommand->getNextSwitchTime() : -1;
+}
 
 
 // ----------- Changing phases and phase durations

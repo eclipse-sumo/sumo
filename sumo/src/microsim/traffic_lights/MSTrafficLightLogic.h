@@ -263,6 +263,15 @@ public:
     unsigned int getDefaultCycleTime() const throw() {
         return myDefaultCycleTime;
     }
+
+
+    /** @brief Returns the assumed next switch time
+     *
+     * The time may change in case of adaptive/actuated traffic lights.
+     * 
+     * @return The assumed next switch time (simulation time)
+     */
+    SUMOTime getNextSwitchTime() const throw();
     /// @}
 
 
@@ -347,9 +356,11 @@ protected:
         /** @brief Constructor
          * @param[in] tlcontrol The responsible traffic lights control
          * @param[in] tlLogic The controlled tls logic
+         * @param[in] duration Duration till next switch
          */
         SwitchCommand(MSTLLogicControl &tlcontrol,
-                      MSTrafficLightLogic *tlLogic) throw();
+                      MSTrafficLightLogic *tlLogic,
+                      SUMOTime nextSwitch) throw();
 
         /// @brief Destructor
         ~SwitchCommand() throw();
@@ -368,12 +379,23 @@ protected:
         void deschedule(MSTrafficLightLogic *tlLogic) throw();
 
 
+        /** @brief Returns the assumed next switch time
+         * @return The assumed next switch time
+         */
+        SUMOTime getNextSwitchTime() const throw() {
+            return myAssumedNextSwitch;
+        }
+
+
     private:
         /// @brief The responsible traffic lights control
         MSTLLogicControl &myTLControl;
 
         /// @brief The logic to be executed on a switch
         MSTrafficLightLogic *myTLLogic;
+
+        /// @brief Assumed switch time (may change in case of adaptive traffic lights)
+        SUMOTime myAssumedNextSwitch;
 
         /// @brief Information whether this switch command is still valid
         bool myAmValid;
