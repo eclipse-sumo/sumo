@@ -202,8 +202,8 @@ public:
             if (PF::operator()(*i, v)) {
                 return -1;
             }
-            costs += getEffort(*i, v, t);
-            time += getTravelTime(*i, v, t);
+            costs += getEffort(*i, v, time);
+            time += getTravelTime(*i, v, time);
         }
         return costs;
     }

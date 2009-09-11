@@ -43,6 +43,7 @@
 #include <router/ROEdge.h>
 #include <router/ROVehicleType_Krauss.h>
 #include <utils/common/DijkstraRouterTT.h>
+#include <utils/common/DijkstraRouterEffort.h>
 #include <routing_dua/RODUAEdgeBuilder.h>
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
@@ -114,10 +115,10 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
         }
     } else {
         if (net.hasRestrictions()) {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
         } else {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
         }
     }
