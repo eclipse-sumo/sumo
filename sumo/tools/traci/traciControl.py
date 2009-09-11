@@ -332,6 +332,10 @@ def cmdGetTrafficLightsVariable_phase(TLID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CURRENT_PHASE, TLID)
     return result.read("!i")[0] # Variable value
 
+def cmdGetTrafficLightsVariable_nextSwitchTime(TLID):
+    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_NEXT_SWITCH, TLID)
+    return result.read("!f")[0] # Variable value
+
 
 # ---------------------------------------------------
 # change state
