@@ -82,11 +82,6 @@ public:
         EdgeInfo()
                 : edge(0), traveltime(0), prev(0) {}
 
-
-        /// Constructor
-        EdgeInfo(const E *edgeArg, SUMOReal traveltimeArg, EdgeInfo *prevArg)
-                : edge(edgeArg), traveltime(traveltimeArg), prev(prevArg) {}
-
         /// The current edge
         const E *edge;
 
@@ -129,35 +124,24 @@ public:
         if (visited==0) {
             visited = new std::vector<bool>(myNoE, false);
         } else {
-            for (size_t i=0; i<myNoE; i++) {
-                (*visited)[i] = false; // too slow? !!!
-            }
+            std::fill(visited->begin(), visited->end(), false);
         }
         EdgeInfoCont *storage = myReusableEdgeInfoLists.getFreeInstance();
         if (storage==0) {
             storage = new EdgeInfoCont(myNoE);
         }
         storage->reset();
-
-        // check the nodes
-        if (from==0||to==0) {
-            throw std::exception();
-        }
-
+        assert(from!=0&&to!=0);
         // begin computation
         std::priority_queue<EdgeInfo*, std::vector<EdgeInfo*>, EdgeInfoByTTComperator> frontierList;
         // add begin node
-        const E *actualKnot = from;
-        if (from != 0) {
-            EdgeInfo *ei = storage->add(actualKnot, 0, 0);
-            frontierList.push(ei);
-        }
+        frontierList.push(storage->add(from, 0, 0));
 
         // loop
         while (!frontierList.empty()) {
             // use the node with the minimal length
-            EdgeInfo *minimumKnot = frontierList.top();
-            const E *minEdge = minimumKnot->edge;
+            EdgeInfo * const minimumKnot = frontierList.top();
+            const E * const minEdge = minimumKnot->edge;
             frontierList.pop();
             // check whether the destination node was already reached
             if (minEdge == to) {
@@ -166,12 +150,12 @@ public:
                 return;
             }
             (*visited)[minEdge->getNumericalID()] = true;
-            SUMOReal traveltime = (SUMOReal)(minimumKnot->traveltime + getEffort(minEdge, vehicle, time + (SUMOTime)minimumKnot->traveltime));
+            const SUMOReal traveltime = minimumKnot->traveltime + getEffort(minEdge, vehicle, time + (SUMOTime)minimumKnot->traveltime);
             // check all ways from the node with the minimal length
             unsigned int i = 0;
-            unsigned int length_size = minEdge->getNoFollowing();
+            const unsigned int length_size = minEdge->getNoFollowing();
             for (i=0; i<length_size; i++) {
-                const E* help = minEdge->getFollower(i);
+                const E* const help = minEdge->getFollower(i);
                 // check whether it can be used
                 if (PF::operator()(help, vehicle)) {
                     continue;
@@ -195,7 +179,7 @@ public:
 
     SUMOReal recomputeCosts(const std::vector<const E*> &edges, const V * const v, SUMOTime time) throw() {
         SUMOReal costs = 0;
-        for (typename std::vector<const E*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
+        for (typename std::vector<const E*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             if (PF::operator()(*i, v)) {
                 return -1;
             }
@@ -233,7 +217,7 @@ public:
         ~EdgeInfoCont() { }
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
-        EdgeInfo *add(const E *edgeArg, SUMOReal traveltimeArg, EdgeInfo *prevArg) {
+        EdgeInfo *add(const E *edgeArg, const SUMOReal traveltimeArg, EdgeInfo *prevArg) {
             EdgeInfo *ret = &(myEdgeInfos[edgeArg->getNumericalID()]);
             ret->edge = edgeArg; // !!! may be set within the constructor
             ret->traveltime = traveltimeArg;
