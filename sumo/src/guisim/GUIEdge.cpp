@@ -438,12 +438,12 @@ GUIEdge::initColoringSchemes() {
 }
 
 GUIEdge::Colorer::Colorer() {
-    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0)));
-    mySchemes.push_back(GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f)));
-    mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1);
-    mySchemes.push_back(GUIColorScheme("by purpose (streetwise)", RGBColor(0,0,0)));
-    mySchemes.back().addColor(RGBColor(.5, 0, .5), 1);
-    mySchemes.back().addColor(RGBColor(0, 0, 1), 2);
+    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0), "", true));
+    mySchemes.push_back(GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
+    mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1, "selected");
+    mySchemes.push_back(GUIColorScheme("by purpose (streetwise)", RGBColor(0,0,0), "normal", true));
+    mySchemes.back().addColor(RGBColor(.5, 0, .5), MSEdge::EDGEFUNCTION_CONNECTOR, "connector");
+    mySchemes.back().addColor(RGBColor(0, 0, 1), MSEdge::EDGEFUNCTION_INTERNAL, "internal");
     mySchemes.push_back(GUIColorScheme("by allowed speed (streetwise)", RGBColor(1,0,0)));
     mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
     mySchemes.back().setInterpolated(true);

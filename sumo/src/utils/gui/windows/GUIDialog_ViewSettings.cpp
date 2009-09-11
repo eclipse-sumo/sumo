@@ -1008,6 +1008,9 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
                 dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
             }
         }
+#ifdef HAVE_MESOSIM
+        mySettings->edgeColorer.save(dev);
+#endif
         dev << "        </edges>\n";
 
         dev << "        <vehicles vehicleMode=\"" << mySettings->vehicleMode
@@ -1404,38 +1407,49 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         myLaneColors.clear();
         myLaneThresholds.clear();
         myLaneButtons.clear();
+        const bool interpolate = mySettings->edgeColorer.getScheme().isInterpolated();
+        const bool fixed = mySettings->edgeColorer.getScheme().isFixed();
         const std::vector<RGBColor> &colors = mySettings->edgeColorer.getScheme().getColors();
-        const std::vector<SUMOReal> &thresholds = mySettings->edgeColorer.getScheme().getThresholds();
-        bool interpolate = mySettings->edgeColorer.getScheme().isInterpolated();
         std::vector<RGBColor>::const_iterator colIt = colors.begin();
-        std::vector<SUMOReal>::const_iterator threshIt = thresholds.begin();
+        std::vector<SUMOReal>::const_iterator threshIt = mySettings->edgeColorer.getScheme().getThresholds().begin();
+        std::vector<std::string>::const_iterator nameIt = mySettings->edgeColorer.getScheme().getNames().begin();
         FX::FXString buttonText = "Add";
-        while (threshIt != thresholds.end()) {
+        while (colIt != colors.end()) {
             myLaneColors.push_back(new FXColorWell(m , convert(*colIt),
                                                    this, MID_SIMPLE_VIEW_COLORCHANGE,
                                                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                                                    0, 0, 100, 0,   0, 0, 0, 0));
-            FXRealSpinDial* threshDialer =
-                new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                   LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-            threshDialer->setValue(*threshIt);
-            myLaneThresholds.push_back(threshDialer);
-            myLaneButtons.push_back(new FXButton(m,buttonText,NULL,this,MID_SIMPLE_VIEW_COLORCHANGE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4));
-            buttonText = "Remove";
-            threshIt++;
+            if (fixed) {
+                new FXLabel(m, nameIt->c_str());
+                new FXLabel(m, "");
+            } else {
+                FXRealSpinDial* threshDialer =
+                    new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                       LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                threshDialer->setValue(*threshIt);
+                myLaneThresholds.push_back(threshDialer);
+                myLaneButtons.push_back(new FXButton(m,buttonText,NULL,this,MID_SIMPLE_VIEW_COLORCHANGE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4));
+                buttonText = "Remove";
+            }
             colIt++;
+            threshIt++;
+            nameIt++;
         }
         myLaneColorInterpolation->setCheck(mySettings->edgeColorer.getScheme().isInterpolated());
-        if (colors.size() > 1) {
-            myLaneColorInterpolation->enable();
-            if (myLaneColorInterpolation->getCheck()) {
-                myLaneThresholds.front()->enable();
+        if (fixed) {
+            myLaneColorInterpolation->disable();
+        } else {
+            if (colors.size() > 1) {
+                myLaneColorInterpolation->enable();
+                if (myLaneColorInterpolation->getCheck()) {
+                    myLaneThresholds.front()->enable();
+                } else {
+                    myLaneThresholds.front()->disable();
+                }
             } else {
+                myLaneColorInterpolation->disable();
                 myLaneThresholds.front()->disable();
             }
-        } else {
-            myLaneColorInterpolation->disable();
-            myLaneThresholds.front()->disable();
         }
         if (doCreate) {
             m->create();

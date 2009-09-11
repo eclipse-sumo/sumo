@@ -53,27 +53,31 @@ class GUIColorScheme {
 public:
     /// Constructor
     GUIColorScheme(const std::string& name, const RGBColor& baseColor,
-                   const bool interpolate=false)
-            : myName(name), myIsInterpolated(interpolate) {
-        addColor(baseColor, -1);
+                   const std::string& colName="", const bool isFixed=false)
+            : myName(name), myIsInterpolated(false), myIsFixed(isFixed) {
+        addColor(baseColor, -1, colName);
     }
 
     unsigned int setColor(const size_t pos, const RGBColor& color, const SUMOReal threshold) {
+        const std::string& name = myNames[pos];
         removeColor(pos);
-        return addColor(color, threshold);
+        return addColor(color, threshold, name);
     }
 
-    unsigned int addColor(const RGBColor& color, const SUMOReal threshold) {
+    unsigned int addColor(const RGBColor& color, const SUMOReal threshold, const std::string& name="") {
         std::vector<RGBColor>::iterator colIt = myColors.begin();
         std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
+        std::vector<std::string>::iterator nameIt = myNames.begin();
         unsigned int pos = 0;
         while (threshIt != myThresholds.end() && (*threshIt) < threshold) {
             ++threshIt;
             ++colIt;
+            ++nameIt;
             pos++;
         }
         myColors.insert(colIt, color);
         myThresholds.insert(threshIt, threshold);
+        myNames.insert(nameIt, name);
         return pos;
     }
 
@@ -81,6 +85,7 @@ public:
         assert(pos < myColors.size());
         myColors.erase(myColors.begin()+pos);
         myThresholds.erase(myThresholds.begin()+pos);
+        myNames.erase(myNames.begin()+pos);
     }
 
     const RGBColor getColor(const SUMOReal value) const {
@@ -126,6 +131,32 @@ public:
         return myIsInterpolated;
     }
 
+    const std::vector<std::string> &getNames() const {
+        return myNames;
+    }
+
+    const bool isFixed() const {
+        return myIsFixed;
+    }
+
+    void save(OutputDevice &dev) const {
+        dev << "            <colorScheme name=\"" << myName << "\" interpolated=\"" << myIsInterpolated << "\" fixed=\"" << myIsFixed << "\">\n";
+        std::vector<RGBColor>::const_iterator colIt = myColors.begin();
+        std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin();
+        std::vector<std::string>::const_iterator nameIt = myNames.begin();
+        while (threshIt != myThresholds.end()) {
+            dev << "                <color rgb=\"" << (*colIt) << "\" threshold=\"" << (*threshIt);
+            if ((*nameIt) != "") {
+                dev << "\" name=\"" << (*nameIt);
+            }
+            dev << "\"/>\n";
+            ++threshIt;
+            ++colIt;
+            ++nameIt;
+        }
+        dev << "            </colorScheme>\n";
+    }
+
     bool operator==(const GUIColorScheme &c) const {
         return myName == c.myName && myColors == c.myColors && myThresholds == c.myThresholds && myIsInterpolated == c.myIsInterpolated;
     }
@@ -135,6 +166,8 @@ private:
     std::vector<RGBColor> myColors;
     std::vector<SUMOReal> myThresholds;
     bool myIsInterpolated;
+    std::vector<std::string> myNames;
+    bool myIsFixed;
 
 };
 
@@ -184,6 +217,13 @@ public:
 
     GUIColorScheme& getScheme() {
         return mySchemes[myActiveScheme];
+    }
+
+    void save(OutputDevice &dev) const {
+        typename std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin();
+        for (; i!=mySchemes.end(); ++i) {
+            i->save(dev);
+        }
     }
 
     bool operator==(const GUIColorer &c) const {
