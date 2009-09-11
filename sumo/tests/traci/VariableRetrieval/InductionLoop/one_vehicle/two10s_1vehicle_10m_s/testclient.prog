@@ -2,28 +2,49 @@ simstep 9 1
 getvariable 160 16 4/1to3/1
 getvariable 160 17 4/1to3/1
 getvariable 160 18 4/1to3/1
+getvariable 160 19 4/1to3/1
+getvariable 160 21 4/1to3/1
+getvariable 160 22 4/1to3/1
 simstep 10 1
 getvariable 160 16 4/1to3/1
 getvariable 160 17 4/1to3/1
 getvariable 160 18 4/1to3/1
+getvariable 160 19 4/1to3/1
+getvariable 160 21 4/1to3/1
+getvariable 160 22 4/1to3/1
 simstep 11 1
 getvariable 160 16 4/1to3/1
 getvariable 160 17 4/1to3/1
 getvariable 160 18 4/1to3/1
+getvariable 160 19 4/1to3/1
+getvariable 160 21 4/1to3/1
+getvariable 160 22 4/1to3/1
 simstep 12 1
 getvariable 160 16 4/1to3/1
 getvariable 160 17 4/1to3/1
 getvariable 160 18 4/1to3/1
+getvariable 160 19 4/1to3/1
+getvariable 160 21 4/1to3/1
+getvariable 160 22 4/1to3/1
 simstep 50 1
 getvariable 160 16 3/1to2/1
 getvariable 160 17 3/1to2/1
 getvariable 160 18 3/1to2/1
+getvariable 160 19 3/1to2/1
+getvariable 160 21 3/1to2/1
+getvariable 160 22 3/1to2/1
 simstep 51 1
 getvariable 160 16 3/1to2/1
 getvariable 160 17 3/1to2/1
 getvariable 160 18 3/1to2/1
+getvariable 160 19 3/1to2/1
+getvariable 160 21 3/1to2/1
+getvariable 160 22 3/1to2/1
 simstep 52 1
 getvariable 160 16 3/1to2/1
 getvariable 160 17 3/1to2/1
 getvariable 160 18 3/1to2/1
+getvariable 160 19 3/1to2/1
+getvariable 160 21 3/1to2/1
+getvariable 160 22 3/1to2/1
 simstep 53 1
