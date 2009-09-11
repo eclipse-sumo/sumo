@@ -129,8 +129,10 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     gJoinedEdges.init(myEdgeCont);
     myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
     //
-    inform(step, "Removing isolated roads");
-    myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
+    if(oc.getBool("remove-isolated")) {
+        inform(step, "Removing isolated roads");
+        myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
+    }
     //
     if (oc.getBool("remove-geometry")) {
         inform(step, "Removing empty nodes and geometry nodes.");
@@ -382,6 +384,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
     oc.addDescription("remove-geometry", "Processing", "Removes geometry information from edges");
+
+    oc.doRegister("remove-isolated", new Option_Bool(false));
+    oc.addDescription("remove-isolated", "Processing", "Removes isolated edges");
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
