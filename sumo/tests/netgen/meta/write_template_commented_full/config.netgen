@@ -223,6 +223,9 @@
         <!-- Removes geometry information from edges -->
         remove-geometry="false"
 
+        <!-- Removes isolated edges -->
+        remove-isolated="false"
+
         <!-- Disables building turnarounds -->
         no-turnarounds="false"
 

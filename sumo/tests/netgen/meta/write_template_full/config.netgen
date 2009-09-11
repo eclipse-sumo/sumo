@@ -91,6 +91,7 @@
         flip-y="false"
         dismiss-vclasses="false"
         remove-geometry="false"
+        remove-isolated="false"
         no-turnarounds="false"
         no-tls-turnarounds="false"
         no-internal-links="false"
