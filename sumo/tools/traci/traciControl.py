@@ -182,6 +182,14 @@ def cmdGetInductionLoopVariable_lastStepOccupancy(IndLoopID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_OCCUPANCY, IndLoopID)
     return result.read("!f")[0] # Variable value
   
+def cmdGetInductionLoopVariable_lastMeanLength(IndLoopID):
+    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_LENGTH, IndLoopID)
+    return result.read("!f")[0] # Variable value
+  
+def cmdGetInductionLoopVariable_timeSinceDetection(IndLoopID):
+    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_TIME_SINCE_DETECTION, IndLoopID)
+    return result.read("!f")[0] # Variable value
+  
   
 
 # ===================================================
@@ -202,6 +210,10 @@ def cmdGetMultiEntryExitDetectorVariable_lastStepMeanSpeed(MultiEntryExitDetID):
 def cmdGetMultiEntryExitDetectorVariable_vehicleIds(MultiEntryExitDetID):
     result = buildSendReadNew1StringParamCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, MultiEntryExitDetID)
     return result.readStringList() # Variable value
+
+def cmdGetMultiEntryExitDetectorVariable_haltingNumber(MultiEntryExitDetID):
+    result = buildSendReadNew1StringParamCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_HALTING_NUMBER, MultiEntryExitDetID)
+    return result.read("!i")[0] # Variable value
 
 
 

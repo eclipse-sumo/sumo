@@ -346,6 +346,15 @@
 // last step occupancy (get: induction loops)
 #define LAST_STEP_OCCUPANCY 0x13
 
+// last step vehicle halting number (get: multi-entry/multi-exit detector)
+#define LAST_STEP_VEHICLE_HALTING_NUMBER 0x14
+
+// last step mean vehicle length (get: induction loops)
+#define LAST_STEP_LENGTH 0x15
+
+// last step time since last detection (get: induction loops)
+#define LAST_STEP_TIME_SINCE_DETECTION 0x16
+
 
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)
 #define TL_RED_YELLOW_GREEN_STATE 0x20

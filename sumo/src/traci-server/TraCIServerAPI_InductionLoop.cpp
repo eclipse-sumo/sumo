@@ -57,7 +57,9 @@ TraCIServerAPI_InductionLoop::processGet(tcpip::Storage &inputStorage,
     int variable = inputStorage.readUnsignedByte();
     string id = inputStorage.readString();
     // check variable
-    if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+    if (variable!=ID_LIST&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED
+        &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY
+        &&variable!=LAST_STEP_LENGTH&&variable!=LAST_STEP_TIME_SINCE_DETECTION) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -96,6 +98,18 @@ TraCIServerAPI_InductionLoop::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeStringList(ids);
         }
         break;
+        case LAST_STEP_OCCUPANCY:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat((float) il->getCurrentOccupancy());
+            break;
+        case LAST_STEP_LENGTH:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat((float) il->getCurrentLength());
+            break;
+        case LAST_STEP_TIME_SINCE_DETECTION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat((float) il->getTimestepsSinceLastDetection());
+            break;
         default:
             break;
         }
