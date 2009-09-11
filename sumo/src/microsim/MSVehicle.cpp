@@ -527,8 +527,10 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     SUMOReal vSafe  = getCarFollowModel().ffeV(this, gap, pred->getSpeed());
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
-        SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, pred->getSpeed());
-        vSafe = MIN2(vSafe, nVSafe);
+        SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
+        if(mgap-neigh->getSpeed()>=0) {
+            vSafe = MIN2(vSafe, nVSafe);
+        }
     }
     // take stops into account
     vSafe = MIN2(vSafe, processNextStop(vSafe));
@@ -625,6 +627,13 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
             }
             vWish = MIN2(vWish, getCarFollowModel().ffeV(this, pred));
         }
+        if (neigh!=0&&neigh->getSpeed()>60./3.6) {
+            SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
+            SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
+            if(mgap-neigh->getSpeed()>=0) {
+                vWish = MIN2(vWish, nVSafe);
+            }
+        }
         // !!! check whether the vehicle wants to stop somewhere
         if (!myStops.empty()&&myStops.begin()->lane->getEdge()==lane->getEdge()) {
             SUMOReal seen = lane->length() - myState.pos();
@@ -646,6 +655,13 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
             //  the vehicle is bound by the lane speed and must not drive faster
             //  than vsafe to the next vehicle
             vBeg = MIN2(vBeg, vSafe);
+        }
+        if (neigh!=0&&neigh->getSpeed()>60./3.6) {
+            SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
+            SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
+            if(mgap-neigh->getSpeed()>=0) {
+                vBeg = MIN2(vBeg, nVSafe);
+            }
         }
         vBeg = MAX2(vBeg, myType->getSpeedAfterMaxDecel(myState.mySpeed));
         // check whether the driver wants to let someone in
