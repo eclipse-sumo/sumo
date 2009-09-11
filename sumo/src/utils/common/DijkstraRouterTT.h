@@ -4,7 +4,7 @@
 /// @date    Mon, 25 July 2005
 /// @version $Id$
 ///
-// The dijkstra-router
+// Dijkstra shortest path algorithm using travel time
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -47,7 +47,7 @@
 // ===========================================================================
 /**
  * @class DijkstraRouterTT
- * @brief Computes the shortest path through a network using the dijkstra algorithm.
+ * @brief Computes the shortest path through a network using the Dijkstra algorithm.
  *
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
