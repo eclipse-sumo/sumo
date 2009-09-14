@@ -1,0 +1,11 @@
+<routes>
+<vtypeDistribution id="DEFAULT_VEHTYPE">
+  <vtype id="PkwClass_1" accel="1.8" decel="4.5" sigma="0.5" length="5" maxpseed="40" probability="0.453"/>
+  <vtype id="PkwClass_2" accel="1.8" decel="4.5" sigma="0.5" length="5" maxpseed="40" probability="0.453"/>
+  <vtype id="LkwClass_1" accel="0.8" decel="4.5" sigma="0.5" length="15" maxpseed="23" probability="0.093"/>
+</vtypeDistribution>
+
+   <route id="always_right" multi_ref="x" edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
+   <vehicle id="always_right" type="DEFAULT_VEHTYPE" route="always_right" depart="1"/>
+
+</routes>
