@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    NIElmar2EdgesHandler.cpp
+/// @file    NIImporter_Elmar.cpp
 /// @author  Daniel Krajzewicz
-/// @date    Sun, 16 May 2004
-/// @version $Id$
+/// @date    Mon, 14.04.2008
+/// @version $Id: NIImporter_Elmar.cpp 7703 2009-09-10 13:45:09Z simsiem $
 ///
-// Importer of edges stored in unsplit elmar format
+// Importer for networks stored in Elmar's format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -33,13 +33,18 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/importio/LineReader.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTypeCont.h>
-#include "NIElmar2EdgesHandler.h"
 #include <netimport/NINavTeqHelper.h>
+#include "NIImporter_Elmar.h"
+
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,21 +57,135 @@
 using namespace std;
 
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIElmar2EdgesHandler::NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
+// ---------------------------------------------------------------------------
+// static methods
+// ---------------------------------------------------------------------------
+void
+NIImporter_Elmar::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+    // check whether the option is set (properly)
+    if (!oc.isSet("dlr-navteq")) {
+        return;
+    }
+    // parse file(s)
+    LineReader lr;
+    // load nodes
+    std::map<std::string, Position2DVector> myGeoms;
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
+    std::string file = oc.getString("dlr-navteq") + "_nodes_unsplitted.txt";
+    NodesHandler handler1(nb.getNodeCont(), file, myGeoms);
+    if (!lr.setFile(file)) {
+        throw ProcessError("The file '" + file + "' could not be opened.");
+    }
+    lr.readAll(handler1);
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+
+    // load edges
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
+    file = oc.getString("dlr-navteq") + "_links_unsplitted.txt";
+    // parse the file
+    EdgesHandler handler2(nb.getNodeCont(), nb.getEdgeCont(), file, myGeoms);
+    if (!lr.setFile(file)) {
+        throw ProcessError("The file '" + file + "' could not be opened.");
+    }
+    lr.readAll(handler2);
+    nb.getEdgeCont().recheckLaneSpread();
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+}
+
+
+// ---------------------------------------------------------------------------
+// definitions of NIImporter_Elmar::NodesHandler-methods
+// ---------------------------------------------------------------------------
+NIImporter_Elmar::NodesHandler::NodesHandler(NBNodeCont &nc,
+        const std::string &file,
+        std::map<std::string, Position2DVector> &geoms) throw()
+        : myNodeCont(nc), myGeoms(geoms) {}
+
+
+NIImporter_Elmar::NodesHandler::~NodesHandler() throw() {}
+
+
+bool
+NIImporter_Elmar::NodesHandler::report(const std::string &result) throw(ProcessError) {
+    if (result[0]=='#') {
+        return true;
+    }
+    string id;
+    SUMOReal x, y;
+    int no_geoms, intermediate;
+    StringTokenizer st(result, StringTokenizer::WHITECHARS);
+    // check
+    if (st.size()<5) {
+        throw ProcessError("Something is wrong with the following data line\n" + result);
+    }
+    // parse
+    // id
+    id = st.next();
+    // intermediate?
+    try {
+        intermediate = TplConvert<char>::_2int(st.next().c_str());
+    } catch (NumberFormatException &) {
+        throw ProcessError("Non-numerical value for intermediate status in node " + id + ".");
+    }
+    // number of geometrical information
+    try {
+        no_geoms = TplConvert<char>::_2int(st.next().c_str());
+    } catch (NumberFormatException &) {
+        throw ProcessError("Non-numerical value for number of geometries in node " + id + ".");
+    }
+    // geometrical information
+    Position2DVector geoms;
+    for (int i=0; i<no_geoms; i++) {
+        try {
+            x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
+        } catch (NumberFormatException &) {
+            throw ProcessError("Non-numerical value for x-position in node " + id + ".");
+        }
+        try {
+            y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
+        } catch (NumberFormatException &) {
+            throw ProcessError("Non-numerical value for y-position in node " + id + ".");
+        }
+
+        Position2D pos(x, y);
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            throw ProcessError("Unable to project coordinates for node " + id + ".");
+        }
+        geoms.push_back(pos);
+    }
+
+    if (intermediate==0) {
+        NBNode *n = new NBNode(id, geoms[0]);
+        if (!myNodeCont.insert(n)) {
+            delete n;
+            throw ProcessError("Could not add node '" + id + "'.");
+        }
+    } else {
+        myGeoms[id] = geoms;
+    }
+    return true;
+}
+
+
+// ---------------------------------------------------------------------------
+// definitions of NIImporter_Elmar::EdgesHandler-methods
+// ---------------------------------------------------------------------------
+NIImporter_Elmar::EdgesHandler::EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
         Position2DVector> &geoms) throw()
         : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {}
 
 
-NIElmar2EdgesHandler::~NIElmar2EdgesHandler() throw() {}
+NIImporter_Elmar::EdgesHandler::~EdgesHandler() throw() {}
 
 
 bool
-NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError) {
+NIImporter_Elmar::EdgesHandler::report(const std::string &result) throw(ProcessError) {
 //	0: LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID
 //  4: length	vehicle_type	form_of_way	brunnel_type
 //  7: street_type	speed_category	number_of_lanes	average_speed

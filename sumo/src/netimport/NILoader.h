@@ -38,8 +38,6 @@
 // ===========================================================================
 class OptionsCont;
 class SUMOSAXHandler;
-class LineReader;
-class LineHandler;
 class NBNetBuilder;
 
 
@@ -77,13 +75,6 @@ private:
     /** loads data from the list of xml-files of certain type */
     void loadXMLType(SUMOSAXHandler *handler,
                      const std::vector<std::string> &files, const std::string &type);
-
-    /** reads using a file reader */
-    bool useLineReader(LineReader &lr, const std::string &file,
-                       LineHandler &lh);
-
-    /// loads Elmar's data parsed from Navteq GDF
-    void loadDlrNavteq(OptionsCont &oc);
 
 private:
     /// @brief The network builder to fill with loaded data

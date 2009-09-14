@@ -32,7 +32,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
-#include <utils/importio/LineReader.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
@@ -45,8 +44,7 @@
 #include <netimport/NIXMLNodesHandler.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>
-#include <netimport/NIElmar2NodesHandler.h>
-#include <netimport/NIElmar2EdgesHandler.h>
+#include <netimport/NIImporter_Elmar.h>
 #include <netimport/NIImporter_VISUM.h>
 #include <netimport/vissim/NIImporter_Vissim.h>
 #include <netimport/NIImporter_ArcView.h>
@@ -90,7 +88,7 @@ NILoader::load(OptionsCont &oc) {
     NIImporter_VISUM::loadNetwork(oc, myNetBuilder);
     NIImporter_ArcView::loadNetwork(oc, myNetBuilder);
     NIImporter_Vissim::loadNetwork(oc, myNetBuilder);
-    loadDlrNavteq(oc);
+    NIImporter_Elmar::loadNetwork(oc, myNetBuilder);
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
@@ -172,49 +170,6 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::vector<std::string> &f
     if (exceptMsg != "") {
         throw ProcessError(exceptMsg);
     }
-}
-
-
-bool
-NILoader::useLineReader(LineReader &lr, const std::string &file,
-                        LineHandler &lh) {
-    // check opening
-    if (!lr.setFile(file)) {
-        MsgHandler::getErrorInstance()->inform("The file '" + file + "' could not be opened.");
-        return false;
-    }
-    lr.readAll(lh);
-    return true;
-}
-
-
-void
-NILoader::loadDlrNavteq(OptionsCont &oc) {
-    if (!oc.isSet("dlr-navteq")) {
-        return;
-    }
-    LineReader lr;
-    // load nodes
-    std::map<std::string, Position2DVector> myGeoms;
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
-    std::string file = oc.getString("dlr-navteq") + "_nodes_unsplitted.txt";
-    NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file, myGeoms);
-    if (!useLineReader(lr, file, handler1)) {
-        throw ProcessError();
-    }
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
-
-    // load edges
-    MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
-    file = oc.getString("dlr-navteq") + "_links_unsplitted.txt";
-    // parse the file
-    NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
-                                  myNetBuilder.getEdgeCont(), file, myGeoms);
-    if (!useLineReader(lr, file, handler2)) {
-        throw ProcessError();
-    }
-    myNetBuilder.getEdgeCont().recheckLaneSpread();
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
 
 
