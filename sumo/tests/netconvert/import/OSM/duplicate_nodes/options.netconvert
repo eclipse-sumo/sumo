@@ -1,0 +1,1 @@
+--osm-files duplicate_nodes.osm.xml --output-file net.net.xml -v -R --try-join-tls --proj.utm

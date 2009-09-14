@@ -12,6 +12,7 @@ copy_test_path:visum.net
 copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
 copy_test_path:osm.xml
+copy_test_path:duplicate_nodes.osm.xml
 
 [collate_file]
 net:net.net.xml

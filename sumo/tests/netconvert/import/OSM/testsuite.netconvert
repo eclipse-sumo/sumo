@@ -2,3 +2,6 @@
 adlershof_dlr
 
 eichstaett
+
+# In this scenario, two nodes with the same coordinates start the shape of an edge.
+duplicate_nodes
