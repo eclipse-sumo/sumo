@@ -505,6 +505,7 @@ MSVehicleControl::checkVType(const std::string &id) throw() {
     if (id == DEFAULT_VTYPE_ID) {
         if (myDefaultVTypeMayBeDeleted) {
             delete myVTypeDict[id];
+            myVTypeDict.erase(myVTypeDict.find(id));
             myDefaultVTypeMayBeDeleted = false;
         } else {
             return false;
