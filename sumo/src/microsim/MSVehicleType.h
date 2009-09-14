@@ -279,13 +279,13 @@ protected:
 
 
 private:
-    /// @brief Unique ID.
+    /// @brief Unique ID
     std::string myID;
 
-    /// @brief Vehicle's length [m].
+    /// @brief Vehicle's length [m]
     SUMOReal myLength;
 
-    /// @brief Vehicle's maximum speed [m/s].
+    /// @brief Vehicle's maximum speed [m/s]
     SUMOReal myMaxSpeed;
 
     /// @brief The vehicle's maximum acceleration [m/s^2]

@@ -16,7 +16,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-
 #ifndef MSCFMODEL_IDM_H
 #define	MSCFMODEL_IDM_H
 
