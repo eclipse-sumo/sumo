@@ -184,6 +184,9 @@
         <!-- The weight of prior edge weights. -->
         device.routing.adaptation-weight="0.5"
 
+        <!-- The interval for updating the edge weights. -->
+        device.routing.adaptation-interval="1"
+
     />
 
     <emissions

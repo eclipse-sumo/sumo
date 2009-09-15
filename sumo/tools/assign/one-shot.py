@@ -48,12 +48,14 @@ def writeSUMOConf(step, options, files):
         print >> fd, '        mesosim="True"'
     print >> fd, """        device.routing.probability="1"
         device.routing.period="%s"
+        device.routing.adaptation-interval="%s"
     />
     <reports
         verbose="%s"
         suppress-warnings="%s"
     />
-</configuration>""" % (step, options.verbose, not options.withWarnings)
+</configuration>""" % (step, options.updateInterval, options.verbose,
+                       not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
@@ -82,6 +84,8 @@ optParser.add_option("-a", "--aggregation", dest="aggregation",
                      type="int", default=900, help="Set main weights aggregation period")
 optParser.add_option("-f", "--frequencies", dest="frequencies",
                      default="-1,1800,300,15", help="Set the frequencies to iterate over")
+optParser.add_option("-i", "--adaptation-interval", dest="updateInterval",
+                     type="int", default=1, help="Set edge weight adaptation interval")
 
 optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
                      default=False, help="No emissions are written by the simulation")

@@ -76,6 +76,7 @@
         device.routing.deterministic="false"
         device.routing.period="0"
         device.routing.adaptation-weight="0.5"
+        device.routing.adaptation-interval="1"
     />
 
     <emissions
