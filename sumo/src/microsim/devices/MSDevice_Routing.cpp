@@ -52,6 +52,7 @@ int MSDevice_Routing::myVehicleIndex = 0;
 std::map<const MSEdge*, SUMOReal> MSDevice_Routing::myEdgeEfforts;
 Command *MSDevice_Routing::myEdgeWeightSettingCommand = 0;
 SUMOReal MSDevice_Routing::myAdaptationWeight;
+SUMOTime MSDevice_Routing::myAdaptationInterval;
 
 
 // ===========================================================================
@@ -79,6 +80,9 @@ MSDevice_Routing::insertOptions() throw() {
 
     oc.doRegister("device.routing.adaptation-weight", new Option_Float(.5));//!!! describe
     oc.addDescription("device.routing.adaptation-weight", "Routing", "The weight of prior edge weights.");
+
+    oc.doRegister("device.routing.adaptation-interval", new Option_Integer(1));//!!! describe
+    oc.addDescription("device.routing.adaptation-interval", "Routing", "The interval for updating the edge weights.");
 
     myVehicleIndex = 0;
     myEdgeWeightSettingCommand = 0;
@@ -118,6 +122,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
             MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                 myEdgeWeightSettingCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
+            myAdaptationInterval = oc.GET_XML_SUMO_TIME("device.routing.adaptation-interval");
         }
         // the following is just to give the vehicle a valid route before the route is checked at init
         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>
@@ -178,13 +183,12 @@ MSDevice_Routing::getEffort(const MSEdge * const e, const SUMOVehicle * const v,
 
 SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
-    SUMOReal oldWeight = (SUMOReal) myAdaptationWeight;
     SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
     const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-        myEdgeEfforts[*i] = myEdgeEfforts[*i] * oldWeight + (*i)->getCurrentEffort() * newWeight;
+        myEdgeEfforts[*i] = myEdgeEfforts[*i] * myAdaptationWeight + (*i)->getCurrentEffort() * newWeight;
     }
-    return 1;
+    return myAdaptationInterval;
 }
 
 

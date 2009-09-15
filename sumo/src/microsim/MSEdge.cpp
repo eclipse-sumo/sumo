@@ -390,10 +390,25 @@ MSEdge::getEffort(SUMOTime forTime) const throw() {
 SUMOReal
 MSEdge::getCurrentEffort() const throw() {
     SUMOReal v = 0;
-    for (LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
-        v += (*i)->getMeanSpeed();
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
+        unsigned segments = 0;
+        do {
+            v += first->getMeanSpeed();
+            first = first->getNextSegment();
+            segments++;
+        } while (first!=0);
+        v /= (SUMOReal) segments;
+    } else {
+#endif
+        for (LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+            v += (*i)->getMeanSpeed();
+        }
+        v /= (SUMOReal) myLanes->size();
+#ifdef HAVE_MESOSIM
     }
-    v /= (SUMOReal) myLanes->size();
+#endif
     if (v!=0) {
         return (*myLanes)[0]->length() / v;
     } else {

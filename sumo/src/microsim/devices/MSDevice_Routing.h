@@ -200,6 +200,9 @@ private:
     /// @brief Information which weight prior edge efforts have
     static SUMOReal myAdaptationWeight;
 
+    /// @brief Information which weight prior edge efforts have
+    static SUMOTime myAdaptationInterval;
+
 
 private:
     /// @brief Invalidated copy constructor.
