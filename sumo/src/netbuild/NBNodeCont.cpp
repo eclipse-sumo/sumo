@@ -584,28 +584,37 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
 				continue;
 			}
 		}
-		// Now we know that it-first starts a dead end.
+		// Now we know that the edge e starts a dead end.
 		// Next we test if the dead end is isolated, i.e. does not lead to a junction
 		bool hasJunction = false;
-		int size = 0;
 		std::vector<NBEdge*> road;
+		NBEdge* eOld = 0;
 		NBNode* to;
+		std::set<NBNode*> adjacentNodes;
 		do {
 			road.push_back(e);
+			eOld = e;
 			from = e->getFromNode();
 			to = e->getToNode();
 			const EdgeVector &outgoingEdgesOfToNode = to->getOutgoingEdges();
-			size = 0;
+			const EdgeVector &incomingEdgesOfToNode = to->getIncomingEdges();
+			adjacentNodes.clear();
 			for (EdgeVector::const_iterator itOfOutgoings=outgoingEdgesOfToNode.begin(); itOfOutgoings!=outgoingEdgesOfToNode.end(); ++itOfOutgoings) {
-				if ((*itOfOutgoings)->getToNode() != from) {
+				if ((*itOfOutgoings)->getToNode() != from        // The back path
+						&& (*itOfOutgoings)->getToNode() != to   // A loop / dummy edge
+						) {
 					e = *itOfOutgoings; // Probably the next edge
-					++size;
 				}
+				adjacentNodes.insert((*itOfOutgoings)->getToNode());
 			}
-			if (size > 1) {
+			for (EdgeVector::const_iterator itOfIncomings=incomingEdgesOfToNode.begin(); itOfIncomings!=incomingEdgesOfToNode.end(); ++itOfIncomings){
+				adjacentNodes.insert((*itOfIncomings)->getFromNode());
+			}
+			adjacentNodes.erase(to);  // Omit loops / dummy edges
+			if (adjacentNodes.size() > 2) {
 				hasJunction = true;
 			}
-		} while (size == 1);
+		} while (!hasJunction && eOld != e);
 		if (!hasJunction) {
 			std::string warningString = "Removed a road without junctions: ";
 			for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt
