@@ -65,7 +65,7 @@ class DijkstraRouterTTBase : public SUMOAbstractRouter<E, V>, public PF {
 public:
     /// Constructor
     DijkstraRouterTTBase(size_t noE, bool unbuildIsWarningOnly)
-            : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true),
+            : myVisited(noE, false), myStorage(noE),
             myUnbuildIsWarningOnly(unbuildIsWarningOnly) { }
 
     /// Destructor
@@ -119,23 +119,13 @@ public:
     virtual void compute(const E *from, const E *to, const V * const vehicle,
                          SUMOTime time, std::vector<const E*> &into) {
 
-        // get structures to reuse
-        std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
-        if (visited==0) {
-            visited = new std::vector<bool>(myNoE, false);
-        } else {
-            std::fill(visited->begin(), visited->end(), false);
-        }
-        EdgeInfoCont *storage = myReusableEdgeInfoLists.getFreeInstance();
-        if (storage==0) {
-            storage = new EdgeInfoCont(myNoE);
-        }
-        storage->reset();
+        std::fill(myVisited.begin(), myVisited.end(), false);
+        myStorage.reset();
         assert(from!=0&&to!=0);
         // begin computation
         std::priority_queue<EdgeInfo*, std::vector<EdgeInfo*>, EdgeInfoByTTComperator> frontierList;
         // add begin node
-        frontierList.push(storage->add(from, 0, 0));
+        frontierList.push(myStorage.add(from, 0, 0));
 
         // loop
         while (!frontierList.empty()) {
@@ -146,10 +136,9 @@ public:
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumKnot, into);
-                clearTemporaryStorages(visited, storage);
                 return;
             }
-            (*visited)[minEdge->getNumericalID()] = true;
+            myVisited[minEdge->getNumericalID()] = true;
             const SUMOReal traveltime = minimumKnot->traveltime + getEffort(minEdge, vehicle, time + (SUMOTime)minimumKnot->traveltime);
             // check all ways from the node with the minimal length
             unsigned int i = 0;
@@ -161,9 +150,9 @@ public:
                     continue;
                 }
                 //
-                if (!(*visited)[help->getNumericalID()] && traveltime < storage->getEffort(help)) {
+                if (!myVisited[help->getNumericalID()] && traveltime < myStorage.getEffort(help)) {
                     if (help!=from) {
-                        frontierList.push(storage->add(help, traveltime, minimumKnot));
+                        frontierList.push(myStorage.add(help, traveltime, minimumKnot));
                     }
                 }
             }
@@ -173,7 +162,6 @@ public:
         } else {
             WRITE_WARNING("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
         }
-        clearTemporaryStorages(visited, storage);
     }
 
 
@@ -246,23 +234,11 @@ public:
     };
 
 protected:
-    /// Saves the temporary storages for further usage
-    void clearTemporaryStorages(std::vector<bool> *edgeList,
-                                EdgeInfoCont *consecutionList) {
-        myReusableEdgeLists.addFreeInstance(edgeList);
-        myReusableEdgeInfoLists.addFreeInstance(consecutionList);
-    }
-
-
-protected:
-    /// The network to use
-    size_t myNoE;
-
     /// A container for reusage of examined edges lists
-    InstancePool<std::vector<bool> > myReusableEdgeLists;
+    std::vector<bool> myVisited;
 
     /// A container for reusage of edge consecution lists
-    InstancePool<EdgeInfoCont> myReusableEdgeInfoLists;
+    EdgeInfoCont myStorage;
 
     bool myUnbuildIsWarningOnly;
 
