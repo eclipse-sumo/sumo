@@ -56,8 +56,8 @@ MSVehicleControl::MSVehicleControl() throw()
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0),
         myDefaultVTypeMayBeDeleted(true) {
     myVTypeDict[DEFAULT_VTYPE_ID] = new MSVehicleType(DEFAULT_VTYPE_ID, DEFAULT_VEH_LENGTH,
-            DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_A,
-            DEFAULT_VEH_B, DEFAULT_VEH_SIGMA,
+            DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_ACCEL,
+            DEFAULT_VEH_DECEL, DEFAULT_VEH_SIGMA,
             DEFAULT_VEH_TAU, DEFAULT_VEH_PROB,
             DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV,
             SVC_UNKNOWN, SVE_UNKNOWN, SVS_UNKNOWN,

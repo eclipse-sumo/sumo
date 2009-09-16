@@ -46,6 +46,8 @@
 class MSLane;
 class BinaryInputDevice;
 class MSCFModel;
+class SUMOVTypeParameter;
+
 
 // ===========================================================================
 // class definitions
@@ -256,8 +258,30 @@ public:
     void saveState(std::ostream &os);
 
 
-protected:
 
+    /// @name Static methods for building vehicle types from descriptions
+    /// @{
+
+    /** @brief Builds the microsim vehicle type described by the given parameter
+     * @param[in] from The vehicle type description
+     * @return The built vehicle type
+     * @exception ProcessError on false values (not et used)
+     */
+    static MSVehicleType *build(SUMOVTypeParameter &from) throw(ProcessError);
+
+
+    /** @brief Returns the named value from the map, or the default if it is ot contained there
+     * @param[in] from The map to retrieve values from
+     * @param[in] name The name of variable
+     * @param[in] defaultValue The value to return if the given map does not contain the named variable
+     * @return The named value from the map or the default if it does not exist there
+     */
+    static SUMOReal get(const std::map<std::string, SUMOReal> &from, const std::string &name,
+                        SUMOReal defaultValue) throw();
+    /// @}
+
+
+protected:
     /** Returns the SK-vsafe. */
     SUMOReal _vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const {
         if (predSpeed==0&&gap2pred<0.01) {

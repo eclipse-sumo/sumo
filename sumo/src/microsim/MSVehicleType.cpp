@@ -35,6 +35,7 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVTypeParameter.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -73,16 +74,15 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
     assert(myAccel > 0);
     assert(myDecel > 0);
     assert(myDawdle >= 0 && myDawdle <= 1);
-    if(cfModel.compare("Krauss") == 0)
+    if (cfModel.compare("Krauss") == 0)
         myCarFollowModel = new MSCFModel_Krauss(this, dawdle, tau);
-    else if(cfModel.compare("IDM") == 0) {
+    else if (cfModel.compare("IDM") == 0) {
         SUMOReal timeheadway = 1.5;
         SUMOReal mingap = 5;
         myCarFollowModel = new MSCFModel_IDM(this, dawdle, timeheadway, mingap);
-    }
-    else
+    } else
         myCarFollowModel = new MSCFModel_Krauss(this, myDawdle, myTau);
-    
+
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * myDecel);
     myTauDecel = myDecel * myTau;
 }
@@ -116,6 +116,41 @@ MSVehicleType::saveState(std::ostream &os) {
     //myCarFollowModel->saveState(os);
 }
 
+
+SUMOReal
+MSVehicleType::get(const std::map<std::string, SUMOReal> &from, const std::string &name, SUMOReal defaultValue) throw() {
+    std::map<std::string, SUMOReal>::const_iterator i = from.find(name);
+    if (i==from.end()) {
+        return defaultValue;
+    }
+    return (*i).second;
+}
+
+
+MSVehicleType *
+MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
+    MSVehicleType *vtype = new MSVehicleType(
+        from.id, from.length, from.maxSpeed,
+        get(from.cfParameter, "accel", DEFAULT_VEH_ACCEL),
+        get(from.cfParameter, "decel", DEFAULT_VEH_DECEL),
+        get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+        get(from.cfParameter, "tau", DEFAULT_VEH_TAU),
+        from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
+        from.shape, from.width, from.offset, from.cfModel, from.lcModel, from.color);
+    MSCFModel *model = 0;
+    if (from.cfModel==""||from.cfModel=="carFollowing-Krauss") {
+        model = new MSCFModel_Krauss(vtype,
+                                     get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
+    } else if (from.cfModel=="carFollowing-IDM") {
+        model = new MSCFModel_IDM(vtype,
+                                  get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+                                  get(from.cfParameter, "timeHeadWay", 1.5),
+                                  get(from.cfParameter, "minGap", 5.));
+    }
+    vtype->myCarFollowModel = model;
+    return vtype;
+}
 
 
 /****************************************************************************/

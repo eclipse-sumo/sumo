@@ -110,7 +110,11 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         break;
     case SUMO_TAG_VTYPE:
-        addVehicleType(attrs);
+        myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
+        break;
+    case SUMO_TAG_CF_KRAUSS:
+    case SUMO_TAG_CF_IDM:
+        SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         break;
     case SUMO_TAG_VTYPE_DISTRIBUTION:
         openVehicleTypeDistribution(attrs);
@@ -215,52 +219,6 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 
 
 void
-MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs) {
-    string id;
-    if (attrs.setIDFromAttributes("vtype", id)) {
-        try {
-            MSVehicleType *vehType = new MSVehicleType(id,
-                    attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
-                    attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
-                    attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
-                    attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
-                    attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                    attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                    attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB),
-                    attrs.getFloatSecure(SUMO_ATTR_SPEEDFACTOR, DEFAULT_VEH_SPEEDFACTOR),
-                    attrs.getFloatSecure(SUMO_ATTR_SPEEDDEV, DEFAULT_VEH_SPEEDDEV),
-                    SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
-                    SUMOVehicleParserHelper::parseEmissionClass(attrs, "vtype", id),
-                    SUMOVehicleParserHelper::parseGuiShape(attrs, "vtype", id),
-                    attrs.getFloatSecure(SUMO_ATTR_GUIWIDTH, DEFAULT_VEH_GUIWIDTH),
-                    attrs.getFloatSecure(SUMO_ATTR_GUIOFFSET, DEFAULT_VEH_GUIOFFSET),
-                    attrs.getStringSecure(SUMO_ATTR_CAR_FOLLOW_MODEL, DEFAULT_VEH_FOLLOW_MODEL),
-                    attrs.getStringSecure(SUMO_ATTR_LANE_CHANGE_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL),
-                    RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING)));
-            if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
-                delete vehType;
-#ifdef HAVE_MESOSIM
-                if (!MSGlobals::gStateLoaded) {
-#endif
-                    throw ProcessError("Another vehicle type (or distribution) with the id '" + id + "' exists.");
-#ifdef HAVE_MESOSIM
-                }
-#endif
-            } else {
-                if (myCurrentVTypeDistribution != 0) {
-                    myCurrentVTypeDistribution->add(vehType->getDefaultProbability(), vehType);
-                }
-            }
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
-        }
-    }
-}
-
-
-void
 MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
     if (attrs.setIDFromAttributes("vtypeDistribution", myCurrentVTypeDistributionID)) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
@@ -342,16 +300,45 @@ MSRouteHandler::myCharacters(SumoXMLTag element,
 
 void
 MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
-    if (element == SUMO_TAG_ROUTE) {
+    switch (element) {
+    case SUMO_TAG_ROUTE:
         closeRoute();
-    } else if (element == SUMO_TAG_VEHICLE) {
+        break;
+    case SUMO_TAG_VEHICLE:
         closeVehicle();
         delete myVehicleParameter;
         myVehicleParameter = 0;
-    } else if (element == SUMO_TAG_VTYPE_DISTRIBUTION) {
+        break;
+    case SUMO_TAG_VTYPE_DISTRIBUTION:
         closeVehicleTypeDistribution();
-    } else if (element == SUMO_TAG_ROUTE_DISTRIBUTION) {
+        break;
+    case SUMO_TAG_ROUTE_DISTRIBUTION:
         closeRouteDistribution();
+        break;
+    case SUMO_TAG_VTYPE: {
+        SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
+        MSVehicleType *vehType = MSVehicleType::build(*myCurrentVType);
+        delete myCurrentVType;
+        myCurrentVType = 0;
+        if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
+            std::string id = vehType->getID();
+            delete vehType;
+#ifdef HAVE_MESOSIM
+            if (!MSGlobals::gStateLoaded) {
+#endif
+                throw ProcessError("Another vehicle type (or distribution) with the id '" + id + "' exists.");
+#ifdef HAVE_MESOSIM
+            }
+#endif
+        } else {
+            if (myCurrentVTypeDistribution != 0) {
+                myCurrentVTypeDistribution->add(vehType->getDefaultProbability(), vehType);
+            }
+        }
+    }
+    break;
+    default:
+        break;
     }
 }
 

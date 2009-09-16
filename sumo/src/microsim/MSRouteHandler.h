@@ -104,9 +104,6 @@ protected:
     //@}
 
 
-    /** parses an occured vehicle type definition */
-    void addVehicleType(const SUMOSAXAttributes &attrs);
-
     /** opens a type distribution for reading */
     void openVehicleTypeDistribution(const SUMOSAXAttributes &attrs);
 
@@ -187,6 +184,9 @@ protected:
 
     /// whether we have warned about routes defined as character strings
     bool myHaveWarned;
+
+    /// @brief The currently parsed vehicle type
+    SUMOVTypeParameter *myCurrentVType;
 
 private:
     /** invalid copy constructor */
