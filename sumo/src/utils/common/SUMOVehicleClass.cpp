@@ -59,6 +59,7 @@ std::string sSVC_PUBLIC_EMERGENCY("public_emergency");
 std::string sSVC_PUBLIC_AUTHORITY("public_authority");
 std::string sSVC_PUBLIC_ARMY("public_army");
 std::string sSVC_VIP("vip");
+std::string sSVC_IGNORING("ignoring");
 
 std::string sSVC_PASSENGER("passenger");
 std::string sSVC_HOV("hov");
@@ -106,6 +107,9 @@ getVehicleClassName(SUMOVehicleClass id) throw() {
     }
     if ((id&SVC_VIP)!=0) {
         ret += ("|" + sSVC_VIP);
+    }
+    if ((id&SVC_IGNORING)!=0) {
+        ret += ("|" + sSVC_IGNORING);
     }
 
     if ((id&SVC_PASSENGER)!=0) {
@@ -176,6 +180,9 @@ getVehicleClassID(const std::string &name) throw() {
     }
     if (name.find(sSVC_VIP)!=string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_VIP);
+    }
+    if (name.find(sSVC_IGNORING)!=string::npos) {
+        ret = (SUMOVehicleClass)((int) ret | (int) SVC_IGNORING);
     }
 
 

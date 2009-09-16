@@ -20,6 +20,7 @@ RGBColor.cpp RGBColor.h RandHelper.h RandHelper.cpp \
 SUMOTime.cpp SUMOTime.h \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 SUMOVehicleParameter.cpp SUMOVehicleParameter.h \
+SUMOVTypeParameter.cpp SUMOVTypeParameter.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
 ToString.h TplConvert.h TplConvertSec.h  \

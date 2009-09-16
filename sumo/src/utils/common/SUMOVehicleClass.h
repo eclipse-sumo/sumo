@@ -132,6 +132,8 @@ enum SUMOVehicleClass {
     SVC_PUBLIC_ARMY = 16,
     /// @brief vip vehicles
     SVC_VIP = 32,
+    /// @brief vehicles ignoring classes
+    SVC_IGNORING = 64,
     //@}
 
 
@@ -304,13 +306,15 @@ extern std::string getVehicleEmissionTypeName(SUMOEmissionClass id) throw();
  */
 extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw(ProcessError);
 
+
+
 // ===========================================================================
 // default vehicle type parameter
 // ===========================================================================
 const std::string DEFAULT_VTYPE_ID = "DEFAULT_VEHTYPE";
 const SUMOReal DEFAULT_VEH_MAXSPEED = (SUMOReal) 70.;
-const SUMOReal DEFAULT_VEH_A = (SUMOReal) 2.6;
-const SUMOReal DEFAULT_VEH_B = (SUMOReal) 4.5;
+const SUMOReal DEFAULT_VEH_ACCEL = (SUMOReal) 2.6;
+const SUMOReal DEFAULT_VEH_DECEL = (SUMOReal) 4.5;
 const SUMOReal DEFAULT_VEH_SIGMA = (SUMOReal) 0.5;
 const SUMOReal DEFAULT_VEH_LENGTH = (SUMOReal) 7.5;
 const SUMOReal DEFAULT_VEH_TAU = (SUMOReal) 1.;
@@ -322,6 +326,7 @@ const SUMOReal DEFAULT_VEH_GUIWIDTH = (SUMOReal) 2.;
 const SUMOReal DEFAULT_VEH_GUIOFFSET = (SUMOReal) 2.5;
 const std::string DEFAULT_VEH_FOLLOW_MODEL = "Krauss";
 const std::string DEFAULT_VEH_LANE_CHANGE_MODEL = "dkrajzew2008";
+const SUMOVehicleShape DEFAULT_VEH_SHAPE = SVS_UNKNOWN;
 
 
 #endif

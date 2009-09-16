@@ -145,6 +145,20 @@ GenericSAXHandler::Tag sumotags[] = {
     { "snapshot", SUMO_TAG_SNAPSHOT },
     { "location", SUMO_TAG_LOCATION },
 
+    { "carFollowing-Krauss", SUMO_TAG_CF_KRAUSS },
+    { "carFollowing-IDM",    SUMO_TAG_CF_IDM },
+
+
+
+    { "header", SUMO_TAG_OPENDRIVE_HEADER },
+    { "road", SUMO_TAG_OPENDRIVE_ROAD },
+    { "predecessor", SUMO_TAG_OPENDRIVE_PREDECESSOR },
+    { "successor", SUMO_TAG_OPENDRIVE_SUCCESSOR },
+    { "geometry", SUMO_TAG_OPENDRIVE_GEOMETRY },
+    { "line", SUMO_TAG_OPENDRIVE_LINE },
+    { "spiral", SUMO_TAG_OPENDRIVE_SPIRAL },
+    { "arc", SUMO_TAG_OPENDRIVE_ARC },
+    { "poly3", SUMO_TAG_OPENDRIVE_POLY3 },
 
     { "",                 SUMO_TAG_NOTHING }
 };
@@ -319,6 +333,30 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "convBoundary",   SUMO_ATTR_CONV_BOUNDARY },
     { "origBoundary",   SUMO_ATTR_ORIG_BOUNDARY },
     { "projParameter",  SUMO_ATTR_ORIG_PROJ },
+
+    { "timeHeadWay",  SUMO_ATTR_CF_IDM_TIMEHEADWAY },
+    { "minGap",       SUMO_ATTR_CF_IDM_MINGAP },
+
+
+    { "revMajor",       SUMO_ATTR_OPENDRIVE_REVMAJOR },
+    { "revMinor",       SUMO_ATTR_OPENDRIVE_REVMINOR },
+    { "ID",             SUMO_ATTR_OPENDRIVE_ID },
+    { "length",         SUMO_ATTR_OPENDRIVE_LENGTH },
+    { "junction",       SUMO_ATTR_OPENDRIVE_JUNCTION },
+    { "elementType",       SUMO_ATTR_OPENDRIVE_ELEMENTTYPE },
+    { "elementId",       SUMO_ATTR_OPENDRIVE_ELEMENTID },
+    { "contactPoint",       SUMO_ATTR_OPENDRIVE_CONTACTPOINT },
+    { "s",       SUMO_ATTR_OPENDRIVE_S },
+    { "x",       SUMO_ATTR_OPENDRIVE_X },
+    { "y",       SUMO_ATTR_OPENDRIVE_Y },
+    { "hdg",       SUMO_ATTR_OPENDRIVE_HDG },
+    { "curvStart",       SUMO_ATTR_OPENDRIVE_CURVSTART },
+    { "curvEnd",       SUMO_ATTR_OPENDRIVE_CURVEND },
+    { "curvature",       SUMO_ATTR_OPENDRIVE_CURVATURE },
+    { "a",       SUMO_ATTR_OPENDRIVE_A },
+    { "b",       SUMO_ATTR_OPENDRIVE_B },
+    { "c",       SUMO_ATTR_OPENDRIVE_C },
+    { "d",       SUMO_ATTR_OPENDRIVE_D },
 
     { "",               SUMO_ATTR_NOTHING }
 };

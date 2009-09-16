@@ -35,6 +35,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -62,6 +63,60 @@ public:
      */
     static SUMOVehicleParameter *parseVehicleAttributes(const SUMOSAXAttributes &attrs,
             bool skipID=false, bool skipDepart=false) throw(ProcessError);
+
+
+    /** @brief Starts to parse a vehicle type
+     *
+     * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @exception ProcessError If an attribute's value is invalid
+     * @see SUMOVTypeParameter
+     */
+    static SUMOVTypeParameter *beginVTypeParsing(const SUMOSAXAttributes &attrs) throw(ProcessError);
+
+
+    /** @brief Parses an element embedded in vtype definition
+     *
+     * @param[in, filled] into The structure to fill with parsed values
+     * @param[in] element The id of the currently parsed XML-element
+     * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[in] fromVType Whether the attributes are a part of the vtype-definition
+     * @exception ProcessError If an attribute's value is invalid
+     * @see SUMOVTypeParameter
+     */
+    static void parseVTypeEmbedded(SUMOVTypeParameter &into,
+                                   int element, const SUMOSAXAttributes &attrs,
+                                   bool fromVType=false) throw(ProcessError);
+
+
+    /** @brief Parses the Krauss definition embedded in vtype definition
+     *
+     * @param[in, filled] into The structure to fill with parsed values
+     * @param[in] attr The SAX-attributes to get model parameter from
+     * @param[in] fromVType Whether the attributes are a part of the vtype-definition
+     * @exception ProcessError If an attribute's value is invalid
+     * @see SUMOVTypeParameter
+     */
+    static void parseVTypeEmbedded_Krauss(SUMOVTypeParameter &into,
+                                          const SUMOSAXAttributes &attrs,
+                                          bool fromVType=false) throw(ProcessError);
+
+
+    /** @brief Parses the Krauss definition embedded in vtype definition
+     *
+     * @param[in, filled] into The structure to fill with parsed values
+     * @param[in] attr The SAX-attributes to get model parameter from
+     * @exception ProcessError If an attribute's value is invalid
+     * @see SUMOVTypeParameter
+     */
+    static void parseVTypeEmbedded_IDM(SUMOVTypeParameter &into,
+                                       const SUMOSAXAttributes &attrs) throw(ProcessError);
+
+
+    /** @brief Closes parsing of the vehicle type
+     * @return The resulting vehicle type parameter
+     * @see SUMOVTypeParameter
+     */
+    static void closeVTypeParsing(SUMOVTypeParameter &vtype) throw() { }
 
 
     /** @brief Parses the vehicle class

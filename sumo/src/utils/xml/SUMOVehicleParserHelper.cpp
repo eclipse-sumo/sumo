@@ -216,6 +216,147 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
 }
 
 
+SUMOVTypeParameter *
+SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    SUMOVTypeParameter *vtype = new SUMOVTypeParameter();
+    if (!attrs.setIDFromAttributes("vtype", vtype->id)) {
+        throw ProcessError();
+    }
+    bool ok = true;
+    if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
+        vtype->length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "vtype", vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_LENGTH_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
+        vtype->maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, "vtype", vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_MAXSPEED_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
+        vtype->speedFactor = attrs.getSUMORealReporting(SUMO_ATTR_SPEEDFACTOR, "vtype", vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_SPEEDFACTOR_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_SPEEDDEV)) {
+        vtype->speedDev = attrs.getSUMORealReporting(SUMO_ATTR_SPEEDDEV, "vtype", vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_SPEEDDEVIATION_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
+        vtype->emissionClass = parseEmissionClass(attrs, "vtype", vtype->id);
+        vtype->setParameter |= VTYPEPARS_EMISSIONCLASS_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
+        vtype->vehicleClass = parseVehicleClass(attrs, "vtype", vtype->id);
+        vtype->setParameter |= VTYPEPARS_VEHICLECLASS_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_GUIWIDTH)) {
+        vtype->width = attrs.getSUMORealReporting(SUMO_ATTR_GUIWIDTH, "vtype", vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_WIDTH_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_GUIOFFSET)) {
+        vtype->width = attrs.getSUMORealReporting(SUMO_ATTR_GUIOFFSET, "vtype", vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_OFFSET_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
+        vtype->shape = parseGuiShape(attrs, "vtype", vtype->id);
+        vtype->setParameter |= VTYPEPARS_SHAPE_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+        vtype->color = RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR));
+        vtype->setParameter |= VTYPEPARS_COLOR_SET;
+    } else {
+        vtype->color = RGBColor(1,1,0);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL)) {
+        vtype->cfModel = attrs.getStringReporting(SUMO_ATTR_CAR_FOLLOW_MODEL, "vtype", vtype->id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
+        vtype->lcModel = attrs.getStringReporting(SUMO_ATTR_LANE_CHANGE_MODEL, "vtype", vtype->id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
+        vtype->defaultProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "vtype", vtype->id.c_str(), ok);
+        vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;
+    }
+    try {
+        parseVTypeEmbedded(*vtype, SUMO_TAG_CF_KRAUSS, attrs, true);
+    } catch (ProcessError &) {
+        throw;
+    }
+    if (!ok) {
+        throw ProcessError();
+    }
+    return vtype;
+}
+
+
+void
+SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
+        int element, const SUMOSAXAttributes &attrs,
+        bool fromVType) throw(ProcessError) {
+    switch (element) {
+    case SUMO_TAG_CF_KRAUSS:
+        parseVTypeEmbedded_Krauss(into, attrs, fromVType);
+        break;
+    case SUMO_TAG_CF_IDM:
+        parseVTypeEmbedded_IDM(into, attrs);
+        break;
+    }
+}
+
+
+void
+SUMOVehicleParserHelper::parseVTypeEmbedded_Krauss(SUMOVTypeParameter &into,
+        const SUMOSAXAttributes &attrs,
+        bool fromVType) throw(ProcessError) {
+    bool ok = true;
+    if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
+        into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, "krauss", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_DECEL)) {
+        into.cfParameter["decel"] = attrs.getSUMORealReporting(SUMO_ATTR_DECEL, "krauss", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_SIGMA)) {
+        into.cfParameter["sigma"] = attrs.getSUMORealReporting(SUMO_ATTR_SIGMA, "krauss", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
+        into.cfParameter["tau"] = attrs.getSUMORealReporting(SUMO_ATTR_TAU, "krauss", into.id.c_str(), ok);
+    }
+    if (!ok) {
+        throw ProcessError();
+    }
+}
+
+
+void
+SUMOVehicleParserHelper::parseVTypeEmbedded_IDM(SUMOVTypeParameter &into,
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    bool ok = true;
+    // !!! the next should be revisited!
+    if (attrs.hasAttribute(SUMO_ATTR_ACCEL)) {
+        into.cfParameter["accel"] = attrs.getSUMORealReporting(SUMO_ATTR_ACCEL, "IDM", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_DECEL)) {
+        into.cfParameter["decel"] = attrs.getSUMORealReporting(SUMO_ATTR_DECEL, "IDM", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_SIGMA)) {
+        into.cfParameter["sigma"] = attrs.getSUMORealReporting(SUMO_ATTR_SIGMA, "IDM", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
+        into.cfParameter["tau"] = attrs.getSUMORealReporting(SUMO_ATTR_TAU, "IDM", into.id.c_str(), ok);
+    }
+    // !!! the prior should be revisited!
+
+
+    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
+        into.cfParameter["timeHeadWay"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_TIMEHEADWAY, "IDM", into.id.c_str(), ok);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
+        into.cfParameter["minGap"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_MINGAP, "IDM", into.id.c_str(), ok);
+    }
+    if (!ok) {
+        throw ProcessError();
+    }
+}
+
+
 SUMOVehicleClass
 SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
         const std::string &type,

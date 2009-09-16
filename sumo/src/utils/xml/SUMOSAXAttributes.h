@@ -109,6 +109,9 @@ public:
 
 
 
+    std::string
+    SUMOSAXAttributes::getStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                          bool &ok, bool report=true) const throw();
 
     /// @name virtual methods for retrieving attribute values
     /// @{

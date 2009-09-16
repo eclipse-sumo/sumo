@@ -146,11 +146,40 @@ SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype
 }
 
 
-void 
-SUMOSAXAttributes::parseStringVector(const std::string &def, std::vector<std::string> &into) throw()
-{
+std::string
+SUMOSAXAttributes::getStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                      bool &ok, bool report) const throw() {
+    if (!hasAttribute(attr)) {
+        if (report) {
+            if (objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of " + string(objecttype) + " '" + string(objectid) + "'.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of a " + string(objecttype) + ".");
+            }
+        }
+        ok = false;
+        return "";
+    }
+    try {
+        return getString(attr);
+    } catch (EmptyData &) {
+        if (report) {
+            if (objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is empty.");
+            }
+        }
+    }
+    ok = false;
+    return "";
+}
+
+
+void
+SUMOSAXAttributes::parseStringVector(const std::string &def, std::vector<std::string> &into) throw() {
     if (def.find(';')!=string::npos||def.find(',')!=string::npos) {
-        if(!myHaveInformedAboutDeprecatedDivider) {
+        if (!myHaveInformedAboutDeprecatedDivider) {
             MsgHandler::getWarningInstance()->inform("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
             myHaveInformedAboutDeprecatedDivider = true;
         }
