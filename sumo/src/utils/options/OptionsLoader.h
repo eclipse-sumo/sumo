@@ -132,7 +132,7 @@ public:
 
 
 private:
-    /** @brief Tries to set the named option to the given value 
+    /** @brief Tries to set the named option to the given value
      *
      * Also evaluates whether it is a boolean or a filename option and
      *  does the relevant checks / modifications.

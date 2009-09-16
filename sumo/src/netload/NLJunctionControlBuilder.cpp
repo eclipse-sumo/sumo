@@ -235,7 +235,7 @@ NLJunctionControlBuilder::getTLLogic(const std::string &id) const throw(InvalidA
 
 void
 NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument) {
-    if(myAbsDuration==0) {
+    if (myAbsDuration==0) {
         throw InvalidArgument("TLS program '" + myActiveSubKey + "' for TLS '" + myActiveKey + "' has a duration of 0.");
     }
     // compute the initial step and first switch time of the tls-logic

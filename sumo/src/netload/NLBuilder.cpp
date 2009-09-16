@@ -142,7 +142,7 @@ NLBuilder::build() throw(ProcessError) {
         }
         // start parsing; for each file in the list
         std::vector<std::string> files = myOptions.getStringVector("weight-files");
-        for(std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
+        for (std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
             // report about loading when wished
             WRITE_MESSAGE("Loading weights from '" + *i + "'...");
             // check whether the file exists

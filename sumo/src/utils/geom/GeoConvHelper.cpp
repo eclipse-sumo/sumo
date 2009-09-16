@@ -227,14 +227,14 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
 #ifdef HAVE_PROJ
         if (myProjection==0) {
             if (myProjectionMethod == UTM) {
-                int zone = (int) (from.x() + 180) / 6 + 1;
+                int zone = (int)(from.x() + 180) / 6 + 1;
                 myProjString = "+proj=utm +zone=" + toString(zone) +
                                " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
                 myProjection = pj_init_plus(myProjString.c_str());
                 //!!! check pj_errno
             }
             if (myProjectionMethod == DHDN) {
-                int zone = (int) (from.x() / 3);
+                int zone = (int)(from.x() / 3);
                 if (zone < 1 || zone > 5) {
                     return false;
                 }

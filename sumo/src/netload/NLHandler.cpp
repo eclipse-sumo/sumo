@@ -307,14 +307,14 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             myJunctionControlBuilder.closeJunctionLogic();
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        }  
+        }
         break;
     case SUMO_TAG_TLLOGIC:
         try {
             myJunctionControlBuilder.closeTrafficLightLogic();
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        }         
+        }
         myAmInTLLogicMode = false;
         break;
     case SUMO_TAG_WAUT:
@@ -785,7 +785,7 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs) {
             myJunctionControlBuilder.addLogicItem(request, response, foes, cont);
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-        }  
+        }
     }
 }
 
