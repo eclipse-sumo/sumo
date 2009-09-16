@@ -498,6 +498,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\SUMOVTypeParameter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\SystemFrame.cpp"
 				>
 			</File>
@@ -604,6 +608,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\SUMOVehicleParameter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\SUMOVTypeParameter.h"
 				>
 			</File>
 			<File
