@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/08/09 09:47:35 by SUMO duarouter Version dev-SVN-r7683
+<!-- generated on 09/16/09 09:11:07 by SUMO duarouter Version dev-SVN-r7726
 <configuration>
 
     <input
@@ -16,7 +16,9 @@
 -->
 
 <route-alternatives>
-   <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" vclass="bus"/>
+   <vtype id="0" length="5.00" maxspeed="70.00" vclass="bus">
+      <carFollow-Krauss accel="2.60" decel="4.50" sigma="0.50" tau="1.00"/>
+   </vtype>
    <vehicle id="0_0" type="0" depart="0">
       <routeDistribution last="0">
          <route cost="125.22" probability="1.00000000" edges="absBeg beg2left left left2end end absEnd"/>

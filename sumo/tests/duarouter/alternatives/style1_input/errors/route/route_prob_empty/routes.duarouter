@@ -1,22 +1,24 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/14/08 13:20:55 by SUMO duarouter Version 0.9.7
+<!-- generated on 09/16/09 09:10:27 by SUMO duarouter Version dev-SVN-r7726
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <alternatives>input_alts.rou.alt.xml</alternatives>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        alternatives="input_alts.rou.alt.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
 </configuration>
 -->
 
 <routes>
-   <vtype model="SUMO_KRAUSS" id="KRAUSS_DEFAULT" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" color="1,1,0"/>
+   <vtype id="KRAUSS_DEFAULT" length="5.00" maxspeed="70.00" color="1.00,1.00,0.00">
+      <carFollow-Krauss accel="2.60" decel="4.50" sigma="0.50"/>
+   </vtype>
    <vehicle id="0" type="KRAUSS_DEFAULT" depart="0">
       <route edges="beg middle end rend"/>
    </vehicle>

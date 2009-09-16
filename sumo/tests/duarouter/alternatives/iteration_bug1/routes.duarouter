@@ -1,36 +1,38 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/15/08 08:46:15 by SUMO duarouter Version 0.9.7
+<!-- generated on 09/16/09 09:10:59 by SUMO duarouter Version dev-SVN-r7726
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <alternatives>input_alts.rou.alt.xml</alternatives>
-      <weights>input_weights.dump.xml</weights>
-   </input>
+    <input
+        net-file="input_net.net.xml"
+        alternatives="input_alts.rou.alt.xml"
+        weights="input_weights.dump.xml"
+    />
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output
+        output-file="routes.rou.xml"
+    />
 
-   <processing>
-      <continue-on-unbuild>true</continue-on-unbuild>
-   </processing>
+    <processing
+        continue-on-unbuild="true"
+    />
 
-   <time>
-      <begin>0</begin>
-      <end>86400</end>
-   </time>
+    <time
+        begin="0"
+        end="86400"
+    />
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report
+        verbose="true"
+    />
 
 </configuration>
 -->
 
 <routes>
-   <vtype model="SUMO_KRAUSS" id="CarA" accel="2.00" decel="6.00" sigma="0.00" length="2.00" maxspeed="180.00" tau="1.00"/>
+   <vtype id="CarA" length="2.00" maxspeed="180.00">
+      <carFollow-Krauss accel="2.00" decel="6.00" sigma="0.00" tau="1.00"/>
+   </vtype>
    <vehicle id="veh0" type="CarA" depart="1" color="1.00,0.00,0.00">
       <route color="1.00,0.00,0.00" edges="L1 L9 L17 L26"/>
    </vehicle>
