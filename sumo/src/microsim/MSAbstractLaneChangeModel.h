@@ -100,8 +100,7 @@ public:
 #ifndef NO_TRACI
             myChangeRequest(REQUEST_NONE),
 #endif
-            myCarFollowModel(v.getCarFollowModel())
-    {
+            myCarFollowModel(v.getCarFollowModel()) {
     }
 
     virtual ~MSAbstractLaneChangeModel() { }

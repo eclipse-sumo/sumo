@@ -498,7 +498,7 @@ MSEdge::clear() throw() {
 }
 
 
-void 
+void
 MSEdge::parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into,
                        const std::string &rid) throw(ProcessError) {
     StringTokenizer st(desc);
@@ -506,10 +506,10 @@ MSEdge::parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into
 }
 
 
-void 
+void
 MSEdge::parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
                        const std::string &rid) throw(ProcessError) {
-    for(std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
+    for (std::vector<std::string>::const_iterator i=desc.begin(); i!=desc.end(); ++i) {
         const MSEdge *edge = MSEdge::dictionary(*i);
         // check whether the edge exists
         if (edge==0) {
