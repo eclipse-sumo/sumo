@@ -554,94 +554,94 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
 
 
 void
-NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc){
+NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc) {
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
-	const std::vector<std::string> &edgeNames = ec.getAllNames();
-	for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it
-			!= edgeNames.end(); ++it) {
-		// Test whether this node starts at a dead end, i.e. it has only one adjacent node
-		// to which an edge exists and from which an edge may come.
-		NBEdge *e = ec.retrieve(*it);
-		if (e == 0) {
-			continue;
-		}
-		NBNode* from = e->getFromNode();
-		const EdgeVector &outgoingEdges = from->getOutgoingEdges();
-		if (outgoingEdges.size() != 1) {
-			// At this node, several edges or no edge start; so, this node is no dead end.
-			continue;
-		}
-		const EdgeVector &incomingEdges = from->getIncomingEdges();
-		if (incomingEdges.size() > 1) {
-			// At this node, several edges end; so, this node is no dead end.
-			continue;
-		} else if (incomingEdges.size() == 1) {
-			NBNode* fromNodeOfIncomingEdge = incomingEdges[0]->getFromNode();
-			NBNode* toNodeOfOutgoingEdge = outgoingEdges[0]->getToNode();
-			if (fromNodeOfIncomingEdge != toNodeOfOutgoingEdge) {
-				// At this node, an edge ends which is not the inverse direction of
-				// the starting node.
-				continue;
-			}
-		}
-		// Now we know that the edge e starts a dead end.
-		// Next we test if the dead end is isolated, i.e. does not lead to a junction
-		bool hasJunction = false;
-		std::vector<NBEdge*> road;
-		NBEdge* eOld = 0;
-		NBNode* to;
-		std::set<NBNode*> adjacentNodes;
-		do {
-			road.push_back(e);
-			eOld = e;
-			from = e->getFromNode();
-			to = e->getToNode();
-			const EdgeVector &outgoingEdgesOfToNode = to->getOutgoingEdges();
-			const EdgeVector &incomingEdgesOfToNode = to->getIncomingEdges();
-			adjacentNodes.clear();
-			for (EdgeVector::const_iterator itOfOutgoings=outgoingEdgesOfToNode.begin(); itOfOutgoings!=outgoingEdgesOfToNode.end(); ++itOfOutgoings) {
-				if ((*itOfOutgoings)->getToNode() != from        // The back path
-						&& (*itOfOutgoings)->getToNode() != to   // A loop / dummy edge
-						) {
-					e = *itOfOutgoings; // Probably the next edge
-				}
-				adjacentNodes.insert((*itOfOutgoings)->getToNode());
-			}
-			for (EdgeVector::const_iterator itOfIncomings=incomingEdgesOfToNode.begin(); itOfIncomings!=incomingEdgesOfToNode.end(); ++itOfIncomings){
-				adjacentNodes.insert((*itOfIncomings)->getFromNode());
-			}
-			adjacentNodes.erase(to);  // Omit loops / dummy edges
-			if (adjacentNodes.size() > 2) {
-				hasJunction = true;
-			}
-		} while (!hasJunction && eOld != e);
-		if (!hasJunction) {
-			std::string warningString = "Removed a road without junctions: ";
-			for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt
-					!= road.end(); ++roadIt) {
-				if (roadIt == road.begin()) {
-					warningString += (*roadIt)->getID();
-				} else {
-					warningString += ", " + (*roadIt)->getID();
-				}
+    const std::vector<std::string> &edgeNames = ec.getAllNames();
+    for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it
+            != edgeNames.end(); ++it) {
+        // Test whether this node starts at a dead end, i.e. it has only one adjacent node
+        // to which an edge exists and from which an edge may come.
+        NBEdge *e = ec.retrieve(*it);
+        if (e == 0) {
+            continue;
+        }
+        NBNode* from = e->getFromNode();
+        const EdgeVector &outgoingEdges = from->getOutgoingEdges();
+        if (outgoingEdges.size() != 1) {
+            // At this node, several edges or no edge start; so, this node is no dead end.
+            continue;
+        }
+        const EdgeVector &incomingEdges = from->getIncomingEdges();
+        if (incomingEdges.size() > 1) {
+            // At this node, several edges end; so, this node is no dead end.
+            continue;
+        } else if (incomingEdges.size() == 1) {
+            NBNode* fromNodeOfIncomingEdge = incomingEdges[0]->getFromNode();
+            NBNode* toNodeOfOutgoingEdge = outgoingEdges[0]->getToNode();
+            if (fromNodeOfIncomingEdge != toNodeOfOutgoingEdge) {
+                // At this node, an edge ends which is not the inverse direction of
+                // the starting node.
+                continue;
+            }
+        }
+        // Now we know that the edge e starts a dead end.
+        // Next we test if the dead end is isolated, i.e. does not lead to a junction
+        bool hasJunction = false;
+        std::vector<NBEdge*> road;
+        NBEdge* eOld = 0;
+        NBNode* to;
+        std::set<NBNode*> adjacentNodes;
+        do {
+            road.push_back(e);
+            eOld = e;
+            from = e->getFromNode();
+            to = e->getToNode();
+            const EdgeVector &outgoingEdgesOfToNode = to->getOutgoingEdges();
+            const EdgeVector &incomingEdgesOfToNode = to->getIncomingEdges();
+            adjacentNodes.clear();
+            for (EdgeVector::const_iterator itOfOutgoings=outgoingEdgesOfToNode.begin(); itOfOutgoings!=outgoingEdgesOfToNode.end(); ++itOfOutgoings) {
+                if ((*itOfOutgoings)->getToNode() != from        // The back path
+                        && (*itOfOutgoings)->getToNode() != to   // A loop / dummy edge
+                   ) {
+                    e = *itOfOutgoings; // Probably the next edge
+                }
+                adjacentNodes.insert((*itOfOutgoings)->getToNode());
+            }
+            for (EdgeVector::const_iterator itOfIncomings=incomingEdgesOfToNode.begin(); itOfIncomings!=incomingEdgesOfToNode.end(); ++itOfIncomings) {
+                adjacentNodes.insert((*itOfIncomings)->getFromNode());
+            }
+            adjacentNodes.erase(to);  // Omit loops / dummy edges
+            if (adjacentNodes.size() > 2) {
+                hasJunction = true;
+            }
+        } while (!hasJunction && eOld != e);
+        if (!hasJunction) {
+            std::string warningString = "Removed a road without junctions: ";
+            for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt
+                    != road.end(); ++roadIt) {
+                if (roadIt == road.begin()) {
+                    warningString += (*roadIt)->getID();
+                } else {
+                    warningString += ", " + (*roadIt)->getID();
+                }
 
-				NBNode* fromNode = (*roadIt)->getFromNode();
-				NBNode* toNode = (*roadIt)->getToNode();
-				ec.erase(dc, *roadIt);
-				if (fromNode->getIncomingEdges().size() == 0
-						&& fromNode->getOutgoingEdges().size() == 0) {
-					// Node is empty; can be removed
-					erase(fromNode);
-				}
-				if (toNode->getIncomingEdges().size() == 0
-						&& toNode->getOutgoingEdges().size() == 0) {
-					// Node is empty; can be removed
-					erase(toNode);
-				}
-			}
-			WRITE_WARNING(warningString);
-		}
-	}
+                NBNode* fromNode = (*roadIt)->getFromNode();
+                NBNode* toNode = (*roadIt)->getToNode();
+                ec.erase(dc, *roadIt);
+                if (fromNode->getIncomingEdges().size() == 0
+                        && fromNode->getOutgoingEdges().size() == 0) {
+                    // Node is empty; can be removed
+                    erase(fromNode);
+                }
+                if (toNode->getIncomingEdges().size() == 0
+                        && toNode->getOutgoingEdges().size() == 0) {
+                    // Node is empty; can be removed
+                    erase(toNode);
+                }
+            }
+            WRITE_WARNING(warningString);
+        }
+    }
 }
 
 
@@ -722,9 +722,9 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
     }
     // erase all
     for (std::vector<NBNode*>::iterator j = toRemove.begin(); j
-			!= toRemove.end(); j++) {
-		erase(*j);
-	}
+            != toRemove.end(); j++) {
+        erase(*j);
+    }
     WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
 }
 
@@ -786,7 +786,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
     NBEdge *pot_highway = cur->getIncomingEdges()[0];
     NBEdge *pot_ramp = cur->getIncomingEdges()[1];
     NBEdge *cont = cur->getOutgoingEdges()[0];
-	bool bEdgeDeleted = false;
+    bool bEdgeDeleted = false;
 
     // assign highway/ramp properly
     if (pot_highway->getSpeed()<pot_ramp->getSpeed()) {
@@ -803,7 +803,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
     if (toAdd<=0) {
         return false;
     }
-  
+
     //
     if (cont->getGeometry().length()-POSITION_EPS<=oc.getFloat("ramp-guess.ramp-length")) {
         // the edge is shorter than the wished ramp
@@ -841,7 +841,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         p.push_back(cont->getFromNode()->getPosition());
         pot_ramp->setGeometry(p);
     } else {
-		bEdgeDeleted=true;
+        bEdgeDeleted=true;
         // there is enough place to build a ramp; do it
         NBNode *rn =
             new NBNode(cont->getID() + "-AddedOnRampNode",
@@ -895,7 +895,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             pot_ramp->setGeometry(p);
         }
     }
-	return bEdgeDeleted;
+    return bEdgeDeleted;
 }
 
 
@@ -1075,8 +1075,8 @@ void
 NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                        NBDistrictCont &dc) {
     std::vector<NBEdge*> incremented;
-	bool bEdgeDeleted=false;
-	// check whether obsure highway connections shall be checked
+    bool bEdgeDeleted=false;
+    // check whether obsure highway connections shall be checked
     if (oc.getBool("guess-obscure-ramps")) {
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
             NBNode *cur = (*i).second;
@@ -1168,24 +1168,24 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
     // check whether on-off ramps shall be guessed
     if (oc.isSet("ramp-guess.explicite")) {
         std::vector<std::string> edges = oc.getStringVector("ramp-guess.explicite");
-        for(std::vector<std::string>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+        for (std::vector<std::string>::iterator i=edges.begin(); i!=edges.end(); ++i) {
             NBEdge *e = ec.retrieve(*i);
-            if(e==0) {
+            if (e==0) {
                 MsgHandler::getWarningInstance()->inform("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
             NBNode *from = e->getFromNode();
-            if(from->getIncomingEdges().size()==2&&from->getOutgoingEdges().size()==1) {
+            if (from->getIncomingEdges().size()==2&&from->getOutgoingEdges().size()==1) {
                 bEdgeDeleted = buildOnRamp(oc, from, ec, dc, incremented);
             }
             // load edge again to check offramps
             e = ec.retrieve(*i);
-            if(e==0) {
+            if (e==0) {
                 MsgHandler::getWarningInstance()->inform("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
             NBNode *to = e->getToNode();
-            if(to->getIncomingEdges().size()==1&&to->getOutgoingEdges().size()==2) {
+            if (to->getIncomingEdges().size()==1&&to->getOutgoingEdges().size()==2) {
                 buildOffRamp(oc, to, ec, dc, incremented);
             }
         }

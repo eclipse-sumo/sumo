@@ -244,7 +244,7 @@ public:
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
     bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;
-	bool buildOnRamp(OptionsCont &oc, NBNode *cur,
+    bool buildOnRamp(OptionsCont &oc, NBNode *cur,
                      NBEdgeCont &ec, NBDistrictCont &dc, std::vector<NBEdge*> &incremented);
 
     void buildOffRamp(OptionsCont &oc, NBNode *cur,

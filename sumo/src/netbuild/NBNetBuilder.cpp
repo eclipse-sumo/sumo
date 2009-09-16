@@ -129,7 +129,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     gJoinedEdges.init(myEdgeCont);
     myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
     //
-    if(oc.getBool("remove-isolated")) {
+    if (oc.getBool("remove-isolated")) {
         inform(step, "Removing isolated roads");
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
     }

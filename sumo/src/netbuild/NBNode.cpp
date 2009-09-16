@@ -1307,7 +1307,7 @@ std::vector<NBEdge*> *
 NBNode::getEdgesThatApproach(NBEdge *currentOutgoing) {
     // get the position of the node to get the approaching nodes of
     std::vector<NBEdge*>::const_iterator i = find(myAllEdges.begin(),
-                                        myAllEdges.end(), currentOutgoing);
+            myAllEdges.end(), currentOutgoing);
     // get the first possible approaching edge
     NBContHelper::nextCW(&myAllEdges, i);
     // go through the list of edges clockwise and add the edges
