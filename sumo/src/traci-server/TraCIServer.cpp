@@ -291,7 +291,7 @@ TraCIServer::dispatchCommand()
 throw(TraCIException, std::invalid_argument) {
     int commandStart = myInputStorage.position();
     int commandLength = myInputStorage.readUnsignedByte();
-    if(commandLength==0) {
+    if (commandLength==0) {
         commandLength = myInputStorage.readInt();
     }
 

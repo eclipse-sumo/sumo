@@ -69,7 +69,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             &&variable!=VAR_LANEPOSITION
             &&variable!=VAR_CO2EMISSION&&variable!=VAR_COEMISSION&&variable!=VAR_HCEMISSION&&variable!=VAR_PMXEMISSION
             &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
-            ) {
+       ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -119,11 +119,11 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeString(v->getLane().getID());
             break;
         case VAR_LANE_INDEX: {
-                const MSEdge::LaneCont *lanes = v->getLane().getEdge()->getLanes();
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) (std::distance(lanes->begin(), std::find(lanes->begin(), lanes->end(), &v->getLane()))));
-            }
-            break;
+            const MSEdge::LaneCont *lanes = v->getLane().getEdge()->getLanes();
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt((int)(std::distance(lanes->begin(), std::find(lanes->begin(), lanes->end(), &v->getLane()))));
+        }
+        break;
         case VAR_TYPE:
             tempMsg.writeUnsignedByte(TYPE_STRING);
             tempMsg.writeString(v->getVehicleType().getID());
@@ -372,7 +372,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         std::string rid = inputStorage.readString();
         const MSRoute *r = MSRoute::dictionary(rid);
-        if(r==0) {
+        if (r==0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "The route '" + rid + "' is not known.", outputStorage);
             return false;
         }

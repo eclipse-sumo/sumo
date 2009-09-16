@@ -1943,7 +1943,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage &inMsg, int valueData
         answerLog << " Int value: " << integer << endl;
     } else if (valueDataType == TYPE_FLOAT) {
         float floatv = inMsg.readFloat();
-        if(floatv<0.1&&floatv>0) {
+        if (floatv<0.1&&floatv>0) {
             answerLog.setf(std::ios::scientific, std::ios::floatfield);
         }
         answerLog << " float value: " << floatv << endl;
