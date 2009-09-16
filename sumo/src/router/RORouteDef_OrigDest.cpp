@@ -36,7 +36,6 @@
 #include "RORouteDef_OrigDest.h"
 #include <utils/common/SUMOAbstractRouter.h>
 #include "ROVehicle.h"
-#include "ROVehicleType.h"
 #include "ROHelper.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>

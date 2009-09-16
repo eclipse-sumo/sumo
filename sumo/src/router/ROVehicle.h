@@ -41,7 +41,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class ROVehicleType;
+class SUMOVTypeParameter;
 class RORouteDef;
 class OutputDevice;
 class ROEdge;
@@ -65,7 +65,7 @@ public:
      * @todo Why is the vehicle builder given?
      */
     ROVehicle(const SUMOVehicleParameter &pars,
-              RORouteDef *route, ROVehicleType *type) throw();
+              RORouteDef *route, SUMOVTypeParameter *type) throw();
 
 
     /// @brief Destructor
@@ -89,7 +89,7 @@ public:
      *
      * @todo Why not return a reference?
      */
-    const ROVehicleType * const getType() const throw() {
+    const SUMOVTypeParameter * const getType() const throw() {
         return myType;
     }
 
@@ -145,7 +145,7 @@ protected:
     SUMOVehicleParameter myParameter;
 
     /// @brief The type of the vehicle
-    ROVehicleType *myType;
+    SUMOVTypeParameter *myType;
 
     /// @brief The route the vehicle takes
     RORouteDef *myRoute;

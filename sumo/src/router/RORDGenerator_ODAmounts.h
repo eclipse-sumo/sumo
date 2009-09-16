@@ -117,7 +117,7 @@ protected:
     class FlowDef {
     public:
         /// Constructor
-        FlowDef(ROVehicle *vehicle, ROVehicleType *type, RORouteDef *route,
+        FlowDef(ROVehicle *vehicle, SUMOVTypeParameter *type, RORouteDef *route,
                 SUMOTime intBegin, SUMOTime intEnd,
                 unsigned int vehicles2Emit, bool randomize);
 
@@ -141,7 +141,7 @@ protected:
         ROVehicle *myVehicle;
 
         /// (description of) the vehicle type to use
-        ROVehicleType *myVehicleType;
+        SUMOVTypeParameter *myVehicleType;
 
         /// (description of) the route to use
         RORouteDef *myRoute;

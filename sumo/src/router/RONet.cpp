@@ -38,8 +38,7 @@
 #include "RORoute.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
-#include "ROVehicleType.h"
-#include "ROVehicleType_ID.h"
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/SUMOAbstractRouter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
@@ -127,10 +126,10 @@ RONet::closeOutput() throw() {
 
 
 
-ROVehicleType *
+SUMOVTypeParameter *
 RONet::getVehicleTypeSecure(const std::string &id) throw() {
     // check whether the type was already known
-    ROVehicleType *type = myVehicleTypes.get(id);
+    SUMOVTypeParameter *type = myVehicleTypes.get(id);
     if (type!=0) {
         return type;
     }
@@ -141,16 +140,18 @@ RONet::getVehicleTypeSecure(const std::string &id) throw() {
     }
     // Assume, the user will define the type somewhere else
     //  return a type which contains the id only
-    type = new ROVehicleType_ID(id);
+    type = new SUMOVTypeParameter();
+    type->id = id;
+    type->onlyReferenced = true;
     addVehicleType(type);
     return type;
 }
 
 
 bool
-RONet::addVehicleType(ROVehicleType *type) throw() {
-    if (!myVehicleTypes.add(type->getID(), type)) {
-        MsgHandler::getErrorInstance()->inform("The vehicle type '" + type->getID() + "' occures at least twice.");
+RONet::addVehicleType(SUMOVTypeParameter *type) throw() {
+    if (!myVehicleTypes.add(type->id, type)) {
+        MsgHandler::getErrorInstance()->inform("The vehicle type '" + type->id + "' occures at least twice.");
         delete type;
         return false;
     }

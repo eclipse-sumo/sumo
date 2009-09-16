@@ -159,8 +159,8 @@ protected:
     /// The information whether the next route was read
     bool myNextRouteRead;
 
-    /// The vehicle type currently being parsed
-    ROVehicleType *myCurrentVehicleType;
+    /// @brief The currently parsed vehicle type
+    SUMOVTypeParameter *myCurrentVehicleType;
 
     SUMOVehicleParameter *myParameter;
     SUMOTime myDepartureTime;

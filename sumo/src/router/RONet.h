@@ -38,8 +38,8 @@
 #include "RONode.h"
 #include "ROVehicleCont.h"
 #include "ROVehicle.h"
-#include "ROVehicleType.h"
 #include "RORouteDef.h"
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/SUMOAbstractRouter.h>
 
 
@@ -137,7 +137,7 @@ public:
      * @param[in] def The vehicle type to add
      * @return Whether the vehicle type could be added
      */
-    virtual bool addVehicleType(ROVehicleType *type) throw();
+    virtual bool addVehicleType(SUMOVTypeParameter *type) throw();
 
 
     /** @brief Retrieves the named vehicle type
@@ -152,7 +152,7 @@ public:
      * @return The named vehicle type
      * @todo Check whether a const pointer may be returned
      */
-    ROVehicleType *getVehicleTypeSecure(const std::string &id) throw();
+    SUMOVTypeParameter *getVehicleTypeSecure(const std::string &id) throw();
 
 
     /* @brief Adds a route definition to the network
@@ -242,7 +242,7 @@ public:
 
     /** @brief Returns a random edge which may be used as a starting point
      *
-     * If the list of possible source (roads with no predecessor, "mySourceEdges") is empty, 
+     * If the list of possible source (roads with no predecessor, "mySourceEdges") is empty,
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no predecessor
      */
@@ -251,7 +251,7 @@ public:
 
     /** @brief Returns a random edge which may be used as a starting point
      *
-     * If the list of possible sources (roads with no predecessor, "mySourceEdges") is empty, 
+     * If the list of possible sources (roads with no predecessor, "mySourceEdges") is empty,
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no predecessor
      */
@@ -260,7 +260,7 @@ public:
 
     /** @brief Returns a random edge which may be used as an ending point
      *
-     * If the list of possible destinations (roads with no successor, "myDestinationEdges") is empty, 
+     * If the list of possible destinations (roads with no successor, "myDestinationEdges") is empty,
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no successor
      */
@@ -269,7 +269,7 @@ public:
 
     /** @brief Returns a random edge which may be used as an ending point
      *
-     * If the list of possible destinations (roads with no successor, "myDestinationEdges") is empty, 
+     * If the list of possible destinations (roads with no successor, "myDestinationEdges") is empty,
      *  it is tried to be built, first.
      * @return A random edge from the list of edges with no successor
      */
@@ -306,7 +306,7 @@ protected:
     NamedObjectCont<ROEdge*> myEdges;
 
     /// Known vehicle types
-    NamedObjectCont<ROVehicleType*> myVehicleTypes;
+    NamedObjectCont<SUMOVTypeParameter*> myVehicleTypes;
 
     /// Known routes
     NamedObjectCont<RORouteDef*> myRoutes;

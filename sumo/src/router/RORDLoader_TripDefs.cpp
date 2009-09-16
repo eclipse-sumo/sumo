@@ -39,7 +39,6 @@
 #include "ROVehicle.h"
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
-#include "ROVehicleType_Krauss.h"
 #include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -94,40 +93,10 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
     }
     // check whether a vehicle type shall be parsed
     if (element==SUMO_TAG_VTYPE) {
-        // get the id, report an error if not given or empty...
-        string id;
-        if (!attrs.setIDFromAttributes("vtype", id)) {
-            return;
-        }
-        // get the rest of the parameter
-        try {
-            SUMOReal a = attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
-            SUMOReal b = attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B);
-            SUMOReal vmax = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
-            SUMOReal length = attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
-            SUMOReal eps = attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
-            SUMOReal tau = attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
-
-            string col = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
-
-            SUMOVehicleClass vclass = SVC_UNKNOWN;
-            string classdef = attrs.getStringSecure(SUMO_ATTR_VCLASS, "");
-            if (classdef!="") {
-                try {
-                    vclass = getVehicleClassID(classdef);
-                } catch (...) {
-                    MsgHandler::getErrorInstance()->inform("The vehicle class for vehicle type '" + id + "' is malicious.");
-                }
-            }
-            myCurrentVehicleType = new ROVehicleType_Krauss(id, col, length, vclass, a, b, eps, vmax, tau);
-            myNet.addVehicleType(myCurrentVehicleType);
-        } catch (NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not numeric.");
-            return;
-        } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not given.");
-            return;
-        }
+        myCurrentVehicleType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
+    }
+    if (element==SUMO_TAG_CF_KRAUSS || element == SUMO_TAG_CF_IDM) {
+        SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVehicleType, element, attrs);
     }
 }
 
@@ -235,7 +204,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError) {
         }
         RGBColor *col = myParameter->wasSet(VEHPARS_COLOR_SET) ? new RGBColor(myParameter->color) : 0;
         RORouteDef *route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);
-        ROVehicleType *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
+        SUMOVTypeParameter *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
@@ -247,6 +216,10 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError) {
         myNet.addVehicle(myParameter->id, veh);
         delete myParameter;
         myParameter = 0;
+    }
+    if (element==SUMO_TAG_VTYPE) {
+        SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVehicleType);
+        myNet.addVehicleType(myCurrentVehicleType);
     }
 }
 

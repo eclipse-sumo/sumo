@@ -41,7 +41,6 @@
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROEdge.h>
-#include <router/ROVehicleType_Krauss.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/DijkstraRouterEffort.h>
 #include <routing_dua/RODUAEdgeBuilder.h>

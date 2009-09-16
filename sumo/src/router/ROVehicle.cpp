@@ -30,11 +30,11 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <string>
 #include <iostream>
-#include "ROVehicleType.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
@@ -50,7 +50,7 @@
 // method definitions
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter &pars,
-                     RORouteDef *route, ROVehicleType *type) throw()
+                     RORouteDef *route, SUMOVTypeParameter *type) throw()
         : myParameter(pars), myType(type), myRoute(route) {}
 
 
@@ -61,13 +61,13 @@ void
 ROVehicle::saveAllAsXML(SUMOAbstractRouter<ROEdge,ROVehicle> &router, OutputDevice &os,
                         OutputDevice * const altos, bool withExitTimes) const throw(IOError) {
     // check whether the vehicle's type was saved before
-    if (myType!=0&&!myType->isSaved()) {
+    if (myType!=0&&!myType->saved) {
         // ... save if not
-        myType->writeXMLDefinition(os);
+        myType->write(os);
         if (altos!=0) {
-            myType->writeXMLDefinition(*altos);
+            myType->write(*altos);
         }
-        myType->markSaved();
+        myType->saved = true;
     }
 
     // write the vehicle (new style, with included routes)

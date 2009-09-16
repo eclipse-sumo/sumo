@@ -39,7 +39,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class ROVehicleType;
+class SUMOVTypeParameter;
 class RORouteDef;
 class MsgHandler;
 class RORouteDef_Alternatives;
@@ -126,9 +126,6 @@ protected:
     /// Begins the parsing of a route alternative of the opened route
     void startRoute(const SUMOSAXAttributes &attrs);
 
-    /// Parses a vehicle type
-    void startVehType(const SUMOSAXAttributes &attrs);
-
     bool closeVehicle() throw();
 
 
@@ -201,6 +198,8 @@ protected:
     /// @brief The currently read vehicle's depart
     SUMOTime myCurrentDepart;
 
+    /// @brief The currently parsed vehicle type
+    SUMOVTypeParameter *myCurrentVType;
 
 private:
     /// @brief Invalidated copy constructor

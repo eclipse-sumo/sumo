@@ -35,7 +35,7 @@
 #include "ROLane.h"
 #include "ROEdge.h"
 #include "ROVehicle.h"
-#include "ROVehicleType.h"
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/HelpersHBEFA.h>
 #include <utils/common/HelpersHarmonoise.h>
 
@@ -189,7 +189,7 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const throw() {
     }
     // ok, vehicles with an unknown class may be only prohibited
     //  if the edge is limited to a set of classes
-    SUMOVehicleClass vclass = vehicle->getType()!=0 ? vehicle->getType()->getClass() : DEFAULT_VEH_CLASS;
+    SUMOVehicleClass vclass = vehicle->getType()!=0 ? vehicle->getType()->vehicleClass : DEFAULT_VEH_CLASS;
     if (vclass==SVC_UNKNOWN) {
         return false;
     }

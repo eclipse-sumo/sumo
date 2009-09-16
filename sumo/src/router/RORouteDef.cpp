@@ -40,7 +40,6 @@
 #include "ReferencedItem.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
-#include "ROVehicleType.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

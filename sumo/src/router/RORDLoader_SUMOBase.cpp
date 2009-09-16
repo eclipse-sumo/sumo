@@ -28,14 +28,13 @@
 #endif
 
 #include "RORDLoader_SUMOBase.h"
-#include "ROVehicleType.h"
+#include <utils/common/SUMOVTypeParameter.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
-#include "ROVehicleType_Krauss.h"
 #include <utils/options/OptionsCont.h>
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
@@ -97,7 +96,11 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         myCurrentIsOk = myVehicleParameter!=0;
         break;
     case SUMO_TAG_VTYPE:
-        startVehType(attrs);
+        myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
+        break;
+    case SUMO_TAG_CF_KRAUSS:
+    case SUMO_TAG_CF_IDM:
+        SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         break;
     case SUMO_TAG_ROUTE_DISTRIBUTION:
         myAltIsValid = true;
@@ -274,6 +277,10 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError) {
         myVehicleParameter = 0;
         myHaveNextRoute = true;
         break;
+    case SUMO_TAG_VTYPE: {
+        SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
+        myNet.addVehicleType(myCurrentVType);
+    }
     default:
         break;
     }
@@ -291,7 +298,7 @@ RORDLoader_SUMOBase::closeVehicle() throw() {
         return false;
     }
     // get vehicle type
-    ROVehicleType *type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    SUMOVTypeParameter *type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
     // get the route
     RORouteDef *route = myNet.getRouteDef(myVehicleParameter->routeid);
     if (route==0) {
@@ -309,35 +316,6 @@ RORDLoader_SUMOBase::closeVehicle() throw() {
         return true;
     }
     return false;
-}
-
-
-void
-RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs) {
-    // get the id, report an error if not given or empty...
-    string id;
-    if (!attrs.setIDFromAttributes("vtype", id, false)) {
-        MsgHandler::getErrorInstance()->inform("Missing id in vtype.");
-        myCurrentIsOk = false;
-        return;
-    }
-    // get the other values
-    try {
-        SUMOReal maxspeed = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
-        SUMOReal length = attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
-        SUMOReal accel = attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
-        SUMOReal decel = attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B);
-        SUMOReal sigma = attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
-        SUMOReal tau = attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
-        std::string color = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
-        SUMOVehicleClass vclass = SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id);
-        // build the vehicle type
-        //  by now, only vehicles using the krauss model are supported
-        ROVehicleType *vtype = new ROVehicleType_Krauss(id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
-        myNet.addVehicleType(vtype);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("At least one parameter of vehicle type '" + id + "' is not numeric, but should be.");
-    }
 }
 
 

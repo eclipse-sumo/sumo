@@ -40,7 +40,6 @@
 #include <ctime>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
-#include <router/ROVehicleType_Krauss.h>
 #include <routing_df/RODFEdgeBuilder.h>
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
