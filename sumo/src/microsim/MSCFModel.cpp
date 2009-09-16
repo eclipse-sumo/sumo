@@ -40,7 +40,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 MSCFModel::MSCFModel(const MSVehicleType* vtype) throw()
-    : myType(vtype) {}
+        : myType(vtype) {}
 
 
 MSCFModel::~MSCFModel() throw() {}

@@ -194,7 +194,7 @@ public:
 
 
     /** @brief Returns the distance the vehicle drives at the given speed
-     * @param[in] speed The vehicle's speed 
+     * @param[in] speed The vehicle's speed
      * @return The distance the vehicle drives at the given speed
      * @todo needed?
      */
@@ -204,7 +204,7 @@ public:
     }
 
 
- protected:
+protected:
     /// @brief The type to which this model definition belongs to
     const MSVehicleType* myType;
 

@@ -41,9 +41,9 @@
 class MSCFModel_IDM : public MSCFModel {
 public:
     /** @brief Constructor
-     *  @param[in] dawdle  
-     *  @param[in] timeHeadWay  
-     *  @param[in] mingap 
+     *  @param[in] dawdle
+     *  @param[in] timeHeadWay
+     *  @param[in] mingap
      */
     MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
                   SUMOReal timeHeadWay, SUMOReal mingap) throw();
@@ -53,7 +53,7 @@ public:
     ~MSCFModel_IDM() throw();
 
 
-    
+
     /// @name Implementations of the MSCFModel interface
     /// @{
 

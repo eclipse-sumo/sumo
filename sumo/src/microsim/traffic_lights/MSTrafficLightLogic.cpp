@@ -56,7 +56,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl &tlcontrol,
         MSTrafficLightLogic *tlLogic, SUMOTime nextSwitch) throw()
-        : myTLControl(tlcontrol), myTLLogic(tlLogic), 
+        : myTLControl(tlcontrol), myTLLogic(tlLogic),
         myAssumedNextSwitch(nextSwitch), myAmValid(true) {}
 
 
@@ -193,9 +193,8 @@ MSTrafficLightLogic::getLinkIndex(const MSLink * const link) const throw() {
 
 
 // ----------- Dynamic Information Retrieval
-SUMOTime 
-MSTrafficLightLogic::getNextSwitchTime() const throw()
-{
+SUMOTime
+MSTrafficLightLogic::getNextSwitchTime() const throw() {
     return mySwitchCommand!=0 ? mySwitchCommand->getNextSwitchTime() : -1;
 }
 

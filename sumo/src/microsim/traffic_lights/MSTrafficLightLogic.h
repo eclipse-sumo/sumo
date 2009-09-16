@@ -268,7 +268,7 @@ public:
     /** @brief Returns the assumed next switch time
      *
      * The time may change in case of adaptive/actuated traffic lights.
-     * 
+     *
      * @return The assumed next switch time (simulation time)
      */
     SUMOTime getNextSwitchTime() const throw();

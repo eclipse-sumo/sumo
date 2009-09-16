@@ -62,12 +62,12 @@ public:
     /** @brief Constructor
      *
      * minDuration and maxDuration are set to duration.
-     * 
+     *
      * @param[in] durationArg The duration of the phase
      * @param[in] stateArg The state in the phase
      */
     MSPhaseDefinition(SUMOTime durationArg, const std::string &stateArg) throw()
-            : duration(durationArg), minDuration(durationArg), maxDuration(durationArg), 
+            : duration(durationArg), minDuration(durationArg), maxDuration(durationArg),
             myLastSwitch(0), state(stateArg) {
         myLastSwitch = OptionsCont::getOptions().getInt("begin"); // SUMOTime-option
     }
@@ -80,9 +80,9 @@ public:
      * @param[in] maxDurationArg The maximum duration of the phase
      * @param[in] stateArg The state in the phase
      */
-    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, 
-        const std::string &stateArg) throw()
-            : duration(durationArg), 
+    MSPhaseDefinition(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
+                      const std::string &stateArg) throw()
+            : duration(durationArg),
             myLastSwitch(0), state(stateArg) {
         myLastSwitch = OptionsCont::getOptions().getInt("begin"); // SUMOTime-option
         minDuration = minDurationArg<0 ? durationArg : minDurationArg;

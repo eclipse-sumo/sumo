@@ -408,9 +408,9 @@ public:
         return resGap;
     }
 
-/*    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-        return getCarFollowModel().ffeV(this, speed, gap2pred, predSpeed);
-    }*/
+    /*    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
+            return getCarFollowModel().ffeV(this, speed, gap2pred, predSpeed);
+        }*/
 
     SUMOReal getLength() const throw() {
         return myType->getLength();
@@ -648,7 +648,7 @@ public:
     inline const MSVehicleType &getVehicleType() const throw() {
         return *myType;
     }
-    
+
 
     /** @brief Returns the vehicle's car following model definition
      *
@@ -660,7 +660,7 @@ public:
     inline const MSCFModel &getCarFollowModel() const throw() {
         return myType->getCarFollowModel();
     }
-    
+
 
 
     void onDepart();

@@ -41,7 +41,7 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, SUMOReal tau) throw()
-    : MSCFModel(vtype), myDawdle(dawdle), myTau(tau) {
+        : MSCFModel(vtype), myDawdle(dawdle), myTau(tau) {
 
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * vtype->getMaxDecel());
     myTauDecel = vtype->getMaxDecel() * myTau;
@@ -72,7 +72,7 @@ SUMOReal MSCFModel_Krauss::maxNextSpeed(SUMOReal speed) const throw() {
 SUMOReal MSCFModel_Krauss::brakeGap(SUMOReal speed) const throw() {
     return speed * speed * myInverseTwoDecel + speed * myTau;
 }
-    
+
 SUMOReal MSCFModel_Krauss::approachingBrakeGap(SUMOReal speed) const throw() {
     return speed * speed * myInverseTwoDecel;
 }

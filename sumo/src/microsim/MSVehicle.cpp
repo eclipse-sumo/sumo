@@ -528,7 +528,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
         SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
-        if(mgap-neigh->getSpeed()>=0) {
+        if (mgap-neigh->getSpeed()>=0) {
             vSafe = MIN2(vSafe, nVSafe);
         }
     }
@@ -630,7 +630,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         if (neigh!=0&&neigh->getSpeed()>60./3.6) {
             SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
             SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
-            if(mgap-neigh->getSpeed()>=0) {
+            if (mgap-neigh->getSpeed()>=0) {
                 vWish = MIN2(vWish, nVSafe);
             }
         }
@@ -659,7 +659,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         if (neigh!=0&&neigh->getSpeed()>60./3.6) {
             SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
             SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
-            if(mgap-neigh->getSpeed()>=0) {
+            if (mgap-neigh->getSpeed()>=0) {
                 vBeg = MIN2(vBeg, nVSafe);
             }
         }

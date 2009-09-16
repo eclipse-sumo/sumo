@@ -43,7 +43,7 @@
 // ===========================================================================
 MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
                              SUMOReal timeHeadWay, SUMOReal mingap) throw()
-    : MSCFModel(vtype), myDawdle(dawdle), myTimeHeadWay(timeHeadWay), myMinSpace(mingap) {
+        : MSCFModel(vtype), myDawdle(dawdle), myTimeHeadWay(timeHeadWay), myMinSpace(mingap) {
 
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * vtype->getMaxDecel());
 }
@@ -144,7 +144,7 @@ SUMOReal MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMORe
     SUMOReal delta_v = mySpeed - predSpeed;
     SUMOReal s_star_raw = myMinSpace + mySpeed*myTimeHeadWay + (mySpeed*delta_v)/(2*sqrt(a*b));
     SUMOReal s_star = MAX2(s_star_raw, myMinSpace);
-    SUMOReal acc = a * (1. - pow((double) (mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
+    SUMOReal acc = a * (1. - pow((double)(mySpeed/desSpeed), (double) DELTA_IDM) - (s_star*s_star)/(gap2pred*gap2pred));
 
     SUMOReal vNext = mySpeed + acc;
     return vNext;
