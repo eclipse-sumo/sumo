@@ -35,6 +35,7 @@
 #include <microsim/devices/MSDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/SUMOVTypeParameter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -55,15 +56,8 @@ MSVehicleControl::MSVehicleControl() throw()
         : myLoadedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0),
         myDefaultVTypeMayBeDeleted(true) {
-    myVTypeDict[DEFAULT_VTYPE_ID] = new MSVehicleType(DEFAULT_VTYPE_ID, DEFAULT_VEH_LENGTH,
-            DEFAULT_VEH_MAXSPEED, DEFAULT_VEH_ACCEL,
-            DEFAULT_VEH_DECEL, DEFAULT_VEH_SIGMA,
-            DEFAULT_VEH_TAU, DEFAULT_VEH_PROB,
-            DEFAULT_VEH_SPEEDFACTOR, DEFAULT_VEH_SPEEDDEV,
-            SVC_UNKNOWN, SVE_UNKNOWN, SVS_UNKNOWN,
-            DEFAULT_VEH_GUIWIDTH, DEFAULT_VEH_GUIOFFSET,
-            DEFAULT_VEH_FOLLOW_MODEL, DEFAULT_VEH_LANE_CHANGE_MODEL,
-            RGBColor::DEFAULT_COLOR);
+			SUMOVTypeParameter defType;
+			myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
 }
 
 

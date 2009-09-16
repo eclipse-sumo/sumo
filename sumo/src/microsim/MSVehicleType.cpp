@@ -74,6 +74,7 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
     assert(myAccel > 0);
     assert(myDecel > 0);
     assert(myDawdle >= 0 && myDawdle <= 1);
+	/*
     if (cfModel.compare("Krauss") == 0)
         myCarFollowModel = new MSCFModel_Krauss(this, dawdle, tau);
     else if (cfModel.compare("IDM") == 0) {
@@ -82,7 +83,7 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
         myCarFollowModel = new MSCFModel_IDM(this, dawdle, timeheadway, mingap);
     } else
         myCarFollowModel = new MSCFModel_Krauss(this, myDawdle, myTau);
-
+*/
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * myDecel);
     myTauDecel = myDecel * myTau;
 }
