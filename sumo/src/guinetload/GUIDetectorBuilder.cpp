@@ -39,6 +39,11 @@
 #include <utils/common/FileHelpers.h>
 #include "GUIDetectorBuilder.h"
 
+#ifdef HAVE_MESOSIM
+#include <mesogui/GUIMEInductLoop.h>
+#include <mesosim/MELoop.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -65,6 +70,15 @@ GUIDetectorBuilder::createInductLoop(const std::string &id,
                                      MSLane *lane, SUMOReal pos) throw() {
     return new GUIInductLoop(id, lane, pos);
 }
+
+
+#ifdef HAVE_MESOSIM
+MEInductLoop *
+GUIDetectorBuilder::createMEInductLoop(const std::string &id,
+                                       MESegment *s, SUMOReal pos) throw() {
+    return new GUIMEInductLoop(id, s, pos);
+}
+#endif
 
 
 MSE2Collector *
