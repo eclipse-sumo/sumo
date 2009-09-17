@@ -1,62 +1,62 @@
 <configuration>
 
-    <input
-        net-file=""
-        alternatives=""
-        weights=""
-        lane-weights=""
-        measure="traveltime"
-        trip-defs=""
-        flow-definition=""
-        sumo-input=""
-    />
+    <input>
+        <net-file value=""/>
+        <alternatives value=""/>
+        <weights value=""/>
+        <lane-weights value=""/>
+        <measure value="traveltime"/>
+        <trip-defs value=""/>
+        <flow-definition value=""/>
+        <sumo-input value=""/>
+    </input>
 
-    <output
-        output-file=""
-        exit-times="false"
-    />
+    <output>
+        <output-file value=""/>
+        <exit-times value="false"/>
+    </output>
 
-    <processing
-        continue-on-unbuild="false"
-        unsorted="false"
-        randomize-flows="false"
-        max-alternatives="5"
-        random-per-second=""
-        prune-random="false"
-        remove-loops="false"
-        repair="false"
-        expand-weights="false"
-        gBeta="0.3"
-        gA="0.05"
-    />
+    <processing>
+        <continue-on-unbuild value="false"/>
+        <unsorted value="false"/>
+        <randomize-flows value="false"/>
+        <max-alternatives value="5"/>
+        <random-per-second value=""/>
+        <prune-random value="false"/>
+        <remove-loops value="false"/>
+        <repair value="false"/>
+        <expand-weights value="false"/>
+        <gBeta value="0.3"/>
+        <gA value="0.05"/>
+    </processing>
 
-    <defaults
-        departlane=""
-        departpos=""
-        departspeed=""
-        arrivallane=""
-        arrivalpos=""
-        arrivalspeed=""
-        defaults-override="false"
-    />
+    <defaults>
+        <departlane value=""/>
+        <departpos value=""/>
+        <departspeed value=""/>
+        <arrivallane value=""/>
+        <arrivalpos value=""/>
+        <arrivalspeed value=""/>
+        <defaults-override value="false"/>
+    </defaults>
 
-    <time
-        begin="0"
-        end="86400"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="86400"/>
+    </time>
 
-    <report
-        verbose="false"
-        print-options="false"
-        help="false"
-        suppress-warnings="false"
-        log-file=""
-        stats-period="-1"
-    />
+    <report>
+        <verbose value="false"/>
+        <print-options value="false"/>
+        <help value="false"/>
+        <suppress-warnings value="false"/>
+        <log-file value=""/>
+        <stats-period value="-1"/>
+    </report>
 
-    <random_number
-        srand="23423"
-        abs-rand="false"
-    />
+    <random_number>
+        <srand value="23423"/>
+        <abs-rand value="false"/>
+    </random_number>
 
 </configuration>

@@ -1,12 +1,12 @@
 <configuration>
 
-    <input
-        net-file="input_messstrecke.net.xml"
-        detector-files="input_messstrecke.det.xml"
-    />
+    <input>
+        <net-file value="input_messstrecke.net.xml"/>
+        <detector-files value="input_messstrecke.det.xml"/>
+    </input>
 
-    <output
-        detectors-poi-output="detectors.poi.xml"
-    />
+    <output>
+        <detectors-poi-output value="detectors.poi.xml"/>
+    </output>
 
 </configuration>

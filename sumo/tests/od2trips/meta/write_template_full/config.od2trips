@@ -1,50 +1,50 @@
 <configuration>
 
-    <input
-        net-file=""
-        od-files=""
-    />
+    <input>
+        <net-file value=""/>
+        <od-files value=""/>
+    </input>
 
-    <output
-        output-file=""
-        no-vtype="false"
-    />
+    <output>
+        <output-file value=""/>
+        <no-vtype value="false"/>
+    </output>
 
-    <time
-        begin="0"
-        end="86400"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="86400"/>
+    </time>
 
-    <processing
-        scale="1"
-        spread.uniform="false"
-        vtype=""
-        prefix=""
-        timeline=""
-        timeline.day-in-hours="false"
-        dismiss-loading-errors="false"
-    />
+    <processing>
+        <scale value="1"/>
+        <spread.uniform value="false"/>
+        <vtype value=""/>
+        <prefix value=""/>
+        <timeline value=""/>
+        <timeline.day-in-hours value="false"/>
+        <dismiss-loading-errors value="false"/>
+    </processing>
 
-    <defaults
-        departlane="free"
-        departpos=""
-        departspeed="max"
-        arrivallane=""
-        arrivalpos=""
-        arrivalspeed=""
-    />
+    <defaults>
+        <departlane value="free"/>
+        <departpos value=""/>
+        <departspeed value="max"/>
+        <arrivallane value=""/>
+        <arrivalpos value=""/>
+        <arrivalspeed value=""/>
+    </defaults>
 
-    <report
-        verbose="false"
-        print-options="false"
-        help="false"
-        suppress-warnings="false"
-        log-file=""
-    />
+    <report>
+        <verbose value="false"/>
+        <print-options value="false"/>
+        <help value="false"/>
+        <suppress-warnings value="false"/>
+        <log-file value=""/>
+    </report>
 
-    <random_number
-        srand="23423"
-        abs-rand="false"
-    />
+    <random_number>
+        <srand value="23423"/>
+        <abs-rand value="false"/>
+    </random_number>
 
 </configuration>

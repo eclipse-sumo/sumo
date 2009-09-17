@@ -1,159 +1,159 @@
 <configuration>
 
-    <input
+    <input>
         <!-- Loads the SUMO-network FILE -->
-        net-file=""
+        <net-file value=""/>
 
         <!-- Loads SUMO-routes from FILE -->
-        routes-input=""
+        <routes-input value=""/>
 
         <!-- Loads detector descriptions from FILE -->
-        detector-files=""
+        <detector-files value=""/>
 
         <!-- Loads detector flows from FILE(s) -->
-        detector-flow-files=""
+        <detector-flow-files value=""/>
 
-    />
+    </input>
 
-    <output
+    <output>
         <!-- Saves computed routes to FILE -->
-        routes-output=""
+        <routes-output value=""/>
 
         <!-- Forces DFROUTER to compute routes for in-between detectors -->
-        routes-for-all="false"
+        <routes-for-all value="false"/>
 
         <!-- Saves typed detectors to FILE -->
-        detectors-output=""
+        <detectors-output value=""/>
 
         <!-- Saves detector positions as pois to FILE -->
-        detectors-poi-output=""
+        <detectors-poi-output value=""/>
 
         <!-- Saves emitter definitions for source detectors to FILE -->
-        emitters-output=""
+        <emitters-output value=""/>
 
         <!-- Saves emitter positions as pois to FILE -->
-        emitters-poi-output=""
+        <emitters-poi-output value=""/>
 
         <!-- Saves variable seed sign definitions for sink detectors to FILE -->
-        speed-trigger-output=""
+        <speed-trigger-output value=""/>
 
         <!-- Saves rerouter definitions for sink detectors to FILE -->
-        end-reroute-output=""
+        <end-reroute-output value=""/>
 
         <!--  -->
-        validation-output=""
+        <validation-output value=""/>
 
         <!--  -->
-        validation-output.add-sources="false"
+        <validation-output.add-sources value="false"/>
 
-    />
+    </output>
 
-    <processing
+    <processing>
         <!--  -->
-        guess-empty-flows="false"
+        <guess-empty-flows value="false"/>
 
         <!-- Switches to highway-mode -->
-        highway-mode="false"
+        <highway-mode value="false"/>
 
         <!-- Only warn about unparseable detectors -->
-        ignore-invalid-detectors="false"
+        <ignore-invalid-detectors value="false"/>
 
         <!-- Recomputes detector types even if given -->
-        revalidate-detectors="false"
+        <revalidate-detectors value="false"/>
 
         <!-- Recomputes routes even if given -->
-        revalidate-routes="false"
+        <revalidate-routes value="false"/>
 
         <!-- Continues routes till the first street after a sink -->
-        all-end-follower="false"
+        <all-end-follower value="false"/>
 
         <!-- Keeps routes ending at no sinks -->
-        keep-unfound-ends="false"
+        <keep-unfound-ends value="false"/>
 
         <!-- Keeps routes even if a shorter one exists -->
-        keep-longer-routes="false"
+        <keep-longer-routes value="false"/>
 
         <!-- Number of edges until which a route is followed -->
-        max-nodet-follower="30"
+        <max-nodet-follower value="30"/>
 
         <!-- Writes only emission times -->
-        emissions-only="false"
+        <emissions-only value="false"/>
 
         <!-- Do not route on these edges -->
-        disallowed-edges=""
+        <disallowed-edges value=""/>
 
         <!-- Allow turnarounds as route continuations -->
-        keep-turnarounds="false"
+        <keep-turnarounds value="false"/>
 
         <!-- According sink must be at least that far away -->
-        min-distance="-1"
+        <min-distance value="-1"/>
 
         <!-- Subtracts INT from flow times -->
-        time-offset="0"
+        <time-offset value="0"/>
 
         <!--  -->
-        write-calibrators="false"
+        <write-calibrators value="false"/>
 
         <!--  -->
-        include-unused-routes="false"
+        <include-unused-routes value="false"/>
 
         <!--  -->
-        revalidate-flows="false"
+        <revalidate-flows value="false"/>
 
         <!-- Removes empty detectors from the list -->
-        remove-empty-detectors="false"
+        <remove-empty-detectors value="false"/>
 
         <!--  -->
-        strict-sources="false"
+        <strict-sources value="false"/>
 
         <!-- Joins detectors lying on same height -->
-        mesosim="false"
+        <mesosim value="false"/>
 
         <!-- Scale factor for flows -->
-        scale="1"
+        <scale value="1"/>
 
-    />
+    </processing>
 
-    <time
+    <time>
         <!-- Defines the begin time; Previous defs will be discarded -->
-        begin="0"
+        <begin value="0"/>
 
         <!-- Defines the end time; Later defs will be discarded -->
-        end="86400"
+        <end value="86400"/>
 
-    />
+    </time>
 
-    <report
+    <report>
         <!-- Switches to verbose output -->
-        verbose="false"
+        <verbose value="false"/>
 
         <!-- Prints option values before processing -->
-        print-options="false"
+        <print-options value="false"/>
 
         <!-- Prints this screen -->
-        help="false"
+        <help value="false"/>
 
         <!-- Disables output of warnings -->
-        suppress-warnings="false"
+        <suppress-warnings value="false"/>
 
         <!-- Writes all messages to FILE -->
-        log-file=""
+        <log-file value=""/>
 
         <!-- Lists detectors with no flow (enable -v) -->
-        report-empty-detectors="false"
+        <report-empty-detectors value="false"/>
 
         <!-- Prints aggregated detector flows -->
-        print-absolute-flows="false"
+        <print-absolute-flows value="false"/>
 
-    />
+    </report>
 
-    <random_number
+    <random_number>
         <!-- Initialises the random number generator with the given value -->
-        srand="23423"
+        <srand value="23423"/>
 
         <!-- Initialises the random number generator with the current system time -->
-        abs-rand="false"
+        <abs-rand value="false"/>
 
-    />
+    </random_number>
 
 </configuration>

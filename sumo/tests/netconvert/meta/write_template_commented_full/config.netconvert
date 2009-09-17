@@ -1,330 +1,330 @@
 <configuration>
 
-    <input
+    <input>
         <!-- Read SUMO-net from FILE -->
-        sumo-net=""
+        <sumo-net value=""/>
 
         <!-- Read XML-node defs from FILE -->
-        xml-node-files=""
+        <xml-node-files value=""/>
 
         <!-- Read XML-edge defs from FILE -->
-        xml-edge-files=""
+        <xml-edge-files value=""/>
 
         <!-- Read XML-connection defs from FILE -->
-        xml-connection-files=""
+        <xml-connection-files value=""/>
 
         <!-- Read XML-type defs from FILE -->
-        xml-type-files=""
+        <xml-type-files value=""/>
 
         <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE' -->
-        shapefile=""
+        <shapefile value=""/>
 
         <!-- Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE' -->
-        dlr-navteq=""
+        <dlr-navteq value=""/>
 
         <!-- Read OSM-network from path 'FILE(s)' -->
-        osm-files=""
+        <osm-files value=""/>
 
         <!-- Read VISUM-net from FILE -->
-        visum-file=""
+        <visum-file value=""/>
 
         <!-- Read VISSIM-net from FILE -->
-        vissim-file=""
+        <vissim-file value=""/>
 
         <!-- Read RoboCup-net from DIR -->
-        robocup-net=""
+        <robocup-net value=""/>
 
-    />
+    </input>
 
-    <output
+    <output>
         <!-- The generated net will be written to FILE -->
-        output-file="net.net.xml"
+        <output-file value="net.net.xml"/>
 
         <!-- Prefix of files to write nodes and edges to -->
-        plain-output=""
+        <plain-output value=""/>
 
         <!-- Writes node corner positions to FILE -->
-        node-geometry-dump=""
+        <node-geometry-dump value=""/>
 
         <!-- Writes joined edges information to FILE -->
-        map-output=""
+        <map-output value=""/>
 
         <!-- Writes pois of tls positions to FILE -->
-        tls-poi-output=""
+        <tls-poi-output value=""/>
 
         <!-- Writes pois of node types to FILE -->
-        node-type-output=""
+        <node-type-output value=""/>
 
-    />
+    </output>
 
-    <projection
+    <projection>
         <!-- Uses a simple method for projection -->
-        proj.simple="false"
+        <proj.simple value="false"/>
 
         <!-- Scale to apply to geo-coordinates -->
-        proj.scale="1"
+        <proj.scale value="1"/>
 
         <!-- Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid) -->
-        proj.utm="false"
+        <proj.utm value="false"/>
 
         <!-- Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid) -->
-        proj.dhdn="false"
+        <proj.dhdn value="false"/>
 
         <!-- Uses STR as proj.4 definition for projection -->
-        proj="!"
+        <proj value="!"/>
 
         <!-- Inverses projection -->
-        proj.inverse="false"
+        <proj.inverse value="false"/>
 
-    />
+    </projection>
 
-    <tls_building
+    <tls_building>
         <!-- Interprets STR as list of junctions to be controlled by TLS -->
-        explicite-tls=""
+        <explicite-tls value=""/>
 
         <!-- Interprets STR as list of junctions to be not controlled by TLS -->
-        explicite-no-tls=""
+        <explicite-no-tls value=""/>
 
         <!-- Turns on TLS guessing -->
-        guess-tls="false"
+        <guess-tls value="false"/>
 
         <!-- Sets district nodes as tls-controlled -->
-        tls-guess.district-nodes="false"
+        <tls-guess.district-nodes value="false"/>
 
         <!-- Includes node clusters into guess -->
-        tls-guess.joining="false"
+        <tls-guess.joining value="false"/>
 
         <!-- Tries to cluster tls-controlled nodes -->
-        try-join-tls="false"
+        <try-join-tls value="false"/>
 
         <!-- Defines smallest vehicle deceleration -->
-        min-decel="3"
+        <min-decel value="3"/>
 
         <!-- Given yellow times are patched even if being too short -->
-        patch-small-tyellow="false"
+        <patch-small-tyellow value="false"/>
 
         <!-- Use INT as green phase duration -->
-        traffic-light-green=""
+        <traffic-light-green value=""/>
 
         <!-- Set INT as fixed time for yellow phase durations -->
-        traffic-light-yellow=""
+        <traffic-light-yellow value=""/>
 
         <!-- TLSs in STR will be shifted by half-phase -->
-        tl-logics.half-offset=""
+        <tl-logics.half-offset value=""/>
 
         <!-- TLSs in STR will be shifted by quarter-phase -->
-        tl-logics.quarter-offset=""
+        <tl-logics.quarter-offset value=""/>
 
-    />
+    </tls_building>
 
-    <ramp_guessing
+    <ramp_guessing>
         <!-- Enable ramp-guessing -->
-        guess-ramps="false"
+        <guess-ramps value="false"/>
 
         <!-- Treat edges with speed > FLOAT as no ramps -->
-        ramp-guess.max-ramp-speed="-1"
+        <ramp-guess.max-ramp-speed value="-1"/>
 
         <!-- Treat edges with speed < FLOAT as no highways -->
-        ramp-guess.min-highway-speed="21.9444"
+        <ramp-guess.min-highway-speed value="21.9444"/>
 
         <!-- Use FLOAT as ramp-length -->
-        ramp-guess.ramp-length="100"
+        <ramp-guess.ramp-length value="100"/>
 
         <!-- Tries to handle the given edges as ramps -->
-        ramp-guess.explicite=""
+        <ramp-guess.explicite value=""/>
 
         <!--  -->
-        guess-obscure-ramps="false"
+        <guess-obscure-ramps value="false"/>
 
         <!--  -->
-        obscure-ramps.add-ramp="false"
+        <obscure-ramps.add-ramp value="false"/>
 
         <!--  -->
-        obscure-ramps.min-highway-speed="27.7778"
+        <obscure-ramps.min-highway-speed value="27.7778"/>
 
-    />
+    </ramp_guessing>
 
-    <edge_removal
+    <edge_removal>
         <!-- Remove edges with speed < FLOAT -->
-        edges-min-speed=""
+        <edges-min-speed value=""/>
 
         <!-- Remove edges in STR -->
-        remove-edges=""
+        <remove-edges value=""/>
 
         <!-- Remove edges not in STR -->
-        keep-edges=""
+        <keep-edges value=""/>
 
         <!-- Removed edges not in FILE -->
-        keep-edges.input-file=""
+        <keep-edges.input-file value=""/>
 
         <!-- Remove edges after joining -->
-        keep-edges.postload="false"
+        <keep-edges.postload value="false"/>
 
         <!-- Keeps edges which are located within the given boundary -->
-        keep-edges.in-boundary=""
+        <keep-edges.in-boundary value=""/>
 
         <!-- Remove edges where vclass def is not in STR -->
-        remove-edges.by-vclass=""
+        <remove-edges.by-vclass value=""/>
 
-    />
+    </edge_removal>
 
-    <unregulated_nodes
+    <unregulated_nodes>
         <!-- All nodes will be not regulated -->
-        keep-unregulated="false"
+        <keep-unregulated value="false"/>
 
         <!-- Do not regulate nodes in STR -->
-        keep-unregulated.nodes=""
+        <keep-unregulated.nodes value=""/>
 
         <!-- Do not regulate district nodes -->
-        keep-unregulated.district-nodes="false"
+        <keep-unregulated.district-nodes value="false"/>
 
-    />
+    </unregulated_nodes>
 
-    <processing
+    <processing>
         <!-- Continue on broken input -->
-        dismiss-loading-errors="false"
+        <dismiss-loading-errors value="false"/>
 
         <!-- The factor for flow to no. lanes conv -->
-        capacity-norm="1800"
+        <capacity-norm value="1800"/>
 
         <!-- vmax is parsed as given in km/h (some) -->
-        speed-in-kmh="false"
+        <speed-in-kmh value="false"/>
 
         <!-- Read edge ids from column STR -->
-        shapefile.street-id=""
+        <shapefile.street-id value=""/>
 
         <!-- Read from-node ids from column STR -->
-        shapefile.from-id=""
+        <shapefile.from-id value=""/>
 
         <!-- Read to-node ids from column STR -->
-        shapefile.to-id=""
+        <shapefile.to-id value=""/>
 
         <!-- Read type ids from column STR -->
-        shapefile.type-id=""
+        <shapefile.type-id value=""/>
 
         <!-- Uses edge type defaults on problems -->
-        shapefile.use-defaults-on-failure="false"
+        <shapefile.use-defaults-on-failure value="false"/>
 
         <!-- Insert edges in both directions -->
-        shapefile.all-bidi="false"
+        <shapefile.all-bidi value="false"/>
 
         <!-- Use INT as UTM zone -->
-        shapefile.utm="32"
+        <shapefile.utm value="32"/>
 
         <!-- Guess the proper projection -->
-        shapefile.guess-projection="false"
+        <shapefile.guess-projection value="false"/>
 
         <!-- Structure join offset -->
-        vissim.offset="5"
+        <vissim.offset value="5"/>
 
         <!-- Use FLOAT as default speed -->
-        vissim.default-speed="50"
+        <vissim.default-speed value="50"/>
 
         <!-- Factor for edge velocity -->
-        vissim.speed-norm="1"
+        <vissim.speed-norm value="1"/>
 
         <!-- Writes lanes without an explicite speed set. -->
-        vissim.report-unset-speeds="false"
+        <vissim.report-unset-speeds value="false"/>
 
         <!-- Uses priorities from types -->
-        visum.use-type-priority="false"
+        <visum.use-type-priority value="false"/>
 
         <!-- Uses lane numbers from types -->
-        visum.use-type-laneno="false"
+        <visum.use-type-laneno value="false"/>
 
         <!-- Uses speeds from types -->
-        visum.use-type-speed="false"
+        <visum.use-type-speed value="false"/>
 
         <!-- Sets connector speed -->
-        visum.connector-speeds="100"
+        <visum.connector-speeds value="100"/>
 
         <!-- Sets connector lane number -->
-        visum.connector-laneno="3"
+        <visum.connector-laneno value="3"/>
 
         <!-- Excludes connectors -->
-        visum.no-connectors="false"
+        <visum.no-connectors value="false"/>
 
         <!-- Excludes connectors -->
-        visum.recompute-laneno="false"
+        <visum.recompute-laneno value="false"/>
 
         <!-- Flips the y-coordinate along zero -->
-        flip-y="false"
+        <flip-y value="false"/>
 
         <!--  -->
-        dismiss-vclasses="false"
+        <dismiss-vclasses value="false"/>
 
         <!-- Removes geometry information from edges -->
-        remove-geometry="false"
+        <remove-geometry value="false"/>
 
         <!-- Removes isolated edges -->
-        remove-isolated="false"
+        <remove-isolated value="false"/>
 
         <!-- Disables building turnarounds -->
-        no-turnarounds="false"
+        <no-turnarounds value="false"/>
 
         <!-- Disables building turnarounds at tls-controlled junctions -->
-        no-tls-turnarounds="false"
+        <no-tls-turnarounds value="false"/>
 
         <!-- Omits internal links -->
-        no-internal-links="false"
+        <no-internal-links value="false"/>
 
         <!-- Splits edges across geometry nodes -->
-        split-geometry="false"
+        <split-geometry value="false"/>
 
         <!-- Turn off normalizing node positions -->
-        disable-normalize-node-positions="false"
+        <disable-normalize-node-positions value="false"/>
 
         <!-- Adds FLOAT to net x-positions -->
-        x-offset-to-apply="0"
+        <x-offset-to-apply value="0"/>
 
         <!-- Adds FLOAT to net y-positions -->
-        y-offset-to-apply="0"
+        <y-offset-to-apply value="0"/>
 
         <!-- Enable roundabout-guessing -->
-        guess-roundabouts="false"
+        <guess-roundabouts value="false"/>
 
-    />
+    </processing>
 
-    <building_defaults
+    <building_defaults>
         <!-- The default name for an edges type -->
-        type="Unknown"
+        <type value="Unknown"/>
 
         <!-- The default number of lanes in an edge -->
-        lanenumber="1"
+        <lanenumber value="1"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        speed="13.9"
+        <speed value="13.9"/>
 
         <!-- The default priority of an edge -->
-        priority="-1"
+        <priority value="-1"/>
 
-    />
+    </building_defaults>
 
-    <report
+    <report>
         <!-- Switches to verbose output -->
-        verbose="false"
+        <verbose value="false"/>
 
         <!-- Prints option values before processing -->
-        print-options="false"
+        <print-options value="false"/>
 
         <!-- Prints this screen -->
-        help="false"
+        <help value="false"/>
 
         <!-- Disables output of warnings -->
-        suppress-warnings="false"
+        <suppress-warnings value="false"/>
 
         <!-- Writes all messages to FILE -->
-        log-file=""
+        <log-file value=""/>
 
-    />
+    </report>
 
-    <random_number
+    <random_number>
         <!-- Initialises the random number generator with the given value -->
-        srand="23423"
+        <srand value="23423"/>
 
         <!-- Initialises the random number generator with the current system time -->
-        abs-rand="false"
+        <abs-rand value="false"/>
 
-    />
+    </random_number>
 
 </configuration>

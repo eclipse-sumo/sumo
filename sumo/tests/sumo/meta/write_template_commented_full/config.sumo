@@ -1,228 +1,228 @@
 <configuration>
 
-    <input
+    <input>
         <!-- Load road network description from FILE -->
-        net-file=""
+        <net-file value=""/>
 
         <!-- Load routes descriptions from FILE(s) -->
-        route-files=""
+        <route-files value=""/>
 
         <!-- Load further descriptions from FILE(s) -->
-        additional-files=""
+        <additional-files value=""/>
 
         <!-- Load weights from FILE -->
-        weight-files=""
+        <weight-files value=""/>
 
-    />
+    </input>
 
-    <output
+    <output>
         <!-- Save complete network states into FILE -->
-        netstate-dump=""
+        <netstate-dump value=""/>
 
         <!-- Write also empty edges completely when dumping -->
-        dump-empty-edges="false"
+        <dump-empty-edges value="false"/>
 
         <!-- Save aggregated vehicle emission inf. into FILE -->
-        emissions-output=""
+        <emissions-output value=""/>
 
         <!-- Save single vehicle trip inf. into FILE -->
-        tripinfo-output=""
+        <tripinfo-output value=""/>
 
         <!-- Save single vehicle route inf. into FILE -->
-        vehroute-output=""
+        <vehroute-output value=""/>
 
-    />
+    </output>
 
-    <time
+    <time>
         <!-- Defines the begin time; The simulation starts at this time -->
-        begin="0"
+        <begin value="0"/>
 
         <!-- Defines the end time; The simulation ends at this time -->
-        end="2147483647"
+        <end value="2147483647"/>
 
-    />
+    </time>
 
-    <processing
+    <processing>
         <!-- Load routes for the next INT steps ahead -->
-        route-steps="200"
+        <route-steps value="200"/>
 
         <!-- Disable (junction) internal links -->
-        no-internal-links="false"
+        <no-internal-links value="false"/>
 
         <!-- Do not check whether accidents occure more deeply -->
-        ignore-accidents="false"
+        <ignore-accidents value="false"/>
 
         <!-- Quit simulation if this number of vehicles is exceeded -->
-        too-many-vehicles="-1"
+        <too-many-vehicles value="-1"/>
 
         <!-- Perform the simulation as a step in incremental DUA -->
-        incremental-dua-step="-1"
+        <incremental-dua-step value="-1"/>
 
         <!-- Base value for incremental DUA -->
-        incremental-dua-base="10"
+        <incremental-dua-base value="10"/>
 
         <!-- Specify how long a vehicle may wait until being teleported -->
-        time-to-teleport="300"
+        <time-to-teleport value="300"/>
 
         <!-- How long vehicles wait for departure before being skipped -->
-        max-depart-delay="-1"
+        <max-depart-delay value="-1"/>
 
-    />
+    </processing>
 
-    <tls_defaults
+    <tls_defaults>
         <!--  -->
-        agent-tl.detector-len="75"
-
-        <!--  -->
-        agent-tl.learn-horizon="3"
+        <agent-tl.detector-len value="75"/>
 
         <!--  -->
-        agent-tl.decision-horizon="1"
+        <agent-tl.learn-horizon value="3"/>
 
         <!--  -->
-        agent-tl.min-diff="0.1"
+        <agent-tl.decision-horizon value="1"/>
 
         <!--  -->
-        agent-tl.tcycle="90"
+        <agent-tl.min-diff value="0.1"/>
 
         <!--  -->
-        actuated-tl.detector-pos="100"
+        <agent-tl.tcycle value="90"/>
 
         <!--  -->
-        actuated-tl.max-gap="3.1"
+        <actuated-tl.detector-pos value="100"/>
 
         <!--  -->
-        actuated-tl.detector-gap="3"
+        <actuated-tl.max-gap value="3.1"/>
 
         <!--  -->
-        actuated-tl.passing-time="1.9"
+        <actuated-tl.detector-gap value="3"/>
 
-    />
+        <!--  -->
+        <actuated-tl.passing-time value="1.9"/>
 
-    <report
+    </tls_defaults>
+
+    <report>
         <!-- Switches to verbose output -->
-        verbose="false"
+        <verbose value="false"/>
 
         <!-- Prints option values before processing -->
-        print-options="false"
+        <print-options value="false"/>
 
         <!-- Prints this screen -->
-        help="false"
+        <help value="false"/>
 
         <!-- Disables output of warnings -->
-        suppress-warnings="false"
+        <suppress-warnings value="false"/>
 
         <!-- Writes all messages to FILE -->
-        log-file=""
+        <log-file value=""/>
 
         <!-- Disable performance reports for individual simulation steps -->
-        no-duration-log="false"
+        <no-duration-log value="false"/>
 
         <!-- Disable console output of current simulation step -->
-        no-step-log="false"
+        <no-step-log value="false"/>
 
         <!-- Writes all non-error messages to FILE -->
-        message-log=""
+        <message-log value=""/>
 
         <!-- Writes all warnings and errors to FILE -->
-        error-log=""
+        <error-log value=""/>
 
-    />
+    </report>
 
-    <c2c
+    <c2c>
         <!-- The probability for a vehicle to have c2c -->
-        device.c2x.probability="0"
+        <device.c2x.probability value="0"/>
 
         <!-- Assign a device to named vehicles -->
-        device.c2x.knownveh=""
+        <device.c2x.knownveh value=""/>
 
         <!-- The devices are set deterministic using a fraction of 1000 -->
-        device.c2x.deterministic="false"
+        <device.c2x.deterministic value="false"/>
 
         <!-- The range of the c2c device -->
-        device.c2x.range="100"
+        <device.c2x.range value="100"/>
 
         <!-- Duration of keeping messages -->
-        device.c2x.keep-duration="1800"
+        <device.c2x.keep-duration value="1800"/>
 
         <!-- Factor for adding messages -->
-        device.c2x.insert-info-factor="1.2"
+        <device.c2x.insert-info-factor value="1.2"/>
 
         <!-- Save cluster information into FILE -->
-        c2x.cluster-info=""
+        <c2x.cluster-info value=""/>
 
         <!-- Save 'connected' edges into FILE -->
-        c2x.edge-near-info=""
+        <c2x.edge-near-info value=""/>
 
         <!--  -->
-        c2x.saved-info=""
+        <c2x.saved-info value=""/>
 
         <!--  -->
-        c2x.saved-info-freq=""
+        <c2x.saved-info-freq value=""/>
 
         <!-- Save transmitted information into FILE -->
-        c2x.transmitted-info=""
+        <c2x.transmitted-info value=""/>
 
         <!-- Save names of connected vehicles into FILE -->
-        c2x.vehicle-in-range=""
+        <c2x.vehicle-in-range value=""/>
 
-    />
+    </c2c>
 
-    <routing
+    <routing>
         <!-- The probability for a vehicle to have a routing device -->
-        device.routing.probability="0"
+        <device.routing.probability value="0"/>
 
         <!-- Assign a device to named vehicles -->
-        device.routing.knownveh=""
+        <device.routing.knownveh value=""/>
 
         <!-- The devices are set deterministic using a fraction of 1000 -->
-        device.routing.deterministic="false"
+        <device.routing.deterministic value="false"/>
 
         <!-- The period with which the vehicle shall be rerouted -->
-        device.routing.period="0"
+        <device.routing.period value="0"/>
 
         <!-- The weight of prior edge weights. -->
-        device.routing.adaptation-weight="0.5"
+        <device.routing.adaptation-weight value="0.5"/>
 
         <!-- The interval for updating the edge weights. -->
-        device.routing.adaptation-interval="1"
+        <device.routing.adaptation-interval value="1"/>
 
-    />
+    </routing>
 
-    <emissions
+    <emissions>
         <!-- The probability for a vehicle to have an emission logging device -->
-        device.hbefa.probability="0"
+        <device.hbefa.probability value="0"/>
 
         <!-- Assign a device to named vehicles -->
-        device.hbefa.knownveh=""
+        <device.hbefa.knownveh value=""/>
 
         <!-- The devices are set deterministic using a fraction of 1000 -->
-        device.hbefa.deterministic="false"
+        <device.hbefa.deterministic value="false"/>
 
-    />
+    </emissions>
 
-    <traci_server
+    <traci_server>
         <!-- Enables TraCI Server if set -->
-        remote-port="0"
+        <remote-port value="0"/>
 
         <!-- Value in 0..1 [default: 1] -->
-        penetration="1"
+        <penetration value="1"/>
 
-    />
+    </traci_server>
 
-    <random_number
+    <random_number>
         <!-- Initialises the random number generator with the given value -->
-        srand="23423"
+        <srand value="23423"/>
 
         <!-- Initialises the random number generator with the current system time -->
-        abs-rand="false"
+        <abs-rand value="false"/>
 
-    />
+    </random_number>
 
-    <gui_only
+    <gui_only>
         <!-- Load visualisation settings from FILE -->
-        gui-settings-file=""
+        <gui-settings-file value=""/>
 
-    />
+    </gui_only>
 
 </configuration>

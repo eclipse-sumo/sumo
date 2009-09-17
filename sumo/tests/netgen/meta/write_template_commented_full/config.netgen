@@ -1,300 +1,300 @@
 <configuration>
 
-    <grid_network
+    <grid_network>
         <!-- Forces NETGEN to build a grid-like network -->
-        grid-net="false"
+        <grid-net value="false"/>
 
         <!-- The number of junctions in both dirs -->
-        grid-number="5"
+        <grid-number value="5"/>
 
         <!-- The length of streets in both dirs -->
-        grid-length="100"
+        <grid-length value="100"/>
 
         <!-- The number of junctions in x-dir; Overrides --grid-number -->
-        grid-x-number="5"
+        <grid-x-number value="5"/>
 
         <!-- The number of junctions in y-dir; Overrides --grid-number -->
-        grid-y-number="5"
+        <grid-y-number value="5"/>
 
         <!-- The length of horizontal streets; Overrides --grid-length -->
-        grid-x-length="100"
+        <grid-x-length value="100"/>
 
         <!-- The length of vertical streets; Overrides --grid-length -->
-        grid-y-length="100"
+        <grid-y-length value="100"/>
 
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
-        attach-length="0"
+        <attach-length value="0"/>
 
-    />
+    </grid_network>
 
-    <spider_network
+    <spider_network>
         <!-- Forces NETGEN to build a spider-net-like network -->
-        spider-net="false"
+        <spider-net value="false"/>
 
         <!-- The number of axes within the net -->
-        spider-arm-number="13"
+        <spider-arm-number value="13"/>
 
         <!-- The number of circles of the net -->
-        spider-circle-number="20"
+        <spider-circle-number value="20"/>
 
         <!-- The distances between the circles -->
-        spider-space-rad="100"
+        <spider-space-rad value="100"/>
 
         <!-- Omit the central node of the network -->
-        spider-omit-center="false"
+        <spider-omit-center value="false"/>
 
-    />
+    </spider_network>
 
-    <random_network
+    <random_network>
         <!-- Forces NETGEN to build a random network -->
-        random-net="false"
+        <random-net value="false"/>
 
         <!-- Describes how many times an edge shall be added to the net -->
-        rand-iterations="2000"
+        <rand-iterations value="2000"/>
 
         <!-- Defines the probability to build a reverse edge -->
-        rand-bidi-probability="1"
+        <rand-bidi-probability value="1"/>
 
         <!--  -->
-        rand-max-distance="250"
+        <rand-max-distance value="250"/>
 
         <!--  -->
-        rand-min-distance="100"
+        <rand-min-distance value="100"/>
 
         <!--  -->
-        rand-min-angle="0.785398"
+        <rand-min-angle value="0.785398"/>
 
         <!--  -->
-        rand-num-tries="50"
+        <rand-num-tries value="50"/>
 
         <!--  -->
-        rand-connectivity="0.95"
+        <rand-connectivity value="0.95"/>
 
         <!--  -->
-        rand-neighbor-dist1="0"
+        <rand-neighbor-dist1 value="0"/>
 
         <!--  -->
-        rand-neighbor-dist2="0"
+        <rand-neighbor-dist2 value="0"/>
 
         <!--  -->
-        rand-neighbor-dist3="10"
+        <rand-neighbor-dist3 value="10"/>
 
         <!--  -->
-        rand-neighbor-dist4="10"
+        <rand-neighbor-dist4 value="10"/>
 
         <!--  -->
-        rand-neighbor-dist5="2"
+        <rand-neighbor-dist5 value="2"/>
 
         <!--  -->
-        rand-neighbor-dist6="1"
+        <rand-neighbor-dist6 value="1"/>
 
-    />
+    </random_network>
 
-    <output
+    <output>
         <!-- The generated net will be written to FILE -->
-        output-file="net.net.xml"
+        <output-file value="net.net.xml"/>
 
         <!-- Prefix of files to write nodes and edges to -->
-        plain-output=""
+        <plain-output value=""/>
 
         <!-- Writes node corner positions to FILE -->
-        node-geometry-dump=""
+        <node-geometry-dump value=""/>
 
         <!-- Writes joined edges information to FILE -->
-        map-output=""
+        <map-output value=""/>
 
         <!-- Writes pois of tls positions to FILE -->
-        tls-poi-output=""
+        <tls-poi-output value=""/>
 
         <!-- Writes pois of node types to FILE -->
-        node-type-output=""
+        <node-type-output value=""/>
 
-    />
+    </output>
 
-    <tls_building
+    <tls_building>
         <!-- Interprets STR as list of junctions to be controlled by TLS -->
-        explicite-tls=""
+        <explicite-tls value=""/>
 
         <!-- Interprets STR as list of junctions to be not controlled by TLS -->
-        explicite-no-tls=""
+        <explicite-no-tls value=""/>
 
         <!-- Turns on TLS guessing -->
-        guess-tls="false"
+        <guess-tls value="false"/>
 
         <!-- Sets district nodes as tls-controlled -->
-        tls-guess.district-nodes="false"
+        <tls-guess.district-nodes value="false"/>
 
         <!-- Includes node clusters into guess -->
-        tls-guess.joining="false"
+        <tls-guess.joining value="false"/>
 
         <!-- Tries to cluster tls-controlled nodes -->
-        try-join-tls="false"
+        <try-join-tls value="false"/>
 
         <!-- Defines smallest vehicle deceleration -->
-        min-decel="3"
+        <min-decel value="3"/>
 
         <!-- Given yellow times are patched even if being too short -->
-        patch-small-tyellow="false"
+        <patch-small-tyellow value="false"/>
 
         <!-- Use INT as green phase duration -->
-        traffic-light-green=""
+        <traffic-light-green value=""/>
 
         <!-- Set INT as fixed time for yellow phase durations -->
-        traffic-light-yellow=""
+        <traffic-light-yellow value=""/>
 
         <!-- TLSs in STR will be shifted by half-phase -->
-        tl-logics.half-offset=""
+        <tl-logics.half-offset value=""/>
 
         <!-- TLSs in STR will be shifted by quarter-phase -->
-        tl-logics.quarter-offset=""
+        <tl-logics.quarter-offset value=""/>
 
-    />
+    </tls_building>
 
-    <ramp_guessing
+    <ramp_guessing>
         <!-- Enable ramp-guessing -->
-        guess-ramps="false"
+        <guess-ramps value="false"/>
 
         <!-- Treat edges with speed > FLOAT as no ramps -->
-        ramp-guess.max-ramp-speed="-1"
+        <ramp-guess.max-ramp-speed value="-1"/>
 
         <!-- Treat edges with speed < FLOAT as no highways -->
-        ramp-guess.min-highway-speed="21.9444"
+        <ramp-guess.min-highway-speed value="21.9444"/>
 
         <!-- Use FLOAT as ramp-length -->
-        ramp-guess.ramp-length="100"
+        <ramp-guess.ramp-length value="100"/>
 
         <!-- Tries to handle the given edges as ramps -->
-        ramp-guess.explicite=""
+        <ramp-guess.explicite value=""/>
 
         <!--  -->
-        guess-obscure-ramps="false"
+        <guess-obscure-ramps value="false"/>
 
         <!--  -->
-        obscure-ramps.add-ramp="false"
+        <obscure-ramps.add-ramp value="false"/>
 
         <!--  -->
-        obscure-ramps.min-highway-speed="27.7778"
+        <obscure-ramps.min-highway-speed value="27.7778"/>
 
-    />
+    </ramp_guessing>
 
-    <edge_removal
+    <edge_removal>
         <!-- Remove edges with speed < FLOAT -->
-        edges-min-speed=""
+        <edges-min-speed value=""/>
 
         <!-- Remove edges in STR -->
-        remove-edges=""
+        <remove-edges value=""/>
 
         <!-- Remove edges not in STR -->
-        keep-edges=""
+        <keep-edges value=""/>
 
         <!-- Removed edges not in FILE -->
-        keep-edges.input-file=""
+        <keep-edges.input-file value=""/>
 
         <!-- Remove edges after joining -->
-        keep-edges.postload="false"
+        <keep-edges.postload value="false"/>
 
         <!-- Keeps edges which are located within the given boundary -->
-        keep-edges.in-boundary=""
+        <keep-edges.in-boundary value=""/>
 
         <!-- Remove edges where vclass def is not in STR -->
-        remove-edges.by-vclass=""
+        <remove-edges.by-vclass value=""/>
 
-    />
+    </edge_removal>
 
-    <unregulated_nodes
+    <unregulated_nodes>
         <!-- All nodes will be not regulated -->
-        keep-unregulated="false"
+        <keep-unregulated value="false"/>
 
         <!-- Do not regulate nodes in STR -->
-        keep-unregulated.nodes=""
+        <keep-unregulated.nodes value=""/>
 
         <!-- Do not regulate district nodes -->
-        keep-unregulated.district-nodes="false"
+        <keep-unregulated.district-nodes value="false"/>
 
-    />
+    </unregulated_nodes>
 
-    <processing
+    <processing>
         <!-- Flips the y-coordinate along zero -->
-        flip-y="false"
+        <flip-y value="false"/>
 
         <!--  -->
-        dismiss-vclasses="false"
+        <dismiss-vclasses value="false"/>
 
         <!-- Removes geometry information from edges -->
-        remove-geometry="false"
+        <remove-geometry value="false"/>
 
         <!-- Removes isolated edges -->
-        remove-isolated="false"
+        <remove-isolated value="false"/>
 
         <!-- Disables building turnarounds -->
-        no-turnarounds="false"
+        <no-turnarounds value="false"/>
 
         <!-- Disables building turnarounds at tls-controlled junctions -->
-        no-tls-turnarounds="false"
+        <no-tls-turnarounds value="false"/>
 
         <!-- Omits internal links -->
-        no-internal-links="false"
+        <no-internal-links value="false"/>
 
         <!-- Splits edges across geometry nodes -->
-        split-geometry="false"
+        <split-geometry value="false"/>
 
         <!-- Turn off normalizing node positions -->
-        disable-normalize-node-positions="false"
+        <disable-normalize-node-positions value="false"/>
 
         <!-- Adds FLOAT to net x-positions -->
-        x-offset-to-apply="0"
+        <x-offset-to-apply value="0"/>
 
         <!-- Adds FLOAT to net y-positions -->
-        y-offset-to-apply="0"
+        <y-offset-to-apply value="0"/>
 
         <!-- Enable roundabout-guessing -->
-        guess-roundabouts="false"
+        <guess-roundabouts value="false"/>
 
-    />
+    </processing>
 
-    <building_defaults
+    <building_defaults>
         <!-- The default name for an edges type -->
-        type="Unknown"
+        <type value="Unknown"/>
 
         <!-- The default number of lanes in an edge -->
-        lanenumber="1"
+        <lanenumber value="1"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        speed="13.9"
+        <speed value="13.9"/>
 
         <!-- The default priority of an edge -->
-        priority="-1"
+        <priority value="-1"/>
 
         <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
-        default-junction-type=""
+        <default-junction-type value=""/>
 
-    />
+    </building_defaults>
 
-    <report
+    <report>
         <!-- Switches to verbose output -->
-        verbose="false"
+        <verbose value="false"/>
 
         <!-- Prints option values before processing -->
-        print-options="false"
+        <print-options value="false"/>
 
         <!-- Prints this screen -->
-        help="false"
+        <help value="false"/>
 
         <!-- Disables output of warnings -->
-        suppress-warnings="false"
+        <suppress-warnings value="false"/>
 
         <!-- Writes all messages to FILE -->
-        log-file=""
+        <log-file value=""/>
 
-    />
+    </report>
 
-    <random_number
+    <random_number>
         <!-- Initialises the random number generator with the given value -->
-        srand="23423"
+        <srand value="23423"/>
 
         <!-- Initialises the random number generator with the current system time -->
-        abs-rand="false"
+        <abs-rand value="false"/>
 
-    />
+    </random_number>
 
 </configuration>

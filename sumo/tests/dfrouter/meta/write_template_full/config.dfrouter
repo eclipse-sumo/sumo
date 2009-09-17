@@ -1,67 +1,67 @@
 <configuration>
 
-    <input
-        net-file=""
-        routes-input=""
-        detector-files=""
-        detector-flow-files=""
-    />
+    <input>
+        <net-file value=""/>
+        <routes-input value=""/>
+        <detector-files value=""/>
+        <detector-flow-files value=""/>
+    </input>
 
-    <output
-        routes-output=""
-        routes-for-all="false"
-        detectors-output=""
-        detectors-poi-output=""
-        emitters-output=""
-        emitters-poi-output=""
-        speed-trigger-output=""
-        end-reroute-output=""
-        validation-output=""
-        validation-output.add-sources="false"
-    />
+    <output>
+        <routes-output value=""/>
+        <routes-for-all value="false"/>
+        <detectors-output value=""/>
+        <detectors-poi-output value=""/>
+        <emitters-output value=""/>
+        <emitters-poi-output value=""/>
+        <speed-trigger-output value=""/>
+        <end-reroute-output value=""/>
+        <validation-output value=""/>
+        <validation-output.add-sources value="false"/>
+    </output>
 
-    <processing
-        guess-empty-flows="false"
-        highway-mode="false"
-        ignore-invalid-detectors="false"
-        revalidate-detectors="false"
-        revalidate-routes="false"
-        all-end-follower="false"
-        keep-unfound-ends="false"
-        keep-longer-routes="false"
-        max-nodet-follower="30"
-        emissions-only="false"
-        disallowed-edges=""
-        keep-turnarounds="false"
-        min-distance="-1"
-        time-offset="0"
-        write-calibrators="false"
-        include-unused-routes="false"
-        revalidate-flows="false"
-        remove-empty-detectors="false"
-        strict-sources="false"
-        mesosim="false"
-        scale="1"
-    />
+    <processing>
+        <guess-empty-flows value="false"/>
+        <highway-mode value="false"/>
+        <ignore-invalid-detectors value="false"/>
+        <revalidate-detectors value="false"/>
+        <revalidate-routes value="false"/>
+        <all-end-follower value="false"/>
+        <keep-unfound-ends value="false"/>
+        <keep-longer-routes value="false"/>
+        <max-nodet-follower value="30"/>
+        <emissions-only value="false"/>
+        <disallowed-edges value=""/>
+        <keep-turnarounds value="false"/>
+        <min-distance value="-1"/>
+        <time-offset value="0"/>
+        <write-calibrators value="false"/>
+        <include-unused-routes value="false"/>
+        <revalidate-flows value="false"/>
+        <remove-empty-detectors value="false"/>
+        <strict-sources value="false"/>
+        <mesosim value="false"/>
+        <scale value="1"/>
+    </processing>
 
-    <time
-        begin="0"
-        end="86400"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="86400"/>
+    </time>
 
-    <report
-        verbose="false"
-        print-options="false"
-        help="false"
-        suppress-warnings="false"
-        log-file=""
-        report-empty-detectors="false"
-        print-absolute-flows="false"
-    />
+    <report>
+        <verbose value="false"/>
+        <print-options value="false"/>
+        <help value="false"/>
+        <suppress-warnings value="false"/>
+        <log-file value=""/>
+        <report-empty-detectors value="false"/>
+        <print-absolute-flows value="false"/>
+    </report>
 
-    <random_number
-        srand="23423"
-        abs-rand="false"
-    />
+    <random_number>
+        <srand value="23423"/>
+        <abs-rand value="false"/>
+    </random_number>
 
 </configuration>

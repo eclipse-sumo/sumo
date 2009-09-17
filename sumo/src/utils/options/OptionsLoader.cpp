@@ -59,14 +59,19 @@ void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& attributes) {
     myItem = TplConvert<XMLCh>::_2str(name);
     for (int i = 0; i < attributes.getLength(); i++) {
-        setValue(TplConvert<XMLCh>::_2str(attributes.getName(i)),
-                 TplConvert<XMLCh>::_2str(attributes.getValue(i)));
+        std::string name = TplConvert<XMLCh>::_2str(attributes.getName(i));
+        std::string value = TplConvert<XMLCh>::_2str(attributes.getValue(i));
+        if (myOptions.exists(myItem) && (name == "value" || name == "v")) {
+            setValue(myItem, value);
+        } else {
+            setValue(name, value);
+        }
     }
 }
 
 
-void OptionsLoader::setValue(const std::string key,
-                             std::string value) {
+void OptionsLoader::setValue(const std::string &key,
+                             std::string &value) {
     if (value.length()>0) {
         try {
             bool isWriteable;

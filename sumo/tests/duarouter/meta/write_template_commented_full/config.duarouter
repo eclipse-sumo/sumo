@@ -1,138 +1,138 @@
 <configuration>
 
-    <input
+    <input>
         <!-- Use FILE as SUMO-network to route on -->
-        net-file=""
+        <net-file value=""/>
 
         <!-- Read alternatives from FILE -->
-        alternatives=""
+        <alternatives value=""/>
 
         <!-- Read network weights from FILE(s) -->
-        weights=""
+        <weights value=""/>
 
         <!-- Read lane-weights from FILE(s) -->
-        lane-weights=""
+        <lane-weights value=""/>
 
         <!-- Name of the xml attribute which gives the edge weight -->
-        measure="traveltime"
+        <measure value="traveltime"/>
 
         <!-- Read trip-definitions from FILE -->
-        trip-defs=""
+        <trip-defs value=""/>
 
         <!-- Read flow-definitions from FILE -->
-        flow-definition=""
+        <flow-definition value=""/>
 
         <!-- Read sumo-routes from FILE -->
-        sumo-input=""
+        <sumo-input value=""/>
 
-    />
+    </input>
 
-    <output
+    <output>
         <!-- Write generated routes to FILE -->
-        output-file=""
+        <output-file value=""/>
 
         <!-- Write exit times (weights) for each edge -->
-        exit-times="false"
+        <exit-times value="false"/>
 
-    />
+    </output>
 
-    <processing
+    <processing>
         <!-- Continue if a route could not be build -->
-        continue-on-unbuild="false"
+        <continue-on-unbuild value="false"/>
 
         <!-- Assume input is unsorted -->
-        unsorted="false"
+        <unsorted value="false"/>
 
         <!--  -->
-        randomize-flows="false"
+        <randomize-flows value="false"/>
 
         <!-- Prune the number of alternatives to INT -->
-        max-alternatives="5"
+        <max-alternatives value="5"/>
 
         <!-- Emit FLOAT random vehicles per second -->
-        random-per-second=""
+        <random-per-second value=""/>
 
         <!--  -->
-        prune-random="false"
+        <prune-random value="false"/>
 
         <!-- Remove loops at start and end of the route -->
-        remove-loops="false"
+        <remove-loops value="false"/>
 
         <!-- Tries to correct a false route -->
-        repair="false"
+        <repair value="false"/>
 
         <!-- Expand weights behind the simulation's end -->
-        expand-weights="false"
+        <expand-weights value="false"/>
 
         <!-- Use FLOAT as Gawron's beta -->
-        gBeta="0.3"
+        <gBeta value="0.3"/>
 
         <!-- Use FLOAT as Gawron's alpha -->
-        gA="0.05"
+        <gA value="0.05"/>
 
-    />
+    </processing>
 
-    <defaults
+    <defaults>
         <!-- Assigns a default depart lane -->
-        departlane=""
+        <departlane value=""/>
 
         <!-- Assigns a default depart position -->
-        departpos=""
+        <departpos value=""/>
 
         <!-- Assigns a default depart speed -->
-        departspeed=""
+        <departspeed value=""/>
 
         <!-- Assigns a default arrival lane -->
-        arrivallane=""
+        <arrivallane value=""/>
 
         <!-- Assigns a default arrival position -->
-        arrivalpos=""
+        <arrivalpos value=""/>
 
         <!-- Assigns a default arrival speed -->
-        arrivalspeed=""
+        <arrivalspeed value=""/>
 
         <!-- Defaults will override given values -->
-        defaults-override="false"
+        <defaults-override value="false"/>
 
-    />
+    </defaults>
 
-    <time
+    <time>
         <!-- Defines the begin time; Previous trips will be discarded -->
-        begin="0"
+        <begin value="0"/>
 
         <!-- Defines the end time; Later trips will be discarded -->
-        end="86400"
+        <end value="86400"/>
 
-    />
+    </time>
 
-    <report
+    <report>
         <!-- Switches to verbose output -->
-        verbose="false"
+        <verbose value="false"/>
 
         <!-- Prints option values before processing -->
-        print-options="false"
+        <print-options value="false"/>
 
         <!-- Prints this screen -->
-        help="false"
+        <help value="false"/>
 
         <!-- Disables output of warnings -->
-        suppress-warnings="false"
+        <suppress-warnings value="false"/>
 
         <!-- Writes all messages to FILE -->
-        log-file=""
+        <log-file value=""/>
 
         <!-- Defines how often statistics shall be printed -->
-        stats-period="-1"
+        <stats-period value="-1"/>
 
-    />
+    </report>
 
-    <random_number
+    <random_number>
         <!-- Initialises the random number generator with the given value -->
-        srand="23423"
+        <srand value="23423"/>
 
         <!-- Initialises the random number generator with the current system time -->
-        abs-rand="false"
+        <abs-rand value="false"/>
 
-    />
+    </random_number>
 
 </configuration>

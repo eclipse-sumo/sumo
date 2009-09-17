@@ -1,13 +1,13 @@
 <configuration>
 
-    <grid_network
-        grid-net="true"
-        grid-number="10"
-        grid-length="400"
-    />
+    <grid_network>
+        <grid-net value="true"/>
+        <grid-number value="10"/>
+        <grid-length value="400"/>
+    </grid_network>
 
-    <output
-        output-file="net.net.xml"
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
 </configuration>

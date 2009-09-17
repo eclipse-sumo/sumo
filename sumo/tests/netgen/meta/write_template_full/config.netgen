@@ -1,126 +1,126 @@
 <configuration>
 
-    <grid_network
-        grid-net="false"
-        grid-number="5"
-        grid-length="100"
-        grid-x-number="5"
-        grid-y-number="5"
-        grid-x-length="100"
-        grid-y-length="100"
-        attach-length="0"
-    />
+    <grid_network>
+        <grid-net value="false"/>
+        <grid-number value="5"/>
+        <grid-length value="100"/>
+        <grid-x-number value="5"/>
+        <grid-y-number value="5"/>
+        <grid-x-length value="100"/>
+        <grid-y-length value="100"/>
+        <attach-length value="0"/>
+    </grid_network>
 
-    <spider_network
-        spider-net="false"
-        spider-arm-number="13"
-        spider-circle-number="20"
-        spider-space-rad="100"
-        spider-omit-center="false"
-    />
+    <spider_network>
+        <spider-net value="false"/>
+        <spider-arm-number value="13"/>
+        <spider-circle-number value="20"/>
+        <spider-space-rad value="100"/>
+        <spider-omit-center value="false"/>
+    </spider_network>
 
-    <random_network
-        random-net="false"
-        rand-iterations="2000"
-        rand-bidi-probability="1"
-        rand-max-distance="250"
-        rand-min-distance="100"
-        rand-min-angle="0.785398"
-        rand-num-tries="50"
-        rand-connectivity="0.95"
-        rand-neighbor-dist1="0"
-        rand-neighbor-dist2="0"
-        rand-neighbor-dist3="10"
-        rand-neighbor-dist4="10"
-        rand-neighbor-dist5="2"
-        rand-neighbor-dist6="1"
-    />
+    <random_network>
+        <random-net value="false"/>
+        <rand-iterations value="2000"/>
+        <rand-bidi-probability value="1"/>
+        <rand-max-distance value="250"/>
+        <rand-min-distance value="100"/>
+        <rand-min-angle value="0.785398"/>
+        <rand-num-tries value="50"/>
+        <rand-connectivity value="0.95"/>
+        <rand-neighbor-dist1 value="0"/>
+        <rand-neighbor-dist2 value="0"/>
+        <rand-neighbor-dist3 value="10"/>
+        <rand-neighbor-dist4 value="10"/>
+        <rand-neighbor-dist5 value="2"/>
+        <rand-neighbor-dist6 value="1"/>
+    </random_network>
 
-    <output
-        output-file="net.net.xml"
-        plain-output=""
-        node-geometry-dump=""
-        map-output=""
-        tls-poi-output=""
-        node-type-output=""
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output value=""/>
+        <node-geometry-dump value=""/>
+        <map-output value=""/>
+        <tls-poi-output value=""/>
+        <node-type-output value=""/>
+    </output>
 
-    <tls_building
-        explicite-tls=""
-        explicite-no-tls=""
-        guess-tls="false"
-        tls-guess.district-nodes="false"
-        tls-guess.joining="false"
-        try-join-tls="false"
-        min-decel="3"
-        patch-small-tyellow="false"
-        traffic-light-green=""
-        traffic-light-yellow=""
-        tl-logics.half-offset=""
-        tl-logics.quarter-offset=""
-    />
+    <tls_building>
+        <explicite-tls value=""/>
+        <explicite-no-tls value=""/>
+        <guess-tls value="false"/>
+        <tls-guess.district-nodes value="false"/>
+        <tls-guess.joining value="false"/>
+        <try-join-tls value="false"/>
+        <min-decel value="3"/>
+        <patch-small-tyellow value="false"/>
+        <traffic-light-green value=""/>
+        <traffic-light-yellow value=""/>
+        <tl-logics.half-offset value=""/>
+        <tl-logics.quarter-offset value=""/>
+    </tls_building>
 
-    <ramp_guessing
-        guess-ramps="false"
-        ramp-guess.max-ramp-speed="-1"
-        ramp-guess.min-highway-speed="21.9444"
-        ramp-guess.ramp-length="100"
-        ramp-guess.explicite=""
-        guess-obscure-ramps="false"
-        obscure-ramps.add-ramp="false"
-        obscure-ramps.min-highway-speed="27.7778"
-    />
+    <ramp_guessing>
+        <guess-ramps value="false"/>
+        <ramp-guess.max-ramp-speed value="-1"/>
+        <ramp-guess.min-highway-speed value="21.9444"/>
+        <ramp-guess.ramp-length value="100"/>
+        <ramp-guess.explicite value=""/>
+        <guess-obscure-ramps value="false"/>
+        <obscure-ramps.add-ramp value="false"/>
+        <obscure-ramps.min-highway-speed value="27.7778"/>
+    </ramp_guessing>
 
-    <edge_removal
-        edges-min-speed=""
-        remove-edges=""
-        keep-edges=""
-        keep-edges.input-file=""
-        keep-edges.postload="false"
-        keep-edges.in-boundary=""
-        remove-edges.by-vclass=""
-    />
+    <edge_removal>
+        <edges-min-speed value=""/>
+        <remove-edges value=""/>
+        <keep-edges value=""/>
+        <keep-edges.input-file value=""/>
+        <keep-edges.postload value="false"/>
+        <keep-edges.in-boundary value=""/>
+        <remove-edges.by-vclass value=""/>
+    </edge_removal>
 
-    <unregulated_nodes
-        keep-unregulated="false"
-        keep-unregulated.nodes=""
-        keep-unregulated.district-nodes="false"
-    />
+    <unregulated_nodes>
+        <keep-unregulated value="false"/>
+        <keep-unregulated.nodes value=""/>
+        <keep-unregulated.district-nodes value="false"/>
+    </unregulated_nodes>
 
-    <processing
-        flip-y="false"
-        dismiss-vclasses="false"
-        remove-geometry="false"
-        remove-isolated="false"
-        no-turnarounds="false"
-        no-tls-turnarounds="false"
-        no-internal-links="false"
-        split-geometry="false"
-        disable-normalize-node-positions="false"
-        x-offset-to-apply="0"
-        y-offset-to-apply="0"
-        guess-roundabouts="false"
-    />
+    <processing>
+        <flip-y value="false"/>
+        <dismiss-vclasses value="false"/>
+        <remove-geometry value="false"/>
+        <remove-isolated value="false"/>
+        <no-turnarounds value="false"/>
+        <no-tls-turnarounds value="false"/>
+        <no-internal-links value="false"/>
+        <split-geometry value="false"/>
+        <disable-normalize-node-positions value="false"/>
+        <x-offset-to-apply value="0"/>
+        <y-offset-to-apply value="0"/>
+        <guess-roundabouts value="false"/>
+    </processing>
 
-    <building_defaults
-        type="Unknown"
-        lanenumber="1"
-        speed="13.9"
-        priority="-1"
-        default-junction-type=""
-    />
+    <building_defaults>
+        <type value="Unknown"/>
+        <lanenumber value="1"/>
+        <speed value="13.9"/>
+        <priority value="-1"/>
+        <default-junction-type value=""/>
+    </building_defaults>
 
-    <report
-        verbose="false"
-        print-options="false"
-        help="false"
-        suppress-warnings="false"
-        log-file=""
-    />
+    <report>
+        <verbose value="false"/>
+        <print-options value="false"/>
+        <help value="false"/>
+        <suppress-warnings value="false"/>
+        <log-file value=""/>
+    </report>
 
-    <random_number
-        srand="23423"
-        abs-rand="false"
-    />
+    <random_number>
+        <srand value="23423"/>
+        <abs-rand value="false"/>
+    </random_number>
 
 </configuration>

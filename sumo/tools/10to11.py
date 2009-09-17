@@ -19,7 +19,7 @@ class ConfigReader(handler.ContentHandler):
 
     def __init__(self):
         self._parent = None
-        self._parentWritten = False
+        self._parentWritten = ""
         self._element = None
         self._string = ''
 
@@ -33,13 +33,13 @@ class ConfigReader(handler.ContentHandler):
 
     def endElement(self, name):
         if self._parent == name:
-            print '    />'
-            self._parentWritten = False
+            print '    </%s>' % name
+            self._parentWritten = ""
         elif self._element == name:
             if not self._parentWritten:
-                print '    <' + self._parent
-                self._parentWritten = True
-            print '        %s="%s"' % (self._element, self._string)
+                print '    <%s>' % self._parent
+                self._parentWritten = self._parent
+            print '        <%s value="%s"/>' % (self._element, self._string)
         self._element = self._parent
 
     def startDocument(self):
@@ -47,7 +47,7 @@ class ConfigReader(handler.ContentHandler):
 
     def endDocument(self):
         if self._parentWritten:
-            print '    />'
+            print '    </%s>' % self._parentWritten
         print '</configuration>'
 
 optParser = OptionParser(usage="usage: %prog <config>+")

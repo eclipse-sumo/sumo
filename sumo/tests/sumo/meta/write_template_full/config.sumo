@@ -1,102 +1,102 @@
 <configuration>
 
-    <input
-        net-file=""
-        route-files=""
-        additional-files=""
-        weight-files=""
-    />
+    <input>
+        <net-file value=""/>
+        <route-files value=""/>
+        <additional-files value=""/>
+        <weight-files value=""/>
+    </input>
 
-    <output
-        netstate-dump=""
-        dump-empty-edges="false"
-        emissions-output=""
-        tripinfo-output=""
-        vehroute-output=""
-    />
+    <output>
+        <netstate-dump value=""/>
+        <dump-empty-edges value="false"/>
+        <emissions-output value=""/>
+        <tripinfo-output value=""/>
+        <vehroute-output value=""/>
+    </output>
 
-    <time
-        begin="0"
-        end="2147483647"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="2147483647"/>
+    </time>
 
-    <processing
-        route-steps="200"
-        no-internal-links="false"
-        ignore-accidents="false"
-        too-many-vehicles="-1"
-        incremental-dua-step="-1"
-        incremental-dua-base="10"
-        time-to-teleport="300"
-        max-depart-delay="-1"
-    />
+    <processing>
+        <route-steps value="200"/>
+        <no-internal-links value="false"/>
+        <ignore-accidents value="false"/>
+        <too-many-vehicles value="-1"/>
+        <incremental-dua-step value="-1"/>
+        <incremental-dua-base value="10"/>
+        <time-to-teleport value="300"/>
+        <max-depart-delay value="-1"/>
+    </processing>
 
-    <tls_defaults
-        agent-tl.detector-len="75"
-        agent-tl.learn-horizon="3"
-        agent-tl.decision-horizon="1"
-        agent-tl.min-diff="0.1"
-        agent-tl.tcycle="90"
-        actuated-tl.detector-pos="100"
-        actuated-tl.max-gap="3.1"
-        actuated-tl.detector-gap="3"
-        actuated-tl.passing-time="1.9"
-    />
+    <tls_defaults>
+        <agent-tl.detector-len value="75"/>
+        <agent-tl.learn-horizon value="3"/>
+        <agent-tl.decision-horizon value="1"/>
+        <agent-tl.min-diff value="0.1"/>
+        <agent-tl.tcycle value="90"/>
+        <actuated-tl.detector-pos value="100"/>
+        <actuated-tl.max-gap value="3.1"/>
+        <actuated-tl.detector-gap value="3"/>
+        <actuated-tl.passing-time value="1.9"/>
+    </tls_defaults>
 
-    <report
-        verbose="false"
-        print-options="false"
-        help="false"
-        suppress-warnings="false"
-        log-file=""
-        no-duration-log="false"
-        no-step-log="false"
-        message-log=""
-        error-log=""
-    />
+    <report>
+        <verbose value="false"/>
+        <print-options value="false"/>
+        <help value="false"/>
+        <suppress-warnings value="false"/>
+        <log-file value=""/>
+        <no-duration-log value="false"/>
+        <no-step-log value="false"/>
+        <message-log value=""/>
+        <error-log value=""/>
+    </report>
 
-    <c2c
-        device.c2x.probability="0"
-        device.c2x.knownveh=""
-        device.c2x.deterministic="false"
-        device.c2x.range="100"
-        device.c2x.keep-duration="1800"
-        device.c2x.insert-info-factor="1.2"
-        c2x.cluster-info=""
-        c2x.edge-near-info=""
-        c2x.saved-info=""
-        c2x.saved-info-freq=""
-        c2x.transmitted-info=""
-        c2x.vehicle-in-range=""
-    />
+    <c2c>
+        <device.c2x.probability value="0"/>
+        <device.c2x.knownveh value=""/>
+        <device.c2x.deterministic value="false"/>
+        <device.c2x.range value="100"/>
+        <device.c2x.keep-duration value="1800"/>
+        <device.c2x.insert-info-factor value="1.2"/>
+        <c2x.cluster-info value=""/>
+        <c2x.edge-near-info value=""/>
+        <c2x.saved-info value=""/>
+        <c2x.saved-info-freq value=""/>
+        <c2x.transmitted-info value=""/>
+        <c2x.vehicle-in-range value=""/>
+    </c2c>
 
-    <routing
-        device.routing.probability="0"
-        device.routing.knownveh=""
-        device.routing.deterministic="false"
-        device.routing.period="0"
-        device.routing.adaptation-weight="0.5"
-        device.routing.adaptation-interval="1"
-    />
+    <routing>
+        <device.routing.probability value="0"/>
+        <device.routing.knownveh value=""/>
+        <device.routing.deterministic value="false"/>
+        <device.routing.period value="0"/>
+        <device.routing.adaptation-weight value="0.5"/>
+        <device.routing.adaptation-interval value="1"/>
+    </routing>
 
-    <emissions
-        device.hbefa.probability="0"
-        device.hbefa.knownveh=""
-        device.hbefa.deterministic="false"
-    />
+    <emissions>
+        <device.hbefa.probability value="0"/>
+        <device.hbefa.knownveh value=""/>
+        <device.hbefa.deterministic value="false"/>
+    </emissions>
 
-    <traci_server
-        remote-port="0"
-        penetration="1"
-    />
+    <traci_server>
+        <remote-port value="0"/>
+        <penetration value="1"/>
+    </traci_server>
 
-    <random_number
-        srand="23423"
-        abs-rand="false"
-    />
+    <random_number>
+        <srand value="23423"/>
+        <abs-rand value="false"/>
+    </random_number>
 
-    <gui_only
-        gui-settings-file=""
-    />
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
 
 </configuration>

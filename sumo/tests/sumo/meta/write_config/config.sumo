@@ -1,17 +1,17 @@
 <configuration>
 
-    <input
-        net-file="net.net.xml"
-        route-files="input_routes.rou.xml"
-    />
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
 
-    <time
-        begin="0"
-        end="100"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
 
-    <report
-        no-duration-log="true"
-    />
+    <report>
+        <no-duration-log value="true"/>
+    </report>
 
 </configuration>

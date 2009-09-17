@@ -1,17 +1,17 @@
 <configuration>
 
-    <input
-        net-file="input_net.net.xml"
-        flow-definition="input_flows.flows.xml"
-    />
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-definition value="input_flows.flows.xml"/>
+    </input>
 
-    <output
-        output-file="routes.rou.xml"
-    />
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
-    <processing
-        continue-on-unbuild="true"
-        turn-defaults="50,50,0,0"
-    />
+    <processing>
+        <continue-on-unbuild value="true"/>
+        <turn-defaults value="50,50,0,0"/>
+    </processing>
 
 </configuration>

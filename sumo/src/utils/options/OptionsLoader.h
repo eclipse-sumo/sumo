@@ -140,7 +140,7 @@ private:
      * @param[in] key The name of the option to set
      * @param[in] value The new value for the option
      */
-    void setValue(const std::string key, std::string value);
+    void setValue(const std::string &key, std::string &value);
 
 
     /** @brief Tries to set the named option to the given value (for bool-Options)
