@@ -194,6 +194,9 @@ NLBuilder::buildNet() throw(ProcessError) {
         myNet.closeBuilding(edges, myJunctionBuilder.build(),
                             buildRouteLoaderControl(myOptions), myJunctionBuilder.buildTLLogics(),
                             stateDumpTimes, stateDumpFiles);
+    } catch (IOError &e) {
+        delete edges;
+        throw ProcessError(e.what());
     } catch (ProcessError &) {
         delete edges;
         throw;

@@ -163,8 +163,6 @@ GUILoadThread::run() {
     }
     if (net==0) {
         MSNet::clearAll();
-        OutputDevice::closeAll();
-        MsgHandler::cleanupOnEnd();
     }
     delete eb;
     submitEndAndCleanup(net, simStartTime, simEndTime);
