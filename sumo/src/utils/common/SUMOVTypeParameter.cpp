@@ -43,7 +43,7 @@
 // member method definitions
 // ===========================================================================
 SUMOVTypeParameter::SUMOVTypeParameter() throw()
-        : length(DEFAULT_VEH_LENGTH), maxSpeed(DEFAULT_VEH_MAXSPEED),
+        : id(DEFAULT_VTYPE_ID), length(DEFAULT_VEH_LENGTH), maxSpeed(DEFAULT_VEH_MAXSPEED),
         defaultProbability(DEFAULT_VEH_PROB),
         speedFactor(DEFAULT_VEH_SPEEDFACTOR), speedDev(DEFAULT_VEH_SPEEDDEV),
         emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
