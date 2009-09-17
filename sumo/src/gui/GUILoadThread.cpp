@@ -118,6 +118,7 @@ GUILoadThread::run() {
     MsgHandler::initOutputOptions(true);
     if (!MSFrame::checkOptions()) {
         // the options are not valid
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
