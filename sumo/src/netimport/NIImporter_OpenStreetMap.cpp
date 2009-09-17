@@ -223,7 +223,11 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
 
-    // remove duplicate nodes with the same geo coordinates
+    /* Remove duplicate nodes with the same coordinates
+     *
+     * Without that, insertEdge can fail, if both nodes start
+     * the shape of an edge. (NBEdge::init calls Position2DVector::push_front
+     * with the second, which has the same coordinates as the first.) */
 	MsgHandler::getMessageInstance()->beginProcessMsg(
 			"Removing duplicate nodes...");
 	if (nodes.size() > 1) {
@@ -477,8 +481,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             MsgHandler::getErrorInstance()->inform("'value' in node '" + toString(myLastNodeID) + "' misses a value.");
             return;
         }
-        if (key=="highway"&&value.find("traffic_signal")>=0) {
-            if (myLastNodeID>=0) {
+        if (key=="highway"&&value.find("traffic_signal")!=string::npos) {
+            if (myLastNodeID!=-1) {
                 myToFill[myLastNodeID]->tlsControlled = true;
             }
         }
