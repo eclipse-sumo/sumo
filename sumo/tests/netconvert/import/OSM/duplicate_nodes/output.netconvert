@@ -2,7 +2,7 @@ Parsing nodes from osm-file 'duplicate_nodes.osm.xml'... done.
 Parsing edges from osm-file 'duplicate_nodes.osm.xml'... done.
 Removing duplicate nodes... 
 Found duplicate nodes. Substitute -20 with -25
-done.
+...done.
  Import done:
    13 nodes loaded.
    30 types loaded.
@@ -23,8 +23,6 @@ Computing step 11: Appending Turnarounds
 Computing step 12: Rechecking of lane endings
 Computing step 13: Computing node shapes
 Computing step 14: Computing edge shapes
-New lane has shape length zero. Revert it back to old shape. ID: --169#2
-New lane has shape length zero. Revert it back to old shape. ID: -169#2
 Computing step 15: Computing tls logics
 Computing step 16: Computing node logics
 Computing step 17: Computing traffic light logics

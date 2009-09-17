@@ -22,7 +22,7 @@ Computing step 13: Computing edge shapes
 Computing step 14: Computing tls logics
 Computing step 15: Computing node logics
 Computing step 16: Computing traffic light logics
-6 traffic light(s) computed.
+2 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -31,7 +31,7 @@ Summary:
   Right-before-left junctions : 13
  Network boundaries:
   Original boundary  : 13.52,52.43,13.55,52.43
-  Applied offset     : -399345.63,-5809366.00
+  Applied offset     : -399345.62,-5809366.00
   Converted boundary : 0.00,0.00,1737.72,1000.50
 -----------------------------------------------------
 Success.
