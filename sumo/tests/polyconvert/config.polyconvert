@@ -5,13 +5,14 @@ copy_test_path:input_poi.poi.xml
 copy_test_path:osm.xml
 copy_test_path:typemap.xml
 
-
 [collate_file]
 config:config.cfg
 pois:pois.poi.xml
 log:log.txt
 
-
 [run_dependent_text]
 output:polyconvert.exe{REPLACE sumo-polyconvert}
 pois:version{->}-->
+
+[floating_point_tolerance]
+pois:0.0101
