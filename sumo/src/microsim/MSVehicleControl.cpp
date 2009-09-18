@@ -319,36 +319,40 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
     unsigned int size;
     bis >> size;
     while (size-->0) {
-        std::string id;
-        SUMOReal length, maxSpeed, accel, decel, dawdle, tau, guiWidth, guiOffset,
-        prob, speedFactor, speedDev, r, g, b;
-        int vclass, emissionClass, shape;
-        std::string followModel, laneChangeModel;
-        bis >> id;
-        bis >> length;
-        bis >> maxSpeed;
+        SUMOReal r, g, b;
+        SUMOReal accel, decel, dawdle, tau;
+        SUMOVTypeParameter defType;
+        int vehicleClass, emissionClass, shape;
+
+        bis >> defType.id;
+        bis >> defType.length;
+        bis >> defType.maxSpeed;
         bis >> accel;
         bis >> decel;
         bis >> dawdle;
         bis >> tau;
-        bis >> vclass;
+        bis >> vehicleClass;
+        defType.vehicleClass = (SUMOVehicleClass) vehicleClass;
         bis >> emissionClass;
+        defType.emissionClass = (SUMOEmissionClass) emissionClass;
         bis >> shape;
-        bis >> guiWidth;
-        bis >> guiOffset;
-        bis >> prob;
-        bis >> speedFactor;
-        bis >> speedDev;
+        defType.shape = (SUMOVehicleShape) shape;
+        bis >> defType.width;
+        bis >> defType.offset;
+        bis >> defType.defaultProbability;
+        bis >> defType.speedFactor;
+        bis >> defType.speedDev;
         bis >> r;
         bis >> g;
         bis >> b;
-        bis >> followModel;
-        bis >> laneChangeModel;
-        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau,
-                                             prob, speedFactor, speedDev,
-                                             (SUMOVehicleClass) vclass, (SUMOEmissionClass) emissionClass, (SUMOVehicleShape) shape,
-                                             guiWidth, guiOffset,
-                                             followModel, laneChangeModel, RGBColor(r,g,b));
+        defType.color = RGBColor(r,g,b);
+        bis >> defType.cfModel;
+        bis >> defType.lcModel;
+        defType.cfParameter["accel"] = accel;
+        defType.cfParameter["decel"] = decel;
+        defType.cfParameter["sigma"] = dawdle;
+        defType.cfParameter["tau"] = tau;
+        MSVehicleType *t = MSVehicleType::build(defType);
         addVType(t);
     }
     unsigned int numVTypeDists;
