@@ -186,7 +186,7 @@ public:
      * @see MSCFModel::getModelName
      */
     std::string getModelName() const throw() {
-        return "idm";
+        return "carFollowing-IDM";
     }
     /// @}
 

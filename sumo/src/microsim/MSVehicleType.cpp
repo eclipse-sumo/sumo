@@ -74,16 +74,6 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
     assert(myAccel > 0);
     assert(myDecel > 0);
     assert(myDawdle >= 0 && myDawdle <= 1);
-	/*
-    if (cfModel.compare("Krauss") == 0)
-        myCarFollowModel = new MSCFModel_Krauss(this, dawdle, tau);
-    else if (cfModel.compare("IDM") == 0) {
-        SUMOReal timeheadway = 1.5;
-        SUMOReal mingap = 5;
-        myCarFollowModel = new MSCFModel_IDM(this, dawdle, timeheadway, mingap);
-    } else
-        myCarFollowModel = new MSCFModel_Krauss(this, myDawdle, myTau);
-*/
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * myDecel);
     myTauDecel = myDecel * myTau;
 }
@@ -139,15 +129,15 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
         from.shape, from.width, from.offset, from.cfModel, from.lcModel, from.color);
     MSCFModel *model = 0;
-    if (from.cfModel==""||from.cfModel=="carFollowing-Krauss") {
-        model = new MSCFModel_Krauss(vtype,
-                                     get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
-                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
-    } else if (from.cfModel=="carFollowing-IDM") {
+    if (from.cfModel=="carFollowing-IDM") {
         model = new MSCFModel_IDM(vtype,
                                   get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
                                   get(from.cfParameter, "timeHeadWay", 1.5),
                                   get(from.cfParameter, "minGap", 5.));
+    } else {
+        model = new MSCFModel_Krauss(vtype,
+                                     get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
+                                     get(from.cfParameter, "tau", DEFAULT_VEH_TAU));
     }
     vtype->myCarFollowModel = model;
     return vtype;

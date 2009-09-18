@@ -163,7 +163,7 @@ public:
     SUMOReal safeEmitGap(SUMOReal speed) const throw();
 
 
-    /** @brief Applies driver imperfection (sawdling / sigma)
+    /** @brief Applies driver imperfection (dawdling / sigma)
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      * @see MSCFModel::dawdle
@@ -184,7 +184,7 @@ public:
      * @see MSCFModel::getModelName
      */
     std::string getModelName() const throw() {
-        return "krauss";
+        return "carFollowing-Krauss";
     }
     /// @}
 
