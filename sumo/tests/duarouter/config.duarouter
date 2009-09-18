@@ -19,3 +19,5 @@ output:duarouter.exe{REPLACE sumo-duarouter}
 routes:version{->}-->
 alts:version{->}-->
 
+[floating_point_tolerance]
+alts:0.0000001
