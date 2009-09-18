@@ -1,1 +1,1 @@
---net-file=net.net.xml -a=input_additional.add.xml,input_additional2.add.xml
+--no-duration-log --net-file=net.net.xml -a=input_additional.add.xml,input_additional2.add.xml
