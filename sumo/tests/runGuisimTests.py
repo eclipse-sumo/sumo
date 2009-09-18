@@ -28,11 +28,13 @@ for root, dirs, files in os.walk(sumoRoot):
         newDir = os.path.join(newRoot, folder)
         if not os.path.exists(newDir):
             os.mkdir(newDir)
+    newFiles = set()
     for name in files:
         oldPath = os.path.join(root, name)
         newPath = os.path.join(newRoot, name)
         if name.endswith('sumo'):
             newPath = newPath[:-4] + "guisim"
+        newFiles.add(newPath)
         if name == "config.sumo":
             src = open(oldPath)
             dest = open(newPath, "w")
@@ -43,6 +45,10 @@ for root, dirs, files in os.walk(sumoRoot):
             dest.close()
         elif not os.path.exists(newPath) or os.path.getmtime(oldPath) > os.path.getmtime(newPath):
             shutil.copy2(oldPath, newPath)
+    for name in os.listdir(newRoot):
+        path = os.path.join(newRoot, name)
+        if os.path.isfile(path) and path not in newFiles:
+            os.remove(path)
 
 if len(sys.argv) == 1:
     os.environ["TEXTTEST_HOME"] = os.path.dirname(sys.argv[0])
