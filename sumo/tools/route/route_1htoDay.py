@@ -12,12 +12,13 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os
+import os, sys
 
-if len(sys.argv) < 4:
+if len(sys.argv) < 2:
     print "Usage: route_1htoDay.py <INPUT_FILE>"
     sys.exit()
 for i in range(0, 24):
     out = sys.argv[1]
-    out = out[:out.find(".")] + str(i) + out[out.find("."):]
+    out = out[:out.find(".")] + "_" + str(i) + out[out.find("."):]
+    print "Building routes for hour " + str(i) + " into '" + out + "'..."
     os.system("route_departOffset.py " + sys.argv[1] + " " + out + " " + str(i*3600))
