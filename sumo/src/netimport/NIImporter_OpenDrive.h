@@ -40,6 +40,7 @@
 class NBNetBuilder;
 class NBEdge;
 class OptionsCont;
+class NBNode;
 
 
 // ===========================================================================
@@ -71,10 +72,93 @@ public:
 
 
 protected:
+    enum LinkType {
+        OPENDRIVE_LT_SUCCESSOR,
+        OPENDRIVE_LT_PREDECESSOR
+    };
+
+    enum ElementType {
+        OPENDRIVE_ET_UNKNOWN,
+        OPENDRIVE_ET_ROAD,
+        OPENDRIVE_ET_JUNCTION
+    };
+
+    enum ContactPoint {
+        OPENDRIVE_CP_UNKNOWN,
+        OPENDRIVE_CP_START,
+        OPENDRIVE_CP_END
+    };
+
+    enum GeometryType {
+        OPENDRIVE_GT_UNKNOWN,
+        OPENDRIVE_GT_LINE,
+        OPENDRIVE_GT_SPIRAL,
+        OPENDRIVE_GT_ARC,
+        OPENDRIVE_GT_POLY3
+    };
+
+    /**
+     * @struct OpenDriveLink
+     * @brief Representation of an openDrive connection
+     */
+    struct OpenDriveLink {
+        OpenDriveLink(LinkType linkTypeArg, const std::string &elementIDArg)
+                : linkType(linkTypeArg), elementID(elementIDArg),
+                elementType(OPENDRIVE_ET_UNKNOWN), contactPoint(OPENDRIVE_CP_UNKNOWN) { }
+
+        LinkType linkType;
+        std::string elementID;
+        ElementType elementType;
+        ContactPoint contactPoint;
+    };
+
+
+    /**
+     * @struct OpenDriveGeometry
+     * @brief Representation of an openDrive geometry part
+     */
+    struct OpenDriveGeometry {
+        OpenDriveGeometry(SUMOReal lengthArg, SUMOReal sArg, SUMOReal xArg, SUMOReal yArg, SUMOReal hdgArg)
+                : length(lengthArg), s(sArg), x(xArg), y(yArg), hdg(hdgArg),
+                type(OPENDRIVE_GT_UNKNOWN) { }
+
+        SUMOReal length;
+        SUMOReal s;
+        SUMOReal x;
+        SUMOReal y;
+        SUMOReal hdg;
+        GeometryType type;
+        std::vector<SUMOReal> params;
+    };
+
+
+    /**
+     * @struct OpenDriveEdge
+     * @brief Representation of an openDrive road
+     */
+    struct OpenDriveEdge {
+        OpenDriveEdge(const std::string &idArg, const std::string &junctionArg, SUMOReal lengthArg)
+                : id(idArg), junction(junctionArg), length(lengthArg),
+                from(0), to(0) { }
+
+        /// @brief The id of the edge
+        std::string id;
+        /// @brief The id of the junction the edge belongs to
+        std::string junction;
+        /// @brief The length of the edge
+        SUMOReal length;
+        std::vector<OpenDriveLink> links;
+        std::vector<OpenDriveGeometry> geometries;
+        NBNode *from;
+        NBNode *to;
+    };
+
+
+protected:
     /** @brief Constructor
      * @param[in] nc The node control to fill
      */
-    NIImporter_OpenDrive(NBNodeCont &nc);
+    NIImporter_OpenDrive(NBNodeCont &nc, std::vector<OpenDriveEdge> &edgeCont);
 
 
     /// @brief Destructor
@@ -120,93 +204,10 @@ protected:
     //@}
 
 
-private:
-    enum LinkType {
-        OPENDRIVE_LT_SUCCESSOR,
-        OPENDRIVE_LT_PREDECESSOR
-    };
-
-    enum ElementType {
-        OPENDRIVE_ET_UNKNOWN,
-        OPENDRIVE_ET_ROAD,
-        OPENDRIVE_ET_JUNCTION
-    };
-
-    enum ContactPoint {
-        OPENDRIVE_CP_UNKNOWN,
-        OPENDRIVE_CP_START,
-        OPENDRIVE_CP_END
-    };
-
-    enum GeometryType {
-        OPENDRIVE_GT_UNKNOWN,
-        OPENDRIVE_GT_LINE,
-        OPENDRIVE_GT_SPIRAL,
-        OPENDRIVE_GT_ARC,
-        OPENDRIVE_GT_POLY3
-    };
-
-    /**
-     * @struct OpenDriveLink
-     * @brief Representation of an openDrive connection 
-     */
-    struct OpenDriveLink {
-        OpenDriveLink(LinkType linkTypeArg, const std::string &elementIDArg)
-            : linkType(linkTypeArg), elementID(elementIDArg), 
-            elementType(OPENDRIVE_ET_UNKNOWN), contactPoint(OPENDRIVE_CP_UNKNOWN)
-        { }
-
-        LinkType linkType;
-        std::string elementID;
-        ElementType elementType;
-        ContactPoint contactPoint;
-    };
-
-
-    /**
-     * @struct OpenDriveGeometry
-     * @brief Representation of an openDrive geometry part 
-     */
-    struct OpenDriveGeometry {
-        OpenDriveGeometry(SUMOReal lengthArg, SUMOReal sArg, SUMOReal xArg, SUMOReal yArg, SUMOReal hdgArg)
-            : length(lengthArg), s(sArg), x(xArg), y(yArg), hdg(hdgArg),
-            type(OPENDRIVE_GT_UNKNOWN)
-        { }
-
-        SUMOReal length;
-        SUMOReal s;
-        SUMOReal x;
-        SUMOReal y;
-        SUMOReal hdg;
-        GeometryType type;
-        std::vector<SUMOReal> params;
-    };
-
-
-    /**
-     * @struct OpenDriveEdge
-     * @brief Representation of an openDrive road 
-     */
-    struct OpenDriveEdge {
-        OpenDriveEdge(const std::string &idArg, const std::string &junctionArg, SUMOReal lengthArg)
-            : id(idArg), junction(junctionArg), length(lengthArg)
-        { }
-
-        /// @brief The id of the edge
-        std::string id;
-        /// @brief The id of the junction the edge belongs to
-        std::string junction;
-        /// @brief The length of the edge
-        SUMOReal length;
-        std::vector<OpenDriveLink> links;
-        std::vector<OpenDriveGeometry> geometries;
-    };
-
-
 
 private:
-    void addLink(LinkType lt, const std::string &elementType, const std::string &elementID, 
-        const std::string &contactPoint) throw(ProcessError);
+    void addLink(LinkType lt, const std::string &elementType, const std::string &elementID,
+                 const std::string &contactPoint) throw(ProcessError);
 
     void addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals) throw(ProcessError);
 
@@ -214,7 +215,7 @@ private:
 
     OpenDriveEdge myCurrentEdge;
 
-
+    std::vector<OpenDriveEdge> &myEdges;
 };
 
 

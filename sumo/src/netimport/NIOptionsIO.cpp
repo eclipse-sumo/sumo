@@ -105,6 +105,9 @@ NIOptionsIO::fillOptions() {
     oc.addSynonyme("osm-files", "osm");
     oc.addDescription("osm-files", "Input", "Read OSM-network from path 'FILE(s)'");
 
+    oc.doRegister("opendrive", new Option_FileName());
+    oc.addDescription("opendrive", "Input", "Read openDrive-network from FILE");
+
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");
     oc.addDescription("visum-file", "Input", "Read VISUM-net from FILE");
@@ -127,6 +130,10 @@ NIOptionsIO::fillOptions() {
 
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     oc.addDescription("speed-in-kmh", "Processing", "vmax is parsed as given in km/h (some)");
+
+
+    oc.doRegister("xml.keep-shape", new Option_Bool(false));
+    oc.addDescription("xml.keep-shape", "Processing", "No node positions are added to the edge shape");
 
 
     oc.doRegister("shapefile.street-id", new Option_String());

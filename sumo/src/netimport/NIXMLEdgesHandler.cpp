@@ -182,7 +182,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             } else {
                 myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                                            myCurrentLaneNo, myCurrentPriority, myShape,
-                                           myLanesSpread);
+                                           myLanesSpread, OptionsCont::getOptions().getBool("xml.keep-shape"));
             }
             myCurrentEdge->setLoadedLength(myLength);
         }
@@ -209,13 +209,13 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_DISALLOW, ""), disallowed);
         SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_ALLOW, ""), allowed);
         SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_PREFER, ""), preferred);
-        for(std::vector<std::string>::iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+        for (std::vector<std::string>::iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
             myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(*i));
         }
-        for(std::vector<std::string>::iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+        for (std::vector<std::string>::iterator i=allowed.begin(); i!=allowed.end(); ++i) {
             myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(*i));
         }
-        for(std::vector<std::string>::iterator i=preferred.begin(); i!=preferred.end(); ++i) {
+        for (std::vector<std::string>::iterator i=preferred.begin(); i!=preferred.end(); ++i) {
             myCurrentEdge->preferVehicleClass(lane, getVehicleClassID(*i));
         }
 
@@ -250,11 +250,11 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         Split e;
         e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "split", 0, ok);
         std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
-        if(i!=mySplits.end()) {
+        if (i!=mySplits.end()) {
             MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
             return;
         }
-        if(e.pos<0) {
+        if (e.pos<0) {
             e.pos = myCurrentEdge->getGeometry().length() - e.pos;
         }
         e.nameid = e.pos;
@@ -270,7 +270,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             }
             std::vector<std::string> lanes;
             SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_LANES, ""), lanes);
-            for(std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+            for (std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
                 try {
                     int lane = TplConvert<char>::_2int((*i).c_str());
                     e.lanes.push_back(lane);
@@ -280,7 +280,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                     MsgHandler::getErrorInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
                 }
             }
-            if(e.lanes.size()==0) {
+            if (e.lanes.size()==0) {
                 MsgHandler::getErrorInstance()->inform("Missing lane information in split of edge '" + myCurrentID + "'.");
             } else {
                 mySplits.push_back(e);
@@ -406,7 +406,7 @@ NIXMLEdgesHandler::parseSplitLanes(const std::string &val) throw(ProcessError) {
         Split &e = mySplits.back();
         std::vector<std::string> lanes;
         SUMOSAXAttributes::parseStringVector(val, lanes);
-        for(std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        for (std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
             try {
                 int lane = TplConvert<char>::_2int((*i).c_str());
                 e.lanes.push_back(lane);
@@ -447,11 +447,11 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             for (i=mySplits.begin(); i!=mySplits.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);
                 sort((*i).lanes.begin(), (*i).lanes.end());
-                noLanesMax = MAX2(noLanesMax, (unsigned int) (*i).lanes.size());
+                noLanesMax = MAX2(noLanesMax, (unsigned int)(*i).lanes.size());
             }
             // split the edge
             std::vector<int> currLanes;
-            for(unsigned int l=0; l<noLanesMax; ++l) {
+            for (unsigned int l=0; l<noLanesMax; ++l) {
                 currLanes.push_back(l);
             }
             std::string edgeid = e->getID();
@@ -477,21 +477,21 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         //  new on right
                         unsigned int rightMostP = currLanes[0];
                         unsigned int rightMostN = newLanes[0];
-                        for(int l=0; l<(int) rightMostP-(int) rightMostN; ++l) {
+                        for (int l=0; l<(int) rightMostP-(int) rightMostN; ++l) {
                             pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
                         }
                         //  new on left
                         unsigned int leftMostP = currLanes[currLanes.size()-1];
                         unsigned int leftMostN = newLanes[newLanes.size()-1];
-                        for(int l=0; l<(int) leftMostN-(int) leftMostP; ++l) {
+                        for (int l=0; l<(int) leftMostN-(int) leftMostP; ++l) {
                             pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, leftMostN-l, NBEdge::L2L_VALIDATED, true);
                         }
                         //  all other connected
-                        for(unsigned int l=0; l<noLanesMax; ++l) {
-                            if(find(currLanes.begin(), currLanes.end(), l)==currLanes.end()) {
+                        for (unsigned int l=0; l<noLanesMax; ++l) {
+                            if (find(currLanes.begin(), currLanes.end(), l)==currLanes.end()) {
                                 continue;
                             }
-                            if(find(newLanes.begin(), newLanes.end(), l)==newLanes.end()) {
+                            if (find(newLanes.begin(), newLanes.end(), l)==newLanes.end()) {
                                 continue;
                             }
                             pe->addLane2LaneConnection(l-rightMostP, ne, l-rightMostN, NBEdge::L2L_VALIDATED, true);
@@ -499,10 +499,10 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                         // move to next
                         e = ne;
                         currLanes = newLanes;
-                    }else {
+                    } else {
                         MsgHandler::getWarningInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
                     }
-                }  else if(exp.pos==0) {
+                }  else if (exp.pos==0) {
                     e->decLaneNo(e->getNoLanes()-exp.lanes.size());
                     currLanes = exp.lanes;
                 } else {
@@ -512,17 +512,17 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             // patch lane offsets
             e = myEdgeCont.retrieve(edgeid);
             i = i=mySplits.begin();
-            if((*i).pos!=0) {
+            if ((*i).pos!=0) {
                 e = e->getToNode()->getOutgoingEdges()[0];
             }
             for (; i!=mySplits.end(); ++i) {
                 unsigned int maxLeft = (*i).lanes[(*i).lanes.size()-1];
-                if(maxLeft<noLanesMax) {
+                if (maxLeft<noLanesMax) {
                     Position2DVector g = e->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset*(noLanesMax-1-maxLeft));
                     e->setGeometry(g);
                 }
-                if(e->getToNode()->getOutgoingEdges().size()!=0) {
+                if (e->getToNode()->getOutgoingEdges().size()!=0) {
                     e = e->getToNode()->getOutgoingEdges()[0];
                 }
             }

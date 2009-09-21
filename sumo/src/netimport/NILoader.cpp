@@ -51,6 +51,7 @@
 #include <netimport/NIImporter_SUMO.h>
 #include <netimport/NIImporter_RobocupRescue.h>
 #include <netimport/NIImporter_OpenStreetMap.h>
+#include <netimport/NIImporter_OpenDrive.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
 #include <utils/common/TplConvert.h>
@@ -89,6 +90,7 @@ NILoader::load(OptionsCont &oc) {
     NIImporter_ArcView::loadNetwork(oc, myNetBuilder);
     NIImporter_Vissim::loadNetwork(oc, myNetBuilder);
     NIImporter_Elmar::loadNetwork(oc, myNetBuilder);
+    NIImporter_OpenDrive::loadNetwork(oc, myNetBuilder);
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
