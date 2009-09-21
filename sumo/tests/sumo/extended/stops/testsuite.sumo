@@ -10,9 +10,6 @@ cyclic_route
 # Tests whether max-depart-delay can be handled
 max_delay
 
-# Tests whether 20000 cars may wait
-stress
-
 # Tests whether the vehicle stops correctly at four stops located on the same edge but different lanes
 four_on_same
 
