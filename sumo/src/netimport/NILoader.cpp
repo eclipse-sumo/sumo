@@ -44,7 +44,7 @@
 #include <netimport/NIXMLNodesHandler.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>
-#include <netimport/NIImporter_Elmar.h>
+#include <netimport/NIImporter_DlrNavteq.h>
 #include <netimport/NIImporter_VISUM.h>
 #include <netimport/vissim/NIImporter_Vissim.h>
 #include <netimport/NIImporter_ArcView.h>
@@ -89,7 +89,7 @@ NILoader::load(OptionsCont &oc) {
     NIImporter_VISUM::loadNetwork(oc, myNetBuilder);
     NIImporter_ArcView::loadNetwork(oc, myNetBuilder);
     NIImporter_Vissim::loadNetwork(oc, myNetBuilder);
-    NIImporter_Elmar::loadNetwork(oc, myNetBuilder);
+    NIImporter_DlrNavteq::loadNetwork(oc, myNetBuilder);
     NIImporter_OpenDrive::loadNetwork(oc, myNetBuilder);
     loadXML(oc);
     // check the loaded structures

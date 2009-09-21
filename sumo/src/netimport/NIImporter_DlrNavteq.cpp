@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    NIImporter_Elmar.cpp
+/// @file    NIImporter_DlrNavteq.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id: NIImporter_Elmar.cpp 7703 2009-09-10 13:45:09Z simsiem $
+/// @version $Id: NIImporter_DlrNavteq.cpp 7703 2009-09-10 13:45:09Z simsiem $
 ///
 // Importer for networks stored in Elmar's format
 /****************************************************************************/
@@ -43,7 +43,7 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <netimport/NINavTeqHelper.h>
-#include "NIImporter_Elmar.h"
+#include "NIImporter_DlrNavteq.h"
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -65,7 +65,7 @@ using namespace std;
 // static methods
 // ---------------------------------------------------------------------------
 void
-NIImporter_Elmar::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("dlr-navteq")) {
         return;
@@ -98,19 +98,19 @@ NIImporter_Elmar::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 
 // ---------------------------------------------------------------------------
-// definitions of NIImporter_Elmar::NodesHandler-methods
+// definitions of NIImporter_DlrNavteq::NodesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_Elmar::NodesHandler::NodesHandler(NBNodeCont &nc,
+NIImporter_DlrNavteq::NodesHandler::NodesHandler(NBNodeCont &nc,
         const std::string &file,
         std::map<std::string, Position2DVector> &geoms) throw()
         : myNodeCont(nc), myGeoms(geoms) {}
 
 
-NIImporter_Elmar::NodesHandler::~NodesHandler() throw() {}
+NIImporter_DlrNavteq::NodesHandler::~NodesHandler() throw() {}
 
 
 bool
-NIImporter_Elmar::NodesHandler::report(const std::string &result) throw(ProcessError) {
+NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(ProcessError) {
     if (result[0]=='#') {
         return true;
     }
@@ -172,20 +172,20 @@ NIImporter_Elmar::NodesHandler::report(const std::string &result) throw(ProcessE
 
 
 // ---------------------------------------------------------------------------
-// definitions of NIImporter_Elmar::EdgesHandler-methods
+// definitions of NIImporter_DlrNavteq::EdgesHandler-methods
 // ---------------------------------------------------------------------------
-NIImporter_Elmar::EdgesHandler::EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
+NIImporter_DlrNavteq::EdgesHandler::EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
         Position2DVector> &geoms) throw()
         : myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms) {}
 
 
-NIImporter_Elmar::EdgesHandler::~EdgesHandler() throw() {}
+NIImporter_DlrNavteq::EdgesHandler::~EdgesHandler() throw() {}
 
 
 bool
-NIImporter_Elmar::EdgesHandler::report(const std::string &result) throw(ProcessError) {
+NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(ProcessError) {
 //	0: LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID
 //  4: length	vehicle_type	form_of_way	brunnel_type
 //  7: street_type	speed_category	number_of_lanes	average_speed

@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    NIImporter_Elmar.h
+/// @file    NIImporter_DlrNavteq.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id: NIImporter_Elmar.h 7703 2009-09-10 13:45:09Z simsiem $
+/// @version $Id: NIImporter_DlrNavteq.h 7703 2009-09-10 13:45:09Z simsiem $
 ///
 // Importer for networks stored in Elmar's format
 /****************************************************************************/
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef NIImporter_Elmar_h
-#define NIImporter_Elmar_h
+#ifndef NIImporter_DlrNavteq_h
+#define NIImporter_DlrNavteq_h
 
 
 // ===========================================================================
@@ -51,11 +51,11 @@ class Position2DVector;
 // class definitions
 // ===========================================================================
 /**
- * @class NIImporter_Elmar
+ * @class NIImporter_DlrNavteq
  * @brief Importer for networks stored in Elmar's format
  *
  */
-class NIImporter_Elmar {
+class NIImporter_DlrNavteq {
 public:
     /** @brief Loads content of the optionally given Elmar folder
      *

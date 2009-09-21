@@ -69,58 +69,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug|x64"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\x64.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				Culture="1031"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Release|Win32"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops"
@@ -173,9 +121,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|x64"
+			Name="Fastbuild|Win32"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops"
+			InheritedPropertySheets="..\Win32.vsprops;..\Fastbuild.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -225,9 +173,61 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Fastbuild|Win32"
+			Name="Debug|x64"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Win32.vsprops;..\Fastbuild.vsprops"
+			InheritedPropertySheets="..\x64.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				Culture="1031"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -342,7 +342,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netimport\NIImporter_Elmar.cpp"
+				RelativePath="..\..\..\src\netimport\NIImporter_DlrNavteq.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_OpenDrive.cpp"
 				>
 			</File>
 			<File
@@ -403,7 +407,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netimport\NIImporter_Elmar.h"
+				RelativePath="..\..\..\src\netimport\NIImporter_DlrNavteq.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_OpenDrive.h"
 				>
 			</File>
 			<File
