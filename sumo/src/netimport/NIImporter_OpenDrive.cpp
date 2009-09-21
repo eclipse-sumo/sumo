@@ -108,14 +108,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                     pos = Position2D(e.geometries[0].x, e.geometries[0].y);
                 }
             }
-            if (nb.getNodeCont().retrieve(nid)==0) {
-                // not yet built; build now
-                if (!nb.getNodeCont().insert(nid, pos)) {
-                    // !!! clean up
-                    throw ProcessError("Could not add node '" + nid + "'.");
-                }
-            }
-            NBNode *n = nb.getNodeCont().retrieve(nid);
+            NBNode *n = getOrBuildNode(nid, pos, nb.getNodeCont());
             if (l.linkType==OPENDRIVE_LT_SUCCESSOR) {
                 if (e.to!=0&&e.to!=n) {
                     throw ProcessError("Edge '" + e.id + "' has two ending nodes.");
@@ -131,20 +124,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         if(e.from==0) {
             std::string nid = e.id + ".begin";
             Position2D pos(e.geometries[0].x, e.geometries[0].y);
-            if (!nb.getNodeCont().insert(nid, pos)) {
-                // !!! clean up
-                throw ProcessError("Could not add node '" + nid + "'.");
-            }
-            e.from = nb.getNodeCont().retrieve(nid);
+            e.from = getOrBuildNode(nid, pos, nb.getNodeCont());
         }
         if(e.to==0) {
             std::string nid = e.id + ".end";
             Position2D pos(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
-            if (!nb.getNodeCont().insert(nid, pos)) {
-                // !!! clean up
-                throw ProcessError("Could not add node '" + nid + "'.");
-            }
-            e.to = nb.getNodeCont().retrieve(nid);
+            e.to = getOrBuildNode(nid, pos, nb.getNodeCont());
         }
     }
     // build edges
@@ -167,6 +152,23 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
 }
 
+
+NBNode *
+NIImporter_OpenDrive::getOrBuildNode(const std::string &id, Position2D &pos, 
+                                     NBNodeCont &nc) throw(ProcessError)
+{
+    if (nc.retrieve(id)==0) {
+        // not yet built; build now
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node '" + id + "'.");
+        }
+        if (!nc.insert(id, pos)) {
+            // !!! clean up
+            throw ProcessError("Could not add node '" + id + "'.");
+        }
+    }
+    return nc.retrieve(id);
+}
 
 
 // ---------------------------------------------------------------------------

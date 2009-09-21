@@ -41,6 +41,7 @@ class NBNetBuilder;
 class NBEdge;
 class OptionsCont;
 class NBNode;
+class NBNodeCont;
 
 
 // ===========================================================================
@@ -69,6 +70,23 @@ public:
      * @param[in] nb The network builder to fill
      */
     static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
+
+
+protected:
+    /** @brief Builds a node or returns the already built
+     *
+     * If the node is already known, it is returned. Otherwise, the
+     *  position is converted, and the node is built. If the newly
+     *  built node can not be added to the container, a ProcessError
+     *  is thrown. Otherwise this node is returned.
+     *
+     * @param[in] id The id of the node to build/get
+     * @param[in, changed] pos The position of the node to build/get
+     * @param[filled] nc The node container to retrieve/add the node to
+     * @return The retrieved/built node
+     * @exception ProcessError If the node could not be built/retrieved
+     */
+    static NBNode *getOrBuildNode(const std::string &id, Position2D &pos, NBNodeCont &nc) throw(ProcessError);
 
 
 protected:
