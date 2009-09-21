@@ -426,14 +426,14 @@ NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
 void
 NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
-    if (element==SUMO_TAG_NODE) {
+    if (element == SUMO_TAG_NODE) {
         bool ok = true;
         int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
         if (!ok) {
             return;
         }
         myLastNodeID = -1;
-        if (myToFill.find(id)==myToFill.end()) {
+        if (myToFill.find(id) == myToFill.end()) {
             myLastNodeID = id;
             // assume we are loading multiple files...
             //  ... so we won't report duplicate nodes
@@ -465,7 +465,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             myToFill[toAdd->id] = toAdd;
         }
     }
-    if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_NODE) {
+    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 &&
+    		myParentElements[myParentElements.size()-2] == SUMO_TAG_NODE) {
         string key, value;
         try {
             // retrieve the id of the (geometry) node
@@ -481,10 +482,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             MsgHandler::getErrorInstance()->inform("'value' in node '" + toString(myLastNodeID) + "' misses a value.");
             return;
         }
-        if (key=="highway"&&value.find("traffic_signal")!=string::npos) {
-            if (myLastNodeID!=-1) {
-                myToFill[myLastNodeID]->tlsControlled = true;
-            }
+        if (key == "highway" && value.find("traffic_signal") != string::npos) {
+            myToFill[myLastNodeID]->tlsControlled = true;
         }
     }
 }
