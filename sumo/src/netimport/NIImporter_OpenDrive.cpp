@@ -93,7 +93,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             Position2D pos;
             // !!! check other cases
             if (l.elementType==OPENDRIVE_ET_ROAD) {
-                if (l.contactPoint==OPENDRIVE_CP_END) {
+                if (l.linkType==OPENDRIVE_LT_SUCCESSOR) {
                     nid = e.id + "_to_" + l.elementID;
                     pos = Position2D(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
                 } else {
@@ -112,11 +112,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                 // not yet built; build now
                 if (!nb.getNodeCont().insert(nid, pos)) {
                     // !!! clean up
-                    throw ProcessError("Could not add node '" + l.elementID + "'.");
+                    throw ProcessError("Could not add node '" + nid + "'.");
                 }
             }
             NBNode *n = nb.getNodeCont().retrieve(nid);
-            if (l.contactPoint==OPENDRIVE_CP_END) {
+            if (l.linkType==OPENDRIVE_LT_SUCCESSOR) {
                 if (e.to!=0&&e.to!=n) {
                     throw ProcessError("Edge '" + e.id + "' has two ending nodes.");
                 }
@@ -127,6 +127,24 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                 }
                 e.from = n;
             }
+        }
+        if(e.from==0) {
+            std::string nid = e.id + ".begin";
+            Position2D pos(e.geometries[0].x, e.geometries[0].y);
+            if (!nb.getNodeCont().insert(nid, pos)) {
+                // !!! clean up
+                throw ProcessError("Could not add node '" + nid + "'.");
+            }
+            e.from = nb.getNodeCont().retrieve(nid);
+        }
+        if(e.to==0) {
+            std::string nid = e.id + ".end";
+            Position2D pos(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
+            if (!nb.getNodeCont().insert(nid, pos)) {
+                // !!! clean up
+                throw ProcessError("Could not add node '" + nid + "'.");
+            }
+            e.to = nb.getNodeCont().retrieve(nid);
         }
     }
     // build edges
@@ -188,17 +206,25 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
     }
     break;
     case SUMO_TAG_OPENDRIVE_PREDECESSOR: {
-        std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, "predecessor", myCurrentEdge.id.c_str(), ok);
-        std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, "predecessor", myCurrentEdge.id.c_str(), ok);
-        std::string contactPoint = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, "predecessor", myCurrentEdge.id.c_str(), ok);
-        addLink(OPENDRIVE_LT_PREDECESSOR, elementType, elementID, contactPoint);
+        if(myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_ROAD) {
+            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, "predecessor", myCurrentEdge.id.c_str(), ok);
+            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, "predecessor", myCurrentEdge.id.c_str(), ok);
+            std::string contactPoint = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_CONTACTPOINT)
+                ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, "predecessor", myCurrentEdge.id.c_str(), ok)
+                : "end";
+            addLink(OPENDRIVE_LT_PREDECESSOR, elementType, elementID, contactPoint);
+        }
     }
     break;
     case SUMO_TAG_OPENDRIVE_SUCCESSOR: {
-        std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, "successor", myCurrentEdge.id.c_str(), ok);
-        std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, "successor", myCurrentEdge.id.c_str(), ok);
-        std::string contactPoint = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, "successor", myCurrentEdge.id.c_str(), ok);
-        addLink(OPENDRIVE_LT_SUCCESSOR, elementType, elementID, contactPoint);
+        if(myElementStack[myElementStack.size()-2]==SUMO_TAG_OPENDRIVE_ROAD) {
+            std::string elementType = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTTYPE, "successor", myCurrentEdge.id.c_str(), ok);
+            std::string elementID = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_ELEMENTID, "successor", myCurrentEdge.id.c_str(), ok);
+            std::string contactPoint = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_CONTACTPOINT)
+                ? attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_CONTACTPOINT, "successor", myCurrentEdge.id.c_str(), ok)
+                : "start";
+            addLink(OPENDRIVE_LT_SUCCESSOR, elementType, elementID, contactPoint);
+        }
     }
     break;
     case SUMO_TAG_OPENDRIVE_GEOMETRY: {
@@ -240,6 +266,7 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
     default:
         break;
     }
+    myElementStack.push_back(element);
 }
 
 
@@ -252,6 +279,7 @@ NIImporter_OpenDrive::myCharacters(SumoXMLTag element,
 
 void
 NIImporter_OpenDrive::myEndElement(SumoXMLTag element) throw(ProcessError) {
+    myElementStack.pop_back();
     switch (element) {
     case SUMO_TAG_OPENDRIVE_ROAD:
         myEdges.push_back(myCurrentEdge);

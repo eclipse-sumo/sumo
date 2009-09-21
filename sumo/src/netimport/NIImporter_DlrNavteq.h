@@ -57,7 +57,7 @@ class Position2DVector;
  */
 class NIImporter_DlrNavteq {
 public:
-    /** @brief Loads content of the optionally given Elmar folder
+    /** @brief Loads content of the optionally given dlr-navteq (aka Elmar-fomat) folder
      *
      * If the option "dlr-navteq" is set, the file(s) stored therein is read and
      *  the network definition stored therein is stored within the given network
@@ -78,7 +78,7 @@ protected:
      *
      * Being a LineHandler, this class retrieves each line from a LineReader
      * and parses these information assuming they contain node definitions
-     * in Elmar's unsplit format.
+     * in DLRNavteq's unsplit format.
      */
     class NodesHandler : public LineHandler {
     public:
@@ -133,7 +133,7 @@ protected:
      *
      * Being a LineHandler, this class retrieves each line from a LineReader
      * and parses these information assuming they contain edge definitions
-     * in Elmar's unsplit format.
+     * in DLRNavteq's unsplit format.
      */
     class EdgesHandler : public LineHandler {
     public:

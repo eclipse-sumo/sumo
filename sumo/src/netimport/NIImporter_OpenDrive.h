@@ -216,6 +216,7 @@ private:
     OpenDriveEdge myCurrentEdge;
 
     std::vector<OpenDriveEdge> &myEdges;
+    std::vector<SumoXMLTag> myElementStack;
 };
 
 
