@@ -9,6 +9,7 @@
         <shapefile value=""/>
         <dlr-navteq value=""/>
         <osm-files value=""/>
+        <opendrive value=""/>
         <visum-file value=""/>
         <vissim-file value=""/>
         <robocup-net value=""/>
@@ -78,6 +79,7 @@
         <dismiss-loading-errors value="false"/>
         <capacity-norm value="1800"/>
         <speed-in-kmh value="false"/>
+        <xml.keep-shape value="false"/>
         <shapefile.street-id value=""/>
         <shapefile.from-id value=""/>
         <shapefile.to-id value=""/>

@@ -25,6 +25,9 @@
         <!-- Read OSM-network from path 'FILE(s)' -->
         <osm-files value=""/>
 
+        <!-- Read openDrive-network from FILE -->
+        <opendrive value=""/>
+
         <!-- Read VISUM-net from FILE -->
         <visum-file value=""/>
 
@@ -189,6 +192,9 @@
 
         <!-- vmax is parsed as given in km/h (some) -->
         <speed-in-kmh value="false"/>
+
+        <!-- No node positions are added to the edge shape -->
+        <xml.keep-shape value="false"/>
 
         <!-- Read edge ids from column STR -->
         <shapefile.street-id value=""/>

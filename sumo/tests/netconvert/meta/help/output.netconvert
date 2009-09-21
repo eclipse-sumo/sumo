@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r7709
+SUMO netconvert Version dev-SVN-r7755
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -28,6 +28,7 @@ Usage: netconvert.exe [OPTION]*
                                          (unsplitted Elmar-network) from path
                                          'FILE'
   --osm-files FILE                     Read OSM-network from path 'FILE(s)'
+  --opendrive FILE                     Read openDrive-network from FILE
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
   --robocup-net FILE                   Read RoboCup-net from DIR
@@ -107,6 +108,8 @@ Usage: netconvert.exe [OPTION]*
   --dismiss-loading-errors             Continue on broken input
   --capacity-norm FLOAT                The factor for flow to no. lanes conv
   --speed-in-kmh                       vmax is parsed as given in km/h (some)
+  --xml.keep-shape                     No node positions are added to the edge
+                                         shape
   --shapefile.street-id STR            Read edge ids from column STR
   --shapefile.from-id STR              Read from-node ids from column STR
   --shapefile.to-id STR                Read to-node ids from column STR
