@@ -88,7 +88,7 @@ protected:
          * @param[in, geoms] geoms Storage for read edge geometries
          */
         NodesHandler(NBNodeCont &nc, const std::string &file,
-            std::map<std::string, Position2DVector> &geoms) throw();
+                     std::map<std::string, Position2DVector> &geoms) throw();
 
 
         /// @brief Destructor
@@ -144,7 +144,7 @@ protected:
          * @param[in] geoms The previously read edge geometries
          */
         EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-            const std::string &file, std::map<std::string, Position2DVector> &geoms) throw();
+                     const std::string &file, std::map<std::string, Position2DVector> &geoms) throw();
 
 
         /// @brief Destructor

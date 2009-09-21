@@ -108,8 +108,8 @@ protected:
 
 
 private:
-	class CompareNodesInPairs;
-	class SubstituteNode;
+    class CompareNodesInPairs;
+    class SubstituteNode;
 
     /** @brief Builds an NBNode
      *

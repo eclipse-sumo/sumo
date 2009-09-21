@@ -202,7 +202,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
     // process inner edges which shall be controlled
     std::vector<std::string> controlledInner;
     SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_CONTROLLED_INNER, ""), controlledInner);
-    if(controlledInner.size()!=0) {
+    if (controlledInner.size()!=0) {
         tlDef->addControlledInnerEdges(controlledInner);
     }
 }
