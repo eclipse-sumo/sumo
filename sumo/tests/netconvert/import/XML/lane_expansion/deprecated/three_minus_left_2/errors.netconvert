@@ -1,2 +1,3 @@
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
+Warning: Detected isolated roads. Use the option --remove-isolated to get a list of all affected edges.

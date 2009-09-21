@@ -8,20 +8,21 @@ Removing duplicate nodes... ...done.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
-Computing step 3: Normalising node positions
-Computing step 4: Guessing and setting TLs
-Computing step 5: Computing turning directions
-Computing step 6: Sorting nodes' edges
-Computing step 7: Computing Approached Edges
-Computing step 8: Computing Approaching Lanes
-Computing step 9: Dividing of Lanes on Approached Lanes
-Computing step 10: Appending Turnarounds
-Computing step 11: Rechecking of lane endings
-Computing step 12: Computing node shapes
-Computing step 13: Computing edge shapes
-Computing step 14: Computing tls logics
-Computing step 15: Computing node logics
-Computing step 16: Computing traffic light logics
+Computing step 3: Finding isolated roads
+Computing step 4: Normalising node positions
+Computing step 5: Guessing and setting TLs
+Computing step 6: Computing turning directions
+Computing step 7: Sorting nodes' edges
+Computing step 8: Computing Approached Edges
+Computing step 9: Computing Approaching Lanes
+Computing step 10: Dividing of Lanes on Approached Lanes
+Computing step 11: Appending Turnarounds
+Computing step 12: Rechecking of lane endings
+Computing step 13: Computing node shapes
+Computing step 14: Computing edge shapes
+Computing step 15: Computing tls logics
+Computing step 16: Computing node logics
+Computing step 17: Computing traffic light logics
 2 traffic light(s) computed.
 -----------------------------------------------------
 Summary:

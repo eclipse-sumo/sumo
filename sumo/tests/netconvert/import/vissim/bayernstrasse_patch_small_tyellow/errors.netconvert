@@ -234,6 +234,7 @@ Warning: The signal '53222' could not be assigned to tl '532'.
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 4 of 37 signals.
+Warning: Detected isolated roads. Use the option --remove-isolated to get a list of all affected edges.
 Warning: The traffic light '451' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '451'
 Warning: The traffic light '452' has no incoming edges; it will not be build.
