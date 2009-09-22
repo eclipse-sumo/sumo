@@ -1,0 +1,1 @@
+--osm-files osm.xml --output-file net.net.xml -v --proj.utm --dismiss-loading-errors

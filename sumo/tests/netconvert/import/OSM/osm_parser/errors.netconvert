@@ -1,0 +1,7 @@
+Error: Node '-4' has no lat information.
+Error: Tag element on wrong XML hierarchy level.
+Error: Attribute 'id' is missing in definition of a(n) node.
+Error: Node '-122' has no lon information.
+Error: Node element on wrong XML hierarchy level.
+Error: The referenced geometry information (ref='-4') is not known
+Error: The referenced geometry information (ref='-24') is not known

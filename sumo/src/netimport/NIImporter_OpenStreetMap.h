@@ -193,10 +193,9 @@ private:
         /// @brief The nodes container to fill
         std::map<int, NIOSMNode*> &myToFill;
 
-        /// @brief The element stack
-        std::vector<SumoXMLTag> myParentElements;
-
         int myLastNodeID;
+        bool myIsInValidNodeTag;
+        int myHierarchyLevel;
 
     private:
         /** @brief invalidated copy constructor */

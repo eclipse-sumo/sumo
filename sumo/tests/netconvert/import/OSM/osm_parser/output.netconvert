@@ -1,0 +1,42 @@
+Parsing nodes from osm-file 'osm.xml'... 
+done.
+Parsing edges from osm-file 'osm.xml'... 
+done.
+Removing duplicate nodes... 
+Found duplicate nodes. Substitute -14 with -20
+...done.
+ Import done:
+   16 nodes loaded.
+   30 types loaded.
+   34 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Computing step 1: Removing dummy edges
+Computing step 2: Joining double connections
+Computing step 3: Finding isolated roads
+Computing step 4: Normalising node positions
+Computing step 5: Guessing and setting TLs
+Computing step 6: Computing turning directions
+Computing step 7: Sorting nodes' edges
+Computing step 8: Computing Approached Edges
+Computing step 9: Computing Approaching Lanes
+Computing step 10: Dividing of Lanes on Approached Lanes
+Computing step 11: Appending Turnarounds
+Computing step 12: Rechecking of lane endings
+Computing step 13: Computing node shapes
+Computing step 14: Computing edge shapes
+Computing step 15: Computing tls logics
+Computing step 16: Computing node logics
+Computing step 17: Computing traffic light logics
+1 traffic light(s) computed.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 14
+  Right-before-left junctions : 2
+ Network boundaries:
+  Original boundary  : 11.21,48.86,11.25,48.88
+  Applied offset     : -662333.88,-5414157.00
+  Converted boundary : 0.00,0.00,2377.19,1842.50
+-----------------------------------------------------
+Success.

@@ -417,7 +417,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
-        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1) {}
+        : SUMOSAXHandler("osm - file"), myToFill(toFill), myLastNodeID(-1), myIsInValidNodeTag(false), myHierarchyLevel(0) {}
 
 
 NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
@@ -425,8 +425,12 @@ NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
 
 void
 NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    myParentElements.push_back(element);
+	++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
+    	if (myHierarchyLevel != 2) {
+    		MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level.");
+    		return;
+    	}
         bool ok = true;
         int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
         if (!ok) {
@@ -463,10 +467,14 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
                 return;
             }
             myToFill[toAdd->id] = toAdd;
+            myIsInValidNodeTag = true;
         }
     }
-    if (element == SUMO_TAG_TAG && myParentElements.size() > 2 &&
-    		myParentElements[myParentElements.size()-2] == SUMO_TAG_NODE) {
+    if (element == SUMO_TAG_TAG && myIsInValidNodeTag) {
+    	if (myHierarchyLevel != 3) {
+    		MsgHandler::getErrorInstance()->inform("Tag element on wrong XML hierarchy level.");
+    		return;
+    	}
         string key, value;
         try {
             // retrieve the id of the (geometry) node
@@ -491,10 +499,11 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
 
 void
 NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
-    if (element==SUMO_TAG_NODE) {
+    if (element==SUMO_TAG_NODE && myHierarchyLevel == 2) {
         myLastNodeID = -1;
+        myIsInValidNodeTag = false;
     }
-    myParentElements.pop_back();
+	--myHierarchyLevel;
 }
 
 

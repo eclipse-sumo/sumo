@@ -5,3 +5,6 @@ eichstaett
 
 # In this scenario, two nodes with the same coordinates start the shape of an edge.
 duplicate_nodes
+
+# Tests the robustness of the parser with a defective OSM file
+osm_parser
