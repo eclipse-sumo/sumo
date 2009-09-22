@@ -111,18 +111,17 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             default:
                 break;
             }
-            std::copy(geom.begin(), geom.end(), std::back_inserter(e.geom));
-            if(geom.size()!=1&&j!=e.geometries.end()-1) {
-                e.geom.pop_back();
+            for(std::vector<Position2D>::iterator k=geom.begin(); k!=geom.end(); ++k) {
+                e.geom.push_back_noDoublePos(*k);
             }
         }
-        for(std::vector<Position2D>::iterator j=e.geom.begin(); j!=e.geom.end(); ++j) {
-            if(!GeoConvHelper::x2cartesian(*j)) {
+        for(unsigned int j=0; j<e.geom.size(); ++j) {
+            if(!GeoConvHelper::x2cartesian(e.geom[j])) {
                 MsgHandler::getErrorInstance()->inform("Unable to project coordinates for.");
             }
         }
     }
-    // build nodes
+    // build start/end nodes
     for (std::vector<OpenDriveEdge>::iterator i=edges.begin(); i!=edges.end(); ++i) {
         OpenDriveEdge &e = *i;
         for (std::vector<OpenDriveLink>::iterator j=e.links.begin(); j!=e.links.end(); ++j) {
@@ -174,11 +173,20 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     for (std::vector<OpenDriveEdge>::iterator i=edges.begin(); i!=edges.end(); ++i) {
         OpenDriveEdge &e = *i;
         SUMOReal speed = nb.getTypeCont().getDefaultSpeed();
-        int nolanes = nb.getTypeCont().getDefaultNoLanes();
         int priority = nb.getTypeCont().getDefaultPriority();
-        NBEdge *nbe = new NBEdge(e.id, e.from, e.to, "", speed, nolanes, priority, Position2DVector(e.geom), NBEdge::LANESPREAD_CENTER);
-        if (!nb.getEdgeCont().insert(nbe)) {
-            throw ProcessError("Could not add edge '" + e.id + "'.");
+        unsigned int nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_RIGHT);
+        if(nolanes>0) {
+            NBEdge *nbe = new NBEdge(e.id, e.from, e.to, "", speed, nolanes, priority, e.geom, NBEdge::LANESPREAD_RIGHT);
+            if (!nb.getEdgeCont().insert(nbe)) {
+                throw ProcessError("Could not add edge '" + e.id + "'.");
+            }
+        }
+        nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT);
+        if(nolanes>0) {
+            NBEdge *nbe = new NBEdge("-" + e.id, e.to, e.from, "", speed, nolanes, priority, e.geom.reverse(), NBEdge::LANESPREAD_RIGHT);
+            if (!nb.getEdgeCont().insert(nbe)) {
+                throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
+            }
         }
     }
     // build connections
@@ -659,6 +667,36 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
         addGeometryShape(OPENDRIVE_GT_POLY3, vals);
     }
     break;
+    case SUMO_TAG_OPENDRIVE_LANESECTION: {
+        SUMOReal s = attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_S, "geometry", myCurrentEdge.id.c_str(), ok);
+        myCurrentEdge.laneSections.push_back(OpenDriveLaneSection(s));
+    }
+    break;
+    case SUMO_TAG_OPENDRIVE_LEFT:
+    case SUMO_TAG_OPENDRIVE_CENTER:
+    case SUMO_TAG_OPENDRIVE_RIGHT:
+        myCurrentLaneDirection = element;
+        break;
+    case SUMO_TAG_LANE: // !!!
+    case SUMO_TAG_OPENDRIVE_LANE: {
+        std::string type = attrs.getStringReporting(SUMO_ATTR_OPENDRIVE_TYPE, "lane", myCurrentEdge.id.c_str(), ok);
+        int id = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_ID)
+            ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_ID, "lane", myCurrentEdge.id.c_str(), ok)
+            : attrs.getIntReporting(SUMO_ATTR_ID, "lane", myCurrentEdge.id.c_str(), ok);
+        int level = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, "lane", myCurrentEdge.id.c_str(), ok);
+        OpenDriveLaneSection &ls = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1];
+        switch(myCurrentLaneDirection) {
+        case SUMO_TAG_OPENDRIVE_LEFT:
+            ls.lanesByDir[SUMO_TAG_OPENDRIVE_LEFT].push_back(OpenDriveLane(id, level, type));
+            break;
+        case SUMO_TAG_OPENDRIVE_CENTER:
+            ls.lanesByDir[SUMO_TAG_OPENDRIVE_CENTER].push_back(OpenDriveLane(id, level, type));
+            break;
+        case SUMO_TAG_OPENDRIVE_RIGHT:
+            ls.lanesByDir[SUMO_TAG_OPENDRIVE_RIGHT].push_back(OpenDriveLane(id, level, type));
+            break;
+        }
+    }
     default:
         break;
     }

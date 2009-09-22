@@ -135,6 +135,48 @@ protected:
 
 
     /**
+     * @struct OpenDriveLane
+     * @brief Representation of a lane 
+     */
+    struct OpenDriveLane {
+        OpenDriveLane(int idArg, int levelArg, const std::string &typeArg)
+                : id(idArg), level(levelArg), type(typeArg) { }
+
+        int id;
+        int level;
+        std::string type;
+    };
+
+
+    /**
+     * @struct OpenDriveLaneSection
+     * @brief Representation of a lane section
+     */
+    struct OpenDriveLaneSection {
+        OpenDriveLaneSection(SUMOReal sArg)
+                : s(sArg) { 
+            lanesByDir[SUMO_TAG_OPENDRIVE_LEFT] = std::vector<OpenDriveLane>();
+            lanesByDir[SUMO_TAG_OPENDRIVE_RIGHT] = std::vector<OpenDriveLane>();
+            lanesByDir[SUMO_TAG_OPENDRIVE_CENTER] = std::vector<OpenDriveLane>();
+        }
+
+        unsigned int getLaneNumber(SumoXMLTag dir) const throw() {
+            unsigned int laneNum = 0;
+            const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
+            for(std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
+                if((*i).type=="driving") {
+                    ++laneNum;
+                }
+            }
+            return laneNum;
+        }
+
+        SUMOReal s;
+        std::map<SumoXMLTag, std::vector<OpenDriveLane> > lanesByDir;
+    };
+
+
+    /**
      * @struct OpenDriveEdge
      * @brief Representation of an openDrive road
      */
@@ -142,6 +184,14 @@ protected:
         OpenDriveEdge(const std::string &idArg, const std::string &junctionArg, SUMOReal lengthArg)
                 : id(idArg), junction(junctionArg), length(lengthArg),
                 from(0), to(0) { }
+
+        unsigned int getMaxLaneNumber(SumoXMLTag dir) const throw() {
+            unsigned int maxLaneNum = 0;
+            for(std::vector<OpenDriveLaneSection>::const_iterator i=laneSections.begin(); i!=laneSections.end(); ++i) {
+                maxLaneNum = MAX2(maxLaneNum, (*i).getLaneNumber(dir));
+            }
+            return maxLaneNum;
+        }
 
         /// @brief The id of the edge
         std::string id;
@@ -153,7 +203,8 @@ protected:
         std::vector<OpenDriveGeometry> geometries;
         NBNode *from;
         NBNode *to;
-        std::vector<Position2D> geom;
+        Position2DVector geom;
+        std::vector<OpenDriveLaneSection> laneSections;
     };
 
 
@@ -220,6 +271,7 @@ private:
 
     std::vector<OpenDriveEdge> &myEdges;
     std::vector<SumoXMLTag> myElementStack;
+    SumoXMLTag myCurrentLaneDirection;
 
 
 protected:
