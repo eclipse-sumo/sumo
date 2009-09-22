@@ -370,11 +370,11 @@ if __name__ == "__main__":
     optParser.add_option("-r", "--data-dir", dest="datadir",
                          default= os.getcwd(), help="give the data directory path")
     optParser.add_option("-n", "--net-file", dest="netfile",
-                         help="define the net file")
+                         help="define the net file (mandatory)")
     optParser.add_option("-m", "--matrix-file", dest="mtxfile",
-                         help="define the matrix file")
+                         help="define the matrix file (mandatory)")
     optParser.add_option("-d", "--districts-file", dest="districtfile",
-                         help="define the district file")
+                         help="define the district file (mandatory)")
     optParser.add_option("-l", "--limitlength", action="store_true", dest="limitlength",
                         default=False, help="the route length of possible connections of a given OD pair shall be less than 1.6 * min.length")   
     optParser.add_option("-t", "--trip-file", dest="tripfile",
