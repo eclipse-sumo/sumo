@@ -91,6 +91,9 @@ SUMOReal MSCFModel_Krauss::interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SU
 }
 
 bool MSCFModel_Krauss::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
+    if(gap<0) {
+        return false;
+    }
     SUMOReal vSafe = MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
     SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
     return (vNext>=myType->getSpeedAfterMaxDecel(speed)

@@ -99,6 +99,9 @@ SUMOReal MSCFModel_IDM::interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOR
 
 /// @todo update logic to IDM
 bool MSCFModel_IDM::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
+    if(gap<0) {
+        return false;
+    }
     SUMOReal vSafe = _updateSpeed(speed, gap, predSpeed, laneMaxSpeed);
     SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
     return (vNext>=myType->getSpeedAfterMaxDecel(speed)
