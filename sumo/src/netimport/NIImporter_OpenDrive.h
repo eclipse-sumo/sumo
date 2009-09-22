@@ -247,6 +247,8 @@ protected:
     static void calculateClothoidProperties(SUMOReal *x, SUMOReal *y, SUMOReal *hdg, SUMOReal curve, SUMOReal length, SUMOReal dist, bool direction) throw();
     static void calculateFirstClothoidPoint(SUMOReal* ad_X, SUMOReal* ad_Y, SUMOReal* ad_hdg, SUMOReal ad_curvature, SUMOReal ad_lengthE) throw();
     static void calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw();
+    static void calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY, 
+						   SUMOReal ad_r, SUMOReal ad_length) throw();
 
 };
 

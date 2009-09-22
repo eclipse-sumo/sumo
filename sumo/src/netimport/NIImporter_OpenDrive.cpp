@@ -112,7 +112,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
                 break;
             }
             std::copy(geom.begin(), geom.end(), std::back_inserter(e.geom));
-            if(j!=e.geometries.end()-1) {
+            if(geom.size()!=1&&j!=e.geometries.end()-1) {
                 e.geom.pop_back();
             }
         }
@@ -355,6 +355,7 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
         if(geo_posE - g.s > g.length) {
 			geo_posE = g.s + g.length;
 		}
+        calcPointOnCurve(&endX, &endY, centerX, centerY, radius, geo_posE - geo_posS);
 		//Berechnen des Richtungswinkels des Berechneten Punktes
 		dist += (geo_posE - geo_posS);
 		if(curvature > 0.0) {
@@ -538,6 +539,32 @@ NIImporter_OpenDrive::calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOR
 	*ad_y += normY;
 }
 
+//Berechnung eines Punktes auf der Kurve in Abhängigkeit von ad_length
+void
+NIImporter_OpenDrive::calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY, 
+						   SUMOReal ad_r, SUMOReal ad_length) throw()
+{
+	//Mittelpunktswinkel
+	double rotAngle = ad_length/abs(ad_r);
+	//Vektor vom Mittelpunkt zum Startpunkt
+	double vx = *ad_x - ad_centerX;
+	double vy = *ad_y - ad_centerY;
+	double tmpx;
+
+	double turn;
+	if(ad_r > 0)
+		turn = -1; //Links
+	else
+		turn = 1; //Rechts
+	tmpx = vx;
+	//Rotation (Beachtung der Richtung)
+	vx = vx * cos(rotAngle) + turn * vy * sin(rotAngle);
+	vy = -1 * turn * tmpx * sin(rotAngle) + vy * cos(rotAngle);
+	//Verschiebung
+	*ad_x = vx + ad_centerX;
+	*ad_y = vy + ad_centerY;
+}
+
 // ---------------------------------------------------------------------------
 // loader methods
 // ---------------------------------------------------------------------------
@@ -614,13 +641,13 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
         std::vector<SUMOReal> vals;
         vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVSTART, "spiral", myCurrentEdge.id.c_str(), ok));
         vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVEND, "spiral", myCurrentEdge.id.c_str(), ok));
-        addGeometryShape(OPENDRIVE_GT_LINE, vals);
+        addGeometryShape(OPENDRIVE_GT_SPIRAL, vals);
     }
     break;
     case SUMO_TAG_OPENDRIVE_ARC: {
         std::vector<SUMOReal> vals;
         vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_CURVATURE, "arc", myCurrentEdge.id.c_str(), ok));
-        addGeometryShape(OPENDRIVE_GT_LINE, vals);
+        addGeometryShape(OPENDRIVE_GT_ARC, vals);
     }
     break;
     case SUMO_TAG_OPENDRIVE_POLY3: {
@@ -629,7 +656,7 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
         vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_B, "poly3", myCurrentEdge.id.c_str(), ok));
         vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_C, "poly3", myCurrentEdge.id.c_str(), ok));
         vals.push_back(attrs.getSUMORealReporting(SUMO_ATTR_OPENDRIVE_D, "poly3", myCurrentEdge.id.c_str(), ok));
-        addGeometryShape(OPENDRIVE_GT_LINE, vals);
+        addGeometryShape(OPENDRIVE_GT_POLY3, vals);
     }
     break;
     default:
