@@ -32,6 +32,7 @@
 #include <string>
 #include <map>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/geom/Position2DVector.h>
 
 
 // ===========================================================================
@@ -70,23 +71,6 @@ public:
      * @param[in] nb The network builder to fill
      */
     static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
-
-
-protected:
-    /** @brief Builds a node or returns the already built
-     *
-     * If the node is already known, it is returned. Otherwise, the
-     *  position is converted, and the node is built. If the newly
-     *  built node can not be added to the container, a ProcessError
-     *  is thrown. Otherwise this node is returned.
-     *
-     * @param[in] id The id of the node to build/get
-     * @param[in, changed] pos The position of the node to build/get
-     * @param[filled] nc The node container to retrieve/add the node to
-     * @return The retrieved/built node
-     * @exception ProcessError If the node could not be built/retrieved
-     */
-    static NBNode *getOrBuildNode(const std::string &id, Position2D &pos, NBNodeCont &nc) throw(ProcessError);
 
 
 protected:
@@ -169,6 +153,7 @@ protected:
         std::vector<OpenDriveGeometry> geometries;
         NBNode *from;
         NBNode *to;
+        std::vector<Position2D> geom;
     };
 
 
@@ -235,6 +220,34 @@ private:
 
     std::vector<OpenDriveEdge> &myEdges;
     std::vector<SumoXMLTag> myElementStack;
+
+
+protected:
+    /** @brief Builds a node or returns the already built
+     *
+     * If the node is already known, it is returned. Otherwise, the
+     *  node is built. If the newly built node can not be added to 
+     *  the container, a ProcessError is thrown. 
+     *  Otherwise this node is returned.
+     *
+     * @param[in] id The id of the node to build/get
+     * @param[in, changed] pos The position of the node to build/get
+     * @param[filled] nc The node container to retrieve/add the node to
+     * @return The retrieved/built node
+     * @exception ProcessError If the node could not be built/retrieved
+     */
+    static NBNode *getOrBuildNode(const std::string &id, Position2D &pos, NBNodeCont &nc) throw(ProcessError);
+
+
+    static std::vector<Position2D> geomFromLine(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static std::vector<Position2D> geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static std::vector<Position2D> geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static std::vector<Position2D> geomFromPoly(const OpenDriveEdge &e, const OpenDriveGeometry &g) throw();
+    static Position2D calculateStraightEndPoint(double hdg, double length, const Position2D &start) throw();
+    static void calculateClothoidProperties(SUMOReal *x, SUMOReal *y, SUMOReal *hdg, SUMOReal curve, SUMOReal length, SUMOReal dist, bool direction) throw();
+    static void calculateFirstClothoidPoint(SUMOReal* ad_X, SUMOReal* ad_Y, SUMOReal* ad_hdg, SUMOReal ad_curvature, SUMOReal ad_lengthE) throw();
+    static void calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw();
+
 };
 
 

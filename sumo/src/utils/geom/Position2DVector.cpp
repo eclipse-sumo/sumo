@@ -56,8 +56,9 @@ using namespace std;
 Position2DVector::Position2DVector() throw() {}
 
 
-Position2DVector::Position2DVector(unsigned int fieldSize) throw()
-        : myCont(fieldSize) {}
+Position2DVector::Position2DVector(const std::vector<Position2D> &v) throw() {
+    std::copy(v.begin(), v.end(), std::back_inserter(myCont));
+}
 
 
 Position2DVector::~Position2DVector() throw() {}

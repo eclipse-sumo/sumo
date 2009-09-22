@@ -61,10 +61,9 @@ public:
 
 
     /** @brief Constructor
-     *
-     * Creates an empty position vector, allocates storage of the given size
+     * @param[in] v The vector to copy
      */
-    Position2DVector(unsigned int fieldSize) throw();
+    Position2DVector(const std::vector<Position2D> &v) throw();
 
 
     /// @brief Destructor
