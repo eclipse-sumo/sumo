@@ -1,42 +1,43 @@
-Parsing nodes from osm-file 'duplicate_nodes.osm.xml'... done.
-Parsing edges from osm-file 'duplicate_nodes.osm.xml'... done.
+Parsing nodes from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate nodes... 
-Found duplicate nodes. Substitute -20 with -25
+Found duplicate nodes. Substitute -4 with -7
 ...done.
  Import done:
    13 nodes loaded.
    30 types loaded.
-   26 edges loaded.
+   24 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Finding isolated roads
 Computing step 4: Removing empty nodes and geometry nodes.
-   1 nodes removed.
+   2 nodes removed.
 Computing step 5: Normalising node positions
-Computing step 6: Guessing and setting TLs
-Computing step 7: Computing turning directions
-Computing step 8: Sorting nodes' edges
-Computing step 9: Computing Approached Edges
-Computing step 10: Computing Approaching Lanes
-Computing step 11: Dividing of Lanes on Approached Lanes
-Computing step 12: Appending Turnarounds
-Computing step 13: Rechecking of lane endings
-Computing step 14: Computing node shapes
-Computing step 15: Computing edge shapes
-Computing step 16: Computing tls logics
-Computing step 17: Computing node logics
-Computing step 18: Computing traffic light logics
-0 traffic light(s) computed.
+Computing step 6: Guessing and setting on-/off-ramps
+Computing step 7: Guessing and setting TLs
+Computing step 8: Computing turning directions
+Computing step 9: Sorting nodes' edges
+Computing step 10: Computing Approached Edges
+Computing step 11: Computing Approaching Lanes
+Computing step 12: Dividing of Lanes on Approached Lanes
+Computing step 13: Appending Turnarounds
+Computing step 14: Rechecking of lane endings
+Computing step 15: Computing node shapes
+Computing step 16: Computing edge shapes
+Computing step 17: Computing tls logics
+Computing step 18: Computing node logics
+Computing step 19: Computing traffic light logics
+2 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 8
-  Right-before-left junctions : 4
+  Priority junctions          : 7
+  Right-before-left junctions : 1
  Network boundaries:
-  Original boundary  : 11.21,48.83,11.33,48.88
-  Applied offset     : -662333.88,-5410956.50
-  Converted boundary : 0.00,0.00,8568.19,5084.50
+  Original boundary  : 11.21,48.87,11.23,48.88
+  Applied offset     : -662333.88,-5415120.00
+  Converted boundary : 0.00,0.00,1048.12,921.00
 -----------------------------------------------------
 Success.
