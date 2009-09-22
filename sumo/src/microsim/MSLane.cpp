@@ -287,7 +287,10 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             // check leader on next lane
             MSVehicle * leader = nextLane->getLastVehicle();
             if (leader!=0) {
-                SUMOReal nspeed = aVehicle->getCarFollowModel().ffeV(aVehicle, speed, seen+leader->getPositionOnLane()-leader->getVehicleType().getLength(), leader->getSpeed());
+                SUMOReal gap = seen+leader->getPositionOnLane()-leader->getVehicleType().getLength();
+                SUMOReal nspeed = gap>=0
+                    ? aVehicle->getCarFollowModel().ffeV(aVehicle, speed, gap, leader->getSpeed())
+                    : 0;
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
