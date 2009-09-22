@@ -1,1 +1,1 @@
---osm-files duplicate_nodes.osm.xml --output-file net.net.xml -v -R --try-join-tls --proj.utm
+--osm-files osm.xml --output-file net.net.xml -v -R --try-join-tls --proj.utm --guess-ramps --remove-isolated --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,rail_slow,rail_fast,motorcycle,bicycle,pedestrian
