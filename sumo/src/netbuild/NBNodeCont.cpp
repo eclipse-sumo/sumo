@@ -558,8 +558,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
 	int edgeCounter = 0;
     const std::vector<std::string> &edgeNames = ec.getAllNames();
-    for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it
-            != edgeNames.end(); ++it) {
+    for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it != edgeNames.end(); ++it) {
         // Test whether this node starts at a dead end, i.e. it has only one adjacent node
         // to which an edge exists and from which an edge may come.
         NBEdge *e = ec.retrieve(*it);
@@ -618,7 +617,6 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
         } while (!hasJunction && eOld != e);
         if (!hasJunction) {
 			edgeCounter += road.size();
-			if (OptionsCont::getOptions().getBool("remove-isolated")) {
 				std::string warningString =
 						"Removed a road without junctions: ";
 				for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt
@@ -644,7 +642,6 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
 					}
 				}
 				WRITE_WARNING(warningString);
-			}
 		}
     }
     if(edgeCounter > 0 && !OptionsCont::getOptions().getBool("remove-isolated")) {
