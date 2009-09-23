@@ -252,9 +252,10 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     MsgHandler::getMessageInstance()->endProcessMsg("...done.");
 
-    // build all
+    /* Mark which nodes are used (by edges or traffic lights).
+     * This is necessary to detect which OpenStreetMap nodes are for geometry only */
     std::map<int, int> nodeUsage;
-    // mark which nodes are used
+    // Mark which nodes are used by edges (begin and end)
     for (std::map<std::string, Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
         Edge *e = (*i).second;
         if (!e->myCurrentIsRoad) {
@@ -267,7 +268,14 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             nodeUsage[*j] = nodeUsage[*j] + 1;
         }
     }
-    // instatiate edges
+    // Mark which nodes are used by traffic lights
+    for (map<int, NIOSMNode*>::const_iterator nodesIt = nodes.begin(); nodesIt != nodes.end(); ++nodesIt) {
+    	if (nodesIt->second->tlsControlled) {
+    		// If the key is not found in the map, the value is automatically initialized with 0.
+    		nodeUsage[nodesIt->first] += 1;
+    	}
+    }
+    // Instantiate edges
     NBNodeCont &nc = nb.getNodeCont();
     NBEdgeCont &ec = nb.getEdgeCont();
     NBTrafficLightLogicCont &tlsc = nb.getTLLogicCont();
@@ -285,7 +293,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         std::vector<int> passed;
         for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             passed.push_back(*j);
-            if (nodeUsage[*j]>1&&j!=e->myCurrentNodes.end()-1&&j!=e->myCurrentNodes.begin()) {
+            if (nodeUsage[*j] > 1 && j != e->myCurrentNodes.end()-1 && j != e->myCurrentNodes.begin()) {
                 NBNode *currentTo = insertNodeChecking(*j, nodes, nc, tlsc);
                 insertEdge(e, running, currentFrom, currentTo, passed, nodes, nc, ec, tc);
                 currentFrom = currentTo;
