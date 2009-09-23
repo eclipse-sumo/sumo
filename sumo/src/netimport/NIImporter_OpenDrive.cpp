@@ -456,7 +456,7 @@ NIImporter_OpenDrive::calculateClothoidProperties(SUMOReal *x, SUMOReal *y, SUMO
 //Und zum Schluss der Startpunkt anhand der Sehne (Start- <-> Endpunkt) berechnet
 void 
 NIImporter_OpenDrive::calculateFirstClothoidPoint(SUMOReal* ad_X, SUMOReal* ad_Y, SUMOReal* ad_hdg, 
-						SUMOReal ad_curvature, SUMOReal ad_lengthE)
+						SUMOReal ad_curvature, SUMOReal ad_lengthE) throw()
 {
 	//Entscheidung Links oder Rechtskurve
 	//notwendig, da bei einer Linkskurve die Normale-Klothoide gespiegelt werden muss
@@ -717,6 +717,8 @@ NIImporter_OpenDrive::myEndElement(SumoXMLTag element) throw(ProcessError) {
     switch (element) {
     case SUMO_TAG_OPENDRIVE_ROAD:
         myEdges.push_back(myCurrentEdge);
+        break;
+    default:
         break;
     }
 }

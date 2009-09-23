@@ -161,8 +161,8 @@ GenericSAXHandler::Tag sumotags[] = {
     { "poly3", SUMO_TAG_OPENDRIVE_POLY3 },
     { "laneSection", SUMO_TAG_OPENDRIVE_LANESECTION },
     { "left", SUMO_TAG_OPENDRIVE_LEFT },
-    { "right", SUMO_TAG_OPENDRIVE_RIGHT },
     { "center", SUMO_TAG_OPENDRIVE_CENTER },
+    { "right", SUMO_TAG_OPENDRIVE_RIGHT },
     { "lane", SUMO_TAG_OPENDRIVE_LANE },
 
     { "",                 SUMO_TAG_NOTHING }
@@ -362,8 +362,8 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "b",       SUMO_ATTR_OPENDRIVE_B },
     { "c",       SUMO_ATTR_OPENDRIVE_C },
     { "d",       SUMO_ATTR_OPENDRIVE_D },
-    { "type",       SUMO_ATTR_OPENDRIVE_TYPE },
-    { "level",       SUMO_ATTR_OPENDRIVE_LEVEL },
+    { "type",      SUMO_ATTR_OPENDRIVE_TYPE },
+    { "level",      SUMO_ATTR_OPENDRIVE_LEVEL },
 
     { "",               SUMO_ATTR_NOTHING }
 };
