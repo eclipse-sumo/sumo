@@ -25,6 +25,8 @@ class RouteReader(handler.ContentHandler):
             val = attrs[a]
             if a=="depart":
                 val = str(int(val) + self._offset)
+            if a=="id":
+                val = val + "_" + self._offset
             self._out.write(' ' + a + '="' + val + '"')
         self._out.write('>')
 
