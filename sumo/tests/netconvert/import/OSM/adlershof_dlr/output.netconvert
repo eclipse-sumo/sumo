@@ -2,9 +2,9 @@ Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate nodes... ...done.
  Import done:
-   88 nodes loaded.
+   89 nodes loaded.
    30 types loaded.
-   203 edges loaded.
+   205 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
@@ -23,12 +23,12 @@ Computing step 14: Computing edge shapes
 Computing step 15: Computing tls logics
 Computing step 16: Computing node logics
 Computing step 17: Computing traffic light logics
-2 traffic light(s) computed.
+3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 9
-  Priority junctions          : 66
+  Priority junctions          : 67
   Right-before-left junctions : 13
  Network boundaries:
   Original boundary  : 13.52,52.43,13.55,52.43

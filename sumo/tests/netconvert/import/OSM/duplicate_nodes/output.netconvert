@@ -4,9 +4,9 @@ Removing duplicate nodes...
 Found duplicate nodes. Substitute -4 with -7
 ...done.
  Import done:
-   13 nodes loaded.
+   14 nodes loaded.
    30 types loaded.
-   24 edges loaded.
+   26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
@@ -28,12 +28,12 @@ Computing step 16: Computing edge shapes
 Computing step 17: Computing tls logics
 Computing step 18: Computing node logics
 Computing step 19: Computing traffic light logics
-2 traffic light(s) computed.
+3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 7
+  Priority junctions          : 8
   Right-before-left junctions : 1
  Network boundaries:
   Original boundary  : 11.21,48.87,11.23,48.88

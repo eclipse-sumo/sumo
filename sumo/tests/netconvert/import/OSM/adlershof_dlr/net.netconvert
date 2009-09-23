@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Thu Sep 17 16:24:37 2009 by SUMO netconvert Version dev-SVN-r7743
+<!-- generated on Wed Sep 23 15:10:29 2009 by SUMO netconvert Version dev-SVN-r7775
 <configuration>
 
     <input>
@@ -33,10 +33,17 @@
       </lanes>
    </edge>
 
-   <edge id="-24214693" from="57343510" to="32266935" priority="9" type="highway.primary" function="normal">
+   <edge id="-24214693#0" from="261599791" to="32266935" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="-24214693_0" depart="1" maxspeed="27.78" length="462.92" shape="14.14,174.61 33.26,171.61 201.48,149.59 473.47,116.68"/>
-         <lane id="-24214693_1" depart="0" maxspeed="27.78" length="462.92" shape="14.65,177.87 33.78,174.87 201.91,152.86 473.87,119.96"/>
+         <lane id="-24214693#0_0" depart="1" maxspeed="27.78" length="443.50" shape="33.37,171.59 201.48,149.59 473.47,116.68"/>
+         <lane id="-24214693#0_1" depart="0" maxspeed="27.78" length="443.50" shape="33.80,174.87 201.91,152.86 473.87,119.96"/>
+      </lanes>
+   </edge>
+
+   <edge id="-24214693#1" from="57343510" to="261599791" priority="9" type="highway.primary" function="normal">
+      <lanes>
+         <lane id="-24214693#1_0" depart="1" maxspeed="27.78" length="19.43" shape="14.14,174.61 33.37,171.59"/>
+         <lane id="-24214693#1_1" depart="0" maxspeed="27.78" length="19.43" shape="14.65,177.87 33.80,174.87"/>
       </lanes>
    </edge>
 
@@ -579,10 +586,17 @@
       </lanes>
    </edge>
 
-   <edge id="24214693" from="32266935" to="57343510" priority="9" type="highway.primary" function="normal">
+   <edge id="24214693#0" from="32266935" to="261599791" priority="9" type="highway.primary" function="normal">
       <lanes>
-         <lane id="24214693_0" depart="1" maxspeed="27.78" length="462.69" shape="474.66,126.51 202.72,159.41 34.67,181.41 15.67,184.39"/>
-         <lane id="24214693_1" depart="0" maxspeed="27.78" length="462.69" shape="474.26,123.24 202.32,156.14 34.25,178.14 15.16,181.13"/>
+         <lane id="24214693#0_0" depart="1" maxspeed="27.78" length="443.32" shape="474.66,126.51 202.72,159.41 34.81,181.39"/>
+         <lane id="24214693#0_1" depart="0" maxspeed="27.78" length="443.32" shape="474.26,123.24 202.32,156.14 34.30,178.13"/>
+      </lanes>
+   </edge>
+
+   <edge id="24214693#1" from="261599791" to="57343510" priority="9" type="highway.primary" function="normal">
+      <lanes>
+         <lane id="24214693#1_0" depart="1" maxspeed="27.78" length="19.26" shape="34.66,181.41 15.67,184.39"/>
+         <lane id="24214693#1_1" depart="0" maxspeed="27.78" length="19.26" shape="34.23,178.14 15.16,181.13"/>
       </lanes>
    </edge>
 
@@ -1242,6 +1256,17 @@
    <row-logic id="175648134" requestSize="1" laneNumber="1">
       <logic>
          <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic id="261599791" requestSize="6" laneNumber="4">
+      <logic>
+         <logicitem request="0" response="000000" foes="100000"/>
+         <logicitem request="1" response="000000" foes="100000"/>
+         <logicitem request="2" response="011000" foes="011000"/>
+         <logicitem request="3" response="000000" foes="000100"/>
+         <logicitem request="4" response="000000" foes="000100"/>
+         <logicitem request="5" response="000011" foes="000011"/>
       </logic>
    </row-logic>
 
@@ -2206,6 +2231,13 @@
    </row-logic>
 
 
+   <tl-logic id="261599791" type="static" programID="0" offset="0">
+      <phase duration="31" state="GGgGGr"/>
+      <phase duration="9" state="yyyyyr"/>
+      <phase duration="31" state="GGrGGg"/>
+      <phase duration="9" state="yyryyy"/>
+   </tl-logic>
+
    <tl-logic id="32266935" type="static" programID="0" offset="0">
       <phase duration="31" state="rrrrGGGggrrrrGGGgg"/>
       <phase duration="9" state="rrrryyyggrrrryyygg"/>
@@ -2226,6 +2258,8 @@
    <junction id="102632814" type="DEAD_END" x="1327.41" y="1000.50" incLanes="" intLanes="" shape=""/>
 
    <junction id="175648134" type="priority" x="15.69" y="168.00" incLanes="-25951490_0" intLanes="" shape="15.68,167.95 15.26,164.78 16.12,171.22 15.69,168.05"/>
+
+   <junction id="261599791" type="priority" x="34.03" y="176.50" incLanes="24214693#0_0 24214693#0_1 -24214693#1_0 -24214693#1_1" intLanes="" shape="34.87,183.00 33.17,170.01 33.03,170.03 35.06,182.97"/>
 
    <junction id="261636677" type="priority" x="1119.81" y="114.00" incLanes="24152812#0_0 5198586#4_0" intLanes="" shape="1124.78,115.26 1124.56,112.06 1121.08,109.54 1117.89,109.79 1116.84,112.23 1120.95,117.27"/>
 
@@ -2305,7 +2339,7 @@
 
    <junction id="306982591" type="DEAD_END" x="697.34" y="465.00" incLanes="" intLanes="" shape=""/>
 
-   <junction id="32266935" type="priority" x="479.00" y="121.00" incLanes="7727483#3_0 7216737#3_0 7216737#3_1 -24214694_0 -24214693_0 -24214693_1" intLanes="" shape="476.47,129.41 482.94,128.85 484.37,127.08 483.17,114.04 481.54,112.68 475.07,113.24 473.28,115.09 474.85,128.10"/>
+   <junction id="32266935" type="priority" x="479.00" y="121.00" incLanes="7727483#3_0 7216737#3_0 7216737#3_1 -24214694_0 -24214693#0_0 -24214693#0_1" intLanes="" shape="476.47,129.41 482.94,128.85 484.37,127.08 483.17,114.04 481.54,112.68 475.07,113.24 473.28,115.09 474.85,128.10"/>
 
    <junction id="32266936" type="priority" x="472.81" y="49.00" incLanes="22917251_0" intLanes="" shape="472.86,49.00 476.05,48.72 469.57,49.28 472.76,49.00"/>
 
@@ -2393,7 +2427,7 @@
 
    <junction id="57343487" type="DEAD_END" x="1081.88" y="752.00" incLanes="27445015#4_0" intLanes="" shape="1082.97,750.84 1080.78,753.16"/>
 
-   <junction id="57343510" type="priority" x="14.91" y="179.50" incLanes="24214693_0 24214693_1" intLanes="" shape="14.90,179.45 13.89,173.03 15.92,185.97 14.91,179.55"/>
+   <junction id="57343510" type="priority" x="14.91" y="179.50" incLanes="24214693#1_0 24214693#1_1" intLanes="" shape="14.90,179.45 13.89,173.03 15.92,185.97 14.91,179.55"/>
 
    <junction id="59993001" type="priority" x="487.00" y="382.50" incLanes="20430080_0 6137245_0" intLanes="" shape="489.71,384.75 490.41,381.62 489.15,379.68 486.01,379.10 484.27,380.24 483.56,383.36 484.82,385.26 487.96,385.89"/>
 
@@ -2406,21 +2440,30 @@
       <succlane lane="22917251_0" yield="1" dir="t" state="m"/>
    </succ>
 
-   <succ edge="-24214693" lane="-24214693_0" junction="32266935">
+   <succ edge="-24214693#0" lane="-24214693#0_0" junction="32266935">
       <succlane lane="24214694_0" tl="32266935" linkno="13" yield="1" dir="r" state="t"/>
       <succlane lane="-7216737#3_0" tl="32266935" linkno="14" yield="1" dir="s" state="t"/>
    </succ>
 
-   <succ edge="-24214693" lane="-24214693_1" junction="32266935">
+   <succ edge="-24214693#0" lane="-24214693#0_1" junction="32266935">
       <succlane lane="-7216737#3_1" tl="32266935" linkno="15" yield="1" dir="s" state="t"/>
       <succlane lane="-7727483#3_0" tl="32266935" linkno="16" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="24214693_1" tl="32266935" linkno="17" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="24214693#0_1" tl="32266935" linkno="17" yield="1" dir="t" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="-24214693#1" lane="-24214693#1_0" junction="261599791">
+      <succlane lane="-24214693#0_0" tl="261599791" linkno="3" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="-24214693#1" lane="-24214693#1_1" junction="261599791">
+      <succlane lane="-24214693#0_1" tl="261599791" linkno="4" yield="1" dir="s" state="t"/>
+      <succlane lane="24214693#1_1" tl="261599791" linkno="5" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="-24214694" lane="-24214694_0" junction="32266935">
       <succlane lane="-7216737#3_0" tl="32266935" linkno="9" yield="1" dir="r" state="t"/>
       <succlane lane="-7727483#3_0" tl="32266935" linkno="10" yield="1" dir="s" state="t"/>
-      <succlane lane="24214693_1" tl="32266935" linkno="11" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="24214693#0_1" tl="32266935" linkno="11" yield="1" dir="l" state="t" int_end="x"/>
       <succlane lane="24214694_0" tl="32266935" linkno="12" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
@@ -2964,12 +3007,21 @@
       <succlane lane="-7216737#1_1" yield="1" dir="l" state="m"/>
    </succ>
 
-   <succ edge="24214693" lane="24214693_0" junction="57343510">
+   <succ edge="24214693#0" lane="24214693#0_0" junction="261599791">
+      <succlane lane="24214693#1_0" tl="261599791" linkno="0" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="24214693#0" lane="24214693#0_1" junction="261599791">
+      <succlane lane="24214693#1_1" tl="261599791" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="-24214693#0_1" tl="261599791" linkno="2" yield="1" dir="t" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="24214693#1" lane="24214693#1_0" junction="57343510">
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
 
-   <succ edge="24214693" lane="24214693_1" junction="57343510">
-      <succlane lane="-24214693_1" yield="0" dir="t" state="M"/>
+   <succ edge="24214693#1" lane="24214693#1_1" junction="57343510">
+      <succlane lane="-24214693#1_1" yield="0" dir="t" state="M"/>
    </succ>
 
    <succ edge="24214694" lane="24214694_0" junction="32266938">
@@ -3557,11 +3609,11 @@
 
    <succ edge="7216737#3" lane="7216737#3_0" junction="32266935">
       <succlane lane="-7727483#3_0" tl="32266935" linkno="4" yield="1" dir="r" state="t"/>
-      <succlane lane="24214693_0" tl="32266935" linkno="5" yield="1" dir="s" state="t"/>
+      <succlane lane="24214693#0_0" tl="32266935" linkno="5" yield="1" dir="s" state="t"/>
    </succ>
 
    <succ edge="7216737#3" lane="7216737#3_1" junction="32266935">
-      <succlane lane="24214693_1" tl="32266935" linkno="6" yield="1" dir="s" state="t"/>
+      <succlane lane="24214693#0_1" tl="32266935" linkno="6" yield="1" dir="s" state="t"/>
       <succlane lane="24214694_0" tl="32266935" linkno="7" yield="1" dir="l" state="t" int_end="x"/>
       <succlane lane="-7216737#3_1" tl="32266935" linkno="8" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
@@ -3588,7 +3640,7 @@
    </succ>
 
    <succ edge="7727483#3" lane="7727483#3_0" junction="32266935">
-      <succlane lane="24214693_0" tl="32266935" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="24214693#0_0" tl="32266935" linkno="0" yield="1" dir="r" state="t"/>
       <succlane lane="24214694_0" tl="32266935" linkno="1" yield="1" dir="s" state="t"/>
       <succlane lane="-7216737#3_1" tl="32266935" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
       <succlane lane="-7727483#3_0" tl="32266935" linkno="3" yield="1" dir="t" state="t" int_end="x"/>

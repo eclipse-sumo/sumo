@@ -71,7 +71,8 @@ using namespace std;
  * This functor is helpful for example in the find_if algorithm.
  */
 class NIImporter_OpenStreetMap::CompareNodesInPairs: public std::unary_function<
-            std::pair<int, NIOSMNode*>, bool> {
+            std::pair<int, NIOSMNode*>, bool>
+{
 public:
     /** @brief Initializes the functor with the fixed comparison partner
      *
@@ -102,7 +103,8 @@ private:
 /** @brief A functor to substitute a node in the node list of an Edge
  */
 class NIImporter_OpenStreetMap::SubstituteNode: public std::unary_function<
-            std::pair<std::string, Edge*>, void> {
+            std::pair<std::string, Edge*>, void>
+{
 public:
     /** @brief Initializes the functor with the node to substitute
      * and the node with that the node in the first argument
@@ -151,7 +153,8 @@ private:
 // static methods
 // ---------------------------------------------------------------------------
 void
-NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
+NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
+{
     // check whether the option is set (properly)
     if (!oc.isSet("osm-files")) {
         return;
@@ -172,7 +175,6 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     tc.insert("highway.living_street", 1, (SUMOReal)(10./3.6), 3);
     tc.insert("highway.service", 1, (SUMOReal)(20./3.6), 2, SVC_DELIVERY);
     tc.insert("highway.track", 1, (SUMOReal)(20./3.6), 1);
-    tc.insert("highway.pedestrian", 1, (SUMOReal)(30./3.6), 1, SVC_PEDESTRIAN);
     tc.insert("highway.services", 1, (SUMOReal)(30./3.6), 1);
     tc.insert("highway.unsurfaced", 1, (SUMOReal)(30./3.6), 1);  // additional
     tc.insert("highway.footway", 1, (SUMOReal)(30./3.6), 1, SVC_PEDESTRIAN);  // additional
@@ -196,7 +198,8 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     tc.insert("railway.monorail", 1, (SUMOReal)(30./3.6), 1, SVC_LIGHTRAIL);  // rail stuff has to be discussed
 
 
-    // parse file(s)
+    /* Parse file(s)
+     * Each file is parsed twice: first for nodes, second for edges. */
     vector<string> files = oc.getStringVector("osm-files");
     // load nodes, first
     std::map<int, NIOSMNode*> nodes;
@@ -236,8 +239,8 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         for (map<int, NIOSMNode*>::iterator it = nodes.begin(), itnext =
                     ++nodes.begin(); itnext != nodes.end(); ++it, ++itnext) {
 
-            map<int, NIOSMNode*>::iterator dupNode = find_if(itnext,
-                    nodes.end(), CompareNodesInPairs(*it));
+            map<int, NIOSMNode*>::iterator dupNode =
+                find_if(itnext, nodes.end(), CompareNodesInPairs(*it));
 
             if (dupNode != nodes.end()) {
                 MsgHandler *mh = MsgHandler::getMessageInstance();
@@ -253,15 +256,18 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     MsgHandler::getMessageInstance()->endProcessMsg("...done.");
 
     /* Mark which nodes are used (by edges or traffic lights).
-     * This is necessary to detect which OpenStreetMap nodes are for geometry only */
+     * This is necessary to detect which OpenStreetMap nodes are for
+     * geometry only */
     std::map<int, int> nodeUsage;
     // Mark which nodes are used by edges (begin and end)
-    for (std::map<std::string, Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+    for (std::map<std::string, Edge*>::const_iterator i = edges.begin();
+            i != edges.end(); ++i) {
         Edge *e = (*i).second;
         if (!e->myCurrentIsRoad) {
             continue;
         }
-        for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
+        for (std::vector<int>::const_iterator j = e->myCurrentNodes.begin();
+                j != e->myCurrentNodes.end(); ++j) {
             if (nodeUsage.find(*j)==nodeUsage.end()) {
                 nodeUsage[*j] = 0;
             }
@@ -269,13 +275,17 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
     }
     // Mark which nodes are used by traffic lights
-    for (map<int, NIOSMNode*>::const_iterator nodesIt = nodes.begin(); nodesIt != nodes.end(); ++nodesIt) {
-    	if (nodesIt->second->tlsControlled) {
-    		// If the key is not found in the map, the value is automatically initialized with 0.
-    		nodeUsage[nodesIt->first] += 1;
-    	}
+    for (map<int, NIOSMNode*>::const_iterator nodesIt = nodes.begin();
+            nodesIt != nodes.end(); ++nodesIt) {
+        if (nodesIt->second->tlsControlled) {
+            // If the key is not found in the map, the value is automatically
+            // initialized with 0.
+            nodeUsage[nodesIt->first] += 1;
+        }
     }
-    // Instantiate edges
+    /* Instantiate edges
+     * Only those nodes in the middle of an edge which are used by more than
+     * one edge are instantiated. Other nodes are considered as geometry nodes. */
     NBNodeCont &nc = nb.getNodeCont();
     NBEdgeCont &ec = nb.getEdgeCont();
     NBTrafficLightLogicCont &tlsc = nb.getTLLogicCont();
@@ -306,6 +316,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
         insertEdge(e, running, currentFrom, last, passed, nodes, nc, ec, tc);
     }
+    /* Clean up */
     // delete nodes
     for (std::map<int, NIOSMNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
         delete(*i).second;
@@ -319,7 +330,8 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 NBNode *
 NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc,
-        NBTrafficLightLogicCont &tlsc) throw(ProcessError) {
+        NBTrafficLightLogicCont &tlsc) throw(ProcessError)
+{
     NBNode *from = nc.retrieve(toString(id));
     if (from==0) {
         NIOSMNode *n = osmNodes.find(id)->second;
@@ -353,7 +365,8 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
 void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
                                      const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError) {
+                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError)
+{
     // patch the id
     string id = e->id;
     if (index>=0) {
@@ -432,13 +445,14 @@ NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
-	++myHierarchyLevel;
+NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError)
+{
+    ++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
-    	if (myHierarchyLevel != 2) {
-    		MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level.");
-    		return;
-    	}
+        if (myHierarchyLevel != 2) {
+            MsgHandler::getErrorInstance()->inform("Node element on wrong XML hierarchy level.");
+            return;
+        }
         bool ok = true;
         int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
         if (!ok) {
@@ -479,10 +493,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
         }
     }
     if (element == SUMO_TAG_TAG && myIsInValidNodeTag) {
-    	if (myHierarchyLevel != 3) {
-    		MsgHandler::getErrorInstance()->inform("Tag element on wrong XML hierarchy level.");
-    		return;
-    	}
+        if (myHierarchyLevel != 3) {
+            MsgHandler::getErrorInstance()->inform("Tag element on wrong XML hierarchy level.");
+            return;
+        }
         string key, value;
         try {
             // retrieve the id of the (geometry) node
@@ -506,12 +520,13 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
+{
     if (element==SUMO_TAG_NODE && myHierarchyLevel == 2) {
         myLastNodeID = -1;
         myIsInValidNodeTag = false;
     }
-	--myHierarchyLevel;
+    --myHierarchyLevel;
 }
 
 
@@ -522,17 +537,20 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<int, NIOSMNode*> &osmNodes,
     std::map<std::string, Edge*> &toFill) throw()
         : SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes), myEdgeMap(toFill) {
+        myOSMNodes(osmNodes), myEdgeMap(toFill)
+{
 }
 
 
-NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw() {
+NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw()
+{
 }
 
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+        const SUMOSAXAttributes &attrs) throw(ProcessError)
+{
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
@@ -604,7 +622,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
 
 
 void
-NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
+NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
+{
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
         if (myCurrentEdge->myCurrentIsRoad) {
