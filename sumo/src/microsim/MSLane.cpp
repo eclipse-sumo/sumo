@@ -402,6 +402,10 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         }
     }
 
+    // may got negative while adaptation
+    if(speed<0) {
+        return false;
+    }
     // enter
     aVehicle->enterLaneAtEmit(this, pos, speed);
     bool wasInactive = myVehicles.size()==0;
