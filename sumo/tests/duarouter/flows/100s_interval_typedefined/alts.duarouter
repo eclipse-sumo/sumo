@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/16/09 09:10:01 by SUMO duarouter Version dev-SVN-r7726
+<!-- generated on 09/24/09 13:15:45 by SUMO duarouter Version dev-SVN-r7781
 <configuration>
 
-    <input
-        net-file="input_net.net.xml"
-        flow-definition="input_flows.flows.xml"
-    />
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-definition value="input_flows.flows.xml"/>
+    </input>
 
-    <output
-        output-file="routes.rou.xml"
-    />
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <route-alternatives>
    <vtype id="0" length="7.00" maxspeed="30.00" color="1.00,0.00,0.00">
-      <carFollow-Krauss accel="1.60" decel="5.50" sigma="0.90"/>
+      <carFollowing-Krauss accel="1.60" decel="5.50" sigma="0.90"/>
    </vtype>
    <vehicle id="0_0" type="0" depart="0">
       <routeDistribution last="0">

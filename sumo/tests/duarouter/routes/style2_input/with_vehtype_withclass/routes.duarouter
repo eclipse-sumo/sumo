@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/16/09 09:10:19 by SUMO duarouter Version dev-SVN-r7726
+<!-- generated on 09/24/09 13:16:25 by SUMO duarouter Version dev-SVN-r7781
 <configuration>
 
-    <input
-        net-file="input_net.net.xml"
-        sumo-input="input_routes.rou.xml"
-    />
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <sumo-input value="input_routes.rou.xml"/>
+    </input>
 
-    <output
-        output-file="routes.rou.xml"
-    />
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
 
 <routes>
    <vtype id="0" length="5.50" maxspeed="70.00" vclass="lightrail">
-      <carFollow-Krauss accel="2.00" decel="4.00" sigma="0.90"/>
+      <carFollowing-Krauss accel="2.00" decel="4.00" sigma="0.90"/>
    </vtype>
    <vehicle id="0" type="0" depart="0">
       <route edges="beg middle end rend"/>
