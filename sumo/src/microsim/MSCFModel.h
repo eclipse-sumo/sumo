@@ -75,7 +75,7 @@ public:
      * @return EGO's safe speed
      * @todo used by MSLane, can hopefully be removed eventually
      */
-    virtual SUMOReal ffeV(MSVehicle *veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() = 0;
+    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() = 0;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -85,7 +85,7 @@ public:
      * @return EGO's safe speed
      * @todo used by MSLCM_DK2004, allows hypothetic values of gap2pred and predSpeed
      */
-    virtual SUMOReal ffeV(MSVehicle *veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() = 0;
+    virtual SUMOReal ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() = 0;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -94,7 +94,7 @@ public:
      * @return EGO's safe speed
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal ffeV(MSVehicle *veh, const MSVehicle * const pred) const throw() = 0;
+    virtual SUMOReal ffeV(const MSVehicle * const veh, const MSVehicle * const pred) const throw() = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -103,7 +103,7 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual SUMOReal ffeS(MSVehicle *veh, SUMOReal gap2pred) const throw() = 0;
+    virtual SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() = 0;
 
 
     /** @brief Returns the maximum speed given the current speed
@@ -186,10 +186,10 @@ public:
     virtual void saveState(std::ostream &os);
 
 
-    /** @brief Returns the model's name
-     * @return The model's name
+    /** @brief Returns the model's ID
+     * @return The model's ID
      */
-    virtual std::string getModelName() const throw() = 0;
+    virtual int getModelID() const throw() = 0;
     /// @}
 
 

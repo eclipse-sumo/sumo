@@ -27,12 +27,14 @@
 #include <config.h>
 #endif
 
+#include <algorithm>
 #include <utils/common/SUMOVTypeParameter.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -49,6 +51,7 @@ SUMOVTypeParameter::SUMOVTypeParameter() throw()
         emissionClass(SVE_UNKNOWN), color(RGBColor::DEFAULT_COLOR),
         vehicleClass(SVC_UNKNOWN), width(DEFAULT_VEH_GUIWIDTH),
         offset(DEFAULT_VEH_GUIOFFSET), shape(DEFAULT_VEH_SHAPE),
+        cfModel(-1),
         //cfModel(), lcModel(),
         setParameter(0), saved(false), onlyReferenced(false) {
 }
@@ -97,15 +100,20 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
     if (cfParameter.size()!=0) {
         dev << ">\n";
         dev << "      <";
-        if (cfModel!="") {
-            dev << cfModel;
-        } else {
-            dev << "carFollow-Krauss";
+        switch(cfModel) {
+        case SUMO_TAG_CF_IDM:
+            dev << CF_MODEL_IDM;
+            break;
+        case SUMO_TAG_CF_KRAUSS:
+        default:
+            dev << CF_MODEL_KRAUSS;
+            break;
         }
         std::vector<std::string> names;
         for (std::map<std::string, SUMOReal>::const_iterator i=cfParameter.begin(); i!=cfParameter.end(); ++i) {
             names.push_back((*i).first);
         }
+        std::sort(names.begin(), names.end());
         for (std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
             dev << ' ' << (*i) << "=\"" << cfParameter.find(*i)->second << '"';
         }

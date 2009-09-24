@@ -130,8 +130,8 @@ public:
     /// @}
 
 
-    /// @brief The name of the car-following model to use
-    std::string cfModel;
+    /// @brief The enum-representation of the car-following model to use
+    int cfModel;
     /// @brief Car-following parameter
     std::map<std::string, SUMOReal> cfParameter;
 

@@ -81,7 +81,7 @@ public:
      * @param[in] shape How vehicles of this class shall be drawn
      * @param[in] guiWidth The width of the vehicles when being drawn
      * @param[in] guiOffset The free space in front of the vehicles of this class
-     * @param[in] cfModel Name of the car-following model to use
+     * @param[in] cfModel Enumeration of the car-following model to use
      * @param[in] lcModel Name of the lane-change model to use
      * @param[in] c Color of this vehicle type
      */
@@ -91,7 +91,7 @@ public:
                   SUMOReal speedDev, SUMOVehicleClass vclass,
                   SUMOEmissionClass emissionClass, SUMOVehicleShape shape,
                   SUMOReal guiWidth, SUMOReal guiOffset,
-                  const std::string &cfModel, const std::string &lcModel,
+                  int cfModel, const std::string &lcModel,
                   const RGBColor &c) throw();
 
 

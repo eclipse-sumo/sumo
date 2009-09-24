@@ -29,6 +29,7 @@
 #endif
 
 #include "MSCFModel.h"
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -65,7 +66,7 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    SUMOReal ffeV(MSVehicle *veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
+    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -76,7 +77,7 @@ public:
      * @see MSCFModel::ffeV
      * @todo used by MSLCM_DK2004, allows hypothetic values of gap2pred and predSpeed
      */
-    SUMOReal ffeV(MSVehicle *veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
+    SUMOReal ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw();
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -86,7 +87,7 @@ public:
      * @see MSCFModel::ffeV
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeV(MSVehicle *veh, const MSVehicle * const pred) const throw();
+    SUMOReal ffeV(const MSVehicle * const veh, const MSVehicle * const pred) const throw();
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -96,7 +97,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    SUMOReal ffeS(MSVehicle *veh, SUMOReal gap2pred) const throw();
+    SUMOReal ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw();
 
 
     /** @brief Returns the maximum speed given the current speed
@@ -185,8 +186,8 @@ public:
      * @return The model's name
      * @see MSCFModel::getModelName
      */
-    std::string getModelName() const throw() {
-        return "carFollowing-IDM";
+    int getModelID() const throw() {
+        return SUMO_TAG_CF_IDM;
     }
     /// @}
 
@@ -194,7 +195,7 @@ public:
 private:
     SUMOReal _updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw();
 
-    SUMOReal desiredSpeed(MSVehicle *veh) const throw();
+    SUMOReal desiredSpeed(const MSVehicle * const veh) const throw();
 
     /// @todo needs to be removed
     // Dawdling is not part of IDM, but needs to exist here until

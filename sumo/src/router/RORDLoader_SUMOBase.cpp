@@ -65,7 +65,9 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(0) {
+        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(0),
+        myCurrentVType(0)
+{
 }
 
 
@@ -98,10 +100,6 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
         break;
-    case SUMO_TAG_CF_KRAUSS:
-    case SUMO_TAG_CF_IDM:
-        SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
-        break;
     case SUMO_TAG_ROUTE_DISTRIBUTION:
         myAltIsValid = true;
         startAlternative(attrs);
@@ -111,6 +109,11 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         break;
     default:
         break;
+    }
+    // parse embedded vtype information
+    if(myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
+        SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
+        return;
     }
     if (!myCurrentIsOk) {
         throw ProcessError();
@@ -280,6 +283,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError) {
     case SUMO_TAG_VTYPE: {
         SUMOVehicleParserHelper::closeVTypeParsing(*myCurrentVType);
         myNet.addVehicleType(myCurrentVType);
+        myCurrentVType = 0;
     }
     default:
         break;

@@ -29,6 +29,7 @@
 
 #include <utils/xml/GenericSAXHandler.h>
 #include "SUMOXMLDefinitions.h"
+#include <utils/common/SUMOVehicleClass.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -145,8 +146,8 @@ GenericSAXHandler::Tag sumotags[] = {
     { "snapshot", SUMO_TAG_SNAPSHOT },
     { "location", SUMO_TAG_LOCATION },
 
-    { "carFollowing-Krauss", SUMO_TAG_CF_KRAUSS },
-    { "carFollowing-IDM",    SUMO_TAG_CF_IDM },
+    { CF_MODEL_KRAUSS_STR, SUMO_TAG_CF_KRAUSS },
+    { CF_MODEL_IDM_STR,    SUMO_TAG_CF_IDM },
 
 
 

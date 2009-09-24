@@ -73,11 +73,11 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
         myRunningVehicleNumber(0),
         myCurrentVTypeDistribution(0),
         myCurrentRouteDistribution(0),
-        myHaveWarned(false) {
+        myHaveWarned(false), myCurrentVType(0) {
     myIncrementalBase = OptionsCont::getOptions().getInt("incremental-dua-base");
     myIncrementalStage = OptionsCont::getOptions().getInt("incremental-dua-step");
-    myAmUsingIncrementalDUA = (myIncrementalStage>0),
-                              myActiveRoute.reserve(100);
+    myAmUsingIncrementalDUA = (myIncrementalStage>0);
+    myActiveRoute.reserve(100);
 }
 
 
@@ -112,10 +112,6 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
         break;
-    case SUMO_TAG_CF_KRAUSS:
-    case SUMO_TAG_CF_IDM:
-        SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
-        break;
     case SUMO_TAG_VTYPE_DISTRIBUTION:
         openVehicleTypeDistribution(attrs);
         break;
@@ -135,6 +131,11 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         break;
     default:
         break;
+    }
+    // parse embedded vtype information
+    if(myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
+        SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
+        return;
     }
 
     if (element==SUMO_TAG_STOP) {

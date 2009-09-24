@@ -252,7 +252,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
         vtype->setParameter |= VTYPEPARS_WIDTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_GUIOFFSET)) {
-        vtype->width = attrs.getSUMORealReporting(SUMO_ATTR_GUIOFFSET, "vtype", vtype->id.c_str(), ok);
+        vtype->offset = attrs.getSUMORealReporting(SUMO_ATTR_GUIOFFSET, "vtype", vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_OFFSET_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
@@ -265,12 +265,14 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
     } else {
         vtype->color = RGBColor(1,1,0);
     }
+    /*
     if (attrs.hasAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL)) {
         vtype->cfModel = attrs.getStringReporting(SUMO_ATTR_CAR_FOLLOW_MODEL, "vtype", vtype->id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_LANE_CHANGE_MODEL)) {
         vtype->lcModel = attrs.getStringReporting(SUMO_ATTR_LANE_CHANGE_MODEL, "vtype", vtype->id.c_str(), ok);
     }
+    */
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
         vtype->defaultProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "vtype", vtype->id.c_str(), ok);
         vtype->setParameter |= VTYPEPARS_PROBABILITY_SET;
@@ -298,6 +300,9 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
     case SUMO_TAG_CF_IDM:
         parseVTypeEmbedded_IDM(into, attrs);
         break;
+    }
+    if(!fromVType) {
+        into.cfModel = element;
     }
 }
 
@@ -345,10 +350,10 @@ SUMOVehicleParserHelper::parseVTypeEmbedded_IDM(SUMOVTypeParameter &into,
     // !!! the prior should be revisited!
 
 
-    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
+    if (attrs.hasAttribute(SUMO_ATTR_CF_IDM_TIMEHEADWAY)) {
         into.cfParameter["timeHeadWay"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_TIMEHEADWAY, "IDM", into.id.c_str(), ok);
     }
-    if (attrs.hasAttribute(SUMO_ATTR_TAU)) {
+    if (attrs.hasAttribute(SUMO_ATTR_CF_IDM_MINGAP)) {
         into.cfParameter["minGap"] = attrs.getSUMORealReporting(SUMO_ATTR_CF_IDM_MINGAP, "IDM", into.id.c_str(), ok);
     }
     if (!ok) {

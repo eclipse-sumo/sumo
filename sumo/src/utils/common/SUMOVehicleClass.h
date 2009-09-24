@@ -309,6 +309,15 @@ extern SUMOEmissionClass getVehicleEmissionTypeID(const std::string &name) throw
 
 
 // ===========================================================================
+// model IDs
+// ===========================================================================
+const std::string CF_MODEL_PREFIX = "carFollowing-";
+const std::string CF_MODEL_IDM = CF_MODEL_PREFIX + "IDM";
+const char * const CF_MODEL_IDM_STR = CF_MODEL_IDM.c_str();
+const std::string CF_MODEL_KRAUSS = CF_MODEL_PREFIX + "Krauss";
+const char * const CF_MODEL_KRAUSS_STR = CF_MODEL_KRAUSS.c_str();
+
+// ===========================================================================
 // default vehicle type parameter
 // ===========================================================================
 const std::string DEFAULT_VTYPE_ID = "DEFAULT_VEHTYPE";

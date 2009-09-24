@@ -32,6 +32,7 @@
 #include "MSLane.h"
 #include <utils/common/RandHelper.h>
 
+
 // ===========================================================================
 // definitions
 // ===========================================================================
@@ -52,19 +53,19 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
 MSCFModel_IDM::~MSCFModel_IDM() throw() {}
 
 
-SUMOReal MSCFModel_IDM::ffeV(MSVehicle *veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
+SUMOReal MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     return _updateSpeed(gap2pred, speed, predSpeed, desiredSpeed(veh));
 }
 
-SUMOReal MSCFModel_IDM::ffeV(MSVehicle *veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
+SUMOReal MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     return _updateSpeed(gap2pred, veh->getSpeed(), predSpeed, desiredSpeed(veh));
 }
 
-SUMOReal MSCFModel_IDM::ffeV(MSVehicle *veh, const MSVehicle * const pred) const throw() {
+SUMOReal MSCFModel_IDM::ffeV(const MSVehicle * const veh, const MSVehicle * const pred) const throw() {
     return _updateSpeed(veh->gap2pred(*pred), veh->getSpeed(), pred->getSpeed(), desiredSpeed(veh));
 }
 
-SUMOReal MSCFModel_IDM::ffeS(MSVehicle *veh, SUMOReal gap2pred) const throw() {
+SUMOReal MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
     return _updateSpeed(gap2pred, veh->getSpeed(), 0, desiredSpeed(veh));
 }
 
@@ -153,7 +154,7 @@ SUMOReal MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMORe
     return vNext;
 }
 
-SUMOReal MSCFModel_IDM::desiredSpeed(MSVehicle *veh) const throw() {
+SUMOReal MSCFModel_IDM::desiredSpeed(const MSVehicle * const veh) const throw() {
     return MIN2(myType->getMaxSpeed(), veh->getLane().maxSpeed());
 }
 

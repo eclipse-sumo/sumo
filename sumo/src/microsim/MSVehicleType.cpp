@@ -60,7 +60,7 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
                              SUMOEmissionClass emissionClass,
                              SUMOVehicleShape shape,
                              SUMOReal guiWidth, SUMOReal guiOffset,
-                             const string &cfModel, const string &lcModel,
+                             int cfModel, const string &lcModel,
                              const RGBColor &c) throw()
         : myID(id), myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
         myDecel(decel), myDawdle(dawdle), myTau(tau),
@@ -102,7 +102,7 @@ MSVehicleType::saveState(std::ostream &os) {
     FileHelpers::writeFloat(os, myColor.red());
     FileHelpers::writeFloat(os, myColor.green());
     FileHelpers::writeFloat(os, myColor.blue());
-    FileHelpers::writeString(os, myCarFollowModel->getModelName());
+    FileHelpers::writeInt(os, myCarFollowModel->getModelID());
     FileHelpers::writeString(os, myLaneChangeModel);
     //myCarFollowModel->saveState(os);
 }
@@ -129,7 +129,7 @@ MSVehicleType::build(SUMOVTypeParameter &from) throw(ProcessError) {
         from.defaultProbability, from.speedFactor, from.speedDev, from.vehicleClass, from.emissionClass,
         from.shape, from.width, from.offset, from.cfModel, from.lcModel, from.color);
     MSCFModel *model = 0;
-    if (from.cfModel=="carFollowing-IDM") {
+    if (from.cfModel==SUMO_TAG_CF_IDM) {
         model = new MSCFModel_IDM(vtype,
                                   get(from.cfParameter, "sigma", DEFAULT_VEH_SIGMA),
                                   get(from.cfParameter, "timeHeadWay", 1.5),
