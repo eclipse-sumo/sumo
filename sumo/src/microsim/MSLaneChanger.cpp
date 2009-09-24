@@ -204,7 +204,7 @@ MSLaneChanger::change() {
         vehicle->getLaneChangeModel().setState(state1);
     }
     // check whether the vehicles should be swapped
-    if ((state1&(LCA_URGENT))!=0||(state2&(LCA_URGENT))!=0) {
+    if (false&&((state1&(LCA_URGENT))!=0||(state2&(LCA_URGENT))!=0)) {
         // get the direction ...
         ChangerIt target;
         int dir;
