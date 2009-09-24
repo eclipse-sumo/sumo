@@ -371,10 +371,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\microsim\traffic_lights\MSActuatedPhaseDefinition.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\traffic_lights\MSActuatedTrafficLightLogic.h"
 				>
 			</File>
