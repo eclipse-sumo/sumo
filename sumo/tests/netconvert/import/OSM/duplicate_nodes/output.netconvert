@@ -8,26 +8,26 @@ Found duplicate nodes. Substitute -4 with -7
    30 types loaded.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Computing step 1: Removing dummy edges
-Computing step 2: Joining double connections
-Computing step 3: Finding isolated roads
+Computing step 1: Removing dummy edges.
+Computing step 2: Joining double connections.
+Computing step 3: Finding isolated roads.
 Computing step 4: Removing empty nodes and geometry nodes.
    2 nodes removed.
-Computing step 5: Normalising node positions
-Computing step 6: Guessing and setting on-/off-ramps
-Computing step 7: Guessing and setting TLs
-Computing step 8: Computing turning directions
-Computing step 9: Sorting nodes' edges
-Computing step 10: Computing Approached Edges
-Computing step 11: Computing Approaching Lanes
-Computing step 12: Dividing of Lanes on Approached Lanes
-Computing step 13: Appending Turnarounds
-Computing step 14: Rechecking of lane endings
-Computing step 15: Computing node shapes
-Computing step 16: Computing edge shapes
-Computing step 17: Computing tls logics
-Computing step 18: Computing node logics
-Computing step 19: Computing traffic light logics
+Computing step 5: Normalising node positions.
+Computing step 6: Guessing and setting on-/off-ramps.
+Computing step 7: Guessing and setting TLs.
+Computing step 8: Computing turning directions.
+Computing step 9: Sorting nodes' edges.
+Computing step 10: Computing approached edges.
+Computing step 11: Computing approaching lanes.
+Computing step 12: Dividing of lanes on approached lanes.
+Computing step 13: Appending turnarounds.
+Computing step 14: Rechecking of lane endings.
+Computing step 15: Computing node shapes.
+Computing step 16: Computing edge shapes.
+Computing step 17: Computing tls logics.
+Computing step 18: Computing node logics.
+Computing step 19: Computing traffic light logics.
 3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -38,6 +38,6 @@ Summary:
  Network boundaries:
   Original boundary  : 11.21,48.87,11.23,48.88
   Applied offset     : -662333.88,-5415120.00
-  Converted boundary : 0.00,0.00,1048.12,921.00
+  Converted boundary : 0.00,0.00,1048.13,921.00
 -----------------------------------------------------
 Success.
