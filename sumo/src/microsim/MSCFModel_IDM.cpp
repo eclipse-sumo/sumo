@@ -85,13 +85,14 @@ SUMOReal MSCFModel_IDM::approachingBrakeGap(SUMOReal speed) const throw() {
 }
 
 /// @todo update logic to IDM
-SUMOReal MSCFModel_IDM::interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const throw() {
-    // Resolve the vsafe equation to gap. Assume predecessor has
+SUMOReal MSCFModel_IDM::interactionGap(MSVehicle *veh, SUMOReal vL) const throw() {
+    // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    SUMOReal vNext = MIN2(maxNextSpeed(vF), laneMaxSpeed);
+    SUMOReal acc = myType->getMaxAccel() * (1. - pow((double)(veh->getSpeed()/desiredSpeed(veh)), (double) DELTA_IDM));
+    SUMOReal vNext = veh->getSpeed() + acc;
     SUMOReal gap = (vNext - vL) *
-                   ((vF + vL) * myInverseTwoDecel) +
+                   ((veh->getSpeed() + vL) * myInverseTwoDecel) +
                    vL * 1;
 
     // Don't allow timeHeadWay < deltaT situations.

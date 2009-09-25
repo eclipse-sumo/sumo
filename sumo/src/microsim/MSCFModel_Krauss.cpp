@@ -29,6 +29,7 @@
 
 #include "MSVehicle.h"
 #include "MSCFModel_Krauss.h"
+#include "MSLane.h"
 #include <utils/common/RandHelper.h>
 
 // ===========================================================================
@@ -91,14 +92,13 @@ MSCFModel_Krauss::approachingBrakeGap(SUMOReal speed) const throw() {
 }
 
 
-SUMOReal 
-MSCFModel_Krauss::interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const throw() {
+SUMOReal MSCFModel_Krauss::interactionGap(MSVehicle *veh, SUMOReal vL) const throw() {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    SUMOReal vNext = MIN2(maxNextSpeed(vF), laneMaxSpeed);
+    SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane().maxSpeed());
     SUMOReal gap = (vNext - vL) *
-                   ((vF + vL) * myInverseTwoDecel + myTau) +
+                   ((veh->getSpeed() + vL) * myInverseTwoDecel + myTau) +
                    vL * myTau;
 
     // Don't allow timeHeadWay < deltaT situations.

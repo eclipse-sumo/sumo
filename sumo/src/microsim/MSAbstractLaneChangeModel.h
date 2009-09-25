@@ -198,7 +198,7 @@ protected:
             return false;
         }
         SUMOReal gap = leader->getPositionOnLane() - leader->getVehicleType().getLength() - myVehicle.getPositionOnLane();
-        return gap < myVehicle.interactionGap(myVehicle.getSpeed(), myVehicle.getLane().maxSpeed(), leader->getSpeed());
+        return gap < myCarFollowModel.interactionGap(&myVehicle, leader->getSpeed());
     }
 
 

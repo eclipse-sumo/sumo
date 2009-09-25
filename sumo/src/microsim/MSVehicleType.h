@@ -281,27 +281,6 @@ public:
     /// @}
 
 
-protected:
-    /** Returns the SK-vsafe. */
-    SUMOReal _vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const {
-        if (predSpeed==0&&gap2pred<0.01) {
-            return 0;
-        }
-        assert(gap2pred  >= SUMOReal(0));
-        assert(predSpeed >= SUMOReal(0));
-        SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel
-                                    + sqrt(
-                                        myTauDecel*myTauDecel
-                                        + (predSpeed*predSpeed)
-                                        + (2. * myDecel * gap2pred)
-                                    ));
-        assert(vsafe >= 0);
-        return vsafe;
-    }
-
-
-
-
 private:
     /// @brief Unique ID
     std::string myID;

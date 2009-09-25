@@ -132,14 +132,13 @@ public:
     /** @brief Returns the maximum gap at which an interaction between both vehicles occures
      *
      * "interaction" means that the LEADER influences EGO's speed.
-     * @param[in] vF EGO's speed
-     * @param[in] laneMaxSpeed The maximum speed allowed on the lane
+     * @param[in] veh The EGO vehicle
      * @param[in] vL LEADER's speed
      * @return The interaction gap
      * @see MSCFModel::interactionGap
      * @todo evaluate signature
      */
-    SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const throw();
+    SUMOReal interactionGap(MSVehicle *veh, SUMOReal vL) const throw();
 
 
     /** @brief Returns whether the given gap is safe
