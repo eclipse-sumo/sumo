@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/08/09 09:27:34 by SUMO sumo Version dev-SVN-r7683
+<!-- generated on 09/25/09 15:09:00 by SUMO sumo Version dev-SVN-r7788
 <configuration>
 
-    <input
-        net-file="net.net.xml"
-        additional-files="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"
-    />
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-    <time
-        begin="0"
-        end="150"
-    />
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
 
-    <report
-        no-duration-log="true"
-        no-step-log="true"
-    />
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <netstats>
    <interval begin="0" end="30" id="dump_15">
-      <edge id="4/1to3/1" sampledSeconds="55.00" CO_abs="0.00" CO2_abs="92403.83" HC_abs="16.18" PMx_abs="5.39" NOx_abs="146.61" fuel_abs="36.84"
-            CO_normed="0.00" CO2_normed="28395.54" HC_normed="4.97" PMx_normed="1.66" NOx_normed="45.05" fuel_normed="11.32"
-            CO_perVeh="0.00" CO2_perVeh="65606.72" HC_perVeh="11.49" PMx_perVeh="3.82" NOx_perVeh="104.10" fuel_perVeh="26.16"/>
+      <edge id="4/1to3/1" sampledSeconds="55" CO_abs="0" CO2_abs="9.2e+004" HC_abs="16" PMx_abs="5.4" NOx_abs="1.5e+002" fuel_abs="37"
+            CO_normed="0" CO2_normed="2.8e+004" HC_normed="5" PMx_normed="1.7" NOx_normed="45" fuel_normed="11"
+            CO_perVeh="0" CO2_perVeh="6.6e+004" HC_perVeh="11" PMx_perVeh="3.8" NOx_perVeh="1e+002" fuel_perVeh="26"/>
    </interval>
 </netstats>
