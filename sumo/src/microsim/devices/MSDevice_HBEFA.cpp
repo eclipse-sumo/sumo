@@ -149,6 +149,7 @@ MSDevice_HBEFA::wrappedComputeCommandExecute(SUMOTime currentTime) throw(Process
 
 bool
 MSDevice_HBEFA::tripInfoOutput(OutputDevice &os, const std::string &intend) const throw(IOError) {
+    os << setiosflags(std::ios::scientific|std::ios::floatfield);
     os << intend <<
     "<emissions CO_abs=\"" << myCO <<
     "\" CO2_abs=\"" << myCO2 <<
@@ -157,6 +158,9 @@ MSDevice_HBEFA::tripInfoOutput(OutputDevice &os, const std::string &intend) cons
     "\" NOx_abs=\""<< myNOx <<
     "\" fuel_abs=\""<< myFuel <<
     "\"/>";
+    os<<setiosflags(std::ios::fixed | std::ios::floatfield); // use decimal format
+    os<<setiosflags(std::ios::showpoint); // print decimal point
+    os << std::setprecision(2);
     return true;
 }
 
