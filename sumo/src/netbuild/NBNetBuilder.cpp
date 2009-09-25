@@ -122,15 +122,15 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     int step = 1;
     //
     // Removes edges that are connecting the same node
-    inform(step, "Removing dummy edges");
+    inform(step, "Removing dummy edges.");
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
     //
-    inform(step, "Joining double connections");
+    inform(step, "Joining double connections.");
     gJoinedEdges.init(myEdgeCont);
     myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
     //
     if (oc.getBool("remove-isolated")) {
-        inform(step, "Finding isolated roads");
+        inform(step, "Finding isolated roads.");
         myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont, myTLLCont);
     }
     //
@@ -156,7 +156,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     }
     //
     if (!oc.getBool("disable-normalize-node-positions")) {
-        inform(step, "Normalising node positions");
+        inform(step, "Normalising node positions.");
         myNodeCont.normaliseNodePositions();
         myEdgeCont.normaliseEdgePositions();
         myDistrictCont.normaliseDistrictPositions();
@@ -165,11 +165,11 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     myEdgeCont.recomputeLaneShapes();
     //
     if (oc.getBool("guess-ramps")||oc.getBool("guess-obscure-ramps")||oc.isSet("ramp-guess.explicite")) {
-        inform(step, "Guessing and setting on-/off-ramps");
+        inform(step, "Guessing and setting on-/off-ramps.");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
     }
     //
-    inform(step, "Guessing and setting TLs");
+    inform(step, "Guessing and setting TLs.");
     if (oc.isSet("explicite-tls")) {
         std::vector<std::string> tlControlledNodes = oc.getStringVector("explicite-tls");
         for (std::vector<std::string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
@@ -187,34 +187,34 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
         myNodeCont.joinTLS(myTLLCont);
     }
     //
-    inform(step, "Computing turning directions");
+    inform(step, "Computing turning directions.");
     myEdgeCont.computeTurningDirections();
     //
     OutputDevice::createDeviceByOption("node-type-output", "pois");
-    inform(step, "Sorting nodes' edges");
+    inform(step, "Sorting nodes' edges.");
     myNodeCont.sortNodesEdges(myTypeCont);
     //
     if (oc.getBool("guess-roundabouts")) {
-        inform(step, "Guessing and setting roundabouts");
+        inform(step, "Guessing and setting roundabouts.");
         myEdgeCont.guessRoundabouts(myRoundabouts);
     }
     //
-    inform(step, "Computing Approached Edges");
+    inform(step, "Computing approached edges.");
     myEdgeCont.computeEdge2Edges();
     //
-    inform(step, "Computing Approaching Lanes");
+    inform(step, "Computing approaching lanes.");
     myEdgeCont.computeLanes2Edges();
     //
-    inform(step, "Dividing of Lanes on Approached Lanes");
+    inform(step, "Dividing of lanes on approached lanes.");
     myNodeCont.computeLanes2Lanes();
     myEdgeCont.sortOutgoingLanesConnections();
     //
     if (!oc.getBool("no-turnarounds")) {
-        inform(step, "Appending Turnarounds");
+        inform(step, "Appending turnarounds.");
         myEdgeCont.appendTurnarounds(oc.getBool("no-tls-turnarounds"));
     }
     //
-    inform(step, "Rechecking of lane endings");
+    inform(step, "Rechecking of lane endings.");
     myEdgeCont.recheckLanes();
     // save plain nodes/edges/connections
     if (oc.isSet("plain-output")) {
@@ -222,23 +222,23 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
         myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml", oc.getString("plain-output") + ".con.xml");
     }
     //
-    inform(step, "Computing node shapes");
+    inform(step, "Computing node shapes.");
     myNodeCont.computeNodeShapes();
     //
-    inform(step, "Computing edge shapes");
+    inform(step, "Computing edge shapes.");
     myEdgeCont.computeEdgeShapes();
     //
-    inform(step, "Computing tls logics");
+    inform(step, "Computing tls logics.");
     myTLLCont.setTLControllingInformation(myEdgeCont);
     //
-    inform(step, "Computing node logics");
+    inform(step, "Computing node logics.");
     myNodeCont.computeLogics(myEdgeCont, myJunctionLogicCont, oc);
     //
-    inform(step, "Computing traffic light logics");
+    inform(step, "Computing traffic light logics.");
     myTLLCont.computeLogics(myEdgeCont, oc);
     //
     if (!oc.isDefault("x-offset-to-apply")) {
-        inform(step, "Transposing network");
+        inform(step, "Transposing network.");
         SUMOReal xoff = oc.getFloat("x-offset-to-apply");
         SUMOReal yoff = oc.getFloat("y-offset-to-apply");
         myNodeCont.reshiftNodePositions(xoff, yoff);
