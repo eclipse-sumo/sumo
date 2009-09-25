@@ -53,6 +53,19 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
 MSCFModel_IDM::~MSCFModel_IDM() throw() {}
 
 
+void 
+MSCFModel_IDM::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw()
+{
+    if (neigh!=0&&neigh->getSpeed()>60./3.6) {
+        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-ego->getPositionOnLane());
+        SUMOReal nVSafe = ffeV(ego, mgap, neigh->getSpeed());
+        if (mgap-neigh->getSpeed()>=0) {
+            vSafe = MIN2(vSafe, nVSafe);
+        }
+    }
+}
+
+
 SUMOReal MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     return _updateSpeed(gap2pred, speed, predSpeed, desiredSpeed(veh));
 }
@@ -85,7 +98,7 @@ SUMOReal MSCFModel_IDM::approachingBrakeGap(SUMOReal speed) const throw() {
 }
 
 /// @todo update logic to IDM
-SUMOReal MSCFModel_IDM::interactionGap(MSVehicle *veh, SUMOReal vL) const throw() {
+SUMOReal MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.

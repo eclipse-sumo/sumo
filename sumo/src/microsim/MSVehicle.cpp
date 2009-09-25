@@ -524,16 +524,9 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
         gap = 0;
     }
     //
-    SUMOReal vSafe  = getCarFollowModel().ffeV(this, gap, pred->getSpeed());
-    if (neigh!=0&&neigh->getSpeed()>60./3.6) {
-        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
-        SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
-        if (mgap-neigh->getSpeed()>=0) {
-            vSafe = MIN2(vSafe, nVSafe);
-        }
-    }
-    // take stops into account
-    vSafe = MIN2(vSafe, processNextStop(vSafe));
+    SUMOReal vSafe = getCarFollowModel().ffeV(this, gap, pred->getSpeed()); // basic vsafe
+    getCarFollowModel().leftVehicleVsafe(this, neigh, vSafe); // from left-lane leader (do not overtake right)
+    vSafe = MIN2(vSafe, processNextStop(vSafe)); // take stops into account
 
     SUMOReal maxNextSpeed = getCarFollowModel().maxNextSpeed(myState.mySpeed);
     // we need the acceleration for emission computation;
@@ -627,13 +620,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
             }
             vWish = MIN2(vWish, getCarFollowModel().ffeV(this, pred));
         }
-        if (neigh!=0&&neigh->getSpeed()>60./3.6) {
-            SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
-            SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
-            if (mgap-neigh->getSpeed()>=0) {
-                vWish = MIN2(vWish, nVSafe);
-            }
-        }
+        getCarFollowModel().leftVehicleVsafe(this, neigh, vWish); // from left-lane leader (do not overtake right)
         // !!! check whether the vehicle wants to stop somewhere
         if (!myStops.empty()&&myStops.begin()->lane->getEdge()==lane->getEdge()) {
             SUMOReal seen = lane->length() - myState.pos();
@@ -656,13 +643,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
             //  than vsafe to the next vehicle
             vBeg = MIN2(vBeg, vSafe);
         }
-        if (neigh!=0&&neigh->getSpeed()>60./3.6) {
-            SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-getPositionOnLane());
-            SUMOReal nVSafe = getCarFollowModel().ffeV(this, mgap, neigh->getSpeed());
-            if (mgap-neigh->getSpeed()>=0) {
-                vBeg = MIN2(vBeg, nVSafe);
-            }
-        }
+        getCarFollowModel().leftVehicleVsafe(this, neigh, vBeg); // from left-lane leader (do not overtake right)
         vBeg = MAX2(vBeg, myType->getSpeedAfterMaxDecel(myState.mySpeed));
         // check whether the driver wants to let someone in
         // set next links, computing possible speeds

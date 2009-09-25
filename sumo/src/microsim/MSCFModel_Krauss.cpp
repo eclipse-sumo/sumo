@@ -32,6 +32,7 @@
 #include "MSLane.h"
 #include <utils/common/RandHelper.h>
 
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
@@ -49,6 +50,19 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, 
 }
 
 MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
+
+
+void 
+MSCFModel_Krauss::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw()
+{
+    if (neigh!=0&&neigh->getSpeed()>60./3.6) {
+        SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-ego->getPositionOnLane());
+        SUMOReal nVSafe = ffeV(ego, mgap, neigh->getSpeed());
+        if (mgap-neigh->getSpeed()>=0) {
+            vSafe = MIN2(vSafe, nVSafe);
+        }
+    }
+}
 
 SUMOReal
 MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
@@ -92,7 +106,7 @@ MSCFModel_Krauss::approachingBrakeGap(SUMOReal speed) const throw() {
 }
 
 
-SUMOReal MSCFModel_Krauss::interactionGap(MSVehicle *veh, SUMOReal vL) const throw() {
+SUMOReal MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.

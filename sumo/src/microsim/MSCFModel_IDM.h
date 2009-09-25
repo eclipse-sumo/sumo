@@ -58,6 +58,15 @@ public:
     /// @name Implementations of the MSCFModel interface
     /// @{
 
+    /** @brief Incorporates the influence of the vehicle on the left lane
+     * @param[in] ego The ego vehicle
+     * @param[in] neigh The neighbor vehicle on the left lane
+     * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
+     * @see MSCFModel::leftVehicleVsafe
+     */
+    void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw();
+
+
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
@@ -140,7 +149,7 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    SUMOReal interactionGap(MSVehicle *veh, SUMOReal vL) const throw();
+    SUMOReal interactionGap(const MSVehicle * const , SUMOReal vL) const throw();
 
 
     /** @brief Returns whether the given gap is safe

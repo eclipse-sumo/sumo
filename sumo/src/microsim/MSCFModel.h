@@ -67,6 +67,14 @@ public:
     /// @name Methods to override by model implementation
     /// @{
 
+    /** @brief Incorporates the influence of the vehicle on the left lane
+     * @param[in] ego The ego vehicle
+     * @param[in] neigh The neighbor vehicle on the left lane
+     * @param[in, out] vSafe Current vSafe; may be adapted due to the left neighbor
+     */
+    virtual void leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() = 0;
+
+
     /** @brief Computes the vehicle's safe speed (no dawdling)
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
@@ -142,7 +150,7 @@ public:
      * @return The interaction gap
      * @todo evaluate signature
      */
-    virtual SUMOReal interactionGap(MSVehicle *veh, SUMOReal vL) const throw() = 0;
+    virtual SUMOReal interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() = 0;
 
 
     /** @brief Returns whether the given gap is safe
