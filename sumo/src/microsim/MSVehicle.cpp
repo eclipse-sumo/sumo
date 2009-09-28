@@ -511,46 +511,13 @@ bool
 MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) throw() {
     // reset move information
     myTarget = 0;
-    // save old v for optional acceleration computation
-    SUMOReal oldV = myState.mySpeed;
     // compute gap to use
     SUMOReal gap = gap2pred(*pred);
     if (MSGlobals::gCheck4Accidents && gap<0) {
         // collision occured!
         return true;
     }
-    // security check for too low gaps
-    if (gap<0.1) {
-        gap = 0;
-    }
-    //
-    SUMOReal vSafe = getCarFollowModel().ffeV(this, gap, pred->getSpeed()); // basic vsafe
-    getCarFollowModel().leftVehicleVsafe(this, neigh, vSafe); // from left-lane leader (do not overtake right)
-    vSafe = MIN2(vSafe, processNextStop(vSafe)); // take stops into account
-
-    SUMOReal maxNextSpeed = getCarFollowModel().maxNextSpeed(myState.mySpeed);
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    myPreDawdleAcceleration = SPEED2ACCEL(vSafe-oldV);
-
-    SUMOReal vNext = getCarFollowModel().dawdle(MIN3(lane->maxSpeed(), getCarFollowModel().maxNextSpeed(myState.mySpeed), vSafe));
-    vNext =
-        myLaneChangeModel->patchSpeed(
-            MAX2((SUMOReal) 0, myState.mySpeed-(SUMOReal)ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
-            vNext,
-            MIN3(vSafe, myLane->maxSpeed(), maxNextSpeed),//vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vSafe);
-    vNext = MIN4(vNext, vSafe, myLane->maxSpeed(), maxNextSpeed);//vaccel(myState.mySpeed, myLane->maxSpeed()));
-
-    SUMOReal predDec = pred->getSpeedAfterMaxDecel(pred->getSpeed()); //!!!!q//-decelAbility() /* !!! decelAbility of leader! */);
-    if (getCarFollowModel().brakeGap(vNext)+vNext*myType->getTau() > getCarFollowModel().brakeGap(predDec) + gap) {
-
-        vNext = MIN2(vNext, (SUMOReal) DIST2SPEED(gap));
-    }
-
-    vNext = MAX3((SUMOReal) 0, vNext, myType->getSpeedAfterMaxDecel(oldV));
+    SUMOReal vNext = getCarFollowModel().move(this, lane, pred, neigh);
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
         if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
@@ -696,21 +663,7 @@ MSVehicle::moveFirstChecked() {
         }
     }
 
-    // take stops into account
-    vSafe = MIN2(vSafe, processNextStop(vSafe));
-    // we need the acceleration for emission computation;
-    //  in this case, we neglect dawdling, nonetheless, using
-    //  vSafe does not incorporate speed reduction due to interaction
-    //  on lane changing
-    myPreDawdleAcceleration = SPEED2ACCEL(vSafe-oldV);
-    // compute vNext in considering dawdling
-    SUMOReal vNext = getCarFollowModel().dawdle(vSafe);
-    vNext =
-        myLaneChangeModel->patchSpeed(
-            getSpeedAfterMaxDecel(myState.mySpeed),
-            vNext,
-            MIN3(vSafe, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->maxSpeed()), //vaccel(myState.mySpeed, myLane->maxSpeed())),
-            vSafe);
+    SUMOReal vNext = getCarFollowModel().moveHelper(this, myLane, vSafe);
     vNext = MAX3(vNext, myType->getSpeedAfterMaxDecel(oldV), (SUMOReal) 0.);
     // visit waiting time
     if (vNext<=0.1) {

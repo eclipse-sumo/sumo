@@ -446,6 +446,10 @@ public:
         myHasIndividualMaxSpeed = false;
     }
 
+    void setPreDawdleAcceleration(SUMOReal accel) {
+        myPreDawdleAcceleration = accel;
+    }
+
     /** */
     SUMOReal timeHeadWayGap(SUMOReal speed) const {
         assert(speed >= 0);
@@ -790,6 +794,14 @@ public:
      */
     void startLaneChange(unsigned lane, SUMOTime stickyTime);
 
+    /** @brief Processes stops, returns the velocity needed to reach the stop
+     * @return The velocity in dependance to the next/current stop
+     * @todo Describe more detailed
+     * @see Stop
+     * @see MSBusStop
+     */
+    SUMOReal processNextStop(SUMOReal currentVelocity) throw();
+
     /**
      * Forces the vehicle to change the given number of lanes to the right side
      * @param numLanes number of lanes that shall be passed
@@ -812,13 +824,7 @@ public:
 #endif
 
 protected:
-    /** @brief Processes stops, returns the velocity needed to reach the stop
-     * @return The velocity in dependance to the next/current stop
-     * @todo Describe more detailed
-     * @see Stop
-     * @see MSBusStop
-     */
-    SUMOReal processNextStop(SUMOReal currentVelocity) throw();
+
 
 
 

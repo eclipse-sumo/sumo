@@ -52,9 +52,28 @@ public:
     ~MSCFModel_Krauss() throw();
 
 
-
     /// @name Implementations of the MSCFModel interface
     /// @{
+
+    /** @brief Computes EGO's next step velocity in dependance to the given values
+     * @param[in] veh The ego vehicle
+     * @param[in] lane The lane ego is at
+     * @param[in] pred EGO's LEADER
+     * @param[in] neigh The neighbor vehicle on the left lane
+     * @return The velocity to use in next step
+     * @see moveHelper
+     */
+    SUMOReal move(MSVehicle * const veh, const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) const throw();
+
+
+    /** @brief Applies interaction with stops and lane changing model influences
+     * @param[in] veh The ego vehicle
+     * @param[in] lane The lane ego is at
+     * @param[in] vPos The possible velocity
+     * @return The velocity after applying interactions with stops and lane change model influences
+     */
+    SUMOReal moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw();
+
 
     /** @brief Incorporates the influence of the vehicle on the left lane
      * @param[in] ego The ego vehicle
@@ -172,15 +191,6 @@ public:
     SUMOReal safeEmitGap(SUMOReal speed) const throw();
 
 
-    /** @brief Applies driver imperfection (dawdling / sigma)
-     * @param[in] speed The speed with no dawdling
-     * @return The speed after dawdling
-     * @see MSCFModel::dawdle
-     * @todo must exist until MSVehicle::move() is updated
-     */
-    SUMOReal dawdle(SUMOReal speed) const throw();
-
-
     /** @brief Returns the vehicle's maximum deceleration ability
      * @return The vehicle's maximum deceleration ability
      * @see MSCFModel::decelAbility
@@ -207,6 +217,12 @@ private:
     SUMOReal _vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const throw();
 
 
+    /** @brief Applies driver imperfection (sawdling / sigma)
+     * @param[in] speed The speed with no dawdling
+     * @return The speed after dawdling
+     */
+    SUMOReal dawdle(SUMOReal speed) const throw();
+    
 private:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;

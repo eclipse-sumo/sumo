@@ -28,8 +28,9 @@
 #endif
 
 #include "MSVehicle.h"
-#include "MSCFModel_Krauss.h"
 #include "MSLane.h"
+#include "MSCFModel_Krauss.h"
+#include "MSAbstractLaneChangeModel.h"
 #include <utils/common/RandHelper.h>
 
 
@@ -52,6 +53,52 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, 
 MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
 
 
+
+SUMOReal 
+MSCFModel_Krauss::move(MSVehicle * const veh, const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) const throw() {
+    // save old v for optional acceleration computation
+    SUMOReal oldV = veh->getSpeed();
+    // compute gap to use
+    SUMOReal gap = veh->gap2pred(*pred);
+    // security check for too low gaps
+    if (gap<0.1) {
+        gap = 0;
+    }
+
+    SUMOReal vSafe  = ffeV(veh, gap, pred->getSpeed());
+    leftVehicleVsafe(veh, neigh, vSafe);
+    SUMOReal vNext = moveHelper(veh, lane, vSafe);
+    SUMOReal predDec = pred->getSpeedAfterMaxDecel(pred->getSpeed()); //!!!!q//-decelAbility() /* !!! decelAbility of leader! */);
+    if (brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
+        vNext = MIN2(vNext, (SUMOReal) DIST2SPEED(gap));
+    }
+    vNext = MAX3((SUMOReal) 0, vNext, myType->getSpeedAfterMaxDecel(oldV));
+    return vNext;
+}
+
+
+SUMOReal 
+MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
+    // save old v for optional acceleration computation
+    SUMOReal oldV = veh->getSpeed();
+    SUMOReal vSafe = MIN2(vPos, veh->processNextStop(vPos));
+    // we need the acceleration for emission computation;
+    //  in this case, we neglect dawdling, nonetheless, using
+    //  vSafe does not incorporate speed reduction due to interaction
+    //  on lane changing
+    veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
+    SUMOReal vNext = dawdle(MIN3(lane->maxSpeed(), maxNextSpeed(oldV), vSafe));
+    vNext =
+        veh->getLaneChangeModel().patchSpeed(
+            MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
+            vNext,
+            MIN3(vSafe, veh->getLane().maxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
+            vSafe);
+    vNext = MIN4(vNext, vSafe, veh->getLane().maxSpeed(), maxNextSpeed(oldV));
+    return vNext;
+}
+
+
 void 
 MSCFModel_Krauss::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw()
 {
@@ -63,6 +110,7 @@ MSCFModel_Krauss::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle 
         }
     }
 }
+
 
 SUMOReal
 MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {

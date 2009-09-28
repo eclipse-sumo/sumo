@@ -53,10 +53,29 @@ public:
     /// @brief Destructor
     ~MSCFModel_IDM() throw();
 
-
-
+ 
     /// @name Implementations of the MSCFModel interface
     /// @{
+
+    /** @brief Computes EGO's next step velocity in dependance to the given values
+     * @param[in] veh The ego vehicle
+     * @param[in] lane The lane ego is at
+     * @param[in] pred EGO's LEADER
+     * @param[in] neigh The neighbor vehicle on the left lane
+     * @return The velocity to use in next step
+     * @see moveHelper
+     */
+    SUMOReal move(MSVehicle * const veh, const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) const throw();
+
+
+    /** @brief Applies interaction with stops and lane changing model influences
+     * @param[in] veh The ego vehicle
+     * @param[in] lane The lane ego is at
+     * @param[in] vPos The possible velocity
+     * @return The velocity after applying interactions with stops and lane change model influences
+     */
+    SUMOReal moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw();
+
 
     /** @brief Incorporates the influence of the vehicle on the left lane
      * @param[in] ego The ego vehicle
@@ -174,15 +193,6 @@ public:
     SUMOReal safeEmitGap(SUMOReal speed) const throw();
 
 
-    /** @brief Applies driver imperfection (sawdling / sigma)
-     * @param[in] speed The speed with no dawdling
-     * @return The speed after dawdling
-     * @todo must exist until MSVehicle::move() is updated
-     * @see MSCFModel::dawdle
-     */
-    SUMOReal dawdle(SUMOReal speed) const throw();
-
-
     /** @brief Returns the vehicle's maximum deceleration ability
      * @return The vehicle's maximum deceleration ability
      * @see MSCFModel::decelAbility
@@ -205,12 +215,8 @@ private:
 
     SUMOReal desiredSpeed(const MSVehicle * const veh) const throw();
 
-    /// @todo needs to be removed
-    // Dawdling is not part of IDM, but needs to exist here until
-    // position updating is moved to MSCFModel.
-    SUMOReal myDawdle;
 
-    /// @brief The driver's reaction time [s]
+    /// @brief The driver's desired time headway [s]
     SUMOReal myTimeHeadWay;
 
     /// @brief The desired minimum Gap to the leading vehicle (no matter the speed)
