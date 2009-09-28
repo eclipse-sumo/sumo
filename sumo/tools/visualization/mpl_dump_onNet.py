@@ -93,7 +93,7 @@ class NetReader(handler.ContentHandler):
             self._edge2speed[self._id] = float(attrs['maxspeed'])
             self._edge2lanes[self._id] = self._edge2lanes[self._id] + 1
             self._parseLane = True
-            self._currentShapes.append("")
+            self._currentShapes.append(attrs["shape"])
         if name == 'junction':
             self._id = attrs['id']
             if self._id[0]!=':':
@@ -101,10 +101,6 @@ class NetReader(handler.ContentHandler):
                 self._node2y[attrs['id']] = attrs['y']
             else:
                 self._id = ""
-
-    def characters(self, content):
-        if self._parseLane:
-            self._currentShapes[-1] = self._currentShapes[-1] + content
 
     def endElement(self, name):
         if self._parseLane:
