@@ -1,0 +1,31 @@
+<edges>
+
+   <edge id="beg" fromnode="start" tonode="b2" speed="1" length="1"/>
+
+   <edge id="b2a1" fromnode="b2" tonode="a1" speed="1" length="8"/>
+   <edge id="b2b1" fromnode="b2" tonode="b1" speed="1" length="9"/>
+   <edge id="b2c1" fromnode="b2" tonode="c1" speed="1" length="10"/>
+   <edge id="b2a2" fromnode="b2" tonode="a2" speed="1" length="7"/>
+   <edge id="b2c2" fromnode="b2" tonode="c2" speed="1" length="12"/>
+   <edge id="b2b3" fromnode="b2" tonode="b3" speed="1" length="1"/>
+   <edge id="b2c3" fromnode="b2" tonode="c3" speed="1" length="11"/>
+   <edge id="b2a25" fromnode="b2" tonode="a25" speed="1" length="6"/>
+
+   <edge id="b3c3" fromnode="b3" tonode="c3" speed="1" length="3"/>
+   <edge id="b3a3" fromnode="b3" tonode="a3" speed="1" length="4"/>
+   <edge id="a3a25" fromnode="a3" tonode="a25" speed="1" length="0.5"/>
+   <edge id="b3c4" fromnode="b3" tonode="c4" speed="1" length="13"/>
+   <edge id="b3b4" fromnode="b3" tonode="b4" speed="1" length="12"/>
+   <edge id="b3a4" fromnode="b3" tonode="a4" speed="1" length="10"/>
+
+   <edge id="a1e" fromnode="a1" tonode="end" speed="1"/>
+   <edge id="a25e" fromnode="a25" tonode="end" speed="1"/>
+   <edge id="b1e" fromnode="b1" tonode="end" speed="1"/>
+   <edge id="c1e" fromnode="c1" tonode="end" speed="1"/>
+   <edge id="a2e" fromnode="a2" tonode="end" speed="1"/>
+   <edge id="c2e" fromnode="c2" tonode="end" speed="1"/>
+   <edge id="c3e" fromnode="c3" tonode="end" speed="1"/>
+   <edge id="a4e" fromnode="a4" tonode="end" speed="1"/>
+   <edge id="b4e" fromnode="b4" tonode="end" speed="1"/>
+   <edge id="c4e" fromnode="c4" tonode="end" speed="1"/>
+</edges>

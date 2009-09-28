@@ -10,3 +10,5 @@
 # Tests for ticket99 (correct duarouter report behaviour)
 ticket99
 
+# Test for heap bug in dijkstra
+dijkstra
