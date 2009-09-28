@@ -271,11 +271,11 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             "\" fuel_normed=\""<<normKMH(fuelS, (SUMOReal)(stopTime-startTime), length);
             if (samplesS!=0) {
                 dev<<"\"\n            CO_perVeh=\""<<SUMOReal(normPerVeh(coS, samplesS, vehicleNoS)*1000.) <<
-                "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(co2S, samplesS, vehicleNoS)*1000.)<<
-                "\" HC_perVeh=\""<<SUMOReal(normPerVeh(hcS, samplesS, vehicleNoS)*1000.)<<
-                "\" PMx_perVeh=\""<<SUMOReal(normPerVeh(pmxS, samplesS, vehicleNoS)*1000.)<<
-                "\" NOx_perVeh=\""<<SUMOReal(normPerVeh(noxS, samplesS, vehicleNoS)*1000.)<<
-                "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(fuelS, samplesS, vehicleNoS)*1000.);
+                "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(co2S, samplesS, vehicleNoS))<<
+                "\" HC_perVeh=\""<<SUMOReal(normPerVeh(hcS, samplesS, vehicleNoS))<<
+                "\" PMx_perVeh=\""<<SUMOReal(normPerVeh(pmxS, samplesS, vehicleNoS))<<
+                "\" NOx_perVeh=\""<<SUMOReal(normPerVeh(noxS, samplesS, vehicleNoS))<<
+                "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(fuelS, samplesS, vehicleNoS));
             }
             dev<<std::setiosflags(std::ios::fixed | std::ios::floatfield); // use decimal format
             dev<<std::setiosflags(std::ios::showpoint); // print decimal point
@@ -318,11 +318,11 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
         "\" fuel_normed=\""<<normKMH(laneValues.fuel, (SUMOReal)(stopTime-startTime), length);
         if (laneValues.sampleSeconds!=0) {
             dev<<"\"\n            CO_perVeh=\""<<SUMOReal(normPerVeh(laneValues.CO, laneValues.sampleSeconds, oVehNo)*1000.)<<
-            "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(laneValues.CO2, laneValues.sampleSeconds, oVehNo)*1000.)<<
-            "\" HC_perVeh=\""<<SUMOReal(normPerVeh(laneValues.HC, laneValues.sampleSeconds, oVehNo)*1000.)<<
-            "\" PMx_perVeh=\""<<SUMOReal(normPerVeh(laneValues.PMx, laneValues.sampleSeconds, oVehNo)*1000.)<<
-            "\" NOx_perVeh=\""<<SUMOReal(normPerVeh(laneValues.NOx, laneValues.sampleSeconds, oVehNo)*1000.)<<
-            "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(laneValues.fuel, laneValues.sampleSeconds, oVehNo)*1000.);
+            "\" CO2_perVeh=\""<<SUMOReal(normPerVeh(laneValues.CO2, laneValues.sampleSeconds, oVehNo))<<
+            "\" HC_perVeh=\""<<SUMOReal(normPerVeh(laneValues.HC, laneValues.sampleSeconds, oVehNo))<<
+            "\" PMx_perVeh=\""<<SUMOReal(normPerVeh(laneValues.PMx, laneValues.sampleSeconds, oVehNo))<<
+            "\" NOx_perVeh=\""<<SUMOReal(normPerVeh(laneValues.NOx, laneValues.sampleSeconds, oVehNo))<<
+            "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(laneValues.fuel, laneValues.sampleSeconds, oVehNo));
         }
         dev<<"\"/>\n";
         dev<<std::setiosflags(std::ios::fixed | std::ios::floatfield); // use decimal format
