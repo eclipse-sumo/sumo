@@ -738,6 +738,16 @@ public:
      */
     SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge);
 
+
+    /** @brief Processes stops, returns the velocity needed to reach the stop
+     * @return The velocity in dependance to the next/current stop
+     * @todo Describe more detailed
+     * @see Stop
+     * @see MSBusStop
+     */
+    SUMOReal processNextStop(SUMOReal currentVelocity) throw();
+
+
 #ifndef NO_TRACI
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
@@ -793,28 +803,6 @@ public:
      * @param stickyTime	duration for wich the constraint takes effect
      */
     void startLaneChange(unsigned lane, SUMOTime stickyTime);
-
-    /** @brief Processes stops, returns the velocity needed to reach the stop
-     * @return The velocity in dependance to the next/current stop
-     * @todo Describe more detailed
-     * @see Stop
-     * @see MSBusStop
-     */
-    SUMOReal processNextStop(SUMOReal currentVelocity) throw();
-
-    /**
-     * Forces the vehicle to change the given number of lanes to the right side
-     * @param numLanes number of lanes that shall be passed
-     * @param stickyTime duration for wich the lane change constraint takes effect
-     */
-    //void forceLaneChangeRight(int numLanes, SUMOTime stickyTime);
-
-    /**
-     * Forces the vehicle to change the given number of lanes to the left side
-     * @param numLanes number of lanes that shall be passed
-     * @param stickyTime duration for wich the lane change constraint takes effect
-     */
-    //void forceLaneChangeLeft(int numLanes, SUMOTime stickyTime);
 
     /**
      * takes all action necessary during a simulation step to process any active command sent by TraCI
