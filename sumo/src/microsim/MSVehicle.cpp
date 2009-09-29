@@ -539,7 +539,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
         }
     }
     if (myBMsgEmitter!=0) {
-        if (vNext < oldV) {
+        if (vNext < myState.mySpeed) {
             SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
             myBMsgEmitter->writeBreakEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
         }
