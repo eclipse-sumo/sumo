@@ -149,6 +149,7 @@ int
 main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
+    std::cout << "Success." << std::cout.flags() << std::endl;
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
 #ifdef WIN32
     oc.setApplicationName("duarouter.exe", "SUMO duarouter Version " + (std::string)VERSION_STRING);
