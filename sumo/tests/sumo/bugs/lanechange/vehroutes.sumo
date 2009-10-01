@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/29/08 21:36:56 by SUMO sumo Version 0.9.7
+<!-- generated on 10/01/09 09:59:24 by SUMO sumo Version dev-SVN-r7806
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
 
-   <output>
-      <vehroute-output>vehroutes.xml</vehroute-output>
-   </output>
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -41,7 +41,7 @@
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal06" depart="121" arrival="366">
+   <vehicle id="horizontal06" depart="121" arrival="367">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
@@ -49,71 +49,71 @@
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal08" depart="129" arrival="374">
+   <vehicle id="horizontal08" depart="129" arrival="371">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal11" depart="134" arrival="376">
+   <vehicle id="horizontal11" depart="134" arrival="372">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal12" depart="138" arrival="377">
+   <vehicle id="horizontal12" depart="138" arrival="374">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal13" depart="142" arrival="379">
+   <vehicle id="horizontal13" depart="142" arrival="375">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal14" depart="146" arrival="380">
+   <vehicle id="horizontal14" depart="146" arrival="377">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal15" depart="150" arrival="382">
+   <vehicle id="horizontal15" depart="150" arrival="378">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal16" depart="154" arrival="385">
+   <vehicle id="horizontal16" depart="154" arrival="380">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal17" depart="158" arrival="387">
+   <vehicle id="horizontal17" depart="158" arrival="381">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal18" depart="163" arrival="454">
+   <vehicle id="horizontal18" depart="163" arrival="383">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal21" depart="167" arrival="455">
+   <vehicle id="horizontal21" depart="167" arrival="384">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal22" depart="171" arrival="457">
+   <vehicle id="horizontal22" depart="171" arrival="386">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal23" depart="175" arrival="459">
+   <vehicle id="horizontal23" depart="175" arrival="388">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal24" depart="179" arrival="461">
+   <vehicle id="horizontal24" depart="179" arrival="454">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal25" depart="183" arrival="463">
+   <vehicle id="horizontal25" depart="183" arrival="457">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal26" depart="187" arrival="465">
+   <vehicle id="horizontal26" depart="187" arrival="458">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal27" depart="191" arrival="467">
+   <vehicle id="horizontal27" depart="191" arrival="460">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-   <vehicle id="horizontal28" depart="195" arrival="468">
+   <vehicle id="horizontal28" depart="195" arrival="462">
       <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
