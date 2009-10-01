@@ -407,10 +407,10 @@ public:
         returns false. */
     static bool dictionary(const std::string &id, MSEdge* edge) throw();
 
-    /** @brief IReturns the MSEdge associated to the key id if exists, otherwise returns 0. */
+    /** @brief Returns the MSEdge associated to the key id if exists, otherwise returns 0. */
     static MSEdge* dictionary(const std::string &id) throw();
 
-    /** @brief IReturns the MSEdge at the index */
+    /** @brief Returns the MSEdge at the index */
     static MSEdge* dictionary(size_t index) throw();
 
     /// @brief Returns the number of edges

@@ -49,6 +49,7 @@
 // ===========================================================================
 bool ROEdge::myHaveTTWarned = false;
 bool ROEdge::myHaveEWarned = false;
+std::vector<ROEdge*> ROEdge::myEdges;
 
 
 // ===========================================================================
@@ -59,7 +60,12 @@ ROEdge::ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int ind
         myIndex(index), myLength(-1),
         myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
         myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
-        myFromNode(from), myToNode(to) {}
+        myFromNode(from), myToNode(to) {
+    while (myEdges.size()<=index) {
+        myEdges.push_back(0);
+    }
+    myEdges[index] = this;
+}
 
 
 ROEdge::~ROEdge() throw() {
@@ -246,6 +252,13 @@ ROEdge::allFollowersProhibit(const ROVehicle * const vehicle) const throw() {
         }
     }
     return true;
+}
+
+
+ROEdge*
+ROEdge::dictionary(size_t id) throw() {
+    assert(myEdges.size()>id);
+    return myEdges[id];
 }
 
 

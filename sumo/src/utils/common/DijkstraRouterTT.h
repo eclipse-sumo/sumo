@@ -34,8 +34,7 @@
 #include <vector>
 #include <set>
 #include <limits>
-#include <queue>
-#include <string>
+#include <algorithm>
 #include <utils/common/InstancePool.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
@@ -65,8 +64,11 @@ class DijkstraRouterTTBase : public SUMOAbstractRouter<E, V>, public PF {
 public:
     /// Constructor
     DijkstraRouterTTBase(size_t noE, bool unbuildIsWarningOnly)
-            : myVisited(noE, false), myStorage(noE),
-            myUnbuildIsWarningOnly(unbuildIsWarningOnly) { }
+            : myUnbuildIsWarningOnly(unbuildIsWarningOnly) {
+        for (size_t i = 0; i < noE; i++) {
+            myEdgeInfos.push_back(EdgeInfo(i));
+        }
+    }
 
     /// Destructor
     virtual ~DijkstraRouterTTBase() { }
@@ -79,8 +81,8 @@ public:
     class EdgeInfo {
     public:
         /// Constructor
-        EdgeInfo()
-                : edge(0), traveltime(0), prev(0) {}
+        EdgeInfo(size_t id)
+            : edge(E::dictionary(id)), traveltime(0), prev(0), visited(false) {}
 
         /// The current edge
         const E *edge;
@@ -91,6 +93,9 @@ public:
         /// The previous edge
         EdgeInfo *prev;
 
+        /// The previous edge
+        bool visited;
+
     };
 
     /**
@@ -99,14 +104,11 @@ public:
      */
     class EdgeInfoByTTComperator {
     public:
-        /// Constructor
-        explicit EdgeInfoByTTComperator() { }
-
-        /// Destructor
-        ~EdgeInfoByTTComperator() { }
-
         /// Comparing method
-        bool operator()(EdgeInfo *nod1, EdgeInfo *nod2) const {
+        bool operator()(const EdgeInfo *nod1, const EdgeInfo *nod2) const {
+            if (nod1->traveltime == nod2->traveltime) {
+                return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
+            }
             return nod1->traveltime>nod2->traveltime;
         }
     };
@@ -119,40 +121,52 @@ public:
     virtual void compute(const E *from, const E *to, const V * const vehicle,
                          SUMOTime time, std::vector<const E*> &into) {
 
-        std::fill(myVisited.begin(), myVisited.end(), false);
-        myStorage.reset();
+        for (typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
+            (*i).traveltime = std::numeric_limits<SUMOReal>::max();
+            (*i).visited = false;
+        }
         assert(from!=0&&to!=0);
-        // begin computation
-        std::priority_queue<EdgeInfo*, std::vector<EdgeInfo*>, EdgeInfoByTTComperator> frontierList;
+        myFrontierList.clear();
         // add begin node
-        frontierList.push(myStorage.add(from, 0, 0));
-
+        EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
+        fromInfo->traveltime = 0;
+        fromInfo->prev = 0;
+        myFrontierList.push_back(fromInfo);
         // loop
-        while (!frontierList.empty()) {
+        while (!myFrontierList.empty()) {
             // use the node with the minimal length
-            EdgeInfo * const minimumKnot = frontierList.top();
-            const E * const minEdge = minimumKnot->edge;
-            frontierList.pop();
+            EdgeInfo * const minimumInfo = myFrontierList.front();
+            const E * const minEdge = minimumInfo->edge;
+            pop_heap(myFrontierList.begin(), myFrontierList.end(), EdgeInfoByTTComperator());
+            myFrontierList.pop_back();
             // check whether the destination node was already reached
             if (minEdge == to) {
-                buildPathFrom(minimumKnot, into);
+                buildPathFrom(minimumInfo, into);
                 return;
             }
-            myVisited[minEdge->getNumericalID()] = true;
-            const SUMOReal traveltime = minimumKnot->traveltime + getEffort(minEdge, vehicle, time + (SUMOTime)minimumKnot->traveltime);
+            minimumInfo->visited = true;
+            const SUMOReal traveltime = minimumInfo->traveltime + getEffort(minEdge, vehicle, time + (SUMOTime)minimumInfo->traveltime);
             // check all ways from the node with the minimal length
             unsigned int i = 0;
             const unsigned int length_size = minEdge->getNoFollowing();
             for (i=0; i<length_size; i++) {
-                const E* const help = minEdge->getFollower(i);
+                const E* const follower = minEdge->getFollower(i);
+                EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
                 // check whether it can be used
-                if (PF::operator()(help, vehicle)) {
+                if (PF::operator()(follower, vehicle)) {
                     continue;
                 }
-                //
-                if (!myVisited[help->getNumericalID()] && traveltime < myStorage.getEffort(help)) {
-                    if (help!=from) {
-                        frontierList.push(myStorage.add(help, traveltime, minimumKnot));
+                const SUMOReal oldEffort = followerInfo->traveltime;
+                if (!followerInfo->visited && traveltime < oldEffort) {
+                    followerInfo->traveltime = traveltime;
+                    followerInfo->prev = minimumInfo;
+                    if (oldEffort == std::numeric_limits<SUMOReal>::max()) {
+                        myFrontierList.push_back(followerInfo);
+                        push_heap(myFrontierList.begin(), myFrontierList.end(), EdgeInfoByTTComperator());
+                    } else {
+                        push_heap(myFrontierList.begin(),
+                                  find(myFrontierList.begin(), myFrontierList.end(), followerInfo) + 1,
+                                  EdgeInfoByTTComperator());
                     }
                 }
             }
@@ -187,58 +201,12 @@ public:
         std::copy(tmp.begin(), tmp.end(), std::back_inserter(edges));
     }
 
-public:
-    /**
-     * @class EdgeInfoCont
-     * A class holding the instances of effort-to-reach and predeccessor
-     *  information for every ede within the network.
-     * This class is used instead of the former saving of these values within
-     *  the edges to allow parallel route computation in multithreading mode.
-     */
-    class EdgeInfoCont {
-    public:
-        /// Constructor
-        EdgeInfoCont(size_t toAlloc)
-                : myEdgeInfos(toAlloc+1, EdgeInfo()) { }
-
-        /// Destructor
-        ~EdgeInfoCont() { }
-
-        /// Adds the information about the effort to get to an edge and its predeccessing edge
-        EdgeInfo *add(const E *edgeArg, const SUMOReal traveltimeArg, EdgeInfo *prevArg) {
-            EdgeInfo *ret = &(myEdgeInfos[edgeArg->getNumericalID()]);
-            ret->edge = edgeArg; // !!! may be set within the constructor
-            ret->traveltime = traveltimeArg;
-            ret->prev = prevArg;
-            return ret;
-        }
-
-        /// Resets all effort-information
-        void reset() {
-            for (typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
-                (*i).traveltime = std::numeric_limits<SUMOReal>::max();
-            }
-        }
-
-
-        /** @brief Returns the effort to get to the specify edge
-            The value is valid if the edge was already visited */
-        SUMOReal getEffort(const E *to) const {
-            return myEdgeInfos[to->getNumericalID()].traveltime;
-        }
-
-    private:
-        /// The container of edge information
-        std::vector<EdgeInfo> myEdgeInfos;
-
-    };
-
 protected:
-    /// A container for reusage of examined edges lists
-    std::vector<bool> myVisited;
+    /// The container of edge information
+    std::vector<EdgeInfo> myEdgeInfos;
 
-    /// A container for reusage of edge consecution lists
-    EdgeInfoCont myStorage;
+    /// A container for reusage of the min edge heap
+    std::vector<EdgeInfo*> myFrontierList;
 
     bool myUnbuildIsWarningOnly;
 

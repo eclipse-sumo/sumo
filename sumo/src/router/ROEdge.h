@@ -286,6 +286,9 @@ public:
     SUMOReal getTravelTime(const ROVehicle * const veh, SUMOTime time) const throw();
     //@}
 
+    /** @brief Returns the ROEdge at the index */
+    static ROEdge* dictionary(size_t index) throw();
+
 
 
 protected:
@@ -339,6 +342,8 @@ protected:
 
     /// @brief The nodes this edge is connecting
     RONode *myFromNode, *myToNode;
+
+    static std::vector<ROEdge*> myEdges;
 
 private:
     /// @brief Invalidated copy constructor
