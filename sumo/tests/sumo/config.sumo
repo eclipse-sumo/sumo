@@ -82,6 +82,7 @@ aggregated25:0.0101
 aggregated60:0.0101
 aggregated300:0.0101
 aggregated900:0.0101
+tripinfos:0.0101
 
 #[relative_float_tolerance]
 #aggregated1:0.000001
