@@ -101,7 +101,7 @@ public:
     static void dict_saveState(std::ostream &os) throw();
 
 
-    /** @brief Loads routes from the state
+    /** @brief Loads routes from the state.
      *
      * @param[in] bis The input to read the routes from (binary)
      */
@@ -117,31 +117,56 @@ public:
 
     SUMOReal getLength() const;
 
-    /**
-     * Compute the distance between 2 given edges on this route, including the length of internal lanes.
-     * @param fromPos:		position on the first edge, at wich the computed distance begins
-     * @param toPos:		position on the last edge, at which the coumputed distance endsance
-     * @param fromEdge:		edge at wich computation begins
-     * @param toEdge:		edge at which distance computation shall stop
-     * @return				distance between the position fromPos on fromEdge and toPos on toEdge
+    /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
+     * 
+     * @param[in] fromPos  position on the first edge, at wich the computed distance begins
+     * @param[in] toPos	   position on the last edge, at which the coumputed distance endsance
+     * @param[in] fromEdge edge at wich computation begins
+     * @param[in] toEdge   edge at which distance computation shall stop
+     * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
     SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const;
 
 public:
-    /** @brief Adds a route to the dictionary
-        Returns true if the route could be added, false if a route with the same name already exists */
+    /** @brief Adds a route to the dictionary.
+     *
+     *  Returns true if the route could be added,
+     *  false if a route (distribution) with the same name already exists.
+     *
+     * @param[in] id    the id for the new route
+     * @param[in] route pointer to the route object
+     * @return          whether adding was successful
+     */
     static bool dictionary(const std::string &id, const MSRoute *route);
 
-    /** @brief Adds a route distribution to the dictionary
-        Returns true if the route could be added, false if a route with the same name already exists */
+    /** @brief Adds a route distribution to the dictionary.
+     *
+     *  Returns true if the distribution could be added,
+     *  false if a route (distribution) with the same name already exists.
+     *
+     * @param[in] id    the id for the new route distribution
+     * @param[in] route pointer to the distribution object
+     * @return          whether adding was successful
+     */
     static bool dictionary(const std::string &id, RandomDistributor<const MSRoute*> *routeDist);
 
-    /** @brief Returns the named route or a sample from the named distribution
-        Returns 0 if no route (distribution) with the given name exists */
+    /** @brief Returns the named route or a sample from the named distribution.
+     *
+     *  Returns 0 if no route and no distribution with the given name exists
+     *  or if the distribution exists and is empty.
+     *
+     * @param[in] id    the id of the route or the distribution
+     * @return          the route (sample)
+     */
     static const MSRoute *dictionary(const std::string &id);
 
-    /** @brief Returns the named route distribution
-        Returns 0 if no route distribution with the given name exists */
+    /** @brief Returns the named route distribution.
+     *
+     *  Returns 0 if no route distribution with the given name exists.
+     *
+     * @param[in] id    the id of the route distribution
+     * @return          the route distribution
+     */
     static RandomDistributor<const MSRoute*> *distDictionary(const std::string &id);
 
     /// Clears the dictionary (delete all known routes, too)

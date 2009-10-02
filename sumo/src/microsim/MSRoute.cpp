@@ -114,7 +114,7 @@ MSRoute::dictionary(const string &id) {
     RouteDict::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         RouteDistDict::iterator it2 = myDistDict.find(id);
-        if (it2 == myDistDict.end()) {
+        if (it2 == myDistDict.end() || it2->second->getOverallProb() == 0) {
             return 0;
         }
         return it2->second->get();
