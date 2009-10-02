@@ -1,5 +1,6 @@
 import_config_file:../config_all
 binary:$SUMO_BINARY
+batch_extra_version:perf
 copy_test_path:net.net.xml
 copy_test_path:three_split.net.xml
 copy_test_path:input_emitter.def.xml
