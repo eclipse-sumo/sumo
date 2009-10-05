@@ -1,19 +1,17 @@
-import_config_file:../config_all
-binary:$SUMO_BINARY
-
 [run_dependent_text]
 output:Duration:
 output:Real time factor:
 output:UPS:
 
 [performance_logfile]
-cputime:output
+performance:output
+performance:erro*
 
 [performance_logfile_extractor]
-cputime:Duration:
+performance: Duration:
 
 [performance_test_machine]
-cputime:any
+performance:any
 
 [performance_unit]
-cputime:ms
+performance:ms

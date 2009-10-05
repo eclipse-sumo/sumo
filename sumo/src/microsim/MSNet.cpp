@@ -281,7 +281,7 @@ MSNet::closeSimulation(SUMOTime start) {
     if (myLogExecutionTime) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         ostringstream msg;
-        msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
+        msg << "Performance: " << "\n" << " Duration: " << duration << " ms" << "\n";
         if (duration!=0) {
             msg << " Real time factor: " << ((SUMOReal)(myStep-start)*1000./(SUMOReal)duration) << "\n";
             msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
