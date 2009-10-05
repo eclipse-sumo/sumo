@@ -48,37 +48,29 @@ const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::parseColor(RGBColor::DEFAULT_
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RGBColor::RGBColor()
+RGBColor::RGBColor() throw()
         : myRed(-1), myGreen(-1), myBlue(-1) {}
 
 
-RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue)
+RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue) throw()
         : myRed(red), myGreen(green), myBlue(blue) {}
 
 
-RGBColor::RGBColor(const RGBColor& col)
+RGBColor::RGBColor(const RGBColor& col) throw()
         : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue) {}
 
 
-RGBColor::~RGBColor() {}
+RGBColor::~RGBColor() throw() {}
 
 
-SUMOReal
-RGBColor::red() const {
-    return myRed;
+void 
+RGBColor::set(SUMOReal r, SUMOReal g, SUMOReal b) throw()
+{
+    myRed = r;
+    myGreen = g;
+    myBlue = b;
 }
 
-
-SUMOReal
-RGBColor::green() const {
-    return myGreen;
-}
-
-
-SUMOReal
-RGBColor::blue() const {
-    return myBlue;
-}
 
 
 std::ostream &
@@ -106,7 +98,7 @@ RGBColor::operator!=(const RGBColor &c) const {
 
 
 RGBColor
-RGBColor::parseColor(const std::string &coldef) {
+RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatException) {
     StringTokenizer st(coldef, ",");
     if (st.size()<3) {
         throw EmptyData();
@@ -118,7 +110,7 @@ RGBColor::parseColor(const std::string &coldef) {
 }
 
 RGBColor
-RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight) {
+RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight) throw() {
     if (weight < 0) weight = 0;
     if (weight > 1) weight = 1;
     SUMOReal r = minColor.myRed + (maxColor.myRed - minColor.myRed) * weight;

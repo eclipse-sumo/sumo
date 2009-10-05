@@ -61,6 +61,7 @@ public:
     virtual ~Polygon2D() throw();
 
 
+
     /// @name Getter
     /// @{
 
@@ -105,17 +106,54 @@ public:
     /// @}
 
 
+
+    /// @name Setter
+    /// @{
+
+    /** @brief Sets a new type
+     * @param[in] type The new type to use
+     */
+    void setType(const std::string &type) throw() {
+        myType = type;
+    }
+
+
+    /** @brief Sets a new color
+     * @param[in] col The new color to use
+     */
+    void setColor(const RGBColor &col) throw() {
+        myColor = col;
+    }
+
+
+    /** @brief Sets a new shape
+     * @param[in] shape The new shape to use
+     */
+    void setShape(const Position2DVector &shape) throw() {
+        myShape = shape;
+    }
+
+
+    /** @brief Sets whether the polygon shall be filled
+     * @param[in] fill Whether the polygon shall be filled
+     */
+    void setFill(bool fill) throw() {
+        myFill = fill;
+    }
+    /// @}
+
+
 protected:
-    /// @brief the name of the polygon
+    /// @brief The name of the polygon
     std::string myName;
 
-    /// @brief the type of the polygon
+    /// @brief The type of the polygon
     std::string myType;
 
-    /// @brief the color of the polygon
+    /// @brief The color of the polygon
     RGBColor myColor;
 
-    /// @brief the positions of the polygon
+    /// @brief The positions of the polygon
     Position2DVector myShape;
 
     /// @brief Information whether the polygon has to be filled

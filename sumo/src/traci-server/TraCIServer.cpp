@@ -384,8 +384,14 @@ throw(TraCIException, std::invalid_argument) {
     case CMD_GET_POI_VARIABLE:
         success = TraCIServerAPI_POI::processGet(myInputStorage, myOutputStorage);
         break;
+    case CMD_SET_POI_VARIABLE:
+        success = TraCIServerAPI_POI::processSet(myInputStorage, myOutputStorage);
+        break;
     case CMD_GET_POLYGON_VARIABLE:
         success = TraCIServerAPI_Polygon::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_SET_POLYGON_VARIABLE:
+        success = TraCIServerAPI_Polygon::processSet(myInputStorage, myOutputStorage);
         break;
     case CMD_GET_JUNCTION_VARIABLE:
         success = TraCIServerAPI_Junction::processGet(myInputStorage, myOutputStorage);

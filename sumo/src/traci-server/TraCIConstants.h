@@ -413,7 +413,7 @@
 // maximum allowed/possible speed (get: vehicle types, lanes)
 #define VAR_MAXSPEED 0x41
 
-// position (2D) (get: vehicle, poi)
+// position (2D) (get: vehicle, poi, set: poi)
 #define VAR_POSITION 0x42
 
 // angle (get: vehicle)

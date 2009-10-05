@@ -120,6 +120,62 @@ TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
 bool
 TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
                                tcpip::Storage &outputStorage) throw(TraCIException) {
+    string warning = ""; // additional description for response
+    // variable
+    int variable = inputStorage.readUnsignedByte();
+    if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION) {
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        return false;
+    }
+    // id
+    string id = inputStorage.readString();
+    PointOfInterest *p = 0;
+    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; i++) {
+        p = shapeCont.getPOICont(i).get(id);
+    }
+    if (p==0) {
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
+        return false;
+    }
+    // process
+    int valueDataType = inputStorage.readUnsignedByte();
+    switch (variable) {
+    case VAR_TYPE: {
+        if (valueDataType!=TYPE_STRING) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The type must be given as a string.", outputStorage);
+            return false;
+        }
+        std::string type = inputStorage.readString();
+        p->setType(type);
+    }
+    break;
+    case VAR_COLOR: {
+        if (valueDataType!=TYPE_COLOR) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The color must be given using an accoring type.", outputStorage);
+            return false;
+        }
+        SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        dynamic_cast<RGBColor*>(p)->set(r,g,b);
+    }
+    break;
+    case VAR_POSITION: {
+        if (valueDataType!=TYPE_POSITION2D) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The position must be given using an accoring type.", outputStorage);
+            return false;
+        }
+        SUMOReal x = inputStorage.readFloat();
+        SUMOReal y = inputStorage.readFloat();
+        dynamic_cast<Position2D*>(p)->set(x, y);
+    }
+    break;
+    default:
+        break;
+    }
+    TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
 }
 

@@ -30,6 +30,7 @@
 #endif
 
 #include <iostream>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -42,50 +43,108 @@
  */
 class RGBColor {
 public:
-    /// Standard constructor
-    RGBColor();
+    /** @brief Constructor
+     */
+    RGBColor() throw();
 
-    /// Parametrised constructor
-    RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue);
 
-    /// Copy constructor
-    RGBColor(const RGBColor &col);
+    /** @brief Constructor
+     * @param[in] red The red component's value
+     * @param[in] green The green component's value
+     * @param[in] blue The blue component's value
+     */
+    RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue) throw();
 
-    /// Destructor
-    ~RGBColor();
 
-    /// Returns the red-amount of the color
-    SUMOReal red() const;
+    /** @brief Copy constructor
+     */
+    RGBColor(const RGBColor &col) throw();
 
-    /// Returns the green-amount of the color
-    SUMOReal green() const;
 
-    /// Returns the blue-amount of the color
-    SUMOReal blue() const;
+    /// @brief Destructor
+    ~RGBColor() throw();
 
-    /// Writes the color to the given stream
-    friend std::ostream &operator<<(std::ostream &os, const RGBColor &col);
+
+
+    /** @brief Returns the red-amount of the color
+     * @return The red component's value
+     */
+    SUMOReal red() const throw() {
+        return myRed;
+    }
+
+
+    /** @brief Returns the green-amount of the color
+     * @return The red component's value
+     */
+    SUMOReal green() const throw() {
+        return myGreen;
+    }
+
+
+    /** @brief Returns the blue-amount of the color
+     * @return The red component's value
+     */
+    SUMOReal blue() const throw() {
+        return myBlue;
+    }
+
+
+    /** @brief assigns new values
+     * @param[in] r The red component's value
+     * @param[in] g The green component's value
+     * @param[in] b The blue component's value
+     */
+    void set(SUMOReal r, SUMOReal g, SUMOReal b) throw();
+
+
+    /** @brief Writes the color to the given stream
+     * @param[out] os The stream to write to
+     * @param[in] col The color to write
+     * @return The stream
+     */
+    friend std::ostream &operator<<(std::ostream &os, const RGBColor &col) throw();
+
 
     bool operator==(const RGBColor &c) const;
     bool operator!=(const RGBColor &c) const;
 
-    /** @brief parses a color information
-        It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
-        And each color is represented as a SUMOReal. */
-    static RGBColor parseColor(const std::string &coldef);
 
-    /** @brief interpolates between two colors
-        The interpolated color is calculated as a weighted average of the RGB values of minColor and
-        maxColor, giving weight to maxColor and 1-weight to minColor. */
-    static RGBColor interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight);
+    /** @brief Parses a color information
+     *
+     * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
+     * And each color is represented as a SUMOReal. 
+     * @param[in] coldef The color definition to parse
+     * @return The parsed color
+     * @exception EmptyData If the definition has less than three entries
+     * @exception NumberFormatException If one of the components is not numeric
+     */
+    static RGBColor parseColor(const std::string &coldef) throw(EmptyData, NumberFormatException);
 
-    /// The string description of the default color
+
+    /** @brief Interpolates between two colors
+     *
+     * The interpolated color is calculated as a weighted average of 
+     *  the RGB values of minColor and maxColor, giving weight to maxColor 
+     *  and 1-weight to minColor. 
+     * @param[in] minColor The color to interpolate from
+     * @param[in] maxColor The color to interpolate to
+     * @param[in] weight The weight of the first color
+     * @return The interpolated color
+     */
+    static RGBColor interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight) throw();
+
+
+    /// @brief The string description of the default color
     static const std::string DEFAULT_COLOR_STRING;
 
-    /// The default color (for vehicle types and vehicles)
+
+    /// @brief The default color (for vehicle types and vehicles)
     static const RGBColor DEFAULT_COLOR;
+
+
 private:
-    /// The color amounts
+    /// @brief The color amounts
     SUMOReal myRed, myGreen, myBlue;
 
 };

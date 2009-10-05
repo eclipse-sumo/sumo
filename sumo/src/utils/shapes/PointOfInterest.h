@@ -67,6 +67,15 @@ public:
         return myType;
     }
 
+
+    /** @brief Sets a new type
+     * @param[in] type The new type to use
+     */
+    void setType(const std::string &type) throw() {
+        myType = type;
+    }
+
+
 protected:
     /// @brief the type of the poi
     std::string myType;
