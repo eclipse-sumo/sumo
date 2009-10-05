@@ -1,0 +1,4 @@
+simstep 1 1
+setvalue 199 79 xxx <string> new
+simstep 2 1
+

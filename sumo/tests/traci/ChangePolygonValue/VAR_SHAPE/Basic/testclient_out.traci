@@ -1,0 +1,27 @@
+TraCITestClient output file. Date: Mon Oct 05 12:26:52 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=168 varID=78 objID=p1
+.. Command acknowledged (168), [description: ]
+  CommandID=184  VariableID=78  ObjectID=p1 valueDataType=6 PolygonValue: (16851.24,10277.02) (16883.35,10303.95) (16924.78,10322.82) (16966.64,10332.78) (17022.04,10363.51) (16974.86,10407.11) (16947.29,10421.24) (16950.98,10431.15) (17048.14,10395.06) (17051.83,10404.97) (17051.83,10404.97) (17104.59,10390.15) (17104.59,10390.15) (17057.06,10372.55) (17102.76,10300.06) (16900.93,10176.59) (16837.99,10266.26) (16851.24,10277.02) 
+
+-> Command sent: <SetValue>:
+  domID=200 varID=78 objID=p1
+.. Command acknowledged (200), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=168 varID=78 objID=p1
+.. Command acknowledged (168), [description: ]
+  CommandID=184  VariableID=78  ObjectID=p1 valueDataType=6 PolygonValue: (10.00,11.00) (12.00,13.00) (14.00,15.00) 
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

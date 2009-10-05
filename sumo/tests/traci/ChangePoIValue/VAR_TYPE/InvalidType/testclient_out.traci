@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Mon Oct 05 11:25:41 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=199 varID=79 objID=p1
+.. Answered with error to command (199), [description: The type must be given as a string.]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

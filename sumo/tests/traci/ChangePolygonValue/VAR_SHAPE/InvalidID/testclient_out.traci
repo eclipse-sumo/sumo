@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Mon Oct 05 12:20:11 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <SetValue>:
+  domID=200 varID=78 objID=xxx
+.. Answered with error to command (200), [description: Polygon 'xxx' is not known]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

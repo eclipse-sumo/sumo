@@ -1,0 +1,5 @@
+simstep 1 1
+getvariable 167 66 p1
+setvalue 199 66 p1 <position2D> 10 11
+getvariable 167 66 p1
+simstep 2 1

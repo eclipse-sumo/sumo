@@ -1,0 +1,5 @@
+simstep 1 1
+getvariable 168 78 p1
+setvalue 200 78 p1 <shape> 3 10 11 12 13 14 15
+getvariable 168 78 p1
+simstep 2 1

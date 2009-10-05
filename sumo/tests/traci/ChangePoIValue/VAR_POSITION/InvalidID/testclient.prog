@@ -1,0 +1,3 @@
+simstep 1 1
+setvalue 199 66 xxx <position2D> 10 11
+simstep 2 1

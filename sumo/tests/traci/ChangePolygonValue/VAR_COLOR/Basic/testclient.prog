@@ -1,0 +1,5 @@
+simstep 1 1
+getvariable 168 69 p1
+setvalue 200 69 p1 <color> 1 2 3 4
+getvariable 168 69 p1
+simstep 2 1
