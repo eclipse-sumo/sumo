@@ -10,7 +10,7 @@ Copyright (C) 2008, 2009 DLR/TS, Germany
 All rights reserved
 """
 import socket, time, struct
-from traciconstants import *
+import traciconstants as tc
 
 RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
@@ -102,7 +102,7 @@ def _sendExact():
             print prefix, RESULTS[prefix[2]], err
         elif prefix[1] != command:
             print "Error! Received answer %s for command %s." % (prefix[1], command)
-        elif prefix[1] == CMD_STOP:
+        elif prefix[1] == tc.CMD_STOP:
             length = result.read("!B")[0] - 1
             result.read("!%sx" % length)
     _message.queue = []
@@ -149,12 +149,12 @@ def initTraCI(port):
 
             
 def cmdSimulationStep(step):
-    _message.queue.append(CMD_SIMSTEP)
-    _message.string += struct.pack("!BBdB", 1+1+8+1, CMD_SIMSTEP, float(step), POSITION_ROADMAP)
+    _message.queue.append(tc.CMD_SIMSTEP)
+    _message.string += struct.pack("!BBdB", 1+1+8+1, tc.CMD_SIMSTEP, float(step), tc.POSITION_ROADMAP)
     result = _sendExact()
     updates = []
     while result.ready():
-        if result.read("!BB")[1] == CMD_MOVENODE: 
+        if result.read("!BB")[1] == tc.CMD_MOVENODE: 
             updates.append((result.read("!idB")[0], result.readString(), result.read("!fB")[0]))
     return updates
 
@@ -164,31 +164,31 @@ def cmdSimulationStep(step):
 # induction loop interaction
 # ===================================================
 def cmdGetInductionLoopVariable_idList(IndLoopID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, ID_LIST, IndLoopID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.ID_LIST, IndLoopID)
     return result.readStringList() # Variable value 
 
 def cmdGetInductionLoopVariable_lastStepVehicleNumber(IndLoopID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_NUMBER, IndLoopID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_VEHICLE_NUMBER, IndLoopID)
     return result.read("!i")[0] # Variable value
 
 def cmdGetInductionLoopVariable_lastStepMeanSpeed(IndLoopID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_MEAN_SPEED, IndLoopID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_MEAN_SPEED, IndLoopID)
     return result.read("!f")[0] # Variable value    
 
 def cmdGetInductionLoopVariable_vehicleIds(IndLoopID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, IndLoopID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_VEHICLE_ID_LIST, IndLoopID)
     return result.readStringList() # Variable value
   
 def cmdGetInductionLoopVariable_lastStepOccupancy(IndLoopID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_OCCUPANCY, IndLoopID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_OCCUPANCY, IndLoopID)
     return result.read("!f")[0] # Variable value
   
 def cmdGetInductionLoopVariable_lastMeanLength(IndLoopID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_LENGTH, IndLoopID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_LENGTH, IndLoopID)
     return result.read("!f")[0] # Variable value
   
 def cmdGetInductionLoopVariable_timeSinceDetection(IndLoopID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, LAST_STEP_TIME_SINCE_DETECTION, IndLoopID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_INDUCTIONLOOP_VARIABLE, tc.LAST_STEP_TIME_SINCE_DETECTION, IndLoopID)
     return result.read("!f")[0] # Variable value
   
   
@@ -197,23 +197,23 @@ def cmdGetInductionLoopVariable_timeSinceDetection(IndLoopID):
 # multi-entry/multi-exit detector interaction
 # ===================================================
 def cmdGetMultiEntryExitDetectorVariable_idList(MultiEntryExitDetID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, ID_LIST, MultiEntryExitDetID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, tc.ID_LIST, MultiEntryExitDetID)
     return result.readStringList() # Variable value 
 
 def cmdGetMultiEntryExitDetectorVariable_lastStepVehicleNumber(MultiEntryExitDetID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_NUMBER, MultiEntryExitDetID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, tc.LAST_STEP_VEHICLE_NUMBER, MultiEntryExitDetID)
     return result.read("!i")[0] # Variable value
 
 def cmdGetMultiEntryExitDetectorVariable_lastStepMeanSpeed(MultiEntryExitDetID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_MEAN_SPEED, MultiEntryExitDetID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, tc.LAST_STEP_MEAN_SPEED, MultiEntryExitDetID)
     return result.read("!f")[0] # Variable value    
 
 def cmdGetMultiEntryExitDetectorVariable_vehicleIds(MultiEntryExitDetID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_ID_LIST, MultiEntryExitDetID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, tc.LAST_STEP_VEHICLE_ID_LIST, MultiEntryExitDetID)
     return result.readStringList() # Variable value
 
 def cmdGetMultiEntryExitDetectorVariable_haltingNumber(MultiEntryExitDetID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, LAST_STEP_VEHICLE_HALTING_NUMBER, MultiEntryExitDetID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, tc.LAST_STEP_VEHICLE_HALTING_NUMBER, MultiEntryExitDetID)
     return result.read("!i")[0] # Variable value
 
 
@@ -225,19 +225,19 @@ def cmdGetMultiEntryExitDetectorVariable_haltingNumber(MultiEntryExitDetID):
 # get state
 # ---------------------------------------------------
 def cmdGetTrafficLightsVariable_idList():
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, ID_LIST, "-")
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.ID_LIST, "-")
     return result.readStringList()  # Variable value 
 
 def cmdGetTrafficLightsVariable_stateRYG(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_RED_YELLOW_GREEN_STATE, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, TLID)
     return result.readString() # Variable value 
 
 def cmdGetTrafficLightsVariable_statePBY(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_PHASE_BRAKE_YELLOW_STATE, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_PHASE_BRAKE_YELLOW_STATE, TLID)
     return result.readStringList() # Variable value     
 
 def cmdGetTrafficLightsVariable_completeDefinitionRYG(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_COMPLETE_DEFINITION_RYG, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_COMPLETE_DEFINITION_RYG, TLID)
     result.read("!i") # Length
     result.read("!B") # Type of Number of logics
     nbLogics = result.read("!i")[0]    # Number of logics
@@ -271,7 +271,7 @@ def cmdGetTrafficLightsVariable_completeDefinitionRYG(TLID):
 
 
 def cmdGetTrafficLightsVariable_completeDefinitionPBY(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_COMPLETE_DEFINITION_PBY, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_COMPLETE_DEFINITION_PBY, TLID)
     result.read("!i") # Length
     result.read("!B") # Type of Number of logics
     nbLogics = result.read("!i")[0]    # Number of logics
@@ -305,11 +305,11 @@ def cmdGetTrafficLightsVariable_completeDefinitionPBY(TLID):
 
 
 def cmdGetTrafficLightsVariable_controlledLanes(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LANES, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_CONTROLLED_LANES, TLID)
     return result.readStringList() # Variable value 
 
 def cmdGetTrafficLightsVariable_controlledLinks(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LINKS, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_CONTROLLED_LINKS, TLID)
     result.read("!iB")
     nbSignals = result.read("!i")[0] # Length
     signals = []
@@ -326,15 +326,15 @@ def cmdGetTrafficLightsVariable_controlledLinks(TLID):
 
 
 def cmdGetTrafficLightsVariable_program(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CURRENT_PROGRAM, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_CURRENT_PROGRAM, TLID)
     return result.readString() # Variable value 
 
 def cmdGetTrafficLightsVariable_phase(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_CURRENT_PHASE, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_CURRENT_PHASE, TLID)
     return result.read("!i")[0] # Variable value
 
 def cmdGetTrafficLightsVariable_nextSwitchTime(TLID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_TL_VARIABLE, TL_NEXT_SWITCH, TLID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_TL_VARIABLE, tc.TL_NEXT_SWITCH, TLID)
     return result.read("!f")[0] # Variable value
 
 
@@ -343,32 +343,32 @@ def cmdGetTrafficLightsVariable_nextSwitchTime(TLID):
 # ---------------------------------------------------
 def cmdChangeTrafficLightsVariable_statePBY(TLID, state):
     [phase, brake, yellow] = state
-    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+4+len(phase)+4+len(brake)+4+len(yellow), TL_PHASE_BRAKE_YELLOW_STATE, TLID)
-    _message.string += struct.pack("!Bi", TYPE_STRINGLIST, 3)
+    beginChangeMessage(tc.CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+4+len(phase)+4+len(brake)+4+len(yellow), tc.TL_PHASE_BRAKE_YELLOW_STATE, TLID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, 3)
     _message.string += struct.pack("!i", len(phase)) + phase
     _message.string += struct.pack("!i", len(brake)) + brake
     _message.string += struct.pack("!i", len(yellow)) + yellow
     _sendExact()
     
 def cmdChangeTrafficLightsVariable_stateRYG(TLID, state):
-    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+len(state), TL_RED_YELLOW_GREEN_STATE, TLID)
-    _message.string += struct.pack("!B", TYPE_STRING)
+    beginChangeMessage(tc.CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+len(state), tc.TL_RED_YELLOW_GREEN_STATE, TLID)
+    _message.string += struct.pack("!B", tc.TYPE_STRING)
     _message.string += struct.pack("!i", len(state)) + state
     _sendExact()
 
 def cmdChangeTrafficLightsVariable_phaseIndex(TLID, index):
-    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4, TL_PHASE_INDEX, TLID)
-    _message.string += struct.pack("!Bi", TYPE_INTEGER, index)
+    beginChangeMessage(tc.CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4, tc.TL_PHASE_INDEX, TLID)
+    _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, index)
     _sendExact()
 
 def cmdChangeTrafficLightsVariable_programID(TLID, programID):
-    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+len(programID), TL_PROGRAM, TLID)
-    _message.string += struct.pack("!Bi", TYPE_STRING, len(programID)) + programID
+    beginChangeMessage(tc.CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4+len(programID), tc.TL_PROGRAM, TLID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(programID)) + programID
     _sendExact()
 
 def cmdChangeTrafficLightsVariable_phaseDuration(TLID, phaseDuration):
-    beginChangeMessage(CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4, TL_PHASE_DURATION, TLID)
-    _message.string += struct.pack("!Bi", TYPE_INTEGER, phaseDuration)
+    beginChangeMessage(tc.CMD_SET_TL_VARIABLE, 1+1+1+4+len(TLID)+1+4, tc.TL_PHASE_DURATION, TLID)
+    _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, phaseDuration)
     _sendExact()
 
 def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
@@ -379,16 +379,16 @@ def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
     for p in tls._phases:
         length = length + 1+4 + 1+4 + 1+4 + 1+4+len(p._phaseDef)
         itemNo = itemNo + 4
-    beginChangeMessage(CMD_SET_TL_VARIABLE, length, TL_COMPLETE_PROGRAM_RYG, TLID)
-    _message.string += struct.pack("!Bi", TYPE_COMPOUND, itemNo) # itemNo
-    _message.string += struct.pack("!Bi", TYPE_STRING, len(tls._subID)) + tls._subID # programID
-    _message.string += struct.pack("!Bi", TYPE_INTEGER, 0) # type
-    _message.string += struct.pack("!Bi", TYPE_COMPOUND, 0) # subitems
-    _message.string += struct.pack("!Bi", TYPE_INTEGER, tls._currentPhaseIndex) # index
-    _message.string += struct.pack("!Bi", TYPE_INTEGER, len(tls._phases)) # phaseNo
+    beginChangeMessage(tc.CMD_SET_TL_VARIABLE, length, tc.TL_COMPLETE_PROGRAM_RYG, TLID)
+    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, itemNo) # itemNo
+    _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(tls._subID)) + tls._subID # programID
+    _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, 0) # type
+    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0) # subitems
+    _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, tls._currentPhaseIndex) # index
+    _message.string += struct.pack("!Bi", tc.TYPE_INTEGER, len(tls._phases)) # phaseNo
     for p in tls._phases:
-        _message.string += struct.pack("!BiBiBi", TYPE_INTEGER, p._duration, TYPE_INTEGER, p._duration1, TYPE_INTEGER, p._duration2)
-        _message.string += struct.pack("!Bi", TYPE_STRING, len(p._phaseDef)) + p._phaseDef
+        _message.string += struct.pack("!BiBiBi", tc.TYPE_INTEGER, p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER, p._duration2)
+        _message.string += struct.pack("!Bi", tc.TYPE_STRING, len(p._phaseDef)) + p._phaseDef
     _sendExact()
     
     
@@ -401,39 +401,39 @@ def cmdChangeTrafficLightsVariable_completeRYG(TLID, tls):
 # get state
 # ---------------------------------------------------
 def cmdGetVehicleVariable_idList(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, ID_LIST, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.ID_LIST, vehID)
     return result.readStringList()  # Variable value 
 
 def cmdGetVehicleVariable_speed(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_SPEED, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID)
     return result.read("!f")[0] # Variable value
 
 def cmdGetVehicleVariable_angle(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_ANGLE, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_ANGLE, vehID)
     return result.read("!f")[0] # Variable value
 
 def cmdGetVehicleVariable_roadID(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_ROAD_ID, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_ROAD_ID, vehID)
     return result.readString() # Variable value
 
 def cmdGetVehicleVariable_laneID(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_LANE_ID, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LANE_ID, vehID)
     return result.readString() # Variable value
 
 def cmdGetVehicleVariable_laneIndex(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_LANE_INDEX, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LANE_INDEX, vehID)
     return result.read("!i")[0] # Variable value
 
 def cmdGetVehicleVariable_typeID(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_TYPE, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_TYPE, vehID)
     return result.readString() # Variable value
 
 def cmdGetVehicleVariable_routeID(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_ROUTE_ID, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_ROUTE_ID, vehID)
     return result.readString() # Variable value
 
 def cmdGetVehicleVariable_lanePosition(vehID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLE_VARIABLE, VAR_LANEPOSITION, vehID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LANEPOSITION, vehID)
     return result.read("!f")[0] # Variable value
 
 
@@ -441,31 +441,31 @@ def cmdGetVehicleVariable_lanePosition(vehID):
 # change state
 # ---------------------------------------------------
 def cmdChangeVehicleVariable_maxSpeed(vehID, speed):
-    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4, CMD_SETMAXSPEED, vehID)
-    _message.string += struct.pack("!Bf", TYPE_FLOAT, speed)
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4, tc.CMD_SETMAXSPEED, vehID)
+    _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
     _sendExact()
 
 def cmdChangeVehicleVariable_stop(vehID, edgeID, pos, laneIndex, duration):
-    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+len(edgeID)+1+4+1+1+1+4, CMD_STOP, vehID)
-    _message.string += struct.pack("!Bi", TYPE_COMPOUND, 4)
-    _message.string += struct.pack("!B", TYPE_STRING)
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+len(edgeID)+1+4+1+1+1+4, tc.CMD_STOP, vehID)
+    _message.string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+    _message.string += struct.pack("!B", tc.TYPE_STRING)
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
-    _message.string += struct.pack("!BfBBBf", TYPE_FLOAT, pos, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
+    _message.string += struct.pack("!BfBBBf", tc.TYPE_FLOAT, pos, tc.TYPE_BYTE, laneIndex, tc.TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_changeLane(vehID, laneIndex, duration):
-    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+1+1+4, CMD_CHANGELANE, vehID)
-    _message.string += struct.pack("!BiBBBf", TYPE_COMPOUND, 2, TYPE_BYTE, laneIndex, TYPE_FLOAT, duration)
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+1+1+4, tc.CMD_CHANGELANE, vehID)
+    _message.string += struct.pack("!BiBBBf", tc.TYPE_COMPOUND, 2, tc.TYPE_BYTE, laneIndex, tc.TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_slowDown(vehID, speed, duration):
-    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+1+4, CMD_SLOWDOWN, vehID)
-    _message.string += struct.pack("!BiBfBf", TYPE_COMPOUND, 2, TYPE_FLOAT, speed, TYPE_FLOAT, duration)
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+1+4+1+4, tc.CMD_SLOWDOWN, vehID)
+    _message.string += struct.pack("!BiBfBf", tc.TYPE_COMPOUND, 2, tc.TYPE_FLOAT, speed, tc.TYPE_FLOAT, duration)
     _sendExact()
 
 def cmdChangeVehicleVariable_changeTarget(vehID, edgeID):
-    beginChangeMessage(CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+len(edgeID), CMD_CHANGETARGET, vehID)
-    _message.string += struct.pack("!B", TYPE_STRING)
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+len(edgeID), tc.CMD_CHANGETARGET, vehID)
+    _message.string += struct.pack("!B", tc.TYPE_STRING)
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
     _sendExact()
 
@@ -478,7 +478,7 @@ def cmdChangeVehicleVariable_changeTarget(vehID, edgeID):
 # get state
 # ---------------------------------------------------
 def cmdGetVehicleTypeVariable_idList(vehTypeID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_VEHICLETYPE_VARIABLE, ID_LIST, vehTypeID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLETYPE_VARIABLE, tc.ID_LIST, vehTypeID)
     return result.readStringList()  # Variable value 
 
 
@@ -490,11 +490,11 @@ def cmdGetVehicleTypeVariable_idList(vehTypeID):
 # get state
 # ---------------------------------------------------
 def cmdGetRouteVariable_idList(routeID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_ROUTE_VARIABLE, ID_LIST, routeID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_ROUTE_VARIABLE, tc.ID_LIST, routeID)
     return result.readStringList() # Variable value 
 
 def cmdGetRouteVariable_edges(routeID):
-    result = buildSendReadNew1StringParamCmd(CMD_GET_ROUTE_VARIABLE, VAR_EDGES, routeID)
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_ROUTE_VARIABLE, tc.VAR_EDGES, routeID)
     return result.readStringList() # Variable value 
 
 
@@ -503,16 +503,16 @@ def cmdGetRouteVariable_edges(routeID):
 # 
 # ===================================================
 def cmdStopNode(edge, objectID, pos=1., duration=10000.):
-    _message.queue.append(CMD_STOP)
-    _message.string += struct.pack("!BBiBi", 1+1+4+1+4+len(edge)+4+1+4+8, CMD_STOP, objectID, POSITION_ROADMAP, len(edge)) + edge
+    _message.queue.append(tc.CMD_STOP)
+    _message.string += struct.pack("!BBiBi", 1+1+4+1+4+len(edge)+4+1+4+8, tc.CMD_STOP, objectID, tc.POSITION_ROADMAP, len(edge)) + edge
     _message.string += struct.pack("!fBfd", pos, 0, 1., duration)
 
 def cmdChangeTarget(edge, objectID):
-    _message.queue.append(CMD_CHANGETARGET)
-    _message.string += struct.pack("!BBii", 1+1+4+4+len(edge), CMD_CHANGETARGET, objectID, len(edge)) + edge
+    _message.queue.append(tc.CMD_CHANGETARGET)
+    _message.string += struct.pack("!BBii", 1+1+4+4+len(edge), tc.CMD_CHANGETARGET, objectID, len(edge)) + edge
 
 def cmdClose():
-    _message.queue.append(CMD_CLOSE)
-    _message.string += struct.pack("!BB", 1+1, CMD_CLOSE)
+    _message.queue.append(tc.CMD_CLOSE)
+    _message.string += struct.pack("!BB", 1+1, tc.CMD_CLOSE)
     _sendExact()
     _socket.close()
