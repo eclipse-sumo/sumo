@@ -103,7 +103,7 @@ public:
      * @param[in] col The color to write
      * @return The stream
      */
-    friend std::ostream &operator<<(std::ostream &os, const RGBColor &col) throw();
+    friend std::ostream &operator<<(std::ostream &os, const RGBColor &col);
 
 
     bool operator==(const RGBColor &c) const;
