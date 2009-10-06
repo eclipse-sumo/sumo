@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    traciControl.py
 @author  Michael.Behrisch@dlr.de, Lena Kalleske
@@ -148,9 +149,20 @@ def initTraCI(port):
             time.sleep(wait)
 
             
-def cmdSimulationStep(step):
+def cmdSimulationStep(step, position=True):
+    """
+    Make simulation step and simulate up to "step" second in sim time.
+    If *position* is True, ten roadmap position coordinates (vehicle number,
+    edge number, distance from start) will be returned.
+    If *position* is False - step is made and only empty list is returned.
+    """
+    if position:
+        return_type = tc.POSITION_ROADMAP
+    else:
+        return_type = tc.POSITION_NONE
+    
     _message.queue.append(tc.CMD_SIMSTEP)
-    _message.string += struct.pack("!BBdB", 1+1+8+1, tc.CMD_SIMSTEP, float(step), tc.POSITION_ROADMAP)
+    _message.string += struct.pack("!BBdB", 1+1+8+1, tc.CMD_SIMSTEP, float(step), return_type)
     result = _sendExact()
     updates = []
     while result.ready():
@@ -408,6 +420,13 @@ def cmdGetVehicleVariable_speed(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_SPEED, vehID)
     return result.read("!f")[0] # Variable value
 
+def cmdGetVehicleVariable_position(vehID):
+    """
+    Returns the position of the named vehicle within the last step [m,m]
+    """
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_POSITION, vehID)
+    return result.read("!ff")
+
 def cmdGetVehicleVariable_angle(vehID):
     result = buildSendReadNew1StringParamCmd(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_ANGLE, vehID)
     return result.read("!f")[0] # Variable value
@@ -469,6 +488,21 @@ def cmdChangeVehicleVariable_changeTarget(vehID, edgeID):
     _message.string += struct.pack("!i", len(edgeID)) + edgeID
     _sendExact()
 
+def cmdChangeVehicleVariable_changeRoute(vehID, edgeList):
+    """
+    changes the vehicle route to given edges list.
+    The first edge in the list has to be the one that the vehicle is at at the moment.
+    
+    example usasge:
+    cmdChangeVehicleVariable_changeRoute('1', ['1', '2', '4', '6', '7'])
+    
+    this changes route for vehicle id 1 to edges 1-2-4-6-7
+    """
+    beginChangeMessage(tc.CMD_SET_VEHICLE_VARIABLE, 1+1+1+4+len(vehID)+1+4+sum(map(len, edgeList))+4*len(edgeList), tc.VAR_ROUTE, vehID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(edgeList))
+    for edge in edgeList:
+        _message.string += struct.pack("!i", len(edge)) + edge
+    _sendExact()
 
 
 # ===================================================
