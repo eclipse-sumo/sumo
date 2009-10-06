@@ -142,6 +142,7 @@ def initTraCI(port):
     for wait in range(10):
         try:
             _socket.connect(("localhost", port))
+            _socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             break
         except socket.error:
             time.sleep(wait)
