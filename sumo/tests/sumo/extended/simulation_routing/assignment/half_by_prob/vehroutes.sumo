@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/07/09 14:29:30 by SUMO sumo Version dev-SVN-r7822
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.routing.probability value="0.5"/>
+    </routing>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="2" depart="40" arrival="117">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="3" depart="60" arrival="137">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="5" depart="100" arrival="177">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0" depart="0" arrival="188">
+        <route edges="beg beg2right right right2end end rend"/>
+   </vehicle>
+
+    <vehicle id="1" depart="20" arrival="208">
+        <route edges="beg beg2right right right2end end rend"/>
+   </vehicle>
+
+    <vehicle id="7" depart="140" arrival="217">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="4" depart="80" arrival="268">
+        <route edges="beg beg2right right right2end end rend"/>
+   </vehicle>
+
+    <vehicle id="6" depart="120" arrival="308">
+        <route edges="beg beg2right right right2end end rend"/>
+   </vehicle>
+
+    <vehicle id="8" depart="160" arrival="348">
+        <route edges="beg beg2right right right2end end rend"/>
+   </vehicle>
+
+    <vehicle id="9" depart="180" arrival="368">
+        <route edges="beg beg2right right right2end end rend"/>
+   </vehicle>
+
+</routes>
