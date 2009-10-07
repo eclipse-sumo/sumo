@@ -1,38 +1,37 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/10/09 13:18:26 by SUMO sumo Version dev-SVN-r7294
+<!-- generated on 10/07/09 14:29:29 by SUMO sumo Version dev-SVN-r7822
 <configuration>
 
-    <input
-        net-file="net.net.xml"
-        additional-files="input_routes.rou.xml"
-    />
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
 
-    <output
-        vehroute-output="vehroutes.xml"
-    />
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
 
-    <time
-        begin="0"
-    />
+    <time>
+        <begin value="0"/>
+    </time>
 
-    <processing
-        no-duration-log="true"
-        no-step-log="true"
-    />
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
-    <routing
-        device.routing.probability="1"
-    />
+    <routing>
+        <device.routing.probability value="1"/>
+    </routing>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0_0" depart="0" arrival="116">
-      <replaced_route replacedOnEdge="absBeg"  replacedAtTime="0" edges="absBeg middle end absEnd"/>
-
-      <route edges="absBeg beg2left left left2end end absEnd"/>
+    <vehicle id="0_0" depart="0" arrival="116">
+        <replacedRoute replacedOnEdge="absBeg" replacedAtTime="0" edges="absBeg middle end absEnd"/>
+        <route edges="absBeg beg2left left left2end end absEnd"/>
    </vehicle>
 
 </routes>

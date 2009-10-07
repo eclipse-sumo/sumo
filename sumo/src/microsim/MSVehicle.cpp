@@ -1792,15 +1792,14 @@ void
 MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
     // check if a previous route shall be written
     if (index>=0) {
-        os << "      <replaced_route";
         std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
         assert(i!=myPointerCORNMap.end());
         const ReplacedRoutesVector *v = (const ReplacedRoutesVector *)(*i).second;
         assert((int) v->size()>index);
         // write edge on which the vehicle was when the route was valid
-        os << " replacedOnEdge=\"" << (*v)[index].edge->getID() << "\" ";
+        os << "        <replacedRoute replacedOnEdge=\"" << (*v)[index].edge->getID();
         // write the time at which the route was replaced
-        os << " replacedAtTime=\"" << (*v)[index].time << "\" edges=\"";
+        os << "\" replacedAtTime=\"" << (*v)[index].time << "\" edges=\"";
         // get the route
         for (int i=0; i<index; ++i) {
             (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
@@ -1808,7 +1807,7 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const {
         (*v)[index].route->writeEdgeIDs(os);
         os << "\"/>\n";
     } else {
-        os << "      <route edges=\"";
+        os << "        <route edges=\"";
         if (hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             int noReroutes = getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             std::map<MSCORN::Pointer, void*>::const_iterator it = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);

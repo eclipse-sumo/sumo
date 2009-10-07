@@ -1,37 +1,37 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/04/08 08:26:47 by SUMO sumo Version dev-SVN-r6273
+<!-- generated on 10/07/09 14:27:00 by SUMO sumo Version dev-SVN-r7822
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
 
-   <output>
-      <vehroute-output>vehroutes.xml</vehroute-output>
-   </output>
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
 
-   <time>
-      <begin>0</begin>
-      <end>1000</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0" depart="0" arrival="108">
-      <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <vehicle id="0" depart="0" arrival="108">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
    </vehicle>
 
-   <vehicle id="1" depart="5" arrival="125">
-      <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <vehicle id="1" depart="5" arrival="125">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
    </vehicle>
 
 </routes>
