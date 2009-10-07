@@ -48,10 +48,10 @@ if test -e $PREFIX/sumo/bin/sumo -a $PREFIX/sumo/bin/sumo -nt $PREFIX/sumo/confi
   export TEXTTEST_TMP=$PREFIX/texttesttmp
   find $SUMO_BATCH_RESULT -mtime +20 -type f | xargs -r rm
   rm -rf $SUMO_REPORT/* $TEXTTEST_TMP/*
-  if which Xvfb &>/dev/null; then
-    tests/runGuisimTests.py -b
-  fi
   tests/runTests.sh $PREFIX/sumo/bin "texttest.py -b $FILEPREFIX" &> $TESTLOG
+  if which Xvfb &>/dev/null; then
+    tests/runTests.sh $PREFIX/sumo/bin "texttest.py -a sumo.gui -b $FILEPREFIX" >> $TESTLOG 2>&1
+  fi
   tests/runTests.sh $PREFIX/sumo/bin "texttest.py -b $FILEPREFIX -coll" >> $TESTLOG 2>&1
   find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
   scp -qr $SUMO_REPORT $REMOTEDIR

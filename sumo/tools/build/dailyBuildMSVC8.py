@@ -76,8 +76,8 @@ for platform in ["Win32", "x64"]:
         if os.path.exists(binary):
             env[name.upper()+"_BINARY"] = binary
     log = open(testLog, 'w')
-    subprocess.call("%s\\runGuisimTests.py -b" % env["TEXTTEST_HOME"], stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -b "+env["FILEPREFIX"], stdout=log, stderr=subprocess.STDOUT, shell=True)
+    subprocess.call("texttest.py -a sumo.gui -b "+env["FILEPREFIX"], stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call("texttest.py -b "+env["FILEPREFIX"]+" -coll", stdout=log, stderr=subprocess.STDOUT, shell=True)
     ago = datetime.datetime.now() - datetime.timedelta(30)
     subprocess.call('texttest.py -s "batch.ArchiveRepository session='+env["FILEPREFIX"]+' before=%s"' % ago.strftime("%d%b%Y"),

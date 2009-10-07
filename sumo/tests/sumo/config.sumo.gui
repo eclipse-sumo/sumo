@@ -1,0 +1,2 @@
+binary:$TEXTTEST_HOME/guisimrunner.py
+use_case_record_mode:GUI
