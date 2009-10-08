@@ -88,6 +88,26 @@ ShapeContainer::add(int layer, PointOfInterest *p) throw() {
 }
 
 
+bool 
+ShapeContainer::removePolygon(int layer, const std::string &id) throw()
+{
+    if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
+        return false;
+    }
+    return myPolygonLayers.find(layer)->second.remove(id);
+}
+
+
+bool 
+ShapeContainer::removePOI(int layer, const std::string &id) throw()
+{
+    if (myPOILayers.find(layer)==myPOILayers.end()) {
+        return false;
+    }
+    return myPOILayers.find(layer)->second.remove(id);
+}
+
+
 const NamedObjectCont<Polygon2D*> &
 ShapeContainer::getPolygonCont(int layer) const throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
@@ -108,6 +128,7 @@ ShapeContainer::getPOICont(int layer) const throw() {
     }
     return myPOILayers[layer];
 }
+
 
 
 /****************************************************************************/

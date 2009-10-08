@@ -72,7 +72,7 @@ TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
     if (variable==ID_LIST) {
         std::vector<std::string> ids;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
             shapeCont.getPOICont(i).insertIDs(ids);
         }
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -80,7 +80,7 @@ TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
     } else {
         PointOfInterest *p = 0;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; i++) {
+        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPOICont(i).get(id);
         }
         if (p==0) {
@@ -123,7 +123,8 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
     string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION) {
+    if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION
+        &&variable!=ADD&&variable!=REMOVE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -131,12 +132,14 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     PointOfInterest *p = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; i++) {
-        p = shapeCont.getPOICont(i).get(id);
-    }
-    if (p==0) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
-        return false;
+    if(variable!=ADD&&variable!=REMOVE) {
+        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
+            p = shapeCont.getPOICont(i).get(id);
+        }
+        if (p==0) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "POI '" + id + "' is not known", outputStorage);
+            return false;
+        }
     }
     // process
     int valueDataType = inputStorage.readUnsignedByte();
@@ -170,6 +173,67 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
         SUMOReal x = inputStorage.readFloat();
         SUMOReal y = inputStorage.readFloat();
         dynamic_cast<Position2D*>(p)->set(x, y);
+    }
+    break;
+    case ADD: {
+        if (valueDataType!=TYPE_COMPOUND) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new PoI.", outputStorage);
+            return false;
+        }
+        unsigned int itemNo = inputStorage.readInt();
+        // type
+        if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The first PoI parameter must be the type encoded as a string.", outputStorage);
+            return false;
+        }
+        std::string type = inputStorage.readString();
+        // color
+        if (inputStorage.readUnsignedByte()!=TYPE_COLOR) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The second PoI parameter must be the color.", outputStorage);
+            return false;
+        }
+        SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        // layer
+        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The third PoI parameter must be the layer encoded as int.", outputStorage);
+            return false;
+        }
+        int layer = inputStorage.readInt();
+        // pos
+        if (inputStorage.readUnsignedByte()!=TYPE_POSITION2D) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The fourth PoI parameter must be the position.", outputStorage);
+            return false;
+        }
+        SUMOReal x = inputStorage.readFloat();
+        SUMOReal y = inputStorage.readFloat();
+        // 
+        p = new PointOfInterest(id, type, Position2D(x, y), RGBColor(r, g, b));
+        if(!shapeCont.add(layer, p)) {
+            delete p;
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not add PoI.", outputStorage);
+            return false;
+        }
+    }
+    break;
+    case REMOVE: {
+        if (valueDataType!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
+            return false;
+        }
+        int layer = inputStorage.readInt();
+        if(!shapeCont.removePOI(layer, id)) {
+            bool removed = false;
+            for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
+                removed |= shapeCont.removePOI(i, id);
+            }
+            if(!removed) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
+                return false;
+            }
+        }
     }
     break;
     default:

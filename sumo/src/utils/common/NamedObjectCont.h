@@ -68,14 +68,30 @@ public:
      *  and the item is not added.
      *
      * @param[in] id The id of the item to add
-     * @param[in] iitem The item to add
-     * @return If the item could be added (no item with the same id was within the container before)
+     * @param[in] item The item to add
+     * @return If the item could been added (no item with the same id was within the container before)
      */
     virtual bool add(const std::string &id, T item) throw() {
         if (myMap.find(id)!=myMap.end()) {
             return false;
         }
         myMap.insert(std::make_pair(id, item));
+        myHaveChanged = true;
+        return true;
+    }
+
+
+    /** @brief Removes an item
+     * @param[in] id The id of the item to remove
+     * @return If the item could been removed (an item with the id was within the container before)
+     */
+    virtual bool remove(const std::string &id) throw() {
+        if (myMap.find(id)==myMap.end()) {
+            return false;
+        }
+        typename std::map<std::string, T>::iterator i = myMap.find(id);
+        delete i->second;
+        myMap.erase(i);
         myHaveChanged = true;
         return true;
     }

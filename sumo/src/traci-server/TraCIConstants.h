@@ -502,6 +502,13 @@
 #define VAR_NOISEEMISSION 0x66
 
 
+// add an instance (poi, polygon)
+#define ADD 0x80
+
+// remove an instance (poi, polygon)
+#define REMOVE 0x81
+
+
 
 #endif
 

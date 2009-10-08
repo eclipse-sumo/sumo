@@ -73,7 +73,7 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
     if (variable==ID_LIST) {
         std::vector<std::string> ids;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
             shapeCont.getPolygonCont(i).insertIDs(ids);
         }
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -81,7 +81,7 @@ TraCIServerAPI_Polygon::processGet(tcpip::Storage &inputStorage,
     } else {
         Polygon2D *p = 0;
         ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; i++) {
+        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPolygonCont(i).get(id);
         }
         if (p==0) {
@@ -131,7 +131,8 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
     string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL) {
+    if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL
+        &&variable!=ADD&&variable!=REMOVE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -139,12 +140,14 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     Polygon2D *p = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; i++) {
-        p = shapeCont.getPolygonCont(i).get(id);
-    }
-    if (p==0) {
-        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
-        return false;
+    if(variable!=ADD&&variable!=REMOVE) {
+        for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
+            p = shapeCont.getPolygonCont(i).get(id);
+        }
+        if (p==0) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Polygon '" + id + "' is not known", outputStorage);
+            return false;
+        }
     }
     // process
     int valueDataType = inputStorage.readUnsignedByte();
@@ -192,6 +195,78 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
         }
         bool fill = inputStorage.readUnsignedByte()!=0;
         p->setFill(fill);
+    }
+    break;
+    case ADD: {
+        if (valueDataType!=TYPE_COMPOUND) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "A compound object is needed for setting a new polygon.", outputStorage);
+            return false;
+        }
+        unsigned int itemNo = inputStorage.readInt();
+        // type
+        if (inputStorage.readUnsignedByte()!=TYPE_STRING) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The first polygon parameter must be the type encoded as a string.", outputStorage);
+            return false;
+        }
+        std::string type = inputStorage.readString();
+        // color
+        if (inputStorage.readUnsignedByte()!=TYPE_COLOR) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The second polygon parameter must be the color.", outputStorage);
+            return false;
+        }
+        SUMOReal r = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal g = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal b = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        SUMOReal a = (SUMOReal) inputStorage.readUnsignedByte() / 255.;
+        // fill
+        if (inputStorage.readUnsignedByte()!=TYPE_UBYTE) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
+            return false;
+        }
+        bool fill = inputStorage.readUnsignedByte()!=0;
+        // layer
+        if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
+            return false;
+        }
+        int layer = inputStorage.readInt();
+        // shape
+        if (inputStorage.readUnsignedByte()!=TYPE_POLYGON) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "The fifth polygon parameter must be the shape.", outputStorage);
+            return false;
+        }
+        unsigned int noEntries = inputStorage.readUnsignedByte();
+        Position2DVector shape;
+        for (int i=0; i<noEntries; ++i) {
+            SUMOReal x = inputStorage.readFloat();
+            SUMOReal y = inputStorage.readFloat();
+            shape.push_back(Position2D(x, y));    
+        }
+        // 
+        p = new Polygon2D(id, type, RGBColor(r, g, b), shape, fill);
+        if(!shapeCont.add(layer, p)) {
+            delete p;
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
+            return false;
+        }
+    }
+    break;
+    case REMOVE: {
+        if (valueDataType!=TYPE_INTEGER) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "The layer must be given using an int.", outputStorage);
+            return false;
+        }
+        int layer = inputStorage.readInt();
+        if(!shapeCont.removePolygon(layer, id)) {
+            bool removed = false;
+            for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
+                removed |= shapeCont.removePolygon(i, id);
+            }
+            if(!removed) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
+                return false;
+            }
+        }
     }
     break;
     default:
