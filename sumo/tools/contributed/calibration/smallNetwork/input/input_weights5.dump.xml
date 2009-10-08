@@ -1,0 +1,8 @@
+<netstats>
+   <interval begin="25200" end="28800">
+      <edge id="L4" emitted="0" entered="245"/>
+      <edge id="L5" emitted="0" entered="755"/>
+      <edge id="L6" emitted="0" entered="505"/>
+      <edge id="L9" emitted="0" entered="250"/>
+   </interval>
+</netstats>
