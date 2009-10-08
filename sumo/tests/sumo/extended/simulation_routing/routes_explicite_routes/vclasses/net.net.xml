@@ -1,20 +1,24 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/09/09 21:23:36 by SUMO netconvert Version dev-SVN-r7272
+<!-- generated on 10/08/09 12:25:06 by SUMO netconvert Version dev-SVN-r7825
 <configuration>
 
-    <input
-        xml-node-files="input_dua2s.nod.xml"
-        xml-edge-files="input_dua2s.edg.xml"
-    />
+    <input>
+        <xml-node-files value=".\routes_explicite_routes\vclasses\input_dua2s.nod.xml"/>
+        <xml-edge-files value=".\routes_explicite_routes\vclasses\input_dua2s.edg.xml"/>
+    </input>
 
-    <output
-        output-file="input_net.net.xml"
-    />
+    <output>
+        <output-file value=".\routes_explicite_routes\vclasses\net.net.xml"/>
+    </output>
 
-    <processing
-        no-internal-links="true"
-    />
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

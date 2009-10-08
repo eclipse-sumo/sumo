@@ -1,0 +1,31 @@
+<edges>
+
+   <edge id="absBeg" fromnode="absBeg" tonode="beg" speed="27.8" nolanes="2">
+	<lane id="0" allow="bus passenger"/>
+   </edge>
+
+   <edge id="beg2left" fromnode="beg" tonode="begleft" nolanes="1" speed="27.8">
+	<lane id="0" allow="bus"/>
+   </edge>
+
+   <edge id="left" fromnode="begleft" tonode="endleft" nolanes="1" speed="27.8">
+	<lane id="0" allow="bus"/>
+   </edge>
+
+   <edge id="middle" fromnode="beg" tonode="end" nolanes="1" speed="13.9">
+	<lane id="0" allow="passenger"/>
+   </edge>
+
+   <edge id="left2end" fromnode="endleft" tonode="end" nolanes="1" speed="27.8">
+	<lane id="0" allow="bus"/>
+   </edge>
+
+   <edge id="end" fromnode="end" tonode="absEnd" speed="27.8" nolanes="2">
+	<lane id="0" allow="bus passenger"/>
+   </edge>
+   <edge id="absEnd" fromnode="absEnd" tonode="rabsEnd" speed="27.8" nolanes="2">
+	<lane id="0" allow="bus passenger"/>
+   </edge>
+
+</edges>
+
