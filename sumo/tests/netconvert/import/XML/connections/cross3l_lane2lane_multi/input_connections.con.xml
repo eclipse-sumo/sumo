@@ -1,0 +1,6 @@
+<connections>
+
+	<connection from="1si" to="2o" lane="0:0"/>
+	<connection from="1si" to="2o" lane="2:0"/>
+
+</connections>

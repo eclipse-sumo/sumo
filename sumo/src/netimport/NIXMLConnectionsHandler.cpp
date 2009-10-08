@@ -205,9 +205,14 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
         toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
         if (fromLane<0 || fromLane>=from->getNoLanes() ||
-                toLane<0 || toLane>=to->getNoLanes()) {
+            toLane<0 || toLane>=to->getNoLanes()) {
             MsgHandler::getErrorInstance()->inform("False lane index in connection from '" +
                                                    from->getID() + "' to '" + to->getID() + "'.");
+            return;
+        }
+        if (from->hasConnectionTo(to, toLane)) {
+            MsgHandler::getErrorInstance()->inform("Target lane '" + to->getID() + "_" + toString<int>(toLane) +
+                                                   "' is already connected from '" + from->getID() + "'.");
             return;
         }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {

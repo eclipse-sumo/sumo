@@ -484,10 +484,18 @@ public:
      * @see NBEdge::Connection
      */
     std::vector<Connection> getConnectionsFromLane(unsigned int lane) const throw();
+
+
+    /** @brief Retrieves info about a connection to a certain lane of a certain edge
+     *
+     * @param[in] destEdge The connection's destination edge
+     * @param[in] destLane The connection's destination lane
+     * @return whether a connection to the specified lane exists
+     */
+    bool hasConnectionTo(NBEdge *destEdge, unsigned int destLane) const throw();
     /// @}
 
-
-
+        
     /// @name Setting/getting special types
     /// @{
 

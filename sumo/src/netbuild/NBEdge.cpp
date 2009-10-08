@@ -448,15 +448,15 @@ NBEdge::addLane2LaneConnections(unsigned int fromLane,
 
 
 void
-NBEdge::setConnection(unsigned int src_lane, NBEdge *dest_edge,
-                      unsigned int dest_lane, Lane2LaneInfoType type,
+NBEdge::setConnection(unsigned int lane, NBEdge *destEdge,
+                      unsigned int destLane, Lane2LaneInfoType type,
                       bool mayUseSameDestination,
                       bool mayDefinitelyPass) throw() {
     if (myStep==INIT_REJECT_CONNECTIONS) {
         return;
     }
-    assert(dest_lane<=10);
-    assert(src_lane<=10);
+    assert(destLane<=10);
+    assert(lane<=10);
     // some kind of a misbehaviour which may occure when the junction's outgoing
     //  edge priorities were not properly computed, what may happen due to
     //  an incomplete or not proper input
@@ -466,26 +466,24 @@ NBEdge::setConnection(unsigned int src_lane, NBEdge *dest_edge,
     // we test whether it is the case and do nothing if so - the connection
     //  will be refused
     //
-    if (!mayUseSameDestination) {
-        if (dest_edge!=0&&find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(dest_edge, dest_lane))!=myConnections.end()) {
-            return;
-        }
-    }
-    if (find_if(myConnections.begin(), myConnections.end(), connections_finder(src_lane, dest_edge, dest_lane))!=myConnections.end()) {
+    if (!mayUseSameDestination && hasConnectionTo(destEdge, destLane)) {
         return;
     }
-    if (myLanes.size()<=src_lane) {
-        MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myID + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
+    if (find_if(myConnections.begin(), myConnections.end(), connections_finder(lane, destEdge, destLane))!=myConnections.end()) {
+        return;
+    }
+    if (myLanes.size()<=lane) {
+        MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myID + "_" + toString(lane) + "' to '" + destEdge->getID() + "_" + toString(destLane) + "'.");
         return;
     }
     for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
-        if ((*i).toEdge==dest_edge && ((*i).fromLane==-1 || (*i).toLane==-1)) {
+        if ((*i).toEdge==destEdge && ((*i).fromLane==-1 || (*i).toLane==-1)) {
             i = myConnections.erase(i);
         } else {
             ++i;
         }
     }
-    myConnections.push_back(Connection(src_lane, dest_edge, dest_lane));
+    myConnections.push_back(Connection(lane, destEdge, destLane));
     if (mayDefinitelyPass) {
         myConnections[myConnections.size()-1].mayDefinitelyPass = true;
     }
@@ -518,7 +516,10 @@ NBEdge::getConnectionsFromLane(unsigned int lane) const throw() {
 }
 
 
-
+bool
+NBEdge::hasConnectionTo(NBEdge *destEdge, unsigned int destLane) const throw() {
+    return destEdge!=0&&find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(destEdge, destLane))!=myConnections.end();
+}
 // -----------
 
 
