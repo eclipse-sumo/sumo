@@ -1,32 +1,32 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/07/09 23:12:50 by SUMO sumo Version dev-SVN-r6882
+<!-- generated on 10/08/09 09:06:29 by SUMO sumo Version dev-SVN-r7822
 <configuration>
 
-   <input>
-      <net-file>three_split.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-   </input>
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
 
-   <output>
-      <vehroute-output>vehroutes.xml</vehroute-output>
-   </output>
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
 
-   <processing>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
-   <traci_server>
-      <remote-port>8813</remote-port>
-      <penetration>1</penetration>
-   </traci_server>
+    <traci_server>
+        <remote-port value="8813"/>
+        <penetration value="1"/>
+    </traci_server>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0" depart="0" arrival="80">
-      <route edges="beg middle end rend"/>
+    <vehicle id="0" depart="0" arrival="80">
+        <route edges="beg middle end rend"/>
    </vehicle>
 
 </routes>

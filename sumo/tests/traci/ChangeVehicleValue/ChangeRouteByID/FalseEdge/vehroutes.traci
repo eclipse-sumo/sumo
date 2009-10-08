@@ -1,33 +1,33 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/04/09 14:07:52 by SUMO sumo Version dev-SVN-r7668
+<!-- generated on 10/08/09 09:10:52 by SUMO sumo Version dev-SVN-r7822
 <configuration>
 
-    <input
-        net-file="net.net.xml"
-        route-files="routes.rou.xml"
-    />
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
 
-    <output
-        netstate-dump="netstate_dump.xml"
-        vehroute-output="vehroutes.xml"
-    />
+    <output>
+        <netstate-dump value="netstate_dump.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
 
-    <report
-        no-step-log="true"
-    />
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
-    <traci_server
-        remote-port="8815"
-        penetration="1"
-    />
+    <traci_server>
+        <remote-port value="8815"/>
+        <penetration value="1"/>
+    </traci_server>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="veh0" depart="0" arrival="61">
-      <route edges="e_m5 e_m6 e_shape1"/>
+    <vehicle id="veh0" depart="0" arrival="61">
+        <route edges="e_m5 e_m6 e_shape1"/>
    </vehicle>
 
 </routes>
