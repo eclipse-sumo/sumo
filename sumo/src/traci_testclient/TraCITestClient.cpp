@@ -1303,6 +1303,10 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         into.writeUnsignedByte(TYPE_BYTE);
         into.writeByte(atoi(valueS.c_str()));
         return 1 + 1;
+    }  else if (dataTypeS=="<ubyte>") {
+        into.writeUnsignedByte(TYPE_UBYTE);
+        into.writeByte(atoi(valueS.c_str()));
+        return 1 + 1;
     } else if (dataTypeS=="<float>") {
         into.writeUnsignedByte(TYPE_FLOAT);
         into.writeFloat(atof(valueS.c_str()));
@@ -1331,6 +1335,33 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defF
         int length = 1 + 4;
         for (int i=0; i<number; ++i) {
             length += setValueTypeDependant(into, defFile, msg);
+        }
+        return length;
+    } else if (dataTypeS=="<color>") {
+        into.writeUnsignedByte(TYPE_COLOR);
+        into.writeUnsignedByte(atoi(valueS.c_str()));
+        for (int i=0; i<3; ++i) {
+            defFile >> valueS;
+            into.writeUnsignedByte(atoi(valueS.c_str()));
+        }
+        return 1 + 4;
+    } else if (dataTypeS=="<position2D>") {
+        into.writeUnsignedByte(TYPE_POSITION2D);
+        into.writeFloat(atof(valueS.c_str()));
+        defFile >> valueS;
+        into.writeFloat(atof(valueS.c_str()));
+        return 1 + 8;
+    } else if (dataTypeS=="<shape>") {
+        into.writeUnsignedByte(TYPE_POLYGON);
+        int number = atoi(valueS.c_str());
+        into.writeUnsignedByte(number);
+        int length = 1 + 1;
+        for (int i=0; i<number; ++i) {
+            string x, y;
+            defFile >> x >> y;
+            into.writeFloat(atof(x.c_str()));
+            into.writeFloat(atof(y.c_str()));
+            length += 8;
         }
         return length;
     }
