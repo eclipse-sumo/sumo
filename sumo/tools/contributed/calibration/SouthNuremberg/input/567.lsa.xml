@@ -1,0 +1,102 @@
+<additional>
+   <tl-logic type="static">
+      <key>567</key>
+      <subkey>S01</subkey>
+      <phaseno>9</phaseno>
+      <offset>0</offset>
+         <param key="B1.begin" value="60"/>
+         <param key="B1.end" value="70"/>
+         <param key="B1.factor" value="2"/>
+         <param key="B2.begin" value="32"/>
+         <param key="B2.end" value="34"/>
+         <param key="B2.factor" value="1"/>
+         <param key="StretchUmlaufAnz" value="0"/>
+         <param key="GSP" value="35"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="10" phase="111000000111" brake="000111111000" yellow="000000000000"/>
+         <phase duration="2" phase="111000000000" brake="000111111111" yellow="000000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000000"/>
+         <phase duration="6" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="12" phase="000111111000" brake="111000000111" yellow="000000000000"/>
+         <phase duration="4" phase="000111000000" brake="111000111111" yellow="000000111000"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000111000000"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>567</key>
+      <subkey>S02</subkey>
+      <phaseno>9</phaseno>
+      <offset>0</offset>
+         <param key="B1.begin" value="60"/>
+         <param key="B1.end" value="70"/>
+         <param key="B1.factor" value="2"/>
+         <param key="B2.begin" value="32"/>
+         <param key="B2.end" value="34"/>
+         <param key="B2.factor" value="1"/>
+         <param key="StretchUmlaufAnz" value="0"/>
+         <param key="GSP" value="35"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="10" phase="111000000111" brake="000111111000" yellow="000000000000"/>
+         <phase duration="2" phase="111000000000" brake="000111111111" yellow="000000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000000"/>
+         <phase duration="6" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="12" phase="000111111000" brake="111000000111" yellow="000000000000"/>
+         <phase duration="4" phase="000111000000" brake="111000111111" yellow="000000111000"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000111000000"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>567</key>
+      <subkey>S03</subkey>
+      <phaseno>9</phaseno>
+      <offset>0</offset>
+         <param key="B1.begin" value="60"/>
+         <param key="B1.end" value="70"/>
+         <param key="B1.factor" value="2"/>
+         <param key="B2.begin" value="32"/>
+         <param key="B2.end" value="34"/>
+         <param key="B2.factor" value="1"/>
+         <param key="StretchUmlaufAnz" value="0"/>
+         <param key="GSP" value="10"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="13" phase="000111111000" brake="111000000111" yellow="000000000000"/>
+         <phase duration="4" phase="000111000000" brake="111000111111" yellow="000000111000"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000111000000"/>
+         <phase duration="6" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="12" phase="111000000111" brake="000111111000" yellow="000000000000"/>
+         <phase duration="2" phase="111000000000" brake="000111111111" yellow="000000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000000"/>
+         <phase duration="3" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>567</key>
+      <subkey>S04</subkey>
+      <phaseno>9</phaseno>
+      <offset>0</offset>
+         <param key="B1.begin" value="60"/>
+         <param key="B1.end" value="70"/>
+         <param key="B1.factor" value="2"/>
+         <param key="B2.begin" value="32"/>
+         <param key="B2.end" value="34"/>
+         <param key="B2.factor" value="1"/>
+         <param key="StretchUmlaufAnz" value="0"/>
+         <param key="GSP" value="35"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="10" phase="111000000111" brake="000111111000" yellow="000000000000"/>
+         <phase duration="2" phase="111000000000" brake="000111111111" yellow="000000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000111"/>
+         <phase duration="2" phase="000000000000" brake="111111111111" yellow="111000000000"/>
+         <phase duration="6" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+         <phase duration="12" phase="000111111000" brake="111000000111" yellow="000000000000"/>
+         <phase duration="4" phase="000111000000" brake="111000111111" yellow="000000111000"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000111000000"/>
+         <phase duration="4" phase="000000000000" brake="111111111111" yellow="000000000000"/>
+   </tl-logic>
+
+</additional>

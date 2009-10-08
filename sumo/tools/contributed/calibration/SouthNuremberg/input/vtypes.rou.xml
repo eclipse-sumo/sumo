@@ -1,0 +1,3 @@
+<vehtype>
+	<vtype id="test" sigma="0.1" length="3" maxspeed="160"/>
+</vehtype>

@@ -1,0 +1,73 @@
+<additional>
+	
+	<WAUT refTime="0" id="t1" startProg="S04">
+		<wautSwitch time="21600" to="S01"/>
+		<wautSwitch time="30600" to="S02"/>
+		<wautSwitch time="52200" to="S03"/>
+		<wautSwitch time="68400" to="S02"/>
+		<wautSwitch time="72000" to="S04"/>
+	</WAUT>
+	
+	<wautJunction wautID="t1" junctionID="451" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="452" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="453" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="454" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="455" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="501" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="502" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="505" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="509" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="526" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="531" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="532" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="533" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="534" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="535" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="536" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="538" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="541" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="542" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="543" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="544" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="546" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="548" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="550" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="551" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="552" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="553" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="554" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="555" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="557" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="559" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="563" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="564" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="565" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="567" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="568" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="569" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="570" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="571" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="572" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="573" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="576" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="577" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="578" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="580" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="581" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="582" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="583" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="584" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="586" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="590" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="591" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="593" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="594" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="595" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="596" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="690" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="691" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="692" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="698" procedure="GSP" synchron="t"/>
+	<wautJunction wautID="t1" junctionID="699" procedure="GSP" synchron="t"/>
+
+</additional>
