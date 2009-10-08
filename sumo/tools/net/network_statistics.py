@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#sys.stdin.readline()
 
 """
-@file    script_network_statistics.py
+@file    network_statistics.py
 @author  Ronald.Nippold@dlr.de
 @date    20089-10-06
 @version
-@usage   "python script_network_statistics.py network-file-to-be-analyzed.net.xml"
+@usage   "python network_statistics.py network-file-to-be-analyzed.net.xml"
 
 Prints some information about a given network
 
@@ -21,9 +20,9 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../
 import sumonet
 
 if len(sys.argv) < 2:
-	print "No net-file given. Usage: " + sys.argv[0] + " <net>."
+	print "No net-file given. Usage: " + sys.argv[0] + " <network file>."
 	sys.exit()
-print("Reading net ...\n")
+print("Reading network ...\n")
 parser = make_parser()
 net = sumonet.NetReader()
 parser.setContentHandler(net)
