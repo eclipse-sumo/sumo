@@ -1,0 +1,29 @@
+TraCITestClient output file. Date: Thu Oct 08 13:08:25 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=168 varID=0 objID=xxx
+.. Command acknowledged (168), [description: ]
+  CommandID=184  VariableID=0  ObjectID=xxx valueDataType=14 string list value: [ 
+"p1", "p2" ]
+
+-> Command sent: <SetValue>:
+  domID=200 varID=129 objID=p1
+#Error: received status response to command: 199 but expected: 200
+
+-> Command sent: <GetVariable>:
+  domID=168 varID=0 objID=xxx
+.. Command acknowledged (168), [description: ]
+  CommandID=184  VariableID=0  ObjectID=xxx valueDataType=14 string list value: [ 
+"p1", "p2" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

@@ -1,0 +1,6 @@
+simstep 1 1
+getvariable 167 0 xxx
+setvalue 199 129 xxx <int> -1
+getvariable 167 0 xxx
+simstep 2 1
+
