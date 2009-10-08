@@ -13,6 +13,7 @@ GUILaneWrapper.cpp GUILaneWrapper.h \
 GUINet.cpp GUINet.h \
 GUIRoute.cpp GUIRoute.h GUIRouteHandler.cpp GUIRouteHandler.h \
 GUISelectionLoader.cpp GUISelectionLoader.h \
+GUIShapeContainer.cpp GUIShapeContainer.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
 GUIEmitter.cpp GUIEmitter.h \
 GUITriggeredRerouter.cpp GUITriggeredRerouter.h \

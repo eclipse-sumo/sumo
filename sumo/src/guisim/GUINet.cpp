@@ -66,6 +66,7 @@
 #include <microsim/MSRouteLoader.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
+#include "GUIShapeContainer.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
@@ -89,7 +90,7 @@ using namespace std;
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
                MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError)
-        : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents),
+        : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents, new GUIShapeContainer()),
         GUIGlObject(GUIGlObjectStorage::gIDStorage, "network"),
         myGrid(new SUMORTree(&GUIGlObject::drawGL)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),

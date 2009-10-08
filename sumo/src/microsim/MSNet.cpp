@@ -116,7 +116,8 @@ MSNet::getInstance(void) throw(ProcessError) {
 
 
 MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError) {
+             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents,
+             ShapeContainer *shapeCont) throw(ProcessError) {
     if (myInstance!=0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -134,7 +135,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myRouteLoaders = 0;
     myLogics = 0;
     myPersonControl = 0;
-    myShapeContainer = new ShapeContainer();
+    myShapeContainer = shapeCont==0 ? new ShapeContainer() : shapeCont;
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
     myEndOfTimestepEvents = endOfTimestepEvents;

@@ -98,10 +98,12 @@ public:
      * @param[in] beginOfTimestepEvents The event control to use for simulation step begin events
      * @param[in] endOfTimestepEvents The event control to use for simulation step end events
      * @param[in] emissionEvents The event control to use for emission events
+     * @param[in] shapeCont The shape container to use
      * @exception ProcessError If a network was already constructed
      */
     MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents) throw(ProcessError);
+          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents,
+          ShapeContainer *shapeCont=0) throw(ProcessError);
 
 
     /// @brief Destructor
