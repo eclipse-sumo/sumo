@@ -1,5 +1,0 @@
-<netstats>
-   <interval begin="25200" end="28800">
-      <edge id="L9" emitted="0" entered="250"/>
-   </interval>
-</netstats>
