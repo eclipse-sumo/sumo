@@ -36,6 +36,7 @@
 #include <utils/gui/windows/GUIVisualizationSettings.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <xercesc/framework/MemBufInputSource.hpp>
 #include "GUISettingsHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -46,9 +47,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUISettingsHandler::GUISettingsHandler(const std::string &file) throw()
-        : SUMOSAXHandler(file), myZoom(-1), myXPos(-1), myYPos(-1) {
-    XMLSubSys::runParser(*this, file);
+GUISettingsHandler::GUISettingsHandler(const std::string &content, bool isFile) throw()
+        : SUMOSAXHandler(content), myZoom(-1), myXPos(-1), myYPos(-1) {
+    if (isFile) {
+        XMLSubSys::runParser(*this, content);
+    } else {
+        setFileName("registrySettings");
+        SAX2XMLReader *reader = XMLSubSys::getSAXReader(*this);
+        reader->parse(MemBufInputSource((const XMLByte*)content.c_str(),content.size(),"registrySettings"));
+        delete reader;
+    }
 }
 
 
@@ -179,9 +187,11 @@ std::string
 GUISettingsHandler::addSettings(GUISUMOAbstractView* view) throw() {
     if (mySettings.name != "") {
         gSchemeStorage.add(mySettings);
-        size_t index = view->getColoringSchemesCombo().appendItem(mySettings.name.c_str());
-        view->getColoringSchemesCombo().setCurrentItem(index);
-        view->setColorScheme(mySettings.name);
+        if (view) {
+            size_t index = view->getColoringSchemesCombo().appendItem(mySettings.name.c_str());
+            view->getColoringSchemesCombo().setCurrentItem(index);
+            view->setColorScheme(mySettings.name);
+        }
     }
     return mySettings.name;
 }

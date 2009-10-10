@@ -72,11 +72,14 @@ public:
     /// Returns a list of stored settings names
     const std::vector<std::string> &getNames() const;
 
+    /// Returns the number of initial settings
+    size_t getNumInitialSettings() const;
+
     /// initialises the storage with some default settings
     void init(FXApp *app);
 
-    /// Returns all settings
-    const std::map<std::string, GUIVisualizationSettings> &getItems() const;
+    /** @brief Writes the current scheme into the registry */
+    void writeSettings(FXApp *app) throw();
 
     /// Makes the given viewport the default
     void saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom);
@@ -96,6 +99,9 @@ protected:
 
     /// Name of the default setting
     std::string myDefaultSettingName;
+
+    /// @brief The number of settings which were present at startup
+    size_t myNumInitialSettings;
 
     /// The default viewport
     SUMOReal myX, myY, myZoom;

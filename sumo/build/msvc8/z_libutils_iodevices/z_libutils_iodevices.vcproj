@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="z_libutils_iodevices"
 	ProjectGUID="{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}"
 	RootNamespace="z_libutils_iodevices"
@@ -368,6 +368,10 @@
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_Network.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_String.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -391,6 +395,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_Network.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_String.h"
 				>
 			</File>
 		</Filter>

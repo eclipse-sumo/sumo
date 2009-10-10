@@ -120,7 +120,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
             }
         }
         mySchemeName->setNumVisible(5);
-        myNumInitialSettings = names.size();
 
         new FXButton(frame0,"\t\tSave the setting to registry",
                      GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE,
@@ -868,7 +867,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     }
     gSchemeStorage.add(tmpSettings);
     int index = mySchemeName->getCurrentItem();
-    if (index<myNumInitialSettings) {
+    if (index<gSchemeStorage.getNumInitialSettings()) {
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         gSchemeStorage.add(tmpSettings);
         mySchemeName->setCurrentItem(index);
@@ -888,174 +887,6 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     myParent->forceRefresh();
     getApp()->forceRefresh();
     return 1;
-}
-
-
-void
-GUIDialog_ViewSettings::writeSettings() throw() {
-    const std::map<std::string, GUIVisualizationSettings> &items = gSchemeStorage.getItems();
-    const std::vector<std::string> &names = gSchemeStorage.getNames();
-    getApp()->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-myNumInitialSettings);
-    size_t gidx = 0;
-    for (std::vector<std::string>::const_iterator i=names.begin()+myNumInitialSettings; i!=names.end(); ++i, ++gidx) {
-        size_t k, index;
-        std::map<int, std::vector<RGBColor> >::const_iterator j;
-
-        const string &name = (*i);
-        const GUIVisualizationSettings &item = items.find(name)->second;
-
-        string sname = "visset#" + toString(gidx);
-
-        getApp()->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());//def.c_str());
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "antialiase", item.antialiase ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "dither", item.dither ? 1 : 0);
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "backgroundColor", convert(item.backgroundColor));
-        getApp()->reg().writeIntEntry(sname.c_str(), "showGrid", item.showGrid ? 1 : 0);
-        getApp()->reg().writeRealEntry(sname.c_str(), "gridXSize", item.gridXSize);
-        getApp()->reg().writeRealEntry(sname.c_str(), "gridYSize", item.gridYSize);
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "laneEdgeMode", item.laneEdgeMode);
-        getApp()->reg().writeIntEntry(sname.c_str(), "laneShowBorders", item.laneShowBorders ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "showLinkDecals", item.showLinkDecals ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "showRails", item.showRails ? 1 : 0);
-        getApp()->reg().writeRealEntry(sname.c_str(), "edgeNameSize", item.edgeNameSize);
-        getApp()->reg().writeIntEntry(sname.c_str(), "edgeNameColor", convert(item.edgeNameColor));
-        getApp()->reg().writeIntEntry(sname.c_str(), "noLaneCols", (int) item.laneColorings.size());
-        for (j=item.laneColorings.begin(), index=0; j!=item.laneColorings.end(); ++j, ++index) {
-            getApp()->reg().writeIntEntry(sname.c_str(), ("nlcN" + toString(index)).c_str(), (int) index);
-            getApp()->reg().writeIntEntry(sname.c_str(), ("nlcS" + toString(index)).c_str(), (int)(*j).second.size());
-            for (k=0; k<(*j).second.size(); ++k) {
-                getApp()->reg().writeIntEntry(sname.c_str(), ("nlcC" + toString(index) + "_" + toString(k)).c_str(), convert((*j).second[k]));
-            }
-        }
-        getApp()->reg().writeIntEntry(sname.c_str(), "hideConnectors", item.hideConnectors ? 1 : 0);
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "vehicleMode", item.vehicleMode);
-        getApp()->reg().writeIntEntry(sname.c_str(), "vehicleQuality", item.vehicleQuality);
-        getApp()->reg().writeRealEntry(sname.c_str(), "minVehicleSize", item.minVehicleSize);
-        getApp()->reg().writeRealEntry(sname.c_str(), "vehicleExaggeration", item.vehicleExaggeration);
-        getApp()->reg().writeIntEntry(sname.c_str(), "showBlinker", item.showBlinker ? 1 : 0);
-        /*
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawcC2CRadius", item.drawcC2CRadius ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawLaneChangePreference", item.drawLaneChangePreference ? 1 : 0);
-        */
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawVehicleName", item.drawVehicleName ? 1 : 0);
-        getApp()->reg().writeRealEntry(sname.c_str(), "vehicleNameSize", item.vehicleNameSize);
-        getApp()->reg().writeIntEntry(sname.c_str(), "vehicleNameColor", convert(item.vehicleNameColor));
-        getApp()->reg().writeIntEntry(sname.c_str(), "noVehCols", (int) item.vehicleColorings.size());
-        for (j=item.vehicleColorings.begin(), index=0; j!=item.vehicleColorings.end(); ++j, ++index) {
-            getApp()->reg().writeIntEntry(sname.c_str(), ("nvcN" + toString(index)).c_str(), (int) index);
-            getApp()->reg().writeIntEntry(sname.c_str(), ("nvcS" + toString(index)).c_str(), (int)(*j).second.size());
-            for (k=0; k<(*j).second.size(); ++k) {
-                getApp()->reg().writeIntEntry(sname.c_str(), ("nvcC" + toString(index) + "_" + toString(k)).c_str(), convert((*j).second[k]));
-            }
-        }
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "junctionMode", item.junctionMode);
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawLinkTLIndex", item.drawLinkTLIndex ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawLinkJunctionIndex", item.drawLinkJunctionIndex ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawJunctionName", item.drawJunctionName ? 1 : 0);
-        getApp()->reg().writeRealEntry(sname.c_str(), "junctionNameSize", item.junctionNameSize);
-        getApp()->reg().writeIntEntry(sname.c_str(), "junctionNameColor", convert(item.junctionNameColor));
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "showLane2Lane", item.showLane2Lane ? 1 : 0);
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "addMode", item.addMode);
-        getApp()->reg().writeRealEntry(sname.c_str(), "minAddSize", item.minAddSize);
-        getApp()->reg().writeIntEntry(sname.c_str(), "addExaggeration", item.addExaggeration ? 1 : 0);
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawAddName", item.drawAddName ? 1 : 0);
-        getApp()->reg().writeRealEntry(sname.c_str(), "addNameSize", item.addNameSize);
-
-        getApp()->reg().writeRealEntry(sname.c_str(), "poiExaggeration", item.poiExaggeration);
-        getApp()->reg().writeRealEntry(sname.c_str(), "minPOISize", item.minPOISize);
-        getApp()->reg().writeIntEntry(sname.c_str(), "drawPOIName", item.drawPOIName ? 1 : 0);
-        getApp()->reg().writeRealEntry(sname.c_str(), "poiNameSize", item.poiNameSize);
-        getApp()->reg().writeIntEntry(sname.c_str(), "poiNameColor", convert(item.poiNameColor));
-
-        getApp()->reg().writeIntEntry(sname.c_str(), "showSizeLegend", item.showSizeLegend ? 1 : 0);
-    }
-}
-
-
-void
-GUIDialog_ViewSettings::saveSettings(const std::string &file) throw() {
-    size_t index, k;
-    std::map<int, std::vector<RGBColor> >::const_iterator j;
-    try {
-        OutputDevice &dev = OutputDevice::getDevice(file);
-        dev << "<viewsettings>\n";
-        dev << "    <scheme name=\"" << mySettings->name << "\">\n";
-        dev << "        <opengl antialiase=\"" << mySettings->antialiase << "\" dither=\"" << mySettings->dither << "\"/>\n";
-        dev << "        <background backgroundColor=\"" << mySettings->backgroundColor << "\"\n"
-        << "                    showGrid=\"" << mySettings->showGrid
-        << "\" gridXSize=\"" << mySettings->gridXSize << "\" gridYSize=\"" << mySettings->gridYSize << "\"/>\n";
-        dev << "        <edges laneEdgeMode=\"" << mySettings->laneEdgeMode
-        << "\" laneShowBorders=\"" << mySettings->laneShowBorders
-        << "\" showLinkDecals=\"" << mySettings->showLinkDecals
-        << "\" showRails=\"" << mySettings->showRails << "\"\n"
-        << "               drawEdgeName=\"" << mySettings->drawEdgeName
-        << "\" edgeNameSize=\"" << mySettings->edgeNameSize
-        << "\" edgeNameColor=\"" << mySettings->edgeNameColor << "\"\n"
-        << "               drawInternalEdgeName=\"" << mySettings->drawInternalEdgeName
-        << "\" internalEdgeNameSize=\"" << mySettings->internalEdgeNameSize
-        << "\" internalEdgeNameColor=\"" << mySettings->internalEdgeNameColor
-        << "\" hideConnectors=\"" << mySettings->hideConnectors
-        << "\">\n";
-        for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
-            for (k=0; k<(*j).second.size(); ++k) {
-                dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
-            }
-        }
-#ifdef HAVE_MESOSIM
-        mySettings->edgeColorer.save(dev);
-#endif
-        dev << "        </edges>\n";
-
-        dev << "        <vehicles vehicleMode=\"" << mySettings->vehicleMode
-        << "\" vehicleQuality=\"" << mySettings->vehicleQuality
-        << "\" minVehicleSize=\"" << mySettings->minVehicleSize
-        << "\" vehicleExaggeration=\"" << mySettings->vehicleExaggeration
-        << "\" showBlinker=\"" << mySettings->showBlinker << "\"\n"
-        << "                  drawVehicleName=\"" << mySettings->drawVehicleName
-        << "\" vehicleNameSize=\"" << mySettings->vehicleNameSize
-        << "\" vehicleNameColor=\"" << mySettings->vehicleNameColor << "\">\n";
-        for (j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
-            for (k=0; k<(*j).second.size(); ++k) {
-                dev << "            <nvcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
-            }
-        }
-        dev << "        </vehicles>\n";
-
-        dev << "        <junctions junctionMode=\"" << mySettings->junctionMode
-        << "\" drawLinkTLIndex=\"" << mySettings->drawLinkTLIndex
-        << "\" drawLinkJunctionIndex=\"" << mySettings->drawLinkJunctionIndex << "\"\n"
-        << "                   drawJunctionName=\"" << mySettings->drawJunctionName
-        << "\" junctionNameSize=\"" << mySettings->junctionNameSize
-        << "\" junctionNameColor=\"" << mySettings->junctionNameColor
-        << "\" showLane2Lane=\"" << mySettings->showLane2Lane << "\"/>\n";
-
-        dev << "        <additionals addMode=\"" << mySettings->addMode
-        << "\" minAddSize=\"" << mySettings->minAddSize
-        << "\" addExaggeration=\"" << mySettings->addExaggeration
-        << "\" drawAddName=\"" << mySettings->drawAddName
-        << "\" addNameSize=\"" << mySettings->addNameSize << "\"/>\n";
-
-        dev << "        <pois poiExaggeration=\"" << mySettings->poiExaggeration
-        << "\" minPOISize=\"" << mySettings->minPOISize
-        << "\" drawPOIName=\"" << mySettings->drawPOIName
-        << "\" poiNameSize=\"" << mySettings->poiNameSize
-        << "\" poiNameColor=\"" << mySettings->poiNameColor << "\"/>\n";
-
-        dev << "        <legend showSizeLegend=\"" << mySettings->showSizeLegend << "\"/>\n";
-        dev << "    </scheme>\n";
-        dev << "</viewsettings>\n";
-
-        dev.close();
-    } catch (IOError &e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
-    }
 }
 
 
@@ -1111,7 +942,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string &file) throw() {
 long
 GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
-    if (index<myNumInitialSettings) {
+    if (index<gSchemeStorage.getNumInitialSettings()) {
         return 1;
     }
     // get the name
@@ -1146,7 +977,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
                 myParent->setColorScheme(tmpSettings.name);
                 mySettings = &gSchemeStorage.get(name);
                 myBackup = *mySettings;
-                writeSettings();
+                gSchemeStorage.writeSettings(getApp());
                 return 1;
             }
         } else {
@@ -1161,7 +992,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<myNumInitialSettings
+                   mySchemeName->getCurrentItem()<gSchemeStorage.getNumInitialSettings()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;
@@ -1171,14 +1002,14 @@ GUIDialog_ViewSettings::onUpdSaveSetting(FXObject*sender,FXSelector,void*ptr) {
 long
 GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
     int index = mySchemeName->getCurrentItem();
-    if (index<myNumInitialSettings) {
+    if (index<gSchemeStorage.getNumInitialSettings()) {
         return 1;
     }
     string name = mySchemeName->getItem(index).text();
     gSchemeStorage.remove(name);
     mySchemeName->removeItem(index);
     onCmdNameChange(0, 0, (void*) mySchemeName->getItem(0).text());
-    writeSettings();
+    gSchemeStorage.writeSettings(getApp());
     return 1;
 }
 
@@ -1186,7 +1017,7 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<myNumInitialSettings
+                   mySchemeName->getCurrentItem()<gSchemeStorage.getNumInitialSettings()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;
@@ -1205,7 +1036,13 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data) {
     if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
-    saveSettings(opendialog.getFilename().text());
+    try {
+        OutputDevice &dev = OutputDevice::getDevice(opendialog.getFilename().text());
+        mySettings->save(dev);
+        dev.close();
+    } catch (IOError &e) {
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+    }
     return 1;
 }
 
@@ -1213,7 +1050,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data) {
 long
 GUIDialog_ViewSettings::onUpdExportSetting(FXObject*sender,FXSelector,void*ptr) {
     sender->handle(this,
-                   mySchemeName->getCurrentItem()<myNumInitialSettings
+                   mySchemeName->getCurrentItem()<gSchemeStorage.getNumInitialSettings()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
                    ptr);
     return 1;

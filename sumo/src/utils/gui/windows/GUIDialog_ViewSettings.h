@@ -162,16 +162,6 @@ protected:
     void rebuildList() throw();
 
 
-    /** @brief Writes the current scheme into the registry */
-    void writeSettings() throw();
-
-
-    /** @brief Writes the current scheme into a file
-     * @param[in] file The name of the file to write the settings into
-     */
-    void saveSettings(const std::string &file) throw();
-
-
     /** @brief Loads a scheme from a file
      * @param[in] file The name of the file to read the settings from
      */
@@ -196,9 +186,6 @@ private:
 
     /// @brief The current settings
     GUIVisualizationSettings *mySettings;
-
-    /// @brief The number of settings which were present at startup
-    size_t myNumInitialSettings;
 
     /// @brief A backup of the settings (used if the "Cancel" button is pressed)
     GUIVisualizationSettings myBackup;

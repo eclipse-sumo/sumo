@@ -104,6 +104,79 @@ GUIVisualizationSettings::initColorMap(const BaseSchemeInfoSource &sm,
 }
 
 
+void
+GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
+    dev << "<viewsettings>\n";
+    dev << "    <scheme name=\"" << name << "\">\n";
+    dev << "        <opengl antialiase=\"" << antialiase << "\" dither=\"" << dither << "\"/>\n";
+    dev << "        <background backgroundColor=\"" << backgroundColor << "\"\n"
+    << "                    showGrid=\"" << showGrid
+    << "\" gridXSize=\"" << gridXSize << "\" gridYSize=\"" << gridYSize << "\"/>\n";
+    dev << "        <edges laneEdgeMode=\"" << laneEdgeMode
+    << "\" laneShowBorders=\"" << laneShowBorders
+    << "\" showLinkDecals=\"" << showLinkDecals
+    << "\" showRails=\"" << showRails << "\"\n"
+    << "               drawEdgeName=\"" << drawEdgeName
+    << "\" edgeNameSize=\"" << edgeNameSize
+    << "\" edgeNameColor=\"" << edgeNameColor << "\"\n"
+    << "               drawInternalEdgeName=\"" << drawInternalEdgeName
+    << "\" internalEdgeNameSize=\"" << internalEdgeNameSize
+    << "\" internalEdgeNameColor=\"" << internalEdgeNameColor
+    << "\" hideConnectors=\"" << hideConnectors
+    << "\">\n";
+    size_t index = 0;
+    std::map<int, std::vector<RGBColor> >::const_iterator j;
+    for (j=laneColorings.begin(); j!=laneColorings.end(); ++j, ++index) {
+        for (size_t k=0; k<(*j).second.size(); ++k) {
+            dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
+        }
+    }
+#ifdef HAVE_MESOSIM
+    edgeColorer.save(dev);
+#endif
+    dev << "        </edges>\n";
+
+    dev << "        <vehicles vehicleMode=\"" << vehicleMode
+    << "\" vehicleQuality=\"" << vehicleQuality
+    << "\" minVehicleSize=\"" << minVehicleSize
+    << "\" vehicleExaggeration=\"" << vehicleExaggeration
+    << "\" showBlinker=\"" << showBlinker << "\"\n"
+    << "                  drawVehicleName=\"" << drawVehicleName
+    << "\" vehicleNameSize=\"" << vehicleNameSize
+    << "\" vehicleNameColor=\"" << vehicleNameColor << "\">\n";
+    for (j=vehicleColorings.begin(), index=0; j!=vehicleColorings.end(); ++j, ++index) {
+        for (size_t k=0; k<(*j).second.size(); ++k) {
+            dev << "            <nvcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
+        }
+    }
+    dev << "        </vehicles>\n";
+
+    dev << "        <junctions junctionMode=\"" << junctionMode
+    << "\" drawLinkTLIndex=\"" << drawLinkTLIndex
+    << "\" drawLinkJunctionIndex=\"" << drawLinkJunctionIndex << "\"\n"
+    << "                   drawJunctionName=\"" << drawJunctionName
+    << "\" junctionNameSize=\"" << junctionNameSize
+    << "\" junctionNameColor=\"" << junctionNameColor
+    << "\" showLane2Lane=\"" << showLane2Lane << "\"/>\n";
+
+    dev << "        <additionals addMode=\"" << addMode
+    << "\" minAddSize=\"" << minAddSize
+    << "\" addExaggeration=\"" << addExaggeration
+    << "\" drawAddName=\"" << drawAddName
+    << "\" addNameSize=\"" << addNameSize << "\"/>\n";
+
+    dev << "        <pois poiExaggeration=\"" << poiExaggeration
+    << "\" minPOISize=\"" << minPOISize
+    << "\" drawPOIName=\"" << drawPOIName
+    << "\" poiNameSize=\"" << poiNameSize
+    << "\" poiNameColor=\"" << poiNameColor << "\"/>\n";
+
+    dev << "        <legend showSizeLegend=\"" << showSizeLegend << "\"/>\n";
+    dev << "    </scheme>\n";
+    dev << "</viewsettings>\n";
+}
+
+
 bool
 GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (antialiase!=v2.antialiase) return false;

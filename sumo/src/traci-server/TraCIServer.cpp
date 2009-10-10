@@ -160,8 +160,6 @@ TraCIServer::TraCIServer() {
     // determine the maximum number of vehicles by searching route and additional input files for "vehicle" tags
     TraCIHandler xmlHandler;
     SAX2XMLReader* xmlParser = XMLSubSys::getSAXReader(xmlHandler);
-    xmlParser->setContentHandler(&xmlHandler);
-    xmlParser->setErrorHandler(&xmlHandler);
 
     // parse route files
     if (oc.isSet("route-files")) {

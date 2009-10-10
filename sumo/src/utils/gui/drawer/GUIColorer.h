@@ -140,12 +140,15 @@ public:
     }
 
     void save(OutputDevice &dev) const {
-        dev << "            <colorScheme name=\"" << myName << "\" interpolated=\"" << myIsInterpolated << "\" fixed=\"" << myIsFixed << "\">\n";
+        dev << "            <colorScheme name=\"" << myName << "\" interpolated=\"" << myIsInterpolated << "\">\n";
         std::vector<RGBColor>::const_iterator colIt = myColors.begin();
         std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin();
         std::vector<std::string>::const_iterator nameIt = myNames.begin();
         while (threshIt != myThresholds.end()) {
-            dev << "                <color rgb=\"" << (*colIt) << "\" threshold=\"" << (*threshIt);
+            dev << "                <entry color=\"" << (*colIt);
+            if (!myIsFixed) {
+                dev << "\" threshold=\"" << (*threshIt);
+            }
             if ((*nameIt) != "") {
                 dev << "\" name=\"" << (*nameIt);
             }

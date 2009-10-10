@@ -32,6 +32,8 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
 #include <utils/foxtools/MFXUtils.h>
+#include <utils/gui/div/GUISettingsHandler.h>
+#include <utils/iodevices/OutputDevice_String.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -107,9 +109,9 @@ GUICompleteSchemeStorage::getNames() const {
 }
 
 
-const std::map<std::string, GUIVisualizationSettings> &
-GUICompleteSchemeStorage::getItems() const {
-    return mySettings;
+size_t
+GUICompleteSchemeStorage::getNumInitialSettings() const {
+    return myNumInitialSettings;
 }
 
 
@@ -146,10 +148,9 @@ GUICompleteSchemeStorage::init(FXApp *app) {
         vs.minVehicleSize = 0;
         gSchemeStorage.add(vs);
     }
+    myNumInitialSettings = mySortedSchemeNames.size();
     // add saved settings
     int noSaved = app->reg().readIntEntry("VisualizationSettings", "settingNo", 0);
-    std::string setting1 = app->reg().readStringEntry("VisualizationSettings", "visset#0", "");
-
     for (int i=0; i<noSaved; ++i) {
         std::string name = "visset#" + toString(i);
         std::string setting = app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
@@ -160,6 +161,24 @@ GUICompleteSchemeStorage::init(FXApp *app) {
             vs.name = setting;
             app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
 
+            // add saved xml setting
+            int xmlSize = app->reg().readIntEntry(name.c_str(), "xmlSize", 0);
+            std::string content = "";
+            int index = 0;
+            while (xmlSize > 0) {
+                std::string part = app->reg().readStringEntry(name.c_str(), ("xml"+toString(index)).c_str(), "");
+                if (part == "") {
+                    break;
+                }
+                content += part;
+                xmlSize -= part.size();
+                index++;
+            }
+            if (content != "" && xmlSize == 0) {
+                GUISettingsHandler handler(content, false);
+                handler.addSettings();
+                continue;
+            }
             vs.antialiase = app->reg().readIntEntry(name.c_str(), "antialiase", 0)!=0 ? 1 : 0;
             vs.dither = app->reg().readIntEntry(name.c_str(), "dither", 0)!=0 ? 1 : 0;
 
@@ -237,6 +256,34 @@ GUICompleteSchemeStorage::init(FXApp *app) {
     }
     myDefaultSettingName = mySortedSchemeNames[0];
     myX = myY = myZoom = 0;
+}
+
+
+void
+GUICompleteSchemeStorage::writeSettings(FXApp *app) throw() {
+    const std::vector<std::string> &names = getNames();
+    app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-myNumInitialSettings);
+    size_t gidx = 0;
+    for (std::vector<std::string>::const_iterator i=names.begin()+myNumInitialSettings; i!=names.end(); ++i, ++gidx) {
+        size_t k, index;
+        std::map<int, std::vector<RGBColor> >::const_iterator j;
+
+        const std::string &name = (*i);
+        const GUIVisualizationSettings &item = mySettings.find(name)->second;
+
+        std::string sname = "visset#" + toString(gidx);
+        app->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());
+
+        OutputDevice_String dev;
+        item.save(dev);
+        std::string content = dev.getString();
+        app->reg().writeIntEntry(sname.c_str(), "xmlSize", content.size());
+        const unsigned maxSize = 1000; // this is a fox limitation for windows registry entries
+        for (unsigned int i = 0; i < content.size(); i+=maxSize) {
+            const std::string b = content.substr(i, maxSize);
+            app->reg().writeStringEntry(sname.c_str(), ("xml" + toString(i/maxSize)).c_str(), b.c_str());
+        }
+    }
 }
 
 
