@@ -73,6 +73,8 @@ for platform in ["Win32", "x64"]:
         binary = os.path.join(options.rootDir, options.binDir, name + programSuffix + ".exe")
         if name == "sumo":
             binary = os.path.join(options.rootDir, options.binDir, options.sumoExe + programSuffix + ".exe")
+        if name == "guisim" and options.sumoExe == "meso":
+            binary = os.path.join(options.rootDir, options.binDir, "guimeso" + programSuffix + ".exe")
         if os.path.exists(binary):
             env[name.upper()+"_BINARY"] = binary
     log = open(testLog, 'w')
