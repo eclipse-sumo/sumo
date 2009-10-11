@@ -54,7 +54,8 @@ GUISettingsHandler::GUISettingsHandler(const std::string &content, bool isFile) 
     } else {
         setFileName("registrySettings");
         SAX2XMLReader *reader = XMLSubSys::getSAXReader(*this);
-        reader->parse(MemBufInputSource((const XMLByte*)content.c_str(),content.size(),"registrySettings"));
+        MemBufInputSource memBufIS((const XMLByte*)content.c_str(),content.size(),"registrySettings");
+        reader->parse(memBufIS);
         delete reader;
     }
 }
