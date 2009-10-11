@@ -70,7 +70,7 @@
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUISettingsHandler.h>
+#include <utils/gui/drawer/GUISettingsHandler.h>
 #include <guisim/GUISelectionLoader.h>
 
 #ifdef CHECK_MEMORY_LEAKS

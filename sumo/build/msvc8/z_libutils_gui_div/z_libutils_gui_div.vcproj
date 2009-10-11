@@ -370,10 +370,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\div\GUISettingsHandler.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIUserIO.cpp"
 				>
 			</File>
@@ -417,10 +413,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUISelectedStorage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\div\GUISettingsHandler.h"
 				>
 			</File>
 			<File

@@ -36,7 +36,7 @@
 #include <GL/gl.h>
 
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/windows/GUIVisualizationSettings.h>
+#include <utils/gui/drawer/GUIVisualizationSettings.h>
 #include <utils/geom/Boundary.h>
 
 #include "RTree.h"

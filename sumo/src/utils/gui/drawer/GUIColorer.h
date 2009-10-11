@@ -222,6 +222,16 @@ public:
         return mySchemes[myActiveScheme];
     }
 
+    GUIColorScheme* getSchemeByName(std::string &name) {
+        typename std::vector<GUIColorScheme>::iterator i;
+        for (i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
+            if ((*i).getName() == name) {
+                return &(*i);
+            }
+        }
+        return 0;
+    }
+
     void save(OutputDevice &dev) const {
         typename std::vector<GUIColorScheme>::const_iterator i = mySchemes.begin();
         for (; i!=mySchemes.end(); ++i) {

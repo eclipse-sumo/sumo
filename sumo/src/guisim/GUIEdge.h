@@ -181,12 +181,6 @@ public:
     SUMOReal getAllowedSpeed() const;
     SUMOReal getFlow() const;
 
-    /// Returns the list of available lane coloring schemes
-    static GUIColoringSchemesMap<GUIEdge> &getSchemesMap();
-
-    /// Initializes the list of available vehicle coloring schemes
-    static void initColoringSchemes();
-
     class Colorer : public GUIColorer<GUIEdge> {
     public:
         Colorer();

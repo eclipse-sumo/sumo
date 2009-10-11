@@ -104,6 +104,12 @@ private:
     std::map<SUMOTime, std::string> mySnapshots;
     /// @brief The decals list to fill
     std::vector<GUISUMOAbstractView::Decal> myDecals;
+    /// @brief The last color scheme category (edges or vehicles)
+    SumoXMLTag myCurrentColorer;
+    /// @brief The current color scheme
+    GUIColorScheme* myCurrentScheme;
+    /// @brief The current color scheme entry position
+    unsigned int myCurrentSchemePos;
 
 };
 

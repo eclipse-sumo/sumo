@@ -144,11 +144,6 @@ GUIViewTraffic::setColorScheme(const std::string &name) {
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
     // lanes
     BaseSchemeInfoSource& laneSchemes = GUILaneWrapper::getSchemesMap();
-#ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        laneSchemes = GUIEdge::getSchemesMap();
-    }
-#endif
     switch (laneSchemes.getColorSetType(myVisualizationSettings->laneEdgeMode)) {
     case CST_SINGLE:
         laneSchemes.getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
@@ -448,11 +443,6 @@ void
 GUIViewTraffic::showViewschemeEditor() {
     if (myVisualizationChanger==0) {
         BaseSchemeInfoSource* laneSchemes = &GUILaneWrapper::getSchemesMap();
-#ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            laneSchemes = &GUIEdge::getSchemesMap();
-        }
-#endif
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
             this, myVisualizationSettings,

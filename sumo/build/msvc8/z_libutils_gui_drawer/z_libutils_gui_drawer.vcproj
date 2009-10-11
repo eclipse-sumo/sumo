@@ -549,6 +549,14 @@
 				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradientStorage.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUISettingsHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIVisualizationSettings.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -601,6 +609,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradientStorage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUISettingsHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIVisualizationSettings.h"
 				>
 			</File>
 		</Filter>

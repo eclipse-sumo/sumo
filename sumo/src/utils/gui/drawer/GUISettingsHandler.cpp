@@ -33,7 +33,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/gui/windows/GUIVisualizationSettings.h>
+#include <utils/gui/drawer/GUIVisualizationSettings.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <xercesc/framework/MemBufInputSource.hpp>
@@ -48,7 +48,7 @@
 // method definitions
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string &content, bool isFile) throw()
-        : SUMOSAXHandler(content), myZoom(-1), myXPos(-1), myYPos(-1) {
+: SUMOSAXHandler(content), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
     } else {
@@ -109,6 +109,29 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.internalEdgeNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("internalEdgeNameSize", toString(mySettings.internalEdgeNameSize)).c_str());
         mySettings.internalEdgeNameColor = RGBColor::parseColor(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)));
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
+        myCurrentColorer = element;
+        mySettings.edgeColorer.setActive(mySettings.laneEdgeMode);
+        break;
+    case SUMO_TAG_COLORSCHEME:
+        if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
+            myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            if (myCurrentScheme) {
+                myCurrentScheme->setInterpolated(attrs.getBoolSecure(SUMO_ATTR_INTERPOLATED, false));
+                myCurrentSchemePos = 0;
+            }
+        }
+        break;
+    case SUMO_TAG_ENTRY:
+        if (myCurrentScheme) {
+            if (myCurrentSchemePos < myCurrentScheme->getColors().size()) {
+                const float threshold = attrs.getFloatSecure(SUMO_ATTR_THRESHOLD, myCurrentScheme->getThresholds()[myCurrentSchemePos]);
+                myCurrentScheme->setColor(myCurrentSchemePos,
+                                          RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)), threshold);
+            } else {
+                myCurrentScheme->addColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)), attrs.getFloat(SUMO_ATTR_THRESHOLD));
+            }
+            myCurrentSchemePos++;
+        }
         break;
     case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM: {
         int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
@@ -128,6 +151,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.drawVehicleName = TplConvert<char>::_2bool(attrs.getStringSecure("drawVehicleName", toString(mySettings.drawVehicleName)).c_str());
         mySettings.vehicleNameSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleNameSize", toString(mySettings.vehicleNameSize)).c_str());
         mySettings.vehicleNameColor = RGBColor::parseColor(attrs.getStringSecure("vehicleNameColor", toString(mySettings.vehicleNameColor)));
+        myCurrentColorer = element;
         break;
     case SUMO_TAG_VIEWSETTINGS_VEHICLE_COLOR_ITEM: {
         int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());

@@ -409,36 +409,8 @@ GUIEdge::getAllowedSpeed() const {
 }
 
 
-GUIColoringSchemesMap<GUIEdge> &
-GUIEdge::getSchemesMap() {
-    return myLaneColoringSchemes;
-}
-
-
-void
-GUIEdge::initColoringSchemes() {
-    // insert possible edge coloring schemes
-    myLaneColoringSchemes.add("uniform",
-                              new GUIColorer_SingleColor<GUIEdge>(RGBColor(0, 0, 0)));
-    myLaneColoringSchemes.add("by selection (lanewise)",
-                              new GUIColorer_LaneBySelection<GUIEdge>());
-    myLaneColoringSchemes.add("by purpose (lanewise)",
-                              new GUIColorer_LaneByPurpose<GUIEdge>());
-    // from a lane's standard values
-    myLaneColoringSchemes.add("by allowed speed (lanewise)",
-                              new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
-                                  0, (SUMOReal)(150.0/3.6),
-                                  RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-                                  (SUMOReal(GUIEdge::*)() const) &GUIEdge::getAllowedSpeed));
-    myLaneColoringSchemes.add("by current density (lanewise)",
-                              new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
-                                  0, (SUMOReal) .95,
-                                  RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-                                  (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
-}
-
 GUIEdge::Colorer::Colorer() {
-    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0), "", true));
+    mySchemes.push_back(GUIColorScheme("uniform (streetwise)", RGBColor(0,0,0), "", true));
     mySchemes.push_back(GUIColorScheme("by selection (streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
     mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1, "selected");
     mySchemes.push_back(GUIColorScheme("by purpose (streetwise)", RGBColor(0,0,0), "normal", true));
@@ -451,6 +423,7 @@ GUIEdge::Colorer::Colorer() {
     mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
     mySchemes.back().setInterpolated(true);
 }
+
 
 SUMOReal
 GUIEdge::Colorer::getColorValue(const GUIEdge& edge) const {

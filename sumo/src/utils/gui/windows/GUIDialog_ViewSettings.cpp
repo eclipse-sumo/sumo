@@ -45,7 +45,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/gui/div/GUISettingsHandler.h>
+#include <utils/gui/drawer/GUISettingsHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

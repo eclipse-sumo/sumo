@@ -81,7 +81,7 @@ public:
     //@{
 
 #ifdef HAVE_MESOSIM
-    /// @brief The lane or edge colorer
+    /// @brief The mesoscopic edge colorer
     GUIEdge::Colorer edgeColorer;
 #endif
     /// @brief The lane visualization (color assignment) scheme

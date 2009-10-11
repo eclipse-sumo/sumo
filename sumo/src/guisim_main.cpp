@@ -80,9 +80,6 @@ void
 initColoringSchemes(FXApp *a) {
     GUIVehicle::initColoringSchemes();
     GUILaneWrapper::initColoringSchemes();
-#ifdef HAVE_MESOSIM
-    GUIEdge::initColoringSchemes();
-#endif
     // initialise gradients
     myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
     // initialise available coloring schemes
@@ -94,9 +91,6 @@ void
 deleteColoringSchemes() {
     delete &GUIVehicle::getSchemesMap();
     delete &GUILaneWrapper::getSchemesMap();
-#ifdef HAVE_MESOSIM
-    delete &GUIEdge::getSchemesMap();
-#endif
 }
 
 

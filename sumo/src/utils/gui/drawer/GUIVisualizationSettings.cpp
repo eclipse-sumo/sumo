@@ -66,15 +66,7 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         minPOISize(0), poiExaggeration(1), drawPOIName(false), poiNameSize(50),
         poiNameColor(RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5)),
         showSizeLegend(true) {
-#ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        initColorMap(GUIEdge::getSchemesMap(), laneColorings);
-    } else {
-#endif
-        initColorMap(GUILaneWrapper::getSchemesMap(), laneColorings);
-#ifdef HAVE_MESOSIM
-    }
-#endif
+    initColorMap(GUILaneWrapper::getSchemesMap(), laneColorings);
     initColorMap(GUIVehicle::getSchemesMap(), vehicleColorings);
 }
 

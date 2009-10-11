@@ -145,6 +145,8 @@ GenericSAXHandler::Tag sumotags[] = {
     { "viewport", SUMO_TAG_VIEWPORT },
     { "snapshot", SUMO_TAG_SNAPSHOT },
     { "location", SUMO_TAG_LOCATION },
+    { "colorScheme", SUMO_TAG_COLORSCHEME },
+    { "entry", SUMO_TAG_ENTRY },
 
     { CF_MODEL_KRAUSS_STR, SUMO_TAG_CF_KRAUSS },
     { CF_MODEL_IDM_STR,    SUMO_TAG_CF_IDM },
@@ -334,6 +336,8 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "ref",            SUMO_ATTR_REF },
     { "href",           SUMO_ATTR_HREF },
     { "zoom",           SUMO_ATTR_ZOOM },
+    { "interpolated",   SUMO_ATTR_INTERPOLATED },
+    { "threshold",      SUMO_ATTR_THRESHOLD },
 
     { "netOffset",      SUMO_ATTR_NET_OFFSET },
     { "convBoundary",   SUMO_ATTR_CONV_BOUNDARY },
