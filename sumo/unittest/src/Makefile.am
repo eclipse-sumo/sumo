@@ -14,6 +14,7 @@ sumo_unittest_LDADD   = ../../src/utils/common/libcommon.a \
 ./utils/common/StringUtilsTest.o \
 ./utils/common/StringTokenizerTest.o \
 ./utils/common/RGBColorTest.o \
+./utils/common/ValueTimeLineTest.o \
 ./utils/geom/BoundaryTest.o \
 $(MEM_LIBS) \
 -lgtest

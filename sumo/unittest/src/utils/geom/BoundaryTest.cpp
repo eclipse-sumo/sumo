@@ -17,8 +17,8 @@ TEST(Boundary, test_method_add) {
 	EXPECT_EQ(bound->ymin(), 2);
 }
 
-/* Test the method 'add' with additional call*/
-TEST(Boundary, test_method_add2) {
+/* Test the method 'add' with multiple calls*/
+TEST(Boundary, test_method_add_multiple) {
 	Boundary *bound = new Boundary();
     bound->add(-1,-2);
 	bound->add(3,5);

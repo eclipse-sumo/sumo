@@ -11,7 +11,7 @@ Tests ValueTimeLine class from <SUMO>/src/utils/common
 /*
 TEST(ValueTimeLine, test_get_from_empty) {
     ValueTimeLine<int> vtl;
-    EXPECT_EQ(1, vtl.getValue(0) << "Something should happen if nothing was stored.";
+    EXPECT_EQ(1, vtl.getValue(0)) << "Something should happen if nothing was stored.";
 }
 */
 
