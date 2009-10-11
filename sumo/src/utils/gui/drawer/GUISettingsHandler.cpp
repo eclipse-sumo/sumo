@@ -110,11 +110,26 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.internalEdgeNameColor = RGBColor::parseColor(attrs.getStringSecure("internalEdgeNameColor", toString(mySettings.internalEdgeNameColor)));
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         myCurrentColorer = element;
-        mySettings.edgeColorer.setActive(mySettings.laneEdgeMode);
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            mySettings.edgeColorer.setActive(mySettings.laneEdgeMode);
+        } else {
+#endif
+//            mySettings.laneColorer.setActive(mySettings.laneEdgeMode);
+#ifdef HAVE_MESOSIM
+        }
+#endif
         break;
     case SUMO_TAG_COLORSCHEME:
         if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
-            myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+#ifdef HAVE_MESOSIM
+            if (MSGlobals::gUseMesoSim) {
+                myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            } else {
+#endif
+#ifdef HAVE_MESOSIM
+            }
+#endif
             if (myCurrentScheme) {
                 myCurrentScheme->setInterpolated(attrs.getBoolSecure(SUMO_ATTR_INTERPOLATED, false));
                 myCurrentSchemePos = 0;
