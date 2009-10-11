@@ -50,8 +50,8 @@ log:log.txt
 [run_dependent_text]
 output:\r{REPLACE \n}
 output:sumo.exe{REPLACE sumo}
-output:\([1-9][0-9]*ms\){REPLACE (TIME)}
-log:\([1-9][0-9]*ms\){REPLACE (TIME)}
+output:\([0-9]*ms\){REPLACE (TIME)}
+log:\([0-9]*ms\){REPLACE (TIME)}
 detector:xml version{->}-->
 emissions:xml version{->}-->
 aggregated1:xml version{->}-->
