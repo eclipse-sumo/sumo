@@ -162,7 +162,11 @@ public:
     }
 
     void save(OutputDevice &dev) const {
-        dev << "            <colorScheme name=\"" << myName << "\" interpolated=\"" << myIsInterpolated << "\">\n";
+        dev << "            <colorScheme name=\"" << myName;
+        if (!myIsFixed) {
+            dev << "\" interpolated=\"" << myIsInterpolated;
+        }
+        dev << "\">\n";
         std::vector<RGBColor>::const_iterator colIt = myColors.begin();
         std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin();
         std::vector<std::string>::const_iterator nameIt = myNames.begin();
@@ -233,7 +237,9 @@ public:
     }
 
     void setActive(size_t scheme) {
-        myActiveScheme = scheme;
+        if (scheme < mySchemes.size()) {
+            myActiveScheme = scheme;
+        }
     }
 
     const size_t getActive() const {

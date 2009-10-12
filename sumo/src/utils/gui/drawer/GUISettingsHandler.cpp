@@ -112,37 +112,28 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         myCurrentColorer = element;
 #ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            mySettings.edgeColorer.setActive(mySettings.laneEdgeMode);
-        } else {
+        mySettings.edgeColorer.setActive(mySettings.laneEdgeMode);
 #endif
-//            mySettings.laneColorer.setActive(mySettings.laneEdgeMode);
-#ifdef HAVE_MESOSIM
-        }
-#endif
+//        mySettings.laneColorer.setActive(mySettings.laneEdgeMode);
         break;
     case SUMO_TAG_COLORSCHEME:
         if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
+//            myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
 #ifdef HAVE_MESOSIM
-            if (MSGlobals::gUseMesoSim) {
+            if (myCurrentScheme == 0) {
                 myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
-            } else {
-#endif
-#ifdef HAVE_MESOSIM
             }
 #endif
         }
-        if (myCurrentScheme) {
+        if (myCurrentScheme && !myCurrentScheme->isFixed()) {
             myCurrentScheme->setInterpolated(attrs.getBoolSecure(SUMO_ATTR_INTERPOLATED, false));
-            if (!myCurrentScheme->isFixed()) {
-                myCurrentScheme->clear();
-            }
+            myCurrentScheme->clear();
         }
         break;
     case SUMO_TAG_ENTRY:
         if (myCurrentScheme) {
             if (myCurrentScheme->isFixed()) {
-                myCurrentScheme->setColor(attrs.getString(SUMO_ATTR_NAME),
+                myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""),
                                           RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
             } else {
                 myCurrentScheme->addColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)),
