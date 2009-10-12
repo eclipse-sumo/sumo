@@ -142,41 +142,6 @@ GUIViewTraffic::setColorScheme(const std::string &name) {
         }
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
-    // lanes
-    BaseSchemeInfoSource& laneSchemes = GUILaneWrapper::getSchemesMap();
-    switch (laneSchemes.getColorSetType(myVisualizationSettings->laneEdgeMode)) {
-    case CST_SINGLE:
-        laneSchemes.getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
-            myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][0]);
-        break;
-    case CST_MINMAX:
-        laneSchemes.getColorerInterface(myVisualizationSettings->laneEdgeMode)->resetColor(
-            myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][0],
-            myVisualizationSettings->laneColorings[myVisualizationSettings->laneEdgeMode][1]);
-        break;
-    default:
-        break;
-    }
-    // vehicles
-    switch (GUIVehicle::getSchemesMap().getColorSetType(myVisualizationSettings->vehicleMode)) {
-    case CST_SINGLE:
-        GUIVehicle::getSchemesMap().getColorerInterface(myVisualizationSettings->vehicleMode)->resetColor(
-            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][0]);
-        break;
-    case CST_MINMAX:
-        GUIVehicle::getSchemesMap().getColorerInterface(myVisualizationSettings->vehicleMode)->resetColor(
-            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][0],
-            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][1]);
-        break;
-    case CST_MINMAX_OPT:
-        GUIVehicle::getSchemesMap().getColorerInterface(myVisualizationSettings->vehicleMode)->resetColor(
-            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][0],
-            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][1],
-            myVisualizationSettings->vehicleColorings[myVisualizationSettings->vehicleMode][2]);
-        break;
-    default:
-        break;
-    }
     update();
 }
 
@@ -284,7 +249,7 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken) {
     if (myUseToolTips) {
         glPushName(vo.vehicle->getGlID());
     }
-    GUIVehicle::getSchemesMap().getColorer(myVisualizationSettings->vehicleMode)->setGlColor(*(vo.vehicle));
+    myVisualizationSettings->vehicleColorer.setGlColor(*(vo.vehicle));
     GLdouble colors[4];
     glGetDoublev(GL_CURRENT_COLOR, colors);
     colors[0] -= darken;
@@ -442,11 +407,9 @@ GUIViewTraffic::amShowingBestLanesFor(GUIVehicle *v) {
 void
 GUIViewTraffic::showViewschemeEditor() {
     if (myVisualizationChanger==0) {
-        BaseSchemeInfoSource* laneSchemes = &GUILaneWrapper::getSchemesMap();
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
             this, myVisualizationSettings,
-            laneSchemes, &GUIVehicle::getSchemesMap(),
             &myDecals, &myDecalsLock);
         myVisualizationChanger->create();
     } else {

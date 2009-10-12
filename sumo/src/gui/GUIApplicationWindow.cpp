@@ -66,7 +66,6 @@
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -267,8 +266,6 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     delete myHelpMenu;
 
     delete myLoadThread;
-
-    delete gGradients;
 
     while (!myEvents.empty()) {
         // get the next event

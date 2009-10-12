@@ -65,8 +65,6 @@ public:
      */
     GUIDialog_ViewSettings(GUISUMOAbstractView *parent,
                            GUIVisualizationSettings *settings,
-                           BaseSchemeInfoSource *laneEdgeModeSource,
-                           BaseSchemeInfoSource *vehicleModeSource,
                            std::vector<GUISUMOAbstractView::Decal> *decals,
                            MFXMutex *decalsLock) throw();
 
@@ -190,12 +188,6 @@ private:
     /// @brief A backup of the settings (used if the "Cancel" button is pressed)
     GUIVisualizationSettings myBackup;
 
-    /// @brief Class storing known lane coloring schemes
-    BaseSchemeInfoSource *myLaneColoringInfoSource;
-
-    /// @brief Class storing known vehicle coloring schemes
-    BaseSchemeInfoSource *myVehicleColoringInfoSource;
-
     /// @brief The parent's decals
     std::vector<GUISUMOAbstractView::Decal> *myDecals;
 
@@ -215,9 +207,6 @@ private:
 
     FXComboBox *myLaneEdgeColorMode;
     FXVerticalFrame *myLaneColorSettingFrame;
-    FXColorWell *mySingleLaneColor, *myMinLaneColor, *myMaxLaneColor;
-    FXComboBox *myLaneEdgeColorModea;
-    FXVerticalFrame *myLaneColorSettingFramea;
     std::vector<FXColorWell *> myLaneColors;
     std::vector<FXRealSpinDial *> myLaneThresholds;
     std::vector<FXButton *> myLaneButtons;
@@ -231,7 +220,10 @@ private:
 
     FXComboBox *myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame *myVehicleColorSettingFrame;
-    FXColorWell *mySingleVehicleColor, *myMinVehicleColor, *myMaxVehicleColor;
+    std::vector<FXColorWell *> myVehicleColors;
+    std::vector<FXRealSpinDial *> myVehicleThresholds;
+    std::vector<FXButton *> myVehicleButtons;
+    FXCheckButton *myVehicleColorInterpolation;
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
     FXCheckButton *myShowBlinker, /* *myShowC2CRadius, *myShowLaneChangePreference,*/ *myShowVehicleName;
     FXRealSpinDial *myVehicleNameSizeDialer;

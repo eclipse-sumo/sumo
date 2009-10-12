@@ -90,7 +90,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // method definitions
 // ===========================================================================
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
-        : FXMainWindow(gFXApp, "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
+        : FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
         myParent(parent) {
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,

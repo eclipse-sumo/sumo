@@ -98,8 +98,8 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.gridXSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
         mySettings.gridYSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
         break;
-    case SUMO_TAG_VIEWSETTINGS_EDGES:
-        mySettings.laneEdgeMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeMode", toString(mySettings.laneEdgeMode)).c_str());
+    case SUMO_TAG_VIEWSETTINGS_EDGES: {
+        int laneEdgeMode = TplConvert<char>::_2int(attrs.getStringSecure("laneEdgeMode", "0").c_str());
         mySettings.laneShowBorders = TplConvert<char>::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
         mySettings.showLinkDecals = TplConvert<char>::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
         mySettings.showRails = TplConvert<char>::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
@@ -112,10 +112,11 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.hideConnectors = TplConvert<char>::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
         myCurrentColorer = element;
 #ifdef HAVE_MESOSIM
-        mySettings.edgeColorer.setActive(mySettings.laneEdgeMode);
+        mySettings.edgeColorer.setActive(laneEdgeMode);
 #endif
-        mySettings.laneColorer.setActive(mySettings.laneEdgeMode);
-        break;
+        mySettings.laneColorer.setActive(laneEdgeMode);
+    }
+    break;
     case SUMO_TAG_COLORSCHEME:
         myCurrentScheme = 0;
         if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
@@ -145,17 +146,8 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
             }
         }
         break;
-    case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM: {
-        int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
-        RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
-        if (mySettings.laneColorings.find(index)==mySettings.laneColorings.end()) {
-            mySettings.laneColorings[index] = std::vector<RGBColor>();
-        }
-        mySettings.laneColorings[index].push_back(value);
-    }
-    break;
     case SUMO_TAG_VIEWSETTINGS_VEHICLES:
-        mySettings.vehicleMode = TplConvert<char>::_2int(attrs.getStringSecure("vehicleMode", toString(mySettings.vehicleMode)).c_str());
+        mySettings.vehicleColorer.setActive(TplConvert<char>::_2int(attrs.getStringSecure("vehicleMode", "0").c_str()));
         mySettings.vehicleQuality = TplConvert<char>::_2int(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)).c_str());
         mySettings.minVehicleSize = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("minVehicleSize", toString(mySettings.minVehicleSize)).c_str());
         mySettings.vehicleExaggeration = TplConvert<char>::_2SUMOReal(attrs.getStringSecure("vehicleExaggeration", toString(mySettings.vehicleExaggeration)).c_str());
@@ -165,15 +157,6 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         mySettings.vehicleNameColor = RGBColor::parseColor(attrs.getStringSecure("vehicleNameColor", toString(mySettings.vehicleNameColor)));
         myCurrentColorer = element;
         break;
-    case SUMO_TAG_VIEWSETTINGS_VEHICLE_COLOR_ITEM: {
-        int index = TplConvert<char>::_2int(attrs.getStringSecure("index", "").c_str());
-        RGBColor value = RGBColor::parseColor(attrs.getStringSecure("value", "1,1,0"));
-        if (mySettings.vehicleColorings.find(index)==mySettings.vehicleColorings.end()) {
-            mySettings.vehicleColorings[index] = std::vector<RGBColor>();
-        }
-        mySettings.vehicleColorings[index].push_back(value);
-    }
-    break;
     case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
         mySettings.junctionMode = TplConvert<char>::_2int(attrs.getStringSecure("junctionMode", toString(mySettings.junctionMode)).c_str());
         mySettings.drawLinkTLIndex = TplConvert<char>::_2bool(attrs.getStringSecure("drawLinkTLIndex", toString(mySettings.drawLinkTLIndex)).c_str());

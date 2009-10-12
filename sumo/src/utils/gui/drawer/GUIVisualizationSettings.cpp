@@ -32,7 +32,6 @@
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIVehicle.h>
-#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include "GUIVisualizationSettings.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -46,14 +45,13 @@
 GUIVisualizationSettings::GUIVisualizationSettings() throw()
         : name(""), antialiase(false), dither(false), vehicleQuality(0),
         backgroundColor(RGBColor((SUMOReal) 1, (SUMOReal) 1, (SUMOReal) 1)),
-        showGrid(false), gridXSize(100), gridYSize(100), laneEdgeMode(0),
-        laneColorings(),
+        showGrid(false), gridXSize(100), gridYSize(100),
         laneShowBorders(false), showLinkDecals(true), showRails(true),
         drawEdgeName(false), edgeNameSize(50),
         edgeNameColor(RGBColor((SUMOReal) 1, (SUMOReal) .5, (SUMOReal) 0)),
         drawInternalEdgeName(false), internalEdgeNameSize(25),
         internalEdgeNameColor(RGBColor((SUMOReal) .5, (SUMOReal) .25, (SUMOReal) 0)),
-        hideConnectors(false), vehicleMode(0), vehicleColorings(),
+        hideConnectors(false),
         minVehicleSize(1), vehicleExaggeration(1), showBlinker(true),
         drawcC2CRadius(false), drawLaneChangePreference(false),
         drawVehicleName(false), vehicleNameSize(50),
@@ -66,33 +64,28 @@ GUIVisualizationSettings::GUIVisualizationSettings() throw()
         minPOISize(0), poiExaggeration(1), drawPOIName(false), poiNameSize(50),
         poiNameColor(RGBColor((SUMOReal) 1., (SUMOReal) 0, (SUMOReal) .5)),
         showSizeLegend(true) {
-    initColorMap(GUILaneWrapper::getSchemesMap(), laneColorings);
-    initColorMap(GUIVehicle::getSchemesMap(), vehicleColorings);
 }
 
 
-void
-GUIVisualizationSettings::initColorMap(const BaseSchemeInfoSource &sm,
-                                       std::map<int, std::vector<RGBColor> > &colMap) {
-    for (int i=0; i<(int) sm.size(); ++i) {
-        colMap[i] = std::vector<RGBColor>();
-        switch (sm.getColorSetType(i)) {
-        case CST_SINGLE:
-            colMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
-            break;
-        case CST_MINMAX:
-            colMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-            colMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-            break;
-        case CST_MINMAX_OPT:
-            colMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-            colMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-            colMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
-            break;
-        default:
-            break;
-        }
+size_t
+GUIVisualizationSettings::getLaneEdgeMode() const {
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        return edgeColorer.getActive();
     }
+#endif
+    return laneColorer.getActive();
+}
+
+
+GUIColorScheme&
+GUIVisualizationSettings::getLaneEdgeScheme() {
+#ifdef HAVE_MESOSIM
+    if (MSGlobals::gUseMesoSim) {
+        return edgeColorer.getScheme();
+    }
+#endif
+    return laneColorer.getScheme();
 }
 
 
@@ -104,7 +97,7 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     dev << "        <background backgroundColor=\"" << backgroundColor << "\"\n"
     << "                    showGrid=\"" << showGrid
     << "\" gridXSize=\"" << gridXSize << "\" gridYSize=\"" << gridYSize << "\"/>\n";
-    dev << "        <edges laneEdgeMode=\"" << laneEdgeMode
+    dev << "        <edges laneEdgeMode=\"" << getLaneEdgeMode()
     << "\" laneShowBorders=\"" << laneShowBorders
     << "\" showLinkDecals=\"" << showLinkDecals
     << "\" showRails=\"" << showRails << "\"\n"
@@ -116,20 +109,13 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     << "\" internalEdgeNameColor=\"" << internalEdgeNameColor
     << "\" hideConnectors=\"" << hideConnectors
     << "\">\n";
-    size_t index = 0;
-    std::map<int, std::vector<RGBColor> >::const_iterator j;
-    for (j=laneColorings.begin(); j!=laneColorings.end(); ++j, ++index) {
-        for (size_t k=0; k<(*j).second.size(); ++k) {
-            dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
-        }
-    }
     laneColorer.save(dev);
 #ifdef HAVE_MESOSIM
     edgeColorer.save(dev);
 #endif
     dev << "        </edges>\n";
 
-    dev << "        <vehicles vehicleMode=\"" << vehicleMode
+    dev << "        <vehicles vehicleMode=\"" << vehicleColorer.getActive()
     << "\" vehicleQuality=\"" << vehicleQuality
     << "\" minVehicleSize=\"" << minVehicleSize
     << "\" vehicleExaggeration=\"" << vehicleExaggeration
@@ -137,11 +123,6 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
     << "                  drawVehicleName=\"" << drawVehicleName
     << "\" vehicleNameSize=\"" << vehicleNameSize
     << "\" vehicleNameColor=\"" << vehicleNameColor << "\">\n";
-    for (j=vehicleColorings.begin(), index=0; j!=vehicleColorings.end(); ++j, ++index) {
-        for (size_t k=0; k<(*j).second.size(); ++k) {
-            dev << "            <nvcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
-        }
-    }
     vehicleColorer.save(dev);
     dev << "        </vehicles>\n";
 
@@ -184,8 +165,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
 #ifdef HAVE_MESOSIM
     if (!(edgeColorer==v2.edgeColorer)) return false;
 #endif
-    if (laneEdgeMode!=v2.laneEdgeMode) return false;
-    if (laneColorings!=v2.laneColorings) return false;
+    if (!(laneColorer==v2.laneColorer)) return false;
     if (laneShowBorders!=v2.laneShowBorders) return false;
     if (showLinkDecals!=v2.showLinkDecals) return false;
     if (showRails!=v2.showRails) return false;
@@ -197,11 +177,10 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings &v2) {
     if (internalEdgeNameColor!=v2.internalEdgeNameColor) return false;
     if (hideConnectors!=v2.hideConnectors) return false;
 
-    if (vehicleMode!=v2.vehicleMode) return false;
+    if (!(vehicleColorer==v2.vehicleColorer)) return false;
     if (vehicleQuality!=v2.vehicleQuality) return false;
     if (minVehicleSize!=v2.minVehicleSize) return false;
     if (vehicleExaggeration!=v2.vehicleExaggeration) return false;
-    if (vehicleColorings!=v2.vehicleColorings) return false;
     if (showBlinker!=v2.showBlinker) return false;
     if (drawcC2CRadius!=v2.drawcC2CRadius) return false;
     if (drawLaneChangePreference!=v2.drawLaneChangePreference) return false;

@@ -88,12 +88,6 @@ public:
 #endif
     /// @brief The lane colorer
     GUILaneWrapper::Colorer laneColorer;
-    /// @brief The vehicle colorer
-    GUIVehicle::Colorer vehicleColorer;
-    /// @brief The lane visualization (color assignment) scheme
-    int laneEdgeMode;
-    /// @brief The map if used colors (scheme->used colors)
-    std::map<int, std::vector<RGBColor> > laneColorings;
     /// @brief Information whether lane borders shall be drawn
     bool laneShowBorders;
     /// @brief Information whether link textures (arrows) shall be drawn
@@ -120,16 +114,14 @@ public:
     /// @name vehicle visualization settings
     //@{
 
-    /// @brief The vehicle visualization (color assignment) scheme
-    int vehicleMode;
+    /// @brief The vehicle colorer
+    GUIVehicle::Colorer vehicleColorer;
     /// @brief The quality of vehicle drawing
     int vehicleQuality;
     /// @brief The minimum size of vehicles to let them be drawn
     float minVehicleSize;
     /// @brief The vehicle exaggeration (upscale)
     float vehicleExaggeration;
-    /// @brief The map if used colors (scheme->used colors)
-    std::map<int, std::vector<RGBColor> > vehicleColorings;
     /// @brief Information whether vehicle blinkers shall be drawn
     bool showBlinker;
     /// @brief Information whether the c2c radius shall be drawn
@@ -214,13 +206,18 @@ public:
      */
     void save(OutputDevice &dev) const throw(IOError);
 
+    /** @brief Returns the number of the active lane (edge) coloring schme
+     * @return number of the active scheme
+     */
+    size_t getLaneEdgeMode() const;
+
+    /** @brief Returns the current lane (edge) coloring schme
+     * @return current scheme
+     */
+    GUIColorScheme& getLaneEdgeScheme();
 
     /** @brief Assignment operator */
     bool operator==(const GUIVisualizationSettings &vs2);
-
-private:
-    void initColorMap(const BaseSchemeInfoSource &sm,
-                      std::map<int, std::vector<RGBColor> > &colMap);
 
 };
 

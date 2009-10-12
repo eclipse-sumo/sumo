@@ -542,14 +542,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradients.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradientStorage.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\drawer\GUISettingsHandler.cpp"
 				>
 			</File>
@@ -564,51 +556,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIBaseColorer.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ByDeviceNumber.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ByOptCORNValue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ColorSettingFunction.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_LaneBySelection.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_SingleColor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColoringSchemesMap.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradients.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIGradientStorage.h"
 				>
 			</File>
 			<File

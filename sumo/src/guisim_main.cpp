@@ -50,9 +50,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <guisim/GUIEdge.h>
-#include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <utils/gui/drawer/GUIGradients.h>
-#include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
@@ -73,27 +70,6 @@ using namespace std;
 // ===========================================================================
 // methods
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * coloring schemes initialisation
- * ----------------------------------------------------------------------- */
-void
-initColoringSchemes(FXApp *a) {
-    GUIVehicle::initColoringSchemes();
-    GUILaneWrapper::initColoringSchemes();
-    // initialise gradients
-    myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
-    // initialise available coloring schemes
-    gSchemeStorage.init(a);
-}
-
-
-void
-deleteColoringSchemes() {
-    delete &GUIVehicle::getSchemesMap();
-    delete &GUILaneWrapper::getSchemesMap();
-}
-
-
 /* -------------------------------------------------------------------------
  * options initialisation
  * ----------------------------------------------------------------------- */
@@ -173,8 +149,7 @@ main(int argc, char **argv) {
         GUIApplicationWindow * window =
             new GUIApplicationWindow(&application, "*.sumo.cfg");
         window->dependentBuild();
-        gGradients = new GUIGradientStorage(window);
-        initColoringSchemes(&application);
+        gSchemeStorage.init(&application);
         // init simulation and visualization structures
         initGuiShapeNames();
         // Create app
@@ -195,7 +170,6 @@ main(int argc, char **argv) {
 #else
     }
 #endif
-//    deleteColoringSchemes();
     SystemFrame::close();
     return ret;
 }

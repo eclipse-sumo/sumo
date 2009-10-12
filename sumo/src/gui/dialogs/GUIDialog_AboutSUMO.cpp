@@ -108,13 +108,13 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
     FXHorizontalFrame *f2 =
         new FXHorizontalFrame(f1,
                               LAYOUT_TOP|LAYOUT_CENTER_X|FRAME_NONE, 0,0,0,0, 0, 0, 1, 1);
-    myDLRIcon = new FXXPMIcon(gFXApp, dlr_icon);
+    myDLRIcon = new FXXPMIcon(getApp(), dlr_icon);
     new FXButton(f2,"\tDLR\t.", myDLRIcon, 0, 0,
                  LAYOUT_CENTER_Y|TEXT_OVER_ICON, 5, 0, 40+5, 0,  0,0,0,0);
     // "SUMO <VERSION>"
     FXVerticalFrame *f4 =
         new FXVerticalFrame(f2, FRAME_NONE, 0,0,0,0,   20,0,0,0);
-    FXFont *fnt = new FXFont(gFXApp, "Arial", 18, FXFont::Bold);
+    FXFont *fnt = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
     FXLabel *l = new FXLabel(f4, (FXString)"SUMO " + VERSION_STRING, 0,
                              LAYOUT_CENTER_Y|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL,
                              0,0,0,0, 0,0,0,0);

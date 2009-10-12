@@ -1,14 +1,6 @@
 noinst_LIBRARIES = libguiutilsdrawer.a
 
-libguiutilsdrawer_a_SOURCES = GUIBaseColorer.h \
-GUIColorer.h \
-GUIColorer_ByDeviceNumber.h \
-GUIColorer_ByOptCORNValue.h \
-GUIColorer_ColorSettingFunction.h \
-GUIColorer_LaneBySelection.h GUIColorer_ShadeByFunctionValue.h \
-GUIColorer_SingleColor.h GUIColoringSchemesMap.h \
+libguiutilsdrawer_a_SOURCES = GUIColorer.h \
 GUICompleteSchemeStorage.cpp GUICompleteSchemeStorage.h \
-GUIGradientStorage.cpp GUIGradientStorage.h \
-GUIGradients.cpp GUIGradients.h \
 GUISettingsHandler.cpp GUISettingsHandler.h \
 GUIVisualizationSettings.cpp GUIVisualizationSettings.h

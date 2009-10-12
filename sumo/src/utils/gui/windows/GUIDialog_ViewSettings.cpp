@@ -35,7 +35,6 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/RGBColor.h>
-#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
@@ -93,14 +92,10 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     GUISUMOAbstractView *parent,
     GUIVisualizationSettings *settings,
-    BaseSchemeInfoSource *laneEdgeModeSource,
-    BaseSchemeInfoSource *vehicleModeSource,
     std::vector<GUISUMOAbstractView::Decal> *decals,
     MFXMutex *decalsLock) throw()
         : FXDialogBox(parent, "View Settings", DECOR_TITLE|DECOR_BORDER, 0,0,0,0, 0,0,0,0, 0,0),
         myParent(parent), mySettings(settings),
-        myLaneColoringInfoSource(laneEdgeModeSource),
-        myVehicleColoringInfoSource(vehicleModeSource),
         myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0) {
     myBackup = (*mySettings);
 
@@ -197,22 +192,27 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         new FXTabItem(tabbook,"Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
-
-        //FXSplitter *s2 = new FXSplitter(frame2, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,80);
         FXMatrix *m21 =
-            new FXMatrix(frame2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+            new FXMatrix(frame2,3,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,2, 5,5);
         new FXLabel(m21, "Color by", 0, LAYOUT_CENTER_Y);
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
-        laneEdgeModeSource->fill(*myLaneEdgeColorMode);
         myLaneEdgeColorMode->setNumVisible(10);
-        myLaneEdgeColorMode->setCurrentItem(settings->laneEdgeMode);
-
+        myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myLaneColorSettingFrame =
             new FXVerticalFrame(frame2, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
 
-        new FXHorizontalSeparator(frame2,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
+        } else {
+#endif
+            mySettings->laneColorer.fill(*myLaneEdgeColorMode);
+#ifdef HAVE_MESOSIM
+        }
+#endif
 
+        new FXHorizontalSeparator(frame2,SEPARATOR_GROOVE|LAYOUT_FILL_X);
         FXMatrix *m22 =
             new FXMatrix(frame2,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,10, 5,5);
@@ -269,123 +269,101 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
                 LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
     }
-#ifdef HAVE_MESOSIM
     {
-        // new tab for the streets
-        new FXTabItem(tabbook,"new Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
-        FXVerticalFrame *frame2a =
+        new FXTabItem(tabbook,"Vehicles",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        FXVerticalFrame *frame3 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
 
-        FXMatrix *m21a =
-            new FXMatrix(frame2a,3,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+        FXMatrix *m31 =
+            new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,2, 5,5);
-        new FXLabel(m21a, "Color by", 0, LAYOUT_CENTER_Y);
-        myLaneEdgeColorModea = new FXComboBox(m21a, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
-        mySettings->edgeColorer.fill(*myLaneEdgeColorModea);
-        myLaneEdgeColorModea->setNumVisible(10);
-        myLaneColorInterpolation = new FXCheckButton(m21a, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        new FXLabel(m31, "Show As", 0, LAYOUT_CENTER_Y);
+        myVehicleShapeDetail = new FXComboBox(m31, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
+        myVehicleShapeDetail->appendItem("'triangles'");
+        myVehicleShapeDetail->appendItem("'boxes'");
+        myVehicleShapeDetail->appendItem("'simple shapes'");
+        myVehicleShapeDetail->setNumVisible(3);
+        myVehicleShapeDetail->setCurrentItem(settings->vehicleQuality);
 
-        myLaneColorSettingFramea =
-            new FXVerticalFrame(frame2a, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
-    }
-#endif
-    {
-        if (myVehicleColoringInfoSource!=0) {
-            new FXTabItem(tabbook,"Vehicles",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
-            FXVerticalFrame *frame3 =
-                new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
+        new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
-            FXMatrix *m31 =
-                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,10,2, 5,5);
-            new FXLabel(m31, "Show As", 0, LAYOUT_CENTER_Y);
-            myVehicleShapeDetail = new FXComboBox(m31, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
-            myVehicleShapeDetail->appendItem("'triangles'");
-            myVehicleShapeDetail->appendItem("'boxes'");
-            myVehicleShapeDetail->appendItem("'simple shapes'");
-            myVehicleShapeDetail->setNumVisible(3);
-            myVehicleShapeDetail->setCurrentItem(settings->vehicleQuality);
+        FXMatrix *m32 =
+            new FXMatrix(frame3,3,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,2, 5,5);
+        new FXLabel(m32, "Color By", 0, LAYOUT_CENTER_Y);
+        myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
+        mySettings->vehicleColorer.fill(*myVehicleColorMode);
+        myVehicleColorMode->setNumVisible(10);
+        myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
 
-            new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+        myVehicleColorSettingFrame =
+            new FXVerticalFrame(frame3, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
 
-            FXMatrix *m32 =
-                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,10,2, 5,5);
-            new FXLabel(m32, "Color By", 0, LAYOUT_CENTER_Y);
-            myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
-            myVehicleColoringInfoSource->fill(*myVehicleColorMode);
-            myVehicleColorMode->setNumVisible(10);
-            myVehicleColorMode->setCurrentItem(settings->vehicleMode);
+        new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
-            myVehicleColorSettingFrame =
-                new FXVerticalFrame(frame3, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
+        FXMatrix *m33 =
+            new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,10, 5,5);
+        myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowBlinker->setCheck(mySettings->showBlinker);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+        /*
+        myShowC2CRadius = new FXCheckButton(m33, "Show C2C radius", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+        myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
+        new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
+        */
+        myShowVehicleName = new FXCheckButton(m33, "Show vehicle name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        myShowVehicleName->setCheck(mySettings->drawVehicleName);
+        new FXLabel(m33, "");
+        FXMatrix *m331 =
+            new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m331, "Size", 0, LAYOUT_CENTER_Y);
+        myVehicleNameSizeDialer =
+            new FXRealSpinDial(m331, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL|FRAME_SUNKEN|FRAME_THICK);
+        myVehicleNameSizeDialer->setRange(10, 1000);
+        myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
+        FXMatrix *m332 =
+            new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m332, "Color", 0, LAYOUT_CENTER_Y);
+        myVehicleNameColor = new FXColorWell(m332, convert(settings->vehicleNameColor),
+                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                             0, 0, 100, 0,   0, 0, 0, 0);
+        /*
+        FXCheckButton *tmpc = new FXCheckButton(m33, "Show braking lights", 0 ,0);
+        tmpc->disable();
+        tmpc = new FXCheckButton(m33, "Show needed headway", 0 ,0);
+        tmpc->disable();
+        */
 
-            new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+        new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
-            FXMatrix *m33 =
-                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,10,10, 5,5);
-            myShowBlinker = new FXCheckButton(m33, "Show blinker", this, MID_SIMPLE_VIEW_COLORCHANGE);
-            myShowBlinker->setCheck(mySettings->showBlinker);
-            new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-            /*
-            myShowC2CRadius = new FXCheckButton(m33, "Show C2C radius", this, MID_SIMPLE_VIEW_COLORCHANGE);
-            myShowC2CRadius->setCheck(mySettings->drawcC2CRadius);
-            new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-            myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
-            myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
-            new FXLabel(m33, " ", 0, LAYOUT_CENTER_Y);
-            */
-            myShowVehicleName = new FXCheckButton(m33, "Show vehicle name", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
-            myShowVehicleName->setCheck(mySettings->drawVehicleName);
-            new FXLabel(m33, "");
-            FXMatrix *m331 =
-                new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,0,0, 5,5);
-            new FXLabel(m331, "Size", 0, LAYOUT_CENTER_Y);
-            myVehicleNameSizeDialer =
-                new FXRealSpinDial(m331, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                   LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL|FRAME_SUNKEN|FRAME_THICK);
-            myVehicleNameSizeDialer->setRange(10, 1000);
-            myVehicleNameSizeDialer->setValue(mySettings->vehicleNameSize);
-            FXMatrix *m332 =
-                new FXMatrix(m33,2,LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,0,0, 5,5);
-            new FXLabel(m332, "Color", 0, LAYOUT_CENTER_Y);
-            myVehicleNameColor = new FXColorWell(m332, convert(settings->vehicleNameColor),
-                                                 this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                 LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                 0, 0, 100, 0,   0, 0, 0, 0);
-            /*
-            FXCheckButton *tmpc = new FXCheckButton(m33, "Show braking lights", 0 ,0);
-            tmpc->disable();
-            tmpc = new FXCheckButton(m33, "Show needed headway", 0 ,0);
-            tmpc->disable();
-            */
-
-            new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-
-            FXMatrix *m34 =
-                new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,10,10, 5,5);
-            FXMatrix *m341 =
-                new FXMatrix(m34,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,0,0, 5,5);
-            new FXLabel(m341, "Minimum size", 0, LAYOUT_CENTER_Y);
-            myVehicleMinSizeDialer =
-                new FXRealSpinDial(m341, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                   LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-            myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
-            FXMatrix *m342 =
-                new FXMatrix(m34,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                             0,0,0,0, 10,10,0,0, 5,5);
-            new FXLabel(m342, "Exaggerate by", 0, LAYOUT_CENTER_Y);
-            myVehicleUpscaleDialer =
-                new FXRealSpinDial(m342, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                   LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-            myVehicleUpscaleDialer->setRange(1, 100);
-            myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
-        }
+        FXMatrix *m34 =
+            new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,10,10, 5,5);
+        FXMatrix *m341 =
+            new FXMatrix(m34,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m341, "Minimum size", 0, LAYOUT_CENTER_Y);
+        myVehicleMinSizeDialer =
+            new FXRealSpinDial(m341, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
+        FXMatrix *m342 =
+            new FXMatrix(m34,2,LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                         0,0,0,0, 10,10,0,0, 5,5);
+        new FXLabel(m342, "Exaggerate by", 0, LAYOUT_CENTER_Y);
+        myVehicleUpscaleDialer =
+            new FXRealSpinDial(m342, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                               LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myVehicleUpscaleDialer->setRange(1, 100);
+        myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     } {
         new FXTabItem(tabbook,"Nodes",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
         FXVerticalFrame *frame4 =
@@ -615,7 +593,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
 
     myBackgroundColor->setRGBA(convert(mySettings->backgroundColor));
 
-    myLaneEdgeColorMode->setCurrentItem(mySettings->laneEdgeMode);
+    myLaneEdgeColorMode->setCurrentItem(mySettings->getLaneEdgeMode());
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
     myShowRails->setCheck(mySettings->showRails);
@@ -627,7 +605,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     myInternalEdgeNameColor->setRGBA(convert(mySettings->internalEdgeNameColor));
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
 
-    myVehicleColorMode->setCurrentItem(mySettings->vehicleMode);
+    myVehicleColorMode->setCurrentItem(mySettings->vehicleColorer.getActive());
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
     myVehicleUpscaleDialer->setValue(mySettings->vehicleExaggeration);
     myVehicleMinSizeDialer->setValue(mySettings->minVehicleSize);
@@ -663,38 +641,6 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
     myDither->setCheck(mySettings->dither);
     myShowSizeLegend->setCheck(mySettings->showSizeLegend);
 
-    // lanes
-    switch (myLaneColoringInfoSource->getColorSetType(myBackup.laneEdgeMode)) {
-    case CST_SINGLE:
-        mySingleLaneColor->setRGBA(convert(
-                                       mySettings->laneColorings[mySettings->laneEdgeMode][0]));
-        break;
-    case CST_MINMAX:
-        myMinLaneColor->setRGBA(convert(
-                                    mySettings->laneColorings[mySettings->laneEdgeMode][0]));
-        myMaxLaneColor->setRGBA(convert(
-                                    mySettings->laneColorings[mySettings->laneEdgeMode][1]));
-        break;
-    default:
-        break;
-    }
-    // vehicles
-    if (myVehicleColoringInfoSource!=0) {
-        switch (myVehicleColoringInfoSource->getColorSetType(myBackup.vehicleMode)) {
-        case CST_SINGLE:
-            mySingleVehicleColor->setRGBA(convert(
-                                              mySettings->vehicleColorings[mySettings->vehicleMode][0]));
-            break;
-        case CST_MINMAX:
-            myMinVehicleColor->setRGBA(convert(
-                                           mySettings->vehicleColorings[mySettings->vehicleMode][0]));
-            myMaxVehicleColor->setRGBA(convert(
-                                           mySettings->vehicleColorings[mySettings->vehicleMode][1]));
-            break;
-        default:
-            break;
-        }
-    }
     myParent->setColorScheme(mySettings->name);
     update();
     myParent->update();
@@ -702,15 +648,11 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data) {
 }
 
 
-
 long
 GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     GUIVisualizationSettings tmpSettings = *mySettings;
-    int prevLaneMode = mySettings->laneEdgeMode;
-    int prevVehicleMode = mySettings->vehicleMode;
-#ifdef HAVE_MESOSIM
-    size_t prevEdgeScheme = mySettings->edgeColorer.getActive();
-#endif
+    size_t prevLaneMode = mySettings->getLaneEdgeMode();
+    size_t prevVehicleMode = mySettings->vehicleColorer.getActive();
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
@@ -720,9 +662,14 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     tmpSettings.gridYSize = (SUMOReal) myGridYSizeDialer->getValue();
 
 #ifdef HAVE_MESOSIM
-    tmpSettings.edgeColorer.setActive(myLaneEdgeColorModea->getCurrentItem());
+    if (MSGlobals::gUseMesoSim) {
+        tmpSettings.edgeColorer.setActive(myLaneEdgeColorMode->getCurrentItem());
+    } else {
 #endif
-    tmpSettings.laneEdgeMode = myLaneEdgeColorMode->getCurrentItem();
+        tmpSettings.laneColorer.setActive(myLaneEdgeColorMode->getCurrentItem());
+#ifdef HAVE_MESOSIM
+    }
+#endif
     tmpSettings.laneShowBorders = myShowLaneBorders->getCheck()!=0;
     tmpSettings.showLinkDecals = myShowLaneDecals->getCheck()!=0;
     tmpSettings.showRails = myShowRails->getCheck()!=0;
@@ -734,20 +681,18 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     tmpSettings.internalEdgeNameColor = convert(myInternalEdgeNameColor->getRGBA());
     tmpSettings.hideConnectors = myHideMacroConnectors->getCheck()!=0;
 
-    if (myVehicleColoringInfoSource!=0) {
-        tmpSettings.vehicleMode = myVehicleColorMode->getCurrentItem();
-        tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
-        tmpSettings.vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
-        tmpSettings.minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
-        tmpSettings.showBlinker = myShowBlinker->getCheck()!=0;
-        /*
-        tmpSettings.drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
-        tmpSettings.drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
-        */
-        tmpSettings.drawVehicleName = myShowVehicleName->getCheck()!=0;
-        tmpSettings.vehicleNameSize = (SUMOReal) myVehicleNameSizeDialer->getValue();
-        tmpSettings.vehicleNameColor = convert(myVehicleNameColor->getRGBA());
-    }
+    tmpSettings.vehicleColorer.setActive(myVehicleColorMode->getCurrentItem());
+    tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
+    tmpSettings.vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
+    tmpSettings.minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
+    tmpSettings.showBlinker = myShowBlinker->getCheck()!=0;
+    /*
+    tmpSettings.drawcC2CRadius = myShowC2CRadius->getCheck()!=0;
+    tmpSettings.drawLaneChangePreference = myShowLaneChangePreference->getCheck()!=0;
+    */
+    tmpSettings.drawVehicleName = myShowVehicleName->getCheck()!=0;
+    tmpSettings.vehicleNameSize = (SUMOReal) myVehicleNameSizeDialer->getValue();
+    tmpSettings.vehicleNameColor = convert(myVehicleNameColor->getRGBA());
 
     tmpSettings.drawLinkTLIndex = myShowTLIndex->getCheck()!=0;
     tmpSettings.drawLinkJunctionIndex = myShowJunctionIndex->getCheck()!=0;
@@ -773,53 +718,29 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     tmpSettings.showSizeLegend = myShowSizeLegend->getCheck()!=0;
 
     // lanes
-    if (tmpSettings.laneEdgeMode==prevLaneMode) {
-        switch (myLaneColoringInfoSource->getColorSetType(tmpSettings.laneEdgeMode)) {
-        case CST_SINGLE:
-            if (sender==mySingleLaneColor) {
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor)(FXuval) val);
-                myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
-                    tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0]);
-            }
-            break;
-        case CST_MINMAX:
-            if (sender==myMinLaneColor) {
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor)(FXuval) val);
-            }
-            if (sender==myMaxLaneColor) {
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][1] = convert((FXColor)(FXuval) val);
-            }
-            myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0],
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][1]);
-            break;
-        default:
-            break;
-        }
-    }
-#ifdef HAVE_MESOSIM
-    if (prevEdgeScheme == tmpSettings.edgeColorer.getActive()) {
+    if (tmpSettings.getLaneEdgeMode()==prevLaneMode) {
         std::vector<FXColorWell*>::const_iterator colIt = myLaneColors.begin();
         std::vector<FXRealSpinDial*>::const_iterator threshIt = myLaneThresholds.begin();
         std::vector<FXButton*>::const_iterator buttonIt = myLaneButtons.begin();
+        GUIColorScheme &scheme = tmpSettings.getLaneEdgeScheme();
         size_t pos = 0;
         while (colIt != myLaneColors.end()) {
-            if (tmpSettings.edgeColorer.getScheme().isFixed()) {
+            if (scheme.isFixed()) {
                 if (sender == *colIt) {
-                    tmpSettings.edgeColorer.getScheme().setColor(pos, convert((*colIt)->getRGBA()));
+                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
                 }
             } else {
                 if (sender == *threshIt || sender == *colIt) {
-                    if (pos != tmpSettings.edgeColorer.getScheme().setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
+                    if (pos != scheme.setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
                         doRebuildColorMatrices = true;
                     }
                     break;
                 }
                 if (sender == *buttonIt) {
                     if (pos == 0) {
-                        tmpSettings.edgeColorer.getScheme().addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
+                        scheme.addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
                     } else {
-                        tmpSettings.edgeColorer.getScheme().removeColor(pos);
+                        scheme.removeColor(pos);
                     }
                     doRebuildColorMatrices = true;
                     break;
@@ -831,37 +752,52 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
             pos++;
         }
         if (sender == myLaneColorInterpolation) {
-            tmpSettings.edgeColorer.getScheme().setInterpolated(myLaneColorInterpolation->getCheck());
+            scheme.setInterpolated(myLaneColorInterpolation->getCheck());
             doRebuildColorMatrices = true;
         }
     } else {
         doRebuildColorMatrices = true;
     }
-#endif
     // vehicles
-    if (myVehicleColoringInfoSource!=0&&tmpSettings.vehicleMode==prevVehicleMode) {
-        switch (myVehicleColoringInfoSource->getColorSetType(tmpSettings.vehicleMode)) {
-        case CST_SINGLE:
-            if (sender==mySingleVehicleColor) {
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor)(FXuval) val);
+    if (tmpSettings.vehicleColorer.getActive()==prevVehicleMode) {
+        std::vector<FXColorWell*>::const_iterator colIt = myVehicleColors.begin();
+        std::vector<FXRealSpinDial*>::const_iterator threshIt = myVehicleThresholds.begin();
+        std::vector<FXButton*>::const_iterator buttonIt = myVehicleButtons.begin();
+        GUIColorScheme &scheme = tmpSettings.vehicleColorer.getScheme();
+        size_t pos = 0;
+        while (colIt != myVehicleColors.end()) {
+            if (scheme.isFixed()) {
+                if (sender == *colIt) {
+                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
+                }
+            } else {
+                if (sender == *threshIt || sender == *colIt) {
+                    if (pos != scheme.setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
+                        doRebuildColorMatrices = true;
+                    }
+                    break;
+                }
+                if (sender == *buttonIt) {
+                    if (pos == 0) {
+                        scheme.addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
+                    } else {
+                        scheme.removeColor(pos);
+                    }
+                    doRebuildColorMatrices = true;
+                    break;
+                }
+                ++threshIt;
+                ++buttonIt;
             }
-            myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0]);
-            break;
-        case CST_MINMAX:
-            if (sender==myMinVehicleColor) {
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor)(FXuval) val);
-            }
-            if (sender==myMaxVehicleColor) {
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][1] = convert((FXColor)(FXuval) val);
-            }
-            myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0],
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][1]);
-            break;
-        default:
-            break;
+            ++colIt;
+            pos++;
         }
+        if (sender == myVehicleColorInterpolation) {
+            scheme.setInterpolated(myVehicleColorInterpolation->getCheck());
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
     }
 
     if (tmpSettings==*mySettings) {
@@ -887,7 +823,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
     }
     mySettings = &gSchemeStorage.get(tmpSettings.name);
 
-    if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode||doRebuildColorMatrices) {
+    if (doRebuildColorMatrices) {
         rebuildColorMatrices(true);
     }
     myParent->forceRefresh();
@@ -1200,62 +1136,22 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
     if (doCreate) {
         myDecalsTable->create();
     }
-
     {
-        // lane
+        // lane / edge
         MFXUtils::deleteChildren(myLaneColorSettingFrame);
-        FXMatrix *m = new FXMatrix(myLaneColorSettingFrame,2,
-                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-                                   0,0,0,80,10,10,0,0, 5,3);
-        mySingleLaneColor = 0;
-        myMinLaneColor = 0;
-        myMaxLaneColor = 0;
-        switch (myLaneColoringInfoSource->getColorSetType(mySettings->laneEdgeMode)) {
-        case CST_SINGLE:
-            new FXLabel(m , "Color", 0, LAYOUT_CENTER_Y);
-            mySingleLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][0]),
-                                                this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                0, 0, 100, 0,   0, 0, 0, 0);
-            break;
-        case CST_MINMAX:
-            new FXLabel(m , "min Color", 0, LAYOUT_CENTER_Y);
-            myMinLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][0]),
-                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                             0, 0, 100, 0,   0, 0, 0, 0);
-            new FXLabel(m , "max Color", 0, LAYOUT_CENTER_Y);
-            myMaxLaneColor = new FXColorWell(m , convert(mySettings->laneColorings[mySettings->laneEdgeMode][1]),
-                                             this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                             LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                             0, 0, 100, 0,   0, 0, 0, 0);
-            break;
-        case CST_GRADIENT:
-            break;
-        case CST_SET:
-        default:
-            break;
-        }
-        if (doCreate) {
-            m->create();
-        }
-    }
-#ifdef HAVE_MESOSIM
-    {
-        // new lane
-        MFXUtils::deleteChildren(myLaneColorSettingFramea);
-        FXMatrix *m = new FXMatrix(myLaneColorSettingFramea,3,
+        FXMatrix *m = new FXMatrix(myLaneColorSettingFrame,3,
                                    LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
                                    0,0,0,80,10,10,0,0, 5,3);
         myLaneColors.clear();
         myLaneThresholds.clear();
         myLaneButtons.clear();
-        const bool interpolate = mySettings->edgeColorer.getScheme().isInterpolated();
-        const bool fixed = mySettings->edgeColorer.getScheme().isFixed();
-        const std::vector<RGBColor> &colors = mySettings->edgeColorer.getScheme().getColors();
+        GUIColorScheme &scheme = mySettings->getLaneEdgeScheme();
+        const bool interpolate = scheme.isInterpolated();
+        const bool fixed = scheme.isFixed();
+        const std::vector<RGBColor> &colors = scheme.getColors();
         std::vector<RGBColor>::const_iterator colIt = colors.begin();
-        std::vector<SUMOReal>::const_iterator threshIt = mySettings->edgeColorer.getScheme().getThresholds().begin();
-        std::vector<std::string>::const_iterator nameIt = mySettings->edgeColorer.getScheme().getNames().begin();
+        std::vector<SUMOReal>::const_iterator threshIt = scheme.getThresholds().begin();
+        std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
         FX::FXString buttonText = "Add";
         while (colIt != colors.end()) {
             myLaneColors.push_back(new FXColorWell(m , convert(*colIt),
@@ -1278,7 +1174,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
             threshIt++;
             nameIt++;
         }
-        myLaneColorInterpolation->setCheck(mySettings->edgeColorer.getScheme().isInterpolated());
+        myLaneColorInterpolation->setCheck(scheme.isInterpolated());
         if (fixed) {
             myLaneColorInterpolation->disable();
         } else {
@@ -1298,46 +1194,61 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
             m->create();
         }
     }
-#endif
     {
-        if (myVehicleColoringInfoSource!=0) {
-            // vehicles
-            MFXUtils::deleteChildren(myVehicleColorSettingFrame);
-            FXMatrix *m = new FXMatrix(myVehicleColorSettingFrame,2,
-                                       LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-                                       0,0,0,80,10,10,0,0, 5,3);
-            mySingleVehicleColor = 0;
-            myMinVehicleColor = 0;
-            myMaxVehicleColor = 0;
-            switch (myVehicleColoringInfoSource->getColorSetType(mySettings->vehicleMode)) {
-            case CST_SINGLE:
-                new FXLabel(m , "Color", 0, LAYOUT_CENTER_Y);
-                mySingleVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][0]),
-                                                       this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                       LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                       0, 0, 100, 0,   0, 0, 0, 0);
-                break;
-            case CST_MINMAX:
-                new FXLabel(m , "min Color", 0, LAYOUT_CENTER_Y);
-                myMinVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][0]),
-                                                    this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                    0, 0, 100, 0,   0, 0, 0, 0);
-                new FXLabel(m , "max Color", 0, LAYOUT_CENTER_Y);
-                myMaxVehicleColor = new FXColorWell(m , convert(mySettings->vehicleColorings[mySettings->vehicleMode][1]),
-                                                    this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                    LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                    0, 0, 100, 0,   0, 0, 0, 0);
-                break;
-            case CST_GRADIENT:
-                break;
-            case CST_SET:
-            default:
-                break;
+        // vehicles
+        MFXUtils::deleteChildren(myVehicleColorSettingFrame);
+        FXMatrix *m = new FXMatrix(myVehicleColorSettingFrame,3,
+                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
+                                   0,0,0,80,10,10,0,0, 5,3);
+        myVehicleColors.clear();
+        myVehicleThresholds.clear();
+        myVehicleButtons.clear();
+        const bool interpolate = mySettings->vehicleColorer.getScheme().isInterpolated();
+        const bool fixed = mySettings->vehicleColorer.getScheme().isFixed();
+        const std::vector<RGBColor> &colors = mySettings->vehicleColorer.getScheme().getColors();
+        std::vector<RGBColor>::const_iterator colIt = colors.begin();
+        std::vector<SUMOReal>::const_iterator threshIt = mySettings->vehicleColorer.getScheme().getThresholds().begin();
+        std::vector<std::string>::const_iterator nameIt = mySettings->vehicleColorer.getScheme().getNames().begin();
+        FX::FXString buttonText = "Add";
+        while (colIt != colors.end()) {
+            myVehicleColors.push_back(new FXColorWell(m , convert(*colIt),
+                                                   this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                                   LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                                   0, 0, 100, 0,   0, 0, 0, 0));
+            if (fixed) {
+                new FXLabel(m, nameIt->c_str());
+                new FXLabel(m, "");
+            } else {
+                FXRealSpinDial* threshDialer =
+                    new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                       LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                threshDialer->setValue(*threshIt);
+                myVehicleThresholds.push_back(threshDialer);
+                myVehicleButtons.push_back(new FXButton(m,buttonText,NULL,this,MID_SIMPLE_VIEW_COLORCHANGE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4));
+                buttonText = "Remove";
             }
-            if (doCreate) {
-                m->create();
+            colIt++;
+            threshIt++;
+            nameIt++;
+        }
+        myVehicleColorInterpolation->setCheck(mySettings->vehicleColorer.getScheme().isInterpolated());
+        if (fixed) {
+            myVehicleColorInterpolation->disable();
+        } else {
+            if (colors.size() > 1) {
+                myVehicleColorInterpolation->enable();
+                if (myVehicleColorInterpolation->getCheck()) {
+                    myVehicleThresholds.front()->enable();
+                } else {
+                    myVehicleThresholds.front()->disable();
+                }
+            } else {
+                myVehicleColorInterpolation->disable();
+                myVehicleThresholds.front()->disable();
             }
+        }
+        if (doCreate) {
+            m->create();
         }
     }
     layout();

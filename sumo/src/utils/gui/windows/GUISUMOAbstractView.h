@@ -39,7 +39,6 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/foxtools/MFXMutex.h>
 #include <foreign/rtree/SUMORTree.h>
 

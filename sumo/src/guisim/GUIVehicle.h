@@ -44,7 +44,6 @@
 #include "GUIRoute.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
-#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/gui/drawer/GUIColorer.h>
 
 
@@ -224,12 +223,6 @@ public:
      */
     const std::vector<LaneQ> &getBestLanes() const throw();
 
-    /// Returns the list of available vehicle coloring schemes
-    static GUIColoringSchemesMap<GUIVehicle> &getSchemesMap();
-
-    /// Initializes the list of available vehicle coloring schemes
-    static void initColoringSchemes();
-
     class Colorer : public GUIColorer<GUIVehicle> {
     public:
         Colorer();
@@ -289,9 +282,6 @@ protected:
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
-
-    /** @brief The list of vehicle coloring schemes that may be used */
-    static GUIColoringSchemesMap<GUIVehicle> myVehicleColoringSchemes;
 
 };
 

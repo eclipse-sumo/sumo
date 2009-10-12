@@ -45,21 +45,13 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <microsim/MSGlobals.h>
-#include <gui/GUIColorer_LaneByPurpose.h>
-#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
-#include <gui/GUIColorer_LaneByVehKnowledge.h>
-#include <gui/GUIColorer_LaneNeighEdges.h>
-#include <utils/gui/drawer/GUIColorer_SingleColor.h>
-#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
-#include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
-#include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
-#include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
