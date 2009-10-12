@@ -39,6 +39,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
+#include <utils/gui/drawer/GUIColorer.h>
 
 
 // ===========================================================================
@@ -206,6 +207,12 @@ public:
 
     /// Initializes the list of available lane coloring schemes
     static void initColoringSchemes();
+
+    class Colorer : public GUIColorer<GUILaneWrapper> {
+    public:
+        Colorer();
+        SUMOReal getColorValue(const GUILaneWrapper& lane) const;
+    };
 
 protected:
     /** the visualisation length; As sources and sinks may be shorter/longer

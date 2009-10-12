@@ -45,6 +45,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
+#include <utils/gui/drawer/GUIColorer.h>
 
 
 // ===========================================================================
@@ -228,6 +229,13 @@ public:
 
     /// Initializes the list of available vehicle coloring schemes
     static void initColoringSchemes();
+
+    class Colorer : public GUIColorer<GUIVehicle> {
+    public:
+        Colorer();
+        SUMOReal getColorValue(const GUIVehicle& vehicle) const;
+        bool setFunctionalColor(const GUIVehicle& vehicle) const;
+    };
 
     /**
      * @class GUIVehiclePopupMenu

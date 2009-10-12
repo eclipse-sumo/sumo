@@ -114,16 +114,20 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
 #ifdef HAVE_MESOSIM
         mySettings.edgeColorer.setActive(mySettings.laneEdgeMode);
 #endif
-//        mySettings.laneColorer.setActive(mySettings.laneEdgeMode);
+        mySettings.laneColorer.setActive(mySettings.laneEdgeMode);
         break;
     case SUMO_TAG_COLORSCHEME:
+        myCurrentScheme = 0;
         if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
-            myCurrentScheme = 0;//mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
 #ifdef HAVE_MESOSIM
             if (myCurrentScheme == 0) {
                 myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
 #endif
+        }
+        if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
+            myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
         }
         if (myCurrentScheme && !myCurrentScheme->isFixed()) {
             myCurrentScheme->setInterpolated(attrs.getBoolSecure(SUMO_ATTR_INTERPOLATED, false));

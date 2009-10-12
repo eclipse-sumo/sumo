@@ -37,7 +37,6 @@
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
-#include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/gui/drawer/GUIColorer.h>
 
 #ifdef WIN32
@@ -215,12 +214,6 @@ private:
         const MSLane &myLane;
 
     };
-
-#ifdef HAVE_MESOSIM
-    /** @brief The list of coloring schemes that may be used */
-    static GUIColoringSchemesMap<GUIEdge> myLaneColoringSchemes;
-#endif
-
 
 private:
     /// @brief invalidated copy constructor

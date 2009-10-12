@@ -123,6 +123,7 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
             dev << "            <nlcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
         }
     }
+    laneColorer.save(dev);
 #ifdef HAVE_MESOSIM
     edgeColorer.save(dev);
 #endif
@@ -141,6 +142,7 @@ GUIVisualizationSettings::save(OutputDevice &dev) const throw(IOError) {
             dev << "            <nvcC index=\"" << toString(index) << "\" value=\"" << (*j).second[k] << "\"/>\n";
         }
     }
+    vehicleColorer.save(dev);
     dev << "        </vehicles>\n";
 
     dev << "        <junctions junctionMode=\"" << junctionMode

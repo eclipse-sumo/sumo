@@ -838,5 +838,66 @@ GUILaneWrapper::initColoringSchemes() {
 }
 
 
+GUILaneWrapper::Colorer::Colorer() {
+    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0), "", true));
+    mySchemes.push_back(GUIColorScheme("by selection (lane-/streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
+    mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1, "selected");
+    mySchemes.push_back(GUIColorScheme("by allowed speed (lanewise)", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    mySchemes.push_back(GUIColorScheme("by current density (lanewise)", RGBColor(0,0,1)));
+    mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
+    mySchemes.push_back(GUIColorScheme("by first vehicle waiting time (lanewise)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)200);
+    mySchemes.push_back(GUIColorScheme("by lane number (streetwise)", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(0,0,1), (SUMOReal)5);
+    // ... emissions ...
+    mySchemes.push_back(GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(10./7.5/5.));
+    mySchemes.push_back(GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(0.05/7.5/2.));
+    mySchemes.push_back(GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5/5.));
+    mySchemes.push_back(GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.125/7.5/5.));
+    mySchemes.push_back(GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.02/7.5/4.));
+    mySchemes.push_back(GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(.005/7.5*100.));
+    mySchemes.push_back(GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)100);
+}
+
+
+SUMOReal
+GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
+    switch (myActiveScheme) {
+    case 1:
+        return gSelected.isSelected(lane.getType(), lane.getGlID());
+    case 2:
+        return lane.maxSpeed();
+    case 3:
+        return lane.getDensity();
+    case 4:
+        return lane.firstWaitingTime();
+    case 5:
+        return lane.getEdgeLaneNumber();
+    case 6:
+        return lane.getHBEFA_CO2Emissions();
+    case 7:
+        return lane.getHBEFA_COEmissions();
+    case 8:
+        return lane.getHBEFA_PMxEmissions();
+    case 9:
+        return lane.getHBEFA_NOxEmissions();
+    case 10:
+        return lane.getHBEFA_HCEmissions();
+    case 11:
+        return lane.getHBEFA_FuelConsumption();
+    case 12:
+        return lane.getHarmonoise_NoiseEmissions();
+    }
+    return 0;
+}
+
 /****************************************************************************/
 

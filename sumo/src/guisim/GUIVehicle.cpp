@@ -1118,5 +1118,91 @@ GUIVehicle::initColoringSchemes() {
 }
 
 
+GUIVehicle::Colorer::Colorer() {
+    mySchemes.push_back(GUIColorScheme("uniform", RGBColor(1,1,0), "", true));
+    mySchemes.push_back(GUIColorScheme("given/assigned vehicle color", RGBColor(1,1,0), "", true));
+    mySchemes.push_back(GUIColorScheme("given/assigned type color", RGBColor(1,1,0), "", true));
+    mySchemes.push_back(GUIColorScheme("given/assigned route color", RGBColor(1,1,0), "", true));
+    mySchemes.push_back(GUIColorScheme("by speed", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
+    mySchemes.push_back(GUIColorScheme("by waiting time", RGBColor(0,0,1)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)(5*60));
+    mySchemes.push_back(GUIColorScheme("by time since last lanechange", RGBColor(1,1,1)));
+    mySchemes.back().addColor(RGBColor(.5,.5,.5), (SUMOReal)(5*60));
+    mySchemes.push_back(GUIColorScheme("by max speed", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
+    // ... emissions ...
+    mySchemes.push_back(GUIColorScheme("by CO2 emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)5.);
+    mySchemes.push_back(GUIColorScheme("by CO emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)0.05);
+    mySchemes.push_back(GUIColorScheme("by PMx emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).005);
+    mySchemes.push_back(GUIColorScheme("by NOx emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).125);
+    mySchemes.push_back(GUIColorScheme("by HC emissions (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).02);
+    mySchemes.push_back(GUIColorScheme("by fuel consumption (HBEFA)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal).005);
+    mySchemes.push_back(GUIColorScheme("by noise emissions (Harmonoise)", RGBColor(0,1,0)));
+    mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)100.);
+    mySchemes.push_back(GUIColorScheme("by reroute number", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(1,1,0), (SUMOReal)1.);
+    mySchemes.back().addColor(RGBColor(1,1,1), (SUMOReal)10.);
+}
+
+
+bool
+GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
+    switch (myActiveScheme) {
+    case 1:
+        vehicle.setOwnDefinedColor();
+        return true;
+    case 2:
+        vehicle.setOwnTypeColor();
+        return true;
+    case 3:
+        vehicle.setOwnRouteColor();
+        return true;
+    }
+    return false;
+}
+
+
+SUMOReal
+GUIVehicle::Colorer::getColorValue(const GUIVehicle& vehicle) const {
+    switch (myActiveScheme) {
+    case 4:
+        return vehicle.getSpeed();
+    case 5:
+        return vehicle.getWaitingTime();
+    case 6:
+        return vehicle.getLastLaneChangeOffset();
+    case 7:
+        return vehicle.getMaxSpeed();
+    case 8:
+        return vehicle.getHBEFA_CO2Emissions();
+    case 9:
+        return vehicle.getHBEFA_COEmissions();
+    case 10:
+        return vehicle.getHBEFA_PMxEmissions();
+    case 11:
+        return vehicle.getHBEFA_NOxEmissions();
+    case 12:
+        return vehicle.getHBEFA_HCEmissions();
+    case 13:
+        return vehicle.getHBEFA_FuelConsumption();
+    case 14:
+        return vehicle.getHarmonoise_NoiseEmissions();
+    case 15:
+        if (!vehicle.hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+            return -1;
+        }
+        return vehicle.getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
+    }
+    return 0;
+}
+
+
 /****************************************************************************/
 

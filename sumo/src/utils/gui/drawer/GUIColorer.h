@@ -31,7 +31,7 @@
 
 #include <vector>
 #include <fx.h>
-#include <utils/foxtools/FXRealSpinDial.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -54,7 +54,7 @@ public:
     /// Constructor
     GUIColorScheme(const std::string& name, const RGBColor& baseColor,
                    const std::string& colName="", const bool isFixed=false)
-            : myName(name), myIsInterpolated(false), myIsFixed(isFixed) {
+            : myName(name), myIsInterpolated(!isFixed), myIsFixed(isFixed) {
         addColor(baseColor, -1, colName);
     }
 
@@ -221,10 +221,17 @@ public:
     /// @brief Sets the color using a value from the given instance of T
     virtual SUMOReal getColorValue(const T& i) const = 0;
 
+    /// @brief Sets the color using a function call for the given instance of T
+    virtual bool setFunctionalColor(const T& i) const {
+        return false;
+    }
+
     /// @brief Sets the color using a value from the given instance of T
     void setGlColor(const T& i) const {
-        const RGBColor& c = mySchemes[myActiveScheme].getColor(getColorValue(i));
-        glColor3d(c.red(), c.green(), c.blue());
+        if (!setFunctionalColor(i)) {
+            const RGBColor& c = mySchemes[myActiveScheme].getColor(getColorValue(i));
+            glColor3d(c.red(), c.green(), c.blue());
+        }
     }
 
     /// @brief Fills the given combobox with the names of available colorings

@@ -68,14 +68,6 @@
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-#ifdef HAVE_MESOSIM
-GUIColoringSchemesMap<GUIEdge> GUIEdge::myLaneColoringSchemes;
-#endif
-
-
-// ===========================================================================
 // included modules
 // ===========================================================================
 GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID,
@@ -418,10 +410,8 @@ GUIEdge::Colorer::Colorer() {
     mySchemes.back().addColor(RGBColor(0, 0, 1), MSEdge::EDGEFUNCTION_INTERNAL, "internal");
     mySchemes.push_back(GUIColorScheme("by allowed speed (streetwise)", RGBColor(1,0,0)));
     mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
-    mySchemes.back().setInterpolated(true);
     mySchemes.push_back(GUIColorScheme("by current density (streetwise)", RGBColor(0,0,1)));
     mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
-    mySchemes.back().setInterpolated(true);
 }
 
 

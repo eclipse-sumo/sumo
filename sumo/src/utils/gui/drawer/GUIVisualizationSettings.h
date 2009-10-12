@@ -34,6 +34,8 @@
 #include <map>
 #include <utils/common/RGBColor.h>
 #include <guisim/GUIEdge.h>
+#include <guisim/GUILaneWrapper.h>
+#include <guisim/GUIVehicle.h>
 
 
 // ===========================================================================
@@ -84,6 +86,10 @@ public:
     /// @brief The mesoscopic edge colorer
     GUIEdge::Colorer edgeColorer;
 #endif
+    /// @brief The lane colorer
+    GUILaneWrapper::Colorer laneColorer;
+    /// @brief The vehicle colorer
+    GUIVehicle::Colorer vehicleColorer;
     /// @brief The lane visualization (color assignment) scheme
     int laneEdgeMode;
     /// @brief The map if used colors (scheme->used colors)
