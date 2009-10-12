@@ -118,7 +118,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_COLORSCHEME:
         if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
-//            myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            myCurrentScheme = 0;//mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
 #ifdef HAVE_MESOSIM
             if (myCurrentScheme == 0) {
                 myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
