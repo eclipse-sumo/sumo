@@ -131,22 +131,23 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
 #ifdef HAVE_MESOSIM
             }
 #endif
-            if (myCurrentScheme) {
-                myCurrentScheme->setInterpolated(attrs.getBoolSecure(SUMO_ATTR_INTERPOLATED, false));
-                myCurrentSchemePos = 0;
+        }
+        if (myCurrentScheme) {
+            myCurrentScheme->setInterpolated(attrs.getBoolSecure(SUMO_ATTR_INTERPOLATED, false));
+            if (!myCurrentScheme->isFixed()) {
+                myCurrentScheme->clear();
             }
         }
         break;
     case SUMO_TAG_ENTRY:
         if (myCurrentScheme) {
-            if (myCurrentSchemePos < myCurrentScheme->getColors().size()) {
-                const float threshold = attrs.getFloatSecure(SUMO_ATTR_THRESHOLD, myCurrentScheme->getThresholds()[myCurrentSchemePos]);
-                myCurrentScheme->setColor(myCurrentSchemePos,
-                                          RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)), threshold);
+            if (myCurrentScheme->isFixed()) {
+                myCurrentScheme->setColor(attrs.getString(SUMO_ATTR_NAME),
+                                          RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
             } else {
-                myCurrentScheme->addColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)), attrs.getFloat(SUMO_ATTR_THRESHOLD));
+                myCurrentScheme->addColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)),
+                                          attrs.getFloat(SUMO_ATTR_THRESHOLD));
             }
-            myCurrentSchemePos++;
         }
         break;
     case SUMO_TAG_VIEWSETTINGS_EDGE_COLOR_ITEM: {

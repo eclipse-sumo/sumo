@@ -108,8 +108,6 @@ private:
     SumoXMLTag myCurrentColorer;
     /// @brief The current color scheme
     GUIColorScheme* myCurrentScheme;
-    /// @brief The current color scheme entry position
-    unsigned int myCurrentSchemePos;
 
 };
 

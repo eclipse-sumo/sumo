@@ -803,25 +803,31 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
         std::vector<FXRealSpinDial*>::const_iterator threshIt = myLaneThresholds.begin();
         std::vector<FXButton*>::const_iterator buttonIt = myLaneButtons.begin();
         size_t pos = 0;
-        while (threshIt != myLaneThresholds.end()) {
-            if (sender == *threshIt || sender == *colIt) {
-                if (pos != tmpSettings.edgeColorer.getScheme().setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
+        while (colIt != myLaneColors.end()) {
+            if (tmpSettings.edgeColorer.getScheme().isFixed()) {
+                if (sender == *colIt) {
+                    tmpSettings.edgeColorer.getScheme().setColor(pos, convert((*colIt)->getRGBA()));
+                }
+            } else {
+                if (sender == *threshIt || sender == *colIt) {
+                    if (pos != tmpSettings.edgeColorer.getScheme().setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
+                        doRebuildColorMatrices = true;
+                    }
+                    break;
+                }
+                if (sender == *buttonIt) {
+                    if (pos == 0) {
+                        tmpSettings.edgeColorer.getScheme().addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
+                    } else {
+                        tmpSettings.edgeColorer.getScheme().removeColor(pos);
+                    }
                     doRebuildColorMatrices = true;
+                    break;
                 }
-                break;
+                ++threshIt;
+                ++buttonIt;
             }
-            if (sender == *buttonIt) {
-                if (pos == 0) {
-                    tmpSettings.edgeColorer.getScheme().addColor(convert((*colIt)->getRGBA()), (*threshIt)->getValue());
-                } else {
-                    tmpSettings.edgeColorer.getScheme().removeColor(pos);
-                }
-                doRebuildColorMatrices = true;
-                break;
-            }
-            ++threshIt;
             ++colIt;
-            ++buttonIt;
             pos++;
         }
         if (sender == myLaneColorInterpolation) {

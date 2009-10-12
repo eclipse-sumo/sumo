@@ -265,15 +265,10 @@ GUICompleteSchemeStorage::writeSettings(FXApp *app) throw() {
     app->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-myNumInitialSettings);
     size_t gidx = 0;
     for (std::vector<std::string>::const_iterator i=names.begin()+myNumInitialSettings; i!=names.end(); ++i, ++gidx) {
-        size_t k, index;
-        std::map<int, std::vector<RGBColor> >::const_iterator j;
-
-        const std::string &name = (*i);
-        const GUIVisualizationSettings &item = mySettings.find(name)->second;
-
+        const GUIVisualizationSettings &item = mySettings.find(*i)->second;
         std::string sname = "visset#" + toString(gidx);
-        app->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());
 
+        app->reg().writeStringEntry("VisualizationSettings", sname.c_str(), item.name.c_str());
         OutputDevice_String dev;
         item.save(dev);
         std::string content = dev.getString();

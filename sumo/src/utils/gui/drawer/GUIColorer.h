@@ -64,6 +64,22 @@ public:
         return addColor(color, threshold, name);
     }
 
+    void setColor(const size_t pos, const RGBColor& color) {
+        myColors[pos] = color;
+    }
+
+    bool setColor(const std::string& name, const RGBColor& color) {
+        std::vector<std::string>::iterator nameIt = myNames.begin();
+        std::vector<RGBColor>::iterator colIt = myColors.begin();
+        for (;nameIt != myNames.end(); ++nameIt, ++colIt) {
+            if (*nameIt == name) {
+                (*colIt) = color;
+                return true;
+            }
+        }
+        return false;
+    }
+
     unsigned int addColor(const RGBColor& color, const SUMOReal threshold, const std::string& name="") {
         std::vector<RGBColor>::iterator colIt = myColors.begin();
         std::vector<SUMOReal>::iterator threshIt = myThresholds.begin();
@@ -86,6 +102,12 @@ public:
         myColors.erase(myColors.begin()+pos);
         myThresholds.erase(myThresholds.begin()+pos);
         myNames.erase(myNames.begin()+pos);
+    }
+
+    void clear() {
+        myColors.clear();
+        myThresholds.clear();
+        myNames.clear();
     }
 
     const RGBColor getColor(const SUMOReal value) const {
