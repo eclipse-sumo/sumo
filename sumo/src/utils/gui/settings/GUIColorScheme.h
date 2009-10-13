@@ -49,10 +49,8 @@ public:
         addColor(baseColor, -1, colName);
     }
 
-    unsigned int setColor(const size_t pos, const RGBColor& color, const SUMOReal threshold) {
-        const std::string& name = myNames[pos];
-        removeColor(pos);
-        return addColor(color, threshold, name);
+    void setThreshold(const size_t pos, const SUMOReal threshold) {
+        myThresholds[pos] = threshold;
     }
 
     void setColor(const size_t pos, const RGBColor& color) {
@@ -102,12 +100,12 @@ public:
     }
 
     const RGBColor getColor(const SUMOReal value) const {
-        if (myColors.size() == 1 || value <= myThresholds.front()) {
+        if (myColors.size() == 1 || value < myThresholds.front()) {
             return myColors.front();
         }
         std::vector<RGBColor>::const_iterator colIt = myColors.begin()+1;
         std::vector<SUMOReal>::const_iterator threshIt = myThresholds.begin()+1;
-        while (threshIt != myThresholds.end() && (*threshIt) < value) {
+        while (threshIt != myThresholds.end() && (*threshIt) <= value) {
             ++threshIt;
             ++colIt;
         }

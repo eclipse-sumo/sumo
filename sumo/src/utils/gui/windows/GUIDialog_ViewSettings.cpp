@@ -190,6 +190,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     {
         // tab for the streets
         new FXTabItem(tabbook,"Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
+        
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
         FXMatrix *m21 =
@@ -201,7 +202,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
         myLaneColorSettingFrame =
             new FXVerticalFrame(frame2, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
-
+//we should insert a FXScrollWindow around the frame2
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
@@ -730,10 +731,25 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
                     scheme.setColor(pos, convert((*colIt)->getRGBA()));
                 }
             } else {
-                if (sender == *threshIt || sender == *colIt) {
-                    if (pos != scheme.setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
-                        doRebuildColorMatrices = true;
+                if (sender == *threshIt) {
+                    const SUMOReal val = (*threshIt)->getValue();
+                    double lo, hi;
+                    if (pos != 0) {
+                        threshIt--;
+                        (*threshIt)->getRange(lo, hi);
+                        (*threshIt)->setRange(lo, val);
+                        threshIt++;
                     }
+                    threshIt++;
+                    if (threshIt != myLaneThresholds.end()) {
+                        (*threshIt)->getRange(lo, hi);
+                        (*threshIt)->setRange(val, hi);
+                    }
+                    scheme.setThreshold(pos, val);
+                    break;
+                }
+                if (sender == *colIt) {
+                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
                     break;
                 }
                 if (sender == *buttonIt) {
@@ -771,10 +787,25 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val) {
                     scheme.setColor(pos, convert((*colIt)->getRGBA()));
                 }
             } else {
-                if (sender == *threshIt || sender == *colIt) {
-                    if (pos != scheme.setColor(pos, convert((*colIt)->getRGBA()), (*threshIt)->getValue())) {
-                        doRebuildColorMatrices = true;
+                if (sender == *threshIt) {
+                    const SUMOReal val = (*threshIt)->getValue();
+                    double lo, hi;
+                    if (pos != 0) {
+                        threshIt--;
+                        (*threshIt)->getRange(lo, hi);
+                        (*threshIt)->setRange(lo, val);
+                        threshIt++;
                     }
+                    threshIt++;
+                    if (threshIt != myVehicleThresholds.end()) {
+                        (*threshIt)->getRange(lo, hi);
+                        (*threshIt)->setRange(val, hi);
+                    }
+                    scheme.setThreshold(pos, val);
+                    break;
+                }
+                if (sender == *colIt) {
+                    scheme.setColor(pos, convert((*colIt)->getRGBA()));
                     break;
                 }
                 if (sender == *buttonIt) {
