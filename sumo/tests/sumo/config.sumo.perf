@@ -14,3 +14,6 @@ performance:any
 
 [performance_unit]
 performance:ms
+
+[performance_variation_%]
+performance:50
