@@ -52,7 +52,7 @@
 #include <guisim/GUIEdge.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIImageGlobals.h>
-#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <gui/GUIViewTraffic.h>
 #include <guisim/GUIVehicle.h>
 

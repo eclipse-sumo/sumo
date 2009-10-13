@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="z_libutils_gui_drawer"
+	Name="z_libutils_gui_settings"
 	ProjectGUID="{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
-	RootNamespace="z_libutils_gui_drawer"
+	RootNamespace="z_libutils_gui_settings"
 	>
 	<Platforms>
 		<Platform
@@ -538,15 +538,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.cpp"
+				RelativePath="..\..\..\src\utils\gui\settings\GUICompleteSchemeStorage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUISettingsHandler.cpp"
+				RelativePath="..\..\..\src\utils\gui\settings\GUISettingsHandler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIVisualizationSettings.cpp"
+				RelativePath="..\..\..\src\utils\gui\settings\GUIVisualizationSettings.cpp"
 				>
 			</File>
 		</Filter>
@@ -556,19 +556,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer.h"
+				RelativePath="..\..\..\src\utils\gui\settings\GUIColorer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.h"
+				RelativePath="..\..\..\src\utils\gui\settings\GUIColorScheme.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUISettingsHandler.h"
+				RelativePath="..\..\..\src\utils\gui\settings\GUICompleteSchemeStorage.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\drawer\GUIVisualizationSettings.h"
+				RelativePath="..\..\..\src\utils\gui\settings\GUISettingsHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\settings\GUIVisualizationSettings.h"
 				>
 			</File>
 		</Filter>

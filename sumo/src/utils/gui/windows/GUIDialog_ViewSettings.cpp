@@ -39,12 +39,12 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/TplConvert.h>
-#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/gui/drawer/GUISettingsHandler.h>
+#include <utils/gui/settings/GUISettingsHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

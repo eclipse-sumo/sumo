@@ -31,7 +31,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/drawer/GUIVisualizationSettings.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
 

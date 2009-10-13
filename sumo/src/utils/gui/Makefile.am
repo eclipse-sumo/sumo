@@ -1,1 +1,1 @@
-SUBDIRS = div drawer events globjects images tracker windows
+SUBDIRS = div events globjects images settings tracker windows

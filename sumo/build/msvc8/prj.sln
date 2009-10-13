@@ -253,7 +253,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_images", "z_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_div", "z_libutils_gui_div\z_libutils_gui_div.vcproj", "{E3AB9C37-6B5A-4D8C-88F3-DF750A493511}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_drawer", "z_libutils_gui_drawer\z_libutils_gui_drawer.vcproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_settings", "z_libutils_gui_settings\z_libutils_gui_settings.vcproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_polyfonts", "zz_foreign_polyfonts\zz_foreign_polyfonts.vcproj", "{306768A4-B73E-4B81-9EC0-B4836EFE0504}"
 EndProject

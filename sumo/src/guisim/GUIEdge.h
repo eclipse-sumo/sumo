@@ -37,7 +37,7 @@
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
-#include <utils/gui/drawer/GUIColorer.h>
+#include <utils/gui/settings/GUIColorer.h>
 
 #ifdef WIN32
 #include <windows.h>

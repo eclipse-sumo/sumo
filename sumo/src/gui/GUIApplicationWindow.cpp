@@ -66,10 +66,10 @@
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/drawer/GUISettingsHandler.h>
+#include <utils/gui/settings/GUISettingsHandler.h>
 #include <guisim/GUISelectionLoader.h>
 
 #ifdef CHECK_MEMORY_LEAKS

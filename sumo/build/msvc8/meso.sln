@@ -91,7 +91,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_trigger", "z_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_div", "z_libutils_gui_div\z_libutils_gui_div.vcproj", "{E3AB9C37-6B5A-4D8C-88F3-DF750A493511}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_drawer", "z_libutils_gui_drawer\z_libutils_gui_drawer.vcproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_settings", "z_libutils_gui_settings\z_libutils_gui_settings.vcproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_images", "z_libutils_gui_images\z_libutils_gui_images.vcproj", "{5F818AF6-963E-40B3-93F3-35E145FDE30B}"
 EndProject

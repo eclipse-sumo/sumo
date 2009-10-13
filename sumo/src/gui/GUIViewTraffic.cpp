@@ -52,7 +52,7 @@
 #include <gui/GUIApplicationWindow.h>
 #include <foreign/polyfonts/polyfonts.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
-#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>

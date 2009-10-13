@@ -44,7 +44,7 @@
 #include "GUIRoute.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
-#include <utils/gui/drawer/GUIColorer.h>
+#include <utils/gui/settings/GUIColorer.h>
 
 
 // ===========================================================================

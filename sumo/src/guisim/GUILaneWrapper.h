@@ -38,7 +38,7 @@
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/drawer/GUIColorer.h>
+#include <utils/gui/settings/GUIColorer.h>
 
 
 // ===========================================================================

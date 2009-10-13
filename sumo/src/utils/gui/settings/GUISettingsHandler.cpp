@@ -33,8 +33,8 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/gui/drawer/GUIVisualizationSettings.h>
-#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <xercesc/framework/MemBufInputSource.hpp>
 #include "GUISettingsHandler.h"

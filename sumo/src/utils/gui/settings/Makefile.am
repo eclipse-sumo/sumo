@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libguiutilsdrawer.a
+noinst_LIBRARIES = libguiutilssettings.a
 
-libguiutilsdrawer_a_SOURCES = GUIColorer.h \
+libguiutilssettings_a_SOURCES = GUIColorer.h GUIColorScheme.h \
 GUICompleteSchemeStorage.cpp GUICompleteSchemeStorage.h \
 GUISettingsHandler.cpp GUISettingsHandler.h \
 GUIVisualizationSettings.cpp GUIVisualizationSettings.h

@@ -57,8 +57,8 @@
 #include <utils/gui/globjects/GUIPolygon2D.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/gui/drawer/GUIVisualizationSettings.h>
-#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <fxkeys.h>
 #include <utils/foxtools/MFXImageHelper.h>
 
