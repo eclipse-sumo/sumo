@@ -211,8 +211,8 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
             return;
         }
         if (from->hasConnectionTo(to, toLane)) {
-            MsgHandler::getErrorInstance()->inform("Target lane '" + to->getID() + "_" + toString<int>(toLane) +
-                                                   "' is already connected from '" + from->getID() + "'.");
+            WRITE_WARNING("Target lane '" + to->getID() + "_" + toString<int>(toLane) +
+                          "' is already connected from '" + from->getID() + "'.");
             return;
         }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {
