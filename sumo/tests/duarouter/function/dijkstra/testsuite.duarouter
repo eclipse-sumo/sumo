@@ -1,0 +1,5 @@
+# Test whether vehicles respect the fifo principle on routing
+fifo
+
+# Test whether vehicles respect the fifo principle with interpolation
+fifo_interpolate

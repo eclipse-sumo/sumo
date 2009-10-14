@@ -131,6 +131,26 @@ public:
         return afterIt->second.first;
     }
 
+    /** @brief Returns the time point at which the value changes.
+     *
+     * If the two input parameters lie in two consecutive time
+     *  intervals, this method returns the point at which the
+     *  interval changes. In any other case -1 is returned.
+     *
+     * @param[in] low the time in the first interval
+     * @param[in] high the time in the second interval
+     * @return the split point
+     */
+    SUMOTime getSplitTime(SUMOTime low, SUMOTime high) const {
+        typename TimedValueMap::const_iterator afterLow = myValues.upper_bound(low);
+        typename TimedValueMap::const_iterator afterHigh = myValues.upper_bound(high);
+        --afterHigh;
+        if (afterLow == afterHigh) {
+            return afterLow->first;
+        }
+        return -1;
+    }
+
     /** @brief Sets a default value for all unset intervals.
      *
      * @param[in] value the value to store

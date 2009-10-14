@@ -38,8 +38,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODUAEdgeBuilder::RODUAEdgeBuilder(bool useBoundariesOnOverride) throw()
-        : myUseBoundariesOnOverride(useBoundariesOnOverride) {}
+RODUAEdgeBuilder::RODUAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate) throw()
+        : myUseBoundariesOnOverride(useBoundariesOnOverride), myInterpolate(interpolate) {}
 
 
 RODUAEdgeBuilder::~RODUAEdgeBuilder() throw() {}
@@ -47,7 +47,7 @@ RODUAEdgeBuilder::~RODUAEdgeBuilder() throw() {}
 
 ROEdge *
 RODUAEdgeBuilder::buildEdge(const std::string &name, RONode *from, RONode *to) throw() {
-    return new ROEdge(name, from, to, getNextIndex(), myUseBoundariesOnOverride);
+    return new ROEdge(name, from, to, getNextIndex(), myUseBoundariesOnOverride, myInterpolate);
 }
 
 

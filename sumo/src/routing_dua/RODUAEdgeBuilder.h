@@ -56,9 +56,10 @@ public:
     /** @brief Constructor
      *
      * @param[in] useBoundariesOnOverride Whether edges shall use a boundary value if the requested is beyond known time scale
+     * @param[in] interpolate Whether edges shall interpolate at interval boundaries
      * @todo useBoundariesOnOverride should not be a member of the edges
      */
-    RODUAEdgeBuilder(bool useBoundariesOnOverride) throw();
+    RODUAEdgeBuilder(bool useBoundariesOnOverride, bool interpolate) throw();
 
 
     /// @brief Destructor
@@ -85,6 +86,9 @@ public:
 protected:
     /// @brief Information whether to use the first/last entry of the time in case it is too short
     bool myUseBoundariesOnOverride;
+
+    /// @brief Information whether to interpolate at interval boundaries
+    bool myInterpolate;
 
 };
 

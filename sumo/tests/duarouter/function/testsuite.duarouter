@@ -6,3 +6,6 @@ defaults
 
 # Tests whether the end-option is used properly
 endstep
+
+# shortest path finding related tests
+dijkstra

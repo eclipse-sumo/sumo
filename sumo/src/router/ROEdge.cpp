@@ -55,12 +55,13 @@ std::vector<ROEdge*> ROEdge::myEdges;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int index, bool useBoundariesOnOverride) throw()
+ROEdge::ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int index,
+               bool useBoundariesOnOverride, bool interpolate) throw()
         : myID(id), mySpeed(-1),
         myIndex(index), myLength(-1),
         myUsingTTTimeLine(false), myUseBoundariesOnOverrideTT(useBoundariesOnOverride),
         myUsingETimeLine(false), myUseBoundariesOnOverrideE(useBoundariesOnOverride),
-        myFromNode(from), myToNode(to) {
+        myFromNode(from), myToNode(to), myInterpolate(interpolate) {
     while (myEdges.size()<=index) {
         myEdges.push_back(0);
     }
@@ -142,7 +143,7 @@ ROEdge::addTravelTime(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) thro
 
 
 SUMOReal
-ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
+ROEdge::getEffort(const ROVehicle *const veh, SUMOTime time) const throw() {
     // ok, no absolute value was found, use the normal value (without)
     //  weight as default
     SUMOReal value = (SUMOReal)(myLength / mySpeed);
@@ -150,6 +151,18 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const throw() {
         if (!myHaveEWarned && !myEfforts.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveEWarned = true;
+        }
+        if (myInterpolate) {
+            SUMOReal leaveTime = time + getTravelTime(veh, time);
+            SUMOTime split = myEfforts.getSplitTime(time, leaveTime);
+            if (split != -1) {
+                SUMOReal ratio = (SUMOReal)(split - time) / (SUMOReal)(leaveTime - time);
+                SUMOReal inEffort = myEfforts.getValue(time);
+                SUMOReal outEffort = myEfforts.getValue(leaveTime);
+                return inEffort * ratio + (1-ratio) * outEffort;
+// the second variant may be better for travel time
+//                return outEffort - (split - time) * outEffort / inEffort + (split - time);
+            }
         }
         return myEfforts.getValue(time);
     }

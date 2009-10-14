@@ -1,0 +1,1 @@
+--net-file=input_net.net.xml --weights=input_weights.dump.xml -b 0 -e 86400 --trip-defs=input_trips.trips.xml -o routes.rou.xml --exit-times --interpolate

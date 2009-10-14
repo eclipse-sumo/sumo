@@ -80,9 +80,11 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      * @param[in] useBoundariesOnOverride Whether the edge shall use a boundary value if the requested is beyond known time scale
-     * @todo useBoundariesOnOverride should not be a member of the edge
+     * @param[in] interpolate Whether the edge shall interpolate at interval boundaries
+     * @todo useBoundariesOnOverride and interpolate should not be members of the edge
      */
-    ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int index, bool useBoundariesOnOverride) throw();
+    ROEdge(const std::string &id, RONode *from, RONode *to, unsigned int index,
+           bool useBoundariesOnOverride, bool interpolate=false) throw();
 
 
     /// Destructor
@@ -323,6 +325,8 @@ protected:
     /// @brief Information whether the edge has reported missing weights
     static bool myHaveEWarned;
 
+    /// @brief Information whether to interpolate at interval boundaries
+    bool myInterpolate;
 
 
     /// @brief List of edges that may be approached from this edge

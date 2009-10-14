@@ -76,7 +76,7 @@
 void
 initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
     // load the net
-    RODUAEdgeBuilder builder(oc.getBool("expand-weights"));
+    RODUAEdgeBuilder builder(oc.getBool("expand-weights"), oc.getBool("interpolate"));
     loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weights")) {

@@ -103,6 +103,9 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.doRegister("repair", new Option_Bool(false));
     oc.addDescription("repair", "Processing", "Tries to correct a false route");
 
+    oc.doRegister("interpolate", new Option_Bool(false));
+    oc.addDescription("interpolate", "Processing", "Interpolate edge weights at interval boundaries");
+
 
     // register defaults options
     oc.doRegister("departlane", new Option_String());
