@@ -189,7 +189,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     //
     RORoute *current =
         routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
-    if (current==0||current->getEdgeVector().size()==0) {
+    if (current==0||current->size()==0) {
         delete current;
         return false;
     }
@@ -197,14 +197,8 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     if (options.getBool("remove-loops")) {
         current->recheckForLoops();
     }
-    // check whether the route is valid and does not end on the starting edge
-    if (current->size()<2) {
-        // check whether the route ends at the starting edge
-        //  unbuild routes due to missing connections are reported within the
-        //  router
-        if (current->size()!=0) {
-            mh->inform("The route '" + routeDef->getID() + "' is too short, probably ending at the starting edge.\n Skipping...");
-        }
+    // check whether the route is still valid
+    if (current->size()==0) {
         delete current;
         return false;
     }
