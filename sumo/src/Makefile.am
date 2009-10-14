@@ -160,7 +160,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gui/windows/libguiutilsWindows.a \
 ./utils/gui/globjects/libguiutilsglobjects.a \
 ./utils/gui/div/libguiutilsdiv.a \
-./utils/gui/drawer/libguiutilsdrawer.a \
+./utils/gui/settings/libguiutilssettings.a \
 ./utils/gui/events/libguiutilsevents.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
