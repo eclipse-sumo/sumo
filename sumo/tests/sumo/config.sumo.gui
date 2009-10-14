@@ -1,2 +1,3 @@
 binary:$TEXTTEST_HOME/guisimrunner.py
 use_case_record_mode:GUI
+batch_extra_version:{CLEAR LIST}

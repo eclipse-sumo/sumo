@@ -1,3 +1,5 @@
+performance_variation_%:50
+
 [run_dependent_text]
 output:Duration:
 output:Real time factor:
@@ -14,6 +16,3 @@ performance:any
 
 [performance_unit]
 performance:ms
-
-[performance_variation_%]
-performance:50
