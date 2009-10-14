@@ -99,10 +99,10 @@ public:
     };
 
     /**
-     * @class EdgeInfoByEffortComperator
+     * @class EdgeInfoByEffortComparator
      * Class to compare (and so sort) nodes by their effort
      */
-    class EdgeInfoByTTComperator {
+    class EdgeInfoByTTComparator {
     public:
         /// Comparing method
         bool operator()(const EdgeInfo *nod1, const EdgeInfo *nod2) const {
@@ -137,7 +137,7 @@ public:
             // use the node with the minimal length
             EdgeInfo * const minimumInfo = myFrontierList.front();
             const E * const minEdge = minimumInfo->edge;
-            pop_heap(myFrontierList.begin(), myFrontierList.end(), EdgeInfoByTTComperator());
+            pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             // check whether the destination node was already reached
             if (minEdge == to) {
@@ -162,11 +162,11 @@ public:
                     followerInfo->prev = minimumInfo;
                     if (oldEffort == std::numeric_limits<SUMOReal>::max()) {
                         myFrontierList.push_back(followerInfo);
-                        push_heap(myFrontierList.begin(), myFrontierList.end(), EdgeInfoByTTComperator());
+                        push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
                         push_heap(myFrontierList.begin(),
                                   find(myFrontierList.begin(), myFrontierList.end(), followerInfo) + 1,
-                                  EdgeInfoByTTComperator());
+                                  myComparator);
                     }
                 }
             }
@@ -207,6 +207,8 @@ protected:
 
     /// A container for reusage of the min edge heap
     std::vector<EdgeInfo*> myFrontierList;
+
+    EdgeInfoByTTComparator myComparator;
 
     bool myUnbuildIsWarningOnly;
 
