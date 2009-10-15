@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/14/09 14:54:55 by SUMO duarouter Version dev-SVN-r7857
+<!-- generated on 10/15/09 11:47:30 by SUMO duarouter Version dev-SVN-r7867
 <configuration>
 
     <input>
@@ -14,6 +14,10 @@
         <exit-times value="true"/>
     </output>
 
+    <processing>
+        <interpolate value="true"/>
+    </processing>
+
     <time>
         <begin value="0"/>
         <end value="86400"/>
@@ -24,7 +28,7 @@
 
 <routes>
    <vehicle id="0" type="0" depart="888">
-      <route edges="beg middle end rend" exitTimes="898.00 973.00 990.93 1008.92 "/>
+      <route edges="beg beg2left left left2end end rend" exitTimes="898.00 909.00 949.00 969.00 986.93 1004.92 "/>
    </vehicle>
    <vehicle id="1" type="0" depart="892">
       <route edges="beg beg2left left left2end end rend" exitTimes="902.00 912.00 952.00 972.00 989.93 1007.92 "/>

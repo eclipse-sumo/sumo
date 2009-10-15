@@ -144,45 +144,44 @@ ROEdge::addTravelTime(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) thro
 
 SUMOReal
 ROEdge::getEffort(const ROVehicle *const veh, SUMOTime time) const throw() {
-    // ok, no absolute value was found, use the normal value (without)
-    //  weight as default
-    SUMOReal value = (SUMOReal)(myLength / mySpeed);
     if (myUsingETimeLine) {
         if (!myHaveEWarned && !myEfforts.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveEWarned = true;
         }
         if (myInterpolate) {
-            SUMOReal leaveTime = time + getTravelTime(veh, time);
-            SUMOTime split = myEfforts.getSplitTime(time, leaveTime);
-            if (split != -1) {
-                SUMOReal ratio = (SUMOReal)(split - time) / (SUMOReal)(leaveTime - time);
-                SUMOReal inEffort = myEfforts.getValue(time);
-                SUMOReal outEffort = myEfforts.getValue(leaveTime);
-                return inEffort * ratio + (1-ratio) * outEffort;
-// the second variant may be better for travel time
-//                return outEffort - (split - time) * outEffort / inEffort + (split - time);
+            SUMOReal inTT = myTravelTimes.getValue(time);
+            SUMOReal ratio = (SUMOReal) (myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
+            if (ratio >= 0) {
+                return ratio * myEfforts.getValue(time) + (1-ratio)*myEfforts.getValue(time + (SUMOTime)inTT);
             }
         }
         return myEfforts.getValue(time);
     }
-    return value;
+    // !!! TODO we still need a sensible default here, which is not the default traveltime
+    return (SUMOReal)(myLength / mySpeed);
 }
 
 
 SUMOReal
 ROEdge::getTravelTime(const ROVehicle *const, SUMOTime time) const throw() {
-    // ok, no absolute value was found, use the normal value (without)
-    //  weight as default
-    SUMOReal value = (SUMOReal)(myLength / mySpeed);
     if (myUsingTTTimeLine) {
         if (!myHaveTTWarned && !myTravelTimes.describesTime(time)) {
             WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
             myHaveTTWarned = true;
         }
+        if (myInterpolate) {
+            SUMOReal inTT = myTravelTimes.getValue(time);
+            SUMOReal split = (SUMOReal) (myTravelTimes.getSplitTime(time, time + (SUMOTime)inTT) - time);
+            if (split >= 0) {
+                return myTravelTimes.getValue(time + (SUMOTime)inTT) * ((SUMOReal)1. - split / inTT) + split;
+            }
+        }
         return myTravelTimes.getValue(time);
     }
-    return value;
+    // ok, no absolute value was found, use the normal value (without)
+    //  weight as default
+    return (SUMOReal)(myLength / mySpeed);
 }
 
 
