@@ -57,7 +57,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane) throw()
         : MSMoveReminder(lane), sampleSeconds(0), CO2(0), CO(0), HC(0),
-        NOx(0), PMx(0), fuel(0) {}
+        NOx(0), PMx(0), fuel(0), vehicleNo(0) {}
 
 
 MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -254,7 +254,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
         }
         if (myDumpEmptyEdges||samplesS>0) {
             SUMOReal length = (*edge->getLanes())[0]->length();
-            dev<<std::setiosflags(std::ios::scientific|std::ios::floatfield);
+            dev<<std::resetiosflags(std::ios::floatfield);
             dev<<"      <edge id=\""<<edge->getID()<<
             "\" sampledSeconds=\""<< samplesS <<
             "\" CO_abs=\""<< SUMOReal(coS*1000.) <<
@@ -277,9 +277,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
                 "\" NOx_perVeh=\""<<SUMOReal(normPerVeh(noxS, samplesS, vehicleNoS))<<
                 "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(fuelS, samplesS, vehicleNoS));
             }
-            dev<<std::setiosflags(std::ios::fixed | std::ios::floatfield); // use decimal format
-            dev<<std::setiosflags(std::ios::showpoint); // print decimal point
-            dev << std::setprecision(2);
+            dev<<std::setiosflags(std::ios::fixed); // use decimal format
             dev<<"\"/>\n";
         }
     }
@@ -301,7 +299,7 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
         }
         laneValues.getLane()->releaseVehicles();
         SUMOReal length = laneValues.getLane()->length();
-        dev<<std::setiosflags(std::ios::scientific|std::ios::floatfield);
+        dev<<std::resetiosflags(std::ios::floatfield);
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
         "\" sampledSeconds=\""<< laneValues.sampleSeconds <<
         "\" CO_abs=\""<<SUMOReal(laneValues.CO*1000.) <<
@@ -325,9 +323,7 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
             "\" fuel_perVeh=\""<<SUMOReal(normPerVeh(laneValues.fuel, laneValues.sampleSeconds, oVehNo));
         }
         dev<<"\"/>\n";
-        dev<<std::setiosflags(std::ios::fixed | std::ios::floatfield); // use decimal format
-        dev<<std::setiosflags(std::ios::showpoint); // print decimal point
-        dev << std::setprecision(2);
+        dev<<std::setiosflags(std::ios::fixed); // use decimal format
         laneValues.vehicleNo = nVehNo;
     }
     laneValues.reset();
