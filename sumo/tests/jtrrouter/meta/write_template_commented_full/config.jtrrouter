@@ -58,6 +58,9 @@
         <!-- Tries to correct a false route -->
         <repair value="false"/>
 
+        <!-- Interpolate edge weights at interval boundaries -->
+        <interpolate value="false"/>
+
         <!--  -->
         <max-edges-factor value="2"/>
 

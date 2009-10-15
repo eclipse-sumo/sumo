@@ -24,6 +24,7 @@
         <prune-random value="false"/>
         <remove-loops value="false"/>
         <repair value="false"/>
+        <interpolate value="false"/>
         <max-edges-factor value="2"/>
         <turn-defaults value="30,50,20"/>
         <sinks value=""/>

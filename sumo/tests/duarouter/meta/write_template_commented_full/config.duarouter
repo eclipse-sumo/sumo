@@ -61,6 +61,9 @@
         <!-- Tries to correct a false route -->
         <repair value="false"/>
 
+        <!-- Interpolate edge weights at interval boundaries -->
+        <interpolate value="false"/>
+
         <!-- Expand weights behind the simulation's end -->
         <expand-weights value="false"/>
 

@@ -25,6 +25,7 @@
         <prune-random value="false"/>
         <remove-loops value="false"/>
         <repair value="false"/>
+        <interpolate value="false"/>
         <expand-weights value="false"/>
         <gBeta value="0.3"/>
         <gA value="0.05"/>

@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r7360
+SUMO duarouter Version dev-SVN-r7864
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -40,6 +40,8 @@ Usage: duarouter.exe [OPTION]*
   --prune-random                   
   --remove-loops                   Remove loops at start and end of the route
   --repair                         Tries to correct a false route
+  --interpolate                    Interpolate edge weights at interval
+                                     boundaries
   --expand-weights                 Expand weights behind the simulation's end
   --gBeta FLOAT                    Use FLOAT as Gawron's beta
   --gA FLOAT                       Use FLOAT as Gawron's alpha
