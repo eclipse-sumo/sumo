@@ -256,7 +256,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             meanData.reset();
             isFirst = false;
         }
-        if (myDumpEmptyEdges||nVehS>0) {
+        if (myDumpEmptyEdges||nVehS>0||noEmissionsS>0) {
             meanDensityS = meanDensityS / (SUMOReal) noSegments;
             meanOccupancyS = meanOccupancyS / (SUMOReal) noSegments / (SUMOReal) edge->nLanes();
             meanSpeedS = noNotEmpty!=0 ? meanSpeedS / (SUMOReal) noNotEmpty : 0;
