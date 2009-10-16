@@ -1,4 +1,4 @@
-performance_variation_%:50
+performance_variation_%:60
 
 [run_dependent_text]
 output:Duration:
