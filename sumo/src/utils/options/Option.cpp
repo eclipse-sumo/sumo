@@ -499,7 +499,7 @@ Option_IntVector::set(const std::string &v) throw(InvalidArgument) {
         if (v.find(';')!=string::npos) {
             MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         }
-        StringTokenizer st(v, ";, ", true);
+        StringTokenizer st(v, ";,", true);
         while (st.hasNext()) {
             myValue.push_back(TplConvert<char>::_2int(st.next().c_str()));
         }
