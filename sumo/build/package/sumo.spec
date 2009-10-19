@@ -1,10 +1,10 @@
 #
-# spec file for package sumo (Version 0.10.3)
+# spec file for package sumo (Version 0.11.0)
 #
 # norootforbuild
 Name:           sumo
 Summary:        Microscopic Traffic Simulation
-Version:        0.10.3
+Version:        0.11.0
 Release:        1
 Url:            http://sumo.sourceforge.net/
 Source0:        %{name}-%{version}.tar.bz2
