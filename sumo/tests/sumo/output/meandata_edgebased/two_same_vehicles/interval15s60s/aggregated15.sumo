@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/20/09 08:24:29 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 10/20/09 22:38:06 by SUMO sumo Version dev-SVN-r7871
 <configuration>
 
     <input>
@@ -23,7 +23,7 @@
 
 <netstats>
    <interval begin="0" end="15" id="dump_15">
-      <edge id="4/1to3/1" traveltime="39.05" sampledSeconds="25.00" density="4.27" occupancy="2.13" noStops="0" speed="10.00" entered="0" emitted="2" left="0" flow="153.65"/>
+      <edge id="4/1to3/1" traveltime="39.05" sampledSeconds="23.00" density="3.93" occupancy="1.96" noStops="0" speed="10.00" entered="0" emitted="2" left="0" flow="141.36"/>
    </interval>
    <interval begin="15" end="30" id="dump_15">
       <edge id="4/1to3/1" traveltime="39.05" sampledSeconds="30.00" density="5.12" occupancy="2.56" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
@@ -46,7 +46,7 @@
       <edge id="2/1to1/1" traveltime="39.05" sampledSeconds="30.00" density="5.12" occupancy="2.56" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
    </interval>
    <interval begin="105" end="120" id="dump_15">
-      <edge id="1/1to0/1" traveltime="39.05" sampledSeconds="1.70" density="0.29" occupancy="0.15" noStops="0" speed="10.00" entered="2" emitted="0" left="0" flow="10.45"/>
+      <edge id="1/1to0/1" traveltime="39.05" sampledSeconds="1.70" density="0.29" occupancy="0.15" noStops="0" speed="10.00" entered="2" emitted="0" left="2" flow="10.45"/>
       <edge id="2/1to1/1" traveltime="39.05" sampledSeconds="11.30" density="1.93" occupancy="0.96" noStops="0" speed="10.00" entered="0" emitted="0" left="2" flow="69.45"/>
    </interval>
    <interval begin="120" end="135" id="dump_15">

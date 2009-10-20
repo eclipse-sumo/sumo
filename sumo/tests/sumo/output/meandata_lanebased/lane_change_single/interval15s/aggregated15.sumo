@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/20/09 22:38:17 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="15" id="dump_15">
+      <edge id="1si">
+         <lane id="1si_0" traveltime="23.72" sampledSeconds="1.00" density="0.28" occupancy="0.14" noStops="0" speed="10.00" entered="0" emitted="1" left="1" flow="10.12"/>
+         <lane id="1si_1" traveltime="23.72" sampledSeconds="1.00" density="0.28" occupancy="0.14" noStops="0" speed="10.00" entered="1" emitted="0" left="1" flow="10.12"/>
+         <lane id="1si_2" traveltime="24.96" sampledSeconds="12.00" density="3.37" occupancy="1.69" noStops="0" speed="9.50" entered="1" emitted="0" left="0" flow="115.39"/>
+      </edge>
+   </interval>
+   <interval begin="15" end="30" id="dump_15">
+      <edge id="1si">
+         <lane id="1si_2" traveltime="1136.81" sampledSeconds="15.00" density="4.22" occupancy="2.11" noStops="13" speed="0.21" entered="0" emitted="0" left="0" flow="3.17"/>
+      </edge>
+   </interval>
+   <interval begin="30" end="45" id="dump_15">
+      <edge id="1si">
+         <lane id="1si_2" traveltime="1000000.00" sampledSeconds="15.00" density="4.22" occupancy="2.11" noStops="15" speed="0.00" entered="0" emitted="0" left="0" flow="0.00"/>
+      </edge>
+   </interval>
+   <interval begin="45" end="60" id="dump_15">
+      <edge id="1si">
+         <lane id="1si_2" traveltime="296.44" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="0.80" entered="0" emitted="0" left="1" flow="0.00"/>
+      </edge>
+      <edge id="4o">
+         <lane id="4o_0" traveltime="610.81" sampledSeconds="1.00" density="0.14" occupancy="0.07" noStops="0" speed="0.80" entered="1" emitted="0" left="1" flow="0.39"/>
+      </edge>
+   </interval>
+   <interval begin="60" end="75" id="dump_15">
+   </interval>
+   <interval begin="75" end="90" id="dump_15">
+   </interval>
+   <interval begin="90" end="105" id="dump_15">
+   </interval>
+   <interval begin="105" end="120" id="dump_15">
+   </interval>
+   <interval begin="120" end="135" id="dump_15">
+   </interval>
+   <interval begin="135" end="150" id="dump_15">
+   </interval>
+</netstats>

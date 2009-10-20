@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/20/09 08:24:41 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 10/20/09 22:38:12 by SUMO sumo Version dev-SVN-r7871
 <configuration>
 
     <input>
@@ -24,7 +24,7 @@
 <netstats>
    <interval begin="0" end="15" id="dump_15">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="15.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="1" left="0" flow="92.19"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="14.00" density="2.39" occupancy="1.20" noStops="0" speed="10.00" entered="0" emitted="1" left="0" flow="86.04"/>
       </edge>
    </interval>
    <interval begin="15" end="30" id="dump_15">
@@ -65,7 +65,7 @@
    </interval>
    <interval begin="105" end="120" id="dump_15">
       <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="0.85" density="0.15" occupancy="0.07" noStops="0" speed="10.00" entered="1" emitted="0" left="0" flow="5.22"/>
+         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="0.85" density="0.15" occupancy="0.07" noStops="0" speed="10.00" entered="1" emitted="0" left="1" flow="5.22"/>
       </edge>
       <edge id="2/1to1/1">
          <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="3.15" density="0.54" occupancy="0.27" noStops="0" speed="10.00" entered="0" emitted="0" left="1" flow="19.36"/>

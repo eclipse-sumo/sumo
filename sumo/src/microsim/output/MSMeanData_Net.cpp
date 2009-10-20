@@ -56,7 +56,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane) throw()
         : MSMoveReminder(lane), sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
-        travelledDistance(0), haltSum(0), vehLengthSum(0),
+        nLaneChanges(0), travelledDistance(0), haltSum(0), vehLengthSum(0),
         nVehEmitted(0) {}
 
 
@@ -69,6 +69,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset() throw() {
     nVehEmitted = 0;
     nVehEnteredLane = 0;
     nVehLeftLane = 0;
+    nLaneChanges = 0;
     sampleSeconds = 0.;
     travelledDistance = 0;
     haltSum = 0;
@@ -81,6 +82,7 @@ MSMeanData_Net::MSLaneMeanDataValues::add(MSMeanData_Net::MSLaneMeanDataValues &
     nVehEmitted += val.nVehEmitted;
     nVehEnteredLane += val.nVehEnteredLane;
     nVehLeftLane += val.nVehLeftLane;
+    nLaneChanges += val.nLaneChanges;
     sampleSeconds += val.sampleSeconds;
     travelledDistance += val.travelledDistance;
     haltSum += val.haltSum;
@@ -118,26 +120,19 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
 }
 
 
+void
+MSMeanData_Net::MSLaneMeanDataValues::dismissOnLeavingLane(MSVehicle& veh) throw() {
+    ++nVehLeftLane;
+}
+
+
 bool
 MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
-    ++nVehEmitted;
-    SUMOReal l = veh.getVehicleType().getLength();
-    SUMOReal fraction = 1.;
-    if (veh.getPositionOnLane()+l>getLane()->length()) {
-        fraction = l - (getLane()->length()-veh.getPositionOnLane());
-    }
-    if (fraction<0) {
-        MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
-        return false;
-    }
-    if (fraction==0) {
-        return false;
-    }
-    sampleSeconds += fraction;
-    travelledDistance += veh.getSpeed() * fraction;
-    vehLengthSum += l * fraction;
-    if (veh.getSpeed()<0.1) { // !!! swell
-        haltSum++;
+    if (isEmit) {
+        ++nVehEmitted;
+    } else {
+        ++nVehEnteredLane;
+        ++nLaneChanges;
     }
     return true;
 }
@@ -246,7 +241,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         bool writeCheck = myDumpEmpty;
         if (!writeCheck) {
             for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-                if ((*lane)->sampleSeconds>0||(*lane)->nVehEmitted>0) {
+                if ((*lane)->sampleSeconds>0||(*lane)->nVehEmitted>0||(*lane)->nVehEnteredLane>0) {
                     writeCheck = true;
                     break;
                 }
@@ -269,6 +264,8 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             sumData.add(meanData);
             meanData.reset();
         }
+        sumData.nVehEnteredLane -= sumData.nLaneChanges;
+        sumData.nVehLeftLane -= sumData.nLaneChanges;
         writeValues(dev, "<edge id=\""+edge->getID(),
                     sumData, (SUMOReal)(stopTime - startTime),
                     edgeValues.front()->getLane()->length(), (SUMOReal)edge->nLanes(),
@@ -281,7 +278,7 @@ void
 MSMeanData_Net::writeValues(OutputDevice &dev, std::string prefix,
                             MSLaneMeanDataValues &values, SUMOReal period,
                             SUMOReal length, SUMOReal numLanes, SUMOReal maxSpeed) throw(IOError) {
-    if (myDumpEmpty||values.sampleSeconds>0||values.nVehEmitted>0) {
+    if (myDumpEmpty||values.sampleSeconds>0||values.nVehEmitted>0||values.nVehEnteredLane>0) {
         SUMOReal meanDensity = values.sampleSeconds / period * (SUMOReal) 1000 / length;
         SUMOReal meanOccupancy = values.vehLengthSum / period / length / numLanes * (SUMOReal) 100;
         SUMOReal meanSpeed = maxSpeed;

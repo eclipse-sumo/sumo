@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/20/09 22:38:08 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="15" id="dump_15">
+      <edge id="1si" traveltime="41.99" sampledSeconds="23.00" density="6.47" occupancy="1.08" noStops="0" speed="5.65" entered="0" emitted="2" left="0" flow="131.46"/>
+   </interval>
+   <interval begin="15" end="30" id="dump_15">
+      <edge id="1si" traveltime="51.21" sampledSeconds="30.00" density="8.43" occupancy="1.41" noStops="0" speed="4.63" entered="0" emitted="0" left="0" flow="140.60"/>
+   </interval>
+   <interval begin="30" end="45" id="dump_15">
+      <edge id="1si" traveltime="15924.03" sampledSeconds="30.00" density="8.43" occupancy="1.41" noStops="29" speed="0.01" entered="0" emitted="0" left="0" flow="0.45"/>
+   </interval>
+   <interval begin="45" end="60" id="dump_15">
+      <edge id="1si" traveltime="196.80" sampledSeconds="4.17" density="1.17" occupancy="0.20" noStops="1" speed="1.21" entered="0" emitted="0" left="2" flow="5.08"/>
+      <edge id="4o" traveltime="283.14" sampledSeconds="1.83" density="0.25" occupancy="0.13" noStops="0" speed="1.73" entered="2" emitted="0" left="2" flow="1.55"/>
+   </interval>
+   <interval begin="60" end="75" id="dump_15">
+   </interval>
+   <interval begin="75" end="90" id="dump_15">
+   </interval>
+   <interval begin="90" end="105" id="dump_15">
+   </interval>
+   <interval begin="105" end="120" id="dump_15">
+   </interval>
+   <interval begin="120" end="135" id="dump_15">
+   </interval>
+   <interval begin="135" end="150" id="dump_15">
+   </interval>
+</netstats>

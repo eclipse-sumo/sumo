@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/20/09 08:24:48 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 10/20/09 22:38:15 by SUMO sumo Version dev-SVN-r7871
 <configuration>
 
     <input>
@@ -27,12 +27,12 @@
          <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="54.90" density="2.34" occupancy="2.24" noStops="0" speed="10.00" entered="2" emitted="0" left="0" flow="84.35"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="60.10" density="2.57" occupancy="2.57" noStops="0" speed="10.00" entered="0" emitted="2" left="2" flow="92.34"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="58.10" density="2.48" occupancy="2.48" noStops="0" speed="10.00" entered="0" emitted="2" left="2" flow="89.27"/>
       </edge>
    </interval>
    <interval begin="60" end="120" id="dump_60">
       <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="1.70" density="0.07" occupancy="0.07" noStops="0" speed="10.00" entered="2" emitted="0" left="0" flow="2.61"/>
+         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="1.70" density="0.07" occupancy="0.07" noStops="0" speed="10.00" entered="2" emitted="0" left="2" flow="2.61"/>
       </edge>
       <edge id="2/1to1/1">
          <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="78.10" density="3.33" occupancy="3.33" noStops="0" speed="10.00" entered="2" emitted="0" left="2" flow="120.00"/>

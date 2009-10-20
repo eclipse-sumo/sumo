@@ -112,6 +112,15 @@ public:
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
+        /** @brief Called if the vehicle leaves the reminder's lane
+         *
+         * @param veh The leaving vehicle.
+         * @see MSMoveReminder
+         * @see MSMoveReminder::dismissOnLeavingLane
+         */
+        void dismissOnLeavingLane(MSVehicle& veh) throw();
+
+
         /** @brief Computes current emission values and adds them to their sums
          *
          * The fraction of time the vehicle is on the lane is computed and
@@ -123,7 +132,7 @@ public:
          * @see MSMoveReminder::isActivatedByEmitOrLaneChange
          * @return Always true
          */
-        virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
         //@}
 
 
@@ -139,6 +148,9 @@ public:
 
         /// @brief The number of vehicles that left this lane within the sample intervall
         unsigned nVehLeftLane;
+
+        /// @brief The number of vehicles that changed to this lane
+        unsigned nLaneChanges;
 
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;

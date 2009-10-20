@@ -13,15 +13,17 @@ two_vehicles_diff_speed
 # two vehicles are moving; the first is 5m long, the second 15m
 two_vehicles_diff_length
 
+# two vehicles are moving and change lanes
+lane_change
+
+# a single vehicle changing lanes
+lane_change_single
 
 # Testing begin/end attributes usage
 begin_end
 
-
 # Testing error cases
 errors
-
-
 
 # a jam test (20 vehicles waiting)
 jam1
@@ -31,6 +33,3 @@ jam2
 
 # a jam test (79 vehicles waiting)
 jam3
-
-
-
