@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/20/09 11:47:22 by SUMO duarouter Version dev-SVN-r7877
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <weights value="CO\input_weights.dump.xml"/>
+        <measure value="CO"/>
+        <trip-defs value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>

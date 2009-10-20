@@ -1,0 +1,5 @@
+<tripdefs>
+    <tripdef depart="0" from="beg" to="rend"/>
+    <tripdef depart="100" from="beg" to="rend"/>
+    <tripdef depart="200" from="beg" to="rend"/>
+</tripdefs>
