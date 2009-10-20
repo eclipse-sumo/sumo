@@ -154,7 +154,7 @@ public:
             }
             minimumInfo->visited = true;
             const SUMOReal effort = minimumInfo->effort + getEffort(minEdge, vehicle, (SUMOTime) minimumInfo->leaveTime);
-            const SUMOReal leaveTime = minimumInfo->leaveTime + getTravelTime(minEdge, vehicle, time + (SUMOTime)minimumInfo->leaveTime);
+            const SUMOReal leaveTime = minimumInfo->leaveTime + getTravelTime(minEdge, vehicle, (SUMOTime)minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
             unsigned int i = 0;
             unsigned int length_size = minEdge->getNoFollowing();
