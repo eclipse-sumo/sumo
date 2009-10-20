@@ -56,8 +56,8 @@
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane) throw()
         : MSMoveReminder(lane), sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
-        speedSum(0), haltSum(0), vehLengthSum(0),
-        emitted(0) {}
+        travelledDistance(0), haltSum(0), vehLengthSum(0),
+        nVehEmitted(0) {}
 
 
 MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -66,40 +66,51 @@ MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::reset() throw() {
-    sampleSeconds = 0.;
-    nVehLeftLane = 0;
+    nVehEmitted = 0;
     nVehEnteredLane = 0;
-    speedSum = 0;
+    nVehLeftLane = 0;
+    sampleSeconds = 0.;
+    travelledDistance = 0;
     haltSum = 0;
     vehLengthSum = 0;
-    emitted = 0;
+}
+
+
+void
+MSMeanData_Net::MSLaneMeanDataValues::add(MSMeanData_Net::MSLaneMeanDataValues &val) throw() {
+    nVehEmitted += val.nVehEmitted;
+    nVehEnteredLane += val.nVehEnteredLane;
+    nVehLeftLane += val.nVehLeftLane;
+    sampleSeconds += val.sampleSeconds;
+    travelledDistance += val.travelledDistance;
+    haltSum += val.haltSum;
+    vehLengthSum += val.vehLengthSum;
 }
 
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     bool ret = true;
-    SUMOReal l = veh.getVehicleType().getLength();
-    SUMOReal fraction = 1.;
+    SUMOReal timeOnLane = DELTA_T;
     if (oldPos<0&&newSpeed!=0) {
-        fraction = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
+        timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
         ++nVehEnteredLane;
     }
     if (oldPos+SPEED2DIST(newSpeed)>getLane()->length()&&newSpeed!=0) {
-        fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
+        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
         ++nVehLeftLane;
         ret = false;
     }
-    if (fraction<0) {
+    if (timeOnLane<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
     }
-    if (fraction==0) {
+    if (timeOnLane==0) {
         return false;
     }
-    sampleSeconds += fraction;
-    speedSum += newSpeed * fraction;
-    vehLengthSum += l * fraction;
+    sampleSeconds += timeOnLane;
+    travelledDistance += newSpeed * timeOnLane;
+    vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
     if (newSpeed<0.1) { // !!! swell
         haltSum++;
     }
@@ -109,7 +120,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
-    ++emitted;
+    ++nVehEmitted;
     SUMOReal l = veh.getVehicleType().getLength();
     SUMOReal fraction = 1.;
     if (veh.getPositionOnLane()+l>getLane()->length()) {
@@ -123,7 +134,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& v
         return false;
     }
     sampleSeconds += fraction;
-    speedSum += veh.getSpeed() * fraction;
+    travelledDistance += veh.getSpeed() * fraction;
     vehLengthSum += l * fraction;
     if (veh.getSpeed()<0.1) { // !!! swell
         haltSum++;
@@ -141,10 +152,10 @@ MSMeanData_Net::MSMeanData_Net(const std::string &id,
                                SUMOTime dumpBegin,
                                SUMOTime dumpEnd,
                                bool useLanes,
-                               bool withEmptyEdges, bool withEmptyLanes) throw()
+                               bool withEmpty) throw()
         : myID(id),
         myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
-        myDumpEmptyEdges(withEmptyEdges), myDumpEmptyLanes(withEmptyLanes) {
+        myDumpEmpty(withEmpty) {
     const std::vector<MSEdge*> &edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         std::vector<MSLaneMeanDataValues*> v;
@@ -206,182 +217,91 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                           MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(edge);
-        SUMOReal flowOut = 0;
-        SUMOReal flowMean = 0;
-        SUMOReal meanDensityS = 0;
-        SUMOReal meanOccupancyS = 0;
-        SUMOReal meanSpeedS = 0;
-        SUMOReal traveltimeS = 0;
-        unsigned noStopsS = 0;
-        unsigned noEmissionsS = 0;
-        unsigned noLeftS = 0;
-        unsigned noEnteredS = 0;
-        SUMOReal nVehS = 0;
+        MSLaneMeanDataValues sumData(0);
+        unsigned entered;
         SUMOReal absLen = 0;
-        int noSegments = 0;
-        int noNotEmpty = 0;
         bool isFirst = true;
-        while (s!=0) {
-            SUMOReal traveltime = -42;
-            SUMOReal meanSpeed = -43;
-            SUMOReal meanDensity = -45;
-            SUMOReal meanOccupancy = -46;
+        for (MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(edge); s!=0; s = s->getNextSegment()) {
             MSLaneMeanDataValues& meanData = s->getDetectorData(this);
             s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime);
-            conv(meanData, (stopTime-startTime),
-                 s->getLength(), s->getMaxSpeed(),
-                 traveltime, meanSpeed, meanDensity, meanOccupancy);
-            meanDensityS += meanDensity;
-            meanOccupancyS += meanOccupancy;
-            traveltimeS += traveltime;
-            noStopsS += meanData.haltSum;
-            noEmissionsS += meanData.emitted;
+            sumData.add(meanData);
             if (isFirst) {
-                noEnteredS += meanData.nVehEnteredLane;
+                entered = meanData.nVehEnteredLane;
+                isFirst = false;
             }
-            nVehS += meanData.sampleSeconds;
-            flowMean += meanData.nVehLeftLane;
-            if (meanData.sampleSeconds>0) {
-                meanSpeedS += meanSpeed;
-                noNotEmpty++;
-            }
-            noSegments++;
+            sumData.nVehLeftLane = meanData.nVehLeftLane;
             absLen += s->getLength();
-            if (s->getNextSegment()==0) {
-                flowOut = meanData.nVehLeftLane;
-                noLeftS = meanData.nVehLeftLane;
-            }
-            s = s->getNextSegment();
             meanData.reset();
-            isFirst = false;
         }
-        if (myDumpEmptyEdges||nVehS>0||noEmissionsS>0) {
-            meanDensityS = meanDensityS / (SUMOReal) noSegments;
-            meanOccupancyS = meanOccupancyS / (SUMOReal) noSegments / (SUMOReal) edge->nLanes();
-            meanSpeedS = noNotEmpty!=0 ? meanSpeedS / (SUMOReal) noNotEmpty : 0;
-            if (nVehS==0) {
-                meanSpeedS = MSGlobals::gMesoNet->getSegmentForEdge(edge)->getMaxSpeed();
-            } else {
-                if (meanSpeedS>0) {
-                    traveltimeS = absLen / meanSpeedS;
-                } else {
-                    traveltimeS = (SUMOReal) 1000000.00;
-                }
-            }
-            flowMean /= (SUMOReal) noSegments;
-            dev<<"      <edge id=\""<<edge->getID()<<
-            "\" traveltime=\""<<traveltimeS<<
-            "\" sampledSeconds=\""<< nVehS <<
-            "\" density=\""<<meanDensityS<<
-            "\" occupancy=\""<<meanOccupancyS<<
-            //"\" noStops=\""<<noStopsS<<
-            "\" speed=\""<<meanSpeedS<<
-            "\" entered=\""<<noEnteredS<<
-            "\" emitted=\""<<noEmissionsS<<
-            "\" left=\""<<noLeftS<<
-            "\" flowMean=\""<<(flowMean*3600./((SUMOReal)(stopTime-startTime)))<<
-            "\" flow=\""<<(flowOut*3600./((SUMOReal)(stopTime-startTime)))<<
-            "\"/>\n";
-        }
-    } else {
-#endif
-        std::vector<MSLaneMeanDataValues*>::const_iterator lane;
-        if (!myAmEdgeBased) {
-            bool writeCheck = myDumpEmptyEdges;
-            if (!writeCheck) {
-                for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-                    if ((*lane)->sampleSeconds>0) {
-                        writeCheck = true;
-                        break;
-                    }
-                }
-            }
-            if (writeCheck) {
-                dev<<"      <edge id=\""<<edge->getID()<<"\">\n";
-                for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-                    writeLane(dev, *(*lane), startTime, stopTime);
-                }
-                dev<<"      </edge>\n";
-            }
-        } else {
-            SUMOReal traveltimeS = 0;
-            SUMOReal meanSpeedS = 0;
-            SUMOReal meanDensityS = 0;
-            unsigned noStopsS = 0;
-            SUMOReal nVehS = 0;
-            SUMOReal meanOccupancyS = 0;
-            unsigned noEmissionsS = 0;
-            unsigned noLeftS = 0;
-            unsigned noEnteredS = 0;
-            SUMOReal noLanes = 0;
-            for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane, noLanes += 1) {
-                MSLaneMeanDataValues& meanData = *(*lane);
-                // calculate mean data
-                SUMOReal traveltime = -42;
-                SUMOReal meanSpeed = -43;
-                SUMOReal meanDensity = -45;
-                SUMOReal meanOccupancy = -46;
-                conv(meanData, (stopTime-startTime),
-                     (*lane)->getLane()->length(), (*lane)->getLane()->maxSpeed(),
-                     traveltime, meanSpeed, meanDensity, meanOccupancy);
-                traveltimeS += traveltime;
-                meanSpeedS += meanSpeed;
-                meanDensityS += meanDensity;
-                meanOccupancyS += meanOccupancy;
-                noStopsS += meanData.haltSum;
-                noEmissionsS += meanData.emitted;
-                noLeftS += meanData.nVehLeftLane;
-                noEnteredS += meanData.nVehEnteredLane;
-                nVehS += meanData.sampleSeconds;
-                meanData.reset();
-            }
-            if (myDumpEmptyEdges||nVehS>0) {
-                dev<<"      <edge id=\""<<edge->getID()<<
-                "\" traveltime=\""<<(traveltimeS/noLanes)<<
-                "\" sampledSeconds=\""<< nVehS <<
-                "\" density=\""<<meanDensityS<<
-                "\" occupancy=\""<<(meanOccupancyS/noLanes)<<
-                "\" noStops=\""<<noStopsS<<
-                "\" speed=\""<<(meanSpeedS/noLanes)<<
-                "\" entered=\""<<noEnteredS<<
-                "\" emitted=\""<<noEmissionsS<<
-                "\" left=\""<<noLeftS<<
-                "\"/>\n";
-            }
-        }
-#ifdef HAVE_MESOSIM
+        sumData.nVehEnteredLane = entered;
+        writeValues(dev, "<edge id=\""+edge->getID(),
+                    sumData, (SUMOReal)(stopTime - startTime),
+                    absLen, (SUMOReal)edge->nLanes(),
+                    MSGlobals::gMesoNet->getSegmentForEdge(edge)->getMaxSpeed());
+        return;
     }
 #endif
+    std::vector<MSLaneMeanDataValues*>::const_iterator lane;
+    if (!myAmEdgeBased) {
+        bool writeCheck = myDumpEmpty;
+        if (!writeCheck) {
+            for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
+                if ((*lane)->sampleSeconds>0||(*lane)->nVehEmitted>0) {
+                    writeCheck = true;
+                    break;
+                }
+            }
+        }
+        if (writeCheck) {
+            dev.openTag("edge")<<" id=\""<<edge->getID()<<"\">\n";
+            for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
+                writeValues(dev, "<lane id=\""+(*lane)->getLane()->getID(),
+                            *(*lane), (SUMOReal)(stopTime - startTime),
+                            (*lane)->getLane()->length(), (SUMOReal)1, (*lane)->getLane()->maxSpeed());
+                (*lane)->reset();
+            }
+            dev.closeTag();
+        }
+    } else {
+        MSLaneMeanDataValues sumData(0);
+        for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
+            MSLaneMeanDataValues& meanData = *(*lane);
+            sumData.add(meanData);
+            meanData.reset();
+        }
+        writeValues(dev, "<edge id=\""+edge->getID(),
+                    sumData, (SUMOReal)(stopTime - startTime),
+                    edgeValues.front()->getLane()->length(), (SUMOReal)edge->nLanes(),
+                    edgeValues.front()->getLane()->maxSpeed());
+    }
 }
 
 
 void
-MSMeanData_Net::writeLane(OutputDevice &dev,
-                          MSLaneMeanDataValues &laneValues,
-                          SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    if (myDumpEmptyLanes||laneValues.sampleSeconds>0) {
-        // calculate mean data
-        SUMOReal traveltime = -42;
-        SUMOReal meanSpeed = -43;
-        SUMOReal meanDensity = -44;
-        SUMOReal meanOccupancy = -45;
-        conv(laneValues, (stopTime-startTime),
-             laneValues.getLane()->length(), laneValues.getLane()->maxSpeed(),
-             traveltime, meanSpeed, meanDensity, meanOccupancy);
-        dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
-        "\" traveltime=\""<<traveltime<<
-        "\" sampledSeconds=\""<< laneValues.sampleSeconds <<
+MSMeanData_Net::writeValues(OutputDevice &dev, std::string prefix,
+                            MSLaneMeanDataValues &values, SUMOReal period,
+                            SUMOReal length, SUMOReal numLanes, SUMOReal maxSpeed) throw(IOError) {
+    if (myDumpEmpty||values.sampleSeconds>0||values.nVehEmitted>0) {
+        SUMOReal meanDensity = values.sampleSeconds / period * (SUMOReal) 1000 / length;
+        SUMOReal meanOccupancy = values.vehLengthSum / period / length / numLanes * (SUMOReal) 100;
+        SUMOReal meanSpeed = maxSpeed;
+        if (values.sampleSeconds>0) {
+            meanSpeed = values.travelledDistance / values.sampleSeconds;
+        }
+        SUMOReal traveltime = meanSpeed > 0 ? length / meanSpeed : (SUMOReal) 1000000;
+        SUMOReal flow = values.travelledDistance / length * (SUMOReal) 3600 / period;
+        dev.indent()<<prefix<<"\" traveltime=\""<<traveltime<<
+        "\" sampledSeconds=\""<< values.sampleSeconds <<
         "\" density=\""<<meanDensity<<
         "\" occupancy=\""<<meanOccupancy<<
-        "\" noStops=\""<<laneValues.haltSum<<
+        "\" noStops=\""<<values.haltSum<<
         "\" speed=\""<<meanSpeed<<
-        "\" entered=\""<<laneValues.nVehEnteredLane<<
-        "\" emitted=\""<<laneValues.emitted<<
-        "\" left=\""<<laneValues.nVehLeftLane<<
+        "\" entered=\""<<values.nVehEnteredLane<<
+        "\" emitted=\""<<values.nVehEmitted<<
+        "\" left=\""<<values.nVehLeftLane<<
+        "\" flow=\""<<flow<<
         "\"/>\n";
     }
-    laneValues.reset();
 }
 
 
@@ -390,13 +310,13 @@ MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
     if (myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime) {
-        dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+        dev.openTag("interval")<<" begin=\""<<startTime<<"\" end=\""<<
         stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
         for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
             writeEdge(dev, (*i), *edge, startTime, stopTime);
         }
-        dev<<"   </interval>\n";
+        dev.closeTag();
     } else {
         resetOnly(stopTime);
     }

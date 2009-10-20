@@ -174,11 +174,18 @@ OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
 
 
 OutputDevice&
-OutputDevice::openTag(const string &xmlElement) throw() {
-    string indent(3*myXMLStack.size(), ' ');
-    myXMLStack.push_back(xmlElement);
-    getOStream() << indent << "<" << xmlElement;
+OutputDevice::indent() throw() {
+    getOStream() << string(3*myXMLStack.size(), ' ');
     postWriteHook();
+    return *this;
+}
+
+
+OutputDevice&
+OutputDevice::openTag(const string &xmlElement) throw() {
+    getOStream() << string(3*myXMLStack.size(), ' ') << "<" << xmlElement;
+    postWriteHook();
+    myXMLStack.push_back(xmlElement);
     return *this;
 }
 

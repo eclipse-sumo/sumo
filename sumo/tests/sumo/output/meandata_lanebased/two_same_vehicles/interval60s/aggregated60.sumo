@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:22:19 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 10/20/09 08:24:45 by SUMO sumo Version dev-SVN-r7871
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-   <time>
-      <begin>0</begin>
-      <end>150</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -24,21 +24,21 @@
 <netstats>
    <interval begin="0" end="60" id="dump_60">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="54.90" density="2.34" occupancy="1.17" noStops="0" speed="10.00" entered="2" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="54.90" density="2.34" occupancy="1.17" noStops="0" speed="10.00" entered="2" emitted="0" left="0" flow="84.35"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="60.10" density="2.57" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="2" left="2"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="60.10" density="2.57" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="2" left="2" flow="92.34"/>
       </edge>
    </interval>
    <interval begin="60" end="120" id="dump_60">
       <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="1.70" density="0.07" occupancy="0.04" noStops="0" speed="10.00" entered="2" emitted="0" left="0"/>
+         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="1.70" density="0.07" occupancy="0.04" noStops="0" speed="10.00" entered="2" emitted="0" left="0" flow="2.61"/>
       </edge>
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="78.10" density="3.33" occupancy="1.67" noStops="0" speed="10.00" entered="2" emitted="0" left="2"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="78.10" density="3.33" occupancy="1.67" noStops="0" speed="10.00" entered="2" emitted="0" left="2" flow="120.00"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="23.20" density="0.99" occupancy="0.50" noStops="0" speed="10.00" entered="0" emitted="0" left="2"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="23.20" density="0.99" occupancy="0.50" noStops="0" speed="10.00" entered="0" emitted="0" left="2" flow="35.65"/>
       </edge>
    </interval>
    <interval begin="120" end="150" id="dump_60">

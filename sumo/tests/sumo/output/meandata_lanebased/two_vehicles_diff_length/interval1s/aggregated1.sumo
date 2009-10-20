@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:22:21 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 10/20/09 08:24:47 by SUMO sumo Version dev-SVN-r7871
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
 
-   <time>
-      <begin>0</begin>
-      <end>150</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -24,614 +24,614 @@
 <netstats>
    <interval begin="0" end="1" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="1" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="1" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="1" end="2" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="2" end="3" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="3" end="4" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="4" end="5" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="5" end="6" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="1" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="1" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="6" end="7" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="7" end="8" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="8" end="9" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="9" end="10" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="10" end="11" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="11" end="12" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="12" end="13" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="13" end="14" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="14" end="15" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="15" end="16" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="16" end="17" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="17" end="18" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="18" end="19" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="19" end="20" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="20" end="21" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="21" end="22" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="22" end="23" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="23" end="24" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="24" end="25" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="25" end="26" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="26" end="27" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="27" end="28" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="28" end="29" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="29" end="30" id="dump_1">
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="30" end="31" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="0.95" density="2.43" occupancy="1.22" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="0.95" density="2.43" occupancy="1.22" noStops="0" speed="10.00" entered="1" emitted="0" left="0" flow="87.58"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.05" density="2.69" occupancy="3.91" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.05" density="2.69" occupancy="3.91" noStops="0" speed="10.00" entered="0" emitted="0" left="1" flow="96.80"/>
       </edge>
    </interval>
    <interval begin="31" end="32" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="32" end="33" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="33" end="34" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="34" end="35" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="35" end="36" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.95" density="4.99" occupancy="4.93" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.95" density="4.99" occupancy="4.93" noStops="0" speed="10.00" entered="1" emitted="0" left="0" flow="179.77"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="0.05" density="0.13" occupancy="0.19" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="0.05" density="0.13" occupancy="0.19" noStops="0" speed="10.00" entered="0" emitted="0" left="1" flow="4.61"/>
       </edge>
    </interval>
    <interval begin="36" end="37" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="37" end="38" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="38" end="39" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="39" end="40" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="40" end="41" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="41" end="42" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="42" end="43" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="43" end="44" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="44" end="45" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="45" end="46" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="46" end="47" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="47" end="48" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="48" end="49" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="49" end="50" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="50" end="51" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="51" end="52" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="52" end="53" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="53" end="54" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="54" end="55" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="55" end="56" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="56" end="57" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="57" end="58" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="58" end="59" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="59" end="60" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="60" end="61" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="61" end="62" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="62" end="63" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="63" end="64" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="64" end="65" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="65" end="66" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="66" end="67" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="67" end="68" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="68" end="69" id="dump_1">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="69" end="70" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="0.90" density="2.30" occupancy="1.15" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="0.90" density="2.30" occupancy="1.15" noStops="0" speed="10.00" entered="1" emitted="0" left="0" flow="82.97"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.10" density="2.82" occupancy="3.97" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.10" density="2.82" occupancy="3.97" noStops="0" speed="10.00" entered="0" emitted="0" left="1" flow="101.41"/>
       </edge>
    </interval>
    <interval begin="70" end="71" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="71" end="72" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="72" end="73" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="73" end="74" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="74" end="75" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.90" density="4.87" occupancy="4.74" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.90" density="4.87" occupancy="4.74" noStops="0" speed="10.00" entered="1" emitted="0" left="0" flow="175.16"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="0.10" density="0.26" occupancy="0.38" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="0.10" density="0.26" occupancy="0.38" noStops="0" speed="10.00" entered="0" emitted="0" left="1" flow="9.22"/>
       </edge>
    </interval>
    <interval begin="75" end="76" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="76" end="77" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="77" end="78" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="78" end="79" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="79" end="80" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="80" end="81" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="81" end="82" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="82" end="83" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="83" end="84" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="84" end="85" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="85" end="86" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="86" end="87" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="87" end="88" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="88" end="89" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="89" end="90" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="90" end="91" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="91" end="92" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="92" end="93" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="93" end="94" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="94" end="95" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="95" end="96" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="96" end="97" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="97" end="98" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="98" end="99" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="99" end="100" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="100" end="101" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="101" end="102" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="102" end="103" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="103" end="104" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="104" end="105" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="105" end="106" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="106" end="107" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="107" end="108" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="2.00" density="5.12" occupancy="5.12" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="184.38"/>
       </edge>
    </interval>
    <interval begin="108" end="109" id="dump_1">
       <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="0.85" density="2.18" occupancy="1.09" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="0.85" density="2.18" occupancy="1.09" noStops="0" speed="10.00" entered="1" emitted="0" left="0" flow="78.36"/>
       </edge>
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.15" density="2.94" occupancy="4.03" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.15" density="2.94" occupancy="4.03" noStops="0" speed="10.00" entered="0" emitted="0" left="1" flow="106.02"/>
       </edge>
    </interval>
    <interval begin="109" end="110" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="110" end="111" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="111" end="112" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="112" end="113" id="dump_1">
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="1.00" density="2.56" occupancy="3.84" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="92.19"/>
       </edge>
    </interval>
    <interval begin="113" end="114" id="dump_1">
       <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="0.85" density="2.18" occupancy="3.27" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="0.85" density="2.18" occupancy="3.27" noStops="0" speed="10.00" entered="1" emitted="0" left="0" flow="78.36"/>
       </edge>
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="0.15" density="0.38" occupancy="0.58" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="0.15" density="0.38" occupancy="0.58" noStops="0" speed="10.00" entered="0" emitted="0" left="1" flow="13.83"/>
       </edge>
    </interval>
    <interval begin="114" end="115" id="dump_1">

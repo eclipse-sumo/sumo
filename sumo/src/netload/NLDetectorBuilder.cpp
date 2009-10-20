@@ -599,7 +599,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
     MSDetectorFileOutput *det = 0;
     if (type==""||type=="performance"||type=="traffic") {
         det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(),
-                                 begin, end, isLanes, !excludeEmpty, !excludeEmpty);
+                                 begin, end, isLanes, !excludeEmpty);
     } else if (type=="hbefa") {
         det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
                                    begin, end, isLanes, !excludeEmpty, !excludeEmpty);

@@ -172,6 +172,15 @@ public:
                         const std::string &comment="") throw();
 
 
+    /** @brief Adds indentation
+     *
+     * An intendation, depending on the current xml-element-stack size, is written.
+     *
+     * @returns The OutputDevice for further processing
+     */
+    OutputDevice& indent() throw();
+
+
     /** @brief Opens an XML tag
      *
      * An intendation, depending on the current xml-element-stack size, is written followed

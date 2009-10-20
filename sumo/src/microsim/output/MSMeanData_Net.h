@@ -86,6 +86,9 @@ public:
          */
         void reset() throw();
 
+        /** @brief Add the values to this meanData
+         */
+        void add(MSLaneMeanDataValues& val) throw();
 
         /// @name Methods inherited from MSMoveReminder
         /// @{
@@ -128,26 +131,26 @@ public:
         /// @name Collected values
         /// @{
 
-        /// @brief The number of sampled vehicle movements (in s)
-        SUMOReal sampleSeconds;
-
-        /// @brief The number of vehicles that left this lane within the sample intervall
-        unsigned nVehLeftLane;
+        /// @brief The number of vehicles that were emitted on the lane
+        unsigned nVehEmitted;
 
         /// @brief The number of vehicles that entered this lane within the sample intervall
         unsigned nVehEnteredLane;
 
-        /// @brief The sum of the speeds the vehicles had
-        SUMOReal speedSum;
+        /// @brief The number of vehicles that left this lane within the sample intervall
+        unsigned nVehLeftLane;
+
+        /// @brief The number of sampled vehicle movements (in s)
+        SUMOReal sampleSeconds;
+
+        /// @brief The sum of the distances the vehicles travelled
+        SUMOReal travelledDistance;
 
         /// @brief The number of vehicle probes with v<0.1
         unsigned haltSum;
 
         /// @brief The sum of the lengths the vehicles had
         SUMOReal vehLengthSum;
-
-        /// @brief The number of vehicles that were emitted on the lane
-        unsigned emitted;
         //@}
 
 
@@ -171,7 +174,7 @@ public:
     MSMeanData_Net(const std::string &id,
                    MSEdgeControl &ec, SUMOTime dumpBegin,
                    SUMOTime dumpEnd, bool useLanes,
-                   bool withEmptyEdges, bool withEmptyLanes) throw();
+                   bool withEmpty) throw();
 
 
     /// @brief Destructor
@@ -227,17 +230,17 @@ protected:
                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
-    /** @brief Writes lane values into the given stream
+    /** @brief Writes output values into the given stream
      *
      * @param[in] dev The output device to write the data into
-     * @param[in] laneValues This lane's value collectors
-     * @param[in] startTime First time step the data were gathered
+     * @param[in] laneValues This lane's / edge's value collectors
+     * @param[in] period Length of the period the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeLane(OutputDevice &dev,
-                           MSLaneMeanDataValues &laneValues,
-                           SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    virtual void writeValues(OutputDevice &dev, std::string prefix,
+                             MSLaneMeanDataValues &laneValues, SUMOReal period,
+                             SUMOReal length, SUMOReal numLanes, SUMOReal maxSpeed) throw(IOError);
 
 
     /** @brief Resets network value in order to allow processing of the next interval
@@ -246,50 +249,6 @@ protected:
      * @param [in] edge The last time step that is reported
      */
     void resetOnly(SUMOTime stopTime) throw();
-
-
-    /** @brief Inline function for value conversion
-     *
-     * Uses the given values to compute proper results regarding that
-     *  some lanes may be unused (empty). This method is an inline
-     *  method, because it is used in several places, and is assumed
-     *  to be critical in speed.
-     *
-     * @param [in] values The edge to reset the value of
-     * @param [in] period The edge to reset the value of
-     * @param [in] laneLength The edge to reset the value of
-     * @param [in] laneVMax The edge to reset the value of
-     * @param [out] traveltime The edge to reset the value of
-     * @param [out] meanSpeed The edge to reset the value of
-     * @param [out] meanDensity The edge to reset the value of
-     * @param [out] meanOccupancy The edge to reset the value of
-     */
-    inline void conv(const MSLaneMeanDataValues &values, SUMOTime period,
-                     SUMOReal laneLength, SUMOReal laneVMax,
-                     SUMOReal &traveltime, SUMOReal &meanSpeed,
-                     SUMOReal &meanDensity, SUMOReal &meanOccupancy) throw() {
-
-        if (values.sampleSeconds==0) {
-            assert(laneVMax>=0);
-            traveltime = laneLength / laneVMax;
-            meanSpeed = laneVMax;
-            meanDensity = 0;
-            meanOccupancy = 0;
-        } else {
-            meanSpeed = values.speedSum / values.sampleSeconds;
-            if (meanSpeed==0) {
-                traveltime = 1000000;//std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
-            } else {
-                traveltime = laneLength / meanSpeed;
-            }
-            assert(period!=0);
-            assert(laneLength!=0);
-            meanDensity = values.sampleSeconds /
-                          (SUMOReal) period * (SUMOReal) 1000. / (SUMOReal) laneLength;
-            meanOccupancy = (SUMOReal) values.vehLengthSum /
-                            (SUMOReal) period / (SUMOReal) laneLength * (SUMOReal) 100.;
-        }
-    }
 
 protected:
     /// @brief The id of the detector
@@ -302,7 +261,7 @@ protected:
     SUMOTime myDumpBegin, myDumpEnd;
 
     /// @brief Whether empty lanes/edges shall be written
-    bool myDumpEmptyEdges, myDumpEmptyLanes;
+    bool myDumpEmpty;
 
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MSLaneMeanDataValues*> > myMeasures;
