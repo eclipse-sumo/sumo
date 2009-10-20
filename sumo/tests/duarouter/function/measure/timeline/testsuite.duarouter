@@ -1,4 +1,8 @@
 # Three vehicles; each within an according interval; second should use left
 CO
 
+# Three vehicles; each sing values from the next range; first should use left
+HC_range_override
+
+
 

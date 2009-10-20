@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/13/09 09:40:46 by SUMO sumo Version dev-SVN-r7857
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="routes.duarouter"/>
+        <additional-files value="add.add.xml"/>
+    </input>
+
+    <time>
+        <end value="3600"/>
+    </time>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="100" id="dump_300">
+      <edge id="beg2left" traveltime="1" HC_perVeh="100"/>
+      <edge id="left" traveltime="1" HC_perVeh="100"/>
+      <edge id="left2end" traveltime="1" HC_perVeh="100"/>
+      <edge id="middle" traveltime="1" HC_perVeh="200"/>
+
+      <edge id="beg" traveltime="100" HC_perVeh="0"/>
+      <edge id="end" traveltime="1" HC_perVeh="0"/>
+      <edge id="rend" traveltime="1" HC_perVeh="0"/>
+   </interval>
+
+   <interval begin="100" end="200" id="dump_300">
+      <edge id="beg2left" traveltime="1" HC_perVeh="50"/>
+      <edge id="left" traveltime="1" HC_perVeh="50"/>
+      <edge id="left2end" traveltime="1" HC_perVeh="50"/>
+      <edge id="middle" traveltime="1" HC_perVeh="200"/>
+
+      <edge id="beg" traveltime="100" HC_perVeh="0"/>
+      <edge id="end" traveltime="1" HC_perVeh="0"/>
+      <edge id="rend" traveltime="1" HC_perVeh="0"/>
+   </interval>
+
+   <interval begin="200" end="300" id="dump_300">
+      <edge id="beg2left" traveltime="1" HC_perVeh="100"/>
+      <edge id="left" traveltime="1" HC_perVeh="100"/>
+      <edge id="left2end" traveltime="1" HC_perVeh="100"/>
+      <edge id="middle" traveltime="1" HC_perVeh="200"/>
+
+      <edge id="beg" traveltime="100" HC_perVeh="0"/>
+      <edge id="end" traveltime="1" HC_perVeh="0"/>
+      <edge id="rend" traveltime="1" HC_perVeh="0"/>
+   </interval>
+
+   <interval begin="300" end="400" id="dump_300">
+      <edge id="beg2left" traveltime="1" HC_perVeh="100"/>
+      <edge id="left" traveltime="1" HC_perVeh="100"/>
+      <edge id="left2end" traveltime="1" HC_perVeh="100"/>
+      <edge id="middle" traveltime="1" HC_perVeh="200"/>
+
+      <edge id="beg" traveltime="1" HC_perVeh="0"/>
+      <edge id="end" traveltime="1" HC_perVeh="0"/>
+      <edge id="rend" traveltime="1" HC_perVeh="0"/>
+   </interval>
+</netstats>
