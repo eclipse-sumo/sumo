@@ -7,5 +7,8 @@ defaults
 # Tests whether the end-option is used properly
 endstep
 
+# Tests whether using other measures works
+measure
+
 # shortest path finding related tests
 dijkstra

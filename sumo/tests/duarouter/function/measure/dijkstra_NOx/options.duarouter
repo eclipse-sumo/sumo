@@ -1,0 +1,1 @@
+--measure NOx --weights input_weights.dump.xml --net-file=input_net.net.xml --trip-defs=input_trips.trips.xml -o routes.rou.xml
