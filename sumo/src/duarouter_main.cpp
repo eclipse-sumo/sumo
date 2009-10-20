@@ -115,10 +115,10 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     } else {
         if (net.hasRestrictions()) {
             router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort, &ROEdge::getTravelTime);
         } else {
             router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort, &ROEdge::getTravelTime);
         }
     }
     // process route definitions
