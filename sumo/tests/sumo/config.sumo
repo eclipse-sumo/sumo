@@ -90,6 +90,9 @@ tripinfos:0.0101
 
 [batch_extra_version]
 default:perf
-meso:perf,meso
-msvc8mesox64:perf,meso
-msvc8mesoWin32:perf,meso
+meso:perf
+meso:meso
+msvc8mesox64:perf
+msvc8mesox64:meso
+msvc8mesoWin32:perf
+msvc8mesoWin32:meso
