@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:38 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="15" end="30" id="dump_15">
+      <edge id="4/1to3/1" traveltime="39.20" sampledSeconds="30.00" density="5.10" occupancy="5.10" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="183.67"/>
+   </interval>
+   <interval begin="45" end="60" id="dump_15">
+      <edge id="3/1to2/1" traveltime="39.20" sampledSeconds="30.00" density="5.10" occupancy="5.10" noStops="0" speed="10.00" entered="0" emitted="0" left="0" flow="183.67"/>
+   </interval>
+</netstats>

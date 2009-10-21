@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:17 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="100"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<detector>
+   <interval begin="0" end="100" id="3/1to2/1" nSamples="19.60" speed="10.00" traveltime="9.80" density="0.00" nVehContrib="2" flow="72.00" length="5.00" nVehEntered="2"/>
+</detector>

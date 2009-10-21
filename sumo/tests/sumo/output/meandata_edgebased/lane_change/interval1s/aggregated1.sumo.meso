@@ -1,0 +1,351 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:28 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="1" id="dump_1">
+      <edge id="1si" traveltime="14.11" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="13.89" entered="0" emitted="1" left="0" flow="0.00"/>
+   </interval>
+   <interval begin="1" end="2" id="dump_1">
+      <edge id="1si" traveltime="39.20" sampledSeconds="1.00" density="5.10" occupancy="0.85" noStops="0" speed="5.00" entered="0" emitted="0" left="0" flow="91.84"/>
+   </interval>
+   <interval begin="2" end="3" id="dump_1">
+      <edge id="1si" traveltime="39.20" sampledSeconds="1.00" density="5.10" occupancy="0.85" noStops="0" speed="5.00" entered="0" emitted="0" left="0" flow="91.84"/>
+   </interval>
+   <interval begin="3" end="4" id="dump_1">
+      <edge id="1si" traveltime="39.20" sampledSeconds="1.00" density="5.10" occupancy="0.85" noStops="0" speed="5.00" entered="0" emitted="0" left="0" flow="91.84"/>
+   </interval>
+   <interval begin="4" end="5" id="dump_1">
+      <edge id="1si" traveltime="39.20" sampledSeconds="1.00" density="5.10" occupancy="0.85" noStops="0" speed="5.00" entered="0" emitted="0" left="0" flow="91.84"/>
+   </interval>
+   <interval begin="5" end="6" id="dump_1">
+      <edge id="1si" traveltime="39.20" sampledSeconds="1.00" density="5.10" occupancy="0.85" noStops="0" speed="5.00" entered="0" emitted="1" left="0" flow="91.84"/>
+   </interval>
+   <interval begin="6" end="7" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="7" end="8" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="8" end="9" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="9" end="10" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="10" end="11" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="11" end="12" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="12" end="13" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="13" end="14" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="14" end="15" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="15" end="16" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="16" end="17" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="17" end="18" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="18" end="19" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="19" end="20" id="dump_1">
+      <edge id="1si" traveltime="34.07" sampledSeconds="2.00" density="10.20" occupancy="1.70" noStops="0" speed="5.75" entered="0" emitted="0" left="0" flow="211.31"/>
+   </interval>
+   <interval begin="20" end="21" id="dump_1">
+      <edge id="1si" traveltime="34.37" sampledSeconds="1.60" density="8.16" occupancy="1.36" noStops="0" speed="5.70" entered="0" emitted="0" left="1" flow="167.60"/>
+   </interval>
+   <interval begin="21" end="22" id="dump_1">
+      <edge id="1si" traveltime="241.07" sampledSeconds="1.00" density="5.10" occupancy="0.85" noStops="0" speed="0.81" entered="0" emitted="0" left="1" flow="14.93"/>
+   </interval>
+   <interval begin="22" end="23" id="dump_1">
+   </interval>
+   <interval begin="23" end="24" id="dump_1">
+   </interval>
+   <interval begin="24" end="25" id="dump_1">
+   </interval>
+   <interval begin="25" end="26" id="dump_1">
+   </interval>
+   <interval begin="26" end="27" id="dump_1">
+   </interval>
+   <interval begin="27" end="28" id="dump_1">
+   </interval>
+   <interval begin="28" end="29" id="dump_1">
+   </interval>
+   <interval begin="29" end="30" id="dump_1">
+   </interval>
+   <interval begin="30" end="31" id="dump_1">
+   </interval>
+   <interval begin="31" end="32" id="dump_1">
+   </interval>
+   <interval begin="32" end="33" id="dump_1">
+   </interval>
+   <interval begin="33" end="34" id="dump_1">
+   </interval>
+   <interval begin="34" end="35" id="dump_1">
+   </interval>
+   <interval begin="35" end="36" id="dump_1">
+   </interval>
+   <interval begin="36" end="37" id="dump_1">
+   </interval>
+   <interval begin="37" end="38" id="dump_1">
+   </interval>
+   <interval begin="38" end="39" id="dump_1">
+   </interval>
+   <interval begin="39" end="40" id="dump_1">
+   </interval>
+   <interval begin="40" end="41" id="dump_1">
+   </interval>
+   <interval begin="41" end="42" id="dump_1">
+   </interval>
+   <interval begin="42" end="43" id="dump_1">
+   </interval>
+   <interval begin="43" end="44" id="dump_1">
+   </interval>
+   <interval begin="44" end="45" id="dump_1">
+   </interval>
+   <interval begin="45" end="46" id="dump_1">
+   </interval>
+   <interval begin="46" end="47" id="dump_1">
+   </interval>
+   <interval begin="47" end="48" id="dump_1">
+   </interval>
+   <interval begin="48" end="49" id="dump_1">
+   </interval>
+   <interval begin="49" end="50" id="dump_1">
+   </interval>
+   <interval begin="50" end="51" id="dump_1">
+   </interval>
+   <interval begin="51" end="52" id="dump_1">
+   </interval>
+   <interval begin="52" end="53" id="dump_1">
+   </interval>
+   <interval begin="53" end="54" id="dump_1">
+   </interval>
+   <interval begin="54" end="55" id="dump_1">
+   </interval>
+   <interval begin="55" end="56" id="dump_1">
+   </interval>
+   <interval begin="56" end="57" id="dump_1">
+   </interval>
+   <interval begin="57" end="58" id="dump_1">
+   </interval>
+   <interval begin="58" end="59" id="dump_1">
+   </interval>
+   <interval begin="59" end="60" id="dump_1">
+   </interval>
+   <interval begin="60" end="61" id="dump_1">
+   </interval>
+   <interval begin="61" end="62" id="dump_1">
+   </interval>
+   <interval begin="62" end="63" id="dump_1">
+   </interval>
+   <interval begin="63" end="64" id="dump_1">
+   </interval>
+   <interval begin="64" end="65" id="dump_1">
+   </interval>
+   <interval begin="65" end="66" id="dump_1">
+   </interval>
+   <interval begin="66" end="67" id="dump_1">
+   </interval>
+   <interval begin="67" end="68" id="dump_1">
+   </interval>
+   <interval begin="68" end="69" id="dump_1">
+   </interval>
+   <interval begin="69" end="70" id="dump_1">
+   </interval>
+   <interval begin="70" end="71" id="dump_1">
+   </interval>
+   <interval begin="71" end="72" id="dump_1">
+   </interval>
+   <interval begin="72" end="73" id="dump_1">
+   </interval>
+   <interval begin="73" end="74" id="dump_1">
+   </interval>
+   <interval begin="74" end="75" id="dump_1">
+   </interval>
+   <interval begin="75" end="76" id="dump_1">
+   </interval>
+   <interval begin="76" end="77" id="dump_1">
+   </interval>
+   <interval begin="77" end="78" id="dump_1">
+   </interval>
+   <interval begin="78" end="79" id="dump_1">
+   </interval>
+   <interval begin="79" end="80" id="dump_1">
+   </interval>
+   <interval begin="80" end="81" id="dump_1">
+   </interval>
+   <interval begin="81" end="82" id="dump_1">
+   </interval>
+   <interval begin="82" end="83" id="dump_1">
+   </interval>
+   <interval begin="83" end="84" id="dump_1">
+   </interval>
+   <interval begin="84" end="85" id="dump_1">
+   </interval>
+   <interval begin="85" end="86" id="dump_1">
+   </interval>
+   <interval begin="86" end="87" id="dump_1">
+   </interval>
+   <interval begin="87" end="88" id="dump_1">
+   </interval>
+   <interval begin="88" end="89" id="dump_1">
+   </interval>
+   <interval begin="89" end="90" id="dump_1">
+   </interval>
+   <interval begin="90" end="91" id="dump_1">
+   </interval>
+   <interval begin="91" end="92" id="dump_1">
+   </interval>
+   <interval begin="92" end="93" id="dump_1">
+   </interval>
+   <interval begin="93" end="94" id="dump_1">
+   </interval>
+   <interval begin="94" end="95" id="dump_1">
+   </interval>
+   <interval begin="95" end="96" id="dump_1">
+   </interval>
+   <interval begin="96" end="97" id="dump_1">
+   </interval>
+   <interval begin="97" end="98" id="dump_1">
+   </interval>
+   <interval begin="98" end="99" id="dump_1">
+   </interval>
+   <interval begin="99" end="100" id="dump_1">
+   </interval>
+   <interval begin="100" end="101" id="dump_1">
+   </interval>
+   <interval begin="101" end="102" id="dump_1">
+   </interval>
+   <interval begin="102" end="103" id="dump_1">
+   </interval>
+   <interval begin="103" end="104" id="dump_1">
+   </interval>
+   <interval begin="104" end="105" id="dump_1">
+   </interval>
+   <interval begin="105" end="106" id="dump_1">
+   </interval>
+   <interval begin="106" end="107" id="dump_1">
+   </interval>
+   <interval begin="107" end="108" id="dump_1">
+   </interval>
+   <interval begin="108" end="109" id="dump_1">
+   </interval>
+   <interval begin="109" end="110" id="dump_1">
+   </interval>
+   <interval begin="110" end="111" id="dump_1">
+   </interval>
+   <interval begin="111" end="112" id="dump_1">
+   </interval>
+   <interval begin="112" end="113" id="dump_1">
+   </interval>
+   <interval begin="113" end="114" id="dump_1">
+   </interval>
+   <interval begin="114" end="115" id="dump_1">
+   </interval>
+   <interval begin="115" end="116" id="dump_1">
+   </interval>
+   <interval begin="116" end="117" id="dump_1">
+   </interval>
+   <interval begin="117" end="118" id="dump_1">
+   </interval>
+   <interval begin="118" end="119" id="dump_1">
+   </interval>
+   <interval begin="119" end="120" id="dump_1">
+   </interval>
+   <interval begin="120" end="121" id="dump_1">
+   </interval>
+   <interval begin="121" end="122" id="dump_1">
+   </interval>
+   <interval begin="122" end="123" id="dump_1">
+   </interval>
+   <interval begin="123" end="124" id="dump_1">
+   </interval>
+   <interval begin="124" end="125" id="dump_1">
+   </interval>
+   <interval begin="125" end="126" id="dump_1">
+   </interval>
+   <interval begin="126" end="127" id="dump_1">
+   </interval>
+   <interval begin="127" end="128" id="dump_1">
+   </interval>
+   <interval begin="128" end="129" id="dump_1">
+   </interval>
+   <interval begin="129" end="130" id="dump_1">
+   </interval>
+   <interval begin="130" end="131" id="dump_1">
+   </interval>
+   <interval begin="131" end="132" id="dump_1">
+   </interval>
+   <interval begin="132" end="133" id="dump_1">
+   </interval>
+   <interval begin="133" end="134" id="dump_1">
+   </interval>
+   <interval begin="134" end="135" id="dump_1">
+   </interval>
+   <interval begin="135" end="136" id="dump_1">
+   </interval>
+   <interval begin="136" end="137" id="dump_1">
+   </interval>
+   <interval begin="137" end="138" id="dump_1">
+   </interval>
+   <interval begin="138" end="139" id="dump_1">
+   </interval>
+   <interval begin="139" end="140" id="dump_1">
+   </interval>
+   <interval begin="140" end="141" id="dump_1">
+   </interval>
+   <interval begin="141" end="142" id="dump_1">
+   </interval>
+   <interval begin="142" end="143" id="dump_1">
+   </interval>
+   <interval begin="143" end="144" id="dump_1">
+   </interval>
+   <interval begin="144" end="145" id="dump_1">
+   </interval>
+   <interval begin="145" end="146" id="dump_1">
+   </interval>
+   <interval begin="146" end="147" id="dump_1">
+   </interval>
+   <interval begin="147" end="148" id="dump_1">
+   </interval>
+   <interval begin="148" end="149" id="dump_1">
+   </interval>
+   <interval begin="149" end="150" id="dump_1">
+   </interval>
+</netstats>

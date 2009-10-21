@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:35 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="60" id="dump_60">
+      <edge id="3/1to2/1" traveltime="40.91" sampledSeconds="50.93" density="2.17" occupancy="1.08" noStops="0" speed="9.58" entered="2" emitted="0" left="0" flow="74.69"/>
+      <edge id="4/1to3/1" traveltime="41.38" sampledSeconds="62.07" density="2.64" occupancy="1.32" noStops="0" speed="9.47" entered="0" emitted="2" left="2" flow="90.00"/>
+   </interval>
+   <interval begin="60" end="120" id="dump_60">
+      <edge id="2/1to1/1" traveltime="41.22" sampledSeconds="76.98" density="3.27" occupancy="1.64" noStops="0" speed="9.51" entered="2" emitted="0" left="1" flow="112.04"/>
+      <edge id="3/1to2/1" traveltime="42.14" sampledSeconds="31.82" density="1.35" occupancy="0.68" noStops="0" speed="9.30" entered="0" emitted="0" left="2" flow="45.31"/>
+   </interval>
+   <interval begin="120" end="150" id="dump_60">
+      <edge id="2/1to1/1" traveltime="43.56" sampledSeconds="5.78" density="0.49" occupancy="0.25" noStops="0" speed="9.00" entered="0" emitted="0" left="1" flow="15.92"/>
+   </interval>
+</netstats>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:39 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="600" end="615" id="dump_15">
+   </interval>
+   <interval begin="615" end="630" id="dump_15">
+   </interval>
+   <interval begin="630" end="645" id="dump_15">
+   </interval>
+   <interval begin="645" end="660" id="dump_15">
+   </interval>
+</netstats>

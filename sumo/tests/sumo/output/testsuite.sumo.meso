@@ -1,0 +1,14 @@
+# Tests for e1 detectors (induction loops)
+e1
+
+# Tests for edge-based mean data output (aka "edgedump")
+meandata_edgebased
+
+# Tests for lane-based mean data output (aka "lanedump")
+meandata_lanebased
+
+# Testing the raw dump
+rawdump
+
+# Testing the output of the route probe
+route_probe
