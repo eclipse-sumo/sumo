@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:55 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.routing.probability value="1"/>
+    </routing>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0" depart="0" arrival="71">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_0" depart="20" arrival="91">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_1" depart="40" arrival="111">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_2" depart="60" arrival="131">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_3" depart="80" arrival="151">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_4" depart="100" arrival="171">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_5" depart="120" arrival="191">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_6" depart="140" arrival="211">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_7" depart="160" arrival="231">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_8" depart="180" arrival="251">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="0_9" depart="200" arrival="271">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+</routes>

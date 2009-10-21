@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:56 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <routing>
+        <device.routing.probability value="1"/>
+    </routing>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="0_0" depart="0" arrival="106">
+        <replacedRoute replacedOnEdge="absBeg" replacedAtTime="0" edges="absBeg middle end absEnd"/>
+        <route edges="absBeg beg2left left left2end end absEnd"/>
+   </vehicle>
+
+</routes>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:58 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="0" depart="0" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="71" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="71" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="1" depart="20" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="91" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="71" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="2" depart="40" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="111" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="71" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="3" depart="60" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="131" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="71" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="4" depart="80" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="151" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="71" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+</tripinfos>

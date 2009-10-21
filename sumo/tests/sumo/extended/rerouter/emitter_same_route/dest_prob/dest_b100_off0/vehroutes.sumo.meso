@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:43 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="100"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="emitter_100_0" depart="100" arrival="224">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="100" edges="beg middle end rend"/>
+        <route edges="beg beg2left left left2end"/>
+   </vehicle>
+
+    <vehicle id="emitter_120_1" depart="120" arrival="244">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="120" edges="beg middle end rend"/>
+        <route edges="beg beg2left left left2end"/>
+   </vehicle>
+
+    <vehicle id="emitter_140_2" depart="140" arrival="264">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="140" edges="beg middle end rend"/>
+        <route edges="beg beg2right right right2end"/>
+   </vehicle>
+
+    <vehicle id="emitter_160_3" depart="160" arrival="284">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="160" edges="beg middle end rend"/>
+        <route edges="beg beg2right right right2end"/>
+   </vehicle>
+
+    <vehicle id="emitter_180_4" depart="180" arrival="304">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="180" edges="beg middle end rend"/>
+        <route edges="beg beg2right right right2end"/>
+   </vehicle>
+
+</routes>

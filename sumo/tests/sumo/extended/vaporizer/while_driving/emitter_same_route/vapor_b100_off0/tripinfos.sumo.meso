@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:59 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <begin value="100"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="emitter_100_0" depart="100" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="118" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="18" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized="0"></tripinfo>
+    <tripinfo id="emitter_120_1" depart="120" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="138" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="18" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized="0"></tripinfo>
+    <tripinfo id="emitter_140_2" depart="140" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="158" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="18" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized="0"></tripinfo>
+    <tripinfo id="emitter_160_3" depart="160" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="178" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="18" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized="0"></tripinfo>
+    <tripinfo id="emitter_180_4" depart="180" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="198" arrivalLane="" arrivalPos="" arrivalSpeed="" duration="18" routeLength="2481.00" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized="0"></tripinfo>
+</tripinfos>

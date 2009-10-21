@@ -1,0 +1,15 @@
+
+# testing route loading
+routes
+
+# tests for the traffic lights subsystem, disabled for meso
+# tls
+
+# tests for vehicle type handling
+vtypes
+
+# tests whether vehicles move properly
+dynamics
+
+# tests whether loading networks works
+networks

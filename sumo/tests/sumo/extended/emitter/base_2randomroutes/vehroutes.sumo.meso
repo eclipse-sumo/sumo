@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/21/09 17:55:51 by SUMO sumo Version dev-SVN-r7871
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="emitter_2_2" depart="2" arrival="74">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_3_3" depart="3" arrival="76">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_5_5" depart="5" arrival="80">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_7_7" depart="7" arrival="83">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_0_0" depart="0" arrival="177">
+        <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_1_1" depart="1" arrival="178">
+        <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_4_4" depart="4" arrival="184">
+        <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_6_6" depart="6" arrival="188">
+        <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_8_8" depart="8" arrival="190">
+        <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+
+    <vehicle id="emitter_9_9" depart="9" arrival="192">
+        <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+
+</routes>
