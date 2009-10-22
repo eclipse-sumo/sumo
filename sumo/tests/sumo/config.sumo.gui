@@ -1,3 +1,8 @@
 binary:$TEXTTEST_HOME/guisimrunner.py
 use_case_record_mode:GUI
-batch_extra_version:{CLEAR LIST}
+
+[batch_extra_version]
+meso:{CLEAR perf}
+msvc8mesox64:{CLEAR perf}
+msvc8mesoWin32:{CLEAR perf}
+
