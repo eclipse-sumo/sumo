@@ -113,7 +113,7 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
     sampleSeconds += timeOnLane;
     travelledDistance += newSpeed * timeOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
-    if (newSpeed<0.1) { // !!! swell
+    if (newSpeed<POSITION_EPS) { // !!! swell
         haltSum++;
     }
     return ret;
@@ -279,6 +279,14 @@ MSMeanData_Net::writeValues(OutputDevice &dev, std::string prefix,
                             MSLaneMeanDataValues &values, SUMOReal period,
                             SUMOReal length, SUMOReal numLanes, SUMOReal maxSpeed) throw(IOError) {
     if (myDumpEmpty||values.sampleSeconds>0||values.nVehEmitted>0||values.nVehEnteredLane>0) {
+        // exclude very small fractional data because of floating point errors
+        if (10000.*values.sampleSeconds < DELTA_T) {
+            values.sampleSeconds = 0;
+            values.vehLengthSum = 0;
+        }
+        if (values.travelledDistance < POSITION_EPS) {
+            values.travelledDistance = 0;
+        }
         SUMOReal meanDensity = values.sampleSeconds / period * (SUMOReal) 1000 / length;
         SUMOReal meanOccupancy = values.vehLengthSum / period / length / numLanes * (SUMOReal) 100;
         SUMOReal meanSpeed = maxSpeed;

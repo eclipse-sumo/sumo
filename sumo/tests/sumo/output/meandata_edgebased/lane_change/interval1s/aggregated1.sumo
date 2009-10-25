@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/20/09 22:38:08 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on Sun Oct 25 15:14:56 2009 by SUMO sumo Version dev-SVN-r7891
 <configuration>
 
     <input>
@@ -158,7 +158,7 @@
       <edge id="1si" traveltime="1000000.00" sampledSeconds="2.00" density="8.43" occupancy="1.41" noStops="2" speed="0.00" entered="0" emitted="0" left="0" flow="0.00"/>
    </interval>
    <interval begin="45" end="46" id="dump_1">
-      <edge id="1si" traveltime="5180917.50" sampledSeconds="1.00" density="4.22" occupancy="0.70" noStops="1" speed="0.00" entered="0" emitted="0" left="1" flow="0.00"/>
+      <edge id="1si" traveltime="1000000.00" sampledSeconds="1.00" density="4.22" occupancy="0.70" noStops="1" speed="0.00" entered="0" emitted="0" left="1" flow="0.00"/>
       <edge id="4o" traveltime="610.81" sampledSeconds="1.00" density="2.05" occupancy="1.02" noStops="0" speed="0.80" entered="1" emitted="0" left="1" flow="5.89"/>
    </interval>
    <interval begin="46" end="47" id="dump_1">
