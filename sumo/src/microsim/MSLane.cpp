@@ -690,6 +690,14 @@ MSLane::clear() {
 }
 
 
+void 
+MSLane::insertIDs(std::vector<std::string> &into) throw() {
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
+        into.push_back((*i).first);
+    }
+}
+
+
 bool
 MSLane::push(MSVehicle* veh) {
     // Insert vehicle only if it's destination isn't reached.

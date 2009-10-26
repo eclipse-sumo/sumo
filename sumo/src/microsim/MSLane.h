@@ -363,6 +363,8 @@ public:
         return myDict.size();
     }
 
+    static void insertIDs(std::vector<std::string> &into) throw();
+
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
 
