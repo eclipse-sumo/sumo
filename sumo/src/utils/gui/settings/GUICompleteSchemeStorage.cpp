@@ -155,7 +155,6 @@ GUICompleteSchemeStorage::init(FXApp *app) {
         std::string name = "visset#" + toString(i);
         std::string setting = app->reg().readStringEntry("VisualizationSettings",name.c_str(), "");
         if (setting!="") {
-            size_t j, k;
             GUIVisualizationSettings vs;
 
             vs.name = setting;
