@@ -300,8 +300,8 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
         myBoundary.add(v.positionAtLengthPosition(0));
         Line2D l(v.getBegin(), v.getEnd());
         myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(0));
-        myDefaultSpeed = (*i)->maxSpeed();
-        mySpeedOverrideValue = (*i)->maxSpeed();
+        myDefaultSpeed = (*i)->getMaxSpeed();
+        mySpeedOverrideValue = (*i)->getMaxSpeed();
     }
 }
 

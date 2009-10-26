@@ -64,7 +64,7 @@ MS_E2_ZS_CollectorOverLanes::init(MSLane *lane, SUMOReal detLength,
     if (startPosM==0) {
         startPosM = (SUMOReal) 0.1;
     }
-    SUMOReal length = lane->length() - startPosM - (SUMOReal) 0.1;
+    SUMOReal length = lane->getLength() - startPosM - (SUMOReal) 0.1;
     SUMOReal dlength = detLength;
     if (length>dlength) {
         length = dlength;
@@ -141,8 +141,8 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
                     MSLane *l = *i;
                     // compute detector length
                     SUMOReal lanelen = length - clength;
-                    if (lanelen>l->length()) {
-                        lanelen = l->length() - (SUMOReal) 0.2;
+                    if (lanelen>l->getLength()) {
+                        lanelen = l->getLength() - (SUMOReal) 0.2;
                     }
                     // build new info
                     LaneVector nlv = lv;
@@ -208,8 +208,8 @@ MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
         SUMOReal start, SUMOReal end) throw() {
     string id = makeID(l->getID(), c, r);
-    if (start+end<l->length()) {
-        start = l->length() - end - (SUMOReal) 0.1;
+    if (start+end<l->getLength()) {
+        start = l->getLength() - end - (SUMOReal) 0.1;
     }
     return new MSE2Collector(id, myUsage,
                              l, start, end, haltingTimeThresholdM,

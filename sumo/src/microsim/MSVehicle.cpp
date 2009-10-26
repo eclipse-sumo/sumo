@@ -227,7 +227,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
 #endif
     // build arrival definition
-    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->length();
+    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->getLength();
     if (myArrivalPos < 0) {
         myArrivalPos += lastLaneLength; // !!! validate!
     }
@@ -324,7 +324,7 @@ void
 MSVehicle::adaptLaneEntering2MoveReminder(const MSLane &enteredLane) throw() {
     // save the old work reminders, patching the position information
     //  add the information about the new offset to the old lane reminders
-    SUMOReal oldLaneLength = myLane->length();
+    SUMOReal oldLaneLength = myLane->getLength();
     OffsetVector::iterator i;
     for (i=myOldLaneMoveReminderOffsets.begin(); i!=myOldLaneMoveReminderOffsets.end(); ++i) {
         (*i) += oldLaneLength;
@@ -546,7 +546,7 @@ MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const M
 #endif
     // update position and speed
     myState.myPos += SPEED2DIST(vNext);
-    assert(myState.myPos < lane->length());
+    assert(myState.myPos < lane->getLength());
     myState.mySpeed = vNext;
     //@ to be optimized (move to somewhere else)
     if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
@@ -577,7 +577,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
-        SUMOReal vWish = MIN2(getCarFollowModel().ffeS(this, myLane->length()-myState.myPos), myLane->maxSpeed());
+        SUMOReal vWish = MIN2(getCarFollowModel().ffeS(this, myLane->getLength()-myState.myPos), myLane->getMaxSpeed());
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
             if (MSGlobals::gCheck4Accidents && gap<0) {
@@ -589,15 +589,15 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         getCarFollowModel().leftVehicleVsafe(this, neigh, vWish); // from left-lane leader (do not overtake right)
         // !!! check whether the vehicle wants to stop somewhere
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&lane->getEdge()) {
-            SUMOReal seen = lane->length() - myState.pos();
-            SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(lane->length()-myStops.begin()->pos));
+            SUMOReal seen = lane->getLength() - myState.pos();
+            SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(lane->getLength()-myStops.begin()->pos));
             vWish = MIN2(vWish, vsafeStop);
         }
         vWish = MAX2((SUMOReal) 0, vWish);
         myLFLinkLanes.push_back(DriveProcessItem(0, vWish, vWish, false));
     } else {
         // compute other values as in move
-        SUMOReal vBeg = MIN2(getCarFollowModel().maxNextSpeed(myState.mySpeed), lane->maxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
+        SUMOReal vBeg = MIN2(getCarFollowModel().maxNextSpeed(myState.mySpeed), lane->getMaxSpeed());//vaccel( myState.mySpeed, lane->maxSpeed() );
         if (pred!=0) {
             SUMOReal gap = gap2pred(*pred);
             if (MSGlobals::gCheck4Accidents && gap<0) {
@@ -702,13 +702,13 @@ MSVehicle::moveFirstChecked() {
     // move the vehicle forward
     size_t no = 0;
     SUMOReal driven =
-        myState.myPos>approachedLane->length()
-        ? approachedLane->length() - pos
+        myState.myPos>approachedLane->getLength()
+        ? approachedLane->getLength() - pos
         : myState.myPos - pos;
-    SUMOReal tmpPos = approachedLane->length() + getCarFollowModel().brakeGap(myState.mySpeed);
+    SUMOReal tmpPos = approachedLane->getLength() + getCarFollowModel().brakeGap(myState.mySpeed);
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()
             &&
-            myState.myPos>approachedLane->length();
+            myState.myPos>approachedLane->getLength();
             ++i) {
 
         if (approachedLane!=myLane) {
@@ -719,13 +719,13 @@ MSVehicle::moveFirstChecked() {
         //  otherwise it is decelareted and we do not need to test for it's
         //  approach on the following lanes when a lane changing is performed
         assert(approachedLane!=0);
-        myState.myPos -= approachedLane->length();
-        oldPos -= approachedLane->length();
-        tmpPos -= approachedLane->length();
+        myState.myPos -= approachedLane->getLength();
+        oldPos -= approachedLane->getLength();
+        tmpPos -= approachedLane->getLength();
         assert(myState.myPos>0);
         if (approachedLane!=myLane) {
             enterLaneAtMove(approachedLane, driven);
-            driven += approachedLane->length();
+            driven += approachedLane->getLength();
         }
         // proceed to the next lane
         if (link!=0/*approachedLane->isLinkEnd(link)*/) {
@@ -748,7 +748,7 @@ MSVehicle::moveFirstChecked() {
     }
     myTarget = approachedLane;
     assert(myTarget!=0);
-    assert(myTarget->length()>=myState.myPos);
+    assert(myTarget->getLength()>=myState.myPos);
     setBlinkerInformation();
 }
 
@@ -807,12 +807,12 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 }
                 // the free space on plain lanes is counted
                 // !!!: on longer lanes, only the place some meters in front... (next extension)
-                seenSpace = seenSpace + approachedLane->length() - approachedLane->getVehLenSum();
+                seenSpace = seenSpace + approachedLane->getLength() - approachedLane->getVehLenSum();
                 if (leader==0&&approachedLane->getLastVehicle()!=0) {
                     leader = approachedLane->getLastVehicle();
                     seenSpace += leader->getCarFollowModel().brakeGap(leader->getSpeed());
                 }
-                seenLanes += approachedLane->length();
+                seenLanes += approachedLane->getLength();
                 // we also do not want the vehicle continue if there is not enough place
                 //  behind the last vehicle on the approached lane (and we are currently standing)
                 bool nextDisallows2 = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && approachedLane->getLastVehicle()->getSpeed()<.1;
@@ -862,7 +862,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
 #endif
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
-    SUMOReal seen = myLane->length() - myState.myPos;
+    SUMOReal seen = myLane->getLength() - myState.myPos;
     MSLane *nextLane = myLane;
     // compute the way the vehicle would drive if it would use the current speed and then
     //  decelerate
@@ -880,7 +880,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
     while (true) {
         // process stops
         if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
-            SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(nextLane->length()-myStops.begin()->pos));
+            SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(nextLane->getLength()-myStops.begin()->pos));
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
         }
@@ -888,7 +888,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         // get the next link used
         MSLinkCont::const_iterator link = myLane->succLinkSec(*this, view, *nextLane, bestLaneConts);
         // and the length of the currently investigated lane
-        SUMOReal laneLength = nextLane->length();
+        SUMOReal laneLength = nextLane->getLength();
 
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
@@ -925,7 +925,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         // compute the velocity to use when the link is not blocked by oter vehicles
         // the vehicle shall be not fastern when reaching the next lane than allowed
         SUMOReal vmaxNextLane =
-            MAX2(getCarFollowModel().ffeV(this, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
+            MAX2(getCarFollowModel().ffeV(this, seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
 
         // the vehicle shall keep a secure distance to its predecessor
         //  (or approach the lane end if the predeccessor is too near)
@@ -938,7 +938,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             r_dist2Pred = r_dist2Pred + nextLane->myLastState.pos() - nextLane->getLastVehicle()->getVehicleType().getLength();
         } else {
             // no, no leader; we'll look until the currently investigated lane's end
-            r_dist2Pred = r_dist2Pred + nextLane->length();
+            r_dist2Pred = r_dist2Pred + nextLane->getLength();
         }
 
 #ifdef HAVE_INTERNAL_LANES
@@ -961,7 +961,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
                 if (nl->getLastVehicle()!=0) {
                     dist2Pred = dist2Pred + nextLanePred.pos() - nl->getLastVehicle()->getVehicleType().getLength();
                 } else {
-                    dist2Pred = dist2Pred + nl->length();
+                    dist2Pred = dist2Pred + nl->getLength();
                 }
                 if (dist2Pred>=0) {
                     // leading vehicle is not overlapping
@@ -994,11 +994,11 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
                         continue;
                     }
                     const State &nextLanePred2 = nl2->myLastState;
-                    SUMOReal dist2Pred2 = seen + nl->length();// @!!! the real length of the car
+                    SUMOReal dist2Pred2 = seen + nl->getLength();// @!!! the real length of the car
                     if (nl2->getLastVehicle()!=0) {
                         dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getVehicleType().getLength();
                     } else {
-                        dist2Pred2 = dist2Pred2 + nl2->length();
+                        dist2Pred2 = dist2Pred2 + nl2->getLength();
                     }
                     if (dist2Pred2>=0) {
                         // leading vehicle is not overlapping
@@ -1046,7 +1046,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
                 }
                 */
             } else {
-                dist2Pred = dist2Pred + nextLane->length();// + (*link)->getLength();
+                dist2Pred = dist2Pred + nextLane->getLength();// + (*link)->getLength();
             }
 
             if (dist2Pred>=0) {
@@ -1095,7 +1095,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
             if ((myState.mySpeed<ACCEL2SPEED(myType->getMaxDecel())||seen<getCarFollowModel().approachingBrakeGap(myState.mySpeed))&&r_dist2Pred>0) {
-                vLinkPass = MIN3(vLinkPass, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->maxSpeed());
+                vLinkPass = MIN3(vLinkPass, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->getMaxSpeed());
                 setRequest = true;
             } else {
                 // let it wait in the other cases
@@ -1117,7 +1117,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             checkRewindLinkLanes(lengthsInFront);
             return;
         }
-        seen += nextLane->length();
+        seen += nextLane->getLength();
         if (seen>dist&&hadNonInternal) {
             checkRewindLinkLanes(lengthsInFront);
             return;
@@ -1492,7 +1492,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) {
     myLastBestLanesEdge = 0;
     // update arrival definition
     myArrivalPos = myParameter->arrivalPos;
-    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->length();
+    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->getLength();
     if (myArrivalPos < 0) {
         myArrivalPos += lastLaneLength; // !!! validate!
     }
@@ -1527,7 +1527,7 @@ MSVehicle::rebuildAllowedLanes(bool reinit) {
     SUMOReal dist = 0;
     // check what was already computed
     for (NextAllowedLanes::const_iterator i=myAllowedLanes.begin(); i!=myAllowedLanes.end(); ++i) {
-        dist += ((*(*i))[0])->length();
+        dist += ((*(*i))[0])->getLength();
     }
     // compute next allowed lanes up to 1000m into the future
     SUMOReal MIN_DIST = 1000;
@@ -1542,7 +1542,7 @@ MSVehicle::rebuildAllowedLanes(bool reinit) {
             myAllowedLanes.push_back(al);
             pos++;
             if (pos<myRoute->size()-1) {
-                dist += ((*al)[0])->length();
+                dist += ((*al)[0])->getLength();
                 al = (*myRoute)[pos]->allowedLanes(*(*myRoute)[pos+1], myType->getVehicleClass());
             }
         }
@@ -1562,7 +1562,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
     //     but only if we have at least examined the next edge
     // b) if we have examined 8 edges in front (!!! this may be shorted)
     // c) if the route does not continue after the seen edges
-    if ((seen>4 && oq.length+l->length()>3000) || seen>8 || ce==myRoute->end()) {
+    if ((seen>4 && oq.length+l->getLength()>3000) || seen>8 || ce==myRoute->end()) {
         // ok, we have rebuilt this so far... do not have to go any further
         return;
     }
@@ -1590,7 +1590,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             continue;
         }
         q.occupied = qqq->getVehLenSum();
-        q.length = qqq->length();
+        q.length = qqq->getLength();
         q.joined.push_back(qqq);
 
 
@@ -1686,7 +1686,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             }
             if (bestL==l) {
                 best.occupied = next->getVehLenSum();
-                best.length = next->length();
+                best.length = next->getLength();
             } else {
                 best.occupied = 0;
                 best.length = 0;
@@ -1734,12 +1734,12 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     for (MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
         LaneQ q;
         q.lane = *i;
-        q.length = 0;//q.lane->length();
+        q.length = 0;//q.lane->getLength();
         q.occupied = 0;//q.lane->getVehLenSum();
         if (!myStops.empty()&& &myStops.front().lane->getEdge()==&q.lane->getEdge()) {
             if (myStops.front().lane==q.lane) {
                 q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
-                q.length += q.lane->length();
+                q.length += q.lane->getLength();
                 q.occupied += q.lane->getVehLenSum();
             } else {
                 q.allowsContinuation = false;
@@ -1761,7 +1761,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i) {
             if ((*i).allowsContinuation) {
                 rebuildContinuationsFor((*i), (*i).lane, ce, seen);
-                (*i).length += (*i).lane->length();
+                (*i).length += (*i).lane->getLength();
                 (*i).occupied += (*i).lane->getVehLenSum();
             }
         }
@@ -1939,7 +1939,7 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) {
             distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos, *myCurrEdge, destEdge);
         } else {
             // vehicle is on inner junction edge
-            distance = myLane->length() - getPositionOnLane();
+            distance = myLane->getLength() - getPositionOnLane();
             distance += myRoute->getDistanceBetween(0, destPos, *(myCurrEdge+1), destEdge);
         }
     }

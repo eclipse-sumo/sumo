@@ -54,8 +54,8 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
 
 {
     assert(myLane != 0);
-    assert(myStartPos >= 0 && myStartPos < myLane->length());
-    assert(myEndPos - myStartPos > 0 && myEndPos <= myLane->length());
+    assert(myStartPos >= 0 && myStartPos < myLane->getLength());
+    assert(myEndPos - myStartPos > 0 && myEndPos <= myLane->getLength());
     reset();
 }
 

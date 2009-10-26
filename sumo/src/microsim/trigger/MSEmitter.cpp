@@ -364,9 +364,9 @@ MSEmitter::childCheckEmit(MSEmitterChild *child) {
     // check whether the speed shall be patched
     SUMOReal pos = myPos;
     if (speed<0) {
-        speed = MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed());
+        speed = MIN2(myDestLane->getMaxSpeed(), veh->getMaxSpeed());
     } else {
-        speed = MIN3(myDestLane->maxSpeed(), veh->getMaxSpeed(), speed);
+        speed = MIN3(myDestLane->getMaxSpeed(), veh->getMaxSpeed(), speed);
     }
     // try to emit
 #ifdef HAVE_MESOSIM

@@ -69,7 +69,7 @@ MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMO
         veh->getLaneChangeModel().patchSpeed(
             MAX2((SUMOReal) 0, veh->getSpeed()-(SUMOReal)ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
             nSpeed,
-            MIN3(nSpeed, lane->maxSpeed(), maxNextSpeed(veh->getSpeed())),//vaccel(myState.mySpeed, myLane->maxSpeed())),
+            MIN3(nSpeed, lane->getMaxSpeed(), maxNextSpeed(veh->getSpeed())),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             nSpeed);
     return nSpeed;
 }
@@ -193,7 +193,7 @@ MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSp
 
 SUMOReal 
 MSCFModel_IDM::desiredSpeed(const MSVehicle * const veh) const throw() {
-    return MIN2(myType->getMaxSpeed(), veh->getLane().maxSpeed());
+    return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
 }
 
 

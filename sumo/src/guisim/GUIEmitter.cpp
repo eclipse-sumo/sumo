@@ -308,7 +308,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
                                 "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false) {
     const Position2DVector &v = destLanes->getShape();
     if (pos<0) {
-        pos = destLanes->length()+ pos;
+        pos = destLanes->getLength()+ pos;
     }
     myFGPosition = v.positionAtLengthPosition(pos);
     Line2D l(v.getBegin(), v.getEnd());

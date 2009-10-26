@@ -241,6 +241,67 @@ public:
 
 
 
+    /// @name Atomar value getter
+    /// @{
+
+    /** @brief Returns this lane's id
+     * @return This lane's id
+     */
+    const std::string &getID() const throw() {
+        return myID;
+    }
+
+
+    /** @brief Returns this lane's numerical id
+     * @return This lane's numerical id
+     */
+    size_t getNumericalID() const throw() {
+        return myNumericalID;
+    }
+
+
+    /** @brief Returns this lane's shape
+     * @return This lane's shape
+     */
+    const Position2DVector &getShape() const throw() {
+        return myShape;
+    }
+
+
+    /** @brief Returns the lane's maximum speed
+     * @return This lane's maximum speed
+     */
+    SUMOReal getMaxSpeed() const throw() {
+        return myMaxSpeed;
+    }
+
+
+    /** @brief Returns the lane's length
+     * @return This lane's length
+     */
+    SUMOReal getLength() const throw() {
+        return myLength;
+    }
+
+
+    /** @brief Returns vehicle classes explicitely allowed on this lane
+     * @return This lane's allowed vehicle classes
+     */
+    const std::vector<SUMOVehicleClass> &getAllowedClasses() const throw() {
+        return myAllowedClasses;
+    }
+
+
+    /** @brief Returns vehicle classes explicitely disallowed on this lane
+     * @return This lane's disallowed vehicle classes
+     */
+    const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const throw() {
+        return myNotAllowedClasses;
+    }
+    /// @}
+
+
+
     /// @name Vehicle movement (longitudinal)
     /// @{
 
@@ -275,17 +336,6 @@ public:
     bool empty() const {
         assert(myVehBuffer.size()==0);
         return myVehicles.empty();
-    }
-
-    /// Returns the lane's maximum speed.
-    SUMOReal maxSpeed() const {
-        assert(myMaxSpeed>=0);
-        return myMaxSpeed;
-    }
-
-    /// Returns the lane's length.
-    SUMOReal length() const {
-        return myLength;
     }
 
 
@@ -359,19 +409,10 @@ public:
     virtual MSVehicle *removeFirstVehicle();
     virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
-    size_t getNumericalID() const;
-
-
     SUMOReal getMeanSpeed() const;
-
-    const std::string &getID() const;
 
     /// The shape of the lane
     Position2DVector myShape;
-
-    const Position2DVector &getShape() const {
-        return myShape;
-    }
 
     SUMOReal getDensity() const;
     SUMOReal getVehLenSum() const;
@@ -384,8 +425,6 @@ public:
     MSLane * const getLeftLane() const;
     MSLane * const getRightLane() const;
 
-    const std::vector<SUMOVehicleClass> &getAllowedClasses() const;
-    const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const;
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
     void addIncomingLane(MSLane *lane, MSLink *viaLink);

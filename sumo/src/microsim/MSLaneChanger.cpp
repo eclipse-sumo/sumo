@@ -311,7 +311,7 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target) const throw() {
         SUMOReal gap =
             leader->getPositionOnLane()-leader->getVehicleType().getLength()
             +
-            (myCandi->lane->length()-veh(myCandi)->getPositionOnLane());
+            (myCandi->lane->getLength()-veh(myCandi)->getPositionOnLane());
         return std::pair<MSVehicle * const, SUMOReal>(leader, MAX2((SUMOReal) 0, gap));
     } else {
         MSVehicle *candi = veh(myCandi);
@@ -337,7 +337,7 @@ MSLaneChanger::getRealLeader(const ChangerIt &target) const throw() {
 
     if (neighLead==0) {
         const std::vector<MSLane*> &bestLaneConts = veh(myCandi)->getBestLanesContinuation(myCandi->lane);
-        SUMOReal seen = myCandi->lane->length() - veh(myCandi)->getPositionOnLane();
+        SUMOReal seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
         SUMOReal speed = veh(myCandi)->getSpeed();
         SUMOReal dist = veh(myCandi)->getCarFollowModel().brakeGap(speed);
         if (seen>dist) {
@@ -387,7 +387,7 @@ MSLaneChanger::getRealFollower(const ChangerIt &target) const throw() {
         }
     }
     if (neighFollow==0) {
-        SUMOReal speed = target->lane->maxSpeed();
+        SUMOReal speed = target->lane->getMaxSpeed();
         // in order to look back, we'd need the minimum braking ability of vehicles in the net...
         // we'll assume it to be 4m/s^2
         // !!!revisit
@@ -631,7 +631,7 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle * const, SUMOReal> &nei
         if (neighFollow.first!=0) {
             MSLane* targetLane = target->lane;
             // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-            if (!neighFollow.first->hasSafeGap(neighFollow.first->getSpeed(), neighFollow.second, vehicle->getSpeed(), targetLane->maxSpeed())) {
+            if (!neighFollow.first->hasSafeGap(neighFollow.first->getSpeed(), neighFollow.second, vehicle->getSpeed(), targetLane->getMaxSpeed())) {
                 blocked |= LCA_BLOCKEDBY_FOLLOWER;
             }
         }
@@ -642,7 +642,7 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle * const, SUMOReal> &nei
         if (neighLead.first!=0) {
             MSLane* targetLane = target->lane;
             // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-            if (!vehicle->hasSafeGap(vehicle->getSpeed(), neighLead.second, neighLead.first->getSpeed(), targetLane->maxSpeed())) {
+            if (!vehicle->hasSafeGap(vehicle->getSpeed(), neighLead.second, neighLead.first->getSpeed(), targetLane->getMaxSpeed())) {
                 blocked |= LCA_BLOCKEDBY_LEADER;
             }
         }

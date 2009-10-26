@@ -275,7 +275,7 @@ MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const thro
         }
     }
     if (isReinsertion) {
-        return lanes[minI]->freeEmit(v, MIN2(lanes[minI]->maxSpeed(), v.getMaxSpeed()));
+        return lanes[minI]->freeEmit(v, MIN2(lanes[minI]->getMaxSpeed(), v.getMaxSpeed()));
     } else {
         return lanes[minI]->emit(v);
     }
@@ -297,12 +297,12 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw() {
             if (pars.departPos >= 0.) {
                 pos = pars.departPos;
             } else {
-                pos = pars.departPos + (*getLanes())[0]->length();
+                pos = pars.departPos + (*getLanes())[0]->getLength();
             }
             break;
         case DEPART_POS_RANDOM:
         case DEPART_POS_RANDOM_FREE:
-            pos = RandHelper::rand((*getLanes())[0]->length());
+            pos = RandHelper::rand((*getLanes())[0]->getLength());
             break;
         default:
             break;
@@ -430,7 +430,7 @@ MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw() 
     if (teffort>=0) {
         return teffort;
     }
-    return MAX2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort(t));
+    return MAX2((*myLanes)[0]->getLength()/v->getMaxSpeed(), getEffort(t));
 }
 
 

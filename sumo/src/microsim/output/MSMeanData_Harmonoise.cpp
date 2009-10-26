@@ -95,8 +95,8 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
     if (oldPos<0&&newSpeed!=0) {
         fraction = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
     }
-    if (oldPos+SPEED2DIST(newSpeed)>getLane()->length()&&newSpeed!=0) {
-        fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
+    if (oldPos+SPEED2DIST(newSpeed)>getLane()->getLength()&&newSpeed!=0) {
+        fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
         ret = false;
     }
     if (fraction<0) {
@@ -117,8 +117,8 @@ bool
 MSMeanData_Harmonoise::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
     SUMOReal fraction = 1.;
     SUMOReal l = veh.getVehicleType().getLength();
-    if (veh.getPositionOnLane()+l>getLane()->length()) {
-        fraction = l - (getLane()->length()-veh.getPositionOnLane());
+    if (veh.getPositionOnLane()+l>getLane()->getLength()) {
+        fraction = l - (getLane()->getLength()-veh.getPositionOnLane());
     }
     if (fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");

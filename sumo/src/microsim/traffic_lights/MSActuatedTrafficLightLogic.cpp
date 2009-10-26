@@ -70,8 +70,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         const LaneVector &lanes = *i2;
         for (i=lanes.begin(); i!=lanes.end(); i++) {
             MSLane *lane = (*i);
-            SUMOReal length = lane->length();
-            SUMOReal speed = lane->maxSpeed();
+            SUMOReal length = lane->getLength();
+            SUMOReal speed = lane->getMaxSpeed();
             SUMOReal inductLoopPosition = myDetectorGap * speed;
             // check whether the lane is long enough
             SUMOReal ilpos = length - inductLoopPosition;
@@ -88,7 +88,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         // build the lane state-detectors
         for (i=lanes.begin(); i!=lanes.end(); i++) {
             MSLane *lane = (*i);
-            SUMOReal length = lane->length();
+            SUMOReal length = lane->getLength();
             // check whether the position is o.k. (not longer than the lane)
             SUMOReal lslen = det_offset;
             if (lslen>length) {

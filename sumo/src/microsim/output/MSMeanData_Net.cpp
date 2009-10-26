@@ -98,8 +98,8 @@ MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal old
         timeOnLane = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
         ++nVehEnteredLane;
     }
-    if (oldPos+SPEED2DIST(newSpeed)>getLane()->length()&&newSpeed!=0) {
-        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
+    if (oldPos+SPEED2DIST(newSpeed)>getLane()->getLength()&&newSpeed!=0) {
+        timeOnLane -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
         ++nVehLeftLane;
         ret = false;
     }
@@ -252,7 +252,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
                 writeValues(dev, "<lane id=\""+(*lane)->getLane()->getID(),
                             *(*lane), (SUMOReal)(stopTime - startTime),
-                            (*lane)->getLane()->length(), (SUMOReal)1, (*lane)->getLane()->maxSpeed());
+                            (*lane)->getLane()->getLength(), (SUMOReal)1, (*lane)->getLane()->getMaxSpeed());
                 (*lane)->reset();
             }
             dev.closeTag();
@@ -268,8 +268,8 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         sumData.nVehLeftLane -= sumData.nLaneChanges;
         writeValues(dev, "<edge id=\""+edge->getID(),
                     sumData, (SUMOReal)(stopTime - startTime),
-                    edgeValues.front()->getLane()->length(), (SUMOReal)edge->nLanes(),
-                    edgeValues.front()->getLane()->maxSpeed());
+                    edgeValues.front()->getLane()->getLength(), (SUMOReal)edge->nLanes(),
+                    edgeValues.front()->getLane()->getMaxSpeed());
     }
 }
 

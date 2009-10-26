@@ -81,8 +81,8 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     // also the virtual length is set in here
     myVisLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     // check maximum speed
-    if (myAllMaxSpeed<lane.maxSpeed()) {
-        myAllMaxSpeed = lane.maxSpeed();
+    if (myAllMaxSpeed<lane.getMaxSpeed()) {
+        myAllMaxSpeed = lane.getMaxSpeed();
     }
     //
     myShapeRotations.reserve(myShape.size()-1);
@@ -120,7 +120,7 @@ GUILaneWrapper::getPurpose() const {
 
 SUMOReal
 GUILaneWrapper::maxSpeed() const {
-    return myLane.maxSpeed();
+    return myLane.getMaxSpeed();
 }
 
 
@@ -559,8 +559,8 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 2);
     // add items
-    ret->mkItem("maxspeed [m/s]", false, myLane.maxSpeed());
-    ret->mkItem("length [m]", false, myLane.length());
+    ret->mkItem("maxspeed [m/s]", false, myLane.getMaxSpeed());
+    ret->mkItem("length [m]", false, myLane.getLength());
     // close building
     ret->closeBuilding();
     return ret;
@@ -673,7 +673,7 @@ GUILaneWrapper::getHBEFA_CO2Emissions() const {
         ret += static_cast<GUIVehicle*>(*i)->getHBEFA_CO2Emissions();
     }
     myLane.releaseVehicles();
-    return ret / myLane.length();
+    return ret / myLane.getLength();
 }
 
 
@@ -685,7 +685,7 @@ GUILaneWrapper::getHBEFA_COEmissions() const {
         ret += static_cast<GUIVehicle*>(*i)->getHBEFA_COEmissions();
     }
     myLane.releaseVehicles();
-    return ret / myLane.length();
+    return ret / myLane.getLength();
 }
 
 
@@ -697,7 +697,7 @@ GUILaneWrapper::getHBEFA_PMxEmissions() const {
         ret += static_cast<GUIVehicle*>(*i)->getHBEFA_PMxEmissions();
     }
     myLane.releaseVehicles();
-    return ret / myLane.length();
+    return ret / myLane.getLength();
 }
 
 
@@ -709,7 +709,7 @@ GUILaneWrapper::getHBEFA_NOxEmissions() const {
         ret += static_cast<GUIVehicle*>(*i)->getHBEFA_NOxEmissions();
     }
     myLane.releaseVehicles();
-    return ret / myLane.length();
+    return ret / myLane.getLength();
 }
 
 
@@ -721,7 +721,7 @@ GUILaneWrapper::getHBEFA_HCEmissions() const {
         ret += static_cast<GUIVehicle*>(*i)->getHBEFA_HCEmissions();
     }
     myLane.releaseVehicles();
-    return ret / myLane.length();
+    return ret / myLane.getLength();
 }
 
 
@@ -733,7 +733,7 @@ GUILaneWrapper::getHBEFA_FuelConsumption() const {
         ret += static_cast<GUIVehicle*>(*i)->getHBEFA_FuelConsumption();
     }
     myLane.releaseVehicles();
-    return ret / myLane.length();
+    return ret / myLane.getLength();
 }
 
 

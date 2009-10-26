@@ -84,8 +84,8 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
         fraction = (oldPos+SPEED2DIST(newSpeed)) / newSpeed;
         ++vehicleNo;
     }
-    if (oldPos+SPEED2DIST(newSpeed)>getLane()->length()&&newSpeed!=0) {
-        fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->length()) / newSpeed;
+    if (oldPos+SPEED2DIST(newSpeed)>getLane()->getLength()&&newSpeed!=0) {
+        fraction -= (oldPos+SPEED2DIST(newSpeed) - getLane()->getLength()) / newSpeed;
         ret = false;
     }
     if (fraction<0) {
@@ -110,7 +110,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::dismissOnLeavingLane(MSVehicle& veh) throw() {
     SUMOReal pos = veh.getPositionOnLane();
-    vehicleNo -= ((myLane->length()-pos) / myLane->length());
+    vehicleNo -= ((myLane->getLength()-pos) / myLane->getLength());
 }
 
 
@@ -119,8 +119,8 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
     SUMOReal fraction = 1.;
     SUMOReal l = veh.getVehicleType().getLength();
     SUMOReal pos = veh.getPositionOnLane();
-    if (veh.getPositionOnLane()+l>getLane()->length()) {
-        fraction = l - (getLane()->length()-pos);
+    if (veh.getPositionOnLane()+l>getLane()->getLength()) {
+        fraction = l - (getLane()->getLength()-pos);
     }
     if (isEmit) {
         pos -= veh.getSpeed();
@@ -128,7 +128,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle&
             pos = 0;
         }
     }
-    vehicleNo += ((myLane->length()-pos) / myLane->length());
+    vehicleNo += ((myLane->getLength()-pos) / myLane->getLength());
     if (fraction<0) {
         MsgHandler::getErrorInstance()->inform("Negative vehicle step fraction on lane '" + getLane()->getID() + "'.");
         return false;
@@ -183,7 +183,7 @@ MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw() {
     for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
         for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
             SUMOReal nVehNo = 0.;
-            SUMOReal laneLength = (*j)->getLane()->length();
+            SUMOReal laneLength = (*j)->getLane()->getLength();
             const MSLane::VehCont &vehs = (*j)->getLane()->getVehiclesSecure();
             for (MSLane::VehCont::const_iterator k=vehs.begin(); k!=vehs.end(); ++k) {
                 SUMOReal pos = (*k)->getPositionOnLane();
@@ -240,7 +240,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             samplesS += meanData.sampleSeconds;
             SUMOReal oVehNo = meanData.vehicleNo;
             SUMOReal nVehNo = 0.;
-            SUMOReal laneLength = meanData.getLane()->length();
+            SUMOReal laneLength = meanData.getLane()->getLength();
             const MSLane::VehCont &vehs = meanData.getLane()->getVehiclesSecure();
             for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
                 SUMOReal pos = (*i)->getPositionOnLane();
@@ -253,7 +253,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             meanData.reset();
         }
         if (myDumpEmptyEdges||samplesS>0) {
-            SUMOReal length = (*edge->getLanes())[0]->length();
+            SUMOReal length = (*edge->getLanes())[0]->getLength();
             dev<<std::resetiosflags(std::ios::floatfield);
             dev<<"      <edge id=\""<<edge->getID()<<
             "\" sampledSeconds=\""<< samplesS <<
@@ -294,11 +294,11 @@ MSMeanData_HBEFA::writeLane(OutputDevice &dev,
         SUMOReal nVehNo = 0;
         for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
             SUMOReal pos = (*i)->getPositionOnLane();
-            oVehNo -= ((laneValues.getLane()->length()-pos) / laneValues.getLane()->length());
-            nVehNo += ((laneValues.getLane()->length()-pos) / laneValues.getLane()->length());
+            oVehNo -= ((laneValues.getLane()->getLength()-pos) / laneValues.getLane()->getLength());
+            nVehNo += ((laneValues.getLane()->getLength()-pos) / laneValues.getLane()->getLength());
         }
         laneValues.getLane()->releaseVehicles();
-        SUMOReal length = laneValues.getLane()->length();
+        SUMOReal length = laneValues.getLane()->getLength();
         dev<<std::resetiosflags(std::ios::floatfield);
         dev<<"         <lane id=\""<<laneValues.getLane()->getID()<<
         "\" sampledSeconds=\""<< laneValues.sampleSeconds <<

@@ -2038,7 +2038,7 @@ throw(TraCIException) {
     case DOMVAR_ALLOWED_SPEED:
         if (veh != NULL) {
             response.writeUnsignedByte(TYPE_FLOAT);
-            response.writeFloat(veh->getLane().maxSpeed());
+            response.writeFloat(veh->getLane().getMaxSpeed());
             // add a warning to the response if the requested data type was not correct
             if (dataType != TYPE_FLOAT) {
                 warning = "Warning: requested data type could not be used; using float instead!";
@@ -2804,7 +2804,7 @@ throw(TraCIException) {
                     tempMsg.writeFloat(vehicle->getSpeed());
                 }
                 if ((variableId == DOMVAR_ALLOWED_SPEED) && (dataType == TYPE_FLOAT)) {
-                    tempMsg.writeFloat(vehicle->getLane().maxSpeed());
+                    tempMsg.writeFloat(vehicle->getLane().getMaxSpeed());
                 }
                 if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
                     Position2D pos = vehicle->getPosition();

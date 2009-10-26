@@ -216,21 +216,21 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
         throw InvalidArgument("Either the begin or the end position of busstop '" + id + "' is not numeric.");
     }
     if (frompos<0) {
-        frompos = lane->length() + frompos;
+        frompos = lane->getLength() + frompos;
     }
     if (topos<0) {
-        topos = lane->length() + topos;
+        topos = lane->getLength() + topos;
     }
     // check positions
-    if (topos<0 || topos>lane->length()) {
+    if (topos<0 || topos>lane->getLength()) {
         if (attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false)) {
             throw InvalidArgument("Bus stop '" + id + "' ends after the lane's end.");
         } else {
             MsgHandler::getWarningInstance()->inform("Bus stop '" + id + "' ends after the lane's end (moving to the end).");
-            topos = lane->length() - (SUMOReal) .1;
+            topos = lane->getLength() - (SUMOReal) .1;
         }
     }
-    if (frompos<0 || frompos>lane->length()) {
+    if (frompos<0 || frompos>lane->getLength()) {
         if (attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false)) {
             throw InvalidArgument("Bus stop '" + id + "' begins after the lane's end.");
         } else {
@@ -428,11 +428,11 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes &attrs,
     SUMOReal pos = attrs.getFloat(SUMO_ATTR_POSITION);
     bool friendly_pos = attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false);
     if (pos<0) {
-        pos = lane->length() + pos;
+        pos = lane->getLength() + pos;
     }
-    if (pos>lane->length()) {
+    if (pos>lane->getLength()) {
         if (friendly_pos) {
-            pos = lane->length() - (SUMOReal) 0.1;
+            pos = lane->getLength() - (SUMOReal) 0.1;
         } else {
             throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
         }

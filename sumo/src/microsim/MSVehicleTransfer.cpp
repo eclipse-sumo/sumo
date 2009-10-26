@@ -103,7 +103,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
                 }
                 // get the time the vehicle needs to pass the current edge
                 //  !!! maybe, the time should be compued in other ways
-                desc.myProceedTime = time + (SUMOTime)(tmp->length() / tmp->maxSpeed() * 2.0);
+                desc.myProceedTime = time + (SUMOTime)(tmp->getLength() / tmp->getMaxSpeed() * 2.0);
             }
             ++i;
         }

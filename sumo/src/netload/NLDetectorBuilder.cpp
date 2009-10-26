@@ -98,7 +98,7 @@ NLDetectorBuilder::buildMsgDetector(const std::string &id,
     }
     MSLane *clane = getLaneChecking(lane, id);
     if (pos<0) {
-        pos = clane->length() + pos;
+        pos = clane->getLength() + pos;
     }
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     MSMsgInductLoop *msgloop = createMsgInductLoop(id, msg, clane, pos);
@@ -130,7 +130,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     // get and check the lane
     MSLane *clane = getLaneChecking(lane, id);
     if (pos<0) {
-        pos = clane->length() + pos;
+        pos = clane->getLength() + pos;
     }
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {
@@ -144,7 +144,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 #ifdef HAVE_MESOSIM
     } else {
         if (pos<0) {
-            pos = clane->length() + pos;
+            pos = clane->getLength() + pos;
         }
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(clane->getEdge());
         MESegment *prev = s;
@@ -303,11 +303,11 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
     pos = getPositionChecking(pos, clane, friendlyPos, id);
     // check length
     if (length<0) {
-        length = clane->length() + length;
+        length = clane->getLength() + length;
     }
-    if (length+pos>clane->length()) {
+    if (length+pos>clane->getLength()) {
         if (friendlyPos) {
-            length = clane->length() - pos - (SUMOReal) 0.1;
+            length = clane->getLength() - pos - (SUMOReal) 0.1;
         } else {
             throw InvalidArgument("The length of detector '" + id + "' lies beyond the lane's '" + clane->getID() + "' length.");
         }
@@ -563,12 +563,12 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendly
                                        const std::string &detid) throw(InvalidArgument) {
     // check whether it is given from the end
     if (pos<0) {
-        pos = lane->length() + pos;
+        pos = lane->getLength() + pos;
     }
     // check whether it is on the lane
-    if (pos>lane->length()) {
+    if (pos>lane->getLength()) {
         if (friendlyPos) {
-            pos = lane->length() - (SUMOReal) 0.1;
+            pos = lane->getLength() - (SUMOReal) 0.1;
         } else {
             throw InvalidArgument("The position of detector '" + detid + "' lies beyond the lane's '" + lane->getID() + "' length.");
         }

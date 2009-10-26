@@ -51,7 +51,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        const std::string &file) throw(ProcessError)
         : MSTrigger(id), SUMOSAXHandler(file),
         myDestLanes(destLanes), myAmOverriding(false), myDidInit(false) {
-    myCurrentSpeed = destLanes[0]->maxSpeed();
+    myCurrentSpeed = destLanes[0]->getMaxSpeed();
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {
             throw ProcessError();

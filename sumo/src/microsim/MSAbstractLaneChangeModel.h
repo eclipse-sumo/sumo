@@ -178,8 +178,8 @@ protected:
         // Congested situation are relevant only on highways (maxSpeed > 70km/h)
         // and congested on German Highways means that the vehicles have speeds
         // below 60km/h. Overtaking on the right is allowed then.
-        if ((myVehicle.getLane().maxSpeed() <= 70.0 / 3.6) ||
-                (neighLeader->getLane().maxSpeed() <= 70.0 / 3.6)) {
+        if ((myVehicle.getLane().getMaxSpeed() <= 70.0 / 3.6) ||
+                (neighLeader->getLane().getMaxSpeed() <= 70.0 / 3.6)) {
 
             return false;
         }

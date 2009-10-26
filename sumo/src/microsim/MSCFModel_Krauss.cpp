@@ -87,14 +87,14 @@ MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, S
     //  vSafe does not incorporate speed reduction due to interaction
     //  on lane changing
     veh->setPreDawdleAcceleration(SPEED2ACCEL(vSafe-oldV));
-    SUMOReal vNext = dawdle(MIN3(lane->maxSpeed(), maxNextSpeed(oldV), vSafe));
+    SUMOReal vNext = dawdle(MIN3(lane->getMaxSpeed(), maxNextSpeed(oldV), vSafe));
     vNext =
         veh->getLaneChangeModel().patchSpeed(
             MAX2((SUMOReal) 0, oldV-(SUMOReal)ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
             vNext,
-            MIN3(vSafe, veh->getLane().maxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
+            MIN3(vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
-    vNext = MIN4(vNext, vSafe, veh->getLane().maxSpeed(), maxNextSpeed(oldV));
+    vNext = MIN4(vNext, vSafe, veh->getLane().getMaxSpeed(), maxNextSpeed(oldV));
     return vNext;
 }
 
@@ -158,7 +158,7 @@ SUMOReal MSCFModel_Krauss::interactionGap(const MSVehicle * const veh, SUMOReal 
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane().maxSpeed());
+    SUMOReal vNext = MIN2(maxNextSpeed(veh->getSpeed()), veh->getLane().getMaxSpeed());
     SUMOReal gap = (vNext - vL) *
                    ((veh->getSpeed() + vL) * myInverseTwoDecel + myTau) +
                    vL * myTau;

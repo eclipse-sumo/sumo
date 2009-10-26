@@ -495,7 +495,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
     //TM
     SUMOReal pos = myPos+1;
     if (speed<0) {
-        speed = MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed());
+        speed = MIN2(myDestLane->getMaxSpeed(), veh->getMaxSpeed());
     }
     // try to emit
 #ifdef HAVE_MESOSIM

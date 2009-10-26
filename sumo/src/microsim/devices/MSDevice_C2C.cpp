@@ -713,7 +713,7 @@ MSDevice_C2C::updateInfos(SUMOTime time) {
         SUMOReal timeByMeanSpeed1 = (SUMOReal) timeSinceStop;
         if (akt!=0&&&getHolder().getLane()!=0) {
             SUMOReal neededTime = (SUMOReal)(MSNet::getInstance()->getCurrentTimeStep() - akt->time);
-            timeByMeanSpeed1 = getHolder().getLane().length() / (getHolder().getPositionOnLane()/neededTime);
+            timeByMeanSpeed1 = getHolder().getLane().getLength() / (getHolder().getPositionOnLane()/neededTime);
         }
         SUMOReal estimatedTime = timeByMeanSpeed1;
         map<const MSEdge * const, Information *>::iterator i = infoCont.find(getHolder().getEdge());

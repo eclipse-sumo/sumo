@@ -131,7 +131,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         if (arrivalInfo!=0) {
             std::string laneID = "";
             if (arrivalInfo->lane!=0) {
-                routeLength -= arrivalInfo->lane->length() - arrivalInfo->pos;
+                routeLength -= arrivalInfo->lane->getLength() - arrivalInfo->pos;
                 laneID = arrivalInfo->lane->getID();
             }
             od << "arrival=\"" << arrivalInfo->time << "\" "

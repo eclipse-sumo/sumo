@@ -127,7 +127,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
                       : 0;
 #ifdef HAVE_INTERNAL_LANES
     if (via!=0) {
-        length = via->length();
+        length = via->getLength();
     }
     MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd, length);
 #else

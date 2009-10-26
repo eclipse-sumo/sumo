@@ -113,7 +113,7 @@ NLGeomShapeBuilder::getPointPosition(SUMOReal x, SUMOReal y,
         throw InvalidArgument("Lane '" + laneID + "' to place a poi on is not known.");
     }
     if (posOnLane<0) {
-        posOnLane = lane->length() + posOnLane;
+        posOnLane = lane->getLength() + posOnLane;
     }
     return lane->getShape().positionAtLengthPosition(posOnLane);
 }

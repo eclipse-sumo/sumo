@@ -90,8 +90,8 @@ MSE2Collector *
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
         SUMOReal start, SUMOReal end) throw() {
     string id = makeID(myID, c, r);
-    if (start+end<l->length()) {
-        start = l->length() - end - (SUMOReal) 0.1;
+    if (start+end<l->getLength()) {
+        start = l->getLength() - end - (SUMOReal) 0.1;
     }
     return new GUI_E2_ZS_Collector(id, myUsage,
                                    l, start, end, haltingTimeThresholdM,

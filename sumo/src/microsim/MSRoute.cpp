@@ -311,7 +311,7 @@ SUMOReal
 MSRoute::getLength() const {
     SUMOReal ret = 0;
     for (MSEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        ret += (*(*i)->getLanes())[0]->length();
+        ret += (*(*i)->getLanes())[0]->getLength();
     }
     return ret;
 }
@@ -343,7 +343,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             break;
         } else {
             const MSEdge::LaneCont& lanes = *((*it)->getLanes());
-            distance += lanes[0]->length();
+            distance += lanes[0]->getLength();
 #ifdef HAVE_INTERNAL_LANES
             // add length of internal lanes to the result
             for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
