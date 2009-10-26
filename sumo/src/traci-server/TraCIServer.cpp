@@ -885,27 +885,27 @@ TraCIServer::commandGetTLStatus() throw(TraCIException) {
                         MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
 
                         for (int j = 0; j < linkGroup.size(); j++) {
-                            const MSEdge* const precEdge = laneGroup[j]->getEdge();
-                            const MSEdge* const succEdge = linkGroup[j]->getLane()->getEdge();
+                            MSEdge &precEdge = laneGroup[j]->getEdge();
+                            MSEdge &succEdge = linkGroup[j]->getLane()->getEdge();
 
                             // for each pair of edges and every different tl state, write only one tl switch command
-                            std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(precEdge);
+                            std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(&precEdge);
                             if (itPair != writtenEdgePairs.end()) {
-                                if (itPair->second.first == succEdge && itPair->second.second == nextLinkState) {
+                                if (itPair->second.first == &succEdge && itPair->second.second == nextLinkState) {
                                     continue;
                                 }
                             }
                             // remember the current edge pair and tl status
-                            writtenEdgePairs[precEdge] = make_pair(succEdge, nextLinkState);
+                            writtenEdgePairs[&precEdge] = make_pair(&succEdge, nextLinkState);
 
                             // time of the switch
                             tempMsg.writeDouble(time);
                             // preceeding edge id
-                            tempMsg.writeString(precEdge->getID());
+                            tempMsg.writeString(precEdge.getID());
                             // traffic light's position on preceeding edge
                             tempMsg.writeFloat(laneGroup[j]->getShape().length());
                             // succeeding edge id
-                            tempMsg.writeString(succEdge->getID());
+                            tempMsg.writeString(succEdge.getID());
                             // new status
                             switch (nextLinkState) {
                             case MSLink::LINKSTATE_TL_GREEN_MAJOR:
@@ -2402,23 +2402,23 @@ throw(TraCIException) {
                     					// remember the edge that this lane leads to
                     					connectLane2Edge[laneGroup[linkNo]].insert(succEdge);
                     */
-                    const MSEdge* const precEdge = laneGroup[linkNo]->getEdge();
-                    const MSEdge* const succEdge = linkGroup[linkNo]->getLane()->getEdge();
+                    MSEdge &precEdge = laneGroup[linkNo]->getEdge();
+                    MSEdge &succEdge = linkGroup[linkNo]->getLane()->getEdge();
 
                     // for each pair of edges and every different tl state, write only one tl switch command
-                    std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(precEdge);
+                    std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(&precEdge);
                     if (itPair != writtenEdgePairs.end()) {
-                        if (itPair->second.first == succEdge && itPair->second.second == tlState) {
+                        if (itPair->second.first == &succEdge && itPair->second.second == tlState) {
                             continue;
                         }
                     }
                     // remember the current edge pair and tl status
-                    writtenEdgePairs[precEdge] = make_pair(succEdge, tlState);
+                    writtenEdgePairs[&precEdge] = make_pair(&succEdge, tlState);
 
                     // write preceding edge
-                    phaseList.writeString(precEdge->getID());
+                    phaseList.writeString(precEdge.getID());
                     // write succeeding edge
-                    phaseList.writeString(succEdge->getID());
+                    phaseList.writeString(succEdge.getID());
                     // write status of the traffic light
                     switch (tlState) {
                     case MSLink::LINKSTATE_TL_GREEN_MAJOR:

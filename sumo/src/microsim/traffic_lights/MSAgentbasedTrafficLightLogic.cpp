@@ -181,7 +181,7 @@ MSAgentbasedTrafficLightLogic::collectData() throw() {
             }
             SUMOReal maxPerBit = 0;
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
-                if ((*j)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+                if ((*j)->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
                 /*!!!

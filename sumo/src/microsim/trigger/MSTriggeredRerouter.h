@@ -167,7 +167,7 @@ public:
     };
 
     /// Reroutes a vehicle
-    void reroute(SUMOVehicle &veh, const MSEdge *src);
+    void reroute(SUMOVehicle &veh, MSEdge &src);
 
     /// Returns whether a rerouting definition is valid for the given time and vehicle
     bool hasCurrentReroute(SUMOTime time, SUMOVehicle &veh) const;

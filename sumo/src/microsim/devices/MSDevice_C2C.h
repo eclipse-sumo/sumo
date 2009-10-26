@@ -188,11 +188,8 @@ public:
     /** @brief Returns the effort to pass an edge
      *
      * This method is given to the used router in order to obtain the efforts
-     *  to pass an edge. If the given vehicle knows the edge (either because
-     *  it has collected or because it has received an information about it),
+     *  to pass an edge. If the given vehicle knows the edge by itself,
      *  this information is used. Otherwise, we ask the edge for the effort.
-     *
-     * !!! which edge information is used?
      *
      * @param[in] e The edge for which the effort to be passed shall be returned
      * @param[in] v The vehicle that is rerouted

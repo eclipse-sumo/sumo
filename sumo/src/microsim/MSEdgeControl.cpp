@@ -165,11 +165,11 @@ MSEdgeControl::changeLanes() throw() {
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         LaneUsage &lu = myLanes[(*i)->getNumericalID()];
         if (lu.haveNeighbors) {
-            const MSEdge * const edge = (*i)->getEdge();
-            if (myLastLaneChange[edge->getNumericalID()]!=step) {
-                myLastLaneChange[edge->getNumericalID()] = step;
-                ((MSEdge*) edge)->changeLanes();
-                const MSEdge::LaneCont *lanes = edge->getLanes();
+            MSEdge &edge = (*i)->getEdge();
+            if (myLastLaneChange[edge.getNumericalID()]!=step) {
+                myLastLaneChange[edge.getNumericalID()] = step;
+                edge.changeLanes();
+                const MSEdge::LaneCont *lanes = edge.getLanes();
                 for (MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
                     LaneUsage &lu = myLanes[(*i)->getNumericalID()];
                     if ((*i)->getVehicleNumber()>0 && !lu.amActive) {

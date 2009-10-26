@@ -295,7 +295,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const {
 
 
 void
-MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge *src) {
+MSTriggeredRerouter::reroute(SUMOVehicle &veh, MSEdge &src) {
     // check whether the vehicle shall be rerouted
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (!hasCurrentReroute(time, veh)) {
@@ -328,7 +328,7 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge *src) {
     DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
     router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
-    router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+    router.compute(&src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
     veh.replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep());
 }
 

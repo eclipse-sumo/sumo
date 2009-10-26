@@ -513,11 +513,11 @@ void
 MSDevice_C2C::enterLaneAtMove(MSLane *lane, SUMOReal) {
     delete akt;
     akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
-    const MSEdge * const edge = lane->getEdge();
-    if (myEdgeVehicles.find(edge)==myEdgeVehicles.end()) {
-        myEdgeVehicles[edge] = vector<MSDevice_C2C*>();
+    MSEdge &edge = lane->getEdge();
+    if (myEdgeVehicles.find(&edge)==myEdgeVehicles.end()) {
+        myEdgeVehicles[&edge] = vector<MSDevice_C2C*>();
     }
-    myEdgeVehicles[edge].push_back(this);
+    myEdgeVehicles[&edge].push_back(this);
 }
 
 
@@ -525,11 +525,11 @@ void
 MSDevice_C2C::enterLaneAtEmit(MSLane *lane, const MSVehicle::State &) {
     delete akt;
     akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
-    const MSEdge * const edge = lane->getEdge();
-    if (myEdgeVehicles.find(edge)==myEdgeVehicles.end()) {
-        myEdgeVehicles[edge] = vector<MSDevice_C2C*>();
+    MSEdge &edge = lane->getEdge();
+    if (myEdgeVehicles.find(&edge)==myEdgeVehicles.end()) {
+        myEdgeVehicles[&edge] = vector<MSDevice_C2C*>();
     }
-    myEdgeVehicles[edge].push_back(this);
+    myEdgeVehicles[&edge].push_back(this);
 }
 
 

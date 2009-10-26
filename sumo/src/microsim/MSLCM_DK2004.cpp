@@ -523,7 +523,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
     myState = 0;
     myVSafe = -1;
     // just to make sure to be notified about lane chaning end
-    if (myVehicle.getLane().getEdge()->nLanes()==1) {
+    if (myVehicle.getLane().getEdge().nLanes()==1) {
         // remove chaning information if on a road with a single lane
         changed();
         return wanted;

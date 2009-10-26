@@ -476,9 +476,9 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child) {
         // should not happen - a child is calling and should have a vehicle added
         throw 1;
     }
-    if (child!=myActiveChild||myDestLane->getEdge()->isVaporizing()) {
+    if (child!=myActiveChild||myDestLane->getEdge().isVaporizing()) {
         // check whether this is due to vaporization
-        if (myDestLane->getEdge()->isVaporizing()) {
+        if (myDestLane->getEdge().isVaporizing()) {
             myToEmit[child].first->setWasVaporized(true);
         }
         // remove the vehicle previously inserted by the child

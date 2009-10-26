@@ -116,11 +116,11 @@ MSEdge::closeBuilding() {
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             MSLane *toL = (*j)->getLane();
             if (toL!=0) {
-                const MSEdge * const to = toL->getEdge();
-                if (myAllowed.find(to)==myAllowed.end()) {
-                    myAllowed[to] = new LaneCont();
+                MSEdge &to = toL->getEdge();
+                if (myAllowed.find(&to)==myAllowed.end()) {
+                    myAllowed[&to] = new LaneCont();
                 }
-                myAllowed[to]->push_back(*i);
+                myAllowed[&to]->push_back(*i);
             }
         }
     }
@@ -361,8 +361,8 @@ MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw() {
         const MSLinkCont &lc = l->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             MSLink *link = *j;
-            if (link->getLane()->getEdge()==followerAfterInternal) {
-                return link->getViaLane()->getEdge();
+            if (&link->getLane()->getEdge()==followerAfterInternal) {
+                return &link->getViaLane()->getEdge();
             }
         }
     }

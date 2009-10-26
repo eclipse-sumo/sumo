@@ -164,7 +164,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     }
     // add the link to the container
     mySuccLanes->push_back(link);
-    myEdgeContinuations.add(MSLane::dictionary(myCurrentLane)->getEdge(), lane->getEdge());
+    myEdgeContinuations.add(&MSLane::dictionary(myCurrentLane)->getEdge(), &lane->getEdge());
 }
 
 

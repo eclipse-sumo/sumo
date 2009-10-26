@@ -288,10 +288,14 @@ public:
         return myLength;
     }
 
-    /// Returns the lane's Edge.
-    const MSEdge * const getEdge() const {
-        return myEdge;
+
+    /** @brief Returns the lane's edge
+     * @return This lane's edge
+     */
+    MSEdge &getEdge() const throw() {
+        return *myEdge;
     }
+
 
     /** @brief Inserts a MSLane into the static dictionary
         Returns true if the key id isn't already in the dictionary.

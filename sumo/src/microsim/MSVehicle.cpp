@@ -406,7 +406,7 @@ MSVehicle::ends() const throw() {
 
 bool
 MSVehicle::addStop(const Stop &stop) throw() {
-    MSRouteIterator stopEdge = myRoute->find(stop.lane->getEdge(), myCurrEdge);
+    MSRouteIterator stopEdge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
     if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos - getCarFollowModel().brakeGap(myState.mySpeed))) {
         // do not add the stop if the vehicle is already behind it or cannot break
         return false;
@@ -422,13 +422,12 @@ MSVehicle::addStop(const Stop &stop) throw() {
             stopEdge = last;
         }
     }
-    while ((iter != myStops.end())
-            && (myRoute->find(iter->lane->getEdge()) <= stopEdge)) {
+    while ((iter != myStops.end()) && (myRoute->find(&iter->lane->getEdge()) <= stopEdge)) {
         iter++;
     }
     while ((iter != myStops.end())
             && (stop.pos > iter->pos)
-            && (myRoute->find(iter->lane->getEdge()) == stopEdge)) {
+            && (myRoute->find(&iter->lane->getEdge()) == stopEdge)) {
         iter++;
     }
     myStops.insert(iter, stop);
@@ -589,7 +588,7 @@ MSVehicle::moveRegardingCritical(const MSLane* const lane,
         }
         getCarFollowModel().leftVehicleVsafe(this, neigh, vWish); // from left-lane leader (do not overtake right)
         // !!! check whether the vehicle wants to stop somewhere
-        if (!myStops.empty()&&myStops.begin()->lane->getEdge()==lane->getEdge()) {
+        if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&lane->getEdge()) {
             SUMOReal seen = lane->length() - myState.pos();
             SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(lane->length()-myStops.begin()->pos));
             vWish = MIN2(vWish, vsafeStop);
@@ -777,7 +776,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
             if (item.myLink==0) {
                 continue;
             }
-            if (approachedLane->getEdge()->getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+            if (approachedLane->getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
                 lastLinkToInternal = i;
             }
 
@@ -790,7 +789,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 approachedLane = item.myLink->getLane();
                 nextIsInternal = false;
             }
-            MSEdge::EdgeBasicFunction ef = approachedLane->getEdge()->getPurpose();
+            MSEdge::EdgeBasicFunction ef = approachedLane->getEdge().getPurpose();
             hadVehicle |= approachedLane->getVehicleNumber()!=0;
             nextIsInternal &= item.myLink->isCrossing();
             //
@@ -880,7 +879,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
     // loop over following lanes
     while (true) {
         // process stops
-        if (!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
+        if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
             SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen-(nextLane->length()-myStops.begin()->pos));
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
@@ -1104,7 +1103,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             }
         }
         // process stops
-        if (!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
+        if (!myStops.empty()&& &myStops.begin()->lane->getEdge()==&nextLane->getEdge()) {
             SUMOReal vsafeStop = getCarFollowModel().ffeS(this, seen+myStops.begin()->pos);
             vLinkPass = MIN2(vLinkPass, vsafeStop);
             vLinkWait = MIN2(vLinkWait, vsafeStop);
@@ -1151,7 +1150,7 @@ MSVehicle::getID() const throw() {
 
 bool
 MSVehicle::onAllowed(const MSLane* lane) const {
-    if (lane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
     if (!lane->allowsVehicleClass(myType->getVehicleClass())) {
@@ -1182,13 +1181,13 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
     myLane = enteredLane;
     myTarget = enteredLane;
     // proceed in route
-    const MSEdge * const enteredEdge = enteredLane->getEdge();
+    MSEdge &enteredEdge = enteredLane->getEdge();
     // internal edges are not a part of the route...
-    if (enteredEdge->getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (enteredEdge.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
         // we may have to skip edges, as the vehicle may have past them in one step
         //  (and, of course, at least one edge is passed)
         MSRouteIterator edgeIt = myCurrEdge;
-        while (*edgeIt != enteredEdge) {
+        while (*edgeIt != &enteredEdge) {
             ++edgeIt;
             assert(edgeIt != myRoute->end());
         }
@@ -1509,7 +1508,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) {
     myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
     // recheck stops
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-        if (find(edges.begin(), edges.end(), iter->lane->getEdge())==edges.end()) {
+        if (find(edges.begin(), edges.end(), &iter->lane->getEdge())==edges.end()) {
             iter = myStops.erase(iter);
         } else {
             ++iter;
@@ -1595,7 +1594,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         q.joined.push_back(qqq);
 
 
-        if (!myStops.empty()&&myStops.front().lane->getEdge()==qqq->getEdge()) {
+        if (!myStops.empty()&& &(myStops.front().lane->getEdge())==&qqq->getEdge()) {
             if (myStops.front().lane==qqq) {
                 gotOne = true;
                 if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
@@ -1622,7 +1621,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                 // no -> if the lane belongs to an edge not in our route,
                 //  reset values to zero (otherwise the lane but not its continuations)
                 //  will still be regarded
-                if ((*k)->getLane()->getEdge()!=*(ce)) {
+                if (&(*k)->getLane()->getEdge()!=*ce) {
                     q.occupied = 0;
                     q.length = 0;
                 }
@@ -1664,7 +1663,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             int bestDistance = -100;
             MSLane *bestL = 0;
             // go over all lanes of current edge
-            const MSEdge::LaneCont * const clanes = l->getEdge()->getLanes();
+            const MSEdge::LaneCont * const clanes = l->getEdge().getLanes();
             for (MSEdge::LaneCont::const_iterator i=clanes->begin(); i!=clanes->end(); ++i) {
                 // go over all connected lanes
                 for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
@@ -1672,7 +1671,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                         continue;
                     }
                     // the best lane must be on the proper edge
-                    if ((*k)->getLane()->getEdge()==*(ce)) {
+                    if (&(*k)->getLane()->getEdge()==*ce) {
                         MSEdge::LaneCont::const_iterator l=find(lanes->begin(), lanes->end(), (*k)->getLane());
                         if (l!=lanes->end()) {
                             int pos = (int)distance(lanes->begin(), l);
@@ -1707,7 +1706,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     if (startLane==0) {
         startLane = myLane;
     }
-    if (myLastBestLanesEdge==startLane->getEdge()&&!forceRebuild) {
+    if (myLastBestLanesEdge==&startLane->getEdge()&&!forceRebuild) {
         std::vector<LaneQ> &lanes = *myBestLanes.begin();
         std::vector<LaneQ>::iterator i;
         for (i=lanes.begin(); i!=lanes.end(); ++i) {
@@ -1722,7 +1721,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         }
         return *myBestLanes.begin();
     }
-    myLastBestLanesEdge = startLane->getEdge();
+    myLastBestLanesEdge = &startLane->getEdge();
     myBestLanes.clear();
     myBestLanes.push_back(vector<LaneQ>());
     const MSEdge::LaneCont * const lanes = (*myCurrEdge)->getLanes();
@@ -1737,7 +1736,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
         q.lane = *i;
         q.length = 0;//q.lane->length();
         q.occupied = 0;//q.lane->getVehLenSum();
-        if (!myStops.empty()&&myStops.front().lane->getEdge()==q.lane->getEdge()) {
+        if (!myStops.empty()&& &myStops.front().lane->getEdge()==&q.lane->getEdge()) {
             if (myStops.front().lane==q.lane) {
                 q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
                 q.length += q.lane->length();
@@ -1908,7 +1907,7 @@ MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const {
 
 const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation() const throw() {
-    if (myBestLanes.empty()||myBestLanes[0].empty()||myLane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+    if (myBestLanes.empty()||myBestLanes[0].empty()||myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return myEmptyLaneVector;
     }
     return (*myCurrentLaneInBestLanes).joined;
@@ -1935,7 +1934,7 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge) {
     SUMOReal distance = std::numeric_limits<SUMOReal>::max();
 #endif
     if (isOnRoad() && destEdge != NULL) {
-        if (myLane->getEdge() == (*myCurrEdge)) {
+        if (&myLane->getEdge() == *myCurrEdge) {
             // vehicle is on a normal edge
             distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos, *myCurrEdge, destEdge);
         } else {
@@ -1965,7 +1964,7 @@ MSVehicle::checkReroute(SUMOTime t) {
 #ifdef HAVE_INTERNAL_LANES
     // delay any rerouting while we're on an internal lane
     // otherwise, we'd mess up our route, plus there's not much we could do anyway
-    if (myLane != 0 && myLane->getEdge() != (*myCurrEdge)) return;
+    if (myLane != 0 && &myLane->getEdge() != *myCurrEdge) return;
 #endif
     if (myNeedReroute && myStops.size()==0) {
         myNeedReroute = false;

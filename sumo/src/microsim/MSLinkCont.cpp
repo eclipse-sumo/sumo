@@ -46,8 +46,8 @@ MSLinkContHelper::getInternalFollowingEdge(MSLane *fromLane,
     const MSLinkCont &lc = fromLane->getLinkCont();
     for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); j++) {
         MSLink *link = *j;
-        if (link->getLane()->getEdge()==followerAfterInternal) {
-            return link->getViaLane()->getEdge();
+        if (&link->getLane()->getEdge()==followerAfterInternal) {
+            return &link->getViaLane()->getEdge();
         }
     }
     return 0;
