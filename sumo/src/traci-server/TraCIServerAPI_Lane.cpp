@@ -57,8 +57,9 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
     int variable = inputStorage.readUnsignedByte();
     string id = inputStorage.readString();
     // check variable
-    if (variable!=LANE_LINK_NUMBER&&variable!=VAR_LENGTH&&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS
-            &&variable!=VAR_SHAPE) {
+    if (variable!=ID_LIST&&variable!=LANE_LINK_NUMBER&&variable!=LANE_EDGE_ID&&variable!=VAR_LENGTH
+        &&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS&&variable!=VAR_SHAPE
+        &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -69,18 +70,24 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     if (variable==ID_LIST) {
+        std::vector<std::string> ids;
+        MSLane::insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+        tempMsg.writeStringList(ids);
     } else {
-        if (MSLane::dictionary(id)==0) {
+        MSLane *lane = MSLane::dictionary(id);
+        if (lane==0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
             return false;
         }
-        MSLane *lane = MSLane::dictionary(id);
         switch (variable) {
-        case ID_LIST:
-            break;
         case LANE_LINK_NUMBER:
             tempMsg.writeUnsignedByte(TYPE_UBYTE);
             tempMsg.writeUnsignedByte((int) lane->getLinkCont().size());
+            break;
+        case LANE_EDGE_ID:
+            tempMsg.writeUnsignedByte(TYPE_STRING);
+            tempMsg.writeString(lane->getEdge().getID());
             break;
         case VAR_LENGTH:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
@@ -140,6 +147,25 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeInt((int) cnt);
             tempMsg.writeStorage(tempContent);
         }
+        break;
+        case LANE_ALLOWED: {
+            const std::vector<SUMOVehicleClass> &allowed = lane->getAllowedClasses();
+            std::vector<std::string> allowedS;
+            for(std::vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+                allowedS.push_back(getVehicleClassName(*i));
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(allowedS);
+        }            
+        case LANE_DISALLOWED: {
+            const std::vector<SUMOVehicleClass> &disallowed = lane->getNotAllowedClasses();
+            std::vector<std::string> disallowedS;
+            for(std::vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+                disallowedS.push_back(getVehicleClassName(*i));
+            }
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(disallowedS);
+        }            
         break;
         case VAR_SHAPE:
             tempMsg.writeUnsignedByte(TYPE_POLYGON);

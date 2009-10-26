@@ -403,8 +403,17 @@
 // outgoing link number (get: lanes)
 #define LANE_LINK_NUMBER 0x30
 
+// id of parent edge (get: lanes)
+#define LANE_EDGE_ID 0x31
+
 // outgoing link definitions (get: lanes)
 #define LANE_LINKS 0x33
+
+// list of allowed vehicle classes (get&set: lanes)
+#define LANE_ALLOWED 0x34
+
+// list of not allowed vehicle classes (get&set: lanes)
+#define LANE_DISALLOWED 0x35
 
 
 // speed (get: vehicle)
