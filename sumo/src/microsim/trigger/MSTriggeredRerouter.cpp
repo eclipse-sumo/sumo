@@ -103,7 +103,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*j);
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**j);
             s->addRerouter(this);
         }
     } else {
@@ -295,7 +295,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime) const {
 
 
 void
-MSTriggeredRerouter::reroute(SUMOVehicle &veh, MSEdge &src) {
+MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
     // check whether the vehicle shall be rerouted
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (!hasCurrentReroute(time, veh)) {

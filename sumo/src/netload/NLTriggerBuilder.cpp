@@ -265,7 +265,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     if (MSGlobals::gUseMesoSim) {
         std::string file = getFileName(attrs, base, true);
         std::string outfile = attrs.getStringSecure(SUMO_ATTR_OUTPUT, "");
-        METriggeredCalibrator* trigger = buildCalibrator(net, id, lane->getEdge(), pos, file, outfile, freq);
+        METriggeredCalibrator* trigger = buildCalibrator(net, id, &lane->getEdge(), pos, file, outfile, freq);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }

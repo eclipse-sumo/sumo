@@ -309,7 +309,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw() {
         }
         bool result = false;
         bool insertToNet = false;
-        MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(this, pos);
+        MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this, pos);
         if (pars.departPosProcedure == DEPART_POS_FREE) {
             while (segment != 0 && !result) {
                 result = segment->initialise(&v, time, insertToNet);
@@ -377,10 +377,10 @@ bool myHaveWarned; // !!!
 SUMOReal
 MSEdge::getEffort(SUMOTime forTime) const throw() {
     if (!myHaveLoadedWeights) {
-        return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
+        return (*myLanes)[0]->getLength() / (*myLanes)[0]->getMaxSpeed();
     }
     if (!myHaveGapsFilled) {
-        myOwnValueLine.fillGaps((*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed());
+        myOwnValueLine.fillGaps((*myLanes)[0]->getLength() / (*myLanes)[0]->getMaxSpeed());
         myHaveGapsFilled = true;
     }
     return myOwnValueLine.getValue(forTime);
@@ -392,7 +392,7 @@ MSEdge::getCurrentEffort() const throw() {
     SUMOReal v = 0;
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
+        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
         unsigned segments = 0;
         do {
             v += first->getMeanSpeed();
@@ -410,7 +410,7 @@ MSEdge::getCurrentEffort() const throw() {
     }
 #endif
     if (v!=0) {
-        return (*myLanes)[0]->length() / v;
+        return (*myLanes)[0]->getLength() / v;
     } else {
         return 1000000.;
     }

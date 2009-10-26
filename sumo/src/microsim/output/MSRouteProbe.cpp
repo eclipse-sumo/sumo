@@ -81,7 +81,7 @@ MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime b
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MESegment *seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
+        MESegment *seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         while (seg!=0) {
             seg->setRouteProbe(this);
             seg = seg->getNextSegment();

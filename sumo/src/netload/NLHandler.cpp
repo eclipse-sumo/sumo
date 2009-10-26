@@ -391,7 +391,7 @@ NLHandler::closeEdge() {
         return;
     }
     try {
-        MSEdge *edge = myEdgeControlBuilder.closeEdge();
+        MSEdge& edge = *myEdgeControlBuilder.closeEdge();
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             MSGlobals::gMesoNet->buildSegmentsFor(edge, OptionsCont::getOptions());

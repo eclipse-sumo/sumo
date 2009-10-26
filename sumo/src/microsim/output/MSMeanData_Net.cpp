@@ -156,7 +156,7 @@ MSMeanData_Net::MSMeanData_Net(const std::string &id,
         std::vector<MSLaneMeanDataValues*> v;
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*e);
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
             while (s!=0) {
                 v.push_back(s->addDetector(this));
                 s = s->getNextSegment();
@@ -186,7 +186,7 @@ MSMeanData_Net::resetOnly(SUMOTime stopTime) throw() {
     if (MSGlobals::gUseMesoSim) {
         std::vector<MSEdge*>::iterator edge = myEdges.begin();
         for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
-            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**edge);
             for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
                 s->prepareMeanDataForWriting(*(*j), (SUMOReal) stopTime);
                 (*j)->reset();
@@ -216,7 +216,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         unsigned entered;
         SUMOReal absLen = 0;
         bool isFirst = true;
-        for (MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(edge); s!=0; s = s->getNextSegment()) {
+        for (MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*edge); s!=0; s = s->getNextSegment()) {
             MSLaneMeanDataValues& meanData = s->getDetectorData(this);
             s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime);
             sumData.add(meanData);
@@ -232,7 +232,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         writeValues(dev, "<edge id=\""+edge->getID(),
                     sumData, (SUMOReal)(stopTime - startTime),
                     absLen, (SUMOReal)edge->nLanes(),
-                    MSGlobals::gMesoNet->getSegmentForEdge(edge)->getMaxSpeed());
+                    MSGlobals::gMesoNet->getSegmentForEdge(*edge)->getMaxSpeed());
         return;
     }
 #endif

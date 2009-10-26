@@ -72,7 +72,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
     if (!dump) {
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
+            MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
             while (seg != 0) {
                 if (seg->getCarNumber()!=0) {
                     dump = true;
@@ -97,7 +97,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
         of.openTag("edge") << " id=\"" << edge.getID() << "\">\n";
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
-            MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
+            MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(edge);
             while (seg != 0) {
                 seg->writeVehicles(of);
                 seg = seg->getNextSegment();

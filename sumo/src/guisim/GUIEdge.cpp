@@ -245,7 +245,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         int shapePos = 0;
         SUMOReal positionOffset = 0;
         SUMOReal position = 0;
-        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
+        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
         do {
             const size_t numCars = first->getCarNumber();
             const SUMOReal occupancy = first->occupancy();
@@ -314,7 +314,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
 #ifdef HAVE_MESOSIM
 unsigned int
 GUIEdge::getVehicleNo() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
     assert(first!=0);
     unsigned int vehNo = 0;
     do {
@@ -327,7 +327,7 @@ GUIEdge::getVehicleNo() const {
 
 SUMOReal
 GUIEdge::getFlow() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
     assert(first!=0);
     SUMOReal flow = -1;
     int no = 0;
@@ -353,7 +353,7 @@ GUIEdge::getFlow() const {
 
 SUMOReal
 GUIEdge::getDensity() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
     assert(first!=0);
     SUMOReal occ = 0;
     int no = 0;
@@ -371,7 +371,7 @@ GUIEdge::getDensity() const {
 
 SUMOReal
 GUIEdge::getMeanSpeed() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(this);
+    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
     assert(first!=0);
     SUMOReal v = 0;
     int no = 0;
@@ -389,7 +389,7 @@ GUIEdge::getMeanSpeed() const {
 
 SUMOReal
 GUIEdge::getAllowedSpeed() const {
-    return (*myLanes)[0]->maxSpeed();
+    return (*myLanes)[0]->getMaxSpeed();
 }
 
 
