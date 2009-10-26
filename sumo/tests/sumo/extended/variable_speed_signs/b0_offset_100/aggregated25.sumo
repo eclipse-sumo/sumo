@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/21/09 17:34:04 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 10/26/09 20:44:36 by SUMO sumo Version dev-SVN-r7895
 <configuration>
 
     <input>
@@ -49,7 +49,7 @@
       <edge id="middle" traveltime="393.44" sampledSeconds="767.00" density="30.97" occupancy="15.49" noStops="0" speed="2.52" entered="5" emitted="0" left="1" flow="280.72"/>
    </interval>
    <interval begin="125" end="150" id="dump_25">
-      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.00" density="1.45" occupancy="0.73" noStops="0" speed="27.52" entered="1" emitted="0" left="1" flow="144.00"/>
+      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="27.80" entered="1" emitted="0" left="1" flow="0.00"/>
       <edge id=":beg_0" traveltime="3.07" sampledSeconds="18.55" density="119.71" occupancy="59.85" noStops="0" speed="2.02" entered="6" emitted="0" left="7" flow="869.06"/>
       <edge id=":end_1" traveltime="1.75" sampledSeconds="3.50" density="22.60" occupancy="11.30" noStops="0" speed="3.54" entered="2" emitted="0" left="2" flow="288.00"/>
       <edge id="beg" traveltime="42.85" sampledSeconds="411.80" density="33.04" occupancy="16.52" noStops="0" speed="11.63" entered="0" emitted="10" left="6" flow="1383.80"/>
@@ -58,7 +58,7 @@
       <edge id="rend" traveltime="18.17" sampledSeconds="0.62" density="0.05" occupancy="0.02" noStops="0" speed="27.52" entered="1" emitted="0" left="1" flow="4.90"/>
    </interval>
    <interval begin="150" end="175" id="dump_25">
-      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.01" density="2.94" occupancy="1.47" noStops="0" speed="27.24" entered="2" emitted="0" left="2" flow="288.00"/>
+      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="27.80" entered="2" emitted="0" left="2" flow="0.00"/>
       <edge id=":beg_0" traveltime="3.17" sampledSeconds="19.01" density="122.64" occupancy="61.32" noStops="0" speed="1.96" entered="6" emitted="0" left="6" flow="864.00"/>
       <edge id=":end_1" traveltime="1.65" sampledSeconds="3.30" density="21.27" occupancy="10.64" noStops="0" speed="3.76" entered="2" emitted="0" left="2" flow="288.00"/>
       <edge id="beg" traveltime="55.54" sampledSeconds="505.30" density="40.54" occupancy="20.27" noStops="1" speed="8.98" entered="0" emitted="10" left="6" flow="1310.06"/>
@@ -67,7 +67,7 @@
       <edge id="rend" traveltime="18.36" sampledSeconds="1.56" density="0.13" occupancy="0.06" noStops="0" speed="27.24" entered="2" emitted="0" left="2" flow="12.27"/>
    </interval>
    <interval begin="175" end="200" id="dump_25">
-      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.01" density="2.93" occupancy="1.47" noStops="0" speed="27.28" entered="2" emitted="0" left="2" flow="288.00"/>
+      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="27.80" entered="2" emitted="0" left="2" flow="0.00"/>
       <edge id=":beg_0" traveltime="2.99" sampledSeconds="17.96" density="115.88" occupancy="57.94" noStops="0" speed="2.08" entered="7" emitted="0" left="6" flow="866.30"/>
       <edge id=":end_1" traveltime="1.48" sampledSeconds="1.48" density="9.56" occupancy="4.78" noStops="0" speed="4.18" entered="1" emitted="0" left="1" flow="144.00"/>
       <edge id="beg" traveltime="66.31" sampledSeconds="596.08" density="47.82" occupancy="23.91" noStops="0" speed="7.52" entered="0" emitted="10" left="7" flow="1294.46"/>
@@ -76,7 +76,7 @@
       <edge id="rend" traveltime="18.43" sampledSeconds="0.44" density="0.04" occupancy="0.02" noStops="0" speed="27.13" entered="2" emitted="0" left="2" flow="3.42"/>
    </interval>
    <interval begin="200" end="225" id="dump_25">
-      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.00" density="1.44" occupancy="0.72" noStops="0" speed="27.70" entered="1" emitted="0" left="1" flow="144.00"/>
+      <edge id=":absEnd_0" traveltime="0.00" sampledSeconds="0.00" density="0.00" occupancy="0.00" noStops="0" speed="27.80" entered="1" emitted="0" left="1" flow="0.00"/>
       <edge id=":beg_0" traveltime="2.75" sampledSeconds="19.23" density="124.07" occupancy="62.03" noStops="0" speed="2.25" entered="6" emitted="0" left="7" flow="1005.70"/>
       <edge id=":end_1" traveltime="1.09" sampledSeconds="7.84" density="50.60" occupancy="25.30" noStops="0" speed="5.68" entered="8" emitted="0" left="7" flow="1034.29"/>
       <edge id="beg" traveltime="79.07" sampledSeconds="683.15" density="54.81" occupancy="27.41" noStops="0" speed="6.30" entered="0" emitted="9" left="6" flow="1244.08"/>

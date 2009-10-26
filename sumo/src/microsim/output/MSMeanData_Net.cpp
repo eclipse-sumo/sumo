@@ -280,9 +280,10 @@ MSMeanData_Net::writeValues(OutputDevice &dev, std::string prefix,
                             SUMOReal length, SUMOReal numLanes, SUMOReal maxSpeed) throw(IOError) {
     if (myDumpEmpty||values.sampleSeconds>0||values.nVehEmitted>0||values.nVehEnteredLane>0) {
         // exclude very small fractional data because of floating point errors
-        if (10000.*values.sampleSeconds < DELTA_T) {
+        if (100.*values.sampleSeconds < DELTA_T) {
             values.sampleSeconds = 0;
             values.vehLengthSum = 0;
+            values.travelledDistance = 0;
         }
         if (values.travelledDistance < POSITION_EPS) {
             values.travelledDistance = 0;
