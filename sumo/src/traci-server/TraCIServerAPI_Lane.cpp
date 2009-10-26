@@ -188,5 +188,81 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
 }
 
 
+bool
+TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
+                                tcpip::Storage &outputStorage) throw(TraCIException) {
+    string warning = ""; // additional description for response
+    // variable
+    int variable = inputStorage.readUnsignedByte();
+    if (variable!=VAR_MAXSPEED&&variable!=VAR_LENGTH&&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
+        return false;
+    }
+    // id
+    string id = inputStorage.readString();
+    MSLane *l = MSLane::dictionary(id);
+    if (l==0) {
+        TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Lane '" + id + "' is not known", outputStorage);
+        return false;
+    }
+    // process
+    int valueDataType = inputStorage.readUnsignedByte();
+    switch (variable) {
+    case VAR_MAXSPEED: {
+        // speed
+        if (valueDataType!=TYPE_FLOAT) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The speed must be given as a float.", outputStorage);
+            return false;
+        }
+        SUMOReal val = inputStorage.readFloat();
+        l->setMaxSpeed(val);
+    }
+    break;
+    case VAR_LENGTH: {
+        // speed
+        if (valueDataType!=TYPE_FLOAT) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "The length must be given as a float.", outputStorage);
+            return false;
+        }
+        SUMOReal val = inputStorage.readFloat();
+        l->setLength(val);
+    }
+    break;
+    case LANE_ALLOWED: {
+        if (valueDataType!=TYPE_STRINGLIST) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Allowed classes must be given as a list of strings.", outputStorage);
+            return false;
+        }
+        std::vector<std::string> allowedS = inputStorage.readStringList();
+        std::vector<SUMOVehicleClass> allowed;
+        for(std::vector<std::string>::const_iterator i=allowedS.begin(); i!=allowedS.end(); ++i) {
+            allowed.push_back(getVehicleClassID(*i));
+        }
+        l->setAllowedClasses(allowed);
+        l->getEdge().rebuildAllowedLanes();
+    }
+    break;
+    case LANE_DISALLOWED: {
+        if (valueDataType!=TYPE_STRINGLIST) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Not allowed classes must be given as a list of strings.", outputStorage);
+            return false;
+        }
+        std::vector<std::string> disallowedS = inputStorage.readStringList();
+        std::vector<SUMOVehicleClass> disallowed;
+        for(std::vector<std::string>::const_iterator i=disallowedS.begin(); i!=disallowedS.end(); ++i) {
+            disallowed.push_back(getVehicleClassID(*i));
+        }
+        l->setNotAllowedClasses(disallowed);
+        l->getEdge().rebuildAllowedLanes();
+    }
+    break;
+    default:
+    break;
+    }
+    TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
+    return true;
+}
+
+
 /****************************************************************************/
 

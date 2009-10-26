@@ -367,6 +367,9 @@ throw(TraCIException, std::invalid_argument) {
     case CMD_GET_LANE_VARIABLE:
         success = TraCIServerAPI_Lane::processGet(myInputStorage, myOutputStorage);
         break;
+    case CMD_SET_LANE_VARIABLE:
+        success = TraCIServerAPI_Lane::processSet(myInputStorage, myOutputStorage);
+        break;
     case CMD_GET_VEHICLE_VARIABLE:
         success = TraCIServerAPI_Vehicle::processGet(myInputStorage, myOutputStorage);
         break;

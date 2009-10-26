@@ -50,6 +50,14 @@ public:
     static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
 
 
+    /** @brief Processes a set value command (Command 0xc3: Change Lane State)
+     *
+     * @param[in] inputStorage The storage to read the command from
+     * @param[out] outputStorage The storage to write the result to
+     */
+    static bool processSet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
+
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Lane(const TraCIServerAPI_Lane &s);
