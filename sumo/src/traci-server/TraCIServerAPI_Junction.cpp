@@ -59,7 +59,7 @@ TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
     int variable = inputStorage.readUnsignedByte();
     string id = inputStorage.readString();
     // check variable
-    if (variable!=VAR_POSITION) {
+    if (variable!=ID_LIST&&variable!=VAR_POSITION) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -70,6 +70,10 @@ TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     if (variable==ID_LIST) {
+        std::vector<std::string> ids;
+        MSNet::getInstance()->getJunctionControl().insertIDs(ids);
+        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+        tempMsg.writeStringList(ids);
     } else {
         MSJunction *j = MSNet::getInstance()->getJunctionControl().get(id);
         if (j==0) {
