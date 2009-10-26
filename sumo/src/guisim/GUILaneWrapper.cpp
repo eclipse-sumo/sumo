@@ -645,13 +645,6 @@ GUILaneWrapper::getLinkTLIndex(const GUINet &net, unsigned int pos) const {
 }
 
 
-const MSEdge * const
-    GUILaneWrapper::getMSEdge() const {
-    return myLane.getEdge();
-}
-
-
-
 SUMOReal
 GUILaneWrapper::firstWaitingTime() const {
     return myLane.myVehicles.size()==0
@@ -668,7 +661,7 @@ GUILaneWrapper::getDensity() const {
 
 SUMOReal
 GUILaneWrapper::getEdgeLaneNumber() const {
-    return (SUMOReal) myLane.getEdge()->getLanes()->size();
+    return (SUMOReal) myLane.getEdge().getLanes()->size();
 }
 
 

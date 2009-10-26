@@ -295,8 +295,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     myFGRotations.reserve(destLanes.size());
     vector<MSLane*>::const_iterator i;
     for (i=destLanes.begin(); i!=destLanes.end(); ++i) {
-        const GUIEdge * const edge = static_cast<const GUIEdge * const>((*i)->getEdge());
-        const Position2DVector &v = edge->getLaneGeometry((const MSLane *)(*i)).getShape();
+        const Position2DVector &v = (*i)->getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));
         myBoundary.add(v.positionAtLengthPosition(0));
         Line2D l(v.getBegin(), v.getEnd());

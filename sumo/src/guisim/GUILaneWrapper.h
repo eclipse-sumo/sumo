@@ -197,7 +197,6 @@ public:
     //@}
 
 
-    const MSEdge * const getMSEdge() const;
 
     SUMOReal getEdgeLaneNumber() const;
 

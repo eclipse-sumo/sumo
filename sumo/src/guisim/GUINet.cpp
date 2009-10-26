@@ -136,7 +136,7 @@ GUINet::initDetectors() {
     for (map<string, MSE2Collector*>::const_iterator i2=e2.begin(); i2!=e2.end(); i2++) {
         MSE2Collector *const e2i = (*i2).second;
         const MSLane *lane = e2i->getLane();
-        const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
+        GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
         /*
         // build the wrapper
             if ((*i2)->getUsageType()==DU_SUMO_INTERNAL
@@ -146,8 +146,7 @@ GUINet::initDetectors() {
             }
             */
         GUIDetectorWrapper *wrapper =
-            static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(
-                GUIGlObjectStorage::gIDStorage, edge->getLaneGeometry(lane));
+            static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }
@@ -167,11 +166,9 @@ GUINet::initDetectors() {
     for (map<string, MSInductLoop*>::const_iterator i2=e1.begin(); i2!=e1.end(); i2++) {
         MSInductLoop *const e1i = (*i2).second;
         const MSLane *lane = e1i->getLane();
-        const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
+        GUIEdge &edge = static_cast<GUIEdge&>(lane->getEdge());
         // build the wrapper
-        GUIDetectorWrapper *wrapper =
-            static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(
-                GUIGlObjectStorage::gIDStorage, edge->getLaneGeometry(lane));
+        GUIDetectorWrapper *wrapper = static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(GUIGlObjectStorage::gIDStorage, edge.getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->getMicrosimID()] = wrapper;
     }

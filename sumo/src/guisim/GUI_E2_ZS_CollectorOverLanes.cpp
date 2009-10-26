@@ -111,12 +111,10 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     GLuint glID = idStorage.getUniqueID();
     for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); ++i) {
         MSLane *l = (*i).first;
-        const GUIEdge * const edge = static_cast<const GUIEdge* const>(l->getEdge());
-        GUILaneWrapper &w = edge->getLaneGeometry(l);
-        GUI_E2_ZS_Collector *c =
-            static_cast<GUI_E2_ZS_Collector*>((*i).second);
-        GUIDetectorWrapper *dw =
-            c->buildDetectorWrapper(idStorage, w, detector, glID);
+        GUIEdge &edge = static_cast<GUIEdge&>(l->getEdge());
+        GUILaneWrapper &w = edge.getLaneGeometry(l);
+        GUI_E2_ZS_Collector *c = static_cast<GUI_E2_ZS_Collector*>((*i).second);
+        GUIDetectorWrapper *dw = c->buildDetectorWrapper(idStorage, w, detector, glID);
         mySubWrappers.push_back(dw);
         myBoundary.add(dw->getCenteringBoundary());
     }

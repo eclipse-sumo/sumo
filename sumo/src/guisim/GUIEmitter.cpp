@@ -306,9 +306,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
         : MSEmitter(id, net, destLanes, pos, file),
         GUIGlObject_AbstractAdd(GUIGlObjectStorage::gIDStorage,
                                 "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false) {
-    const GUIEdge * const edge = static_cast<const GUIEdge * const>(destLanes->getEdge());
-    const Position2DVector &v =
-        edge->getLaneGeometry(destLanes).getShape();
+    const Position2DVector &v = destLanes->getShape();
     if (pos<0) {
         pos = destLanes->length()+ pos;
     }

@@ -253,8 +253,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
         const MSEdge::LaneCont * const lanes = gedge->getLanes();
         size_t noLanes = lanes->size();
         for (size_t i=0; i<noLanes; ++i) {
-            const Position2DVector &v =
-                gedge->getLaneGeometry((size_t) i).getShape();
+            const Position2DVector &v = gedge->getLaneGeometry((size_t) i).getShape();
             SUMOReal pos = v.length() - (SUMOReal) 6.;
             myFGPositions.push_back(v.positionAtLengthPosition(pos));
             myBoundary.add(v.positionAtLengthPosition(pos));

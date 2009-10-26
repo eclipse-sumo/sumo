@@ -91,7 +91,7 @@ GUISelectionLoader::loadSelection(const std::string &file, std::string &msg) thr
             case GLO_LANE: {
                 MSLane *l = MSLane::dictionary(name);
                 if (l!=0) {
-                    oid = static_cast<const GUIEdge * const>(l->getEdge())->getLaneGeometry(l).getGlID();
+                    oid = static_cast<GUIEdge&>(l->getEdge()).getLaneGeometry(l).getGlID();
                 }
             }
             break;

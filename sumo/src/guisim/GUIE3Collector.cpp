@@ -84,10 +84,8 @@ GUIE3Collector::MyWrapper::SingleCrossingDefinition
 GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section) {
     const MSLane *lane = section.myLane;
     SUMOReal pos = section.myPosition;
-    const Position2DVector &v =
-        static_cast<const GUIEdge * const>(lane->getEdge())->getLaneGeometry(static_cast<const MSLane*>(lane)).getShape();
+    const Position2DVector &v = lane->getShape();
     Line2D l(v.getBegin(), v.getEnd());
-
     SingleCrossingDefinition def;
     def.myFGPosition = v.positionAtLengthPosition(pos);
     def.myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
