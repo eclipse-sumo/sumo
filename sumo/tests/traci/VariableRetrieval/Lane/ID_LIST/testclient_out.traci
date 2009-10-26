@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Mon Oct 26 13:31:31 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=5.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=0 objID=dummy
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=0  ObjectID=dummy valueDataType=14 string list value: [ 
+"0/0to0/1_0", "0/0to1/0_0", "0/1to0/0_0", "0/1to0/2_0", "0/1to1/1_0", "0/2to0/1_0", "0/2to1/2_0", "1/0to0/0_0", "1/0to1/1_0", "1/0to2/0_0", "1/1to0/1_0", "1/1to1/0_0", "1/1to1/2_0", "1/1to2/1_0", "1/2to0/2_0", "1/2to1/1_0", "1/2to2/2_0", "2/0to1/0_0", "2/0to2/1_0", "2/0to3/0_0", "2/1to1/1_0", "2/1to2/0_0", "2/1to2/2_0", "2/1to3/1_0", "2/2to1/2_0", "2/2to2/1_0", "2/2to3/2_0", "3/0to2/0_0", "3/0to3/1_0", "3/0to4/0_0", "3/1to2/1_0", "3/1to3/0_0", "3/1to3/2_0", "3/1to4/1_0", "3/2to2/2_0", "3/2to3/1_0", "3/2to4/2_0", "4/0to3/0_0", "4/0to4/1_0", "4/1to3/1_0", "4/1to4/0_0", "4/1to4/2_0", "4/2to3/2_0", "4/2to4/1_0" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=6.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
