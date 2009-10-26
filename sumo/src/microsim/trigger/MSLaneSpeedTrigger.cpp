@@ -97,7 +97,7 @@ SUMOTime
 MSLaneSpeedTrigger::processCommand(bool move2next) {
     std::vector<MSLane*>::iterator i;
     for (i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
-        (*i)->myMaxSpeed = getCurrentSpeed();
+        (*i)->setMaxSpeed(getCurrentSpeed());
     }
     if (!move2next) {
         // changed from the gui

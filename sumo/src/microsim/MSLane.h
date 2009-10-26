@@ -73,9 +73,6 @@ public:
     /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class MSLaneChanger;
 
-    /// needs direct access to maxSpeed
-    friend class MSLaneSpeedTrigger;
-
     friend class GUILaneWrapper;
 
     friend class MSXMLRawOut;
@@ -338,6 +335,14 @@ public:
         return myVehicles.empty();
     }
 
+    void setMaxSpeed(SUMOReal val) throw() {
+        myMaxSpeed = val;
+    }
+
+    void setLength(SUMOReal val) throw() {
+        myLength = val;
+    }
+
 
     /** @brief Returns the lane's edge
      * @return This lane's edge
@@ -426,6 +431,16 @@ public:
 
     MSLane * const getLeftLane() const;
     MSLane * const getRightLane() const;
+
+    void setAllowedClasses(const std::vector<SUMOVehicleClass> &classes) throw() {
+        myAllowedClasses = classes;
+    }
+
+
+    void setNotAllowedClasses(const std::vector<SUMOVehicleClass> &classes) throw() {
+        myNotAllowedClasses = classes;
+    }
+
 
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
