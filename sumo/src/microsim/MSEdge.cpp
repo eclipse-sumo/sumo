@@ -124,6 +124,13 @@ MSEdge::closeBuilding() {
             }
         }
     }
+    rebuildAllowedLanes();
+}
+
+
+void 
+MSEdge::rebuildAllowedLanes() throw()
+{
     // build the classed allowed lanes
     myHaveClassConstraints = false;
     // build list of vehicle classes that are constrained

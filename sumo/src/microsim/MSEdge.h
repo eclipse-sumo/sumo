@@ -398,7 +398,7 @@ public:
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     bool prohibits(const SUMOVehicle * const vehicle) const throw();
 
-
+    void rebuildAllowedLanes() throw();
 
 
 
