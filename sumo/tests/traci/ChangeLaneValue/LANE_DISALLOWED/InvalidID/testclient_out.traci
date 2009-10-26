@@ -1,0 +1,29 @@
+TraCITestClient output file. Date: Mon Oct 26 14:28:31 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=53 objID=2/1to2/0_0
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=53  ObjectID=2/1to2/0_0 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SetValue>:
+  domID=195 varID=53 objID=xxx
+.. Answered with error to command (195), [description: Lane 'xxx' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=53 objID=2/1to2/0_0
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=53  ObjectID=2/1to2/0_0 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

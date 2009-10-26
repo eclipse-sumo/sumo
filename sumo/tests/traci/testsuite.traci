@@ -46,3 +46,7 @@ ChangePoIValue
 # Tests for changing polygon values
 ChangePolygonValue
 
+# Tests for changing lane values
+ChangeLaneValue
+
+

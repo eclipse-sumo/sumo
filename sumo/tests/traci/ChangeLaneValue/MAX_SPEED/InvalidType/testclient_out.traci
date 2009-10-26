@@ -1,0 +1,27 @@
+TraCITestClient output file. Date: Mon Oct 26 14:40:06 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=65 objID=2/1to2/0_0
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=65  ObjectID=2/1to2/0_0 valueDataType=10 float value: 10.00
+
+-> Command sent: <SetValue>:
+  domID=195 varID=65 objID=2/1to2/0_0
+.. Answered with error to command (195), [description: The speed must be given as a float.]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=65 objID=2/1to2/0_0
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=65  ObjectID=2/1to2/0_0 valueDataType=10 float value: 10.00
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

@@ -1,0 +1,7 @@
+simstep 1 1
+getvariable 163 65 2/1to2/0_0
+setvalue 195 65 2/1to2/0_0 <float> 1
+getvariable 163 65 2/1to2/0_0
+simstep 2 1
+
+
