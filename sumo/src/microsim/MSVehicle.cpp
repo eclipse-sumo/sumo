@@ -415,8 +415,8 @@ MSVehicle::addStop(const Stop &stop) throw() {
     std::list<Stop>::iterator iter = myStops.begin();
     MSRouteIterator last = myRoute->begin();
     if (myStops.size()>0) {
-        last = myRoute->find(myStops.back().lane->getEdge());
-        last = myRoute->find(stop.lane->getEdge(), last);
+        last = myRoute->find(&myStops.back().lane->getEdge());
+        last = myRoute->find(&stop.lane->getEdge(), last);
         if (last!=myRoute->end()) {
             iter = myStops.end();
             stopEdge = last;
