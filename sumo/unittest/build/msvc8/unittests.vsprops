@@ -10,10 +10,10 @@
 	/>
 	<UserMacro
 		Name="GTEST_LIB"
-		Value="$(GTEST)\msvc\Release\gtest.lib"
+		Value="$(GTEST)\msvc\gtest-md\Release\gtest.lib"
 	/>
   <UserMacro
 		Name="GTEST_DEBUG_LIB"
-		Value="$(GTEST)\msvc\Debug\gtestd.lib"
+		Value="$(GTEST)\msvc\gtest-md\Debug\gtestd.lib"
 	/>
 </VisualStudioPropertySheet>
