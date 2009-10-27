@@ -130,7 +130,7 @@ MSMessageEmitter::writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep
             if (xyCoords) {
                 myDev << "\" X=\"" << x << "\" Y=\"" << y;
             }
-            myDev << "\" edge=\"" << oldlane->getEdge()->getID();
+            myDev << "\" edge=\"" << oldlane->getEdge().getID();
             myDev << "\" timestep=\"";
             myDev << timeStep;
             myDev << "\" event_type=\"lanechange";
@@ -143,7 +143,7 @@ MSMessageEmitter::writeLaneChangeEvent(const std::string& id, SUMOReal& timeStep
             + newlane->getID() + "\" pos=\"";
             myDev << myPos;
             myDev << "\" speed=\"" << mySpeed;
-            myDev << "\" edge=\"" << oldlane->getEdge()->getID();
+            myDev << "\" edge=\"" << oldlane->getEdge().getID();
             if (xyCoords) {
                 myDev << "\" X=\"" << x << "\" Y=\"" << y;
             }
@@ -224,7 +224,7 @@ MSMessageEmitter::writeHeartBeatEvent(const std::string &id, SUMOReal& timeStep,
                 if (xyCoords) {
                     myDev << "\" X=\"" << x << "\" Y=\"" << y;
                 }
-                myDev << "\" edge=\"" << lane->getEdge()->getID();
+                myDev << "\" edge=\"" << lane->getEdge().getID();
                 myDev << "\" pos=\"" << myPos;
                 myDev << "\" speed=\"" << speed;
                 myDev << "\" event_type=\"heartbeat";
@@ -237,7 +237,7 @@ MSMessageEmitter::writeHeartBeatEvent(const std::string &id, SUMOReal& timeStep,
                 if (xyCoords) {
                     myDev << "\" X=\"" << x << "\" Y=\"" << y;
                 }
-                myDev << "\" edge=\"" << lane->getEdge()->getID();
+                myDev << "\" edge=\"" << lane->getEdge().getID();
                 myDev << "\" pos=\"" << myPos;
                 myDev << "\" speed=\"" << speed;
                 myDev << "\" event_type=\"heartbeat";
