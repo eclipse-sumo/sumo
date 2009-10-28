@@ -285,7 +285,7 @@ MSMessageEmitter::writeBreakEvent(const std::string& id, SUMOReal& timeStep, MSL
             if (xyCoords) {
                 myDev << "\" X=\"" << x << "\" Y=\"" << y;
             }
-            myDev << "\" edge=\"" << lane->getEdge()->getID();
+            myDev << "\" edge=\"" << lane->getEdge().getID();
             myDev << "\" pos=\"" << myPos;
             myDev << "\" speed=\"" << speed;
             myDev << "\" event_type=\"break";
@@ -298,7 +298,7 @@ MSMessageEmitter::writeBreakEvent(const std::string& id, SUMOReal& timeStep, MSL
             if (xyCoords) {
                 myDev << "\" X=\"" << x << "\" Y=\"" << y;
             }
-            myDev << "\" edge=\"" << lane->getEdge()->getID();
+            myDev << "\" edge=\"" << lane->getEdge().getID();
             myDev << "\" pos=\"" << myPos;
             myDev << "\" speed=\"" << speed;
             myDev << "\" event_type=\"break";
