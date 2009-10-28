@@ -84,7 +84,7 @@ class Edge:
         if self.capacity == sys.maxint or self.connection != 0:
             cap = "inf"
         return "%s_<%s|%s|%s>" % (self.label, self.kind, self.source, self.target)
-                                                      
+
 class Net:
     def __init__(self):
         self._vertices = []
@@ -246,7 +246,8 @@ class DistrictsReader(handler.ContentHandler):
 def addVeh(counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap):
     counts += 1.
     vehID += 1
-    depart = random.randint(begin*3600, (begin + period)*3600)
+    endtime = int((float(begin + period)-0.5)*3600)    # The last half hour will not release any vehicles
+    depart = random.randint(begin*3600, endtime)
     if len(odConnTable[startVertex.label][endVertex.label]) > 0:
         connIndex = random.randint(0, len(odConnTable[startVertex.label][endVertex.label])-1)
         connPair = odConnTable[startVertex.label][endVertex.label][connIndex]
@@ -389,7 +390,7 @@ if __name__ == "__main__":
     optParser.add_option("-D", "--depart-pos", dest="departpos", type="choice",
                      choices=('random', 'free', 'random_free'),
                      default = 'free', help="choose departure position: random, free, random_free")
-    optParser.add_option("-C", "--get-connections", action="store_true", dest="getconns",   
+    optParser.add_option("-C", "--get-connections", action="store_true", dest="getconns",
                      default= True, help="generate the OD connection directory, if set as False, a odConnTables.py should be available in the defined data directory")
     (options, args) = optParser.parse_args()
     
