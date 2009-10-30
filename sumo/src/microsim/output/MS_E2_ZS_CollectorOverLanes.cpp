@@ -115,15 +115,15 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
                 if (predeccessors.size()==0) {
                     int off = 1;
                     MSEdge &e = toExtend->getEdge();
-                    const std::vector<MSLane*> *lanes = e.getLanes();
-                    int idx = (int) distance(lanes->begin(), find(lanes->begin(), lanes->end(), toExtend));
+                    const std::vector<MSLane*> &lanes = e.getLanes();
+                    int idx = (int) distance(lanes.begin(), find(lanes.begin(), lanes.end(), toExtend));
                     while (predeccessors.size()==0) {
                         if (idx-off>=0) {
-                            MSLane *tryMe = (*lanes)[idx-off];
+                            MSLane *tryMe = lanes[idx-off];
                             predeccessors = getLanePredeccessorLanes(tryMe, edgeContinuations);
                         }
-                        if (predeccessors.size()==0&&idx+off<(int) lanes->size()) {
-                            MSLane *tryMe = (*lanes)[idx+off];
+                        if (predeccessors.size()==0&&idx+off<(int) lanes.size()) {
+                            MSLane *tryMe = lanes[idx+off];
                             predeccessors = getLanePredeccessorLanes(tryMe, edgeContinuations);
                         }
                         off++;

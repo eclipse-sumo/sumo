@@ -59,7 +59,7 @@ using namespace std;
 NLEdgeControlBuilder::NLEdgeControlBuilder()
         : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0) {
     myActiveEdge = (MSEdge*) 0;
-    m_pLaneStorage = new MSEdge::LaneCont();
+    m_pLaneStorage = new std::vector<MSLane*>();
     m_pDepartLane = (MSLane*) 0;
     m_iNoSingle = m_iNoMulti = 0;
 }
@@ -117,7 +117,7 @@ NLEdgeControlBuilder::addLane(const std::string &id,
 
 MSEdge *
 NLEdgeControlBuilder::closeEdge() {
-    MSEdge::LaneCont *lanes = new MSEdge::LaneCont();
+    std::vector<MSLane*> *lanes = new std::vector<MSLane*>();
     lanes->reserve(m_pLaneStorage->size());
     copy(m_pLaneStorage->begin(), m_pLaneStorage->end(), back_inserter(*lanes));
     if (m_pLaneStorage->size()==1) {

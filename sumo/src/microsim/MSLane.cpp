@@ -558,13 +558,13 @@ MSLane::detectCollisions(SUMOTime timestep) {
 SUMOReal
 getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos) {
     MSRouteIterator next = veh.getRoute().begin();
-    MSLane *currentLane = (*(*next)->getLanes())[0];
+    MSLane *currentLane = (*next)->getLanes()[0];
     SUMOReal seen = currentLane->getLength() - pos;
     SUMOReal dist = SPEED2DIST(speed) + veh.getCarFollowModel().brakeGap(speed);
     SUMOReal tspeed = speed;
     while (seen<dist&&next!=veh.getRoute().end()-1) {
         ++next;
-        MSLane *nextLane = (*(*next)->getLanes())[0];
+        MSLane *nextLane = (*next)->getLanes()[0];
         tspeed = MIN2(veh.getCarFollowModel().ffeV(&veh, tspeed, seen, nextLane->getMaxSpeed()), nextLane->getMaxSpeed());
         dist = SPEED2DIST(tspeed) + veh.getCarFollowModel().brakeGap(tspeed);
         seen += nextLane->getMaxSpeed();
@@ -837,7 +837,7 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     // if the next edge is the route end, then we may return an arbitary link
     // also, if there is no allowed lane on the edge following the current one (recheck?)
     const MSEdge* nRouteEdge2 = veh.succEdge(nRouteSuccs+1);
-    const MSEdge::LaneCont *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2, veh.getVehicleClass());
+    const std::vector<MSLane*> *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2, veh.getVehicleClass());
     if (nRouteEdge2==0||next_allowed==0) {
         return *(valid.begin());
     }
@@ -879,7 +879,7 @@ MSLane::buildLaneWrapper(GUIGlObjectStorage &) {
 
 
 void
-MSLane::init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdge::LaneCont::const_iterator lastNeigh) {
+MSLane::init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, std::vector<MSLane*>::const_iterator lastNeigh) {
     myFirstNeigh = firstNeigh;
     myLastNeigh = lastNeigh;
 }

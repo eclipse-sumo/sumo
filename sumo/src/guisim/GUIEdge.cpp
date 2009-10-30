@@ -83,7 +83,7 @@ GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw() {
     }
     // build the lane wrapper
     myLaneGeoms.reserve(myLanes->size());
-    for (LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); ++i) {
+    for (std::vector<MSLane*>::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); ++i) {
         myLaneGeoms.push_back((*i)->buildLaneWrapper(idStorage));
     }
 }

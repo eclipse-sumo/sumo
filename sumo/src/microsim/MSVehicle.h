@@ -153,7 +153,7 @@ public:
      * @return Lanes that are allowed to be used for emission
      * @todo recheck this; are these lanes on which the vehicle's class is allowed, only?
      */
-    const MSEdge::LaneCont &getDepartLanes() const {
+    const std::vector<MSLane*> &getDepartLanes() const {
         return *(myAllowedLanes[0]);
     }
 
@@ -580,7 +580,7 @@ public:
 
     MSAbstractLaneChangeModel &getLaneChangeModel();
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
-    typedef std::deque<const MSEdge::LaneCont*> NextAllowedLanes;
+    typedef std::deque<const std::vector<MSLane*>*> NextAllowedLanes;
 
     /// @name stretegical/tactical lane choosing methods
     /// @{

@@ -311,7 +311,7 @@ SUMOReal
 MSRoute::getLength() const {
     SUMOReal ret = 0;
     for (MSEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        ret += (*(*i)->getLanes())[0]->getLength();
+        ret += (*i)->getLanes()[0]->getLength();
     }
     return ret;
 }
@@ -342,17 +342,17 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             distance += toPos;
             break;
         } else {
-            const MSEdge::LaneCont& lanes = *((*it)->getLanes());
+            const std::vector<MSLane*>& lanes = (*it)->getLanes();
             distance += lanes[0]->getLength();
 #ifdef HAVE_INTERNAL_LANES
             // add length of internal lanes to the result
-            for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
+            for (std::vector<MSLane*>::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
                 const MSLinkCont& links = (*laneIt)->getLinkCont();
                 for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
                     if ((*linkIt)==0||(*linkIt)->getLane()==0) {
                         continue;
                     }
-                    std::string succLaneId = (*(*(it+1))->getLanes()->begin())->getID();
+                    std::string succLaneId = (*(it+1))->getLanes()[0]->getID();
                     if ((*linkIt)->getLane()->getID().compare(succLaneId) == 0) {
                         distance += (*linkIt)->getLength();
                     }

@@ -163,9 +163,8 @@ MSMeanData_Net::MSMeanData_Net(const std::string &id,
             }
         } else {
 #endif
-            const MSEdge::LaneCont * const lanes = (*e)->getLanes();
-            MSEdge::LaneCont::const_iterator lane;
-            for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
+            const std::vector<MSLane*> &lanes = (*e)->getLanes();
+            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 v.push_back(new MSLaneMeanDataValues(*lane));
             }
 #ifdef HAVE_MESOSIM

@@ -89,9 +89,9 @@ MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime b
         return;
     }
 #endif
-    MSEdge::LaneCont::const_iterator it = edge->getLanes()->begin();
+    std::vector<MSLane*>::const_iterator it = edge->getLanes().begin();
     myEntryReminder = new MSRouteProbe::EntryReminder(*it, *this);
-    for (++it; it!=edge->getLanes()->end(); ++it) {
+    for (++it; it!=edge->getLanes().end(); ++it) {
         (*it)->addMoveReminder(myEntryReminder);
     }
 }

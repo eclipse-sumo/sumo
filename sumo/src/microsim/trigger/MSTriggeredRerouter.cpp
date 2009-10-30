@@ -109,9 +109,8 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
     } else {
 #endif
         for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-            const std::vector<MSLane*> * const destLanes = (*j)->getLanes();
-            std::vector<MSLane*>::const_iterator i;
-            for (i=destLanes->begin(); i!=destLanes->end(); ++i) {
+            const std::vector<MSLane*> &destLanes = (*j)->getLanes();
+            for (std::vector<MSLane*>::const_iterator i=destLanes.begin(); i!=destLanes.end(); ++i) {
                 mySetter.push_back(new Setter(this, (*i)));
             }
         }

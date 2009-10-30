@@ -646,19 +646,19 @@ TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument) {
         return false;
     }
 
-    const MSEdge::LaneCont* const allLanes = road->getLanes();
-    if (roadPos.laneId >= allLanes->size()) {
+    const std::vector<MSLane*> &allLanes = road->getLanes();
+    if (roadPos.laneId >= allLanes.size()) {
         writeStatusCmd(CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
         return false;
     }
 
-    actLane = (*allLanes)[0];
+    actLane = allLanes[0];
     int index = 0;
     while (road->rightLane(actLane) != NULL) {
         actLane = road->rightLane(actLane);
         index++;
     }
-    actLane = (*allLanes)[0];
+    actLane = allLanes[0];
     if (index < roadPos.laneId) {
         for (int i=0; i < (roadPos.laneId - index); i++) {
             actLane = road->leftLane(actLane);
@@ -708,8 +708,8 @@ TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument) {
     }
 
     /*const MSEdge* const road = veh->getEdge();
-    const MSEdge::LaneCont* const allLanes = road->getLanes();*/
-    if ((laneIndex < 0) || (laneIndex >= veh->getEdge()->getLanes()->size())) {
+    const std::vector<MSLane*> &allLanes = road->getLanes();*/
+    if ((laneIndex < 0) || (laneIndex >= veh->getEdge()->getLanes().size())) {
         writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
         return false;
     }
@@ -1271,7 +1271,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
     Position2D pos2;
     RoadMapPos roadPos1;
     RoadMapPos roadPos2;
-    const MSEdge::LaneCont* lanes;
+    const std::vector<MSLane*>* lanes;
 
     // read position 1
     int posType = myInputStorage.readUnsignedByte();
@@ -1641,7 +1641,7 @@ TraCIServer::getNetBoundary() {
 
     // Get Boundary of Single ...
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        for (MSEdge::LaneCont::const_iterator laneIt = (*e)->getLanes()->begin(); laneIt != (*e)->getLanes()->end(); ++laneIt) {
+        for (std::vector<MSLane*>::const_iterator laneIt = (*e)->getLanes().begin(); laneIt != (*e)->getLanes().end(); ++laneIt) {
             netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
         }
     }
@@ -1668,12 +1668,12 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos) {
     // iterate through all known edges
     for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
         edge = MSEdge::dictionary((*itId));
-        const MSEdge::LaneCont * const allLanes = edge->getLanes();
+        const std::vector<MSLane*> &allLanes = edge->getLanes();
 
 //		cerr << "--------" << endl << "Checking edge " << edge->getID() << endl << "--------" << endl;
 
         // iterate through all lanes of this edge
-        for (MSEdge::LaneCont::const_iterator itLane = allLanes->begin(); itLane != allLanes->end(); itLane++) {
+        for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
             Position2DVector shape = (*itLane)->getShape();
 
 //			cerr << "### Lane: " << (*itLane)->getID() << endl;
@@ -1743,13 +1743,13 @@ throw(TraCIException) {
         throw TraCIException("Unable to retrieve road with given id");
     }
 
-    const MSEdge::LaneCont* const allLanes = road->getLanes();
-    if ((roadPos.laneId >= allLanes->size()) || (allLanes->size() == 0)) {
+    const std::vector<MSLane*> &allLanes = road->getLanes();
+    if ((roadPos.laneId >= allLanes.size()) || (allLanes.size() == 0)) {
         throw TraCIException("No lane existing with such id on the given road");
     }
 
     // get corresponding x and y coordinates
-    Position2DVector shape = (*allLanes)[roadPos.laneId]->getShape();
+    Position2DVector shape = allLanes[roadPos.laneId]->getShape();
     return shape.positionAtLengthPosition(roadPos.pos);
 }
 
@@ -1850,8 +1850,8 @@ throw(TraCIException) {
         // shape of a road
     case DOMVAR_SHAPE:
         if (edge != NULL) {
-            const MSEdge::LaneCont* lanes = edge->getLanes();
-            const Position2DVector shape = (*lanes)[(*lanes).size()/2]->getShape();
+            const std::vector<MSLane*> &lanes = edge->getLanes();
+            const Position2DVector shape = lanes[lanes.size()/2]->getShape();
             response.writeUnsignedByte(TYPE_POLYGON);
             response.writeUnsignedByte(MIN2(static_cast<size_t>(255),shape.size()));
             for (int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),shape.size()); iPoint++) {
@@ -2109,7 +2109,7 @@ throw(TraCIException) {
 //                    edge = MSEdge::dictionary( destEdge );
 //                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge with given id");
 //
-//					const MSEdge::LaneCont& lanes = *(edge->getLanes());
+//					const std::vector<MSLane*>& lanes = edge->getLanes();
 //					if (destLane > lanes.size()-1) throw TraCIException("No lane existing with specified id on this edge");
 //                    pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);
 //                }

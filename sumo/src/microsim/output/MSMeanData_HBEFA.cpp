@@ -164,9 +164,8 @@ MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id,
     const std::vector<MSEdge*> &edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         std::vector<MSLaneMeanDataValues*> v;
-        const MSEdge::LaneCont * const lanes = (*e)->getLanes();
-        MSEdge::LaneCont::const_iterator lane;
-        for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
+        const std::vector<MSLane*> &lanes = (*e)->getLanes();
+        for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
             v.push_back(new MSLaneMeanDataValues(*lane));
         }
         myMeasures.push_back(v);
@@ -253,7 +252,7 @@ MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
             meanData.reset();
         }
         if (myDumpEmptyEdges||samplesS>0) {
-            SUMOReal length = (*edge->getLanes())[0]->getLength();
+            SUMOReal length = edge->getLanes()[0]->getLength();
             dev<<std::resetiosflags(std::ios::floatfield);
             dev<<"      <edge id=\""<<edge->getID()<<
             "\" sampledSeconds=\""<< samplesS <<

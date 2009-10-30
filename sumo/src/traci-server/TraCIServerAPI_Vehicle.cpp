@@ -119,9 +119,9 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeString(v->getLane().getID());
             break;
         case VAR_LANE_INDEX: {
-            const MSEdge::LaneCont *lanes = v->getLane().getEdge().getLanes();
+            const std::vector<MSLane*> &lanes = v->getLane().getEdge().getLanes();
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int)(std::distance(lanes->begin(), std::find(lanes->begin(), lanes->end(), &v->getLane()))));
+            tempMsg.writeInt((int)(std::distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), &v->getLane()))));
         }
         break;
         case VAR_TYPE:
@@ -265,14 +265,14 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unable to retrieve road with given id", outputStorage);
             return false;
         }
-        const MSEdge::LaneCont* const allLanes = road->getLanes();
-        if (laneIndex >= allLanes->size()) {
+        const std::vector<MSLane*> &allLanes = road->getLanes();
+        if (laneIndex >= allLanes.size()) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with such id on the given road", outputStorage);
             return false;
         }
         // Forward command to vehicle
-        if (!v->addTraciStop((*allLanes)[laneIndex], pos, 0, waitTime)) {
-            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle is too close or behind the stop on " + (*allLanes)[laneIndex]->getID(), outputStorage);
+        if (!v->addTraciStop(allLanes[laneIndex], pos, 0, waitTime)) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Vehicle is too close or behind the stop on " + allLanes[laneIndex]->getID(), outputStorage);
             return false;
         }
     }
@@ -300,7 +300,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             return false;
         }
         SUMOReal stickyTime = inputStorage.readFloat();
-        if ((laneIndex < 0) || (laneIndex >= v->getEdge()->getLanes()->size())) {
+        if ((laneIndex < 0) || (laneIndex >= v->getEdge()->getLanes().size())) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "No lane existing with given id on the current road", outputStorage);
             return false;
         }

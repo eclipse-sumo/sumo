@@ -406,7 +406,7 @@ public:
     MSVehicle::State myLastState;
 
 
-    void init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdge::LaneCont::const_iterator lastNeigh);
+    void init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, std::vector<MSLane*>::const_iterator lastNeigh);
 
 
 
@@ -548,10 +548,10 @@ protected:
 
 
     /// @brief The lane left to the described lane (==lastNeigh if none)
-    MSEdge::LaneCont::const_iterator myFirstNeigh;
+    std::vector<MSLane*>::const_iterator myFirstNeigh;
 
     /// @brief The end of this lane's edge's lane container
-    MSEdge::LaneCont::const_iterator myLastNeigh;
+    std::vector<MSLane*>::const_iterator myLastNeigh;
 
     /// index of the first vehicle that may drive over the lane's end
     size_t myFirstUnsafe;

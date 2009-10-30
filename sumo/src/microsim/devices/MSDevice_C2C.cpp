@@ -144,9 +144,9 @@ MSDevice_C2C::buildLookUpInformation() {
 void
 MSDevice_C2C::computeEdgeCells(const MSEdge *edge) {
     myEdgeCells[edge] = vector<size_t>();
-    const std::vector<MSLane*> *lanes = edge->getLanes();
-    for (size_t i=0; i<lanes->size(); i++) {
-        MSLane *lane = (*lanes)[i];
+    const std::vector<MSLane*> &lanes = edge->getLanes();
+    for (size_t i=0; i<lanes.size(); i++) {
+        MSLane *lane = lanes[i];
         computeLaneCells(lane->getShape(), edge);
     }
 }

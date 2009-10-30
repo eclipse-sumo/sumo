@@ -52,12 +52,12 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChanger::MSLaneChanger(MSEdge::LaneCont* lanes) {
+MSLaneChanger::MSLaneChanger(std::vector<MSLane*>* lanes) {
     assert(lanes->size() > 1);
 
     // Fill the changer with the lane-data.
     myChanger.reserve(lanes->size());
-    for (MSEdge::LaneCont::iterator lane = lanes->begin(); lane != lanes->end(); ++lane) {
+    for (std::vector<MSLane*>::iterator lane = lanes->begin(); lane != lanes->end(); ++lane) {
         ChangeElem ce;
         ce.follow    = 0;
         ce.lead      = 0;

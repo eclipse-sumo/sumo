@@ -64,7 +64,7 @@ public:
      */
     MSInternalJunction(const std::string &id, const Position2D &position,
                        const Position2DVector &shape,
-                       LaneCont incoming, LaneCont internal) throw();
+                       std::vector<MSLane*> incoming, std::vector<MSLane*> internal) throw();
 
     /// Destructor.
     virtual ~MSInternalJunction();

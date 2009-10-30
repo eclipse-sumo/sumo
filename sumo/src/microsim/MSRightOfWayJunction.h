@@ -66,9 +66,9 @@ public:
      */
     MSRightOfWayJunction(const std::string &id, const Position2D &position,
                          const Position2DVector &shape,
-                         LaneCont incoming,
+                         std::vector<MSLane*> incoming,
 #ifdef HAVE_INTERNAL_LANES
-                         LaneCont internal,
+                         std::vector<MSLane*> internal,
 #endif
                          MSJunctionLogic* logic) throw();
 

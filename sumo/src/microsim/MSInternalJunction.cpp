@@ -53,7 +53,8 @@ using namespace std;
 MSInternalJunction::MSInternalJunction(const std::string &id,
                                        const Position2D &position,
                                        const Position2DVector &shape,
-                                       LaneCont incoming, LaneCont internal) throw()
+                                       std::vector<MSLane*> incoming, 
+                                       std::vector<MSLane*> internal) throw()
         : MSLogicJunction(id, position, shape, incoming, internal) {}
 
 
@@ -99,7 +100,7 @@ bool
 MSInternalJunction::setAllowed() {
     // Get myRespond from logic and check for deadlocks.
     myRespond.set(0, true);
-    LaneCont::iterator i;
+    std::vector<MSLane*>::iterator i;
     if (myIncomingLanes.size()==0) {
         return true;
     }

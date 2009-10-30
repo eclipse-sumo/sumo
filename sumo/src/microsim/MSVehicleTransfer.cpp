@@ -91,7 +91,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
             if (desc.myProceedTime<time) {
                 // get the lanes of the next edge (the one the vehicle wiil be
                 //  virtually on after all these computations)
-                MSLane *tmp = *(e->getLanes()->begin());
+                MSLane *tmp = *(e->getLanes().begin());
                 // get the one beyond the one the vehicle moved to
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->getID());
                 // let the vehicle move to the next edge

@@ -80,11 +80,8 @@ public:
     };
 
 
-    /// @brief Container for lanes.
-    typedef std::vector< MSLane* > LaneCont;
-
     /** @brief Suceeding edges (keys) and allowed lanes to reach these edges (values). */
-    typedef std::map< const MSEdge*, LaneCont* > AllowedLanesCont;
+    typedef std::map< const MSEdge*, std::vector<MSLane*>* > AllowedLanesCont;
 
     /** @brief Map from vehicle types to lanes that may be used to reach one of the next edges */
     typedef std::map< SUMOVehicleClass, AllowedLanesCont > ClassedAllowedLanesCont;
@@ -114,7 +111,7 @@ public:
      * @param[in] lanes List of this edge's lanes
      * @param[in] function A basic type of the edge
      */
-    void initialize(MSLane* departLane, LaneCont* lanes, EdgeBasicFunction function) throw();
+    void initialize(MSLane* departLane, std::vector<MSLane*>* lanes, EdgeBasicFunction function) throw();
 
 
     /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
@@ -131,7 +128,7 @@ public:
      * @todo At the begin, three checks are done for determining whether the class is of importance. Consolidate this
      * @todo There is also a further note in the code that should be checked
      */
-    const LaneCont* allowedLanes(const MSEdge& destination,
+    const std::vector<MSLane*>* allowedLanes(const MSEdge& destination,
                                  SUMOVehicleClass vclass) const throw();
 
 
@@ -159,10 +156,9 @@ public:
     /** @brief Returns this edge's lanes
      *
      * @return This edge's lanes
-     * @todo Why not a reference?
      */
-    const LaneCont * const getLanes() const throw() {
-        return myLanes;
+    const std::vector<MSLane*> &getLanes() const throw() {
+        return *myLanes;
     }
     /// @}
 
@@ -451,7 +447,7 @@ protected:
 
     /** @brief Container for the edge's lane.
      * Should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index. */
-    LaneCont* myLanes;
+    std::vector<MSLane*>* myLanes;
 
 
     /// @name Storages for allowed lanes (depending on vehicle classes)

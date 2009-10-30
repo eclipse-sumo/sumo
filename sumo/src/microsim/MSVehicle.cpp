@@ -227,7 +227,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
 #endif
     // build arrival definition
-    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->getLength();
+    SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
     if (myArrivalPos < 0) {
         myArrivalPos += lastLaneLength; // !!! validate!
     }
@@ -1492,7 +1492,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) {
     myLastBestLanesEdge = 0;
     // update arrival definition
     myArrivalPos = myParameter->arrivalPos;
-    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->getLength();
+    SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
     if (myArrivalPos < 0) {
         myArrivalPos += lastLaneLength; // !!! validate!
     }
@@ -1536,7 +1536,7 @@ MSVehicle::rebuildAllowedLanes(bool reinit) {
         if (pos>=myRoute->size()-1) {
             return;
         }
-        const MSEdge::LaneCont *al = (*myRoute)[pos]->allowedLanes(*(*myRoute)[pos+1], myType->getVehicleClass());
+        const std::vector<MSLane*> *al = (*myRoute)[pos]->allowedLanes(*(*myRoute)[pos+1], myType->getVehicleClass());
         while (al!=0&&dist<MIN_DIST&&pos<myRoute->size()-1) {
             assert(al!=0);
             myAllowedLanes.push_back(al);
@@ -1568,7 +1568,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
     }
     // we must go further...
     // get the list of allowed lanes
-    const MSEdge::LaneCont *allowed = 0;
+    const std::vector<MSLane*> *allowed = 0;
     if (ce!=myRoute->end()&&ce+1!=myRoute->end()) {
         allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
     }
@@ -1576,7 +1576,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
     //  save the best lane for later usage
     LaneQ best;
     best.length = 0;
-    const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
+    const std::vector<MSLane*> &lanes = (*ce)->getLanes();
     const MSLinkCont &lc = l->getLinkCont();
     bool gotOne = false;
     // we go through all connections of the lane to examine
@@ -1641,12 +1641,12 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         //  - because the vehicle has to change lanes, it will do this into
         //  the proper direction as the lanes moving the the proper edge are
         //  lying side by side
-        const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
+        const std::vector<MSLane*> &lanes = (*ce)->getLanes();
         bool oneFound = false;
         int bestPos = 0;
         MSLane *next = 0;
         // we go over the next edge's lanes and determine the first that may be used
-        for (MSEdge::LaneCont::const_iterator i=lanes->begin(); !oneFound&&i!=lanes->end();) {
+        for (std::vector<MSLane*>::const_iterator i=lanes.begin(); !oneFound&&i!=lanes.end();) {
             if (allowed!=0 && find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
                 oneFound = true;
                 next = *i;
@@ -1663,8 +1663,8 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             int bestDistance = -100;
             MSLane *bestL = 0;
             // go over all lanes of current edge
-            const MSEdge::LaneCont * const clanes = l->getEdge().getLanes();
-            for (MSEdge::LaneCont::const_iterator i=clanes->begin(); i!=clanes->end(); ++i) {
+            const std::vector<MSLane*> &clanes = l->getEdge().getLanes();
+            for (std::vector<MSLane*>::const_iterator i=clanes.begin(); i!=clanes.end(); ++i) {
                 // go over all connected lanes
                 for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
                     if ((*k)->getLane()==0) {
@@ -1672,9 +1672,9 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                     }
                     // the best lane must be on the proper edge
                     if (&(*k)->getLane()->getEdge()==*ce) {
-                        MSEdge::LaneCont::const_iterator l=find(lanes->begin(), lanes->end(), (*k)->getLane());
-                        if (l!=lanes->end()) {
-                            int pos = (int)distance(lanes->begin(), l);
+                        std::vector<MSLane*>::const_iterator l=find(lanes.begin(), lanes.end(), (*k)->getLane());
+                        if (l!=lanes.end()) {
+                            int pos = (int)distance(lanes.begin(), l);
                             int cdist = abs(pos-bestPos);
                             if (bestDistance==-100||bestDistance>cdist) {
                                 bestDistance = cdist;
@@ -1724,14 +1724,14 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     myLastBestLanesEdge = &startLane->getEdge();
     myBestLanes.clear();
     myBestLanes.push_back(vector<LaneQ>());
-    const MSEdge::LaneCont * const lanes = (*myCurrEdge)->getLanes();
+    const std::vector<MSLane*> &lanes = (*myCurrEdge)->getLanes();
     MSRouteIterator ce = myCurrEdge;
     int seen = 0;
-    const MSEdge::LaneCont *allowed = 0;
+    const std::vector<MSLane*> *allowed = 0;
     if (ce!=myRoute->end()&&ce+1!=myRoute->end()) {
         allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
     }
-    for (MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
+    for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
         LaneQ q;
         q.lane = *i;
         q.length = 0;//q.lane->getLength();

@@ -55,9 +55,9 @@ using namespace std;
 MSRightOfWayJunction::MSRightOfWayJunction(const std::string &id,
         const Position2D &position,
         const Position2DVector &shape,
-        LaneCont incoming,
+        std::vector<MSLane*> incoming,
 #ifdef HAVE_INTERNAL_LANES
-        LaneCont internal,
+        std::vector<MSLane*> internal,
 #endif
         MSJunctionLogic* logic) throw()
         : MSLogicJunction(id, position, shape, incoming
@@ -86,7 +86,7 @@ void
 MSRightOfWayJunction::postloadInit() throw(ProcessError) {
     // inform links where they have to report approaching vehicles to
     unsigned int requestPos = 0;
-    LaneCont::iterator i;
+    std::vector<MSLane*>::iterator i;
     // going through the incoming lanes...
     bool isCrossing = myLogic->isCrossing();
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
@@ -118,7 +118,7 @@ MSRightOfWayJunction::setAllowed() {
     //  left-moving links
     /*
     if (MSGlobals::gUsingInternalLanes) {
-        LaneCont::iterator i;
+        std::vector<MSLane*>::iterator i;
         size_t requestPos = 0;
         // going through the incoming lanes...
         for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
@@ -154,7 +154,7 @@ MSRightOfWayJunction::setAllowed() {
 #ifdef HAVE_INTERNAL_LANES
     // reset the yield information on internal, split left-moving links
     if (MSGlobals::gUsingInternalLanes) {
-        for (LaneCont::iterator i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
+        for (std::vector<MSLane*>::iterator i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
             const MSLinkCont &lc = (*i)->getLinkCont();
             if (lc.size()==1) {
                 MSLink *link = lc[0];

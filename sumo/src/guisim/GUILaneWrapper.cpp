@@ -661,7 +661,7 @@ GUILaneWrapper::getDensity() const {
 
 SUMOReal
 GUILaneWrapper::getEdgeLaneNumber() const {
-    return (SUMOReal) myLane.getEdge().getLanes()->size();
+    return (SUMOReal) myLane.getEdge().getLanes().size();
 }
 
 

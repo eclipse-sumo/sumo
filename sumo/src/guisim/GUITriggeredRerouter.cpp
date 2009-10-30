@@ -244,14 +244,14 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
     size_t no = 0;
     for (k=0; k<edges.size(); k++) {
         GUIEdge *gedge = static_cast<GUIEdge*>(edges[k]);
-        no += gedge->getLanes()->size();
+        no += gedge->getLanes().size();
     }
     myFGPositions.reserve(no);
     myFGRotations.reserve(no);
     for (k=0; k<edges.size(); k++) {
         GUIEdge *gedge = static_cast<GUIEdge*>(edges[k]);
-        const MSEdge::LaneCont * const lanes = gedge->getLanes();
-        size_t noLanes = lanes->size();
+        const std::vector<MSLane*> &lanes = gedge->getLanes();
+        size_t noLanes = lanes.size();
         for (size_t i=0; i<noLanes; ++i) {
             const Position2DVector &v = gedge->getLaneGeometry((size_t) i).getShape();
             SUMOReal pos = v.length() - (SUMOReal) 6.;
@@ -347,12 +347,11 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
             getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
         for (std::vector<MSEdge*>::const_iterator i=ri.closed.begin(); i!=ri.closed.end(); ++i) {
             GUIEdge *gedge = static_cast<GUIEdge*>(*i);
-            const MSEdge::LaneCont * const lanes = gedge->getLanes();
-            size_t noLanes = lanes->size();
+            const std::vector<MSLane*> &lanes = gedge->getLanes();
+            size_t noLanes = lanes.size();
             SUMOReal prob = getProbability()*360;
             for (size_t j=0; j<noLanes; ++j) {
-                const Position2DVector &v =
-                    gedge->getLaneGeometry((size_t) j).getShape();
+                const Position2DVector &v = gedge->getLaneGeometry((size_t) j).getShape();
                 SUMOReal d = 3.;
                 Position2D pos = v.positionAtLengthPosition(d);
                 SUMOReal rot = -v.rotationDegreeAtLengthPosition(d);

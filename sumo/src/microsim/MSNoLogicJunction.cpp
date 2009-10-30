@@ -58,9 +58,9 @@ std::bitset<64> MSNoLogicJunction::myDump((unsigned long) 0xffffffff);
 MSNoLogicJunction::MSNoLogicJunction(const std::string &id,
                                      const Position2D &position,
                                      const Position2DVector &shape,
-                                     LaneCont incoming
+                                     std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
-                                     , LaneCont internal
+                                     , std::vector<MSLane*> internal
 #endif
                                     ) throw()
         : MSJunction(id, position, shape),
@@ -84,7 +84,7 @@ MSNoLogicJunction::~MSNoLogicJunction() {}
 
 void
 MSNoLogicJunction::postloadInit() throw(ProcessError) {
-    LaneCont::iterator i;
+    std::vector<MSLane*>::iterator i;
     // inform links where they have to report approaching vehicles to
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();

@@ -54,9 +54,6 @@ public:
     /// Destructor.
     virtual ~MSNoLogicJunction();
 
-    /** Container for incoming lanes. */
-    typedef std::vector< MSLane* > LaneCont;
-
     /** @brief Constructor
      * @param[in] id The id of the junction
      * @param[in] position The position of the junction
@@ -66,9 +63,9 @@ public:
      */
     MSNoLogicJunction(const std::string &id, const Position2D &position,
                       const Position2DVector &shape,
-                      LaneCont incoming
+                      std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
-                      , LaneCont internal
+                      , std::vector<MSLane*> internal
 #endif
                      ) throw();
 
@@ -86,11 +83,11 @@ public:
 
 private:
     /** Lanes incoming to the junction */
-    LaneCont myIncomingLanes;
+    std::vector<MSLane*> myIncomingLanes;
 
 #ifdef HAVE_INTERNAL_LANES
     /** The junctions internal lanes */
-    LaneCont myInternalLanes;
+    std::vector<MSLane*> myInternalLanes;
 #endif
 
 private:

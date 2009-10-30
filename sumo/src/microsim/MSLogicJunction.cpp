@@ -51,9 +51,9 @@ using namespace std;
 MSLogicJunction::MSLogicJunction(const std::string &id,
                                  const Position2D &position,
                                  const Position2DVector &shape,
-                                 LaneCont incoming
+                                 std::vector<MSLane*> incoming
 #ifdef HAVE_INTERNAL_LANES
-                                 , LaneCont internal
+                                 , std::vector<MSLane*> internal
 #endif
                                 ) throw()
         : MSJunction(id, position, shape),
@@ -75,7 +75,7 @@ MSLogicJunction::postloadInit() throw(ProcessError) {
     }
     // inform links where they have to report approaching vehicles to
     size_t requestPos = 0;
-    LaneCont::iterator i;
+    std::vector<MSLane*>::iterator i;
     // going through the incoming lanes...
     for(i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();

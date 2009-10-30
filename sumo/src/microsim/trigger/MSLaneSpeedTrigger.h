@@ -110,11 +110,8 @@ protected:
 
 
 protected:
-    /// Define the container for those lanes that shall be manipulated
-    typedef std::vector<MSLane*> LaneCont;
-
     /** the lane the trigger is responsible for */
-    LaneCont myDestLanes;
+    std::vector<MSLane*> myDestLanes;
 
     /** the speed that will be set on the next call */
     SUMOReal myCurrentSpeed;

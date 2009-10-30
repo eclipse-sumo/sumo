@@ -51,7 +51,7 @@ class MSVehicle;
 class MSLaneChanger {
 public:
     /// Constructor
-    MSLaneChanger(MSEdge::LaneCont* lanes);
+    MSLaneChanger(std::vector<MSLane*>* lanes);
 
     /// Destructor.
     ~MSLaneChanger();

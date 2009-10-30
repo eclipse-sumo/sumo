@@ -133,7 +133,7 @@ protected:
     MSEdge *myActiveEdge;
 
     /// @brief pointer to a temporary lane storage
-    MSEdge::LaneCont          *m_pLaneStorage;
+    std::vector<MSLane*> *m_pLaneStorage;
 
     /// pointer to the depart lane
     MSLane                    *m_pDepartLane;
