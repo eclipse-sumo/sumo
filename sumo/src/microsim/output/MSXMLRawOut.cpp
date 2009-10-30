@@ -106,7 +106,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
         } else {
 #endif
             const std::vector<MSLane*> &lanes = edge.getLanes();
-            for (std::vector<MSLane*>::const_iterator lane=lanes.begin(); lane!=.end(); ++lane) {
+            for (std::vector<MSLane*>::const_iterator lane=lanes.begin(); lane!=lanes.end(); ++lane) {
                 writeLane(of, **lane);
             }
 #ifdef HAVE_MESOSIM
