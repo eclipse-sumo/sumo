@@ -82,7 +82,8 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
             }
         } else {
 #endif
-            for (std::vector<MSLane*>::const_iterator lane=edge.getLanes().begin(); lane!=edge.getLanes().end(); ++lane) {
+            const std::vector<MSLane*> &lanes = edge.getLanes();
+            for (std::vector<MSLane*>::const_iterator lane=lanes.begin(); lane!=lanes.end(); ++lane) {
                 if (((**lane).getVehicleNumber()!=0)) {
                     dump = true;
                     break;
@@ -104,7 +105,8 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError) {
             }
         } else {
 #endif
-            for (std::vector<MSLane*>::const_iterator lane=edge.getLanes().begin(); lane!=edge.getLanes().end(); ++lane) {
+            const std::vector<MSLane*> &lanes = edge.getLanes();
+            for (std::vector<MSLane*>::const_iterator lane=lanes.begin(); lane!=.end(); ++lane) {
                 writeLane(of, **lane);
             }
 #ifdef HAVE_MESOSIM

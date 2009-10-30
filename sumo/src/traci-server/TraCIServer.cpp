@@ -1641,7 +1641,8 @@ TraCIServer::getNetBoundary() {
 
     // Get Boundary of Single ...
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        for (std::vector<MSLane*>::const_iterator laneIt = (*e)->getLanes().begin(); laneIt != (*e)->getLanes().end(); ++laneIt) {
+        const std::vector<MSLane*> &lanes = (*e)->getLanes();
+        for (std::vector<MSLane*>::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); ++laneIt) {
             netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
         }
     }
