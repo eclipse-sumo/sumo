@@ -337,9 +337,9 @@ GUINet::initGUIStructures() {
     for (vector<GUIEdge*>::iterator i=myEdgeWrapper.begin(); i!=myEdgeWrapper.end(); ++i) {
         GUIEdge *edge = *i;
         Boundary b;
-        for (size_t j=0; j<edge->nLanes(); ++j) {
-            GUILaneWrapper &lane = edge->getLaneGeometry(j);
-            b.add(lane.getShape().getBoxBoundary());
+        const std::vector<MSLane*> &lanes = edge->getLanes();
+        for (std::vector<MSLane*>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
+            b.add((*j)->getShape().getBoxBoundary());
         }
         b.grow(2.);
         cmin[0] = b.xmin();
