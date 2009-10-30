@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:complexType name="edgeType">
+		<xsd:sequence>
+			<xsd:element name="lane" type="laneType" minOccurs="0"
+				maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="refid" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="fromnode" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="tonode" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="xfrom" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="yfrom" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="xto" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="yto" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="type" type="xsd:string" use="optional"></xsd:attribute>
+		<xsd:attribute name="length" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:float">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="nolanes" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minExclusive value="0"></xsd:minExclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="speed" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:float">
+					<xsd:minExclusive value="0"></xsd:minExclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="departlane">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="priority" type="xsd:int" use="optional"></xsd:attribute>
+		<xsd:attribute name="shape" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern
+						value="(\d+|(\d*.\d+)),(\d+|(\d*.\d+))(\s(\d+|(\d*.\d+)),(\d+|(\d*.\d+)))+">
+					</xsd:pattern>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="spread_type" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="center"></xsd:enumeration>
+					<xsd:enumeration value="right"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:element name="edges" type="edgesType"></xsd:element>
+
+	<xsd:complexType name="edgesType">
+		<xsd:sequence>
+			<xsd:element name="edge" type="edgeType" minOccurs="0" maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="laneType">
+		<xsd:attribute name="id" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="maxspeed">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:float">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="allow" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="disallow" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="prefer" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+
+
+</xsd:schema>

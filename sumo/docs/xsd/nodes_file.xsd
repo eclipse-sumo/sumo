@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:annotation>
+		</xsd:annotation>
+	<xsd:complexType name="nodeType">
+		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="x" type="xsd:float" use="required"></xsd:attribute>
+		<xsd:attribute name="y" type="xsd:float" use="required"></xsd:attribute>
+		<xsd:attribute name="type" use="optional">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="traffic_light"></xsd:enumeration>
+					<xsd:enumeration value="right_before_left"></xsd:enumeration>
+					<xsd:enumeration value="priority"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="nodesType">
+		<xsd:sequence>
+			<xsd:element name="node" type="nodeType" minOccurs="0"
+				maxOccurs="unbounded">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:element name="nodes" type="nodesType">
+		<xsd:key name="NodeID">
+			<xsd:selector xpath="token"></xsd:selector>
+			<xsd:field xpath="token"></xsd:field>
+		</xsd:key></xsd:element>
+
+
+
+
+</xsd:schema>
