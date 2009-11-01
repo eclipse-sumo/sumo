@@ -99,7 +99,7 @@ MSFrame::fillOptions() {
 #ifdef HAVE_MESOSIM
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
-    oc.doRegister("load-state.offset", new Option_Float());//!!! check, describe
+    oc.doRegister("load-state.offset", new Option_Float(0.f));//!!! check, describe
     oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times.");
 #endif
 

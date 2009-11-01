@@ -1846,6 +1846,7 @@ MSVehicle::saveState(std::ostream &os) {
     } else {
         FileHelpers::writeUInt(os, mySegment->getIndex());
     }
+    FileHelpers::writeUInt(os, getQueIndex());
     FileHelpers::writeFloat(os, myEventTime);
     FileHelpers::writeFloat(os, myLastEntryTime);
 #endif

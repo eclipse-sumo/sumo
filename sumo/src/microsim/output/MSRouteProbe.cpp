@@ -70,7 +70,6 @@ MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool 
 }
 
 
-
 MSRouteProbe::MSRouteProbe(const std::string &id, const MSEdge *edge, SUMOTime begin) throw()
         : Named(id), myCurrentRouteDistribution(0) {
     const std::string distID = id + "_" + toString(begin);
@@ -144,5 +143,3 @@ MSRouteProbe::addRoute(const MSRoute &route) const {
         myCurrentRouteDistribution->add(1., routep);
     }
 }
-
-

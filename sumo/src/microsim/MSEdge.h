@@ -129,7 +129,7 @@ public:
      * @todo There is also a further note in the code that should be checked
      */
     const std::vector<MSLane*>* allowedLanes(const MSEdge& destination,
-                                 SUMOVehicleClass vclass) const throw();
+                                 SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
 
 
     /// @name Access to the edge's lanes

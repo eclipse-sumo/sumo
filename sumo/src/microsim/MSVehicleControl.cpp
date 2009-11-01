@@ -412,6 +412,8 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
 #ifdef HAVE_MESOSIM
         unsigned int segIndex;
         bis >> segIndex;
+        unsigned int queIndex;
+        bis >> queIndex;
         SUMOReal tEvent;
         bis >> tEvent;
         SUMOReal tLastEntry;
@@ -442,6 +444,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
             while (v->mySegment->getIndex()!=segIndex) {
                 v->mySegment = MSGlobals::gMesoNet->next_segment(v->mySegment, v);
             }
+            v->myQueIndex = queIndex;
             v->myEventTime = tEvent;
             v->myLastEntryTime = tLastEntry;
         }
