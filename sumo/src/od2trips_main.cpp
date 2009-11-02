@@ -249,7 +249,10 @@ getNextNonCommentLine(LineReader &lr) {
     do {
         line = lr.readLine();
         if (line[0]!='*') {
-            return StringUtils::prune(line);
+            line = StringUtils::prune(line);
+            if(line.length()!=0) {
+                return line;
+            }
         }
     } while (lr.good());
     throw ProcessError();
@@ -326,22 +329,21 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
     int districtNo = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
     std::vector<std::string> names;
-    line = getNextNonCommentLine(lr);
     do {
+        line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
         while (st2.hasNext()) {
             names.push_back(st2.next());
         }
-        line = lr.readLine();
-    } while (line[0]!='*');
-    assert((int) names.size()==districtNo);
+    } while ((int) names.size()!=districtNo);
+    //assert((int) names.size()==districtNo);
 
     // parse the cells
     for (std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
         std::vector<std::string>::iterator di = names.begin();
         //
-        line = getNextNonCommentLine(lr);
         do {
+            line = getNextNonCommentLine(lr);
             try {
                 StringTokenizer st2(line, StringTokenizer::WHITECHARS);
                 while (st2.hasNext()) {
@@ -349,6 +351,9 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
                     SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
                     if (vehNumber!=0) {
                         into.add(vehNumber, begin, end, *si, *di, vehType);
+                    }
+                    if(di==names.end()) {
+                        throw ProcessError("More entries than districts found.");
                     }
                     ++di;
                 }
@@ -358,8 +363,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
             if (!lr.hasMore()) {
                 break;
             }
-            line = lr.readLine();
-        } while (line[0]!='*');
+        } while (di!=names.end());
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
