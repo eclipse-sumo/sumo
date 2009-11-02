@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/02/09 10:56:09 by SUMO od2trips Version dev-SVN-r7924
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <od-files value="input_od_v.fma"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<tripdefs>
+   <tripdef id="13" depart="25215" from="L7" to="L24" departlane="free" departspeed="max"/>
+   <tripdef id="31" depart="25232" from="L12" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="33" depart="25349" from="L12" to="L10" departlane="free" departspeed="max"/>
+   <tripdef id="25" depart="25456" from="L23" to="L13" departlane="free" departspeed="max"/>
+   <tripdef id="42" depart="25563" from="L16" to="L9" departlane="free" departspeed="max"/>
+   <tripdef id="20" depart="25637" from="L21" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="39" depart="25705" from="L6" to="L13" departlane="free" departspeed="max"/>
+   <tripdef id="11" depart="25717" from="L7" to="L15" departlane="free" departspeed="max"/>
+   <tripdef id="34" depart="25792" from="L12" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="17" depart="25932" from="L21" to="L10" departlane="free" departspeed="max"/>
+   <tripdef id="9" depart="26030" from="L7" to="L10" departlane="free" departspeed="max"/>
+   <tripdef id="41" depart="26035" from="L6" to="L22" departlane="free" departspeed="max"/>
+   <tripdef id="38" depart="26038" from="L6" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="4" depart="26051" from="L1" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="5" depart="26092" from="L1" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="55" depart="26162" from="L14" to="L13" departlane="free" departspeed="max"/>
+   <tripdef id="6" depart="26191" from="L1" to="L24" departlane="free" departspeed="max"/>
+   <tripdef id="53" depart="26209" from="L14" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="50" depart="26345" from="L14" to="L9" departlane="free" departspeed="max"/>
+   <tripdef id="8" depart="26472" from="L7" to="L10" departlane="free" departspeed="max"/>
+   <tripdef id="23" depart="26475" from="L23" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="1" depart="26522" from="L1" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="7" depart="26535" from="L7" to="L24" departlane="free" departspeed="max"/>
+   <tripdef id="51" depart="26584" from="L14" to="L9" departlane="free" departspeed="max"/>
+   <tripdef id="2" depart="26747" from="L1" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="3" depart="26793" from="L1" to="L22" departlane="free" departspeed="max"/>
+   <tripdef id="21" depart="26829" from="L23" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="10" depart="26855" from="L7" to="L22" departlane="free" departspeed="max"/>
+   <tripdef id="28" depart="26958" from="L12" to="L10" departlane="free" departspeed="max"/>
+   <tripdef id="0" depart="27009" from="L1" to="L9" departlane="free" departspeed="max"/>
+   <tripdef id="54" depart="27309" from="L14" to="L9" departlane="free" departspeed="max"/>
+   <tripdef id="46" depart="27337" from="L16" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="47" depart="27377" from="L16" to="L22" departlane="free" departspeed="max"/>
+   <tripdef id="40" depart="27464" from="L6" to="L9" departlane="free" departspeed="max"/>
+   <tripdef id="49" depart="27465" from="L14" to="L15" departlane="free" departspeed="max"/>
+   <tripdef id="52" depart="27632" from="L14" to="L22" departlane="free" departspeed="max"/>
+   <tripdef id="48" depart="27637" from="L16" to="L24" departlane="free" departspeed="max"/>
+   <tripdef id="26" depart="27756" from="L23" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="29" depart="27780" from="L12" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="36" depart="27827" from="L6" to="L9" departlane="free" departspeed="max"/>
+   <tripdef id="12" depart="27878" from="L7" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="44" depart="27970" from="L16" to="L10" departlane="free" departspeed="max"/>
+   <tripdef id="16" depart="27988" from="L21" to="L22" departlane="free" departspeed="max"/>
+   <tripdef id="14" depart="28003" from="L21" to="L13" departlane="free" departspeed="max"/>
+   <tripdef id="19" depart="28042" from="L21" to="L24" departlane="free" departspeed="max"/>
+   <tripdef id="27" depart="28170" from="L23" to="L15" departlane="free" departspeed="max"/>
+   <tripdef id="32" depart="28198" from="L12" to="L24" departlane="free" departspeed="max"/>
+   <tripdef id="18" depart="28248" from="L21" to="L10" departlane="free" departspeed="max"/>
+   <tripdef id="45" depart="28265" from="L16" to="L13" departlane="free" departspeed="max"/>
+   <tripdef id="22" depart="28308" from="L23" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="24" depart="28416" from="L23" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="15" depart="28478" from="L21" to="L4" departlane="free" departspeed="max"/>
+   <tripdef id="35" depart="28488" from="L6" to="L13" departlane="free" departspeed="max"/>
+   <tripdef id="30" depart="28603" from="L12" to="L15" departlane="free" departspeed="max"/>
+   <tripdef id="43" depart="28649" from="L16" to="L3" departlane="free" departspeed="max"/>
+   <tripdef id="37" depart="28723" from="L6" to="L13" departlane="free" departspeed="max"/>
+</tripdefs>

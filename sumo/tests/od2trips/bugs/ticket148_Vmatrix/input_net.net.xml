@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<districts>
+	<district id="D1">
+		<dsource id="L1" weight="1" />
+		<dsink id="L10" weight="1" />
+		<dsink id="L22" weight="1" />
+		<dsink id="L24" weight="1" />
+		<dsink id="L9" weight="1" />
+		<dsink id="L3" weight="1" />
+		<dsink id="L15" weight="1" />
+		<dsink id="L13" weight="1" />
+	</district>
+	<district id="D2">
+		<dsource id="L7" weight="1" />
+		<dsink id="L4" weight="1" />
+		<dsink id="L22" weight="1" />
+		<dsink id="L24" weight="1" />
+		<dsink id="L9" weight="1" />
+		<dsink id="L3" weight="1" />
+		<dsink id="L15" weight="1" />
+		<dsink id="L13" weight="1" />
+	</district>
+	<district id="D3">
+		<dsource id="L21" weight="1" />
+		<dsink id="L10" weight="1" />
+		<dsink id="L4" weight="1" />
+		<dsink id="L24" weight="1" />
+		<dsink id="L9" weight="1" />
+		<dsink id="L3" weight="1" />
+		<dsink id="L15" weight="1" />
+		<dsink id="L13" weight="1" />
+	</district>
+	<district id="D4">
+		<dsource id="L23" weight="1" />
+		<dsink id="L10" weight="1" />
+		<dsink id="L22" weight="1" />
+		<dsink id="L4" weight="1" />
+		<dsink id="L9" weight="1" />
+		<dsink id="L3" weight="1" />
+		<dsink id="L15" weight="1" />
+		<dsink id="L13" weight="1" />
+	</district>
+	<district id="D5">
+		<dsource id="L12" weight="1" />
+		<dsink id="L10" weight="1" />
+		<dsink id="L22" weight="1" />
+		<dsink id="L24" weight="1" />
+		<dsink id="L4" weight="1" />
+		<dsink id="L3" weight="1" />
+		<dsink id="L15" weight="1" />
+		<dsink id="L13" weight="1" />
+	</district>
+	<district id="D6">
+		<dsource id="L6" weight="1" />
+		<dsink id="L10" weight="1" />
+		<dsink id="L22" weight="1" />
+		<dsink id="L24" weight="1" />
+		<dsink id="L9" weight="1" />
+		<dsink id="L4" weight="1" />
+		<dsink id="L15" weight="1" />
+		<dsink id="L13" weight="1" />
+	</district>
+	<district id="D7">
+		<dsource id="L16" weight="1" />
+		<dsink id="L10" weight="1" />
+		<dsink id="L22" weight="1" />
+		<dsink id="L24" weight="1" />
+		<dsink id="L9" weight="1" />
+		<dsink id="L3" weight="1" />
+		<dsink id="L4" weight="1" />
+		<dsink id="L13" weight="1" />
+	</district>
+	<district id="D8">
+		<dsource id="L14" weight="1" />
+		<dsink id="L10" weight="1" />
+		<dsink id="L22" weight="1" />
+		<dsink id="L24" weight="1" />
+		<dsink id="L9" weight="1" />
+		<dsink id="L3" weight="1" />
+		<dsink id="L15" weight="1" />
+		<dsink id="L4" weight="1" />
+	</district>
+
+
+</districts>
