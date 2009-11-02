@@ -137,22 +137,30 @@ protected:
     /**
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
+     * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever
      */
     class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
-        /// Constructor
-        EdgeFloatTimeLineRetriever_EdgeWeight(RONet *net) throw() : myNet(net) {}
+        /// @brief Constructor
+        EdgeFloatTimeLineRetriever_EdgeWeight(RONet &net) throw() : myNet(net) {}
 
-        /// Destructor
+        /// @brief Destructor
         ~EdgeFloatTimeLineRetriever_EdgeWeight() throw() { }
 
-        /// Sets the given value as the edge weight for the given period
+        /** @brief Adds an effort for a given edge and time period
+         *
+         * @param[in] id The id of the object to add a weight for
+         * @param[in] val The weight
+         * @param[in] beg The begin of the interval the weight is valid for
+         * @param[in] end The end of the interval the weight is valid for
+         * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
+         */
         void addEdgeWeight(const std::string &id,
-                           SUMOReal val, SUMOTime beg, SUMOTime end);
+                           SUMOReal val, SUMOTime beg, SUMOTime end) const throw();
 
     private:
-        /// The network edges shall be obtained from
-        RONet *myNet;
+        /// @brief The network edges shall be obtained from
+        RONet &myNet;
 
     };
 
@@ -160,22 +168,30 @@ protected:
     /**
      * @class EdgeFloatTimeLineRetriever_EdgeTravelTime
      * @brief Obtains edge travel times from a weights handler and stores them within the edges
+     * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever
      */
     class EdgeFloatTimeLineRetriever_EdgeTravelTime : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
-        /// Constructor
-        EdgeFloatTimeLineRetriever_EdgeTravelTime(RONet *net) throw() : myNet(net) {}
+        /// @brief Constructor
+        EdgeFloatTimeLineRetriever_EdgeTravelTime(RONet &net) throw() : myNet(net) {}
 
-        /// Destructor
+        /// @brief Destructor
         ~EdgeFloatTimeLineRetriever_EdgeTravelTime() throw() {}
 
-        /// Sets the given value as the edge weight for the given period
+        /** @brief Adds a travel time for a given edge and time period
+         *
+         * @param[in] id The id of the object to add a weight for
+         * @param[in] val The travel time
+         * @param[in] beg The begin of the interval the weight is valid for
+         * @param[in] end The end of the interval the weight is valid for
+         * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
+         */
         void addEdgeWeight(const std::string &id,
-                           SUMOReal val, SUMOTime beg, SUMOTime end);
+                           SUMOReal val, SUMOTime beg, SUMOTime end) const throw();
 
     private:
-        /// The network edges shall be obtained from
-        RONet *myNet;
+        /// @brief The network edges shall be obtained from
+        RONet &myNet;
 
     };
 

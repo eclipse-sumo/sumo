@@ -113,26 +113,63 @@ protected:
 
 
     /**
-     * @class EdgeFloatTimeLineRetriever_EdgeWeight
-     * @brief Obtains edge weights from a weights handler and stores them within the edges
-     *
-     * @todo Why is the network not a reference?
+     * @class EdgeFloatTimeLineRetriever_EdgeTravelTime
+     * @brief Obtains edge efforts from a weights handler and stores them within the edges
+     * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever
      */
-    class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
+    class EdgeFloatTimeLineRetriever_EdgeEffort : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
     public:
         /// @brief Constructor
-        EdgeFloatTimeLineRetriever_EdgeWeight(MSNet *net);
+        EdgeFloatTimeLineRetriever_EdgeEffort(MSNet &net) throw() : myNet(net) {}
 
         /// @brief Destructor
-        ~EdgeFloatTimeLineRetriever_EdgeWeight();
+        ~EdgeFloatTimeLineRetriever_EdgeEffort() throw() { }
 
-        /// Sets the given value as the edge weight for the given period
+        /** @brief Adds an effort for a given edge and time period
+         *
+         * @param[in] id The id of the object to add a weight for
+         * @param[in] val The effort
+         * @param[in] beg The begin of the interval the weight is valid for
+         * @param[in] end The end of the interval the weight is valid for
+         * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
+         */
         void addEdgeWeight(const std::string &id,
-                           SUMOReal val, SUMOTime beg, SUMOTime end);
+                           SUMOReal val, SUMOTime beg, SUMOTime end) const throw();
 
     private:
         /// @brief The network edges shall be obtained from
-        MSNet *myNet;
+        MSNet &myNet;
+
+    };
+
+
+    /**
+     * @class EdgeFloatTimeLineRetriever_EdgeTravelTime
+     * @brief Obtains edge travel times from a weights handler and stores them within the edges
+     * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever
+     */
+    class EdgeFloatTimeLineRetriever_EdgeTravelTime : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
+    public:
+        /// @brief Constructor
+        EdgeFloatTimeLineRetriever_EdgeTravelTime(MSNet &net) throw() : myNet(net) {}
+
+        /// @brief Destructor
+        ~EdgeFloatTimeLineRetriever_EdgeTravelTime() throw() { }
+
+        /** @brief Adds a travel time for a given edge and time period
+         *
+         * @param[in] id The id of the object to add a weight for
+         * @param[in] val The travel time
+         * @param[in] beg The begin of the interval the weight is valid for
+         * @param[in] end The end of the interval the weight is valid for
+         * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
+         */
+        void addEdgeWeight(const std::string &id,
+                           SUMOReal val, SUMOTime beg, SUMOTime end) const throw();
+
+    private:
+        /// @brief The network edges shall be obtained from
+        MSNet &myNet;
 
     };
 

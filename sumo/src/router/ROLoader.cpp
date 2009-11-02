@@ -65,10 +65,8 @@
 // ---------------------------------------------------------------------------
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
-        SUMOReal val,
-        SUMOTime beg,
-        SUMOTime end) {
-    ROEdge *e = myNet->getEdge(id);
+            SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
+    ROEdge *e = myNet.getEdge(id);
     if (e!=0) {
         e->addTravelTime(val, beg, end);
     } else {
@@ -84,10 +82,8 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
 // ---------------------------------------------------------------------------
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
-        SUMOReal val,
-        SUMOTime beg,
-        SUMOTime end) {
-    ROEdge *e = myNet->getEdge(id);
+        SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
+    ROEdge *e = myNet.getEdge(id);
     if (e!=0) {
         e->addEffort(val, beg, end);
     } else {
@@ -330,10 +326,10 @@ ROLoader::loadWeights(RONet &net, const std::string &optionName,
     // build and prepare the weights handler
     std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
     //  travel time, first (always used)
-    EdgeFloatTimeLineRetriever_EdgeTravelTime ttRetriever(&net);
+    EdgeFloatTimeLineRetriever_EdgeTravelTime ttRetriever(net);
     retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("traveltime", !useLanes, ttRetriever));
     //  the measure to use, then
-    EdgeFloatTimeLineRetriever_EdgeWeight eRetriever(&net);
+    EdgeFloatTimeLineRetriever_EdgeWeight eRetriever(net);
     if (measure!="traveltime") {
         std::string umeasure = measure;
         if (measure=="CO"||measure=="CO2"||measure=="HC"||measure=="PMx"||measure=="NOx"||measure=="fuel") {

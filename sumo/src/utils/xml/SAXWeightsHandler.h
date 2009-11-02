@@ -78,15 +78,21 @@ public:
      */
     class EdgeFloatTimeLineRetriever {
     public:
-        /// Constructor
-        EdgeFloatTimeLineRetriever() { }
+        /// @brief Constructor
+        EdgeFloatTimeLineRetriever() throw() { }
 
-        /// Destructor
-        virtual ~EdgeFloatTimeLineRetriever() { }
+        /// @brief Destructor
+        virtual ~EdgeFloatTimeLineRetriever() throw() { }
 
-        /// Adds a weight for a given edge and time period
+        /** @brief Adds a weight for a given edge and time period
+         *
+         * @param[in] id The id of the object to add a weight for
+         * @param[in] val The weight
+         * @param[in] beg The begin of the interval the weight is valid for
+         * @param[in] end The end of the interval the weight is valid for
+         */
         virtual void addEdgeWeight(const std::string &id,
-                                   SUMOReal val, SUMOTime beg, SUMOTime end) = 0;
+                                   SUMOReal val, SUMOTime beg, SUMOTime end) const throw() = 0;
 
     };
 

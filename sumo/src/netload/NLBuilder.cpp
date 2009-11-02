@@ -71,27 +71,31 @@
 // ---------------------------------------------------------------------------
 // NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight - methods
 // ---------------------------------------------------------------------------
-NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::EdgeFloatTimeLineRetriever_EdgeWeight(
-    MSNet *net)
-        : myNet(net) {}
-
-
-NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::~EdgeFloatTimeLineRetriever_EdgeWeight() {}
-
-
 void
-NLBuilder::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string &id,
-        SUMOReal val,
-        SUMOTime beg,
-        SUMOTime end) {
+NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string &id,
+        SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
     MSEdge *e = MSEdge::dictionary(id);
     if (e!=0) {
-        e->addWeight(val, beg, end);
+        e->addEffort(val, beg, end);
     } else {
         MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
     }
 }
 
+
+// ---------------------------------------------------------------------------
+// NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime - methods
+// ---------------------------------------------------------------------------
+void
+NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
+        SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
+    MSEdge *e = MSEdge::dictionary(id);
+    if (e!=0) {
+        e->addTravelTime(val, beg, end);
+    } else {
+        MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
+    }
+}
 
 
 // ---------------------------------------------------------------------------
@@ -140,24 +144,31 @@ NLBuilder::build() throw(ProcessError) {
         if (!myOptions.isUsableFileList("weight-files")) {
             return false;
         }
+        // build and prepare the weights handler
+        std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
+        //  travel time, first (always used)
+        EdgeFloatTimeLineRetriever_EdgeTravelTime ttRetriever(myNet);
+        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, ttRetriever));
+        //  the measure to use, then
+        EdgeFloatTimeLineRetriever_EdgeEffort eRetriever(myNet);
+        std::string measure = "traveltime";
+        if (measure!="traveltime") {
+            std::string umeasure = measure;
+            if (measure=="CO"||measure=="CO2"||measure=="HC"||measure=="PMx"||measure=="NOx"||measure=="fuel") {
+                umeasure = measure + "_perVeh";
+            }
+            retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(umeasure, true, eRetriever));
+        }
+        //  set up handler
+        SAXWeightsHandler handler(retrieverDefs, "");
         // start parsing; for each file in the list
         std::vector<std::string> files = myOptions.getStringVector("weight-files");
         for (std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
             // report about loading when wished
             WRITE_MESSAGE("Loading weights from '" + *i + "'...");
-            // check whether the file exists
-            if (!FileHelpers::exists(*i)) {
-                // report error if not
-                MsgHandler::getErrorInstance()->inform("The weights file '" + *i + "' does not exist!");
+            // parse the file
+            if (!XMLSubSys::runParser(handler, *i)) {
                 return false;
-            } else {
-                EdgeFloatTimeLineRetriever_EdgeWeight retriever(&myNet);
-                SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
-                SAXWeightsHandler wh(def, *i);
-                // parse the file
-                if (!XMLSubSys::runParser(wh, *i)) {
-                    return false;
-                }
             }
         }
     }
