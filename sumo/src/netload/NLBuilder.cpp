@@ -76,7 +76,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
         SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
     MSEdge *e = MSEdge::dictionary(id);
     if (e!=0) {
-        e->addEffort(val, beg, end);
+        e->addWeight(val, beg, end);
     } else {
         MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
     }
@@ -91,7 +91,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::s
         SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
     MSEdge *e = MSEdge::dictionary(id);
     if (e!=0) {
-        e->addTravelTime(val, beg, end);
+        e->addWeight(val, beg, end);
     } else {
         MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
     }
