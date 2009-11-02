@@ -1,0 +1,27 @@
+TraCITestClient output file. Date: Mon Nov 02 15:16:24 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=5.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=88 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=88  ObjectID=0 valueDataType=10 float value: -1.00
+
+-> Command sent: <SetValue>:
+  domID=196 varID=88 objID=xxx
+.. Answered with error to command (196), [description: Vehicle 'xxx' is not known]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=88 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=88  ObjectID=0 valueDataType=10 float value: -1.00
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]
