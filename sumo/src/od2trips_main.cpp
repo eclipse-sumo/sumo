@@ -333,7 +333,6 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
             names.push_back(st2.next());
         }
     } while ((int) names.size()!=districtNo);
-    //assert((int) names.size()==districtNo);
 
     // parse the cells
     for (std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
