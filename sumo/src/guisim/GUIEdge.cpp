@@ -357,8 +357,9 @@ GUIEdge::getDensity() const {
     assert(first!=0);
     SUMOReal occ = 0;
     int no = 0;
+    SUMOReal nLanes = (SUMOReal) myLanes->size();
     do {
-        occ += first->occupancy() / first->getLength() / (SUMOReal) nLanes();
+        occ += first->occupancy() / first->getLength() / nLanes;
         no++;
         first = first->getNextSegment();
     } while (first!=0);

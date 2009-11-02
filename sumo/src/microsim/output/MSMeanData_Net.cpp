@@ -230,7 +230,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         sumData.nVehEnteredLane = entered;
         writeValues(dev, "<edge id=\""+edge->getID(),
                     sumData, (SUMOReal)(stopTime - startTime),
-                    absLen, (SUMOReal)edge->nLanes(),
+                    absLen, (SUMOReal)edge->getLanes().size(),
                     MSGlobals::gMesoNet->getSegmentForEdge(*edge)->getMaxSpeed());
         return;
     }
@@ -267,7 +267,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         sumData.nVehLeftLane -= sumData.nLaneChanges;
         writeValues(dev, "<edge id=\""+edge->getID(),
                     sumData, (SUMOReal)(stopTime - startTime),
-                    edgeValues.front()->getLane()->getLength(), (SUMOReal)edge->nLanes(),
+                    edgeValues.front()->getLane()->getLength(), (SUMOReal)edge->getLanes().size(),
                     edgeValues.front()->getLane()->getMaxSpeed());
     }
 }

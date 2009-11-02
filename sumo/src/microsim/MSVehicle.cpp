@@ -2067,7 +2067,7 @@ MSVehicle::checkForLaneChanges() {
         myLaneChangeModel->requestLaneChange(REQUEST_NONE);
         return;
     }
-    if ((*myCurrEdge)->nLanes() <= myDestinationLane) {
+    if ((unsigned int) (*myCurrEdge)->getLanes().size() <= myDestinationLane) {
         laneChangeConstraintActive = false;
         return;
     }

@@ -167,14 +167,6 @@ public:
     /// @name Access to other edge attributes
     /// @{
 
-    /** @brief Returns the edge's number of lanes.
-     * @return This edge's number of lanes
-     */
-    unsigned int nLanes() const throw() {
-        return (unsigned int) myLanes->size();
-    }
-
-
     /** @brief Returns the id of the edge
      * @return This edge's id
      */
