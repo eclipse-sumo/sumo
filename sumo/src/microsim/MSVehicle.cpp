@@ -58,6 +58,7 @@
 #include "devices/MSDevice_C2C.h"
 #include "devices/MSDevice_Routing.h"
 #include <microsim/devices/MSDevice_HBEFA.h>
+#include "MSEdgeWeightsStorage.h"
 
 #ifdef _MESSAGES
 #include "MSMessageEmitter.h"
@@ -206,7 +207,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myOldLaneMoveReminders(0),
         myOldLaneMoveReminderOffsets(0),
         myArrivalPos(pars->arrivalPos),
-        myPreDawdleAcceleration(0)
+        myPreDawdleAcceleration(0),
+        myEdgeWeights(0)
 #ifndef NO_TRACI
         ,myNeedReroute(false),
         adaptingSpeed(false),
@@ -249,6 +251,183 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     }
 }
 
+
+// ------------ interaction with the route
+const MSEdge*
+MSVehicle::succEdge(unsigned int nSuccs) const throw() {
+    if (hasSuccEdge(nSuccs)) {
+        return *(myCurrEdge + nSuccs);
+    } else {
+        return 0;
+    }
+}
+
+
+bool
+MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
+    // vaporizing edge?
+    if (targetEdge->isVaporizing()) {
+        // yep, let's do the vaporization...
+        setWasVaporized(false);
+        return true;
+    }
+    // internal edge?
+    if (targetEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+        // yep, let's continue driving
+        return false;
+    }
+    // search for the target in the vehicle's route. Usually there is
+    // only one iteration. Only for very short edges a vehicle can
+    // "jump" over one ore more edges in one timestep.
+    MSRouteIterator edgeIt = myCurrEdge;
+    while (*edgeIt != targetEdge) {
+        ++edgeIt;
+        assert(edgeIt != myRoute->end());
+    }
+    myCurrEdge = edgeIt;
+    // Check if destination-edge is reached. Update allowedLanes makes
+    // only sense if destination isn't reached.
+    MSRouteIterator destination = myRoute->end() - 1;
+    if (myCurrEdge == destination && myState.myPos > myArrivalPos - POSITION_EPS) {
+        return true;
+    } else {
+        rebuildAllowedLanes(false);
+        return false;
+    }
+}
+
+
+bool
+MSVehicle::ends() const throw() {
+    return myCurrEdge==myRoute->end()-1 && myState.myPos > myArrivalPos - POSITION_EPS;
+}
+
+
+const MSRoute &
+MSVehicle::getRoute(int index) const throw() {
+    if (index==0) {
+        return *myRoute;
+    }
+    --index; // only prior routes are stored
+    std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
+    assert(i!=myPointerCORNMap.end());
+    const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const)(*i).second;
+    assert((int) v->size()>index);
+    return *((*v)[index].route);
+}
+
+
+bool
+MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw() {
+    // assert the vehicle may continue (must not be "teleported" or whatever to another position)
+    if (find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
+        return false;
+    }
+
+    // build a new one
+    // build a new id, first
+    string id = getID();
+    if (id[0]!='!') {
+        id = "!" + id;
+    }
+    if (myRoute->getID().find("!var#")!=string::npos) {
+        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
+    } else {
+        id = id + "!var#1";
+    }
+    // build the route
+    MSRoute *newRoute = new MSRoute(id, edges, false);
+    // and add it to the container (!!!what for? It will never be used again!?)
+    if (!MSRoute::dictionary(id, newRoute)) {
+        delete newRoute;
+        return false;
+    }
+
+    // save information about the current edge
+    const MSEdge *currentEdge = *myCurrEdge;
+
+    // ... maybe the route information shall be saved for output?
+    if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
+        RouteReplaceInfo rri(*myCurrEdge, simTime, new MSRoute(*myRoute));//new MSRoute("!", myRoute->getEdges(), false));
+        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
+            myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
+        }
+        ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
+    }
+
+    // check whether the old route may be deleted (is not used by anyone else)
+    if (!myRoute->inFurtherUse()) {
+        MSRoute::erase(myRoute->getID());
+    } else {
+        myPointerCORNMap[MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE] = (void*) myRoute;
+    }
+
+    // assign new route
+    myRoute = newRoute;
+    // rebuild in-vehicle route information
+    myCurrEdge = myRoute->find(currentEdge);
+    myLastBestLanesEdge = 0;
+    // update arrival definition
+    myArrivalPos = myParameter->arrivalPos;
+    SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
+    if (myArrivalPos < 0) {
+        myArrivalPos += lastLaneLength; // !!! validate!
+    }
+    if (myArrivalPos<0) {
+        myArrivalPos = 0;
+    }
+    if (myArrivalPos>lastLaneLength) {
+        myArrivalPos = lastLaneLength;
+    }
+    // save information that the vehicle was rerouted
+    //  !!! refactor the CORN-stuff
+    myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
+    myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+    // recheck stops
+    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
+        if (find(edges.begin(), edges.end(), &iter->lane->getEdge())==edges.end()) {
+            iter = myStops.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
+    rebuildAllowedLanes();
+    return true;
+}
+
+
+bool
+MSVehicle::willPass(const MSEdge * const edge) const {
+    return find(myCurrEdge, myRoute->end(), edge)!=myRoute->end();
+}
+
+
+void
+MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) {
+    // check whether to reroute
+    std::vector<const MSEdge*> edges;
+    router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges); 
+    // check whether the new route is the same as the prior
+    MSRouteIterator ri = myCurrEdge;
+    std::vector<const MSEdge*>::iterator ri2 = edges.begin();
+    while (ri!=myRoute->end()&&ri2!=edges.end()&&*ri==*ri2) {
+        ++ri;
+        ++ri2;
+    }
+    if (ri!=myRoute->end()||ri2!=edges.end()) {
+        replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep());
+    }
+}
+
+
+MSEdgeWeightsStorage * const 
+MSVehicle::getWeightsStorage() throw()
+{
+    if(myEdgeWeights==0) {
+        myEdgeWeights = new MSEdgeWeightsStorage();
+    }
+    return myEdgeWeights;
+}
 
 
 // ------------ Retrieval of CORN values
@@ -354,56 +533,6 @@ MSVehicle::activateRemindersByEmitOrLaneChange(bool isEmit) throw() {
 
 
 // ------------
-const MSEdge*
-MSVehicle::succEdge(unsigned int nSuccs) const throw() {
-    if (hasSuccEdge(nSuccs)) {
-        return *(myCurrEdge + nSuccs);
-    } else {
-        return 0;
-    }
-}
-
-
-bool
-MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
-    // vaporizing edge?
-    if (targetEdge->isVaporizing()) {
-        // yep, let's do the vaporization...
-        setWasVaporized(false);
-        return true;
-    }
-    // internal edge?
-    if (targetEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-        // yep, let's continue driving
-        return false;
-    }
-    // search for the target in the vehicle's route. Usually there is
-    // only one iteration. Only for very short edges a vehicle can
-    // "jump" over one ore more edges in one timestep.
-    MSRouteIterator edgeIt = myCurrEdge;
-    while (*edgeIt != targetEdge) {
-        ++edgeIt;
-        assert(edgeIt != myRoute->end());
-    }
-    myCurrEdge = edgeIt;
-    // Check if destination-edge is reached. Update allowedLanes makes
-    // only sense if destination isn't reached.
-    MSRouteIterator destination = myRoute->end() - 1;
-    if (myCurrEdge == destination && myState.myPos > myArrivalPos - POSITION_EPS) {
-        return true;
-    } else {
-        rebuildAllowedLanes(false);
-        return false;
-    }
-}
-
-
-bool
-MSVehicle::ends() const throw() {
-    return myCurrEdge==myRoute->end()-1 && myState.myPos > myArrivalPos - POSITION_EPS;
-}
-
-
 bool
 MSVehicle::addStop(const Stop &stop) throw() {
     MSRouteIterator stopEdge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
@@ -1420,105 +1549,6 @@ MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r) {
 }
 
 
-const MSRoute &
-MSVehicle::getRoute() const {
-    return *myRoute;
-}
-
-
-const MSRoute &
-MSVehicle::getRoute(int index) const {
-    if (index==0) {
-        return *myRoute;
-    }
-    --index; // only prior routes are stored
-    std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
-    assert(i!=myPointerCORNMap.end());
-    const ReplacedRoutesVector * const v = (const ReplacedRoutesVector * const)(*i).second;
-    assert((int) v->size()>index);
-    return *((*v)[index].route);
-}
-
-
-bool
-MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) {
-    // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if (find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
-        return false;
-    }
-
-    // build a new one
-    // build a new id, first
-    string id = getID();
-    if (id[0]!='!') {
-        id = "!" + id;
-    }
-    if (myRoute->getID().find("!var#")!=string::npos) {
-        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
-    } else {
-        id = id + "!var#1";
-    }
-    // build the route
-    MSRoute *newRoute = new MSRoute(id, edges, false);
-    // and add it to the container (!!!what for? It will never be used again!?)
-    if (!MSRoute::dictionary(id, newRoute)) {
-        delete newRoute;
-        return false;
-    }
-
-    // save information about the current edge
-    const MSEdge *currentEdge = *myCurrEdge;
-
-    // ... maybe the route information shall be saved for output?
-    if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-        RouteReplaceInfo rri(*myCurrEdge, simTime, new MSRoute(*myRoute));//new MSRoute("!", myRoute->getEdges(), false));
-        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
-            myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
-        }
-        ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
-    }
-
-    // check whether the old route may be deleted (is not used by anyone else)
-    if (!myRoute->inFurtherUse()) {
-        MSRoute::erase(myRoute->getID());
-    } else {
-        myPointerCORNMap[MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE] = (void*) myRoute;
-    }
-
-    // assign new route
-    myRoute = newRoute;
-    // rebuild in-vehicle route information
-    myCurrEdge = myRoute->find(currentEdge);
-    myLastBestLanesEdge = 0;
-    // update arrival definition
-    myArrivalPos = myParameter->arrivalPos;
-    SUMOReal lastLaneLength = (myRoute->getLastEdge()->getLanes())[0]->getLength();
-    if (myArrivalPos < 0) {
-        myArrivalPos += lastLaneLength; // !!! validate!
-    }
-    if (myArrivalPos<0) {
-        myArrivalPos = 0;
-    }
-    if (myArrivalPos>lastLaneLength) {
-        myArrivalPos = lastLaneLength;
-    }
-    // save information that the vehicle was rerouted
-    //  !!! refactor the CORN-stuff
-    myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-    myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
-    // recheck stops
-    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-        if (find(edges.begin(), edges.end(), &iter->lane->getEdge())==edges.end()) {
-            iter = myStops.erase(iter);
-        } else {
-            ++iter;
-        }
-    }
-    rebuildAllowedLanes();
-    return true;
-}
-
-
 void
 MSVehicle::rebuildAllowedLanes(bool reinit) {
     if (reinit) {
@@ -1861,30 +1891,6 @@ MSVehicle::removeOnTripEnd(MSVehicle *veh) throw() {
 }
 
 
-
-bool
-MSVehicle::willPass(const MSEdge * const edge) const {
-    return find(myCurrEdge, myRoute->end(), edge)!=myRoute->end();
-}
-
-
-void
-MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) {
-    // check whether to reroute
-    std::vector<const MSEdge*> edges;
-    router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this,
-                   MSNet::getInstance()->getCurrentTimeStep(), edges);
-    // check whether the new route is the same as the prior
-    MSRouteIterator ri = myCurrEdge;
-    std::vector<const MSEdge*>::iterator ri2 = edges.begin();
-    while (ri!=myRoute->end()&&ri2!=edges.end()&&*ri==*ri2) {
-        ++ri;
-        ++ri2;
-    }
-    if (ri!=myRoute->end()||ri2!=edges.end()) {
-        replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep());
-    }
-}
 
 SUMOReal
 MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const {

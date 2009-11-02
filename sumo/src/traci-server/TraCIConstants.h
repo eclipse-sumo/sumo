@@ -488,6 +488,12 @@
 // route (set: vehicles)
 #define VAR_ROUTE 0x57
 
+// travel time information (get&set: vehicle)
+#define VAR_EDGE_TRAVELTIME 0x58
+
+// effort information (get&set: vehicle)
+#define VAR_EDGE_EFFORT 0x59
+
 
 // current CO2 emission of a node (get: vehicle)
 #define VAR_CO2EMISSION 0x60

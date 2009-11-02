@@ -63,6 +63,7 @@ class MSAbstractLaneChangeModel;
 class MSBusStop;
 class OutputDevice;
 class MSDevice;
+class MSEdgeWeightsStorage;
 #ifdef _MESSAGES
 class MSMessageEmitter;
 #endif
@@ -206,22 +207,67 @@ public:
      */
     bool ends() const throw();
 
-    /// Returns the current route
-    const MSRoute &getRoute() const;
 
-    /// Returns the current or a prior route
-    const MSRoute &getRoute(int index) const;
+    /** @brief Returns the current route
+     * @return The route the vehicle uses
+     */
+    const MSRoute &getRoute() const throw() {
+        return *myRoute;
+    }
 
-    /// Replaces the current route by the given edges
-    bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime);
 
-    bool willPass(const MSEdge * const edge) const;
+    /** @brief Returns the current or a previously used route
+     * @param[in] index The route to return (0 is the current route; other have an index>0)
+     * @return The current (index=0) or a prior route
+     * @todo Should an exception be thrown if a not existing route is requested?
+     */
+    const MSRoute &getRoute(int index) const throw();
 
+
+    /** @brief Replaces the current route by the given edges
+     * 
+     * It is possible that the new route is not accepted, if a) it does not
+     *  contain the vehicle's current edge, or b) something fails on insertion
+     *  into the routes container (see in-line comments).
+     * 
+     * @param[in] edges The new list of edges to pass
+     * @param[in] simTime The time at which the route was replaced
+     * @return Whether the new route was accepted
+     */
+    bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw();
+
+
+    /** @brief Returns whether the vehicle wil pass the given edge
+     * @param[in] The edge to find in the vehicle's current route
+     * @return Whether the given edge will be passed by the vehicle
+     * @todo Move to MSRoute?
+     */
+    bool willPass(const MSEdge * const edge) const throw();
+
+
+    /** @brief Performs a rerouting using the given router
+     *
+     * Tries to find a new route between the current edge and the destination edge, first.
+     * Tries to replace the current route by the new one using replaceRoute.
+     *
+     * @param[in] t The time for which the route is computed
+     * @param[in] router The router to use
+     * @see replaceRoute
+     */
     void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router);
 
 
-
+    /** @brief Returns the vehicle's internal edge travel times/efforts container
+     *
+     * If the vehicle does not have such a container, it is built.
+     * @return The vehicle's knowledge about edge weights
+     */
+    MSEdgeWeightsStorage * const getWeightsStorage() throw();
     //@}
+
+
+
+
 
 
     /// moves the vehicles after their responds (right-of-way rules) are known
@@ -1031,6 +1077,10 @@ private:
         SUMOReal pos;
         SUMOReal speed;
     };
+
+
+    /// @brief The vehicle's knowledge about edge efforts/travel times
+    MSEdgeWeightsStorage *myEdgeWeights;
 
 #ifndef NO_TRACI
     typedef std::map<const MSEdge * const, SUMOReal> EdgeWeightMap;

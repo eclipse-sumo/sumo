@@ -586,6 +586,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSEdgeWeightsStorage.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSEmitControl.cpp"
 				>
 			</File>
@@ -643,6 +647,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSLogicJunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSMessageEmitter.cpp"
 				>
 			</File>
 			<File
@@ -759,6 +767,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEdgeControl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSEdgeWeightsStorage.h"
 				>
 			</File>
 			<File
