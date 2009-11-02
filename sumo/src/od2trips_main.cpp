@@ -249,12 +249,9 @@ getNextNonCommentLine(LineReader &lr) {
     do {
         line = lr.readLine();
         if (line[0]!='*') {
-            line = StringUtils::prune(line);
-            if(line.length()!=0) {
-                return line;
-            }
+            return StringUtils::prune(line);
         }
-    } while (lr.good());
+    } while (lr.good()&&lr.hasMore());
     throw ProcessError();
 }
 
@@ -344,6 +341,9 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
         //
         do {
             line = getNextNonCommentLine(lr);
+            if(line.length()==0) {
+                continue;
+            }
             try {
                 StringTokenizer st2(line, StringTokenizer::WHITECHARS);
                 while (st2.hasNext()) {
@@ -394,6 +394,9 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
     // parse the cells
     while (lr.hasMore()) {
         line = getNextNonCommentLine(lr);
+        if(line.length()==0) {
+            continue;
+        }
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
         if (st2.size()==0) {
             continue;
