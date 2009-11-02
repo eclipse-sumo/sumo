@@ -191,11 +191,14 @@ public:
     const MSEdge* succEdge(unsigned int nSuccs) const throw();
 
 
-    /** Returns true if vehicle is going to enter it's destination
-        edge. False otherwise. Adjusts in both cases the route
-        iterator and the allowedLanes-container.
-        @todo decribe, choose a proper name*/
-    bool destReached(const MSEdge* targetEdge) throw();
+    /** @brief Moves the vehicle's route pointer to given edge
+     *
+     * Returns true if vehicle is going to enter it's destination edge, false otherwise. 
+     *  Adjusts in both cases the route iterator and the allowedLanes-container.
+     * @param[in] targetEdge The edge the vehicle enters
+     * @return Whether the final edge was reached
+     */
+    bool moveRoutePointer(const MSEdge* targetEdge) throw();
 
 
     /** @brief Returns the information whether the vehicle should end now

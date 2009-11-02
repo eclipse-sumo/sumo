@@ -365,7 +365,7 @@ MSVehicle::succEdge(unsigned int nSuccs) const throw() {
 
 
 bool
-MSVehicle::destReached(const MSEdge* targetEdge) throw() {
+MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
     // vaporizing edge?
     if (targetEdge->isVaporizing()) {
         // yep, let's do the vaporization...

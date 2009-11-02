@@ -147,7 +147,7 @@ GUIInternalLane::push(MSVehicle* veh) {
     myLock.lock();
     try {
         // check whether the vehicle has ended his route
-        veh->destReached(myEdge);
+        veh->moveRoutePointer(myEdge);
         myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
         SUMOReal pspeed = veh->getSpeed();

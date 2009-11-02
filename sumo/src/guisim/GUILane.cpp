@@ -147,7 +147,7 @@ GUILane::push(MSVehicle* veh) {
         // Insert vehicle only if it's destination isn't reached.
         //  and it does not collide with previous
         // check whether the vehicle has ended his route
-        if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
+        if (! veh->moveRoutePointer(myEdge)) {     // adjusts vehicles routeIterator
             myVehBuffer.push_back(veh);
             veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
             SUMOReal pspeed = veh->getSpeed();

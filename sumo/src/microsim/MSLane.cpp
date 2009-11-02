@@ -704,7 +704,7 @@ MSLane::push(MSVehicle* veh) {
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
     // Add to mean data (edge/lane state dump)
-    if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
+    if (! veh->moveRoutePointer(myEdge)) {     // adjusts vehicles routeIterator
         myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
         SUMOReal pspeed = veh->getSpeed();

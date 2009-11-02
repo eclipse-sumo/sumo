@@ -114,7 +114,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
 
 bool
 MSVehicleTransfer::proceedVirtualReturnWhetherEnded(MSVehicle &veh, const MSEdge *const newEdge) throw() {
-    veh.destReached(newEdge);
+    veh.moveRoutePointer(newEdge);
     veh.rebuildAllowedLanes();
     MSRouteIterator destination = veh.getRoute().end() - 1;
     return veh.getEdge() == *destination;
