@@ -511,7 +511,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
             }
             // patch lane offsets
             e = myEdgeCont.retrieve(edgeid);
-            i = i=mySplits.begin();
+            i = mySplits.begin();
             if ((*i).pos!=0) {
                 e = e->getToNode()->getOutgoingEdges()[0];
             }
