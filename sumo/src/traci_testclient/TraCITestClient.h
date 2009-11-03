@@ -121,6 +121,7 @@ public:
 
     void commandGetTLStatus(int tlId, double intervalStart, double intervalEnd);
     void commandGetVariable(int domID, int varID, const std::string &objID);
+    void commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile);
     void commandSetValue(int domID, int varID, const std::string &objID, std::ifstream &defFile);
 
     void commandClose();

@@ -430,6 +430,12 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             string objID;
             defFile >> domID >> varID >> objID;
             commandGetVariable(domID, varID, objID);
+        } else if (lineCommand.compare("getvariable_plus") == 0) {
+            // trigger command GetXXXVariable
+            int domID, varID;
+            string objID;
+            defFile >> domID >> varID >> objID;
+            commandGetVariablePlus(domID, varID, objID, defFile);
         } else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
@@ -1243,6 +1249,78 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
     // object id
     outMsg.writeString(objID);
 
+    // send request message
+    try {
+        socket->sendExact(outMsg);
+    } catch (SocketException e) {
+        msg << "Error while sending command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    answerLog << endl << "-> Command sent: <GetVariable>:" << endl
+    << "  domID=" << domID << " varID=" << varID
+    << " objID=" << objID << endl;
+
+    // receive answer message
+    try {
+        socket->receiveExact(inMsg);
+        if (!reportResultState(inMsg, domID)) {
+            return;
+        }
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    // validate result state
+    try {
+        int respStart = inMsg.position();
+        int extLength = inMsg.readUnsignedByte();
+        int respLength = inMsg.readInt();
+        int cmdId = inMsg.readUnsignedByte();
+        if (cmdId != (domID+0x10)) {
+            answerLog << "#Error: received response with command id: " << cmdId
+            << "but expected: " << (int)(domID+0x10) << endl;
+            return;
+        }
+        answerLog << "  CommandID=" << cmdId;
+        answerLog << "  VariableID=" << inMsg.readUnsignedByte();
+        answerLog << "  ObjectID=" << inMsg.readString();
+        int valueDataType = inMsg.readUnsignedByte();
+        answerLog << " valueDataType=" << valueDataType;
+        readAndReportTypeDependent(inMsg, valueDataType);
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+}
+
+
+void
+TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile) {
+    std::stringstream msg;
+    if (socket == NULL) {
+        msg << "#Error while sending command: no connection to server" ;
+        errorMsg(msg);
+        return;
+    }
+    tcpip::Storage outMsg, inMsg, tmp;
+    int dataLength = setValueTypeDependant(tmp, defFile, msg);
+    string msgS = msg.str();
+    if (msgS!="") {
+        errorMsg(msg);
+    }
+    // command length (domID, varID, objID, dataType, data)
+    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + dataLength);
+    // command id
+    outMsg.writeUnsignedByte(domID);
+    // variable id
+    outMsg.writeUnsignedByte(varID);
+    // object id
+    outMsg.writeString(objID);
+    // data type
+    outMsg.writeStorage(tmp);
     // send request message
     try {
         socket->sendExact(outMsg);
