@@ -110,7 +110,7 @@ GUIGLObjectPopupMenu::onCmdCopyCursorPosition(FXObject*,FXSelector,void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdShowPars(FXObject*,FXSelector,void*) {
-    myObject->getParameterWindow(*myApplication, *myParent); // !!! showParameetrWindow would be more appropriate
+    myObject->getParameterWindow(*myApplication, *myParent); // !!! showParameterWindow would be more appropriate
     return 1;
 }
 
