@@ -397,13 +397,13 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw() {
 
 
 bool
-MSVehicle::willPass(const MSEdge * const edge) const {
+MSVehicle::willPass(const MSEdge * const edge) const throw() {
     return find(myCurrEdge, myRoute->end(), edge)!=myRoute->end();
 }
 
 
 void
-MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) {
+MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) throw() {
     // check whether to reroute
     std::vector<const MSEdge*> edges;
     router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges); 

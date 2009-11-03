@@ -254,7 +254,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router);
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) throw();
 
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
