@@ -273,6 +273,14 @@ extern void parseVehicleClasses(const std::string &classesS,
                                 bool &warnedAboutDeprecatedVClass) throw();
 
 
+/** @brief Parses the given vector of class names into their enum-representation
+ * @param[in] classesS The names vector to parse
+ * @param[out] classes The parsed classes
+ */
+extern void parseVehicleClasses(const std::vector<std::string> &classesS,
+                                std::vector<SUMOVehicleClass> &classes) throw();
+
+
 // ---------------------------------------------------------------------------
 // vehicle shape class
 // ---------------------------------------------------------------------------

@@ -233,11 +233,8 @@ TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Allowed classes must be given as a list of strings.", outputStorage);
             return false;
         }
-        std::vector<std::string> allowedS = inputStorage.readStringList();
         std::vector<SUMOVehicleClass> allowed;
-        for(std::vector<std::string>::const_iterator i=allowedS.begin(); i!=allowedS.end(); ++i) {
-            allowed.push_back(getVehicleClassID(*i));
-        }
+        parseVehicleClasses(inputStorage.readStringList(), allowed);
         l->setAllowedClasses(allowed);
         l->getEdge().rebuildAllowedLanes();
     }
@@ -247,11 +244,8 @@ TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_ERR, "Not allowed classes must be given as a list of strings.", outputStorage);
             return false;
         }
-        std::vector<std::string> disallowedS = inputStorage.readStringList();
         std::vector<SUMOVehicleClass> disallowed;
-        for(std::vector<std::string>::const_iterator i=disallowedS.begin(); i!=disallowedS.end(); ++i) {
-            disallowed.push_back(getVehicleClassID(*i));
-        }
+        parseVehicleClasses(inputStorage.readStringList(), disallowed);
         l->setNotAllowedClasses(disallowed);
         l->getEdge().rebuildAllowedLanes();
     }
