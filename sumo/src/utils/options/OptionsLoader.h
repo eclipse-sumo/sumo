@@ -177,17 +177,17 @@ private:
 
 
 private:
-    /** the information whether a deprecation warning was emitted */
-    bool  myHaveWarned;
+    /// @brief The information whether an error occured
+    bool myError;
 
-    /** the information whether an error occured */
-    bool  myError;
-
-    /** the options to fill */
+    /// @brief The options to fill
     OptionsCont &myOptions;
 
-    /** the name of the currently parsed option */
+    /// @brief The name of the currently parsed option
     std::string myItem;
+
+	/// @brief The currently read characters string
+	std::string myValue;
 
 };
 

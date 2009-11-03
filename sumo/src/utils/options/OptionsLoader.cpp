@@ -48,8 +48,7 @@
 // method definitions
 // ===========================================================================
 OptionsLoader::OptionsLoader() throw()
-        : myHaveWarned(false), myError(false),
-        myOptions(OptionsCont::getOptions()), myItem() {}
+        : myError(false), myOptions(OptionsCont::getOptions()), myItem() {}
 
 
 OptionsLoader::~OptionsLoader() throw() {}
@@ -58,7 +57,7 @@ OptionsLoader::~OptionsLoader() throw() {}
 void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& attributes) {
     myItem = TplConvert<XMLCh>::_2str(name);
-    for (int i = 0; i < attributes.getLength(); i++) {
+    for (int i = 0; i < (int) attributes.getLength(); i++) {
         std::string name = TplConvert<XMLCh>::_2str(attributes.getName(i));
         std::string value = TplConvert<XMLCh>::_2str(attributes.getValue(i));
         if (myOptions.exists(myItem) && (name == "value" || name == "v")) {
@@ -67,6 +66,7 @@ void OptionsLoader::startElement(const XMLCh* const name,
             setValue(name, value);
         }
     }
+	myValue = "";
 }
 
 
@@ -101,18 +101,7 @@ void OptionsLoader::setValue(const std::string &key,
 
 void OptionsLoader::characters(const XMLCh* const chars,
                                const XERCES3_SIZE_t length) {
-    if (myItem.length()==0 || length==0) {
-        return;
-    }
-    std::string value = TplConvert<XMLCh>::_2str(chars, length);
-    if (value.find_first_not_of("\n\t \a")==std::string::npos) {
-        return;
-    }
-    if (!myHaveWarned) {
-        WRITE_WARNING("Configuration uses a deprecated format. Please transform it using tools/10to11.py.");
-        myHaveWarned = true;
-    }
-    setValue(myItem, value);
+	myValue = myValue + TplConvert<XMLCh>::_2str(chars, (unsigned int) length);
 }
 
 
@@ -140,7 +129,15 @@ OptionsLoader::setSecure(const std::string &name,
 
 void
 OptionsLoader::endElement(const XMLCh* const /*name*/) {
+    if (myItem.length()==0 || myValue.length()==0) {
+        return;
+    }
+    if (myValue.find_first_not_of("\n\t \a")==std::string::npos) {
+        return;
+    }
+    setValue(myItem, myValue);
     myItem = "";
+	myValue = "";
 }
 
 
@@ -148,8 +145,8 @@ void
 OptionsLoader::warning(const SAXParseException& exception) {
     WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
     WRITE_WARNING(" (At line/column " \
-                  + toString<int>(exception.getLineNumber()+1) + '/' \
-                  + toString<int>(exception.getColumnNumber()) + ").");
+                  + toString(exception.getLineNumber()+1) + '/' \
+                  + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }
 
@@ -160,8 +157,8 @@ OptionsLoader::error(const SAXParseException& exception) {
         TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         " (At line/column "
-        + toString<int>(exception.getLineNumber()+1) + '/'
-        + toString<int>(exception.getColumnNumber()) + ").");
+        + toString(exception.getLineNumber()+1) + '/'
+        + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }
 
@@ -172,8 +169,8 @@ OptionsLoader::fatalError(const SAXParseException& exception) {
         TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         " (At line/column "
-        + toString<int>(exception.getLineNumber()+1) + '/'
-        + toString<int>(exception.getColumnNumber()) + ").");
+        + toString(exception.getLineNumber()+1) + '/'
+        + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }
 
