@@ -55,13 +55,15 @@ def getStatisticsOutput(tlsInfo, outputfile):
         opfile.write('=================\n')
         opfile.write('mean queue length in front of the junction: %s\n' % tlsInfo[tl]['mQueueLen'])
         opfile.write('mean waiting time in front of the junction: %s\n' % tlsInfo[tl]['mWaitTime'])
-        opfile.write('mean noise emission: %s\n' % tlsInfo[tl]['noise'])
-        opfile.write('mean CO emission: %s\n' % tlsInfo[tl]['CO'])
-        opfile.write('mean CO2 emission: %s\n' % tlsInfo[tl]['CO2'])
-        opfile.write('mean HC emission: %s\n' % tlsInfo[tl]['HC'])
-        opfile.write('mean PMx emission: %s\n' % tlsInfo[tl]['PMx'])
-        opfile.write('mean NOx emission: %s\n' % tlsInfo[tl]['NOx'])
-        opfile.write('mean fuel consumption: %s\n' % tlsInfo[tl]['fuel'])
+        if 'noise' in tlsInfo[tl]:
+            opfile.write('mean noise emission: %s\n' % tlsInfo[tl]['noise'])
+        if 'CO' in tlsInfo[tl]:
+            opfile.write('mean CO emission: %s\n' % tlsInfo[tl]['CO'])
+            opfile.write('mean CO2 emission: %s\n' % tlsInfo[tl]['CO2'])
+            opfile.write('mean HC emission: %s\n' % tlsInfo[tl]['HC'])
+            opfile.write('mean PMx emission: %s\n' % tlsInfo[tl]['PMx'])
+            opfile.write('mean NOx emission: %s\n' % tlsInfo[tl]['NOx'])
+            opfile.write('mean fuel consumption: %s\n' % tlsInfo[tl]['fuel'])
         opfile.write('number of stops: %s\n' % tlsInfo[tl]['nbStops'])
         opfile.write('total waiting time at junction: %s\n\n' % tlsInfo[tl]['tWaitTime'])
 
@@ -291,8 +293,6 @@ if not options.netfile:
 
 netfile = options.netfile
 e2OutputFile = os.path.join(options.path, 'e2_output.xml')
-harmonoiseFile = options.harmonoiseFile
-hbefaFile = options.hbefaFile
 
 net = sumonet.NetReader()
 parser = make_parser()
@@ -305,23 +305,25 @@ parser.setContentHandler(e2Output)
 parser.parse(e2OutputFile)
 
 tlsID2NodeID = tlsIDToNodeID(net)
-
-harmonoiseOutput = HarmonoiseReader(net, tlsID2NodeID)
-parser.setContentHandler(harmonoiseOutput)
-parser.parse(harmonoiseFile)
-
-hbefaOutput = HBEFAReader(net, tlsID2NodeID)
-parser.setContentHandler(hbefaOutput)
-parser.parse(hbefaFile)
-
 tlsInfo = getBasicStats(net, e2Output._lanes, e2Output._maxT)
-mergeInfos(tlsInfo, harmonoiseOutput._tlsNoise, 'noise')
-mergeInfos(tlsInfo, hbefaOutput._tlsCO, 'CO')
-mergeInfos(tlsInfo, hbefaOutput._tlsCO2, 'CO2')
-mergeInfos(tlsInfo, hbefaOutput._tlsHC, 'HC')
-mergeInfos(tlsInfo, hbefaOutput._tlsPMx, 'PMx')
-mergeInfos(tlsInfo, hbefaOutput._tlsNOx, 'NOx')
-mergeInfos(tlsInfo, hbefaOutput._tlsfuel, 'fuel')
+
+if options.harmonoiseFile:
+    harmonoiseOutput = HarmonoiseReader(net, tlsID2NodeID)
+    parser.setContentHandler(harmonoiseOutput)
+    parser.parse(options.harmonoiseFile)
+    mergeInfos(tlsInfo, harmonoiseOutput._tlsNoise, 'noise')
+
+if options.hbefaFile:
+    hbefaOutput = HBEFAReader(net, tlsID2NodeID)
+    parser.setContentHandler(hbefaOutput)
+    parser.parse(hbefaFile)
+    mergeInfos(tlsInfo, hbefaOutput._tlsCO, 'CO')
+    mergeInfos(tlsInfo, hbefaOutput._tlsCO2, 'CO2')
+    mergeInfos(tlsInfo, hbefaOutput._tlsHC, 'HC')
+    mergeInfos(tlsInfo, hbefaOutput._tlsPMx, 'PMx')
+    mergeInfos(tlsInfo, hbefaOutput._tlsNOx, 'NOx')
+    mergeInfos(tlsInfo, hbefaOutput._tlsfuel, 'fuel')
+
 getStatisticsOutput(tlsInfo, os.path.join(options.path, "intersection_metrics_summary.txt"))
 
 print 'The calculation is done!'
