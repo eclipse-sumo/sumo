@@ -288,7 +288,7 @@ MSVehicle::moveRoutePointer(const MSEdge* targetEdge) throw() {
     // Check if destination-edge is reached. Update allowedLanes makes
     // only sense if destination isn't reached.
     MSRouteIterator destination = myRoute->end() - 1;
-    if (myCurrEdge == destination && myState.myPos > myArrivalPos - POSITION_EPS) {
+    if (myCurrEdge == destination && getPositionOnLane() > myArrivalPos - POSITION_EPS) {
         return true;
     } else {
         rebuildAllowedLanes(false);
