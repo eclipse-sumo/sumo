@@ -9,3 +9,7 @@ Options:
                         'inputs\pasubio\a_costa.net.xml')
   -p <FOLDER>, --path=<FOLDER>
                         name of folder to work with (f.e. 'inputs\a_costa\')
+  -o <FOLDER>, --harmonoiseFile=<FOLDER>
+                        name of the harmonoise file
+  -e <FOLDER>, --HBEFAFile=<FOLDER>
+                        name of the HBEFA file

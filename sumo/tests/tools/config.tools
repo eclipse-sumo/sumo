@@ -6,6 +6,7 @@ copy_test_path:input_net.net.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:tracefile.xml
 copy_test_path:input_weights.dump.xml
+copy_test_path:e2_output.xml
 copy_test_path:costFunction.py
 
 [collate_file]
@@ -17,6 +18,7 @@ fixed:routes.rou.xml.fixed
 activityfile:activityfile.tcl
 mobilityfile:mobilityfile.tcl
 config:config.tcl
+summary:intersection_metrics_summary.txt
 
 [run_dependent_text]
 output:Begin time

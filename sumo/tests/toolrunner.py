@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os,subprocess,sys
-command = ""
-if sys.argv[1].endswith(".jar"):
-    command = "java -jar "
-subprocess.call(command + os.path.join(os.path.dirname(sys.argv[0]), "..", "tools", " ".join(sys.argv[1:])),
-                shell=True, stdout=sys.stdout, stderr=sys.stderr)
+tool = [os.path.join(os.path.dirname(sys.argv[0]), "..", sys.argv[-1])]
+if tool[0].endswith(".jar"):
+    tool = ["java", "-jar"] + tool
+subprocess.call(tool+sys.argv[1:-1], shell=(os.name=="nt"),
+                stdout=sys.stdout, stderr=sys.stderr)

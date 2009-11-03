@@ -1,1 +1,1 @@
-assign/dua-iterate.py -n input_net.net.xml -t input_trips.trips.xml
+-n input_net.net.xml -t input_trips.trips.xml

@@ -1,1 +1,1 @@
-route/routecompare.py -v -p routes.rou.xml routes2.rou.xml
+-v -p routes.rou.xml routes2.rou.xml tools/route/routecompare.py
