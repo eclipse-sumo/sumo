@@ -33,11 +33,12 @@ if options.file:
 for val in args:
     targets[val] = ""
 for source, target in targets.iteritems():
-    optionsFiles = glob.glob(join(source, "options.[0-9a-z]*"))
-    if len(optionsFiles) != 1:
-        print >> sys.stderr, "Not a unique options file in %s." % source
+    outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
+    if len(outputFiles) != 1:
+        print >> sys.stderr, "Not a unique output file in %s." % source
         continue
-    app = optionsFiles[0].split('.')[1]
+    app = outputFiles[0].split('.')[1]
+    optionsFiles = []
     potentials = {}
     curDir = source
     while True:
@@ -45,6 +46,8 @@ for source, target in targets.iteritems():
             path = join(curDir, f)
             if not os.path.isdir(path) and not f in potentials:
                 potentials[f] = path
+            if f == "options."+app:
+                optionsFiles.append(path)
         if curDir == os.path.dirname(curDir) or os.path.exists(join(curDir, "config."+app)):
             break
         curDir = os.path.dirname(curDir)
@@ -61,11 +64,15 @@ for source, target in targets.iteritems():
         entry = line.strip().split(':')
         if entry and entry[0] == "copy_test_path" and entry[1] in potentials:
             shutil.copy2(potentials[entry[1]], testPath)
-    appOptions = open(optionsFiles[0]).read().split() + ['--save-configuration', 'test.%s.cfg' % app[:4]]
+    appOptions = []
+    for f in optionsFiles:
+        appOptions += open(f).read().split()
+    appOptions += ['--save-configuration', 'test.%s.cfg' % app[:4]]
     oldWorkDir = os.getcwd()
     os.chdir(testPath)
-    if os.name == "posix" and app != "sumo":
-        subprocess.call(["sumo-" + app] + appOptions)
-    else:
-        subprocess.call([app] + appOptions)
+    if app in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "polyconvert", "sumo"]:
+        if os.name == "posix" and app != "sumo":
+            subprocess.call(["sumo-" + app] + appOptions)
+        else:
+            subprocess.call([app] + appOptions)
     os.chdir(oldWorkDir)

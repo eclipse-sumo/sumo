@@ -31,7 +31,7 @@ sumo/output/examples/cross3ltl_meandata_lanes:../examples/sumo/output/cross3ltl_
 sumo/output/examples/cross3ltl_rawdump:../examples/sumo/output/cross3ltl_rawdump
 sumo/output/examples/cross3ltl_tripinfo:../examples/sumo/output/cross3ltl_tripinfo
 sumo/output/examples/cross3ltl_vehroutes:../examples/sumo/output/cross3ltl_vehroutes
-sumo/output/examples/straight1:../examples/sumo/output/straight1
+#sumo/output/examples/straight1:../examples/sumo/output/straight1
 sumo/basic/simple_nets/cross/cross1ltl:../examples/sumo/simple_nets/cross/cross1ltl
 sumo/basic/simple_nets/cross/cross1l:../examples/sumo/simple_nets/cross/cross1l
 sumo/basic/simple_nets/cross/cross3ltl:../examples/sumo/simple_nets/cross/cross3ltl
@@ -40,4 +40,4 @@ sumo/basic/simple_nets/box/box1l:../examples/sumo/simple_nets/box/box1l
 sumo/basic/simple_nets/box/box2l:../examples/sumo/simple_nets/box/box2l
 sumo/basic/simple_nets/box/box3l:../examples/sumo/simple_nets/box/box3l
 sumo/basic/simple_nets/box/box4l:../examples/sumo/simple_nets/box/box4l
-tools/assign/dua-iterate:../examples/tools/dua-iterate
+tools/assign/dua-iterate/simple:../examples/tools/dua-iterate
