@@ -459,6 +459,7 @@ MSNet::saveState(std::ostream &os) throw() {
     FileHelpers::writeString(os, VERSION_STRING);
     FileHelpers::writeUInt(os, sizeof(size_t));
     FileHelpers::writeUInt(os, sizeof(SUMOReal));
+    FileHelpers::writeUInt(os, MSEdge::dictSize());
     myVehicleControl->saveState(os);
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->saveState(os);
@@ -469,10 +470,11 @@ MSNet::saveState(std::ostream &os) throw() {
 void
 MSNet::loadState(BinaryInputDevice &bis) throw() {
     std::string version;
-    unsigned int sizeT, fpSize;
+    unsigned int sizeT, fpSize, numEdges;
     bis >> version;
     bis >> sizeT;
     bis >> fpSize;
+    bis >> numEdges;
     if (version != VERSION_STRING) {
         WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING +")!");
     }
@@ -481,6 +483,9 @@ MSNet::loadState(BinaryInputDevice &bis) throw() {
     }
     if (fpSize != sizeof(SUMOReal)) {
         WRITE_WARNING("State was written with a different precision for SUMOReal!");
+    }
+    if (numEdges != MSEdge::dictSize()) {
+        WRITE_WARNING("State was written for a different net!");
     }
     myVehicleControl->loadState(bis);
     if (MSGlobals::gUseMesoSim) {
