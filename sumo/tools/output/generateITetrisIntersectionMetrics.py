@@ -9,8 +9,8 @@ Copyright (C) 2009 DLR/TS, Germany
 All rights reserved
 """
 from optparse import OptionParser
-import os
-from pylab import *
+import os, sys
+from numpy import mean
 from xml.sax import saxutils, make_parser, handler
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../lib"))
 import sumonet
