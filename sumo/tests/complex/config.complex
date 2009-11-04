@@ -5,3 +5,6 @@ copy_test_path:input_net.net.xml
 
 [collate_file]
 vehroutes:vehroutes.xml
+
+[run_dependent_text]
+vehroutes:xml version{->}-->

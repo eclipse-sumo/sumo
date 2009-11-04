@@ -309,7 +309,7 @@ void
 MSVehicleControl::loadState(BinaryInputDevice &bis) throw() {
     bis >> myRunningVehNo;
     bis >> myEndedVehNo;
-    myLoadedVehNo = myEndedVehNo + myRunningVehNo;
+    myLoadedVehNo = myEndedVehNo;
 
     bis >> myAbsVehWaitingTime;
     bis >> myAbsVehTravelTime;
