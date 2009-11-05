@@ -1,1 +1,5 @@
-two_same_vehicles
+# two vehicles saved and reloaded
+plain
+
+# trying to start the loaded state at a different time
+diff_begin
