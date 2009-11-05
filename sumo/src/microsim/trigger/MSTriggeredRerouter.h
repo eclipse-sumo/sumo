@@ -128,10 +128,10 @@ public:
          * @param[in] isEmit true means emit, false: lane change
          * @return always false (the vehicle will not be rerouted again)
          * @see MSMoveReminder
-         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @see MSMoveReminder::notifyEnter
          * @see MSTriggeredRerouter::reroute
          */
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         /// @}
 
 

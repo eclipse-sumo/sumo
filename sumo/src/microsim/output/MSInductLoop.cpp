@@ -121,7 +121,7 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSInductLoop::dismissOnLeavingLane(MSVehicle& veh) throw() {
+MSInductLoop::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     if (veh.getPositionOnLane() > myPosition && veh.getPositionOnLane() - veh.getVehicleType().getLength() <= myPosition) {
         // vehicle is on detector during lane change
         leaveDetectorByLaneChange(veh);
@@ -130,7 +130,7 @@ MSInductLoop::dismissOnLeavingLane(MSVehicle& veh) throw() {
 
 
 bool
-MSInductLoop::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
+MSInductLoop::notifyEnter(MSVehicle& veh, bool, bool) throw() {
     if (veh.getPositionOnLane() - veh.getVehicleType().getLength() > myPosition) {
         // vehicle-front is beyond detector. Ignore
         return false;

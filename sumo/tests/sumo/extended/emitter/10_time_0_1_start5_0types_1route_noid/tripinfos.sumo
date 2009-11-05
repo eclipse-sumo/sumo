@@ -1,33 +1,33 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/22/09 08:09:47 by SUMO sumo Version dev-SVN-r7459
+<!-- generated on 11/05/09 13:57:45 by SUMO sumo Version dev-SVN-r7945
 <configuration>
 
-    <input
-        net-file="three_split.net.xml"
-        additional-files="input_routes.rou.xml,input_additional.add.xml"
-    />
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
 
-    <output
-        tripinfo-output="tripinfos.xml"
-    />
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
 
-    <time
-        begin="5"
-    />
+    <time>
+        <begin value="5"/>
+    </time>
 
-    <report
-        no-duration-log="true"
-        no-step-log="true"
-    />
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <tripinfos>
-    <tripinfo id="emitter_5_0" depart="5" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="0" arrival="79" arrivalLane="end_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1905.34" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_6_1" depart="7" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="1" arrival="82" arrivalLane="end_0" arrivalPos="13.48" arrivalSpeed="27.80" duration="75" routeLength="1899.23" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_7_2" depart="10" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="3" arrival="84" arrivalLane="end_0" arrivalPos="0.55" arrivalSpeed="27.80" duration="74" routeLength="1886.30" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_8_3" depart="13" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="5" arrival="87" arrivalLane="end_0" arrivalPos="18.44" arrivalSpeed="27.80" duration="74" routeLength="1904.19" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_9_4" depart="16" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="7" arrival="90" arrivalLane="end_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1905.34" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_5_0" depart="5" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="0" arrival="79" arrivalLane="rend_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1900.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_6_1" depart="7" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="1" arrival="82" arrivalLane="rend_0" arrivalPos="13.48" arrivalSpeed="27.80" duration="75" routeLength="1894.48" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_7_2" depart="10" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="3" arrival="84" arrivalLane="rend_0" arrivalPos="0.55" arrivalSpeed="27.80" duration="74" routeLength="1881.55" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_8_3" depart="13" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="5" arrival="87" arrivalLane="rend_0" arrivalPos="18.44" arrivalSpeed="27.80" duration="74" routeLength="1899.44" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_9_4" depart="16" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="7" arrival="90" arrivalLane="rend_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1900.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
 </tripinfos>

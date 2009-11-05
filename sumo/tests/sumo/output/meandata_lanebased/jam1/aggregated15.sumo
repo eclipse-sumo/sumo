@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/20/09 08:24:52 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 11/05/09 14:44:15 by SUMO sumo Version dev-SVN-r7945
 <configuration>
 
     <input>
@@ -28,22 +28,22 @@
 <netstats>
    <interval begin="600" end="615" id="dump_15">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="1000000.00" sampledSeconds="300.00" density="51.22" occupancy="38.41" noStops="300" speed="0.00" entered="0" emitted="0" left="0" flow="0.00"/>
+         <lane id="3/1to2/1_0" sampledSeconds="300.00" traveltime="100000.00" density="51.22" occupancy="38.41" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
    <interval begin="615" end="630" id="dump_15">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="1000000.00" sampledSeconds="300.00" density="51.22" occupancy="38.41" noStops="300" speed="0.00" entered="0" emitted="0" left="0" flow="0.00"/>
+         <lane id="3/1to2/1_0" sampledSeconds="300.00" traveltime="100000.00" density="51.22" occupancy="38.41" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
    <interval begin="630" end="645" id="dump_15">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="1000000.00" sampledSeconds="300.00" density="51.22" occupancy="38.41" noStops="300" speed="0.00" entered="0" emitted="0" left="0" flow="0.00"/>
+         <lane id="3/1to2/1_0" sampledSeconds="300.00" traveltime="100000.00" density="51.22" occupancy="38.41" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
    <interval begin="645" end="660" id="dump_15">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="1000000.00" sampledSeconds="300.00" density="51.22" occupancy="38.41" noStops="300" speed="0.00" entered="0" emitted="0" left="0" flow="0.00"/>
+         <lane id="3/1to2/1_0" sampledSeconds="300.00" traveltime="100000.00" density="51.22" occupancy="38.41" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
 </netstats>

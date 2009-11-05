@@ -101,7 +101,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::s
 // ---------------------------------------------------------------------------
 // NLBuilder - methods
 // ---------------------------------------------------------------------------
-NLBuilder::NLBuilder(const OptionsCont &oc,
+NLBuilder::NLBuilder(OptionsCont &oc,
                      MSNet &net,
                      NLEdgeControlBuilder &eb,
                      NLJunctionControlBuilder &jb,
@@ -131,7 +131,13 @@ NLBuilder::build() throw(ProcessError) {
             MsgHandler::getErrorInstance()->inform("Could not read state from '" + myOptions.getString("load-state") + "'!");
         } else {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + myOptions.getString("load-state") + "'...");
-            myNet.loadState(strm);
+            unsigned int step = myNet.loadState(strm);
+            if (myOptions.isDefault("begin")) {
+                myOptions.set("begin", toString(step));
+            }
+            if (step != myOptions.getInt("begin")) {
+                WRITE_WARNING("State was written at a different time " + toString(step) + " than the begin time " + toString(myOptions.getInt("begin")) + "!");
+            }
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;

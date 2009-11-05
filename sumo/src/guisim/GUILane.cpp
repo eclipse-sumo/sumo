@@ -139,28 +139,11 @@ GUILane::setCritical(std::vector<MSLane*> &into) {
 
 bool
 GUILane::push(MSVehicle* veh) {
-    // Insert vehicle only if it's destination isn't reached.
-    //  and it does not collide with previous
-    // check whether the vehicle has ended his route
     myLock.lock();
     try {
-        // Insert vehicle only if it's destination isn't reached.
-        //  and it does not collide with previous
-        // check whether the vehicle has ended his route
-        if (! veh->moveRoutePointer(myEdge)) {     // adjusts vehicles routeIterator
-            myVehBuffer.push_back(veh);
-            veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
-            SUMOReal pspeed = veh->getSpeed();
-            SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
-            veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
-            myLock.unlock();
-            return false;
-        } else {
-            veh->onTripEnd(this);
-            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-            myLock.unlock();
-            return true;
-        }
+        bool result = MSLane::push(veh);
+        myLock.unlock();
+        return result;
     } catch (ProcessError &) {
         myLock.unlock();
         throw;

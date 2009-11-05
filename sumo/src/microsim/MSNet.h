@@ -208,7 +208,7 @@ public:
      *
      * @param[in] bis The input to read the state from (binary)
      */
-    void loadState(BinaryInputDevice &bis) throw();
+    unsigned int loadState(BinaryInputDevice &bis) throw();
     /// @}
 #endif
 

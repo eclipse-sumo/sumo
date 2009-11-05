@@ -61,7 +61,6 @@ MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
     // let the vehicle be on the one
-    veh->leaveLaneAtLaneChange();
     veh->onTripEnd();
     if (!veh->hasSuccEdge(1)||proceedVirtualReturnWhetherEnded(*veh, MSEdge::dictionary(veh->succEdge(1)->getID()))) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);

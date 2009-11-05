@@ -578,8 +578,8 @@ public:
     void leaveLaneAtMove(SUMOReal driven);
 
 
-    /** @brief Update of members if vehicle leaves a new lane in the lane change step. */
-    void leaveLaneAtLaneChange();
+    /** @brief Update of members if vehicle leaves a new lane in the lane change step or at arrival. */
+    void leaveLane(bool isArrival);
 
 
     bool reachingCritical(SUMOReal laneLength) const;
@@ -711,7 +711,7 @@ public:
     void onDepart();
 
     /** @brief Called when the vehicle leaves the lane */
-    void onTripEnd(const MSLane * const lane=0);
+    void onTripEnd();
     void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
 
@@ -873,12 +873,12 @@ protected:
     /** @brief "Activates" all current move reminder
      *
      * For all move reminder stored in "myMoveReminders", their method
-     *  "MSMoveReminder::isActivatedByEmitOrLaneChange" is called. The reminder
+     *  "MSMoveReminder::notifyEnter" is called. The reminder
      *  removed if the call returns false.
      *
      * @param[in] isEmit true means emit, false: lane change
      * @see MSMoveReminder
-     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+     * @see MSMoveReminder::notifyEnter
      */
     void activateRemindersByEmitOrLaneChange(bool isEmit) throw();
 

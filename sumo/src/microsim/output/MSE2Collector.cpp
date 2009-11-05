@@ -94,7 +94,7 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSE2Collector::dismissOnLeavingLane(MSVehicle& veh) throw() {
+MSE2Collector::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
         if (i!=myKnownVehicles.end()) {
@@ -106,7 +106,7 @@ MSE2Collector::dismissOnLeavingLane(MSVehicle& veh) throw() {
 
 
 bool
-MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
+MSE2Collector::notifyEnter(MSVehicle& veh, bool, bool) throw() {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getVehicleType().getLength() < myEndPos) {
         // vehicle is on detector
         veh.quitRemindedEntered(this);

@@ -114,7 +114,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
 
 
 bool
-MSMeanData_Harmonoise::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool, bool) throw() {
     SUMOReal fraction = 1.;
     SUMOReal l = veh.getVehicleType().getLength();
     if (veh.getPositionOnLane()+l>getLane()->getLength()) {

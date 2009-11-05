@@ -110,11 +110,12 @@ public:
          *  which are computed using the current velocity and acceleration.
          *
          * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit true means emit, false: lane change
-         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @param[in] isEmit whether the vehicle was just emitted into the net
+         * @param[in] isLaneChange whether the vehicle changed to the lane
+         * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
 

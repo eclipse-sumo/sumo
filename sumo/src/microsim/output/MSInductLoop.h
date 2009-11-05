@@ -127,12 +127,14 @@ public:
      *  myDismissedVehicleNumber and removing this vehicle's entering time from
      *  myVehiclesOnDet.
      *
-     * @param veh The leaving vehicle.
+     * @param[in] veh The leaving vehicle.
+     * @param[in] isArrival whether the vehicle arrived at its destination
+     * @param[in] isLaneChange whether the vehicle changed from the lane
      * @see leaveDetectorByLaneChange
      * @see MSMoveReminder
-     * @see MSMoveReminder::dismissOnLeavingLane
+     * @see MSMoveReminder::notifyLeave
      */
-    void dismissOnLeavingLane(MSVehicle& veh) throw();
+    void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
 
 
     /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
@@ -142,12 +144,13 @@ public:
      *  the vehicle is no longer relevant for the detector.
      *
      * @param[in] veh The entering vehicle.
-     * @param[in] isEmit true means emit, false: lane change
+     * @param[in] isEmit whether the vehicle was just emitted into the net
+     * @param[in] isLaneChange whether the vehicle changed to the lane
      * @return True if vehicle is on or in front of the detector.
      * @see MSMoveReminder
-     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+     * @see MSMoveReminder::notifyEnter
      */
-    bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+    bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
     //@}
 
 

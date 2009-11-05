@@ -481,7 +481,6 @@ MSLane::moveNonCritical() {
     // deal with collisions
     for (vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
         MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-        (*i)->leaveLaneAtLaneChange();
         (*i)->onTripEnd();
         MSVehicleTransfer::getInstance()->addVeh((*i));
         myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
@@ -515,7 +514,6 @@ MSLane::moveCritical() {
     // deal with collisions
     for (vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
         MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-        (*i)->leaveLaneAtLaneChange();
         (*i)->onTripEnd();
         MSVehicleTransfer::getInstance()->addVeh((*i));
         myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
@@ -539,7 +537,6 @@ MSLane::detectCollisions(SUMOTime timestep) {
             MSVehicle *vehV = *veh;
             MsgHandler *handler = 0;
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            vehV->leaveLaneAtLaneChange();
             vehV->onTripEnd();
             MSVehicleTransfer::getInstance()->addVeh(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
@@ -601,7 +598,6 @@ MSLane::setCritical(std::vector<MSLane*> &into) {
                 if (p->getPositionOnLane()>target->getLength()) {
                     MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; beyond lane (1), targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 }
-                v->leaveLaneAtLaneChange();
                 v->onTripEnd();
                 MSVehicleTransfer::getInstance()->addVeh(v);
                 hadProblem = true;
@@ -640,13 +636,11 @@ MSLane::setCritical(std::vector<MSLane*> &into) {
         MSVehicle *vehV = *veh;
         if (vehV->getPositionOnLane()>getLength()) {
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            vehV->leaveLaneAtLaneChange();
             vehV->onTripEnd();
             MSVehicleTransfer::getInstance()->addVeh(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else if (vehV->ends()) {
             myVehicleLengthSum -= vehV->getVehicleType().getLength();
-            vehV->leaveLaneAtLaneChange();
             vehV->onTripEnd();
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
@@ -712,7 +706,8 @@ MSLane::push(MSVehicle* veh) {
         veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
         return false;
     } else {
-        veh->onTripEnd(this);
+        veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
+        veh->onTripEnd();
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
@@ -888,7 +883,7 @@ MSLane::init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, s
 MSVehicle *
 MSLane::removeFirstVehicle() {
     MSVehicle *veh = *(myVehicles.end()-1);
-    veh->leaveLaneAtLaneChange();
+    veh->leaveLaneAtMove(0);
     myVehicles.erase(myVehicles.end()-1);
     myVehicleLengthSum -= veh->getVehicleType().getLength();
     return veh;
@@ -901,7 +896,7 @@ MSLane::removeVehicle(MSVehicle * remVehicle) {
             it < myVehicles.end();
             it++) {
         if (remVehicle->getID() == (*it)->getID()) {
-            remVehicle->leaveLaneAtLaneChange();
+            remVehicle->leaveLane(true);
             myVehicles.erase(it);
             myVehicleLengthSum -= remVehicle->getVehicleType().getLength();
             break;

@@ -77,7 +77,7 @@ public:
     class MSLaneMeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane) throw();
+        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal maxHaltingSpeed=POSITION_EPS) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -116,9 +116,9 @@ public:
          *
          * @param veh The leaving vehicle.
          * @see MSMoveReminder
-         * @see MSMoveReminder::dismissOnLeavingLane
+         * @see MSMoveReminder::notifyLeave
          */
-        void dismissOnLeavingLane(MSVehicle& veh) throw();
+        void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
 
 
         /** @brief Computes current emission values and adds them to their sums
@@ -128,29 +128,43 @@ public:
          *  The "emitted" field is incremented, additionally.
          *
          * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit true means emit, false: lane change
-         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @param[in] isEmit whether the vehicle was just emitted into the net
+         * @param[in] isLaneChange whether the vehicle changed to the lane
+         * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
 
+        bool isEmpty() const throw();
+
+
+#ifdef HAVE_MESOSIM
+        void getLastReported(MEVehicle *v, SUMOReal &lastReportedTime, SUMOReal &lastReportedPos) throw();
+        void setLastReported(MEVehicle *v, SUMOReal lastReportedTime, SUMOReal lastReportedPos) throw();
+#endif
 
         /// @name Collected values
         /// @{
 
         /// @brief The number of vehicles that were emitted on the lane
-        unsigned nVehEmitted;
+        unsigned nVehDeparted;
+
+        /// @brief The number of vehicles that finished on the lane
+        unsigned nVehArrived;
 
         /// @brief The number of vehicles that entered this lane within the sample intervall
-        unsigned nVehEnteredLane;
+        unsigned nVehEntered;
 
         /// @brief The number of vehicles that left this lane within the sample intervall
-        unsigned nVehLeftLane;
+        unsigned nVehLeft;
+
+        /// @brief The number of vehicles that changed from this lane
+        unsigned nVehLaneChangeFrom;
 
         /// @brief The number of vehicles that changed to this lane
-        unsigned nLaneChanges;
+        unsigned nVehLaneChangeTo;
 
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;
@@ -158,14 +172,15 @@ public:
         /// @brief The sum of the distances the vehicles travelled
         SUMOReal travelledDistance;
 
-        /// @brief The number of vehicle probes with v<0.1
-        unsigned haltSum;
+        /// @brief The number of vehicle probes with small speed
+        SUMOReal waitSeconds;
 
         /// @brief The sum of the lengths the vehicles had
         SUMOReal vehLengthSum;
         //@}
 
-
+    private:
+        const SUMOReal myMaxHaltingSpeed;
 #ifdef HAVE_MESOSIM
         std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
 #endif
@@ -245,14 +260,16 @@ protected:
     /** @brief Writes output values into the given stream
      *
      * @param[in] dev The output device to write the data into
+     * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
      * @param[in] laneValues This lane's / edge's value collectors
      * @param[in] period Length of the period the data were gathered
-     * @param[in] stopTime Last time step the data were gathered
+     * @param[in] numLanes The total number of lanes for which the data was collected
+     * @param[in] length The length of the object for which the data was collected
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeValues(OutputDevice &dev, std::string prefix,
-                             MSLaneMeanDataValues &laneValues, SUMOReal period,
-                             SUMOReal length, SUMOReal numLanes, SUMOReal maxSpeed) throw(IOError);
+    virtual void writeValues(OutputDevice &dev, const std::string prefix,
+                             const MSLaneMeanDataValues &laneValues, const SUMOReal period,
+                             const SUMOReal numLanes, const SUMOReal length) throw(IOError);
 
 
     /** @brief Resets network value in order to allow processing of the next interval
@@ -280,6 +297,12 @@ protected:
 
     /// @brief The corresponding first edges
     std::vector<MSEdge*> myEdges;
+
+    /// @brief the maximum travel time to write
+    SUMOReal myMaxTravelTime;
+
+    /// @brief the minimum sample seconds
+    SUMOReal myMinSamples;
 
 private:
     /// @brief Invalidated copy constructor.

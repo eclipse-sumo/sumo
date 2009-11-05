@@ -1,39 +1,39 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/31/09 14:25:02 by SUMO sumo Version dev-SVN-r6688
+<!-- generated on 11/05/09 13:54:27 by SUMO sumo Version dev-SVN-r7945
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <route-files>input_routes.rou.xml</route-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
 
-   <output>
-      <tripinfo-output>tripinfos.xml</tripinfo-output>
-   </output>
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
 
-   <time>
-      <begin>0</begin>
-      <end>1000</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="118" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="1" depart="10" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="128" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="2" depart="20" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="138" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="3" depart="30" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="148" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="4" depart="40" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="158" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="5" depart="50" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="168" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="6" depart="60" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="178" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="7" depart="70" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="188" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="8" depart="80" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="198" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
-    <tripinfo id="9" depart="90" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="208" arrivalLane=":absEnd_0_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2507.88" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="0" depart="0" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="118" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="1" depart="10" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="128" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="2" depart="20" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="138" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="3" depart="30" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="148" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="4" depart="40" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="158" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="5" depart="50" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="168" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="6" depart="60" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="178" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="7" depart="70" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="188" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="8" depart="80" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="198" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="9" depart="90" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="208" arrivalLane="rend_0" arrivalPos="20.38" arrivalSpeed="27.80" duration="118" routeLength="2007.98" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
 </tripinfos>

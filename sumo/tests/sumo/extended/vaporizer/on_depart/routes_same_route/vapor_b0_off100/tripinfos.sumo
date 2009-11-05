@@ -1,33 +1,33 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/31/09 14:29:37 by SUMO sumo Version dev-SVN-r6688
+<!-- generated on 11/05/09 13:58:19 by SUMO sumo Version dev-SVN-r7945
 <configuration>
 
-   <input>
-      <net-file>three_split.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
 
-   <output>
-      <tripinfo-output>tripinfos.xml</tripinfo-output>
-   </output>
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
 
-   <time>
-      <begin>0</begin>
-   </time>
+    <time>
+        <begin value="0"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="77" arrivalLane="end_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1988.74" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="0_0" depart="20" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="97" arrivalLane="end_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1988.74" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="0_1" depart="40" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="117" arrivalLane="end_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1988.74" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="0_2" depart="60" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="137" arrivalLane="end_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1988.74" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="0_3" depart="80" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="157" arrivalLane="end_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1988.74" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="0" depart="0" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="77" arrivalLane="rend_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1983.99" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="0_0" depart="20" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="97" arrivalLane="rend_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1983.99" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="0_1" depart="40" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="117" arrivalLane="rend_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1983.99" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="0_2" depart="60" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="137" arrivalLane="rend_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1983.99" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="0_3" depart="80" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="157" arrivalLane="rend_0" arrivalPos="2.99" arrivalSpeed="27.80" duration="77" routeLength="1983.99" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
 </tripinfos>

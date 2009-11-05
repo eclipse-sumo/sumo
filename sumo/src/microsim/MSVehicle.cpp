@@ -523,7 +523,7 @@ MSVehicle::activateRemindersByEmitOrLaneChange(bool isEmit) throw() {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
     for (vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
-        if (!(*rem)->isActivatedByEmitOrLaneChange(*this, isEmit)) {
+        if (!(*rem)->notifyEnter(*this, isEmit, !isEmit)) {
             rem = myMoveReminders.erase(rem);
         } else {
             ++rem;
@@ -1390,20 +1390,20 @@ MSVehicle::leaveLaneAtMove(SUMOReal driven) {
 
 
 void
-MSVehicle::leaveLaneAtLaneChange(void) {
+MSVehicle::leaveLane(bool isArrival) {
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        (*dev)->leaveLaneAtLaneChange();
+        (*dev)->leaveLane();
     }
     // dismiss the old lane's reminders
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors
     vector< MSMoveReminder* >::iterator rem;
     for (rem=myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {
-        (*rem)->dismissOnLeavingLane(*this);
+        (*rem)->notifyLeave(*this, isArrival, !isArrival);
     }
     std::vector<SUMOReal>::iterator off = myOldLaneMoveReminderOffsets.begin();
     for (rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end(); ++rem, ++off) {
         myState.myPos += (*off);
-        (*rem)->dismissOnLeavingLane(*this);
+        (*rem)->notifyLeave(*this, isArrival, !isArrival);
         myState.myPos -= (*off);
     }
     myState.myPos = savePos; // have to do this due to SUMOReal-precision errors
@@ -1484,10 +1484,7 @@ MSVehicle::getWaitingTime() const {
 
 
 void
-MSVehicle::onTripEnd(const MSLane * const lane) {
-    if (lane!=0) {
-        adaptLaneEntering2MoveReminder(*lane);
-    }
+MSVehicle::onTripEnd() {
     // check whether the vehicle's verbose arrival information shall be saved
     if (MSCORN::wished(MSCORN::CORN_VEH_ARRIVAL_INFO)) {
         DepartArrivalInformation *i = new DepartArrivalInformation();
@@ -1510,7 +1507,7 @@ MSVehicle::onTripEnd(const MSLane * const lane) {
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->onTripEnd();
     }
-    leaveLaneAtLaneChange();
+    leaveLane(true);
 }
 
 

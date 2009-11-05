@@ -81,7 +81,7 @@ MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
 
 
 bool
-MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
+MSTriggeredRerouter::Setter::notifyEnter(MSVehicle& veh, bool, bool) throw() {
     myParent->reroute(veh, myLane->getEdge());
     return false;
 }

@@ -105,12 +105,14 @@ public:
 
         /** @brief Called if the vehicle leaves the reminder's lane
          *
-         * @param veh The leaving vehicle.
+         * @param[in] veh The leaving vehicle.
+         * @param[in] isArrival whether the vehicle arrived at its destination
+         * @param[in] isLaneChange whether the vehicle changed from the lane
          * @see MSMoveReminder
-         * @see MSMoveReminder::dismissOnLeavingLane
+         * @see MSMoveReminder::notifyLeave
          * @see HelpersHBEFA
          */
-        virtual void dismissOnLeavingLane(MSVehicle& veh) throw();
+        virtual void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
 
 
         /** @brief Computes current emission values and adds them to their sums
@@ -120,11 +122,12 @@ public:
          *  which are computed using the current velocity and acceleration.
          *
          * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit true means emit, false: lane change
-         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @param[in] isEmit whether the vehicle was just emitted into the net
+         * @param[in] isLaneChange whether the vehicle changed to the lane
+         * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
 

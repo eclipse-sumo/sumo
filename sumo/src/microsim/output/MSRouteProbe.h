@@ -105,11 +105,12 @@ public:
          *  may enter it in later steps.
          *
          * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit true means emit, false: lane change
-         * @see MSMoveReminder::isActivatedByEmitOrLaneChange
+         * @param[in] isEmit whether the vehicle was just emitted into the net
+         * @param[in] isLaneChange whether the vehicle changed to the lane
+         * @see MSMoveReminder::notifyEnter
          * @return False, if vehicle passed the entry, else true.
          */
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw();
+        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         /// @}
 
 

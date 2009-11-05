@@ -108,14 +108,14 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::dismissOnLeavingLane(MSVehicle& veh) throw() {
+MSMeanData_HBEFA::MSLaneMeanDataValues::notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {
     SUMOReal pos = veh.getPositionOnLane();
     vehicleNo -= ((myLane->getLength()-pos) / myLane->getLength());
 }
 
 
 bool
-MSMeanData_HBEFA::MSLaneMeanDataValues::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
+MSMeanData_HBEFA::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
     SUMOReal fraction = 1.;
     SUMOReal l = veh.getVehicleType().getLength();
     SUMOReal pos = veh.getPositionOnLane();

@@ -234,8 +234,6 @@ MSFrame::fillOptions() {
     oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
     oc.addDescription("meso-edgelength", "Mesoscopic", "Length of an edge segment in mesoscopic simulation");
-    oc.doRegister("meso-lanescale", new Option_Float(1.0f));
-    oc.addDescription("meso-lanescale", "Mesoscopic", "Factor for calculating number of lanes");
     oc.doRegister("meso-tauff", new Option_Float(1.4f));
     oc.addDescription("meso-tauff", "Mesoscopic", "Factor for calculating the free-free headway time");
     oc.doRegister("meso-taufj", new Option_Float(1.4f));

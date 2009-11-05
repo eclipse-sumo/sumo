@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/20/09 22:38:15 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 11/05/09 14:44:11 by SUMO sumo Version dev-SVN-r7945
 <configuration>
 
     <input>
@@ -24,21 +24,21 @@
 <netstats>
    <interval begin="0" end="60" id="dump_60">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="54.90" density="2.34" occupancy="2.24" noStops="0" speed="10.00" entered="2" emitted="0" left="0" flow="84.35"/>
+         <lane id="3/1to2/1_0" sampledSeconds="54.90" traveltime="39.05" density="2.34" occupancy="2.24" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" traveltime="39.05" sampledSeconds="58.10" density="2.48" occupancy="2.48" noStops="0" speed="10.00" entered="0" emitted="2" left="2" flow="89.27"/>
+         <lane id="4/1to3/1_0" sampledSeconds="58.10" traveltime="39.05" density="2.48" occupancy="2.48" waitingTime="0.00" speed="10.00" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
    <interval begin="60" end="120" id="dump_60">
       <edge id="1/1to0/1">
-         <lane id="1/1to0/1_0" traveltime="39.05" sampledSeconds="1.70" density="0.07" occupancy="0.07" noStops="0" speed="10.00" entered="2" emitted="0" left="2" flow="2.61"/>
+         <lane id="1/1to0/1_0" sampledSeconds="1.70" traveltime="39.05" density="0.07" occupancy="0.07" waitingTime="0.00" speed="10.00" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
       <edge id="2/1to1/1">
-         <lane id="2/1to1/1_0" traveltime="39.05" sampledSeconds="78.10" density="3.33" occupancy="3.33" noStops="0" speed="10.00" entered="2" emitted="0" left="2" flow="120.00"/>
+         <lane id="2/1to1/1_0" sampledSeconds="78.10" traveltime="39.05" density="3.33" occupancy="3.33" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="2" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" traveltime="39.05" sampledSeconds="23.20" density="0.99" occupancy="1.10" noStops="0" speed="10.00" entered="0" emitted="0" left="2" flow="35.65"/>
+         <lane id="3/1to2/1_0" sampledSeconds="23.20" traveltime="39.05" density="0.99" occupancy="1.10" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
    <interval begin="120" end="150" id="dump_60">

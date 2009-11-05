@@ -62,7 +62,7 @@ MSRouteProbe::EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 bool
-MSRouteProbe::EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() {
+MSRouteProbe::EntryReminder::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
     if (isEmit) {
         myCollector.addRoute(veh.getRoute());
     }

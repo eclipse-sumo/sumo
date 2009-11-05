@@ -77,7 +77,7 @@ public:
      * @param[in] tb The trigger builder to use
      * @param[in] xmlHandler The xml handler to use
      */
-    NLBuilder(const OptionsCont &oc, MSNet &net,
+    NLBuilder(OptionsCont &oc, MSNet &net,
               NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
               NLDetectorBuilder &db,
               NLHandler &xmlHandler) throw();
@@ -176,7 +176,7 @@ protected:
 
 protected:
     /// @brief The options to get the names of the files to load and further information from
-    const OptionsCont &myOptions;
+    OptionsCont &myOptions;
 
     /// @brief The edge control builder to use
     NLEdgeControlBuilder &myEdgeBuilder;

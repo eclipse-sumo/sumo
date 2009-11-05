@@ -47,8 +47,8 @@ class MSLane;
  * Base class of all move-reminders. During move, the vehicles call
  *  isStillActive() for all reminders on their current lane (all lanes
  *  they pass during one step). If a vehicle enters the lane the reminder is
- *  positioned at during emit or lanechange isActivatedByEmitOrLaneChange() is
- *  called. If a vehicle leaves the reminder lane it calls dismissOnLeavingLane().
+ *  positioned at during emit or lanechange notifyEnter() is
+ *  called. If a vehicle leaves the reminder lane it calls notifyLeave().
  *
  * The reminder knows whom to tell about move, emit and lanechange. The
  * vehicles will remove the reminder that is not isStillActive() from
@@ -109,9 +109,11 @@ public:
      *  from the network, or leaving to the next lane).
      *  The default is to do nothing.
      *
-     * @param veh The leaving vehicle.
+     * @param[in] veh The leaving vehicle.
+     * @param[in] isArrival whether the vehicle arrived at its destination
+     * @param[in] isLaneChange whether the vehicle changed from the lane
      */
-    virtual void dismissOnLeavingLane(MSVehicle& veh) throw() {};
+    virtual void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw() {};
 
 
     /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change
@@ -120,11 +122,12 @@ public:
      *  the reminder is placed at.
      *
      * @param[in] veh The entering vehicle.
-     * @param[in] isEmit true means emit, false: lane change
+     * @param[in] isEmit whether the vehicle was just emitted into the net
+     * @param[in] isLaneChange whether the vehicle changed to the lane
      *
      * @return True if vehicle enters the reminder.
      */
-    virtual bool isActivatedByEmitOrLaneChange(MSVehicle& veh, bool isEmit) throw() = 0;
+    virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() = 0;
     /// @}
 
 

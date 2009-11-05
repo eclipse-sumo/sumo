@@ -125,7 +125,7 @@ public:
 
 
     /** @brief Update of members if vehicle leaves a new lane in the lane change step. */
-    virtual void leaveLaneAtLaneChange() { }
+    virtual void leaveLane() { }
 
 
     /** @brief Called when the vehicle leaves the lane */

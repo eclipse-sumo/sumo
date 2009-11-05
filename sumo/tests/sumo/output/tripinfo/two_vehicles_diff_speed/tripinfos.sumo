@@ -1,31 +1,31 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/31/09 14:26:10 by SUMO sumo Version dev-SVN-r6688
+<!-- generated on 11/05/09 13:56:02 by SUMO sumo Version dev-SVN-r7945
 <configuration>
 
-   <input>
-      <net-file>net.net.xml</net-file>
-      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
 
-   <output>
-      <tripinfo-output>tripinfos.xml</tripinfo-output>
-   </output>
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
 
-   <time>
-      <begin>0</begin>
-      <end>1000</end>
-   </time>
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <tripinfos>
-    <tripinfo id="0" depart="0" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="108" arrivalLane="2/1to1/1_0" arrivalPos="8.50" arrivalSpeed="10.00" duration="108" routeLength="1080.00" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""></tripinfo>
-    <tripinfo id="1" depart="5" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="125" arrivalLane="2/1to1/1_0" arrivalPos="8.50" arrivalSpeed="9.00" duration="120" routeLength="1080.00" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
+    <tripinfo id="0" depart="0" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="108" arrivalLane="1/1to0/1_0" arrivalPos="8.50" arrivalSpeed="10.00" duration="108" routeLength="1080.00" waitSteps="0" rerouteNo="0" devices="" vtype="t1" vaporized=""></tripinfo>
+    <tripinfo id="1" depart="5" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="125" arrivalLane="1/1to0/1_0" arrivalPos="8.50" arrivalSpeed="9.00" duration="120" routeLength="1080.00" waitSteps="0" rerouteNo="0" devices="" vtype="t2" vaporized=""></tripinfo>
 </tripinfos>

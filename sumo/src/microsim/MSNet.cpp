@@ -308,6 +308,14 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
+#ifdef HAVE_MESOSIM
+    // netstate output
+    if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
+        string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
+        ofstream strm(name.c_str(), fstream::out|fstream::binary);
+        saveState(strm);
+    }
+#endif
     myBeginOfTimestepEvents->execute(myStep);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep);
@@ -436,14 +444,6 @@ MSNet::writeOutput() {
     }
     // write detector values
     myDetectorControl->writeOutput(myStep + DELTA_T, false);
-#ifdef HAVE_MESOSIM
-    // netstate output
-    if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
-        string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
-        ofstream strm(name.c_str(), fstream::out|fstream::binary);
-        saveState(strm);
-    }
-#endif
 }
 
 
@@ -460,6 +460,7 @@ MSNet::saveState(std::ostream &os) throw() {
     FileHelpers::writeUInt(os, sizeof(size_t));
     FileHelpers::writeUInt(os, sizeof(SUMOReal));
     FileHelpers::writeUInt(os, MSEdge::dictSize());
+    FileHelpers::writeUInt(os, myStep);
     myVehicleControl->saveState(os);
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->saveState(os);
@@ -467,14 +468,15 @@ MSNet::saveState(std::ostream &os) throw() {
 }
 
 
-void
+unsigned int
 MSNet::loadState(BinaryInputDevice &bis) throw() {
     std::string version;
-    unsigned int sizeT, fpSize, numEdges;
+    unsigned int sizeT, fpSize, numEdges, step;
     bis >> version;
     bis >> sizeT;
     bis >> fpSize;
     bis >> numEdges;
+    bis >> step;
     if (version != VERSION_STRING) {
         WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING +")!");
     }
@@ -491,6 +493,7 @@ MSNet::loadState(BinaryInputDevice &bis) throw() {
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->loadState(bis, *myVehicleControl);
     }
+    return step;
 }
 #endif
 
