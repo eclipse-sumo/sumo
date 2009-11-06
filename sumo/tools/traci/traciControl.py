@@ -534,6 +534,90 @@ def cmdGetRouteVariable_edges(routeID):
 
 
 # ===================================================
+# nodes (junction/intersection) interaction
+# ===================================================
+# ---------------------------------------------------
+# get state
+# ---------------------------------------------------
+def cmdGetJunctionVariable_idList(nodeID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_JUNCTION_VARIABLE, tc.ID_LIST, nodeID)
+    return result.readStringList()  # Variable value 
+
+def cmdGetJunctionVariable_position(nodeID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_JUNCTION_VARIABLE, tc.VAR_POSITION, nodeID)
+    return result.read("!ff") # Variable value
+
+
+
+# ===================================================
+# lanes interaction
+# ===================================================
+# ---------------------------------------------------
+# get state
+# ---------------------------------------------------
+def cmdGetLaneVariable_idList(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.ID_LIST, nodeID)
+    return result.readStringList()  # Variable value 
+
+def cmdGetLaneVariable_length(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_LENGTH, vehID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_speed(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.VAR_MAXSPEED, vehID)
+    return result.read("!f")[0] # Variable value
+
+def cmdGetLaneVariable_allowed(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_ALLOWED, vehID)
+    return result.readStringList()  # Variable value 
+
+def cmdGetLaneVariable_disallowed(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_DISALLOWED, vehID)
+    return result.readStringList()  # Variable value 
+
+def cmdGetLaneVariable_linkNumber(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_LINK_NUMBER, vehID)
+    return result.read("!i")[0] # Variable value
+
+def cmdGetLaneVariable_edgeID(laneID):
+    result = buildSendReadNew1StringParamCmd(tc.CMD_GET_LANE_VARIABLE, tc.LANE_EDGE_ID, vehID)
+    return result.readString() # Variable value
+
+# missing: shape, links
+
+# ---------------------------------------------------
+# change state
+# ---------------------------------------------------
+def cmdChangeLaneVariable_allowed(laneID, allowedClasses):
+    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4+sum(map(len, allowedClasses))+4*len(allowedClasses), tc.LANE_ALLOWED, vehID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(allowedClasses))
+    for c in allowedClasses:
+        _message.string += struct.pack("!i", len(c)) + c
+    _sendExact()
+
+def cmdChangeLaneVariable_disallowed(laneID, disallowedClasses):
+    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4+sum(map(len, disallowedClasses))+4*len(disallowedClasses), tc.LANE_DISALLOWED, vehID)
+    _message.string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(disallowedClasses))
+    for c in disallowedClasses:
+        _message.string += struct.pack("!i", len(c)) + c
+    _sendExact()
+
+def cmdChangeLaneVariable_maxSpeed(laneID, speed):
+    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4, tc.VAR_MAXSPEED, laneID)
+    _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, speed)
+    _sendExact()
+
+def cmdChangeLaneVariable_length(laneID, length):
+    beginChangeMessage(tc.CMD_SET_LANE_VARIABLE, 1+1+1+4+len(laneID)+1+4, tc.VAR_LENGTH, laneID)
+    _message.string += struct.pack("!Bf", tc.TYPE_FLOAT, length)
+    _sendExact()
+
+
+
+
+
+
+# ===================================================
 # 
 # ===================================================
 def cmdStopNode(edge, objectID, pos=1., duration=10000.):
