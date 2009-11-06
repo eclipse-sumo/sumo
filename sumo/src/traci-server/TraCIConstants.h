@@ -164,6 +164,13 @@
 // command: set junction variable
 #define CMD_SET_JUNCTION_VARIABLE 0xc9
 
+// command: get junction variable
+#define CMD_GET_EDGE_VARIABLE 0xaa
+// response: get junction variable
+#define RESPONSE_GET_EDGE_VARIABLE 0xba
+// command: set junction variable
+#define CMD_SET_EDGE_VARIABLE 0xca
+
 
 
 // ****************************************
@@ -419,7 +426,7 @@
 // speed (get: vehicle)
 #define VAR_SPEED 0x40
 
-// maximum allowed/possible speed (get: vehicle types, lanes)
+// maximum allowed/possible speed (get: vehicle types, lanes, set: edges, lanes)
 #define VAR_MAXSPEED 0x41
 
 // position (2D) (get: vehicle, poi, set: poi)
@@ -428,7 +435,7 @@
 // angle (get: vehicle)
 #define VAR_ANGLE 0x43
 
-// angle (get: vehicle types, lanes)
+// angle (get: vehicle types, lanes, set: lanes)
 #define VAR_LENGTH 0x44
 
 // color (get: vehicles, vehicle types, polygons, pois)
@@ -494,6 +501,10 @@
 // effort information (get&set: vehicle)
 #define VAR_EDGE_EFFORT 0x59
 
+// last step travel time (get: edge)
+#define VAR_CURRENT_TRAVELTIME 0x5a
+
+
 
 // current CO2 emission of a node (get: vehicle)
 #define VAR_CO2EMISSION 0x60
@@ -517,12 +528,23 @@
 #define VAR_NOISEEMISSION 0x66
 
 
+
+
 // add an instance (poi, polygon)
 #define ADD 0x80
 
 // remove an instance (poi, polygon)
 #define REMOVE 0x81
 
+
+// force rerouting based on travel time (vehicles)
+#define CMD_REROUTE_TRAVELTIME 0x90
+
+// force rerouting based on effort (vehicles)
+#define CMD_REROUTE_EFFORT 0x91
+
+// validates current route (vehicles)
+#define VAR_ROUTE_VALID 0x92
 
 
 #endif

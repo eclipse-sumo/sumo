@@ -487,6 +487,14 @@ MSEdge::clear() throw() {
 }
 
 
+void 
+MSEdge::insertIDs(std::vector<std::string> &into) throw() {
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
+        into.push_back((*i).first);
+    }
+}
+
+
 void
 MSEdge::parseEdgesList(const std::string &desc, std::vector<const MSEdge*> &into,
                        const std::string &rid) throw(ProcessError) {

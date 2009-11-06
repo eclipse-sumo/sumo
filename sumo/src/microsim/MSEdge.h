@@ -381,6 +381,8 @@ public:
     /** @brief Clears the dictionary */
     static void clear() throw();
 
+    /** @brief Inserts IDs of all known edges into the given vector */
+    static void insertIDs(std::vector<std::string> &into) throw();
 
     /** @brief Parses the given string assuming it contains a list of edge ids divided by spaces
      *

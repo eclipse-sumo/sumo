@@ -60,6 +60,7 @@
 #include "TraCIServerAPI_Route.h"
 #include "TraCIServerAPI_POI.h"
 #include "TraCIServerAPI_Polygon.h"
+#include "TraCIServerAPI_Edge.h"
 
 
 
@@ -396,6 +397,12 @@ throw(TraCIException, std::invalid_argument) {
         break;
     case CMD_GET_JUNCTION_VARIABLE:
         success = TraCIServerAPI_Junction::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_GET_EDGE_VARIABLE:
+        success = TraCIServerAPI_Edge::processGet(myInputStorage, myOutputStorage);
+        break;
+    case CMD_SET_EDGE_VARIABLE:
+        success = TraCIServerAPI_Edge::processSet(myInputStorage, myOutputStorage);
         break;
     default:
         writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
