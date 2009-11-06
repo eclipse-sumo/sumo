@@ -34,6 +34,7 @@ GetTrafficLightStatus
 # Tests for variable retrieval
 VariableRetrieval
 
+
 # Tests for changing TL values
 ChangeTLValue
 
@@ -48,5 +49,8 @@ ChangePolygonValue
 
 # Tests for changing lane values
 ChangeLaneValue
+
+# Tests for changing edge values
+ChangeEdgeValue
 
 

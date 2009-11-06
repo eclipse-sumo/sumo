@@ -1,0 +1,5 @@
+simstep 5 1
+getvariable_plus 170 89 1/1to0/1 <int> 0
+setvalue 202 89 xxx <compound> 3 <int> 0 <int> 10 <float> 10
+getvariable_plus 170 89 1/1to0/1 <int> 0
+simstep 1 1
