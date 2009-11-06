@@ -1,0 +1,43 @@
+TraCITestClient output file. Date: Fri Nov 06 14:32:48 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=5.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=88 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=88  ObjectID=veh0 valueDataType=10 float value: -1.00
+
+-> Command sent: <SetValue>:
+  domID=196 varID=88 objID=veh0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=88 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=88  ObjectID=veh0 valueDataType=10 float value: 10000.00
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"beg", "middle", "end", "rend" ]
+
+-> Command sent: <SetValue>:
+  domID=196 varID=144 objID=veh0
+.. Command acknowledged (196), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=84 objID=veh0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=84  ObjectID=veh0 valueDataType=14 string list value: [ 
+"beg", "beg2left", "left+right", "left2end", "end", "rend" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=10.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

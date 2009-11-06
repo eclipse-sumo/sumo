@@ -25,3 +25,6 @@ EdgeTravelTimeInfo
 # for changing edge efforts
 EdgeEffortInfo
 
+
+# rerouting tests
+rerouting

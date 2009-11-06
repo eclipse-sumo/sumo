@@ -1,0 +1,9 @@
+simstep 5 1
+getvariable_plus 170 88 middle <int> 10
+setvalue 202 88 middle <compound> 3 <int> 0 <int> 1000 <float> 10000
+getvariable_plus 170 88 middle <int> 10
+getvariable 164 84 veh0
+setvalue 196 144 veh0 <compound> 0
+getvariable 164 84 veh0
+simstep 10 1
+

@@ -1,0 +1,13 @@
+# effort based rerouting using global knowledge
+effort_global_reroute
+
+# effort based rerouting using vehicle knowledge
+effort_vehicle_reroute
+
+# travel time based rerouting using global knowledge
+tt_global_reroute
+
+# travel time based rerouting using vehicle knowledge
+tt_vehicle_reroute
+
+
