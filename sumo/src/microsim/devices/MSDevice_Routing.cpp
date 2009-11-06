@@ -113,7 +113,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
         if (myEdgeEfforts.size()==0) {
             const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
             for (std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-                myEdgeEfforts[*i] = (*i)->getCurrentEffort();
+                myEdgeEfforts[*i] = (*i)->getCurrentTravelTime();
             }
         }
         // make the weights be updated
@@ -186,7 +186,7 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError) {
     SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
     const std::vector<MSEdge*> &edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (std::vector<MSEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-        myEdgeEfforts[*i] = myEdgeEfforts[*i] * myAdaptationWeight + (*i)->getCurrentEffort() * newWeight;
+        myEdgeEfforts[*i] = myEdgeEfforts[*i] * myAdaptationWeight + (*i)->getCurrentTravelTime() * newWeight;
     }
     return myAdaptationInterval;
 }

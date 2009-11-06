@@ -73,6 +73,8 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <ctime>
 #include "MSPerson.h"
+#include "MSEdgeWeightsStorage.h"
+
 
 #ifdef _MESSAGES
 #include "MSMessageEmitter.h"
@@ -135,6 +137,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myRouteLoaders = 0;
     myLogics = 0;
     myPersonControl = 0;
+    myEdgeWeights = 0;
     myShapeContainer = shapeCont==0 ? new ShapeContainer() : shapeCont;
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
@@ -231,6 +234,7 @@ MSNet::~MSNet() throw() {
     delete myBeginOfTimestepEvents;
     delete myEndOfTimestepEvents;
     delete myEmissionEvents;
+    delete myEdgeWeights;
     clearAll();
     GeoConvHelper::close();
     myInstance = 0;
@@ -515,6 +519,16 @@ MSNet::getPersonControl() throw() {
         myPersonControl = new MSPersonControl();
     }
     return *myPersonControl;
+}
+
+
+MSEdgeWeightsStorage &
+MSNet::getWeightsStorage() throw()
+{
+    if(myEdgeWeights==0) {
+        myEdgeWeights = new MSEdgeWeightsStorage();
+    }
+    return *myEdgeWeights;
 }
 
 

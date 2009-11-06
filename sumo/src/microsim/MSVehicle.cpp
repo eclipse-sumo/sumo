@@ -179,6 +179,8 @@ MSVehicle::~MSVehicle() throw() {
         }
         delete persons;
     }
+    // other
+    delete myEdgeWeights;
 }
 
 
@@ -420,13 +422,16 @@ MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) 
 }
 
 
-MSEdgeWeightsStorage * const 
+MSEdgeWeightsStorage &
 MSVehicle::getWeightsStorage() throw()
 {
     if(myEdgeWeights==0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }
-    return myEdgeWeights;
+    return *myEdgeWeights;
+}
+
+
 }
 
 

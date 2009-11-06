@@ -262,22 +262,7 @@ public:
     /// @}
 
 
-
-    /// @name Effort I/O
-    /// @{
-    /** @brief Returns the effort (travel time) for this edge and the given time
-     *
-     * If no travel time values have been loaded, the edge's length
-     *  divided by the allowed speed is returned.
-     * Otherwise, the loaded weight matching the given time is returned.
-     *
-     * @param[in] forTime The (entry) time for which the effort shall be returned
-     * @return The effort (travel time) to pass the edge for the given time
-     */
-    SUMOReal getEffort(SUMOTime forTime) const throw();
-
-
-    /** @brief Computes and returns the current effort (travel time) for this edge
+    /** @brief Computes and returns the current travel time for this edge
      *
      * The mean travel time of all lanes is summed and divided by the number
      *  of lanes. If the result is zero, 1000000. (a very large number) is
@@ -285,7 +270,7 @@ public:
      *
      * @return The current effort (travel time) to pass the edge
      */
-    SUMOReal getCurrentEffort() const throw();
+    SUMOReal getCurrentTravelTime() const throw();
 
 
     /** @brief Returns the given vehicle's effort (travel time) for this edge and the given time
@@ -302,17 +287,6 @@ public:
      * @deprecated This explicite combination is not variable enough; see determination in C2C-device
      */
     SUMOReal getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw();
-
-
-    /** @brief Adds a loaded weight
-     *
-     * @param[in] value The loaded effort (travel time)
-     * @param[in] timeBegin The first time step for which this value is valid
-     * @param[in] timeEnd The last time step for which this value is valid
-     * @todo The weights storage should be completely redesigned
-     */
-    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
-    /// @}
 
 
 
@@ -492,15 +466,6 @@ protected:
 
     /// @brief The time of last emission failure
     mutable SUMOTime myLastFailedEmissionTime;
-
-
-    /// @name Edge weights container
-    /// @deprecated
-    /// @{
-    mutable ValueTimeLine<SUMOReal> myOwnValueLine;
-    mutable bool myHaveGapsFilled;
-    bool myHaveLoadedWeights;
-    /// @}
 
 
 private:

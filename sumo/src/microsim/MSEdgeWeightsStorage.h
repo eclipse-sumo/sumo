@@ -37,7 +37,7 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
-class MSVehicle;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -64,7 +64,7 @@ public:
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingTravelTime(const MSEdge * const e, const MSVehicle * const v, 
+    bool retrieveExistingTravelTime(const MSEdge * const e, const SUMOVehicle * const v, 
         SUMOTime t, SUMOReal &value) const throw();
 
 
@@ -75,7 +75,7 @@ public:
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingEffort(const MSEdge * const e, const MSVehicle * const v, 
+    bool retrieveExistingEffort(const MSEdge * const e, const SUMOVehicle * const v, 
         SUMOTime t, SUMOReal &value) const throw();
 
 

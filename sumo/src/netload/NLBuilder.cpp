@@ -57,6 +57,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSFrame.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "NLGeomShapeBuilder.h"
 
@@ -73,12 +74,12 @@
 // ---------------------------------------------------------------------------
 void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string &id,
-        SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
-    MSEdge *e = MSEdge::dictionary(id);
-    if (e!=0) {
-        e->addWeight(val, beg, end);
+        SUMOReal value, SUMOTime begTime, SUMOTime endTime) const throw() {
+    MSEdge *edge = MSEdge::dictionary(id);
+    if (edge!=0) {
+        myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
-        MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
+        MsgHandler::getErrorInstance()->inform("Trying to set the effort for the unknown edge '" + id + "'.");
     }
 }
 
@@ -88,12 +89,12 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
 // ---------------------------------------------------------------------------
 void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
-        SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
-    MSEdge *e = MSEdge::dictionary(id);
-    if (e!=0) {
-        e->addWeight(val, beg, end);
+        SUMOReal value, SUMOTime begTime, SUMOTime endTime) const throw() {
+    MSEdge *edge = MSEdge::dictionary(id);
+    if (edge!=0) {
+        myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
-        MsgHandler::getErrorInstance()->inform("Trying to set a weight for the unknown edge '" + id + "'.");
+        MsgHandler::getErrorInstance()->inform("Trying to set the travel time for the unknown edge '" + id + "'.");
     }
 }
 

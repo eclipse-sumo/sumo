@@ -46,7 +46,7 @@ MSEdgeWeightsStorage::~MSEdgeWeightsStorage() throw() {
 
 
 bool
-MSEdgeWeightsStorage::retrieveExistingTravelTime(const MSEdge * const e, const MSVehicle * const v, 
+MSEdgeWeightsStorage::retrieveExistingTravelTime(const MSEdge * const e, const SUMOVehicle * const v, 
                                                  SUMOTime t, SUMOReal &value) const throw() {
     std::map<MSEdge*, ValueTimeLine<SUMOReal> >::const_iterator i = myTravelTimes.find((MSEdge*) e);
     if(i==myTravelTimes.end()) {
@@ -62,7 +62,7 @@ MSEdgeWeightsStorage::retrieveExistingTravelTime(const MSEdge * const e, const M
 
 
 bool
-MSEdgeWeightsStorage::retrieveExistingEffort(const MSEdge * const e, const MSVehicle * const v, 
+MSEdgeWeightsStorage::retrieveExistingEffort(const MSEdge * const e, const SUMOVehicle * const v, 
                                              SUMOTime t, SUMOReal &value) const throw() {
     std::map<MSEdge*, ValueTimeLine<SUMOReal> >::const_iterator i = myEfforts.find((MSEdge*) e);
     if(i==myEfforts.end()) {

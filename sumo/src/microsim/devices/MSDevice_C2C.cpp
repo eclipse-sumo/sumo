@@ -44,6 +44,7 @@
 #include <microsim/MSGlobals.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -927,7 +928,12 @@ MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOT
     MSDevice_C2C * device = myVehiclesToDevicesMap.find(v)->second;
     InfoCont::iterator i = device->infoCont.find(e);
     if (i==device->infoCont.end()) {
-        return e->getEffort(t);
+        SUMOReal value;
+        if(MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, t, value)) {
+            return value;
+        }
+        const MSLane * const l = e->getLanes()[0];
+        return l->getLength() / l->getMaxSpeed();
     }
     return i->second->neededTime;
 }

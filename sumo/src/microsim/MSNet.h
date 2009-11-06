@@ -72,6 +72,7 @@ class MSDetectorControl;
 class ShapeContainer;
 class BinaryInputDevice;
 class MSRouteLoader;
+class MSEdgeWeightsStorage;
 #ifdef _MESSAGES
 class MSMessageEmitter;
 #endif
@@ -328,6 +329,14 @@ public:
     ShapeContainer &getShapeContainer() throw() {
         return *myShapeContainer;
     }
+
+
+    /** @brief Returns the net's internal edge travel times/efforts container
+     *
+     * If the net does not have such a container, it is built.
+     * @return The net's knowledge about edge weights
+     */
+    MSEdgeWeightsStorage &getWeightsStorage() throw();
     /// @}
 
 
@@ -427,28 +436,30 @@ protected:
     /// @name Substructures
     /// @{
 
-    /** @brief Controls vehicle building and deletion; @see MSVehicleControl */
+    /// @brief Controls vehicle building and deletion; @see MSVehicleControl
     MSVehicleControl *myVehicleControl;
-    /** @brief Controls person building and deletion; @see MSPersonControl */
+    /// @brief Controls person building and deletion; @see MSPersonControl
     MSPersonControl *myPersonControl;
-    /** @brief Controls edges, performs vehicle movement; @see MSEdgeControl */
+    /// @brief Controls edges, performs vehicle movement; @see MSEdgeControl
     MSEdgeControl* myEdges;
-    /** @brief Controls junctions, realizes right-of-way rules; @see MSJunctionControl */
+    /// @brief Controls junctions, realizes right-of-way rules; @see MSJunctionControl
     MSJunctionControl* myJunctions;
-    /** @brief Controls tls logics, realizes waiting on tls rules; @see MSJunctionControl */
+    /// @brief Controls tls logics, realizes waiting on tls rules; @see MSJunctionControl
     MSTLLogicControl *myLogics;
-    /** @brief Controls vehicle emissions; @see MSEmitControl */
+    /// @brief Controls vehicle emissions; @see MSEmitControl
     MSEmitControl* myEmitter;
-    /** @brief Controls detectors; @see MSDetectorControl */
+    /// @brief Controls detectors; @see MSDetectorControl
     MSDetectorControl *myDetectorControl;
-    /** @brief Controls events executed at the begin of a time step; @see MSEventControl */
+    /// @brief Controls events executed at the begin of a time step; @see MSEventControl
     MSEventControl *myBeginOfTimestepEvents;
-    /** @brief Controls events executed at the end of a time step; @see MSEventControl */
+    /// @brief Controls events executed at the end of a time step; @see MSEventControl
     MSEventControl *myEndOfTimestepEvents;
-    /** @brief Controls emission events; @see MSEventControl */
+    /// @brief Controls emission events; @see MSEventControl
     MSEventControl *myEmissionEvents;
-    /** @brief A container for geometrical shapes; @see  ShapeContainer*/
-    ShapeContainer *myShapeContainer; // could be a direct member
+    /// @brief A container for geometrical shapes; @see ShapeContainer
+    ShapeContainer *myShapeContainer;
+    /// @brief The net's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
+    MSEdgeWeightsStorage *myEdgeWeights;
     /// @}
 
 

@@ -43,6 +43,7 @@
 #include <cassert>
 #include "MSVehicle.h"
 #include <utils/common/StringTokenizer.h>
+#include "MSEdgeWeightsStorage.h"
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
@@ -71,8 +72,7 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 MSEdge::MSEdge(const std::string &id, unsigned int numericalID) throw()
         : myID(id), myNumericalID(numericalID), myLanes(0),
-        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1),
-        myHaveLoadedWeights(false), myHaveGapsFilled(false)//!!!
+        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1)
 {}
 
 
@@ -378,24 +378,8 @@ MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw() {
 #endif
 
 
-bool myHaveWarned; // !!!
-
-
 SUMOReal
-MSEdge::getEffort(SUMOTime forTime) const throw() {
-    if (!myHaveLoadedWeights) {
-        return (*myLanes)[0]->getLength() / (*myLanes)[0]->getMaxSpeed();
-    }
-    if (!myHaveGapsFilled) {
-        myOwnValueLine.fillGaps((*myLanes)[0]->getLength() / (*myLanes)[0]->getMaxSpeed());
-        myHaveGapsFilled = true;
-    }
-    return myOwnValueLine.getValue(forTime);
-}
-
-
-SUMOReal
-MSEdge::getCurrentEffort() const throw() {
+MSEdge::getCurrentTravelTime() const throw() {
     SUMOReal v = 0;
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -424,20 +408,18 @@ MSEdge::getCurrentEffort() const throw() {
 }
 
 
-void
-MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw() {
-    myOwnValueLine.add(timeBegin, timeEnd, value);
-    myHaveLoadedWeights = true;
-}
-
-
 SUMOReal
 MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw() {
     SUMOReal teffort = v->getEffort(this, t);
     if (teffort>=0) {
         return teffort;
     }
-    return MAX2((*myLanes)[0]->getLength()/v->getMaxSpeed(), getEffort(t));
+    SUMOReal value;
+    if(!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(this, 0, t, value)) {
+        const MSLane * const l = (*myLanes)[0];
+        value = l->getLength() / l->getMaxSpeed();
+    }
+    return MAX2((*myLanes)[0]->getLength()/v->getMaxSpeed(), value);
 }
 
 

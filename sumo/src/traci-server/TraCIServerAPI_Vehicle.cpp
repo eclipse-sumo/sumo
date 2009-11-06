@@ -202,7 +202,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             // retrieve
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             SUMOReal value;
-            if(!v->getWeightsStorage()->retrieveExistingTravelTime(edge, 0, time, value)) {
+            if(!v->getWeightsStorage().retrieveExistingTravelTime(edge, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
                 tempMsg.writeFloat(value);
@@ -239,7 +239,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             // retrieve
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             SUMOReal value;
-            if(!v->getWeightsStorage()->retrieveExistingEffort(edge, 0, time, value)) {
+            if(!v->getWeightsStorage().retrieveExistingEffort(edge, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
                 tempMsg.writeFloat(value);
@@ -513,7 +513,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         SUMOReal value = inputStorage.readFloat();
         // retrieve
-        v->getWeightsStorage()->addTravelTime(edge, begTime, endTime, value);
+        v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
                                   }
         break;
     case VAR_EDGE_EFFORT: {
@@ -555,7 +555,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         SUMOReal value = inputStorage.readFloat();
         // retrieve
-        v->getWeightsStorage()->addEffort(edge, begTime, endTime, value);
+        v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
                                   }
         break;
     default:

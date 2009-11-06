@@ -262,7 +262,7 @@ public:
      * If the vehicle does not have such a container, it is built.
      * @return The vehicle's knowledge about edge weights
      */
-    MSEdgeWeightsStorage * const getWeightsStorage() throw();
+    MSEdgeWeightsStorage &getWeightsStorage() throw();
     //@}
 
 
@@ -1079,7 +1079,7 @@ private:
     };
 
 
-    /// @brief The vehicle's knowledge about edge efforts/travel times
+    /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
     MSEdgeWeightsStorage *myEdgeWeights;
 
 #ifndef NO_TRACI

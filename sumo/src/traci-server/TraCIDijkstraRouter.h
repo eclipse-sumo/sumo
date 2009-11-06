@@ -32,6 +32,8 @@
 #ifndef NO_TRACI
 
 #include "utils/common/DijkstraRouterTT.h"
+#include <microsim/MSLane.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 
 
 // ===========================================================================
@@ -116,7 +118,12 @@ public:
     };
 
     virtual SUMOReal getEffort(const E * const e, SUMOReal t) {
-        return e->getEffort(t);
+        SUMOReal value;
+        if(MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, t, value)) {
+            return value;
+        }
+        const MSLane * const l = e->getLanes()[0];
+        return l->getLength() / l->getMaxSpeed();
     }
 
 
