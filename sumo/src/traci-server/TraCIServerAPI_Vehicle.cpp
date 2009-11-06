@@ -33,6 +33,7 @@
 #include <microsim/MSEdge.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/DijkstraRouterTT.h>
+#include <utils/common/DijkstraRouterEffort.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Vehicle.h"
@@ -56,6 +57,46 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// TraCIServerAPI_Vehicle::EdgeWeightsProxi - methods
+// ---------------------------------------------------------------------------
+SUMOReal 
+TraCIServerAPI_Vehicle::EdgeWeightsProxi::getEffort(const MSEdge * const e, 
+                                                    const SUMOVehicle * const v, 
+                                                    SUMOTime t) const
+{
+    SUMOReal value;
+    if(myVehicleKnowledge.retrieveExistingEffort(e, v, t, value)) {
+        return value;
+    }
+    if(myNetKnowledge.retrieveExistingEffort(e, v, t, value)) {
+        return value;
+    }
+    return 0;
+}
+
+
+SUMOReal 
+TraCIServerAPI_Vehicle::EdgeWeightsProxi::getTravelTime(const MSEdge * const e, 
+                                                        const SUMOVehicle * const v, 
+                                                        SUMOTime t) const
+{
+    SUMOReal value;
+    if(myVehicleKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
+        return value;
+    }
+    if(myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
+        return value;
+    }
+    const MSLane * const l = e->getLanes()[0];
+    return l->getLength() / l->getMaxSpeed();
+}
+
+
+
+// ---------------------------------------------------------------------------
+// TraCIServerAPI_Vehicle - methods
+// ---------------------------------------------------------------------------
 bool
 TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException) {
@@ -71,6 +112,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             &&variable!=VAR_CO2EMISSION&&variable!=VAR_COEMISSION&&variable!=VAR_HCEMISSION&&variable!=VAR_PMXEMISSION
             &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
+            &&variable!=VAR_ROUTE_VALID&&variable!=VAR_EDGES
        ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
@@ -247,6 +289,25 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             
                                   }
             break;
+        case VAR_ROUTE_VALID: {
+            std::string msg;
+            if(!v->hasValidRoute(msg)) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, msg, outputStorage);
+                return false;
+            }
+            tempMsg.writeUnsignedByte(TYPE_UBYTE);
+            tempMsg.writeUnsignedByte(1);
+                              }
+            break;
+        case VAR_EDGES: {
+            const MSRoute &r = v->getRoute();
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeInt(r.size());
+            for (MSRouteIterator i=r.begin(); i!=r.end(); ++i) {
+                tempMsg.writeString((*i)->getID());
+            }
+                        }
+            break;
         default:
             break;
         }
@@ -270,6 +331,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             &&variable!=CMD_SLOWDOWN&&/*variable!=CMD_CHANGEROUTE&&*/variable!=CMD_CHANGETARGET
             &&variable!=VAR_ROUTE_ID&&variable!=VAR_ROUTE
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
+            &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
             ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
@@ -558,6 +620,34 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
                                   }
         break;
+        case CMD_REROUTE_TRAVELTIME: {
+        if (valueDataType!=TYPE_COMPOUND) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compund object.", outputStorage);
+            return false;
+        }
+        if (inputStorage.readInt()!=0) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compund object.", outputStorage);
+            return false;
+        }
+            EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &EdgeWeightsProxi::getTravelTime);
+            v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+                          }
+                                     break;
+        case CMD_REROUTE_EFFORT: {
+        if (valueDataType!=TYPE_COMPOUND) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compund object.", outputStorage);
+            return false;
+        }
+        if (inputStorage.readInt()!=0) {
+            TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compund object.", outputStorage);
+            return false;
+        }
+            EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+            DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &EdgeWeightsProxi::getEffort, &EdgeWeightsProxi::getTravelTime);
+            v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+                          }
+                                     break;
     default:
         break;
     }

@@ -263,6 +263,13 @@ public:
      * @return The vehicle's knowledge about edge weights
      */
     MSEdgeWeightsStorage &getWeightsStorage() throw();
+
+
+    /** @brief Validates the current route
+     * @param[out] msg Description why the route is not valid (if it is the case)
+     * @return Whether the vehicle's current route is valid
+     */
+    bool hasValidRoute(std::string &msg) const throw();
     //@}
 
 
