@@ -28,4 +28,8 @@ Polygon
 # Tests retrieval of variables from junctions (0xa9)
 Junction
 
+# Tests retrieval of variables from edges (0xaa)
+Edge
+
+
 

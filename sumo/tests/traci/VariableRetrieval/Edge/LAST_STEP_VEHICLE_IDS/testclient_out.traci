@@ -1,0 +1,29 @@
+TraCITestClient output file. Date: Fri Nov 06 11:44:58 2009
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=5.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=170 varID=18 objID=1/1to0/1
+.. Command acknowledged (170), [description: ]
+  CommandID=186  VariableID=18  ObjectID=1/1to0/1 valueDataType=14 string list value: [ 
+ ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=6.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=170 varID=18 objID=4/1to3/1
+.. Command acknowledged (170), [description: ]
+  CommandID=186  VariableID=18  ObjectID=4/1to3/1 valueDataType=14 string list value: [ 
+"0" ]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=7.00 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

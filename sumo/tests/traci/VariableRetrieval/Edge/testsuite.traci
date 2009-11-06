@@ -1,0 +1,14 @@
+# Tests retrieval of vehicles in scenario (ID_LIST)
+ID_LIST
+
+# Variables Retrieval
+LAST_STEP_VEHICLE_IDS
+VAR_CURRENT_TRAVELTIME
+VAR_EDGE_TRAVELTIME
+VAR_EDGE_EFFORT
+
+# Testing error cases
+errors
+
+
+
