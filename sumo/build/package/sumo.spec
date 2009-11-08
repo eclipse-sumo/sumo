@@ -12,7 +12,7 @@ License:        GPL v2.1 or later
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel libgeos-devel unixODBC-devel sqlite-devel libexpat-devel hdf-devel libnetcdf-devel postgresql-devel mysql-devel
-%if 0%{?suse_version} > 1110
+%if 0%{?suse_version} > 1110 || 0%{?centos_version} || 0%{?rhel_version}
 BuildRequires: libxerces-c-devel
 %else
 BuildRequires: libXerces-c-devel
@@ -23,7 +23,7 @@ BuildRequires:  XFree86-devel postgresql-devel libmesaglu1-devel
 BuildRequires:  xorg-x11-devel xorg-x11-Mesa-devel
 %endif
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version}
-BuildRequires:  libGLU-devel
+BuildRequires:  libGLU-devel libXext-devel libXft-devel
 %endif
 Autoreqprov: on
 
@@ -32,7 +32,9 @@ Autoreqprov: on
 highly portable, microscopic road traffic simulation package
 designed to handle large road networks.
 
+%if 0%{?suse_version}
 %debug_package
+%endif
 %prep
 %setup -q
 
