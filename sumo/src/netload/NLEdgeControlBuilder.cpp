@@ -42,6 +42,10 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MELoop.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -135,6 +139,11 @@ MSEdgeControl *
 NLEdgeControlBuilder::build() {
     for (EdgeCont::iterator i1=myEdges.begin(); i1!=myEdges.end(); i1++) {
         (*i1)->closeBuilding();
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            MSGlobals::gMesoNet->buildSegmentsFor(**i1, OptionsCont::getOptions());
+        }
+#endif
     }
     return new MSEdgeControl(myEdges);
 }
