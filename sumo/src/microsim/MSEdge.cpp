@@ -408,21 +408,6 @@ MSEdge::getCurrentTravelTime() const throw() {
 }
 
 
-SUMOReal
-MSEdge::getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw() {
-    SUMOReal teffort = v->getEffort(this, t);
-    if (teffort>=0) {
-        return teffort;
-    }
-    SUMOReal value;
-    if(!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(this, 0, t, value)) {
-        const MSLane * const l = (*myLanes)[0];
-        value = l->getLength() / l->getMaxSpeed();
-    }
-    return MAX2((*myLanes)[0]->getLength()/v->getMaxSpeed(), value);
-}
-
-
 bool
 MSEdge::prohibits(const SUMOVehicle * const vehicle) const throw() {
     if (!myHaveClassConstraints) {

@@ -354,6 +354,43 @@ private:
     static void writeNearEdges(OutputDevice &od);
     /// @}
 
+
+    /** @class EdgeWeightsProxi
+     * @brief A proxi for edge weights known by a vehicle/known globally
+     * @see MSEdgeWeightsStorage
+     */
+    class EdgeWeightsProxi {
+    public:
+        /** @brief Constructor
+         * @param[in] vehKnowledge The vehicle's edge weights knowledge
+         * @param[in] netKnowledge The global edge weights knowledge
+         */
+        EdgeWeightsProxi(const InfoCont &vehKnowledge, 
+            const MSEdgeWeightsStorage &netKnowledge) 
+            : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
+
+
+        /// @brief Destructor
+        ~EdgeWeightsProxi() {}
+
+
+        /** @brief Returns the travel time to pass an edge
+         * @param[in] e The edge for which the travel time to be passed shall be returned
+         * @param[in] v The vehicle that is rerouted
+         * @param[in] t The time for which the travel time shall be returned
+         * @return The travel time for an edge
+         * @see DijkstraRouterTT_ByProxi
+         */
+        SUMOReal getTravelTime(const MSEdge * const e, const SUMOVehicle * const v, SUMOTime t) const;
+
+    private:
+        /// @brief The vehicle's knownledge
+        const InfoCont &myVehicleKnowledge;
+
+        /// @brief The global knownledge
+        const MSEdgeWeightsStorage &myNetKnowledge;
+
+    };
 private:
 
 

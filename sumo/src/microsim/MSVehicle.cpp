@@ -168,9 +168,6 @@ MSVehicle::~MSVehicle() throw() {
         delete(*dev);
     }
     myDevices.clear();
-#ifndef NO_TRACI
-    myTraciEdgeWeights.clear();
-#endif
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
         std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
@@ -212,8 +209,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myPreDawdleAcceleration(0),
         myEdgeWeights(0)
 #ifndef NO_TRACI
-        ,myNeedReroute(false),
-        adaptingSpeed(false),
+        ,adaptingSpeed(false),
         isLastAdaption(false),
         speedBeforeAdaption(0),
         timeBeforeAdaption(0),
@@ -1914,26 +1910,6 @@ MSVehicle::removeOnTripEnd(MSVehicle *veh) throw() {
 
 
 
-SUMOReal
-MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const {
-#ifndef NO_TRACI
-    if (myTraciEdgeWeights.find(e)!=myTraciEdgeWeights.end()) {
-        return myTraciEdgeWeights.find(e)->second;
-    }
-#endif
-    for (vector< MSDevice* >::const_iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        MSDevice_C2C *c2cd = dynamic_cast<MSDevice_C2C*>(*dev);
-        if (c2cd!=0) {
-            SUMOReal deviceEffort = c2cd->getEffort(e, this, t);
-            if (deviceEffort >= 0) {
-                return deviceEffort; // the first device wins
-            }
-        }
-    }
-    return -1;
-}
-
-
 const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation() const throw() {
     if (myBestLanes.empty()||myBestLanes[0].empty()||myLane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -1986,43 +1962,6 @@ MSVehicle::setWasVaporized(bool onDepart) {
 
 
 #ifndef NO_TRACI
-
-void
-MSVehicle::checkReroute(SUMOTime t) {
-
-#ifdef HAVE_INTERNAL_LANES
-    // delay any rerouting while we're on an internal lane
-    // otherwise, we'd mess up our route, plus there's not much we could do anyway
-    if (myLane != 0 && &myLane->getEdge() != *myCurrEdge) return;
-#endif
-    if (myNeedReroute && myStops.size()==0) {
-        myNeedReroute = false;
-        DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
-        router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
-        reroute(t, router);
-    }
-}
-
-bool
-MSVehicle::changeEdgeWeightLocally(MSEdge* edge, SUMOReal travelTime) {
-    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-    SUMOReal effortBefore = edge->getVehicleEffort(this, currentTime);
-    if (travelTime < 0) {
-        EdgeWeightMap::iterator oldWeight = myTraciEdgeWeights.find(edge);
-        if (oldWeight == myTraciEdgeWeights.end()) {
-            return false;
-        }
-        myTraciEdgeWeights.erase(oldWeight);
-    } else {
-        myTraciEdgeWeights[edge] = travelTime;
-    }
-    SUMOReal effortAfter = edge->getVehicleEffort(this, currentTime);
-    if (!myNeedReroute && (effortBefore != effortAfter)) {
-        // there is only a need to reroute if either the weight decreases or the edge is on our current route
-        myNeedReroute = (effortBefore > effortAfter) ^ willPass(edge);
-    }
-    return true;
-}
 
 
 bool
@@ -2115,8 +2054,6 @@ MSVehicle::checkForLaneChanges() {
 
 void
 MSVehicle::processTraCICommands(SUMOTime time) {
-    // try to reroute in case of previous "changeRoute" messages
-    checkReroute(time);
     // check for applied lane changing constraints
     checkLaneChangeConstraint(time);
     // change speed in case of previous "slowDown" command

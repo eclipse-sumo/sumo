@@ -57,46 +57,6 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-// ---------------------------------------------------------------------------
-// TraCIServerAPI_Vehicle::EdgeWeightsProxi - methods
-// ---------------------------------------------------------------------------
-SUMOReal 
-TraCIServerAPI_Vehicle::EdgeWeightsProxi::getEffort(const MSEdge * const e, 
-                                                    const SUMOVehicle * const v, 
-                                                    SUMOTime t) const
-{
-    SUMOReal value;
-    if(myVehicleKnowledge.retrieveExistingEffort(e, v, t, value)) {
-        return value;
-    }
-    if(myNetKnowledge.retrieveExistingEffort(e, v, t, value)) {
-        return value;
-    }
-    return 0;
-}
-
-
-SUMOReal 
-TraCIServerAPI_Vehicle::EdgeWeightsProxi::getTravelTime(const MSEdge * const e, 
-                                                        const SUMOVehicle * const v, 
-                                                        SUMOTime t) const
-{
-    SUMOReal value;
-    if(myVehicleKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
-        return value;
-    }
-    if(myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
-        return value;
-    }
-    const MSLane * const l = e->getLanes()[0];
-    return l->getLength() / l->getMaxSpeed();
-}
-
-
-
-// ---------------------------------------------------------------------------
-// TraCIServerAPI_Vehicle - methods
-// ---------------------------------------------------------------------------
 bool
 TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
                                    tcpip::Storage &outputStorage) throw(TraCIException) {
@@ -496,7 +456,9 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         // build a new route between the vehicle's current edge and destination edge
         MSEdgeVector newRoute;
         const MSEdge* currentEdge = v->getEdge();
-        DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+        MSEdgeWeightsStorage empty;
+        MSNet::EdgeWeightsProxi proxi(empty, MSNet::getInstance()->getWeightsStorage());
+        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
         router.compute(currentEdge, destEdge, (const MSVehicle* const) v, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
         // replace the vehicle's route by the new one
         if (!v->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
@@ -629,8 +591,8 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compund object.", outputStorage);
             return false;
         }
-            EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &EdgeWeightsProxi::getTravelTime);
+        MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
             v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
                           }
                                      break;
@@ -643,8 +605,8 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compund object.", outputStorage);
             return false;
         }
-            EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-            DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &EdgeWeightsProxi::getEffort, &EdgeWeightsProxi::getTravelTime);
+            MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+            DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getEffort, &MSNet::EdgeWeightsProxi::getTravelTime);
             v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
                           }
                                      break;

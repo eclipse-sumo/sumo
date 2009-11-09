@@ -771,8 +771,6 @@ public:
     }
     bool knowsEdgeTest(MSEdge &edge) const;
 
-    SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const;
-
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
@@ -816,15 +814,6 @@ public:
      */
     bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
-    void checkReroute(SUMOTime t);
-
-    /**
-     * Used by TraCIServer to change the weight of an edge locally for a specific vehicle.
-     * Nagative values for travelTime unset previous changes.
-     * @param edge: the edge to change
-     * @param travelTime: the new time to be set for the edge
-     */
-    bool changeEdgeWeightLocally(MSEdge* edge, SUMOReal travelTime);
 
     /**
      * The vehicle will slow down to newSpeed within the time interval duration.
@@ -1090,19 +1079,6 @@ private:
     MSEdgeWeightsStorage *myEdgeWeights;
 
 #ifndef NO_TRACI
-    typedef std::map<const MSEdge * const, SUMOReal> EdgeWeightMap;
-
-    /**
-     * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
-     * thus it checks for a new route when the next simulation step is performed by TraCI
-     */
-    bool myNeedReroute;
-
-    /**
-     * the local edge weights set by TraCI
-     */
-    EdgeWeightMap myTraciEdgeWeights;
-
     /* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
     bool adaptingSpeed;
     bool isLastAdaption;

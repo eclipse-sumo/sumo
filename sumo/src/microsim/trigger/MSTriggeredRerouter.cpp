@@ -42,6 +42,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/DijkstraRouterTT.h>
 #include <utils/common/RandHelper.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
@@ -324,7 +325,9 @@ MSTriggeredRerouter::reroute(SUMOVehicle &veh, const MSEdge &src) {
     }
 
     // we have a new destination, let's replace the vehicle route
-    DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+    MSEdgeWeightsStorage empty;
+    MSNet::EdgeWeightsProxi proxi(empty, MSNet::getInstance()->getWeightsStorage());
+    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
     router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
     router.compute(&src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);

@@ -304,6 +304,7 @@ private:
     tcpip::Storage myOutputStorage;
     bool myDoingSimStep;
 
+    std::set<MSVehicle*> myVehiclesToReroute;
 
 };
 

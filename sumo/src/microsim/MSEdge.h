@@ -273,22 +273,6 @@ public:
     SUMOReal getCurrentTravelTime() const throw();
 
 
-    /** @brief Returns the given vehicle's effort (travel time) for this edge and the given time
-     *
-     * If a call to the vehicle's member "getEffort" with this edge
-     *  and the given time returns a positive value, it is returned.
-     * Otherwise the value from "getEffort" is returned.
-     *
-     * @param[in] v The vehicle which may have the effort stored
-     * @param[in] t The (entry) time for which the effort shall be returned
-     * @return The effort (travel time) to pass the edge for the given time
-     * @see getEffort
-     * @see MSVehicle::getEffort
-     * @deprecated This explicite combination is not variable enough; see determination in C2C-device
-     */
-    SUMOReal getVehicleEffort(const SUMOVehicle * const v, SUMOTime t) const throw();
-
-
 
     /// @name Methods releated to vehicle emission
     /// @{

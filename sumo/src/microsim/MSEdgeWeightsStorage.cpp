@@ -105,5 +105,40 @@ MSEdgeWeightsStorage::addEffort(const MSEdge * const e,
 }
 
 
+void 
+MSEdgeWeightsStorage::removeTravelTime(const MSEdge * const e) throw()
+{
+    std::map<MSEdge*, ValueTimeLine<SUMOReal> >::iterator i = myTravelTimes.find((MSEdge*) e);
+    if(i!=myTravelTimes.end()) {
+        myTravelTimes.erase(i);
+    }
+}
+
+
+void 
+MSEdgeWeightsStorage::removeEffort(const MSEdge * const e) throw()
+{
+    std::map<MSEdge*, ValueTimeLine<SUMOReal> >::iterator i = myEfforts.find((MSEdge*) e);
+    if(i!=myEfforts.end()) {
+        myEfforts.erase(i);
+    }
+}
+
+
+bool 
+MSEdgeWeightsStorage::knowsTravelTime(const MSEdge * const e) const throw()
+{
+    return myTravelTimes.find((MSEdge*) e)!=myTravelTimes.end();
+}
+
+
+bool 
+MSEdgeWeightsStorage::knowsEffort(const MSEdge * const e) const throw()
+{
+    return myEfforts.find((MSEdge*) e)!=myEfforts.end();
+}
+
+
+
 /****************************************************************************/
 

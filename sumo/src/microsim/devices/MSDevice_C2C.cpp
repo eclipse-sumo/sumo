@@ -78,6 +78,26 @@ std::map<const MSVehicle*, MSDevice_C2C*> MSDevice_C2C::myVehiclesToDevicesMap;
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
+// MSDevice_C2C::EdgeWeightsProxi - methods
+// ---------------------------------------------------------------------------
+SUMOReal 
+MSDevice_C2C::EdgeWeightsProxi::getTravelTime(const MSEdge * const e, 
+                                              const SUMOVehicle * const v, 
+                                              SUMOTime t) const
+{
+    if(myVehicleKnowledge.find(e)!=myVehicleKnowledge.end()) {
+        return myVehicleKnowledge.find(e)->second->neededTime;
+    }
+    SUMOReal value;
+    if(myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
+        return value;
+    }
+    const MSLane * const l = e->getLanes()[0];
+    return l->getLength() / l->getMaxSpeed();
+}
+
+
+// ---------------------------------------------------------------------------
 // static methods for look-up computation
 // ---------------------------------------------------------------------------
 void
@@ -536,11 +556,16 @@ MSDevice_C2C::enterLaneAtEmit(MSLane *lane, const MSVehicle::State &) {
 
 void
 MSDevice_C2C::leaveLaneAtMove(SUMOReal) {
-    // checke whether the vehicle needed longer than expected
-    SUMOReal factor = getHolder().getEdge()->getVehicleEffort(&getHolder(), MSNet::getInstance()->getCurrentTimeStep());
+    // check whether the vehicle needed longer than expected
+    const MSEdge * const e = getHolder().getEdge();
+    SUMOReal assumed;
+    if(!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, &getHolder(), MSNet::getInstance()->getCurrentTimeStep(), assumed)) {
+        MSLane *l = e->getLanes()[0];
+        assumed = l->getLength() / l->getMaxSpeed();
+    }
     SUMOReal nt = (float)(MSNet::getInstance()->getCurrentTimeStep() - akt->time);
     const MSEdge * const passedEdge = getHolder().getEdge();
-    if (nt>10&&nt>factor*MSGlobals::gAddInfoFactor) { // !!! explicite
+    if (nt>10&&nt>assumed*MSGlobals::gAddInfoFactor) { // !!! explicite
         // if so, check whether an information about the edge was already existing
         std::map<const MSEdge * const, Information *>::iterator i = infoCont.find(passedEdge);
         if (i==infoCont.end()) {
@@ -951,9 +976,9 @@ MSDevice_C2C::checkReroute(SUMOTime t) {
     // try to reroute
     if (!myHolder.hasStops()) {
         myHaveRouteInfo = false;
-        DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> >
-        router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
-        myHolder.reroute(t, router);
+        EdgeWeightsProxi proxi(infoCont, MSNet::getInstance()->getWeightsStorage());
+        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &EdgeWeightsProxi::getTravelTime);
+        getHolder().reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     }
 }
 

@@ -528,6 +528,15 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 iter != equippedVehicles_.end(); ++iter) {
             if ((*iter).second != -1) { // Look only at equipped vehicles
                 MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
+                if(myVehiclesToReroute.find(veh)!=myVehiclesToReroute.end()) {
+                    // check rerouting
+                    if(!veh->hasStops() && veh->isOnRoad() && veh->getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+                        MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+                        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
+                        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+                    }
+                    myVehiclesToReroute.erase(veh);
+                }
                 if (veh != NULL) {
                     veh->processTraCICommands(targetTime_);
                 }
@@ -749,7 +758,27 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
         writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve edge with ID " + edgeId);
         return false;
     }
-    if (veh->changeEdgeWeightLocally(edge, travelTime)) {
+    //
+    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+    MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+    SUMOReal effortBefore = proxi.getTravelTime(edge, veh, currentTime);
+    bool hadError = false;
+    if (travelTime < 0) {
+        if(!veh->getWeightsStorage().knowsTravelTime(edge)) {
+            hadError = true;
+        }
+        veh->getWeightsStorage().removeTravelTime(edge);
+    } else {
+        veh->getWeightsStorage().addTravelTime(edge, currentTime, OptionsCont::getOptions().getInt("end")+1, travelTime);
+    }
+    SUMOReal effortAfter = proxi.getTravelTime(edge, veh, currentTime);
+    if (myVehiclesToReroute.find(veh)==myVehiclesToReroute.end() && (effortBefore != effortAfter)) {
+        // there is only a need to reroute if either the weight decreases or the edge is on our current route
+        if( (effortBefore > effortAfter) ^ veh->willPass(edge)) {
+            myVehiclesToReroute.insert(veh);
+        }
+    }
+    if (!hadError) {
         writeStatusCmd(CMD_CHANGEROUTE, RTYPE_OK, "");
         return true;
     } else {
@@ -782,7 +811,8 @@ TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument) 
     // build a new route between the vehicle's current edge and destination edge
     MSEdgeVector newRoute;
     const MSEdge* currentEdge = veh->getEdge();
-    DijkstraRouterTT_Direct<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+    MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+    DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
     router.compute(currentEdge, destEdge, (const MSVehicle* const) veh,
                    MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one

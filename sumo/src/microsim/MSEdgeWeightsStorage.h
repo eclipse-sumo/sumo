@@ -97,6 +97,32 @@ public:
     void addEffort(const MSEdge * const e, SUMOTime begin, SUMOTime end, SUMOReal value) throw();
 
 
+    /** @brief Removes the travel time information for an edge
+     * @param[in] e The described edge
+     */
+    void removeTravelTime(const MSEdge * const e) throw();
+
+
+    /** @brief Removes the effort information for an edge
+     * @param[in] e The described edge
+     */
+    void removeEffort(const MSEdge * const e) throw();
+
+
+    /** @brief Returns the information whether any travel time is known for the given edge
+     * @param[in] e The investigated edge
+     * @return Whether any travel time information about this edge is stored
+     */
+    bool knowsTravelTime(const MSEdge * const e) const throw();
+
+
+    /** @brief Returns the information whether any effort is known for the given edge
+     * @param[in] e The investigated edge
+     * @return Whether any travel time information about this edge is stored
+     */
+    bool knowsEffort(const MSEdge * const e) const throw();
+
+
 private:
     /// @brief A map of edge->time->travel time
     std::map<MSEdge*, ValueTimeLine<SUMOReal> > myTravelTimes;
