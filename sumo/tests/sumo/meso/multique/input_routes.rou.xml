@@ -1,0 +1,8 @@
+<routes>
+   <vehicle id="l" depart="0" period="1" repno="10">
+      <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+   <vehicle id="m" depart="5" period="1" repno="10">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+</routes>

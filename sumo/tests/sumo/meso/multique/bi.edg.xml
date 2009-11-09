@@ -1,0 +1,23 @@
+<edges>
+
+   <edge id="beg" fromnode="absBeg" tonode="beg" speed="27.8" nolanes="2"/>
+
+   <edge id="beg2left" fromnode="beg" tonode="begleft" nolanes="1" speed="27.8">
+      <lane id="0" disallow="passenger taxis"/>
+   </edge>
+
+   <edge id="left" fromnode="begleft" tonode="endleft" nolanes="1" speed="27.8">
+      <lane id="0" disallow="passenger taxis"/>
+   </edge>
+
+   <edge id="middle" fromnode="beg" tonode="end" nolanes="1" speed="13.9"/>
+
+   <edge id="left2end" fromnode="endleft" tonode="end" nolanes="1" speed="27.8">
+      <lane id="0" disallow="passenger taxis"/>
+   </edge>
+
+   <edge id="end" fromnode="end" tonode="absEnd" speed="27.8" nolanes="2"/>
+   <edge id="rend" fromnode="absEnd" tonode="rabsEnd" speed="27.8" nolanes="2"/>
+
+</edges>
+
