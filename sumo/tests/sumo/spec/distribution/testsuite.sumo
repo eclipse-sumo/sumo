@@ -3,3 +3,6 @@ vtype_basic
 
 # checks using basic route distribution
 route_basic
+
+# checks using basic speed distribution
+speed_basic

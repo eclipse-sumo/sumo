@@ -1,0 +1,6 @@
+<routes>
+    <vtype id="v" speedFactor="1.2" speedDev="0.1"/>
+    <vehicle id="1" depart="0" type="v">
+        <route edges="beg end"/>
+    </vehicle>
+</routes>
