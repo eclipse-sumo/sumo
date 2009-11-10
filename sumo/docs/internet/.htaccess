@@ -30,3 +30,6 @@ RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Main_P
 
 RewriteCond	%{REQUEST_URI}	^/docs/gen/sumo_howto_building.shtml
 RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=DeveloperDocumentation
+
+RewriteCond	%{REQUEST_URI}	!^/daily
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/
