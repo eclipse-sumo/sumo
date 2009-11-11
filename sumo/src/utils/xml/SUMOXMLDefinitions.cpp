@@ -328,6 +328,9 @@ GenericSAXHandler::Attr sumoattrs[] = {
 
     { "entering",       SUMO_ATTR_ENTERING },
     { "excludeEmpty",   SUMO_ATTR_EXCLUDE_EMPTY },
+    { "withInternal",   SUMO_ATTR_WITH_INTERNAL },
+    { "maxTraveltime",  SUMO_ATTR_MAX_TRAVELTIME },
+    { "minSamples",     SUMO_ATTR_MIN_SAMPLES },
 
     { "lon",            SUMO_ATTR_LON },
     { "lat",            SUMO_ATTR_LAT },

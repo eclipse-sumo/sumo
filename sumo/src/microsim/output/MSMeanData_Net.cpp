@@ -55,11 +55,12 @@
 // MSMeanData_Net::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
-                                                           const SUMOReal maxHaltingSpeed) throw()
+                                                           const SUMOReal maxHaltingSpeed,
+                                                           const std::set<const std::string>* const vTypes) throw()
         : MSMoveReminder(lane), myMaxHaltingSpeed(maxHaltingSpeed),
         nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
         nVehLaneChangeFrom(0), nVehLaneChangeTo(0), sampleSeconds(0),
-        travelledDistance(0), waitSeconds(0), vehLengthSum(0) {}
+        travelledDistance(0), waitSeconds(0), vehLengthSum(0), myVehicleTypes(vTypes) {}
 
 
 MSMeanData_Net::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -98,6 +99,10 @@ MSMeanData_Net::MSLaneMeanDataValues::add(MSMeanData_Net::MSLaneMeanDataValues &
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
+    if (myVehicleTypes != 0 && !myVehicleTypes->empty() &&
+        myVehicleTypes->find(veh.getVehicleType().getID()) == myVehicleTypes->end()) {
+        return false;
+    }
     bool ret = true;
     SUMOReal timeOnLane = DELTA_T;
     if (oldPos<0&&newSpeed!=0) {
@@ -140,14 +145,18 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(MSVehicle& veh, bool isArrival
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (isEmit) {
-        ++nVehDeparted;
-    } else if (isLaneChange) {
-        ++nVehLaneChangeTo;
-    } else {
-        ++nVehEntered;
+    if (myVehicleTypes == 0 || myVehicleTypes->empty() || 
+        myVehicleTypes->find(veh.getVehicleType().getID()) != myVehicleTypes->end()) {
+        if (isEmit) {
+            ++nVehDeparted;
+        } else if (isLaneChange) {
+            ++nVehLaneChangeTo;
+        } else {
+            ++nVehEntered;
+        }
+        return true;
     }
-    return true;
+    return false;
 }
 
 
@@ -181,36 +190,39 @@ MSMeanData_Net::MSLaneMeanDataValues::setLastReported(MEVehicle *v, SUMOReal las
 // MSMeanData_Net - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSMeanData_Net(const std::string &id,
-                               MSEdgeControl &ec,
-                               SUMOTime dumpBegin,
-                               SUMOTime dumpEnd,
-                               bool useLanes,
-                               bool withEmpty) throw()
+                               const MSEdgeControl &ec,
+                               const SUMOTime dumpBegin, const SUMOTime dumpEnd,
+                               const bool useLanes, const bool withEmpty, const bool withInternal,
+                               const SUMOReal maxTravelTime, const SUMOReal minSamples,
+                               const SUMOReal haltSpeed, const std::set<const std::string> vTypes) throw()
         : myID(id),
         myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
-        myDumpEmpty(withEmpty), myMaxTravelTime(100000), myMinSamples(0) {
+        myDumpEmpty(withEmpty), myMaxTravelTime(maxTravelTime), myMinSamples(minSamples),
+        myVehicleTypes(vTypes) {
     const std::vector<MSEdge*> &edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        std::vector<MSLaneMeanDataValues*> v;
+        if (withInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+            std::vector<MSLaneMeanDataValues*> v;
 #ifdef HAVE_MESOSIM
-        if (MSGlobals::gUseMesoSim) {
-            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
-            while (s!=0) {
-                v.push_back(new MSLaneMeanDataValues(0, POSITION_EPS));
-                s->addDetector(v.back());
-                s = s->getNextSegment();
-            }
-        } else {
+            if (MSGlobals::gUseMesoSim) {
+                MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
+                while (s!=0) {
+                    v.push_back(new MSLaneMeanDataValues(0, haltSpeed, &myVehicleTypes));
+                    s->addDetector(v.back());
+                    s = s->getNextSegment();
+                }
+            } else {
 #endif
-            const std::vector<MSLane*> &lanes = (*e)->getLanes();
-            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-                v.push_back(new MSLaneMeanDataValues(*lane, POSITION_EPS));
-            }
+                const std::vector<MSLane*> &lanes = (*e)->getLanes();
+                for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
+                    v.push_back(new MSLaneMeanDataValues(*lane, haltSpeed, &myVehicleTypes));
+                }
 #ifdef HAVE_MESOSIM
+            }
+#endif
+            myMeasures.push_back(v);
+            myEdges.push_back(*e);
         }
-#endif
-        myMeasures.push_back(v);
-        myEdges.push_back(*e);
     }
 }
 

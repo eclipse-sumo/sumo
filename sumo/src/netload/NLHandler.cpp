@@ -1324,13 +1324,17 @@ NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs) {
         return;
     }
     try {
-        myDetectorBuilder.buildEdgeMeanData(id, attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, -1),
-                                            attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin")),
-                                            attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end")),
-                                            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
-                                            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
-                                            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
-                                            OutputDevice::getDevice(file, getFileName()));
+        myDetectorBuilder.createEdgeLaneMeanData(id, attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, -1),
+                                                 attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin")),
+                                                 attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end")),
+                                                 attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
+                                                 false, !attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
+                                                 attrs.getBoolSecure(SUMO_ATTR_WITH_INTERNAL, false),
+                                                 attrs.getFloatSecure(SUMO_ATTR_MAX_TRAVELTIME, 100000),
+                                                 attrs.getFloatSecure(SUMO_ATTR_MIN_SAMPLES, 0),
+                                                 attrs.getFloatSecure(SUMO_ATTR_HALTING_SPEED_THRESHOLD, POSITION_EPS),
+                                                 attrs.getStringSecure(SUMO_ATTR_VTYPES, ""),
+                                                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
@@ -1356,13 +1360,17 @@ NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs) {
         return;
     }
     try {
-        myDetectorBuilder.buildLaneMeanData(id, attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, -1),
-                                            attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin")),
-                                            attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end")),
-                                            attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
-                                            attrs.getStringSecure(SUMO_ATTR_EDGES, ""),
-                                            attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
-                                            OutputDevice::getDevice(file, getFileName()));
+        myDetectorBuilder.createEdgeLaneMeanData(id, attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, -1),
+                                                 attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin")),
+                                                 attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end")),
+                                                 attrs.getStringSecure(SUMO_ATTR_TYPE, "performance"),
+                                                 true, !attrs.getBoolSecure(SUMO_ATTR_EXCLUDE_EMPTY, false),
+                                                 attrs.getBoolSecure(SUMO_ATTR_WITH_INTERNAL, false),
+                                                 attrs.getFloatSecure(SUMO_ATTR_MAX_TRAVELTIME, 100000),
+                                                 attrs.getFloatSecure(SUMO_ATTR_MIN_SAMPLES, 0),
+                                                 attrs.getFloatSecure(SUMO_ATTR_HALTING_SPEED_THRESHOLD, POSITION_EPS),
+                                                 attrs.getStringSecure(SUMO_ATTR_VTYPES, ""),
+                                                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {

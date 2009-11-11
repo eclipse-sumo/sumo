@@ -323,52 +323,6 @@ public:
     void buildRouteProbe(const std::string &id, const std::string &edge,
                          SUMOTime frequency, SUMOTime begin,
                          OutputDevice& device) throw(InvalidArgument);
-
-
-    /** @brief Builds edge based mean data collector using the given specification
-     *
-     * Checks the given values, first. If one of the values is invalid
-     *  an InvalidArgument is thrown.
-     *
-     * Otherwise the edge based mean data collector is built by calling "createEdgeMeanData".
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] frequency The aggregation interval the detector shall use
-     * @param[in] begin dump begin time
-     * @param[in] end dump end time
-     * @param[in] type The type of values to be generated
-     * @param[in] edges Edges to cover
-     * @param[in] excludeEmpty Whether empty edges shall not be written
-     * @param[in] device The output device the detector shall write into
-     * @exception InvalidArgument If one of the values is invalid
-     */
-    void buildEdgeMeanData(const std::string &id, SUMOTime frequency,
-                           SUMOTime begin, SUMOTime end,
-                           const std::string &type,
-                           const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
-
-
-    /** @brief Builds lane based mean data collector using the given specification
-     *
-     * Checks the given values, first. If one of the values is invalid
-     *  an InvalidArgument is thrown.
-     *
-     * Otherwise the edge based mean data collector is built by calling "createLaneMeanData".
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] frequency The aggregation interval the detector shall use
-     * @param[in] begin dump begin time
-     * @param[in] end dump end time
-     * @param[in] type The type of values to be generated
-     * @param[in] edges Edges to cover
-     * @param[in] excludeEmpty Whether empty edges shall not be written
-     * @param[in] device The output device the detector shall write into
-     * @exception InvalidArgument If one of the values is invalid
-     */
-    void buildLaneMeanData(const std::string &id, SUMOTime frequency,
-                           SUMOTime begin, SUMOTime end,
-                           const std::string &type,
-                           const std::string &edges, bool excludeEmpty, OutputDevice& device) throw(InvalidArgument);
     /// @}
 
 
@@ -474,17 +428,21 @@ public:
      * @param[in] begin dump begin time
      * @param[in] end dump end time
      * @param[in] type The type of values to be generated
-     * @param[in] edges Edges to cover
-     * @param[in] excludeEmpty Whether empty edges shall not be written
-     * @param[in] device The output device the detector shall write into
-     * @param[in] isLanes whether edges or lanes are requested
+     * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
+     * @param[in] withEmpty Information whether empty lanes/edges shall be written
+     * @param[in] withInternal Information whether internal lanes/edges shall be written
+     * @param[in] maxTravelTime the maximum travel time to output
+     * @param[in] minSamples the minimum number of sample seconds before the values are valid
+     * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
+     * @param[in] vTypes the set of vehicle types to consider
      * @exception InvalidArgument If one of the values is invalid
      */
     void createEdgeLaneMeanData(const std::string &id, SUMOTime frequency,
-                                SUMOTime begin, SUMOTime end,
-                                const std::string &type,
-                                const std::string &edges, bool excludeEmpty,
-                                OutputDevice& device, bool isLanes) throw(InvalidArgument);
+                                SUMOTime begin, SUMOTime end, const std::string &type,
+                                const bool useLanes, const bool withEmpty, const bool withInternal,
+                                const SUMOReal maxTravelTime, const SUMOReal minSamples,
+                                const SUMOReal haltSpeed, const std::string &vTypes,
+                                OutputDevice& device) throw(InvalidArgument);
     /// @}
 
 

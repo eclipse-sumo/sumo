@@ -436,28 +436,6 @@ NLDetectorBuilder::buildRouteProbe(const std::string &id, const std::string &edg
 }
 
 
-void
-NLDetectorBuilder::buildEdgeMeanData(const std::string &id, SUMOTime frequency,
-                                     SUMOTime begin, SUMOTime end,
-                                     const std::string &type,
-                                     const std::string &edges, bool excludeEmpty,
-                                     OutputDevice& device) throw(InvalidArgument) {
-    createEdgeLaneMeanData(id, frequency, begin, end, type, edges, excludeEmpty, device, false);
-}
-
-
-void
-NLDetectorBuilder::buildLaneMeanData(const std::string &id, SUMOTime frequency,
-                                     SUMOTime begin, SUMOTime end,
-                                     const std::string &type,
-                                     const std::string &edges, bool excludeEmpty,
-                                     OutputDevice& device) throw(InvalidArgument) {
-    createEdgeLaneMeanData(id, frequency, begin, end, type, edges, excludeEmpty, device, true);
-}
-
-
-
-
 // -------------------
 MSE2Collector *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
@@ -586,26 +564,33 @@ NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendly
 
 void
 NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime frequency,
-        SUMOTime begin, SUMOTime end,
-        const std::string &type,
-        const std::string &edges, bool excludeEmpty,
-        OutputDevice& device, bool isLanes) throw(InvalidArgument) {
+        SUMOTime begin, SUMOTime end, const std::string &type,
+        const bool useLanes, const bool withEmpty, const bool withInternal,
+        const SUMOReal maxTravelTime, const SUMOReal minSamples,
+        const SUMOReal haltSpeed, const std::string &vTypes,
+        OutputDevice& device) throw(InvalidArgument) {
     if (begin < 0) {
         throw InvalidArgument("Negative begin time for meandata dump '" + id + "'.");
     }
     if (end <= begin) {
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
     }
+    std::set<const std::string> vt;
+    StringTokenizer st(vTypes);
+    while (st.hasNext()) {
+        vt.insert(st.next());
+    }
     MSDetectorFileOutput *det = 0;
     if (type==""||type=="performance"||type=="traffic") {
         det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(),
-                                 begin, end, isLanes, !excludeEmpty);
+                                 begin, end, useLanes, withEmpty, withInternal,
+                                 maxTravelTime, minSamples, haltSpeed, vt);
     } else if (type=="hbefa") {
         det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
-                                   begin, end, isLanes, !excludeEmpty, !excludeEmpty);
+                                   begin, end, useLanes, withEmpty, withEmpty);
     } else if (type=="harmonoise") {
         det = new MSMeanData_Harmonoise(id, MSNet::getInstance()->getEdgeControl(),
-                                        begin, end, isLanes, !excludeEmpty, !excludeEmpty);
+                                        begin, end, useLanes, withEmpty, withEmpty);
     }
     if (det!=0) {
         if (frequency < 0) {

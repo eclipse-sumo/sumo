@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/21/09 17:55:18 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 11/11/09 14:50:46 by SUMO sumo Version dev-SVN-r7969
 <configuration>
 
     <input>
@@ -26,5 +26,5 @@
 -->
 
 <detector>
-   <interval begin="0" end="100" id="3/1to2/1" nSamples="20.69" speed="9.47" traveltime="10.34" density="0.00" nVehContrib="2" flow="72.00" length="5.00" nVehEntered="2"/>
+   <interval begin="0" end="100" id="3/1to2/1" sampledSeconds="20.61" density="2.11" occupancy="1.06" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
 </detector>

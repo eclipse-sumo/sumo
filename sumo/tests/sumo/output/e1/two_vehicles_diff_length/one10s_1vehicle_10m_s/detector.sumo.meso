@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/21/09 17:55:19 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 11/11/09 14:50:48 by SUMO sumo Version dev-SVN-r7969
 <configuration>
 
     <input>
@@ -26,14 +26,14 @@
 -->
 
 <detector>
-   <interval begin="0" end="10" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="10" end="20" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="20" end="30" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="30" end="40" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="40" end="50" id="3/1to2/1" nSamples="14.60" speed="10.00" traveltime="9.80" density="0.01" nVehContrib="1" flow="360.00" length="8.29" nVehEntered="2"/>
-   <interval begin="50" end="60" id="3/1to2/1" nSamples="5.00" speed="10.00" traveltime="9.80" density="0.01" nVehContrib="1" flow="360.00" length="15.00" nVehEntered="0"/>
-   <interval begin="60" end="70" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="70" end="80" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="80" end="90" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
-   <interval begin="90" end="100" id="3/1to2/1" nSamples="0.00" speed="-1.00" traveltime="9.80" density="0.00" nVehContrib="0" flow="0.00" length="-1.00" nVehEntered="0"/>
+   <interval begin="0" end="10" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+   <interval begin="10" end="20" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+   <interval begin="20" end="30" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+   <interval begin="30" end="40" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+   <interval begin="40" end="50" id="3/1to2/1" sampledSeconds="14.71" density="15.07" occupancy="12.61" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="1"/>
+   <interval begin="50" end="60" id="3/1to2/1" sampledSeconds="4.81" density="4.93" occupancy="7.39" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="1"/>
+   <interval begin="60" end="70" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+   <interval begin="70" end="80" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+   <interval begin="80" end="90" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+   <interval begin="90" end="100" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
 </detector>

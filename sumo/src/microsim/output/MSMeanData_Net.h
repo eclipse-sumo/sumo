@@ -30,6 +30,7 @@
 #endif
 
 #include <vector>
+#include <set>
 #include <cassert>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSMoveReminder.h>
@@ -77,7 +78,8 @@ public:
     class MSLaneMeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal maxHaltingSpeed=POSITION_EPS) throw();
+        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal maxHaltingSpeed=POSITION_EPS,
+                             const std::set<const std::string>* const vTypes=0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -180,7 +182,11 @@ public:
         //@}
 
     private:
+        /// @brief The maximum speed at which a vehicle is considered halting
         const SUMOReal myMaxHaltingSpeed;
+        /// @brief The vehicle types to look for (0 or empty means all)
+        const std::set<const std::string>* const myVehicleTypes;
+
 #ifdef HAVE_MESOSIM
         std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
 #endif
@@ -197,11 +203,18 @@ public:
      * @param[in] dumpEnd End time of dump
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
+     * @param[in] withInternal Information whether internal lanes/edges shall be written
+     * @param[in] maxTravelTime the maximum travel time to output
+     * @param[in] minSamples the minimum number of sample seconds before the values are valid
+     * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
+     * @param[in] vTypes the set of vehicle types to consider
      */
     MSMeanData_Net(const std::string &id,
-                   MSEdgeControl &ec, SUMOTime dumpBegin,
-                   SUMOTime dumpEnd, bool useLanes,
-                   bool withEmpty) throw();
+                   const MSEdgeControl &ec,
+                   const SUMOTime dumpBegin, const SUMOTime dumpEnd,
+                   const bool useLanes, const bool withEmpty, const bool withInternal,
+                   const SUMOReal maxTravelTime, const SUMOReal minSamples,
+                   const SUMOReal haltSpeed, const std::set<const std::string> vTypes) throw();
 
 
     /// @brief Destructor
@@ -303,6 +316,9 @@ protected:
 
     /// @brief the minimum sample seconds
     SUMOReal myMinSamples;
+
+    /// @brief The vehicle types to look for (empty means all)
+    const std::set<const std::string> myVehicleTypes;
 
 private:
     /// @brief Invalidated copy constructor.

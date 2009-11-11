@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/21/09 17:55:56 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 11/11/09 14:53:46 by SUMO sumo Version dev-SVN-r7969
 <configuration>
 
     <input>
@@ -33,7 +33,7 @@
 -->
 
 <routes>
-    <vehicle id="0_0" depart="0" arrival="106">
+    <vehicle id="0_0" depart="0" arrival="108">
         <replacedRoute replacedOnEdge="absBeg" replacedAtTime="0" edges="absBeg middle end absEnd"/>
         <route edges="absBeg beg2left left left2end end absEnd"/>
    </vehicle>

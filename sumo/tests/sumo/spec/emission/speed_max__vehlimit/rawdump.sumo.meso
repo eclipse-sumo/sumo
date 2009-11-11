@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/11/09 10:41:01 by SUMO sumo Version dev-SVN-r7963
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="0"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<sumo-netstate>
+   <timestep time="0">
+      <edge id="beg">
+         <vehicle id="1" pos="0.00" speed="1.00"/>
+      </edge>
+   </timestep>
+</sumo-netstate>
