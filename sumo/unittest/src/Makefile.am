@@ -17,6 +17,7 @@ sumo_unittest_LDADD   = ../../src/utils/common/libcommon.a \
 ./utils/common/ValueTimeLineTest.o \
 ./utils/geom/BoundaryTest.o \
 ./utils/geom/Position2DVectorTest.o \
+./utils/geom/Line2DTest.o \
 $(MEM_LIBS) \
 -lgtest
 
