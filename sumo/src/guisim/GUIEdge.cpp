@@ -83,7 +83,7 @@ GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw() {
     }
     // build the lane wrapper
     myLaneGeoms.reserve(myLanes->size());
-    for (std::vector<MSLane*>::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); ++i) {
+    for (std::vector<MSLane*>::const_iterator i=myLanes->begin(); i<myLanes->end(); ++i) {
         myLaneGeoms.push_back((*i)->buildLaneWrapper(idStorage));
     }
 }
@@ -175,7 +175,7 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("length [m]", false, myLaneGeoms[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
     ret->mkItem("occupancy [%]", true,
-                new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getDensity));
+                new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getOccupancy));
     ret->mkItem("mean vehicle speed [m/s]", true,
                 new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getMeanSpeed));
     ret->mkItem("flow [veh/h/lane]", true,
@@ -208,13 +208,13 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.hideConnectors&&myFunction==MSEdge::EDGEFUNCTION_CONNECTOR) {
         return;
     }
-#ifdef HAVE_MESOSIM
-    if (MSGlobals::gUseMesoSim) {
-        s.edgeColorer.setGlColor(*this);
-    }
-#endif
     // draw the lanes
     for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            s.edgeColorer.setGlColor(*this);
+        }
+#endif
         (*i)->drawGL(s);
     }
     // check whether lane boundaries shall be drawn
@@ -232,49 +232,58 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        const Position2DVector& shape = myLaneGeoms[0]->getShape();
-        const DoubleVector& shapeRotations = myLaneGeoms[0]->getShapeRotations();
-        const DoubleVector& shapeLengths = myLaneGeoms[0]->getShapeLengths();
-        const Position2D &laneBeg = shape[0];
+        size_t idx = 0;
+        for (LaneWrapperVector::const_iterator l=myLaneGeoms.begin(); l!=myLaneGeoms.end(); ++l,++idx) {
+            const Position2DVector& shape = (*l)->getShape();
+            const DoubleVector& shapeRotations = (*l)->getShapeRotations();
+            const DoubleVector& shapeLengths = (*l)->getShapeLengths();
+            const Position2D &laneBeg = shape[0];
 
-        glColor3d(1,1,0);
-        glPushMatrix();
-        glTranslated(laneBeg.x(), laneBeg.y(), 0);
-        glRotated(shapeRotations[0], 0, 0, 1);
-        // go through the vehicles
-        int shapePos = 0;
-        SUMOReal positionOffset = 0;
-        SUMOReal position = 0;
-        MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-        do {
-            const size_t numCars = first->getCarNumber();
-            const SUMOReal occupancy = first->occupancy();
-            for (int i = 0; i < numCars; i++) {
-                SUMOReal vehiclePosition = position + i * occupancy / numCars;
-                while (shapePos<(int)shapeRotations.size()-1 && vehiclePosition>positionOffset+shapeLengths[shapePos]) {
-                    glPopMatrix();
-                    positionOffset += shapeLengths[shapePos];
-                    shapePos++;
-                    glPushMatrix();
-                    glTranslated(shape[shapePos].x(), shape[shapePos].y(), 0);
-                    glRotated(shapeRotations[shapePos], 0, 0, 1);
+            glColor3d(1,1,0);
+            glPushMatrix();
+            glTranslated(laneBeg.x(), laneBeg.y(), 0);
+            glRotated(shapeRotations[0], 0, 0, 1);
+            // go through the vehicles
+            int shapePos = 0;
+            SUMOReal positionOffset = 0;
+            SUMOReal position = 0;
+            for (MESegment *segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment!=0; segment = segment->getNextSegment()) {
+                const std::vector<size_t> numCars = segment->getQueSizes();
+                const SUMOReal length = segment->getLength();
+                if (idx < numCars.size()) {
+                    const SUMOReal avgCarSize = segment->getOccupancy() / segment->getCarNumber();
+                    for (int i = 0; i < numCars[idx]; i++) {
+                        SUMOReal vehiclePosition = position + length - i * avgCarSize;
+                        SUMOReal xOff = 0.f;
+                        while (vehiclePosition < position) {
+                            vehiclePosition += length;
+                            xOff += 0.5f;
+                        }
+                        while (shapePos<(int)shapeRotations.size()-1 && vehiclePosition>positionOffset+shapeLengths[shapePos]) {
+                            glPopMatrix();
+                            positionOffset += shapeLengths[shapePos];
+                            shapePos++;
+                            glPushMatrix();
+                            glTranslated(shape[shapePos].x(), shape[shapePos].y(), 0);
+                            glRotated(shapeRotations[shapePos], 0, 0, 1);
+                        }
+                        glPushMatrix();
+                        glTranslated(xOff, -(vehiclePosition-positionOffset), 0);
+                        glPushMatrix();
+                        glScaled(1, avgCarSize, 1);
+                        glBegin(GL_TRIANGLES);
+                        glVertex2d(0, 0);
+                        glVertex2d(0-1.25, 1);
+                        glVertex2d(0+1.25, 1);
+                        glEnd();
+                        glPopMatrix();
+                        glPopMatrix();
+                    }
                 }
-                glPushMatrix();
-                glTranslated(0, -(vehiclePosition-positionOffset), 0);
-                glPushMatrix();
-                glScaled(1, occupancy / numCars, 1);
-                glBegin(GL_TRIANGLES);
-                glVertex2d(0, 0);
-                glVertex2d(0-1.25, 1);
-                glVertex2d(0+1.25, 1);
-                glEnd();
-                glPopMatrix();
-                glPopMatrix();
+                position += length;
             }
-            position += first->getLength();
-            first = first->getNextSegment();
-        } while (first!=0);
-        glPopMatrix();
+            glPopMatrix();
+        }
     }
 #endif
     // (optionally) draw the name
@@ -314,77 +323,44 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
 #ifdef HAVE_MESOSIM
 unsigned int
 GUIEdge::getVehicleNo() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-    assert(first!=0);
     unsigned int vehNo = 0;
-    do {
-        vehNo += first->getCarNumber();
-        first = first->getNextSegment();
-    } while (first!=0);
+    for (MESegment *segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment!=0; segment = segment->getNextSegment()) {
+        vehNo += segment->getCarNumber();
+    }
     return vehNo;
 }
 
 
 SUMOReal
 GUIEdge::getFlow() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-    assert(first!=0);
-    SUMOReal flow = -1;
-    int no = 0;
-    do {
-        SUMOReal vehNo = (SUMOReal) first->getCarNumber();
-        SUMOReal v = first->getMeanSpeed();
-        if (vehNo!=0) {
-            if (no==0) {
-                flow = (vehNo * (SUMOReal) 1000. / first->getLength()) * v / (SUMOReal) 3.6;
-            } else {
-                flow += (vehNo * (SUMOReal) 1000. / first->getLength()) * v / (SUMOReal) 3.6;
-            }
-            no++;
-        }
-        first = first->getNextSegment();
-    } while (first!=0);
-    if (flow>=0) {
-        return flow/(SUMOReal)myLanes->size();
+    SUMOReal flow = 0;
+    for (MESegment *segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment!=0; segment = segment->getNextSegment()) {
+        flow += (SUMOReal) segment->getCarNumber() * segment->getMeanSpeed();
     }
-    return -1;
+    return flow * (SUMOReal) 1000. / (*myLanes)[0]->getLength() / (SUMOReal) 3.6;;
 }
 
 
 SUMOReal
-GUIEdge::getDensity() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-    assert(first!=0);
+GUIEdge::getOccupancy() const {
     SUMOReal occ = 0;
-    int no = 0;
-    SUMOReal nLanes = (SUMOReal) myLanes->size();
-    do {
-        occ += first->occupancy() / first->getLength() / nLanes;
-        no++;
-        first = first->getNextSegment();
-    } while (first!=0);
-    if (no!=0) {
-        return occ/(SUMOReal) no;
+    for (MESegment *segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment!=0; segment = segment->getNextSegment()) {
+        occ += segment->getOccupancy();
     }
-    return -1;
+    return occ/(*myLanes)[0]->getLength()/(SUMOReal) (myLanes->size());
 }
 
 
 SUMOReal
 GUIEdge::getMeanSpeed() const {
-    MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-    assert(first!=0);
     SUMOReal v = 0;
-    int no = 0;
-    do {
-        v += first->getMeanSpeed();
-        no++;
-        first = first->getNextSegment();
-    } while (first!=0);
-    if (no!=0) {
-        return v/(SUMOReal) no;
+    SUMOReal no = 0;
+    for (MESegment *segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment!=0; segment = segment->getNextSegment()) {
+        SUMOReal vehNo = (SUMOReal) segment->getCarNumber();
+        v += vehNo * segment->getMeanSpeed();
+        no += vehNo;
     }
-    return -1;
+    return v/no;
 }
 
 
@@ -403,8 +379,12 @@ GUIEdge::Colorer::Colorer() {
     mySchemes.back().addColor(RGBColor(0, 0, 1), MSEdge::EDGEFUNCTION_INTERNAL, "internal");
     mySchemes.push_back(GUIColorScheme("by allowed speed (streetwise)", RGBColor(1,0,0)));
     mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
-    mySchemes.push_back(GUIColorScheme("by current density (streetwise)", RGBColor(0,0,1)));
+    mySchemes.push_back(GUIColorScheme("by current occupancy (streetwise)", RGBColor(0,0,1)));
     mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
+    mySchemes.push_back(GUIColorScheme("by current speed (streetwise)", RGBColor(1,0,0)));
+    mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
+    mySchemes.push_back(GUIColorScheme("by current flow (streetwise)", RGBColor(0,0,1)));
+    mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)5000);
 }
 
 
@@ -418,7 +398,11 @@ GUIEdge::Colorer::getColorValue(const GUIEdge& edge) const {
     case 3:
         return edge.getAllowedSpeed();
     case 4:
-        return edge.getDensity();
+        return edge.getOccupancy();
+    case 5:
+        return edge.getMeanSpeed();
+    case 6:
+        return edge.getFlow();
     }
     return 0;
 }

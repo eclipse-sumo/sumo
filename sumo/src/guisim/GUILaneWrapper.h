@@ -152,7 +152,7 @@ public:
     SUMOReal maxSpeed() const;
 
     SUMOReal firstWaitingTime() const;
-    SUMOReal getDensity() const;
+    SUMOReal getOccupancy() const;
     SUMOReal getHBEFA_CO2Emissions() const;
     SUMOReal getHBEFA_COEmissions() const;
     SUMOReal getHBEFA_PMxEmissions() const;

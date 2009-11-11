@@ -907,7 +907,7 @@ MSLane::removeVehicle(MSVehicle * remVehicle) {
 
 
 SUMOReal
-MSLane::getDensity() const {
+MSLane::getOccupancy() const {
     return myVehicleLengthSum / myLength;
 }
 

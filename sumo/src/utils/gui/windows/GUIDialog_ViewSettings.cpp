@@ -291,7 +291,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         FXMatrix *m32 =
             new FXMatrix(frame3,3,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                          0,0,0,0, 10,10,10,2, 5,5);
-        new FXLabel(m32, "Color By", 0, LAYOUT_CENTER_Y);
+        new FXLabel(m32, "Color by", 0, LAYOUT_CENTER_Y);
         myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         mySettings->vehicleColorer.fill(*myVehicleColorMode);
         myVehicleColorMode->setNumVisible(10);
@@ -1195,7 +1195,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
             } else {
                 FXRealSpinDial* threshDialer =
                     new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                       LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                                       LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK|SPINDIAL_NOMAX);
                 threshDialer->setValue(*threshIt);
                 myLaneThresholds.push_back(threshDialer);
                 myLaneButtons.push_back(new FXButton(m,buttonText,NULL,this,MID_SIMPLE_VIEW_COLORCHANGE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4));
@@ -1252,7 +1252,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
             } else {
                 FXRealSpinDial* threshDialer =
                     new FXRealSpinDial(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                       LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+                                       LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK|SPINDIAL_NOMAX);
                 threshDialer->setValue(*threshIt);
                 myVehicleThresholds.push_back(threshDialer);
                 myVehicleButtons.push_back(new FXButton(m,buttonText,NULL,this,MID_SIMPLE_VIEW_COLORCHANGE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 20,20,4,4));

@@ -421,7 +421,7 @@ public:
     /// The shape of the lane
     Position2DVector myShape;
 
-    SUMOReal getDensity() const;
+    SUMOReal getOccupancy() const;
     SUMOReal getVehLenSum() const;
 
 

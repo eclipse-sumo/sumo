@@ -654,8 +654,8 @@ GUILaneWrapper::firstWaitingTime() const {
 
 
 SUMOReal
-GUILaneWrapper::getDensity() const {
-    return myLane.getDensity();
+GUILaneWrapper::getOccupancy() const {
+    return myLane.getOccupancy();
 }
 
 
@@ -756,7 +756,7 @@ GUILaneWrapper::Colorer::Colorer() {
     mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1, "selected");
     mySchemes.push_back(GUIColorScheme("by allowed speed (lanewise)", RGBColor(1,0,0)));
     mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
-    mySchemes.push_back(GUIColorScheme("by current density (lanewise)", RGBColor(0,0,1)));
+    mySchemes.push_back(GUIColorScheme("by current occupancy (lanewise)", RGBColor(0,0,1)));
     mySchemes.back().addColor(RGBColor(1, 0, 0), (SUMOReal)0.95);
     mySchemes.push_back(GUIColorScheme("by first vehicle waiting time (lanewise)", RGBColor(0,1,0)));
     mySchemes.back().addColor(RGBColor(1,0,0), (SUMOReal)200);
@@ -788,7 +788,7 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
     case 2:
         return lane.maxSpeed();
     case 3:
-        return lane.getDensity();
+        return lane.getOccupancy();
     case 4:
         return lane.firstWaitingTime();
     case 5:
