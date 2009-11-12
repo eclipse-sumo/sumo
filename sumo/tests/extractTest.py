@@ -41,6 +41,8 @@ for source, target in targets.iteritems():
     optionsFiles = []
     potentials = {}
     curDir = source
+    if curDir[-1] == os.path.sep:
+        curDir = os.path.dirname(curDir)
     while True:
         for f in os.listdir(curDir):
             path = join(curDir, f)
@@ -53,7 +55,7 @@ for source, target in targets.iteritems():
         curDir = os.path.dirname(curDir)
     config = join(curDir, "config."+app)
     if not os.path.exists(config):
-        print >> sys.stderr, "Config not found for %s." % curDir
+        print >> sys.stderr, "Config not found for %s." % source
         continue
     if target == "":
         target = source[len(os.path.commonprefix([curDir, source])):].replace(os.sep, '_')
