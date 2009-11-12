@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/21/09 17:55:28 by SUMO sumo Version dev-SVN-r7871
+<!-- generated on 11/12/09 11:29:36 by SUMO sumo Version dev-SVN-r7969
 <configuration>
 
     <input>
@@ -27,7 +27,8 @@
 
 <netstats>
    <interval begin="0" end="60" id="dump_60">
-      <edge id="1si" traveltime="35.60" sampledSeconds="35.60" density="3.03" occupancy="0.50" noStops="0" speed="5.51" entered="0" emitted="2" left="2" flow="60.00"/>
+      <edge id="1si" sampledSeconds="78.47" traveltime="39.23" density="5.51" occupancy="0.92" waitingTime="0.00" speed="6.04" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="4o" sampledSeconds="0.00" departed="0" arrived="2" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
    </interval>
    <interval begin="60" end="120" id="dump_60">
    </interval>
