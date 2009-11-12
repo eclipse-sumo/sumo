@@ -56,7 +56,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
                                                            const SUMOReal maxHaltingSpeed,
-                                                           const std::set<const std::string>* const vTypes) throw()
+                                                           const std::set<std::string>* const vTypes) throw()
         : MSMoveReminder(lane), myMaxHaltingSpeed(maxHaltingSpeed),
         nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
         nVehLaneChangeFrom(0), nVehLaneChangeTo(0), sampleSeconds(0),
@@ -194,7 +194,7 @@ MSMeanData_Net::MSMeanData_Net(const std::string &id,
                                const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                                const bool useLanes, const bool withEmpty, const bool withInternal,
                                const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                               const SUMOReal haltSpeed, const std::set<const std::string> vTypes) throw()
+                               const SUMOReal haltSpeed, const std::set<std::string> vTypes) throw()
         : myID(id),
         myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
         myDumpEmpty(withEmpty), myMaxTravelTime(maxTravelTime), myMinSamples(minSamples),

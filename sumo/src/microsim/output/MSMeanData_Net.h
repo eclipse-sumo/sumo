@@ -79,7 +79,7 @@ public:
     public:
         /** @brief Constructor */
         MSLaneMeanDataValues(MSLane * const lane, const SUMOReal maxHaltingSpeed=POSITION_EPS,
-                             const std::set<const std::string>* const vTypes=0) throw();
+                             const std::set<std::string>* const vTypes=0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -185,7 +185,7 @@ public:
         /// @brief The maximum speed at which a vehicle is considered halting
         const SUMOReal myMaxHaltingSpeed;
         /// @brief The vehicle types to look for (0 or empty means all)
-        const std::set<const std::string>* const myVehicleTypes;
+        const std::set<std::string>* const myVehicleTypes;
 
 #ifdef HAVE_MESOSIM
         std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
@@ -214,7 +214,7 @@ public:
                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                    const bool useLanes, const bool withEmpty, const bool withInternal,
                    const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                   const SUMOReal haltSpeed, const std::set<const std::string> vTypes) throw();
+                   const SUMOReal haltSpeed, const std::set<std::string> vTypes) throw();
 
 
     /// @brief Destructor
@@ -318,7 +318,7 @@ protected:
     SUMOReal myMinSamples;
 
     /// @brief The vehicle types to look for (empty means all)
-    const std::set<const std::string> myVehicleTypes;
+    const std::set<std::string> myVehicleTypes;
 
 private:
     /// @brief Invalidated copy constructor.
