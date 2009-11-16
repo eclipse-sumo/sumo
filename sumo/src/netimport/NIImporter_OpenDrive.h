@@ -2,7 +2,7 @@
 /// @file    NIImporter_OpenDrive.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id: NIImporter_OpenDrive.h 7440 2009-07-15 09:04:03Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for networks stored in openDrive format
 /****************************************************************************/

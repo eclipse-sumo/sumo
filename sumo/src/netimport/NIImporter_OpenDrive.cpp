@@ -2,7 +2,7 @@
 /// @file    NIImporter_OpenDrive.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id: NIImporter_OpenDrive.cpp 7615 2009-08-06 23:59:51Z behrisch $
+/// @version $Id$
 ///
 // Importer for networks stored in openDrive format
 /****************************************************************************/
