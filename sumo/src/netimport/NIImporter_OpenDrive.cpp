@@ -63,46 +63,6 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void
-NIImporter_OpenDrive::buildOutgoingConnections(OpenDriveEdge &e, 
-                                               std::vector<OpenDriveEdge> &innerEdges, 
-                                               std::vector<OpenDriveEdge> &outerEdges)
-{
-    if(e.id=="2178") {
-        int bla = 0;
-    }
-    for (std::vector<OpenDriveLink>::iterator j=e.links.begin(); j!=e.links.end(); ++j) {
-        OpenDriveLink &l = *j;
-        if (l.elementType==OPENDRIVE_ET_ROAD && l.linkType!=OPENDRIVE_LT_SUCCESSOR) {
-            // found an incoming (predecessor) conection edge l.elementID -> e
-            if(l.elementID==e.id) {
-                throw ProcessError("Self-connecting edges are not supported (edgeID='" + e.id + "').");
-            }
-            // found an incoming link to a road; move it to the outgoing of the predeccesor
-            std::vector<OpenDriveEdge>::iterator p = std::find_if(innerEdges.begin(), innerEdges.end(), edge_by_id_finder(l.elementID));
-            if(p==innerEdges.end()) {
-                p = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(l.elementID));
-                if(p==outerEdges.end()) {
-                    throw ProcessError("Could not find predecessor edge '" + l.elementID + "'");
-                }
-            }
-            if(e.id=="2178" || l.elementID=="2178") {
-                int bla = 0;
-            }
-            // will get an outgoing edge (successor) connection e -> l.elementID
-            OpenDriveLink link(OPENDRIVE_LT_SUCCESSOR, e.id);
-            link.elementType = OPENDRIVE_ET_ROAD;
-            link.contactPoint = OPENDRIVE_CP_END;
-            if((*p).id=="2178") {
-                int bla = 0;
-            }
-            (*p).links.push_back(link);
-        }
-    }
-}
-
-
-
 // ---------------------------------------------------------------------------
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
@@ -131,15 +91,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     computeShapes(innerEdges);
     computeShapes(outerEdges);
 
-    /*
-    // assure all links are given as outgoing
-    for(std::vector<OpenDriveEdge>::iterator i=innerEdges.begin(); i!=innerEdges.end(); ++i) {
-        buildOutgoingConnections(*i, innerEdges, outerEdges);
-    }
-    for(std::vector<OpenDriveEdge>::iterator i=outerEdges.begin(); i!=outerEdges.end(); ++i) {
-        buildOutgoingConnections(*i, innerEdges, outerEdges);
-    }
-    */
+    // -------------------------
+    // node building
+    // -------------------------
     // build nodes#1
     //  look at all links which belong to a node, collect their bounding boxes
     //  and place the node in the middle of this bounding box
@@ -161,45 +115,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             throw ProcessError("Could not add node '" + (*i).first + "'.");
         }
     }
-
-/*
-    //   move inner-road links
-    for (std::vector<OpenDriveEdge>::iterator i=innerEdges.begin(); i!=innerEdges.end(); ++i) {
-        OpenDriveEdge &e = *i;
-        std::string fromEdge, toEdge;
-        for (std::vector<OpenDriveLink>::iterator j=e.links.begin(); j!=e.links.end(); ++j) {
-            OpenDriveLink &l = *j;
-            if (l.elementType!=OPENDRIVE_ET_ROAD || edge2junction.find(l.elementID)!=edge2junction.end()) {
-                cout << "WARNING: inner-edge '" << e.id << "' connects to node/another inner edge.";
-                continue;
-            }
-            //
-            if(l.linkType==OPENDRIVE_LT_SUCCESSOR) {
-                toEdge = l.elementID;
-            } else {
-                fromEdge = l.elementID;
-                std::vector<OpenDriveEdge>::iterator k = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(fromEdge));
-                if(k==outerEdges.end()) {
-                    throw ProcessError("COuld not find connection");
-                }
-                if(l.contactPoint==OPENDRIVE_CP_END) {
-                    OpenDriveLink link(OPENDRIVE_LT_SUCCESSOR, edge2junction[e.id]);
-                    link.elementType = OPENDRIVE_ET_JUNCTION;
-                    link.contactPoint = OPENDRIVE_CP_START;
-                    (*k).links.push_back(link);
-                } else {
-                    OpenDriveLink link(OPENDRIVE_LT_SUCCESSOR, edge2junction[e.id]);
-                    link.elementType = OPENDRIVE_ET_JUNCTION;
-                    link.contactPoint = OPENDRIVE_CP_END;
-                    (*k).links.push_back(link);
-//                    throw ProcessError("False end");
-                }
-            }
-        }
-    }
-*/
-
-
     //  assign built nodes
     for (std::vector<OpenDriveEdge>::iterator i=outerEdges.begin(); i!=outerEdges.end(); ++i) {
         OpenDriveEdge &e = *i;
@@ -257,7 +172,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
 
     // build nodes#3
-    //  
+    //  assign further nodes generated from inner-edges 
+    //  these nodes have not been assigned earlier, because the connectiosn are referenced in inner-edges
     for (std::vector<OpenDriveEdge>::iterator i=outerEdges.begin(); i!=outerEdges.end(); ++i) {
         OpenDriveEdge &e = *i;
         if(e.to!=0&&e.from!=0) {
@@ -287,48 +203,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // build start/end nodes which were not defined previously
     for (std::vector<OpenDriveEdge>::iterator i=outerEdges.begin(); i!=outerEdges.end(); ++i) {
         OpenDriveEdge &e = *i;
-        /*
-        for (std::vector<OpenDriveLink>::iterator j=e.links.begin(); j!=e.links.end(); ++j) {
-            OpenDriveLink &l = *j;
-            std::string nid;
-            Position2D pos;
-            // !!! check other cases
-            if (l.elementType==OPENDRIVE_ET_ROAD) {
-                if(edge2junction.find(l.elementID)!=edge2junction.end()) {
-                    // the link element is an inner-node link
-                    nid = edge2junction[l.elementID];
-                    pos = nb.getNodeCont().retrieve(nid)->getPosition();
-                } else {
-                    if (l.linkType==OPENDRIVE_LT_SUCCESSOR) {
-                        nid = e.id + "_to_" + l.elementID;
-                        pos = e.geom[e.geom.size()-1];//Position2D(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
-                    } else {
-                        nid = l.elementID + "_to_" + e.id;
-                        pos = e.geom[0];//Position2D(e.geometries[0].x, e.geometries[0].y);
-                    }
-                }
-            } else {
-                nid = l.elementID;
-                if (l.linkType==OPENDRIVE_LT_SUCCESSOR) {
-                    pos = e.geom[e.geom.size()-1];//Position2D(e.geometries[e.geometries.size()-1].x, e.geometries[e.geometries.size()-1].y);
-                } else {
-                    pos = e.geom[0];//Position2D(e.geometries[0].x, e.geometries[0].y);
-                }
-            }
-            NBNode *n = getOrBuildNode(nid, pos, nb.getNodeCont());
-            if (l.linkType==OPENDRIVE_LT_SUCCESSOR) {
-                if (e.to!=0&&e.to!=n) {
-                    throw ProcessError("Edge '" + e.id + "' has two ending nodes.");
-                }
-                e.to = n;
-            } else {
-                if (e.from!=0&&e.from!=n) {
-                    throw ProcessError("Edge '" + e.id + "' has two starting nodes.");
-                }
-                e.from = n;
-            }
-        }
-        */
         if(e.from==0) {
             std::string nid = e.id + ".begin";
             Position2D pos(e.geometries[0].x, e.geometries[0].y);
@@ -341,74 +215,233 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         }
     }
 
+
+    // -------------------------
+    // edge building
+    // -------------------------
     // build edges
     for (std::vector<OpenDriveEdge>::iterator i=outerEdges.begin(); i!=outerEdges.end(); ++i) {
         OpenDriveEdge &e = *i;
-        if(e.id=="2210") {
-            int bla = 0;
-        }
-        if(e.junction!="" && e.junction!="-1") {
-            // this is an inner-junction link
-            continue;
-        }
         SUMOReal speed = nb.getTypeCont().getDefaultSpeed();
         int priority = nb.getTypeCont().getDefaultPriority();
         unsigned int nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_RIGHT);
         if(nolanes>0) {
-            NBEdge *nbe = new NBEdge(e.id, e.from, e.to, "", speed, nolanes, priority, e.geom, NBEdge::LANESPREAD_RIGHT, true);
-            if (!nb.getEdgeCont().insert(nbe)) {
-                throw ProcessError("Could not add edge '" + e.id + "'.");
-            }
-        }
-        nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT);
-        if(nolanes>0) {
-            NBEdge *nbe = new NBEdge("-" + e.id, e.to, e.from, "", speed, nolanes, priority, e.geom.reverse(), NBEdge::LANESPREAD_RIGHT, true);
+            NBEdge *nbe = new NBEdge("-" + e.id, e.from, e.to, "", speed, nolanes, priority, e.geom, NBEdge::LANESPREAD_RIGHT, true);
             if (!nb.getEdgeCont().insert(nbe)) {
                 throw ProcessError("Could not add edge '" + std::string("-") + e.id + "'.");
             }
         }
-    }
-
-    /*
-    // build connections
-    for (std::vector<OpenDriveEdge>::iterator i=innerEdges.begin(); i!=innerEdges.end(); ++i) {
-        OpenDriveEdge &e = *i;
-        if(e.id=="2210") {
-            int bla = 0;
-        }
-        if(e.junction=="" || e.junction=="-1") {
-            // omit plain edges
-            continue;
-        }
-        for (std::vector<OpenDriveLink>::iterator j=e.links.begin(); j!=e.links.end(); ++j) {
-            OpenDriveLink &l = *j;
-            if (l.elementType==OPENDRIVE_ET_ROAD) {
-                if(edge2junction.find(l.elementID)!=edge2junction.end()) {
-                    throw ProcessError("inner-edge to inner-edge connection!");
-                } else {
-                    if (l.linkType==OPENDRIVE_LT_SUCCESSOR) {
-                        if(e.toEdge!=0) {
-                            throw ProcessError("double inner-edge destination!");
-                        }
-                        e.toEdge = getOutgoingDirectionalEdge(nb.getEdgeCont(), nb.getNodeCont(), l.elementID, e.junction);
-                    } else {
-                        if(e.fromEdge!=0) {
-                            throw ProcessError("double inner-edge source!");
-                        }
-                        e.fromEdge = getIncomingDirectionalEdge(nb.getEdgeCont(), nb.getNodeCont(), l.elementID, e.junction);
-                    }
-                }
-            } else {
-                throw ProcessError("inner-edge to node connection!");
+        nolanes = e.getMaxLaneNumber(SUMO_TAG_OPENDRIVE_LEFT);
+        if(nolanes>0) {
+            NBEdge *nbe = new NBEdge(e.id, e.to, e.from, "", speed, nolanes, priority, e.geom.reverse(), NBEdge::LANESPREAD_RIGHT, true);
+            if (!nb.getEdgeCont().insert(nbe)) {
+                throw ProcessError("Could not add edge '" + e.id + "'.");
             }
         }
-        if(e.toEdge==0 || e.fromEdge==0) {
-            // !!! throw ProcessError("missing inner-edge source or destination!");
-        } else {
-            e.fromEdge->addEdge2EdgeConnection(e.toEdge);
+    }
+
+
+    // -------------------------
+    // connections building
+    // -------------------------
+    std::vector<Connection> connections;
+    // connections#1
+    //  build connections between outer-edges
+    for (std::vector<OpenDriveEdge>::iterator i=outerEdges.begin(); i!=outerEdges.end(); ++i) {
+        OpenDriveEdge &e = *i;
+        for (std::vector<OpenDriveLink>::iterator j=e.links.begin(); j!=e.links.end(); ++j) {
+            OpenDriveLink &l = *j;
+            if (l.elementType!=OPENDRIVE_ET_ROAD) {
+                // we are not interested in connections to nodes
+                continue;
+            }
+            if(edge2junction.find(l.elementID)!=edge2junction.end()) {
+                // connection via an inner-road
+                addViaConnectionSecure(nb.getEdgeCont(),
+                    nb.getNodeCont().retrieve(edge2junction[l.elementID]),
+                    e, l.linkType, l.elementID, connections);
+            } else {
+                // connection between two outer-edges; can be used directly
+                std::vector<OpenDriveEdge>::iterator p = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(l.elementID));
+                if(p==outerEdges.end()) {
+                    throw ProcessError("Could not find connection edge.");
+                }
+                if(l.linkType==OPENDRIVE_LT_PREDECESSOR) {
+                    addE2EConnectionsSecure(nb.getEdgeCont(), l.elementID, e.id, connections);
+                } else {
+                    addE2EConnectionsSecure(nb.getEdgeCont(), e.id, l.elementID, connections);
+                }
+            }
         }
     }
-    */
+
+    for (std::vector<OpenDriveEdge>::iterator i=innerEdges.begin(); i!=innerEdges.end(); ++i) {
+        OpenDriveEdge &e = *i;
+        std::string pred, succ;
+        for (std::vector<OpenDriveLink>::iterator j=e.links.begin(); j!=e.links.end(); ++j) {
+            OpenDriveLink &l = *j;
+            if (l.elementType!=OPENDRIVE_ET_ROAD) {
+                // we are not interested in connections to nodes
+                cout << "unsupported" << endl;
+                continue;
+            }
+            if(edge2junction.find(l.elementID)!=edge2junction.end()) {
+                // not supported
+                cout << "unsupported" << endl;
+                continue;
+            }
+            if(l.linkType==OPENDRIVE_LT_SUCCESSOR) {
+                if(succ!="") {
+                    cout << "double succ" << endl;
+                }
+                succ = l.elementID;
+            } else {
+                if(pred!="") {
+                    cout << "double pred" << endl;
+                }
+                pred = l.elementID;
+            }
+        }
+        if(succ==""||pred=="") {
+            cout << "Missing edge." << endl;
+            continue; // yes, occures
+        }
+        NBNode *n = nb.getNodeCont().retrieve(edge2junction[e.id]);
+        std::vector<OpenDriveEdge>::iterator predEdge = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(pred));
+        if(predEdge==outerEdges.end()) {
+            throw ProcessError("Could not find connection edge.");
+        }
+        std::vector<OpenDriveEdge>::iterator succEdge = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(succ));
+        if(succEdge==outerEdges.end()) {
+            throw ProcessError("Could not find connection edge.");
+        }
+        Connection c(
+            n->hasIncoming(nb.getEdgeCont().retrieve("-" + pred)) ? nb.getEdgeCont().retrieve("-" + pred) : nb.getEdgeCont().retrieve(pred),
+            e.id,
+            n->hasOutgoing(nb.getEdgeCont().retrieve("-" + succ)) ? nb.getEdgeCont().retrieve("-" + succ) : nb.getEdgeCont().retrieve(succ));
+        if(c.from==0||c.to==0||c.from==c.to) {
+            throw ProcessError("Something's false");
+        }
+        connections.push_back(c);
+    }
+
+    for(std::vector<Connection>::const_iterator i=connections.begin(); i!=connections.end(); ++i) {
+        if((*i).from!=0 && (*i).to!=0) {
+            (*i).from->addEdge2EdgeConnection((*i).to);
+        } else {
+            cout << "Nope." << endl;
+        }
+    }
+}
+
+
+void 
+NIImporter_OpenDrive::addViaConnectionSecure(const NBEdgeCont &ec,
+                                             const NBNode * const node, const OpenDriveEdge &e, 
+                                             LinkType lt, const std::string &via,
+                                             std::vector<NIImporter_OpenDrive::Connection> &connections)
+{
+    if(e.id=="2277" && via=="2201") {
+        int bla = 0;
+    }
+    NBEdge *from = 0;
+    NBEdge *to = 0;
+    if(node==e.to) {
+        // the connection is at the end of the "positive" direction
+        if(lt==OPENDRIVE_LT_PREDECESSOR) {
+            // via -> edge
+            to = ec.retrieve(e.id);
+        } else {
+            // -edge -> via
+            //  "ambigous?"
+            from = ec.retrieve("-" + e.id);
+        }
+    } else {
+        // the connection is at the begin of the "positive" direction
+        if(lt==OPENDRIVE_LT_PREDECESSOR) {
+            // via -> -edge
+            to = ec.retrieve("-" + e.id);
+        } else {
+            // edge -> via
+            //  "ambigous?"
+            from = ec.retrieve(e.id);
+        }
+    }
+    if(from==0&&to==0) {
+        throw ProcessError("Missing edge");
+    }
+    Connection c(from, via, to);
+    connections.push_back(c);
+}
+
+
+/*
+void 
+NIImporter_OpenDrive::addViaConnectionSecure2(const NBEdgeCont &ec,
+                                             const NBNode * const node, const OpenDriveEdge &e, 
+                                             LinkType lt, const std::string &via,
+                                             std::vector<NIImporter_OpenDrive::Connection> &connections)
+{
+    if(e.id=="2277" && via=="2201") {
+        int bla = 0;
+    }
+    NBEdge *from = 0;
+    NBEdge *to = 0;
+    if(node==e.to) {
+        // the connection is at the end of the "positive" direction
+        if(lt==OPENDRIVE_LT_PREDECESSOR) {
+            // -edge -> via
+            from = ec.retrieve("-" + e.id);
+        } else {
+            // via -> edge 
+            to = ec.retrieve(e.id);
+        }
+    } else {
+        // the connection is at the begin of the "positive" direction
+        if(lt==OPENDRIVE_LT_PREDECESSOR) {
+            // edge -> via
+            to = ec.retrieve(e.id);
+        } else {
+            // via -> -edge
+            from = ec.retrieve("-" + e.id);
+        }
+    }
+    if(from==0&&to==0) {
+        throw ProcessError("Missing edge");
+    }
+    Connection c;
+    c.joined = false;
+    c.from = from;
+    c.to = to;
+    c.via = via;
+    connections.push_back(c);
+}
+*/
+
+
+void
+NIImporter_OpenDrive::addE2EConnectionsSecure(const NBEdgeCont &ec, 
+                                              const std::string &fromID, const std::string &toID, 
+                                              std::vector<NIImporter_OpenDrive::Connection> &connections)
+{
+    NBEdge *posFrom = ec.retrieve("-" + fromID);
+    if(posFrom!=0) {
+        NBEdge *posTo = ec.retrieve("-" + toID);
+        if(posTo==0) {
+            return;
+        }
+        Connection c(posFrom, "", posTo);
+        connections.push_back(c);
+    }
+    NBEdge *negTo = ec.retrieve(fromID);
+    if(negTo!=0) {
+        NBEdge *negFrom = ec.retrieve(toID);
+        if(negFrom==0) {
+            return;
+        }
+        Connection c(negFrom, "", negTo);
+        connections.push_back(c);
+    }
 }
 
 

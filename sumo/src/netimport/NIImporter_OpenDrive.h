@@ -210,6 +210,17 @@ protected:
     };
 
 
+    struct Connection {
+        Connection(NBEdge *fromArg, const std::string &viaArg, NBEdge *toArg) 
+            : from(fromArg), via(viaArg), to(toArg) { }
+        NBEdge *from;
+        NBEdge *to;
+        std::string via;
+        int fromLane;
+        int toLane;
+        int viaLane;
+    };
+
 protected:
     /** @brief Constructor
      * @param[in] nc The node control to fill
@@ -308,10 +319,20 @@ protected:
         const std::string &edgeID, const std::string &nodeID) throw();
 
     static void computeShapes(std::vector<OpenDriveEdge> &edges) throw();
-    static void buildOutgoingConnections(OpenDriveEdge &e, std::vector<OpenDriveEdge> &innerEdges, 
-        std::vector<OpenDriveEdge> &outerEdges);
     static void setNodeSecure(NBNodeCont &nc, OpenDriveEdge &e, 
         const std::string &nodeID, NIImporter_OpenDrive::LinkType lt) throw(ProcessError);
+
+    static void addE2EConnectionsSecure(const NBEdgeCont &ec, 
+        const std::string &fromID, const std::string &toID, 
+        std::vector<NIImporter_OpenDrive::Connection> &connections);
+    static void addViaConnectionSecure(const NBEdgeCont &ec, const NBNode * const node, const OpenDriveEdge &e, 
+        LinkType lt, const std::string &via,
+        std::vector<NIImporter_OpenDrive::Connection> &connections);
+    /*
+    static void addViaConnectionSecure2(const NBEdgeCont &ec, const NBNode * const node, const OpenDriveEdge &e, 
+        LinkType lt, const std::string &via,
+        std::vector<NIImporter_OpenDrive::Connection> &connections);
+        */
 
 
     class edge_by_id_finder {
