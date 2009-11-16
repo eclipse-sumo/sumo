@@ -178,12 +178,12 @@ protected:
 
     /**
      * @struct OpenDriveEdge
-     * @brief Representation of an openDrive road
+     * @brief Representation of an openDrive "link"
      */
     struct OpenDriveEdge {
         OpenDriveEdge(const std::string &idArg, const std::string &junctionArg, SUMOReal lengthArg)
                 : id(idArg), junction(junctionArg), length(lengthArg),
-                from(0), to(0) { }
+                from(0), to(0), fromEdge(0), toEdge(0) { }
 
         unsigned int getMaxLaneNumber(SumoXMLTag dir) const throw() {
             unsigned int maxLaneNum = 0;
@@ -203,6 +203,8 @@ protected:
         std::vector<OpenDriveGeometry> geometries;
         NBNode *from;
         NBNode *to;
+        NBEdge *fromEdge;
+        NBEdge *toEdge;
         Position2DVector geom;
         std::vector<OpenDriveLaneSection> laneSections;
     };
@@ -212,7 +214,7 @@ protected:
     /** @brief Constructor
      * @param[in] nc The node control to fill
      */
-    NIImporter_OpenDrive(NBNodeCont &nc, std::vector<OpenDriveEdge> &edgeCont);
+    NIImporter_OpenDrive(NBNodeCont &nc, std::vector<OpenDriveEdge> &innerEdges, std::vector<OpenDriveEdge> &outerEdges);
 
 
     /// @brief Destructor
@@ -265,11 +267,10 @@ private:
 
     void addGeometryShape(GeometryType type, const std::vector<SUMOReal> &vals) throw(ProcessError);
 
-
-
     OpenDriveEdge myCurrentEdge;
 
-    std::vector<OpenDriveEdge> &myEdges;
+    std::vector<OpenDriveEdge> &myInnerEdges;
+    std::vector<OpenDriveEdge> &myOuterEdges;
     std::vector<SumoXMLTag> myElementStack;
     SumoXMLTag myCurrentLaneDirection;
 
@@ -301,6 +302,32 @@ protected:
     static void calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw();
     static void calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY, 
 						   SUMOReal ad_r, SUMOReal ad_length) throw();
+    static NBEdge *getOutgoingDirectionalEdge(const NBEdgeCont &ec, const NBNodeCont &nc, 
+        const std::string &edgeID, const std::string &nodeID) throw();
+    static NBEdge *getIncomingDirectionalEdge(const NBEdgeCont &ec,const NBNodeCont &nc, 
+        const std::string &edgeID, const std::string &nodeID) throw();
+
+    static void computeShapes(std::vector<OpenDriveEdge> &edges) throw();
+    static void buildOutgoingConnections(OpenDriveEdge &e, std::vector<OpenDriveEdge> &innerEdges, 
+        std::vector<OpenDriveEdge> &outerEdges);
+    static void setNodeSecure(NBNodeCont &nc, OpenDriveEdge &e, 
+        const std::string &nodeID, NIImporter_OpenDrive::LinkType lt) throw(ProcessError);
+
+
+    class edge_by_id_finder {
+    public:
+        explicit edge_by_id_finder(const std::string &id)
+                : myEdgeID(id) { }
+
+        bool operator()(const OpenDriveEdge &e) {
+            return e.id==myEdgeID;
+        }
+
+    private:
+        const std::string &myEdgeID;
+
+    };
+
 
 };
 
