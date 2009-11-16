@@ -30,6 +30,7 @@
 #endif
 
 #include <vector>
+#include <set>
 #include <cassert>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSMoveReminder.h>
@@ -71,7 +72,8 @@ public:
     class MSLaneMeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane) throw();
+        MSLaneMeanDataValues(MSLane * const lane,
+                             const std::set<std::string>* const vTypes=0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -81,6 +83,9 @@ public:
          */
         void reset() throw();
 
+        /** @brief Add the values to this meanData
+         */
+        void add(MSLaneMeanDataValues& val) throw();
 
         /// @name Methods inherited from MSMoveReminder.
         /// @{
@@ -101,33 +106,6 @@ public:
          * @see HelpersHBEFA
          */
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
-
-
-        /** @brief Called if the vehicle leaves the reminder's lane
-         *
-         * @param[in] veh The leaving vehicle.
-         * @param[in] isArrival whether the vehicle arrived at its destination
-         * @param[in] isLaneChange whether the vehicle changed from the lane
-         * @see MSMoveReminder
-         * @see MSMoveReminder::notifyLeave
-         * @see HelpersHBEFA
-         */
-        virtual void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
-
-
-        /** @brief Computes current emission values and adds them to their sums
-         *
-         * The fraction of time the vehicle is on the lane is computed and
-         *  used as a weight for the vehicle's current emission values
-         *  which are computed using the current velocity and acceleration.
-         *
-         * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit whether the vehicle was just emitted into the net
-         * @param[in] isLaneChange whether the vehicle changed to the lane
-         * @see MSMoveReminder::notifyEnter
-         * @return Always true
-         */
-        virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
 
@@ -137,6 +115,8 @@ public:
 
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;
+        /// @brief The sum of the distances the vehicles travelled
+        SUMOReal travelledDistance;
         /// @brief Sum of CO2 emissions
         SUMOReal CO2;
         /// @brief Sum of CO emissions
@@ -149,14 +129,11 @@ public:
         SUMOReal PMx;
         /// @brief  Sum of consumed fuel
         SUMOReal fuel;
-        /// @brief The number of vehicles that participated
-        SUMOReal vehicleNo;
         //@}
 
-
-#ifdef HAVE_MESOSIM
-        std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
-#endif
+    private:
+        /// @brief The vehicle types to look for (0 or empty means all)
+        const std::set<std::string>* const myVehicleTypes;
 
     };
 
@@ -170,11 +147,16 @@ public:
      * @param[in] dumpEnd End time of dump
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
+     * @param[in] withInternal Information whether internal lanes/edges shall be written
+     * @param[in] maxTravelTime the maximum travel time to use when calculating per vehicle output
+     * @param[in] minSamples the minimum number of sample seconds before the values are valid
+     * @param[in] vTypes the set of vehicle types to consider
      */
-    MSMeanData_HBEFA(const std::string &id,
-                     MSEdgeControl &ec, SUMOTime dumpBegin,
-                     SUMOTime dumpEnd, bool useLanes,
-                     bool withEmptyEdges, bool withEmptyLanes) throw();
+    MSMeanData_HBEFA(const std::string &id, const MSEdgeControl &ec,
+                     const SUMOTime dumpBegin, const SUMOTime dumpEnd,
+                     const bool useLanes, const bool withEmpty, const bool withInternal,
+                     const SUMOReal minSamples, const SUMOReal maxTravelTime,
+                     const std::set<std::string> vTypes) throw();
 
 
     /// @brief Destructor
@@ -230,17 +212,19 @@ protected:
                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
-    /** @brief Writes lane values into the given stream
+    /** @brief Writes output values into the given stream
      *
      * @param[in] dev The output device to write the data into
-     * @param[in] laneValues This lane's value collectors
-     * @param[in] startTime First time step the data were gathered
-     * @param[in] stopTime Last time step the data were gathered
+     * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
+     * @param[in] values This lane's / edge's value collectors
+     * @param[in] period Length of the period the data were gathered
+     * @param[in] numLanes The total number of lanes for which the data was collected
+     * @param[in] length The length of the object for which the data was collected
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeLane(OutputDevice &dev,
-                           MSLaneMeanDataValues &laneValues,
-                           SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+    void writeValues(OutputDevice &dev, const std::string prefix,
+                     const MSLaneMeanDataValues &values, const SUMOReal period,
+                     const SUMOReal numLanes, const SUMOReal length) throw(IOError);
 
 
     /** @brief Resets network value in order to allow processing of the next interval
@@ -251,57 +235,33 @@ protected:
     void resetOnly(SUMOTime stopTime) throw();
 
 
-    /** @brief Norms the values by the given length/duration
-     *
-     * @param[in] val The initial value
-     * @param[in] dur The aggregation duration in s
-     * @param[in] len The length of the edge
-     * @todo Check subseconds simulation
-     */
-    inline SUMOReal normKMH(SUMOReal val, SUMOReal dur, SUMOReal len) const throw() {
-        return SUMOReal(val * 3600. * 1000. / dur / len);
-    }
-
-
-    /** @brief Norms the values by the given vehicle number
-     *
-     * @param[in] val The initial value
-     * @param[in] dur The aggregation duration in s
-     * @param[in] len The length of the edge
-     * @todo Check subseconds simulation
-     */
-    inline SUMOReal normPerVeh(SUMOReal val, SUMOReal samples, SUMOReal vehicleNo) const throw() {
-        if (samples==0) {
-            // no vehicle on the lane/edge
-            return 0;
-        }
-        if (vehicleNo==0) {
-            // vehicle(s) did not move
-            //  return a large value
-            return (SUMOReal) 1000000;
-        }
-        return val / vehicleNo;
-    }
-
-
 protected:
     /// @brief The id of the detector
-    std::string myID;
+    const std::string myID;
 
     /// @brief Information whether the output shall be edge-based (not lane-based)
-    bool myAmEdgeBased;
+    const bool myAmEdgeBased;
 
     /// @brief The first and the last time step to write information (-1 indicates always)
-    SUMOTime myDumpBegin, myDumpEnd;
+    const SUMOTime myDumpBegin, myDumpEnd;
 
     /// @brief Whether empty lanes/edges shall be written
-    bool myDumpEmptyEdges, myDumpEmptyLanes;
+    const bool myDumpEmpty;
 
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MSLaneMeanDataValues*> > myMeasures;
 
     /// @brief The corresponding first edges
     std::vector<MSEdge*> myEdges;
+
+    /// @brief the maximum travel time to write
+    const SUMOReal myMaxTravelTime;
+
+    /// @brief the minimum sample seconds
+    const SUMOReal myMinSamples;
+
+    /// @brief The vehicle types to look for (empty means all)
+    const std::set<std::string> myVehicleTypes;
 
 private:
     /// @brief Invalidated copy constructor.

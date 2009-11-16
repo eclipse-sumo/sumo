@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/15/09 14:08:30 by SUMO sumo Version dev-SVN-r7867
+<!-- generated on 11/16/09 11:40:37 by SUMO sumo Version dev-SVN-r7969
 <configuration>
 
     <input>
@@ -29,8 +29,8 @@
             CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="60" CO_abs="0" CO2_abs="1e+005" HC_abs="18" PMx_abs="5.9" NOx_abs="1.6e+002" fuel_abs="40"
-            CO_normed="0" CO2_normed="1.6e+004" HC_normed="2.7" PMx_normed="0.9" NOx_normed="25" fuel_normed="6.2"
+         <lane id="4/1to3/1_0" sampledSeconds="58" CO_abs="0" CO2_abs="9.8e+004" HC_abs="17" PMx_abs="5.7" NOx_abs="1.5e+002" fuel_abs="39"
+            CO_normed="0" CO2_normed="1.5e+004" HC_normed="2.6" PMx_normed="0.87" NOx_normed="24" fuel_normed="6"
             CO_perVeh="0" CO2_perVeh="66" HC_perVeh="0.011" PMx_perVeh="0.0038" NOx_perVeh="0.1" fuel_perVeh="0.026"/>
       </edge>
    </interval>

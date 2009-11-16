@@ -328,7 +328,7 @@ MSMeanData_Net::writeValues(OutputDevice &dev, const std::string prefix,
         dev.indent() << prefix << "\" sampledSeconds=\"" << values.sampleSeconds;
         if (values.sampleSeconds > myMinSamples) {
             SUMOReal traveltime = myMaxTravelTime;
-            if (values.travelledDistance > 0) {
+            if (values.travelledDistance > 0.f) {
                 traveltime = MIN2(traveltime, length * values.sampleSeconds / values.travelledDistance);
             }
             dev << "\" traveltime=\"" << traveltime <<

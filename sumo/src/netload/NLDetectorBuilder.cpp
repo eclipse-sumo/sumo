@@ -587,7 +587,8 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
                                  maxTravelTime, minSamples, haltSpeed, vt);
     } else if (type=="hbefa") {
         det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
-                                   begin, end, useLanes, withEmpty, withEmpty);
+                                   begin, end, useLanes, withEmpty, withInternal,
+                                   maxTravelTime, minSamples, vt);
     } else if (type=="harmonoise") {
         det = new MSMeanData_Harmonoise(id, MSNet::getInstance()->getEdgeControl(),
                                         begin, end, useLanes, withEmpty, withEmpty);

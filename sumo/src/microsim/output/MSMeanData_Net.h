@@ -274,14 +274,14 @@ protected:
      *
      * @param[in] dev The output device to write the data into
      * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
-     * @param[in] laneValues This lane's / edge's value collectors
+     * @param[in] values This lane's / edge's value collectors
      * @param[in] period Length of the period the data were gathered
      * @param[in] numLanes The total number of lanes for which the data was collected
      * @param[in] length The length of the object for which the data was collected
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     virtual void writeValues(OutputDevice &dev, const std::string prefix,
-                             const MSLaneMeanDataValues &laneValues, const SUMOReal period,
+                             const MSLaneMeanDataValues &values, const SUMOReal period,
                              const SUMOReal numLanes, const SUMOReal length) throw(IOError);
 
 
@@ -294,16 +294,16 @@ protected:
 
 protected:
     /// @brief The id of the detector
-    std::string myID;
+    const std::string myID;
 
     /// @brief Information whether the output shall be edge-based (not lane-based)
-    bool myAmEdgeBased;
+    const bool myAmEdgeBased;
 
     /// @brief The first and the last time step to write information (-1 indicates always)
-    SUMOTime myDumpBegin, myDumpEnd;
+    const SUMOTime myDumpBegin, myDumpEnd;
 
     /// @brief Whether empty lanes/edges shall be written
-    bool myDumpEmpty;
+    const bool myDumpEmpty;
 
     /// @brief Value collectors; sorted by edge, then by lane
     std::vector<std::vector<MSLaneMeanDataValues*> > myMeasures;
@@ -312,10 +312,10 @@ protected:
     std::vector<MSEdge*> myEdges;
 
     /// @brief the maximum travel time to write
-    SUMOReal myMaxTravelTime;
+    const SUMOReal myMaxTravelTime;
 
     /// @brief the minimum sample seconds
-    SUMOReal myMinSamples;
+    const SUMOReal myMinSamples;
 
     /// @brief The vehicle types to look for (empty means all)
     const std::set<std::string> myVehicleTypes;

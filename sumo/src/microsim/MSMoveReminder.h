@@ -127,7 +127,9 @@ public:
      *
      * @return True if vehicle enters the reminder.
      */
-    virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() = 0;
+    virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
+        return true;
+    }
     /// @}
 
 
