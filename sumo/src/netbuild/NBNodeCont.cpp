@@ -120,8 +120,8 @@ NBNodeCont::insert(NBNode *node) throw() {
 
 
 NBNode *
-NBNodeCont::retrieve(const std::string &id) throw() {
-    NodeCont::iterator i = myNodes.find(id);
+NBNodeCont::retrieve(const std::string &id) const throw() {
+    NodeCont::const_iterator i = myNodes.find(id);
     if (i==myNodes.end()) {
         return 0;
     }
@@ -130,8 +130,8 @@ NBNodeCont::retrieve(const std::string &id) throw() {
 
 
 NBNode *
-NBNodeCont::retrieve(const Position2D &position, SUMOReal offset) throw() {
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+NBNodeCont::retrieve(const Position2D &position, SUMOReal offset) const throw() {
+    for (NodeCont::const_iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *node = (*i).second;
         if (fabs(node->getPosition().x()-position.x())<offset
                 &&

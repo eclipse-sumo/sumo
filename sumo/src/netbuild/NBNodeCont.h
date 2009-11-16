@@ -112,7 +112,7 @@ public:
      * @param[in] id The id of the node to retrieve
      * @return The node with the given id, or 0 if no such node exists
      */
-    NBNode *retrieve(const std::string &id) throw();
+    NBNode *retrieve(const std::string &id) const throw();
 
 
     /** @brief Returns the node with the given coordinates
@@ -120,7 +120,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode *retrieve(const Position2D &position, SUMOReal offset=0.) throw();
+    NBNode *retrieve(const Position2D &position, SUMOReal offset=0.) const throw();
     /// @}
 
 
