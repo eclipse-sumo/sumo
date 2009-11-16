@@ -1,0 +1,4 @@
+<add>
+	<meandata-lane id="dump_15" freq="15" file="aggregated_15.xml" excludeEmpty="true"/>
+	<meandata-lane id="dump_15_internal" freq="15" file="aggregated_15.xml" excludeEmpty="true" withInternal="true"/>
+</add>

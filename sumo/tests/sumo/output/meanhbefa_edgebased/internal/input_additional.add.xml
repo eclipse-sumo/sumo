@@ -1,0 +1,4 @@
+<add>
+	<meandata-edge id="dump_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true"/>
+	<meandata-edge id="dump_15_internal" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true" withInternal="true"/>
+</add>

@@ -1,0 +1,25 @@
+<routes>
+    <vtype id="t1" accel="0.8" decel="4.5" sigma="0" length="5" maxspeed="10"/>
+    <route id="r1" multi_ref="x" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+
+    <vehicle id="0" depart="0" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="1" depart="5" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="2" depart="10" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="3" depart="15" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="4" depart="20" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="5" depart="25" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="6" depart="30" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="7" depart="35" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="8" depart="40" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="9" depart="45" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="10" depart="50" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="11" depart="55" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="12" depart="60" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="13" depart="65" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="14" depart="70" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="15" depart="75" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="16" depart="80" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="17" depart="85" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="18" depart="90" departspeed="10" departpos="100" route="r1"/>
+    <vehicle id="19" depart="95" departspeed="10" departpos="100" route="r1"/>
+</routes>

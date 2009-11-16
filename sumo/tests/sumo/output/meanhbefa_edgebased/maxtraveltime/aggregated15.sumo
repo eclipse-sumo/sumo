@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/16/09 13:46:41 by SUMO sumo Version dev-SVN-r7969
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="600" end="615" id="dump_15">
+      <edge id="3/1to2/1" sampledSeconds="3e+002" CO_abs="1.9e+003" CO2_abs="1.8e+005" HC_abs="1e+002" PMx_abs="6.4" NOx_abs="2.5e+002" fuel_abs="72"
+            CO_normed="1.2e+003" CO2_normed="1.1e+005" HC_normed="64" PMx_normed="3.9" NOx_normed="1.5e+002" fuel_normed="44"
+            CO_perVeh="0.64" CO2_perVeh="60" HC_perVeh="0.035" PMx_perVeh="0.0021" NOx_perVeh="0.084" fuel_perVeh="0.024"/>
+   </interval>
+   <interval begin="615" end="630" id="dump_15">
+      <edge id="3/1to2/1" sampledSeconds="3e+002" CO_abs="1.9e+003" CO2_abs="1.8e+005" HC_abs="1e+002" PMx_abs="6.4" NOx_abs="2.5e+002" fuel_abs="72"
+            CO_normed="1.2e+003" CO2_normed="1.1e+005" HC_normed="64" PMx_normed="3.9" NOx_normed="1.5e+002" fuel_normed="44"
+            CO_perVeh="0.64" CO2_perVeh="60" HC_perVeh="0.035" PMx_perVeh="0.0021" NOx_perVeh="0.084" fuel_perVeh="0.024"/>
+   </interval>
+   <interval begin="630" end="645" id="dump_15">
+      <edge id="3/1to2/1" sampledSeconds="3e+002" CO_abs="1.9e+003" CO2_abs="1.8e+005" HC_abs="1e+002" PMx_abs="6.4" NOx_abs="2.5e+002" fuel_abs="72"
+            CO_normed="1.2e+003" CO2_normed="1.1e+005" HC_normed="64" PMx_normed="3.9" NOx_normed="1.5e+002" fuel_normed="44"
+            CO_perVeh="0.64" CO2_perVeh="60" HC_perVeh="0.035" PMx_perVeh="0.0021" NOx_perVeh="0.084" fuel_perVeh="0.024"/>
+   </interval>
+   <interval begin="645" end="660" id="dump_15">
+      <edge id="3/1to2/1" sampledSeconds="3e+002" CO_abs="1.9e+003" CO2_abs="1.8e+005" HC_abs="1e+002" PMx_abs="6.4" NOx_abs="2.5e+002" fuel_abs="72"
+            CO_normed="1.2e+003" CO2_normed="1.1e+005" HC_normed="64" PMx_normed="3.9" NOx_normed="1.5e+002" fuel_normed="44"
+            CO_perVeh="0.64" CO2_perVeh="60" HC_perVeh="0.035" PMx_perVeh="0.0021" NOx_perVeh="0.084" fuel_perVeh="0.024"/>
+   </interval>
+</netstats>

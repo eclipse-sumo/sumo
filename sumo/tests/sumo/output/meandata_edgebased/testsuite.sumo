@@ -30,3 +30,12 @@ jam1
 
 # a jam test (78 vehicles waiting)
 jam2
+
+# a jam test with different maximum traveltime
+maxtraveltime
+
+# two vehicles with different vtypes sampling at 15s
+vtypes
+
+# two vehicles sampling at 15s with internal lanes
+internal

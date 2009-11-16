@@ -1,0 +1,5 @@
+<add>
+	<meandata-lane id="dump_all_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true" vtypes="t1 t2"/>
+	<meandata-lane id="dump_t1_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true" vtypes="t1"/>
+	<meandata-lane id="dump_t2_15" type="hbefa" freq="15" file="aggregated_15.xml" excludeEmpty="true" vtypes="t2"/>
+</add>

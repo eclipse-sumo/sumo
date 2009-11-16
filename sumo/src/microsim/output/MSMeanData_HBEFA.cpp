@@ -140,13 +140,15 @@ MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id, const MSEdgeControl &e
         myDumpEmpty(withEmpty), myMaxTravelTime(maxTravelTime), myMinSamples(minSamples), myVehicleTypes(vTypes) {
     const std::vector<MSEdge*> &edges = ec.getEdges();
     for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        std::vector<MSLaneMeanDataValues*> v;
-        const std::vector<MSLane*> &lanes = (*e)->getLanes();
-        for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-            v.push_back(new MSLaneMeanDataValues(*lane, &myVehicleTypes));
+        if (withInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
+            std::vector<MSLaneMeanDataValues*> v;
+            const std::vector<MSLane*> &lanes = (*e)->getLanes();
+            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
+                v.push_back(new MSLaneMeanDataValues(*lane, &myVehicleTypes));
+            }
+            myMeasures.push_back(v);
+            myEdges.push_back(*e);
         }
-        myMeasures.push_back(v);
-        myEdges.push_back(*e);
     }
 }
 
