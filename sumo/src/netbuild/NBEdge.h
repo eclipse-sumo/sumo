@@ -965,6 +965,10 @@ public:
     private:
         TLSDisabledConnection myDefinition;
 
+    private:
+        /// @brief invalidated assignment operator
+        tls_disable_finder &operator=(const tls_disable_finder &s);
+
     };
 
 
@@ -984,6 +988,10 @@ public:
     private:
         NBEdge * const myEdge2Find;
 
+    private:
+        /// @brief invalidated assignment operator
+        connections_toedge_finder &operator=(const connections_toedge_finder &s);
+
     };
 
     /**
@@ -1002,7 +1010,13 @@ public:
         NBEdge * const myEdge2Find;
         int myLane2Find;
 
+    private:
+        /// @brief invalidated assignment operator
+        connections_toedgelane_finder &operator=(const connections_toedgelane_finder &s);
+
     };
+
+
     /**
      * @class connections_finder
      */
@@ -1020,6 +1034,10 @@ public:
         NBEdge * const myEdge2Find;
         int myLane2Find;
 
+    private:
+        /// @brief invalidated assignment operator
+        connections_finder &operator=(const connections_finder &s);
+
     };
 
     /**
@@ -1036,6 +1054,10 @@ public:
 
     private:
         int myLane2Find;
+
+    private:
+        /// @brief invalidated assignment operator
+        connections_fromlane_finder &operator=(const connections_fromlane_finder &s);
 
     };
 

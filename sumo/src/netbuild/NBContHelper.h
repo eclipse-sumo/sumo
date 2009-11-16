@@ -224,6 +224,10 @@ public:
     private:
         const NBEdge * const myEdge;
 
+    private:
+        /// @brief invalidated assignment operator
+        node_with_incoming_finder &operator=(const node_with_incoming_finder &s);
+
     };
 
 
@@ -240,6 +244,10 @@ public:
     private:
         const NBEdge * const myEdge;
 
+    private:
+        /// @brief invalidated assignment operator
+        node_with_outgoing_finder &operator=(const node_with_outgoing_finder &s);
+
     };
 
 
@@ -254,6 +262,10 @@ public:
 
     private:
         NBNode *myDestinationNode;
+
+    private:
+        /// @brief invalidated assignment operator
+        edge_with_destination_finder &operator=(const edge_with_destination_finder &s);
 
     };
 
