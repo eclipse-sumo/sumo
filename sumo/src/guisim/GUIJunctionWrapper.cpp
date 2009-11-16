@@ -61,12 +61,18 @@ GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
                                        MSJunction &junction) throw()
         : GUIGlObject(idStorage, "junction:"+junction.getID()),
         myJunction(junction) {
-    Boundary b = myJunction.getShape().getBoxBoundary();
-    myMaxSize = MAX2(b.getWidth(), b.getHeight());
+    if(myJunction.getShape().size()==0) {
+        Position2D pos = myJunction.getPosition();
+        myBoundary = Boundary(pos.x()-1., pos.y()-1., pos.x()+1., pos.y()+1.);
+    } else {
+        myBoundary = myJunction.getShape().getBoxBoundary();
+    }
+    myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
 }
 
 
-GUIJunctionWrapper::~GUIJunctionWrapper() throw() {}
+GUIJunctionWrapper::~GUIJunctionWrapper() throw() 
+{}
 
 
 GUIGLObjectPopupMenu *
@@ -96,22 +102,12 @@ GUIJunctionWrapper::getMicrosimID() const throw() {
 
 
 Boundary
-GUIJunctionWrapper::getBoundary() const {
-    return myJunction.getShape().getBoxBoundary();
-}
-
-
-Boundary
 GUIJunctionWrapper::getCenteringBoundary() const throw() {
-    Boundary b = getBoundary();
+    Boundary b = myBoundary;
     b.grow(20);
     return b;
 }
 
-MSJunction &
-GUIJunctionWrapper::getJunction() const {
-    return myJunction;
-}
 
 void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {

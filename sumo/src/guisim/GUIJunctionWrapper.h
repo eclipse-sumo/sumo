@@ -50,19 +50,26 @@ class MSJunction;
 // ===========================================================================
 /**
  * @class GUIJunctionWrapper
+ *
  * As MSJunctions do not have a graphical representation but a complex
  *  inheritance tree, this class is used to encapsulate the geometry of an
  *  abstract junction and to be used as a gl-object.
+ *
+ * In the case the represented junction's shape is empty, the boundary
+ *  is computed using the junction's position to which an offset of 1m to each 
+ *  side is added.
  */
-class GUIJunctionWrapper :
-        public GUIGlObject,
-            public HaveBoundary {
+class GUIJunctionWrapper : public GUIGlObject, public HaveBoundary {
 public:
-    /// constructor
+    /** @brief Constructor
+     * @param[in, changed] idStorage The storage to retrieve the gl-id from
+     * @param[in] junction The represented junction
+     */
     GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
                        MSJunction &junction) throw();
 
-    /// destructor
+
+    /// @brief Destructor
     virtual ~GUIJunctionWrapper() throw();
 
 
@@ -78,7 +85,7 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent) throw();
+        GUISUMOAbstractView &parent) throw();
 
 
     /** @brief Returns an own parameter window
@@ -126,19 +133,26 @@ public:
     void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
-    /// Returns the boundary of the junction
-    Boundary getBoundary() const;
 
 
-    MSJunction &getJunction() const;
+    /** @brief Returns the boundary of the junction
+     * @return This junction's boundary
+     */
+    Boundary getBoundary() const throw() {
+        return myBoundary;
+    }
 
 
 protected:
-
-    /// A reference to the real junction
+    /// @brief A reference to the represented junction
     MSJunction &myJunction;
 
+    /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     SUMOReal myMaxSize;
+
+    /// @brief The represented junction's boundary
+    Boundary myBoundary;
+
 
 private:
     /// @brief Invalidated copy constructor.

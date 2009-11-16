@@ -351,8 +351,7 @@ GUINet::initGUIStructures() {
     }
     for (vector<GUIJunctionWrapper*>::iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         GUIJunctionWrapper *junction = *i;
-        if (junction->getJunction().getShape().size()>0) {
-            Boundary b = junction->getJunction().getShape().getBoxBoundary();
+            Boundary b = junction->getBoundary();
             b.grow(2.);
             cmin[0] = b.xmin();
             cmin[1] = b.ymin();
@@ -360,7 +359,6 @@ GUINet::initGUIStructures() {
             cmax[1] = b.ymax();
             myGrid->Insert(cmin, cmax, junction);
             myBoundary.add(b);
-        }
     }
     const vector<GUIGlObject_AbstractAdd*> &a = GUIGlObject_AbstractAdd::getObjectList();
     for (vector<GUIGlObject_AbstractAdd*>::const_iterator i=a.begin(); i!=a.end(); ++i) {
