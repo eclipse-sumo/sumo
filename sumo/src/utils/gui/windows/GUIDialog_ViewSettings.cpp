@@ -200,8 +200,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         myLaneEdgeColorMode->setNumVisible(10);
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
+        FXScrollWindow *genScroll = new FXScrollWindow(frame2, LAYOUT_FILL_X|LAYOUT_SIDE_TOP|FRAME_RAISED|FRAME_THICK|LAYOUT_FIX_HEIGHT, 0,0,0,80);
         myLaneColorSettingFrame =
-            new FXVerticalFrame(frame2, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
+            new FXVerticalFrame(genScroll, LAYOUT_FILL_X|LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
 //we should insert a FXScrollWindow around the frame2
 #ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
@@ -297,8 +298,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myVehicleColorMode->setNumVisible(10);
         myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, LAYOUT_CENTER_Y|CHECKBUTTON_NORMAL);
 
+        FXScrollWindow *genScroll = new FXScrollWindow(frame3, LAYOUT_FILL_X|LAYOUT_SIDE_TOP|FRAME_RAISED|FRAME_THICK|LAYOUT_FIX_HEIGHT, 0,0,0,80);
         myVehicleColorSettingFrame =
-            new FXVerticalFrame(frame3, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
+            new FXVerticalFrame(genScroll, LAYOUT_FILL_X|LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
 
         new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
 
@@ -1171,8 +1173,8 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         // lane / edge
         MFXUtils::deleteChildren(myLaneColorSettingFrame);
         FXMatrix *m = new FXMatrix(myLaneColorSettingFrame,3,
-                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-                                   0,0,0,80,10,10,0,0, 5,3);
+                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS,
+                                   0,0,0,0,10,10,0,0, 5,3);
         myLaneColors.clear();
         myLaneThresholds.clear();
         myLaneButtons.clear();
@@ -1224,13 +1226,14 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         if (doCreate) {
             m->create();
         }
+		myLaneColorSettingFrame->getParent()->recalc();
     }
     {
         // vehicles
         MFXUtils::deleteChildren(myVehicleColorSettingFrame);
         FXMatrix *m = new FXMatrix(myVehicleColorSettingFrame,3,
-                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
-                                   0,0,0,80,10,10,0,0, 5,3);
+                                   LAYOUT_FILL_X|MATRIX_BY_COLUMNS,
+                                   0,0,0,0,10,10,0,0, 5,3);
         myVehicleColors.clear();
         myVehicleThresholds.clear();
         myVehicleButtons.clear();
@@ -1281,6 +1284,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         if (doCreate) {
             m->create();
         }
+		myVehicleColorSettingFrame->getParent()->recalc();
     }
     layout();
     update();
