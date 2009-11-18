@@ -108,7 +108,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
                 myLaneCombinations.erase(lanei);
                 myDetectorCombinations.erase(deti);
                 // get the lane to look before
-                MSLane *toExtend = lv[lv.size()-1];
+                MSLane *toExtend = lv.back();
                 // and her predecessors
                 std::vector<MSLane*> predeccessors =
                     getLanePredeccessorLanes(toExtend, edgeContinuations);

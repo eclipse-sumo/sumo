@@ -481,8 +481,8 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                             pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
                         }
                         //  new on left
-                        unsigned int leftMostP = currLanes[currLanes.size()-1];
-                        unsigned int leftMostN = newLanes[newLanes.size()-1];
+                        unsigned int leftMostP = currLanes.back();
+                        unsigned int leftMostN = newLanes.back();
                         for (int l=0; l<(int) leftMostN-(int) leftMostP; ++l) {
                             pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, leftMostN-l, NBEdge::L2L_VALIDATED, true);
                         }
@@ -516,7 +516,7 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
                 e = e->getToNode()->getOutgoingEdges()[0];
             }
             for (; i!=mySplits.end(); ++i) {
-                unsigned int maxLeft = (*i).lanes[(*i).lanes.size()-1];
+                unsigned int maxLeft = (*i).lanes.back();
                 if (maxLeft<noLanesMax) {
                     Position2DVector g = e->getGeometry();
                     g.move2side(SUMO_const_laneWidthAndOffset*(noLanesMax-1-maxLeft));

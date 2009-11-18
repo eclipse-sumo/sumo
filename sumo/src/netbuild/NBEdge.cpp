@@ -112,16 +112,16 @@ NBEdge::MainDirections::MainDirections(const vector<NBEdge*> &outgoing,
         myDirs.push_back(MainDirections::DIR_RIGHTMOST);
     }
     // check whether the left turn has a higher priority
-    if (outgoing[outgoing.size()-1]->getJunctionPriority(to)==1) {
+    if (outgoing.back()->getJunctionPriority(to)==1) {
         // ok, the left turn belongs to the higher priorised edges on the junction
         //  let's check, whether it has also a higher priority (lane number/speed)
         //  than the current
         vector<NBEdge*> tmp(outgoing);
         sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
-        if (outgoing[outgoing.size()-1]->getPriority()>tmp[0]->getPriority()) {
+        if (outgoing.back()->getPriority()>tmp[0]->getPriority()) {
             myDirs.push_back(MainDirections::DIR_LEFTMOST);
         } else {
-            if (outgoing[outgoing.size()-1]->getNoLanes()>tmp[0]->getNoLanes()) {
+            if (outgoing.back()->getNoLanes()>tmp[0]->getNoLanes()) {
                 myDirs.push_back(MainDirections::DIR_LEFTMOST);
             }
         }
@@ -485,7 +485,7 @@ NBEdge::setConnection(unsigned int lane, NBEdge *destEdge,
     }
     myConnections.push_back(Connection(lane, destEdge, destLane));
     if (mayDefinitelyPass) {
-        myConnections[myConnections.size()-1].mayDefinitelyPass = true;
+        myConnections.back().mayDefinitelyPass = true;
     }
     if (type==L2L_USER) {
         myStep = LANES2LANES_USER;
@@ -1440,7 +1440,7 @@ NBEdge::getMaxLaneOffset() {
 Position2D
 NBEdge::getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width) const {
     const Position2DVector &shape0 = myLanes[0].shape;
-    const Position2DVector &shapel = myLanes[myLanes.size()-1].shape;
+    const Position2DVector &shapel = myLanes.back().shape;
     width = width < shape0.length()/(SUMOReal) 2.0
             ? width
             : shape0.length()/(SUMOReal) 2.0;
@@ -1459,7 +1459,7 @@ NBEdge::getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width) const {
 Position2D
 NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width) const {
     const Position2DVector &shape0 = myLanes[0].shape;
-    const Position2DVector &shapel = myLanes[myLanes.size()-1].shape;
+    const Position2DVector &shapel = myLanes.back().shape;
     width = width < shape0.length()/(SUMOReal) 2.0
             ? width
             : shape0.length()/(SUMOReal) 2.0;
@@ -1555,7 +1555,7 @@ NBEdge::getCWBoundaryLine(const NBNode &n, SUMOReal offset) const {
         ret = myLanes[0].shape;
     } else {
         // incoming
-        ret = myLanes[myLanes.size()-1].shape.reverse();
+        ret = myLanes.back().shape.reverse();
     }
     ret.move2side(offset);
     return ret;
@@ -1567,7 +1567,7 @@ NBEdge::getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const {
     Position2DVector ret;
     if (myFrom==(&n)) {
         // outgoing
-        ret = myLanes[myLanes.size()-1].shape;
+        ret = myLanes.back().shape;
     } else {
         // incoming
         ret = myLanes[0].shape.reverse();

@@ -99,7 +99,7 @@ public:
             }
             prob -= myProbs[i];
         }
-        return myVals[myVals.size()-1];
+        return myVals.back();
     }
 
     /** @brief Return the sum of the probabilites assigned to the members.

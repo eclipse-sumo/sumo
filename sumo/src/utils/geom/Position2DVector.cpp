@@ -223,7 +223,7 @@ Position2DVector::positionAtLengthPosition(SUMOReal pos) const {
         }
         seenLength += nextLength;
     } while (++i!=myCont.end()-1);
-    return myCont[myCont.size()-1];
+    return myCont.back();
 //    return positionAtLengthPosition(*(myCont.end()-1),
 //        *(myCont.begin()), pos-seenLength);
 }
@@ -330,7 +330,7 @@ Position2DVector::getBegin() const {
 
 const Position2D &
 Position2DVector::getEnd() const {
-    return myCont[myCont.size()-1];
+    return myCont.back();
 }
 
 
@@ -531,7 +531,7 @@ Position2DVector
 Position2DVector::getSubpart(SUMOReal begin, SUMOReal end) const {
     Position2DVector ret;
     Position2D begPos = positionAtLengthPosition(begin);
-    Position2D endPos = myCont[myCont.size()-1];
+    Position2D endPos = myCont.back();
     if (length()>end) {
         endPos = positionAtLengthPosition(end);
     }
@@ -914,7 +914,7 @@ Position2DVector::getEndLine() const {
 
 void
 Position2DVector::closePolygon() {
-    if (myCont[0]==myCont[myCont.size()-1]) {
+    if (myCont[0]==myCont.back()) {
         return;
     }
     push_back(myCont[0]);
@@ -1021,7 +1021,7 @@ Position2DVector::replaceAt(size_t index, const Position2D &by) {
 
 bool
 Position2DVector::isClosed() const {
-    return myCont.size()>=2&&myCont[0]==myCont[myCont.size()-1];
+    return myCont.size()>=2&&myCont[0]==myCont.back();
 }
 
 

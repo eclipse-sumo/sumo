@@ -101,7 +101,7 @@ public:
      * @return The route's last edge
      */
     const ROEdge *getLast() const throw() {
-        return myRoute[myRoute.size()-1];
+        return myRoute.back();
     }
 
 

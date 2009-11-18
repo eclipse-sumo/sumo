@@ -379,7 +379,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
         desc.unlockValues();
         return;
     } else {
-        latest = values[values.size()-1];
+        latest = values.back();
         // init values
         SUMOReal xStep = (SUMOReal) 2.0 / (SUMOReal) values.size();
         std::vector<SUMOReal>::const_iterator i = values.begin();
