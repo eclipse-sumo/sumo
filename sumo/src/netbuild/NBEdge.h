@@ -107,7 +107,7 @@ public:
     enum Lane2LaneInfoType {
         /// @brief The connection was computed
         L2L_COMPUTED,
-        /// @brief The connection was given by the used
+        /// @brief The connection was given by the user
         L2L_USER,
         /// @brief The connection was computed and validated
         L2L_VALIDATED
