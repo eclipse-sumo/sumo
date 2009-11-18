@@ -45,6 +45,8 @@ class NBNode;
 class NBNodeCont;
 
 
+#define UNSET_CONNECTION 100000
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -140,11 +142,13 @@ protected:
      */
     struct OpenDriveLane {
         OpenDriveLane(int idArg, int levelArg, const std::string &typeArg)
-                : id(idArg), level(levelArg), type(typeArg) { }
+                : id(idArg), level(levelArg), type(typeArg), successor(UNSET_CONNECTION), predecessor(UNSET_CONNECTION) { }
 
         int id;
         int level;
         std::string type;
+        int successor;
+        int predecessor;
     };
 
 
@@ -171,6 +175,26 @@ protected:
             return laneNum;
         }
 
+        std::map<int, int> buildLaneMapping(SumoXMLTag dir) {
+            std::map<int, int> ret;
+            unsigned int sumoLane = 0;
+            const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
+            if(dir==SUMO_TAG_OPENDRIVE_RIGHT) {
+                for(std::vector<OpenDriveLane>::const_reverse_iterator i=dirLanes.rbegin(); i!=dirLanes.rend(); ++i) {
+                    if((*i).type=="driving") {
+                        ret[(*i).id] = sumoLane++;
+                    }
+                }
+            } else {
+                for(std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
+                    if((*i).type=="driving") {
+                        ret[(*i).id] = sumoLane++;
+                    }
+                }
+            }
+            return ret;
+        }
+
         SUMOReal s;
         std::map<SumoXMLTag, std::vector<OpenDriveLane> > lanesByDir;
     };
@@ -183,7 +207,7 @@ protected:
     struct OpenDriveEdge {
         OpenDriveEdge(const std::string &idArg, const std::string &junctionArg, SUMOReal lengthArg)
                 : id(idArg), junction(junctionArg), length(lengthArg),
-                from(0), to(0), fromEdge(0), toEdge(0) { }
+                from(0), to(0) { }
 
         unsigned int getMaxLaneNumber(SumoXMLTag dir) const throw() {
             unsigned int maxLaneNum = 0;
@@ -203,8 +227,8 @@ protected:
         std::vector<OpenDriveGeometry> geometries;
         NBNode *from;
         NBNode *to;
-        NBEdge *fromEdge;
-        NBEdge *toEdge;
+        std::map<int, int> beginLaneMap;
+        std::map<int, int> endLaneMap;
         Position2DVector geom;
         std::vector<OpenDriveLaneSection> laneSections;
     };
@@ -216,9 +240,7 @@ protected:
         NBEdge *from;
         NBEdge *to;
         std::string via;
-        int fromLane;
-        int toLane;
-        int viaLane;
+        std::vector<std::pair<int, int> > lanes;
     };
 
 protected:
@@ -322,17 +344,21 @@ protected:
     static void setNodeSecure(NBNodeCont &nc, OpenDriveEdge &e, 
         const std::string &nodeID, NIImporter_OpenDrive::LinkType lt) throw(ProcessError);
 
-    static void addE2EConnectionsSecure(const NBEdgeCont &ec, 
-        const std::string &fromID, const std::string &toID, 
+    static void addE2EConnectionsSecure(const NBEdgeCont &ec, const NBNode * const node,
+        const OpenDriveEdge &from, const OpenDriveEdge &to, 
         std::vector<NIImporter_OpenDrive::Connection> &connections);
     static void addViaConnectionSecure(const NBEdgeCont &ec, const NBNode * const node, const OpenDriveEdge &e, 
         LinkType lt, const std::string &via,
         std::vector<NIImporter_OpenDrive::Connection> &connections);
-    /*
-    static void addViaConnectionSecure2(const NBEdgeCont &ec, const NBNode * const node, const OpenDriveEdge &e, 
-        LinkType lt, const std::string &via,
-        std::vector<NIImporter_OpenDrive::Connection> &connections);
-        */
+
+    static void setLaneConnections(NIImporter_OpenDrive::Connection &c, 
+        const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
+        const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir);
+
+    static void setLaneConnections(NIImporter_OpenDrive::Connection &c, 
+        const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
+        const OpenDriveEdge &via, bool viaIsReversed, SumoXMLTag viaLaneDir,
+        const OpenDriveEdge &to, bool fromAtEnd, SumoXMLTag toLaneDir);
 
 
     class edge_by_id_finder {
