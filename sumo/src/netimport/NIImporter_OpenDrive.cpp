@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 #include <string>
+#include <cmath>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
@@ -893,8 +894,8 @@ NIImporter_OpenDrive::calculateClothoidProperties(SUMOReal *x, SUMOReal *y, SUMO
 	double omega_hdg;
 	double lengthS;
 	//Berechnung aus RAS-L (Richtlinien für die Anlage von Straßen Teil Linienführung)
-	xtmp = a *( l - powl(l, 5.0)/40.0 + powl(l, 9.0)/3456.0 - powl(l, 13.0)/599040.0 + powl(l, 17.0)/175472640.0);
-	ytmp = a * ( powl(l, 3.0)/6.0 - powl(l, 7.0)/366.0 + powl(l, 11.0)/42240.0 - powl(l, 15.0)/9767800.0);
+	xtmp = a *( l - pow(l, 5.0)/40.0 + pow(l, 9.0)/3456.0 - pow(l, 13.0)/599040.0 + pow(l, 17.0)/175472640.0);
+	ytmp = a * ( pow(l, 3.0)/6.0 - pow(l, 7.0)/366.0 + pow(l, 11.0)/42240.0 - pow(l, 15.0)/9767800.0);
 	// Falls Rechtskurve -> Spiegeln der Klothoide an der X achse (X bleibt / Y * (-1))
 	if(!direction)
 		ytmp *= (-1);
@@ -941,10 +942,10 @@ NIImporter_OpenDrive::calculateFirstClothoidPoint(SUMOReal* ad_X, SUMOReal* ad_Y
 	long double A = sqrt(ad_lengthE * 1/abs(ad_curvature)); 	
 	long double xE, yE;
 	long double rE = pow(A,2)/ad_lengthE;
-	long double lE = A / rE;
+	double lE = A / rE;
 	//Berechnung der Endpunkte der Normalen-Klothoide anhand von A
-	xE = A *( lE - powl(lE, 5.0)/40.0 + powl(lE, 9.0)/3456.0 - powl(lE, 13.0)/599040.0 + powl(lE, 17.0)/175472640.0);
-	yE = reflect* A * ( powl(lE, 3.0)/6.0 - powl(lE, 7.0)/366.0 + powl(lE, 11.0)/42240.0 - powl(lE, 15.0)/9767800.0);
+	xE = A *( lE - pow(lE, 5.0)/40.0 + pow(lE, 9.0)/3456.0 - pow(lE, 13.0)/599040.0 + pow(lE, 17.0)/175472640.0);
+	yE = reflect* A * ( pow(lE, 3.0)/6.0 - pow(lE, 7.0)/366.0 + pow(lE, 11.0)/42240.0 - pow(lE, 15.0)/9767800.0);
 	//Berechnung des Tangentenwinkels der Normalen-Klotoide
 	long double lok_hdg = pow(A, 2)/ (2 * pow(rE,2));
 	//Richtungswinkel des Startpunktes
