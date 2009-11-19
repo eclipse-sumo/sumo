@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    MSMeanData_Net.h
-/// @author  Daniel Krajzewicz
-/// @date    Mon, 10.05.2004
+/// @file    MSMeanData.h
+/// @author  Daniel Krajzewicz, Michael Behrisch
+/// @date    Tue, 17.11.2009
 /// @version $Id$
 ///
-// Network state mean data collector for edges/lanes
+// Data collector for edges/lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MSMeanData_Net_h
-#define MSMeanData_Net_h
+#ifndef MSMeanData_h
+#define MSMeanData_h
 
 
 // ===========================================================================
@@ -32,8 +32,9 @@
 #include <vector>
 #include <set>
 #include <cassert>
+#include <microsim/output/MSDetectorFileOutput.h>
+#include <microsim/MSMoveReminder.h>
 #include <limits>
-#include "MSMeandata.h"
 
 
 // ===========================================================================
@@ -43,64 +44,52 @@ class OutputDevice;
 class MSEdgeControl;
 class MSEdge;
 class MSLane;
-#ifdef HAVE_MESOSIM
-class MEVehicle;
-#endif
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSMeanData_Net
- * @brief Network state mean data collector for edges/lanes
+ * @class MSMeanData
+ * @brief Data collector for edges/lanes
  *
  * This structure does not contain the data itself, it is stored within
- *  MSLaneMeanDataValues-MoveReminder objects.
+ *  MeanDataValues-MoveReminder objects.
  * This class is used to build the output, optionally, in the case
  *  of edge-based dump, aggregated over the edge's lanes.
  *
- * @todo check where mean data is stored in mesosim.
  * @todo consider error-handling on write (using IOError)
  */
-class MSMeanData_Net : public MSMeanData {
+class MSMeanData : public MSDetectorFileOutput {
 public:
     /**
-     * @class MSLaneMeanDataValues
+     * @class MeanDataValues
      * @brief Data structure for mean (aggregated) edge/lane values
      *
-     * Structure holding values that describe the flow and other physical
-     *  properties aggregated over some seconds.
-     *
-     * @todo Check whether the haltings-information is used and how
+     * Structure holding values that describe the emissions aggregated
+     *  over some seconds.
      */
-    class MSLaneMeanDataValues : public MSMeanData::MeanDataValues {
+    class MeanDataValues : public MSMoveReminder {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal maxHaltingSpeed=POSITION_EPS,
-                             const std::set<std::string>* const vTypes=0) throw();
+        MeanDataValues(MSLane * const lane, const std::set<std::string>* const vTypes=0) throw();
 
         /** @brief Destructor */
-        virtual ~MSLaneMeanDataValues() throw();
+        virtual ~MeanDataValues() throw();
+
 
         /** @brief Resets values so they may be used for the next interval
          */
-        void reset() throw();
+        virtual void reset() throw() = 0;
 
         /** @brief Add the values to this meanData
          */
-        void add(MSMeanData::MeanDataValues& val) throw();
+        virtual void add(MeanDataValues& val) throw() = 0;
 
-        /// @name Methods inherited from MSMoveReminder
+        /// @name Methods inherited from MSMoveReminder.
         /// @{
 
         /** @brief Computes current values and adds them to their sums
-         *
-         * The fraction of time the vehicle is on the lane is computed and
-         *  used as a weight for the vehicle's current values.
-         *
-         * Additionally, if the vehicle has entered this lane, "nVehEnteredLane"
-         *  is incremented, and if the vehicle has left the lane, "nVehLeftLane".
          *
          * @param[in] veh The regarded vehicle
          * @param[in] oldPos Position before the move-micro-timestep.
@@ -110,77 +99,45 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::isStillActive
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
+        virtual bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
-        /** @brief Called if the vehicle leaves the reminder's lane
-         *
-         * @param veh The leaving vehicle.
-         * @see MSMoveReminder
-         * @see MSMoveReminder::notifyLeave
-         */
-        void notifyLeave(MSVehicle& veh, bool isArrival, bool isLaneChange) throw();
-
-
-        /** @brief Computes current values and adds them to their sums
-         *
-         * The fraction of time the vehicle is on the lane is computed and
-         *  used as a weight for the vehicle's current values.
-         *  The "emitted" field is incremented, additionally.
+        /** @brief Notifies the reminder about an entering vehicle.
          *
          * @param[in] veh The vehicle that enters the lane
          * @param[in] isEmit whether the vehicle was just emitted into the net
          * @param[in] isLaneChange whether the vehicle changed to the lane
-         * @see MSMoveReminder::notifyEnter
-         * @return Always true
+         * @return whether the vehicle should be regarded further
          */
-        bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
 
-        bool isEmpty() const throw();
+        /** @brief Returns whether any data was collected.
+         *
+         * @return whether no data was collected
+         */
+        virtual bool isEmpty() const throw();
 
 
-#ifdef HAVE_MESOSIM
-        void getLastReported(MEVehicle *v, SUMOReal &lastReportedTime, SUMOReal &lastReportedPos) throw();
-        void setLastReported(MEVehicle *v, SUMOReal lastReportedTime, SUMOReal lastReportedPos) throw();
-#endif
+        /** @brief Called if a per timestep update is needed. Default does nothing.
+         */
+        virtual void update() throw();
+
+
 
         /// @name Collected values
         /// @{
 
-        /// @brief The number of vehicles that were emitted on the lane
-        unsigned nVehDeparted;
-
-        /// @brief The number of vehicles that finished on the lane
-        unsigned nVehArrived;
-
-        /// @brief The number of vehicles that entered this lane within the sample intervall
-        unsigned nVehEntered;
-
-        /// @brief The number of vehicles that left this lane within the sample intervall
-        unsigned nVehLeft;
-
-        /// @brief The number of vehicles that changed from this lane
-        unsigned nVehLaneChangeFrom;
-
-        /// @brief The number of vehicles that changed to this lane
-        unsigned nVehLaneChangeTo;
-
-        /// @brief The number of vehicle probes with small speed
-        SUMOReal waitSeconds;
-
-        /// @brief The sum of the lengths the vehicles had
-        SUMOReal vehLengthSum;
+        /// @brief The number of sampled vehicle movements (in s)
+        SUMOReal sampleSeconds;
+        /// @brief The sum of the distances the vehicles travelled
+        SUMOReal travelledDistance;
         //@}
 
     private:
-        /// @brief The maximum speed at which a vehicle is considered halting
-        const SUMOReal myMaxHaltingSpeed;
-
-#ifdef HAVE_MESOSIM
-        std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
-#endif
+        /// @brief The vehicle types to look for (0 or empty means all)
+        const std::set<std::string>* const myVehicleTypes;
 
     };
 
@@ -193,27 +150,66 @@ public:
      * @param[in] dumpEnd End time of dump
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
-     * @param[in] maxTravelTime the maximum travel time to output
+     * @param[in] maxTravelTime the maximum travel time to use when calculating per vehicle output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
-     * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
      * @param[in] vTypes the set of vehicle types to consider
      */
-    MSMeanData_Net(const std::string &id,
-                   const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                   const bool useLanes, const bool withEmpty,
-                   const SUMOReal maxTravelTime, const SUMOReal minSamples,
-                   const SUMOReal haltSpeed, const std::set<std::string> vTypes) throw();
+    MSMeanData(const std::string &id,
+                     const SUMOTime dumpBegin, const SUMOTime dumpEnd,
+                     const bool useLanes, const bool withEmpty,
+                     const SUMOReal minSamples, const SUMOReal maxTravelTime,
+                     const std::set<std::string> vTypes) throw();
 
 
     /// @brief Destructor
-    virtual ~MSMeanData_Net() throw();
+    virtual ~MSMeanData() throw();
+
+    /** @brief Adds the value collectors to all relevant edges.
+     *
+     * @param[in] ec Control containing the edges to use
+     * @param[in] withInternal Information whether internal lanes/edges shall be written
+     */
+    void init(const MSEdgeControl &ec, const bool withInternal) throw();
+
+    /// @name Methods inherited from MSDetectorFileOutput.
+    /// @{
+
+    /** @brief Writes collected values into the given stream
+     *
+     * At first, it is checked whether the values for the current interval shall be written.
+     *  If not, a reset is performed, only, using "resetOnly". Otherwise,
+     *  both the list of single-lane edges and the list of multi-lane edges
+     *  are gone through and each edge is written using "writeEdge".
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     * @see MSDetectorFileOutput::writeXMLOutput
+     * @see write
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     */
+    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+
+    /** @brief Opens the XML-output using "netstats" as root element
+     *
+     * @param[in] dev The output device to write the root into
+     * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     */
+    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    /// @}
+
+    /** @brief Updates the detector
+     */
+    void update() throw();
+
 
 protected:
     /** @brief Create an instance of MeanDataValues
      *
      * @param[in] lane The lane to create for
      */
-    MSMeanData::MeanDataValues* createValues(MSLane * const lane) throw(IOError);
+    virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane) throw(IOError) = 0;
 
     /** @brief Writes edge values into the given stream
      *
@@ -229,9 +225,8 @@ protected:
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeEdge(OutputDevice &dev, const std::vector<MSMeanData::MeanDataValues*> &edgeValues,
+    virtual void writeEdge(OutputDevice &dev, const std::vector<MeanDataValues*> &edgeValues,
                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
-
 
     /** @brief Writes output values into the given stream
      *
@@ -244,9 +239,8 @@ protected:
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     virtual void writeValues(OutputDevice &dev, const std::string prefix,
-                             const MSMeanData::MeanDataValues &values, const SUMOReal period,
-                             const SUMOReal numLanes, const SUMOReal length) throw(IOError);
-
+                             const MeanDataValues &values, const SUMOReal period,
+                             const SUMOReal numLanes, const SUMOReal length) throw(IOError) = 0;
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
@@ -255,15 +249,42 @@ protected:
      */
     void resetOnly(SUMOTime stopTime) throw();
 
-private:
-    /// @brief the minimum sample seconds
-    const SUMOReal myHaltSpeed;
 
+protected:
+    /// @brief Whether empty lanes/edges shall be written
+    const bool myDumpEmpty;
+
+    /// @brief the minimum sample seconds
+    const SUMOReal myMinSamples;
+
+    /// @brief the maximum travel time to write
+    const SUMOReal myMaxTravelTime;
+
+    /// @brief The vehicle types to look for (empty means all)
+    const std::set<std::string> myVehicleTypes;
+
+private:
+    /// @brief The id of the detector
+    const std::string myID;
+
+    /// @brief Information whether the output shall be edge-based (not lane-based)
+    const bool myAmEdgeBased;
+
+    /// @brief The first and the last time step to write information (-1 indicates always)
+    const SUMOTime myDumpBegin, myDumpEnd;
+
+    /// @brief Value collectors; sorted by edge, then by lane
+    std::vector<std::vector<MeanDataValues*> > myMeasures;
+
+    /// @brief The corresponding first edges
+    std::vector<MSEdge*> myEdges;
+
+private:
     /// @brief Invalidated copy constructor.
-    MSMeanData_Net(const MSMeanData_Net&);
+    MSMeanData(const MSMeanData&);
 
     /// @brief Invalidated assignment operator.
-    MSMeanData_Net& operator=(const MSMeanData_Net&);
+    MSMeanData& operator=(const MSMeanData&);
 
 };
 

@@ -57,8 +57,7 @@
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
                                                              const std::set<std::string>* const vTypes) throw()
-        : MSMoveReminder(lane), sampleSeconds(0), travelledDistance(0), CO2(0), CO(0), HC(0),
-        NOx(0), PMx(0), fuel(0), myVehicleTypes(vTypes) {}
+        : MSMeanData::MeanDataValues(lane, vTypes), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
 
 
 MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -79,22 +78,22 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::reset() throw() {
 
 
 void
-MSMeanData_HBEFA::MSLaneMeanDataValues::add(MSMeanData_HBEFA::MSLaneMeanDataValues &val) throw() {
-    sampleSeconds += val.sampleSeconds;
-    travelledDistance += val.travelledDistance;
-    CO2 += val.CO2;
-    CO += val.CO;
-    HC += val.HC;
-    NOx += val.NOx;
-    PMx += val.PMx;
-    fuel += val.fuel;
+MSMeanData_HBEFA::MSLaneMeanDataValues::add(MSMeanData::MeanDataValues &val) throw() {
+    MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) val;
+    sampleSeconds += v.sampleSeconds;
+    travelledDistance += v.travelledDistance;
+    CO2 += v.CO2;
+    CO += v.CO;
+    HC += v.HC;
+    NOx += v.NOx;
+    PMx += v.PMx;
+    fuel += v.fuel;
 }
 
 
 bool
 MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (myVehicleTypes != 0 && !myVehicleTypes->empty() &&
-        myVehicleTypes->find(veh.getVehicleType().getID()) == myVehicleTypes->end()) {
+    if (!MSMeanData::MeanDataValues::isStillActive(veh, oldPos, newPos, newSpeed)) {
         return false;
     }
     bool ret = true;
@@ -130,140 +129,60 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 // ---------------------------------------------------------------------------
 // MSMeanData_HBEFA - methods
 // ---------------------------------------------------------------------------
-MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id, const MSEdgeControl &ec,
+MSMeanData_HBEFA::MSMeanData_HBEFA(const std::string &id,
                                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                                   const bool useLanes, const bool withEmpty, const bool withInternal,
+                                   const bool useLanes, const bool withEmpty,
                                    const SUMOReal maxTravelTime, const SUMOReal minSamples,
                                    const std::set<std::string> vTypes) throw()
-        : myID(id),
-        myAmEdgeBased(!useLanes), myDumpBegin(dumpBegin), myDumpEnd(dumpEnd),
-        myDumpEmpty(withEmpty), myMaxTravelTime(maxTravelTime), myMinSamples(minSamples), myVehicleTypes(vTypes) {
-    const std::vector<MSEdge*> &edges = ec.getEdges();
-    for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        if (withInternal || (*e)->getPurpose() != MSEdge::EDGEFUNCTION_INTERNAL) {
-            std::vector<MSLaneMeanDataValues*> v;
-            const std::vector<MSLane*> &lanes = (*e)->getLanes();
-            for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
-                v.push_back(new MSLaneMeanDataValues(*lane, &myVehicleTypes));
-            }
-            myMeasures.push_back(v);
-            myEdges.push_back(*e);
-        }
-    }
+        : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, maxTravelTime, minSamples, vTypes) {
 }
 
 
 MSMeanData_HBEFA::~MSMeanData_HBEFA() throw() {}
 
 
-void
-MSMeanData_HBEFA::resetOnly(SUMOTime stopTime) throw() {
-    for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i) {
-        for (std::vector<MSLaneMeanDataValues*>::const_iterator j=(*i).begin(); j!=(*i).end(); ++j) {
-            (*j)->reset();
-        }
-    }
-}
-
-
-void
-MSMeanData_HBEFA::writeEdge(OutputDevice &dev,
-                            const std::vector<MSLaneMeanDataValues*> &edgeValues,
-                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    std::vector<MSLaneMeanDataValues*>::const_iterator lane;
-    if (!myAmEdgeBased) {
-        bool writeCheck = myDumpEmpty;
-        if (!writeCheck) {
-            for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-                if ((*lane)->sampleSeconds>0) {
-                    writeCheck = true;
-                    break;
-                }
-            }
-        }
-        if (writeCheck) {
-            dev.openTag("edge")<<" id=\""<<edge->getID()<<"\">\n";
-            for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-                MSLaneMeanDataValues& meanData = **lane;
-                writeValues(dev, "<lane id=\""+meanData.getLane()->getID(),
-                            meanData, (SUMOReal)(stopTime - startTime), 1.f, meanData.getLane()->getLength());
-                meanData.reset();
-            }
-            dev.closeTag();
-        }
-    } else {
-        MSLaneMeanDataValues sumData(0);
-        for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
-            MSLaneMeanDataValues& meanData = **lane;
-            sumData.add(meanData);
-            meanData.reset();
-        }
-        writeValues(dev, "<edge id=\""+edge->getID(),
-                    sumData, (SUMOReal)(stopTime - startTime),
-                    (SUMOReal)edge->getLanes().size(), edge->getLanes()[0]->getLength());
-    }
+MSMeanData::MeanDataValues*
+MSMeanData_HBEFA::createValues(MSLane * const lane) throw(IOError) {
+    return new MSLaneMeanDataValues(lane, &myVehicleTypes);
 }
 
 
 void
 MSMeanData_HBEFA::writeValues(OutputDevice &dev, const std::string prefix,
-                            const MSLaneMeanDataValues &values, const SUMOReal period,
-                            const SUMOReal numLanes, const SUMOReal length) throw(IOError) {
-    if (myDumpEmpty||values.sampleSeconds>0) {
+                              const MSMeanData::MeanDataValues &values, const SUMOReal period,
+                              const SUMOReal numLanes, const SUMOReal length) throw(IOError) {
+    if (myDumpEmpty||!values.isEmpty()) {
+        MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) values;
         dev<<std::resetiosflags(std::ios::floatfield);
         const SUMOReal normFactor = SUMOReal(3600. * 1000. / period / length);
-        dev.indent() << prefix << "\" sampledSeconds=\"" << values.sampleSeconds <<
-        "\" CO_abs=\""<<SUMOReal(values.CO*1000.) <<
-        "\" CO2_abs=\""<<SUMOReal(values.CO2*1000.) <<
-        "\" HC_abs=\""<<SUMOReal(values.HC*1000.) <<
-        "\" PMx_abs=\""<<SUMOReal(values.PMx*1000.) <<
-        "\" NOx_abs=\""<<SUMOReal(values.NOx*1000.) <<
-        "\" fuel_abs=\""<<SUMOReal(values.fuel*1000.) <<
-        "\"\n            CO_normed=\""<<normFactor * values.CO <<
-        "\" CO2_normed=\""<<normFactor * values.CO2<<
-        "\" HC_normed=\""<<normFactor * values.HC <<
-        "\" PMx_normed=\""<<normFactor * values.PMx <<
-        "\" NOx_normed=\""<<normFactor * values.NOx <<
-        "\" fuel_normed=\""<<normFactor * values.fuel;
-        if (values.sampleSeconds > myMinSamples) {
-            SUMOReal vehFactor = myMaxTravelTime / values.sampleSeconds;
-            if (values.travelledDistance > 0.f) {
-                vehFactor = MIN2(vehFactor, length / values.travelledDistance);
+        dev.indent() << prefix << "\" sampledSeconds=\"" << v.sampleSeconds <<
+        "\" CO_abs=\""<<SUMOReal(v.CO*1000.) <<
+        "\" CO2_abs=\""<<SUMOReal(v.CO2*1000.) <<
+        "\" HC_abs=\""<<SUMOReal(v.HC*1000.) <<
+        "\" PMx_abs=\""<<SUMOReal(v.PMx*1000.) <<
+        "\" NOx_abs=\""<<SUMOReal(v.NOx*1000.) <<
+        "\" fuel_abs=\""<<SUMOReal(v.fuel*1000.) <<
+        "\"\n            CO_normed=\""<<normFactor * v.CO <<
+        "\" CO2_normed=\""<<normFactor * v.CO2<<
+        "\" HC_normed=\""<<normFactor * v.HC <<
+        "\" PMx_normed=\""<<normFactor * v.PMx <<
+        "\" NOx_normed=\""<<normFactor * v.NOx <<
+        "\" fuel_normed=\""<<normFactor * v.fuel;
+        if (v.sampleSeconds > myMinSamples) {
+            SUMOReal vehFactor = myMaxTravelTime / v.sampleSeconds;
+            if (v.travelledDistance > 0.f) {
+                vehFactor = MIN2(vehFactor, length / v.travelledDistance);
             }
-            dev<<"\"\n            CO_perVeh=\""<<values.CO*vehFactor<<
-            "\" CO2_perVeh=\""<<values.CO2*vehFactor<<
-            "\" HC_perVeh=\""<<values.HC*vehFactor<<
-            "\" PMx_perVeh=\""<<values.PMx*vehFactor<<
-            "\" NOx_perVeh=\""<<values.NOx*vehFactor<<
-            "\" fuel_perVeh=\""<<values.fuel*vehFactor;
+            dev<<"\"\n            CO_perVeh=\""<<v.CO*vehFactor<<
+            "\" CO2_perVeh=\""<<v.CO2*vehFactor<<
+            "\" HC_perVeh=\""<<v.HC*vehFactor<<
+            "\" PMx_perVeh=\""<<v.PMx*vehFactor<<
+            "\" NOx_perVeh=\""<<v.NOx*vehFactor<<
+            "\" fuel_perVeh=\""<<v.fuel*vehFactor;
         }
         dev<<"\"/>\n";
         dev<<std::setiosflags(std::ios::fixed); // use decimal format
     }
-}
-
-
-void
-MSMeanData_HBEFA::writeXMLOutput(OutputDevice &dev,
-                                 SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
-    // check whether this dump shall be written for the current time
-    if (myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime) {
-        dev.openTag("interval")<<" begin=\""<<startTime<<"\" end=\""<<
-        stopTime<<"\" "<<"id=\""<<myID<<"\">\n";
-        std::vector<MSEdge*>::iterator edge = myEdges.begin();
-        for (std::vector<std::vector<MSLaneMeanDataValues*> >::const_iterator i=myMeasures.begin(); i!=myMeasures.end(); ++i, ++edge) {
-            writeEdge(dev, (*i), *edge, startTime, stopTime);
-        }
-        dev.closeTag();
-    } else {
-        resetOnly(stopTime);
-    }
-}
-
-
-void
-MSMeanData_HBEFA::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) {
-    dev.writeXMLHeader("netstats");
 }
 
 

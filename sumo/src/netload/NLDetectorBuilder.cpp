@@ -580,20 +580,19 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
     while (st.hasNext()) {
         vt.insert(st.next());
     }
-    MSDetectorFileOutput *det = 0;
+    MSMeanData *det = 0;
     if (type==""||type=="performance"||type=="traffic") {
-        det = new MSMeanData_Net(id, MSNet::getInstance()->getEdgeControl(),
-                                 begin, end, useLanes, withEmpty, withInternal,
+        det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
                                  maxTravelTime, minSamples, haltSpeed, vt);
     } else if (type=="hbefa") {
-        det = new MSMeanData_HBEFA(id, MSNet::getInstance()->getEdgeControl(),
-                                   begin, end, useLanes, withEmpty, withInternal,
+        det = new MSMeanData_HBEFA(id, begin, end, useLanes, withEmpty,
                                    maxTravelTime, minSamples, vt);
     } else if (type=="harmonoise") {
-        det = new MSMeanData_Harmonoise(id, MSNet::getInstance()->getEdgeControl(),
-                                        begin, end, useLanes, withEmpty, withEmpty);
+        det = new MSMeanData_Harmonoise(id, begin, end, useLanes, withEmpty,
+                                        maxTravelTime, minSamples, vt);
     }
     if (det!=0) {
+        det->init(MSNet::getInstance()->getEdgeControl(), withInternal);
         if (frequency < 0) {
             frequency = end - begin;
         }
