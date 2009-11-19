@@ -97,9 +97,12 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
     if (netWasLoaded) {
         // this one has not yet its links set
         if (defaultTL==0) {
-            throw ProcessError("No initial signal plan loaded.");
+            throw ProcessError("No initial signal plan loaded for tls '" + logic->getID() + "'.");
         }
         logic->adaptLinkInformationFrom(*defaultTL);
+        if(logic->getLinks().size()!=logic->getPhase(0).getState().size()) {
+            throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "'.");
+        }
     }
     // add to the list of active
     if (ltVariants.size()==0||isNewDefault) {
@@ -644,11 +647,7 @@ MSTLLogicControl::add(const std::string &id, const std::string &subID,
     }
     std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.find(id);
     TLSLogicVariants *tlmap = (*i).second;
-    try {
-        return tlmap->addLogic(subID, logic, myNetWasLoaded, newDefault);
-    } catch (ProcessError &) {
-        throw ProcessError("No initial signal plan loaded for tls '" + id + "'.");
-    }
+    return tlmap->addLogic(subID, logic, myNetWasLoaded, newDefault);
 }
 
 
