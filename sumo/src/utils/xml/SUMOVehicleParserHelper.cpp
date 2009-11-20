@@ -301,7 +301,7 @@ SUMOVehicleParserHelper::parseVTypeEmbedded(SUMOVTypeParameter &into,
         parseVTypeEmbedded_IDM(into, attrs);
         break;
     }
-    if(!fromVType) {
+    if (!fromVType) {
         into.cfModel = element;
     }
 }

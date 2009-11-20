@@ -65,7 +65,7 @@
 // ---------------------------------------------------------------------------
 void
 ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string &id,
-            SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
+        SUMOReal val, SUMOTime beg, SUMOTime end) const throw() {
     ROEdge *e = myNet.getEdge(id);
     if (e!=0) {
         e->addTravelTime(val, beg, end);

@@ -54,7 +54,7 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, SUMOReal dawdle,
 MSCFModel_IDM::~MSCFModel_IDM() throw() {}
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::move(MSVehicle * const veh, const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) const throw() {
     SUMOReal nSpeed = ffeV(veh, pred);
     nSpeed = moveHelper(veh, lane, nSpeed);
@@ -62,7 +62,7 @@ MSCFModel_IDM::move(MSVehicle * const veh, const MSLane * const lane, const MSVe
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
     SUMOReal nSpeed = vPos;
     nSpeed =
@@ -75,9 +75,8 @@ MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMO
 }
 
 
-void 
-MSCFModel_IDM::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw()
-{
+void
+MSCFModel_IDM::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * const neigh, SUMOReal &vSafe) const throw() {
     if (neigh!=0&&neigh->getSpeed()>60./3.6) {
         SUMOReal mgap = MAX2((SUMOReal) 0, neigh->getPositionOnLane()-neigh->getVehicleType().getLength()-ego->getPositionOnLane());
         SUMOReal nVSafe = ffeV(ego, mgap, neigh->getSpeed());
@@ -88,53 +87,53 @@ MSCFModel_IDM::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle * c
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     return _updateSpeed(gap2pred, speed, predSpeed, desiredSpeed(veh));
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
     return _updateSpeed(gap2pred, veh->getSpeed(), predSpeed, desiredSpeed(veh));
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::ffeV(const MSVehicle * const veh, const MSVehicle * const pred) const throw() {
     return _updateSpeed(veh->gap2pred(*pred), veh->getSpeed(), pred->getSpeed(), desiredSpeed(veh));
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
     SUMOReal desSpeed = desiredSpeed(veh);
     return _updateSpeed(gap2pred, veh->getSpeed(), desSpeed, desSpeed);
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::maxNextSpeed(SUMOReal speed) const throw() {
     return MIN2(speed + (SUMOReal) ACCEL2SPEED(myType->getMaxAccel(speed)), myType->getMaxSpeed());
 }
 
 
 /// @todo update logic to IDM
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::brakeGap(SUMOReal speed) const throw() {
     return speed * speed * myInverseTwoDecel;
 }
 
 
 /// @todo update logic to IDM
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::approachingBrakeGap(SUMOReal speed) const throw() {
     return speed * speed * myInverseTwoDecel;
 }
 
 
 /// @todo update logic to IDM
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const throw() {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
@@ -151,9 +150,9 @@ MSCFModel_IDM::interactionGap(const MSVehicle * const veh, SUMOReal vL) const th
 
 
 /// @todo update logic to IDM
-bool 
+bool
 MSCFModel_IDM::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const throw() {
-    if(gap<0) {
+    if (gap<0) {
         return false;
     }
     SUMOReal vSafe = _updateSpeed(speed, gap, predSpeed, laneMaxSpeed);
@@ -164,7 +163,7 @@ MSCFModel_IDM::hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMO
 }
 
 // ???
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::safeEmitGap(SUMOReal speed) const throw() {
     SUMOReal vNextMin = myType->getSpeedAfterMaxDecel(speed); // ok, minimum next speed
     SUMOReal safeGap  = vNextMin * (speed * myInverseTwoDecel);
@@ -178,7 +177,7 @@ SUMOReal MSCFModel_IDM::decelAbility() const throw() {
 
 
 /**  */
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSpeed, SUMOReal desSpeed) const throw() {
     SUMOReal a = myType->getMaxAccel();
     SUMOReal b = myType->getMaxDecel();
@@ -191,7 +190,7 @@ MSCFModel_IDM::_updateSpeed(SUMOReal gap2pred, SUMOReal mySpeed, SUMOReal predSp
 }
 
 
-SUMOReal 
+SUMOReal
 MSCFModel_IDM::desiredSpeed(const MSVehicle * const veh) const throw() {
     return MIN2(myType->getMaxSpeed(), veh->getLane().getMaxSpeed());
 }

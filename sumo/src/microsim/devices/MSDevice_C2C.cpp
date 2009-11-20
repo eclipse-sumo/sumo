@@ -80,16 +80,15 @@ std::map<const MSVehicle*, MSDevice_C2C*> MSDevice_C2C::myVehiclesToDevicesMap;
 // ---------------------------------------------------------------------------
 // MSDevice_C2C::EdgeWeightsProxi - methods
 // ---------------------------------------------------------------------------
-SUMOReal 
-MSDevice_C2C::EdgeWeightsProxi::getTravelTime(const MSEdge * const e, 
-                                              const SUMOVehicle * const v, 
-                                              SUMOTime t) const
-{
-    if(myVehicleKnowledge.find(e)!=myVehicleKnowledge.end()) {
+SUMOReal
+MSDevice_C2C::EdgeWeightsProxi::getTravelTime(const MSEdge * const e,
+        const SUMOVehicle * const v,
+        SUMOTime t) const {
+    if (myVehicleKnowledge.find(e)!=myVehicleKnowledge.end()) {
         return myVehicleKnowledge.find(e)->second->neededTime;
     }
     SUMOReal value;
-    if(myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
+    if (myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
         return value;
     }
     const MSLane * const l = e->getLanes()[0];
@@ -559,7 +558,7 @@ MSDevice_C2C::leaveLaneAtMove(SUMOReal) {
     // check whether the vehicle needed longer than expected
     const MSEdge * const e = getHolder().getEdge();
     SUMOReal assumed;
-    if(!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, &getHolder(), MSNet::getInstance()->getCurrentTimeStep(), assumed)) {
+    if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, &getHolder(), MSNet::getInstance()->getCurrentTimeStep(), assumed)) {
         MSLane *l = e->getLanes()[0];
         assumed = l->getLength() / l->getMaxSpeed();
     }
@@ -954,7 +953,7 @@ MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOT
     InfoCont::iterator i = device->infoCont.find(e);
     if (i==device->infoCont.end()) {
         SUMOReal value;
-        if(MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, t, value)) {
+        if (MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, t, value)) {
             return value;
         }
         const MSLane * const l = e->getLanes()[0];

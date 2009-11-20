@@ -340,7 +340,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
         //
         do {
             line = getNextNonCommentLine(lr);
-            if(line.length()==0) {
+            if (line.length()==0) {
                 continue;
             }
             try {
@@ -351,7 +351,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
                     if (vehNumber!=0) {
                         into.add(vehNumber, begin, end, *si, *di, vehType);
                     }
-                    if(di==names.end()) {
+                    if (di==names.end()) {
                         throw ProcessError("More entries than districts found.");
                     }
                     ++di;
@@ -393,7 +393,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
     // parse the cells
     while (lr.hasMore()) {
         line = getNextNonCommentLine(lr);
-        if(line.length()==0) {
+        if (line.length()==0) {
             continue;
         }
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);

@@ -82,7 +82,7 @@ public:
     public:
         /// Constructor
         EdgeInfo(size_t id)
-            : edge(E::dictionary(id)), traveltime(0), prev(0), visited(false) {}
+                : edge(E::dictionary(id)), traveltime(0), prev(0), visited(false) {}
 
         /// The current edge
         const E *edge;

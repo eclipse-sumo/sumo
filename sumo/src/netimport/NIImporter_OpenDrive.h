@@ -138,7 +138,7 @@ protected:
 
     /**
      * @struct OpenDriveLane
-     * @brief Representation of a lane 
+     * @brief Representation of a lane
      */
     struct OpenDriveLane {
         OpenDriveLane(int idArg, int levelArg, const std::string &typeArg)
@@ -158,7 +158,7 @@ protected:
      */
     struct OpenDriveLaneSection {
         OpenDriveLaneSection(SUMOReal sArg)
-                : s(sArg) { 
+                : s(sArg) {
             lanesByDir[SUMO_TAG_OPENDRIVE_LEFT] = std::vector<OpenDriveLane>();
             lanesByDir[SUMO_TAG_OPENDRIVE_RIGHT] = std::vector<OpenDriveLane>();
             lanesByDir[SUMO_TAG_OPENDRIVE_CENTER] = std::vector<OpenDriveLane>();
@@ -167,8 +167,8 @@ protected:
         unsigned int getLaneNumber(SumoXMLTag dir) const throw() {
             unsigned int laneNum = 0;
             const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
-            for(std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
-                if((*i).type=="driving") {
+            for (std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
+                if ((*i).type=="driving") {
                     ++laneNum;
                 }
             }
@@ -179,15 +179,15 @@ protected:
             std::map<int, int> ret;
             unsigned int sumoLane = 0;
             const std::vector<OpenDriveLane> &dirLanes = lanesByDir.find(dir)->second;
-            if(dir==SUMO_TAG_OPENDRIVE_RIGHT) {
-                for(std::vector<OpenDriveLane>::const_reverse_iterator i=dirLanes.rbegin(); i!=dirLanes.rend(); ++i) {
-                    if((*i).type=="driving") {
+            if (dir==SUMO_TAG_OPENDRIVE_RIGHT) {
+                for (std::vector<OpenDriveLane>::const_reverse_iterator i=dirLanes.rbegin(); i!=dirLanes.rend(); ++i) {
+                    if ((*i).type=="driving") {
                         ret[(*i).id] = sumoLane++;
                     }
                 }
             } else {
-                for(std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
-                    if((*i).type=="driving") {
+                for (std::vector<OpenDriveLane>::const_iterator i=dirLanes.begin(); i!=dirLanes.end(); ++i) {
+                    if ((*i).type=="driving") {
                         ret[(*i).id] = sumoLane++;
                     }
                 }
@@ -211,7 +211,7 @@ protected:
 
         unsigned int getMaxLaneNumber(SumoXMLTag dir) const throw() {
             unsigned int maxLaneNum = 0;
-            for(std::vector<OpenDriveLaneSection>::const_iterator i=laneSections.begin(); i!=laneSections.end(); ++i) {
+            for (std::vector<OpenDriveLaneSection>::const_iterator i=laneSections.begin(); i!=laneSections.end(); ++i) {
                 maxLaneNum = MAX2(maxLaneNum, (*i).getLaneNumber(dir));
             }
             return maxLaneNum;
@@ -235,8 +235,8 @@ protected:
 
 
     struct Connection {
-        Connection(NBEdge *fromArg, const std::string &viaArg, NBEdge *toArg) 
-            : from(fromArg), via(viaArg), to(toArg) { }
+        Connection(NBEdge *fromArg, const std::string &viaArg, NBEdge *toArg)
+                : from(fromArg), via(viaArg), to(toArg) { }
         NBEdge *from;
         NBEdge *to;
         std::string via;
@@ -312,8 +312,8 @@ protected:
     /** @brief Builds a node or returns the already built
      *
      * If the node is already known, it is returned. Otherwise, the
-     *  node is built. If the newly built node can not be added to 
-     *  the container, a ProcessError is thrown. 
+     *  node is built. If the newly built node can not be added to
+     *  the container, a ProcessError is thrown.
      *  Otherwise this node is returned.
      *
      * @param[in] id The id of the node to build/get
@@ -333,32 +333,32 @@ protected:
     static void calculateClothoidProperties(SUMOReal *x, SUMOReal *y, SUMOReal *hdg, SUMOReal curve, SUMOReal length, SUMOReal dist, bool direction) throw();
     static void calculateFirstClothoidPoint(SUMOReal* ad_X, SUMOReal* ad_Y, SUMOReal* ad_hdg, SUMOReal ad_curvature, SUMOReal ad_lengthE) throw();
     static void calculateCurveCenter(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_radius, SUMOReal ad_hdg) throw();
-    static void calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY, 
-						   SUMOReal ad_r, SUMOReal ad_length) throw();
-    static NBEdge *getOutgoingDirectionalEdge(const NBEdgeCont &ec, const NBNodeCont &nc, 
-        const std::string &edgeID, const std::string &nodeID) throw();
-    static NBEdge *getIncomingDirectionalEdge(const NBEdgeCont &ec,const NBNodeCont &nc, 
-        const std::string &edgeID, const std::string &nodeID) throw();
+    static void calcPointOnCurve(SUMOReal *ad_x, SUMOReal *ad_y, SUMOReal ad_centerX, SUMOReal ad_centerY,
+                                 SUMOReal ad_r, SUMOReal ad_length) throw();
+    static NBEdge *getOutgoingDirectionalEdge(const NBEdgeCont &ec, const NBNodeCont &nc,
+            const std::string &edgeID, const std::string &nodeID) throw();
+    static NBEdge *getIncomingDirectionalEdge(const NBEdgeCont &ec,const NBNodeCont &nc,
+            const std::string &edgeID, const std::string &nodeID) throw();
 
     static void computeShapes(std::vector<OpenDriveEdge> &edges) throw();
-    static void setNodeSecure(NBNodeCont &nc, OpenDriveEdge &e, 
-        const std::string &nodeID, NIImporter_OpenDrive::LinkType lt) throw(ProcessError);
+    static void setNodeSecure(NBNodeCont &nc, OpenDriveEdge &e,
+                              const std::string &nodeID, NIImporter_OpenDrive::LinkType lt) throw(ProcessError);
 
     static void addE2EConnectionsSecure(const NBEdgeCont &ec, const NBNode * const node,
-        const OpenDriveEdge &from, const OpenDriveEdge &to, 
-        std::vector<NIImporter_OpenDrive::Connection> &connections);
-    static void addViaConnectionSecure(const NBEdgeCont &ec, const NBNode * const node, const OpenDriveEdge &e, 
-        LinkType lt, const std::string &via,
-        std::vector<NIImporter_OpenDrive::Connection> &connections);
+                                        const OpenDriveEdge &from, const OpenDriveEdge &to,
+                                        std::vector<NIImporter_OpenDrive::Connection> &connections);
+    static void addViaConnectionSecure(const NBEdgeCont &ec, const NBNode * const node, const OpenDriveEdge &e,
+                                       LinkType lt, const std::string &via,
+                                       std::vector<NIImporter_OpenDrive::Connection> &connections);
 
-    static void setLaneConnections(NIImporter_OpenDrive::Connection &c, 
-        const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
-        const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir);
+    static void setLaneConnections(NIImporter_OpenDrive::Connection &c,
+                                   const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
+                                   const OpenDriveEdge &to, bool toAtEnd, SumoXMLTag toLaneDir);
 
-    static void setLaneConnections(NIImporter_OpenDrive::Connection &c, 
-        const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
-        const OpenDriveEdge &via, bool viaIsReversed, SumoXMLTag viaLaneDir,
-        const OpenDriveEdge &to, bool fromAtEnd, SumoXMLTag toLaneDir);
+    static void setLaneConnections(NIImporter_OpenDrive::Connection &c,
+                                   const OpenDriveEdge &from, bool fromAtBegin, SumoXMLTag fromLaneDir,
+                                   const OpenDriveEdge &via, bool viaIsReversed, SumoXMLTag viaLaneDir,
+                                   const OpenDriveEdge &to, bool fromAtEnd, SumoXMLTag toLaneDir);
 
 
     class edge_by_id_finder {

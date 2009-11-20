@@ -289,8 +289,8 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             if (leader!=0) {
                 SUMOReal gap = seen+leader->getPositionOnLane()-leader->getVehicleType().getLength();
                 SUMOReal nspeed = gap>=0
-                    ? aVehicle->getCarFollowModel().ffeV(aVehicle, speed, gap, leader->getSpeed())
-                    : 0;
+                                  ? aVehicle->getCarFollowModel().ffeV(aVehicle, speed, gap, leader->getSpeed())
+                                  : 0;
                 if (nspeed<speed) {
                     if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
@@ -403,7 +403,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     }
 
     // may got negative while adaptation
-    if(speed<0) {
+    if (speed<0) {
         return false;
     }
     // enter
@@ -684,7 +684,7 @@ MSLane::clear() {
 }
 
 
-void 
+void
 MSLane::insertIDs(std::vector<std::string> &into) throw() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         into.push_back((*i).first);

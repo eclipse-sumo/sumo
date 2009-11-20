@@ -88,9 +88,8 @@ ShapeContainer::add(int layer, PointOfInterest *p) throw() {
 }
 
 
-bool 
-ShapeContainer::removePolygon(int layer, const std::string &id) throw()
-{
+bool
+ShapeContainer::removePolygon(int layer, const std::string &id) throw() {
     if (myPolygonLayers.find(layer)==myPolygonLayers.end()) {
         return false;
     }
@@ -98,9 +97,8 @@ ShapeContainer::removePolygon(int layer, const std::string &id) throw()
 }
 
 
-bool 
-ShapeContainer::removePOI(int layer, const std::string &id) throw()
-{
+bool
+ShapeContainer::removePOI(int layer, const std::string &id) throw() {
     if (myPOILayers.find(layer)==myPOILayers.end()) {
         return false;
     }

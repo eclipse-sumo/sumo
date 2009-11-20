@@ -60,7 +60,7 @@ public:
     bool setColor(const std::string& name, const RGBColor& color) {
         std::vector<std::string>::iterator nameIt = myNames.begin();
         std::vector<RGBColor>::iterator colIt = myColors.begin();
-        for (;nameIt != myNames.end(); ++nameIt, ++colIt) {
+        for (; nameIt != myNames.end(); ++nameIt, ++colIt) {
             if (*nameIt == name) {
                 (*colIt) = color;
                 return true;

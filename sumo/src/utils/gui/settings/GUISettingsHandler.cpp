@@ -48,7 +48,7 @@
 // method definitions
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string &content, bool isFile) throw()
-: SUMOSAXHandler(content), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
+        : SUMOSAXHandler(content), myZoom(-1), myXPos(-1), myYPos(-1), myCurrentColorer(SUMO_TAG_NOTHING), myCurrentScheme(0) {
     if (isFile) {
         XMLSubSys::runParser(*this, content);
     } else {

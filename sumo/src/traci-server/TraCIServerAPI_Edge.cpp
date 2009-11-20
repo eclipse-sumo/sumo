@@ -62,8 +62,8 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT&&variable!=VAR_CURRENT_TRAVELTIME
-        &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED
-        &&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+            &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED
+            &&variable!=LAST_STEP_VEHICLE_ID_LIST) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -87,56 +87,56 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
         }
         switch (variable) {
         case VAR_EDGE_TRAVELTIME: {
-                // time
-                if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-                    TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
-                    return false;
-                }
-                SUMOTime time = inputStorage.readInt();
-                tempMsg.writeUnsignedByte(TYPE_FLOAT);
-                SUMOReal value;
-                if(!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, 0, time, value)) {
-                    tempMsg.writeFloat(-1);
-                } else {
-                    tempMsg.writeFloat(value);
-                }
+            // time
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
+                return false;
             }
-            break;
+            SUMOTime time = inputStorage.readInt();
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            SUMOReal value;
+            if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, 0, time, value)) {
+                tempMsg.writeFloat(-1);
+            } else {
+                tempMsg.writeFloat(value);
+            }
+        }
+        break;
         case VAR_EDGE_EFFORT: {
-                // time
-                if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
-                    TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
-                    return false;
-                }
-                SUMOTime time = inputStorage.readInt();
-                tempMsg.writeUnsignedByte(TYPE_FLOAT);
-                SUMOReal value;
-                if(!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, time, value)) {
-                    tempMsg.writeFloat(-1);
-                } else {
-                    tempMsg.writeFloat(value);
-                }
+            // time
+            if (inputStorage.readUnsignedByte()!=TYPE_INTEGER) {
+                TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "The message must contain the time definition.", outputStorage);
+                return false;
             }
-            break;
+            SUMOTime time = inputStorage.readInt();
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            SUMOReal value;
+            if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, time, value)) {
+                tempMsg.writeFloat(-1);
+            } else {
+                tempMsg.writeFloat(value);
+            }
+        }
+        break;
         case VAR_CURRENT_TRAVELTIME: {
-                tempMsg.writeUnsignedByte(TYPE_FLOAT);
-                tempMsg.writeFloat(e->getCurrentTravelTime());
-            }
-            break;
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(e->getCurrentTravelTime());
+        }
+        break;
         case LAST_STEP_VEHICLE_ID_LIST: {
-                std::vector<std::string> vehIDs;
-                const std::vector<MSLane*> &lanes = e->getLanes();
-                for(std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-                    const std::deque<MSVehicle*> &vehs = (*i)->getVehiclesSecure();
-                    for(std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-                        vehIDs.push_back((*j)->getID());
-                    }
-                    (*i)->releaseVehicles();
+            std::vector<std::string> vehIDs;
+            const std::vector<MSLane*> &lanes = e->getLanes();
+            for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+                const std::deque<MSVehicle*> &vehs = (*i)->getVehiclesSecure();
+                for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+                    vehIDs.push_back((*j)->getID());
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(vehIDs);
+                (*i)->releaseVehicles();
             }
-            break;
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(vehIDs);
+        }
+        break;
         default:
             break;
         }
@@ -178,12 +178,12 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
         std::vector<SUMOVehicleClass> allowed;
         parseVehicleClasses(inputStorage.readStringList(), allowed);
         const std::vector<MSLane*> &lanes = e->getLanes();
-        for(std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
             (*i)->setAllowedClasses(allowed);
         }
         e->rebuildAllowedLanes();
-        }
-        break;
+    }
+    break;
     case LANE_DISALLOWED: {
         // time
         if (inputStorage.readUnsignedByte()!=TYPE_STRINGLIST) {
@@ -193,12 +193,12 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
         std::vector<SUMOVehicleClass> disallowed;
         parseVehicleClasses(inputStorage.readStringList(), disallowed);
         const std::vector<MSLane*> &lanes = e->getLanes();
-        for(std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
             (*i)->setNotAllowedClasses(disallowed);
         }
         e->rebuildAllowedLanes();
-        }
-        break;
+    }
+    break;
     case VAR_EDGE_TRAVELTIME: {
         if (valueDataType!=TYPE_COMPOUND) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting travel time requires a compund object.", outputStorage);
@@ -228,8 +228,8 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
         SUMOReal value = inputStorage.readFloat();
         // set
         MSNet::getInstance()->getWeightsStorage().addTravelTime(e, begTime, endTime, value);
-        }
-        break;
+    }
+    break;
     case VAR_EDGE_EFFORT: {
         if (valueDataType!=TYPE_COMPOUND) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compund object.", outputStorage);
@@ -259,8 +259,8 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
         SUMOReal value = inputStorage.readFloat();
         // set
         MSNet::getInstance()->getWeightsStorage().addEffort(e, begTime, endTime, value);
-        }
-        break;
+    }
+    break;
     case VAR_MAXSPEED: {
         // speed
         if (valueDataType!=TYPE_FLOAT) {
@@ -269,13 +269,13 @@ TraCIServerAPI_Edge::processSet(tcpip::Storage &inputStorage,
         }
         SUMOReal val = inputStorage.readFloat();
         const std::vector<MSLane*> &lanes = e->getLanes();
-        for(std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
             (*i)->setMaxSpeed(val);
         }
-        }
-        break;
-    default:
+    }
     break;
+    default:
+        break;
     }
     TraCIServerAPIHelper::writeStatusCmd(CMD_SET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;

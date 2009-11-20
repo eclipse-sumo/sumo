@@ -56,7 +56,7 @@ class MSJunction;
  *  abstract junction and to be used as a gl-object.
  *
  * In the case the represented junction's shape is empty, the boundary
- *  is computed using the junction's position to which an offset of 1m to each 
+ *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
 class GUIJunctionWrapper : public GUIGlObject, public HaveBoundary {
@@ -85,7 +85,7 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent) throw();
+                                       GUISUMOAbstractView &parent) throw();
 
 
     /** @brief Returns an own parameter window

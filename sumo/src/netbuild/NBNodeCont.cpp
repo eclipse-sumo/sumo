@@ -556,7 +556,7 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
 void
 NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc) {
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
-	int edgeCounter = 0;
+    int edgeCounter = 0;
     const std::vector<std::string> &edgeNames = ec.getAllNames();
     for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it != edgeNames.end(); ++it) {
         // Test whether this node starts at a dead end, i.e. it has only one adjacent node
@@ -616,36 +616,36 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLig
             }
         } while (!hasJunction && eOld != e);
         if (!hasJunction) {
-			edgeCounter += road.size();
-				std::string warningString =
-						"Removed a road without junctions: ";
-				for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt
-						!= road.end(); ++roadIt) {
-					if (roadIt == road.begin()) {
-						warningString += (*roadIt)->getID();
-					} else {
-						warningString += ", " + (*roadIt)->getID();
-					}
+            edgeCounter += road.size();
+            std::string warningString =
+                "Removed a road without junctions: ";
+            for (std::vector<NBEdge*>::iterator roadIt = road.begin(); roadIt
+                    != road.end(); ++roadIt) {
+                if (roadIt == road.begin()) {
+                    warningString += (*roadIt)->getID();
+                } else {
+                    warningString += ", " + (*roadIt)->getID();
+                }
 
-					NBNode* fromNode = (*roadIt)->getFromNode();
-					NBNode* toNode = (*roadIt)->getToNode();
-					ec.erase(dc, *roadIt);
-					if (fromNode->getIncomingEdges().size() == 0
-							&& fromNode->getOutgoingEdges().size() == 0) {
-						// Node is empty; can be removed
-						erase(fromNode);
-					}
-					if (toNode->getIncomingEdges().size() == 0
-							&& toNode->getOutgoingEdges().size() == 0) {
-						// Node is empty; can be removed
-						erase(toNode);
-					}
-				}
-				WRITE_WARNING(warningString);
-		}
+                NBNode* fromNode = (*roadIt)->getFromNode();
+                NBNode* toNode = (*roadIt)->getToNode();
+                ec.erase(dc, *roadIt);
+                if (fromNode->getIncomingEdges().size() == 0
+                        && fromNode->getOutgoingEdges().size() == 0) {
+                    // Node is empty; can be removed
+                    erase(fromNode);
+                }
+                if (toNode->getIncomingEdges().size() == 0
+                        && toNode->getOutgoingEdges().size() == 0) {
+                    // Node is empty; can be removed
+                    erase(toNode);
+                }
+            }
+            WRITE_WARNING(warningString);
+        }
     }
-    if(edgeCounter > 0 && !OptionsCont::getOptions().getBool("remove-isolated")) {
-    	WRITE_WARNING("Detected isolated roads. Use the option --remove-isolated to get a list of all affected edges.");
+    if (edgeCounter > 0 && !OptionsCont::getOptions().getBool("remove-isolated")) {
+        WRITE_WARNING("Detected isolated roads. Use the option --remove-isolated to get a list of all affected edges.");
     }
 }
 

@@ -119,7 +119,7 @@ MSMeanData::init(const std::vector<MSEdge*> &edges, const bool withInternal) thr
     }
 }
 
-    
+
 MSMeanData::~MSMeanData() throw() {}
 
 
@@ -202,7 +202,7 @@ MSMeanData::writePrefix(OutputDevice &dev, const MeanDataValues &values, const s
 
 void
 MSMeanData::writeXMLOutput(OutputDevice &dev,
-                                 SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
+                           SUMOTime startTime, SUMOTime stopTime) throw(IOError) {
     // check whether this dump shall be written for the current time
     if (myDumpBegin < stopTime && myDumpEnd-DELTA_T >= startTime) {
         dev.openTag("interval")<<" begin=\""<<startTime<<"\" end=\""<<

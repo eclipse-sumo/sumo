@@ -66,8 +66,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(RONet &net,
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
         myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(0),
-        myCurrentVType(0)
-{
+        myCurrentVType(0) {
 }
 
 
@@ -111,7 +110,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         break;
     }
     // parse embedded vtype information
-    if(myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
+    if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }

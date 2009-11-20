@@ -190,7 +190,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     {
         // tab for the streets
         new FXTabItem(tabbook,"Streets",NULL,TAB_LEFT_NORMAL, 0,0,0,0, 4,8,4,4);
-        
+
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
         FXMatrix *m21 =
@@ -1226,7 +1226,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         if (doCreate) {
             m->create();
         }
-		myLaneColorSettingFrame->getParent()->recalc();
+        myLaneColorSettingFrame->getParent()->recalc();
     }
     {
         // vehicles
@@ -1246,9 +1246,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         FX::FXString buttonText = "Add";
         while (colIt != colors.end()) {
             myVehicleColors.push_back(new FXColorWell(m , convert(*colIt),
-                                                   this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                                   LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
-                                                   0, 0, 100, 0,   0, 0, 0, 0));
+                                      this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                      LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                                      0, 0, 100, 0,   0, 0, 0, 0));
             if (fixed) {
                 new FXLabel(m, nameIt->c_str());
                 new FXLabel(m, "");
@@ -1284,7 +1284,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
         if (doCreate) {
             m->create();
         }
-		myVehicleColorSettingFrame->getParent()->recalc();
+        myVehicleColorSettingFrame->getParent()->recalc();
     }
     layout();
     update();

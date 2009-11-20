@@ -186,8 +186,8 @@ private:
     /// @brief The name of the currently parsed option
     std::string myItem;
 
-	/// @brief The currently read characters string
-	std::string myValue;
+    /// @brief The currently read characters string
+    std::string myValue;
 
 };
 

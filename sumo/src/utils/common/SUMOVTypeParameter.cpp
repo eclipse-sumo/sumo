@@ -100,7 +100,7 @@ SUMOVTypeParameter::write(OutputDevice &dev) const throw(IOError) {
     if (cfParameter.size()!=0) {
         dev << ">\n";
         dev << "      <";
-        switch(cfModel) {
+        switch (cfModel) {
         case SUMO_TAG_CF_IDM:
             dev << CF_MODEL_IDM;
             break;

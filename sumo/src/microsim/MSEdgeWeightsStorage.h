@@ -64,8 +64,8 @@ public:
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingTravelTime(const MSEdge * const e, const SUMOVehicle * const v, 
-        SUMOTime t, SUMOReal &value) const throw();
+    bool retrieveExistingTravelTime(const MSEdge * const e, const SUMOVehicle * const v,
+                                    SUMOTime t, SUMOReal &value) const throw();
 
 
     /** @brief Returns an effort for an edge and time if stored
@@ -75,8 +75,8 @@ public:
      * @param[in] value The value if the requested edge/time is described
      * @return Whether the requested edge/time is described
      */
-    bool retrieveExistingEffort(const MSEdge * const e, const SUMOVehicle * const v, 
-        SUMOTime t, SUMOReal &value) const throw();
+    bool retrieveExistingEffort(const MSEdge * const e, const SUMOVehicle * const v,
+                                SUMOTime t, SUMOReal &value) const throw();
 
 
     /** @brief Adds a travel time information for an edge and a time span

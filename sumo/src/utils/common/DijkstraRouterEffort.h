@@ -265,7 +265,7 @@ public:
     typedef SUMOReal(E::* Operation)(const V * const, SUMOTime) const;
 
     DijkstraRouterEffort_Direct(size_t noE, bool unbuildIsWarningOnly, Operation effortOperation, Operation ttOperation)
-            : DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly), 
+            : DijkstraRouterEffortBase<E, V, PF>(noE, unbuildIsWarningOnly),
             myEffortOperation(effortOperation), myTTOperation(ttOperation) {}
 
     inline SUMOReal getEffort(const E * const e, const V * const v, SUMOTime t) {

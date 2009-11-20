@@ -58,8 +58,8 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     // check variable
     if (variable!=ID_LIST&&variable!=LANE_LINK_NUMBER&&variable!=LANE_EDGE_ID&&variable!=VAR_LENGTH
-        &&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS&&variable!=VAR_SHAPE
-        &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
+            &&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS&&variable!=VAR_SHAPE
+            &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -151,21 +151,21 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
         case LANE_ALLOWED: {
             const std::vector<SUMOVehicleClass> &allowed = lane->getAllowedClasses();
             std::vector<std::string> allowedS;
-            for(std::vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+            for (std::vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
                 allowedS.push_back(getVehicleClassName(*i));
             }
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(allowedS);
-        }            
+        }
         case LANE_DISALLOWED: {
             const std::vector<SUMOVehicleClass> &disallowed = lane->getNotAllowedClasses();
             std::vector<std::string> disallowedS;
-            for(std::vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+            for (std::vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
                 disallowedS.push_back(getVehicleClassName(*i));
             }
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(disallowedS);
-        }            
+        }
         break;
         case VAR_SHAPE:
             tempMsg.writeUnsignedByte(TYPE_POLYGON);
@@ -251,7 +251,7 @@ TraCIServerAPI_Lane::processSet(tcpip::Storage &inputStorage,
     }
     break;
     default:
-    break;
+        break;
     }
     TraCIServerAPIHelper::writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;

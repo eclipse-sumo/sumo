@@ -48,8 +48,8 @@
 // MSMeanData_HBEFA::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
-                                                             const std::set<std::string>* const vTypes,
-                                                             MSMeanData_HBEFA *parent) throw()
+        const std::set<std::string>* const vTypes,
+        MSMeanData_HBEFA *parent) throw()
         : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
 
 
@@ -120,7 +120,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 
 void
 MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
-                                              const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
+        const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
     dev<<std::resetiosflags(std::ios::floatfield);
     const SUMOReal normFactor = SUMOReal(3600. * 1000. / period / length);
     dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<

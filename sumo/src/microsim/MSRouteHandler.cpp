@@ -133,7 +133,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         break;
     }
     // parse embedded vtype information
-    if(myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
+    if (myCurrentVType!=0&&element!=SUMO_TAG_VTYPE) {
         SUMOVehicleParserHelper::parseVTypeEmbedded(*myCurrentVType, element, attrs);
         return;
     }

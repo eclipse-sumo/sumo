@@ -222,7 +222,7 @@ private:
      * @return The speed after dawdling
      */
     SUMOReal dawdle(SUMOReal speed) const throw();
-    
+
 private:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;

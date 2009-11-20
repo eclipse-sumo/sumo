@@ -100,7 +100,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
             throw ProcessError("No initial signal plan loaded for tls '" + logic->getID() + "'.");
         }
         logic->adaptLinkInformationFrom(*defaultTL);
-        if(logic->getLinks().size()!=logic->getPhase(0).getState().size()) {
+        if (logic->getLinks().size()!=logic->getPhase(0).getState().size()) {
             throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "'.");
         }
     }

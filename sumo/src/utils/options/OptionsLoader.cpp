@@ -66,7 +66,7 @@ void OptionsLoader::startElement(const XMLCh* const name,
             setValue(name, value);
         }
     }
-	myValue = "";
+    myValue = "";
 }
 
 
@@ -101,7 +101,7 @@ void OptionsLoader::setValue(const std::string &key,
 
 void OptionsLoader::characters(const XMLCh* const chars,
                                const XERCES3_SIZE_t length) {
-	myValue = myValue + TplConvert<XMLCh>::_2str(chars, (unsigned int) length);
+    myValue = myValue + TplConvert<XMLCh>::_2str(chars, (unsigned int) length);
 }
 
 
@@ -137,7 +137,7 @@ OptionsLoader::endElement(const XMLCh* const /*name*/) {
     }
     setValue(myItem, myValue);
     myItem = "";
-	myValue = "";
+    myValue = "";
 }
 
 

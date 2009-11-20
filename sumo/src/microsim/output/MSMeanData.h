@@ -149,10 +149,10 @@ public:
      * @param[in] vTypes the set of vehicle types to consider
      */
     MSMeanData(const std::string &id,
-                     const SUMOTime dumpBegin, const SUMOTime dumpEnd,
-                     const bool useLanes, const bool withEmpty,
-                     const SUMOReal minSamples, const SUMOReal maxTravelTime,
-                     const std::set<std::string> vTypes) throw();
+               const SUMOTime dumpBegin, const SUMOTime dumpEnd,
+               const bool useLanes, const bool withEmpty,
+               const SUMOReal minSamples, const SUMOReal maxTravelTime,
+               const std::set<std::string> vTypes) throw();
 
 
     /// @brief Destructor

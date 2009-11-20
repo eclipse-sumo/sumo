@@ -113,7 +113,7 @@ public:
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
-     * And each color is represented as a SUMOReal. 
+     * And each color is represented as a SUMOReal.
      * @param[in] coldef The color definition to parse
      * @return The parsed color
      * @exception EmptyData If the definition has less than three entries
@@ -124,9 +124,9 @@ public:
 
     /** @brief Interpolates between two colors
      *
-     * The interpolated color is calculated as a weighted average of 
-     *  the RGB values of minColor and maxColor, giving weight to maxColor 
-     *  and 1-weight to minColor. 
+     * The interpolated color is calculated as a weighted average of
+     *  the RGB values of minColor and maxColor, giving weight to maxColor
+     *  and 1-weight to minColor.
      * @param[in] minColor The color to interpolate from
      * @param[in] maxColor The color to interpolate to
      * @param[in] weight The weight of the first color

@@ -151,7 +151,7 @@ ROEdge::getEffort(const ROVehicle *const veh, SUMOTime time) const throw() {
         }
         if (myInterpolate) {
             SUMOReal inTT = myTravelTimes.getValue(time);
-            SUMOReal ratio = (SUMOReal) (myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
+            SUMOReal ratio = (SUMOReal)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
             if (ratio >= 0) {
                 return ratio * myEfforts.getValue(time) + (1-ratio)*myEfforts.getValue(time + (SUMOTime)inTT);
             }
@@ -172,9 +172,9 @@ ROEdge::getTravelTime(const ROVehicle *const, SUMOTime time) const throw() {
         }
         if (myInterpolate) {
             SUMOReal inTT = myTravelTimes.getValue(time);
-            SUMOReal split = (SUMOReal) (myTravelTimes.getSplitTime(time, time + (SUMOTime)inTT) - time);
+            SUMOReal split = (SUMOReal)(myTravelTimes.getSplitTime(time, time + (SUMOTime)inTT) - time);
             if (split >= 0) {
-                return myTravelTimes.getValue(time + (SUMOTime)inTT) * ((SUMOReal)1. - split / inTT) + split;
+                return myTravelTimes.getValue(time + (SUMOTime)inTT) *((SUMOReal)1. - split / inTT) + split;
             }
         }
         return myTravelTimes.getValue(time);

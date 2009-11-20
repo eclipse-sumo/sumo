@@ -495,7 +495,7 @@ public:
     bool hasConnectionTo(NBEdge *destEdge, unsigned int destLane) const throw();
     /// @}
 
-        
+
     /// @name Setting/getting special types
     /// @{
 

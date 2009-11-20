@@ -55,8 +55,8 @@
 // MSMeanData_Net::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
-                                                           const std::set<std::string>* const vTypes,
-                                                           MSMeanData_Net *parent) throw()
+        const std::set<std::string>* const vTypes,
+        MSMeanData_Net *parent) throw()
         : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent),
         nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
         nVehLaneChangeFrom(0), nVehLaneChangeTo(0), waitSeconds(0), vehLengthSum(0) {}
@@ -168,13 +168,13 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const throw() {
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
-                                            const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
+        const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
     if (myParent == 0) {
         if (sampleSeconds > 0) {
-            dev << "\" density=\"" << sampleSeconds / period * (SUMOReal) 1000 / length <<
-                   "\" occupancy=\"" << vehLengthSum / period / length / numLanes * (SUMOReal) 100 <<
-                   "\" waitingTime=\"" << waitSeconds / sampleSeconds * period <<
-                   "\" speed=\"" << travelledDistance / sampleSeconds;
+            dev << "\" density=\"" << sampleSeconds / period *(SUMOReal) 1000 / length <<
+            "\" occupancy=\"" << vehLengthSum / period / length / numLanes *(SUMOReal) 100 <<
+            "\" waitingTime=\"" << waitSeconds / sampleSeconds * period <<
+            "\" speed=\"" << travelledDistance / sampleSeconds;
         }
         dev<<"\" departed=\""<<nVehDeparted<<
         "\" arrived=\""<<nVehArrived<<
@@ -189,10 +189,10 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal pe
             traveltime = MIN2(traveltime, length * sampleSeconds / travelledDistance);
         }
         dev << "\" traveltime=\"" << traveltime <<
-               "\" density=\"" << sampleSeconds / period * (SUMOReal) 1000 / length <<
-               "\" occupancy=\"" << vehLengthSum / period / length / numLanes * (SUMOReal) 100 <<
-               "\" waitingTime=\"" << waitSeconds / sampleSeconds * period <<
-               "\" speed=\"" << travelledDistance / sampleSeconds;
+        "\" density=\"" << sampleSeconds / period *(SUMOReal) 1000 / length <<
+        "\" occupancy=\"" << vehLengthSum / period / length / numLanes *(SUMOReal) 100 <<
+        "\" waitingTime=\"" << waitSeconds / sampleSeconds * period <<
+        "\" speed=\"" << travelledDistance / sampleSeconds;
     }
     dev<<"\" departed=\""<<nVehDeparted<<
     "\" arrived=\""<<nVehArrived<<
@@ -207,7 +207,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal pe
 #ifdef HAVE_MESOSIM
 void
 MSMeanData_Net::MSLaneMeanDataValues::addData(const MEVehicle& veh, const SUMOReal timeOnLane,
-                                              const SUMOReal dist) throw() {
+        const SUMOReal dist) throw() {
     if (vehicleApplies(veh)) {
         sampleSeconds += timeOnLane;
         travelledDistance += dist;

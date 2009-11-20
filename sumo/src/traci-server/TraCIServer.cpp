@@ -528,9 +528,9 @@ TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argu
                 iter != equippedVehicles_.end(); ++iter) {
             if ((*iter).second != -1) { // Look only at equipped vehicles
                 MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-                if(myVehiclesToReroute.find(veh)!=myVehiclesToReroute.end()) {
+                if (myVehiclesToReroute.find(veh)!=myVehiclesToReroute.end()) {
                     // check rerouting
-                    if(!veh->hasStops() && veh->isOnRoad() && veh->getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+                    if (!veh->hasStops() && veh->isOnRoad() && veh->getLane().getEdge().getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
                         MSNet::EdgeWeightsProxi proxi(veh->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
                         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
                         veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
@@ -764,7 +764,7 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
     SUMOReal effortBefore = proxi.getTravelTime(edge, veh, currentTime);
     bool hadError = false;
     if (travelTime < 0) {
-        if(!veh->getWeightsStorage().knowsTravelTime(edge)) {
+        if (!veh->getWeightsStorage().knowsTravelTime(edge)) {
             hadError = true;
         }
         veh->getWeightsStorage().removeTravelTime(edge);
@@ -774,7 +774,7 @@ TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument) {
     SUMOReal effortAfter = proxi.getTravelTime(edge, veh, currentTime);
     if (myVehiclesToReroute.find(veh)==myVehiclesToReroute.end() && (effortBefore != effortAfter)) {
         // there is only a need to reroute if either the weight decreases or the edge is on our current route
-        if( (effortBefore > effortAfter) ^ veh->willPass(edge)) {
+        if ((effortBefore > effortAfter) ^ veh->willPass(edge)) {
             myVehiclesToReroute.insert(veh);
         }
     }

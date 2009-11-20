@@ -404,7 +404,7 @@ void
 MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) throw() {
     // check whether to reroute
     std::vector<const MSEdge*> edges;
-    router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges); 
+    router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this, t, edges);
     // check whether the new route is the same as the prior
     MSRouteIterator ri = myCurrEdge;
     std::vector<const MSEdge*>::iterator ri2 = edges.begin();
@@ -419,30 +419,28 @@ MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle> &router) 
 
 
 MSEdgeWeightsStorage &
-MSVehicle::getWeightsStorage() throw()
-{
-    if(myEdgeWeights==0) {
+MSVehicle::getWeightsStorage() throw() {
+    if (myEdgeWeights==0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }
     return *myEdgeWeights;
 }
 
 
-bool 
-MSVehicle::hasValidRoute(std::string &msg) const throw()
-{
+bool
+MSVehicle::hasValidRoute(std::string &msg) const throw() {
     MSRouteIterator last = myRoute->end() - 1;
     // check connectivity, first
-    for(MSRouteIterator e=myCurrEdge; e!=last; ++e) {
-        if((*e)->allowedLanes(**(e+1), getVehicleClass())==0) {
+    for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {
+        if ((*e)->allowedLanes(**(e+1), getVehicleClass())==0) {
             msg = "No connection between '" + (*e)->getID() + "' and '" + (*(e+1))->getID() + "'.";
             return false;
         }
     }
     last = myRoute->end();
     // check usable lanes, then
-    for(MSRouteIterator e=myCurrEdge; e!=last; ++e) {
-        if((*e)->prohibits(this)) {
+    for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {
+        if ((*e)->prohibits(this)) {
             msg = "Edge '" + (*e)->getID() + "' prohibits.";
             return false;
         }
@@ -2034,7 +2032,7 @@ MSVehicle::checkForLaneChanges() {
         myLaneChangeModel->requestLaneChange(REQUEST_NONE);
         return;
     }
-    if ((unsigned int) (*myCurrEdge)->getLanes().size() <= myDestinationLane) {
+    if ((unsigned int)(*myCurrEdge)->getLanes().size() <= myDestinationLane) {
         laneChangeConstraintActive = false;
         return;
     }

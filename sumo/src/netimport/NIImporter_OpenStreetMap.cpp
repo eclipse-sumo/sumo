@@ -71,8 +71,7 @@ using namespace std;
  * This functor is helpful for example in the find_if algorithm.
  */
 class NIImporter_OpenStreetMap::CompareNodesInPairs: public std::unary_function<
-            std::pair<int, NIOSMNode*>, bool>
-{
+            std::pair<int, NIOSMNode*>, bool> {
 public:
     /** @brief Initializes the functor with the fixed comparison partner
      *
@@ -103,8 +102,7 @@ private:
 /** @brief A functor to substitute a node in the node list of an Edge
  */
 class NIImporter_OpenStreetMap::SubstituteNode: public std::unary_function<
-            std::pair<std::string, Edge*>, void>
-{
+            std::pair<std::string, Edge*>, void> {
 public:
     /** @brief Initializes the functor with the node to substitute
      * and the node with that the node in the first argument
@@ -153,8 +151,7 @@ private:
 // static methods
 // ---------------------------------------------------------------------------
 void
-NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
-{
+NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     // check whether the option is set (properly)
     if (!oc.isSet("osm-files")) {
         return;
@@ -330,8 +327,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
 
 NBNode *
 NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc,
-        NBTrafficLightLogicCont &tlsc) throw(ProcessError)
-{
+        NBTrafficLightLogicCont &tlsc) throw(ProcessError) {
     NBNode *from = nc.retrieve(toString(id));
     if (from==0) {
         NIOSMNode *n = osmNodes.find(id)->second;
@@ -365,8 +361,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
 void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
                                      const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
-                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError)
-{
+                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc) throw(ProcessError) {
     // patch the id
     string id = e->id;
     if (index>=0) {
@@ -445,8 +440,7 @@ NIImporter_OpenStreetMap::NodesHandler::~NodesHandler() throw() {}
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     ++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
         if (myHierarchyLevel != 2) {
@@ -520,8 +514,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
 
 
 void
-NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     if (element==SUMO_TAG_NODE && myHierarchyLevel == 2) {
         myLastNodeID = -1;
         myIsInValidNodeTag = false;
@@ -537,20 +530,17 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     const std::map<int, NIOSMNode*> &osmNodes,
     std::map<std::string, Edge*> &toFill) throw()
         : SUMOSAXHandler("osm - file"),
-        myOSMNodes(osmNodes), myEdgeMap(toFill)
-{
+        myOSMNodes(osmNodes), myEdgeMap(toFill) {
 }
 
 
-NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw()
-{
+NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw() {
 }
 
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError)
-{
+        const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
@@ -622,8 +612,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
 
 
 void
-NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
-{
+NIImporter_OpenStreetMap::EdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
         if (myCurrentEdge->myCurrentIsRoad) {

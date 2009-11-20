@@ -47,8 +47,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIShapeContainer::GUIShapeContainer() throw()
-{}
+GUIShapeContainer::GUIShapeContainer() throw() {}
 
 
 GUIShapeContainer::~GUIShapeContainer() throw() {}
@@ -72,9 +71,8 @@ GUIShapeContainer::add(int layer, PointOfInterest *p) throw() {
 }
 
 
-bool 
-GUIShapeContainer::removePolygon(int layer, const std::string &id) throw()
-{
+bool
+GUIShapeContainer::removePolygon(int layer, const std::string &id) throw() {
     myLock.lock();
     bool ret = ShapeContainer::removePolygon(layer, id);
     myLock.unlock();
@@ -82,9 +80,8 @@ GUIShapeContainer::removePolygon(int layer, const std::string &id) throw()
 }
 
 
-bool 
-GUIShapeContainer::removePOI(int layer, const std::string &id) throw()
-{
+bool
+GUIShapeContainer::removePOI(int layer, const std::string &id) throw() {
     myLock.lock();
     bool ret = ShapeContainer::removePOI(layer, id);
     myLock.unlock();

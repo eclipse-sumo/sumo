@@ -194,7 +194,7 @@ public:
 
     /** @brief Moves the vehicle's route pointer to given edge
      *
-     * Returns true if vehicle is going to enter it's destination edge, false otherwise. 
+     * Returns true if vehicle is going to enter it's destination edge, false otherwise.
      *  Adjusts in both cases the route iterator and the allowedLanes-container.
      * @param[in] targetEdge The edge the vehicle enters
      * @return Whether the final edge was reached
@@ -225,11 +225,11 @@ public:
 
 
     /** @brief Replaces the current route by the given edges
-     * 
+     *
      * It is possible that the new route is not accepted, if a) it does not
      *  contain the vehicle's current edge, or b) something fails on insertion
      *  into the routes container (see in-line comments).
-     * 
+     *
      * @param[in] edges The new list of edges to pass
      * @param[in] simTime The time at which the route was replaced
      * @return Whether the new route was accepted

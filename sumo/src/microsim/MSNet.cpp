@@ -111,32 +111,30 @@ MSNet* MSNet::myInstance = 0;
 // ---------------------------------------------------------------------------
 // MSNet::EdgeWeightsProxi - methods
 // ---------------------------------------------------------------------------
-SUMOReal 
-MSNet::EdgeWeightsProxi::getEffort(const MSEdge * const e, 
-                                   const SUMOVehicle * const v, 
-                                   SUMOTime t) const
-{
+SUMOReal
+MSNet::EdgeWeightsProxi::getEffort(const MSEdge * const e,
+                                   const SUMOVehicle * const v,
+                                   SUMOTime t) const {
     SUMOReal value;
-    if(myVehicleKnowledge.retrieveExistingEffort(e, v, t, value)) {
+    if (myVehicleKnowledge.retrieveExistingEffort(e, v, t, value)) {
         return value;
     }
-    if(myNetKnowledge.retrieveExistingEffort(e, v, t, value)) {
+    if (myNetKnowledge.retrieveExistingEffort(e, v, t, value)) {
         return value;
     }
     return 0;
 }
 
 
-SUMOReal 
-MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge * const e, 
-                                       const SUMOVehicle * const v, 
-                                       SUMOTime t) const
-{
+SUMOReal
+MSNet::EdgeWeightsProxi::getTravelTime(const MSEdge * const e,
+                                       const SUMOVehicle * const v,
+                                       SUMOTime t) const {
     SUMOReal value;
-    if(myVehicleKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
+    if (myVehicleKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
         return value;
     }
-    if(myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
+    if (myNetKnowledge.retrieveExistingTravelTime(e, v, t, value)) {
         return value;
     }
     const MSLane * const l = e->getLanes()[0];
@@ -563,9 +561,8 @@ MSNet::getPersonControl() throw() {
 
 
 MSEdgeWeightsStorage &
-MSNet::getWeightsStorage() throw()
-{
-    if(myEdgeWeights==0) {
+MSNet::getWeightsStorage() throw() {
+    if (myEdgeWeights==0) {
         myEdgeWeights = new MSEdgeWeightsStorage();
     }
     return *myEdgeWeights;

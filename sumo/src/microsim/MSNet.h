@@ -398,8 +398,8 @@ public:
     /** @class EdgeWeightsProxi
      * @brief A proxi for edge weights known by a vehicle/known globally
      *
-     * Both getter methods try to return the vehicle's knowledge about the edge/time, first. 
-     *  If not existing,they try to retrieve it from the global knowledge. If not existing, 
+     * Both getter methods try to return the vehicle's knowledge about the edge/time, first.
+     *  If not existing,they try to retrieve it from the global knowledge. If not existing,
      *  the travel time retrieval method returns the edges' length divided by the maximum speed
      *  (information from the first lane is used). The default value for the effort is 0.
      * @see MSEdgeWeightsStorage
@@ -410,9 +410,9 @@ public:
          * @param[in] vehKnowledge The vehicle's edge weights knowledge
          * @param[in] netKnowledge The global edge weights knowledge
          */
-        EdgeWeightsProxi(const MSEdgeWeightsStorage &vehKnowledge, 
-            const MSEdgeWeightsStorage &netKnowledge) 
-            : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
+        EdgeWeightsProxi(const MSEdgeWeightsStorage &vehKnowledge,
+                         const MSEdgeWeightsStorage &netKnowledge)
+                : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
 
 
         /// @brief Destructor

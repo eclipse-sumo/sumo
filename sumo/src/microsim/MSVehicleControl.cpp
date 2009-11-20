@@ -56,8 +56,8 @@ MSVehicleControl::MSVehicleControl() throw()
         : myLoadedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0),
         myDefaultVTypeMayBeDeleted(true) {
-			SUMOVTypeParameter defType;
-			myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
+    SUMOVTypeParameter defType;
+    myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
 }
 
 

@@ -72,8 +72,7 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 MSEdge::MSEdge(const std::string &id, unsigned int numericalID) throw()
         : myID(id), myNumericalID(numericalID), myLanes(0),
-        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1)
-{}
+        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1) {}
 
 
 MSEdge::~MSEdge() throw() {
@@ -128,9 +127,8 @@ MSEdge::closeBuilding() {
 }
 
 
-void 
-MSEdge::rebuildAllowedLanes() throw()
-{
+void
+MSEdge::rebuildAllowedLanes() throw() {
     // build the classed allowed lanes
     myHaveClassConstraints = false;
     // build list of vehicle classes that are constrained
@@ -472,7 +470,7 @@ MSEdge::clear() throw() {
 }
 
 
-void 
+void
 MSEdge::insertIDs(std::vector<std::string> &into) throw() {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         into.push_back((*i).first);

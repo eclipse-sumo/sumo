@@ -197,21 +197,21 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             }
             std::string edgeID = inputStorage.readString();
             MSEdge *edge = MSEdge::dictionary(edgeID);
-            if(edge==0) {
+            if (edge==0) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
             }
             // retrieve
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             SUMOReal value;
-            if(!v->getWeightsStorage().retrieveExistingTravelTime(edge, 0, time, value)) {
+            if (!v->getWeightsStorage().retrieveExistingTravelTime(edge, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
                 tempMsg.writeFloat(value);
             }
-            
-                                  }
-            break;
+
+        }
+        break;
         case VAR_EDGE_EFFORT: {
             if (inputStorage.readUnsignedByte()!=TYPE_COMPOUND) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Retrieval of travel time requires a compund object.", outputStorage);
@@ -234,31 +234,31 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             }
             std::string edgeID = inputStorage.readString();
             MSEdge *edge = MSEdge::dictionary(edgeID);
-            if(edge==0) {
+            if (edge==0) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
                 return false;
             }
             // retrieve
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             SUMOReal value;
-            if(!v->getWeightsStorage().retrieveExistingEffort(edge, 0, time, value)) {
+            if (!v->getWeightsStorage().retrieveExistingEffort(edge, 0, time, value)) {
                 tempMsg.writeFloat(-1);
             } else {
                 tempMsg.writeFloat(value);
             }
-            
-                                  }
-            break;
+
+        }
+        break;
         case VAR_ROUTE_VALID: {
             std::string msg;
-            if(!v->hasValidRoute(msg)) {
+            if (!v->hasValidRoute(msg)) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, msg, outputStorage);
                 return false;
             }
             tempMsg.writeUnsignedByte(TYPE_UBYTE);
             tempMsg.writeUnsignedByte(1);
-                              }
-            break;
+        }
+        break;
         case VAR_EDGES: {
             const MSRoute &r = v->getRoute();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
@@ -266,8 +266,8 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             for (MSRouteIterator i=r.begin(); i!=r.end(); ++i) {
                 tempMsg.writeString((*i)->getID());
             }
-                        }
-            break;
+        }
+        break;
         default:
             break;
         }
@@ -292,7 +292,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             &&variable!=VAR_ROUTE_ID&&variable!=VAR_ROUTE
             &&variable!=VAR_EDGE_TRAVELTIME&&variable!=VAR_EDGE_EFFORT
             &&variable!=CMD_REROUTE_TRAVELTIME&&variable!=CMD_REROUTE_EFFORT
-            ) {
+       ) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -526,7 +526,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         std::string edgeID = inputStorage.readString();
         MSEdge *edge = MSEdge::dictionary(edgeID);
-        if(edge==0) {
+        if (edge==0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
             return false;
         }
@@ -538,8 +538,8 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         SUMOReal value = inputStorage.readFloat();
         // retrieve
         v->getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
-                                  }
-        break;
+    }
+    break;
     case VAR_EDGE_EFFORT: {
         if (valueDataType!=TYPE_COMPOUND) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Setting effort requires a compund object.", outputStorage);
@@ -568,7 +568,7 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         }
         std::string edgeID = inputStorage.readString();
         MSEdge *edge = MSEdge::dictionary(edgeID);
-        if(edge==0) {
+        if (edge==0) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Referenced edge '" + edgeID + "' is not known.", outputStorage);
             return false;
         }
@@ -580,9 +580,9 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
         SUMOReal value = inputStorage.readFloat();
         // retrieve
         v->getWeightsStorage().addEffort(edge, begTime, endTime, value);
-                                  }
-        break;
-        case CMD_REROUTE_TRAVELTIME: {
+    }
+    break;
+    case CMD_REROUTE_TRAVELTIME: {
         if (valueDataType!=TYPE_COMPOUND) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compund object.", outputStorage);
             return false;
@@ -592,11 +592,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             return false;
         }
         MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-            DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
-            v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
-                          }
-                                     break;
-        case CMD_REROUTE_EFFORT: {
+        DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getTravelTime);
+        v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+    }
+    break;
+    case CMD_REROUTE_EFFORT: {
         if (valueDataType!=TYPE_COMPOUND) {
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting requires a compund object.", outputStorage);
             return false;
@@ -605,11 +605,11 @@ TraCIServerAPI_Vehicle::processSet(tcpip::Storage &inputStorage,
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_VEHICLE_VARIABLE, RTYPE_ERR, "Rerouting should obtain an empty compund object.", outputStorage);
             return false;
         }
-            MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
-            DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getEffort, &MSNet::EdgeWeightsProxi::getTravelTime);
-            v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
-                          }
-                                     break;
+        MSNet::EdgeWeightsProxi proxi(v->getWeightsStorage(), MSNet::getInstance()->getWeightsStorage());
+        DijkstraRouterEffort_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSNet::EdgeWeightsProxi> router(MSEdge::dictSize(), true, &proxi, &MSNet::EdgeWeightsProxi::getEffort, &MSNet::EdgeWeightsProxi::getTravelTime);
+        v->reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
+    }
+    break;
     default:
         break;
     }

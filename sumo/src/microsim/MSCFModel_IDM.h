@@ -53,7 +53,7 @@ public:
     /// @brief Destructor
     ~MSCFModel_IDM() throw();
 
- 
+
     /// @name Implementations of the MSCFModel interface
     /// @{
 

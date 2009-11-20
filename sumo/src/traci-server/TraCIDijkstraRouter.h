@@ -119,7 +119,7 @@ public:
 
     virtual SUMOReal getEffort(const E * const e, SUMOReal t) {
         SUMOReal value;
-        if(MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, t, value)) {
+        if (MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, 0, t, value)) {
             return value;
         }
         const MSLane * const l = e->getLanes()[0];

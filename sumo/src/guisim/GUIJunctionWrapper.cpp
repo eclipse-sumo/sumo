@@ -61,7 +61,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
                                        MSJunction &junction) throw()
         : GUIGlObject(idStorage, "junction:"+junction.getID()),
         myJunction(junction) {
-    if(myJunction.getShape().size()==0) {
+    if (myJunction.getShape().size()==0) {
         Position2D pos = myJunction.getPosition();
         myBoundary = Boundary(pos.x()-1., pos.y()-1., pos.x()+1., pos.y()+1.);
     } else {
@@ -71,8 +71,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
 }
 
 
-GUIJunctionWrapper::~GUIJunctionWrapper() throw() 
-{}
+GUIJunctionWrapper::~GUIJunctionWrapper() throw() {}
 
 
 GUIGLObjectPopupMenu *

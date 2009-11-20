@@ -63,9 +63,8 @@ RGBColor::RGBColor(const RGBColor& col) throw()
 RGBColor::~RGBColor() throw() {}
 
 
-void 
-RGBColor::set(SUMOReal r, SUMOReal g, SUMOReal b) throw()
-{
+void
+RGBColor::set(SUMOReal r, SUMOReal g, SUMOReal b) throw() {
     myRed = r;
     myGreen = g;
     myBlue = b;

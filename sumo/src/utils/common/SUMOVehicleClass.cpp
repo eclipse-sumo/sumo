@@ -263,11 +263,10 @@ parseVehicleClasses(const std::string &classesS,
 }
 
 
-void 
+void
 parseVehicleClasses(const std::vector<std::string> &classesS,
-                    std::vector<SUMOVehicleClass> &classes) throw()
-{
-    for(std::vector<std::string>::const_iterator i=classesS.begin(); i!=classesS.end(); ++i) {
+                    std::vector<SUMOVehicleClass> &classes) throw() {
+    for (std::vector<std::string>::const_iterator i=classesS.begin(); i!=classesS.end(); ++i) {
         classes.push_back(getVehicleClassID(*i));
     }
 }

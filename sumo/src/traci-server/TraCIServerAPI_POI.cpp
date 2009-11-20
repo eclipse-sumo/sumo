@@ -124,7 +124,7 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_POSITION
-        &&variable!=ADD&&variable!=REMOVE) {
+            &&variable!=ADD&&variable!=REMOVE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -132,7 +132,7 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     PointOfInterest *p = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    if(variable!=ADD&&variable!=REMOVE) {
+    if (variable!=ADD&&variable!=REMOVE) {
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPOICont(i).get(id);
         }
@@ -209,9 +209,9 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
         }
         SUMOReal x = inputStorage.readFloat();
         SUMOReal y = inputStorage.readFloat();
-        // 
+        //
         p = new PointOfInterest(id, type, Position2D(x, y), RGBColor(r, g, b));
-        if(!shapeCont.add(layer, p)) {
+        if (!shapeCont.add(layer, p)) {
             delete p;
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not add PoI.", outputStorage);
             return false;
@@ -224,12 +224,12 @@ TraCIServerAPI_POI::processSet(tcpip::Storage &inputStorage,
             return false;
         }
         int layer = inputStorage.readInt();
-        if(!shapeCont.removePOI(layer, id)) {
+        if (!shapeCont.removePOI(layer, id)) {
             bool removed = false;
             for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
                 removed |= shapeCont.removePOI(i, id);
             }
-            if(!removed) {
+            if (!removed) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
                 return false;
             }

@@ -132,7 +132,7 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable!=VAR_TYPE&&variable!=VAR_COLOR&&variable!=VAR_SHAPE&&variable!=VAR_FILL
-        &&variable!=ADD&&variable!=REMOVE) {
+            &&variable!=ADD&&variable!=REMOVE) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -140,7 +140,7 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
     string id = inputStorage.readString();
     Polygon2D *p = 0;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    if(variable!=ADD&&variable!=REMOVE) {
+    if (variable!=ADD&&variable!=REMOVE) {
         for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer()&&p==0; ++i) {
             p = shapeCont.getPolygonCont(i).get(id);
         }
@@ -183,7 +183,7 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
         for (int i=0; i<noEntries; ++i) {
             SUMOReal x = inputStorage.readFloat();
             SUMOReal y = inputStorage.readFloat();
-            shape.push_back(Position2D(x, y));    
+            shape.push_back(Position2D(x, y));
         }
         p->setShape(shape);
     }
@@ -240,11 +240,11 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
         for (int i=0; i<noEntries; ++i) {
             SUMOReal x = inputStorage.readFloat();
             SUMOReal y = inputStorage.readFloat();
-            shape.push_back(Position2D(x, y));    
+            shape.push_back(Position2D(x, y));
         }
-        // 
+        //
         p = new Polygon2D(id, type, RGBColor(r, g, b), shape, fill);
-        if(!shapeCont.add(layer, p)) {
+        if (!shapeCont.add(layer, p)) {
             delete p;
             TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_ERR, "Could not add polygon.", outputStorage);
             return false;
@@ -257,12 +257,12 @@ TraCIServerAPI_Polygon::processSet(tcpip::Storage &inputStorage,
             return false;
         }
         int layer = inputStorage.readInt();
-        if(!shapeCont.removePolygon(layer, id)) {
+        if (!shapeCont.removePolygon(layer, id)) {
             bool removed = false;
             for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); ++i) {
                 removed |= shapeCont.removePolygon(i, id);
             }
-            if(!removed) {
+            if (!removed) {
                 TraCIServerAPIHelper::writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_ERR, "Could not remove PoI '" + id + "'", outputStorage);
                 return false;
             }

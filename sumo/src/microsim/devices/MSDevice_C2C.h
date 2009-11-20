@@ -365,9 +365,9 @@ private:
          * @param[in] vehKnowledge The vehicle's edge weights knowledge
          * @param[in] netKnowledge The global edge weights knowledge
          */
-        EdgeWeightsProxi(const InfoCont &vehKnowledge, 
-            const MSEdgeWeightsStorage &netKnowledge) 
-            : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
+        EdgeWeightsProxi(const InfoCont &vehKnowledge,
+                         const MSEdgeWeightsStorage &netKnowledge)
+                : myVehicleKnowledge(vehKnowledge), myNetKnowledge(netKnowledge) {}
 
 
         /// @brief Destructor

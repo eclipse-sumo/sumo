@@ -53,7 +53,7 @@ using namespace std;
 MSInternalJunction::MSInternalJunction(const std::string &id,
                                        const Position2D &position,
                                        const Position2DVector &shape,
-                                       std::vector<MSLane*> incoming, 
+                                       std::vector<MSLane*> incoming,
                                        std::vector<MSLane*> internal) throw()
         : MSLogicJunction(id, position, shape, incoming, internal) {}
 
