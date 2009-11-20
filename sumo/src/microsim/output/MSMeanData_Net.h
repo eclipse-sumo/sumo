@@ -33,7 +33,7 @@
 #include <set>
 #include <cassert>
 #include <limits>
-#include "MSMeandata.h"
+#include "MSMeanData.h"
 
 
 // ===========================================================================
