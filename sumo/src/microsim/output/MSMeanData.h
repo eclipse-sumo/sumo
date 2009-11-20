@@ -41,9 +41,9 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
-class MSEdgeControl;
 class MSEdge;
 class MSLane;
+class SUMOVehicle;
 
 
 // ===========================================================================
@@ -89,27 +89,12 @@ public:
         /// @name Methods inherited from MSMoveReminder.
         /// @{
 
-        /** @brief Computes current values and adds them to their sums
+        /** @brief Tests whether the vehicles type is to be regarded
          *
          * @param[in] veh The regarded vehicle
-         * @param[in] oldPos Position before the move-micro-timestep.
-         * @param[in] newPos Position after the move-micro-timestep.
-         * @param[in] newSpeed The vehicle's current speed
-         * @return false, if the vehicle is beyond the lane, true otherwise
-         * @see MSMoveReminder
-         * @see MSMoveReminder::isStillActive
+         * @return whether the type of the vehicle is in the set of regarded types
          */
-        virtual bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
-
-
-        /** @brief Notifies the reminder about an entering vehicle.
-         *
-         * @param[in] veh The vehicle that enters the lane
-         * @param[in] isEmit whether the vehicle was just emitted into the net
-         * @param[in] isLaneChange whether the vehicle changed to the lane
-         * @return whether the vehicle should be regarded further
-         */
-        virtual bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
+        bool vehicleApplies(const SUMOVehicle& veh) const throw();
         //@}
 
 
@@ -124,11 +109,20 @@ public:
          */
         virtual void update() throw();
 
+        /** @brief Writes output values into the given stream
+         *
+         * @param[in] dev The output device to write the data into
+         * @param[in] period Length of the period the data were gathered
+         * @param[in] numLanes The total number of lanes for which the data was collected
+         * @param[in] length The length of the object for which the data was collected
+         * @exception IOError If an error on writing occures (!!! not yet implemented)
+         */
+        virtual void write(OutputDevice &dev, const SUMOReal period,
+                           const SUMOReal numLanes, const SUMOReal length) const throw(IOError) = 0;
 
-
+    public:
         /// @name Collected values
         /// @{
-
         /// @brief The number of sampled vehicle movements (in s)
         SUMOReal sampleSeconds;
         /// @brief The sum of the distances the vehicles travelled
@@ -166,10 +160,10 @@ public:
 
     /** @brief Adds the value collectors to all relevant edges.
      *
-     * @param[in] ec Control containing the edges to use
+     * @param[in] edges the edges to use
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      */
-    void init(const MSEdgeControl &ec, const bool withInternal) throw();
+    void init(const std::vector<MSEdge*> &edges, const bool withInternal) throw();
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -211,6 +205,13 @@ protected:
      */
     virtual MSMeanData::MeanDataValues* createValues(MSLane * const lane) throw(IOError) = 0;
 
+    /** @brief Resets network value in order to allow processing of the next interval
+     *
+     * Goes through the lists of edges and starts "resetOnly" for each edge.
+     * @param [in] edge The last time step that is reported
+     */
+    void resetOnly(SUMOTime stopTime) throw();
+
     /** @brief Writes edge values into the given stream
      *
      * microsim: It is checked whether the dump shall be generated edge-
@@ -228,32 +229,18 @@ protected:
     virtual void writeEdge(OutputDevice &dev, const std::vector<MeanDataValues*> &edgeValues,
                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
-    /** @brief Writes output values into the given stream
+    /** @brief Checks for emptiness and writes prefix into the given stream
      *
      * @param[in] dev The output device to write the data into
+     * @param[in] values The values to check for emptiness
      * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
-     * @param[in] values This lane's / edge's value collectors
-     * @param[in] period Length of the period the data were gathered
-     * @param[in] numLanes The total number of lanes for which the data was collected
-     * @param[in] length The length of the object for which the data was collected
+     * @return whether further output should be generated
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeValues(OutputDevice &dev, const std::string prefix,
-                             const MeanDataValues &values, const SUMOReal period,
-                             const SUMOReal numLanes, const SUMOReal length) throw(IOError) = 0;
-
-    /** @brief Resets network value in order to allow processing of the next interval
-     *
-     * Goes through the lists of edges and starts "resetOnly" for each edge.
-     * @param [in] edge The last time step that is reported
-     */
-    void resetOnly(SUMOTime stopTime) throw();
-
+    bool writePrefix(OutputDevice &dev, const MeanDataValues &values,
+                     const std::string prefix) const throw(IOError);
 
 protected:
-    /// @brief Whether empty lanes/edges shall be written
-    const bool myDumpEmpty;
-
     /// @brief the minimum sample seconds
     const SUMOReal myMinSamples;
 
@@ -278,6 +265,9 @@ private:
 
     /// @brief The corresponding first edges
     std::vector<MSEdge*> myEdges;
+
+    /// @brief Whether empty lanes/edges shall be written
+    const bool myDumpEmpty;
 
 private:
     /// @brief Invalidated copy constructor.

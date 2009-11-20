@@ -592,7 +592,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string &id, SUMOTime freque
                                         maxTravelTime, minSamples, vt);
     }
     if (det!=0) {
-        det->init(MSNet::getInstance()->getEdgeControl(), withInternal);
+        det->init(MSNet::getInstance()->getEdgeControl().getEdges(), withInternal);
         if (frequency < 0) {
             frequency = end - begin;
         }

@@ -39,8 +39,6 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
-class MSEdgeControl;
-class MSEdge;
 class MSLane;
 
 
@@ -130,6 +128,17 @@ public:
          */
         void update() throw();
 
+        /** @brief Writes output values into the given stream
+         *
+         * @param[in] dev The output device to write the data into
+         * @param[in] period Length of the period the data were gathered
+         * @param[in] numLanes The total number of lanes for which the data was collected
+         * @param[in] length The length of the object for which the data was collected
+         * @exception IOError If an error on writing occures (!!! not yet implemented)
+         */
+        void write(OutputDevice &dev, const SUMOReal period,
+                   const SUMOReal numLanes, const SUMOReal length) const throw(IOError);
+
 
         /// @name Collected values
         /// @{
@@ -172,20 +181,6 @@ protected:
      * @param[in] lane The lane to create for
      */
     MSMeanData::MeanDataValues* createValues(MSLane * const lane) throw(IOError);
-
-    /** @brief Writes output values into the given stream
-     *
-     * @param[in] dev The output device to write the data into
-     * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
-     * @param[in] values This lane's / edge's value collectors
-     * @param[in] period Length of the period the data were gathered
-     * @param[in] numLanes The total number of lanes for which the data was collected
-     * @param[in] length The length of the object for which the data was collected
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
-     */
-    void writeValues(OutputDevice &dev, const std::string prefix,
-                     const MSMeanData::MeanDataValues &values, const SUMOReal period,
-                     const SUMOReal numLanes, const SUMOReal length) throw(IOError);
 
 private:
     /// @brief Invalidated copy constructor.

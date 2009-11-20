@@ -71,14 +71,13 @@ public:
      *
      * Structure holding values that describe the flow and other physical
      *  properties aggregated over some seconds.
-     *
-     * @todo Check whether the haltings-information is used and how
      */
     class MSLaneMeanDataValues : public MSMeanData::MeanDataValues {
     public:
         /** @brief Constructor */
-        MSLaneMeanDataValues(MSLane * const lane, const SUMOReal maxHaltingSpeed=POSITION_EPS,
-                             const std::set<std::string>* const vTypes=0) throw();
+        MSLaneMeanDataValues(MSLane * const lane,
+                             const std::set<std::string>* const vTypes=0,
+                             MSMeanData_Net *parent=0) throw();
 
         /** @brief Destructor */
         virtual ~MSLaneMeanDataValues() throw();
@@ -137,18 +136,27 @@ public:
         bool notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw();
         //@}
 
-
         bool isEmpty() const throw();
 
+        /** @brief Writes output values into the given stream
+         *
+         * @param[in] dev The output device to write the data into
+         * @param[in] period Length of the period the data were gathered
+         * @param[in] numLanes The total number of lanes for which the data was collected
+         * @param[in] length The length of the object for which the data was collected
+         * @exception IOError If an error on writing occures (!!! not yet implemented)
+         */
+        void write(OutputDevice &dev, const SUMOReal period,
+                   const SUMOReal numLanes, const SUMOReal length) const throw(IOError);
 
 #ifdef HAVE_MESOSIM
+        void addData(const MEVehicle& veh, const SUMOReal timeOnLane, const SUMOReal dist) throw();
         void getLastReported(MEVehicle *v, SUMOReal &lastReportedTime, SUMOReal &lastReportedPos) throw();
         void setLastReported(MEVehicle *v, SUMOReal lastReportedTime, SUMOReal lastReportedPos) throw();
 #endif
 
         /// @name Collected values
         /// @{
-
         /// @brief The number of vehicles that were emitted on the lane
         unsigned nVehDeparted;
 
@@ -161,6 +169,7 @@ public:
         /// @brief The number of vehicles that left this lane within the sample intervall
         unsigned nVehLeft;
 
+    private:
         /// @brief The number of vehicles that changed from this lane
         unsigned nVehLaneChangeFrom;
 
@@ -174,9 +183,8 @@ public:
         SUMOReal vehLengthSum;
         //@}
 
-    private:
-        /// @brief The maximum speed at which a vehicle is considered halting
-        const SUMOReal myMaxHaltingSpeed;
+        /// @brief The meandata parent
+        const MSMeanData_Net* myParent;
 
 #ifdef HAVE_MESOSIM
         std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
@@ -229,23 +237,8 @@ protected:
      * @param[in] stopTime Last time step the data were gathered
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeEdge(OutputDevice &dev, const std::vector<MSMeanData::MeanDataValues*> &edgeValues,
-                           MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
-
-
-    /** @brief Writes output values into the given stream
-     *
-     * @param[in] dev The output device to write the data into
-     * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
-     * @param[in] values This lane's / edge's value collectors
-     * @param[in] period Length of the period the data were gathered
-     * @param[in] numLanes The total number of lanes for which the data was collected
-     * @param[in] length The length of the object for which the data was collected
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
-     */
-    virtual void writeValues(OutputDevice &dev, const std::string prefix,
-                             const MSMeanData::MeanDataValues &values, const SUMOReal period,
-                             const SUMOReal numLanes, const SUMOReal length) throw(IOError);
+    void writeEdge(OutputDevice &dev, const std::vector<MSMeanData::MeanDataValues*> &edgeValues,
+                   MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Resets network value in order to allow processing of the next interval

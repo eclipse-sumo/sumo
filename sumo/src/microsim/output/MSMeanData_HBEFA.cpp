@@ -27,8 +27,6 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSEdgeControl.h>
-#include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <utils/common/SUMOTime.h>
@@ -37,12 +35,6 @@
 #include "MSMeanData_HBEFA.h"
 #include <utils/common/HelpersHBEFA.h>
 #include <limits>
-
-#ifdef HAVE_MESOSIM
-#include <microsim/MSGlobals.h>
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -56,8 +48,9 @@
 // MSMeanData_HBEFA::MSLaneMeanDataValues - methods
 // ---------------------------------------------------------------------------
 MSMeanData_HBEFA::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane * const lane,
-                                                             const std::set<std::string>* const vTypes) throw()
-        : MSMeanData::MeanDataValues(lane, vTypes), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
+                                                             const std::set<std::string>* const vTypes,
+                                                             MSMeanData_HBEFA *parent) throw()
+        : MSMeanData::MeanDataValues(lane, vTypes), myParent(parent), CO2(0), CO(0), HC(0), NOx(0), PMx(0), fuel(0) {}
 
 
 MSMeanData_HBEFA::MSLaneMeanDataValues::~MSLaneMeanDataValues() throw() {
@@ -93,7 +86,7 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::add(MSMeanData::MeanDataValues &val) thr
 
 bool
 MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (!MSMeanData::MeanDataValues::isStillActive(veh, oldPos, newPos, newSpeed)) {
+    if (!vehicleApplies(veh)) {
         return false;
     }
     bool ret = true;
@@ -125,6 +118,40 @@ MSMeanData_HBEFA::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal o
 }
 
 
+void
+MSMeanData_HBEFA::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
+                                              const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
+    dev<<std::resetiosflags(std::ios::floatfield);
+    const SUMOReal normFactor = SUMOReal(3600. * 1000. / period / length);
+    dev << "\" CO_abs=\""<<SUMOReal(CO*1000.) <<
+    "\" CO2_abs=\""<<SUMOReal(CO2*1000.) <<
+    "\" HC_abs=\""<<SUMOReal(HC*1000.) <<
+    "\" PMx_abs=\""<<SUMOReal(PMx*1000.) <<
+    "\" NOx_abs=\""<<SUMOReal(NOx*1000.) <<
+    "\" fuel_abs=\""<<SUMOReal(fuel*1000.) <<
+    "\"\n            CO_normed=\""<<normFactor * CO <<
+    "\" CO2_normed=\""<<normFactor * CO2<<
+    "\" HC_normed=\""<<normFactor * HC <<
+    "\" PMx_normed=\""<<normFactor * PMx <<
+    "\" NOx_normed=\""<<normFactor * NOx <<
+    "\" fuel_normed=\""<<normFactor * fuel;
+    if (sampleSeconds > myParent->myMinSamples) {
+        SUMOReal vehFactor = myParent->myMaxTravelTime / sampleSeconds;
+        if (travelledDistance > 0.f) {
+            vehFactor = MIN2(vehFactor, length / travelledDistance);
+        }
+        dev<<"\"\n            CO_perVeh=\""<<CO*vehFactor<<
+        "\" CO2_perVeh=\""<<CO2*vehFactor<<
+        "\" HC_perVeh=\""<<HC*vehFactor<<
+        "\" PMx_perVeh=\""<<PMx*vehFactor<<
+        "\" NOx_perVeh=\""<<NOx*vehFactor<<
+        "\" fuel_perVeh=\""<<fuel*vehFactor;
+    }
+    dev<<"\"/>\n";
+    dev<<std::setiosflags(std::ios::fixed); // use decimal format
+}
+
+
 
 // ---------------------------------------------------------------------------
 // MSMeanData_HBEFA - methods
@@ -143,46 +170,7 @@ MSMeanData_HBEFA::~MSMeanData_HBEFA() throw() {}
 
 MSMeanData::MeanDataValues*
 MSMeanData_HBEFA::createValues(MSLane * const lane) throw(IOError) {
-    return new MSLaneMeanDataValues(lane, &myVehicleTypes);
-}
-
-
-void
-MSMeanData_HBEFA::writeValues(OutputDevice &dev, const std::string prefix,
-                              const MSMeanData::MeanDataValues &values, const SUMOReal period,
-                              const SUMOReal numLanes, const SUMOReal length) throw(IOError) {
-    if (myDumpEmpty||!values.isEmpty()) {
-        MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) values;
-        dev<<std::resetiosflags(std::ios::floatfield);
-        const SUMOReal normFactor = SUMOReal(3600. * 1000. / period / length);
-        dev.indent() << prefix << "\" sampledSeconds=\"" << v.sampleSeconds <<
-        "\" CO_abs=\""<<SUMOReal(v.CO*1000.) <<
-        "\" CO2_abs=\""<<SUMOReal(v.CO2*1000.) <<
-        "\" HC_abs=\""<<SUMOReal(v.HC*1000.) <<
-        "\" PMx_abs=\""<<SUMOReal(v.PMx*1000.) <<
-        "\" NOx_abs=\""<<SUMOReal(v.NOx*1000.) <<
-        "\" fuel_abs=\""<<SUMOReal(v.fuel*1000.) <<
-        "\"\n            CO_normed=\""<<normFactor * v.CO <<
-        "\" CO2_normed=\""<<normFactor * v.CO2<<
-        "\" HC_normed=\""<<normFactor * v.HC <<
-        "\" PMx_normed=\""<<normFactor * v.PMx <<
-        "\" NOx_normed=\""<<normFactor * v.NOx <<
-        "\" fuel_normed=\""<<normFactor * v.fuel;
-        if (v.sampleSeconds > myMinSamples) {
-            SUMOReal vehFactor = myMaxTravelTime / v.sampleSeconds;
-            if (v.travelledDistance > 0.f) {
-                vehFactor = MIN2(vehFactor, length / v.travelledDistance);
-            }
-            dev<<"\"\n            CO_perVeh=\""<<v.CO*vehFactor<<
-            "\" CO2_perVeh=\""<<v.CO2*vehFactor<<
-            "\" HC_perVeh=\""<<v.HC*vehFactor<<
-            "\" PMx_perVeh=\""<<v.PMx*vehFactor<<
-            "\" NOx_perVeh=\""<<v.NOx*vehFactor<<
-            "\" fuel_perVeh=\""<<v.fuel*vehFactor;
-        }
-        dev<<"\"/>\n";
-        dev<<std::setiosflags(std::ios::fixed); // use decimal format
-    }
+    return new MSLaneMeanDataValues(lane, &myVehicleTypes, this);
 }
 
 

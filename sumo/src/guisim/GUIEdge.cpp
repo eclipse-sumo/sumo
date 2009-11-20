@@ -252,7 +252,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
                 const SUMOReal length = segment->getLength();
                 if (idx < numCars.size()) {
                     const SUMOReal avgCarSize = segment->getOccupancy() / segment->getCarNumber();
-                    for (int i = 0; i < numCars[idx]; i++) {
+                    for (size_t i = 0; i < numCars[idx]; i++) {
                         SUMOReal vehiclePosition = position + length - i * avgCarSize;
                         SUMOReal xOff = 0.f;
                         while (vehiclePosition < position) {

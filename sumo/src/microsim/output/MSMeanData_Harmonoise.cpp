@@ -27,8 +27,6 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSEdgeControl.h>
-#include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -38,12 +36,6 @@
 #include "MSMeanData_Harmonoise.h"
 #include <utils/common/HelpersHarmonoise.h>
 #include <limits>
-
-#ifdef HAVE_MESOSIM
-#include <microsim/MSGlobals.h>
-#include <mesosim/MELoop.h>
-#include <mesosim/MESegment.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -91,7 +83,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::update() throw() {
 
 bool
 MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
-    if (!MSMeanData::MeanDataValues::isStillActive(veh, oldPos, newPos, newSpeed)) {
+    if (!vehicleApplies(veh)) {
         return false;
     }
     bool ret = true;
@@ -120,7 +112,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::isStillActive(MSVehicle& veh, SUMOR
 
 bool
 MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool isEmit, bool isLaneChange) throw() {
-    if (MSMeanData::MeanDataValues::notifyEnter(veh, isEmit, isLaneChange)) {
+    if (vehicleApplies(veh)) {
         SUMOReal fraction = 1.;
         SUMOReal l = veh.getVehicleType().getLength();
         if (veh.getPositionOnLane()+l>getLane()->getLength()) {
@@ -140,6 +132,13 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyEnter(MSVehicle& veh, bool is
         return true;
     }
     return false;
+}
+
+
+void
+MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice &dev, const SUMOReal period,
+                                                   const SUMOReal numLanes, const SUMOReal length) const throw(IOError) {
+    dev << "\" noise=\"" << (meanNTemp!=0 ? (SUMOReal)(10. * log10(meanNTemp/period)) : (SUMOReal) 0.) << "\"/>\n";
 }
 
 
@@ -163,19 +162,6 @@ MSMeanData_Harmonoise::~MSMeanData_Harmonoise() throw() {}
 MSMeanData::MeanDataValues*
 MSMeanData_Harmonoise::createValues(MSLane * const lane) throw(IOError) {
     return new MSLaneMeanDataValues(lane, &myVehicleTypes);
-}
-
-
-void
-MSMeanData_Harmonoise::writeValues(OutputDevice &dev, const std::string prefix,
-                                   const MSMeanData::MeanDataValues &values, const SUMOReal period,
-                                   const SUMOReal numLanes, const SUMOReal length) throw(IOError) {
-    if (myDumpEmpty||!values.isEmpty()) {
-        MSLaneMeanDataValues& v = (MSLaneMeanDataValues&) values;
-        SUMOReal noise = v.meanNTemp!=0 ? (SUMOReal)(10. * log10(v.meanNTemp/period)) : (SUMOReal) 0.;
-        dev.indent() << prefix << "\" sampledSeconds=\"" << v.sampleSeconds <<
-        "\" noise=\"" << noise << "\"/>\n";
-    }
 }
 
 

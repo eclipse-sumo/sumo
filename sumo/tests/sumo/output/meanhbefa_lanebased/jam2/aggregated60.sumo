@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/16/09 11:40:41 by SUMO sumo Version dev-SVN-r7969
+<!-- generated on 11/20/09 14:44:21 by SUMO sumo Version dev-SVN-r7993
 <configuration>
 
     <input>
@@ -28,12 +28,12 @@
 <netstats>
    <interval begin="600" end="660" id="dump_60">
       <edge id="3/1to2/1">
-         <lane id="3/1to2/1_0" sampledSeconds="3.1e+003" CO_abs="2e+004" CO2_abs="1.9e+006" HC_abs="1.1e+003" PMx_abs="66" NOx_abs="2.6e+003" fuel_abs="7.5e+002"
+         <lane id="3/1to2/1_0" sampledSeconds="3120.00" CO_abs="2e+004" CO2_abs="1.9e+006" HC_abs="1.1e+003" PMx_abs="66" NOx_abs="2.6e+003" fuel_abs="7.5e+002"
             CO_normed="3.1e+003" CO2_normed="2.9e+005" HC_normed="1.7e+002" PMx_normed="10" NOx_normed="4e+002" fuel_normed="1.1e+002"
             CO_perVeh="6.4e+002" CO2_perVeh="6e+004" HC_perVeh="35" PMx_perVeh="2.1" NOx_perVeh="84" fuel_perVeh="24"/>
       </edge>
       <edge id="4/1to3/1">
-         <lane id="4/1to3/1_0" sampledSeconds="1.6e+003" CO_abs="9.9e+003" CO2_abs="9.4e+005" HC_abs="5.5e+002" PMx_abs="33" NOx_abs="1.3e+003" fuel_abs="3.7e+002"
+         <lane id="4/1to3/1_0" sampledSeconds="1560.00" CO_abs="9.9e+003" CO2_abs="9.4e+005" HC_abs="5.5e+002" PMx_abs="33" NOx_abs="1.3e+003" fuel_abs="3.7e+002"
             CO_normed="1.5e+003" CO2_normed="1.4e+005" HC_normed="84" PMx_normed="5.1" NOx_normed="2e+002" fuel_normed="57"
             CO_perVeh="6.4e+002" CO2_perVeh="6e+004" HC_perVeh="35" PMx_perVeh="2.1" NOx_perVeh="84" fuel_perVeh="24"/>
       </edge>
