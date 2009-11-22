@@ -69,7 +69,7 @@ public:
     void add(const Position2D &p);
     void sub(SUMOReal x, SUMOReal y);
     Line2D &reverse();
-    void rotateDegAtP1(double degs);
+    void rotateAtP1(SUMOReal rot);
     void rotateAround(const Position2D &at, SUMOReal rot);
 
 private:

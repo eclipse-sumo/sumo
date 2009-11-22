@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <utils/geom/Line2D.h>
+#include <utils/geom/GeomHelper.h>
 
 using namespace std;
 
@@ -98,19 +99,19 @@ TEST(Line2D, test_method_intersectsAtLength_no_intersect) {
 	EXPECT_FLOAT_EQ(-1, point);	
 }
 
-/* Test the method 'rotateDegAtP1' */
-TEST(Line2D, test_method_rotateDegAtP1) {
+/* Test the method 'rotateAtP1' */
+TEST(Line2D, test_method_rotateAtP1) {
 	Line2D line(Position2D(0,0),Position2D(2,2));
-	line.rotateDegAtP1(90.0);
+	line.rotateAtP1(PI/2);
 	EXPECT_FLOAT_EQ(-2,(line.p2()).x());
 	EXPECT_FLOAT_EQ(2,(line.p2()).y());
 }
 
-/* Test the method 'rotateDegAtP1' with negative decree */
-TEST(Line2D, test_method_rotateDegAtP1_negative) {
+/* Test the method 'rotateAtP1' with negative rotation */
+TEST(Line2D, test_method_rotateAtP1_negative) {
 	Line2D line(Position2D(0,0),Position2D(2,2));
-	line.rotateDegAtP1(-135.0);
-	EXPECT_FLOAT_EQ(0,(line.p2()).x());
+	line.rotateAtP1(-3*PI/4);
+	EXPECT_FLOAT_EQ(1,SUMOReal((line.p2()).x())+1);
 	EXPECT_FLOAT_EQ(-2*sqrt(SUMOReal(2)),(line.p2()).y());
 }
 

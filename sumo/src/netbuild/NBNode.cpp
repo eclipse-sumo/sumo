@@ -667,7 +667,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, int fromL,
             Position2D center = straightCenter;//.add(straightCenter);
             Line2D cross(straightConn);
             cross.sub(cross.p1().x(), cross.p1().y());
-            cross.rotateDegAtP1(90);
+            cross.rotateAtP1(PI/2);
             center.sub(cross.p2());
             init.push_back(center);
             init.push_back(end);

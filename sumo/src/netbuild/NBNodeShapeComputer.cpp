@@ -123,7 +123,7 @@ void
 computeSameEnd(Position2DVector& l1, Position2DVector &l2) {
     Line2D sub(l1.lineAt(0).getPositionAtDistance(100), l1[1]);
     Line2D tmp(sub);
-    tmp.rotateDegAtP1(90);
+    tmp.rotateAtP1(PI/2);
     tmp.extrapolateBy(100);
     if (l1.intersects(tmp.p1(), tmp.p2())) {
         SUMOReal offset1 = l1.intersectsAtLengths(tmp)[0];

@@ -205,10 +205,10 @@ Line2D::intersectsAtLength(const Line2D &v) {
 
 
 void
-Line2D::rotateDegAtP1(double degs) {
+Line2D::rotateAtP1(SUMOReal rot) {
     Position2D p = myP2;
     p.sub(myP1);
-    p.reshiftRotate(0, 0, (SUMOReal)(degs*PI/180.));
+    p.reshiftRotate(0, 0, rot);
     p.add(myP1);
     myP2 = p;
 }
