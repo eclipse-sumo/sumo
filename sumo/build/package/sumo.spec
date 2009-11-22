@@ -1,17 +1,17 @@
 #
-# spec file for package sumo (Version svn)
+# spec file for package sumo (Version 0.11.1)
 #
 # norootforbuild
 Name:           sumo
 Summary:        Microscopic Traffic Simulation
-Version:        svn
+Version:        0.11.1
 Release:        1
 Url:            http://sumo.sourceforge.net/
 Source0:        %{name}-%{version}.tar.bz2
 License:        GPL v2.1 or later
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel libgeos-devel unixODBC-devel sqlite-devel libexpat-devel hdf-devel libnetcdf-devel postgresql-devel mysql-devel
+BuildRequires:  gcc-c++ libproj-devel libgdal-devel fox16-devel
 %if 0%{?suse_version} > 1110 || 0%{?centos_version} || 0%{?rhel_version}
 BuildRequires: libxerces-c-devel
 %else
