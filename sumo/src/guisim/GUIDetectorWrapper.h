@@ -29,7 +29,6 @@
 #include <config.h>
 #endif
 
-#include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>

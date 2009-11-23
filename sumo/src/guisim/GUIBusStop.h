@@ -38,7 +38,6 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
 #include <gui/GUIManipulator.h>
 #include <utils/foxtools/FXRealSpinDial.h>

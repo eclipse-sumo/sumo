@@ -32,7 +32,6 @@
 #include <string>
 #include <utility>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/HaveBoundary.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -59,7 +58,7 @@ class MSJunction;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GUIJunctionWrapper : public GUIGlObject, public HaveBoundary {
+class GUIJunctionWrapper : public GUIGlObject {
 public:
     /** @brief Constructor
      * @param[in, changed] idStorage The storage to retrieve the gl-id from

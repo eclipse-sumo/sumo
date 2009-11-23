@@ -36,7 +36,6 @@
 #include <utils/geom/Position2D.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/HaveBoundary.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
