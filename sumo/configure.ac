@@ -471,9 +471,13 @@ docs/docbook/gfx/more/Makefile
 docs/docbook/gfx/user/Makefile
 unittest/Makefile
 unittest/src/Makefile
+unittest/src/microsim/Makefile
+unittest/src/netbuild/Makefile
 unittest/src/utils/Makefile
 unittest/src/utils/common/Makefile
 unittest/src/utils/geom/Makefile
+unittest/src/utils/iodevices/Makefile
+
 Makefile])
 AC_OUTPUT
 

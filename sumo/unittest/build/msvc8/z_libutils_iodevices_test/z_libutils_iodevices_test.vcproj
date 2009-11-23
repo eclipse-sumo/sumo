@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="z_libutils_common_test"
-	ProjectGUID="{7166B82A-8380-47D7-8EDC-96052A3EDB15}"
-	RootNamespace="utils"
+	Name="z_libutils_iodevices_test"
+	ProjectGUID="{09F3B15E-0AE0-441F-9F31-5CC6DC3FADD6}"
+	RootNamespace="z_libutils_iodevices_test"
 	>
 	<Platforms>
 		<Platform
@@ -15,11 +15,10 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Release|Win32"
+			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\unittests.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -40,10 +39,9 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="2"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -59,8 +57,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(GTEST_LIB) $(GTEST_DEBUG_LIB)"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -90,12 +86,13 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug|Win32"
+			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\unittests.vsprops"
 			CharacterSet="2"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -114,14 +111,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories=""
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="2"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -135,8 +128,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(GTEST_LIB) $(GTEST_DEBUG_LIB)"
-				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -173,26 +167,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\src\utils\common\RGBColorTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\StringTokenizerTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\StringUtilsTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\unittest_main.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\ValueTimeLineTest.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -200,7 +174,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\common\CommandMock.h"
+				RelativePath="..\..\..\src\utils\iodevices\OutputDeviceMock.h"
 				>
 			</File>
 		</Filter>
