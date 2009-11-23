@@ -13,15 +13,15 @@ All rights reserved
 
 import os,sys
 
-if len(sys.argv)<3:
-    print >> sys.stderr, "Call: osmGet.py <PREFIX> <TILES_NUMBER> <OUTPUT> [(all|road|passenger),ramps,tls]"
+if len(sys.argv)<4:
+    print >> sys.stderr, "Call: osmBuild.py <PREFIX> <TILES_NUMBER> <OUTPUT> [(all|road|passenger),ramps,tls,nointernal]"
     sys.exit()
 
 
 prefix = sys.argv[1]#"bs"
 num = int(sys.argv[2])#20
 add = ""
-if len(sys.argv)>3:
+if len(sys.argv)>4:
     defs = sys.argv[4].split(",")
     if "road" in defs:
         add = "--remove-edges.by-vclass rail_slow,rail_fast,bicycle,pedestrian "
@@ -31,6 +31,8 @@ if len(sys.argv)>3:
         add = add + "--guess-ramps "
     if "tls" in defs:
         add = add + "--guess-tls "
+    if "nointernal" in defs:
+        add = add + "--no-internal-links "
  
 
 call = ""
