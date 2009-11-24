@@ -252,7 +252,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     }
     WRITE_MESSAGE(" Network boundaries:");
     WRITE_MESSAGE("  Original boundary  : " + toString(GeoConvHelper::getOrigBoundary()));
-    WRITE_MESSAGE("  Applied offset     : " + toString(GeoConvHelper::getOffset()));
+    WRITE_MESSAGE("  Applied offset     : " + toString(GeoConvHelper::getOffsetBase()));
     WRITE_MESSAGE("  Converted boundary : " + toString(GeoConvHelper::getConvBoundary()));
     WRITE_MESSAGE("-----------------------------------------------------");
     NBRequest::reportWarnings();
@@ -273,7 +273,7 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError) {
     device.writeXMLHeader("net");
     device << "\n";
     // write network offsets
-    device << "   <location netOffset=\"" << GeoConvHelper::getOffset() << "\""
+    device << "   <location netOffset=\"" << GeoConvHelper::getOffsetBase() << "\""
     << " convBoundary=\"" << GeoConvHelper::getConvBoundary() << "\"";
     if (GeoConvHelper::usingGeoProjection()) {
         device.setPrecision(GEO_OUTPUT_ACCURACY);

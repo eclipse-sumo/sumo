@@ -266,6 +266,15 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
             from.add(myOffset);
         }
     }
+    if (myProjectionMethod != SIMPLE) {
+        if (!myBaseFound && (from.x() > 100000 || from.y() > 100000)) {
+            myBase.set(from);
+            myBaseFound = true;
+        }
+        if (myBaseFound) {
+            from.sub(myBase);
+        }
+    }
     if (includeInBoundary) {
         myConvBoundary.add(from);
     }
@@ -295,6 +304,14 @@ GeoConvHelper::getConvBoundary() {
 const Position2D &
 GeoConvHelper::getOffset() {
     return myOffset;
+}
+
+
+const Position2D 
+GeoConvHelper::getOffsetBase() {
+    Position2D p(myOffset);
+    p.sub(myBase);
+    return p;
 }
 
 

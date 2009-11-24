@@ -102,6 +102,9 @@ public:
     /// Returns the network offset
     static const Position2D &getOffset();
 
+    /// Returns the network base
+    static const Position2D getOffsetBase();
+
     /// Returns the network offset
     static const std::string &getProjString();
 
