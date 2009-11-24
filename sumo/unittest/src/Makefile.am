@@ -30,11 +30,11 @@ sumo_unittest_LDADD   = ../../src/netbuild/libnetbuild.a \
 ./utils/geom/BoundaryTest.o \
 ./utils/geom/Position2DVectorTest.o \
 ./utils/geom/Line2DTest.o \
-./utils/iodevices/OutputDeviceMock.o \
-./microsim/MSEventControlTest.o \
-./netbuild/NBTrafficLightLogicTest.o \
 $(MEM_LIBS) \
 -lgtest
 
-SUBDIRS = utils microsim netbuild
+# ./utils/iodevices/OutputDeviceMock.o \
+# ./microsim/MSEventControlTest.o \
+# ./netbuild/NBTrafficLightLogicTest.o \
+SUBDIRS = utils # microsim netbuild
 endif
