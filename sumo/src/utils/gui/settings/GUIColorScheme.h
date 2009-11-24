@@ -46,7 +46,7 @@ public:
     GUIColorScheme(const std::string& name, const RGBColor& baseColor,
                    const std::string& colName="", const bool isFixed=false)
             : myName(name), myIsInterpolated(!isFixed), myIsFixed(isFixed) {
-        addColor(baseColor, -1, colName);
+        addColor(baseColor, 0, colName);
     }
 
     void setThreshold(const size_t pos, const SUMOReal threshold) {

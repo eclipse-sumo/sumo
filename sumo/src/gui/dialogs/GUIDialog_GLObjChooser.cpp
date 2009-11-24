@@ -134,7 +134,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         const std::string &name = o->getMicrosimID();
         bool selected = false;
         if (type==GLO_EDGE) {
-            for (int j=static_cast<GUIEdge*>(o)->getLanes().size()-1; j>=0; j--) {
+            for (size_t j=static_cast<GUIEdge*>(o)->getLanes().size()-1; j>=0; j--) {
                 const GUILaneWrapper &l = static_cast<GUIEdge*>(o)->getLaneGeometry(j);
                 if (gSelected.isSelected(GLO_LANE, l.getGlID())) {
                     selected = true;

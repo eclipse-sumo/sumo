@@ -16,6 +16,3 @@ MSMsgInductLoop.cpp MSMsgInductLoop.h \
 MSRouteProbe.cpp MSRouteProbe.h \
 MSVTypeProbe.cpp MSVTypeProbe.h \
 MSXMLRawOut.cpp MSXMLRawOut.h
-
-SUBDIRS =
-

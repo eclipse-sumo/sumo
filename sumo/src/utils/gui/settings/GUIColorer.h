@@ -79,7 +79,7 @@ public:
         for (i=mySchemes.begin(); i!=mySchemes.end(); ++i) {
             cb.appendItem((*i).getName().c_str());
         }
-        cb.setCurrentItem(myActiveScheme);
+        cb.setCurrentItem((FXint)myActiveScheme);
     }
 
     void setActive(size_t scheme) {

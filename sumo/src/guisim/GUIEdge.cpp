@@ -323,11 +323,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
 #ifdef HAVE_MESOSIM
 unsigned int
 GUIEdge::getVehicleNo() const {
-    unsigned int vehNo = 0;
+    size_t vehNo = 0;
     for (MESegment *segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment!=0; segment = segment->getNextSegment()) {
         vehNo += segment->getCarNumber();
     }
-    return vehNo;
+    return (unsigned int)vehNo;
 }
 
 
