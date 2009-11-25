@@ -48,7 +48,7 @@ using namespace std;
 // member definitions
 // ===========================================================================
 MSEventControl::MSEventControl() throw()
-        : myEvents() {}
+        : myEvents(), currentTimeStep(-1) {}
 
 
 MSEventControl::~MSEventControl() throw() {
@@ -65,7 +65,7 @@ SUMOTime
 MSEventControl::addEvent(Command* operation,
                          SUMOTime execTimeStep,
                          AdaptType type) throw() {
-    SUMOTime currTimeStep = MSNet::getInstance()->getCurrentTimeStep();
+    SUMOTime currTimeStep = getCurrentTimeStep();
     if (type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep) {
         execTimeStep = currTimeStep;
     }
@@ -120,6 +120,20 @@ bool
 MSEventControl::isEmpty() throw() {
     return myEvents.empty();
 }
+
+void
+MSEventControl::setCurrentTimeStep(SUMOTime time) {
+    currentTimeStep = time;
+}
+
+SUMOTime
+MSEventControl::getCurrentTimeStep() throw() {
+	if(currentTimeStep < 0){
+		return MSNet::getInstance()->getCurrentTimeStep();
+	} 
+	return currentTimeStep;
+}
+
 
 
 /****************************************************************************/
