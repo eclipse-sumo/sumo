@@ -26,15 +26,16 @@ sumo_unittest_LDADD   = ../../src/netbuild/libnetbuild.a \
 ./utils/common/StringTokenizerTest.o \
 ./utils/common/RGBColorTest.o \
 ./utils/common/ValueTimeLineTest.o \
-./utils/common/CommandMock.o \
 ./utils/geom/BoundaryTest.o \
 ./utils/geom/Position2DVectorTest.o \
 ./utils/geom/Line2DTest.o \
 $(MEM_LIBS) \
 -lgtest
 
+# ./utils/common/CommandMock.o \
 # ./utils/iodevices/OutputDeviceMock.o \
 # ./microsim/MSEventControlTest.o \
-# ./netbuild/NBTrafficLightLogicTest.o \
-SUBDIRS = utils # microsim netbuild
+# ./netbuild/NBTrafficLightLogicTest.o
+
+SUBDIRS = utils microsim netbuild
 endif

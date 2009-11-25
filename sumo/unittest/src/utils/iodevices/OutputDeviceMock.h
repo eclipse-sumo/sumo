@@ -58,7 +58,7 @@ public:
     /** @brief Returns the current content as a string
      * @return The content as string
      */
-     std::string OutputDeviceMock::getString() throw() {
+     std::string getString() throw() {
     return myStream.str();
 }
 
@@ -69,7 +69,7 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-	std::ostream & OutputDeviceMock::getOStream() throw() {
+	std::ostream & getOStream() throw() {
 		return myStream;
 	}
 
