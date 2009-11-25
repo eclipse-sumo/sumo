@@ -42,6 +42,7 @@
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTypeCont.h>
+#include <netbuild/NBOwnTLDef.h>
 #include <netimport/NINavTeqHelper.h>
 #include "NIImporter_DlrNavteq.h"
 
@@ -49,13 +50,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
 
 
 // ===========================================================================
@@ -82,6 +76,15 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
     }
     lr.readAll(handler1);
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
+
+    // load traffic lights
+    file = oc.getString("dlr-navteq") + "_traffic_signals.txt";
+    if (lr.setFile(file)) {
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading traffic lights...");
+        TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), file);
+        lr.readAll(handler3);
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    }
 
     // load edges
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
@@ -114,7 +117,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
     if (result[0]=='#') {
         return true;
     }
-    string id;
+    std::string id;
     SUMOReal x, y;
     int no_geoms, intermediate;
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
@@ -197,7 +200,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
     if (result[0]=='#') {
         return true;
     }
-    string id, fromID, toID, interID;
+    std::string id, fromID, toID, interID;
     SUMOReal length;
     SUMOReal speed = (SUMOReal) 30.0 / (SUMOReal) 3.6;
     int nolanes = 1;
@@ -219,13 +222,13 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
         throw ProcessError("Non-numerical value for an edge's length occured (edge '" + id + "'.");
     }
     // vehicle_type
-    string veh_type = st.next();
+    std::string veh_type = st.next();
     // form_of_way
-    string form_of_way = st.next();
+    std::string form_of_way = st.next();
     // brunnel_type
-    string brunnel_type = st.next();
+    std::string brunnel_type = st.next();
     // street_type
-    string street_type = st.next();
+    std::string street_type = st.next();
     speed = NINavTeqHelper::getSpeed(id, st.next());
     // number of lanes
     nolanes = NINavTeqHelper::getLaneNumber(id, st.next(), speed);
@@ -279,6 +282,42 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
 }
 
 
+// ---------------------------------------------------------------------------
+// definitions of NIImporter_DlrNavteq::TrafficlightsHandler-methods
+// ---------------------------------------------------------------------------
+NIImporter_DlrNavteq::TrafficlightsHandler::TrafficlightsHandler(NBNodeCont &nc,
+                                                                 NBTrafficLightLogicCont &tlc,
+                                                                 const std::string &file) throw()
+    : myNodeCont(nc), myTLLogicCont(tlc) {}
+
+
+NIImporter_DlrNavteq::TrafficlightsHandler::~TrafficlightsHandler() throw() {}
+
+
+bool
+NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string &result) throw(ProcessError) {
+// #ID     POICOL-TYPE     DESCRIPTION     LONGITUDE       LATITUDE        NAVTEQ_LINK_ID  NODEID
+
+    if (result[0]=='#') {
+        return true;
+    }
+    StringTokenizer st(result, StringTokenizer::WHITECHARS);
+    std::string nodeID = st.getVector().back();
+    NBNode *node = myNodeCont.retrieve(nodeID);
+    if (node==0) {
+        WRITE_WARNING("The traffic light node '" + nodeID + "' could not be found");
+    } else {
+        if (node->getType() != NBNode::NODETYPE_TRAFFIC_LIGHT) {
+            node->reinit(node->getPosition(), NBNode::NODETYPE_TRAFFIC_LIGHT);
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(nodeID, node);
+            if (!myTLLogicCont.insert(tlDef)) {
+                // actually, nothing should fail here
+                delete tlDef;
+                throw ProcessError("Could not allocate tls for '" + nodeID + "'.");
+            }
+        }
+    }
+    return true;
+}
 
 /****************************************************************************/
-

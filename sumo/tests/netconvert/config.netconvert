@@ -8,6 +8,7 @@ copy_test_path:input_connections.con.xml
 copy_test_path:input_types.typ.xml
 copy_test_path:elmar_links_unsplitted.txt
 copy_test_path:elmar_nodes_unsplitted.txt
+copy_test_path:elmar_traffic_signals.txt
 copy_test_path:visum.net
 copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml

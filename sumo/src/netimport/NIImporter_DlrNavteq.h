@@ -136,7 +136,7 @@ protected:
      * in DLRNavteq's unsplit format.
      */
     class EdgesHandler : public LineHandler {
-    public:
+        public:
         /** @brief Constructor
          * @param[in] nc The node control to retrieve nodes from
          * @param[in, filled] ec The edge control to insert loaded edges into
@@ -144,7 +144,7 @@ protected:
          * @param[in] geoms The previously read edge geometries
          */
         EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                     const std::string &file, std::map<std::string, Position2DVector> &geoms) throw();
+                        const std::string &file, std::map<std::string, Position2DVector> &geoms) throw();
 
 
         /// @brief Destructor
@@ -152,18 +152,18 @@ protected:
 
 
         /** @brief Parsing method
-         *
-         * Implementation of the LineHandler-interface called by a LineReader;
-         * interprets the retrieved information and stores it into "myEdgeCont".
-         * @param[in] result The read line
-         * @return Whether the parsing shall continue
-         * @exception ProcessError if something fails
-         * @see LineHandler::report
+             *
+             * Implementation of the LineHandler-interface called by a LineReader;
+             * interprets the retrieved information and stores it into "myEdgeCont".
+             * @param[in] result The read line
+             * @return Whether the parsing shall continue
+             * @exception ProcessError if something fails
+             * @see LineHandler::report
          */
         bool report(const std::string &result) throw(ProcessError);
 
 
-    protected:
+        protected:
         /// @brief The node container to get the referenced nodes from
         NBNodeCont &myNodeCont;
 
@@ -177,12 +177,65 @@ protected:
         bool myTryIgnoreNodePositions;
 
 
-    private:
+        private:
         /// @brief Invalidated copy constructor.
         EdgesHandler(const EdgesHandler&);
 
         /// @brief Invalidated assignment operator.
         EdgesHandler& operator=(const EdgesHandler&);
+
+    };
+
+
+    /**
+     * @class TrafficlightsHandler
+     * @brief Importer of traffic lights stored in DLRNavteq's (aka elmar) format
+     *
+     * Being a LineHandler, this class retrieves each line from a LineReader
+     * and parses these information assuming they contain traffic light definitions
+     * in DLRNavteq's format.
+     */
+    class TrafficlightsHandler : public LineHandler {
+        public:
+        /** @brief Constructor
+         * @param[in] nc The node control to retrieve nodes from
+         * @param[in, filled] tlc The traffic lights container to fill
+         * @param[in] file The name of the parsed file
+         */
+        TrafficlightsHandler(NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
+                             const std::string &file) throw();
+
+
+        /// @brief Destructor
+        ~TrafficlightsHandler() throw();
+
+
+        /** @brief Parsing method
+         *
+         * Implementation of the LineHandler-interface called by a LineReader;
+         * interprets the retrieved information and alters the nodes.
+         * @param[in] result The read line
+         * @return Whether the parsing shall continue
+         * @exception ProcessError if something fails
+         * @see LineHandler::report
+         */
+        bool report(const std::string &result) throw(ProcessError);
+
+
+        protected:
+        /// @brief The node container to get the referenced nodes from
+        NBNodeCont &myNodeCont;
+
+        /// @brief The traffic lights container to add built tls to
+        NBTrafficLightLogicCont &myTLLogicCont;
+
+
+        private:
+        /// @brief Invalidated copy constructor.
+        TrafficlightsHandler(const TrafficlightsHandler&);
+
+        /// @brief Invalidated assignment operator.
+        TrafficlightsHandler& operator=(const TrafficlightsHandler&);
 
     };
 
