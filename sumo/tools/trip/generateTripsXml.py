@@ -282,7 +282,7 @@ def main(options):
         parser.parse(StringIO.StringIO(netfile.read()))
         netfile.close()
     else:
-        parser.parse(netfile)    
+        parser.parse(netfile)
 
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(districts)
@@ -328,11 +328,12 @@ def main(options):
     """ % datetime.datetime.now()
     fouttrips.write("<tripdefs>\n")
     
-    if hasattr(options, "scale"):
+    #if hasattr(options, "scale"):
+    if options.demandscale != 1.:
+        print 'demand scale %s is used.' % options.demandscale
         for start in range(len(startVertices)):
             for end in range(len(endVertices)):
-                matrixPshort[start][end] *= options.scale
-                print 'demand:', matrixPshort[start][end]
+                matrixPshort[start][end] *= options.demandscale
 
     for start, startVertex in enumerate(startVertices):
         for end, endVertex in enumerate(endVertices):
@@ -386,7 +387,7 @@ if __name__ == "__main__":
                          default=False, help="debug the program")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    optParser.add_option("-s", "--scale", type="float", default=1., help="scale demand by ")
+    optParser.add_option("-f", "--scale-factor", dest="demandscale", type="float", default=1., help="scale demand by ")
     optParser.add_option("-D", "--depart-pos", dest="departpos", type="choice",
                      choices=('random', 'free', 'random_free'),
                      default = 'free', help="choose departure position: random, free, random_free")
