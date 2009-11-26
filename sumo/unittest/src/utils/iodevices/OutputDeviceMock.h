@@ -35,16 +35,16 @@ public:
 
     /** @brief Returns the current content as a string   
      */
-     std::string OutputDeviceMock::getString() throw() {
-    return myStream.str();
-}
+    std::string getString() throw() {
+        return myStream.str();
+    }
 
 protected:    
     /** @brief Returns the associated ostream    
      */
-	std::ostream & OutputDeviceMock::getOStream() throw() {
-		return myStream;
-	}
+    std::ostream &getOStream() throw() {
+        return myStream;
+    }
 
 private:
     /// the string stream
