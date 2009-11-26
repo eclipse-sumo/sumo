@@ -42,12 +42,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 LineReader::LineReader() throw() {}
@@ -81,7 +75,7 @@ LineReader::readAll(LineHandler &lh) throw(ProcessError) {
 
 bool
 LineReader::readLine(LineHandler &lh) throw(ProcessError) {
-    string toReport;
+    std::string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0) {
         size_t idx = myStrBuffer.find('\n');
@@ -90,7 +84,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError) {
             myRread++;
             return lh.report("");
         }
-        if (idx!=string::npos) {
+        if (idx!=std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
             myStrBuffer = myStrBuffer.substr(idx+1);
             myRread += idx+1;
@@ -102,7 +96,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError) {
                             : 1024);
                 size_t noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
-                myStrBuffer += string(myBuffer, noBytes);
+                myStrBuffer += std::string(myBuffer, noBytes);
                 myRead += 1024;
             } else {
                 toReport = myStrBuffer;
@@ -133,7 +127,7 @@ LineReader::readLine(LineHandler &lh) throw(ProcessError) {
 
 std::string
 LineReader::readLine() throw() {
-    string toReport;
+    std::string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0&&myStrm.good()) {
         size_t idx = myStrBuffer.find('\n');
@@ -142,7 +136,7 @@ LineReader::readLine() throw() {
             myRread++;
             return "";
         }
-        if (idx!=string::npos) {
+        if (idx!=std::string::npos) {
             toReport = myStrBuffer.substr(0, idx);
             myStrBuffer = myStrBuffer.substr(idx+1);
             myRread += idx+1;
@@ -154,7 +148,7 @@ LineReader::readLine() throw() {
                             : 1024);
                 size_t noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
-                myStrBuffer += string(myBuffer, noBytes);
+                myStrBuffer += std::string(myBuffer, noBytes);
                 myRead += 1024;
             } else {
                 toReport = myStrBuffer;
@@ -209,11 +203,12 @@ LineReader::reinit() throw() {
     if (myStrm.is_open()) {
         myStrm.close();
     }
-    myStrm.open(myFileName.c_str(), ios::binary);
-    myStrm.unsetf(ios::skipws);
-    myStrm.seekg(0, ios::end);
+    myStrm.clear();
+    myStrm.open(myFileName.c_str(), std::ios::binary);
+    myStrm.unsetf(std::ios::skipws);
+    myStrm.seekg(0, std::ios::end);
     myAvailable = myStrm.tellg();
-    myStrm.seekg(0, ios::beg);
+    myStrm.seekg(0, std::ios::beg);
     myRead = 0;
     myRread = 0;
     myStrBuffer = "";
@@ -222,7 +217,7 @@ LineReader::reinit() throw() {
 
 void
 LineReader::setPos(unsigned long pos) throw() {
-    myStrm.seekg(pos, ios::beg);
+    myStrm.seekg(pos, std::ios::beg);
     myRead = pos;
     myRread = pos;
     myStrBuffer = "";
