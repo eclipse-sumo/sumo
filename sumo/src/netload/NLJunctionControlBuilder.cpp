@@ -285,9 +285,13 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument) {
     myJunctions2PostLoadInit.push_back(ii);
     myActivePhases.clear();
     if (tlLogic!=0) {
-        if (!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
+        try {
+            if (!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
+                throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveSubKey + "' exists.");
+            }
+        } catch (InvalidArgument &e) {
             delete tlLogic;
-            throw InvalidArgument("Another logic with id '" + myActiveKey + "' and subid '" + myActiveSubKey + "' exists.");
+            throw;
         }
     }
 }
