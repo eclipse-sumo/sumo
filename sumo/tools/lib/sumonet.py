@@ -21,6 +21,7 @@ class NetLane:
         self._speed = speed
         self._length = length
         self._shape = []
+        self._outgoing = []
         edge.addLane(self)
 
     def getSpeed(self):
@@ -37,6 +38,13 @@ class NetLane:
 
     def getID(self):
         return self._edge._id + "_" + str(self._edge._lanes.index(self))
+
+    def getEdge(self):
+        return self._edge
+
+    def addOutgoing(self, tolane, tls, tllink):
+        self._outgoing.append( [tolane, tls, tllink ] )
+
 
 
 class NetEdge:
@@ -64,6 +72,7 @@ class NetEdge:
         if edge not in self._outgoing:
             self._outgoing[edge] = []
         self._outgoing[edge].append( [fromlane, tolane, tls, tllink ] )
+        fromlane.addOutgoing(tolane, tls, tllink)
 
     def addIncoming(self, edge):
         if edge not in self._incoming:
@@ -71,6 +80,9 @@ class NetEdge:
 
     def setShape(self, shape):
         self._shape = shape
+
+    def getID(self):
+        return self._id
 
     def getIncoming(self):
         return self._incoming
@@ -117,12 +129,14 @@ class NetEdge:
 
 
 class NetNode:
-    def __init__(self, id, coord):
+    def __init__(self, id, coord, incLanes):
         self._id = id
         self._coord = coord
         self._incoming = []
         self._outgoing = []
         self._foes = {}
+        self._prohibits = {}
+        self._incLanes = incLanes
 
     def addOutgoing(self, edge):
         self._outgoing.append(edge)
@@ -130,8 +144,41 @@ class NetNode:
     def addIncoming(self, edge):
         self._incoming.append(edge)
 
-    def setFoes(self, index, foes):
+    def setFoes(self, index, foes, prohibits):
         self._foes[index] = foes
+        self._prohibits[index] = prohibits
+
+    def getLinkIndex(self, link):
+        ret = 0
+        for lid in e._incLanes:
+            (e, l) = lid.split("_")
+            lane = None
+            for et in self._incoming:
+                for l in et._lanes:
+                    if l==link[0]:
+                        lane = l
+            
+            if l[0]==link[0] and l[1]==link[1]:
+                return ret
+            ret = ret + 1
+        return -1
+
+    def forbids(self, possProhibitor, possProhibited):
+        print self._incLanes
+        possProhibitorIndex = self.getLinkIndex(possProhibitor)
+        possProhibitedIndex = self.getLinkIndex(possProhibited)
+#        print possProhibitorIndex
+#        print possProhibitedIndex
+        if possProhibitorIndex<0 or possProhibitedIndex<0:
+            return False
+        ps = self._prohibits[possProhibitedIndex]
+#        print "%s %s %s" % (len(ps), possProhibitorIndex, possProhibitedIndex)
+#        print ps
+#        print len(ps)-possProhibitorIndex-1
+        if ps[len(ps)-possProhibitorIndex-1]:
+            print possProhibitorIndex
+        return ps[len(ps)-possProhibitorIndex-1]=='1'
+
 
 
 class NetTLS:
@@ -157,9 +204,9 @@ class Net:
         self._tlss = []
         self._ranges = [ [10000, -10000], [10000, -10000] ]
 
-    def addNode(self, id, coord=None):
+    def addNode(self, id, coord=None, incLanes=None):
         if id not in self._id2node:
-            node = NetNode(id, coord)
+            node = NetNode(id, coord, incLanes)
             self._nodes.append(node)
             self._id2node[id] = node
         if coord!=None and self._id2node[id]._coord==None:
@@ -168,6 +215,8 @@ class Net:
             self._ranges[0][1] = max(self._ranges[0][1], coord[0])
             self._ranges[1][0] = min(self._ranges[1][0], coord[1])
             self._ranges[1][1] = max(self._ranges[1][1], coord[1])
+        if incLanes!=None and self._id2node[id]._incLanes==None:
+            self._id2node[id]._incLanes = incLanes
         return self._id2node[id]
 
     def addEdge(self, id, fromID, toID, prio, function):
@@ -198,9 +247,11 @@ class Net:
             self._tlss.append(tls)
         tls.addConnection(inLane, outLane, linkNo)
 
-    def setFoes(self, junctionID, index, foes):
-        self._id2node[junctionID].setFoes(index, foes)
+    def setFoes(self, junctionID, index, foes, prohibits):
+        self._id2node[junctionID].setFoes(index, foes, prohibits)
 
+    def forbids(self, possProhibitor, possProhibited):
+        return possProhibitor[0].getEdge()._to.forbids(possProhibitor, possProhibited)
 
 
 
@@ -231,15 +282,17 @@ class NetReader(handler.ContentHandler):
                 self._currentShape = ""
         if name == 'junction':
             if attrs['id'][0]!=':':
-                self._currentNode = self._net.addNode(attrs['id'], [ float(attrs['x']), float(attrs['y']) ] )
+                self._currentNode = self._net.addNode(attrs['id'], [ float(attrs['x']), float(attrs['y']) ], attrs['incLanes'].split(" ") )
         if name == 'succ':
             if attrs['edge'][0]!=':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
                 self._currentLane = attrs['lane']
                 self._currentLane = int(self._currentLane[self._currentLane.rfind('_')+1:])
+            else:
+                self._currentEdge = None
         if name == 'succlane':
             lid = attrs['lane']
-            if lid[0]!=':' and lid!="SUMO_NO_DESTINATION":
+            if lid[0]!=':' and lid!="SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
                 tolane = int(lid[lid.rfind('_')+1:])
                 if attrs.has_key('tl') and attrs['tl']!="":
@@ -256,10 +309,16 @@ class NetReader(handler.ContentHandler):
                 tolane = toEdge._lanes[tolane]
                 self._currentEdge.addOutgoing(connected, self._currentEdge._lanes[self._currentLane], tolane, tl, tllink)
                 connected.addIncoming(self._currentEdge)
+        if name == 'row-logic':
+            self._currentNode = attrs['id']
+        if name == 'logicitem':
+            self._net.setFoes(self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
+
 
     def characters(self, content):
         if self._currentLane!=None:
             self._currentShape = self._currentShape + content
+
 
     def endElement(self, name):
         if name == 'lane' and self._currentLane:
