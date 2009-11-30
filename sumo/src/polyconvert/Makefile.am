@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libpolyconvert.a
 
 libpolyconvert_a_SOURCES = PCLoaderArcView.cpp PCLoaderArcView.h \
-PCLoaderElmar.cpp PCLoaderElmar.h \
+PCLoaderDlrNavteq.cpp PCLoaderDlrNavteq.h \
 PCLoaderVisum.cpp PCLoaderVisum.h \
 PCLoaderOSM.cpp PCLoaderOSM.h \
 PCLoaderXML.cpp PCLoaderXML.h \

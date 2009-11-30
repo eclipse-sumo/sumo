@@ -413,7 +413,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\polyconvert\PCLoaderElmar.cpp"
+				RelativePath="..\..\..\src\polyconvert\PCLoaderDlrNavteq.cpp"
 				>
 			</File>
 			<File
@@ -458,7 +458,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\polyconvert\PCLoaderElmar.h"
+				RelativePath="..\..\..\src\polyconvert\PCLoaderDlrNavteq.h"
 				>
 			</File>
 			<File

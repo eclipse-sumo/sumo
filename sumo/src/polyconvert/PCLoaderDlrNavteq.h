@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    PCLoaderElmar.h
+/// @file    PCLoaderDlrNavteq.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
 /// @version $Id$
 ///
-// A reader of pois and polygons stored in Elmar-format
+// A reader of pois and polygons stored in DLR-Navteq (Elmar)-format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -16,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef PCLoaderElmar_h
-#define PCLoaderElmar_h
+#ifndef PCLoaderDlrNavteq_h
+#define PCLoaderDlrNavteq_h
 
 
 // ===========================================================================
@@ -45,25 +45,25 @@ class OptionsCont;
 // class declarations
 // ===========================================================================
 /**
- * @class PCLoaderElmar
- * @brief A reader of pois and polygons stored in Elmar-format
+ * @class PCLoaderDlrNavteq
+ * @brief A reader of pois and polygons stored in DLR-Navteq (Elmar)-format
  *
  * Reads pois stored in "pointcollection.txt" and polygons stored in
  *  "...polygons.txt"/"...water_polygons.txt", applies the given projection
  *  and network offset and stores the so build pois/polys into the given map.
  */
-class PCLoaderElmar {
+class PCLoaderDlrNavteq {
 public:
-    /** @brief Loads pois/polygons assumed to be stored as according Elmar-files
+    /** @brief Loads pois/polygons assumed to be stored as according DLR-Navteq (Elmar)-files
      *
      * If the option "elmar-poi-files" is set within the given options container,
      *  the files stored herein are parsed using "loadPOIFiles", assuming this
-     *  option contains file paths to files containing pois stored in Elmar's
+     *  option contains file paths to files containing pois stored in DLR-Navteq
      *  "pointcollection.txt"-format.
      *
      * If the option "elmar-poly-files" is set within the given options container,
      *  the files stored herein are parsed using "loadPolyFiles", assuming this
-     *  option contains file paths to files containing polygons stored in Elmar's
+     *  option contains file paths to files containing polygons stored in DLR-Navteq 
      *  "...polygons.txt"/"...water_polygons.txt"-format.
      *
      * @param[in] oc The options container to get further options from
@@ -75,7 +75,7 @@ public:
                           PCTypeMap &tm) throw(ProcessError);
 
 protected:
-    /** @brief Loads pois assumed to be stored as according Elmar-files
+    /** @brief Loads pois assumed to be stored as according DLR-Navteq (Elmar)-files
      *
      * Goes through the list of files given in "elmar-poi-files". Calls
      *  "loadPOIFile" using each of these as the first parameter.
@@ -89,7 +89,7 @@ protected:
                              PCTypeMap &tm) throw(ProcessError);
 
 
-    /** @brief Loads polygons assumed to be stored as according Elmar-files
+    /** @brief Loads polygons assumed to be stored as according DLR-Navteq (Elmar)-files
      *
      * Goes through the list of files given in "elmar-poly-files". Calls
      *  "loadPolyFile" using each of these as the first parameter.
@@ -103,7 +103,7 @@ protected:
                               PCTypeMap &tm) throw(ProcessError);
 
 
-    /** @brief Loads Elmar-pois from the given file
+    /** @brief Loads DLR-Navteq (Elmar)-pois from the given file
      * @param[in] file The name of the file to parse
      * @param[in] oc The options container to get further options from
      * @param[in] toFill The poly/pois container to add loaded polys to
@@ -115,7 +115,7 @@ protected:
                             PCTypeMap &tm) throw(ProcessError);
 
 
-    /** @brief Loads Elmar-polygons from the given file
+    /** @brief Loads DLR-Navteq (Elmar)-polygons from the given file
      * @param[in] file The name of the file to parse
      * @param[in] oc The options container to get further options from
      * @param[in] toFill The poly/pois container to add loaded polys to

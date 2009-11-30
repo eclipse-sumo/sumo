@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    PCLoaderElmar.cpp
+/// @file    PCLoaderDlrNavteq.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
 /// @version $Id$
 ///
-// A reader of pois and polygons stored in Elmar-format
+// A reader of pois and polygons stored in DLR-Navteq (Elmar)-format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -42,7 +42,7 @@
 #include <utils/options/Option.h>
 #include <utils/common/StdDefs.h>
 #include <polyconvert/PCPolyContainer.h>
-#include "PCLoaderElmar.h"
+#include "PCLoaderDlrNavteq.h"
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
@@ -64,26 +64,26 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-PCLoaderElmar::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
+PCLoaderDlrNavteq::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                          PCTypeMap &tm) throw(ProcessError) {
-    if (oc.isSet("elmar-poly-files")) {
+    if (oc.isSet("dlrnavteq-poly-files")) {
         loadPolyFiles(oc, toFill, tm);
     }
-    if (oc.isSet("elmar-poi-files")) {
+    if (oc.isSet("dlrnavteq-poi-files")) {
         loadPOIFiles(oc, toFill, tm);
     }
 }
 
 
 void
-PCLoaderElmar::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
+PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
                             PCTypeMap &tm) throw(ProcessError) {
-    vector<string> files = oc.getStringVector("elmar-poi-files");
+    vector<string> files = oc.getStringVector("dlrnavteq-poi-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
-            throw ProcessError("Could not open elmar-poi-file '" + *file + "'.");
+            throw ProcessError("Could not open dlrnavteq-poi-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from elmar-poi-file '" + *file + "'...");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlrnavteq-poi-file '" + *file + "'...");
         loadPOIFile(*file, oc, toFill, tm);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
@@ -91,14 +91,14 @@ PCLoaderElmar::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderElmar::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
+PCLoaderDlrNavteq::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
                              PCTypeMap &tm) throw(ProcessError) {
-    vector<string> files = oc.getStringVector("elmar-poly-files");
+    vector<string> files = oc.getStringVector("dlrnavteq-poly-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
-            throw ProcessError("Could not open elmar-poly-file '" + *file + "'.");
+            throw ProcessError("Could not open dlrnavteq-poly-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from elmar-poly-file '" + *file + "'...");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlrnavteq-poly-file '" + *file + "'...");
         loadPolyFile(*file, oc, toFill, tm);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
@@ -106,7 +106,7 @@ PCLoaderElmar::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
 
 
 void
-PCLoaderElmar::loadPOIFile(const std::string &file,
+PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
                            OptionsCont &oc, PCPolyContainer &toFill,
                            PCTypeMap &tm) throw(ProcessError) {
     // get the defaults
@@ -131,7 +131,7 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
         ++l;
         vector<string> values = st.getVector();
         if (values.size()<5) {
-            throw ProcessError("Invalid elmar-poi - line: '" + line + "'.");
+            throw ProcessError("Invalid dlrnavteq-poi - line: '" + line + "'.");
         }
         name = values[0];
         std::string skip = values[1];
@@ -182,7 +182,7 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
 
 
 void
-PCLoaderElmar::loadPolyFile(const std::string &file,
+PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
                             OptionsCont &oc, PCPolyContainer &toFill,
                             PCTypeMap &tm) throw(ProcessError) {
     // get the defaults
@@ -205,7 +205,7 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
         ++l;
         vector<string> values = st.getVector();
         if (values.size()<6||values.size()%2!=0) {
-            throw ProcessError("Invalid elmar-poi - line: '" + line + "'.");
+            throw ProcessError("Invalid dlrnavteq-polygon - line: '" + line + "'.");
         }
         string id = values[0];
         string ort = values[1];

@@ -45,7 +45,7 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/Boundary.h>
 #include <polyconvert/PCLoaderVisum.h>
-#include <polyconvert/PCLoaderElmar.h>
+#include <polyconvert/PCLoaderDlrNavteq.h>
 #include <polyconvert/PCLoaderXML.h>
 #include <polyconvert/PCLoaderOSM.h>
 #include <polyconvert/PCLoaderArcView.h>
@@ -86,11 +86,11 @@ fillOptions() throw() {
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Loads SUMO-network FILE as reference to offset and projection");
 
-    // elmar import
-    oc.doRegister("elmar-poly-files", new Option_FileName());
-    oc.addDescription("elmar-poly-files", "Input", "Reads polygons from FILE assuming they're coded in Elmar-format");
-    oc.doRegister("elmar-poi-files", new Option_FileName());
-    oc.addDescription("elmar-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in Elmar-format");
+    // dlrnavteq import
+    oc.doRegister("dlrnavteq-poly-files", new Option_FileName());
+    oc.addDescription("dlrnavteq-poly-files", "Input", "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format");
+    oc.doRegister("dlrnavteq-poi-files", new Option_FileName());
+    oc.addDescription("dlrnavteq-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format");
 
     // visum import
     oc.doRegister("visum-files", new Option_FileName());
@@ -240,7 +240,7 @@ main(int argc, char **argv) {
         // read in the data
         PCLoaderXML::loadIfSet(oc, toFill, tm); // SUMO-XML
         PCLoaderOSM::loadIfSet(oc, toFill, tm); // OSM-XML
-        PCLoaderElmar::loadIfSet(oc, toFill, tm); // Elmar-files
+        PCLoaderDlrNavteq::loadIfSet(oc, toFill, tm); // Elmar-files
         PCLoaderVisum::loadIfSet(oc, toFill, tm); // VISUM
         PCLoaderArcView::loadIfSet(oc, toFill, tm); // shape-files
         // check whether any errors occured
