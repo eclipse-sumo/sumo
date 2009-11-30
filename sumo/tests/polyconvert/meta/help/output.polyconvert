@@ -1,4 +1,4 @@
-SUMO polyconvert Version dev-SVN-r7607
+SUMO polyconvert Version dev-SVN-r8022
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
@@ -18,7 +18,7 @@ Usage: polyconvert.exe [OPTION]*
  Input Options:
   -n, --net-file FILE              Loads SUMO-network FILE as reference to
                                      offset and projection
-  --elmar FILE                     Reads polygons from FILE assuming they're
+  --elmar-poly-files FILE          Reads polygons from FILE assuming they're
                                      coded in Elmar-format
   --elmar-poi-files FILE           Reads pois from FILE+ assuming they're coded
                                      in Elmar-format
