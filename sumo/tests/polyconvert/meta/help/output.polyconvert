@@ -30,9 +30,9 @@ Usage: polyconvert.exe [OPTION]*
                                      in OSM
   --osm.keep-full-type             The type will be made of the key-value -
                                      pair.
-  --shape-file FILE                Reads shapes from shape-files FILE+
+  --shape-files FILE               Reads shapes from shape-files FILE+
   --arcview.guess-projection       Guesses the shapefile's projection
-  --shape-file.id-name FILE        Defines where to find the id
+  --shape-files.id-name FILE       Defines where to find the id
   --typemap FILE                   Reads types from FILE
 
  Output Options:
