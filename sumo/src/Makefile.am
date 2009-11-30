@@ -78,6 +78,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netbuild/libnetbuild.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
+./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
 $(GDAL_LIBS) \
 $(PROJ_LIBS)

@@ -9,4 +9,4 @@ endif
 
 EXTRA_DIST = additional.txt
 
-SUBDIRS = mersenne tcpip $(MEMDIRS) $(GUIDIRS) 
+SUBDIRS = eulerspiral mersenne tcpip $(MEMDIRS) $(GUIDIRS) 

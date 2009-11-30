@@ -42,6 +42,7 @@
 #include "NIImporter_OpenDrive.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <foreign/eulerspiral/euler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
@@ -58,8 +59,11 @@
 using namespace std;
 
 
-
+// ===========================================================================
+// definitions
+// ===========================================================================
 #define C_LENGTH 10.
+
 
 // ===========================================================================
 // method definitions
@@ -264,11 +268,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             }
             if (edge2junction.find(l.elementID)!=edge2junction.end()) {
                 // connection via an inner-road
-                /* !!!
                 addViaConnectionSecure(nb.getEdgeCont(),
                     nb.getNodeCont().retrieve(edge2junction[l.elementID]),
                     e, l.linkType, l.elementID, connections);
-                    */
             } else {
                 // connection between two outer-edges; can be used directly
                 std::vector<OpenDriveEdge>::iterator p = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(l.elementID));
@@ -394,12 +396,6 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
         map<int, int> fromMap = fromLaneMap[(*i).from];
         map<int, int> toMap = fromLaneMap[(*i).to];
         for (std::vector<std::pair<int, int> >::const_iterator j=(*i).lanes.begin(); j!=(*i).lanes.end(); ++j) {
-            /*
-            int fromLane = abs((*j).first);
-            //fromLane = (*i).from->getNoLanes() - fromLane;
-            int toLane = abs((*j).second);
-            //toLane = (*i).to->getNoLanes() - toLane;
-            */
             int fromLane = fromMap[(*j).first];
             int toLane = toMap[(*j).second];
             if (fromLane>=(*i).from->getNoLanes()||fromLane<0) {
@@ -688,106 +684,13 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeom
     std::vector<Position2D> ret;
     SUMOReal curveStart = g.params[0];
     SUMOReal curveEnd = g.params[1];
-    SUMOReal start_x = g.x;
-    SUMOReal start_y = g.y;
-    SUMOReal start_Angle = g.hdg;
-    SUMOReal length = g.length;
-
-    SUMOReal curve;
-    bool left;
-    bool first_spiral;
-    SUMOReal dist, tmpx, tmpy, tmphdg;
-    if (fabs(curveEnd) > fabs(curveStart)) {
-        curve = curveEnd;
-        //Bestimmen der Richtung
-        // wird bei der Berechnung der Endkoordinate des neuen Kurven-Segmentes benötigt
-        if (curveEnd > 0.0) {
-            left = true;
-        } else {
-            left = false;
-        }
-        first_spiral = true;
-        dist = 0.0;
-        tmpx = start_x;
-        tmpy = start_y;
-        tmphdg = start_Angle;
-        //Berechnung des Startpunkts der Klothoide, bei der Start- und Endkrümmung != 0 sind
-        if (fabs(curveStart) != 0.0) {
-            //Berechnung der Länge bis Krümmung 0
-            SUMOReal r1 = 1. / fabs(curveStart);
-            SUMOReal r2 = 1. / fabs(curveEnd);
-            dist = (r2 * length) / (r1 - r2);
-            //Berechnung des ersten Punkts
-            start_Angle += PI;
-            calculateFirstClothoidPoint(&start_x, &start_y, &start_Angle, curveStart*-1. , dist);
-            start_Angle -= PI;
-            length += dist;
-        }
-    } else {
-        if (curveEnd == 0.0) {
-            curve = curveStart;
-            calculateFirstClothoidPoint(&start_x, &start_y, &start_Angle, curve, length);
-            start_Angle += PI;
-            //Bestimmen der Richtung
-            // wird bei der Berechnung der Endkoordinate des neuen Kurven-Segmentes benötigt
-            if (curveStart > 0.0) {
-                left = false;
-            } else {
-                left = true;
-            }
-            first_spiral = false;
-            dist = length;
-            tmpx = g.x;
-            tmpy = g.y;
-            tmphdg = g.hdg;
-        } else {
-            return ret;
-        }
+    Point2D<double> end;
+    EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd-curveStart)/g.length, g.length);
+    std::vector<Point2D<double> > into;
+    s.computeSpiral(into, 1.);
+    for(std::vector<Point2D<double> >::iterator i=into.begin(); i!=into.end(); ++i) {
+        ret.push_back(Position2D((*i).getX(), (*i).getY()));
     }
-
-    SUMOReal end_x, end_y, endZ, end_Angle;
-    SUMOReal geo_posS = g.s;
-    SUMOReal geo_posE = g.s;
-    bool end = false;
-    do {
-        //setzen der Startkoordinate der original Klothoide
-        //bei Berechnung der Endkoordinate wird immer vom original Startpunkt der Klothoide ausgegangen
-        end_x = start_x;
-        end_y = start_y;
-        end_Angle = start_Angle;
-        geo_posE += C_LENGTH;
-        if (geo_posE - g.s > g.length) {
-            geo_posE = g.s + g.length;
-        }
-        //Bestimmen der Entfernung zum zu berechnenden Punkts
-        if (first_spiral) {
-            dist += (geo_posE - geo_posS);
-        } else {
-            dist -= (geo_posE - geo_posS);
-        }
-        //Berechnen der XY-Koordinate
-        if (dist > 0.0) {
-            calculateClothoidProperties(&end_x, &end_y, &end_Angle, curve, length, dist, left);
-        } else {
-            //Bei der Klothoide Start != 0 entspricht der Startwert dem zu berechnenden Endwert
-            end_x = start_x;
-            end_y = start_y;
-            end_Angle = end_Angle - PI - PI;
-        }
-        if (!first_spiral) {
-            end_Angle += PI;
-        }
-        //
-        ret.push_back(Position2D(tmpx, tmpy));
-        //
-        geo_posS = geo_posE;
-        tmpx = end_x;
-        tmpy = end_y;
-        tmphdg = end_Angle;
-        if (geo_posE  - (g.s + g.length) < 0.001 && geo_posE  - (g.s + g.length) > -0.001) {
-            end = true;
-        }
-    } while (!end);
     return ret;
 }
 
@@ -813,10 +716,14 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
     SUMOReal geo_posE = g.s;
     int index1 = 0;
     bool end = false;
-    do {
-        SUMOReal startds, endds;
-        geo_posE += C_LENGTH;
-        // Berechnung eines Punktes auf der Kurve abhängig von der Länge (Konstante)
+	do {
+		SUMOReal startds, endds;
+		geo_posE += C_LENGTH;
+		// Berechnung eines Punktes auf der Kurve abhängig von der Länge (Konstante)
+		if(geo_posE - g.s > g.length)
+		{
+			geo_posE = g.s + g.length;
+		}
         if (geo_posE - g.s > g.length) {
             geo_posE = g.s + g.length;
         }
@@ -860,113 +767,6 @@ NIImporter_OpenDrive::calculateStraightEndPoint(double hdg, double length, const
     normx = x2 * length;
     normy = y2 * length;
     return Position2D(start.x() + normx, start.y() + normy);
-}
-
-
-void
-NIImporter_OpenDrive::calculateClothoidProperties(SUMOReal *x, SUMOReal *y, SUMOReal *hdg, SUMOReal curve,
-        SUMOReal length, SUMOReal dist, bool direction) throw() {
-
-    double xtmp, ytmp;
-    //Radius am Ende der Klothoide (Kreisradius)
-    double r = abs(1 / curve);
-    // 'A' Klothoiden-Parameter,immer Konstant
-    double a = sqrt(length * r);
-    // Radius am zum Berechneneden Endpunkt der Klothoide
-    r = pow(a, 2) / dist;
-    double l = a / r;
-    // Tangenten Winkel = Richtungswinkel des Endpunktes
-    double new_hdg = dist/(2 * (pow(a, 2)/dist));
-
-    double omega_hdg;
-    double lengthS;
-    //Berechnung aus RAS-L (Richtlinien für die Anlage von Straßen Teil Linienführung)
-    xtmp = a *(l - pow(l, 5.0)/40.0 + pow(l, 9.0)/3456.0 - pow(l, 13.0)/599040.0 + pow(l, 17.0)/175472640.0);
-    ytmp = a * (pow(l, 3.0)/6.0 - pow(l, 7.0)/366.0 + pow(l, 11.0)/42240.0 - pow(l, 15.0)/9767800.0);
-    // Falls Rechtskurve -> Spiegeln der Klothoide an der X achse (X bleibt / Y * (-1))
-    if (!direction)
-        ytmp *= (-1);
-    //Richtungswibnkel der Sehne
-    omega_hdg = atan(ytmp/xtmp);
-    //Länge der Sehne
-    lengthS = sqrt(pow(xtmp,2) + pow(ytmp,2));
-
-    long double tmp;
-    tmp = xtmp;
-    //Rotieren umd den Richtungswinkel des Startpunkts
-    xtmp = xtmp * cos(*hdg) - ytmp * sin(*hdg);
-    ytmp = tmp * sin(*hdg) + ytmp * cos(*hdg);
-
-    // Rückgabe der End-Koordinaten
-    *x = *x + xtmp;
-    *y = *y + ytmp;
-    // Rückgabe des Richtungswinkels abhängig von der Richtung der Kurve
-    if (direction)
-        *hdg = new_hdg +*hdg;
-    else
-        *hdg = *hdg - new_hdg;
-}
-//Berechnung des Startpunktes der Klothoide
-//Dabei wird zunächst die normale Klothoide Berechnet
-//Dannach wird der Endpunkt auf den Koordinatenursprung verschoben
-//Und zum Schluss der Startpunkt anhand der Sehne (Start- <-> Endpunkt) berechnet
-void
-NIImporter_OpenDrive::calculateFirstClothoidPoint(SUMOReal* ad_X, SUMOReal* ad_Y, SUMOReal* ad_hdg,
-        SUMOReal ad_curvature, SUMOReal ad_lengthE) throw() {
-    //Entscheidung Links oder Rechtskurve
-    //notwendig, da bei einer Linkskurve die Normale-Klothoide gespiegelt werden muss
-    //BERECHNUNG RÜCKWÄRTS
-    long double reflect;
-    //Umgekehrt da Klothoide vom Ende betrachtet wird
-    if (ad_curvature > 0.0)
-        reflect = -1.0;
-    else {
-        reflect = 1.0;
-    }
-    //Klothoiden Parameter
-    long double A = sqrt(ad_lengthE * 1/abs(ad_curvature));
-    long double xE, yE;
-    long double rE = pow(A,2)/ad_lengthE;
-    double lE = A / rE;
-    //Berechnung der Endpunkte der Normalen-Klothoide anhand von A
-    xE = A *(lE - pow(lE, 5.0)/40.0 + pow(lE, 9.0)/3456.0 - pow(lE, 13.0)/599040.0 + pow(lE, 17.0)/175472640.0);
-    yE = reflect* A * (pow(lE, 3.0)/6.0 - pow(lE, 7.0)/366.0 + pow(lE, 11.0)/42240.0 - pow(lE, 15.0)/9767800.0);
-    //Berechnung des Tangentenwinkels der Normalen-Klotoide
-    long double lok_hdg = pow(A, 2)/ (2 * pow(rE,2));
-    //Richtungswinkel des Startpunktes
-    long double new_hdg;
-    if (reflect > 0.0)
-        new_hdg = *ad_hdg - lok_hdg;
-    else
-        new_hdg = *ad_hdg + lok_hdg;
-
-    //Abfangen der negativen Winkel-Werte
-    if (new_hdg <0.0)
-        new_hdg = 2 * PI + new_hdg;
-    // Berechnung der Sehhne zw. Startpunkt und Endpunkt
-    long double S = sqrt(pow(yE, 2)+ pow(xE, 2));
-    //Richtungswinkel der Sehne
-    long double omega = atan(yE/xE);
-
-    //******* VEKTORRECHNUNG ************
-
-    long double normxS = 1.0;
-    long double normyS = 0.0;
-
-    long double tmp;
-
-    tmp = normxS;
-    normxS = normxS * cos(PI + new_hdg + omega) - normyS * sin(PI + new_hdg + omega);
-    normyS = tmp * sin(PI + new_hdg + omega) + normyS * cos(PI + new_hdg + omega);
-    //Startpunkt der normalen Klothoide versetzt vom Koordinatenurprung
-    //anhand der Sehne S
-    normxS *= S;
-    normyS *= S;
-
-    //Rückgabe
-    *ad_X -= normxS;
-    *ad_Y -= normyS;
-    *ad_hdg = new_hdg;
 }
 
 
