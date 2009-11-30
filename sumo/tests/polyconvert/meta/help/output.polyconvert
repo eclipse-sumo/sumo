@@ -18,10 +18,10 @@ Usage: polyconvert.exe [OPTION]*
  Input Options:
   -n, --net-file FILE              Loads SUMO-network FILE as reference to
                                      offset and projection
-  --elmar-poly-files FILE          Reads polygons from FILE assuming they're
-                                     coded in Elmar-format
-  --elmar-poi-files FILE           Reads pois from FILE+ assuming they're coded
-                                     in Elmar-format
+  --dlrnavteq-poly-files FILE      Reads polygons from FILE assuming they're
+                                     coded in DLR-Navteq (Elmar)-format
+  --dlrnavteq-poi-files FILE       Reads pois from FILE+ assuming they're coded
+                                     in DLR-Navteq (Elmar)-format
   --visum-files FILE               Reads polygons from FILE assuming it's a
                                      Visum-net
   --xml FILE                       Reads pois from FILE assuming they're coded
