@@ -82,7 +82,7 @@ PCLoaderArcView::load(const string &file, OptionsCont &oc, PCPolyContainer &toFi
     string type = oc.getString("type");
     RGBColor color = RGBColor::parseColor(oc.getString("color"));
     int layer = oc.getInt("layer");
-    string idField = oc.getString("shape-file.id-name");
+    string idField = oc.getString("shape-files.id-name");
     // start parsing
     string shpName = file + ".shp";
     OGRRegisterAll();

@@ -109,13 +109,13 @@ fillOptions() throw() {
     oc.addDescription("osm.keep-full-type", "Input", "The type will be made of the key-value - pair.");
 
     // arcview import
-    oc.doRegister("shape-file", new Option_FileName());
-    oc.addSynonyme("shape-file", "shape");
-    oc.addDescription("shape-file", "Input", "Reads shapes from shape-files FILE+");
+    oc.doRegister("shape-files", new Option_FileName());
+    oc.addSynonyme("shape-files", "shape");
+    oc.addDescription("shape-files", "Input", "Reads shapes from shape-files FILE+");
     oc.doRegister("arcview.guess-projection", new Option_Bool(false));
     oc.addDescription("arcview.guess-projection", "Input", "Guesses the shapefile's projection");
-    oc.doRegister("shape-file.id-name", new Option_FileName());
-    oc.addDescription("shape-file.id-name", "Input", "Defines where to find the id");
+    oc.doRegister("shape-files.id-name", new Option_FileName());
+    oc.addDescription("shape-files.id-name", "Input", "Defines where to find the id");
 
     // typemap reading
     oc.doRegister("typemap", new Option_FileName());
