@@ -134,12 +134,13 @@ PCLoaderElmar::loadPOIFile(const std::string &file,
             throw ProcessError("Invalid elmar-poi - line: '" + line + "'.");
         }
         name = values[0];
-        type = values[1];
-        desc = values[2];
-        xpos = values[3];
-        ypos = values[4];
-        SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
-        SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
+        std::string skip = values[1];
+        type = values[2];
+        desc = values[3];
+        xpos = values[4];
+        ypos = values[5];
+        SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str()) / 100000.;
+        SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str()) / 100000.;
         Position2D pos(x, y);
         // check the poi
         if (name=="") {
@@ -217,8 +218,8 @@ PCLoaderElmar::loadPolyFile(const std::string &file,
             string xpos = values[index];
             string ypos = values[index+1];
             index += 2;
-            SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
+            SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str()) / 100000.;
+            SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str()) / 100000.;
             Position2D pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");

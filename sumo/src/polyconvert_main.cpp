@@ -87,8 +87,8 @@ fillOptions() throw() {
     oc.addDescription("net-file", "Input", "Loads SUMO-network FILE as reference to offset and projection");
 
     // elmar import
-    oc.doRegister("elmar", new Option_FileName());
-    oc.addDescription("elmar", "Input", "Reads polygons from FILE assuming they're coded in Elmar-format");
+    oc.doRegister("elmar-poly-files", new Option_FileName());
+    oc.addDescription("elmar-poly-files", "Input", "Reads polygons from FILE assuming they're coded in Elmar-format");
     oc.doRegister("elmar-poi-files", new Option_FileName());
     oc.addDescription("elmar-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in Elmar-format");
 
