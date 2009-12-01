@@ -160,11 +160,11 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
     glPushMatrix();
     if (getLayer()==0) {
-        glTranslated(0, 0, -.003);
+        glTranslated(0, 0, -.03);
     } else if (getLayer()>0) {
-        glTranslated(0, 0, -.005-.001*(SUMOReal) getLayer());
+        glTranslated(0, 0, -.05-.01*(SUMOReal) getLayer());
     } else {
-        glTranslated(0, 0, -.001*(SUMOReal) getLayer()+.001);
+        glTranslated(0, 0, -.01*(SUMOReal) getLayer()+.01);
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // (optional) set id
