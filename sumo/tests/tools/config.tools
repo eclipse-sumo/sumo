@@ -8,6 +8,7 @@ copy_test_path:tracefile.xml
 copy_test_path:input_weights.dump.xml
 copy_test_path:e2_output.xml
 copy_test_path:costFunction.py
+copy_test_path:lsa_def.csv
 
 [collate_file]
 detectors:input_nete2.det.xml
@@ -23,4 +24,5 @@ summary:intersection_metrics_summary.txt
 [run_dependent_text]
 output:Begin time
 output:End time
-output:uration
+output:uration:
+
