@@ -224,7 +224,7 @@ for step in range(options.firstStep, options.lastStep):
         output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
         print ">> Running router with " + file
         btime = datetime.now()
-        print ">>> Begin time %s" % btime
+        print ">>> Begin time: %s" % btime
         writeRouteConf(step, options, file, output, doCalibration)
         if options.verbose:
             print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
@@ -237,8 +237,8 @@ for step in range(options.firstStep, options.lastStep):
             subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
                             shell=True, stdout=log, stderr=log)
         etime = datetime.now()
-        print ">>> End time %s" % etime
-        print ">>> Duration %s" % (etime-btime)
+        print ">>> End time: %s" % etime
+        print ">>> Duration: %s" % (etime-btime)
         print "<<"
         # calibration choice
         if doCalibration:
@@ -256,7 +256,7 @@ for step in range(options.firstStep, options.lastStep):
     # simulation
     print ">> Running simulation"
     btime = datetime.now()
-    print ">>> Begin time %s" % btime
+    print ">>> Begin time: %s" % btime
     writeSUMOConf(step, options, ",".join(files))
     if options.verbose:
         print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
@@ -269,8 +269,8 @@ for step in range(options.firstStep, options.lastStep):
         subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
                         shell=True, stdout=log, stderr=log)
     etime = datetime.now()
-    print ">>> End time %s" % etime
-    print ">>> Duration %s" % (etime-btime)
+    print ">>> End time: %s" % etime
+    print ">>> Duration: %s" % (etime-btime)
     print "<<"
     # calibration update
     if doCalibration: 
