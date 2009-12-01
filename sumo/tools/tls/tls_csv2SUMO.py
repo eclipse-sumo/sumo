@@ -170,7 +170,7 @@ for i in range(0, len(normTimes)):
             for l2 in range(0, len(state)):
                 if l1==l2:
                     continue
-                if state[l2]!='g' and state[l2]!='G':
+                if state[l2]!='g' and state[l2]!='G' and state[l2]!='y' and state[l2]!='Y':
                     continue
                 link1 = laneMap[l1]
                 link2 = laneMap[l2]
