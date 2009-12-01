@@ -1,0 +1,14 @@
+<add>
+    <tl-logic type="static" id="0" programID="own" offset="0">
+        <phase duration="15" min_dur="10" max_dur="30" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3" min_dur="3" max_dur="3" state="yyggrrrryyggrrrr"/>
+        <phase duration="5" min_dur="5" max_dur="15" state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="3" min_dur="3" max_dur="3" state="rryyrrrrrryyrrrr"/>
+        <phase duration="3" min_dur="3" max_dur="3" state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="45" min_dur="10" max_dur="60" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3" min_dur="3" max_dur="3" state="rrrrGGyyrrrrGGyy"/>
+        <phase duration="5" min_dur="5" max_dur="15" state="rrrrGGrrrrrrGGrr"/>
+        <phase duration="3" min_dur="3" max_dur="3" state="rrrryyrrrrrryyrr"/>
+        <phase duration="3" min_dur="3" max_dur="3" state="rrrrrrrrrrrrrrrr"/>
+    </tl-logic>
+</add>
