@@ -447,7 +447,7 @@ GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff) {
         myAddScl *= ys;
     }
     // initially, leave some room for the net
-    glScaled((SUMOReal) 0.97, (SUMOReal) 0.97, (SUMOReal) 1);
+    glScaled(0.97, 0.97, 1.);
     myX1 /= 0.97;
     myY1 /= 0.97;
     myAddScl *= (SUMOReal) .97;
@@ -951,7 +951,7 @@ GUISUMOAbstractView::getColoringSchemesCombo() {
 
 void
 GUISUMOAbstractView::drawDecals() throw() {
-    glPolygonOffset(0, 10);
+    glTranslated(0, 0, .99);
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end();) {
         GUISUMOAbstractView::Decal &d = *l;
@@ -980,6 +980,7 @@ GUISUMOAbstractView::drawDecals() throw() {
         ++l;
     }
     myDecalsLock.unlock();
+    glTranslated(0, 0, -.99);
 }
 
 

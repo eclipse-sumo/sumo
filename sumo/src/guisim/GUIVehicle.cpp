@@ -347,7 +347,7 @@ inline void
 drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale) {
     SUMOReal length = veh.getVehicleType().getLength();
     glPushMatrix();
-    glScaled(upscale, upscale, upscale);
+    glScaled(upscale, upscale, 1);
     if (length<8) {
         glScaled(1, length, 1);
         glBegin(GL_TRIANGLES);
@@ -379,7 +379,7 @@ drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
     glRotated(90, 0, 0, 1);
     //glTranslated(veh.getVehicleType().getGuiOffset(), 0, 0);
     glScaled(1, veh.getVehicleType().getGuiWidth(), 1.);
-    glScaled(upscale, upscale, upscale);
+    glScaled(upscale, upscale, 1);
     glBegin(GL_TRIANGLE_FAN);
     glVertex2d((length-offset)/2., 0);
     glVertex2d(offset, 0);
@@ -397,6 +397,7 @@ drawAction_drawVehicleAsBoxPlus(const GUIVehicle &veh, SUMOReal upscale) {
 
 void
 drawPoly(double *poses, SUMOReal offset) {
+    glTranslated(0, 0, offset*.01);
     glPolygonOffset(0, offset);
     glBegin(GL_TRIANGLE_FAN);
     int i = 0;
@@ -405,6 +406,7 @@ drawPoly(double *poses, SUMOReal offset) {
         i = i + 2;
     }
     glEnd();
+    glTranslated(0, 0, -offset*.01);
 }
 
 
@@ -427,7 +429,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     glRotated(90, 0, 0, 1);
     glTranslated(veh.getVehicleType().getGuiOffset(), 0, 0);
     glScaled(length-veh.getVehicleType().getGuiOffset(), veh.getVehicleType().getGuiWidth(), 1.);
-    glScaled(upscale, upscale, upscale);
+    glScaled(upscale, upscale, 1);
     SUMOVehicleShape shape = veh.getVehicleType().getGuiShape();
     switch (shape) {
     case SVS_UNKNOWN:
@@ -439,12 +441,14 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         break;
     case SVS_PEDESTRIAN:
         //glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glPolygonOffset(0, -4.5);
+        glTranslated(0, 0, -.045);
         GLHelper::drawFilledCircle(1);
+        glTranslated(0, 0, .045);
         glScaled(.7, 2, 1);
-        glPolygonOffset(0, -4);
+        glTranslated(0, 0, -.04);
         glColor3dv(lighter);
         GLHelper::drawFilledCircle(1);
+        glTranslated(0, 0, .04);
         break;
     case SVS_BICYCLE:
     case SVS_MOTORCYCLE: {
@@ -452,12 +456,14 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glPushMatrix();
         glTranslated(.5, 0, 0);
         glScaled(.25/(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glPolygonOffset(0, -4.5);
+        glTranslated(0, 0, -.045);
         GLHelper::drawFilledCircle(1);
         glScaled(.7, 2, 1);
-        glPolygonOffset(0, -4);
+        glTranslated(0, 0, .045);
+        glTranslated(0, 0, -.04);
         glColor3dv(lighter);
         GLHelper::drawFilledCircle(1);
+        glTranslated(0, 0, .04);
         glPopMatrix();
     }
     break;
@@ -504,7 +510,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
     case SVS_BUS_CITY: {
         SUMOReal ml = length - veh.getVehicleType().getGuiOffset();
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glPolygonOffset(0, -4);
+        glTranslated(0, 0, -.04);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(ml/2., 0);
         glVertex2d(0, 0);
@@ -518,8 +524,9 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(0, .45);
         glVertex2d(0, 0);
         glEnd();
+        glTranslated(0, 0, .04);
 
-        glPolygonOffset(0, -4.5);
+        glTranslated(0, 0, -.045);
         glColor3f(0, 0, 0);
         glBegin(GL_QUADS);
         glVertex2d(0+.05, .48);
@@ -543,11 +550,12 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(ml-.20, -.49);
 
         glEnd();
+        glTranslated(0, 0, .045);
     }
     break;
     case SVS_BUS_OVERLAND:
         glScaled(1./(length-veh.getVehicleType().getGuiOffset()), 1, 1.);
-        glPolygonOffset(0, -4);
+        glTranslated(0, 0, -.04);
         glBegin(GL_TRIANGLE_FAN);
         glVertex2d(length/2., 0);
         glVertex2d(0, 0);
@@ -561,6 +569,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(0, .45);
         glVertex2d(0, 0);
         glEnd();
+        glTranslated(0, 0, .04);
         break;
     case SVS_RAIL:
         break;
@@ -578,7 +587,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         drawPoly(vehiclePoly_EVehicleBody, -4);
         glColor3f(0, 0, 0);
         drawPoly(vehiclePoly_EVehicleFrontGlass, -4.5);
-        glPolygonOffset(0, -4.8);
+        glTranslated(0, 0, -.048);
         glColor3dv(current);
         glBegin(GL_QUADS);
         glVertex2d(.3, .5);
@@ -596,6 +605,7 @@ drawAction_drawVehicleAsPoly(const GUIVehicle &veh, SUMOReal upscale) {
         glVertex2d(.65, -.5);
         glVertex2d(.7, -.5);
         glEnd();
+        glTranslated(0, 0, .048);
         //drawPoly(vehiclePoly_EVehicleBackGlass, -4.5);
         break;
     default: // same as passenger
@@ -796,6 +806,7 @@ inline void
 drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size) {
     glPushMatrix();
     glTranslated(0, veh.getVehicleType().getLength() / 2., 0);
+    glTranslated(0, 0, -.07);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     pfSetPosition(0, 0);
     pfSetScale(size);
@@ -834,7 +845,7 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh) {
 
 void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
-    glPolygonOffset(0, -4);
+    glTranslated(0, 0, -.04);
     // set lane color
     s.vehicleColorer.setGlColor(*this);
     // (optional) set id
@@ -865,10 +876,12 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         drawAction_drawVehicleAsPoly(*this, upscale);
         break;
     }
+    glTranslated(0, 0, .04);
     // draw the blinker if wished
     if (s.showBlinker) {
-        glPolygonOffset(0, -5);
+        glTranslated(0, 0, -.05);
         drawAction_drawVehicleBlinker(*this);
+        glTranslated(0, 0, .05);
     }
     // draw the c2c-circle
 #ifdef HAVE_BOYOM_C2C
@@ -924,10 +937,11 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         */
     }
     if (s.drawVehicleName) {
-        glPolygonOffset(0, -6);
+        glTranslated(0, 0, -.06);
         // compute name colors
         glColor3f(s.vehicleNameColor.red(), s.vehicleNameColor.green(), s.vehicleNameColor.blue());
         drawAction_drawVehicleName(*this, s.vehicleNameSize / s.scale);
+        glTranslated(0, 0, .06);
     }
     // (optional) clear id
     if (s.needsGlID) {

@@ -419,12 +419,12 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
-    glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
+    glScaled(s.addExaggeration, s.addExaggeration, 1);
     glRotated(myFGRotation, 0, 0, 1);
 
     glColor3f(1, 0, 0);
     // base
-    glPolygonOffset(0, -3);
+    glTranslated(0, 0, -.03);
     glBegin(GL_TRIANGLES);
     glVertex2d(0-1.5, 0);
     glVertex2d(0-1.5, 8);
@@ -435,7 +435,7 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw() {
     glEnd();
 
     // arrows
-    glPolygonOffset(0, -4);
+    glTranslated(0, 0, -.01);
     glBegin(GL_TRIANGLES);
     glColor3f(1, 1, 0);
     glVertex2d(0, 1-.5);
@@ -451,6 +451,7 @@ GUIEmitter::drawGL(const GUIVisualizationSettings &s) const throw() {
     glVertex2d(0+1.25, 5+2-.5);
 
     glEnd();
+    glTranslated(0, 0, .04);
     glPopMatrix();
 
     if (myDrawRoutes) {

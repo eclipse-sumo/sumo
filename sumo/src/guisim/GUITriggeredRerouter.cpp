@@ -304,10 +304,10 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         const Position2D &pos = myFGPositions[i];
         SUMOReal rot = myFGRotations[i];
         glPushMatrix();
-        glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
+        glScaled(s.addExaggeration, s.addExaggeration, 1);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
-        glPolygonOffset(0, -3);
+        glTranslated(0, 0, -.03);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         glBegin(GL_TRIANGLES);
@@ -321,7 +321,7 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
         glVertex2d(0+1.4, 6);
         glEnd();
 
-        glPolygonOffset(0, -4);
+        glTranslated(0, 0, -.01);
         glColor3f(0, 0, 0);
         pfSetPosition(0, 0);
         pfSetScale(3.f);
@@ -368,13 +368,13 @@ GUITriggeredRerouter::drawGL(const GUIVisualizationSettings &s) const throw() {
                         noPoints = 36;
                     }
                 }
-                glPolygonOffset(0, -3);
+                glTranslated(0, 0, -.03);
                 glColor3f((SUMOReal) 0.7, (SUMOReal) 0, (SUMOReal) 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
-                glPolygonOffset(0, -4);
+                glTranslated(0, 0, -.01);
                 glColor3f(1, 0, 0);
                 GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob);
-                glPolygonOffset(0, -5);
+                glTranslated(0, 0, -.01);
                 glColor3f(1, 1, 1);
                 glRotated(-90, 0, 0, 1);
                 glBegin(GL_TRIANGLES);

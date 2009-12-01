@@ -219,16 +219,18 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
     }
     // check whether lane boundaries shall be drawn
     if (s.scale>1.&&s.laneShowBorders&&myFunction!=MSEdge::EDGEFUNCTION_INTERNAL) {
-        glPolygonOffset(0, 1);
+        glTranslated(0, 0, .03);
         for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
             (*i)->drawBordersGL(s);
         }
+        glTranslated(0, 0, -.03);
         // draw white boundings
-        glPolygonOffset(0, 2);
+        glTranslated(0, 0, .02);
         glColor3d(1,1,1);
         for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end()-1; ++i) {
             GLHelper::drawBoxLines((*i)->getShape(), (*i)->getShapeRotations(), (*i)->getShapeLengths(), SUMO_const_halfLaneAndOffset);
         }
+        glTranslated(0, 0, -.02);
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -295,10 +297,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
             glColor3f(s.internalEdgeNameColor.red(), s.internalEdgeNameColor.green(), s.internalEdgeNameColor.blue());
             nameSize = s.internalEdgeNameSize;
         }
-        glPolygonOffset(0, -6);
         GUILaneWrapper *lane1 = myLaneGeoms[0];
         GUILaneWrapper *lane2 = myLaneGeoms[myLaneGeoms.size()-1];
         glPushMatrix();
+        glTranslated(0, 0, -.06);
         Position2D p = lane1->getShape().positionAtLengthPosition(lane1->getShape().length()/(SUMOReal) 2.);
         p.add(lane2->getShape().positionAtLengthPosition(lane2->getShape().length()/(SUMOReal) 2.));
         p.mul(.5);
@@ -316,6 +318,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings &s) const throw() {
         glRotated(angle, 0, 0, 1);
         glTranslated(-w/2., .2*nameSize / s.scale, 0);
         pfDrawString(getMicrosimID().c_str());
+        glTranslated(0, 0, .06);
         glPopMatrix();
     }
 }

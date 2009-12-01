@@ -109,12 +109,13 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.scale*(1.3/3.0)<s.minPOISize) {
         return;
     }
+    glPushMatrix();
     if (getLayer()==0) {
-        glPolygonOffset(0, -3);
+        glTranslated(0, 0, -.003);
     } else if (getLayer()>0) {
-        glPolygonOffset(0, -5-getLayer());
+        glTranslated(0, 0, -.005-.001*(SUMOReal) getLayer());
     } else {
-        glPolygonOffset(0, -getLayer()+1);
+        glTranslated(0, 0, -.001*(SUMOReal) getLayer()+.001);
     }
     // (optional) set id
     if (s.needsGlID) {
@@ -139,6 +140,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.needsGlID) {
         glPopName();
     }
+    glPopMatrix();
 }
 
 

@@ -119,12 +119,13 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPushName(getGlID());
     }
     glColor3f(0, 0, 0);
-    glPolygonOffset(0, 1);
+    glTranslated(0, 0, .01);
     GLHelper::drawFilledPoly(myJunction.getShape(), true);
+    glTranslated(0, 0, -.01);
     // (optional) draw name
     if (s.drawJunctionName) {
-        glPolygonOffset(0, -6);
         glPushMatrix();
+        glTranslated(0, 0, -.06);
         Position2D p = myJunction.getPosition();
         glTranslated(p.x(), p.y(), 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

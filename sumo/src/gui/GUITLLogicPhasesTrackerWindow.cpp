@@ -295,7 +295,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller) 
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslated(-1, -1, 1);
+    glTranslated(-1, -1, 0);
     glScaled(2, 2, 1);
     glDisable(GL_TEXTURE_2D);
     // draw the horizontal lines dividing the signal groups

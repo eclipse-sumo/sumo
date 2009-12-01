@@ -137,14 +137,14 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -3);
+    glTranslated(0, 0, -.03);
     // draw the area
     glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
     size_t i;
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw the lines
     if (s.scale*s.addExaggeration>=10) {
-        glPolygonOffset(0, -4);
+        glTranslated(0, 0, -.01);
         glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
         for (i=0; i!=myLines.size(); ++i) {
             glPushMatrix();
@@ -154,11 +154,12 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(1.f);
-            glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
+            glScaled(s.addExaggeration, s.addExaggeration, 1);
             glTranslated(1.2, -(double)i, 0);
             pfDrawString(myLines[i].c_str());
             glPopMatrix();
         }
+        glTranslated(0, 0, .01);
     }
 
     // draw the sign
@@ -171,14 +172,14 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
             noPoints = 36;
         }
     }
-    glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
-    glPolygonOffset(0, -3);
+    glScaled(s.addExaggeration, s.addExaggeration, 1);
     glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
     GLHelper::drawFilledCircle((SUMOReal) 1.1, noPoints);
     if (s.scale*s.addExaggeration>=10) {
-        glPolygonOffset(0, -4);
+        glTranslated(0, 0, -.01);
         glColor3f((SUMOReal)(255./255.), (SUMOReal)(235./255.), (SUMOReal)(0./255.));
         GLHelper::drawFilledCircle((SUMOReal) 0.9, noPoints);
+        glTranslated(0, 0, .01);
         // draw the H
         // not if scale to low
         if (s.scale*s.addExaggeration>=4.5) {
@@ -186,15 +187,17 @@ GUIBusStop::drawGL(const GUIVisualizationSettings &s) const throw() {
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             glRotated(180, 1, 0, 0);
             glRotated(myFGSignRot, 0, 0, 1);
-            glPolygonOffset(0, -5);
+            glTranslated(0, 0, .02);
             pfSetPosition(0, 0);
             pfSetScale(1.6f);
             SUMOReal w = pfdkGetStringWidth("H");
             glTranslated(-w/2., 0.4, 0);
             pfDrawString("H");
+            glTranslated(0, 0, -.02);
         }
     }
     glPopMatrix();
+    glTranslated(0, 0, .03);
     // (optional) draw name
     if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);

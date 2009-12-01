@@ -432,7 +432,6 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         glPushName(getGlID());
     }
     // draw lane
-    glPolygonOffset(0, 0);
     // check whether it is not too small
     if (s.scale<1.) {
         GLHelper::drawLine(myShape);
@@ -442,8 +441,9 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
     } else {
         if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-            glPolygonOffset(0, 0.5);
+            glTranslated(0, 0, .005);
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_halfLaneWidth);
+            glTranslated(0, 0, -.005);
         } else {
             GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, SUMO_const_quarterLaneWidth);
         }
@@ -453,7 +453,7 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
         }
         // draw ROWs (not for inner lanes)
         if (getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {// !!! getPurpose()
-            glPolygonOffset(0, -2);
+            glTranslated(0, 0, -.02);
             GUINet *net = (GUINet*) MSNet::getInstance();
             ROWdrawAction_drawLinkRules(*net, *this, s.needsGlID);
             if (s.showLinkDecals) {
@@ -464,13 +464,16 @@ GUILaneWrapper::drawGL(const GUIVisualizationSettings &s) const throw() {
                 //  draw from end of first to the begin of second
                 ROWdrawAction_drawLane2LaneConnections(*this);
             }
+            glTranslated(0, 0, .02);
             if (s.drawLinkJunctionIndex) {
-                glPolygonOffset(0, -3);
+                glTranslated(0, 0, -.03);
                 ROWdrawAction_drawLinkNo(*this);
+                glTranslated(0, 0, .03);
             }
             if (s.drawLinkTLIndex) {
-                glPolygonOffset(0, -3);
+                glTranslated(0, 0, -.03);
                 ROWdrawAction_drawTLSLinkNo(*net, *this);
+                glTranslated(0, 0, .03);
             }
         }
     }

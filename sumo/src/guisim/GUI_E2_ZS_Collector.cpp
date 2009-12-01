@@ -191,7 +191,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -3);
+    glTranslated(0, 0, -.03);
     SUMOReal dwidth = 1;
     if (myDetector.getUsageType()==DU_TL_CONTROL) {
         dwidth = (SUMOReal) 0.3;
@@ -201,7 +201,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
     }
     SUMOReal width=2; // !!!
     if (width*s.addExaggeration>1.0) {
-        glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
+        glScaled(s.addExaggeration, s.addExaggeration, 1);
         GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, dwidth);
     } else {
         int e = (int) myFullGeometry.size() - 1;
@@ -209,6 +209,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(const GUIVisualizationSettings &s) const 
             GLHelper::drawLine(myFullGeometry[i], myShapeRotations[i], myShapeLengths[i]);
         }
     }
+    glTranslated(0, 0, .03);
     // (optional) draw name
     if (s.drawAddName) {
         drawGLName(getCenteringBoundary().getCenter(), getMicrosimID(), s.addNameSize / s.scale);

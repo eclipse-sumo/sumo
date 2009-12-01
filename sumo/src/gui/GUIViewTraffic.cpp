@@ -183,7 +183,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     glEnable(GL_POLYGON_OFFSET_LINE);
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
     //
-    glPolygonOffset(0, -1);
+    glTranslated(0, 0, -.01);
     for (std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
         const VehicleOps &vo = *i;
         switch (vo.type) {
@@ -212,6 +212,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
             break;
         }
     }
+    glTranslated(0, 0, .01);
     glPopMatrix();
     /*
     // draw legends

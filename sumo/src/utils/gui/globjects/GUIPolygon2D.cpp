@@ -158,12 +158,13 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
             return;
         }
     }
+    glPushMatrix();
     if (getLayer()==0) {
-        glPolygonOffset(0, -3);
+        glTranslated(0, 0, -.003);
     } else if (getLayer()>0) {
-        glPolygonOffset(0, -5-getLayer());
+        glTranslated(0, 0, -.005-.001*(SUMOReal) getLayer());
     } else {
-        glPolygonOffset(0, -getLayer()+1);
+        glTranslated(0, 0, -.001*(SUMOReal) getLayer()+.001);
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // (optional) set id
@@ -208,6 +209,7 @@ GUIPolygon2D::drawGL(const GUIVisualizationSettings &s) const throw() {
     if (s.needsGlID) {
         glPopName();
     }
+    glPopMatrix();
 }
 
 

@@ -144,24 +144,23 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings &s) const throw(
     if (s.needsGlID) {
         glPushName(getGlID());
     }
-    glPolygonOffset(0, -3);
     SUMOReal width = (SUMOReal) 2.0 * s.scale;
     glLineWidth(1.0);
     // shape
     glColor3f(1, 1, 0);
     glPushMatrix();
+    glTranslated(0, 0, -.03);
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
-    glScaled(s.addExaggeration, s.addExaggeration, s.addExaggeration);
+    glScaled(s.addExaggeration, s.addExaggeration, 1);
     glBegin(GL_QUADS);
     glVertex2d(0-1.0, 2);
     glVertex2d(-1.0, -2);
     glVertex2d(1.0, -2);
     glVertex2d(1.0, 2);
     glEnd();
+    glTranslated(0, 0, -.01);
     glBegin(GL_LINES);
-    // without the substracted offsets, lines are partially longer
-    //  than the boxes
     glVertex2d(0, 2-.1);
     glVertex2d(0, -2+.1);
     glEnd();
