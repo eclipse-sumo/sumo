@@ -257,10 +257,6 @@ GUISUMOAbstractView::paintGL() {
     }
 
     applyChanges(1.0, 0, 0);
-    if (myVisualizationSettings->showGrid) {
-        paintGLGrid();
-    }
-    //
     doPaintGL(GL_RENDER, 1.0);
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
@@ -378,9 +374,6 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id) {
 
 void
 GUISUMOAbstractView::paintGLGrid() {
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_ALPHA_TEST);
-    glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
     glLineWidth(1);
 
@@ -391,6 +384,7 @@ GUISUMOAbstractView::paintGLGrid() {
     SUMOReal xend = myGrid->xmax();
     SUMOReal yend = myGrid->ymax();
 
+    glTranslated(0, 0, .55);
     glColor3f(0.5, 0.5, 0.5);
     // draw horizontal lines
     glBegin(GL_LINES);
@@ -406,6 +400,7 @@ GUISUMOAbstractView::paintGLGrid() {
         xpos += myVisualizationSettings->gridXSize;
     }
     glEnd();
+    glTranslated(0, 0, -.55);
 }
 
 
@@ -862,9 +857,6 @@ GUISUMOAbstractView::getSnapshot() {
     }
 
     applyChanges(1.0, 0, 0);
-    if (myVisualizationSettings->showGrid) {
-        paintGLGrid();
-    }
     doPaintGL(GL_RENDER, 1.0);
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();

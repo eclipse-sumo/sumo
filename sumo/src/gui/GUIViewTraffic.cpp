@@ -167,6 +167,9 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale) {
     // draw decals (if not in grabbing mode)
     if (!myUseToolTips) {
         drawDecals();
+        if (myVisualizationSettings->showGrid) {
+            paintGLGrid();
+        }
     }
 
     glLineWidth(1);
