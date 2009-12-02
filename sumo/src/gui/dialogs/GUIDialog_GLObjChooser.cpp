@@ -82,28 +82,19 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // method definitions
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
+                                               FXIcon *icon, const FXString &title, 
         GUIGlObjectType type,
         GUIGlObjectStorage &glStorage)
-        : FXMainWindow(parent->getApp(), "Instance Action Chooser", NULL, NULL, DECOR_ALL, 20,20,300, 300),
+        : FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),
         myObjectType(type), myParent(parent), mySelected(0) {
-    FXHorizontalFrame *hbox =
-        new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
-                              0,0,0,0);
+    FXHorizontalFrame *hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0,0,0, 0,0,0,0);
     // build the list
-    FXVerticalFrame *layout1 = new FXVerticalFrame(hbox,
-            LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP,0,0,0,0,  4,4,4,4);
-    myTextEntry =
-        new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT,
-                        LAYOUT_FILL_X|FRAME_THICK|FRAME_SUNKEN);
-    FXVerticalFrame *style1 =
-        new FXVerticalFrame(layout1,
-                            LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN,
-                            0,0,0,0,  0, 0, 0, 0);
-    myList =
-        new FXList(style1, this, MID_CHOOSER_LIST,
-                   LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
-    std::vector<GLuint> ids;
+    FXVerticalFrame *layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
+    myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X|FRAME_THICK|FRAME_SUNKEN);
+    FXVerticalFrame *style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN, 0,0,0,0, 0,0,0,0);
+    myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
     // get the ids
+    std::vector<GLuint> ids;
     switch (type) {
     case GLO_JUNCTION:
         ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs();
@@ -134,7 +125,8 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         const std::string &name = o->getMicrosimID();
         bool selected = false;
         if (type==GLO_EDGE) {
-            for (size_t j=static_cast<GUIEdge*>(o)->getLanes().size()-1; j>=0; j--) {
+            size_t noLanes = static_cast<GUIEdge*>(o)->getLanes().size();
+            for (size_t j=0; j<noLanes; ++j) {
                 const GUILaneWrapper &l = static_cast<GUIEdge*>(o)->getLaneGeometry(j);
                 if (gSelected.isSelected(GLO_LANE, l.getGlID())) {
                     selected = true;
@@ -151,21 +143,14 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         glStorage.unblockObject(*i);
     }
     // build the buttons
-    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0,
-            4,4,4,4);
-    new FXButton(layout, "Center\t\t",
-                 GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
-                 this, MID_CHOOSER_CENTER,
-                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+    FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0,0,0,0, 4,4,4,4);
+    new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
+                 this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-    new FXButton(layout, "Close\t\t",
-                 GUIIconSubSys::getIcon(ICON_NO),
-                 this, MID_CANCEL,
-                 ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
+    new FXButton(layout, "Close\t\t", GUIIconSubSys::getIcon(ICON_NO),
+                 this, MID_CANCEL, ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 0, 0, 4, 4, 4, 4);
-
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_FINDER));
 
     myParent->getParent()->addChild(this);
     myTextEntry->setFocus();
@@ -235,12 +220,6 @@ GUIDialog_GLObjChooser::onListKeyPress(FXObject*,FXSelector,void*ptr) {
     }
     }
     return 1;
-}
-
-
-GUIGlObject *
-GUIDialog_GLObjChooser::getObject() const {
-    return static_cast<GUIGlObject*>(mySelected);
 }
 
 

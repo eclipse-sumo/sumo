@@ -104,7 +104,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
                  ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     // build the locator popup
     myLocatorPopup = new FXPopup(myNavigationToolBar, POPUP_VERTICAL);
-    myLocatorButton = new FXMenuButton(myNavigationToolBar,"\tLocate structures",
+    myLocatorButton = new FXMenuButton(myNavigationToolBar,"\tLocate Structures\tLocate structures within the network.",
                                        GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup,
                                        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
     // add toggle button for tool-tips on/off

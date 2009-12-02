@@ -57,46 +57,61 @@ class GUIDialog_GLObjChooser : public FXMainWindow {
     FXDECLARE(GUIDialog_GLObjChooser)
 
 public:
-    /// constructor
-    GUIDialog_GLObjChooser(GUISUMOViewParent *parent, GUIGlObjectType type,
-                           GUIGlObjectStorage &glStorage);
+    /** @brief Constructor
+     * @param[in] parent The calling view
+     * @param[in] icon The icon to use
+     * @param[in] title The title to use
+     * @param[in] type The type of gl-objects to show instances of
+     * @param[in] glStorage The storage to retrieve ids from
+     */
+    GUIDialog_GLObjChooser(GUISUMOViewParent *parent, FXIcon *icon, const FXString &title, 
+        GUIGlObjectType type, GUIGlObjectStorage &glStorage);
 
-    /// destructor
+
+    /// @brief Destructor
     ~GUIDialog_GLObjChooser();
 
-    /// Returns the chosen (selected) object
-    GUIGlObject *getObject() const;
 
-    /// The selected item shall be centered within the calling view
+    /** @brief Returns the chosen (selected) object
+     * @return The selected object
+     */
+    GUIGlObject *getObject() const throw() {
+        return static_cast<GUIGlObject*>(mySelected);
+    }
+
+
+    /// @brief Callback: The selected item shall be centered within the calling view
     long onCmdCenter(FXObject*,FXSelector,void*);
 
-    /// The dialog shall be closed
+    /// @brief Callback: The dialog shall be closed
     long onCmdClose(FXObject*,FXSelector,void*);
 
-    /// Somthing has been typed into the the field
+    /// @brief Callback: Something has been typed into the the field
     long onChgText(FXObject*,FXSelector,void*);
 
-    /// Selects to current item if enter is pressed
+    /// @brief Callback: Selects to current item if enter is pressed
     long onCmdText(FXObject*,FXSelector,void*);
 
-    /// Selects to current item if enter is pressed
+    /// @brief Callback: Selects to current item if enter is pressed
     long onListKeyPress(FXObject*,FXSelector,void*);
 
+
 private:
-    /// the list that holds the ids
+    /// @brief The list that holds the ids
     FXList *myList;
 
-    /// the artifact to choose
+    /// @brief The artifact to choose
     GUIGlObjectType myObjectType;
 
-    /// the parent window
+    /// @brief The parent window
     GUISUMOViewParent *myParent;
 
-    /// the chosen id
+    /// @brief The chosen id
     GUIGlObject *mySelected;
 
-    /// The text field
+    /// @brief The text field
     FXTextField *myTextEntry;
+
 
 protected:
     /// FOX needs this

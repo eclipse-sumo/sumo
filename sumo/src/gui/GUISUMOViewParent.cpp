@@ -106,13 +106,6 @@ GUISUMOViewParent::init(FXGLCanvas *share, GUINet &net) {
 
 GUISUMOViewParent::~GUISUMOViewParent() {
     myParent->removeChild(this);
-//    delete myToolBarDrag;
-}
-
-
-void
-GUISUMOViewParent::create() {
-    GUIGlChildWindow::create();
 }
 
 
@@ -146,13 +139,13 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*) {
     return 1;
 }
 
+
 void
-GUISUMOViewParent::showLocator(GUIGlObjectType type) {
+GUISUMOViewParent::showLocator(GUIGlObjectType type, FXIcon *icon, FXString title) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, type, GUIGlObjectStorage::gIDStorage);
+    GUIDialog_GLObjChooser *chooser = new GUIDialog_GLObjChooser(this, icon, title, type, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
 }
@@ -160,55 +153,48 @@ GUISUMOViewParent::showLocator(GUIGlObjectType type) {
 
 long
 GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*) {
-    showLocator(GLO_JUNCTION);
+    showLocator(GLO_JUNCTION, GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), "Junction Chooser");
     return 1;
 }
 
 
 long
 GUISUMOViewParent::onCmdLocateEdge(FXObject *,FXSelector,void*) {
-    showLocator(GLO_EDGE);
+    showLocator(GLO_EDGE, GUIIconSubSys::getIcon(ICON_LOCATEEDGE), "Edge Chooser");
     return 1;
 }
 
 
 long
 GUISUMOViewParent::onCmdLocateVehicle(FXObject *,FXSelector,void*) {
-    showLocator(GLO_VEHICLE);
+    showLocator(GLO_VEHICLE, GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), "Vehicle Chooser");
     return 1;
 }
 
 
 long
 GUISUMOViewParent::onCmdLocateTLS(FXObject *,FXSelector,void*) {
-    showLocator(GLO_TLLOGIC);
+    showLocator(GLO_TLLOGIC, GUIIconSubSys::getIcon(ICON_LOCATETLS), "Traffic Lights Chooser");
     return 1;
 }
 
 
 long
 GUISUMOViewParent::onCmdLocateAdd(FXObject *,FXSelector,void*) {
-    showLocator(GLO_ADDITIONAL);
+    showLocator(GLO_ADDITIONAL, GUIIconSubSys::getIcon(ICON_LOCATEADD), "Additional Objects Chooser");
     return 1;
 }
 
 
 long
 GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*) {
-    myLocatorPopup->popdown();
-    myLocatorButton->killFocus();
-    myLocatorPopup->update();
-    static_cast<FXButton*>(sender)->getParent()->hide();
-    GUIDialog_GLObjChooser *chooser =
-        new GUIDialog_GLObjChooser(this, GLO_SHAPE, GUIGlObjectStorage::gIDStorage);
-    chooser->create();
-    chooser->show();
+    showLocator(GLO_SHAPE, GUIIconSubSys::getIcon(ICON_LOCATESHAPE), "Shape Chooser");
     return 1;
 }
 
 
 void
-GUISUMOViewParent::setView(GUIGlObject *o) {
+GUISUMOViewParent::setView(const GUIGlObject * const o) throw() {
     myView->centerTo(o);
 }
 

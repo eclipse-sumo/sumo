@@ -91,7 +91,7 @@ public:
     void recenterView();
 
     /// centers to the chosen artifact
-    virtual void centerTo(GUIGlObject *o);
+    virtual void centerTo(const GUIGlObject * const o) throw();
 
     /// applies the given viewport settings
     virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);

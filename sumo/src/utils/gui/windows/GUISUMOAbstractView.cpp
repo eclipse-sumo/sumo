@@ -574,7 +574,7 @@ GUISUMOAbstractView::recenterView() {
 
 
 void
-GUISUMOAbstractView::centerTo(GUIGlObject *o) {
+GUISUMOAbstractView::centerTo(const GUIGlObject * const o) throw() {
     centerTo(o->getCenteringBoundary());
     update();
 }
