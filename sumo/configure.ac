@@ -327,7 +327,7 @@ dnl   ... for includes
                                     with_fox_includes=yes],
                         [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
     else
-        CPPFLAGS="-I$with_fox_includes"
+        CPPFLAGS="-I$with_fox_includes -I/usr/include/$fox_include_prefix"
         export CPPFLAGS
         AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
                         [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
