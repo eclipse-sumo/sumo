@@ -29,6 +29,8 @@
 #define  POINTS_H
 
 //#include <vcl_iostream.h>
+#include <iostream>
+#include <cmath>
 
 template <class coord_type>
 class Point2D
@@ -152,8 +154,8 @@ class Point2D
             coord_type rot_x=0;
             coord_type rot_y=0;
 
-            rot_x  = ( _x*vcl_cos(angle)+_y*vcl_sin(angle));
-            rot_y  = (-_x*vcl_sin(angle)+_y*vcl_cos(angle));
+            rot_x  = ( _x*cos(angle)+_y*sin(angle));
+            rot_y  = (-_x*sin(angle)+_y*cos(angle));
 
             _x = rot_x;
             _y = rot_y;
@@ -166,7 +168,7 @@ class Point2D
 
         double magnitude() const
           {
-            return (vcl_sqrt(_x*_x+_y*_y));
+            return (sqrt(_x*_x+_y*_y));
            }
    };
 
@@ -195,7 +197,7 @@ inline Point2D<point_type> operator*(const Point2D<point_type> pt, mul_type val)
 inline Point2D<point_type> operator/(const Point2D<point_type> pt, div_type val)
   {
     if (val ==0)
-        vcl_cout<<" Error: <Point2D operator/> Division by 0"<<vcl_endl;
+        std::cout<<" Error: <Point2D operator/> Division by 0"<<std::endl;
     return Point2D<point_type>(pt.getX()/val, pt.getY()/val);
    }
 
