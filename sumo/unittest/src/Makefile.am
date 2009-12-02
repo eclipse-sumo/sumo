@@ -16,6 +16,7 @@ sumo_unittest_LDADD   = ../../src/netbuild/libnetbuild.a \
 ../../src/microsim/actions/libmsactions.a \
 ../../src/microsim/traffic_lights/libmicrosimtls.a \
 ../../src/utils/geom/libgeom.a \
+../../src/utils/shapes/libshapes.a \
 ../../src/utils/options/liboptions.a \
 ../../src/utils/common/libcommon.a \
 ../../src/utils/xml/libxml.a \
@@ -32,10 +33,8 @@ sumo_unittest_LDADD   = ../../src/netbuild/libnetbuild.a \
 $(MEM_LIBS) \
 -lgtest
 
-# ./utils/common/CommandMock.o \
-# ./utils/iodevices/OutputDeviceMock.o \
-# ./microsim/MSEventControlTest.o \
-# ./netbuild/NBTrafficLightLogicTest.o
+#./microsim/MSEventControlTest.o \
+#./netbuild/NBTrafficLightLogicTest.o
 
 SUBDIRS = utils microsim netbuild
 endif
