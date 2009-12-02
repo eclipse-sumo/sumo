@@ -31,6 +31,7 @@
 //#include <vcl_iostream.h>
 #include <iostream>
 #include <cmath>
+#include <cassert>
 
 template <class coord_type>
 class Point2D
