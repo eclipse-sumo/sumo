@@ -54,14 +54,24 @@ for platform in ["Win32", "x64"]:
     if platform == "x64":
         envSuffix="_64"
         programSuffix="64"
-    zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
-    for f in [env["PROJ_GDAL"+envSuffix]+"\\bin\\proj.dll", env["PROJ_GDAL"+envSuffix]+"\\bin\\gdal16.dll",
-              env["XERCES"+envSuffix]+"\\bin\\xerces-c_3_0.dll",
-              env["FOX16"+envSuffix]+"\\lib\\FOXDLL-1.6.dll"] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
-        zipf.write(f, os.path.basename(f))
-        if platform == "Win32":
-            shutil.copy2(f, nightlyDir)
-    zipf.close()
+    log = open(makeLog, 'a')
+    try:
+        zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
+        for f in [env["PROJ_GDAL"+envSuffix]+"\\bin\\proj.dll", env["PROJ_GDAL"+envSuffix]+"\\bin\\gdal16.dll",
+                  env["XERCES"+envSuffix]+"\\bin\\xerces-c_3_0.dll",
+                  env["FOX16"+envSuffix]+"\\lib\\FOXDLL-1.6.dll"] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
+            zipf.write(f, os.path.basename(f))
+            if platform == "Win32":
+                try:
+                    shutil.copy2(f, nightlyDir)
+                except IOError, (errno, strerror):
+                    print >> log, "Warning: Could not copy %s to %s!" % (f, nightlyDir)
+                    print >> log, "I/O error(%s): %s" % (errno, strerror)
+        zipf.close()
+    except IOError, (errno, strerror):
+        print >> log, "Warning: Could not zip to %s!" % binaryZip
+        print >> log, "I/O error(%s): %s" % (errno, strerror)
+    log.close()
     subprocess.call(compiler+" /rebuild Debug|%s %s\\%s /out %s" % (platform, options.rootDir, options.project, makeAllLog))
 
 # run tests

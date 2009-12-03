@@ -26,7 +26,7 @@ def main(srcRoot, err):
     for root, dirs, files in os.walk(srcRoot):
         for name in files:
             if name in toCheck:
-                subprocess.call(sax2count + " -v=always -f " + os.path.join(root, name), stderr=err)
+                subprocess.call(sax2count + " -v=always -f " + os.path.join(root, name), stdout=open(os.devnull), stderr=err)
             if '.svn' in dirs:
                 dirs.remove('.svn')
 
