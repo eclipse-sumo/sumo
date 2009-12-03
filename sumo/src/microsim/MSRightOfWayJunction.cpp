@@ -166,7 +166,7 @@ MSRightOfWayJunction::setAllowed() {
         }
     }
 #endif
-    myInnerState.reset(false);
+    myInnerState.reset();
     return true;
 }
 

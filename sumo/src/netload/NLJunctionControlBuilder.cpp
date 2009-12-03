@@ -303,7 +303,7 @@ NLJunctionControlBuilder::initJunctionLogic(const std::string &id, int requestSi
     myActiveSubKey = "";
     myActiveLogic = new MSBitsetLogic::Logic();
     myActiveFoes = new MSBitsetLogic::Foes();
-    myActiveConts.reset(false);
+    myActiveConts.reset();
     myRequestSize = requestSize;
     myLaneNumber = laneNumber;
     myRequestItemNumber = 0;
