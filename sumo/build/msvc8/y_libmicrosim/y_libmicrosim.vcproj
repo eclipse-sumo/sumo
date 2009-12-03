@@ -578,10 +578,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSEdgeContinuations.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSEdgeControl.cpp"
 				>
 			</File>
@@ -759,10 +755,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEdge.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSEdgeContinuations.h"
 				>
 			</File>
 			<File

@@ -47,7 +47,6 @@
 // class declarations
 // ===========================================================================
 class OptionsCont;
-class MSEdgeContinuations;
 
 
 // ===========================================================================
@@ -298,13 +297,11 @@ public:
      * Sets loaded junction parameter into all tls logics.
      *
      * @param[in] db The detector builder to use (unused!)
-     * @param[in] edgeContinuations Edge continuations to use (unused!)
      * @todo Really nasty! Both parameter are not used herein.
      * @todo Where do extended tl build their detectors, what value are set herein?
      * @todo May the called method throw something?
      */
-    void closeJunctions(NLDetectorBuilder &db,
-                        const MSEdgeContinuations &edgeContinuations) throw();
+    void closeJunctions(NLDetectorBuilder &db) throw();
 
 
     /** @brief Adds a parameter

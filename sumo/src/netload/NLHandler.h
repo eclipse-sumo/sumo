@@ -40,7 +40,6 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
-#include <microsim/MSEdgeContinuations.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -90,14 +89,6 @@ public:
 
     /// @brief Destructor
     virtual ~NLHandler() throw();
-
-
-    /** @brief Returns the information about lane continuations
-     *
-     * @return Edge continuations
-     * @todo This should probably be a part of the network
-     */
-    const MSEdgeContinuations &getContinuations() const;
 
 
 protected:
@@ -387,9 +378,6 @@ protected:
     /// The shape of the current lane
     Position2DVector myShape;
     //@}
-
-    /// Edge continuations
-    MSEdgeContinuations myContinuations;
 
     /// internal information whether a tls-logic is currently read
     bool myAmInTLLogicMode;

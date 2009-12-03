@@ -29,7 +29,6 @@
 
 #include "MS_E2_ZS_CollectorOverLanes.h"
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/MSEdgeContinuations.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -58,8 +57,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string &id,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::init(MSLane *lane, SUMOReal detLength,
-                                  const MSEdgeContinuations &edgeContinuations) throw() {
+MS_E2_ZS_CollectorOverLanes::init(MSLane *lane, SUMOReal detLength) throw() {
     myLength = detLength;
     if (startPosM==0) {
         startPosM = (SUMOReal) 0.1;
@@ -77,7 +75,7 @@ MS_E2_ZS_CollectorOverLanes::init(MSLane *lane, SUMOReal detLength,
         buildCollector(0, 0, lane, startPosM, length);
     myDetectorCombinations[0].push_back(c);
     myAlreadyBuild[lane] = c;
-    extendTo(detLength, edgeContinuations);
+    extendTo(detLength);
 }
 
 
@@ -85,8 +83,7 @@ MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes() throw() {}
 
 
 void
-MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
-                                      const MSEdgeContinuations &edgeContinuations) throw() {
+MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length) throw() {
     bool done = false;
     while (!done) {
         done = true;
@@ -110,8 +107,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
                 // get the lane to look before
                 MSLane *toExtend = lv.back();
                 // and her predecessors
-                std::vector<MSLane*> predeccessors =
-                    getLanePredeccessorLanes(toExtend, edgeContinuations);
+                std::vector<MSLane*> predeccessors = getLanePredeccessorLanes(toExtend);
                 if (predeccessors.size()==0) {
                     int off = 1;
                     MSEdge &e = toExtend->getEdge();
@@ -120,11 +116,11 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
                     while (predeccessors.size()==0) {
                         if (idx-off>=0) {
                             MSLane *tryMe = lanes[idx-off];
-                            predeccessors = getLanePredeccessorLanes(tryMe, edgeContinuations);
+                            predeccessors = getLanePredeccessorLanes(tryMe);
                         }
                         if (predeccessors.size()==0&&idx+off<(int) lanes.size()) {
                             MSLane *tryMe = lanes[idx+off];
-                            predeccessors = getLanePredeccessorLanes(tryMe, edgeContinuations);
+                            predeccessors = getLanePredeccessorLanes(tryMe);
                         }
                         off++;
                     }
@@ -170,20 +166,15 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
 
 
 std::vector<MSLane*>
-MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
-        const MSEdgeContinuations &edgeContinuations) throw() {
+MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l) throw() {
     string eid = l->getEdge().getID();
-    // check whether any exist
-    if (!edgeContinuations.hasFurther(l->getEdge())) {
-        return std::vector<MSLane*>();
-    }
     // get predecessing edges
-    const std::vector<const MSEdge *> &predEdges = edgeContinuations.getInFrontOfEdge(l->getEdge());
+    const std::vector<MSEdge*> &predEdges = l->getEdge().getIncomingEdges();
     std::vector<MSLane*> ret;
     // find predecessing lanes
-    std::vector<const MSEdge *>::const_iterator i=predEdges.begin();
+    std::vector<MSEdge*>::const_iterator i=predEdges.begin();
     for (; i!=predEdges.end(); ++i) {
-        const MSEdge *const e = *i;
+        MSEdge *e = *i;
         assert(e!=0);
         typedef std::vector<MSLane*> LaneVector;
         const LaneVector *cl = e->allowedLanes(l->getEdge(), SVC_UNKNOWN);

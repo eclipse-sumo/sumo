@@ -194,20 +194,23 @@ public:
 
 
 
-    /// @name Access to succeeding/predecciding edges
+    /// @name Access to succeeding/predecessing edges
     /// @{
+
     /** @brief Returns the list of edges which may be reached from this edge
      * @return Edges reachable from this edge
-     * @todo too slow
      */
-    std::vector<MSEdge*> getFollowingEdges() const throw();
+    const std::vector<MSEdge*> &getFollowingEdges() const throw() {
+        return mySuccessors;
+    }
 
 
     /** @brief Returns the list of edges from which this edge may be reached
      * @return Edges from which this edge may be reached
-     * @todo too slow!
      */
-    std::vector<MSEdge*> getIncomingEdges() const throw();
+    const std::vector<MSEdge*> &getIncomingEdges() const throw() {
+        return myPredeccesors;
+    }
 
 
     /** @brief Returns the number of edges that may be reached from this edge
@@ -368,6 +371,11 @@ public:
     /** @brief Inserts IDs of all known edges into the given vector */
     static void insertIDs(std::vector<std::string> &into) throw();
 
+
+public:
+    /// @name Static parser helper
+    /// @{
+
     /** @brief Parses the given string assuming it contains a list of edge ids divided by spaces
      *
      * Splits the string at spaces, uses polymorph method to generate edge vector.
@@ -388,6 +396,24 @@ public:
      */
     static void parseEdgesList(const std::vector<std::string> &desc, std::vector<const MSEdge*> &into,
                                const std::string &rid) throw(ProcessError);
+    /// @}
+
+
+protected:
+    /**
+     * @class by_id_sorter
+     * @brief Sorts edges by their ids
+     */
+    class by_id_sorter {
+    public:
+        /// @brief constructor
+        explicit by_id_sorter() { }
+
+        int operator()(const MSEdge * const e1, const MSEdge * const e2) const {
+            return e1->getID()<e2->getID();
+        }
+
+    };
 
 
 protected:
@@ -397,9 +423,30 @@ protected:
     /// @brief This edge's numerical id
     unsigned int myNumericalID;
 
-    /** @brief Container for the edge's lane.
-     * Should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index. */
+    /// @brief Container for the edge's lane; should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index
     std::vector<MSLane*>* myLanes;
+
+    /// @brief Lane from which vehicles will depart, usually the rightmost
+    MSLane* myDepartLane;
+
+    /// @brief This member will do the lane-change
+    MSLaneChanger* myLaneChanger;
+
+    /// @brief the purpose of the edge
+    EdgeBasicFunction myFunction;
+
+    /// @brief Vaporizer counter
+    int myVaporizationRequests;
+
+    /// @brief The time of last emission failure
+    mutable SUMOTime myLastFailedEmissionTime;
+
+    /// @brief The succeeding edges
+    std::vector<MSEdge*> mySuccessors;
+
+    /// @brief The preceeding edges
+    std::vector<MSEdge*> myPredeccesors;
+
 
 
     /// @name Storages for allowed lanes (depending on vehicle classes)
@@ -419,18 +466,6 @@ protected:
     /// @}
 
 
-    /** @brief Lane from which vehicles will depart, usually the rightmost */
-    MSLane* myDepartLane;
-
-    /** @brief This member will do the lane-change. */
-    MSLaneChanger* myLaneChanger;
-
-    /// @brief the purpose of the edge
-    EdgeBasicFunction myFunction;
-
-    /// @brief Vaporizer counter
-    int myVaporizationRequests;
-
 
     /// @name Static edge container
     /// @{
@@ -449,9 +484,6 @@ protected:
     static std::vector<MSEdge*> myEdges;
     /// @}
 
-
-    /// @brief The time of last emission failure
-    mutable SUMOTime myLastFailedEmissionTime;
 
 
 private:

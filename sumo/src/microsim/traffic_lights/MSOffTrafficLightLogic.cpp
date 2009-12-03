@@ -57,7 +57,7 @@ MSOffTrafficLightLogic::~MSOffTrafficLightLogic() throw() {
 
 
 void
-MSOffTrafficLightLogic::init(NLDetectorBuilder &nb, const MSEdgeContinuations &edgeContinuations) throw(ProcessError) {
+MSOffTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
     rebuildPhase();
 }
 

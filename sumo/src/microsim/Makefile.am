@@ -2,7 +2,6 @@ noinst_LIBRARIES = libmicrosim.a
 
 libmicrosim_a_SOURCES = MSAbstractLaneChangeModel.h MSBitSetLogic.h \
 MSCORN.cpp MSCORN.h MSEdge.cpp MSEdge.h \
-MSEdgeContinuations.cpp MSEdgeContinuations.h \
 MSEdgeControl.cpp MSEdgeControl.h \
 MSEdgeWeightsStorage.cpp MSEdgeWeightsStorage.h \
 MSEmitControl.cpp MSEmitControl.h MSEventControl.cpp MSEventControl.h \

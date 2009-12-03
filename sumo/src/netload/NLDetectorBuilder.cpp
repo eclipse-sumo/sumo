@@ -171,8 +171,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
-                                   const std::string &id,
+NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    const std::string &lane, SUMOReal pos, SUMOReal length,
                                    bool cont, int splInterval,
                                    OutputDevice& device,
@@ -198,7 +197,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
             static_cast<MSE2Collector*>(det), device, splInterval);
     } else {
         convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
                                   jamDistThreshold);
@@ -209,8 +208,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
-                                   const std::string &id,
+NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    const std::string &lane, SUMOReal pos, SUMOReal length,
                                    bool cont,
                                    MSTLLogicControl::TLSLogicVariants &tlls,
@@ -234,7 +232,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
             static_cast<MSE2Collector*>(det));
     } else {
         convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
                                   jamDistThreshold);
@@ -248,8 +246,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
-                                   const std::string &id,
+NLDetectorBuilder::buildE2Detector(const std::string &id,
                                    const std::string &lane, SUMOReal pos, SUMOReal length,
                                    bool cont,
                                    MSTLLogicControl::TLSLogicVariants &tlls,
@@ -283,15 +280,14 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         myNet.getDetectorControl().add(static_cast<MSE2Collector*>(det));
     } else {
         convContE2PosLength(id, clane, pos, length, friendlyPos);
-        det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
                                   jamDistThreshold);
         myNet.getDetectorControl().add(static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
     }
     // add the file output
-    new Command_SaveTLCoupledLaneDet(tlls, det,
-                                     myNet.getCurrentTimeStep(), device, link);
+    new Command_SaveTLCoupledLaneDet(tlls, det, myNet.getCurrentTimeStep(), device, link);
 }
 
 
@@ -451,8 +447,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 
 
 MS_E2_ZS_CollectorOverLanes *
-NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuations,
-                                       const std::string &id, DetectorUsage usage,
+NLDetectorBuilder::buildMultiLaneE2Det(const std::string &id, DetectorUsage usage,
                                        MSLane *lane, SUMOReal pos, SUMOReal length,
                                        SUMOTime haltingTimeThreshold,
                                        MetersPerSecond haltingSpeedThreshold,
@@ -460,7 +455,7 @@ NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuati
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
                                        lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
                                        jamDistThreshold);
-    ret->init(lane, length, edgeContinuations);
+    ret->init(lane, length);
     return ret;
 }
 

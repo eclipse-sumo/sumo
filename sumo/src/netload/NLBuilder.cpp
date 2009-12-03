@@ -200,7 +200,7 @@ void
 NLBuilder::buildNet() throw(ProcessError) {
     MSEdgeControl *edges = 0;
     try {
-        myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
+        myJunctionBuilder.closeJunctions(myDetectorBuilder);
         edges = myEdgeBuilder.build();
         MSFrame::buildStreams();
         std::vector<int> stateDumpTimes;

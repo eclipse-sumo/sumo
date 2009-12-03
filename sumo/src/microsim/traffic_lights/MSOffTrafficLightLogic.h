@@ -61,8 +61,7 @@ public:
      * @param[in] edgeContinuations Information about edge predecessors/successors
      * @exception ProcessError If something fails on initialisation
      */
-    virtual void init(NLDetectorBuilder &nb,
-                      const MSEdgeContinuations &edgeContinuations) throw(ProcessError);
+    virtual void init(NLDetectorBuilder &nb) throw(ProcessError);
 
 
     /// @brief Destructor

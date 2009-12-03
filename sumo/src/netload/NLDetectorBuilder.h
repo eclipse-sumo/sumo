@@ -49,7 +49,6 @@ class MS_E2_ZS_CollectorOverLanes;
 class MSTrafficLightLogic;
 class MSDetectorControl;
 class MSLane;
-class MSEdgeContinuations;
 
 #ifdef HAVE_MESOSIM
 class MEInductLoop;
@@ -131,7 +130,6 @@ public:
      *  if the detector shall continue on consecutive lanes, or by calling
      *  "buildSingleLaneE2Det" if it is a one-lane detector.
      *
-     * @param[in] edgeContinuations The edge continuations
      * @param[in] id The id the detector shall have
      * @param[in] lane The name of the lane the detector is placed at
      * @param[in] pos The definition of the position on the lane the detector shall be placed at
@@ -145,8 +143,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
-                         const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
+    void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, int splInterval, OutputDevice& device, SUMOTime haltingTimeThreshold,
                          MetersPerSecond haltingSpeedThreshold, SUMOReal jamDistThreshold,
                          bool friendlyPos) throw(InvalidArgument);
@@ -163,7 +160,6 @@ public:
      *  if the detector shall continue on consecutive lanes, or by calling
      *  "buildSingleLaneE2Det" if it is a one-lane detector.
      *
-     * @param[in] edgeContinuations The edge continuations
      * @param[in] id The id the detector shall have
      * @param[in] lane The name of the lane the detector is placed at
      * @param[in] pos The definition of the position on the lane the detector shall be placed at
@@ -177,8 +173,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
-                         const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
+    void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, MSTLLogicControl::TLSLogicVariants &tlls,
                          OutputDevice& device, SUMOTime haltingTimeThreshold,
                          MetersPerSecond haltingSpeedThreshold, SUMOReal jamDistThreshold,
@@ -196,7 +191,6 @@ public:
      *  if the detector shall continue on consecutive lanes, or by calling
      *  "buildSingleLaneE2Det" if it is a one-lane detector.
      *
-     * @param[in] edgeContinuations The edge continuations
      * @param[in] id The id the detector shall have
      * @param[in] lane The name of the lane the detector is placed at
      * @param[in] pos The definition of the position on the lane the detector shall be placed at
@@ -211,8 +205,7 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
      */
-    void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
-                         const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
+    void buildE2Detector(const std::string &id, const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, MSTLLogicControl::TLSLogicVariants &tlls, const std::string &tolane,
                          OutputDevice& device, SUMOTime haltingTimeThreshold,
                          MetersPerSecond haltingSpeedThreshold, SUMOReal jamDistThreshold,
@@ -477,8 +470,7 @@ public:
      * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
      * @todo Check whether this method is really needful
      */
-    MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuations,
-            const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+    MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
             SUMOReal jamDistThreshold) throw();
 

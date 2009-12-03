@@ -58,8 +58,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl &tlcon
 
 
 void
-MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
-                                  const MSEdgeContinuations &/*edgeContinuations*/) throw(ProcessError) {
+MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //

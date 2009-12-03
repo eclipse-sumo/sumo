@@ -440,11 +440,10 @@ NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument) {
 
 
 void
-NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
-        const MSEdgeContinuations &edgeContinuations) throw() {
+NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db) throw() {
     for (std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
         (*i).logic->setParameter((*i).params);
-        (*i).logic->init(db, edgeContinuations);
+        (*i).logic->init(db);
     }
 }
 

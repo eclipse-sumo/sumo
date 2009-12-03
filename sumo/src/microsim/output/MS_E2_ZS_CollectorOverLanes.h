@@ -35,12 +35,6 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class MSEdgeContinuations;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -88,11 +82,8 @@ public:
      *  is depending on whether the normal or the gui-version is used
      * @param[in] lane The lane the detector starts at
      * @param[in] startPos Begin position of the detector
-     * @param[in] edgeContinuations Information about how the lanes are continued
-     * @see MSEdgeContinuations
      */
-    void init(MSLane *lane, SUMOReal detLength,
-              const MSEdgeContinuations &edgeContinuations) throw();
+    void init(MSLane *lane, SUMOReal detLength) throw();
 
 
     /// @brief Destructor
@@ -156,12 +147,9 @@ protected:
      * This method is called consecutively until all paths have the desired length
      *
      * @param[in] length !!!
-     * @param[in] edgeContinuations Information about how the lanes are continued
-     * @see MSEdgeContinuations
      * @todo Describe length's usage
      */
-    void extendTo(SUMOReal length,
-                  const MSEdgeContinuations &edgeContinuations) throw();
+    void extendTo(SUMOReal length) throw();
 
 
     /** @brief Builds an id for one of the E2-collectors this detector uses
@@ -190,13 +178,9 @@ protected:
     /** @brief Returns the list of lanes predecessing the given one
      *
      * @param[in] l The lane to return predecessors of
-     * @param[in] edgeContinuations Information about how the lanes are continued
      * @return List of lanes predecessing the given one
-     * @see MSEdgeContinuations
-     * @todo Maybe this should be moved to MSEdgeContinuations
      */
-    std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l,
-            const MSEdgeContinuations &edgeContinuations) throw();
+    std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l) throw();
 
 protected:
     /// @brief The position the collector starts at

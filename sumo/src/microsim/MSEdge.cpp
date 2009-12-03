@@ -116,6 +116,14 @@ MSEdge::closeBuilding() {
             MSLane *toL = (*j)->getLane();
             if (toL!=0) {
                 MSEdge &to = toL->getEdge();
+                //
+                if(std::find(mySuccessors.begin(), mySuccessors.end(), &to)==mySuccessors.end()) {
+                    mySuccessors.push_back(&to);
+                }
+                if(std::find(to.myPredeccesors.begin(), to.myPredeccesors.end(), this)==to.myPredeccesors.end()) {
+                    to.myPredeccesors.push_back(this);
+                }
+                //
                 if (myAllowed.find(&to)==myAllowed.end()) {
                     myAllowed[&to] = new std::vector<MSLane*>();
                 }
@@ -123,6 +131,7 @@ MSEdge::closeBuilding() {
             }
         }
     }
+    std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
     rebuildAllowedLanes();
 }
 
@@ -224,31 +233,6 @@ MSEdge::getFollower(unsigned int n) const throw() {
         --n;
     }
     return (*i).first;
-}
-
-
-std::vector<MSEdge *>
-MSEdge::getFollowingEdges() const throw() {
-    std::vector<MSEdge*> ret;
-    for (AllowedLanesCont::const_iterator i=myAllowed.begin(); i!=myAllowed.end(); ++i) {
-        ret.push_back((MSEdge*)(*i).first);
-    }
-    return ret;
-}
-
-
-std::vector<MSEdge*>
-MSEdge::getIncomingEdges() const throw() {
-    std::vector<MSEdge*> ret;
-    for (DictType::iterator edge = myDict.begin(); edge != myDict.end();
-            ++edge) {
-
-        const std::vector<MSLane*> *allowed = (*edge).second->allowedLanes(*this, SVC_UNKNOWN);
-        if (allowed!=0) {
-            ret.push_back(edge->second);
-        }
-    }
-    return ret;
 }
 
 

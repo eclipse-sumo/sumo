@@ -63,8 +63,7 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
 
 
 void
-MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb,
-                                    const MSEdgeContinuations &edgeContinuations) throw(ProcessError) {
+MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb) throw(ProcessError) {
     SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
@@ -78,7 +77,7 @@ MSAgentbasedTrafficLightLogic::init(NLDetectorBuilder &nb,
 
             if (myE2Detectors.find(lane)==myE2Detectors.end()) {
                 MS_E2_ZS_CollectorOverLanes* det =
-                    nb.buildMultiLaneE2Det(edgeContinuations, id,
+                    nb.buildMultiLaneE2Det(id,
                                            DU_TL_CONTROL, lane, 0, det_offset,
                                            /*haltingTimeThreshold!!!*/ 1,
                                            /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0/3.6),

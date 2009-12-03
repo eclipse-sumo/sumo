@@ -79,11 +79,9 @@ public:
 
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
-     * @param[in] edgeContinuations Information about edge predecessors/successors
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder &nb,
-              const MSEdgeContinuations &edgeContinuations) throw(ProcessError);
+    void init(NLDetectorBuilder &nb) throw(ProcessError);
 
 
     /// @brief Destructor

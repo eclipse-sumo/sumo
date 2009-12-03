@@ -76,7 +76,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myCurrentIsInternalToSkip(false),
         myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
         myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-        myShapeBuilder(shapeBuilder), mySucceedingLaneBuilder(junctionBuilder, myContinuations),
+        myShapeBuilder(shapeBuilder), mySucceedingLaneBuilder(junctionBuilder),
         myAmInTLLogicMode(false), myCurrentIsBroken(false),
         myHaveWarnedAboutDeprecatedVClass(false),
         myHaveWarnedAboutDeprecatedJunctionShape(false),
@@ -1179,8 +1179,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
     try {
         if (lsaid!="<invalid>") {
             if (toLane=="<invalid>") {
-                myDetectorBuilder.buildE2Detector(myContinuations,
-                                                  id,
+                myDetectorBuilder.buildE2Detector(id,
                                                   attrs.getString(SUMO_ATTR_LANE),
                                                   attrs.getFloat(SUMO_ATTR_POSITION),
                                                   attrs.getFloat(SUMO_ATTR_LENGTH),
@@ -1193,8 +1192,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
                                                   attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false)
                                                  );
             } else {
-                myDetectorBuilder.buildE2Detector(myContinuations,
-                                                  id,
+                myDetectorBuilder.buildE2Detector(id,
                                                   attrs.getString(SUMO_ATTR_LANE),
                                                   attrs.getFloat(SUMO_ATTR_POSITION),
                                                   attrs.getFloat(SUMO_ATTR_LENGTH),
@@ -1208,8 +1206,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
                                                  );
             }
         } else {
-            myDetectorBuilder.buildE2Detector(myContinuations,
-                                              id,
+            myDetectorBuilder.buildE2Detector(id,
                                               attrs.getString(SUMO_ATTR_LANE),
                                               attrs.getFloat(SUMO_ATTR_POSITION),
                                               attrs.getFloat(SUMO_ATTR_LENGTH),
@@ -1792,13 +1789,6 @@ NLHandler::closeWAUT() {
     }
     myCurrentWAUTID = "";
 }
-
-
-const MSEdgeContinuations &
-NLHandler::getContinuations() const {
-    return myContinuations;
-}
-
 
 
 /****************************************************************************/

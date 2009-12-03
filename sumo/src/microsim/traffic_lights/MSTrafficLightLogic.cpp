@@ -114,7 +114,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
 
 
 void
-MSTrafficLightLogic::init(NLDetectorBuilder &, const MSEdgeContinuations &) throw(ProcessError) {
+MSTrafficLightLogic::init(NLDetectorBuilder &) throw(ProcessError) {
 }
 
 
