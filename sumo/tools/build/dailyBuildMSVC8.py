@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import optparse, os, glob, subprocess, zipfile, shutil, datetime, sys
-
-import status
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'xml'))
+import status, schemaCheck
 
 optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
@@ -87,8 +87,7 @@ for platform in ["Win32", "x64"]:
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
     log = open(xmlLog, 'w')
-    subprocess.call(os.path.join(os.path.dirname(sys.argv[0]), '..', 'xml', 'schemaCheck.py ') + env["TEXTTEST_HOME"],
-                    stdout=log, stderr=subprocess.STDOUT, shell=True)
+    schemaCheck.main(env["TEXTTEST_HOME"], log)
     log.close()
     log = open(statusLog, 'w')
     status.printStatus(makeLog, makeAllLog, env["TEXTTEST_TMP"], env["SMTP_SERVER"], log)
