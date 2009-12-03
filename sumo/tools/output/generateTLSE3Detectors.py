@@ -29,7 +29,7 @@ optParser.add_option("-o", "--output", dest="output",
 optParser.add_option("-r", "--results-file", dest="results",
                      help="the name of the file the detectors write their output into", type="string", default="e3output.xml")
 
-optParser.set_usage('\ngenerateE2Detectors.py -n inputs\\pasubio\\pasubio.net.xml -l 250 -d .1 -f 60')
+optParser.set_usage('\ngenerateTLSE3Detectors.py -n inputs\\pasubio\\pasubio.net.xml -l 250 -d .1 -f 60')
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile:

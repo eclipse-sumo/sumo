@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    generateE2Detectors.py 
+@file    generateE2TLSDetectors.py 
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-10-25
 @version $Id$
@@ -24,8 +24,12 @@ optParser.add_option("-d", "--distance-to-TLS", dest="distanceToTLS",
                      help="distance of the detector to the traffic light in meters", type="float", default=.1)
 optParser.add_option("-f", "--frequency", dest="frequency",
                      help="frequency", type="int", default=60)
+optParser.add_option("-o", "--output", dest="output",
+                     help="the name of the file to write the detector definitions into", type="string", default="e2.add.xml")
+optParser.add_option("-r", "--results-file", dest="results",
+                     help="the name of the file the detectors write their output into", type="string", default="e2output.xml")
 
-optParser.set_usage('\ngenerateE2Detectors.py -n inputs\\pasubio\\pasubio.net.xml -l 250 -d .1 -f 60')
+optParser.set_usage('\ngenerateTLSE2Detectors.py -n inputs\\pasubio\\pasubio.net.xml -l 250 -d .1 -f 60')
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile:
@@ -40,7 +44,7 @@ freq = options.frequency
 
 [dirname, filename] = os.path.split(netfile)
 prefix = filename.split('.')[0]
-dest = os.path.join(dirname, "%se2.det.xml" % (prefix))
+dest = os.path.join(dirname, options.output)
 detectorFile = open(dest, "w")
 print >> detectorFile, "<additional>"
 
@@ -64,9 +68,7 @@ for tls in net._tlss:
             else:
                 det_length = min(length-distToTLS, det_length_input)
             pos = max(0,(length-det_length-distToTLS))
-            #print >> detectorFile, "\t<e2-detector file=\"e2_%s_output.xml\" freq=\"%d\" friendly_pos=\"x\" id=\"e2det_%s\" lane=\"%s\" pos=\"%d\" length=\"%d\" />" % (tls._id, freq, id, id, pos, det_length)
-            print >> detectorFile, "\t<e2-detector file=\"e2_output.xml\" freq=\"%d\" friendly_pos=\"x\" id=\"e2det_%s\" lane=\"%s\" pos=\"%f\" length=\"%f\" />" % (freq, id, id, pos, det_length)
-            #print >> detectorFile, "\t<e2-detector file=\"e2_%s_output.xml\" tl=\"%s\" friendly_pos=\"x\" id=\"e2det_%s\" lane=\"%s\" pos=\"%d\" length=\"%d\" />" % (id, tls._id, id, id, pos, det_length)
+            print >> detectorFile, "\t<e2-detector file=\"%s\" freq=\"%d\" friendly_pos=\"x\" id=\"e2det_%s\" lane=\"%s\" pos=\"%f\" length=\"%f\" />" % (options.results, freq, id, id, pos, det_length)
 
 print >> detectorFile, "</additional>"
 
