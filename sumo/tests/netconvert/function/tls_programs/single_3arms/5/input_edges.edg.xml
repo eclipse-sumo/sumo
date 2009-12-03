@@ -1,4 +1,4 @@
-<edges>
+<edges xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/edges_file.xsd'>
    <edge id="15032465" fromnode="15031747" tonode="15031812" speed="13.89" priority="-1" nolanes="1" shape="19203.0,25882.0 19239.0,25894.0"/>
    <edge id="-153119827" fromnode="15031747" tonode="15031330" speed="13.89" priority="-1" nolanes="2" shape="19203.0,25882.0 19035.0,25849.0"/>
    <edge id="-15032465" fromnode="15031812" tonode="15031747" speed="13.89" priority="-1" nolanes="1" shape="19239.0,25894.0 19203.0,25882.0"/>
