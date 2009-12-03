@@ -3,7 +3,7 @@
 @file    costFunctionChecker.py
 @author  Michael.Behrisch@dlr.de
 @date    2009-08-31
-@version $Id: dua-iterate.py 7619 2009-08-10 07:50:52Z yunpangwang $
+@version $Id$
 
 Run duarouter repeatedly and simulate weight changes via a cost function.
 

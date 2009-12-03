@@ -3,7 +3,7 @@
 @file    tls_csv2SUMO.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-08-01
-@version $Id: tls_csv2SUMO.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 Converts a csv-tls-description into one SUMO can read as additional file.
 Format of the csv-file:

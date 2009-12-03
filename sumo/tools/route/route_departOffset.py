@@ -3,7 +3,7 @@
 @file    route_departOffset.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    11.09.2009
-@version $Id: route_departOffset.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 Applies a given offset to the given route's departure time
 

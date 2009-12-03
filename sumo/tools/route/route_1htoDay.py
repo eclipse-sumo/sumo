@@ -3,7 +3,7 @@
 @file    route_1htoDay.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    11.09.2009
-@version $Id: route_1htoDay 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 Uses "route_departOffset.py" for building 24 route files which describe
  a whole day assuming the given route files describes an hour.

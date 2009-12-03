@@ -3,7 +3,7 @@
 @file    route2alts.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    11.09.2009
-@version $Id: route2alts.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 Counts possible routes for all depart/arrival edges.
 Builds route alternatives assigning the so determined probabilities to use a route.
