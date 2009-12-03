@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<edges>
+<edges xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/edges_file.xsd'>
    <edge id="103" fromnode="26" tonode="102" nolanes="1" speed="13.90" shape="667.05,435.82 822.75,421.00"/>
    <edge id="109" fromnode="28" tonode="108" nolanes="1" speed="13.90" shape="777.45,719.15 612.66,691.24"/>
    <edge id="111" fromnode="28" tonode="110" nolanes="1" speed="13.90" shape="777.45,719.15 969.87,588.65"/>
