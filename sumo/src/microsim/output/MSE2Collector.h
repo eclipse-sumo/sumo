@@ -412,7 +412,7 @@ private:
     unsigned myCurrentMaxJamLengthInVehicles;
     /// @brief The overall jam length in meters
     SUMOReal myCurrentJamLengthInMeters;
-    /// @brief The everall jam length in vehicles
+    /// @brief The overall jam length in vehicles
     unsigned myCurrentJamLengthInVehicles;
     /// @brief The number of started halts in the last step
     unsigned myCurrentStartedHalts;
