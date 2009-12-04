@@ -947,7 +947,9 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
         int id = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_ID)
                  ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_ID, "lane", myCurrentEdge.id.c_str(), ok)
                  : attrs.getIntReporting(SUMO_ATTR_ID, "lane", myCurrentEdge.id.c_str(), ok);
-        int level = attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, "lane", myCurrentEdge.id.c_str(), ok);
+        int level = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_LEVEL)
+            ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, "lane", myCurrentEdge.id.c_str(), ok)
+            : 0;
         OpenDriveLaneSection &ls = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1];
         ls.lanesByDir[myCurrentLaneDirection].push_back(OpenDriveLane(id, level, type));
     }
