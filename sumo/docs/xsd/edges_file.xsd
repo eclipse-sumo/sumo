@@ -49,7 +49,7 @@
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:pattern
-						value="(\d+|(\d*.\d+)),(\d+|(\d*.\d+))(\s(\d+|(\d*.\d+)),(\d+|(\d*.\d+)))+">
+						value="(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+))(\s(\-)?(\d+|(\d*.\d+)),(\-)?(\d+|(\d*.\d+)))+">
 					</xsd:pattern>
 				</xsd:restriction>
 			</xsd:simpleType>
