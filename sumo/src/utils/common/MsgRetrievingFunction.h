@@ -4,7 +4,7 @@
 /// @date    Mon, 24 Oct 2003
 /// @version $Id$
 ///
-// Encapsulates an object's method for using it as a MsgRetriever
+// Encapsulates an object's method for using it as a message retriever
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -40,7 +40,7 @@
 // ===========================================================================
 /**
  * @class MsgRetrievingFunction
- * @brief Encapsulates an object's method for using it as a MsgRetriever
+ * @brief Encapsulates an object's method for using it as a message retriever
  *
  * You may find an example for this class' usage in GUIRunThread.
  */
@@ -52,9 +52,9 @@ public:
 
 
     /** @brief Constructor
-     *
      * @param[in] object The object to call the method of
      * @param[in] operation The method to call
+     * @param[in] type The type of the message
      */
     MsgRetrievingFunction(T* object, Operation operation, MsgHandler::MsgType type) :
             myObject(object),
@@ -62,7 +62,7 @@ public:
             myMsgType(type) {}
 
 
-    /// @brief Destructor.
+    /// @brief Destructor
     ~MsgRetrievingFunction() throw() {}
 
 
@@ -91,6 +91,7 @@ protected:
     }
     /// @}
 
+
 private:
     /// @brief The object the action is directed to.
     T* myObject;
@@ -103,6 +104,7 @@ private:
 
     /// @brief message buffer
     std::ostringstream myMessage;
+
 };
 
 
