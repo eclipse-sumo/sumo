@@ -153,10 +153,10 @@ protected:
 
 
     private:
-        /** @brief invalid copy constructor */
+        /// @brief Invalidated copy constructor
         NodesHandler(const NodesHandler &s);
 
-        /** @brief invalid assignment operator */
+        /// @brief Invalidated assignment operator
         NodesHandler &operator=(const NodesHandler &s);
 
     };
@@ -221,10 +221,10 @@ protected:
 
 
     private:
-        /** @brief invalid copy constructor */
+        /// @brief Invalidated copy constructor
         EdgesHandler(const EdgesHandler &s);
 
-        /** @brief invalid assignment operator */
+        /// @brief Invalidated assignment operator
         EdgesHandler &operator=(const EdgesHandler &s);
 
     };

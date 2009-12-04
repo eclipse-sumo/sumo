@@ -57,7 +57,7 @@ public:
     PCTypeDefHandler(OptionsCont &oc, PCTypeMap &con) throw();
 
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~PCTypeDefHandler() throw();
 
 
@@ -87,10 +87,10 @@ protected:
 
 
 private:
-    /** @brief invalid copy constructor */
+    /// @brief Invalidated copy constructor
     PCTypeDefHandler(const PCTypeDefHandler &src);
 
-    /** @brief invalid assignment operator */
+    /// @brief Invalidated assignment operator
     PCTypeDefHandler &operator=(const PCTypeDefHandler &src);
 
 };

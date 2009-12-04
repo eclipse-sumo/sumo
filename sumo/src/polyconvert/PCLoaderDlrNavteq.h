@@ -74,6 +74,7 @@ public:
     static void loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                           PCTypeMap &tm) throw(ProcessError);
 
+
 protected:
     /** @brief Loads pois assumed to be stored as according DLR-Navteq (Elmar)-files
      *

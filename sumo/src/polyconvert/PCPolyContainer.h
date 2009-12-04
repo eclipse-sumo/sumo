@@ -182,10 +182,10 @@ public:
 
 
 private:
-    /** @brief invalid copy constructor */
+    /// @brief Invalidated copy constructor
     PCPolyContainer(const PCPolyContainer &s);
 
-    /** @brief invalid assignment operator */
+    /// @brief Invalidated assignment operator
     PCPolyContainer &operator=(const PCPolyContainer &s);
 
 

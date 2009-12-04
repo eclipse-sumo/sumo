@@ -120,6 +120,7 @@ private:
     /// @brief Settings to use
     OptionsCont &myOptions;
 
+
     /// @name Temporary storages used when parsing polygons
     /// @{
 
