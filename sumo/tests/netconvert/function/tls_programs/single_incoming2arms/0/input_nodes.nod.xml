@@ -1,4 +1,4 @@
-<nodes>
+<nodes xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://sumo.sf.net/xsd/nodes_file.xsd'>
    <node id="15030238" x="20116.0" y="25519.0"/>
    <node id="15030043" x="19980.0" y="25487.0"/>
    <node id="15030435" x="19994.0" y="25421.0"/>
