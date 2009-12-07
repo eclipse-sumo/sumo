@@ -12,6 +12,7 @@ All rights reserved
 
 import os, sys
 from xml.sax import saxutils, make_parser, handler
+from copy import copy
 from itertools import *
 
 
