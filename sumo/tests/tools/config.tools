@@ -12,6 +12,7 @@ copy_test_path:lsa_def.csv
 
 [collate_file]
 detectors:e2.add.xml
+detectors:e3.add.xml
 changednet:input_net.net.xml.chg
 edges:edges.xml
 nodes:nodes.xml
