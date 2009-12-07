@@ -1,14 +1,14 @@
 <additional>
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_1si_0" lane="1si_0" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_1si_1" lane="1si_1" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_1si_2" lane="1si_2" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_2si_0" lane="2si_0" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_2si_1" lane="2si_1" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_2si_2" lane="2si_2" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_3si_0" lane="3si_0" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_3si_1" lane="3si_1" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_3si_2" lane="3si_2" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_4si_0" lane="4si_0" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_4si_1" lane="4si_1" pos="0.000000" length="237.050000" />
-	<e2-detector file="e2_output.xml" freq="60" friendly_pos="x" id="e2det_4si_2" lane="4si_2" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_1si_0" lane="1si_0" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_1si_1" lane="1si_1" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_1si_2" lane="1si_2" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_2si_0" lane="2si_0" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_2si_1" lane="2si_1" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_2si_2" lane="2si_2" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_3si_0" lane="3si_0" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_3si_1" lane="3si_1" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_3si_2" lane="3si_2" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_4si_0" lane="4si_0" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_4si_1" lane="4si_1" pos="0.000000" length="237.050000" />
+	<e2-detector file="e2output.xml" freq="60" friendly_pos="x" id="e2det_4si_2" lane="4si_2" pos="0.000000" length="237.050000" />
 </additional>

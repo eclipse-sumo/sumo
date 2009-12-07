@@ -1,6 +1,6 @@
 Missing arguments
 Usage: 
-generateE2Detectors.py -n inputs\pasubio\pasubio.net.xml -l 250 -d .1 -f 60
+generateTLSE2Detectors.py -n inputs\pasubio\pasubio.net.xml -l 250 -d .1 -f 60
 
 Options:
   -h, --help            show this help message and exit
@@ -14,3 +14,9 @@ Options:
                         meters
   -f FREQUENCY, --frequency=FREQUENCY
                         frequency
+  -o OUTPUT, --output=OUTPUT
+                        the name of the file to write the detector definitions
+                        into
+  -r RESULTS, --results-file=RESULTS
+                        the name of the file the detectors write their output
+                        into

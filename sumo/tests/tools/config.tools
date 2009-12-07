@@ -11,7 +11,7 @@ copy_test_path:costFunction.py
 copy_test_path:lsa_def.csv
 
 [collate_file]
-detectors:input_nete2.det.xml
+detectors:e2.add.xml
 changednet:input_net.net.xml.chg
 edges:edges.xml
 nodes:nodes.xml
