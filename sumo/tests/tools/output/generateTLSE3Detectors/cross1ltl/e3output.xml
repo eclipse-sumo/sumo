@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/07/09 09:54:01 by SUMO guisim Version dev-SVN-r8065
+<configuration>
+
+    <input>
+        <net-file value="D:\projects\sumo\rbuild\sumo\tests\tools\output\generateTLSE3Detectors\cross1ltl\input_net.net.xml"/>
+        <additional-files value="D:\projects\sumo\rbuild\sumo\tests\tools\output\generateTLSE3Detectors\cross1ltl\detectors.tools"/>
+    </input>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
+
+</configuration>
+-->
+
+<e3-detector>
+</e3-detector>

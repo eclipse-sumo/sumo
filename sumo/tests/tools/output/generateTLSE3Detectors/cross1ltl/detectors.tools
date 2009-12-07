@@ -1,0 +1,18 @@
+<additional>
+    <e3-detector id="e3_0_1i" freq="60" file="e3output.xml">
+        <det_entry lane="1i_0" pos="245.25"/>
+        <det_exit lane="1i_0" pos="-0.1"/>
+    </e3-detector>
+    <e3-detector id="e3_0_2i" freq="60" file="e3output.xml">
+        <det_entry lane="2i_0" pos="245.25"/>
+        <det_exit lane="2i_0" pos="-0.1"/>
+    </e3-detector>
+    <e3-detector id="e3_0_3i" freq="60" file="e3output.xml">
+        <det_entry lane="3i_0" pos="245.25"/>
+        <det_exit lane="3i_0" pos="-0.1"/>
+    </e3-detector>
+    <e3-detector id="e3_0_4i" freq="60" file="e3output.xml">
+        <det_entry lane="4i_0" pos="245.25"/>
+        <det_exit lane="4i_0" pos="-0.1"/>
+    </e3-detector>
+</additional>
