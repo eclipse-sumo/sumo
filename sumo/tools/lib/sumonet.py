@@ -62,6 +62,7 @@ class NetEdge:
         self._outgoing = {}
         self._shape = None
         self._function = function
+        self._tls = None
 
     def addLane(self, lane):
         self._lanes.append(lane)
@@ -125,6 +126,11 @@ class NetEdge:
                 shape.append( [ x, y ] )
             self.setShape(shape)
 
+    def getLength(self):
+         return self._lanes[0].getLength()
+
+    def setTLS(self, tls):
+         self._tls = tls
          
 
 
@@ -192,6 +198,11 @@ class NetTLS:
         if linkNo>self._maxConnectionNo:
             self._maxConnectionNo = linkNo
 
+    def getEdges(self):
+        edges = set()
+        for c in self._connections:
+            edges.add(c[0].getEdge())
+        return edges
 
 
 class Net:
@@ -246,12 +257,46 @@ class Net:
             self._id2tls[tlid] = tls
             self._tlss.append(tls)
         tls.addConnection(inLane, outLane, linkNo)
+        return tls
 
     def setFoes(self, junctionID, index, foes, prohibits):
         self._id2node[junctionID].setFoes(index, foes, prohibits)
 
     def forbids(self, possProhibitor, possProhibited):
         return possProhibitor[0].getEdge()._to.forbids(possProhibitor, possProhibited)
+
+    def getDownstreamEdges(self, edge, distance, stopOnTLS):
+        ret = []
+        seen = set()
+        toProc = []
+        toProc.append( [edge, 0, [] ] )
+        while not len(toProc)==0:
+            ie = toProc.pop()
+            if ie[0] in seen:
+                continue
+            seen.add(ie[0])
+            if ie[1] + ie[0].getLength() >= distance:
+                ret.append( [ie[0], ie[0].getLength()+ie[1]-distance, ie[2], False] )
+                continue
+            if len(ie[0]._incoming)==0:
+                ret.append( [ie[0], ie[0].getLength()+ie[1], ie[2], True] )
+                continue
+            mn = []
+            hadTLS = False
+            for ci in ie[0]._incoming:
+                if ci not in seen:
+                    prev = copy(ie[2])
+                    if stopOnTLS and ci._tls and ci!=edge and not hadTLS:
+                        ret.append( [ie[0], ie[1], prev, True ] )
+                        hadTLS = True
+                    else:
+                        prev.append(ie[0])
+                        mn.append( [ci, ie[0].getLength()+ie[1], prev ] )
+            if not hadTLS:
+                toProc.extend(mn)
+        return ret
+
+
 
 
 
@@ -301,7 +346,8 @@ class NetReader(handler.ContentHandler):
                     tlid = attrs['tl']
                     toEdge = self._net.getEdge(lid[:lid.rfind('_')])
                     tolane2 = toEdge._lanes[tolane]
-                    self._net.addTLS(tlid, self._currentEdge._lanes[self._currentLane], tolane2, tllink)
+                    tls = self._net.addTLS(tlid, self._currentEdge._lanes[self._currentLane], tolane2, tllink)
+                    self._currentEdge.setTLS(tls)
                 else:
                     tl = ""
                     tllink = -1
