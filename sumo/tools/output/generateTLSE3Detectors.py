@@ -3,7 +3,7 @@
 @file    generateTLSE3Detectors.py 
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-10-25
-@version $Id: generateTLSE3Detectors.py 7660 2009-09-03 09:09:50Z behrisch $
+@version $Id$
 
 Copyright (C) 2009 DLR/TS, Germany
 All rights reserved
