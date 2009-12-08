@@ -52,13 +52,13 @@ def addRouteChecking(ok):
 
 
 def sorter(idx):
-	def t(i, j):
-		if i[idx] < j[idx]:
-			return -1
-		elif i[idx] > j[idx]:
-			return 1
-		else:
-			return 0
+    def t(i, j):
+        if i[idx] < j[idx]:
+            return -1
+        elif i[idx] > j[idx]:
+            return 1
+        else:
+            return 0
 
 
 
@@ -180,18 +180,18 @@ print " " + str(missing) + " routes missing (" + str(missingN) + " vehs)"
 timeline = None
 # apply timeline
 if options.timeline:
-	timeline = []
-	nNo = 0
-	vals = options.timeline.split(",")
-	sum = 0
-	for v in vals:
-		timeline.append(float(v))
-		sum += float(v)
-	print sum
-	if len(timeline)!=24:
-		print "The timeline must have 24 entries"
-		sys.exit()
-	nRoutes = []
+    timeline = []
+    nNo = 0
+    vals = options.timeline.split(",")
+    sum = 0
+    for v in vals:
+        timeline.append(float(v))
+        sum += float(v)
+    print sum
+    if len(timeline)!=24:
+        print "The timeline must have 24 entries"
+        sys.exit()
+    nRoutes = []
 
 # convert to vehicles
 print "Generating vehicles..."
@@ -200,33 +200,35 @@ begin = options.begin
 end = options.end
 
 if not timeline:
-	for r in routes:
-		for i in range(0, int(r[1])):
-			if options.uniform:
-				t = float(begin) + float(end-begin) / float(r[1]) * float(i)
-			else:
-				t = float(begin) + float(end-begin) * random.random()
-			emissions.append( ( int(t), r[0]+"__"+str(i), r[2] ) )
+    for r in routes:
+        for i in range(0, int(r[1])):
+            if options.uniform:
+                t = float(begin) + float(end-begin) / float(r[1]) * float(i)
+            else:
+                t = float(begin) + float(end-begin) * random.random()
+            emissions.append( ( int(t), r[0]+"__"+str(i), r[2] ) )
 else:
-	for r in routes:
-		left = 0.
-		tbeg = 0
-		for t in timeline:
-			fno = (float(r[1])+left) * t / 100.
-			no = int(fno)
-			left += fno - no
-			if left>=1.:
-				left -= 1
-				no += 1
-			for i in range(0, no):
-				if options.uniform:
-					t = tbeg + float(3600) / float(r[1]) * float(i)
-				else:
-					t = tbeg + float(3600) * random.random()
-				emissions.append( ( int(t), r[0]+"__"+str(i), r[2] ) )
-			nNo += no
-			tbeg += 3600
-	print " " + str(nNo) + " vehicles after applying timeline"
+    for r in routes:
+        left = 0.
+        tbeg = 0
+        j = 0
+        for t in timeline:
+            fno = (float(r[1])+left) * t / 100.
+            no = int(fno)
+            left += fno - no
+            if left>=1.:
+                left -= 1
+                no += 1
+            for i in range(0, no):
+                if options.uniform:
+                    t = tbeg + float(3600) / float(r[1]) * float(i)
+                else:
+                    t = tbeg + float(3600) * random.random()
+                emissions.append( ( int(t), r[0]+"__"+str(j), r[2] ) )
+                j = j + 1
+            nNo += no
+            tbeg += 3600
+    print " " + str(nNo) + " vehicles after applying timeline"
 
 
 # sort emissions
@@ -238,14 +240,14 @@ print "Writing routes..."
 fdo = open(options.output, "w")
 fdo.write("<routes>\n")
 for emission in emissions:
-	fdo.write('    <vehicle id="')
-	if options.prefix:
-		fdo.write(options.prefix + "_")
-	fdo.write(emission[1] + '" depart="' + str(emission[0]) + '"')
-	if options.type:
-		fdo.write(' type="' + options.type + '"')
-	fdo.write('><route edges="' + emission[2] + '"/></vehicle>\n')
-fdo.write("</routes>\n")	
+    fdo.write('    <vehicle id="')
+    if options.prefix:
+        fdo.write(options.prefix + "_")
+    fdo.write(emission[1] + '" depart="' + str(emission[0]) + '"')
+    if options.type:
+        fdo.write(' type="' + options.type + '"')
+    fdo.write('><route edges="' + emission[2] + '"/></vehicle>\n')
+fdo.write("</routes>\n")    
 fdo.close()
 print " " + str(len(emissions)) + " vehicles written"
 
