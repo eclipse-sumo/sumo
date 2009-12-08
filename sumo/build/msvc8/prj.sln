@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual C++ Express 2005
+# Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duarouter", "duarouter\duarouter.vcproj", "{90205628-51D7-4194-9FC0-7D74C35A3471}"
 	ProjectSection(ProjectDependencies) = postProject
 		{508F0BFF-83FE-444C-9509-A359BCA83BC4} = {508F0BFF-83FE-444C-9509-A359BCA83BC4}
@@ -843,13 +843,16 @@ Global
 		{25FDF327-EB7A-484A-96BC-AF2DB089D6F4}.Release|x64.Build.0 = Release|x64
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Debug|Win32.ActiveCfg = Debug|Win32
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Debug|Win32.Build.0 = Debug|Win32
-		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Debug|x64.ActiveCfg = Debug|Win32
+		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Debug|x64.ActiveCfg = Debug|x64
+		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Debug|x64.Build.0 = Debug|x64
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Fastbuild|Win32.ActiveCfg = Fastbuild|Win32
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Fastbuild|Win32.Build.0 = Fastbuild|Win32
-		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Fastbuild|x64.ActiveCfg = Fastbuild|Win32
+		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Fastbuild|x64.ActiveCfg = Fastbuild|x64
+		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Fastbuild|x64.Build.0 = Fastbuild|x64
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|Win32.ActiveCfg = Release|Win32
 		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|Win32.Build.0 = Release|Win32
-		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|x64.ActiveCfg = Release|Win32
+		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|x64.ActiveCfg = Release|x64
+		{50B2C273-2B6A-4A3A-BE24-83E3202DE180}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
