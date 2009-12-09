@@ -1,0 +1,19 @@
+# tests are based upon the cross example
+
+# no translation
+plain
+
+# x offset
+xoff
+
+# y offset
+yoff
+
+# automatic translation
+auto
+
+# translation to reduce float errors
+bignum
+
+# disable translation to reduce float errors
+bignum_plain

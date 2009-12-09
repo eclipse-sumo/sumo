@@ -313,16 +313,6 @@ public:
     void appendTurnarounds(bool noTLSControlled) throw();
 
 
-    /** @brief Moves the geometries of all known edges by the network offset
-     *
-     * Calls "NBEdge::normalisePosition" for all edges within the container.
-     *
-     * @todo Recheck whether a visitor-pattern should be used herefor
-     * @see NBEdge::normalisePosition
-     */
-    void normaliseEdgePositions() throw();
-
-
     /** @brief Translates and rotates the geometries of all known edges by the given values
      *
      * Calls "NBEdge::reshiftPosition" for all edges within the container.

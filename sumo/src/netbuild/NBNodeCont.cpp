@@ -386,27 +386,10 @@ NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::s
 
 // -----------
 void
-NBNodeCont::normaliseNodePositions() {
-    NodeCont::iterator i;
-    // reformat
-    const Boundary &b = GeoConvHelper::getConvBoundary();
-    const SUMOReal xmin = -b.xmin();
-    const SUMOReal ymin = -b.ymin();
-    if (fabs(xmin) > POSITION_EPS || fabs(ymin) > POSITION_EPS) {
-        for (i=myNodes.begin(); i!=myNodes.end(); i++) {
-            (*i).second->resetby(xmin, ymin);
-        }
-        GeoConvHelper::moveConvertedBy(xmin, ymin);
-    }
-}
-
-
-void
-NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff) {
+NBNodeCont::reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff);
     }
-    GeoConvHelper::moveConvertedBy(xoff, yoff);
 }
 
 

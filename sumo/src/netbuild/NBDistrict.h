@@ -194,11 +194,11 @@ public:
     void addShape(const Position2DVector &p) throw();
 
 
-    /** @brief Normalises the geometrical information of this district
-     *
-     * Both the position and the shape are shifted by GeoConvHelper::getOffset()
+    /** @brief Applies an offset to the district
+     * @param[in] xoff The x-offset to apply
+     * @param[in] yoff The y-offset to apply
      */
-    void normalisePositions() throw();
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw();
 
 
 private:

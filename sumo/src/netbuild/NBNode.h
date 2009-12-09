@@ -382,8 +382,6 @@ public:
     friend class NBNodeCont;
 
 
-    SUMOReal getOffset(Position2DVector on, Position2DVector cross) const;
-
     const Position2DVector &getShape() const;
 
     unsigned int countInternalLanes(bool includeSplits);
@@ -479,8 +477,6 @@ private:
     std::vector<NBEdge*> *getEdgesThatApproach(NBEdge *currentOutgoing);
 
     /// resets the position by the given amount
-    void resetby(SUMOReal xoffset, SUMOReal yoffset);
-
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff);
 
 

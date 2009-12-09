@@ -104,22 +104,24 @@ GeoConvHelper::init(OptionsCont &oc) {
 #endif
     myOffset = Position2D(oc.getFloat("x-offset-to-apply"), oc.getFloat("y-offset-to-apply"));
     if (oc.getBool("proj.simple")) {
-        return GeoConvHelper::init("-", oc.getFloat("proj.scale"));
+        return init("-", oc.getFloat("proj.scale"));
     }
+    bool ret = true;
 #ifdef HAVE_PROJ
     if (oc.getBool("proj.utm")) {
         myProjectionMethod = UTM;
-        return GeoConvHelper::init(".", oc.getFloat("proj.scale"));
-    }
-    if (oc.getBool("proj.dhdn")) {
+        ret = init(".", oc.getFloat("proj.scale"));
+    } else if (oc.getBool("proj.dhdn")) {
         myProjectionMethod = DHDN;
-        return GeoConvHelper::init(".", oc.getFloat("proj.scale"));
+        ret = init(".", oc.getFloat("proj.scale"));
+    } else {
+        ret = init(oc.getString("proj"), oc.getFloat("proj.scale"), oc.getBool("proj.inverse"));
     }
-    return GeoConvHelper::init(oc.getString("proj"),
-                               oc.getFloat("proj.scale"), oc.getBool("proj.inverse"));
-#else
-    return true;
 #endif
+    if (oc.getBool("disable-normalize-node-positions")) {
+        myBaseFound = true;
+    }
+    return ret;
 }
 
 
@@ -267,8 +269,10 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
         }
     }
     if (myProjectionMethod != SIMPLE) {
-        if (!myBaseFound && (from.x() > 100000 || from.y() > 100000)) {
-            myBase.set(from);
+        if (!myBaseFound) {
+            if (from.x() > 100000 || from.y() > 100000) {
+                myBase.set(from);
+            }
             myBaseFound = true;
         }
         if (myBaseFound) {
@@ -298,12 +302,6 @@ GeoConvHelper::getOrigBoundary() {
 const Boundary &
 GeoConvHelper::getConvBoundary() {
     return myConvBoundary;
-}
-
-
-const Position2D &
-GeoConvHelper::getOffset() {
-    return myOffset;
 }
 
 

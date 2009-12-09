@@ -1,0 +1,33 @@
+Parsing nodes from 'input_nodes.nod.xml'... done.
+Parsing edges from 'input_edges.edg.xml'... done.
+ Import done:
+   9 nodes loaded.
+   12 edges loaded.
+Computing step 1: Removing dummy edges.
+Computing step 2: Joining double connections.
+Computing step 3: Guessing and setting TLs.
+Computing step 4: Computing turning directions.
+Computing step 5: Sorting nodes' edges.
+Computing step 6: Computing approached edges.
+Computing step 7: Computing approaching lanes.
+Computing step 8: Dividing of lanes on approached lanes.
+Computing step 9: Appending turnarounds.
+Computing step 10: Rechecking of lane endings.
+Computing step 11: Computing node shapes.
+Computing step 12: Computing edge shapes.
+Computing step 13: Computing tls logics.
+Computing step 14: Computing node logics.
+Computing step 15: Computing traffic light logics.
+0 traffic light(s) computed.
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Priority junctions          : 9
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 199500.00,-500.00,200500.00,500.00
+  Applied offset     : 0.00,0.00
+  Converted boundary : 199500.00,-500.00,200500.00,500.00
+-----------------------------------------------------
+Success.

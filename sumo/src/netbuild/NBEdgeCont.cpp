@@ -486,14 +486,6 @@ NBEdgeCont::appendTurnarounds(bool noTLSControlled) throw() {
 
 
 void
-NBEdgeCont::normaliseEdgePositions() throw() {
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->normalisePosition();
-    }
-}
-
-
-void
 NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff) throw() {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff);

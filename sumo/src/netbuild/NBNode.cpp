@@ -1196,35 +1196,6 @@ NBNode::computeNodeShape() {
 }
 
 
-SUMOReal
-NBNode::getOffset(Position2DVector on, Position2DVector cross) const {
-    if (on.intersects(cross)) {
-        DoubleVector posses = on.intersectsAtLengths(cross);
-        assert(posses.size()>0);
-        // heuristic
-        SUMOReal val = VectorHelper<SUMOReal>::maxValue(posses);
-        if (val<50) {
-            return val;
-        }
-        on.extrapolate(10);
-        cross.extrapolate(10);
-        if (on.intersects(cross)) {
-            DoubleVector posses = on.intersectsAtLengths(cross);
-            assert(posses.size()>0);
-            return VectorHelper<SUMOReal>::minValue(posses) - 10;
-        }
-    }
-    on.extrapolate(10);
-    cross.extrapolate(10);
-    if (on.intersects(cross)) {
-        DoubleVector posses = on.intersectsAtLengths(cross);
-        assert(posses.size()>0);
-        return VectorHelper<SUMOReal>::maxValue(posses) - 10;
-    }
-    return -1;
-}
-
-
 void
 NBNode::computeLanes2Lanes() {
     // special case a):
@@ -1323,13 +1294,6 @@ NBNode::getEdgesThatApproach(NBEdge *currentOutgoing) {
         NBContHelper::nextCW(&myAllEdges, i);
     }
     return approaching;
-}
-
-
-void
-NBNode::resetby(SUMOReal xoffset, SUMOReal yoffset) {
-    myPosition.add(xoffset, yoffset);
-    myPoly.resetBy(xoffset, yoffset);
 }
 
 

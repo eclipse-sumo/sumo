@@ -139,14 +139,16 @@ public:
     void removeFromSinksAndSources(NBEdge * const e) throw();
 
 
-    /** @brief Normalises the geometrical information of all districts
+    /** @brief Applies an offset to all districts
      *
      * This method simply goes through all stored districts and calls their method
-     *  NBDistrict::normalisePositions.
+     *  NBDistrict::reshiftPosition.
      *
-     * @see NBDistrict::normalisePositions
+     * @see NBDistrict::reshiftPosition
+     * @param[in] xoff The x-offset to apply
+     * @param[in] yoff The y-offset to apply
      */
-    void normaliseDistrictPositions() throw();
+    void reshiftDistrictPositions(SUMOReal xoff, SUMOReal yoff) throw();
 
 
 private:

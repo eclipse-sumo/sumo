@@ -391,34 +391,6 @@ operator<<(std::ostream &os, const Position2DVector &geom) {
 }
 
 
-Position2DVector
-Position2DVector::resettedBy(SUMOReal x, SUMOReal y) const {
-    Position2DVector ret;
-    for (size_t i=0; i<size(); i++) {
-        Position2D pos = myCont[i];
-        pos.add(x, y);
-        ret.push_back(pos);
-    }
-    return ret;
-}
-
-
-void
-Position2DVector::resetBy(SUMOReal x, SUMOReal y) {
-    for (size_t i=0; i<size(); i++) {
-        myCont[i].add(x, y);
-    }
-}
-
-
-void
-Position2DVector::resetBy(const Position2D &by) {
-    for (size_t i=0; i<size(); i++) {
-        myCont[i].add(by.x(), by.y());
-    }
-}
-
-
 void
 Position2DVector::sortAsPolyCWByAngle() {
     Position2D c = getPolygonCenter();

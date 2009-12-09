@@ -47,7 +47,6 @@
 #include <utils/common/StdDefs.h>
 #include "NBEdge.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -365,15 +364,6 @@ NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread) throw() {
 void
 NBEdge::addGeometryPoint(int index, const Position2D &p) throw() {
     myGeom.insertAt(index, p);
-}
-
-
-void
-NBEdge::normalisePosition() throw() {
-    myGeom.resetBy(GeoConvHelper::getOffset());
-    for (unsigned int i=0; i<myLanes.size(); i++) {
-        myLanes[i].shape.resetBy(GeoConvHelper::getOffset());
-    }
 }
 
 

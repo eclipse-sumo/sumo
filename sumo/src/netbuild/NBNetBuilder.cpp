@@ -157,9 +157,12 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     //
     if (!oc.getBool("disable-normalize-node-positions")) {
         inform(step, "Normalising node positions.");
-        myNodeCont.normaliseNodePositions();
-        myEdgeCont.normaliseEdgePositions();
-        myDistrictCont.normaliseDistrictPositions();
+        const SUMOReal x = -GeoConvHelper::getConvBoundary().xmin();
+        const SUMOReal y = -GeoConvHelper::getConvBoundary().ymin();
+        myNodeCont.reshiftNodePositions(x, y);
+        myEdgeCont.reshiftEdgePositions(x, y);
+        myDistrictCont.reshiftDistrictPositions(x, y);
+        GeoConvHelper::moveConvertedBy(x, y);
     }
     //
     myEdgeCont.recomputeLaneShapes();
@@ -237,12 +240,14 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     inform(step, "Computing traffic light logics.");
     myTLLCont.computeLogics(myEdgeCont, oc);
     //
-    if (!oc.isDefault("x-offset-to-apply")) {
+    if (!oc.isDefault("x-offset-to-apply") || !oc.isDefault("y-offset-to-apply") ) {
         inform(step, "Transposing network.");
         SUMOReal xoff = oc.getFloat("x-offset-to-apply");
         SUMOReal yoff = oc.getFloat("y-offset-to-apply");
         myNodeCont.reshiftNodePositions(xoff, yoff);
         myEdgeCont.reshiftEdgePositions(xoff, yoff);
+        myDistrictCont.reshiftDistrictPositions(xoff, yoff);
+        GeoConvHelper::moveConvertedBy(xoff, yoff);
     }
     // report
     WRITE_MESSAGE("-----------------------------------------------------");

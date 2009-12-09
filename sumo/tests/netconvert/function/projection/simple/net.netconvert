@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Aug 31 14:30:13 2009 by SUMO netconvert Version dev-SVN-r7623
+<!-- generated on 12/09/09 02:00:08 by SUMO netconvert Version dev-SVN-r8079
 <configuration>
 
-    <input
-        xml-node-files="input_nodes.nod.xml"
-        xml-edge-files="input_edges.edg.xml"
-    />
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-    <output
-        output-file="net.net.xml"
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-    <projection
-        proj.simple="true"
-    />
+    <projection>
+        <proj.simple value="true"/>
+    </projection>
 
 </configuration>
 -->
 
 <net>
 
-   <location netOffset="0.00,3770.61" convBoundary="0.00,0.00,3472.21,3770.61" origBoundary="12.014693,48.087528,12.061387,48.121456" projParameter="-"/>
+   <location netOffset="-12.01,3722.49" convBoundary="0.00,0.00,3472.21,3770.61" origBoundary="12.014693,48.087528,12.061387,48.121456" projParameter="-"/>
 
 
 

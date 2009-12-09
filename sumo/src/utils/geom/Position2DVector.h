@@ -184,8 +184,6 @@ public:
         return myCont;
     }
 
-    Position2DVector resettedBy(SUMOReal x, SUMOReal y) const;
-
     Position2DVector getSubpart(SUMOReal begin, SUMOReal end) const;
 
     void sortAsPolyCWByAngle();
@@ -233,10 +231,6 @@ public:
         int operator()(const Position2D &p1, const Position2D &p2) const;
 
     };
-
-    void resetBy(SUMOReal x, SUMOReal y);
-    void resetBy(const Position2D &by);
-
 
     // !!!
     SUMOReal isLeft(const Position2D &P0, const Position2D &P1, const Position2D &P2) const;

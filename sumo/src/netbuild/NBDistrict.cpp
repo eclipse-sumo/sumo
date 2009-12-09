@@ -35,7 +35,6 @@
 #include <algorithm>
 #include <utils/common/Named.h>
 #include <utils/common/StringUtils.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "NBEdge.h"
 #include "NBDistrict.h"
@@ -221,9 +220,9 @@ NBDistrict::addShape(const Position2DVector &p) throw() {
 
 
 void
-NBDistrict::normalisePositions() throw() {
-    myPosition.add(GeoConvHelper::getOffset());
-    myShape.resetBy(GeoConvHelper::getOffset());
+NBDistrict::reshiftPosition(SUMOReal xoff, SUMOReal yoff) throw() {
+    myPosition.reshiftRotate(xoff, yoff, 0);
+    myShape.reshiftRotate(xoff, yoff, 0);
 }
 
 

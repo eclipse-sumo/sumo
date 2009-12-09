@@ -1,10 +1,8 @@
-Loading nodes... done.
-Loading traffic lights... done.
-Loading edges... done.
+Parsing nodes from 'input_nodes.nod.xml'... done.
+Parsing edges from 'input_edges.edg.xml'... done.
  Import done:
-   5 nodes loaded.
-   8 edges loaded.
-Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+   9 nodes loaded.
+   12 edges loaded.
 Computing step 1: Removing dummy edges.
 Computing step 2: Joining double connections.
 Computing step 3: Normalising node positions.
@@ -21,16 +19,16 @@ Computing step 13: Computing edge shapes.
 Computing step 14: Computing tls logics.
 Computing step 15: Computing node logics.
 Computing step 16: Computing traffic light logics.
-1 traffic light(s) computed.
+0 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 9
   Right-before-left junctions : 0
  Network boundaries:
-  Original boundary  : 1248456.00,5211834.00,1306826.00,5235677.00
-  Applied offset     : -328248.16,-5776623.00
-  Converted boundary : 0.00,0.00,39850.09,26515.00
+  Original boundary  : -500.00,-500.00,500.00,500.00
+  Applied offset     : 500.00,500.00
+  Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
 Success.

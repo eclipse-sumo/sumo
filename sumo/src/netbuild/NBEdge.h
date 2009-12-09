@@ -374,16 +374,7 @@ public:
     }
 
 
-    /** @brief Resets this edge's position, so that the network starts at (0,0)
-     *
-     * GeoConvHelper::getOffset() is applied to both the edge's and all lanes'
-     *  geometries.
-     * @see GeoConvHelper::getOffset()
-     */
-    void normalisePosition() throw();
-
-
-    /** @brief Applies an additional offset and rotation on the network
+    /** @brief Applies an offset to the edge
      * @param[in] xoff The x-offset to apply
      * @param[in] yoff The y-offset to apply
      */

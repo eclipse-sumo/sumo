@@ -152,9 +152,8 @@ public:
     void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
     /// @}
 
-    /// resets the node positions in a way that they begin from (0, 0)
-    void normaliseNodePositions();
-    void reshiftNodePositions(SUMOReal xoff, SUMOReal yoff);
+    /// resets the node positions by the specified offset
+    void reshiftNodePositions(const SUMOReal xoff, const SUMOReal yoff);
 
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();
