@@ -119,9 +119,9 @@ MSEdgeControl::moveNonCritical(SUMOTime t) throw() {
 
 
 void
-MSEdgeControl::moveCritical() throw() {
+MSEdgeControl::moveCritical(SUMOTime t) throw() {
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
-        if ((*i)->getVehicleNumber()==0 || (*i)->moveCritical()) {
+        if ((*i)->getVehicleNumber()==0 || (*i)->moveCritical(t)) {
             myLanes[(*i)->getNumericalID()].amActive = false;
             i = myActiveLanes.erase(i);
         } else {

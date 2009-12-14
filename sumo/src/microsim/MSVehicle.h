@@ -397,7 +397,7 @@ public:
      * @param[in] lengthsInFront Sum of vehicle lengths in front of the vehicle
      * @return Whether a collision occured (gap2pred(leader)<=0)
      */
-    bool moveRegardingCritical(const MSLane* const lane, const MSVehicle * const pred,
+    bool moveRegardingCritical(SUMOTime t, const MSLane* const lane, const MSVehicle * const pred,
                                const MSVehicle * const neigh, SUMOReal lengthsInFront) throw();
 
 
@@ -593,7 +593,7 @@ public:
 
     friend class MSVehicleControl;
 
-    void vsafeCriticalCont(SUMOReal minVSafe, SUMOReal lengthsInFront);
+    void vsafeCriticalCont(SUMOTime t, SUMOReal minVSafe, SUMOReal lengthsInFront);
 
     MSLane *getTargetLane() const;
 

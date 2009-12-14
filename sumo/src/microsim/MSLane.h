@@ -304,7 +304,7 @@ public:
 
     virtual bool moveNonCritical(SUMOTime t);
 
-    virtual bool moveCritical();
+    virtual bool moveCritical(SUMOTime t);
 
     /** Moves the critical vehicles
         This step is done after the responds have been set */

@@ -382,7 +382,7 @@ MSNet::simulationStep() {
         myEdges->moveNonCritical(myStep);
         //  precompute possible positions for vehicles that do interact with
         //   their lane's end
-        myEdges->moveCritical();
+        myEdges->moveCritical(myStep);
 
         // check the right-of-way for all junctions
         myJunctions->setAllowed();

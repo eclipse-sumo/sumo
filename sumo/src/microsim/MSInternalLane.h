@@ -128,7 +128,7 @@ public:
          corresponding junction about the fact that a vehicle uses them */
     virtual bool moveNonCritical(SUMOTime t);
 
-    virtual bool moveCritical();
+    virtual bool moveCritical(SUMOTime t);
     /// @}
 
 

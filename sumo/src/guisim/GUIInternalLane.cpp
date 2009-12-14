@@ -112,10 +112,10 @@ GUIInternalLane::moveNonCritical(SUMOTime t) {
 
 
 bool
-GUIInternalLane::moveCritical() {
+GUIInternalLane::moveCritical(SUMOTime t) {
     myLock.lock();
     try {
-        bool ret = MSInternalLane::moveCritical();
+        bool ret = MSInternalLane::moveCritical(t);
         myLock.unlock();
         return ret;
     } catch (ProcessError &) {

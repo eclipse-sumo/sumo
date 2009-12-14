@@ -110,10 +110,10 @@ GUILane::moveNonCritical(SUMOTime t) {
 
 
 bool
-GUILane::moveCritical() {
+GUILane::moveCritical(SUMOTime t) {
     myLock.lock();
     try {
-        bool ret = MSLane::moveCritical();
+        bool ret = MSLane::moveCritical(t);
         myLock.unlock();
         return ret;
     } catch (ProcessError &) {

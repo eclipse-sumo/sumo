@@ -494,7 +494,7 @@ MSLane::moveNonCritical(SUMOTime t) {
 
 
 bool
-MSLane::moveCritical() {
+MSLane::moveCritical(SUMOTime t) {
     assert(myVehicles.size()!=0);
     vector<MSVehicle*> collisions;
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
@@ -503,13 +503,13 @@ MSLane::moveCritical() {
     for (veh=myVehicles.begin()+myFirstUnsafe; veh != lastBeforeEnd;) {
         myLeftVehLength -= (*veh)->getVehicleType().getLength();
         VehCont::const_iterator pred(veh + 1);
-        if ((*veh)->moveRegardingCritical(this, *pred, 0, myLeftVehLength)) {
+        if ((*veh)->moveRegardingCritical(t, this, *pred, 0, myLeftVehLength)) {
             collisions.push_back(*veh);
         }
         ++veh;
     }
     myLeftVehLength -= (*veh)->getVehicleType().getLength();
-    if ((*veh)->moveRegardingCritical(this, 0, 0, myLeftVehLength)) {
+    if ((*veh)->moveRegardingCritical(t, this, 0, 0, myLeftVehLength)) {
         collisions.push_back(*veh);
     }
     assert((*veh)->getPositionOnLane() <= myLength);

@@ -121,7 +121,7 @@ public:
      *
      * @see MSLane::moveCritical
      */
-    void moveCritical() throw();
+    void moveCritical(SUMOTime t) throw();
 
 
     /** @brief Really moves critical vehicles

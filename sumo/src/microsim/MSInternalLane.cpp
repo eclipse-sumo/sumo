@@ -97,12 +97,12 @@ MSInternalLane::moveNonCritical(SUMOTime t) {
 
 
 bool
-MSInternalLane::moveCritical() {
+MSInternalLane::moveCritical(SUMOTime t) {
     assert(myVehicles.size()>0);
     if (myFoesIndex>=0) {
         (*myFoesCont)[myFoesIndex] = true;
     }
-    return MSLane::moveCritical();
+    return MSLane::moveCritical(t);
 }
 
 
