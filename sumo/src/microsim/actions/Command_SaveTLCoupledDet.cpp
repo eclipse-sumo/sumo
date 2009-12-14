@@ -67,8 +67,6 @@ Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() throw() {
 
 void
 Command_SaveTLCoupledDet::execute() throw() {
-    // !!! we have to do this to have the correct information set
-    myLogics.getActive()->maskRedLinks();
     SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
     if (myStartTime!=end) {
         myDetector->writeXMLOutput(myDevice, myStartTime, end);

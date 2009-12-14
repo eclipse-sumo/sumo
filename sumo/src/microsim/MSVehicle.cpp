@@ -1242,7 +1242,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             //  and when the distance to the vehicle on the next lane allows moving
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
-            if ((myState.mySpeed<ACCEL2SPEED(myType->getMaxDecel())||seen<getCarFollowModel().approachingBrakeGap(myState.mySpeed))&&r_dist2Pred>0) {
+            if ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(myState.mySpeed<ACCEL2SPEED(myType->getMaxDecel())||seen<getCarFollowModel().approachingBrakeGap(myState.mySpeed))&&r_dist2Pred>0) {
                 vLinkPass = MIN3(vLinkPass, getCarFollowModel().maxNextSpeed(myState.mySpeed), myLane->getMaxSpeed());
                 setRequest = true;
             } else {
@@ -1257,7 +1257,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             vLinkWait = MIN2(vLinkWait, vsafeStop);
             setRequest = false;
         } else {
-            setRequest |= (vLinkPass>0&&dist-seen>0);
+            setRequest |= ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
         }
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest));
         if (vLinkPass>0&&dist-seen>0) {

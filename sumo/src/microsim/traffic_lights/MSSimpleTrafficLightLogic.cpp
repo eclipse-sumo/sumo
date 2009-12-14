@@ -117,9 +117,6 @@ MSSimpleTrafficLightLogic::maskRedLinks() const throw() {
         for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
             (*j)->setTLState(ls);
             // mark out links having red
-            if (ls==MSLink::LINKSTATE_TL_RED) {
-                (*j)->deleteRequest();
-            }
         }
     }
     return true;

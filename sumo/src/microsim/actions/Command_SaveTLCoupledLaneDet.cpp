@@ -67,8 +67,6 @@ Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet() throw() {
 
 void
 Command_SaveTLCoupledLaneDet::execute() throw() {
-    // !!! we have to do this to have the correct information set
-    myLogics.getActive()->maskRedLinks();
     if (myLink->getState()==myLastState&&myHadOne) {
         return;
     }

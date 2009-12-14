@@ -368,6 +368,11 @@ MSNet::simulationStep() {
     } else {
 #endif
         myJunctions->resetRequests();
+        // check whether the tls shall be switched
+        myLogics->check2Switch(myStep);
+        // set information about which vehicles may drive at all
+        myLogics->maskRedLinks();
+
 
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();
@@ -379,8 +384,6 @@ MSNet::simulationStep() {
         //   their lane's end
         myEdges->moveCritical();
 
-        // set information about which vehicles may drive at all
-        myLogics->maskRedLinks();
         // check the right-of-way for all junctions
         myJunctions->setAllowed();
 
@@ -393,9 +396,6 @@ MSNet::simulationStep() {
 
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes();
-
-        // check whether the tls shall be switched
-        myLogics->check2Switch(myStep);
 
         if (MSGlobals::gCheck4Accidents) {
             myEdges->detectCollisions(myStep);
