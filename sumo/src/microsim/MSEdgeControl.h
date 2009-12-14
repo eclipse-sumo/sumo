@@ -106,7 +106,7 @@ public:
      *
      * @see MSLane::moveNonCritical
      */
-    void moveNonCritical() throw();
+    void moveNonCritical(SUMOTime t) throw();
 
 
     /** @brief Moves (precomputes) critical vehicles
@@ -142,7 +142,7 @@ public:
      * @see MSLane::integrateNewVehicle
      * @todo When moving to parallel processing, the usage of myWithVehicles2Integrate would get insecure!!
      */
-    void moveFirst() throw();
+    void moveFirst(SUMOTime t) throw();
     /// @}
 
 
@@ -154,7 +154,7 @@ public:
      *
      * @see MSEdge::changeLanes
      */
-    void changeLanes() throw();
+    void changeLanes(SUMOTime t) throw();
 
 
     /** @brief Detect collisions

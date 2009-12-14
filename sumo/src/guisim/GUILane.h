@@ -135,7 +135,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool moveNonCritical();
+    bool moveNonCritical(SUMOTime t);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -143,7 +143,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool setCritical(std::vector<MSLane*> &into);
+    bool setCritical(SUMOTime t, std::vector<MSLane*> &into);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -164,10 +164,10 @@ protected:
         first; the access will be granted at the end of this method */
     bool push(MSVehicle* veh);
 
-    MSVehicle* pop();
+    MSVehicle* pop(SUMOTime t);
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
-    void swapAfterLaneChange();
+    void swapAfterLaneChange(SUMOTime t);
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

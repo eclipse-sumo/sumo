@@ -302,13 +302,13 @@ public:
     /// @name Vehicle movement (longitudinal)
     /// @{
 
-    virtual bool moveNonCritical();
+    virtual bool moveNonCritical(SUMOTime t);
 
     virtual bool moveCritical();
 
     /** Moves the critical vehicles
         This step is done after the responds have been set */
-    virtual bool setCritical(std::vector<MSLane*> &into);
+    virtual bool setCritical(SUMOTime t, std::vector<MSLane*> &into);
 
     /// Insert buffered vehicle into the real lane.
     virtual bool integrateNewVehicle();
@@ -350,7 +350,6 @@ public:
     MSEdge &getEdge() const throw() {
         return *myEdge;
     }
-
 
     /** @brief Inserts a MSLane into the static dictionary
         Returns true if the key id isn't already in the dictionary.
@@ -403,8 +402,11 @@ public:
     virtual MSVehicle * const getLastVehicle() const;
     virtual const MSVehicle * const getFirstVehicle() const;
 
-    MSVehicle::State myLastState;
+    SUMOTime myLastTouchTime;
+    MSVehicle::State myLastStateNow;
+    MSVehicle::State myLastStatePrev;
 
+    const MSVehicle::State &getLastVehicleState(SUMOTime t) const throw();
 
     void init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, std::vector<MSLane*>::const_iterator lastNeigh);
 
@@ -417,7 +419,6 @@ public:
     virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
     SUMOReal getMeanSpeed() const;
-
     /// The shape of the lane
     Position2DVector myShape;
 
@@ -490,10 +491,10 @@ protected:
     virtual bool push(MSVehicle* veh);
 
     /** Returns the first/front vehicle of the lane and removing it from the lane. */
-    virtual MSVehicle* pop();
+    virtual MSVehicle* pop(SUMOTime t);
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
-    virtual void swapAfterLaneChange();
+    virtual void swapAfterLaneChange(SUMOTime t);
 
 
 

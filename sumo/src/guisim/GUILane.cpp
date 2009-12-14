@@ -96,10 +96,10 @@ GUILane::releaseVehicles() const throw() {
 
 
 bool
-GUILane::moveNonCritical() {
+GUILane::moveNonCritical(SUMOTime t) {
     myLock.lock();
     try {
-        bool ret = MSLane::moveNonCritical();
+        bool ret = MSLane::moveNonCritical(t);
         myLock.unlock();
         return ret;
     } catch (ProcessError &) {
@@ -124,10 +124,10 @@ GUILane::moveCritical() {
 
 
 bool
-GUILane::setCritical(std::vector<MSLane*> &into) {
+GUILane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     myLock.lock();
     try {
-        bool ret = MSLane::setCritical(into);
+        bool ret = MSLane::setCritical(t, into);
         myLock.unlock();
         return ret;
     } catch (ProcessError &) {
@@ -180,10 +180,10 @@ GUILane::removeVehicle(MSVehicle * remVehicle) {
 
 
 void
-GUILane::swapAfterLaneChange() {
+GUILane::swapAfterLaneChange(SUMOTime t) {
     myLock.lock();
     try {
-        MSLane::swapAfterLaneChange();
+        MSLane::swapAfterLaneChange(t);
         myLock.unlock();
     } catch (ProcessError &) {
         myLock.unlock();
@@ -226,10 +226,10 @@ GUILane::detectCollisions(SUMOTime timestep) {
 
 
 MSVehicle*
-GUILane::pop() {
+GUILane::pop(SUMOTime t) {
     myLock.lock();
     try {
-        MSVehicle *ret = MSLane::pop();
+        MSVehicle *ret = MSLane::pop(t);
         myLock.unlock();
         return ret;
     } catch (ProcessError &) {

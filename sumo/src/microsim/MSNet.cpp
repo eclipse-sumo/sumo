@@ -379,7 +379,7 @@ MSNet::simulationStep() {
 
         // move vehicles
         //  move vehicles which do not interact with the lane end
-        myEdges->moveNonCritical();
+        myEdges->moveNonCritical(myStep);
         //  precompute possible positions for vehicles that do interact with
         //   their lane's end
         myEdges->moveCritical();
@@ -389,13 +389,13 @@ MSNet::simulationStep() {
 
         // move vehicles which do interact with their lane's end
         //  (it is now known whether they may drive
-        myEdges->moveFirst();
+        myEdges->moveFirst(myStep);
         if (MSGlobals::gCheck4Accidents) {
             myEdges->detectCollisions(myStep);
         }
 
         // Vehicles change Lanes (maybe)
-        myEdges->changeLanes();
+        myEdges->changeLanes(myStep);
 
         if (MSGlobals::gCheck4Accidents) {
             myEdges->detectCollisions(myStep);

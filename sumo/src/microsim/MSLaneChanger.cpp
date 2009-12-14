@@ -74,7 +74,7 @@ MSLaneChanger::~MSLaneChanger() {}
 
 
 void
-MSLaneChanger::laneChange() {
+MSLaneChanger::laneChange(SUMOTime t) {
     // This is what happens in one timestep. After initialization of the
     // changer, each vehicle will try to change. After that the changer
     // nedds an update to prevent multiple changes of one vehicle.
@@ -85,7 +85,7 @@ MSLaneChanger::laneChange() {
         bool haveChanged = change();
         updateChanger(haveChanged);
     }
-    updateLanes();
+    updateLanes(t);
 }
 
 
@@ -454,7 +454,7 @@ MSLaneChanger::updateChanger(bool vehHasChanged) {
 
 
 void
-MSLaneChanger::updateLanes() {
+MSLaneChanger::updateLanes(SUMOTime t) {
 
     // Update the lane's vehicle-container.
     // First: it is bad style to change other classes members, but for
@@ -465,7 +465,7 @@ MSLaneChanger::updateLanes() {
     // been pointers, but then I had to change too much of the MSLane code.
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
 
-        ce->lane->swapAfterLaneChange();
+        ce->lane->swapAfterLaneChange(t);
     }
 }
 

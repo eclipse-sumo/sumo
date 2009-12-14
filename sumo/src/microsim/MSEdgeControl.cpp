@@ -105,10 +105,10 @@ MSEdgeControl::patchActiveLanes() throw() {
 
 
 void
-MSEdgeControl::moveNonCritical() throw() {
+MSEdgeControl::moveNonCritical(SUMOTime t) throw() {
     // move non-critical vehicles
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
-        if ((*i)->getVehicleNumber()==0 || (*i)->moveNonCritical()) {
+        if ((*i)->getVehicleNumber()==0 || (*i)->moveNonCritical(t)) {
             myLanes[(*i)->getNumericalID()].amActive = false;
             i = myActiveLanes.erase(i);
         } else {
@@ -132,10 +132,10 @@ MSEdgeControl::moveCritical() throw() {
 
 
 void
-MSEdgeControl::moveFirst() throw() {
+MSEdgeControl::moveFirst(SUMOTime t) throw() {
     myWithVehicles2Integrate.clear();
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
-        if ((*i)->getVehicleNumber()==0 || (*i)->setCritical(myWithVehicles2Integrate)) {
+        if ((*i)->getVehicleNumber()==0 || (*i)->setCritical(t, myWithVehicles2Integrate)) {
             myLanes[(*i)->getNumericalID()].amActive = false;
             i = myActiveLanes.erase(i);
         } else {
@@ -159,16 +159,15 @@ MSEdgeControl::moveFirst() throw() {
 
 
 void
-MSEdgeControl::changeLanes() throw() {
-    SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
+MSEdgeControl::changeLanes(SUMOTime t) throw() {
     std::vector<MSLane*> toAdd;
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         LaneUsage &lu = myLanes[(*i)->getNumericalID()];
         if (lu.haveNeighbors) {
             MSEdge &edge = (*i)->getEdge();
-            if (myLastLaneChange[edge.getNumericalID()]!=step) {
-                myLastLaneChange[edge.getNumericalID()] = step;
-                edge.changeLanes();
+            if (myLastLaneChange[edge.getNumericalID()]!=t) {
+                myLastLaneChange[edge.getNumericalID()] = t;
+                edge.changeLanes(t);
                 const std::vector<MSLane*> &lanes = edge.getLanes();
                 for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
                     LaneUsage &lu = myLanes[(*i)->getNumericalID()];

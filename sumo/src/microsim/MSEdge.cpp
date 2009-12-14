@@ -331,12 +331,12 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw() {
 
 
 void
-MSEdge::changeLanes() throw() {
+MSEdge::changeLanes(SUMOTime t) throw() {
     if (myFunction==EDGEFUNCTION_INTERNAL) {
         return;
     }
     assert(myLaneChanger != 0);
-    myLaneChanger->laneChange();
+    myLaneChanger->laneChange(t);
 }
 
 

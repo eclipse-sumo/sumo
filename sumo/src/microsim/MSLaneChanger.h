@@ -57,7 +57,7 @@ public:
     ~MSLaneChanger();
 
     /// Start lane-change-process for all vehicles on the edge'e lanes.
-    void laneChange();
+    void laneChange(SUMOTime t);
 
 public:
     /** Structure used for lane-change. For every lane you have to
@@ -130,7 +130,7 @@ protected:
     /** During lane-change a temporary vehicle container is filled within
         the lanes (bad pratice to modify foreign members, I know). Swap
         this container with the real one. */
-    void updateLanes();
+    void updateLanes(SUMOTime t);
 
     /** @brief Find current candidate.
         If there is none, myChanger.end() is returned. */

@@ -1083,7 +1083,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
         SUMOReal r_dist2Pred = seen;
         if (nextLane->getLastVehicle()!=0) {
             // there is a leader -> compute distance to him
-            r_dist2Pred = r_dist2Pred + nextLane->myLastState.pos() - nextLane->getLastVehicle()->getVehicleType().getLength();
+            SUMOReal predPos = nextLane->getLastVehicleState(MSNet::getInstance()->getCurrentTimeStep()).pos();
+            r_dist2Pred = r_dist2Pred + predPos - nextLane->getLastVehicle()->getVehicleType().getLength();
         } else {
             // no, no leader; we'll look until the currently investigated lane's end
             r_dist2Pred = r_dist2Pred + nextLane->getLength();
@@ -1104,7 +1105,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
                     continue;
                 }
 
-                const State &nextLanePred = nl->myLastState;
+                const State &nextLanePred = nl->getLastVehicleState(MSNet::getInstance()->getCurrentTimeStep());
                 SUMOReal dist2Pred = seen;
                 if (nl->getLastVehicle()!=0) {
                     dist2Pred = dist2Pred + nextLanePred.pos() - nl->getLastVehicle()->getVehicleType().getLength();
@@ -1141,7 +1142,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
                     if (nl2==0) {
                         continue;
                     }
-                    const State &nextLanePred2 = nl2->myLastState;
+                    const State &nextLanePred2 = nl2->getLastVehicleState(MSNet::getInstance()->getCurrentTimeStep());
                     SUMOReal dist2Pred2 = seen + nl->getLength();// @!!! the real length of the car
                     if (nl2->getLastVehicle()!=0) {
                         dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getVehicleType().getLength();
@@ -1166,7 +1167,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe, SUMOReal lengthsInFront) {
             }
         } else {
 #endif
-            const State &nextLanePred = nextLane->myLastState;
+            const State &nextLanePred = nextLane->getLastVehicleState(MSNet::getInstance()->getCurrentTimeStep());
             SUMOReal dist2Pred = seen;
             if (nextLane->getLastVehicle()!=0) {
                 SUMOReal nextVehicleLength = nextLane->getLastVehicle()->getVehicleType().getLength();

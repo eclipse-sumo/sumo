@@ -336,7 +336,7 @@ public:
 
 
     /** @brief Performs lane changing on this edge */
-    virtual void changeLanes() throw();
+    virtual void changeLanes(SUMOTime t) throw();
 
 
 #ifdef HAVE_INTERNAL_LANES
