@@ -790,7 +790,7 @@ const MSVehicle * const
 
 
 MSLinkCont::const_iterator
-MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
+MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
                     const MSLane& succLinkSource, const std::vector<MSLane*> &conts) const {
     const MSEdge* nRouteEdge = veh.succEdge(nRouteSuccs);
     // check whether the vehicle tried to look beyond its route
@@ -809,7 +809,7 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     if (nRouteSuccs>0&&conts.size()>=nRouteSuccs&&nRouteSuccs>0) {
         // we go through the links in our list and return the matching one
         for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link) {
-            if ((*link)->getLane()!=0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleClass())) {
+            if ((*link)->getLane()!=0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
                 // we should use the link if it connects us to the best lane
                 if ((*link)->getLane()==conts[nRouteSuccs-1]) {
                     return link;
@@ -823,7 +823,7 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     // collect allowed links
     std::vector<MSLinkCont::const_iterator> valid;
     for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link) {
-        if ((*link)->getLane()!=0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleClass())) {
+        if ((*link)->getLane()!=0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
             valid.push_back(link);
         }
     }
@@ -839,7 +839,7 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     // if the next edge is the route end, then we may return an arbitary link
     // also, if there is no allowed lane on the edge following the current one (recheck?)
     const MSEdge* nRouteEdge2 = veh.succEdge(nRouteSuccs+1);
-    const std::vector<MSLane*> *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2, veh.getVehicleClass());
+    const std::vector<MSLane*> *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2, veh.getVehicleType().getVehicleClass());
     if (nRouteEdge2==0||next_allowed==0) {
         return *(valid.begin());
     }

@@ -432,7 +432,7 @@ MSVehicle::hasValidRoute(std::string &msg) const throw() {
     MSRouteIterator last = myRoute->end() - 1;
     // check connectivity, first
     for (MSRouteIterator e=myCurrEdge; e!=last; ++e) {
-        if ((*e)->allowedLanes(**(e+1), getVehicleClass())==0) {
+        if ((*e)->allowedLanes(**(e+1), myType->getVehicleClass())==0) {
             msg = "No connection between '" + (*e)->getID() + "' and '" + (*(e+1))->getID() + "'.";
             return false;
         }

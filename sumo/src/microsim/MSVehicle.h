@@ -766,9 +766,6 @@ public:
     bool isStopped();
     /// @}
 
-    SUMOVehicleClass getVehicleClass() const {
-        return myType->getVehicleClass();
-    }
     bool knowsEdgeTest(MSEdge &edge) const;
 
 

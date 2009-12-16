@@ -364,6 +364,7 @@ MSNet::simulationStep() {
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
+        myJunctions->setAllowed();
         MSGlobals::gMesoNet->simulate(myStep);
     } else {
 #endif

@@ -511,7 +511,7 @@ MSLaneChanger::change2right(const std::pair<MSVehicle * const, SUMOReal> &leader
     }
 
     ChangerIt target = myCandi - 1;
-    if (!target->lane->allowsVehicleClass(veh(myCandi)->getVehicleClass())) {
+    if (!target->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass())) {
         return 0;
     }
     int blocked = overlapWithHopped(target)
@@ -542,7 +542,7 @@ MSLaneChanger::change2left(const std::pair<MSVehicle * const, SUMOReal> &leader,
     if (target == myChanger.end()) {
         return 0;
     }
-    if (!target->lane->allowsVehicleClass(veh(myCandi)->getVehicleClass())) {
+    if (!target->lane->allowsVehicleClass(veh(myCandi)->getVehicleType().getVehicleClass())) {
         return 0;
     }
     int blocked = overlapWithHopped(target)
