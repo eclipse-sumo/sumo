@@ -187,8 +187,8 @@ MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::s
 
 
 bool
-MSTLLogicControl::TLSLogicVariants::maskRedLinks() {
-    defaultTL->maskRedLinks();
+MSTLLogicControl::TLSLogicVariants::setTrafficLightSignals() {
+    defaultTL->setTrafficLightSignals();
     return true;
 }
 
@@ -588,9 +588,9 @@ MSTLLogicControl::~MSTLLogicControl() {
 
 
 void
-MSTLLogicControl::maskRedLinks() {
+MSTLLogicControl::setTrafficLightSignals() {
     for (std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
-        (*i).second->maskRedLinks();
+        (*i).second->setTrafficLightSignals();
     }
 }
 

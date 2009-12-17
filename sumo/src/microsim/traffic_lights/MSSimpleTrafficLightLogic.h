@@ -83,7 +83,7 @@ public:
 
 
     /** @brief Applies the priorities resulting from the current phase to controlled links
-     * @todo Check whether this can be integrated into "maskRedLinks"
+     * @todo Check whether this can be integrated into "setTrafficLightSignals"
      * @see MSTrafficLightLogic::setLinkPriorities
      */
     void setLinkPriorities() const throw();
@@ -92,7 +92,7 @@ public:
     /** @brief Clears all incoming vehicle information on links that have red
      * @return Always true
      */
-    bool maskRedLinks() const throw();
+    bool setTrafficLightSignals() const throw();
     /// @}
 
 

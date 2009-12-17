@@ -97,7 +97,7 @@ public:
      *
      * This method is overridded, as in off-state, a tls does not change rows.
      *
-     * @todo Check whether this can be integrated into "maskRedLinks"
+     * @todo Check whether this can be integrated into "setTrafficLightSignals"
      * @see MSTrafficLightLogic::setLinkPriorities
      */
     void setLinkPriorities() const throw() { }
@@ -105,9 +105,9 @@ public:
 
     /** @brief Clears all incoming vehicle information on links that have red
      * @return Always true
-     * @see MSTrafficLightLogic::maskRedLinks
+     * @see MSTrafficLightLogic::setTrafficLightSignals
      */
-    bool maskRedLinks() const throw() {
+    bool setTrafficLightSignals() const throw() {
         return true;
     }
     /// @}

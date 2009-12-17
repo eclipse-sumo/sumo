@@ -372,7 +372,7 @@ MSNet::simulationStep() {
         // check whether the tls shall be switched
         myLogics->check2Switch(myStep);
         // set information about which vehicles may drive at all
-        myLogics->maskRedLinks();
+        myLogics->setTrafficLightSignals();
 
 
         // assure all lanes with vehicles are 'active'

@@ -50,7 +50,6 @@ class OutputDevice;
  * @class Command_SaveTLCoupledDet
  * @brief Writes e2-state on each tls switch
  *
- * @todo Check whether there may be a better solution than calling "maskRedLinks" directly
  * @todo Problem: The detector may not save the last state (on simulation end)
  */
 class Command_SaveTLCoupledDet : public MSTLLogicControl::OnSwitchAcion {

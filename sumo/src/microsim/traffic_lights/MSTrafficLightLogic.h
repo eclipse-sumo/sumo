@@ -146,7 +146,7 @@ public:
 
 
     /** @brief Applies the priorities resulting from the current phase to controlled links
-     * @todo Check whether this can be integrated into "maskRedLinks"
+     * @todo Check whether this can be integrated into "setTrafficLightSignals"
      */
     virtual void setLinkPriorities() const throw() = 0;
 
@@ -154,7 +154,7 @@ public:
     /** @brief Clears all incoming vehicle information on links that have red
      * @return Always true
      */
-    virtual bool maskRedLinks() const throw() = 0;
+    virtual bool setTrafficLightSignals() const throw() = 0;
     /// @}
 
 

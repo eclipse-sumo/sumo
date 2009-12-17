@@ -40,7 +40,6 @@
  * @class Command_SaveTLCoupledLaneDet
  * @brief Writes e2-state of a link for the time the link has yellow/red
  *
- * @todo Check whether there may be a better solution than calling "maskRedLinks" directly
  * @todo Problem: The detector may not save the last state (on simulation end)
  */
 class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet {

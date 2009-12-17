@@ -107,7 +107,7 @@ MSSimpleTrafficLightLogic::setLinkPriorities() const throw() {
 
 
 bool
-MSSimpleTrafficLightLogic::maskRedLinks() const throw() {
+MSSimpleTrafficLightLogic::setTrafficLightSignals() const throw() {
     // get the current traffic light signal combination
     const std::string &state = myPhases[myStep]->getState();
     // go through the links
@@ -116,7 +116,6 @@ MSSimpleTrafficLightLogic::maskRedLinks() const throw() {
         MSLink::LinkState ls = (MSLink::LinkState) state[i];
         for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
             (*j)->setTLState(ls);
-            // mark out links having red
         }
     }
     return true;
