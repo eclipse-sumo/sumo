@@ -128,8 +128,7 @@ NBEdge::MainDirections::MainDirections(const vector<NBEdge*> &outgoing,
     // check whether the forward direction has a higher priority
     //  try to get the forward direction
     vector<NBEdge*> tmp(outgoing);
-    sort(tmp.begin(), tmp.end(),
-         NBContHelper::edge_similar_direction_sorter(parent));
+    sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
     NBEdge *edge = *(tmp.begin());
     // check whether it has a higher priority and is going straight
     if (edge->getJunctionPriority(to)==1 && to->getMMLDirection(parent, edge)==MMLDIR_STRAIGHT) {
@@ -167,7 +166,7 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myTurnDestination(0),
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myLaneSpreadFunction(spread),
-        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
+        myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false), myAmMacroscopicConnector(false) {
     init(nolanes, false);
 }
@@ -184,7 +183,7 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myTurnDestination(0),
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myGeom(geom), myLaneSpreadFunction(spread),
-        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
+        myLoadedLength(-1), myAmLeftHand(false), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false), myAmMacroscopicConnector(false) {
     init(nolanes, tryIgnoreNodePositions);
 }
@@ -817,7 +816,11 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
         xoff += (offsets.first * (SUMOReal) lane) - (offsets.first * (SUMOReal) myLanes.size() / (SUMOReal) 2.0);
         yoff += (offsets.second * (SUMOReal) lane) - (offsets.second * (SUMOReal) myLanes.size() / (SUMOReal) 2.0);
     }
-    return pair<SUMOReal, SUMOReal>(xoff, yoff);
+    if(myAmLeftHand) {
+        return pair<SUMOReal, SUMOReal>(-xoff, -yoff);
+    } else {
+        return pair<SUMOReal, SUMOReal>(xoff, yoff);
+    }
 }
 
 
@@ -1057,9 +1060,17 @@ NBEdge::recheckLanes() {
 void
 NBEdge::moveConnectionToLeft(unsigned int lane) {
     unsigned int index = 0;
-    for (unsigned int i=0; i<myConnections.size(); ++i) {
-        if (myConnections[i].fromLane==lane) {
-            index = i;
+    if(myAmLeftHand) {
+        for (int i=(int) myConnections.size()-1; i>=0; --i) {
+            if (myConnections[i].fromLane==lane&&getTurnDestination()!=myConnections[i].toEdge) {
+                index = i;
+            }
+        }
+    } else {
+        for (unsigned int i=0; i<myConnections.size(); ++i) {
+            if (myConnections[i].fromLane==lane) {
+                index = i;
+            }
         }
     }
     vector<Connection>::iterator i = myConnections.begin() + index;
@@ -1071,12 +1082,23 @@ NBEdge::moveConnectionToLeft(unsigned int lane) {
 
 void
 NBEdge::moveConnectionToRight(unsigned int lane) {
-    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if ((*i).fromLane==lane) {
-            Connection c = *i;
-            i = myConnections.erase(i);
-            setConnection(lane-1, c.toEdge, c.toLane, L2L_VALIDATED, false);
-            return;
+    if(myAmLeftHand) {
+        for (int i=(int) myConnections.size()-1; i>=0; --i) {
+            if (myConnections[i].fromLane==lane&&getTurnDestination()!=myConnections[i].toEdge) {
+                Connection c = myConnections[i];
+                myConnections.erase(myConnections.begin() + i);
+                setConnection(lane-1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+                return;
+            }
+        }
+    } else {
+        for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+            if ((*i).fromLane==lane) {
+                Connection c = *i;
+                i = myConnections.erase(i);
+                setConnection(lane-1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+                return;
+            }
         }
     }
 }
@@ -1119,8 +1141,7 @@ NBEdge::getConnectedSorted() {
             edges->push_back(outedge);
         }
     }
-    sort(edges->begin(), edges->end(),
-         NBContHelper::relative_edge_sorter(this, myTo));
+    sort(edges->begin(), edges->end(), NBContHelper::relative_edge_sorter(this, myTo));
     return edges;
 }
 
@@ -1192,7 +1213,11 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing) {
     for (map<NBEdge*, vector<unsigned int> >::const_iterator i=l2eConns.begin(); i!=l2eConns.end(); ++i) {
         const vector<unsigned int> lanes = (*i).second;
         for (vector<unsigned int>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-            myConnections.push_back(Connection(*j, (*i).first, -1));
+            if(myAmLeftHand) {
+                myConnections.push_back(Connection(myLanes.size() - 1 - *j, (*i).first, -1));
+            } else {
+                myConnections.push_back(Connection(*j, (*i).first, -1));
+            }
         }
     }
     delete priorities;
@@ -1542,10 +1567,10 @@ NBEdge::getCWBoundaryLine(const NBNode &n, SUMOReal offset) const {
     Position2DVector ret;
     if (myFrom==(&n)) {
         // outgoing
-        ret = myLanes[0].shape;
+        ret = !myAmLeftHand ? myLanes[0].shape : myLanes.back().shape;
     } else {
         // incoming
-        ret = myLanes.back().shape.reverse();
+        ret = !myAmLeftHand ? myLanes.back().shape.reverse() : myLanes[0].shape.reverse();
     }
     ret.move2side(offset);
     return ret;
@@ -1557,10 +1582,10 @@ NBEdge::getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const {
     Position2DVector ret;
     if (myFrom==(&n)) {
         // outgoing
-        ret = myLanes.back().shape;
+        ret = !myAmLeftHand ? myLanes.back().shape : myLanes[0].shape;
     } else {
         // incoming
-        ret = myLanes[0].shape.reverse();
+        ret = !myAmLeftHand ? myLanes[0].shape.reverse() : myLanes.back().shape.reverse();
     }
     ret.move2side(-offset);
     return ret;

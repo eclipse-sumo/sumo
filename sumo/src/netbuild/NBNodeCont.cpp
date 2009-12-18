@@ -412,9 +412,9 @@ NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
 
 
 void
-NBNodeCont::sortNodesEdges(const NBTypeCont &tc) {
+NBNodeCont::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->sortNodesEdges(tc);
+        (*i).second->sortNodesEdges(leftHand, tc);
     }
 }
 
@@ -653,10 +653,10 @@ NBNodeCont::getFreeID() {
 
 
 void
-NBNodeCont::computeNodeShapes() {
+NBNodeCont::computeNodeShapes(bool leftHand) {
     OutputDevice::createDeviceByOption("node-geometry-dump", "pois");
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeNodeShape();
+        (*i).second->computeNodeShape(leftHand);
     }
 }
 

@@ -163,7 +163,7 @@ public:
                        OptionsCont &oc);
 
     /// sorts the nodes' edges
-    void sortNodesEdges(const NBTypeCont &tc);
+    void sortNodesEdges(bool leftHand, const NBTypeCont &tc);
 
     void writeXMLInternalLinks(OutputDevice &into);
     void writeXMLInternalSuccInfos(OutputDevice &into);
@@ -201,7 +201,7 @@ public:
 
     std::string getFreeID();
 
-    void computeNodeShapes();
+    void computeNodeShapes(bool leftHand);
 
     /** @brief Removes "unwished" nodes
      *

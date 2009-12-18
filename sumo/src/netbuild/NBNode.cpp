@@ -288,13 +288,21 @@ NBNode::addOutgoingEdge(NBEdge *edge) {
 
 
 bool
-NBNode::swapWhenReversed(const std::vector<NBEdge*>::iterator &i1,
+NBNode::swapWhenReversed(bool leftHand,
+                         const std::vector<NBEdge*>::iterator &i1,
                          const std::vector<NBEdge*>::iterator &i2) {
     NBEdge *e1 = *i1;
     NBEdge *e2 = *i2;
-    if (e2->getToNode()==this && e2->isTurningDirectionAt(this, e1)) {
-        std::swap(*i1, *i2);
-        return true;
+    if(leftHand) {
+        if (e1->getToNode()==this && e1->isTurningDirectionAt(this, e2)) {
+            std::swap(*i1, *i2);
+            return true;
+        }
+    } else {
+        if (e2->getToNode()==this && e2->isTurningDirectionAt(this, e1)) {
+            std::swap(*i1, *i2);
+            return true;
+        }
     }
     return false;
 }
@@ -1128,14 +1136,14 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
             myRequest = 0;
             myType = NODETYPE_NOJUNCTION;
         } else {
-            myRequest->buildBitfieldLogic(jc, myID);
+            myRequest->buildBitfieldLogic(ec.isLeftHanded(), jc, myID);
         }
     }
 }
 
 
 void
-NBNode::sortNodesEdges(const NBTypeCont &tc) {
+NBNode::sortNodesEdges(bool leftHand, const NBTypeCont &tc) {
     // sort the edges
     sort(myAllEdges.begin(), myAllEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
     sort(myIncomingEdges->begin(), myIncomingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
@@ -1144,12 +1152,11 @@ NBNode::sortNodesEdges(const NBTypeCont &tc) {
         return;
     }
     std::vector<NBEdge*>::iterator i;
-    for (i=myAllEdges.begin();
-            i!=myAllEdges.end()-1&&i!=myAllEdges.end(); i++) {
-        swapWhenReversed(i, i+1);
+    for (i=myAllEdges.begin(); i!=myAllEdges.end()-1&&i!=myAllEdges.end(); i++) {
+        swapWhenReversed(leftHand ,i, i+1);
     }
     if (myAllEdges.size()>1 && i!=myAllEdges.end()) {
-        swapWhenReversed(myAllEdges.end()-1, myAllEdges.begin());
+        swapWhenReversed(leftHand, myAllEdges.end()-1, myAllEdges.begin());
     }
     if (myType==NODETYPE_UNKNOWN) {
         myType = computeType(tc);
@@ -1183,13 +1190,13 @@ NBNode::sortNodesEdges(const NBTypeCont &tc) {
 
 
 void
-NBNode::computeNodeShape() {
+NBNode::computeNodeShape(bool leftHand) {
     if (myIncomingEdges->size()==0&&myOutgoingEdges->size()==0) {
         return;
     }
     try {
         NBNodeShapeComputer computer(*this);
-        myPoly = computer.compute();
+        myPoly = computer.compute(leftHand);
     } catch (InvalidArgument &) {
         MsgHandler::getWarningInstance()->inform("For node '" + getID() + "': could not compute shape.");
     }

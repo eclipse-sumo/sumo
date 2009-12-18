@@ -223,6 +223,12 @@ public:
                 LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
 
+    /** @brief Marks this edge to be left-handed
+     */
+    void setLeftHanded() throw() {
+        myAmLeftHand = true;
+    }
+
 
     /// @name Atomar getter methods
     //@{
@@ -906,6 +912,9 @@ private:
 
     /// @brief An optional length to use (-1 if not valid)
     SUMOReal myLoadedLength;
+
+    /// @brief Whether this edge is a left-hand edge
+    bool myAmLeftHand;
 
 
     /// @name Temporary variables for turning edge computation

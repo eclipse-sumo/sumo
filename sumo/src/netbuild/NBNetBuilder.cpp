@@ -195,7 +195,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     //
     OutputDevice::createDeviceByOption("node-type-output", "pois");
     inform(step, "Sorting nodes' edges.");
-    myNodeCont.sortNodesEdges(myTypeCont);
+    myNodeCont.sortNodesEdges(oc.getBool("lefthand"), myTypeCont);
     //
     if (oc.getBool("guess-roundabouts")) {
         inform(step, "Guessing and setting roundabouts.");
@@ -226,7 +226,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     }
     //
     inform(step, "Computing node shapes.");
-    myNodeCont.computeNodeShapes();
+    myNodeCont.computeNodeShapes(oc.getBool("lefthand"));
     //
     inform(step, "Computing edge shapes.");
     myEdgeCont.computeEdgeShapes();
@@ -415,6 +415,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("guess-roundabouts", new Option_Bool(false));
     oc.addDescription("guess-roundabouts", "Processing", "Enable roundabout-guessing");
+
+    oc.doRegister("lefthand", new Option_Bool(false));
+    oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 
 
     // tls setting options

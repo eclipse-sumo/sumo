@@ -425,6 +425,14 @@ public:
     void guessRoundabouts(std::vector<std::set<NBEdge*> > &marked) throw();
 
 
+    /** @brief Returns whether the built edges are left-handed
+     * @return Whether this edge container is left-handed
+     */
+    bool isLeftHanded() const throw() {
+        return myAmLeftHanded;
+    }
+
+
 private:
     /** @brief Returns the edges which have been built by splitting the edge of the given id
      *
@@ -444,6 +452,9 @@ private:
 
     /// @brief the number of splits of edges during the building
     unsigned int myEdgesSplit;
+
+    /// @brief Whether the network is left-handed
+    bool myAmLeftHanded;
 
 
     /// @name Settings for accepting/dismissing edges

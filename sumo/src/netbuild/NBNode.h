@@ -282,7 +282,7 @@ public:
                       OptionsCont &oc);
 
     /** initialises the list of all edges and sorts all edges */
-    void sortNodesEdges(const NBTypeCont &tc);
+    void sortNodesEdges(bool leftHand, const NBTypeCont &tc);
 
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */
@@ -377,7 +377,7 @@ public:
 
     char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane, bool mayDefinitelyPass) const throw();
 
-    void computeNodeShape();
+    void computeNodeShape(bool leftHand);
 
     friend class NBNodeCont;
 
@@ -465,7 +465,8 @@ private:
     /** used while fine sorting the incoming and outgoing edges, this method
         performs the swapping of two edges in the myAllEdges-list when the
         outgoing is in clockwise direction to the incoming */
-    bool swapWhenReversed(const std::vector<NBEdge*>::iterator &i1,
+    bool swapWhenReversed(bool leftHand,
+        const std::vector<NBEdge*>::iterator &i1,
                           const std::vector<NBEdge*>::iterator &i2);
 
     /** removes the first edge from the list, marks it as higher priorised and

@@ -55,7 +55,7 @@ public:
     ~NBNodeShapeComputer();
 
     /// Computes the shape of the assigned junction
-    Position2DVector compute();
+    Position2DVector compute(bool leftHand);
 
 private:
     Position2DVector computeContinuationNodeShape(bool simpleContinuation);

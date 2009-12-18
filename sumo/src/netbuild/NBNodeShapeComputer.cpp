@@ -60,7 +60,7 @@ NBNodeShapeComputer::~NBNodeShapeComputer() {}
 
 
 Position2DVector
-NBNodeShapeComputer::compute() {
+NBNodeShapeComputer::compute(bool leftHand) {
     Position2DVector ret;
     // check whether the node is a dead end node or a node where only turning is possible
     //  in this case, we will use "computeNodeShapeByCrosses"
@@ -688,8 +688,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                 other = same.find(*i2)->second;
             }
             for (j=other.begin(); j!=other.end(); ++j) {
-                std::vector<NBEdge*>::iterator k =
-                    find(newAll.begin(), newAll.end(), *j);
+                std::vector<NBEdge*>::iterator k = find(newAll.begin(), newAll.end(), *j);
                 if (k!=newAll.end()) {
                     if (myNode.hasIncoming(*i2)) {
                         if (myNode.hasIncoming(*j)) {} else {

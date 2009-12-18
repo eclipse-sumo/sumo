@@ -76,7 +76,7 @@ public:
     ~NBRequest();
 
     /** builds the bitset-representation of the logic */
-    void buildBitfieldLogic(NBJunctionLogicCont &jc,
+    void buildBitfieldLogic(bool leftHanded, NBJunctionLogicCont &jc,
                             const std::string &key);
 
     /** returns the number of the junction's lanes and the number
@@ -134,7 +134,7 @@ public:
 private:
     /** sets the information that the edge from1->to1 blocks the edge
         from2->to2 (is higher priorised than this) */
-    void setBlocking(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2);
+    void setBlocking(bool leftHanded, NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2);
 
     /** returns the XML-representation of the logic as a bitset-logic
         XML representation */
@@ -189,11 +189,11 @@ private:
 
     /** computes the relationships between links outgoing right of the given
         link */
-    void computeRightOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
+    void computeRightOutgoingLinkCrossings(bool leftHanded, NBEdge *from, NBEdge *to);
 
     /** computes the relationships between links outgoing left of the given
         link */
-    void computeLeftOutgoingLinkCrossings(NBEdge *from, NBEdge *to);
+    void computeLeftOutgoingLinkCrossings(bool leftHanded, NBEdge *from, NBEdge *to);
 
 
     void resetSignalised();
