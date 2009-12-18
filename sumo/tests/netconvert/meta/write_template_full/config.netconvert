@@ -111,6 +111,7 @@
         <x-offset-to-apply value="0"/>
         <y-offset-to-apply value="0"/>
         <guess-roundabouts value="false"/>
+        <lefthand value="false"/>
     </processing>
 
     <building_defaults>

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r7755
+SUMO netconvert Version dev-SVN-r8086
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -143,6 +143,7 @@ Usage: netconvert.exe [OPTION]*
   --x-offset-to-apply FLOAT            Adds FLOAT to net x-positions
   --y-offset-to-apply FLOAT            Adds FLOAT to net y-positions
   --guess-roundabouts                  Enable roundabout-guessing
+  --lefthand                           Assumes left-hand traffic on the network
 
  Building Defaults Options:
   -T, --type STR                       The default name for an edges type
