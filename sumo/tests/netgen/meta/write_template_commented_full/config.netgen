@@ -250,6 +250,9 @@
         <!-- Enable roundabout-guessing -->
         <guess-roundabouts value="false"/>
 
+        <!-- Assumes left-hand traffic on the network -->
+        <lefthand value="false"/>
+
     </processing>
 
     <building_defaults>
