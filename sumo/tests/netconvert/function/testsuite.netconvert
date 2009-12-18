@@ -16,6 +16,9 @@ ramps
 # Tests for guessing roundabouts
 roundabouts
 
+# Tests fpr building left-hand networks
+lefthand
+
 # Tests for geocoordinate projection
 projection
 translation
