@@ -4,7 +4,7 @@
 /// @date    :find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
 /// @version $Id$
 ///
-// missing_desc
+// Storage for available visualization settings
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -41,70 +41,110 @@
 // ===========================================================================
 /**
  * @class GUICompleteSchemeStorage
- * @brief This class contains all available visualization settings
+ * @brief Storage for available visualization settings
  */
 class GUICompleteSchemeStorage {
 public:
-    /// Constructor
-    GUICompleteSchemeStorage();
+    /// @brief Constructor
+    GUICompleteSchemeStorage() throw();
 
-    /// Destructor
-    ~GUICompleteSchemeStorage();
 
-    /// Adds a visualization setting
-    void add(GUIVisualizationSettings &scheme);
+    /// @brief Destructor
+    ~GUICompleteSchemeStorage() throw();
 
-    /// Returns the named setting
-    GUIVisualizationSettings &get(const std::string &name);
 
-    /// Returns the named setting
-    GUIVisualizationSettings &getDefault();
+    /** @brief Adds a visualization scheme
+     * @param[in] scheme The visualization scheme to add
+     */
+    void add(const GUIVisualizationSettings &scheme) throw();
 
-    /// Returns the information whether a setting with the given name is stored
-    bool contains(const std::string &name) const;
 
-    /// Removes the setting with the given name
-    void remove(const std::string &name);
+    /** @brief Returns the named scheme
+     * @param[in] name The name of the visualization scheme to return
+     * @return The named visualization scheme
+     */
+    GUIVisualizationSettings &get(const std::string &name) throw();
 
-    /// Makes the setting with the given name the default
-    void setDefault(const std::string &name);
 
-    /// Returns a list of stored settings names
-    const std::vector<std::string> &getNames() const;
+    /** @brief Returns the default scheme
+     * @return The default visualization scheme
+     */
+    GUIVisualizationSettings &getDefault() throw();
 
-    /// Returns the number of initial settings
-    size_t getNumInitialSettings() const;
 
-    /// initialises the storage with some default settings
-    void init(FXApp *app);
+    /** @brief Returns the information whether a setting with the given name is stored
+     * @param[in] name The name of regarded scheme
+     * @return Whether the named scheme is known
+     */
+    bool contains(const std::string &name) const throw();
 
-    /** @brief Writes the current scheme into the registry */
+
+    /** @brief Removes the setting with the given name
+     * @param[in] name The name of the scheme to remove
+     */
+    void remove(const std::string &name) throw();
+
+
+    /** @brief Makes the scheme with the given name the default
+     * @param[in] name The name of the scheme to marks as default
+     */
+    void setDefault(const std::string &name) throw();
+
+
+    /** @brief Returns a list of stored settings names
+     * @return The names of known schemes
+     */
+    const std::vector<std::string> &getNames() const throw();
+
+
+    /** @brief Returns the number of initial settings
+     * @return The number of default schemes
+     */
+    unsigned int getNumInitialSettings() const throw();
+
+
+    /** @brief Initialises the storage with some default settings
+     * @param[in] app The application
+     */
+    void init(FXApp *app) throw();
+
+
+    /** @brief Writes the current scheme into the registry
+     * @param[in] app The application
+     */
     void writeSettings(FXApp *app) throw();
 
-    /// Makes the given viewport the default
-    void saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom);
+
+    /** @brief Makes the given viewport the default
+     * @param[in] x The x-offset
+     * @param[in] y The y-offset
+     * @param[in] zoom The zoom
+     */
+    void saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) throw();
+
 
     /** @brief Sets the default viewport
-     *
      * @param[in] parent the view for which the viewport has to be set
      */
     void setViewport(GUISUMOAbstractView* view) throw();
 
+
 protected:
-    /// A map of settings referenced by their names
+    /// @brief A map of settings referenced by their names
     std::map<std::string, GUIVisualizationSettings> mySettings;
 
-    /// List of known setting names
+    /// @brief List of known setting names
     std::vector<std::string> mySortedSchemeNames;
 
-    /// Name of the default setting
+    /// @brief Name of the default setting
     std::string myDefaultSettingName;
 
     /// @brief The number of settings which were present at startup
-    size_t myNumInitialSettings;
+    unsigned int myNumInitialSettings;
 
-    /// The default viewport
+    /// @brief The default viewport
     SUMOReal myX, myY, myZoom;
+
 
 };
 

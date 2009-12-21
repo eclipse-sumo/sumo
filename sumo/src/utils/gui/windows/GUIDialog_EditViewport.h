@@ -42,20 +42,44 @@ class GUISUMOAbstractView;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class GUIDialog_EditViewport
+ * @brief A dialog to change the viewport
+ */
 class GUIDialog_EditViewport : public FXDialogBox {
     // FOX-declarations
     FXDECLARE(GUIDialog_EditViewport)
 public:
+    /// @brief FOX-callback enumerations
     enum {
-        MID_CHANGED = FXDialogBox::ID_LAST
+        MID_CHANGED = FXDialogBox::ID_LAST,
+        MID_OK,
+        MID_CANCEL,
+        MID_LOAD,
+        MID_SAVE
     };
 
-    /// Constructor
-    GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
-                           SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y);
 
-    /// Destructor
-    ~GUIDialog_EditViewport();
+    /** @brief Constructor
+     * @param[in] parent The view to change
+     * @param[in] name This dialog's caption
+     * @param[in] zoom Current view's zoom
+     * @param[in] xoff Current view's x-offset
+     * @param[in] yoff Current view's y-offset
+     * @param[in] x x-position to show the dialog at
+     * @param[in] y y-position to show the dialog at
+     */
+    GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
+                           SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y) throw();
+
+
+    /// @brief Destructor
+    ~GUIDialog_EditViewport() throw();
+
+
+
+    /// @name FOX-callbacks
+    /// @{
 
     /// Called when the user changes the viewport
     long onCmdChanged(FXObject*,FXSelector,void*);
@@ -66,30 +90,53 @@ public:
     /// Called when the user wants to restore the viewport
     long onCmdCancel(FXObject*,FXSelector,void*);
 
-    /// Sets the given values into the dialog
-    void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
+    /// Called when the user wants to load a viewport
+    long onCmdLoad(FXObject*,FXSelector,void*);
 
-    /// Returns the information whether one of the spin dialers is grabbed
-    bool haveGrabbed() const;
+    /// Called when the user wants to save a viewport
+    long onCmdSave(FXObject*,FXSelector,void*);
+    /// @}
 
-    /// Resets old values
-    void setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
+
+
+    /** @brief Sets the given values into the dialog
+     * @param[in] zoom Current view's zoom
+     * @param[in] xoff Current view's x-offset
+     * @param[in] yoff Current view's y-offset
+     */
+    void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) throw();
+
+
+    /** @brief Resets old values
+     * @param[in] zoom Current view's zoom
+     * @param[in] xoff Current view's x-offset
+     * @param[in] yoff Current view's y-offset
+     */
+    void setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff) throw();
+
+
+    /** @brief Returns the information whether one of the spin dialers is grabbed
+     * @return Whether the spin dialers are currently used
+     */
+    bool haveGrabbed() const throw();
+
 
 protected:
-    /// The calling view
+    /// @brief The calling view
     GUISUMOAbstractView *myParent;
 
-    /// The old zoom
+    /// @brief The old zoom
     SUMOReal myOldZoom;
 
-    /// The old offsets
+    /// @brief The old offsets
     SUMOReal myOldXOff, myOldYOff;
 
-    /// The spin dialers used to change the view
+    /// @brief The spin dialers used to change the view
     FXRealSpinDial *myZoom, *myXOff, *myYOff;
 
+
 protected:
-    /// FOX needs this
+    /// @brief FOX needs this
     GUIDialog_EditViewport() { }
 
 };

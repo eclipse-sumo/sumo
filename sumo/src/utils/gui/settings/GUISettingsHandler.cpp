@@ -203,7 +203,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
 
 
 std::string
-GUISettingsHandler::addSettings(GUISUMOAbstractView* view) throw() {
+GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const throw() {
     if (mySettings.name != "") {
         gSchemeStorage.add(mySettings);
         if (view) {
@@ -217,15 +217,23 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) throw() {
 
 
 void
-GUISettingsHandler::setViewport(GUISUMOAbstractView* view) throw() {
+GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const throw() {
     if (myZoom > 0) {
         view->setViewport(myZoom, myXPos, myYPos);
     }
 }
 
 
+void 
+GUISettingsHandler::setViewport(SUMOReal &zoom, SUMOReal &xoff, SUMOReal &yoff) const throw() {
+    zoom = myZoom;
+    xoff = myXPos;
+    yoff = myYPos;
+}
+
+
 void
-GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) throw() {
+GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) const throw() {
     if (!mySnapshots.empty()) {
         view->setSnapshots(mySnapshots);
     }
@@ -233,15 +241,16 @@ GUISettingsHandler::setSnapshots(GUISUMOAbstractView* view) throw() {
 
 
 bool
-GUISettingsHandler::hasDecals() throw() {
+GUISettingsHandler::hasDecals() const throw() {
     return !myDecals.empty();
 }
 
 
-std::vector<GUISUMOAbstractView::Decal>&
-GUISettingsHandler::getDecals() throw() {
+const std::vector<GUISUMOAbstractView::Decal>&
+GUISettingsHandler::getDecals() const throw() {
     return myDecals;
 }
+
 
 /****************************************************************************/
 

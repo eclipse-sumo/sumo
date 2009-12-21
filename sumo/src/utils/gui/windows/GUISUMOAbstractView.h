@@ -242,7 +242,7 @@ public:
 
     Position2D getPositionInformation() const;
 
-    void addDecals(std::vector<Decal> &decals) {
+    void addDecals(const std::vector<Decal> &decals) throw() {
         myDecals.insert(myDecals.end(), decals.begin(), decals.end());
     }
 

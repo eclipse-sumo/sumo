@@ -878,7 +878,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file) throw() {
 
 
 void
-GUIDialog_ViewSettings::saveDecals(const std::string &file) throw() {
+GUIDialog_ViewSettings::saveDecals(const std::string &file) const throw() {
     try {
         OutputDevice &dev = OutputDevice::getDevice(file);
         dev << "<decals>\n";
@@ -896,7 +896,7 @@ GUIDialog_ViewSettings::saveDecals(const std::string &file) throw() {
         dev << "</decals>\n";
         dev.close();
     } catch (IOError &e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+        FXMessageBox::error(myParent, MBOX_OK, "Storing failed!", e.what());
     }
 }
 
@@ -1093,7 +1093,7 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject*sender,FXSelector,void*ptr) 
 
 
 RGBColor
-GUIDialog_ViewSettings::convert(const FXColor c) throw() {
+GUIDialog_ViewSettings::convert(const FXColor c) const throw() {
     return RGBColor(
                (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
                (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
@@ -1102,7 +1102,7 @@ GUIDialog_ViewSettings::convert(const FXColor c) throw() {
 
 
 FXColor
-GUIDialog_ViewSettings::convert(const RGBColor &c) throw() {
+GUIDialog_ViewSettings::convert(const RGBColor &c) const throw() {
     return FXRGB(c.red()*255., c.green()*255., c.blue()*255.);
 }
 
@@ -1110,7 +1110,6 @@ GUIDialog_ViewSettings::convert(const RGBColor &c) throw() {
 void
 GUIDialog_ViewSettings::rebuildList() throw() {
     myDecalsTable->clearItems();
-
     // set table attributes
     myDecalsTable->setTableSize(10, 6);
     myDecalsTable->setColumnText(0, "picture file");
@@ -1127,7 +1126,6 @@ GUIDialog_ViewSettings::rebuildList() throw() {
         header->setItemSize(k, 60);
     }
     header->setItemSize(0, 150);
-
     // insert already known decals information into table
     FXint row = 0;
     std::vector<GUISUMOAbstractView::Decal>::iterator j;

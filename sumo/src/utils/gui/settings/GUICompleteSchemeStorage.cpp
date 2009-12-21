@@ -4,7 +4,7 @@
 /// @date    2006-01-09
 /// @version $Id$
 ///
-// missing_desc
+// Storage for available visualization settings
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
@@ -49,15 +49,15 @@ GUICompleteSchemeStorage gSchemeStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUICompleteSchemeStorage::GUICompleteSchemeStorage() { }
+GUICompleteSchemeStorage::GUICompleteSchemeStorage() throw() { }
 
 
-GUICompleteSchemeStorage::~GUICompleteSchemeStorage() { }
+GUICompleteSchemeStorage::~GUICompleteSchemeStorage() throw() { }
 
 
 
 void
-GUICompleteSchemeStorage::add(GUIVisualizationSettings &scheme) {
+GUICompleteSchemeStorage::add(const GUIVisualizationSettings &scheme) throw() {
     std::string name = scheme.name;
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name)==mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
@@ -67,25 +67,25 @@ GUICompleteSchemeStorage::add(GUIVisualizationSettings &scheme) {
 
 
 GUIVisualizationSettings &
-GUICompleteSchemeStorage::get(const std::string &name) {
+GUICompleteSchemeStorage::get(const std::string &name) throw() {
     return mySettings.find(name)->second;
 }
 
 
 GUIVisualizationSettings &
-GUICompleteSchemeStorage::getDefault() {
+GUICompleteSchemeStorage::getDefault() throw() {
     return mySettings.find(myDefaultSettingName)->second;
 }
 
 
 bool
-GUICompleteSchemeStorage::contains(const std::string &name) const {
+GUICompleteSchemeStorage::contains(const std::string &name) const throw() {
     return mySettings.find(name)!=mySettings.end();
 }
 
 
 void
-GUICompleteSchemeStorage::remove(const std::string &name) {
+GUICompleteSchemeStorage::remove(const std::string &name) throw() {
     if (!contains(name)) {
         return;
     }
@@ -95,7 +95,7 @@ GUICompleteSchemeStorage::remove(const std::string &name) {
 
 
 void
-GUICompleteSchemeStorage::setDefault(const std::string &name) {
+GUICompleteSchemeStorage::setDefault(const std::string &name) throw() {
     if (!contains(name)) {
         return;
     }
@@ -104,19 +104,19 @@ GUICompleteSchemeStorage::setDefault(const std::string &name) {
 
 
 const std::vector<std::string> &
-GUICompleteSchemeStorage::getNames() const {
+GUICompleteSchemeStorage::getNames() const throw() {
     return mySortedSchemeNames;
 }
 
 
-size_t
-GUICompleteSchemeStorage::getNumInitialSettings() const {
+unsigned int
+GUICompleteSchemeStorage::getNumInitialSettings() const throw() {
     return myNumInitialSettings;
 }
 
 
 RGBColor
-convert(const FXColor c) {
+convert(const FXColor c) throw() {
     return RGBColor(
                (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
                (SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.,
@@ -125,7 +125,7 @@ convert(const FXColor c) {
 
 
 void
-GUICompleteSchemeStorage::init(FXApp *app) {
+GUICompleteSchemeStorage::init(FXApp *app) throw() {
     {
         GUIVisualizationSettings vs;
         vs.name = "standard";
@@ -208,7 +208,7 @@ GUICompleteSchemeStorage::writeSettings(FXApp *app) throw() {
 
 
 void
-GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) {
+GUICompleteSchemeStorage::saveViewport(const SUMOReal x, const SUMOReal y, const SUMOReal zoom) throw() {
     myX = x;
     myY = y;
     myZoom = zoom;

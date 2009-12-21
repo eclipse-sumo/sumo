@@ -62,6 +62,7 @@ public:
                            std::vector<GUISUMOAbstractView::Decal> *decals,
                            MFXMutex *decalsLock) throw();
 
+
     /// @brief Destructor
     ~GUIDialog_ViewSettings() throw();
 
@@ -70,6 +71,7 @@ public:
      * @param[in, out] settings The current settings that can be changed
      */
     void setCurrent(GUIVisualizationSettings *settings) throw();
+
 
 
     /// @name FOX-callbacks
@@ -117,6 +119,7 @@ public:
     /// @}
 
 
+
     /** @brief Returns the name of the currently chosen scheme
      * @return The name of the edited (chosen) scheme)
      */
@@ -134,14 +137,14 @@ protected:
      * @param[in] c The color to convert
      * @return The converted color
      */
-    RGBColor convert(const FXColor c) throw();
+    RGBColor convert(const FXColor c) const throw();
 
 
     /** @brief Converts a RGBColor into a FOX-color
      * @param[in] c The color to convert
      * @return The converted color
      */
-    FXColor convert(const RGBColor &c) throw();
+    FXColor convert(const RGBColor &c) const throw();
 
 
     /** @brief Rebuilds color changing dialogs after choosing another coloring scheme
@@ -163,7 +166,7 @@ protected:
     /** @brief Writes the currently used decals into a file
      * @param[in] file The name of the file to write the decals into
      */
-    void saveDecals(const std::string &file) throw();
+    void saveDecals(const std::string &file) const throw();
 
 
     /** @brief Loads decals from a file
@@ -253,6 +256,7 @@ private:
 
     /// @brief invalidated assignment operator
     GUIDialog_ViewSettings &operator=(const GUIDialog_ViewSettings &s);
+
 
 };
 
