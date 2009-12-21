@@ -160,7 +160,6 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         int linkNo = lane.getLinkRespondIndex(i);
         glPushMatrix();
-        //glTranslated(0, veh.getLength() / 2., 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
         pfSetScale(1);
@@ -201,7 +200,6 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane) {
             continue;
         }
         glPushMatrix();
-        //glTranslated(0, veh.getLength() / 2., 0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
         pfSetScale(1);
@@ -357,14 +355,13 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips) {
         if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
             continue;
         }
-        GUITexturesHelper::drawDirectionArrow((GUITexture) dir,
-                                              1.5, 4.0, -1.5, 1);
+        GUITexturesHelper::drawDirectionArrow((GUITexture) dir, 1.5, 4.0, -1.5, 1);
     }
     glBindTexture(GL_TEXTURE_2D, 0);
+    glPopMatrix();
     if (showToolTips) {
         glPopName();
     }
-    glPopMatrix();
 }
 
 
