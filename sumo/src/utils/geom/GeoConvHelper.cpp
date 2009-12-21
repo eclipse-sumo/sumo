@@ -118,7 +118,7 @@ GeoConvHelper::init(OptionsCont &oc) {
         ret = init(oc.getString("proj"), oc.getFloat("proj.scale"), oc.getBool("proj.inverse"));
     }
 #endif
-    if (oc.getBool("disable-normalize-node-positions")) {
+    if (oc.exists("disable-normalize-node-positions") && oc.getBool("disable-normalize-node-positions")) {
         myBaseFound = true;
     }
     return ret;
