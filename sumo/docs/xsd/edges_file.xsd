@@ -3,9 +3,8 @@
 
 	<xsd:complexType name="edgeType">
 		<xsd:sequence>
-			<xsd:element name="lane" type="laneType" minOccurs="0"
-				maxOccurs="unbounded">
-			</xsd:element>
+			<xsd:element name="lane" type="laneType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+			<xsd:element name="split" type="splitType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:string" use="required"></xsd:attribute>
 		<xsd:attribute name="refid" type="xsd:string"></xsd:attribute>
@@ -93,6 +92,24 @@
         <xsd:attribute name="prefer" type="xsd:string"></xsd:attribute>
     </xsd:complexType>
 
+	<xsd:complexType name="splitType">
+		<xsd:attribute name="lanes" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern
+						value="\d+((,|\s)\d+)*">
+					</xsd:pattern>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="pos" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:float">
+					<xsd:minInclusive value="0"></xsd:minInclusive>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+    </xsd:complexType>
 
 
 </xsd:schema>
