@@ -711,7 +711,7 @@ OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgumen
         MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         myHaveInformedAboutDeprecatedDivider = true;
     }
-    StringTokenizer st(def, ";, ", true);
+    StringTokenizer st(def, ";,", true);
     return st.getVector();
 }
 

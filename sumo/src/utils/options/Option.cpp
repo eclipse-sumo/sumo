@@ -509,7 +509,6 @@ Option_IntVector::set(const std::string &v) throw(InvalidArgument) {
     } catch (...) {
         throw InvalidArgument("'" + v + "' is not a valid integer vector.");
     }
-    return false;
 }
 
 
