@@ -16,7 +16,7 @@
 
 	<xsd:complexType name="connectionType">
 		<xsd:attribute name="from" type="xsd:string" use="required"></xsd:attribute>
-		<xsd:attribute name="to" type="xsd:string" use="required"></xsd:attribute>
+		<xsd:attribute name="to" type="xsd:string" use="optional"></xsd:attribute>
 		<xsd:attribute name="lane" use="optional">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
