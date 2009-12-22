@@ -217,14 +217,16 @@ public:
      * @return The number of following edges
      */
     unsigned int getNoFollowing() const throw() {
-        return (unsigned int) myAllowed.size();
+        return (unsigned int) mySuccessors.size();
     }
 
     /** @brief Returns the n-th of the following edges
      * @param[in] n The index within following edges of the edge to return
      * @return The n-th of the following edges
      */
-    const MSEdge * const getFollower(unsigned int n) const throw();
+    const MSEdge * const getFollower(unsigned int n) const throw() {
+        return mySuccessors[n];
+    }
     /// @}
 
 
@@ -457,9 +459,6 @@ protected:
 
     /// @brief From vehicle class to lanes allowed to be used by it
     ClassedAllowedLanesCont myClassedAllowed;
-
-    /// @brief From vehicle class to lanes that may not be used by it
-    ClassedAllowedLanesCont myClassedNotAllowed;
 
     /// @brief Whether any class constraints exist for this edge
     bool myHaveClassConstraints;
