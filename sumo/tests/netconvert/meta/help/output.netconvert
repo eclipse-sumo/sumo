@@ -1,13 +1,13 @@
-SUMO netconvert Version dev-SVN-r8086
+SUMO netconvert Version dev-SVN-r8105
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
 
-Usage: netconvert.exe [OPTION]*
+Usage: sumo-netconvert [OPTION]*
  
  Examples:
-  netconvert.exe -c <CONFIGURATION>
-  netconvert.exe -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
+  sumo-netconvert -c <CONFIGURATION>
+  sumo-netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
  
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -45,7 +45,8 @@ Usage: netconvert.exe [OPTION]*
 
  Projection Options:
   --proj.simple                        Uses a simple method for projection
-  --proj.scale FLOAT                   Scale to apply to geo-coordinates
+  --proj.shift INT                     Number of places to shift decimal point
+                                         to right in geo-coordinates
   --proj.utm                           Determine the UTM zone (for a universal
                                          transversal mercator projection based
                                          on the WGS84 ellipsoid)

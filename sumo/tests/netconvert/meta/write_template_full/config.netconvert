@@ -26,7 +26,7 @@
 
     <projection>
         <proj.simple value="false"/>
-        <proj.scale value="1"/>
+        <proj.shift value="0"/>
         <proj.utm value="false"/>
         <proj.dhdn value="false"/>
         <proj value="!"/>

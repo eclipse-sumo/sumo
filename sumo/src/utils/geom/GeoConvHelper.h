@@ -66,7 +66,7 @@ public:
 
     /// Initialises the subsystem using the given proj.4-definition and a network offset
     static bool init(const std::string &proj,
-                     const SUMOReal scale=1.0f,
+                     const int shift=0,
                      bool inverse=false);
 
     /// Initialises the subsystem using the given proj.4-definition and complete network parameter
@@ -82,7 +82,7 @@ public:
     static void cartesian2geo(Position2D &cartesian);
 
     /// Converts the given coordinate into a cartesian using the previous initialisation
-    static bool x2cartesian(Position2D &from, bool includeInBoundary=true);
+    static bool x2cartesian(Position2D &from, bool includeInBoundary=true, double x=-1, double y=-1);
 
     /// Returns whether a transformation from geo to metric coordinates will be performed
     static bool usingGeoProjection();
@@ -126,7 +126,7 @@ private:
     static Position2D myOffset;
 
     /// The scaling to apply to geo-coordinates
-    static SUMOReal myGeoScale;
+    static double myGeoScale;
 
     /// Information whether no projection shall be done
     static ProjectionMethod myProjectionMethod;
@@ -138,7 +138,7 @@ private:
     static bool myBaseFound;
 
     /// The initial x/y-coordinates for a very simple geocoordinates conversion
-    static Position2D myBase;
+    static double myBaseX, myBaseY;
 
     /// The boundary before conversion (x2cartesian)
     static Boundary myOrigBoundary;

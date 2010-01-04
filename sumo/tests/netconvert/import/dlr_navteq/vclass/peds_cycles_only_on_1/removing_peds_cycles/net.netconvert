@@ -1,92 +1,92 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/02/09 16:48:35 by SUMO netconvert Version dev-SVN-r7645
+<!-- generated on Mon Jan  4 21:35:24 2010 by SUMO netconvert Version dev-SVN-r8105
 <configuration>
 
-    <input
-        dlr-navteq="elmar"
-    />
+    <input>
+        <dlr-navteq value="elmar"/>
+    </input>
 
-    <output
-        output-file="net.net.xml"
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-    <projection
-        proj.scale="1e-005"
-        proj.utm="true"
-    />
+    <projection>
+        <proj.shift value="5"/>
+        <proj.utm value="true"/>
+    </projection>
 
-    <edge_removal
-        remove-edges.by-vclass="pedestrian,bicycles"
-    />
+    <edge_removal>
+        <remove-edges.by-vclass value="pedestrian,bicycles"/>
+    </edge_removal>
 
-    <processing
-        no-internal-links="true"
-    />
+    <processing>
+        <no-internal-links value="true"/>
+    </processing>
 
-    <report
-        verbose="true"
-    />
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <net>
 
-   <location netOffset="-328248.16,-5776623.00" convBoundary="0.00,0.00,39850.09,26515.00" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+   <location netOffset="-328248.16,-5776623.00" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
 
    <edge id="-1" from="0" to="1" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="-1_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="22841.01" shape="17018.57,13401.87 39850.00,12740.20"/>
-         <lane id="-1_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="22841.01" shape="17018.67,13405.17 39850.10,12743.50"/>
-         <lane id="-1_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="22841.01" shape="17018.77,13408.47 39850.19,12746.80"/>
+         <lane id="-1_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.60,13402.10 39850.05,12740.54"/>
+         <lane id="-1_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.70,13405.40 39850.14,12743.84"/>
+         <lane id="-1_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="22841.03" shape="17018.79,13408.70 39850.24,12747.14"/>
       </lanes>
    </edge>
 
    <edge id="-2" from="0" to="2" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="-2_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.25" shape="16996.26,13414.12 0.27,13975.25"/>
-         <lane id="-2_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.25" shape="16996.15,13410.82 0.16,13971.95"/>
-         <lane id="-2_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.25" shape="16996.04,13407.52 0.05,13968.65"/>
+         <lane id="-2_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.27" shape="16996.29,13414.35 0.27,13975.36"/>
+         <lane id="-2_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.27" shape="16996.18,13411.05 0.16,13972.07"/>
+         <lane id="-2_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.27" shape="16996.07,13407.75 0.05,13968.77"/>
       </lanes>
    </edge>
 
    <edge id="-3" from="0" to="3" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="-3_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13104.56" shape="17015.91,13416.60 17426.03,26514.74"/>
-         <lane id="-3_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13104.56" shape="17012.62,13416.70 17422.73,26514.84"/>
-         <lane id="-3_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13104.56" shape="17009.32,13416.80 17419.43,26514.95"/>
+         <lane id="-3_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13104.10" shape="17015.94,13416.83 17426.06,26514.51"/>
+         <lane id="-3_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13104.10" shape="17012.64,13416.93 17422.76,26514.61"/>
+         <lane id="-3_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13104.10" shape="17009.34,13417.03 17419.46,26514.71"/>
       </lanes>
    </edge>
 
    <edge id="-4" from="0" to="4" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="-4_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13400.71" shape="16998.71,13394.43 16580.00,0.26"/>
-         <lane id="-4_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13400.71" shape="17002.01,13394.33 16583.30,0.15"/>
-         <lane id="-4_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13400.71" shape="17005.31,13394.22 16586.60,0.05"/>
+         <lane id="-4_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13400.95" shape="16998.74,13394.66 16580.01,0.26"/>
+         <lane id="-4_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13400.95" shape="17002.04,13394.56 16583.31,0.15"/>
+         <lane id="-4_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="13400.95" shape="17005.34,13394.45 16586.61,0.05"/>
       </lanes>
    </edge>
 
    <edge id="2" from="2" to="0" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.25" shape="-0.27,13958.75 16995.71,13397.63"/>
-         <lane id="2_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.25" shape="-0.16,13962.05 16995.82,13400.93"/>
-         <lane id="2_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.25" shape="-0.05,13965.35 16995.93,13404.22"/>
+         <lane id="2_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.27" shape="-0.27,13958.87 16995.74,13397.86"/>
+         <lane id="2_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.27" shape="-0.16,13962.17 16995.85,13401.15"/>
+         <lane id="2_2" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="55.56" length="17005.27" shape="-0.05,13965.47 16995.96,13404.45"/>
       </lanes>
    </edge>
 
    <edge id="3" from="3" to="0" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13104.56" shape="17412.83,26515.15 17002.72,13417.01"/>
-         <lane id="3_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13104.56" shape="17416.13,26515.05 17006.02,13416.91"/>
+         <lane id="3_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13104.10" shape="17412.86,26514.92 17002.75,13417.24"/>
+         <lane id="3_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13104.10" shape="17416.16,26514.82 17006.05,13417.13"/>
       </lanes>
    </edge>
 
    <edge id="4" from="4" to="0" priority="-1" type="DEFAULT" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13400.71" shape="16593.20,-0.15 17011.91,13394.02"/>
-         <lane id="4_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13400.71" shape="16589.90,-0.05 17008.61,13394.12"/>
+         <lane id="4_0" depart="1" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13400.95" shape="16593.20,-0.15 17011.93,13394.25"/>
+         <lane id="4_1" depart="0" allow="passenger hov public_emergency taxi public_transport bus delivery transport" maxspeed="33.33" length="13400.95" shape="16589.90,-0.05 17008.63,13394.35"/>
       </lanes>
    </edge>
 
@@ -139,15 +139,15 @@
 
 
 
-   <junction id="0" type="priority" x="17007.31" y="13405.50" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.12,13417.06 17017.51,13416.55 17018.81,13410.07 17018.53,13400.27 17013.51,13393.97 16997.11,13394.48 16995.66,13396.03 16996.31,13415.72"/>
+   <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.15,13417.29 17017.54,13416.78 17018.84,13410.30 17018.55,13400.50 17013.53,13394.20 16997.14,13394.71 16995.69,13396.26 16996.34,13415.95"/>
 
-   <junction id="1" type="DEAD_END" x="39850.09" y="12743.50" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39849.95,12738.60 39850.24,12748.40"/>
+   <junction id="1" type="DEAD_END" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.00,12738.95 39850.29,12748.74"/>
 
-   <junction id="2" type="priority" x="0.00" y="13967.00" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13966.95 -0.33,13957.16 0.33,13976.84 0.00,13967.05"/>
+   <junction id="2" type="priority" x="0.00" y="13967.12" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13967.07 -0.32,13957.27 0.32,13976.96 0.00,13967.17"/>
 
-   <junction id="3" type="priority" x="17417.78" y="26515.00" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.73,26515.00 17411.23,26515.21 17427.63,26514.69 17417.83,26515.00"/>
+   <junction id="3" type="priority" x="17417.81" y="26514.76" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.76,26514.77 17411.26,26514.97 17427.66,26514.46 17417.86,26514.76"/>
 
-   <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16594.80,-0.20 16578.40,0.31 16588.20,0.00"/>
+   <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.30,-0.00 16594.80,-0.20 16578.41,0.31 16588.21,0.00"/>
 
 
    <succ edge="-1" lane="-1_0" junction="1">

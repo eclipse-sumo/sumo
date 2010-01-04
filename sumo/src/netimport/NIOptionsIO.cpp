@@ -223,8 +223,8 @@ NIOptionsIO::checkOptions() {
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq")) && numProjections == 0) {
         oc.set("proj.utm", true);
     }
-    if (oc.isSet("dlr-navteq") && oc.isDefault("proj.scale")) {
-        oc.set("proj.scale", std::string("0.00001"));
+    if (oc.isSet("dlr-navteq") && oc.isDefault("proj.shift")) {
+        oc.set("proj.shift", std::string("5"));
     }
 #endif
     return ok;

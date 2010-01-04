@@ -28,6 +28,7 @@
 #endif
 
 #include <string>
+#include <sstream>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
@@ -118,44 +119,38 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string &result) throw(Proc
         return true;
     }
     std::string id;
-    SUMOReal x, y;
+    double x, y;
     int no_geoms, intermediate;
-    StringTokenizer st(result, StringTokenizer::WHITECHARS);
-    // check
-    if (st.size()<5) {
+    // parse
+    std::istringstream stream(result);
+    // id
+    stream >> id;
+    if (stream.fail()) {
         throw ProcessError("Something is wrong with the following data line\n" + result);
     }
-    // parse
-    // id
-    id = st.next();
     // intermediate?
-    try {
-        intermediate = TplConvert<char>::_2int(st.next().c_str());
-    } catch (NumberFormatException &) {
+    stream >> intermediate;
+    if (stream.fail()) {
         throw ProcessError("Non-numerical value for intermediate status in node " + id + ".");
     }
     // number of geometrical information
-    try {
-        no_geoms = TplConvert<char>::_2int(st.next().c_str());
-    } catch (NumberFormatException &) {
+    stream >> no_geoms;
+    if (stream.fail()) {
         throw ProcessError("Non-numerical value for number of geometries in node " + id + ".");
     }
     // geometrical information
     Position2DVector geoms;
     for (int i=0; i<no_geoms; i++) {
-        try {
-            x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
-        } catch (NumberFormatException &) {
+        stream >> x;
+        if (stream.fail()) {
             throw ProcessError("Non-numerical value for x-position in node " + id + ".");
         }
-        try {
-            y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
-        } catch (NumberFormatException &) {
+        stream >> y;
+        if (stream.fail()) {
             throw ProcessError("Non-numerical value for y-position in node " + id + ".");
         }
-
         Position2D pos(x, y);
-        if (!GeoConvHelper::x2cartesian(pos)) {
+        if (!GeoConvHelper::x2cartesian(pos, true, x, y)) {
             throw ProcessError("Unable to project coordinates for node " + id + ".");
         }
         geoms.push_back(pos);

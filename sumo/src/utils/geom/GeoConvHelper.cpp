@@ -51,11 +51,12 @@ std::string GeoConvHelper::myProjString = "!";
 projPJ GeoConvHelper::myProjection = 0;
 #endif
 Position2D GeoConvHelper::myOffset;
-SUMOReal GeoConvHelper::myGeoScale = 1.f;
+double GeoConvHelper::myGeoScale = 1.f;
 GeoConvHelper::ProjectionMethod GeoConvHelper::myProjectionMethod = NONE;
 bool GeoConvHelper::myUseInverseProjection = false;
 bool GeoConvHelper::myBaseFound = false;
-Position2D GeoConvHelper::myBase;
+double GeoConvHelper::myBaseX = 0;
+double GeoConvHelper::myBaseY = 0;
 Boundary GeoConvHelper::myOrigBoundary;
 Boundary GeoConvHelper::myConvBoundary;
 
@@ -70,8 +71,8 @@ GeoConvHelper::addProjectionOptions(OptionsCont &oc) {
     oc.doRegister("proj.simple", new Option_Bool(false));
     oc.addDescription("proj.simple", "Projection", "Uses a simple method for projection");
 
-    oc.doRegister("proj.scale", new Option_Float(1.0));
-    oc.addDescription("proj.scale", "Projection", "Scale to apply to geo-coordinates");
+    oc.doRegister("proj.shift", new Option_Integer(0));
+    oc.addDescription("proj.shift", "Projection", "Number of places to shift decimal point to right in geo-coordinates");
 
 #ifdef HAVE_PROJ
     oc.doRegister("proj.utm", new Option_Bool(false));
@@ -104,18 +105,18 @@ GeoConvHelper::init(OptionsCont &oc) {
 #endif
     myOffset = Position2D(oc.getFloat("x-offset-to-apply"), oc.getFloat("y-offset-to-apply"));
     if (oc.getBool("proj.simple")) {
-        return init("-", oc.getFloat("proj.scale"));
+        return init("-", oc.getInt("proj.shift"));
     }
     bool ret = true;
 #ifdef HAVE_PROJ
     if (oc.getBool("proj.utm")) {
         myProjectionMethod = UTM;
-        ret = init(".", oc.getFloat("proj.scale"));
+        ret = init(".", oc.getInt("proj.shift"));
     } else if (oc.getBool("proj.dhdn")) {
         myProjectionMethod = DHDN;
-        ret = init(".", oc.getFloat("proj.scale"));
+        ret = init(".", oc.getInt("proj.shift"));
     } else {
-        ret = init(oc.getString("proj"), oc.getFloat("proj.scale"), oc.getBool("proj.inverse"));
+        ret = init(oc.getString("proj"), oc.getInt("proj.shift"), oc.getBool("proj.inverse"));
     }
 #endif
     if (oc.exists("disable-normalize-node-positions") && oc.getBool("disable-normalize-node-positions")) {
@@ -127,10 +128,10 @@ GeoConvHelper::init(OptionsCont &oc) {
 
 bool
 GeoConvHelper::init(const std::string &proj,
-                    const SUMOReal scale,
+                    const int shift,
                     bool inverse) {
     myProjString = proj;
-    myGeoScale = scale;
+    myGeoScale = pow(10, -shift);
     myUseInverseProjection = inverse;
     close();
     myBaseFound = false;
@@ -215,28 +216,33 @@ GeoConvHelper::cartesian2geo(Position2D &cartesian) {
 
 
 bool
-GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
+GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary, double x, double y) {
     myOrigBoundary.add(from);
+    if (x == -1 && y == -1) {
+        x = from.x();
+        y = from.y();
+    }
     if (myProjectionMethod == NONE) {
         from.add(myOffset);
     } else if (myUseInverseProjection) {
         cartesian2geo(from);
     } else {
-        from.mul(myGeoScale);
-        if (from.x() > 180.1 || from.x() < -180.1 || from.y() > 90.1 || from.y() < -90.1) {
+        x *= myGeoScale;
+        y *= myGeoScale;
+        if (x > 180.1 || x < -180.1 || y > 90.1 || y < -90.1) {
             return false;
         }
 #ifdef HAVE_PROJ
         if (myProjection==0) {
             if (myProjectionMethod == UTM) {
-                int zone = (int)(from.x() + 180) / 6 + 1;
+                int zone = (int)(x + 180) / 6 + 1;
                 myProjString = "+proj=utm +zone=" + toString(zone) +
                                " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
                 myProjection = pj_init_plus(myProjString.c_str());
                 //!!! check pj_errno
             }
             if (myProjectionMethod == DHDN) {
-                int zone = (int)(from.x() / 3);
+                int zone = (int)(x / 3);
                 if (zone < 1 || zone > 5) {
                     return false;
                 }
@@ -249,21 +255,26 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
         }
         if (myProjection!=0) {
             projUV p;
-            p.u = from.x() * DEG_TO_RAD;
-            p.v = from.y() * DEG_TO_RAD;
+            p.u = x * DEG_TO_RAD;
+            p.v = y * DEG_TO_RAD;
             p = pj_fwd(p, myProjection);
             //!!! check pj_errno
-            from.set((SUMOReal) p.u + myOffset.x(), (SUMOReal) p.v + myOffset.y());
+            x = p.u;
+            y = p.v;
         }
 #endif
         if (myProjectionMethod == SIMPLE) {
-            SUMOReal ys = from.y();
+            double ys = y;
             if (!myBaseFound) {
-                myBase.set(from);
+                myBaseX = x;
+                myBaseY = y;
                 myBaseFound = true;
             }
-            from.sub(myBase);
-            from.mul((SUMOReal)(111320. * cos(ys*PI/180.0)), 111136.);
+            x -= myBaseX;
+            y -= myBaseY;
+            x *= 111320. * cos(ys*PI/180.0);
+            y *= 111136.;
+            from.set((SUMOReal)x, (SUMOReal)y);
             //!!! recheck whether the axes are mirrored
             from.add(myOffset);
         }
@@ -271,13 +282,17 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary) {
     if (myProjectionMethod != SIMPLE) {
         if (!myBaseFound) {
             if (from.x() > 100000 || from.y() > 100000) {
-                myBase.set(from);
+                myBaseX = x;
+                myBaseY = y;
             }
             myBaseFound = true;
         }
         if (myBaseFound) {
-            from.sub(myBase);
+            x -= myBaseX;
+            y -= myBaseY;
         }
+        from.set((SUMOReal)x, (SUMOReal)y);
+        from.add(myOffset);
     }
     if (includeInBoundary) {
         myConvBoundary.add(from);
@@ -305,11 +320,9 @@ GeoConvHelper::getConvBoundary() {
 }
 
 
-const Position2D 
+const Position2D
 GeoConvHelper::getOffsetBase() {
-    Position2D p(myOffset);
-    p.sub(myBase);
-    return p;
+    return Position2D(myOffset.x()-myBaseX, myOffset.y()-myBaseY);
 }
 
 
