@@ -189,10 +189,10 @@ main(int argc, char **argv) {
         }
         MsgHandler::initOutputOptions();
         // build the projection
-        Boundary origNetBoundary, prunningBoundary;
+        Boundary origNetBoundary, pruningBoundary;
         Position2D netOffset;
         std::string proj;
-        PCNetProjectionLoader::loadIfSet(oc, netOffset, origNetBoundary, prunningBoundary, proj);
+        PCNetProjectionLoader::loadIfSet(oc, netOffset, origNetBoundary, pruningBoundary, proj);
         if (proj != "") {
             if (oc.isDefault("proj")) {
                 oc.set("proj", proj);
@@ -217,26 +217,26 @@ main(int argc, char **argv) {
             throw ProcessError("Could not build projection!");
         }
 
-        // check whether the input shall be prunned
+        // check whether the input shall be pruned
         bool prune = false;
         if (oc.getBool("prune.on-net")) {
             if (!oc.isSet("net")) {
                 throw ProcessError("In order to prune the input on the net, you have to supply a network.");
             }
             Boundary offsets = GeomConvHelper::parseBoundary(oc.getString("prune.on-net.offsets"));
-            prunningBoundary = Boundary(
-                                   prunningBoundary.xmin()+offsets.xmin(),
-                                   prunningBoundary.ymin()+offsets.ymin(),
-                                   prunningBoundary.xmax()+offsets.xmax(),
-                                   prunningBoundary.ymax()+offsets.ymax());
+            pruningBoundary = Boundary(
+                                   pruningBoundary.xmin()+offsets.xmin(),
+                                   pruningBoundary.ymin()+offsets.ymin(),
+                                   pruningBoundary.xmax()+offsets.xmax(),
+                                   pruningBoundary.ymax()+offsets.ymax());
             prune = true;
         }
         if (oc.isSet("prune.boundary")) {
-            prunningBoundary = GeomConvHelper::parseBoundary(oc.getString("prune.boundary"));
+            pruningBoundary = GeomConvHelper::parseBoundary(oc.getString("prune.boundary"));
             prune = true;
         }
 
-        PCPolyContainer toFill(prune, prunningBoundary, oc.getStringVector("remove"));
+        PCPolyContainer toFill(prune, pruningBoundary, oc.getStringVector("remove"));
 
         // read in the type defaults
         PCTypeMap tm;

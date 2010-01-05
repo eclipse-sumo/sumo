@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/05/10 11:00:52 by SUMO polyconvert Version dev-SVN-r8106
+<!-- generated on 01/05/10 14:16:53 by SUMO polyconvert Version dev-SVN-r8106
 <configuration>
 
     <input>
+        <net-file value="input_net.net.xml"/>
         <dlr-navteq-poly-files value="dlr_navteq_polygons.txt"/>
     </input>
 
@@ -13,8 +14,13 @@
 
     <projection>
         <proj.shift value="5"/>
-        <proj.utm value="true"/>
+        <proj value="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
     </projection>
+
+    <processing>
+        <x-offset-to-apply value="-328248"/>
+        <y-offset-to-apply value="-5.77662e+006"/>
+    </processing>
 
     <report>
         <verbose value="true"/>
@@ -24,6 +30,6 @@
 -->
 
 <shapes>
-    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="0.00,0.00 22.65,-47.35 139.86,-87.24"/>
-    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="1732.51,-6198.51 2167.49,-6523.88 2202.13,-6404.61 2208.60,-6212.25"/>
+    <poly id="noname#0" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="38161.38,9358.00 38184.03,9311.00 38301.22,9271.00"/>
+    <poly id="noname#1" type="unknown" color="0.20,0.50,1.00" fill="0" layer="-1" shape="39893.88,3159.50 40328.84,2834.00 40363.50,2953.50 40369.97,3146.00"/>
 </shapes>
