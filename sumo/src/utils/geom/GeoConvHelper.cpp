@@ -28,6 +28,7 @@
 #endif
 
 #include <map>
+#include <cmath>
 #include "GeoConvHelper.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -131,7 +132,7 @@ GeoConvHelper::init(const std::string &proj,
                     const int shift,
                     bool inverse) {
     myProjString = proj;
-    myGeoScale = pow(10, -shift);
+    myGeoScale = pow(10, (double)-shift);
     myUseInverseProjection = inverse;
     close();
     myBaseFound = false;
