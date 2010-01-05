@@ -18,9 +18,9 @@ Usage: polyconvert.exe [OPTION]*
  Input Options:
   -n, --net-file FILE              Loads SUMO-network FILE as reference to
                                      offset and projection
-  --dlrnavteq-poly-files FILE      Reads polygons from FILE assuming they're
+  --dlr-navteq-poly-files FILE     Reads polygons from FILE assuming they're
                                      coded in DLR-Navteq (Elmar)-format
-  --dlrnavteq-poi-files FILE       Reads pois from FILE+ assuming they're coded
+  --dlr-navteq-poi-files FILE      Reads pois from FILE+ assuming they're coded
                                      in DLR-Navteq (Elmar)-format
   --visum-files FILE               Reads polygons from FILE assuming it's a
                                      Visum-net
@@ -30,9 +30,9 @@ Usage: polyconvert.exe [OPTION]*
                                      in OSM
   --osm.keep-full-type             The type will be made of the key-value -
                                      pair.
-  --shape-files FILE               Reads shapes from shape-files FILE+
-  --arcview.guess-projection       Guesses the shapefile's projection
-  --shape-files.id-name FILE       Defines where to find the id
+  --shapefile FILE                 Reads shapes from shape-files FILE+
+  --shapefile.guess-projection     Guesses the shapefile's projection
+  --shapefile.id-name FILE         Defines where to find the id
   --typemap FILE                   Reads types from FILE
 
  Output Options:

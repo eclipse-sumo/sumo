@@ -87,10 +87,10 @@ fillOptions() throw() {
     oc.addDescription("net-file", "Input", "Loads SUMO-network FILE as reference to offset and projection");
 
     // dlrnavteq import
-    oc.doRegister("dlrnavteq-poly-files", new Option_FileName());
-    oc.addDescription("dlrnavteq-poly-files", "Input", "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format");
-    oc.doRegister("dlrnavteq-poi-files", new Option_FileName());
-    oc.addDescription("dlrnavteq-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format");
+    oc.doRegister("dlr-navteq-poly-files", new Option_FileName());
+    oc.addDescription("dlr-navteq-poly-files", "Input", "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format");
+    oc.doRegister("dlr-navteq-poi-files", new Option_FileName());
+    oc.addDescription("dlr-navteq-poi-files", "Input", "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format");
 
     // visum import
     oc.doRegister("visum-files", new Option_FileName());
@@ -109,13 +109,15 @@ fillOptions() throw() {
     oc.addDescription("osm.keep-full-type", "Input", "The type will be made of the key-value - pair.");
 
     // arcview import
-    oc.doRegister("shape-files", new Option_FileName());
-    oc.addSynonyme("shape-files", "shape");
-    oc.addDescription("shape-files", "Input", "Reads shapes from shape-files FILE+");
-    oc.doRegister("arcview.guess-projection", new Option_Bool(false));
-    oc.addDescription("arcview.guess-projection", "Input", "Guesses the shapefile's projection");
-    oc.doRegister("shape-files.id-name", new Option_FileName());
-    oc.addDescription("shape-files.id-name", "Input", "Defines where to find the id");
+    oc.doRegister("shapefile", new Option_FileName());
+    oc.addSynonyme("shapefile", "shape-files");
+    oc.addSynonyme("shapefile", "shape");
+    oc.addDescription("shapefile", "Input", "Reads shapes from shape-files FILE+");
+    oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
+    oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection");
+    oc.addDescription("shapefile.guess-projection", "Input", "Guesses the shapefile's projection");
+    oc.doRegister("shapefile.id-name", new Option_FileName());
+    oc.addDescription("shapefile.id-name", "Input", "Defines where to find the id");
 
     // typemap reading
     oc.doRegister("typemap", new Option_FileName());
@@ -202,6 +204,15 @@ main(int argc, char **argv) {
                 oc.set("y-offset-to-apply", toString(netOffset.y()));
             }
         }
+#ifdef HAVE_PROJ
+        unsigned numProjections = oc.getBool("proj.simple") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+        if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
+            oc.set("proj.utm", true);
+        }
+        if ((oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && oc.isDefault("proj.shift")) {
+            oc.set("proj.shift", std::string("5"));
+        }
+#endif
         if (!GeoConvHelper::init(oc)) {
             throw ProcessError("Could not build projection!");
         }

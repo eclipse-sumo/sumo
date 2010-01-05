@@ -6,3 +6,21 @@ bugs
 
 # tests typemap usage
 typemap
+
+# testing XML-import
+#XML
+
+# Visum import tests
+#visum
+
+# Vissim import tests
+#vissim
+
+# Tests for DLR Navteq (elmar2) import
+dlr_navteq
+
+# testing SUMO-import
+#SUMO
+
+# testing OpenStreetMap-import
+#OSM

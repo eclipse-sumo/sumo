@@ -1,0 +1,1 @@
+-v --dlr-navteq-poi-files dlr_navteq_pois.txt -o pois.poi.xml -n input_net.net.xml

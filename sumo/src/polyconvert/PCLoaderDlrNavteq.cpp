@@ -30,6 +30,8 @@
 #include <string>
 #include <map>
 #include <fstream>
+#include <sstream>
+#include <iostream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
@@ -66,10 +68,10 @@ using namespace std;
 void
 PCLoaderDlrNavteq::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
                          PCTypeMap &tm) throw(ProcessError) {
-    if (oc.isSet("dlrnavteq-poly-files")) {
+    if (oc.isSet("dlr-navteq-poly-files")) {
         loadPolyFiles(oc, toFill, tm);
     }
-    if (oc.isSet("dlrnavteq-poi-files")) {
+    if (oc.isSet("dlr-navteq-poi-files")) {
         loadPOIFiles(oc, toFill, tm);
     }
 }
@@ -78,12 +80,12 @@ PCLoaderDlrNavteq::loadIfSet(OptionsCont &oc, PCPolyContainer &toFill,
 void
 PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
                             PCTypeMap &tm) throw(ProcessError) {
-    vector<string> files = oc.getStringVector("dlrnavteq-poi-files");
+    vector<string> files = oc.getStringVector("dlr-navteq-poi-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
-            throw ProcessError("Could not open dlrnavteq-poi-file '" + *file + "'.");
+            throw ProcessError("Could not open dlr-navteq-poi-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlrnavteq-poi-file '" + *file + "'...");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlr-navteq-poi-file '" + *file + "'...");
         loadPOIFile(*file, oc, toFill, tm);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
@@ -93,12 +95,12 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont &oc, PCPolyContainer &toFill,
 void
 PCLoaderDlrNavteq::loadPolyFiles(OptionsCont &oc, PCPolyContainer &toFill,
                              PCTypeMap &tm) throw(ProcessError) {
-    vector<string> files = oc.getStringVector("dlrnavteq-poly-files");
+    vector<string> files = oc.getStringVector("dlr-navteq-poly-files");
     for (vector<string>::const_iterator file=files.begin(); file!=files.end(); ++file) {
         if (!FileHelpers::exists(*file)) {
-            throw ProcessError("Could not open dlrnavteq-poly-file '" + *file + "'.");
+            throw ProcessError("Could not open dlr-navteq-poly-file '" + *file + "'.");
         }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlrnavteq-poly-file '" + *file + "'...");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Parsing pois from dlr-navteq-poly-file '" + *file + "'...");
         loadPolyFile(*file, oc, toFill, tm);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
@@ -111,14 +113,12 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
                            PCTypeMap &tm) throw(ProcessError) {
     // get the defaults
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
-    // attributes of the poi
-    std::string name, desc, type, ort;
-    std::string xpos, ypos;
     // parse
     int l = 0;
     LineReader lr(file);
     while (lr.hasMore()) {
         string line = lr.readLine();
+        ++l;
         // skip invalid/empty lines
         if (line.length()==0||line.find("#") != string::npos) {
             continue;
@@ -127,26 +127,31 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string &file,
             continue;
         }
         // parse the poi
-        StringTokenizer st(line, "\t");
-        ++l;
-        vector<string> values = st.getVector();
-        if (values.size()<5) {
-            throw ProcessError("Invalid dlrnavteq-poi - line: '" + line + "'.");
+        std::istringstream stream(line);
+        // attributes of the poi
+        std::string name, skip, type, desc;
+        std::getline(stream, name, '\t');
+        std::getline(stream, skip, '\t');
+        std::getline(stream, type, '\t');
+        std::getline(stream, desc, '\t');
+        if (stream.fail()) {
+            throw ProcessError("Invalid dlr-navteq-poi in line " + toString(l) +":\n" + line);
         }
-        name = values[0];
-        std::string skip = values[1];
-        type = values[2];
-        desc = values[3];
-        xpos = values[4];
-        ypos = values[5];
-        SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str()) / 100000.;
-        SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str()) / 100000.;
+        double x, y;
+        stream >> x;
+        if (stream.fail()) {
+            throw ProcessError("Invalid x coordinate for POI '" + name + "'.");
+        }
+        stream >> y;
+        if (stream.fail()) {
+            throw ProcessError("Invalid y coordinate for POI '" + name + "'.");
+        }
         Position2D pos(x, y);
         // check the poi
         if (name=="") {
-            throw ProcessError("The name of a poi is missing.");
+            throw ProcessError("The name of a POI is missing.");
         }
-        if (!GeoConvHelper::x2cartesian(pos)) {
+        if (!GeoConvHelper::x2cartesian(pos, true, x, y)) {
             throw ProcessError("Unable to project coordinates for POI '" + name + "'.");
         }
 
@@ -193,6 +198,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
     LineReader lr(file);
     while (lr.hasMore()) {
         string line = lr.readLine();
+        ++l;
         // skip invalid/empty lines
         if (line.length()==0||line.find("#") != string::npos) {
             continue;
@@ -202,10 +208,9 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
         }
         // parse the poi
         StringTokenizer st(line, "\t");
-        ++l;
         vector<string> values = st.getVector();
         if (values.size()<6||values.size()%2!=0) {
-            throw ProcessError("Invalid dlrnavteq-polygon - line: '" + line + "'.");
+            throw ProcessError("Invalid dlr-navteq-polygon - line: '" + line + "'.");
         }
         string id = values[0];
         string ort = values[1];
@@ -218,8 +223,8 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string &file,
             string xpos = values[index];
             string ypos = values[index+1];
             index += 2;
-            SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str()) / 100000.;
-            SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str()) / 100000.;
+            SUMOReal x = TplConvert<char>::_2SUMOReal(xpos.c_str());
+            SUMOReal y = TplConvert<char>::_2SUMOReal(ypos.c_str());
             Position2D pos(x, y);
             if (!GeoConvHelper::x2cartesian(pos)) {
                 MsgHandler::getWarningInstance()->inform("Unable to project coordinates for polygon '" + id + "'.");
