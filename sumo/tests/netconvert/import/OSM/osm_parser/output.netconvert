@@ -35,7 +35,7 @@ Summary:
   Right-before-left junctions : 2
  Network boundaries:
   Original boundary  : 11.21,48.86,11.25,48.88
-  Applied offset     : -662333.88,-5414157.00
-  Converted boundary : 0.00,0.00,2377.19,1842.50
+  Applied offset     : -662333.88,-5414157.50
+  Converted boundary : 0.00,0.00,2377.17,1842.37
 -----------------------------------------------------
 Success.

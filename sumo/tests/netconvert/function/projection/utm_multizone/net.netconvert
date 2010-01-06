@@ -1,33 +1,33 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Aug 31 14:52:29 2009 by SUMO netconvert Version dev-SVN-r7623
+<!-- generated on 01/06/10 16:57:06 by SUMO netconvert Version dev-SVN-r8110
 <configuration>
 
-    <input
-        xml-node-files="input_nodes.nod.xml"
-        xml-edge-files="input_edges.edg.xml"
-    />
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-    <output
-        output-file="net.net.xml"
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-    <projection
-        proj.utm="true"
-    />
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
 
 </configuration>
 -->
 
 <net>
 
-   <location netOffset="-718863.00,-5330310.00" convBoundary="0.00,0.00,9104.56,253.00" origBoundary="11.939162,48.087528,12.061387,48.088448" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+   <location netOffset="-718863.00,-5330310.00" convBoundary="0.00,0.00,9104.56,252.79" origBoundary="11.939162,48.087528,12.061387,48.088448" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
 
 
    <edge id="o" from="0" to="1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="o_0" depart="1" maxspeed="13.90" length="9108.08" shape="0.05,-1.65 9104.61,251.35"/>
+         <lane id="o_0" depart="1" maxspeed="13.90" length="9108.07" shape="0.05,-1.65 9104.60,251.14"/>
       </lanes>
    </edge>
 
@@ -36,7 +36,7 @@
 
    <junction id="0" type="DEAD_END" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.09,-3.25"/>
 
-   <junction id="1" type="DEAD_END" x="9104.56" y="253.00" incLanes="o_0" intLanes="" shape="9104.65,249.75 9104.56,252.95"/>
+   <junction id="1" type="DEAD_END" x="9104.56" y="252.79" incLanes="o_0" intLanes="" shape="9104.65,249.54 9104.56,252.74"/>
 
 
 

@@ -1,42 +1,42 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Aug 31 14:30:13 2009 by SUMO netconvert Version dev-SVN-r7623
+<!-- generated on 01/06/10 16:57:06 by SUMO netconvert Version dev-SVN-r8110
 <configuration>
 
-    <input
-        xml-node-files="input_nodes.nod.xml"
-        xml-edge-files="input_edges.edg.xml"
-    />
+    <input>
+        <xml-node-files value="input_nodes.nod.xml"/>
+        <xml-edge-files value="input_edges.edg.xml"/>
+    </input>
 
-    <output
-        output-file="net.net.xml"
-    />
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-    <projection
-        proj.utm="true"
-    />
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
 
 </configuration>
 -->
 
 <net>
 
-   <location netOffset="-277843.59,-5330206.50" convBoundary="0.00,0.00,3330.38,3904.50" origBoundary="12.014693,48.087528,12.061387,48.121456" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+   <location netOffset="-277843.59,-5330206.50" convBoundary="0.00,0.00,3330.39,3904.34" origBoundary="12.014693,48.087528,12.061387,48.121456" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
 
 
    <edge id="o" from="0" to="1" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="o_0" depart="1" maxspeed="13.90" length="5131.91" shape="-1.26,3903.43 3329.12,-1.07"/>
+         <lane id="o_0" depart="1" maxspeed="13.90" length="5131.80" shape="-1.26,3903.27 3329.13,-1.07"/>
       </lanes>
    </edge>
 
 
 
 
-   <junction id="0" type="DEAD_END" x="0.00" y="3904.50" incLanes="" intLanes="" shape="-0.04,3904.47 -2.47,3902.39"/>
+   <junction id="0" type="DEAD_END" x="0.00" y="3904.34" incLanes="" intLanes="" shape="-0.04,3904.30 -2.47,3902.23"/>
 
-   <junction id="1" type="DEAD_END" x="3330.38" y="0.00" incLanes="o_0" intLanes="" shape="3327.90,-2.11 3330.34,-0.03"/>
+   <junction id="1" type="DEAD_END" x="3330.39" y="0.00" incLanes="o_0" intLanes="" shape="3327.92,-2.11 3330.35,-0.03"/>
 
 
 
