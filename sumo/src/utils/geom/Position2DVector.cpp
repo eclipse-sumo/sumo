@@ -79,7 +79,6 @@ Position2DVector::push_back(const Position2DVector &p) throw() {
 
 void
 Position2DVector::push_front(const Position2D &p) {
-    assert(myCont.size()==0||myCont[0]!=p);
     myCont.push_front(p);
 }
 
@@ -813,6 +812,16 @@ Position2DVector::move2side(SUMOReal amount) {
             Position2D from = myCont[i-1];
             Position2D me = myCont[i];
             Position2D to = myCont[i+1];
+            double sinAngle = sin(GeomHelper::Angle2D(from.x()-me.x(), from.y()-me.y(),
+                                                      me.x()-to.x(), me.y()-to.y())/2);
+            double maxDev = 2 * (from.distanceTo(me) + me.distanceTo(to)) * sinAngle;
+            if (fabs(maxDev)<POSITION_EPS) {
+                // parallel case, just shift the middle point
+                std::pair<SUMOReal, SUMOReal> off =
+                    GeomHelper::getNormal90D_CW(from, to, amount);
+                shape.push_back(Position2D(me.x()-off.first, me.y()-off.second));
+                continue;
+            }
             std::pair<SUMOReal, SUMOReal> offsets =
                 GeomHelper::getNormal90D_CW(from, me, amount);
             std::pair<SUMOReal, SUMOReal> offsets2 =
