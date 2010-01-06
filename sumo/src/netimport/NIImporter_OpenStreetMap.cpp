@@ -29,6 +29,7 @@
 #include "NIImporter_OpenStreetMap.h"
 #include <algorithm>
 #include <functional>
+#include <sstream>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
@@ -332,7 +333,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
     if (from==0) {
         NIOSMNode *n = osmNodes.find(id)->second;
         Position2D pos(n->lon, n->lat);
-        if (!GeoConvHelper::x2cartesian(pos)) {
+        if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
             MsgHandler::getErrorInstance()->inform("Unable to project coordinates for node " + toString(id) + ".");
             delete from;
             return 0;
@@ -372,7 +373,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     for (std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
         NIOSMNode *n = osmNodes.find(*i)->second;
         Position2D pos(n->lon, n->lat);
-        if (!GeoConvHelper::x2cartesian(pos)) {
+        if (!GeoConvHelper::x2cartesian(pos, true, n->lon, n->lat)) {
             throw ProcessError("Unable to project coordinates for edge " + id + ".");
         }
         shape.push_back_noDoublePos(pos);
@@ -461,24 +462,28 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             toAdd->id = id;
             toAdd->tlsControlled = false;
             try {
-                toAdd->lon = attrs.getFloat(SUMO_ATTR_LON);
+                std::istringstream lon(attrs.getString(SUMO_ATTR_LON));
+                lon >> toAdd->lon;
+                if (lon.fail()) {
+                    MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lon information is not numeric.");
+                    delete toAdd;
+                    return;
+                }
             } catch (EmptyData &) {
                 MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lon information.");
                 delete toAdd;
                 return;
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lon information is not numeric.");
-                delete toAdd;
-                return;
             }
             try {
-                toAdd->lat = attrs.getFloat(SUMO_ATTR_LAT);
+                std::istringstream lat(attrs.getString(SUMO_ATTR_LAT));
+                lat >> toAdd->lat;
+                if (lat.fail()) {
+                    MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lat information is not numeric.");
+                    delete toAdd;
+                    return;
+                }
             } catch (EmptyData &) {
                 MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lat information.");
-                delete toAdd;
-                return;
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lat information is not numeric.");
                 delete toAdd;
                 return;
             }

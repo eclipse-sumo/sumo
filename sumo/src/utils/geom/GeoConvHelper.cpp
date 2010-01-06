@@ -282,7 +282,7 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary, double x, d
     }
     if (myProjectionMethod != SIMPLE) {
         if (!myBaseFound) {
-            if (from.x() > 100000 || from.y() > 100000) {
+            if (x > 100000 || y > 100000) {
                 myBaseX = x;
                 myBaseY = y;
             }

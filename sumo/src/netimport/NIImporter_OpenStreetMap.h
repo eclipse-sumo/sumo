@@ -79,9 +79,9 @@ protected:
         /// @brief The node's id
         int id;
         /// @brief The longitude the node is located at
-        SUMOReal lon;
+        double lon;
         /// @brief The latitude the node is located at
-        SUMOReal lat;
+        double lat;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
     };
