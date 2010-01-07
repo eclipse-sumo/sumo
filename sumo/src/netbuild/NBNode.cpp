@@ -1814,7 +1814,7 @@ NBNode::getMMLDirection(const NBEdge * const incoming, const NBEdge * const outg
 
     // check for left and right, first
     if (angle>0) {
-        // check whether any othe edge outgoes further to right
+        // check whether any other edge goes further to the right
         EdgeVector::const_iterator i =
             find(myAllEdges.begin(), myAllEdges.end(), outgoing);
         NBContHelper::nextCW(&myAllEdges, i);
@@ -1825,21 +1825,18 @@ NBNode::getMMLDirection(const NBEdge * const incoming, const NBEdge * const outg
             NBContHelper::nextCW(&myAllEdges, i);
         }
         return MMLDIR_RIGHT;
-    } else {
-        // check whether any othe edge outgoes further to right
-        EdgeVector::const_iterator i =
-            find(myAllEdges.begin(), myAllEdges.end(), outgoing);
-        NBContHelper::nextCCW(&myAllEdges, i);
-        while ((*i)!=incoming) {
-            if ((*i)->getFromNode()==this&&!incoming->isTurningDirectionAt(this, *i)) {
-                return MMLDIR_PARTLEFT;
-            }
-            NBContHelper::nextCCW(&myAllEdges, i);
-        }
-        return MMLDIR_LEFT;
     }
-    /// !!! probably an error should be throw, here
-    return MMLDIR_NODIR;
+    // check whether any other edge goes further to the left
+    EdgeVector::const_iterator i =
+        find(myAllEdges.begin(), myAllEdges.end(), outgoing);
+    NBContHelper::nextCCW(&myAllEdges, i);
+    while ((*i)!=incoming) {
+        if ((*i)->getFromNode()==this&&!incoming->isTurningDirectionAt(this, *i)) {
+            return MMLDIR_PARTLEFT;
+        }
+        NBContHelper::nextCCW(&myAllEdges, i);
+    }
+    return MMLDIR_LEFT;
 }
 
 
