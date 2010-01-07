@@ -3,9 +3,3 @@ Warning:  Removing dummy edge '-27078879#0'
 Warning:  Removing dummy edge '29108112#0'
 Warning:  Removing dummy edge '-29108112#0'
 Warning: 4 dummy edge(s) removed.
-Warning: For node '254421993': could not compute shape.
-Warning: For node '297798831': could not compute shape.
-Warning: For node '297798837': could not compute shape.
-Warning: For node '306497628': could not compute shape.
-Warning: For node '307690667': could not compute shape.
-Warning: For node '309179639': could not compute shape.
