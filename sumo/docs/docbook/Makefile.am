@@ -15,14 +15,14 @@ doc: $(xsltproc)
 	$(xsltproc) $(xsltparams) -o sumo_moreon_testing.html more_docbook.xsl sumo_moreon_testing.xml
 	$(xsltproc) $(xsltparams) -o sumo_howto_global_output_file.html more_docbook.xsl sumo_howto_global_output_file.xml
 # fo + pdf
-	$(xsltproc) $(xsltfoparams) -o sumo_user.fo $(fostyle) sumo_user.xml
-	fop sumo_user.fo ../sumo_user.pdf
-	$(xsltproc) $(xsltfoparams) -o sumo_moreon_tls.fo $(fostyle) sumo_moreon_tls.xml
-	fop sumo_moreon_tls.fo ../sumo_moreon_tls.pdf
-	$(xsltproc) $(xsltfoparams) -o sumo_moreon_dua.fo $(fostyle) sumo_moreon_dua.xml
-	fop sumo_moreon_dua.fo ../sumo_moreon_dua.pdf
-	$(xsltproc) $(xsltfoparams) -o sumo_moreon_testing.fo $(fostyle) sumo_moreon_testing.xml
-	fop sumo_moreon_testing.fo ../sumo_moreon_testing.pdf
-	$(xsltproc) $(xsltfoparams) -o sumo_howto_global_output_file.fo $(fostyle) sumo_howto_global_output_file.xml
-	fop sumo_howto_global_output_file.fo ../sumo_howto_global_output_file.pdf
-	rm sumo_*.fo
+#	$(xsltproc) $(xsltfoparams) -o sumo_user.fo $(fostyle) sumo_user.xml
+#	fop sumo_user.fo ../sumo_user.pdf
+#	$(xsltproc) $(xsltfoparams) -o sumo_moreon_tls.fo $(fostyle) sumo_moreon_tls.xml
+#	fop sumo_moreon_tls.fo ../sumo_moreon_tls.pdf
+#	$(xsltproc) $(xsltfoparams) -o sumo_moreon_dua.fo $(fostyle) sumo_moreon_dua.xml
+#	fop sumo_moreon_dua.fo ../sumo_moreon_dua.pdf
+#	$(xsltproc) $(xsltfoparams) -o sumo_moreon_testing.fo $(fostyle) sumo_moreon_testing.xml
+#	fop sumo_moreon_testing.fo ../sumo_moreon_testing.pdf
+#	$(xsltproc) $(xsltfoparams) -o sumo_howto_global_output_file.fo $(fostyle) sumo_howto_global_output_file.xml
+#	fop sumo_howto_global_output_file.fo ../sumo_howto_global_output_file.pdf
+#	rm sumo_*.fo
