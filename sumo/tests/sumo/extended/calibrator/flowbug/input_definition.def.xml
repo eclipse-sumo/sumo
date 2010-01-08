@@ -1,0 +1,8 @@
+<calibrator>
+
+    <routeDistribution id="c1">
+        <route id="calibroute1" edges="beg middle end rend"/>
+    </routeDistribution>
+    <flow begin="0" end="200" route="c1" vehsPerHour="20" speed="1"/>
+    
+</calibrator>

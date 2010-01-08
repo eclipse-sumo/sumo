@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/30/09 23:57:25 by SUMO sumo Version dev-SVN-r7578
+<configuration>
+
+    <input
+        net-file="three_split.net.xml"
+        route-files="input_routes.rou.xml"
+        additional-files="input_additional.add.xml"
+    />
+
+    <output
+        vehroute-output="vehroutes.xml"
+    />
+
+    <report
+        no-duration-log="true"
+        no-step-log="true"
+    />
+
+    <mesoscopic
+        mesosim="true"
+    />
+
+</configuration>
+-->
+
+<calibratorstats>
+   <interval begin="0" end="100" id="calibtest" nVehContrib="4" removed="22" inserted="0" flow="144.00" aspiredFlow="200.00" speed="27.80" aspiredSpeed="-1.00"/>
+</calibratorstats>

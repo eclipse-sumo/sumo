@@ -1,0 +1,6 @@
+<calibrator>
+
+    <route id="c1" edges="beg middle end rend"/>
+    <flow begin="0" end="100" route="c1" vehsPerHour="200"/>
+    
+</calibrator>

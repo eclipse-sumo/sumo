@@ -1,0 +1,17 @@
+# Tests whether the bug on flow calibration has been solved
+flowbug
+
+# Tests whether calibrators can be defined at all
+simple
+
+# Tests whether calibrators can be defined with nested elements
+nested
+
+# Tests whether calibrators run with output
+simple_output
+
+# Tests whether calibrators remove
+simple_remove
+
+# Tests whether calibrators can reduce vehicle speed to 0
+speed_0

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+  <vehicle depart="1" id="veh0">
+     <route edges="beg middle end rend"/>
+  </vehicle>
+</routes>

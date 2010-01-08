@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/07/09 14:33:17 by SUMO sumo Version dev-SVN-r7822
+<configuration>
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="veh0" depart="1" arrival="72">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="inserted_calibtest_time_36_0" depart="36" arrival="103">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="inserted_calibtest_time_54_1" depart="54" arrival="121">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="inserted_calibtest_time_72_2" depart="72" arrival="139">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+    <vehicle id="inserted_calibtest_time_90_3" depart="90" arrival="157">
+        <route edges="beg middle end rend"/>
+   </vehicle>
+
+</routes>
