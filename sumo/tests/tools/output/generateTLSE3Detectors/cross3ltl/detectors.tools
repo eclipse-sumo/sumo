@@ -1,26 +1,26 @@
 <additional>
     <e3-detector id="e3_0_1si" freq="60" file="e3output.xml">
         <det_entry lane="1fi_0" pos="235.65"/>
-        <det_exit lane="1si_0" pos="-0.1"/>
-        <det_exit lane="1si_1" pos="-0.1"/>
-        <det_exit lane="1si_2" pos="-0.1"/>
+        <det_exit lane="1si_0" pos="-.1"/>
+        <det_exit lane="1si_1" pos="-.1"/>
+        <det_exit lane="1si_2" pos="-.1"/>
     </e3-detector>
     <e3-detector id="e3_0_2si" freq="60" file="e3output.xml">
         <det_entry lane="2fi_0" pos="235.65"/>
-        <det_exit lane="2si_0" pos="-0.1"/>
-        <det_exit lane="2si_1" pos="-0.1"/>
-        <det_exit lane="2si_2" pos="-0.1"/>
+        <det_exit lane="2si_0" pos="-.1"/>
+        <det_exit lane="2si_1" pos="-.1"/>
+        <det_exit lane="2si_2" pos="-.1"/>
     </e3-detector>
     <e3-detector id="e3_0_3si" freq="60" file="e3output.xml">
         <det_entry lane="3fi_0" pos="235.65"/>
-        <det_exit lane="3si_0" pos="-0.1"/>
-        <det_exit lane="3si_1" pos="-0.1"/>
-        <det_exit lane="3si_2" pos="-0.1"/>
+        <det_exit lane="3si_0" pos="-.1"/>
+        <det_exit lane="3si_1" pos="-.1"/>
+        <det_exit lane="3si_2" pos="-.1"/>
     </e3-detector>
     <e3-detector id="e3_0_4si" freq="60" file="e3output.xml">
         <det_entry lane="4fi_0" pos="235.65"/>
-        <det_exit lane="4si_0" pos="-0.1"/>
-        <det_exit lane="4si_1" pos="-0.1"/>
-        <det_exit lane="4si_2" pos="-0.1"/>
+        <det_exit lane="4si_0" pos="-.1"/>
+        <det_exit lane="4si_1" pos="-.1"/>
+        <det_exit lane="4si_2" pos="-.1"/>
     </e3-detector>
 </additional>
