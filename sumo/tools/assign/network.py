@@ -13,7 +13,7 @@ All rights reserved
 
 import os, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
-from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase, DetectedFlows
+from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase
 from dijkstra import dijkstraPlain, dijkstraBoost, dijkstra
 
 # Net class stores the network (vertex and edge collection). 
@@ -30,6 +30,7 @@ class Net:
         self._paths = {}
         self._junctions = {}
         self._detectedLinkCounts = 0.
+        self._detectedEdges = []
         
     def newVertex(self):
         v = Vertex(len(self._vertices))
@@ -49,7 +50,15 @@ class Net:
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
                           "real"))
-                                                   
+    def getDetectedEdges(self, datadir):
+        for line in open(os.path.join(datadir, "detectedEdges.txt")):
+            line = line.split('\n')[0]
+            if line != '':
+                edgeObj = self.getEdge(line.split(' ')[0])
+                edgeObj.detected = int(line.split(' ')[1])
+                if edgeObj not in self._detectedEdges:
+                    self._detectedEdges.append(edgeObj)
+
     def initialPathSet(self):
         for startVertex in self._startVertices:
             self._paths[startVertex] = {}
@@ -80,10 +89,10 @@ class Net:
         return self._endVertices
         
     def geteffEdgeCounts(self):
-        return len(net._edges)
+        return len(self._edges)
         
     def getfullEdgeCounts(self):
-        return len(net._fullEdges)
+        return len(self._fullEdges)
         
     def linkReduce(self):
         toRemove = []

@@ -16,38 +16,43 @@ import elements
 from elements import Vertex, Edge, Path, Vehicle
 from network import Net
 
-def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, matrixPshort, smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand): 
-    # matrixPlong and matrixTruck should be added if available.
-    for end, endVertex in enumerate(endVertices): 
-        if startVertex.label != endVertex.label and (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.)):
+def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, start, startVertex, matrixPshort, smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand, linkChoiceMap, odPairsMap):
+
+    getlinkChoices = False
+    for end, endVertex in enumerate(endVertices):
+        if (odestimation and matrixPshort[start][end] > 0.) or (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.)):
+            getlinkChoices = True
+
+        if startVertex.label != endVertex.label and getlinkChoices:
         # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
             helpPath = []
             vertex = endVertex
             demand = 0.
-            if matrixPshort[start][end] > 1.:
+            if matrixPshort[start][end] > 1. or odestimation:
                 demand = matrixPshort[start][end]/float(iteration)
-            if assignSmallDemand:
+            if assignSmallDemand and not odestimation:
                 demand += smallDemand[start][end]
-            
+
             while vertex != startVertex:
                 if P[vertex].kind == "real":
                     helpPath.append(P[vertex])
                     P[vertex].flow += demand
-      
+                    if odestimation and P[vertex] in net._detectedEdges:
+                        odIndex = odPairsMap[startVertex.label][endVertex.label]
+                        linkChoiceMap[P[vertex].detected][odIndex] += demand
+
                 vertex = P[vertex].source
             helpPath.reverse()
             
             # the amount of the pathflow, which will be released at this iteration
             if assignSmallDemand:
                 smallDemand[start][end] = 0.
-            if verbose:
-                print 'pathflow:', demand
-            
-            AssignedTrip[startVertex][endVertex] += demand  
-            vehID = assignVeh(verbose, vehicles, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
 
-    return vehID, smallDemand
-  
+            if not odestimation:
+                AssignedTrip[startVertex][endVertex] += demand
+                vehID = assignVeh(verbose, vehicles, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
+    return vehID, smallDemand, linkChoiceMap
+
 # execute the SUE model with the given path set
 def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lohse, first): 
     if lohse:
@@ -57,7 +62,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
 
     # matrixPlong and matrixTruck should be added if available.
     if options.verbose:
-        print 'pathNum in doSUEAssign:', elements.pathNum           
+        print 'pathNum in doSUEAssign:', elements.pathNum
     # calculate the overlapping factors between any two paths of a given OD pair
     for start, startVertex in enumerate(startVertices): 
         for end, endVertex in enumerate(endVertices):

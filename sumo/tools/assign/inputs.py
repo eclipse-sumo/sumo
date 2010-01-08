@@ -12,17 +12,17 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-# read the analyzed matrix         
-def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
+# read the analyzed matrix
+def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
     matrixPshort = []
     startVertices = []
     endVertices = []
     Pshort_EffCells = 0
     periodList = []
     if verbose:
-        print 'matrix:', str(matrix)                                 
+        print 'matrix:', str(matrix)
 
-    ODpairs = 0
+    odpairs = 0
     origins = 0
     dest= 0
     currentMatrixSum = 0.0
@@ -53,18 +53,21 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                                 if endVertex.label == elem:
                                     endVertices.append(endVertex)
                     origins = len(startVertices)
-                    dest = len(endVertices)        
+                    dest = len(endVertices)
                 elif len(startVertices) == zones:
-                    if ODpairs % origins == 0:
+                    if odpairs % origins == 0:
                         matrixPshort.append([])
                     for item in line.split():
-                        matrixPshort[-1].append(float(item))
-                        ODpairs += 1
-                        MatrixSum += float(item)
-                        currentMatrixSum += float(item) 
-                        if float(item) > 0.:
+                        elem = float(item)
+                        if demandscale != None and demandscale != 1.:
+                            elem *= demandscale
+                        matrixPshort[-1].append(elem)
+                        odpairs += 1
+                        matrixSum += elem
+                        currentMatrixSum += elem
+                        if elem > 0.:
                             Pshort_EffCells += 1
-                        if float(item) < 1. and float(item) > 0.:
+                        if elem < 1. and elem > 0.:
                             smallDemandNum += 1
     begintime = int(periodList[0])
     assignPeriod = int(periodList[1]) - begintime
@@ -75,13 +78,13 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'Number of origins:', origins
         print 'Number of destinations:', dest
         print 'begintime:', begintime
-        print 'currentMatrixSum:', currentMatrixSum        
+        print 'currentMatrixSum:', currentMatrixSum
         print 'Effective O-D Cells:', Pshort_EffCells
         print 'number of start Vertices:', net.getstartCounts()
-        print 'number of end Vertices):',  net.getendCounts()
+        print 'number of end Vertices):', net.getendCounts()
         print 'smallDemandRatio):', smallDemandRatio
     
-    return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, Pshort_EffCells, MatrixSum, smallDemandRatio  
+    return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, Pshort_EffCells, matrixSum, smallDemandRatio
 
 # estimate the travel times on the district connectors
 # assumption: all vehilces can reach the access links within 10 min from the respective traffic zone
@@ -91,7 +94,7 @@ def getConnectionTravelTime(startVertices, endVertices):
         for edge in vertex.outEdges:     
             sum += float(edge.weight)
         for edge in vertex.outEdges:
-            edge.freeflowtime = (1-float(edge.weight)/sum) * 10        
+            edge.freeflowtime = (1-float(edge.weight)/sum) * 10
                                           
             edge.actualtime = edge.freeflowtime
     for vertex in endVertices:
@@ -99,6 +102,5 @@ def getConnectionTravelTime(startVertices, endVertices):
         for edge in vertex.inEdges:  
             sum += float(edge.weight)
         for edge in vertex.inEdges:
-            edge.freeflowtime = (1-float(edge.weight)/sum) * 10 
-                                              
+            edge.freeflowtime = (1-float(edge.weight)/sum) * 10
             edge.actualtime = edge.freeflowtime

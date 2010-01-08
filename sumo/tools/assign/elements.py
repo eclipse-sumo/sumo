@@ -115,8 +115,8 @@ class Edge:
         self.length = 0.0
         self.numberlane = 0.
         self.freeflowtime = 0.0
-        self.queuetime = 0.0                          
-        self.estcapacity = 0.0                             
+        self.queuetime = 0.0
+        self.estcapacity = 0.0
         self.CRcurve = None
         self.actualtime = 0.0
         self.weight = 0.0
@@ -128,7 +128,7 @@ class Edge:
         self.fTT = 0.
         # parameter in the Lohse traffic assignment
         self.TT = 0.
-        # parameter in the Lohse traffic assignment                
+        # parameter in the Lohse traffic assignment
         self.delta = 0.
         # parameter in the Lohse traffic assignment 
         self.helpacttimeEx = 0.
@@ -435,20 +435,3 @@ class Signalphase:
     
     def __repr__(self):
         return "%s_%s<%s|%s|%s>" % (self.label, self.duration, self.green, self.brake, self.yellow)
-
-class DetectedFlows:
-    def __init__(self, label, passengercars, truckflows):
-        self.label = label             # wDay+hour, eg. MON-06
-        self.flowPger = passengercars
-        self.flowTruck = truckflows
-
-
-    def __repr__(self):
-        return "%s_<%s|%s|%s|%s|%s>" % (self.label, self.flowPger, self.flowTruck)
-
-        
-class VarianceFlowMatrix:
-    def __init__(self, label, passengerarray, truckarray):
-        self.label = label
-        self.passengerarray = passengerarray
-        self.truckarray = truckarray

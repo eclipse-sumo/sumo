@@ -113,3 +113,23 @@ def outputMatrix(startVertices, endVertices, estMatrix, daytimeindex):
             elif count > 12:
                 foutmtx.write('\n%s '%estMatrix[start][end])
     foutmtx.close()
+    
+def linkChoicesOutput(net, startVertices, endVertices, matrixPshort, linkChoiceMap, odPairsMap, outputdir, starttime):
+    foutchoice = file(os.path.join(outputdir, "linkchoices.xml"), 'w')
+    print >> foutchoice, """<?xml version="1.0"?>
+<!-- generated on %s by $Id$ -->
+<edgechoices>""" % starttime
+    for e in net._detectedEdges:
+        if len(linkChoiceMap[e.detected])> 0:
+            foutchoice.write('    <edge id="%s" flows="%s">\n' %(e.label, e.flow))
+            foutchoice.write('        <choiceprobs>\n')
+            for start, startVertex in enumerate(startVertices):
+                for end, endVertex in enumerate(endVertices):
+                    if startVertex.label != endVertex.label and matrixPshort[start][end] > 0.:
+                        odIndex = odPairsMap[startVertex.label][endVertex.label]
+                        foutchoice.write('            <choice origin="%s" destination="%s" choiceprob="%.5f"/>\n' \
+                                      %(startVertex.label, endVertex.label, linkChoiceMap[e.detected][odIndex]/matrixPshort[start][end]))
+            foutchoice.write('        </choiceprobs>\n')
+            foutchoice.write('    </edge>\n')
+    foutchoice.write('</edgechoices>\n')
+    foutchoice.close()
