@@ -84,10 +84,6 @@ aggregated300:0.0101
 aggregated900:0.0101
 tripinfos:0.0101
 
-#[relative_float_tolerance]
-#aggregated1:0.000001
-#aggregated15:0.000001
-
 [batch_extra_version]
 default:perf
 meso:perf
@@ -96,3 +92,8 @@ msvc8mesox64:perf
 msvc8mesox64:meso
 msvc8mesoWin32:perf
 msvc8mesoWin32:meso
+
+[batch_filter_file]
+meso:$TEXTTEST_HOME/meso_filter
+msvc8mesox64:$TEXTTEST_HOME/meso_filter
+msvc8mesoWin32:$TEXTTEST_HOME/meso_filter
