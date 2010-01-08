@@ -22,6 +22,7 @@ export NETGEN_BINARY="$SUMO_BIN/sumo-netgen"
 export OD2TRIPS_BINARY="$SUMO_BIN/sumo-od2trips"
 export POLYCONVERT_BINARY="$SUMO_BIN/sumo-polyconvert"
 export SUMO_BINARY="$SUMO_BIN/sumo"
+export GUISIM_BINARY="$SUMO_BIN/sumo-guisim"
 
 if test x"$2" = x; then
   TEXTTEST=texttest.py
