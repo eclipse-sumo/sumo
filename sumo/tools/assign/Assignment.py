@@ -58,6 +58,7 @@ def main():
     if options.verbose:
         print "Reading net"
     net = Net()
+    print 'net file:', options.netfile
     parser.setContentHandler(NetworkReader(net))
     parser.parse(options.netfile)
     parser.setContentHandler(DistrictsReader(net))
@@ -78,7 +79,7 @@ def main():
         assignHours = 16.
     else:
         assignHours = options.hours 
-    
+
     for edge in net._edges.itervalues():
         if edge.numberlane > 0.:
             edge.getCapacity()

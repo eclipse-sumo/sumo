@@ -74,7 +74,10 @@ class Net:
         self._junctions[junctionObj.label] = junctionObj
         
     def getJunction(self, junctionlabel):
-        return self._junctions[junctionlabel]
+        junctionObj = None
+        if junctionlabel in self._junctions:
+            junctionObj = self._junctions[junctionlabel]
+        return junctionObj
         
     def getstartCounts(self):
         return len(self._startVertices)
@@ -313,7 +316,7 @@ class Net:
                         newpath.actpathtime = newpath.freepathtime
                         newRoutes += 1
                         if verbose:
-                            foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
+                            foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))
                             foutkpath.write('        <route>')
                             for edge in newpath.edges[1:-1]:
                                 foutkpath.write('%s ' %edge.label)
@@ -328,7 +331,7 @@ class Net:
     def printNet(self, foutnet):
         foutnet.write('Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t Weight\t Connection\n')
         for edgeName, edgeObj in self._edges.iteritems():
-            foutnet.write('%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %d\n' 
+            foutnet.write('%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %d\n'
             %(edgeName, edgeObj.kind, edgeObj.source, edgeObj.target, edgeObj.length, 
               edgeObj.maxspeed, edgeObj.numberlane, edgeObj.CRcurve, edgeObj.estcapacity, edgeObj.freeflowtime, edgeObj.weight, edgeObj.connection))
      
@@ -346,6 +349,7 @@ class NetworkReader(handler.ContentHandler):
         self._chars = ''
         self._counter = 0
         self._turnlink = None
+        self._phasenoInfo = True
 
     def startElement(self, name, attrs):
         self._chars = ''
@@ -360,12 +364,19 @@ class NetworkReader(handler.ContentHandler):
             self._length = 0
         elif name == 'tl-logic':
             self._junctionObj = TLJunction()
-            self._counter = 0
-        elif name == 'phase':
-            self._newphase = Signalphase(float(attrs['duration']), attrs['phase'], attrs['brake'], attrs['yellow'])
-            self._junctionObj.phases.append(self._newphase)
-            self._counter += 1
-            self._newphase.label = self._counter
+            if self._junctionObj and attrs.has_key('id'):
+                self._junctionObj.label = attrs['id']
+                self._net.addTLJunctions(self._junctionObj)
+                self._phasenoInfo = False
+        elif self._junctionObj and name == 'phase':
+            if attrs.has_key('state'):
+                self._newphase = Signalphase(float(attrs['duration']), attrs['state'])
+            else:
+                self._newphase = Signalphase(float(attrs['duration']), None, attrs['phase'], attrs['brake'], attrs['yellow'])
+            if self._junctionObj:
+                self._junctionObj.phases.append(self._newphase)
+                self._counter += 1
+                self._newphase.label = self._counter
         elif name == 'succ':
             self._edge = attrs['edge']
             if self._edge[0]!=':':
@@ -429,8 +440,11 @@ class NetworkReader(handler.ContentHandler):
             self._junctionObj.phaseNum = int(self._chars)
             self._chars = ''
         elif name == 'tl-logic':
+            if not self._phasenoInfo:
+                self._junctionObj.phaseNum = self._counter
+            self._counter = 0
+            self._phasenoInfo = True
             self._junctionObj = None
-
 
 # The class is for parsing the XML input file (districts). The data parsed is written into the net.
 class DistrictsReader(handler.ContentHandler):
@@ -469,36 +483,60 @@ class DistrictsReader(handler.ContentHandler):
 class ExtraSignalInformationReader(handler.ContentHandler):
     def __init__(self, net):
         self._net = net
+        self._junctionObj = None
         self._junctionlabel = None
         self._phaseObj = None
         self._chars = ''
         self._counter = 0
+        self._phasenoInfo = True
 
     def startElement(self, name, attrs):
         self._chars = ''
         if name == 'tl-logic':
-            self._counter = 0
+            if attrs.has_key('id'):
+                self._junctionObj = self._net.getJunction(attrs['id'])
+                if self._junctionObj:
+                    self._junctionObj.phases = []
+                else:
+                    self._junctionObj = TLJunction()
+                    self._junctionObj.label = attrs['id']
+                    self._net.addTLJunctions(self._junctionObj)
+                self._phasenoInfo = False
         elif name == 'phase':
-            self._counter += 1
-            junction = self._net.getJunction(self._junctionlabel)
-            junction.phaseNum = self._counter
-            for phase in junction.phases[:]:
-                if phase.label == str(self._counter):
-                    phase.duration = float(attrs['duration'])
-                    phase.green = attrs['phase'][::-1]
-                    phase.brake = attrs['brake'][::-1]
-                    phase.yellow= attrs['yellow'][::-1]
+            if attrs.has_key('state'):
+                self._newphase = Signalphase(float(attrs['duration']), attrs['state'])
+            else:
+                self._newphase = Signalphase(float(attrs['duration']), None, attrs['phase'], attrs['brake'], attrs['yellow'])
+            if self._junctionObj:
+                self._junctionObj.phases.append(self._newphase)
+                self._counter += 1
+                self._newphase.label = self._counter
       
     def characters(self, content):
         self._chars += content
 
     def endElement(self, name):
         if name == 'key':
-            self._junctionlabel = self._chars
+            self._junctionObj.label = self._chars
+            self._junctionObj = self._net.getJunction(self._junctionObj.label)
+            if self._junctionObj:
+                self._junctionObj.phases = []
+            else:
+                self._junctionObj = TLJunction()
+                self._junctionObj.label = self._junctionObj.label
+                self._net.addTLJunctions(self._junctionObj)
+            self._chars = ''
+        elif name == 'phaseno':
+            self._junctionObj.phaseNum = int(self._chars)
             self._chars = ''
         elif name == 'tl-logic':
+            if not self._phasenoInfo:
+                self._junctionObj.phaseNum = self._counter
+            self._counter = 0
+            self._phasenoInfo = True
+            self._junctionObj.label = None
             self._junctionObj = None
-            
+
 class DetectedFlowsReader(handler.ContentHandler):
     def __init__(self, net):
         self._net = net

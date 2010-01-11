@@ -426,12 +426,34 @@ class TLJunction:
         return "%s_%s<%s>" % (self.label, self.phaseNum, self.phases)
         
 class Signalphase:
-    def __init__(self, duration, phase, brake, yellow):
+    def __init__(self, duration, state=None, phase=None, brake=None, yellow=None):
         self.label= None
+        self.state = state
         self.duration = duration
-        self.green = phase[::-1]
-        self.brake = brake[::-1]
-        self.yellow = yellow[::-1]
+        self.green = ''
+        self.brake = ''
+        self.yellow = ''
+
+        if phase and brake and yellow:
+            self.green = phase[::-1]
+            self.brake = brake[::-1]
+            self.yellow = yellow[::-1]
+        elif self.state:
+            for elem in self.state:
+                if elem == 'G':
+                    self.green += '1'
+                    self.brake += '0'
+                    self.yellow += '0'
+                elif elem == 'y':
+                    self.green += '0'
+                    self.brake += '0'
+                    self.yellow += '1'
+                elif elem == 'r':
+                    self.green += '0'
+                    self.brake += '1'
+                    self.yellow += '0'
+        else:
+            print 'no timing plans exist!'
     
     def __repr__(self):
         return "%s_%s<%s|%s|%s>" % (self.label, self.duration, self.green, self.brake, self.yellow)

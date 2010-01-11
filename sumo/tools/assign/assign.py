@@ -18,8 +18,8 @@ from network import Net
 
 def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, start, startVertex, matrixPshort, smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand, linkChoiceMap, odPairsMap):
 
-    getlinkChoices = False
     for end, endVertex in enumerate(endVertices):
+        getlinkChoices = False
         if (odestimation and matrixPshort[start][end] > 0.) or (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.)):
             getlinkChoices = True
 
@@ -37,13 +37,13 @@ def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, st
                 if P[vertex].kind == "real":
                     helpPath.append(P[vertex])
                     P[vertex].flow += demand
-                    if odestimation and P[vertex] in net._detectedEdges:
+                    if getlinkChoices and P[vertex] in net._detectedEdges:
                         odIndex = odPairsMap[startVertex.label][endVertex.label]
                         linkChoiceMap[P[vertex].detected][odIndex] += demand
 
                 vertex = P[vertex].source
             helpPath.reverse()
-            
+
             # the amount of the pathflow, which will be released at this iteration
             if assignSmallDemand:
                 smallDemand[start][end] = 0.
