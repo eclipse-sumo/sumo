@@ -56,8 +56,7 @@ net = net.getNet()
 
 print >> detectorFile, "<additional>"
 for tls in net._tlss:
-    edges = tls.getEdges()
-    for e in edges:
+    for e in sorted(tls.getEdges()):
         id = tls._id + "_" + e._id
         print >> detectorFile, '    <e3-detector id="e3_%s" freq="%s" file="%s">' % (id, freq, options.results)
         iedges = net.getDownstreamEdges(e, det_length_input, True)
