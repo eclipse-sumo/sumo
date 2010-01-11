@@ -92,8 +92,3 @@ msvc8mesox64:perf
 msvc8mesox64:meso
 msvc8mesoWin32:perf
 msvc8mesoWin32:meso
-
-[batch_filter_file]
-meso:$TEXTTEST_HOME/meso_filter
-msvc8mesox64:$TEXTTEST_HOME/meso_filter
-msvc8mesoWin32:$TEXTTEST_HOME/meso_filter

@@ -23,3 +23,8 @@ errors:expected end of tag{REPLACE Expected end of tag}
 errors:comment or processing instruction expected{REPLACE Expected comment or processing instruction}
 errors:input ended before all started tags were ended; last tag started is{REPLACE The input ended before all started tags were ended. Last tag started was}
 errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attribute '\1' is already used in element '\2'}
+
+[batch_filter_file]
+meso:$TEXTTEST_HOME/meso_filter
+msvc8mesox64:$TEXTTEST_HOME/meso_filter
+msvc8mesoWin32:$TEXTTEST_HOME/meso_filter
