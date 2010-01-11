@@ -1,8 +1,0 @@
-<?xml version="1.0" standalone="no"?>
-
-<savedInfosFreq>
-	<vehicle id="horizontal1" timestep="182" numberOfInfos="1" numberRelevant="34" got="3" sent="3" reroutes="0"/>
-	<vehicle id="horizontal2" timestep="182" numberOfInfos="1" numberRelevant="32" got="3" sent="5" reroutes="0"/>
-	<vehicle id="vertical2" timestep="228" numberOfInfos="2" numberRelevant="76" got="4" sent="5" reroutes="0"/>
-	<vehicle id="vertical1" timestep="228" numberOfInfos="2" numberRelevant="78" got="4" sent="44" reroutes="0"/>
-</savedInfosFreq>

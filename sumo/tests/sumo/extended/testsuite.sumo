@@ -10,9 +10,6 @@ emitter
 # Tests for dua-inc emissions
 inc-dua
 
-# Tests c2c output generation and functioning
-#c2c
-
 # Tests whether wauts (tls program switches) work
 wauts
 

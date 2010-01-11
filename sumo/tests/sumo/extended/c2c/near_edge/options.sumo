@@ -1,1 +1,0 @@
---no-step-log --no-duration-log --net-file=net.net.xml -a=input_routes.rou.xml --device.c2x.probability 1. --c2x.edge-near-info c2x_edge_near_info.xml
