@@ -818,31 +818,6 @@ drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size) {
 }
 
 
-#ifdef HAVE_BOYOM_C2C
-inline void
-drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh) {
-    if (veh.isEquipped()) {
-        int cluster = veh.getClusterId();
-        if (veh.getConnections().size()==0) {
-            cluster = -1;
-        }
-        if (colorBla.find(cluster)==colorBla.end()) {
-            int r = RandHelper::rand(256);
-            int g = RandHelper::rand(256);
-            int b = RandHelper::rand(256);
-            colorBla[cluster] = FXRGB(r, g, b);
-        }
-        FXColor c = colorBla[cluster];
-        glColor3f(
-            (float)((float) FXREDVAL(c) /255.),
-            (float)((float) FXGREENVAL(c) /255.),
-            (float)((float) FXBLUEVAL(c) /255.));
-        GLHelper::drawOutlineCircle(MSGlobals::gLANRange, MSGlobals::gLANRange-2, 24);
-    }
-}
-#endif
-
-
 void
 GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
     glTranslated(0, 0, -.04);
@@ -883,12 +858,6 @@ GUIVehicle::drawGL(const GUIVisualizationSettings &s) const throw() {
         drawAction_drawVehicleBlinker(*this);
         glTranslated(0, 0, .05);
     }
-    // draw the c2c-circle
-#ifdef HAVE_BOYOM_C2C
-    if (s.drawcC2CRadius) {
-        drawAction_C2CdrawVehicleRadius(*veh);
-    }
-#endif
     // draw the wish to change the lane
     if (s.drawLaneChangePreference) {
         /*

@@ -69,19 +69,6 @@ public:
     static bool gStateLoaded;
 #endif
 
-    /// Information whether c2x communication shall be used
-    static bool gUsingC2C;
-    /// the standard WLAN range
-    static SUMOReal gLANRange;
-    /// the Number of Sending possibility per TimeStep
-    static SUMOReal gNumberOfSendingPos;
-    /// the Number Of Infos per Paket
-    static SUMOReal gInfoPerPaket;
-    /// duration until which an information is kept
-    static SUMOTime gLANRefuseOldInfosOffset;
-    /// factor over which the real duration over an edge must lie over the estimated to be inserted
-    static SUMOReal gAddInfoFactor;
-
 #ifdef HAVE_MESOSIM
     /** Information whether mesosim shall be used */
     static bool gUseMesoSim;

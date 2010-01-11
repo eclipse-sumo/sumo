@@ -55,7 +55,6 @@
 #include <utils/common/DijkstraRouterTT.h>
 #include "MSPerson.h"
 #include <utils/common/RandHelper.h>
-#include "devices/MSDevice_C2C.h"
 #include "devices/MSDevice_Routing.h"
 #include <microsim/devices/MSDevice_HBEFA.h>
 #include "MSEdgeWeightsStorage.h"
@@ -241,7 +240,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init devices
-    MSDevice_C2C::buildVehicleDevices(*this, myDevices);
     MSDevice_HBEFA::buildVehicleDevices(*this, myDevices);
     // init CORN containers
     if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {

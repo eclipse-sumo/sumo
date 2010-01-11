@@ -220,22 +220,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
     }
 
-    //car2car
-    if (OptionsCont::getOptions().isSet("c2x.cluster-info")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.saved-info")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.saved-info-freq")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO_FREQ);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.transmitted-info")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_TRANS_INFO);
-    }
-    if (OptionsCont::getOptions().isSet("c2x.vehicle-in-range")) {
-        MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
-    }
     // initialise performance computation
     if (myLogExecutionTime) {
         mySimBeginMillis = SysUtils::getCurrentMillis();

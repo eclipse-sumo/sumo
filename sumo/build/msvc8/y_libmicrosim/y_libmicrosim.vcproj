@@ -562,10 +562,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\devices\MSDevice_C2C.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_HBEFA.cpp"
 				>
 			</File>
@@ -739,10 +735,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\devices\MSDevice_C2C.h"
 				>
 			</File>
 			<File

@@ -59,12 +59,6 @@ public:
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
         CORN_OUT_VEHROUTES,
-        // c2x-output
-        CORN_OUT_CLUSTER_INFO,
-        CORN_OUT_SAVED_INFO,
-        CORN_OUT_SAVED_INFO_FREQ,
-        CORN_OUT_TRANS_INFO,
-        CORN_OUT_VEH_IN_RANGE,
 
         CORN_VEH_DEPART_TIME,
         CORN_VEH_DEPART_DEF,
@@ -97,28 +91,8 @@ public:
     static bool wished(Function f);
     static void setWished(Function f);
 
-public:
-    //car2car
-    static void saveClusterInfoData(SUMOTime step, int id,
-                                    const std::string &headID,
-                                    const std::string &vehs, int quantity);
-    static void saveSavedInformationData(SUMOTime step, const std::string &veh,
-                                         const std::string &edge, const std::string &type,
-                                         SUMOTime time, SUMOReal nt);
-    static void saveTransmittedInformationData(SUMOTime step, const std::string &from,
-            const std::string &to, const std::string &edge, SUMOTime time, SUMOReal nt);
-    static void saveVehicleInRangeData(SUMOTime step, const std::string &veh1,
-                                       const std::string &veh2,
-                                       SUMOReal x1, SUMOReal y1,
-                                       SUMOReal x2 , SUMOReal y2);
 
 private:
-    //Car2car
-    static SUMOTime myLastStepClusterInfoOutput;
-    static SUMOTime myLastStepSavedInfoOutput;
-    static SUMOTime myLastStepTransmittedInfoOutput;
-    static SUMOTime myLastStepVehicleInRangeOutput;
-
     static bool myWished[CORN_MAX];
     static bool myFirstCall[CORN_MAX];
 

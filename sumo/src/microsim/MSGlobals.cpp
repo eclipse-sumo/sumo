@@ -49,18 +49,6 @@ bool MSGlobals::gCheck4Accidents;
 bool MSGlobals::gStateLoaded;
 #endif
 
-bool MSGlobals::gUsingC2C = false;
-
-SUMOReal MSGlobals::gLANRange = 100;
-
-SUMOReal MSGlobals::gNumberOfSendingPos = 732;
-
-SUMOReal MSGlobals::gInfoPerPaket = 14;
-
-SUMOTime MSGlobals::gLANRefuseOldInfosOffset = 30 * 60;
-
-SUMOReal MSGlobals::gAddInfoFactor = (SUMOReal) 1.2;
-
 #ifdef HAVE_MESOSIM
 bool MSGlobals::gUseMesoSim;
 MELoop *MSGlobals::gMesoNet;

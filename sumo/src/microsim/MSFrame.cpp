@@ -40,7 +40,6 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
-#include <microsim/devices/MSDevice_C2C.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_HBEFA.h>
 #include <utils/common/RandHelper.h>
@@ -171,7 +170,6 @@ MSFrame::fillOptions() {
 
 
     // devices
-    MSDevice_C2C::insertOptions();
     MSDevice_Routing::insertOptions();
     MSDevice_HBEFA::insertOptions();
 
@@ -265,12 +263,6 @@ MSFrame::buildStreams() throw(IOError) {
     OutputDevice::createDeviceByOption("emissions-output", "emissions");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
     OutputDevice::createDeviceByOption("vehroute-output", "routes");
-    // c2x-outputs
-    OutputDevice::createDeviceByOption("c2x.cluster-info", "clusterInfos");
-    OutputDevice::createDeviceByOption("c2x.saved-info", "savedInfos");
-    OutputDevice::createDeviceByOption("c2x.saved-info-freq", "savedInfosFreq");
-    OutputDevice::createDeviceByOption("c2x.transmitted-info", "transmittedInfos");
-    OutputDevice::createDeviceByOption("c2x.vehicle-in-range", "vehicleInRanges");
 }
 
 
@@ -320,11 +312,6 @@ MSFrame::setMSGlobals(OptionsCont &oc) {
 #ifdef HAVE_MESOSIM
     MSGlobals::gStateLoaded = oc.isSet("load-state");
 #endif
-    //
-    MSGlobals::gUsingC2C = oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh");
-    MSGlobals::gLANRange = oc.getFloat("device.c2x.range");
-    MSGlobals::gLANRefuseOldInfosOffset = (SUMOTime) oc.getInt("device.c2x.keep-duration"); // !!! SUMOTime-option
-    MSGlobals::gAddInfoFactor = oc.getFloat("device.c2x.insert-info-factor");
     //
 #ifdef HAVE_SUBSECOND_TIMESTEPS
     DELTA_T = oc.getFloat("step-length");

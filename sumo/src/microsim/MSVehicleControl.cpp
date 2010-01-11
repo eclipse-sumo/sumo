@@ -217,25 +217,6 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
         v->writeXMLRoute(od);
         od << "   </vehicle>\n\n";
     }
-
-#ifdef HAVE_BOYOM_C2C
-    // check whether to save c2c info output
-    MSNet *net = MSNet::getInstance();
-    if (OptionsCont::getOptions().isSet("c2x.saved-info-freq")) {
-        int noReroutes = v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)
-                         ? v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
-        OutputDevice::getDeviceByOption("c2x.saved-info-freq")
-        << "	<vehicle id=\"" << v->getID()
-        << "\" timestep=\"" << net->getCurrentTimeStep()
-        << "\" numberOfInfos=\"" << v->getTotalInformationNumber()
-        << "\" numberRelevant=\"" << v->getNoGotRelevant()
-        << "\" got=\"" << v->getNoGot()
-        << "\" sent=\"" << v->getNoSent()
-        << "\" reroutes=\"" << noReroutes
-        << "\"/>\n";
-    }
-#endif
-
     // check whether to save information about the vehicle's trip
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
         myAbsVehTravelTime +=
