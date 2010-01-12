@@ -754,6 +754,9 @@ GUILaneWrapper::Colorer::Colorer() {
     mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0), "", true));
     mySchemes.push_back(GUIColorScheme("by selection (lane-/streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
     mySchemes.back().addColor(RGBColor(0, .4f, .8f), 1, "selected");
+    mySchemes.push_back(GUIColorScheme("by vclass", RGBColor(0,0,0), "all", true));
+    mySchemes.back().addColor(RGBColor(0, .1f, .5f), 1, "public");
+    // ... traffic states ...
     mySchemes.push_back(GUIColorScheme("by allowed speed (lanewise)", RGBColor(1,0,0)));
     mySchemes.back().addColor(RGBColor(0, 0, 1), (SUMOReal)(150.0/3.6));
     mySchemes.push_back(GUIColorScheme("by current occupancy (lanewise)", RGBColor(0,0,1)));
@@ -785,27 +788,36 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
     switch (myActiveScheme) {
     case 1:
         return gSelected.isSelected(lane.getType(), lane.getGlID());
-    case 2:
-        return lane.maxSpeed();
+    case 2: {
+        const std::vector<SUMOVehicleClass> &allowed = lane.myLane.getAllowedClasses();
+        const std::vector<SUMOVehicleClass> &disallowed = lane.myLane.getNotAllowedClasses();
+        if((allowed.size()==0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER)!=allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER)==disallowed.end()) {
+            return 0;
+        } else {
+            return 1;
+        }
+            }
     case 3:
-        return lane.getOccupancy();
+        return lane.maxSpeed();
     case 4:
-        return lane.firstWaitingTime();
+        return lane.getOccupancy();
     case 5:
-        return lane.getEdgeLaneNumber();
+        return lane.firstWaitingTime();
     case 6:
-        return lane.getHBEFA_CO2Emissions();
+        return lane.getEdgeLaneNumber();
     case 7:
-        return lane.getHBEFA_COEmissions();
+        return lane.getHBEFA_CO2Emissions();
     case 8:
-        return lane.getHBEFA_PMxEmissions();
+        return lane.getHBEFA_COEmissions();
     case 9:
-        return lane.getHBEFA_NOxEmissions();
+        return lane.getHBEFA_PMxEmissions();
     case 10:
-        return lane.getHBEFA_HCEmissions();
+        return lane.getHBEFA_NOxEmissions();
     case 11:
-        return lane.getHBEFA_FuelConsumption();
+        return lane.getHBEFA_HCEmissions();
     case 12:
+        return lane.getHBEFA_FuelConsumption();
+    case 13:
         return lane.getHarmonoise_NoiseEmissions();
     }
     return 0;

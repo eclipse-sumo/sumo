@@ -1012,6 +1012,9 @@ GUIVehicle::Colorer::Colorer() {
     mySchemes.push_back(GUIColorScheme("given/assigned vehicle color", RGBColor(1,1,0), "", true));
     mySchemes.push_back(GUIColorScheme("given/assigned type color", RGBColor(1,1,0), "", true));
     mySchemes.push_back(GUIColorScheme("given/assigned route color", RGBColor(1,1,0), "", true));
+    mySchemes.push_back(GUIColorScheme("depart position as HSV", RGBColor(1,1,0), "", true));
+    mySchemes.push_back(GUIColorScheme("arrival position as HSV", RGBColor(1,1,0), "", true));
+    mySchemes.push_back(GUIColorScheme("direction/distance as HSV", RGBColor(1,1,0), "", true));
     mySchemes.push_back(GUIColorScheme("by speed", RGBColor(1,0,0)));
     mySchemes.back().addColor(RGBColor(0,0,1), (SUMOReal)(150.0/3.6));
     mySchemes.push_back(GUIColorScheme("by waiting time", RGBColor(0,0,1)));
@@ -1053,6 +1056,41 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
     case 3:
         vehicle.setOwnRouteColor();
         return true;
+    case 4:
+        {
+            Position2D p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+            const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+            Position2D center = b.getCenter();
+            SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
+            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
+            RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
+            glColor3f(c.red(), c.green(), c.blue());
+            return true;
+        }
+    case 5:
+        {
+            Position2D p = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+            const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+            Position2D center = b.getCenter();
+            SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
+            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
+            RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
+            glColor3f(c.red(), c.green(), c.blue());
+            return true;
+        }
+    case 6:
+        {
+            Position2D pb = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+            Position2D pe = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+            const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+            SUMOReal hue = 180. + atan2(pb.x()-pe.x(), pb.y()-pe.y()) * 180. / PI;
+            Position2D minp(b.xmin(), b.ymin());
+            Position2D maxp(b.xmax(), b.ymax());
+            SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
+            RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
+            glColor3f(c.red(), c.green(), c.blue());
+            return true;
+        }
     }
     return false;
 }
@@ -1061,29 +1099,29 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
 SUMOReal
 GUIVehicle::Colorer::getColorValue(const GUIVehicle& vehicle) const {
     switch (myActiveScheme) {
-    case 4:
-        return vehicle.getSpeed();
-    case 5:
-        return vehicle.getWaitingTime();
-    case 6:
-        return vehicle.getLastLaneChangeOffset();
     case 7:
-        return vehicle.getMaxSpeed();
+        return vehicle.getSpeed();
     case 8:
-        return vehicle.getHBEFA_CO2Emissions();
+        return vehicle.getWaitingTime();
     case 9:
-        return vehicle.getHBEFA_COEmissions();
+        return vehicle.getLastLaneChangeOffset();
     case 10:
-        return vehicle.getHBEFA_PMxEmissions();
+        return vehicle.getMaxSpeed();
     case 11:
-        return vehicle.getHBEFA_NOxEmissions();
+        return vehicle.getHBEFA_CO2Emissions();
     case 12:
-        return vehicle.getHBEFA_HCEmissions();
+        return vehicle.getHBEFA_COEmissions();
     case 13:
-        return vehicle.getHBEFA_FuelConsumption();
+        return vehicle.getHBEFA_PMxEmissions();
     case 14:
-        return vehicle.getHarmonoise_NoiseEmissions();
+        return vehicle.getHBEFA_NOxEmissions();
     case 15:
+        return vehicle.getHBEFA_HCEmissions();
+    case 16:
+        return vehicle.getHBEFA_FuelConsumption();
+    case 17:
+        return vehicle.getHarmonoise_NoiseEmissions();
+    case 18:
         if (!vehicle.hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             return -1;
         }

@@ -118,5 +118,34 @@ RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMORe
     return RGBColor(r, g, b);
 }
 
+
+RGBColor 
+RGBColor::fromHSV(SUMOReal h, SUMOReal s, SUMOReal v) throw()
+{
+    // H is given on [0, 6] or UNDEFINED. S and V are given on [0, 1].
+	// RGB are each returned on [0, 1].
+	//float h = HSV.H, s = HSV.S, v = HSV.V, 
+    float m, n, f;
+    h /= 60.;
+	int i;
+	//if (h == UNDEFINED) RETURN_RGB(v, v, v);
+	i = floor(h);
+	f = h - i;
+	if ( !(i&1) ) f = 1 - f; // if i is even
+	m = v * (1 - s);
+	n = v * (1 - s * f);
+	switch (i) {
+		case 6:
+		case 0: return RGBColor(v, n, m);
+		case 1: return RGBColor(n, v, m);
+		case 2: return RGBColor(m, v, n);
+		case 3: return RGBColor(m, n, v);
+		case 4: return RGBColor(n, m, v);
+		case 5: return RGBColor(v, m, n);
+	} 
+    return RGBColor(1, 1, 1);
+}
+
+
 /****************************************************************************/
 
