@@ -129,45 +129,6 @@
 
     </report>
 
-    <c2c>
-        <!-- The probability for a vehicle to have c2c -->
-        <device.c2x.probability value="0"/>
-
-        <!-- Assign a device to named vehicles -->
-        <device.c2x.knownveh value=""/>
-
-        <!-- The devices are set deterministic using a fraction of 1000 -->
-        <device.c2x.deterministic value="false"/>
-
-        <!-- The range of the c2c device -->
-        <device.c2x.range value="100"/>
-
-        <!-- Duration of keeping messages -->
-        <device.c2x.keep-duration value="1800"/>
-
-        <!-- Factor for adding messages -->
-        <device.c2x.insert-info-factor value="1.2"/>
-
-        <!-- Save cluster information into FILE -->
-        <c2x.cluster-info value=""/>
-
-        <!-- Save 'connected' edges into FILE -->
-        <c2x.edge-near-info value=""/>
-
-        <!--  -->
-        <c2x.saved-info value=""/>
-
-        <!--  -->
-        <c2x.saved-info-freq value=""/>
-
-        <!-- Save transmitted information into FILE -->
-        <c2x.transmitted-info value=""/>
-
-        <!-- Save names of connected vehicles into FILE -->
-        <c2x.vehicle-in-range value=""/>
-
-    </c2c>
-
     <routing>
         <!-- The probability for a vehicle to have a routing device -->
         <device.routing.probability value="0"/>

@@ -55,21 +55,6 @@
         <error-log value=""/>
     </report>
 
-    <c2c>
-        <device.c2x.probability value="0"/>
-        <device.c2x.knownveh value=""/>
-        <device.c2x.deterministic value="false"/>
-        <device.c2x.range value="100"/>
-        <device.c2x.keep-duration value="1800"/>
-        <device.c2x.insert-info-factor value="1.2"/>
-        <c2x.cluster-info value=""/>
-        <c2x.edge-near-info value=""/>
-        <c2x.saved-info value=""/>
-        <c2x.saved-info-freq value=""/>
-        <c2x.transmitted-info value=""/>
-        <c2x.vehicle-in-range value=""/>
-    </c2c>
-
     <routing>
         <device.routing.probability value="0"/>
         <device.routing.knownveh value=""/>

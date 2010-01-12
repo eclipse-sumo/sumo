@@ -77,22 +77,6 @@ Usage: sumo.exe [OPTION]*
   --message-log FILE                  Writes all non-error messages to FILE
   --error-log FILE                    Writes all warnings and errors to FILE
 
- C2C Options:
-  --device.c2x.probability FLOAT      The probability for a vehicle to have c2c
-  --device.c2x.knownveh STR           Assign a device to named vehicles
-  --device.c2x.deterministic          The devices are set deterministic using a
-                                        fraction of 1000
-  --device.c2x.range FLOAT            The range of the c2c device
-  --device.c2x.keep-duration INT      Duration of keeping messages
-  --device.c2x.insert-info-factor FLOAT  Factor for adding messages
-  --c2x.cluster-info FILE             Save cluster information into FILE
-  --c2x.edge-near-info FILE           Save 'connected' edges into FILE
-  --c2x.saved-info FILE               
-  --c2x.saved-info-freq FILE          
-  --c2x.transmitted-info FILE         Save transmitted information into FILE
-  --c2x.vehicle-in-range FILE         Save names of connected vehicles into
-                                        FILE
-
  Routing Options:
   --device.routing.probability FLOAT  The probability for a vehicle to have a
                                         routing device
