@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/07/09 14:28:56 by SUMO sumo Version dev-SVN-r7822
+<!-- generated on 01/12/10 10:20:15 by SUMO sumo Version dev-SVN-r8086
 <configuration>
 
     <input>
@@ -26,7 +26,7 @@
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_1_1" depart="2" arrival="77">
+    <vehicle id="emitter_1_1" depart="2" arrival="76">
         <route edges="beg middle end rend"/>
    </vehicle>
 
@@ -34,31 +34,31 @@
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_3_3" depart="8" arrival="82">
+    <vehicle id="emitter_3_3" depart="7" arrival="81">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_4_4" depart="11" arrival="85">
+    <vehicle id="emitter_4_4" depart="10" arrival="84">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_5_5" depart="13" arrival="88">
+    <vehicle id="emitter_5_5" depart="12" arrival="86">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_6_6" depart="16" arrival="90">
+    <vehicle id="emitter_6_6" depart="15" arrival="89">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_7_7" depart="19" arrival="93">
+    <vehicle id="emitter_7_7" depart="17" arrival="91">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_8_8" depart="22" arrival="96">
+    <vehicle id="emitter_8_8" depart="20" arrival="94">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_9_9" depart="24" arrival="99">
+    <vehicle id="emitter_9_9" depart="22" arrival="96">
         <route edges="beg middle end rend"/>
    </vehicle>
 
