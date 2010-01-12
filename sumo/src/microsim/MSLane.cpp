@@ -627,11 +627,6 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
 
             MSVehicleTransfer *vt = MSVehicleTransfer::getInstance();
             MSVehicle *veh = removeFirstVehicle();
-#ifdef HAVE_BOYOM_C2C
-            if (veh->isEquipped()) {
-                veh->getEdge()->removeEquippedVehicle(veh->getID());
-            }
-#endif
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + veh->getID() + "'; waited too long, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             vt->addVeh(veh);
         }
