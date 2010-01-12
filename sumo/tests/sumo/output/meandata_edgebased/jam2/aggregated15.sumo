@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/05/09 14:44:05 by SUMO sumo Version dev-SVN-r7945
+<!-- generated on 12/22/09 11:47:50 by SUMO sumo Version dev-SVN-r8086
 <configuration>
 
     <input>
@@ -27,19 +27,19 @@
 
 <netstats>
    <interval begin="600" end="615" id="dump_15">
-      <edge id="3/1to2/1" sampledSeconds="780.00" traveltime="100000.00" density="133.16" occupancy="99.87" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-      <edge id="4/1to3/1" sampledSeconds="390.00" traveltime="100000.00" density="66.58" occupancy="49.94" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="3/1to2/1" sampledSeconds="795.00" traveltime="100000.00" density="135.72" occupancy="101.79" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="4/1to3/1" sampledSeconds="375.00" traveltime="100000.00" density="64.02" occupancy="48.02" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
    </interval>
    <interval begin="615" end="630" id="dump_15">
-      <edge id="3/1to2/1" sampledSeconds="780.00" traveltime="100000.00" density="133.16" occupancy="99.87" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-      <edge id="4/1to3/1" sampledSeconds="390.00" traveltime="100000.00" density="66.58" occupancy="49.94" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="3/1to2/1" sampledSeconds="795.00" traveltime="100000.00" density="135.72" occupancy="101.79" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="4/1to3/1" sampledSeconds="375.00" traveltime="100000.00" density="64.02" occupancy="48.02" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
    </interval>
    <interval begin="630" end="645" id="dump_15">
-      <edge id="3/1to2/1" sampledSeconds="780.00" traveltime="100000.00" density="133.16" occupancy="99.87" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-      <edge id="4/1to3/1" sampledSeconds="390.00" traveltime="100000.00" density="66.58" occupancy="49.94" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="3/1to2/1" sampledSeconds="795.00" traveltime="100000.00" density="135.72" occupancy="101.79" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="4/1to3/1" sampledSeconds="375.00" traveltime="100000.00" density="64.02" occupancy="48.02" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
    </interval>
    <interval begin="645" end="660" id="dump_15">
-      <edge id="3/1to2/1" sampledSeconds="780.00" traveltime="100000.00" density="133.16" occupancy="99.87" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-      <edge id="4/1to3/1" sampledSeconds="390.00" traveltime="100000.00" density="66.58" occupancy="49.94" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="3/1to2/1" sampledSeconds="795.00" traveltime="100000.00" density="135.72" occupancy="101.79" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="4/1to3/1" sampledSeconds="375.00" traveltime="100000.00" density="64.02" occupancy="48.02" waitingTime="15.00" speed="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
    </interval>
 </netstats>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/14/09 11:00:12 by SUMO sumo Version dev-SVN-r8086
+<!-- generated on 12/22/09 11:46:42 by SUMO sumo Version dev-SVN-r8086
 <configuration>
 
     <input>
@@ -22,5 +22,5 @@
 -->
 
 <detector>
-   <interval begin="0" end="500" id="3/1to2/1" nSamples="2300" meanSpeed="0.41" meanOccupancy="25.34" maxOccupancy="55.25" meanMaxJamLengthInVehicles="4.28" meanMaxJamLengthInMeters="21.46" maxJamLengthInVehicles="10" maxJamLengthInMeters="50.15" jamLengthInVehiclesSum="2140" jamLengthInMetersSum="10737.32" meanHaltingDuration="215.00" maxHaltingDuration="231.00" haltingDurationSum="2150.00" meanIntervalHaltingDuration="215.00" maxIntervalHaltingDuration="231.00" intervalHaltingDurationSum="2150.00" startedHalts="10.00" meanVehicleNumber="4.60" maxVehicleNumber="10" />
+   <interval begin="0" end="500" id="3/1to2/1" nSamples="2303" meanSpeed="0.41" meanOccupancy="25.38" maxOccupancy="55.25" meanMaxJamLengthInVehicles="4.28" meanMaxJamLengthInMeters="21.41" maxJamLengthInVehicles="10" maxJamLengthInMeters="50.01" jamLengthInVehiclesSum="2140" jamLengthInMetersSum="10708.20" meanHaltingDuration="215.00" maxHaltingDuration="231.00" haltingDurationSum="2150.00" meanIntervalHaltingDuration="215.00" maxIntervalHaltingDuration="231.00" intervalHaltingDurationSum="2150.00" startedHalts="10.00" meanVehicleNumber="4.61" maxVehicleNumber="10" />
 </detector>

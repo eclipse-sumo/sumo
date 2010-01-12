@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/14/09 11:01:13 by SUMO sumo Version dev-SVN-r8086
+<!-- generated on 12/22/09 11:50:17 by SUMO sumo Version dev-SVN-r8086
 <configuration>
 
     <input>
@@ -26,7 +26,7 @@
 -->
 
 <routes>
-    <vehicle id="horizontal" depart="100" arrival="290">
+    <vehicle id="horizontal" depart="100" arrival="289">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
@@ -54,43 +54,39 @@
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_4" depart="154" arrival="341">
+    <vehicle id="vertical_4" depart="154" arrival="340">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_1" depart="120" arrival="372">
+    <vehicle id="horizontal_1" depart="120" arrival="369">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_2" depart="130" arrival="374">
+    <vehicle id="horizontal_2" depart="130" arrival="372">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_3" depart="140" arrival="376">
+    <vehicle id="horizontal_3" depart="140" arrival="377">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_4" depart="150" arrival="378">
+    <vehicle id="horizontal_4" depart="150" arrival="379">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_5" depart="160" arrival="380">
+    <vehicle id="horizontal_5" depart="160" arrival="382">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_6" depart="170" arrival="382">
+    <vehicle id="horizontal_6" depart="170" arrival="384">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_7" depart="180" arrival="384">
+    <vehicle id="horizontal_7" depart="180" arrival="386">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_8" depart="190" arrival="386">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="horizontal_9" depart="200" arrival="388">
+    <vehicle id="horizontal_8" depart="190" arrival="388">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
@@ -98,39 +94,43 @@
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_6" depart="174" arrival="418">
+    <vehicle id="vertical_6" depart="174" arrival="421">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_7" depart="184" arrival="420">
+    <vehicle id="vertical_7" depart="184" arrival="423">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_8" depart="194" arrival="422">
+    <vehicle id="vertical_8" depart="194" arrival="425">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_9" depart="204" arrival="424">
+    <vehicle id="vertical_9" depart="204" arrival="427">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_10" depart="214" arrival="426">
+    <vehicle id="vertical_10" depart="214" arrival="429">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_11" depart="224" arrival="428">
+    <vehicle id="vertical_11" depart="224" arrival="431">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_12" depart="234" arrival="430">
+    <vehicle id="vertical_12" depart="234" arrival="433">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_13" depart="244" arrival="432">
+    <vehicle id="vertical_13" depart="245" arrival="435">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_10" depart="210" arrival="461">
+    <vehicle id="horizontal_9" depart="200" arrival="463">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="horizontal_10" depart="210" arrival="465">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
@@ -138,111 +138,115 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_12" depart="230" arrival="470">
+    <vehicle id="horizontal_12" depart="230" arrival="469">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_13" depart="249" arrival="472">
+    <vehicle id="horizontal_13" depart="249" arrival="471">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_14" depart="253" arrival="475">
+    <vehicle id="horizontal_14" depart="253" arrival="473">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_15" depart="261" arrival="477">
+    <vehicle id="horizontal_15" depart="260" arrival="475">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_16" depart="270" arrival="479">
+    <vehicle id="horizontal_16" depart="270" arrival="477">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_17" depart="280" arrival="481">
+    <vehicle id="horizontal_17" depart="280" arrival="479">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_18" depart="290" arrival="483">
+    <vehicle id="horizontal_18" depart="290" arrival="481">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="vertical_14" depart="254" arrival="505">
+    <vehicle id="vertical_14" depart="254" arrival="507">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_15" depart="265" arrival="507">
+    <vehicle id="vertical_15" depart="265" arrival="509">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_16" depart="274" arrival="509">
+    <vehicle id="vertical_16" depart="275" arrival="511">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_17" depart="284" arrival="511">
+    <vehicle id="vertical_17" depart="284" arrival="513">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_18" depart="294" arrival="513">
+    <vehicle id="vertical_18" depart="294" arrival="515">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_19" depart="304" arrival="515">
+    <vehicle id="vertical_19" depart="304" arrival="517">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_20" depart="314" arrival="517">
+    <vehicle id="vertical_20" depart="314" arrival="522">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_21" depart="334" arrival="523">
+    <vehicle id="vertical_21" depart="334" arrival="524">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_19" depart="300" arrival="555">
+    <vehicle id="horizontal_19" depart="300" arrival="552">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_20" depart="310" arrival="557">
+    <vehicle id="horizontal_20" depart="310" arrival="554">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_21" depart="320" arrival="559">
+    <vehicle id="horizontal_21" depart="320" arrival="556">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_22" depart="347" arrival="561">
+    <vehicle id="horizontal_22" depart="336" arrival="558">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_23" depart="352" arrival="563">
+    <vehicle id="horizontal_23" depart="347" arrival="560">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_24" depart="363" arrival="565">
+    <vehicle id="horizontal_24" depart="351" arrival="562">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_25" depart="367" arrival="567">
+    <vehicle id="horizontal_25" depart="363" arrival="564">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="vertical_22" depart="345" arrival="595">
+    <vehicle id="horizontal_26" depart="372" arrival="566">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="vertical_22" depart="345" arrival="598">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_23" depart="353" arrival="597">
+    <vehicle id="vertical_23" depart="354" arrival="600">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_24" depart="361" arrival="599">
+    <vehicle id="vertical_24" depart="362" arrival="602">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_25" depart="370" arrival="601">
+    <vehicle id="vertical_25" depart="370" arrival="604">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_26" depart="378" arrival="603">
+    <vehicle id="vertical_26" depart="378" arrival="606">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
@@ -250,36 +254,36 @@
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_28" depart="395" arrival="610">
+    <vehicle id="vertical_28" depart="394" arrival="613">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_29" depart="404" arrival="612">
+    <vehicle id="vertical_29" depart="404" arrival="615">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_right" depart="100" arrival="620">
+    <vehicle id="vertical_30" depart="416" arrival="617">
+        <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
+   </vehicle>
+
+    <vehicle id="always_right" depart="100" arrival="626">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_0" depart="110" arrival="622">
+    <vehicle id="always_right_0" depart="110" arrival="628">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_1" depart="120" arrival="624">
+    <vehicle id="always_right_1" depart="120" arrival="630">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_26" depart="388" arrival="640">
+    <vehicle id="horizontal_27" depart="388" arrival="641">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
     <vehicle id="always_left" depart="100" arrival="642">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
-   </vehicle>
-
-    <vehicle id="horizontal_27" depart="392" arrival="642">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
     <vehicle id="always_left_0" depart="110" arrival="644">
@@ -290,103 +294,87 @@
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_28" depart="396" arrival="647">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="horizontal_29" depart="400" arrival="650">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_2" depart="130" arrival="651">
+    <vehicle id="always_left_2" depart="130" arrival="648">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_30" depart="410" arrival="652">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_3" depart="140" arrival="653">
+    <vehicle id="always_left_3" depart="140" arrival="650">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_31" depart="430" arrival="654">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_4" depart="150" arrival="655">
+    <vehicle id="always_left_4" depart="150" arrival="652">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_32" depart="434" arrival="656">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="horizontal_33" depart="451" arrival="658">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_5" depart="160" arrival="660">
+    <vehicle id="always_left_5" depart="160" arrival="654">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_34" depart="455" arrival="660">
+    <vehicle id="horizontal_28" depart="392" arrival="655">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_35" depart="461" arrival="662">
+    <vehicle id="horizontal_29" depart="400" arrival="657">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="vertical_30" depart="432" arrival="684">
+    <vehicle id="horizontal_30" depart="410" arrival="659">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="horizontal_31" depart="428" arrival="665">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="vertical_31" depart="439" arrival="687">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_31" depart="440" arrival="689">
+    <vehicle id="vertical_32" depart="447" arrival="692">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_32" depart="448" arrival="691">
+    <vehicle id="vertical_33" depart="455" arrival="694">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_33" depart="460" arrival="693">
+    <vehicle id="vertical_34" depart="463" arrival="697">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_34" depart="469" arrival="695">
+    <vehicle id="vertical_35" depart="471" arrival="699">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_35" depart="477" arrival="697">
+    <vehicle id="vertical_36" depart="479" arrival="701">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_36" depart="491" arrival="699">
+    <vehicle id="vertical_37" depart="494" arrival="703">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_37" depart="499" arrival="701">
+    <vehicle id="vertical_38" depart="502" arrival="705">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_right_2" depart="130" arrival="710">
+    <vehicle id="always_right_2" depart="130" arrival="713">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_3" depart="140" arrival="712">
+    <vehicle id="always_right_3" depart="140" arrival="715">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_4" depart="150" arrival="714">
+    <vehicle id="always_right_4" depart="150" arrival="717">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_5" depart="160" arrival="716">
+    <vehicle id="always_right_5" depart="160" arrival="723">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_6" depart="170" arrival="718">
+    <vehicle id="always_right_6" depart="170" arrival="726">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
@@ -394,339 +382,343 @@
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_left_7" depart="180" arrival="733">
-        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
+    <vehicle id="horizontal_32" depart="437" arrival="733">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_36" depart="483" arrival="734">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    <vehicle id="always_left_7" depart="180" arrival="733">
+        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
     <vehicle id="always_left_8" depart="190" arrival="735">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_37" depart="487" arrival="736">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
     <vehicle id="always_left_9" depart="200" arrival="737">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_38" depart="491" arrival="738">
+    <vehicle id="horizontal_33" depart="451" arrival="738">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_10" depart="210" arrival="739">
+    <vehicle id="horizontal_34" depart="458" arrival="740">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="horizontal_35" depart="481" arrival="743">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="always_left_10" depart="210" arrival="743">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_39" depart="500" arrival="740">
+    <vehicle id="horizontal_36" depart="485" arrival="745">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_11" depart="220" arrival="741">
+    <vehicle id="always_left_11" depart="220" arrival="745">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_left_12" depart="230" arrival="743">
+    <vehicle id="horizontal_37" depart="489" arrival="747">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="horizontal_38" depart="493" arrival="749">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="always_left_12" depart="230" arrival="750">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_40" depart="524" arrival="745">
+    <vehicle id="horizontal_39" depart="500" arrival="751">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_13" depart="240" arrival="745">
+    <vehicle id="always_left_13" depart="240" arrival="752">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_41" depart="540" arrival="747">
+    <vehicle id="horizontal_40" depart="526" arrival="753">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_14" depart="250" arrival="747">
-        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
-   </vehicle>
-
-    <vehicle id="horizontal_42" depart="544" arrival="749">
+    <vehicle id="horizontal_41" depart="530" arrival="755">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_43" depart="548" arrival="751">
+    <vehicle id="horizontal_42" depart="547" arrival="757">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="vertical_38" depart="523" arrival="777">
+    <vehicle id="vertical_39" depart="524" arrival="776">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_39" depart="532" arrival="779">
+    <vehicle id="vertical_40" depart="532" arrival="781">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_40" depart="540" arrival="781">
+    <vehicle id="vertical_41" depart="540" arrival="783">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_41" depart="548" arrival="783">
+    <vehicle id="vertical_42" depart="548" arrival="785">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_42" depart="559" arrival="785">
+    <vehicle id="vertical_43" depart="556" arrival="787">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_43" depart="567" arrival="787">
+    <vehicle id="vertical_44" depart="564" arrival="789">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_44" depart="585" arrival="789">
+    <vehicle id="vertical_45" depart="572" arrival="791">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_45" depart="603" arrival="791">
+    <vehicle id="vertical_46" depart="593" arrival="793">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_right_7" depart="180" arrival="801">
+    <vehicle id="always_right_7" depart="180" arrival="805">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_8" depart="190" arrival="803">
+    <vehicle id="always_right_8" depart="190" arrival="807">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_9" depart="200" arrival="805">
+    <vehicle id="always_right_9" depart="200" arrival="809">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_10" depart="210" arrival="807">
-        <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
-   </vehicle>
-
-    <vehicle id="always_right_11" depart="220" arrival="809">
-        <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
-   </vehicle>
-
-    <vehicle id="horizontal_44" depart="567" arrival="821">
+    <vehicle id="horizontal_43" depart="566" arrival="821">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_15" depart="260" arrival="821">
+    <vehicle id="always_left_14" depart="250" arrival="821">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_left_16" depart="270" arrival="823">
+    <vehicle id="always_left_15" depart="260" arrival="823">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_left_17" depart="280" arrival="825">
+    <vehicle id="always_left_16" depart="270" arrival="825">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_45" depart="571" arrival="826">
+    <vehicle id="horizontal_44" depart="570" arrival="826">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_18" depart="290" arrival="827">
+    <vehicle id="always_left_17" depart="280" arrival="827">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_46" depart="575" arrival="828">
+    <vehicle id="horizontal_45" depart="574" arrival="828">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_19" depart="300" arrival="829">
+    <vehicle id="always_left_18" depart="290" arrival="829">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_47" depart="580" arrival="830">
+    <vehicle id="horizontal_46" depart="578" arrival="830">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_20" depart="310" arrival="831">
+    <vehicle id="always_left_19" depart="300" arrival="831">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_48" depart="590" arrival="832">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_21" depart="320" arrival="833">
+    <vehicle id="always_left_20" depart="310" arrival="833">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_49" depart="610" arrival="834">
+    <vehicle id="horizontal_47" depart="583" arrival="835">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_50" depart="614" arrival="836">
+    <vehicle id="horizontal_48" depart="590" arrival="837">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_51" depart="634" arrival="838">
+    <vehicle id="horizontal_49" depart="615" arrival="839">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_52" depart="642" arrival="840">
+    <vehicle id="always_left_21" depart="320" arrival="840">
+        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
+   </vehicle>
+
+    <vehicle id="horizontal_50" depart="619" arrival="841">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="vertical_46" depart="616" arrival="866">
+    <vehicle id="horizontal_51" depart="636" arrival="843">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="vertical_47" depart="617" arrival="866">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_47" depart="624" arrival="868">
+    <vehicle id="vertical_48" depart="625" arrival="868">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_48" depart="632" arrival="870">
+    <vehicle id="vertical_49" depart="633" arrival="870">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_49" depart="646" arrival="872">
+    <vehicle id="vertical_50" depart="654" arrival="872">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_50" depart="660" arrival="874">
+    <vehicle id="vertical_51" depart="662" arrival="874">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_51" depart="684" arrival="876">
+    <vehicle id="vertical_52" depart="670" arrival="876">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_right_12" depart="230" arrival="889">
+    <vehicle id="vertical_53" depart="687" arrival="882">
+        <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
+   </vehicle>
+
+    <vehicle id="always_right_10" depart="210" arrival="892">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_13" depart="240" arrival="891">
+    <vehicle id="always_right_11" depart="220" arrival="894">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_14" depart="250" arrival="893">
+    <vehicle id="always_right_12" depart="230" arrival="900">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_15" depart="260" arrival="895">
+    <vehicle id="always_right_13" depart="240" arrival="902">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_16" depart="270" arrival="897">
-        <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_22" depart="341" arrival="911">
-        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_23" depart="349" arrival="913">
-        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_24" depart="357" arrival="915">
-        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
-   </vehicle>
-
-    <vehicle id="horizontal_53" depart="662" arrival="917">
+    <vehicle id="horizontal_52" depart="641" arrival="910">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_25" depart="366" arrival="917">
+    <vehicle id="always_left_22" depart="340" arrival="912">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_54" depart="666" arrival="919">
-        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
-   </vehicle>
-
-    <vehicle id="always_left_26" depart="374" arrival="919">
+    <vehicle id="always_left_23" depart="349" arrival="914">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_55" depart="670" arrival="921">
+    <vehicle id="horizontal_53" depart="645" arrival="915">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_27" depart="382" arrival="921">
+    <vehicle id="always_left_24" depart="358" arrival="916">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_56" depart="674" arrival="923">
+    <vehicle id="horizontal_54" depart="650" arrival="917">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="always_left_28" depart="391" arrival="923">
+    <vehicle id="always_left_25" depart="366" arrival="918">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_left_29" depart="400" arrival="925">
+    <vehicle id="horizontal_55" depart="660" arrival="919">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="always_left_26" depart="374" arrival="920">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_left_30" depart="410" arrival="927">
+    <vehicle id="horizontal_56" depart="670" arrival="921">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="always_left_27" depart="382" arrival="922">
         <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_57" depart="680" arrival="929">
+    <vehicle id="horizontal_57" depart="680" arrival="923">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_58" depart="700" arrival="931">
+    <vehicle id="always_left_28" depart="390" arrival="924">
+        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
+   </vehicle>
+
+    <vehicle id="always_left_29" depart="400" arrival="926">
+        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
+   </vehicle>
+
+    <vehicle id="always_left_30" depart="410" arrival="928">
+        <route edges="3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi"/>
+   </vehicle>
+
+    <vehicle id="horizontal_58" depart="700" arrival="929">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_59" depart="704" arrival="933">
+    <vehicle id="horizontal_59" depart="704" arrival="931">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal_60" depart="721" arrival="935">
+    <vehicle id="horizontal_60" depart="711" arrival="933">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="vertical_52" depart="705" arrival="954">
+    <vehicle id="horizontal_61" depart="727" arrival="935">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+   </vehicle>
+
+    <vehicle id="vertical_54" depart="709" arrival="954">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_53" depart="713" arrival="959">
+    <vehicle id="vertical_55" depart="717" arrival="956">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_54" depart="721" arrival="961">
+    <vehicle id="vertical_56" depart="725" arrival="958">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_55" depart="747" arrival="963">
+    <vehicle id="vertical_57" depart="745" arrival="960">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="vertical_56" depart="755" arrival="965">
+    <vehicle id="vertical_58" depart="756" arrival="965">
         <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
    </vehicle>
 
-    <vehicle id="always_right_17" depart="298" arrival="975">
+    <vehicle id="vertical_59" depart="776" arrival="967">
+        <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
+   </vehicle>
+
+    <vehicle id="always_right_14" depart="250" arrival="980">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="always_right_18" depart="302" arrival="977">
+    <vehicle id="always_right_15" depart="260" arrival="982">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 
-    <vehicle id="vertical_57" depart="791" arrival="979">
-        <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
-   </vehicle>
-
-    <vehicle id="always_right_19" depart="306" arrival="988">
-        <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
-   </vehicle>
-
-    <vehicle id="always_right_20" depart="311" arrival="990">
-        <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
-   </vehicle>
-
-    <vehicle id="always_right_21" depart="320" arrival="992">
+    <vehicle id="always_right_16" depart="270" arrival="984">
         <route edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
    </vehicle>
 

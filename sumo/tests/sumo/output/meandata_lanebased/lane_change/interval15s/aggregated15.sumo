@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/05/09 14:44:11 by SUMO sumo Version dev-SVN-r7945
+<!-- generated on 12/22/09 11:48:07 by SUMO sumo Version dev-SVN-r8086
 <configuration>
 
     <input>
@@ -36,15 +36,15 @@
    </interval>
    <interval begin="30" end="45" id="dump_15">
       <edge id="1si">
-         <lane id="1si_2" sampledSeconds="30.00" traveltime="15924.03" density="8.43" occupancy="4.22" waitingTime="14.50" speed="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+         <lane id="1si_2" sampledSeconds="30.00" traveltime="15236.12" density="8.43" occupancy="4.22" waitingTime="14.50" speed="0.02" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
    <interval begin="45" end="60" id="dump_15">
       <edge id="1si">
-         <lane id="1si_2" sampledSeconds="4.17" traveltime="196.80" density="1.17" occupancy="0.59" waitingTime="3.60" speed="1.21" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+         <lane id="1si_2" sampledSeconds="4.16" traveltime="197.26" density="1.17" occupancy="0.58" waitingTime="3.61" speed="1.20" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
       <edge id="4o">
-         <lane id="4o_0" sampledSeconds="1.83" traveltime="283.14" density="0.25" occupancy="0.13" waitingTime="0.00" speed="1.73" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+         <lane id="4o_0" sampledSeconds="1.84" traveltime="282.43" density="0.25" occupancy="0.13" waitingTime="0.00" speed="1.73" departed="0" arrived="2" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
       </edge>
    </interval>
    <interval begin="60" end="75" id="dump_15">
