@@ -123,11 +123,6 @@ public:
     /// @name Vehicle movement (longitudinal)
     /// @{
 
-    /** @brief moves the vehicles at the end of the lane
-        Overrides the method from MSLane as internal lane must inform their
-         corresponding junction about the fact that a vehicle uses them */
-    virtual bool moveNonCritical(SUMOTime t);
-
     virtual bool moveCritical(SUMOTime t);
     /// @}
 

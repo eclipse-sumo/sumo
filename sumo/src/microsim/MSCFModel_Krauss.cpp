@@ -53,30 +53,6 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, 
 MSCFModel_Krauss::~MSCFModel_Krauss() throw() {}
 
 
-
-SUMOReal
-MSCFModel_Krauss::move(MSVehicle * const veh, const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) const throw() {
-    // save old v for optional acceleration computation
-    SUMOReal oldV = veh->getSpeed();
-    // compute gap to use
-    SUMOReal gap = veh->gap2pred(*pred);
-    // security check for too low gaps
-    if (gap<0.1) {
-        gap = 0;
-    }
-
-    SUMOReal vSafe  = ffeV(veh, gap, pred->getSpeed());
-    leftVehicleVsafe(veh, neigh, vSafe);
-    SUMOReal vNext = moveHelper(veh, lane, vSafe);
-    SUMOReal predDec = pred->getSpeedAfterMaxDecel(pred->getSpeed()); //!!!!q//-decelAbility() /* !!! decelAbility of leader! */);
-    if (brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
-        vNext = MIN2(vNext, (SUMOReal) DIST2SPEED(gap));
-    }
-    vNext = MAX3((SUMOReal) 0, vNext, myType->getSpeedAfterMaxDecel(oldV));
-    return vNext;
-}
-
-
 SUMOReal
 MSCFModel_Krauss::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
     // save old v for optional acceleration computation
@@ -112,14 +88,14 @@ MSCFModel_Krauss::leftVehicleVsafe(const MSVehicle * const ego, const MSVehicle 
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-    return MIN2(_vsafe(gap2pred, predSpeed), maxNextSpeed(speed));
+MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal speed, SUMOReal gap, SUMOReal predSpeed) const throw() {
+    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed));
 }
 
 
 SUMOReal
-MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-    return MIN2(_vsafe(gap2pred, predSpeed), maxNextSpeed(veh->getSpeed()));
+MSCFModel_Krauss::ffeV(const MSVehicle * const veh, SUMOReal gap, SUMOReal predSpeed) const throw() {
+    return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(veh->getSpeed()));
 }
 
 
@@ -130,8 +106,8 @@ MSCFModel_Krauss::ffeV(const MSVehicle * const veh, const MSVehicle *pred) const
 
 
 SUMOReal
-MSCFModel_Krauss::ffeS(const MSVehicle * const veh, SUMOReal gap2pred) const throw() {
-    return MIN2(_vsafe(gap2pred, 0), maxNextSpeed(veh->getSpeed()));
+MSCFModel_Krauss::ffeS(const MSVehicle * const veh, SUMOReal gap) const throw() {
+    return MIN2(_vsafe(gap, 0), maxNextSpeed(veh->getSpeed()));
 }
 
 
@@ -213,8 +189,8 @@ MSCFModel_Krauss::decelAbility() const throw() {
 
 
 /** Returns the SK-vsafe. */
-SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const throw() {
-    if (predSpeed==0&&gap2pred<0.01) {
+SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw() {
+    if (predSpeed==0&&gap<0.01) {
         return 0;
     }
     assert(gap2pred  >= SUMOReal(0));
@@ -223,7 +199,7 @@ SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const t
                                 + sqrt(
                                     myTauDecel*myTauDecel
                                     + (predSpeed*predSpeed)
-                                    + (2. * myType->getMaxDecel() * gap2pred)
+                                    + (2. * myType->getMaxDecel() * gap)
                                 ));
     assert(vsafe >= 0);
     return vsafe;

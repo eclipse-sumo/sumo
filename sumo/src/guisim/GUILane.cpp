@@ -96,20 +96,6 @@ GUILane::releaseVehicles() const throw() {
 
 
 bool
-GUILane::moveNonCritical(SUMOTime t) {
-    myLock.lock();
-    try {
-        bool ret = MSLane::moveNonCritical(t);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
-bool
 GUILane::moveCritical(SUMOTime t) {
     myLock.lock();
     try {
@@ -193,10 +179,10 @@ GUILane::swapAfterLaneChange(SUMOTime t) {
 
 
 bool
-GUILane::integrateNewVehicle() {
+GUILane::integrateNewVehicle(SUMOTime t) {
     myLock.lock();
     try {
-        bool ret = MSLane::integrateNewVehicle();
+        bool ret = MSLane::integrateNewVehicle(t);
         myLock.unlock();
         return ret;
     } catch (ProcessError &) {

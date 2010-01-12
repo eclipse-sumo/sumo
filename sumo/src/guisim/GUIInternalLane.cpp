@@ -96,21 +96,6 @@ GUIInternalLane::releaseVehicles() const throw() {
 }
 
 
-
-bool
-GUIInternalLane::moveNonCritical(SUMOTime t) {
-    myLock.lock();
-    try {
-        bool ret = MSInternalLane::moveNonCritical(t);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
 bool
 GUIInternalLane::moveCritical(SUMOTime t) {
     myLock.lock();
@@ -146,13 +131,7 @@ GUIInternalLane::push(MSVehicle* veh) {
     // check whether the vehicle has ended his route
     myLock.lock();
     try {
-        // check whether the vehicle has ended his route
-        veh->moveRoutePointer(myEdge);
-        myVehBuffer.push_back(veh);
-        veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
-        SUMOReal pspeed = veh->getSpeed();
-        SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
-        veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
+        MSLane::push(veh);
         myLock.unlock();
         return false;
     } catch (ProcessError &) {
@@ -204,10 +183,10 @@ GUIInternalLane::swapAfterLaneChange(SUMOTime t) {
 
 
 bool
-GUIInternalLane::integrateNewVehicle() {
+GUIInternalLane::integrateNewVehicle(SUMOTime t) {
     myLock.lock();
     try {
-        bool ret = MSLane::integrateNewVehicle();
+        bool ret = MSLane::integrateNewVehicle(t);
         myLock.unlock();
         return ret;
     } catch (ProcessError &) {

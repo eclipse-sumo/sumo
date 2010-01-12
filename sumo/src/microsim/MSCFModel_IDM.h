@@ -57,17 +57,6 @@ public:
     /// @name Implementations of the MSCFModel interface
     /// @{
 
-    /** @brief Computes EGO's next step velocity in dependance to the given values
-     * @param[in] veh The ego vehicle
-     * @param[in] lane The lane ego is at
-     * @param[in] pred EGO's LEADER
-     * @param[in] neigh The neighbor vehicle on the left lane
-     * @return The velocity to use in next step
-     * @see moveHelper
-     */
-    SUMOReal move(MSVehicle * const veh, const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) const throw();
-
-
     /** @brief Applies interaction with stops and lane changing model influences
      * @param[in] veh The ego vehicle
      * @param[in] lane The lane ego is at

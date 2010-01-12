@@ -653,60 +653,6 @@ MSVehicle::processNextStop(SUMOReal currentVelocity) throw() {
 
 
 bool
-MSVehicle::move(const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) throw() {
-    // reset move information
-    myTarget = 0;
-    // compute gap to use
-    SUMOReal gap = gap2pred(*pred);
-    if (MSGlobals::gCheck4Accidents && gap<0) {
-        // collision occured!
-        return true;
-    }
-    SUMOReal vNext = getCarFollowModel().move(this, lane, pred, neigh);
-    if (vNext<=0.1) {
-        myWaitingTime += DELTA_T;
-        if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
-            myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] + 1;
-        }
-    } else {
-        myWaitingTime = 0;
-    }
-
-    vNext = MIN2(vNext, getMaxSpeed());
-
-    // call reminders after vNext is set
-    workOnMoveReminders(myState.myPos, myState.myPos + SPEED2DIST(vNext), vNext);
-#ifdef _MESSAGES
-    if (myHBMsgEmitter != 0) {
-        if (isOnRoad()) {
-            SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-            myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
-        }
-    }
-    if (myBMsgEmitter!=0) {
-        if (vNext < myState.mySpeed) {
-            SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-            myBMsgEmitter->writeBreakEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
-        }
-    }
-#endif
-    // update position and speed
-    myState.myPos += SPEED2DIST(vNext);
-    assert(myState.myPos < lane->getLength());
-    myState.mySpeed = vNext;
-    //@ to be optimized (move to somewhere else)
-    if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
-        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
-            myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
-    }
-    //@ to be optimized (move to somewhere else)
-    //
-    setBlinkerInformation();
-    return false;
-}
-
-
-bool
 MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
                                  const MSVehicle * const pred,
                                  const MSVehicle * const neigh,
@@ -1014,6 +960,12 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
     SUMOReal seen = myLane->getLength() - myState.myPos;
+    if(this!=myLane->getFirstVehicle() && seen - getCarFollowModel().brakeGap(myState.mySpeed) > 0) {
+        // not "reaching critical"
+        myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false));
+        return;
+    }
+
     MSLane *nextLane = myLane;
     // compute the way the vehicle would drive if it would use the current speed and then
     //  decelerate
@@ -1263,6 +1215,10 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         } else {
             setRequest |= ((*link)->getState()!=MSLink::LINKSTATE_TL_RED&&(vLinkPass>0&&dist-seen>0));
         }
+        // the next condition matches the previously one used for determining the difference
+        //  between critical/non-critical vehicles. Though, one should assume that a vehicle
+        //  should want to move over an intersection even though it could brake before it!?
+        setRequest &= dist-seen>0;
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait, setRequest));
         if (vLinkPass>0&&dist-seen>0) {
         } else if (hadNonInternal) {
@@ -1439,13 +1395,6 @@ MSVehicle::leaveLane(bool isArrival) {
 const MSEdge * const
     MSVehicle::getEdge() const {
     return *myCurrEdge;
-}
-
-
-bool
-MSVehicle::reachingCritical(SUMOReal laneLength) const {
-    // check whether the vehicle will run over the lane when accelerating
-    return (laneLength - myState.myPos - getCarFollowModel().brakeGap(myState.mySpeed)) <= 0;
 }
 
 

@@ -302,8 +302,6 @@ public:
     /// @name Vehicle movement (longitudinal)
     /// @{
 
-    virtual bool moveNonCritical(SUMOTime t);
-
     virtual bool moveCritical(SUMOTime t);
 
     /** Moves the critical vehicles
@@ -311,7 +309,7 @@ public:
     virtual bool setCritical(SUMOTime t, std::vector<MSLane*> &into);
 
     /// Insert buffered vehicle into the real lane.
-    virtual bool integrateNewVehicle();
+    virtual bool integrateNewVehicle(SUMOTime t);
     ///@}
 
 
@@ -376,7 +374,7 @@ public:
         the succeeding link could not be found;
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
-    virtual MSLinkCont::const_iterator succLinkSec(const SUMOVehicle& veh,
+    virtual MSLinkCont::const_iterator succLinkSec(const MSVehicle& veh,
             unsigned int nRouteSuccs,
             const MSLane& succLinkSource,
             const std::vector<MSLane*> &conts) const;
@@ -402,9 +400,7 @@ public:
     virtual MSVehicle * const getLastVehicle() const;
     virtual const MSVehicle * const getFirstVehicle() const;
 
-    SUMOTime myLastTouchTime;
     MSVehicle::State myLastStateNow;
-    MSVehicle::State myLastStatePrev;
 
     const MSVehicle::State &getLastVehicleState(SUMOTime t) const throw();
 
@@ -466,25 +462,6 @@ public:
 
 
 protected:
-    /** @brief Function Object for use with Function Adapter on vehicle containers.
-        Returns the information whether the position of the first vehicle
-        is greater than the one of the second vehicle */
-    class PosGreater {
-    public:
-        /// the first vehicle
-        typedef const MSVehicle* first_argument_type;
-        /// the second vehicle
-        typedef const MSVehicle* second_argument_type;
-        /// returns bool
-        typedef bool result_type;
-
-        /** Returns true if position of first vehicle is greater
-            then positition of the second one. */
-        result_type operator()(first_argument_type veh1,
-                               second_argument_type veh2) const;
-    };
-
-
     /** @brief Insert a vehicle into the lane's vehicle buffer.
         After processing done from moveCritical, when a vehicle exits it's lane.
         Returned is the information whether the vehicle was removed. */

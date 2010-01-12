@@ -363,8 +363,6 @@ MSNet::simulationStep() {
         myEdges->patchActiveLanes();
 
         // move vehicles
-        //  move vehicles which do not interact with the lane end
-        myEdges->moveNonCritical(myStep);
         //  precompute possible positions for vehicles that do interact with
         //   their lane's end
         myEdges->moveCritical(myStep);

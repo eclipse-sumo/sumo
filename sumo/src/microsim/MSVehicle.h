@@ -379,16 +379,6 @@ public:
 
 
 
-    /** @brief Moves a vehicle if it is not meant to be running out of the lane
-     *
-     * @param[in] lane The lane the vehicle is on
-     * @param[in] pred The leader (may be 0)
-     * @param[in] neigh The neighbor vehicle (may be 0)
-     * @return Whether a collision occured (gap2pred(leader)<=0)
-     */
-    bool move(const MSLane* const lane, const MSVehicle * const pred, const MSVehicle * const neigh) throw();
-
-
     /** @brief Moves vehicles which may run out of the lane
      *
      * @param[in] lane The lane the vehicle is on
@@ -588,8 +578,6 @@ public:
     /** @brief Update of members if vehicle leaves a new lane in the lane change step or at arrival. */
     void leaveLane(bool isArrival);
 
-
-    bool reachingCritical(SUMOReal laneLength) const;
 
     friend class MSVehicleControl;
 

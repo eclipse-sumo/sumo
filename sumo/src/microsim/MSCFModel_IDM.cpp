@@ -55,14 +55,6 @@ MSCFModel_IDM::~MSCFModel_IDM() throw() {}
 
 
 SUMOReal
-MSCFModel_IDM::move(MSVehicle * const veh, const MSLane * const lane, const MSVehicle * const pred, const MSVehicle * const neigh) const throw() {
-    SUMOReal nSpeed = ffeV(veh, pred);
-    nSpeed = moveHelper(veh, lane, nSpeed);
-    return nSpeed;
-}
-
-
-SUMOReal
 MSCFModel_IDM::moveHelper(MSVehicle * const veh, const MSLane * const lane, SUMOReal vPos) const throw() {
     SUMOReal nSpeed = vPos;
     nSpeed =

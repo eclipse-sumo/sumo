@@ -73,24 +73,11 @@ MSLane::DictType MSLane::myDict;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * methods of MSLane::PosGreater
- * ----------------------------------------------------------------------- */
-MSLane::PosGreater::result_type
-MSLane::PosGreater::operator()(first_argument_type veh1,
-                               second_argument_type veh2) const {
-    return veh1->getPositionOnLane() > veh2->getPositionOnLane();
-}
-
-
-/* -------------------------------------------------------------------------
- * methods of MSLane
- * ----------------------------------------------------------------------- */
 MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
                unsigned int numericalID, const Position2DVector &shape,
                const std::vector<SUMOVehicleClass> &allowed,
                const std::vector<SUMOVehicleClass> &disallowed) throw()
-        : myLastTouchTime(-1), myLastStateNow(10000, 10000), myLastStatePrev(10000, 10000), 
+        : myLastStateNow(10000, 10000), 
         myShape(shape), myID(id), myNumericalID(numericalID),
         myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed),
         myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
@@ -425,76 +412,8 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 
 
 bool
-MSLane::moveNonCritical(SUMOTime t) {
-    assert(myVehicles.size()!=0);
-    // Set the information about the last vehicle
-    myLastStatePrev = myLastStateNow;
-    myLastStateNow = (*myVehicles.begin())->getState();
-    myLastTouchTime = t;
-    myFirstUnsafe = 0;
-    myLeftVehLength = myVehicleLengthSum;
-
-    // Move vehicles except first and all vehicles that may reach the end of the lane
-    VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
-    VehCont::iterator veh;
-
-    VehCont::iterator neighIt, neighEnd;
-    bool useNeigh = false;
-    if (myFirstNeigh!=myLastNeigh) {
-        if ((*myFirstNeigh)->myVehicles.size()!=0) {
-            useNeigh = true;
-            neighIt = (*myFirstNeigh)->myVehicles.begin();
-            neighEnd = (*myFirstNeigh)->myVehicles.end();
-        }
-    }
-
-    vector<MSVehicle*> collisions;
-    for (veh = myVehicles.begin(); !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;) {
-        myLeftVehLength -= (*veh)->getVehicleType().getLength();
-        // get the leader
-        //  ... there must be one, because the first vehicle is moved
-        //   using moveCritical ...
-        VehCont::const_iterator pred(veh + 1);
-        bool hadCollision = false;
-        // do we have to regard the neighbor?
-        if (useNeigh) {
-            // get the neighbor
-            while (neighIt!=neighEnd&&(*neighIt)->getPositionOnLane()<(*veh)->getPositionOnLane())  {
-                ++neighIt;
-            }
-            if (neighIt!=neighEnd) {
-                // move vehicle regarding the neighbor
-                hadCollision = (*veh)->move(this, *pred, *neighIt);
-            } else {
-                // move vehicle without regarding the neighbor
-                hadCollision = (*veh)->move(this, *pred, 0);
-                // no further neighbors
-                useNeigh = false;
-            }
-        } else {
-            // move vehicle without regarding the neighbor
-            hadCollision = (*veh)->move(this, *pred, 0);
-        }
-        if (hadCollision) {
-            collisions.push_back(*veh);
-        }
-        ++veh;
-        ++myFirstUnsafe;
-    }
-    // deal with collisions
-    for (vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
-        MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-        (*i)->onTripEnd();
-        MSVehicleTransfer::getInstance()->addVeh((*i));
-        myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
-        --myFirstUnsafe;
-    }
-    return myVehicles.size()==0;
-}
-
-
-bool
 MSLane::moveCritical(SUMOTime t) {
+    myLeftVehLength = myVehicleLengthSum;
     assert(myVehicles.size()!=0);
     vector<MSVehicle*> collisions;
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
@@ -612,13 +531,9 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
             }
         }
     }
-    // check whether the lane is free
-    if (myVehicles.size()==0) {
-        myLastStatePrev = myLastStateNow;
-        myLastStateNow = MSVehicle::State(10000, 10000);
-        myLastTouchTime = t;
-        myFirstUnsafe = 0;
-    }
+    myLastStateNow = myVehicles.size()==0
+        ? MSVehicle::State(10000, 10000)
+        : (*myVehicles.begin())->getState();
     if (myVehicles.size()>0) {
         if (MSGlobals::gTimeToGridlock>0
                 && !(*(myVehicles.end()-1))->isStopped()
@@ -721,11 +636,6 @@ MSLane::pop(SUMOTime t) {
     first->leaveLaneAtMove(SPEED2DIST(first->getSpeed())/* - first->pos()*/);
     myVehicles.pop_back();
     myVehicleLengthSum -= first->getVehicleType().getLength();
-    if (myVehicles.size()==0) {
-        myLastStatePrev = myLastStateNow;
-        myLastStateNow = MSVehicle::State(10000, 10000);
-        myLastTouchTime = t;
-    }
     return first;
 }
 
@@ -741,7 +651,7 @@ MSLane::appropriate(const MSVehicle *veh) {
 
 
 bool
-MSLane::integrateNewVehicle() {
+MSLane::integrateNewVehicle(SUMOTime t) {
     bool wasInactive = myVehicles.size()==0;
     sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter());
     for (std::vector<MSVehicle*>::const_iterator i=myVehBuffer.begin(); i!=myVehBuffer.end(); ++i) {
@@ -749,6 +659,9 @@ MSLane::integrateNewVehicle() {
         myVehicles.push_front(veh);
         myVehicleLengthSum += veh->getVehicleType().getLength();
     }
+    myLastStateNow = myVehicles.size()==0
+        ? MSVehicle::State(10000, 10000)
+        : (*myVehicles.begin())->getState();
     myVehBuffer.clear();
     return wasInactive&&myVehicles.size()!=0;
 }
@@ -785,7 +698,7 @@ const MSVehicle * const
 
 
 MSLinkCont::const_iterator
-MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
+MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
                     const MSLane& succLinkSource, const std::vector<MSLane*> &conts) const {
     const MSEdge* nRouteEdge = veh.succEdge(nRouteSuccs);
     // check whether the vehicle tried to look beyond its route
@@ -860,12 +773,9 @@ void
 MSLane::swapAfterLaneChange(SUMOTime t) {
     myVehicles = myTmpVehicles;
     myTmpVehicles.clear();
-    if (myVehicles.size()==0) {
-        myLastStatePrev = myLastStateNow;
-        myLastStateNow = MSVehicle::State(10000, 10000);
-        myLastTouchTime = t;
-        myFirstUnsafe = 0;
-    }
+    myLastStateNow = myVehicles.size()==0
+        ? MSVehicle::State(10000, 10000)
+        : (*myVehicles.begin())->getState();
 }
 
 
@@ -1098,11 +1008,7 @@ MSLane::getMeanSpeed() const {
 
 const MSVehicle::State &
 MSLane::getLastVehicleState(SUMOTime t) const throw() {
-    if(t>=myLastTouchTime) {
-        return myLastStateNow;
-    } else {
-        return myLastStatePrev;
-    }
+    return myLastStateNow;
 }
 
 

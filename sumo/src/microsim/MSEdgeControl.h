@@ -94,21 +94,6 @@ public:
     /// @name Interfaces for longitudinal vehicle movement
     /// @{
 
-    /** @brief Moves non critical vehicles
-     *
-     * "Non-critical" are those vehicles that are so far away from the lane
-     *  end that they do not reach it within the brake gap (and always the
-     *  first one on a lane).
-     *
-     * This method goes through all active lanes calling their "moveNonCritical"
-     *  implementation. If this call returns true, the lane is removed from the
-     *  list of active lanes.
-     *
-     * @see MSLane::moveNonCritical
-     */
-    void moveNonCritical(SUMOTime t) throw();
-
-
     /** @brief Moves (precomputes) critical vehicles
      *
      * "Critical" are those vehicles that interact with the next junction and

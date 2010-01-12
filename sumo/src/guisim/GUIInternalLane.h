@@ -132,10 +132,6 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool moveNonCritical(SUMOTime t);
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
     bool moveCritical(SUMOTime t);
 
     /** the same as in MSLane, but locks the access for the visualisation
@@ -144,7 +140,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool integrateNewVehicle();
+    bool integrateNewVehicle(SUMOTime t);
     ///@}
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);

@@ -103,21 +103,6 @@ MSEdgeControl::patchActiveLanes() throw() {
     myChangedStateLanes.clear();
 }
 
-
-void
-MSEdgeControl::moveNonCritical(SUMOTime t) throw() {
-    // move non-critical vehicles
-    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
-        if ((*i)->getVehicleNumber()==0 || (*i)->moveNonCritical(t)) {
-            myLanes[(*i)->getNumericalID()].amActive = false;
-            i = myActiveLanes.erase(i);
-        } else {
-            ++i;
-        }
-    }
-}
-
-
 void
 MSEdgeControl::moveCritical(SUMOTime t) throw() {
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
@@ -143,7 +128,7 @@ MSEdgeControl::moveFirst(SUMOTime t) throw() {
         }
     }
     for (vector<MSLane*>::iterator i=myWithVehicles2Integrate.begin(); i!=myWithVehicles2Integrate.end(); ++i) {
-        if ((*i)->integrateNewVehicle()) {
+        if ((*i)->integrateNewVehicle(t)) {
             LaneUsage &lu = myLanes[(*i)->getNumericalID()];
             if (!lu.amActive) {
                 if (lu.haveNeighbors) {
