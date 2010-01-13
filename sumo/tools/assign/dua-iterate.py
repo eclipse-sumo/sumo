@@ -15,49 +15,44 @@ import os, sys, subprocess
 from datetime import datetime
 from optparse import OptionParser
 
-class TeeFile:
-    """A helper class which allows simultaneous writes to several files"""
-    def __init__(self, *files):
-        self.files = files
-    def write(self, txt):
-        """Writes the text to all files"""
-        for fp in self.files:
-            fp.write(txt)
-    def flush(self):
-        """Flush all files"""
-        for fp in self.files:
-            fp.flush()
+def call(command, log):
+    print >> log, "-" * 79
+    print >> log, command
+    retCode = subprocess.call(command, stdout=log, stderr=log)
+    if retCode != 0:
+        print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (command, log.name)
+        sys.exit(retCode) 
 
 def writeRouteConf(step, options, file, output, withExitTimes):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
     print >> fd, """<configuration>
-    <input
-        net-file="%s" """ % options.net
+    <input>
+        <net-file value="%s"/>""" % options.net
     if(step==0):
-        print >> fd, '        trip-defs="%s"' % file
+        print >> fd, '        <trip-defs value="%s"/>' % file
     else:
-        print >> fd, '        alternatives="%s"' % file
-        print >> fd, '        weights="dump_%s_%s.xml"' % (step-1, options.aggregation)
-    print >> fd, """    />
-    <output
-        output-file="%s"
-        exit-times="%s"
-    />""" % (output, withExitTimes)
-    print >> fd, """    <processing
-        continue-on-unbuild="%s"
-        gBeta="%s"
-        gA="%s"
-    />""" % (options.continueOnUnbuild, options.gBeta, options.gA)
-    print >> fd, '    <random_number abs-rand="%s"/>' % options.absrand
-    print >> fd, '    <time begin="%s"' % options.begin,
+        print >> fd, '        <alternatives value="%s"/>' % file
+        print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
+    print >> fd, """    </input>
+    <output>
+        <output-file value="%s"/>
+        <exit-times value="%s"/>
+    </output>""" % (output, withExitTimes)
+    print >> fd, """    <processing>
+        <continue-on-unbuild value="%s"/>
+        <gBeta value="%s"/>
+        <gA value="%s"/>
+    </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
+    print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
+    print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
-        print >> fd, 'end="%s"' % options.end,
-    print >> fd, """/>
-    <report
-        verbose="%s"
-        suppress-warnings="%s"
-    />
-</configuration>""" % (options.verbose, options.noWarnings)
+        print >> fd, '<end value="%s"/>' % options.end,
+    print >> fd, """</time>
+    <report>
+        <verbose value="True"/>
+        <suppress-warnings value="%s"/>
+    </report>
+</configuration>""" % options.noWarnings
     fd.close()
 
 def writeSUMOConf(step, options, files):
@@ -66,38 +61,37 @@ def writeSUMOConf(step, options, files):
     if options.additional != "":
         add = "," + options.additional
     print >> fd, """<configuration>
-    <input
-        net-file="%s"
-        route-files="%s"
-        additional-files="dua_dump_%s.add.xml%s"
-    />
-    <output""" % (options.net, files, step, add)
+    <input>
+        <net-file value="%s"/>
+        <route-files value="%s"/>
+        <additional-files value="dua_dump_%s.add.xml%s"/>
+    </input>
+    <output>""" % (options.net, files, step, add)
     if not options.noEmissions:
-        print >> fd, '        emissions-output="emissions_%s.xml"' % step
+        print >> fd, '        <emissions-output value="emissions_%s.xml"/>' % step
     if not options.noTripinfo:
-        print >> fd, '        tripinfo-output="tripinfo_%s.xml"' % step
-    print >> fd, "    />"
-    print >> fd, '    <random_number abs-rand="%s"/>' % options.absrand
-    print >> fd, '    <time begin="%s"' % options.begin,
+        print >> fd, '        <tripinfo-output value="tripinfo_%s.xml"/>' % step
+    print >> fd, "    </output>"
+    print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
+    print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.timeInc:
-        print >> fd, 'end="%s"' % int(options.timeInc * (step + 1)),
+        print >> fd, '<end value="%s"/>' % int(options.timeInc * (step + 1)),
     elif options.end:
-        print >> fd, 'end="%s"' % options.end,
-    print >> fd, """/>
-    <processing
-        route-steps="%s" """ % options.routeSteps
+        print >> fd, '<end value="%s"/>' % options.end,
+    print >> fd, """</time>
+    <processing>
+        <route-steps value="%s"/>""" % options.routeSteps
     if options.incBase>0:
-        print >> fd, """        incremental-dua-step="%s"
-        incremental-dua-base="%s" """ % (options.incValue*(step+1), options.incBase)
+        print >> fd, """        <incremental-dua-step value="%s"/>
+        <incremental-dua-base value="%s"/>""" % (options.incValue*(step+1), options.incBase)
     if options.mesosim:
-        print >> fd, '        mesosim="True"'
-    print >> fd, """/>
-    <report
-        verbose="%s"
-        suppress-warnings="%s"
-        no-step-log="%s"
-    />
-</configuration>""" % (options.verbose, options.noWarnings, not options.verbose)
+        print >> fd, '        <mesosim value="True"/>'
+    print >> fd, """</processing>
+    <report>
+        <verbose value="True"/>
+        <suppress-warnings value="%s"/>
+    </report>
+</configuration>""" % options.noWarnings
     fd.close()
     fd = open("dua_dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
@@ -107,8 +101,6 @@ def writeSUMOConf(step, options, files):
 
 
 optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
 optParser.add_option("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                      default=False, help="continues on unbuild routes")
 optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWarnings",
@@ -158,7 +150,7 @@ optParser.add_option("-p", "--path", dest="path",
 optParser.add_option("-d", "--detector-values", dest="detvals",
                      help="adapt to the flow on the given edges", metavar="FILE")
 optParser.add_option("-c", "--classpath", dest="classpath",
-                     default=os.path.join(os.path.dirname(sys.argv[0]), "calibration", "src"),
+                     default=os.path.join(os.path.dirname(sys.argv[0]), "..", "contributed", "calibration", "Cadyts.jar"),
                      help="classpath for the calibrator [default: %default]")
 optParser.add_option("-s", "--first-calibration-step", dest="calibStep",
                      type="int", default=10, help="step at which to start calibration [default: %default]")
@@ -192,28 +184,24 @@ else:
         sumoBinary = os.path.join(options.path, "meso")
     else:
         sumoBinary = os.path.join(options.path, "sumo")
-calibrator = "java -cp %s ch.epfl.transpor.calibration.interfaces.sumo.SumoController" % options.classpath
+calibrator = "java -cp %s cadyts.interfaces.sumo.SumoController" % options.classpath
 log = open("dua-log.txt", "w+")
-logQuiet = open("dua-log-quiet.txt", "w")
-sys.stdout = TeeFile(sys.stdout, logQuiet)
-sys.stderr = TeeFile(sys.stderr, logQuiet)
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
 for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
-    print "> Executing step " + str(step)
+    print "> Executing step %s" % step
 
     # calibration init
     doCalibration = options.detvals != None and step >= options.calibStep
     if options.detvals and step == options.calibStep:
         if options.odmatrix:
-            subprocess.call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s -odmatrix %s -demandscale %s"\
-                            % (calibrator, options.varscale, options.freezeit, options.detvals, options.aggregation, options.odmatrix, options.demandscale),
-                            shell=True, stdout=log, stderr=log)
+            call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s -odmatrix %s -demandscale %s"\
+                 % (calibrator, options.varscale, options.freezeit, options.detvals,
+                    options.aggregation, options.odmatrix, options.demandscale), log)
         else:
-            subprocess.call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s " \
-                            % (calibrator, options.varscale, options.freezeit, options.detvals, options.aggregation),
-                            shell=True, stdout=log, stderr=log)
+            call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s " \
+                 % (calibrator, options.varscale, options.freezeit, options.detvals, options.aggregation), log)
     # router
     files = []
     for tripFile in tripFiles:
@@ -226,16 +214,8 @@ for step in range(options.firstStep, options.lastStep):
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeRouteConf(step, options, file, output, doCalibration)
-        if options.verbose:
-            print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
-            p = subprocess.Popen("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
-                                 shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            for l in p.communicate()[0]:
-                log.write(l)
-                sys.__stdout__.write(l)
-        else:
-            subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
-                            shell=True, stdout=log, stderr=log)
+        retCode = subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
+                                  stdout=log, stderr=log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
@@ -249,8 +229,7 @@ for step in range(options.firstStep, options.lastStep):
                 addTaz.parse(tripFile, alts, fd)
                 fd.close()
                 alts = fd.name
-            subprocess.call("%s CHOICE -choicesetfile %s -choicefile %s.cal.xml" % (calibrator, alts, output[:-4]),
-                            shell=True, stdout=log, stderr=log)
+            call("%s CHOICE -choicesetfile %s -choicefile %s.cal.xml" % (calibrator, alts, output[:-4]), log)
             output = output[:-4] + ".cal.xml"
         files.append(output)
     # simulation
@@ -258,28 +237,17 @@ for step in range(options.firstStep, options.lastStep):
     btime = datetime.now()
     print ">>> Begin time: %s" % btime
     writeSUMOConf(step, options, ",".join(files))
-    if options.verbose:
-        print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
-        p = subprocess.Popen("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
-                             shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        for l in p.communicate()[0]:
-            log.write(l)
-            sys.__stdout__.write(l)
-    else:
-        subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
-                        shell=True, stdout=log, stderr=log)
+    retCode = subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step), stdout=log, stderr=log)
     etime = datetime.now()
     print ">>> End time: %s" % etime
     print ">>> Duration: %s" % (etime-btime)
     print "<<"
     # calibration update
     if doCalibration: 
-        subprocess.call("%s UPDATE -netfile dump_%s_%s.xml" % (calibrator, step, options.aggregation),
-                        shell=True, stdout=log, stderr=log)
+        call("%s UPDATE -netfile dump_%s_%s.xml" % (calibrator, step, options.aggregation), log)
     print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
     print "------------------\n"
-    sys.stdout.flush()
+    log.flush()
 print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
 
 log.close()
-logQuiet.close()
