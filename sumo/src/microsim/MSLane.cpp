@@ -81,7 +81,7 @@ MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge
         myShape(shape), myID(id), myNumericalID(numericalID),
         myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed),
         myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
-        myFirstUnsafe(0), myVehicleLengthSum(0) {
+        myVehicleLengthSum(0) {
 }
 
 
@@ -419,7 +419,7 @@ MSLane::moveCritical(SUMOTime t) {
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
     VehCont::iterator veh;
     // Move all next vehicles beside the first
-    for (veh=myVehicles.begin()+myFirstUnsafe; veh != lastBeforeEnd;) {
+    for (veh=myVehicles.begin(); veh != lastBeforeEnd;) {
         myLeftVehLength -= (*veh)->getVehicleType().getLength();
         VehCont::const_iterator pred(veh + 1);
         if ((*veh)->moveRegardingCritical(t, this, *pred, 0, myLeftVehLength)) {
@@ -496,10 +496,10 @@ bool
 MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
     // move critical vehicles
     int first2pop = -1;
-    int curr = myFirstUnsafe;
+    int curr = 0;
     bool hadProblem = false;
     VehCont::iterator i;
-    for (i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); ++i, ++curr) {
+    for (i=myVehicles.begin(); i!=myVehicles.end(); ++i, ++curr) {
         (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
         if (target!=this&&first2pop<0) {

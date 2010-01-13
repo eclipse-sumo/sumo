@@ -531,9 +531,6 @@ protected:
     /// @brief The end of this lane's edge's lane container
     std::vector<MSLane*>::const_iterator myLastNeigh;
 
-    /// index of the first vehicle that may drive over the lane's end
-    size_t myFirstUnsafe;
-
     /// @brief Not yet seen vehicle lengths
     SUMOReal myLeftVehLength;
 
