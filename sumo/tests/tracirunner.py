@@ -16,13 +16,9 @@ for arg in sys.argv[1:]:
         serverParams += [arg]
 clientParams = sys.argv[numParams:]
 
-sumoDir = os.path.join(os.path.dirname(sys.argv[0]), '..', 'bin')
+sumoDir, serverParams[0] = os.path.split(sys.argv[1])
 if os.name == 'posix':
-    sumoDir = sumoDir[:-3] + 'src'
-    serverParams[0] = 'sumo'
     clientParams[0] = 'traci-testclient'
-if "SUMO_BINARY" in os.environ:
-    sumoDir, serverParams[0] = os.path.split(os.environ["SUMO_BINARY"])
 
 #start sumo as server    
 serverprocess = subprocess.Popen(os.path.join(sumoDir, " ".join(serverParams)), 

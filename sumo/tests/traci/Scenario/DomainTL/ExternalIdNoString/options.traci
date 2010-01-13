@@ -1,3 +1,3 @@
-sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8875 --netstate-dump netstate_dump.xml
+--no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8875 --netstate-dump netstate_dump.xml
 endsumo
 TraCITestClient.exe -def testclient.prog -p 8875 -h localhost -o testclient_out.txt
