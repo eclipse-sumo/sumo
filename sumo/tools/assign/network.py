@@ -469,7 +469,7 @@ class DistrictsReader(handler.ContentHandler):
             newEdge = Edge(conlink, sinklink.target, self._StartDTOut, "real")
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
-            newEdge.connection = 1              
+            newEdge.connection = 1
         elif name == 'dsource':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
