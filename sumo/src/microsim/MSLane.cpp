@@ -698,7 +698,7 @@ const MSVehicle * const
 
 
 MSLinkCont::const_iterator
-MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
+MSLane::succLinkSec(const SUMOVehicle& veh, unsigned int nRouteSuccs,
                     const MSLane& succLinkSource, const std::vector<MSLane*> &conts) const {
     const MSEdge* nRouteEdge = veh.succEdge(nRouteSuccs);
     // check whether the vehicle tried to look beyond its route
