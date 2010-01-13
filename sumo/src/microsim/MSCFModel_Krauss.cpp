@@ -35,12 +35,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-//using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, SUMOReal dawdle, SUMOReal tau) throw()
@@ -193,8 +187,6 @@ SUMOReal MSCFModel_Krauss::_vsafe(SUMOReal gap, SUMOReal predSpeed) const throw(
     if (predSpeed==0&&gap<0.01) {
         return 0;
     }
-    assert(gap2pred  >= SUMOReal(0));
-    assert(predSpeed >= SUMOReal(0));
     SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel
                                 + sqrt(
                                     myTauDecel*myTauDecel
