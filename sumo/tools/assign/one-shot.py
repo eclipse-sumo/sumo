@@ -14,48 +14,46 @@ import os, sys, subprocess
 from datetime import datetime
 from optparse import OptionParser
 
-class TeeFile:
-    """A helper class which allows simultaneous writes to several files"""
-    def __init__(self, *files):
-        self.files = files
-    def write(self, txt):
-        """Writes the text to all files"""
-        for fp in self.files:
-            fp.write(txt)
+def call(command, log):
+    print >> log, "-" * 79
+    print >> log, command
+    retCode = subprocess.call(command, stdout=log, stderr=log)
+    if retCode != 0:
+        print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (command, log.name)
+        sys.exit(retCode) 
 
 def writeSUMOConf(step, options, files):
     fd = open("one_shot_" + str(step) + ".sumo.cfg", "w")
     print >> fd, """<configuration>
-    <files
-        net-file="%s"
-        route-files="%s"
-        vehroutes="vehroutes_%s.xml" """ % (options.net, files, step)
+    <files>
+        <net-file value="%s"/>
+        <route-files value="%s"/>
+        <vehroutes value="vehroutes_%s.xml"/>""" % (options.net, files, step)
     if not options.noEmissions:
-        print >> fd, '        emissions="emissions_%s.xml"' % step
+        print >> fd, '        <emissions value="emissions_%s.xml"/>' % step
     if not options.noTripinfo:
-        print >> fd, '        tripinfo="tripinfo_%s.xml"' % step
+        print >> fd, '        <tripinfo value="tripinfo_%s.xml"/>' % step
     add = 'dump_%s.add.xml' % step
     if options.additional:
         add += "," + options.additional
-    print >> fd, """        additional-files="%s"
-    />
-    <process
-        begin="%s"
-        route-steps="%s" """ % (add, options.begin, options.routeSteps)
+    print >> fd, """        <additional-files value="%s"/>
+    </files>
+    <process>
+        <begin value="%s"/>
+        <route-steps value="%s"/>""" % (add, options.begin, options.routeSteps)
     if options.end:
-        print >> fd, '        end="%s"' % options.end
+        print >> fd, '        <end value="%s"/>' % options.end
     if options.mesosim:
-        print >> fd, '        mesosim="True"'
-    print >> fd, """        device.routing.probability="1"
-        device.routing.period="%s"
-        device.routing.adaptation-interval="%s"
-    />
-    <reports
-        verbose="%s"
-        suppress-warnings="%s"
-    />
-</configuration>""" % (step, options.updateInterval, options.verbose,
-                       not options.withWarnings)
+        print >> fd, '        <mesosim value="True"/>'
+    print >> fd, """        <device.routing.probability value="1"/>
+        <device.routing.period value="%s"/>
+        <device.routing.adaptation-interval value="%s"/>
+    </process>
+    <reports>
+        <verbose value="True"/>
+        <suppress-warnings value="%s"/>
+    </reports>
+</configuration>""" % (step, options.updateInterval, not options.withWarnings)
     fd.close()
     fd = open("dump_%s.add.xml" % step, "w")
     print >> fd, """<a>
@@ -64,8 +62,6 @@ def writeSUMOConf(step, options, files):
     fd.close()
 
 optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
 optParser.add_option("-W", "--with-warnings", action="store_true", dest="withWarnings",
                      default=False, help="enables warnings")
 
@@ -111,37 +107,18 @@ elif (sys.platform=="win32"):
 else:
     sumoBinary = os.path.join(options.path, sumo)
 log = open("one_shot-log.txt", "w")
-logQuiet = open("one_shot-log-quiet.txt", "w")
-sys.stdout = TeeFile(sys.stdout, logQuiet)
-sys.stderr = TeeFile(sys.stderr, logQuiet)
 starttime = datetime.now()
 for step in options.frequencies.split(","):
     step = int(step)
-    btimeA = datetime.now()
-    print "> Executing step " + str(step)
-
-    # simulation
-    print ">> Running simulation"
+    print "> Running simulation with update frequency %s" % step
     btime = datetime.now()
-    print ">>> Begin time %s" % btime
+    print ">> Begin time %s" % btime
     writeSUMOConf(step, options, options.trips)
-    if options.verbose:
-        print "> Call: %s -c one_shot_%s.sumo.cfg" % (sumoBinary, step)
-        p = subprocess.Popen("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step),
-                             shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        for l in p.communicate()[0]:
-            log.write(l)
-            sys.__stdout__.write(l)
-    else:
-        subprocess.call("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step),
-                        shell=True, stdout=log, stderr=log)
+    call("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step), log)
     etime = datetime.now()
-    print ">>> End time %s" % etime
-    print ">>> Duration %s" % (etime-btime)
-    print "<<"
-    print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
+    print ">> End time %s" % etime
+    print "< Step %s ended (duration: %s)" % (step, etime-btime)
     print "------------------\n"
 print "one-shot ended (duration: %s)" % (datetime.now() - starttime)
 
 log.close()
-logQuiet.close()

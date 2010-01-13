@@ -3,3 +3,6 @@ dua-iterate
 
 # DUA cost function tests
 costFunctionChecker
+
+# in simulation rerouting tests
+one-shot
