@@ -1,0 +1,25 @@
+> Running simulation with update frequency -1
+>> Begin time 2010-01-13 13:35:12.315000
+>> End time 2010-01-13 13:35:12.409000
+< Step -1 ended (duration: 0:00:00.094000)
+------------------
+
+> Running simulation with update frequency 1800
+>> Begin time 2010-01-13 13:35:12.409000
+>> End time 2010-01-13 13:35:12.502000
+< Step 1800 ended (duration: 0:00:00.093000)
+------------------
+
+> Running simulation with update frequency 300
+>> Begin time 2010-01-13 13:35:12.502000
+>> End time 2010-01-13 13:35:12.580000
+< Step 300 ended (duration: 0:00:00.078000)
+------------------
+
+> Running simulation with update frequency 15
+>> Begin time 2010-01-13 13:35:12.580000
+>> End time 2010-01-13 13:35:12.674000
+< Step 15 ended (duration: 0:00:00.094000)
+------------------
+
+one-shot ended (duration: 0:00:00.359000)
