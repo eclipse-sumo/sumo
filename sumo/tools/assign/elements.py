@@ -119,7 +119,7 @@ class Edge:
         self.estcapacity = 0.0
         self.CRcurve = None
         self.actualtime = 0.0
-        self.weight = 0.0
+        self.ratio = 0.0
         self.connection = 0
         self.edgetype = None
         # parameter in the Lohse traffic assignment
@@ -159,7 +159,7 @@ class Edge:
             cap = "inf"
         return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target, self.junctiontype, self.maxspeed,
                                                       self.flow, self.length, self.numberlane,
-                                                      self.CRcurve, self.estcapacity, cap, self.weight)
+                                                      self.CRcurve, self.estcapacity, cap, self.ratio)
                                                       
     def getConflictLink(self):
         """

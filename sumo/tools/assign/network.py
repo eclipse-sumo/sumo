@@ -329,11 +329,11 @@ class Net:
         return newRoutes
 
     def printNet(self, foutnet):
-        foutnet.write('Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t Weight\t Connection\n')
+        foutnet.write('Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t ratio\t Connection\n')
         for edgeName, edgeObj in self._edges.iteritems():
             foutnet.write('%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %d\n'
             %(edgeName, edgeObj.kind, edgeObj.source, edgeObj.target, edgeObj.length, 
-              edgeObj.maxspeed, edgeObj.numberlane, edgeObj.CRcurve, edgeObj.estcapacity, edgeObj.freeflowtime, edgeObj.weight, edgeObj.connection))
+              edgeObj.maxspeed, edgeObj.numberlane, edgeObj.CRcurve, edgeObj.estcapacity, edgeObj.freeflowtime, edgeObj.ratio, edgeObj.connection))
      
 # The class is for parsing the XML input file (network file). The data parsed is written into the net.
 class NetworkReader(handler.ContentHandler):
@@ -468,7 +468,7 @@ class DistrictsReader(handler.ContentHandler):
             conlink = self._StartDTOut.label + str(self.I)
             newEdge = Edge(conlink, sinklink.target, self._StartDTOut, "real")
             self._net.addEdge(newEdge)
-            newEdge.weight = attrs['weight']
+            newEdge.ratio = attrs['weight']
             newEdge.connection = 1
         elif name == 'dsource':
             sourcelink = self._net.getEdge(attrs['id'])
@@ -476,7 +476,7 @@ class DistrictsReader(handler.ContentHandler):
             conlink = self._StartDTIn.label + str(self.I)
             newEdge = Edge(conlink, self._StartDTIn, sourcelink.source, "real")
             self._net.addEdge(newEdge)
-            newEdge.weight = attrs['weight']
+            newEdge.ratio = attrs['weight']
             newEdge.connection = 2
 
 ## This class is for parsing the additional/updated information about singal timing plans

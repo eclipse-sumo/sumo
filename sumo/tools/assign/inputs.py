@@ -87,20 +87,20 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
     return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, Pshort_EffCells, matrixSum, smallDemandRatio
 
 # estimate the travel times on the district connectors
-# assumption: all vehilces can reach the access links within 15 min (900 sec) from the respective traffic zone
+# assumption: all vehilces can reach the access links within 20 min (1200 sec) from the respective traffic zone
 def getConnectionTravelTime(startVertices, endVertices):
     for vertex in startVertices:
-        sum = 0.0
         for edge in vertex.outEdges:
-            sum += float(edge.weight)
-        for edge in vertex.outEdges:
-            edge.freeflowtime = (1-float(edge.weight)) * 900
-
+            if float(edge.ratio) == 1.:
+                edge.freeflowtime = 1200.
+            else:
+                edge.freeflowtime = (1.-float(edge.ratio)) * 1200.
             edge.actualtime = edge.freeflowtime
+
     for vertex in endVertices:
-        sum = 0.0
         for edge in vertex.inEdges:
-            sum += float(edge.weight)
-        for edge in vertex.inEdges:
-            edge.freeflowtime = (1-float(edge.weight)/sum) * 900
+            if float(edge.ratio) == 1.:
+                edge.freeflowtime = 1200.
+            else:
+                edge.freeflowtime = (1.-float(edge.ratio)) * 1200.
             edge.actualtime = edge.freeflowtime
