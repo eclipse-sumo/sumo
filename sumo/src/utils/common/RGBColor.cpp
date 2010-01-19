@@ -108,6 +108,7 @@ RGBColor::parseColor(const std::string &coldef) throw(EmptyData, NumberFormatExc
     return RGBColor(r, g, b);
 }
 
+
 RGBColor
 RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight) throw() {
     if (weight < 0) weight = 0;
