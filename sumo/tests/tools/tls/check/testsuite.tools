@@ -1,0 +1,12 @@
+# The following tests are based on the network from
+#  tests\netconvert\import\XML\connections\cross3l_no_tls_turnarounds
+# The same networks are used in \tests\sumo\errors\traffic_lights
+
+# ok, initial network's program is right
+initial_ok
+
+# initial network's program has a false phase size (one too large)
+initial_wrong_phase_size1
+
+# initial network's program has a false phase size (one too few)
+initial_wrong_phase_size2
