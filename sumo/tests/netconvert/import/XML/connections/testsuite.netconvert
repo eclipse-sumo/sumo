@@ -28,5 +28,11 @@ cross3l_no_tls_turnarounds
 # Test whether setting prohibitions works
 cross3l_prohibitions
 
-# Same ascross3l_prohibitions, but with additional turn edges connected
+# Same as cross3l_prohibitions, but with additional turn edges connected
 cross3l_prohibitions_turns
+
+# Test for setting links uncontrolled by a tls
+cross3l_uncontrolled
+
+
+
