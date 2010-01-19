@@ -13,6 +13,8 @@ duplicates
 # Tests with broken networks
 network
 
+# Tests with broken traffic lights
+traffic_lights
 
 
 
