@@ -188,6 +188,10 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             noLinksAll += (unsigned int) approached.size();
             for (unsigned int i3=0; i3<approached.size(); i3++) {
+                if(!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+                    --noLinksAll;
+                    continue;
+                }
                 assert(i3<approached.size());
                 NBEdge *toEdge = approached[i3].toEdge;
                 fromEdges.push_back(fromEdge);
@@ -235,6 +239,9 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             for (unsigned int i2=0; i2<noLanes; i2++) {
                 vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
                 for (unsigned int i3=0; i3<approached.size(); ++i3) {
+                    if(!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+                        continue;
+                    }
                     if (inChosen) {
                         state[pos] = 'G';
                     } else {
@@ -348,7 +355,7 @@ NBOwnTLDef::collectLinks() throw(ProcessError) {
             vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
             for (vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
                 const NBEdge::Connection &el = *k;
-                if (el.toEdge!=0) {
+                if (el.toEdge!=0 && incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
                     if (el.toLane>=(int) el.toEdge->getNoLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
                     }
@@ -369,17 +376,16 @@ NBOwnTLDef::setParticipantsInformation() throw() {
     collectLinks();
 }
 
+
 void
 NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &) const throw() {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
     unsigned int pos = 0;
-    for (NBConnectionVector::const_iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
+    for (NBConnectionVector::const_iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); ++j) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
-        if (edge->setControllingTLInformation(
-                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                    getID(), pos)) {
+        if (edge->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
             pos++;
         }
     }

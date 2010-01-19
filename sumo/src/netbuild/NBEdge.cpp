@@ -1490,6 +1490,18 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width) const {
 }
 
 
+bool 
+NBEdge::mayBeTLSControlled(int fromLane, NBEdge *toEdge, int toLane) const throw()
+{
+    TLSDisabledConnection tpl;
+    tpl.fromLane = fromLane;
+    tpl.to = toEdge;
+    tpl.toLane = toLane;
+    vector<TLSDisabledConnection>::const_iterator i = find_if(myTLSDisabledConnections.begin(), myTLSDisabledConnections.end(), tls_disable_finder(tpl));
+    return i==myTLSDisabledConnections.end();
+}
+
+
 bool
 NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                     const string &tlID, unsigned int tlPos) {

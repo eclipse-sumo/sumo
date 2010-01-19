@@ -163,7 +163,7 @@ NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
             vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
             for (vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
                 const NBEdge::Connection &el = *k;
-                if (el.toEdge!=0) {
+                if (el.toEdge!=0 && incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
                     myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
                 }
             }
@@ -175,9 +175,7 @@ NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
     for (NBConnectionVector::iterator j=myControlledLinks.begin(); j!=myControlledLinks.end(); j++) {
         const NBConnection &conn = *j;
         NBEdge *edge = conn.getFrom();
-        if (edge->setControllingTLInformation(
-                    conn.getFromLane(), conn.getTo(), conn.getToLane(),
-                    getID(), pos)) {
+        if (edge->setControllingTLInformation(conn.getFromLane(), conn.getTo(), conn.getToLane(), getID(), pos)) {
             pos++;
         }
     }

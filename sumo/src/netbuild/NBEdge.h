@@ -643,6 +643,7 @@ public:
 
     bool lanesWereAssigned() const;
 
+    bool mayBeTLSControlled(int fromLane, NBEdge *toEdge, int toLane) const throw();
     /// Returns if the link could be set as to be controlled
     bool setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                      const std::string &tlID, unsigned int tlPos);
