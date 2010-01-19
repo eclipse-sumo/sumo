@@ -114,7 +114,7 @@ for step in options.frequencies.split(","):
     btime = datetime.now()
     print ">> Begin time %s" % btime
     writeSUMOConf(step, options, options.trips)
-    call("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step), log)
+    call([sumoBinary, "-c", "one_shot_%s.sumo.cfg" % step], log)
     etime = datetime.now()
     print ">> End time %s" % etime
     print "< Step %s ended (duration: %s)" % (step, etime-btime)

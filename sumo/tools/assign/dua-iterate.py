@@ -214,8 +214,7 @@ for step in range(options.firstStep, options.lastStep):
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeRouteConf(step, options, file, output, doCalibration)
-        retCode = subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
-                                  stdout=log, stderr=log)
+        retCode = call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
@@ -237,7 +236,7 @@ for step in range(options.firstStep, options.lastStep):
     btime = datetime.now()
     print ">>> Begin time: %s" % btime
     writeSUMOConf(step, options, ",".join(files))
-    retCode = subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step), stdout=log, stderr=log)
+    retCode = call([sumoBinary, "-c", "iteration_%s.sumo.cfg" % step], log)
     etime = datetime.now()
     print ">>> End time: %s" % etime
     print ">>> Duration: %s" % (etime-btime)
