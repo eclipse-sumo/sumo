@@ -199,9 +199,15 @@ NLBuilder::build() throw(ProcessError) {
 void
 NLBuilder::buildNet() throw(ProcessError) {
     MSEdgeControl *edges = 0;
+    MSJunctionControl *junctions = 0;
+    MSRouteLoaderControl *routeLoaders = 0;
+    MSTLLogicControl *tlc = 0;
     try {
         myJunctionBuilder.closeJunctions(myDetectorBuilder);
         edges = myEdgeBuilder.build();
+        junctions = myJunctionBuilder.build();
+        routeLoaders = buildRouteLoaderControl(myOptions);
+        tlc = myJunctionBuilder.buildTLLogics();
         MSFrame::buildStreams();
         std::vector<int> stateDumpTimes;
         std::string stateDumpFiles;
@@ -209,14 +215,18 @@ NLBuilder::buildNet() throw(ProcessError) {
         stateDumpTimes = myOptions.getIntVector("save-state.times");
         stateDumpFiles = myOptions.getString("save-state.prefix");
 #endif
-        myNet.closeBuilding(edges, myJunctionBuilder.build(),
-                            buildRouteLoaderControl(myOptions), myJunctionBuilder.buildTLLogics(),
-                            stateDumpTimes, stateDumpFiles);
+        myNet.closeBuilding(edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles);
     } catch (IOError &e) {
         delete edges;
+        delete junctions;
+        delete routeLoaders;
+        delete tlc;
         throw ProcessError(e.what());
     } catch (ProcessError &) {
         delete edges;
+        delete junctions;
+        delete routeLoaders;
+        delete tlc;
         throw;
     }
 }

@@ -260,12 +260,14 @@ public:
 
     /** @brief Returns the built tls-logic control
      *
-     * Returns the previously built junction control ("myLogicControl"). "myLogicControl" is
-     *  set to 0, so that it will not be destroyed by the destructor.
+     * Returns the junction control ("myLogicControl") built using MSTLLogicControl::closeNetworkReading.
+     * "myLogicControl" is set to 0, so that it will not be destroyed by the destructor.
      *
      * @return The built tls-logic control
+     * @exception ProcessError If the traffic lights were not correct
+     * @see MSTLLogicControl::closeNetworkReading
      */
-    MSTLLogicControl *buildTLLogics() const throw();
+    MSTLLogicControl *buildTLLogics() const throw(ProcessError);
 
 
     /** @brief Ends the building of a traffic lights logic

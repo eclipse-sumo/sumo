@@ -82,12 +82,21 @@ public:
      */
     class TLSLogicVariants {
     public:
-        /** @brief Constructor */
-        TLSLogicVariants();
+        /// @brief Constructor
+        TLSLogicVariants() throw();
 
 
-        /** @brief Destructor */
-        ~TLSLogicVariants();
+        /// @brief Destructor
+        ~TLSLogicVariants() throw();
+
+
+        /** @brief Verifies traffic lights loaded from the network
+         *
+         * Comparse the phase state sizes of each phase with the accoring tls' number
+         *  of controlled links.
+         * @return Whether all tls programs are valid
+         */
+        bool checkOriginalTLS() const throw();
 
 
         /** @brief Adds a logic (program)
@@ -142,26 +151,32 @@ public:
     };
 
 
-    /// Constructor
-    MSTLLogicControl();
+    /// @brief Constructor
+    MSTLLogicControl() throw();
 
 
-    /// Destructor
-    ~MSTLLogicControl();
+    /// @brief Destructor
+    ~MSTLLogicControl() throw();
 
 
     /** @brief Lets MSTLLogicControl know that the network has been loaded
      *
      * This method must be called after the network (including the initial tls
-     *  definitions) was loaded. The MSTLLogicControl is informed in order
-     *  to know that link information is known for the tls programs loaded
-     *  afterwards so that it may be adapted from the previously loaded tls
-     *  (a net may only contain one program per tls).
+     *  definitions) was loaded. 
      *
-     * Also, the states of the links controlled by tls are saved for their
-     *  potential later usage (if the tls is switched to off-mode).
+     * The originally loaded traffic lights are also verified herein by calling
+     *  TLSLogicVariants::checkOriginalTLS, first.
+     * 
+     * The MSTLLogicControl is informed in order to know that link information 
+     *  is known for the tls programs loaded afterwards so that it may be adapted
+     *  from the previously loaded tls (a net may only contain one program per tls).
+     *
+     * The states of the links controlled by tls are saved for their potential later usage 
+     *  (if the tls is switched to off-mode).
+     *
+     * @return Whether the traffic lights could be initialised and are correct
      */
-    void closeNetworkReading();
+    bool closeNetworkReading() throw();
 
 
     /** @brief For all traffic lights, the requests are masked away if they have red light (not yellow)

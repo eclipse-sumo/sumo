@@ -102,14 +102,38 @@ public:
 
 
 protected:
-    /// loads a described subpart form the given list of files
+    /** @brief Loads a described subpart form the given list of files
+     *
+     * Assuming the given string to be an option name behind which a list of files
+     *  is stored, this method invokes an XML reader on all the files set for this option.
+     * @param[in] mmlWhat The option to get the file list from
+     * @return Whether loading of all files was successfull
+     */
     bool load(const std::string &mmlWhat);
 
-    /// Closes the net building process
+
+    /** @brief Closes the net building process
+     *
+     * Builds the microsim-structures which belong to a MSNet using the factories
+     *  filled while loading. Initialises the network using these structures by calling
+     *  MSNet::closeBuilding. 
+     * If an error occures, all built structures are deleted and a ProcessError is thrown.
+     * @exception ProcessError If the loaded structures could not be built
+     */
     void buildNet() throw(ProcessError);
 
-    /// Builds the route loader control
+
+    /** @brief Builds the route loader control
+     *
+     * Goes through the list of route files to open defined in the option 
+     *  "route-files" and builds loaders reading these files using MSNet::buildRouteLoader
+     * @param[in] oc The options to read the list of route files to open from
+     * @return The built route loader control
+     * @exception ProcessError If an error occured
+     */
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc) throw(ProcessError);
+
+
 
 
     /**
@@ -193,11 +217,12 @@ protected:
     /// @brief The handler used to parse the net
     NLHandler &myXMLHandler;
 
+
 private:
-    /** @brief invalidated copy operator */
+    /// @brief invalidated copy operator
     NLBuilder(const NLBuilder &s);
 
-    /** @brief invalidated assignment operator */
+    /// @brief invalidated assignment operator
     NLBuilder &operator=(const NLBuilder &s);
 
 };

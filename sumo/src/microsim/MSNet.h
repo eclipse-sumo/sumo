@@ -96,12 +96,18 @@ public:
 
 
     /** @brief Constructor
+     *
+     * This constructor builds a net of which only some basic structures are initialised.
+     * It prepares the network for being filled while loading.
+     * As soon as all edge/junction/traffic lights and other containers are build, they
+     *  must be initialised using "closeBuilding".
      * @param[in] vc The vehicle control to use
      * @param[in] beginOfTimestepEvents The event control to use for simulation step begin events
      * @param[in] endOfTimestepEvents The event control to use for simulation step end events
      * @param[in] emissionEvents The event control to use for emission events
      * @param[in] shapeCont The shape container to use
      * @exception ProcessError If a network was already constructed
+     * @see closeBuilding
      */
     MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
           MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents,
@@ -113,6 +119,8 @@ public:
 
 
     /** @brief Closes the network's building process
+     * 
+     * Assigns the structures built while loading to this network.
      * @param[in] edges The control of edges which belong to this network
      * @param[in] junctions The control of junctions which belong to this network
      * @param[in] routeLoaders The route loaders used

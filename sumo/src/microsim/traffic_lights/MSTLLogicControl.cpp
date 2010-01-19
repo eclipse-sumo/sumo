@@ -45,6 +45,7 @@
 #include <microsim/MSNet.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -63,12 +64,12 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * MSTLLogicControl::TLSLogicVariants - methods
  * ----------------------------------------------------------------------- */
-MSTLLogicControl::TLSLogicVariants::TLSLogicVariants()
+MSTLLogicControl::TLSLogicVariants::TLSLogicVariants() throw()
         : defaultTL(0) {
 }
 
 
-MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() {
+MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() throw() {
     std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
     for (std::map<std::string, MSTrafficLightLogic *>::iterator j=ltVariants.begin(); j!=ltVariants.end(); ++j) {
         delete(*j).second;
@@ -76,6 +77,27 @@ MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() {
     for (std::vector<OnSwitchAcion*>::iterator i=onSwitchActions.begin(); i!=onSwitchActions.end(); ++i) {
         delete *i;
     }
+}
+
+
+bool 
+MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const throw() {
+    bool hadErrors = false;
+    for (std::map<std::string, MSTrafficLightLogic *>::const_iterator j=ltVariants.begin(); j!=ltVariants.end(); ++j) {
+        const MSTrafficLightLogic::Phases &phases = (*j).second->getPhases();
+        unsigned int linkNo = (unsigned int) (*j).second->getLinks().size();
+        bool hadProgramErrors = false;
+        for (MSTrafficLightLogic::Phases::const_iterator i=phases.begin(); i!=phases.end(); ++i) {
+            if((*i)->getState().length()!=linkNo) {
+                hadProgramErrors = true;
+            }
+        }
+        if(hadProgramErrors) {
+            MsgHandler::getErrorInstance()->inform("Mismatching phase size in tls '" + (*j).second->getID() + "', program '" + (*j).first + "'.");
+            hadErrors = true;
+        }
+    }
+    return !hadErrors;
 }
 
 
@@ -101,7 +123,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
         }
         logic->adaptLinkInformationFrom(*defaultTL);
         if (logic->getLinks().size()!=logic->getPhase(0).getState().size()) {
-            throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "'.");
+            throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "', program '" + subID + "'.");
         }
     }
     // add to the list of active
@@ -571,11 +593,11 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLig
 /* -------------------------------------------------------------------------
  * method definitions for MSTLLogicControl
  * ----------------------------------------------------------------------- */
-MSTLLogicControl::MSTLLogicControl()
+MSTLLogicControl::MSTLLogicControl() throw()
         : myNetWasLoaded(false) {}
 
 
-MSTLLogicControl::~MSTLLogicControl() {
+MSTLLogicControl::~MSTLLogicControl() throw() {
     // delete tls
     for (std::map<std::string, TLSLogicVariants*>::const_iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
         delete(*i).second;
@@ -661,12 +683,15 @@ MSTLLogicControl::knows(const std::string &id) const {
 }
 
 
-void
-MSTLLogicControl::closeNetworkReading() {
+bool
+MSTLLogicControl::closeNetworkReading() throw() {
+    bool hadErrors = false;
     for (map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
+        hadErrors |= !(*i).second->checkOriginalTLS();
         (*i).second->saveInitialStates();
     }
     myNetWasLoaded = true;
+    return !hadErrors;
 }
 
 
