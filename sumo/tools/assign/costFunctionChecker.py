@@ -31,32 +31,32 @@ class TeeFile:
 def writeRouteConf(step, options, file, output):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
     print >> fd, """<configuration>
-    <input
-        net-file="%s" """ % options.net
+    <input>
+        <net-file value="%s"/>""" % options.net
     if(step==0):
-        print >> fd, '        trip-defs="%s"' % file
+        print >> fd, '        <trip-defs value="%s"/>' % file
     else:
-        print >> fd, '        alternatives="%s"' % file
-        print >> fd, '        weights="dump_%s_%s.xml"' % (step-1, options.aggregation)
-    print >> fd, """    />
-    <output
-        output-file="%s"
-        exit-times="True"
-    />""" % output
-    print >> fd, """    <processing
-        continue-on-unbuild="%s"
-        gBeta="%s"
-        gA="%s"
-    />""" % (options.continueOnUnbuild, options.gBeta, options.gA)
-    print >> fd, '    <random_number abs-rand="%s"/>' % options.absrand
-    print >> fd, '    <time begin="%s"' % options.begin,
+        print >> fd, '        <alternatives value="%s"/>' % file
+        print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
+    print >> fd, """    </input>
+    <output>
+        <output-file value="%s"/>
+        <exit-times value="True"/>
+    </output>""" % output
+    print >> fd, """    <processing>
+        <continue-on-unbuild value="%s"/>
+        <gBeta value="%s"/>
+        <gA value="%s"/>
+    </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
+    print >> fd, '    <random_number><abs-rand value="%s"/></random_number>' % options.absrand
+    print >> fd, '    <time><begin value="%s"/>' % options.begin,
     if options.end:
-        print >> fd, 'end="%s"' % options.end,
-    print >> fd, """/>
-    <report
-        verbose="%s"
-        suppress-warnings="%s"
-    />
+        print >> fd, '<end value="%s"/>' % options.end,
+    print >> fd, """</time>
+    <report>
+        <verbose value="%s"/>
+        <suppress-warnings value="%s"/>
+    </report>
 </configuration>""" % (options.verbose, options.noWarnings)
     fd.close()
 
