@@ -11,11 +11,13 @@ Based on the Perl script dua_iterate.pl.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import os, sys, subprocess
+import os, sys, subprocess, types
 from datetime import datetime
 from optparse import OptionParser
 
 def call(command, log):
+    if not isinstance(args, types.StringTypes):
+        command = [str(c) for c in command] 
     print >> log, "-" * 79
     print >> log, command
     retCode = subprocess.call(command, stdout=log, stderr=log)
@@ -184,7 +186,7 @@ else:
         sumoBinary = os.path.join(options.path, "meso")
     else:
         sumoBinary = os.path.join(options.path, "sumo")
-calibrator = "java -cp %s cadyts.interfaces.sumo.SumoController" % options.classpath
+calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoController"]
 log = open("dua-log.txt", "w+")
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
@@ -196,12 +198,12 @@ for step in range(options.firstStep, options.lastStep):
     doCalibration = options.detvals != None and step >= options.calibStep
     if options.detvals and step == options.calibStep:
         if options.odmatrix:
-            call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s -odmatrix %s -demandscale %s"\
-                 % (calibrator, options.varscale, options.freezeit, options.detvals,
-                    options.aggregation, options.odmatrix, options.demandscale), log)
+            call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
+                  "-measfile", options.detvals, "-binsize", options.aggregation,
+                  "-odmatrix", options.odmatrix, "-demandscale", options.demandscale], log)
         else:
-            call("%s INIT -varscale %s -freezeit %s -measfile %s -binsize %s " \
-                 % (calibrator, options.varscale, options.freezeit, options.detvals, options.aggregation), log)
+            call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
+                  "-measfile", options.detvals, "-binsize", options.aggregation], log)
     # router
     files = []
     for tripFile in tripFiles:
@@ -228,7 +230,7 @@ for step in range(options.firstStep, options.lastStep):
                 addTaz.parse(tripFile, alts, fd)
                 fd.close()
                 alts = fd.name
-            call("%s CHOICE -choicesetfile %s -choicefile %s.cal.xml" % (calibrator, alts, output[:-4]), log)
+            call(calibrator + ["CHOICE", "-choicesetfile", alts, "-choicefile", "%s.cal.xml" % output[:-4]], log)
             output = output[:-4] + ".cal.xml"
         files.append(output)
     # simulation
@@ -243,7 +245,7 @@ for step in range(options.firstStep, options.lastStep):
     print "<<"
     # calibration update
     if doCalibration: 
-        call("%s UPDATE -netfile dump_%s_%s.xml" % (calibrator, step, options.aggregation), log)
+        call(calibrator + ["UPDATE", "-netfile", "dump_%s_%s.xml" % (step, options.aggregation)], log)
     print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
     print "------------------\n"
     log.flush()
