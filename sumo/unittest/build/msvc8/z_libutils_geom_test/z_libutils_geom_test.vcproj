@@ -59,7 +59,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(GTEST_LIB)"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="false"
 				TargetMachine="1"
 			/>
 			<Tool
