@@ -8,12 +8,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common", "..\..\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common_test", "z_libutils_common_test\z_libutils_common_test.vcproj", "{7166B82A-8380-47D7-8EDC-96052A3EDB15}"
+	ProjectSection(ProjectDependencies) = postProject
+		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-	ProjectSection(ProjectDependencies) = postProject
-		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom", "..\..\..\build\msvc8\z_libutils_geom\z_libutils_geom.vcproj", "{334DF447-D0B3-4CEA-9693-F755EB11C18F}"
@@ -23,19 +23,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom", "..\..\..
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_geom_test", "z_libutils_geom_test\z_libutils_geom_test.vcproj", "{53EF61D5-AF33-4364-8AF3-947E26A71B4A}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{334DF447-D0B3-4CEA-9693-F755EB11C18F} = {334DF447-D0B3-4CEA-9693-F755EB11C18F}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetbuild_test", "y_libnetbuild_test\y_libnetbuild_test.vcproj", "{1E772A8E-14CB-4537-83B2-A9AFA133A89E}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetbuild_test", "y_libnetbuild_test\y_libnetbuild_test.vcproj", "{1E772A8E-14CB-4537-83B2-A9AFA133A89E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{09F3B15E-0AE0-441F-9F31-5CC6DC3FADD6} = {09F3B15E-0AE0-441F-9F31-5CC6DC3FADD6}
 		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
@@ -43,6 +39,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetbuild_test", "y_lib
 		{BD855404-FA32-48AE-9AB3-FB8B3D71C8C6} = {BD855404-FA32-48AE-9AB3-FB8B3D71C8C6}
 		{EE29AF87-7317-488D-BF6D-EC422D1DBAD6} = {EE29AF87-7317-488D-BF6D-EC422D1DBAD6}
 		{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8} = {FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}
+	EndProjectSection
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetbuild", "..\..\..\build\msvc8\y_libnetbuild\y_libnetbuild.vcproj", "{BD855404-FA32-48AE-9AB3-FB8B3D71C8C6}"
@@ -70,19 +70,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_tcpip", "..\..\.
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_iodevices_test", "z_libutils_iodevices_test\z_libutils_iodevices_test.vcproj", "{09F3B15E-0AE0-441F-9F31-5CC6DC3FADD6}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8} = {FC588F88-FFC4-4EBD-A790-1B1FE06E1FC8}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmicrosim_test", "y_libmicrosim_test\y_libmicrosim_test.vcproj", "{18EDEF01-3B7A-4C04-A6ED-4E005BDEB602}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmicrosim_test", "y_libmicrosim_test\y_libmicrosim_test.vcproj", "{18EDEF01-3B7A-4C04-A6ED-4E005BDEB602}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A54D4A8B-9520-40F0-B8CB-152BF506CB47} = {A54D4A8B-9520-40F0-B8CB-152BF506CB47}
 		{AF2015D2-2412-4355-87FB-E0D88B0A5FBA} = {AF2015D2-2412-4355-87FB-E0D88B0A5FBA}
@@ -98,6 +94,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmicrosim_test", "y_lib
 		{5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36} = {5EA5CB8F-2B57-4FAB-A769-E9A64B3B9C36}
 		{7166B82A-8380-47D7-8EDC-96052A3EDB15} = {7166B82A-8380-47D7-8EDC-96052A3EDB15}
 		{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20} = {72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}
+	EndProjectSection
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmicrosim", "..\..\..\build\msvc8\y_libmicrosim\y_libmicrosim.vcproj", "{2A069662-6B6F-40D7-A808-211F9C9A4AAE}"

@@ -6,7 +6,7 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="..\..\..\..\src,$(GTEST)\src,$(GTEST)\include,$(XERCES)\include"
+		AdditionalIncludeDirectories="..\..\..\..\src,$(GTEST)\include,$(XERCES)\include"
 	/>
 	<UserMacro
 		Name="XERCES_LIB"
@@ -14,7 +14,7 @@
 	/>
 	<UserMacro
 		Name="XERCES_DEBUG_LIB"
-		Value="$(XERCES)\lib\xerces-c_2D.lib"
+		Value="$(XERCES)\lib\xerces-c_3D.lib"
 	/>
 	<UserMacro
 		Name="GTEST_LIB"

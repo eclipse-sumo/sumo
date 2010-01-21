@@ -58,7 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(GTEST_LIB) $(GTEST_DEBUG_LIB)"
+				AdditionalDependencies="$(GTEST_LIB)"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -131,7 +131,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(GTEST_LIB) $(GTEST_DEBUG_LIB)"
+				AdditionalDependencies="$(GTEST_DEBUG_LIB)"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
