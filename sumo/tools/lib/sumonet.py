@@ -193,6 +193,7 @@ class NetTLS:
         self._id = id
         self._connections = []
         self._maxConnectionNo = -1
+        self._programs = {}
 
     def addConnection(self, inLane, outLane, linkNo):
         self._connections.append( [inLane, outLane, linkNo] )
@@ -204,6 +205,21 @@ class NetTLS:
         for c in self._connections:
             edges.add(c[0].getEdge())
         return edges
+
+    def addProgram(self, program):
+        self._programs[program._id] = program
+
+
+class NetTLSProgram:
+    def __init__(self, id, offset, type):
+        self._id = id
+        self._type = type
+        self._offset = offset
+        self._phases = []
+
+    def addPhase(self, state, duration):
+        self._phases.append( (state, duration) )
+
 
 
 class Net:
@@ -250,15 +266,26 @@ class Net:
     def getNode(self, id):
         return self._id2node[id]
 
-    def addTLS(self, tlid, inLane, outLane, linkNo):
+    def getTLSSecure(self, tlid):
         if tlid in self._id2tls:
             tls = self._id2tls[tlid]
         else:
             tls = NetTLS(tlid)
             self._id2tls[tlid] = tls
             self._tlss.append(tls)
+        return tls
+
+    def addTLS(self, tlid, inLane, outLane, linkNo):
+        tls = self.getTLSSecure(tlid)
         tls.addConnection(inLane, outLane, linkNo)
         return tls
+
+    def addTLSProgram(self, tlid, programID, offset, type):
+        tls = self.getTLSSecure(tlid)
+        program = NetTLSProgram(programID, offset, type)
+        tls.addProgram(program)
+        return program
+
 
     def setFoes(self, junctionID, index, foes, prohibits):
         self._id2node[junctionID].setFoes(index, foes, prohibits)
@@ -304,12 +331,13 @@ class Net:
 class NetReader(handler.ContentHandler):
     """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
 
-    def __init__(self):
+    def __init__(self, **others):
         self._net = Net()
         self._currentEdge = None
         self._currentNode = None
         self._currentLane = None
         self._currentShape = ""
+        self._withPhases = 'withPrograms' in others.keys() and others['withPrograms']==True
 
     def startElement(self, name, attrs):
         if name == 'edge':
@@ -360,7 +388,10 @@ class NetReader(handler.ContentHandler):
             self._currentNode = attrs['id']
         if name == 'logicitem':
             self._net.setFoes(self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
-
+        if self._withPhases and name=='tl-logic':
+            self._currentProgram = self._net.addTLSProgram(attrs['id'], attrs['programID'], int(attrs['offset']), attrs['type'])
+        if self._withPhases and name=='phase':
+            self._currentProgram.addPhase(attrs['state'], int(attrs['duration']))
 
     def characters(self, content):
         if self._currentLane!=None:
@@ -383,6 +414,8 @@ class NetReader(handler.ContentHandler):
             self._currentEdge = None
         if name == 'row-logic':
             self._haveROWLogic = False
+        if self._withPhases and name=='tl-logic':
+            self._currentProgram = None
 
     def getNet(self):
         return self._net
