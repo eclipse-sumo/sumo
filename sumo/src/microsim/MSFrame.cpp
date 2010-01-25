@@ -244,6 +244,8 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-jam-threshold", "Mesoscopic", "Minimum percentage of occupied space to consider a segment jammed");
     oc.doRegister("meso-multi-queue", new Option_Bool(false));
     oc.addDescription("meso-multi-queue", "Mesoscopic", "Enable multiple queues at edge ends");
+    oc.doRegister("meso-junction-control", new Option_Bool(false));
+    oc.addDescription("meso-junction-control", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling");
 #endif
 
     // add rand options
