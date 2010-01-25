@@ -94,6 +94,8 @@ MSFrame::fillOptions() {
     oc.doRegister("weight-files", 'w', new Option_FileName()); // !!! describe
     oc.addSynonyme("weight-files", "weights");
     oc.addDescription("weight-files", "Input", "Load weights from FILE");
+    oc.doRegister("measure", 'm', new Option_String()); // !!! describe
+    oc.addDescription("measure", "Input", "Load <measure> from weights");
 
 #ifdef HAVE_MESOSIM
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
