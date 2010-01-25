@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/06/10 16:56:10 by SUMO netconvert Version dev-SVN-r8110
+<!-- generated on 01/25/10 11:24:52 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -2921,11 +2921,11 @@
    </succ>
 
    <succ edge="-7216737#0" lane="-7216737#0_0" junction="94487954">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="94487954" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="-7216737#0" lane="-7216737#0_1" junction="94487954">
-      <succlane lane="7216737#0_1" tl="94487954" linkno="0" yield="1" dir="t" state="t"/>
+      <succlane lane="7216737#0_1" tl="94487954" linkno="1" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge="-7216737#1" lane="-7216737#1_0" junction="36268421">

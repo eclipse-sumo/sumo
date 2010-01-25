@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/06/10 16:56:37 by SUMO netconvert Version dev-SVN-r8110
+<!-- generated on 01/25/10 11:25:05 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -63,7 +63,7 @@
 
    <edge id=":-14_3" function="internal">
       <lanes>
-         <lane id=":-14_3_0" depart="0" maxspeed="5.56" length="4.68" shape="340.84,714.86 342.06,715.24 343.20,715.30 344.28,715.03 345.28,714.46"/>
+         <lane id=":-14_3_0" depart="0" maxspeed="5.56" length="4.68" shape="340.84,714.86 342.06,715.24 343.20,715.30 344.28,715.04 345.28,714.46"/>
       </lanes>
    </edge>
 
@@ -769,11 +769,11 @@
    </succ>
 
    <succ edge="-33#2" lane="-33#2_0" junction="-29">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="-29" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="-33#2" lane="-33#2_1" junction="-29">
-      <succlane lane="--33#2_1" via=":-29_0_0" tl="-29" linkno="0" yield="1" dir="t" state="t"/>
+      <succlane lane="--33#2_1" via=":-29_0_0" tl="-29" linkno="1" yield="1" dir="t" state="t"/>
    </succ>
 
    <succ edge="-35#0" lane="-35#0_0" junction="-7">
