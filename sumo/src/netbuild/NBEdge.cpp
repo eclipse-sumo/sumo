@@ -848,7 +848,12 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, b
     // check whether the connected lane is invalid
     //  (should not happen; this is an artefact left from previous versions)
     if (c.toEdge==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\" " << "dir=\"s\" state=\"O\"/>\n"; // !!! check dummy values
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\""; // !!! check dummy values
+		if (c.tlID!="") {
+			into << " tl=\"" << c.tlID << "\"";
+			into << " linkno=\"" << c.tlLinkNo << "\"";
+		}
+        into << " yield=\"1\" " << "dir=\"s\" state=\"O\"/>\n"; // !!! check dummy values
         return;
     }
     // write the id

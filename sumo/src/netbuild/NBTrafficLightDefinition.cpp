@@ -163,7 +163,7 @@ NBTrafficLightDefinition::collectLinks() throw(ProcessError) {
             vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
             for (vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
                 const NBEdge::Connection &el = *k;
-                if (el.toEdge!=0 && incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
+                if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
                     myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
                 }
             }
