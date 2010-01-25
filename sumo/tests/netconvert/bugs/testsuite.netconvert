@@ -22,3 +22,6 @@ ticket38
 
 # Test for #55 NETCONVERT breaks on cartesian networks and --use-projection
 #ticket55
+
+# Test for #193 invalid traffic lights at dead ends
+ticket193
