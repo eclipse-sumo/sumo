@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/12/09 09:31:28 by SUMO netgen Version dev-SVN-r7141
+<!-- generated on 01/25/10 12:38:56 by SUMO netgen Version dev-SVN-r8163
 <configuration>
 
-   <random_network>
-      <random-net>true</random-net>
-      <rand-iterations>10</rand-iterations>
-      <rand-bidi-probability>0</rand-bidi-probability>
-   </random_network>
+    <random_network>
+        <random-net value="true"/>
+        <rand-iterations value="10"/>
+        <rand-bidi-probability value="0"/>
+    </random_network>
 
-   <output>
-      <output-file>net.net.xml</output-file>
-   </output>
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
 
-   <building_defaults>
-      <default-junction-type>traffic_light</default-junction-type>
-   </building_defaults>
+    <building_defaults>
+        <default-junction-type value="traffic_light"/>
+    </building_defaults>
 
-   <report>
-      <verbose>true</verbose>
-   </report>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -227,7 +227,7 @@
 
 
    <succ edge="11" lane="11_0" junction="10">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="10" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="13" lane="13_0" junction="12">
@@ -235,7 +235,7 @@
    </succ>
 
    <succ edge="15" lane="15_0" junction="14">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="14" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="17" lane="17_0" junction="12">
@@ -243,11 +243,11 @@
    </succ>
 
    <succ edge="19" lane="19_0" junction="18">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="18" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="25" lane="25_0" junction="24">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="24" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="3" lane="3_0" junction="2">
@@ -256,11 +256,11 @@
    </succ>
 
    <succ edge="38" lane="38_0" junction="37">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="37" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="7" lane="7_0" junction="6">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="SUMO_NO_DESTINATION" tl="6" linkno="0" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="9" lane="9_0" junction="8">
