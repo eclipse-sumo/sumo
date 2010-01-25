@@ -1,0 +1,34 @@
+<routes>
+   <route id="a" edges="i1 i2 i3 i4 i5 i6 i7 o e1 e2 e3 e4 e5 e6 e7 e8"/>
+
+   <vtypeDistribution id="v">
+   <vtype id="pedestrian" length=".25" guiOffset="0" guiShape="pedestrian" guiWidth=".25"/>
+   <vtype id="bicycle" length="2." guiOffset=".5" guiShape="bicycle" guiWidth=".25"/>
+   <vtype id="motorcycle" length="2.5" guiOffset=".5" guiShape="motorcycle" guiWidth=".25"/>
+   <vtype id="passenger" length="7.5" guiShape="passenger"/>
+   <vtype id="passenger/sedan" length="7.5" guiShape="passenger/sedan"/>
+   <vtype id="passenger/hatchback" length="7.5" guiShape="passenger/hatchback"/>
+   <vtype id="passenger/wagon" length="7.5" guiShape="passenger/wagon"/>
+   <vtype id="passenger/van" length="7.5" guiShape="passenger/van"/>
+   <vtype id="delivery" length="7.5" guiShape="delivery"/>
+   <vtype id="transport" length="10" guiShape="transport" guiWidth="2.5"/>
+   <vtype id="transport/semitrailer" length="18.75" guiShape="transport/semitrailer" guiWidth="2.6"/>
+   <vtype id="transport/trailer" length="18.75" guiShape="transport/trailer" guiWidth="2.6"/>
+   <vtype id="bus" length="15" guiShape="bus" guiWidth="2.4"/>
+   <vtype id="bus/city" length="15" guiShape="bus/city" guiWidth="2.4"/>
+   <vtype id="bus/flexible" length="17" guiShape="bus/flexible" guiWidth="2.4"/>
+   <vtype id="bus/overland" length="17" guiShape="bus/overland" guiWidth="2.6"/>
+   <vtype id="rail" length="7.5" guiShape="rail"/>
+   <vtype id="rail/light" length="7.5" guiShape="rail/light"/>
+   <vtype id="rail/city" length="7.5" guiShape="rail/city"/>
+   <vtype id="rail/slow" length="7.5" guiShape="rail/slow"/>
+   <vtype id="rail/fast" length="7.5" guiShape="rail/fast"/>
+   <vtype id="rail/cargo" length="7.5" guiShape="rail/cargo"/>
+   <vtype id="evehicle" length="7.5" guiShape="evehicle"/>
+   </vtypeDistribution>
+
+   <vehicle id="vehicle" route="a" depart="0" repno="10000" period="2" type="v"/>
+   <vehicle id="vle" route="a" depart="1" repno="10000" period="2" type="v"/>
+
+
+</routes>
