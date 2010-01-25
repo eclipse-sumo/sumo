@@ -5,6 +5,7 @@
         <route-files value=""/>
         <additional-files value=""/>
         <weight-files value=""/>
+        <measure value=""/>
     </input>
 
     <output>

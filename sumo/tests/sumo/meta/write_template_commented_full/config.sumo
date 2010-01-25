@@ -13,6 +13,9 @@
         <!-- Load weights from FILE -->
         <weight-files value=""/>
 
+        <!-- Load <measure> from weights -->
+        <measure value=""/>
+
     </input>
 
     <output>

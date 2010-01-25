@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r7723
+SUMO sumo Version dev-SVN-r8163
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -22,6 +22,7 @@ Usage: sumo.exe [OPTION]*
   -r, --route-files FILE              Load routes descriptions from FILE(s)
   -a, --additional-files FILE         Load further descriptions from FILE(s)
   -w, --weight-files FILE             Load weights from FILE
+  -m, --measure STR                   Load <measure> from weights
 
  Output Options:
   --netstate-dump FILE                Save complete network states into FILE
