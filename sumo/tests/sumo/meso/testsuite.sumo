@@ -3,3 +3,6 @@ multique
 
 # Tests for setting different tau parameters
 tau
+
+# controlling traffic lights and priority junctions
+junction_control

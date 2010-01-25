@@ -1,0 +1,5 @@
+# the basic cross net with junction control
+plain
+
+# the cross net without junction control
+no_control
