@@ -209,6 +209,56 @@ public:
 
 
 
+    /// @name Handling vehicles lapping into lanes
+    /// @{
+
+    /** @brief Sets the information about a vehicle lapping into this lane
+     *
+     * The given left length of vehicle which laps into this lane is used
+     *  to determine the vehicle's end position in regard to this lane's length.
+     * This information is set into myInlappingVehicleState; additionally, the
+     *  vehicle pointer is stored in myInlappingVehicle;
+     * Returns this lane's length for subtracting it from the left vehicle length.
+     * @param[in] v The vehicle which laps into this lane
+     * @param[in] leftVehicleLength The distance the vehicle laps into this lane
+     * @return This lane's length
+     */
+    SUMOReal setPartialOcupation(MSVehicle *v, SUMOReal leftVehicleLength) throw();
+
+
+    /** @brief Removes the information about a vehicle lapping into this lane
+     * @param[in] v The vehicle which laps into this lane
+     */
+    void resetPartialOccupation(MSVehicle *v) throw();
+
+    /** @brief Returns the vehicle which laps into this lane
+     * @return The vehicle which laps into this lane, 0 if there is no such
+     */
+    MSVehicle *getPartialOccupator() const throw();
+
+
+    /** @brief Returns the in-lap information
+     *
+     * The state's position is the position of the vehicle's end at this lane
+     *  - the last free position on this lane
+     * @return Information about how far the vehicle laps into this lane
+     */
+    const MSVehicle::State &getPartialOccupatorState() const throw();
+
+
+    /** @brief Returns the last vehicle which is still on the lane
+     * 
+     * The information about the last vehicle in this lane's que is returned. 
+     *  If there is no such vehicle, the information about the vehicle which
+     *  laps into this lane is returned. If there is no such vehicle, the first
+     *  returned member is 0.
+     * @return Information about the last vehicle and it's back position
+     */
+    std::pair<MSVehicle*, SUMOReal> getLastVehicleInformation() const throw();
+    /// @}
+
+
+
     /// @name Access to vehicles
     /// @{
 
@@ -400,10 +450,6 @@ public:
     virtual MSVehicle * const getLastVehicle() const;
     virtual const MSVehicle * const getFirstVehicle() const;
 
-    MSVehicle::State myLastStateNow;
-
-    const MSVehicle::State &getLastVehicleState(SUMOTime t) const throw();
-
     void init(MSEdgeControl &, std::vector<MSLane*>::const_iterator firstNeigh, std::vector<MSLane*>::const_iterator lastNeigh);
 
 
@@ -458,6 +504,7 @@ public:
 
     std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
             SUMOReal leaderSpeed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const;
+
 
 
 
@@ -523,6 +570,12 @@ protected:
 
     /// @brief The current length of all vehicles on this lane
     SUMOReal myVehicleLengthSum;
+
+    /// @brief State (end position and speed) of a vehicle which laps into this lane
+    MSVehicle::State myInlappingVehicleState;
+
+    /// @brief The vehicle which laps into this lane
+    MSVehicle *myInlappingVehicle;
 
 
     /// @brief The lane left to the described lane (==lastNeigh if none)

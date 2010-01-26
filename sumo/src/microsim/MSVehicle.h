@@ -677,9 +677,6 @@ public:
     const std::vector<MSLane*> &getBestLanesContinuation(const MSLane * const l) const throw();
     /// @}
 
-    SUMOReal getMovedDistance() const throw() {
-        return SPEED2DIST(myState.mySpeed);
-    }
 
 
     /** @brief Returns the vehicle's type definition
@@ -915,13 +912,13 @@ protected:
     MSMessageEmitter *myHBMsgEmitter;
 #endif
 
-    /// Vehicle's parameter.
+    /// @brief This Vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
 
-    /// Vehicle's route.
+    /// @brief This Vehicle's route.
     const MSRoute* myRoute;
 
-    /// Vehicles driving state. here: pos and speed
+    /// @brief This Vehicles driving state (pos and speed)
     State myState;
 
     /// An individual speed for an vehicle that is used (iff set) instead of
@@ -961,24 +958,15 @@ protected:
     SUMOReal myPreDawdleAcceleration;
 
 private:
+    /// @brief The devices this vehicle has
     std::vector<MSDevice*> myDevices;
 
-    /** Iterator to current route-edge.  */
+    /// @brief Iterator to current route-edge
     MSRouteIterator myCurrEdge;
 
-    /** The vehicle's allowed lanes on it'S current edge to drive
-        according to it's route. */
+    /// @brief The vehicle's allowed lanes on it'S current edge to drive according to it's route
     NextAllowedLanes myAllowedLanes;
 
-
-    /// Default constructor.
-    MSVehicle();
-
-    /// Copy constructor.
-    MSVehicle(const MSVehicle&);
-
-    /// Assignment operator.
-    MSVehicle& operator=(const MSVehicle&);
 
     struct DriveProcessItem {
         MSLink *myLink;
@@ -1063,6 +1051,10 @@ private:
     /// @brief The vehicle's knowledge about edge efforts/travel times; @see MSEdgeWeightsStorage
     MSEdgeWeightsStorage *myEdgeWeights;
 
+    /// @brief The information into which lanes the vehicle laps into
+    std::vector<MSLane*> myFurtherLanes;
+
+
 #ifndef NO_TRACI
     /* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
     bool adaptingSpeed;
@@ -1093,6 +1085,17 @@ private:
     bool laneChangeConstraintActive;
 
 #endif
+
+private:
+    /// @brief invalidated efault constructor
+    MSVehicle();
+
+    /// @brief invalidated copy constructor
+    MSVehicle(const MSVehicle&);
+
+    /// @brief invalidated assignment operator
+    MSVehicle& operator=(const MSVehicle&);
+
 
 };
 

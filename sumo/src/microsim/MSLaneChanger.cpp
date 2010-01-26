@@ -295,6 +295,11 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target) const throw() {
     MSVehicle* leader = target->lead;
     if (leader==0) {
         MSLane* targetLane = target->lane;
+        MSVehicle *predP = targetLane->getPartialOccupator();
+        if(predP!=0) {
+            const MSVehicle::State &predS = targetLane->getPartialOccupatorState();
+            return std::pair<MSVehicle *, SUMOReal>(predP, predS.pos() - veh(myCandi)->getPositionOnLane());
+        }
         const std::vector<MSLane*> &bestLaneConts = veh(myCandi)->getBestLanesContinuation();
         MSLinkCont::const_iterator link = targetLane->succLinkSec(*veh(myCandi), 1, *targetLane, bestLaneConts);
         if (targetLane->isLinkEnd(link)) {
@@ -334,8 +339,13 @@ MSLaneChanger::getRealLeader(const ChangerIt &target) const throw() {
             neighLead = target->hoppedVeh;
         }
     }
-
     if (neighLead==0) {
+        MSLane* targetLane = target->lane;
+        MSVehicle *predP = targetLane->getPartialOccupator();
+        if(predP!=0) {
+            const MSVehicle::State &predS = targetLane->getPartialOccupatorState();
+            return std::pair<MSVehicle *, SUMOReal>(predP, predS.pos() - veh(myCandi)->getPositionOnLane());
+        }
         const std::vector<MSLane*> &bestLaneConts = veh(myCandi)->getBestLanesContinuation(myCandi->lane);
         SUMOReal seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
         SUMOReal speed = veh(myCandi)->getSpeed();

@@ -121,8 +121,6 @@ protected:
                        const std::pair<MSVehicle*, SUMOReal> &neighLead,
                        const std::pair<MSVehicle*, SUMOReal> &neighFollow);
 
-//    void addToBlocking(MSVehicle *veh);
-
     inline bool amBlockingLeader() {
         return (myState&LCA_AMBLOCKINGLEADER)!=0;
     }
@@ -144,7 +142,6 @@ protected:
 
     typedef std::pair<SUMOReal, int> Info;
 
-    void setBlockingFollower(MSVehicle *v);
 
 
 protected:
