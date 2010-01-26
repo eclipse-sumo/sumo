@@ -231,19 +231,21 @@ public:
      */
     void resetPartialOccupation(MSVehicle *v) throw();
 
+
     /** @brief Returns the vehicle which laps into this lane
      * @return The vehicle which laps into this lane, 0 if there is no such
      */
-    MSVehicle *getPartialOccupator() const throw();
+    MSVehicle *getPartialOccupator() const throw() {
+        return myInlappingVehicle;
+    }
 
 
-    /** @brief Returns the in-lap information
-     *
-     * The state's position is the position of the vehicle's end at this lane
-     *  - the last free position on this lane
+    /** @brief Returns the position of the in-lapping vehicle's end
      * @return Information about how far the vehicle laps into this lane
      */
-    const MSVehicle::State &getPartialOccupatorState() const throw();
+    SUMOReal getPartialOccupatorEnd() const throw() {
+        return myInlappingVehicleEnd;
+    }
 
 
     /** @brief Returns the last vehicle which is still on the lane
@@ -571,8 +573,8 @@ protected:
     /// @brief The current length of all vehicles on this lane
     SUMOReal myVehicleLengthSum;
 
-    /// @brief State (end position and speed) of a vehicle which laps into this lane
-    MSVehicle::State myInlappingVehicleState;
+    /// @brief End position of a vehicle which laps into this lane
+    SUMOReal myInlappingVehicleEnd;
 
     /// @brief The vehicle which laps into this lane
     MSVehicle *myInlappingVehicle;

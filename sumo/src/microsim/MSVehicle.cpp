@@ -690,13 +690,12 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             // (potential) interaction with a vehicle extending partially into this lane
             MSVehicle *predP = myLane->getPartialOccupator();
             if(predP!=0) {
-                const MSVehicle::State &predS = myLane->getPartialOccupatorState();
-                SUMOReal gap = predS.pos() - myState.myPos;
+                SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
                 if (MSGlobals::gCheck4Accidents && gap<0) {
                     // collision occured!
                     return true;
                 }
-                vWish = MIN2(vWish, getCarFollowModel().ffeV(this, gap, predS.speed()));
+                vWish = MIN2(vWish, getCarFollowModel().ffeV(this, gap, predP->getSpeed()));
             }
         }
         // interaction with left-lane leader (do not overtake right)
@@ -726,13 +725,12 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             // (potential) interaction with a vehicle extending partially into this lane
             MSVehicle *predP = myLane->getPartialOccupator();
             if(predP!=0) {
-                const MSVehicle::State &predS = myLane->getPartialOccupatorState();
-                SUMOReal gap = predS.pos() - myState.myPos;
+                SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
                 if (MSGlobals::gCheck4Accidents && gap<0) {
                     // collision occured!
                     return true;
                 }
-                vBeg = MIN2(vBeg, getCarFollowModel().ffeV(this, gap, predS.speed()));
+                vBeg = MIN2(vBeg, getCarFollowModel().ffeV(this, gap, predP->getSpeed()));
             }
         }
         getCarFollowModel().leftVehicleVsafe(this, neigh, vBeg); // from left-lane leader (do not overtake right)

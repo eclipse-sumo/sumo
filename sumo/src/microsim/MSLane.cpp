@@ -80,7 +80,7 @@ MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge
         : myShape(shape), myID(id), myNumericalID(numericalID),
         myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed),
         myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
-        myVehicleLengthSum(0), myInlappingVehicleState(10000, 10000), myInlappingVehicle(0) {
+        myVehicleLengthSum(0), myInlappingVehicleEnd(10000), myInlappingVehicle(0) {
 }
 
 
@@ -151,7 +151,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         if(leader==0) {
             leader = getPartialOccupator();
             if(leader!=0) {
-                frontMax = getPartialOccupatorState().pos();
+                frontMax = getPartialOccupatorEnd();
             }
         }
         // compute the space needed to not let the follower collide
@@ -279,7 +279,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             SUMOReal gap = 0;
             MSVehicle * leader = currentLane->getPartialOccupator();
             if(leader!=0) {
-                gap = getPartialOccupatorState().pos();
+                gap = getPartialOccupatorEnd();
             } else {
                 // check leader on next lane
                 leader = nextLane->getLastVehicle();
@@ -428,9 +428,9 @@ SUMOReal
 MSLane::setPartialOcupation(MSVehicle *v, SUMOReal leftVehicleLength) throw() {
     myInlappingVehicle = v;
     if(leftVehicleLength>myLength) {
-        myInlappingVehicleState = MSVehicle::State(0, v->getSpeed());
+        myInlappingVehicleEnd = 0;
     } else {
-        myInlappingVehicleState = MSVehicle::State(myLength-leftVehicleLength, v->getSpeed());
+        myInlappingVehicleEnd = myLength-leftVehicleLength;
     }
     return myLength;
 }
@@ -439,20 +439,9 @@ MSLane::setPartialOcupation(MSVehicle *v, SUMOReal leftVehicleLength) throw() {
 void 
 MSLane::resetPartialOccupation(MSVehicle *v) throw() {
     if(v==myInlappingVehicle) {
-        myInlappingVehicleState = MSVehicle::State(10000, 10000);
+        myInlappingVehicleEnd = 10000;
     }
     myInlappingVehicle = 0;
-}
-
-
-MSVehicle *
-MSLane::getPartialOccupator() const throw() {
-    return myInlappingVehicle;
-}
-
-const MSVehicle::State &
-MSLane::getPartialOccupatorState() const throw() {
-    return myInlappingVehicleState;
 }
 
 
@@ -466,7 +455,7 @@ MSLane::getLastVehicleInformation() const throw() {
     }
     if (myInlappingVehicle!=0) {
         // the last one is a vehicle extending into this lane
-        return make_pair(myInlappingVehicle, myInlappingVehicleState.pos());
+        return make_pair(myInlappingVehicle, myInlappingVehicleEnd);
     }
     return make_pair<MSVehicle*, SUMOReal>(0, 0);
 }
@@ -991,7 +980,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
     const MSLane * targetLane = this;
     MSVehicle *leader = targetLane->getPartialOccupator();
     if(leader!=0) {
-        return std::pair<MSVehicle * const, SUMOReal>(leader, seen-targetLane->getPartialOccupatorState().pos());
+        return std::pair<MSVehicle * const, SUMOReal>(leader, seen-targetLane->getPartialOccupatorEnd());
     }
     const MSLane * nextLane = targetLane;
     while (true) {
@@ -1020,7 +1009,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
         } else {
             leader = nextLane->getPartialOccupator();
             if(leader!=0) {
-                return std::pair<MSVehicle * const, SUMOReal>(leader, seen+nextLane->getPartialOccupatorState().pos());
+                return std::pair<MSVehicle * const, SUMOReal>(leader, seen+nextLane->getPartialOccupatorEnd());
             }
         }
         if (nextLane->getMaxSpeed()<speed) {
