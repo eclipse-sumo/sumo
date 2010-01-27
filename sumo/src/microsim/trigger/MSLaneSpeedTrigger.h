@@ -72,7 +72,7 @@ public:
 
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
-    SUMOTime processCommand(bool move2next);
+    SUMOTime processCommand(bool move2next, SUMOTime currentTime);
 
     SUMOReal getDefaultSpeed() const;
 

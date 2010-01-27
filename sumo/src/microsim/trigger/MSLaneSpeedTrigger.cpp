@@ -38,6 +38,12 @@
 #include <utils/common/TplConvert.h>
 #include <microsim/MSEventControl.h>
 
+#ifdef HAVE_MESOSIM
+#include <microsim/MSGlobals.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -73,7 +79,7 @@ MSLaneSpeedTrigger::init() throw(ProcessError) {
     myCurrentEntry = myLoadedSpeeds.begin();
     // pass previous time steps
     while ((*myCurrentEntry).first<MSNet::getInstance()->getCurrentTimeStep()&&myCurrentEntry!=myLoadedSpeeds.end()) {
-        processCommand(true);
+        processCommand(true, MSNet::getInstance()->getCurrentTimeStep());
     }
 
     // add the processing to the event handler
@@ -88,16 +94,27 @@ MSLaneSpeedTrigger::~MSLaneSpeedTrigger() throw() {}
 
 
 SUMOTime
-MSLaneSpeedTrigger::execute(SUMOTime) throw(ProcessError) {
-    return processCommand(true);
+MSLaneSpeedTrigger::execute(SUMOTime currentTime) throw(ProcessError) {
+    return processCommand(true, currentTime);
 }
 
 
 SUMOTime
-MSLaneSpeedTrigger::processCommand(bool move2next) {
+MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
     std::vector<MSLane*>::iterator i;
+    const SUMOReal speed = getCurrentSpeed();
     for (i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
-        (*i)->setMaxSpeed(getCurrentSpeed());
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((*i)->getEdge());
+            while (first!=0) {
+                MSGlobals::gMesoNet->setSpeed(first, speed, currentTime);
+                first = first->getNextSegment();
+            }
+            continue;
+        }
+#endif
+        (*i)->setMaxSpeed(speed);
     }
     if (!move2next) {
         // changed from the gui
@@ -159,14 +176,14 @@ MSLaneSpeedTrigger::getDefaultSpeed() const {
 void
 MSLaneSpeedTrigger::setOverriding(bool val) {
     myAmOverriding = val;
-    processCommand(false);
+    processCommand(false, MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
 void
 MSLaneSpeedTrigger::setOverridingValue(SUMOReal val) {
     mySpeedOverrideValue = val;
-    processCommand(false);
+    processCommand(false, MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
