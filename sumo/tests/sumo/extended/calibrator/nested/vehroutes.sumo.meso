@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/07/09 14:33:17 by SUMO sumo Version dev-SVN-r7822
+<!-- generated on 01/27/10 09:01:03 by SUMO sumo Version dev-SVN-r8182
 <configuration>
 
     <input>
@@ -26,23 +26,23 @@
 -->
 
 <routes>
-    <vehicle id="veh0" depart="1" arrival="72">
+    <vehicle id="veh0" depart="1" arrival="73">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="inserted_calibtest_time_36_0" depart="36" arrival="103">
+    <vehicle id="inserted_calibtest_time_36_0" depart="36" arrival="104">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="inserted_calibtest_time_54_1" depart="54" arrival="121">
+    <vehicle id="inserted_calibtest_time_54_1" depart="54" arrival="122">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="inserted_calibtest_time_72_2" depart="72" arrival="139">
+    <vehicle id="inserted_calibtest_time_72_2" depart="72" arrival="140">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="inserted_calibtest_time_90_3" depart="90" arrival="157">
+    <vehicle id="inserted_calibtest_time_90_3" depart="90" arrival="158">
         <route edges="beg middle end rend"/>
    </vehicle>
 
