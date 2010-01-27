@@ -763,7 +763,7 @@ void
 MSTLLogicControl::addWAUTJunction(const std::string &wautid,
                                   const std::string &tls,
                                   const std::string &proc,
-                                  bool synchron) throw(InvalidArgument) {
+                                  bool synchron) throw(InvalidArgument, ProcessError) {
     // try to get the waut
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
         // report an error if the waut is not known

@@ -302,9 +302,10 @@ public:
      * @param[in] proc The switching procedure to use
      * @param[in] synchron Whether the switching shall be done in synchron mode
      * @exception InvalidArgument If the named WAUT or the named tls are not known
+     * @exception ProcessError If the initial switch fails
      */
     void addWAUTJunction(const std::string &wautid, const std::string &tls,
-                         const std::string &proc, bool synchron) throw(InvalidArgument);
+                         const std::string &proc, bool synchron) throw(InvalidArgument, ProcessError);
 
 
     /** @brief Closes loading of a WAUT
