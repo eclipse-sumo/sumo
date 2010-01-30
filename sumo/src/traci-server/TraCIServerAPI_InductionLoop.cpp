@@ -51,7 +51,8 @@ using namespace tcpip;
 // ===========================================================================
 bool
 TraCIServerAPI_InductionLoop::processGet(tcpip::Storage &inputStorage,
-        tcpip::Storage &outputStorage) throw(TraCIException) {
+                                         tcpip::Storage &outputStorage,
+                                         bool withStatus) throw(TraCIException) {
     string warning = ""; // additional description for response
     // variable & id
     int variable = inputStorage.readUnsignedByte();
@@ -114,7 +115,9 @@ TraCIServerAPI_InductionLoop::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    TraCIServerAPIHelper::writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, warning, outputStorage);
+    if(withStatus) {
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_INDUCTIONLOOP_VARIABLE, RTYPE_OK, warning, outputStorage);
+    }
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

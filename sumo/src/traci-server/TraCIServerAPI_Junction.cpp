@@ -52,7 +52,8 @@ using namespace tcpip;
 // ===========================================================================
 bool
 TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
-                                    tcpip::Storage &outputStorage) throw(TraCIException) {
+                                    tcpip::Storage &outputStorage,
+                                    bool withStatus) throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
@@ -92,7 +93,9 @@ TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
+    if(withStatus) {
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
+    }
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());

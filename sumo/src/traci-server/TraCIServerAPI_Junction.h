@@ -46,8 +46,10 @@ public:
      *
      * @param[in] inputStorage The storage to read the command from
      * @param[out] outputStorage The storage to write the result to
+     * @param[in] withStatus Whether the status message shall be written (not in subscription)
      */
-    static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
+    static bool processGet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage,
+        bool withStatus=true) throw(traci::TraCIException);
 
 
 private:

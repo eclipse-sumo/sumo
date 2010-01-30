@@ -50,7 +50,8 @@ using namespace tcpip;
 // ===========================================================================
 bool
 TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
-                                tcpip::Storage &outputStorage) throw(TraCIException) {
+                                tcpip::Storage &outputStorage,
+                                bool withStatus) throw(TraCIException) {
     Storage tmpResult;
     string warning = "";	// additional description for response
     // variable
@@ -59,7 +60,12 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
     // check variable
     if (variable!=ID_LIST&&variable!=LANE_LINK_NUMBER&&variable!=LANE_EDGE_ID&&variable!=VAR_LENGTH
             &&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS&&variable!=VAR_SHAPE
-            &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
+            &&variable!=VAR_CO2EMISSION&&variable!=VAR_COEMISSION&&variable!=VAR_HCEMISSION&&variable!=VAR_PMXEMISSION
+            &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
+			&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_NUMBER
+			&&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER
+			&&variable!=LAST_STEP_LENGTH&&variable!=VAR_CURRENT_TRAVELTIME
+			&&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -175,11 +181,102 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
                 tempMsg.writeFloat(lane->getShape()[iPoint].y());
             }
             break;
+        case VAR_CO2EMISSION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(lane->getHBEFA_CO2Emissions());
+            break;
+        case VAR_COEMISSION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(lane->getHBEFA_COEmissions());
+            break;
+        case VAR_HCEMISSION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(lane->getHBEFA_HCEmissions());
+            break;
+        case VAR_PMXEMISSION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(lane->getHBEFA_PMxEmissions());
+            break;
+        case VAR_NOXEMISSION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(lane->getHBEFA_NOxEmissions());
+            break;
+        case VAR_FUELCONSUMPTION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(lane->getHBEFA_FuelConsumption());
+            break;
+        case VAR_NOISEEMISSION:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+            tempMsg.writeFloat(lane->getHarmonoise_NoiseEmissions());
+            break;
+        case LAST_STEP_VEHICLE_NUMBER:
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+			tempMsg.writeInt((int) lane->getVehicleNumber());
+            break;
+        case LAST_STEP_MEAN_SPEED:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+			tempMsg.writeFloat(lane->getMeanSpeed());
+            break;
+		case LAST_STEP_VEHICLE_ID_LIST: {
+            std::vector<std::string> vehIDs;
+            const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
+            for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+                vehIDs.push_back((*j)->getID());
+            }
+            lane->releaseVehicles();
+            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+            tempMsg.writeStringList(vehIDs);
+		}
+        break;
+        case LAST_STEP_OCCUPANCY:
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+			tempMsg.writeFloat(lane->getOccupancy());
+            break;
+        case LAST_STEP_VEHICLE_HALTING_NUMBER: {
+            int halting = 0;
+            const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
+            for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+				if((*j)->getSpeed()<0.1) {
+					++halting;
+				}
+            }
+            lane->releaseVehicles();
+            tempMsg.writeUnsignedByte(TYPE_INTEGER);
+            tempMsg.writeInt(halting);
+		}
+        break;
+        case LAST_STEP_LENGTH: {
+            SUMOReal lengthSum = 0;
+            const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
+            for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+				lengthSum += (*j)->getLength();
+            }
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+			if(vehs.size()==0) {
+				tempMsg.writeFloat(0);
+			} else {
+				tempMsg.writeFloat(lengthSum / (SUMOReal) vehs.size());
+			}
+            lane->releaseVehicles();
+		}
+        break;
+        case VAR_CURRENT_TRAVELTIME: {
+			SUMOReal meanSpeed = lane->getMeanSpeed();
+            tempMsg.writeUnsignedByte(TYPE_FLOAT);
+			if(meanSpeed!=0) {
+				tempMsg.writeFloat(lane->getLength() / meanSpeed);
+			} else {
+				tempMsg.writeFloat(1000000.);
+			}
+        }
+        break;
         default:
             break;
         }
     }
-    TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
+    if(withStatus) {
+        TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
+    }
     // send response
     outputStorage.writeUnsignedByte(0); // command length -> extended
     outputStorage.writeInt(1 + 4 + tempMsg.size());
