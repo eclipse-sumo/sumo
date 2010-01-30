@@ -2,6 +2,7 @@ import_config_file:../config_all
 binary:$TEXTTEST_HOME/toolrunner.py
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_net.net.xml
+kill_timeout:5
 
 [collate_file]
 vehroutes:vehroutes.xml

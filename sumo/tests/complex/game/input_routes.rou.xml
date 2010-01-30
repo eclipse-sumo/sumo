@@ -1,0 +1,6 @@
+<routes>
+   <route id="horizontal" edges="2fi 2si 1o 1fi"/>
+   <vehicle id="horiz" route="horizontal" depart="0" repno="100" period="2"/>
+   <route id="vertical" edges="4fi 4si 3o 3fi"/>
+   <vehicle id="vertic" route="vertical" depart="0" repno="100" period="4"/>
+</routes>
