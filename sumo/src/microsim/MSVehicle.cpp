@@ -58,6 +58,8 @@
 #include "devices/MSDevice_Routing.h"
 #include <microsim/devices/MSDevice_HBEFA.h>
 #include "MSEdgeWeightsStorage.h"
+#include <utils/common/HelpersHBEFA.h>
+#include <utils/common/HelpersHarmonoise.h>
 
 #ifdef _MESSAGES
 #include "MSMessageEmitter.h"
@@ -1850,6 +1852,47 @@ MSVehicle::setWasVaporized(bool onDepart) {
     }
 }
 
+
+SUMOReal
+MSVehicle::getHBEFA_CO2Emissions() const throw() {
+    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+SUMOReal
+MSVehicle::getHBEFA_COEmissions() const throw() {
+    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+SUMOReal
+MSVehicle::getHBEFA_HCEmissions() const throw() {
+    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+SUMOReal
+MSVehicle::getHBEFA_NOxEmissions() const throw() {
+    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+SUMOReal
+MSVehicle::getHBEFA_PMxEmissions() const throw() {
+    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+SUMOReal
+MSVehicle::getHBEFA_FuelConsumption() const throw() {
+    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
+
+
+SUMOReal
+MSVehicle::getHarmonoise_NoiseEmissions() const throw() {
+    return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
+}
 
 
 

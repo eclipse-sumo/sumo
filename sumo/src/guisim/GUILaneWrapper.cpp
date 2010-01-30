@@ -77,7 +77,7 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     SUMOReal y1 = shape[0].y();
     SUMOReal x2 = shape[-1].x();
     SUMOReal y2 = shape[-1].y();
-    SUMOReal length = getLength();
+    SUMOReal length = myLane.getLength();
     // also the virtual length is set in here
     myVisLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     // check maximum speed
@@ -100,27 +100,9 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
 GUILaneWrapper::~GUILaneWrapper() throw() {}
 
 
-SUMOReal
-GUILaneWrapper::getLength() const {
-    return myLane.myLength;
-}
-
-
-SUMOReal
-GUILaneWrapper::visLength() const {
-    return myVisLength;
-}
-
-
 MSEdge::EdgeBasicFunction
 GUILaneWrapper::getPurpose() const {
     return myLane.myEdge->getPurpose();
-}
-
-
-SUMOReal
-GUILaneWrapper::maxSpeed() const {
-    return myLane.getMaxSpeed();
 }
 
 
@@ -654,102 +636,50 @@ GUILaneWrapper::firstWaitingTime() const {
 
 
 SUMOReal
-GUILaneWrapper::getOccupancy() const {
-    return myLane.getOccupancy();
-}
-
-
-SUMOReal
 GUILaneWrapper::getEdgeLaneNumber() const {
     return (SUMOReal) myLane.getEdge().getLanes().size();
 }
 
 
-SUMOReal
-GUILaneWrapper::getHBEFA_CO2Emissions() const {
-    SUMOReal ret = 0;
-    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
-        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_CO2Emissions();
-    }
-    myLane.releaseVehicles();
-    return ret / myLane.getLength();
+// ------------ Current state retrieval
+SUMOReal 
+GUILaneWrapper::getNormedHBEFA_CO2Emissions() const throw() {
+	return myLane.getHBEFA_CO2Emissions() / myLane.getLength();
 }
 
 
-SUMOReal
-GUILaneWrapper::getHBEFA_COEmissions() const {
-    SUMOReal ret = 0;
-    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
-        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_COEmissions();
-    }
-    myLane.releaseVehicles();
-    return ret / myLane.getLength();
+SUMOReal 
+GUILaneWrapper::getNormedHBEFA_COEmissions() const throw() {
+    return myLane.getHBEFA_COEmissions() / myLane.getLength();
 }
 
 
-SUMOReal
-GUILaneWrapper::getHBEFA_PMxEmissions() const {
-    SUMOReal ret = 0;
-    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
-        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_PMxEmissions();
-    }
-    myLane.releaseVehicles();
-    return ret / myLane.getLength();
+SUMOReal 
+GUILaneWrapper::getNormedHBEFA_PMxEmissions() const throw() {
+    return myLane.getHBEFA_PMxEmissions() / myLane.getLength();
 }
 
 
-SUMOReal
-GUILaneWrapper::getHBEFA_NOxEmissions() const {
-    SUMOReal ret = 0;
-    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
-        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_NOxEmissions();
-    }
-    myLane.releaseVehicles();
-    return ret / myLane.getLength();
+SUMOReal 
+GUILaneWrapper::getNormedHBEFA_NOxEmissions() const throw() {
+    return myLane.getHBEFA_NOxEmissions() / myLane.getLength();
 }
 
 
-SUMOReal
-GUILaneWrapper::getHBEFA_HCEmissions() const {
-    SUMOReal ret = 0;
-    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
-        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_HCEmissions();
-    }
-    myLane.releaseVehicles();
-    return ret / myLane.getLength();
+SUMOReal 
+GUILaneWrapper::getNormedHBEFA_HCEmissions() const throw() {
+    return myLane.getHBEFA_HCEmissions() / myLane.getLength();
 }
 
 
-SUMOReal
-GUILaneWrapper::getHBEFA_FuelConsumption() const {
-    SUMOReal ret = 0;
-    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
-        ret += static_cast<GUIVehicle*>(*i)->getHBEFA_FuelConsumption();
-    }
-    myLane.releaseVehicles();
-    return ret / myLane.getLength();
+SUMOReal 
+GUILaneWrapper::getNormedHBEFA_FuelConsumption() const throw() {
+    return myLane.getHBEFA_FuelConsumption() / myLane.getLength();
 }
 
 
-SUMOReal
-GUILaneWrapper::getHarmonoise_NoiseEmissions() const {
-    SUMOReal ret = 0;
-    const MSLane::VehCont &vehs = myLane.getVehiclesSecure();
-    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
-        SUMOReal sv = static_cast<GUIVehicle*>(*i)->getHarmonoise_NoiseEmissions();
-        ret += (SUMOReal) pow(10., (sv/10.));
-    }
-    myLane.releaseVehicles();
-    return HelpersHarmonoise::sum(ret);
-}
 
-
+// ------------ 
 GUILaneWrapper::Colorer::Colorer() {
     mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0), "", true));
     mySchemes.push_back(GUIColorScheme("by selection (lane-/streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
@@ -798,27 +728,27 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
         }
             }
     case 3:
-        return lane.maxSpeed();
+		return lane.getLane().getMaxSpeed();
     case 4:
-        return lane.getOccupancy();
+        return lane.getLane().getOccupancy();
     case 5:
         return lane.firstWaitingTime();
     case 6:
         return lane.getEdgeLaneNumber();
     case 7:
-        return lane.getHBEFA_CO2Emissions();
+        return lane.getNormedHBEFA_CO2Emissions();
     case 8:
-        return lane.getHBEFA_COEmissions();
+        return lane.getNormedHBEFA_COEmissions();
     case 9:
-        return lane.getHBEFA_PMxEmissions();
+        return lane.getNormedHBEFA_PMxEmissions();
     case 10:
-        return lane.getHBEFA_NOxEmissions();
+        return lane.getNormedHBEFA_NOxEmissions();
     case 11:
-        return lane.getHBEFA_HCEmissions();
+        return lane.getNormedHBEFA_HCEmissions();
     case 12:
-        return lane.getHBEFA_FuelConsumption();
+        return lane.getNormedHBEFA_FuelConsumption();
     case 13:
-        return lane.getHarmonoise_NoiseEmissions();
+        return lane.getLane().getHarmonoise_NoiseEmissions();
     }
     return 0;
 }

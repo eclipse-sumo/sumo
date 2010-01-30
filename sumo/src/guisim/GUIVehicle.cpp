@@ -49,8 +49,6 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/gui/div/GLHelper.h>
 #include <foreign/polyfonts/polyfonts.h>
-#include <utils/common/HelpersHBEFA.h>
-#include <utils/common/HelpersHarmonoise.h>
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -962,48 +960,6 @@ GUIVehicle::setBlinkerInformation() {
 
 void
 GUIVehicle::initShapes() throw() {
-}
-
-
-SUMOReal
-GUIVehicle::getHBEFA_CO2Emissions() const throw() {
-    return HelpersHBEFA::computeCO2(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
-}
-
-
-SUMOReal
-GUIVehicle::getHBEFA_COEmissions() const throw() {
-    return HelpersHBEFA::computeCO(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
-}
-
-
-SUMOReal
-GUIVehicle::getHBEFA_HCEmissions() const throw() {
-    return HelpersHBEFA::computeHC(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
-}
-
-
-SUMOReal
-GUIVehicle::getHBEFA_NOxEmissions() const throw() {
-    return HelpersHBEFA::computeNOx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
-}
-
-
-SUMOReal
-GUIVehicle::getHBEFA_PMxEmissions() const throw() {
-    return HelpersHBEFA::computePMx(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
-}
-
-
-SUMOReal
-GUIVehicle::getHBEFA_FuelConsumption() const throw() {
-    return HelpersHBEFA::computeFuel(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
-}
-
-
-SUMOReal
-GUIVehicle::getHarmonoise_NoiseEmissions() const throw() {
-    return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), myState.speed(), myPreDawdleAcceleration);
 }
 
 

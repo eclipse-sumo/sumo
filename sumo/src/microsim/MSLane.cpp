@@ -52,6 +52,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/HelpersHarmonoise.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -860,18 +861,6 @@ MSLane::removeVehicle(MSVehicle * remVehicle) {
 }
 
 
-SUMOReal
-MSLane::getOccupancy() const {
-    return myVehicleLengthSum / myLength;
-}
-
-
-SUMOReal
-MSLane::getVehLenSum() const {
-    return myVehicleLengthSum;
-}
-
-
 MSLane * const
     MSLane::getLeftLane() const {
     return myEdge->leftLane(this);
@@ -1042,18 +1031,122 @@ MSLane::enteredByLaneChange(MSVehicle *v) {
 }
 
 
+// ------------ Current state retrieval
 SUMOReal
-MSLane::getMeanSpeed() const {
+MSLane::getOccupancy() const throw() {
+    return myVehicleLengthSum / myLength;
+}
+
+
+SUMOReal
+MSLane::getVehLenSum() const throw() {
+    return myVehicleLengthSum;
+}
+
+
+SUMOReal
+MSLane::getMeanSpeed() const throw() {
     if (myVehicles.size()==0) {
         return myMaxSpeed;
     }
     SUMOReal v = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
     for (VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
         v += (*i)->getSpeed();
     }
-    return v / (SUMOReal) myVehicles.size();
+    SUMOReal ret = v / (SUMOReal) myVehicles.size();
+    releaseVehicles();
+    return ret;
 }
 
+
+SUMOReal
+MSLane::getHBEFA_CO2Emissions() const throw() {
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += (*i)->getHBEFA_CO2Emissions();
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+SUMOReal
+MSLane::getHBEFA_COEmissions() const throw() {
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += (*i)->getHBEFA_COEmissions();
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+SUMOReal
+MSLane::getHBEFA_PMxEmissions() const throw() {
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += (*i)->getHBEFA_PMxEmissions();
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+SUMOReal
+MSLane::getHBEFA_NOxEmissions() const throw() {
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += (*i)->getHBEFA_NOxEmissions();
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+SUMOReal
+MSLane::getHBEFA_HCEmissions() const throw() {
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += (*i)->getHBEFA_HCEmissions();
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+SUMOReal
+MSLane::getHBEFA_FuelConsumption() const throw() {
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        ret += (*i)->getHBEFA_FuelConsumption();
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+SUMOReal
+MSLane::getHarmonoise_NoiseEmissions() const throw() {
+    SUMOReal ret = 0;
+    const MSLane::VehCont &vehs = getVehiclesSecure();
+	if(vehs.size()==0) {
+		releaseVehicles();
+		return 0;
+	}
+    for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
+        SUMOReal sv = (*i)->getHarmonoise_NoiseEmissions();
+        ret += (SUMOReal) pow(10., (sv/10.));
+    }
+    releaseVehicles();
+    return HelpersHarmonoise::sum(ret);
+}
 
 
 /****************************************************************************/

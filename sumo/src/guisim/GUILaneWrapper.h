@@ -44,12 +44,9 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSVehicle;
-class MSNet;
 class GUINet;
 class Position2DVector;
 class GUIGLObjectPopupMenu;
-class MSEdge;
 
 
 // ===========================================================================
@@ -66,11 +63,16 @@ class MSEdge;
  */
 class GUILaneWrapper : public GUIGlObject {
 public:
-    /// constructor
+    /** @brief Constructor
+	 * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
+	 * @param[in] lane The lane to be represented
+	 * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
+	 */
     GUILaneWrapper(GUIGlObjectStorage &idStorage,
                    MSLane &lane, const Position2DVector &shape) throw();
 
-    /// destructor
+
+    /// @brief Destructor
     virtual ~GUILaneWrapper() throw();
 
 
@@ -134,12 +136,15 @@ public:
     void drawGL(const GUIVisualizationSettings &s) const throw();
     //@}
 
-    /** returns the length of the lane */
-    SUMOReal getLength() const;
 
-    /** returns the "visualisation length"; this length may differ to the
-        real length */
-    SUMOReal visLength() const;
+
+	/** @brief Returns the represented lane
+	 * @return The lane represented by this wrapper
+	 */
+	const MSLane &getLane() const throw() {
+		return myLane;
+	}
+
 
     const Position2DVector &getShape() const;
     const DoubleVector &getShapeRotations() const;
@@ -148,18 +153,7 @@ public:
     /** returns the purpose (source, sink, normal) of the parent edge */
     MSEdge::EdgeBasicFunction getPurpose() const;
 
-    /** returns the lane's maximum speed */
-    SUMOReal maxSpeed() const;
-
     SUMOReal firstWaitingTime() const;
-    SUMOReal getOccupancy() const;
-    SUMOReal getHBEFA_CO2Emissions() const;
-    SUMOReal getHBEFA_COEmissions() const;
-    SUMOReal getHBEFA_PMxEmissions() const;
-    SUMOReal getHBEFA_NOxEmissions() const;
-    SUMOReal getHBEFA_HCEmissions() const;
-    SUMOReal getHBEFA_FuelConsumption() const;
-    SUMOReal getHarmonoise_NoiseEmissions() const;
 
 
     /// Returns the fastest known lane speed
@@ -198,6 +192,48 @@ public:
 
 
 
+
+    /// @name Current state retrieval
+    //@{
+
+	/** @brief Returns the sum of last step CO2 emissions normed by the lane's length
+	 * @return CO2 emissions of vehicles on this lane during the last step, normed by the lane length
+	 */
+    SUMOReal getNormedHBEFA_CO2Emissions() const throw();
+
+	
+	/** @brief Returns the sum of last step CO emissions normed by the lane's length
+	 * @return CO emissions of vehicles on this lane during the last step, normed by the lane length
+	 */
+	SUMOReal getNormedHBEFA_COEmissions() const throw();
+
+	
+	/** @brief Returns the sum of last step PMx emissions normed by the lane's length
+	 * @return PMx emissions of vehicles on this lane during the last step, normed by the lane length
+	 */
+	SUMOReal getNormedHBEFA_PMxEmissions() const throw();
+
+	
+	/** @brief Returns the sum of last step NOx emissions normed by the lane's length
+	 * @return NOx emissions of vehicles on this lane during the last step, normed by the lane length
+	 */
+	SUMOReal getNormedHBEFA_NOxEmissions() const throw();
+
+	
+	/** @brief Returns the sum of last step HC emissions normed by the lane's length
+	 * @return HC emissions of vehicles on this lane during the last step, normed by the lane length
+	 */
+	SUMOReal getNormedHBEFA_HCEmissions() const throw();
+    
+	
+	/** @brief Returns the sum of last step fuel comsumption normed by the lane's length
+	 * @return Fuel comsumption of vehicles on this lane during the last step, normed by the lane length
+	 */
+	SUMOReal getNormedHBEFA_FuelConsumption() const throw();
+	/// @}
+
+
+
     SUMOReal getEdgeLaneNumber() const;
 
     class Colorer : public GUIColorer<GUILaneWrapper> {
@@ -205,6 +241,9 @@ public:
         Colorer();
         SUMOReal getColorValue(const GUILaneWrapper& lane) const;
     };
+
+
+
 
 protected:
     /** the visualisation length; As sources and sinks may be shorter/longer
