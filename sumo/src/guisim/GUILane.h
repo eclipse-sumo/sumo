@@ -63,7 +63,7 @@ public:
     /** @brief Constructor
      *
      * @param[in] id The lane's id
-     * @param[in] maxSpeed The speed allwoed on this lane
+     * @param[in] maxSpeed The speed allowed on this lane
      * @param[in] length The lane's length
      * @param[in] edge The edge this lane belongs to
      * @param[in] numericalID The numerical id of the lane
