@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os,subprocess,sys,time
-time.sleep(100)
+#time.sleep(100)
 idx = sys.argv.index(":")
 saveParams = sys.argv[1:idx]
 loadParams = sys.argv[idx+1:]
