@@ -172,7 +172,7 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
 #ifdef HAVE_MESOSIM
     ret = new GUIParameterTableWindow(app, *this, 5);
     // add items
-    ret->mkItem("length [m]", false, myLaneGeoms[0]->getLength());
+    ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
     ret->mkItem("occupancy [%]", true,
                 new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getOccupancy));
