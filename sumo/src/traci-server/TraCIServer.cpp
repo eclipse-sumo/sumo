@@ -669,7 +669,7 @@ TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_arg
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     writeStatusCmd(CMD_SIMSTEP2, RTYPE_OK, "");
     int noActive = 0;
-    for (std::vector<Subscription>::const_iterator i=mySubscriptions.begin(); i!=mySubscriptions.end(); ) {
+    for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end(); ) {
         const Subscription &s = *i;
         if(s.endTime<t) {
             i = mySubscriptions.erase(i);
@@ -682,7 +682,7 @@ TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_arg
         ++noActive;
     }
     myOutputStorage.writeInt(noActive);
-    for (std::vector<Subscription>::const_iterator i=mySubscriptions.begin(); i!=mySubscriptions.end(); ++i) {
+    for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end(); ++i) {
         const Subscription &s = *i;
         if(s.beginTime>t) {
             continue;
