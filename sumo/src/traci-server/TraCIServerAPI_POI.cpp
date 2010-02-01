@@ -109,7 +109,7 @@ TraCIServerAPI_POI::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    if(withStatus) {
+    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_OK, warning, outputStorage);
     }
     // send response

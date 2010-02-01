@@ -85,6 +85,7 @@ public:
 
     // simulation commands
     void commandSimulationStep(double time, int posFormat);
+    void commandSimulationStep2(double time);
 
     void commandSetMaximumSpeed(int nodeId, float speed);
 
@@ -122,6 +123,7 @@ public:
     void commandGetTLStatus(int tlId, double intervalStart, double intervalEnd);
     void commandGetVariable(int domID, int varID, const std::string &objID);
     void commandGetVariablePlus(int domID, int varID, const std::string &objID, std::ifstream &defFile);
+    void commandSubscribeVariable(int domID, const std::string &objID, int beginTime, int endTime, int varNo, std::ifstream &defFile);
     void commandSetValue(int domID, int varID, const std::string &objID, std::ifstream &defFile);
 
     void commandClose();
@@ -157,9 +159,11 @@ private:
                          testclient::TLPhaseList* tlphaseVal);
 
     // validation of received command responses
-    bool reportResultState(tcpip::Storage& inMsg, int command);
+    bool reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId=false);
 
     bool validateSimulationStep(tcpip::Storage& inMsg);
+    bool validateSimulationStep2(tcpip::Storage& inMsg);
+    bool validateSubscription(tcpip::Storage& inMsg);
 
     bool validateStopNode(tcpip::Storage& inMsg);
 

@@ -93,7 +93,7 @@ TraCIServerAPI_Junction::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    if(withStatus) {
+    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, warning, outputStorage);
     }
     // send response

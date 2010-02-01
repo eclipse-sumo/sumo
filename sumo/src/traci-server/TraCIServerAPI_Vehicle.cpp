@@ -273,7 +273,7 @@ TraCIServerAPI_Vehicle::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    if(withStatus) {
+    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_VEHICLE_VARIABLE, RTYPE_OK, warning, outputStorage);
     }
     // send response

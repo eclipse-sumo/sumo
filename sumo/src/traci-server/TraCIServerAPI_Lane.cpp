@@ -62,10 +62,10 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             &&variable!=VAR_MAXSPEED&&variable!=LANE_LINKS&&variable!=VAR_SHAPE
             &&variable!=VAR_CO2EMISSION&&variable!=VAR_COEMISSION&&variable!=VAR_HCEMISSION&&variable!=VAR_PMXEMISSION
             &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
-			&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_NUMBER
-			&&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER
-			&&variable!=LAST_STEP_LENGTH&&variable!=VAR_CURRENT_TRAVELTIME
-			&&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
+            &&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_VEHICLE_NUMBER
+            &&variable!=LAST_STEP_VEHICLE_ID_LIST&&variable!=LAST_STEP_OCCUPANCY&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER
+            &&variable!=LAST_STEP_LENGTH&&variable!=VAR_CURRENT_TRAVELTIME
+            &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -211,13 +211,13 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             break;
         case LAST_STEP_VEHICLE_NUMBER:
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
-			tempMsg.writeInt((int) lane->getVehicleNumber());
+            tempMsg.writeInt((int) lane->getVehicleNumber());
             break;
         case LAST_STEP_MEAN_SPEED:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-			tempMsg.writeFloat(lane->getMeanSpeed());
+            tempMsg.writeFloat(lane->getMeanSpeed());
             break;
-		case LAST_STEP_VEHICLE_ID_LIST: {
+        case LAST_STEP_VEHICLE_ID_LIST: {
             std::vector<std::string> vehIDs;
             const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
             for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
@@ -226,55 +226,55 @@ TraCIServerAPI_Lane::processGet(tcpip::Storage &inputStorage,
             lane->releaseVehicles();
             tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
             tempMsg.writeStringList(vehIDs);
-		}
+        }
         break;
         case LAST_STEP_OCCUPANCY:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-			tempMsg.writeFloat(lane->getOccupancy());
+            tempMsg.writeFloat(lane->getOccupancy());
             break;
         case LAST_STEP_VEHICLE_HALTING_NUMBER: {
             int halting = 0;
             const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
             for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-				if((*j)->getSpeed()<0.1) {
-					++halting;
-				}
+                if ((*j)->getSpeed()<0.1) {
+                    ++halting;
+                }
             }
             lane->releaseVehicles();
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(halting);
-		}
+        }
         break;
         case LAST_STEP_LENGTH: {
             SUMOReal lengthSum = 0;
             const std::deque<MSVehicle*> &vehs = lane->getVehiclesSecure();
             for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-				lengthSum += (*j)->getLength();
+                lengthSum += (*j)->getLength();
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-			if(vehs.size()==0) {
-				tempMsg.writeFloat(0);
-			} else {
-				tempMsg.writeFloat(lengthSum / (SUMOReal) vehs.size());
-			}
+            if (vehs.size()==0) {
+                tempMsg.writeFloat(0);
+            } else {
+                tempMsg.writeFloat(lengthSum / (SUMOReal) vehs.size());
+            }
             lane->releaseVehicles();
-		}
+        }
         break;
         case VAR_CURRENT_TRAVELTIME: {
-			SUMOReal meanSpeed = lane->getMeanSpeed();
+            SUMOReal meanSpeed = lane->getMeanSpeed();
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-			if(meanSpeed!=0) {
-				tempMsg.writeFloat(lane->getLength() / meanSpeed);
-			} else {
-				tempMsg.writeFloat(1000000.);
-			}
+            if (meanSpeed!=0) {
+                tempMsg.writeFloat(lane->getLength() / meanSpeed);
+            } else {
+                tempMsg.writeFloat(1000000.);
+            }
         }
         break;
         default:
             break;
         }
     }
-    if(withStatus) {
+    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
     }
     // send response

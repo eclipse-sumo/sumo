@@ -164,6 +164,13 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             for (int i=0; i < repNo; i++) {
                 commandSimulationStep(time, posFormat);
             }
+        } else if (lineCommand.compare("simstep2") == 0) {
+            // read parameter for command simulation step and trigger command
+            double time;
+            defFile >> time;
+            for (int i=0; i < repNo; i++) {
+                commandSimulationStep2(time);
+            }
         } else if (lineCommand.compare("simstep_repeat") == 0) {
             // read parameter for command simulation step and trigger command
             // repeat the command with increasing target times
@@ -438,7 +445,13 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
             string objID;
             defFile >> domID >> varID >> objID;
             commandGetVariablePlus(domID, varID, objID, defFile);
-        } else if (lineCommand.compare("setvalue") == 0) {
+        } else if (lineCommand.compare("subscribevariable") == 0) {
+            // trigger command GetXXXVariable
+            int domID, varNo, beginTime, endTime;
+            string objID;
+            defFile >> domID >> objID >> beginTime >> endTime >> varNo;
+            commandSubscribeVariable(domID, objID, beginTime, endTime, varNo, defFile);
+        }  else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
             string objID;
@@ -461,7 +474,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
 
 
 bool
-TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command) {
+TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId) {
     int cmdLength;
     int cmdId;
     int resultType;
@@ -472,7 +485,7 @@ TraCITestClient::reportResultState(tcpip::Storage& inMsg, int command) {
         cmdStart = inMsg.position();
         cmdLength = inMsg.readUnsignedByte();
         cmdId = inMsg.readUnsignedByte();
-        if (cmdId != command) {
+        if (cmdId != command && !ignoreCommandId) {
             answerLog << "#Error: received status response to command: " << cmdId
             << " but expected: " << command << endl;
             return false;
@@ -556,6 +569,49 @@ TraCITestClient::commandSimulationStep(double time, int posFormat) {
 
     // validate answer message
     validateSimulationStep(inMsg);
+}
+
+
+void
+TraCITestClient::commandSimulationStep2(double time) {
+    tcpip::Storage outMsg;
+    tcpip::Storage inMsg;
+    std::stringstream msg;
+
+    if (socket == NULL) {
+        msg << "#Error while sending command: no connection to server";
+        errorMsg(msg);
+        return;
+    }
+
+    // command length
+    outMsg.writeUnsignedByte(1 + 1 + 8);
+    // command id
+    outMsg.writeUnsignedByte(CMD_SIMSTEP2);
+    outMsg.writeDouble(time);
+    // send request message
+    try {
+        socket->sendExact(outMsg);
+    } catch (SocketException e) {
+        msg << "Error while sending command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    answerLog << endl << "-> Command sent: <SimulationStep2>:" << endl;
+    // receive answer message
+    try {
+        socket->receiveExact(inMsg);
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    // validate result state
+    if (!reportResultState(inMsg, CMD_SIMSTEP2)) {
+        return;
+    }
+    // validate answer message
+    validateSimulationStep2(inMsg);
 }
 
 
@@ -1371,6 +1427,71 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
 }
 
 
+void
+TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, int beginTime, int endTime, int varNo, std::ifstream &defFile) {
+    std::stringstream msg;
+    if (socket == NULL) {
+        msg << "#Error while sending command: no connection to server" ;
+        errorMsg(msg);
+        return;
+    }
+    tcpip::Storage outMsg, inMsg, tmp;
+    string msgS = msg.str();
+    if (msgS!="") {
+        errorMsg(msg);
+    }
+    // command length (domID, beginTime, endTime, objID, varNo, <vars>)
+    outMsg.writeUnsignedByte(0);
+    outMsg.writeInt(/*1 + 4 +*/ 5 + 1 + 4 + 4 + 4 + (int) objID.length() + 1 + varNo);
+    // command id
+    outMsg.writeUnsignedByte(domID);
+    // time
+    outMsg.writeInt(beginTime);
+    outMsg.writeInt(endTime);
+    // object id
+    outMsg.writeString(objID);
+    // command id
+    outMsg.writeUnsignedByte(varNo);
+    for (int i=0; i<varNo; ++i) {
+        int var;
+        defFile >> var;
+        // variable id
+        outMsg.writeUnsignedByte(var);
+    }
+    // send request message
+    try {
+        socket->sendExact(outMsg);
+    } catch (SocketException e) {
+        msg << "Error while sending command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    answerLog << endl << "-> Command sent: <SubscribeVariable>:" << endl
+    << "  domID=" << domID << " objID=" << objID << " with " << varNo << " variables" << endl;
+
+    // receive answer message
+    try {
+        socket->receiveExact(inMsg);
+        if (!reportResultState(inMsg, domID)) {
+            return;
+        }
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+    // validate result state
+    try {
+        validateSubscription(inMsg);
+    } catch (SocketException e) {
+        msg << "Error while receiving command: " << e.what();
+        errorMsg(msg);
+        return;
+    }
+}
+
+
+
 int
 TraCITestClient::setValueTypeDependant(tcpip::Storage &into, std::ifstream &defFile, std::stringstream &msg) {
     string dataTypeS, valueS;
@@ -1782,6 +1903,58 @@ TraCITestClient::validateSimulationStep(tcpip::Storage &inMsg) {
     }
 
     return true;
+}
+
+
+bool
+TraCITestClient::validateSimulationStep2(tcpip::Storage &inMsg) {
+    try {
+        int noSubscriptions = inMsg.readInt();
+        for (int s=0; s<noSubscriptions; ++s) {
+            /*
+            if (!reportResultState(inMsg, CMD_SIMSTEP2, true)) {
+            	return false;
+            }
+            */
+            if (!validateSubscription(inMsg)) {
+                return false;
+            }
+        }
+    } catch (std::invalid_argument e) {
+        answerLog << "#Error while reading message:" << e.what() << endl;
+        return false;
+    }
+    return true;
+}
+
+
+bool
+TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
+    try {
+        int respStart = inMsg.position();
+        int extLength = inMsg.readUnsignedByte();
+        int respLength = inMsg.readInt();
+        int cmdId = inMsg.readUnsignedByte();
+        if (cmdId<0xe0||cmdId>0xef) {
+            answerLog << "#Error: received response with command id: " << cmdId << " but expected a subscription response (0xe0-0xef)" << endl;
+            return false;
+        }
+        answerLog << "  CommandID=" << cmdId;
+        answerLog << "  ObjectID=" << inMsg.readString();
+        unsigned int varNo = inMsg.readUnsignedByte();
+        answerLog << "  #variables=" << varNo << endl;
+        for (int i=0; i<varNo; ++i) {
+            answerLog << "      VariableID=" << inMsg.readUnsignedByte();
+            bool ok = inMsg.readUnsignedByte()==RTYPE_OK;
+            answerLog << "      ok=" << ok;
+            int valueDataType = inMsg.readUnsignedByte();
+            answerLog << " valueDataType=" << valueDataType;
+            readAndReportTypeDependent(inMsg, valueDataType);
+        }
+    } catch (std::invalid_argument e) {
+        answerLog << "#Error while reading message:" << e.what() << endl;
+        return false;
+    }
 }
 
 

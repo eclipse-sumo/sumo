@@ -110,6 +110,7 @@ private:
     // The desired representation of positions is given by the entry ResultType.
     // If more than one representation is needed, the command simulation step can be sent several times with the same Target Time and different ResultTypes.
     void postProcessSimulationStep() throw(TraCIException, std::invalid_argument);
+    void postProcessSimulationStep2() throw(TraCIException, std::invalid_argument);
 
     bool commandStopNode() throw(TraCIException, std::invalid_argument);
 
@@ -205,6 +206,9 @@ private:
      * Notifies client of all domain object update events it is subscribed to
      */
     void handleDomainSubscriptions(const SUMOTime& currentTime, const std::map<int, const MSVehicle*>& activeEquippedVehicles) throw(TraCIException);
+
+
+    bool addSubscription(int commandId) throw(TraCIException);
 
     /**
      * Converts a cartesian position to the closest road map position
@@ -303,8 +307,29 @@ private:
     tcpip::Storage myInputStorage;
     tcpip::Storage myOutputStorage;
     bool myDoingSimStep;
+    int simStepCommand;
 
     std::set<MSVehicle*> myVehiclesToReroute;
+
+    class Subscription {
+    public:
+        Subscription(int commandIdArg, const std::string &idArg, const std::vector<int> &variablesArg,
+                     SUMOTime beginTimeArg, SUMOTime endTimeArg)
+                : commandId(commandIdArg), id(idArg), variables(variablesArg), beginTime(beginTimeArg), endTime(endTimeArg) {}
+        int commandId;
+        std::string id;
+        std::vector<int> variables;
+        SUMOTime beginTime;
+        SUMOTime endTime;
+
+    };
+
+    std::vector<Subscription> mySubscriptions;
+
+    bool processSingleSubscription(const TraCIServer::Subscription &s, tcpip::Storage &writeInto,
+                                   std::string &errors) throw(TraCIException);
+
+    std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
 
 };
 

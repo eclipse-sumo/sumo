@@ -105,7 +105,7 @@ TraCIServerAPI_MeMeDetector::processGet(tcpip::Storage &inputStorage,
             break;
         }
     }
-    if(withStatus) {
+    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE, RTYPE_OK, warning, outputStorage);
     }
     // send response

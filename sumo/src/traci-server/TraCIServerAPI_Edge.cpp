@@ -66,9 +66,9 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
             &&variable!=LANE_ALLOWED&&variable!=LANE_DISALLOWED
             &&variable!=VAR_CO2EMISSION&&variable!=VAR_COEMISSION&&variable!=VAR_HCEMISSION&&variable!=VAR_PMXEMISSION
             &&variable!=VAR_NOXEMISSION&&variable!=VAR_FUELCONSUMPTION&&variable!=VAR_NOISEEMISSION
-			&&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_OCCUPANCY
-			&&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER&&variable!=LAST_STEP_LENGTH
-			&&variable!=LAST_STEP_VEHICLE_ID_LIST) {
+            &&variable!=LAST_STEP_VEHICLE_NUMBER&&variable!=LAST_STEP_MEAN_SPEED&&variable!=LAST_STEP_OCCUPANCY
+            &&variable!=LAST_STEP_VEHICLE_HALTING_NUMBER&&variable!=LAST_STEP_LENGTH
+            &&variable!=LAST_STEP_VEHICLE_ID_LIST) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_ERR, "Unsupported variable specified", outputStorage);
         return false;
     }
@@ -126,7 +126,7 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
         case VAR_CURRENT_TRAVELTIME:
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(e->getCurrentTravelTime());
-			break;
+            break;
         case LAST_STEP_VEHICLE_ID_LIST: {
             std::vector<std::string> vehIDs;
             const std::vector<MSLane*> &lanes = e->getLanes();
@@ -141,147 +141,147 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
             tempMsg.writeStringList(vehIDs);
         }
         break;
-		case VAR_CO2EMISSION: {
-			SUMOReal sum = 0;
+        case VAR_CO2EMISSION: {
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getHBEFA_CO2Emissions();
-			}
+                sum += (*i)->getHBEFA_CO2Emissions();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum);
-		}
-		break;
+        }
+        break;
         case VAR_COEMISSION: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getHBEFA_COEmissions();
-			}
+                sum += (*i)->getHBEFA_COEmissions();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum);
-		}
+        }
         break;
         case VAR_HCEMISSION: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getHBEFA_HCEmissions();
-			}
+                sum += (*i)->getHBEFA_HCEmissions();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum);
-		}
+        }
         break;
         case VAR_PMXEMISSION: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getHBEFA_PMxEmissions();
-			}
+                sum += (*i)->getHBEFA_PMxEmissions();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum);
-		}
+        }
         break;
         case VAR_NOXEMISSION: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getHBEFA_NOxEmissions();
-			}
+                sum += (*i)->getHBEFA_NOxEmissions();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum);
-		}
+        }
         break;
         case VAR_FUELCONSUMPTION: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getHBEFA_FuelConsumption();
-			}
+                sum += (*i)->getHBEFA_FuelConsumption();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum);
-		}
+        }
         break;
         case VAR_NOISEEMISSION: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getHarmonoise_NoiseEmissions();
-			}
+                sum += (*i)->getHarmonoise_NoiseEmissions();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum);
-		}
+        }
         break;
         case LAST_STEP_VEHICLE_NUMBER: {
-			int sum = 0;
+            int sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getVehicleNumber();
-			}
+                sum += (*i)->getVehicleNumber();
+            }
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(sum);
-		}
+        }
         break;
         case LAST_STEP_MEAN_SPEED: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getMeanSpeed();
-			}
+                sum += (*i)->getMeanSpeed();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum / (SUMOReal) lanes.size());
-		}
+        }
         break;
         case LAST_STEP_OCCUPANCY: {
-			SUMOReal sum = 0;
+            SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-				sum += (*i)->getOccupancy();
-			}
+                sum += (*i)->getOccupancy();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
             tempMsg.writeFloat(sum / (SUMOReal) lanes.size());
-		}
+        }
         break;
         case LAST_STEP_VEHICLE_HALTING_NUMBER: {
             int halting = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-	            const std::deque<MSVehicle*> &vehs = (*i)->getVehiclesSecure();
-		        for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-					if((*j)->getSpeed()<0.1) {
-						++halting;
-					}
-				}
-				(*i)->releaseVehicles();
-			}
+                const std::deque<MSVehicle*> &vehs = (*i)->getVehiclesSecure();
+                for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+                    if ((*j)->getSpeed()<0.1) {
+                        ++halting;
+                    }
+                }
+                (*i)->releaseVehicles();
+            }
             tempMsg.writeUnsignedByte(TYPE_INTEGER);
             tempMsg.writeInt(halting);
-		}
+        }
         break;
         case LAST_STEP_LENGTH: {
             SUMOReal lengthSum = 0;
-			int noVehicles = 0;
+            int noVehicles = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-	            const std::deque<MSVehicle*> &vehs = (*i)->getVehiclesSecure();
-		        for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
-					lengthSum += (*j)->getLength();
-	            }
-				noVehicles += (int) vehs.size();
-	            (*i)->releaseVehicles();
-			}
+                const std::deque<MSVehicle*> &vehs = (*i)->getVehiclesSecure();
+                for (std::deque<MSVehicle*>::const_iterator j=vehs.begin(); j!=vehs.end(); ++j) {
+                    lengthSum += (*j)->getLength();
+                }
+                noVehicles += (int) vehs.size();
+                (*i)->releaseVehicles();
+            }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-			if(noVehicles==0) {
-				tempMsg.writeFloat(0);
-			} else {
-				tempMsg.writeFloat(lengthSum / (SUMOReal) noVehicles);
-			}
-		}
+            if (noVehicles==0) {
+                tempMsg.writeFloat(0);
+            } else {
+                tempMsg.writeFloat(lengthSum / (SUMOReal) noVehicles);
+            }
+        }
         break;
         default:
             break;
         }
     }
-    if(withStatus) {
+    if (withStatus) {
         TraCIServerAPIHelper::writeStatusCmd(CMD_GET_EDGE_VARIABLE, RTYPE_OK, warning, outputStorage);
     }
     // send response

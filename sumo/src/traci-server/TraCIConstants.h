@@ -26,6 +26,9 @@
 // command: simulation step
 #define CMD_SIMSTEP 0x01
 
+// command: simulation step (new version)
+#define CMD_SIMSTEP2 0x02
+
 // command: set maximum speed
 #define CMD_SETMAXSPEED 0x11
 
@@ -102,11 +105,19 @@
 #define CMD_GET_INDUCTIONLOOP_VARIABLE 0xa0
 // response: get induction loop (e1) variable
 #define RESPONSE_GET_INDUCTIONLOOP_VARIABLE 0xb0
+// command: subscribe induction loop (e1) variable
+#define CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE 0xd0
+// response: subscribe induction loop (e1) variable
+#define RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE 0xe0
 
 // command: get multi-entry/multi-exit detector (e3) variable
 #define CMD_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xa1
 // response: get areal detector (e3) variable
 #define RESPONSE_GET_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xb1
+// command: subscribe multi-entry/multi-exit detector (e3) variable
+#define CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xd1
+// response: subscribe areal detector (e3) variable
+#define RESPONSE_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE 0xe1
 
 // command: get traffic lights variable
 #define CMD_GET_TL_VARIABLE 0xa2
@@ -114,6 +125,10 @@
 #define RESPONSE_GET_TL_VARIABLE 0xb2
 // command: set traffic lights variable
 #define CMD_SET_TL_VARIABLE 0xc2
+// command: subscribe traffic lights variable
+#define CMD_SUBSCRIBE_TL_VARIABLE 0xd2
+// response: subscribe traffic lights variable
+#define RESPONSE_SUBSCRIBE_TL_VARIABLE 0xe2
 
 // command: get lane variable
 #define CMD_GET_LANE_VARIABLE 0xa3
@@ -121,6 +136,10 @@
 #define RESPONSE_GET_LANE_VARIABLE 0xb3
 // command: set lane variable
 #define CMD_SET_LANE_VARIABLE 0xc3
+// command: subscribe lane variable
+#define CMD_SUBSCRIBE_LANE_VARIABLE 0xd3
+// response: subscribe lane variable
+#define RESPONSE_SUBSCRIBE_LANE_VARIABLE 0xe3
 
 // command: get vehicle variable
 #define CMD_GET_VEHICLE_VARIABLE 0xa4
@@ -128,6 +147,10 @@
 #define RESPONSE_GET_VEHICLE_VARIABLE 0xb4
 // command: set vehicle variable
 #define CMD_SET_VEHICLE_VARIABLE 0xc4
+// command: subscribe vehicle variable
+#define CMD_SUBSCRIBE_VEHICLE_VARIABLE 0xd4
+// response: subscribe vehicle variable
+#define RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE 0xe4
 
 // command: get vehicle type variable
 #define CMD_GET_VEHICLETYPE_VARIABLE 0xa5
@@ -135,6 +158,10 @@
 #define RESPONSE_GET_VEHICLETYPE_VARIABLE 0xb5
 // command: set vehicle type variable
 #define CMD_SET_VEHICLETYPE_VARIABLE 0xc5
+// command: subscribe vehicle type variable
+#define CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE 0xd5
+// response: subscribe vehicle type variable
+#define RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE 0xe5
 
 // command: get route variable
 #define CMD_GET_ROUTE_VARIABLE 0xa6
@@ -142,6 +169,10 @@
 #define RESPONSE_GET_ROUTE_VARIABLE 0xb6
 // command: set route variable
 #define CMD_SET_ROUTE_VARIABLE 0xc6
+// command: subscribe route variable
+#define CMD_SUBSCRIBE_ROUTE_VARIABLE 0xd6
+// response: subscribe route variable
+#define RESPONSE_SUBSCRIBE_ROUTE_VARIABLE 0xe6
 
 // command: get poi variable
 #define CMD_GET_POI_VARIABLE 0xa7
@@ -149,6 +180,10 @@
 #define RESPONSE_GET_POI_VARIABLE 0xb7
 // command: set poi variable
 #define CMD_SET_POI_VARIABLE 0xc7
+// command: subscribe poi variable
+#define CMD_SUBSCRIBE_POI_VARIABLE 0xd7
+// response: subscribe poi variable
+#define RESPONSE_SUBSCRIBE_POI_VARIABLE 0xe7
 
 // command: get polygon variable
 #define CMD_GET_POLYGON_VARIABLE 0xa8
@@ -156,6 +191,10 @@
 #define RESPONSE_GET_POLYGON_VARIABLE 0xb8
 // command: set polygon variable
 #define CMD_SET_POLYGON_VARIABLE 0xc8
+// command: subscribe polygon variable
+#define CMD_SUBSCRIBE_POLYGON_VARIABLE 0xd8
+// response: subscribe polygon variable
+#define RESPONSE_SUBSCRIBE_POLYGON_VARIABLE 0xe8
 
 // command: get junction variable
 #define CMD_GET_JUNCTION_VARIABLE 0xa9
@@ -163,13 +202,21 @@
 #define RESPONSE_GET_JUNCTION_VARIABLE 0xb9
 // command: set junction variable
 #define CMD_SET_JUNCTION_VARIABLE 0xc9
+// command: subscribe junction variable
+#define CMD_SUBSCRIBE_JUNCTION_VARIABLE 0xd9
+// response: subscribe junction variable
+#define RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE 0xe9
 
-// command: get junction variable
+// command: get edge variable
 #define CMD_GET_EDGE_VARIABLE 0xaa
-// response: get junction variable
+// response: get edge variable
 #define RESPONSE_GET_EDGE_VARIABLE 0xba
-// command: set junction variable
+// command: set edge variable
 #define CMD_SET_EDGE_VARIABLE 0xca
+// command: subscribe edge variable
+#define CMD_SUBSCRIBE_EDGE_VARIABLE 0xda
+// response: subscribe edge variable
+#define RESPONSE_SUBSCRIBE_EDGE_VARIABLE 0xea
 
 
 
@@ -341,22 +388,22 @@
 // list of instances' ids (get: induction loops, areal detector, traffic lights)
 #define ID_LIST 0x00
 
-// last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
+// last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_VEHICLE_NUMBER 0x10
 
-// last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
+// last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_MEAN_SPEED 0x11
 
-// last step vehicle number (get: induction loops, multi-entry/multi-exit detector)
+// last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_VEHICLE_ID_LIST 0x12
 
-// last step occupancy (get: induction loops)
+// last step occupancy (get: induction loops, lanes, edges)
 #define LAST_STEP_OCCUPANCY 0x13
 
-// last step vehicle halting number (get: multi-entry/multi-exit detector)
+// last step vehicle halting number (get: multi-entry/multi-exit detector, lanes, edges)
 #define LAST_STEP_VEHICLE_HALTING_NUMBER 0x14
 
-// last step mean vehicle length (get: induction loops)
+// last step mean vehicle length (get: induction loops, lanes, edges)
 #define LAST_STEP_LENGTH 0x15
 
 // last step time since last detection (get: induction loops)
@@ -501,30 +548,30 @@
 // effort information (get&set: vehicle)
 #define VAR_EDGE_EFFORT 0x59
 
-// last step travel time (get: edge)
+// last step travel time (get: edge, lane)
 #define VAR_CURRENT_TRAVELTIME 0x5a
 
 
 
-// current CO2 emission of a node (get: vehicle)
+// current CO2 emission of a node (get: vehicle, lane, edge)
 #define VAR_CO2EMISSION 0x60
 
-// current CO emission of a node (get: vehicle)
+// current CO emission of a node (get: vehicle, lane, edge)
 #define VAR_COEMISSION 0x61
 
-// current HC emission of a node (get: vehicle)
+// current HC emission of a node (get: vehicle, lane, edge)
 #define VAR_HCEMISSION 0x62
 
-// current PMx emission of a node (get: vehicle)
+// current PMx emission of a node (get: vehicle, lane, edge)
 #define VAR_PMXEMISSION 0x63
 
-// current NOx emission of a node (get: vehicle)
+// current NOx emission of a node (get: vehicle, lane, edge)
 #define VAR_NOXEMISSION 0x64
 
-// current fuel consumption of a node (get: vehicle)
+// current fuel consumption of a node (get: vehicle, lane, edge)
 #define VAR_FUELCONSUMPTION 0x65
 
-// current noise emission of a node (get: vehicle)
+// current noise emission of a node (get: vehicle, lane, edge)
 #define VAR_NOISEEMISSION 0x66
 
 
