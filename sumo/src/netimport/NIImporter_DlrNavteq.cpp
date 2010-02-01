@@ -281,9 +281,9 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string &result) throw(Proc
 // definitions of NIImporter_DlrNavteq::TrafficlightsHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_DlrNavteq::TrafficlightsHandler::TrafficlightsHandler(NBNodeCont &nc,
-                                                                 NBTrafficLightLogicCont &tlc,
-                                                                 const std::string &file) throw()
-    : myNodeCont(nc), myTLLogicCont(tlc) {}
+        NBTrafficLightLogicCont &tlc,
+        const std::string &file) throw()
+        : myNodeCont(nc), myTLLogicCont(tlc) {}
 
 
 NIImporter_DlrNavteq::TrafficlightsHandler::~TrafficlightsHandler() throw() {}

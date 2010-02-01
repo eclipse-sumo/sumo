@@ -136,7 +136,7 @@ protected:
      * in DLRNavteq's unsplit format.
      */
     class EdgesHandler : public LineHandler {
-        public:
+    public:
         /** @brief Constructor
          * @param[in] nc The node control to retrieve nodes from
          * @param[in, filled] ec The edge control to insert loaded edges into
@@ -144,7 +144,7 @@ protected:
          * @param[in] geoms The previously read edge geometries
          */
         EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                        const std::string &file, std::map<std::string, Position2DVector> &geoms) throw();
+                     const std::string &file, std::map<std::string, Position2DVector> &geoms) throw();
 
 
         /// @brief Destructor
@@ -163,7 +163,7 @@ protected:
         bool report(const std::string &result) throw(ProcessError);
 
 
-        protected:
+    protected:
         /// @brief The node container to get the referenced nodes from
         NBNodeCont &myNodeCont;
 
@@ -177,7 +177,7 @@ protected:
         bool myTryIgnoreNodePositions;
 
 
-        private:
+    private:
         /// @brief Invalidated copy constructor.
         EdgesHandler(const EdgesHandler&);
 
@@ -196,7 +196,7 @@ protected:
      * in DLRNavteq's format.
      */
     class TrafficlightsHandler : public LineHandler {
-        public:
+    public:
         /** @brief Constructor
          * @param[in] nc The node control to retrieve nodes from
          * @param[in, filled] tlc The traffic lights container to fill
@@ -222,7 +222,7 @@ protected:
         bool report(const std::string &result) throw(ProcessError);
 
 
-        protected:
+    protected:
         /// @brief The node container to get the referenced nodes from
         NBNodeCont &myNodeCont;
 
@@ -230,7 +230,7 @@ protected:
         NBTrafficLightLogicCont &myTLLogicCont;
 
 
-        private:
+    private:
         /// @brief Invalidated copy constructor.
         TrafficlightsHandler(const TrafficlightsHandler&);
 

@@ -82,7 +82,7 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // method definitions
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
-                                               FXIcon *icon, const FXString &title, 
+        FXIcon *icon, const FXString &title,
         GUIGlObjectType type,
         GUIGlObjectStorage &glStorage)
         : FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20,20,300, 300),

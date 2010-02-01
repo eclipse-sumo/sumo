@@ -64,8 +64,8 @@ public:
      * @param[in] type The type of gl-objects to show instances of
      * @param[in] glStorage The storage to retrieve ids from
      */
-    GUIDialog_GLObjChooser(GUISUMOViewParent *parent, FXIcon *icon, const FXString &title, 
-        GUIGlObjectType type, GUIGlObjectStorage &glStorage);
+    GUIDialog_GLObjChooser(GUISUMOViewParent *parent, FXIcon *icon, const FXString &title,
+                           GUIGlObjectType type, GUIGlObjectStorage &glStorage);
 
 
     /// @brief Destructor

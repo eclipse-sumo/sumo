@@ -225,10 +225,10 @@ main(int argc, char **argv) {
             }
             Boundary offsets = GeomConvHelper::parseBoundary(oc.getString("prune.on-net.offsets"));
             pruningBoundary = Boundary(
-                                   pruningBoundary.xmin()+offsets.xmin(),
-                                   pruningBoundary.ymin()+offsets.ymin(),
-                                   pruningBoundary.xmax()+offsets.xmax(),
-                                   pruningBoundary.ymax()+offsets.ymax());
+                                  pruningBoundary.xmin()+offsets.xmin(),
+                                  pruningBoundary.ymin()+offsets.ymin(),
+                                  pruningBoundary.xmax()+offsets.xmax(),
+                                  pruningBoundary.ymax()+offsets.ymax());
             prune = true;
         }
         if (oc.isSet("prune.boundary")) {

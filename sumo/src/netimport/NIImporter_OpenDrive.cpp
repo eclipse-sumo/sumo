@@ -269,8 +269,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
             if (edge2junction.find(l.elementID)!=edge2junction.end()) {
                 // connection via an inner-road
                 addViaConnectionSecure(nb.getEdgeCont(),
-                    nb.getNodeCont().retrieve(edge2junction[l.elementID]),
-                    e, l.linkType, l.elementID, connections);
+                                       nb.getNodeCont().retrieve(edge2junction[l.elementID]),
+                                       e, l.linkType, l.elementID, connections);
             } else {
                 // connection between two outer-edges; can be used directly
                 std::vector<OpenDriveEdge>::iterator p = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(l.elementID));
@@ -688,7 +688,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge &e, const OpenDriveGeom
     EulerSpiral s(Point2D<double>(g.x, g.y), g.hdg, curveStart, (curveEnd-curveStart)/g.length, g.length);
     std::vector<Point2D<double> > into;
     s.computeSpiral(into, 1.);
-    for(std::vector<Point2D<double> >::iterator i=into.begin(); i!=into.end(); ++i) {
+    for (std::vector<Point2D<double> >::iterator i=into.begin(); i!=into.end(); ++i) {
         ret.push_back(Position2D((*i).getX(), (*i).getY()));
     }
     return ret;
@@ -716,14 +716,13 @@ NIImporter_OpenDrive::geomFromArc(const OpenDriveEdge &e, const OpenDriveGeometr
     SUMOReal geo_posE = g.s;
     int index1 = 0;
     bool end = false;
-	do {
-		SUMOReal startds, endds;
-		geo_posE += C_LENGTH;
-		// Berechnung eines Punktes auf der Kurve abhängig von der Länge (Konstante)
-		if(geo_posE - g.s > g.length)
-		{
-			geo_posE = g.s + g.length;
-		}
+    do {
+        SUMOReal startds, endds;
+        geo_posE += C_LENGTH;
+        // Berechnung eines Punktes auf der Kurve abhängig von der Länge (Konstante)
+        if (geo_posE - g.s > g.length) {
+            geo_posE = g.s + g.length;
+        }
         if (geo_posE - g.s > g.length) {
             geo_posE = g.s + g.length;
         }
@@ -948,8 +947,8 @@ NIImporter_OpenDrive::myStartElement(SumoXMLTag element,
                  ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_ID, "lane", myCurrentEdge.id.c_str(), ok)
                  : attrs.getIntReporting(SUMO_ATTR_ID, "lane", myCurrentEdge.id.c_str(), ok);
         int level = attrs.hasAttribute(SUMO_ATTR_OPENDRIVE_LEVEL)
-            ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, "lane", myCurrentEdge.id.c_str(), ok)
-            : 0;
+                    ? attrs.getIntReporting(SUMO_ATTR_OPENDRIVE_LEVEL, "lane", myCurrentEdge.id.c_str(), ok)
+                    : 0;
         OpenDriveLaneSection &ls = myCurrentEdge.laneSections[myCurrentEdge.laneSections.size()-1];
         ls.lanesByDir[myCurrentLaneDirection].push_back(OpenDriveLane(id, level, type));
     }

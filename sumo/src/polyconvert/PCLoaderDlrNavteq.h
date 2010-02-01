@@ -63,7 +63,7 @@ public:
      *
      * If the option "elmar-poly-files" is set within the given options container,
      *  the files stored herein are parsed using "loadPolyFiles", assuming this
-     *  option contains file paths to files containing polygons stored in DLR-Navteq 
+     *  option contains file paths to files containing polygons stored in DLR-Navteq
      *  "...polygons.txt"/"...water_polygons.txt"-format.
      *
      * @param[in] oc The options container to get further options from
