@@ -219,7 +219,7 @@ TraCIServer::TraCIServer() {
 
 /*****************************************************************************/
 
-TraCIServer::~TraCIServer() {
+TraCIServer::~TraCIServer() throw() {
     MSNet::getInstance()->removeVehicleStateListener(this);
     if (socket_ != NULL) delete socket_;
 

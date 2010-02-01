@@ -93,7 +93,7 @@ private:
 
     // Destructor
     // final cleanup
-    virtual ~TraCIServer(void);
+    virtual ~TraCIServer(void) throw();
 
     int dispatchCommand() throw(TraCIException, std::invalid_argument);
 
