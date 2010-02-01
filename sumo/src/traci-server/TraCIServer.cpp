@@ -61,6 +61,7 @@
 #include "TraCIServerAPI_POI.h"
 #include "TraCIServerAPI_Polygon.h"
 #include "TraCIServerAPI_Edge.h"
+#include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPIHelper.h"
 
 
@@ -107,8 +108,14 @@ bool TraCIServer::closeConnection_ = false;
 /*****************************************************************************/
 
 TraCIServer::TraCIServer() {
-    OptionsCont &oc = OptionsCont::getOptions();
+    myVehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_TELEPORT] = std::vector<std::string>();
+    myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
+    MSNet::getInstance()->addVehicleStateListener(this);
 
+    OptionsCont &oc = OptionsCont::getOptions();
     targetTime_ = 0;
     penetration_ = oc.getFloat("penetration");
     routeFile_ = oc.getString("route-files");
@@ -213,6 +220,7 @@ TraCIServer::TraCIServer() {
 /*****************************************************************************/
 
 TraCIServer::~TraCIServer() {
+    MSNet::getInstance()->removeVehicleStateListener(this);
     if (socket_ != NULL) delete socket_;
 
     if (netBoundary_ != NULL) delete netBoundary_;
@@ -220,6 +228,20 @@ TraCIServer::~TraCIServer() {
 
 /*****************************************************************************/
 
+void
+TraCIServer::vehicleStateChanged(const MSVehicle * const vehicle, MSNet::VehicleState to) throw() {
+    if (closeConnection_ || OptionsCont::getOptions().getInt("remote-port") == 0) {
+        return;
+    }
+    /*
+    if(myVehicleStateChanges.find(to)==myVehicleStateChanges.end()) {
+    	myVehicleStateChanges[to] = std::vector<std::string>();
+    }
+    */
+    myVehicleStateChanges[to].push_back(vehicle->getID());
+}
+
+/*****************************************************************************/
 void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
     try {
@@ -248,9 +270,6 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
             }
             instance_->myDoingSimStep = false;
         }
-        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=instance_->myVehicleStateChanges.begin(); i!=instance_->myVehicleStateChanges.end(); ++i) {
-            (*i).second.clear();
-        }
         while (!closeConnection_) {
             if (!instance_->myInputStorage.valid_pos()) {
                 if (instance_->myOutputStorage.size() > 0) {
@@ -268,6 +287,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                 if (cmd == CMD_SIMSTEP || cmd==CMD_SIMSTEP2) {
                     instance_->simStepCommand = cmd;
                     instance_->myDoingSimStep = true;
+                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=instance_->myVehicleStateChanges.begin(); i!=instance_->myVehicleStateChanges.end(); ++i) {
+                        (*i).second.clear();
+                    }
                     return;
                 }
             }
@@ -275,6 +297,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         if (closeConnection_ && instance_->myOutputStorage.size() > 0) {
             // send out all answers as one storage
             instance_->socket_->sendExact(instance_->myOutputStorage);
+        }
+        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=instance_->myVehicleStateChanges.begin(); i!=instance_->myVehicleStateChanges.end(); ++i) {
+            (*i).second.clear();
         }
     } catch (std::invalid_argument e) {
         throw ProcessError(e.what());
@@ -425,6 +450,9 @@ throw(TraCIException, std::invalid_argument) {
     case CMD_SET_EDGE_VARIABLE:
         success = TraCIServerAPI_Edge::processSet(myInputStorage, myOutputStorage);
         break;
+    case CMD_GET_SIM_VARIABLE:
+        success = TraCIServerAPI_Simulation::processGet(myInputStorage, myOutputStorage, myVehicleStateChanges);
+        break;
     case CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
     case CMD_SUBSCRIBE_MULTI_ENTRY_EXIT_DETECTOR_VARIABLE:
     case CMD_SUBSCRIBE_TL_VARIABLE:
@@ -436,6 +464,7 @@ throw(TraCIException, std::invalid_argument) {
     case CMD_SUBSCRIBE_POLYGON_VARIABLE:
     case CMD_SUBSCRIBE_JUNCTION_VARIABLE:
     case CMD_SUBSCRIBE_EDGE_VARIABLE:
+    case CMD_SUBSCRIBE_SIM_VARIABLE:
         success = addSubscription(commandId);
         break;
     default:

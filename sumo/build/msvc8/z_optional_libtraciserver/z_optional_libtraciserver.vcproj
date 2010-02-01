@@ -404,6 +404,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Simulation.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_TLS.cpp"
 				>
 			</File>
@@ -471,6 +475,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Route.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\traci-server\TraCIServerAPI_Simulation.h"
 				>
 			</File>
 			<File

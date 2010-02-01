@@ -218,6 +218,17 @@
 // response: subscribe edge variable
 #define RESPONSE_SUBSCRIBE_EDGE_VARIABLE 0xea
 
+// command: get simulation variable
+#define CMD_GET_SIM_VARIABLE 0xab
+// response: get simulation variable
+#define RESPONSE_GET_SIM_VARIABLE 0xbb
+// command: set simulation variable
+#define CMD_SET_SIM_VARIABLE 0xcb
+// command: subscribe simulation variable
+#define CMD_SUBSCRIBE_SIM_VARIABLE 0xdb
+// response: subscribe simulation variable
+#define RESPONSE_SUBSCRIBE_SIM_VARIABLE 0xeb
+
 
 
 // ****************************************
@@ -573,6 +584,29 @@
 
 // current noise emission of a node (get: vehicle, lane, edge)
 #define VAR_NOISEEMISSION 0x66
+
+
+
+// current time step (get: simulation)
+#define VAR_TIME_STEP 0x70
+
+// loaded vehicle ids (get: simulation)
+#define VAR_LOADED_VEHICLES_IDS 0x71
+
+// departed vehicle ids (get: simulation)
+#define VAR_DEPARTED_VEHICLES_IDS 0x72
+
+// ids of vehicles starting to teleport (get: simulation)
+#define VAR_TELEPORT_STARTING_VEHICLES_IDS 0x73
+
+// ids of vehicles ending to teleport (get: simulation)
+#define VAR_TELEPORT_ENDING_VEHICLES_IDS 0x74
+
+// ids of arrived vehicles (get: simulation)
+#define VAR_ARRIVED_VEHICLES_IDS 0x75
+
+
+
 
 
 

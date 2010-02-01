@@ -47,6 +47,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "TraCIException.h"
 
@@ -65,7 +66,7 @@ namespace traci {
 // TraCIServer
 // Allows communication of sumo with external program. The external
 // program will control sumo.
-class TraCIServer {
+class TraCIServer : public MSNet::VehicleStateListener {
 public:
 
     struct RoadMapPos {
@@ -81,6 +82,8 @@ public:
 
     // check whether close was requested
     static bool wasClosed();
+
+    void vehicleStateChanged(const MSVehicle * const vehicle, MSNet::VehicleState to) throw();
 
 private:
 
