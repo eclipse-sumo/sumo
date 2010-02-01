@@ -45,7 +45,6 @@ MSRouteLoaderControl::MSRouteLoaderControl(MSNet &,
         : myLastLoadTime(-inAdvanceStepNo),
         myInAdvanceStepNo(inAdvanceStepNo),
         myRouteLoaders(loader),
-        myVehCont(inAdvanceStepNo>0 ? inAdvanceStepNo : 10), // !!! einen schalueren Wert!
         myAllLoaded(false) {
     myLoadAll = myInAdvanceStepNo<=0;
     myAllLoaded = false;
@@ -66,12 +65,12 @@ MSRouteLoaderControl::~MSRouteLoaderControl() {
 }
 
 
-MSVehicleContainer &
-MSRouteLoaderControl::loadNext(SUMOTime step) {
+void
+MSRouteLoaderControl::loadNext(SUMOTime step, MSEmitControl* into) {
     // check whether new vehicles shall be loaded
     //  return if not
     if ((myLoadAll&&myAllLoaded) || (myLastLoadTime>=0&&myLastLoadTime/*+myInAdvanceStepNo*/>=step)) {
-        return myVehCont;
+        return;
     }
     // load all routes for the specified time period
     SUMOTime run = step;
@@ -84,7 +83,7 @@ MSRouteLoaderControl::loadNext(SUMOTime step) {
         for (LoaderVector::iterator i=myRouteLoaders.begin();
                 i!=myRouteLoaders.end(); ++i) {
             if ((*i)->moreAvailable()) {
-                (*i)->loadUntil(run, myVehCont);
+                (*i)->loadUntil(run, into);
             }
             furtherAvailable |= (*i)->moreAvailable();
         }
@@ -95,8 +94,6 @@ MSRouteLoaderControl::loadNext(SUMOTime step) {
     }
     // set the step information
     myLastLoadTime = run - 1;
-    // return the container with new vehicles
-    return myVehCont;
 }
 
 

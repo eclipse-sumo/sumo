@@ -66,9 +66,9 @@ public:
     ~MSRouteLoaderControl();
 
     /// loads the next routes
-    MSVehicleContainer &loadNext(SUMOTime step);
+    void loadNext(SUMOTime step, MSEmitControl* into);
 
-public:
+private:
     /// the last time step new routes were loaded
     SUMOTime myLastLoadTime;
 
@@ -77,9 +77,6 @@ public:
 
     /// the list of route loaders
     LoaderVector myRouteLoaders;
-
-    /// the list of loaded vehicles
-    MSVehicleContainer myVehCont;
 
     /** information whether all routes shall be loaded and whether
         they were loaded */

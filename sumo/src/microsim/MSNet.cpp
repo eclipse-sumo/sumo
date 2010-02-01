@@ -387,7 +387,7 @@ MSNet::simulationStep() {
     }
 #endif
     // load routes
-    myEmitter->moveFrom(myRouteLoaders->loadNext(myStep));
+    myRouteLoaders->loadNext(myStep, myEmitter);
     // emit Vehicles
     myEmitter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {

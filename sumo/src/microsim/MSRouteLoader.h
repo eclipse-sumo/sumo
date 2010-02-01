@@ -53,7 +53,7 @@ public:
 
     /** loads vehicles until a vehicle is read that starts after
         the specified time */
-    void loadUntil(SUMOTime time, MSVehicleContainer &into);
+    void loadUntil(SUMOTime time, MSEmitControl* into);
 
     /// resets the reader
     void init();

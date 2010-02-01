@@ -40,6 +40,7 @@
 // ===========================================================================
 class MSEdge;
 class MSVehicleType;
+class MSEmitControl;
 
 
 // ===========================================================================
@@ -66,7 +67,7 @@ public:
     SUMOTime getLastDepart() const;
 
     /// Returns the last loaded vehicle
-    MSVehicle *retrieveLastReadVehicle();
+    void retrieveLastReadVehicle(MSEmitControl* into);
 
 protected:
     /// @name inherited from GenericSAXHandler

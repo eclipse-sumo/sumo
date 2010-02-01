@@ -92,11 +92,12 @@ MSRouteHandler::getLastDepart() const {
 }
 
 
-MSVehicle *
-MSRouteHandler::retrieveLastReadVehicle() {
-    MSVehicle *v = myLastReadVehicle;
-    myLastReadVehicle = 0;
-    return v;
+void
+MSRouteHandler::retrieveLastReadVehicle(MSEmitControl* into) {
+    if (myLastReadVehicle != 0) {
+        into->add(myLastReadVehicle);
+        myLastReadVehicle = 0;
+    }
 }
 
 
