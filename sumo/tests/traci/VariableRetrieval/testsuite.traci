@@ -31,5 +31,9 @@ Junction
 # Tests retrieval of variables from edges (0xaa)
 Edge
 
+# Tests retrieval of variables from the simulation (0xab)
+Simulation
+
+
 
 

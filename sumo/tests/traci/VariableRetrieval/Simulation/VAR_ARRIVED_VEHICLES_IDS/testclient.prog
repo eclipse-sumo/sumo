@@ -1,0 +1,9 @@
+getvariable 171 117 0
+simstep 1 1
+simstep 108 1
+getvariable 171 117 0
+simstep 109 1
+getvariable 171 117 0
+simstep 110 1
+getvariable 171 117 0
+simstep 115 1
