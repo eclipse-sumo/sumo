@@ -152,7 +152,9 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         }
         if (lineCommand.compare("repeat") == 0) {
             defFile >> repNo;
-        } else if (lineCommand.compare("simstep") == 0) {
+            defFile >> lineCommand;
+        }
+        if (lineCommand.compare("simstep") == 0) {
             // read parameter for command simulation step and trigger command
             double time;
             int posFormat;
