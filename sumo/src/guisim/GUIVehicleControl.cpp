@@ -53,7 +53,9 @@ MSVehicle *
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                 const MSRoute* route, const MSVehicleType* type) throw() {
     myLoadedVehNo++;
-    return new GUIVehicle(GUIGlObjectStorage::gIDStorage, defs, route, type, myLoadedVehNo-1);
+    MSVehicle *built = new GUIVehicle(GUIGlObjectStorage::gIDStorage, defs, route, type, myLoadedVehNo-1);
+    MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
+    return built;
 }
 
 

@@ -119,7 +119,7 @@ public:
 
 
     /** @brief Closes the network's building process
-     * 
+     *
      * Assigns the structures built while loading to this network.
      * @param[in] edges The control of edges which belong to this network
      * @param[in] junctions The control of junctions which belong to this network
@@ -403,6 +403,66 @@ public:
     /// @}
 
 
+
+    /// @name Notification about vehicle state changes
+    /// @{
+
+    /// @brief Definition of a vehicle state
+    enum VehicleState {
+        /// @brief The vehicle was built, but has not yet departed
+        VEHICLE_STATE_BUILT,
+        /// @brief The vehicle has departed (was inserted into the network)
+        VEHICLE_STATE_DEPARTED,
+        /// @brief The vehicle started to teleport
+        VEHICLE_STATE_STARTING_TELEPORT,
+        /// @brief The vehicle ended being teleported
+        VEHICLE_STATE_ENDING_TELEPORT,
+        /// @brief The vehicle arrived at his destination (is deleted)
+        VEHICLE_STATE_ARRIVED
+    };
+
+
+    /** @class VehicleStateListener
+     * @brief Interface for objects listening to vehicle state changes
+     */
+    class VehicleStateListener {
+    public:
+        /// @brief Constructor
+        VehicleStateListener() throw() { }
+
+        /// @brief Destructor
+        virtual ~VehicleStateListener() throw() { }
+
+        /** @brief Called if a vehicle changes its state
+         * @param[in] vehicle The vehicle which changed its state
+         * @param[in] to The state the vehicle has changed to
+         */
+        virtual void vehicleStateChanged(const MSVehicle * const vehicle, VehicleState to) throw() = 0;
+
+    };
+
+
+    /** @brief Adds a vehicle states listener
+     * @param[in] listener The listener to add
+     */
+    void addVehicleStateListener(VehicleStateListener *listener) throw();
+
+
+    /** @brief Removes a vehicle states listener
+     * @param[in] listener The listener to remove
+     */
+    void removeVehicleStateListener(VehicleStateListener *listener) throw();
+
+
+    /** @brief Informs all added listeners about a vehicle's state change
+     * @param[in] vehicle The vehicle which changed its state
+     * @param[in] to The state the vehicle has changed to
+     * @see VehicleStateListener:vehicleStateChanged
+     */
+    void informVehicleStateListener(const MSVehicle * const vehicle, VehicleState to) throw();
+    /// @}
+
+
     /** @class EdgeWeightsProxi
      * @brief A proxi for edge weights known by a vehicle/known globally
      *
@@ -565,6 +625,9 @@ protected:
     typedef std::map< std::string, MSBusStop* > BusStopDictType;
     /// @brief Dictionary of bus stops
     BusStopDictType myBusStopDict;
+
+    /// @brief Container for vehicle state listener
+    std::vector<VehicleStateListener*> myVehicleStateListeners;
 
 
 #ifdef _MESSAGES

@@ -85,7 +85,9 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route,
                                const MSVehicleType* type) throw() {
     myLoadedVehNo++;
-    return new MSVehicle(defs, route, type, myLoadedVehNo-1);
+    MSVehicle *built = new MSVehicle(defs, route, type, myLoadedVehNo-1);
+    MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
+    return built;
 }
 
 
@@ -224,6 +226,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw() {
              - v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME));
     }
     myRunningVehNo--;
+    MSNet::getInstance()->informVehicleStateListener(v, MSNet::VEHICLE_STATE_ARRIVED);
     deleteVehicle(v);
 }
 
@@ -252,6 +255,7 @@ MSVehicleControl::vehicleEmitted(const MSVehicle &v) throw() {
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
         myAbsVehWaitingTime += (v.getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME) - v.getDesiredDepart());
     }
+    MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);
 }
 
 

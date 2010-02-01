@@ -587,6 +587,32 @@ MSNet::postSimStepOutput() const throw() {
 }
 
 
+void
+MSNet::addVehicleStateListener(VehicleStateListener *listener) throw() {
+    if (find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener)==myVehicleStateListeners.end()) {
+        myVehicleStateListeners.push_back(listener);
+    }
+}
+
+
+void
+MSNet::removeVehicleStateListener(VehicleStateListener *listener) throw() {
+    std::vector<VehicleStateListener*>::iterator i= find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener);
+    if (i!=myVehicleStateListeners.end()) {
+        myVehicleStateListeners.erase(i);
+    }
+}
+
+
+void
+MSNet::informVehicleStateListener(const MSVehicle * const vehicle, VehicleState to) throw() {
+    for (std::vector<VehicleStateListener*>::iterator i=myVehicleStateListeners.begin(); i!=myVehicleStateListeners.end(); ++i) {
+        (*i)->vehicleStateChanged(vehicle, to);
+    }
+}
+
+
+
 #ifdef _MESSAGES
 MSMessageEmitter*
 MSNet::getMsgEmitter(const std::string& whatemit) {

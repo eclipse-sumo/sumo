@@ -70,6 +70,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh) throw() {
     myNoTransfered++;
     // save information
     myVehicles.push_back(VehicleInformation(veh, MSNet::getInstance()->getCurrentTimeStep()));
+    MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
 }
 
 
@@ -84,6 +85,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
         if (e->freeLaneEmit(*(desc.myVeh), time, true)) {
             // remove from this if so
             WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
             i = myVehicles.erase(i);
         } else {
             // otherwise, check whether a consecutive edge may be used
