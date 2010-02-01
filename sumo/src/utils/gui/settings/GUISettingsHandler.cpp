@@ -224,7 +224,7 @@ GUISettingsHandler::setViewport(GUISUMOAbstractView* view) const throw() {
 }
 
 
-void 
+void
 GUISettingsHandler::setViewport(SUMOReal &zoom, SUMOReal &xoff, SUMOReal &yoff) const throw() {
     zoom = myZoom;
     xoff = myXPos;

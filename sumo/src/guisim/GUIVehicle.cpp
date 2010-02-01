@@ -1012,41 +1012,38 @@ GUIVehicle::Colorer::setFunctionalColor(const GUIVehicle& vehicle) const {
     case 3:
         vehicle.setOwnRouteColor();
         return true;
-    case 4:
-        {
-            Position2D p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-            const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            Position2D center = b.getCenter();
-            SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
-            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
-            RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-            glColor3f(c.red(), c.green(), c.blue());
-            return true;
-        }
-    case 5:
-        {
-            Position2D p = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
-            const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            Position2D center = b.getCenter();
-            SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
-            SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
-            RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-            glColor3f(c.red(), c.green(), c.blue());
-            return true;
-        }
-    case 6:
-        {
-            Position2D pb = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
-            Position2D pe = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
-            const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
-            SUMOReal hue = 180. + atan2(pb.x()-pe.x(), pb.y()-pe.y()) * 180. / PI;
-            Position2D minp(b.xmin(), b.ymin());
-            Position2D maxp(b.xmax(), b.ymax());
-            SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-            RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
-            glColor3f(c.red(), c.green(), c.blue());
-            return true;
-        }
+    case 4: {
+        Position2D p = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+        const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+        Position2D center = b.getCenter();
+        SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
+        SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
+        RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
+        glColor3f(c.red(), c.green(), c.blue());
+        return true;
+    }
+    case 5: {
+        Position2D p = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+        const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+        Position2D center = b.getCenter();
+        SUMOReal hue = 180. + atan2(center.x()-p.x(), center.y()-p.y()) * 180. / PI;
+        SUMOReal sat = p.distanceTo(center) / center.distanceTo(Position2D(b.xmin(), b.ymin()));
+        RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
+        glColor3f(c.red(), c.green(), c.blue());
+        return true;
+    }
+    case 6: {
+        Position2D pb = vehicle.getRoute().getEdges()[0]->getLanes()[0]->getShape()[0];
+        Position2D pe = vehicle.getRoute().getEdges().back()->getLanes()[0]->getShape()[-1];
+        const Boundary &b = ((GUINet*) MSNet::getInstance())->getBoundary();
+        SUMOReal hue = 180. + atan2(pb.x()-pe.x(), pb.y()-pe.y()) * 180. / PI;
+        Position2D minp(b.xmin(), b.ymin());
+        Position2D maxp(b.xmax(), b.ymax());
+        SUMOReal sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
+        RGBColor c = RGBColor::fromHSV(hue, sat, 1.);
+        glColor3f(c.red(), c.green(), c.blue());
+        return true;
+    }
     }
     return false;
 }

@@ -813,7 +813,7 @@ Position2DVector::move2side(SUMOReal amount) {
             Position2D me = myCont[i];
             Position2D to = myCont[i+1];
             double sinAngle = sin(GeomHelper::Angle2D(from.x()-me.x(), from.y()-me.y(),
-                                                      me.x()-to.x(), me.y()-to.y())/2);
+                                  me.x()-to.x(), me.y()-to.y())/2);
             double maxDev = 2 * (from.distanceTo(me) + me.distanceTo(to)) * sinAngle;
             if (fabs(maxDev)<POSITION_EPS) {
                 // parallel case, just shift the middle point

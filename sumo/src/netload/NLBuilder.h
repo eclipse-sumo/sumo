@@ -116,7 +116,7 @@ protected:
      *
      * Builds the microsim-structures which belong to a MSNet using the factories
      *  filled while loading. Initialises the network using these structures by calling
-     *  MSNet::closeBuilding. 
+     *  MSNet::closeBuilding.
      * If an error occures, all built structures are deleted and a ProcessError is thrown.
      * @exception ProcessError If the loaded structures could not be built
      */
@@ -125,7 +125,7 @@ protected:
 
     /** @brief Builds the route loader control
      *
-     * Goes through the list of route files to open defined in the option 
+     * Goes through the list of route files to open defined in the option
      *  "route-files" and builds loaders reading these files using MSNet::buildRouteLoader
      * @param[in] oc The options to read the list of route files to open from
      * @return The built route loader control

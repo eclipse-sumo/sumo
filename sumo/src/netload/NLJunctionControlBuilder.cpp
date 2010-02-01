@@ -450,7 +450,7 @@ NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db) throw() {
 
 MSTLLogicControl *
 NLJunctionControlBuilder::buildTLLogics() const throw(ProcessError) {
-    if(!myLogicControl->closeNetworkReading()) {
+    if (!myLogicControl->closeNetworkReading()) {
         throw ProcessError("Traffic lights could not be built.");
     }
     MSTLLogicControl *ret = myLogicControl;

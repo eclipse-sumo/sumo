@@ -91,17 +91,17 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 #ifdef HAVE_INTERNAL_LANES
         MSLink *link = new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false, 0.);
 #else
-		MSLink *link = new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.);
+        MSLink *link = new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.);
 #endif
         mySuccLanes->push_back(link);
-		if(tlid!="") {
-	        MSTLLogicControl::TLSLogicVariants &logics = myJunctionControlBuilder.getTLLogic(tlid);
-		    MSLane *current = MSLane::dictionary(myCurrentLane);
-			if (current==0) {
-				throw InvalidArgument("An unknown lane ('" + myCurrentLane + "') should be assigned to a tl-logic.");
-			}
-			logics.addLink(link, current, linkNo);
-		}
+        if (tlid!="") {
+            MSTLLogicControl::TLSLogicVariants &logics = myJunctionControlBuilder.getTLLogic(tlid);
+            MSLane *current = MSLane::dictionary(myCurrentLane);
+            if (current==0) {
+                throw InvalidArgument("An unknown lane ('" + myCurrentLane + "') should be assigned to a tl-logic.");
+            }
+            logics.addLink(link, current, linkNo);
+        }
         return;
     }
 

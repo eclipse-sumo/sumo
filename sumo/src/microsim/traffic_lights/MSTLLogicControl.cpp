@@ -80,19 +80,19 @@ MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() throw() {
 }
 
 
-bool 
+bool
 MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const throw() {
     bool hadErrors = false;
     for (std::map<std::string, MSTrafficLightLogic *>::const_iterator j=ltVariants.begin(); j!=ltVariants.end(); ++j) {
         const MSTrafficLightLogic::Phases &phases = (*j).second->getPhases();
-        unsigned int linkNo = (unsigned int) (*j).second->getLinks().size();
+        unsigned int linkNo = (unsigned int)(*j).second->getLinks().size();
         bool hadProgramErrors = false;
         for (MSTrafficLightLogic::Phases::const_iterator i=phases.begin(); i!=phases.end(); ++i) {
-            if((*i)->getState().length()!=linkNo) {
+            if ((*i)->getState().length()!=linkNo) {
                 hadProgramErrors = true;
             }
         }
-        if(hadProgramErrors) {
+        if (hadProgramErrors) {
             MsgHandler::getErrorInstance()->inform("Mismatching phase size in tls '" + (*j).second->getID() + "', program '" + (*j).first + "'.");
             hadErrors = true;
         }

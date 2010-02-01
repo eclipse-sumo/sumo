@@ -64,10 +64,10 @@ class GUIGLObjectPopupMenu;
 class GUILaneWrapper : public GUIGlObject {
 public:
     /** @brief Constructor
-	 * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
-	 * @param[in] lane The lane to be represented
-	 * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
-	 */
+     * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
+     * @param[in] lane The lane to be represented
+     * @param[in] shape The shape of the lane (!!! this is a member of the lane - no need to give it additionally)
+     */
     GUILaneWrapper(GUIGlObjectStorage &idStorage,
                    MSLane &lane, const Position2DVector &shape) throw();
 
@@ -138,12 +138,12 @@ public:
 
 
 
-	/** @brief Returns the represented lane
-	 * @return The lane represented by this wrapper
-	 */
-	const MSLane &getLane() const throw() {
-		return myLane;
-	}
+    /** @brief Returns the represented lane
+     * @return The lane represented by this wrapper
+     */
+    const MSLane &getLane() const throw() {
+        return myLane;
+    }
 
 
     const Position2DVector &getShape() const;
@@ -196,41 +196,41 @@ public:
     /// @name Current state retrieval
     //@{
 
-	/** @brief Returns the sum of last step CO2 emissions normed by the lane's length
-	 * @return CO2 emissions of vehicles on this lane during the last step, normed by the lane length
-	 */
+    /** @brief Returns the sum of last step CO2 emissions normed by the lane's length
+     * @return CO2 emissions of vehicles on this lane during the last step, normed by the lane length
+     */
     SUMOReal getNormedHBEFA_CO2Emissions() const throw();
 
-	
-	/** @brief Returns the sum of last step CO emissions normed by the lane's length
-	 * @return CO emissions of vehicles on this lane during the last step, normed by the lane length
-	 */
-	SUMOReal getNormedHBEFA_COEmissions() const throw();
 
-	
-	/** @brief Returns the sum of last step PMx emissions normed by the lane's length
-	 * @return PMx emissions of vehicles on this lane during the last step, normed by the lane length
-	 */
-	SUMOReal getNormedHBEFA_PMxEmissions() const throw();
+    /** @brief Returns the sum of last step CO emissions normed by the lane's length
+     * @return CO emissions of vehicles on this lane during the last step, normed by the lane length
+     */
+    SUMOReal getNormedHBEFA_COEmissions() const throw();
 
-	
-	/** @brief Returns the sum of last step NOx emissions normed by the lane's length
-	 * @return NOx emissions of vehicles on this lane during the last step, normed by the lane length
-	 */
-	SUMOReal getNormedHBEFA_NOxEmissions() const throw();
 
-	
-	/** @brief Returns the sum of last step HC emissions normed by the lane's length
-	 * @return HC emissions of vehicles on this lane during the last step, normed by the lane length
-	 */
-	SUMOReal getNormedHBEFA_HCEmissions() const throw();
-    
-	
-	/** @brief Returns the sum of last step fuel comsumption normed by the lane's length
-	 * @return Fuel comsumption of vehicles on this lane during the last step, normed by the lane length
-	 */
-	SUMOReal getNormedHBEFA_FuelConsumption() const throw();
-	/// @}
+    /** @brief Returns the sum of last step PMx emissions normed by the lane's length
+     * @return PMx emissions of vehicles on this lane during the last step, normed by the lane length
+     */
+    SUMOReal getNormedHBEFA_PMxEmissions() const throw();
+
+
+    /** @brief Returns the sum of last step NOx emissions normed by the lane's length
+     * @return NOx emissions of vehicles on this lane during the last step, normed by the lane length
+     */
+    SUMOReal getNormedHBEFA_NOxEmissions() const throw();
+
+
+    /** @brief Returns the sum of last step HC emissions normed by the lane's length
+     * @return HC emissions of vehicles on this lane during the last step, normed by the lane length
+     */
+    SUMOReal getNormedHBEFA_HCEmissions() const throw();
+
+
+    /** @brief Returns the sum of last step fuel comsumption normed by the lane's length
+     * @return Fuel comsumption of vehicles on this lane during the last step, normed by the lane length
+     */
+    SUMOReal getNormedHBEFA_FuelConsumption() const throw();
+    /// @}
 
 
 

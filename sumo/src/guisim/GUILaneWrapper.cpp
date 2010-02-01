@@ -642,44 +642,44 @@ GUILaneWrapper::getEdgeLaneNumber() const {
 
 
 // ------------ Current state retrieval
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getNormedHBEFA_CO2Emissions() const throw() {
-	return myLane.getHBEFA_CO2Emissions() / myLane.getLength();
+    return myLane.getHBEFA_CO2Emissions() / myLane.getLength();
 }
 
 
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getNormedHBEFA_COEmissions() const throw() {
     return myLane.getHBEFA_COEmissions() / myLane.getLength();
 }
 
 
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getNormedHBEFA_PMxEmissions() const throw() {
     return myLane.getHBEFA_PMxEmissions() / myLane.getLength();
 }
 
 
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getNormedHBEFA_NOxEmissions() const throw() {
     return myLane.getHBEFA_NOxEmissions() / myLane.getLength();
 }
 
 
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getNormedHBEFA_HCEmissions() const throw() {
     return myLane.getHBEFA_HCEmissions() / myLane.getLength();
 }
 
 
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getNormedHBEFA_FuelConsumption() const throw() {
     return myLane.getHBEFA_FuelConsumption() / myLane.getLength();
 }
 
 
 
-// ------------ 
+// ------------
 GUILaneWrapper::Colorer::Colorer() {
     mySchemes.push_back(GUIColorScheme("uniform", RGBColor(0,0,0), "", true));
     mySchemes.push_back(GUIColorScheme("by selection (lane-/streetwise)", RGBColor(0.7f, 0.7f, 0.7f), "unselected", true));
@@ -721,14 +721,14 @@ GUILaneWrapper::Colorer::getColorValue(const GUILaneWrapper& lane) const {
     case 2: {
         const std::vector<SUMOVehicleClass> &allowed = lane.myLane.getAllowedClasses();
         const std::vector<SUMOVehicleClass> &disallowed = lane.myLane.getNotAllowedClasses();
-        if((allowed.size()==0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER)!=allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER)==disallowed.end()) {
+        if ((allowed.size()==0 || find(allowed.begin(), allowed.end(), SVC_PASSENGER)!=allowed.end()) && find(disallowed.begin(), disallowed.end(), SVC_PASSENGER)==disallowed.end()) {
             return 0;
         } else {
             return 1;
         }
-            }
+    }
     case 3:
-		return lane.getLane().getMaxSpeed();
+        return lane.getLane().getMaxSpeed();
     case 4:
         return lane.getLane().getOccupancy();
     case 5:

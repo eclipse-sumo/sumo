@@ -153,7 +153,7 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*,FXSelector,void*data) {
         GUISettingsHandler handler(opendialog.getFilename().text());
         SUMOReal zoom, xoff, yoff;
         handler.setViewport(zoom, xoff, yoff);
-        if(zoom>0) {
+        if (zoom>0) {
             setValues(zoom, xoff, yoff);
             myParent->setViewport(zoom, xoff, yoff);
         }
