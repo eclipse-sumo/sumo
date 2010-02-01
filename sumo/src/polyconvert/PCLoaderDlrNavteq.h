@@ -2,7 +2,7 @@
 /// @file    PCLoaderDlrNavteq.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id$
+/// @version $Id: PCLoaderDlrNavteq.h 8201 2010-02-01 11:24:21Z dkrajzew $
 ///
 // A reader of pois and polygons stored in DLR-Navteq (Elmar)-format
 /****************************************************************************/

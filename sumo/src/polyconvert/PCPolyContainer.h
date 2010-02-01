@@ -2,7 +2,7 @@
 /// @file    PCPolyContainer.h
 /// @author  Daniel krajzewicz
 /// @date    Mon, 05 Dec 2005
-/// @version $Id$
+/// @version $Id: PCPolyContainer.h 8071 2009-12-04 12:03:01Z dkrajzew $
 ///
 // A storage for loaded polygons and pois
 /****************************************************************************/

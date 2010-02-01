@@ -2,7 +2,7 @@
 /// @file    HelpersHBEFA.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id$
+/// @version $Id: HelpersHBEFA.cpp 7457 2009-07-18 23:25:57 +0200 (Sa, 18 Jul 2009) behrisch $
 ///
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/

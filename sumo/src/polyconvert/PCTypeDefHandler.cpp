@@ -2,7 +2,7 @@
 /// @file    PCTypeDefHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
-/// @version $Id$
+/// @version $Id: PCTypeDefHandler.cpp 6907 2009-03-13 12:13:38Z dkrajzew $
 ///
 // A handler for loading polygon type maps
 /****************************************************************************/

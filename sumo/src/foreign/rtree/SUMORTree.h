@@ -2,7 +2,7 @@
 /// @file    SUMORTree.h
 /// @author  Daniel Krajzewicz
 /// @date    27.10.2008
-/// @version $Id$
+/// @version $Id: SUMORTree.h 7859 2009-10-13 13:11:45 +0200 (Di, 13 Okt 2009) behrisch $
 ///
 // An rtree for networks
 /****************************************************************************/

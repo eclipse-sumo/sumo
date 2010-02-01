@@ -2,7 +2,7 @@
 /// @file    NIImporter_OpenStreetMap.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id$
+/// @version $Id: NIImporter_OpenStreetMap.h 8110 2010-01-06 12:47:23 +0100 (Mi, 06 Jan 2010) behrisch $
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
