@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Mon Feb 01 11:03:17 2010
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SubscribeVariable>:
+  domID=212 objID=0 with 1 variables
+.. Answered with error to command (212), [description: Could not add subscription (Vehicle '0' is not known).]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

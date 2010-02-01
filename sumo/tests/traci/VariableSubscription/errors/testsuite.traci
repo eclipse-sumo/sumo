@@ -1,0 +1,12 @@
+# The vehicle has already left the simulation
+ArrivedVehicle
+
+# The vehicle is not known
+UnknownVehicle
+
+# The command is unknown
+UnknownCommand
+
+# The variable is not supported
+UnknownVariable
+

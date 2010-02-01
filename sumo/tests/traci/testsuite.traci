@@ -34,6 +34,9 @@ GetTrafficLightStatus
 # Tests for variable retrieval
 VariableRetrieval
 
+# Tests for variable subscription
+VariableSubscription
+
 
 # Tests for changing TL values
 ChangeTLValue

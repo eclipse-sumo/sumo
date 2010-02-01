@@ -1,0 +1,413 @@
+TraCITestClient output file. Date: Mon Feb 01 10:44:29 2010
+
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SubscribeVariable>:
+  domID=212 objID=0 with 3 variables
+.. Command acknowledged (212), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1455.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1445.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1435.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1425.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1415.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1405.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1395.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1385.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1375.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1365.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1355.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1345.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1335.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1325.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1315.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1305.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1295.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1285.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1275.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1265.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1255.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1245.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1235.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1225.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1215.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 4/1to3/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1205.25,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1185.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1175.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1165.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1155.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1145.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1135.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1125.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1115.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1105.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1095.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1085.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1075.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1065.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1055.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1045.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1035.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1025.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1015.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (1005.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (995.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (985.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (975.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (965.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (955.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (945.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (935.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (925.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (915.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (905.75,401.65)
+
+-> Command sent: <SimulationStep2>:
+.. Command acknowledged (2), [description: ]
+  CommandID=228  ObjectID=0  #variables=3
+      VariableID=64      ok=1 valueDataType=10 float value: 10.00
+      VariableID=81      ok=1 valueDataType=12 string value: 3/1to2/1_0
+      VariableID=66      ok=1 valueDataType=16 position value: (895.75,401.65)
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

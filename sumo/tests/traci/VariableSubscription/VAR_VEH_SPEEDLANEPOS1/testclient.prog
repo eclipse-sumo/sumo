@@ -1,0 +1,4 @@
+repeat 5 simstep2 0
+subscribevariable 212 0 0 1000 3 64 81 66
+repeat 55 simstep2 0
+
