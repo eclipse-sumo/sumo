@@ -36,6 +36,7 @@
 #include "TraCIServerAPIHelper.h"
 #include "TraCIServerAPI_Edge.h"
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <utils/common/HelpersHarmonoise.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -205,10 +206,14 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
             SUMOReal sum = 0;
             const std::vector<MSLane*> &lanes = e->getLanes();
             for (std::vector<MSLane*>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
-                sum += (*i)->getHarmonoise_NoiseEmissions();
+                sum += (SUMOReal) pow(10., ((*i)->getHarmonoise_NoiseEmissions()/10.));
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            tempMsg.writeFloat(sum);
+            if(sum!=0) {
+                tempMsg.writeFloat(HelpersHarmonoise::sum(sum));
+            } else {
+                tempMsg.writeFloat(0);
+            }
         }
         break;
         case LAST_STEP_VEHICLE_NUMBER: {
