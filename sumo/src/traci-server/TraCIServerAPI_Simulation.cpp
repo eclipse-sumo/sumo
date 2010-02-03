@@ -2,7 +2,7 @@
 /// @file    TraCIServerAPI_Simulation.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: TraCIServerAPI_Simulation.cpp 6907 2009-03-13 12:13:38Z dkrajzew $
+/// @version $Id$
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/

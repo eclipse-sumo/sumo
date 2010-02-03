@@ -2,7 +2,7 @@
 /// @file    HelpersHarmonoise.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id: HelpersHarmonoise.h 6716 2009-02-03 12:23:15Z dkrajzew $
+/// @version $Id$
 ///
 // Helper methods for Harmonoise-based noise emission computation
 /****************************************************************************/

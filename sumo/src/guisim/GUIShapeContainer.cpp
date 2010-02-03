@@ -2,7 +2,7 @@
 /// @file    GUIShapeContainer.cpp
 /// @author  Daniel Krajzewicz
 /// @date    08.10.2009
-/// @version $Id: GUIShapeContainer.cpp 7108 2009-05-05 08:18:37Z dkrajzew $
+/// @version $Id$
 ///
 // Storage for geometrical objects extended by mutexes
 /****************************************************************************/

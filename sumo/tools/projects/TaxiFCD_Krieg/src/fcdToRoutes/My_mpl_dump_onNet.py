@@ -3,7 +3,7 @@
 @file    My_mpl_dump_onNet.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-10-25
-@version $Id: mpl_dump_onNet.py 625 2008-03-08 14:04:01Z behr_mi $
+@version $Id$
 
 
 This script reads a network and a dump file and

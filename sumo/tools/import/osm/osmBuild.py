@@ -3,7 +3,7 @@
 @file    osmGet.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-08-01
-@version $Id: osmGet.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 Retrieves an area from OpenStreetMap.
 

@@ -3,7 +3,7 @@
 @file    visum_convertEdgeTypes.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-05-27
-@version $Id: visum_convertEdgeTypes.py 6089 2008-09-23 11:43:44Z behrisch $
+@version $Id$
 
 
 This script converts edge type definitions (STRECKENTYP) into their

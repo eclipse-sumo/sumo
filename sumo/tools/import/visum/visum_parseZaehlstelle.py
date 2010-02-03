@@ -3,7 +3,7 @@
 @file    visum_parseZaehlstelle.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2008-11-30
-@version $Id: visum_parseZaehlstelle.py 6089 2008-09-23 11:43:44Z behrisch $
+@version $Id$
 
 
 This script reads "Zaehlstellen" from a given VISUM-network

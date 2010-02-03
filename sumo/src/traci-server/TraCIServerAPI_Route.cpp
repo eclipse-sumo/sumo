@@ -2,7 +2,7 @@
 /// @file    TraCIServerAPI_Route.cpp
 /// @author  Daniel Krajzewicz
 /// @date    07.05.2009
-/// @version $Id: TraCIServerAPI_Route.cpp 6907 2009-03-13 12:13:38Z dkrajzew $
+/// @version $Id$
 ///
 // APIs for getting/setting route values via TraCI
 /****************************************************************************/

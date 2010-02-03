@@ -2,7 +2,7 @@
 /// @file    PCTypeDefHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
-/// @version $Id: PCTypeDefHandler.h 8071 2009-12-04 12:03:01Z dkrajzew $
+/// @version $Id$
 ///
 // A handler for loading polygon type maps
 /****************************************************************************/

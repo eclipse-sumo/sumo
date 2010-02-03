@@ -4,7 +4,7 @@
 /// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @author  Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
 /// @date    2007/10/24
-/// @version $Id: TraCIException.h 7082 2009-04-28 11:16:02Z behrisch $
+/// @version $Id$
 ///
 /// Exception thrown by TraCI
 /****************************************************************************/

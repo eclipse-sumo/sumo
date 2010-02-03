@@ -2,7 +2,7 @@
 /// @file    MSEdgeWeightsStorage.cpp
 /// @author  Daniel Krajzewicz
 /// @date    02.11.2009
-/// @version $Id: MSEdgeWeightsStorage.cpp 7427 2009-07-13 13:54:50Z dkrajzew $
+/// @version $Id$
 ///
 // A storage for edge travel times and efforts
 /****************************************************************************/

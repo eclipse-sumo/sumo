@@ -2,7 +2,7 @@
 /// @file    MSDevice_HBEFA.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 30.01.2009
-/// @version $Id: MSDevice_HBEFA.h 6537 2009-01-06 13:44:36Z behrisch $
+/// @version $Id$
 ///
 // A device which collects vehicular emissions (using HBEFA-reformulation)
 /****************************************************************************/

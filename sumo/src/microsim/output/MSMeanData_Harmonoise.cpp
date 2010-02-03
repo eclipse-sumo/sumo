@@ -2,7 +2,7 @@
 /// @file    MSMeanData_Harmonoise.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id: MSMeanData_Harmonoise.cpp 6726 2009-02-05 08:33:51Z dkrajzew $
+/// @version $Id$
 ///
 // Redirector for mean data output (net->edgecontrol)
 /****************************************************************************/

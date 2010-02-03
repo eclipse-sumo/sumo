@@ -2,7 +2,7 @@
 /// @file    TraCIServerAPI_Polygon.h
 /// @author  Daniel Krajzewicz
 /// @date    07.05.2009
-/// @version $Id: TraCIServerAPI_Polygon.h 6907 2009-03-13 12:13:38Z dkrajzew $
+/// @version $Id$
 ///
 // APIs for getting/setting polygon values via TraCI
 /****************************************************************************/

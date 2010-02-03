@@ -2,7 +2,7 @@
 /// @file    HelpersHarmonoise.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id: HelpersHarmonoise.cpp 6711 2009-02-02 14:44:15Z dkrajzew $
+/// @version $Id$
 ///
 // Noise data collector for edges/lanes
 /****************************************************************************/

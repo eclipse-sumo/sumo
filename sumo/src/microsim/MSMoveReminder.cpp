@@ -2,7 +2,7 @@
 /// @file    MSMoveReminder.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2008-10-27
-/// @version $Id: MSMoveReminder.h 5048 2008-02-07 12:15:22Z behrisch $
+/// @version $Id$
 ///
 // Something on a lane to be noticed about vehicle movement
 /****************************************************************************/

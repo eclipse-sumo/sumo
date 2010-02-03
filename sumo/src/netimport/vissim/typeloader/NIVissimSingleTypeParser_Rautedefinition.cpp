@@ -2,7 +2,7 @@
 /// @file    NIVissimSingleTypeParser_Rautedefinition.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 18 Dec 2002
-/// @version $Id: NIVissimSingleTypeParser_Rautedefinition.cpp 4389 2007-08-28 10:21:00Z behrisch $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

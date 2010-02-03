@@ -2,7 +2,7 @@
 /// @file    PCNetProjectionLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 02.11.2006
-/// @version $Id: PCNetProjectionLoader.cpp 7490 2009-07-23 14:24:32Z dkrajzew $
+/// @version $Id$
 ///
 // A reader for a SUMO network's projection description
 /****************************************************************************/

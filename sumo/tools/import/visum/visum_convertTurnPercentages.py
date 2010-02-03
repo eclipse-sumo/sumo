@@ -3,7 +3,7 @@
 @file    visum_convertTurnPercentages.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-06-12
-@version $Id: visum_convertTurnPercentages.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 
 Converts VISUM turning percentages into

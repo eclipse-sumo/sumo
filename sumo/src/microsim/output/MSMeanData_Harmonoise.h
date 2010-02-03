@@ -2,7 +2,7 @@
 /// @file    MSMeanData_Harmonoise.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id: MSMeanData_Harmonoise.h 6721 2009-02-03 15:14:02Z dkrajzew $
+/// @version $Id$
 ///
 // Noise data collector for edges/lanes
 /****************************************************************************/

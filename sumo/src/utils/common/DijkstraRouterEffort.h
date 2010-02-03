@@ -2,7 +2,7 @@
 /// @file    DijkstraRouterEffort.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25 July 2005
-/// @version $Id: DijkstraRouterEffort.h 7005 2009-04-06 17:24:55Z behrisch $
+/// @version $Id$
 ///
 // Dijkstra shortest path algorithm using other values
 /****************************************************************************/

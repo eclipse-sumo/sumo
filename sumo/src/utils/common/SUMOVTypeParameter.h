@@ -2,7 +2,7 @@
 /// @file    SUMOVTypeParameter.h
 /// @author  Daniel Krajzewicz
 /// @date    10.09.2009
-/// @version $Id: SUMOVTypeParameter.h 7538 2009-07-27 13:21:41Z dkrajzew $
+/// @version $Id$
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/

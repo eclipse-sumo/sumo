@@ -3,7 +3,7 @@
 @file    tls_csv2SUMO.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-08-01
-@version $Id: tls_csv2SUMO.py 8050 2009-12-03 07:37:52Z behrisch $
+@version $Id$
 
 Verifies the traffic lights in the given network.
 Currently verified:

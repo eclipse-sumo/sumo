@@ -2,7 +2,7 @@
 /// @file    NIImporter_RobocupRescue.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id: NIImporter_RobocupRescue.cpp 7756 2009-09-21 11:09:32 +0200 (Mo, 21 Sep 2009) dkrajzew $
+/// @version $Id$
 ///
 // Importer for networks stored in robocup rescue league format
 /****************************************************************************/

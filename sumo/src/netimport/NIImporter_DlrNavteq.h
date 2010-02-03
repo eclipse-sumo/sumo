@@ -2,7 +2,7 @@
 /// @file    NIImporter_DlrNavteq.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 14.04.2008
-/// @version $Id: NIImporter_DlrNavteq.h 7703 2009-09-10 13:45:09Z simsiem $
+/// @version $Id$
 ///
 // Importer for networks stored in Elmar's format
 /****************************************************************************/

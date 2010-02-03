@@ -2,7 +2,7 @@
 /// @file    TraCIServerAPI_MeMeDetector.h
 /// @author  Daniel Krajzewicz
 /// @date    07.05.2009
-/// @version $Id: TraCIServerAPI_MeMeDetector.h 6907 2009-03-13 12:13:38Z dkrajzew $
+/// @version $Id$
 ///
 // APIs for getting/setting multi-entry/multi-exit detector values via TraCI
 /****************************************************************************/

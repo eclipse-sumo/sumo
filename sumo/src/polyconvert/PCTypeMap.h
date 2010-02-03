@@ -2,7 +2,7 @@
 /// @file    PCTypeMap.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 05 Dec 2005
-/// @version $Id: PCTypeMap.h 6907 2009-03-13 12:13:38Z dkrajzew $
+/// @version $Id$
 ///
 // A storage for type mappings
 /****************************************************************************/

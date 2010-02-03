@@ -2,7 +2,7 @@
 /// @file    PCLoaderArcView.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: PCLoaderArcView.h 6907 2009-03-13 13:13:38 +0100 (Fr, 13 Mrz 2009) dkrajzew $
+/// @version $Id$
 ///
 // A reader of pois and polygons from shape files
 /****************************************************************************/

@@ -3,7 +3,7 @@
 @file    removeSVN.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    28-08-2008
-@version $Id: removeSVN.py 5503 2008-05-09 08:39:14Z behrisch $
+@version $Id$
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
