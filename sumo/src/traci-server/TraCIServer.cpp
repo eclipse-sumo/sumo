@@ -2964,8 +2964,8 @@ throw(TraCIException) {
 
 bool
 TraCIServer::addSubscription(int commandId) throw(TraCIException) {
-    SUMOTime beginTime = myInputStorage.readInt();
-    SUMOTime endTime = myInputStorage.readInt();
+    double beginTime = myInputStorage.readDouble();
+    double endTime = myInputStorage.readDouble();
     string id = myInputStorage.readString();
     int no = myInputStorage.readUnsignedByte();
     std::vector<int> variables;

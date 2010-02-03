@@ -1442,12 +1442,12 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
     }
     // command length (domID, beginTime, endTime, objID, varNo, <vars>)
     outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(/*1 + 4 +*/ 5 + 1 + 4 + 4 + 4 + (int) objID.length() + 1 + varNo);
+    outMsg.writeInt(/*1 + 4 +*/ 5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + varNo);
     // command id
     outMsg.writeUnsignedByte(domID);
     // time
-    outMsg.writeInt(beginTime);
-    outMsg.writeInt(endTime);
+    outMsg.writeDouble(beginTime);
+    outMsg.writeDouble(endTime);
     // object id
     outMsg.writeString(objID);
     // command id
