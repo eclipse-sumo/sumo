@@ -149,9 +149,9 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         SUMOReal leaderPos = leader!=0 ? leader->getPositionOnLane() - leader->getVehicleType().getLength() : -1;
         SUMOReal frontGapNeeded = leader!=0 ? veh.getSecureGap(speed, leader->getSpeed(), *leader) : -1;
         SUMOReal frontMax = leader!=0 ? leaderPos - frontGapNeeded - leader->getVehicleType().getLength() : getLength();
-        if(leader==0) {
+        if (leader==0) {
             leader = getPartialOccupator();
-            if(leader!=0) {
+            if (leader!=0) {
                 frontMax = getPartialOccupatorEnd();
             }
         }
@@ -279,7 +279,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         if (nextLane!=0) {
             SUMOReal gap = 0;
             MSVehicle * leader = currentLane->getPartialOccupator();
-            if(leader!=0) {
+            if (leader!=0) {
                 gap = getPartialOccupatorEnd();
             } else {
                 // check leader on next lane
@@ -428,7 +428,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 SUMOReal
 MSLane::setPartialOcupation(MSVehicle *v, SUMOReal leftVehicleLength) throw() {
     myInlappingVehicle = v;
-    if(leftVehicleLength>myLength) {
+    if (leftVehicleLength>myLength) {
         myInlappingVehicleEnd = 0;
     } else {
         myInlappingVehicleEnd = myLength-leftVehicleLength;
@@ -437,16 +437,16 @@ MSLane::setPartialOcupation(MSVehicle *v, SUMOReal leftVehicleLength) throw() {
 }
 
 
-void 
+void
 MSLane::resetPartialOccupation(MSVehicle *v) throw() {
-    if(v==myInlappingVehicle) {
+    if (v==myInlappingVehicle) {
         myInlappingVehicleEnd = 10000;
     }
     myInlappingVehicle = 0;
 }
 
 
-std::pair<MSVehicle*, SUMOReal> 
+std::pair<MSVehicle*, SUMOReal>
 MSLane::getLastVehicleInformation() const throw() {
     if (myVehicles.size()!=0) {
         // the last vehicle is the one in scheduled by this lane
@@ -488,7 +488,6 @@ MSLane::moveCritical(SUMOTime t) {
     // deal with collisions
     for (vector<MSVehicle*>::iterator i=collisions.begin(); i!=collisions.end(); ++i) {
         MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-        (*i)->onTripEnd();
         MSVehicleTransfer::getInstance()->addVeh((*i));
         myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
     }
@@ -511,7 +510,6 @@ MSLane::detectCollisions(SUMOTime timestep) {
             MSVehicle *vehV = *veh;
             MsgHandler *handler = 0;
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            vehV->onTripEnd();
             MSVehicleTransfer::getInstance()->addVeh(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
             lastVeh = myVehicles.end() - 1;
@@ -572,7 +570,6 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
                 if (p->getPositionOnLane()>target->getLength()) {
                     MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + v->getID() + "'; beyond lane (1), targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 }
-                v->onTripEnd();
                 MSVehicleTransfer::getInstance()->addVeh(v);
                 hadProblem = true;
                 continue;
@@ -600,12 +597,11 @@ MSLane::setCritical(SUMOTime t, std::vector<MSLane*> &into) {
         MSVehicle *vehV = *veh;
         if (vehV->getPositionOnLane()>getLength()) {
             MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + vehV->getID() + "'; beyond lane (2), targetLane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            vehV->onTripEnd();
             MSVehicleTransfer::getInstance()->addVeh(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else if (vehV->ends()) {
             myVehicleLengthSum -= vehV->getVehicleType().getLength();
-            vehV->onTripEnd();
+            vehV->onRemovalFromNet(false);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehV);
             veh = myVehicles.erase(veh); // remove current vehicle
         } else {
@@ -671,7 +667,7 @@ MSLane::push(MSVehicle* veh) {
         return false;
     } else {
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
-        veh->onTripEnd();
+        veh->onRemovalFromNet(false);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
@@ -968,7 +964,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
     // loop over following lanes
     const MSLane * targetLane = this;
     MSVehicle *leader = targetLane->getPartialOccupator();
-    if(leader!=0) {
+    if (leader!=0) {
         return std::pair<MSVehicle * const, SUMOReal>(leader, seen-targetLane->getPartialOccupatorEnd());
     }
     const MSLane * nextLane = targetLane;
@@ -997,7 +993,7 @@ MSLane::getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, SUMOReal speed, con
             return std::pair<MSVehicle * const, SUMOReal>(leader, seen+leader->getPositionOnLane()-leader->getVehicleType().getLength());
         } else {
             leader = nextLane->getPartialOccupator();
-            if(leader!=0) {
+            if (leader!=0) {
                 return std::pair<MSVehicle * const, SUMOReal>(leader, seen+nextLane->getPartialOccupatorEnd());
             }
         }
@@ -1136,10 +1132,10 @@ SUMOReal
 MSLane::getHarmonoise_NoiseEmissions() const throw() {
     SUMOReal ret = 0;
     const MSLane::VehCont &vehs = getVehiclesSecure();
-	if(vehs.size()==0) {
-		releaseVehicles();
-		return 0;
-	}
+    if (vehs.size()==0) {
+        releaseVehicles();
+        return 0;
+    }
     for (MSLane::VehCont::const_iterator i=vehs.begin(); i!=vehs.end(); ++i) {
         SUMOReal sv = (*i)->getHarmonoise_NoiseEmissions();
         ret += (SUMOReal) pow(10., (sv/10.));

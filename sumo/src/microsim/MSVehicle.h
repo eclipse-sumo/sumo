@@ -88,10 +88,11 @@ public:
     /// the lane changer sets myLastLaneChangeOffset
     friend class MSLaneChanger;
 
-    /** container that holds the vehicles driving state. May vary from
-        model to model. here: SK, holds position and speed. */
+    /** @class State
+     * @brief Container that holds the vehicles driving state (position+speed). 
+     */
     class State {
-        /// vehicle sets states directly
+        /// @brief vehicle sets states directly
         friend class MSVehicle;
         friend class MSLaneChanger;
 
@@ -125,7 +126,9 @@ public:
 
     };
 
-    /// Destructor.
+
+
+    /// @brief Destructor.
     virtual ~MSVehicle() throw();
 
 
@@ -164,6 +167,33 @@ public:
         return myParameter->depart;
     }
     //@}
+
+
+
+    /// @name insertion/removal
+    //@{
+
+    /** @brief Called when the vehicle is inserted into the network
+     * 
+     * Sets optional information about departzre time, informs the vehicle
+     *  control about a further running vehicle.
+     */
+    void onDepart() throw();
+
+
+    /** @brief Called when the vehicle is removed the network.
+     *
+     * Sets the optional information about arival if forTeleporting is false
+     *  (the vehicle has arrived). Moves along work reminders and
+     *  informs all devices and assigned MSVehicleQuitReminded instances
+     *  about quitting. Calls "leaveLane" then.
+     * 
+     * @param[in] forTeleporting true if the vehicle shall be teleported (otherwise it has reached its destination)
+     */
+    void onRemovalFromNet(bool forTeleporting) throw();
+    //@}
+
+
 
 
 
@@ -699,11 +729,6 @@ public:
     }
 
 
-
-    void onDepart();
-
-    /** @brief Called when the vehicle leaves the lane */
-    void onTripEnd();
     void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
 

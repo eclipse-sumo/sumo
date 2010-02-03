@@ -129,7 +129,7 @@ public:
 
 
     /** @brief Called when the vehicle leaves the lane */
-    virtual void onTripEnd() { }
+    virtual void onRemovalFromNet() { }
     // @}
 
 

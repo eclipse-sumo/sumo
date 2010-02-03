@@ -134,7 +134,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError) {
                 if (veh->getVehicleType().getID() == "BUS") {
                     continue;
                 } else {
-                    veh->onTripEnd();
+                    veh->onRemovalFromNet(false);
                     myDestLane->removeVehicle(veh);
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
                     num_replacements++;

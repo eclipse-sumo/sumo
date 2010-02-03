@@ -179,7 +179,7 @@ MSVehicle::~MSVehicle() throw() {
     }
     // other
     delete myEdgeWeights;
-    for(std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
+    for (std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
         (*i)->resetPartialOccupation(this);
     }
     myFurtherLanes.clear();
@@ -251,6 +251,55 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
         myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = 0;
     }
+}
+
+
+// ------------ interaction with the route
+void
+MSVehicle::onDepart() throw() {
+    // check whether the vehicle's departure time shall be saved
+    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_TIME)) {
+        myIntCORNMap[MSCORN::CORN_VEH_DEPART_TIME] = (int) MSNet::getInstance()->getCurrentTimeStep();
+    }
+    // check whether the vehicle's verbose departure information shall be saved
+    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_INFO)) {
+        DepartArrivalInformation *i = new DepartArrivalInformation();
+        i->time = MSNet::getInstance()->getCurrentTimeStep();
+        i->lane = myLane;
+        i->pos = myState.pos();
+        i->speed = myState.speed();
+        myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
+    }
+    // inform the vehicle control
+    MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
+}
+
+
+void
+MSVehicle::onRemovalFromNet(bool forTeleporting) throw() {
+    // check whether the vehicle's verbose arrival information shall be saved
+    if (!forTeleporting && MSCORN::wished(MSCORN::CORN_VEH_ARRIVAL_INFO)) {
+        DepartArrivalInformation *i = new DepartArrivalInformation();
+        i->time = MSNet::getInstance()->getCurrentTimeStep();
+        i->lane = myLane;
+        i->pos = myState.pos();
+        i->speed = myState.speed();
+        myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO] = (void*) i;
+    }
+    SUMOReal pspeed = myState.mySpeed;
+    SUMOReal pos = myState.myPos;
+    SUMOReal oldPos = pos - SPEED2DIST(pspeed);
+    // process reminder
+    workOnMoveReminders(oldPos, pos, pspeed);
+    // remove from structures to be informed about it
+    for (QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
+        (*i)->removeOnTripEnd(this);
+    }
+    myQuitReminded.clear();
+    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+        (*dev)->onRemovalFromNet();
+    }
+    leaveLane(true);
 }
 
 
@@ -691,7 +740,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         } else {
             // (potential) interaction with a vehicle extending partially into this lane
             MSVehicle *predP = myLane->getPartialOccupator();
-            if(predP!=0) {
+            if (predP!=0) {
                 SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
                 if (MSGlobals::gCheck4Accidents && gap<0) {
                     // collision occured!
@@ -726,7 +775,7 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
         } else {
             // (potential) interaction with a vehicle extending partially into this lane
             MSVehicle *predP = myLane->getPartialOccupator();
-            if(predP!=0) {
+            if (predP!=0) {
                 SUMOReal gap = myLane->getPartialOccupatorEnd() - myState.myPos;
                 if (MSGlobals::gCheck4Accidents && gap<0) {
                     // collision occured!
@@ -827,14 +876,14 @@ MSVehicle::moveFirstChecked() {
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
     vector<MSLane*> passedLanes;
-    for(std::vector<MSLane*>::reverse_iterator i=myFurtherLanes.rbegin(); i!=myFurtherLanes.rend(); ++i) {
+    for (std::vector<MSLane*>::reverse_iterator i=myFurtherLanes.rbegin(); i!=myFurtherLanes.rend(); ++i) {
         passedLanes.push_back(*i);
     }
-    if(passedLanes.size()==0||passedLanes.back()!=myLane) {
+    if (passedLanes.size()==0||passedLanes.back()!=myLane) {
         passedLanes.push_back(myLane);
     }
     // move on lane(s)
-    if(myState.myPos<myLane->getLength()) {
+    if (myState.myPos<myLane->getLength()) {
         // we are staying at our lane
         //  there is no need to go over succeeding lanes
         workOnMoveReminders(pos, pos + SPEED2DIST(vNext), vNext);
@@ -843,9 +892,9 @@ MSVehicle::moveFirstChecked() {
         // we are moving at least to the next lane (maybe pass even more than one)
         MSLane *approachedLane = myLane;
         // move the vehicle forward
-        SUMOReal driven = myState.myPos>approachedLane->getLength() 
-            ? approachedLane->getLength() - pos 
-            : myState.myPos - pos;
+        SUMOReal driven = myState.myPos>approachedLane->getLength()
+                          ? approachedLane->getLength() - pos
+                          : myState.myPos - pos;
         for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end() && myState.myPos>approachedLane->getLength(); ++i) {
             if (approachedLane!=myLane) {
                 leaveLaneAtMove(driven);
@@ -877,14 +926,14 @@ MSVehicle::moveFirstChecked() {
         myTarget = approachedLane;
     }
     // clear previously set information
-    for(std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
+    for (std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
         (*i)->resetPartialOccupation(this);
     }
     myFurtherLanes.clear();
-    if(myState.myPos-getVehicleType().getLength()<0&&passedLanes.size()>0) {
+    if (myState.myPos-getVehicleType().getLength()<0&&passedLanes.size()>0) {
         SUMOReal leftLength = getVehicleType().getLength()-myState.myPos;
         std::vector<MSLane*>::reverse_iterator i=passedLanes.rbegin() + 1;
-        while(leftLength>0&&i!=passedLanes.rend()) {
+        while (leftLength>0&&i!=passedLanes.rend()) {
             myFurtherLanes.push_back(*i);
             leftLength -= (*i)->setPartialOcupation(this, leftLength);
             ++i;
@@ -1007,7 +1056,7 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
     //  compute this information and use it only once in the next loop
     SUMOReal seen = myLane->getLength() - myState.myPos;
     // !!! Why is the brake gap accounted? !!!
-    if(this!=myLane->getFirstVehicle() && seen - getCarFollowModel().brakeGap(myState.mySpeed) > 0) {
+    if (this!=myLane->getFirstVehicle() && seen - getCarFollowModel().brakeGap(myState.mySpeed) > 0) {
         // not "reaching critical"
         myLFLinkLanes.push_back(DriveProcessItem(0, boundVSafe, boundVSafe, false));
         return;
@@ -1079,8 +1128,8 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
         //  (or approach the lane end if the predeccessor is too near)
         SUMOReal vsafePredNextLane = 100000;
         std::pair<MSVehicle*, SUMOReal> lastOnNext = nextLane->getLastVehicleInformation();
-        if(lastOnNext.first!=0) {
-            if(seen+lastOnNext.second>0) {
+        if (lastOnNext.first!=0) {
+            if (seen+lastOnNext.second>0) {
                 vsafePredNextLane = getCarFollowModel().ffeV(this, seen+lastOnNext.second, lastOnNext.first->getSpeed());
             }
         }
@@ -1246,17 +1295,17 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
         (*dev)->enterLaneAtLaneChange(enteredLane);
     }
     SUMOReal leftLength = myState.myPos-getVehicleType().getLength();
-    if(leftLength<0) {
+    if (leftLength<0) {
         // we have to rebuild "further lanes"
         const MSRoute &route = getRoute();
         MSRouteIterator i = myCurrEdge;
         MSLane *lane = myLane;
-        while(i!=route.begin()&&leftLength>0) {
+        while (i!=route.begin()&&leftLength>0) {
             const MSEdge * const prev = *(--i);
             const std::vector<MSLane::IncomingLaneInfo> &incomingLanes = lane->getIncomingLanes();
             bool found = false;
-            for(std::vector<MSLane::IncomingLaneInfo>::const_iterator j=incomingLanes.begin(); j!=incomingLanes.end(); ++j) {
-                if(&(*j).lane->getEdge()==prev) {
+            for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j=incomingLanes.begin(); j!=incomingLanes.end(); ++j) {
+                if (&(*j).lane->getEdge()==prev) {
 #ifdef HAVE_INTERNAL_LANES
                     (*j).lane->setPartialOcupation(this, leftLength);
 #else
@@ -1268,7 +1317,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
                     break;
                 }
             }
-            if(!found) {
+            if (!found) {
                 int bla = 0;
             }
         }
@@ -1328,7 +1377,7 @@ MSVehicle::leaveLane(bool isArrival) {
     myMoveReminders.clear();
     myOldLaneMoveReminders.clear();
     myOldLaneMoveReminderOffsets.clear();
-    for(std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
+    for (std::vector<MSLane*>::iterator i=myFurtherLanes.begin(); i!=myFurtherLanes.end(); ++i) {
         (*i)->resetPartialOccupation(this);
     }
     myFurtherLanes.clear();
@@ -1395,54 +1444,6 @@ MSVehicle::getLaneChangeModel() const {
 unsigned int
 MSVehicle::getWaitingTime() const {
     return myWaitingTime;
-}
-
-
-void
-MSVehicle::onTripEnd() {
-    // check whether the vehicle's verbose arrival information shall be saved
-    if (MSCORN::wished(MSCORN::CORN_VEH_ARRIVAL_INFO)) {
-        DepartArrivalInformation *i = new DepartArrivalInformation();
-        i->time = MSNet::getInstance()->getCurrentTimeStep();
-        i->lane = myLane;
-        i->pos = myState.pos();
-        i->speed = myState.speed();
-        myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO] = (void*) i;
-    }
-    SUMOReal pspeed = myState.mySpeed;
-    SUMOReal pos = myState.myPos;
-    SUMOReal oldPos = pos - SPEED2DIST(pspeed);
-    // process reminder
-    workOnMoveReminders(oldPos, pos, pspeed);
-    // remove from structures to be informed about it
-    for (QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
-        (*i)->removeOnTripEnd(this);
-    }
-    myQuitReminded.clear();
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        (*dev)->onTripEnd();
-    }
-    leaveLane(true);
-}
-
-
-void
-MSVehicle::onDepart() {
-    // check whether the vehicle's departure time shall be saved
-    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_TIME)) {
-        myIntCORNMap[MSCORN::CORN_VEH_DEPART_TIME] = (int) MSNet::getInstance()->getCurrentTimeStep();
-    }
-    // check whether the vehicle's verbose departure information shall be saved
-    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_INFO)) {
-        DepartArrivalInformation *i = new DepartArrivalInformation();
-        i->time = MSNet::getInstance()->getCurrentTimeStep();
-        i->lane = myLane;
-        i->pos = myState.pos();
-        i->speed = myState.speed();
-        myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
-    }
-    // inform the vehicle control
-    MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
 }
 
 

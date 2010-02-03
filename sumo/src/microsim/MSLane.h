@@ -248,8 +248,8 @@ public:
 
 
     /** @brief Returns the last vehicle which is still on the lane
-     * 
-     * The information about the last vehicle in this lane's que is returned. 
+     *
+     * The information about the last vehicle in this lane's que is returned.
      *  If there is no such vehicle, the information about the vehicle which
      *  laps into this lane is returned. If there is no such vehicle, the first
      *  returned member is 0.
@@ -499,65 +499,65 @@ public:
     /// @name Current state retrieval
     //@{
 
-	/** @brief Returns the mean speed on this lane
-	 * @return The average speed of vehicles during the last step; default speed if no vehicle was on this lane
-	 */
-	SUMOReal getMeanSpeed() const throw();
-
-	
-	/** @brief Returns the occupancy of this lane during the last step
-	 * @return The occupancy during the last step
-	 */
-	SUMOReal getOccupancy() const throw();
-
-	
-	/** @brief Returns the sum of lengths of vehicles which were on the lane during the last step
-	 * @return The sum of vehicle lengths of vehicles in the last step
-	 */
-	SUMOReal getVehLenSum() const throw();
+    /** @brief Returns the mean speed on this lane
+     * @return The average speed of vehicles during the last step; default speed if no vehicle was on this lane
+     */
+    SUMOReal getMeanSpeed() const throw();
 
 
-	/** @brief Returns the sum of last step CO2 emissions
-	 * @return CO2 emissions of vehicles on this lane during the last step
-	 */
-	SUMOReal getHBEFA_CO2Emissions() const throw();
-    
-
-	/** @brief Returns the sum of last step CO emissions
-	 * @return CO emissions of vehicles on this lane during the last step
-	 */
-	SUMOReal getHBEFA_COEmissions() const throw();
+    /** @brief Returns the occupancy of this lane during the last step
+     * @return The occupancy during the last step
+     */
+    SUMOReal getOccupancy() const throw();
 
 
-	/** @brief Returns the sum of last step PMx emissions
-	 * @return PMx emissions of vehicles on this lane during the last step
-	 */
-	SUMOReal getHBEFA_PMxEmissions() const throw();
-    
+    /** @brief Returns the sum of lengths of vehicles which were on the lane during the last step
+     * @return The sum of vehicle lengths of vehicles in the last step
+     */
+    SUMOReal getVehLenSum() const throw();
 
-	/** @brief Returns the sum of last step NOx emissions
-	 * @return NOx emissions of vehicles on this lane during the last step
-	 */
-	SUMOReal getHBEFA_NOxEmissions() const throw();
-    
 
-	/** @brief Returns the sum of last step HC emissions
-	 * @return HC emissions of vehicles on this lane during the last step
-	 */
-	SUMOReal getHBEFA_HCEmissions() const throw();
-    
+    /** @brief Returns the sum of last step CO2 emissions
+     * @return CO2 emissions of vehicles on this lane during the last step
+     */
+    SUMOReal getHBEFA_CO2Emissions() const throw();
 
-	/** @brief Returns the sum of last step fuel consumption
-	 * @return fuel consumption of vehicles on this lane during the last step
-	 */
-	SUMOReal getHBEFA_FuelConsumption() const throw();
-    
 
-	/** @brief Returns the sum of last step noise emissions
-	 * @return noise emissions of vehicles on this lane during the last step
-	 */
-	SUMOReal getHarmonoise_NoiseEmissions() const throw();
-	/// @}
+    /** @brief Returns the sum of last step CO emissions
+     * @return CO emissions of vehicles on this lane during the last step
+     */
+    SUMOReal getHBEFA_COEmissions() const throw();
+
+
+    /** @brief Returns the sum of last step PMx emissions
+     * @return PMx emissions of vehicles on this lane during the last step
+     */
+    SUMOReal getHBEFA_PMxEmissions() const throw();
+
+
+    /** @brief Returns the sum of last step NOx emissions
+     * @return NOx emissions of vehicles on this lane during the last step
+     */
+    SUMOReal getHBEFA_NOxEmissions() const throw();
+
+
+    /** @brief Returns the sum of last step HC emissions
+     * @return HC emissions of vehicles on this lane during the last step
+     */
+    SUMOReal getHBEFA_HCEmissions() const throw();
+
+
+    /** @brief Returns the sum of last step fuel consumption
+     * @return fuel consumption of vehicles on this lane during the last step
+     */
+    SUMOReal getHBEFA_FuelConsumption() const throw();
+
+
+    /** @brief Returns the sum of last step noise emissions
+     * @return noise emissions of vehicles on this lane during the last step
+     */
+    SUMOReal getHarmonoise_NoiseEmissions() const throw();
+    /// @}
 
 
 protected:
