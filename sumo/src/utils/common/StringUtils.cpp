@@ -80,23 +80,6 @@ StringUtils::to_lower_case(std::string str) {
 
 
 std::string
-StringUtils::version1(std::string str) {
-    size_t idx = str.rfind('_');
-    if (idx!=string::npos&&idx<str.length()-1&&(str.substr(idx+1)!="+"&&str.substr(idx+1)!="-")) {
-        try {
-            int no = TplConvert<char>::_2int(str.substr(idx+1).c_str());
-            str = str.substr(0, idx+1) + toString<int>(no+1);
-        } catch (NumberFormatException &) {
-            str = str + "_0";
-        }
-    } else {
-        str = str + "_0";
-    }
-    return str;
-}
-
-
-std::string
 StringUtils::convertUmlaute(std::string str) {
     str = replace(str, "ä", "ae");
     str = replace(str, "Ä", "Ae");

@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSEmitControl::MSEmitControl(MSVehicleControl &vc,
@@ -53,7 +47,11 @@ MSEmitControl::MSEmitControl(MSVehicleControl &vc,
         : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay) {}
 
 
-MSEmitControl::~MSEmitControl() throw() {}
+MSEmitControl::~MSEmitControl() throw() {
+    for (std::vector<SUMOVehicleParameter*>::iterator i=myFlows.begin(); i!=myFlows.end(); ++i) {
+        delete(*i);
+    }
+}
 
 
 void
@@ -63,14 +61,15 @@ MSEmitControl::add(MSVehicle *veh) throw() {
 
 
 void
-MSEmitControl::moveFrom(MSVehicleContainer &cont) throw() {
-    myAllVeh.moveFrom(cont);
+MSEmitControl::add(SUMOVehicleParameter *flow) throw() {
+    myFlows.push_back(flow);
 }
 
 
 unsigned int
 MSEmitControl::emitVehicles(SUMOTime time) throw() {
     checkPrevious(time);
+    checkFlows(time);
     // check whether any vehicles shall be emitted within this time step
     if (!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.size()==0&&myRefusedEmits2.size()==0) {
         return 0;
@@ -106,25 +105,7 @@ MSEmitControl::emitVehicles(SUMOTime time) throw() {
         }
         // let the MSVehicleContainer clear the vehicles
         myAllVeh.pop();
-
-        // Put all vehicles that should depart in this timestep into the queue
-        for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end();) {
-            if ((*i)->getDesiredDepart() <= time) {
-                add(*i);
-                i = myNewPeriodicalAdds.erase(i);
-            } else {
-                ++i;
-            }
-        }
-
     }
-    // During "tryEmit" done in previous steps, vehicles may have been added
-    //  to "myNewPeriodicalAdds"; Schedule them within the normal emission container
-    for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); ++i) {
-        add(*i);
-    }
-    // and clear the list
-    myNewPeriodicalAdds.clear();
     // Return the number of emitted vehicles
     return noEmitted;
 }
@@ -138,20 +119,14 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
     if (/*edge.getLastFailedEmissionTime()!=time && */edge.emit(*veh, time)) {
         // Successful emission.
         veh->onDepart();
-        // Check whether another vehicle with the same parameter shall be emitted
-        checkReemission(veh);
         return 1;
     }
     if (myMaxDepartDelay != -1 && time - veh->getDesiredDepart() > myMaxDepartDelay) {
-        // Check whether another vehicle with the same parameter shall be emitted
-        checkReemission(veh);
         // remove vehicles waiting too long for departure
         myVehicleControl.deleteVehicle(veh);
     } else if (edge.isVaporizing()) {
         // remove vehicles if the edge shall be empty
         veh->setWasVaporized(true);
-        // Check whether another vehicle with the same parameter shall be emitted
-        checkReemission(veh);
         // delete vehicle
         myVehicleControl.deleteVehicle(veh);
     } else {
@@ -164,16 +139,6 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
 
 
 void
-MSEmitControl::checkReemission(MSVehicle *veh) throw() {
-    MSVehicle *nextPeriodical = veh->getNextPeriodical();
-    if (nextPeriodical!=0) {
-        myNewPeriodicalAdds.push_back(nextPeriodical);
-        myVehicleControl.addVehicle(nextPeriodical->getID(), nextPeriodical);
-    }
-}
-
-
-void
 MSEmitControl::checkPrevious(SUMOTime time) throw() {
     // check to which list append to
     MSVehicleContainer::VehicleVector &previousRefused =
@@ -182,6 +147,52 @@ MSEmitControl::checkPrevious(SUMOTime time) throw() {
         const MSVehicleContainer::VehicleVector &top = myAllVeh.top();
         copy(top.begin(), top.end(), back_inserter(previousRefused));
         myAllVeh.pop();
+    }
+}
+
+
+void
+MSEmitControl::checkFlows(SUMOTime time) throw() {
+    for (std::vector<SUMOVehicleParameter*>::iterator i=myFlows.begin(); i!=myFlows.end();) {
+        SUMOVehicleParameter* pars = *i;
+        while (pars->repetitionsDone < pars->repetitionNumber &&
+               pars->depart + pars->repetitionsDone * pars->repetitionOffset <= time) {
+            SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
+            newPars->id = pars->id + "." + toString(time);
+            newPars->depart = pars->depart + pars->repetitionsDone * pars->repetitionOffset;
+            pars->repetitionsDone++;
+            // try to build the vehicle
+            MSVehicle *vehicle = 0;
+            if (MSNet::getInstance()->getVehicleControl().getVehicle(newPars->id)==0) {
+                MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
+                vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, MSRoute::dictionary(pars->routeid), vtype);
+                for (std::vector<SUMOVehicleParameter::Stop>::iterator i=pars->stops.begin(); i!=pars->stops.end(); ++i) {
+                    if (!vehicle->addStop(*i)) {
+                        WRITE_ERROR("Stop for flow '" + pars->id +
+                                    "' on lane '" + i->lane + "' is not downstream the current route.");
+                        pars->repetitionsDone = pars->repetitionNumber;
+                    }
+                }
+                MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, vehicle);
+                add(vehicle);
+            } else {
+                // strange: another vehicle with the same id already exists
+                pars->repetitionsDone = pars->repetitionNumber;
+#ifdef HAVE_MESOSIM
+                if (MSGlobals::gStateLoaded) {
+                    break;
+                }
+#endif
+                WRITE_ERROR("Another vehicle with the id '" + newPars->id + "' exists.");
+                break;
+            }
+        }
+        if (pars->repetitionsDone == pars->repetitionNumber) {
+            i = myFlows.erase(i);
+            delete(pars);
+        } else {
+            ++i;
+        }
     }
 }
 

@@ -311,12 +311,36 @@ public:
     /// @name Repetition definition
     /// @{
 
-    /// @brief The number of times by which the vehicle shall be repeatedly inserted
+    /// @brief The number of times the vehicle shall be repeatedly inserted
     int repetitionNumber;
+    /// @brief The number of times the vehicle was already inserted
+    int repetitionsDone;
     /// @brief The time offset between vehicle reinsertions
-    SUMOTime repetitionOffset;
+    SUMOReal repetitionOffset;
     /// @}
 
+
+    /// @brief The vehicle's line (mainly for public transport)
+    std::string line;
+
+    /** @struct Stop
+     * @brief Definition of vehicle stop (position and duration)
+     */
+    struct Stop {
+        /// @brief The lane to stop at
+        std::string lane;
+        /// @brief (Optional) bus stop if one is assigned to the stop
+        std::string busstop;
+        /// @brief The stopping position
+        SUMOReal pos;
+        /// @brief The stopping duration
+        SUMOTime duration;
+        /// @brief The time at which the vehicle may continue its journey
+        SUMOTime until;
+    };
+
+    /// @brief List of the stops the vehicle will make
+    std::vector<Stop> stops;
 
     /// @brief Information for the router which parameter were set
     int setParameter;

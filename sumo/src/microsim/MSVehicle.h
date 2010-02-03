@@ -618,16 +618,6 @@ public:
     /// Returns the lane the vehicle is on
     const MSLane &getLane() const;
 
-    /// @name usage of multiple vehicle emissions
-    //@{
-
-    /** @brief Returns the next "periodical" vehicle with the same route
-        We have to duplicate the vehicle if a further has to be emitted with
-        the same settings. Returns 0 if no further vehicle shall be created. */
-    virtual MSVehicle *getNextPeriodical() const;
-    //@}
-
-
     /** @brief Returns the information whether the vehicle is on a road (is simulated)
      * @return Whether the vehicle is simulated
      */
@@ -760,7 +750,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const Stop &stop) throw();
+    bool addStop(const SUMOVehicleParameter::Stop &stopPar) throw();
 
 
     /** @brief Returns whether the vehicle has to stop somewhere

@@ -57,12 +57,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSRouteHandler::MSRouteHandler(const std::string &file,
@@ -98,6 +92,10 @@ MSRouteHandler::retrieveLastReadVehicle(MSEmitControl* into) {
         into->add(myLastReadVehicle);
         myLastReadVehicle = 0;
     }
+    if (myVehicleParameter != 0 && myVehicleParameter->repetitionsDone>=0) {
+        into->add(myVehicleParameter);
+        myVehicleParameter = 0;
+    }
 }
 
 
@@ -107,8 +105,11 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     switch (element) {
     case SUMO_TAG_VEHICLE:
         delete myVehicleParameter;
-        myVehicleParameter = 0;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+        break;
+    case SUMO_TAG_FLOW:
+        delete myVehicleParameter;
+        myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs);
         break;
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);
@@ -140,34 +141,29 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     }
 
     if (element==SUMO_TAG_STOP) {
-        MSVehicle::Stop stop;
-        stop.lane = 0;
-        stop.busstop = 0;
+        SUMOVehicleParameter::Stop stop;
         // try to parse the assigne bus stop
-        string bus_stop = attrs.getStringSecure(SUMO_ATTR_BUS_STOP, "");
-        if (bus_stop!="") {
+        stop.busstop = attrs.getStringSecure(SUMO_ATTR_BUS_STOP, "");
+        if (stop.busstop!="") {
             // ok, we have obviously a bus stop
-            MSBusStop *bs = MSNet::getInstance()->getBusStop(bus_stop);
+            MSBusStop *bs = MSNet::getInstance()->getBusStop(stop.busstop);
             if (bs!=0) {
                 const MSLane &l = bs->getLane();
-                stop.lane = &((MSLane &) l);
-                stop.busstop = bs;
+                stop.lane = l.getID();
                 stop.pos = bs->getEndLanePosition();
             } else {
-                MsgHandler::getErrorInstance()->inform("The bus stop '" + bus_stop + "' is not known.");
+                MsgHandler::getErrorInstance()->inform("The bus stop '" + stop.busstop + "' is not known.");
                 return;
             }
         } else {
             // no, the lane and the position should be given
             // get the lane
-            string laneS = attrs.getStringSecure(SUMO_ATTR_LANE, "");
-            if (laneS!="") {
-                MSLane *l = MSLane::dictionary(laneS);
-                if (l==0) {
-                    MsgHandler::getErrorInstance()->inform("The lane '" + laneS + "' for a stop is not known.");
+            stop.lane = attrs.getStringSecure(SUMO_ATTR_LANE, "");
+            if (stop.lane!="") {
+                if (MSLane::dictionary(stop.lane)==0) {
+                    MsgHandler::getErrorInstance()->inform("The lane '" + stop.lane + "' for a stop is not known.");
                     return;
                 }
-                stop.lane = l;
             } else {
                 MsgHandler::getErrorInstance()->inform("A stop must be placed on a bus stop or a lane.");
                 return;
@@ -185,8 +181,6 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         }
 
         // get the standing duration
-        stop.until = -1;
-        stop.duration = -1;
         if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
@@ -214,8 +208,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 return;
             }
         }
-        stop.reached = false;
-        myVehicleStops.push_back(stop);
+        myVehicleParameter->stops.push_back(stop);
     }
 }
 
@@ -227,7 +220,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
         if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
             StringTokenizer st(attrs.getString(SUMO_ATTR_VTYPES));
             while (st.hasNext()) {
-                string vtypeID = st.next();
+                std::string vtypeID = st.next();
                 MSVehicleType *type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
                 if (type==0) {
                     throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID
@@ -307,9 +300,17 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
         closeRoute();
         break;
     case SUMO_TAG_VEHICLE:
-        closeVehicle();
-        delete myVehicleParameter;
-        myVehicleParameter = 0;
+        if (myVehicleParameter->repetitionNumber>0) {
+            myVehicleParameter->repetitionNumber++; // for backwards compatibility
+            // it is a flow, thus no break here
+        } else {
+            closeVehicle();
+            delete myVehicleParameter;
+            myVehicleParameter = 0;
+            break;
+        }
+    case SUMO_TAG_FLOW:
+        closeFlow();
         break;
     case SUMO_TAG_VTYPE_DISTRIBUTION:
         closeVehicleTypeDistribution();
@@ -395,7 +396,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
         if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
             StringTokenizer st(attrs.getString(SUMO_ATTR_ROUTES));
             while (st.hasNext()) {
-                string routeID = st.next();
+                std::string routeID = st.next();
                 const MSRoute *route = MSRoute::dictionary(routeID);
                 if (route==0) {
                     throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID
@@ -423,22 +424,12 @@ MSRouteHandler::closeRouteDistribution() {
 }
 
 
-bool
+void
 MSRouteHandler::closeVehicle() throw(ProcessError) {
     myLastDepart = myVehicleParameter->depart;
     // let's check whether this vehicle had to be emitted before the simulation starts
     if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
-        // yes, but maybe it's a repeating vehicle...
-        if (myVehicleParameter->repetitionNumber>=0&&myVehicleParameter->repetitionOffset>=0) {
-            while (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin") && myVehicleParameter->repetitionNumber>=0) {
-                --myVehicleParameter->repetitionNumber;
-                myVehicleParameter->depart += myVehicleParameter->repetitionOffset;
-            }
-        }
-        if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
-            myVehicleStops.clear();
-            return false;
-        }
+        return;
     }
     // get the vehicle's type
     MSVehicleType *vtype = 0;
@@ -483,6 +474,12 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
         if (add) {
             vehicle =
                 MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
+            for (std::vector<SUMOVehicleParameter::Stop>::iterator i=myVehicleParameter->stops.begin(); i!=myVehicleParameter->stops.end(); ++i) {
+                if (!vehicle->addStop(*i)) {
+                    throw ProcessError("Stop for vehicle '" + myVehicleParameter->id +
+                                       "' on lane '" + i->lane + "' is not downstream the current route.");
+                }
+            }
             // add the vehicle to the vehicle control
             MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);
             myVehicleParameter = 0;
@@ -509,16 +506,43 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
     } else {
         myLastReadVehicle = vehicle;
     }
-    if (vehicle!=0) {
-        for (std::vector<MSVehicle::Stop>::iterator i=myVehicleStops.begin(); i!=myVehicleStops.end(); ++i) {
-            if (!vehicle->addStop(*i)) {
-                throw ProcessError("Stop for vehicle '" + myVehicleParameter->id +
-                                   "' on lane '" + i->lane->getID() + "' is not downstream the current route.");
-            }
+}
+
+
+void
+MSRouteHandler::closeFlow() throw(ProcessError) {
+    // let's check whether this vehicle had to be emitted before the simulation starts
+    myVehicleParameter->repetitionsDone = 0;
+    SUMOReal offsetToBegin =  OptionsCont::getOptions().getInt("begin") - myVehicleParameter->depart;
+    while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
+        myVehicleParameter->repetitionsDone++;
+        if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
+            return;
         }
     }
-    myVehicleStops.clear();
-    return true;
+    if (MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid)==0) {
+        throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
+    }
+    if (MSRoute::dictionary("!" + myVehicleParameter->id)==0) {
+        // if not, try via the (hopefully) given route-id
+        if (MSRoute::dictionary(myVehicleParameter->routeid) == 0) {
+            if (myVehicleParameter->routeid!="") {
+                throw ProcessError("The route '" + myVehicleParameter->routeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
+            } else {
+                throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has no route.");
+            }
+        }
+    } else {
+        myVehicleParameter->routeid = "!" + myVehicleParameter->id;
+    }
+    myActiveRouteID = "";
+
+    // check whether the vehicle shall be added directly to the network or
+    //  shall stay in the internal buffer
+    if (myAddVehiclesDirectly) {
+        MSNet::getInstance()->myEmitter->add(myVehicleParameter);
+        myVehicleParameter = 0;
+    }
 }
 
 

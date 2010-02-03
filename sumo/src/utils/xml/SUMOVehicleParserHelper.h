@@ -50,6 +50,18 @@
  */
 class SUMOVehicleParserHelper {
 public:
+    /** @brief Parses a flow's attributes
+     *
+     * Parses all attributes stored in "SUMOVehicleParameter".
+     *
+     * @see SUMOVehicleParameter
+     * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @return The parsed attribute structure if no error occured, 0 otherwise
+     * @exception ProcessError If an attribute's value is invalid
+     */
+    static SUMOVehicleParameter *parseFlowAttributes(const SUMOSAXAttributes &attrs) throw(ProcessError);
+
+
     /** @brief Parses a vehicle's attributes
      *
      * Parses all attributes stored in "SUMOVehicleParameter".
@@ -174,6 +186,21 @@ public:
      */
     static SUMOVehicleShape parseGuiShape(const SUMOSAXAttributes &attrs, const std::string &type,
                                           const std::string &id) throw();
+
+
+private:
+    /** @brief Parses attributes common to vehicles and flows
+     *
+     * Parses all attributes stored in "SUMOVehicleParameter".
+     *
+     * @see SUMOVehicleParameter
+     * @param[in] attr The SAX-attributes to get vehicle parameter from
+     * @param[out] ret The parameter to parse into
+     * @param[in] element The name of the element (vehicle or flow)
+     * @exception ProcessError If an attribute's value is invalid
+     */
+    static void parseCommonAttributes(const SUMOSAXAttributes &attrs,
+            SUMOVehicleParameter *ret, std::string element) throw(ProcessError);
 
 
 };

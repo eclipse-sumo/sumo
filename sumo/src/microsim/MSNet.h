@@ -389,16 +389,16 @@ public:
     /** @brief Returns the bus stop close to the given position
      * @param[in] lane the lane of the bus stop to return.
      * @param[in] pos the position of the bus stop to return.
-     * @return The bus stop on the location, or 0 if no such stop exists
+     * @return The bus stop id on the location, or "" if no such stop exists
      */
-    MSBusStop *getBusStop(const MSLane* lane, const SUMOReal pos) throw() {
+    std::string getBusStopID(const MSLane* lane, const SUMOReal pos) throw() {
         for (BusStopDictType::iterator it = myBusStopDict.begin(); it != myBusStopDict.end(); ++it) {
             MSBusStop *stop = it->second;
             if (&stop->getLane() == lane && fabs(stop->getEndLanePosition() - pos) < POSITION_EPS) {
-                return stop;
+                return stop->getID();
             }
         }
-        return 0;
+        return "";
     }
     /// @}
 

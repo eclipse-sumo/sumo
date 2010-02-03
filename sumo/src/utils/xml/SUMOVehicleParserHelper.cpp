@@ -30,6 +30,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
+#include <utils/options/OptionsCont.h>
 #include "SUMOVehicleParserHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -38,18 +39,53 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 SUMOVehicleParameter *
+SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) throw(ProcessError) {
+    std::string id;
+    if (!attrs.setIDFromAttributes("flow", id)) {
+        throw ProcessError();
+    }
+    if (!(attrs.hasAttribute(SUMO_ATTR_PERIOD) ^ attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR))) {
+        throw ProcessError("Exactly one of '" + attrs.getName(SUMO_ATTR_PERIOD) + "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) + "' have to be given in the definition of flow '" + id + "'.");
+    }
+    bool ok = true;
+    SUMOVehicleParameter *ret = new SUMOVehicleParameter();
+    ret->id = id;
+    parseCommonAttributes(attrs, ret, "flow");
+
+    // parse repetition information
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
+        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+        ret->repetitionOffset = attrs.getFloat(SUMO_ATTR_PERIOD);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+        ret->repetitionOffset = 3600/attrs.getFloat(SUMO_ATTR_PERIOD);
+    }
+
+    ret->depart = attrs.getIntSecure(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin"));
+    int end = attrs.getIntSecure(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end"));
+    if (end == INT_MAX) {
+        ret->repetitionNumber = INT_MAX;
+    } else {
+        ret->repetitionNumber = (end - ret->depart) / ret->repetitionOffset;
+    }
+
+
+    if (!ok) {
+        delete ret;
+        throw ProcessError();
+    }
+    return ret;
+}
+
+
+SUMOVehicleParameter *
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         bool skipID, bool skipDepart) throw(ProcessError) {
-    string id;
+    std::string id;
     if (!skipID && !attrs.setIDFromAttributes("vehicle", id)) {
         throw ProcessError();
     }
@@ -59,6 +95,32 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     bool ok = true;
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
     ret->id = id;
+    parseCommonAttributes(attrs, ret, "vehicle");
+    if (!skipDepart) {
+        ret->depart = attrs.getIntReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
+    }
+    // parse repetition information
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
+        WRITE_WARNING("period and repno are deprecated in vehicle '" + id + "', use flows instead.");
+        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+        ret->repetitionOffset = attrs.getInt(SUMO_ATTR_PERIOD);
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
+        ret->setParameter |= VEHPARS_PERIODNUM_SET;
+        ret->repetitionNumber = attrs.getInt(SUMO_ATTR_REPNUMBER);
+    }
+
+    if (!ok) {
+        delete ret;
+        throw ProcessError();
+    }
+    return ret;
+}
+
+
+void
+SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
+                                               SUMOVehicleParameter *ret, std::string element) throw(ProcessError) {
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
@@ -71,13 +133,10 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
         ret->vtypeid = attrs.getString(SUMO_ATTR_TYPE);
     }
 
-    if (!skipDepart) {
-        ret->depart = attrs.getIntReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
-    }
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         ret->setParameter |= VEHPARS_DEPARTLANE_SET;
-        string helper = attrs.getString(SUMO_ATTR_DEPARTLANE);
+        std::string helper = attrs.getString(SUMO_ATTR_DEPARTLANE);
         if (helper=="departlane") {
             ret->departLaneProcedure = DEPART_LANE_DEPARTLANE;
         } else if (helper=="random") {
@@ -89,16 +148,16 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                 ret->departLane = TplConvert<char>::_2int(helper.c_str());;
                 ret->departLaneProcedure = DEPART_LANE_GIVEN;
             } catch (NumberFormatException &) {
-                throw ProcessError("Invalid departlane definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid departlane definition for " + element + " '" + ret->id + "'");
             } catch (EmptyData &) {
-                throw ProcessError("Invalid departlane definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid departlane definition for " + element + " '" + ret->id + "'");
             }
         }
     }
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         ret->setParameter |= VEHPARS_DEPARTPOS_SET;
-        string helper = attrs.getString(SUMO_ATTR_DEPARTPOS);
+        std::string helper = attrs.getString(SUMO_ATTR_DEPARTPOS);
         if (helper=="random") {
             ret->departPosProcedure = DEPART_POS_RANDOM;
         } else if (helper=="random_free") {
@@ -110,16 +169,16 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                 ret->departPos = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->departPosProcedure = DEPART_POS_GIVEN;
             } catch (NumberFormatException &) {
-                throw ProcessError("Invalid departpos definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid departpos definition for " + element + " '" + ret->id + "'");
             } catch (EmptyData &) {
-                throw ProcessError("Invalid departpos definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid departpos definition for " + element + " '" + ret->id + "'");
             }
         }
     }
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
         ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
-        string helper = attrs.getString(SUMO_ATTR_DEPARTSPEED);
+        std::string helper = attrs.getString(SUMO_ATTR_DEPARTSPEED);
         if (helper=="random") {
             ret->departSpeedProcedure = DEPART_SPEED_RANDOM;
         } else if (helper=="max") {
@@ -129,9 +188,9 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                 ret->departSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->departSpeedProcedure = DEPART_SPEED_GIVEN;
             } catch (NumberFormatException &) {
-                throw ProcessError("Invalid departspeed definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid departspeed definition for " + element + " '" + ret->id + "'");
             } catch (EmptyData &) {
-                throw ProcessError("Invalid departspeed definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid departspeed definition for " + element + " '" + ret->id + "'");
             }
         }
     }
@@ -139,7 +198,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     // parse arrival lane information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
         ret->setParameter |= VEHPARS_ARRIVALLANE_SET;
-        string helper = attrs.getString(SUMO_ATTR_ARRIVALLANE);
+        std::string helper = attrs.getString(SUMO_ATTR_ARRIVALLANE);
         if (helper=="current") {
             ret->arrivalLaneProcedure = ARRIVAL_LANE_CURRENT;
         } else {
@@ -147,16 +206,16 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                 ret->arrivalLane = TplConvert<char>::_2int(helper.c_str());;
                 ret->arrivalLaneProcedure = ARRIVAL_LANE_GIVEN;
             } catch (NumberFormatException &) {
-                throw ProcessError("Invalid arrivallane definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid arrivallane definition for " + element + " '" + ret->id + "'");
             } catch (EmptyData &) {
-                throw ProcessError("Invalid arrivallane definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid arrivallane definition for " + element + " '" + ret->id + "'");
             }
         }
     }
     // parse arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         ret->setParameter |= VEHPARS_ARRIVALPOS_SET;
-        string helper = attrs.getString(SUMO_ATTR_ARRIVALPOS);
+        std::string helper = attrs.getString(SUMO_ATTR_ARRIVALPOS);
         if (helper=="random") {
             ret->arrivalPosProcedure = ARRIVAL_POS_RANDOM;
         } else if (helper=="max") {
@@ -166,16 +225,16 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                 ret->arrivalPos = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
             } catch (NumberFormatException &) {
-                throw ProcessError("Invalid arrivalpos definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid arrivalpos definition for " + element + " '" + ret->id + "'");
             } catch (EmptyData &) {
-                throw ProcessError("Invalid arrivalpos definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid arrivalpos definition for " + element + " '" + ret->id + "'");
             }
         }
     }
     // parse arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
         ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
-        string helper = attrs.getString(SUMO_ATTR_ARRIVALSPEED);
+        std::string helper = attrs.getString(SUMO_ATTR_ARRIVALSPEED);
         if (helper=="current") {
             ret->arrivalSpeedProcedure = ARRIVAL_SPEED_CURRENT;
         } else {
@@ -183,21 +242,11 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                 ret->arrivalSpeed = TplConvert<char>::_2SUMOReal(helper.c_str());
                 ret->arrivalSpeedProcedure = ARRIVAL_SPEED_GIVEN;
             } catch (NumberFormatException &) {
-                throw ProcessError("Invalid arrivalspeed definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid arrivalspeed definition for " + element + " '" + ret->id + "'");
             } catch (EmptyData &) {
-                throw ProcessError("Invalid arrivalspeed definition for vehicle '" + ret->id + "'");
+                throw ProcessError("Invalid arrivalspeed definition for " + element + " '" + ret->id + "'");
             }
         }
-    }
-
-    // parse repetition information
-    if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
-        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = attrs.getInt(SUMO_ATTR_PERIOD);
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
-        ret->setParameter |= VEHPARS_PERIODNUM_SET;
-        ret->repetitionNumber = attrs.getInt(SUMO_ATTR_REPNUMBER);
     }
 
     // parse color
@@ -207,12 +256,6 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     } else {
         ret->color = RGBColor(1,1,0);
     }
-
-    if (!ok) {
-        delete ret;
-        throw ProcessError();
-    }
-    return ret;
 }
 
 
@@ -368,7 +411,7 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
         const std::string &id) throw() {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
-        string vclassS = attrs.getStringSecure(SUMO_ATTR_VCLASS, "");
+        std::string vclassS = attrs.getStringSecure(SUMO_ATTR_VCLASS, "");
         if (vclassS=="") {
             return vclass;
         }
@@ -386,7 +429,7 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs,
         const std::string &id) throw() {
     SUMOEmissionClass vclass = SVE_UNKNOWN;
     try {
-        string vclassS = attrs.getStringSecure(SUMO_ATTR_EMISSIONCLASS, "");
+        std::string vclassS = attrs.getStringSecure(SUMO_ATTR_EMISSIONCLASS, "");
         if (vclassS=="") {
             return vclass;
         }
@@ -404,7 +447,7 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs,
                                        const std::string &id) throw() {
     SUMOVehicleShape vclass = SVS_UNKNOWN;
     try {
-        string vclassS = attrs.getStringSecure(SUMO_ATTR_GUISHAPE, "");
+        std::string vclassS = attrs.getStringSecure(SUMO_ATTR_GUISHAPE, "");
         if (vclassS=="") {
             return vclass;
         }

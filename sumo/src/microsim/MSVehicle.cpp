@@ -409,8 +409,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw() {
     // check whether the old route may be deleted (is not used by anyone else)
     if (!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
-    } else {
-        myPointerCORNMap[MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE] = (void*) myRoute;
     }
 
     // assign new route
@@ -606,7 +604,14 @@ MSVehicle::activateRemindersByEmitOrLaneChange(bool isEmit) throw() {
 
 // ------------
 bool
-MSVehicle::addStop(const Stop &stop) throw() {
+MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar) throw() {
+    Stop stop;
+    stop.lane = MSLane::dictionary(stopPar.lane);
+    stop.busstop = MSNet::getInstance()->getBusStop(stopPar.busstop);
+    stop.pos = stopPar.pos;
+    stop.duration = stopPar.duration;
+    stop.until = stopPar.until;
+    stop.reached = false;
     MSRouteIterator stopEdge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
     if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos - getCarFollowModel().brakeGap(myState.mySpeed))) {
         // do not add the stop if the vehicle is already behind it or cannot break
@@ -1402,33 +1407,6 @@ MSVehicle::getLane() const {
 }
 
 
-MSVehicle *
-MSVehicle::getNextPeriodical() const {
-    // check whether another one shall be repated
-    if (myParameter->repetitionNumber<=0) {
-        return 0;
-    }
-    const MSRoute *route = myRoute;
-    // in the case the vehicle was rerouted, give the next one the original route
-    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)!=myPointerCORNMap.end()) {
-        route = (MSRoute*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)->second;
-    }
-    MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
-    SUMOVehicleParameter* p = new SUMOVehicleParameter(*myParameter);
-    p->id = StringUtils::version1(p->id);
-    while (vc.getVehicle(p->id)!=0) {
-        p->id = StringUtils::version1(p->id);
-    }
-    p->depart += p->repetitionOffset;
-    p->repetitionNumber--;
-    MSVehicle *ret = vc.buildVehicle(p, route, myType);
-    for (std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
-        ret->myStops.push_back(*i);
-    }
-    return ret;
-}
-
-
 MSAbstractLaneChangeModel &
 MSVehicle::getLaneChangeModel() {
     return *myLaneChangeModel;
@@ -2011,13 +1989,12 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
         }
     }
 
-    Stop newStop;
-    newStop.lane = lane;
+    SUMOVehicleParameter::Stop newStop;
+    newStop.lane = lane->getID();
     newStop.pos = pos;
     newStop.duration = duration;
     newStop.until = -1;
-    newStop.reached = false;
-    newStop.busstop = MSNet::getInstance()->getBusStop(lane, pos);
+    newStop.busstop = MSNet::getInstance()->getBusStopID(lane, pos);
     return addStop(newStop);
 }
 

@@ -71,10 +71,6 @@ public:
     /// Adds a container with vehicles departing at the given time
     void add(SUMOTime time, const VehicleVector &cont);
 
-    /** @briefMoves vehicles from the given container
-        (The given container is empty afterwards) */
-    void moveFrom(MSVehicleContainer &cont);
-
     /// Returns the information whether any vehicles want to depart at the given time
     bool anyWaitingFor(SUMOTime time) const;
 

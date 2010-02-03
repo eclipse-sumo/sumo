@@ -131,7 +131,10 @@ protected:
     void closeRouteDistribution();
 
     /// Ends the processing of a vehicle
-    virtual bool closeVehicle() throw(ProcessError);
+    void closeVehicle() throw(ProcessError);
+
+    /// Ends the processing of a flow
+    void closeFlow() throw(ProcessError);
 
 protected:
     SUMOVehicleParameter *myVehicleParameter;
@@ -155,9 +158,6 @@ protected:
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */
     bool myAddVehiclesDirectly;
-
-    /// List of the stops the vehicle will make
-    std::vector<MSVehicle::Stop> myVehicleStops;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<MSVehicleType*> *myCurrentVTypeDistribution;

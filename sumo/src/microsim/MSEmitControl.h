@@ -102,14 +102,11 @@ public:
     void add(MSVehicle *veh) throw();
 
 
-    /** @brief Adds all vehicles from the given container to the internal
+    /** @brief Adds parameter for a vehicle flow for departure
      *
-     * All vehicles stored in "cont" are added to "myAllVeh". "cont"
-     *  is cleared.
-     *
-     * @param[in] cont The container of vehicles to move all vehicles from
+     * @param[in] flow The flow to add for later emission
      */
-    void moveFrom(MSVehicleContainer &cont) throw();
+    void add(SUMOVehicleParameter *flow) throw();
 
 
     /** @brief Returns the number of waiting vehicles
@@ -155,16 +152,11 @@ private:
     void checkPrevious(SUMOTime time) throw();
 
 
-    /** @brief Checks whether a further vehicle with the same parameter as the given shall be inserted
+    /** @brief Adds all vehicles that come from flows to the vehicle container
      *
-     * If the vehicle is periodical, the next is built and inserted
-     *  into the list of vehicles to emit. These vehicles are inserted
-     *  into "myNewPeriodicalAdds", so that the main container his iterators
-     *  are not broken.
-     *
-     * @param[in] veh The vehicle to check
+     * @param[in] time The current simulation time
      */
-    void checkReemission(MSVehicle *veh) throw();
+    void checkFlows(SUMOTime time) throw();
 
 
 private:
@@ -177,8 +169,8 @@ private:
     /// @brief Buffers for vehicles that could not been inserted
     MSVehicleContainer::VehicleVector myRefusedEmits1, myRefusedEmits2;
 
-    /// @brief Container for newly built periodical vehicles
-    MSVehicleContainer::VehicleVector myNewPeriodicalAdds;
+    /// @brief Container for periodical vehicle parameters
+    std::vector<SUMOVehicleParameter*> myFlows;
 
     /// @brief The maximum waiting time; vehicles waiting longer are deleted (-1: no deletion)
     SUMOTime myMaxDepartDelay;

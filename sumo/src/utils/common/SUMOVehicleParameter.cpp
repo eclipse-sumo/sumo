@@ -49,7 +49,8 @@ SUMOVehicleParameter::SUMOVehicleParameter() throw()
         arrivalLaneProcedure(ARRIVAL_LANE_DEFAULT),
         arrivalPosProcedure(ARRIVAL_POS_DEFAULT), arrivalSpeedProcedure(ARRIVAL_SPEED_DEFAULT),
         arrivalPos(0), arrivalSpeed(-1),
-        repetitionNumber(-1), repetitionOffset(-1), setParameter(0), color(RGBColor::DEFAULT_COLOR) {
+        repetitionNumber(-1), repetitionsDone(-1), repetitionOffset(-1),
+        line(""), setParameter(0), color(RGBColor::DEFAULT_COLOR) {
 }
 
 
