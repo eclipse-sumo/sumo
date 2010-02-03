@@ -1,11 +1,11 @@
 <routes>
    <vtype id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
    <route id="from0" multi_ref="x" edges="0 1 2 3"/>
-   <vehicle id="from0" type="SUMO_DEFAULT_TYPE" route="from0" depart="1" period="1" repno="5000"/>
+   <flow id="from0" type="SUMO_DEFAULT_TYPE" route="from0" begin="1" end="5002" period="1"/>
    <route id="from1" multi_ref="x" edges="1 2 3 0"/>
-   <vehicle id="from1" type="SUMO_DEFAULT_TYPE" route="from1" depart="2" period="1" repno="5000"/>
+   <flow id="from1" type="SUMO_DEFAULT_TYPE" route="from1" begin="2" end="5003" period="1"/>
    <route id="from2" multi_ref="x" edges="2 3 0 1"/>
-   <vehicle id="from2" type="SUMO_DEFAULT_TYPE" route="from2" depart="3" period="1" repno="5000"/>
+   <flow id="from2" type="SUMO_DEFAULT_TYPE" route="from2" begin="3" end="5004" period="1"/>
    <route id="from3" multi_ref="x" edges="3 0 1 2"/>
-   <vehicle id="from3" type="SUMO_DEFAULT_TYPE" route="from3" depart="4" period="1" repno="5000"/>
+   <flow id="from3" type="SUMO_DEFAULT_TYPE" route="from3" begin="4" end="5005" period="1"/>
 </routes>

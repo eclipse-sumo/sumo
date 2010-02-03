@@ -19,7 +19,6 @@ lane_given1
 # checks using a random lane
 lane_random
 
-
 # checks using the default position (0)
 pos_default
 
@@ -47,7 +46,6 @@ pos_random
 # checks using a random position (3 vehicles)
 pos_random_3veh
 
-
 # checks using the default speed (0)
 speed_default
 
@@ -66,17 +64,6 @@ speed_max__vehlimit
 # checks using the random speed (bounded by lane's vmax)
 speed_random__lanelimit
 
-# checks using the random speed (bounded by veh's vmax)
-speed_random__vehlimit
-
-
-
-
-
-
-
-
-
 # unknown lane
 # lane not in edge
 # position larger than lane length (positive/negative)
@@ -89,3 +76,8 @@ speed_random__vehlimit
 
 
 
+# checks using the random speed (bounded by veh's vmax)
+speed_random__vehlimit
+
+# basic flow definition
+flow

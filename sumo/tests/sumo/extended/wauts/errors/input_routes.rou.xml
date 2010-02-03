@@ -1,11 +1,11 @@
 <routes>
    <route id="horizontal1" multi_ref="x" edges="2fi 2si 1o 1fi"/>
-   <vehicle id="horizontal1" route="horizontal1" depart="0" period="20" repno="100"/>
+   <flow id="horizontal1" route="horizontal1" begin="0" end="2020" period="20"/>
    <route id="horizontal2" multi_ref="x" edges="1fi 1si 2o 2fi"/>
-   <vehicle id="horizontal2" route="horizontal2" depart="0" period="20" repno="100"/>
+   <flow id="horizontal2" route="horizontal2" begin="0" end="2020" period="20"/>
 
    <route id="vertical1" multi_ref="x" edges="3fi 3si 4o 4fi"/>
-   <vehicle id="vertical1" route="vertical1" depart="0" period="20" repno="100"/>
+   <flow id="vertical1" route="vertical1" begin="0" end="2020" period="20"/>
    <route id="vertical2" multi_ref="x" edges="4fi 4si 3o 3fi"/>
-   <vehicle id="vertical2" route="vertical2" depart="0" period="20" repno="100"/>
+   <flow id="vertical2" route="vertical2" begin="0" end="2020" period="20"/>
 </routes>

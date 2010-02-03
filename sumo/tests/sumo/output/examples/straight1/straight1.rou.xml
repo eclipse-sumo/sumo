@@ -1,5 +1,5 @@
 <routes>
    <vtype id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/>
    <route id="from0" multi_ref="x" edges="0 1 2 3 4 5 6 7 8 9 a b c"/>
-   <vehicle id="from0" type="SUMO_DEFAULT_TYPE" route="from0" depart="1" period="1" repno="5000"/>
+   <flow id="from0" type="SUMO_DEFAULT_TYPE" route="from0" begin="1" end="5002" period="1"/>
 </routes>
