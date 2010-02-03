@@ -1955,6 +1955,7 @@ TraCITestClient::validateSubscription(tcpip::Storage &inMsg) {
         answerLog << "#Error while reading message:" << e.what() << endl;
         return false;
     }
+    return true;
 }
 
 
