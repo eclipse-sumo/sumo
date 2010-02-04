@@ -1,6 +1,6 @@
 <routes>
    <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
-   <vehicle id="0" type="KRAUSS_DEFAULT" depart="0" color="0,0,0" period="10" repno="100">
+   <flow id="0" type="KRAUSS_DEFAULT" begin="0" period="10" end="1010" color="0,0,0">
       <route edges="beg middle end rend"/>
-   </vehicle>
+   </flow>
 </routes>

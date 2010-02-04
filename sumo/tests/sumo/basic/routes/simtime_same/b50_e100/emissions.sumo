@@ -1,79 +1,79 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/07/09 12:21:09 by SUMO sumo Version dev-SVN-r7121
+<!-- generated on 02/04/10 11:25:42 by SUMO sumo Version dev-SVN-r8214
 <configuration>
 
-   <input>
-      <net-file>three_split.net.xml</net-file>
-      <additional-files>input_routes.rou.xml</additional-files>
-   </input>
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
 
-   <output>
-      <emissions-output>emissions.xml</emissions-output>
-   </output>
+    <output>
+        <emissions-output value="emissions.xml"/>
+    </output>
 
-   <time>
-      <begin>50</begin>
-      <end>100</end>
-   </time>
+    <time>
+        <begin value="50"/>
+        <end value="100"/>
+    </time>
 
-   <processing>
-      <no-duration-log>true</no-duration-log>
-      <no-step-log>true</no-step-log>
-   </processing>
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
 -->
 
 <emissions>
-    <emission-state time="50" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="51" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="52" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="53" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="54" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="55" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="56" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="57" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="58" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="59" loaded="1" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
-    <emission-state time="60" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="61" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="62" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="63" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="64" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="65" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="66" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="67" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="68" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="69" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="70" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="71" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="72" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="73" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="74" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="75" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="76" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="77" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="78" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="79" loaded="2" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="80" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="81" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="82" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="83" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="84" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="85" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="86" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="87" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="88" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="89" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="90" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="91" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="92" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="93" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="94" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="95" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="96" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="97" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="98" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
-    <emission-state time="99" loaded="3" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="50" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="51" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="52" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="53" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="54" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="55" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="56" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="57" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="58" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="59" loaded="0" emitted="0" running="0" waiting="0" ended="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" />
+    <emission-state time="60" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="61" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="62" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="63" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="64" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="65" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="66" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="67" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="68" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="69" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="70" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="71" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="72" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="73" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="74" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="75" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="76" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="77" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="78" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="79" loaded="1" emitted="1" running="1" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="80" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="81" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="82" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="83" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="84" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="85" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="86" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="87" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="88" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="89" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="90" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="91" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="92" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="93" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="94" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="95" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="96" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="97" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="98" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
+    <emission-state time="99" loaded="2" emitted="2" running="2" waiting="0" ended="0" meanWaitingTime="0.00" meanTravelTime="-1.00" />
 </emissions>
