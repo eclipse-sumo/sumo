@@ -241,7 +241,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
     unsigned int numRoutes;
     bis >> numRoutes;
     for (; numRoutes>0; numRoutes--) {
-        string id;
+        std::string id;
         bis >> id;
         unsigned int no;
         bis >> no;
@@ -257,7 +257,8 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
                 assert(e!=0);
                 edges.push_back(e);
             }
-            MSRoute *r = new MSRoute(id, edges, multipleReferenced);
+            MSRoute *r = new MSRoute(id, edges, multipleReferenced,
+                                     RGBColor::DEFAULT_COLOR, std::vector<SUMOVehicleParameter::Stop>());
             dictionary(id, r);
         } else {
             for (; no>0; no--) {
@@ -269,14 +270,14 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
     unsigned int numRouteDists;
     bis >> numRouteDists;
     for (; numRouteDists>0; numRouteDists--) {
-        string id;
+        std::string id;
         bis >> id;
         unsigned int no;
         bis >> no;
         if (dictionary(id)==0) {
             RandomDistributor<const MSRoute*> *dist = new RandomDistributor<const MSRoute*>();
             for (; no>0; no--) {
-                string routeID;
+                std::string routeID;
                 bis >> routeID;
                 const MSRoute *r = dictionary(routeID);
                 assert(r!=0);
@@ -287,7 +288,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis) throw() {
             dictionary(id, dist);
         } else {
             for (; no>0; no--) {
-                string routeID;
+                std::string routeID;
                 bis >> routeID;
                 SUMOReal prob;
                 bis >> prob;
