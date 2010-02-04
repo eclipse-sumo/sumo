@@ -126,7 +126,7 @@ protected:
     /** @brief Builds the route loader control
      *
      * Goes through the list of route files to open defined in the option
-     *  "route-files" and builds loaders reading these files using MSNet::buildRouteLoader
+     *  "route-files" and builds loaders reading these files
      * @param[in] oc The options to read the list of route files to open from
      * @return The built route loader control
      * @exception ProcessError If an error occured

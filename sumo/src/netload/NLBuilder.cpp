@@ -269,7 +269,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc) throw(ProcessError) {
         }
         // open files for reading
         for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-            loaders.push_back(myNet.buildRouteLoader(*fileIt));
+            loaders.push_back(new MSRouteLoader(myNet, new MSRouteHandler(*fileIt, false)));
         }
     }
     // build the route control

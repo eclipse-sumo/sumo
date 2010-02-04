@@ -1481,7 +1481,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
         } else {
             router.compute(MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId), NULL,
                            MSNet::getInstance()->getCurrentTimeStep(), edges);
-            MSRoute route("", edges, false);
+            MSRoute route("", edges, false, RGBColor::DEFAULT_COLOR);
             distance = static_cast<float>(route.getDistanceBetween(roadPos1.pos, roadPos2.pos,
                                           MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId)));
         }

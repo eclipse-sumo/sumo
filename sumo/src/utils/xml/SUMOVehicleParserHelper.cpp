@@ -127,10 +127,15 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
         ret->setParameter |= VEHPARS_ROUTE_SET; // !!! needed?
         ret->routeid = attrs.getString(SUMO_ATTR_ROUTE);
     }
-    // parse route information
+    // parse type information
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         ret->setParameter |= VEHPARS_VTYPE_SET; // !!! needed?
         ret->vtypeid = attrs.getString(SUMO_ATTR_TYPE);
+    }
+    // parse line information
+    if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
+        ret->setParameter |= VEHPARS_LINE_SET; // !!! needed?
+        ret->line = attrs.getString(SUMO_ATTR_LINE);
     }
 
     // parse depart lane information
@@ -254,7 +259,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
         ret->setParameter |= VEHPARS_COLOR_SET;
         ret->color = RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR));
     } else {
-        ret->color = RGBColor(1,1,0);
+        ret->color = RGBColor::DEFAULT_COLOR;
     }
 }
 

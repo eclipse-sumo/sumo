@@ -41,7 +41,6 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
 #include <microsim/MSVehicle.h>
-#include "GUIRoute.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/gui/settings/GUIColorer.h>
@@ -85,8 +84,10 @@ public:
         const RGBColor &col = myType->getColor();
         glColor3d(col.red(), col.green(), col.blue());
     }
+
     inline void setOwnRouteColor() const {
-        static_cast<const GUIRoute&>(getRoute()).setColor();
+        const RGBColor &col = myRoute->getColor();
+        glColor3d(col.red(), col.green(), col.blue());
     }
 
     static void initShapes() throw();

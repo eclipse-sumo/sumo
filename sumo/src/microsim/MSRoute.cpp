@@ -34,18 +34,13 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include <utils/common/FileHelpers.h>
+#include <utils/common/RGBColor.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -60,7 +55,7 @@ MSRoute::RouteDistDict MSRoute::myDistDict;
 // ===========================================================================
 MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
-                 bool multipleReferenced) throw()
+                 bool multipleReferenced, const RGBColor &c) throw()
         : Named(id), myEdges(edges),
         myMultipleReferenced(multipleReferenced) {}
 
@@ -90,7 +85,7 @@ MSRoute::getLastEdge() const {
 }
 
 bool
-MSRoute::dictionary(const string &id, const MSRoute* route) {
+MSRoute::dictionary(const std::string &id, const MSRoute* route) {
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDict[id] = route;
         return true;
@@ -100,7 +95,7 @@ MSRoute::dictionary(const string &id, const MSRoute* route) {
 
 
 bool
-MSRoute::dictionary(const string &id, RandomDistributor<const MSRoute*>* routeDist) {
+MSRoute::dictionary(const std::string &id, RandomDistributor<const MSRoute*>* routeDist) {
     if (myDict.find(id) == myDict.end() && myDistDict.find(id) == myDistDict.end()) {
         myDistDict[id] = routeDist;
         return true;
@@ -110,7 +105,7 @@ MSRoute::dictionary(const string &id, RandomDistributor<const MSRoute*>* routeDi
 
 
 const MSRoute*
-MSRoute::dictionary(const string &id) {
+MSRoute::dictionary(const std::string &id) {
     RouteDict::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         RouteDistDict::iterator it2 = myDistDict.find(id);
@@ -124,7 +119,7 @@ MSRoute::dictionary(const string &id) {
 
 
 RandomDistributor<const MSRoute*> *
-MSRoute::distDictionary(const string &id) {
+MSRoute::distDictionary(const std::string &id) {
     RouteDistDict::iterator it2 = myDistDict.find(id);
     if (it2 == myDistDict.end()) {
         return 0;
@@ -363,6 +358,12 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
         isFirstIteration = false;
     }
     return distance;
+}
+
+
+const RGBColor &
+MSRoute::getColor() const {
+    return myColor;
 }
 
 

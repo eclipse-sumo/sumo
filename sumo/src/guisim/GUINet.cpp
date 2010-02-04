@@ -60,7 +60,6 @@
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
-#include <guisim/GUIRouteHandler.h>
 #include <gui/GUIGlobals.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
 #include <microsim/MSRouteLoader.h>
@@ -457,16 +456,6 @@ GUINet::setVisDuration(int val)
 void
 GUINet::setIdleDuration(int val) {
     myLastIdleDuration = val;
-}
-
-
-MSRouteLoader *
-GUINet::buildRouteLoader(const std::string &file) {
-    // return a new build route loader
-    //  the handler is
-    //  a) not adding the vehicles directly
-    //  b) using colors
-    return new MSRouteLoader(*this, new GUIRouteHandler(file, false));
 }
 
 

@@ -31,12 +31,12 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIEventControl.h>
 #include <netload/NLBuilder.h>
+#include <netload/NLHandler.h>
 #include <netload/NLJunctionControlBuilder.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUITriggerBuilder.h>
 #include <guinetload/GUIGeomShapeBuilder.h>
-#include <guinetload/GUIHandler.h>
 #include <guisim/GUIVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/common/UtilExceptions.h>
@@ -133,7 +133,7 @@ GUILoadThread::run() {
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(*net, GUIGlObjectStorage::gIDStorage);
     GUITriggerBuilder tb;
-    GUIHandler handler("", *net, db, tb, *eb, jb, sb);
+    NLHandler handler("", *net, db, tb, *eb, jb, sb);
     tb.setHandler(&handler);
     NLBuilder builder(oc, *net, *eb, jb, db, handler);
     try {

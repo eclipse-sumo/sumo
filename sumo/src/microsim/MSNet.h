@@ -222,10 +222,6 @@ public:
     /// @}
 #endif
 
-    virtual MSRouteLoader *buildRouteLoader(const std::string &file);
-
-
-
     /// @name Retrieval of references to substructures
     /// @{
 

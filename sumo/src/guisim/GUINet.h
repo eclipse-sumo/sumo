@@ -248,9 +248,6 @@ public:
     /// Initialises gui wrappers
     void initGUIStructures();
 
-    /// Builds an appropriate route loader for this type of a net
-    MSRouteLoader *buildRouteLoader(const std::string &file);
-
 
     friend class GUIViewTraffic; // !!!
 

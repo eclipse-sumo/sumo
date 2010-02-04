@@ -55,6 +55,7 @@ const int VEHPARS_ROUTE_SET = 128;
 const int VEHPARS_ARRIVALLANE_SET = 256;
 const int VEHPARS_ARRIVALPOS_SET = 512;
 const int VEHPARS_ARRIVALSPEED_SET = 1024;
+const int VEHPARS_LINE_SET = 2048;
 
 
 // ===========================================================================

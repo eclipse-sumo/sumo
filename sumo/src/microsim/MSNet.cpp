@@ -523,17 +523,6 @@ MSNet::loadState(BinaryInputDevice &bis) throw() {
 #endif
 
 
-MSRouteLoader *
-MSNet::buildRouteLoader(const std::string &file) {
-    // return a new build route loader
-    //  the handler is
-    //  a) not adding the vehicles directly
-    //  b) not using colors
-    // (overridden in GUINet)
-    return new MSRouteLoader(*this, new MSRouteHandler(file, false));
-}
-
-
 MSPersonControl &
 MSNet::getPersonControl() throw() {
     if (myPersonControl==0) {

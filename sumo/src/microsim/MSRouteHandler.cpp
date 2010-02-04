@@ -268,6 +268,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
         MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_EDGES), myActiveRoute, myActiveRouteID);
     }
     myActiveRouteProbability = attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB);
+    myActiveRouteColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
 }
 
 
@@ -346,11 +347,6 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
 }
 
 
-MSRoute*
-MSRouteHandler::buildRoute() throw() {
-    return new MSRoute(myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
-}
-
 void
 MSRouteHandler::closeRoute() throw(ProcessError) {
     if (myActiveRoute.size()==0) {
@@ -360,8 +356,8 @@ MSRouteHandler::closeRoute() throw(ProcessError) {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
     }
-    // check whether the route is long enough
-    MSRoute *route = buildRoute();
+    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute,
+                                 myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1, myActiveRouteColor);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;

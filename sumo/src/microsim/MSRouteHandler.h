@@ -112,10 +112,7 @@ protected:
     void closeVehicleTypeDistribution();
 
     /** opens a route for reading */
-    virtual void openRoute(const SUMOSAXAttributes &attrs);
-
-    /** wrapper for constructor call to allow override in (gui) subclasses */
-    virtual MSRoute* buildRoute() throw();
+    void openRoute(const SUMOSAXAttributes &attrs);
 
     /** closes (ends) the building of a route.
         Afterwards no edges may be added to it;
@@ -154,6 +151,9 @@ protected:
 
     /// the id of the current route
     SUMOReal myActiveRouteProbability;
+
+    /// The currently parsed route's color
+    RGBColor myActiveRouteColor;
 
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */

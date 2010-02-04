@@ -34,6 +34,7 @@
 #include <vector>
 #include <utils/common/Named.h>
 #include <utils/common/RandomDistributor.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -58,7 +59,7 @@ class MSRoute : public Named {
 public:
     /// Constructor
     MSRoute(const std::string &id, const MSEdgeVector &edges,
-            bool multipleReferenced) throw();
+            bool multipleReferenced, const RGBColor &c) throw();
 
     /// Destructor
     virtual ~MSRoute() throw();
@@ -127,6 +128,9 @@ public:
      */
     SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const;
 
+    /// Returns the color
+    const RGBColor &getColor() const;
+
 public:
     /** @brief Adds a route to the dictionary.
      *
@@ -187,6 +191,9 @@ private:
 
     /// Information whether the route is used by more than a single vehicle
     bool myMultipleReferenced;
+
+    /// The color
+    RGBColor myColor;
 
 private:
     /// Definition of the dictionary container

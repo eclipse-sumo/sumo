@@ -387,7 +387,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw() {
         id = id + "!var#1";
     }
     // build the route
-    MSRoute *newRoute = new MSRoute(id, edges, false);
+    MSRoute *newRoute = new MSRoute(id, edges, false, myRoute->getColor());
     // and add it to the container (!!!what for? It will never be used again!?)
     if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
