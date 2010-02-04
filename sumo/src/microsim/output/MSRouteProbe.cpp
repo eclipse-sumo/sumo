@@ -137,7 +137,7 @@ MSRouteProbe::addRoute(const MSRoute &route) const {
         const MSRoute* routep = &route;
         if (!route.inFurtherUse()) {
             const std::string id = getID() + "_" + route.getID();
-            routep = new MSRoute(id, route.getEdges(), true, route.getColor());
+            routep = new MSRoute(id, route.getEdges(), true, route.getColor(), route.getStops());
             MSRoute::dictionary(id, routep);
         }
         myCurrentRouteDistribution->add(1., routep);

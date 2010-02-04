@@ -155,6 +155,9 @@ protected:
     /// The currently parsed route's color
     RGBColor myActiveRouteColor;
 
+    /// @brief List of the stops on the parsed route
+    std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
+
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */
     bool myAddVehiclesDirectly;

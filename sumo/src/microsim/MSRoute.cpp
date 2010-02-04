@@ -55,9 +55,11 @@ MSRoute::RouteDistDict MSRoute::myDistDict;
 // ===========================================================================
 MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
-                 bool multipleReferenced, const RGBColor &c) throw()
+                 bool multipleReferenced, const RGBColor &c,
+                 const std::vector<SUMOVehicleParameter::Stop> &stops) throw()
         : Named(id), myEdges(edges),
-        myMultipleReferenced(multipleReferenced) {}
+        myMultipleReferenced(multipleReferenced),
+        myColor(c), myStops(stops) {}
 
 
 MSRoute::~MSRoute() throw() {}
@@ -364,6 +366,12 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
 const RGBColor &
 MSRoute::getColor() const {
     return myColor;
+}
+
+
+const std::vector<SUMOVehicleParameter::Stop> &
+MSRoute::getStops() const {
+    return myStops;
 }
 
 

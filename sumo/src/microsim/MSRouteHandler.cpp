@@ -208,7 +208,11 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 return;
             }
         }
-        myVehicleParameter->stops.push_back(stop);
+        if (myActiveRouteID != "") {
+            myActiveRouteStops.push_back(stop);
+        } else {
+            myVehicleParameter->stops.push_back(stop);
+        }
     }
 }
 
@@ -357,7 +361,8 @@ MSRouteHandler::closeRoute() throw(ProcessError) {
         }
     }
     MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute,
-                                 myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1, myActiveRouteColor);
+                                 myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1,
+                                 myActiveRouteColor, myActiveRouteStops);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
@@ -382,6 +387,7 @@ MSRouteHandler::closeRoute() throw(ProcessError) {
         }
     }
     myActiveRouteID = "";
+    myActiveRouteStops.clear();
 }
 
 
@@ -471,6 +477,12 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
             vehicle =
                 MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             for (std::vector<SUMOVehicleParameter::Stop>::iterator i=myVehicleParameter->stops.begin(); i!=myVehicleParameter->stops.end(); ++i) {
+                if (!vehicle->addStop(*i)) {
+                    throw ProcessError("Stop for vehicle '" + myVehicleParameter->id +
+                                       "' on lane '" + i->lane + "' is not downstream the current route.");
+                }
+            }
+            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i=route->getStops().begin(); i!=route->getStops().end(); ++i) {
                 if (!vehicle->addStop(*i)) {
                     throw ProcessError("Stop for vehicle '" + myVehicleParameter->id +
                                        "' on lane '" + i->lane + "' is not downstream the current route.");

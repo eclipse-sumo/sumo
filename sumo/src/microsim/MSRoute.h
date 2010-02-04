@@ -35,6 +35,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/RandomDistributor.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -59,7 +60,8 @@ class MSRoute : public Named {
 public:
     /// Constructor
     MSRoute(const std::string &id, const MSEdgeVector &edges,
-            bool multipleReferenced, const RGBColor &c) throw();
+            bool multipleReferenced, const RGBColor &c,
+            const std::vector<SUMOVehicleParameter::Stop> &stops) throw();
 
     /// Destructor
     virtual ~MSRoute() throw();
@@ -131,6 +133,9 @@ public:
     /// Returns the color
     const RGBColor &getColor() const;
 
+    /// Returns the stops
+    const std::vector<SUMOVehicleParameter::Stop> &getStops() const;
+
 public:
     /** @brief Adds a route to the dictionary.
      *
@@ -194,6 +199,9 @@ private:
 
     /// The color
     RGBColor myColor;
+
+    /// @brief List of the stops on the parsed route
+    std::vector<SUMOVehicleParameter::Stop> myStops;
 
 private:
     /// Definition of the dictionary container
