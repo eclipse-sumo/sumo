@@ -28,14 +28,6 @@ TEST(StringUtils, test_method_to_lower_case) {
 	EXPECT_EQ("", StringUtils::to_lower_case(str));
 }
 
-/* Tests the method version1. Extends the string with '_x' and x is the next version number.*/
-TEST(StringUtils, test_method_version1) {
-	EXPECT_EQ("_0", StringUtils::version1(""))<< "must append _0";
-	EXPECT_EQ("hello_0", StringUtils::version1("hello"))<< "must append _0";
-	EXPECT_EQ("hello_4", StringUtils::version1("hello_3"))<< "must change _3 to _4";
-	EXPECT_EQ("hel_lo_0", StringUtils::version1("hel_lo"))<< "must append _0";
-}
-
 /* Tests the method convertUmlaute.*/
 TEST(StringUtils, test_method_convertUmlaute) {
 	EXPECT_EQ("ae", StringUtils::convertUmlaute("ä"));
