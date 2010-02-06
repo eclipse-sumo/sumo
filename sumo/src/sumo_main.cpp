@@ -63,12 +63,6 @@
 #endif
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // functions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -107,9 +101,9 @@ main(int argc, char **argv) {
     // give some application descriptions
     oc.setApplicationDescription("A microscopic road traffic simulation.");
 #ifdef WIN32
-    oc.setApplicationName("sumo.exe", "SUMO sumo Version " + (string)VERSION_STRING);
+    oc.setApplicationName("sumo.exe", "SUMO sumo Version " + (std::string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo", "SUMO sumo Version " + (string)VERSION_STRING);
+    oc.setApplicationName("sumo", "SUMO sumo Version " + (std::string)VERSION_STRING);
 #endif
     int ret = 0;
     MSNet *net = 0;
@@ -138,7 +132,7 @@ main(int argc, char **argv) {
             WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
         }
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
