@@ -67,11 +67,14 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = 3600/attrs.getFloat(SUMO_ATTR_PERIOD);
+        ret->repetitionOffset = 3600/attrs.getFloat(SUMO_ATTR_VEHSPERHOUR);
     }
 
     ret->depart = attrs.getIntSecure(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin"));
     int end = attrs.getIntSecure(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end"));
+    if (end <= ret->depart) {
+        throw ProcessError("Flow '" + id + "' ends before or at its begin time.");
+    }
     if (attrs.hasAttribute(SUMO_ATTR_NO)) {
         ret->repetitionNumber = attrs.getInt(SUMO_ATTR_NO);
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
@@ -80,7 +83,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
         if (end == INT_MAX) {
             ret->repetitionNumber = INT_MAX;
         } else {
-            ret->repetitionNumber = (end - ret->depart) / ret->repetitionOffset;
+            ret->repetitionNumber = (int)((end - ret->depart) / ret->repetitionOffset + 0.5);
         }
     }
 
@@ -113,7 +116,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING("period and repno are deprecated in vehicle '" + id + "', use flows instead.");
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = attrs.getInt(SUMO_ATTR_PERIOD);
+        ret->repetitionOffset = attrs.getFloat(SUMO_ATTR_PERIOD);
     }
     if (attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         ret->setParameter |= VEHPARS_PERIODNUM_SET;
