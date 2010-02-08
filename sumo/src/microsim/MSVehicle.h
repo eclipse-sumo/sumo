@@ -457,7 +457,7 @@ public:
         return myState.mySpeed;
     }
 
-    /** brief Returns the vehicle's acceleration before dawdling
+    /** @brief Returns the vehicle's acceleration before dawdling
      * @return The acceleration before dawdling
      */
     SUMOReal getPreDawdleAcceleration() const throw() {
@@ -470,14 +470,12 @@ public:
         return getCarFollowModel().hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
     }
 
-    /**
-     * !!! rework this - leader should not be given directly, rather his speed after decel...
+    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum
+     *
      */
-    SUMOReal getSecureGap(SUMOReal speed, SUMOReal leaderSpeed, MSVehicle &leader) const {
-        SUMOReal leaderSpeedAfterDecel = leader.getSpeedAfterMaxDecel(leaderSpeed);
-        SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
-        SUMOReal resGap = speedDiff * speedDiff / myType->getMaxDecel() + speed * myType->getTau();
-        return resGap;
+    SUMOReal getSecureGap(const SUMOReal speed, const SUMOReal leaderSpeedAfterDecel) const {
+        const SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
+        return speedDiff * speedDiff / myType->getMaxDecel() + speed * myType->getTau();
     }
 
     SUMOReal getLength() const throw() {

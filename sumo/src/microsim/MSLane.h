@@ -222,7 +222,7 @@ public:
      * @param[in] leftVehicleLength The distance the vehicle laps into this lane
      * @return This lane's length
      */
-    SUMOReal setPartialOcupation(MSVehicle *v, SUMOReal leftVehicleLength) throw();
+    SUMOReal setPartialOccupation(MSVehicle *v, SUMOReal leftVehicleLength) throw();
 
 
     /** @brief Removes the information about a vehicle lapping into this lane

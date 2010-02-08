@@ -156,9 +156,11 @@ MSEmitControl::checkFlows(SUMOTime time) throw() {
     for (std::vector<SUMOVehicleParameter*>::iterator i=myFlows.begin(); i!=myFlows.end();) {
         SUMOVehicleParameter* pars = *i;
         while (pars->repetitionsDone < pars->repetitionNumber &&
-               pars->depart + pars->repetitionsDone * pars->repetitionOffset <= time) {
+            pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-            newPars->id = pars->id + "." + toString(time);
+            std::ostringstream oss;
+            oss << pars->id << "." << (pars->repetitionsDone * pars->repetitionOffset);
+            newPars->id = oss.str();
             newPars->depart = pars->depart + pars->repetitionsDone * pars->repetitionOffset;
             pars->repetitionsDone++;
             // try to build the vehicle

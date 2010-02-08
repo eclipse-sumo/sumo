@@ -943,7 +943,7 @@ MSVehicle::moveFirstChecked() {
         std::vector<MSLane*>::reverse_iterator i=passedLanes.rbegin() + 1;
         while (leftLength>0&&i!=passedLanes.rend()) {
             myFurtherLanes.push_back(*i);
-            leftLength -= (*i)->setPartialOcupation(this, leftLength);
+            leftLength -= (*i)->setPartialOccupation(this, leftLength);
             ++i;
         }
     }
@@ -1315,10 +1315,10 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j=incomingLanes.begin(); j!=incomingLanes.end(); ++j) {
                 if (&(*j).lane->getEdge()==prev) {
 #ifdef HAVE_INTERNAL_LANES
-                    (*j).lane->setPartialOcupation(this, leftLength);
+                    (*j).lane->setPartialOccupation(this, leftLength);
 #else
                     leftLength -= (*j).length;
-                    (*j).lane->setPartialOcupation(this, leftLength);
+                    (*j).lane->setPartialOccupation(this, leftLength);
 #endif
                     leftLength -= (*j).lane->getLength();
                     found = true;
