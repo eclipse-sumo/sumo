@@ -146,24 +146,24 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         }
 
         // compute the space needed to not collide with leader
-        SUMOReal leaderPos = leader!=0 ? leader->getPositionOnLane() - leader->getVehicleType().getLength() : -1;
-        SUMOReal frontGapNeeded = leader!=0 ? veh.getSecureGap(speed, leader->getSpeedAfterMaxDecel(leader->getSpeed())) : -1;
+        const SUMOReal leaderPos = leader!=0 ? leader->getPositionOnLane() - leader->getVehicleType().getLength() : -1;
+        const SUMOReal frontGapNeeded = leader!=0 ? veh.getSecureGap(speed, leader->getSpeedAfterMaxDecel(leader->getSpeed())) : -1;
         SUMOReal frontMax = leader!=0 ? leaderPos - frontGapNeeded - leader->getVehicleType().getLength() : getLength();
         if (leader==0) {
             leader = getPartialOccupator();
             if (leader!=0) {
-                frontMax = getPartialOccupatorEnd();
+                frontMax = getPartialOccupatorEnd() - veh.getSecureGap(speed, leader->getSpeedAfterMaxDecel(leader->getSpeed()));
             }
         }
         // compute the space needed to not let the follower collide
-        SUMOReal followPos = follower->getPositionOnLane();
-        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), veh.getSpeedAfterMaxDecel(speed));
-        SUMOReal backMin = followPos + backGapNeeded + veh.getVehicleType().getLength();
+        const SUMOReal followPos = follower->getPositionOnLane();
+        const SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), veh.getSpeedAfterMaxDecel(speed));
+        const SUMOReal backMin = followPos + backGapNeeded + veh.getVehicleType().getLength();
 
-        // check whether there is enough room
-        if (frontMax>0 && backMin<frontMax) {
+        // check whether there is enough room (given some extra space for rounding errors)
+        if (frontMax>0 && backMin+POSITION_EPS<frontMax) {
             // try emit vehicle (should be always ok)
-            if (isEmissionSuccess(&veh, speed, backMin, adaptableSpeed)) {
+            if (isEmissionSuccess(&veh, speed, backMin+POSITION_EPS, adaptableSpeed)) {
                 return true;
             }
         }
