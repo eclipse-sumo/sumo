@@ -47,8 +47,13 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     if (!attrs.setIDFromAttributes("flow", id)) {
         throw ProcessError();
     }
-    if (!(attrs.hasAttribute(SUMO_ATTR_PERIOD) ^ attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR))) {
-        throw ProcessError("Exactly one of '" + attrs.getName(SUMO_ATTR_PERIOD) + "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) + "' have to be given in the definition of flow '" + id + "'.");
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) +
+        attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) +
+        attrs.hasAttribute(SUMO_ATTR_NO) != 1) {
+        throw ProcessError("Exactly one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
+                           "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                           "', and '" + attrs.getName(SUMO_ATTR_NO) +
+                           "' have to be given in the definition of flow '" + id + "'.");
     }
     bool ok = true;
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
@@ -67,12 +72,17 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
 
     ret->depart = attrs.getIntSecure(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin"));
     int end = attrs.getIntSecure(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end"));
-    if (end == INT_MAX) {
-        ret->repetitionNumber = INT_MAX;
+    if (attrs.hasAttribute(SUMO_ATTR_NO)) {
+        ret->repetitionNumber = attrs.getInt(SUMO_ATTR_NO);
+        ret->setParameter |= VEHPARS_PERIODFREQ_SET;
+        ret->repetitionOffset = (end - ret->depart) / (SUMOReal)ret->repetitionNumber;
     } else {
-        ret->repetitionNumber = (end - ret->depart) / ret->repetitionOffset;
+        if (end == INT_MAX) {
+            ret->repetitionNumber = INT_MAX;
+        } else {
+            ret->repetitionNumber = (end - ret->depart) / ret->repetitionOffset;
+        }
     }
-
 
     if (!ok) {
         delete ret;

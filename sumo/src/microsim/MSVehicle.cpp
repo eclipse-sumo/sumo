@@ -604,13 +604,16 @@ MSVehicle::activateRemindersByEmitOrLaneChange(bool isEmit) throw() {
 
 // ------------
 bool
-MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar) throw() {
+MSVehicle::addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffset) throw() {
     Stop stop;
     stop.lane = MSLane::dictionary(stopPar.lane);
     stop.busstop = MSNet::getInstance()->getBusStop(stopPar.busstop);
     stop.pos = stopPar.pos;
     stop.duration = stopPar.duration;
     stop.until = stopPar.until;
+    if (stop.until != -1) {
+        stop.until += untilOffset;
+    }
     stop.reached = false;
     MSRouteIterator stopEdge = myRoute->find(&stop.lane->getEdge(), myCurrEdge);
     if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos - getCarFollowModel().brakeGap(myState.mySpeed))) {

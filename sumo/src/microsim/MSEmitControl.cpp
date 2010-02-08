@@ -175,7 +175,7 @@ MSEmitControl::checkFlows(SUMOTime time) throw() {
                     }
                 }
                 for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i=route->getStops().begin(); i!=route->getStops().end(); ++i) {
-                    if (!vehicle->addStop(*i)) {
+                    if (!vehicle->addStop(*i, newPars->depart-pars->depart)) {
                         WRITE_ERROR("Stop for flow '" + pars->id +
                                     "' on lane '" + i->lane + "' is not downstream the current route.");
                         pars->repetitionsDone = pars->repetitionNumber;

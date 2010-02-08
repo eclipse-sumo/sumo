@@ -750,7 +750,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const SUMOVehicleParameter::Stop &stopPar) throw();
+    bool addStop(const SUMOVehicleParameter::Stop &stopPar, SUMOTime untilOffset=0) throw();
 
 
     /** @brief Returns whether the vehicle has to stop somewhere
