@@ -136,8 +136,8 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
     MSLane::VehCont::iterator predIt = myVehicles.begin();
     while (predIt!=myVehicles.end()) {
         // get leader (may be zero) and follower
-        MSVehicle *leader = predIt!=myVehicles.end()-1 ? *(predIt+1) : 0;
-        MSVehicle *follower = *predIt;
+        const MSVehicle *leader = predIt!=myVehicles.end()-1 ? *(predIt+1) : getPartialOccupator();
+        const MSVehicle *follower = *predIt;
 
         // patch speed if allowed
         SUMOReal speed = mspeed;
@@ -146,14 +146,13 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw() {
         }
 
         // compute the space needed to not collide with leader
-        const SUMOReal leaderPos = leader!=0 ? leader->getPositionOnLane() - leader->getVehicleType().getLength() : -1;
-        const SUMOReal frontGapNeeded = leader!=0 ? veh.getSecureGap(speed, leader->getSpeedAfterMaxDecel(leader->getSpeed())) : -1;
-        SUMOReal frontMax = leader!=0 ? leaderPos - frontGapNeeded - leader->getVehicleType().getLength() : getLength();
-        if (leader==0) {
-            leader = getPartialOccupator();
-            if (leader!=0) {
-                frontMax = getPartialOccupatorEnd() - veh.getSecureGap(speed, leader->getSpeedAfterMaxDecel(leader->getSpeed()));
+        SUMOReal frontMax = getLength();
+        if (leader!=0) {
+            SUMOReal leaderRearPos = leader->getPositionOnLane() - leader->getVehicleType().getLength();
+            if (leader == getPartialOccupator()) {
+                leaderRearPos = getPartialOccupatorEnd();
             }
+            frontMax = leaderRearPos - veh.getSecureGap(speed, leader->getSpeedAfterMaxDecel(leader->getSpeed()));
         }
         // compute the space needed to not let the follower collide
         const SUMOReal followPos = follower->getPositionOnLane();
