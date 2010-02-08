@@ -159,7 +159,7 @@ MSEmitControl::checkFlows(SUMOTime time) throw() {
             pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             std::ostringstream oss;
-            oss << pars->id << "." << (pars->repetitionsDone * pars->repetitionOffset);
+            oss << pars->id << "." << (pars->depart + pars->repetitionsDone * pars->repetitionOffset);
             newPars->id = oss.str();
             newPars->depart = pars->depart + pars->repetitionsDone * pars->repetitionOffset;
             pars->repetitionsDone++;
