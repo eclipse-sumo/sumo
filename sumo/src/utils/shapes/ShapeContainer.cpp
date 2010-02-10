@@ -7,7 +7,7 @@
 // Storage for geometrical objects, sorted by the layers they are in
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify

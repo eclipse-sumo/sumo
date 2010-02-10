@@ -7,7 +7,7 @@
 // The application's "About" - dialog
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
-// Copyright 2001-2009 DLR (http://www.dlr.de/) and contributors
+// Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
 /****************************************************************************/
 //
 //   This program is free software; you can redistribute it and/or modify
@@ -134,7 +134,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
     new FXLabel(f3, "road traffic simulation.",
                 0, LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
 
-    new FXLabel(f3, "Copyright 2001-2009 DLR / Institute of Transportation Systems",
+    new FXLabel(f3, "Copyright 2001-2010 DLR / Institute of Transportation Systems",
                 0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
 
     FXLinkLabel *link = new FXLinkLabel(f3, "http://sumo.sourceforge.net",
