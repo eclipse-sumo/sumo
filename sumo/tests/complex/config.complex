@@ -1,5 +1,8 @@
 import_config_file:../config_all
 binary:$TEXTTEST_HOME/toolrunner.py
+copy_test_path:netconvert.netc.cfg
+copy_test_path:input_edges.edg.xml
+copy_test_path:input_nodes.nod.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_net.net.xml
 #kill_timeout:5
