@@ -80,9 +80,10 @@ MSVehicleTransfer::checkEmissions(SUMOTime time) throw() {
     for (VehicleInfVector::iterator i=myVehicles.begin(); i!=myVehicles.end();) {
         // get the vehicle information
         VehicleInformation &desc = *i;
-        MSEdge *e = (MSEdge*) desc.myVeh->getEdge();
+        const MSEdge *e = desc.myVeh->getEdge();
+        MSLane *l = e->getFreeLane(desc.myVeh->getDepartLanes());
         // check whether the vehicle may be emitted onto a following edge
-        if (e->freeLaneEmit(*(desc.myVeh), time, true)) {
+        if (l->freeEmit(*(desc.myVeh), MIN2(l->getMaxSpeed(), desc.myVeh->getMaxSpeed()))) {
             // remove from this if so
             WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);

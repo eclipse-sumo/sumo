@@ -286,9 +286,6 @@ public:
      *
      * The procedure for choosing the proper lane is determined, first.
      *  In dependance to this, the proper emission lane is chosen.
-     *  Emission on th most free lane, is done by a call to
-     *  "freeLaneEmit". All other cases are perfomed directly
-     *  within "emit".
      *
      * Emission itself is done by calling the chose lane's "emit"
      *  method.
@@ -296,28 +293,36 @@ public:
      * @param[in] v The vehicle to emit
      * @param[in] time The current simulation time
      * @return Whether the vehicle could be emitted
-     * @see freeLaneEmit
      * @see MSLane::emit
      */
     virtual bool emit(MSVehicle &v, SUMOTime time) const throw();
 
 
-    /** @brief Emits the given vehicle on the emptiest lane
+    /** @brief Finds the emptiest lane among the given ones
      *
-     * The emptiest lane is determined, first, and the vehicle
-     *  is tried to be emitted on it. If this fails,
-     *  the vehicle is tried to be emitted on any of this edge's
-     *  lanes.
+     * The emptiest lane is the one with the fewest vehicles on.
+     *  If there is more than one, the first according to its
+     *  index in the given container is chosen.
      *
-     * Emission itself is done by calling the chose lane's "emit"
-     *  method.
-     *
-     * @param[in] v The vehicle to emit
-     * @param[in] time The current simulation time
-     * @return Whether the vehicle could be emitted
+     * @param[in] lanes The lanes to choose from
+     * @return the least occupied lane
      * @see MSLane::emit
      */
-    bool freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion=false) const throw();
+    MSLane* getFreeLane(const std::vector<MSLane*> &lanes) const throw();
+
+
+    /** @brief Finds a depart lane for the given vehicle
+     *
+     * Depending on the depart lane procedure a depart lane is chosen.
+     *  Repeated calls with the same vehicle may return different results
+     *  if the procedure is "random" or "free". In case no appropriate
+     *  lane was found, 0 is returned.
+     *
+     * @param[in] v The vehicle to get the depart lane for
+     * @return a possible depart lane
+     * @see MSLane::emit
+     */
+    MSLane* getDepartLane(const MSVehicle &v) const throw();
 
 
     /** @brief Returns the last time a vehicle could not be inserted

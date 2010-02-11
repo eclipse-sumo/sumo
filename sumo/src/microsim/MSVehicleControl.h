@@ -94,7 +94,7 @@ public:
      * @return The built vehicle (MSVehicle instance)
      */
     virtual MSVehicle *buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
-                                    const MSVehicleType* type) throw();
+                                    const MSVehicleType* type) throw(ProcessError);
     /// @}
 
 

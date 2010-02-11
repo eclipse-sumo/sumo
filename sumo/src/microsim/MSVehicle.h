@@ -945,7 +945,7 @@ protected:
 
     /// Use this constructor only.
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, int vehicleIndex);
+              const MSVehicleType* type, int vehicleIndex) throw (ProcessError);
 
     /// information how long ago the vehicle has performed a lane-change
     unsigned int myLastLaneChangeOffset;

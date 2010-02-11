@@ -80,7 +80,7 @@ public:
      * @see MSVehicleControl::buildVehicle
      */
     MSVehicle *buildVehicle(SUMOVehicleParameter* defs,
-                            const MSRoute* route, const MSVehicleType* type) throw();
+                            const MSRoute* route, const MSVehicleType* type) throw(ProcessError);
     /// @}
 
 

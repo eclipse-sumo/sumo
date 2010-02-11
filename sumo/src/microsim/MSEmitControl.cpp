@@ -67,7 +67,7 @@ MSEmitControl::add(SUMOVehicleParameter *flow) throw() {
 
 
 unsigned int
-MSEmitControl::emitVehicles(SUMOTime time) throw() {
+MSEmitControl::emitVehicles(SUMOTime time) throw(ProcessError) {
     checkPrevious(time);
     checkFlows(time);
     // check whether any vehicles shall be emitted within this time step
@@ -152,7 +152,7 @@ MSEmitControl::checkPrevious(SUMOTime time) throw() {
 
 
 void
-MSEmitControl::checkFlows(SUMOTime time) throw() {
+MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
     for (std::vector<SUMOVehicleParameter*>::iterator i=myFlows.begin(); i!=myFlows.end();) {
         SUMOVehicleParameter* pars = *i;
         while (pars->repetitionsDone < pars->repetitionNumber &&
@@ -169,20 +169,6 @@ MSEmitControl::checkFlows(SUMOTime time) throw() {
                 const MSRoute *route = MSRoute::dictionary(pars->routeid);
                 const MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
                 vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, route, vtype);
-                for (std::vector<SUMOVehicleParameter::Stop>::iterator i=pars->stops.begin(); i!=pars->stops.end(); ++i) {
-                    if (!vehicle->addStop(*i)) {
-                        WRITE_ERROR("Stop for flow '" + pars->id +
-                                    "' on lane '" + i->lane + "' is not downstream the current route.");
-                        pars->repetitionsDone = pars->repetitionNumber;
-                    }
-                }
-                for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i=route->getStops().begin(); i!=route->getStops().end(); ++i) {
-                    if (!vehicle->addStop(*i, newPars->depart-pars->depart)) {
-                        WRITE_ERROR("Stop for flow '" + pars->id +
-                                    "' on lane '" + i->lane + "' is not downstream the current route.");
-                        pars->repetitionsDone = pars->repetitionNumber;
-                    }
-                }
                 MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, vehicle);
                 add(vehicle);
             } else {
@@ -193,7 +179,7 @@ MSEmitControl::checkFlows(SUMOTime time) throw() {
                     break;
                 }
 #endif
-                WRITE_ERROR("Another vehicle with the id '" + newPars->id + "' exists.");
+                throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
                 break;
             }
         }

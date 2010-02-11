@@ -90,7 +90,7 @@ public:
      * @param[in] time The current simulation time
      * @return The number of vehicles that could be inserted into the net
      */
-    unsigned int emitVehicles(SUMOTime time) throw();
+    unsigned int emitVehicles(SUMOTime time) throw(ProcessError);
 
 
     /** @brief Adds a single vehicle for departure
@@ -156,7 +156,7 @@ private:
      *
      * @param[in] time The current simulation time
      */
-    void checkFlows(SUMOTime time) throw();
+    void checkFlows(SUMOTime time) throw(ProcessError);
 
 
 private:

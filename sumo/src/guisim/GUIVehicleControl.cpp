@@ -51,7 +51,7 @@ GUIVehicleControl::~GUIVehicleControl() throw() {}
 
 MSVehicle *
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                const MSRoute* route, const MSVehicleType* type) throw() {
+                                const MSRoute* route, const MSVehicleType* type) throw(ProcessError) {
     myLoadedVehNo++;
     MSVehicle *built = new GUIVehicle(GUIGlObjectStorage::gIDStorage, defs, route, type, myLoadedVehNo-1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);

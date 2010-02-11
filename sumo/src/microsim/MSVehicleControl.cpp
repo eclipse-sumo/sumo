@@ -83,7 +83,7 @@ MSVehicleControl::~MSVehicleControl() throw() {
 MSVehicle *
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route,
-                               const MSVehicleType* type) throw() {
+                               const MSVehicleType* type) throw(ProcessError) {
     myLoadedVehNo++;
     MSVehicle *built = new MSVehicle(defs, route, type, myLoadedVehNo-1);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);

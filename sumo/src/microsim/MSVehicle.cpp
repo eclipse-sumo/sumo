@@ -189,7 +189,7 @@ MSVehicle::~MSVehicle() throw() {
 MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
-                     int vehicleIndex) :
+                     int vehicleIndex) throw (ProcessError) :
 #ifdef HAVE_MESOSIM
         MEVehicle(0, 0),
 #endif
@@ -226,6 +226,18 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myDestinationLane(0)
 #endif
 {
+    for (std::vector<SUMOVehicleParameter::Stop>::iterator i=pars->stops.begin(); i!=pars->stops.end(); ++i) {
+        if (!addStop(*i)) {
+            throw ProcessError("Stop for vehicle '" + pars->id +
+                               "' on lane '" + i->lane + "' is not downstream the current route.");
+        }
+    }
+    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i=route->getStops().begin(); i!=route->getStops().end(); ++i) {
+        if (!addStop(*i)) {
+            throw ProcessError("Stop for vehicle '" + pars->id +
+                               "' on lane '" + i->lane + "' is not downstream the current route.");
+        }
+    }
 #ifdef _MESSAGES
     myLCMsgEmitter = MSNet::getInstance()->getMsgEmitter("lanechange");
     myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
@@ -250,6 +262,9 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
     // init CORN containers
     if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
         myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = 0;
+    }
+    if ((*myCurrEdge)->getDepartLane(*this) == 0) {
+        throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'");
     }
 }
 

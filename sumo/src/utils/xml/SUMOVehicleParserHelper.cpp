@@ -63,20 +63,29 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = attrs.getFloat(SUMO_ATTR_PERIOD);
+        ret->repetitionOffset = attrs.getSUMORealReporting(SUMO_ATTR_PERIOD, "flow", id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = 3600/attrs.getFloat(SUMO_ATTR_VEHSPERHOUR);
+        ret->repetitionOffset = 3600/attrs.getSUMORealReporting(SUMO_ATTR_VEHSPERHOUR, "flow", id.c_str(), ok);
     }
 
-    ret->depart = attrs.getIntSecure(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin"));
-    int end = attrs.getIntSecure(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end"));
-    if (end <= ret->depart) {
+    ret->depart = OptionsCont::getOptions().getInt("begin");
+    if (attrs.hasAttribute(SUMO_ATTR_BEGIN)) {
+        ret->depart = attrs.getIntReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok);
+    }
+    if (ok && ret->depart < 0) {
+        throw ProcessError("Negative begin time in the definition of '" + id + "'.");
+    }
+    int end = OptionsCont::getOptions().getInt("end");
+    if (attrs.hasAttribute(SUMO_ATTR_END)) {
+        end = attrs.getIntReporting(SUMO_ATTR_END, "flow", id.c_str(), ok);
+    }
+    if (ok && end <= ret->depart) {
         throw ProcessError("Flow '" + id + "' ends before or at its begin time.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_NO)) {
-        ret->repetitionNumber = attrs.getInt(SUMO_ATTR_NO);
+        ret->repetitionNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok);
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
         ret->repetitionOffset = (end - ret->depart) / (SUMOReal)ret->repetitionNumber;
     } else {
@@ -111,6 +120,9 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     parseCommonAttributes(attrs, ret, "vehicle");
     if (!skipDepart) {
         ret->depart = attrs.getIntReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
+        if (ok && ret->depart < 0) {
+            throw ProcessError("Negative departure time in the definition of '" + id + "'.");
+        }
     }
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
@@ -165,6 +177,9 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
             try {
                 ret->departLane = TplConvert<char>::_2int(helper.c_str());;
                 ret->departLaneProcedure = DEPART_LANE_GIVEN;
+                if (ret->departLane < 0) {
+                    throw ProcessError("Invalid departlane definition for " + element + " '" + ret->id + "'");
+                }
             } catch (NumberFormatException &) {
                 throw ProcessError("Invalid departlane definition for " + element + " '" + ret->id + "'");
             } catch (EmptyData &) {

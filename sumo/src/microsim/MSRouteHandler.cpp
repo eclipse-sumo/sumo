@@ -283,13 +283,21 @@ void
 MSRouteHandler::myCharacters(SumoXMLTag element,
                              const std::string &chars) throw(ProcessError) {
     switch (element) {
-    case SUMO_TAG_ROUTE:
-        if (!myHaveWarned) {
-            MsgHandler::getWarningInstance()->inform("Defining routes as a nested string is deprecated, use the edges attribute instead.");
-            myHaveWarned = true;
+    case SUMO_TAG_ROUTE: {
+        size_t len = chars.length();
+        size_t beg = 0;
+        while (beg<len&&chars[beg]<=32) {
+            beg++;
         }
-        MSEdge::parseEdgesList(chars, myActiveRoute, myActiveRouteID);
+        if (beg<len) {
+            if (!myHaveWarned) {
+                MsgHandler::getWarningInstance()->inform("Defining routes as a nested string is deprecated, use the edges attribute instead.");
+                myHaveWarned = true;
+            }
+            MSEdge::parseEdgesList(chars, myActiveRoute, myActiveRouteID);
+        }
         break;
+    }
     default:
         break;
     }
@@ -474,20 +482,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError) {
             myRunningVehicleNumber++;
         }
         if (add) {
-            vehicle =
-                MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
-            for (std::vector<SUMOVehicleParameter::Stop>::iterator i=myVehicleParameter->stops.begin(); i!=myVehicleParameter->stops.end(); ++i) {
-                if (!vehicle->addStop(*i)) {
-                    throw ProcessError("Stop for vehicle '" + myVehicleParameter->id +
-                                       "' on lane '" + i->lane + "' is not downstream the current route.");
-                }
-            }
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i=route->getStops().begin(); i!=route->getStops().end(); ++i) {
-                if (!vehicle->addStop(*i)) {
-                    throw ProcessError("Stop for vehicle '" + myVehicleParameter->id +
-                                       "' on lane '" + i->lane + "' is not downstream the current route.");
-                }
-            }
+            vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
             MSNet::getInstance()->getVehicleControl().addVehicle(myVehicleParameter->id, vehicle);
             myVehicleParameter = 0;
