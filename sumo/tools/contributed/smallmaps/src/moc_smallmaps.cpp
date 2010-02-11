@@ -2,7 +2,7 @@
 ** SmallMaps meta object code from reading C++ file 'smallmaps.h'
 **
 ** Created: Fri Dec 8 15:07:34 2006
-**      by: The Qt MOC ($Id: qt/moc_yacc.cpp   3.3.6   edited Mar 8 17:43 $)
+**      by: The Qt MOC ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
