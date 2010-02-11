@@ -30,7 +30,4 @@
 	<tripdef depart="70" from="beg" to="rend" arrivalspeed="42"/>
 	<tripdef depart="71" from="beg" to="rend" arrivalspeed="current"/>
 
-	<tripdef depart="80" from="beg" to="rend" period="0" repno="0"/>
-	<tripdef depart="81" from="beg" to="rend" period="1" repno="1"/>
-
 </tripdefs>

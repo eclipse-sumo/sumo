@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/24/09 13:18:07 by SUMO duarouter Version dev-SVN-r7781
+<!-- generated on 02/11/10 13:13:26 by SUMO duarouter Version dev-SVN-r8238
 <configuration>
 
     <input>
@@ -86,12 +86,6 @@
       <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="71" type="0" depart="71" arrivalspeed="current">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="80" type="0" depart="80" repno="0" period="0">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="81" type="0" depart="81" repno="1" period="1">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

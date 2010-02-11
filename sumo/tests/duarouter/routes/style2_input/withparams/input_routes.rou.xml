@@ -9,7 +9,6 @@
    <vehicle id="11" type="0" depart="11" color="1,0,1">
       <route>beg middle end rend</route>
    </vehicle>
-
    <vehicle id="20" type="0" depart="20" departpos="0">
       <route>beg middle end rend</route>
    </vehicle>
@@ -74,13 +73,6 @@
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="71" type="0" depart="71" arrivalspeed="current">
-      <route>beg middle end rend</route>
-   </vehicle>
-
-   <vehicle id="80" type="0" depart="80" period="0" repno="0">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="81" type="0" depart="81" period="1" repno="1">
       <route>beg middle end rend</route>
    </vehicle>
 

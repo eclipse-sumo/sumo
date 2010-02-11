@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/02/09 16:55:19 by SUMO duarouter Version dev-SVN-r6993
+<!-- generated on 02/11/10 13:13:16 by SUMO duarouter Version dev-SVN-r8238
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <sumo-input>input_routes.rou.xml</sumo-input>
-   </input>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <sumo-input value="input_routes.rou.xml"/>
+    </input>
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
 </configuration>
 -->
@@ -83,12 +83,6 @@
       <route edges="beg middle end rend"/>
    </vehicle>
    <vehicle id="71" type="0" depart="71" arrivalspeed="current">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="80" type="0" depart="80" repno="0" period="0">
-      <route edges="beg middle end rend"/>
-   </vehicle>
-   <vehicle id="81" type="0" depart="81" repno="1" period="1">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

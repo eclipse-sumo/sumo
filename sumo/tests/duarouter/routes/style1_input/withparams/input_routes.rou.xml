@@ -99,13 +99,4 @@
    </vehicle>
 
 
-      <route id="80">beg middle end rend</route>
-   <vehicle id="80" type="0" depart="80" route="80" period="0" repno="0">
-   </vehicle>
-
-      <route id="81">beg middle end rend</route>
-   <vehicle id="81" type="0" depart="81" route="81" period="1" repno="1">
-   </vehicle>
-
-
 </routes>

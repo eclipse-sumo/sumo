@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/08/09 09:47:50 by SUMO duarouter Version dev-SVN-r7683
+<!-- generated on 02/11/10 13:13:43 by SUMO duarouter Version dev-SVN-r8238
 <configuration>
 
-    <input
-        net-file="input_net.net.xml"
-        trip-defs="input_trips.trips.xml"
-    />
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <trip-defs value="input_trips.trips.xml"/>
+    </input>
 
-    <output
-        output-file="routes.rou.xml"
-    />
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
-    <defaults
-        departlane="0"
-        defaults-override="true"
-    />
+    <defaults>
+        <departlane value="0"/>
+        <defaults-override value="true"/>
+    </defaults>
 
 </configuration>
 -->
@@ -132,16 +132,6 @@
       </routeDistribution>
    </vehicle>
    <vehicle id="22" depart="71" departlane="0" arrivalspeed="current">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
-      </routeDistribution>
-   </vehicle>
-   <vehicle id="23" depart="80" departlane="0" repno="0" period="0">
-      <routeDistribution last="0">
-         <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
-      </routeDistribution>
-   </vehicle>
-   <vehicle id="24" depart="81" departlane="0" repno="1" period="1">
       <routeDistribution last="0">
          <route cost="125.11" probability="1.00000000" edges="beg middle end rend"/>
       </routeDistribution>

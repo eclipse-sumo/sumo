@@ -1,9 +1,6 @@
 # Test with 100 vehicles having one departure time, the type is given but not defined
 one_time
 
-# Test with 100 vehicles emitted via repetition
-repetition
-
 # Testing loop removal with a single vehicle
 remove_loops
 

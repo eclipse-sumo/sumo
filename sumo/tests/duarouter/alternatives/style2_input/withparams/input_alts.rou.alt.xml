@@ -125,15 +125,4 @@
       </routeDistribution>
    </vehicle>
 
-   <vehicle id="80" type="0" depart="80" period="0" repno="0">
-      <routeDistribution last="0">
-         <route cost="125.126" probability="1">beg middle end rend</route>
-      </routeDistribution>
-   </vehicle>
-   <vehicle id="81" type="0" depart="81" period="1" repno="1">
-      <routeDistribution last="0">
-         <route cost="125.126" probability="1">beg middle end rend</route>
-      </routeDistribution>
-   </vehicle>
-
 </route-alternatives>
