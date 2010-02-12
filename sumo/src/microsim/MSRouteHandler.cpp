@@ -110,6 +110,12 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_FLOW:
         delete myVehicleParameter;
         myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs);
+        if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
+            myActiveRouteID = "!" + myVehicleParameter->id;
+            MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_FROM), myActiveRoute, myActiveRouteID);
+            MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_TO), myActiveRoute, myActiveRouteID);
+            closeRoute();
+        }
         break;
     case SUMO_TAG_VTYPE:
         myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs);

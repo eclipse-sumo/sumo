@@ -106,7 +106,7 @@ public:
      *
      * @param[in] flow The flow to add for later emission
      */
-    void add(SUMOVehicleParameter *flow) throw();
+    void add(SUMOVehicleParameter *pars) throw();
 
 
     /** @brief Returns the number of waiting vehicles
@@ -138,7 +138,6 @@ private:
      * @param[in] veh The vehicle to emit
      * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
      * @return The number of emitted vehicles (0 or 1)
-     * @todo Reinsertion seems to be buggy - consecutive vehicles of one that wais a long time are inserted too late
      */
     unsigned int tryEmit(SUMOTime time, MSVehicle *veh,
                          MSVehicleContainer::VehicleVector &refusedEmits) throw();
@@ -169,8 +168,20 @@ private:
     /// @brief Buffers for vehicles that could not been inserted
     MSVehicleContainer::VehicleVector myRefusedEmits1, myRefusedEmits2;
 
+    /** @struct Stop
+     * @brief Definition of vehicle stop (position and duration)
+     */
+    struct Flow {
+        /// @brief The paramters
+        SUMOVehicleParameter* pars;
+        /// @brief whether it has route or vehicle type distribution
+        bool isVolatile;
+        /// @brief The last created vehicle
+        MSVehicle *vehicle;
+    };
+
     /// @brief Container for periodical vehicle parameters
-    std::vector<SUMOVehicleParameter*> myFlows;
+    std::vector<Flow> myFlows;
 
     /// @brief The maximum waiting time; vehicles waiting longer are deleted (-1: no deletion)
     SUMOTime myMaxDepartDelay;

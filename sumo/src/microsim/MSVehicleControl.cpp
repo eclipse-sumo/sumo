@@ -523,6 +523,12 @@ MSVehicleControl::addVTypeDistribution(const std::string &id, RandomDistributor<
 }
 
 
+bool
+MSVehicleControl::hasVTypeDistribution(const std::string &id) const throw() {
+    return myVTypeDistDict.find(id) != myVTypeDistDict.end();
+}
+
+
 MSVehicleType*
 MSVehicleControl::getVType(const std::string &id) throw() {
     VTypeDictType::iterator it = myVTypeDict.find(id);

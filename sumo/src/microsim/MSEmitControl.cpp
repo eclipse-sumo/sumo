@@ -48,8 +48,8 @@ MSEmitControl::MSEmitControl(MSVehicleControl &vc,
 
 
 MSEmitControl::~MSEmitControl() throw() {
-    for (std::vector<SUMOVehicleParameter*>::iterator i=myFlows.begin(); i!=myFlows.end(); ++i) {
-        delete(*i);
+    for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end(); ++i) {
+        delete(i->pars);
     }
 }
 
@@ -61,7 +61,30 @@ MSEmitControl::add(MSVehicle *veh) throw() {
 
 
 void
-MSEmitControl::add(SUMOVehicleParameter *flow) throw() {
+MSEmitControl::add(SUMOVehicleParameter *pars) throw() {
+    Flow flow;
+    flow.pars = pars;
+    flow.isVolatile = pars->departLaneProcedure==DEPART_LANE_RANDOM ||
+                      pars->departPosProcedure==DEPART_POS_RANDOM ||
+                      MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(pars->vtypeid);
+    if (!flow.isVolatile) {
+        RandomDistributor<const MSRoute*> *dist = MSRoute::distDictionary(pars->routeid);
+        if (dist != 0) {
+            const std::vector<const MSRoute*>& routes = dist->getVals();
+            const MSEdge* e = 0;
+            for (std::vector<const MSRoute*>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
+                if (e == 0) {
+                    e = (*i)->getEdges()[0];
+                } else {
+                    if (e != (*i)->getEdges()[0]) {
+                        flow.isVolatile = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    flow.vehicle = 0;
     myFlows.push_back(flow);
 }
 
@@ -153,10 +176,14 @@ MSEmitControl::checkPrevious(SUMOTime time) throw() {
 
 void
 MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
-    for (std::vector<SUMOVehicleParameter*>::iterator i=myFlows.begin(); i!=myFlows.end();) {
-        SUMOVehicleParameter* pars = *i;
+    for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end();) {
+        SUMOVehicleParameter* pars = i->pars;
+        if (!i->isVolatile && i->vehicle!=0 && !i->vehicle->isOnRoad()) {
+            ++i;
+            continue;
+        }
         while (pars->repetitionsDone < pars->repetitionNumber &&
-            pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
+               pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             std::ostringstream oss;
             oss << pars->id << "." << (pars->depart + pars->repetitionsDone * pars->repetitionOffset);
@@ -164,23 +191,20 @@ MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
             newPars->depart = pars->depart + pars->repetitionsDone * pars->repetitionOffset;
             pars->repetitionsDone++;
             // try to build the vehicle
-            MSVehicle *vehicle = 0;
             if (MSNet::getInstance()->getVehicleControl().getVehicle(newPars->id)==0) {
                 const MSRoute *route = MSRoute::dictionary(pars->routeid);
                 const MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
-                vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, route, vtype);
-                MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, vehicle);
-                add(vehicle);
+                i->vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, route, vtype);
+                MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, i->vehicle);
+                add(i->vehicle);
             } else {
                 // strange: another vehicle with the same id already exists
-                pars->repetitionsDone = pars->repetitionNumber;
 #ifdef HAVE_MESOSIM
                 if (MSGlobals::gStateLoaded) {
                     break;
                 }
 #endif
                 throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
-                break;
             }
         }
         if (pars->repetitionsDone == pars->repetitionNumber) {

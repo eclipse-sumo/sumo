@@ -291,6 +291,16 @@ public:
     bool addVTypeDistribution(const std::string &id, RandomDistributor<MSVehicleType*> *vehTypeDistribution) throw();
 
 
+    /** @brief Asks for a vehicle type distribution
+     *
+     * If vehicle type distribution with the id exists, true is returned, false otherwise.
+     *
+     * @param[in] id The id of the distribution
+     * @return Whether the vehicle type distribution exists
+     */
+    bool hasVTypeDistribution(const std::string &id) const throw();
+
+
     /** @brief Returns the named vehicle type or a sample from the named distribution
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or 0 if no such type exists
