@@ -4,7 +4,7 @@ import os, subprocess, sys, re
 guisimBinary = "guisim.exe"
 if os.name == "posix":
     guisimBinary="sumo-guisim"
-subprocess.call(guisimBinary + " -N -Q -c test.sumo.cfg", shell=True)
+ret = subprocess.call([guisimBinary, "-Q", "-c", "sumo.sumo.cfg"])
 totalWait = 0
 for line in open("netstate.xml"):
     m = re.search('waitingTime="(\d+.\d+)"', line)
@@ -16,3 +16,4 @@ for line in open("tlsstate.xml"):
     if m:
         switch += [m.group(1)]
 print switch, totalWait
+sys.exit(ret)

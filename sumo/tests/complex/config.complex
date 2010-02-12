@@ -5,6 +5,8 @@ copy_test_path:input_edges.edg.xml
 copy_test_path:input_nodes.nod.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_net.net.xml
+copy_test_path:input_additional.add.xml
+copy_test_path:sumo.sumo.cfg
 #kill_timeout:5
 
 [collate_file]
