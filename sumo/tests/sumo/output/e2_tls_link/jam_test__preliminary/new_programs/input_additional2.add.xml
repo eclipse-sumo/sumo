@@ -1,49 +1,29 @@
 <additional>
 
 
-   <tl-logic type="traffic_light">
-      <key>0/1</key>
-      <subkey>t1</subkey>
-      <phaseno>2</phaseno>
-      <offset>0</offset>
-      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
-      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
+   <tl-logic id="0/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGG"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>1/1</key>
-      <subkey>t1</subkey>
-      <phaseno>2</phaseno>
-      <offset>0</offset>
-      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
-      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+   <tl-logic id="1/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>2/1</key>
-      <subkey>t1</subkey>
-      <phaseno>2</phaseno>
-      <offset>0</offset>
-      <phase duration="300" phase="0000000000000000" brake="1111111111111111" yellow="0000000000000000"/>
-      <phase duration="200" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+   <tl-logic id="2/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="300" state="rrrrrrrrrrrrrrrr"/>
+      <phase duration="200" state="GGGGGGGGGGGGGGGG"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>3/1</key>
-      <subkey>t1</subkey>
-      <phaseno>2</phaseno>
-      <offset>0</offset>
-      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
-      <phase duration="1" phase="1111111111111111" brake="0000000000000000" yellow="0000000000000000"/>
+   <tl-logic id="3/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGGGGGGGGG"/>
    </tl-logic>
 
-   <tl-logic type="traffic_light">
-      <key>4/1</key>
-      <subkey>t1</subkey>
-      <phaseno>2</phaseno>
-      <offset>0</offset>
-      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
-      <phase duration="1" phase="111111111" brake="000000000" yellow="000000000"/>
+   <tl-logic id="4/1" type="traffic_light" programID="t1" offset="0">
+      <phase duration="1" state="GGGGGGGGG"/>
+      <phase duration="1" state="GGGGGGGGG"/>
    </tl-logic>
 
 </additional>

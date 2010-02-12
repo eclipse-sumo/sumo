@@ -1,30 +1,20 @@
 <additional>
-    <timed_event type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+    <timed_event dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
 
-   <tl-logic type="static">
-      <key>0</key>
-      <subkey>S1</subkey>
-      <phaseno>1</phaseno>
-      <offset>0</offset>
-      <inclanes>1si_0 1si_1 1si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 4si_0 4si_1 4si_2</inclanes>
-      <phase duration="50" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/>
+   <tl-logic id="0" type="static" programID="S1" offset="0">
+      <phase duration="50" state="GGggrrrrGGggrrrr"/>
    </tl-logic>
 
-   <tl-logic type="static">
-      <key>0</key>
-      <subkey>S2</subkey>
-      <phaseno>1</phaseno>
-      <offset>0</offset>
-      <inclanes>1si_0 1si_1 1si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 4si_0 4si_1 4si_2</inclanes>
-      <phase duration="50" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/>
+   <tl-logic id="0" type="static" programID="S2" offset="0">
+      <phase duration="50" state="rrrrGGggrrrrGGgg"/>
    </tl-logic>
 
 
-	<WAUT refTime="0" id="w1" startProg="0">
-		<wautSwitch time="100" to="S1"/>
+	<WAUT startProg="0" refTime="0" id="w1">
+		<wautSwitch to="S1" time="100"></wautSwitch>
 	</WAUT>
 
-	<wautJunction wautID="w1" junctionID="0"/>
+	<wautJunction junctionID="0" wautID="w1"></wautJunction>
 
 
 

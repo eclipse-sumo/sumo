@@ -1,22 +1,16 @@
 <additional>
-    <timed_event type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+    <timed_event dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
 
 
-   <tl-logic type="static">
-      <key>0</key>
-      <subkey>2</subkey>
-      <logicno>0</logicno>
-      <phaseno>8</phaseno>
-      <offset>93</offset>
-      <inclanes>1si_0 1si_1 1si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 4si_0 4si_1 4si_2</inclanes>
-      <phase duration="20" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/>
-      <phase duration="4"  phase="0000110000001100" brake="1111111111111111" yellow="0000001100000011"/>
-      <phase duration="3"  phase="0000110000001100" brake="1111001111110011" yellow="0000000000000000"/>
-      <phase duration="4"  phase="0000000000000000" brake="1111111111111111" yellow="0000110000001100"/>
-      <phase duration="20" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/>
-      <phase duration="4"  phase="1100000011000000" brake="1111111111111111" yellow="0011000000110000"/>
-      <phase duration="3"  phase="1100000011000000" brake="0011111100111111" yellow="0000000000000000"/>
-      <phase duration="4"  phase="0000000000000000" brake="1111111111111111" yellow="1100000011000000"/>
+   <tl-logic id="0" type="static" programID="2" offset="93">
+      <phase duration="20" state="GGggrrrrGGggrrrr"/>
+      <phase duration="4" state="yyggrrrryyggrrrr"/>
+      <phase duration="3" state="rrGGrrrrrrGGrrrr"/>
+      <phase duration="4" state="rryyrrrrrryyrrrr"/>
+      <phase duration="20" state="rrrrGGggrrrrGGgg"/>
+      <phase duration="4" state="rrrryyggrrrryygg"/>
+      <phase duration="3" state="rrrrrrGGrrrrrrGG"/>
+      <phase duration="4" state="rrrrrryyrrrrrryy"/>
    </tl-logic>
 
 </additional>
