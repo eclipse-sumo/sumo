@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu May 14 12:46:35 2009
+TraCITestClient output file. Date: Fri Feb 12 13:04:04 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Thu May 14 12:46:35 2009
 
 -> Command sent: <GetVariable>:
   domID=162 varID=37 objID=0
-.. Command acknowledged (162), [description: ]
+.. Command acknowledged (162), [description: Defining phases using drive/brake/yellow mask is deprecated. Move to states.]
   CommandID=178  VariableID=37  ObjectID=0 valueDataType=15 compound value with 38 members: [ 
  valueDataType=9 Int value: 1
  valueDataType=12 string value: 0
