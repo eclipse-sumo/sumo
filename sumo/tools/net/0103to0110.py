@@ -26,7 +26,7 @@ a['tl-logic'] = ( 'id', 'type', 'programID', 'offset' )
 a['location'] = ( 'netOffset', 'convBoundary', 'origBoundary', 'projParameter' )
 
 # elements which are single (not using opening/closing tag)
-c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'roundabout', 'location', 'lane' )
+c = ( 'logicitem', 'phase', 'succlane', 'dsource', 'dsink', 'junction', 'roundabout', 'location', 'lane', 'timed_event' )
 
 # delay output till this point
 d = {}
@@ -38,7 +38,7 @@ d['tl-logic'] = 'phase'
 i = {}
 i['junction'] = ( ( 'inclanes', 'incLanes' ), ( 'intlanes', 'intLanes' ), ( 'shape', 'shape' ) )
 i['row-logic'] = ( ( 'key', 'id' ), ( 'requestsize', 'requestSize' ), ( 'lanenumber', 'laneNumber' ) )
-i['tl-logic'] = ( ( 'key', 'id' ), ( 'subkey', 'programID' ), ( 'phaseno', 'phaseNo' ), ( 'offset', 'offset' ), ( 'logicno', 'programID' ), ( 'inclanes', 'inclanes' )  )
+i['tl-logic'] = ( ( 'key', 'id' ), ( 'subkey', 'programID' ), ( 'phaseno', 'phaseNo' ), ( 'offset', 'offset' ), ( 'logicno', 'dismiss' ), ( 'inclanes', 'inclanes' )  )
 
 # join these
 j = ( 'net-offset', 'conv-boundary', 'orig-boundary', 'orig-proj' )
@@ -111,10 +111,6 @@ class NetConverter(handler.ContentHandler):
             self._out.write(what)
             if not self._skipping:
                 self._attributes = {}
-#        if self._collect:
- #           self._buffer = self._buffer + what
-  #      else:
-   #         self._out.write(what)
 
 
     def flushStored(self, name):
