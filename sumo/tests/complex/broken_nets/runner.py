@@ -134,18 +134,18 @@ def tinyPath(xmlStruct, path, newValue):
 		raise "?"
 		
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'sumo'))
-netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', 'netconvert'))
-loadParams = " -n mod.net.xml"
+sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
+netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'netconvert'))
+loadParams = ["-n", "mod.net.xml"]
 
 # build the correct network, first
 print ">>> Building the correct network"
-retcode = subprocess.call(netconvertBinary + " -c netconvert.netc.cfg", shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netc.cfg"], stdout=sys.stdout, stderr=sys.stderr)
 print ">>> Trying the correct network"
-retcode = subprocess.call(sumoBinary + " -n net.net.xml --no-step-log --no-duration-log", shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([sumoBinary, "-n", "net.net.xml", "--no-step-log", "--no-duration-log"], stdout=sys.stdout, stderr=sys.stderr)
 if retcode!=0:
 	print "Error on processing the 'correct' network!"
-	exit()
+	sys.exit()
 print ">>> ok...\n"
 
 # check broken network processing
@@ -156,15 +156,12 @@ for c in changes:
 	writer = open('mod.net.xml', 'w')
 	tree.writexml(writer)
 	writer.close()
-	call = sumoBinary + loadParams + " --no-step-log --no-duration-log"
+	call = [sumoBinary, "--no-step-log", "--no-duration-log"] + loadParams
 	print >> sys.stderr, "------------------ " + c[0] + ":" + c[1]
 	sys.stderr.flush()
-	retcode = subprocess.call(call, shell=(os.name=="nt"), stdout=sys.stdout, stderr=sys.stderr)
+	retcode = subprocess.call(call, stdout=sys.stdout, stderr=sys.stderr)
 	sys.stderr.flush()
 	sys.stdout.flush()
 	if retcode!=1:
 		print >> sys.stderr, " Wrong error code returned (" + str(retcode) + ")!"
-
-
-
 
