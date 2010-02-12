@@ -47,6 +47,12 @@ using namespace tcpip;
 
 
 // ===========================================================================
+// static variables
+// ===========================================================================
+bool TraCIServerAPI_TLS::myHaveWarnedAboutDeprecatedPhases = false;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -100,6 +106,10 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
             phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
             tempMsg.writeStringList(phaseDef);
+            if(!myHaveWarnedAboutDeprecatedPhases) {
+                myHaveWarnedAboutDeprecatedPhases = true;
+                warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
+            }
         }
         break;
         case TL_COMPLETE_DEFINITION_PBY: {
@@ -156,6 +166,10 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             }
             tempMsg.writeInt((int) cnt);
             tempMsg.writeStorage(tempContent);
+            if(!myHaveWarnedAboutDeprecatedPhases) {
+                myHaveWarnedAboutDeprecatedPhases = true;
+                warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
+            }
         }
         break;
         case TL_COMPLETE_DEFINITION_RYG: {
@@ -339,6 +353,10 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             MSPhaseDefinition nphase(1, state);
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
             vars.getActive()->setLinkPriorities();
+        }
+        if(!myHaveWarnedAboutDeprecatedPhases) {
+            myHaveWarnedAboutDeprecatedPhases = true;
+            warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
         }
     }
     break;

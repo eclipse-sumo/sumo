@@ -60,6 +60,10 @@ public:
     static bool processSet(tcpip::Storage &inputStorage, tcpip::Storage &outputStorage) throw(traci::TraCIException);
 
 
+protected:
+    /// @brief Whether deprecated definition of phases was already reported
+    static bool myHaveWarnedAboutDeprecatedPhases;
+
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_TLS(const TraCIServerAPI_TLS &s);
