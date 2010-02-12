@@ -82,7 +82,8 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
         myHaveWarnedAboutDeprecatedJunctionShape(false),
         myHaveWarnedAboutDeprecatedLaneShape(false),
         myHaveWarnedAboutDeprecatedPolyShape(false),
-        myHaveWarnedAboutDeprecatedLocation(false) {}
+        myHaveWarnedAboutDeprecatedLocation(false),
+        myHaveWarnedAboutDeprecatedPhases(false) {}
 
 
 NLHandler::~NLHandler() throw() {}
@@ -895,8 +896,11 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
             MsgHandler::getErrorInstance()->inform("Definition of traffic light is broken - descriptions have different lengths.");
             return;
         }
+        if(!myHaveWarnedAboutDeprecatedPhases) {
+            myHaveWarnedAboutDeprecatedPhases = true;
+            MsgHandler::getWarningInstance()->inform("Deprecated tls phase definition found; replace by one using states.");
+        }
         // convert to new
-        //  color, first
         state = MSPhaseDefinition::old2new(phase, brakeMask, yellowMask);
     }
 

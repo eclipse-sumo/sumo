@@ -393,20 +393,23 @@ protected:
 
     bool myCurrentIsBroken;
 
-    /// @brief Whether deprecated usage of the "vclass" attribute was reported already
+    /// @brief Whether deprecated usage of the "vclass" attribute was already reported
     bool myHaveWarnedAboutDeprecatedVClass;
 
-    /// @brief Whether deprecated definition of a junction shape in characters was reported already
+    /// @brief Whether deprecated definition of a junction shape in characters was already reported
     bool myHaveWarnedAboutDeprecatedJunctionShape;
 
-    /// @brief Whether deprecated definition of a lane shape in characters was reported already
+    /// @brief Whether deprecated definition of a lane shape in characters was already reported
     bool myHaveWarnedAboutDeprecatedLaneShape;
 
-    /// @brief Whether deprecated definition of a polygon shape in characters was reported already
+    /// @brief Whether deprecated definition of a polygon shape in characters was already reported
     bool myHaveWarnedAboutDeprecatedPolyShape;
 
-    /// @brief Whether deprecated definition of network boundaries/projection
+    /// @brief Whether deprecated definition of network boundaries/projection was already reported
     bool myHaveWarnedAboutDeprecatedLocation;
+
+    /// @brief Whether deprecated definition of phases was already reported
+    bool myHaveWarnedAboutDeprecatedPhases;
 
 private:
     /** invalid copy constructor */
