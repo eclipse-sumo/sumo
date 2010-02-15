@@ -62,7 +62,7 @@ public:
     ~GUIDanielPerspectiveChanger();
 
     void onLeftBtnPress(void *data);
-    void onLeftBtnRelease(void *data);
+    bool onLeftBtnRelease(void *data);
     void onRightBtnPress(void *data);
     bool onRightBtnRelease(void *data);
     void onMouseWheel(void *data);
@@ -121,10 +121,10 @@ private:
     SUMOReal myZoom;
 
     /// the current mouse state
-    MouseState myMouseButtonState;
+    int myMouseButtonState;
 
-    /// Information whether the user has moved the cursor while pressing the right button
-    bool myMoveOnRightClick;
+    /// Information whether the user has moved the cursor while pressing a mouse button
+    bool myMoveOnClick;
 
 };
 

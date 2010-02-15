@@ -75,6 +75,7 @@ public:
      */
     virtual bool loadSelection(const std::string &file, std::string &msg) throw() = 0;
 
+    bool isGaming() const throw();
 
 protected:
     std::vector<FXMDIChild*> mySubWindows;
@@ -102,6 +103,9 @@ protected:
     FXDockSite *myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
 
     bool myRunAtBegin;
+
+    /// information whether the gui is currently in gaming mode
+    bool myAmGaming;
 
 protected:
     GUIMainWindow() { }

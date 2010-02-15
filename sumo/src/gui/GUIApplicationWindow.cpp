@@ -95,6 +95,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onCmdEditBreakpoints),
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
+    FXMAPFUNC(SEL_COMMAND,  MID_GAMING,             GUIApplicationWindow::onCmdGaming),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewView),
     FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
@@ -357,6 +358,9 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(mySettingsMenu,
                       "Application Settings...\t\tOpen a Dialog for Application Settings editing.",
                       NULL,this,MID_APPSETTINGS);
+    new FXMenuCheck(mySettingsMenu,
+                    "Gaming Mode\t\tToggle gaming mode on/off.",
+                    this,MID_GAMING);
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
@@ -747,6 +751,19 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*,FXSelector,void*) {
     GUIDialog_AppSettings *d = new GUIDialog_AppSettings(this);
     d->create();
     d->show(PLACEMENT_OWNER);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdGaming(FXObject*,FXSelector,void*) {
+    myAmGaming = !myAmGaming;
+    if (myAmGaming) {
+        mySimDelayTarget->setValue(1000);
+        myToolBar4->hide();
+    } else {
+        myToolBar4->show();
+    }
     return 1;
 }
 

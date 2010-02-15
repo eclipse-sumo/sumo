@@ -63,8 +63,10 @@ void
 GUIPerspectiveChanger::onLeftBtnPress(void*) {}
 
 
-void
-GUIPerspectiveChanger::onLeftBtnRelease(void*) {}
+bool
+GUIPerspectiveChanger::onLeftBtnRelease(void*) {
+    return false;
+}
 
 
 void

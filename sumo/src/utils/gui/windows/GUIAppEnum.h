@@ -128,6 +128,8 @@ enum {
 
     /// Application settings - menu entry
     MID_APPSETTINGS,
+    /// Gaming mode - menu entry
+    MID_GAMING,
     /// The Simulation delay control
     MID_SIMDELAY,
     //@}

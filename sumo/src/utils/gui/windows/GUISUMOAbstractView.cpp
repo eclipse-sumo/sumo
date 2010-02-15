@@ -81,12 +81,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -199,13 +193,13 @@ GUISUMOAbstractView::getPositionInformation(int mx, int my) const {
 void
 GUISUMOAbstractView::updatePositionInformation() const {
     Position2D pos = getPositionInformation();
-    string text = "x:" + toString(pos.x(), OUTPUT_ACCURACY) + ", y:" + toString(pos.y(), OUTPUT_ACCURACY);
+    std::string text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
     myApp->getCartesianLabel().setText(text.c_str());
     GeoConvHelper::cartesian2geo(pos);
     if (GeoConvHelper::usingGeoProjection()) {
         text = "lat:" + toString(pos.y(), GEO_OUTPUT_ACCURACY) + ", lon:" + toString(pos.x(), GEO_OUTPUT_ACCURACY);
     } else {
-        text = "x:" + toString(pos.x(), OUTPUT_ACCURACY) + ", y:" + toString(pos.y(), OUTPUT_ACCURACY);
+        text = "x:" + toString(pos.x()) + ", y:" + toString(pos.y());
     }
     myApp->getGeoLabel().setText(text.c_str());
 }
@@ -479,7 +473,7 @@ void
 GUISUMOAbstractView::displayLegend() throw() {
     // compute the scale bar length
     size_t length = 1;
-    const string text("10000000000");
+    const std::string text("10000000000");
     size_t noDigits = 1;
     size_t pixelSize = 0;
     while (true) {
@@ -644,7 +638,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data) {
     myPopup = 0;
     FXEvent *e = (FXEvent*) data;
     // check whether the selection-mode is activated
-    if (e->state&ALTMASK) {
+    if (e->state&CONTROLMASK) {
         // try to get the object-id if so
         if (makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
@@ -669,7 +663,9 @@ long
 GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
-    myChanger->onLeftBtnRelease(data);
+    if (!myChanger->onLeftBtnRelease(data) && myApp->isGaming()) {
+        onGamingClick(getPositionInformation());
+    }
     ungrab();
     return 1;
 }
@@ -689,7 +685,7 @@ long
 GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
-    if (myChanger->onRightBtnRelease(data)) {
+    if (!myChanger->onRightBtnRelease(data)) {
         openObjectDialog();
     }
     ungrab();

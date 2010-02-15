@@ -132,6 +132,8 @@ public:
 
     /// Opens the application settings menu
     long onCmdAppSettings(FXObject*,FXSelector,void*);
+    /// Toggle gaming mode
+    long onCmdGaming(FXObject*,FXSelector,void*);
 
     /// Shows the about dialog
     long onCmdAbout(FXObject*,FXSelector,void*);

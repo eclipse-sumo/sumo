@@ -129,6 +129,7 @@ public:
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingBestLanesFor(GUIVehicle *v);
 
+    void onGamingClick(Position2D pos);
 
 protected:
     int doPaintGL(int mode, SUMOReal scale);

@@ -197,6 +197,8 @@ public:
         return false;
     }
 
+    virtual void onGamingClick(Position2D /*pos*/) { }
+
 public:
     /**
      * JunctionColoringScheme

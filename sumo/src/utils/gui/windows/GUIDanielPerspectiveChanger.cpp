@@ -38,19 +38,13 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
     GUISUMOAbstractView &callBack)
         : GUIPerspectiveChanger(callBack),
         myViewCenter(0, 0), myRotation(0), myZoom(100),
-        myMouseButtonState(MOUSEBTN_NONE), myMoveOnRightClick(false) {}
+        myMouseButtonState(MOUSEBTN_NONE), myMoveOnClick(false) {}
 
 
 GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger() {}
@@ -151,49 +145,43 @@ GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
 
 void
 GUIDanielPerspectiveChanger::onLeftBtnPress(void*data) {
+    myMouseButtonState |= MOUSEBTN_LEFT;
     FXEvent* e = (FXEvent*) data;
-    myMouseButtonState =
-        (MouseState)((int) myMouseButtonState | (int) MOUSEBTN_LEFT);
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;
+    myMoveOnClick = false;
 }
 
 
-void
+bool
 GUIDanielPerspectiveChanger::onLeftBtnRelease(void*data) {
+    myMouseButtonState &= !MOUSEBTN_LEFT;
     FXEvent* e = (FXEvent*) data;
-    myMouseButtonState =
-        (MouseState)((int) myMouseButtonState & (255-(int) MOUSEBTN_LEFT));
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;
+    return myMoveOnClick;
 }
 
 
 void
 GUIDanielPerspectiveChanger::onRightBtnPress(void*data) {
+    myMouseButtonState |= MOUSEBTN_RIGHT;
     FXEvent* e = (FXEvent*) data;
-    myMouseButtonState =
-        (MouseState)((int) myMouseButtonState | (int) MOUSEBTN_RIGHT);
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;
-    myMoveOnRightClick = true;
+    myMoveOnClick = false;
 }
 
 
 bool
 GUIDanielPerspectiveChanger::onRightBtnRelease(void*data) {
-    myMouseButtonState =
-        (MouseState)((int) myMouseButtonState & (255-(int) MOUSEBTN_RIGHT));
-    if (data!=0) {
+    myMouseButtonState &= !MOUSEBTN_RIGHT;
+    if (data != 0) {
         FXEvent* e = (FXEvent*) data;
         myMouseXPosition = e->win_x;
         myMouseYPosition = e->win_y;
     }
-    if (myMoveOnRightClick) {
-        myMoveOnRightClick = false;
-        return true;
-    }
-    return false;
+    return myMoveOnClick;
 }
 
 
@@ -223,12 +211,15 @@ GUIDanielPerspectiveChanger::onMouseMove(void*data) {
     switch (myMouseButtonState) {
     case MOUSEBTN_LEFT:
         move(xdiff, ydiff);
+        if (xdiff!=0||ydiff!=0) {
+            myMoveOnClick = true;
+        }
         break;
     case MOUSEBTN_RIGHT:
         zoom(ydiff);
         rotate(xdiff);
-        if (abs(xdiff)>0||abs(ydiff)>0) {
-            myMoveOnRightClick = false;
+        if (xdiff!=0||ydiff!=0) {
+            myMoveOnClick = true;
         }
         break;
     default:
@@ -252,4 +243,3 @@ GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
 
 
 /****************************************************************************/
-

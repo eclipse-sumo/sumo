@@ -70,7 +70,7 @@ public:
     virtual ~GUIPerspectiveChanger();
 
     virtual void onLeftBtnPress(void *data);
-    virtual void onLeftBtnRelease(void *data);
+    virtual bool onLeftBtnRelease(void *data);
     virtual void onRightBtnPress(void *data);
     virtual bool onRightBtnRelease(void *data);
     virtual void onMouseWheel(void *data);
