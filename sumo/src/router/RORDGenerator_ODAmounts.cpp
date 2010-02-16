@@ -239,18 +239,13 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
         throw ProcessError(StringUtils::replace(e.what(), "''", id.c_str()));
     }
     myParameter->id = id;
-    try {
-        myIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, myUpperIntervalBegin);
-    } catch (NumberFormatException &) {
-        throw ProcessError("An interval begin is not numeric.");
-    }
-    try {
-        myIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, myUpperIntervalEnd);
-    } catch (NumberFormatException &) {
-        throw ProcessError("An interval end is not numeric.");
-    }
     bool ok = true;
+    myIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "flowdef", id.c_str(), ok, myUpperIntervalBegin);
+    myIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "flowdef", id.c_str(), ok, myUpperIntervalEnd);
     myVehicle2EmitNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
+    if (!ok) {
+        throw ProcessError();
+    }
     if (myIntervalEnd<=myIntervalBegin) {
         throw ProcessError("The interval must be larger than 0.\n The current values are: begin=" + toString<unsigned int>(myIntervalBegin) + " end=" + toString<unsigned int>(myIntervalEnd));
     }
@@ -259,18 +254,9 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
 
 void
 RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs) {
-    try {
-        myUpperIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, -1);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("An interval begin is not numeric.");
-        return;
-    }
-    try {
-        myUpperIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, -1);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
-        return;
-    }
+    bool ok = true;
+    myUpperIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1); // !!!really optional ?
+    myUpperIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "interval", 0, ok, -1); // !!!really optional ?
 }
 
 

@@ -128,21 +128,14 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
         return;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
+        myColor = new RGBColor(RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, "route", 0, myCurrentIsOk)));
     }
     if (myCurrentAlternatives==0) {
         myCurrentIsOk = true;
-        // parse plain route...
-        try {
-            if (myVehicleParameter!=0) {
-                myCurrentRouteName = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myVehicleParameter->id);
-            } else {
-                myCurrentRouteName = attrs.getString(SUMO_ATTR_ID);
-            }
-        } catch (EmptyData &) {
-            myCurrentRouteName = "";
-            MsgHandler::getErrorInstance()->inform("Missing id in route.");
-            myCurrentIsOk = false;
+        if (myVehicleParameter!=0) {
+            myCurrentRouteName = attrs.getOptStringReporting(SUMO_ATTR_ID, "route", 0, myCurrentIsOk, "!" + myVehicleParameter->id);
+        } else {
+            myCurrentRouteName = attrs.getStringReporting(SUMO_ATTR_ID, "route", 0, myCurrentIsOk);
         }
     } else {
         // parse route alternative...
@@ -160,7 +153,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs) {
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        myCharacters(SUMO_TAG_ROUTE, attrs.getString(SUMO_ATTR_EDGES));
+        myCharacters(SUMO_TAG_ROUTE, attrs.getStringReporting(SUMO_ATTR_EDGES, "route", 0, myCurrentIsOk));
     }
 }
 

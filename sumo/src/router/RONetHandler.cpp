@@ -108,60 +108,39 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs) {
         //  !!! recheck this; internal edges may be of importance during the dua
         return;
     }
-    // get the from-junction
-    RONode *fromNode = 0;
-    try {
-        string from = attrs.getString(SUMO_ATTR_FROM);
-        if (from=="") {
-            throw EmptyData();
-        }
-        fromNode = myNet.getNode(from);
-        if (fromNode==0) {
-            fromNode = new RONode(from);
-            myNet.addNode(fromNode);
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing from-node in edge '" + myCurrentName + "'.");
+    bool ok = true;
+    std::string from = attrs.getStringReporting(SUMO_ATTR_FROM, "edge", myCurrentName.c_str(), ok);
+    std::string to = attrs.getStringReporting(SUMO_ATTR_TO, "edge", myCurrentName.c_str(), ok);
+    string type = attrs.getStringReporting(SUMO_ATTR_FUNCTION, "edge", myCurrentName.c_str(), ok);
+    if (!ok) {
         return;
     }
-    // get the to-junction
-    RONode *toNode = 0;
-    try {
-        string to = attrs.getString(SUMO_ATTR_TO);
-        if (to=="") {
-            throw EmptyData();
-        }
-        toNode = myNet.getNode(to);
-        if (toNode==0) {
-            toNode = new RONode(to);
-            myNet.addNode(toNode);
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing to-node in edge '" + myCurrentName + "'.");
-        return;
+    RONode *fromNode = myNet.getNode(from);
+    if (fromNode==0) {
+        fromNode = new RONode(from);
+        myNet.addNode(fromNode);
+    }
+    RONode *toNode = myNet.getNode(to);
+    if (toNode==0) {
+        toNode = new RONode(to);
+        myNet.addNode(toNode);
     }
     // build the edge
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode);
     myNet.addEdge(myCurrentEdge); // !!! where is the edge deleted when failing?
     // !!! secure??
     // get the type of the edge
-    try {
-        string type = attrs.getString(SUMO_ATTR_FUNCTION);
-        myProcess = true;
-        if (type=="normal"||type=="connector") {
-            myCurrentEdge->setType(ROEdge::ET_NORMAL);
-        } else if (type=="source") {
-            myCurrentEdge->setType(ROEdge::ET_SOURCE);
-        } else if (type=="sink") {
-            myCurrentEdge->setType(ROEdge::ET_SINK);
-        } else if (type=="internal") {
-            myProcess = false;
-        } else {
-            MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
-            return;
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing type in edge '" + myCurrentName + "'.");
+    myProcess = true;
+    if (type=="normal"||type=="connector") {
+        myCurrentEdge->setType(ROEdge::ET_NORMAL);
+    } else if (type=="source") {
+        myCurrentEdge->setType(ROEdge::ET_SOURCE);
+    } else if (type=="sink") {
+        myCurrentEdge->setType(ROEdge::ET_SINK);
+    } else if (type=="internal") {
+        myProcess = false;
+    } else {
+        MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
         return;
     }
 }
@@ -173,8 +152,6 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
         // was an internal edge to skip or an error occured
         return;
     }
-    SUMOReal maxSpeed = -1;
-    SUMOReal length = -1;
     std::vector<SUMOVehicleClass> allowed, disallowed;
     // get the id, report an error if not given or empty...
     string id;
@@ -182,29 +159,18 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     // get the speed
-    try {
-        maxSpeed = attrs.getFloat(SUMO_ATTR_MAXSPEED);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing maxspeed definition in lane '" + id + "'.");
-        return;
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numerical maxspeed definition in lane '" + id + "'.");
+    bool ok = true;
+    SUMOReal maxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, "lane", id.c_str(), ok);
+    SUMOReal length = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "lane", id.c_str(), ok);
+    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, "lane", id.c_str(), ok, "");
+    std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, "lane", id.c_str(), ok, "");
+    std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, "lane", id.c_str(), ok, "");
+    if (!ok) {
         return;
     }
     // get the length
-    try {
-        length = attrs.getFloat(SUMO_ATTR_LENGTH);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing length definition in lane '" + id + "'.");
-        return;
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numerical length definition in lane '" + id + "'.");
-        return;
-    }
     // get the vehicle classes
-    parseVehicleClasses(attrs.getStringSecure(SUMO_ATTR_VCLASSES , ""),
-                        attrs.getStringSecure(SUMO_ATTR_ALLOW , ""),
-                        attrs.getStringSecure(SUMO_ATTR_DISALLOW , ""),
+    parseVehicleClasses(vclasses, allow, disallow,
                         allowed, disallowed, myHaveWarnedAboutDeprecatedVClass);
     if (allowed.size()!=0 || disallowed.size() != 0) {
         myNet.setRestrictionFound();
@@ -242,7 +208,8 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs) {
 
 void
 RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError) {
-    string id = attrs.getString(SUMO_ATTR_EDGE);
+    bool ok = true;
+    string id = attrs.getStringReporting(SUMO_ATTR_EDGE, 0,0, ok);
     if (id[0]==':') {
         myCurrentEdge = 0;
         return;
@@ -260,7 +227,8 @@ RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs) {
         // earlier error or internal link
         return;
     }
-    string id = attrs.getString(SUMO_ATTR_LANE);
+    bool ok = true;
+    string id = attrs.getStringReporting(SUMO_ATTR_LANE, "lane", myCurrentName.c_str(), ok);
     if (id=="SUMO_NO_DESTINATION") {
         return;
     }

@@ -118,44 +118,17 @@ RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
                              const std::string &purpose,
                              SumoXMLAttr which, const string &vid,
                              bool emptyAllowed) {
-    ROEdge *e = 0;
-    string id;
-    try {
-        id = attrs.getString(which);
-        e = myNet.getEdge(id);
-        if (e!=0) {
-            return e;
-        }
-    } catch (EmptyData &) {
-        if (!emptyAllowed) {
-            MsgHandler::getErrorInstance()->inform("Missing " + purpose + " edge in description of a route.");
-        }
-    }
-    if (e==0) {
+    bool ok = true;
+    string id = attrs.getStringReporting(which, 0, 0, ok, !emptyAllowed);
+    ROEdge *e = myNet.getEdge(id);
+    if (e!=0) {
+        return e;
+    } else {
         if (!emptyAllowed) {
             MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.\n Vehicle id='" + vid + "'.");
         }
     }
     return 0;
-}
-
-
-SUMOReal
-RORDLoader_TripDefs::getOptionalFloat(const SUMOSAXAttributes &attrs,
-                                      const std::string &name,
-                                      SumoXMLAttr which,
-                                      const std::string &place) {
-    if (!attrs.hasAttribute(which)) {
-        return -1;
-    }
-    try {
-        return attrs.getFloat(SUMO_ATTR_POSITION);
-    } catch (EmptyData &) {} catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The value of '" + name + "' should be numeric but is not.");
-        if (place.length()!=0)
-            MsgHandler::getErrorInstance()->inform(" Route id='" + place + "')");
-    }
-    return -1;
 }
 
 
@@ -185,11 +158,8 @@ RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
 
 string
 RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs) {
-    try {
-        return attrs.getString(SUMO_ATTR_LANE);
-    } catch (EmptyData &) {
-        return "";
-    }
+    bool ok = true;
+    return attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
 }
 
 

@@ -126,11 +126,6 @@ protected:
     ROEdge *getEdge(const SUMOSAXAttributes &attrs, const std::string &purpose,
                     SumoXMLAttr which, const std::string &id, bool emptyAllowed);
 
-    /** @brief Parses a SUMOReal value which is optional;
-        Avoids exceptions */
-    SUMOReal getOptionalFloat(const SUMOSAXAttributes &attrs,
-                              const std::string &name, SumoXMLAttr which, const std::string &place);
-
     /// Parses and returns the period the trip shall be repeated with
     SUMOTime getPeriod(const SUMOSAXAttributes &attrs, const std::string &id);
 
