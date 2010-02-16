@@ -211,7 +211,7 @@ TraCIServer::TraCIServer() {
         socket_ = new Socket(port);
         socket_->accept();
         // When got here, a client has connected
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         throw ProcessError(e.what());
     }
 
@@ -243,7 +243,7 @@ TraCIServer::vehicleStateChanged(const MSVehicle * const vehicle, MSNet::Vehicle
 
 /*****************************************************************************/
 void
-TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
+TraCIServer::processCommandsUntilSimStep(SUMOTime step) throw(ProcessError) {
     try {
         if (instance_ == 0) {
             if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
@@ -301,11 +301,11 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i=instance_->myVehicleStateChanges.begin(); i!=instance_->myVehicleStateChanges.end(); ++i) {
             (*i).second.clear();
         }
-    } catch (std::invalid_argument e) {
+    } catch (std::invalid_argument &e) {
         throw ProcessError(e.what());
-    } catch (TraCIException e) {
+    } catch (TraCIException &e) {
         throw ProcessError(e.what());
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         throw ProcessError(e.what());
     }
     if (instance_ != NULL) {
@@ -669,14 +669,14 @@ TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_arg
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     writeStatusCmd(CMD_SIMSTEP2, RTYPE_OK, "");
     int noActive = 0;
-    for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end(); ) {
+    for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end();) {
         const Subscription &s = *i;
-        if(s.endTime<t) {
+        if (s.endTime<t) {
             i = mySubscriptions.erase(i);
             continue;
         }
         ++i;
-        if(s.beginTime>t) {
+        if (s.beginTime>t) {
             continue;
         }
         ++noActive;
@@ -684,7 +684,7 @@ TraCIServer::postProcessSimulationStep2() throw(TraCIException, std::invalid_arg
     myOutputStorage.writeInt(noActive);
     for (std::vector<Subscription>::iterator i=mySubscriptions.begin(); i!=mySubscriptions.end(); ++i) {
         const Subscription &s = *i;
-        if(s.beginTime>t) {
+        if (s.beginTime>t) {
             continue;
         }
         tcpip::Storage into;
@@ -1298,7 +1298,7 @@ TraCIServer::commandPositionConversion() throw(TraCIException) {
                 Position2D result = convertRoadMapToCartesian(roadPos);
                 x = result.x();
                 y = result.y();
-            } catch (TraCIException e) {
+            } catch (TraCIException &e) {
                 writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
                 return false;
             }
@@ -1371,7 +1371,7 @@ TraCIServer::commandScenario() throw(TraCIException) {
             writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, "Unknown domain specified");
             return false;
         }
-    } catch (TraCIException e) {
+    } catch (TraCIException &e) {
         writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, e.what());
         return false;
     }
@@ -1413,7 +1413,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
         roadPos1.laneId = myInputStorage.readUnsignedByte();
         try {
             pos1 = convertRoadMapToCartesian(roadPos1);
-        } catch (TraCIException e) {
+        } catch (TraCIException &e) {
             writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
             return false;
         }
@@ -1444,7 +1444,7 @@ TraCIServer::commandDistanceRequest() throw(TraCIException) {
         roadPos2.laneId = myInputStorage.readUnsignedByte();
         try {
             pos2 = convertRoadMapToCartesian(roadPos2);
-        } catch (TraCIException e) {
+        } catch (TraCIException &e) {
             writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
             return false;
         }
@@ -2995,7 +2995,7 @@ TraCIServer::addSubscription(int commandId) throw(TraCIException) {
         Subscription s(commandId, id, variables, beginTime, endTime);
         tcpip::Storage writeInto;
         std::string errors;
-        if(s.endTime<MSNet::getInstance()->getCurrentTimeStep()) {
+        if (s.endTime<MSNet::getInstance()->getCurrentTimeStep()) {
             processSingleSubscription(s, writeInto, errors);
             writeStatusCmd(s.commandId, RTYPE_ERR, "Subscription has ended.");
         } else {

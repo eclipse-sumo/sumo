@@ -106,7 +106,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             phaseDef.push_back(MSPhaseDefinition::new2brakeMask(state));
             phaseDef.push_back(MSPhaseDefinition::new2yellowMask(state));
             tempMsg.writeStringList(phaseDef);
-            if(!myHaveWarnedAboutDeprecatedPhases) {
+            if (!myHaveWarnedAboutDeprecatedPhases) {
                 myHaveWarnedAboutDeprecatedPhases = true;
                 warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
             }
@@ -166,7 +166,7 @@ TraCIServerAPI_TLS::processGet(tcpip::Storage &inputStorage,
             }
             tempMsg.writeInt((int) cnt);
             tempMsg.writeStorage(tempContent);
-            if(!myHaveWarnedAboutDeprecatedPhases) {
+            if (!myHaveWarnedAboutDeprecatedPhases) {
                 myHaveWarnedAboutDeprecatedPhases = true;
                 warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
             }
@@ -354,7 +354,7 @@ TraCIServerAPI_TLS::processSet(tcpip::Storage &inputStorage,
             *(static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic("online"))->getPhases()[0]) = nphase;
             vars.getActive()->setLinkPriorities();
         }
-        if(!myHaveWarnedAboutDeprecatedPhases) {
+        if (!myHaveWarnedAboutDeprecatedPhases) {
             myHaveWarnedAboutDeprecatedPhases = true;
             warning = "Defining phases using drive/brake/yellow mask is deprecated. Move to states.";
         }

@@ -78,7 +78,7 @@ public:
     };
 
     // process all commands until a simulation step is wanted
-    static void processCommandsUntilSimStep(SUMOTime step);
+    static void processCommandsUntilSimStep(SUMOTime step) throw(ProcessError);
 
     // check whether close was requested
     static bool wasClosed();

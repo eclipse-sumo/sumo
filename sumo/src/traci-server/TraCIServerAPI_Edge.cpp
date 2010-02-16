@@ -209,7 +209,7 @@ TraCIServerAPI_Edge::processGet(tcpip::Storage &inputStorage,
                 sum += (SUMOReal) pow(10., ((*i)->getHarmonoise_NoiseEmissions()/10.));
             }
             tempMsg.writeUnsignedByte(TYPE_FLOAT);
-            if(sum!=0) {
+            if (sum!=0) {
                 tempMsg.writeFloat(HelpersHarmonoise::sum(sum));
             } else {
                 tempMsg.writeFloat(0);

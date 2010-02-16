@@ -97,7 +97,7 @@ TraCITestClient::connect(int port, std::string host) {
 
     try {
         socket->connect();
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "#Error while connecting: " << e.what();
         errorMsg(msg);
         return false;
@@ -544,7 +544,7 @@ TraCITestClient::commandSimulationStep(double time, int posFormat) {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -556,7 +556,7 @@ TraCITestClient::commandSimulationStep(double time, int posFormat) {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -592,7 +592,7 @@ TraCITestClient::commandSimulationStep2(double time) {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -601,7 +601,7 @@ TraCITestClient::commandSimulationStep2(double time) {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -639,7 +639,7 @@ TraCITestClient::commandSetMaximumSpeed(int nodeId, float speed) {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -651,7 +651,7 @@ TraCITestClient::commandSetMaximumSpeed(int nodeId, float speed) {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -732,7 +732,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -751,7 +751,7 @@ TraCITestClient::commandStopNode(int nodeId, testclient::Position2D* pos2D,
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -793,7 +793,7 @@ TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime) {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -805,7 +805,7 @@ TraCITestClient::commandChangeLane(int nodeId, int laneId, float fixTime) {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -844,7 +844,7 @@ TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -856,7 +856,7 @@ TraCITestClient::commandSlowDown(int nodeId, float minSpeed, double timeInterval
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -898,7 +898,7 @@ TraCITestClient::commandChangeRoute(int nodeId, std::string roadId, double trave
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -907,7 +907,7 @@ TraCITestClient::commandChangeRoute(int nodeId, std::string roadId, double trave
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -944,7 +944,7 @@ TraCITestClient::commandChangeTarget(int nodeId, std::string roadId) {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -956,7 +956,7 @@ TraCITestClient::commandChangeTarget(int nodeId, std::string roadId) {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1033,7 +1033,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1052,7 +1052,7 @@ TraCITestClient::commandPositionConversion(testclient::Position2D* pos2D,
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1191,7 +1191,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1217,7 +1217,7 @@ TraCITestClient::commandDistanceRequest(testclient::Position2D* pos1_2D,
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1259,7 +1259,7 @@ TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double inter
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1272,7 +1272,7 @@ TraCITestClient::commandGetTLStatus(int tlId, double intervalStart, double inter
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1310,7 +1310,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1325,7 +1325,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1347,7 +1347,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string &obj
         int valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         readAndReportTypeDependent(inMsg, valueDataType);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1382,7 +1382,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1397,7 +1397,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1419,7 +1419,7 @@ TraCITestClient::commandGetVariablePlus(int domID, int varID, const std::string 
         int valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         readAndReportTypeDependent(inMsg, valueDataType);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1461,7 +1461,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1475,7 +1475,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1483,7 +1483,7 @@ TraCITestClient::commandSubscribeVariable(int domID, const std::string &objID, i
     // validate result state
     try {
         validateSubscription(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1597,7 +1597,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1612,7 +1612,7 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string &objID,
         if (!reportResultState(inMsg, domID)) {
             return;
         }
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1642,7 +1642,7 @@ TraCITestClient::commandClose() {
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1653,7 +1653,7 @@ TraCITestClient::commandClose() {
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
@@ -1804,7 +1804,7 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
     // send request message
     try {
         socket->sendExact(outMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while sending command: " << e.what();
         errorMsg(msg);
         return;
@@ -1819,7 +1819,7 @@ TraCITestClient::commandScenario(int flag, int domain, int domainId, int variabl
     // receive answer message
     try {
         socket->receiveExact(inMsg);
-    } catch (SocketException e) {
+    } catch (SocketException &e) {
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
         return;
