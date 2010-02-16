@@ -79,28 +79,15 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
         MsgHandler::getWarningInstance()->inform("While parsing type '" + id + "': 'function' is deprecated.\n All occurences are ignored.");
         myHaveReportedAboutFunctionDeprecation = true;
     }
-    int priority = 0;
-    int noLanes = 0;
-    SUMOReal speed = 0;
-    // get the priority
-    try {
-        priority = attrs.getIntSecure(SUMO_ATTR_PRIORITY, myTypeCont.getDefaultPriority());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for Priority (at tag ID='" + id + "').");
+
+    bool ok = true;
+    int priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, "type", id.c_str(), ok, myTypeCont.getDefaultPriority());
+    int noLanes = attrs.getOptIntReporting(SUMO_ATTR_NOLANES, "type", id.c_str(), ok, myTypeCont.getDefaultNoLanes());
+    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "type", id.c_str(), ok, (SUMOReal) myTypeCont.getDefaultSpeed());
+    bool discard = attrs.getOptBoolReporting(SUMO_ATTR_DISCARD, 0, 0, ok, false);
+    if (!ok) {
+        return;
     }
-    // get the number of lanes
-    try {
-        noLanes = attrs.getIntSecure(SUMO_ATTR_NOLANES, myTypeCont.getDefaultNoLanes());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for NoLanes (at tag ID='" + id + "').");
-    }
-    // get the speed
-    try {
-        speed = attrs.getFloatSecure(SUMO_ATTR_SPEED, (SUMOReal) myTypeCont.getDefaultSpeed());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for Speed (at tag ID='" + id + "').");
-    }
-    bool discard = attrs.getBoolSecure(SUMO_ATTR_DISCARD, false);
     // build the type
     if (!myTypeCont.insert(id, noLanes, speed, priority)) {
         MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");

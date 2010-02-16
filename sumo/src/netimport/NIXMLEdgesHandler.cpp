@@ -116,9 +116,8 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // check whether a type's values shall be used
         myCurrentType = "";
         if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-            myCurrentType = attrs.getString(SUMO_ATTR_TYPE);
-            if (myCurrentType=="") {
-                MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has an empty type.");
+            myCurrentType = attrs.getStringReporting(SUMO_ATTR_TYPE, "edge", myCurrentID.c_str(), ok);
+            if (!ok) {
                 return;
             }
             if (!myTypeCont.knows(myCurrentType)) {
@@ -149,7 +148,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // try to get the shape
         myShape = tryGetShape(attrs);
         // and how to spread the lanes
-        if (attrs.getStringSecure(SUMO_ATTR_SPREADFUNC, "")=="center") {
+        if (attrs.getOptStringReporting(SUMO_ATTR_SPREADFUNC, "edge", myCurrentID.c_str(), ok, "")=="center") {
             myLanesSpread = NBEdge::LANESPREAD_CENTER;
         } else {
             myLanesSpread = NBEdge::LANESPREAD_RIGHT;
@@ -194,7 +193,15 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             }
             return;
         }
-        int lane = attrs.getIntSecure(SUMO_ATTR_ID, -1);
+        bool ok = true;
+        int lane = attrs.getIntReporting(SUMO_ATTR_ID, "lane", 0, ok);
+        std::vector<std::string> disallowed, allowed, preferred;
+        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, "lane", 0, ok, ""), disallowed);
+        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_ALLOW, "lane", 0, ok, ""), allowed);
+        SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_PREFER, "lane", 0, ok, ""), preferred);
+        if (!ok) {
+            return;
+        }
         if (lane<0) {
             MsgHandler::getErrorInstance()->inform("Missing lane-id in lane definition (edge '" + myCurrentID + "').");
             return;
@@ -205,10 +212,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // set information about allowed / disallowed vehicle classes
-        std::vector<std::string> disallowed, allowed, preferred;
-        SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_DISALLOW, ""), disallowed);
-        SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_ALLOW, ""), allowed);
-        SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_PREFER, ""), preferred);
         for (std::vector<std::string>::iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
             myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(*i));
         }
@@ -269,7 +272,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                 e.pos = myCurrentEdge->getGeometry().length() + e.pos;
             }
             std::vector<std::string> lanes;
-            SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_LANES, ""), lanes);
+            SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_LANES, "split", 0, ok, ""), lanes);
             for (std::vector<std::string>::iterator i=lanes.begin(); i!=lanes.end(); ++i) {
                 try {
                     int lane = TplConvert<char>::_2int((*i).c_str());
@@ -294,10 +297,14 @@ bool
 NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
     // the names and the coordinates of the beginning and the end node
     // may be found, try
+    bool ok = true;
     string begNodeID = myIsUpdate ? myCurrentEdge->getFromNode()->getID() : "";
     string endNodeID = myIsUpdate ? myCurrentEdge->getToNode()->getID() : "";
-    begNodeID = attrs.hasAttribute(SUMO_ATTR_FROMNODE) ? attrs.getStringSecure(SUMO_ATTR_FROMNODE, "") : begNodeID;
-    endNodeID = attrs.hasAttribute(SUMO_ATTR_TONODE) ? attrs.getStringSecure(SUMO_ATTR_TONODE, "") : endNodeID;
+    begNodeID = attrs.hasAttribute(SUMO_ATTR_FROMNODE) ? attrs.getStringReporting(SUMO_ATTR_FROMNODE, "edge", 0, ok) : begNodeID;
+    endNodeID = attrs.hasAttribute(SUMO_ATTR_TONODE) ? attrs.getStringReporting(SUMO_ATTR_TONODE, "edge", 0, ok) : endNodeID;
+    if (!ok) {
+        return false;
+    }
     // or their positions !!! deprecated
     SUMOReal begNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XFROM, "XFrom");
     SUMOReal begNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YFROM, "YFrom");
@@ -325,12 +332,8 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs) throw() {
 SUMOReal
 NIXMLEdgesHandler::tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
                                   const std::string &attrName) {
-    try {
-        return attrs.getFloatSecure(attrID, SUMOXML_INVALID_POSITION);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for " + attrName + " (at tag ID='" + myCurrentID + "').");
-        return SUMOXML_INVALID_POSITION;
-    }
+    bool ok = true;
+    return attrs.getOptSUMORealReporting(attrID, "edge", myCurrentID.c_str(), ok, SUMOXML_INVALID_POSITION);
 }
 
 
@@ -377,7 +380,8 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
     }
     // try to build shape
     try {
-        string shpdef = attrs.getStringSecure(SUMO_ATTR_SHAPE, "");
+        bool ok = true;
+        string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, "edge", 0, ok, "");
         if (shpdef=="") {
             return Position2DVector();
         }
@@ -391,8 +395,6 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
             shape.push_back(pos);
         }
         return shape;
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("At least one number is missing in shape definition for edge '" + myCurrentID + "'.");
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("A non-numeric value occured in shape definition for edge '" + myCurrentID + "'.");
     }

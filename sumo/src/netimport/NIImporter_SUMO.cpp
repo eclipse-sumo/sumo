@@ -228,14 +228,15 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
     if (!attrs.setIDFromAttributes("edge", id)) {
         return;
     }
+    bool ok = true;
     myCurrentEdge = new EdgeAttrs;
     myCurrentEdge->id = id;
     // get the type
-    myCurrentEdge->type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+    myCurrentEdge->type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "edge", id.c_str(), ok, "");
     // get the origin and the destination node
-    myCurrentEdge->fromNode = attrs.getStringSecure(SUMO_ATTR_FROM, "");
-    myCurrentEdge->toNode = attrs.getStringSecure(SUMO_ATTR_TO, "");
-    myCurrentEdge->priority = attrs.getIntSecure(SUMO_ATTR_PRIORITY, -1);
+    myCurrentEdge->fromNode = attrs.getOptStringReporting(SUMO_ATTR_FROM, "edge", id.c_str(), ok, "");
+    myCurrentEdge->toNode = attrs.getOptStringReporting(SUMO_ATTR_TO, "edge", id.c_str(), ok, "");
+    myCurrentEdge->priority = attrs.getOptIntReporting(SUMO_ATTR_PRIORITY, "edge", id.c_str(), ok, -1);
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->builtEdge = 0;
 }
@@ -244,11 +245,12 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs) {
 void
 NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane = new LaneAttrs;
-    myCurrentLane->depart = attrs.getBoolSecure(SUMO_ATTR_DEPART, false);
-    myCurrentLane->maxSpeed = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, -1);
+    bool ok = true;
+    myCurrentLane->maxSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_MAXSPEED, "lane", 0, ok, -1);
+    myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, 0, 0, ok, false);
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
-        myCurrentLane->shape = GeomConvHelper::parseShape(attrs.getString(SUMO_ATTR_SHAPE));
+        myCurrentLane->shape = GeomConvHelper::parseShape(attrs.getStringReporting(SUMO_ATTR_SHAPE, "lane", 0, ok));
     }
 }
 
@@ -263,8 +265,10 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
     if (id[0]==':') {
         return;
     }
-    SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
-    SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
+    bool ok = true;
+    SUMOReal x = attrs.getOptSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok, -1);
+    SUMOReal y = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok, -1);
+    // !!! this is too simplified! A proper error check should be done
     if (x==-1||y==-1) {
         MsgHandler::getErrorInstance()->inform("Junction '" + id + "' has an invalid position.");
         return;
@@ -274,8 +278,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
         MsgHandler::getErrorInstance()->inform("Unable to project coordinates for junction " + id + ".");
         return;
     }
-    string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-    NBNode *node = new NBNode(id, pos/* !!!, type */);
+    NBNode *node = new NBNode(id, pos);
     if (!myNodeCont.insert(node)) {
         MsgHandler::getErrorInstance()->inform("Problems on adding junction '" + id + "'.");
         delete node;
@@ -286,8 +289,8 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs) {
 
 void
 NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs) {
-//    string edge = attrs.getStringSecure(SUMO_ATTR_EDGE, ""); // !!! never used?
-    string lane = attrs.getStringSecure(SUMO_ATTR_LANE, "");
+    bool ok = true;
+    string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
     string edge = lane.substr(0, lane.find('_'));
     int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
     myCurrentEdge = 0;
@@ -312,7 +315,8 @@ NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs) {
         // had error
         return;
     }
-    string lane = attrs.getStringSecure(SUMO_ATTR_LANE, "");
+    bool ok = true;
+    string lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, 0, 0, ok, "");
     EdgeLane el;
     el.lane = lane;
     myCurrentLane->connections.push_back(el);

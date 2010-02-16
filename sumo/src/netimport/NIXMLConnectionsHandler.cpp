@@ -72,14 +72,10 @@ void
 NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
                                         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_RESET) {
-        string from = attrs.getStringSecure(SUMO_ATTR_FROM, "");
-        string to = attrs.getStringSecure(SUMO_ATTR_TO, "");
-        if (from.length()==0) {
-            MsgHandler::getErrorInstance()->inform("A from-edge is not specified within one of the connections-resets.");
-            return;
-        }
-        if (to.length()==0) {
-            MsgHandler::getErrorInstance()->inform("A to-edge is not specified within one of the connection-resets.");
+        bool ok = true;
+        string from = attrs.getStringReporting(SUMO_ATTR_FROM, "reset", 0, ok);
+        string to = attrs.getStringReporting(SUMO_ATTR_TO, "reset", 0, ok);
+        if (!ok) {
             return;
         }
         NBEdge *fromEdge = myEdgeCont.retrieve(from);
@@ -96,8 +92,13 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
     }
 
     if (element==SUMO_TAG_CONNECTION) {
-        string from = attrs.getStringSecure(SUMO_ATTR_FROM, "");
-        string to = attrs.getStringSecure(SUMO_ATTR_TO, "");
+        bool ok = true;
+        string from = attrs.getOptStringReporting(SUMO_ATTR_FROM, "connection", 0, ok, "");
+        string to = attrs.getOptStringReporting(SUMO_ATTR_TO, "connection", 0, ok, "");
+        string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, "connection", 0, ok, "");
+        if (!ok) {
+            return;
+        }
         if (from.length()==0) {
             MsgHandler::getErrorInstance()->inform("A from-edge is not specified within one of the connections");
             return;
@@ -119,7 +120,6 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
             MsgHandler::getWarningInstance()->inform("While parsing connections: 'type' is deprecated.\n All occurences are ignored.");
             myHaveReportedAboutFunctionDeprecation = true;
         }
-        string laneConn = attrs.getStringSecure(SUMO_ATTR_LANE, "");
         if (laneConn=="") {
             fromEdge->addEdge2EdgeConnection(toEdge);
         } else {
@@ -127,8 +127,12 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
         }
     }
     if (element==SUMO_TAG_PROHIBITION) {
-        string prohibitor = attrs.getStringSecure(SUMO_ATTR_PROHIBITOR, "");
-        string prohibited = attrs.getStringSecure(SUMO_ATTR_PROHIBITED, "");
+        bool ok = true;
+        string prohibitor = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITOR, "prohibition", 0, ok, "");
+        string prohibited = attrs.getOptStringReporting(SUMO_ATTR_PROHIBITED, "prohibition", 0, ok, "");
+        if (!ok) {
+            return;
+        }
         NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
         NBConnection prohibitedC = parseConnection("prohibited", prohibited);
         if (prohibitorC.getFrom()==0||prohibitedC.getFrom()==0) {
@@ -185,7 +189,8 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         // do nothing if it's a dead end
         return;
     }
-    string laneConn = attrs.getStringSecure(SUMO_ATTR_LANE, "");
+    bool ok = true;
+    string laneConn = attrs.getOptStringReporting(SUMO_ATTR_LANE, "connection", 0, ok, "");
     // split the information
     StringTokenizer st(laneConn, ':');
     if (st.size()!=2) {
@@ -193,26 +198,22 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
                                                from->getID() + "' to '" + to->getID() + "'.");
         return;
     }
-    // get the begin and the end lane
-    bool mayDefinitelyPass = false;
-    if (attrs.hasAttribute(SUMO_ATTR_PASS)) {
-        mayDefinitelyPass = attrs.getBool(SUMO_ATTR_PASS);
+    bool mayDefinitelyPass = attrs.getOptBoolReporting(SUMO_ATTR_PASS, "connection", 0, ok, false);
+    if (!ok) {
+        return;
     }
-    //
+    // get the begin and the end lane
     int fromLane;
     int toLane;
     try {
         fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
         toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-        if (fromLane<0 || fromLane>=from->getNoLanes() ||
-                toLane<0 || toLane>=to->getNoLanes()) {
-            MsgHandler::getErrorInstance()->inform("False lane index in connection from '" +
-                                                   from->getID() + "' to '" + to->getID() + "'.");
+        if (fromLane<0 || fromLane>=from->getNoLanes() || toLane<0 || toLane>=to->getNoLanes()) {
+            MsgHandler::getErrorInstance()->inform("False lane index in connection from '" + from->getID() + "' to '" + to->getID() + "'.");
             return;
         }
         if (from->hasConnectionTo(to, toLane)) {
-            WRITE_WARNING("Target lane '" + to->getID() + "_" + toString<int>(toLane) +
-                          "' is already connected from '" + from->getID() + "'.");
+            WRITE_WARNING("Target lane '" + to->getID() + "_" + toString(toLane) + "' is already connected from '" + from->getID() + "'.");
         }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass)) {
             NBEdge *nFrom = from;
@@ -241,13 +242,9 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         MsgHandler::getErrorInstance()->inform("At least one of the defined lanes was not numeric");
     }
     //
-    try {
-        bool keepUncontrolled = attrs.getBoolSecure(SUMO_ATTR_UNCONTROLLED, false);
-        if (keepUncontrolled) {
-            from->disableConnection4TLS(fromLane, to, toLane);
-        }
-    } catch (BoolFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The definition about being (un)controlled is not a valid bool.");
+    bool keepUncontrolled = attrs.getOptBoolReporting(SUMO_ATTR_UNCONTROLLED, 0, 0, ok, false);
+    if (keepUncontrolled) {
+        from->disableConnection4TLS(fromLane, to, toLane);
     }
 }
 

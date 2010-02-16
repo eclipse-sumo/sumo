@@ -458,35 +458,31 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             myLastNodeID = id;
             // assume we are loading multiple files...
             //  ... so we won't report duplicate nodes
+            bool ok = true;
+            double tlat, tlon;
+            std::istringstream lon(attrs.getStringReporting(SUMO_ATTR_LON, "node", toString(id).c_str(), ok));
+            if (!ok) {
+                return;
+            }
+            lon >> tlon;
+            if (lon.fail()) {
+                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lon information is not numeric.");
+                return;
+            }
+            std::istringstream lat(attrs.getStringReporting(SUMO_ATTR_LAT, "node", toString(id).c_str(), ok));
+            if (!ok) {
+                return;
+            }
+            lat >> tlat;
+            if (lat.fail()) {
+                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lat information is not numeric.");
+                return;
+            }
             NIOSMNode *toAdd = new NIOSMNode();
             toAdd->id = id;
             toAdd->tlsControlled = false;
-            try {
-                std::istringstream lon(attrs.getString(SUMO_ATTR_LON));
-                lon >> toAdd->lon;
-                if (lon.fail()) {
-                    MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lon information is not numeric.");
-                    delete toAdd;
-                    return;
-                }
-            } catch (EmptyData &) {
-                MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lon information.");
-                delete toAdd;
-                return;
-            }
-            try {
-                std::istringstream lat(attrs.getString(SUMO_ATTR_LAT));
-                lat >> toAdd->lat;
-                if (lat.fail()) {
-                    MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lat information is not numeric.");
-                    delete toAdd;
-                    return;
-                }
-            } catch (EmptyData &) {
-                MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lat information.");
-                delete toAdd;
-                return;
-            }
+            toAdd->lat = tlat;
+            toAdd->lon = tlon;
             myToFill[toAdd->id] = toAdd;
             myIsInValidNodeTag = true;
         }
@@ -496,19 +492,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             MsgHandler::getErrorInstance()->inform("Tag element on wrong XML hierarchy level.");
             return;
         }
-        string key, value;
-        try {
-            // retrieve the id of the (geometry) node
-            key = attrs.getString(SUMO_ATTR_K);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'tag' in node '" + toString(myLastNodeID) + "' misses a value.");
-            return;
-        }
-        try {
-            // retrieve the id of the (geometry) node
-            value = attrs.getString(SUMO_ATTR_V);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'value' in node '" + toString(myLastNodeID) + "' misses a value.");
+        bool ok = true;
+        string key = attrs.getStringReporting(SUMO_ATTR_K, "tag", toString(myLastNodeID).c_str(), ok);
+        string value = attrs.getStringReporting(SUMO_ATTR_V, "tag", toString(myLastNodeID).c_str(), ok);
+        if (!ok) {
             return;
         }
         if (key == "highway" && value.find("traffic_signal") != string::npos) {
@@ -549,17 +536,16 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
+        bool ok = true;
+        std::string id = attrs.getStringReporting(SUMO_ATTR_ID, "way", 0, ok);
+        if (!ok) {
+            return;
+        }
         myCurrentEdge = new Edge();
+        myCurrentEdge->id = id;
         myCurrentEdge->myNoLanes = -1;
         myCurrentEdge->myMaxSpeed = -1;
         myCurrentEdge->myCurrentIsRoad = false;
-        try {
-            // retrieve the id of the edge
-            myCurrentEdge->id = attrs.getString(SUMO_ATTR_ID);
-        } catch (EmptyData &) {
-            WRITE_WARNING("No edge id given... Skipping.");
-            return;
-        }
     }
     // parse "nd" (node) elements
     if (element==SUMO_TAG_ND) {
@@ -575,19 +561,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     }
     // parse values
     if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_WAY) {
-        string key, value;
-        try {
-            // retrieve the id of the (geometry) node
-            key = attrs.getString(SUMO_ATTR_K);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'tag' in edge '" + myCurrentEdge->id + "' misses a value.");
-            return;
-        }
-        try {
-            // retrieve the id of the (geometry) node
-            value = attrs.getString(SUMO_ATTR_V);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'value' in edge '" + myCurrentEdge->id + "' misses a value.");
+        bool ok = true;
+        string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
+        string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);
+        if (!ok) {
             return;
         }
         if (key=="highway"||key=="railway") {

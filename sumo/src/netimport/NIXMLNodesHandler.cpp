@@ -84,35 +84,20 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
     }
     NBNode *node = myNodeCont.retrieve(myID);
     // retrieve the position of the node
+    bool ok = true;
     bool xOk = false;
     bool yOk = false;
     if (node!=0) {
         myPosition = node->getPosition();
         xOk = yOk = true;
     }
-    try {
-        if (attrs.hasAttribute(SUMO_ATTR_X)) {
-            myPosition.set(attrs.getFloat(SUMO_ATTR_X), myPosition.y());
-            xOk = true;
-        }
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for position (at node ID='" + myID + "').");
-        return;
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Node position (at node ID='" + myID + "') is not given.");
-        return;
+    if (attrs.hasAttribute(SUMO_ATTR_X)) {
+        myPosition.set(attrs.getSUMORealReporting(SUMO_ATTR_X, "node", myID.c_str(), ok), myPosition.y());
+        xOk = true;
     }
-    try {
-        if (attrs.hasAttribute(SUMO_ATTR_Y)) {
-            myPosition.set(myPosition.x(), attrs.getFloat(SUMO_ATTR_Y));
-            yOk = true;
-        }
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for position (at node ID='" + myID + "').");
-        return;
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Node position (at node ID='" + myID + "') is not given.");
-        return;
+    if (attrs.hasAttribute(SUMO_ATTR_Y)) {
+        myPosition.set(myPosition.x(), attrs.getSUMORealReporting(SUMO_ATTR_Y, "node", myID.c_str(), ok));
+        yOk = true;
     }
     if (xOk&&yOk) {
         if (!GeoConvHelper::x2cartesian(myPosition)) {
@@ -131,7 +116,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         type = node->getType();
     }
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        string typeS = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        string typeS = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "node", myID.c_str(), ok, "");
         if (typeS=="priority") {
             type = NBNode::NODETYPE_PRIORITY_JUNCTION;
         } else if (typeS=="right_before_left") {
@@ -173,7 +158,8 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
     //  if so, we will add the node to it, otherwise allocate a new one with this id
     // if no tl-id exists, we will build a tl with the node's id
     NBTrafficLightDefinition *tlDef = 0;
-    string tlID = attrs.getStringSecure(SUMO_ATTR_TLID, "");
+    bool ok = true;
+    string tlID = attrs.getOptStringReporting(SUMO_ATTR_TLID, "node", 0, ok, "");
     if (tlID!="") {
         // ok, the traffic light has a name
         tlDef = myTLLogicCont.getDefinition(tlID);
@@ -198,10 +184,9 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
             throw ProcessError("Could not allocate tls '" + myID + "'.");
         }
     }
-
     // process inner edges which shall be controlled
     std::vector<std::string> controlledInner;
-    SUMOSAXAttributes::parseStringVector(attrs.getStringSecure(SUMO_ATTR_CONTROLLED_INNER, ""), controlledInner);
+    SUMOSAXAttributes::parseStringVector(attrs.getOptStringReporting(SUMO_ATTR_CONTROLLED_INNER, "node", 0, ok, ""), controlledInner);
     if (controlledInner.size()!=0) {
         tlDef->addControlledInnerEdges(controlledInner);
     }
