@@ -65,26 +65,21 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
             if (!attrs.setIDFromAttributes("detector_definition", id, false)) {
                 throw ProcessError("A detector_definition without an id occured within '" + getFileName() + "'.");
             }
-            std::string lane;
-            try {
-                lane = attrs.getString(SUMO_ATTR_LANE);
-                ROEdge *edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
-                unsigned int laneIndex = TplConvertSec<char>::_2intSec(lane.substr(lane.rfind('_')+1).c_str(), INT_MAX);
-                if (edge == 0 || laneIndex >= edge->getLaneNo()) {
-                    throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
-                }
-            } catch (EmptyData&) {
-                throw ProcessError("A detector without a lane information occured within '" + getFileName() + "' (detector id='" + id + "').");
+            bool ok = true;
+            std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "detector_definition", id.c_str(), ok);
+            if (!ok) {
+                throw ProcessError();
             }
-            SUMOReal pos;
-            try {
-                pos = attrs.getFloat(SUMO_ATTR_POSITION);
-            } catch (EmptyData&) {
-                throw ProcessError("A detector without a lane position occured within '" + getFileName() + "' (detector id='" + id + "').");
-            } catch (NumberFormatException&) {
-                throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + "').");
+            ROEdge *edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
+            unsigned int laneIndex = TplConvertSec<char>::_2intSec(lane.substr(lane.rfind('_')+1).c_str(), INT_MAX);
+            if (edge == 0 || laneIndex >= edge->getLaneNo()) {
+                throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
             }
-            std::string mml_type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+            SUMOReal pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "detector_definition", id.c_str(), ok);
+            std::string mml_type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "detector_definition", id.c_str(), ok, "");
+            if (!ok) {
+                throw ProcessError();
+            }
             RODFDetectorType type = TYPE_NOT_DEFINED;
             if (mml_type=="between") {
                 type = BETWEEN_DETECTOR;
