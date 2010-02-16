@@ -200,7 +200,7 @@ private:
      * @exception ProcessError If an attribute's value is invalid
      */
     static void parseCommonAttributes(const SUMOSAXAttributes &attrs,
-            SUMOVehicleParameter *ret, std::string element) throw(ProcessError);
+                                      SUMOVehicleParameter *ret, std::string element) throw(ProcessError);
 
 
 };

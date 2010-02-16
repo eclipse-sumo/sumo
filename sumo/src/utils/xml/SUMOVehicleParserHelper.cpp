@@ -48,8 +48,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
         throw ProcessError();
     }
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD) +
-        attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) +
-        attrs.hasAttribute(SUMO_ATTR_NO) != 1) {
+            attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) +
+            attrs.hasAttribute(SUMO_ATTR_NO) != 1) {
         throw ProcessError("Exactly one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
                            "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                            "', and '" + attrs.getName(SUMO_ATTR_NO) +
@@ -128,11 +128,11 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING("period and repno are deprecated in vehicle '" + id + "', use flows instead.");
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = attrs.getFloat(SUMO_ATTR_PERIOD);
+        ret->repetitionOffset = attrs.getSUMORealReporting(SUMO_ATTR_PERIOD, "vehicle", id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         ret->setParameter |= VEHPARS_PERIODNUM_SET;
-        ret->repetitionNumber = attrs.getInt(SUMO_ATTR_REPNUMBER);
+        ret->repetitionNumber = attrs.getIntReporting(SUMO_ATTR_REPNUMBER, "vehicle", id.c_str(), ok);
     }
 
     if (!ok) {
@@ -145,28 +145,29 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
 
 void
 SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
-                                               SUMOVehicleParameter *ret, std::string element) throw(ProcessError) {
+        SUMOVehicleParameter *ret, std::string element) throw(ProcessError) {
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
+    bool ok = true;
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         ret->setParameter |= VEHPARS_ROUTE_SET; // !!! needed?
-        ret->routeid = attrs.getString(SUMO_ATTR_ROUTE);
+        ret->routeid = attrs.getStringReporting(SUMO_ATTR_ROUTE, "vehicle", 0, ok);
     }
     // parse type information
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         ret->setParameter |= VEHPARS_VTYPE_SET; // !!! needed?
-        ret->vtypeid = attrs.getString(SUMO_ATTR_TYPE);
+        ret->vtypeid = attrs.getStringReporting(SUMO_ATTR_TYPE, "vehicle", 0, ok);
     }
     // parse line information
     if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
         ret->setParameter |= VEHPARS_LINE_SET; // !!! needed?
-        ret->line = attrs.getString(SUMO_ATTR_LINE);
+        ret->line = attrs.getStringReporting(SUMO_ATTR_LINE, "vehicle", 0, ok);
     }
 
     // parse depart lane information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
         ret->setParameter |= VEHPARS_DEPARTLANE_SET;
-        std::string helper = attrs.getString(SUMO_ATTR_DEPARTLANE);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTLANE, "vehicle", 0, ok);
         if (helper=="departlane") {
             ret->departLaneProcedure = DEPART_LANE_DEPARTLANE;
         } else if (helper=="random") {
@@ -190,7 +191,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         ret->setParameter |= VEHPARS_DEPARTPOS_SET;
-        std::string helper = attrs.getString(SUMO_ATTR_DEPARTPOS);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTPOS, "vehicle", 0, ok);
         if (helper=="random") {
             ret->departPosProcedure = DEPART_POS_RANDOM;
         } else if (helper=="random_free") {
@@ -211,7 +212,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse depart position information
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTSPEED)) {
         ret->setParameter |= VEHPARS_DEPARTSPEED_SET;
-        std::string helper = attrs.getString(SUMO_ATTR_DEPARTSPEED);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_DEPARTSPEED, "vehicle", 0, ok);
         if (helper=="random") {
             ret->departSpeedProcedure = DEPART_SPEED_RANDOM;
         } else if (helper=="max") {
@@ -231,7 +232,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse arrival lane information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
         ret->setParameter |= VEHPARS_ARRIVALLANE_SET;
-        std::string helper = attrs.getString(SUMO_ATTR_ARRIVALLANE);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALLANE, "vehicle", 0, ok);
         if (helper=="current") {
             ret->arrivalLaneProcedure = ARRIVAL_LANE_CURRENT;
         } else {
@@ -248,7 +249,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         ret->setParameter |= VEHPARS_ARRIVALPOS_SET;
-        std::string helper = attrs.getString(SUMO_ATTR_ARRIVALPOS);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALPOS, "vehicle", 0, ok);
         if (helper=="random") {
             ret->arrivalPosProcedure = ARRIVAL_POS_RANDOM;
         } else if (helper=="max") {
@@ -267,7 +268,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse arrival position information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALSPEED)) {
         ret->setParameter |= VEHPARS_ARRIVALSPEED_SET;
-        std::string helper = attrs.getString(SUMO_ATTR_ARRIVALSPEED);
+        std::string helper = attrs.getStringReporting(SUMO_ATTR_ARRIVALSPEED, "vehicle", 0, ok);
         if (helper=="current") {
             ret->arrivalSpeedProcedure = ARRIVAL_SPEED_CURRENT;
         } else {
@@ -285,7 +286,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes &attrs,
     // parse color
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         ret->setParameter |= VEHPARS_COLOR_SET;
-        ret->color = RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR));
+        ret->color = RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, "vehicle", 0, ok));
     } else {
         ret->color = RGBColor::DEFAULT_COLOR;
     }
@@ -336,7 +337,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes &attrs) throw
         vtype->setParameter |= VTYPEPARS_SHAPE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        vtype->color = RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR));
+        vtype->color = RGBColor::parseColor(attrs.getStringReporting(SUMO_ATTR_COLOR, "vtype", vtype->id.c_str(), ok));
         vtype->setParameter |= VTYPEPARS_COLOR_SET;
     } else {
         vtype->color = RGBColor(1,1,0);
@@ -444,7 +445,8 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes &attrs,
         const std::string &id) throw() {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
-        std::string vclassS = attrs.getStringSecure(SUMO_ATTR_VCLASS, "");
+        bool ok = true;
+        std::string vclassS = attrs.getOptStringReporting(SUMO_ATTR_VCLASS, type.c_str(), id.c_str(), ok, "");
         if (vclassS=="") {
             return vclass;
         }
@@ -462,7 +464,8 @@ SUMOVehicleParserHelper::parseEmissionClass(const SUMOSAXAttributes &attrs,
         const std::string &id) throw() {
     SUMOEmissionClass vclass = SVE_UNKNOWN;
     try {
-        std::string vclassS = attrs.getStringSecure(SUMO_ATTR_EMISSIONCLASS, "");
+        bool ok = true;
+        std::string vclassS = attrs.getOptStringReporting(SUMO_ATTR_EMISSIONCLASS, type.c_str(), id.c_str(), ok, "");
         if (vclassS=="") {
             return vclass;
         }
@@ -480,7 +483,8 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes &attrs,
                                        const std::string &id) throw() {
     SUMOVehicleShape vclass = SVS_UNKNOWN;
     try {
-        std::string vclassS = attrs.getStringSecure(SUMO_ATTR_GUISHAPE, "");
+        bool ok = true;
+        std::string vclassS = attrs.getOptStringReporting(SUMO_ATTR_GUISHAPE, type.c_str(), id.c_str(), ok, "");
         if (vclassS=="") {
             return vclass;
         }
