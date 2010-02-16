@@ -81,7 +81,7 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_SINK:
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::string edges = attrs.getString(SUMO_ATTR_EDGES);
+            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, "sink", 0, ok);
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
             while (st.hasNext()) {
                 std::string id = st.next();
@@ -95,7 +95,7 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_SOURCE:
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::string edges = attrs.getString(SUMO_ATTR_EDGES);
+            std::string edges = attrs.getStringReporting(SUMO_ATTR_EDGES, "source", 0, ok);
             StringTokenizer st(edges, StringTokenizer::WHITECHARS);
             while (st.hasNext()) {
                 std::string id = st.next();
