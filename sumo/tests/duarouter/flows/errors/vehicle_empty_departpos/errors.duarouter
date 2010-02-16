@@ -1,3 +1,4 @@
+Error: Attribute 'departpos' in definition of a vehicle is empty.
 Error: The loader for flows from file 'input_flows.flows.xml' could not be initialised;
  Reason: Invalid departpos definition for vehicle 0.
 Quitting (on error).

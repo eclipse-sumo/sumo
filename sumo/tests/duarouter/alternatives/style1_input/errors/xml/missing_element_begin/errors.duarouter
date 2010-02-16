@@ -1,2 +1,2 @@
-Error: Missing id in route.
+Error: Attribute 'id' is missing in definition of a route.
 Quitting (on error).
