@@ -118,20 +118,6 @@ public:
     void closeBuilding();
 
 
-    /** @brief Get the allowed lanes to reach the destination-edge.
-     *
-     * If there is no such edge, get 0. Then you are on the wrong edge.
-     *
-     * @param[in] destination The edge to reach
-     * @param[in] vclass The vehicle class for which this information shall be returned
-     * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
-     * @todo At the begin, three checks are done for determining whether the class is of importance. Consolidate this
-     * @todo There is also a further note in the code that should be checked
-     */
-    const std::vector<MSLane*>* allowedLanes(const MSEdge& destination,
-            SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
-
-
     /// @name Access to the edge's lanes
     /// @{
 
@@ -160,6 +146,28 @@ public:
     const std::vector<MSLane*> &getLanes() const throw() {
         return *myLanes;
     }
+
+
+    /** @brief Get the allowed lanes to reach the destination-edge.
+     *
+     * If there is no such edge, get 0. Then you are on the wrong edge.
+     *
+     * @param[in] destination The edge to reach
+     * @param[in] vclass The vehicle class for which this information shall be returned
+     * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
+     */
+    const std::vector<MSLane*>* allowedLanes(const MSEdge& destination,
+            SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
+
+
+    /** @brief Get the allowed lanes for the given vehicle class.
+     *
+     * If there is no such edge, get 0. Then you are on the wrong edge.
+     *
+     * @param[in] vclass The vehicle class for which this information shall be returned
+     * @return The lanes that may be used by the given vclass
+     */
+    const std::vector<MSLane*>* allowedLanes(SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
     /// @}
 
 
@@ -407,8 +415,7 @@ public:
 
 
 protected:
-    /**
-     * @class by_id_sorter
+    /** @class by_id_sorter
      * @brief Sorts edges by their ids
      */
     class by_id_sorter {
@@ -416,12 +423,24 @@ protected:
         /// @brief constructor
         explicit by_id_sorter() { }
 
+        /// @brief comparing operator
         int operator()(const MSEdge * const e1, const MSEdge * const e2) const {
             return e1->getID()<e2->getID();
         }
 
     };
 
+
+    /** @brief Get the allowed lanes to reach the destination-edge.
+     *
+     * If there is no such edge, get 0. Then you are on the wrong edge.
+     *
+     * @param[in] destination The edge to reach
+     * @param[in] vclass The vehicle class for which this information shall be returned
+     * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
+     */
+    const std::vector<MSLane*>* allowedLanes(const MSEdge *destination,
+            SUMOVehicleClass vclass=SVC_UNKNOWN) const throw();
 
 protected:
     /// @brief Unique ID.

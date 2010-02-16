@@ -102,19 +102,22 @@ MSEdge::initialize(MSLane* departLane,
     }
 }
 
+
 void
 MSEdge::closeBuilding() {
+    myAllowed[0] = new std::vector<MSLane*>();
     for (std::vector<MSLane*>::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+        myAllowed[0]->push_back(*i);
         const MSLinkCont &lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             MSLane *toL = (*j)->getLane();
             if (toL!=0) {
                 MSEdge &to = toL->getEdge();
                 //
-                if(std::find(mySuccessors.begin(), mySuccessors.end(), &to)==mySuccessors.end()) {
+                if (std::find(mySuccessors.begin(), mySuccessors.end(), &to)==mySuccessors.end()) {
                     mySuccessors.push_back(&to);
                 }
-                if(std::find(to.myPredeccesors.begin(), to.myPredeccesors.end(), this)==to.myPredeccesors.end()) {
+                if (std::find(to.myPredeccesors.begin(), to.myPredeccesors.end(), this)==to.myPredeccesors.end()) {
                     to.myPredeccesors.push_back(this);
                 }
                 //
@@ -151,6 +154,7 @@ MSEdge::rebuildAllowedLanes() throw() {
     for (std::set<SUMOVehicleClass>::const_iterator j=vclasses.begin(); j!=vclasses.end(); ++j) {
         // go through connected edges
         for (AllowedLanesCont::iterator i1=myAllowed.begin(); i1!=myAllowed.end(); ++i1) {
+            delete myClassedAllowed[*j][(*i1).first];
             myClassedAllowed[*j][(*i1).first] = new std::vector<MSLane*>();
             // go through lanes approaching current edge
             for (std::vector<MSLane*>::iterator i2=(*i1).second->begin(); i2!=(*i1).second->end(); ++i2) {
@@ -161,7 +165,7 @@ MSEdge::rebuildAllowedLanes() throw() {
                 }
             }
             // assert that 0 is returned if no connection is allowed for a class
-            if(myClassedAllowed[*j][(*i1).first]->size()==0) {
+            if (myClassedAllowed[*j][(*i1).first]->size()==0) {
                 delete myClassedAllowed[*j][(*i1).first];
                 myClassedAllowed[*j][(*i1).first] = 0;
             }
@@ -171,30 +175,7 @@ MSEdge::rebuildAllowedLanes() throw() {
 }
 
 
-const std::vector<MSLane*>*
-MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const throw() {
-    if (myHaveClassConstraints&&vclass!=SVC_UNKNOWN) {
-        ClassedAllowedLanesCont::const_iterator i = myClassedAllowed.find(vclass);
-        if(i!=myClassedAllowed.end()) {
-            const AllowedLanesCont &c = (*i).second;
-            AllowedLanesCont::const_iterator j = (*i).second.find(&destination);
-            if(j==c.end()) {
-                // Destination-edge not found.
-                return 0;
-            }
-            return (*j).second;
-        }
-    }
-    AllowedLanesCont::const_iterator it = myAllowed.find(&destination);
-    if (it!=myAllowed.end()) {
-        return it->second;
-    } else {
-        // Destination-edge not found.
-        return 0;
-    }
-}
-
-
+// ------------ Access to the edge's lanes
 MSLane * const
 MSEdge::leftLane(const MSLane * const lane) const throw() {
     std::vector<MSLane*>::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
@@ -215,6 +196,43 @@ MSEdge::rightLane(const MSLane * const lane) const throw() {
 }
 
 
+const std::vector<MSLane*>*
+MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const throw() {
+    return allowedLanes(&destination, vclass);
+}
+
+
+const std::vector<MSLane*>*
+MSEdge::allowedLanes(SUMOVehicleClass vclass) const throw() {
+    return allowedLanes(0, vclass);
+}
+
+
+const std::vector<MSLane*>*
+MSEdge::allowedLanes(const MSEdge *destination, SUMOVehicleClass vclass) const throw() {
+    if (myHaveClassConstraints&&vclass!=SVC_UNKNOWN) {
+        ClassedAllowedLanesCont::const_iterator i = myClassedAllowed.find(vclass);
+        if (i!=myClassedAllowed.end()) {
+            const AllowedLanesCont &c = (*i).second;
+            AllowedLanesCont::const_iterator j = (*i).second.find(destination);
+            if (j==c.end()) {
+                // Destination-edge not found.
+                return 0;
+            }
+            return (*j).second;
+        }
+    }
+    AllowedLanesCont::const_iterator it = myAllowed.find(destination);
+    if (it!=myAllowed.end()) {
+        return it->second;
+    } else {
+        // Destination-edge not found.
+        return 0;
+    }
+}
+
+
+// ------------
 SUMOTime
 MSEdge::incVaporization(SUMOTime) throw(ProcessError) {
     ++myVaporizationRequests;

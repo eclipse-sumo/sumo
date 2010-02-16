@@ -1473,6 +1473,9 @@ MSVehicle::rebuildAllowedLanes(bool reinit) {
     if (dist<MIN_DIST) {
         unsigned int pos = (unsigned int)(distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size());
         if (pos>=myRoute->size()-1) {
+            if(pos==0&&myRoute->size()==1) {
+                myAllowedLanes.push_back((*myRoute)[0]->allowedLanes(myType->getVehicleClass()));
+            }
             return;
         }
         const std::vector<MSLane*> *al = (*myRoute)[pos]->allowedLanes(*(*myRoute)[pos+1], myType->getVehicleClass());
