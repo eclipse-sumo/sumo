@@ -1,2 +1,2 @@
-Error: Neither the name nor the position of the to-node is given for edge '1'.
+Error: Attribute 'tonode' in definition of a edge is empty.
 Quitting (on error).

@@ -1,2 +1,2 @@
-Error: Edge '1' has an empty type.
+Error: Attribute 'type' in definition of edge '1' is empty.
 Quitting (on error).
