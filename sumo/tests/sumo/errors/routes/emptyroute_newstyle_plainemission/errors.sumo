@@ -1,2 +1,2 @@
-Error: Vehicle's '0' route has no edges.
+Error: Attribute 'edges' in definition of route '!0' is empty.
 Quitting (on error).

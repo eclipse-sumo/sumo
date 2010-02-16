@@ -1,2 +1,2 @@
-Error: Route '0' has no edges.
+Error: Attribute 'edges' in definition of route '0' is empty.
 Quitting (on error).
