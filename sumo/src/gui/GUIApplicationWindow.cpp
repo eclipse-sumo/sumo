@@ -889,21 +889,18 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent *) {
 
 void
 GUIApplicationWindow::handleEvent_Message(GUIEvent *e) {
-    GUIEvent_Message *ec =
-        static_cast<GUIEvent_Message*>(e);
+    GUIEvent_Message *ec = static_cast<GUIEvent_Message*>(e);
     myMessageWindow->appendText(ec->getOwnType(), ec->getMsg());
 }
 
 
 void
 GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
-    GUIEvent_SimulationEnded *ec =
-        static_cast<GUIEvent_SimulationEnded*>(e);
+    GUIEvent_SimulationEnded *ec = static_cast<GUIEvent_SimulationEnded*>(e);
     if (!gQuitOnEnd) {
         // build the text
         std::stringstream text;
-        text << "The simulation has ended at time step "
-        << ec->getTimeStep() << ".\n";
+        text << "The simulation has ended at time step " << ec->getTimeStep() << ".\n";
         switch (ec->getReason()) {
         case GUIEvent_SimulationEnded::ER_NO_VEHICLES:
             text << "Reason: All vehicles have left the simulation.";
@@ -919,8 +916,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e) {
             break;
         }
         onCmdStop(0, 0, 0);
-        FXMessageBox::warning(this, MBOX_OK, "Simulation Ended",
-                              text.str().c_str());
+        FXMessageBox::warning(this, MBOX_OK, "Simulation Ended", text.str().c_str());
     } else {
         onCmdStop(0, 0, 0);
     }

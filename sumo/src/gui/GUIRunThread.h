@@ -108,7 +108,7 @@ public:
     void retrieveMessage(const MsgHandler::MsgType type, const std::string &msg);
 
 protected:
-    void makeStep();
+    void makeStep() throw();
 
 protected:
     /// the loaded simulation network
@@ -123,11 +123,6 @@ protected:
     /** information whether the thread shall be stopped
     (if not, the thread stays in an endless loop) */
     bool                    myQuit;
-
-    /** information whether a simulation step is being performed
-    (otherwise the thread may be waiting or the simulation is maybe not
-    performed at all) */
-    bool                    mySimulationInProgress;
 
     bool myOk;
 
