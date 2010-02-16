@@ -1,11 +1,11 @@
 ------------------ net/edge[0]@function:
-Error: Edge '1' has an invalid type ('').
+Error: Attribute 'function' in definition of edge '1' is empty.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]@function:
-Error: Edge '2' has an invalid type ('').
+Error: Attribute 'function' in definition of edge '2' is empty.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -27,13 +27,13 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]@function:<remove>
-Error: Missing function of an edge-object.
+Error: Attribute 'function' is missing in definition of edge '1'.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]@function:<remove>
-Error: Missing function of an edge-object.
+Error: Attribute 'function' is missing in definition of edge '2'.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -73,21 +73,18 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@depart:
-Error: Missing attribute in a lane-object (id='1_0').
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '1_0' is empty.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@depart:
-Error: Missing attribute in a lane-object (id='1_1').
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '1_1' is empty.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@depart:
-Error: Missing attribute in a lane-object (id='2_0').
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '2_0' is empty.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -95,28 +92,24 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@depart:
-Error: Missing attribute in a lane-object (id='2_1').
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '2_1' is empty.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@depart:a
-Error: Value of depart definition of lane '1_0' is invalid.
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '1_0' is not a boolean.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@depart:a
-Error: Value of depart definition of lane '1_1' is invalid.
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '1_1' is not a boolean.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@depart:a
-Error: Value of depart definition of lane '2_0' is invalid.
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '2_0' is not a boolean.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -124,28 +117,24 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@depart:a
-Error: Value of depart definition of lane '2_1' is invalid.
- Can not build according edge.
+Error: Attribute 'depart' in definition of lane '2_1' is not a boolean.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@depart:<remove>
-Error: Missing attribute in a lane-object (id='1_0').
- Can not build according edge.
+Error: Attribute 'depart' is missing in definition of lane '1_0'.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@depart:<remove>
-Error: Missing attribute in a lane-object (id='1_1').
- Can not build according edge.
+Error: Attribute 'depart' is missing in definition of lane '1_1'.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@depart:<remove>
-Error: Missing attribute in a lane-object (id='2_0').
- Can not build according edge.
+Error: Attribute 'depart' is missing in definition of lane '2_0'.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -153,8 +142,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@depart:<remove>
-Error: Missing attribute in a lane-object (id='2_1').
- Can not build according edge.
+Error: Attribute 'depart' is missing in definition of lane '2_1'.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
@@ -228,21 +216,18 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:
-Error: Missing attribute in a lane-object (id='1_0').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '1_0' is empty.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@length:
-Error: Missing attribute in a lane-object (id='1_1').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '1_1' is empty.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@length:
-Error: Missing attribute in a lane-object (id='2_0').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '2_0' is empty.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -250,28 +235,24 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@length:
-Error: Missing attribute in a lane-object (id='2_1').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '2_1' is empty.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:a
-Error: One of a lane's attributes must be numeric but is not (id='1_0').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '1_0' is not a real number.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@length:a
-Error: One of a lane's attributes must be numeric but is not (id='1_1').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '1_1' is not a real number.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@length:a
-Error: One of a lane's attributes must be numeric but is not (id='2_0').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '2_0' is not a real number.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -279,28 +260,24 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@length:a
-Error: One of a lane's attributes must be numeric but is not (id='2_1').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '2_1' is not a real number.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:<remove>
-Error: Missing attribute in a lane-object (id='1_0').
- Can not build according edge.
+Error: Attribute 'length' is missing in definition of lane '1_0'.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@length:<remove>
-Error: Missing attribute in a lane-object (id='1_1').
- Can not build according edge.
+Error: Attribute 'length' is missing in definition of lane '1_1'.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@length:<remove>
-Error: Missing attribute in a lane-object (id='2_0').
- Can not build according edge.
+Error: Attribute 'length' is missing in definition of lane '2_0'.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
@@ -308,13 +285,13 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@length:<remove>
-Error: Missing attribute in a lane-object (id='2_1').
- Can not build according edge.
+Error: Attribute 'length' is missing in definition of lane '2_1'.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
 Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:
+Error: Attribute 'shape' in definition of lane '1_0' is empty.
 Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -322,12 +299,14 @@ Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:
+Error: Attribute 'shape' in definition of lane '1_1' is empty.
 Error: Could not parse shape of lane '1_1'.
  Can not build according edge.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:
+Error: Attribute 'shape' in definition of lane '2_0' is empty.
 Error: Could not parse shape of lane '2_0'.
  Can not build according edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
@@ -337,6 +316,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:
+Error: Attribute 'shape' in definition of lane '2_1' is empty.
 Error: Could not parse shape of lane '2_1'.
  Can not build according edge.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
@@ -576,16 +556,13 @@ Quitting (on error).
 Error: Missing id of a 'junction'-object.
 Quitting (on error).
 ------------------ net/junction[0]@type:
-Error: An unknown or invalid junction type '' occured in junction '1'.
- Can not build according junction.
+Error: Attribute 'type' in definition of junction '1' is empty.
 Quitting (on error).
 ------------------ net/junction[1]@type:
-Error: An unknown or invalid junction type '' occured in junction '2'.
- Can not build according junction.
+Error: Attribute 'type' in definition of junction '2' is empty.
 Quitting (on error).
 ------------------ net/junction[2]@type:
-Error: An unknown or invalid junction type '' occured in junction '3'.
- Can not build according junction.
+Error: Attribute 'type' in definition of junction '3' is empty.
 Quitting (on error).
 ------------------ net/junction[0]@type:a
 Error: An unknown or invalid junction type 'a' occured in junction '1'.
@@ -600,16 +577,13 @@ Error: An unknown or invalid junction type 'a' occured in junction '3'.
  Can not build according junction.
 Quitting (on error).
 ------------------ net/junction[0]@type:<remove>
-Error: Missing attribute in junction '1'.
- Can not build according junction.
+Error: Attribute 'type' is missing in definition of junction '1'.
 Quitting (on error).
 ------------------ net/junction[1]@type:<remove>
-Error: Missing attribute in junction '2'.
- Can not build according junction.
+Error: Attribute 'type' is missing in definition of junction '2'.
 Quitting (on error).
 ------------------ net/junction[2]@type:<remove>
-Error: Missing attribute in junction '3'.
- Can not build according junction.
+Error: Attribute 'type' is missing in definition of junction '3'.
 Quitting (on error).
 ------------------ net/junction[1]@incLanes:a_0 1_1
 Error: An unknown lane ('a_0') was tried to be set as incoming to junction '2'.
