@@ -30,6 +30,7 @@
 #include <iostream>
 #include <utility>
 #include <cmath>
+#include <limits>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
@@ -428,7 +429,7 @@ void
 GUIViewTraffic::onGamingClick(Position2D pos) {
     const std::vector<MSTrafficLightLogic*> &logics = MSNet::getInstance()->getTLSControl().getAllLogics();
     MSTrafficLightLogic *minTll = 0;
-    SUMOReal minDist = 1e400;
+    SUMOReal minDist = numeric_limits<SUMOReal>::max();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic *tll = (*i);
