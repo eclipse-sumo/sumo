@@ -109,9 +109,13 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
         if (!attrs.setIDFromAttributes("poi", id)) {
             return;
         }
-        string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-        SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
-        SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
+        bool ok = true;
+        SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "poi", id.c_str(), ok);
+        SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "poi", id.c_str(), ok);
+        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poi", id.c_str(), ok, "");
+        if (!ok) {
+            return;
+        }
         Position2D pos(x, y);
         if (!GeoConvHelper::x2cartesian(pos)) {
             MsgHandler::getWarningInstance()->inform("Unable to project coordinates for POI '" + id + "'.");
@@ -147,8 +151,12 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_POLY) {
         bool discard = false;
         int layer = myOptions.getInt("layer");
-        string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        bool ok = true;
+        std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, "poly", myCurrentID.c_str(), ok, "");
+        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poly", myCurrentID.c_str(), ok, "");
+        if (!ok) {
+            return;
+        }
         RGBColor color;
         if (myTypeMap.has(type)) {
             const PCTypeMap::TypeDef &def = myTypeMap.get(type);
@@ -174,7 +182,7 @@ PCLoaderXML::myStartElement(SumoXMLTag element,
             myCurrentLayer = layer;
             if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
                 // @deprecated At some time, no shape definition using characters will be allowed
-                myCharacters(element, attrs.getString(SUMO_ATTR_SHAPE));
+                myCharacters(element, attrs.getStringReporting(SUMO_ATTR_SHAPE, "poly", myCurrentID.c_str(), ok));
             }
         }
     }

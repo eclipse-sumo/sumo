@@ -244,25 +244,10 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
             PCOSMNode *toAdd = new PCOSMNode();
             toAdd->id = id;
             toAdd->myIsAdditional = false;
-            try {
-                toAdd->lon = attrs.getFloat(SUMO_ATTR_LON);
-            } catch (EmptyData &) {
-                MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lon information.");
-                delete toAdd;
-                return;
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lon information is not numeric.");
-                delete toAdd;
-                return;
-            }
-            try {
-                toAdd->lat = attrs.getFloat(SUMO_ATTR_LAT);
-            } catch (EmptyData &) {
-                MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lat information.");
-                delete toAdd;
-                return;
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Node's '" + toString(id) + "' lat information is not numeric.");
+            bool ok = true;
+            toAdd->lon = attrs.getSUMORealReporting(SUMO_ATTR_LON, "node", toString(id).c_str(), ok);
+            toAdd->lat = attrs.getSUMORealReporting(SUMO_ATTR_LAT, "node", toString(id).c_str(), ok);
+            if (!ok) {
                 delete toAdd;
                 return;
             }
@@ -270,19 +255,10 @@ PCLoaderOSM::NodesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttri
         }
     }
     if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_NODE) {
-        string key, value;
-        try {
-            // retrieve the id of the (geometry) node
-            key = attrs.getString(SUMO_ATTR_K);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'tag' in node '" + toString(myLastNodeID) + "' misses a value.");
-            return;
-        }
-        try {
-            // retrieve the id of the (geometry) node
-            value = attrs.getString(SUMO_ATTR_V);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'value' in node '" + toString(myLastNodeID) + "' misses a value.");
+        bool ok = true;
+        string key = attrs.getStringReporting(SUMO_ATTR_K, "node", toString(myLastNodeID).c_str(), ok);
+        string value = attrs.getStringReporting(SUMO_ATTR_V, "node", toString(myLastNodeID).c_str(), ok);
+        if (!ok) {
             return;
         }
         if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"||key=="building"||key=="leisure"||key=="amenity"||key=="shop"
@@ -321,21 +297,19 @@ PCLoaderOSM::EdgesHandler::~EdgesHandler() throw() {
 
 
 void
-PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element,
-        const SUMOSAXAttributes &attrs) throw(ProcessError) {
+PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes &attrs) throw(ProcessError) {
     myParentElements.push_back(element);
     // parse "way" elements
     if (element==SUMO_TAG_WAY) {
-        myCurrentEdge = new PCOSMEdge();
-        myCurrentEdge->myIsAdditional = false;
-        myCurrentEdge->myIsClosed = false;
-        try {
-            // retrieve the id of the edge
-            myCurrentEdge->id = attrs.getString(SUMO_ATTR_ID);
-        } catch (EmptyData &) {
-            WRITE_WARNING("No edge id given... Skipping.");
+        bool ok = true;
+        string id = attrs.getStringReporting(SUMO_ATTR_ID, "way", 0, ok);
+        if (!ok) {
             return;
         }
+        myCurrentEdge = new PCOSMEdge();
+        myCurrentEdge->id = id;
+        myCurrentEdge->myIsAdditional = false;
+        myCurrentEdge->myIsClosed = false;
     }
     // parse "nd" (node) elements
     if (element==SUMO_TAG_ND) {
@@ -351,19 +325,10 @@ PCLoaderOSM::EdgesHandler::myStartElement(SumoXMLTag element,
     }
     // parse values
     if (element==SUMO_TAG_TAG&&myParentElements.size()>2&&myParentElements[myParentElements.size()-2]==SUMO_TAG_WAY) {
-        string key, value;
-        try {
-            // retrieve the id of the (geometry) node
-            key = attrs.getString(SUMO_ATTR_K);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'tag' in edge '" + myCurrentEdge->id + "' misses a value.");
-            return;
-        }
-        try {
-            // retrieve the id of the (geometry) node
-            value = attrs.getString(SUMO_ATTR_V);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("'value' in edge '" + myCurrentEdge->id + "' misses a value.");
+        bool ok = true;
+        string key = attrs.getStringReporting(SUMO_ATTR_K, "way", toString(myCurrentEdge->id).c_str(), ok);
+        string value = attrs.getStringReporting(SUMO_ATTR_V, "way", toString(myCurrentEdge->id).c_str(), ok);
+        if (!ok) {
             return;
         }
         if (key=="waterway"||key=="aeroway"||key=="aerialway"||key=="power"||key=="man_made"||key=="building"||key=="leisure"||key=="amenity"||key=="shop"

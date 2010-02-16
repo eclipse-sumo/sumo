@@ -119,10 +119,11 @@ PCNetProjectionLoader::myStartElement(SumoXMLTag element,
     if (element!=SUMO_TAG_LOCATION) {
         return;
     }
-    myOrigNetBoundary = GeomConvHelper::parseBoundary(attrs.getStringSecure(SUMO_ATTR_ORIG_BOUNDARY, ""));
-    myConvNetBoundary = GeomConvHelper::parseBoundary(attrs.getStringSecure(SUMO_ATTR_CONV_BOUNDARY, ""));
-    myNetOffset = GeomConvHelper::parseShape(attrs.getStringSecure(SUMO_ATTR_NET_OFFSET, ""))[0];
-    myProjParameter = attrs.getStringSecure(SUMO_ATTR_ORIG_PROJ, "");
+    bool ok = true;
+    myOrigNetBoundary = GeomConvHelper::parseBoundary(attrs.getOptStringReporting(SUMO_ATTR_ORIG_BOUNDARY, "net", 0, ok, ""));
+    myConvNetBoundary = GeomConvHelper::parseBoundary(attrs.getOptStringReporting(SUMO_ATTR_CONV_BOUNDARY, "net", 0, ok, ""));
+    myNetOffset = GeomConvHelper::parseShape(attrs.getOptStringReporting(SUMO_ATTR_NET_OFFSET, "net", 0, ok, ""))[0];
+    myProjParameter = attrs.getOptStringReporting(SUMO_ATTR_ORIG_PROJ, "net", 0, ok, "");
     myFoundOffset = myFoundOrigNetBoundary = myFoundConvNetBoundary = myFoundProj = true;
 }
 
