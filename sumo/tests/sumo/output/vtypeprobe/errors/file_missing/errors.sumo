@@ -1,2 +1,2 @@
-Error: Missing output definition for vtypeprobe 'test1'.
+Error: Attribute 'file' is missing in definition of vtypeprobe 'test1'.
 Quitting (on error).

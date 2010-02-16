@@ -1,2 +1,2 @@
-Error: The description of an exit of the detector '4/1to3/1' does not contain a needed value.
+Error: Attribute 'lane' is missing in definition of e3-detector/exit '4/1to3/1'.
 Quitting (on error).

@@ -1,2 +1,2 @@
-Error: Position of an entry of detector '4/1to3/1' is not numeric.
+Error: Attribute 'pos' in definition of e3-detector/entry '4/1to3/1' is not a real number.
 Quitting (on error).

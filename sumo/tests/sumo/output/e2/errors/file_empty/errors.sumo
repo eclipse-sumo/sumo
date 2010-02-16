@@ -1,2 +1,2 @@
-Error: Missing output definition for detector '4/1to3/1'.
+Error: Attribute 'file' in definition of e2-detector '4/1to3/1' is empty.
 Quitting (on error).

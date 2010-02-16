@@ -1,2 +1,2 @@
-Error: The description of the detector '4/1to3/1' does not contain a needed value.
+Error: Attribute 'freq' in definition of e3-detector '4/1to3/1' is empty.
 Quitting (on error).

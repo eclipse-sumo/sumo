@@ -1,2 +1,2 @@
-Error: The lane with the id '' is not known (while building detector '4/1to3/1').
+Error: Attribute 'lane' in definition of e3-detector/entry '4/1to3/1' is empty.
 Quitting (on error).

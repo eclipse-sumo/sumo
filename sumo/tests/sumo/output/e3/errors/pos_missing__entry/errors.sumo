@@ -1,2 +1,2 @@
-Error: The description of an entry of the detector '4/1to3/1' does not contain a needed value.
+Error: Attribute 'pos' is missing in definition of e3-detector/entry '4/1to3/1'.
 Quitting (on error).

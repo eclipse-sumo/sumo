@@ -1,2 +1,2 @@
-Error: The description of the vtypeprobe 'test1' does not contain a needed value.
+Error: Attribute 'freq' in definition of vtypeprobe 'test1' is empty.
 Quitting (on error).
