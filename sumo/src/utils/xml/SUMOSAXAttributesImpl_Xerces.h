@@ -70,7 +70,7 @@ public:
     virtual ~SUMOSAXAttributesImpl_Xerces() throw();
 
 
-	
+
 
     /// @name methods for retrieving attribute values
     /// @{
