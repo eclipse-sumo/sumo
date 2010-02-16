@@ -139,8 +139,9 @@ void
 MSTriggeredRerouter::myStartElement(SumoXMLTag element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
-        myCurrentIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, -1);
-        myCurrentIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, -1);
+        bool ok = true;
+        myCurrentIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1);
+        myCurrentIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "interval", 0, ok, -1);
     }
 
     if (element==SUMO_TAG_DEST_PROB_REROUTE) {
@@ -155,13 +156,10 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
         }
         // get the probability to reroute
-        SUMOReal prob;
-        try {
-            prob = attrs.getFloatSecure(SUMO_ATTR_PROB, 1.);
-        } catch (EmptyData &) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is empty.");
-        } catch (NumberFormatException &) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is not numeric.");
+        bool ok = true;
+        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "rerouter/dest_prob_reroute", getID().c_str(), ok, 1.);
+        if (!ok) {
+            throw ProcessError();
         }
         if (prob<0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is negative (must not).");
@@ -196,13 +194,10 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         }
 
         // get the probability to reroute
-        SUMOReal prob;
-        try {
-            prob = attrs.getFloatSecure(SUMO_ATTR_PROB, 1.);
-        } catch (EmptyData &) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is empty.");
-        } catch (NumberFormatException &) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is not numeric.");
+        bool ok = true;
+        SUMOReal prob = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "rerouter/dest_prob_reroute", getID().c_str(), ok, 1.);
+        if (!ok) {
+            throw ProcessError();
         }
         if (prob<0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");

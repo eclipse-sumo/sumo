@@ -126,82 +126,54 @@ void
 MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
-        // parse route distribution
-        // check if route exists
-        string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        if (routeStr=="") {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No route id given.");
-        }
-        const MSRoute* route = MSRoute::dictionary(routeStr);
-        if (route == 0) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
-        }
         // check probability
-        SUMOReal prob;
-        try {
-            prob = attrs.getFloat(SUMO_ATTR_PROB);
+        bool ok = true;
+        SUMOReal prob = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "emitter/routedistelem", myParent.getID().c_str(), ok);
+        std::string routeStr = attrs.getStringReporting(SUMO_ATTR_ID, "emitter/routedistelem", myParent.getID().c_str(), ok);
+        if (ok) {
+            const MSRoute* route = MSRoute::dictionary(routeStr);
+            if (route == 0) {
+                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
+            }
             if (prob<0) {
                 throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");
             }
-        } catch (EmptyData&) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is not given.");
-        } catch (NumberFormatException&) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is not numeric.");
+            // atributes ok, add to routeDist
+            myRouteDist.add(prob, route);
+            return;
         }
-        // atributes ok, add to routeDist
-        myRouteDist.add(prob, route);
-        return;
-
+        throw ProcessError();
     }
 
     if (element==SUMO_TAG_VTYPEDISTELEM) {
-        // vehicle-type distributions
-        // check if vtype exists
-        string vtypeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        if (vtypeStr=="") {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No vehicle type id given.");
-        }
-        MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(vtypeStr);
-        if (vtype==0) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Vehicle type '" + vtypeStr + "' does not exist.");
-        }
-        // check probability
-        SUMOReal prob;
-        try {
-            prob = attrs.getFloat(SUMO_ATTR_PROB);
-            if (prob<0) {
-                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vehicle type '" + vtypeStr + "' is negative (must not).");
+        bool ok = true;
+        SUMOReal prob = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "emitter/vtypedistelem", myParent.getID().c_str(), ok);
+        std::string vtypeStr = attrs.getStringReporting(SUMO_ATTR_ID, "emitter/vtypedistelem", myParent.getID().c_str(), ok);
+        if (ok) {
+            MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(vtypeStr);
+            if (vtype==0) {
+                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Vehicle type '" + vtypeStr + "' does not exist.");
             }
-        } catch (EmptyData&) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vehicle type '" + vtypeStr + "' is not given.");
-        } catch (NumberFormatException&) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vehicle type '" + vtypeStr + "' is not numeric.");
+            if (prob<0) {
+                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vtype '" + vtypeStr + "' is negative (must not).");
+            }
+            myVTypeDist.add(prob, vtype);
+            return;
         }
-        myVTypeDist.add(prob, vtype);
+        throw ProcessError();
     }
 
     if (element==SUMO_TAG_FLOW) {
-        // get the flow information
-        SUMOReal no = -1;
-        try {
-            no = attrs.getFloatSecure(SUMO_ATTR_NO, -1);
-        } catch (NumberFormatException &) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Non-numeric flow in emitter '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
-        }
+        bool ok = true;
+        SUMOReal no = attrs.getSUMORealReporting(SUMO_ATTR_NO, "emitter/flow", myParent.getID().c_str(), ok);
         if (no<0) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Negative flow in emitter '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Negative flow in emitter '" + myParent.getID() + "'.");
         }
-        // get the end of this def
-        SUMOTime end = -1;
-        try {
-            end = (SUMOTime) attrs.getFloatSecure(SUMO_ATTR_END, -1);
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Non-numeric flow end in emitter '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
+        SUMOReal end = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_END, "emitter/flow", myParent.getID().c_str(), ok, -1);
+        if (!ok) {
             return;
         }
-
         myFlow = (SUMOReal) no;
-
         if (end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
             if (myFlow>0) {
                 buildAndScheduleFlowVehicle();
@@ -216,18 +188,26 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
 
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
+        bool ok = true;
+        int depart = attrs.getOptIntReporting(SUMO_ATTR_TIME, "emit", myParent.getID().c_str(), ok, -1);
+        SUMOReal departSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "emit", myParent.getID().c_str(), ok, -1);
+        std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, "emit", myParent.getID().c_str(), ok, "");
+        std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "emit", myParent.getID().c_str(), ok, "");
+        std::string route = attrs.getOptStringReporting(SUMO_ATTR_ROUTE, "emit", myParent.getID().c_str(), ok, "");
+        if (!ok) {
+            return;
+        }
+        if (depart<myBeginTime) {
+            // do not process the vehicle if the emission time is before the simulation begin
+            return;
+        }
         SUMOVehicleParameter* pars = new SUMOVehicleParameter();
         pars->repetitionNumber = -1;
         pars->repetitionOffset = -1;
-        // check and assign emission time
-        pars->depart = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
-        if (pars->depart<myBeginTime) {
-            // do not process the vehicle if the emission time is before the simulation begin
-            delete pars;
-            return;
-        }
+        pars->depart = depart;
+        pars->departSpeed = departSpeed;
         // check and assign id
-        pars->id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        pars->id = id;
         if (myVehicleControl.getVehicle(pars->id)!=0) {
             WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars->id + " already exists.\n Generating a default id.");
             pars->id = "";
@@ -241,7 +221,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // check and assign vehicle type
-        pars->vtypeid = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        pars->vtypeid = type;
         MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
@@ -257,7 +237,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // check and assign vehicle type
-        pars->routeid = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
+        pars->routeid = route;
         const MSRoute *aEmitRoute = MSRoute::dictionary(pars->routeid);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {
@@ -271,9 +251,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // build vehicle
-        pars->departSpeed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1);
-        MSVehicle *veh =
-            MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
+        MSVehicle *veh = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
         myParent.schedule(this, veh, pars->departSpeed);
         myHaveNext = true;
         myOffset = SUMOTime(pars->depart);

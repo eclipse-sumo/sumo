@@ -225,24 +225,20 @@ void
 MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element,
         const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
-        // parse route distributino
-        // check if route exists
-        string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        const MSRoute* route = MSRoute::dictionary(routeStr);
-        if (route == 0) {
-            throw ProcessError(
-                "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
-
+        bool ok = true;
+        SUMOReal freq = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "calibrator/routedistelem", myParent.getID().c_str(), ok);
+        std::string routeStr = attrs.getStringReporting(SUMO_ATTR_ID, "calibrator/routedistelem", myParent.getID().c_str(), ok);
+        if (ok) {
+            const MSRoute* route = MSRoute::dictionary(routeStr);
+            if (route == 0) {
+                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
+            }
+            if (freq<0) {
+                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" is negative (must not).");
+            }
+            // Attributes ok, add to routeDist
+            myRouteDist.add(freq, route);
         }
-        // check frequency
-        SUMOReal freq = attrs.getFloatSecure(SUMO_ATTR_PROB, -1);
-        if (freq<0) {
-            throw ProcessError(
-                "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" is negative (must not).");
-
-        }
-        // Attributes ok, add to routeDist
-        myRouteDist.add(freq, route);
         return;
     }
     // vehicle-type distributions
@@ -252,49 +248,34 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         if (!attrs.setIDFromAttributes("vtypedistelem", id)) {
             return;
         }
-        SUMOReal prob = -1;
-        try {
-            prob = attrs.getFloatSecure(SUMO_ATTR_PROB, -1);
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_PROB, "") + ").");
-            return;
+        bool ok = true;
+        SUMOReal prob = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "vtypedistelem", id.c_str(), ok);
+        if (ok) {
+            if (prob<=0) {
+                MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
+                return;
+            }
+            MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(id);
+            if (vtype==0) {
+                MsgHandler::getErrorInstance()->inform("Unknown vtype-object '" + id + "'.");
+                return;
+            }
+            myVTypeDist.add(prob, vtype);
         }
-        if (prob<=0) {
-            MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
-            return;
-        }
-        MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(id);
-        if (vtype==0) {
-            MsgHandler::getErrorInstance()->inform("Unknown vtype-object '" + id + "'.");
-            return;
-        }
-        myVTypeDist.add(prob, vtype);
     }
 
     if (element==SUMO_TAG_FLOW) {
-        // get the flow information
-        SUMOReal no = -1;
-        try {
-            no = attrs.getFloatSecure(SUMO_ATTR_NO, -1);
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Non-numeric flow in calibrator '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
-            return;
-        }
+        bool ok = true;
+        SUMOReal no = attrs.getSUMORealReporting(SUMO_ATTR_NO, "flow", myParent.getID().c_str(), ok);
         if (no<0) {
-            MsgHandler::getErrorInstance()->inform("Negative flow in calibrator '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
+            MsgHandler::getErrorInstance()->inform("Negative flow in calibrator '" + myParent.getID() + "'.");
             return;
         }
-        // get the end of this def
-        SUMOTime end = -1;
-        try {
-            end = (SUMOTime) attrs.getFloatSecure(SUMO_ATTR_END, -1);
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Non-numeric flow end in calibrator '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
+        SUMOReal end = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_END, "flow", myParent.getID().c_str(), ok, -1);
+        if (!ok) {
             return;
         }
-
         myFlow = (SUMOReal) no;
-
         if (end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
             if (myFlow>0) {
                 buildAndScheduleFlowVehicle();
@@ -309,15 +290,22 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
 
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
-        SUMOVehicleParameter* pars = new SUMOVehicleParameter();
-        pars->repetitionNumber = -1;
-        pars->repetitionOffset = -1;
-        // check and assign emission time
-        pars->depart = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
-        if (pars->depart<myBeginTime) {
+        bool ok = true;
+        int depart = attrs.getIntReporting(SUMO_ATTR_TIME, "emit", 0, ok);
+        SUMOReal departSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "emit", myParent.getID().c_str(), ok, -1);
+        if (!ok) {
+            return;
+        }
+        if (depart<myBeginTime) {
             // do not process the vehicle if the emission time is before the simulation begin
             return;
         }
+
+        SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+        pars->repetitionNumber = -1;
+        pars->repetitionOffset = -1;
+        pars->depart = depart;
+        pars->departSpeed = departSpeed;
         // check and assign id
         pars->id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (myVehicleControl.getVehicle(pars->id)!=0) {
@@ -332,7 +320,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // check and assign vehicle type
-        pars->vtypeid = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        pars->vtypeid = attrs.getStringReporting(SUMO_ATTR_TYPE, "calibrator/routedistelem", myParent.getID().c_str(), ok, "");
         MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
@@ -347,7 +335,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // check and assign vehicle type
-        pars->routeid = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
+        pars->routeid = attrs.getStringReporting(SUMO_ATTR_ROUTE, "calibrator/routedistelem", myParent.getID().c_str(), ok, "");
         const MSRoute *aEmitRoute = MSRoute::dictionary(pars->routeid);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {
@@ -360,9 +348,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // build vehicle
-        pars->departSpeed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1);
-        MSVehicle *veh =
-            MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
+        MSVehicle *veh = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
         myParent.schedule(this, veh, pars->departSpeed);
         myHaveNext = true;
         myOffset = SUMOTime(pars->depart);

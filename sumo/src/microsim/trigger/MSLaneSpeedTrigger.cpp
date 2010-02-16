@@ -139,23 +139,20 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
         return;
     }
     // extract the values
-    try {
-        int next = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
-        SUMOReal speed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1.0);
-        // check the values
-        if (next<0) {
-            MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
-            return;
-        }
-        if (speed<0) {
-            MsgHandler::getErrorInstance()->inform("Wrong speed in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
-            return;
-        }
-        // set the values for the next step as they are valid
-        myLoadedSpeeds.push_back(std::make_pair(next, speed));
-    } catch (NumberFormatException &) {
-        throw ProcessError("Could not initialise vss '" + getID() + "'.");
+    bool ok = true;
+    int next = attrs.getIntReporting(SUMO_ATTR_TIME, "vss/step", getID().c_str(), ok);
+    SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "vss/step", getID().c_str(), ok, -1);
+    // check the values
+    if (next<0) {
+        MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
+        return;
     }
+    if (speed<0) {
+        MsgHandler::getErrorInstance()->inform("Wrong speed in MSLaneSpeedTrigger in file '" + getFileName() + "'.");
+        return;
+    }
+    // set the values for the next step as they are valid
+    myLoadedSpeeds.push_back(std::make_pair(next, speed));
 }
 
 

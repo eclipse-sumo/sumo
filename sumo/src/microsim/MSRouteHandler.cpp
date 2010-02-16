@@ -112,8 +112,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs);
         if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             myActiveRouteID = "!" + myVehicleParameter->id;
-            MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_FROM), myActiveRoute, myActiveRouteID);
-            MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_TO), myActiveRoute, myActiveRouteID);
+            bool ok = true;
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "flow", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
+            MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "flow", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
             closeRoute();
         }
         break;
@@ -129,14 +130,16 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_ROUTE_DISTRIBUTION:
         openRouteDistribution(attrs);
         break;
-    case SUMO_TAG_TRIPDEF:
+    case SUMO_TAG_TRIPDEF: {
+        bool ok = true;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         myActiveRouteID = "!" + myVehicleParameter->id;
-        MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_FROM), myActiveRoute, myActiveRouteID);
-        MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_TO), myActiveRoute, myActiveRouteID);
+        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_FROM, "tripdef", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
+        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_TO, "tripdef", myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
         closeRoute();
         closeVehicle();
-        break;
+    }
+    break;
     default:
         break;
     }
@@ -147,9 +150,10 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
     }
 
     if (element==SUMO_TAG_STOP) {
+        bool ok = true;
         SUMOVehicleParameter::Stop stop;
         // try to parse the assigne bus stop
-        stop.busstop = attrs.getStringSecure(SUMO_ATTR_BUS_STOP, "");
+        stop.busstop = attrs.getOptStringReporting(SUMO_ATTR_BUS_STOP, "stop", 0, ok, "");
         if (stop.busstop!="") {
             // ok, we have obviously a bus stop
             MSBusStop *bs = MSNet::getInstance()->getBusStop(stop.busstop);
@@ -164,7 +168,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         } else {
             // no, the lane and the position should be given
             // get the lane
-            stop.lane = attrs.getStringSecure(SUMO_ATTR_LANE, "");
+            stop.lane = attrs.getOptStringReporting(SUMO_ATTR_LANE, "stop", 0, ok, "");
             if (stop.lane!="") {
                 if (MSLane::dictionary(stop.lane)==0) {
                     MsgHandler::getErrorInstance()->inform("The lane '" + stop.lane + "' for a stop is not known.");
@@ -175,13 +179,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 return;
             }
             // get the position
-            try {
-                stop.pos = attrs.getFloat(SUMO_ATTR_POSITION);
-            } catch (EmptyData&) {
-                MsgHandler::getErrorInstance()->inform("The position of a stop is not defined.");
-                return;
-            } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform("The position of a stop is not numeric.");
+            bool ok = true;
+            stop.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "stop", 0, ok);
+            if (!ok) {
                 return;
             }
         }
@@ -191,22 +191,10 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
         } else {
-            try {
-                stop.duration = (SUMOTime) attrs.getFloatSecure(SUMO_ATTR_DURATION, -1); // time-parser
-            } catch (EmptyData&) {
-                MsgHandler::getErrorInstance()->inform("The duration of a stop is empty.");
-                return;
-            } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform("The duration of a stop is not numeric.");
-                return;
-            }
-            try {
-                stop.until = (SUMOTime) attrs.getFloatSecure(SUMO_ATTR_UNTIL, -1); // time-parser
-            } catch (EmptyData&) {
-                MsgHandler::getErrorInstance()->inform("The end time of a stop is empty.");
-                return;
-            } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform("The end time of a stop is not numeric.");
+            bool ok = true;
+            stop.duration = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_DURATION, "stop", 0, ok, -1);
+            stop.until = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_UNTIL, "stop", 0, ok, -1);
+            if (!ok) {
                 return;
             }
             if (stop.duration<0&&stop.until<0) {
@@ -228,13 +216,13 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes &attrs) {
     if (attrs.setIDFromAttributes("vtypeDistribution", myCurrentVTypeDistributionID)) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
         if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
-            StringTokenizer st(attrs.getString(SUMO_ATTR_VTYPES));
+            bool ok = true;
+            StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_VTYPES, "vtypeDistribution", myCurrentVTypeDistributionID.c_str(), ok));
             while (st.hasNext()) {
                 std::string vtypeID = st.next();
                 MSVehicleType *type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID);
                 if (type==0) {
-                    throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID
-                                       + "'.");
+                    throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
                 }
                 myCurrentVTypeDistribution->add(type->getDefaultProbability(), type);
             }
@@ -260,25 +248,24 @@ MSRouteHandler::closeVehicleTypeDistribution() {
 
 void
 MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs) {
-    // get the id
-    try {
-        // check whether the id is really necessary
-        if (myVehicleParameter!=0) {
-            // ok, a vehicle is wrapping the route,
-            //  we may use this vehicle's id as default
-            myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
-        } else {
-            myActiveRouteID = attrs.getString(SUMO_ATTR_ID);
+    // check whether the id is really necessary
+    if (myVehicleParameter!=0) {
+        // ok, a vehicle is wrapping the route,
+        //  we may use this vehicle's id as default
+        myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
+    } else {
+        bool ok = true;
+        myActiveRouteID = attrs.getStringReporting(SUMO_ATTR_ID, "route", 0, ok, false);
+        if (!ok) {
+            return;
         }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a route-object.");
-        return;
     }
+    bool ok = true;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        MSEdge::parseEdgesList(attrs.getString(SUMO_ATTR_EDGES), myActiveRoute, myActiveRouteID);
+        MSEdge::parseEdgesList(attrs.getStringReporting(SUMO_ATTR_EDGES, "route", myActiveRouteID.c_str(), ok), myActiveRoute, myActiveRouteID);
     }
-    myActiveRouteProbability = attrs.getFloatSecure(SUMO_ATTR_PROB, DEFAULT_VEH_PROB);
-    myActiveRouteColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
+    myActiveRouteProbability = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "route", myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
+    myActiveRouteColor = RGBColor::parseColor(attrs.getOptStringReporting(SUMO_ATTR_COLOR, "route", myActiveRouteID.c_str(), ok, RGBColor::DEFAULT_COLOR_STRING));
 }
 
 
@@ -368,11 +355,14 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError) {
 void
 MSRouteHandler::closeRoute() throw(ProcessError) {
     if (myActiveRoute.size()==0) {
+        throw ProcessError();
+        /*
         if (myVehicleParameter!=0) {
             throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
         } else {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
+        */
     }
     MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute,
                                  myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1,
@@ -410,13 +400,13 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes &attrs) {
     if (attrs.setIDFromAttributes("routeDistribution", myCurrentRouteDistributionID)) {
         myCurrentRouteDistribution = new RandomDistributor<const MSRoute*>();
         if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {
-            StringTokenizer st(attrs.getString(SUMO_ATTR_ROUTES));
+            bool ok = true;
+            StringTokenizer st(attrs.getStringReporting(SUMO_ATTR_ROUTES, "routeDistribution", myCurrentRouteDistributionID.c_str(), ok));
             while (st.hasNext()) {
                 std::string routeID = st.next();
                 const MSRoute *route = MSRoute::dictionary(routeID);
                 if (route==0) {
-                    throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID
-                                       + "'.");
+                    throw ProcessError("Unknown route '" + routeID + "' in distribution '" + myCurrentRouteDistributionID + "'.");
                 }
                 myCurrentRouteDistribution->add(1., route, false);
             }

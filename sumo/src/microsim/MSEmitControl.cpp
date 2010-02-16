@@ -183,7 +183,7 @@ MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
             continue;
         }
         while (pars->repetitionsDone < pars->repetitionNumber &&
-               pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
+                pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             std::ostringstream oss;
             oss << pars->id << "." << (pars->depart + pars->repetitionsDone * pars->repetitionOffset);
