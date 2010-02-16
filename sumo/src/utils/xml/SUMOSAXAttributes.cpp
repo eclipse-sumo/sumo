@@ -32,6 +32,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <iostream>
+#include <sstream>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -75,11 +76,7 @@ SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, con
                                    bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of " + string(objecttype) + " '" + string(objectid) + "'.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of a(n) " + string(objecttype) + ".");
-            }
+			emitUngivenError(getName(attr), objecttype, objectid);
         }
         ok = false;
         return -1;
@@ -88,19 +85,33 @@ SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, con
         return getInt(attr);
     } catch (NumberFormatException &) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is not an int.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of a(n) " + string(objecttype) + " is not an int.");
-            }
+			emitFormatError(getName(attr), "an int", objecttype, objectid);
         }
     } catch (EmptyData &) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of a(n) " + string(objecttype) + " is empty.");
-            }
+			emitEmptyError(getName(attr), objecttype, objectid);
+        }
+    }
+    ok = false;
+    return -1;
+}
+
+
+int
+SUMOSAXAttributes::getOptIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+									  bool &ok, int defaultValue, bool report) const throw() {
+    if (!hasAttribute(attr)) {
+		return defaultValue;
+    }
+    try {
+        return getInt(attr);
+    } catch (NumberFormatException &) {
+        if (report) {
+			emitFormatError(getName(attr), "an int", objecttype, objectid);
+        }
+    } catch (EmptyData &) {
+        if (report) {
+			emitEmptyError(getName(attr), objecttype, objectid);
         }
     }
     ok = false;
@@ -113,11 +124,7 @@ SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype
                                         bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of " + string(objecttype) + " '" + string(objectid) + "'.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of a " + string(objecttype) + ".");
-            }
+			emitUngivenError(getName(attr), objecttype, objectid);
         }
         ok = false;
         return -1;
@@ -126,19 +133,11 @@ SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype
         return getFloat(attr);
     } catch (NumberFormatException &) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is not a real number.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is not a real number.");
-            }
+			emitFormatError(getName(attr), "a real number", objecttype, objectid);
         }
     } catch (EmptyData &) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is empty.");
-            }
+			emitEmptyError(getName(attr), objecttype, objectid);
         }
     }
     ok = false;
@@ -146,33 +145,183 @@ SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype
 }
 
 
-std::string
-SUMOSAXAttributes::getStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
-                                      bool &ok, bool report) const throw() {
+SUMOReal
+SUMOSAXAttributes::getOptSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                        bool &ok, SUMOReal defaultValue, bool report) const throw() {
+    if (!hasAttribute(attr)) {
+		return defaultValue;
+    }
+    try {
+        return getFloat(attr);
+    } catch (NumberFormatException &) {
+        if (report) {
+			emitFormatError(getName(attr), "a real number", objecttype, objectid);
+        }
+    } catch (EmptyData &) {
+        if (report) {
+			emitEmptyError(getName(attr), objecttype, objectid);
+        }
+    }
+    ok = false;
+    return (SUMOReal) -1;
+}
+
+
+bool
+SUMOSAXAttributes::getBoolReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                        bool &ok, bool report) const throw() {
     if (!hasAttribute(attr)) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of " + string(objecttype) + " '" + string(objectid) + "'.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of a " + string(objecttype) + ".");
-            }
+			emitUngivenError(getName(attr), objecttype, objectid);
+        }
+        ok = false;
+        return false;
+    }
+    try {
+        return getBool(attr);
+    } catch (BoolFormatException &) {
+        if (report) {
+			emitFormatError(getName(attr), "a boolean", objecttype, objectid);
+        }
+    } catch (EmptyData &) {
+        if (report) {
+			emitEmptyError(getName(attr), objecttype, objectid);
+        }
+    }
+    ok = false;
+    return false;
+}
+
+
+bool
+SUMOSAXAttributes::getOptBoolReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                        bool &ok, bool defaultValue, bool report) const throw() {
+    if (!hasAttribute(attr)) {
+		return defaultValue;
+    }
+    try {
+        return getBool(attr);
+    } catch (BoolFormatException &) {
+        if (report) {
+			emitFormatError(getName(attr), "a boolean", objecttype, objectid);
+        }
+    } catch (EmptyData &) {
+        if (report) {
+			emitEmptyError(getName(attr), objecttype, objectid);
+        }
+    }
+    ok = false;
+    return false;
+}
+
+
+std::string
+SUMOSAXAttributes::getStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                        bool &ok, bool report) const throw() {
+    if (!hasAttribute(attr)) {
+        if (report) {
+			emitUngivenError(getName(attr), objecttype, objectid);
         }
         ok = false;
         return "";
     }
     try {
-        return getString(attr);
+		std::string ret = getString(attr);
+		if(ret=="") {
+			throw EmptyData();
+		}
+		return ret;
     } catch (EmptyData &) {
         if (report) {
-            if (objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
-            } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is empty.");
-            }
+			emitEmptyError(getName(attr), objecttype, objectid);
         }
     }
     ok = false;
     return "";
+}
+
+
+std::string
+SUMOSAXAttributes::getOptStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                        bool &ok, const std::string&defaultValue, bool report) const throw() {
+    if (!hasAttribute(attr)) {
+		return defaultValue;
+    }
+    try {
+        return getString(attr);
+    } catch (EmptyData &) {
+        if (report) {
+			emitEmptyError(getName(attr), objecttype, objectid);
+        }
+    }
+    ok = false;
+    return "";
+}
+
+
+
+
+
+void 
+SUMOSAXAttributes::emitUngivenError(const std::string &attrname, const char *objecttype, const char *objectid) const throw()
+{
+	    std::ostringstream oss;
+		oss << "Attribute '" << attrname << "' is missing in definition of ";
+		if(objectid==0) {
+			oss << "a ";
+		}
+		if(objecttype!=0) {
+			oss << objecttype;
+		} else {
+			oss << "<unknown type>";
+		}
+		if(objectid!=0) {
+			oss << " '" << objectid << "'";
+		}
+		oss << ".";
+		MsgHandler::getErrorInstance()->inform(oss.str());
+}
+
+
+void 
+SUMOSAXAttributes::emitEmptyError(const std::string &attrname, const char *objecttype, const char *objectid) const throw()
+{
+	    std::ostringstream oss;
+		oss << "Attribute '" << attrname << "' in definition of ";
+		if(objectid==0) {
+			oss << "a ";
+		}
+		if(objecttype!=0) {
+			oss << objecttype;
+		} else {
+			oss << "<unknown type>";
+		}
+		if(objectid!=0) {
+			oss << " '" << objectid << "'";
+		}
+		oss << " is empty.";
+		MsgHandler::getErrorInstance()->inform(oss.str());
+}
+
+
+void 
+SUMOSAXAttributes::emitFormatError(const std::string &attrname, const std::string &type, const char *objecttype, const char *objectid) const throw()
+{
+	    std::ostringstream oss;
+		oss << "Attribute '" << attrname << "' in definition of ";
+		if(objectid==0) {
+			oss << "a ";
+		}
+		if(objecttype!=0) {
+			oss << objecttype;
+		} else {
+			oss << "<unknown type>";
+		}
+		if(objectid!=0) {
+			oss << " '" << objectid << "'";
+		}
+		oss << " is not " << type << ".";
+		MsgHandler::getErrorInstance()->inform(oss.str());
 }
 
 

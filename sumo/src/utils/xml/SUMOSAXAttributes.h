@@ -75,19 +75,39 @@ public:
     /** @brief Tries to read given attribute assuming it is an int
      *
      * If an error occures (the attribute is not there, it is not numeric), "ok" is
-     *  set to false and an error message is written to MsgHandler::getErrorInstance.
+     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
      *
-     * Otherwise, "ok" is set to true and the read value is returned.
-     *
+	 * If the value could be read, "ok" is not changed, and the value is returned.
+	 *
      * @param[in] attr The id of the attribute to read
      * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value; -1 if an error occured
+     * @return The read value if given and correct; -1 if an error occured
      */
     int getIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
                         bool report=true) const throw();
+
+
+    /** @brief Tries to read given attribute assuming it is an int
+     *
+	 * If the attribute is not existing in the current element, the default value is returned.
+     * If an error occures on parsing (the attribute is empty, it is not numeric), "ok" is
+     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
+     *
+	 * If the value could be read, "ok" is not changed, and the value is returned.
+	 *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] defaultValue The value to return if the attribute is not within the element
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
+     */
+    int getOptIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+		int defaultValue, bool report=true) const throw();
 
 
     /** @brief Tries to read given attribute assuming it is an SUMOReal
@@ -95,36 +115,120 @@ public:
      * If an error occures (the attribute is not there, it is not numeric), "ok" is
      *  set to false and an error message is written to MsgHandler::getErrorInstance.
      *
-     * Otherwise, "ok" is set to true and the read value is returned.
+     * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
      * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value; -1 if an error occured
+     * @return The read value if given and correct; -1 if an error occured
      */
     SUMOReal getSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
                                   bool report=true) const throw();
 
 
 
-    /** @brief Tries to read given attribute assuming it is a string
+    /** @brief Tries to read given attribute assuming it is an SUMOReal
      *
-     * If an error occures (the attribute is not there), "ok" is
+	 * If the attribute is not existing in the current element, the default value is returned.
+     * If an error occures on parsing (the attribute is empty, it is not numeric), "ok" is
+     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is not changed.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] defaultValue The value to return if the attribute is not within the element
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
+     */
+    SUMOReal getOptSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok, 
+		SUMOReal defaultValue, bool report=true) const throw();
+
+
+    /** @brief Tries to read given attribute assuming it is a boolean
+     *
+     * If an error occures (the attribute is not there, it is not a boolean), "ok" is
      *  set to false and an error message is written to MsgHandler::getErrorInstance.
      *
-     * Otherwise, "ok" is set to true and the read value is returned.
+     * Otherwise, "ok" is not changed.
      *
      * @param[in] attr The id of the attribute to read
      * @param[in] objecttype The name of the parsed object type; used for error message generation
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value; "" if an error occured
+     * @return The read value if given and correct; false if an error occured
      */
-    std::string getStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
-                                   bool &ok, bool report=true) const throw();
+    bool getBoolReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+                                  bool report=true) const throw();
+
+
+
+    /** @brief Tries to read given attribute assuming it is a boolean
+     *
+	 * If the attribute is not existing in the current element, the default value is returned.
+     * If an error occures on parsing (the attribute is empty, it is not a boolean), "ok" is
+     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is not changed.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] defaultValue The value to return if the attribute is not within the element
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and correct; the default value if the attribute does not exist; false if an error occured
+     */
+    bool getOptBoolReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok, 
+		bool defaultValue, bool report=true) const throw();
+
+
+    /** @brief Tries to read given attribute assuming it is a string
+     *
+     * If an error occures (the attribute is not there, it's empty), "ok" is
+     *  set to false and an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is not changed.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and not empty; "" if an error occured
+     */
+	std::string getStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+                                  bool report=true) const throw();
+
+
+
+    /** @brief Tries to read given attribute assuming it is a string
+     *
+	 * If the attribute is not existing in the current element, the default value is returned.
+     * If an error occures on parsing (the attribute is empty), "ok" is
+     *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is not changed.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] defaultValue The value to return if the attribute is not within the element
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value if given and not empty; the default value if the attribute does not exist; "" if an error occured
+     */
+	std::string getOptStringReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok, 
+		const std::string &defaultValue, bool report=true) const throw();
+
+
+
+
 
 
 
@@ -337,6 +441,10 @@ public:
      */
     static void parseStringVector(const std::string &def, std::vector<std::string> &into) throw();
 
+protected:
+	void emitUngivenError(const std::string &attrname, const char *objecttype, const char *objectid) const throw();
+	void emitEmptyError(const std::string &attrname, const char *objecttype, const char *objectid) const throw();
+	void emitFormatError(const std::string &attrname, const std::string &type, const char *objecttype, const char *objectid) const throw();
 
 private:
     /// @brief Information whether the usage of a deprecated divider was reported
