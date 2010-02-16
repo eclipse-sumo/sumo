@@ -15,3 +15,7 @@ ticket73
 
 # Tests for ticket#138 (crash when overwriting default type with a distribution)
 ticket138
+
+# Tests for ticket#235 (simulation breaks on routes with one edge)
+ticket235
+
