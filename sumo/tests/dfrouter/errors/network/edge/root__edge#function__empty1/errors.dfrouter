@@ -1,2 +1,3 @@
-Error: Edge '1' has an unknown type.
+Error: Attribute 'function' in definition of edge '1' is empty.
+Error: An unknown edge occured (id='1').
 Quitting (on error).

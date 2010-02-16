@@ -1,2 +1,2 @@
-Error: Not numeric lane position within 'input_messstrecke.det.xml' (detector id='MQ11Fs2').
+Error: Attribute 'pos' in definition of detector_definition 'MQ11Fs2' is not a real number.
 Quitting (on error).

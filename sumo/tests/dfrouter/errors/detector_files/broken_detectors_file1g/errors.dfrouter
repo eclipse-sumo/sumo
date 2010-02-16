@@ -1,2 +1,2 @@
-Error: A detector without a lane position occured within 'input_messstrecke.det.xml' (detector id='MQ11Fs1').
+Error: Attribute 'pos' is missing in definition of detector_definition 'MQ11Fs1'.
 Quitting (on error).

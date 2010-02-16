@@ -1,3 +1,3 @@
-Error: Missing from-node in edge '1'.
+Error: Attribute 'from' is missing in definition of edge '1'.
 Error: An unknown edge occured (id='1').
 Quitting (on error).

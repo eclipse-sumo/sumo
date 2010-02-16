@@ -1,2 +1,2 @@
-Error: Unknown lane '' for detector 'MQ11Fs1' in 'input_messstrecke.det.xml'.
+Error: Attribute 'lane' in definition of detector_definition 'MQ11Fs1' is empty.
 Quitting (on error).
