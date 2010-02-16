@@ -1,5 +1,4 @@
-Error: One of a lane's attributes must be numeric but is not (id='1_0').
- Can not build according edge.
+Error: Attribute 'length' in definition of lane '1_0' is not a real number.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').

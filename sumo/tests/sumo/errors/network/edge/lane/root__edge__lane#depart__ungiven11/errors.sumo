@@ -1,5 +1,4 @@
-Error: Missing attribute in a lane-object (id='1_0').
- Can not build according edge.
+Error: Attribute 'depart' is missing in definition of lane '1_0'.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').

@@ -1,3 +1,2 @@
-Error: An unknown or invalid junction type '' occured in junction '3'.
- Can not build according junction.
+Error: Attribute 'type' in definition of junction '3' is empty.
 Quitting (on error).
