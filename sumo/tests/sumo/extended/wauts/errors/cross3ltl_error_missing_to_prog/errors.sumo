@@ -1,2 +1,2 @@
-Error: Missing destination program for WAUT 'w1'.
+Error: Attribute 'to' is missing in definition of wautSwitch 'w1'.
 Quitting (on error).

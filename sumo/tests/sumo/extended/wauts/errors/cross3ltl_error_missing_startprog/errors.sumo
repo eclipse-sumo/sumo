@@ -1,2 +1,2 @@
-Error: Missing start program for WAUT 'w1'.
+Error: Attribute 'startProg' is missing in definition of waut 'w1'.
 Quitting (on error).
