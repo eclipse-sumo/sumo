@@ -188,7 +188,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             noLinksAll += (unsigned int) approached.size();
             for (unsigned int i3=0; i3<approached.size(); i3++) {
-                if(!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+                if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
                     --noLinksAll;
                     continue;
                 }
@@ -239,7 +239,7 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
             for (unsigned int i2=0; i2<noLanes; i2++) {
                 vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
                 for (unsigned int i3=0; i3<approached.size(); ++i3) {
-                    if(!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+                    if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
                         continue;
                     }
                     if (inChosen) {

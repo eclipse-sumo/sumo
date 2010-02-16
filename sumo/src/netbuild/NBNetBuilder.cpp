@@ -240,7 +240,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError) {
     inform(step, "Computing traffic light logics.");
     myTLLCont.computeLogics(myEdgeCont, oc);
     //
-    if (!oc.isDefault("x-offset-to-apply") || !oc.isDefault("y-offset-to-apply") ) {
+    if (!oc.isDefault("x-offset-to-apply") || !oc.isDefault("y-offset-to-apply")) {
         inform(step, "Transposing network.");
         SUMOReal xoff = oc.getFloat("x-offset-to-apply");
         SUMOReal yoff = oc.getFloat("y-offset-to-apply");

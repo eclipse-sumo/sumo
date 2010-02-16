@@ -816,7 +816,7 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
         xoff += (offsets.first * (SUMOReal) lane) - (offsets.first * (SUMOReal) myLanes.size() / (SUMOReal) 2.0);
         yoff += (offsets.second * (SUMOReal) lane) - (offsets.second * (SUMOReal) myLanes.size() / (SUMOReal) 2.0);
     }
-    if(myAmLeftHand) {
+    if (myAmLeftHand) {
         return pair<SUMOReal, SUMOReal>(-xoff, -yoff);
     } else {
         return pair<SUMOReal, SUMOReal>(xoff, yoff);
@@ -849,10 +849,10 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, const NBEdge::Connection &c, b
     //  (should not happen; this is an artefact left from previous versions)
     if (c.toEdge==0) {
         into << "      <succlane lane=\"SUMO_NO_DESTINATION\""; // !!! check dummy values
-		if (c.tlID!="") {
-			into << " tl=\"" << c.tlID << "\"";
-			into << " linkno=\"" << c.tlLinkNo << "\"";
-		}
+        if (c.tlID!="") {
+            into << " tl=\"" << c.tlID << "\"";
+            into << " linkno=\"" << c.tlLinkNo << "\"";
+        }
         into << " yield=\"1\" " << "dir=\"s\" state=\"O\"/>\n"; // !!! check dummy values
         return;
     }
@@ -1065,7 +1065,7 @@ NBEdge::recheckLanes() {
 void
 NBEdge::moveConnectionToLeft(unsigned int lane) {
     unsigned int index = 0;
-    if(myAmLeftHand) {
+    if (myAmLeftHand) {
         for (int i=(int) myConnections.size()-1; i>=0; --i) {
             if (myConnections[i].fromLane==lane&&getTurnDestination()!=myConnections[i].toEdge) {
                 index = i;
@@ -1087,7 +1087,7 @@ NBEdge::moveConnectionToLeft(unsigned int lane) {
 
 void
 NBEdge::moveConnectionToRight(unsigned int lane) {
-    if(myAmLeftHand) {
+    if (myAmLeftHand) {
         for (int i=(int) myConnections.size()-1; i>=0; --i) {
             if (myConnections[i].fromLane==lane&&getTurnDestination()!=myConnections[i].toEdge) {
                 Connection c = myConnections[i];
@@ -1218,7 +1218,7 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing) {
     for (map<NBEdge*, vector<unsigned int> >::const_iterator i=l2eConns.begin(); i!=l2eConns.end(); ++i) {
         const vector<unsigned int> lanes = (*i).second;
         for (vector<unsigned int>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
-            if(myAmLeftHand) {
+            if (myAmLeftHand) {
                 myConnections.push_back(Connection(myLanes.size() - 1 - *j, (*i).first, -1));
             } else {
                 myConnections.push_back(Connection(*j, (*i).first, -1));
@@ -1495,9 +1495,8 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width) const {
 }
 
 
-bool 
-NBEdge::mayBeTLSControlled(int fromLane, NBEdge *toEdge, int toLane) const throw()
-{
+bool
+NBEdge::mayBeTLSControlled(int fromLane, NBEdge *toEdge, int toLane) const throw() {
     TLSDisabledConnection tpl;
     tpl.fromLane = fromLane;
     tpl.to = toEdge;

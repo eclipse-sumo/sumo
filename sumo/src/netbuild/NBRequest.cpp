@@ -279,7 +279,7 @@ NBRequest::setBlocking(bool leftHanded,
     while (*c1!=from1&&*c1!=from2) {
         if (*c1==to2) {
             // if we encounter to2 the second one prohibits the first
-            if(!leftHanded) {
+            if (!leftHanded) {
                 myForbids[idx2][idx1] = true;
             } else {
                 myForbids[idx1][idx2] = true;
@@ -295,7 +295,7 @@ NBRequest::setBlocking(bool leftHanded,
     while (*c2!=from2&&*c2!=from1) {
         if (*c2==to1) {
             // if we encounter to1 the second one prohibits the first
-            if(!leftHanded) {
+            if (!leftHanded) {
                 myForbids[idx1][idx2] = true;
             } else {
                 myForbids[idx2][idx1] = true;

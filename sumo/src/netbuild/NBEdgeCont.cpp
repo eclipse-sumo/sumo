@@ -134,7 +134,7 @@ NBEdgeCont::clear() throw() {
 // ----- edge access methods
 bool
 NBEdgeCont::insert(NBEdge *edge, bool ignorePrunning) throw() {
-    if(myAmLeftHanded) {
+    if (myAmLeftHanded) {
         edge->setLeftHanded();
     }
     EdgeCont::iterator i = myEdges.find(edge->getID());

@@ -466,7 +466,7 @@ private:
         performs the swapping of two edges in the myAllEdges-list when the
         outgoing is in clockwise direction to the incoming */
     bool swapWhenReversed(bool leftHand,
-        const std::vector<NBEdge*>::iterator &i1,
+                          const std::vector<NBEdge*>::iterator &i1,
                           const std::vector<NBEdge*>::iterator &i2);
 
     /** removes the first edge from the list, marks it as higher priorised and

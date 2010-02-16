@@ -293,7 +293,7 @@ NBNode::swapWhenReversed(bool leftHand,
                          const std::vector<NBEdge*>::iterator &i2) {
     NBEdge *e1 = *i1;
     NBEdge *e2 = *i2;
-    if(leftHand) {
+    if (leftHand) {
         if (e1->getToNode()==this && e1->isTurningDirectionAt(this, e2)) {
             std::swap(*i1, *i2);
             return true;
