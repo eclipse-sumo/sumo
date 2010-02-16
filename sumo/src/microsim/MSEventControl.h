@@ -122,11 +122,11 @@ public:
     bool isEmpty() throw();
 
 
-	/** @brief Set the current Time.
+    /** @brief Set the current Time.
      *
-	 * This method is only for Unit Testing. 
-	 * Set the current TimeStep used in addEvent.
-	 * Normally the time is set automatically from an instance of MSNet.
+     * This method is only for Unit Testing.
+     * Set the current TimeStep used in addEvent.
+     * Normally the time is set automatically from an instance of MSNet.
      */
     void setCurrentTimeStep(SUMOTime time);
 
@@ -149,14 +149,14 @@ private:
     /// @brief Container for time-dependant events, e.g. traffic-light-change.
     typedef std::priority_queue< Event, std::vector< Event >, EventSortCrit > EventCont;
 
-	/// The Current TimeStep
-	SUMOTime currentTimeStep;
+    /// The Current TimeStep
+    SUMOTime currentTimeStep;
 
     /// @brief Event-container, holds executable events.
     EventCont myEvents;
 
-	/// get the Current TimeStep used in addEvent.
-	SUMOTime getCurrentTimeStep() throw();
+    /// get the Current TimeStep used in addEvent.
+    SUMOTime getCurrentTimeStep() throw();
 
 
 private:

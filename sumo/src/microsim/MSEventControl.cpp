@@ -128,10 +128,10 @@ MSEventControl::setCurrentTimeStep(SUMOTime time) {
 
 SUMOTime
 MSEventControl::getCurrentTimeStep() throw() {
-	if(currentTimeStep < 0){
-		return MSNet::getInstance()->getCurrentTimeStep();
-	} 
-	return currentTimeStep;
+    if (currentTimeStep < 0) {
+        return MSNet::getInstance()->getCurrentTimeStep();
+    }
+    return currentTimeStep;
 }
 
 

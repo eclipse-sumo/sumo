@@ -296,7 +296,7 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target) const throw() {
     if (leader==0) {
         MSLane* targetLane = target->lane;
         MSVehicle *predP = targetLane->getPartialOccupator();
-        if(predP!=0) {
+        if (predP!=0) {
             return std::pair<MSVehicle *, SUMOReal>(predP, targetLane->getPartialOccupatorEnd() - veh(myCandi)->getPositionOnLane());
         }
         const std::vector<MSLane*> &bestLaneConts = veh(myCandi)->getBestLanesContinuation();
@@ -341,7 +341,7 @@ MSLaneChanger::getRealLeader(const ChangerIt &target) const throw() {
     if (neighLead==0) {
         MSLane* targetLane = target->lane;
         MSVehicle *predP = targetLane->getPartialOccupator();
-        if(predP!=0) {
+        if (predP!=0) {
             return std::pair<MSVehicle *, SUMOReal>(predP, targetLane->getPartialOccupatorEnd() - veh(myCandi)->getPositionOnLane());
         }
         const std::vector<MSLane*> &bestLaneConts = veh(myCandi)->getBestLanesContinuation(myCandi->lane);
