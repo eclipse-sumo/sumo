@@ -1,2 +1,2 @@
-Error: Not numerical length definition in lane '1_0'.
+Error: Attribute 'length' in definition of lane '1_0' is not a real number.
 Quitting (on error).

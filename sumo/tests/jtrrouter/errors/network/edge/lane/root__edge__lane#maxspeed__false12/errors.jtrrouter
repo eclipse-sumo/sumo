@@ -1,2 +1,2 @@
-Error: Not numerical maxspeed definition in lane '1_1'.
+Error: Attribute 'maxspeed' in definition of lane '1_1' is not a real number.
 Quitting (on error).

@@ -1,2 +1,2 @@
-Error: Missing maxspeed definition in lane '2_0'.
+Error: Attribute 'maxspeed' in definition of lane '2_0' is empty.
 Quitting (on error).

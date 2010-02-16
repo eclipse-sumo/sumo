@@ -1,2 +1,2 @@
-Error: Missing length definition in lane '2_0'.
+Error: Attribute 'length' in definition of lane '2_0' is empty.
 Quitting (on error).
