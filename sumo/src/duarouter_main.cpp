@@ -104,7 +104,8 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     }
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
-    if (oc.getString("measure")=="traveltime") {
+    std::string measure = oc.getString("measure");
+    if (measure=="traveltime") {
         if (net.hasRestrictions()) {
             router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
                 net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
@@ -113,12 +114,28 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
                 net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
         }
     } else {
+        DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
+        if(measure=="CO") {
+            op = &ROEdge::getCOEffort;
+        } else if(measure=="CO2") {
+            op = &ROEdge::getCO2Effort;
+        } else if(measure=="PMx") {
+            op = &ROEdge::getPMxEffort;
+        } else if(measure=="HC") {
+            op = &ROEdge::getHCEffort;
+        } else if(measure=="NOx") {
+            op = &ROEdge::getNOxEffort;
+        } else if(measure=="fuel") {
+            op = &ROEdge::getFuelEffort;
+        } else if(measure=="noise") {
+            op = &ROEdge::getNoiseEffort;
+        }
         if (net.hasRestrictions()) {
             router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort, &ROEdge::getTravelTime);
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
         } else {
             router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort, &ROEdge::getTravelTime);
+                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
         }
     }
     // process route definitions
