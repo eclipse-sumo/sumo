@@ -1031,8 +1031,12 @@ GUIApplicationWindow::getCurrentSimTime() const {
 
 
 void
-GUIApplicationWindow::loadOnStartup(const std::string &config, bool run) {
+GUIApplicationWindow::loadOnStartup(const std::string &config, bool run, bool game) {
     myRunAtBegin = run;
+    if (game) {
+        mySettingsMenu->hide();
+        onCmdGaming(0, 0, 0);
+    }
     load(config, false);
 }
 /*

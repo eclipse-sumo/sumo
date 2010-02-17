@@ -62,12 +62,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // methods
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -90,6 +84,9 @@ fillOptions() {
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.addDescription("quit-on-end", "Process", "Quits the gui when the simulation stops");
 
+    oc.doRegister("game", 'G', new Option_Bool(false));
+    oc.addDescription("game", "Process", "Start the GUI in gaming mode");
+
     oc.doRegister("no-start", 'N', new Option_Bool(false));
     oc.addDescription("no-start", "Process", "Does not start the simulation after loading");
 
@@ -111,9 +108,9 @@ main(int argc, char **argv) {
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the simulation SUMO.");
 #ifdef WIN32
-    oc.setApplicationName("guisim.exe", "SUMO guisim Version " + (string)VERSION_STRING);
+    oc.setApplicationName("guisim.exe", "SUMO guisim Version " + (std::string)VERSION_STRING);
 #else
-    oc.setApplicationName("sumo-guisim", "SUMO guisim Version " + (string)VERSION_STRING);
+    oc.setApplicationName("sumo-guisim", "SUMO guisim Version " + (std::string)VERSION_STRING);
 #endif
     int ret = 0;
 #ifndef _DEBUG
@@ -158,7 +155,7 @@ main(int argc, char **argv) {
         // Load configuration given on command line
         if (oc.isSet("configuration-file")) {
             window->loadOnStartup(oc.getString("configuration-file"),
-                                  !oc.getBool("no-start"));
+                                  !oc.getBool("no-start"), oc.getBool("game"));
         }
         // Run
         ret = application.run();

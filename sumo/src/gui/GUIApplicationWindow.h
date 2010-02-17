@@ -94,7 +94,7 @@ public:
     virtual void detach();
 
 
-    void loadOnStartup(const std::string &config, bool run);
+    void loadOnStartup(const std::string &config, bool run, bool game);
 
 
     void dependentBuild();
