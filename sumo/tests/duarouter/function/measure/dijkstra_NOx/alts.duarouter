@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep 28 15:42:23 2009 by SUMO duarouter Version dev-SVN-r7779
+<!-- generated on 02/17/10 13:21:02 by SUMO duarouter Version dev-SVN-r8163
 <configuration>
 
     <input>
         <net-file value="input_net.net.xml"/>
+        <weights value="input_weights.dump.xml"/>
+        <measure value="NOx"/>
         <trip-defs value="input_trips.trips.xml"/>
     </input>
 
