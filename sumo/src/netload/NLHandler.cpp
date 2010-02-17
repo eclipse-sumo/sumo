@@ -875,6 +875,11 @@ NLHandler::addDetector(const SUMOSAXAttributes &attrs) {
 #ifdef _MESSAGES
 void
 NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs) {
+    // get the id, report an error if not given or empty...
+    std::string id;
+    if (!attrs.setIDFromAttributes("e4-detector", id)) {
+        return;
+    }
     bool ok = true;
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e4-detector", id.c_str(), ok);
     bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e4-detector", id.c_str(), ok, false);
