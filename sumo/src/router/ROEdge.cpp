@@ -144,22 +144,11 @@ ROEdge::addTravelTime(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) thro
 
 SUMOReal
 ROEdge::getEffort(const ROVehicle *const veh, SUMOTime time) const throw() {
-    if (myUsingETimeLine) {
-        if (!myHaveEWarned && !myEfforts.describesTime(time)) {
-            WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
-            myHaveEWarned = true;
-        }
-        if (myInterpolate) {
-            SUMOReal inTT = myTravelTimes.getValue(time);
-            SUMOReal ratio = (SUMOReal)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
-            if (ratio >= 0) {
-                return ratio * myEfforts.getValue(time) + (1-ratio)*myEfforts.getValue(time + (SUMOTime)inTT);
-            }
-        }
-        return myEfforts.getValue(time);
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        return (SUMOReal)(myLength / mySpeed);
     }
-    // !!! TODO we still need a sensible default here, which is not the default traveltime
-    return (SUMOReal)(myLength / mySpeed);
+    return ret;
 }
 
 
@@ -179,9 +168,144 @@ ROEdge::getTravelTime(const ROVehicle *const, SUMOTime time) const throw() {
         }
         return myTravelTimes.getValue(time);
     }
-    // ok, no absolute value was found, use the normal value (without)
-    //  weight as default
+    // ok, no absolute value was found, use the normal value (without) as default
     return (SUMOReal)(myLength / mySpeed);
+}
+
+
+SUMOReal 
+ROEdge::getCOEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        SUMOReal v = mySpeed;
+        SUMOEmissionClass c = SVE_UNKNOWN;
+        if(veh->getType()!=0) {
+            v = MIN2(veh->getType()->maxSpeed, mySpeed);
+            c = veh->getType()->emissionClass;
+        }
+        ret = HelpersHBEFA::computeCO(veh->getType()->emissionClass, v, 0);
+    }
+    return ret;
+}
+
+
+SUMOReal 
+ROEdge::getCO2Effort(const ROVehicle * const veh, SUMOTime time) const throw() {
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        SUMOReal v = mySpeed;
+        SUMOEmissionClass c = SVE_UNKNOWN;
+        if(veh->getType()!=0) {
+            v = MIN2(veh->getType()->maxSpeed, mySpeed);
+            c = veh->getType()->emissionClass;
+        }
+        ret = HelpersHBEFA::computeCO2(veh->getType()->emissionClass, v, 0);
+    }
+    return ret;
+}
+
+
+SUMOReal 
+ROEdge::getPMxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        SUMOReal v = mySpeed;
+        SUMOEmissionClass c = SVE_UNKNOWN;
+        if(veh->getType()!=0) {
+            v = MIN2(veh->getType()->maxSpeed, mySpeed);
+            c = veh->getType()->emissionClass;
+        }
+        ret = HelpersHBEFA::computePMx(veh->getType()->emissionClass, v, 0);
+    }
+    return ret;
+}
+
+
+SUMOReal 
+ROEdge::getHCEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        SUMOReal v = mySpeed;
+        SUMOEmissionClass c = SVE_UNKNOWN;
+        if(veh->getType()!=0) {
+            v = MIN2(veh->getType()->maxSpeed, mySpeed);
+            c = veh->getType()->emissionClass;
+        }
+        ret = HelpersHBEFA::computeHC(veh->getType()->emissionClass, v, 0);
+    }
+    return ret;
+}
+
+
+SUMOReal 
+ROEdge::getNOxEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        SUMOReal v = mySpeed;
+        SUMOEmissionClass c = SVE_UNKNOWN;
+        if(veh->getType()!=0) {
+            v = MIN2(veh->getType()->maxSpeed, mySpeed);
+            c = veh->getType()->emissionClass;
+        }
+        ret = HelpersHBEFA::computeNOx(veh->getType()->emissionClass, v, 0);
+    }
+    return ret;
+}
+
+
+SUMOReal 
+ROEdge::getFuelEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        SUMOReal v = mySpeed;
+        SUMOEmissionClass c = SVE_UNKNOWN;
+        if(veh->getType()!=0) {
+            v = MIN2(veh->getType()->maxSpeed, mySpeed);
+            c = veh->getType()->emissionClass;
+        }
+        ret = HelpersHBEFA::computeFuel(veh->getType()->emissionClass, v, 0);
+    }
+    return ret;
+}
+
+
+SUMOReal 
+ROEdge::getNoiseEffort(const ROVehicle * const veh, SUMOTime time) const throw() {
+    SUMOReal ret = 0;
+    if(!getStoredEffort(time, ret)) {
+        SUMOReal v = mySpeed;
+        SUMOEmissionClass c = SVE_UNKNOWN;
+        if(veh->getType()!=0) {
+            v = MIN2(veh->getType()->maxSpeed, mySpeed);
+            c = veh->getType()->emissionClass;
+        }
+        ret = HelpersHarmonoise::computeNoise(veh->getType()->emissionClass, v, 0);
+    }
+    return ret;
+}
+
+
+bool
+ROEdge::getStoredEffort(SUMOTime time, SUMOReal &ret) const throw() {
+    if (myUsingETimeLine) {
+        if (!myEfforts.describesTime(time)) {
+            if(!myHaveEWarned) {
+                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+                myHaveEWarned = true;
+            }
+            return false;
+        }
+        if (myInterpolate) {
+            SUMOReal inTT = myTravelTimes.getValue(time);
+            SUMOReal ratio = (SUMOReal)(myEfforts.getSplitTime(time, time + (SUMOTime)inTT) - time) / inTT;
+            if (ratio >= 0) {
+                return ratio * myEfforts.getValue(time) + (1-ratio)*myEfforts.getValue(time + (SUMOTime)inTT);
+            }
+        }
+        ret = myEfforts.getValue(time);
+        return true;
+    }
+    return false;
 }
 
 

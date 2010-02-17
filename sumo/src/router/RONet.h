@@ -285,6 +285,7 @@ public:
 
     void setRestrictionFound();
 
+
 protected:
     bool computeRoute(OptionsCont &options,
                       SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle * const veh);

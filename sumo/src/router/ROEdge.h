@@ -286,10 +286,29 @@ public:
      * @todo Recheck whether the vehicle's maximum speed is considered
      */
     SUMOReal getTravelTime(const ROVehicle * const veh, SUMOTime time) const throw();
+
+
+    SUMOReal getCOEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getCO2Effort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getPMxEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getHCEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getNOxEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getFuelEffort(const ROVehicle * const veh, SUMOTime time) const throw();
+    SUMOReal getNoiseEffort(const ROVehicle * const veh, SUMOTime time) const throw();
     //@}
 
     /** @brief Returns the ROEdge at the index */
     static ROEdge* dictionary(size_t index) throw();
+
+
+protected:
+    /** @brief Retrieves the stored effort
+     *
+     * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
+     * @param[in] time The tim for which the effort shall be returned
+     * @return Whether the effort is given
+     */
+    bool getStoredEffort(SUMOTime time, SUMOReal &ret) const throw();
 
 
 
