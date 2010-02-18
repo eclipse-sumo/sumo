@@ -67,7 +67,7 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
                            FXRealSpinDial &simDelay, MFXEventQue &eq,
                            FXEX::FXThreadEvent &ev)
         : FXSingleEventThread(gFXApp, parent),
-        myNet(0), myQuit(false), myOk(true),
+        myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
         mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this, &GUIRunThread::retrieveMessage, MsgHandler::MT_MESSAGE);
@@ -83,7 +83,7 @@ GUIRunThread::~GUIRunThread() {
     delete myMessageRetriever;
     delete myWarningRetriever;
     // wait for the thread
-    while (myNet!=0);
+    while (mySimulationInProgress||myNet!=0);
 }
 
 
@@ -147,29 +147,25 @@ GUIRunThread::run() {
 
 void
 GUIRunThread::makeStep() throw() {
-    bool hadProblem = true;
+    GUIEvent *e = 0;
     // simulation is being perfomed
-    mySimulationLock.lock();
+    mySimulationInProgress = true;
+    // execute a single step
     try {
+        mySimulationLock.lock();
         myNet->simulationStep();
         myNet->guiSimulationStep();
-        hadProblem = false;
-    } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-#ifndef _DEBUG
-    } catch (...) {
-#endif
-    }
-    if (!hadProblem) {
+        mySimulationLock.unlock();
+
         // inform parent that a step has been performed
-        myEventQue.add(new GUIEvent_SimulationStep());
+        e = new GUIEvent_SimulationStep();
+        myEventQue.add(e);
         myEventThrow.signal();
         // stop the simulation when the last step has been reached
         if (myNet->getCurrentTimeStep()>=mySimEndTime) {
-            myEventQue.add(new GUIEvent_SimulationEnded(GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myNet->getCurrentTimeStep()-DELTA_T));
+            e = new GUIEvent_SimulationEnded(
+                GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myNet->getCurrentTimeStep()-DELTA_T);
+            myEventQue.add(e);
             myEventThrow.signal();
             myHalting = true;
         }
@@ -178,20 +174,41 @@ GUIRunThread::makeStep() throw() {
         if (mySingle) {
             myHalting = true;
         }
+        // simulation step is over
+        mySimulationInProgress = false;
         // check whether all vehicles loaded have left the simulation
         if (mySimEndTime == INT_MAX && myNet->getVehicleControl().haveAllVehiclesQuit()) {
-            myEventQue.add(new GUIEvent_SimulationEnded(GUIEvent_SimulationEnded::ER_NO_VEHICLES, myNet->getCurrentTimeStep()-DELTA_T));
-            myEventThrow.signal();
             myHalting = true;
+            e = new GUIEvent_SimulationEnded(
+                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myNet->getCurrentTimeStep()-DELTA_T);
+            myEventQue.add(e);
+            myEventThrow.signal();
         }
-    } else {
+    } catch (ProcessError &e2) {
+        if (string(e2.what())!=string("Process Error") && string(e2.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e2.what());
+        }
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         mySimulationLock.unlock();
-        myEventQue.add(new GUIEvent_SimulationEnded(GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myNet->getCurrentTimeStep()));
+        mySimulationInProgress = false;
+        e = new GUIEvent_SimulationEnded(
+            GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myNet->getCurrentTimeStep());
+        myEventQue.add(e);
         myEventThrow.signal();
         myHalting = true;
         myOk = false;
+#ifndef _DEBUG
+    } catch (...) {
+        mySimulationLock.unlock();
+        mySimulationInProgress = false;
+        e = new GUIEvent_SimulationEnded(
+            GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myNet->getCurrentTimeStep());
+        myEventQue.add(e);
+        myEventThrow.signal();
+        myHalting = true;
+        myOk = false;
+#endif
     }
-    mySimulationLock.unlock();
 }
 
 
@@ -240,6 +257,7 @@ GUIRunThread::deleteSim() {
     if (myNet!=0) {
         myNet->closeSimulation(mySimStartTime);
     }
+    while (mySimulationInProgress);
     delete myNet;
     myNet = 0;
     OutputDevice::closeAll();

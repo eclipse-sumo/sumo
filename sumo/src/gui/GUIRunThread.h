@@ -112,22 +112,27 @@ protected:
 
 protected:
     /// the loaded simulation network
-    GUINet                  *myNet;
+    GUINet *myNet;
 
     /// the times the simulation starts and ends with
-    SUMOTime             mySimStartTime, mySimEndTime;
+    SUMOTime mySimStartTime, mySimEndTime;
 
     /// information whether the simulation is halting (is not being executed)
-    bool                    myHalting;
+    bool myHalting;
 
     /** information whether the thread shall be stopped
     (if not, the thread stays in an endless loop) */
-    bool                    myQuit;
+    bool myQuit;
+
+    /** information whether a simulation step is being performed
+    (otherwise the thread may be waiting or the simulation is maybe not
+    performed at all) */
+    bool mySimulationInProgress;
 
     bool myOk;
 
     /** information whether the thread is running in single step mode */
-    bool                    mySingle;
+    bool mySingle;
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */
