@@ -674,7 +674,7 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     bool ok = true;
     int layer = attrs.getOptIntReporting(SUMO_ATTR_LAYER, "poly", id.c_str(), ok, 1);
     bool fill = attrs.getOptBoolReporting(SUMO_ATTR_FILL, "poly", id.c_str(), ok, false);
-    std::string type = attrs.getOptStringReporting(SUMO_ATTR_FROM, "poly", id.c_str(), ok, "");
+    std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "poly", id.c_str(), ok, "");
     std::string color = attrs.getStringReporting(SUMO_ATTR_COLOR, "poly", id.c_str(), ok);
     if (!ok) {
         return;
