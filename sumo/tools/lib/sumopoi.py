@@ -3,7 +3,7 @@
 @file    sumopoi.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2010-02-18
-@version $Id: sumopoi.py 7499 2009-07-24 06:40:47Z dkrajzew $
+@version $Id$
 
 Library for reading and storing POIs.
 

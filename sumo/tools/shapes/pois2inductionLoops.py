@@ -3,7 +3,7 @@
 @file    pois2inductionLoops.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2010-02-18
-@version $Id: pois2inductionLoops.py 6858 2009-02-25 13:27:57Z behrisch $
+@version $Id$
 
 
 Converts a given pois located on lanes into induction loop detectors;
