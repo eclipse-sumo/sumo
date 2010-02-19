@@ -83,6 +83,9 @@ public:
     // check whether close was requested
     static bool wasClosed();
 
+    // check whether close was requested
+    static void close();
+
     void vehicleStateChanged(const MSVehicle * const vehicle, MSNet::VehicleState to) throw();
 
 private:

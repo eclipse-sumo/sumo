@@ -322,6 +322,9 @@ MSNet::closeSimulation(SUMOTime start) {
         WRITE_MESSAGE(msg.str());
     }
     myDetectorControl->close(myStep);
+#ifndef NO_TRACI
+    traci::TraCIServer::close();
+#endif
 }
 
 

@@ -221,9 +221,22 @@ TraCIServer::TraCIServer() {
 
 TraCIServer::~TraCIServer() throw() {
     MSNet::getInstance()->removeVehicleStateListener(this);
-    if (socket_ != NULL) delete socket_;
-
+    if (socket_ != NULL) {
+        socket_->close();
+        delete socket_;
+    }
     if (netBoundary_ != NULL) delete netBoundary_;
+}
+
+/*****************************************************************************/
+
+void 
+TraCIServer::close() {
+    if(instance_!=0) {
+        delete instance_;
+        instance_ = 0;
+        closeConnection_ = true;
+    }
 }
 
 /*****************************************************************************/
