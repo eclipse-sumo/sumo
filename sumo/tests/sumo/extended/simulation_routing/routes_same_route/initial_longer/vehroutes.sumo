@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/04/10 12:41:41 by SUMO sumo Version dev-SVN-r8214
+<!-- generated on 02/19/10 11:10:34 by SUMO sumo Version dev-SVN-r8292
 <configuration>
 
     <input>
@@ -34,52 +34,52 @@
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.20" depart="20" arrival="100">
+    <vehicle id="0.1" depart="20" arrival="100">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="20" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.40" depart="40" arrival="120">
+    <vehicle id="0.2" depart="40" arrival="120">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="40" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.60" depart="60" arrival="140">
+    <vehicle id="0.3" depart="60" arrival="140">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="60" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.80" depart="80" arrival="160">
+    <vehicle id="0.4" depart="80" arrival="160">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="80" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.100" depart="100" arrival="181">
+    <vehicle id="0.5" depart="100" arrival="181">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="100" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.120" depart="120" arrival="200">
+    <vehicle id="0.6" depart="120" arrival="200">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="120" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.140" depart="140" arrival="221">
+    <vehicle id="0.7" depart="140" arrival="221">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="140" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.160" depart="160" arrival="241">
+    <vehicle id="0.8" depart="160" arrival="241">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="160" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.180" depart="180" arrival="261">
+    <vehicle id="0.9" depart="180" arrival="261">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="180" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0.200" depart="200" arrival="280">
+    <vehicle id="0.10" depart="200" arrival="280">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="200" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>

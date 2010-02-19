@@ -1,0 +1,3 @@
+<routes>
+	<flow id="f1" period="20" no="10" from="beg" to="rend"/>
+</routes>

@@ -1,8 +1,11 @@
 # all vehicles have the device, using probability=1
 all_by_prob
 
-# all vehicles have the device, using probability=1and trips as input
+# all vehicles have the device, using probability=1 and trips as input
 all_by_prob_trip
+
+# all vehicles have the device, using probability=1 and flows as input
+all_by_prob_flow
 
 # trips as input, routes change over time
 trip_diff_routes
