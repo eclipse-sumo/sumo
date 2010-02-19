@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/19/10 14:40:35 by SUMO duarouter Version dev-SVN-r8292
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-definition value="input_flows.flows.xml,input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="0_0" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+</routes>

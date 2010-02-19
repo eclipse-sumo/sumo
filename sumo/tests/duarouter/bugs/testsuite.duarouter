@@ -10,5 +10,11 @@
 # Tests for ticket99 (correct duarouter report behaviour)
 ticket99
 
+# Tests for ticket221 (duplicate ids)
+ticket221
+
+# Tests for ticket221 (duplicate flows)
+ticket221_flow
+
 # Test for heap bug in dijkstra
 dijkstra
