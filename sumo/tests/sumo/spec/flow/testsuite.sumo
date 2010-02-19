@@ -18,4 +18,8 @@ nested_stops
 
 nested_route_stops
 
+period_no
+
+zero_period
+
 errors

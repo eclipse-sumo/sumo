@@ -47,13 +47,26 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     if (!attrs.setIDFromAttributes("flow", id)) {
         throw ProcessError();
     }
-    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) +
-            attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) +
-            attrs.hasAttribute(SUMO_ATTR_NO) != 1) {
-        throw ProcessError("Exactly one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
-                           "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
-                           "', and '" + attrs.getName(SUMO_ATTR_NO) +
-                           "' have to be given in the definition of flow '" + id + "'.");
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) && attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+        throw ProcessError("At most one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
+                           "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                           "' has to be given in the definition of flow '" + id + "'.");
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+        if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NO)) {
+            throw ProcessError("If '" + attrs.getName(SUMO_ATTR_PERIOD) +
+                               "' or '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                               "' are given at most one of '" + attrs.getName(SUMO_ATTR_END) +
+                               "' and '" + attrs.getName(SUMO_ATTR_NO) +
+                               "' are allowed in flow '" + id + "'.");
+        }
+    } else {
+        if (!attrs.hasAttribute(SUMO_ATTR_NO)) {
+            throw ProcessError("At least one of '" + attrs.getName(SUMO_ATTR_PERIOD) +
+                               "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
+                               "', and '" + attrs.getName(SUMO_ATTR_NO) +
+                               "' is needed in flow '" + id + "'.");
+        }
     }
     bool ok = true;
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
@@ -67,7 +80,14 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = 3600/attrs.getSUMORealReporting(SUMO_ATTR_VEHSPERHOUR, "flow", id.c_str(), ok);
+        const SUMOReal vph = attrs.getSUMORealReporting(SUMO_ATTR_VEHSPERHOUR, "flow", id.c_str(), ok);
+        if (ok && vph <= 0) {
+            delete ret;
+            throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
+        }
+        if (ok && vph != 0) {
+            ret->repetitionOffset = 3600/vph;
+        }
     }
 
     ret->depart = OptionsCont::getOptions().getInt("begin");
@@ -75,27 +95,38 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
         ret->depart = attrs.getIntReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok);
     }
     if (ok && ret->depart < 0) {
-        throw ProcessError("Negative begin time in the definition of '" + id + "'.");
+        delete ret;
+        throw ProcessError("Negative begin time in the definition of flow '" + id + "'.");
     }
     int end = OptionsCont::getOptions().getInt("end");
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
         end = attrs.getIntReporting(SUMO_ATTR_END, "flow", id.c_str(), ok);
     }
     if (ok && end <= ret->depart) {
+        delete ret;
         throw ProcessError("Flow '" + id + "' ends before or at its begin time.");
     }
     if (attrs.hasAttribute(SUMO_ATTR_NO)) {
         ret->repetitionNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok);
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
-        ret->repetitionOffset = (end - ret->depart) / (SUMOReal)ret->repetitionNumber;
+        if (ok && ret->repetitionNumber < 0) {
+            delete ret;
+            throw ProcessError("Negative repetition number in the definition of flow '" + id + "'.");
+        }
+        if (ok && ret->repetitionOffset < 0) {
+            ret->repetitionOffset = (end - ret->depart) / (SUMOReal)ret->repetitionNumber;
+        }
     } else {
+        if (ok && ret->repetitionOffset <= 0) {
+            delete ret;
+            throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
+        }
         if (end == INT_MAX) {
             ret->repetitionNumber = INT_MAX;
         } else {
             ret->repetitionNumber = (int)((end - ret->depart) / ret->repetitionOffset + 0.5);
         }
     }
-
     if (!ok) {
         delete ret;
         throw ProcessError();

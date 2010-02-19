@@ -1,0 +1,2 @@
+Error: If 'period' or 'vehsPerHour' are given at most one of 'end' and 'no' are allowed in flow 'f1'.
+Quitting (on error).

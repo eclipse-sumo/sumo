@@ -1,2 +1,2 @@
-Error: Exactly one of 'period', 'vehsPerHour', and 'no' have to be given in the definition of flow 'f1'.
+Error: At most one of 'period' and 'vehsPerHour' has to be given in the definition of flow 'f1'.
 Quitting (on error).

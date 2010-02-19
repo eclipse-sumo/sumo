@@ -185,9 +185,7 @@ MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
         while (pars->repetitionsDone < pars->repetitionNumber &&
                 pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-            std::ostringstream oss;
-            oss << pars->id << "." << (pars->depart + pars->repetitionsDone * pars->repetitionOffset);
-            newPars->id = oss.str();
+            newPars->id = pars->id + "." + toString(pars->repetitionsDone);
             newPars->depart = pars->depart + pars->repetitionsDone * pars->repetitionOffset;
             pars->repetitionsDone++;
             // try to build the vehicle
