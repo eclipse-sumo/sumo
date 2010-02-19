@@ -91,7 +91,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from) {
         }
     }
     NIVissimExtendedEdgePoint to_def = readExtEdgePointDef(from);
-    // read some optional values until mandatory "Fahrzeugklassen" occures
+    // read some optional values until mandatory "Fahrzeugklassen" occurs
     SUMOReal dxnothalt = 0;
     SUMOReal dxeinordnen = 0;
     SUMOReal zuschlag1, zuschlag2;

@@ -83,7 +83,7 @@ public:
 
     /** @brief Called on the occurence of character data
      *
-     * If this occures inside a single tag it sets the option named
+     * If this occurs inside a single tag it sets the option named
      *  by the tag to the value given by the character data.
      *  This is considered deprecated in favor of attributes.
      * @todo Describe better

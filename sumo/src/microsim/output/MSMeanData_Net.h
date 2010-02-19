@@ -144,7 +144,7 @@ public:
          * @param[in] period Length of the period the data were gathered
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @param[in] length The length of the object for which the data was collected
-         * @exception IOError If an error on writing occures (!!! not yet implemented)
+         * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice &dev, const SUMOReal period,
                    const SUMOReal numLanes, const SUMOReal length) const throw(IOError);
@@ -235,7 +235,7 @@ protected:
      * @param[in] edge The edge to write the dump of
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeEdge(OutputDevice &dev, const std::vector<MSMeanData::MeanDataValues*> &edgeValues,
                    MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);

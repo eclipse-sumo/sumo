@@ -343,7 +343,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb) {
 
         if(succ==""||pred=="") {
             cout << "Missing edge." << endl;
-            continue; // yes, occures
+            continue; // yes, occurs
         }
         NBNode *n = nb.getNodeCont().retrieve(edge2junction[e.id]);
         std::vector<OpenDriveEdge>::iterator predEdge = std::find_if(outerEdges.begin(), outerEdges.end(), edge_by_id_finder(pred));

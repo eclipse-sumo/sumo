@@ -141,7 +141,7 @@ private:
     SUMOReal getNamedFloat(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
 
 
-    /** @brief Returns the value from the named column as a float or the default value if an error occures
+    /** @brief Returns the value from the named column as a float or the default value if an error occurs
      *
      * @param[in] fieldName Name of the column to extract the float from
      * @param[in] defaultValue The default to return in the case of an error

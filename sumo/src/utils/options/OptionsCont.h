@@ -614,7 +614,7 @@ private:
 
     /** @brief Writes the given string 'formatted'
      *
-     * The given string is split so that no word-wrapping occures at line ends.
+     * The given string is split so that no word-wrapping occurs at line ends.
      *  The text is wrapped at ';' or ' '.
      *
      * @param[in] os The stream to write the text into

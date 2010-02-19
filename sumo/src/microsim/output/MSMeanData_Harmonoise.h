@@ -134,7 +134,7 @@ public:
          * @param[in] period Length of the period the data were gathered
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @param[in] length The length of the object for which the data was collected
-         * @exception IOError If an error on writing occures (!!! not yet implemented)
+         * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice &dev, const SUMOReal period,
                    const SUMOReal numLanes, const SUMOReal length) const throw(IOError);

@@ -283,7 +283,7 @@ protected:
                       const std::string &chars) throw(ProcessError);
 
 
-    /** @brief Called when a closing tag occures
+    /** @brief Called when a closing tag occurs
      *
      * @param[in] element ID of the currently opened element
      * @exception ProcessError If something fails

@@ -91,7 +91,7 @@ public:
      *
      * When a longer action is started, this method should be used to inform the user about it.
      * There will be no newline printed, but the message handler will be informed that
-     *  a process message has been begun. If an error occures, a newline will be printed.
+     *  a process message has been begun. If an error occurs, a newline will be printed.
      * After the action has been performed, use endProcessMsg to inform the user about it.
      */
     void beginProcessMsg(std::string msg, bool addType=true);

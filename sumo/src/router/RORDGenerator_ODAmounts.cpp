@@ -240,8 +240,8 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
     }
     myParameter->id = id;
     bool ok = true;
-    myIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "flowdef", id.c_str(), ok, myUpperIntervalBegin);
-    myIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "flowdef", id.c_str(), ok, myUpperIntervalEnd);
+    myIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok, myUpperIntervalBegin);
+    myIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "flow", id.c_str(), ok, myUpperIntervalEnd);
     myVehicle2EmitNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
     if (!ok) {
         throw ProcessError();

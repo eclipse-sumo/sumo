@@ -70,7 +70,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called when an opening-tag occures
+    /** @brief Called when an opening-tag occurs
      *
      * Processes district elements via openDistrict, their sinks (via
      *  addSink) and sources (via addSource).
@@ -84,7 +84,7 @@ protected:
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
-    /** @brief Called when a closing tag occures
+    /** @brief Called when a closing tag occurs
      *
      * Processes district elements via closeDistrict.
      *

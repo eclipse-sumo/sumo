@@ -146,7 +146,7 @@ public:
     SUMOReal approachingBrakeGap(SUMOReal speed) const throw();
 
 
-    /** @brief Returns the maximum gap at which an interaction between both vehicles occures
+    /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
      *
      * "interaction" means that the LEADER influences EGO's speed.
      * @param[in] veh The EGO vehicle

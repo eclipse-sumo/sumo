@@ -133,7 +133,7 @@ public:
      *  the current simulation time as end.
      *
      * @param[in] step The time step (the simulation has ended at)
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void close(SUMOTime step) throw(IOError);
 
@@ -397,7 +397,7 @@ public:
      *
      * @param[in] step The current time step
      * @param[in] closing Whether the device is closed
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeOutput(SUMOTime step, bool closing) throw(IOError);
 

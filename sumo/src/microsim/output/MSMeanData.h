@@ -115,7 +115,7 @@ public:
          * @param[in] period Length of the period the data were gathered
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @param[in] length The length of the object for which the data was collected
-         * @exception IOError If an error on writing occures (!!! not yet implemented)
+         * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice &dev, const SUMOReal period,
                            const SUMOReal numLanes, const SUMOReal length) const throw(IOError) = 0;
@@ -180,7 +180,7 @@ public:
      * @param[in] stopTime Last time step the data were gathered
      * @see MSDetectorFileOutput::writeXMLOutput
      * @see write
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
@@ -188,7 +188,7 @@ public:
      *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
@@ -224,7 +224,7 @@ protected:
      * @param[in] edge The edge to write the dump of
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     virtual void writeEdge(OutputDevice &dev, const std::vector<MeanDataValues*> &edgeValues,
                            MSEdge *edge, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
@@ -235,7 +235,7 @@ protected:
      * @param[in] values The values to check for emptiness
      * @param[in] prefix The xml prefix to write (mostly the lane / edge id)
      * @return whether further output should be generated
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     bool writePrefix(OutputDevice &dev, const MeanDataValues &values,
                      const std::string prefix) const throw(IOError);

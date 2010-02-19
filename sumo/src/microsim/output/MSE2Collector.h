@@ -178,7 +178,7 @@ public:
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @see MSDetectorFileOutput::writeXMLOutput
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
@@ -187,7 +187,7 @@ public:
      *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}

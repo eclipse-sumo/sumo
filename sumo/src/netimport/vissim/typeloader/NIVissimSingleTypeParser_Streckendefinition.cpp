@@ -84,7 +84,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from) {
     tag = myRead(from);
     from >> noLanes;
     // skip some parameter, except optional "Zuschlag" until "Von" (mandatory)
-    //  occures
+    //  occurs
     SUMOReal zuschlag1, zuschlag2;
     zuschlag1 = zuschlag2 = 0;
     while (tag!="von") {

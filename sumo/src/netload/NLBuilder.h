@@ -117,7 +117,7 @@ protected:
      * Builds the microsim-structures which belong to a MSNet using the factories
      *  filled while loading. Initialises the network using these structures by calling
      *  MSNet::closeBuilding.
-     * If an error occures, all built structures are deleted and a ProcessError is thrown.
+     * If an error occurs, all built structures are deleted and a ProcessError is thrown.
      * @exception ProcessError If the loaded structures could not be built
      */
     void buildNet() throw(ProcessError);

@@ -74,7 +74,7 @@ public:
 
     /** @brief Tries to read given attribute assuming it is an int
      *
-     * If an error occures (the attribute is not there, it is not numeric), "ok" is
+     * If an error occurs (the attribute is not there, it is not numeric), "ok" is
      *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
      *
      * If the value could be read, "ok" is not changed, and the value is returned.
@@ -93,7 +93,7 @@ public:
     /** @brief Tries to read given attribute assuming it is an int
      *
      * If the attribute is not existing in the current element, the default value is returned.
-     * If an error occures on parsing (the attribute is empty, it is not numeric), "ok" is
+     * If an error occurs on parsing (the attribute is empty, it is not numeric), "ok" is
      *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
      *
      * If the value could be read, "ok" is not changed, and the value is returned.
@@ -112,7 +112,7 @@ public:
 
     /** @brief Tries to read given attribute assuming it is an SUMOReal
      *
-     * If an error occures (the attribute is not there, it is not numeric), "ok" is
+     * If an error occurs (the attribute is not there, it is not numeric), "ok" is
      *  set to false and an error message is written to MsgHandler::getErrorInstance.
      *
      * Otherwise, "ok" is not changed.
@@ -132,7 +132,7 @@ public:
     /** @brief Tries to read given attribute assuming it is an SUMOReal
      *
      * If the attribute is not existing in the current element, the default value is returned.
-     * If an error occures on parsing (the attribute is empty, it is not numeric), "ok" is
+     * If an error occurs on parsing (the attribute is empty, it is not numeric), "ok" is
      *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
      *
      * Otherwise, "ok" is not changed.
@@ -151,7 +151,7 @@ public:
 
     /** @brief Tries to read given attribute assuming it is a boolean
      *
-     * If an error occures (the attribute is not there, it is not a boolean), "ok" is
+     * If an error occurs (the attribute is not there, it is not a boolean), "ok" is
      *  set to false and an error message is written to MsgHandler::getErrorInstance.
      *
      * Otherwise, "ok" is not changed.
@@ -171,7 +171,7 @@ public:
     /** @brief Tries to read given attribute assuming it is a boolean
      *
      * If the attribute is not existing in the current element, the default value is returned.
-     * If an error occures on parsing (the attribute is empty, it is not a boolean), "ok" is
+     * If an error occurs on parsing (the attribute is empty, it is not a boolean), "ok" is
      *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
      *
      * Otherwise, "ok" is not changed.
@@ -190,7 +190,7 @@ public:
 
     /** @brief Tries to read given attribute assuming it is a string
      *
-     * If an error occures (the attribute is not there, it's empty), "ok" is
+     * If an error occurs (the attribute is not there, it's empty), "ok" is
      *  set to false and an error message is written to MsgHandler::getErrorInstance.
      *
      * Otherwise, "ok" is not changed.
@@ -210,7 +210,7 @@ public:
     /** @brief Tries to read given attribute assuming it is a string
      *
      * If the attribute is not existing in the current element, the default value is returned.
-     * If an error occures on parsing (the attribute is empty), "ok" is
+     * If an error occurs on parsing (the attribute is empty), "ok" is
      *  set to false. If report is true an error message is written to MsgHandler::getErrorInstance.
      *
      * Otherwise, "ok" is not changed.
@@ -434,7 +434,7 @@ public:
     /** @brief Splits the given string
      *
      * Spaces, ",", and ";" are assumed to be separator characters.
-     * Though, in the case a "," or a ";" occures, a warning is generated (once).
+     * Though, in the case a "," or a ";" occurs, a warning is generated (once).
      *
      * @param[in] def The string to split
      * @param[out] into The vector to fill

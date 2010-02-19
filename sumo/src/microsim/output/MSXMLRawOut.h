@@ -63,7 +63,7 @@ public:
      * @param[in] of The output device to use
      * @param[in] ec The EdgeControl which holds the edges to write
      * @param[in] timestep The current time step
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     static void write(OutputDevice &of, const MSEdgeControl &ec,
                       SUMOTime timestep) throw(IOError);
@@ -73,7 +73,7 @@ public:
      *
      * @param[in] of The output device to use
      * @param[in] veh The vehicle to dump
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     static void writeVehicle(OutputDevice &of, const SUMOVehicle &veh) throw(IOError);
 
@@ -87,7 +87,7 @@ private:
      * @param[in] of The output device to use
      * @param[in] edge The edge to dump
      * @todo MSGlobals::gOmitEmptyEdgesOnDump should not be used; rather the according option read in write
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     static void writeEdge(OutputDevice &of, const MSEdge &edge) throw(IOError);
 
@@ -99,7 +99,7 @@ private:
      *
      * @param[in] of The output device to use
      * @param[in] lane The lane to dump
-     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
     static void writeLane(OutputDevice &of, const MSLane &lane) throw(IOError);
 

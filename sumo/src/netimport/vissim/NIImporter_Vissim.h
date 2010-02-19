@@ -127,7 +127,7 @@ public:
          */
         bool skipOverreading(std::istream &from, const std::string &name="");
 
-        /// Reads from the stream until the keywor occures
+        /// Reads from the stream until the keywor occurs
         void readUntil(std::istream &from, const std::string &name);
 
     private:
