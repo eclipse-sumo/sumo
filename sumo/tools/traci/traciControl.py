@@ -15,6 +15,10 @@ import traciconstants as tc
 
 RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
+class FatalTraCIError:
+    def __init__(self, desc):
+        self._desc = desc
+
 class Phase:
     def __init__(self, duration, duration1, duration2, phaseDef):
         self._duration = duration
@@ -81,21 +85,33 @@ class Storage:
 
 
 def _recvExact():
+    global _socket
     result = ""
     while len(result) < 4:
-        result += _socket.recv(4 - len(result))
+        t = _socket.recv(4 - len(result))
+        if not t:
+            return None
+        result += t
     length = struct.unpack("!i", result)[0] - 4
     result = ""
     while len(result) < length:
-        result += _socket.recv(length - len(result))
+        t = _socket.recv(length - len(result))
+        if not t:
+            return None
+        result += t
     return Storage(result)
 
 def _sendExact():
+    global _socket
     length = struct.pack("!i", len(_message.string)+4)
     _socket.send(length)
     _socket.send(_message.string)
     _message.string = ""
     result = _recvExact()
+    if not result:
+        _socket.close()
+        _socket = None
+        raise FatalTraCIError("connection closed by SUMO")
     for command in _message.queue:
         prefix = result.read("!BBB")
         err = result.readString()
@@ -140,6 +156,8 @@ def beginChangeMessage(domainID, length, cmdID, objID):
         _message.string += struct.pack("!BiBBi", 0, length+4, domainID, cmdID, len(objID)) + objID
 
 def initTraCI(port):
+    global _socket
+    _socket = socket.socket()
     for wait in range(10):
         try:
             _socket.connect(("localhost", port))
@@ -630,7 +648,10 @@ def cmdChangeTarget(edge, objectID):
     _message.string += struct.pack("!BBii", 1+1+4+4+len(edge), tc.CMD_CHANGETARGET, objectID, len(edge)) + edge
 
 def cmdClose():
-    _message.queue.append(tc.CMD_CLOSE)
-    _message.string += struct.pack("!BB", 1+1, tc.CMD_CLOSE)
-    _sendExact()
-    _socket.close()
+    global _socket
+    if _socket:
+        _message.queue.append(tc.CMD_CLOSE)
+        _message.string += struct.pack("!BB", 1+1, tc.CMD_CLOSE)
+        _sendExact()
+        _socket.close()
+
