@@ -3,7 +3,7 @@
 @file    xmlnodes_applyOffset.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-08-01
-@version $Id: xmledges_applyOffset.py 8236 2010-02-10 11:16:41Z behrisch $
+@version $Id$
 
 Applies a given offset to edges given in an xml-node-file.
 The results are written into <XMLNODES>.mod.xml.
