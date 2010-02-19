@@ -75,7 +75,7 @@ RONet::~RONet() throw() {
 void
 RONet::addEdge(ROEdge *edge) throw() {
     if (!myEdges.add(edge->getID(), edge)) {
-        MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occures at least twice.");
+        MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occurs at least twice.");
         delete edge;
     }
 }
@@ -84,7 +84,7 @@ RONet::addEdge(ROEdge *edge) throw() {
 void
 RONet::addNode(RONode *node) throw() {
     if (!myNodes.add(node->getID(), node)) {
-        MsgHandler::getErrorInstance()->inform("The node '" + node->getID() + "' occures at least twice.");
+        MsgHandler::getErrorInstance()->inform("The node '" + node->getID() + "' occurs at least twice.");
         delete node;
     }
 }
@@ -151,7 +151,7 @@ RONet::getVehicleTypeSecure(const std::string &id) throw() {
 bool
 RONet::addVehicleType(SUMOVTypeParameter *type) throw() {
     if (!myVehicleTypes.add(type->id, type)) {
-        MsgHandler::getErrorInstance()->inform("The vehicle type '" + type->id + "' occures at least twice.");
+        MsgHandler::getErrorInstance()->inform("The vehicle type '" + type->id + "' occurs at least twice.");
         delete type;
         return false;
     }
@@ -161,10 +161,12 @@ RONet::addVehicleType(SUMOVTypeParameter *type) throw() {
 
 bool
 RONet::addVehicle(const std::string &id, ROVehicle *veh) throw() {
-    if (myVehicles.add(id, veh)) {
+    if (myVehIDs.find(id)==myVehIDs.end()&&myVehicles.add(id, veh)) {
+        myVehIDs.insert(id);
         myReadRouteNo++;
         return true;
     }
+    MsgHandler::getErrorInstance()->inform("The vehicle '" + id + "' occurs at least twice.");
     return false;
 }
 

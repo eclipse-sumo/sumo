@@ -294,11 +294,8 @@ protected:
     void checkSourceAndDestinations() const;
 
 protected:
-    /// Container for known vehicle ids
-    typedef std::vector<std::string> VehIDCont; // should be something else
-
     /// Known vehicle ids
-    VehIDCont myVehIDs;
+    std::set<std::string> myVehIDs;
 
     /// Known nodes
     NamedObjectCont<RONode*> myNodes;
