@@ -1,7 +1,21 @@
+"""
+@file    vissim_parseRoutes.py
+@author  Daniel.Krajzewicz@dlr.de
+@date    2009-05-27
+@version $Id$
+
+
+Parses routes given in the Vissim file (first parameter) as (in-)flows and 
+ route decisions and saves them into "routes.xml".
+(Starting?) edges of the route may be renamed by setting them within "edgemap"
+ variable (see below).
+
+Copyright (C) 2009 DLR/TS, Germany
+All rights reserved
+"""
 
 edgemap = {}
 edgemap["203"] = "203[0]"
-
 
 
 import sys
