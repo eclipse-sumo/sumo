@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!-- poi_atTLS net.net.xml -->
+<additional>
+    <poi id="0" type="default" color="1,0,0" layer="0" x="500.0" y="500.0"/>
+</additional>
