@@ -16,13 +16,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-// ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#pragma warning(disable: 4503)
-#endif
 
 
 // ===========================================================================
@@ -52,12 +45,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -413,7 +400,7 @@ MSEdge::prohibits(const SUMOVehicle * const vehicle) const throw() {
 
 
 bool
-MSEdge::dictionary(const string &id, MSEdge* ptr) throw() {
+MSEdge::dictionary(const std::string &id, MSEdge* ptr) throw() {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
@@ -429,7 +416,7 @@ MSEdge::dictionary(const string &id, MSEdge* ptr) throw() {
 
 
 MSEdge*
-MSEdge::dictionary(const string &id) throw() {
+MSEdge::dictionary(const std::string &id) throw() {
     DictType::iterator it = myDict.find(id);
     if (it == myDict.end()) {
         // id not in myDict.
