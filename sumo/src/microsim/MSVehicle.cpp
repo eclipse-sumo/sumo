@@ -86,15 +86,9 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static value definitions
 // ===========================================================================
-vector<MSLane*> MSVehicle::myEmptyLaneVector;
+std::vector<MSLane*> MSVehicle::myEmptyLaneVector;
 
 
 // ===========================================================================
@@ -165,7 +159,7 @@ MSVehicle::~MSVehicle() throw() {
     //
     delete myParameter;
     delete myLaneChangeModel;
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         delete(*dev);
     }
     myDevices.clear();
@@ -190,9 +184,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
                      int vehicleIndex) throw (ProcessError) :
-#ifdef HAVE_MESOSIM
-        MEVehicle(0, 0),
-#endif
         myLastLaneChangeOffset(0),
         myTarget(0),
         myWaitingTime(0),
@@ -311,7 +302,7 @@ MSVehicle::onRemovalFromNet(bool forTeleporting) throw() {
         (*i)->removeOnTripEnd(this);
     }
     myQuitReminded.clear();
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->onRemovalFromNet();
     }
     leaveLane(true);
@@ -392,11 +383,11 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime) throw() {
 
     // build a new one
     // build a new id, first
-    string id = getID();
+    std::string id = getID();
     if (id[0]!='!') {
         id = "!" + id;
     }
-    if (myRoute->getID().find("!var#")!=string::npos) {
+    if (myRoute->getID().find("!var#")!=std::string::npos) {
         id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
     } else {
         id = id + "!var#1";
@@ -548,7 +539,7 @@ MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane
     if (searchedLane==myLane) {
         return myState.myPos;
     }
-    vector< MSMoveReminder* >::const_iterator rem = myOldLaneMoveReminders.begin();
+    std::vector< MSMoveReminder* >::const_iterator rem = myOldLaneMoveReminders.begin();
     std::vector<SUMOReal>::const_iterator off = myOldLaneMoveReminderOffsets.begin();
     for (; rem!=myOldLaneMoveReminders.end()&&off!=myOldLaneMoveReminderOffsets.end(); ++rem, ++off) {
         if ((*rem)->getLane()==searchedLane) {
@@ -563,7 +554,7 @@ void
 MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw() {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
-    for (vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
+    for (std::vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
         if (!(*rem)->isStillActive(*this, oldPos, newPos, newSpeed)) {
             rem = myMoveReminders.erase(rem);
         } else {
@@ -571,7 +562,7 @@ MSVehicle::workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpe
         }
     }
     OffsetVector::iterator off=myOldLaneMoveReminderOffsets.begin();
-    for (vector< MSMoveReminder* >::iterator rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end();) {
+    for (std::vector< MSMoveReminder* >::iterator rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end();) {
         SUMOReal oldLaneLength = *off;
         if (!(*rem)->isStillActive(*this, oldLaneLength+oldPos, oldLaneLength+newPos, newSpeed)) {
             rem = myOldLaneMoveReminders.erase(rem);
@@ -607,7 +598,7 @@ void
 MSVehicle::activateRemindersByEmitOrLaneChange(bool isEmit) throw() {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
-    for (vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
+    for (std::vector< MSMoveReminder* >::iterator rem=myMoveReminders.begin(); rem!=myMoveReminders.end();) {
         if (!(*rem)->notifyEnter(*this, isEmit, !isEmit)) {
             rem = myMoveReminders.erase(rem);
         } else {
@@ -898,7 +889,7 @@ MSVehicle::moveFirstChecked() {
     // update position and speed
     myState.myPos += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
-    vector<MSLane*> passedLanes;
+    std::vector<MSLane*> passedLanes;
     for (std::vector<MSLane*>::reverse_iterator i=myFurtherLanes.rbegin(); i!=myFurtherLanes.rend(); ++i) {
         passedLanes.push_back(*i);
     }
@@ -1235,7 +1226,7 @@ MSVehicle::getPosition() const {
 }
 
 
-const string &
+const std::string &
 MSVehicle::getID() const throw() {
     return myParameter->id;
 }
@@ -1289,7 +1280,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) {
 
     // may be optimized: compute only, if the current or the next have more than one lane...!!!
     getBestLanes(true);
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtMove(enteredLane, driven);
     }
 
@@ -1314,7 +1305,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     myMoveReminders = enteredLane->getMoveReminders();
     rebuildAllowedLanes();
     activateRemindersByEmitOrLaneChange(false);
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtLaneChange(enteredLane);
     }
     SUMOReal leftLength = myState.myPos-getVehicleType().getLength();
@@ -1362,7 +1353,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange(true);
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtEmit(enteredLane, myState);
     }
 }
@@ -1370,7 +1361,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
 
 void
 MSVehicle::leaveLaneAtMove(SUMOReal driven) {
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->leaveLaneAtMove(driven);
     }
     if (!myAllowedLanes.empty()) {
@@ -1381,12 +1372,12 @@ MSVehicle::leaveLaneAtMove(SUMOReal driven) {
 
 void
 MSVehicle::leaveLane(bool isArrival) {
-    for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->leaveLane();
     }
     // dismiss the old lane's reminders
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors
-    vector< MSMoveReminder* >::iterator rem;
+    std::vector< MSMoveReminder* >::iterator rem;
     for (rem=myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {
         (*rem)->notifyLeave(*this, isArrival, !isArrival);
     }
@@ -1665,7 +1656,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw() {
     }
     myLastBestLanesEdge = &startLane->getEdge();
     myBestLanes.clear();
-    myBestLanes.push_back(vector<LaneQ>());
+    myBestLanes.push_back(std::vector<LaneQ>());
     const std::vector<MSLane*> &lanes = (*myCurrEdge)->getLanes();
     MSRouteIterator ce = myCurrEdge;
     int seen = 0;
