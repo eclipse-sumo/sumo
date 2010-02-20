@@ -27,7 +27,7 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../
 import sumonet
 
 if len(sys.argv) < 4:
-	print("Usage: " + sys.argv[0] + " <net> <edge1,edge2,...> <distance between POIs")
+	print >> sys.stderr, "Usage: " + sys.argv[0] + " <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>"
 	sys.exit()
 edgeList = sys.argv[2].split(',')
 POIdist = float(sys.argv[3])
