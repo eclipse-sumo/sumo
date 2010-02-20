@@ -20,7 +20,6 @@
         <plain-output value=""/>
         <node-geometry-dump value=""/>
         <map-output value=""/>
-        <tls-poi-output value=""/>
         <node-type-output value=""/>
     </output>
 

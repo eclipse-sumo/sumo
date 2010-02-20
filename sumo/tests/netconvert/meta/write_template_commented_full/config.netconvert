@@ -52,9 +52,6 @@
         <!-- Writes joined edges information to FILE -->
         <map-output value=""/>
 
-        <!-- Writes pois of tls positions to FILE -->
-        <tls-poi-output value=""/>
-
         <!-- Writes pois of node types to FILE -->
         <node-type-output value=""/>
 
