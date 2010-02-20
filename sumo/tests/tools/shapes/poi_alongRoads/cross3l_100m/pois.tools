@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!--
+
+POIs for edges:
+	1fi,1si,2o
+
+on network:
+	net.net.xml
+-->
+
+<POIs>
+	<poi id="1fi-1" type="default" color="1,0,0" layer="0" x="0.0" y="498.35"/>
+	<poi id="1fi-2" type="default" color="1,0,0" layer="0" x="100.0" y="498.35"/>
+	<poi id="1fi-3" type="default" color="1,0,0" layer="0" x="200.0" y="498.35"/>
+	<poi id="1si-1" type="default" color="1,0,0" layer="0" x="298.540179376" y="495.05"/>
+	<poi id="1si-2" type="default" color="1,0,0" layer="0" x="398.540179376" y="495.05"/>
+	<poi id="1si-3" type="default" color="1,0,0" layer="0" x="498.437299025" y="496.472823206"/>
+	<poi id="2o-1" type="default" color="1,0,0" layer="0" x="598.301565643" y="498.35"/>
+	<poi id="2o-2" type="default" color="1,0,0" layer="0" x="698.301565643" y="498.35"/>
+	<poi id="2o-3" type="default" color="1,0,0" layer="0" x="798.301565643" y="498.35"/>
+	<poi id="2o-4" type="default" color="1,0,0" layer="0" x="898.301565643" y="498.35"/>
+	<poi id="2o-5" type="default" color="1,0,0" layer="0" x="998.301565643" y="498.35"/>
+</POIs>

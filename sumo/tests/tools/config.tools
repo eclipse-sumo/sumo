@@ -22,6 +22,7 @@ activityfile:activityfile.tcl
 mobilityfile:mobilityfile.tcl
 config:config.tcl
 summary:intersection_metrics_summary.txt
+pois:pois.add.xml
 
 [run_dependent_text]
 output:Begin time
