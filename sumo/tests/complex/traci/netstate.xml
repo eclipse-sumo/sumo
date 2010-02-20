@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/20/10 10:28:58 by SUMO sumo Version dev-SVN-r8139
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="101"/>
+    </time>
+
+    <report>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="8813"/>
+    </traci_server>
+
+    <gui_only>
+        <gui-settings-file value=""/>
+    </gui_only>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="101" id="dump">
+      <edge id="2fi" sampledSeconds="25.94" traveltime="25.94" density="1.03" occupancy="0.78" waitingTime="0.00" speed="9.58" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+      <edge id="2si" sampledSeconds="74.06" traveltime="74.06" density="3.09" occupancy="0.77" waitingTime="72.28" speed="3.20" departed="0" arrived="0" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+   </interval>
+</netstats>
