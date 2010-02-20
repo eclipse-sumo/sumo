@@ -2,19 +2,20 @@
 # -*- coding: utf-8 -*-
 
 """
-@file    network_POI.py
+@file    poi_alongRoads.py
 @author  Ronald.Nippold@dlr.de
 @date    2009-20-10
 @version
-@usage   python network_POI.py <network-file-to-be-analyzed.net.xml> <edge-with-POIs>,<edge-with-POIs,...> <distance-between-POIs>
+@usage   poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
 
-* Spatial distribute of POIs along given edges on a given network
-* Edges are separated with comma and without spaces in between
-* The distance between POIs may be any positive real number
-* So far POIs are situated in the middle on all edges without regard to the type of the edge (street, junction)
-* Edges may be given in arbitrary order, connected edges are found automatically
-* Therefore: crossing chains of connected edges are not allowed -> this needs two different runs of this script
-* Output is written in file 'poi.xml'
+Spatial distribute of POIs along given edges on a given network.
+Edges are separated with comma and without spaces in between.
+The distance between POIs may be any positive real number
+
+So far POIs are situated in the middle on all edges without regard to the type of the edge (street, junction).
+ Edges may be given in arbitrary order, connected edges are found automatically
+ Therefore: crossing chains of connected edges are not allowed -> this needs two different runs of this script
+ Output is written in file 'pois.add.xml'
 
 Copyright (C) 2009 DLR/TS, Germany
 All rights reserved
