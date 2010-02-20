@@ -224,13 +224,6 @@ public:
 
     bool savePlain(const std::string &file);
 
-    /** @brief Writes positions of traffic lights as a list of points of interest (POIs)
-     *
-     * @param[in] device The device to write the pois into
-     * @exception IOError (not yet implemented)
-     */
-    void writeTLSasPOIs(OutputDevice &device) throw(IOError);
-
 
     /** @brief Prints statistics about built nodes
      *

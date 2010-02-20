@@ -109,11 +109,6 @@ NBNetBuilder::buildLoaded() throw(IOError) {
         OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));
         mdevice << gJoinedEdges;
     }
-    // save the tls positions as a list of pois
-    if (oc.isSet("tls-poi-output")) {
-        OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("tls-poi-output"));
-        myNodeCont.writeTLSasPOIs(mdevice);
-    }
 }
 
 
@@ -357,9 +352,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc) {
 
     oc.doRegister("map-output", 'M', new Option_FileName());
     oc.addDescription("map-output", "Output", "Writes joined edges information to FILE");
-
-    oc.doRegister("tls-poi-output", new Option_FileName());
-    oc.addDescription("tls-poi-output", "Output", "Writes pois of tls positions to FILE");
 
     oc.doRegister("node-type-output", new Option_FileName());
     oc.addDescription("node-type-output", "Output", "Writes pois of node types to FILE"); // !!! describe, rename

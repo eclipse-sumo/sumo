@@ -1217,21 +1217,6 @@ NBNodeCont::savePlain(const std::string &file) {
 
 
 void
-NBNodeCont::writeTLSasPOIs(OutputDevice &device) throw(IOError) {
-    device.writeXMLHeader("pois");
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *n = (*i).second;
-        if (n->isTLControlled()) {
-            device << "   <poi id=\"" << (*i).first
-            << "\" type=\"tls controlled node\" color=\"1,1,0\""
-            << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
-        }
-    }
-    device.close();
-}
-
-
-void
 NBNodeCont::printBuiltNodesStatistics() const throw() {
     int noDistricts = 0;
     int noUnregulatedJunctions = 0;
