@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/11/09 10:40:56 by SUMO sumo Version dev-SVN-r7963
+<!-- generated on 02/21/10 00:09:57 by SUMO sumo Version dev-SVN-r8292
 <configuration>
 
     <input>
@@ -14,7 +14,7 @@
 
     <time>
         <begin value="0"/>
-        <end value="0"/>
+        <end value="2"/>
     </time>
 
     <report>
@@ -32,7 +32,40 @@
 <sumo-netstate>
    <timestep time="0">
       <edge id="beg">
-         <vehicle id="1" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.9" pos="0.00" speed="12.83"/>
+         <vehicle id="f1.8" pos="0.00" speed="13.64"/>
+         <vehicle id="f1.7" pos="0.00" speed="14.57"/>
+         <vehicle id="f1.6" pos="0.00" speed="15.63"/>
+         <vehicle id="f1.5" pos="0.00" speed="16.86"/>
+         <vehicle id="f1.4" pos="0.00" speed="18.30"/>
+         <vehicle id="f1.3" pos="0.00" speed="20.01"/>
+         <vehicle id="f1.2" pos="0.00" speed="22.07"/>
+         <vehicle id="f1.1" pos="0.00" speed="24.61"/>
+         <vehicle id="f1.0" pos="0.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="1">
+      <edge id="beg">
+         <vehicle id="f1.19" pos="0.00" speed="8.72"/>
+         <vehicle id="f1.18" pos="0.00" speed="9.09"/>
+         <vehicle id="f1.17" pos="0.00" speed="9.50"/>
+         <vehicle id="f1.16" pos="0.00" speed="9.94"/>
+         <vehicle id="f1.15" pos="0.00" speed="10.42"/>
+         <vehicle id="f1.14" pos="0.00" speed="10.95"/>
+         <vehicle id="f1.13" pos="0.00" speed="11.54"/>
+         <vehicle id="f1.12" pos="0.00" speed="12.20"/>
+         <vehicle id="f1.11" pos="0.00" speed="12.94"/>
+         <vehicle id="f1.10" pos="0.00" speed="13.77"/>
+         <vehicle id="f1.9" pos="0.00" speed="12.83"/>
+         <vehicle id="f1.8" pos="0.00" speed="13.64"/>
+         <vehicle id="f1.7" pos="0.00" speed="14.57"/>
+         <vehicle id="f1.6" pos="0.00" speed="15.63"/>
+         <vehicle id="f1.5" pos="0.00" speed="16.86"/>
+         <vehicle id="f1.4" pos="0.00" speed="18.30"/>
+         <vehicle id="f1.3" pos="0.00" speed="20.01"/>
+         <vehicle id="f1.2" pos="0.00" speed="22.07"/>
+         <vehicle id="f1.1" pos="0.00" speed="24.61"/>
+         <vehicle id="f1.0" pos="0.00" speed="27.80"/>
       </edge>
    </timestep>
 </sumo-netstate>

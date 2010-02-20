@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/11/09 14:52:51 by SUMO sumo Version dev-SVN-r7969
+<!-- generated on 02/21/10 00:13:27 by SUMO sumo Version dev-SVN-r8292
 <configuration>
 
     <input>
@@ -29,32 +29,32 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="100" arrival="226">
+    <vehicle id="0.5" depart="100" arrival="226">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="100" edges="beg middle end rend"/>
         <route edges="beg beg2right right right2end"/>
    </vehicle>
 
-    <vehicle id="0_0" depart="120" arrival="245">
+    <vehicle id="0.6" depart="120" arrival="245">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="120" edges="beg middle end rend"/>
         <route edges="beg beg2left left left2end"/>
    </vehicle>
 
-    <vehicle id="0_1" depart="140" arrival="265">
+    <vehicle id="0.7" depart="140" arrival="265">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="140" edges="beg middle end rend"/>
         <route edges="beg beg2left left left2end"/>
    </vehicle>
 
-    <vehicle id="0_2" depart="160" arrival="285">
+    <vehicle id="0.8" depart="160" arrival="285">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="160" edges="beg middle end rend"/>
         <route edges="beg beg2left left left2end"/>
    </vehicle>
 
-    <vehicle id="0_3" depart="180" arrival="306">
+    <vehicle id="0.9" depart="180" arrival="306">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="180" edges="beg middle end rend"/>
         <route edges="beg beg2right right right2end"/>
    </vehicle>
 
-    <vehicle id="0_4" depart="200" arrival="326">
+    <vehicle id="0.10" depart="200" arrival="326">
         <replacedRoute replacedOnEdge="beg" replacedAtTime="200" edges="beg middle end rend"/>
         <route edges="beg beg2right right right2end"/>
    </vehicle>

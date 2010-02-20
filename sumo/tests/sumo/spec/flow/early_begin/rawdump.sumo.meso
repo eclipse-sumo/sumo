@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/11/09 10:40:56 by SUMO sumo Version dev-SVN-r7963
+<!-- generated on 02/21/10 00:09:56 by SUMO sumo Version dev-SVN-r8292
 <configuration>
 
     <input>
@@ -13,8 +13,8 @@
     </output>
 
     <time>
-        <begin value="0"/>
-        <end value="0"/>
+        <begin value="5"/>
+        <end value="16"/>
     </time>
 
     <report>
@@ -30,9 +30,93 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0">
+   <timestep time="5">
       <edge id="beg">
-         <vehicle id="1" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="0.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="6">
+      <edge id="beg">
+         <vehicle id="f1.6" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="0.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="7">
+      <edge id="beg">
+         <vehicle id="f1.7" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="0.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="8">
+      <edge id="beg">
+         <vehicle id="f1.8" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="0.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="9">
+      <edge id="beg">
+         <vehicle id="f1.9" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.8" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="100.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="10">
+      <edge id="beg">
+         <vehicle id="f1.9" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.8" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="100.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="11">
+      <edge id="beg">
+         <vehicle id="f1.9" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.8" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="100.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="12">
+      <edge id="beg">
+         <vehicle id="f1.9" pos="0.00" speed="27.80"/>
+         <vehicle id="f1.8" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="100.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="13">
+      <edge id="beg">
+         <vehicle id="f1.9" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.8" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="200.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="14">
+      <edge id="beg">
+         <vehicle id="f1.9" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.8" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="200.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="200.00" speed="27.80"/>
+      </edge>
+   </timestep>
+   <timestep time="15">
+      <edge id="beg">
+         <vehicle id="f1.9" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.8" pos="100.00" speed="27.80"/>
+         <vehicle id="f1.7" pos="200.00" speed="27.80"/>
+         <vehicle id="f1.6" pos="200.00" speed="27.80"/>
+         <vehicle id="f1.5" pos="200.00" speed="27.80"/>
       </edge>
    </timestep>
 </sumo-netstate>
