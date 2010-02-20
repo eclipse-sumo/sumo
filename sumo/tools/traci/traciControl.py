@@ -86,20 +86,23 @@ class Storage:
 
 def _recvExact():
     global _socket
-    result = ""
-    while len(result) < 4:
-        t = _socket.recv(4 - len(result))
-        if not t:
-            return None
-        result += t
-    length = struct.unpack("!i", result)[0] - 4
-    result = ""
-    while len(result) < length:
-        t = _socket.recv(length - len(result))
-        if not t:
-            return None
-        result += t
-    return Storage(result)
+    try:
+        result = ""
+        while len(result) < 4:
+            t = _socket.recv(4 - len(result))
+            if not t:
+                return None
+            result += t
+        length = struct.unpack("!i", result)[0] - 4
+        result = ""
+        while len(result) < length:
+            t = _socket.recv(length - len(result))
+            if not t:
+                return None
+            result += t
+        return Storage(result)
+    except socket.error:
+        return None
 
 def _sendExact():
     global _socket
