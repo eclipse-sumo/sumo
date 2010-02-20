@@ -148,7 +148,7 @@ POIbuf.append("</POIs>")
 
 print("writing output\n")
 # finally write output in file
-outfile = open('poi.xml', 'w')
+outfile = open('pois.add.xml', 'w')
 for POIs in POIbuf:
 	outfile.write(POIs + "\n")
 outfile.close()
