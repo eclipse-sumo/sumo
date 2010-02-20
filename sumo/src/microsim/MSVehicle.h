@@ -620,6 +620,11 @@ public:
      * @return Whether the vehicle is simulated
      */
     inline bool isOnRoad() const throw() {
+#ifdef HAVE_MESOSIM
+        if (MSGlobals::gUseMesoSim) {
+            return MEVehicle::getSegment() != 0;
+        }
+#endif
         return myLane!=0;
     }
 
