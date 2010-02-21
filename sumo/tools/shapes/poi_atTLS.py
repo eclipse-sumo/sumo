@@ -43,7 +43,12 @@ for tlsID in net1._id2tls:
         iLane = c[0]
         iEdge = iLane.getEdge()
         nodes.add(iEdge._to)
+    c = [0, 0]
     for n in nodes:
-       print >> fdo, '    <poi id="%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (n._id, n._coord[0], n._coord[1])
+        c[0] += n._coord[0]
+        c[1] += n._coord[1]
+    c[0] += c[0] / float(len(nodes))
+    c[1] += c[1] / float(len(nodes))
+    print >> fdo, '    <poi id="%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (tlsID, c[0], c[1])
 print >> fdo, '</additional>'
 fdo.close()
