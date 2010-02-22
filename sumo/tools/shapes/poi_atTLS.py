@@ -47,8 +47,9 @@ for tlsID in net1._id2tls:
     for n in nodes:
         c[0] += n._coord[0]
         c[1] += n._coord[1]
-    c[0] += c[0] / float(len(nodes))
-    c[1] += c[1] / float(len(nodes))
+    if len(nodes)>1:
+        c[0] = c[0] / float(len(nodes))
+        c[1] = c[1] / float(len(nodes))
     print >> fdo, '    <poi id="%s" type="default" color="1,0,0" layer="0" x="%s" y="%s"/>' % (tlsID, c[0], c[1])
 print >> fdo, '</additional>'
 fdo.close()
