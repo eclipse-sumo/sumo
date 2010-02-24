@@ -2,8 +2,15 @@
 
 import os,subprocess,sys,time
 import xml.dom.minidom as dom
+from copy import copy
 
 changes = [
+	[ "net/edge[0]@from", "" ],
+	[ "net/edge[1]@from", "" ],
+	[ "net/edge[0]@from", "a" ],
+	[ "net/edge[1]@from", "a" ],
+	[ "net/edge[0]@from", "<remove>" ],
+	[ "net/edge[1]@from", "<remove>" ],
 	[ "net/edge[0]@function", "" ],
 	[ "net/edge[1]@function", "" ],
 	[ "net/edge[0]@function", "a" ],
@@ -16,6 +23,12 @@ changes = [
 	[ "net/edge[1]@id", "a" ],
 	[ "net/edge[0]@id", "<remove>" ],
 	[ "net/edge[1]@id", "<remove>" ],
+	[ "net/edge[0]@to", "" ],
+	[ "net/edge[1]@to", "" ],
+	[ "net/edge[0]@to", "a" ],
+	[ "net/edge[1]@to", "a" ],
+	[ "net/edge[0]@to", "<remove>" ],
+	[ "net/edge[1]@to", "<remove>" ],
 
 	[ "net/edge[0]/lane[0]@depart", "" ],
 	[ "net/edge[0]/lane[1]@depart", "" ],
@@ -133,22 +146,49 @@ def tinyPath(xmlStruct, path, newValue):
 	else:
 		raise "?"
 		
+call = []
+if sys.argv[1]=="sumo":
+    call.append(os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo')))
+    call.append("--no-step-log")
+    call.append("--no-duration-log")
+elif sys.argv[1]=="dfrouter":
+    call.append(os.environ.get("DFROUTER_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'dfrouter')))
+    call.append("--detector-files")
+    call.append("input_additional.add.xml")
+elif sys.argv[1]=="duarouter":
+    call.append(os.environ.get("DUAROUTER_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'duarouter')))
+    call.append("-o")
+    call.append("dummy.xml")
+    call.append("-t")
+    call.append("input_additional.add.xml")
+elif sys.argv[1]=="jtrrouter":
+    call.append(os.environ.get("JTRROUTER_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'jtrrouter')))
+    call.append("-o")
+    call.append("dummy.xml")
+    call.append("-t")
+    call.append("input_additional.add.xml")
+else:
+    print >> sys.stderr, "Unsupported application defined"
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
+
+
 netconvertBinary = os.environ.get("NETCONVERT_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'netconvert'))
-loadParams = ["-n", "mod.net.xml"]
 
 # build the correct network, first
 print ">>> Building the correct network"
 retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netc.cfg"], stdout=sys.stdout, stderr=sys.stderr)
 print ">>> Trying the correct network"
-retcode = subprocess.call([sumoBinary, "-n", "net.net.xml", "--no-step-log", "--no-duration-log"], stdout=sys.stdout, stderr=sys.stderr)
+call.append("-n")
+call.append("net.net.xml")
+retcode = subprocess.call(call, stdout=sys.stdout, stderr=sys.stderr)
 if retcode!=0:
 	print "Error on processing the 'correct' network!"
 	sys.exit()
 print ">>> ok...\n"
 
 # check broken network processing
+call = call[:-1]
+call.append("mod.net.xml")
 print "Running broken net"
 for c in changes:
 	tree = dom.parse("net.net.xml")
@@ -156,7 +196,6 @@ for c in changes:
 	writer = open('mod.net.xml', 'w')
 	tree.writexml(writer)
 	writer.close()
-	call = [sumoBinary, "--no-step-log", "--no-duration-log"] + loadParams
 	print >> sys.stderr, "------------------ " + c[0] + ":" + c[1]
 	sys.stderr.flush()
 	retcode = subprocess.call(call, stdout=sys.stdout, stderr=sys.stderr)
