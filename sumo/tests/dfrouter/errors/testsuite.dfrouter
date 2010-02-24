@@ -19,7 +19,6 @@ detector_files
 # Tests for errors while processing detector flow files
 detector_flow_files
 
-network
 
 
 

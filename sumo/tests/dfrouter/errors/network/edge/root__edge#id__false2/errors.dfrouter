@@ -1,4 +1,0 @@
-Error: At edge 'a': succeeding edge '2_0' does not exist.
-Error: At edge 'a': succeeding edge '2_1' does not exist.
-Error: An unknown edge occured (id='2').
-Quitting (on error).

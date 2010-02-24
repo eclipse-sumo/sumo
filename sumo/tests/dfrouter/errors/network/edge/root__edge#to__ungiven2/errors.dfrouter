@@ -1,5 +1,0 @@
-Error: Attribute 'to' is missing in definition of edge '2'.
-Error: At edge '2': succeeding edge '2_0' does not exist.
-Error: At edge '2': succeeding edge '2_1' does not exist.
-Error: An unknown edge occured (id='2').
-Quitting (on error).

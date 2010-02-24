@@ -1,6 +1,0 @@
-<edges>
-
-	<edge id="1" fromnode="1" tonode="2" speed="19." nolanes="2" priority="1"/>
-	<edge id="2" fromnode="2" tonode="3" speed="19." nolanes="2" priority="1"/>
-
-</edges>
