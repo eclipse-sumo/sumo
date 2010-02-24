@@ -1,1 +1,0 @@
---net-file=net.net.xml --trip-defs=input_trips.trips.xml -o routes.rou.xml

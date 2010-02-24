@@ -49,8 +49,5 @@ default_arrivalpos_false
 default_arrivalspeed_false
 
 
-# Tests for broken network description handling
-network
-
 
 
