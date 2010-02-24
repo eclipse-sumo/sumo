@@ -1,0 +1,7 @@
+<detectors>
+
+   <detector_definition id="1"  lane="1_0" pos="5"/>
+   <detector_definition id="2"  lane="2_0" pos="5"/>
+
+</detectors>
+

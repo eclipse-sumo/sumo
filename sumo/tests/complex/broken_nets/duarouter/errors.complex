@@ -1,0 +1,300 @@
+------------------ net/edge[0]@from:
+Error: Attribute 'from' in definition of edge '1' is empty.
+Error: An unknown edge occured (id='1').
+Quitting (on error).
+------------------ net/edge[1]@from:
+Error: Attribute 'from' in definition of edge '2' is empty.
+Error: At edge '2': succeeding edge '2_0' does not exist.
+Error: At edge '2': succeeding edge '2_1' does not exist.
+Error: An unknown edge occured (id='2').
+Quitting (on error).
+------------------ net/edge[0]@from:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]@from:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]@from:<remove>
+Error: Attribute 'from' is missing in definition of edge '1'.
+Error: An unknown edge occured (id='1').
+Quitting (on error).
+------------------ net/edge[1]@from:<remove>
+Error: Attribute 'from' is missing in definition of edge '2'.
+Error: At edge '2': succeeding edge '2_0' does not exist.
+Error: At edge '2': succeeding edge '2_1' does not exist.
+Error: An unknown edge occured (id='2').
+Quitting (on error).
+------------------ net/edge[0]@function:
+Error: Attribute 'function' in definition of edge '1' is empty.
+Error: An unknown edge occured (id='1').
+Quitting (on error).
+------------------ net/edge[1]@function:
+Error: Attribute 'function' in definition of edge '2' is empty.
+Error: At edge '2': succeeding edge '2_0' does not exist.
+Error: At edge '2': succeeding edge '2_1' does not exist.
+Error: An unknown edge occured (id='2').
+Quitting (on error).
+------------------ net/edge[0]@function:a
+Error: Edge '1' has an unknown type.
+Quitting (on error).
+------------------ net/edge[1]@function:a
+Error: Edge '2' has an unknown type.
+Quitting (on error).
+------------------ net/edge[0]@function:<remove>
+Error: Attribute 'function' is missing in definition of edge '1'.
+Error: An unknown edge occured (id='1').
+Quitting (on error).
+------------------ net/edge[1]@function:<remove>
+Error: Attribute 'function' is missing in definition of edge '2'.
+Error: At edge '2': succeeding edge '2_0' does not exist.
+Error: At edge '2': succeeding edge '2_1' does not exist.
+Error: An unknown edge occured (id='2').
+Quitting (on error).
+------------------ net/edge[0]@id:
+Error: Missing id of a 'edge'-object.
+Quitting (on error).
+------------------ net/edge[1]@id:
+Error: Missing id of a 'edge'-object.
+Quitting (on error).
+------------------ net/edge[0]@id:a
+Error: An unknown edge occured (id='1').
+Quitting (on error).
+------------------ net/edge[1]@id:a
+Error: At edge 'a': succeeding edge '2_0' does not exist.
+Error: At edge 'a': succeeding edge '2_1' does not exist.
+Error: An unknown edge occured (id='2').
+Quitting (on error).
+------------------ net/edge[0]@id:<remove>
+Error: Missing id of a 'edge'-object.
+Quitting (on error).
+------------------ net/edge[1]@id:<remove>
+Error: Missing id of a 'edge'-object.
+Quitting (on error).
+------------------ net/edge[0]@to:
+Error: Attribute 'to' in definition of edge '1' is empty.
+Error: An unknown edge occured (id='1').
+Quitting (on error).
+------------------ net/edge[1]@to:
+Error: Attribute 'to' in definition of edge '2' is empty.
+Error: At edge '2': succeeding edge '2_0' does not exist.
+Error: At edge '2': succeeding edge '2_1' does not exist.
+Error: An unknown edge occured (id='2').
+Quitting (on error).
+------------------ net/edge[0]@to:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]@to:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]@to:<remove>
+Error: Attribute 'to' is missing in definition of edge '1'.
+Error: An unknown edge occured (id='1').
+Quitting (on error).
+------------------ net/edge[1]@to:<remove>
+Error: Attribute 'to' is missing in definition of edge '2'.
+Error: At edge '2': succeeding edge '2_0' does not exist.
+Error: At edge '2': succeeding edge '2_1' does not exist.
+Error: An unknown edge occured (id='2').
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@depart:
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@depart:
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@depart:
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@depart:
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@depart:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@depart:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@depart:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@depart:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@depart:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@depart:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@depart:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@depart:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@id:
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@id:
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@id:
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@id:
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@id:a_0
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@id:a_1
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@id:a_0
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@id:a_1
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@id:<remove>
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@id:<remove>
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@id:<remove>
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@id:<remove>
+Error: Missing id of a 'lane'-object.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:
+Error: Attribute 'length' in definition of lane '1_0' is empty.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:
+Error: Attribute 'length' in definition of lane '1_1' is empty.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:
+Error: Attribute 'length' in definition of lane '2_0' is empty.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:
+Error: Attribute 'length' in definition of lane '2_1' is empty.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:a
+Error: Attribute 'length' in definition of lane '1_0' is not a real number.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:a
+Error: Attribute 'length' in definition of lane '1_1' is not a real number.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:a
+Error: Attribute 'length' in definition of lane '2_0' is not a real number.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:a
+Error: Attribute 'length' in definition of lane '2_1' is not a real number.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '1_0'.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '1_1'.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '2_0'.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:<remove>
+Error: Attribute 'length' is missing in definition of lane '2_1'.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@shape:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:a
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:a
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@shape:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:<remove>
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@shape:0100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@shape:100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
+ Wrong error code returned (0)!
+------------------ net/junction[0]@id:
+Error: Missing id of a 'junction'-object.
+Quitting (on error).
+------------------ net/junction[1]@id:
+Error: Missing id of a 'junction'-object.
+Quitting (on error).
+------------------ net/junction[2]@id:
+Error: Missing id of a 'junction'-object.
+Quitting (on error).
+------------------ net/junction[0]@id:a
+ Wrong error code returned (0)!
+------------------ net/junction[1]@id:a
+ Wrong error code returned (0)!
+------------------ net/junction[2]@id:a
+ Wrong error code returned (0)!
+------------------ net/junction[0]@id:<remove>
+Error: Missing id of a 'junction'-object.
+Quitting (on error).
+------------------ net/junction[1]@id:<remove>
+Error: Missing id of a 'junction'-object.
+Quitting (on error).
+------------------ net/junction[2]@id:<remove>
+Error: Missing id of a 'junction'-object.
+Quitting (on error).
+------------------ net/junction[0]@type:
+ Wrong error code returned (0)!
+------------------ net/junction[1]@type:
+ Wrong error code returned (0)!
+------------------ net/junction[2]@type:
+ Wrong error code returned (0)!
+------------------ net/junction[0]@type:a
+ Wrong error code returned (0)!
+------------------ net/junction[1]@type:a
+ Wrong error code returned (0)!
+------------------ net/junction[2]@type:a
+ Wrong error code returned (0)!
+------------------ net/junction[0]@type:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[1]@type:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[2]@type:<remove>
+ Wrong error code returned (0)!
+------------------ net/junction[1]@incLanes:a_0 1_1
+ Wrong error code returned (0)!
+------------------ net/junction[1]@incLanes:1_0 a_1
+ Wrong error code returned (0)!
+------------------ net/junction[2]@incLanes:a_0 2_1
+ Wrong error code returned (0)!
+------------------ net/junction[2]@incLanes:2_0 a_1
+ Wrong error code returned (0)!
