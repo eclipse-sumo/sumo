@@ -1,5 +1,0 @@
-Error: Shape of lane '1_1' is broken.
- Can not build according edge.
-Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
-Error: Trying to close connections of an unknown lane ('1_1').
-Quitting (on error).

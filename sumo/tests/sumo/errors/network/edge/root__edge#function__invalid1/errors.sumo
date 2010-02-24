@@ -1,5 +1,0 @@
-Error: Edge '1' has an invalid type ('a').
-Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
-Error: Trying to close connections of an unknown lane ('1_0').
-Error: Trying to close connections of an unknown lane ('1_1').
-Quitting (on error).
