@@ -71,7 +71,7 @@ GUISettingsHandler::myStartElement(SumoXMLTag element,
     bool ok = true;
     switch (element) {
     case SUMO_TAG_VIEWPORT:
-        myZoom = attrs.getOptSUMORealReporting(SUMO_ATTR_PROB, "viewport", 0, ok, myZoom);
+        myZoom = attrs.getOptSUMORealReporting(SUMO_ATTR_ZOOM, "viewport", 0, ok, myZoom);
         myXPos = attrs.getOptSUMORealReporting(SUMO_ATTR_X, "viewport", 0, ok, myXPos);
         myYPos = attrs.getOptSUMORealReporting(SUMO_ATTR_Y, "viewport", 0, ok, myYPos);
         break;
