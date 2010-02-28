@@ -10,16 +10,7 @@ def loadHighscore():
         pass
     return 10*[("", "", -1.)]
 
-def checkHigh(points):
-    idx = 0
-    while idx < len(high) and high[idx][2] < points and high[idx][2] != -1:
-        idx += 1
-    return idx
-
-def save(name, game, points):
-    idx = checkHigh(points)
-    high.insert(idx, (name, game, points))
-    high.pop()
+def save():
     f = open(_HIGHSCOREFILE, 'w')
     pickle.dump(high, f)
     f.close()
@@ -34,22 +25,27 @@ class TKDialog:
         haveHigh = False
         self.root.title("High score")
 
-        idx = 1
+        idx = 0
         for n, g, p in high:
             if not haveHigh and (p == -1 or p < points):
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W)
+                self.idx = idx
                 p = points
                 haveHigh = True
                 self.root.title("Congratulations")
             else:
+                if p == -1:
+                    break
                 Tkinter.Label(self.root, text=n).grid(row=idx, sticky=Tkinter.W)
             Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=1)
             idx += 1
         Tkinter.Button(self.root, text="OK", command=self.ok).grid(row=idx)
         self.root.grid()
-#        self.root.bind("&lt;Return>", self.ok)
-#        self.root.grab_set()
+        self.root.bind("<Return>", self.ok)
+        self.root.grab_set()
+        if self.name:
+            self.name.focus_set()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -57,9 +53,11 @@ class TKDialog:
         self.root.deiconify()
         self.root.mainloop()
 
-    def ok(self):
-        if self.name != None:
-            save(self.name.get(), self.game, self.points)
+    def ok(self, event=None):
+        if self.name:
+            high.insert(self.idx, (self.name.get(), self.game, self.points))
+            high.pop()
+            save()
         self.root.destroy()
 
 
