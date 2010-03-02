@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Feb 11 09:21:07 2010
+TraCITestClient output file. Date: Tue Mar 02 10:07:42 2010
 
 
 -> Command sent: <SimulationStep>:
@@ -9,11 +9,11 @@ TraCITestClient output file. Date: Thu Feb 11 09:21:07 2010
 .. Received Response <MoveNode>:
   nodeId=1 targetTime=30.00 2D-Position: x=2743.85 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=2 targetTime=30.00 2D-Position: x=2882.83 y=1008.25
+  nodeId=2 targetTime=30.00 2D-Position: x=2812.37 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=3 targetTime=30.00 2D-Position: x=2928.51 y=1008.25
+  nodeId=3 targetTime=30.00 2D-Position: x=2882.83 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=4 targetTime=30.00 2D-Position: x=2812.37 y=1008.25
+  nodeId=4 targetTime=30.00 2D-Position: x=2928.51 y=1008.25
 
 -> Command sent: <Scenario>:
   flag=0 domain=1 domainId=0 variable=16 valueDataType=0
@@ -28,11 +28,11 @@ TraCITestClient output file. Date: Thu Feb 11 09:21:07 2010
 .. Received Response <MoveNode>:
   nodeId=1 targetTime=1.00 2D-Position: x=2727.43 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=2 targetTime=1.00 2D-Position: x=2871.84 y=1008.25
+  nodeId=2 targetTime=1.00 2D-Position: x=2798.24 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=3 targetTime=1.00 2D-Position: x=2919.59 y=1008.25
+  nodeId=3 targetTime=1.00 2D-Position: x=2871.84 y=1008.25
 .. Received Response <MoveNode>:
-  nodeId=4 targetTime=1.00 2D-Position: x=2798.24 y=1008.25
+  nodeId=4 targetTime=1.00 2D-Position: x=2919.59 y=1008.25
 
 -> Command sent: <Close>:
 .. Command acknowledged (127), [description: Goodbye]

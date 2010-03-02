@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/11/10 09:20:59 by SUMO sumo Version dev-SVN-r8225
+<!-- generated on 03/02/10 10:07:33 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -115,7 +115,7 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.5" pos="0.00" speed="0.00"/>
+            <vehicle id="veh2.1" pos="0.00" speed="0.00"/>
             <vehicle id="veh2.0" pos="8.57" speed="2.84"/>
          </lane>
          <lane id="e_o1_1"/>
@@ -132,7 +132,7 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.5" pos="0.80" speed="0.80"/>
+            <vehicle id="veh2.1" pos="0.80" speed="0.80"/>
             <vehicle id="veh2.0" pos="11.92" speed="3.35"/>
          </lane>
          <lane id="e_o1_1"/>
@@ -149,7 +149,7 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.5" pos="2.21" speed="1.41"/>
+            <vehicle id="veh2.1" pos="2.21" speed="1.41"/>
             <vehicle id="veh2.0" pos="15.82" speed="3.90"/>
          </lane>
          <lane id="e_o1_1"/>
@@ -166,7 +166,7 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.5" pos="4.38" speed="2.17"/>
+            <vehicle id="veh2.1" pos="4.38" speed="2.17"/>
             <vehicle id="veh2.0" pos="20.15" speed="4.33"/>
          </lane>
          <lane id="e_o1_1"/>
@@ -183,7 +183,7 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.5" pos="7.07" speed="2.69"/>
+            <vehicle id="veh2.1" pos="7.07" speed="2.69"/>
             <vehicle id="veh2.0" pos="25.21" speed="5.06"/>
          </lane>
          <lane id="e_o1_1"/>
@@ -200,8 +200,8 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.10" pos="0.00" speed="0.00"/>
-            <vehicle id="veh2.5" pos="10.41" speed="3.34"/>
+            <vehicle id="veh2.2" pos="0.00" speed="0.00"/>
+            <vehicle id="veh2.1" pos="10.41" speed="3.34"/>
             <vehicle id="veh2.0" pos="30.79" speed="5.57"/>
          </lane>
          <lane id="e_o1_1"/>
@@ -218,8 +218,8 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.10" pos="0.47" speed="0.47"/>
-            <vehicle id="veh2.5" pos="14.17" speed="3.77"/>
+            <vehicle id="veh2.2" pos="0.47" speed="0.47"/>
+            <vehicle id="veh2.1" pos="14.17" speed="3.77"/>
             <vehicle id="veh2.0" pos="36.95" speed="6.16"/>
          </lane>
          <lane id="e_o1_1"/>
@@ -236,8 +236,8 @@
       </edge>
       <edge id="e_o1">
          <lane id="e_o1_0">
-            <vehicle id="veh2.10" pos="1.65" speed="1.18"/>
-            <vehicle id="veh2.5" pos="18.68" speed="4.51"/>
+            <vehicle id="veh2.2" pos="1.65" speed="1.18"/>
+            <vehicle id="veh2.1" pos="18.68" speed="4.51"/>
             <vehicle id="veh2.0" pos="43.74" speed="6.79"/>
          </lane>
          <lane id="e_o1_1"/>
