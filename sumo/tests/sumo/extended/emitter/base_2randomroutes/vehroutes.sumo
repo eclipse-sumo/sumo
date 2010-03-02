@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/26/10 10:24:43 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 03/02/10 10:13:08 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -45,7 +45,7 @@
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="emitter_1_1" depart="2" arrival="187">
+    <vehicle id="emitter_1_1" depart="2" arrival="189">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 

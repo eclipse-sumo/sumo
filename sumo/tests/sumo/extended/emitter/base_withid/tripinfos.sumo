@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/12/10 10:20:16 by SUMO sumo Version dev-SVN-r8086
+<!-- generated on 03/02/10 10:13:07 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -22,13 +22,13 @@
 
 <tripinfos>
     <tripinfo id="vehicle1" depart="0" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="0" arrival="74" arrivalLane="rend_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1900.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="foo1" depart="2" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="1" arrival="76" arrivalLane="rend_0" arrivalPos="9.52" arrivalSpeed="27.80" duration="74" routeLength="1890.52" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="bar1" depart="5" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="3" arrival="79" arrivalLane="rend_0" arrivalPos="11.22" arrivalSpeed="27.80" duration="74" routeLength="1892.22" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="bar2" depart="7" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="4" arrival="81" arrivalLane="rend_0" arrivalPos="1.16" arrivalSpeed="27.80" duration="74" routeLength="1882.16" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="foo1" depart="2" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="1" arrival="76" arrivalLane="rend_0" arrivalPos="17.88" arrivalSpeed="27.80" duration="74" routeLength="1898.88" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="bar1" depart="5" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="3" arrival="79" arrivalLane="rend_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1900.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="bar2" depart="7" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="4" arrival="81" arrivalLane="rend_0" arrivalPos="17.88" arrivalSpeed="27.80" duration="74" routeLength="1898.88" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
     <tripinfo id="emitter_4_0" depart="10" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="6" arrival="84" arrivalLane="rend_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1900.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_5_1" depart="12" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="7" arrival="86" arrivalLane="rend_0" arrivalPos="9.52" arrivalSpeed="27.80" duration="74" routeLength="1890.52" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_6_2" depart="15" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="9" arrival="89" arrivalLane="rend_0" arrivalPos="11.22" arrivalSpeed="27.80" duration="74" routeLength="1892.22" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_7_3" depart="17" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="10" arrival="91" arrivalLane="rend_0" arrivalPos="1.16" arrivalSpeed="27.80" duration="74" routeLength="1882.16" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_5_1" depart="12" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="7" arrival="86" arrivalLane="rend_0" arrivalPos="17.88" arrivalSpeed="27.80" duration="74" routeLength="1898.88" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_6_2" depart="15" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="9" arrival="89" arrivalLane="rend_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1900.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_7_3" depart="17" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="10" arrival="91" arrivalLane="rend_0" arrivalPos="17.88" arrivalSpeed="27.80" duration="74" routeLength="1898.88" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
     <tripinfo id="emitter_8_4" depart="20" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="12" arrival="94" arrivalLane="rend_0" arrivalPos="19.59" arrivalSpeed="27.80" duration="74" routeLength="1900.59" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
-    <tripinfo id="emitter_9_5" depart="22" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="13" arrival="96" arrivalLane="rend_0" arrivalPos="9.52" arrivalSpeed="27.80" duration="74" routeLength="1890.52" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
+    <tripinfo id="emitter_9_5" depart="22" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="13" arrival="96" arrivalLane="rend_0" arrivalPos="17.88" arrivalSpeed="27.80" duration="74" routeLength="1898.88" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE" vaporized=""></tripinfo>
 </tripinfos>
