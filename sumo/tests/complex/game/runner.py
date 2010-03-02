@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, subprocess, sys, re, pickle
+import os, subprocess, sys, re, pickle, httplib, glob, Tkinter
 
 _HIGHSCOREFILE = "scores.pkl"
 
@@ -10,13 +10,40 @@ def loadHighscore():
         pass
     return 10*[("", "", -1.)]
 
-def save():
+def save(idx, name, game, points):
+    high.insert(idx, (name, game, points))
+    high.pop()
     f = open(_HIGHSCOREFILE, 'w')
     pickle.dump(high, f)
     f.close()
+    conn = httplib.HTTPConnection("sumo.sourceforge.net")
+    conn.request("GET", "/scores.php?game=TLS&category=%s&name=%s&instance=%s&points=%s" % (category, name, game, points))
+    r1 = conn.getresponse()
+#    print r1.status, r1.reason
+#    data1 = r1.read()
+#    print data1
 
-import Tkinter
-class TKDialog:
+class StartDialog:
+    def __init__(self):
+        self.root = Tkinter.Tk()
+        self.root.title("Traffic Light Game")
+        for cfg in glob.glob("*.sumo.cfg"):
+            Tkinter.Button(self.root, text=cfg[:-9], command=lambda:self.ok(cfg)).pack()
+        # The following three commands are needed so the window pops
+        # up on top on Windows...
+        self.root.iconify()
+        self.root.update()
+        self.root.deiconify()
+        self.root.mainloop()
+
+    def ok(self, cfg):
+        self.root.destroy()
+        global ret
+        ret = subprocess.call([guisimBinary, "-G", "-Q", "-c", cfg])
+        global category
+        category = cfg
+
+class ScoreDialog:
     def __init__(self, game, points):
         self.root = Tkinter.Tk()
         self.name = None
@@ -55,9 +82,7 @@ class TKDialog:
 
     def ok(self, event=None):
         if self.name:
-            high.insert(self.idx, (self.name.get(), self.game, self.points))
-            high.pop()
-            save()
+            save(self.idx, self.name.get(), self.game, self.points)
         self.root.destroy()
 
 
@@ -66,7 +91,8 @@ guisimBinary = "guisim.exe"
 if os.name == "posix":
     guisimBinary="sumo-guisim"
 guisimBinary = os.environ.get("GUISIM_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', guisimBinary))
-ret = subprocess.call([guisimBinary, "-G", "-Q", "-c", "sumo.sumo.cfg"])
+StartDialog()
+
 totalWait = 0
 for line in open("netstate.xml"):
     m = re.search('waitingTime="(\d+.\d+)"', line)
@@ -78,5 +104,5 @@ for line in open("tlsstate.xml"):
     if m:
         switch += [m.group(1)]
 print switch, totalWait
-#TKDialog(switch, totalWait)
+ScoreDialog(switch, totalWait)
 sys.exit(ret)
