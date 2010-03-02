@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/26/10 10:26:43 by SUMO sumo Version dev-SVN-r8163
+<!-- generated on 03/02/10 10:14:32 by SUMO sumo Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -45,47 +45,47 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal07" depart="125" arrival="368">
+    <vehicle id="horizontal07" depart="125" arrival="367">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal08" depart="129" arrival="370">
+    <vehicle id="horizontal08" depart="129" arrival="369">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal11" depart="134" arrival="372">
+    <vehicle id="horizontal11" depart="134" arrival="371">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal12" depart="138" arrival="375">
+    <vehicle id="horizontal12" depart="138" arrival="373">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal13" depart="142" arrival="376">
+    <vehicle id="horizontal13" depart="142" arrival="374">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal14" depart="147" arrival="379">
+    <vehicle id="horizontal14" depart="147" arrival="376">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal15" depart="151" arrival="381">
+    <vehicle id="horizontal15" depart="151" arrival="378">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal16" depart="155" arrival="383">
+    <vehicle id="horizontal16" depart="155" arrival="380">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal17" depart="159" arrival="385">
+    <vehicle id="horizontal17" depart="159" arrival="382">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal18" depart="163" arrival="388">
+    <vehicle id="horizontal18" depart="163" arrival="383">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal21" depart="167" arrival="389">
+    <vehicle id="horizontal21" depart="167" arrival="385">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
@@ -97,23 +97,23 @@
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal24" depart="179" arrival="459">
+    <vehicle id="horizontal24" depart="179" arrival="458">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal25" depart="183" arrival="461">
+    <vehicle id="horizontal25" depart="183" arrival="460">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal26" depart="187" arrival="464">
+    <vehicle id="horizontal26" depart="187" arrival="461">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal27" depart="191" arrival="465">
+    <vehicle id="horizontal27" depart="191" arrival="463">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal28" depart="195" arrival="467">
+    <vehicle id="horizontal28" depart="195" arrival="465">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
