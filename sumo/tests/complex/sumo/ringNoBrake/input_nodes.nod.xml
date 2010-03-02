@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+    <node id="bottom-left" x="0.0" y="0.0" />
+
+    <node id="bottom-right" x="5000.0" y="0.0" />
+
+    <node id="top-right" x="5000.0" y="5000.0" />
+
+    <node id="top-left" x="0.0" y="5000.0" />
+
+<!--     <node id="leave" x="5500.0" y="5000.0" /> -->
+
+    <node id="leave-bottom-left" x="-500.0" y="0.0" />
+
+    <node id="leave-bottom-right" x="5500.0" y="0.0" />
+
+    <node id="leave-top-right" x="5500.0" y="5000.0" />
+
+    <node id="leave-top-left" x="-500.0" y="5000.0" />
+</nodes>

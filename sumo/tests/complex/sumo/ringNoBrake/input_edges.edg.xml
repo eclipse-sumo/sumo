@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+    <edge fromnode="bottom-left" id="bottom" nolanes="1" speed="36.1" tonode="bottom-right" />
+
+    <edge fromnode="bottom-right" id="right" nolanes="1" speed="36.1" tonode="top-right" />
+
+    <edge fromnode="top-right" id="top" nolanes="1" speed="36.1" tonode="top-left" />
+
+    <edge fromnode="top-left" id="left" nolanes="1" speed="36.1" tonode="bottom-left" />
+
+<!--     <edge fromnode="top-right" id="out" nolanes="1" speed="36.1" tonode="leave" /> -->
+
+    <edge fromnode="bottom-left" id="leave-left" nolanes="1" speed="36.1" tonode="leave-bottom-left" />
+
+    <edge fromnode="bottom-right" id="leave-bottom" nolanes="1" speed="36.1" tonode="leave-bottom-right" />
+
+    <edge fromnode="top-right" id="leave-right" nolanes="1" speed="36.1" tonode="leave-top-right" />
+
+    <edge fromnode="top-left" id="leave-top" nolanes="1" speed="36.1" tonode="leave-top-left" />
+</edges>
