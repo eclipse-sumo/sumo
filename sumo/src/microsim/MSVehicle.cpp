@@ -799,7 +799,6 @@ MSVehicle::moveRegardingCritical(SUMOTime t, const MSLane* const lane,
             }
         }
         getCarFollowModel().leftVehicleVsafe(this, neigh, vBeg); // from left-lane leader (do not overtake right)
-        vBeg = MAX2(vBeg, myType->getSpeedAfterMaxDecel(myState.mySpeed));
         // check whether the driver wants to let someone in
         // set next links, computing possible speeds
         vsafeCriticalCont(t, vBeg, lengthsInFront);
@@ -857,7 +856,7 @@ MSVehicle::moveFirstChecked() {
     }
 
     SUMOReal vNext = getCarFollowModel().moveHelper(this, myLane, vSafe);
-    vNext = MAX3(vNext, myType->getSpeedAfterMaxDecel(oldV), (SUMOReal) 0.);
+    vNext = MAX2(vNext, (SUMOReal) 0.);
     // visit waiting time
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
@@ -1007,9 +1006,11 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                     seenSpace += leader->getCarFollowModel().brakeGap(leader->getSpeed());
                 }
             } else {
-                bool nextDisallows1 = /*myState.mySpeed<.1 &&*/ approachedLane->getLastVehicle()!=0 && seenSpace<.1;
+                MSVehicle *pred = approachedLane->getLastVehicle();
+                bool nextDisallows1 = /*myState.mySpeed<.1 &&*/ pred!=0 && seenSpace<.1;
                 if (nextDisallows1) {
-                    nextDisallows1 &= approachedLane->getLastVehicle()->getPositionOnLane() < approachedLane->getLastVehicle()->getVehicleType().getLength();
+                    SUMOReal brakeGap = pred->getVehicleType().getCarFollowModel().brakeGap(pred->getSpeed());
+                    nextDisallows1 &= (pred->getPositionOnLane()+ACCEL2DIST(brakeGap)) < pred->getVehicleType().getLength();
                 }
                 // the free space on plain lanes is counted
                 // !!!: on longer lanes, only the place some meters in front... (next extension)
@@ -1154,12 +1155,10 @@ MSVehicle::vsafeCriticalCont(SUMOTime t, SUMOReal boundVSafe, SUMOReal lengthsIn
 #endif
         // compute the velocity to use when the link may be used
         vLinkPass = MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane);
-        vLinkPass = MAX2(vLinkPass, myType->getSpeedAfterMaxDecel(myState.mySpeed)); // should not be necessary !!!
 
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
         vLinkWait = MIN3(vLinkPass, vLinkWait, getCarFollowModel().ffeS(this, seen));
-        vLinkWait = MAX2(vLinkWait, myType->getSpeedAfterMaxDecel(myState.mySpeed));
 
         bool yellow = (*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MAJOR||(*link)->getState()==MSLink::LINKSTATE_TL_YELLOW_MINOR;
         if (yellow&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
@@ -1355,6 +1354,18 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed) {
     activateRemindersByEmitOrLaneChange(true);
     for (std::vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtEmit(enteredLane, myState);
+    }
+    // build the list of lanes the vehicle is lapping into
+    SUMOReal leftLength = getLength() - pos;
+    MSLane *clane = enteredLane;
+    while(leftLength>0) {
+        const std::vector<MSLane::IncomingLaneInfo> &incoming = clane->getIncomingLanes();
+        if(incoming.size()==0) {
+            break;
+        }
+        clane = incoming[0].lane; // !!! just an approximation
+        myFurtherLanes.push_back(clane);
+        leftLength -= (clane)->setPartialOccupation(this, leftLength);
     }
 }
 
