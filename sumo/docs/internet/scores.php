@@ -1,6 +1,6 @@
 <?php
-$handle = mysql_connect("mysql-s", "user", "password") or print("Konnte Datenbank-Verbindung nicht herstellen!");
-$database = "database";
+require_once('./database.php');
+import_request_variables("g", "g_");
 
 function query($query) {
     global $handle, $database;
@@ -18,18 +18,35 @@ while ($row = mysql_fetch_assoc($res)):
 endwhile;
 mysql_free_result($res);
 
-$game = $_GET["game"];
-if (!isset($gameIDs[$game])):
+if (!isset($gameIDs[$g_game])):
     print("<span class=\"wichtig\">Fehler:</span> Unbekanntes Spiel.");
     exit();
 endif;
 
-$gameID = $gameIDs[$game];
-if (isset($_GET["name"])):
-    $category = $_GET["category"];
-    $points = $_GET["points"];
-    $name = $_GET["name"];
-    query("INSERT highscore VALUES(0, $gameID, '$category', $points, '$name', '', '')");
+$gameID = $gameIDs[$g_game];
+if (isset($g_name, $g_category, $g_points)):
+    query("INSERT highscore VALUES(0, $gameID, '$g_category', $g_points, '$g_name', '$g_instance', '')");
+    exit();
+    endif;
+
+if (isset($g_top)):
+    $res = query("SELECT * FROM highscore WHERE gameID='$gameID' ORDER BY category, points DESC, id");
+    $cat = "";
+    while ($row = mysql_fetch_assoc($res)):
+        if ($row[category] != $cat):
+            if ($cat != ""):
+                echo "\n";
+            endif;
+            $cat = $row[category];
+            echo "$cat $row[name],$row[instance],$row[points]";
+            $count = $g_top-1;
+        else:
+            if ($count > 0):
+                echo ":$row[name],$row[instance],$row[points]";
+                $count--;
+            endif;
+        endif;
+    endwhile;
     exit();
 endif;
 
@@ -41,19 +58,19 @@ endif;
 
 ?>
   <form method="get" action="scores.php">
-  <input type="hidden" name="game" value="<?php echo htmlentities($game)?>"/>
+  <input type="hidden" name="game" value="<?php echo htmlentities($g_game)?>"/>
   <h2>Bestenliste f&uuml;r
   <select name="category" onchange="this.form.submit()" style="font-weight:bold;font-size:0.9em;padding:0;margin:0;">
 <?php
-$gefunden = false;
+$found = false;
 while ($row = mysql_fetch_array($res)):
     $cat = $row["category"];
-    if ($category==$cat)
-        $gefunden = true;
-    echo "<option value=\"$cat\"".($category==$cat ? " selected=\"selected\"" : "").">$cat</option>\n";
+    if ($g_category==$cat)
+        $found = true;
+    echo "<option value=\"$cat\"".($g_category==$cat ? " selected=\"selected\"" : "").">$cat</option>\n";
 endwhile;
-if (!$gefunden)
-    $category = mysql_result($res, 0, "category");
+if (!$found)
+    $g_category = mysql_result($res, 0, "category");
 mysql_free_result($res);
 ?>
   </select>
@@ -68,10 +85,10 @@ mysql_free_result($res);
 </tr>
 <?php
 $res = query("SELECT * FROM highscore ".
-             "WHERE gameID='$gameID' AND category='$category' ORDER BY points DESC, id");
+             "WHERE gameID='$gameID' AND category='$g_category' ORDER BY points DESC, id");
 $i = 1;
 while ($row = mysql_fetch_assoc($res))
-  echo "<tr class=\"".($i%2 ? "odd" : "even")."\"><td>".$i++."</td><td>$row[points]</td><td>$row[name]</td></tr>\n";
+    echo "<tr class=\"".($i%2 ? "odd" : "even")."\"><td>".$i++."</td><td>$row[points]</td><td>$row[name]</td></tr>\n";
 mysql_free_result($res);
 ?>
 </table>

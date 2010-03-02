@@ -1,34 +1,68 @@
 #!/usr/bin/env python
+"""
+@file    runner.py
+@author  Michael.Behrisch@dlr.de
+@date    2010-01-30
+@version $Id: netcheck.py 8236 2010-02-10 11:16:41Z behrisch $
+
+This script runs the gaming GUI for the LNdW traffic light game.
+It checks for possible scenarios in the current working directory
+and lets the user start them as a game. Furthermore it
+saves highscores to local disc and to the central highscore server.
+
+Copyright (C) 2010 DLR/TS, Germany
+All rights reserved
+"""
 import os, subprocess, sys, re, pickle, httplib, glob, Tkinter
 
-_HIGHSCOREFILE = "scores.pkl"
+_SCOREFILE = "scores.pkl"
+_SCORESERVER = "sumo.sourceforge.net"
+_SCORESCRIPT = "/scores.php?game=TLS&"
+_DEBUG = True
 
 def loadHighscore():
     try:
-        return pickle.load(open(_HIGHSCOREFILE))
+        conn = httplib.HTTPConnection(_SCORESERVER)
+        conn.request("GET", _SCORESCRIPT + "top=10")
+        response = conn.getresponse()
+        if response.status == httplib.OK:
+            scores = {}
+            for line in response.read().splitlines():
+                category, values = line.split()
+                scores[category] = 10*[("", "", -1.)]
+                for idx, item in enumerate(values.split(':')):
+                    scores[category][idx] = item.split(',')
+            return scores
     except:
         pass
-    return 10*[("", "", -1.)]
 
-def save(idx, name, game, points):
-    high.insert(idx, (name, game, points))
-    high.pop()
-    f = open(_HIGHSCOREFILE, 'w')
+    try:
+        return pickle.load(open(_SCOREFILE))
+    except:
+        pass
+    return {}
+
+def save(idx, category, name, game, points):
+    high[category].insert(idx, (name, game, points))
+    high[category].pop()
+    f = open(_SCOREFILE, 'w')
     pickle.dump(high, f)
     f.close()
-    conn = httplib.HTTPConnection("sumo.sourceforge.net")
-    conn.request("GET", "/scores.php?game=TLS&category=%s&name=%s&instance=%s&points=%s" % (category, name, game, points))
-    r1 = conn.getresponse()
-#    print r1.status, r1.reason
-#    data1 = r1.read()
-#    print data1
+    conn = httplib.HTTPConnection(_SCORESERVER)
+    conn.request("GET", _SCORESCRIPT + "category=%s&name=%s&instance=%s&points=%s" % (category, name, "_".join(game), points))
+    if _DEBUG:
+        r1 = conn.getresponse()
+        print r1.status, r1.reason, r1.read()
 
 class StartDialog:
     def __init__(self):
         self.root = Tkinter.Tk()
         self.root.title("Traffic Light Game")
         for cfg in glob.glob("*.sumo.cfg"):
-            Tkinter.Button(self.root, text=cfg[:-9], command=lambda:self.ok(cfg)).pack()
+            category = cfg[:-9]
+            if not category in high:
+                high[category] = 10*[("", "", -1.)]
+            Tkinter.Button(self.root, text=category, command=lambda:self.ok(cfg)).pack()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -38,22 +72,21 @@ class StartDialog:
 
     def ok(self, cfg):
         self.root.destroy()
-        global ret
-        ret = subprocess.call([guisimBinary, "-G", "-Q", "-c", cfg])
-        global category
-        category = cfg
+        self.ret = subprocess.call([guisimBinary, "-G", "-Q", "-c", cfg])
+        self.category = cfg[:-9]
 
 class ScoreDialog:
-    def __init__(self, game, points):
+    def __init__(self, game, points, category):
         self.root = Tkinter.Tk()
         self.name = None
         self.game = game
         self.points = points
+        self.category = category
         haveHigh = False
         self.root.title("High score")
 
         idx = 0
-        for n, g, p in high:
+        for n, g, p in high[category]:
             if not haveHigh and (p == -1 or p < points):
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W)
@@ -82,7 +115,7 @@ class ScoreDialog:
 
     def ok(self, event=None):
         if self.name:
-            save(self.idx, self.name.get(), self.game, self.points)
+            save(self.idx, self.category, self.name.get(), self.game, self.points)
         self.root.destroy()
 
 
@@ -90,8 +123,8 @@ high = loadHighscore()
 guisimBinary = "guisim.exe"
 if os.name == "posix":
     guisimBinary="sumo-guisim"
-guisimBinary = os.environ.get("GUISIM_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', guisimBinary))
-StartDialog()
+guisimBinary = os.environ.get("GUISIM_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', guisimBinary))
+start = StartDialog()
 
 totalWait = 0
 for line in open("netstate.xml"):
@@ -104,5 +137,5 @@ for line in open("tlsstate.xml"):
     if m:
         switch += [m.group(1)]
 print switch, totalWait
-ScoreDialog(switch, totalWait)
-sys.exit(ret)
+ScoreDialog(switch, totalWait, start.category)
+sys.exit(start.ret)
