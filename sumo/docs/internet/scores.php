@@ -1,39 +1,42 @@
 <?php
-extract($_GET);
-$handle = mysql_connect(localhost, wwwrun) or print("Konnte Datenbank-Verbindung nicht herstellen!");
-$database = "games";
+$handle = mysql_connect("mysql-s", "user", "password") or print("Konnte Datenbank-Verbindung nicht herstellen!");
+$database = "database";
 
 function query($query) {
-  global $handle, $database;
-  $res = mysql($database, $query, $handle);
-  if (mysql_errno() > 0)
-    echo mysql_errno().": ".mysql_error()." ($query)<br>";
-  return $res;
+    global $handle, $database;
+    $res = mysql($database, $query, $handle);
+    if (mysql_errno() > 0)
+        echo mysql_errno().": ".mysql_error()." ($query)<br>";
+    return $res;
 }
 
 $gameIDs = array();
 $res = query("SELECT * FROM games");
 while ($row = mysql_fetch_assoc($res)):
-  $gameIDs[$row["title"]] = $row["gameID"];
-  $titles[$row["gameID"]] = $row["fulltitle"];
+    $gameIDs[$row["title"]] = $row["gameID"];
+    $titles[$row["gameID"]] = $row["fulltitle"];
 endwhile;
 mysql_free_result($res);
 
-$gameID = $gameIDs[strtolower($game)];
-
-if (!$gameID):
-  virtual("header.html?Bestenliste: $game");
-  echo "<span class=\"wichtig\">Fehler:</span> Unbekanntes Spiel.";
-  virtual('footer.html');
-  exit;
+$game = $_GET["game"];
+if (!isset($gameIDs[$game])):
+    print("<span class=\"wichtig\">Fehler:</span> Unbekanntes Spiel.");
+    exit();
 endif;
 
-virtual("header.html?".$titles[$gameID]);
-$res = query("SELECT DISTINCT category FROM highscore WHERE gameID='$gameID' ORDER BY category");
+$gameID = $gameIDs[$game];
+if (isset($_GET["name"])):
+    $category = $_GET["category"];
+    $points = $_GET["points"];
+    $name = $_GET["name"];
+    query("INSERT highscore VALUES(0, $gameID, '$category', $points, '$name', '', '')");
+    exit();
+endif;
+
+$res = query("SELECT DISTINCT category FROM highscore WHERE gameID=$gameID ORDER BY category");
 if (mysql_num_rows($res) == 0):
-  echo "Es sind momentan keine Eintr&auml;ge f&uuml;r dieses Spiel vorhanden.";
-  virtual('footer.html');
-  exit;
+    print("Es sind momentan keine Eintr&auml;ge f&uuml;r dieses Spiel vorhanden.");
+    exit();
 endif;
 
 ?>
@@ -44,17 +47,17 @@ endif;
 <?php
 $gefunden = false;
 while ($row = mysql_fetch_array($res)):
-  $cat = $row["category"];
-  if ($category==$cat)
-    $gefunden = true;
-  echo "<option value=\"$cat\"".($category==$cat ? " selected=\"selected\"" : "").">$cat</option>\n";
+    $cat = $row["category"];
+    if ($category==$cat)
+        $gefunden = true;
+    echo "<option value=\"$cat\"".($category==$cat ? " selected=\"selected\"" : "").">$cat</option>\n";
 endwhile;
 if (!$gefunden)
-  $category = mysql_result($res, 0, "category");
+    $category = mysql_result($res, 0, "category");
 mysql_free_result($res);
 ?>
   </select>
-  Knoten</h2>
+  </h2>
   </form>
 
 <table>
@@ -72,5 +75,3 @@ while ($row = mysql_fetch_assoc($res))
 mysql_free_result($res);
 ?>
 </table>
-
-<?php virtual('footer.html'); ?>
