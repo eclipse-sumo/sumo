@@ -197,7 +197,7 @@ public:
      * @param[in] id The id of the tls to get variants of
      * @return The variants of the named tls
      */
-    TLSLogicVariants &get(const std::string &id) throw(InvalidArgument);
+    TLSLogicVariants &get(const std::string &id) const throw(InvalidArgument);
 
 
     /** @brief Returns a single program (variant) defined by the tls id and the program subid

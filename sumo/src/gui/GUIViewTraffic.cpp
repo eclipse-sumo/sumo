@@ -427,24 +427,27 @@ GUIViewTraffic::showViewschemeEditor() {
 
 void
 GUIViewTraffic::onGamingClick(Position2D pos) {
-    const std::vector<MSTrafficLightLogic*> &logics = MSNet::getInstance()->getTLSControl().getAllLogics();
+    const MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
+    const std::vector<MSTrafficLightLogic*> &logics = tlsControl.getAllLogics();
     MSTrafficLightLogic *minTll = 0;
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic *tll = (*i);
-        // get the links
-        const MSTrafficLightLogic::LaneVector &lanes = tll->getLanesAt(0);
-        if (lanes.size()>0) {
-            const Position2D &endPos = lanes[0]->getShape().getEnd();
-            if (endPos.distanceTo(pos) < minDist) {
-                minDist = endPos.distanceTo(pos);
-                minTll = tll;
+        if (tlsControl.isActive(tll)) {
+            // get the links
+            const MSTrafficLightLogic::LaneVector &lanes = tll->getLanesAt(0);
+            if (lanes.size()>0) {
+                const Position2D &endPos = lanes[0]->getShape().getEnd();
+                if (endPos.distanceTo(pos) < minDist) {
+                    minDist = endPos.distanceTo(pos);
+                    minTll = tll;
+                }
             }
         }
     }
     if (minTll != 0) {
-        const MSTLLogicControl::TLSLogicVariants &vars = MSNet::getInstance()->getTLSControl().get(minTll->getID());
+        const MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(minTll->getID());
         const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         if (logics.size() > 1) {
             if (minTll->getSubID() == logics[0]->getSubID()) {

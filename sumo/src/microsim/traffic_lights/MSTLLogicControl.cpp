@@ -181,13 +181,11 @@ MSTLLogicControl::TLSLogicVariants::getActive() const {
 
 bool
 MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::string &subid) {
-    MSTrafficLightLogic *touse = getLogicInstantiatingOff(tlc, subid);
-    // switch to the wished program
     // set the found wished sub-program as this tls' current one
-    myCurrentProgram = touse;
+    myCurrentProgram = getLogicInstantiatingOff(tlc, subid);
     // in the case we have switched to an off-state, we'll reset the links
     if (subid=="off") {
-        touse->resetLinkStates(myOriginalLinkStates);
+        myCurrentProgram->resetLinkStates(myOriginalLinkStates);
     }
     return true;
 }
@@ -614,8 +612,8 @@ MSTLLogicControl::getAllLogics() const {
 }
 
 MSTLLogicControl::TLSLogicVariants &
-MSTLLogicControl::get(const std::string &id) throw(InvalidArgument) {
-    std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.find(id);
+MSTLLogicControl::get(const std::string &id) const throw(InvalidArgument) {
+    std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i==myLogics.end()) {
         throw InvalidArgument("The tls '" + id + "' is not known.");
     }
