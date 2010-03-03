@@ -52,8 +52,6 @@ typedef int SUMOTime;
 #define STEP2TIME(x) (x)
 #define STEPS2SECONDS(x) (x)
 #define TIME2STEPS(x) (x)
-#define GET_XML_SUMO_TIME getInt
-#define GET_XML_SUMO_TIME_SECURE getIntSecure
 #define TMOD(x,y) (x%y)
 
 #else
@@ -75,8 +73,6 @@ extern SUMOReal DELTA_T;
 #define STEP2TIME(x) ((int) ((x)*DELTA_T))
 #define STEPS2SECONDS(x) ((int) ((x)*DELTA_T))
 #define TIME2STEPS(x) ((int) ((x)/DELTA_T))
-#define GET_XML_SUMO_TIME getFloat
-#define GET_XML_SUMO_TIME_SECURE getFloatSecure
 #define TMOD(x,y) (fmod(x,y))
 
 #endif

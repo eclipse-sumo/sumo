@@ -169,7 +169,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         if (no<0) {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Negative flow in emitter '" + myParent.getID() + "'.");
         }
-        SUMOReal end = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_END, "emitter/flow", myParent.getID().c_str(), ok, -1);
+        SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "emitter/flow", myParent.getID().c_str(), ok, -1);
         if (!ok) {
             return;
         }
@@ -189,7 +189,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
         bool ok = true;
-        int depart = attrs.getOptIntReporting(SUMO_ATTR_TIME, "emit", myParent.getID().c_str(), ok, -1);
+        SUMOTime depart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_TIME, "emit", myParent.getID().c_str(), ok, -1);
         SUMOReal departSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "emit", myParent.getID().c_str(), ok, -1);
         std::string id = attrs.getOptStringReporting(SUMO_ATTR_ID, "emit", myParent.getID().c_str(), ok, "");
         std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "emit", myParent.getID().c_str(), ok, "");

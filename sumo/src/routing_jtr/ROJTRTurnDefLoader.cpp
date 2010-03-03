@@ -70,8 +70,8 @@ ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
     bool ok = true;
     switch (element) {
     case SUMO_TAG_INTERVAL:
-        myIntervalBegin = attrs.getIntReporting(SUMO_ATTR_BEGIN, "interval", 0, ok);
-        myIntervalEnd = attrs.getIntReporting(SUMO_ATTR_END, "interval", 0, ok);
+        myIntervalBegin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "interval", 0, ok);
+        myIntervalEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "interval", 0, ok);
         break;
     case SUMO_TAG_FROMEDGE:
         beginFromEdge(attrs);

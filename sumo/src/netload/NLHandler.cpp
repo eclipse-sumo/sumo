@@ -571,7 +571,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    SUMOTime t = attrs.getOptIntReporting(SUMO_ATTR_REF_TIME, "waut", id.c_str(), ok, 0);
+    SUMOTime t = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, "waut", id.c_str(), ok, 0);
     std::string pro = attrs.getStringReporting(SUMO_ATTR_START_PROG, "waut", id.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
@@ -591,7 +591,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs) {
 void
 NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    SUMOTime t = attrs.getIntReporting(SUMO_ATTR_TIME, "wautSwitch", myCurrentWAUTID.c_str(), ok);
+    SUMOTime t = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "wautSwitch", myCurrentWAUTID.c_str(), ok);
     std::string to = attrs.getStringReporting(SUMO_ATTR_TO, "wautSwitch", myCurrentWAUTID.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
@@ -798,15 +798,15 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs) {
         return;
     }
     // try to get the phase duration
-    int duration = attrs.getIntReporting(SUMO_ATTR_DURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok);
+    SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok);
     if (duration==0) {
         MsgHandler::getErrorInstance()->inform("Duration of tls-logic '" + myJunctionControlBuilder.getActiveKey() + "/" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    int minDuration = attrs.getOptIntReporting(SUMO_ATTR_MINDURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
-    int maxDuration = attrs.getOptIntReporting(SUMO_ATTR_MAXDURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
+    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, "phase", myJunctionControlBuilder.getActiveKey().c_str(), ok, -1);
     myJunctionControlBuilder.addPhase(duration, state, minDuration, maxDuration);
 }
 
@@ -821,7 +821,7 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs) {
     if (file=="") {
         file = "-";
     }
-    SUMOReal step = attrs.getOptIntReporting(SUMO_ATTR_STEP, 0, id.c_str(), ok, 1);
+    SUMOTime step = attrs.getOptSUMOTimeReporting(SUMO_ATTR_STEP, 0, id.c_str(), ok, 1);
     bool reverse = attrs.getOptBoolReporting(SUMO_ATTR_REVERSE, 0, 0, ok, false);
     bool table = attrs.getOptBoolReporting(SUMO_ATTR_TABLE, 0, 0, ok, false);
     bool xycoord = attrs.getOptBoolReporting(SUMO_ATTR_XY, 0, 0, ok, false);
@@ -913,7 +913,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs) {
     if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, "e1-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E1-detector '" + id + "': 'style' is deprecated.");
     }
-    int frequency = attrs.getIntReporting(SUMO_ATTR_FREQUENCY, "e1-detector", id.c_str(), ok);
+    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e1-detector", id.c_str(), ok);
     SUMOReal position = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "e1-detector", id.c_str(), ok);
     bool friendlyPos = attrs.getOptBoolReporting(SUMO_ATTR_FRIENDLY_POS, "e1-detector", id.c_str(), ok, false);
     std::string lane = attrs.getStringReporting(SUMO_ATTR_LANE, "e1-detector", id.c_str(), ok);
@@ -941,7 +941,7 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    int frequency = attrs.getIntReporting(SUMO_ATTR_FREQUENCY, "vtypeprobe", id.c_str(), ok);
+    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "vtypeprobe", id.c_str(), ok);
     std::string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "vtypeprobe", id.c_str(), ok);
     if (!ok) {
@@ -965,8 +965,8 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes &attrs) {
         return;
     }
     bool ok = true;
-    int frequency = attrs.getIntReporting(SUMO_ATTR_FREQUENCY, "routeprobe", id.c_str(), ok);
-    int begin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "routeprobe", id.c_str(), ok, -1);
+    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "routeprobe", id.c_str(), ok);
+    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "routeprobe", id.c_str(), ok, -1);
     std::string edge = attrs.getStringReporting(SUMO_ATTR_EDGE, "routeprobe", id.c_str(), ok);
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "routeprobe", id.c_str(), ok);
     if (!ok) {
@@ -1032,7 +1032,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs) {
             }
         } else {
             bool ok = true;
-            int frequency = attrs.getIntReporting(SUMO_ATTR_FREQUENCY, "e2-detector", id.c_str(), ok);
+            SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e2-detector", id.c_str(), ok);
             if (!ok) {
                 return;
             }
@@ -1064,7 +1064,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
     if (attrs.getOptStringReporting(SUMO_ATTR_STYLE, "e3-detector", id.c_str(), ok, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'style' is deprecated.");
     }
-    int frequency = attrs.getIntReporting(SUMO_ATTR_FREQUENCY, "e3-detector", id.c_str(), ok);
+    SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "e3-detector", id.c_str(), ok);
     SUMOReal haltingTimeThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, "e3-detector", id.c_str(), ok, 1.0f);
     SUMOReal haltingSpeedThreshold = attrs.getOptSUMORealReporting(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "e3-detector", id.c_str(), ok, 5.0f/3.6f);
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "e3-detector", id.c_str(), ok);
@@ -1131,13 +1131,14 @@ NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs) {
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "meandata_edge", id.c_str(), ok);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_edge", id.c_str(), ok, "performance");
     std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_edge", id.c_str(), ok, "");
+    SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_edge", id.c_str(), ok, -1);
+    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
+    SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_edge", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
     if (!ok) {
         return;
     }
     try {
-        myDetectorBuilder.createEdgeLaneMeanData(id, attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, -1),
-                attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin")),
-                attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end")),
+        myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
                 type, false, !excludeEmpty, withInternal,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));
@@ -1169,13 +1170,14 @@ NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs) {
     std::string file = attrs.getStringReporting(SUMO_ATTR_FILE, "meandata_lane", id.c_str(), ok);
     std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "meandata_lane", id.c_str(), ok, "performance");
     std::string vtypes = attrs.getOptStringReporting(SUMO_ATTR_VTYPES, "meandata_lane", id.c_str(), ok, "");
+    SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_lane", id.c_str(), ok, -1);
+    SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("begin"));
+    SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "meandata_lane", id.c_str(), ok, OptionsCont::getOptions().getInt("end"));
     if (!ok) {
         return;
     }
     try {
-        myDetectorBuilder.createEdgeLaneMeanData(id, attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, -1),
-                attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_BEGIN, OptionsCont::getOptions().getInt("begin")),
-                attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_END, OptionsCont::getOptions().getInt("end")),
+        myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
                 type, true, !excludeEmpty, withInternal,
                 maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
                 OutputDevice::getDevice(file, getFileName()));

@@ -192,8 +192,8 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
             return;
         } else {
             bool ok = true;
-            stop.duration = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_DURATION, "stop", 0, ok, -1);
-            stop.until = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_UNTIL, "stop", 0, ok, -1);
+            stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "stop", 0, ok, -1);
+            stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, "stop", 0, ok, -1);
             if (!ok) {
                 return;
             }

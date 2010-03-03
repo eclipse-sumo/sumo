@@ -271,7 +271,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             MsgHandler::getErrorInstance()->inform("Negative flow in calibrator '" + myParent.getID() + "'.");
             return;
         }
-        SUMOReal end = (SUMOTime) attrs.getOptSUMORealReporting(SUMO_ATTR_END, "flow", myParent.getID().c_str(), ok, -1);
+        SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "flow", myParent.getID().c_str(), ok, -1);
         if (!ok) {
             return;
         }
@@ -291,7 +291,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
         bool ok = true;
-        int depart = attrs.getIntReporting(SUMO_ATTR_TIME, "emit", 0, ok);
+        SUMOTime depart = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "emit", 0, ok);
         SUMOReal departSpeed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "emit", myParent.getID().c_str(), ok, -1);
         if (!ok) {
             return;

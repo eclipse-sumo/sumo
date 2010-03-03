@@ -140,8 +140,8 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
                                     const SUMOSAXAttributes &attrs) throw(ProcessError) {
     if (element==SUMO_TAG_INTERVAL) {
         bool ok = true;
-        myCurrentIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1);
-        myCurrentIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "interval", 0, ok, -1);
+        myCurrentIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1);
+        myCurrentIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "interval", 0, ok, -1);
     }
 
     if (element==SUMO_TAG_DEST_PROB_REROUTE) {

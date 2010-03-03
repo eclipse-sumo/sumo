@@ -259,6 +259,28 @@ SUMOSAXAttributes::getOptStringReporting(SumoXMLAttr attr, const char *objecttyp
 }
 
 
+SUMOTime
+SUMOSAXAttributes::getSUMOTimeReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+                                        bool &ok, bool report) const throw() {
+#ifdef HAVE_SUBSECOND_TIMESTEPS
+    return getSUMORealReporting(attr, objecttype, objectid, ok, report);
+#else
+    return getIntReporting(attr, objecttype, objectid, ok, report);
+#endif
+}
+
+
+SUMOTime
+SUMOSAXAttributes::getOptSUMOTimeReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid,
+        bool &ok, SUMOTime defaultValue, bool report) const throw() {
+#ifdef HAVE_SUBSECOND_TIMESTEPS
+    return getOptSUMORealReporting(attr, objecttype, objectid, ok, defaultValue, report);
+#else
+    return getOptIntReporting(attr, objecttype, objectid, ok, defaultValue, report);
+#endif
+}
+
+
 
 
 

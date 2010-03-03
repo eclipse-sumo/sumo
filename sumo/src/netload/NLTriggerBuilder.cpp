@@ -111,8 +111,8 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw() {
         return;
     }
     bool ok = true;
-    SUMOTime begin = attrs.getIntReporting(SUMO_ATTR_BEGIN, "vaporizer", 0, ok);
-    SUMOTime end = attrs.getIntReporting(SUMO_ATTR_END, "vaporizer", 0, ok);
+    SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "vaporizer", 0, ok);
+    SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "vaporizer", 0, ok);
     if (!ok) {
         return;
     }
@@ -263,7 +263,8 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
     // get the file name to read further definitions from
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
-    SUMOTime freq = attrs.GET_XML_SUMO_TIME_SECURE(SUMO_ATTR_FREQUENCY, 1);
+    bool ok = true;
+    SUMOTime freq = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, "meandata_lane", id.c_str(), ok, 1); // !!! no error handling
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         std::string file = getFileName(attrs, base, true);

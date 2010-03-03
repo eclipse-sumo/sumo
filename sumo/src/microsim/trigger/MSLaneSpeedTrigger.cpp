@@ -140,7 +140,7 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
     }
     // extract the values
     bool ok = true;
-    int next = attrs.getIntReporting(SUMO_ATTR_TIME, "vss/step", getID().c_str(), ok);
+    SUMOTime next = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "vss/step", getID().c_str(), ok);
     SUMOReal speed = attrs.getOptSUMORealReporting(SUMO_ATTR_SPEED, "vss/step", getID().c_str(), ok, -1);
     // check the values
     if (next<0) {

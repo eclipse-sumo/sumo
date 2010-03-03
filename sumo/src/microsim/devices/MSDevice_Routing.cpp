@@ -122,7 +122,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
             MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                 myEdgeWeightSettingCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
             myAdaptationWeight = oc.getFloat("device.routing.adaptation-weight");
-            myAdaptationInterval = oc.GET_XML_SUMO_TIME("device.routing.adaptation-interval");
+            myAdaptationInterval = oc.getInt("device.routing.adaptation-interval");
         }
         // the following is just to give the vehicle a valid route before the route is checked at init
         DijkstraRouterTT_ByProxi<MSEdge, SUMOVehicle, prohibited_withRestrictions<MSEdge, SUMOVehicle>, MSDevice_Routing>

@@ -92,15 +92,15 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes &attrs) thr
 
     ret->depart = OptionsCont::getOptions().getInt("begin");
     if (attrs.hasAttribute(SUMO_ATTR_BEGIN)) {
-        ret->depart = attrs.getIntReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok);
+        ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok);
     }
     if (ok && ret->depart < 0) {
         delete ret;
         throw ProcessError("Negative begin time in the definition of flow '" + id + "'.");
     }
-    int end = OptionsCont::getOptions().getInt("end");
+    SUMOTime end = OptionsCont::getOptions().getInt("end");
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
-        end = attrs.getIntReporting(SUMO_ATTR_END, "flow", id.c_str(), ok);
+        end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "flow", id.c_str(), ok);
     }
     if (ok && end <= ret->depart) {
         delete ret;
@@ -150,7 +150,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     ret->id = id;
     parseCommonAttributes(attrs, ret, "vehicle");
     if (!skipDepart) {
-        ret->depart = attrs.getIntReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
+        ret->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "vehicle", id.c_str(), ok);
         if (ok && ret->depart < 0) {
             throw ProcessError("Negative departure time in the definition of '" + id + "'.");
         }

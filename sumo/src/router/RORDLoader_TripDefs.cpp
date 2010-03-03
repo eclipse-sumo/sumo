@@ -77,7 +77,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
         string id = getVehicleID(attrs);
-        myDepartureTime = attrs.getIntReporting(SUMO_ATTR_DEPART, "tripdef", id.c_str(), ok);
+        myDepartureTime = attrs.getSUMOTimeReporting(SUMO_ATTR_DEPART, "tripdef", id.c_str(), ok);
         myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, id, false);
         myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO, id, myEmptyDestinationsAllowed);
         myParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
@@ -140,7 +140,7 @@ RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
     }
     // get the repetition period
     bool ok = true;
-    return attrs.getIntReporting(SUMO_ATTR_PERIOD, "tripdef", id.c_str(), ok);
+    return attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, "tripdef", id.c_str(), ok);
 }
 
 

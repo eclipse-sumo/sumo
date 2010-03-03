@@ -240,8 +240,8 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
     }
     myParameter->id = id;
     bool ok = true;
-    myIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok, myUpperIntervalBegin);
-    myIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "flow", id.c_str(), ok, myUpperIntervalEnd);
+    myIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "flow", id.c_str(), ok, myUpperIntervalBegin);
+    myIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "flow", id.c_str(), ok, myUpperIntervalEnd);
     myVehicle2EmitNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
     if (!ok) {
         throw ProcessError();
@@ -255,8 +255,8 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs) thro
 void
 RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    myUpperIntervalBegin = attrs.getOptIntReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1); // !!!really optional ?
-    myUpperIntervalEnd = attrs.getOptIntReporting(SUMO_ATTR_END, "interval", 0, ok, -1); // !!!really optional ?
+    myUpperIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, "interval", 0, ok, -1); // !!!really optional ?
+    myUpperIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, "interval", 0, ok, -1); // !!!really optional ?
 }
 
 
@@ -298,9 +298,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef() {
         myNextRouteRead = true;
         ROVehicle *vehicle = new ROVehicle(*myParameter, route, type);
         // add to the container
-        FlowDef *fd =
-            new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd,
-                        myVehicle2EmitNumber, myRandom);
+        FlowDef *fd = new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd, myVehicle2EmitNumber, myRandom);
         myFlows.push_back(fd);
         delete myParameter;
         myParameter = 0;
