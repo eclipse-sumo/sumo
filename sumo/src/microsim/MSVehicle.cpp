@@ -1010,7 +1010,7 @@ MSVehicle::checkRewindLinkLanes(SUMOReal lengthsInFront) throw() {
                 bool nextDisallows1 = /*myState.mySpeed<.1 &&*/ pred!=0 && seenSpace<.1;
                 if (nextDisallows1) {
                     SUMOReal brakeGap = pred->getVehicleType().getCarFollowModel().brakeGap(pred->getSpeed());
-                    nextDisallows1 &= (pred->getPositionOnLane()+ACCEL2DIST(brakeGap)) < pred->getVehicleType().getLength();
+                    nextDisallows1 &= pred->getPositionOnLane()+brakeGap < pred->getVehicleType().getLength();
                 }
                 // the free space on plain lanes is counted
                 // !!!: on longer lanes, only the place some meters in front... (next extension)
