@@ -3,7 +3,7 @@
 @file    runner.py
 @author  Michael.Behrisch@dlr.de
 @date    2010-01-30
-@version $Id: netcheck.py 8236 2010-02-10 11:16:41Z behrisch $
+@version $Id$
 
 This script runs the gaming GUI for the LNdW traffic light game.
 It checks for possible scenarios in the current working directory

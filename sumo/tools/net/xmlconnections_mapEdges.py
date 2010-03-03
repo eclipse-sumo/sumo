@@ -3,7 +3,7 @@
 @file    xmlconnections_mapEdges.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-08-01
-@version $Id: xmlconnections_mapEdges.py 8236 2010-02-10 11:16:41Z behrisch $
+@version $Id$
 
 Reads edge id replacements from "edgemap.txt"; the format of this file is
  <OLD_EDGE_ID>-><NEW_EDGE_ID>

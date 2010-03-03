@@ -3,7 +3,7 @@
 @file    poi_atTLS.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2010-02-20
-@version $Id: poi_atTLS.py 8236 2010-02-10 11:16:41Z behrisch $
+@version $Id$
 
 Generates a PoI-file containing a PoI for each tls controlled intersection
  from the given net.
