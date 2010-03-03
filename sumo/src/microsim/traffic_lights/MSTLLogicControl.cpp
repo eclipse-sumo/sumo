@@ -17,15 +17,6 @@
 //
 /****************************************************************************/
 // ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#pragma warning(disable: 4503)
-#endif
-
-
-// ===========================================================================
 // included modules
 // ===========================================================================
 #ifdef _MSC_VER
@@ -53,28 +44,22 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
  * MSTLLogicControl::TLSLogicVariants - methods
  * ----------------------------------------------------------------------- */
 MSTLLogicControl::TLSLogicVariants::TLSLogicVariants() throw()
-        : defaultTL(0) {
+        : myCurrentProgram(0) {
 }
 
 
 MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() throw() {
     std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
-    for (std::map<std::string, MSTrafficLightLogic *>::iterator j=ltVariants.begin(); j!=ltVariants.end(); ++j) {
+    for (std::map<std::string, MSTrafficLightLogic *>::iterator j=myVariants.begin(); j!=myVariants.end(); ++j) {
         delete(*j).second;
     }
-    for (std::vector<OnSwitchAcion*>::iterator i=onSwitchActions.begin(); i!=onSwitchActions.end(); ++i) {
+    for (std::vector<OnSwitchAction*>::iterator i=mySwitchActions.begin(); i!=mySwitchActions.end(); ++i) {
         delete *i;
     }
 }
@@ -83,7 +68,7 @@ MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() throw() {
 bool
 MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const throw() {
     bool hadErrors = false;
-    for (std::map<std::string, MSTrafficLightLogic *>::const_iterator j=ltVariants.begin(); j!=ltVariants.end(); ++j) {
+    for (std::map<std::string, MSTrafficLightLogic *>::const_iterator j=myVariants.begin(); j!=myVariants.end(); ++j) {
         const MSTrafficLightLogic::Phases &phases = (*j).second->getPhases();
         unsigned int linkNo = (unsigned int)(*j).second->getLinks().size();
         bool hadProgramErrors = false;
@@ -103,7 +88,7 @@ MSTLLogicControl::TLSLogicVariants::checkOriginalTLS() const throw() {
 
 void
 MSTLLogicControl::TLSLogicVariants::saveInitialStates() {
-    originalLinkStates = defaultTL->collectLinkStates();
+    myOriginalLinkStates = myCurrentProgram->collectLinkStates();
 }
 
 
@@ -112,26 +97,26 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
         MSTrafficLightLogic*logic,
         bool netWasLoaded,
         bool isNewDefault) {
-    if (ltVariants.find(subID)!=ltVariants.end()) {
+    if (myVariants.find(subID)!=myVariants.end()) {
         return false;
     }
     // assert the links are set
     if (netWasLoaded) {
         // this one has not yet its links set
-        if (defaultTL==0) {
+        if (myCurrentProgram==0) {
             throw ProcessError("No initial signal plan loaded for tls '" + logic->getID() + "'.");
         }
-        logic->adaptLinkInformationFrom(*defaultTL);
+        logic->adaptLinkInformationFrom(*myCurrentProgram);
         if (logic->getLinks().size()!=logic->getPhase(0).getState().size()) {
             throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "', program '" + subID + "'.");
         }
     }
     // add to the list of active
-    if (ltVariants.size()==0||isNewDefault) {
-        defaultTL = logic;
+    if (myVariants.size()==0||isNewDefault) {
+        myCurrentProgram = logic;
     }
     // add to the list of logic
-    ltVariants[subID] = logic;
+    myVariants[subID] = logic;
     logic->setLinkPriorities();
     return true;
 }
@@ -139,26 +124,26 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
 
 MSTrafficLightLogic*
 MSTLLogicControl::TLSLogicVariants::getLogic(const std::string &subid) const {
-    if (ltVariants.find(subid)==ltVariants.end()) {
+    if (myVariants.find(subid)==myVariants.end()) {
         return 0;
     }
-    return ltVariants.find(subid)->second;
+    return myVariants.find(subid)->second;
 }
 
 
 MSTrafficLightLogic*
 MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &tlc,
         const std::string &subid) {
-    if (ltVariants.find(subid)==ltVariants.end()) {
+    if (myVariants.find(subid)==myVariants.end()) {
         if (subid=="off") {
             // build an off-tll if this switch indicates it
-            if (!addLogic("off", new MSOffTrafficLightLogic(tlc, defaultTL->getID()), true, false)) {
+            if (!addLogic("off", new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID()), true, false)) {
                 // inform the user if this fails
-                throw ProcessError("Could not build an off-state for tls '" + defaultTL->getID() + "'.");
+                throw ProcessError("Could not build an off-state for tls '" + myCurrentProgram->getID() + "'.");
             }
         } else {
             // inform the user about a missing logic
-            throw ProcessError("Can not switch tls '" + defaultTL->getID() + "' to program '" + subid + "';\n The program is not known.");
+            throw ProcessError("Can not switch tls '" + myCurrentProgram->getID() + "' to program '" + subid + "';\n The program is not known.");
         }
     }
     return getLogic(subid);
@@ -166,8 +151,8 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &t
 
 
 void
-MSTLLogicControl::TLSLogicVariants::addSwitchCommand(OnSwitchAcion *c) {
-    onSwitchActions.push_back(c);
+MSTLLogicControl::TLSLogicVariants::addSwitchCommand(OnSwitchAction *c) {
+    mySwitchActions.push_back(c);
 }
 
 
@@ -175,7 +160,7 @@ std::vector<MSTrafficLightLogic*>
 MSTLLogicControl::TLSLogicVariants::getAllLogics() const {
     std::vector<MSTrafficLightLogic*> ret;
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
-    for (i=ltVariants.begin(); i!=ltVariants.end(); ++i) {
+    for (i=myVariants.begin(); i!=myVariants.end(); ++i) {
         ret.push_back((*i).second);
     }
     return ret;
@@ -184,13 +169,13 @@ MSTLLogicControl::TLSLogicVariants::getAllLogics() const {
 
 bool
 MSTLLogicControl::TLSLogicVariants::isActive(const MSTrafficLightLogic *tl) const {
-    return tl==defaultTL;
+    return tl==myCurrentProgram;
 }
 
 
 MSTrafficLightLogic*
 MSTLLogicControl::TLSLogicVariants::getActive() const {
-    return defaultTL;
+    return myCurrentProgram;
 }
 
 
@@ -199,10 +184,10 @@ MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::s
     MSTrafficLightLogic *touse = getLogicInstantiatingOff(tlc, subid);
     // switch to the wished program
     // set the found wished sub-program as this tls' current one
-    defaultTL = touse;
+    myCurrentProgram = touse;
     // in the case we have switched to an off-state, we'll reset the links
     if (subid=="off") {
-        touse->resetLinkStates(originalLinkStates);
+        touse->resetLinkStates(myOriginalLinkStates);
     }
     return true;
 }
@@ -210,14 +195,14 @@ MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::s
 
 bool
 MSTLLogicControl::TLSLogicVariants::setTrafficLightSignals() {
-    defaultTL->setTrafficLightSignals();
+    myCurrentProgram->setTrafficLightSignals();
     return true;
 }
 
 
 void
 MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
-    for (std::vector<OnSwitchAcion*>::const_iterator i=onSwitchActions.begin(); i!=onSwitchActions.end();) {
+    for (std::vector<OnSwitchAction*>::const_iterator i=mySwitchActions.begin(); i!=mySwitchActions.end();) {
         (*i)->execute();
         ++i;
     }
@@ -226,7 +211,7 @@ MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
 
 void
 MSTLLogicControl::TLSLogicVariants::addLink(MSLink *link, MSLane *lane, unsigned int pos) throw() {
-    for (std::map<std::string, MSTrafficLightLogic *>::iterator i=ltVariants.begin(); i!=ltVariants.end(); ++i) {
+    for (std::map<std::string, MSTrafficLightLogic *>::iterator i=myVariants.begin(); i!=myVariants.end(); ++i) {
         (*i).second->addLink(link, lane, pos);
     }
 }
@@ -238,7 +223,7 @@ MSTLLogicControl::TLSLogicVariants::addLink(MSLink *link, MSLane *lane, unsigned
  * ----------------------------------------------------------------------- */
 SUMOReal
 MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(MSTrafficLightLogic *from) const {
-    string val = from->getParameterValue("GSP");
+    std::string val = from->getParameterValue("GSP");
     if (val.length()==0) {
         return -1;
     }
@@ -257,7 +242,7 @@ MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime step, MSSimpleTraffic
     if (gspFrom == CycleTime)	{
         gspFrom = 0;
     }
-    ///compare the position of the given programm with the GSP (GSP = "GünstigerSchaltPunkt")
+    ///compare the position of the given programm with the GSP (GSP = "Gï¿½nstigerSchaltPunkt")
     if (gspFrom == posFrom) {
         return true;
     } else {
@@ -686,7 +671,7 @@ MSTLLogicControl::knows(const std::string &id) const {
 bool
 MSTLLogicControl::closeNetworkReading() throw() {
     bool hadErrors = false;
-    for (map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
+    for (std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
         hadErrors |= !(*i).second->checkOriginalTLS();
         (*i).second->saveInitialStates();
     }
@@ -780,11 +765,11 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     j.synchron = synchron;
     myWAUTs[wautid]->junctions.push_back(j);
 
-    string initProg = myWAUTs[wautid]->startProg;
-    vector<WAUTSwitch>::const_iterator first = myWAUTs[wautid]->switches.end();
+    std::string initProg = myWAUTs[wautid]->startProg;
+    std::vector<WAUTSwitch>::const_iterator first = myWAUTs[wautid]->switches.end();
     SUMOTime minExecTime = -1;
     int minIndex = -1;
-    for (vector<WAUTSwitch>::const_iterator i=myWAUTs[wautid]->switches.begin(); i!=myWAUTs[wautid]->switches.end(); ++i) {
+    for (std::vector<WAUTSwitch>::const_iterator i=myWAUTs[wautid]->switches.begin(); i!=myWAUTs[wautid]->switches.end(); ++i) {
         if ((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
             minExecTime = (*i).when;
             first = i;
@@ -806,12 +791,12 @@ MSTLLogicControl::closeWAUT(const std::string &wautid) throw(InvalidArgument) {
         throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
     }
     WAUT *w = myWAUTs.find(wautid)->second;
-    string initProg = myWAUTs[wautid]->startProg;
+    std::string initProg = myWAUTs[wautid]->startProg;
     // get the switch to be performed as first
-    vector<WAUTSwitch>::const_iterator first = w->switches.end();
+    std::vector<WAUTSwitch>::const_iterator first = w->switches.end();
     SUMOTime minExecTime = -1;
     int minIndex = -1;
-    for (vector<WAUTSwitch>::const_iterator i=w->switches.begin(); i!=w->switches.end(); ++i) {
+    for (std::vector<WAUTSwitch>::const_iterator i=w->switches.begin(); i!=w->switches.end(); ++i) {
         if ((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
             minExecTime = (*i).when;
             first = i;
@@ -819,7 +804,7 @@ MSTLLogicControl::closeWAUT(const std::string &wautid) throw(InvalidArgument) {
     }
     // activate the first one
     if (first!=w->switches.end()) {
-        vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
+        std::vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SwitchInitCommand(*this, wautid, (unsigned int)distance(mbegin, first)),
             (*first).when, MSEventControl::NO_CHANGE);
@@ -886,7 +871,7 @@ MSTLLogicControl::check2Switch(SUMOTime step) {
 std::pair<SUMOTime, MSPhaseDefinition>
 MSTLLogicControl::getPhaseDef(const std::string &tlid) const {
     MSTrafficLightLogic *tl = getActive(tlid);
-    return make_pair(
+    return std::make_pair(
                MSNet::getInstance()->getCurrentTimeStep(),
                tl->getCurrentPhaseDef());
 }

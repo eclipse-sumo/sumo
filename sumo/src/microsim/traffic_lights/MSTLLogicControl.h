@@ -55,14 +55,14 @@
 class MSTLLogicControl {
 public:
     /**
-     * @class OnSwitchAcion
+     * @class OnSwitchAction
      * @brief Base class for things to execute if a tls switches
      * @see Design Patterns, Gamma et al.
      */
-    class OnSwitchAcion {
+    class OnSwitchAction {
     public:
         /// @brief Destructor.
-        virtual ~OnSwitchAcion() throw() {};
+        virtual ~OnSwitchAction() throw() {};
 
 
         /** @brief Executes the action
@@ -112,7 +112,7 @@ public:
 
 
         MSTrafficLightLogic* getLogic(const std::string &subid) const;
-        void addSwitchCommand(OnSwitchAcion *c);
+        void addSwitchCommand(OnSwitchAction *c);
         std::vector<MSTrafficLightLogic*> getAllLogics() const;
         void saveInitialStates();
         bool isActive(const MSTrafficLightLogic *tl) const;
@@ -128,16 +128,16 @@ public:
 
     private:
         /// @brief The currently used program
-        MSTrafficLightLogic *defaultTL;
+        MSTrafficLightLogic *myCurrentProgram;
 
         /// @brief A map of subkeys to programs
-        std::map<std::string, MSTrafficLightLogic*> ltVariants;
+        std::map<std::string, MSTrafficLightLogic*> myVariants;
 
         /// @brief Originally loaded link states
-        std::map<MSLink*, std::pair<MSLink::LinkState, bool> > originalLinkStates;
+        std::map<MSLink*, std::pair<MSLink::LinkState, bool> > myOriginalLinkStates;
 
         /// @brief The list of actions/commands to execute on switch
-        std::vector<OnSwitchAcion*> onSwitchActions;
+        std::vector<OnSwitchAction*> mySwitchActions;
 
 
     private:
@@ -478,7 +478,7 @@ protected:
          */
         virtual bool trySwitch(SUMOTime step) = 0;
 
-        // checks, if the position of a signal programm is at the GSP ("GünstigerUmschaltPunkt")
+        // checks, if the position of a signal programm is at the GSP ("GuenstigerUmschaltPunkt")
         bool isPosAtGSP(SUMOTime step, MSSimpleTrafficLightLogic *testLogic);
 
         /// Returns the difference between an given position and the start of the phase

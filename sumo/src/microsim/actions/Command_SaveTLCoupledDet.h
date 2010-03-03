@@ -52,7 +52,7 @@ class OutputDevice;
  *
  * @todo Problem: The detector may not save the last state (on simulation end)
  */
-class Command_SaveTLCoupledDet : public MSTLLogicControl::OnSwitchAcion {
+class Command_SaveTLCoupledDet : public MSTLLogicControl::OnSwitchAction {
 public:
     /** @brief Constructor
      *
