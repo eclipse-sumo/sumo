@@ -401,34 +401,24 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs) {
         return;
     }
     // get the id, report an error if not given or empty...
-    std::string id;
-    if (!attrs.setIDFromAttributes("lane", id)) {
+    if (!attrs.setIDFromAttributes("lane", myCurrentLaneID)) {
         myCurrentIsBroken = true;
         return;
     }
     bool ok = true;
-    try {
-        myCurrentLaneID = id;
-        myLaneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, "lane", id.c_str(), ok);
-        myCurrentMaxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, "lane", id.c_str(), ok);
-        myCurrentLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "lane", id.c_str(), ok);
-        std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, "lane", id.c_str(), ok, "");
-        std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, "lane", id.c_str(), ok, "");
-        std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, "lane", id.c_str(), ok, "");
-        myAllowedClasses.clear();
-        myDisallowedClasses.clear();
-        parseVehicleClasses(vclasses, allow, disallow,
-                            myAllowedClasses, myDisallowedClasses, myHaveWarnedAboutDeprecatedVClass);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing attribute in a lane-object (id='" + id + "').\n Can not build according edge.");
-        myCurrentIsBroken = true;
-    }
-    if (!ok) {
-        myCurrentIsBroken = true;
-    }
+    myLaneIsDepart = attrs.getBoolReporting(SUMO_ATTR_DEPART, "lane", myCurrentLaneID.c_str(), ok);
+    myCurrentMaxSpeed = attrs.getSUMORealReporting(SUMO_ATTR_MAXSPEED, "lane", myCurrentLaneID.c_str(), ok);
+    myCurrentLength = attrs.getSUMORealReporting(SUMO_ATTR_LENGTH, "lane", myCurrentLaneID.c_str(), ok);
+    std::string allow = attrs.getOptStringReporting(SUMO_ATTR_ALLOW, "lane", myCurrentLaneID.c_str(), ok, "");
+    std::string disallow = attrs.getOptStringReporting(SUMO_ATTR_DISALLOW, "lane", myCurrentLaneID.c_str(), ok, "");
+    std::string vclasses = attrs.getOptStringReporting(SUMO_ATTR_VCLASSES, "lane", myCurrentLaneID.c_str(), ok, "");
+    myAllowedClasses.clear();
+    myDisallowedClasses.clear();
+    parseVehicleClasses(vclasses, allow, disallow, myAllowedClasses, myDisallowedClasses, myHaveWarnedAboutDeprecatedVClass);
+    myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
-            addLaneShape(attrs.getStringReporting(SUMO_ATTR_SHAPE, "lane", id.c_str(), ok));
+            addLaneShape(attrs.getStringReporting(SUMO_ATTR_SHAPE, "lane", myCurrentLaneID.c_str(), ok));
         } else if (!myHaveWarnedAboutDeprecatedLaneShape) {
             myHaveWarnedAboutDeprecatedLaneShape = true;
             MsgHandler::getWarningInstance()->inform("Your network uses a deprecated lane shape description; please rebuild.");
@@ -1077,12 +1067,6 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs) {
                                           frequency, haltingSpeedThreshold, haltingTimeThreshold);
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (BoolFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken boolean.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
@@ -1144,10 +1128,6 @@ NLHandler::addEdgeMeanData(const SUMOSAXAttributes &attrs) {
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The description of the meandata_edge '" + id + "' does not contain a needed value.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The description of the meandata_edge '" + id + "' contains a broken number.");
     } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
@@ -1183,10 +1163,6 @@ NLHandler::addLaneMeanData(const SUMOSAXAttributes &attrs) {
                 OutputDevice::getDevice(file, getFileName()));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The description of the meandata_lane '" + id + "' does not contain a needed value.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The description of the meandata_lane '" + id + "' contains a broken number.");
     } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
