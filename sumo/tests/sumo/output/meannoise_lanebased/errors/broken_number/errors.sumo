@@ -1,2 +1,2 @@
-Error: The description of the meandata_lane 'dump_15' contains a broken number.
+Error: Attribute 'begin' in definition of meandata_lane 'dump_15' is not an int.
 Quitting (on error).
