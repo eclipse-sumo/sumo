@@ -5,6 +5,8 @@
 @date    2008-03-27
 @version $Id$
 
+This scrip can be used as a content handler for parsing xml files.
+These classes represents a sumo network.
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -15,8 +17,9 @@ from xml.sax import saxutils, make_parser, handler
 from copy import copy
 from itertools import *
 
-
 class NetLane:
+    """ Lanes from a sumo network """
+
     def __init__(self, edge, speed, length):
         self._edge = edge
         self._speed = speed
@@ -47,8 +50,9 @@ class NetLane:
         self._outgoing.append( [tolane, tls, tllink ] )
 
 
-
 class NetEdge:
+    """ Edges from a sumo network """
+
     def __init__(self, id, fromN, toN, prio, function):
         self._id = id
         self._from = fromN
@@ -134,8 +138,8 @@ class NetEdge:
          self._tls = tls
          
 
-
 class NetNode:
+    """ Nodes from a sumo network """
     def __init__(self, id, coord, incLanes):
         self._id = id
         self._coord = coord
@@ -186,9 +190,8 @@ class NetNode:
             print possProhibitorIndex
         return ps[len(ps)-possProhibitorIndex-1]=='1'
 
-
-
 class NetTLS:
+    """Trafic Light Signal for a sumo network"""
     def __init__(self, id):
         self._id = id
         self._connections = []
@@ -223,6 +226,7 @@ class NetTLSProgram:
 
 
 class Net:
+    """The whole sumo network."""
     def __init__(self):
         self._id2node = {}
         self._id2edge = {}

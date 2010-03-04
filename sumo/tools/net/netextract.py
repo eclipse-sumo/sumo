@@ -5,7 +5,6 @@
 @date    2007-02-21
 @version $Id$
 
-
 This script reads in the network given as
  first parameter and extracts nodes and edges 
  from it which are saved into "nodes.xml" and 
@@ -28,6 +27,8 @@ import sumonet
 
 
 def writeNodes(net):
+    """ Writes nodes in a xml file """
+    
     fd = open("nodes.xml", "w")
     fd.write("<nodes>\n")
     for node in net._nodes:
@@ -35,6 +36,8 @@ def writeNodes(net):
     fd.write("</nodes>\n")
 
 def writeEdges(net):
+    """ Writes edges in a xml file """
+
     fd = open("edges.xml", "w")
     fd.write("<edges>\n")
     for edge in net._edges:
