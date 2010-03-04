@@ -96,7 +96,7 @@ bool
 MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
         MSTrafficLightLogic*logic,
         bool netWasLoaded,
-        bool isNewDefault) {
+        bool isNewDefault) throw(ProcessError) {
     if (myVariants.find(subID)!=myVariants.end()) {
         return false;
     }

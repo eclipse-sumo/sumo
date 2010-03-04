@@ -302,9 +302,6 @@ private:
 
 
 
-    /// ends the loading of a junction logic
-    void closeJunctionLogic();
-
     /// ends the processing of a junction
     virtual void closeJunction();
 

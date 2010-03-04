@@ -278,7 +278,7 @@ public:
      *
      * @exception InvalidArgument If another tls logic with the same name as the currently built was loaded before
      */
-    virtual void closeTrafficLightLogic() throw(InvalidArgument);
+    virtual void closeTrafficLightLogic() throw(InvalidArgument, ProcessError);
 
 
     /** @brief Ends the building of a junction logic (row-logic)

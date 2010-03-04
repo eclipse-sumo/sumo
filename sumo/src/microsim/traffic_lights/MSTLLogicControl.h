@@ -107,7 +107,7 @@ public:
          * @param[in] isNewDefault Whether this logic shall be treated as the currently active logic
          */
         bool addLogic(const std::string &subID, MSTrafficLightLogic*logic, bool netWasLoaded,
-                      bool isNewDefault=true);
+                      bool isNewDefault=true) throw(ProcessError);
 
 
 
