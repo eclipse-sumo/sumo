@@ -316,6 +316,7 @@ Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:
 Error: Attribute 'shape' in definition of lane '1_0' is empty.
+Error: Shape of lane '1_0' is broken: the shape is empty.
 Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -324,6 +325,7 @@ Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:
 Error: Attribute 'shape' in definition of lane '1_1' is empty.
+Error: Shape of lane '1_1' is broken: the shape is empty.
 Error: Could not parse shape of lane '1_1'.
  Can not build according edge.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
@@ -331,6 +333,7 @@ Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:
 Error: Attribute 'shape' in definition of lane '2_0' is empty.
+Error: Shape of lane '2_0' is broken: the shape is empty.
 Error: Could not parse shape of lane '2_0'.
  Can not build according edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
@@ -341,6 +344,7 @@ Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:
 Error: Attribute 'shape' in definition of lane '2_1' is empty.
+Error: Shape of lane '2_1' is broken: the shape is empty.
 Error: Could not parse shape of lane '2_1'.
  Can not build according edge.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
@@ -348,6 +352,7 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a
+Error: Shape of lane '1_0' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -355,12 +360,14 @@ Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a
+Error: Shape of lane '1_1' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '1_1'.
  Can not build according edge.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a
+Error: Shape of lane '2_0' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '2_0'.
  Can not build according edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
@@ -370,6 +377,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a
+Error: Shape of lane '2_1' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '2_1'.
  Can not build according edge.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
@@ -410,6 +418,7 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
+Error: Shape of lane '1_0' is broken: not numeric position entry.
 Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -417,12 +426,14 @@ Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
+Error: Shape of lane '1_1' is broken: not numeric position entry.
 Error: Could not parse shape of lane '1_1'.
  Can not build according edge.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
+Error: Shape of lane '2_0' is broken: not numeric position entry.
 Error: Could not parse shape of lane '2_0'.
  Can not build according edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
@@ -432,6 +443,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
+Error: Shape of lane '2_1' is broken: not numeric position entry.
 Error: Could not parse shape of lane '2_1'.
  Can not build according edge.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
@@ -439,6 +451,7 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
+Error: Shape of lane '1_0' is broken: not numeric position entry.
 Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -446,12 +459,14 @@ Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
+Error: Shape of lane '1_1' is broken: not numeric position entry.
 Error: Could not parse shape of lane '1_1'.
  Can not build according edge.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
+Error: Shape of lane '2_0' is broken: not numeric position entry.
 Error: Could not parse shape of lane '2_0'.
  Can not build according edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
@@ -461,6 +476,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
+Error: Shape of lane '2_1' is broken: not numeric position entry.
 Error: Could not parse shape of lane '2_1'.
  Can not build according edge.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
@@ -468,6 +484,7 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
+Error: Shape of lane '1_0' is broken: not numeric position entry.
 Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -475,12 +492,14 @@ Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
+Error: Shape of lane '1_1' is broken: not numeric position entry.
 Error: Could not parse shape of lane '1_1'.
  Can not build according edge.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
+Error: Shape of lane '2_0' is broken: not numeric position entry.
 Error: Could not parse shape of lane '2_0'.
  Can not build according edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
@@ -490,6 +509,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
+Error: Shape of lane '2_1' is broken: not numeric position entry.
 Error: Could not parse shape of lane '2_1'.
  Can not build according edge.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
@@ -497,6 +517,7 @@ Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Shape of lane '1_0' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '1_0'.
  Can not build according edge.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
@@ -504,12 +525,14 @@ Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Shape of lane '1_1' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '1_1'.
  Can not build according edge.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Shape of lane '2_0' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '2_0'.
  Can not build according edge.
 Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
@@ -519,6 +542,7 @@ Error: Trying to close connections of an unknown lane ('2_0').
 Error: Trying to close connections of an unknown lane ('2_1').
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+Error: Shape of lane '2_1' is broken: the position is not made of two dimensions.
 Error: Could not parse shape of lane '2_1'.
  Can not build according edge.
 Error: An unknown lane ('2_1') was tried to be set as incoming to junction '3'.
