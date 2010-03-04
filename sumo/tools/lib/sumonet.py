@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    netmatching.py
+@file    sumonet.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2008-03-27
 @version $Id$
