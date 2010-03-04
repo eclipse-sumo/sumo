@@ -143,6 +143,13 @@ private:
                          MSVehicleContainer::VehicleVector &refusedEmits) throw();
 
 
+    /** @brief Checks whether any flow is blocked due to this vehicle and clears the block
+     *
+     * @param[in] veh The vehicle to check for
+     */
+    void checkFlowWait(MSVehicle *veh) throw();
+
+
     /** @brief Adds all vehicles that should have been emitted earlier to the refuse container
      *
      * @param[in] time The current simulation time

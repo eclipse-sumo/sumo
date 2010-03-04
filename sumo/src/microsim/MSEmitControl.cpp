@@ -141,16 +141,18 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
     const MSEdge &edge = veh->getDepartEdge();
     if (/*edge.getLastFailedEmissionTime()!=time && */edge.emit(*veh, time)) {
         // Successful emission.
+        checkFlowWait(veh);
         veh->onDepart();
         return 1;
     }
     if (myMaxDepartDelay != -1 && time - veh->getDesiredDepart() > myMaxDepartDelay) {
         // remove vehicles waiting too long for departure
+        checkFlowWait(veh);
         myVehicleControl.deleteVehicle(veh);
     } else if (edge.isVaporizing()) {
         // remove vehicles if the edge shall be empty
+        checkFlowWait(veh);
         veh->setWasVaporized(true);
-        // delete vehicle
         myVehicleControl.deleteVehicle(veh);
     } else {
         // let the vehicle wait one step, we'll retry then
@@ -158,6 +160,17 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
     }
     edge.setLastFailedEmissionTime(time);
     return 0;
+}
+
+
+void
+MSEmitControl::checkFlowWait(MSVehicle *veh) throw() {
+    for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end(); ++i) {
+        if (i->vehicle == veh) {
+            i->vehicle = 0;
+            break;
+        }
+    }
 }
 
 
@@ -178,15 +191,15 @@ void
 MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
     for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
-        if (!i->isVolatile && i->vehicle!=0 && !i->vehicle->isOnRoad()) {
+        if (!i->isVolatile && i->vehicle!=0) {
             ++i;
             continue;
         }
         while (pars->repetitionsDone < pars->repetitionNumber &&
-                pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
+               pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T) {
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(pars->repetitionsDone);
-            newPars->depart = pars->depart + pars->repetitionsDone * pars->repetitionOffset;
+            newPars->depart = (SUMOTime) (pars->depart + pars->repetitionsDone * pars->repetitionOffset);
             pars->repetitionsDone++;
             // try to build the vehicle
             if (MSNet::getInstance()->getVehicleControl().getVehicle(newPars->id)==0) {
