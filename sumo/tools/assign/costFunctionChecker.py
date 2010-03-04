@@ -10,23 +10,21 @@ Run duarouter repeatedly and simulate weight changes via a cost function.
 Copyright (C) 2009 DLR/TS, Germany
 All rights reserved
 """
-import os, sys, subprocess
+import os, sys, subprocess, types
 from datetime import datetime
 from optparse import OptionParser
 from xml.sax import make_parser, handler
 
-class TeeFile:
-    """A helper class which allows simultaneous writes to several files"""
-    def __init__(self, *files):
-        self.files = files
-    def write(self, txt):
-        """Writes the text to all files"""
-        for fp in self.files:
-            fp.write(txt)
-    def flush(self):
-        """Flush all files"""
-        for fp in self.files:
-            fp.flush()
+def call(command, log):
+    if not isinstance(args, types.StringTypes):
+        command = [str(c) for c in command] 
+    print >> log, "-" * 79
+    print >> log, command
+    log.flush()
+    retCode = subprocess.call(command, stdout=log, stderr=log)
+    if retCode != 0:
+        print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (command, log.name)
+        sys.exit(retCode) 
 
 def writeRouteConf(step, options, file, output):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
@@ -160,9 +158,6 @@ if (sys.platform=="win32"):
 else:
     duaBinary = os.path.join(options.path, "sumo-duarouter")
 log = open("dua-log.txt", "w+")
-logQuiet = open("dua-log-quiet.txt", "w")
-sys.stdout = TeeFile(sys.stdout, logQuiet)
-sys.stderr = TeeFile(sys.stderr, logQuiet)
 
 parser = make_parser()
 reader = NetReader()
@@ -196,16 +191,7 @@ for step in range(options.firstStep, options.lastStep):
         btime = datetime.now()
         print ">>> Begin time: %s" % btime
         writeRouteConf(step, options, file, output)
-        if options.verbose:
-            print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
-            p = subprocess.Popen("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
-                                 shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            for l in p.communicate()[0]:
-                log.write(l)
-                sys.__stdout__.write(l)
-        else:
-            subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
-                            shell=True, stdout=log, stderr=log)
+        retCode = call([duaBinary, "-c", "iteration_%s.rou.cfg" % step], log)
         etime = datetime.now()
         print ">>> End time: %s" % etime
         print ">>> Duration: %s" % (etime-btime)
@@ -225,4 +211,3 @@ for step in range(options.firstStep, options.lastStep):
 print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
 
 log.close()
-logQuiet.close()

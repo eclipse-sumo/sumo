@@ -20,6 +20,7 @@ def call(command, log):
         command = [str(c) for c in command] 
     print >> log, "-" * 79
     print >> log, command
+    log.flush()
     retCode = subprocess.call(command, stdout=log, stderr=log)
     if retCode != 0:
         print >> sys.stderr, "Execution of %s failed. Look into %s for details." % (command, log.name)
