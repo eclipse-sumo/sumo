@@ -489,6 +489,7 @@ MSLane::moveCritical(SUMOTime t) {
         MsgHandler::getWarningInstance()->inform("Teleporting vehicle '" + (*i)->getID() + "'; collision, lane='" + getID() + "', time=" + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         MSVehicleTransfer::getInstance()->addVeh((*i));
         myVehicles.erase(find(myVehicles.begin(), myVehicles.end(), *i));
+		myVehicleLengthSum -= (*i)->getVehicleType().getLength();
     }
     return myVehicles.size()==0;
 }
