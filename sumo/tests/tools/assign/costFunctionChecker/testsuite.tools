@@ -1,2 +1,6 @@
 # straight call of the script
 simple
+# call without external cost function
+identity
+# three possible routes
+three
