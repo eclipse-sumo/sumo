@@ -222,10 +222,11 @@ NLHandler::myStartElement(SumoXMLTag element,
 void
 NLHandler::myCharacters(SumoXMLTag element,
                         const std::string &chars) throw(ProcessError) {
+    bool ok = true;
     switch (element) {
     case SUMO_TAG_POLY:
         if (chars.length()!=0) {
-            addPolyPosition(chars);
+            myShapeBuilder.polygonEnd(GeomConvHelper::parseShapeReporting(chars, "polygon", 0, ok, false)); // !!! no error handling!
         }
         break;
     case SUMO_TAG_INCOMING_LANES:
@@ -260,14 +261,22 @@ NLHandler::myCharacters(SumoXMLTag element,
     case SUMO_TAG_OFFSET:
         setOffset(chars);
         break;
-    case SUMO_TAG_NET_OFFSET:
-        setNetOffset(chars);
+    case SUMO_TAG_NET_OFFSET: {
+            if (!myHaveWarnedAboutDeprecatedLocation) {
+                myHaveWarnedAboutDeprecatedLocation = true;
+                MsgHandler::getWarningInstance()->inform("Your network uses a deprecated network offset/projection definition.");
+            }
+            Position2DVector s = GeomConvHelper::parseShapeReporting(chars, "net", 0, ok, false);
+            if(ok) {
+                myNetworkOffset = s[0];
+            }
+                              }
         break;
     case SUMO_TAG_CONV_BOUNDARY:
-        setNetConv(chars);
+        myConvBoundary = GeomConvHelper::parseBoundaryReporting(chars, "net", 0, ok);
         break;
     case SUMO_TAG_ORIG_BOUNDARY:
-        setNetOrig(chars);
+        myOrigBoundary = GeomConvHelper::parseBoundaryReporting(chars, "net", 0, ok);
         break;
     case SUMO_TAG_ORIG_PROJ:
         GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
@@ -433,15 +442,12 @@ NLHandler::addLaneShape(const std::string &chars) {
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
     }
-    try {
-        myShape = GeomConvHelper::parseShape(chars);
-        return;
-    } catch (OutOfBoundsException &) {
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
+    bool ok = true;
+    myShape = GeomConvHelper::parseShapeReporting(chars, "lane", myCurrentLaneID.c_str(), ok, false);
+    if(!ok) {
+        MsgHandler::getErrorInstance()->inform("Could not parse shape of lane '" + myCurrentLaneID + "'.\n Can not build according edge.");
+        myCurrentIsBroken = true;
     }
-    MsgHandler::getErrorInstance()->inform("Could not parse shape of lane '" + myCurrentLaneID + "'.\n Can not build according edge.");
-    myCurrentIsBroken = true;
 }
 
 
@@ -483,17 +489,12 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
         myCurrentIsBroken = true;
         return;
     }
+    bool ok = true;
     Position2DVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated: at some time, all junctions should have a shape attribute (moved from characters)
-        try {
-            shape = GeomConvHelper::parseShape(attrs.getStringSecure(SUMO_ATTR_SHAPE, ""));
-        } catch (OutOfBoundsException &) {
-        } catch (NumberFormatException &) {
-        } catch (EmptyData &) {
-        }
+        shape = GeomConvHelper::parseShapeReporting(attrs.getStringSecure(SUMO_ATTR_SHAPE, ""), "junction", id.c_str(), ok, true);
     }
-    bool ok = true;
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
     std::string type = attrs.getStringReporting(SUMO_ATTR_TYPE, "junction", id.c_str(), ok);
@@ -503,9 +504,6 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs) {
     } else {
         try {
             myJunctionControlBuilder.openJunction(id, key, type, x, y, shape);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing attribute in junction '" + id + "'.\n Can not build according junction.");
-            myCurrentIsBroken = true;
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what() + std::string("\n Can not build according junction."));
             myCurrentIsBroken = true;
@@ -680,7 +678,7 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs) {
     }
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated; at some time, this is mandatory (no character usage)
-        addPolyPosition(attrs.getStringReporting(SUMO_ATTR_SHAPE, "poly", id.c_str(), ok));
+        myShapeBuilder.polygonEnd(GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, "poly", id.c_str(), ok), "poly", id.c_str(), ok, false));
     } else if (!myHaveWarnedAboutDeprecatedPolyShape) {
         myHaveWarnedAboutDeprecatedPolyShape = true;
         MsgHandler::getWarningInstance()->inform("You use a deprecated polygon shape description; use attribute 'shape' instead.");
@@ -1372,98 +1370,27 @@ NLHandler::addJunctionShape(const std::string &chars) {
         myHaveWarnedAboutDeprecatedJunctionShape = true;
         MsgHandler::getWarningInstance()->inform("Your network uses a deprecated junction shape description; please rebuild.");
     }
-    try {
-        Position2DVector shape = GeomConvHelper::parseShape(chars);
+    bool ok = true;
+    Position2DVector shape = GeomConvHelper::parseShapeReporting(chars, "junction", myJunctionControlBuilder.getActiveID().c_str(), ok, true);
+    if(ok) {
         myJunctionControlBuilder.addJunctionShape(shape);
-        return;
-    } catch (OutOfBoundsException &) {
-    } catch (NumberFormatException &) {
-    } catch (EmptyData &) {
-        return;
     }
-    MsgHandler::getErrorInstance()->inform("Could not parse shape of junction '" + myJunctionControlBuilder.getActiveID() + "'.");
 }
 
 
 void
 NLHandler::setLocation(const SUMOSAXAttributes &attrs) {
     bool ok = true;
-    Position2DVector s;
-    try {
-        s = GeomConvHelper::parseShape(attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, "net", 0, ok));
-    } catch (OutOfBoundsException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    }
-    Position2D networkOffset = s[0];
-    Boundary convBoundary;
-    try {
-        convBoundary = GeomConvHelper::parseBoundary(attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, "net", 0, ok));
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid converted network boundary.");
-    }
-    Boundary origBoundary;
-    try {
-        origBoundary = GeomConvHelper::parseBoundary(attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, "net", 0, ok));
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid original network boundary.");
-    }
+    Position2DVector s = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_NET_OFFSET, "net", 0, ok), "net", 0, ok, false);
+    Boundary convBoundary = GeomConvHelper::parseBoundaryReporting(attrs.getStringReporting(SUMO_ATTR_CONV_BOUNDARY, "net", 0, ok), "net", 0, ok);
+    Boundary origBoundary = GeomConvHelper::parseBoundaryReporting(attrs.getStringReporting(SUMO_ATTR_ORIG_BOUNDARY, "net", 0, ok), "net", 0, ok);
     std::string proj = attrs.getStringReporting(SUMO_ATTR_ORIG_PROJ, "net", 0, ok);
     if (ok) {
+        Position2D networkOffset = s[0];
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
     }
 }
 
-void
-NLHandler::setNetOffset(const std::string &chars) {
-    if (!myHaveWarnedAboutDeprecatedLocation) {
-        myHaveWarnedAboutDeprecatedLocation = true;
-        MsgHandler::getWarningInstance()->inform("Your network uses a deprecated network offset/projection definition.");
-    }
-    try {
-        Position2DVector s = GeomConvHelper::parseShape(chars);
-        myNetworkOffset = s[0];
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    } catch (OutOfBoundsException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    }
-}
-
-
-void
-NLHandler::setNetConv(const std::string &chars) {
-    try {
-        myConvBoundary = GeomConvHelper::parseBoundary(chars);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    }
-}
-
-
-void
-NLHandler::setNetOrig(const std::string &chars) {
-    try {
-        myOrigBoundary = GeomConvHelper::parseBoundary(chars);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
-    }
-}
 
 
 
@@ -1482,16 +1409,6 @@ NLHandler::addIncomingLanes(const std::string &chars) {
             return;
         }
         myJunctionControlBuilder.addIncomingLane(lane);
-    }
-}
-
-
-void
-NLHandler::addPolyPosition(const std::string &chars) {
-    try {
-        myShapeBuilder.polygonEnd(GeomConvHelper::parseShape(chars));
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 

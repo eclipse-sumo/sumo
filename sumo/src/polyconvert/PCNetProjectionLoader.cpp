@@ -120,29 +120,37 @@ PCNetProjectionLoader::myStartElement(SumoXMLTag element,
         return;
     }
     bool ok = true;
-    myOrigNetBoundary = GeomConvHelper::parseBoundary(attrs.getOptStringReporting(SUMO_ATTR_ORIG_BOUNDARY, "net", 0, ok, ""));
-    myConvNetBoundary = GeomConvHelper::parseBoundary(attrs.getOptStringReporting(SUMO_ATTR_CONV_BOUNDARY, "net", 0, ok, ""));
-    myNetOffset = GeomConvHelper::parseShape(attrs.getOptStringReporting(SUMO_ATTR_NET_OFFSET, "net", 0, ok, ""))[0];
+    Position2DVector tmp = GeomConvHelper::parseShapeReporting(attrs.getOptStringReporting(SUMO_ATTR_NET_OFFSET, "net", 0, ok, ""), "net", 0, ok, false);
+    if(ok) {
+        myNetOffset = tmp[0];
+    }
+    myOrigNetBoundary = GeomConvHelper::parseBoundaryReporting(attrs.getOptStringReporting(SUMO_ATTR_ORIG_BOUNDARY, "net", 0, ok, ""), "net", 0, ok);
+    myConvNetBoundary = GeomConvHelper::parseBoundaryReporting(attrs.getOptStringReporting(SUMO_ATTR_CONV_BOUNDARY, "net", 0, ok, ""), "net", 0, ok);
     myProjParameter = attrs.getOptStringReporting(SUMO_ATTR_ORIG_PROJ, "net", 0, ok, "");
-    myFoundOffset = myFoundOrigNetBoundary = myFoundConvNetBoundary = myFoundProj = true;
+    myFoundOffset = myFoundOrigNetBoundary = myFoundConvNetBoundary = myFoundProj = ok;
 }
 
 
 void
 PCNetProjectionLoader::myCharacters(SumoXMLTag element,
                                     const std::string &chars) throw(ProcessError) {
+    bool ok = true;
     switch (element) {
     case SUMO_TAG_ORIG_BOUNDARY:
-        myOrigNetBoundary = GeomConvHelper::parseBoundary(chars);
-        myFoundOrigNetBoundary = true;
+        myOrigNetBoundary = GeomConvHelper::parseBoundaryReporting(chars, "net", 0, ok);
+        myFoundOrigNetBoundary = ok;
         break;
     case SUMO_TAG_CONV_BOUNDARY:
-        myConvNetBoundary = GeomConvHelper::parseBoundary(chars);
-        myFoundConvNetBoundary = true;
+        myConvNetBoundary = GeomConvHelper::parseBoundaryReporting(chars, "net", 0, ok);
+        myFoundConvNetBoundary = ok;
         break;
-    case SUMO_TAG_NET_OFFSET:
-        myNetOffset = GeomConvHelper::parseShape(chars)[0];
-        myFoundOffset = true;
+    case SUMO_TAG_NET_OFFSET: {
+        Position2DVector tmp = GeomConvHelper::parseShapeReporting(chars, "net", 0, ok, false);
+        if(ok) {
+            myNetOffset = tmp[0];
+        }
+        myFoundOffset = ok;
+                              }
         break;
     case SUMO_TAG_ORIG_PROJ:
         myProjParameter = chars;

@@ -223,7 +223,9 @@ main(int argc, char **argv) {
             if (!oc.isSet("net")) {
                 throw ProcessError("In order to prune the input on the net, you have to supply a network.");
             }
-            Boundary offsets = GeomConvHelper::parseBoundary(oc.getString("prune.on-net.offsets"));
+            bool ok = true;
+            // !!! no proper error handling
+            Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.on-net.offsets"), "--prune.on-net.offsets", 0, ok);
             pruningBoundary = Boundary(
                                   pruningBoundary.xmin()+offsets.xmin(),
                                   pruningBoundary.ymin()+offsets.ymin(),
@@ -232,7 +234,9 @@ main(int argc, char **argv) {
             prune = true;
         }
         if (oc.isSet("prune.boundary")) {
-            pruningBoundary = GeomConvHelper::parseBoundary(oc.getString("prune.boundary"));
+            bool ok = true;
+            // !!! no proper error handling
+            pruningBoundary = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.boundary"), "--prune.boundary", 0, ok);
             prune = true;
         }
 

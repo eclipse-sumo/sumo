@@ -379,26 +379,21 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs) throw() {
         return Position2DVector();
     }
     // try to build shape
-    try {
-        bool ok = true;
-        string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, "edge", 0, ok, "");
-        if (shpdef=="") {
-            return Position2DVector();
-        }
-        Position2DVector shape1 = GeomConvHelper::parseShape(shpdef);
-        Position2DVector shape;
-        for (int i=0; i<(int) shape1.size(); ++i) {
-            Position2D pos(shape1[i]);
-            if (!GeoConvHelper::x2cartesian(pos)) {
-                MsgHandler::getErrorInstance()->inform("Unable to project coordinates for edge '" + myCurrentID + "'.");
-            }
-            shape.push_back(pos);
-        }
-        return shape;
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("A non-numeric value occured in shape definition for edge '" + myCurrentID + "'.");
+    bool ok = true;
+    string shpdef = attrs.getOptStringReporting(SUMO_ATTR_SHAPE, "edge", 0, ok, "");
+    if (shpdef=="") {
+        return Position2DVector();
     }
-    return Position2DVector();
+    Position2DVector shape1 = GeomConvHelper::parseShapeReporting(shpdef, "edge", 0, ok, true);
+    Position2DVector shape;
+    for (int i=0; i<(int) shape1.size(); ++i) {
+        Position2D pos(shape1[i]);
+        if (!GeoConvHelper::x2cartesian(pos)) {
+            MsgHandler::getErrorInstance()->inform("Unable to project coordinates for edge '" + myCurrentID + "'.");
+        }
+        shape.push_back(pos);
+    }
+    return shape;
 }
 
 
@@ -418,9 +413,7 @@ NIXMLEdgesHandler::parseSplitLanes(const std::string &val) throw(ProcessError) {
                 MsgHandler::getErrorInstance()->inform("Error on parsing a split (edge '" + myCurrentID + "').");
             }
         }
-    }/* else {
-        MsgHandler::getErrorInstance()->inform("Error on parsing a  split (edge '" + myCurrentID + "').");
-    }*/
+    }
 }
 
 

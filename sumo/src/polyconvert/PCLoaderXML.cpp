@@ -193,7 +193,11 @@ void
 PCLoaderXML::myCharacters(SumoXMLTag element,
                           const std::string &chars) throw(ProcessError) {
     if (element==SUMO_TAG_POLY) {
-        Position2DVector pshape = GeomConvHelper::parseShape(chars);
+        bool ok = true;
+        Position2DVector pshape = GeomConvHelper::parseShapeReporting(chars, "poly", myCurrentID.c_str(), ok, false);
+        if(!ok) {
+            return;
+        }
         const Position2DVector::ContType &cont = pshape.getCont();
         Position2DVector shape;
         for (Position2DVector::ContType::const_iterator i=cont.begin(); i!=cont.end(); ++i) {

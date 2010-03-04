@@ -43,17 +43,46 @@
  */
 class GeomConvHelper {
 public:
-    /** @brief This method builds a Position2DVector from a string representation
+    /** @brief Builds a Position2DVector from a string representation, reporting occured errors
      *
-     * It is assumed, the vector is stored as "x,y{ x,y}*" where x and y are SUMOReals. */
-    static Position2DVector parseShape(const std::string &shpdef);
-
-    /** @brief This method builds a boundary from its string representation
-     *
-     * It is assumed that the boundary is stored as a quadruple of SUMOReal, divided by
-     * ','
+     * It is assumed, the vector is stored as "x,y[ x,y]*" where x and y are SUMOReals.
+     * @param[in] shpdef The shape definition to parse
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] allowEmpty Whether an empty shape definition is valid
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The parsed position vector
      */
-    static Boundary parseBoundary(const std::string &def);
+    static Position2DVector parseShapeReporting(const std::string &shpdef, const char *objecttype, 
+        const char *objectid, bool &ok, bool allowEmpty, bool report=true) throw();
+
+
+    /** @brief Builds a boundary from its string representation, reporting occured errors
+     *
+     * It is assumed that the boundary is stored as a quadruple of SUMOReal, divided by ','.
+     * @param[in] def The boundary definition to parse
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The parsed boundary
+     */
+    static Boundary parseBoundaryReporting(const std::string &def, const char *objecttype, 
+        const char *objectid, bool &ok, bool report=true) throw();
+
+
+private:
+    /** @brief Writes an error message into the MessageHandler
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @param[in] what Name of the parsed object ("Shape", or "Boundary")
+     * @param[in] objecttype The name of the parsed object type the error occured at
+     * @param[in] objectid The name of the parsed object type the error occured at
+     * @param[out] desc Error description
+     */
+    static void emitError(bool report, const std::string &what, const char *objecttype, 
+        const char *objectid, const std::string &desc) throw();
+
 
 };
 

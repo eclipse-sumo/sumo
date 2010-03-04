@@ -227,9 +227,6 @@ private:
     /// adds a polygon
     void addPoly(const SUMOSAXAttributes &attrs);
 
-    /// add the position to the Polygon
-    void addPolyPosition(const std::string &chars);
-
     /// adds a logic item to the current logic
     void addLogicItem(const SUMOSAXAttributes &attrs);
 
@@ -302,9 +299,6 @@ private:
     /// Sets the offset a tl-logic shall be fired the first time after
     void setOffset(const std::string &chars);
 
-    void setNetOffset(const std::string &chars);
-    void setNetConv(const std::string &chars);
-    void setNetOrig(const std::string &chars);
 
 
 

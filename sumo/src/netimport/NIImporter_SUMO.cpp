@@ -191,7 +191,8 @@ NIImporter_SUMO::myCharacters(SumoXMLTag element,
     case SUMO_TAG_LANE:
         // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
         if (myCurrentLane!=0&&chars.length()!=0) {
-            myCurrentLane->shape = GeomConvHelper::parseShape(chars);
+            bool ok = true;
+            myCurrentLane->shape = GeomConvHelper::parseShapeReporting(chars, "lane", 0, ok, false);
         }
         break;
     }
@@ -250,7 +251,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes &attrs) {
     myCurrentLane->depart = attrs.getOptBoolReporting(SUMO_ATTR_DEPART, 0, 0, ok, false);
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         // @deprecated At some time, SUMO_ATTR_SHAPE will be mandatory
-        myCurrentLane->shape = GeomConvHelper::parseShape(attrs.getStringReporting(SUMO_ATTR_SHAPE, "lane", 0, ok));
+        myCurrentLane->shape = GeomConvHelper::parseShapeReporting(attrs.getStringReporting(SUMO_ATTR_SHAPE, "lane", 0, ok), "lane", 0, ok, false);
     }
 }
 

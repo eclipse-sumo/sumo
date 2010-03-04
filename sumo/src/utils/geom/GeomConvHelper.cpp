@@ -4,7 +4,7 @@
 /// @date    Sept 2003
 /// @version $Id$
 ///
-// }
+// Some helping functions for geometry parsing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -28,6 +28,7 @@
 #endif
 
 #include <string>
+#include <sstream>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -43,33 +44,88 @@
 // method definitions
 // ===========================================================================
 Position2DVector
-GeomConvHelper::parseShape(const std::string &shpdef) {
-    StringTokenizer st(shpdef, " ");
+GeomConvHelper::parseShapeReporting(const std::string &shpdef, const char *objecttype, 
+                           const char *objectid, bool &ok, bool allowEmpty, bool report) throw() {
     if (shpdef=="") {
-        throw EmptyData();
+        if(!allowEmpty) {
+            emitError(report, "Shape", objecttype, objectid, "the shape is empty");
+            ok = false;
+        }
+        return Position2DVector();
     }
+    StringTokenizer st(shpdef, " ");
     Position2DVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
-        SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
-        SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
-        shape.push_back(Position2D(x, y));
+        if (pos.size()%2!=0) {
+            emitError(report, "Shape", objecttype, objectid, "the position is not made of two dimensions");
+            ok = false;
+            return Position2DVector();
+        }
+        try {
+            SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
+            SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
+            shape.push_back(Position2D(x, y));
+        } catch (NumberFormatException &) {
+            emitError(report, "Shape", objecttype, objectid, "not numeric position entry");
+            ok = false;
+            return Position2DVector();
+        } catch (EmptyData &) {
+            emitError(report, "Shape", objecttype, objectid, "empty position entry");
+            ok = false;
+            return Position2DVector();
+        }
     }
     return shape;
 }
 
 
 Boundary
-GeomConvHelper::parseBoundary(const std::string &def) {
+GeomConvHelper::parseBoundaryReporting(const std::string &def, const char *objecttype, 
+                                       const char *objectid, bool &ok, bool report) throw() {
     StringTokenizer st(def, ",");
     if (st.size()!=4) {
-        throw InvalidArgument("Could not parse '" + def + "' as boundary.");
+        emitError(report, "Bounding box", objecttype, objectid, "mismatching entry number");
+        ok = false;
+        return Boundary();
     }
-    SUMOReal xmin = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    SUMOReal ymin = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    SUMOReal xmax = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    SUMOReal ymax = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    return Boundary(xmin, ymin, xmax, ymax);
+    try {
+        SUMOReal xmin = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal ymin = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal xmax = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal ymax = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        return Boundary(xmin, ymin, xmax, ymax);
+    } catch (NumberFormatException &) {
+        emitError(report, "Shape", objecttype, objectid, "not numeric entry");
+    } catch (EmptyData &) {
+        emitError(report, "Shape", objecttype, objectid, "empty entry");
+    }
+    ok = false;
+    return Boundary();
+}
+
+
+void 
+GeomConvHelper::emitError(bool report, const std::string &what, const char *objecttype, 
+                          const char *objectid, const std::string &desc) throw() {
+    if(!report) {
+        return;
+    }
+    std::ostringstream oss;
+    oss << what << " of ";
+    if (objectid==0) {
+        oss << "a(n) ";
+    }
+    if (objecttype!=0) {
+        oss << objecttype;
+    } else {
+        oss << "<unknown type>";
+    }
+    if (objectid!=0) {
+        oss << " '" << objectid << "'";
+    }
+    oss << " is broken: " << desc << ".";
+    MsgHandler::getErrorInstance()->inform(oss.str());
 }
 
 
