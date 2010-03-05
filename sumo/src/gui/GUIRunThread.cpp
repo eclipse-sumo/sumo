@@ -37,6 +37,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <guisim/GUINet.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSEmitControl.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
@@ -177,7 +178,7 @@ GUIRunThread::makeStep() throw() {
         // simulation step is over
         mySimulationInProgress = false;
         // check whether all vehicles loaded have left the simulation
-        if (mySimEndTime == INT_MAX && myNet->getVehicleControl().haveAllVehiclesQuit()) {
+        if (mySimEndTime == INT_MAX && myNet->getVehicleControl().haveAllVehiclesQuit() && !myNet->getEmitControl().hasPendingFlows()) {
             myHalting = true;
             e = new GUIEvent_SimulationEnded(
                 GUIEvent_SimulationEnded::ER_NO_VEHICLES, myNet->getCurrentTimeStep()-DELTA_T);

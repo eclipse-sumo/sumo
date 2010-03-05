@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
-  <vehicle depart="1" repno="50" period="1" id="veh">
+  <flow begin="1" no="51" period="1" id="veh">
      <route edges="beg middle end rend"/>
-  </vehicle>
+  </flow>
 </routes>

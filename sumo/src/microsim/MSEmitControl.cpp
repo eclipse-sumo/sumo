@@ -234,5 +234,11 @@ MSEmitControl::getWaitingVehicleNo() const throw() {
 }
 
 
+bool
+MSEmitControl::hasPendingFlows() const throw() {
+    return !myFlows.empty();
+}
+
+
 /****************************************************************************/
 

@@ -120,6 +120,13 @@ public:
     unsigned int getWaitingVehicleNo() const throw();
 
 
+    /** @brief Returns whether any flows are still active
+     *
+     * @return whether any flows are still active
+     */
+    bool hasPendingFlows() const throw();
+
+
 private:
     /** @brief Tries to emit the vehicle
      *

@@ -283,9 +283,9 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
         if (traci::TraCIServer::wasClosed()) {
             quitMessage = "Simulation End: TraCI requested termination.";
         }
-        if (OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && stop == INT_MAX) {
+        if (stop == INT_MAX && OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
 #else
-        if (myVehicleControl->haveAllVehiclesQuit() && stop == INT_MAX) {
+        if (stop == INT_MAX && myVehicleControl->haveAllVehiclesQuit() && !myEmitter->hasPendingFlows()) {
 #endif
             if (myEmissionEvents->isEmpty()) {
                 quitMessage = "Simulation End: All vehicles have left the simulation.";
