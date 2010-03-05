@@ -153,10 +153,7 @@ if not options.net or not options.trips:
     optParser.error("At least --net-file and --trips have to be given!")
 
 
-if (sys.platform=="win32"):
-    duaBinary = os.path.join(options.path, "duarouter.exe")
-else:
-    duaBinary = os.path.join(options.path, "sumo-duarouter")
+duaBinary = os.path.join(options.path, "duarouter")
 log = open("dua-log.txt", "w+")
 
 parser = make_parser()

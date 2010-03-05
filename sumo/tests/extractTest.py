@@ -73,8 +73,5 @@ for source, target in targets.iteritems():
     oldWorkDir = os.getcwd()
     os.chdir(testPath)
     if app in ["dfrouter", "duarouter", "jtrrouter", "netconvert", "netgen", "od2trips", "polyconvert", "sumo"]:
-        if os.name == "posix" and app != "sumo":
-            subprocess.call(["sumo-" + app] + appOptions)
-        else:
-            subprocess.call([app] + appOptions)
+        subprocess.call([app] + appOptions)
     os.chdir(oldWorkDir)

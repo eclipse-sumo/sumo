@@ -107,11 +107,7 @@ main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("guisim.exe", "SUMO guisim Version " + (std::string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-guisim", "SUMO guisim Version " + (std::string)VERSION_STRING);
-#endif
+    oc.setApplicationName("sumo-gui.exe", "SUMO gui Version " + (std::string)VERSION_STRING);
     int ret = 0;
 #ifndef _DEBUG
     try {

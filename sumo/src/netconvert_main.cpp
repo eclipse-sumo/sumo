@@ -65,11 +65,7 @@ main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network importer / builder for the road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("netconvert.exe", "SUMO netconvert Version " + (std::string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-netconvert", "SUMO netconvert Version " + (std::string)VERSION_STRING);
-#endif
+    oc.setApplicationName("netconvert", "SUMO netconvert Version " + (std::string)VERSION_STRING);
     int ret = 0;
     try {
         XMLSubSys::init(false);

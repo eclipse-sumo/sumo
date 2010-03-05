@@ -120,9 +120,7 @@ class ScoreDialog:
 
 
 high = loadHighscore()
-guisimBinary = "guisim.exe"
-if os.name == "posix":
-    guisimBinary="sumo-guisim"
+guisimBinary = "sumo-gui"
 guisimBinary = os.environ.get("GUISIM_BINARY", os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'bin', guisimBinary))
 start = StartDialog()
 

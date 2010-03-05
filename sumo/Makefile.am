@@ -37,16 +37,9 @@ dist-complete: dist dist-tests
 examples:
 	tests/extractTest.py -f tests/examples.txt
 
-sumo$(EXEEXT) sumo-netconvert$(EXEEXT) \
-        sumo-netgen$(EXEEXT) sumo-duarouter$(EXEEXT) \
-        sumo-dfrouter$(EXEEXT) sumo-jtrrouter$(EXEEXT) \
-        sumo-od2trips$(EXEEXT) sumo-polyconvert$(EXEEXT) \
-        sumo-guisim$(EXEEXT) traci-testclient$(EXEEXT):
-	$(MAKE) -C src $@
-
-netconvert$(EXEEXT) \
+sumo$(EXEEXT) netconvert$(EXEEXT) \
         netgen$(EXEEXT) duarouter$(EXEEXT) \
         dfrouter$(EXEEXT) jtrrouter$(EXEEXT) \
         od2trips$(EXEEXT) polyconvert$(EXEEXT) \
-        guisim$(EXEEXT):
-	$(MAKE) -C src sumo-$@
+        sumo-gui$(EXEEXT):
+	$(MAKE) -C src $@

@@ -174,19 +174,11 @@ optParser.add_option("-V", "--varscale",  dest="varscale",
 if not options.net or not options.trips:
     optParser.error("At least --net-file and --trips have to be given!")
 
-
-if (sys.platform=="win32"):
-    duaBinary = os.path.join(options.path, "duarouter.exe")
-    if options.mesosim:
-        sumoBinary = os.path.join(options.path, "meso.exe")
-    else:
-        sumoBinary = os.path.join(options.path, "sumo.exe")
+duaBinary = os.path.join(options.path, "duarouter")
+if options.mesosim:
+    sumoBinary = os.path.join(options.path, "meso")
 else:
-    duaBinary = os.path.join(options.path, "sumo-duarouter")
-    if options.mesosim:
-        sumoBinary = os.path.join(options.path, "meso")
-    else:
-        sumoBinary = os.path.join(options.path, "sumo")
+    sumoBinary = os.path.join(options.path, "sumo")
 calibrator = ["java", "-cp", options.classpath, "cadyts.interfaces.sumo.SumoController"]
 log = open("dua-log.txt", "w+")
 tripFiles = options.trips.split(",")

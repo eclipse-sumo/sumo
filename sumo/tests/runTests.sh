@@ -14,15 +14,15 @@ else
   SUMO_BIN="$1"
 fi
 cd $OLDDIR
-export DFROUTER_BINARY="$SUMO_BIN/sumo-dfrouter"
-export DUAROUTER_BINARY="$SUMO_BIN/sumo-duarouter"
-export JTRROUTER_BINARY="$SUMO_BIN/sumo-jtrrouter"
-export NETCONVERT_BINARY="$SUMO_BIN/sumo-netconvert"
-export NETGEN_BINARY="$SUMO_BIN/sumo-netgen"
-export OD2TRIPS_BINARY="$SUMO_BIN/sumo-od2trips"
-export POLYCONVERT_BINARY="$SUMO_BIN/sumo-polyconvert"
+export DFROUTER_BINARY="$SUMO_BIN/dfrouter"
+export DUAROUTER_BINARY="$SUMO_BIN/duarouter"
+export JTRROUTER_BINARY="$SUMO_BIN/jtrrouter"
+export NETCONVERT_BINARY="$SUMO_BIN/netconvert"
+export NETGEN_BINARY="$SUMO_BIN/netgen"
+export OD2TRIPS_BINARY="$SUMO_BIN/od2trips"
+export POLYCONVERT_BINARY="$SUMO_BIN/polyconvert"
 export SUMO_BINARY="$SUMO_BIN/sumo"
-export GUISIM_BINARY="$SUMO_BIN/sumo-guisim"
+export GUISIM_BINARY="$SUMO_BIN/sumo-gui"
 
 if test x"$2" = x; then
   TEXTTEST=texttest.py

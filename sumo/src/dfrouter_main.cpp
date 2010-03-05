@@ -68,12 +68,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // functions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -85,8 +79,8 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet) {
         throw ProcessError("No detector file given (use --detector-files <FILE>).");
     }
     // read definitions stored in XML-format
-    vector<string> files = oc.getStringVector("detector-files");
-    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    std::vector<std::string> files = oc.getStringVector("detector-files");
+    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("Could not open detector file '" + *fileIt + "'");
         }
@@ -109,8 +103,8 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
         return;
     }
     // check whether the file exists
-    vector<string> files = oc.getStringVector("detector-flow-files");
-    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    std::vector<std::string> files = oc.getStringVector("detector-flow-files");
+    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("The detector-flow-file '" + *fileIt + "' can not be opened.");
         }
@@ -250,11 +244,7 @@ main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");
-#ifdef WIN32
-    oc.setApplicationName("dfrouter.exe", "SUMO dfrouter Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-dfrouter", "SUMO dfrouter Version " + (string)VERSION_STRING);
-#endif
+    oc.setApplicationName("dfrouter", "SUMO dfrouter Version " + (std::string)VERSION_STRING);
     int ret = 0;
     RODFNet *net = 0;
     RODFDetectorCon *detectors = 0;
@@ -286,7 +276,7 @@ main(int argc, char **argv) {
         // build routes
         startComputation(net, *flows, *detectors, oc);
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -303,7 +293,7 @@ main(int argc, char **argv) {
     OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
-        cout << "Success." << endl;
+        std::cout << "Success." << std::endl;
     }
     return ret;
 }

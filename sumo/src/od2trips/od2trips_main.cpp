@@ -66,12 +66,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // functions
 // ===========================================================================
 void
@@ -228,7 +222,7 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc) {
         return;
     }
     // get the file name and set it
-    string file = oc.getString("net-file");
+    std::string file = oc.getString("net-file");
     if (!FileHelpers::exists(file)) {
         throw ProcessError("Could not find network '" + file + "' to load.");
     }
@@ -243,9 +237,9 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc) {
 }
 
 
-string
+std::string
 getNextNonCommentLine(LineReader &lr) {
-    string line;
+    std::string line;
     do {
         line = lr.readLine();
         if (line[0]!='*') {
@@ -258,18 +252,18 @@ getNextNonCommentLine(LineReader &lr) {
 
 SUMOTime
 parseSingleTime(const std::string &time) {
-    if (time.find('.')==string::npos) {
+    if (time.find('.')==std::string::npos) {
         throw OutOfBoundsException();
     }
-    string hours = time.substr(0, time.find('.'));
-    string minutes = time.substr(time.find('.')+1);
+    std::string hours = time.substr(0, time.find('.'));
+    std::string minutes = time.substr(time.find('.')+1);
     return (SUMOTime) TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str()) * 60;
 }
 
 
 std::pair<SUMOTime, SUMOTime>
 readTime(LineReader &lr) {
-    string line = getNextNonCommentLine(lr);
+    std::string line = getNextNonCommentLine(lr);
     try {
         StringTokenizer st(line, StringTokenizer::WHITECHARS);
         SUMOTime begin = parseSingleTime(st.next());
@@ -277,7 +271,7 @@ readTime(LineReader &lr) {
         if (begin>=end) {
             throw ProcessError("Begin time is larger than end time.");
         }
-        return make_pair(begin, end);
+        return std::make_pair(begin, end);
     } catch (OutOfBoundsException &) {
         throw ProcessError("Broken period definition '" + line + "'.");
     } catch (NumberFormatException &) {
@@ -288,7 +282,7 @@ readTime(LineReader &lr) {
 
 SUMOReal
 readFactor(LineReader &lr, SUMOReal scale) {
-    string line = getNextNonCommentLine(lr);
+    std::string line = getNextNonCommentLine(lr);
     SUMOReal factor = -1;
     try {
         factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
@@ -305,7 +299,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
       std::string vehType, bool matrixHasVehType) {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR...");
     // parse first defs
-    string line;
+    std::string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
         if (vehType=="") {
@@ -314,7 +308,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
     }
 
     // parse time
-    pair<SUMOTime, SUMOTime> times = readTime(lr);
+    std::pair<SUMOTime, SUMOTime> times = readTime(lr);
     SUMOTime begin = times.first;
     SUMOTime end = times.second;
 
@@ -373,7 +367,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
       std::string vehType, bool matrixHasVehType) {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as OR...");
     // parse first defs
-    string line;
+    std::string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
         int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
@@ -383,7 +377,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
     }
 
     // parse time
-    pair<SUMOTime, SUMOTime> times = readTime(lr);
+    std::pair<SUMOTime, SUMOTime> times = readTime(lr);
     SUMOTime begin = times.first;
     SUMOTime end = times.second;
 
@@ -401,8 +395,8 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
             continue;
         }
         try {
-            string sourceD = st2.next();
-            string destD = st2.next();
+            std::string sourceD = st2.next();
+            std::string destD = st2.next();
             SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
             if (vehNumber!=0) {
                 into.add(vehNumber, begin, end, sourceD, destD, vehType);
@@ -430,24 +424,24 @@ loadMatrix(OptionsCont &oc, ODMatrix &into) {
         if (!lr.good()) {
             throw ProcessError("Could not open '" + (*i) + "'.");
         }
-        string type = lr.readLine();
+        std::string type = lr.readLine();
         // get the type only
-        if (type.find(';')!=string::npos) {
+        if (type.find(';')!=std::string::npos) {
             type = type.substr(0, type.find(';'));
         }
         // parse type-dependant
         if (type.length()>1 && type[1]=='V') {
             // process ptv's 'V'-matrices
-            if (type.find('N')!=string::npos) {
+            if (type.find('N')!=std::string::npos) {
                 throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
-            readV(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=string::npos);
+            readV(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=std::string::npos);
         } else if (type.length()>1 && type[1]=='O') {
             // process ptv's 'O'-matrices
-            if (type.find('N')!=string::npos) {
+            if (type.find('N')!=std::string::npos) {
                 throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
-            readO(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=string::npos);
+            readO(lr, into, oc.getFloat("scale"), oc.getString("vtype"), type.find('M')!=std::string::npos);
         } else {
             throw ProcessError("'" + *i + "' uses an unknown matrix type '" + type + "'.");
         }
@@ -463,11 +457,7 @@ main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Importer of O/D-matrices for the road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("od2trips.exe", "SUMO od2trips Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-od2trips", "SUMO od2trips Version " + (string)VERSION_STRING);
-#endif
+    oc.setApplicationName("od2trips", "SUMO od2trips Version " + (std::string)VERSION_STRING);
     int ret = 0;
     try {
         // initialise subsystems
@@ -511,7 +501,7 @@ main(int argc, char **argv) {
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -525,7 +515,7 @@ main(int argc, char **argv) {
     SystemFrame::close();
     OutputDevice::closeAll();
     if (ret==0) {
-        cout << "Success." << endl;
+        std::cout << "Success." << std::endl;
     }
     return ret;
 }

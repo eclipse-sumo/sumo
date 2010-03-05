@@ -57,12 +57,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -87,7 +81,7 @@ checkOptions() {
     }
     // check whether the junction type to use is properly set
     if (oc.isSet("default-junction-type")) {
-        string type = oc.getString("default-junction-type");
+        std::string type = oc.getString("default-junction-type");
         if (type!="traffic_light"&&type!="priority"&&type!="right_before_left") {
             MsgHandler::getErrorInstance()->inform("Only the following junction types are known: traffic_light, priority, right_before_left");
             return false;
@@ -356,11 +350,7 @@ main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
-#ifdef WIN32
-    oc.setApplicationName("netgen.exe", "SUMO netgen Version " + (string)VERSION_STRING);
-#else
-    oc.setApplicationName("sumo-netgen", "SUMO netgen Version " + (string)VERSION_STRING);
-#endif
+    oc.setApplicationName("netgen", "SUMO netgen Version " + (std::string)VERSION_STRING);
     int ret = 0;
     try {
         // initialise the application system (messaging, xml, options)
@@ -389,7 +379,7 @@ main(int argc, char **argv) {
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         nb.buildLoaded();
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (std::string(e.what())!=std::string("Process Error") && std::string(e.what())!=std::string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
@@ -403,7 +393,7 @@ main(int argc, char **argv) {
     OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
-        cout << "Success." << endl;
+        std::cout << "Success." << std::endl;
     }
     return ret;
 }

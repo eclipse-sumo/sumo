@@ -220,7 +220,7 @@ med->append(tempstring);
         }
         d_file.close();
 
-	fd= popen("./sumo-netconvert --xml-node-files=smallfrida.nod.xml --xml-edge-files=frida_bidi_plain.edg.xml --output-file=smallfrida.net.xml --omit-corrupt-edges", "r");
+	fd= popen("./netconvert --xml-node-files=smallfrida.nod.xml --xml-edge-files=frida_bidi_plain.edg.xml --output-file=smallfrida.net.xml --omit-corrupt-edges", "r");
         if (fd == NULL) {
                 med->append( tr("Error executing netconvert, try manualy")); //error occured
         }
@@ -241,7 +241,7 @@ FILE* fd ;
 
 med->append( tr("Creating random routes with jtrrouter...\n") );
 
-fd= popen("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/:/usr/lib/ ; sumo-jtrrouter --net=smallfrida.net.xml -R 2 --output-file=smallfrida.rou.xml -b 0 -e 100 --continue-on-unbuild ", "r");
+fd= popen("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/:/usr/lib/ ; jtrrouter --net=smallfrida.net.xml -R 2 --output-file=smallfrida.rou.xml -b 0 -e 100 --continue-on-unbuild ", "r");
         if (fd == NULL) {
                 med->append( tr("Error executing jtrrouter, try manualy")); //error occured
         }
