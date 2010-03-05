@@ -2,7 +2,7 @@
 @file    vissim_parseRoutes.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2009-05-27
-@version $Id: vissim_parseRoutes.py 8298 2010-02-19 10:06:48Z dkrajzew $
+@version $Id$
 
 
 Parses bus stops and bus routes given in the Vissim file (first parameter).

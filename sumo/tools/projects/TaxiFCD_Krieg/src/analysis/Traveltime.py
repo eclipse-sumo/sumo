@@ -94,7 +94,7 @@ def getBars():
             #print "Error by taxi %s : %s"  %(taxi.id,e.message) 
    print "mw",sum(mw)/(len(mw)+0.0) #9.46
    print "standard deviation ",sqrt(sum(stdDev)/(len(stdDev)+0.0))     
-   return  (barsDictSim, barsDict)
+   return  (barsDictSim, barsDict)
 def getTimeDiff(steps,sim=True):
     """Calculates the travel time for each source found in the steps."""
     global traveltimeList

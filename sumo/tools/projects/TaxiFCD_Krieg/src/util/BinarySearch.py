@@ -11,7 +11,7 @@ def isElmInList(list,elm):
            maxindex = middle - 1
        else:
            index = middle + 1
-   return False
+   return False
 def isElmInListFaster(list,elm):
     """Interpolation search only for integers :-("""   
 

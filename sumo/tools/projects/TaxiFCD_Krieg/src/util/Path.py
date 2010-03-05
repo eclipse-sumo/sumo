@@ -16,7 +16,7 @@ def newPath(path, *paths):
    """Little helper to join several path elements and to convert windows backslash into a slash.""" 
    p=os.path.join(path,*paths) 
    p=p.replace("\\","/")
-   return p 
+   return p 
 ##Paths##
 
 
