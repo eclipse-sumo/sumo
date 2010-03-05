@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/09/09 12:45:36 by SUMO sumo Version dev-SVN-r7963
+<!-- generated on 03/04/10 13:49:21 by SUMO sumo Version dev-SVN-r8368
 <configuration>
 
     <input>
@@ -25,91 +25,91 @@
 -->
 
 <routes>
-    <vehicle id="l" depart="0" arrival="108">
+    <vehicle id="l.0" depart="0" arrival="108">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="l_0" depart="1" arrival="109">
+    <vehicle id="l.1" depart="1" arrival="109">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="l_1" depart="2" arrival="111">
+    <vehicle id="l.2" depart="2" arrival="111">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="l_2" depart="3" arrival="112">
+    <vehicle id="l.3" depart="3" arrival="112">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="l_3" depart="4" arrival="113">
+    <vehicle id="l.4" depart="4" arrival="113">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="m" depart="5" arrival="115">
+    <vehicle id="l.5" depart="5" arrival="115">
+        <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+
+    <vehicle id="m.0" depart="5" arrival="116">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="l_4" depart="5" arrival="116">
+    <vehicle id="l.6" depart="6" arrival="118">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="m_0" depart="6" arrival="117">
+    <vehicle id="m.1" depart="6" arrival="119">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="l_5" depart="6" arrival="119">
+    <vehicle id="l.7" depart="7" arrival="120">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="m_1" depart="7" arrival="120">
+    <vehicle id="m.2" depart="7" arrival="122">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="l_6" depart="7" arrival="122">
+    <vehicle id="l.8" depart="8" arrival="124">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="m_2" depart="8" arrival="124">
+    <vehicle id="m.3" depart="8" arrival="126">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="l_7" depart="8" arrival="126">
+    <vehicle id="l.9" depart="9" arrival="128">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="m_3" depart="9" arrival="128">
+    <vehicle id="m.4" depart="9" arrival="130">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="l_8" depart="9" arrival="130">
+    <vehicle id="l.10" depart="10" arrival="132">
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="m_4" depart="10" arrival="132">
+    <vehicle id="m.5" depart="10" arrival="133">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="l_9" depart="10" arrival="133">
-        <route edges="beg beg2left left left2end end rend"/>
-   </vehicle>
-
-    <vehicle id="m_5" depart="11" arrival="134">
+    <vehicle id="m.6" depart="11" arrival="135">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="m_6" depart="12" arrival="136">
+    <vehicle id="m.7" depart="12" arrival="137">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="m_7" depart="13" arrival="138">
+    <vehicle id="m.8" depart="13" arrival="138">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="m_8" depart="14" arrival="139">
+    <vehicle id="m.9" depart="14" arrival="140">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="m_9" depart="15" arrival="141">
+    <vehicle id="m.10" depart="15" arrival="141">
         <route edges="beg middle end rend"/>
    </vehicle>
 
