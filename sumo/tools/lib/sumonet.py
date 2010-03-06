@@ -425,4 +425,9 @@ class NetReader(handler.ContentHandler):
         return self._net
 
 
-
+def readNet(filename, **others):
+    parser = make_parser()
+    netreader = NetReader(**others)
+    parser.setContentHandler(netreader)
+    parser.parse(filename)
+    return netreader.getNet()
