@@ -373,7 +373,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/netgen64.exe"
+				OutputFile=".\Fastbuild/netgen64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -410,7 +410,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\netgen_main.cpp"
+				RelativePath="..\..\..\src\netgen\netgen_main.cpp"
 				>
 			</File>
 		</Filter>

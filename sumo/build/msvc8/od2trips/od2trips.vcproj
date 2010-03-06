@@ -372,7 +372,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/od2trips64.exe"
+				OutputFile=".\Fastbuild/od2trips64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -409,7 +409,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\od2trips_main.cpp"
+				RelativePath="..\..\..\src\od2trips\od2trips_main.cpp"
 				>
 			</File>
 			<File

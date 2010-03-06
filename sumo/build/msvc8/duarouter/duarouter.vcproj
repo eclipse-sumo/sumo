@@ -367,7 +367,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/duarouter64.exe"
+				OutputFile=".\Fastbuild/duarouter64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool

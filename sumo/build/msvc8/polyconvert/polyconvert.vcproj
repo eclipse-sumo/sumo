@@ -372,7 +372,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) ws2_32.lib"
-				OutputFile=".\Fastbuild/polyconvert64.exe"
+				OutputFile=".\Fastbuild/polyconvert64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -445,7 +445,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\polyconvert_main.cpp"
+				RelativePath="..\..\..\src\polyconvert\polyconvert_main.cpp"
 				>
 			</File>
 		</Filter>

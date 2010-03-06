@@ -374,7 +374,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/netconvert64.exe"
+				OutputFile=".\Fastbuild/netconvert64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool
