@@ -139,9 +139,9 @@ $(sumo_LDADD) \
 endif
 
 
-SUBDIRS = foreign microsim netbuild netgen netimport netload \
+SUBDIRS = foreign utils microsim netbuild netgen netimport netload \
 od2trips polyconvert router routing_df routing_dua routing_jtr \
-utils $(GUI_DIRS) $(MESO_DIRS) $(TRACI_DIRS)
+$(GUI_DIRS) $(MESO_DIRS) $(TRACI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
 guisim.rc \
