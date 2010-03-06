@@ -52,7 +52,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guisimD.exe"
+				OutputFile="$(OutDir)\sumo-guiD.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -114,7 +114,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_DEBUG_LIB) $(FOX16_DEBUG_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guisim64D.exe"
+				OutputFile="$(OutDir)\sumo-gui64D.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -176,7 +176,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guisim.exe"
+				OutputFile="$(OutDir)\sumo-gui.exe"
 				SubSystem="2"
 				EntryPointSymbol="mainCRTStartup"
 			/>
@@ -240,7 +240,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guisim64.exe"
+				OutputFile="$(OutDir)\sumo-gui64.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -552,7 +552,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guisimF.exe"
+				OutputFile="$(OutDir)\sumo-guiF.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -617,7 +617,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX16_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
-				OutputFile="$(OutDir)\guisim64F.exe"
+				OutputFile="$(OutDir)\sumo-gui64F.exe"
 				TargetMachine="17"
 			/>
 			<Tool
