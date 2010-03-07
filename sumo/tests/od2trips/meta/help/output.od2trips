@@ -3,10 +3,10 @@ SUMO od2trips Version dev-SVN-r7068
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
-Usage: od2trips.exe [OPTION]*
+Usage: od2trips [OPTION]*
  
  Example:
-  od2trips.exe -c <CONFIGURATION>
+  od2trips -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup

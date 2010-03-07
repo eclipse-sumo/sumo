@@ -8,7 +8,6 @@ config:config.cfg
 log:log.txt
 
 [run_dependent_text]
-output:netgen.exe{REPLACE sumo-netgen}
 net:version{->}-->
 
 [floating_point_tolerance]

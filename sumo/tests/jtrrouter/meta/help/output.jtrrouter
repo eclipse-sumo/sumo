@@ -4,10 +4,10 @@ SUMO jtrrouter Version dev-SVN-r7864
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
 
-Usage: jtrrouter.exe [OPTION]*
+Usage: jtrrouter [OPTION]*
  
  Example:
-  jtrrouter.exe -c <CONFIGURATION>
+  jtrrouter -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup

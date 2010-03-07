@@ -3,10 +3,10 @@ SUMO polyconvert Version dev-SVN-r8106
  
 Importer of polygons and POIs for the road traffic simulation SUMO.
 
-Usage: polyconvert.exe [OPTION]*
+Usage: polyconvert [OPTION]*
  
  Example:
-  polyconvert.exe -c <CONFIGURATION>
+  polyconvert -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup

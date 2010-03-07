@@ -13,7 +13,6 @@ pois:pois.poi.xml
 log:log.txt
 
 [run_dependent_text]
-output:polyconvert.exe{REPLACE sumo-polyconvert}
 pois:version{->}-->
 
 [floating_point_tolerance]

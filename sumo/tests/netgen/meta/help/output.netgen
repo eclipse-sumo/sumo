@@ -3,13 +3,13 @@ SUMO netgen Version dev-SVN-r8139
  
 Road network generator for the microscopic road traffic simulation SUMO.
 
-Usage: netgen.exe [OPTION]*
+Usage: netgen [OPTION]*
  
  Examples:
-  netgen.exe -c <CONFIGURATION>
-  netgen.exe --grid-net [grid-network options] -o <OUTPUTFILE>
-  netgen.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
-  netgen.exe --random-net [random-network opts] -o <OUTPUTFILE>
+  netgen -c <CONFIGURATION>
+  netgen --grid-net [grid-network options] -o <OUTPUTFILE>
+  netgen --spider-net [spider-network opts] -o <OUTPUTFILE>
+  netgen --random-net [random-network opts] -o <OUTPUTFILE>
  
  Either "--grid-net", "--spider-net" or "--random-net" must be 
   supplied. In dependance to these switches other options are used.

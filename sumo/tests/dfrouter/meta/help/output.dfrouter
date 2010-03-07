@@ -3,10 +3,10 @@ SUMO dfrouter Version dev-SVN-r7082
  
 Builds vehicle routes for SUMO using detector values.
 
-Usage: dfrouter.exe [OPTION]*
+Usage: dfrouter [OPTION]*
  
  Example:
-  dfrouter.exe -c <CONFIGURATION>
+  dfrouter -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE      Loads the named config on startup

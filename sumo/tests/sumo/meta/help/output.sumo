@@ -3,12 +3,12 @@ SUMO sumo Version dev-SVN-r8163
  
 A microscopic road traffic simulation.
 
-Usage: sumo.exe [OPTION]*
+Usage: sumo [OPTION]*
  
  Examples:
-  sumo.exe -b 0 -e 1000 -n net.xml -r routes.xml
-  sumo.exe -c munich_config.cfg
-  sumo.exe --help
+  sumo -b 0 -e 1000 -n net.xml -r routes.xml
+  sumo -c munich_config.cfg
+  sumo --help
  
  Configuration Options:
   -c, --configuration-file FILE       Loads the named config on startup

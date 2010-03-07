@@ -15,7 +15,6 @@ config:config.cfg
 log:log.txt
 
 [run_dependent_text]
-output:duarouter.exe{REPLACE sumo-duarouter}
 routes:version{->}-->
 alts:version{->}-->
 

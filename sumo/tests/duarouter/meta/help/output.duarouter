@@ -4,10 +4,10 @@ SUMO duarouter Version dev-SVN-r7864
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
 
-Usage: duarouter.exe [OPTION]*
+Usage: duarouter [OPTION]*
  
  Example:
-  duarouter.exe -c <CONFIGURATION>
+  duarouter -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup

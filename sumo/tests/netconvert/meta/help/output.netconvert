@@ -3,11 +3,11 @@ SUMO netconvert Version dev-SVN-r8139
  
 Road network importer / builder for the road traffic simulation SUMO.
 
-Usage: netconvert.exe [OPTION]*
+Usage: netconvert [OPTION]*
  
  Examples:
-  netconvert.exe -c <CONFIGURATION>
-  netconvert.exe -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
+  netconvert -c <CONFIGURATION>
+  netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
  
  Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup

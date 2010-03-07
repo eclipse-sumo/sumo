@@ -23,7 +23,6 @@ config:config.cfg
 log:log.txt
 
 [run_dependent_text]
-output:netconvert.exe{REPLACE sumo-netconvert}
 plain_nodes:version{->}-->
 plain_edges:version{->}-->
 plain_connections:version{->}-->
