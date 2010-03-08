@@ -35,8 +35,6 @@ Usage: jtrrouter [OPTION]*
   --unsorted                       Assume input is unsorted
   --randomize-flows                
   --max-alternatives INT           Prune the number of alternatives to INT
-  -R, --random-per-second FLOAT    Emit FLOAT random vehicles per second
-  --prune-random                   
   --remove-loops                   Remove loops at start and end of the route
   --repair                         Tries to correct a false route
   --interpolate                    Interpolate edge weights at interval

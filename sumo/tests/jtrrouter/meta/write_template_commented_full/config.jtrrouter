@@ -46,12 +46,6 @@
         <!-- Prune the number of alternatives to INT -->
         <max-alternatives value="5"/>
 
-        <!-- Emit FLOAT random vehicles per second -->
-        <random-per-second value=""/>
-
-        <!--  -->
-        <prune-random value="false"/>
-
         <!-- Remove loops at start and end of the route -->
         <remove-loops value="false"/>
 
