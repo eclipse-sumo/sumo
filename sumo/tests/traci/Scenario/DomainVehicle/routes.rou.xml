@@ -22,9 +22,9 @@
     </vehicle>
     
     <!-- +2 vehicles -->
-    <vehicle id="veh5" depart="900" type="vtype1" repno = "2" period="100">
+    <flow id="veh5" depart="900" type="vtype1" no="3" period="100">
         <route edges="e_o1 e_o0 e_vo0 e_m4 e_m5"/>
-    </vehicle>
+    </flow>
     
 </routes>
 
