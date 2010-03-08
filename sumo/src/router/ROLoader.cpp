@@ -48,7 +48,6 @@
 #include "ROEdge.h"
 #include "RORDLoader_TripDefs.h"
 #include "RORDLoader_SUMOBase.h"
-#include "RORDGenerator_Random.h"
 #include "RORDGenerator_ODAmounts.h"
 #include "ROAbstractRouteDefLoader.h"
 
@@ -138,11 +137,6 @@ ROLoader::openRoutes(RONet &net) {
     ok &= openTypedRoutes("alternatives", net);
     // load the amount definitions if wished
     ok &= openTypedRoutes("flows", net);
-    // build generators
-    if (myOptions.isSet("R")) {
-        myHandler.push_back(new RORDGenerator_Random(net,
-                            myOptions.getInt("begin"), myOptions.getInt("end"), myOptions.getBool("prune-random")));
-    }
     // check
     if (ok&&myHandler.size()==0) {
         throw ProcessError("No route input specified.");

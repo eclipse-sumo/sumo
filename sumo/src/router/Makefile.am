@@ -8,7 +8,6 @@ ROFrame.cpp ROFrame.h ROHelper.cpp ROHelper.h ROLane.h \
 ROLoader.cpp ROLoader.h RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \
 RONode.cpp RONode.h \
 RORDGenerator_ODAmounts.cpp RORDGenerator_ODAmounts.h \
-RORDGenerator_Random.cpp RORDGenerator_Random.h \
 RORDLoader_SUMOBase.cpp RORDLoader_SUMOBase.h \
 RORDLoader_TripDefs.cpp RORDLoader_TripDefs.h \
 RORoute.cpp RORoute.h RORouteDef.cpp RORouteDef.h \

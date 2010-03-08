@@ -91,12 +91,6 @@ ROFrame::fillOptions(OptionsCont &oc) {
     oc.doRegister("max-alternatives", new Option_Integer(5));
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
 
-    oc.doRegister("random-per-second", 'R', new Option_Float());
-    oc.addDescription("random-per-second", "Processing", "Emit FLOAT random vehicles per second");
-
-    oc.doRegister("prune-random", new Option_Bool(false));
-    oc.addDescription("prune-random", "Processing", "");
-
     oc.doRegister("remove-loops", new Option_Bool(false));
     oc.addDescription("remove-loops", "Processing", "Remove loops at start and end of the route");
 

@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r7864
+SUMO duarouter Version dev-SVN-r8397
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -36,8 +36,6 @@ Usage: duarouter [OPTION]*
   --unsorted                       Assume input is unsorted
   --randomize-flows                
   --max-alternatives INT           Prune the number of alternatives to INT
-  -R, --random-per-second FLOAT    Emit FLOAT random vehicles per second
-  --prune-random                   
   --remove-loops                   Remove loops at start and end of the route
   --repair                         Tries to correct a false route
   --interpolate                    Interpolate edge weights at interval

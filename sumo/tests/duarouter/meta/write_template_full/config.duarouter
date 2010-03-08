@@ -21,8 +21,6 @@
         <unsorted value="false"/>
         <randomize-flows value="false"/>
         <max-alternatives value="5"/>
-        <random-per-second value=""/>
-        <prune-random value="false"/>
         <remove-loops value="false"/>
         <repair value="false"/>
         <interpolate value="false"/>
