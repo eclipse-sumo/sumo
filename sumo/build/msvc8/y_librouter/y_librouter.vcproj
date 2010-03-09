@@ -377,10 +377,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\RORDGenerator_Random.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\RORDLoader_SUMOBase.cpp"
 				>
 			</File>
@@ -471,10 +467,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\RORDGenerator_ODAmounts.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RORDGenerator_Random.h"
 				>
 			</File>
 			<File
