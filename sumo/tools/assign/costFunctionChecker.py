@@ -31,8 +31,11 @@ def writeRouteConf(step, options, file, output):
     print >> fd, """<configuration>
     <input>
         <net-file value="%s"/>""" % options.net
-    if(step==0):
-        print >> fd, '        <trip-defs value="%s"/>' % file
+    if step==0:
+        if options.flows:
+            print >> fd, '        <flow-definition value="%s"/>' % file
+        else:
+            print >> fd, '        <trip-defs value="%s"/>' % file
     else:
         print >> fd, '        <alternatives value="%s"/>' % file
         print >> fd, '        <weights value="dump_%s_%s.xml"/>' % (step-1, options.aggregation)
@@ -99,7 +102,7 @@ def identity(edge, weight):
 def generateWeights(step, options, edges, weights, costFunction):
     fd = open("dump_%s_%s.xml" % (step, options.aggregation), "w")
     print >> fd, '<?xml version="1.0"?>\n<netstats>'
-    for time in range(0, reader.getMaxDepart(), options.aggregation):
+    for time in range(0, reader.getMaxDepart()+1, options.aggregation):
         print >> fd, '    <interval begin="%s" end="%s" id="dump_%s">' % (time, time + options.aggregation, options.aggregation)
         for edge in edges:
             cost = costFunction(edge, weights.getWeight(edge))
@@ -120,7 +123,9 @@ optParser.add_option("-w", "--disable-warnings", action="store_true", dest="noWa
 optParser.add_option("-n", "--net-file", dest="net",
                      help="SUMO network (mandatory)", metavar="FILE")
 optParser.add_option("-t", "--trips", dest="trips",
-                     help="trips in step 0 (mandatory)", metavar="FILE")
+                     help="trips in step 0 (this or flows is mandatory)", metavar="FILE")
+optParser.add_option("-F", "--flows",
+                     help="flows in step 0 (this or trips is mandatory)", metavar="FILE")
 optParser.add_option("-+", "--additional", dest="additional",
                      default="", help="Additional files")
 
@@ -149,8 +154,8 @@ optParser.add_option("-y", "--absrand", dest="absrand", action="store_true",
 optParser.add_option("-c", "--cost-function", dest="costfunc",
                      default="identity", help="(python) function to use as cost function")
 (options, args) = optParser.parse_args()
-if not options.net or not options.trips:
-    optParser.error("At least --net-file and --trips have to be given!")
+if not options.net or not (options.trips or options.flows):
+    optParser.error("At least --net-file and --trips or --flows have to be given!")
 
 
 duaBinary = os.path.join(options.path, "duarouter")
@@ -170,7 +175,10 @@ if "." in options.costfunc:
 else:
     exec("costFunction = %s" % options.costfunc)
 
-tripFiles = options.trips.split(",")
+if options.flows:
+    tripFiles = options.flows.split(",")
+else:
+    tripFiles = options.trips.split(",")
 starttime = datetime.now()
 for step in range(options.firstStep, options.lastStep):
     btimeA = datetime.now()
@@ -199,6 +207,7 @@ for step in range(options.firstStep, options.lastStep):
     reader = RouteReader()
     parser.setContentHandler(reader)
     for f in files:
+        print f
         parser.parse(f)
     generateWeights(step, options, edges, reader, costFunction)
     print "<<"
