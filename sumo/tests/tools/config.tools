@@ -5,6 +5,7 @@ copy_test_path:routes2.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_trips.trips.xml
+copy_test_path:input_flows.flows.xml
 copy_test_path:tracefile.xml
 copy_test_path:input_weights.dump.xml
 copy_test_path:e2_output.xml

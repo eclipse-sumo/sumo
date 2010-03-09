@@ -46,6 +46,7 @@ def writeRouteConf(step, options, file, output):
     </output>""" % output
     print >> fd, """    <processing>
         <continue-on-unbuild value="%s"/>
+        <expand-weights value="True"/>
         <gBeta value="%s"/>
         <gA value="%s"/>
     </processing>""" % (options.continueOnUnbuild, options.gBeta, options.gA)
