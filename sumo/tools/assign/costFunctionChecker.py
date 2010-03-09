@@ -207,7 +207,6 @@ for step in range(options.firstStep, options.lastStep):
     reader = RouteReader()
     parser.setContentHandler(reader)
     for f in files:
-        print f
         parser.parse(f)
     generateWeights(step, options, edges, reader, costFunction)
     print "<<"
