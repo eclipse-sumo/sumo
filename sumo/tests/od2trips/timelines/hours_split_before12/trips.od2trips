@@ -21,28 +21,28 @@
 -->
 
 <tripdefs>
-   <tripdef id="1" depart="1803" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="0" depart="1809" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="2" depart="5725" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="3" depart="6629" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="4" depart="9691" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="5" depart="10306" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="7" depart="11791" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="6" depart="13604" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="8" depart="15735" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="9" depart="16674" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="11" depart="20945" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="10" depart="21212" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="12" depart="21755" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="13" depart="24020" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="15" depart="25215" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="14" depart="28082" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="17" depart="29677" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="16" depart="31603" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="18" depart="35527" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="19" depart="35697" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="20" depart="38101" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="21" depart="39048" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="23" depart="41726" from="a1" to="b2" departlane="free" departspeed="max"/>
-   <tripdef id="22" depart="42442" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="1" depart="1803.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="0" depart="1809.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="2" depart="5725.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="3" depart="6629.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="4" depart="9691.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="5" depart="10306.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="7" depart="11791.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="6" depart="13604.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="8" depart="15735.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="9" depart="16674.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="11" depart="20945.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="10" depart="21212.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="12" depart="21755.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="13" depart="24020.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="15" depart="25215.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="14" depart="28082.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="17" depart="29677.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="16" depart="31603.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="18" depart="35527.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="19" depart="35697.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="20" depart="38101.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="21" depart="39048.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="23" depart="41726.00" from="a1" to="b2" departlane="free" departspeed="max"/>
+   <tripdef id="22" depart="42442.00" from="a1" to="b2" departlane="free" departspeed="max"/>
 </tripdefs>

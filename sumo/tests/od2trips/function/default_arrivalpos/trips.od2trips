@@ -20,5 +20,5 @@
 -->
 
 <tripdefs>
-   <tripdef id="0" depart="35347" from="a1" to="b2" departlane="free" departspeed="max" arrivalpos="0"/>
+   <tripdef id="0" depart="35347.00" from="a1" to="b2" departlane="free" departspeed="max" arrivalpos="0"/>
 </tripdefs>
