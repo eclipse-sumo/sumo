@@ -159,7 +159,7 @@ if not options.net or not (options.trips or options.flows):
     optParser.error("At least --net-file and --trips or --flows have to be given!")
 
 
-duaBinary = os.path.join(options.path, "duarouter")
+duaBinary = os.environ.get("DUAROUTER_BINARY", os.path.join(options.path, "duarouter"))
 log = open("dua-log.txt", "w+")
 
 parser = make_parser()
