@@ -3,7 +3,7 @@
 @file    routes_Join.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    11.09.2009
-@version $Id: routes_Join.py 8385 2010-03-05 20:51:30Z behrisch $
+@version $Id$
 
 Joins routes belonging to two networks.
 A map file with the following syntax is read first:

@@ -3,7 +3,7 @@
 @file    randomTrips.py
 @author  Michael.Behrisch@dlr.de
 @date    2010-03-06
-@version $Id: tls_check.py 8236 2010-02-10 11:16:41Z behrisch $
+@version $Id$
 
 Generates random trips for the given network.
 
@@ -60,7 +60,7 @@ for edge in net._edges:
 idx = 0
 fouttrips = file(options.tripfile, 'w')
 print >> fouttrips, """<?xml version="1.0"?>
-<!-- generated on %s by $Id: ran.py 8236 2010-02-10 11:16:41Z behrisch $ -->
+<!-- generated on %s by $Id$ -->
 <tripdefs>""" % datetime.datetime.now()
 for depart in range(options.begin, options.end, options.period):
     label = "%s%s" % (options.tripprefix, idx)
