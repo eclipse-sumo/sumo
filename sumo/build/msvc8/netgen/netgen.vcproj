@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="netgen"
 	ProjectGUID="{F241CA03-4AB1-4BB0-8151-7AF078E2BC06}"
 	Keyword="MFCProj"
@@ -413,11 +413,43 @@
 				RelativePath="..\..\..\src\netgen\netgen_main.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGEdge.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGNet.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGRandomNetBuilder.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\..\..\src\netgen\NGEdge.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGNet.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGNode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netgen\NGRandomNetBuilder.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
