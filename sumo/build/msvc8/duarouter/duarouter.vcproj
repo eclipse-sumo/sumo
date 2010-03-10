@@ -404,7 +404,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\duarouter_main.cpp"
+				RelativePath="..\..\..\src\duarouter\duarouter_main.cpp"
 				>
 			</File>
 			<File

@@ -1,4 +1,22 @@
-noinst_LIBRARIES = libduarouting.a
+if CHECK_MEMORY_LEAKS
+MEM_LIBS  = ../foreign/nvwa/libnvwa.a
+endif
 
-libduarouting_a_SOURCES = RODUAEdgeBuilder.cpp RODUAEdgeBuilder.h \
+bin_PROGRAMS = duarouter
+
+duarouter_SOURCES = duarouter_main.cpp \
+RODUAEdgeBuilder.cpp RODUAEdgeBuilder.h \
 RODUAFrame.cpp RODUAFrame.h
+
+duarouter_LDFLAGS = $(XERCES_LDFLAGS)
+
+duarouter_LDADD   = ../router/librouter.a \
+../utils/geom/libgeom.a \
+../utils/options/liboptions.a \
+../utils/common/libcommon.a \
+../utils/xml/libxml.a \
+../utils/importio/libimportio.a \
+../utils/iodevices/libiodevices.a \
+../foreign/tcpip/libtcpip.a \
+$(MEM_LIBS) \
+-l$(LIB_XERCES)

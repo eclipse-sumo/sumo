@@ -33,7 +33,6 @@ traci_testclient_LDADD = ./traci_testclient/libtracitestclient.a\
 endif
 
 bin_PROGRAMS = sumo netconvert \
-duarouter dfrouter jtrrouter \
 $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
 
 COMMON_LIBS = ./utils/options/liboptions.a \
@@ -66,7 +65,6 @@ $(TRACI_LIBS) \
 $(PROJ_LIBS)
 
 
-
 netconvert_SOURCES = netconvert_main.cpp
 
 netconvert_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
@@ -82,35 +80,6 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 $(COMMON_LIBS) \
 $(GDAL_LIBS) \
 $(PROJ_LIBS)
-
-
-
-duarouter_SOURCES = duarouter_main.cpp
-
-duarouter_LDFLAGS = $(XERCES_LDFLAGS)
-
-duarouter_LDADD   = ./routing_dua/libduarouting.a \
-./router/librouter.a \
-$(COMMON_LIBS)
-
-
-dfrouter_SOURCES = dfrouter_main.cpp
-
-dfrouter_LDFLAGS = $(XERCES_LDFLAGS)
-
-dfrouter_LDADD   = ./routing_df/libdfrouting.a \
-./router/librouter.a \
-./utils/geom/libgeom.a \
-$(COMMON_LIBS)
-
-
-jtrrouter_SOURCES = jtrrouter_main.cpp
-
-jtrrouter_LDFLAGS = $(XERCES_LDFLAGS)
-
-jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
-./router/librouter.a \
-$(COMMON_LIBS)
 
 
 if WITH_GUI

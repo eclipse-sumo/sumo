@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    duarouter_main.cpp
+/// @file    jtrrouter_main.cpp
 /// @author  Daniel Krajzewicz
-/// @date    Thu, 06 Jun 2002
+/// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// Main for DUAROUTER
+// Main for JTRROUTER
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -38,23 +38,25 @@
 #include <string>
 #include <limits.h>
 #include <ctime>
+#include <set>
+#include <router/ROFrame.h>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
-#include <router/ROEdge.h>
-#include <utils/common/DijkstraRouterTT.h>
-#include <utils/common/DijkstraRouterEffort.h>
-#include <routing_dua/RODUAEdgeBuilder.h>
-#include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/xml/XMLSubSys.h>
-#include <routing_dua/RODUAFrame.h>
+#include "ROJTREdgeBuilder.h"
+#include "ROJTRRouter.h"
+#include "ROJTREdge.h"
+#include "ROJTRTurnDefLoader.h"
+#include "ROJTRFrame.h"
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -74,10 +76,16 @@
  * weights which may be supplied in a separate file
  */
 void
-initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
+initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
+        const std::vector<SUMOReal> &turnDefs) {
     // load the net
-    RODUAEdgeBuilder builder(oc.getBool("expand-weights"), oc.getBool("interpolate"));
+    ROJTREdgeBuilder builder;
     loader.loadNet(net, builder);
+    // set the turn defaults
+    const std::map<std::string, ROEdge*> &edges = net.getEdgeMap();
+    for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
+    }
     // load the weights when wished/available
     if (oc.isSet("weights")) {
         loader.loadWeights(net, "weights", oc.getString("measure"), false);
@@ -87,6 +95,49 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc) {
     }
 }
 
+std::vector<SUMOReal>
+getTurningDefaults(OptionsCont &oc) {
+    std::vector<SUMOReal> ret;
+    std::vector<std::string> defs = oc.getStringVector("turn-defaults");
+    if (defs.size()<2) {
+        throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
+    }
+    for (std::vector<std::string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
+        try {
+            SUMOReal val = TplConvert<char>::_2SUMOReal((*i).c_str());
+            ret.push_back(val);
+        } catch (NumberFormatException&) {
+            throw ProcessError("A turn default is not numeric.");
+        }
+    }
+    return ret;
+}
+
+
+void
+loadJTRDefinitions(RONet &net, OptionsCont &oc) {
+    // load the turning definitions (and possible sink definition)
+    if (oc.isSet("turn-definition")) {
+        ROJTRTurnDefLoader loader(net);
+        if (!XMLSubSys::runParser(loader, oc.getString("turn-definition"))) {
+            throw ProcessError();
+        }
+    }
+    if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("dismiss-loading-errors")) {
+        MsgHandler::getErrorInstance()->clear();
+    }
+    // parse sink edges specified at the input/within the configuration
+    if (oc.isSet("sinks")) {
+        std::vector<std::string> edges = oc.getStringVector("sinks");
+        for (std::vector<std::string>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(*i));
+            if (edge==0) {
+                throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
+            }
+            edge->setType(ROEdge::ET_SINK);
+        }
+    }
+}
 
 
 /**
@@ -98,64 +149,23 @@ computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc) {
     loader.openRoutes(net);
     // prepare the output
     try {
-        net.openOutput(oc.getString("output"), true);
+        net.openOutput(oc.getString("output"), false);
     } catch (IOError &e) {
         throw e;
     }
     // build the router
-    SUMOAbstractRouter<ROEdge, ROVehicle> *router;
-    std::string measure = oc.getString("measure");
-    if (measure=="traveltime") {
-        if (net.hasRestrictions()) {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
-        } else {
-            router = new DijkstraRouterTT_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getTravelTime);
-        }
-    } else {
-        DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >::Operation op;
-        if(measure=="CO") {
-            op = &ROEdge::getCOEffort;
-        } else if(measure=="CO2") {
-            op = &ROEdge::getCO2Effort;
-        } else if(measure=="PMx") {
-            op = &ROEdge::getPMxEffort;
-        } else if(measure=="HC") {
-            op = &ROEdge::getHCEffort;
-        } else if(measure=="NOx") {
-            op = &ROEdge::getNOxEffort;
-        } else if(measure=="fuel") {
-            op = &ROEdge::getFuelEffort;
-        } else if(measure=="noise") {
-            op = &ROEdge::getNoiseEffort;
-        }
-        if (net.hasRestrictions()) {
-            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
-        } else {
-            router = new DijkstraRouterEffort_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
-                net.getEdgeNo(), oc.getBool("continue-on-unbuild"), op, &ROEdge::getTravelTime);
-        }
+    ROJTRRouter router(net, oc.getBool("continue-on-unbuild"),
+                       oc.getBool("accept-all-destinations"));
+    // the routes are sorted - process stepwise
+    if (!oc.getBool("unsorted")) {
+        loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, router);
     }
-    // process route definitions
-    try {
-        // the routes are sorted - process stepwise
-        if (!oc.getBool("unsorted")) {
-            loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, *router);
-        }
-        // the routes are not sorted: load all and process
-        else {
-            loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, *router);
-        }
-        // end the processing
-        net.closeOutput();
-        delete router;
-    } catch (ProcessError &) {
-        net.closeOutput();
-        delete router;
-        throw;
+    // the routes are not sorted: load all and process
+    else {
+        loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, router);
     }
+    // end the processing
+    net.closeOutput();
 }
 
 
@@ -166,27 +176,31 @@ int
 main(int argc, char **argv) {
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic road traffic simulation SUMO.");
-    oc.setApplicationName("duarouter", "SUMO duarouter Version " + (std::string)VERSION_STRING);
+    oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");
+    oc.setApplicationName("jtrrouter", "SUMO jtrrouter Version " + (std::string)VERSION_STRING);
     int ret = 0;
     RONet *net = 0;
     try {
+        // initialise the application system (messaging, xml, options)
         XMLSubSys::init(false);
-        RODUAFrame::fillOptions();
+        ROJTRFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!RODUAFrame::checkOptions()) throw ProcessError();
+        if (!ROJTRFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
+        std::vector<SUMOReal> defs = getTurningDefaults(oc);
         // load data
-        ROLoader loader(oc, false);
+        ROLoader loader(oc, true);
         net = new RONet();
-        initNet(*net, loader, oc);
-        // build routes
+        initNet(*net, loader, oc, defs);
         try {
+            // parse and set the turn defaults first
+            loadJTRDefinitions(*net, oc);
+            // build routes
             computeRoutes(*net, loader, oc);
         } catch (SAXParseException &e) {
             MsgHandler::getErrorInstance()->inform(toString(e.getLineNumber()));
@@ -195,7 +209,7 @@ main(int argc, char **argv) {
             MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
-        if (MsgHandler::getErrorInstance()->wasInformed()||ret!=0) {
+        if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
     } catch (ProcessError &e) {
