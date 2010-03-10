@@ -1,2 +1,2 @@
-Error: Attribute 'freq' in definition of e3-detector '4/1to3/1' is not an int.
+Error: Attribute 'freq' in definition of e3-detector '4/1to3/1' is not a real number.
 Quitting (on error).

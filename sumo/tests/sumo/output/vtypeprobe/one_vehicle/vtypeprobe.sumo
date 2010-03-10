@@ -22,40 +22,40 @@
 -->
 
 <vehicle-type-probes>
-    <timestep time="0" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="0.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="4/1to3/1_0" pos="190.00" x="1405.25" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="10" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="10.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="4/1to3/1_0" pos="290.00" x="1305.25" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="20" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="20.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="4/1to3/1_0" pos="390.00" x="1205.25" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="30" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="30.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="3/1to2/1_0" pos="99.50" x="1095.75" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="40" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="40.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="3/1to2/1_0" pos="199.50" x="995.75" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="50" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="50.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="3/1to2/1_0" pos="299.50" x="895.75" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="60" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="60.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="2/1to1/1_0" pos="9.00" x="786.25" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="70" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="70.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="2/1to1/1_0" pos="109.00" x="686.25" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="80" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="80.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="2/1to1/1_0" pos="209.00" x="586.25" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="90" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="90.00" id="test1" vtype="DEFAULT_VEHTYPE">
         <vehicle id="0" lane="2/1to1/1_0" pos="309.00" x="486.25" y="401.65" speed="10.00"/>
     </timestep>
-    <timestep time="100" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="100.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="110" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="110.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="120" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="120.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
 </vehicle-type-probes>

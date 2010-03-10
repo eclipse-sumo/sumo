@@ -23,24 +23,24 @@
 -->
 
 <vehicle-type-probes>
-    <timestep time="0" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="0.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="10" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="10.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="20" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="20.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="30" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="30.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="40" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="40.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="50" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="50.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="60" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="60.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="70" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="70.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="80" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="80.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
-    <timestep time="90" id="test1" vtype="DEFAULT_VEHTYPE">
+    <timestep time="90.00" id="test1" vtype="DEFAULT_VEHTYPE">
     </timestep>
 </vehicle-type-probes>

@@ -27,7 +27,7 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0">
+   <timestep time="0.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -163,7 +163,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="1">
+   <timestep time="1.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -299,7 +299,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="2">
+   <timestep time="2.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -435,7 +435,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="3">
+   <timestep time="3.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -571,7 +571,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="4">
+   <timestep time="4.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -707,7 +707,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="5">
+   <timestep time="5.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -844,7 +844,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="6">
+   <timestep time="6.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -981,7 +981,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="7">
+   <timestep time="7.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -1118,7 +1118,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="8">
+   <timestep time="8.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>
@@ -1255,7 +1255,7 @@
          <lane id="4/2to4/1_0"/>
       </edge>
    </timestep>
-   <timestep time="9">
+   <timestep time="9.00">
       <edge id="0/0to0/1">
          <lane id="0/0to0/1_0"/>
       </edge>

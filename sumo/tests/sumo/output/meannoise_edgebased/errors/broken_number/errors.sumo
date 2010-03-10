@@ -1,2 +1,2 @@
-Error: Attribute 'begin' in definition of meandata_edge 'dump_15' is not an int.
+Error: Attribute 'begin' in definition of meandata_edge 'dump_15' is not a real number.
 Quitting (on error).
