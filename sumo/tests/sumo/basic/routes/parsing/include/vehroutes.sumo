@@ -21,11 +21,11 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0" arrival="122">
+    <vehicle id="0" depart="0" arrival="122.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="1" depart="3" arrival="125">
+    <vehicle id="1" depart="3" arrival="125.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
