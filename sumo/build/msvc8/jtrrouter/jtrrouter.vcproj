@@ -413,23 +413,23 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTREdge.cpp"
+				RelativePath="..\..\..\src\jtrrouter\ROJTREdge.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTREdgeBuilder.cpp"
+				RelativePath="..\..\..\src\jtrrouter\ROJTREdgeBuilder.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRFrame.cpp"
+				RelativePath="..\..\..\src\jtrrouter\ROJTRFrame.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRRouter.cpp"
+				RelativePath="..\..\..\src\jtrrouter\ROJTRRouter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRTurnDefLoader.cpp"
+				RelativePath="..\..\..\src\jtrrouter\ROJTRTurnDefLoader.cpp"
 				>
 			</File>
 		</Filter>
@@ -438,23 +438,23 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTREdge.h"
+				RelativePath="..\..\..\src\jtrrouter\ROJTREdge.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTREdgeBuilder.h"
+				RelativePath="..\..\..\src\jtrrouter\ROJTREdgeBuilder.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRFrame.h"
+				RelativePath="..\..\..\src\jtrrouter\ROJTRFrame.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRRouter.h"
+				RelativePath="..\..\..\src\jtrrouter\ROJTRRouter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRTurnDefLoader.h"
+				RelativePath="..\..\..\src\jtrrouter\ROJTRTurnDefLoader.h"
 				>
 			</File>
 		</Filter>

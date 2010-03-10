@@ -439,9 +439,9 @@ src/netload/Makefile
 src/od2trips/Makefile
 src/polyconvert/Makefile
 src/router/Makefile
-src/routing_df/Makefile
-src/routing_dua/Makefile
-src/routing_jtr/Makefile
+src/dfrouter/Makefile
+src/duarouter/Makefile
+src/jtrrouter/Makefile
 src/traci_testclient/Makefile
 src/traci-server/Makefile
 src/utils/Makefile

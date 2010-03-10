@@ -33,8 +33,8 @@
 #include <vector>
 #include <utils/importio/NamedColumnsParser.h>
 #include <utils/common/UtilExceptions.h>
-#include <routing_df/RODFDetector.h>
-#include <routing_df/RODFDetectorFlow.h>
+#include "RODFDetector.h"
+#include "RODFDetectorFlow.h"
 
 
 // ===========================================================================

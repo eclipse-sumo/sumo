@@ -409,39 +409,39 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetector.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFDetector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetectorFlow.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFDetectorFlow.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetectorHandler.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFDetectorHandler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetFlowLoader.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFDetFlowLoader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFEdge.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFEdge.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFEdgeBuilder.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFEdgeBuilder.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFFrame.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFFrame.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFNet.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFNet.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFRouteCont.cpp"
+				RelativePath="..\..\..\src\dfrouter\RODFRouteCont.cpp"
 				>
 			</File>
 		</Filter>
@@ -450,43 +450,43 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetector.h"
+				RelativePath="..\..\..\src\dfrouter\RODFDetector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetectorFlow.h"
+				RelativePath="..\..\..\src\dfrouter\RODFDetectorFlow.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetectorHandler.h"
+				RelativePath="..\..\..\src\dfrouter\RODFDetectorHandler.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFDetFlowLoader.h"
+				RelativePath="..\..\..\src\dfrouter\RODFDetFlowLoader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFEdge.h"
+				RelativePath="..\..\..\src\dfrouter\RODFEdge.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFEdgeBuilder.h"
+				RelativePath="..\..\..\src\dfrouter\RODFEdgeBuilder.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFFrame.h"
+				RelativePath="..\..\..\src\dfrouter\RODFFrame.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFNet.h"
+				RelativePath="..\..\..\src\dfrouter\RODFNet.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFRouteCont.h"
+				RelativePath="..\..\..\src\dfrouter\RODFRouteCont.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFRouteDesc.h"
+				RelativePath="..\..\..\src\dfrouter\RODFRouteDesc.h"
 				>
 			</File>
 		</Filter>

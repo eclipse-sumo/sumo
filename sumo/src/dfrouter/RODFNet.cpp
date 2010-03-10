@@ -29,8 +29,8 @@
 #include <map>
 #include <vector>
 #include "RODFNet.h"
-#include <routing_df/RODFDetector.h>
-#include <routing_df/RODFRouteDesc.h>
+#include "RODFDetector.h"
+#include "RODFRouteDesc.h"
 #include "RODFDetectorFlow.h"
 #include "RODFEdge.h"
 #include <cmath>

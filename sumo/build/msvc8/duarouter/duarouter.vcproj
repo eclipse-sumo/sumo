@@ -408,11 +408,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_dua\RODUAEdgeBuilder.cpp"
+				RelativePath="..\..\..\src\duarouter\RODUAEdgeBuilder.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_dua\RODUAFrame.cpp"
+				RelativePath="..\..\..\src\duarouter\RODUAFrame.cpp"
 				>
 			</File>
 		</Filter>
@@ -421,11 +421,11 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\src\routing_dua\RODUAEdgeBuilder.h"
+				RelativePath="..\..\..\src\duarouter\RODUAEdgeBuilder.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_dua\RODUAFrame.h"
+				RelativePath="..\..\..\src\duarouter\RODUAFrame.h"
 				>
 			</File>
 		</Filter>
