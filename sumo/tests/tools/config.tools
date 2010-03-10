@@ -30,4 +30,5 @@ trips:trips.trips.xml
 output:Begin time
 output:End time
 output:uration:
-
+output:<!-- generated on
+trips:<!-- generated on

@@ -34,6 +34,7 @@ optParser.add_option("-a", "--trip-parameters", dest="trippar",
 optParser.add_option("-b", "--begin", type="int", default=0, help="begin time")
 optParser.add_option("-e", "--end", type="int", default=3600, help="end time")
 optParser.add_option("-p", "--period", type="int", default=1, help="repetition period")
+optParser.add_option("-s", "--seed", type="int", help="random seed")
 optParser.add_option("-l", "--length", action="store_true",
                      default=False, help="weight edge probability by length")
 optParser.add_option("-L", "--lanes", action="store_true",
@@ -46,6 +47,8 @@ if not options.netfile:
     sys.exit()
 
 net = sumonet.readNet(options.netfile)
+if options.seed:
+    random.seed(options.seed)
 probs=[]
 total = 0
 for edge in net._edges:
