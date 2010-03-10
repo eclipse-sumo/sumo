@@ -1,8 +1,8 @@
 Loading net... done.
 Loading precomputed net weights from 'input_weights.dump.xml' ...  done.
 Skipping...
-Skipped until: 1
-Reading time step: 1  (1/86400 = 0.00% done)       
-Reading time step: 2  (2/86400 = 0.00% done)       
+Skipped until: 1.00
+Reading time step: 1.00  (1.00/86400 = 0.00% done)       
+Reading time step: 2.00  (2.00/86400 = 0.00% done)       
 Routes found between time steps 1 and 2.
 Success.
