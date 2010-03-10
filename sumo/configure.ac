@@ -72,8 +72,8 @@ else
     ac_disabled="$ac_disabled DoublePrecision"
 fi
 
-AC_ARG_ENABLE([subsecond], [AS_HELP_STRING([--enable-subsecond],[enable subsecond timesteps [default=no].])])
-if test x$enable_subsecond = xyes; then
+AC_ARG_ENABLE([subsecond], [AS_HELP_STRING([--disable-subsecond],[Disable subsecond timesteps.])])
+if test x$enable_subsecond != xno; then
     AC_DEFINE(HAVE_SUBSECOND_TIMESTEPS, 1, [Define to 1 in order to enable subsecond timesteps.])
     ac_enabled="$ac_enabled Subsecond"
 else
