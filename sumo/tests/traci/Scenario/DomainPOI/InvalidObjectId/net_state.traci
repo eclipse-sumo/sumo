@@ -26,10 +26,10 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0">
+   <timestep time="0.00">
    </timestep>
-   <timestep time="1">
+   <timestep time="1.00">
    </timestep>
-   <timestep time="2">
+   <timestep time="2.00">
    </timestep>
 </sumo-netstate>

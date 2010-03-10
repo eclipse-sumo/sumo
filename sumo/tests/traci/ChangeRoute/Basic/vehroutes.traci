@@ -25,8 +25,8 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0" arrival="200">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="2" edges="beg middle end rend"/>
+    <vehicle id="0" depart="0" arrival="200.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="2.00" edges="beg middle end rend"/>
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 

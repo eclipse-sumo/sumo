@@ -25,7 +25,7 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0">
+   <timestep time="0.00">
       <edge id="e_m4">
          <lane id="e_m4_0">
             <vehicle id="veh0" pos="0.00" speed="10.00"/>
@@ -41,7 +41,7 @@
          <lane id="e_m5_2"/>
       </edge>
    </timestep>
-   <timestep time="1">
+   <timestep time="1.00">
       <edge id="e_m4">
          <lane id="e_m4_0">
             <vehicle id="veh0" pos="10.00" speed="10.00"/>

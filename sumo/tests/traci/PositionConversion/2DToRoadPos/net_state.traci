@@ -25,26 +25,26 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0">
+   <timestep time="0.00">
    </timestep>
-   <timestep time="1">
+   <timestep time="1.00">
    </timestep>
-   <timestep time="2">
+   <timestep time="2.00">
    </timestep>
-   <timestep time="3">
+   <timestep time="3.00">
    </timestep>
-   <timestep time="4">
+   <timestep time="4.00">
    </timestep>
-   <timestep time="5">
+   <timestep time="5.00">
    </timestep>
-   <timestep time="6">
+   <timestep time="6.00">
    </timestep>
-   <timestep time="7">
+   <timestep time="7.00">
    </timestep>
-   <timestep time="8">
+   <timestep time="8.00">
    </timestep>
-   <timestep time="9">
+   <timestep time="9.00">
    </timestep>
-   <timestep time="10">
+   <timestep time="10.00">
    </timestep>
 </sumo-netstate>
