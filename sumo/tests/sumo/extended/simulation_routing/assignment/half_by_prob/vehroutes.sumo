@@ -29,47 +29,47 @@
 -->
 
 <routes>
-    <vehicle id="2" depart="40" arrival="117">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+    <vehicle id="2" depart="40" arrival="117.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0.00" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="3" depart="60" arrival="137">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+    <vehicle id="3" depart="60" arrival="137.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0.00" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="5" depart="100" arrival="177">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+    <vehicle id="5" depart="100" arrival="177.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0.00" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="0" depart="0" arrival="188">
+    <vehicle id="0" depart="0" arrival="188.00">
         <route edges="beg beg2right right right2end end rend"/>
    </vehicle>
 
-    <vehicle id="1" depart="20" arrival="208">
+    <vehicle id="1" depart="20" arrival="208.00">
         <route edges="beg beg2right right right2end end rend"/>
    </vehicle>
 
-    <vehicle id="7" depart="140" arrival="217">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="0" edges="beg beg2right right right2end end rend"/>
+    <vehicle id="7" depart="140" arrival="217.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="0.00" edges="beg beg2right right right2end end rend"/>
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="4" depart="80" arrival="268">
+    <vehicle id="4" depart="80" arrival="268.00">
         <route edges="beg beg2right right right2end end rend"/>
    </vehicle>
 
-    <vehicle id="6" depart="120" arrival="308">
+    <vehicle id="6" depart="120" arrival="308.00">
         <route edges="beg beg2right right right2end end rend"/>
    </vehicle>
 
-    <vehicle id="8" depart="160" arrival="348">
+    <vehicle id="8" depart="160" arrival="348.00">
         <route edges="beg beg2right right right2end end rend"/>
    </vehicle>
 
-    <vehicle id="9" depart="180" arrival="368">
+    <vehicle id="9" depart="180" arrival="368.00">
         <route edges="beg beg2right right right2end end rend"/>
    </vehicle>
 

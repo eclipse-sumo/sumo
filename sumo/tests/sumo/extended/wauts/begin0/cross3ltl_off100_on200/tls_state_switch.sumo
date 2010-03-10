@@ -23,23 +23,23 @@
 -->
 
 <tls-switch-states>
-    <tlsstate time="0" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
-    <tlsstate time="31" id="0" subid="0" phase="1">yyggrrrryyggrrrr</tlsstate>
-    <tlsstate time="35" id="0" subid="0" phase="2">rrGGrrrrrrGGrrrr</tlsstate>
-    <tlsstate time="41" id="0" subid="0" phase="3">rryyrrrrrryyrrrr</tlsstate>
-    <tlsstate time="45" id="0" subid="0" phase="4">rrrrGGggrrrrGGgg</tlsstate>
-    <tlsstate time="76" id="0" subid="0" phase="5">rrrryyggrrrryygg</tlsstate>
-    <tlsstate time="80" id="0" subid="0" phase="6">rrrrrrGGrrrrrrGG</tlsstate>
-    <tlsstate time="86" id="0" subid="0" phase="7">rrrrrryyrrrrrryy</tlsstate>
-    <tlsstate time="90" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
-    <tlsstate time="100" id="0" subid="off" phase="0">oooooooooooooooo</tlsstate>
-    <tlsstate time="200" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
-    <tlsstate time="211" id="0" subid="0" phase="1">yyggrrrryyggrrrr</tlsstate>
-    <tlsstate time="215" id="0" subid="0" phase="2">rrGGrrrrrrGGrrrr</tlsstate>
-    <tlsstate time="221" id="0" subid="0" phase="3">rryyrrrrrryyrrrr</tlsstate>
-    <tlsstate time="225" id="0" subid="0" phase="4">rrrrGGggrrrrGGgg</tlsstate>
-    <tlsstate time="256" id="0" subid="0" phase="5">rrrryyggrrrryygg</tlsstate>
-    <tlsstate time="260" id="0" subid="0" phase="6">rrrrrrGGrrrrrrGG</tlsstate>
-    <tlsstate time="266" id="0" subid="0" phase="7">rrrrrryyrrrrrryy</tlsstate>
-    <tlsstate time="270" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
+    <tlsstate time="0.00" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
+    <tlsstate time="31.00" id="0" subid="0" phase="1">yyggrrrryyggrrrr</tlsstate>
+    <tlsstate time="35.00" id="0" subid="0" phase="2">rrGGrrrrrrGGrrrr</tlsstate>
+    <tlsstate time="41.00" id="0" subid="0" phase="3">rryyrrrrrryyrrrr</tlsstate>
+    <tlsstate time="45.00" id="0" subid="0" phase="4">rrrrGGggrrrrGGgg</tlsstate>
+    <tlsstate time="76.00" id="0" subid="0" phase="5">rrrryyggrrrryygg</tlsstate>
+    <tlsstate time="80.00" id="0" subid="0" phase="6">rrrrrrGGrrrrrrGG</tlsstate>
+    <tlsstate time="86.00" id="0" subid="0" phase="7">rrrrrryyrrrrrryy</tlsstate>
+    <tlsstate time="90.00" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
+    <tlsstate time="100.00" id="0" subid="off" phase="0">oooooooooooooooo</tlsstate>
+    <tlsstate time="200.00" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
+    <tlsstate time="211.00" id="0" subid="0" phase="1">yyggrrrryyggrrrr</tlsstate>
+    <tlsstate time="215.00" id="0" subid="0" phase="2">rrGGrrrrrrGGrrrr</tlsstate>
+    <tlsstate time="221.00" id="0" subid="0" phase="3">rryyrrrrrryyrrrr</tlsstate>
+    <tlsstate time="225.00" id="0" subid="0" phase="4">rrrrGGggrrrrGGgg</tlsstate>
+    <tlsstate time="256.00" id="0" subid="0" phase="5">rrrryyggrrrryygg</tlsstate>
+    <tlsstate time="260.00" id="0" subid="0" phase="6">rrrrrrGGrrrrrrGG</tlsstate>
+    <tlsstate time="266.00" id="0" subid="0" phase="7">rrrrrryyrrrrrryy</tlsstate>
+    <tlsstate time="270.00" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
 </tls-switch-states>

@@ -25,46 +25,46 @@
 -->
 
 <routes>
-    <vehicle id="0" depart="0" arrival="77">
+    <vehicle id="0" depart="0" arrival="77.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="1" depart="20" arrival="97">
+    <vehicle id="1" depart="20" arrival="97.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="2" depart="40" arrival="117">
+    <vehicle id="2" depart="40" arrival="117.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="6" depart="120" arrival="197">
+    <vehicle id="6" depart="120" arrival="197.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="7" depart="140" arrival="217">
+    <vehicle id="7" depart="140" arrival="217.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="8" depart="160" arrival="237">
+    <vehicle id="8" depart="160" arrival="237.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="3" depart="60" arrival="248">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="60" edges="beg middle end rend"/>
+    <vehicle id="3" depart="60" arrival="248.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="60.00" edges="beg middle end rend"/>
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="9" depart="180" arrival="257">
+    <vehicle id="9" depart="180" arrival="257.00">
         <route edges="beg middle end rend"/>
    </vehicle>
 
-    <vehicle id="4" depart="80" arrival="268">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="80" edges="beg middle end rend"/>
+    <vehicle id="4" depart="80" arrival="268.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="80.00" edges="beg middle end rend"/>
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 
-    <vehicle id="5" depart="100" arrival="288">
-        <replacedRoute replacedOnEdge="beg" replacedAtTime="100" edges="beg middle end rend"/>
+    <vehicle id="5" depart="100" arrival="288.00">
+        <replacedRoute replacedOnEdge="beg" replacedAtTime="100.00" edges="beg middle end rend"/>
         <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
 

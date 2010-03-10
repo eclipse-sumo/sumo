@@ -29,23 +29,23 @@
 -->
 
 <routes>
-    <vehicle id="horizontal01" depart="100" arrival="270">
+    <vehicle id="horizontal01" depart="100" arrival="270.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal02" depart="102" arrival="272">
+    <vehicle id="horizontal02" depart="102" arrival="272.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal03" depart="105" arrival="275">
+    <vehicle id="horizontal03" depart="105" arrival="275.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal04" depart="107" arrival="277">
+    <vehicle id="horizontal04" depart="107" arrival="277.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
-    <vehicle id="horizontal05" depart="110" arrival="280">
+    <vehicle id="horizontal05" depart="110" arrival="280.00">
         <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
    </vehicle>
 
