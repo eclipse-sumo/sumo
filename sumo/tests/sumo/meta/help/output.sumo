@@ -38,6 +38,7 @@ Usage: sumo.exe [OPTION]*
                                         The simulation starts at this time
   -e, --end INT                       Defines the end time;
                                         The simulation ends at this time
+  --step-length FLOAT                 Defines the step duration
 
  Processing Options:
   -s, --route-steps INT               Load routes for the next INT steps ahead

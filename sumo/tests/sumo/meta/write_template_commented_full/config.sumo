@@ -43,6 +43,9 @@
         <!-- Defines the end time; The simulation ends at this time -->
         <end value="2147483647"/>
 
+        <!-- Defines the step duration -->
+        <step-length value="1"/>
+
     </time>
 
     <processing>
