@@ -26,6 +26,6 @@
 -->
 
 <sumo-netstate>
-   <timestep time="0">
+   <timestep time="0.00">
    </timestep>
 </sumo-netstate>

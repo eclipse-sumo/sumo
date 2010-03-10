@@ -26,7 +26,7 @@
 -->
 
 <sumo-netstate>
-   <timestep time="5">
+   <timestep time="5.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="0.00" speed="0.00"/>
@@ -35,7 +35,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="6">
+   <timestep time="6.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="1.48" speed="1.48"/>
@@ -45,7 +45,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="7">
+   <timestep time="7.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="2.60" speed="1.12"/>
@@ -56,7 +56,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="8">
+   <timestep time="8.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="5.12" speed="2.52"/>
@@ -68,7 +68,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="9">
+   <timestep time="9.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="7.13" speed="2.01"/>
@@ -81,7 +81,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="10">
+   <timestep time="10.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="11.12" speed="3.99"/>
@@ -95,7 +95,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="11">
+   <timestep time="11.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="17.50" speed="6.37"/>
@@ -109,7 +109,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="12">
+   <timestep time="12.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="22.37" speed="4.87"/>
@@ -123,7 +123,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="13">
+   <timestep time="13.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="25.95" speed="3.58"/>
@@ -137,7 +137,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="14">
+   <timestep time="14.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="30.24" speed="4.29"/>
@@ -151,7 +151,7 @@
          <lane id="beg_2"/>
       </edge>
    </timestep>
-   <timestep time="15">
+   <timestep time="15.00">
       <edge id="beg">
          <lane id="beg_0">
             <vehicle id="f1.5" pos="34.51" speed="4.26"/>
