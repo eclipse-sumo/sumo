@@ -92,9 +92,8 @@ MSEmitControl::add(SUMOVehicleParameter *pars) throw() {
 unsigned int
 MSEmitControl::emitVehicles(SUMOTime time) throw(ProcessError) {
     checkPrevious(time);
-    checkFlows(time);
     // check whether any vehicles shall be emitted within this time step
-    if (!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.size()==0&&myRefusedEmits2.size()==0) {
+    if (!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.empty()&&myRefusedEmits2.empty()&&myFlows.empty()) {
         return 0;
     }
     unsigned int noEmitted = 0;
@@ -120,6 +119,7 @@ MSEmitControl::emitVehicles(SUMOTime time) throw(ProcessError) {
     //  departure time is greater than the current time.
     // Retrieve the list of vehicles to emit within this time step
 
+    noEmitted += checkFlows(time, refusedEmits);
     while (myAllVeh.anyWaitingFor(time)) {
         const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
         // go through the list and try to emit
@@ -187,8 +187,10 @@ MSEmitControl::checkPrevious(SUMOTime time) throw() {
 }
 
 
-void
-MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
+unsigned int
+MSEmitControl::checkFlows(SUMOTime time,
+                          MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError) {
+    unsigned int noEmitted = 0;
     for (std::vector<Flow>::iterator i=myFlows.begin(); i!=myFlows.end();) {
         SUMOVehicleParameter* pars = i->pars;
         if (!i->isVolatile && i->vehicle!=0) {
@@ -207,7 +209,10 @@ MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
                 const MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
                 i->vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(newPars, route, vtype);
                 MSNet::getInstance()->getVehicleControl().addVehicle(newPars->id, i->vehicle);
-                add(i->vehicle);
+                noEmitted += tryEmit(time, i->vehicle, refusedEmits);
+                if (!i->isVolatile && i->vehicle!=0) {
+                    break;
+                }
             } else {
                 // strange: another vehicle with the same id already exists
 #ifdef HAVE_MESOSIM
@@ -225,6 +230,7 @@ MSEmitControl::checkFlows(SUMOTime time) throw(ProcessError) {
             ++i;
         }
     }
+    return noEmitted;
 }
 
 

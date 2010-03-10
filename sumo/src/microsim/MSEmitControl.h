@@ -165,11 +165,14 @@ private:
     void checkPrevious(SUMOTime time) throw();
 
 
-    /** @brief Adds all vehicles that come from flows to the vehicle container
+    /** @brief Checks for all vehicles coming from flows whether they can be emitted
      *
      * @param[in] time The current simulation time
+     * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
+     * @return The number of emitted vehicles
      */
-    void checkFlows(SUMOTime time) throw(ProcessError);
+    unsigned int checkFlows(SUMOTime time,
+                            MSVehicleContainer::VehicleVector &refusedEmits) throw(ProcessError);
 
 
 private:
