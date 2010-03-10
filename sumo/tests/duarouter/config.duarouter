@@ -15,6 +15,7 @@ config:config.cfg
 log:log.txt
 
 [run_dependent_text]
+output:\r{REPLACE \n}
 routes:version{->}-->
 alts:version{->}-->
 
