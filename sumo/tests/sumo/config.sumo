@@ -48,7 +48,6 @@ log:log.txt
 
 [run_dependent_text]
 output:\r{REPLACE \n}
-output:sumo.exe{REPLACE sumo}
 output:\([0-9]*ms\){REPLACE (TIME)}
 log:\([0-9]*ms\){REPLACE (TIME)}
 detector:xml version{->}-->
