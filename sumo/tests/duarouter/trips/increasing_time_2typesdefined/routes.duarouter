@@ -19,67 +19,67 @@
    <vtype id="0" length="7.00" maxspeed="30.00" color="1.00,0.00,0.00">
       <carFollowing-Krauss accel="1.60" decel="5.50" sigma="0.90"/>
    </vtype>
-   <vehicle id="0" type="0" depart="0">
+   <vehicle id="0" type="0" depart="0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
    <vtype id="1" length="7.00" maxspeed="30.00" color="1.00,0.00,0.00">
       <carFollowing-Krauss accel="1.60" decel="5.50" sigma="0.90"/>
    </vtype>
-   <vehicle id="1" type="1" depart="1">
+   <vehicle id="1" type="1" depart="1.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="2" type="0" depart="10">
+   <vehicle id="2" type="0" depart="10.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="3" type="1" depart="11">
+   <vehicle id="3" type="1" depart="11.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="4" type="0" depart="20">
+   <vehicle id="4" type="0" depart="20.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="5" type="1" depart="21">
+   <vehicle id="5" type="1" depart="21.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="6" type="0" depart="30">
+   <vehicle id="6" type="0" depart="30.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="7" type="1" depart="31">
+   <vehicle id="7" type="1" depart="31.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="8" type="0" depart="40">
+   <vehicle id="8" type="0" depart="40.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="9" type="1" depart="41">
+   <vehicle id="9" type="1" depart="41.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="10" type="0" depart="50">
+   <vehicle id="10" type="0" depart="50.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="11" type="1" depart="51">
+   <vehicle id="11" type="1" depart="51.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="12" type="0" depart="60">
+   <vehicle id="12" type="0" depart="60.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="13" type="1" depart="61">
+   <vehicle id="13" type="1" depart="61.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="14" type="0" depart="70">
+   <vehicle id="14" type="0" depart="70.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="15" type="1" depart="71">
+   <vehicle id="15" type="1" depart="71.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="16" type="0" depart="80">
+   <vehicle id="16" type="0" depart="80.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="17" type="1" depart="81">
+   <vehicle id="17" type="1" depart="81.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="18" type="0" depart="90">
+   <vehicle id="18" type="0" depart="90.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="19" type="1" depart="91">
+   <vehicle id="19" type="1" depart="91.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

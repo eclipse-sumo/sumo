@@ -21,73 +21,73 @@
 -->
 
 <routes>
-   <vehicle id="0" depart="0" arrivalpos="0">
+   <vehicle id="0" depart="0.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="1" depart="10" arrivalpos="0" color="0.00,0.00,0.00">
+   <vehicle id="1" depart="10.00" arrivalpos="0" color="0.00,0.00,0.00">
       <route color="0.00,0.00,0.00" edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="2" depart="11" arrivalpos="0" color="1.00,0.00,1.00">
+   <vehicle id="2" depart="11.00" arrivalpos="0" color="1.00,0.00,1.00">
       <route color="1.00,0.00,1.00" edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="3" depart="20" departpos="0.00" arrivalpos="0">
+   <vehicle id="3" depart="20.00" departpos="0.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="4" depart="21" departpos="10.00" arrivalpos="0">
+   <vehicle id="4" depart="21.00" departpos="10.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="5" depart="22" departpos="free" arrivalpos="0">
+   <vehicle id="5" depart="22.00" departpos="free" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="6" depart="23" departpos="random" arrivalpos="0">
+   <vehicle id="6" depart="23.00" departpos="random" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="7" depart="30" departlane="0" arrivalpos="0">
+   <vehicle id="7" depart="30.00" departlane="0" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="8" depart="31" departlane="1" arrivalpos="0">
+   <vehicle id="8" depart="31.00" departlane="1" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="9" depart="32" departlane="random" arrivalpos="0">
+   <vehicle id="9" depart="32.00" departlane="random" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="10" depart="33" departlane="free" arrivalpos="0">
+   <vehicle id="10" depart="33.00" departlane="free" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="11" depart="34" departlane="departlane" arrivalpos="0">
+   <vehicle id="11" depart="34.00" departlane="departlane" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="12" depart="40" departspeed="0.00" arrivalpos="0">
+   <vehicle id="12" depart="40.00" departspeed="0.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="13" depart="41" departspeed="1.00" arrivalpos="0">
+   <vehicle id="13" depart="41.00" departspeed="1.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="14" depart="42" departspeed="max" arrivalpos="0">
+   <vehicle id="14" depart="42.00" departspeed="max" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="15" depart="43" departspeed="random" arrivalpos="0">
+   <vehicle id="15" depart="43.00" departspeed="random" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="16" depart="50" arrivallane="42" arrivalpos="0">
+   <vehicle id="16" depart="50.00" arrivallane="42" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="17" depart="51" arrivallane="current" arrivalpos="0">
+   <vehicle id="17" depart="51.00" arrivallane="current" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="18" depart="60" arrivalpos="0">
+   <vehicle id="18" depart="60.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="19" depart="61" arrivalpos="0">
+   <vehicle id="19" depart="61.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="20" depart="62" arrivalpos="0">
+   <vehicle id="20" depart="62.00" arrivalpos="0">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="21" depart="70" arrivalpos="0" arrivalspeed="42.00">
+   <vehicle id="21" depart="70.00" arrivalpos="0" arrivalspeed="42.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="22" depart="71" arrivalpos="0" arrivalspeed="current">
+   <vehicle id="22" depart="71.00" arrivalpos="0" arrivalspeed="current">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

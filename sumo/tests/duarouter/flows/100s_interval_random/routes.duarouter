@@ -1,53 +1,53 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/11/08 13:51:26 by SUMO duarouter Version 0.9.7
+<!-- generated on 03/10/10 12:31:26 by SUMO duarouter Version dev-SVN-r8163
 <configuration>
 
-   <input>
-      <net-file>input_net.net.xml</net-file>
-      <flow-definition>input_flows.flows.xml</flow-definition>
-   </input>
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <flow-definition value="input_flows.flows.xml"/>
+    </input>
 
-   <output>
-      <output-file>routes.rou.xml</output-file>
-   </output>
+    <output>
+        <output-file value="routes.rou.xml"/>
+    </output>
 
-   <processing>
-      <randomize-flows>true</randomize-flows>
-   </processing>
+    <processing>
+        <randomize-flows value="true"/>
+    </processing>
 
 </configuration>
 -->
 
 <routes>
-   <vehicle id="0_0" depart="11">
+   <vehicle id="0_0" depart="5.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_1" depart="11">
+   <vehicle id="0_1" depart="5.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_2" depart="17">
+   <vehicle id="0_2" depart="25.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_3" depart="19">
+   <vehicle id="0_3" depart="50.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_4" depart="22">
+   <vehicle id="0_4" depart="55.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_5" depart="28">
+   <vehicle id="0_5" depart="59.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_6" depart="42">
+   <vehicle id="0_6" depart="72.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_7" depart="46">
+   <vehicle id="0_7" depart="75.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_8" depart="75">
+   <vehicle id="0_8" depart="75.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_9" depart="77">
+   <vehicle id="0_9" depart="90.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

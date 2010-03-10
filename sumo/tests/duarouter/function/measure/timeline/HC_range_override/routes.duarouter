@@ -18,13 +18,13 @@
 -->
 
 <routes>
-   <vehicle id="0" depart="0">
+   <vehicle id="0" depart="0.00">
       <route edges="beg beg2left left left2end end rend"/>
    </vehicle>
-   <vehicle id="1" depart="100">
+   <vehicle id="1" depart="100.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="2" depart="200">
+   <vehicle id="2" depart="200.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

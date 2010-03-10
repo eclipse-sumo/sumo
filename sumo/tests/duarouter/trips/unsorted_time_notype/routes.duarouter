@@ -20,34 +20,34 @@
 -->
 
 <routes>
-   <vehicle id="8" depart="1">
+   <vehicle id="8" depart="1.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="7" depart="18">
+   <vehicle id="7" depart="18.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="2" depart="20">
+   <vehicle id="2" depart="20.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="6" depart="43">
+   <vehicle id="6" depart="43.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="1" depart="51">
+   <vehicle id="1" depart="51.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="5" depart="66">
+   <vehicle id="5" depart="66.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0" depart="71">
+   <vehicle id="0" depart="71.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="3" depart="78">
+   <vehicle id="3" depart="78.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="4" depart="84">
+   <vehicle id="4" depart="84.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="9" depart="99">
+   <vehicle id="9" depart="99.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

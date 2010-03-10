@@ -20,7 +20,7 @@
    <vtype id="KRAUSS_DEFAULT" length="5.00" maxspeed="70.00" color="1.00,1.00,0.00">
       <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50"/>
    </vtype>
-   <vehicle id="0" type="KRAUSS_DEFAULT" depart="0">
+   <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

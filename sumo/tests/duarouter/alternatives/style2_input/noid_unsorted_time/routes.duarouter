@@ -23,34 +23,34 @@
    <vtype id="KRAUSS_DEFAULT" length="5.00" maxspeed="70.00" color="1.00,1.00,0.00">
       <carFollowing-Krauss accel="2.60" decel="4.50" sigma="0.50"/>
    </vtype>
-   <vehicle id="9" type="KRAUSS_DEFAULT" depart="1" color="0.00,0.00,0.00">
+   <vehicle id="9" type="KRAUSS_DEFAULT" depart="1.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="1" type="KRAUSS_DEFAULT" depart="9" color="0.00,0.00,0.00">
+   <vehicle id="1" type="KRAUSS_DEFAULT" depart="9.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="5" type="KRAUSS_DEFAULT" depart="13" color="0.00,0.00,0.00">
+   <vehicle id="5" type="KRAUSS_DEFAULT" depart="13.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="2" type="KRAUSS_DEFAULT" depart="19" color="0.00,0.00,0.00">
+   <vehicle id="2" type="KRAUSS_DEFAULT" depart="19.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="4" type="KRAUSS_DEFAULT" depart="22" color="0.00,0.00,0.00">
+   <vehicle id="4" type="KRAUSS_DEFAULT" depart="22.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="6" type="KRAUSS_DEFAULT" depart="38" color="0.00,0.00,0.00">
+   <vehicle id="6" type="KRAUSS_DEFAULT" depart="38.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="7" type="KRAUSS_DEFAULT" depart="51" color="0.00,0.00,0.00">
+   <vehicle id="7" type="KRAUSS_DEFAULT" depart="51.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0" type="KRAUSS_DEFAULT" depart="79" color="0.00,0.00,0.00">
+   <vehicle id="0" type="KRAUSS_DEFAULT" depart="79.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="3" type="KRAUSS_DEFAULT" depart="88" color="0.00,0.00,0.00">
+   <vehicle id="3" type="KRAUSS_DEFAULT" depart="88.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="8" type="KRAUSS_DEFAULT" depart="99" color="0.00,0.00,0.00">
+   <vehicle id="8" type="KRAUSS_DEFAULT" depart="99.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

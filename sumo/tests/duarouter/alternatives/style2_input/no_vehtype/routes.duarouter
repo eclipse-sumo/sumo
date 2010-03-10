@@ -16,34 +16,34 @@
 -->
 
 <routes>
-   <vehicle id="0" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="0" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="1" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="1" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="2" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="2" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="3" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="3" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="4" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="4" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="5" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="5" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="6" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="6" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="7" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="7" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="8" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="8" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="9" depart="0" color="0.00,0.00,0.00">
+   <vehicle id="9" depart="0.00" color="0.00,0.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

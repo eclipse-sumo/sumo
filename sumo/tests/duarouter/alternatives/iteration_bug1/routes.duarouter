@@ -33,7 +33,7 @@
    <vtype id="CarA" length="2.00" maxspeed="180.00">
       <carFollowing-Krauss accel="2.00" decel="6.00" sigma="0.00" tau="1.00"/>
    </vtype>
-   <vehicle id="veh0" type="CarA" depart="1" color="1.00,0.00,0.00">
+   <vehicle id="veh0" type="CarA" depart="1.00" color="1.00,0.00,0.00">
       <route color="1.00,0.00,0.00" edges="L1 L9 L17 L26"/>
    </vehicle>
 </routes>

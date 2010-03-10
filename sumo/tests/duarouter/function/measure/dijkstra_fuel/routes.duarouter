@@ -18,7 +18,7 @@
 -->
 
 <routes>
-   <vehicle id="0" depart="0">
+   <vehicle id="0" depart="0.00">
       <route edges="beg b2b3 b3a3 a3a25 a25e"/>
    </vehicle>
 </routes>

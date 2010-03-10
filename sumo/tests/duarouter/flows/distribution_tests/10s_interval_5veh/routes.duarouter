@@ -16,19 +16,19 @@
 -->
 
 <routes>
-   <vehicle id="0_0" depart="0">
+   <vehicle id="0_0" depart="0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_1" depart="2">
+   <vehicle id="0_1" depart="2.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_2" depart="4">
+   <vehicle id="0_2" depart="4.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_3" depart="6">
+   <vehicle id="0_3" depart="6.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="0_4" depart="8">
+   <vehicle id="0_4" depart="8.00">
       <route edges="beg middle end rend"/>
    </vehicle>
 </routes>

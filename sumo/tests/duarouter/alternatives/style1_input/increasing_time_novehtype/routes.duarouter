@@ -16,16 +16,16 @@
 -->
 
 <routes>
-   <vehicle id="0" depart="0">
+   <vehicle id="0" depart="0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="1" depart="10">
+   <vehicle id="1" depart="10.00">
       <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="2" depart="20" color="1.00,1.00,0.00">
+   <vehicle id="2" depart="20.00" color="1.00,1.00,0.00">
       <route edges="beg middle end rend"/>
    </vehicle>
-   <vehicle id="3" depart="30" color="1.00,1.00,0.00">
+   <vehicle id="3" depart="30.00" color="1.00,1.00,0.00">
       <route color="1.00,1.00,0.00" edges="beg middle end rend"/>
    </vehicle>
 </routes>
