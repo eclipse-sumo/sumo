@@ -75,8 +75,8 @@ class RouteReader(handler.ContentHandler):
                     self._edgeWeights[edge] = 0
                 self._edgeWeights[edge] += 1
         elif name == 'vehicle':
-            if int(attrs['depart']) > self._maxDepart:
-                self._maxDepart = int(attrs['depart'])
+            if float(attrs['depart']) > self._maxDepart:
+                self._maxDepart = float(attrs['depart'])
 
     def getWeight(self, edge):
         return self._edgeWeights.get(edge, 0)
@@ -103,7 +103,7 @@ def identity(edge, weight):
 def generateWeights(step, options, edges, weights, costFunction):
     fd = open("dump_%s_%s.xml" % (step, options.aggregation), "w")
     print >> fd, '<?xml version="1.0"?>\n<netstats>'
-    for time in range(0, reader.getMaxDepart()+1, options.aggregation):
+    for time in range(0, int(reader.getMaxDepart()+1), options.aggregation):
         print >> fd, '    <interval begin="%s" end="%s" id="dump_%s">' % (time, time + options.aggregation, options.aggregation)
         for edge in edges:
             cost = costFunction(edge, weights.getWeight(edge))
