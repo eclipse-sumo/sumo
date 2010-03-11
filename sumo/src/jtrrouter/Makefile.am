@@ -24,4 +24,3 @@ jtrrouter_LDADD   = ../router/librouter.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
-libjtrrouting_a_SOURCES = 
