@@ -116,7 +116,7 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t) {
             addSingleRoute(net, t);
         }
     } else {
-        while (myDepartures.size()>0&&*(myDepartures.end()-1)==t) {
+        while (myDepartures.size()>0&&*(myDepartures.end()-1)<t) {
             addSingleRoute(net, t);
             myDepartures.pop_back();
         }
