@@ -663,7 +663,8 @@ long
 GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data) {
     delete myPopup;
     myPopup = 0;
-    if (!myChanger->onLeftBtnRelease(data) && myApp->isGaming()) {
+    myChanger->onLeftBtnRelease(data);
+    if (myApp->isGaming()) {
         onGamingClick(getPositionInformation());
     }
     ungrab();
