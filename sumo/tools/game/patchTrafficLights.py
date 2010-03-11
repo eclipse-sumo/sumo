@@ -25,20 +25,25 @@ if not options.netfile:
     sys.exit()
 
 skip = False
+tlid = ""
 out = open(options.outfile, "w")
 for line in open(options.netfile):
-    m = re.search('<tl-logic id="([^"])"', line)
-    if m:
-        skip = True
-        print >> out, line + """
-      <phase duration="%s" state="rrrrrrrrrrrrrrrr"/>
+    if tlid and not skip:
+        m = re.search('state="([^"]+)"', line)
+        if m and len(m.group(1)) == 16:
+            skip = True
+            print >> out, """      <phase duration="%s" state="rrrrrrrrrrrrrrrr"/>
       <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
    </tl-logic>
 
    <tl-logic id="%s" type="static" programID="1" offset="0">
       <phase duration="%s" state="rrrrrrrrrrrrrrrr"/>
-      <phase duration="10000" state="GGggrrrrGGggrrrr"/>""" % (options.switch, m.group(1), options.switch)
+      <phase duration="10000" state="GGggrrrrGGggrrrr"/>""" % (options.switch, tlid, options.switch)
+    m = re.search('<tl-logic id="([^"]+)"', line)
+    if m:
+        tlid = m.group(1)
     if re.search('</tl-logic>', line):
         skip = False
+        tlid = ""
     if not skip:
         out.write(line)

@@ -62,7 +62,7 @@ class StartDialog:
             category = cfg[:-9]
             if not category in high:
                 high[category] = 10*[("", "", -1.)]
-            Tkinter.Button(self.root, text=category, command=lambda:self.ok(cfg)).pack()
+            Tkinter.Button(self.root, text=category, command=lambda cfg=cfg:self.ok(cfg)).pack()
         # The following three commands are needed so the window pops
         # up on top on Windows...
         self.root.iconify()
@@ -72,6 +72,7 @@ class StartDialog:
 
     def ok(self, cfg):
         self.root.destroy()
+        print "starting", cfg
         self.ret = subprocess.call([guisimBinary, "-G", "-Q", "-c", cfg])
         self.category = cfg[:-9]
 
@@ -131,7 +132,7 @@ for line in open("netstate.xml"):
         totalWait += float(m.group(1))
 switch = []
 for line in open("tlsstate.xml"):
-    m = re.search('tlsstate time="(\d+)"', line)
+    m = re.search('tlsstate time="(\d+(.\d+)?)"', line)
     if m:
         switch += [m.group(1)]
 print switch, totalWait
