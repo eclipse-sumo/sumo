@@ -188,12 +188,14 @@
    </row-logic>
 
 
-   <tl-logic id="0" type="static" programID="horizontal" offset="0">
+   <tl-logic id="0" type="static" programID="0" offset="0">
+
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
       <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
    </tl-logic>
 
-
-   <tl-logic id="0" type="static" programID="vertical" offset="0">
+   <tl-logic id="0" type="static" programID="1" offset="0">
+      <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
       <phase duration="10000" state="GGggrrrrGGggrrrr"/>
    </tl-logic>
 

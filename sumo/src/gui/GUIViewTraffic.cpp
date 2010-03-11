@@ -427,7 +427,7 @@ GUIViewTraffic::showViewschemeEditor() {
 
 void
 GUIViewTraffic::onGamingClick(Position2D pos) {
-    const MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
+    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*> &logics = tlsControl.getAllLogics();
     MSTrafficLightLogic *minTll = 0;
     SUMOReal minDist = std::numeric_limits<SUMOReal>::infinity();
@@ -450,11 +450,15 @@ GUIViewTraffic::onGamingClick(Position2D pos) {
         const MSTLLogicControl::TLSLogicVariants &vars = tlsControl.get(minTll->getID());
         const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         if (logics.size() > 1) {
+            MSSimpleTrafficLightLogic *l = 0;
             if (minTll->getSubID() == logics[0]->getSubID()) {
-                MSNet::getInstance()->getTLSControl().switchTo(minTll->getID(), logics[1]->getSubID());
+                tlsControl.switchTo(minTll->getID(), logics[1]->getSubID());
+                l = (MSSimpleTrafficLightLogic*) logics[1];
             } else {
-                MSNet::getInstance()->getTLSControl().switchTo(minTll->getID(), logics[0]->getSubID());
+                tlsControl.switchTo(minTll->getID(), logics[0]->getSubID());
+                l = (MSSimpleTrafficLightLogic*) logics[0];
             }
+            l->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), 0, l->getPhase(0).duration);
             update();
         }
     }
