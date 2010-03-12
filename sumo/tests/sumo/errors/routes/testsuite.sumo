@@ -57,3 +57,6 @@ second_edge_false__oldstyle_plainemission
 
 # plain emission, old style: last edge is not in the network
 last_edge_false__oldstyle_plainemission
+
+# disconnected routes
+disconnected
