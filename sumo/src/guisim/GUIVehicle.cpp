@@ -197,7 +197,7 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*) {
 GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
-                       int vehicleIndex) throw()
+                       int vehicleIndex) throw(ProcessError)
         : MSVehicle(pars, route, type, vehicleIndex),
         GUIGlObject(idStorage, "vehicle:"+pars->id) {
     myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;

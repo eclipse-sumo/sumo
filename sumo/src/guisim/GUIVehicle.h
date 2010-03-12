@@ -70,7 +70,7 @@ public:
     GUIVehicle(GUIGlObjectStorage &idStorage,
                SUMOVehicleParameter* pars, const MSRoute* route,
                const MSVehicleType* type,
-               int vehicleIndex) throw();
+               int vehicleIndex) throw(ProcessError);
 
     /// destructor
     ~GUIVehicle() throw();
