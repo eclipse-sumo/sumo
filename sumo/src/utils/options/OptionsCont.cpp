@@ -40,6 +40,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <sstream>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -704,7 +705,6 @@ OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig) throw() {
 
 std::vector<std::string>
 OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgument) {
-    vector<string> ret;
     Option *o = getSecure(name);
     string def = o->getString();
     if (def.find(';')!=string::npos&&!myHaveInformedAboutDeprecatedDivider) {
@@ -712,7 +712,11 @@ OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgumen
         myHaveInformedAboutDeprecatedDivider = true;
     }
     StringTokenizer st(def, ";,", true);
-    return st.getVector();
+    std::vector<std::string> ret = st.getVector();
+    for (std::vector<std::string>::iterator i=ret.begin(); i!=ret.end(); ++i) {
+        (*i) = StringUtils::prune(*i);
+    }
+    return ret;
 }
 
 
