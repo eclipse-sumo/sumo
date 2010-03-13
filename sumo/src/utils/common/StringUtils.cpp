@@ -56,12 +56,14 @@ std::string StringUtils::emptyString;
 // ===========================================================================
 std::string
 StringUtils::prune(std::string str) {
-    size_t idx = str.find_first_not_of(" ");
-    if (idx!=string::npos) {
+    int idx = 0;
+    while (idx<str.length()&&str[idx]<=32) ++idx;
+    if (idx<str.length()&&idx!=0) {
         str = str.substr(idx);
     }
-    idx = str.find_last_not_of(" ");
-    if (idx!=string::npos&&idx!=str.length()-1) {
+    idx = str.length() - 1;
+    while (idx>=0&&str[idx]<=32) --idx;
+    if (idx!=str.length() - 1) {
         str = str.substr(0, idx+1);
     }
     return str;
