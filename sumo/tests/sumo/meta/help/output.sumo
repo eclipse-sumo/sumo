@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r8397
+SUMO sumo Version dev-SVN-r8426
  (c) DLR 2001-2009; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -54,6 +54,8 @@ Usage: sumo.exe [OPTION]*
                                         being teleported
   --max-depart-delay INT              How long vehicles wait for departure
                                         before being skipped
+  --sloppy-emit                       Whether emission on an edge shall not be
+                                        repeated in same step once failed.
 
  TLS Defaults Options:
   --agent-tl.detector-len FLOAT       
