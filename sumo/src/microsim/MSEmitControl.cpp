@@ -43,8 +43,11 @@
 // member method definitions
 // ===========================================================================
 MSEmitControl::MSEmitControl(MSVehicleControl &vc,
-                             SUMOTime maxDepartDelay) throw()
-        : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay) {}
+                             SUMOTime maxDepartDelay,
+							 bool checkEdgesOnce) throw()
+							 : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay),
+							 myCheckEdgesOnce(checkEdgesOnce)
+{}
 
 
 MSEmitControl::~MSEmitControl() throw() {
@@ -139,7 +142,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits) throw() {
     assert(veh->getDesiredDepart() <= time);
     const MSEdge &edge = veh->getDepartEdge();
-    if (/*edge.getLastFailedEmissionTime()!=time && */edge.emit(*veh, time)) {
+    if ((!myCheckEdgesOnce || edge.getLastFailedEmissionTime()!=time) && edge.emit(*veh, time)) {
         // Successful emission.
         checkFlowWait(veh);
         veh->onDepart();

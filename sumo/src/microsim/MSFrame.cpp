@@ -170,6 +170,8 @@ MSFrame::fillOptions() {
     oc.doRegister("max-depart-delay", new Option_Integer(-1));
     oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped");
 
+    oc.doRegister("sloppy-emit", new Option_Bool(false));
+    oc.addDescription("sloppy-emit", "Processing", "Whether emission on an edge shall not be repeated in same step once failed.");
 
     // devices
     MSDevice_Routing::insertOptions();

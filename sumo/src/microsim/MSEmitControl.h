@@ -66,8 +66,9 @@ public:
      *
      * @param[in] vc The assigned vehicle control (needed for vehicle reemission and deletion)
      * @param[in] maxDepartDelay Vehicles waiting longer than this for emission are deleted (-1: no deletion)
+     * @param[in] checkEdgesOnce Whether an edge on which a vehicle could not depart should be ignored in the same step
      */
-    MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay) throw();
+    MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay, bool checkEdgesOnce) throw();
 
 
     /// @brief Destructor.
@@ -202,6 +203,9 @@ private:
 
     /// @brief The maximum waiting time; vehicles waiting longer are deleted (-1: no deletion)
     SUMOTime myMaxDepartDelay;
+
+	/// @brief Whether an edge on which a vehicle could not depart should be ignored in the same step
+	bool myCheckEdgesOnce;
 
 
 private:

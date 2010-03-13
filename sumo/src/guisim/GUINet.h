@@ -52,7 +52,6 @@
 // ===========================================================================
 class MSEdgeControl;
 class MSJunctionControl;
-class MSEmitControl;
 class MSRouteLoaderControl;
 class MSTLLogicControl;
 class MSTrafficLightLogic;

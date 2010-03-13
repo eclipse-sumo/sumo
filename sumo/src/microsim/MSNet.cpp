@@ -167,7 +167,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
-    myEmitter = new MSEmitControl(*vc, (SUMOTime) oc.getInt("max-depart-delay"));// !!! SUMOTime-option
+    myEmitter = new MSEmitControl(*vc, (SUMOTime) oc.getInt("max-depart-delay"), oc.getBool("sloppy-emit"));// !!! SUMOTime-option
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
