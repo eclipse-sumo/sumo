@@ -45,7 +45,7 @@ OutputDevice_Network::OutputDevice_Network(const std::string &host,
     mySocket = new tcpip::Socket(host, port);
     try {
         mySocket->connect();
-    } catch (tcpip::SocketException e) {
+    } catch (tcpip::SocketException &e) {
         throw IOError(toString(e.what()) + " (host: " + host + ", port: " + toString(port) + ")");
     }
 }
