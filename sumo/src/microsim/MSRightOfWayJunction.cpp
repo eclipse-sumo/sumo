@@ -207,13 +207,5 @@ MSRightOfWayJunction::deadlockKiller() {
 }
 
 
-bool areRealFoes(MSLink *l1, MSLink *l2) {
-    if (&l1->getLane()->getEdge()!=&l2->getLane()->getEdge()) {
-        return true;
-    }
-    return false;
-}
-
-
 /****************************************************************************/
 
