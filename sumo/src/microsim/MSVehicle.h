@@ -89,7 +89,7 @@ public:
     friend class MSLaneChanger;
 
     /** @class State
-     * @brief Container that holds the vehicles driving state (position+speed). 
+     * @brief Container that holds the vehicles driving state (position+speed).
      */
     class State {
         /// @brief vehicle sets states directly
@@ -174,7 +174,7 @@ public:
     //@{
 
     /** @brief Called when the vehicle is inserted into the network
-     * 
+     *
      * Sets optional information about departzre time, informs the vehicle
      *  control about a further running vehicle.
      */
@@ -187,7 +187,7 @@ public:
      *  (the vehicle has arrived). Moves along work reminders and
      *  informs all devices and assigned MSVehicleQuitReminded instances
      *  about quitting. Calls "leaveLane" then.
-     * 
+     *
      * @param[in] forTeleporting true if the vehicle shall be teleported (otherwise it has reached its destination)
      */
     void onRemovalFromNet(bool forTeleporting) throw();
@@ -950,7 +950,7 @@ protected:
 
     /// Use this constructor only.
     MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
-              const MSVehicleType* type, int vehicleIndex) throw (ProcessError);
+              const MSVehicleType* type, int vehicleIndex) throw(ProcessError);
 
     /// information how long ago the vehicle has performed a lane-change
     unsigned int myLastLaneChangeOffset;

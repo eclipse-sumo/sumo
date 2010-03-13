@@ -183,7 +183,7 @@ MSVehicle::~MSVehicle() throw() {
 MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
-                     int vehicleIndex) throw (ProcessError) :
+                     int vehicleIndex) throw(ProcessError) :
         myLastLaneChangeOffset(0),
         myTarget(0),
         myWaitingTime(0),
@@ -1475,7 +1475,7 @@ MSVehicle::rebuildAllowedLanes(bool reinit) {
     if (dist<MIN_DIST) {
         unsigned int pos = (unsigned int)(distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size());
         if (pos>=myRoute->size()-1) {
-            if(pos==0&&myRoute->size()==1) {
+            if (pos==0&&myRoute->size()==1) {
                 myAllowedLanes.push_back((*myRoute)[0]->allowedLanes(myType->getVehicleClass()));
             }
             return;
