@@ -23,6 +23,6 @@
 -->
 
 <tls-switch-states>
-    <tlsstate time="450.00" id="0" subid="S2" phase="0">rrrrGGggrrrrGGgg</tlsstate>
-    <tlsstate time="500.00" id="0" subid="S4" phase="0">rrrrrrrrrrrrrrrr</tlsstate>
+    <tlsstate time="450.00" id="0" subid="S2" phase="0" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="500.00" id="0" subid="S4" phase="0" state="rrrrrrrrrrrrrrrr"/>
 </tls-switch-states>

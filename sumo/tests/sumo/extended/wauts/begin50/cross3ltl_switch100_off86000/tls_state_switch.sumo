@@ -23,10 +23,10 @@
 -->
 
 <tls-switch-states>
-    <tlsstate time="50.00" id="0" subid="0" phase="4">rrrrGGggrrrrGGgg</tlsstate>
-    <tlsstate time="76.00" id="0" subid="0" phase="5">rrrryyggrrrryygg</tlsstate>
-    <tlsstate time="80.00" id="0" subid="0" phase="6">rrrrrrGGrrrrrrGG</tlsstate>
-    <tlsstate time="86.00" id="0" subid="0" phase="7">rrrrrryyrrrrrryy</tlsstate>
-    <tlsstate time="90.00" id="0" subid="0" phase="0">GGggrrrrGGggrrrr</tlsstate>
-    <tlsstate time="100.00" id="0" subid="S1" phase="0">GGggrrrrGGggrrrr</tlsstate>
+    <tlsstate time="50.00" id="0" subid="0" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsstate time="76.00" id="0" subid="0" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsstate time="80.00" id="0" subid="0" phase="6" state="rrrrrrGGrrrrrrGG"/>
+    <tlsstate time="86.00" id="0" subid="0" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsstate time="90.00" id="0" subid="0" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsstate time="100.00" id="0" subid="S1" phase="0" state="GGggrrrrGGggrrrr"/>
 </tls-switch-states>

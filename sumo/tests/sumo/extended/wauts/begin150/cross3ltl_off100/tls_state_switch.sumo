@@ -23,5 +23,5 @@
 -->
 
 <tls-switch-states>
-    <tlsstate time="150.00" id="0" subid="off" phase="0">oooooooooooooooo</tlsstate>
+    <tlsstate time="150.00" id="0" subid="off" phase="0" state="oooooooooooooooo"/>
 </tls-switch-states>
