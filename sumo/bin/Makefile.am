@@ -6,6 +6,8 @@ if TRACI
 TRACI_TESTCLIENT_APPS = traci-testclient
 endif
 
+DISTCLEANFILES = sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
+
 all: sumo dfrouter duarouter jtrrouter netconvert netgen od2trips polyconvert $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
 sumo: ../src/sumo
 	cp ../src/sumo .
