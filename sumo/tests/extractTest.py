@@ -22,6 +22,7 @@ options, args = optParser.parse_args()
 if not options.file and len(args) == 0:
     optParser.print_help()
     sys.exit(1)
+os.environ["PATH"] += os.pathsep + os.path.abspath(join(os.path.basename(sys.argv[0]), '..', 'bin'))
 targets = {}
 if options.file:
     dirname = os.path.dirname(options.file)
