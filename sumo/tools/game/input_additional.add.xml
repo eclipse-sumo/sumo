@@ -1,5 +1,5 @@
 <add>
-    <timed_event type="SaveTLSSwitchStates" source="0" dest="tlsstate.xml"/>
+    <timed_event type="SaveTLSSwitchStates" dest="tlsstate.xml"/>
     <meandata-edge id="dump" file="netstate.xml" excludeEmpty="true"/>
     <meandata-edge id="hbefa" type="hbefa" file="netstate.xml" excludeEmpty="true"/>
 </add>
