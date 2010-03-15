@@ -16,8 +16,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -38,12 +36,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -68,12 +60,10 @@ Command_SaveTLSState::execute(SUMOTime currentTime) throw(ProcessError) {
     << "\" id=\"" << myLogics.getActive()->getID()
     << "\" subid=\"" << myLogics.getActive()->getSubID()
     << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-    << "\">"
-    << myLogics.getActive()->getCurrentPhaseDef().getState() << "</tlsstate>" << "\n";
+    << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n";
     return 1;
 }
 
 
 
 /****************************************************************************/
-

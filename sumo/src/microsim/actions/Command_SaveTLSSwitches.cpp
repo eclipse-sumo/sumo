@@ -16,8 +16,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -40,12 +38,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -86,14 +78,14 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError) {
             SUMOTime lastOn = myPreviousLinkStates[i];
             for (int j=0; j<(int) currLinks.size(); j++) {
                 MSLink *link = currLinks[j];
-                myOutputDevice << "   <tlsswitch tls=\"" << light->getID()
+                myOutputDevice << "   <tlsswitch id=\"" << light->getID()
                 << "\" subid=\"" << light->getSubID()
                 << "\" fromLane=\"" << currLanes[j]->getID()
                 << "\" toLane=\"" << link->getLane()->getID()
                 << "\" begin=\"" << lastOn
                 << "\" end=\"" << currentTime
                 << "\" duration=\"" << (currentTime-lastOn)
-                << "\"/>" << "\n";
+                << "\"/>\n";
             }
             myPreviousLinkStates.erase(myPreviousLinkStates.find(i));
         }

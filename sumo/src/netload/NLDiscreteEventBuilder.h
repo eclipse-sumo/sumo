@@ -38,7 +38,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class Command;
 class MSNet;
 
 
@@ -73,13 +72,13 @@ public:
 
 private:
     /// Builds an action which saves the state of a certain tls into a file
-    Command *buildSaveTLStateCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
+    void buildSaveTLStateCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
     /// Builds an action which saves the switch times of links into a file
-    Command *buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
+    void buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
     /// Builds an action which saves the switch times and states of tls into a file
-    Command *buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
+    void buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
 protected:
     /// Definitions of a storage for build actions

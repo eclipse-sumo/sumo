@@ -46,12 +46,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
@@ -69,7 +63,7 @@ void
 NLDiscreteEventBuilder::addAction(const SUMOSAXAttributes &attrs,
                                   const std::string &basePath) {
     bool ok = true;
-    string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "action", 0, ok, "");
+    const std::string type = attrs.getOptStringReporting(SUMO_ATTR_TYPE, "action", 0, ok, "");
     // check whether the type was given
     if (type==""||!ok) {
         throw InvalidArgument("An action's type is not given.");
@@ -79,85 +73,102 @@ NLDiscreteEventBuilder::addAction(const SUMOSAXAttributes &attrs,
     if (i==myActions.end()) {
         throw InvalidArgument("The action type '" + type + "' is not known.");
     }
-    ActionType at = (*i).second;
     // build the action
-    Command *a;
-    switch (at) {
+    switch ((*i).second) {
     case EV_SAVETLSTATE:
-        a = buildSaveTLStateCommand(attrs, basePath);
+        buildSaveTLStateCommand(attrs, basePath);
         break;
     case EV_SAVETLSWITCHES:
-        a = buildSaveTLSwitchesCommand(attrs, basePath);
+        buildSaveTLSwitchesCommand(attrs, basePath);
         break;
     case EV_SAVETLSWITCHSTATES:
-        a = buildSaveTLSwitchStatesCommand(attrs, basePath);
+        buildSaveTLSwitchStatesCommand(attrs, basePath);
         break;
-    default:
-        throw InvalidArgument("Unknown trigger type.");
     }
 }
 
 
-Command *
+void
 NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes &attrs,
         const std::string &basePath) {
     bool ok = true;
-    string dest = attrs.getOptStringReporting(SUMO_ATTR_DEST, "action", 0, ok, "");
-    string source = attrs.getOptStringReporting(SUMO_ATTR_SOURCE, "action", 0, ok, "*");
+    const std::string dest = attrs.getOptStringReporting(SUMO_ATTR_DEST, "action", 0, ok, "");
+    const std::string source = attrs.getOptStringReporting(SUMO_ATTR_SOURCE, "action", 0, ok, "");
     // check the parameter
-    if (dest==""||source==""||!ok) {
+    if (dest==""||!ok) {
         throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
     }
-    // get the logic
-    if (!myNet.getTLSControl().knows(source)) {
-        throw InvalidArgument("The traffic light logic to save (" + source +  ") is not given.");
-
+    if (source == "") {
+        const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
+        for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
+            const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(*tls);
+            new Command_SaveTLSState(logics, OutputDevice::getDevice(dest, basePath));
+        }
+    } else {
+        // get the logic
+        if (!myNet.getTLSControl().knows(source)) {
+            throw InvalidArgument("The traffic light logic to save (" + source +  ") is not known.");
+        }
+        const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
+        // build the action
+        new Command_SaveTLSState(logics, OutputDevice::getDevice(dest, basePath));
     }
-    const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
-    // build the action
-    return new Command_SaveTLSState(logics, OutputDevice::getDevice(dest, basePath));
 }
 
 
-Command *
+void
 NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attrs,
         const std::string &basePath) {
     bool ok = true;
-    string dest = attrs.getOptStringReporting(SUMO_ATTR_DEST, "action", 0, ok, "");
-    string source = attrs.getOptStringReporting(SUMO_ATTR_SOURCE, "action", 0, ok, "*");
+    const std::string dest = attrs.getOptStringReporting(SUMO_ATTR_DEST, "action", 0, ok, "");
+    const std::string source = attrs.getOptStringReporting(SUMO_ATTR_SOURCE, "action", 0, ok, "");
     // check the parameter
-    if (dest==""||source==""||!ok) {
-        throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
+    if (dest==""||!ok) {
+        throw InvalidArgument("Incomplete description of an 'SaveTLSSwitchTimes'-action occured.");
     }
-    // get the logic
-    if (!myNet.getTLSControl().knows(source)) {
-        throw InvalidArgument("The traffic light logic to save (" + source +  ") is not given.");
-
+    if (source == "") {
+        const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
+        for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
+            const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(*tls);
+            new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(dest, basePath));
+        }
+    } else {
+        // get the logic
+        if (!myNet.getTLSControl().knows(source)) {
+            throw InvalidArgument("The traffic light logic to save (" + source +  ") is not known.");
+        }
+        const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
+        // build the action
+        new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(dest, basePath));
     }
-    const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
-    // build the action
-    return new Command_SaveTLSSwitches(logics, OutputDevice::getDevice(dest, basePath));
 }
 
 
-Command *
+void
 NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs,
         const std::string &basePath) {
     bool ok = true;
-    string dest = attrs.getOptStringReporting(SUMO_ATTR_DEST, "action", 0, ok, "");
-    string source = attrs.getOptStringReporting(SUMO_ATTR_SOURCE, "action", 0, ok, "*");
+    const std::string dest = attrs.getOptStringReporting(SUMO_ATTR_DEST, "action", 0, ok, "");
+    const std::string source = attrs.getOptStringReporting(SUMO_ATTR_SOURCE, "action", 0, ok, "");
     // check the parameter
-    if (dest==""||source==""||!ok) {
-        throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
+    if (dest==""||!ok) {
+        throw InvalidArgument("Incomplete description of an 'SaveTLSSwitchStates'-action occured.");
     }
-    // get the logic
-    if (!myNet.getTLSControl().knows(source)) {
-        throw InvalidArgument("The traffic light logic to save (" + source +  ") is not given.");
-
+    if (source == "") {
+        const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
+        for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
+            const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(*tls);
+            new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(dest, basePath));
+        }
+    } else {
+        // get the logic
+        if (!myNet.getTLSControl().knows(source)) {
+            throw InvalidArgument("The traffic light logic to save (" + source +  ") is not known.");
+        }
+        const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
+        // build the action
+        new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(dest, basePath));
     }
-    const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
-    // build the action
-    return new Command_SaveTLSSwitchStates(logics, OutputDevice::getDevice(dest, basePath));
 }
 
 

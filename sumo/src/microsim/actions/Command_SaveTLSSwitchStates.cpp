@@ -16,8 +16,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -41,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants &logics,
@@ -64,14 +56,13 @@ Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() throw() {
 
 SUMOTime
 Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw(ProcessError) {
-    const string &state = myLogics.getActive()->getCurrentPhaseDef().getState();
+    const std::string &state = myLogics.getActive()->getCurrentPhaseDef().getState();
     if (state!=myPreviousState||myLogics.getActive()->getSubID()!=myPreviousSubID) {
         myOutputDevice << "    <tlsstate time=\"" << currentTime
         << "\" id=\"" << myLogics.getActive()->getID()
         << "\" subid=\"" << myLogics.getActive()->getSubID()
         << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-        << "\">"
-        << state << "</tlsstate>" << "\n";
+        << "\" state=\"" << state << "\"/>\n";
         myPreviousState = state;
         myPreviousSubID = myLogics.getActive()->getSubID();
     }
