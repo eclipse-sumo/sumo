@@ -177,7 +177,7 @@ public:
     void guiSimulationStep();
 
 
-    /// @name functions for performace measurements
+    /// @name functions for performance measurements
     /// @{
 
     /** @brief Returns the duration of the last step (sim+visualisation+idle) (in ms)

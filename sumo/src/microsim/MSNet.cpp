@@ -475,9 +475,9 @@ MSNet::writeOutput() {
 }
 
 
-long
-MSNet::getSimStepDurationInMillis() const {
-    return mySimStepDuration;
+bool
+MSNet::logSimulationDuration() const throw() {
+    return myLogExecutionTime;
 }
 
 

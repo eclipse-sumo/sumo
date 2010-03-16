@@ -151,7 +151,7 @@ public:
 
 
     /** @brief Performs a single simulation step
-     * @todo What exceptions may occure?
+     * @todo Which exceptions may occur?
      */
     void simulationStep();
 
@@ -166,22 +166,22 @@ public:
     void closeSimulation(SUMOTime start);
 
 
-
-
-    long getSimStepDurationInMillis() const;
-
-    /// route handler may add routes and vehicles
-    friend class MSRouteHandler;
-
+    /** @brief Returns the current simulation step (in s)
+     * @return the current simulation step
+     */
     SUMOTime getCurrentTimeStep() const;
 
 
+    /** @brief Write netstate, emission and detector output
+     * @todo Which exceptions may occur?
+     */
     void writeOutput();
 
 
-    bool logSimulationDuration() const {
-        return myLogExecutionTime;
-    }
+    /** @brief Returns whether duration shall be logged
+     * @return Whether duration shall be logged
+     */
+    bool logSimulationDuration() const throw();
 
 
     /// @name Output during the simulation
