@@ -293,7 +293,10 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont &ec) {
         MsgHandler::getWarningInstance()->inform("Lane sizes differ for connection '" + toString(getID()) + "'.");
     } else {
         for (unsigned int index=0; index<fromLanes.size(); ++index) {
-            if (!fromEdge->addLane2LaneConnection(fromLanes[index], toEdge, toLanes[index], NBEdge::L2L_VALIDATED)) {
+            if (fromEdge->getNoLanes()<=fromLanes[index]) {
+                MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
+                ++unsetConnections;
+            } else if (!fromEdge->addLane2LaneConnection(fromLanes[index], toEdge, toLanes[index], NBEdge::L2L_VALIDATED)) {
                 MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(fromLanes[index]) + "' and '" + toEdge->getID() + "_" + toString(toLanes[index]) + "'.");
                 ++unsetConnections;
             }
