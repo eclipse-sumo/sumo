@@ -8,3 +8,6 @@ duplicate_nodes
 
 # Tests the robustness of the parser with a defective OSM file
 osm_parser
+
+# Checks for false joining of two edges into one
+false_edge_join
