@@ -50,12 +50,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -85,7 +79,7 @@ OptionsIO::loadConfiguration() throw(ProcessError) {
     if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
         return;
     }
-    string path = oc.getString("configuration-file");
+    std::string path = oc.getString("configuration-file");
     if (!FileHelpers::exists(path)) {
         throw ProcessError("Could not find configuration '" + oc.getString("configuration-file") + "'.");
     }

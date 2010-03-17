@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // variable definitions
 // ===========================================================================
 const int StringTokenizer::NEWLINE = -256;
@@ -136,7 +130,7 @@ size_t StringTokenizer::size() const {
     return myStarts.size();
 }
 
-void StringTokenizer::prepare(const string &tosplit, const string &token, bool splitAtAllChars) {
+void StringTokenizer::prepare(const std::string &tosplit, const std::string &token, bool splitAtAllChars) {
     size_t beg = 0;
     size_t len = token.length();
     if (splitAtAllChars) {
@@ -149,7 +143,7 @@ void StringTokenizer::prepare(const string &tosplit, const string &token, bool s
         } else {
             end = tosplit.find(token, beg);
         }
-        if (end == string::npos) {
+        if (end == std::string::npos) {
             end = tosplit.length();
         }
         myStarts.push_back(beg);
@@ -162,13 +156,13 @@ void StringTokenizer::prepare(const string &tosplit, const string &token, bool s
     }
 }
 
-void StringTokenizer::prepareWhitechar(const string &tosplit) {
+void StringTokenizer::prepareWhitechar(const std::string &tosplit) {
     size_t len = tosplit.length();
     size_t beg = 0;
     while (beg<len&&tosplit[beg]<=32) {
         beg++;
     }
-    while (beg!=string::npos&&beg<len) {
+    while (beg!=std::string::npos&&beg<len) {
         size_t end = beg;
         while (end<len&&tosplit[end]>32) {
             end++;

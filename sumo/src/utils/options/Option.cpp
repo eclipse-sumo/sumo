@@ -42,12 +42,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -95,7 +89,7 @@ Option::getInt() const throw(InvalidArgument) {
 }
 
 
-string
+std::string
 Option::getString() const throw(InvalidArgument) {
     throw InvalidArgument("This is not a string-option");
 }
@@ -135,7 +129,7 @@ Option::markSet() throw() {
 }
 
 
-string
+std::string
 Option::getValueString() const throw(InvalidArgument) {
     throw InvalidArgument("This is an abstract class.");
 }
@@ -224,15 +218,15 @@ Option_Integer::set(const std::string &v) throw(InvalidArgument) {
         myValue = TplConvert<char>::_2int(v.c_str());
         return markSet();
     } catch (...) {
-        string s = "'" + v + "' is not a valid integer (should be).";
+        std::string s = "'" + v + "' is not a valid integer (should be).";
         throw InvalidArgument(s);
     }
 }
 
 
-string
+std::string
 Option_Integer::getValueString() const throw(InvalidArgument) {
-    ostringstream s;
+    std::ostringstream s;
     s << myValue;
     return s.str();
 }
@@ -274,7 +268,7 @@ Option_String::operator=(const Option_String &s) throw() {
 }
 
 
-string
+std::string
 Option_String::getString() const throw(InvalidArgument) {
     return myValue;
 }
@@ -287,7 +281,7 @@ Option_String::set(const std::string &v) throw(InvalidArgument) {
 }
 
 
-string
+std::string
 Option_String::getValueString() const throw(InvalidArgument) {
     return myValue;
 }
@@ -341,15 +335,15 @@ Option_Float::set(const std::string &v) throw(InvalidArgument) {
         myValue = TplConvert<char>::_2SUMOReal(v.c_str());
         return markSet();
     } catch (...) {
-        string s = "'" + v + "' is not a valid float (should be).";
+        std::string s = "'" + v + "' is not a valid float (should be).";
         throw InvalidArgument(s);
     }
 }
 
 
-string
+std::string
 Option_Float::getValueString() const throw(InvalidArgument) {
-    ostringstream s;
+    std::ostringstream s;
     s << myValue;
     return s.str();
 }
@@ -404,7 +398,7 @@ Option_Bool::set(bool v) throw(InvalidArgument) {
 }
 
 
-string
+std::string
 Option_Bool::getValueString() const throw(InvalidArgument) {
     if (myValue) {
         return "true";
@@ -496,7 +490,7 @@ bool
 Option_IntVector::set(const std::string &v) throw(InvalidArgument) {
     myValue.clear();
     try {
-        if (v.find(';')!=string::npos) {
+        if (v.find(';')!=std::string::npos) {
             MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         }
         StringTokenizer st(v, ";,", true);
@@ -514,7 +508,7 @@ Option_IntVector::set(const std::string &v) throw(InvalidArgument) {
 
 std::string
 Option_IntVector::getValueString() const throw(InvalidArgument) {
-    ostringstream s;
+    std::ostringstream s;
     for (IntVector::const_iterator i=myValue.begin(); i!=myValue.end(); i++) {
         if (i!=myValue.begin()) {
             s << ',';

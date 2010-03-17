@@ -42,16 +42,10 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
-// definitions of string representations
+// definitions of std::string representations
 // ===========================================================================
 // ---------------------------------------------------------------------------
-// string representations of SUMOVehicleClass
+// std::string representations of SUMOVehicleClass
 // ---------------------------------------------------------------------------
 std::string sSVC_PRIVATE("private");
 std::string sSVC_PUBLIC_TRANSPORT("public_transport");
@@ -77,10 +71,10 @@ std::string sSVC_PEDESTRIAN("pedestrian");
 
 
 // ===========================================================================
-// staic members
+// static members
 // ===========================================================================
-map<SUMOVehicleShape, string> gVehicleShapeID2Name;
-map<string, SUMOVehicleShape> gVehicleShapeName2ID;
+std::map<SUMOVehicleShape, std::string> gVehicleShapeID2Name;
+std::map<std::string, SUMOVehicleShape> gVehicleShapeName2ID;
 
 
 // ===========================================================================
@@ -163,66 +157,66 @@ getVehicleClassName(SUMOVehicleClass id) throw() {
 SUMOVehicleClass
 getVehicleClassID(const std::string &name) throw() {
     SUMOVehicleClass ret = SVC_UNKNOWN;
-    if (name.find(sSVC_PRIVATE)!=string::npos) {
+    if (name.find(sSVC_PRIVATE)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PRIVATE);
     }
-    if (name.find(sSVC_PUBLIC_TRANSPORT)!=string::npos) {
+    if (name.find(sSVC_PUBLIC_TRANSPORT)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PUBLIC_TRANSPORT);
     }
-    if (name.find(sSVC_PUBLIC_EMERGENCY)!=string::npos) {
+    if (name.find(sSVC_PUBLIC_EMERGENCY)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PUBLIC_EMERGENCY);
     }
-    if (name.find(sSVC_PUBLIC_AUTHORITY)!=string::npos) {
+    if (name.find(sSVC_PUBLIC_AUTHORITY)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PUBLIC_AUTHORITY);
     }
-    if (name.find(sSVC_PUBLIC_ARMY)!=string::npos) {
+    if (name.find(sSVC_PUBLIC_ARMY)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PUBLIC_ARMY);
     }
-    if (name.find(sSVC_VIP)!=string::npos) {
+    if (name.find(sSVC_VIP)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_VIP);
     }
-    if (name.find(sSVC_IGNORING)!=string::npos) {
+    if (name.find(sSVC_IGNORING)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_IGNORING);
     }
 
 
-    if (name.find(sSVC_PASSENGER)!=string::npos) {
+    if (name.find(sSVC_PASSENGER)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PASSENGER);
     }
-    if (name.find(sSVC_HOV)!=string::npos) {
+    if (name.find(sSVC_HOV)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_HOV);
     }
-    if (name.find(sSVC_TAXI)!=string::npos) {
+    if (name.find(sSVC_TAXI)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_TAXI);
     }
-    if (name.find(sSVC_BUS)!=string::npos) {
+    if (name.find(sSVC_BUS)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_BUS);
     }
-    if (name.find(sSVC_DELIVERY)!=string::npos) {
+    if (name.find(sSVC_DELIVERY)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_DELIVERY);
     }
-    if (name.find(sSVC_TRANSPORT)!=string::npos) {
+    if (name.find(sSVC_TRANSPORT)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_TRANSPORT);
     }
-    if (name.find(sSVC_LIGHTRAIL)!=string::npos) {
+    if (name.find(sSVC_LIGHTRAIL)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_LIGHTRAIL);
     }
-    if (name.find(sSVC_CITYRAIL)!=string::npos) {
+    if (name.find(sSVC_CITYRAIL)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_CITYRAIL);
     }
-    if (name.find(sSVC_RAIL_SLOW)!=string::npos) {
+    if (name.find(sSVC_RAIL_SLOW)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_RAIL_SLOW);
     }
-    if (name.find(sSVC_RAIL_FAST)!=string::npos) {
+    if (name.find(sSVC_RAIL_FAST)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_RAIL_FAST);
     }
-    if (name.find(sSVC_MOTORCYCLE)!=string::npos) {
+    if (name.find(sSVC_MOTORCYCLE)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_MOTORCYCLE);
     }
-    if (name.find(sSVC_BICYCLE)!=string::npos) {
+    if (name.find(sSVC_BICYCLE)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_BICYCLE);
     }
-    if (name.find(sSVC_PEDESTRIAN)!=string::npos) {
+    if (name.find(sSVC_PEDESTRIAN)!=std::string::npos) {
         ret = (SUMOVehicleClass)((int) ret | (int) SVC_PEDESTRIAN);
     }
 
@@ -244,7 +238,7 @@ parseVehicleClasses(const std::string &classesS,
         }
         StringTokenizer st(classesS, ";");
         while (st.hasNext()) {
-            string next = st.next();
+            std::string next = st.next();
             if (next[0]=='-') {
                 disallowed.push_back(getVehicleClassID(next.substr(1)));
             } else {
@@ -277,7 +271,7 @@ parseVehicleClasses(const std::vector<std::string> &classesS,
 
 // ------------ Conversion of SUMOVehicleShape
 void
-addToShapeNames(SUMOVehicleShape id, const string &name) throw() {
+addToShapeNames(SUMOVehicleShape id, const std::string &name) throw() {
     gVehicleShapeID2Name[id] = name;
     gVehicleShapeName2ID[name] = id;
 }

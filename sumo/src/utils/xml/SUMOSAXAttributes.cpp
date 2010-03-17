@@ -40,12 +40,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static members
 // ===========================================================================
 bool SUMOSAXAttributes::myHaveInformedAboutDeprecatedDivider = false;
@@ -63,7 +57,7 @@ SUMOSAXAttributes::setIDFromAttributes(const char * objecttype,
     }
     if (id=="") {
         if (report) {
-            MsgHandler::getErrorInstance()->inform("Missing id of a '" + string(objecttype) + "'-object.");
+            MsgHandler::getErrorInstance()->inform("Missing id of a '" + std::string(objecttype) + "'-object.");
         }
         return false;
     }
@@ -346,7 +340,7 @@ SUMOSAXAttributes::emitFormatError(const std::string &attrname, const std::strin
 
 void
 SUMOSAXAttributes::parseStringVector(const std::string &def, std::vector<std::string> &into) throw() {
-    if (def.find(';')!=string::npos||def.find(',')!=string::npos) {
+    if (def.find(';')!=std::string::npos||def.find(',')!=std::string::npos) {
         if (!myHaveInformedAboutDeprecatedDivider) {
             MsgHandler::getWarningInstance()->inform("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
             myHaveInformedAboutDeprecatedDivider = true;

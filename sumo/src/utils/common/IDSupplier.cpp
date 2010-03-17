@@ -37,12 +37,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 IDSupplier::IDSupplier(const std::string &prefix, long begin)
@@ -54,7 +48,7 @@ IDSupplier::~IDSupplier() {}
 
 std::string
 IDSupplier::getNext() {
-    ostringstream strm;
+    std::ostringstream strm;
     strm << myPrefix << myCurrent++;
     return strm.str();
 }

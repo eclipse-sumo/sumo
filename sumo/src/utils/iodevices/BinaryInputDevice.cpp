@@ -41,16 +41,10 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 BinaryInputDevice::BinaryInputDevice(const std::string &name) throw()
-        : myStream(name.c_str(), fstream::in|fstream::binary) {}
+        : myStream(name.c_str(), std::fstream::in|std::fstream::binary) {}
 
 
 BinaryInputDevice::~BinaryInputDevice() throw() {}

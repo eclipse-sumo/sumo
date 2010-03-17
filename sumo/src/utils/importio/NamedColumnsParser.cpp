@@ -39,12 +39,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 NamedColumnsParser::NamedColumnsParser() throw() {}
@@ -129,7 +123,7 @@ NamedColumnsParser::reinitMap(std::string s,
     while (st.hasNext()) {
         std::string next = st.next();
         checkPrune(next, prune);
-        myDefinitionsMap.insert(map<string, int>::value_type(next, pos++));
+        myDefinitionsMap.insert(std::map<std::string, int>::value_type(next, pos++));
     }
 }
 
@@ -140,11 +134,11 @@ NamedColumnsParser::checkPrune(std::string &str, bool prune) const throw() {
         return;
     }
     size_t idx = str.find_first_not_of(" ");
-    if (idx!=string::npos) {
+    if (idx!=std::string::npos) {
         str = str.substr(idx);
     }
     idx = str.find_last_not_of(" ");
-    if (idx!=string::npos&&idx!=str.length()-1) {
+    if (idx!=std::string::npos&&idx!=str.length()-1) {
         str = str.substr(0, idx+1);
     }
 }

@@ -49,12 +49,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member definitions
 // ===========================================================================
 OptionsCont OptionsCont::myOptions;
@@ -79,7 +73,7 @@ OptionsCont::~OptionsCont() throw() {
 
 
 void
-OptionsCont::doRegister(const string &name, Option *v) throw(InvalidArgument) {
+OptionsCont::doRegister(const std::string &name, Option *v) throw(InvalidArgument) {
     assert(v!=0);
     ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
     if (i==myAddresses.end()) {
@@ -93,14 +87,14 @@ OptionsCont::doRegister(const string &name, Option *v) throw(InvalidArgument) {
 
 
 void
-OptionsCont::doRegister(const string &name1, char abbr, Option *v) throw(InvalidArgument) {
+OptionsCont::doRegister(const std::string &name1, char abbr, Option *v) throw(InvalidArgument) {
     doRegister(name1, v);
     doRegister(convertChar(abbr), v);
 }
 
 
 void
-OptionsCont::addSynonyme(const string &name1, const string &name2) throw(InvalidArgument) {
+OptionsCont::addSynonyme(const std::string &name1, const std::string &name2) throw(InvalidArgument) {
     KnownContType::iterator i1 = myValues.find(name1);
     KnownContType::iterator i2 = myValues.find(name2);
     if (i1==myValues.end()&&i2==myValues.end()) {
@@ -122,14 +116,14 @@ OptionsCont::addSynonyme(const string &name1, const string &name2) throw(Invalid
 
 
 bool
-OptionsCont::exists(const string &name) const throw() {
+OptionsCont::exists(const std::string &name) const throw() {
     KnownContType::const_iterator i = myValues.find(name);
     return i!=myValues.end();
 }
 
 
 bool
-OptionsCont::isSet(const string &name) const throw(InvalidArgument) {
+OptionsCont::isSet(const std::string &name) const throw(InvalidArgument) {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         return false;
@@ -149,7 +143,7 @@ OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument) {
 
 
 Option *
-OptionsCont::getSecure(const string &name) const throw(InvalidArgument) {
+OptionsCont::getSecure(const std::string &name) const throw(InvalidArgument) {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
         throw InvalidArgument("No option with the name '" + name + "' exists.");
@@ -158,29 +152,29 @@ OptionsCont::getSecure(const string &name) const throw(InvalidArgument) {
 }
 
 
-string
-OptionsCont::getString(const string &name) const throw(InvalidArgument) {
+std::string
+OptionsCont::getString(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getString();
 }
 
 
 SUMOReal
-OptionsCont::getFloat(const string &name) const throw(InvalidArgument) {
+OptionsCont::getFloat(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getFloat();
 }
 
 
 int
-OptionsCont::getInt(const string &name) const throw(InvalidArgument) {
+OptionsCont::getInt(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getInt();
 }
 
 
 bool
-OptionsCont::getBool(const string &name) const throw(InvalidArgument) {
+OptionsCont::getBool(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->getBool();
 }
@@ -194,7 +188,7 @@ OptionsCont::getIntVector(const std::string &name) const throw(InvalidArgument) 
 
 
 bool
-OptionsCont::set(const string &name, const string &value) throw(InvalidArgument) {
+OptionsCont::set(const std::string &name, const std::string &value) throw(InvalidArgument) {
     Option *o = getSecure(name);
     if (!o->isWriteable()) {
         reportDoubleSetting(name);
@@ -213,7 +207,7 @@ OptionsCont::set(const string &name, const string &value) throw(InvalidArgument)
 
 
 bool
-OptionsCont::set(const string &name, bool value) throw(InvalidArgument) {
+OptionsCont::set(const std::string &name, bool value) throw(InvalidArgument) {
     Option *o = getSecure(name);
     if (!o->isBool()) {
         throw InvalidArgument("The option '" + name + "' is not a boolean attribute and requires an argument.");
@@ -234,10 +228,10 @@ OptionsCont::set(const string &name, bool value) throw(InvalidArgument) {
 }
 
 
-vector<string>
-OptionsCont::getSynonymes(const string &name) const throw(InvalidArgument) {
+std::vector<std::string>
+OptionsCont::getSynonymes(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
-    vector<string> v(0);
+    std::vector<std::string> v(0);
     for (KnownContType::const_iterator i=myValues.begin(); i!=myValues.end(); i++) {
         if ((*i).second==o&&name!=(*i).first) {
             v.push_back((*i).first);
@@ -247,15 +241,15 @@ OptionsCont::getSynonymes(const string &name) const throw(InvalidArgument) {
 }
 
 
-ostream&
-operator<<(ostream& os, const OptionsCont& oc) {
-    vector<string> done;
-    os << "Options set:" << endl;
+std::ostream&
+operator<<(std::ostream& os, const OptionsCont& oc) {
+    std::vector<std::string> done;
+    os << "Options set:" << std::endl;
     for (OptionsCont::KnownContType::const_iterator i=oc.myValues.begin();
             i!=oc.myValues.end(); i++) {
-        vector<string>::iterator j = find(done.begin(), done.end(), (*i).first);
+        std::vector<std::string>::iterator j = find(done.begin(), done.end(), (*i).first);
         if (j==done.end()) {
-            vector<string> synonymes = oc.getSynonymes((*i).first);
+            std::vector<std::string> synonymes = oc.getSynonymes((*i).first);
             if (synonymes.size()!=0) {
                 os << (*i).first << " (";
                 for (j=synonymes.begin(); j!=synonymes.end(); j++) {
@@ -269,9 +263,9 @@ operator<<(ostream& os, const OptionsCont& oc) {
                 os << (*i).first;
             }
             if ((*i).second->isSet()) {
-                os << ": " << (*i).second->getValueString() << endl;
+                os << ": " << (*i).second->getValueString() << std::endl;
             } else {
-                os << ": <INVALID>" << endl;
+                os << ": <INVALID>" << std::endl;
             }
             done.push_back((*i).first);
             copy(synonymes.begin(), synonymes.end(), back_inserter(done));
@@ -313,12 +307,12 @@ OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgume
     }
     // check whether the list of files is valid
     bool ok = true;
-    vector<string> files = getStringVector(name);
+    std::vector<std::string> files = getStringVector(name);
     if (files.size()==0) {
         MsgHandler::getErrorInstance()->inform("The file list for '" + name + "' is empty.");
         ok = false;
     }
-    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (std::vector<std::string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             if (*fileIt!="") {
                 MsgHandler::getErrorInstance()->inform("File '" + *fileIt + "' does not exist.");
@@ -350,11 +344,11 @@ OptionsCont::checkDependingSuboptions(const std::string &name, const std::string
 
 
 void
-OptionsCont::reportDoubleSetting(const string &arg) const throw() {
-    vector<string> synonymes = getSynonymes(arg);
-    ostringstream s;
+OptionsCont::reportDoubleSetting(const std::string &arg) const throw() {
+    std::vector<std::string> synonymes = getSynonymes(arg);
+    std::ostringstream s;
     s << "A value for the option '" + arg + "' was already set.\n Possible synonymes: ";
-    for (vector<string>::iterator i=synonymes.begin(); i!=synonymes.end();) {
+    for (std::vector<std::string>::iterator i=synonymes.begin(); i!=synonymes.end();) {
         s << (*i);
         i++;
         if (i!=synonymes.end()) {
@@ -365,18 +359,18 @@ OptionsCont::reportDoubleSetting(const string &arg) const throw() {
 }
 
 
-string
+std::string
 OptionsCont::convertChar(char abbr) const throw() {
     char buf[2];
     buf[0] = abbr;
     buf[1] = 0;
-    string s(buf);
+    std::string s(buf);
     return s;
 }
 
 
 bool
-OptionsCont::isBool(const string &name) const throw(InvalidArgument) {
+OptionsCont::isBool(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
     return o->isBool();
 }
@@ -452,7 +446,7 @@ OptionsCont::setAdditionalHelpMessage(const std::string &add) throw() {
 void
 OptionsCont::addOptionSubTopic(const std::string &topic) throw() {
     mySubTopics.push_back(topic);
-    mySubTopicEntries[topic] = vector<string>();
+    mySubTopicEntries[topic] = std::vector<std::string>();
 }
 
 
@@ -462,13 +456,13 @@ OptionsCont::splitLines(std::ostream &os, std::string what,
     while (what.length()>0) {
         if (what.length()>79-offset) {
             size_t splitPos = what.rfind(';', 79-offset);
-            if (splitPos==string::npos) {
+            if (splitPos==std::string::npos) {
                 splitPos = what.rfind(' ', 79-offset);
             } else {
                 splitPos++;
             }
-            if (splitPos!=string::npos) {
-                os << what.substr(0, splitPos) << endl;
+            if (splitPos!=std::string::npos) {
+                os << what.substr(0, splitPos) << std::endl;
                 what = what.substr(splitPos);
                 for (size_t r=0; r<nextOffset+1; ++r) {
                     os << ' ';
@@ -483,7 +477,7 @@ OptionsCont::splitLines(std::ostream &os, std::string what,
             what = "";
         }
     }
-    os << endl;
+    os << std::endl;
 }
 
 
@@ -491,28 +485,28 @@ bool
 OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     if (missingOptions) {
         // no options are given
-        cout << myFullName << endl;
-        cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << endl;
-        cout << " Use --help to get the list of options." << endl;
+        std::cout << myFullName << std::endl;
+        std::cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << std::endl;
+        std::cout << " Use --help to get the list of options." << std::endl;
         return true;
     }
 
     OptionsCont &oc = OptionsCont::getOptions();
     // check whether the help shall be printed
     if (oc.getBool("help")) {
-        cout << myFullName << endl;
-        cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << endl;
-        oc.printHelp(cout);
+        std::cout << myFullName << std::endl;
+        std::cout << " (c) DLR 2001-2009; http://sumo.sourceforge.net" << std::endl;
+        oc.printHelp(std::cout);
         return true;
     }
     // check whether the settings shall be printed
     if (oc.getBool("print-options")) {
-        cout << oc;
+        std::cout << oc;
     }
     // check whether something has to be done with options
     // whether the current options shall be saved
     if (oc.isSet("save-configuration")) {
-        ofstream out(oc.getString("save-configuration").c_str());
+        std::ofstream out(oc.getString("save-configuration").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save configuration to '" + oc.getString("save-configuration") + "'");
         } else {
@@ -525,7 +519,7 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
     }
     // whether the template shall be saved
     if (oc.isSet("save-template")) {
-        ofstream out(oc.getString("save-template").c_str());
+        std::ofstream out(oc.getString("save-template").c_str());
         if (!out.good()) {
             throw ProcessError("Could not save template to '" + oc.getString("save-template") + "'");
         } else {
@@ -541,29 +535,29 @@ OptionsCont::processMetaOptions(bool missingOptions) throw(ProcessError) {
 
 void
 OptionsCont::printHelp(std::ostream &os) throw() {
-    vector<string>::const_iterator i, j;
+    std::vector<std::string>::const_iterator i, j;
     // print application description
-    os << ' ' << endl;
+    os << ' ' << std::endl;
     splitLines(os, myAppDescription , 0, 0);
-    os << endl;
+    os << std::endl;
     // print usage BNF
-    os << "Usage: " << myAppName << " [OPTION]*" << endl;
-    os << ' ' << endl;
+    os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
+    os << ' ' << std::endl;
     // print usage examples
     if (myCallExamples.size()>1) {
-        os << " Examples:" << endl;
+        os << " Examples:" << std::endl;
     } else if (myCallExamples.size()!=0) {
-        os << " Example:" << endl;
+        os << " Example:" << std::endl;
     }
     if (myCallExamples.size()!=0) {
         for (i=myCallExamples.begin(); i!=myCallExamples.end(); ++i) {
-            os << "  " << myAppName << ' ' << (*i) << endl;
+            os << "  " << myAppName << ' ' << (*i) << std::endl;
         }
     }
-    os << ' ' << endl;
+    os << ' ' << std::endl;
     // print additional text if any
     if (myAdditionalMessage.length()>0) {
-        os << myAdditionalMessage << endl << ' ' << endl;
+        os << myAdditionalMessage << std::endl << ' ' << std::endl;
     }
     // print the options
     // check their sizes first
@@ -571,13 +565,13 @@ OptionsCont::printHelp(std::ostream &os) throw() {
     size_t tooLarge = 40;
     size_t maxSize = 0;
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
-        const vector<string> &entries = mySubTopicEntries[*i];
+        const std::vector<std::string> &entries = mySubTopicEntries[*i];
         for (j=entries.begin(); j!=entries.end(); ++j) {
             Option *o = getSecure(*j);
             // name, two leading spaces and "--"
             size_t csize = (*j).length() + 2 + 4;
             // abbreviation length ("-X, "->4chars) if any
-            vector<string> synonymes = getSynonymes(*j);
+            std::vector<std::string> synonymes = getSynonymes(*j);
             if (find_if(synonymes.begin(), synonymes.end(), abbreviation_finder())!=synonymes.end()) {
                 csize += 4;
             }
@@ -594,16 +588,16 @@ OptionsCont::printHelp(std::ostream &os) throw() {
     }
 
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
-        os << ' ' << *i << " Options:" << endl;
-        const vector<string> &entries = mySubTopicEntries[*i];
+        os << ' ' << *i << " Options:" << std::endl;
+        const std::vector<std::string> &entries = mySubTopicEntries[*i];
         for (j=entries.begin(); j!=entries.end(); ++j) {
             // start length computation
             size_t csize = (*j).length() + 2;
             Option *o = getSecure(*j);
             os << "  ";
             // write abbreviation if given
-            vector<string> synonymes = getSynonymes(*j);
-            vector<string>::iterator a = find_if(synonymes.begin(), synonymes.end(), abbreviation_finder());
+            std::vector<std::string> synonymes = getSynonymes(*j);
+            std::vector<std::string>::iterator a = find_if(synonymes.begin(), synonymes.end(), abbreviation_finder());
             if (a!=synonymes.end()) {
                 os << '-' << (*a) << ", ";
                 csize += 4;
@@ -625,11 +619,11 @@ OptionsCont::printHelp(std::ostream &os) throw() {
             for (r=maxSize; r>csize; --r) {
                 os << ' ';
             }
-            string desc = o->getDescription();
+            std::string desc = o->getDescription();
             size_t offset = csize > tooLarge ? csize : maxSize;
             splitLines(os, desc, offset, maxSize);
         }
-        os << endl;
+        os << std::endl;
     }
 }
 
@@ -637,10 +631,10 @@ OptionsCont::printHelp(std::ostream &os) throw() {
 void
 OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                                 bool complete, bool addComments) throw() {
-    vector<string>::const_iterator i, j;
-    os << "<configuration>" << endl << endl;
+    std::vector<std::string>::const_iterator i, j;
+    os << "<configuration>" << std::endl << std::endl;
     for (i=mySubTopics.begin(); i!=mySubTopics.end(); ++i) {
-        string subtopic = *i;
+        std::string subtopic = *i;
         if (subtopic=="Configuration") {
             continue;
         }
@@ -652,7 +646,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                 subtopic[k] = subtopic[k] - 'A' + 'a';
             }
         }
-        const vector<string> &entries = mySubTopicEntries[*i];
+        const std::vector<std::string> &entries = mySubTopicEntries[*i];
         bool hadOne = false;
         for (j=entries.begin(); j!=entries.end(); ++j) {
             Option *o = getSecure(*j);
@@ -661,29 +655,29 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
                 continue;
             }
             if (!hadOne) {
-                os << "    <" << subtopic << ">" << endl;
+                os << "    <" << subtopic << ">" << std::endl;
             }
             // add the comment if wished
             if (addComments) {
-                os << "        <!-- " << o->getDescription() << " -->" << endl;
+                os << "        <!-- " << o->getDescription() << " -->" << std::endl;
             }
             // write the option and the value (if given)
             os << "        <" << *j << " value=\"";
             if (o->isSet()) {
                 os << o->getValueString();
             }
-            os << "\"/>" << endl;
+            os << "\"/>" << std::endl;
             // append an endline if a comment was printed
             if (addComments) {
-                os << endl;
+                os << std::endl;
             }
             hadOne = true;
         }
         if (hadOne) {
-            os << "    </" << subtopic << ">" << endl << endl;
+            os << "    </" << subtopic << ">" << std::endl << std::endl;
         }
     }
-    os << "</configuration>" << endl;
+    os << "</configuration>" << std::endl;
 }
 
 
@@ -706,8 +700,8 @@ OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig) throw() {
 std::vector<std::string>
 OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgument) {
     Option *o = getSecure(name);
-    string def = o->getString();
-    if (def.find(';')!=string::npos&&!myHaveInformedAboutDeprecatedDivider) {
+    std::string def = o->getString();
+    if (def.find(';')!=std::string::npos&&!myHaveInformedAboutDeprecatedDivider) {
         MsgHandler::getWarningInstance()->inform("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
         myHaveInformedAboutDeprecatedDivider = true;
     }
@@ -724,7 +718,7 @@ bool
 OptionsCont::isInStringVector(const std::string &optionName,
                               const std::string &itemName) throw(InvalidArgument) {
     if (isSet(optionName)) {
-        vector<string> values = getStringVector(optionName);
+        std::vector<std::string> values = getStringVector(optionName);
         return find(values.begin(), values.end(), itemName)!=values.end();
     }
     return false;

@@ -56,12 +56,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]={
@@ -407,7 +401,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
 
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();
-    string begStr = toString((SUMOReal) beginStep);
+    std::string begStr = toString((SUMOReal) beginStep);
     SUMOReal w = pfdkGetStringWidth(begStr.c_str());
     glRotated(180, 1, 0, 0);
     pfSetPosition(0, 0);

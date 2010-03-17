@@ -42,12 +42,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 SUMOSAXHandler::SUMOSAXHandler(const std::string &file) throw()
@@ -57,14 +51,14 @@ SUMOSAXHandler::SUMOSAXHandler(const std::string &file) throw()
 SUMOSAXHandler::~SUMOSAXHandler() throw() {}
 
 
-string
+std::string
 SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw() {
-    ostringstream buf;
+    std::ostringstream buf;
     char *pMsg = XMLString::transcode(exception.getMessage());
-    buf << pMsg << endl;
-    buf << " In file '" << getFileName() << "'" << endl;
+    buf << pMsg << std::endl;
+    buf << " In file '" << getFileName() << "'" << std::endl;
     buf << " At line/column " << exception.getLineNumber()+1
-    << '/' << exception.getColumnNumber() << "." << endl;
+    << '/' << exception.getColumnNumber() << "." << std::endl;
     XMLString::release(&pMsg);
     return buf.str();
 }

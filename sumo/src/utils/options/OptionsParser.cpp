@@ -41,12 +41,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 bool
@@ -63,7 +57,7 @@ OptionsParser::parse(int argc, char **argv) throw(InvalidArgument) {
             }
             i += add;
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform("On processing option '" + string(argv[i]) + "':\n " + e.what());
+            MsgHandler::getErrorInstance()->inform("On processing option '" + std::string(argv[i]) + "':\n " + e.what());
             i++;
             ok = false;
         }
@@ -84,10 +78,10 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument) {
     OptionsCont &oc = OptionsCont::getOptions();
     // process not abbreviated switches
     if (!isAbbreviation(arg1)) {
-        string tmp(arg1+2);
+        std::string tmp(arg1+2);
         size_t idx1 = tmp.find('=');
         // check whether a parameter was submitted
-        if (idx1!=string::npos) {
+        if (idx1!=std::string::npos) {
             ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1+1));
         } else {
             if (arg2==0||oc.isBool(convert(arg1+2))) {
@@ -128,17 +122,17 @@ bool
 OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw(InvalidArgument) {
     if (arg[1]=='=') {
         if (strlen(arg)<3) {
-            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg).substr(0, 1) + "'.");
+            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + std::string(arg).substr(0, 1) + "'.");
             return false;
         } else {
-            return oc.set(convert(arg[0]), string(arg+2));
+            return oc.set(convert(arg[0]), std::string(arg+2));
         }
     } else {
         if (strlen(arg)<2) {
-            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg) + "'.");
+            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + std::string(arg) + "'.");
             return false;
         } else {
-            return oc.set(convert(arg[0]), string(arg+1));
+            return oc.set(convert(arg[0]), std::string(arg+1));
         }
     }
 }
@@ -147,7 +141,7 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw(I
 bool
 OptionsParser::checkParameter(char *arg1) throw() {
     if (arg1[0]!='-') {
-        MsgHandler::getErrorInstance()->inform("The parameter '" + string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
+        MsgHandler::getErrorInstance()->inform("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
     }
     return true;
@@ -160,19 +154,19 @@ OptionsParser::isAbbreviation(char *arg1) throw() {
 }
 
 
-string
+std::string
 OptionsParser::convert(char *arg) throw() {
-    string s(arg);
+    std::string s(arg);
     return s;
 }
 
 
-string
+std::string
 OptionsParser::convert(char abbr) throw() {
     char buf[2];
     buf[0] = abbr;
     buf[1] = 0;
-    string s(buf);
+    std::string s(buf);
     return buf;
 }
 

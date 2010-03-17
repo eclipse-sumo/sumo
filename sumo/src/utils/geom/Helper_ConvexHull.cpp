@@ -4,7 +4,12 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-// missing_desc
+// Copyright 2002, softSurfer (www.softsurfer.com)
+// This code may be freely used and modified for any purpose
+// providing that this copyright notice is included with it.
+// SoftSurfer makes no warranty for this code, and cannot be held
+// liable for any real or imagined damage resulting from its use.
+// Users of this code must verify correctness for their application.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -29,17 +34,6 @@
 
 #include "Helper_ConvexHull.h"
 
-// Copyright 2002, softSurfer (www.softsurfer.com)
-// This code may be freely used and modified for any purpose
-// providing that this copyright notice is included with it.
-// SoftSurfer makes no warranty for this code, and cannot be held
-// liable for any real or imagined damage resulting from its use.
-// Users of this code must verify correctness for their application.
-
-
-// Assume that a class is already given for the object:
-//    Position2D with coordinates {SUMOReal x, y;}
-//===================================================================
 
 #include <utils/common/UtilExceptions.h>
 #include <iostream>
@@ -47,13 +41,10 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-
-using namespace std;
 
 
+// Assume that a class is already given for the object:
+//    Position2D with coordinates {SUMOReal x, y;}
 Position2DVector
 simpleHull_2D(const Position2DVector &V) {
     if (V.size()<3) {

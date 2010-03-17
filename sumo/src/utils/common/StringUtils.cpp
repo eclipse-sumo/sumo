@@ -4,7 +4,7 @@
 /// @date    unknown
 /// @version $Id$
 ///
-// Some static methods for string processing
+// Some static methods for std::string processing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // Copyright 2001-2010 DLR (http://www.dlr.de/) and contributors
@@ -37,12 +37,6 @@
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-
-// ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
 
 
 // ===========================================================================
@@ -102,12 +96,12 @@ StringUtils::convertUmlaute(std::string str) {
 std::string
 StringUtils::replace(std::string str, const char *what,
                      const char *by) {
-    string what_tmp(what);
-    string by_tmp(by);
+    std::string what_tmp(what);
+    std::string by_tmp(by);
     size_t idx = str.find(what);
     size_t what_len = what_tmp.length();
     size_t by_len = by_tmp.length();
-    while (idx!=string::npos) {
+    while (idx!=std::string::npos) {
         str = str.replace(idx, what_len, by);
         idx = str.find(what, idx+by_len-what_len);
     }

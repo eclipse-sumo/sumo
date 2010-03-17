@@ -42,12 +42,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -92,9 +86,9 @@ GUISelectedStorage::SingleTypeSelections::clear() throw() {
 
 void
 GUISelectedStorage::SingleTypeSelections::load(const std::string &filename) throw(IOError) {
-    ifstream strm(filename.c_str());
+    std::ifstream strm(filename.c_str());
     while (strm.good()) {
-        string name;
+        std::string name;
         strm >> name;
     }
 }

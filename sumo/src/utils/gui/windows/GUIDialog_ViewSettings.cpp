@@ -52,12 +52,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[]= {
@@ -933,7 +927,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data) {
         dialog.create();
         text->setFocus();
         if (dialog.execute()) {
-            string name = text->getText().text();
+            std::string name = text->getText().text();
             bool isAlphaNum = true;
             for (size_t i=0; i<name.length(); ++i) {
                 if (name[i]=='_' || (name[i]>='a'&&name[i]<='z') || (name[i]>='A'&&name[i]<='Z') || (name[i]>='0'&&name[i]<='9')) {
@@ -980,7 +974,7 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*,FXSelector,void*data) {
     if (index<gSchemeStorage.getNumInitialSettings()) {
         return 1;
     }
-    string name = mySchemeName->getItem(index).text();
+    std::string name = mySchemeName->getItem(index).text();
     gSchemeStorage.remove(name);
     mySchemeName->removeItem(index);
     onCmdNameChange(0, 0, (void*) mySchemeName->getItem(0).text());
@@ -1292,9 +1286,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw() {
 long
 GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
-    string value = i->item->getText().text();
+    std::string value = i->item->getText().text();
     // check whether the inserted value is empty
-    if (value.find_first_not_of(" ")==string::npos) {
+    if (value.find_first_not_of(" ")==std::string::npos) {
         return 1;
     }
     GUISUMOAbstractView::Decal d;
@@ -1325,7 +1319,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
         try {
             d.centerX = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
-            string msg = "The value must be a float, is:" + value;
+            std::string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -1333,7 +1327,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
         try {
             d.centerY = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
-            string msg = "The value must be a float, is:" + value;
+            std::string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -1341,7 +1335,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
         try {
             d.width = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
-            string msg = "The value must be a float, is:" + value;
+            std::string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -1349,7 +1343,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
         try {
             d.height = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
-            string msg = "The value must be a float, is:" + value;
+            std::string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -1357,7 +1351,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data) {
         try {
             d.rot = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
-            string msg = "The value must be a float, is:" + value;
+            std::string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;

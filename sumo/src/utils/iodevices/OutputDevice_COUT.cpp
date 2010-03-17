@@ -36,12 +36,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 OutputDevice_COUT::OutputDevice_COUT() throw(IOError) {}
@@ -52,7 +46,7 @@ OutputDevice_COUT::~OutputDevice_COUT() throw() {}
 
 std::ostream &
 OutputDevice_COUT::getOStream() throw() {
-    return cout;
+    return std::cout;
 }
 
 

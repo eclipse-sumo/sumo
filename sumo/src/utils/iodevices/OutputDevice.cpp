@@ -48,12 +48,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // static member definitions
 // ===========================================================================
 OutputDevice::DeviceMap OutputDevice::myOutputDevices;
@@ -87,7 +81,7 @@ OutputDevice::getDevice(const std::string &name,
         dev = new OutputDevice_File(FileHelpers::checkForRelativity(name, base));
     }
     dev->setPrecision();
-    dev->getOStream() << setiosflags(ios::fixed);
+    dev->getOStream() << std::setiosflags(std::ios::fixed);
     myOutputDevices[name] = dev;
     return *dev;
 }
@@ -109,7 +103,7 @@ OutputDevice::createDeviceByOption(const std::string &optionName,
 
 OutputDevice&
 OutputDevice::getDeviceByOption(const std::string &optionName) throw(IOError, InvalidArgument) {
-    string devName = OptionsCont::getOptions().getString(optionName);
+    std::string devName = OptionsCont::getOptions().getString(optionName);
     if (myOutputDevices.find(devName)==myOutputDevices.end()) {
         throw InvalidArgument("Device '" + devName + "' has not been created.");
     }
@@ -150,13 +144,13 @@ OutputDevice::close() throw() {
 
 void
 OutputDevice::setPrecision(unsigned int precision) throw() {
-    getOStream() << setprecision(precision);
+    getOStream() << std::setprecision(precision);
 }
 
 
 bool
-OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
-                             const string &attrs, const string &comment) throw() {
+OutputDevice::writeXMLHeader(const std::string &rootElement, const bool writeConfig,
+                             const std::string &attrs, const std::string &comment) throw() {
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(getOStream(), writeConfig);
         if (comment != "") {
@@ -175,15 +169,15 @@ OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
 
 OutputDevice&
 OutputDevice::indent() throw() {
-    getOStream() << string(3*myXMLStack.size(), ' ');
+    getOStream() << std::string(3*myXMLStack.size(), ' ');
     postWriteHook();
     return *this;
 }
 
 
 OutputDevice&
-OutputDevice::openTag(const string &xmlElement) throw() {
-    getOStream() << string(3*myXMLStack.size(), ' ') << "<" << xmlElement;
+OutputDevice::openTag(const std::string &xmlElement) throw() {
+    getOStream() << std::string(3*myXMLStack.size(), ' ') << "<" << xmlElement;
     postWriteHook();
     myXMLStack.push_back(xmlElement);
     return *this;
@@ -194,10 +188,10 @@ bool
 OutputDevice::closeTag(bool abbreviated) throw() {
     if (!myXMLStack.empty()) {
         if (abbreviated) {
-            getOStream() << "/>" << endl;
+            getOStream() << "/>" << std::endl;
         } else {
-            string indent(3*(myXMLStack.size()-1), ' ');
-            getOStream() << indent << "</" << myXMLStack.back() << ">" << endl;
+            std::string indent(3*(myXMLStack.size()-1), ' ');
+            getOStream() << indent << "</" << myXMLStack.back() << ">" << std::endl;
         }
         myXMLStack.pop_back();
         postWriteHook();

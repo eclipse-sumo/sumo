@@ -55,12 +55,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_GLChosenEditor) GUIDialog_GLChosenEditorMap[]= {
@@ -158,8 +152,8 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*) {
     }
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
-        string file = opendialog.getFilename().text();
-        string msg;
+        std::string file = opendialog.getFilename().text();
+        std::string msg;
         if (!myParent->loadSelection(file, msg)) {
             FXMessageBox::error(this, MBOX_OK, "Loading failed.", msg.c_str());
         }
@@ -188,7 +182,7 @@ long
 GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*) {
     FXint no = myList->getNumItems();
     FXint i;
-    vector<GLuint> selected;
+    std::vector<GLuint> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
             selected.push_back((GLuint)(FXuval) myList->getItem(i)->getData());

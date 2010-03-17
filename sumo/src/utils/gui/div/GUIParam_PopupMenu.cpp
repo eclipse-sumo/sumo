@@ -43,12 +43,6 @@
 
 
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIParam_PopupMenuInterface) GUIParam_PopupMenuInterfaceMap[]= {
@@ -78,7 +72,7 @@ GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() throw() {
 
 long
 GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*) {
-    string trackerName = myVarName + " from " + myObject->getFullName();
+    std::string trackerName = myVarName + " from " + myObject->getFullName();
     GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
             trackerName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
