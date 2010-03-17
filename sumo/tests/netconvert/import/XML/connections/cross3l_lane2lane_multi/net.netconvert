@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/13/09 13:20:34 by SUMO netconvert Version dev-SVN-r7850
+<!-- generated on 03/17/10 08:42:09 by SUMO netconvert Version dev-SVN-r8163
 <configuration>
 
     <input>
@@ -99,6 +99,12 @@
    <edge id=":0_12" function="internal">
       <lanes>
          <lane id=":0_12_0" depart="0" maxspeed="12.50" length="23.82" shape="488.65,491.75 496.48,492.78 502.56,495.05 507.36,497.32 511.35,498.35"/>
+      </lanes>
+   </edge>
+
+   <edge id=":0_13" function="internal">
+      <lanes>
+         <lane id=":0_13_0" depart="0" maxspeed="12.50" length="22.70" shape="488.65,498.35 496.28,498.35 502.38,498.35 507.29,498.35 511.35,498.35"/>
       </lanes>
    </edge>
 
@@ -288,20 +294,20 @@
    <row-logic id="0" requestSize="15" laneNumber="12">
       <logic>
          <logicitem request="0" response="000000000000000" foes="000010000100000" cont="0"/>
-         <logicitem request="1" response="000000000000000" foes="001110001100000" cont="0"/>
-         <logicitem request="2" response="000001100000000" foes="001001111100000" cont="0"/>
+         <logicitem request="1" response="000000000000000" foes="101110001100000" cont="0"/>
+         <logicitem request="2" response="000001100000000" foes="101001111100000" cont="0"/>
          <logicitem request="3" response="000001000010000" foes="000001000010000" cont="0"/>
          <logicitem request="4" response="000001000000000" foes="000001000001000" cont="0"/>
          <logicitem request="5" response="000011000000111" foes="000011000000111" cont="0"/>
-         <logicitem request="6" response="001011000000110" foes="001111000000110" cont="0"/>
-         <logicitem request="7" response="001000100000100" foes="001000100000100" cont="0"/>
-         <logicitem request="8" response="000000000000000" foes="001000010000100" cont="0"/>
-         <logicitem request="9" response="000000000000000" foes="001000001111100" cont="0"/>
-         <logicitem request="10" response="000000000000011" foes="001000001100011" cont="0"/>
+         <logicitem request="6" response="101011000000110" foes="101111000000110" cont="0"/>
+         <logicitem request="7" response="101000100000100" foes="101000100000100" cont="0"/>
+         <logicitem request="8" response="000000000000000" foes="101000010000100" cont="0"/>
+         <logicitem request="9" response="000000000000000" foes="101000001111100" cont="0"/>
+         <logicitem request="10" response="000000000000011" foes="101000001100011" cont="0"/>
          <logicitem request="11" response="000000001000010" foes="000000001000010" cont="0"/>
          <logicitem request="12" response="000011100000110" foes="000011111000110" cont="0"/>
          <logicitem request="13" response="111111111111111" foes="000000000000000" cont="0"/>
-         <logicitem request="14" response="111111111111111" foes="000000000000000" cont="0"/>
+         <logicitem request="14" response="000011100000110" foes="000011111000110" cont="0"/>
       </logic>
    </row-logic>
 
@@ -363,7 +369,7 @@
 
 
 
-   <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25"/>
+   <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25"/>
 
    <junction id="1" type="priority" x="0.00" y="500.00" incLanes="1o_0" intLanes=":1_0_0" shape="-0.00,499.95 -0.00,493.45 0.00,503.25 0.00,500.05"/>
 
@@ -405,7 +411,7 @@
    </succ>
 
    <succ edge="1si" lane="1si_2" junction="0">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="2o_0" via=":0_13_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="2fi" lane="2fi_0" junction="m2">
@@ -524,6 +530,9 @@
       <succlane lane="3o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":0_12" lane=":0_12_0" junction="0">
+      <succlane lane="2o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
+   <succ edge=":0_13" lane=":0_13_0" junction="0">
       <succlane lane="2o_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":1_0" lane=":1_0_0" junction="1">
